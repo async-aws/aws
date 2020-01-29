@@ -1,0 +1,18 @@
+{
+    "name": "tobias/simple-aws",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "symfony/http-client": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "WorkingTitle\\Aws\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WorkingTitle\\Aws\\Test\\": "tests"
+        }
+    }
+}
