@@ -4,14 +4,19 @@ declare(strict_types=1);
 
 namespace WorkingTitle\Aws;
 
-use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
+use WorkingTitle\Aws\Exception\ApiResultInstantiationException;
+use WorkingTitle\Aws\Exception\ClientException;
 use WorkingTitle\Aws\Exception\Exception;
+use WorkingTitle\Aws\Exception\NetworkException;
+use WorkingTitle\Aws\Exception\RedirectionException;
+use WorkingTitle\Aws\Exception\ServerException;
 
 /**
+ * The result promise is always returned from every API call. Remember to call `resolve()` to
+ * make sure the request is actually sent.
+ *
  * @template TResult
  */
 class ResultPromise
@@ -46,16 +51,21 @@ class ResultPromise
     {
         try {
             $statusCode = $this->response->getStatusCode();
-            $headers = $this->response->getHeaders(true);
-            $content = $this->response->getContent(true);
         } catch (TransportExceptionInterface $e) {
             // When a network error occurs
-        } catch (RedirectionExceptionInterface $e) {
-            // On a 3xx and the "max_redirects" option has been reached
-        } catch (ClientExceptionInterface $e) {
-            // On a 4xx
-        } catch (ServerExceptionInterface $e) {
-            // On a 5xx
+            throw new NetworkException('Could not contact remote server.', 0, $e);
+        }
+
+        if (500 <= $statusCode) {
+            throw new ServerException($this->response);
+        }
+
+        if (400 <= $statusCode) {
+            throw new ClientException($this->response);
+        }
+
+        if (300 <= $statusCode) {
+            throw new RedirectionException($this->response);
         }
 
         if (!$return) {
@@ -64,13 +74,21 @@ class ResultPromise
 
         try {
             $class = $this->resultClass;
+            if (ResponseInterface::class === $class) {
+                $result = $this->response;
+            } else {
+                $result = new $class($this->response);
+            }
 
-            /** @var TResult $result */
-            $result = new $class($content, $headers, $statusCode);
-
+            /* @var TResult $result */
             return $result;
         } catch (\Throwable $e) {
-            // throw fatal exception of some kind
+            throw ApiResultInstantiationException::create($this->response, $class, $e);
         }
+    }
+
+    public function cancel(): void
+    {
+        $this->response->cancel();
     }
 }

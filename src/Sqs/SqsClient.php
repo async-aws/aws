@@ -12,14 +12,15 @@ class SqsClient extends AbstractApi
     /**
      * @return ResultPromise<SendMessageResult>
      */
-    public function sendMessage(array $header, array $body): ResultPromise
+    public function sendMessage(array $body): ResultPromise
     {
-        $authHeader = $this->getAuthHeader();
-        $response = $this->httpClient->request($method, $url, [
-            'headers' => $headers,
-            'body' => $body,
-        ]);
+        $response = $this->getResponse('POST', $body);
 
         return new ResultPromise($response, SendMessageResult::class);
+    }
+
+    protected function getServiceCode(): string
+    {
+        return 'sqs';
     }
 }

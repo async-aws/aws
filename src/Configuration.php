@@ -6,10 +6,19 @@ namespace WorkingTitle\Aws;
 
 use WorkingTitle\Aws\Exception\InvalidArgument;
 
+/**
+ * Helper object that holds all configuration to the API.
+ *
+ * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ */
 class Configuration
 {
     private const AVAILABLE_OPTIONS = [
-        'region', 'accessKeyId', 'accessKeySecret',
+        'region', 'accessKeyId', 'accessKeySecret', 'endpoint',
+    ];
+
+    private const DEFAULT_OPTIONS = [
+        'endpoint' => 'https://%service%.%region%.amazonaws.com', // https://docs.aws.amazon.com/general/latest/gr/rande.html
     ];
 
     private $data;
@@ -21,7 +30,7 @@ class Configuration
         }
 
         $configuration = new Configuration();
-        $configuration->data = $options;
+        $configuration->data = array_merge(self::DEFAULT_OPTIONS, $options);
 
         return $configuration;
     }

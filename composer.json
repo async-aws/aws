@@ -1,9 +1,10 @@
 {
     "name": "tobias/simple-aws",
+    "description": "",
     "type": "library",
     "license": "MIT",
     "require": {
-        "symfony/http-client": "^5.0"
+        "symfony/http-client": "^4.4 || ^5.0"
     },
     "autoload": {
         "psr-4": {
