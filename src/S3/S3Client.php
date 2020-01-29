@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace WorkingTitle\Aws\S3;
+namespace WorkingTitle\S3;
 
 use WorkingTitle\Aws\AbstractApi;
 use WorkingTitle\Aws\ResultPromise;

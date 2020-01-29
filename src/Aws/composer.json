@@ -1,5 +1,5 @@
 {
-    "name": "simple-aws/all",
+    "name": "simple-aws/aws",
     "description": "",
     "type": "library",
     "license": "MIT",
@@ -8,12 +8,10 @@
     },
     "autoload": {
         "psr-4": {
-            "WorkingTitle\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "WorkingTitle\\Test\\": "tests"
-        }
+            "WorkingTitle\\Aws\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
     }
 }

@@ -6,9 +6,9 @@ namespace WorkingTitle\Aws;
 
 use WorkingTitle\Aws\Exception\MissingDependency;
 use WorkingTitle\Aws\Exception\RuntimeException;
-use WorkingTitle\Aws\S3\S3Client;
-use WorkingTitle\Aws\Ses\SesClient;
-use WorkingTitle\Aws\Sqs\SqsClient;
+use WorkingTitle\S3\S3Client;
+use WorkingTitle\Ses\SesClient;
+use WorkingTitle\Sqs\SqsClient;
 
 /**
  * Base API client that instantiate other API classes if needed.

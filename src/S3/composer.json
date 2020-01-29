@@ -1,0 +1,17 @@
+{
+    "name": "simple-aws/s3",
+    "description": "",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "simple-aws/aws": "^0.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "WorkingTitle\\S3\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    }
+}

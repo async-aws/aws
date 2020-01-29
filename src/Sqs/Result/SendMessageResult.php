@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace WorkingTitle\Aws\Sqs\Result;
+namespace WorkingTitle\Sqs\Result;
 
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
