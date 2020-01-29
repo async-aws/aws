@@ -64,7 +64,7 @@ abstract class AbstractApi
         $date = gmdate('D, d M Y H:i:s e');
         $auth = sprintf(
             'AWS3-HTTPS AWSAccessKeyId=%s,Algorithm=HmacSHA256,Signature=%s',
-            $this->configuration->get('accessKeyId'),
+            $this->configuration->get('accessKeyId') ?? '',
             $this->getSignature($date)
         );
 

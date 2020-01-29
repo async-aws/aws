@@ -7,7 +7,6 @@ namespace WorkingTitle\Ses;
 use WorkingTitle\Aws\AbstractApi;
 use WorkingTitle\Aws\ResultPromise;
 use WorkingTitle\Aws\Ses\Result\SendEmailResult;
-use WorkingTitle\Aws\Sqs\SendMessageResult;
 
 class SesClient extends AbstractApi
 {
