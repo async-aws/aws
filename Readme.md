@@ -27,7 +27,7 @@ composer require working-title/sqs
 ```
 
 ```php
-use WorkingTitle\Aws\Sqs\SqsClient;
+use WorkingTitle\Sqs\SqsClient;
 use Symfony\Component\HttpClient\HttpClient;
 
 $sqsClient = new SqsClient(HttpClient::create(), [
@@ -38,7 +38,7 @@ $sqsClient = new SqsClient(HttpClient::create(), [
 
 $promise = $sqsClient->sendMessage('my_queue', 'foobar');
 
-$promise->resolve(false);
+$x = $promise->resolve();
 ```
 
 
