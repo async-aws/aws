@@ -39,6 +39,8 @@ abstract class AbstractApi
      * @param string $url
      * @param array $headers iterable|string[]|string[][] - headers names provided as keys or as part of values
      * @param string $body array|string|resource|\Traversable|\Closure
+     *
+     * @return ResultPromise<GenericHttpResult>
      */
     public function request(string $method, string $url, $headers = [], $body = ''): ResultPromise
     {

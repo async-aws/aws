@@ -32,3 +32,15 @@ jobs:
         uses: docker://oskarstark/php-cs-fixer-ga
         with:
           args: --dry-run --diff-format udiff
+
+  psalm:
+    name: Psalm
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Psalm
+        uses: docker://muglug/psalm-github-actions
+        with:
+          args: --no-progress --show-info=false --stats

@@ -37,6 +37,7 @@ class ResultPromise
     {
         $result = new self();
         $result->response = $response;
+        $result->resultClass = $resultClass;
 
         return $result;
     }
@@ -73,6 +74,7 @@ class ResultPromise
 
         try {
             $class = $this->resultClass;
+
             return new $class($content, $headers, $statusCode);
         } catch (\Throwable $e) {
             // throw fatal exception of some kind

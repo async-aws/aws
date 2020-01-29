@@ -10,6 +10,13 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 class SqsClient extends AbstractApi
 {
 
+    /**
+     * @param array $header
+     * @param array $body
+     * @return ResultPromise
+     *
+     * @return ResultPromise<SendMessageResult>
+     */
     public function sendMessage(array $header, array $body): ResultPromise
     {
         $authHeader = $this->getAuthHeader();

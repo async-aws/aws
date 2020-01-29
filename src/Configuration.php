@@ -17,7 +17,7 @@ class Configuration
     public static function create(array $options)
     {
         if (0 < \count($invalidOptions = array_diff(array_keys($options), self::AVAILABLE_OPTIONS))) {
-            throw new InvalidArgument(sprintf('Invalid option(s) "%s" passed to %s. ', implode('", "', $invalidOptions), __CLASS__));
+            throw new InvalidArgument(sprintf('Invalid option(s) "%s" passed to "%s::%s". ', implode('", "', $invalidOptions), __CLASS__, __METHOD__));
         }
 
         $configuration = new Configuration();
@@ -26,16 +26,22 @@ class Configuration
         return $configuration;
     }
 
-    public function getAccessKeyId(): ?string
+    public function get(string $name): ?string
     {
-        return $this->data['accessKeyId'] ?? null;
+        if (!in_array($name, self::AVAILABLE_OPTIONS)) {
+            throw new InvalidArgument(sprintf('Invalid option "%s" passed to "%s::%s". ', $name, __CLASS__, __METHOD__));
+        }
+
+        return $this->data[$name] ?? null;
     }
-    public function getAccessKeySecret(): ?string
+
+    public function has(string $name): bool
     {
-        return $this->data['accessKeySecret'] ?? null;
+        if (!in_array($name, self::AVAILABLE_OPTIONS)) {
+            throw new InvalidArgument(sprintf('Invalid option "%s" passed to "%s::%s". ', $name, __CLASS__, __METHOD__));
+        }
+
+        return isset($this->data[$name]);
     }
-    public function getRegion(): ?string
-    {
-        return $this->data['region'] ?? null;
-    }
+
 }
