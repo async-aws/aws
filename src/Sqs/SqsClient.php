@@ -6,6 +6,7 @@ namespace WorkingTitle\Aws\Sqs;
 
 use WorkingTitle\Aws\AbstractApi;
 use WorkingTitle\Aws\ResultPromise;
+use WorkingTitle\Aws\Sqs\Result\SendMessageResult;
 
 class SqsClient extends AbstractApi
 {

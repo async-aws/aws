@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace WorkingTitle\Aws\S3;
+namespace WorkingTitle\Aws\Sqs\Result;
 
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-class GetObjectResult
+class SendMessageResult
 {
     public function __construct(ResponseInterface $response)
     {
+        // Do something..
     }
 }

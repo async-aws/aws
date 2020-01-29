@@ -6,6 +6,7 @@ namespace WorkingTitle\Aws\S3;
 
 use WorkingTitle\Aws\AbstractApi;
 use WorkingTitle\Aws\ResultPromise;
+use WorkingTitle\Aws\S3\Result\GetObjectResult;
 
 class S3Client extends AbstractApi
 {

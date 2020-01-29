@@ -6,12 +6,13 @@ namespace WorkingTitle\Aws\Ses;
 
 use WorkingTitle\Aws\AbstractApi;
 use WorkingTitle\Aws\ResultPromise;
+use WorkingTitle\Aws\Ses\Result\SendEmailResult;
 use WorkingTitle\Aws\Sqs\SendMessageResult;
 
 class SesClient extends AbstractApi
 {
     /**
-     * @return ResultPromise<SendMessageResult>
+     * @return ResultPromise<SendEmailResult>
      */
     public function sendEmail(array $body, array $headers = []): ResultPromise
     {
