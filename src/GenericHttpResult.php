@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace WorkingTitle\Aws;
 
 /**
- * Plain old generic HTTP result
+ * Plain old generic HTTP result.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */

@@ -6,6 +6,7 @@ namespace WorkingTitle\Aws;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use WorkingTitle\Aws\Exception\MissingDependency;
+use WorkingTitle\Aws\Sqs\SqsClient;
 
 class AwsClient
 {
@@ -24,11 +25,6 @@ class AwsClient
      */
     private $serviceCache;
 
-    /**
-     *
-     * @param HttpClientInterface $httpClient
-     * @param Configuration $configuration
-     */
     public function __construct(HttpClientInterface $httpClient, Configuration $configuration)
     {
         $this->httpClient = $httpClient;
@@ -38,7 +34,7 @@ class AwsClient
     public function sqs(): SqsClient
     {
         if (!class_exists(SqsClient::class)) {
-            throw new MissingDependency('working-title/sqs', 'SQS');
+            throw MissingDependency::create('working-title/sqs', 'SQS');
         }
 
         if (!isset($this->serviceCache['sqs'])) {

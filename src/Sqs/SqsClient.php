@@ -2,19 +2,14 @@
 
 declare(strict_types=1);
 
-namespace WorkingTitle\Aws;
+namespace WorkingTitle\Aws\Sqs;
 
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
+use WorkingTitle\Aws\AbstractApi;
+use WorkingTitle\Aws\ResultPromise;
 
 class SqsClient extends AbstractApi
 {
-
     /**
-     * @param array $header
-     * @param array $body
-     * @return ResultPromise
-     *
      * @return ResultPromise<SendMessageResult>
      */
     public function sendMessage(array $header, array $body): ResultPromise
@@ -25,6 +20,6 @@ class SqsClient extends AbstractApi
             'body' => $body,
         ]);
 
-        return ResultPromise::create($response, SendMessageResult::class);
+        return new ResultPromise($response, SendMessageResult::class);
     }
 }

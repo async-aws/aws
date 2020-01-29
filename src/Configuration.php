@@ -9,7 +9,7 @@ use WorkingTitle\Aws\Exception\InvalidArgument;
 class Configuration
 {
     private const AVAILABLE_OPTIONS = [
-        'region', 'accessKeyId', 'accessKeySecret'
+        'region', 'accessKeyId', 'accessKeySecret',
     ];
 
     private $data;
@@ -43,5 +43,4 @@ class Configuration
 
         return isset($this->data[$name]);
     }
-
 }

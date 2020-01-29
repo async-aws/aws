@@ -7,7 +7,7 @@ namespace WorkingTitle\Aws;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
- * Base class most APIs are inheriting
+ * Base class most APIs are inheriting.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
@@ -23,11 +23,6 @@ abstract class AbstractApi
      */
     protected $configuration;
 
-    /**
-     *
-     * @param HttpClientInterface $httpClient
-     * @param Configuration $configuration
-     */
     public function __construct(HttpClientInterface $httpClient, Configuration $configuration)
     {
         $this->httpClient = $httpClient;
@@ -35,10 +30,8 @@ abstract class AbstractApi
     }
 
     /**
-     * @param string $method
-     * @param string $url
-     * @param array $headers iterable|string[]|string[][] - headers names provided as keys or as part of values
-     * @param string $body array|string|resource|\Traversable|\Closure
+     * @param array  $headers iterable|string[]|string[][] - headers names provided as keys or as part of values
+     * @param string $body    array|string|resource|\Traversable|\Closure
      *
      * @return ResultPromise<GenericHttpResult>
      */
@@ -49,6 +42,6 @@ abstract class AbstractApi
             'body' => $body,
         ]);
 
-        return ResultPromise::create($response, GenericHttpResult::class);
+        return new ResultPromise($response, GenericHttpResult::class);
     }
 }

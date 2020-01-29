@@ -6,5 +6,4 @@ namespace WorkingTitle\Aws\Exception;
 
 class InvalidArgument extends \InvalidArgumentException implements Exception
 {
-
 }
