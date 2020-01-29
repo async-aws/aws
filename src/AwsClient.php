@@ -38,6 +38,32 @@ class AwsClient
         $this->configuration = $configuration;
     }
 
+    public function s3(): S3Client
+    {
+        if (!class_exists(S3Client::class)) {
+            throw MissingDependency::create('working-title/s3', 'S3');
+        }
+
+        if (!isset($this->serviceCache['s3'])) {
+            $this->serviceCache['s3'] = new S3Client($this->httpClient, $this->configuration);
+        }
+
+        return $this->serviceCache['s3'];
+    }
+
+    public function sns(): SnsClient
+    {
+        if (!class_exists(SnsClient::class)) {
+            throw MissingDependency::create('working-title/sns', 'SNS');
+        }
+
+        if (!isset($this->serviceCache['sns'])) {
+            $this->serviceCache['sns'] = new SnsClient($this->httpClient, $this->configuration);
+        }
+
+        return $this->serviceCache['sns'];
+    }
+
     public function sqs(): SqsClient
     {
         if (!class_exists(SqsClient::class)) {
