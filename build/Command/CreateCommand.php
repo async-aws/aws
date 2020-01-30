@@ -35,6 +35,7 @@ class CreateCommand extends Command
     protected function configure()
     {
         $this->setAliases(['update', 'new']);
+        $this->setDescription('Create or update a API client method.');
         $this->setDefinition([
             new InputArgument('service', InputArgument::REQUIRED),
             new InputArgument('operation', InputArgument::REQUIRED),
