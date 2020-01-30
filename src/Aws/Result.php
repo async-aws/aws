@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AsyncAws\Aws;
 
-use AsyncAws\Aws\Exception\ClientException;
+use AsyncAws\Aws\Exception\Http\ClientException;
 use AsyncAws\Aws\Exception\Exception;
-use AsyncAws\Aws\Exception\NetworkException;
-use AsyncAws\Aws\Exception\RedirectionException;
-use AsyncAws\Aws\Exception\ServerException;
+use AsyncAws\Aws\Exception\Http\NetworkException;
+use AsyncAws\Aws\Exception\Http\RedirectionException;
+use AsyncAws\Aws\Exception\Http\ServerException;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 

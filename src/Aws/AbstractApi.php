@@ -46,13 +46,13 @@ abstract class AbstractApi
      * @param iterable|string[]|string[][]                $headers headers names provided as keys or as part of values
      * @param array|string|resource|\Traversable|\Closure $body
      *
-     * @return Result<ResponseInterface>
+     * @return Result
      */
     public function request(string $method, $body = '', $headers = [], ?string $endpoint = null): Result
     {
         $response = $this->getResponse($method, $body, $headers, $endpoint);
 
-        return new Result($response, ResponseInterface::class);
+        return new Result($response);
     }
 
     /**

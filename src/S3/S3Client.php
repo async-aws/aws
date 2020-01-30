@@ -13,14 +13,13 @@ class S3Client extends AbstractApi
     /**
      * @param string $path The resource you want to get. Eg "/foo/file.png"
      *
-     * @return Result<GetObjectResult>
      */
-    public function getObject(string $bucket, string $path): Result
+    public function getObject(string $bucket, string $path): GetObjectResult
     {
         $headers = [/*auth*/];
         $response = $this->getResponse('GET', '', $headers, $this->getEndpoint($bucket, $path));
 
-        return new Result($response, GetObjectResult::class);
+        return new GetObjectResult($response);
     }
 
     protected function getServiceCode(): string

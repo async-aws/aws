@@ -1,10 +1,14 @@
 {
     "name": "async-aws/async-aws",
-    "description": "Root package, that include all AWS API clients",
     "type": "library",
+    "description": "Root package, that include all AWS API clients",
     "license": "MIT",
     "require": {
         "symfony/http-client": "^4.4 || ^5.0"
+    },
+    "require-dev": {
+        "nette/php-generator": "^3.3",
+        "symfony/console": "^5.0"
     },
     "autoload": {
         "psr-4": {
@@ -16,9 +20,5 @@
         "psr-4": {
             "AsyncAws\\Test\\": "tests"
         }
-    },
-    "require-dev": {
-        "nette/php-generator": "^3.3",
-        "symfony/console": "^5.0"
     }
 }
