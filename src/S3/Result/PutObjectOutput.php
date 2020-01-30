@@ -2,9 +2,9 @@
 
 namespace AsyncAws\S3\Result;
 
-use AsyncAws\Aws\ResultPromise;
+use AsyncAws\Aws\Result;
 
-class PutObjectOutput extends ResultPromise
+class PutObjectOutput extends Result
 {
     private $Expiration;
 

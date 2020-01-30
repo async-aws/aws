@@ -17,37 +17,35 @@ use AsyncAws\Aws\Exception\ServerException;
  * The result promise is always returned from every API call. Remember to call `resolve()` to
  * make sure the request is actually sent.
  *
- * @template TResult
  */
-class ResultPromise
+class Result
 {
     /**
      * @var ResponseInterface
      */
     private $response;
 
-    /**
-     * @var string
-     */
-    private $resultClass;
+    private $initialized = false;
 
-    /**
-     * @param class-string<TResult> $resultClass
-     */
-    public function __construct(ResponseInterface $response, string $resultClass)
+    public function __construct(ResponseInterface $response)
     {
         $this->response = $response;
-        $this->resultClass = $resultClass;
+    }
+
+    protected function initialize(): void
+    {
+        if ($this->initialized) {
+            return;
+        }
+        $this->resolve();
     }
 
     /**
-     * Make sure the actual request is executed. This will return some result class or throw an exception.
-     *
-     * @return TResult|null
+     * Make sure the actual request is executed.
      *
      * @throws Exception
      */
-    public function resolve(bool $return = true)
+    public function resolve()
     {
         try {
             $statusCode = $this->response->getStatusCode();
@@ -68,23 +66,7 @@ class ResultPromise
             throw new RedirectionException($this->response);
         }
 
-        if (!$return) {
-            return null;
-        }
-
-        try {
-            $class = $this->resultClass;
-            if (ResponseInterface::class === $class) {
-                $result = $this->response;
-            } else {
-                $result = new $class($this->response);
-            }
-
-            /* @var TResult $result */
-            return $result;
-        } catch (\Throwable $e) {
-            throw ApiResultInstantiationException::create($this->response, $class, $e);
-        }
+        $this->initialized = true;
     }
 
     public function cancel(): void

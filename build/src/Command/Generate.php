@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\Build\Command;
 
-use AsyncAws\Aws\ResultPromise;
+use AsyncAws\Aws\Result;
 use AsyncAws\Build\Generator\ClassFactory;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
@@ -91,9 +91,9 @@ PHP
     private function createHelperClass(array $shapes, $service, $baseNamespace, $className)
     {
         $namespace = new PhpNamespace($baseNamespace);
-        $namespace->addUse(ResultPromise::class);
+        $namespace->addUse(Result::class);
         $class = $namespace->addClass($className);
-        $class->addExtend(ResultPromise::class);
+        $class->addExtend(Result::class);
         $members = $shapes[$className]['members'];
         foreach ($members as $name => $data) {
             $class->addProperty($name)->setPrivate();

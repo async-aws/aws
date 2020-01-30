@@ -3,7 +3,7 @@
 namespace AsyncAws\S3;
 
 use AsyncAws\Aws\AbstractApi;
-use AsyncAws\Aws\ResultPromise;
+use AsyncAws\Aws\Result;
 use AsyncAws\Aws\S3\Result\GetObjectResult;
 
 class S3Client extends AbstractApi
@@ -11,14 +11,14 @@ class S3Client extends AbstractApi
     /**
      * @param string $path The resource you want to get. Eg "/foo/file.png"
      *
-     * @return ResultPromise<GetObjectResult>
+     * @return Result<GetObjectResult>
      */
-    public function getObject(string $bucket, string $path): ResultPromise
+    public function getObject(string $bucket, string $path): Result
     {
         $headers = [/*auth*/];
                         $response = $this->getResponse('GET', '', $headers, $this->getEndpoint($bucket, $path));
 
-                        return new ResultPromise($response, GetObjectResult::class);
+                        return new Result($response, GetObjectResult::class);
     }
 
     protected function getServiceCode(): string

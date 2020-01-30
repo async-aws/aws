@@ -2,9 +2,9 @@
 
 namespace AsyncAws\S3\Result;
 
-use AsyncAws\Aws\ResultPromise;
+use AsyncAws\Aws\Result;
 
-class CreateBucketOutput extends ResultPromise
+class CreateBucketOutput extends Result
 {
     private $Location;
 
