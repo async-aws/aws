@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace AsyncAws\S3;
 
 use AsyncAws\Aws\AbstractApi;
@@ -18,9 +16,9 @@ class S3Client extends AbstractApi
     public function getObject(string $bucket, string $path): ResultPromise
     {
         $headers = [/*auth*/];
-        $response = $this->getResponse('GET', '', $headers, $this->getEndpoint($bucket, $path));
+                        $response = $this->getResponse('GET', '', $headers, $this->getEndpoint($bucket, $path));
 
-        return new ResultPromise($response, GetObjectResult::class);
+                        return new ResultPromise($response, GetObjectResult::class);
     }
 
     protected function getServiceCode(): string
@@ -31,5 +29,25 @@ class S3Client extends AbstractApi
     private function getEndpoint(string $bucket, string $path): string
     {
         return sprintf('https://%s.s3.%%region%%.amazonaws.com%s', $bucket, $path);
+    }
+
+    /**
+     * @link http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
+     */
+    public function createBucket(array $input): Result\CreateBucketOutput
+    {
+        $input['Action'] = 'CreateBucket';
+                $response = $this->getResponse('PUT', $input);
+                return new \AsyncAws\S3\Result\CreateBucketOutput($response);
+    }
+
+    /**
+     * @link http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
+     */
+    public function putObject(array $input): Result\PutObjectOutput
+    {
+        $input['Action'] = 'PutObject';
+        $response = $this->getResponse('PUT', $input);
+        return new \AsyncAws\S3\Result\PutObjectOutput($response);
     }
 }
