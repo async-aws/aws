@@ -1,5 +1,5 @@
 {
-    "name": "simple-aws/aws",
+    "name": "async-aws/core",
     "description": "",
     "type": "library",
     "license": "MIT",

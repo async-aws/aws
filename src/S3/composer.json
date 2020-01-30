@@ -1,10 +1,10 @@
 {
-    "name": "simple-aws/s3",
+    "name": "async-aws/s3",
     "description": "",
     "type": "library",
     "license": "MIT",
     "require": {
-        "simple-aws/aws": "^0.1"
+        "async-aws/core": "^0.1"
     },
     "autoload": {
         "psr-4": {
