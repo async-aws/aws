@@ -19,10 +19,14 @@ class CreateCommand extends Command
 {
     protected static $defaultName = 'create';
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $manifestFile;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $srcDirectory;
 
     public function __construct(string $manifestFile, string $srcDirectory)
@@ -46,17 +50,17 @@ class CreateCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $manifest = json_decode(file_get_contents($this->manifestFile), true);
+        $manifest = \json_decode(\file_get_contents($this->manifestFile), true);
         if (!isset($manifest['services'][$service = $input->getArgument('service')])) {
-            $io->error(sprintf('Service "%s" does not exist in manifest.json', $service));
+            $io->error(\sprintf('Service "%s" does not exist in manifest.json', $service));
         }
 
-        $definition = json_decode(file_get_contents($manifest['services'][$service]['source']), true);
-        $this->generateOperation($definition, ucfirst($service), $input->getArgument('operation'));
+        $definition = \json_decode(\file_get_contents($manifest['services'][$service]['source']), true);
+        $this->generateOperation($definition, \ucfirst($service), $input->getArgument('operation'));
 
         // Update manifest file
-        $manifest['services'][$service]['methods'][$input->getArgument('operation')]['generated'] = date('c');
-        file_put_contents($this->manifestFile, json_encode($manifest, JSON_PRETTY_PRINT));
+        $manifest['services'][$service]['methods'][$input->getArgument('operation')]['generated'] = \date('c');
+        \file_put_contents($this->manifestFile, \json_encode($manifest, \JSON_PRETTY_PRINT));
 
         return 0;
     }
@@ -68,21 +72,21 @@ class CreateCommand extends Command
     {
         $operation = $definition['operations'][$operationName];
 
-        $baseNamespace = sprintf('AsyncAws\\%s', $service);
-        $namespace = ClassFactory::fromExistingClass(sprintf('%s\\%sClient', $baseNamespace, $service));
+        $baseNamespace = \sprintf('AsyncAws\\%s', $service);
+        $namespace = ClassFactory::fromExistingClass(\sprintf('%s\\%sClient', $baseNamespace, $service));
 
         $classes = $namespace->getClasses();
-        $class = $classes[array_key_first($classes)];
-        $class->removeMethod(lcfirst($operation['name']));
-        $method = $class->addMethod(lcfirst($operation['name']));
+        $class = $classes[\array_key_first($classes)];
+        $class->removeMethod(\lcfirst($operation['name']));
+        $method = $class->addMethod(\lcfirst($operation['name']));
         if (isset($operation['documentationUrl'])) {
-            $method->addComment('@see '.$operation['documentationUrl']);
+            $method->addComment('@see ' . $operation['documentationUrl']);
         }
 
         $method->addParameter('input')->setType('array');
 
-        $this->createOutputClass($definition['shapes'], $service, $baseNamespace.'\\Result', $operation['output']['shape'], true);
-        $outputClass = sprintf('%s\\Result\\%s', $baseNamespace, $operation['output']['shape']);
+        $this->createOutputClass($definition['shapes'], $service, $baseNamespace . '\\Result', $operation['output']['shape'], true);
+        $outputClass = \sprintf('%s\\Result\\%s', $baseNamespace, $operation['output']['shape']);
         $method->setReturnType($outputClass);
         $namespace->addUse($outputClass);
 
@@ -90,14 +94,14 @@ class CreateCommand extends Command
             <<<PHP
 \$input['Action'] = '{$operation['name']}';
 \$response = \$this->getResponse('{$operation['http']['method']}', \$input);
-return new \\$outputClass(\$response);
+return new {$operation['output']['shape']}(\$response);
 PHP
         );
 
         $printer = new PsrPrinter();
-        file_put_contents(
-            sprintf('%s/%s/%sClient.php', $this->srcDirectory, $service, $service),
-            "<?php\n\n".$printer->printNamespace($namespace)
+        \file_put_contents(
+            \sprintf('%s/%s/%sClient.php', $this->srcDirectory, $service, $service),
+            "<?php\n\n" . $printer->printNamespace($namespace)
         );
     }
 
@@ -111,14 +115,14 @@ PHP
         $members = $shapes[$className]['members'];
 
         if ($root) {
-            $traitName = $className.'Trait';
+            $traitName = $className . 'Trait';
             $namespace->addUse(Result::class);
             $class->addExtend(Result::class);
-            $class->addTrait($baseNamespace.'\\'.$traitName);
+            $class->addTrait($baseNamespace . '\\' . $traitName);
 
             // Add trait only if file does not exists
-            $traitFilename = sprintf('%s/%s/Result/%s.php', $this->srcDirectory, $service, $traitName);
-            if (!file_exists($traitFilename)) {
+            $traitFilename = \sprintf('%s/%s/Result/%s.php', $this->srcDirectory, $service, $traitName);
+            if (!\file_exists($traitFilename)) {
                 $this->createOutputTrait($baseNamespace, $traitName, $members, $traitFilename);
             }
         }
@@ -127,7 +131,7 @@ PHP
             $class->addProperty($name)->setPrivate();
             $parameterType = $members[$name]['shape'];
 
-            if (!in_array($shapes[$parameterType]['type'], ['string'])) {
+            if (!\in_array($shapes[$parameterType]['type'], ['string'])) {
                 $this->createOutputClass($shapes, $service, $baseNamespace, $parameterType);
             } else {
                 $parameterType = $shapes[$parameterType]['type'];
@@ -140,15 +144,16 @@ PHP
 PHP;
             }
 
-            $class->addMethod('get'.$name)
+            $class->addMethod('get' . $name)
                 ->setReturnType($parameterType)
-                ->setBody(<<<PHP
+                ->setBody(
+                    <<<PHP
 $callInitialize
 return \$this->{$name};
 PHP
-);
+                );
             $printer = new PsrPrinter();
-            file_put_contents(sprintf('%s/%s/Result/%s.php', $this->srcDirectory, $service, $className), "<?php\n\n".$printer->printNamespace($namespace));
+            \file_put_contents(\sprintf('%s/%s/Result/%s.php', $this->srcDirectory, $service, $className), "<?php\n\n" . $printer->printNamespace($namespace));
         }
     }
 
@@ -158,8 +163,8 @@ PHP
         $namespace->addUse(ResponseInterface::class);
         $trait = $namespace->addTrait($traitName);
 
-        $body = '$data = new \SimpleXMLElement($response->getContent(false));'."\n\n// TODO Verify correctness\n";
-        foreach (array_keys($members) as $name) {
+        $body = '$data = new \SimpleXMLElement($response->getContent(false));' . "\n\n// TODO Verify correctness\n";
+        foreach (\array_keys($members) as $name) {
             $body .= "\$this->$name = \$data->$name;\n";
         }
 
@@ -170,6 +175,6 @@ PHP
             ->addParameter('response')->setType(ResponseInterface::class);
 
         $printer = new PsrPrinter();
-        file_put_contents($traitFilename, "<?php\n\n".$printer->printNamespace($namespace));
+        \file_put_contents($traitFilename, "<?php\n\n" . $printer->printNamespace($namespace));
     }
 }

@@ -4,10 +4,10 @@
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/s3\/2006-03-01\/api-2.json",
             "methods": {
                 "PutObject": {
-                    "generated": "2020-01-30T19:14:20+00:00"
+                    "generated": "2020-01-30T19:55:12+00:00"
                 },
                 "CreateBucket": {
-                    "generated": "2020-01-30T19:32:35+00:00"
+                    "generated": "2020-01-30T19:55:15+00:00"
                 }
             }
         },
