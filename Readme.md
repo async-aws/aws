@@ -36,13 +36,14 @@ $sqsClient = new SqsClient(HttpClient::create(), [
     'accessKeySecret' => 'bar',
 ]);
 
-$promise = $sqsClient->sendMessage('my_queue', 'foobar');
+$result = $sqsClient->sendMessage('my_queue', 'foobar');
 
-$x = $promise->resolve();
+// Make sure the request is sent
+$result->resolve();
 ```
 
 
-You may also install the base package only. This allows you to do authenticated requests to any endpoint. 
+You may also install the core package only. This allows you to do authenticated requests to any endpoint. 
 
 ```
 composer require async-aws/core
@@ -58,7 +59,7 @@ $awsClient = new AwsClient(HttpClient::create(), [
     'accessKeySecret' => 'bar',
 ]);
 
-$promise = $awsClient->request('POST', [
+$result = $awsClient->request('POST', [
     'Action' => 'SendMessage',
     'MessageBody' => 'foobar'
 ], 
@@ -68,5 +69,21 @@ $promise = $awsClient->request('POST', [
  'https://sqs.eu-central-1.amazonaws.com/5555555555/my_queue'
 );
 
-$promise->resolve(false);
+// Make sure the request is sent
+$result->resolve();
 ```
+
+
+## How is it async first?
+
+The secret ingredient in creating asynchronous first is not implemented in this library. 
+It actually comes from the [Symfony HTTP client](https://symfony.com/doc/current/components/http_client.html).
+They have implemented all the cool async features that this AWS library just take
+advantage of. 
+
+#### So what is this library really doing? 
+
+Except for being a wrapper around Symfony's HTTP client and make sure we use the 
+async features properly, we also handle authentication, exceptions and provide
+some response objects. 
+
