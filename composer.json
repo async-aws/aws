@@ -9,7 +9,7 @@
     "autoload": {
         "psr-4": {
             "AsyncAws\\": "src",
-            "AsyncAws\\Build\\": "build/src"
+            "AsyncAws\\Build\\": "build"
         }
     },
     "autoload-dev": {

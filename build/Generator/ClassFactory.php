@@ -16,7 +16,9 @@ use Nette\PhpGenerator\Property;
 use Nette\SmartObject;
 
 /**
- * Generate Nette class from existing source.
+ * Generate Nette PhpNamespace from existing source class.
+ *
+ * This is a slightly modified version of \Nette\PhpGenerator\Factory
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */

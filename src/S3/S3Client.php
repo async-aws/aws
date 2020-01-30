@@ -34,17 +34,6 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
-     */
-    public function createBucket(array $input): CreateBucketOutput
-    {
-        $input['Action'] = 'CreateBucket';
-        $response = $this->getResponse('PUT', $input);
-
-        return new \AsyncAws\S3\Result\CreateBucketOutput($response);
-    }
-
-    /**
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
      */
     public function putObject(array $input): PutObjectOutput
@@ -53,5 +42,15 @@ class S3Client extends AbstractApi
         $response = $this->getResponse('PUT', $input);
 
         return new \AsyncAws\S3\Result\PutObjectOutput($response);
+    }
+
+    /**
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
+     */
+    public function createBucket(array $input): CreateBucketOutput
+    {
+        $input['Action'] = 'CreateBucket';
+        $response = $this->getResponse('PUT', $input);
+        return new \AsyncAws\S3\Result\CreateBucketOutput($response);
     }
 }

@@ -1,16 +1,16 @@
 #!/usr/bin/env php
 <?php
-require dirname(__DIR__).'/vendor/autoload.php';
+require __DIR__.'/vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
 
-use AsyncAws\Build\Command\Generate;
+use AsyncAws\Build\Command\CreateCommand;
 
 $application = new Application('build', '0.1.0');
 
-$src = dirname(__DIR__).'/src';
-$manifest = __DIR__.'/manifest.json';
-$command = new Generate($manifest, $src);
+$src = __DIR__.'/src';
+$manifest = __DIR__.'/build//manifest.json';
+$command = new CreateCommand($manifest, $src);
 
 $application->add($command);
 $application->setDefaultCommand($command->getName());

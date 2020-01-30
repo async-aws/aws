@@ -15,9 +15,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-class Generate extends Command
+class CreateCommand extends Command
 {
-    protected static $defaultName = 'generate';
+    protected static $defaultName = 'create';
 
     /** @var string */
     private $manifestFile;
@@ -34,6 +34,7 @@ class Generate extends Command
 
     protected function configure()
     {
+        $this->setAliases(['update', 'new']);
         $this->setDefinition([
             new InputArgument('service', InputArgument::REQUIRED),
             new InputArgument('operation', InputArgument::REQUIRED),
