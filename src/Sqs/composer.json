@@ -1,8 +1,11 @@
 {
     "name": "async-aws/sqs",
-    "description": "",
-    "keywords": ["aws", "sqs"],
     "type": "library",
+    "description": "",
+    "keywords": [
+        "aws",
+        "sqs"
+    ],
     "license": "MIT",
     "require": {
         "async-aws/core": "^0.1"

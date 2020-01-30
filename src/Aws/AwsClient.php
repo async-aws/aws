@@ -48,19 +48,6 @@ class AwsClient extends AbstractApi
         return $this->serviceCache[__METHOD__];
     }
 
-    public function sns(): SnsClient
-    {
-        if (!class_exists(SnsClient::class)) {
-            throw MissingDependency::create('async-aws/sns', 'SNS');
-        }
-
-        if (!isset($this->serviceCache[__METHOD__])) {
-            $this->serviceCache[__METHOD__] = new SnsClient($this->httpClient, $this->configuration);
-        }
-
-        return $this->serviceCache[__METHOD__];
-    }
-
     public function sqs(): SqsClient
     {
         if (!class_exists(SqsClient::class)) {

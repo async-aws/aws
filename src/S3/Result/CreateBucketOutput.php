@@ -13,6 +13,7 @@ class CreateBucketOutput extends Result
     public function getLocation(): string
     {
         $this->initialize();
+
         return $this->Location;
     }
 }

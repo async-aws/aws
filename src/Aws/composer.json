@@ -1,7 +1,7 @@
 {
     "name": "async-aws/core",
-    "description": "",
     "type": "library",
+    "description": "",
     "license": "MIT",
     "require": {
         "symfony/http-client": "^4.4 || ^5.0"

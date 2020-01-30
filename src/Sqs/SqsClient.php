@@ -6,18 +6,15 @@ namespace AsyncAws\Sqs;
 
 use AsyncAws\Aws\AbstractApi;
 use AsyncAws\Aws\Result;
-use AsyncAws\Aws\Sqs\Result\SendMessageResult;
+use AsyncAws\Sqs\Result\SendMessageResult;
 
 class SqsClient extends AbstractApi
 {
-    /**
-     * @return Result<SendMessageResult>
-     */
-    public function sendMessage(array $body): Result
+    public function sendMessage(array $body): SendMessageResult
     {
         $response = $this->getResponse('POST', $body);
 
-        return new Result($response, SendMessageResult::class);
+        return new SendMessageResult($response);
     }
 
     protected function getServiceCode(): string
