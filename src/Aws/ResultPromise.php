@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace WorkingTitle\Aws;
+namespace AsyncAws\Aws;
 
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-use WorkingTitle\Aws\Exception\ApiResultInstantiationException;
-use WorkingTitle\Aws\Exception\ClientException;
-use WorkingTitle\Aws\Exception\Exception;
-use WorkingTitle\Aws\Exception\NetworkException;
-use WorkingTitle\Aws\Exception\RedirectionException;
-use WorkingTitle\Aws\Exception\ServerException;
+use AsyncAws\Aws\Exception\ApiResultInstantiationException;
+use AsyncAws\Aws\Exception\ClientException;
+use AsyncAws\Aws\Exception\Exception;
+use AsyncAws\Aws\Exception\NetworkException;
+use AsyncAws\Aws\Exception\RedirectionException;
+use AsyncAws\Aws\Exception\ServerException;
 
 /**
  * The result promise is always returned from every API call. Remember to call `resolve()` to

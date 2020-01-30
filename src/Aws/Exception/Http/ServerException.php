@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace WorkingTitle\Aws\Exception;
+namespace AsyncAws\Aws\Exception;
 
 use Symfony\Component\HttpClient\Exception\HttpExceptionTrait;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;

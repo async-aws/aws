@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace WorkingTitle\S3;
+namespace AsyncAws\S3;
 
-use WorkingTitle\Aws\AbstractApi;
-use WorkingTitle\Aws\ResultPromise;
-use WorkingTitle\Aws\S3\Result\GetObjectResult;
+use AsyncAws\Aws\AbstractApi;
+use AsyncAws\Aws\ResultPromise;
+use AsyncAws\Aws\S3\Result\GetObjectResult;
 
 class S3Client extends AbstractApi
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace WorkingTitle\Aws;
+namespace AsyncAws\Aws;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-use WorkingTitle\Aws\Exception\InvalidArgument;
+use AsyncAws\Aws\Exception\InvalidArgument;
 
 /**
  * Base class most APIs are inheriting.
