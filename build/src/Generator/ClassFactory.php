@@ -45,13 +45,12 @@ class ClassFactory
             }
 
             if (preg_match('#use ([^;]+)( as [^;]+)?;#i', $row, $match)) {
-                $namespace->addUse($match[1], $match[2]??null);
+                $namespace->addUse($match[1], $match[2] ?? null);
             }
         }
 
-
         $class = $from->isAnonymous()
-            ? new ClassType
+            ? new ClassType()
             : new ClassType($from->getShortName(), $namespace);
 
         $namespace->add($class);
@@ -90,7 +89,6 @@ class ClassFactory
         return $namespace;
     }
 
-
     public function fromMethodReflection(\ReflectionMethod $from): Method
     {
         $method = new Method($from->getName());
@@ -106,7 +104,7 @@ class ClassFactory
 
         $filename = $from->getFileName();
         $rows = file($filename);
-        $body = implode("", array_map(fn($r) => trim($r, ' '), array_slice($rows, $from->getStartLine() + 1, $from->getEndLine() - $from->getStartLine() - 2)));
+        $body = implode('', array_map(fn ($r) => trim($r, ' '), array_slice($rows, $from->getStartLine() + 1, $from->getEndLine() - $from->getStartLine() - 2)));
 
         $method->setBody($from->isAbstract() ? null : print_r($body, true));
         $method->setReturnReference($from->returnsReference());
@@ -116,14 +114,14 @@ class ClassFactory
             $method->setReturnType($from->getReturnType()->getName());
             $method->setReturnNullable($from->getReturnType()->allowsNull());
         }
+
         return $method;
     }
-
 
     /** @return GlobalFunction|Closure */
     public function fromFunctionReflection(\ReflectionFunction $from)
     {
-        $function = $from->isClosure() ? new Closure : new GlobalFunction($from->getName());
+        $function = $from->isClosure() ? new Closure() : new GlobalFunction($from->getName());
         $function->setParameters(array_map([$this, 'fromParameterReflection'], $from->getParameters()));
         $function->setReturnReference($from->returnsReference());
         $function->setVariadic($from->isVariadic());
@@ -134,9 +132,9 @@ class ClassFactory
             $function->setReturnType($from->getReturnType()->getName());
             $function->setReturnNullable($from->getReturnType()->allowsNull());
         }
+
         return $function;
     }
-
 
     public function fromParameterReflection(\ReflectionParameter $from): Parameter
     {
@@ -148,11 +146,11 @@ class ClassFactory
             $param->setDefaultValue($from->isDefaultValueConstant()
                 ? new Literal($from->getDefaultValueConstantName())
                 : $from->getDefaultValue());
-            $param->setNullable($param->isNullable() && $param->getDefaultValue() !== null);
+            $param->setNullable($param->isNullable() && null !== $param->getDefaultValue());
         }
+
         return $param;
     }
-
 
     public function fromPropertyReflection(\ReflectionProperty $from): Property
     {
@@ -170,6 +168,7 @@ class ClassFactory
             $prop->setInitialized(array_key_exists($prop->getName(), $defaults));
         }
         $prop->setComment(Helpers::unformatDocComment((string) $from->getDocComment()));
+
         return $prop;
     }
 }

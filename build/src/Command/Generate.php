@@ -6,21 +6,18 @@ namespace AsyncAws\Build\Command;
 
 use AsyncAws\Aws\Result;
 use AsyncAws\Build\Generator\ClassFactory;
-use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
-use Nette\PhpGenerator\Printer;
 use Nette\PhpGenerator\PsrPrinter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class Generate extends Command
 {
-    protected static $defaultName  = 'generate';
+    protected static $defaultName = 'generate';
 
     /** @var string */
     private $manifestFile;
@@ -42,7 +39,6 @@ class Generate extends Command
             new InputArgument('operation', InputArgument::REQUIRED),
         ]);
     }
-
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -97,7 +93,6 @@ PHP
         );
 
         $printer = new PsrPrinter();
-        //$printer->setTypeResolving(false);
         file_put_contents(
             sprintf('%s/%s/%sClient.php', $this->srcDirectory, $service, $service),
             "<?php\n\n".$printer->printNamespace($namespace)
@@ -128,7 +123,6 @@ PHP
                 ->setProtected()
                 ->setBody($body)
                 ->addParameter('response')->setType(ResponseInterface::class);
-
         }
         foreach ($members as $name => $data) {
             $class->addProperty($name)->setPrivate();
@@ -159,6 +153,4 @@ PHP
             file_put_contents(sprintf('%s/%s/Result/%s.php', $this->srcDirectory, $service, $className), "<?php\n\n".$printer->printNamespace($namespace));
         }
     }
-
-
 }
