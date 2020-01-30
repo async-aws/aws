@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "WorkingTitle\\Ses\\": ""
+            "AsyncAws\\Ses\\": ""
         },
         "exclude-from-classmap": [
             "/Tests/"

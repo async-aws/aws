@@ -8,12 +8,12 @@
     },
     "autoload": {
         "psr-4": {
-            "WorkingTitle\\": "src"
+            "AsyncAws\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "WorkingTitle\\Test\\": "tests"
+            "AsyncAws\\Test\\": "tests"
         }
     }
 }

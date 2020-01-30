@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace WorkingTitle\Aws;
+namespace AsyncAws\Aws;
 
-use WorkingTitle\Aws\Exception\InvalidArgument;
+use AsyncAws\Aws\Exception\InvalidArgument;
 
 /**
  * Helper object that holds all configuration to the API.

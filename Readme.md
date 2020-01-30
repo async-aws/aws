@@ -23,11 +23,11 @@ The goals of this client are:
 All APIs are located in different packages. To install SQS run
 
 ```
-composer require working-title/sqs
+composer require async-aws/sqs
 ```
 
 ```php
-use WorkingTitle\Sqs\SqsClient;
+use AsyncAws\Sqs\SqsClient;
 use Symfony\Component\HttpClient\HttpClient;
 
 $sqsClient = new SqsClient(HttpClient::create(), [
@@ -45,11 +45,11 @@ $x = $promise->resolve();
 You may also install the base package only. This allows you to do authenticated requests to any endpoint. 
 
 ```
-composer require working-title/aws
+composer require async-aws/core
 ```
 
 ```php
-use WorkingTitle\Aws\AwsClient;
+use AsyncAws\Aws\AwsClient;
 use Symfony\Component\HttpClient\HttpClient;
 
 $awsClient = new AwsClient(HttpClient::create(), [

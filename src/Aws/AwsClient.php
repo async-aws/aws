@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace WorkingTitle\Aws;
+namespace AsyncAws\Aws;
 
-use WorkingTitle\Aws\Exception\MissingDependency;
-use WorkingTitle\Aws\Exception\RuntimeException;
-use WorkingTitle\S3\S3Client;
-use WorkingTitle\Ses\SesClient;
-use WorkingTitle\Sqs\SqsClient;
+use AsyncAws\Aws\Exception\MissingDependency;
+use AsyncAws\Aws\Exception\RuntimeException;
+use AsyncAws\S3\S3Client;
+use AsyncAws\Ses\SesClient;
+use AsyncAws\Sqs\SqsClient;
 
 /**
  * Base API client that instantiate other API classes if needed.
@@ -25,7 +25,7 @@ class AwsClient extends AbstractApi
     public function s3(): S3Client
     {
         if (!class_exists(S3Client::class)) {
-            throw MissingDependency::create('working-title/s3', 'S3');
+            throw MissingDependency::create('async-aws/s3', 'S3');
         }
 
         if (!isset($this->serviceCache[__METHOD__])) {
@@ -38,7 +38,7 @@ class AwsClient extends AbstractApi
     public function ses(): SesClient
     {
         if (!class_exists(SesClient::class)) {
-            throw MissingDependency::create('working-title/ses', 'SES');
+            throw MissingDependency::create('async-aws/ses', 'SES');
         }
 
         if (!isset($this->serviceCache[__METHOD__])) {
@@ -51,7 +51,7 @@ class AwsClient extends AbstractApi
     public function sns(): SnsClient
     {
         if (!class_exists(SnsClient::class)) {
-            throw MissingDependency::create('working-title/sns', 'SNS');
+            throw MissingDependency::create('async-aws/sns', 'SNS');
         }
 
         if (!isset($this->serviceCache[__METHOD__])) {
@@ -64,7 +64,7 @@ class AwsClient extends AbstractApi
     public function sqs(): SqsClient
     {
         if (!class_exists(SqsClient::class)) {
-            throw MissingDependency::create('working-title/sqs', 'SQS');
+            throw MissingDependency::create('async-aws/sqs', 'SQS');
         }
 
         if (!isset($this->serviceCache[__METHOD__])) {
