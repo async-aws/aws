@@ -77,7 +77,9 @@ class Generate extends Command
         $class = $classes[array_key_first($classes)];
         $class->removeMethod(lcfirst($operation['name']));
         $method = $class->addMethod(lcfirst($operation['name']));
-        $method->addComment('@link '.$operation['documentationUrl']);
+        if (isset($operation['documentationUrl'])) {
+            $method->addComment('@see '.$operation['documentationUrl']);
+        }
 
         $method->addParameter('input')->setType('array');
 
@@ -109,18 +111,25 @@ PHP
     {
         $namespace = new PhpNamespace($baseNamespace);
         $class = $namespace->addClass($className);
+        $members = $shapes[$className]['members'];
+
         if ($root) {
             $namespace->addUse(ResponseInterface::class);
             $namespace->addUse(Result::class);
             $class->addExtend(Result::class);
+            $body = '$data = new \SimpleXMLElement($response->getContent(false));'."\n\n// TODO Verify correctness\n";
+
+            foreach (array_keys($members) as $name) {
+                $body .= "\$this->$name = \$data->$name;\n";
+            }
+
             $class->addMethod('populateFromResponse')
                 ->setReturnType('void')
                 ->setProtected()
-                ->setBody('// TODO implement me')
+                ->setBody($body)
                 ->addParameter('response')->setType(ResponseInterface::class);
 
         }
-        $members = $shapes[$className]['members'];
         foreach ($members as $name => $data) {
             $class->addProperty($name)->setPrivate();
             $parameterType = $members[$name]['shape'];

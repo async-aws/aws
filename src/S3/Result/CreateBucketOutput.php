@@ -11,7 +11,10 @@ class CreateBucketOutput extends Result
 
     protected function populateFromResponse(ResponseInterface $response): void
     {
-        // TODO implement me
+        $data = new \SimpleXMLElement($response->getContent(false));
+
+        // TODO Verify correctness
+        $this->Location = $data->Location;
     }
 
     public function getLocation(): string
