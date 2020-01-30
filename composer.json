@@ -8,12 +8,17 @@
     },
     "autoload": {
         "psr-4": {
-            "AsyncAws\\": "src"
+            "AsyncAws\\": "src",
+            "AsyncAws\\Build\\": "build"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "AsyncAws\\Test\\": "tests"
         }
+    },
+    "require-dev": {
+        "nette/php-generator": "^3.3",
+        "symfony/console": "^5.0"
     }
 }

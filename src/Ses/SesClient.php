@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace AsyncAws\Ses;
 
 use AsyncAws\Aws\AbstractApi;
-use AsyncAws\Aws\ResultPromise;
+use AsyncAws\Aws\Result;
 use AsyncAws\Aws\Ses\Result\SendEmailResult;
 
 class SesClient extends AbstractApi
 {
     /**
-     * @return ResultPromise<SendEmailResult>
+     * @return Result<SendEmailResult>
      */
-    public function sendEmail(array $body, array $headers = []): ResultPromise
+    public function sendEmail(array $body, array $headers = []): Result
     {
         $response = $this->getResponse('POST', $body, $headers);
 
-        return new ResultPromise($response, SendEmailResult::class);
+        return new Result($response, SendEmailResult::class);
     }
 
     protected function getServiceCode(): string

@@ -1,0 +1,21 @@
+{
+    "services": {
+        "s3": {
+            "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/s3\/2006-03-01\/api-2.json",
+            "methods": {
+                "PutObject": {
+                    "generated": "2020-01-30T19:14:20+00:00"
+                },
+                "CreateBucket": {
+                    "generated": "2020-01-30T19:32:35+00:00"
+                }
+            }
+        },
+        "ses": {
+            "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sesv2\/2019-09-27\/api-2.json"
+        },
+        "sqs": {
+            "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sqs\/2012-11-05\/api-2.json"
+        }
+    }
+}

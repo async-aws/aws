@@ -1,26 +1,26 @@
 <?php
 
-declare(strict_types=1);
-
 namespace AsyncAws\S3;
 
 use AsyncAws\Aws\AbstractApi;
-use AsyncAws\Aws\ResultPromise;
-use AsyncAws\Aws\S3\Result\GetObjectResult;
+use AsyncAws\Aws\Result;
+use AsyncAws\S3\Result\CreateBucketOutput;
+use AsyncAws\S3\Result\GetObjectResult;
+use AsyncAws\S3\Result\PutObjectOutput;
 
 class S3Client extends AbstractApi
 {
     /**
      * @param string $path The resource you want to get. Eg "/foo/file.png"
      *
-     * @return ResultPromise<GetObjectResult>
+     * @return Result<GetObjectResult>
      */
-    public function getObject(string $bucket, string $path): ResultPromise
+    public function getObject(string $bucket, string $path): AsyncAws\Aws\Result
     {
         $headers = [/*auth*/];
         $response = $this->getResponse('GET', '', $headers, $this->getEndpoint($bucket, $path));
 
-        return new ResultPromise($response, GetObjectResult::class);
+        return new Result($response, GetObjectResult::class);
     }
 
     protected function getServiceCode(): string
@@ -31,5 +31,26 @@ class S3Client extends AbstractApi
     private function getEndpoint(string $bucket, string $path): string
     {
         return sprintf('https://%s.s3.%%region%%.amazonaws.com%s', $bucket, $path);
+    }
+
+    /**
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
+     */
+    public function putObject(array $input): PutObjectOutput
+    {
+        $input['Action'] = 'PutObject';
+        $response = $this->getResponse('PUT', $input);
+
+        return new \AsyncAws\S3\Result\PutObjectOutput($response);
+    }
+
+    /**
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
+     */
+    public function createBucket(array $input): CreateBucketOutput
+    {
+        $input['Action'] = 'CreateBucket';
+        $response = $this->getResponse('PUT', $input);
+        return new \AsyncAws\S3\Result\CreateBucketOutput($response);
     }
 }

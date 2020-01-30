@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AsyncAws\Aws;
 
+use AsyncAws\Aws\Exception\InvalidArgument;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-use AsyncAws\Aws\Exception\InvalidArgument;
 
 /**
  * Base class most APIs are inheriting.
@@ -46,13 +46,13 @@ abstract class AbstractApi
      * @param iterable|string[]|string[][]                $headers headers names provided as keys or as part of values
      * @param array|string|resource|\Traversable|\Closure $body
      *
-     * @return ResultPromise<ResponseInterface>
+     * @return Result<ResponseInterface>
      */
-    public function request(string $method, $body = '', $headers = [], ?string $endpoint = null): ResultPromise
+    public function request(string $method, $body = '', $headers = [], ?string $endpoint = null): Result
     {
         $response = $this->getResponse($method, $body, $headers, $endpoint);
 
-        return new ResultPromise($response, ResponseInterface::class);
+        return new Result($response, ResponseInterface::class);
     }
 
     /**
