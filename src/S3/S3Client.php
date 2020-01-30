@@ -4,7 +4,9 @@ namespace AsyncAws\S3;
 
 use AsyncAws\Aws\AbstractApi;
 use AsyncAws\Aws\Result;
-use AsyncAws\Aws\S3\Result\GetObjectResult;
+use AsyncAws\S3\Result\CreateBucketOutput;
+use AsyncAws\S3\Result\GetObjectResult;
+use AsyncAws\S3\Result\PutObjectOutput;
 
 class S3Client extends AbstractApi
 {
@@ -13,12 +15,12 @@ class S3Client extends AbstractApi
      *
      * @return Result<GetObjectResult>
      */
-    public function getObject(string $bucket, string $path): Result
+    public function getObject(string $bucket, string $path): AsyncAws\Aws\Result
     {
         $headers = [/*auth*/];
-                                                                        $response = $this->getResponse('GET', '', $headers, $this->getEndpoint($bucket, $path));
+        $response = $this->getResponse('GET', '', $headers, $this->getEndpoint($bucket, $path));
 
-                                                                        return new Result($response, GetObjectResult::class);
+        return new Result($response, GetObjectResult::class);
     }
 
     protected function getServiceCode(): string
@@ -32,22 +34,24 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * @link http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
      */
-    public function putObject(array $input): Result\PutObjectOutput
-    {
-        $input['Action'] = 'PutObject';
-                $response = $this->getResponse('PUT', $input);
-                return new \AsyncAws\S3\Result\PutObjectOutput($response);
-    }
-
-    /**
-     * @link http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
-     */
-    public function createBucket(array $input): Result\CreateBucketOutput
+    public function createBucket(array $input): CreateBucketOutput
     {
         $input['Action'] = 'CreateBucket';
         $response = $this->getResponse('PUT', $input);
+
         return new \AsyncAws\S3\Result\CreateBucketOutput($response);
+    }
+
+    /**
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
+     */
+    public function putObject(array $input): PutObjectOutput
+    {
+        $input['Action'] = 'PutObject';
+        $response = $this->getResponse('PUT', $input);
+
+        return new \AsyncAws\S3\Result\PutObjectOutput($response);
     }
 }

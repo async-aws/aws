@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AsyncAws\Aws;
 
+use AsyncAws\Aws\Exception\InvalidArgument;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-use AsyncAws\Aws\Exception\InvalidArgument;
 
 /**
  * Base class most APIs are inheriting.

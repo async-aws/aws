@@ -54,11 +54,24 @@ class Generate extends Command
         }
 
         $definition = json_decode(file_get_contents($manifest['services'][$service]['source']), true);
-        $operation = $definition['operations'][$input->getArgument('operation')];
+        $this->generateOperation($definition, ucfirst($service), $input->getArgument('operation'));
 
-        $serviceUcfirst = ucfirst($service);
-        $baseNamespace = sprintf('AsyncAws\\%s', $serviceUcfirst);
-        $namespace = ClassFactory::fromExistingClass(sprintf('%s\\%sClient', $baseNamespace, $serviceUcfirst));
+        // Update manifest file
+        $manifest['services'][$service]['methods'][$input->getArgument('operation')]['generated'] = date('c');
+        file_put_contents($this->manifestFile, json_encode($manifest, JSON_PRETTY_PRINT));
+
+        return 0;
+    }
+
+    /**
+     * Update the API client with a new function call.
+     */
+    private function generateOperation($definition, $service, $operationName): void
+    {
+        $operation = $definition['operations'][$operationName];
+
+        $baseNamespace = sprintf('AsyncAws\\%s', $service);
+        $namespace = ClassFactory::fromExistingClass(sprintf('%s\\%sClient', $baseNamespace, $service));
 
         $classes = $namespace->getClasses();
         $class = $classes[array_key_first($classes)];
@@ -68,28 +81,31 @@ class Generate extends Command
 
         $method->addParameter('input')->setType('array');
 
-        $this->createHelperClass($definition['shapes'], $serviceUcfirst, $baseNamespace.'\\Result', $operation['output']['shape'], true);
+        $this->createOutputClass($definition['shapes'], $service, $baseNamespace.'\\Result', $operation['output']['shape'], true);
         $outputClass = sprintf('%s\\Result\\%s', $baseNamespace, $operation['output']['shape']);
         $method->setReturnType($outputClass);
+        $namespace->addUse($outputClass);
 
-        $method->setBody(<<<PHP
+        $method->setBody(
+            <<<PHP
 \$input['Action'] = '{$operation['name']}';
 \$response = \$this->getResponse('{$operation['http']['method']}', \$input);
 return new \\$outputClass(\$response);
 PHP
-);
+        );
 
         $printer = new PsrPrinter();
-        file_put_contents(sprintf('%s/%s/%sClient.php', $this->srcDirectory, $serviceUcfirst, $serviceUcfirst), "<?php\n\n".$printer->printNamespace($namespace));
-
-        // Update manifest file
-        $manifest['services'][$service]['methods'][$input->getArgument('operation')]['generated'] = date('c');
-        file_put_contents($this->manifestFile, json_encode($manifest, JSON_PRETTY_PRINT));
-
-        return 0;
+        //$printer->setTypeResolving(false);
+        file_put_contents(
+            sprintf('%s/%s/%sClient.php', $this->srcDirectory, $service, $service),
+            "<?php\n\n".$printer->printNamespace($namespace)
+        );
     }
 
-    private function createHelperClass(array $shapes, $service, $baseNamespace, $className, $root = false)
+    /**
+     * Generate classes for the output. Ie, the result of the API call.
+     */
+    private function createOutputClass(array $shapes, $service, $baseNamespace, $className, $root = false)
     {
         $namespace = new PhpNamespace($baseNamespace);
         $class = $namespace->addClass($className);
@@ -110,7 +126,7 @@ PHP
             $parameterType = $members[$name]['shape'];
 
             if (!in_array($shapes[$parameterType]['type'], ['string'])) {
-                $this->createHelperClass($shapes, $service, $baseNamespace, $parameterType);
+                $this->createOutputClass($shapes, $service, $baseNamespace, $parameterType);
             } else {
                 $parameterType = $shapes[$parameterType]['type'];
             }
@@ -121,7 +137,6 @@ PHP
 \$this->initialize();
 PHP;
             }
-
 
             $class->addMethod('get'.$name)
                 ->setReturnType($parameterType)
@@ -135,4 +150,6 @@ PHP
             file_put_contents(sprintf('%s/%s/Result/%s.php', $this->srcDirectory, $service, $className), "<?php\n\n".$printer->printNamespace($namespace));
         }
     }
+
+
 }

@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace AsyncAws\Aws;
 
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
-use AsyncAws\Aws\Exception\ApiResultInstantiationException;
 use AsyncAws\Aws\Exception\ClientException;
 use AsyncAws\Aws\Exception\Exception;
 use AsyncAws\Aws\Exception\NetworkException;
 use AsyncAws\Aws\Exception\RedirectionException;
 use AsyncAws\Aws\Exception\ServerException;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * The result promise is always returned from every API call. Remember to call `resolve()` to
  * make sure the request is actually sent.
- *
  */
 class Result
 {
@@ -44,7 +42,6 @@ class Result
 
     protected function populateFromResponse(ResponseInterface $response): void
     {
-
     }
 
     /**
