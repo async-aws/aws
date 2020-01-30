@@ -15,4 +15,4 @@ To create or update a class run the `generate` command.
 ```
 
 The `build/manifest.json` file contains information where the source is located
-and some metadata about the generated files and methods. 
+and some metadata about the generated files and methods.
