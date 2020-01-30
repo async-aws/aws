@@ -16,9 +16,9 @@ class S3Client extends AbstractApi
     public function getObject(string $bucket, string $path): Result
     {
         $headers = [/*auth*/];
-                        $response = $this->getResponse('GET', '', $headers, $this->getEndpoint($bucket, $path));
+                                                                        $response = $this->getResponse('GET', '', $headers, $this->getEndpoint($bucket, $path));
 
-                        return new Result($response, GetObjectResult::class);
+                                                                        return new Result($response, GetObjectResult::class);
     }
 
     protected function getServiceCode(): string
@@ -32,22 +32,22 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * @link http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
-     */
-    public function createBucket(array $input): Result\CreateBucketOutput
-    {
-        $input['Action'] = 'CreateBucket';
-                $response = $this->getResponse('PUT', $input);
-                return new \AsyncAws\S3\Result\CreateBucketOutput($response);
-    }
-
-    /**
      * @link http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
      */
     public function putObject(array $input): Result\PutObjectOutput
     {
         $input['Action'] = 'PutObject';
+                $response = $this->getResponse('PUT', $input);
+                return new \AsyncAws\S3\Result\PutObjectOutput($response);
+    }
+
+    /**
+     * @link http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
+     */
+    public function createBucket(array $input): Result\CreateBucketOutput
+    {
+        $input['Action'] = 'CreateBucket';
         $response = $this->getResponse('PUT', $input);
-        return new \AsyncAws\S3\Result\PutObjectOutput($response);
+        return new \AsyncAws\S3\Result\CreateBucketOutput($response);
     }
 }

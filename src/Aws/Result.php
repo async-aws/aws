@@ -32,12 +32,19 @@ class Result
         $this->response = $response;
     }
 
-    protected function initialize(): void
+    final protected function initialize(): void
     {
         if ($this->initialized) {
             return;
         }
         $this->resolve();
+        $this->populateFromResponse($this->response);
+        $this->initialized = true;
+    }
+
+    protected function populateFromResponse(ResponseInterface $response): void
+    {
+
     }
 
     /**
@@ -65,8 +72,6 @@ class Result
         if (300 <= $statusCode) {
             throw new RedirectionException($this->response);
         }
-
-        $this->initialized = true;
     }
 
     public function cancel(): void

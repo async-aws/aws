@@ -16,6 +16,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class Generate extends Command
 {
@@ -67,7 +68,7 @@ class Generate extends Command
 
         $method->addParameter('input')->setType('array');
 
-        $this->createHelperClass($definition['shapes'], $serviceUcfirst, $baseNamespace.'\\Result', $operation['output']['shape']);
+        $this->createHelperClass($definition['shapes'], $serviceUcfirst, $baseNamespace.'\\Result', $operation['output']['shape'], true);
         $outputClass = sprintf('%s\\Result\\%s', $baseNamespace, $operation['output']['shape']);
         $method->setReturnType($outputClass);
 
@@ -88,12 +89,21 @@ PHP
         return 0;
     }
 
-    private function createHelperClass(array $shapes, $service, $baseNamespace, $className)
+    private function createHelperClass(array $shapes, $service, $baseNamespace, $className, $root = false)
     {
         $namespace = new PhpNamespace($baseNamespace);
-        $namespace->addUse(Result::class);
         $class = $namespace->addClass($className);
-        $class->addExtend(Result::class);
+        if ($root) {
+            $namespace->addUse(ResponseInterface::class);
+            $namespace->addUse(Result::class);
+            $class->addExtend(Result::class);
+            $class->addMethod('populateFromResponse')
+                ->setReturnType('void')
+                ->setProtected()
+                ->setBody('// TODO implement me')
+                ->addParameter('response')->setType(ResponseInterface::class);
+
+        }
         $members = $shapes[$className]['members'];
         foreach ($members as $name => $data) {
             $class->addProperty($name)->setPrivate();
@@ -105,10 +115,18 @@ PHP
                 $parameterType = $shapes[$parameterType]['type'];
             }
 
+            $callInitialize = '';
+            if ($root) {
+                $callInitialize = <<<PHP
+\$this->initialize();
+PHP;
+            }
+
+
             $class->addMethod('get'.$name)
                 ->setReturnType($parameterType)
                 ->setBody(<<<PHP
-\$this->initialize();
+$callInitialize
 return \$this->{$name};
 PHP
 );

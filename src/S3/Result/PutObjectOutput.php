@@ -3,6 +3,7 @@
 namespace AsyncAws\S3\Result;
 
 use AsyncAws\Aws\Result;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class PutObjectOutput extends Result
 {
@@ -23,6 +24,11 @@ class PutObjectOutput extends Result
     private $SSEKMSEncryptionContext;
 
     private $RequestCharged;
+
+    protected function populateFromResponse(ResponseInterface $response): void
+    {
+        // TODO implement me
+    }
 
     public function getExpiration(): string
     {
