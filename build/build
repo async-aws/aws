@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php
+require dirname(__DIR__).'/vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+
+use AsyncAws\Build\Command\Generate;
+
+$application = new Application('build', '0.1.0');
+
+$src = dirname(__DIR__).'/src';
+$manifest = __DIR__.'/manifest.json';
+$command = new Generate($manifest, $src);
+
+$application->add($command);
+$application->setDefaultCommand($command->getName());
+$application->run();
