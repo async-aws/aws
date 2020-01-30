@@ -1,6 +1,7 @@
 {
     "name": "async-aws/ses",
     "description": "",
+    "keywords": ["aws", "ses"],
     "type": "library",
     "license": "MIT",
     "require": {

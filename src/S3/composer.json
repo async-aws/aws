@@ -1,6 +1,7 @@
 {
     "name": "async-aws/s3",
     "description": "",
+    "keywords": ["aws", "s3"],
     "type": "library",
     "license": "MIT",
     "require": {

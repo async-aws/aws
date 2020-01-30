@@ -1,6 +1,7 @@
 {
     "name": "async-aws/sqs",
     "description": "",
+    "keywords": ["aws", "sqs"],
     "type": "library",
     "license": "MIT",
     "require": {

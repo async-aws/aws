@@ -1,6 +1,6 @@
 {
     "name": "async-aws/async-aws",
-    "description": "",
+    "description": "Root package, that include all AWS API clients",
     "type": "library",
     "license": "MIT",
     "require": {
