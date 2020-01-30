@@ -81,6 +81,10 @@ PHP
         $printer = new PsrPrinter();
         file_put_contents(sprintf('%s/%s/%sClient2.php', $this->srcDirectory, $serviceUcfirst, $serviceUcfirst), "<?php\n\n".$printer->printNamespace($namespace));
 
+        // Update manifest file
+        $manifest['services'][$service]['methods'][$input->getArgument('operation')]['generated'] = date('c');
+        file_put_contents($this->manifestFile, json_encode($manifest, JSON_PRETTY_PRINT));
+
         return 0;
     }
 
