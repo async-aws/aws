@@ -109,21 +109,18 @@ PHP
         $members = $shapes[$className]['members'];
 
         if ($root) {
-            $namespace->addUse(ResponseInterface::class);
+            $traitName = $className.'Trait';
             $namespace->addUse(Result::class);
             $class->addExtend(Result::class);
-            $body = '$data = new \SimpleXMLElement($response->getContent(false));'."\n\n// TODO Verify correctness\n";
+            $class->addTrait($baseNamespace.'\\'.$traitName);
 
-            foreach (array_keys($members) as $name) {
-                $body .= "\$this->$name = \$data->$name;\n";
+            // Add trait only if file does not exists
+            $traitFilename = sprintf('%s/%s/Result/%s.php', $this->srcDirectory, $service, $traitName);
+            if (!file_exists($traitFilename)) {
+                $this->createOutputTrait($baseNamespace, $traitName, $members, $traitFilename);
             }
-
-            $class->addMethod('populateFromResponse')
-                ->setReturnType('void')
-                ->setProtected()
-                ->setBody($body)
-                ->addParameter('response')->setType(ResponseInterface::class);
         }
+
         foreach ($members as $name => $data) {
             $class->addProperty($name)->setPrivate();
             $parameterType = $members[$name]['shape'];
@@ -148,9 +145,29 @@ $callInitialize
 return \$this->{$name};
 PHP
 );
-
             $printer = new PsrPrinter();
             file_put_contents(sprintf('%s/%s/Result/%s.php', $this->srcDirectory, $service, $className), "<?php\n\n".$printer->printNamespace($namespace));
         }
+    }
+
+    private function createOutputTrait($baseNamespace, string $traitName, $members, string $traitFilename)
+    {
+        $namespace = new PhpNamespace($baseNamespace);
+        $namespace->addUse(ResponseInterface::class);
+        $trait = $namespace->addTrait($traitName);
+
+        $body = '$data = new \SimpleXMLElement($response->getContent(false));'."\n\n// TODO Verify correctness\n";
+        foreach (array_keys($members) as $name) {
+            $body .= "\$this->$name = \$data->$name;\n";
+        }
+
+        $trait->addMethod('populateFromResponse')
+            ->setReturnType('void')
+            ->setProtected()
+            ->setBody($body)
+            ->addParameter('response')->setType(ResponseInterface::class);
+
+        $printer = new PsrPrinter();
+        file_put_contents($traitFilename, "<?php\n\n".$printer->printNamespace($namespace));
     }
 }

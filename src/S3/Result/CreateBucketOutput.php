@@ -3,19 +3,12 @@
 namespace AsyncAws\S3\Result;
 
 use AsyncAws\Aws\Result;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class CreateBucketOutput extends Result
 {
+    use CreateBucketOutputTrait;
+
     private $Location;
-
-    protected function populateFromResponse(ResponseInterface $response): void
-    {
-        $data = new \SimpleXMLElement($response->getContent(false));
-
-        // TODO Verify correctness
-        $this->Location = $data->Location;
-    }
 
     public function getLocation(): string
     {
