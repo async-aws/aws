@@ -15,7 +15,7 @@ class S3Client extends AbstractApi
      *
      * @return Result<GetObjectResult>
      */
-    public function getObject(string $bucket, string $path): AsyncAws\Aws\Result
+    public function getObject(string $bucket, string $path): Result
     {
         $headers = [/*auth*/];
         $response = $this->getResponse('GET', '', $headers, $this->getEndpoint($bucket, $path));
@@ -30,7 +30,7 @@ class S3Client extends AbstractApi
 
     private function getEndpoint(string $bucket, string $path): string
     {
-        return sprintf('https://%s.s3.%%region%%.amazonaws.com%s', $bucket, $path);
+        return \sprintf('https://%s.s3.%%region%%.amazonaws.com%s', $bucket, $path);
     }
 
     /**
@@ -41,7 +41,7 @@ class S3Client extends AbstractApi
         $input['Action'] = 'PutObject';
         $response = $this->getResponse('PUT', $input);
 
-        return new \AsyncAws\S3\Result\PutObjectOutput($response);
+        return new PutObjectOutput($response);
     }
 
     /**
@@ -51,6 +51,7 @@ class S3Client extends AbstractApi
     {
         $input['Action'] = 'CreateBucket';
         $response = $this->getResponse('PUT', $input);
-        return new \AsyncAws\S3\Result\CreateBucketOutput($response);
+
+        return new CreateBucketOutput($response);
     }
 }
