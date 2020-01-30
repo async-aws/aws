@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace AsyncAws\Aws;
 
+use AsyncAws\Aws\Credentials\CacheProvider;
+use AsyncAws\Aws\Credentials\ChainProvider;
+use AsyncAws\Aws\Credentials\ConfigurationProvider;
+use AsyncAws\Aws\Credentials\CredentialProvider;
+use AsyncAws\Aws\Credentials\IniFileProvider;
 use AsyncAws\Aws\Exception\InvalidArgument;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
@@ -25,12 +30,17 @@ abstract class AbstractApi
      */
     protected $configuration;
 
+    /**
+     * @var CredentialProvider
+     */
+    protected $credentialProvider;
+
     abstract protected function getServiceCode(): string;
 
     /**
      * @param Configuration|array $configuration
      */
-    public function __construct(HttpClientInterface $httpClient, $configuration)
+    public function __construct(HttpClientInterface $httpClient, $configuration, ?CredentialProvider $credentialProvider = null)
     {
         if (is_array($configuration)) {
             $configuration = Configuration::create($configuration);
@@ -40,6 +50,10 @@ abstract class AbstractApi
 
         $this->httpClient = $httpClient;
         $this->configuration = $configuration;
+        $this->credentialProvider = $credentialProvider ?? new CacheProvider(new ChainProvider([
+            new ConfigurationProvider(),
+            new IniFileProvider(),
+        ]));
     }
 
     /**
@@ -62,9 +76,10 @@ abstract class AbstractApi
     protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null): ResponseInterface
     {
         $date = gmdate('D, d M Y H:i:s e');
+        $credentials = $this->credentialProvider->getCredentials();
         $auth = sprintf(
             'AWS3-HTTPS AWSAccessKeyId=%s,Algorithm=HmacSHA256,Signature=%s',
-            $this->configuration->get('accessKeyId') ?? '',
+            $credentials ? $credentials->getAccessKeyId() : '',
             $this->getSignature($date)
         );
 
@@ -81,7 +96,9 @@ abstract class AbstractApi
 
     private function getSignature(string $string): string
     {
-        return base64_encode(hash_hmac('sha256', $string, $this->configuration->get('accessKeySecret'), true));
+        $credentials = $this->credentialProvider->getCredentials();
+
+        return base64_encode(hash_hmac('sha256', $string, $credentials ? $credentials->getSecretKey() : '', true));
     }
 
     private function getEndpoint(?string $endpoint): string
