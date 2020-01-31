@@ -8,6 +8,7 @@ use AsyncAws\Core\Credentials\CacheProvider;
 use AsyncAws\Core\Credentials\ChainProvider;
 use AsyncAws\Core\Credentials\ConfigurationProvider;
 use AsyncAws\Core\Credentials\CredentialProvider;
+use AsyncAws\Core\Credentials\Credentials;
 use AsyncAws\Core\Credentials\IniFileProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -74,11 +75,11 @@ abstract class AbstractApi
     protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null): ResponseInterface
     {
         $date = gmdate('D, d M Y H:i:s e');
-        $credentials = $this->credentialProvider->getCredentials();
+        $credentials = $this->credentialProvider->getCredentials($this->configuration);
         $auth = sprintf(
             'AWS3-HTTPS AWSAccessKeyId=%s,Algorithm=HmacSHA256,Signature=%s',
             $credentials ? $credentials->getAccessKeyId() : '',
-            $this->getSignature($date)
+            $this->getSignature($date, $credentials)
         );
 
         $headers = array_merge([
@@ -92,10 +93,8 @@ abstract class AbstractApi
         return $this->httpClient->request($method, $this->getEndpoint($endpoint), $options);
     }
 
-    private function getSignature(string $string): string
+    private function getSignature(string $string, ?Credentials $credentials): string
     {
-        $credentials = $this->credentialProvider->getCredentials();
-
         return base64_encode(hash_hmac('sha256', $string, $credentials ? $credentials->getSecretKey() : '', true));
     }
 

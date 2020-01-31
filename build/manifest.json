@@ -28,8 +28,8 @@
                     "generate-method": false
                 },
                 "PutObjectAcl": {
-                    "generated": "2020-01-31T08:51:19+00:00",
-                    "generate-method": false
+                    "generated": "2020-01-31T14:07:04+00:00",
+                    "generate-method": true
                 },
                 "GetObjectAcl": {
                     "generated": "2020-01-31T08:52:54+00:00",

@@ -50,10 +50,29 @@ class ApiGenerator
         $method->setReturnType($outputClass);
         $namespace->addUse($outputClass);
 
-        $method->setBody(
+        // Generate method body
+        $inputShape = $definition['shapes'][$operation['input']['shape']] ?? [];
+        $body = <<<PHP
+\$uri = [];
+\$query = [];
+\$headers = [];
+\$payload = [];
+
+PHP;;
+
+        foreach (['header' => '$headers', 'querystring' => '$query', 'uri' => '$uri'] as $locationName => $varName) {
+            foreach ($inputShape['members'] as $name => $data) {
+                $location = $data['location'] ?? null;
+                if ($location === $locationName) {
+                    $body .= 'if (array_key_exists("'.$name.'", $input)) '.$varName.'["'.$data['locationName'].'"] = $input["'.$name.'"];'."\n";
+                }
+            }
+        }
+
+        $method->setBody($body.
             <<<PHP
-\$input['Action'] = '{$operation['name']}';
-\$response = \$this->getResponse('{$operation['http']['method']}', \$input);
+
+\$response = \$this->getResponse('{$operation['http']['method']}', \$input, \$headers);
 return new {$operation['output']['shape']}(\$response);
 PHP
         );

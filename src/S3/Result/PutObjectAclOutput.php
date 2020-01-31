@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\Result;
 
-use AsyncAws\Aws\Result;
+use AsyncAws\Core\Result;
 
 class PutObjectAclOutput extends Result
 {
@@ -10,10 +10,9 @@ class PutObjectAclOutput extends Result
 
     private $RequestCharged;
 
-    public function getRequestCharged(): string
+    public function getRequestCharged(): ?string
     {
         $this->initialize();
-
         return $this->RequestCharged;
     }
 }
