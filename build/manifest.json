@@ -9,35 +9,35 @@
                 },
                 "CreateBucket": {
                     "generated": "2020-01-30T19:55:15+00:00",
-                  "generate-method": false
+                    "generate-method": false
                 },
                 "DeleteObject": {
                     "generated": "2020-01-31T08:53:25+00:00",
-                  "generate-method": false
+                    "generate-method": false
                 },
                 "HeadObject": {
                     "generated": "2020-01-31T08:54:38+00:00",
-                  "generate-method": false
+                    "generate-method": false
                 },
                 "CopyObject": {
                     "generated": "2020-01-31T08:56:16+00:00",
-                  "generate-method": false
+                    "generate-method": false
                 },
                 "GetObject": {
                     "generated": "2020-01-31T08:56:40+00:00",
-                  "generate-method": false
+                    "generate-method": false
                 },
                 "PutObjectAcl": {
                     "generated": "2020-01-31T08:51:19+00:00",
-                  "generate-method": false
+                    "generate-method": false
                 },
                 "GetObjectAcl": {
                     "generated": "2020-01-31T08:52:54+00:00",
-                  "generate-method": false
+                    "generate-method": false
                 },
                 "ListObjects": {
                     "generated": "2020-01-31T08:53:10+00:00",
-                  "generate-method": false
+                    "generate-method": false
                 }
             }
         },
