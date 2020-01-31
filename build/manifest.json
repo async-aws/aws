@@ -1,20 +1,22 @@
 {
     "services": {
-        "s3": {
+        "S3": {
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/s3\/2006-03-01\/api-2.json",
             "methods": {
                 "PutObject": {
-                    "generated": "2020-01-30T19:55:12+00:00"
+                    "generated": "2020-01-30T19:55:12+00:00",
+                    "generate-method": true
                 },
                 "CreateBucket": {
-                    "generated": "2020-01-30T19:55:15+00:00"
+                    "generated": "2020-01-31T09:32:53+00:00",
+                    "generate-method": true
                 }
             }
         },
-        "ses": {
+        "Ses": {
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sesv2\/2019-09-27\/api-2.json"
         },
-        "sqs": {
+        "Sqs": {
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sqs\/2012-11-05\/api-2.json"
         }
     }
