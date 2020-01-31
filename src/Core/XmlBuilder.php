@@ -49,7 +49,7 @@ class XmlBuilder
     }
 
     /**
-     * Here is an examples what $shapes[$shapeName] might look like:
+     * Here is an examples what $this->config[$shapeName] might look like:
      *
      * 'AccessControlPolicy' => [
      *      'type' => 'structure',
