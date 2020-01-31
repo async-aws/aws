@@ -53,6 +53,8 @@ class CreateCommand extends Command
         $manifest = \json_decode(\file_get_contents($this->manifestFile), true);
         if (!isset($manifest['services'][$service = $input->getArgument('service')])) {
             $io->error(\sprintf('Service "%s" does not exist in manifest.json', $service));
+
+            return 1;
         }
 
         $definition = \json_decode(\file_get_contents($manifest['services'][$service]['source']), true);
@@ -62,7 +64,15 @@ class CreateCommand extends Command
 
             return 1;
         }
-        $this->generateOperation($definition, \ucfirst($service), $operationName);
+
+        $baseNamespace = \sprintf('AsyncAws\\%s', $service);
+        $operationConfig = $manifest['services'][$service]['methods'][$operationName];
+        if (!isset($operationConfig['generate-method']) || $operationConfig['generate-method'] !== false) {
+            $this->generateOperation($definition, $service, $operationName);
+        }
+        if (!isset($operationConfig['generate-result']) || $operationConfig['generate-result'] !== false) {
+            $this->generateResultClass($definition['shapes'], $service, $baseNamespace . '\\Result', $definition['operations'][$operationName]['output']['shape'], true);
+        }
 
         // Update manifest file
         $manifest['services'][$service]['methods'][$operationName]['generated'] = \date('c');
@@ -91,7 +101,6 @@ class CreateCommand extends Command
 
         $method->addParameter('input')->setType('array');
 
-        $this->createOutputClass($definition['shapes'], $service, $baseNamespace . '\\Result', $operation['output']['shape'], true);
         $outputClass = \sprintf('%s\\Result\\%s', $baseNamespace, $operation['output']['shape']);
         $method->setReturnType($outputClass);
         $namespace->addUse($outputClass);
@@ -114,7 +123,7 @@ PHP
     /**
      * Generate classes for the output. Ie, the result of the API call.
      */
-    private function createOutputClass(array $shapes, $service, $baseNamespace, $className, $root = false)
+    private function generateResultClass(array $shapes, $service, $baseNamespace, $className, $root = false)
     {
         $namespace = new PhpNamespace($baseNamespace);
         $class = $namespace->addClass($className);
@@ -141,7 +150,7 @@ PHP
                 if (!isset($shapes[$parameterType]['members'])) {
                     throw new \RuntimeException(\sprintf('Unexpected type "%s". Not sure how to handle this.', $shapes[$parameterType]['type']));
                 }
-                $this->createOutputClass($shapes, $service, $baseNamespace, $parameterType);
+                $this->generateResultClass($shapes, $service, $baseNamespace, $parameterType);
             } else {
                 $parameterType = $shapes[$parameterType]['type'];
                 if ('boolean' === $parameterType) {
