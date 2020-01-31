@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core;
 
-use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Exception\Exception;
+use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Exception\Http\NetworkException;
 use AsyncAws\Core\Exception\Http\RedirectionException;
 use AsyncAws\Core\Exception\Http\ServerException;
