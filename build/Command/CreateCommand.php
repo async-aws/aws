@@ -56,10 +56,16 @@ class CreateCommand extends Command
         }
 
         $definition = \json_decode(\file_get_contents($manifest['services'][$service]['source']), true);
-        $this->generateOperation($definition, \ucfirst($service), $input->getArgument('operation'));
+        $operationName = $input->getArgument('operation');
+        if (!isset($definition['operations'][$operationName])) {
+            $io->error(\sprintf('Could not find operation named "%s".', $operationName));
+
+            return 1;
+        }
+        $this->generateOperation($definition, \ucfirst($service), $operationName);
 
         // Update manifest file
-        $manifest['services'][$service]['methods'][$input->getArgument('operation')]['generated'] = \date('c');
+        $manifest['services'][$service]['methods'][$operationName]['generated'] = \date('c');
         \file_put_contents($this->manifestFile, \json_encode($manifest, \JSON_PRETTY_PRINT));
 
         return 0;
@@ -131,10 +137,22 @@ PHP
             $class->addProperty($name)->setPrivate();
             $parameterType = $members[$name]['shape'];
 
-            if (!\in_array($shapes[$parameterType]['type'], ['string'])) {
+            if (!\in_array($shapes[$parameterType]['type'], ['string', 'boolean', 'long', 'timestamp', 'integer', 'map', 'blob', 'list'])) {
+                if (!isset($shapes[$parameterType]['members'])) {
+                    throw new \RuntimeException(\sprintf('Unexpected type "%s". Not sure how to handle this.', $shapes[$parameterType]['type']));
+                }
                 $this->createOutputClass($shapes, $service, $baseNamespace, $parameterType);
             } else {
                 $parameterType = $shapes[$parameterType]['type'];
+                if ('boolean' === $parameterType) {
+                    $parameterType = 'bool';
+                } elseif (\in_array($parameterType, ['integer', 'timestamp'])) {
+                    $parameterType = 'int';
+                } elseif (\in_array($parameterType, ['blob', 'long'])) {
+                    $parameterType = 'string';
+                } elseif (\in_array($parameterType, ['map', 'list'])) {
+                    $parameterType = 'array';
+                }
             }
 
             $callInitialize = '';
@@ -152,9 +170,10 @@ $callInitialize
 return \$this->{$name};
 PHP
                 );
-            $printer = new PsrPrinter();
-            \file_put_contents(\sprintf('%s/%s/Result/%s.php', $this->srcDirectory, $service, $className), "<?php\n\n" . $printer->printNamespace($namespace));
         }
+
+        $printer = new PsrPrinter();
+        \file_put_contents(\sprintf('%s/%s/Result/%s.php', $this->srcDirectory, $service, $className), "<?php\n\n" . $printer->printNamespace($namespace));
     }
 
     private function createOutputTrait($baseNamespace, string $traitName, $members, string $traitFilename)
