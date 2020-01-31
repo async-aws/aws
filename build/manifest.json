@@ -4,7 +4,7 @@
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/s3\/2006-03-01\/api-2.json",
             "methods": {
                 "PutObject": {
-                    "generated": "2020-01-31T17:24:47+00:00",
+                    "generated": "2020-01-31T18:18:08+00:00",
                     "generate-method": true
                 },
                 "CreateBucket": {
@@ -28,7 +28,7 @@
                     "generate-method": false
                 },
                 "PutObjectAcl": {
-                    "generated": "2020-01-31T15:44:17+00:00",
+                    "generated": "2020-01-31T18:22:55+00:00",
                     "generate-method": true
                 },
                 "GetObjectAcl": {

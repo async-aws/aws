@@ -102,7 +102,7 @@ PHP;;
         $method->setBody($body.
             <<<PHP
 
-\$response = \$this->getResponse('{$operation['http']['method']}', \$payload, \$headers, \$this->getEndpoint(\$uri));
+\$response = \$this->getResponse('{$operation['http']['method']}', \$payload, \$headers, \$this->getEndpoint(\$uri, \$query));
 return new {$operation['output']['shape']}(\$response);
 PHP
         );
