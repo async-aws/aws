@@ -20,4 +20,9 @@ class SesClient extends AbstractApi
     {
         return 'ses';
     }
+
+    protected function getSignatureVersion(): string
+    {
+        return 'v4';
+    }
 }

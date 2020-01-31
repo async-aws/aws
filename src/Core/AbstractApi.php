@@ -11,6 +11,10 @@ use AsyncAws\Core\Credentials\CredentialProvider;
 use AsyncAws\Core\Credentials\Credentials;
 use AsyncAws\Core\Credentials\IniFileProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Signers\Request;
+use AsyncAws\Core\Signers\Signer;
+use AsyncAws\Core\Signers\SignerV4;
+use AsyncAws\Core\Signers\SignerV4ForS3;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -21,6 +25,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 abstract class AbstractApi
 {
+    protected const SIGNATURE_VERSION_V4 = 'v4';
+    protected const SIGNATURE_VERSION_S3 = 's3';
+
     /**
      * @var HttpClientInterface
      */
@@ -36,7 +43,14 @@ abstract class AbstractApi
      */
     protected $credentialProvider;
 
+    /**
+     * @var Signer
+     */
+    private $signer;
+
     abstract protected function getServiceCode(): string;
+
+    abstract protected function getSignatureVersion(): string;
 
     /**
      * @param Configuration|array $configuration
@@ -55,6 +69,17 @@ abstract class AbstractApi
             new ConfigurationProvider(),
             new IniFileProvider(),
         ]));
+
+        switch ($signatureVersion = $this->getSignatureVersion()) {
+            case self::SIGNATURE_VERSION_V4:
+                $this->signer = new SignerV4($this->getServiceCode(), $configuration->get(Configuration::OPTION_REGION));
+                break;
+            case self::SIGNATURE_VERSION_S3:
+                $this->signer = new SignerV4ForS3($this->getServiceCode(), $configuration->get(Configuration::OPTION_REGION));
+                break;
+            default:
+                throw new InvalidArgument(sprintf('The signature "%s" is not implemented.', $signatureVersion));
+        }
     }
 
     /**
@@ -74,28 +99,15 @@ abstract class AbstractApi
      */
     protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null): ResponseInterface
     {
-        $date = gmdate('D, d M Y H:i:s e');
-        $credentials = $this->credentialProvider->getCredentials($this->configuration);
-        $auth = sprintf(
-            'AWS3-HTTPS AWSAccessKeyId=%s,Algorithm=HmacSHA256,Signature=%s',
-            $credentials ? $credentials->getAccessKeyId() : '',
-            $this->getSignature($date, $credentials)
-        );
+        if (\is_array($body)) {
+            $body = http_build_query($body, '', '&', PHP_QUERY_RFC1738);
+            $headers['content-type'] = 'application/x-www-form-urlencoded';
+        }
 
-        $headers = array_merge([
-            'X-Amzn-Authorization' => $auth,
-            'Date' => $date,
-            'Content-Type' => 'application/x-www-form-urlencoded',
-        ], $headers);
+        $request = new Request($method, $this->fillEndpoint($endpoint), $headers, $body);
+        $this->signer->Sign($request, $this->credentialProvider->getCredentials($this->configuration));
 
-        $options = ['headers' => $headers, 'body' => $body];
-
-        return $this->httpClient->request($method, $this->fillEndpoint($endpoint), $options);
-    }
-
-    private function getSignature(string $string, ?Credentials $credentials): string
-    {
-        return base64_encode(hash_hmac('sha256', $string, $credentials ? $credentials->getSecretKey() : '', true));
+        return $this->httpClient->request($request->getMethod(), $request->getUrl(), ['headers' => $request->getHeaders(), 'body' => $request->getBody()]);
     }
 
     private function fillEndpoint(?string $endpoint): string
