@@ -172,6 +172,39 @@ XML;
 
     /**
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
+     *
+     * @param array{
+     *   ACL?: string
+     *   Body?: string
+     *   Bucket: string
+     *   CacheControl?: string
+     *   ContentDisposition?: string
+     *   ContentEncoding?: string
+     *   ContentLanguage?: string
+     *   ContentLength?: string
+     *   ContentMD5?: string
+     *   ContentType?: string
+     *   Expires?: int
+     *   GrantFullControl?: string
+     *   GrantRead?: string
+     *   GrantReadACP?: string
+     *   GrantWriteACP?: string
+     *   Key: string
+     *   Metadata?: array
+     *   ServerSideEncryption?: string
+     *   StorageClass?: string
+     *   WebsiteRedirectLocation?: string
+     *   SSECustomerAlgorithm?: string
+     *   SSECustomerKey?: string
+     *   SSECustomerKeyMD5?: string
+     *   SSEKMSKeyId?: string
+     *   SSEKMSEncryptionContext?: string
+     *   RequestPayer?: string
+     *   Tagging?: string
+     *   ObjectLockMode?: string
+     *   ObjectLockRetainUntilDate?: int
+     *   ObjectLockLegalHoldStatus?: string
+     * } $input
      */
     public function putObject(array $input): PutObjectOutput
     {

@@ -35,6 +35,7 @@ class ApiGenerator
 
         $baseNamespace = \sprintf('AsyncAws\\%s', $service);
         $namespace = ClassFactory::fromExistingClass(\sprintf('%s\\%sClient', $baseNamespace, $service));
+        $inputShape = $definition['shapes'][$operation['input']['shape']] ?? [];
 
         $classes = $namespace->getClasses();
         $class = $classes[\array_key_first($classes)];
@@ -43,6 +44,14 @@ class ApiGenerator
         if (isset($operation['documentationUrl'])) {
             $method->addComment('@see ' . $operation['documentationUrl']);
         }
+        $method->addComment('@param array{');
+        foreach ($inputShape['members'] as $name => $data) {
+            $nullable = !\in_array($name, $inputShape['required'] ?? []);
+            $param = $this->toPhpType($definition['shapes'][$data['shape']]['type']);
+
+            $method->addComment(sprintf('  %s%s: %s', $name, $nullable ? '?' : '', $param));
+        }
+        $method->addComment('} $input');
 
         $method->addParameter('input')->setType('array');
 
@@ -51,7 +60,6 @@ class ApiGenerator
         $namespace->addUse($outputClass);
 
         // Generate method body
-        $inputShape = $definition['shapes'][$operation['input']['shape']] ?? [];
         $body = <<<PHP
 \$uri = [];
 \$query = [];
@@ -146,22 +154,14 @@ PHP
             $class->addProperty($name)->setPrivate();
             $parameterType = $members[$name]['shape'];
 
+            // TODO if $shapes[$parameterType]['type'] === 'struct'
             if (!\in_array($shapes[$parameterType]['type'], ['string', 'boolean', 'long', 'timestamp', 'integer', 'map', 'blob', 'list'])) {
                 if (!isset($shapes[$parameterType]['members'])) {
                     throw new \RuntimeException(\sprintf('Unexpected type "%s". Not sure how to handle this.', $shapes[$parameterType]['type']));
                 }
                 $this->generateResultClass($shapes, $service, $baseNamespace, $parameterType);
             } else {
-                $parameterType = $shapes[$parameterType]['type'];
-                if ('boolean' === $parameterType) {
-                    $parameterType = 'bool';
-                } elseif (\in_array($parameterType, ['integer', 'timestamp'])) {
-                    $parameterType = 'int';
-                } elseif (\in_array($parameterType, ['blob', 'long'])) {
-                    $parameterType = 'string';
-                } elseif (\in_array($parameterType, ['map', 'list'])) {
-                    $parameterType = 'array';
-                }
+                $parameterType = $this->toPhpType($shapes[$parameterType]['type']);
             }
 
             $callInitialize = '';
@@ -247,5 +247,20 @@ PHP
                 $el->nodeValue = '{'.$input.'}';
             }
         }
+    }
+
+    private function toPhpType(string $parameterType): string
+    {
+        if ('boolean' === $parameterType) {
+            $parameterType = 'bool';
+        } elseif (\in_array($parameterType, ['integer', 'timestamp'])) {
+            $parameterType = 'int';
+        } elseif (\in_array($parameterType, ['blob', 'long'])) {
+            $parameterType = 'string';
+        } elseif (\in_array($parameterType, ['map', 'list'])) {
+            $parameterType = 'array';
+        }
+
+        return $parameterType;
     }
 }
