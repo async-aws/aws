@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\Build\Command;
 
-use AsyncAws\Aws\Result;
+use AsyncAws\Core\Result;
 use AsyncAws\Build\Generator\ClassFactory;
 use Nette\PhpGenerator\PhpNamespace;
 use Nette\PhpGenerator\PsrPrinter;

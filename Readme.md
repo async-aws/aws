@@ -50,7 +50,7 @@ composer require async-aws/core
 ```
 
 ```php
-use AsyncAws\Aws\AwsClient;
+use AsyncAws\Core\AwsClient;
 use Symfony\Component\HttpClient\HttpClient;
 
 $awsClient = new AwsClient(HttpClient::create(), [

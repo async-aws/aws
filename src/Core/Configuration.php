@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\Aws;
 
-use AsyncAws\Aws\Exception\InvalidArgument;
+use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * Helper object that holds all configuration to the API.

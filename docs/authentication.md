@@ -22,7 +22,7 @@ aws_secret_access_key = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 Each section represente a credential `Profile` which can be referenced in the Configuration
 
 ```php
-use AsyncAws\Aws\AwsClient;
+use AsyncAws\Core\AwsClient;
 use Symfony\Component\HttpClient\HttpClient;
 
 $client = new AwsClient(HttpClient::create(), [
@@ -55,7 +55,7 @@ $ export AWS_CONFIG_FILE=/path/to/config_file
 ```
 
 ```php
-use AsyncAws\Aws\AwsClient;
+use AsyncAws\Core\AwsClient;
 use Symfony\Component\HttpClient\HttpClient;
 
 $client = new AwsClient(HttpClient::create(), [
@@ -78,7 +78,7 @@ $ export AWS_SESSION_TOKEN=AQoDYXdzEJr...<remainder of security token>
 ``` 
 
 ```php
-use AsyncAws\Aws\AwsClient;
+use AsyncAws\Core\AwsClient;
 use Symfony\Component\HttpClient\HttpClient;
 
 $client = new AwsClient(HttpClient::create(), []);
@@ -93,7 +93,7 @@ client configuration parameters.
 > repository accidentally
 
 ```php
-use AsyncAws\Aws\AwsClient;
+use AsyncAws\Core\AwsClient;
 use Symfony\Component\HttpClient\HttpClient;
 
 $client = new AwsClient(HttpClient::create(), [
