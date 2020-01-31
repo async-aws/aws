@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\Result;
 
-use AsyncAws\Aws\Result;
+use AsyncAws\Core\Result;
 
 class DeleteObjectOutput extends Result
 {
@@ -14,21 +14,21 @@ class DeleteObjectOutput extends Result
 
     private $RequestCharged;
 
-    public function getDeleteMarker(): bool
+    public function getDeleteMarker(): ?bool
     {
         $this->initialize();
 
         return $this->DeleteMarker;
     }
 
-    public function getVersionId(): string
+    public function getVersionId(): ?string
     {
         $this->initialize();
 
         return $this->VersionId;
     }
 
-    public function getRequestCharged(): string
+    public function getRequestCharged(): ?string
     {
         $this->initialize();
 

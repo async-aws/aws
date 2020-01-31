@@ -8,12 +8,12 @@ class Owner
 
     private $ID;
 
-    public function getDisplayName(): string
+    public function getDisplayName(): ?string
     {
         return $this->DisplayName;
     }
 
-    public function getID(): string
+    public function getID(): ?string
     {
         return $this->ID;
     }

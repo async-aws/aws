@@ -8,12 +8,12 @@ class CopyObjectResult
 
     private $LastModified;
 
-    public function getETag(): string
+    public function getETag(): ?string
     {
         return $this->ETag;
     }
 
-    public function getLastModified(): int
+    public function getLastModified(): ?int
     {
         return $this->LastModified;
     }

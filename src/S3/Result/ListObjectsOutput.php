@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\Result;
 
-use AsyncAws\Aws\Result;
+use AsyncAws\Core\Result;
 
 class ListObjectsOutput extends Result
 {
@@ -28,70 +28,70 @@ class ListObjectsOutput extends Result
 
     private $EncodingType;
 
-    public function getIsTruncated(): bool
+    public function getIsTruncated(): ?bool
     {
         $this->initialize();
 
         return $this->IsTruncated;
     }
 
-    public function getMarker(): string
+    public function getMarker(): ?string
     {
         $this->initialize();
 
         return $this->Marker;
     }
 
-    public function getNextMarker(): string
+    public function getNextMarker(): ?string
     {
         $this->initialize();
 
         return $this->NextMarker;
     }
 
-    public function getContents(): array
+    public function getContents(): ?array
     {
         $this->initialize();
 
         return $this->Contents;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         $this->initialize();
 
         return $this->Name;
     }
 
-    public function getPrefix(): string
+    public function getPrefix(): ?string
     {
         $this->initialize();
 
         return $this->Prefix;
     }
 
-    public function getDelimiter(): string
+    public function getDelimiter(): ?string
     {
         $this->initialize();
 
         return $this->Delimiter;
     }
 
-    public function getMaxKeys(): int
+    public function getMaxKeys(): ?int
     {
         $this->initialize();
 
         return $this->MaxKeys;
     }
 
-    public function getCommonPrefixes(): array
+    public function getCommonPrefixes(): ?array
     {
         $this->initialize();
 
         return $this->CommonPrefixes;
     }
 
-    public function getEncodingType(): string
+    public function getEncodingType(): ?string
     {
         $this->initialize();
 

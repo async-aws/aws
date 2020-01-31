@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\Result;
 
-use AsyncAws\Aws\Result;
+use AsyncAws\Core\Result;
 
 class CopyObjectOutput extends Result
 {
@@ -28,70 +28,70 @@ class CopyObjectOutput extends Result
 
     private $RequestCharged;
 
-    public function getCopyObjectResult(): \CopyObjectResult
+    public function getCopyObjectResult(): ?\CopyObjectResult
     {
         $this->initialize();
 
         return $this->CopyObjectResult;
     }
 
-    public function getExpiration(): string
+    public function getExpiration(): ?string
     {
         $this->initialize();
 
         return $this->Expiration;
     }
 
-    public function getCopySourceVersionId(): string
+    public function getCopySourceVersionId(): ?string
     {
         $this->initialize();
 
         return $this->CopySourceVersionId;
     }
 
-    public function getVersionId(): string
+    public function getVersionId(): ?string
     {
         $this->initialize();
 
         return $this->VersionId;
     }
 
-    public function getServerSideEncryption(): string
+    public function getServerSideEncryption(): ?string
     {
         $this->initialize();
 
         return $this->ServerSideEncryption;
     }
 
-    public function getSSECustomerAlgorithm(): string
+    public function getSSECustomerAlgorithm(): ?string
     {
         $this->initialize();
 
         return $this->SSECustomerAlgorithm;
     }
 
-    public function getSSECustomerKeyMD5(): string
+    public function getSSECustomerKeyMD5(): ?string
     {
         $this->initialize();
 
         return $this->SSECustomerKeyMD5;
     }
 
-    public function getSSEKMSKeyId(): string
+    public function getSSEKMSKeyId(): ?string
     {
         $this->initialize();
 
         return $this->SSEKMSKeyId;
     }
 
-    public function getSSEKMSEncryptionContext(): string
+    public function getSSEKMSEncryptionContext(): ?string
     {
         $this->initialize();
 
         return $this->SSEKMSEncryptionContext;
     }
 
-    public function getRequestCharged(): string
+    public function getRequestCharged(): ?string
     {
         $this->initialize();
 

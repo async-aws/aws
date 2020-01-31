@@ -6,6 +6,7 @@ namespace AsyncAws\Build\Generator;
 
 use AsyncAws\Core\Result;
 use AsyncAws\Core\XmlBuilder;
+use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpNamespace;
 use Nette\PhpGenerator\PsrPrinter;
 use Symfony\Contracts\HttpClient\ResponseInterface;
@@ -45,14 +46,7 @@ class ApiGenerator
         if (isset($operation['documentationUrl'])) {
             $method->addComment('@see ' . $operation['documentationUrl']);
         }
-        $method->addComment('@param array{');
-        foreach ($inputShape['members'] as $name => $data) {
-            $nullable = !\in_array($name, $inputShape['required'] ?? []);
-            $param = $this->toPhpType($definition['shapes'][$data['shape']]['type']);
-
-            $method->addComment(sprintf('  %s%s: %s', $name, $nullable ? '?' : '', $param));
-        }
-        $method->addComment('} $input');
+        $this->addMethodComment($definition, $method, $inputShape);
 
         $method->addParameter('input')->setType('array');
 
@@ -62,52 +56,7 @@ class ApiGenerator
         $namespace->addUse(XmlBuilder::class);
 
         // Generate method body
-        $body = <<<PHP
-\$uri = [];
-\$query = [];
-\$headers = [];
-
-PHP;
-        ;
-
-        foreach (['header' => '$headers', 'querystring' => '$query', 'uri' => '$uri'] as $locationName => $varName) {
-            foreach ($inputShape['members'] as $name => $data) {
-                $location = $data['location'] ?? null;
-                if ($location === $locationName) {
-                    $body .= 'if (array_key_exists("' . $name . '", $input)) ' . $varName . '["' . $data['locationName'] . '"] = $input["' . $name . '"];' . "\n";
-                }
-            }
-        }
-
-        if (!isset($inputShape['payload'])) {
-            $body.='$payload = "";';
-        } else {
-            $data = $inputShape['members'][$inputShape['payload']];
-            if ($data['streaming'] ?? false) {
-                $body .= '$payload = $input["' . $inputShape['payload'] . '"];';
-            } else {
-                // Build XML
-                $xml = $this->buildXmlConfig($definition['shapes'], $data['shape']);
-                $xml['_root'] = [
-                    'type' => $data['shape'],
-                    'xmlName'=>$data['locationName'],
-                    'uri'=>$data['xmlNamespace']['uri'] ?? '',
-                    //'members' => array_keys($definition['shapes'][$data['shape']]['members']),
-                ];
-
-                $body .= '$xmlConfig = ' . $this->printArray($xml) . ";\n";
-                $body .= '$payload = (new XmlBuilder($input["' . $inputShape['payload'] . '"], $xmlConfig))->getXml();';
-            }
-        }
-
-        $method->setBody(
-            $body .
-            <<<PHP
-
-\$response = \$this->getResponse('{$operation['http']['method']}', \$payload, \$headers, \$this->getEndpoint(\$uri, \$query));
-return new {$operation['output']['shape']}(\$response);
-PHP
-        );
+        $this->setMethodBody($definition, $inputShape, $method, $operation);
 
         $printer = new PsrPrinter();
         $filename = \sprintf('%s/%s/%sClient.php', $this->srcDirectory, $service, $service);
@@ -194,7 +143,7 @@ PHP
         \file_put_contents($traitFilename, "<?php\n\n" . $printer->printNamespace($namespace));
     }
 
-    private function toPhpType(string $parameterType): string
+    private function toPhpType(?string $parameterType): string
     {
         if ('boolean' === $parameterType) {
             $parameterType = 'bool';
@@ -215,15 +164,21 @@ PHP
     private function buildXmlConfig(array $shapes, string $shapeName): array
     {
         $shape = $shapes[$shapeName];
-        if (!in_array($shape['type'], ['structure', 'list'])){
+        if (!in_array($shape['type'] ?? 'structure', ['structure', 'list'])){
             $xml[$shapeName]['type'] = $this->toPhpType($shape['type']);
             return $xml;
         }
 
         $xml[$shapeName]  = $shape;
-        $members = $shape['members'] ?? (isset($shape['member']) ? [$shape['member']['shape'] => true] : []);
-        foreach (array_keys($members) as $name) {
-            $xml = array_merge($xml, $this->buildXmlConfig($shapes, $name));
+        $members = [];
+        if (isset($shape['members'])) {
+            $members = $shape['members'];
+        } elseif(isset($shape['member'])) {
+            $members = [$shape['member']];
+        }
+
+        foreach ($members as $name => $data) {
+            $xml = array_merge($xml, $this->buildXmlConfig($shapes, $data['shape'] ?? $name));
         }
         return $xml;
     }
@@ -237,5 +192,70 @@ PHP
         $output .= ']';
 
         return $output;
+    }
+
+    private function addMethodComment(array $definition, Method $method, array $inputShape): void
+    {
+        $method->addComment('@param array{');
+        foreach ($inputShape['members'] as $name => $data) {
+            $nullable = !\in_array($name, $inputShape['required'] ?? []);
+            $param = $this->toPhpType($definition['shapes'][$data['shape']]['type']);
+            if (in_array($param, ['structure', 'list'])) {
+                $param = 'array';
+            }
+
+            $method->addComment(sprintf('  %s%s: %s', $name, $nullable ? '?' : '', $param));
+        }
+        $method->addComment('} $input');
+    }
+
+
+    private function setMethodBody(array $definition, array $inputShape, Method $method, array $operation): void
+    {
+        $body = <<<PHP
+\$uri = [];
+\$query = [];
+\$headers = [];
+
+PHP;;
+
+        foreach (['header' => '$headers', 'querystring' => '$query', 'uri' => '$uri'] as $locationName => $varName) {
+            foreach ($inputShape['members'] as $name => $data) {
+                $location = $data['location'] ?? null;
+                if ($location === $locationName) {
+                    $body .= 'if (array_key_exists("'.$name.'", $input)) '.$varName.'["'.$data['locationName'].'"] = $input["'.$name.'"];'."\n";
+                }
+            }
+        }
+
+        if (!isset($inputShape['payload'])) {
+            $body .= '$payload = "";';
+        } else {
+            $data = $inputShape['members'][$inputShape['payload']];
+            if ($data['streaming'] ?? false) {
+                $body .= '$payload = $input["'.$inputShape['payload'].'"];';
+            } else {
+                // Build XML
+                $xml = $this->buildXmlConfig($definition['shapes'], $data['shape']);
+                $xml['_root'] = [
+                    'type' => $data['shape'],
+                    'xmlName' => $data['locationName'],
+                    'uri' => $data['xmlNamespace']['uri'] ?? '',
+                    //'members' => array_keys($definition['shapes'][$data['shape']]['members']),
+                ];
+
+                $body .= '$xmlConfig = '.$this->printArray($xml).";\n";
+                $body .= '$payload = (new XmlBuilder($input["'.$inputShape['payload'].'"], $xmlConfig))->getXml();';
+            }
+        }
+
+        $method->setBody(
+            $body.
+            <<<PHP
+
+\$response = \$this->getResponse('{$operation['http']['method']}', \$payload, \$headers, \$this->getEndpoint(\$uri, \$query));
+return new {$operation['output']['shape']}(\$response);
+PHP
+        );
     }
 }

@@ -25,12 +25,16 @@ use Nette\SmartObject;
 class ClassFactory
 {
     use SmartObject;
+    private static $cache = [];
 
     public static function fromExistingClass(string $class): PhpNamespace
     {
+        if (isset(self::$cache[$class])) {
+            return self::$cache[$class];
+        }
         $factory = new self();
 
-        return $factory->fromClassReflection(new \ReflectionClass($class));
+        return self::$cache[$class] = $factory->fromClassReflection(new \ReflectionClass($class));
     }
 
     public function fromClassReflection(\ReflectionClass $from): PhpNamespace
