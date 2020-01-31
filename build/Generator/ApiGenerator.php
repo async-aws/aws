@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\Build\Generator;
 
 use AsyncAws\Core\Result;
+use AsyncAws\Core\XmlBuilder;
 use Nette\PhpGenerator\PhpNamespace;
 use Nette\PhpGenerator\PsrPrinter;
 use Symfony\Contracts\HttpClient\ResponseInterface;
@@ -58,6 +59,7 @@ class ApiGenerator
         $outputClass = \sprintf('%s\\Result\\%s', $baseNamespace, $operation['output']['shape']);
         $method->setReturnType($outputClass);
         $namespace->addUse($outputClass);
+        $namespace->addUse(XmlBuilder::class);
 
         // Generate method body
         $body = <<<PHP
@@ -65,14 +67,14 @@ class ApiGenerator
 \$query = [];
 \$headers = [];
 
-
-PHP;;
+PHP;
+        ;
 
         foreach (['header' => '$headers', 'querystring' => '$query', 'uri' => '$uri'] as $locationName => $varName) {
             foreach ($inputShape['members'] as $name => $data) {
                 $location = $data['location'] ?? null;
                 if ($location === $locationName) {
-                    $body .= 'if (array_key_exists("'.$name.'", $input)) '.$varName.'["'.$data['locationName'].'"] = $input["'.$name.'"];'."\n";
+                    $body .= 'if (array_key_exists("' . $name . '", $input)) ' . $varName . '["' . $data['locationName'] . '"] = $input["' . $name . '"];' . "\n";
                 }
             }
         }
@@ -82,24 +84,24 @@ PHP;;
         } else {
             $data = $inputShape['members'][$inputShape['payload']];
             if ($data['streaming'] ?? false) {
-                $body .= '$payload = $input["'.$inputShape['payload'].'"];';
+                $body .= '$payload = $input["' . $inputShape['payload'] . '"];';
             } else {
                 // Build XML
-                $document = new \DOMDocument('1.0', 'UTF-8');
-                $root = $document->createElement($data['locationName']);
-                $document->appendChild($root);
-                if (isset($data['xmlNamespace']['uri'])) {
-                    $root->setAttribute('xmlns', $data['xmlNamespace']['uri']);
-                }
-                // Build children
-                $this->buildXml($document, $root, $definition['shapes'], $data['shape']);
+                $xml = $this->buildXmlConfig($definition['shapes'], $data['shape']);
+                $xml['_root'] = [
+                    'type' => $data['shape'],
+                    'xmlName'=>$data['locationName'],
+                    'uri'=>$data['xmlNamespace']['uri'] ?? '',
+                    //'members' => array_keys($definition['shapes'][$data['shape']]['members']),
+                ];
 
-                $document->formatOutput = true;
-                $body .= '$payload = <<<XML'."\n".$document->saveXML()."\nXML;";
+                $body .= '$xmlConfig = ' . $this->printArray($xml) . ";\n";
+                $body .= '$payload = (new XmlBuilder($input["' . $inputShape['payload'] . '"], $xmlConfig))->getXml();';
             }
         }
 
-        $method->setBody($body.
+        $method->setBody(
+            $body .
             <<<PHP
 
 \$response = \$this->getResponse('{$operation['http']['method']}', \$payload, \$headers, \$this->getEndpoint(\$uri, \$query));
@@ -110,22 +112,6 @@ PHP
         $printer = new PsrPrinter();
         $filename = \sprintf('%s/%s/%sClient.php', $this->srcDirectory, $service, $service);
         \file_put_contents($filename, "<?php\n\n" . $printer->printNamespace($namespace));
-
-        // clean HEREDOC
-        $rows = file($filename);
-        $heredoc = null;
-        foreach ($rows as $i => $row) {
-            if (null === $heredoc) {
-                if (preg_match('#<<<([^ ]+)$#si', $row, $match)) {
-                    $heredoc = trim($match[1]);
-                    $rows[$i + 1] = ltrim($rows[$i + 1]);
-                }
-            } elseif (preg_match('#'.$heredoc.';$#s', $row)) {
-                $heredoc = null;
-                $rows[$i] = ltrim($rows[$i]);
-            }
-        }
-        \file_put_contents($filename, \implode('', $rows));
     }
 
     /**
@@ -208,47 +194,6 @@ PHP
         \file_put_contents($traitFilename, "<?php\n\n" . $printer->printNamespace($namespace));
     }
 
-    /**
-     * Here is an examples what $shapes[$shapeName] might look like:
-     *
-     * 'AccessControlPolicy' => [
-     *      'type' => 'structure',
-     *      'members' => [
-     *          'Grants' => ['shape' => 'Grants', 'locationName' => 'AccessControlList',],
-     *          'Owner' => ['shape' => 'Owner',],
-     *      ],
-     *  ],
-     *
-     * $parentElement is the DOM element representing AccessControlPolicy, Our job is to create
-     * the members.
-     *
-     */
-    private function buildXml(\DOMDocument $document, \DOMElement $parentElement, array $shapes, string $shapeName, string $inputPrefix = '')
-    {
-        $shape = $shapes[$shapeName];
-        $members = $shape['members'] ?? ($shape['member'] ? [$shape['member']] : []);
-        foreach ($members ?? [] as $name => $member) {
-            $el = $document->createElement($member['locationName'] ?? $name);
-            $parentElement->appendChild($el);
-
-            if (empty($inputPrefix)) {
-                $inputPrefix = '$input';
-            }
-            if (is_int($name)) {
-                $input = $inputPrefix.'['.$name.']';
-            } else {
-                $input = $inputPrefix.'["'.$name.'"]';
-            }
-
-            if (in_array($shapes[$member['shape']]['type'], ['structure', 'list'])) {
-                // We need a child
-                $this->buildXml($document, $el, $shapes, is_int($name) ? $member['shape'] : $name, $input);
-            } else {
-                $el->nodeValue = '{'.$input.'}';
-            }
-        }
-    }
-
     private function toPhpType(string $parameterType): string
     {
         if ('boolean' === $parameterType) {
@@ -262,5 +207,35 @@ PHP
         }
 
         return $parameterType;
+    }
+
+    /**
+     * Pick only the config from $shapes we are interested in.
+     */
+    private function buildXmlConfig(array $shapes, string $shapeName): array
+    {
+        $shape = $shapes[$shapeName];
+        if (!in_array($shape['type'], ['structure', 'list'])){
+            $xml[$shapeName]['type'] = $this->toPhpType($shape['type']);
+            return $xml;
+        }
+
+        $xml[$shapeName]  = $shape;
+        $members = $shape['members'] ?? (isset($shape['member']) ? [$shape['member']['shape'] => true] : []);
+        foreach (array_keys($members) as $name) {
+            $xml = array_merge($xml, $this->buildXmlConfig($shapes, $name));
+        }
+        return $xml;
+    }
+
+    private function printArray(array $data): string
+    {
+        $output = '[';
+        foreach ($data as $name => $value) {
+            $output.= sprintf('%s => %s,', (\is_int($name) ? $name : '"' . $name . '"'), \is_array($value) ? $this->printArray($value) : ("'" . $value . "'"));
+        }
+        $output .= ']';
+
+        return $output;
     }
 }

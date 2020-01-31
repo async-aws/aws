@@ -108,9 +108,9 @@ abstract class AbstractApi
 
     /**
      * Fallback function for getting the endpoint. This could be overridden by any APIClient.
-     * @param array $uri parameters that should go in the URI
+     *
+     * @param array $uri   parameters that should go in the URI
      * @param array $query parameters that should go in the query string
-     * @return string|null
      */
     protected function getEndpoint(array $uri, array $query):?string
     {
@@ -118,6 +118,6 @@ abstract class AbstractApi
             return null;
         }
 
-        return $this->configuration->get('endpoint').'?'.http_build_query($query);
+        return $this->configuration->get('endpoint') . '?' . http_build_query($query);
     }
 }
