@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AsyncAws\Build\Command;
 
 use AsyncAws\Build\Generator\ApiGenerator;
-use AsyncAws\Core\Result;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
