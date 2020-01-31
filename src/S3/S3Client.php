@@ -121,20 +121,64 @@ class S3Client extends AbstractApi
         $uri = [];
         $query = [];
         $headers = [];
-        $payload = [];
-        if (array_key_exists("ACL", $input)) $headers["x-amz-acl"] = $input["ACL"];
-        if (array_key_exists("ContentMD5", $input)) $headers["Content-MD5"] = $input["ContentMD5"];
-        if (array_key_exists("GrantFullControl", $input)) $headers["x-amz-grant-full-control"] = $input["GrantFullControl"];
-        if (array_key_exists("GrantRead", $input)) $headers["x-amz-grant-read"] = $input["GrantRead"];
-        if (array_key_exists("GrantReadACP", $input)) $headers["x-amz-grant-read-acp"] = $input["GrantReadACP"];
-        if (array_key_exists("GrantWrite", $input)) $headers["x-amz-grant-write"] = $input["GrantWrite"];
-        if (array_key_exists("GrantWriteACP", $input)) $headers["x-amz-grant-write-acp"] = $input["GrantWriteACP"];
-        if (array_key_exists("RequestPayer", $input)) $headers["x-amz-request-payer"] = $input["RequestPayer"];
-        if (array_key_exists("VersionId", $input)) $query["versionId"] = $input["VersionId"];
-        if (array_key_exists("Bucket", $input)) $uri["Bucket"] = $input["Bucket"];
-        if (array_key_exists("Key", $input)) $uri["Key"] = $input["Key"];
 
-        $response = $this->getResponse('PUT', $input, $headers);
+        if (\array_key_exists("ACL", $input)) {
+            $headers["x-amz-acl"] = $input["ACL"];
+        }
+        if (\array_key_exists("ContentMD5", $input)) {
+            $headers["Content-MD5"] = $input["ContentMD5"];
+        }
+        if (\array_key_exists("GrantFullControl", $input)) {
+            $headers["x-amz-grant-full-control"] = $input["GrantFullControl"];
+        }
+        if (\array_key_exists("GrantRead", $input)) {
+            $headers["x-amz-grant-read"] = $input["GrantRead"];
+        }
+        if (\array_key_exists("GrantReadACP", $input)) {
+            $headers["x-amz-grant-read-acp"] = $input["GrantReadACP"];
+        }
+        if (\array_key_exists("GrantWrite", $input)) {
+            $headers["x-amz-grant-write"] = $input["GrantWrite"];
+        }
+        if (\array_key_exists("GrantWriteACP", $input)) {
+            $headers["x-amz-grant-write-acp"] = $input["GrantWriteACP"];
+        }
+        if (\array_key_exists("RequestPayer", $input)) {
+            $headers["x-amz-request-payer"] = $input["RequestPayer"];
+        }
+        if (\array_key_exists("VersionId", $input)) {
+            $query["versionId"] = $input["VersionId"];
+        }
+        if (\array_key_exists("Bucket", $input)) {
+            $uri["Bucket"] = $input["Bucket"];
+        }
+        if (\array_key_exists("Key", $input)) {
+            $uri["Key"] = $input["Key"];
+        }
+        $payload = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+        <AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+          <AccessControlList>
+            <Grant>
+              <Grantee>
+                <DisplayName>{$input["Grants"][0]["Grantee"]["DisplayName"]}</DisplayName>
+                <EmailAddress>{$input["Grants"][0]["Grantee"]["EmailAddress"]}</EmailAddress>
+                <ID>{$input["Grants"][0]["Grantee"]["ID"]}</ID>
+                <xsi:type>{$input["Grants"][0]["Grantee"]["Type"]}</xsi:type>
+                <URI>{$input["Grants"][0]["Grantee"]["URI"]}</URI>
+              </Grantee>
+              <Permission>{$input["Grants"][0]["Permission"]}</Permission>
+            </Grant>
+          </AccessControlList>
+          <Owner>
+            <DisplayName>{$input["Owner"]["DisplayName"]}</DisplayName>
+            <ID>{$input["Owner"]["ID"]}</ID>
+          </Owner>
+        </AccessControlPolicy>
+
+XML;
+        $response = $this->getResponse('PUT', $payload, $headers);
+
         return new PutObjectAclOutput($response);
     }
 }

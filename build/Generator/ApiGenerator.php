@@ -56,7 +56,7 @@ class ApiGenerator
 \$uri = [];
 \$query = [];
 \$headers = [];
-\$payload = [];
+
 
 PHP;;
 
@@ -69,19 +69,55 @@ PHP;;
             }
         }
 
+        if (!isset($inputShape['payload'])) {
+            $body.='$payload = "";';
+        } else {
+            $data = $inputShape['members'][$inputShape['payload']];
+            if ($data['streaming'] ?? false) {
+                $body .= '$payload = $input["'.$inputShape['payload'].'"];';
+            } else {
+                // Build XML
+                $document = new \DOMDocument('1.0', 'UTF-8');
+                $root = $document->createElement($data['locationName']);
+                $document->appendChild($root);
+                if (isset($data['xmlNamespace']['uri'])) {
+                    $root->setAttribute('xmlns', $data['xmlNamespace']['uri']);
+                }
+                // Build children
+                $this->buildXml($document, $root, $definition['shapes'], $data['shape']);
+
+                $document->formatOutput = true;
+                $body .= '$payload = <<<XML'."\n".$document->saveXML()."\nXML;";
+            }
+        }
+
         $method->setBody($body.
             <<<PHP
 
-\$response = \$this->getResponse('{$operation['http']['method']}', \$input, \$headers);
+\$response = \$this->getResponse('{$operation['http']['method']}', \$payload, \$headers);
 return new {$operation['output']['shape']}(\$response);
 PHP
         );
 
         $printer = new PsrPrinter();
-        \file_put_contents(
-            \sprintf('%s/%s/%sClient.php', $this->srcDirectory, $service, $service),
-            "<?php\n\n" . $printer->printNamespace($namespace)
-        );
+        $filename = \sprintf('%s/%s/%sClient.php', $this->srcDirectory, $service, $service);
+        \file_put_contents($filename, "<?php\n\n" . $printer->printNamespace($namespace));
+
+        // clean HEREDOC
+        $rows = file($filename);
+        $heredoc = null;
+        foreach ($rows as $i => $row) {
+            if (null === $heredoc) {
+                if (preg_match('#<<<([^ ]+)$#si', $row, $match)) {
+                    $heredoc = trim($match[1]);
+                    $rows[$i + 1] = ltrim($rows[$i + 1]);
+                }
+            } elseif (preg_match('#'.$heredoc.';$#s', $row)) {
+                $heredoc = null;
+                $rows[$i] = ltrim($rows[$i]);
+            }
+        }
+        \file_put_contents($filename, \implode('', $rows));
     }
 
     /**
@@ -170,5 +206,46 @@ PHP
 
         $printer = new PsrPrinter();
         \file_put_contents($traitFilename, "<?php\n\n" . $printer->printNamespace($namespace));
+    }
+
+    /**
+     * Here is an examples what $shapes[$shapeName] might look like:
+     *
+     * 'AccessControlPolicy' => [
+     *      'type' => 'structure',
+     *      'members' => [
+     *          'Grants' => ['shape' => 'Grants', 'locationName' => 'AccessControlList',],
+     *          'Owner' => ['shape' => 'Owner',],
+     *      ],
+     *  ],
+     *
+     * $parentElement is the DOM element representing AccessControlPolicy, Our job is to create
+     * the members.
+     *
+     */
+    private function buildXml(\DOMDocument $document, \DOMElement $parentElement, array $shapes, string $shapeName, string $inputPrefix = '')
+    {
+        $shape = $shapes[$shapeName];
+        $members = $shape['members'] ?? ($shape['member'] ? [$shape['member']] : []);
+        foreach ($members ?? [] as $name => $member) {
+            $el = $document->createElement($member['locationName'] ?? $name);
+            $parentElement->appendChild($el);
+
+            if (empty($inputPrefix)) {
+                $inputPrefix = '$input';
+            }
+            if (is_int($name)) {
+                $input = $inputPrefix.'['.$name.']';
+            } else {
+                $input = $inputPrefix.'["'.$name.'"]';
+            }
+
+            if (in_array($shapes[$member['shape']]['type'], ['structure', 'list'])) {
+                // We need a child
+                $this->buildXml($document, $el, $shapes, is_int($name) ? $member['shape'] : $name, $input);
+            } else {
+                $el->nodeValue = '{'.$input.'}';
+            }
+        }
     }
 }
