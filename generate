@@ -3,15 +3,18 @@
 require __DIR__.'/vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-
 use AsyncAws\Build\Command\CreateCommand;
+use AsyncAws\Build\Command\RegenerateCommand;
+use AsyncAws\Build\Generator\ApiGenerator;
 
 $application = new Application('Async AWS', '0.1.0');
 
 $src = __DIR__.'/src';
 $manifest = __DIR__.'/build//manifest.json';
-$command = new CreateCommand($manifest, $src);
-
+$command = new CreateCommand($manifest, new ApiGenerator($src));
 $application->add($command);
 $application->setDefaultCommand($command->getName());
+
+$application->add(new RegenerateCommand($manifest, new ApiGenerator($src)));
+
 $application->run();

@@ -19,7 +19,7 @@ aws_access_key_id = AKIAIOSFODNN7EXAMPLE
 aws_secret_access_key = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 ```
 
-Each section represente a credential `Profile` which can be referenced in the Configuration
+Each section represents a credential `Profile` which can be referenced in the Configuration
 
 ```php
 use AsyncAws\Core\AwsClient;
