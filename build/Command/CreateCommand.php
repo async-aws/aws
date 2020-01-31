@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace AsyncAws\Build\Command;
 
-use AsyncAws\Core\Result;
-use AsyncAws\Build\Generator\ClassFactory;
-use Nette\PhpGenerator\PhpNamespace;
-use Nette\PhpGenerator\PsrPrinter;
 use AsyncAws\Build\Generator\ApiGenerator;
+use AsyncAws\Core\Result;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
