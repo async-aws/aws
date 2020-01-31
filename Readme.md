@@ -93,7 +93,7 @@ some response objects.
 | Repository | Namespace | Package name |
 | ---------- | --------- | ------------ | 
 | async-aws/aws | AsyncAws | async-aws/async-aws
-| async-aws/core | AsyncAws\Aws | async-aws/core
+| async-aws/core | AsyncAws\Core | async-aws/core
 | async-aws/s3 | AsyncAws\S3 | async-aws/s3
 | async-aws/ses | AsyncAws\Ses | async-aws/ses
 | async-aws/sqs | AsyncAws\Sqs | async-aws/sqs
