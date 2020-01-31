@@ -62,7 +62,7 @@ return PhpCsFixer\Config::create()
         'yoda_style' => true,
         'native_function_invocation' => true,
         'compact_nullable_typehint' => true,
-        'declare_equal_normalize' => ['space' => 'single'],
+        'declare_equal_normalize' => ['space' => 'none'],
         'function_typehint_space' => true,
         'no_leading_namespace_whitespace' => true,
         'blank_line_before_statement' => true,
