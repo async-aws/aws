@@ -87,3 +87,14 @@ Except for being a wrapper around Symfony's HTTP client and make sure we use the
 async features properly, we also handle authentication, exceptions and provide
 some response objects. 
 
+
+## Organization
+
+| Repository | Namespace | Package name |
+| ---------- | --------- | ------------ | 
+| async-aws/aws | AsyncAws | async-aws/async-aws
+| async-aws/core | AsyncAws\Core | async-aws/core
+| async-aws/s3 | AsyncAws\S3 | async-aws/s3
+| async-aws/ses | AsyncAws\Ses | async-aws/ses
+| async-aws/sqs | AsyncAws\Sqs | async-aws/sqs
+
