@@ -3,7 +3,6 @@
 namespace AsyncAws\S3;
 
 use AsyncAws\Core\AbstractApi;
-use AsyncAws\Core\Result;
 use AsyncAws\S3\Result\CreateBucketOutput;
 use AsyncAws\S3\Result\GetObjectResult;
 use AsyncAws\S3\Result\PutObjectOutput;
@@ -12,7 +11,6 @@ class S3Client extends AbstractApi
 {
     /**
      * @param string $path The resource you want to get. Eg "/foo/file.png"
-     *
      */
     public function getObject(string $bucket, string $path): GetObjectResult
     {

@@ -42,7 +42,7 @@ abstract class AbstractApi
      */
     public function __construct(HttpClientInterface $httpClient, $configuration, ?CredentialProvider $credentialProvider = null)
     {
-        if (is_array($configuration)) {
+        if (\is_array($configuration)) {
             $configuration = Configuration::create($configuration);
         } elseif (!$configuration instanceof Configuration) {
             throw new InvalidArgument(sprintf('Second argument to "%s::__construct()" must be an array or an instance of "%s"', __CLASS__, Configuration::class));
@@ -59,8 +59,6 @@ abstract class AbstractApi
     /**
      * @param iterable|string[]|string[][]                $headers headers names provided as keys or as part of values
      * @param array|string|resource|\Traversable|\Closure $body
-     *
-     * @return Result
      */
     public function request(string $method, $body = '', $headers = [], ?string $endpoint = null): Result
     {
