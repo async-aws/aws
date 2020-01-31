@@ -9,6 +9,11 @@ use Nette\PhpGenerator\PhpNamespace;
 use Nette\PhpGenerator\PsrPrinter;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
+/**
+ * Generate API client methods and result classes.
+ *
+ * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ */
 class ApiGenerator
 {
     /**

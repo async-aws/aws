@@ -11,6 +11,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+/**
+ * Create a new API client method and result class.
+ *
+ * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ */
 class CreateCommand extends Command
 {
     protected static $defaultName = 'create';
