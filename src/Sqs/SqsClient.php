@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AsyncAws\Sqs;
 
-use AsyncAws\Aws\AbstractApi;
-use AsyncAws\Aws\Result;
+use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Result;
 use AsyncAws\Sqs\Result\SendMessageResult;
 
 class SqsClient extends AbstractApi

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\Aws\Exception\Http;
+namespace AsyncAws\Core\Exception\Http;
 
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 

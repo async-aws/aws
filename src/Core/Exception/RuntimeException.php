@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\Aws\Exception;
+namespace AsyncAws\Core\Exception;
 
 class RuntimeException extends \RuntimeException implements Exception
 {

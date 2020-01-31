@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\Result;
 
-use AsyncAws\Aws\Result;
+use AsyncAws\Core\Result;
 
 class PutObjectOutput extends Result
 {

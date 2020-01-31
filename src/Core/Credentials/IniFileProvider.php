@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\Aws\Credentials;
+namespace AsyncAws\Core\Credentials;
 
-use AsyncAws\Aws\Configuration;
-use AsyncAws\Aws\Exception\InvalidArgument;
+use AsyncAws\Core\Configuration;
+use AsyncAws\Core\Exception\InvalidArgument;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 

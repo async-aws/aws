@@ -2,8 +2,8 @@
 
 namespace AsyncAws\S3;
 
-use AsyncAws\Aws\AbstractApi;
-use AsyncAws\Aws\Result;
+use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Result;
 use AsyncAws\S3\Result\CreateBucketOutput;
 use AsyncAws\S3\Result\GetObjectResult;
 use AsyncAws\S3\Result\PutObjectOutput;

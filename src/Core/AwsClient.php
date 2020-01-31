@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\Aws;
+namespace AsyncAws\Core;
 
-use AsyncAws\Aws\Exception\MissingDependency;
-use AsyncAws\Aws\Exception\RuntimeException;
+use AsyncAws\Core\Exception\MissingDependency;
+use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\S3\S3Client;
 use AsyncAws\Ses\SesClient;
 use AsyncAws\Sqs\SqsClient;
