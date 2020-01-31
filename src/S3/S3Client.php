@@ -30,21 +30,9 @@ class S3Client extends AbstractApi
         return 's3';
     }
 
-    private function getEndpoint(string $bucket, string $path): string
+    protected function getEndpoint(array $data): ?string
     {
-        return \sprintf('https://%s.s3.%%region%%.amazonaws.com/%s', $bucket, ltrim($path, '/'));
-    }
-
-    /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
-     */
-    public function putObject(array $input): PutObjectOutput
-    {
-        $body = $input['Body'];
-        unset($input['Body']);
-        $response = $this->getResponse('PUT', $body, $input, $this->getEndpoint($input['Bucket'], $input['Key']));
-
-        return new PutObjectOutput($response);
+        return \sprintf('https://%s.s3.%%region%%.amazonaws.com/%s', $data['Bucket'], ltrim($data['Key'], '/'));
     }
 
     /**
@@ -158,27 +146,126 @@ class S3Client extends AbstractApi
         $payload = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
         <AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
-          <AccessControlList>
-            <Grant>
-              <Grantee>
-                <DisplayName>{$input["Grants"][0]["Grantee"]["DisplayName"]}</DisplayName>
-                <EmailAddress>{$input["Grants"][0]["Grantee"]["EmailAddress"]}</EmailAddress>
-                <ID>{$input["Grants"][0]["Grantee"]["ID"]}</ID>
-                <xsi:type>{$input["Grants"][0]["Grantee"]["Type"]}</xsi:type>
-                <URI>{$input["Grants"][0]["Grantee"]["URI"]}</URI>
-              </Grantee>
-              <Permission>{$input["Grants"][0]["Permission"]}</Permission>
-            </Grant>
-          </AccessControlList>
-          <Owner>
-            <DisplayName>{$input["Owner"]["DisplayName"]}</DisplayName>
-            <ID>{$input["Owner"]["ID"]}</ID>
-          </Owner>
+        <AccessControlList>
+        <Grant>
+        <Grantee>
+        <DisplayName>{$input["Grants"][0]["Grantee"]["DisplayName"]}</DisplayName>
+        <EmailAddress>{$input["Grants"][0]["Grantee"]["EmailAddress"]}</EmailAddress>
+        <ID>{$input["Grants"][0]["Grantee"]["ID"]}</ID>
+        <xsi:type>{$input["Grants"][0]["Grantee"]["Type"]}</xsi:type>
+        <URI>{$input["Grants"][0]["Grantee"]["URI"]}</URI>
+        </Grantee>
+        <Permission>{$input["Grants"][0]["Permission"]}</Permission>
+        </Grant>
+        </AccessControlList>
+        <Owner>
+        <DisplayName>{$input["Owner"]["DisplayName"]}</DisplayName>
+        <ID>{$input["Owner"]["ID"]}</ID>
+        </Owner>
         </AccessControlPolicy>
 
 XML;
         $response = $this->getResponse('PUT', $payload, $headers);
 
         return new PutObjectAclOutput($response);
+    }
+
+    /**
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
+     */
+    public function putObject(array $input): PutObjectOutput
+    {
+        $uri = [];
+        $query = [];
+        $headers = [];
+
+        if (\array_key_exists("ACL", $input)) {
+            $headers["x-amz-acl"] = $input["ACL"];
+        }
+        if (\array_key_exists("CacheControl", $input)) {
+            $headers["Cache-Control"] = $input["CacheControl"];
+        }
+        if (\array_key_exists("ContentDisposition", $input)) {
+            $headers["Content-Disposition"] = $input["ContentDisposition"];
+        }
+        if (\array_key_exists("ContentEncoding", $input)) {
+            $headers["Content-Encoding"] = $input["ContentEncoding"];
+        }
+        if (\array_key_exists("ContentLanguage", $input)) {
+            $headers["Content-Language"] = $input["ContentLanguage"];
+        }
+        if (\array_key_exists("ContentLength", $input)) {
+            $headers["Content-Length"] = $input["ContentLength"];
+        }
+        if (\array_key_exists("ContentMD5", $input)) {
+            $headers["Content-MD5"] = $input["ContentMD5"];
+        }
+        if (\array_key_exists("ContentType", $input)) {
+            $headers["Content-Type"] = $input["ContentType"];
+        }
+        if (\array_key_exists("Expires", $input)) {
+            $headers["Expires"] = $input["Expires"];
+        }
+        if (\array_key_exists("GrantFullControl", $input)) {
+            $headers["x-amz-grant-full-control"] = $input["GrantFullControl"];
+        }
+        if (\array_key_exists("GrantRead", $input)) {
+            $headers["x-amz-grant-read"] = $input["GrantRead"];
+        }
+        if (\array_key_exists("GrantReadACP", $input)) {
+            $headers["x-amz-grant-read-acp"] = $input["GrantReadACP"];
+        }
+        if (\array_key_exists("GrantWriteACP", $input)) {
+            $headers["x-amz-grant-write-acp"] = $input["GrantWriteACP"];
+        }
+        if (\array_key_exists("ServerSideEncryption", $input)) {
+            $headers["x-amz-server-side-encryption"] = $input["ServerSideEncryption"];
+        }
+        if (\array_key_exists("StorageClass", $input)) {
+            $headers["x-amz-storage-class"] = $input["StorageClass"];
+        }
+        if (\array_key_exists("WebsiteRedirectLocation", $input)) {
+            $headers["x-amz-website-redirect-location"] = $input["WebsiteRedirectLocation"];
+        }
+        if (\array_key_exists("SSECustomerAlgorithm", $input)) {
+            $headers["x-amz-server-side-encryption-customer-algorithm"] = $input["SSECustomerAlgorithm"];
+        }
+        if (\array_key_exists("SSECustomerKey", $input)) {
+            $headers["x-amz-server-side-encryption-customer-key"] = $input["SSECustomerKey"];
+        }
+        if (\array_key_exists("SSECustomerKeyMD5", $input)) {
+            $headers["x-amz-server-side-encryption-customer-key-MD5"] = $input["SSECustomerKeyMD5"];
+        }
+        if (\array_key_exists("SSEKMSKeyId", $input)) {
+            $headers["x-amz-server-side-encryption-aws-kms-key-id"] = $input["SSEKMSKeyId"];
+        }
+        if (\array_key_exists("SSEKMSEncryptionContext", $input)) {
+            $headers["x-amz-server-side-encryption-context"] = $input["SSEKMSEncryptionContext"];
+        }
+        if (\array_key_exists("RequestPayer", $input)) {
+            $headers["x-amz-request-payer"] = $input["RequestPayer"];
+        }
+        if (\array_key_exists("Tagging", $input)) {
+            $headers["x-amz-tagging"] = $input["Tagging"];
+        }
+        if (\array_key_exists("ObjectLockMode", $input)) {
+            $headers["x-amz-object-lock-mode"] = $input["ObjectLockMode"];
+        }
+        if (\array_key_exists("ObjectLockRetainUntilDate", $input)) {
+            $headers["x-amz-object-lock-retain-until-date"] = $input["ObjectLockRetainUntilDate"];
+        }
+        if (\array_key_exists("ObjectLockLegalHoldStatus", $input)) {
+            $headers["x-amz-object-lock-legal-hold"] = $input["ObjectLockLegalHoldStatus"];
+        }
+        if (\array_key_exists("Bucket", $input)) {
+            $uri["Bucket"] = $input["Bucket"];
+        }
+        if (\array_key_exists("Key", $input)) {
+            $uri["Key"] = $input["Key"];
+        }
+        $payload = $input["Body"];
+        $response = $this->getResponse('PUT', $payload, $headers, $this->getEndpoint($uri));
+
+        return new PutObjectOutput($response);
     }
 }

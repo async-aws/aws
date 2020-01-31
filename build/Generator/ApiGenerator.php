@@ -94,7 +94,7 @@ PHP;;
         $method->setBody($body.
             <<<PHP
 
-\$response = \$this->getResponse('{$operation['http']['method']}', \$payload, \$headers);
+\$response = \$this->getResponse('{$operation['http']['method']}', \$payload, \$headers, \$this->getEndpoint(\$uri));
 return new {$operation['output']['shape']}(\$response);
 PHP
         );

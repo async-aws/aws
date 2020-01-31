@@ -90,7 +90,7 @@ abstract class AbstractApi
 
         $options = ['headers' => $headers, 'body' => $body];
 
-        return $this->httpClient->request($method, $this->getEndpoint($endpoint), $options);
+        return $this->httpClient->request($method, $this->fillEndpoint($endpoint), $options);
     }
 
     private function getSignature(string $string, ?Credentials $credentials): string
@@ -98,11 +98,16 @@ abstract class AbstractApi
         return base64_encode(hash_hmac('sha256', $string, $credentials ? $credentials->getSecretKey() : '', true));
     }
 
-    private function getEndpoint(?string $endpoint): string
+    private function fillEndpoint(?string $endpoint): string
     {
         return strtr($endpoint ?? $this->configuration->get('endpoint'), [
             '%region%' => $this->configuration->get('region'),
             '%service%' => $this->getServiceCode(),
         ]);
+    }
+
+    protected function getEndpoint(array $data):?string
+    {
+        return null;
     }
 }
