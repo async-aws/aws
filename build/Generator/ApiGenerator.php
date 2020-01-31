@@ -16,7 +16,7 @@ class ApiGenerator
      */
     private $srcDirectory;
 
-    public function __construct( string $srcDirectory)
+    public function __construct(string $srcDirectory)
     {
         $this->srcDirectory = $srcDirectory;
     }
@@ -111,7 +111,7 @@ PHP
 PHP;
             }
 
-            $nullable = !in_array($name, $shapes[$className]['required'] ?? []);
+            $nullable = !\in_array($name, $shapes[$className]['required'] ?? []);
             $class->addMethod('get' . $name)
                 ->setReturnType($parameterType)
                 ->setReturnNullable($nullable)

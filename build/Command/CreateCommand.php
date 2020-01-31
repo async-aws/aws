@@ -5,16 +5,11 @@ declare(strict_types=1);
 namespace AsyncAws\Build\Command;
 
 use AsyncAws\Build\Generator\ApiGenerator;
-use AsyncAws\Core\Result;
-use AsyncAws\Build\Generator\ClassFactory;
-use Nette\PhpGenerator\PhpNamespace;
-use Nette\PhpGenerator\PsrPrinter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class CreateCommand extends Command
 {
@@ -67,7 +62,7 @@ class CreateCommand extends Command
         }
 
         $lastGenerated = $manifest['services'][$service]['methods'][$operationName]['generated'] ?? null;
-        if ($lastGenerated !== null) {
+        if (null !== $lastGenerated) {
             $io->error(\sprintf('Operation named "%s" has already been generated at %s.', $operationName, $lastGenerated));
 
             return 1;

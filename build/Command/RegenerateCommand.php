@@ -5,17 +5,12 @@ declare(strict_types=1);
 namespace AsyncAws\Build\Command;
 
 use AsyncAws\Build\Generator\ApiGenerator;
-use AsyncAws\Core\Result;
-use AsyncAws\Build\Generator\ClassFactory;
-use Nette\PhpGenerator\PhpNamespace;
-use Nette\PhpGenerator\PsrPrinter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class RegenerateCommand extends Command
 {
@@ -57,21 +52,21 @@ class RegenerateCommand extends Command
 
         $definition = \json_decode(\file_get_contents($manifest['services'][$service]['source']), true);
         $operationNames = $this->getOperationNames($input, $io, $definition, $manifest['services'][$service]);
-        if (is_int($operationNames)) {
+        if (\is_int($operationNames)) {
             return $operationNames;
         }
 
         $baseNamespace = \sprintf('AsyncAws\\%s', $service);
         foreach ($operationNames as $operationName) {
             $operationConfig = $manifest['services'][$service]['methods'][$operationName];
-            if (!isset($operationConfig['generate-method']) || $operationConfig['generate-method'] !== false) {
+            if (!isset($operationConfig['generate-method']) || false !== $operationConfig['generate-method']) {
                 $this->generator->generateOperation($definition, $service, $operationName);
             }
-            if (!isset($operationConfig['generate-result']) || $operationConfig['generate-result'] !== false) {
+            if (!isset($operationConfig['generate-result']) || false !== $operationConfig['generate-result']) {
                 $this->generator->generateResultClass(
                     $definition['shapes'],
                     $service,
-                    $baseNamespace.'\\Result',
+                    $baseNamespace . '\\Result',
                     $definition['operations'][$operationName]['output']['shape'],
                     true
                 );
@@ -104,7 +99,7 @@ class RegenerateCommand extends Command
             }
 
             $lastGenerated = $manifest['methods'][$operationName]['generated'] ?? null;
-            if ($lastGenerated === null) {
+            if (null === $lastGenerated) {
                 $io->error(\sprintf('Operation named "%s" has never been generated.', $operationName));
 
                 return 1;
