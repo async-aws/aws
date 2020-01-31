@@ -4,17 +4,19 @@ namespace AsyncAws\S3\Result;
 
 use AsyncAws\Core\Result;
 
-class PutObjectOutput extends Result
+class CopyObjectOutput extends Result
 {
-    use PutObjectOutputTrait;
+    use CopyObjectOutputTrait;
+
+    private $CopyObjectResult;
 
     private $Expiration;
 
-    private $ETag;
-
-    private $ServerSideEncryption;
+    private $CopySourceVersionId;
 
     private $VersionId;
+
+    private $ServerSideEncryption;
 
     private $SSECustomerAlgorithm;
 
@@ -26,6 +28,13 @@ class PutObjectOutput extends Result
 
     private $RequestCharged;
 
+    public function getCopyObjectResult(): ?CopyObjectResult
+    {
+        $this->initialize();
+
+        return $this->CopyObjectResult;
+    }
+
     public function getExpiration(): ?string
     {
         $this->initialize();
@@ -33,18 +42,11 @@ class PutObjectOutput extends Result
         return $this->Expiration;
     }
 
-    public function getETag(): ?string
+    public function getCopySourceVersionId(): ?string
     {
         $this->initialize();
 
-        return $this->ETag;
-    }
-
-    public function getServerSideEncryption(): ?string
-    {
-        $this->initialize();
-
-        return $this->ServerSideEncryption;
+        return $this->CopySourceVersionId;
     }
 
     public function getVersionId(): ?string
@@ -52,6 +54,13 @@ class PutObjectOutput extends Result
         $this->initialize();
 
         return $this->VersionId;
+    }
+
+    public function getServerSideEncryption(): ?string
+    {
+        $this->initialize();
+
+        return $this->ServerSideEncryption;
     }
 
     public function getSSECustomerAlgorithm(): ?string

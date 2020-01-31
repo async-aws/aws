@@ -8,6 +8,7 @@ use AsyncAws\Core\Credentials\CacheProvider;
 use AsyncAws\Core\Credentials\ChainProvider;
 use AsyncAws\Core\Credentials\ConfigurationProvider;
 use AsyncAws\Core\Credentials\CredentialProvider;
+use AsyncAws\Core\Credentials\Credentials;
 use AsyncAws\Core\Credentials\IniFileProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -74,11 +75,11 @@ abstract class AbstractApi
     protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null): ResponseInterface
     {
         $date = gmdate('D, d M Y H:i:s e');
-        $credentials = $this->credentialProvider->getCredentials();
+        $credentials = $this->credentialProvider->getCredentials($this->configuration);
         $auth = sprintf(
             'AWS3-HTTPS AWSAccessKeyId=%s,Algorithm=HmacSHA256,Signature=%s',
             $credentials ? $credentials->getAccessKeyId() : '',
-            $this->getSignature($date)
+            $this->getSignature($date, $credentials)
         );
 
         $headers = array_merge([
@@ -89,21 +90,34 @@ abstract class AbstractApi
 
         $options = ['headers' => $headers, 'body' => $body];
 
-        return $this->httpClient->request($method, $this->getEndpoint($endpoint), $options);
+        return $this->httpClient->request($method, $this->fillEndpoint($endpoint), $options);
     }
 
-    private function getSignature(string $string): string
+    private function getSignature(string $string, ?Credentials $credentials): string
     {
-        $credentials = $this->credentialProvider->getCredentials();
-
         return base64_encode(hash_hmac('sha256', $string, $credentials ? $credentials->getSecretKey() : '', true));
     }
 
-    private function getEndpoint(?string $endpoint): string
+    private function fillEndpoint(?string $endpoint): string
     {
         return strtr($endpoint ?? $this->configuration->get('endpoint'), [
             '%region%' => $this->configuration->get('region'),
             '%service%' => $this->getServiceCode(),
         ]);
+    }
+
+    /**
+     * Fallback function for getting the endpoint. This could be overridden by any APIClient.
+     *
+     * @param array $uri   parameters that should go in the URI
+     * @param array $query parameters that should go in the query string
+     */
+    protected function getEndpoint(array $uri, array $query):?string
+    {
+        if (empty($query)) {
+            return null;
+        }
+
+        return $this->configuration->get('endpoint') . '?' . http_build_query($query);
     }
 }

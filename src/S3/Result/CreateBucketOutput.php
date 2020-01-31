@@ -10,7 +10,7 @@ class CreateBucketOutput extends Result
 
     private $Location;
 
-    public function getLocation(): string
+    public function getLocation(): ?string
     {
         $this->initialize();
 
