@@ -89,12 +89,9 @@ class ApiGenerator
             $class->addProperty($name)->setPrivate();
             $parameterType = $members[$name]['shape'];
 
-            // TODO if $shapes[$parameterType]['type'] === 'struct' ??
-            if (!\in_array($shapes[$parameterType]['type'], ['string', 'boolean', 'long', 'timestamp', 'integer', 'map', 'blob', 'list'])) {
-                if (!isset($shapes[$parameterType]['members'])) {
-                    throw new \RuntimeException(\sprintf('Unexpected type "%s". Not sure how to handle this.', $shapes[$parameterType]['type']));
-                }
+            if ($shapes[$parameterType]['type'] === 'structure') {
                 $this->generateResultClass($shapes, $service, $baseNamespace, $parameterType);
+                $parameterType = $baseNamespace.'\\'.$parameterType;
             } else {
                 $parameterType = $this->toPhpType($shapes[$parameterType]['type']);
             }

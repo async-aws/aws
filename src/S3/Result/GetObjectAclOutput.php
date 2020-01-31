@@ -14,7 +14,7 @@ class GetObjectAclOutput extends Result
 
     private $RequestCharged;
 
-    public function getOwner(): ?\Owner
+    public function getOwner(): ?Owner
     {
         $this->initialize();
 

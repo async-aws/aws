@@ -28,7 +28,7 @@ class CopyObjectOutput extends Result
 
     private $RequestCharged;
 
-    public function getCopyObjectResult(): ?\CopyObjectResult
+    public function getCopyObjectResult(): ?CopyObjectResult
     {
         $this->initialize();
 
