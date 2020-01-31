@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\Aws;
+namespace AsyncAws\Core;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
