@@ -89,9 +89,9 @@ class ApiGenerator
             $class->addProperty($name)->setPrivate();
             $parameterType = $members[$name]['shape'];
 
-            if ($shapes[$parameterType]['type'] === 'structure') {
+            if ('structure' === $shapes[$parameterType]['type']) {
                 $this->generateResultClass($shapes, $service, $baseNamespace, $parameterType);
-                $parameterType = $baseNamespace.'\\'.$parameterType;
+                $parameterType = $baseNamespace . '\\' . $parameterType;
             } else {
                 $parameterType = $this->toPhpType($shapes[$parameterType]['type']);
             }
@@ -161,8 +161,9 @@ PHP
     private function buildXmlConfig(array $shapes, string $shapeName): array
     {
         $shape = $shapes[$shapeName];
-        if (!in_array($shape['type'] ?? 'structure', ['structure', 'list'])){
+        if (!\in_array($shape['type'] ?? 'structure', ['structure', 'list'])) {
             $xml[$shapeName]['type'] = $this->toPhpType($shape['type']);
+
             return $xml;
         }
 
@@ -170,13 +171,14 @@ PHP
         $members = [];
         if (isset($shape['members'])) {
             $members = $shape['members'];
-        } elseif(isset($shape['member'])) {
+        } elseif (isset($shape['member'])) {
             $members = [$shape['member']];
         }
 
         foreach ($members as $name => $data) {
             $xml = array_merge($xml, $this->buildXmlConfig($shapes, $data['shape'] ?? $name));
         }
+
         return $xml;
     }
 
@@ -197,7 +199,7 @@ PHP
         foreach ($inputShape['members'] as $name => $data) {
             $nullable = !\in_array($name, $inputShape['required'] ?? []);
             $param = $this->toPhpType($definition['shapes'][$data['shape']]['type']);
-            if (in_array($param, ['structure', 'list'])) {
+            if (\in_array($param, ['structure', 'list'])) {
                 $param = 'array';
             }
 
@@ -206,7 +208,6 @@ PHP
         $method->addComment('} $input');
     }
 
-
     private function setMethodBody(array $definition, array $inputShape, Method $method, array $operation): void
     {
         $body = <<<PHP
@@ -214,13 +215,14 @@ PHP
 \$query = [];
 \$headers = [];
 
-PHP;;
+PHP;
+        ;
 
         foreach (['header' => '$headers', 'querystring' => '$query', 'uri' => '$uri'] as $locationName => $varName) {
             foreach ($inputShape['members'] as $name => $data) {
                 $location = $data['location'] ?? null;
                 if ($location === $locationName) {
-                    $body .= 'if (array_key_exists("'.$name.'", $input)) '.$varName.'["'.$data['locationName'].'"] = $input["'.$name.'"];'."\n";
+                    $body .= 'if (array_key_exists("' . $name . '", $input)) ' . $varName . '["' . $data['locationName'] . '"] = $input["' . $name . '"];' . "\n";
                 }
             }
         }
@@ -230,7 +232,7 @@ PHP;;
         } else {
             $data = $inputShape['members'][$inputShape['payload']];
             if ($data['streaming'] ?? false) {
-                $body .= '$payload = $input["'.$inputShape['payload'].'"];';
+                $body .= '$payload = $input["' . $inputShape['payload'] . '"];';
             } else {
                 // Build XML
                 $xml = $this->buildXmlConfig($definition['shapes'], $data['shape']);
@@ -241,13 +243,13 @@ PHP;;
                     //'members' => array_keys($definition['shapes'][$data['shape']]['members']),
                 ];
 
-                $body .= '$xmlConfig = '.$this->printArray($xml).";\n";
-                $body .= '$payload = (new XmlBuilder($input["'.$inputShape['payload'].'"], $xmlConfig))->getXml();';
+                $body .= '$xmlConfig = ' . $this->printArray($xml) . ";\n";
+                $body .= '$payload = (new XmlBuilder($input["' . $inputShape['payload'] . '"], $xmlConfig))->getXml();';
             }
         }
 
         $method->setBody(
-            $body.
+            $body .
             <<<PHP
 
 \$response = \$this->getResponse('{$operation['http']['method']}', \$payload, \$headers, \$this->getEndpoint(\$uri, \$query));
