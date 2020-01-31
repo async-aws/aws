@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\Aws\Exception\Http;
+namespace AsyncAws\Core\Exception\Http;
 
-use AsyncAws\Aws\Exception\Exception;
+use AsyncAws\Core\Exception\Exception;
 
 interface HttpException extends Exception
 {

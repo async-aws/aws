@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AsyncAws\Ses;
 
-use AsyncAws\Aws\AbstractApi;
-use AsyncAws\Aws\Result;
+use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Result;
 use AsyncAws\Ses\Result\SendEmailResult;
 
 class SesClient extends AbstractApi

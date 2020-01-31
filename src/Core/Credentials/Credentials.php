@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\Aws\Credentials;
+namespace AsyncAws\Core\Credentials;
 
-use AsyncAws\Aws\Configuration;
+use AsyncAws\Core\Configuration;
 
 /**
  * Immutable store for Credentials parameters.
