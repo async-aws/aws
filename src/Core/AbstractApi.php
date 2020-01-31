@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AsyncAws\Aws;
 
-use AsyncAws\Aws\Credentials\CacheProvider;
-use AsyncAws\Aws\Credentials\ChainProvider;
-use AsyncAws\Aws\Credentials\ConfigurationProvider;
-use AsyncAws\Aws\Credentials\CredentialProvider;
-use AsyncAws\Aws\Credentials\IniFileProvider;
-use AsyncAws\Aws\Exception\InvalidArgument;
+use AsyncAws\Core\Credentials\CacheProvider;
+use AsyncAws\Core\Credentials\ChainProvider;
+use AsyncAws\Core\Credentials\ConfigurationProvider;
+use AsyncAws\Core\Credentials\CredentialProvider;
+use AsyncAws\Core\Credentials\IniFileProvider;
+use AsyncAws\Core\Exception\InvalidArgument;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
