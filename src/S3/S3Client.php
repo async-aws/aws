@@ -4,7 +4,13 @@ namespace AsyncAws\S3;
 
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\S3\Result\CreateBucketOutput;
+use AsyncAws\S3\Result\DeleteObjectOutput;
+use AsyncAws\S3\Result\GetObjectAclOutput;
+use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\GetObjectResult;
+use AsyncAws\S3\Result\HeadObjectOutput;
+use AsyncAws\S3\Result\ListObjectsOutput;
+use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
 
 class S3Client extends AbstractApi
@@ -50,5 +56,75 @@ class S3Client extends AbstractApi
         $response = $this->getResponse('PUT', $input);
 
         return new CreateBucketOutput($response);
+    }
+
+    /**
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUTacl.html
+     */
+    public function putObjectAcl(array $input): PutObjectAclOutput
+    {
+        $input['Action'] = 'PutObjectAcl';
+        $response = $this->getResponse('PUT', $input);
+        return new PutObjectAclOutput($response);
+    }
+
+    /**
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGETacl.html
+     */
+    public function getObjectAcl(array $input): GetObjectAclOutput
+    {
+        $input['Action'] = 'GetObjectAcl';
+        $response = $this->getResponse('GET', $input);
+        return new GetObjectAclOutput($response);
+    }
+
+    /**
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGET.html
+     */
+    public function listObjects(array $input): ListObjectsOutput
+    {
+        $input['Action'] = 'ListObjects';
+        $response = $this->getResponse('GET', $input);
+        return new ListObjectsOutput($response);
+    }
+
+    /**
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectDELETE.html
+     */
+    public function deleteObject(array $input): DeleteObjectOutput
+    {
+        $input['Action'] = 'DeleteObject';
+        $response = $this->getResponse('DELETE', $input);
+        return new DeleteObjectOutput($response);
+    }
+
+    /**
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectHEAD.html
+     */
+    public function headObject(array $input): HeadObjectOutput
+    {
+        $input['Action'] = 'HeadObject';
+        $response = $this->getResponse('HEAD', $input);
+        return new HeadObjectOutput($response);
+    }
+
+    /**
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectCOPY.html
+     */
+    public function copyObject(array $input): CopyObjectOutput
+    {
+        $input['Action'] = 'CopyObject';
+        $response = $this->getResponse('PUT', $input);
+        return new CopyObjectOutput($response);
+    }
+
+    /**
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGET.html
+     */
+    public function getObject(array $input): GetObjectOutput
+    {
+        $input['Action'] = 'GetObject';
+        $response = $this->getResponse('GET', $input);
+        return new GetObjectOutput($response);
     }
 }
