@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-  pull_request:
 
 jobs:
 
@@ -30,8 +29,9 @@ jobs:
 
       - name: Download dependencies
         run: |
+          composer config minimum-stability dev
           composer req symfony/phpunit-bridge --no-update
-          composer update --no-interaction --prefer-dist --optimize-autoloader
+          composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
 
       - name: Run tests
         run: ./vendor/bin/simple-phpunit

@@ -11,4 +11,3 @@ you need.
 ```cli
 composer require async-aws/core
 ```
-
