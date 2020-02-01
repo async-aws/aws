@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\Build\Command;
 
 use AsyncAws\Build\Generator\ApiGenerator;
+use AsyncAws\Build\Generator\ServiceDefinition;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -58,9 +59,10 @@ class CreateCommand extends Command
             return 1;
         }
 
-        $definition = \json_decode(\file_get_contents($manifest['services'][$service]['source']), true);
+        $definition = new ServiceDefinition(\json_decode(\file_get_contents($manifest['services'][$service]['source']), true));
+
         $operationName = $input->getArgument('operation');
-        if (!isset($definition['operations'][$operationName])) {
+        if (null === $definition->getOperation($operationName)) {
             $io->error(\sprintf('Could not find operation named "%s".', $operationName));
 
             return 1;
@@ -73,9 +75,17 @@ class CreateCommand extends Command
             return 1;
         }
 
+        $operation = $definition->getOperation($operationName);
         $baseNamespace = \sprintf('AsyncAws\\%s', $service);
         $this->generator->generateOperation($definition, $service, $operationName);
-        $this->generator->generateResultClass($definition['shapes'], $service, $baseNamespace . '\\Result', $definition['operations'][$operationName]['output']['shape'], $definition['operations'][$operationName]['output']['resultWrapper'] ?? null, true);
+        $this->generator->generateResultClass(
+            $definition,
+            $service,
+            $baseNamespace . '\\Result',
+            $operation['output']['shape'],
+            $operation['output']['resultWrapper'] ?? null,
+            true
+        );
 
         // Update manifest file
         $manifest['services'][$service]['methods'][$operationName]['generated'] = \date('c');

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\Build\Command;
 
 use AsyncAws\Build\Generator\ApiGenerator;
+use AsyncAws\Build\Generator\ServiceDefinition;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -55,12 +56,13 @@ class RegenerateCommand extends Command
             return 1;
         }
 
-        $definition = \json_decode(\file_get_contents($manifest['services'][$service]['source']), true);
-        $operationNames = $this->getOperationNames($input, $io, $definition, $manifest['services'][$service]);
+        $definitionArray = \json_decode(\file_get_contents($manifest['services'][$service]['source']), true);
+        $operationNames = $this->getOperationNames($input, $io, $definitionArray, $manifest['services'][$service]);
         if (\is_int($operationNames)) {
             return $operationNames;
         }
 
+        $definition = new ServiceDefinition($definitionArray);
         $baseNamespace = \sprintf('AsyncAws\\%s', $service);
         foreach ($operationNames as $operationName) {
             $operationConfig = $manifest['services'][$service]['methods'][$operationName];
@@ -68,12 +70,13 @@ class RegenerateCommand extends Command
                 $this->generator->generateOperation($definition, $service, $operationName);
             }
             if (!isset($operationConfig['generate-result']) || false !== $operationConfig['generate-result']) {
+                $operation = $definition->getOperation($operationName);
                 $this->generator->generateResultClass(
-                    $definition['shapes'],
+                    $definition,
                     $service,
                     $baseNamespace . '\\Result',
-                    $definition['operations'][$operationName]['output']['shape'],
-                    $definition['operations'][$operationName]['output']['resultWrapper'] ?? null,
+                    $operation['output']['shape'],
+                    $operation['output']['resultWrapper'] ?? null,
                     true
                 );
             }
