@@ -68,7 +68,8 @@ class XmlBuilder
 
         foreach ($data as $name => $value) {
             if (!isset($shape['members'][$name])) {
-                throw new InvalidArgument(sprintf('Invalid config option "%s"', $name));
+                // Ignoring data that is not in $config
+                continue;
             }
             $member = $this->config[$shape['members'][$name]['shape']];
             $el = $document->createElement($shape['members'][$name]['locationName'] ?? $name);
