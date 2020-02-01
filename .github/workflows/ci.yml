@@ -51,5 +51,5 @@ jobs:
           set -e
           for COMPONENT in $(find src -type f -name phpunit.xml.dist -printf '%h\n' | sort)
           do
-            ./vendor/bin/simple-phpunit -c "./src/$COMPONENT"
+            ./vendor/bin/simple-phpunit -c $COMPONENT
           done
