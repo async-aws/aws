@@ -27,8 +27,8 @@ class Grant
      */
     public function __construct(array $input = [])
     {
-        $this->Grantee = isset($input["Grantee"]) ? Grantee::create($input["Grantee"]) : null;
-        $this->Permission = $input["Permission"] ?? null;
+        $this->Grantee = isset($input['Grantee']) ? Grantee::create($input['Grantee']) : null;
+        $this->Permission = $input['Permission'] ?? null;
     }
 
     public function getGrantee(): ?Grantee

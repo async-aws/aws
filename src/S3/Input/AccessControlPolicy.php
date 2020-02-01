@@ -29,8 +29,8 @@ class AccessControlPolicy
     {
         $this->Grants = array_map(function ($item) {
             return Grant::create($item);
-        }, $input["Grants"] ?? []);
-        $this->Owner = isset($input["Owner"]) ? Owner::create($input["Owner"]) : null;
+        }, $input['Grants'] ?? []);
+        $this->Owner = isset($input['Owner']) ? Owner::create($input['Owner']) : null;
     }
 
     public function getGrants(): array

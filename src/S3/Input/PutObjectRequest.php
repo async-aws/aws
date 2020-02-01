@@ -203,36 +203,36 @@ class PutObjectRequest
      */
     public function __construct(array $input = [])
     {
-        $this->ACL = $input["ACL"] ?? null;
-        $this->Body = $input["Body"] ?? null;
-        $this->Bucket = $input["Bucket"] ?? null;
-        $this->CacheControl = $input["CacheControl"] ?? null;
-        $this->ContentDisposition = $input["ContentDisposition"] ?? null;
-        $this->ContentEncoding = $input["ContentEncoding"] ?? null;
-        $this->ContentLanguage = $input["ContentLanguage"] ?? null;
-        $this->ContentLength = $input["ContentLength"] ?? null;
-        $this->ContentMD5 = $input["ContentMD5"] ?? null;
-        $this->ContentType = $input["ContentType"] ?? null;
-        $this->Expires = $input["Expires"] ?? null;
-        $this->GrantFullControl = $input["GrantFullControl"] ?? null;
-        $this->GrantRead = $input["GrantRead"] ?? null;
-        $this->GrantReadACP = $input["GrantReadACP"] ?? null;
-        $this->GrantWriteACP = $input["GrantWriteACP"] ?? null;
-        $this->Key = $input["Key"] ?? null;
-        $this->Metadata = $input["Metadata"] ?? null;
-        $this->ServerSideEncryption = $input["ServerSideEncryption"] ?? null;
-        $this->StorageClass = $input["StorageClass"] ?? null;
-        $this->WebsiteRedirectLocation = $input["WebsiteRedirectLocation"] ?? null;
-        $this->SSECustomerAlgorithm = $input["SSECustomerAlgorithm"] ?? null;
-        $this->SSECustomerKey = $input["SSECustomerKey"] ?? null;
-        $this->SSECustomerKeyMD5 = $input["SSECustomerKeyMD5"] ?? null;
-        $this->SSEKMSKeyId = $input["SSEKMSKeyId"] ?? null;
-        $this->SSEKMSEncryptionContext = $input["SSEKMSEncryptionContext"] ?? null;
-        $this->RequestPayer = $input["RequestPayer"] ?? null;
-        $this->Tagging = $input["Tagging"] ?? null;
-        $this->ObjectLockMode = $input["ObjectLockMode"] ?? null;
-        $this->ObjectLockRetainUntilDate = $input["ObjectLockRetainUntilDate"] ?? null;
-        $this->ObjectLockLegalHoldStatus = $input["ObjectLockLegalHoldStatus"] ?? null;
+        $this->ACL = $input['ACL'] ?? null;
+        $this->Body = $input['Body'] ?? null;
+        $this->Bucket = $input['Bucket'] ?? null;
+        $this->CacheControl = $input['CacheControl'] ?? null;
+        $this->ContentDisposition = $input['ContentDisposition'] ?? null;
+        $this->ContentEncoding = $input['ContentEncoding'] ?? null;
+        $this->ContentLanguage = $input['ContentLanguage'] ?? null;
+        $this->ContentLength = $input['ContentLength'] ?? null;
+        $this->ContentMD5 = $input['ContentMD5'] ?? null;
+        $this->ContentType = $input['ContentType'] ?? null;
+        $this->Expires = $input['Expires'] ?? null;
+        $this->GrantFullControl = $input['GrantFullControl'] ?? null;
+        $this->GrantRead = $input['GrantRead'] ?? null;
+        $this->GrantReadACP = $input['GrantReadACP'] ?? null;
+        $this->GrantWriteACP = $input['GrantWriteACP'] ?? null;
+        $this->Key = $input['Key'] ?? null;
+        $this->Metadata = $input['Metadata'] ?? null;
+        $this->ServerSideEncryption = $input['ServerSideEncryption'] ?? null;
+        $this->StorageClass = $input['StorageClass'] ?? null;
+        $this->WebsiteRedirectLocation = $input['WebsiteRedirectLocation'] ?? null;
+        $this->SSECustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
+        $this->SSECustomerKey = $input['SSECustomerKey'] ?? null;
+        $this->SSECustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
+        $this->SSEKMSKeyId = $input['SSEKMSKeyId'] ?? null;
+        $this->SSEKMSEncryptionContext = $input['SSEKMSEncryptionContext'] ?? null;
+        $this->RequestPayer = $input['RequestPayer'] ?? null;
+        $this->Tagging = $input['Tagging'] ?? null;
+        $this->ObjectLockMode = $input['ObjectLockMode'] ?? null;
+        $this->ObjectLockRetainUntilDate = $input['ObjectLockRetainUntilDate'] ?? null;
+        $this->ObjectLockLegalHoldStatus = $input['ObjectLockLegalHoldStatus'] ?? null;
     }
 
     public function getACL(): ?string
@@ -599,82 +599,82 @@ class PutObjectRequest
     {
         $headers = [];
         if (null !== $this->ACL) {
-            $headers["x-amz-acl"] = $this->ACL;
+            $headers['x-amz-acl'] = $this->ACL;
         }
         if (null !== $this->CacheControl) {
-            $headers["Cache-Control"] = $this->CacheControl;
+            $headers['Cache-Control'] = $this->CacheControl;
         }
         if (null !== $this->ContentDisposition) {
-            $headers["Content-Disposition"] = $this->ContentDisposition;
+            $headers['Content-Disposition'] = $this->ContentDisposition;
         }
         if (null !== $this->ContentEncoding) {
-            $headers["Content-Encoding"] = $this->ContentEncoding;
+            $headers['Content-Encoding'] = $this->ContentEncoding;
         }
         if (null !== $this->ContentLanguage) {
-            $headers["Content-Language"] = $this->ContentLanguage;
+            $headers['Content-Language'] = $this->ContentLanguage;
         }
         if (null !== $this->ContentLength) {
-            $headers["Content-Length"] = $this->ContentLength;
+            $headers['Content-Length'] = $this->ContentLength;
         }
         if (null !== $this->ContentMD5) {
-            $headers["Content-MD5"] = $this->ContentMD5;
+            $headers['Content-MD5'] = $this->ContentMD5;
         }
         if (null !== $this->ContentType) {
-            $headers["Content-Type"] = $this->ContentType;
+            $headers['Content-Type'] = $this->ContentType;
         }
         if (null !== $this->Expires) {
-            $headers["Expires"] = $this->Expires;
+            $headers['Expires'] = $this->Expires;
         }
         if (null !== $this->GrantFullControl) {
-            $headers["x-amz-grant-full-control"] = $this->GrantFullControl;
+            $headers['x-amz-grant-full-control'] = $this->GrantFullControl;
         }
         if (null !== $this->GrantRead) {
-            $headers["x-amz-grant-read"] = $this->GrantRead;
+            $headers['x-amz-grant-read'] = $this->GrantRead;
         }
         if (null !== $this->GrantReadACP) {
-            $headers["x-amz-grant-read-acp"] = $this->GrantReadACP;
+            $headers['x-amz-grant-read-acp'] = $this->GrantReadACP;
         }
         if (null !== $this->GrantWriteACP) {
-            $headers["x-amz-grant-write-acp"] = $this->GrantWriteACP;
+            $headers['x-amz-grant-write-acp'] = $this->GrantWriteACP;
         }
         if (null !== $this->ServerSideEncryption) {
-            $headers["x-amz-server-side-encryption"] = $this->ServerSideEncryption;
+            $headers['x-amz-server-side-encryption'] = $this->ServerSideEncryption;
         }
         if (null !== $this->StorageClass) {
-            $headers["x-amz-storage-class"] = $this->StorageClass;
+            $headers['x-amz-storage-class'] = $this->StorageClass;
         }
         if (null !== $this->WebsiteRedirectLocation) {
-            $headers["x-amz-website-redirect-location"] = $this->WebsiteRedirectLocation;
+            $headers['x-amz-website-redirect-location'] = $this->WebsiteRedirectLocation;
         }
         if (null !== $this->SSECustomerAlgorithm) {
-            $headers["x-amz-server-side-encryption-customer-algorithm"] = $this->SSECustomerAlgorithm;
+            $headers['x-amz-server-side-encryption-customer-algorithm'] = $this->SSECustomerAlgorithm;
         }
         if (null !== $this->SSECustomerKey) {
-            $headers["x-amz-server-side-encryption-customer-key"] = $this->SSECustomerKey;
+            $headers['x-amz-server-side-encryption-customer-key'] = $this->SSECustomerKey;
         }
         if (null !== $this->SSECustomerKeyMD5) {
-            $headers["x-amz-server-side-encryption-customer-key-MD5"] = $this->SSECustomerKeyMD5;
+            $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->SSECustomerKeyMD5;
         }
         if (null !== $this->SSEKMSKeyId) {
-            $headers["x-amz-server-side-encryption-aws-kms-key-id"] = $this->SSEKMSKeyId;
+            $headers['x-amz-server-side-encryption-aws-kms-key-id'] = $this->SSEKMSKeyId;
         }
         if (null !== $this->SSEKMSEncryptionContext) {
-            $headers["x-amz-server-side-encryption-context"] = $this->SSEKMSEncryptionContext;
+            $headers['x-amz-server-side-encryption-context'] = $this->SSEKMSEncryptionContext;
         }
         if (null !== $this->RequestPayer) {
-            $headers["x-amz-request-payer"] = $this->RequestPayer;
+            $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
         if (null !== $this->Tagging) {
-            $headers["x-amz-tagging"] = $this->Tagging;
+            $headers['x-amz-tagging'] = $this->Tagging;
         }
         if (null !== $this->ObjectLockMode) {
-            $headers["x-amz-object-lock-mode"] = $this->ObjectLockMode;
+            $headers['x-amz-object-lock-mode'] = $this->ObjectLockMode;
         }
         if (null !== $this->ObjectLockRetainUntilDate) {
-            $headers["x-amz-object-lock-retain-until-date"] = $this->ObjectLockRetainUntilDate;
+            $headers['x-amz-object-lock-retain-until-date'] = $this->ObjectLockRetainUntilDate;
         }
         if (null !== $this->ObjectLockLegalHoldStatus) {
-            $headers["x-amz-object-lock-legal-hold"] = $this->ObjectLockLegalHoldStatus;
+            $headers['x-amz-object-lock-legal-hold'] = $this->ObjectLockLegalHoldStatus;
         }
 
         return $headers;
@@ -691,7 +691,7 @@ class PutObjectRequest
     {
         $payload = ['Action' => 'PutObject'];
         if (null !== $this->Body) {
-            $payload["Body"] = $this->Body;
+            $payload['Body'] = $this->Body;
         }
 
         return $payload;

@@ -47,10 +47,10 @@ class GetObjectAclRequest
      */
     public function __construct(array $input = [])
     {
-        $this->Bucket = $input["Bucket"] ?? null;
-        $this->Key = $input["Key"] ?? null;
-        $this->VersionId = $input["VersionId"] ?? null;
-        $this->RequestPayer = $input["RequestPayer"] ?? null;
+        $this->Bucket = $input['Bucket'] ?? null;
+        $this->Key = $input['Key'] ?? null;
+        $this->VersionId = $input['VersionId'] ?? null;
+        $this->RequestPayer = $input['RequestPayer'] ?? null;
     }
 
     public function getBucket(): ?string
@@ -105,7 +105,7 @@ class GetObjectAclRequest
     {
         $headers = [];
         if (null !== $this->RequestPayer) {
-            $headers["x-amz-request-payer"] = $this->RequestPayer;
+            $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
 
         return $headers;
@@ -115,7 +115,7 @@ class GetObjectAclRequest
     {
         $query = [];
         if (null !== $this->VersionId) {
-            $query["versionId"] = $this->VersionId;
+            $query['versionId'] = $this->VersionId;
         }
 
         return $query;

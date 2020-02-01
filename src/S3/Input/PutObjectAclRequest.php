@@ -95,18 +95,18 @@ class PutObjectAclRequest
      */
     public function __construct(array $input = [])
     {
-        $this->ACL = $input["ACL"] ?? null;
-        $this->AccessControlPolicy = isset($input["AccessControlPolicy"]) ? AccessControlPolicy::create($input["AccessControlPolicy"]) : null;
-        $this->Bucket = $input["Bucket"] ?? null;
-        $this->ContentMD5 = $input["ContentMD5"] ?? null;
-        $this->GrantFullControl = $input["GrantFullControl"] ?? null;
-        $this->GrantRead = $input["GrantRead"] ?? null;
-        $this->GrantReadACP = $input["GrantReadACP"] ?? null;
-        $this->GrantWrite = $input["GrantWrite"] ?? null;
-        $this->GrantWriteACP = $input["GrantWriteACP"] ?? null;
-        $this->Key = $input["Key"] ?? null;
-        $this->RequestPayer = $input["RequestPayer"] ?? null;
-        $this->VersionId = $input["VersionId"] ?? null;
+        $this->ACL = $input['ACL'] ?? null;
+        $this->AccessControlPolicy = isset($input['AccessControlPolicy']) ? AccessControlPolicy::create($input['AccessControlPolicy']) : null;
+        $this->Bucket = $input['Bucket'] ?? null;
+        $this->ContentMD5 = $input['ContentMD5'] ?? null;
+        $this->GrantFullControl = $input['GrantFullControl'] ?? null;
+        $this->GrantRead = $input['GrantRead'] ?? null;
+        $this->GrantReadACP = $input['GrantReadACP'] ?? null;
+        $this->GrantWrite = $input['GrantWrite'] ?? null;
+        $this->GrantWriteACP = $input['GrantWriteACP'] ?? null;
+        $this->Key = $input['Key'] ?? null;
+        $this->RequestPayer = $input['RequestPayer'] ?? null;
+        $this->VersionId = $input['VersionId'] ?? null;
     }
 
     public function getACL(): ?string
@@ -257,28 +257,28 @@ class PutObjectAclRequest
     {
         $headers = [];
         if (null !== $this->ACL) {
-            $headers["x-amz-acl"] = $this->ACL;
+            $headers['x-amz-acl'] = $this->ACL;
         }
         if (null !== $this->ContentMD5) {
-            $headers["Content-MD5"] = $this->ContentMD5;
+            $headers['Content-MD5'] = $this->ContentMD5;
         }
         if (null !== $this->GrantFullControl) {
-            $headers["x-amz-grant-full-control"] = $this->GrantFullControl;
+            $headers['x-amz-grant-full-control'] = $this->GrantFullControl;
         }
         if (null !== $this->GrantRead) {
-            $headers["x-amz-grant-read"] = $this->GrantRead;
+            $headers['x-amz-grant-read'] = $this->GrantRead;
         }
         if (null !== $this->GrantReadACP) {
-            $headers["x-amz-grant-read-acp"] = $this->GrantReadACP;
+            $headers['x-amz-grant-read-acp'] = $this->GrantReadACP;
         }
         if (null !== $this->GrantWrite) {
-            $headers["x-amz-grant-write"] = $this->GrantWrite;
+            $headers['x-amz-grant-write'] = $this->GrantWrite;
         }
         if (null !== $this->GrantWriteACP) {
-            $headers["x-amz-grant-write-acp"] = $this->GrantWriteACP;
+            $headers['x-amz-grant-write-acp'] = $this->GrantWriteACP;
         }
         if (null !== $this->RequestPayer) {
-            $headers["x-amz-request-payer"] = $this->RequestPayer;
+            $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
 
         return $headers;
@@ -288,7 +288,7 @@ class PutObjectAclRequest
     {
         $query = [];
         if (null !== $this->VersionId) {
-            $query["versionId"] = $this->VersionId;
+            $query['versionId'] = $this->VersionId;
         }
 
         return $query;
@@ -298,7 +298,7 @@ class PutObjectAclRequest
     {
         $payload = ['Action' => 'PutObjectAcl'];
         if (null !== $this->AccessControlPolicy) {
-            $payload["AccessControlPolicy"] = $this->AccessControlPolicy;
+            $payload['AccessControlPolicy'] = $this->AccessControlPolicy;
         }
 
         return $payload;

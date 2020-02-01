@@ -21,7 +21,7 @@ class CreateBucketConfiguration
      */
     public function __construct(array $input = [])
     {
-        $this->LocationConstraint = $input["LocationConstraint"] ?? null;
+        $this->LocationConstraint = $input['LocationConstraint'] ?? null;
     }
 
     public function getLocationConstraint(): ?string

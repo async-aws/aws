@@ -70,8 +70,8 @@ class XmlBuilder
             if (!isset($shape['members'][$name])) {
                 throw new InvalidArgument(sprintf('Invalid config option "%s"', $name));
             }
-            $member = $this->config[$name];
-            $el = $document->createElement($member['locationName'] ?? $name);
+            $member = $this->config[$shape['members'][$name]['shape']];
+            $el = $document->createElement($shape['members'][$name]['locationName'] ?? $name);
             $parentElement->appendChild($el);
 
             if (\is_array($value)) {

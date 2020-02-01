@@ -101,19 +101,19 @@ class HeadObjectRequest
      */
     public function __construct(array $input = [])
     {
-        $this->Bucket = $input["Bucket"] ?? null;
-        $this->IfMatch = $input["IfMatch"] ?? null;
-        $this->IfModifiedSince = $input["IfModifiedSince"] ?? null;
-        $this->IfNoneMatch = $input["IfNoneMatch"] ?? null;
-        $this->IfUnmodifiedSince = $input["IfUnmodifiedSince"] ?? null;
-        $this->Key = $input["Key"] ?? null;
-        $this->Range = $input["Range"] ?? null;
-        $this->VersionId = $input["VersionId"] ?? null;
-        $this->SSECustomerAlgorithm = $input["SSECustomerAlgorithm"] ?? null;
-        $this->SSECustomerKey = $input["SSECustomerKey"] ?? null;
-        $this->SSECustomerKeyMD5 = $input["SSECustomerKeyMD5"] ?? null;
-        $this->RequestPayer = $input["RequestPayer"] ?? null;
-        $this->PartNumber = $input["PartNumber"] ?? null;
+        $this->Bucket = $input['Bucket'] ?? null;
+        $this->IfMatch = $input['IfMatch'] ?? null;
+        $this->IfModifiedSince = $input['IfModifiedSince'] ?? null;
+        $this->IfNoneMatch = $input['IfNoneMatch'] ?? null;
+        $this->IfUnmodifiedSince = $input['IfUnmodifiedSince'] ?? null;
+        $this->Key = $input['Key'] ?? null;
+        $this->Range = $input['Range'] ?? null;
+        $this->VersionId = $input['VersionId'] ?? null;
+        $this->SSECustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
+        $this->SSECustomerKey = $input['SSECustomerKey'] ?? null;
+        $this->SSECustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
+        $this->RequestPayer = $input['RequestPayer'] ?? null;
+        $this->PartNumber = $input['PartNumber'] ?? null;
     }
 
     public function getBucket(): ?string
@@ -276,31 +276,31 @@ class HeadObjectRequest
     {
         $headers = [];
         if (null !== $this->IfMatch) {
-            $headers["If-Match"] = $this->IfMatch;
+            $headers['If-Match'] = $this->IfMatch;
         }
         if (null !== $this->IfModifiedSince) {
-            $headers["If-Modified-Since"] = $this->IfModifiedSince;
+            $headers['If-Modified-Since'] = $this->IfModifiedSince;
         }
         if (null !== $this->IfNoneMatch) {
-            $headers["If-None-Match"] = $this->IfNoneMatch;
+            $headers['If-None-Match'] = $this->IfNoneMatch;
         }
         if (null !== $this->IfUnmodifiedSince) {
-            $headers["If-Unmodified-Since"] = $this->IfUnmodifiedSince;
+            $headers['If-Unmodified-Since'] = $this->IfUnmodifiedSince;
         }
         if (null !== $this->Range) {
-            $headers["Range"] = $this->Range;
+            $headers['Range'] = $this->Range;
         }
         if (null !== $this->SSECustomerAlgorithm) {
-            $headers["x-amz-server-side-encryption-customer-algorithm"] = $this->SSECustomerAlgorithm;
+            $headers['x-amz-server-side-encryption-customer-algorithm'] = $this->SSECustomerAlgorithm;
         }
         if (null !== $this->SSECustomerKey) {
-            $headers["x-amz-server-side-encryption-customer-key"] = $this->SSECustomerKey;
+            $headers['x-amz-server-side-encryption-customer-key'] = $this->SSECustomerKey;
         }
         if (null !== $this->SSECustomerKeyMD5) {
-            $headers["x-amz-server-side-encryption-customer-key-MD5"] = $this->SSECustomerKeyMD5;
+            $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->SSECustomerKeyMD5;
         }
         if (null !== $this->RequestPayer) {
-            $headers["x-amz-request-payer"] = $this->RequestPayer;
+            $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
 
         return $headers;
@@ -310,10 +310,10 @@ class HeadObjectRequest
     {
         $query = [];
         if (null !== $this->VersionId) {
-            $query["versionId"] = $this->VersionId;
+            $query['versionId'] = $this->VersionId;
         }
         if (null !== $this->PartNumber) {
-            $query["partNumber"] = $this->PartNumber;
+            $query['partNumber'] = $this->PartNumber;
         }
 
         return $query;

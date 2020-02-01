@@ -4,7 +4,7 @@
 ![](https://github.com/async-aws/core/workflows/BC%20Check/badge.svg?branch=master)
 
 This is where base classes and authentication live. This is really the only package
-you need. 
+you need.
 
 ## Install
 
