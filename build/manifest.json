@@ -36,7 +36,12 @@
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sesv2\/2019-09-27\/api-2.json"
         },
         "Sqs": {
-            "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sqs\/2012-11-05\/api-2.json"
+            "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sqs\/2012-11-05\/api-2.json",
+            "methods": {
+                "SendMessage": {
+                    "generated": "2020-02-01T01:00:44+00:00"
+                }
+            }
         }
     }
 }
