@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core;
 
-use AsyncAws\Core\Exception\InvalidArgument;
-
 /**
  * Build great API requests bodies.
  *
