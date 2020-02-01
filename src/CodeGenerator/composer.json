@@ -14,8 +14,7 @@
         "symfony/service-contracts": "^2.0"
     },
     "require-dev": {
-        "ext-json": "*",
-        "symfony/phpunit-bridge": "^5.0"
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {

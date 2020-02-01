@@ -38,7 +38,7 @@ jobs:
         run: |
           set -e
           CURRENT_DIR=$(pwd)
-          for COMPONENT in $(find src -type f -name phpunit.xml.dist -printf '%h\n' | sort)
+          for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
           do
             echo ::group::$COMPONENT
             echo "$CURRENT_DIR/$COMPONENT"
@@ -54,10 +54,9 @@ jobs:
         run: |
           set -e
           pwd
-          for COMPONENT in $(find src -type f -name phpunit.xml.dist -printf '%h\n' | sort)
+          for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
           do
             echo ::group::$COMPONENT
-            pwd
             ./vendor/bin/simple-phpunit -c "./$COMPONENT"
             echo ::endgroup::
           done
