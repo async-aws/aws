@@ -23,8 +23,6 @@ class Result
      */
     private $response;
 
-    private $initialized = false;
-
     public function __construct(ResponseInterface $response)
     {
         $this->response = $response;
@@ -32,13 +30,12 @@ class Result
 
     final protected function initialize(): void
     {
-        if ($this->initialized) {
+        if (!isset($this->response)) {
             return;
         }
         $this->resolve();
         $this->populateFromResponse($this->response);
         unset($this->response);
-        $this->initialized = true;
     }
 
     protected function populateFromResponse(ResponseInterface $response): void
@@ -74,6 +71,30 @@ class Result
         if (300 <= $statusCode) {
             throw new RedirectionException($this->response);
         }
+    }
+
+    /**
+     * Returns info on the current request
+     *
+     * @return array{
+     *   resolved: bool
+     *   response?: ?ResponseInterface,
+     *   status?: int
+     * }
+     */
+    final public function info(): array
+    {
+        if (!isset($this->response)) {
+            return [
+                'resolved' => true,
+            ];
+        }
+
+        return [
+            'resolved' => false,
+            'response' => $this->response,
+            'status' => $this->response->getInfo('http_code'),
+        ];
     }
 
     final public function cancel(): void
