@@ -37,6 +37,7 @@ class Result
         }
         $this->resolve();
         $this->populateFromResponse($this->response);
+        unset($this->response);
         $this->initialized = true;
     }
 
