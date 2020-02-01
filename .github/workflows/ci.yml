@@ -11,11 +11,12 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    env:
+      COMPONENTS: ['Core', 'S3', 'Ses', 'Sqs']
     strategy:
       max-parallel: 10
       matrix:
         php: ['7.2', '7.3', '7.4']
-        component: ['Core', 'S3', 'Ses', 'Sqs']
 
     steps:
       - name: Set up PHP
@@ -37,10 +38,17 @@ jobs:
 
       - name: Download dependencies
         run: |
-          cd "./src/${{ matrix.component }}"
-          sed -i -re 's/"async-aws\/core": "[^"]+",/"async-aws\/core": "*@dev",/' composer.json
-          sed -i -re 's/"require": \{/"repositories": [{"type": "path","url": "..\/Core"}],"require": \{/' composer.json
-          composer update --no-interaction --prefer-dist --optimize-autoloader
+          for COMPONENT in COMPONENTS
+          do
+            cd "./src/$COMPONENT"
+            sed -i -re 's/"async-aws\/core": "[^"]+",/"async-aws\/core": "*@dev",/' composer.json
+            sed -i -re 's/"require": \{/"repositories": [{"type": "path","url": "..\/Core"}],"require": \{/' composer.json
+            composer update --no-interaction --prefer-dist --optimize-autoloader
+          done
 
       - name: Run tests
-        run: ./vendor/bin/simple-phpunit -c "./src/${{ matrix.component }}"
+        run: |
+          for COMPONENT in COMPONENTS
+          do
+            ./vendor/bin/simple-phpunit -c "./src/$COMPONENT"
+          done
