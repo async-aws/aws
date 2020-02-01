@@ -10,13 +10,34 @@ jobs:
   composer-normalize:
     name: Composer Normalize
     runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 10
+      matrix:
+        component: ['Core', 'S3', 'Ses', 'Sqs']
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Normalize
-        uses: "docker://ergebnis/composer-normalize-action:latest"
+    - name: Normalize
+      uses: "docker://ergebnis/composer-normalize-action:latest"
+      env:
+        COMPOSER_HOME: /root/.composer
+      with:
+        args: "./src/${{ matrix.component }}/composer.json --dry-run"
+
+  composer-normalize-root:
+    name: Composer Normalize Root
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Normalize
+      env:
+        COMPOSER_HOME: /root/.composer
+      uses: "docker://ergebnis/composer-normalize-action:latest"
 
 #  roave-bc-check:
 #    name: Roave BC Check

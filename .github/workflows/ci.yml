@@ -15,6 +15,7 @@ jobs:
       max-parallel: 10
       matrix:
         php: ['7.2', '7.3', '7.4']
+        component: ['Core', 'S3', 'Ses', 'Sqs']
 
     steps:
       - name: Set up PHP
@@ -28,8 +29,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Download phpunit
+        run: |
+          rm composer.*
+          composer init --no-interaction
+          composer req symfony/phpunit-bridge
+
       - name: Download dependencies
-        run: composer update --no-interaction --prefer-dist
+        run: |
+          cd "./src/${{ matrix.component }}"
+          sed -i -re 's/"async-aws\/core": "[^"]+",/"async-aws\/core": "*@dev",/' composer.json
+          sed -i -re 's/"require": \{/"repositories": [{"type": "path","url": "..\/Core"}],"require": \{/' composer.json
+          composer update --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Run tests
-        run: ./vendor/bin/phpunit
+        run: ./vendor/bin/simple-phpunit -c "./src/${{ matrix.component }}"
