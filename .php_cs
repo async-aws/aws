@@ -65,6 +65,7 @@ return PhpCsFixer\Config::create()
         'function_typehint_space' => true,
         'no_leading_namespace_whitespace' => true,
         'blank_line_before_statement' => true,
+        'single_quote' => true,
     ])
     ->setFinder($finder)
 ;
