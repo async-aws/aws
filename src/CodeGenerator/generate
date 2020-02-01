@@ -1,0 +1,11 @@
+#!/usr/bin/env php
+<?php
+
+if (!file_exists(__DIR__.'/vendor/autoload.php')) {
+    echo "Run `composer install` before you run the `generate` script.\n";
+    exit(1);
+}
+
+require __DIR__.'/vendor/autoload.php';
+
+require __DIR__.'/generate.php';

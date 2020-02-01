@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\Build\Command;
+namespace AsyncAws\CodeGenerator\Command;
 
-use AsyncAws\Build\Generator\ApiGenerator;
-use AsyncAws\Build\Generator\ServiceDefinition;
+use AsyncAws\CodeGenerator\Generator\ApiGenerator;
+use AsyncAws\CodeGenerator\Generator\ServiceDefinition;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
