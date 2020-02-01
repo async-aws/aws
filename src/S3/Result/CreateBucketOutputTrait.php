@@ -11,6 +11,6 @@ trait CreateBucketOutputTrait
         $data = new \SimpleXMLElement($response->getContent(false));
 
         // TODO Verify correctness
-        $this->Location = $data->Location;
+        $this->Location = $this->xmlValueOrNull($data->Location);
     }
 }

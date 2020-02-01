@@ -11,8 +11,8 @@ trait DeleteObjectOutputTrait
         $data = new \SimpleXMLElement($response->getContent(false));
 
         // TODO Verify correctness
-        $this->DeleteMarker = $data->DeleteMarker;
-        $this->VersionId = $data->VersionId;
-        $this->RequestCharged = $data->RequestCharged;
+        $this->DeleteMarker = $this->xmlValueOrNull($data->DeleteMarker);
+        $this->VersionId = $this->xmlValueOrNull($data->VersionId);
+        $this->RequestCharged = $this->xmlValueOrNull($data->RequestCharged);
     }
 }

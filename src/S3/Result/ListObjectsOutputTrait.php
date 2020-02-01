@@ -11,15 +11,15 @@ trait ListObjectsOutputTrait
         $data = new \SimpleXMLElement($response->getContent(false));
 
         // TODO Verify correctness
-        $this->IsTruncated = $data->IsTruncated;
-        $this->Marker = $data->Marker;
-        $this->NextMarker = $data->NextMarker;
-        $this->Contents = $data->Contents;
-        $this->Name = $data->Name;
-        $this->Prefix = $data->Prefix;
-        $this->Delimiter = $data->Delimiter;
-        $this->MaxKeys = $data->MaxKeys;
-        $this->CommonPrefixes = $data->CommonPrefixes;
-        $this->EncodingType = $data->EncodingType;
+        $this->IsTruncated = $this->xmlValueOrNull($data->IsTruncated);
+        $this->Marker = $this->xmlValueOrNull($data->Marker);
+        $this->NextMarker = $this->xmlValueOrNull($data->NextMarker);
+        $this->Contents = $this->xmlValueOrNull($data->Contents);
+        $this->Name = $this->xmlValueOrNull($data->Name);
+        $this->Prefix = $this->xmlValueOrNull($data->Prefix);
+        $this->Delimiter = $this->xmlValueOrNull($data->Delimiter);
+        $this->MaxKeys = $this->xmlValueOrNull($data->MaxKeys);
+        $this->CommonPrefixes = $this->xmlValueOrNull($data->CommonPrefixes);
+        $this->EncodingType = $this->xmlValueOrNull($data->EncodingType);
     }
 }

@@ -64,21 +64,23 @@ class RegenerateCommand extends Command
 
         $definition = new ServiceDefinition($definitionArray);
         $baseNamespace = \sprintf('AsyncAws\\%s', $service);
+        $resultNamespace = $baseNamespace . '\\Result';
+
         foreach ($operationNames as $operationName) {
+            $operation = $definition->getOperation($operationName);
             $operationConfig = $manifest['services'][$service]['methods'][$operationName];
+            $resultClassName = $operation['output']['shape'];
+
             if (!isset($operationConfig['generate-method']) || false !== $operationConfig['generate-method']) {
                 $this->generator->generateOperation($definition, $service, $operationName);
             }
+
+            if (!isset($operationConfig['generate-result-trait']) || false !== $operationConfig['generate-result-trait']) {
+                $this->generator->generateOutputTrait($definition, $service, $resultNamespace, $resultClassName);
+            }
+
             if (!isset($operationConfig['generate-result']) || false !== $operationConfig['generate-result']) {
-                $operation = $definition->getOperation($operationName);
-                $this->generator->generateResultClass(
-                    $definition,
-                    $service,
-                    $baseNamespace . '\\Result',
-                    $operation['output']['shape'],
-                    $operation['output']['resultWrapper'] ?? null,
-                    true
-                );
+                $this->generator->generateResultClass($definition, $service, $resultNamespace, $resultClassName, true);
             }
 
             // Update manifest file

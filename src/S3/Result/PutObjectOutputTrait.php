@@ -11,14 +11,14 @@ trait PutObjectOutputTrait
         $data = new \SimpleXMLElement($response->getContent(false));
 
         // TODO Verify correctness
-        $this->Expiration = $data->Expiration;
-        $this->ETag = $data->ETag;
-        $this->ServerSideEncryption = $data->ServerSideEncryption;
-        $this->VersionId = $data->VersionId;
-        $this->SSECustomerAlgorithm = $data->SSECustomerAlgorithm;
-        $this->SSECustomerKeyMD5 = $data->SSECustomerKeyMD5;
-        $this->SSEKMSKeyId = $data->SSEKMSKeyId;
-        $this->SSEKMSEncryptionContext = $data->SSEKMSEncryptionContext;
-        $this->RequestCharged = $data->RequestCharged;
+        $this->Expiration = $this->xmlValueOrNull($data->Expiration);
+        $this->ETag = $this->xmlValueOrNull($data->ETag);
+        $this->ServerSideEncryption = $this->xmlValueOrNull($data->ServerSideEncryption);
+        $this->VersionId = $this->xmlValueOrNull($data->VersionId);
+        $this->SSECustomerAlgorithm = $this->xmlValueOrNull($data->SSECustomerAlgorithm);
+        $this->SSECustomerKeyMD5 = $this->xmlValueOrNull($data->SSECustomerKeyMD5);
+        $this->SSEKMSKeyId = $this->xmlValueOrNull($data->SSEKMSKeyId);
+        $this->SSEKMSEncryptionContext = $this->xmlValueOrNull($data->SSEKMSEncryptionContext);
+        $this->RequestCharged = $this->xmlValueOrNull($data->RequestCharged);
     }
 }
