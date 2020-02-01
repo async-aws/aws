@@ -24,6 +24,13 @@ class ApiGenerator
      */
     private $srcDirectory;
 
+    /**
+     * All public classes take a definition as first parameter.
+     *
+     * @var ServiceDefinition
+     */
+    private $definition;
+
     public function __construct(string $srcDirectory)
     {
         $this->srcDirectory = $srcDirectory;
@@ -32,14 +39,15 @@ class ApiGenerator
     /**
      * Update the API client with a new function call.
      */
-    public function generateOperation($definition, $service, $operationName): void
+    public function generateOperation(ServiceDefinition $definition, string $service, string $operationName): void
     {
-        $operation = $definition['operations'][$operationName];
-        $inputShape = $definition['shapes'][$operation['input']['shape']] ?? [];
+        $this->definition = $definition;
+        $operation = $definition->getOperation($operationName);
+        $inputShape = $definition->getShape($operation['input']['shape']) ?? [];
 
         $baseNamespace = \sprintf('AsyncAws\\%s', $service);
         $inputClassName = $operation['input']['shape'];
-        $this->generateInputClass($definition, $service, $operationName, $baseNamespace . '\\Input', $inputClassName, true);
+        $this->generateInputClass($service, $operationName, $baseNamespace . '\\Input', $inputClassName, true);
         $inputClass = $baseNamespace . '\\Input\\' . $inputClassName;
 
         $namespace = ClassFactory::fromExistingClass(\sprintf('%s\\%sClient', $baseNamespace, $service));
@@ -53,7 +61,7 @@ class ApiGenerator
         }
         // TODO add Input object
         $method->addComment('@param array{');
-        $this->addMethodComment($definition['shapes'], $method, $inputShape, $baseNamespace . '\\Input');
+        $this->addMethodComment($method, $inputShape, $baseNamespace . '\\Input');
         $method->addComment('}|' . $inputClassName . ' $input');
         $method->addParameter('input');
 
@@ -63,7 +71,7 @@ class ApiGenerator
         $namespace->addUse(XmlBuilder::class);
 
         // Generate method body
-        $this->setMethodBody($definition, $inputShape, $method, $operation, $inputClassName);
+        $this->setMethodBody($inputShape, $method, $operation, $inputClassName);
 
         $printer = new PsrPrinter();
         $filename = \sprintf('%s/%s/%sClient.php', $this->srcDirectory, $service, $service);
@@ -73,8 +81,10 @@ class ApiGenerator
     /**
      * Generate classes for the output. Ie, the result of the API call.
      */
-    public function generateResultClass(array $shapes, string $service, string $baseNamespace, string $className, $wrapper = null, bool $root = false)
+    public function generateResultClass(ServiceDefinition $definition, string $service, string $baseNamespace, string $className, $wrapper = null, bool $root = false)
     {
+        $this->definition = $definition;
+        $shapes = $definition->getShapes();
         $namespace = new PhpNamespace($baseNamespace);
         $class = $namespace->addClass($className);
         $members = $shapes[$className]['members'];
@@ -97,7 +107,7 @@ class ApiGenerator
             $parameterType = $members[$name]['shape'];
 
             if ('structure' === $shapes[$parameterType]['type']) {
-                $this->generateResultClass($shapes, $service, $baseNamespace, $parameterType);
+                $this->generateResultClass($this->definition, $service, $baseNamespace, $parameterType);
                 $parameterType = $baseNamespace . '\\' . $parameterType;
             } else {
                 $parameterType = $this->toPhpType($shapes[$parameterType]['type']);
@@ -129,10 +139,10 @@ PHP
     /**
      * Generate classes for the input.
      */
-    private function generateInputClass(array $definition, string $service, string $operationName, string $baseNamespace, string $className, bool $root = false)
+    private function generateInputClass(string $service, string $operationName, string $baseNamespace, string $className, bool $root = false)
     {
-        $operation = $definition['operations'][$operationName];
-        $shapes = $definition['shapes'];
+        $operation = $this->definition->getOperation($operationName);
+        $shapes = $this->definition->getShapes();
         $inputShape = $shapes[$className] ?? [];
         $members = $inputShape['members'];
 
@@ -153,7 +163,7 @@ PHP
         }
 
         $constructor->addComment('@param array{');
-        $this->addMethodComment($definition['shapes'], $constructor, $inputShape, $baseNamespace);
+        $this->addMethodComment($constructor, $inputShape, $baseNamespace);
         $constructor->addComment('} $input');
         $constructor->addParameter('input')->setType('array')->setDefaultValue([]);
         $constructorBody = '';
@@ -163,12 +173,12 @@ PHP
             $memberShape = $shapes[$parameterType];
             $nullable = true;
             if ('structure' === $memberShape['type']) {
-                $this->generateInputClass($definition, $service, $operationName, $baseNamespace, $parameterType);
+                $this->generateInputClass($service, $operationName, $baseNamespace, $parameterType);
                 $returnType = $baseNamespace . '\\' . $parameterType;
                 $constructorBody .= sprintf('$this->%s = isset($input["%s"]) ? %s::create($input["%s"]) : null;' . "\n", $name, $name, $parameterType, $name);
             } elseif ('list' === $memberShape['type']) {
                 $parameterType = $memberShape['member']['shape'] . '[]';
-                $this->generateInputClass($definition, $service, $operationName, $baseNamespace, $memberShape['member']['shape']);
+                $this->generateInputClass($service, $operationName, $baseNamespace, $memberShape['member']['shape']);
                 $returnType = $baseNamespace . '\\' . $memberShape['member']['shape'];
                 $constructorBody .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, $memberShape['member']['shape'], $name);
                 $nullable = false;
@@ -246,7 +256,7 @@ PHP;
         $class->addMethod('requestUri')->setReturnType('string')->setBody($body['uri']);
     }
 
-    private function createOutputTrait($baseNamespace, string $traitName, $members, string $traitFilename)
+    private function createOutputTrait($baseNamespace, string $traitName, $members, ?string $wrapper, string $traitFilename)
     {
         $namespace = new PhpNamespace($baseNamespace);
         $namespace->addUse(ResponseInterface::class);
@@ -288,9 +298,9 @@ PHP;
     /**
      * Pick only the config from $shapes we are interested in.
      */
-    private function buildXmlConfig(array $shapes, string $shapeName): array
+    private function buildXmlConfig(string $shapeName): array
     {
-        $shape = $shapes[$shapeName];
+        $shape = $this->definition->getShape($shapeName);
         if (!\in_array($shape['type'] ?? 'structure', ['structure', 'list'])) {
             $xml[$shapeName]['type'] = $this->toPhpType($shape['type']);
 
@@ -306,7 +316,7 @@ PHP;
         }
 
         foreach ($members as $name => $data) {
-            $xml = array_merge($xml, $this->buildXmlConfig($shapes, $data['shape'] ?? $name));
+            $xml = array_merge($xml, $this->buildXmlConfig($data['shape'] ?? $name));
         }
 
         return $xml;
@@ -323,15 +333,15 @@ PHP;
         return $output;
     }
 
-    private function addMethodComment(array $shapes, Method $method, array $inputShape, string $baseNamespace): void
+    private function addMethodComment(Method $method, array $inputShape, string $baseNamespace): void
     {
         foreach ($inputShape['members'] as $name => $data) {
             $nullable = !\in_array($name, $inputShape['required'] ?? []);
-            $param = $shapes[$data['shape']]['type'];
+            $param = $this->definition->getShape($data['shape'])['type'];
             if ('structure' === $param) {
                 $param = '\\' . $baseNamespace . '\\' . $name . '|array';
             } elseif ('list' === $param) {
-                $param = '\\' . $baseNamespace . '\\' . $shapes[$data['shape']]['member']['shape'] . '[]';
+                $param = '\\' . $baseNamespace . '\\' . $this->definition->getShape($data['shape'])['member']['shape'] . '[]';
             } else {
                 $param = $this->toPhpType($param);
             }
@@ -340,7 +350,7 @@ PHP;
         }
     }
 
-    private function setMethodBody(array $definition, array $inputShape, Method $method, array $operation, $inputClassName): void
+    private function setMethodBody(array $inputShape, Method $method, array $operation, $inputClassName): void
     {
         $body = <<<PHP
 \$input = $inputClassName::create(\$input); 
@@ -356,7 +366,7 @@ PHP;
                 $body .= '$payload = $input->get' . $inputShape['payload'] . '() ?? "";';
             } else {
                 // Build XML
-                $xml = $this->buildXmlConfig($definition['shapes'], $data['shape']);
+                $xml = $this->buildXmlConfig($data['shape']);
                 $xml['_root'] = [
                     'type' => $data['shape'],
                     'xmlName' => $data['locationName'],
