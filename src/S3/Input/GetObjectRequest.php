@@ -4,6 +4,8 @@ namespace AsyncAws\S3\Input;
 
 class GetObjectRequest
 {
+    public const REQUIRED_PARAMETERS = ['Bucket', 'Key'];
+
     /**
      * @required
      *

@@ -4,6 +4,8 @@ namespace AsyncAws\S3\Input;
 
 class ListObjectsRequest
 {
+    public const REQUIRED_PARAMETERS = ['Bucket'];
+
     /**
      * @required
      *

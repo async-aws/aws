@@ -4,6 +4,8 @@ namespace AsyncAws\S3\Input;
 
 class CreateBucketRequest
 {
+    public const REQUIRED_PARAMETERS = ['Bucket'];
+
     /**
      * @var string|null
      */

@@ -163,6 +163,7 @@ PHP
         $constructor->addComment('} $input');
         $constructor->addParameter('input')->setType('array')->setDefaultValue([]);
         $constructorBody = '';
+        $requiredProperties = [];
 
         foreach ($members as $name => $data) {
             $parameterType = $members[$name]['shape'];
@@ -185,6 +186,7 @@ PHP
 
             $property = $class->addProperty($name)->setPrivate();
             if (\in_array($name, $shapes[$className]['required'] ?? [])) {
+                $requiredProperties[] = $name;
                 $property->addComment('@required');
             }
             $property->addComment('@var ' . $parameterType . ($nullable ? '|null' : ''));
@@ -213,6 +215,7 @@ PHP
         }
 
         $constructor->setBody($constructorBody);
+        $class->addConstant('REQUIRED_PARAMETERS', $requiredProperties)->setPublic();
         if ($root) {
             $this->inputClassRequestGetters($inputShape, $class, $operationName);
         }
@@ -369,6 +372,7 @@ PHP;
     {
         $body = <<<PHP
 \$input = $inputClassName::create(\$input); 
+\$this->validate(\$input);
 
 PHP;
 

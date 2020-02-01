@@ -87,7 +87,7 @@ abstract class AbstractApi
      * @param iterable|string[]|string[][]                $headers headers names provided as keys or as part of values
      * @param array|string|resource|\Traversable|\Closure $body
      */
-    public function request(string $method, $body = '', $headers = [], ?string $endpoint = null): Result
+    final public function request(string $method, $body = '', $headers = [], ?string $endpoint = null): Result
     {
         $response = $this->getResponse($method, $body, $headers, $endpoint);
 
@@ -98,7 +98,7 @@ abstract class AbstractApi
      * @param iterable|string[]|string[][]                $headers headers names provided as keys or as part of values
      * @param array|string|resource|\Traversable|\Closure $body
      */
-    protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null): ResponseInterface
+    final protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null): ResponseInterface
     {
         if (\is_array($body)) {
             $body = http_build_query($body, '', '&', \PHP_QUERY_RFC1738);
@@ -134,5 +134,29 @@ abstract class AbstractApi
         }
 
         return $endpoint . (false === \strpos($endpoint, '?') ? '?' : '&') . http_build_query($query);
+    }
+
+    final protected function validate($input)
+    {
+        $class = \get_class($input);
+        if (!\defined($class . '::REQUIRED_PARAMETERS')) {
+            // There is nothing we can do
+            return;
+        }
+        $requirements = \constant($class . '::REQUIRED_PARAMETERS');
+        if (!\is_array($requirements)) {
+            throw new InvalidArgument(sprintf('Constant "" must be an array.', $class . '::REQUIRED_PARAMETERS'));
+        }
+
+        foreach ($requirements as $name) {
+            $method = 'get' . $name;
+            if (null === $value = \call_user_func([$input, $method])) {
+                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, $class));
+            }
+
+            if (\is_object($value)) {
+                $this->validate($value);
+            }
+        }
     }
 }

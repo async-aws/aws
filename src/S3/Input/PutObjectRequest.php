@@ -4,6 +4,8 @@ namespace AsyncAws\S3\Input;
 
 class PutObjectRequest
 {
+    public const REQUIRED_PARAMETERS = ['Bucket', 'Key'];
+
     /**
      * @var string|null
      */

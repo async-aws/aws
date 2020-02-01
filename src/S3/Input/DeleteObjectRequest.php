@@ -4,6 +4,8 @@ namespace AsyncAws\S3\Input;
 
 class DeleteObjectRequest
 {
+    public const REQUIRED_PARAMETERS = ['Bucket', 'Key'];
+
     /**
      * @required
      *

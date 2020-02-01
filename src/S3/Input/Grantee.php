@@ -4,6 +4,8 @@ namespace AsyncAws\S3\Input;
 
 class Grantee
 {
+    public const REQUIRED_PARAMETERS = ['Type'];
+
     /**
      * @var string|null
      */

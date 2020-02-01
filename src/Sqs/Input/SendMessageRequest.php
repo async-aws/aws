@@ -4,6 +4,8 @@ namespace AsyncAws\Sqs\Input;
 
 class SendMessageRequest
 {
+    public const REQUIRED_PARAMETERS = ['QueueUrl', 'MessageBody'];
+
     /**
      * @required
      *

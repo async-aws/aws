@@ -4,6 +4,8 @@ namespace AsyncAws\S3\Input;
 
 class CopyObjectRequest
 {
+    public const REQUIRED_PARAMETERS = ['Bucket', 'CopySource', 'Key'];
+
     /**
      * @var string|null
      */

@@ -4,6 +4,8 @@ namespace AsyncAws\S3\Input;
 
 class Owner
 {
+    public const REQUIRED_PARAMETERS = [];
+
     /**
      * @var string|null
      */
