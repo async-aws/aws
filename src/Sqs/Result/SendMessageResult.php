@@ -20,35 +20,35 @@ class SendMessageResult extends Result
 
     public function getMD5OfMessageBody(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->MD5OfMessageBody;
     }
 
     public function getMD5OfMessageAttributes(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->MD5OfMessageAttributes;
     }
 
     public function getMD5OfMessageSystemAttributes(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->MD5OfMessageSystemAttributes;
     }
 
     public function getMessageId(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->MessageId;
     }
 
     public function getSequenceNumber(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->SequenceNumber;
     }

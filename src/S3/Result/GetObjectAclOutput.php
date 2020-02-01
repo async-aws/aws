@@ -16,21 +16,21 @@ class GetObjectAclOutput extends Result
 
     public function getOwner(): ?Owner
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->Owner;
     }
 
     public function getGrants(): ?array
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->Grants;
     }
 
     public function getRequestCharged(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->RequestCharged;
     }

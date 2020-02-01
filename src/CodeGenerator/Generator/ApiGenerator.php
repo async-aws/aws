@@ -114,7 +114,7 @@ class ApiGenerator
             $callInitialize = '';
             if ($root) {
                 $callInitialize = <<<PHP
-\$this->initialize();
+\$this->resolve();
 PHP;
             }
 

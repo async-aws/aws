@@ -72,217 +72,217 @@ class GetObjectOutput extends Result
 
     public function getBody(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->Body;
     }
 
     public function getDeleteMarker(): ?bool
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->DeleteMarker;
     }
 
     public function getAcceptRanges(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->AcceptRanges;
     }
 
     public function getExpiration(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->Expiration;
     }
 
     public function getRestore(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->Restore;
     }
 
     public function getLastModified(): ?int
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->LastModified;
     }
 
     public function getContentLength(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->ContentLength;
     }
 
     public function getETag(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->ETag;
     }
 
     public function getMissingMeta(): ?int
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->MissingMeta;
     }
 
     public function getVersionId(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->VersionId;
     }
 
     public function getCacheControl(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->CacheControl;
     }
 
     public function getContentDisposition(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->ContentDisposition;
     }
 
     public function getContentEncoding(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->ContentEncoding;
     }
 
     public function getContentLanguage(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->ContentLanguage;
     }
 
     public function getContentRange(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->ContentRange;
     }
 
     public function getContentType(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->ContentType;
     }
 
     public function getExpires(): ?int
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->Expires;
     }
 
     public function getWebsiteRedirectLocation(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->WebsiteRedirectLocation;
     }
 
     public function getServerSideEncryption(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->ServerSideEncryption;
     }
 
     public function getMetadata(): ?array
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->Metadata;
     }
 
     public function getSSECustomerAlgorithm(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->SSECustomerAlgorithm;
     }
 
     public function getSSECustomerKeyMD5(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->SSECustomerKeyMD5;
     }
 
     public function getSSEKMSKeyId(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->SSEKMSKeyId;
     }
 
     public function getStorageClass(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->StorageClass;
     }
 
     public function getRequestCharged(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->RequestCharged;
     }
 
     public function getReplicationStatus(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->ReplicationStatus;
     }
 
     public function getPartsCount(): ?int
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->PartsCount;
     }
 
     public function getTagCount(): ?int
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->TagCount;
     }
 
     public function getObjectLockMode(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->ObjectLockMode;
     }
 
     public function getObjectLockRetainUntilDate(): ?int
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->ObjectLockRetainUntilDate;
     }
 
     public function getObjectLockLegalHoldStatus(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->ObjectLockLegalHoldStatus;
     }

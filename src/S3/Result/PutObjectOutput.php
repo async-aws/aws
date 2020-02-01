@@ -28,63 +28,63 @@ class PutObjectOutput extends Result
 
     public function getExpiration(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->Expiration;
     }
 
     public function getETag(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->ETag;
     }
 
     public function getServerSideEncryption(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->ServerSideEncryption;
     }
 
     public function getVersionId(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->VersionId;
     }
 
     public function getSSECustomerAlgorithm(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->SSECustomerAlgorithm;
     }
 
     public function getSSECustomerKeyMD5(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->SSECustomerKeyMD5;
     }
 
     public function getSSEKMSKeyId(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->SSEKMSKeyId;
     }
 
     public function getSSEKMSEncryptionContext(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->SSEKMSEncryptionContext;
     }
 
     public function getRequestCharged(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->RequestCharged;
     }

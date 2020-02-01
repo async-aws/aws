@@ -30,70 +30,70 @@ class ListObjectsOutput extends Result
 
     public function getIsTruncated(): ?bool
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->IsTruncated;
     }
 
     public function getMarker(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->Marker;
     }
 
     public function getNextMarker(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->NextMarker;
     }
 
     public function getContents(): ?array
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->Contents;
     }
 
     public function getName(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->Name;
     }
 
     public function getPrefix(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->Prefix;
     }
 
     public function getDelimiter(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->Delimiter;
     }
 
     public function getMaxKeys(): ?int
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->MaxKeys;
     }
 
     public function getCommonPrefixes(): ?array
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->CommonPrefixes;
     }
 
     public function getEncodingType(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->EncodingType;
     }

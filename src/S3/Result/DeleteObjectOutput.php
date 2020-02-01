@@ -16,21 +16,21 @@ class DeleteObjectOutput extends Result
 
     public function getDeleteMarker(): ?bool
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->DeleteMarker;
     }
 
     public function getVersionId(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->VersionId;
     }
 
     public function getRequestCharged(): ?string
     {
-        $this->initialize();
+        $this->resolve();
 
         return $this->RequestCharged;
     }
