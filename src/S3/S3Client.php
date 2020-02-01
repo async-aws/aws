@@ -35,11 +35,6 @@ class S3Client extends AbstractApi
         return 's3';
     }
 
-    protected function gXXetEndpoint(string $uri, array $query): ?string
-    {
-        return \sprintf('https://%s.s3.%%region%%.amazonaws.com/%s', $uri['Bucket'], ltrim($uri['Key'], '/'));
-    }
-
     /**
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
      *

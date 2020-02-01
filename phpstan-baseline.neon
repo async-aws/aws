@@ -1,1 +1,7 @@
 parameters:
+	ignoreErrors:
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: src/S3/Result/GetObjectOutput.php
+
