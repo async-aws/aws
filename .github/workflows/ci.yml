@@ -37,9 +37,10 @@ jobs:
       - name: Download dependencies
         run: |
           export COMPONENTS=$(find src -type f -name phpunit.xml.dist -printf '%h\n' | sort)
+          CURRENT_DIR=$(pwd)
           for COMPONENT in $COMPONENTS
           do
-            cd "./$COMPONENT"
+            cd "$CURRENT_DIR/$COMPONENT"
             sed -i -re 's/"async-aws\/core": "[^"]+",/"async-aws\/core": "*@dev",/' composer.json
             sed -i -re 's/"require": \{/"repositories": [{"type": "path","url": "..\/Core"}],"require": \{/' composer.json
           done
