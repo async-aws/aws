@@ -54,7 +54,7 @@ class Result
     final public function resolve()
     {
         if (null === $this->response) {
-            throw new LogicException('The responses is already resolved.');
+            return;
         }
 
         try {
@@ -80,7 +80,7 @@ class Result
     final public function cancel(): void
     {
         if (null === $this->response) {
-            throw new LogicException('The responses is already resolved.');
+            return;
         }
 
         $this->response->cancel();
