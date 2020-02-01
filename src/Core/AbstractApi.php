@@ -8,7 +8,6 @@ use AsyncAws\Core\Credentials\CacheProvider;
 use AsyncAws\Core\Credentials\ChainProvider;
 use AsyncAws\Core\Credentials\ConfigurationProvider;
 use AsyncAws\Core\Credentials\CredentialProvider;
-use AsyncAws\Core\Credentials\Credentials;
 use AsyncAws\Core\Credentials\IniFileProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Signers\Request;
@@ -25,8 +24,8 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 abstract class AbstractApi
 {
-    protected const SIGNATURE_VERSION_V4 = 'v4';
-    protected const SIGNATURE_VERSION_S3 = 's3';
+    private const SIGNATURE_VERSION_V4 = 'v4';
+    private const SIGNATURE_VERSION_S3 = 's3';
 
     /**
      * @var HttpClientInterface
@@ -121,15 +120,17 @@ abstract class AbstractApi
     /**
      * Fallback function for getting the endpoint. This could be overridden by any APIClient.
      *
-     * @param array $uri   parameters that should go in the URI
+     * @param string $uri   parameters that should go in the URI
      * @param array $query parameters that should go in the query string
      */
-    protected function getEndpoint(array $uri, array $query):?string
+    protected function getEndpoint(string $uri, array $query):?string
     {
+        $endpoint = $this->configuration->get('endpoint');
+        $endpoint.= $uri;
         if (empty($query)) {
-            return null;
+            return $endpoint;
         }
 
-        return $this->configuration->get('endpoint') . '?' . http_build_query($query);
+        return $endpoint . (false === \strpos($endpoint, '?') ? '?' : '&') . http_build_query($query);
     }
 }

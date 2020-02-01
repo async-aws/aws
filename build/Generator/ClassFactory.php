@@ -111,7 +111,7 @@ class ClassFactory
 
         $filename = $from->getFileName();
         $rows = \file($filename);
-        $body = \implode('', \array_map(fn ($r) => \trim($r, ' '), \array_slice($rows, $from->getStartLine() + 1, $from->getEndLine() - $from->getStartLine() - 2)));
+        $body = \implode('', \array_map(function($r) {return trim($r, ' ');}, \array_slice($rows, $from->getStartLine() + 1, $from->getEndLine() - $from->getStartLine() - 2)));
 
         $method->setBody($from->isAbstract() ? null : \print_r($body, true));
         $method->setReturnReference($from->returnsReference());

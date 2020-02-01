@@ -75,7 +75,7 @@ class CreateCommand extends Command
 
         $baseNamespace = \sprintf('AsyncAws\\%s', $service);
         $this->generator->generateOperation($definition, $service, $operationName);
-        $this->generator->generateResultClass($definition['shapes'], $service, $baseNamespace . '\\Result', $definition['operations'][$operationName]['output']['shape'], true);
+        $this->generator->generateResultClass($definition['shapes'], $service, $baseNamespace . '\\Result', $definition['operations'][$operationName]['output']['shape'], $definition['operations'][$operationName]['output']['resultWrapper'] ?? null, true);
 
         // Update manifest file
         $manifest['services'][$service]['methods'][$operationName]['generated'] = \date('c');
