@@ -43,6 +43,7 @@ class IniFileProvider implements CredentialProvider
             return null;
         }
 
+        /** @var string $profile */
         $profile = $configuration->get(Configuration::OPTION_PROFILE);
         if (!isset($profilesData[$profile])) {
             $this->logger->info('Profile {profile} not found.', ['profile' => $profile]);
@@ -79,7 +80,7 @@ class IniFileProvider implements CredentialProvider
         $homeDrive = \getenv('HOMEDRIVE');
         $homePath = \getenv('HOMEPATH');
 
-        return ($homeDrive && $homePath) ? $homeDrive . $homePath : null;
+        return ($homeDrive && $homePath) ? $homeDrive . $homePath : '/';
     }
 
     private function loadProfiles(array $filepaths): array

@@ -150,10 +150,17 @@ class SignerV4 implements Signer
     {
         // Case-insensitively aggregate all of the headers.
         $canonicalHeaders = [];
-        foreach ($request->getHeaders() as $key => $value) {
+        foreach ($request->getHeaders() as $key => $values) {
             $key = strtolower($key);
             if (isset(self::BLACKLIST_HEADERS[$key])) {
                 continue;
+            }
+
+            if (\is_array($values)) {
+                sort($values);
+                $value = \implode(',', $values);
+            } else {
+                $value = $values;
             }
 
             $canonicalHeaders[$key] = "$key:$value";

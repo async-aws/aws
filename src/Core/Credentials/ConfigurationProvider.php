@@ -19,6 +19,7 @@ class ConfigurationProvider implements CredentialProvider
             $configuration->has(Configuration::OPTION_ACCESS_KEY_ID)
             && $configuration->has(Configuration::OPTION_SECRET_ACCESS_KEY)
         ) {
+            /** @psalm-suppress PossiblyNullArgument */
             return new Credentials(
                 $configuration->get(Configuration::OPTION_ACCESS_KEY_ID),
                 $configuration->get(Configuration::OPTION_SECRET_ACCESS_KEY),

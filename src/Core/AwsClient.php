@@ -22,6 +22,17 @@ class AwsClient extends AbstractApi
      */
     private $serviceCache;
 
+    protected function getServiceCode(): string
+    {
+        // This will never work on the base API. .
+        throw new RuntimeException(sprintf('The $endpoint parameter is required on "%s::request()".', __CLASS__));
+    }
+
+    protected function getSignatureVersion(): string
+    {
+        return 'v4';
+    }
+
     public function s3(): S3Client
     {
         if (!class_exists(S3Client::class)) {
@@ -59,11 +70,5 @@ class AwsClient extends AbstractApi
         }
 
         return $this->serviceCache[__METHOD__];
-    }
-
-    protected function getServiceCode(): string
-    {
-        // This will never work on the base API. .
-        throw new RuntimeException(sprintf('The $endpoint parameter is required on "%s::request()".', __CLASS__));
     }
 }
