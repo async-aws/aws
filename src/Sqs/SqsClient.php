@@ -41,6 +41,7 @@ class SqsClient extends AbstractApi
     public function sendMessage($input): SendMessageResult
     {
         $input = SendMessageRequest::create($input);
+        $input->validate();
 
         $response = $this->getResponse(
             'POST',

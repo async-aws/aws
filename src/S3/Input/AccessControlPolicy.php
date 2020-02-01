@@ -56,4 +56,14 @@ class AccessControlPolicy
 
         return $this;
     }
+
+    public function validate(): void
+    {
+        foreach ($this->Grants as $item) {
+            $item->validate();
+        }
+        if ($this->Owner) {
+            $this->Owner->validate();
+        }
+    }
 }

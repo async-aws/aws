@@ -35,4 +35,9 @@ class CreateBucketConfiguration
 
         return $this;
     }
+
+    public function validate(): void
+    {
+        // There are no required properties
+    }
 }

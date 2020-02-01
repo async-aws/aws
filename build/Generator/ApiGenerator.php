@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\Build\Generator;
 
 use AsyncAws\Build\FileWriter;
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\XmlBuilder;
 use Nette\PhpGenerator\ClassType;
@@ -163,6 +164,7 @@ PHP
         $constructor->addComment('} $input');
         $constructor->addParameter('input')->setType('array')->setDefaultValue([]);
         $constructorBody = '';
+        $requiredProperties = [];
 
         foreach ($members as $name => $data) {
             $parameterType = $members[$name]['shape'];
@@ -185,6 +187,7 @@ PHP
 
             $property = $class->addProperty($name)->setPrivate();
             if (\in_array($name, $shapes[$className]['required'] ?? [])) {
+                $requiredProperties[] = $name;
                 $property->addComment('@required');
             }
             $property->addComment('@var ' . $parameterType . ($nullable ? '|null' : ''));
@@ -216,6 +219,35 @@ PHP
         if ($root) {
             $this->inputClassRequestGetters($inputShape, $class, $operationName);
         }
+
+        // Add validate()
+        $namespace->addUse(InvalidArgument::class);
+        $validateBody = '';
+
+        if (!empty($requiredProperties)) {
+            $requiredArray = '\'' . implode("', '", $requiredProperties) . '\'';
+
+            $validateBody = <<<PHP
+foreach ([$requiredArray] as \$name) {
+    if (null === \$this->\$name) {
+        throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', \$name, __CLASS__));
+    }
+}
+
+PHP;
+        }
+
+        foreach ($members as $name => $data) {
+            $memberShape = $shapes[$data['shape']];
+            $type = $memberShape['type'] ?? null;
+            if ('structure' === $type) {
+                $validateBody .= 'if ($this->' . $name . ') $this->' . $name . '->validate();' . "\n";
+            } elseif ('list' === $type) {
+                $validateBody .= 'foreach ($this->' . $name . ' as $item) $item->validate();' . "\n";
+            }
+        }
+
+        $class->addMethod('validate')->setPublic()->setReturnType('void')->setBody(empty($validateBody) ? '// There are no required properties' : $validateBody);
 
         $this->fileWriter->write($namespace);
     }
@@ -369,6 +401,7 @@ PHP;
     {
         $body = <<<PHP
 \$input = $inputClassName::create(\$input); 
+\$input->validate();
 
 PHP;
 
