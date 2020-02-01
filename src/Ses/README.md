@@ -1,11 +1,9 @@
-# Async AWS Core
+# Async AWS SES Client
 
 ![](https://github.com/async-aws/ses/workflows/Tests/badge.svg?branch=master)
 ![](https://github.com/async-aws/ses/workflows/BC%20Check/badge.svg?branch=master)
 
-
-This is where base classes and authentication live. This is really the only package
-you need. 
+An API client for SQS. 
 
 ## Install
 
