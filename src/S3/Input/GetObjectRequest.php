@@ -2,10 +2,10 @@
 
 namespace AsyncAws\S3\Input;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 class GetObjectRequest
 {
-    public const REQUIRED_PARAMETERS = ['Bucket', 'Key'];
-
     /**
      * @required
      *
@@ -465,5 +465,18 @@ class GetObjectRequest
         $uri['Key'] = $this->Key ?? '';
 
         return "/{$uri['Bucket']}/{$uri['Key']}";
+    }
+
+    public function validate(): void
+    {
+        foreach (['Bucket', 'Key'] as $name) {
+            if (null === $value = $this->$name) {
+                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
+            }
+
+            if (\is_object($value) && method_exists($value, 'validate')) {
+                $value->validate();
+            }
+        }
     }
 }

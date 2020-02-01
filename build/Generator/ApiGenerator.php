@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\Build\Generator;
 
 use AsyncAws\Build\FileWriter;
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\XmlBuilder;
 use Nette\PhpGenerator\ClassType;
@@ -215,10 +216,26 @@ PHP
         }
 
         $constructor->setBody($constructorBody);
-        $class->addConstant('REQUIRED_PARAMETERS', $requiredProperties)->setPublic();
         if ($root) {
             $this->inputClassRequestGetters($inputShape, $class, $operationName);
         }
+
+        // Add validate()
+        $namespace->addUse(InvalidArgument::class);
+        $requiredArray = '\'' . implode("', '", $requiredProperties) . '\'';
+
+        $validateBody = <<<PHP
+foreach ([$requiredArray] as \$name) {
+    if (null === \$value = \$this->\$name) {
+        throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', \$name, __CLASS__));
+    }
+
+    if (\is_object(\$value) && method_exists(\$value, 'validate')) {
+        \$value->validate();
+    }
+}
+PHP;
+        $class->addMethod('validate')->setPublic()->setReturnType('void')->setBody(empty($requiredArray) ? '' : $validateBody);
 
         $this->fileWriter->write($namespace);
     }
@@ -372,7 +389,7 @@ PHP;
     {
         $body = <<<PHP
 \$input = $inputClassName::create(\$input); 
-\$this->validate(\$input);
+\$input->validate();
 
 PHP;
 

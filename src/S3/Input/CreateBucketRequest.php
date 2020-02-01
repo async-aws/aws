@@ -2,10 +2,10 @@
 
 namespace AsyncAws\S3\Input;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 class CreateBucketRequest
 {
-    public const REQUIRED_PARAMETERS = ['Bucket'];
-
     /**
      * @var string|null
      */
@@ -245,5 +245,18 @@ class CreateBucketRequest
         $uri['Bucket'] = $this->Bucket ?? '';
 
         return "/{$uri['Bucket']}";
+    }
+
+    public function validate(): void
+    {
+        foreach (['Bucket'] as $name) {
+            if (null === $value = $this->$name) {
+                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
+            }
+
+            if (\is_object($value) && method_exists($value, 'validate')) {
+                $value->validate();
+            }
+        }
     }
 }
