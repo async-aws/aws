@@ -80,7 +80,7 @@ class SignerV4 implements Signer
 
         $credentialScope = [substr($amzDate, 0, 8), $this->region, $this->service, 'aws4_request'];
 
-        $signingKey = 'AWS4'.$credentials->getSecretKey();
+        $signingKey = 'AWS4' . $credentials->getSecretKey();
         foreach ($credentialScope as $scopePart) {
             $signingKey = hash_hmac('sha256', $scopePart, $signingKey, true);
         }
@@ -124,14 +124,15 @@ class SignerV4 implements Signer
         ksort($query);
         $encodedQuery = [];
         foreach ($query as $key => $values) {
-            if (!is_array($values)) {
-                $encodedQuery[] = rawurlencode($key).'='.rawurlencode($values);
+            if (!\is_array($values)) {
+                $encodedQuery[] = rawurlencode($key) . '=' . rawurlencode($values);
+
                 continue;
             }
 
             sort($values);
             foreach ($values as $value) {
-                $encodedQuery[] = rawurlencode($key).'='.rawurlencode($value);
+                $encodedQuery[] = rawurlencode($key) . '=' . rawurlencode($value);
             }
         }
 
@@ -142,7 +143,7 @@ class SignerV4 implements Signer
     {
         $doubleEncoded = rawurlencode(ltrim($parseUrl['path'] ?? '/', '/'));
 
-        return '/'.str_replace('%2F', '/', $doubleEncoded);
+        return '/' . str_replace('%2F', '/', $doubleEncoded);
     }
 
     private function getCanonicalizedHeaders(Request $request): array

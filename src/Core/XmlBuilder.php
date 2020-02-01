@@ -74,14 +74,16 @@ class XmlBuilder
             $el = $document->createElement($member['locationName'] ?? $name);
             $parentElement->appendChild($el);
 
-            if (is_array($value)) {
-                if ($member['type'] !== 'list') {
+            if (\is_array($value)) {
+                if ('list' !== $member['type']) {
                     $this->buildXml($document, $el, $value, $name);
+
                     continue;
                 }
                 foreach ($value as $listItem) {
                     $this->buildXml($document, $el, $listItem, $member['member']['shape']);
                 }
+
                 continue;
             }
 

@@ -685,6 +685,16 @@ class PutObjectRequest
         return $query;
     }
 
+    public function requestBody(): array
+    {
+        $payload = [];
+        if (null !== $this->Body) {
+            $payload["Body"] = $this->Body;
+        }
+
+        return $payload;
+    }
+
     public function requestUri(): string
     {
         $uri = [];

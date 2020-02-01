@@ -227,6 +227,16 @@ class CreateBucketRequest
         return $query;
     }
 
+    public function requestBody(): array
+    {
+        $payload = [];
+        if (null !== $this->CreateBucketConfiguration) {
+            $payload["CreateBucketConfiguration"] = $this->CreateBucketConfiguration;
+        }
+
+        return $payload;
+    }
+
     public function requestUri(): string
     {
         $uri = [];
