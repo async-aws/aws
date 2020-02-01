@@ -73,6 +73,7 @@ class RegenerateCommand extends Command
                     $service,
                     $baseNamespace . '\\Result',
                     $definition['operations'][$operationName]['output']['shape'],
+                    $definition['operations'][$operationName]['output']['resultWrapper'] ?? null,
                     true
                 );
             }

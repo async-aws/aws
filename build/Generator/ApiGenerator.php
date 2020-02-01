@@ -66,7 +66,7 @@ class ApiGenerator
     /**
      * Generate classes for the output. Ie, the result of the API call.
      */
-    public function generateResultClass(array $shapes, $service, $baseNamespace, $className, $root = false)
+    public function generateResultClass(array $shapes, $service, $baseNamespace, $className, $wrapper = null, $root = false)
     {
         $namespace = new PhpNamespace($baseNamespace);
         $class = $namespace->addClass($className);
@@ -81,7 +81,7 @@ class ApiGenerator
             // Add trait only if file does not exists
             $traitFilename = \sprintf('%s/%s/Result/%s.php', $this->srcDirectory, $service, $traitName);
             if (!\file_exists($traitFilename)) {
-                $this->createOutputTrait($baseNamespace, $traitName, $members, $traitFilename);
+                $this->createOutputTrait($baseNamespace, $traitName, $members, $wrapper, $traitFilename);
             }
         }
 
@@ -119,13 +119,16 @@ PHP
         \file_put_contents(\sprintf('%s/%s/Result/%s.php', $this->srcDirectory, $service, $className), "<?php\n\n" . $printer->printNamespace($namespace));
     }
 
-    private function createOutputTrait($baseNamespace, string $traitName, $members, string $traitFilename)
+    private function createOutputTrait($baseNamespace, string $traitName, $members, ?string $wrapper, string $traitFilename)
     {
         $namespace = new PhpNamespace($baseNamespace);
         $namespace->addUse(ResponseInterface::class);
         $trait = $namespace->addTrait($traitName);
 
         $body = '$data = new \SimpleXMLElement($response->getContent(false));' . "\n\n// TODO Verify correctness\n";
+        if ($wrapper) {
+            $body.= "\$data = \$data->$wrapper;\n";
+        }
         foreach (\array_keys($members) as $name) {
             $body .= "\$this->$name = \$data->$name;\n";
         }
@@ -210,8 +213,9 @@ PHP
 
     private function setMethodBody(array $definition, array $inputShape, Method $method, array $operation): void
     {
+        $requestUri = str_replace('+}', '}', $operation['http']['requestUri']);
         $body = <<<PHP
-\$uri = [];
+\$uri = '$requestUri';
 \$query = [];
 \$headers = [];
 
@@ -222,13 +226,31 @@ PHP;
             foreach ($inputShape['members'] as $name => $data) {
                 $location = $data['location'] ?? null;
                 if ($location === $locationName) {
-                    $body .= 'if (array_key_exists("' . $name . '", $input)) ' . $varName . '["' . $data['locationName'] . '"] = $input["' . $name . '"];' . "\n";
+                    if ($locationName === 'uri') {
+                        $body .= <<<PHP
+if (array_key_exists('$name', \$input)) {
+    $varName = str_replace('{{$data['locationName']}}', urlencode(\$input['$name']), $varName);
+    unset(\$input['$name']);
+} else {
+    $varName = str_replace('{{$data['locationName']}}', '', $varName);
+}
+
+PHP;
+                    } else {
+                        $body .= <<<PHP
+if (array_key_exists('$name', \$input)) {
+    {$varName}['{$data['locationName']}'] = \$input['$name'];
+    unset(\$input['$name']);
+}
+
+PHP;
+                    }
                 }
             }
         }
 
         if (!isset($inputShape['payload'])) {
-            $body .= '$payload = "";';
+            $body .= "\$payload = \$input + ['Action' => '{$operation['name']}'];";
         } else {
             $data = $inputShape['members'][$inputShape['payload']];
             if ($data['streaming'] ?? false) {

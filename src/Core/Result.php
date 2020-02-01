@@ -69,7 +69,6 @@ class Result
         if (300 <= $statusCode) {
             throw new RedirectionException($this->response);
         }
-        \dump($this->response->getContent());
     }
 
     public function cancel(): void
