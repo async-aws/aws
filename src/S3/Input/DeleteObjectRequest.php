@@ -163,6 +163,13 @@ class DeleteObjectRequest
         return $query;
     }
 
+    public function requestBody(): array
+    {
+        $payload = [];
+
+        return $payload;
+    }
+
     public function requestUri(): string
     {
         $uri = [];

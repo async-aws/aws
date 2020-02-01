@@ -227,23 +227,28 @@ PHP
 
     private function inputClassRequestGetters(array $inputShape, ClassType $class, string $requestUri): void
     {
-        foreach (['header' => '$headers', 'querystring' => '$query'] as $locationName => $varName) {
-            $body[$locationName] = $varName . ' = [];' . "\n";
+        foreach (['header' => '$headers', 'querystring' => '$query', 'payload' => '$payload'] as $requestPart => $varName) {
+            $body[$requestPart] = $varName . ' = [];' . "\n";
             foreach ($inputShape['members'] as $name => $data) {
-                $location = $data['location'] ?? null;
-                if ($location === $locationName) {
-                    $body[$locationName] .= 'if ($this->' . $name . ' !== null) ' . $varName . '["' . $data['locationName'] . '"] = $this->' . $name . ';' . "\n";
+                // If location is not specified, it will go in the request body.
+                $location = $data['location'] ?? 'payload';
+                if ($location === $requestPart) {
+                    $body[$requestPart] .= 'if ($this->' . $name . ' !== null) ' . $varName . '["' . ($data['locationName'] ?? $name) . '"] = $this->' . $name . ';' . "\n";
                 }
             }
-            $body[$locationName] .= 'return ' . $varName . ';' . "\n";
+
+            $body[$requestPart] .= 'return ' . $varName . ';' . "\n";
         }
 
         $class->addMethod('requestHeaders')->setReturnType('array')->setBody($body['header']);
         $class->addMethod('requestQuery')->setReturnType('array')->setBody($body['querystring']);
+        $class->addMethod('requestBody')->setReturnType('array')->setBody($body['payload']);
 
-        $body['uri'] = '$uri = [];' . "\n";
         foreach ($inputShape['members'] as $name => $data) {
             if ('uri' === ($data['location'] ?? null)) {
+                if (!isset($body['uri'])) {
+                    $body['uri'] = '$uri = [];' . "\n";
+                }
                 $body['uri'] .= <<<PHP
 \$uri['{$data['locationName']}'] = \$this->$name ?? '';
 
@@ -251,6 +256,7 @@ PHP;
             }
         }
 
+        $body['uri'] = $body['uri'] ?? '';
         $body['uri'] .= 'return "' . str_replace(['{', '+}', '}'], ['{$uri[\'', '}', '\']}'], $requestUri) . '";';
 
         $class->addMethod('requestUri')->setReturnType('string')->setBody($body['uri']);
@@ -357,12 +363,9 @@ PHP;
 
 PHP;
 
-        $payloadVariable = "''";
         if (isset($inputShape['payload'])) {
-            $payloadVariable = '$payload';
             $data = $inputShape['members'][$inputShape['payload']];
             if ($data['streaming'] ?? false) {
-                // TOODO support others.
                 $body .= '$payload = $input->get' . $inputShape['payload'] . '() ?? "";';
             } else {
                 // Build XML
@@ -374,15 +377,25 @@ PHP;
                 ];
 
                 $body .= '$xmlConfig = ' . $this->printArray($xml) . ";\n";
-                $body .= '$payload = (new XmlBuilder($input->get' . $inputShape['payload'] . '() ?? [], $xmlConfig))->getXml();';
+                $body .= '$payload = (new XmlBuilder($input->get' . $inputShape['payload'] . '() ?? [], $xmlConfig))->getXml();' . "\n";
             }
+            $payloadVariable = '$payload';
+        } else {
+            // This is a normal body application/x-www-form-urlencoded
+            $payloadVariable = '$input->requestBody()';
         }
 
         $method->setBody(
             $body .
             <<<PHP
 
-\$response = \$this->getResponse('{$operation['http']['method']}', $payloadVariable, \$input->requestHeaders(), \$this->getEndpoint(\$input->requestUri(), \$input->requestQuery()));
+\$response = \$this->getResponse(
+    '{$operation['http']['method']}', 
+    $payloadVariable, 
+    \$input->requestHeaders(), 
+    \$this->getEndpoint(\$input->requestUri(), \$input->requestQuery())
+);
+
 return new {$operation['output']['shape']}(\$response);
 PHP
         );

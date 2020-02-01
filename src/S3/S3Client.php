@@ -80,7 +80,12 @@ class S3Client extends AbstractApi
     {
         $input = PutObjectRequest::create($input);
         $payload = $input->getBody() ?? "";
-        $response = $this->getResponse('PUT', $payload, $input->requestHeaders(), $this->getEndpoint($input->requestUri(), $input->requestQuery()));
+        $response = $this->getResponse(
+            'PUT',
+            $payload,
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
 
         return new PutObjectOutput($response);
     }
@@ -105,7 +110,13 @@ class S3Client extends AbstractApi
         $input = CreateBucketRequest::create($input);
         $xmlConfig = ["CreateBucketConfiguration" => ["type" => 'structure',"members" => ["LocationConstraint" => ["shape" => 'BucketLocationConstraint']]],"BucketLocationConstraint" => ["type" => 'string'],"_root" => ["type" => 'CreateBucketConfiguration',"xmlName" => 'CreateBucketConfiguration',"uri" => 'http://s3.amazonaws.com/doc/2006-03-01/']];
         $payload = (new XmlBuilder($input->getCreateBucketConfiguration() ?? [], $xmlConfig))->getXml();
-        $response = $this->getResponse('PUT', $payload, $input->requestHeaders(), $this->getEndpoint($input->requestUri(), $input->requestQuery()));
+
+        $response = $this->getResponse(
+            'PUT',
+            $payload,
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
 
         return new CreateBucketOutput($response);
     }
@@ -126,7 +137,12 @@ class S3Client extends AbstractApi
     {
         $input = DeleteObjectRequest::create($input);
 
-        $response = $this->getResponse('DELETE', '', $input->requestHeaders(), $this->getEndpoint($input->requestUri(), $input->requestQuery()));
+        $response = $this->getResponse(
+            'DELETE',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
 
         return new DeleteObjectOutput($response);
     }
@@ -154,7 +170,12 @@ class S3Client extends AbstractApi
     {
         $input = HeadObjectRequest::create($input);
 
-        $response = $this->getResponse('HEAD', '', $input->requestHeaders(), $this->getEndpoint($input->requestUri(), $input->requestQuery()));
+        $response = $this->getResponse(
+            'HEAD',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
 
         return new HeadObjectOutput($response);
     }
@@ -206,7 +227,12 @@ class S3Client extends AbstractApi
     {
         $input = CopyObjectRequest::create($input);
 
-        $response = $this->getResponse('PUT', '', $input->requestHeaders(), $this->getEndpoint($input->requestUri(), $input->requestQuery()));
+        $response = $this->getResponse(
+            'PUT',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
 
         return new CopyObjectOutput($response);
     }
@@ -240,7 +266,12 @@ class S3Client extends AbstractApi
     {
         $input = GetObjectRequest::create($input);
 
-        $response = $this->getResponse('GET', '', $input->requestHeaders(), $this->getEndpoint($input->requestUri(), $input->requestQuery()));
+        $response = $this->getResponse(
+            'GET',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
 
         return new GetObjectOutput($response);
     }
@@ -268,7 +299,13 @@ class S3Client extends AbstractApi
         $input = PutObjectAclRequest::create($input);
         $xmlConfig = ["AccessControlPolicy" => ["type" => 'structure',"members" => ["Grants" => ["shape" => 'Grants',"locationName" => 'AccessControlList'],"Owner" => ["shape" => 'Owner']]],"Grants" => ["type" => 'list',"member" => ["shape" => 'Grant',"locationName" => 'Grant']],"Grant" => ["type" => 'structure',"members" => ["Grantee" => ["shape" => 'Grantee'],"Permission" => ["shape" => 'Permission']]],"Grantee" => ["type" => 'structure',"required" => [0 => 'Type'],"members" => ["DisplayName" => ["shape" => 'DisplayName'],"EmailAddress" => ["shape" => 'EmailAddress'],"ID" => ["shape" => 'ID'],"Type" => ["shape" => 'Type',"locationName" => 'xsi:type',"xmlAttribute" => '1'],"URI" => ["shape" => 'URI']],"xmlNamespace" => ["prefix" => 'xsi',"uri" => 'http://www.w3.org/2001/XMLSchema-instance']],"DisplayName" => ["type" => 'string'],"EmailAddress" => ["type" => 'string'],"ID" => ["type" => 'string'],"Type" => ["type" => 'string'],"URI" => ["type" => 'string'],"Permission" => ["type" => 'string'],"Owner" => ["type" => 'structure',"members" => ["DisplayName" => ["shape" => 'DisplayName'],"ID" => ["shape" => 'ID']]],"_root" => ["type" => 'AccessControlPolicy',"xmlName" => 'AccessControlPolicy',"uri" => 'http://s3.amazonaws.com/doc/2006-03-01/']];
         $payload = (new XmlBuilder($input->getAccessControlPolicy() ?? [], $xmlConfig))->getXml();
-        $response = $this->getResponse('PUT', $payload, $input->requestHeaders(), $this->getEndpoint($input->requestUri(), $input->requestQuery()));
+
+        $response = $this->getResponse(
+            'PUT',
+            $payload,
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
 
         return new PutObjectAclOutput($response);
     }
@@ -287,7 +324,12 @@ class S3Client extends AbstractApi
     {
         $input = GetObjectAclRequest::create($input);
 
-        $response = $this->getResponse('GET', '', $input->requestHeaders(), $this->getEndpoint($input->requestUri(), $input->requestQuery()));
+        $response = $this->getResponse(
+            'GET',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
 
         return new GetObjectAclOutput($response);
     }
@@ -309,7 +351,12 @@ class S3Client extends AbstractApi
     {
         $input = ListObjectsRequest::create($input);
 
-        $response = $this->getResponse('GET', '', $input->requestHeaders(), $this->getEndpoint($input->requestUri(), $input->requestQuery()));
+        $response = $this->getResponse(
+            'GET',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
 
         return new ListObjectsOutput($response);
     }

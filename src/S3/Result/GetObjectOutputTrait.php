@@ -8,10 +8,13 @@ trait GetObjectOutputTrait
 {
     protected function populateFromResponse(ResponseInterface $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent(false));
+        // TODO maybe not put the body in memory
+        $this->Body = $response->getContent(false);
 
-        // TODO Verify correctness
-        $this->Body = $data->Body;
+        return;
+        $headers = $response->getHeaders(false);
+
+        // TODO update
         $this->DeleteMarker = $data->DeleteMarker;
         $this->AcceptRanges = $data->AcceptRanges;
         $this->Expiration = $data->Expiration;

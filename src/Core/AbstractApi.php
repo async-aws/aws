@@ -72,9 +72,11 @@ abstract class AbstractApi
         switch ($signatureVersion = $this->getSignatureVersion()) {
             case self::SIGNATURE_VERSION_V4:
                 $this->signer = new SignerV4($this->getServiceCode(), $configuration->get(Configuration::OPTION_REGION));
+
                 break;
             case self::SIGNATURE_VERSION_S3:
                 $this->signer = new SignerV4ForS3($this->getServiceCode(), $configuration->get(Configuration::OPTION_REGION));
+
                 break;
             default:
                 throw new InvalidArgument(sprintf('The signature "%s" is not implemented.', $signatureVersion));
@@ -99,7 +101,7 @@ abstract class AbstractApi
     protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null): ResponseInterface
     {
         if (\is_array($body)) {
-            $body = http_build_query($body, '', '&', PHP_QUERY_RFC1738);
+            $body = http_build_query($body, '', '&', \PHP_QUERY_RFC1738);
             $headers['content-type'] = 'application/x-www-form-urlencoded';
         }
 
@@ -120,8 +122,8 @@ abstract class AbstractApi
     /**
      * Fallback function for getting the endpoint. This could be overridden by any APIClient.
      *
-     * @param string $uri  or path
-     * @param array $query parameters that should go in the query string
+     * @param string $uri   or path
+     * @param array  $query parameters that should go in the query string
      */
     protected function getEndpoint(string $uri, array $query):?string
     {
