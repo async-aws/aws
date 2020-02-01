@@ -77,10 +77,10 @@ class Result
      * Returns info on the current request
      *
      * @return array{
-     *   resolved: bool
-     *   response?: ?ResponseInterface,
-     *   status?: int
-     * }
+     *                resolved: bool
+     *                response?: ?ResponseInterface,
+     *                status?: int
+     *                }
      */
     final public function info(): array
     {
