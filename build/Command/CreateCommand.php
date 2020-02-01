@@ -82,7 +82,7 @@ class CreateCommand extends Command
 
         $this->generator->generateOperation($definition, $service, $operationName);
         $this->generator->generateResultClass($definition, $service, $resultNamespace, $resultClassName, true);
-        $this->generator->generateOutputTrait($definition, $service, $resultNamespace, $resultClassName);
+        $this->generator->generateOutputTrait($definition, $operationName, $resultNamespace, $resultClassName);
 
         // Update manifest file
         $manifest['services'][$service]['methods'][$operationName]['generated'] = \date('c');

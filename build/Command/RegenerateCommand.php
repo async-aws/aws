@@ -76,7 +76,7 @@ class RegenerateCommand extends Command
             }
 
             if (!isset($operationConfig['generate-result-trait']) || false !== $operationConfig['generate-result-trait']) {
-                $this->generator->generateOutputTrait($definition, $service, $resultNamespace, $resultClassName);
+                $this->generator->generateOutputTrait($definition, $operationName, $resultNamespace, $resultClassName);
             }
 
             if (!isset($operationConfig['generate-result']) || false !== $operationConfig['generate-result']) {
