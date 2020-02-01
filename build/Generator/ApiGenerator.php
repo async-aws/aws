@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AsyncAws\Build\Generator;
 
+use AsyncAws\Build\FileWriter;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\XmlBuilder;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpNamespace;
-use Nette\PhpGenerator\PsrPrinter;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
@@ -25,6 +25,11 @@ class ApiGenerator
     private $srcDirectory;
 
     /**
+     * @var FileWriter
+     */
+    private $fileWriter;
+
+    /**
      * All public classes take a definition as first parameter.
      *
      * @var ServiceDefinition
@@ -34,6 +39,7 @@ class ApiGenerator
     public function __construct(string $srcDirectory)
     {
         $this->srcDirectory = $srcDirectory;
+        $this->fileWriter = new FileWriter($srcDirectory);
     }
 
     /**
@@ -73,9 +79,7 @@ class ApiGenerator
         // Generate method body
         $this->setMethodBody($inputShape, $method, $operation, $inputClassName);
 
-        $printer = new PsrPrinter();
-        $filename = \sprintf('%s/%s/%sClient.php', $this->srcDirectory, $service, $service);
-        \file_put_contents($filename, "<?php\n\n" . $printer->printNamespace($namespace));
+        $this->fileWriter->write($namespace);
     }
 
     /**
@@ -132,8 +136,7 @@ PHP
                 );
         }
 
-        $printer = new PsrPrinter();
-        \file_put_contents(\sprintf('%s/%s/Result/%s.php', $this->srcDirectory, $service, $className), "<?php\n\n" . $printer->printNamespace($namespace));
+        $this->fileWriter->write($namespace);
     }
 
     /**
@@ -221,8 +224,7 @@ PHP
             $this->inputClassRequestGetters($inputShape, $class, $operationName);
         }
 
-        $printer = new PsrPrinter();
-        \file_put_contents(\sprintf('%s/%s/Input/%s.php', $this->srcDirectory, $service, $className), "<?php\n\n" . $printer->printNamespace($namespace));
+        $this->fileWriter->write($namespace);
     }
 
     private function inputClassRequestGetters(array $inputShape, ClassType $class, string $operation): void
@@ -286,8 +288,7 @@ PHP;
             ->setBody($body)
             ->addParameter('response')->setType(ResponseInterface::class);
 
-        $printer = new PsrPrinter();
-        \file_put_contents($traitFilename, "<?php\n\n" . $printer->printNamespace($namespace));
+        $this->fileWriter->write($namespace);
     }
 
     private function toPhpType(?string $parameterType): string
