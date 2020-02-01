@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\Build\Generator;
+namespace AsyncAws\CodeGenerator\Generator;
 
-use AsyncAws\Build\FileWriter;
+use AsyncAws\CodeGenerator\FileWriter;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\XmlBuilder;

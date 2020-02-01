@@ -9,6 +9,7 @@
     <projectFiles>
         <directory name="src" />
         <ignoreFiles>
+            <directory name="src/CodeGenerator" />
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>

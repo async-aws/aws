@@ -1,20 +1,27 @@
 #!/usr/bin/env php
 <?php
+
+$generatorDir = __DIR__.'/src/CodeGenerator';
+if (!file_exists($generatorDir.'/generate.php')) {
+    echo "Unable to find the `generate.php` script in `/src/CodeGenerator/`.\n";
+    exit(1);
+}
+
+if (!file_exists(__DIR__.'/vendor/autoload.php')) {
+    echo "Run `composer install` before you run the `generate` script.\n";
+    exit(1);
+}
+
 require __DIR__.'/vendor/autoload.php';
 
-use Symfony\Component\Console\Application;
-use AsyncAws\Build\Command\CreateCommand;
-use AsyncAws\Build\Command\RegenerateCommand;
-use AsyncAws\Build\Generator\ApiGenerator;
+if (!getenv('ASYNC_AWS_GENERATE_MANIFEST')) {
+    putenv('ASYNC_AWS_GENERATE_MANIFEST='.__DIR__.'/manifest.json');
+}
+if (!getenv('ASYNC_AWS_GENERATE_SRC')) {
+    putenv('ASYNC_AWS_GENERATE_SRC='.__DIR__.'/src');
+}
+if (!getenv('SYMFONY_PATCH_TYPE_DECLARATIONS')) {
+    putenv('SYMFONY_PATCH_TYPE_DECLARATIONS=deprecations=1');
+}
 
-$application = new Application('Async AWS', '0.1.0');
-
-$src = __DIR__.'/src';
-$manifest = __DIR__.'/build//manifest.json';
-$command = new CreateCommand($manifest, new ApiGenerator($src));
-$application->add($command);
-$application->setDefaultCommand($command->getName());
-
-$application->add(new RegenerateCommand($manifest, new ApiGenerator($src)));
-
-$application->run();
+require $generatorDir.'/generate.php';

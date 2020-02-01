@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\Build;
+namespace AsyncAws\CodeGenerator;
 
 use AsyncAws\Core\Exception\RuntimeException;
 use Nette\PhpGenerator\PhpNamespace;
