@@ -213,40 +213,38 @@ PHP
 
     private function setMethodBody(array $definition, array $inputShape, Method $method, array $operation): void
     {
-        $requestUri = str_replace('+}', '}', $operation['http']['requestUri']);
         $body = <<<PHP
-\$uri = '$requestUri';
+\$uri = [];
 \$query = [];
 \$headers = [];
 
 PHP;
         ;
 
+        $keyToUnset = [];
         foreach (['header' => '$headers', 'querystring' => '$query', 'uri' => '$uri'] as $locationName => $varName) {
             foreach ($inputShape['members'] as $name => $data) {
                 $location = $data['location'] ?? null;
                 if ($location === $locationName) {
+                    $keyToUnset[] = $name;
                     if ($locationName === 'uri') {
                         $body .= <<<PHP
-if (array_key_exists('$name', \$input)) {
-    $varName = str_replace('{{$data['locationName']}}', urlencode(\$input['$name']), $varName);
-    unset(\$input['$name']);
-} else {
-    $varName = str_replace('{{$data['locationName']}}', '', $varName);
-}
+{$varName}['{$data['locationName']}'] = \$input['$name'] ?? '';
 
 PHP;
                     } else {
                         $body .= <<<PHP
-if (array_key_exists('$name', \$input)) {
-    {$varName}['{$data['locationName']}'] = \$input['$name'];
-    unset(\$input['$name']);
-}
+if (array_key_exists('$name', \$input)) {$varName}['{$data['locationName']}'] = \$input['$name'];
 
 PHP;
                     }
                 }
             }
+        }
+
+        if (count($keyToUnset) > 0) {
+            $inlineKeys = \implode("'], \$input['", $keyToUnset);
+            $body.="unset(\$input['$inlineKeys']);\n";
         }
 
         if (!isset($inputShape['payload'])) {
@@ -270,11 +268,13 @@ PHP;
             }
         }
 
+        $requestUri = str_replace(['{', '+}', '}'], ['{$uri[\'', '}', '\']}'], $operation['http']['requestUri']);
+
         $method->setBody(
             $body .
             <<<PHP
 
-\$response = \$this->getResponse('{$operation['http']['method']}', \$payload, \$headers, \$this->getEndpoint(\$uri, \$query));
+\$response = \$this->getResponse('{$operation['http']['method']}', \$payload, \$headers, \$this->getEndpoint("$requestUri", \$query));
 return new {$operation['output']['shape']}(\$response);
 PHP
         );
