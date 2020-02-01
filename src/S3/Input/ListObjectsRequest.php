@@ -186,13 +186,11 @@ class ListObjectsRequest
         return $query;
     }
 
-    public function requestUri(): array
+    public function requestUri(): string
     {
         $uri = [];
-        if (null !== $this->Bucket) {
-            $uri["Bucket"] = $this->Bucket;
-        }
+        $uri['Bucket'] = $this->Bucket ?? '';
 
-        return $uri;
+        return "/{$uri['Bucket']}";
     }
 }

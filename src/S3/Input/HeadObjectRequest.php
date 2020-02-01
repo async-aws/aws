@@ -317,16 +317,12 @@ class HeadObjectRequest
         return $query;
     }
 
-    public function requestUri(): array
+    public function requestUri(): string
     {
         $uri = [];
-        if (null !== $this->Bucket) {
-            $uri["Bucket"] = $this->Bucket;
-        }
-        if (null !== $this->Key) {
-            $uri["Key"] = $this->Key;
-        }
+        $uri['Bucket'] = $this->Bucket ?? '';
+        $uri['Key'] = $this->Key ?? '';
 
-        return $uri;
+        return "/{$uri['Bucket']}/{$uri['Key']}";
     }
 }

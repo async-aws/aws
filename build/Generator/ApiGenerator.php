@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AsyncAws\Build\Generator;
 
-use AsyncAws\Core\AbstractInput;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\XmlBuilder;
 use Nette\PhpGenerator\ClassType;
@@ -41,7 +40,7 @@ class ApiGenerator
         $baseNamespace = \sprintf('AsyncAws\\%s', $service);
         $inputClassName = $operation['input']['shape'];
         $this->generateInputClass($definition, $service, $operationName, $baseNamespace . '\\Input', $inputClassName, true);
-        $inputClass = $baseNamespace . '\\Input\\'.$inputClassName;
+        $inputClass = $baseNamespace . '\\Input\\' . $inputClassName;
 
         $namespace = ClassFactory::fromExistingClass(\sprintf('%s\\%sClient', $baseNamespace, $service));
         $namespace->addUse($inputClass);
@@ -55,7 +54,7 @@ class ApiGenerator
         // TODO add Input object
         $method->addComment('@param array{');
         $this->addMethodComment($definition['shapes'], $method, $inputShape, $baseNamespace . '\\Input');
-        $method->addComment('}|'.$inputClassName.' $input');
+        $method->addComment('}|' . $inputClassName . ' $input');
         $method->addParameter('input');
 
         $outputClass = \sprintf('%s\\Result\\%s', $baseNamespace, $operation['output']['shape']);
@@ -209,32 +208,42 @@ PHP
 
         $constructor->setBody($constructorBody);
         if ($root) {
-            $this->inputClassRequestGetters($inputShape, $class);
+            $this->inputClassRequestGetters($inputShape, $class, $operation['http']['requestUri']);
         }
 
         $printer = new PsrPrinter();
         \file_put_contents(\sprintf('%s/%s/Input/%s.php', $this->srcDirectory, $service, $className), "<?php\n\n" . $printer->printNamespace($namespace));
     }
 
-
-    private function inputClassRequestGetters(array $inputShape, ClassType $class): void
+    private function inputClassRequestGetters(array $inputShape, ClassType $class, string $requestUri): void
     {
-        foreach (['header' => '$headers', 'querystring' => '$query', 'uri' => '$uri'] as $locationName => $varName) {
-            $body[$locationName] = $varName.' = [];'."\n";
+        foreach (['header' => '$headers', 'querystring' => '$query'] as $locationName => $varName) {
+            $body[$locationName] = $varName . ' = [];' . "\n";
             foreach ($inputShape['members'] as $name => $data) {
                 $location = $data['location'] ?? null;
                 if ($location === $locationName) {
                     $body[$locationName] .= 'if ($this->' . $name . ' !== null) ' . $varName . '["' . $data['locationName'] . '"] = $this->' . $name . ';' . "\n";
                 }
             }
-            $body[$locationName] .= 'return '.$varName.';'."\n";
-
+            $body[$locationName] .= 'return ' . $varName . ';' . "\n";
         }
 
         $class->addMethod('requestHeaders')->setReturnType('array')->setBody($body['header']);
         $class->addMethod('requestQuery')->setReturnType('array')->setBody($body['querystring']);
-        $class->addMethod('requestUri')->setReturnType('array')->setBody($body['uri']);
 
+        $body['uri'] = '$uri = [];' . "\n";
+        foreach ($inputShape['members'] as $name => $data) {
+            if ('uri' === ($data['location'] ?? null)) {
+                $body['uri'] .= <<<PHP
+\$uri['{$data['locationName']}'] = \$this->$name ?? '';
+
+PHP;
+            }
+        }
+
+        $body['uri'] .= 'return "' . str_replace(['{', '+}', '}'], ['{$uri[\'', '}', '\']}'], $requestUri) . '";';
+
+        $class->addMethod('requestUri')->setReturnType('string')->setBody($body['uri']);
     }
 
     private function createOutputTrait($baseNamespace, string $traitName, $members, string $traitFilename)
@@ -330,7 +339,6 @@ PHP
             $method->addComment(sprintf('  %s%s: %s,', $name, $nullable ? '?' : '', $param));
         }
     }
-
 
     private function setMethodBody(array $definition, array $inputShape, Method $method, array $operation, $inputClassName): void
     {
