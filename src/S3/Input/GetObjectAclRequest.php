@@ -121,7 +121,7 @@ class GetObjectAclRequest
 
     public function requestBody(): array
     {
-        $payload = [];
+        $payload = ['Action' => 'GetObjectAcl'];
 
         return $payload;
     }

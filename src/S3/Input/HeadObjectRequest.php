@@ -319,7 +319,7 @@ class HeadObjectRequest
 
     public function requestBody(): array
     {
-        $payload = [];
+        $payload = ['Action' => 'HeadObject'];
 
         return $payload;
     }

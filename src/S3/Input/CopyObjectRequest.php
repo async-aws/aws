@@ -846,7 +846,7 @@ class CopyObjectRequest
 
     public function requestBody(): array
     {
-        $payload = [];
+        $payload = ['Action' => 'CopyObject'];
 
         return $payload;
     }

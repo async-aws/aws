@@ -188,7 +188,7 @@ class ListObjectsRequest
 
     public function requestBody(): array
     {
-        $payload = [];
+        $payload = ['Action' => 'ListObjects'];
 
         return $payload;
     }
