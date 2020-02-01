@@ -218,17 +218,20 @@ PHP
 
         $constructor->setBody($constructorBody);
         if ($root) {
-            $this->inputClassRequestGetters($inputShape, $class, $operation['http']['requestUri']);
+            $this->inputClassRequestGetters($inputShape, $class, $operationName);
         }
 
         $printer = new PsrPrinter();
         \file_put_contents(\sprintf('%s/%s/Input/%s.php', $this->srcDirectory, $service, $className), "<?php\n\n" . $printer->printNamespace($namespace));
     }
 
-    private function inputClassRequestGetters(array $inputShape, ClassType $class, string $requestUri): void
+    private function inputClassRequestGetters(array $inputShape, ClassType $class, string $operation): void
     {
         foreach (['header' => '$headers', 'querystring' => '$query', 'payload' => '$payload'] as $requestPart => $varName) {
             $body[$requestPart] = $varName . ' = [];' . "\n";
+            if ('payload' === $requestPart) {
+                $body[$requestPart] = $varName . " = ['Action' => '$operation'];\n";
+            }
             foreach ($inputShape['members'] as $name => $data) {
                 // If location is not specified, it will go in the request body.
                 $location = $data['location'] ?? 'payload';
@@ -256,6 +259,7 @@ PHP;
             }
         }
 
+        $requestUri = $this->definition->getOperation($operation)['http']['requestUri'];
         $body['uri'] = $body['uri'] ?? '';
         $body['uri'] .= 'return "' . str_replace(['{', '+}', '}'], ['{$uri[\'', '}', '\']}'], $requestUri) . '";';
 

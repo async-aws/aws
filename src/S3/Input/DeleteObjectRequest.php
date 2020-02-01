@@ -165,7 +165,7 @@ class DeleteObjectRequest
 
     public function requestBody(): array
     {
-        $payload = [];
+        $payload = ['Action' => 'DeleteObject'];
 
         return $payload;
     }

@@ -451,7 +451,7 @@ class GetObjectRequest
 
     public function requestBody(): array
     {
-        $payload = [];
+        $payload = ['Action' => 'GetObject'];
 
         return $payload;
     }
