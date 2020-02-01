@@ -9,14 +9,6 @@ use AsyncAws\Sqs\Result\SendMessageResult;
 
 class SqsClient extends AbstractApi
 {
-    public function getQueueUrl(array $body): GetQueueUrlResult
-    {
-        $body['Action'] = 'GetQueueUrl';
-        $response = $this->getResponse('POST', $body);
-
-        return new GetQueueUrlResult($response);
-    }
-
     protected function getServiceCode(): string
     {
         return 'sqs';
@@ -25,6 +17,14 @@ class SqsClient extends AbstractApi
     protected function getSignatureVersion(): string
     {
         return 'v4';
+    }
+
+    public function getQueueUrl(array $body): GetQueueUrlResult
+    {
+        $body['Action'] = 'GetQueueUrl';
+        $response = $this->getResponse('POST', $body);
+
+        return new GetQueueUrlResult($response);
     }
 
     /**

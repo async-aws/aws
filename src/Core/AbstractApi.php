@@ -24,8 +24,6 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 abstract class AbstractApi
 {
-    private const SIGNATURE_VERSION_V4 = 'v4';
-    private const SIGNATURE_VERSION_S3 = 's3';
 
     /**
      * @var HttpClientInterface
@@ -68,23 +66,34 @@ abstract class AbstractApi
             new ConfigurationProvider(),
             new IniFileProvider(),
         ]));
+    }
 
-        switch ($signatureVersion = $this->getSignatureVersion()) {
-            case self::SIGNATURE_VERSION_V4:
-                $this->signer = new SignerV4($this->getServiceCode(), $configuration->get(Configuration::OPTION_REGION));
+    private function getSigner()
+    {
+        if (null === $this->signer) {
+            if (null === $region = $this->configuration->get(Configuration::OPTION_REGION)) {
+                throw new InvalidArgument(sprintf('The region has not been configured but is required to use the client "%s".', __CLASS__));
+            }
 
-                break;
-            case self::SIGNATURE_VERSION_S3:
-                $this->signer = new SignerV4ForS3($this->getServiceCode(), $configuration->get(Configuration::OPTION_REGION));
+            switch ($signatureVersion = $this->getSignatureVersion()) {
+                case 'v4':
+                    $this->signer = new SignerV4($this->getServiceCode(), $region);
 
-                break;
-            default:
-                throw new InvalidArgument(sprintf('The signature "%s" is not implemented.', $signatureVersion));
+                    break;
+                case 's3':
+                    $this->signer = new SignerV4ForS3($this->getServiceCode(), $region);
+
+                    break;
+                default:
+                    throw new InvalidArgument(sprintf('The signature "%s" is not implemented.', $signatureVersion));
+            }
         }
+
+        return $this->signer;
     }
 
     /**
-     * @param iterable|string[]|string[][]                $headers headers names provided as keys or as part of values
+     * @param string[]|string[][]                         $headers headers names provided as keys or as part of values
      * @param array|string|resource|\Traversable|\Closure $body
      */
     final public function request(string $method, $body = '', $headers = [], ?string $endpoint = null): Result
@@ -95,7 +104,7 @@ abstract class AbstractApi
     }
 
     /**
-     * @param iterable|string[]|string[][]                $headers headers names provided as keys or as part of values
+     * @param string[]|string[][]                         $headers headers names provided as keys or as part of values
      * @param array|string|resource|\Traversable|\Closure $body
      */
     final protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null): ResponseInterface
@@ -106,14 +115,17 @@ abstract class AbstractApi
         }
 
         $request = new Request($method, $this->fillEndpoint($endpoint), $headers, $body);
-        $this->signer->Sign($request, $this->credentialProvider->getCredentials($this->configuration));
+        $this->getSigner()->Sign($request, $this->credentialProvider->getCredentials($this->configuration));
 
         return $this->httpClient->request($request->getMethod(), $request->getUrl(), ['headers' => $request->getHeaders(), 'body' => $request->getBody()]);
     }
 
     private function fillEndpoint(?string $endpoint): string
     {
-        return strtr($endpoint ?? $this->configuration->get('endpoint'), [
+        /** @var string $endpoint */
+        $endpoint = $endpoint ?? $this->configuration->get('endpoint');
+
+        return strtr($endpoint, [
             '%region%' => $this->configuration->get('region'),
             '%service%' => $this->getServiceCode(),
         ]);
@@ -127,6 +139,7 @@ abstract class AbstractApi
      */
     protected function getEndpoint(string $uri, array $query):?string
     {
+        /** @var string $endpoint */
         $endpoint = $this->configuration->get('endpoint');
         $endpoint.= $uri;
         if (empty($query)) {

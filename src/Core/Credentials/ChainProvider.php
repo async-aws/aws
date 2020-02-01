@@ -18,10 +18,11 @@ use Symfony\Contracts\Service\ResetInterface;
 class ChainProvider implements CredentialProvider, ResetInterface
 {
     private $providers;
+
     /**
      * @var CredentialProvider[]
      */
-    private $lastSuccessfulProvider;
+    private $lastSuccessfulProvider = [];
 
     /**
      * @param CredentialProvider[] $providers
@@ -51,6 +52,6 @@ class ChainProvider implements CredentialProvider, ResetInterface
 
     public function reset()
     {
-        $this->lastSuccessfulProvider = null;
+        $this->lastSuccessfulProvider = [];
     }
 }

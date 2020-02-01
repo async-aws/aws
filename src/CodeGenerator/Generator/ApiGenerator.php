@@ -61,6 +61,27 @@ class ApiGenerator
         $namespace->addUse($inputClass);
         $classes = $namespace->getClasses();
         $class = $classes[\array_key_first($classes)];
+        if (null !== $prefix = $definition->getEndpointPrefix()) {
+            if (!$class->hasMethod('getServiceCode')) {
+                $class->addMethod('getServiceCode')
+                    ->setReturnType('string')
+                    ->setVisibility(ClassType::VISIBILITY_PROTECTED)
+                ;
+            }
+            $class->getMethod('getServiceCode')
+                ->setBody("return '$prefix';");
+        }
+        if (null !== $version = $definition->getSignatureVersion()) {
+            if (!$class->hasMethod('getSignatureVersion')) {
+                $class->addMethod('getSignatureVersion')
+                    ->setReturnType('string')
+                    ->setVisibility(ClassType::VISIBILITY_PROTECTED)
+                ;
+            }
+            $class->getMethod('getSignatureVersion')
+                ->setBody("return '$version';");
+        }
+
         $class->removeMethod(\lcfirst($operation['name']));
         $method = $class->addMethod(\lcfirst($operation['name']));
         if (isset($operation['documentationUrl'])) {
@@ -400,7 +421,7 @@ PHP;
     private function setMethodBody(array $inputShape, Method $method, array $operation, $inputClassName): void
     {
         $body = <<<PHP
-\$input = $inputClassName::create(\$input); 
+\$input = $inputClassName::create(\$input);
 \$input->validate();
 
 PHP;
@@ -432,9 +453,9 @@ PHP;
             <<<PHP
 
 \$response = \$this->getResponse(
-    '{$operation['http']['method']}', 
-    $payloadVariable, 
-    \$input->requestHeaders(), 
+    '{$operation['http']['method']}',
+    $payloadVariable,
+    \$input->requestHeaders(),
     \$this->getEndpoint(\$input->requestUri(), \$input->requestQuery())
 );
 
