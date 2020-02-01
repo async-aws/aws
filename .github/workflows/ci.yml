@@ -45,11 +45,14 @@ jobs:
             sed -i -re 's/"require": \{/"repositories": [{"type": "path","url": "..\/Core"}],"require": \{/' composer.json
             composer update --no-interaction --prefer-dist --optimize-autoloader
           done
+          pwd
 
       - name: Run tests
         run: |
           set -e
+          pwd
           for COMPONENT in $(find src -type f -name phpunit.xml.dist -printf '%h\n' | sort)
           do
+            pwd
             ./vendor/bin/simple-phpunit -c $COMPONENT
           done
