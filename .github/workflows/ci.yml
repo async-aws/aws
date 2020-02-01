@@ -35,9 +35,8 @@ jobs:
           composer req symfony/phpunit-bridge
 
       - name: Download dependencies
-        env:
-          COMPONENTS: ['Core', 'S3', 'Ses', 'Sqs']
         run: |
+          export COMPONENTS=$(find src -type f -name phpunit.xml.dist -printf '%h\n' | sort)
           for COMPONENT in COMPONENTS
           do
             cd "./src/$COMPONENT"
@@ -47,8 +46,6 @@ jobs:
           done
 
       - name: Run tests
-        env:
-          COMPONENTS: ['Core', 'S3', 'Ses', 'Sqs']
         run: |
           for COMPONENT in COMPONENTS
           do
