@@ -21,6 +21,11 @@ class S3Client extends AbstractApi
         return 's3';
     }
 
+    protected function getSignatureVersion(): string
+    {
+        return 's3';
+    }
+
     protected function getEndpoint(array $uri, array $query): ?string
     {
         return \sprintf('https://%s.s3.%%region%%.amazonaws.com/%s', $uri['Bucket'], ltrim($uri['Key'], '/'));
