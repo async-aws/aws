@@ -235,7 +235,7 @@ foreach ([$requiredArray] as \$name) {
     }
 }
 PHP;
-        $class->addMethod('validate')->setPublic()->setReturnType('void')->setBody(empty($requiredArray) ? '' : $validateBody);
+        $class->addMethod('validate')->setPublic()->setReturnType('void')->setBody(empty($requiredProperties) ? '// There are no required properties' : $validateBody);
 
         $this->fileWriter->write($namespace);
     }
