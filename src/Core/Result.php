@@ -52,6 +52,10 @@ class Result
      */
     final public function resolve()
     {
+        if (null === $this->response) {
+            return;
+        }
+
         try {
             $statusCode = $this->response->getStatusCode();
         } catch (TransportExceptionInterface $e) {
@@ -74,6 +78,10 @@ class Result
 
     final public function cancel(): void
     {
+        if (null === $this->response) {
+            return;
+        }
+
         $this->response->cancel();
     }
 
