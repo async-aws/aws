@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Sqs\Input;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 class SendMessageRequest
 {
     /**
@@ -199,5 +201,14 @@ class SendMessageRequest
     public function requestUri(): string
     {
         return "/";
+    }
+
+    public function validate(): void
+    {
+        foreach (['QueueUrl', 'MessageBody'] as $name) {
+            if (null === $this->$name) {
+                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
+            }
+        }
     }
 }

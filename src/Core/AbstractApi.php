@@ -87,7 +87,7 @@ abstract class AbstractApi
      * @param iterable|string[]|string[][]                $headers headers names provided as keys or as part of values
      * @param array|string|resource|\Traversable|\Closure $body
      */
-    public function request(string $method, $body = '', $headers = [], ?string $endpoint = null): Result
+    final public function request(string $method, $body = '', $headers = [], ?string $endpoint = null): Result
     {
         $response = $this->getResponse($method, $body, $headers, $endpoint);
 
@@ -98,7 +98,7 @@ abstract class AbstractApi
      * @param iterable|string[]|string[][]                $headers headers names provided as keys or as part of values
      * @param array|string|resource|\Traversable|\Closure $body
      */
-    protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null): ResponseInterface
+    final protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null): ResponseInterface
     {
         if (\is_array($body)) {
             $body = http_build_query($body, '', '&', \PHP_QUERY_RFC1738);

@@ -54,4 +54,11 @@ class Grant
 
         return $this;
     }
+
+    public function validate(): void
+    {
+        if ($this->Grantee) {
+            $this->Grantee->validate();
+        }
+    }
 }

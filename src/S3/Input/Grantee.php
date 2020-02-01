@@ -2,6 +2,8 @@
 
 namespace AsyncAws\S3\Input;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 class Grantee
 {
     /**
@@ -112,5 +114,14 @@ class Grantee
         $this->URI = $value;
 
         return $this;
+    }
+
+    public function validate(): void
+    {
+        foreach (['Type'] as $name) {
+            if (null === $this->$name) {
+                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
+            }
+        }
     }
 }

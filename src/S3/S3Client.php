@@ -74,6 +74,7 @@ class S3Client extends AbstractApi
     public function putObject($input): PutObjectOutput
     {
         $input = PutObjectRequest::create($input);
+        $input->validate();
         $payload = $input->getBody() ?? "";
         $response = $this->getResponse(
             'PUT',
@@ -103,6 +104,7 @@ class S3Client extends AbstractApi
     public function createBucket($input): CreateBucketOutput
     {
         $input = CreateBucketRequest::create($input);
+        $input->validate();
         $xmlConfig = ["CreateBucketConfiguration" => ["type" => 'structure',"members" => ["LocationConstraint" => ["shape" => 'BucketLocationConstraint']]],"BucketLocationConstraint" => ["type" => 'string'],"_root" => ["type" => 'CreateBucketConfiguration',"xmlName" => 'CreateBucketConfiguration',"uri" => 'http://s3.amazonaws.com/doc/2006-03-01/']];
         $payload = (new XmlBuilder($input->getCreateBucketConfiguration() ?? [], $xmlConfig))->getXml();
 
@@ -131,6 +133,7 @@ class S3Client extends AbstractApi
     public function deleteObject($input): DeleteObjectOutput
     {
         $input = DeleteObjectRequest::create($input);
+        $input->validate();
 
         $response = $this->getResponse(
             'DELETE',
@@ -164,6 +167,7 @@ class S3Client extends AbstractApi
     public function headObject($input): HeadObjectOutput
     {
         $input = HeadObjectRequest::create($input);
+        $input->validate();
 
         $response = $this->getResponse(
             'HEAD',
@@ -221,6 +225,7 @@ class S3Client extends AbstractApi
     public function copyObject($input): CopyObjectOutput
     {
         $input = CopyObjectRequest::create($input);
+        $input->validate();
 
         $response = $this->getResponse(
             'PUT',
@@ -260,6 +265,7 @@ class S3Client extends AbstractApi
     public function getObject($input): GetObjectOutput
     {
         $input = GetObjectRequest::create($input);
+        $input->validate();
 
         $response = $this->getResponse(
             'GET',
@@ -292,6 +298,7 @@ class S3Client extends AbstractApi
     public function putObjectAcl($input): PutObjectAclOutput
     {
         $input = PutObjectAclRequest::create($input);
+        $input->validate();
         $xmlConfig = ["AccessControlPolicy" => ["type" => 'structure',"members" => ["Grants" => ["shape" => 'Grants',"locationName" => 'AccessControlList'],"Owner" => ["shape" => 'Owner']]],"Grants" => ["type" => 'list',"member" => ["shape" => 'Grant',"locationName" => 'Grant']],"Grant" => ["type" => 'structure',"members" => ["Grantee" => ["shape" => 'Grantee'],"Permission" => ["shape" => 'Permission']]],"Grantee" => ["type" => 'structure',"required" => [0 => 'Type'],"members" => ["DisplayName" => ["shape" => 'DisplayName'],"EmailAddress" => ["shape" => 'EmailAddress'],"ID" => ["shape" => 'ID'],"Type" => ["shape" => 'Type',"locationName" => 'xsi:type',"xmlAttribute" => '1'],"URI" => ["shape" => 'URI']],"xmlNamespace" => ["prefix" => 'xsi',"uri" => 'http://www.w3.org/2001/XMLSchema-instance']],"DisplayName" => ["type" => 'string'],"EmailAddress" => ["type" => 'string'],"ID" => ["type" => 'string'],"Type" => ["type" => 'string'],"URI" => ["type" => 'string'],"Permission" => ["type" => 'string'],"Owner" => ["type" => 'structure',"members" => ["DisplayName" => ["shape" => 'DisplayName'],"ID" => ["shape" => 'ID']]],"_root" => ["type" => 'AccessControlPolicy',"xmlName" => 'AccessControlPolicy',"uri" => 'http://s3.amazonaws.com/doc/2006-03-01/']];
         $payload = (new XmlBuilder($input->getAccessControlPolicy() ?? [], $xmlConfig))->getXml();
 
@@ -318,6 +325,7 @@ class S3Client extends AbstractApi
     public function getObjectAcl($input): GetObjectAclOutput
     {
         $input = GetObjectAclRequest::create($input);
+        $input->validate();
 
         $response = $this->getResponse(
             'GET',
@@ -345,6 +353,7 @@ class S3Client extends AbstractApi
     public function listObjects($input): ListObjectsOutput
     {
         $input = ListObjectsRequest::create($input);
+        $input->validate();
 
         $response = $this->getResponse(
             'GET',
