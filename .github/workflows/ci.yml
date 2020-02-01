@@ -40,7 +40,9 @@ jobs:
           CURRENT_DIR=$(pwd)
           for COMPONENT in $(find src -type f -name phpunit.xml.dist -printf '%h\n' | sort)
           do
+            echo "$CURRENT_DIR/$COMPONENT"
             cd "$CURRENT_DIR/$COMPONENT"
+            pwd
             sed -i -re 's/"async-aws\/core": "[^"]+",/"async-aws\/core": "*@dev",/' composer.json
             sed -i -re 's/"require": \{/"repositories": [{"type": "path","url": "..\/Core"}],"require": \{/' composer.json
             composer update --no-interaction --prefer-dist --optimize-autoloader
@@ -54,5 +56,5 @@ jobs:
           for COMPONENT in $(find src -type f -name phpunit.xml.dist -printf '%h\n' | sort)
           do
             pwd
-            ./vendor/bin/simple-phpunit -c $COMPONENT
+            ./vendor/bin/simple-phpunit -c "./$COMPONENT"
           done
