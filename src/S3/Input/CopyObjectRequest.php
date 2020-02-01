@@ -865,12 +865,8 @@ class CopyObjectRequest
     public function validate(): void
     {
         foreach (['Bucket', 'CopySource', 'Key'] as $name) {
-            if (null === $value = $this->$name) {
+            if (null === $this->$name) {
                 throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
-            }
-
-            if (\is_object($value) && method_exists($value, 'validate')) {
-                $value->validate();
             }
         }
     }

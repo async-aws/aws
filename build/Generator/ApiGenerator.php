@@ -222,20 +222,32 @@ PHP
 
         // Add validate()
         $namespace->addUse(InvalidArgument::class);
-        $requiredArray = '\'' . implode("', '", $requiredProperties) . '\'';
+        $validateBody = '';
 
-        $validateBody = <<<PHP
+        if (!empty($requiredProperties)) {
+            $requiredArray = '\'' . implode("', '", $requiredProperties) . '\'';
+
+            $validateBody = <<<PHP
 foreach ([$requiredArray] as \$name) {
-    if (null === \$value = \$this->\$name) {
+    if (null === \$this->\$name) {
         throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', \$name, __CLASS__));
     }
-
-    if (\is_object(\$value) && method_exists(\$value, 'validate')) {
-        \$value->validate();
-    }
 }
+
 PHP;
-        $class->addMethod('validate')->setPublic()->setReturnType('void')->setBody(empty($requiredProperties) ? '// There are no required properties' : $validateBody);
+        }
+
+        foreach ($members as $name => $data) {
+            $memberShape = $shapes[$data['shape']];
+            $type = $memberShape['type'] ?? null;
+            if ('structure' === $type) {
+                $validateBody .= 'if ($this->' . $name . ') $this->' . $name . '->validate();' . "\n";
+            } elseif ('list' === $type) {
+                $validateBody .= 'foreach ($this->' . $name . ' as $item) $item->validate();' . "\n";
+            }
+        }
+
+        $class->addMethod('validate')->setPublic()->setReturnType('void')->setBody(empty($validateBody) ? '// There are no required properties' : $validateBody);
 
         $this->fileWriter->write($namespace);
     }

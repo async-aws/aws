@@ -59,6 +59,11 @@ class AccessControlPolicy
 
     public function validate(): void
     {
-        // There are no required properties
+        foreach ($this->Grants as $item) {
+            $item->validate();
+        }
+        if ($this->Owner) {
+            $this->Owner->validate();
+        }
     }
 }

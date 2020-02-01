@@ -57,6 +57,8 @@ class Grant
 
     public function validate(): void
     {
-        // There are no required properties
+        if ($this->Grantee) {
+            $this->Grantee->validate();
+        }
     }
 }
