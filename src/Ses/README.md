@@ -10,4 +10,3 @@ An API client for SQS.
 ```cli
 composer require async-aws/ses
 ```
-

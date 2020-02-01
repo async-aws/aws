@@ -10,4 +10,3 @@ An API client for S3.
 ```cli
 composer require async-aws/s3
 ```
-
