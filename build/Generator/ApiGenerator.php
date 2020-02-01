@@ -6,6 +6,7 @@ namespace AsyncAws\Build\Generator;
 
 use AsyncAws\Core\Result;
 use AsyncAws\Core\XmlBuilder;
+use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpNamespace;
 use Nette\PhpGenerator\PsrPrinter;
@@ -34,11 +35,15 @@ class ApiGenerator
     public function generateOperation($definition, $service, $operationName): void
     {
         $operation = $definition['operations'][$operationName];
-
-        $baseNamespace = \sprintf('AsyncAws\\%s', $service);
-        $namespace = ClassFactory::fromExistingClass(\sprintf('%s\\%sClient', $baseNamespace, $service));
         $inputShape = $definition['shapes'][$operation['input']['shape']] ?? [];
 
+        $baseNamespace = \sprintf('AsyncAws\\%s', $service);
+        $inputClassName = $operation['input']['shape'];
+        $this->generateInputClass($definition, $service, $operationName, $baseNamespace . '\\Input', $inputClassName, true);
+        $inputClass = $baseNamespace . '\\Input\\' . $inputClassName;
+
+        $namespace = ClassFactory::fromExistingClass(\sprintf('%s\\%sClient', $baseNamespace, $service));
+        $namespace->addUse($inputClass);
         $classes = $namespace->getClasses();
         $class = $classes[\array_key_first($classes)];
         $class->removeMethod(\lcfirst($operation['name']));
@@ -46,9 +51,11 @@ class ApiGenerator
         if (isset($operation['documentationUrl'])) {
             $method->addComment('@see ' . $operation['documentationUrl']);
         }
-        $this->addMethodComment($definition, $method, $inputShape);
-
-        $method->addParameter('input')->setType('array');
+        // TODO add Input object
+        $method->addComment('@param array{');
+        $this->addMethodComment($definition['shapes'], $method, $inputShape, $baseNamespace . '\\Input');
+        $method->addComment('}|' . $inputClassName . ' $input');
+        $method->addParameter('input');
 
         $outputClass = \sprintf('%s\\Result\\%s', $baseNamespace, $operation['output']['shape']);
         $method->setReturnType($outputClass);
@@ -56,7 +63,7 @@ class ApiGenerator
         $namespace->addUse(XmlBuilder::class);
 
         // Generate method body
-        $this->setMethodBody($definition, $inputShape, $method, $operation);
+        $this->setMethodBody($definition, $inputShape, $method, $operation, $inputClassName);
 
         $printer = new PsrPrinter();
         $filename = \sprintf('%s/%s/%sClient.php', $this->srcDirectory, $service, $service);
@@ -66,7 +73,7 @@ class ApiGenerator
     /**
      * Generate classes for the output. Ie, the result of the API call.
      */
-    public function generateResultClass(array $shapes, $service, $baseNamespace, $className, $wrapper = null, $root = false)
+    public function generateResultClass(array $shapes, string $service, string $baseNamespace, string $className, $wrapper = null, bool $root = false)
     {
         $namespace = new PhpNamespace($baseNamespace);
         $class = $namespace->addClass($className);
@@ -119,7 +126,127 @@ PHP
         \file_put_contents(\sprintf('%s/%s/Result/%s.php', $this->srcDirectory, $service, $className), "<?php\n\n" . $printer->printNamespace($namespace));
     }
 
-    private function createOutputTrait($baseNamespace, string $traitName, $members, ?string $wrapper, string $traitFilename)
+    /**
+     * Generate classes for the input.
+     */
+    private function generateInputClass(array $definition, string $service, string $operationName, string $baseNamespace, string $className, bool $root = false)
+    {
+        $operation = $definition['operations'][$operationName];
+        $shapes = $definition['shapes'];
+        $inputShape = $shapes[$className] ?? [];
+        $members = $inputShape['members'];
+
+        $namespace = new PhpNamespace($baseNamespace);
+        $class = $namespace->addClass($className);
+        // Add named constructor
+        $class->addMethod('create')->setStatic(true)->setReturnType('self')->setBody(
+            <<<PHP
+return \$input instanceof self ? \$input : new self(\$input);
+PHP
+        )->addParameter('input');
+        $constructor = $class->addMethod('__construct');
+
+        if ($root) {
+            if (isset($operation['documentationUrl'])) {
+                $constructor->addComment('@see ' . $operation['documentationUrl']);
+            }
+        }
+
+        $constructor->addComment('@param array{');
+        $this->addMethodComment($definition['shapes'], $constructor, $inputShape, $baseNamespace);
+        $constructor->addComment('} $input');
+        $constructor->addParameter('input')->setType('array')->setDefaultValue([]);
+        $constructorBody = '';
+
+        foreach ($members as $name => $data) {
+            $parameterType = $members[$name]['shape'];
+            $memberShape = $shapes[$parameterType];
+            $nullable = true;
+            if ('structure' === $memberShape['type']) {
+                $this->generateInputClass($definition, $service, $operationName, $baseNamespace, $parameterType);
+                $returnType = $baseNamespace . '\\' . $parameterType;
+                $constructorBody .= sprintf('$this->%s = isset($input["%s"]) ? %s::create($input["%s"]) : null;' . "\n", $name, $name, $parameterType, $name);
+            } elseif ('list' === $memberShape['type']) {
+                $parameterType = $memberShape['member']['shape'] . '[]';
+                $this->generateInputClass($definition, $service, $operationName, $baseNamespace, $memberShape['member']['shape']);
+                $returnType = $baseNamespace . '\\' . $memberShape['member']['shape'];
+                $constructorBody .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, $memberShape['member']['shape'], $name);
+                $nullable = false;
+            } else {
+                $returnType = $parameterType = $this->toPhpType($memberShape['type']);
+                $constructorBody .= sprintf('$this->%s = $input["%s"] ?? null;' . "\n", $name, $name);
+            }
+
+            $property = $class->addProperty($name)->setPrivate();
+            if (\in_array($name, $shapes[$className]['required'] ?? [])) {
+                $property->addComment('@required');
+            }
+            $property->addComment('@var ' . $parameterType . ($nullable ? '|null' : ''));
+
+            $returnType = '[]' === substr($parameterType, -2) ? 'array' : $returnType;
+
+            $class->addMethod('get' . $name)
+                ->setReturnType($returnType)
+                ->setReturnNullable($nullable)
+                ->setBody(
+                    <<<PHP
+return \$this->{$name};
+PHP
+                );
+
+            $class->addMethod('set' . $name)
+                ->setReturnType('self')
+                ->setBody(
+                    <<<PHP
+\$this->{$name} = \$value;
+return \$this;
+PHP
+                )
+                ->addParameter('value')->setType($returnType)->setNullable($nullable)
+            ;
+        }
+
+        $constructor->setBody($constructorBody);
+        if ($root) {
+            $this->inputClassRequestGetters($inputShape, $class, $operation['http']['requestUri']);
+        }
+
+        $printer = new PsrPrinter();
+        \file_put_contents(\sprintf('%s/%s/Input/%s.php', $this->srcDirectory, $service, $className), "<?php\n\n" . $printer->printNamespace($namespace));
+    }
+
+    private function inputClassRequestGetters(array $inputShape, ClassType $class, string $requestUri): void
+    {
+        foreach (['header' => '$headers', 'querystring' => '$query'] as $locationName => $varName) {
+            $body[$locationName] = $varName . ' = [];' . "\n";
+            foreach ($inputShape['members'] as $name => $data) {
+                $location = $data['location'] ?? null;
+                if ($location === $locationName) {
+                    $body[$locationName] .= 'if ($this->' . $name . ' !== null) ' . $varName . '["' . $data['locationName'] . '"] = $this->' . $name . ';' . "\n";
+                }
+            }
+            $body[$locationName] .= 'return ' . $varName . ';' . "\n";
+        }
+
+        $class->addMethod('requestHeaders')->setReturnType('array')->setBody($body['header']);
+        $class->addMethod('requestQuery')->setReturnType('array')->setBody($body['querystring']);
+
+        $body['uri'] = '$uri = [];' . "\n";
+        foreach ($inputShape['members'] as $name => $data) {
+            if ('uri' === ($data['location'] ?? null)) {
+                $body['uri'] .= <<<PHP
+\$uri['{$data['locationName']}'] = \$this->$name ?? '';
+
+PHP;
+            }
+        }
+
+        $body['uri'] .= 'return "' . str_replace(['{', '+}', '}'], ['{$uri[\'', '}', '\']}'], $requestUri) . '";';
+
+        $class->addMethod('requestUri')->setReturnType('string')->setBody($body['uri']);
+    }
+
+    private function createOutputTrait($baseNamespace, string $traitName, $members, string $traitFilename)
     {
         $namespace = new PhpNamespace($baseNamespace);
         $namespace->addUse(ResponseInterface::class);
@@ -196,63 +323,37 @@ PHP
         return $output;
     }
 
-    private function addMethodComment(array $definition, Method $method, array $inputShape): void
+    private function addMethodComment(array $shapes, Method $method, array $inputShape, string $baseNamespace): void
     {
-        $method->addComment('@param array{');
         foreach ($inputShape['members'] as $name => $data) {
             $nullable = !\in_array($name, $inputShape['required'] ?? []);
-            $param = $this->toPhpType($definition['shapes'][$data['shape']]['type']);
-            if (\in_array($param, ['structure', 'list'])) {
-                $param = 'array';
+            $param = $shapes[$data['shape']]['type'];
+            if ('structure' === $param) {
+                $param = '\\' . $baseNamespace . '\\' . $name . '|array';
+            } elseif ('list' === $param) {
+                $param = '\\' . $baseNamespace . '\\' . $shapes[$data['shape']]['member']['shape'] . '[]';
+            } else {
+                $param = $this->toPhpType($param);
             }
 
-            $method->addComment(sprintf('  %s%s: %s', $name, $nullable ? '?' : '', $param));
+            $method->addComment(sprintf('  %s%s: %s,', $name, $nullable ? '?' : '', $param));
         }
-        $method->addComment('} $input');
     }
 
-    private function setMethodBody(array $definition, array $inputShape, Method $method, array $operation): void
+    private function setMethodBody(array $definition, array $inputShape, Method $method, array $operation, $inputClassName): void
     {
         $body = <<<PHP
-\$uri = [];
-\$query = [];
-\$headers = [];
+\$input = $inputClassName::create(\$input); 
 
 PHP;
-        ;
 
-        $keyToUnset = [];
-        foreach (['header' => '$headers', 'querystring' => '$query', 'uri' => '$uri'] as $locationName => $varName) {
-            foreach ($inputShape['members'] as $name => $data) {
-                $location = $data['location'] ?? null;
-                if ($location === $locationName) {
-                    $keyToUnset[] = $name;
-                    if ($locationName === 'uri') {
-                        $body .= <<<PHP
-{$varName}['{$data['locationName']}'] = \$input['$name'] ?? '';
-
-PHP;
-                    } else {
-                        $body .= <<<PHP
-if (array_key_exists('$name', \$input)) {$varName}['{$data['locationName']}'] = \$input['$name'];
-
-PHP;
-                    }
-                }
-            }
-        }
-
-        if (count($keyToUnset) > 0) {
-            $inlineKeys = \implode("'], \$input['", $keyToUnset);
-            $body.="unset(\$input['$inlineKeys']);\n";
-        }
-
-        if (!isset($inputShape['payload'])) {
-            $body .= "\$payload = \$input + ['Action' => '{$operation['name']}'];";
-        } else {
+        $payloadVariable = "''";
+        if (isset($inputShape['payload'])) {
+            $payloadVariable = '$payload';
             $data = $inputShape['members'][$inputShape['payload']];
             if ($data['streaming'] ?? false) {
-                $body .= '$payload = $input["' . $inputShape['payload'] . '"];';
+                // TOODO support others.
+                $body .= '$payload = $input->get' . $inputShape['payload'] . '() ?? "";';
             } else {
                 // Build XML
                 $xml = $this->buildXmlConfig($definition['shapes'], $data['shape']);
@@ -260,21 +361,18 @@ PHP;
                     'type' => $data['shape'],
                     'xmlName' => $data['locationName'],
                     'uri' => $data['xmlNamespace']['uri'] ?? '',
-                    //'members' => array_keys($definition['shapes'][$data['shape']]['members']),
                 ];
 
                 $body .= '$xmlConfig = ' . $this->printArray($xml) . ";\n";
-                $body .= '$payload = (new XmlBuilder($input["' . $inputShape['payload'] . '"], $xmlConfig))->getXml();';
+                $body .= '$payload = (new XmlBuilder($input->get' . $inputShape['payload'] . '() ?? [], $xmlConfig))->getXml();';
             }
         }
-
-        $requestUri = str_replace(['{', '+}', '}'], ['{$uri[\'', '}', '\']}'], $operation['http']['requestUri']);
 
         $method->setBody(
             $body .
             <<<PHP
 
-\$response = \$this->getResponse('{$operation['http']['method']}', \$payload, \$headers, \$this->getEndpoint("$requestUri", \$query));
+\$response = \$this->getResponse('{$operation['http']['method']}', $payloadVariable, \$input->requestHeaders(), \$this->getEndpoint(\$input->requestUri(), \$input->requestQuery()));
 return new {$operation['output']['shape']}(\$response);
 PHP
         );

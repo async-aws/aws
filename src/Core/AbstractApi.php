@@ -120,7 +120,7 @@ abstract class AbstractApi
     /**
      * Fallback function for getting the endpoint. This could be overridden by any APIClient.
      *
-     * @param string $uri   parameters that should go in the URI
+     * @param string $uri  or path
      * @param array $query parameters that should go in the query string
      */
     protected function getEndpoint(string $uri, array $query):?string

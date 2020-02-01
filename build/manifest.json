@@ -4,31 +4,31 @@
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/s3\/2006-03-01\/api-2.json",
             "methods": {
                 "PutObject": {
-                    "generated": "2020-01-31T21:20:47+00:00"
+                    "generated": "2020-02-01T09:08:59+00:00"
                 },
                 "CreateBucket": {
-                    "generated": "2020-01-31T21:20:47+00:00"
+                    "generated": "2020-02-01T09:08:59+00:00"
                 },
                 "DeleteObject": {
-                    "generated": "2020-01-31T21:20:47+00:00"
+                    "generated": "2020-02-01T09:08:59+00:00"
                 },
                 "HeadObject": {
-                    "generated": "2020-01-31T21:20:47+00:00"
+                    "generated": "2020-02-01T09:08:59+00:00"
                 },
                 "CopyObject": {
-                    "generated": "2020-01-31T21:20:48+00:00"
+                    "generated": "2020-02-01T09:08:59+00:00"
                 },
                 "GetObject": {
-                    "generated": "2020-01-31T21:20:48+00:00"
+                    "generated": "2020-02-01T09:08:59+00:00"
                 },
                 "PutObjectAcl": {
-                    "generated": "2020-01-31T21:20:48+00:00"
+                    "generated": "2020-02-01T09:08:59+00:00"
                 },
                 "GetObjectAcl": {
-                    "generated": "2020-01-31T21:20:49+00:00"
+                    "generated": "2020-02-01T09:08:59+00:00"
                 },
                 "ListObjects": {
-                    "generated": "2020-01-31T21:20:49+00:00"
+                    "generated": "2020-02-01T09:08:59+00:00"
                 }
             }
         },
