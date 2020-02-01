@@ -11,8 +11,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    env:
-      COMPONENTS: ['Core', 'S3', 'Ses', 'Sqs']
     strategy:
       max-parallel: 10
       matrix:
@@ -37,6 +35,8 @@ jobs:
           composer req symfony/phpunit-bridge
 
       - name: Download dependencies
+        env:
+          COMPONENTS: ['Core', 'S3', 'Ses', 'Sqs']
         run: |
           for COMPONENT in COMPONENTS
           do
@@ -47,6 +47,8 @@ jobs:
           done
 
       - name: Run tests
+        env:
+          COMPONENTS: ['Core', 'S3', 'Ses', 'Sqs']
         run: |
           for COMPONENT in COMPONENTS
           do
