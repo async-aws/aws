@@ -39,11 +39,11 @@ jobs:
           export COMPONENTS=$(find src -type f -name phpunit.xml.dist -printf '%h\n' | sort)
           for COMPONENT in $COMPONENTS
           do
-            cd "./src/$COMPONENT"
+            cd "./$COMPONENT"
             sed -i -re 's/"async-aws\/core": "[^"]+",/"async-aws\/core": "*@dev",/' composer.json
             sed -i -re 's/"require": \{/"repositories": [{"type": "path","url": "..\/Core"}],"require": \{/' composer.json
-            composer update --no-interaction --prefer-dist --optimize-autoloader
           done
+          echo "$COMPONENTS" | parallel --gnu "cd {} && composer update --no-interaction --prefer-dist --optimize-autoloader"
 
       - name: Run tests
         run: |
