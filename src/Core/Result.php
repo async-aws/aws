@@ -37,6 +37,7 @@ class Result
         }
         $this->resolve();
         $this->populateFromResponse($this->response);
+        unset($this->response);
         $this->initialized = true;
     }
 
@@ -49,7 +50,7 @@ class Result
      *
      * @throws Exception
      */
-    public function resolve()
+    final public function resolve()
     {
         try {
             $statusCode = $this->response->getStatusCode();
@@ -71,8 +72,13 @@ class Result
         }
     }
 
-    public function cancel(): void
+    final public function cancel(): void
     {
         $this->response->cancel();
+    }
+
+    final protected function xmlValueOrNull(\SimpleXMLElement $xml)
+    {
+        return 0 === $xml->count() ? null : $xml->__toString();
     }
 }

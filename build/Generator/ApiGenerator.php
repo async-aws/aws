@@ -277,7 +277,7 @@ PHP;
             $body.= "\$data = \$data->$wrapper;\n";
         }
         foreach (\array_keys($members) as $name) {
-            $body .= "\$this->$name = \$data->$name;\n";
+            $body .= "\$this->$name = \$this->xmlValueOrNull(\$data->$name);\n";
         }
 
         $trait->addMethod('populateFromResponse')
