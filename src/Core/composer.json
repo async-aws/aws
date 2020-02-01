@@ -10,6 +10,11 @@
         "symfony/http-client": "^4.4 || ^5.0",
         "symfony/service-contracts": "^2.0"
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
     "autoload": {
         "psr-4": {
             "AsyncAws\\Core\\": ""
@@ -17,5 +22,6 @@
         "exclude-from-classmap": [
             "/Tests/"
         ]
-    }
+    },
+    "minimum-stability": "dev"
 }

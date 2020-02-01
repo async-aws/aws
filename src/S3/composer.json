@@ -13,6 +13,11 @@
         "async-aws/core": "^0.1",
         "symfony/http-client-contracts": "^1.0 || ^2.0"
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
     "autoload": {
         "psr-4": {
             "AsyncAws\\S3\\": ""
@@ -20,5 +25,6 @@
         "exclude-from-classmap": [
             "/Tests/"
         ]
-    }
+    },
+    "minimum-stability": "dev"
 }
