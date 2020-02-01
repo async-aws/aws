@@ -10,8 +10,6 @@ trait SendMessageResultTrait
     {
         $data = new \SimpleXMLElement($response->getContent(false));
 
-        // TODO Verify correctness
-        $data = $data->SendMessageResult;
         $this->MD5OfMessageBody = $this->xmlValueOrNull($data->MD5OfMessageBody);
         $this->MD5OfMessageAttributes = $this->xmlValueOrNull($data->MD5OfMessageAttributes);
         $this->MD5OfMessageSystemAttributes = $this->xmlValueOrNull($data->MD5OfMessageSystemAttributes);

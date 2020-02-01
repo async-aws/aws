@@ -11,15 +11,15 @@ trait CopyObjectOutputTrait
         $data = new \SimpleXMLElement($response->getContent(false));
 
         // TODO Verify correctness
-        $this->CopyObjectResult = $data->CopyObjectResult;
-        $this->Expiration = $data->Expiration;
-        $this->CopySourceVersionId = $data->CopySourceVersionId;
-        $this->VersionId = $data->VersionId;
-        $this->ServerSideEncryption = $data->ServerSideEncryption;
-        $this->SSECustomerAlgorithm = $data->SSECustomerAlgorithm;
-        $this->SSECustomerKeyMD5 = $data->SSECustomerKeyMD5;
-        $this->SSEKMSKeyId = $data->SSEKMSKeyId;
-        $this->SSEKMSEncryptionContext = $data->SSEKMSEncryptionContext;
-        $this->RequestCharged = $data->RequestCharged;
+        $this->CopyObjectResult = $this->xmlValueOrNull($data->CopyObjectResult);
+        $this->Expiration = $this->xmlValueOrNull($data->Expiration);
+        $this->CopySourceVersionId = $this->xmlValueOrNull($data->CopySourceVersionId);
+        $this->VersionId = $this->xmlValueOrNull($data->VersionId);
+        $this->ServerSideEncryption = $this->xmlValueOrNull($data->ServerSideEncryption);
+        $this->SSECustomerAlgorithm = $this->xmlValueOrNull($data->SSECustomerAlgorithm);
+        $this->SSECustomerKeyMD5 = $this->xmlValueOrNull($data->SSECustomerKeyMD5);
+        $this->SSEKMSKeyId = $this->xmlValueOrNull($data->SSEKMSKeyId);
+        $this->SSEKMSEncryptionContext = $this->xmlValueOrNull($data->SSEKMSEncryptionContext);
+        $this->RequestCharged = $this->xmlValueOrNull($data->RequestCharged);
     }
 }

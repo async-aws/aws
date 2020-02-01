@@ -85,7 +85,7 @@ class ApiGenerator
     /**
      * Generate classes for the output. Ie, the result of the API call.
      */
-    public function generateResultClass(ServiceDefinition $definition, string $service, string $baseNamespace, string $className, $wrapper = null, bool $root = false)
+    public function generateResultClass(ServiceDefinition $definition, string $service, string $baseNamespace, string $className, bool $root = false)
     {
         $this->definition = $definition;
         $shapes = $definition->getShapes();
@@ -94,16 +94,9 @@ class ApiGenerator
         $members = $shapes[$className]['members'];
 
         if ($root) {
-            $traitName = $className . 'Trait';
             $namespace->addUse(Result::class);
             $class->addExtend(Result::class);
-            $class->addTrait($baseNamespace . '\\' . $traitName);
-
-            // Add trait only if file does not exists
-            $traitFilename = \sprintf('%s/%s/Result/%s.php', $this->srcDirectory, $service, $traitName);
-            if (!\file_exists($traitFilename)) {
-                $this->createOutputTrait($baseNamespace, $traitName, $members, $wrapper, $traitFilename);
-            }
+            $class->addTrait($baseNamespace . '\\' . $className . 'Trait');
         }
 
         foreach ($members as $name => $data) {
@@ -268,17 +261,28 @@ PHP;
         $class->addMethod('requestUri')->setReturnType('string')->setBody($body['uri']);
     }
 
-    private function createOutputTrait($baseNamespace, string $traitName, $members, ?string $wrapper, string $traitFilename)
+    public function generateOutputTrait(ServiceDefinition $definition, string $operationName, string $baseNamespace, string $className)
     {
+        $this->definition = $definition;
+        $shape = $definition->getShape($className);
+        $operation = $definition->getOperation($operationName);
+        $traitName = $className . 'Trait';
+
         $namespace = new PhpNamespace($baseNamespace);
         $namespace->addUse(ResponseInterface::class);
         $trait = $namespace->addTrait($traitName);
 
-        $body = '$data = new \SimpleXMLElement($response->getContent(false));' . "\n\n// TODO Verify correctness\n";
-        if ($wrapper) {
+        $comment = '';
+        if (!trait_exists($baseNamespace . '\\' . $traitName)) {
+            $comment = "// TODO Verify correctness\n";
+        }
+
+        $body = '$data = new \SimpleXMLElement($response->getContent(false));' . "\n\n$comment";
+        $wrapper = $operation['output']['resultWrapper'] ?? null;
+        if (null !== $wrapper) {
             $body.= "\$data = \$data->$wrapper;\n";
         }
-        foreach (\array_keys($members) as $name) {
+        foreach (\array_keys($shape['members']) as $name) {
             $body .= "\$this->$name = \$this->xmlValueOrNull(\$data->$name);\n";
         }
 

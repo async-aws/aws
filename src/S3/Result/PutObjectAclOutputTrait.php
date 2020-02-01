@@ -11,6 +11,6 @@ trait PutObjectAclOutputTrait
         $data = new \SimpleXMLElement($response->getContent(false));
 
         // TODO Verify correctness
-        $this->RequestCharged = $data->RequestCharged;
+        $this->RequestCharged = $this->xmlValueOrNull($data->RequestCharged);
     }
 }
