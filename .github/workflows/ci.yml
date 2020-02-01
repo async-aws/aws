@@ -37,6 +37,7 @@ jobs:
       - name: Download dependencies
         run: |
           export COMPONENTS=$(find src -type f -name phpunit.xml.dist -printf '%h\n' | sort)
+          set -e
           CURRENT_DIR=$(pwd)
           for COMPONENT in $COMPONENTS
           do
@@ -48,6 +49,7 @@ jobs:
 
       - name: Run tests
         run: |
+          set -e
           for COMPONENT in $COMPONENTS
           do
             ./vendor/bin/simple-phpunit -c "./src/$COMPONENT"
