@@ -5,17 +5,18 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
-        "ext-hash": "*",
         "ext-SimpleXML": "*",
+        "ext-hash": "*",
         "psr/log": "~1.0",
         "symfony/http-client": "^4.4 || ^5.0",
-        "symfony/http-client-contracts": "^1.0|^2.0",
+        "symfony/http-client-contracts": "^1.0 || ^2.0",
         "symfony/service-contracts": "^2.0"
     },
     "require-dev": {
         "ext-json": "*",
         "nette/php-generator": "^3.3",
-        "symfony/console": "^5.0"
+        "symfony/console": "^5.0",
+        "symfony/phpunit-bridge": "^5.0"
     },
     "autoload": {
         "psr-4": {
