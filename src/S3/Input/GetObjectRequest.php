@@ -137,25 +137,25 @@ class GetObjectRequest
      */
     public function __construct(array $input = [])
     {
-        $this->Bucket = $input["Bucket"] ?? null;
-        $this->IfMatch = $input["IfMatch"] ?? null;
-        $this->IfModifiedSince = $input["IfModifiedSince"] ?? null;
-        $this->IfNoneMatch = $input["IfNoneMatch"] ?? null;
-        $this->IfUnmodifiedSince = $input["IfUnmodifiedSince"] ?? null;
-        $this->Key = $input["Key"] ?? null;
-        $this->Range = $input["Range"] ?? null;
-        $this->ResponseCacheControl = $input["ResponseCacheControl"] ?? null;
-        $this->ResponseContentDisposition = $input["ResponseContentDisposition"] ?? null;
-        $this->ResponseContentEncoding = $input["ResponseContentEncoding"] ?? null;
-        $this->ResponseContentLanguage = $input["ResponseContentLanguage"] ?? null;
-        $this->ResponseContentType = $input["ResponseContentType"] ?? null;
-        $this->ResponseExpires = $input["ResponseExpires"] ?? null;
-        $this->VersionId = $input["VersionId"] ?? null;
-        $this->SSECustomerAlgorithm = $input["SSECustomerAlgorithm"] ?? null;
-        $this->SSECustomerKey = $input["SSECustomerKey"] ?? null;
-        $this->SSECustomerKeyMD5 = $input["SSECustomerKeyMD5"] ?? null;
-        $this->RequestPayer = $input["RequestPayer"] ?? null;
-        $this->PartNumber = $input["PartNumber"] ?? null;
+        $this->Bucket = $input['Bucket'] ?? null;
+        $this->IfMatch = $input['IfMatch'] ?? null;
+        $this->IfModifiedSince = $input['IfModifiedSince'] ?? null;
+        $this->IfNoneMatch = $input['IfNoneMatch'] ?? null;
+        $this->IfUnmodifiedSince = $input['IfUnmodifiedSince'] ?? null;
+        $this->Key = $input['Key'] ?? null;
+        $this->Range = $input['Range'] ?? null;
+        $this->ResponseCacheControl = $input['ResponseCacheControl'] ?? null;
+        $this->ResponseContentDisposition = $input['ResponseContentDisposition'] ?? null;
+        $this->ResponseContentEncoding = $input['ResponseContentEncoding'] ?? null;
+        $this->ResponseContentLanguage = $input['ResponseContentLanguage'] ?? null;
+        $this->ResponseContentType = $input['ResponseContentType'] ?? null;
+        $this->ResponseExpires = $input['ResponseExpires'] ?? null;
+        $this->VersionId = $input['VersionId'] ?? null;
+        $this->SSECustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
+        $this->SSECustomerKey = $input['SSECustomerKey'] ?? null;
+        $this->SSECustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
+        $this->RequestPayer = $input['RequestPayer'] ?? null;
+        $this->PartNumber = $input['PartNumber'] ?? null;
     }
 
     public function getBucket(): ?string
@@ -390,31 +390,31 @@ class GetObjectRequest
     {
         $headers = [];
         if (null !== $this->IfMatch) {
-            $headers["If-Match"] = $this->IfMatch;
+            $headers['If-Match'] = $this->IfMatch;
         }
         if (null !== $this->IfModifiedSince) {
-            $headers["If-Modified-Since"] = $this->IfModifiedSince;
+            $headers['If-Modified-Since'] = $this->IfModifiedSince;
         }
         if (null !== $this->IfNoneMatch) {
-            $headers["If-None-Match"] = $this->IfNoneMatch;
+            $headers['If-None-Match'] = $this->IfNoneMatch;
         }
         if (null !== $this->IfUnmodifiedSince) {
-            $headers["If-Unmodified-Since"] = $this->IfUnmodifiedSince;
+            $headers['If-Unmodified-Since'] = $this->IfUnmodifiedSince;
         }
         if (null !== $this->Range) {
-            $headers["Range"] = $this->Range;
+            $headers['Range'] = $this->Range;
         }
         if (null !== $this->SSECustomerAlgorithm) {
-            $headers["x-amz-server-side-encryption-customer-algorithm"] = $this->SSECustomerAlgorithm;
+            $headers['x-amz-server-side-encryption-customer-algorithm'] = $this->SSECustomerAlgorithm;
         }
         if (null !== $this->SSECustomerKey) {
-            $headers["x-amz-server-side-encryption-customer-key"] = $this->SSECustomerKey;
+            $headers['x-amz-server-side-encryption-customer-key'] = $this->SSECustomerKey;
         }
         if (null !== $this->SSECustomerKeyMD5) {
-            $headers["x-amz-server-side-encryption-customer-key-MD5"] = $this->SSECustomerKeyMD5;
+            $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->SSECustomerKeyMD5;
         }
         if (null !== $this->RequestPayer) {
-            $headers["x-amz-request-payer"] = $this->RequestPayer;
+            $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
 
         return $headers;
@@ -424,28 +424,28 @@ class GetObjectRequest
     {
         $query = [];
         if (null !== $this->ResponseCacheControl) {
-            $query["response-cache-control"] = $this->ResponseCacheControl;
+            $query['response-cache-control'] = $this->ResponseCacheControl;
         }
         if (null !== $this->ResponseContentDisposition) {
-            $query["response-content-disposition"] = $this->ResponseContentDisposition;
+            $query['response-content-disposition'] = $this->ResponseContentDisposition;
         }
         if (null !== $this->ResponseContentEncoding) {
-            $query["response-content-encoding"] = $this->ResponseContentEncoding;
+            $query['response-content-encoding'] = $this->ResponseContentEncoding;
         }
         if (null !== $this->ResponseContentLanguage) {
-            $query["response-content-language"] = $this->ResponseContentLanguage;
+            $query['response-content-language'] = $this->ResponseContentLanguage;
         }
         if (null !== $this->ResponseContentType) {
-            $query["response-content-type"] = $this->ResponseContentType;
+            $query['response-content-type'] = $this->ResponseContentType;
         }
         if (null !== $this->ResponseExpires) {
-            $query["response-expires"] = $this->ResponseExpires;
+            $query['response-expires'] = $this->ResponseExpires;
         }
         if (null !== $this->VersionId) {
-            $query["versionId"] = $this->VersionId;
+            $query['versionId'] = $this->VersionId;
         }
         if (null !== $this->PartNumber) {
-            $query["partNumber"] = $this->PartNumber;
+            $query['partNumber'] = $this->PartNumber;
         }
 
         return $query;

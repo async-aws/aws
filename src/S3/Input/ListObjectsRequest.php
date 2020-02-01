@@ -63,13 +63,13 @@ class ListObjectsRequest
      */
     public function __construct(array $input = [])
     {
-        $this->Bucket = $input["Bucket"] ?? null;
-        $this->Delimiter = $input["Delimiter"] ?? null;
-        $this->EncodingType = $input["EncodingType"] ?? null;
-        $this->Marker = $input["Marker"] ?? null;
-        $this->MaxKeys = $input["MaxKeys"] ?? null;
-        $this->Prefix = $input["Prefix"] ?? null;
-        $this->RequestPayer = $input["RequestPayer"] ?? null;
+        $this->Bucket = $input['Bucket'] ?? null;
+        $this->Delimiter = $input['Delimiter'] ?? null;
+        $this->EncodingType = $input['EncodingType'] ?? null;
+        $this->Marker = $input['Marker'] ?? null;
+        $this->MaxKeys = $input['MaxKeys'] ?? null;
+        $this->Prefix = $input['Prefix'] ?? null;
+        $this->RequestPayer = $input['RequestPayer'] ?? null;
     }
 
     public function getBucket(): ?string
@@ -160,7 +160,7 @@ class ListObjectsRequest
     {
         $headers = [];
         if (null !== $this->RequestPayer) {
-            $headers["x-amz-request-payer"] = $this->RequestPayer;
+            $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
 
         return $headers;
@@ -170,19 +170,19 @@ class ListObjectsRequest
     {
         $query = [];
         if (null !== $this->Delimiter) {
-            $query["delimiter"] = $this->Delimiter;
+            $query['delimiter'] = $this->Delimiter;
         }
         if (null !== $this->EncodingType) {
-            $query["encoding-type"] = $this->EncodingType;
+            $query['encoding-type'] = $this->EncodingType;
         }
         if (null !== $this->Marker) {
-            $query["marker"] = $this->Marker;
+            $query['marker'] = $this->Marker;
         }
         if (null !== $this->MaxKeys) {
-            $query["max-keys"] = $this->MaxKeys;
+            $query['max-keys'] = $this->MaxKeys;
         }
         if (null !== $this->Prefix) {
-            $query["prefix"] = $this->Prefix;
+            $query['prefix'] = $this->Prefix;
         }
 
         return $query;

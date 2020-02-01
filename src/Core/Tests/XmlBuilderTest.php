@@ -16,8 +16,8 @@ class XmlBuilderTest extends TestCase
             'parent' => ['type'=>'structure', 'members'=>[
                 'foo' => ['shape'=>'FooShape', 'locationName'=>'foo_name']
             ]],
-            'FooShape' => ["type" => 'string'],
-            "_root" => ["type" => 'parent',"xmlName" => 'parent_name',"uri" => 'http://s3.amazonaws.com/doc/2006-03-01/']
+            'FooShape' => ['type' => 'string'],
+            '_root' => ['type' => 'parent','xmlName' => 'parent_name','uri' => 'http://s3.amazonaws.com/doc/2006-03-01/']
         ];
 
         $builder = new XmlBuilder($data, $config);
@@ -31,6 +31,6 @@ class XmlBuilderTest extends TestCase
 
 XML;
 
-        $this->assertEquals($expected, $output);
+        self::assertEquals($expected, $output);
     }
 }

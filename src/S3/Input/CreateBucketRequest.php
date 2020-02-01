@@ -75,15 +75,15 @@ class CreateBucketRequest
      */
     public function __construct(array $input = [])
     {
-        $this->ACL = $input["ACL"] ?? null;
-        $this->Bucket = $input["Bucket"] ?? null;
-        $this->CreateBucketConfiguration = isset($input["CreateBucketConfiguration"]) ? CreateBucketConfiguration::create($input["CreateBucketConfiguration"]) : null;
-        $this->GrantFullControl = $input["GrantFullControl"] ?? null;
-        $this->GrantRead = $input["GrantRead"] ?? null;
-        $this->GrantReadACP = $input["GrantReadACP"] ?? null;
-        $this->GrantWrite = $input["GrantWrite"] ?? null;
-        $this->GrantWriteACP = $input["GrantWriteACP"] ?? null;
-        $this->ObjectLockEnabledForBucket = $input["ObjectLockEnabledForBucket"] ?? null;
+        $this->ACL = $input['ACL'] ?? null;
+        $this->Bucket = $input['Bucket'] ?? null;
+        $this->CreateBucketConfiguration = isset($input['CreateBucketConfiguration']) ? CreateBucketConfiguration::create($input['CreateBucketConfiguration']) : null;
+        $this->GrantFullControl = $input['GrantFullControl'] ?? null;
+        $this->GrantRead = $input['GrantRead'] ?? null;
+        $this->GrantReadACP = $input['GrantReadACP'] ?? null;
+        $this->GrantWrite = $input['GrantWrite'] ?? null;
+        $this->GrantWriteACP = $input['GrantWriteACP'] ?? null;
+        $this->ObjectLockEnabledForBucket = $input['ObjectLockEnabledForBucket'] ?? null;
     }
 
     public function getACL(): ?string
@@ -198,25 +198,25 @@ class CreateBucketRequest
     {
         $headers = [];
         if (null !== $this->ACL) {
-            $headers["x-amz-acl"] = $this->ACL;
+            $headers['x-amz-acl'] = $this->ACL;
         }
         if (null !== $this->GrantFullControl) {
-            $headers["x-amz-grant-full-control"] = $this->GrantFullControl;
+            $headers['x-amz-grant-full-control'] = $this->GrantFullControl;
         }
         if (null !== $this->GrantRead) {
-            $headers["x-amz-grant-read"] = $this->GrantRead;
+            $headers['x-amz-grant-read'] = $this->GrantRead;
         }
         if (null !== $this->GrantReadACP) {
-            $headers["x-amz-grant-read-acp"] = $this->GrantReadACP;
+            $headers['x-amz-grant-read-acp'] = $this->GrantReadACP;
         }
         if (null !== $this->GrantWrite) {
-            $headers["x-amz-grant-write"] = $this->GrantWrite;
+            $headers['x-amz-grant-write'] = $this->GrantWrite;
         }
         if (null !== $this->GrantWriteACP) {
-            $headers["x-amz-grant-write-acp"] = $this->GrantWriteACP;
+            $headers['x-amz-grant-write-acp'] = $this->GrantWriteACP;
         }
         if (null !== $this->ObjectLockEnabledForBucket) {
-            $headers["x-amz-bucket-object-lock-enabled"] = $this->ObjectLockEnabledForBucket;
+            $headers['x-amz-bucket-object-lock-enabled'] = $this->ObjectLockEnabledForBucket;
         }
 
         return $headers;
@@ -233,7 +233,7 @@ class CreateBucketRequest
     {
         $payload = ['Action' => 'CreateBucket'];
         if (null !== $this->CreateBucketConfiguration) {
-            $payload["CreateBucketConfiguration"] = $this->CreateBucketConfiguration;
+            $payload['CreateBucketConfiguration'] = $this->CreateBucketConfiguration;
         }
 
         return $payload;

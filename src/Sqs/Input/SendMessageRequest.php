@@ -63,13 +63,13 @@ class SendMessageRequest
      */
     public function __construct(array $input = [])
     {
-        $this->QueueUrl = $input["QueueUrl"] ?? null;
-        $this->MessageBody = $input["MessageBody"] ?? null;
-        $this->DelaySeconds = $input["DelaySeconds"] ?? null;
-        $this->MessageAttributes = $input["MessageAttributes"] ?? null;
-        $this->MessageSystemAttributes = $input["MessageSystemAttributes"] ?? null;
-        $this->MessageDeduplicationId = $input["MessageDeduplicationId"] ?? null;
-        $this->MessageGroupId = $input["MessageGroupId"] ?? null;
+        $this->QueueUrl = $input['QueueUrl'] ?? null;
+        $this->MessageBody = $input['MessageBody'] ?? null;
+        $this->DelaySeconds = $input['DelaySeconds'] ?? null;
+        $this->MessageAttributes = $input['MessageAttributes'] ?? null;
+        $this->MessageSystemAttributes = $input['MessageSystemAttributes'] ?? null;
+        $this->MessageDeduplicationId = $input['MessageDeduplicationId'] ?? null;
+        $this->MessageGroupId = $input['MessageGroupId'] ?? null;
     }
 
     public function getQueueUrl(): ?string
@@ -174,25 +174,25 @@ class SendMessageRequest
     {
         $payload = ['Action' => 'SendMessage'];
         if (null !== $this->QueueUrl) {
-            $payload["QueueUrl"] = $this->QueueUrl;
+            $payload['QueueUrl'] = $this->QueueUrl;
         }
         if (null !== $this->MessageBody) {
-            $payload["MessageBody"] = $this->MessageBody;
+            $payload['MessageBody'] = $this->MessageBody;
         }
         if (null !== $this->DelaySeconds) {
-            $payload["DelaySeconds"] = $this->DelaySeconds;
+            $payload['DelaySeconds'] = $this->DelaySeconds;
         }
         if (null !== $this->MessageAttributes) {
-            $payload["MessageAttribute"] = $this->MessageAttributes;
+            $payload['MessageAttribute'] = $this->MessageAttributes;
         }
         if (null !== $this->MessageSystemAttributes) {
-            $payload["MessageSystemAttribute"] = $this->MessageSystemAttributes;
+            $payload['MessageSystemAttribute'] = $this->MessageSystemAttributes;
         }
         if (null !== $this->MessageDeduplicationId) {
-            $payload["MessageDeduplicationId"] = $this->MessageDeduplicationId;
+            $payload['MessageDeduplicationId'] = $this->MessageDeduplicationId;
         }
         if (null !== $this->MessageGroupId) {
-            $payload["MessageGroupId"] = $this->MessageGroupId;
+            $payload['MessageGroupId'] = $this->MessageGroupId;
         }
 
         return $payload;
@@ -200,7 +200,7 @@ class SendMessageRequest
 
     public function requestUri(): string
     {
-        return "/";
+        return '/';
     }
 
     public function validate(): void

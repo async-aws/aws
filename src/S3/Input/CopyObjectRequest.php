@@ -247,43 +247,43 @@ class CopyObjectRequest
      */
     public function __construct(array $input = [])
     {
-        $this->ACL = $input["ACL"] ?? null;
-        $this->Bucket = $input["Bucket"] ?? null;
-        $this->CacheControl = $input["CacheControl"] ?? null;
-        $this->ContentDisposition = $input["ContentDisposition"] ?? null;
-        $this->ContentEncoding = $input["ContentEncoding"] ?? null;
-        $this->ContentLanguage = $input["ContentLanguage"] ?? null;
-        $this->ContentType = $input["ContentType"] ?? null;
-        $this->CopySource = $input["CopySource"] ?? null;
-        $this->CopySourceIfMatch = $input["CopySourceIfMatch"] ?? null;
-        $this->CopySourceIfModifiedSince = $input["CopySourceIfModifiedSince"] ?? null;
-        $this->CopySourceIfNoneMatch = $input["CopySourceIfNoneMatch"] ?? null;
-        $this->CopySourceIfUnmodifiedSince = $input["CopySourceIfUnmodifiedSince"] ?? null;
-        $this->Expires = $input["Expires"] ?? null;
-        $this->GrantFullControl = $input["GrantFullControl"] ?? null;
-        $this->GrantRead = $input["GrantRead"] ?? null;
-        $this->GrantReadACP = $input["GrantReadACP"] ?? null;
-        $this->GrantWriteACP = $input["GrantWriteACP"] ?? null;
-        $this->Key = $input["Key"] ?? null;
-        $this->Metadata = $input["Metadata"] ?? null;
-        $this->MetadataDirective = $input["MetadataDirective"] ?? null;
-        $this->TaggingDirective = $input["TaggingDirective"] ?? null;
-        $this->ServerSideEncryption = $input["ServerSideEncryption"] ?? null;
-        $this->StorageClass = $input["StorageClass"] ?? null;
-        $this->WebsiteRedirectLocation = $input["WebsiteRedirectLocation"] ?? null;
-        $this->SSECustomerAlgorithm = $input["SSECustomerAlgorithm"] ?? null;
-        $this->SSECustomerKey = $input["SSECustomerKey"] ?? null;
-        $this->SSECustomerKeyMD5 = $input["SSECustomerKeyMD5"] ?? null;
-        $this->SSEKMSKeyId = $input["SSEKMSKeyId"] ?? null;
-        $this->SSEKMSEncryptionContext = $input["SSEKMSEncryptionContext"] ?? null;
-        $this->CopySourceSSECustomerAlgorithm = $input["CopySourceSSECustomerAlgorithm"] ?? null;
-        $this->CopySourceSSECustomerKey = $input["CopySourceSSECustomerKey"] ?? null;
-        $this->CopySourceSSECustomerKeyMD5 = $input["CopySourceSSECustomerKeyMD5"] ?? null;
-        $this->RequestPayer = $input["RequestPayer"] ?? null;
-        $this->Tagging = $input["Tagging"] ?? null;
-        $this->ObjectLockMode = $input["ObjectLockMode"] ?? null;
-        $this->ObjectLockRetainUntilDate = $input["ObjectLockRetainUntilDate"] ?? null;
-        $this->ObjectLockLegalHoldStatus = $input["ObjectLockLegalHoldStatus"] ?? null;
+        $this->ACL = $input['ACL'] ?? null;
+        $this->Bucket = $input['Bucket'] ?? null;
+        $this->CacheControl = $input['CacheControl'] ?? null;
+        $this->ContentDisposition = $input['ContentDisposition'] ?? null;
+        $this->ContentEncoding = $input['ContentEncoding'] ?? null;
+        $this->ContentLanguage = $input['ContentLanguage'] ?? null;
+        $this->ContentType = $input['ContentType'] ?? null;
+        $this->CopySource = $input['CopySource'] ?? null;
+        $this->CopySourceIfMatch = $input['CopySourceIfMatch'] ?? null;
+        $this->CopySourceIfModifiedSince = $input['CopySourceIfModifiedSince'] ?? null;
+        $this->CopySourceIfNoneMatch = $input['CopySourceIfNoneMatch'] ?? null;
+        $this->CopySourceIfUnmodifiedSince = $input['CopySourceIfUnmodifiedSince'] ?? null;
+        $this->Expires = $input['Expires'] ?? null;
+        $this->GrantFullControl = $input['GrantFullControl'] ?? null;
+        $this->GrantRead = $input['GrantRead'] ?? null;
+        $this->GrantReadACP = $input['GrantReadACP'] ?? null;
+        $this->GrantWriteACP = $input['GrantWriteACP'] ?? null;
+        $this->Key = $input['Key'] ?? null;
+        $this->Metadata = $input['Metadata'] ?? null;
+        $this->MetadataDirective = $input['MetadataDirective'] ?? null;
+        $this->TaggingDirective = $input['TaggingDirective'] ?? null;
+        $this->ServerSideEncryption = $input['ServerSideEncryption'] ?? null;
+        $this->StorageClass = $input['StorageClass'] ?? null;
+        $this->WebsiteRedirectLocation = $input['WebsiteRedirectLocation'] ?? null;
+        $this->SSECustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
+        $this->SSECustomerKey = $input['SSECustomerKey'] ?? null;
+        $this->SSECustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
+        $this->SSEKMSKeyId = $input['SSEKMSKeyId'] ?? null;
+        $this->SSEKMSEncryptionContext = $input['SSEKMSEncryptionContext'] ?? null;
+        $this->CopySourceSSECustomerAlgorithm = $input['CopySourceSSECustomerAlgorithm'] ?? null;
+        $this->CopySourceSSECustomerKey = $input['CopySourceSSECustomerKey'] ?? null;
+        $this->CopySourceSSECustomerKeyMD5 = $input['CopySourceSSECustomerKeyMD5'] ?? null;
+        $this->RequestPayer = $input['RequestPayer'] ?? null;
+        $this->Tagging = $input['Tagging'] ?? null;
+        $this->ObjectLockMode = $input['ObjectLockMode'] ?? null;
+        $this->ObjectLockRetainUntilDate = $input['ObjectLockRetainUntilDate'] ?? null;
+        $this->ObjectLockLegalHoldStatus = $input['ObjectLockLegalHoldStatus'] ?? null;
     }
 
     public function getACL(): ?string
@@ -734,106 +734,106 @@ class CopyObjectRequest
     {
         $headers = [];
         if (null !== $this->ACL) {
-            $headers["x-amz-acl"] = $this->ACL;
+            $headers['x-amz-acl'] = $this->ACL;
         }
         if (null !== $this->CacheControl) {
-            $headers["Cache-Control"] = $this->CacheControl;
+            $headers['Cache-Control'] = $this->CacheControl;
         }
         if (null !== $this->ContentDisposition) {
-            $headers["Content-Disposition"] = $this->ContentDisposition;
+            $headers['Content-Disposition'] = $this->ContentDisposition;
         }
         if (null !== $this->ContentEncoding) {
-            $headers["Content-Encoding"] = $this->ContentEncoding;
+            $headers['Content-Encoding'] = $this->ContentEncoding;
         }
         if (null !== $this->ContentLanguage) {
-            $headers["Content-Language"] = $this->ContentLanguage;
+            $headers['Content-Language'] = $this->ContentLanguage;
         }
         if (null !== $this->ContentType) {
-            $headers["Content-Type"] = $this->ContentType;
+            $headers['Content-Type'] = $this->ContentType;
         }
         if (null !== $this->CopySource) {
-            $headers["x-amz-copy-source"] = $this->CopySource;
+            $headers['x-amz-copy-source'] = $this->CopySource;
         }
         if (null !== $this->CopySourceIfMatch) {
-            $headers["x-amz-copy-source-if-match"] = $this->CopySourceIfMatch;
+            $headers['x-amz-copy-source-if-match'] = $this->CopySourceIfMatch;
         }
         if (null !== $this->CopySourceIfModifiedSince) {
-            $headers["x-amz-copy-source-if-modified-since"] = $this->CopySourceIfModifiedSince;
+            $headers['x-amz-copy-source-if-modified-since'] = $this->CopySourceIfModifiedSince;
         }
         if (null !== $this->CopySourceIfNoneMatch) {
-            $headers["x-amz-copy-source-if-none-match"] = $this->CopySourceIfNoneMatch;
+            $headers['x-amz-copy-source-if-none-match'] = $this->CopySourceIfNoneMatch;
         }
         if (null !== $this->CopySourceIfUnmodifiedSince) {
-            $headers["x-amz-copy-source-if-unmodified-since"] = $this->CopySourceIfUnmodifiedSince;
+            $headers['x-amz-copy-source-if-unmodified-since'] = $this->CopySourceIfUnmodifiedSince;
         }
         if (null !== $this->Expires) {
-            $headers["Expires"] = $this->Expires;
+            $headers['Expires'] = $this->Expires;
         }
         if (null !== $this->GrantFullControl) {
-            $headers["x-amz-grant-full-control"] = $this->GrantFullControl;
+            $headers['x-amz-grant-full-control'] = $this->GrantFullControl;
         }
         if (null !== $this->GrantRead) {
-            $headers["x-amz-grant-read"] = $this->GrantRead;
+            $headers['x-amz-grant-read'] = $this->GrantRead;
         }
         if (null !== $this->GrantReadACP) {
-            $headers["x-amz-grant-read-acp"] = $this->GrantReadACP;
+            $headers['x-amz-grant-read-acp'] = $this->GrantReadACP;
         }
         if (null !== $this->GrantWriteACP) {
-            $headers["x-amz-grant-write-acp"] = $this->GrantWriteACP;
+            $headers['x-amz-grant-write-acp'] = $this->GrantWriteACP;
         }
         if (null !== $this->MetadataDirective) {
-            $headers["x-amz-metadata-directive"] = $this->MetadataDirective;
+            $headers['x-amz-metadata-directive'] = $this->MetadataDirective;
         }
         if (null !== $this->TaggingDirective) {
-            $headers["x-amz-tagging-directive"] = $this->TaggingDirective;
+            $headers['x-amz-tagging-directive'] = $this->TaggingDirective;
         }
         if (null !== $this->ServerSideEncryption) {
-            $headers["x-amz-server-side-encryption"] = $this->ServerSideEncryption;
+            $headers['x-amz-server-side-encryption'] = $this->ServerSideEncryption;
         }
         if (null !== $this->StorageClass) {
-            $headers["x-amz-storage-class"] = $this->StorageClass;
+            $headers['x-amz-storage-class'] = $this->StorageClass;
         }
         if (null !== $this->WebsiteRedirectLocation) {
-            $headers["x-amz-website-redirect-location"] = $this->WebsiteRedirectLocation;
+            $headers['x-amz-website-redirect-location'] = $this->WebsiteRedirectLocation;
         }
         if (null !== $this->SSECustomerAlgorithm) {
-            $headers["x-amz-server-side-encryption-customer-algorithm"] = $this->SSECustomerAlgorithm;
+            $headers['x-amz-server-side-encryption-customer-algorithm'] = $this->SSECustomerAlgorithm;
         }
         if (null !== $this->SSECustomerKey) {
-            $headers["x-amz-server-side-encryption-customer-key"] = $this->SSECustomerKey;
+            $headers['x-amz-server-side-encryption-customer-key'] = $this->SSECustomerKey;
         }
         if (null !== $this->SSECustomerKeyMD5) {
-            $headers["x-amz-server-side-encryption-customer-key-MD5"] = $this->SSECustomerKeyMD5;
+            $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->SSECustomerKeyMD5;
         }
         if (null !== $this->SSEKMSKeyId) {
-            $headers["x-amz-server-side-encryption-aws-kms-key-id"] = $this->SSEKMSKeyId;
+            $headers['x-amz-server-side-encryption-aws-kms-key-id'] = $this->SSEKMSKeyId;
         }
         if (null !== $this->SSEKMSEncryptionContext) {
-            $headers["x-amz-server-side-encryption-context"] = $this->SSEKMSEncryptionContext;
+            $headers['x-amz-server-side-encryption-context'] = $this->SSEKMSEncryptionContext;
         }
         if (null !== $this->CopySourceSSECustomerAlgorithm) {
-            $headers["x-amz-copy-source-server-side-encryption-customer-algorithm"] = $this->CopySourceSSECustomerAlgorithm;
+            $headers['x-amz-copy-source-server-side-encryption-customer-algorithm'] = $this->CopySourceSSECustomerAlgorithm;
         }
         if (null !== $this->CopySourceSSECustomerKey) {
-            $headers["x-amz-copy-source-server-side-encryption-customer-key"] = $this->CopySourceSSECustomerKey;
+            $headers['x-amz-copy-source-server-side-encryption-customer-key'] = $this->CopySourceSSECustomerKey;
         }
         if (null !== $this->CopySourceSSECustomerKeyMD5) {
-            $headers["x-amz-copy-source-server-side-encryption-customer-key-MD5"] = $this->CopySourceSSECustomerKeyMD5;
+            $headers['x-amz-copy-source-server-side-encryption-customer-key-MD5'] = $this->CopySourceSSECustomerKeyMD5;
         }
         if (null !== $this->RequestPayer) {
-            $headers["x-amz-request-payer"] = $this->RequestPayer;
+            $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
         if (null !== $this->Tagging) {
-            $headers["x-amz-tagging"] = $this->Tagging;
+            $headers['x-amz-tagging'] = $this->Tagging;
         }
         if (null !== $this->ObjectLockMode) {
-            $headers["x-amz-object-lock-mode"] = $this->ObjectLockMode;
+            $headers['x-amz-object-lock-mode'] = $this->ObjectLockMode;
         }
         if (null !== $this->ObjectLockRetainUntilDate) {
-            $headers["x-amz-object-lock-retain-until-date"] = $this->ObjectLockRetainUntilDate;
+            $headers['x-amz-object-lock-retain-until-date'] = $this->ObjectLockRetainUntilDate;
         }
         if (null !== $this->ObjectLockLegalHoldStatus) {
-            $headers["x-amz-object-lock-legal-hold"] = $this->ObjectLockLegalHoldStatus;
+            $headers['x-amz-object-lock-legal-hold'] = $this->ObjectLockLegalHoldStatus;
         }
 
         return $headers;

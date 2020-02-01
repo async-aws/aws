@@ -27,8 +27,8 @@ class Owner
      */
     public function __construct(array $input = [])
     {
-        $this->DisplayName = $input["DisplayName"] ?? null;
-        $this->ID = $input["ID"] ?? null;
+        $this->DisplayName = $input['DisplayName'] ?? null;
+        $this->ID = $input['ID'] ?? null;
     }
 
     public function getDisplayName(): ?string

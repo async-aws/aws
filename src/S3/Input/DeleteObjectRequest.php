@@ -59,12 +59,12 @@ class DeleteObjectRequest
      */
     public function __construct(array $input = [])
     {
-        $this->Bucket = $input["Bucket"] ?? null;
-        $this->Key = $input["Key"] ?? null;
-        $this->MFA = $input["MFA"] ?? null;
-        $this->VersionId = $input["VersionId"] ?? null;
-        $this->RequestPayer = $input["RequestPayer"] ?? null;
-        $this->BypassGovernanceRetention = $input["BypassGovernanceRetention"] ?? null;
+        $this->Bucket = $input['Bucket'] ?? null;
+        $this->Key = $input['Key'] ?? null;
+        $this->MFA = $input['MFA'] ?? null;
+        $this->VersionId = $input['VersionId'] ?? null;
+        $this->RequestPayer = $input['RequestPayer'] ?? null;
+        $this->BypassGovernanceRetention = $input['BypassGovernanceRetention'] ?? null;
     }
 
     public function getBucket(): ?string
@@ -143,13 +143,13 @@ class DeleteObjectRequest
     {
         $headers = [];
         if (null !== $this->MFA) {
-            $headers["x-amz-mfa"] = $this->MFA;
+            $headers['x-amz-mfa'] = $this->MFA;
         }
         if (null !== $this->RequestPayer) {
-            $headers["x-amz-request-payer"] = $this->RequestPayer;
+            $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
         if (null !== $this->BypassGovernanceRetention) {
-            $headers["x-amz-bypass-governance-retention"] = $this->BypassGovernanceRetention;
+            $headers['x-amz-bypass-governance-retention'] = $this->BypassGovernanceRetention;
         }
 
         return $headers;
@@ -159,7 +159,7 @@ class DeleteObjectRequest
     {
         $query = [];
         if (null !== $this->VersionId) {
-            $query["versionId"] = $this->VersionId;
+            $query['versionId'] = $this->VersionId;
         }
 
         return $query;
