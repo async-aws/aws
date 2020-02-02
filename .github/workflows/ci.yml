@@ -21,10 +21,8 @@ jobs:
         uses: shivammathur/setup-php@1.8.1
         with:
           php-version: ${{ matrix.php }}
-          coverage: pcov
+          coverage: none
           tools: prestissimo
-        run: |
-          sudo phpdismod xdebug || true
 
       - name: Checkout code
         uses: actions/checkout@v2
