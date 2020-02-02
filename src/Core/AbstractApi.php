@@ -9,6 +9,7 @@ use AsyncAws\Core\Credentials\ChainProvider;
 use AsyncAws\Core\Credentials\ConfigurationProvider;
 use AsyncAws\Core\Credentials\CredentialProvider;
 use AsyncAws\Core\Credentials\IniFileProvider;
+use AsyncAws\Core\Credentials\InstanceProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Signers\Request;
 use AsyncAws\Core\Signers\Signer;
@@ -65,6 +66,7 @@ abstract class AbstractApi
         $this->credentialProvider = $credentialProvider ?? new CacheProvider(new ChainProvider([
             new ConfigurationProvider(),
             new IniFileProvider(),
+            new InstanceProvider(),
         ]));
     }
 
