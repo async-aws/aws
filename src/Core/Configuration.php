@@ -44,6 +44,7 @@ class Configuration
     ];
 
     private const DEFAULT_OPTIONS = [
+        self::OPTION_REGION => 'us-east-1',
         self::OPTION_PROFILE => 'default',
         self::OPTION_SHARED_CREDENTIALS_FILE => '~/.aws/credentials',
         self::OPTION_SHARED_CONFIG_FILE => '~/.aws/config',

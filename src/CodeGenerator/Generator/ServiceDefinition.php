@@ -53,6 +53,11 @@ class ServiceDefinition
         return $this->definition['metadata']['serviceId'];
     }
 
+    public function getApiVersion(): string
+    {
+        return $this->definition['metadata']['apiVersion'];
+    }
+
     public function getSignatureVersion(): string
     {
         return $this->definition['metadata']['signatureVersion'];

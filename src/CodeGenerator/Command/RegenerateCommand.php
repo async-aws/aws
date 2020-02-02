@@ -63,7 +63,7 @@ class RegenerateCommand extends Command
         }
 
         $definition = new ServiceDefinition($definitionArray);
-        $baseNamespace = \sprintf('AsyncAws\\%s', $service);
+        $baseNamespace = $manifest['services'][$service]['namespace'] ?? \sprintf('AsyncAws\\%s', $service);
         $resultNamespace = $baseNamespace . '\\Result';
 
         foreach ($operationNames as $operationName) {
@@ -72,7 +72,7 @@ class RegenerateCommand extends Command
             $resultClassName = $operation['output']['shape'];
 
             if (!isset($operationConfig['generate-method']) || false !== $operationConfig['generate-method']) {
-                $this->generator->generateOperation($definition, $service, $operationName);
+                $this->generator->generateOperation($definition, $service, $baseNamespace, $operationName);
             }
 
             if (!isset($operationConfig['generate-result-trait']) || false !== $operationConfig['generate-result-trait']) {

@@ -76,11 +76,11 @@ class CreateCommand extends Command
         }
 
         $operation = $definition->getOperation($operationName);
-        $baseNamespace = \sprintf('AsyncAws\\%s', $service);
+        $baseNamespace = $manifest['services'][$service]['namespace'] ?? \sprintf('AsyncAws\\%s', $service);
         $resultClassName = $operation['output']['shape'];
         $resultNamespace = $baseNamespace . '\\Result';
 
-        $this->generator->generateOperation($definition, $service, $operationName);
+        $this->generator->generateOperation($definition, $service, $baseNamespace, $operationName);
         $this->generator->generateResultClass($definition, $service, $resultNamespace, $resultClassName, true);
         $this->generator->generateOutputTrait($definition, $operationName, $resultNamespace, $resultClassName);
 
