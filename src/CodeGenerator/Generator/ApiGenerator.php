@@ -390,6 +390,9 @@ PHP;
         return $xml;
     }
 
+    /**
+     * This is will produce the same result as `var_export` but on only one line.
+     */
     private function printArray(array $data): string
     {
         $output = '[';
