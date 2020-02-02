@@ -24,7 +24,7 @@
                     "generate-result-trait": true
                 },
                 "GetObject": {
-                    "generated": "2020-02-02T18:42:50+00:00",
+                    "generated": "2020-02-02T18:46:56+00:00",
                     "generate-result-trait": true
                 },
                 "PutObjectAcl": {

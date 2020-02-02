@@ -350,7 +350,7 @@ class S3Client extends AbstractApi
      *   PartNumber?: int,
      * }|GetObjectRequest $input
      */
-    public function getObject($input = []): GetObjectOutput
+    public function getObject($input): GetObjectOutput
     {
         $input = GetObjectRequest::create($input);
         $input->validate();

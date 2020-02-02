@@ -157,7 +157,7 @@ PHP
         }
 
         foreach ($members as $name => $data) {
-            $returnType = null;
+            $nullable = $returnType = null;
             $property = $class->addProperty($name)->setPrivate();
             $parameterType = $members[$name]['shape'];
             $memberShape = $this->definition->getShape($parameterType);
