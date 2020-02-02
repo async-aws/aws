@@ -32,7 +32,14 @@ jobs:
         run: |
           rm composer.*
           composer init --no-interaction
+
+          echo ::group::Download
           composer req symfony/phpunit-bridge
+          echo ::endgroup::
+
+          echo ::group::Install
+          ./vendor/bin/simple-phpunit install
+          echo ::endgroup::
 
       - name: Download dependencies
         run: |
@@ -51,10 +58,7 @@ jobs:
 
       - name: Run tests
         run: |
-          set -e
-          echo ::group::Install PHPUnit
-          ./vendor/bin/simple-phpunit install
-          echo ::endgroup::
+
           for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
           do
             echo ::group::$COMPONENT
