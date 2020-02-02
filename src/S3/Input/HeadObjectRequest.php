@@ -321,7 +321,7 @@ class HeadObjectRequest
 
     public function requestBody(): array
     {
-        $payload = ['Action' => 'HeadObject'];
+        $payload = ['Action' => 'HeadObject', 'Version' => '2006-03-01'];
 
         return $payload;
     }

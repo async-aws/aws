@@ -689,7 +689,7 @@ class PutObjectRequest
 
     public function requestBody(): array
     {
-        $payload = ['Action' => 'PutObject'];
+        $payload = ['Action' => 'PutObject', 'Version' => '2006-03-01'];
         if (null !== $this->Body) {
             $payload['Body'] = $this->Body;
         }

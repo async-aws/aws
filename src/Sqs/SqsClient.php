@@ -38,7 +38,7 @@ class SqsClient extends AbstractApi
      *   MessageGroupId?: string,
      * }|SendMessageRequest $input
      */
-    public function sendMessage($input): SendMessageResult
+    public function sendMessage($input = []): SendMessageResult
     {
         $input = SendMessageRequest::create($input);
         $input->validate();

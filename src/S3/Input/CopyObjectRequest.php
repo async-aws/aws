@@ -848,7 +848,7 @@ class CopyObjectRequest
 
     public function requestBody(): array
     {
-        $payload = ['Action' => 'CopyObject'];
+        $payload = ['Action' => 'CopyObject', 'Version' => '2006-03-01'];
 
         return $payload;
     }

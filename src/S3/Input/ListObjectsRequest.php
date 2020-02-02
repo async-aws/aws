@@ -190,7 +190,7 @@ class ListObjectsRequest
 
     public function requestBody(): array
     {
-        $payload = ['Action' => 'ListObjects'];
+        $payload = ['Action' => 'ListObjects', 'Version' => '2006-03-01'];
 
         return $payload;
     }

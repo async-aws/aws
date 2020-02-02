@@ -172,7 +172,7 @@ class SendMessageRequest
 
     public function requestBody(): array
     {
-        $payload = ['Action' => 'SendMessage'];
+        $payload = ['Action' => 'SendMessage', 'Version' => '2012-11-05'];
         if (null !== $this->QueueUrl) {
             $payload['QueueUrl'] = $this->QueueUrl;
         }
