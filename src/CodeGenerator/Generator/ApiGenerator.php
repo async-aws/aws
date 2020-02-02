@@ -233,11 +233,23 @@ PHP
                 $returnType = $baseNamespace . '\\' . $parameterType;
                 $constructorBody .= sprintf('$this->%s = isset($input["%s"]) ? %s::create($input["%s"]) : null;' . "\n", $name, $name, $this->safeClassName($parameterType), $name);
             } elseif ('list' === $memberShape['type']) {
-                $parameterType = $memberShape['member']['shape'] . '[]';
-                $this->generateInputClass($service, $apiVersion, $operationName, $baseNamespace, $memberShape['member']['shape']);
-                $returnType = $baseNamespace . '\\' . $memberShape['member']['shape'];
-                $constructorBody .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, $this->safeClassName($memberShape['member']['shape']), $name);
+                $listItemShapeName = $memberShape['member']['shape'];
+                $listItemShape = $this->definition->getShape($listItemShapeName);
                 $nullable = false;
+
+                // Is this a list of objects?
+                if ($listItemShape['type'] === 'structure') {
+                    $this->generateInputClass($service, $apiVersion, $operationName, $baseNamespace, $listItemShapeName);
+                    $parameterType = $listItemShapeName. '[]';
+                    $returnType = $baseNamespace . '\\' .$listItemShapeName;
+                    $constructorBody .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, $this->safeClassName(
+                        $listItemShapeName
+                    ), $name);
+                } else {
+                    // It is a scalar, like a string
+                    $parameterType = $listItemShape['type'].'[]';
+                    $constructorBody .= sprintf('$this->%s = $input["%s"] ?? [];' . "\n", $name, $name);
+                }
             } else {
                 $returnType = $parameterType = $this->toPhpType($memberShape['type']);
                 if ('\DateTimeImmutable' !== $parameterType) {
@@ -557,7 +569,15 @@ PHP;
             if ('structure' === $param) {
                 $param = '\\' . $baseNamespace . '\\' . $name . '|array';
             } elseif ('list' === $param) {
-                $param = '\\' . $baseNamespace . '\\' . $this->definition->getShape($data['shape'])['member']['shape'] . '[]';
+                $listItemShapeName = $this->definition->getShape($data['shape'])['member']['shape'];
+
+                // is the list item an object?
+                $type = $this->definition->getShape($listItemShapeName)['type'];
+                if ($type === 'structure') {
+                    $param = '\\'.$baseNamespace.'\\'.$listItemShapeName.'[]';
+                } else {
+                    $param = $type.'[]';
+                }
             } elseif ('timestamp' === $param) {
                 $param = '\DateTimeImmutable|string';
             } else {
