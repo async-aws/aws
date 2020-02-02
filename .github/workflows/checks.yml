@@ -36,7 +36,7 @@ jobs:
         do
           echo ::group::$COMPONENT
           localExit=0
-          ./normalize.phar --dry-run || localExit=1
+          ./normalize.phar $COMPONENT --dry-run || localExit=1
           ok=$(( $localExit || $ok ))
           echo ::endgroup::
           if [ $localExit -ne 0 ]; then
