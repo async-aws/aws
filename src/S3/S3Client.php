@@ -71,7 +71,7 @@ class S3Client extends AbstractApi
      *   ObjectLockLegalHoldStatus?: string,
      * }|PutObjectRequest $input
      */
-    public function putObject($input = []): PutObjectOutput
+    public function putObject($input): PutObjectOutput
     {
         $input = PutObjectRequest::create($input);
         $input->validate();
@@ -101,7 +101,7 @@ class S3Client extends AbstractApi
      *   ObjectLockEnabledForBucket?: bool,
      * }|CreateBucketRequest $input
      */
-    public function createBucket($input = []): CreateBucketOutput
+    public function createBucket($input): CreateBucketOutput
     {
         $input = CreateBucketRequest::create($input);
         $input->validate();
@@ -130,7 +130,7 @@ class S3Client extends AbstractApi
      *   BypassGovernanceRetention?: bool,
      * }|DeleteObjectRequest $input
      */
-    public function deleteObject($input = []): DeleteObjectOutput
+    public function deleteObject($input): DeleteObjectOutput
     {
         $input = DeleteObjectRequest::create($input);
         $input->validate();
@@ -164,7 +164,7 @@ class S3Client extends AbstractApi
      *   PartNumber?: int,
      * }|HeadObjectRequest $input
      */
-    public function headObject($input = []): HeadObjectOutput
+    public function headObject($input): HeadObjectOutput
     {
         $input = HeadObjectRequest::create($input);
         $input->validate();
@@ -222,7 +222,7 @@ class S3Client extends AbstractApi
      *   ObjectLockLegalHoldStatus?: string,
      * }|CopyObjectRequest $input
      */
-    public function copyObject($input = []): CopyObjectOutput
+    public function copyObject($input): CopyObjectOutput
     {
         $input = CopyObjectRequest::create($input);
         $input->validate();
@@ -262,7 +262,7 @@ class S3Client extends AbstractApi
      *   PartNumber?: int,
      * }|GetObjectRequest $input
      */
-    public function getObject($input = []): GetObjectOutput
+    public function getObject($input): GetObjectOutput
     {
         $input = GetObjectRequest::create($input);
         $input->validate();
@@ -274,7 +274,7 @@ class S3Client extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new GetObjectOutput($response);
+        return new GetObjectOutput($response, $this->httpClient);
     }
 
     /**
@@ -295,7 +295,7 @@ class S3Client extends AbstractApi
      *   VersionId?: string,
      * }|PutObjectAclRequest $input
      */
-    public function putObjectAcl($input = []): PutObjectAclOutput
+    public function putObjectAcl($input): PutObjectAclOutput
     {
         $input = PutObjectAclRequest::create($input);
         $input->validate();
@@ -322,7 +322,7 @@ class S3Client extends AbstractApi
      *   RequestPayer?: string,
      * }|GetObjectAclRequest $input
      */
-    public function getObjectAcl($input = []): GetObjectAclOutput
+    public function getObjectAcl($input): GetObjectAclOutput
     {
         $input = GetObjectAclRequest::create($input);
         $input->validate();
@@ -350,7 +350,7 @@ class S3Client extends AbstractApi
      *   RequestPayer?: string,
      * }|ListObjectsRequest $input
      */
-    public function listObjects($input = []): ListObjectsOutput
+    public function listObjects($input): ListObjectsOutput
     {
         $input = ListObjectsRequest::create($input);
         $input->validate();

@@ -3,6 +3,7 @@
 namespace AsyncAws\S3\Result;
 
 use AsyncAws\Core\Result;
+use AsyncAws\Core\StreamableBody;
 
 class GetObjectOutput extends Result
 {
@@ -70,7 +71,7 @@ class GetObjectOutput extends Result
 
     private $ObjectLockLegalHoldStatus;
 
-    public function getBody(): ?string
+    public function getBody(): StreamableBody
     {
         $this->initialize();
 
