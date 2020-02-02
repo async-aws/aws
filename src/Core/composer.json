@@ -1,8 +1,8 @@
 {
+    "license": "MIT",
     "name": "async-aws/core",
     "type": "library",
     "description": "",
-    "license": "MIT",
     "require": {
         "php": "^7.2.5",
         "ext-hash": "*",

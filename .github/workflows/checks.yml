@@ -12,6 +12,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Set up PHP
+      uses: shivammathur/setup-php@1.8.1
+      with:
+        php-version: 7.4
+        coverage: none
+
     - name: Checkout code
       uses: actions/checkout@v2
 

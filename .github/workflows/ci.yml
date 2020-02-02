@@ -18,11 +18,10 @@ jobs:
 
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@1.7.0
+        uses: shivammathur/setup-php@1.8.1
         with:
           php-version: ${{ matrix.php }}
-          coverage: xdebug
-          ini-values: xdebug.overload_var_dump=1
+          coverage: pcov
           tools: prestissimo
 
       - name: Checkout code
