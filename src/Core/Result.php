@@ -77,7 +77,7 @@ class Result
      * Returns info on the current request
      *
      * @return array{
-     *                resolved: bool
+     *                resolved: bool,
      *                response?: ?ResponseInterface,
      *                status?: int
      *                }
@@ -93,7 +93,7 @@ class Result
         return [
             'resolved' => false,
             'response' => $this->response,
-            'status' => $this->response->getInfo('http_code'),
+            'status' => (int) $this->response->getInfo('http_code'),
         ];
     }
 
