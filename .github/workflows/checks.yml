@@ -17,7 +17,7 @@ jobs:
 
     - name: Download
       run: |
-        curl https://github.com/ergebnis/composer-normalize/releases/latest/download/composer-normalize.phar --output normalize.phar
+        curl -L https://github.com/ergebnis/composer-normalize/releases/latest/download/composer-normalize.phar --output normalize.phar
         chmod +x normalize.phar
 
     - name: Normalize
