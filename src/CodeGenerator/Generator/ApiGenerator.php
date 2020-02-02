@@ -50,7 +50,8 @@ class ApiGenerator
         $this->generateInputClass($service, $definition->getApiVersion(), $operationName, $baseNamespace . '\\Input', $inputClassName, true);
 
         $namespace = ClassFactory::fromExistingClass(\sprintf('%s\\%sClient', $baseNamespace, $service));
-        $namespace->addUse($baseNamespace . '\\Input\\' . $this->safeClassName($inputClassName));
+        $safeClassName = $this->safeClassName($inputClassName);
+        $namespace->addUse($baseNamespace . '\\Input\\' . $safeClassName);
         $classes = $namespace->getClasses();
         $class = $classes[\array_key_first($classes)];
         if (null !== $prefix = $definition->getEndpointPrefix()) {
@@ -82,8 +83,11 @@ class ApiGenerator
 
         $method->addComment('@param array{');
         $this->addMethodComment($method, $inputShape, $baseNamespace . '\\Input');
-        $method->addComment('}|' . $inputClassName . ' $input');
-        $method->addParameter('input')->setDefaultValue([]);
+        $method->addComment('}|' . $safeClassName . ' $input');
+        $operationMethodParameter = $method->addParameter('input');
+        if (empty($this->definition->getShape($inputClassName)['required'])) {
+            $operationMethodParameter->setDefaultValue([]);
+        }
 
         $outputClass = \sprintf('%s\\Result\\%s', $baseNamespace, $this->safeClassName($operation['output']['shape']));
         $method->setReturnType($outputClass);
