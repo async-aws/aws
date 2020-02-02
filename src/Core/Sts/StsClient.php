@@ -22,6 +22,25 @@ class StsClient extends AbstractApi
 
     /**
      * @param array{
+     * }|GetCallerIdentityRequest $input
+     */
+    public function getCallerIdentity($input = []): GetCallerIdentityResponse
+    {
+        $input = GetCallerIdentityRequest::create($input);
+        $input->validate();
+
+        $response = $this->getResponse(
+            'POST',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
+
+        return new GetCallerIdentityResponse($response);
+    }
+
+    /**
+     * @param array{
      *   RoleArn: string,
      *   RoleSessionName: string,
      *   PolicyArns?: \AsyncAws\Core\Sts\Input\PolicyDescriptorType[],
@@ -47,24 +66,5 @@ class StsClient extends AbstractApi
         );
 
         return new AssumeRoleResponse($response);
-    }
-
-    /**
-     * @param array{
-     * }|GetCallerIdentityRequest $input
-     */
-    public function getCallerIdentity($input = []): GetCallerIdentityResponse
-    {
-        $input = GetCallerIdentityRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
-
-        return new GetCallerIdentityResponse($response);
     }
 }

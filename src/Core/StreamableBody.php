@@ -4,52 +4,52 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core;
 
-use AsyncAws\Core\Exception\LogicException;
-use Symfony\Component\HttpClient\Response\CurlResponse;
-use Symfony\Component\HttpClient\Response\NativeResponse;
-use Symfony\Component\HttpClient\Response\ResponseStream;
-use Symfony\Contracts\HttpClient\ResponseInterface;
+use Symfony\Contracts\HttpClient\ResponseStreamInterface;
 
 /**
  * Stream a response body.
- *
- * @see https://symfony.com/doc/current/components/http_client.html#streaming-responses
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class StreamableBody
 {
-    private $response;
+    /**
+     * @var ResponseStreamInterface
+     */
+    private $responseStream;
 
-    public function __construct(ResponseInterface $response)
+    public function __construct(ResponseStreamInterface $responseStream)
     {
-        $this->response = $response;
+        $this->responseStream = $responseStream;
     }
 
     /**
      *  $fileHandler = fopen('/output.pdf', 'w');
-     *  foreach ($body->getChunks() as $chunk) {
+     *  foreach ($result->getBody()->getChunks() as $chunk) {
      *     fwrite($fileHandler, $chunk->getContent());
      *  }
-     *
-     * @return ResponseStream
      */
-    public function getChunks(float $timeout = null)
+    public function getChunks(): ResponseStreamInterface
     {
-        if ($this->response instanceof CurlResponse) {
-            $stream = CurlResponse::stream([$this->response], $timeout);
-        } elseif ($this->response instanceof NativeResponse) {
-            $stream = NativeResponse::stream([$this->response], $timeout);
-        } else {
-            throw new LogicException(sprintf('We cannot stream a response of type "%s".', \get_class($this->response)));
-        }
-
-        return new ResponseStream($stream);
+        return $this->responseStream;
     }
 
-    public function getContentAsString()
+    public function getContentAsString(): string
     {
-        return $this->response->getContent(false);
+        $resource = \fopen('php://temp', 'rw+');
+
+        try {
+            foreach ($this->responseStream as $chunk) {
+                fwrite($resource, $chunk->getContent());
+            }
+
+            // Rewind
+            \fseek($resource, 0, \SEEK_SET);
+
+            return \stream_get_contents($resource);
+        } finally {
+            fclose($resource);
+        }
     }
 
     public function __toString()

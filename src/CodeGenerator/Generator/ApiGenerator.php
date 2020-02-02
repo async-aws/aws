@@ -12,6 +12,7 @@ use AsyncAws\Core\XmlBuilder;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpNamespace;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
@@ -403,6 +404,7 @@ PHP;
 
         $namespace = new PhpNamespace($baseNamespace);
         $namespace->addUse(ResponseInterface::class);
+        $namespace->addUse(HttpClientInterface::class);
         $trait = $namespace->addTrait($traitName);
 
         $comment = '';
@@ -441,7 +443,14 @@ PHP
             if (true === ($member['streaming'] ?? false)) {
                 // Make sure we can stream this.
                 $namespace->addUse(StreamableBody::class);
-                $body .= "\$this->$name = new StreamableBody(\$response);\n";
+                $body .= <<<PHP
+if (null !== \$httpClient) {
+    \$this->$name = new StreamableBody(\$httpClient->stream(\$response));
+} else {
+    \$this->$name = \$response->getContent(false);
+}
+
+PHP;
             } else {
                 $xmlParser .= "\n\n" . $this->parseXmlResponse($name, $member['shape'], '$data');
             }
@@ -465,11 +474,12 @@ PHP
             $body .= "\n" . $xmlParser;
         }
 
-        $trait->addMethod('populateFromResponse')
+        $method = $trait->addMethod('populateResult')
             ->setReturnType('void')
             ->setProtected()
-            ->setBody($body)
-            ->addParameter('response')->setType(ResponseInterface::class);
+            ->setBody($body);
+        $method->addParameter('response')->setType(ResponseInterface::class);
+        $method->addParameter('httpClient')->setType(HttpClientInterface::class)->setNullable(true);
 
         $this->fileWriter->write($namespace);
     }
@@ -648,6 +658,11 @@ PHP;
             $payloadVariable = '$input->requestBody()';
         }
 
+        $param = '';
+        if ($this->operationRequiresHttpClient($operation['name'])) {
+            $param = ', $this->httpClient';
+        }
+
         $method->setBody(
             $body .
             <<<PHP
@@ -659,8 +674,24 @@ PHP;
     \$this->getEndpoint(\$input->requestUri(), \$input->requestQuery())
 );
 
-return new {$this->safeClassName($operation['output']['shape'])}(\$response);
+return new {$this->safeClassName($operation['output']['shape'])}(\$response$param);
 PHP
         );
+    }
+
+    private function operationRequiresHttpClient(string $operationName): bool
+    {
+        $operation = $this->definition->getOperation($operationName);
+
+        // Check if output has streamable body
+        $outputShape = $this->definition->getShape($operation['output']['shape']);
+        $payload = $outputShape['payload'] ?? null;
+        if (null !== $payload && ($outputShape['members'][$payload]['streaming'] ?? false)) {
+            return true;
+        }
+
+        // TODO check if pagination is supported
+
+        return false;
     }
 }

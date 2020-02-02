@@ -10,6 +10,7 @@ use AsyncAws\Core\Exception\Http\NetworkException;
 use AsyncAws\Core\Exception\Http\RedirectionException;
 use AsyncAws\Core\Exception\Http\ServerException;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
@@ -19,13 +20,19 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 class Result
 {
     /**
-     * @var ResponseInterface
+     * @var ResponseInterface|null
      */
     private $response;
 
-    public function __construct(ResponseInterface $response)
+    /**
+     * @var HttpClientInterface|null
+     */
+    private $httpClient;
+
+    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient = null)
     {
         $this->response = $response;
+        $this->httpClient = $httpClient;
     }
 
     final protected function initialize(): void
@@ -34,11 +41,14 @@ class Result
             return;
         }
         $this->resolve();
-        $this->populateFromResponse($this->response);
+        $this->populateResult($this->response, $this->httpClient);
         unset($this->response);
+        if (null !== $this->httpClient) {
+            unset($this->httpClient);
+        }
     }
 
-    protected function populateFromResponse(ResponseInterface $response): void
+    protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
     {
     }
 

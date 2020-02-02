@@ -2,11 +2,12 @@
 
 namespace AsyncAws\S3\Result;
 
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 trait ListObjectsOutputTrait
 {
-    protected function populateFromResponse(ResponseInterface $response): void
+    protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
     {
         $data = new \SimpleXMLElement($response->getContent(false));
         $this->IsTruncated = $this->xmlValueOrNull($data->IsTruncated, 'bool');

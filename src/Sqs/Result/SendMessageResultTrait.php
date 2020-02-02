@@ -2,11 +2,12 @@
 
 namespace AsyncAws\Sqs\Result;
 
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 trait SendMessageResultTrait
 {
-    protected function populateFromResponse(ResponseInterface $response): void
+    protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
     {
         $data = new \SimpleXMLElement($response->getContent(false));
         $data = $data->SendMessageResult;
