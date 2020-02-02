@@ -238,46 +238,6 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGET.html
-     *
-     * @param array{
-     *   Bucket: string,
-     *   IfMatch?: string,
-     *   IfModifiedSince?: \DateTimeImmutable|string,
-     *   IfNoneMatch?: string,
-     *   IfUnmodifiedSince?: \DateTimeImmutable|string,
-     *   Key: string,
-     *   Range?: string,
-     *   ResponseCacheControl?: string,
-     *   ResponseContentDisposition?: string,
-     *   ResponseContentEncoding?: string,
-     *   ResponseContentLanguage?: string,
-     *   ResponseContentType?: string,
-     *   ResponseExpires?: \DateTimeImmutable|string,
-     *   VersionId?: string,
-     *   SSECustomerAlgorithm?: string,
-     *   SSECustomerKey?: string,
-     *   SSECustomerKeyMD5?: string,
-     *   RequestPayer?: string,
-     *   PartNumber?: int,
-     * }|GetObjectRequest $input
-     */
-    public function getObject($input = []): GetObjectOutput
-    {
-        $input = GetObjectRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse(
-            'GET',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
-
-        return new GetObjectOutput($response);
-    }
-
-    /**
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUTacl.html
      *
      * @param array{
@@ -363,5 +323,45 @@ class S3Client extends AbstractApi
         );
 
         return new ListObjectsOutput($response);
+    }
+
+    /**
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGET.html
+     *
+     * @param array{
+     *   Bucket: string,
+     *   IfMatch?: string,
+     *   IfModifiedSince?: \DateTimeImmutable|string,
+     *   IfNoneMatch?: string,
+     *   IfUnmodifiedSince?: \DateTimeImmutable|string,
+     *   Key: string,
+     *   Range?: string,
+     *   ResponseCacheControl?: string,
+     *   ResponseContentDisposition?: string,
+     *   ResponseContentEncoding?: string,
+     *   ResponseContentLanguage?: string,
+     *   ResponseContentType?: string,
+     *   ResponseExpires?: \DateTimeImmutable|string,
+     *   VersionId?: string,
+     *   SSECustomerAlgorithm?: string,
+     *   SSECustomerKey?: string,
+     *   SSECustomerKeyMD5?: string,
+     *   RequestPayer?: string,
+     *   PartNumber?: int,
+     * }|GetObjectRequest $input
+     */
+    public function getObject($input = []): GetObjectOutput
+    {
+        $input = GetObjectRequest::create($input);
+        $input->validate();
+
+        $response = $this->getResponse(
+            'GET',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
+
+        return new GetObjectOutput($response);
     }
 }

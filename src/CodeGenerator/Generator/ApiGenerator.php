@@ -7,6 +7,7 @@ namespace AsyncAws\CodeGenerator\Generator;
 use AsyncAws\CodeGenerator\FileWriter;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Result;
+use AsyncAws\Core\StreamableBody;
 use AsyncAws\Core\XmlBuilder;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Method;
@@ -166,6 +167,7 @@ PHP
                 $parameterType = $baseNamespace . '\\' . $this->safeClassName($parameterType);
             } elseif ('list' === $memberShape['type']) {
                 $parameterType = 'array';
+                $nullable = false;
                 $property->setValue([]);
 
                 // Check if this is a list of objects
@@ -177,6 +179,10 @@ PHP
                 } else {
                     $returnType = $type . '[]';
                 }
+            } elseif ($data['streaming'] ?? false) {
+                $parameterType = StreamableBody::class;
+                $namespace->addUse(StreamableBody::class);
+                $nullable = false;
             } else {
                 $parameterType = $this->toPhpType($memberShape['type']);
             }
@@ -197,12 +203,9 @@ return \$this->{$name};
 PHP
                 );
 
-            $nullable = !\in_array($name, $inputShape['required'] ?? []);
+            $nullable = $nullable ?? !\in_array($name, $inputShape['required'] ?? []);
             if ($returnType) {
-                if ($array = 'array' === $parameterType) {
-                    $nullable = false;
-                }
-                $method->addComment('@return ' . $returnType . ($array ? '[]' : ''));
+                $method->addComment('@return ' . $returnType . ('array' === $parameterType ? '[]' : ''));
             }
             $method->setReturnNullable($nullable);
         }
@@ -436,8 +439,9 @@ PHP
             $name = $shape['payload'];
             $member = $shape['members'][$name];
             if (true === ($member['streaming'] ?? false)) {
-                // TODO make sure we can stream this.
-                $body .= "\$this->$name = \$response->getContent(false);\n";
+                // Make sure we can stream this.
+                $namespace->addUse(StreamableBody::class);
+                $body .= "\$this->$name = new StreamableBody(\$response);\n";
             } else {
                 $xmlParser .= "\n\n" . $this->parseXmlResponse($name, $member['shape'], '$data');
             }

@@ -2,6 +2,7 @@
 
 namespace AsyncAws\S3\Result;
 
+use AsyncAws\Core\StreamableBody;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 trait GetObjectOutputTrait
@@ -40,6 +41,6 @@ trait GetObjectOutputTrait
         $this->ObjectLockRetainUntilDate = $headers['x-amz-object-lock-retain-until-date'];
         $this->ObjectLockLegalHoldStatus = $headers['x-amz-object-lock-legal-hold'];
 
-        $this->Body = $response->getContent(false);
+        $this->Body = new StreamableBody($response);
     }
 }
