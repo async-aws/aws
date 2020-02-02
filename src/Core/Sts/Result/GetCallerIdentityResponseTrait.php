@@ -1,6 +1,6 @@
 <?php
 
-namespace AsyncAws\Core\Result;
+namespace AsyncAws\Core\Sts\Result;
 
 use Symfony\Contracts\HttpClient\ResponseInterface;
 

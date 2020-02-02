@@ -1,12 +1,12 @@
 <?php
 
-namespace AsyncAws\Core\Result;
+namespace AsyncAws\Core\Sts\Result;
 
 use AsyncAws\Core\Result;
 
 class GetCallerIdentityResponse extends Result
 {
-    use Result\GetCallerIdentityResponseTrait;
+    use GetCallerIdentityResponseTrait;
 
     private $UserId;
 

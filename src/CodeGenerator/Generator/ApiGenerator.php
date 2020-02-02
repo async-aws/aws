@@ -332,7 +332,12 @@ PHP;
             if ('structure' === $type) {
                 $validateBody .= 'if ($this->' . $name . ') $this->' . $name . '->validate();' . "\n";
             } elseif ('list' === $type) {
-                $validateBody .= 'foreach ($this->' . $name . ' as $item) $item->validate();' . "\n";
+                $listItemShapeName = $memberShape['member']['shape'];
+                // is the list item an object?
+                $type = $this->definition->getShape($listItemShapeName)['type'];
+                if ('structure' === $type) {
+                    $validateBody .= 'foreach ($this->' . $name . ' as $item) $item->validate();' . "\n";
+                }
             }
         }
 

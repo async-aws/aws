@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="3.8.2@90d6b73fd8062432030ef39b7b6694b3902daa31">
-  <file src="src/Core/Result/GetCallerIdentityResponseTrait.php">
-    <TooFewArguments occurrences="3">
-      <code>xmlValueOrNull</code>
-      <code>xmlValueOrNull</code>
-      <code>xmlValueOrNull</code>
-    </TooFewArguments>
+  <file src="src/Core/Sts/Input/Tag.php">
+    <InvalidParamDefault occurrences="1"/>
+  </file>
+  <file src="src/Core/Sts/Result/AssumeRoleResponseTrait.php">
+    <ArgumentTypeCoercion occurrences="2"/>
+  </file>
+  <file src="src/Core/Sts/Result/AssumedRoleUser.php">
+    <InvalidParamDefault occurrences="1"/>
+  </file>
+  <file src="src/Core/Sts/Result/Credentials.php">
+    <InvalidParamDefault occurrences="1"/>
   </file>
   <file src="src/S3/Result/CopyObjectOutputTrait.php">
     <ArgumentTypeCoercion occurrences="1"/>

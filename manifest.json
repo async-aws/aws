@@ -55,11 +55,15 @@
         },
         "Sts": {
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sts\/2011-06-15\/api-2.json",
-            "namespace": "AsyncAws\\Core",
+            "namespace": "AsyncAws\\Core\\Sts",
             "methods": {
                 "GetCallerIdentity": {
-                    "generated": "2020-02-02T18:03:57+00:00",
+                    "generated": "2020-02-02T16:45:58+01:00",
                     "generate-result-trait": true
+                },
+                "AssumeRole": {
+                    "generated": "2020-02-02T17:53:30+00:00",
+                    "generate-result-trait": false
                 }
             }
         }
