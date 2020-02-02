@@ -25,7 +25,6 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 abstract class AbstractApi
 {
-
     /**
      * @var HttpClientInterface
      */
@@ -73,10 +72,8 @@ abstract class AbstractApi
     private function getSigner()
     {
         if (null === $this->signer) {
-            if (null === $region = $this->configuration->get(Configuration::OPTION_REGION)) {
-                throw new InvalidArgument(sprintf('The region has not been configured but is required to use the client "%s".', __CLASS__));
-            }
-
+            /** @var string $region */
+            $region = $this->configuration->get(Configuration::OPTION_REGION);
             switch ($signatureVersion = $this->getSignatureVersion()) {
                 case 'v4':
                     $this->signer = new SignerV4($this->getServiceCode(), $region);

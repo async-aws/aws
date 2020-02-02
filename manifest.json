@@ -48,7 +48,17 @@
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sqs\/2012-11-05\/api-2.json",
             "methods": {
                 "SendMessage": {
-                    "generated": "2020-02-01T16:27:01+00:00",
+                    "generated": "2020-02-02T15:37:23+01:00",
+                    "generate-result-trait": true
+                }
+            }
+        },
+        "Sts": {
+            "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sts\/2011-06-15\/api-2.json",
+            "namespace": "AsyncAws\\Core",
+            "methods": {
+                "GetCallerIdentity": {
+                    "generated": "2020-02-02T16:45:58+01:00",
                     "generate-result-trait": true
                 }
             }

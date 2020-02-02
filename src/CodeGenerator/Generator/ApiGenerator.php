@@ -21,11 +21,6 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 class ApiGenerator
 {
     /**
-     * @var string
-     */
-    private $srcDirectory;
-
-    /**
      * @var FileWriter
      */
     private $fileWriter;
@@ -39,22 +34,20 @@ class ApiGenerator
 
     public function __construct(string $srcDirectory)
     {
-        $this->srcDirectory = $srcDirectory;
         $this->fileWriter = new FileWriter($srcDirectory);
     }
 
     /**
      * Update the API client with a new function call.
      */
-    public function generateOperation(ServiceDefinition $definition, string $service, string $operationName): void
+    public function generateOperation(ServiceDefinition $definition, string $service, string $baseNamespace, string $operationName): void
     {
         $this->definition = $definition;
         $operation = $definition->getOperation($operationName);
         $inputShape = $definition->getShape($operation['input']['shape']) ?? [];
 
-        $baseNamespace = \sprintf('AsyncAws\\%s', $service);
         $inputClassName = $operation['input']['shape'];
-        $this->generateInputClass($service, $operationName, $baseNamespace . '\\Input', $inputClassName, true);
+        $this->generateInputClass($service, $definition->getApiVersion(), $operationName, $baseNamespace . '\\Input', $inputClassName, true);
         $inputClass = $baseNamespace . '\\Input\\' . $inputClassName;
 
         $namespace = ClassFactory::fromExistingClass(\sprintf('%s\\%sClient', $baseNamespace, $service));
@@ -91,7 +84,7 @@ class ApiGenerator
         $method->addComment('@param array{');
         $this->addMethodComment($method, $inputShape, $baseNamespace . '\\Input');
         $method->addComment('}|' . $inputClassName . ' $input');
-        $method->addParameter('input');
+        $method->addParameter('input')->setDefaultValue([]);
 
         $outputClass = \sprintf('%s\\Result\\%s', $baseNamespace, $operation['output']['shape']);
         $method->setReturnType($outputClass);
@@ -157,7 +150,7 @@ PHP
     /**
      * Generate classes for the input.
      */
-    private function generateInputClass(string $service, string $operationName, string $baseNamespace, string $className, bool $root = false)
+    private function generateInputClass(string $service, string $apiVersion, string $operationName, string $baseNamespace, string $className, bool $root = false)
     {
         $operation = $this->definition->getOperation($operationName);
         $shapes = $this->definition->getShapes();
@@ -192,12 +185,12 @@ PHP
             $memberShape = $shapes[$parameterType];
             $nullable = true;
             if ('structure' === $memberShape['type']) {
-                $this->generateInputClass($service, $operationName, $baseNamespace, $parameterType);
+                $this->generateInputClass($service, $apiVersion, $operationName, $baseNamespace, $parameterType);
                 $returnType = $baseNamespace . '\\' . $parameterType;
                 $constructorBody .= sprintf('$this->%s = isset($input["%s"]) ? %s::create($input["%s"]) : null;' . "\n", $name, $name, $parameterType, $name);
             } elseif ('list' === $memberShape['type']) {
                 $parameterType = $memberShape['member']['shape'] . '[]';
-                $this->generateInputClass($service, $operationName, $baseNamespace, $memberShape['member']['shape']);
+                $this->generateInputClass($service, $apiVersion, $operationName, $baseNamespace, $memberShape['member']['shape']);
                 $returnType = $baseNamespace . '\\' . $memberShape['member']['shape'];
                 $constructorBody .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, $memberShape['member']['shape'], $name);
                 $nullable = false;
@@ -238,7 +231,7 @@ PHP
 
         $constructor->setBody($constructorBody);
         if ($root) {
-            $this->inputClassRequestGetters($inputShape, $class, $operationName);
+            $this->inputClassRequestGetters($inputShape, $class, $operationName, $apiVersion);
         }
 
         // Add validate()
@@ -273,12 +266,12 @@ PHP;
         $this->fileWriter->write($namespace);
     }
 
-    private function inputClassRequestGetters(array $inputShape, ClassType $class, string $operation): void
+    private function inputClassRequestGetters(array $inputShape, ClassType $class, string $operation, string $apiVersion): void
     {
         foreach (['header' => '$headers', 'querystring' => '$query', 'payload' => '$payload'] as $requestPart => $varName) {
             $body[$requestPart] = $varName . ' = [];' . "\n";
             if ('payload' === $requestPart) {
-                $body[$requestPart] = $varName . " = ['Action' => '$operation'];\n";
+                $body[$requestPart] = $varName . " = ['Action' => '$operation', 'Version' => '$apiVersion'];\n";
             }
             foreach ($inputShape['members'] as $name => $data) {
                 // If location is not specified, it will go in the request body.
