@@ -61,8 +61,8 @@ jobs:
           for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
           do
             echo ::group::$COMPONENT
-            (./vendor/bin/simple-phpunit -c ./$COMPONENT 2>&1)
-            localExit=$?
+            localExit=0
+            ./vendor/bin/simple-phpunit -c ./$COMPONENT 2>&1 || localExit=1
             ok=$(( $localExit || $ok ))
             echo ::endgroup::
             if [ $localExit -ne 0 ]; then
