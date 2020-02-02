@@ -12,18 +12,12 @@ class Tag
      * @var string|null
      */
     private $Key;
-
     /**
      * @required
      *
      * @var string|null
      */
     private $Value;
-
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
 
     /**
      * @param array{
@@ -37,9 +31,19 @@ class Tag
         $this->Value = $input['Value'] ?? null;
     }
 
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
+    }
+
     public function getKey(): ?string
     {
         return $this->Key;
+    }
+
+    public function getValue(): ?string
+    {
+        return $this->Value;
     }
 
     public function setKey(?string $value): self
@@ -47,11 +51,6 @@ class Tag
         $this->Key = $value;
 
         return $this;
-    }
-
-    public function getValue(): ?string
-    {
-        return $this->Value;
     }
 
     public function setValue(?string $value): self

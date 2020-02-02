@@ -34,7 +34,6 @@ class ApiGenerator
      */
     private $definition;
 
-
     public function __construct(string $srcDirectory)
     {
         $this->fileWriter = new FileWriter($srcDirectory);
@@ -110,6 +109,23 @@ class ApiGenerator
     {
         $this->definition = $definition;
         $this->doGenerateResultClass($baseNamespace, $className, $root, $useTrait, $operationName);
+    }
+
+    public function generateOutputTrait(ServiceDefinition $definition, string $operationName, string $baseNamespace, string $className)
+    {
+        $this->definition = $definition;
+        $traitName = $className . 'Trait';
+
+        $namespace = new PhpNamespace($baseNamespace);
+        $trait = $namespace->addTrait($traitName);
+
+        $namespace->addUse(ResponseInterface::class);
+        $namespace->addUse(HttpClientInterface::class);
+
+        $isNew = !trait_exists($baseNamespace . '\\' . $traitName);
+        $this->resultClassPopulateResult($operationName, $className, $isNew, $namespace, $trait);
+
+        $this->fileWriter->write($namespace);
     }
 
     private function doGenerateResultClass(string $baseNamespace, string $className, bool $root = false, ?bool $useTrait = null, ?string $operationName = null): void
@@ -321,23 +337,6 @@ PHP;
         $body['uri'] .= 'return "' . str_replace(['{', '+}', '}'], ['{$uri[\'', '}', '\']}'], $requestUri) . '";';
 
         $class->addMethod('requestUri')->setReturnType('string')->setBody($body['uri']);
-    }
-
-    public function generateOutputTrait(ServiceDefinition $definition, string $operationName, string $baseNamespace, string $className)
-    {
-        $this->definition = $definition;
-        $traitName = $className . 'Trait';
-
-        $namespace = new PhpNamespace($baseNamespace);
-        $trait = $namespace->addTrait($traitName);
-
-        $namespace->addUse(ResponseInterface::class);
-        $namespace->addUse(HttpClientInterface::class);
-
-        $isNew = !trait_exists($baseNamespace . '\\' . $traitName);
-        $this->resultClassPopulateResult($operationName, $className, $isNew, $namespace, $trait);
-
-        $this->fileWriter->write($namespace);
     }
 
     private function parseXmlResponse(?string $rootObjectName, string $rootObjectShape, string $prefix): string

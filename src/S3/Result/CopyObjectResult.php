@@ -5,13 +5,7 @@ namespace AsyncAws\S3\Result;
 class CopyObjectResult
 {
     private $ETag;
-
     private $LastModified;
-
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
 
     /**
      * @param array{
@@ -23,6 +17,11 @@ class CopyObjectResult
     {
         $this->ETag = $input['ETag'] ?? null;
         $this->LastModified = $input['LastModified'] ?? null;
+    }
+
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
     }
 
     public function getETag(): ?string

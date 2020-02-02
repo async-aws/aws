@@ -5,21 +5,11 @@ namespace AsyncAws\S3\Result;
 class AwsObject
 {
     private $Key;
-
     private $LastModified;
-
     private $ETag;
-
     private $Size;
-
     private $StorageClass;
-
     private $Owner;
-
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
 
     /**
      * @param array{
@@ -41,6 +31,16 @@ class AwsObject
         $this->Owner = isset($input['Owner']) ? Owner::create($input['Owner']) : null;
     }
 
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getETag(): ?string
+    {
+        return $this->ETag;
+    }
+
     public function getKey(): ?string
     {
         return $this->Key;
@@ -51,9 +51,9 @@ class AwsObject
         return $this->LastModified;
     }
 
-    public function getETag(): ?string
+    public function getOwner(): ?Owner
     {
-        return $this->ETag;
+        return $this->Owner;
     }
 
     public function getSize(): ?string
@@ -64,10 +64,5 @@ class AwsObject
     public function getStorageClass(): ?string
     {
         return $this->StorageClass;
-    }
-
-    public function getOwner(): ?Owner
-    {
-        return $this->Owner;
     }
 }

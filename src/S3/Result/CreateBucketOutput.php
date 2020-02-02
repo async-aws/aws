@@ -10,17 +10,17 @@ class CreateBucketOutput extends Result
 {
     private $Location;
 
-    protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
-    {
-        $headers = $response->getHeaders(false);
-
-        $this->Location = $headers['Location'];
-    }
-
     public function getLocation(): ?string
     {
         $this->initialize();
 
         return $this->Location;
+    }
+
+    protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
+    {
+        $headers = $response->getHeaders(false);
+
+        $this->Location = $headers['Location'];
     }
 }

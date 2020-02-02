@@ -8,16 +8,10 @@ class Grant
      * @var Grantee|null
      */
     private $Grantee;
-
     /**
      * @var string|null
      */
     private $Permission;
-
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
 
     /**
      * @param array{
@@ -31,9 +25,19 @@ class Grant
         $this->Permission = $input['Permission'] ?? null;
     }
 
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
+    }
+
     public function getGrantee(): ?Grantee
     {
         return $this->Grantee;
+    }
+
+    public function getPermission(): ?string
+    {
+        return $this->Permission;
     }
 
     public function setGrantee(?Grantee $value): self
@@ -41,11 +45,6 @@ class Grant
         $this->Grantee = $value;
 
         return $this;
-    }
-
-    public function getPermission(): ?string
-    {
-        return $this->Permission;
     }
 
     public function setPermission(?string $value): self

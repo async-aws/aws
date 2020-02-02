@@ -9,11 +9,6 @@ class PolicyDescriptorType
      */
     private $arn;
 
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
-
     /**
      * @param array{
      *   arn?: string,
@@ -22,6 +17,11 @@ class PolicyDescriptorType
     public function __construct(array $input = [])
     {
         $this->arn = $input['arn'] ?? null;
+    }
+
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
     }
 
     public function getarn(): ?string

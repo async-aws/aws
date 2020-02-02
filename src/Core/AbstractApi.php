@@ -46,10 +46,6 @@ abstract class AbstractApi
      */
     private $signer;
 
-    abstract protected function getServiceCode(): string;
-
-    abstract protected function getSignatureVersion(): string;
-
     /**
      * @param Configuration|array $configuration
      */
@@ -68,6 +64,56 @@ abstract class AbstractApi
             new IniFileProvider(),
             new InstanceProvider(),
         ]));
+    }
+
+    /**
+     * @param string[]|string[][]                         $headers headers names provided as keys or as part of values
+     * @param array|string|resource|\Traversable|\Closure $body
+     */
+    final public function request(string $method, $body = '', $headers = [], ?string $endpoint = null): Result
+    {
+        $response = $this->getResponse($method, $body, $headers, $endpoint);
+
+        return new Result($response);
+    }
+
+    abstract protected function getServiceCode(): string;
+
+    abstract protected function getSignatureVersion(): string;
+
+    /**
+     * @param string[]|string[][]                         $headers headers names provided as keys or as part of values
+     * @param array|string|resource|\Traversable|\Closure $body
+     */
+    final protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null): ResponseInterface
+    {
+        if (\is_array($body)) {
+            $body = http_build_query($body, '', '&', \PHP_QUERY_RFC1738);
+            $headers['content-type'] = 'application/x-www-form-urlencoded';
+        }
+
+        $request = new Request($method, $this->fillEndpoint($endpoint), $headers, $body);
+        $this->getSigner()->Sign($request, $this->credentialProvider->getCredentials($this->configuration));
+
+        return $this->httpClient->request($request->getMethod(), $request->getUrl(), ['headers' => $request->getHeaders(), 'body' => $request->getBody()]);
+    }
+
+    /**
+     * Fallback function for getting the endpoint. This could be overridden by any APIClient.
+     *
+     * @param string $uri   or path
+     * @param array  $query parameters that should go in the query string
+     */
+    protected function getEndpoint(string $uri, array $query): ?string
+    {
+        /** @var string $endpoint */
+        $endpoint = $this->configuration->get('endpoint');
+        $endpoint .= $uri;
+        if (empty($query)) {
+            return $endpoint;
+        }
+
+        return $endpoint . (false === \strpos($endpoint, '?') ? '?' : '&') . http_build_query($query);
     }
 
     private function getSigner()
@@ -92,34 +138,6 @@ abstract class AbstractApi
         return $this->signer;
     }
 
-    /**
-     * @param string[]|string[][]                         $headers headers names provided as keys or as part of values
-     * @param array|string|resource|\Traversable|\Closure $body
-     */
-    final public function request(string $method, $body = '', $headers = [], ?string $endpoint = null): Result
-    {
-        $response = $this->getResponse($method, $body, $headers, $endpoint);
-
-        return new Result($response);
-    }
-
-    /**
-     * @param string[]|string[][]                         $headers headers names provided as keys or as part of values
-     * @param array|string|resource|\Traversable|\Closure $body
-     */
-    final protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null): ResponseInterface
-    {
-        if (\is_array($body)) {
-            $body = http_build_query($body, '', '&', \PHP_QUERY_RFC1738);
-            $headers['content-type'] = 'application/x-www-form-urlencoded';
-        }
-
-        $request = new Request($method, $this->fillEndpoint($endpoint), $headers, $body);
-        $this->getSigner()->Sign($request, $this->credentialProvider->getCredentials($this->configuration));
-
-        return $this->httpClient->request($request->getMethod(), $request->getUrl(), ['headers' => $request->getHeaders(), 'body' => $request->getBody()]);
-    }
-
     private function fillEndpoint(?string $endpoint): string
     {
         /** @var string $endpoint */
@@ -129,23 +147,5 @@ abstract class AbstractApi
             '%region%' => $this->configuration->get('region'),
             '%service%' => $this->getServiceCode(),
         ]);
-    }
-
-    /**
-     * Fallback function for getting the endpoint. This could be overridden by any APIClient.
-     *
-     * @param string $uri   or path
-     * @param array  $query parameters that should go in the query string
-     */
-    protected function getEndpoint(string $uri, array $query):?string
-    {
-        /** @var string $endpoint */
-        $endpoint = $this->configuration->get('endpoint');
-        $endpoint.= $uri;
-        if (empty($query)) {
-            return $endpoint;
-        }
-
-        return $endpoint . (false === \strpos($endpoint, '?') ? '?' : '&') . http_build_query($query);
     }
 }

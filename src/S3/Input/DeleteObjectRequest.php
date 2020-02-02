@@ -12,38 +12,28 @@ class DeleteObjectRequest
      * @var string|null
      */
     private $Bucket;
-
     /**
      * @required
      *
      * @var string|null
      */
     private $Key;
-
     /**
      * @var string|null
      */
     private $MFA;
-
     /**
      * @var string|null
      */
     private $VersionId;
-
     /**
      * @var string|null
      */
     private $RequestPayer;
-
     /**
      * @var bool|null
      */
     private $BypassGovernanceRetention;
-
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
 
     /**
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectDELETE.html
@@ -67,64 +57,14 @@ class DeleteObjectRequest
         $this->BypassGovernanceRetention = $input['BypassGovernanceRetention'] ?? null;
     }
 
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
+    }
+
     public function getBucket(): ?string
     {
         return $this->Bucket;
-    }
-
-    public function setBucket(?string $value): self
-    {
-        $this->Bucket = $value;
-
-        return $this;
-    }
-
-    public function getKey(): ?string
-    {
-        return $this->Key;
-    }
-
-    public function setKey(?string $value): self
-    {
-        $this->Key = $value;
-
-        return $this;
-    }
-
-    public function getMFA(): ?string
-    {
-        return $this->MFA;
-    }
-
-    public function setMFA(?string $value): self
-    {
-        $this->MFA = $value;
-
-        return $this;
-    }
-
-    public function getVersionId(): ?string
-    {
-        return $this->VersionId;
-    }
-
-    public function setVersionId(?string $value): self
-    {
-        $this->VersionId = $value;
-
-        return $this;
-    }
-
-    public function getRequestPayer(): ?string
-    {
-        return $this->RequestPayer;
-    }
-
-    public function setRequestPayer(?string $value): self
-    {
-        $this->RequestPayer = $value;
-
-        return $this;
     }
 
     public function getBypassGovernanceRetention(): ?bool
@@ -132,11 +72,31 @@ class DeleteObjectRequest
         return $this->BypassGovernanceRetention;
     }
 
-    public function setBypassGovernanceRetention(?bool $value): self
+    public function getKey(): ?string
     {
-        $this->BypassGovernanceRetention = $value;
+        return $this->Key;
+    }
 
-        return $this;
+    public function getMFA(): ?string
+    {
+        return $this->MFA;
+    }
+
+    public function getRequestPayer(): ?string
+    {
+        return $this->RequestPayer;
+    }
+
+    public function getVersionId(): ?string
+    {
+        return $this->VersionId;
+    }
+
+    public function requestBody(): array
+    {
+        $payload = ['Action' => 'DeleteObject', 'Version' => '2006-03-01'];
+
+        return $payload;
     }
 
     public function requestHeaders(): array
@@ -165,13 +125,6 @@ class DeleteObjectRequest
         return $query;
     }
 
-    public function requestBody(): array
-    {
-        $payload = ['Action' => 'DeleteObject', 'Version' => '2006-03-01'];
-
-        return $payload;
-    }
-
     public function requestUri(): string
     {
         $uri = [];
@@ -179,6 +132,48 @@ class DeleteObjectRequest
         $uri['Key'] = $this->Key ?? '';
 
         return "/{$uri['Bucket']}/{$uri['Key']}";
+    }
+
+    public function setBucket(?string $value): self
+    {
+        $this->Bucket = $value;
+
+        return $this;
+    }
+
+    public function setBypassGovernanceRetention(?bool $value): self
+    {
+        $this->BypassGovernanceRetention = $value;
+
+        return $this;
+    }
+
+    public function setKey(?string $value): self
+    {
+        $this->Key = $value;
+
+        return $this;
+    }
+
+    public function setMFA(?string $value): self
+    {
+        $this->MFA = $value;
+
+        return $this;
+    }
+
+    public function setRequestPayer(?string $value): self
+    {
+        $this->RequestPayer = $value;
+
+        return $this;
+    }
+
+    public function setVersionId(?string $value): self
+    {
+        $this->VersionId = $value;
+
+        return $this;
     }
 
     public function validate(): void

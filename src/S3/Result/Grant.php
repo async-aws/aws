@@ -5,13 +5,7 @@ namespace AsyncAws\S3\Result;
 class Grant
 {
     private $Grantee;
-
     private $Permission;
-
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
 
     /**
      * @param array{
@@ -23,6 +17,11 @@ class Grant
     {
         $this->Grantee = isset($input['Grantee']) ? Grantee::create($input['Grantee']) : null;
         $this->Permission = $input['Permission'] ?? null;
+    }
+
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
     }
 
     public function getGrantee(): ?Grantee

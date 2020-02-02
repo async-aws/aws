@@ -35,23 +35,6 @@ class Result
         $this->httpClient = $httpClient;
     }
 
-    final protected function initialize(): void
-    {
-        if (!isset($this->response)) {
-            return;
-        }
-        $this->resolve();
-        $this->populateResult($this->response, $this->httpClient);
-        unset($this->response);
-        if (null !== $this->httpClient) {
-            unset($this->httpClient);
-        }
-    }
-
-    protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
-    {
-    }
-
     /**
      * Make sure the actual request is executed.
      *
@@ -84,7 +67,7 @@ class Result
     }
 
     /**
-     * Returns info on the current request
+     * Returns info on the current request.
      *
      * @return array{
      *                resolved: bool,
@@ -114,6 +97,23 @@ class Result
         }
 
         $this->response->cancel();
+    }
+
+    final protected function initialize(): void
+    {
+        if (!isset($this->response)) {
+            return;
+        }
+        $this->resolve();
+        $this->populateResult($this->response, $this->httpClient);
+        unset($this->response);
+        if (null !== $this->httpClient) {
+            unset($this->httpClient);
+        }
+    }
+
+    protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
+    {
     }
 
     final protected function xmlValueOrNull(\SimpleXMLElement $xml, string $type)

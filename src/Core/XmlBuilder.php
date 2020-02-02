@@ -19,7 +19,7 @@ class XmlBuilder
     private $data;
 
     /**
-     * @var array configuration how the output should look like.
+     * @var array configuration how the output should look like
      */
     private $config;
 
@@ -47,7 +47,7 @@ class XmlBuilder
     }
 
     /**
-     * Here is an examples what $this->config[$shapeName] might look like:
+     * Here is an examples what $this->config[$shapeName] might look like:.
      *
      * 'AccessControlPolicy' => [
      *      'type' => 'structure',

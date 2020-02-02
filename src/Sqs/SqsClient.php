@@ -9,16 +9,6 @@ use AsyncAws\Sqs\Result\SendMessageResult;
 
 class SqsClient extends AbstractApi
 {
-    protected function getServiceCode(): string
-    {
-        return 'sqs';
-    }
-
-    protected function getSignatureVersion(): string
-    {
-        return 'v4';
-    }
-
     public function getQueueUrl(array $body): GetQueueUrlResult
     {
         $body['Action'] = 'GetQueueUrl';
@@ -51,5 +41,15 @@ class SqsClient extends AbstractApi
         );
 
         return new SendMessageResult($response);
+    }
+
+    protected function getServiceCode(): string
+    {
+        return 'sqs';
+    }
+
+    protected function getSignatureVersion(): string
+    {
+        return 'v4';
     }
 }

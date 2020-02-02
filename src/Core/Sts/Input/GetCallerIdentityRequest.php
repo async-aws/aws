@@ -4,17 +4,24 @@ namespace AsyncAws\Core\Sts\Input;
 
 class GetCallerIdentityRequest
 {
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
-
     /**
      * @param array{
      * } $input
      */
     public function __construct(array $input = [])
     {
+    }
+
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
+    }
+
+    public function requestBody(): array
+    {
+        $payload = ['Action' => 'GetCallerIdentity', 'Version' => '2011-06-15'];
+
+        return $payload;
     }
 
     public function requestHeaders(): array
@@ -29,13 +36,6 @@ class GetCallerIdentityRequest
         $query = [];
 
         return $query;
-    }
-
-    public function requestBody(): array
-    {
-        $payload = ['Action' => 'GetCallerIdentity', 'Version' => '2011-06-15'];
-
-        return $payload;
     }
 
     public function requestUri(): string

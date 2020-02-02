@@ -5,19 +5,10 @@ namespace AsyncAws\S3\Result;
 class Grantee
 {
     private $DisplayName;
-
     private $EmailAddress;
-
     private $ID;
-
     private $Type;
-
     private $URI;
-
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
 
     /**
      * @param array{
@@ -35,6 +26,11 @@ class Grantee
         $this->ID = $input['ID'] ?? null;
         $this->Type = $input['Type'] ?? null;
         $this->URI = $input['URI'] ?? null;
+    }
+
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
     }
 
     public function getDisplayName(): ?string

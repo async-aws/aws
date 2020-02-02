@@ -12,41 +12,30 @@ class ListObjectsRequest
      * @var string|null
      */
     private $Bucket;
-
     /**
      * @var string|null
      */
     private $Delimiter;
-
     /**
      * @var string|null
      */
     private $EncodingType;
-
     /**
      * @var string|null
      */
     private $Marker;
-
     /**
      * @var int|null
      */
     private $MaxKeys;
-
     /**
      * @var string|null
      */
     private $Prefix;
-
     /**
      * @var string|null
      */
     private $RequestPayer;
-
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
 
     /**
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGET.html
@@ -72,16 +61,14 @@ class ListObjectsRequest
         $this->RequestPayer = $input['RequestPayer'] ?? null;
     }
 
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
+    }
+
     public function getBucket(): ?string
     {
         return $this->Bucket;
-    }
-
-    public function setBucket(?string $value): self
-    {
-        $this->Bucket = $value;
-
-        return $this;
     }
 
     public function getDelimiter(): ?string
@@ -89,23 +76,9 @@ class ListObjectsRequest
         return $this->Delimiter;
     }
 
-    public function setDelimiter(?string $value): self
-    {
-        $this->Delimiter = $value;
-
-        return $this;
-    }
-
     public function getEncodingType(): ?string
     {
         return $this->EncodingType;
-    }
-
-    public function setEncodingType(?string $value): self
-    {
-        $this->EncodingType = $value;
-
-        return $this;
     }
 
     public function getMarker(): ?string
@@ -113,23 +86,9 @@ class ListObjectsRequest
         return $this->Marker;
     }
 
-    public function setMarker(?string $value): self
-    {
-        $this->Marker = $value;
-
-        return $this;
-    }
-
     public function getMaxKeys(): ?int
     {
         return $this->MaxKeys;
-    }
-
-    public function setMaxKeys(?int $value): self
-    {
-        $this->MaxKeys = $value;
-
-        return $this;
     }
 
     public function getPrefix(): ?string
@@ -137,23 +96,16 @@ class ListObjectsRequest
         return $this->Prefix;
     }
 
-    public function setPrefix(?string $value): self
-    {
-        $this->Prefix = $value;
-
-        return $this;
-    }
-
     public function getRequestPayer(): ?string
     {
         return $this->RequestPayer;
     }
 
-    public function setRequestPayer(?string $value): self
+    public function requestBody(): array
     {
-        $this->RequestPayer = $value;
+        $payload = ['Action' => 'ListObjects', 'Version' => '2006-03-01'];
 
-        return $this;
+        return $payload;
     }
 
     public function requestHeaders(): array
@@ -188,19 +140,61 @@ class ListObjectsRequest
         return $query;
     }
 
-    public function requestBody(): array
-    {
-        $payload = ['Action' => 'ListObjects', 'Version' => '2006-03-01'];
-
-        return $payload;
-    }
-
     public function requestUri(): string
     {
         $uri = [];
         $uri['Bucket'] = $this->Bucket ?? '';
 
         return "/{$uri['Bucket']}";
+    }
+
+    public function setBucket(?string $value): self
+    {
+        $this->Bucket = $value;
+
+        return $this;
+    }
+
+    public function setDelimiter(?string $value): self
+    {
+        $this->Delimiter = $value;
+
+        return $this;
+    }
+
+    public function setEncodingType(?string $value): self
+    {
+        $this->EncodingType = $value;
+
+        return $this;
+    }
+
+    public function setMarker(?string $value): self
+    {
+        $this->Marker = $value;
+
+        return $this;
+    }
+
+    public function setMaxKeys(?int $value): self
+    {
+        $this->MaxKeys = $value;
+
+        return $this;
+    }
+
+    public function setPrefix(?string $value): self
+    {
+        $this->Prefix = $value;
+
+        return $this;
+    }
+
+    public function setRequestPayer(?string $value): self
+    {
+        $this->RequestPayer = $value;
+
+        return $this;
     }
 
     public function validate(): void

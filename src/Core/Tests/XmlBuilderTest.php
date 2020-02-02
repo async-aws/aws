@@ -13,11 +13,11 @@ class XmlBuilderTest extends TestCase
     {
         $data = ['foo' => 'bar'];
         $config = [
-            'parent' => ['type'=>'structure', 'members'=>[
-                'foo' => ['shape'=>'FooShape', 'locationName'=>'foo_name']
+            'parent' => ['type' => 'structure', 'members' => [
+                'foo' => ['shape' => 'FooShape', 'locationName' => 'foo_name'],
             ]],
             'FooShape' => ['type' => 'string'],
-            '_root' => ['type' => 'parent','xmlName' => 'parent_name','uri' => 'http://s3.amazonaws.com/doc/2006-03-01/']
+            '_root' => ['type' => 'parent', 'xmlName' => 'parent_name', 'uri' => 'http://s3.amazonaws.com/doc/2006-03-01/'],
         ];
 
         $builder = new XmlBuilder($data, $config);
@@ -36,13 +36,13 @@ XML;
 
     public function testIgnoreExtraData()
     {
-        $data = ['foo' => 'bar', 'Action'=>'my_action'];
+        $data = ['foo' => 'bar', 'Action' => 'my_action'];
         $config = [
-            'parent' => ['type'=>'structure', 'members'=>[
-                'foo' => ['shape'=>'FooShape', 'locationName'=>'foo_name']
+            'parent' => ['type' => 'structure', 'members' => [
+                'foo' => ['shape' => 'FooShape', 'locationName' => 'foo_name'],
             ]],
             'FooShape' => ['type' => 'string'],
-            '_root' => ['type' => 'parent','xmlName' => 'parent_name','uri' => 'http://s3.amazonaws.com/doc/2006-03-01/']
+            '_root' => ['type' => 'parent', 'xmlName' => 'parent_name', 'uri' => 'http://s3.amazonaws.com/doc/2006-03-01/'],
         ];
 
         $builder = new XmlBuilder($data, $config);
