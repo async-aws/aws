@@ -41,7 +41,7 @@ class AwsClient extends AbstractApi
         }
 
         if (!isset($this->serviceCache[__METHOD__])) {
-            $this->serviceCache[__METHOD__] = new StsClient($this->httpClient, $this->configuration, $this->credentialProvider);
+            $this->serviceCache[__METHOD__] = new StsClient($this->configuration, $this->credentialProvider, $this->httpClient);
         }
 
         return $this->serviceCache[__METHOD__];
@@ -54,7 +54,7 @@ class AwsClient extends AbstractApi
         }
 
         if (!isset($this->serviceCache[__METHOD__])) {
-            $this->serviceCache[__METHOD__] = new S3Client($this->httpClient, $this->configuration, $this->credentialProvider);
+            $this->serviceCache[__METHOD__] = new S3Client($this->configuration, $this->credentialProvider, $this->httpClient);
         }
 
         return $this->serviceCache[__METHOD__];
@@ -67,7 +67,7 @@ class AwsClient extends AbstractApi
         }
 
         if (!isset($this->serviceCache[__METHOD__])) {
-            $this->serviceCache[__METHOD__] = new SesClient($this->httpClient, $this->configuration, $this->credentialProvider);
+            $this->serviceCache[__METHOD__] = new SesClient($this->configuration, $this->credentialProvider, $this->httpClient);
         }
 
         return $this->serviceCache[__METHOD__];
@@ -80,7 +80,7 @@ class AwsClient extends AbstractApi
         }
 
         if (!isset($this->serviceCache[__METHOD__])) {
-            $this->serviceCache[__METHOD__] = new SqsClient($this->httpClient, $this->configuration, $this->credentialProvider);
+            $this->serviceCache[__METHOD__] = new SqsClient($this->configuration, $this->credentialProvider, $this->httpClient);
         }
 
         return $this->serviceCache[__METHOD__];

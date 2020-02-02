@@ -25,7 +25,7 @@ Each section represents a credential `Profile` which can be referenced in the Co
 use AsyncAws\Core\AwsClient;
 use Symfony\Component\HttpClient\HttpClient;
 
-$client = new AwsClient(HttpClient::create(), [
+$client = new AwsClient([
     'profile' => 'project1'
 ]);
 ```
@@ -58,7 +58,7 @@ $ export AWS_CONFIG_FILE=/path/to/config_file
 use AsyncAws\Core\AwsClient;
 use Symfony\Component\HttpClient\HttpClient;
 
-$client = new AwsClient(HttpClient::create(), [
+$client = new AwsClient([
     'sharedCredentialsFile' => '/path/to/shared_credentials_file',
     'sharedConfigFile' => '/path/to/config_file',
 ]);
@@ -75,28 +75,28 @@ $ export AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
    # The secret access key for your AWS account.
 $ export AWS_SESSION_TOKEN=AQoDYXdzEJr...<remainder of security token>
    # The session key for your AWS account. This is needed only when you are using temporary credentials.
-``` 
+```
 
 ```php
 use AsyncAws\Core\AwsClient;
 use Symfony\Component\HttpClient\HttpClient;
 
-$client = new AwsClient(HttpClient::create(), []);
+$client = new AwsClient();
 ```
 
 ## Using Hard-Coded Configuration
 
-When developing, and debugging, the simplest way to configure the client, is to set the credentials in the 
+When developing, and debugging, the simplest way to configure the client, is to set the credentials in the
 client configuration parameters.
 
-> **WARNING**: Hard-coding your credentials can be dangerous because it’s easy to commit your credentials into an SCM 
+> **WARNING**: Hard-coding your credentials can be dangerous because it’s easy to commit your credentials into an SCM
 > repository accidentally
 
 ```php
 use AsyncAws\Core\AwsClient;
 use Symfony\Component\HttpClient\HttpClient;
 
-$client = new AwsClient(HttpClient::create(), [
+$client = new AwsClient([
     'accessKeyId' => 'AKIAIOSFODNN7EXAMPLE',
     'accessKeySecret' => 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
 ]);
@@ -108,7 +108,7 @@ By default Async AWS uses a Provider that chain over all providers and uses the 
 credentials without an error.
 
 The providers are currently chained in the following order:
- 
+
 - [Hard-Coded Configuration](#using-hard-coded-configuration)
 - [Env Variables](#using-credentials-from-environment-variables)
 - [Credential and Configuration Files](#using-the-aws-credentials-file-and-credential-profiles)
