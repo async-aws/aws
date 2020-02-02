@@ -1,6 +1,6 @@
 <?php
 
-namespace AsyncAws\Sts\Input;
+namespace AsyncAws\Core\Sts\Input;
 
 class GetCallerIdentityRequest
 {
@@ -33,7 +33,7 @@ class GetCallerIdentityRequest
 
     public function requestBody(): array
     {
-        $payload = ['Action' => 'GetCallerIdentity'];
+        $payload = ['Action' => 'GetCallerIdentity', 'Version' => '2011-06-15'];
 
         return $payload;
     }
