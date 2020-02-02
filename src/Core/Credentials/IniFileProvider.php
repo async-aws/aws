@@ -86,6 +86,7 @@ class IniFileProvider implements CredentialProvider
     private function loadProfiles(array $filepaths): array
     {
         $profilesData = [];
+        $homeDir = null;
         foreach ($filepaths as $filepath) {
             if ('' === $filepath) {
                 continue;
