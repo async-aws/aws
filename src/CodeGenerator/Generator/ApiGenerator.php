@@ -238,16 +238,16 @@ PHP
                 $nullable = false;
 
                 // Is this a list of objects?
-                if ($listItemShape['type'] === 'structure') {
+                if ('structure' === $listItemShape['type']) {
                     $this->generateInputClass($service, $apiVersion, $operationName, $baseNamespace, $listItemShapeName);
-                    $parameterType = $listItemShapeName. '[]';
-                    $returnType = $baseNamespace . '\\' .$listItemShapeName;
+                    $parameterType = $listItemShapeName . '[]';
+                    $returnType = $baseNamespace . '\\' . $listItemShapeName;
                     $constructorBody .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, $this->safeClassName(
                         $listItemShapeName
                     ), $name);
                 } else {
                     // It is a scalar, like a string
-                    $parameterType = $listItemShape['type'].'[]';
+                    $parameterType = $listItemShape['type'] . '[]';
                     $constructorBody .= sprintf('$this->%s = $input["%s"] ?? [];' . "\n", $name, $name);
                 }
             } else {
@@ -573,10 +573,10 @@ PHP;
 
                 // is the list item an object?
                 $type = $this->definition->getShape($listItemShapeName)['type'];
-                if ($type === 'structure') {
-                    $param = '\\'.$baseNamespace.'\\'.$listItemShapeName.'[]';
+                if ('structure' === $type) {
+                    $param = '\\' . $baseNamespace . '\\' . $listItemShapeName . '[]';
                 } else {
-                    $param = $type.'[]';
+                    $param = $type . '[]';
                 }
             } elseif ('timestamp' === $param) {
                 $param = '\DateTimeImmutable|string';
