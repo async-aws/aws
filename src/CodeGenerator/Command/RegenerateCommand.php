@@ -27,6 +27,8 @@ class RegenerateCommand extends Command
      */
     private $manifestFile;
 
+    private $generator;
+
     public function __construct(string $manifestFile, ApiGenerator $generator)
     {
         $this->manifestFile = $manifestFile;
@@ -68,19 +70,15 @@ class RegenerateCommand extends Command
 
         foreach ($operationNames as $operationName) {
             $operation = $definition->getOperation($operationName);
-            $operationConfig = $manifest['services'][$service]['methods'][$operationName];
+            $operationConfig = $this->getOperationConfig($manifest, $service, $operationName);
             $resultClassName = $operation['output']['shape'];
 
-            if (!isset($operationConfig['generate-method']) || false !== $operationConfig['generate-method']) {
-                $this->generator->generateOperation($definition, $service, $baseNamespace, $operationName);
+            if ($operationConfig['generate-method']) {
+                $this->generator->generateOperation($definition, $operationName, $service, $baseNamespace);
             }
 
-            if (!isset($operationConfig['generate-result-trait']) || false !== $operationConfig['generate-result-trait']) {
-                $this->generator->generateOutputTrait($definition, $operationName, $resultNamespace, $resultClassName);
-            }
-
-            if (!isset($operationConfig['generate-result']) || false !== $operationConfig['generate-result']) {
-                $this->generator->generateResultClass($definition, $service, $resultNamespace, $resultClassName, true);
+            if ($operationConfig['generate-result']) {
+                $this->generator->generateResultClass($definition, $operationName, $resultNamespace, $resultClassName, true, $operationConfig['separate-result-trait']);
             }
 
             // Update manifest file
@@ -126,5 +124,19 @@ class RegenerateCommand extends Command
         $io->error('You must specify an operation or use option "--all"');
 
         return 1;
+    }
+
+    private function getOperationConfig(array $manifest, string $service, string $operationName): array
+    {
+        $default = [
+            'generate-method' => true,
+            'separate-result-trait' => true,
+            'generate-result' => true,
+        ];
+
+        return array_merge(
+            $default,
+            $manifest['services'][$service]['methods'][$operationName]
+        );
     }
 }

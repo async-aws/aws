@@ -47,4 +47,17 @@ class FileWriter
         $filename = \sprintf('%s/%s.php', $directory, $className);
         \file_put_contents($filename, "<?php\n\n" . $this->printer->printNamespace($namespace));
     }
+
+    /**
+     * Delete a class from disk.
+     */
+    public function delete(string $class): void
+    {
+        // Remove AsyncAws\
+        $class = substr($class, 9);
+        $file = \sprintf('%s/%s.php', $this->srcDirectory, str_replace('\\', '/', $class));
+        if (is_file($file)) {
+            unlink($file);
+        }
+    }
 }

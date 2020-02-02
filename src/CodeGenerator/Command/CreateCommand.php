@@ -80,13 +80,13 @@ class CreateCommand extends Command
         $resultClassName = $operation['output']['shape'];
         $resultNamespace = $baseNamespace . '\\Result';
 
-        $this->generator->generateOperation($definition, $service, $baseNamespace, $operationName);
-        $this->generator->generateResultClass($definition, $service, $resultNamespace, $resultClassName, true);
+        $this->generator->generateOperation($definition, $operationName, $service, $baseNamespace);
+        $this->generator->generateResultClass($definition, $operationName, $resultNamespace, $resultClassName, true, true);
         $this->generator->generateOutputTrait($definition, $operationName, $resultNamespace, $resultClassName);
 
         // Update manifest file
         $manifest['services'][$service]['methods'][$operationName]['generated'] = \date('c');
-        $manifest['services'][$service]['methods'][$operationName]['generate-result-trait'] = false;
+        $manifest['services'][$service]['methods'][$operationName]['separate-result-trait'] = false;
         \file_put_contents($this->manifestFile, \json_encode($manifest, \JSON_PRETTY_PRINT));
 
         return 0;
