@@ -3,7 +3,7 @@
   <file src="src/Core/Sts/Input/Tag.php">
     <InvalidParamDefault occurrences="1"/>
   </file>
-  <file src="src/Core/Sts/Result/AssumeRoleResponseTrait.php">
+  <file src="src/Core/Sts/Result/AssumeRoleResponse.php">
     <ArgumentTypeCoercion occurrences="2"/>
   </file>
   <file src="src/Core/Sts/Result/AssumedRoleUser.php">
@@ -12,13 +12,13 @@
   <file src="src/Core/Sts/Result/Credentials.php">
     <InvalidParamDefault occurrences="1"/>
   </file>
-  <file src="src/S3/Result/CopyObjectOutputTrait.php">
+  <file src="src/S3/Result/CopyObjectOutput.php">
     <ArgumentTypeCoercion occurrences="1"/>
   </file>
-  <file src="src/S3/Result/GetObjectAclOutputTrait.php">
+  <file src="src/S3/Result/GetObjectAclOutput.php">
     <ArgumentTypeCoercion occurrences="3"/>
   </file>
-  <file src="src/S3/Result/ListObjectsOutputTrait.php">
+  <file src="src/S3/Result/ListObjectsOutput.php">
     <ArgumentTypeCoercion occurrences="3"/>
   </file>
 </files>

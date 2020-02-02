@@ -86,7 +86,7 @@ class CreateCommand extends Command
 
         // Update manifest file
         $manifest['services'][$service]['methods'][$operationName]['generated'] = \date('c');
-        $manifest['services'][$service]['methods'][$operationName]['separate-result-trait'] = false;
+        $manifest['services'][$service]['methods'][$operationName]['separate-result-trait'] = true;
         \file_put_contents($this->manifestFile, \json_encode($manifest, \JSON_PRETTY_PRINT));
 
         return 0;
