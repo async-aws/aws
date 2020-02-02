@@ -16,19 +16,21 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Download
-      run: composer require --dev ergebnis/composer-normalize
+      run: |
+        curl https://github.com/ergebnis/composer-normalize/releases/latest/download/composer-normalize.phar --output normalize.phar
+        chmod +x normalize.phar
 
     - name: Normalize
       run: |
         ok=0
         echo ::group::Root
-        composer normalize --dry-run
+        ./normalize.phar --dry-run
         echo ::endgroup::
         for COMPONENT in $(find src -maxdepth 4 -type f -name composer.json | sort)
         do
           echo ::group::$COMPONENT
           localExit=0
-          composer normalize --dry-run || localExit=1
+          ./normalize.phar --dry-run || localExit=1
           ok=$(( $localExit || $ok ))
           echo ::endgroup::
           if [ $localExit -ne 0 ]; then
