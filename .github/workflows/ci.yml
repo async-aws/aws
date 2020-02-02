@@ -63,7 +63,9 @@ jobs:
             echo ::group::$COMPONENT
             ./vendor/bin/simple-phpunit -c "./$COMPONENT" 2>&1
             ok=$(( $? || $ok ))
+            echo "::error::My error message"
             echo ::endgroup::
+
           done
 
           exit $ok
