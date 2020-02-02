@@ -46,6 +46,40 @@ jobs:
 
         exit $ok
 
+  output-regenerated:
+    name: Output Regenerated
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up PHP
+      uses: shivammathur/setup-php@1.8.1
+      with:
+        php-version: 7.4
+        coverage: none
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Download
+      run: |
+        composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
+
+    - name: Regenerate
+      run: |
+        ./generate regenerate S3 --all
+        ./generate regenerate Ses --all
+        ./generate regenerate Sts --all
+        ./generate regenerate Sqs --all
+
+    - name: Fix cs
+      uses: docker://oskarstark/php-cs-fixer-ga
+
+    - name: Assert up-to-date
+      run: |
+        if [ -n "$(git status src --porcelain)" ]; then
+          git diff src
+          exit 1
+        fi
 
 #  roave-bc-check:
 #    name: Roave BC Check
