@@ -14,7 +14,7 @@ class ListObjectsOutput extends Result
 
     private $NextMarker;
 
-    private $Contents;
+    private $Contents = [];
 
     private $Name;
 
@@ -24,7 +24,7 @@ class ListObjectsOutput extends Result
 
     private $MaxKeys;
 
-    private $CommonPrefixes;
+    private $CommonPrefixes = [];
 
     private $EncodingType;
 
@@ -49,7 +49,10 @@ class ListObjectsOutput extends Result
         return $this->NextMarker;
     }
 
-    public function getContents(): ?array
+    /**
+     * @return AwsObject[]
+     */
+    public function getContents(): array
     {
         $this->initialize();
 
@@ -84,7 +87,10 @@ class ListObjectsOutput extends Result
         return $this->MaxKeys;
     }
 
-    public function getCommonPrefixes(): ?array
+    /**
+     * @return CommonPrefix[]
+     */
+    public function getCommonPrefixes(): array
     {
         $this->initialize();
 

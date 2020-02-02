@@ -8,11 +8,10 @@ trait DeleteObjectOutputTrait
 {
     protected function populateFromResponse(ResponseInterface $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent(false));
+        $headers = $response->getHeaders(false);
 
-        // TODO Verify correctness
-        $this->DeleteMarker = $this->xmlValueOrNull($data->DeleteMarker);
-        $this->VersionId = $this->xmlValueOrNull($data->VersionId);
-        $this->RequestCharged = $this->xmlValueOrNull($data->RequestCharged);
+        $this->DeleteMarker = $headers['x-amz-delete-marker'];
+        $this->VersionId = $headers['x-amz-version-id'];
+        $this->RequestCharged = $headers['x-amz-request-charged'];
     }
 }

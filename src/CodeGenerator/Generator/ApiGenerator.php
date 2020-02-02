@@ -48,10 +48,9 @@ class ApiGenerator
 
         $inputClassName = $operation['input']['shape'];
         $this->generateInputClass($service, $definition->getApiVersion(), $operationName, $baseNamespace . '\\Input', $inputClassName, true);
-        $inputClass = $baseNamespace . '\\Input\\' . $inputClassName;
 
         $namespace = ClassFactory::fromExistingClass(\sprintf('%s\\%sClient', $baseNamespace, $service));
-        $namespace->addUse($inputClass);
+        $namespace->addUse($baseNamespace . '\\Input\\' . $this->safeClassName($inputClassName));
         $classes = $namespace->getClasses();
         $class = $classes[\array_key_first($classes)];
         if (null !== $prefix = $definition->getEndpointPrefix()) {
@@ -86,7 +85,7 @@ class ApiGenerator
         $method->addComment('}|' . $inputClassName . ' $input');
         $method->addParameter('input')->setDefaultValue([]);
 
-        $outputClass = \sprintf('%s\\Result\\%s', $baseNamespace, $operation['output']['shape']);
+        $outputClass = \sprintf('%s\\Result\\%s', $baseNamespace, $this->safeClassName($operation['output']['shape']));
         $method->setReturnType($outputClass);
         $namespace->addUse($outputClass);
         $namespace->addUse(XmlBuilder::class);
@@ -103,26 +102,64 @@ class ApiGenerator
     public function generateResultClass(ServiceDefinition $definition, string $service, string $baseNamespace, string $className, bool $root = false)
     {
         $this->definition = $definition;
-        $shapes = $definition->getShapes();
+        $inputShape = $this->definition->getShape($className);
+
         $namespace = new PhpNamespace($baseNamespace);
-        $class = $namespace->addClass($className);
-        $members = $shapes[$className]['members'];
+        $class = $namespace->addClass($this->safeClassName($className));
+        $members = $inputShape['members'];
 
         if ($root) {
             $namespace->addUse(Result::class);
             $class->addExtend(Result::class);
             $class->addTrait($baseNamespace . '\\' . $className . 'Trait');
+        } else {
+            // Named constructor
+            $class->addMethod('create')->setStatic(true)->setReturnType('self')->setBody(
+                <<<PHP
+return \$input instanceof self ? \$input : new self(\$input);
+PHP
+            )->addParameter('input');
+
+            // We need a constructor
+            $constructor = $class->addMethod('__construct');
+            $constructor->addComment('@param array{');
+            $this->addMethodComment($constructor, $inputShape, $baseNamespace);
+            $constructor->addComment('} $input');
+            $constructor->addParameter('input')->setType('array')->setDefaultValue([]);
+
+            $constructorBody = '';
+            foreach ($members as $name => $data) {
+                $parameterType = $members[$name]['shape'];
+                $memberShape = $this->definition->getShape($parameterType);
+                if ('structure' === $memberShape['type']) {
+                    $this->generateResultClass($this->definition, $service, $baseNamespace, $parameterType);
+                    $constructorBody .= sprintf('$this->%s = isset($input["%s"]) ? %s::create($input["%s"]) : null;' . "\n", $name, $name, $this->safeClassName($parameterType), $name);
+                } elseif ('list' === $memberShape['type']) {
+                    $this->generateResultClass($this->definition, $service, $baseNamespace, $memberShape['member']['shape']);
+                    $constructorBody .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, $this->safeClassName($memberShape['member']['shape']), $name);
+                } else {
+                    $constructorBody .= sprintf('$this->%s = $input["%s"] ?? null;' . "\n", $name, $name);
+                }
+            }
+            $constructor->setBody($constructorBody);
         }
 
         foreach ($members as $name => $data) {
-            $class->addProperty($name)->setPrivate();
+            $returnType = null;
+            $property = $class->addProperty($name)->setPrivate();
             $parameterType = $members[$name]['shape'];
+            $memberShape = $this->definition->getShape($parameterType);
 
-            if ('structure' === $shapes[$parameterType]['type']) {
+            if ('structure' === $memberShape['type']) {
                 $this->generateResultClass($this->definition, $service, $baseNamespace, $parameterType);
-                $parameterType = $baseNamespace . '\\' . $parameterType;
+                $parameterType = $baseNamespace . '\\' . $this->safeClassName($parameterType);
+            } elseif ('list' === $memberShape['type']) {
+                $this->generateResultClass($this->definition, $service, $baseNamespace, $memberShape['member']['shape']);
+                $returnType = $this->safeClassName($memberShape['member']['shape']);
+                $parameterType = 'array';
+                $property->setValue([]);
             } else {
-                $parameterType = $this->toPhpType($shapes[$parameterType]['type']);
+                $parameterType = $this->toPhpType($memberShape['type']);
             }
 
             $callInitialize = '';
@@ -132,16 +169,23 @@ class ApiGenerator
 PHP;
             }
 
-            $nullable = !\in_array($name, $shapes[$className]['required'] ?? []);
-            $class->addMethod('get' . $name)
+            $method = $class->addMethod('get' . $name)
                 ->setReturnType($parameterType)
-                ->setReturnNullable($nullable)
                 ->setBody(
                     <<<PHP
 $callInitialize
 return \$this->{$name};
 PHP
                 );
+
+            $nullable = !\in_array($name, $inputShape['required'] ?? []);
+            if ($returnType) {
+                if ($array = 'array' === $parameterType) {
+                    $nullable = false;
+                }
+                $method->addComment('@return ' . $returnType . ($array ? '[]' : ''));
+            }
+            $method->setReturnNullable($nullable);
         }
 
         $this->fileWriter->write($namespace);
@@ -158,7 +202,7 @@ PHP
         $members = $inputShape['members'];
 
         $namespace = new PhpNamespace($baseNamespace);
-        $class = $namespace->addClass($className);
+        $class = $namespace->addClass($this->safeClassName($className));
         // Add named constructor
         $class->addMethod('create')->setStatic(true)->setReturnType('self')->setBody(
             <<<PHP
@@ -187,16 +231,32 @@ PHP
             if ('structure' === $memberShape['type']) {
                 $this->generateInputClass($service, $apiVersion, $operationName, $baseNamespace, $parameterType);
                 $returnType = $baseNamespace . '\\' . $parameterType;
-                $constructorBody .= sprintf('$this->%s = isset($input["%s"]) ? %s::create($input["%s"]) : null;' . "\n", $name, $name, $parameterType, $name);
+                $constructorBody .= sprintf('$this->%s = isset($input["%s"]) ? %s::create($input["%s"]) : null;' . "\n", $name, $name, $this->safeClassName($parameterType), $name);
             } elseif ('list' === $memberShape['type']) {
-                $parameterType = $memberShape['member']['shape'] . '[]';
-                $this->generateInputClass($service, $apiVersion, $operationName, $baseNamespace, $memberShape['member']['shape']);
-                $returnType = $baseNamespace . '\\' . $memberShape['member']['shape'];
-                $constructorBody .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, $memberShape['member']['shape'], $name);
+                $listItemShapeName = $memberShape['member']['shape'];
+                $listItemShape = $this->definition->getShape($listItemShapeName);
                 $nullable = false;
+
+                // Is this a list of objects?
+                if ('structure' === $listItemShape['type']) {
+                    $this->generateInputClass($service, $apiVersion, $operationName, $baseNamespace, $listItemShapeName);
+                    $parameterType = $listItemShapeName . '[]';
+                    $returnType = $baseNamespace . '\\' . $listItemShapeName;
+                    $constructorBody .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, $this->safeClassName(
+                        $listItemShapeName
+                    ), $name);
+                } else {
+                    // It is a scalar, like a string
+                    $parameterType = $listItemShape['type'] . '[]';
+                    $constructorBody .= sprintf('$this->%s = $input["%s"] ?? [];' . "\n", $name, $name);
+                }
             } else {
                 $returnType = $parameterType = $this->toPhpType($memberShape['type']);
-                $constructorBody .= sprintf('$this->%s = $input["%s"] ?? null;' . "\n", $name, $name);
+                if ('\DateTimeImmutable' !== $parameterType) {
+                    $constructorBody .= sprintf('$this->%s = $input["%s"] ?? null;' . "\n", $name, $name);
+                } else {
+                    $constructorBody .= sprintf('$this->%s = !isset($input["%s"]) ? null : ($input["%s"] instanceof \DateTimeImmutable ? $input["%s"] : new \DateTimeImmutable($input["%s"]));' . "\n", $name, $name, $name, $name, $name);
+                }
             }
 
             $property = $class->addProperty($name)->setPrivate();
@@ -323,13 +383,58 @@ PHP;
             $comment = "// TODO Verify correctness\n";
         }
 
-        $body = '$data = new \SimpleXMLElement($response->getContent(false));' . "\n\n$comment";
-        $wrapper = $operation['output']['resultWrapper'] ?? null;
-        if (null !== $wrapper) {
-            $body.= "\$data = \$data->$wrapper;\n";
+        // Parse headers
+        $nonHeaders = [];
+        $body = '';
+        foreach ($shape['members'] as $name => $member) {
+            if (($member['location'] ?? null) !== 'header') {
+                $nonHeaders[$name] = $member;
+
+                continue;
+            }
+            $locationName= $member['locationName'] ?? $name;
+            $body .= "\$this->$name = \$headers['{$locationName}'];\n";
         }
-        foreach (\array_keys($shape['members']) as $name) {
-            $body .= "\$this->$name = \$this->xmlValueOrNull(\$data->$name);\n";
+
+        // Prepend with $headers = ...
+        if (!empty($body)) {
+            $body = <<<PHP
+\$headers = \$response->getHeaders(false);
+
+$comment
+PHP
+            . $body;
+        }
+
+        $body.="\n";
+        $xmlParser = '';
+        if (isset($shape['payload'])) {
+            $name = $shape['payload'];
+            $member = $shape['members'][$name];
+            if (true === ($member['streaming'] ?? false)) {
+                // TODO make sure we can stream this.
+                $body .= "\$this->$name = \$response->getContent(false);\n";
+            } else {
+                $xmlParser .= "\n\n" . $this->parseXmlResponse($name, $member['shape'], '$data');
+            }
+        } else {
+            // All remaining members are in the body
+            foreach ($nonHeaders as $name => $member) {
+                if (($member['location']  ?? null) === 'headers') {
+                    // There is a difference between 'header' and 'headers'
+                    continue;
+                }
+                $xmlParser .= $this->parseXmlResponse($name, $member['shape'], '$data');
+            }
+        }
+
+        if (!empty($xmlParser)) {
+            $body .= "\$data = new \SimpleXMLElement(\$response->getContent(false));";
+            $wrapper = $operation['output']['resultWrapper'] ?? null;
+            if (null !== $wrapper) {
+                $body .= "\$data = \$data->$wrapper;\n";
+            }
+            $body .= "\n" . $xmlParser;
         }
 
         $trait->addMethod('populateFromResponse')
@@ -341,19 +446,78 @@ PHP;
         $this->fileWriter->write($namespace);
     }
 
+    private function parseXmlResponse(?string $rootObjectName, string $rootObjectShape, string $prefix): string
+    {
+        $shape = $this->definition->getShape($rootObjectShape);
+        if (!\in_array($shape['type'], ['structure', 'list'])) {
+            $type = $this->toPhpType($shape['type']);
+
+            return "\$this->$rootObjectName = \$this->xmlValueOrNull(\$data->$rootObjectName, '$type');\n";
+        }
+
+        if ('list' === $shape['type']) {
+            $childCall = $this->parseXmlResponse(null, $shape['member']['shape'], '$item');
+
+            return <<<PHP
+\$this->$rootObjectName = [];
+foreach ($prefix->$rootObjectName as \$item) {
+    \$this->{$rootObjectName}[] = $childCall;
+}
+
+PHP;
+        }
+
+        // Assert: $shape['type'] === 'structure'
+        $safeRootObjectShape = $this->safeClassName($rootObjectShape);
+        $body = "new $safeRootObjectShape([\n";
+        foreach ($shape['members'] as $name => $memberData) {
+            $memberShape = $this->definition->getShape($memberData['shape']);
+            if ('structure' === $memberShape['type']) {
+                $body .= "'$name' => " . $this->parseXmlResponse(null, $name, $prefix . '->' . $name) . ",\n";
+            } elseif ('list' === $memberShape['type']) {
+                // TODO we should do something similar like above, but here we are in the middle of defining an array.
+                throw new \RuntimeException('This si not implemented yet');
+            //$body .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, $this->safeClassName($memberShape['member']['shape']), $name);
+            } else {
+                $type = $this->toPhpType($memberShape['type']);
+                $body .= "'$name' => \$this->xmlValueOrNull($prefix->$name, '$type'),\n";
+            }
+        }
+        $body .= '])';
+        if ($rootObjectName) {
+            $body = "\$this->$rootObjectName = $body;\n";
+        }
+
+        return $body;
+    }
+
     private function toPhpType(?string $parameterType): string
     {
         if ('boolean' === $parameterType) {
             $parameterType = 'bool';
-        } elseif (\in_array($parameterType, ['integer', 'timestamp'])) {
+        } elseif (\in_array($parameterType, ['integer'])) {
             $parameterType = 'int';
         } elseif (\in_array($parameterType, ['blob', 'long'])) {
             $parameterType = 'string';
         } elseif (\in_array($parameterType, ['map', 'list'])) {
             $parameterType = 'array';
+        } elseif (\in_array($parameterType, ['timestamp'])) {
+            $parameterType = '\DateTimeImmutable';
         }
 
         return $parameterType;
+    }
+
+    /**
+     * Make sure we dont use a class name like Trait or Object.
+     */
+    private function safeClassName(string $name): string
+    {
+        if (\in_array($name, ['Object', 'Class', 'Trait'])) {
+            return 'Aws' . $name;
+        }
+
+        return $name;
     }
 
     /**
@@ -363,7 +527,7 @@ PHP;
     {
         $shape = $this->definition->getShape($shapeName);
         if (!\in_array($shape['type'] ?? 'structure', ['structure', 'list'])) {
-            $xml[$shapeName]['type'] = $this->toPhpType($shape['type']);
+            $xml[$shapeName]['type'] = $shape['type'];
 
             return $xml;
         }
@@ -405,7 +569,17 @@ PHP;
             if ('structure' === $param) {
                 $param = '\\' . $baseNamespace . '\\' . $name . '|array';
             } elseif ('list' === $param) {
-                $param = '\\' . $baseNamespace . '\\' . $this->definition->getShape($data['shape'])['member']['shape'] . '[]';
+                $listItemShapeName = $this->definition->getShape($data['shape'])['member']['shape'];
+
+                // is the list item an object?
+                $type = $this->definition->getShape($listItemShapeName)['type'];
+                if ('structure' === $type) {
+                    $param = '\\' . $baseNamespace . '\\' . $listItemShapeName . '[]';
+                } else {
+                    $param = $type . '[]';
+                }
+            } elseif ('timestamp' === $param) {
+                $param = '\DateTimeImmutable|string';
             } else {
                 $param = $this->toPhpType($param);
             }
@@ -416,8 +590,9 @@ PHP;
 
     private function setMethodBody(array $inputShape, Method $method, array $operation, $inputClassName): void
     {
+        $safeInputClassName = $this->safeClassName($inputClassName);
         $body = <<<PHP
-\$input = $inputClassName::create(\$input);
+\$input = $safeInputClassName::create(\$input);
 \$input->validate();
 
 PHP;
@@ -455,7 +630,7 @@ PHP;
     \$this->getEndpoint(\$input->requestUri(), \$input->requestQuery())
 );
 
-return new {$operation['output']['shape']}(\$response);
+return new {$this->safeClassName($operation['output']['shape'])}(\$response);
 PHP
         );
     }

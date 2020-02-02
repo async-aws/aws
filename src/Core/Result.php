@@ -106,8 +106,25 @@ class Result
         $this->response->cancel();
     }
 
-    final protected function xmlValueOrNull(\SimpleXMLElement $xml)
+    final protected function xmlValueOrNull(\SimpleXMLElement $xml, string $type)
     {
-        return 0 === $xml->count() ? null : $xml->__toString();
+        if (0 === $xml->count()) {
+            return null;
+        }
+
+        $value = $xml->__toString();
+
+        // Return the correct type
+        switch ($type) {
+            case '\DateTimeImmutable':
+                return new \DateTimeImmutable($value);
+            case 'int':
+                return (int) $value;
+            case 'bool':
+                return 'true' === $value;
+            case 'string':
+            default:
+                return $value;
+        }
     }
 }

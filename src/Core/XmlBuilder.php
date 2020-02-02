@@ -87,6 +87,7 @@ class XmlBuilder
             }
 
             // TODO do some data type checks with $this->config[$name]['type']
+            // TODO if $member['timestamp'] we need to configure the value from DateTimeImmutable to "2009-10-28T22:32:00"
             $el->nodeValue = $value;
         }
     }

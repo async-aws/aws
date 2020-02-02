@@ -8,13 +8,14 @@ trait SendMessageResultTrait
 {
     protected function populateFromResponse(ResponseInterface $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent(false));
+        $headers = $response->getHeaders(false);
 
+        $data = new \SimpleXMLElement($response->getContent(false));
         $data = $data->SendMessageResult;
-        $this->MD5OfMessageBody = $this->xmlValueOrNull($data->MD5OfMessageBody);
-        $this->MD5OfMessageAttributes = $this->xmlValueOrNull($data->MD5OfMessageAttributes);
-        $this->MD5OfMessageSystemAttributes = $this->xmlValueOrNull($data->MD5OfMessageSystemAttributes);
-        $this->MessageId = $this->xmlValueOrNull($data->MessageId);
-        $this->SequenceNumber = $this->xmlValueOrNull($data->SequenceNumber);
+        $this->MD5OfMessageBody = $this->xmlValueOrNull($data->MD5OfMessageBody, 'string');
+        $this->MD5OfMessageAttributes = $this->xmlValueOrNull($data->MD5OfMessageAttributes, 'string');
+        $this->MD5OfMessageSystemAttributes = $this->xmlValueOrNull($data->MD5OfMessageSystemAttributes, 'string');
+        $this->MessageId = $this->xmlValueOrNull($data->MessageId, 'string');
+        $this->SequenceNumber = $this->xmlValueOrNull($data->SequenceNumber, 'string');
     }
 }

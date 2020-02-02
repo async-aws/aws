@@ -19,7 +19,7 @@ class GetObjectRequest
     private $IfMatch;
 
     /**
-     * @var int|null
+     * @var \DateTimeImmutable|null
      */
     private $IfModifiedSince;
 
@@ -29,7 +29,7 @@ class GetObjectRequest
     private $IfNoneMatch;
 
     /**
-     * @var int|null
+     * @var \DateTimeImmutable|null
      */
     private $IfUnmodifiedSince;
 
@@ -71,7 +71,7 @@ class GetObjectRequest
     private $ResponseContentType;
 
     /**
-     * @var int|null
+     * @var \DateTimeImmutable|null
      */
     private $ResponseExpires;
 
@@ -116,9 +116,9 @@ class GetObjectRequest
      * @param array{
      *   Bucket: string,
      *   IfMatch?: string,
-     *   IfModifiedSince?: int,
+     *   IfModifiedSince?: \DateTimeImmutable|string,
      *   IfNoneMatch?: string,
-     *   IfUnmodifiedSince?: int,
+     *   IfUnmodifiedSince?: \DateTimeImmutable|string,
      *   Key: string,
      *   Range?: string,
      *   ResponseCacheControl?: string,
@@ -126,7 +126,7 @@ class GetObjectRequest
      *   ResponseContentEncoding?: string,
      *   ResponseContentLanguage?: string,
      *   ResponseContentType?: string,
-     *   ResponseExpires?: int,
+     *   ResponseExpires?: \DateTimeImmutable|string,
      *   VersionId?: string,
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
@@ -139,9 +139,9 @@ class GetObjectRequest
     {
         $this->Bucket = $input['Bucket'] ?? null;
         $this->IfMatch = $input['IfMatch'] ?? null;
-        $this->IfModifiedSince = $input['IfModifiedSince'] ?? null;
+        $this->IfModifiedSince = !isset($input['IfModifiedSince']) ? null : ($input['IfModifiedSince'] instanceof \DateTimeImmutable ? $input['IfModifiedSince'] : new \DateTimeImmutable($input['IfModifiedSince']));
         $this->IfNoneMatch = $input['IfNoneMatch'] ?? null;
-        $this->IfUnmodifiedSince = $input['IfUnmodifiedSince'] ?? null;
+        $this->IfUnmodifiedSince = !isset($input['IfUnmodifiedSince']) ? null : ($input['IfUnmodifiedSince'] instanceof \DateTimeImmutable ? $input['IfUnmodifiedSince'] : new \DateTimeImmutable($input['IfUnmodifiedSince']));
         $this->Key = $input['Key'] ?? null;
         $this->Range = $input['Range'] ?? null;
         $this->ResponseCacheControl = $input['ResponseCacheControl'] ?? null;
@@ -149,7 +149,7 @@ class GetObjectRequest
         $this->ResponseContentEncoding = $input['ResponseContentEncoding'] ?? null;
         $this->ResponseContentLanguage = $input['ResponseContentLanguage'] ?? null;
         $this->ResponseContentType = $input['ResponseContentType'] ?? null;
-        $this->ResponseExpires = $input['ResponseExpires'] ?? null;
+        $this->ResponseExpires = !isset($input['ResponseExpires']) ? null : ($input['ResponseExpires'] instanceof \DateTimeImmutable ? $input['ResponseExpires'] : new \DateTimeImmutable($input['ResponseExpires']));
         $this->VersionId = $input['VersionId'] ?? null;
         $this->SSECustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
         $this->SSECustomerKey = $input['SSECustomerKey'] ?? null;
@@ -182,12 +182,12 @@ class GetObjectRequest
         return $this;
     }
 
-    public function getIfModifiedSince(): ?int
+    public function getIfModifiedSince(): ?\DateTimeImmutable
     {
         return $this->IfModifiedSince;
     }
 
-    public function setIfModifiedSince(?int $value): self
+    public function setIfModifiedSince(?\DateTimeImmutable $value): self
     {
         $this->IfModifiedSince = $value;
 
@@ -206,12 +206,12 @@ class GetObjectRequest
         return $this;
     }
 
-    public function getIfUnmodifiedSince(): ?int
+    public function getIfUnmodifiedSince(): ?\DateTimeImmutable
     {
         return $this->IfUnmodifiedSince;
     }
 
-    public function setIfUnmodifiedSince(?int $value): self
+    public function setIfUnmodifiedSince(?\DateTimeImmutable $value): self
     {
         $this->IfUnmodifiedSince = $value;
 
@@ -302,12 +302,12 @@ class GetObjectRequest
         return $this;
     }
 
-    public function getResponseExpires(): ?int
+    public function getResponseExpires(): ?\DateTimeImmutable
     {
         return $this->ResponseExpires;
     }
 
-    public function setResponseExpires(?int $value): self
+    public function setResponseExpires(?\DateTimeImmutable $value): self
     {
         $this->ResponseExpires = $value;
 

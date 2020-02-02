@@ -56,7 +56,7 @@ class CopyObjectRequest
     private $CopySourceIfMatch;
 
     /**
-     * @var int|null
+     * @var \DateTimeImmutable|null
      */
     private $CopySourceIfModifiedSince;
 
@@ -66,12 +66,12 @@ class CopyObjectRequest
     private $CopySourceIfNoneMatch;
 
     /**
-     * @var int|null
+     * @var \DateTimeImmutable|null
      */
     private $CopySourceIfUnmodifiedSince;
 
     /**
-     * @var int|null
+     * @var \DateTimeImmutable|null
      */
     private $Expires;
 
@@ -188,7 +188,7 @@ class CopyObjectRequest
     private $ObjectLockMode;
 
     /**
-     * @var int|null
+     * @var \DateTimeImmutable|null
      */
     private $ObjectLockRetainUntilDate;
 
@@ -215,10 +215,10 @@ class CopyObjectRequest
      *   ContentType?: string,
      *   CopySource: string,
      *   CopySourceIfMatch?: string,
-     *   CopySourceIfModifiedSince?: int,
+     *   CopySourceIfModifiedSince?: \DateTimeImmutable|string,
      *   CopySourceIfNoneMatch?: string,
-     *   CopySourceIfUnmodifiedSince?: int,
-     *   Expires?: int,
+     *   CopySourceIfUnmodifiedSince?: \DateTimeImmutable|string,
+     *   Expires?: \DateTimeImmutable|string,
      *   GrantFullControl?: string,
      *   GrantRead?: string,
      *   GrantReadACP?: string,
@@ -241,7 +241,7 @@ class CopyObjectRequest
      *   RequestPayer?: string,
      *   Tagging?: string,
      *   ObjectLockMode?: string,
-     *   ObjectLockRetainUntilDate?: int,
+     *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
      *   ObjectLockLegalHoldStatus?: string,
      * } $input
      */
@@ -256,10 +256,10 @@ class CopyObjectRequest
         $this->ContentType = $input['ContentType'] ?? null;
         $this->CopySource = $input['CopySource'] ?? null;
         $this->CopySourceIfMatch = $input['CopySourceIfMatch'] ?? null;
-        $this->CopySourceIfModifiedSince = $input['CopySourceIfModifiedSince'] ?? null;
+        $this->CopySourceIfModifiedSince = !isset($input['CopySourceIfModifiedSince']) ? null : ($input['CopySourceIfModifiedSince'] instanceof \DateTimeImmutable ? $input['CopySourceIfModifiedSince'] : new \DateTimeImmutable($input['CopySourceIfModifiedSince']));
         $this->CopySourceIfNoneMatch = $input['CopySourceIfNoneMatch'] ?? null;
-        $this->CopySourceIfUnmodifiedSince = $input['CopySourceIfUnmodifiedSince'] ?? null;
-        $this->Expires = $input['Expires'] ?? null;
+        $this->CopySourceIfUnmodifiedSince = !isset($input['CopySourceIfUnmodifiedSince']) ? null : ($input['CopySourceIfUnmodifiedSince'] instanceof \DateTimeImmutable ? $input['CopySourceIfUnmodifiedSince'] : new \DateTimeImmutable($input['CopySourceIfUnmodifiedSince']));
+        $this->Expires = !isset($input['Expires']) ? null : ($input['Expires'] instanceof \DateTimeImmutable ? $input['Expires'] : new \DateTimeImmutable($input['Expires']));
         $this->GrantFullControl = $input['GrantFullControl'] ?? null;
         $this->GrantRead = $input['GrantRead'] ?? null;
         $this->GrantReadACP = $input['GrantReadACP'] ?? null;
@@ -282,7 +282,7 @@ class CopyObjectRequest
         $this->RequestPayer = $input['RequestPayer'] ?? null;
         $this->Tagging = $input['Tagging'] ?? null;
         $this->ObjectLockMode = $input['ObjectLockMode'] ?? null;
-        $this->ObjectLockRetainUntilDate = $input['ObjectLockRetainUntilDate'] ?? null;
+        $this->ObjectLockRetainUntilDate = !isset($input['ObjectLockRetainUntilDate']) ? null : ($input['ObjectLockRetainUntilDate'] instanceof \DateTimeImmutable ? $input['ObjectLockRetainUntilDate'] : new \DateTimeImmutable($input['ObjectLockRetainUntilDate']));
         $this->ObjectLockLegalHoldStatus = $input['ObjectLockLegalHoldStatus'] ?? null;
     }
 
@@ -394,12 +394,12 @@ class CopyObjectRequest
         return $this;
     }
 
-    public function getCopySourceIfModifiedSince(): ?int
+    public function getCopySourceIfModifiedSince(): ?\DateTimeImmutable
     {
         return $this->CopySourceIfModifiedSince;
     }
 
-    public function setCopySourceIfModifiedSince(?int $value): self
+    public function setCopySourceIfModifiedSince(?\DateTimeImmutable $value): self
     {
         $this->CopySourceIfModifiedSince = $value;
 
@@ -418,24 +418,24 @@ class CopyObjectRequest
         return $this;
     }
 
-    public function getCopySourceIfUnmodifiedSince(): ?int
+    public function getCopySourceIfUnmodifiedSince(): ?\DateTimeImmutable
     {
         return $this->CopySourceIfUnmodifiedSince;
     }
 
-    public function setCopySourceIfUnmodifiedSince(?int $value): self
+    public function setCopySourceIfUnmodifiedSince(?\DateTimeImmutable $value): self
     {
         $this->CopySourceIfUnmodifiedSince = $value;
 
         return $this;
     }
 
-    public function getExpires(): ?int
+    public function getExpires(): ?\DateTimeImmutable
     {
         return $this->Expires;
     }
 
-    public function setExpires(?int $value): self
+    public function setExpires(?\DateTimeImmutable $value): self
     {
         $this->Expires = $value;
 
@@ -706,12 +706,12 @@ class CopyObjectRequest
         return $this;
     }
 
-    public function getObjectLockRetainUntilDate(): ?int
+    public function getObjectLockRetainUntilDate(): ?\DateTimeImmutable
     {
         return $this->ObjectLockRetainUntilDate;
     }
 
-    public function setObjectLockRetainUntilDate(?int $value): self
+    public function setObjectLockRetainUntilDate(?\DateTimeImmutable $value): self
     {
         $this->ObjectLockRetainUntilDate = $value;
 

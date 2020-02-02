@@ -10,7 +10,7 @@ class GetObjectAclOutput extends Result
 
     private $Owner;
 
-    private $Grants;
+    private $Grants = [];
 
     private $RequestCharged;
 
@@ -21,7 +21,10 @@ class GetObjectAclOutput extends Result
         return $this->Owner;
     }
 
-    public function getGrants(): ?array
+    /**
+     * @return Grant[]
+     */
+    public function getGrants(): array
     {
         $this->initialize();
 

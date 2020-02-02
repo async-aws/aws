@@ -1,3 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="3.8.2@90d6b73fd8062432030ef39b7b6694b3902daa31">
+  <file src="src/Core/Result/GetCallerIdentityResponseTrait.php">
+    <TooFewArguments occurrences="3">
+      <code>xmlValueOrNull</code>
+      <code>xmlValueOrNull</code>
+      <code>xmlValueOrNull</code>
+    </TooFewArguments>
+  </file>
+  <file src="src/S3/Result/CopyObjectOutputTrait.php">
+    <ArgumentTypeCoercion occurrences="1"/>
+  </file>
+  <file src="src/S3/Result/GetObjectAclOutputTrait.php">
+    <ArgumentTypeCoercion occurrences="3"/>
+  </file>
+  <file src="src/S3/Result/ListObjectsOutputTrait.php">
+    <ArgumentTypeCoercion occurrences="3"/>
+  </file>
 </files>
