@@ -78,16 +78,8 @@ class RegenerateCommand extends Command
                 $this->generator->generateOperation($definition, $service, $baseNamespace, $operationName);
             }
 
-            if ($operationConfig['separate-result-trait']) {
-                $this->generator->generateOutputTrait($definition, $operationName, $resultNamespace, $resultClassName);
-            }
-
             if ($operationConfig['generate-result']) {
-                $this->generator->generateResultClass($definition, $service, $resultNamespace, $resultClassName, true);
-            }
-
-            if ($operationConfig['separate-result-trait']) {
-                $this->mergeTrait($resultNamespace . '\\' . $resultClassName);
+                $this->generator->generateResultClass($definition, $resultNamespace, $resultClassName, true, $operationConfig['separate-result-trait']);
             }
 
             // Update manifest file

@@ -110,14 +110,18 @@ class ApiGenerator
     /**
      * Generate classes for the output. Ie, the result of the API call.
      */
-    public function generateResultClass(ServiceDefinition $definition, string $service, string $baseNamespace, string $className, bool $root = false)
+    public function generateResultClass(ServiceDefinition $definition, string $baseNamespace, string $className, bool $root, bool $useTrait)
     {
         $this->definition = $definition;
+        $this->doGenerateResultClass($baseNamespace, $className, $root);
+    }
+
+    private function doGenerateResultClass(string $baseNamespace, string $className, bool $root = false): void
+    {
         $inputShape = $this->definition->getShape($className);
 
         $namespace = new PhpNamespace($baseNamespace);
         $class = $namespace->addClass($this->safeClassName($className));
-        $members = $inputShape['members'];
 
         if ($root) {
             $namespace->addUse(Result::class);
@@ -125,96 +129,10 @@ class ApiGenerator
             $class->addTrait($baseNamespace . '\\' . $className . 'Trait');
         } else {
             // Named constructor
-            $class->addMethod('create')->setStatic(true)->setReturnType('self')->setBody(
-                <<<PHP
-return \$input instanceof self ? \$input : new self(\$input);
-PHP
-            )->addParameter('input');
-
-            // We need a constructor
-            $constructor = $class->addMethod('__construct');
-            $constructor->addComment('@param array{');
-            $this->addMethodComment($constructor, $inputShape, $baseNamespace);
-            $constructor->addComment('} $input');
-            $constructor->addParameter('input')->setType('array')->setDefaultValue([]);
-
-            $constructorBody = '';
-            foreach ($members as $name => $data) {
-                $parameterType = $members[$name]['shape'];
-                $memberShape = $this->definition->getShape($parameterType);
-                if ('structure' === $memberShape['type']) {
-                    $this->generateResultClass($this->definition, $service, $baseNamespace, $parameterType);
-                    $constructorBody .= sprintf('$this->%s = isset($input["%s"]) ? %s::create($input["%s"]) : null;' . "\n", $name, $name, $this->safeClassName($parameterType), $name);
-                } elseif ('list' === $memberShape['type']) {
-                    // Check if this is a list of objects
-                    $listItemShapeName = $memberShape['member']['shape'];
-                    $type = $this->definition->getShape($listItemShapeName)['type'];
-                    if ('structure' === $type) {
-                        $this->generateResultClass($this->definition, $service, $baseNamespace, $listItemShapeName);
-                        $constructorBody .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, $this->safeClassName($listItemShapeName), $name);
-                    } else {
-                        $constructorBody .= sprintf('$this->%s = $input["%s"] ?? [];' . "\n", $name, $name);
-                    }
-                } else {
-                    $constructorBody .= sprintf('$this->%s = $input["%s"] ?? null;' . "\n", $name, $name);
-                }
-            }
-            $constructor->setBody($constructorBody);
+            $this->resultClassAddNamedConstructor($baseNamespace, $inputShape, $class);
         }
 
-        foreach ($members as $name => $data) {
-            $nullable = $returnType = null;
-            $property = $class->addProperty($name)->setPrivate();
-            $parameterType = $members[$name]['shape'];
-            $memberShape = $this->definition->getShape($parameterType);
-
-            if ('structure' === $memberShape['type']) {
-                $this->generateResultClass($this->definition, $service, $baseNamespace, $parameterType);
-                $parameterType = $baseNamespace . '\\' . $this->safeClassName($parameterType);
-            } elseif ('list' === $memberShape['type']) {
-                $parameterType = 'array';
-                $nullable = false;
-                $property->setValue([]);
-
-                // Check if this is a list of objects
-                $listItemShapeName = $memberShape['member']['shape'];
-                $type = $this->definition->getShape($listItemShapeName)['type'];
-                if ('structure' === $type) {
-                    $this->generateResultClass($this->definition, $service, $baseNamespace, $listItemShapeName);
-                    $returnType = $this->safeClassName($listItemShapeName);
-                } else {
-                    $returnType = $type . '[]';
-                }
-            } elseif ($data['streaming'] ?? false) {
-                $parameterType = StreamableBody::class;
-                $namespace->addUse(StreamableBody::class);
-                $nullable = false;
-            } else {
-                $parameterType = $this->toPhpType($memberShape['type']);
-            }
-
-            $callInitialize = '';
-            if ($root) {
-                $callInitialize = <<<PHP
-\$this->initialize();
-PHP;
-            }
-
-            $method = $class->addMethod('get' . $name)
-                ->setReturnType($parameterType)
-                ->setBody(
-                    <<<PHP
-$callInitialize
-return \$this->{$name};
-PHP
-                );
-
-            $nullable = $nullable ?? !\in_array($name, $inputShape['required'] ?? []);
-            if ($returnType) {
-                $method->addComment('@return ' . $returnType . ('array' === $parameterType ? '[]' : ''));
-            }
-            $method->setReturnNullable($nullable);
-        }
+        $this->resultClassAddProperties($baseNamespace, $root, $inputShape, $class, $namespace);
 
         $this->fileWriter->write($namespace);
     }
@@ -698,5 +616,105 @@ PHP
         // TODO check if pagination is supported
 
         return false;
+    }
+
+    private function resultClassAddNamedConstructor(string $baseNamespace, array $inputShape, ClassType $class): void
+    {
+        $class->addMethod('create')->setStatic(true)->setReturnType('self')->setBody(
+            <<<PHP
+return \$input instanceof self ? \$input : new self(\$input);
+PHP
+        )->addParameter('input');
+
+        // We need a constructor
+        $constructor = $class->addMethod('__construct');
+        $constructor->addComment('@param array{');
+        $this->addMethodComment($constructor, $inputShape, $baseNamespace);
+        $constructor->addComment('} $input');
+        $constructor->addParameter('input')->setType('array')->setDefaultValue([]);
+
+        $constructorBody = '';
+        foreach ($inputShape['members'] as $name => $data) {
+            $parameterType = $data['shape'];
+            $memberShape = $this->definition->getShape($parameterType);
+            if ('structure' === $memberShape['type']) {
+                $this->doGenerateResultClass($baseNamespace, $parameterType);
+                $constructorBody .= sprintf('$this->%s = isset($input["%s"]) ? %s::create($input["%s"]) : null;' . "\n", $name, $name, $this->safeClassName($parameterType), $name);
+            } elseif ('list' === $memberShape['type']) {
+                // Check if this is a list of objects
+                $listItemShapeName = $memberShape['member']['shape'];
+                $type = $this->definition->getShape($listItemShapeName)['type'];
+                if ('structure' === $type) {
+                    $this->doGenerateResultClass($baseNamespace, $listItemShapeName);
+                    $constructorBody .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, $this->safeClassName($listItemShapeName), $name);
+                } else {
+                    $constructorBody .= sprintf('$this->%s = $input["%s"] ?? [];' . "\n", $name, $name);
+                }
+            } else {
+                $constructorBody .= sprintf('$this->%s = $input["%s"] ?? null;' . "\n", $name, $name);
+            }
+        }
+        $constructor->setBody($constructorBody);
+    }
+
+    /**
+     * Add properties and getters.
+     */
+    private function resultClassAddProperties(string $baseNamespace, bool $root, ?array $inputShape, ClassType $class, PhpNamespace $namespace): void
+    {
+        $members = $inputShape['members'];
+        foreach ($members as $name => $data) {
+            $nullable = $returnType = null;
+            $property = $class->addProperty($name)->setPrivate();
+            $parameterType = $members[$name]['shape'];
+            $memberShape = $this->definition->getShape($parameterType);
+
+            if ('structure' === $memberShape['type']) {
+                $this->doGenerateResultClass($baseNamespace, $parameterType);
+                $parameterType = $baseNamespace . '\\' . $this->safeClassName($parameterType);
+            } elseif ('list' === $memberShape['type']) {
+                $parameterType = 'array';
+                $nullable = false;
+                $property->setValue([]);
+
+                // Check if this is a list of objects
+                $listItemShapeName = $memberShape['member']['shape'];
+                $type = $this->definition->getShape($listItemShapeName)['type'];
+                if ('structure' === $type) {
+                    $this->doGenerateResultClass($baseNamespace, $listItemShapeName);
+                    $returnType = $this->safeClassName($listItemShapeName);
+                } else {
+                    $returnType = $type . '[]';
+                }
+            } elseif ($data['streaming'] ?? false) {
+                $parameterType = StreamableBody::class;
+                $namespace->addUse(StreamableBody::class);
+                $nullable = false;
+            } else {
+                $parameterType = $this->toPhpType($memberShape['type']);
+            }
+
+            $callInitialize = '';
+            if ($root) {
+                $callInitialize = <<<PHP
+\$this->initialize();
+PHP;
+            }
+
+            $method = $class->addMethod('get' . $name)
+                ->setReturnType($parameterType)
+                ->setBody(
+                    <<<PHP
+$callInitialize
+return \$this->{$name};
+PHP
+                );
+
+            $nullable = $nullable ?? !\in_array($name, $inputShape['required'] ?? []);
+            if ($returnType) {
+                $method->addComment('@return ' . $returnType . ('array' === $parameterType ? '[]' : ''));
+            }
+            $method->setReturnNullable($nullable);
+        }
     }
 }
