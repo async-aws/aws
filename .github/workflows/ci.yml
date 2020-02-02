@@ -15,15 +15,13 @@ jobs:
       max-parallel: 10
       matrix:
         php: ['7.2', '7.3', '7.4']
-        component: ['Core', 'S3', 'Ses', 'Sqs']
 
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@1.7.0
+        uses: shivammathur/setup-php@1.8.1
         with:
           php-version: ${{ matrix.php }}
-          coverage: xdebug
-          ini-values: xdebug.overload_var_dump=1
+          coverage: none
           tools: prestissimo
 
       - name: Checkout code
@@ -33,14 +31,123 @@ jobs:
         run: |
           rm composer.*
           composer init --no-interaction
+
+          echo ::group::Download
           composer req symfony/phpunit-bridge
+          echo ::endgroup::
+
+          echo ::group::Install
+          ./vendor/bin/simple-phpunit install
+          echo ::endgroup::
 
       - name: Download dependencies
         run: |
-          cd "./src/${{ matrix.component }}"
-          sed -i -re 's/"async-aws\/core": "[^"]+",/"async-aws\/core": "*@dev",/' composer.json
-          sed -i -re 's/"require": \{/"repositories": [{"type": "path","url": "..\/Core"}],"require": \{/' composer.json
+          CURRENT_DIR=$(pwd)
+          for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
+          do
+            echo ::group::$COMPONENT
+            echo "$CURRENT_DIR/$COMPONENT"
+            cd "$CURRENT_DIR/$COMPONENT"
+            sed -i -re 's/"async-aws\/core": "[^"]+",/"async-aws\/core": "*@dev",/' composer.json
+            sed -i -re 's/"require": \{/"repositories": [{"type": "path","url": "..\/Core"}],"require": \{/' composer.json
+            composer update --no-interaction --prefer-dist --optimize-autoloader
+            echo ::endgroup::
+          done
+
+      - name: Run tests
+        run: |
+          ok=0
+          for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
+          do
+            echo ::group::$COMPONENT
+            localExit=0
+            ./vendor/bin/simple-phpunit -c ./$COMPONENT 2>&1 || localExit=1
+            ok=$(( $localExit || $ok ))
+            echo ::endgroup::
+            if [ $localExit -ne 0 ]; then
+              echo "::error::$COMPONENT failed"
+            fi
+          done
+
+          exit $ok
+
+  lowest:
+    name: Lowest dependencies
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@1.8.1
+        with:
+          php-version: 7.3
+          coverage: none
+          tools: prestissimo
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download phpunit
+        run: |
+          rm composer.*
+          composer init --no-interaction
+
+          echo ::group::Download
+          composer req symfony/phpunit-bridge
+          echo ::endgroup::
+
+          echo ::group::Install
+          ./vendor/bin/simple-phpunit install
+          echo ::endgroup::
+
+      - name: Download dependencies
+        run: |
+          CURRENT_DIR=$(pwd)
+          for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
+          do
+            echo ::group::$COMPONENT
+            echo "$CURRENT_DIR/$COMPONENT"
+            cd "$CURRENT_DIR/$COMPONENT"
+            composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-lowest
+            echo ::endgroup::
+          done
+
+      - name: Run tests
+        run: |
+          ok=0
+          for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
+          do
+            echo ::group::$COMPONENT
+            localExit=0
+            ./vendor/bin/simple-phpunit -c ./$COMPONENT 2>&1 || localExit=1
+            ok=$(( $localExit || $ok ))
+            echo ::endgroup::
+            if [ $localExit -ne 0 ]; then
+              echo "::error::$COMPONENT failed"
+            fi
+          done
+
+          exit $ok
+
+  root:
+    name: Root tests
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 10
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@1.8.1
+        with:
+          php-version: 7.4
+          coverage: none
+          tools: prestissimo
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download dependencies
+        run: |
           composer update --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Run tests
-        run: ./vendor/bin/simple-phpunit -c "./src/${{ matrix.component }}"
+        run: |
+          ./vendor/bin/simple-phpunit
