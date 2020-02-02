@@ -103,6 +103,9 @@ jobs:
             echo ::group::$COMPONENT
             echo "$CURRENT_DIR/$COMPONENT"
             cd "$CURRENT_DIR/$COMPONENT"
+
+            sed -i -re 's/"require": \{/"minimum-stability": "dev","prefer-stable": true,"require": \{/' composer.json
+
             composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-lowest
             echo ::endgroup::
           done
