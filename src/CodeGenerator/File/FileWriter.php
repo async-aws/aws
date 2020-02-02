@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\CodeGenerator;
+namespace AsyncAws\CodeGenerator\File;
 
 use AsyncAws\Core\Exception\RuntimeException;
 use Nette\PhpGenerator\PhpNamespace;
-use Nette\PhpGenerator\PsrPrinter;
 
 /**
  * Takes a namespace definition and create a file form it.
@@ -15,16 +14,16 @@ use Nette\PhpGenerator\PsrPrinter;
  */
 class FileWriter
 {
+    private $printer;
     /**
      * @var string
      */
     private $srcDirectory;
-    private $printer;
 
     public function __construct(string $srcDirectory)
     {
         $this->srcDirectory = $srcDirectory;
-        $this->printer = new PsrPrinter();
+        $this->printer = new Printer();
     }
 
     public function write(PhpNamespace $namespace)

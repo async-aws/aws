@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator;
 
-use AsyncAws\CodeGenerator\FileWriter;
+use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\StreamableBody;
@@ -33,6 +33,7 @@ class ApiGenerator
      * @var ServiceDefinition
      */
     private $definition;
+
 
     public function __construct(string $srcDirectory)
     {
@@ -426,7 +427,7 @@ PHP;
             return $xml;
         }
 
-        $xml[$shapeName]  = $shape;
+        $xml[$shapeName] = $shape;
         $members = [];
         if (isset($shape['members'])) {
             $members = $shape['members'];
@@ -448,7 +449,7 @@ PHP;
     {
         $output = '[';
         foreach ($data as $name => $value) {
-            $output.= sprintf('%s => %s,', (\is_int($name) ? $name : '"' . $name . '"'), \is_array($value) ? $this->printArray($value) : ("'" . $value . "'"));
+            $output .= sprintf('%s => %s,', (\is_int($name) ? $name : '"' . $name . '"'), \is_array($value) ? $this->printArray($value) : ("'" . $value . "'"));
         }
         $output .= ']';
 
