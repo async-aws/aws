@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Command;
 
 use AsyncAws\CodeGenerator\Generator\ApiGenerator;
-use AsyncAws\CodeGenerator\Generator\ClassFactory;
 use AsyncAws\CodeGenerator\Generator\ServiceDefinition;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -75,11 +74,11 @@ class RegenerateCommand extends Command
             $resultClassName = $operation['output']['shape'];
 
             if ($operationConfig['generate-method']) {
-                $this->generator->generateOperation($definition, $service, $baseNamespace, $operationName);
+                $this->generator->generateOperation($definition, $operationName, $service, $baseNamespace);
             }
 
             if ($operationConfig['generate-result']) {
-                $this->generator->generateResultClass($definition, $resultNamespace, $resultClassName, true, $operationConfig['separate-result-trait']);
+                $this->generator->generateResultClass($definition, $operationName, $resultNamespace, $resultClassName, true, $operationConfig['separate-result-trait']);
             }
 
             // Update manifest file
@@ -139,14 +138,5 @@ class RegenerateCommand extends Command
             $default,
             $manifest['services'][$service]['methods'][$operationName]
         );
-    }
-
-    private function mergeTrait(string $outputClass)
-    {
-        $classNs = ClassFactory::fromExistingClass($outputClass);
-        $fileWriter = $this->generator->getFileWriter();
-        $fileWriter->write($classNs);
-        usleep(100);
-        $fileWriter->delete($outputClass . 'Trait');
     }
 }

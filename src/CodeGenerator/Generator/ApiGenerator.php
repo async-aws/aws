@@ -39,15 +39,10 @@ class ApiGenerator
         $this->fileWriter = new FileWriter($srcDirectory);
     }
 
-    public function getFileWriter(): FileWriter
-    {
-        return $this->fileWriter;
-    }
-
     /**
      * Update the API client with a new function call.
      */
-    public function generateOperation(ServiceDefinition $definition, string $service, string $baseNamespace, string $operationName): void
+    public function generateOperation(ServiceDefinition $definition, string $operationName, string $service, string $baseNamespace): void
     {
         $this->definition = $definition;
         $operation = $definition->getOperation($operationName);
@@ -110,13 +105,13 @@ class ApiGenerator
     /**
      * Generate classes for the output. Ie, the result of the API call.
      */
-    public function generateResultClass(ServiceDefinition $definition, string $baseNamespace, string $className, bool $root, bool $useTrait)
+    public function generateResultClass(ServiceDefinition $definition, string $operationName, string $baseNamespace, string $className, bool $root, bool $useTrait)
     {
         $this->definition = $definition;
-        $this->doGenerateResultClass($baseNamespace, $className, $root);
+        $this->doGenerateResultClass($baseNamespace, $className, $root, $useTrait, $operationName);
     }
 
-    private function doGenerateResultClass(string $baseNamespace, string $className, bool $root = false): void
+    private function doGenerateResultClass(string $baseNamespace, string $className, bool $root = false, ?bool $useTrait = null, ?string $operationName = null): void
     {
         $inputShape = $this->definition->getShape($className);
 
@@ -126,7 +121,16 @@ class ApiGenerator
         if ($root) {
             $namespace->addUse(Result::class);
             $class->addExtend(Result::class);
-            $class->addTrait($baseNamespace . '\\' . $className . 'Trait');
+
+            $traitName = $baseNamespace . '\\' . $className . 'Trait';
+            if ($useTrait) {
+                $class->addTrait($traitName);
+            } else {
+                $namespace->addUse(ResponseInterface::class);
+                $namespace->addUse(HttpClientInterface::class);
+                $this->resultClassPopulateResult($operationName, $className, false, $namespace, $class);
+                $this->fileWriter->delete($traitName);
+            }
         } else {
             // Named constructor
             $this->resultClassAddNamedConstructor($baseNamespace, $inputShape, $class);
@@ -321,88 +325,16 @@ PHP;
     public function generateOutputTrait(ServiceDefinition $definition, string $operationName, string $baseNamespace, string $className)
     {
         $this->definition = $definition;
-        $shape = $definition->getShape($className);
-        $operation = $definition->getOperation($operationName);
         $traitName = $className . 'Trait';
 
         $namespace = new PhpNamespace($baseNamespace);
-        $namespace->addUse(ResponseInterface::class);
-        $namespace->addUse(HttpClientInterface::class);
         $trait = $namespace->addTrait($traitName);
 
-        $comment = '';
-        if (!trait_exists($baseNamespace . '\\' . $traitName)) {
-            $comment = "// TODO Verify correctness\n";
-        }
+        $namespace->addUse(ResponseInterface::class);
+        $namespace->addUse(HttpClientInterface::class);
 
-        // Parse headers
-        $nonHeaders = [];
-        $body = '';
-        foreach ($shape['members'] as $name => $member) {
-            if (($member['location'] ?? null) !== 'header') {
-                $nonHeaders[$name] = $member;
-
-                continue;
-            }
-            $locationName= $member['locationName'] ?? $name;
-            $body .= "\$this->$name = \$headers['{$locationName}'];\n";
-        }
-
-        // Prepend with $headers = ...
-        if (!empty($body)) {
-            $body = <<<PHP
-\$headers = \$response->getHeaders(false);
-
-$comment
-PHP
-            . $body;
-        }
-
-        $body.="\n";
-        $xmlParser = '';
-        if (isset($shape['payload'])) {
-            $name = $shape['payload'];
-            $member = $shape['members'][$name];
-            if (true === ($member['streaming'] ?? false)) {
-                // Make sure we can stream this.
-                $namespace->addUse(StreamableBody::class);
-                $body .= <<<PHP
-if (null !== \$httpClient) {
-    \$this->$name = new StreamableBody(\$httpClient->stream(\$response));
-} else {
-    \$this->$name = \$response->getContent(false);
-}
-
-PHP;
-            } else {
-                $xmlParser .= "\n\n" . $this->parseXmlResponse($name, $member['shape'], '$data');
-            }
-        } else {
-            // All remaining members are in the body
-            foreach ($nonHeaders as $name => $member) {
-                if (($member['location']  ?? null) === 'headers') {
-                    // There is a difference between 'header' and 'headers'
-                    continue;
-                }
-                $xmlParser .= $this->parseXmlResponse($name, $member['shape'], '$data');
-            }
-        }
-
-        if (!empty($xmlParser)) {
-            $body .= "\$data = new \SimpleXMLElement(\$response->getContent(false));";
-            $wrapper = $operation['output']['resultWrapper'] ?? null;
-            if (null !== $wrapper) {
-                $body .= "\$data = \$data->$wrapper;\n";
-            }
-            $body .= "\n" . $xmlParser;
-        }
-
-        $method = $trait->addMethod('populateResult')
-            ->setReturnType('void')
-            ->setProtected()
-            ->setBody($body);
-        $method->addParameter('response')->setType(ResponseInterface::class);
-        $method->addParameter('httpClient')->setType(HttpClientInterface::class)->setNullable(true);
+        $isNew = !trait_exists($baseNamespace . '\\' . $traitName);
+        $this->resultClassPopulateResult($operationName, $className, $isNew, $namespace, $trait);
 
         $this->fileWriter->write($namespace);
     }
@@ -716,5 +648,84 @@ PHP
             }
             $method->setReturnNullable($nullable);
         }
+    }
+
+    private function resultClassPopulateResult(string $operationName, string $className, bool $isNew, PhpNamespace $namespace, ClassType $class): void
+    {
+        $shape = $this->definition->getShape($className);
+
+        // Parse headers
+        $nonHeaders = [];
+        $body = '';
+        foreach ($shape['members'] as $name => $member) {
+            if (($member['location'] ?? null) !== 'header') {
+                $nonHeaders[$name] = $member;
+
+                continue;
+            }
+            $locationName = $member['locationName'] ?? $name;
+            $body .= "\$this->$name = \$headers['{$locationName}'];\n";
+        }
+
+        $comment = '';
+        if ($isNew) {
+            $comment = "// TODO Verify correctness\n";
+        }
+
+        // Prepend with $headers = ...
+        if (!empty($body)) {
+            $body = <<<PHP
+\$headers = \$response->getHeaders(false);
+
+$comment
+PHP
+                . $body;
+        }
+
+        $body .= "\n";
+        $xmlParser = '';
+        if (isset($shape['payload'])) {
+            $name = $shape['payload'];
+            $member = $shape['members'][$name];
+            if (true === ($member['streaming'] ?? false)) {
+                // Make sure we can stream this.
+                $namespace->addUse(StreamableBody::class);
+                $body .= <<<PHP
+if (null !== \$httpClient) {
+    \$this->$name = new StreamableBody(\$httpClient->stream(\$response));
+} else {
+    \$this->$name = \$response->getContent(false);
+}
+
+PHP;
+            } else {
+                $xmlParser .= "\n\n" . $this->parseXmlResponse($name, $member['shape'], '$data');
+            }
+        } else {
+            // All remaining members are in the body
+            foreach ($nonHeaders as $name => $member) {
+                if (($member['location'] ?? null) === 'headers') {
+                    // There is a difference between 'header' and 'headers'
+                    continue;
+                }
+                $xmlParser .= $this->parseXmlResponse($name, $member['shape'], '$data');
+            }
+        }
+
+        if (!empty($xmlParser)) {
+            $body .= "\$data = new \SimpleXMLElement(\$response->getContent(false));";
+            $wrapper = $this->definition->getOperation($operationName)['output']['resultWrapper'] ?? null;
+            if (null !== $wrapper) {
+                $body .= "\$data = \$data->$wrapper;\n";
+            }
+            $body .= "\n" . $xmlParser;
+        }
+
+        $method = $class->addMethod('populateResult')
+            ->setReturnType('void')
+            ->setProtected()
+            ->setBody($body);
+        $method->addParameter('response')->setType(ResponseInterface::class);
+        $method->addParameter('httpClient')->setType(HttpClientInterface::class)->setNullable(true);
     }
 }
