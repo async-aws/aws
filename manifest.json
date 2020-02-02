@@ -37,7 +37,7 @@
                 },
                 "ListObjects": {
                     "generated": "2020-02-02T21:21:06+00:00",
-                    "separate-result-trait": false
+                    "separate-result-trait": true
                 }
             }
         },
