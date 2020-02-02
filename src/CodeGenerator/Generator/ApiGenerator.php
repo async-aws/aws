@@ -39,6 +39,11 @@ class ApiGenerator
         $this->fileWriter = new FileWriter($srcDirectory);
     }
 
+    public function getFileWriter(): FileWriter
+    {
+        return $this->fileWriter;
+    }
+
     /**
      * Update the API client with a new function call.
      */

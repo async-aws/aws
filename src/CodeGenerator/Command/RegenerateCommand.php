@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Command;
 
 use AsyncAws\CodeGenerator\Generator\ApiGenerator;
+use AsyncAws\CodeGenerator\Generator\ClassFactory;
 use AsyncAws\CodeGenerator\Generator\ServiceDefinition;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -26,6 +27,8 @@ class RegenerateCommand extends Command
      * @var string
      */
     private $manifestFile;
+
+    private $generator;
 
     public function __construct(string $manifestFile, ApiGenerator $generator)
     {
@@ -68,19 +71,23 @@ class RegenerateCommand extends Command
 
         foreach ($operationNames as $operationName) {
             $operation = $definition->getOperation($operationName);
-            $operationConfig = $manifest['services'][$service]['methods'][$operationName];
+            $operationConfig = $this->getOperationConfig($manifest, $service, $operationName);
             $resultClassName = $operation['output']['shape'];
 
-            if (!isset($operationConfig['generate-method']) || false !== $operationConfig['generate-method']) {
+            if ($operationConfig['generate-method']) {
                 $this->generator->generateOperation($definition, $service, $baseNamespace, $operationName);
             }
 
-            if (!isset($operationConfig['generate-result-trait']) || false !== $operationConfig['generate-result-trait']) {
+            if ($operationConfig['separate-result-trait']) {
                 $this->generator->generateOutputTrait($definition, $operationName, $resultNamespace, $resultClassName);
             }
 
-            if (!isset($operationConfig['generate-result']) || false !== $operationConfig['generate-result']) {
+            if ($operationConfig['generate-result']) {
                 $this->generator->generateResultClass($definition, $service, $resultNamespace, $resultClassName, true);
+            }
+
+            if ($operationConfig['separate-result-trait']) {
+                $this->mergeTrait($resultNamespace . '\\' . $resultClassName);
             }
 
             // Update manifest file
@@ -126,5 +133,28 @@ class RegenerateCommand extends Command
         $io->error('You must specify an operation or use option "--all"');
 
         return 1;
+    }
+
+    private function getOperationConfig(array $manifest, string $service, string $operationName): array
+    {
+        $default = [
+            'generate-method' => true,
+            'separate-result-trait' => true,
+            'generate-result' => true,
+        ];
+
+        return array_merge(
+            $default,
+            $manifest['services'][$service]['methods'][$operationName]
+        );
+    }
+
+    private function mergeTrait(string $outputClass)
+    {
+        $classNs = ClassFactory::fromExistingClass($outputClass);
+        $fileWriter = $this->generator->getFileWriter();
+        $fileWriter->write($classNs);
+        usleep(100);
+        $fileWriter->delete($outputClass . 'Trait');
     }
 }
