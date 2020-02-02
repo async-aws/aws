@@ -23,6 +23,8 @@ jobs:
           php-version: ${{ matrix.php }}
           coverage: pcov
           tools: prestissimo
+        run: |
+          sudo phpdismod xdebug || true
 
       - name: Checkout code
         uses: actions/checkout@v2
