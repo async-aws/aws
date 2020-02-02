@@ -9,11 +9,6 @@ class CreateBucketConfiguration
      */
     private $LocationConstraint;
 
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
-
     /**
      * @param array{
      *   LocationConstraint?: string,
@@ -22,6 +17,11 @@ class CreateBucketConfiguration
     public function __construct(array $input = [])
     {
         $this->LocationConstraint = $input['LocationConstraint'] ?? null;
+    }
+
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
     }
 
     public function getLocationConstraint(): ?string

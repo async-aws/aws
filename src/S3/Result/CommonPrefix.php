@@ -6,11 +6,6 @@ class CommonPrefix
 {
     private $Prefix;
 
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
-
     /**
      * @param array{
      *   Prefix?: string,
@@ -19,6 +14,11 @@ class CommonPrefix
     public function __construct(array $input = [])
     {
         $this->Prefix = $input['Prefix'] ?? null;
+    }
+
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
     }
 
     public function getPrefix(): ?string

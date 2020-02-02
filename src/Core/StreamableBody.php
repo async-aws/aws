@@ -23,11 +23,16 @@ class StreamableBody
         $this->responseStream = $responseStream;
     }
 
+    public function __toString()
+    {
+        return $this->getContentAsString();
+    }
+
     /**
      *  $fileHandler = fopen('/output.pdf', 'w');
      *  foreach ($result->getBody()->getChunks() as $chunk) {
      *     fwrite($fileHandler, $chunk->getContent());
-     *  }
+     *  }.
      */
     public function getChunks(): ResponseStreamInterface
     {
@@ -50,10 +55,5 @@ class StreamableBody
         } finally {
             fclose($resource);
         }
-    }
-
-    public function __toString()
-    {
-        return $this->getContentAsString();
     }
 }

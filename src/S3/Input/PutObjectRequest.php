@@ -10,160 +10,126 @@ class PutObjectRequest
      * @var string|null
      */
     private $ACL;
-
     /**
      * @var string|null
      */
     private $Body;
-
     /**
      * @required
      *
      * @var string|null
      */
     private $Bucket;
-
     /**
      * @var string|null
      */
     private $CacheControl;
-
     /**
      * @var string|null
      */
     private $ContentDisposition;
-
     /**
      * @var string|null
      */
     private $ContentEncoding;
-
     /**
      * @var string|null
      */
     private $ContentLanguage;
-
     /**
      * @var string|null
      */
     private $ContentLength;
-
     /**
      * @var string|null
      */
     private $ContentMD5;
-
     /**
      * @var string|null
      */
     private $ContentType;
-
     /**
      * @var \DateTimeImmutable|null
      */
     private $Expires;
-
     /**
      * @var string|null
      */
     private $GrantFullControl;
-
     /**
      * @var string|null
      */
     private $GrantRead;
-
     /**
      * @var string|null
      */
     private $GrantReadACP;
-
     /**
      * @var string|null
      */
     private $GrantWriteACP;
-
     /**
      * @required
      *
      * @var string|null
      */
     private $Key;
-
     /**
      * @var array|null
      */
     private $Metadata;
-
     /**
      * @var string|null
      */
     private $ServerSideEncryption;
-
     /**
      * @var string|null
      */
     private $StorageClass;
-
     /**
      * @var string|null
      */
     private $WebsiteRedirectLocation;
-
     /**
      * @var string|null
      */
     private $SSECustomerAlgorithm;
-
     /**
      * @var string|null
      */
     private $SSECustomerKey;
-
     /**
      * @var string|null
      */
     private $SSECustomerKeyMD5;
-
     /**
      * @var string|null
      */
     private $SSEKMSKeyId;
-
     /**
      * @var string|null
      */
     private $SSEKMSEncryptionContext;
-
     /**
      * @var string|null
      */
     private $RequestPayer;
-
     /**
      * @var string|null
      */
     private $Tagging;
-
     /**
      * @var string|null
      */
     private $ObjectLockMode;
-
     /**
      * @var \DateTimeImmutable|null
      */
     private $ObjectLockRetainUntilDate;
-
     /**
      * @var string|null
      */
     private $ObjectLockLegalHoldStatus;
-
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
 
     /**
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
@@ -235,16 +201,14 @@ class PutObjectRequest
         $this->ObjectLockLegalHoldStatus = $input['ObjectLockLegalHoldStatus'] ?? null;
     }
 
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
+    }
+
     public function getACL(): ?string
     {
         return $this->ACL;
-    }
-
-    public function setACL(?string $value): self
-    {
-        $this->ACL = $value;
-
-        return $this;
     }
 
     public function getBody(): ?string
@@ -252,23 +216,9 @@ class PutObjectRequest
         return $this->Body;
     }
 
-    public function setBody(?string $value): self
-    {
-        $this->Body = $value;
-
-        return $this;
-    }
-
     public function getBucket(): ?string
     {
         return $this->Bucket;
-    }
-
-    public function setBucket(?string $value): self
-    {
-        $this->Bucket = $value;
-
-        return $this;
     }
 
     public function getCacheControl(): ?string
@@ -276,23 +226,9 @@ class PutObjectRequest
         return $this->CacheControl;
     }
 
-    public function setCacheControl(?string $value): self
-    {
-        $this->CacheControl = $value;
-
-        return $this;
-    }
-
     public function getContentDisposition(): ?string
     {
         return $this->ContentDisposition;
-    }
-
-    public function setContentDisposition(?string $value): self
-    {
-        $this->ContentDisposition = $value;
-
-        return $this;
     }
 
     public function getContentEncoding(): ?string
@@ -300,23 +236,9 @@ class PutObjectRequest
         return $this->ContentEncoding;
     }
 
-    public function setContentEncoding(?string $value): self
-    {
-        $this->ContentEncoding = $value;
-
-        return $this;
-    }
-
     public function getContentLanguage(): ?string
     {
         return $this->ContentLanguage;
-    }
-
-    public function setContentLanguage(?string $value): self
-    {
-        $this->ContentLanguage = $value;
-
-        return $this;
     }
 
     public function getContentLength(): ?string
@@ -324,23 +246,9 @@ class PutObjectRequest
         return $this->ContentLength;
     }
 
-    public function setContentLength(?string $value): self
-    {
-        $this->ContentLength = $value;
-
-        return $this;
-    }
-
     public function getContentMD5(): ?string
     {
         return $this->ContentMD5;
-    }
-
-    public function setContentMD5(?string $value): self
-    {
-        $this->ContentMD5 = $value;
-
-        return $this;
     }
 
     public function getContentType(): ?string
@@ -348,23 +256,9 @@ class PutObjectRequest
         return $this->ContentType;
     }
 
-    public function setContentType(?string $value): self
-    {
-        $this->ContentType = $value;
-
-        return $this;
-    }
-
     public function getExpires(): ?\DateTimeImmutable
     {
         return $this->Expires;
-    }
-
-    public function setExpires(?\DateTimeImmutable $value): self
-    {
-        $this->Expires = $value;
-
-        return $this;
     }
 
     public function getGrantFullControl(): ?string
@@ -372,23 +266,9 @@ class PutObjectRequest
         return $this->GrantFullControl;
     }
 
-    public function setGrantFullControl(?string $value): self
-    {
-        $this->GrantFullControl = $value;
-
-        return $this;
-    }
-
     public function getGrantRead(): ?string
     {
         return $this->GrantRead;
-    }
-
-    public function setGrantRead(?string $value): self
-    {
-        $this->GrantRead = $value;
-
-        return $this;
     }
 
     public function getGrantReadACP(): ?string
@@ -396,23 +276,9 @@ class PutObjectRequest
         return $this->GrantReadACP;
     }
 
-    public function setGrantReadACP(?string $value): self
-    {
-        $this->GrantReadACP = $value;
-
-        return $this;
-    }
-
     public function getGrantWriteACP(): ?string
     {
         return $this->GrantWriteACP;
-    }
-
-    public function setGrantWriteACP(?string $value): self
-    {
-        $this->GrantWriteACP = $value;
-
-        return $this;
     }
 
     public function getKey(): ?string
@@ -420,167 +286,9 @@ class PutObjectRequest
         return $this->Key;
     }
 
-    public function setKey(?string $value): self
-    {
-        $this->Key = $value;
-
-        return $this;
-    }
-
     public function getMetadata(): ?array
     {
         return $this->Metadata;
-    }
-
-    public function setMetadata(?array $value): self
-    {
-        $this->Metadata = $value;
-
-        return $this;
-    }
-
-    public function getServerSideEncryption(): ?string
-    {
-        return $this->ServerSideEncryption;
-    }
-
-    public function setServerSideEncryption(?string $value): self
-    {
-        $this->ServerSideEncryption = $value;
-
-        return $this;
-    }
-
-    public function getStorageClass(): ?string
-    {
-        return $this->StorageClass;
-    }
-
-    public function setStorageClass(?string $value): self
-    {
-        $this->StorageClass = $value;
-
-        return $this;
-    }
-
-    public function getWebsiteRedirectLocation(): ?string
-    {
-        return $this->WebsiteRedirectLocation;
-    }
-
-    public function setWebsiteRedirectLocation(?string $value): self
-    {
-        $this->WebsiteRedirectLocation = $value;
-
-        return $this;
-    }
-
-    public function getSSECustomerAlgorithm(): ?string
-    {
-        return $this->SSECustomerAlgorithm;
-    }
-
-    public function setSSECustomerAlgorithm(?string $value): self
-    {
-        $this->SSECustomerAlgorithm = $value;
-
-        return $this;
-    }
-
-    public function getSSECustomerKey(): ?string
-    {
-        return $this->SSECustomerKey;
-    }
-
-    public function setSSECustomerKey(?string $value): self
-    {
-        $this->SSECustomerKey = $value;
-
-        return $this;
-    }
-
-    public function getSSECustomerKeyMD5(): ?string
-    {
-        return $this->SSECustomerKeyMD5;
-    }
-
-    public function setSSECustomerKeyMD5(?string $value): self
-    {
-        $this->SSECustomerKeyMD5 = $value;
-
-        return $this;
-    }
-
-    public function getSSEKMSKeyId(): ?string
-    {
-        return $this->SSEKMSKeyId;
-    }
-
-    public function setSSEKMSKeyId(?string $value): self
-    {
-        $this->SSEKMSKeyId = $value;
-
-        return $this;
-    }
-
-    public function getSSEKMSEncryptionContext(): ?string
-    {
-        return $this->SSEKMSEncryptionContext;
-    }
-
-    public function setSSEKMSEncryptionContext(?string $value): self
-    {
-        $this->SSEKMSEncryptionContext = $value;
-
-        return $this;
-    }
-
-    public function getRequestPayer(): ?string
-    {
-        return $this->RequestPayer;
-    }
-
-    public function setRequestPayer(?string $value): self
-    {
-        $this->RequestPayer = $value;
-
-        return $this;
-    }
-
-    public function getTagging(): ?string
-    {
-        return $this->Tagging;
-    }
-
-    public function setTagging(?string $value): self
-    {
-        $this->Tagging = $value;
-
-        return $this;
-    }
-
-    public function getObjectLockMode(): ?string
-    {
-        return $this->ObjectLockMode;
-    }
-
-    public function setObjectLockMode(?string $value): self
-    {
-        $this->ObjectLockMode = $value;
-
-        return $this;
-    }
-
-    public function getObjectLockRetainUntilDate(): ?\DateTimeImmutable
-    {
-        return $this->ObjectLockRetainUntilDate;
-    }
-
-    public function setObjectLockRetainUntilDate(?\DateTimeImmutable $value): self
-    {
-        $this->ObjectLockRetainUntilDate = $value;
-
-        return $this;
     }
 
     public function getObjectLockLegalHoldStatus(): ?string
@@ -588,11 +296,74 @@ class PutObjectRequest
         return $this->ObjectLockLegalHoldStatus;
     }
 
-    public function setObjectLockLegalHoldStatus(?string $value): self
+    public function getObjectLockMode(): ?string
     {
-        $this->ObjectLockLegalHoldStatus = $value;
+        return $this->ObjectLockMode;
+    }
 
-        return $this;
+    public function getObjectLockRetainUntilDate(): ?\DateTimeImmutable
+    {
+        return $this->ObjectLockRetainUntilDate;
+    }
+
+    public function getRequestPayer(): ?string
+    {
+        return $this->RequestPayer;
+    }
+
+    public function getSSECustomerAlgorithm(): ?string
+    {
+        return $this->SSECustomerAlgorithm;
+    }
+
+    public function getSSECustomerKey(): ?string
+    {
+        return $this->SSECustomerKey;
+    }
+
+    public function getSSECustomerKeyMD5(): ?string
+    {
+        return $this->SSECustomerKeyMD5;
+    }
+
+    public function getSSEKMSEncryptionContext(): ?string
+    {
+        return $this->SSEKMSEncryptionContext;
+    }
+
+    public function getSSEKMSKeyId(): ?string
+    {
+        return $this->SSEKMSKeyId;
+    }
+
+    public function getServerSideEncryption(): ?string
+    {
+        return $this->ServerSideEncryption;
+    }
+
+    public function getStorageClass(): ?string
+    {
+        return $this->StorageClass;
+    }
+
+    public function getTagging(): ?string
+    {
+        return $this->Tagging;
+    }
+
+    public function getWebsiteRedirectLocation(): ?string
+    {
+        return $this->WebsiteRedirectLocation;
+    }
+
+    public function requestBody(): array
+    {
+        $payload = ['Action' => 'PutObject', 'Version' => '2006-03-01'];
+        if (null !== $this->Body) {
+            $payload['Body'] = $this->Body;
+        }
+
+        return $payload;
     }
 
     public function requestHeaders(): array
@@ -687,16 +458,6 @@ class PutObjectRequest
         return $query;
     }
 
-    public function requestBody(): array
-    {
-        $payload = ['Action' => 'PutObject', 'Version' => '2006-03-01'];
-        if (null !== $this->Body) {
-            $payload['Body'] = $this->Body;
-        }
-
-        return $payload;
-    }
-
     public function requestUri(): string
     {
         $uri = [];
@@ -704,6 +465,216 @@ class PutObjectRequest
         $uri['Key'] = $this->Key ?? '';
 
         return "/{$uri['Bucket']}/{$uri['Key']}";
+    }
+
+    public function setACL(?string $value): self
+    {
+        $this->ACL = $value;
+
+        return $this;
+    }
+
+    public function setBody(?string $value): self
+    {
+        $this->Body = $value;
+
+        return $this;
+    }
+
+    public function setBucket(?string $value): self
+    {
+        $this->Bucket = $value;
+
+        return $this;
+    }
+
+    public function setCacheControl(?string $value): self
+    {
+        $this->CacheControl = $value;
+
+        return $this;
+    }
+
+    public function setContentDisposition(?string $value): self
+    {
+        $this->ContentDisposition = $value;
+
+        return $this;
+    }
+
+    public function setContentEncoding(?string $value): self
+    {
+        $this->ContentEncoding = $value;
+
+        return $this;
+    }
+
+    public function setContentLanguage(?string $value): self
+    {
+        $this->ContentLanguage = $value;
+
+        return $this;
+    }
+
+    public function setContentLength(?string $value): self
+    {
+        $this->ContentLength = $value;
+
+        return $this;
+    }
+
+    public function setContentMD5(?string $value): self
+    {
+        $this->ContentMD5 = $value;
+
+        return $this;
+    }
+
+    public function setContentType(?string $value): self
+    {
+        $this->ContentType = $value;
+
+        return $this;
+    }
+
+    public function setExpires(?\DateTimeImmutable $value): self
+    {
+        $this->Expires = $value;
+
+        return $this;
+    }
+
+    public function setGrantFullControl(?string $value): self
+    {
+        $this->GrantFullControl = $value;
+
+        return $this;
+    }
+
+    public function setGrantRead(?string $value): self
+    {
+        $this->GrantRead = $value;
+
+        return $this;
+    }
+
+    public function setGrantReadACP(?string $value): self
+    {
+        $this->GrantReadACP = $value;
+
+        return $this;
+    }
+
+    public function setGrantWriteACP(?string $value): self
+    {
+        $this->GrantWriteACP = $value;
+
+        return $this;
+    }
+
+    public function setKey(?string $value): self
+    {
+        $this->Key = $value;
+
+        return $this;
+    }
+
+    public function setMetadata(?array $value): self
+    {
+        $this->Metadata = $value;
+
+        return $this;
+    }
+
+    public function setObjectLockLegalHoldStatus(?string $value): self
+    {
+        $this->ObjectLockLegalHoldStatus = $value;
+
+        return $this;
+    }
+
+    public function setObjectLockMode(?string $value): self
+    {
+        $this->ObjectLockMode = $value;
+
+        return $this;
+    }
+
+    public function setObjectLockRetainUntilDate(?\DateTimeImmutable $value): self
+    {
+        $this->ObjectLockRetainUntilDate = $value;
+
+        return $this;
+    }
+
+    public function setRequestPayer(?string $value): self
+    {
+        $this->RequestPayer = $value;
+
+        return $this;
+    }
+
+    public function setSSECustomerAlgorithm(?string $value): self
+    {
+        $this->SSECustomerAlgorithm = $value;
+
+        return $this;
+    }
+
+    public function setSSECustomerKey(?string $value): self
+    {
+        $this->SSECustomerKey = $value;
+
+        return $this;
+    }
+
+    public function setSSECustomerKeyMD5(?string $value): self
+    {
+        $this->SSECustomerKeyMD5 = $value;
+
+        return $this;
+    }
+
+    public function setSSEKMSEncryptionContext(?string $value): self
+    {
+        $this->SSEKMSEncryptionContext = $value;
+
+        return $this;
+    }
+
+    public function setSSEKMSKeyId(?string $value): self
+    {
+        $this->SSEKMSKeyId = $value;
+
+        return $this;
+    }
+
+    public function setServerSideEncryption(?string $value): self
+    {
+        $this->ServerSideEncryption = $value;
+
+        return $this;
+    }
+
+    public function setStorageClass(?string $value): self
+    {
+        $this->StorageClass = $value;
+
+        return $this;
+    }
+
+    public function setTagging(?string $value): self
+    {
+        $this->Tagging = $value;
+
+        return $this;
+    }
+
+    public function setWebsiteRedirectLocation(?string $value): self
+    {
+        $this->WebsiteRedirectLocation = $value;
+
+        return $this;
     }
 
     public function validate(): void

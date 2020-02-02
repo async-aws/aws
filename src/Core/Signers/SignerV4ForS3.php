@@ -5,7 +5,7 @@ namespace AsyncAws\Core\Signers;
 use AsyncAws\Core\Credentials\Credentials;
 
 /**
- * Version4 of signer dedicated for service S3
+ * Version4 of signer dedicated for service S3.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */

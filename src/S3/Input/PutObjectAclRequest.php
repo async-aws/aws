@@ -10,70 +10,54 @@ class PutObjectAclRequest
      * @var string|null
      */
     private $ACL;
-
     /**
      * @var AccessControlPolicy|null
      */
     private $AccessControlPolicy;
-
     /**
      * @required
      *
      * @var string|null
      */
     private $Bucket;
-
     /**
      * @var string|null
      */
     private $ContentMD5;
-
     /**
      * @var string|null
      */
     private $GrantFullControl;
-
     /**
      * @var string|null
      */
     private $GrantRead;
-
     /**
      * @var string|null
      */
     private $GrantReadACP;
-
     /**
      * @var string|null
      */
     private $GrantWrite;
-
     /**
      * @var string|null
      */
     private $GrantWriteACP;
-
     /**
      * @required
      *
      * @var string|null
      */
     private $Key;
-
     /**
      * @var string|null
      */
     private $RequestPayer;
-
     /**
      * @var string|null
      */
     private $VersionId;
-
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
 
     /**
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUTacl.html
@@ -109,16 +93,14 @@ class PutObjectAclRequest
         $this->VersionId = $input['VersionId'] ?? null;
     }
 
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
+    }
+
     public function getACL(): ?string
     {
         return $this->ACL;
-    }
-
-    public function setACL(?string $value): self
-    {
-        $this->ACL = $value;
-
-        return $this;
     }
 
     public function getAccessControlPolicy(): ?AccessControlPolicy
@@ -126,23 +108,9 @@ class PutObjectAclRequest
         return $this->AccessControlPolicy;
     }
 
-    public function setAccessControlPolicy(?AccessControlPolicy $value): self
-    {
-        $this->AccessControlPolicy = $value;
-
-        return $this;
-    }
-
     public function getBucket(): ?string
     {
         return $this->Bucket;
-    }
-
-    public function setBucket(?string $value): self
-    {
-        $this->Bucket = $value;
-
-        return $this;
     }
 
     public function getContentMD5(): ?string
@@ -150,23 +118,9 @@ class PutObjectAclRequest
         return $this->ContentMD5;
     }
 
-    public function setContentMD5(?string $value): self
-    {
-        $this->ContentMD5 = $value;
-
-        return $this;
-    }
-
     public function getGrantFullControl(): ?string
     {
         return $this->GrantFullControl;
-    }
-
-    public function setGrantFullControl(?string $value): self
-    {
-        $this->GrantFullControl = $value;
-
-        return $this;
     }
 
     public function getGrantRead(): ?string
@@ -174,23 +128,9 @@ class PutObjectAclRequest
         return $this->GrantRead;
     }
 
-    public function setGrantRead(?string $value): self
-    {
-        $this->GrantRead = $value;
-
-        return $this;
-    }
-
     public function getGrantReadACP(): ?string
     {
         return $this->GrantReadACP;
-    }
-
-    public function setGrantReadACP(?string $value): self
-    {
-        $this->GrantReadACP = $value;
-
-        return $this;
     }
 
     public function getGrantWrite(): ?string
@@ -198,23 +138,9 @@ class PutObjectAclRequest
         return $this->GrantWrite;
     }
 
-    public function setGrantWrite(?string $value): self
-    {
-        $this->GrantWrite = $value;
-
-        return $this;
-    }
-
     public function getGrantWriteACP(): ?string
     {
         return $this->GrantWriteACP;
-    }
-
-    public function setGrantWriteACP(?string $value): self
-    {
-        $this->GrantWriteACP = $value;
-
-        return $this;
     }
 
     public function getKey(): ?string
@@ -222,23 +148,9 @@ class PutObjectAclRequest
         return $this->Key;
     }
 
-    public function setKey(?string $value): self
-    {
-        $this->Key = $value;
-
-        return $this;
-    }
-
     public function getRequestPayer(): ?string
     {
         return $this->RequestPayer;
-    }
-
-    public function setRequestPayer(?string $value): self
-    {
-        $this->RequestPayer = $value;
-
-        return $this;
     }
 
     public function getVersionId(): ?string
@@ -246,11 +158,14 @@ class PutObjectAclRequest
         return $this->VersionId;
     }
 
-    public function setVersionId(?string $value): self
+    public function requestBody(): array
     {
-        $this->VersionId = $value;
+        $payload = ['Action' => 'PutObjectAcl', 'Version' => '2006-03-01'];
+        if (null !== $this->AccessControlPolicy) {
+            $payload['AccessControlPolicy'] = $this->AccessControlPolicy;
+        }
 
-        return $this;
+        return $payload;
     }
 
     public function requestHeaders(): array
@@ -294,16 +209,6 @@ class PutObjectAclRequest
         return $query;
     }
 
-    public function requestBody(): array
-    {
-        $payload = ['Action' => 'PutObjectAcl', 'Version' => '2006-03-01'];
-        if (null !== $this->AccessControlPolicy) {
-            $payload['AccessControlPolicy'] = $this->AccessControlPolicy;
-        }
-
-        return $payload;
-    }
-
     public function requestUri(): string
     {
         $uri = [];
@@ -311,6 +216,90 @@ class PutObjectAclRequest
         $uri['Key'] = $this->Key ?? '';
 
         return "/{$uri['Bucket']}/{$uri['Key']}?acl";
+    }
+
+    public function setACL(?string $value): self
+    {
+        $this->ACL = $value;
+
+        return $this;
+    }
+
+    public function setAccessControlPolicy(?AccessControlPolicy $value): self
+    {
+        $this->AccessControlPolicy = $value;
+
+        return $this;
+    }
+
+    public function setBucket(?string $value): self
+    {
+        $this->Bucket = $value;
+
+        return $this;
+    }
+
+    public function setContentMD5(?string $value): self
+    {
+        $this->ContentMD5 = $value;
+
+        return $this;
+    }
+
+    public function setGrantFullControl(?string $value): self
+    {
+        $this->GrantFullControl = $value;
+
+        return $this;
+    }
+
+    public function setGrantRead(?string $value): self
+    {
+        $this->GrantRead = $value;
+
+        return $this;
+    }
+
+    public function setGrantReadACP(?string $value): self
+    {
+        $this->GrantReadACP = $value;
+
+        return $this;
+    }
+
+    public function setGrantWrite(?string $value): self
+    {
+        $this->GrantWrite = $value;
+
+        return $this;
+    }
+
+    public function setGrantWriteACP(?string $value): self
+    {
+        $this->GrantWriteACP = $value;
+
+        return $this;
+    }
+
+    public function setKey(?string $value): self
+    {
+        $this->Key = $value;
+
+        return $this;
+    }
+
+    public function setRequestPayer(?string $value): self
+    {
+        $this->RequestPayer = $value;
+
+        return $this;
+    }
+
+    public function setVersionId(?string $value): self
+    {
+        $this->VersionId = $value;
+
+        return $this;
     }
 
     public function validate(): void

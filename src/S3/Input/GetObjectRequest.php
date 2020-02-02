@@ -12,103 +12,80 @@ class GetObjectRequest
      * @var string|null
      */
     private $Bucket;
-
     /**
      * @var string|null
      */
     private $IfMatch;
-
     /**
      * @var \DateTimeImmutable|null
      */
     private $IfModifiedSince;
-
     /**
      * @var string|null
      */
     private $IfNoneMatch;
-
     /**
      * @var \DateTimeImmutable|null
      */
     private $IfUnmodifiedSince;
-
     /**
      * @required
      *
      * @var string|null
      */
     private $Key;
-
     /**
      * @var string|null
      */
     private $Range;
-
     /**
      * @var string|null
      */
     private $ResponseCacheControl;
-
     /**
      * @var string|null
      */
     private $ResponseContentDisposition;
-
     /**
      * @var string|null
      */
     private $ResponseContentEncoding;
-
     /**
      * @var string|null
      */
     private $ResponseContentLanguage;
-
     /**
      * @var string|null
      */
     private $ResponseContentType;
-
     /**
      * @var \DateTimeImmutable|null
      */
     private $ResponseExpires;
-
     /**
      * @var string|null
      */
     private $VersionId;
-
     /**
      * @var string|null
      */
     private $SSECustomerAlgorithm;
-
     /**
      * @var string|null
      */
     private $SSECustomerKey;
-
     /**
      * @var string|null
      */
     private $SSECustomerKeyMD5;
-
     /**
      * @var string|null
      */
     private $RequestPayer;
-
     /**
      * @var int|null
      */
     private $PartNumber;
-
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
 
     /**
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGET.html
@@ -158,16 +135,14 @@ class GetObjectRequest
         $this->PartNumber = $input['PartNumber'] ?? null;
     }
 
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
+    }
+
     public function getBucket(): ?string
     {
         return $this->Bucket;
-    }
-
-    public function setBucket(?string $value): self
-    {
-        $this->Bucket = $value;
-
-        return $this;
     }
 
     public function getIfMatch(): ?string
@@ -175,23 +150,9 @@ class GetObjectRequest
         return $this->IfMatch;
     }
 
-    public function setIfMatch(?string $value): self
-    {
-        $this->IfMatch = $value;
-
-        return $this;
-    }
-
     public function getIfModifiedSince(): ?\DateTimeImmutable
     {
         return $this->IfModifiedSince;
-    }
-
-    public function setIfModifiedSince(?\DateTimeImmutable $value): self
-    {
-        $this->IfModifiedSince = $value;
-
-        return $this;
     }
 
     public function getIfNoneMatch(): ?string
@@ -199,23 +160,9 @@ class GetObjectRequest
         return $this->IfNoneMatch;
     }
 
-    public function setIfNoneMatch(?string $value): self
-    {
-        $this->IfNoneMatch = $value;
-
-        return $this;
-    }
-
     public function getIfUnmodifiedSince(): ?\DateTimeImmutable
     {
         return $this->IfUnmodifiedSince;
-    }
-
-    public function setIfUnmodifiedSince(?\DateTimeImmutable $value): self
-    {
-        $this->IfUnmodifiedSince = $value;
-
-        return $this;
     }
 
     public function getKey(): ?string
@@ -223,11 +170,9 @@ class GetObjectRequest
         return $this->Key;
     }
 
-    public function setKey(?string $value): self
+    public function getPartNumber(): ?int
     {
-        $this->Key = $value;
-
-        return $this;
+        return $this->PartNumber;
     }
 
     public function getRange(): ?string
@@ -235,11 +180,9 @@ class GetObjectRequest
         return $this->Range;
     }
 
-    public function setRange(?string $value): self
+    public function getRequestPayer(): ?string
     {
-        $this->Range = $value;
-
-        return $this;
+        return $this->RequestPayer;
     }
 
     public function getResponseCacheControl(): ?string
@@ -247,23 +190,9 @@ class GetObjectRequest
         return $this->ResponseCacheControl;
     }
 
-    public function setResponseCacheControl(?string $value): self
-    {
-        $this->ResponseCacheControl = $value;
-
-        return $this;
-    }
-
     public function getResponseContentDisposition(): ?string
     {
         return $this->ResponseContentDisposition;
-    }
-
-    public function setResponseContentDisposition(?string $value): self
-    {
-        $this->ResponseContentDisposition = $value;
-
-        return $this;
     }
 
     public function getResponseContentEncoding(): ?string
@@ -271,23 +200,9 @@ class GetObjectRequest
         return $this->ResponseContentEncoding;
     }
 
-    public function setResponseContentEncoding(?string $value): self
-    {
-        $this->ResponseContentEncoding = $value;
-
-        return $this;
-    }
-
     public function getResponseContentLanguage(): ?string
     {
         return $this->ResponseContentLanguage;
-    }
-
-    public function setResponseContentLanguage(?string $value): self
-    {
-        $this->ResponseContentLanguage = $value;
-
-        return $this;
     }
 
     public function getResponseContentType(): ?string
@@ -295,35 +210,9 @@ class GetObjectRequest
         return $this->ResponseContentType;
     }
 
-    public function setResponseContentType(?string $value): self
-    {
-        $this->ResponseContentType = $value;
-
-        return $this;
-    }
-
     public function getResponseExpires(): ?\DateTimeImmutable
     {
         return $this->ResponseExpires;
-    }
-
-    public function setResponseExpires(?\DateTimeImmutable $value): self
-    {
-        $this->ResponseExpires = $value;
-
-        return $this;
-    }
-
-    public function getVersionId(): ?string
-    {
-        return $this->VersionId;
-    }
-
-    public function setVersionId(?string $value): self
-    {
-        $this->VersionId = $value;
-
-        return $this;
     }
 
     public function getSSECustomerAlgorithm(): ?string
@@ -331,23 +220,9 @@ class GetObjectRequest
         return $this->SSECustomerAlgorithm;
     }
 
-    public function setSSECustomerAlgorithm(?string $value): self
-    {
-        $this->SSECustomerAlgorithm = $value;
-
-        return $this;
-    }
-
     public function getSSECustomerKey(): ?string
     {
         return $this->SSECustomerKey;
-    }
-
-    public function setSSECustomerKey(?string $value): self
-    {
-        $this->SSECustomerKey = $value;
-
-        return $this;
     }
 
     public function getSSECustomerKeyMD5(): ?string
@@ -355,35 +230,16 @@ class GetObjectRequest
         return $this->SSECustomerKeyMD5;
     }
 
-    public function setSSECustomerKeyMD5(?string $value): self
+    public function getVersionId(): ?string
     {
-        $this->SSECustomerKeyMD5 = $value;
-
-        return $this;
+        return $this->VersionId;
     }
 
-    public function getRequestPayer(): ?string
+    public function requestBody(): array
     {
-        return $this->RequestPayer;
-    }
+        $payload = ['Action' => 'GetObject', 'Version' => '2006-03-01'];
 
-    public function setRequestPayer(?string $value): self
-    {
-        $this->RequestPayer = $value;
-
-        return $this;
-    }
-
-    public function getPartNumber(): ?int
-    {
-        return $this->PartNumber;
-    }
-
-    public function setPartNumber(?int $value): self
-    {
-        $this->PartNumber = $value;
-
-        return $this;
+        return $payload;
     }
 
     public function requestHeaders(): array
@@ -451,13 +307,6 @@ class GetObjectRequest
         return $query;
     }
 
-    public function requestBody(): array
-    {
-        $payload = ['Action' => 'GetObject', 'Version' => '2006-03-01'];
-
-        return $payload;
-    }
-
     public function requestUri(): string
     {
         $uri = [];
@@ -465,6 +314,139 @@ class GetObjectRequest
         $uri['Key'] = $this->Key ?? '';
 
         return "/{$uri['Bucket']}/{$uri['Key']}";
+    }
+
+    public function setBucket(?string $value): self
+    {
+        $this->Bucket = $value;
+
+        return $this;
+    }
+
+    public function setIfMatch(?string $value): self
+    {
+        $this->IfMatch = $value;
+
+        return $this;
+    }
+
+    public function setIfModifiedSince(?\DateTimeImmutable $value): self
+    {
+        $this->IfModifiedSince = $value;
+
+        return $this;
+    }
+
+    public function setIfNoneMatch(?string $value): self
+    {
+        $this->IfNoneMatch = $value;
+
+        return $this;
+    }
+
+    public function setIfUnmodifiedSince(?\DateTimeImmutable $value): self
+    {
+        $this->IfUnmodifiedSince = $value;
+
+        return $this;
+    }
+
+    public function setKey(?string $value): self
+    {
+        $this->Key = $value;
+
+        return $this;
+    }
+
+    public function setPartNumber(?int $value): self
+    {
+        $this->PartNumber = $value;
+
+        return $this;
+    }
+
+    public function setRange(?string $value): self
+    {
+        $this->Range = $value;
+
+        return $this;
+    }
+
+    public function setRequestPayer(?string $value): self
+    {
+        $this->RequestPayer = $value;
+
+        return $this;
+    }
+
+    public function setResponseCacheControl(?string $value): self
+    {
+        $this->ResponseCacheControl = $value;
+
+        return $this;
+    }
+
+    public function setResponseContentDisposition(?string $value): self
+    {
+        $this->ResponseContentDisposition = $value;
+
+        return $this;
+    }
+
+    public function setResponseContentEncoding(?string $value): self
+    {
+        $this->ResponseContentEncoding = $value;
+
+        return $this;
+    }
+
+    public function setResponseContentLanguage(?string $value): self
+    {
+        $this->ResponseContentLanguage = $value;
+
+        return $this;
+    }
+
+    public function setResponseContentType(?string $value): self
+    {
+        $this->ResponseContentType = $value;
+
+        return $this;
+    }
+
+    public function setResponseExpires(?\DateTimeImmutable $value): self
+    {
+        $this->ResponseExpires = $value;
+
+        return $this;
+    }
+
+    public function setSSECustomerAlgorithm(?string $value): self
+    {
+        $this->SSECustomerAlgorithm = $value;
+
+        return $this;
+    }
+
+    public function setSSECustomerKey(?string $value): self
+    {
+        $this->SSECustomerKey = $value;
+
+        return $this;
+    }
+
+    public function setSSECustomerKeyMD5(?string $value): self
+    {
+        $this->SSECustomerKeyMD5 = $value;
+
+        return $this;
+    }
+
+    public function setVersionId(?string $value): self
+    {
+        $this->VersionId = $value;
+
+        return $this;
     }
 
     public function validate(): void

@@ -37,7 +37,7 @@ class IniFileProvider implements CredentialProvider
     {
         $profilesData = $this->loadProfiles([
             $configuration->get(Configuration::OPTION_SHARED_CREDENTIALS_FILE),
-            $configuration->get(Configuration::OPTION_SHARED_CONFIG_FILE)
+            $configuration->get(Configuration::OPTION_SHARED_CONFIG_FILE),
         ]);
         if (empty($profilesData)) {
             return null;

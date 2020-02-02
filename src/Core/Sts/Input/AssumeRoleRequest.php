@@ -12,58 +12,44 @@ class AssumeRoleRequest
      * @var string|null
      */
     private $RoleArn;
-
     /**
      * @required
      *
      * @var string|null
      */
     private $RoleSessionName;
-
     /**
      * @var PolicyDescriptorType[]
      */
     private $PolicyArns;
-
     /**
      * @var string|null
      */
     private $Policy;
-
     /**
      * @var int|null
      */
     private $DurationSeconds;
-
     /**
      * @var Tag[]
      */
     private $Tags;
-
     /**
      * @var string[]
      */
     private $TransitiveTagKeys;
-
     /**
      * @var string|null
      */
     private $ExternalId;
-
     /**
      * @var string|null
      */
     private $SerialNumber;
-
     /**
      * @var string|null
      */
     private $TokenCode;
-
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
 
     /**
      * @param array{
@@ -83,66 +69,19 @@ class AssumeRoleRequest
     {
         $this->RoleArn = $input['RoleArn'] ?? null;
         $this->RoleSessionName = $input['RoleSessionName'] ?? null;
-        $this->PolicyArns = array_map(function ($item) {
-            return PolicyDescriptorType::create($item);
-        }, $input['PolicyArns'] ?? []);
+        $this->PolicyArns = array_map(function ($item) { return PolicyDescriptorType::create($item); }, $input['PolicyArns'] ?? []);
         $this->Policy = $input['Policy'] ?? null;
         $this->DurationSeconds = $input['DurationSeconds'] ?? null;
-        $this->Tags = array_map(function ($item) {
-            return Tag::create($item);
-        }, $input['Tags'] ?? []);
+        $this->Tags = array_map(function ($item) { return Tag::create($item); }, $input['Tags'] ?? []);
         $this->TransitiveTagKeys = $input['TransitiveTagKeys'] ?? [];
         $this->ExternalId = $input['ExternalId'] ?? null;
         $this->SerialNumber = $input['SerialNumber'] ?? null;
         $this->TokenCode = $input['TokenCode'] ?? null;
     }
 
-    public function getRoleArn(): ?string
+    public static function create($input): self
     {
-        return $this->RoleArn;
-    }
-
-    public function setRoleArn(?string $value): self
-    {
-        $this->RoleArn = $value;
-
-        return $this;
-    }
-
-    public function getRoleSessionName(): ?string
-    {
-        return $this->RoleSessionName;
-    }
-
-    public function setRoleSessionName(?string $value): self
-    {
-        $this->RoleSessionName = $value;
-
-        return $this;
-    }
-
-    public function getPolicyArns(): array
-    {
-        return $this->PolicyArns;
-    }
-
-    public function setPolicyArns(array $value): self
-    {
-        $this->PolicyArns = $value;
-
-        return $this;
-    }
-
-    public function getPolicy(): ?string
-    {
-        return $this->Policy;
-    }
-
-    public function setPolicy(?string $value): self
-    {
-        $this->Policy = $value;
-
-        return $this;
+        return $input instanceof self ? $input : new self($input);
     }
 
     public function getDurationSeconds(): ?int
@@ -150,47 +89,29 @@ class AssumeRoleRequest
         return $this->DurationSeconds;
     }
 
-    public function setDurationSeconds(?int $value): self
-    {
-        $this->DurationSeconds = $value;
-
-        return $this;
-    }
-
-    public function getTags(): array
-    {
-        return $this->Tags;
-    }
-
-    public function setTags(array $value): self
-    {
-        $this->Tags = $value;
-
-        return $this;
-    }
-
-    public function getTransitiveTagKeys(): array
-    {
-        return $this->TransitiveTagKeys;
-    }
-
-    public function setTransitiveTagKeys(array $value): self
-    {
-        $this->TransitiveTagKeys = $value;
-
-        return $this;
-    }
-
     public function getExternalId(): ?string
     {
         return $this->ExternalId;
     }
 
-    public function setExternalId(?string $value): self
+    public function getPolicy(): ?string
     {
-        $this->ExternalId = $value;
+        return $this->Policy;
+    }
 
-        return $this;
+    public function getPolicyArns(): array
+    {
+        return $this->PolicyArns;
+    }
+
+    public function getRoleArn(): ?string
+    {
+        return $this->RoleArn;
+    }
+
+    public function getRoleSessionName(): ?string
+    {
+        return $this->RoleSessionName;
     }
 
     public function getSerialNumber(): ?string
@@ -198,11 +119,9 @@ class AssumeRoleRequest
         return $this->SerialNumber;
     }
 
-    public function setSerialNumber(?string $value): self
+    public function getTags(): array
     {
-        $this->SerialNumber = $value;
-
-        return $this;
+        return $this->Tags;
     }
 
     public function getTokenCode(): ?string
@@ -210,25 +129,9 @@ class AssumeRoleRequest
         return $this->TokenCode;
     }
 
-    public function setTokenCode(?string $value): self
+    public function getTransitiveTagKeys(): array
     {
-        $this->TokenCode = $value;
-
-        return $this;
-    }
-
-    public function requestHeaders(): array
-    {
-        $headers = [];
-
-        return $headers;
-    }
-
-    public function requestQuery(): array
-    {
-        $query = [];
-
-        return $query;
+        return $this->TransitiveTagKeys;
     }
 
     public function requestBody(): array
@@ -268,9 +171,93 @@ class AssumeRoleRequest
         return $payload;
     }
 
+    public function requestHeaders(): array
+    {
+        $headers = [];
+
+        return $headers;
+    }
+
+    public function requestQuery(): array
+    {
+        $query = [];
+
+        return $query;
+    }
+
     public function requestUri(): string
     {
         return '/';
+    }
+
+    public function setDurationSeconds(?int $value): self
+    {
+        $this->DurationSeconds = $value;
+
+        return $this;
+    }
+
+    public function setExternalId(?string $value): self
+    {
+        $this->ExternalId = $value;
+
+        return $this;
+    }
+
+    public function setPolicy(?string $value): self
+    {
+        $this->Policy = $value;
+
+        return $this;
+    }
+
+    public function setPolicyArns(array $value): self
+    {
+        $this->PolicyArns = $value;
+
+        return $this;
+    }
+
+    public function setRoleArn(?string $value): self
+    {
+        $this->RoleArn = $value;
+
+        return $this;
+    }
+
+    public function setRoleSessionName(?string $value): self
+    {
+        $this->RoleSessionName = $value;
+
+        return $this;
+    }
+
+    public function setSerialNumber(?string $value): self
+    {
+        $this->SerialNumber = $value;
+
+        return $this;
+    }
+
+    public function setTags(array $value): self
+    {
+        $this->Tags = $value;
+
+        return $this;
+    }
+
+    public function setTokenCode(?string $value): self
+    {
+        $this->TokenCode = $value;
+
+        return $this;
+    }
+
+    public function setTransitiveTagKeys(array $value): self
+    {
+        $this->TransitiveTagKeys = $value;
+
+        return $this;
     }
 
     public function validate(): void

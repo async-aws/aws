@@ -12,28 +12,20 @@ class GetObjectAclRequest
      * @var string|null
      */
     private $Bucket;
-
     /**
      * @required
      *
      * @var string|null
      */
     private $Key;
-
     /**
      * @var string|null
      */
     private $VersionId;
-
     /**
      * @var string|null
      */
     private $RequestPayer;
-
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
 
     /**
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGETacl.html
@@ -53,16 +45,14 @@ class GetObjectAclRequest
         $this->RequestPayer = $input['RequestPayer'] ?? null;
     }
 
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
+    }
+
     public function getBucket(): ?string
     {
         return $this->Bucket;
-    }
-
-    public function setBucket(?string $value): self
-    {
-        $this->Bucket = $value;
-
-        return $this;
     }
 
     public function getKey(): ?string
@@ -70,11 +60,9 @@ class GetObjectAclRequest
         return $this->Key;
     }
 
-    public function setKey(?string $value): self
+    public function getRequestPayer(): ?string
     {
-        $this->Key = $value;
-
-        return $this;
+        return $this->RequestPayer;
     }
 
     public function getVersionId(): ?string
@@ -82,23 +70,11 @@ class GetObjectAclRequest
         return $this->VersionId;
     }
 
-    public function setVersionId(?string $value): self
+    public function requestBody(): array
     {
-        $this->VersionId = $value;
+        $payload = ['Action' => 'GetObjectAcl', 'Version' => '2006-03-01'];
 
-        return $this;
-    }
-
-    public function getRequestPayer(): ?string
-    {
-        return $this->RequestPayer;
-    }
-
-    public function setRequestPayer(?string $value): self
-    {
-        $this->RequestPayer = $value;
-
-        return $this;
+        return $payload;
     }
 
     public function requestHeaders(): array
@@ -121,13 +97,6 @@ class GetObjectAclRequest
         return $query;
     }
 
-    public function requestBody(): array
-    {
-        $payload = ['Action' => 'GetObjectAcl', 'Version' => '2006-03-01'];
-
-        return $payload;
-    }
-
     public function requestUri(): string
     {
         $uri = [];
@@ -135,6 +104,34 @@ class GetObjectAclRequest
         $uri['Key'] = $this->Key ?? '';
 
         return "/{$uri['Bucket']}/{$uri['Key']}?acl";
+    }
+
+    public function setBucket(?string $value): self
+    {
+        $this->Bucket = $value;
+
+        return $this;
+    }
+
+    public function setKey(?string $value): self
+    {
+        $this->Key = $value;
+
+        return $this;
+    }
+
+    public function setRequestPayer(?string $value): self
+    {
+        $this->RequestPayer = $value;
+
+        return $this;
+    }
+
+    public function setVersionId(?string $value): self
+    {
+        $this->VersionId = $value;
+
+        return $this;
     }
 
     public function validate(): void

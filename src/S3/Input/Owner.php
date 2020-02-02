@@ -8,16 +8,10 @@ class Owner
      * @var string|null
      */
     private $DisplayName;
-
     /**
      * @var string|null
      */
     private $ID;
-
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
 
     /**
      * @param array{
@@ -31,9 +25,19 @@ class Owner
         $this->ID = $input['ID'] ?? null;
     }
 
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
+    }
+
     public function getDisplayName(): ?string
     {
         return $this->DisplayName;
+    }
+
+    public function getID(): ?string
+    {
+        return $this->ID;
     }
 
     public function setDisplayName(?string $value): self
@@ -41,11 +45,6 @@ class Owner
         $this->DisplayName = $value;
 
         return $this;
-    }
-
-    public function getID(): ?string
-    {
-        return $this->ID;
     }
 
     public function setID(?string $value): self

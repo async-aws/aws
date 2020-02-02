@@ -14,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
- * Update a existing response class or API client method
+ * Update a existing response class or API client method.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
@@ -43,7 +43,7 @@ class RegenerateCommand extends Command
         $this->setDefinition([
             new InputArgument('service', InputArgument::REQUIRED),
             new InputArgument('operation', InputArgument::OPTIONAL),
-            new InputOption('all', null, InputOption::VALUE_NONE, 'Regenerate all operation in the service')
+            new InputOption('all', null, InputOption::VALUE_NONE, 'Regenerate all operation in the service'),
         ]);
     }
 

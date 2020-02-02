@@ -5,13 +5,7 @@ namespace AsyncAws\S3\Result;
 class Owner
 {
     private $DisplayName;
-
     private $ID;
-
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
 
     /**
      * @param array{
@@ -23,6 +17,11 @@ class Owner
     {
         $this->DisplayName = $input['DisplayName'] ?? null;
         $this->ID = $input['ID'] ?? null;
+    }
+
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
     }
 
     public function getDisplayName(): ?string

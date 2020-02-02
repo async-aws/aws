@@ -9,25 +9,21 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 class DeleteObjectOutput extends Result
 {
     private $DeleteMarker;
-
     private $VersionId;
-
     private $RequestCharged;
-
-    protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
-    {
-        $headers = $response->getHeaders(false);
-
-        $this->DeleteMarker = $headers['x-amz-delete-marker'];
-        $this->VersionId = $headers['x-amz-version-id'];
-        $this->RequestCharged = $headers['x-amz-request-charged'];
-    }
 
     public function getDeleteMarker(): ?bool
     {
         $this->initialize();
 
         return $this->DeleteMarker;
+    }
+
+    public function getRequestCharged(): ?string
+    {
+        $this->initialize();
+
+        return $this->RequestCharged;
     }
 
     public function getVersionId(): ?string
@@ -37,10 +33,12 @@ class DeleteObjectOutput extends Result
         return $this->VersionId;
     }
 
-    public function getRequestCharged(): ?string
+    protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
     {
-        $this->initialize();
+        $headers = $response->getHeaders(false);
 
-        return $this->RequestCharged;
+        $this->DeleteMarker = $headers['x-amz-delete-marker'];
+        $this->VersionId = $headers['x-amz-version-id'];
+        $this->RequestCharged = $headers['x-amz-request-charged'];
     }
 }

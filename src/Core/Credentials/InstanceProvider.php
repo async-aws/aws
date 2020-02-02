@@ -13,7 +13,7 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
- * Provides Credentials from the running EC2 metadata server using the IMDS version 1
+ * Provides Credentials from the running EC2 metadata server using the IMDS version 1.
  *
  * @see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html
  *

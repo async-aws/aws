@@ -8,6 +8,7 @@ return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
     ->setRules([
         '@PSR2' => true,
+        '@Symfony' => true,
         'array_syntax' => ['syntax' => 'short'],
         'blank_line_after_opening_tag' => true,
         'concat_space' => ['spacing' => 'one'],
@@ -36,6 +37,7 @@ return PhpCsFixer\Config::create()
         'no_useless_return' => true,
         'no_whitespace_in_blank_line' => true,
         'ordered_imports' => true,
+        'ordered_interfaces' => true,
         'php_unit_mock' => ['target' => 'newest'],
         'php_unit_dedicate_assert_internal_type' => ['target' => 'newest'],
         'php_unit_expectation' => ['target' => 'newest'],
@@ -66,6 +68,10 @@ return PhpCsFixer\Config::create()
         'no_leading_namespace_whitespace' => true,
         'blank_line_before_statement' => true,
         'single_quote' => true,
+        'phpdoc_to_comment' => false,
+        'ordered_class_elements' => ['sortAlgorithm'=>'none'],
+        'class_attributes_separation' => ['elements'=>['method']],
+        'array_indentation' => true,
     ])
     ->setFinder($finder)
 ;

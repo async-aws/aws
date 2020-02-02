@@ -25,160 +25,6 @@ use AsyncAws\S3\Result\PutObjectOutput;
 
 class S3Client extends AbstractApi
 {
-    protected function getServiceCode(): string
-    {
-        return 's3';
-    }
-
-    protected function getSignatureVersion(): string
-    {
-        return 's3';
-    }
-
-    /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
-     *
-     * @param array{
-     *   ACL?: string,
-     *   Body?: string,
-     *   Bucket: string,
-     *   CacheControl?: string,
-     *   ContentDisposition?: string,
-     *   ContentEncoding?: string,
-     *   ContentLanguage?: string,
-     *   ContentLength?: string,
-     *   ContentMD5?: string,
-     *   ContentType?: string,
-     *   Expires?: \DateTimeImmutable|string,
-     *   GrantFullControl?: string,
-     *   GrantRead?: string,
-     *   GrantReadACP?: string,
-     *   GrantWriteACP?: string,
-     *   Key: string,
-     *   Metadata?: array,
-     *   ServerSideEncryption?: string,
-     *   StorageClass?: string,
-     *   WebsiteRedirectLocation?: string,
-     *   SSECustomerAlgorithm?: string,
-     *   SSECustomerKey?: string,
-     *   SSECustomerKeyMD5?: string,
-     *   SSEKMSKeyId?: string,
-     *   SSEKMSEncryptionContext?: string,
-     *   RequestPayer?: string,
-     *   Tagging?: string,
-     *   ObjectLockMode?: string,
-     *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
-     *   ObjectLockLegalHoldStatus?: string,
-     * }|PutObjectRequest $input
-     */
-    public function putObject($input): PutObjectOutput
-    {
-        $input = PutObjectRequest::create($input);
-        $input->validate();
-        $payload = $input->getBody() ?? '';
-        $response = $this->getResponse(
-            'PUT',
-            $payload,
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
-
-        return new PutObjectOutput($response);
-    }
-
-    /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
-     *
-     * @param array{
-     *   ACL?: string,
-     *   Bucket: string,
-     *   CreateBucketConfiguration?: \AsyncAws\S3\Input\CreateBucketConfiguration|array,
-     *   GrantFullControl?: string,
-     *   GrantRead?: string,
-     *   GrantReadACP?: string,
-     *   GrantWrite?: string,
-     *   GrantWriteACP?: string,
-     *   ObjectLockEnabledForBucket?: bool,
-     * }|CreateBucketRequest $input
-     */
-    public function createBucket($input): CreateBucketOutput
-    {
-        $input = CreateBucketRequest::create($input);
-        $input->validate();
-        $xmlConfig = ['CreateBucketConfiguration' => ['type' => 'structure','members' => ['LocationConstraint' => ['shape' => 'BucketLocationConstraint']]],'BucketLocationConstraint' => ['type' => 'string'],'_root' => ['type' => 'CreateBucketConfiguration','xmlName' => 'CreateBucketConfiguration','uri' => 'http://s3.amazonaws.com/doc/2006-03-01/']];
-        $payload = (new XmlBuilder($input->requestBody(), $xmlConfig))->getXml();
-
-        $response = $this->getResponse(
-            'PUT',
-            $payload,
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
-
-        return new CreateBucketOutput($response);
-    }
-
-    /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectDELETE.html
-     *
-     * @param array{
-     *   Bucket: string,
-     *   Key: string,
-     *   MFA?: string,
-     *   VersionId?: string,
-     *   RequestPayer?: string,
-     *   BypassGovernanceRetention?: bool,
-     * }|DeleteObjectRequest $input
-     */
-    public function deleteObject($input): DeleteObjectOutput
-    {
-        $input = DeleteObjectRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse(
-            'DELETE',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
-
-        return new DeleteObjectOutput($response);
-    }
-
-    /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectHEAD.html
-     *
-     * @param array{
-     *   Bucket: string,
-     *   IfMatch?: string,
-     *   IfModifiedSince?: \DateTimeImmutable|string,
-     *   IfNoneMatch?: string,
-     *   IfUnmodifiedSince?: \DateTimeImmutable|string,
-     *   Key: string,
-     *   Range?: string,
-     *   VersionId?: string,
-     *   SSECustomerAlgorithm?: string,
-     *   SSECustomerKey?: string,
-     *   SSECustomerKeyMD5?: string,
-     *   RequestPayer?: string,
-     *   PartNumber?: int,
-     * }|HeadObjectRequest $input
-     */
-    public function headObject($input): HeadObjectOutput
-    {
-        $input = HeadObjectRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse(
-            'HEAD',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
-
-        return new HeadObjectOutput($response);
-    }
-
     /**
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectCOPY.html
      *
@@ -238,6 +84,65 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
+     *
+     * @param array{
+     *   ACL?: string,
+     *   Bucket: string,
+     *   CreateBucketConfiguration?: \AsyncAws\S3\Input\CreateBucketConfiguration|array,
+     *   GrantFullControl?: string,
+     *   GrantRead?: string,
+     *   GrantReadACP?: string,
+     *   GrantWrite?: string,
+     *   GrantWriteACP?: string,
+     *   ObjectLockEnabledForBucket?: bool,
+     * }|CreateBucketRequest $input
+     */
+    public function createBucket($input): CreateBucketOutput
+    {
+        $input = CreateBucketRequest::create($input);
+        $input->validate();
+        $xmlConfig = ['CreateBucketConfiguration' => ['type' => 'structure', 'members' => ['LocationConstraint' => ['shape' => 'BucketLocationConstraint']]], 'BucketLocationConstraint' => ['type' => 'string'], '_root' => ['type' => 'CreateBucketConfiguration', 'xmlName' => 'CreateBucketConfiguration', 'uri' => 'http://s3.amazonaws.com/doc/2006-03-01/']];
+        $payload = (new XmlBuilder($input->requestBody(), $xmlConfig))->getXml();
+
+        $response = $this->getResponse(
+            'PUT',
+            $payload,
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
+
+        return new CreateBucketOutput($response);
+    }
+
+    /**
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectDELETE.html
+     *
+     * @param array{
+     *   Bucket: string,
+     *   Key: string,
+     *   MFA?: string,
+     *   VersionId?: string,
+     *   RequestPayer?: string,
+     *   BypassGovernanceRetention?: bool,
+     * }|DeleteObjectRequest $input
+     */
+    public function deleteObject($input): DeleteObjectOutput
+    {
+        $input = DeleteObjectRequest::create($input);
+        $input->validate();
+
+        $response = $this->getResponse(
+            'DELETE',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
+
+        return new DeleteObjectOutput($response);
+    }
+
+    /**
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGET.html
      *
      * @param array{
@@ -278,41 +183,6 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUTacl.html
-     *
-     * @param array{
-     *   ACL?: string,
-     *   AccessControlPolicy?: \AsyncAws\S3\Input\AccessControlPolicy|array,
-     *   Bucket: string,
-     *   ContentMD5?: string,
-     *   GrantFullControl?: string,
-     *   GrantRead?: string,
-     *   GrantReadACP?: string,
-     *   GrantWrite?: string,
-     *   GrantWriteACP?: string,
-     *   Key: string,
-     *   RequestPayer?: string,
-     *   VersionId?: string,
-     * }|PutObjectAclRequest $input
-     */
-    public function putObjectAcl($input): PutObjectAclOutput
-    {
-        $input = PutObjectAclRequest::create($input);
-        $input->validate();
-        $xmlConfig = ['AccessControlPolicy' => ['type' => 'structure','members' => ['Grants' => ['shape' => 'Grants','locationName' => 'AccessControlList'],'Owner' => ['shape' => 'Owner']]],'Grants' => ['type' => 'list','member' => ['shape' => 'Grant','locationName' => 'Grant']],'Grant' => ['type' => 'structure','members' => ['Grantee' => ['shape' => 'Grantee'],'Permission' => ['shape' => 'Permission']]],'Grantee' => ['type' => 'structure','required' => [0 => 'Type'],'members' => ['DisplayName' => ['shape' => 'DisplayName'],'EmailAddress' => ['shape' => 'EmailAddress'],'ID' => ['shape' => 'ID'],'Type' => ['shape' => 'Type','locationName' => 'xsi:type','xmlAttribute' => '1'],'URI' => ['shape' => 'URI']],'xmlNamespace' => ['prefix' => 'xsi','uri' => 'http://www.w3.org/2001/XMLSchema-instance']],'DisplayName' => ['type' => 'string'],'EmailAddress' => ['type' => 'string'],'ID' => ['type' => 'string'],'Type' => ['type' => 'string'],'URI' => ['type' => 'string'],'Permission' => ['type' => 'string'],'Owner' => ['type' => 'structure','members' => ['DisplayName' => ['shape' => 'DisplayName'],'ID' => ['shape' => 'ID']]],'_root' => ['type' => 'AccessControlPolicy','xmlName' => 'AccessControlPolicy','uri' => 'http://s3.amazonaws.com/doc/2006-03-01/']];
-        $payload = (new XmlBuilder($input->requestBody(), $xmlConfig))->getXml();
-
-        $response = $this->getResponse(
-            'PUT',
-            $payload,
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
-
-        return new PutObjectAclOutput($response);
-    }
-
-    /**
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGETacl.html
      *
      * @param array{
@@ -335,6 +205,40 @@ class S3Client extends AbstractApi
         );
 
         return new GetObjectAclOutput($response);
+    }
+
+    /**
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectHEAD.html
+     *
+     * @param array{
+     *   Bucket: string,
+     *   IfMatch?: string,
+     *   IfModifiedSince?: \DateTimeImmutable|string,
+     *   IfNoneMatch?: string,
+     *   IfUnmodifiedSince?: \DateTimeImmutable|string,
+     *   Key: string,
+     *   Range?: string,
+     *   VersionId?: string,
+     *   SSECustomerAlgorithm?: string,
+     *   SSECustomerKey?: string,
+     *   SSECustomerKeyMD5?: string,
+     *   RequestPayer?: string,
+     *   PartNumber?: int,
+     * }|HeadObjectRequest $input
+     */
+    public function headObject($input): HeadObjectOutput
+    {
+        $input = HeadObjectRequest::create($input);
+        $input->validate();
+
+        $response = $this->getResponse(
+            'HEAD',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
+
+        return new HeadObjectOutput($response);
     }
 
     /**
@@ -363,5 +267,101 @@ class S3Client extends AbstractApi
         );
 
         return new ListObjectsOutput($response);
+    }
+
+    /**
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
+     *
+     * @param array{
+     *   ACL?: string,
+     *   Body?: string,
+     *   Bucket: string,
+     *   CacheControl?: string,
+     *   ContentDisposition?: string,
+     *   ContentEncoding?: string,
+     *   ContentLanguage?: string,
+     *   ContentLength?: string,
+     *   ContentMD5?: string,
+     *   ContentType?: string,
+     *   Expires?: \DateTimeImmutable|string,
+     *   GrantFullControl?: string,
+     *   GrantRead?: string,
+     *   GrantReadACP?: string,
+     *   GrantWriteACP?: string,
+     *   Key: string,
+     *   Metadata?: array,
+     *   ServerSideEncryption?: string,
+     *   StorageClass?: string,
+     *   WebsiteRedirectLocation?: string,
+     *   SSECustomerAlgorithm?: string,
+     *   SSECustomerKey?: string,
+     *   SSECustomerKeyMD5?: string,
+     *   SSEKMSKeyId?: string,
+     *   SSEKMSEncryptionContext?: string,
+     *   RequestPayer?: string,
+     *   Tagging?: string,
+     *   ObjectLockMode?: string,
+     *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
+     *   ObjectLockLegalHoldStatus?: string,
+     * }|PutObjectRequest $input
+     */
+    public function putObject($input): PutObjectOutput
+    {
+        $input = PutObjectRequest::create($input);
+        $input->validate();
+        $payload = $input->getBody() ?? '';
+        $response = $this->getResponse(
+            'PUT',
+            $payload,
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
+
+        return new PutObjectOutput($response);
+    }
+
+    /**
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUTacl.html
+     *
+     * @param array{
+     *   ACL?: string,
+     *   AccessControlPolicy?: \AsyncAws\S3\Input\AccessControlPolicy|array,
+     *   Bucket: string,
+     *   ContentMD5?: string,
+     *   GrantFullControl?: string,
+     *   GrantRead?: string,
+     *   GrantReadACP?: string,
+     *   GrantWrite?: string,
+     *   GrantWriteACP?: string,
+     *   Key: string,
+     *   RequestPayer?: string,
+     *   VersionId?: string,
+     * }|PutObjectAclRequest $input
+     */
+    public function putObjectAcl($input): PutObjectAclOutput
+    {
+        $input = PutObjectAclRequest::create($input);
+        $input->validate();
+        $xmlConfig = ['AccessControlPolicy' => ['type' => 'structure', 'members' => ['Grants' => ['shape' => 'Grants', 'locationName' => 'AccessControlList'], 'Owner' => ['shape' => 'Owner']]], 'Grants' => ['type' => 'list', 'member' => ['shape' => 'Grant', 'locationName' => 'Grant']], 'Grant' => ['type' => 'structure', 'members' => ['Grantee' => ['shape' => 'Grantee'], 'Permission' => ['shape' => 'Permission']]], 'Grantee' => ['type' => 'structure', 'required' => [0 => 'Type'], 'members' => ['DisplayName' => ['shape' => 'DisplayName'], 'EmailAddress' => ['shape' => 'EmailAddress'], 'ID' => ['shape' => 'ID'], 'Type' => ['shape' => 'Type', 'locationName' => 'xsi:type', 'xmlAttribute' => '1'], 'URI' => ['shape' => 'URI']], 'xmlNamespace' => ['prefix' => 'xsi', 'uri' => 'http://www.w3.org/2001/XMLSchema-instance']], 'DisplayName' => ['type' => 'string'], 'EmailAddress' => ['type' => 'string'], 'ID' => ['type' => 'string'], 'Type' => ['type' => 'string'], 'URI' => ['type' => 'string'], 'Permission' => ['type' => 'string'], 'Owner' => ['type' => 'structure', 'members' => ['DisplayName' => ['shape' => 'DisplayName'], 'ID' => ['shape' => 'ID']]], '_root' => ['type' => 'AccessControlPolicy', 'xmlName' => 'AccessControlPolicy', 'uri' => 'http://s3.amazonaws.com/doc/2006-03-01/']];
+        $payload = (new XmlBuilder($input->requestBody(), $xmlConfig))->getXml();
+
+        $response = $this->getResponse(
+            'PUT',
+            $payload,
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
+
+        return new PutObjectAclOutput($response);
+    }
+
+    protected function getServiceCode(): string
+    {
+        return 's3';
+    }
+
+    protected function getSignatureVersion(): string
+    {
+        return 's3';
     }
 }

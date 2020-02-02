@@ -5,13 +5,7 @@ namespace AsyncAws\Core\Sts\Result;
 class AssumedRoleUser
 {
     private $AssumedRoleId;
-
     private $Arn;
-
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
 
     /**
      * @param array{
@@ -25,13 +19,18 @@ class AssumedRoleUser
         $this->Arn = $input['Arn'] ?? null;
     }
 
-    public function getAssumedRoleId(): string
+    public static function create($input): self
     {
-        return $this->AssumedRoleId;
+        return $input instanceof self ? $input : new self($input);
     }
 
     public function getArn(): string
     {
         return $this->Arn;
+    }
+
+    public function getAssumedRoleId(): string
+    {
+        return $this->AssumedRoleId;
     }
 }

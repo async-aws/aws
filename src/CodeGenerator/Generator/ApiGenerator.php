@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator;
 
-use AsyncAws\CodeGenerator\FileWriter;
+use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\StreamableBody;
@@ -109,6 +109,23 @@ class ApiGenerator
     {
         $this->definition = $definition;
         $this->doGenerateResultClass($baseNamespace, $className, $root, $useTrait, $operationName);
+    }
+
+    public function generateOutputTrait(ServiceDefinition $definition, string $operationName, string $baseNamespace, string $className)
+    {
+        $this->definition = $definition;
+        $traitName = $className . 'Trait';
+
+        $namespace = new PhpNamespace($baseNamespace);
+        $trait = $namespace->addTrait($traitName);
+
+        $namespace->addUse(ResponseInterface::class);
+        $namespace->addUse(HttpClientInterface::class);
+
+        $isNew = !trait_exists($baseNamespace . '\\' . $traitName);
+        $this->resultClassPopulateResult($operationName, $className, $isNew, $namespace, $trait);
+
+        $this->fileWriter->write($namespace);
     }
 
     private function doGenerateResultClass(string $baseNamespace, string $className, bool $root = false, ?bool $useTrait = null, ?string $operationName = null): void
@@ -322,23 +339,6 @@ PHP;
         $class->addMethod('requestUri')->setReturnType('string')->setBody($body['uri']);
     }
 
-    public function generateOutputTrait(ServiceDefinition $definition, string $operationName, string $baseNamespace, string $className)
-    {
-        $this->definition = $definition;
-        $traitName = $className . 'Trait';
-
-        $namespace = new PhpNamespace($baseNamespace);
-        $trait = $namespace->addTrait($traitName);
-
-        $namespace->addUse(ResponseInterface::class);
-        $namespace->addUse(HttpClientInterface::class);
-
-        $isNew = !trait_exists($baseNamespace . '\\' . $traitName);
-        $this->resultClassPopulateResult($operationName, $className, $isNew, $namespace, $trait);
-
-        $this->fileWriter->write($namespace);
-    }
-
     private function parseXmlResponse(?string $rootObjectName, string $rootObjectShape, string $prefix): string
     {
         $shape = $this->definition->getShape($rootObjectShape);
@@ -426,7 +426,7 @@ PHP;
             return $xml;
         }
 
-        $xml[$shapeName]  = $shape;
+        $xml[$shapeName] = $shape;
         $members = [];
         if (isset($shape['members'])) {
             $members = $shape['members'];
@@ -448,7 +448,7 @@ PHP;
     {
         $output = '[';
         foreach ($data as $name => $value) {
-            $output.= sprintf('%s => %s,', (\is_int($name) ? $name : '"' . $name . '"'), \is_array($value) ? $this->printArray($value) : ("'" . $value . "'"));
+            $output .= sprintf('%s => %s,', (\is_int($name) ? $name : '"' . $name . '"'), \is_array($value) ? $this->printArray($value) : ("'" . $value . "'"));
         }
         $output .= ']';
 

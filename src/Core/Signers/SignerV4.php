@@ -6,7 +6,7 @@ use AsyncAws\Core\Credentials\Credentials;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Version4 of signer
+ * Version4 of signer.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */

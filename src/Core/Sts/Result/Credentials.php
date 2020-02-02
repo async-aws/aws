@@ -5,17 +5,9 @@ namespace AsyncAws\Core\Sts\Result;
 class Credentials
 {
     private $AccessKeyId;
-
     private $SecretAccessKey;
-
     private $SessionToken;
-
     private $Expiration;
-
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
 
     /**
      * @param array{
@@ -33,9 +25,19 @@ class Credentials
         $this->Expiration = $input['Expiration'] ?? null;
     }
 
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
+    }
+
     public function getAccessKeyId(): string
     {
         return $this->AccessKeyId;
+    }
+
+    public function getExpiration(): \DateTimeImmutable
+    {
+        return $this->Expiration;
     }
 
     public function getSecretAccessKey(): string
@@ -46,10 +48,5 @@ class Credentials
     public function getSessionToken(): string
     {
         return $this->SessionToken;
-    }
-
-    public function getExpiration(): \DateTimeImmutable
-    {
-        return $this->Expiration;
     }
 }

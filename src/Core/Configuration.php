@@ -65,7 +65,7 @@ class Configuration
                 continue;
             }
 
-            foreach ((array)$envVariableNames as $envVariableName) {
+            foreach ((array) $envVariableNames as $envVariableName) {
                 if (false !== $value = \getenv($envVariableName)) {
                     $options[$option] = $value;
 

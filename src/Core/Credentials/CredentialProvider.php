@@ -7,7 +7,7 @@ namespace AsyncAws\Core\Credentials;
 use AsyncAws\Core\Configuration;
 
 /**
- * Interface for providing Credential
+ * Interface for providing Credential.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */

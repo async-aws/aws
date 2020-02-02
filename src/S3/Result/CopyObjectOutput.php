@@ -9,24 +9,85 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 class CopyObjectOutput extends Result
 {
     private $CopyObjectResult;
-
     private $Expiration;
-
     private $CopySourceVersionId;
-
     private $VersionId;
-
     private $ServerSideEncryption;
-
     private $SSECustomerAlgorithm;
-
     private $SSECustomerKeyMD5;
-
     private $SSEKMSKeyId;
-
     private $SSEKMSEncryptionContext;
-
     private $RequestCharged;
+
+    public function getCopyObjectResult(): ?CopyObjectResult
+    {
+        $this->initialize();
+
+        return $this->CopyObjectResult;
+    }
+
+    public function getCopySourceVersionId(): ?string
+    {
+        $this->initialize();
+
+        return $this->CopySourceVersionId;
+    }
+
+    public function getExpiration(): ?string
+    {
+        $this->initialize();
+
+        return $this->Expiration;
+    }
+
+    public function getRequestCharged(): ?string
+    {
+        $this->initialize();
+
+        return $this->RequestCharged;
+    }
+
+    public function getSSECustomerAlgorithm(): ?string
+    {
+        $this->initialize();
+
+        return $this->SSECustomerAlgorithm;
+    }
+
+    public function getSSECustomerKeyMD5(): ?string
+    {
+        $this->initialize();
+
+        return $this->SSECustomerKeyMD5;
+    }
+
+    public function getSSEKMSEncryptionContext(): ?string
+    {
+        $this->initialize();
+
+        return $this->SSEKMSEncryptionContext;
+    }
+
+    public function getSSEKMSKeyId(): ?string
+    {
+        $this->initialize();
+
+        return $this->SSEKMSKeyId;
+    }
+
+    public function getServerSideEncryption(): ?string
+    {
+        $this->initialize();
+
+        return $this->ServerSideEncryption;
+    }
+
+    public function getVersionId(): ?string
+    {
+        $this->initialize();
+
+        return $this->VersionId;
+    }
 
     protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
     {
@@ -45,78 +106,8 @@ class CopyObjectOutput extends Result
         $data = new \SimpleXMLElement($response->getContent(false));
 
         $this->CopyObjectResult = new CopyObjectResult([
-        'ETag' => $this->xmlValueOrNull($data->ETag, 'string'),
-        'LastModified' => $this->xmlValueOrNull($data->LastModified, '\DateTimeImmutable'),
+            'ETag' => $this->xmlValueOrNull($data->ETag, 'string'),
+            'LastModified' => $this->xmlValueOrNull($data->LastModified, '\DateTimeImmutable'),
         ]);
-    }
-
-    public function getCopyObjectResult(): ?CopyObjectResult
-    {
-        $this->initialize();
-
-        return $this->CopyObjectResult;
-    }
-
-    public function getExpiration(): ?string
-    {
-        $this->initialize();
-
-        return $this->Expiration;
-    }
-
-    public function getCopySourceVersionId(): ?string
-    {
-        $this->initialize();
-
-        return $this->CopySourceVersionId;
-    }
-
-    public function getVersionId(): ?string
-    {
-        $this->initialize();
-
-        return $this->VersionId;
-    }
-
-    public function getServerSideEncryption(): ?string
-    {
-        $this->initialize();
-
-        return $this->ServerSideEncryption;
-    }
-
-    public function getSSECustomerAlgorithm(): ?string
-    {
-        $this->initialize();
-
-        return $this->SSECustomerAlgorithm;
-    }
-
-    public function getSSECustomerKeyMD5(): ?string
-    {
-        $this->initialize();
-
-        return $this->SSECustomerKeyMD5;
-    }
-
-    public function getSSEKMSKeyId(): ?string
-    {
-        $this->initialize();
-
-        return $this->SSEKMSKeyId;
-    }
-
-    public function getSSEKMSEncryptionContext(): ?string
-    {
-        $this->initialize();
-
-        return $this->SSEKMSEncryptionContext;
-    }
-
-    public function getRequestCharged(): ?string
-    {
-        $this->initialize();
-
-        return $this->RequestCharged;
     }
 }

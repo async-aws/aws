@@ -8,16 +8,10 @@ class AccessControlPolicy
      * @var Grant[]
      */
     private $Grants;
-
     /**
      * @var Owner|null
      */
     private $Owner;
-
-    public static function create($input): self
-    {
-        return $input instanceof self ? $input : new self($input);
-    }
 
     /**
      * @param array{
@@ -27,10 +21,13 @@ class AccessControlPolicy
      */
     public function __construct(array $input = [])
     {
-        $this->Grants = array_map(function ($item) {
-            return Grant::create($item);
-        }, $input['Grants'] ?? []);
+        $this->Grants = array_map(function ($item) { return Grant::create($item); }, $input['Grants'] ?? []);
         $this->Owner = isset($input['Owner']) ? Owner::create($input['Owner']) : null;
+    }
+
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
     }
 
     public function getGrants(): array
@@ -38,16 +35,16 @@ class AccessControlPolicy
         return $this->Grants;
     }
 
+    public function getOwner(): ?Owner
+    {
+        return $this->Owner;
+    }
+
     public function setGrants(array $value): self
     {
         $this->Grants = $value;
 
         return $this;
-    }
-
-    public function getOwner(): ?Owner
-    {
-        return $this->Owner;
     }
 
     public function setOwner(?Owner $value): self

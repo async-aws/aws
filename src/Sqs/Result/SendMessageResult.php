@@ -9,25 +9,16 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 class SendMessageResult extends Result
 {
     private $MD5OfMessageBody;
-
     private $MD5OfMessageAttributes;
-
     private $MD5OfMessageSystemAttributes;
-
     private $MessageId;
-
     private $SequenceNumber;
 
-    protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
+    public function getMD5OfMessageAttributes(): ?string
     {
-        $data = new \SimpleXMLElement($response->getContent(false));
-        $data = $data->SendMessageResult;
+        $this->initialize();
 
-        $this->MD5OfMessageBody = $this->xmlValueOrNull($data->MD5OfMessageBody, 'string');
-        $this->MD5OfMessageAttributes = $this->xmlValueOrNull($data->MD5OfMessageAttributes, 'string');
-        $this->MD5OfMessageSystemAttributes = $this->xmlValueOrNull($data->MD5OfMessageSystemAttributes, 'string');
-        $this->MessageId = $this->xmlValueOrNull($data->MessageId, 'string');
-        $this->SequenceNumber = $this->xmlValueOrNull($data->SequenceNumber, 'string');
+        return $this->MD5OfMessageAttributes;
     }
 
     public function getMD5OfMessageBody(): ?string
@@ -35,13 +26,6 @@ class SendMessageResult extends Result
         $this->initialize();
 
         return $this->MD5OfMessageBody;
-    }
-
-    public function getMD5OfMessageAttributes(): ?string
-    {
-        $this->initialize();
-
-        return $this->MD5OfMessageAttributes;
     }
 
     public function getMD5OfMessageSystemAttributes(): ?string
@@ -63,5 +47,17 @@ class SendMessageResult extends Result
         $this->initialize();
 
         return $this->SequenceNumber;
+    }
+
+    protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
+    {
+        $data = new \SimpleXMLElement($response->getContent(false));
+        $data = $data->SendMessageResult;
+
+        $this->MD5OfMessageBody = $this->xmlValueOrNull($data->MD5OfMessageBody, 'string');
+        $this->MD5OfMessageAttributes = $this->xmlValueOrNull($data->MD5OfMessageAttributes, 'string');
+        $this->MD5OfMessageSystemAttributes = $this->xmlValueOrNull($data->MD5OfMessageSystemAttributes, 'string');
+        $this->MessageId = $this->xmlValueOrNull($data->MessageId, 'string');
+        $this->SequenceNumber = $this->xmlValueOrNull($data->SequenceNumber, 'string');
     }
 }
