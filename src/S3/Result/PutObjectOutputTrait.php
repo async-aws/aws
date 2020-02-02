@@ -8,17 +8,16 @@ trait PutObjectOutputTrait
 {
     protected function populateFromResponse(ResponseInterface $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent(false));
+        $headers = $response->getHeaders(false);
 
-        // TODO Verify correctness
-        $this->Expiration = $this->xmlValueOrNull($data->Expiration);
-        $this->ETag = $this->xmlValueOrNull($data->ETag);
-        $this->ServerSideEncryption = $this->xmlValueOrNull($data->ServerSideEncryption);
-        $this->VersionId = $this->xmlValueOrNull($data->VersionId);
-        $this->SSECustomerAlgorithm = $this->xmlValueOrNull($data->SSECustomerAlgorithm);
-        $this->SSECustomerKeyMD5 = $this->xmlValueOrNull($data->SSECustomerKeyMD5);
-        $this->SSEKMSKeyId = $this->xmlValueOrNull($data->SSEKMSKeyId);
-        $this->SSEKMSEncryptionContext = $this->xmlValueOrNull($data->SSEKMSEncryptionContext);
-        $this->RequestCharged = $this->xmlValueOrNull($data->RequestCharged);
+        $this->Expiration = $headers['x-amz-expiration'];
+        $this->ETag = $headers['ETag'];
+        $this->ServerSideEncryption = $headers['x-amz-server-side-encryption'];
+        $this->VersionId = $headers['x-amz-version-id'];
+        $this->SSECustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'];
+        $this->SSECustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-MD5'];
+        $this->SSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'];
+        $this->SSEKMSEncryptionContext = $headers['x-amz-server-side-encryption-context'];
+        $this->RequestCharged = $headers['x-amz-request-charged'];
     }
 }

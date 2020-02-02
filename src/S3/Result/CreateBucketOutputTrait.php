@@ -8,9 +8,8 @@ trait CreateBucketOutputTrait
 {
     protected function populateFromResponse(ResponseInterface $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent(false));
+        $headers = $response->getHeaders(false);
 
-        // TODO Verify correctness
-        $this->Location = $this->xmlValueOrNull($data->Location);
+        $this->Location = $headers['Location'];
     }
 }

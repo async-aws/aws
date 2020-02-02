@@ -8,9 +8,8 @@ trait PutObjectAclOutputTrait
 {
     protected function populateFromResponse(ResponseInterface $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent(false));
+        $headers = $response->getHeaders(false);
 
-        // TODO Verify correctness
-        $this->RequestCharged = $this->xmlValueOrNull($data->RequestCharged);
+        $this->RequestCharged = $headers['x-amz-request-charged'];
     }
 }

@@ -4,40 +4,40 @@
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/s3\/2006-03-01\/api-2.json",
             "methods": {
                 "PutObject": {
-                    "generated": "2020-02-02T12:13:18+00:00",
-                    "generate-result-trait": false
+                    "generated": "2020-02-02T16:45:32+00:00",
+                    "generate-result-trait": true
                 },
                 "CreateBucket": {
-                    "generated": "2020-02-02T12:13:18+00:00",
-                    "generate-result-trait": false
+                    "generated": "2020-02-02T16:45:32+00:00",
+                    "generate-result-trait": true
                 },
                 "DeleteObject": {
-                    "generated": "2020-02-02T12:13:18+00:00",
-                    "generate-result-trait": false
+                    "generated": "2020-02-02T16:45:32+00:00",
+                    "generate-result-trait": true
                 },
                 "HeadObject": {
-                    "generated": "2020-02-02T12:13:18+00:00",
-                    "generate-result-trait": false
+                    "generated": "2020-02-02T16:45:32+00:00",
+                    "generate-result-trait": true
                 },
                 "CopyObject": {
-                    "generated": "2020-02-02T12:13:18+00:00",
-                    "generate-result-trait": false
+                    "generated": "2020-02-02T16:45:32+00:00",
+                    "generate-result-trait": true
                 },
                 "GetObject": {
-                    "generated": "2020-02-02T12:13:18+00:00",
-                    "generate-result-trait": false
+                    "generated": "2020-02-02T16:45:32+00:00",
+                    "generate-result-trait": true
                 },
                 "PutObjectAcl": {
-                    "generated": "2020-02-02T12:13:18+00:00",
-                    "generate-result-trait": false
+                    "generated": "2020-02-02T16:45:32+00:00",
+                    "generate-result-trait": true
                 },
                 "GetObjectAcl": {
-                    "generated": "2020-02-02T12:13:18+00:00",
-                    "generate-result-trait": false
+                    "generated": "2020-02-02T16:45:32+00:00",
+                    "generate-result-trait": true
                 },
                 "ListObjects": {
-                    "generated": "2020-02-02T12:13:18+00:00",
-                    "generate-result-trait": false
+                    "generated": "2020-02-02T16:45:32+00:00",
+                    "generate-result-trait": true
                 }
             }
         },

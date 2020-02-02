@@ -8,45 +8,38 @@ trait GetObjectOutputTrait
 {
     protected function populateFromResponse(ResponseInterface $response): void
     {
-        // TODO maybe not put the body in memory
-        $this->Body = $response->getContent(false);
-
-        return;
         $headers = $response->getHeaders(false);
 
-        $data = new \SimpleXMLElement($response->getContent(false));
+        $this->DeleteMarker = $headers['x-amz-delete-marker'];
+        $this->AcceptRanges = $headers['accept-ranges'];
+        $this->Expiration = $headers['x-amz-expiration'];
+        $this->Restore = $headers['x-amz-restore'];
+        $this->LastModified = $headers['Last-Modified'];
+        $this->ContentLength = $headers['Content-Length'];
+        $this->ETag = $headers['ETag'];
+        $this->MissingMeta = $headers['x-amz-missing-meta'];
+        $this->VersionId = $headers['x-amz-version-id'];
+        $this->CacheControl = $headers['Cache-Control'];
+        $this->ContentDisposition = $headers['Content-Disposition'];
+        $this->ContentEncoding = $headers['Content-Encoding'];
+        $this->ContentLanguage = $headers['Content-Language'];
+        $this->ContentRange = $headers['Content-Range'];
+        $this->ContentType = $headers['Content-Type'];
+        $this->Expires = $headers['Expires'];
+        $this->WebsiteRedirectLocation = $headers['x-amz-website-redirect-location'];
+        $this->ServerSideEncryption = $headers['x-amz-server-side-encryption'];
+        $this->SSECustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'];
+        $this->SSECustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-MD5'];
+        $this->SSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'];
+        $this->StorageClass = $headers['x-amz-storage-class'];
+        $this->RequestCharged = $headers['x-amz-request-charged'];
+        $this->ReplicationStatus = $headers['x-amz-replication-status'];
+        $this->PartsCount = $headers['x-amz-mp-parts-count'];
+        $this->TagCount = $headers['x-amz-tagging-count'];
+        $this->ObjectLockMode = $headers['x-amz-object-lock-mode'];
+        $this->ObjectLockRetainUntilDate = $headers['x-amz-object-lock-retain-until-date'];
+        $this->ObjectLockLegalHoldStatus = $headers['x-amz-object-lock-legal-hold'];
 
-        // TODO Verify correctness
-        $this->Body = $this->xmlValueOrNull($data->Body);
-        $this->DeleteMarker = $this->xmlValueOrNull($data->DeleteMarker);
-        $this->AcceptRanges = $this->xmlValueOrNull($data->AcceptRanges);
-        $this->Expiration = $this->xmlValueOrNull($data->Expiration);
-        $this->Restore = $this->xmlValueOrNull($data->Restore);
-        $this->LastModified = $this->xmlValueOrNull($data->LastModified);
-        $this->ContentLength = $this->xmlValueOrNull($data->ContentLength);
-        $this->ETag = $this->xmlValueOrNull($data->ETag);
-        $this->MissingMeta = $this->xmlValueOrNull($data->MissingMeta);
-        $this->VersionId = $this->xmlValueOrNull($data->VersionId);
-        $this->CacheControl = $this->xmlValueOrNull($data->CacheControl);
-        $this->ContentDisposition = $this->xmlValueOrNull($data->ContentDisposition);
-        $this->ContentEncoding = $this->xmlValueOrNull($data->ContentEncoding);
-        $this->ContentLanguage = $this->xmlValueOrNull($data->ContentLanguage);
-        $this->ContentRange = $this->xmlValueOrNull($data->ContentRange);
-        $this->ContentType = $this->xmlValueOrNull($data->ContentType);
-        $this->Expires = $this->xmlValueOrNull($data->Expires);
-        $this->WebsiteRedirectLocation = $this->xmlValueOrNull($data->WebsiteRedirectLocation);
-        $this->ServerSideEncryption = $this->xmlValueOrNull($data->ServerSideEncryption);
-        $this->Metadata = $this->xmlValueOrNull($data->Metadata);
-        $this->SSECustomerAlgorithm = $this->xmlValueOrNull($data->SSECustomerAlgorithm);
-        $this->SSECustomerKeyMD5 = $this->xmlValueOrNull($data->SSECustomerKeyMD5);
-        $this->SSEKMSKeyId = $this->xmlValueOrNull($data->SSEKMSKeyId);
-        $this->StorageClass = $this->xmlValueOrNull($data->StorageClass);
-        $this->RequestCharged = $this->xmlValueOrNull($data->RequestCharged);
-        $this->ReplicationStatus = $this->xmlValueOrNull($data->ReplicationStatus);
-        $this->PartsCount = $this->xmlValueOrNull($data->PartsCount);
-        $this->TagCount = $this->xmlValueOrNull($data->TagCount);
-        $this->ObjectLockMode = $this->xmlValueOrNull($data->ObjectLockMode);
-        $this->ObjectLockRetainUntilDate = $this->xmlValueOrNull($data->ObjectLockRetainUntilDate);
-        $this->ObjectLockLegalHoldStatus = $this->xmlValueOrNull($data->ObjectLockLegalHoldStatus);
+        $this->Body = $response->getContent(false);
     }
 }

@@ -105,7 +105,7 @@ class GetObjectOutput extends Result
         return $this->Restore;
     }
 
-    public function getLastModified(): ?int
+    public function getLastModified(): ?\DateTimeImmutable
     {
         $this->initialize();
 
@@ -182,7 +182,7 @@ class GetObjectOutput extends Result
         return $this->ContentType;
     }
 
-    public function getExpires(): ?int
+    public function getExpires(): ?\DateTimeImmutable
     {
         $this->initialize();
 
@@ -273,7 +273,7 @@ class GetObjectOutput extends Result
         return $this->ObjectLockMode;
     }
 
-    public function getObjectLockRetainUntilDate(): ?int
+    public function getObjectLockRetainUntilDate(): ?\DateTimeImmutable
     {
         $this->initialize();
 

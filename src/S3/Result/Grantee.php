@@ -2,11 +2,17 @@
 
 namespace AsyncAws\S3\Result;
 
-class Owner
+class Grantee
 {
     private $DisplayName;
 
+    private $EmailAddress;
+
     private $ID;
+
+    private $Type;
+
+    private $URI;
 
     public static function create($input): self
     {
@@ -16,13 +22,19 @@ class Owner
     /**
      * @param array{
      *   DisplayName?: string,
+     *   EmailAddress?: string,
      *   ID?: string,
+     *   Type: string,
+     *   URI?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->DisplayName = $input['DisplayName'] ?? null;
+        $this->EmailAddress = $input['EmailAddress'] ?? null;
         $this->ID = $input['ID'] ?? null;
+        $this->Type = $input['Type'] ?? null;
+        $this->URI = $input['URI'] ?? null;
     }
 
     public function getDisplayName(): ?string
@@ -30,8 +42,23 @@ class Owner
         return $this->DisplayName;
     }
 
+    public function getEmailAddress(): ?string
+    {
+        return $this->EmailAddress;
+    }
+
     public function getID(): ?string
     {
         return $this->ID;
+    }
+
+    public function getType(): string
+    {
+        return $this->Type;
+    }
+
+    public function getURI(): ?string
+    {
+        return $this->URI;
     }
 }
