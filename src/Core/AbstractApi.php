@@ -15,6 +15,7 @@ use AsyncAws\Core\Signers\Request;
 use AsyncAws\Core\Signers\Signer;
 use AsyncAws\Core\Signers\SignerV4;
 use AsyncAws\Core\Signers\SignerV4ForS3;
+use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -52,7 +53,7 @@ abstract class AbstractApi
     /**
      * @param Configuration|array $configuration
      */
-    public function __construct(HttpClientInterface $httpClient, $configuration, ?CredentialProvider $credentialProvider = null)
+    public function __construct($configuration = [], ?CredentialProvider $credentialProvider = null, ?HttpClientInterface $httpClient = null)
     {
         if (\is_array($configuration)) {
             $configuration = Configuration::create($configuration);
@@ -60,7 +61,7 @@ abstract class AbstractApi
             throw new InvalidArgument(sprintf('Second argument to "%s::__construct()" must be an array or an instance of "%s"', __CLASS__, Configuration::class));
         }
 
-        $this->httpClient = $httpClient;
+        $this->httpClient = $httpClient ?? HttpClient::create();
         $this->configuration = $configuration;
         $this->credentialProvider = $credentialProvider ?? new CacheProvider(new ChainProvider([
             new ConfigurationProvider(),
