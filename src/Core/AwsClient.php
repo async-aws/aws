@@ -6,6 +6,7 @@ namespace AsyncAws\Core;
 
 use AsyncAws\Core\Exception\MissingDependency;
 use AsyncAws\Core\Exception\RuntimeException;
+use AsyncAws\Core\Sts\StsClient;
 use AsyncAws\S3\S3Client;
 use AsyncAws\Ses\SesClient;
 use AsyncAws\Sqs\SqsClient;
@@ -31,6 +32,19 @@ class AwsClient extends AbstractApi
     protected function getSignatureVersion(): string
     {
         return 'v4';
+    }
+
+    public function sts(): StsClient
+    {
+        if (!class_exists(StsClient::class)) {
+            throw MissingDependency::create('async-aws/core', 'STS');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new StsClient($this->httpClient, $this->configuration, $this->credentialProvider);
+        }
+
+        return $this->serviceCache[__METHOD__];
     }
 
     public function s3(): S3Client
