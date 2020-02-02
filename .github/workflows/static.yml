@@ -1,16 +1,12 @@
 name: Static analysis
 
-on:
-  push:
-    branches:
-      - master
-  pull_request:
+on: [push, pull_request]
 
 jobs:
   phpstan:
     name: PHPStan
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
