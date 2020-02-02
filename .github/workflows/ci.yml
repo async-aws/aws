@@ -61,11 +61,10 @@ jobs:
           for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
           do
             echo ::group::$COMPONENT
-            ./vendor/bin/simple-phpunit -c "./$COMPONENT" 2>&1
+            bash -xc "./vendor/bin/simple-phpunit -c ./$COMPONENT" 2>&1
             ok=$(( $? || $ok ))
-            echo "::error::My error message"
             echo ::endgroup::
-
+            echo "::error::My error message"
           done
 
           exit $ok
