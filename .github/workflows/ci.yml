@@ -43,7 +43,6 @@ jobs:
 
       - name: Download dependencies
         run: |
-          set -e
           CURRENT_DIR=$(pwd)
           for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
           do
@@ -58,10 +57,13 @@ jobs:
 
       - name: Run tests
         run: |
-
+          ok=0
           for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
           do
             echo ::group::$COMPONENT
-            ./vendor/bin/simple-phpunit -c "./$COMPONENT"
+            ./vendor/bin/simple-phpunit -c "./$COMPONENT" 2>&1
+            ok=$(( $? || $ok ))
             echo ::endgroup::
           done
+
+          exit $ok
