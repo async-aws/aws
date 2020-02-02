@@ -150,4 +150,7 @@ jobs:
 
       - name: Run tests
         run: |
+          echo ::group::Install
+          ./vendor/bin/simple-phpunit install
+          echo ::endgroup::
           ./vendor/bin/simple-phpunit
