@@ -58,11 +58,11 @@
             "namespace": "AsyncAws\\Core\\Sts",
             "methods": {
                 "GetCallerIdentity": {
-                    "generated": "2020-02-02T16:45:58+01:00",
+                    "generated": "2020-02-02T18:15:53+00:00",
                     "generate-result-trait": true
                 },
                 "AssumeRole": {
-                    "generated": "2020-02-02T17:53:30+00:00",
+                    "generated": "2020-02-02T18:15:53+00:00",
                     "generate-result-trait": false
                 }
             }

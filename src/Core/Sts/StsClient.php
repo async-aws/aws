@@ -34,7 +34,7 @@ class StsClient extends AbstractApi
      *   TokenCode?: string,
      * }|AssumeRoleRequest $input
      */
-    public function assumeRole($input = []): AssumeRoleResponse
+    public function assumeRole($input): AssumeRoleResponse
     {
         $input = AssumeRoleRequest::create($input);
         $input->validate();
