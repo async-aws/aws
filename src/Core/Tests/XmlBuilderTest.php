@@ -26,7 +26,7 @@ class XmlBuilderTest extends TestCase
         $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <parent_name xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
-  <foo_name>bar</foo_name>
+  <foo_name>bar</foo_name>SS
 </parent_name>
 
 XML;
