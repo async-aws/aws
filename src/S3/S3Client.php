@@ -106,7 +106,7 @@ class S3Client extends AbstractApi
         $input = CreateBucketRequest::create($input);
         $input->validate();
         $xmlConfig = ['CreateBucketConfiguration' => ['type' => 'structure','members' => ['LocationConstraint' => ['shape' => 'BucketLocationConstraint']]],'BucketLocationConstraint' => ['type' => 'string'],'_root' => ['type' => 'CreateBucketConfiguration','xmlName' => 'CreateBucketConfiguration','uri' => 'http://s3.amazonaws.com/doc/2006-03-01/']];
-        $payload = (new XmlBuilder($input->getCreateBucketConfiguration() ?? [], $xmlConfig))->getXml();
+        $payload = (new XmlBuilder($input->requestBody(), $xmlConfig))->getXml();
 
         $response = $this->getResponse(
             'PUT',
@@ -299,48 +299,8 @@ class S3Client extends AbstractApi
     {
         $input = PutObjectAclRequest::create($input);
         $input->validate();
-        $xmlConfig = [
-            'AccessControlPolicy' => [
-                'type' => 'structure',
-                'members' => [
-                    'Grants' => ['shape' => 'Grants', 'locationName' => 'AccessControlList'],
-                    'Owner' => ['shape' => 'Owner'],
-                ],
-            ],
-            'Grants' => ['type' => 'list', 'member' => ['shape' => 'Grant', 'locationName' => 'Grant']],
-            'Grant' => [
-                'type' => 'structure',
-                'members' => ['Grantee' => ['shape' => 'Grantee'], 'Permission' => ['shape' => 'Permission']],
-            ],
-            'Grantee' => [
-                'type' => 'structure',
-                'required' => [0 => 'Type'],
-                'members' => [
-                    'DisplayName' => ['shape' => 'DisplayName'],
-                    'EmailAddress' => ['shape' => 'EmailAddress'],
-                    'ID' => ['shape' => 'ID'],
-                    'Type' => ['shape' => 'Type', 'locationName' => 'xsi:type', 'xmlAttribute' => '1'],
-                    'URI' => ['shape' => 'URI'],
-                ],
-                'xmlNamespace' => ['prefix' => 'xsi', 'uri' => 'http://www.w3.org/2001/XMLSchema-instance'],
-            ],
-            'DisplayName' => ['type' => 'string'],
-            'EmailAddress' => ['type' => 'string'],
-            'ID' => ['type' => 'string'],
-            'Type' => ['type' => 'string'],
-            'URI' => ['type' => 'string'],
-            'Permission' => ['type' => 'string'],
-            'Owner' => [
-                'type' => 'structure',
-                'members' => ['DisplayName' => ['shape' => 'DisplayName'], 'ID' => ['shape' => 'ID']],
-            ],
-            '_root' => [
-                'type' => 'AccessControlPolicy',
-                'xmlName' => 'AccessControlPolicy',
-                'uri' => 'http://s3.amazonaws.com/doc/2006-03-01/',
-            ],
-        ];
-        $payload = (new XmlBuilder($input->getAccessControlPolicy() ?? [], $xmlConfig))->getXml();
+        $xmlConfig = ['AccessControlPolicy' => ['type' => 'structure','members' => ['Grants' => ['shape' => 'Grants','locationName' => 'AccessControlList'],'Owner' => ['shape' => 'Owner']]],'Grants' => ['type' => 'list','member' => ['shape' => 'Grant','locationName' => 'Grant']],'Grant' => ['type' => 'structure','members' => ['Grantee' => ['shape' => 'Grantee'],'Permission' => ['shape' => 'Permission']]],'Grantee' => ['type' => 'structure','required' => [0 => 'Type'],'members' => ['DisplayName' => ['shape' => 'DisplayName'],'EmailAddress' => ['shape' => 'EmailAddress'],'ID' => ['shape' => 'ID'],'Type' => ['shape' => 'Type','locationName' => 'xsi:type','xmlAttribute' => '1'],'URI' => ['shape' => 'URI']],'xmlNamespace' => ['prefix' => 'xsi','uri' => 'http://www.w3.org/2001/XMLSchema-instance']],'DisplayName' => ['type' => 'string'],'EmailAddress' => ['type' => 'string'],'ID' => ['type' => 'string'],'Type' => ['type' => 'string'],'URI' => ['type' => 'string'],'Permission' => ['type' => 'string'],'Owner' => ['type' => 'structure','members' => ['DisplayName' => ['shape' => 'DisplayName'],'ID' => ['shape' => 'ID']]],'_root' => ['type' => 'AccessControlPolicy','xmlName' => 'AccessControlPolicy','uri' => 'http://s3.amazonaws.com/doc/2006-03-01/']];
+        $payload = (new XmlBuilder($input->requestBody(), $xmlConfig))->getXml();
 
         $response = $this->getResponse(
             'PUT',

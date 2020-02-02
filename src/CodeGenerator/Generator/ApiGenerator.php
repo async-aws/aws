@@ -440,7 +440,7 @@ PHP;
                 ];
 
                 $body .= '$xmlConfig = ' . $this->printArray($xml) . ";\n";
-                $body .= '$payload = (new XmlBuilder($input->get' . $inputShape['payload'] . '() ?? [], $xmlConfig))->getXml();' . "\n";
+                $body .= '$payload = (new XmlBuilder($input->requestBody(), $xmlConfig))->getXml();' . "\n";
             }
             $payloadVariable = '$payload';
         } else {

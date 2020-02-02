@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="3.8.2@90d6b73fd8062432030ef39b7b6694b3902daa31">
+  <file src="src/Core/Credentials/IniFileProvider.php">
+    <UndefinedVariable occurrences="1">
+      <code>$homeDir</code>
+    </UndefinedVariable>
+  </file>
+</files>
