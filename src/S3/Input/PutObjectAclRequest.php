@@ -296,7 +296,7 @@ class PutObjectAclRequest
 
     public function requestBody(): array
     {
-        $payload = ['Action' => 'PutObjectAcl'];
+        $payload = ['Action' => 'PutObjectAcl', 'Version' => '2006-03-01'];
         if (null !== $this->AccessControlPolicy) {
             $payload['AccessControlPolicy'] = $this->AccessControlPolicy;
         }

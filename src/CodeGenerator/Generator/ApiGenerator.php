@@ -79,7 +79,7 @@ class ApiGenerator
         if (isset($operation['documentationUrl'])) {
             $method->addComment('@see ' . $operation['documentationUrl']);
         }
-        // TODO add Input object
+
         $method->addComment('@param array{');
         $this->addMethodComment($method, $inputShape, $baseNamespace . '\\Input');
         $method->addComment('}|' . $inputClassName . ' $input');
@@ -135,8 +135,15 @@ PHP
                     $this->generateResultClass($this->definition, $service, $baseNamespace, $parameterType);
                     $constructorBody .= sprintf('$this->%s = isset($input["%s"]) ? %s::create($input["%s"]) : null;' . "\n", $name, $name, $this->safeClassName($parameterType), $name);
                 } elseif ('list' === $memberShape['type']) {
-                    $this->generateResultClass($this->definition, $service, $baseNamespace, $memberShape['member']['shape']);
-                    $constructorBody .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, $this->safeClassName($memberShape['member']['shape']), $name);
+                    // Check if this is a list of objects
+                    $listItemShapeName = $memberShape['member']['shape'];
+                    $type = $this->definition->getShape($listItemShapeName)['type'];
+                    if ('structure' === $type) {
+                        $this->generateResultClass($this->definition, $service, $baseNamespace, $listItemShapeName);
+                        $constructorBody .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, $this->safeClassName($listItemShapeName), $name);
+                    } else {
+                        $constructorBody .= sprintf('$this->%s = $input["%s"] ?? [];' . "\n", $name, $name);
+                    }
                 } else {
                     $constructorBody .= sprintf('$this->%s = $input["%s"] ?? null;' . "\n", $name, $name);
                 }
@@ -154,10 +161,18 @@ PHP
                 $this->generateResultClass($this->definition, $service, $baseNamespace, $parameterType);
                 $parameterType = $baseNamespace . '\\' . $this->safeClassName($parameterType);
             } elseif ('list' === $memberShape['type']) {
-                $this->generateResultClass($this->definition, $service, $baseNamespace, $memberShape['member']['shape']);
-                $returnType = $this->safeClassName($memberShape['member']['shape']);
                 $parameterType = 'array';
                 $property->setValue([]);
+
+                // Check if this is a list of objects
+                $listItemShapeName = $memberShape['member']['shape'];
+                $type = $this->definition->getShape($listItemShapeName)['type'];
+                if ('structure' === $type) {
+                    $this->generateResultClass($this->definition, $service, $baseNamespace, $listItemShapeName);
+                    $returnType = $this->safeClassName($listItemShapeName);
+                } else {
+                    $returnType = $type . '[]';
+                }
             } else {
                 $parameterType = $this->toPhpType($memberShape['type']);
             }
@@ -475,6 +490,7 @@ PHP;
             if ('structure' === $memberShape['type']) {
                 $body .= "'$name' => " . $this->parseXmlResponse(null, $name, $prefix . '->' . $name) . ",\n";
             } elseif ('list' === $memberShape['type']) {
+                // TODO check for list type
                 // TODO we should do something similar like above, but here we are in the middle of defining an array.
                 throw new \RuntimeException('This si not implemented yet');
             //$body .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, $this->safeClassName($memberShape['member']['shape']), $name);

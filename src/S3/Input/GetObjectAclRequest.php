@@ -123,7 +123,7 @@ class GetObjectAclRequest
 
     public function requestBody(): array
     {
-        $payload = ['Action' => 'GetObjectAcl'];
+        $payload = ['Action' => 'GetObjectAcl', 'Version' => '2006-03-01'];
 
         return $payload;
     }

@@ -4,39 +4,39 @@
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/s3\/2006-03-01\/api-2.json",
             "methods": {
                 "PutObject": {
-                    "generated": "2020-02-02T16:45:32+00:00",
+                    "generated": "2020-02-02T18:03:53+00:00",
                     "generate-result-trait": true
                 },
                 "CreateBucket": {
-                    "generated": "2020-02-02T16:45:32+00:00",
+                    "generated": "2020-02-02T18:03:53+00:00",
                     "generate-result-trait": true
                 },
                 "DeleteObject": {
-                    "generated": "2020-02-02T16:45:32+00:00",
+                    "generated": "2020-02-02T18:03:53+00:00",
                     "generate-result-trait": true
                 },
                 "HeadObject": {
-                    "generated": "2020-02-02T16:45:32+00:00",
+                    "generated": "2020-02-02T18:03:53+00:00",
                     "generate-result-trait": true
                 },
                 "CopyObject": {
-                    "generated": "2020-02-02T16:45:32+00:00",
+                    "generated": "2020-02-02T18:03:53+00:00",
                     "generate-result-trait": true
                 },
                 "GetObject": {
-                    "generated": "2020-02-02T16:45:32+00:00",
+                    "generated": "2020-02-02T18:03:53+00:00",
                     "generate-result-trait": true
                 },
                 "PutObjectAcl": {
-                    "generated": "2020-02-02T16:45:32+00:00",
+                    "generated": "2020-02-02T18:03:53+00:00",
                     "generate-result-trait": true
                 },
                 "GetObjectAcl": {
-                    "generated": "2020-02-02T16:45:32+00:00",
+                    "generated": "2020-02-02T18:03:53+00:00",
                     "generate-result-trait": true
                 },
                 "ListObjects": {
-                    "generated": "2020-02-02T16:45:32+00:00",
+                    "generated": "2020-02-02T18:03:53+00:00",
                     "generate-result-trait": true
                 }
             }
@@ -48,7 +48,7 @@
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sqs\/2012-11-05\/api-2.json",
             "methods": {
                 "SendMessage": {
-                    "generated": "2020-02-02T15:37:23+01:00",
+                    "generated": "2020-02-02T18:04:01+00:00",
                     "generate-result-trait": true
                 }
             }
@@ -58,7 +58,7 @@
             "namespace": "AsyncAws\\Core",
             "methods": {
                 "GetCallerIdentity": {
-                    "generated": "2020-02-02T16:45:58+01:00",
+                    "generated": "2020-02-02T18:03:57+00:00",
                     "generate-result-trait": true
                 }
             }

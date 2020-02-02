@@ -231,7 +231,7 @@ class CreateBucketRequest
 
     public function requestBody(): array
     {
-        $payload = ['Action' => 'CreateBucket'];
+        $payload = ['Action' => 'CreateBucket', 'Version' => '2006-03-01'];
         if (null !== $this->CreateBucketConfiguration) {
             $payload['CreateBucketConfiguration'] = $this->CreateBucketConfiguration;
         }

@@ -453,7 +453,7 @@ class GetObjectRequest
 
     public function requestBody(): array
     {
-        $payload = ['Action' => 'GetObject'];
+        $payload = ['Action' => 'GetObject', 'Version' => '2006-03-01'];
 
         return $payload;
     }
