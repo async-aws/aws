@@ -1,14 +1,19 @@
 {
-    "license": "MIT",
     "name": "async-aws/core",
     "type": "library",
     "description": "",
+    "license": "MIT",
     "require": {
         "php": "^7.2.5",
         "ext-hash": "*",
         "psr/log": "~1.0",
         "symfony/http-client": "^4.4 || ^5.0",
         "symfony/service-contracts": "^2.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
     },
     "autoload": {
         "psr-4": {
@@ -17,11 +22,5 @@
         "exclude-from-classmap": [
             "/Tests/"
         ]
-    },
-
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.1-dev"
-        }
     }
 }
