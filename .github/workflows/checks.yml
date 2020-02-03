@@ -66,10 +66,7 @@ jobs:
 
     - name: Regenerate
       run: |
-        ./generate regenerate S3 --all
-        ./generate regenerate Ses --all
-        ./generate regenerate Sts --all
-        ./generate regenerate Sqs --all
+        ./generate regenerate --all
 
     - name: Fix cs
       uses: docker://oskarstark/php-cs-fixer-ga
