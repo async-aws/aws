@@ -150,7 +150,6 @@ class IniFileProvider implements CredentialProvider
                 continue;
             }
             if ('~' === $filepath[0]) {
-                // FIXME is $homeDir ever defined?
                 $homeDir = $homeDir ?? $this->getHomeDir();
                 $filepath = $homeDir . \substr($filepath, 1);
             }
