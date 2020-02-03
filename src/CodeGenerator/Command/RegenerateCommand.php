@@ -70,11 +70,13 @@ class RegenerateCommand extends Command
         $operationCounter = 0;
         foreach ($serviceNames as $serviceName) {
             if ($drawProgressService) {
-                $progressService->advance();
                 $progressService->setMessage($serviceName);
+                $progressService->advance();
+                $progressService->display();
             }
 
             $definitionArray = \json_decode(\file_get_contents($manifest['services'][$serviceName]['source']), true);
+            $documentationArray = \json_decode(\file_get_contents($manifest['services'][$serviceName]['documentation']), true);
             $operationNames = $this->getOperationNames($input, $io, $definitionArray, $manifest['services'][$serviceName]);
             if (\is_int($operationNames)) {
                 return $operationNames;
@@ -85,14 +87,14 @@ class RegenerateCommand extends Command
                 $progressOperation->start(\count($operationNames));
             }
 
-            $definition = new ServiceDefinition($definitionArray);
+            $definition = new ServiceDefinition($definitionArray, $documentationArray);
             $baseNamespace = $manifest['services'][$serviceName]['namespace'] ?? \sprintf('AsyncAws\\%s', $serviceName);
             $resultNamespace = $baseNamespace . '\\Result';
 
             foreach ($operationNames as $operationName) {
                 if ($drawProgressOperation) {
-                    $progressOperation->advance();
                     $progressOperation->setMessage($operationName);
+                    $progressOperation->advance();
                 }
 
                 $operation = $definition->getOperation($operationName);

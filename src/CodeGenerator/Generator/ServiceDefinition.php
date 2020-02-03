@@ -12,10 +12,12 @@ namespace AsyncAws\CodeGenerator\Generator;
 class ServiceDefinition
 {
     private $definition;
+    private $documentation;
 
-    public function __construct(array $definition)
+    public function __construct(array $definition, array $documentation)
     {
         $this->definition = $definition;
+        $this->documentation = $documentation;
     }
 
     public function getOperations(): array
@@ -28,9 +30,28 @@ class ServiceDefinition
         return $this->definition['operations'][$name] ?? null;
     }
 
+    public function getOperationDocumentation(string $name): ?string
+    {
+        return $this->documentation['operations'][$name] ?? null;
+    }
+
     public function getShapes(): array
     {
         return $this->definition['shapes'] ?? [];
+    }
+
+    public function getShapesDocumentation(): array
+    {
+        return $this->documentation['shapes'] ?? [];
+    }
+
+    public function getParameterDocumentation(string $className, string $parameter, string $type): ?string
+    {
+        if (\array_key_exists("$className\$$parameter", $this->documentation['shapes'][$type]['refs'] ?? [])) {
+            return $this->documentation['shapes'][$type]['refs']["$className\$$parameter"];
+        }
+
+        throw new \InvalidArgumentException(\sprintf('Missing documentation for %s::$%s of type %s', $className, $parameter, $type));
     }
 
     public function getShape(string $name): ?array

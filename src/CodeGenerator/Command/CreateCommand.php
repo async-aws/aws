@@ -59,7 +59,7 @@ class CreateCommand extends Command
             return 1;
         }
 
-        $definition = new ServiceDefinition(\json_decode(\file_get_contents($manifest['services'][$service]['source']), true));
+        $definition = new ServiceDefinition(\json_decode(\file_get_contents($manifest['services'][$service]['source']), true), \json_decode(\file_get_contents($manifest['services'][$service]['documentation']), true));
 
         $operationName = $input->getArgument('operation');
         if (null === $definition->getOperation($operationName)) {
