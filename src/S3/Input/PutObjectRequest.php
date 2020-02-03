@@ -11,7 +11,7 @@ class PutObjectRequest
      */
     private $ACL;
     /**
-     * @var string|null
+     * @var string|resource|\Closure|null
      */
     private $Body;
     /**
@@ -136,7 +136,7 @@ class PutObjectRequest
      *
      * @param array{
      *   ACL?: string,
-     *   Body?: string,
+     *   Body?: string|resource|\Closure,
      *   Bucket: string,
      *   CacheControl?: string,
      *   ContentDisposition?: string,
@@ -170,7 +170,6 @@ class PutObjectRequest
     public function __construct(array $input = [])
     {
         $this->ACL = $input['ACL'] ?? null;
-        $this->Body = $input['Body'] ?? null;
         $this->Bucket = $input['Bucket'] ?? null;
         $this->CacheControl = $input['CacheControl'] ?? null;
         $this->ContentDisposition = $input['ContentDisposition'] ?? null;
@@ -211,7 +210,7 @@ class PutObjectRequest
         return $this->ACL;
     }
 
-    public function getBody(): ?string
+    public function getBody()
     {
         return $this->Body;
     }
@@ -474,7 +473,7 @@ class PutObjectRequest
         return $this;
     }
 
-    public function setBody(?string $value): self
+    public function setBody($value): self
     {
         $this->Body = $value;
 
