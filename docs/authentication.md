@@ -32,6 +32,20 @@ $client = new AwsClient([
 
 > **NOTE**: When not defined, Async AWS will use the profile named `default`.
 
+The profile can refer to a [Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) and specify the
+source of another profile that contains the IAM user credentials with permission to use the role.
+
+```ini
+; ~/.aws/config:
+[profile user1]
+aws_access_key_id = AKIAIOSFODNN7EXAMPLE
+aws_secret_access_key = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+
+[profile marketing]
+role_arn = arn:aws:iam::123456789012:role/marketing
+source_profile = user1
+```
+
 AWS also store Credentials in the `config` file that should like.
 
 ```ini
@@ -102,6 +116,14 @@ $client = new AwsClient([
 ]);
 ```
 
+## Using EC2 Instance Metadata
+
+When you run code within an EC2 instance (or EKS, Lambda), Async Aws is able to fetch Credentials from the
+[Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) attached to the instance.
+
+When running a single application on the Server, this is the simplest way to grant permissions to the application. You
+have nothing to configure on the application, you only grant permissions on the Role attached to the instance.
+
 ## Precedence of Providers
 
 By default Async AWS uses a Provider that chain over all providers and uses the first provider in the chain that returns
@@ -112,3 +134,4 @@ The providers are currently chained in the following order:
 - [Hard-Coded Configuration](#using-hard-coded-configuration)
 - [Env Variables](#using-credentials-from-environment-variables)
 - [Credential and Configuration Files](#using-the-aws-credentials-file-and-credential-profiles)
+- [EC2 Instance Metadata](#using-ec2-instance-metadata)
