@@ -8,8 +8,23 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class GetCallerIdentityResponse extends Result
 {
+    /**
+     * The unique identifier of the calling entity. The exact value depends on the type of entity that is making the call.
+     * The values returned are those listed in the **aws:userid** column in the Principal table found on the **Policy
+     * Variables** reference page in the *IAM User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html#principaltable
+     */
     private $UserId;
+
+    /**
+     * The AWS account ID number of the account that owns or contains the calling entity.
+     */
     private $Account;
+
+    /**
+     * The AWS ARN associated with the calling entity.
+     */
     private $Arn;
 
     public function getAccount(): ?string

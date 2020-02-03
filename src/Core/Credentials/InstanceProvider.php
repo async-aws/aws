@@ -24,6 +24,7 @@ class InstanceProvider implements CredentialProvider
     private const ENDPOINT = 'http://169.254.169.254/latest/meta-data/iam/security-credentials';
 
     private $logger;
+
     private $httpClient;
 
     public function __construct(?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null)

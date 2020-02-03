@@ -5,10 +5,15 @@ namespace AsyncAws\S3\Input;
 class Grant
 {
     /**
+     * The person being granted permissions.
+     *
      * @var Grantee|null
      */
     private $Grantee;
+
     /**
+     * Specifies the permission given to the grantee.
+     *
      * @var string|null
      */
     private $Permission;

@@ -7,21 +7,30 @@ use AsyncAws\Core\Exception\InvalidArgument;
 class GetObjectAclRequest
 {
     /**
+     * The bucket name that contains the object for which to get the ACL information.
+     *
      * @required
      *
      * @var string|null
      */
     private $Bucket;
+
     /**
+     * The key of the object for which to get the ACL information.
+     *
      * @required
      *
      * @var string|null
      */
     private $Key;
+
     /**
+     * VersionId used to reference a specific version of the object.
+     *
      * @var string|null
      */
     private $VersionId;
+
     /**
      * @var string|null
      */

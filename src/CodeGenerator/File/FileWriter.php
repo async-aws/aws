@@ -15,6 +15,7 @@ use Nette\PhpGenerator\PhpNamespace;
 class FileWriter
 {
     private $printer;
+
     /**
      * @var string
      */

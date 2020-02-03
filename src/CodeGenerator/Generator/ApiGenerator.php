@@ -79,6 +79,10 @@ class ApiGenerator
 
         $class->removeMethod(\lcfirst($operation['name']));
         $method = $class->addMethod(\lcfirst($operation['name']));
+        if (null !== $documentation = $definition->getOperationDocumentation($operationName)) {
+            $method->addComment($this->parseDocumentation($documentation));
+        }
+
         if (isset($operation['documentationUrl'])) {
             $method->addComment('@see ' . $operation['documentationUrl']);
         } elseif (null !== $prefix) {
@@ -130,6 +134,46 @@ class ApiGenerator
         $this->fileWriter->write($namespace);
     }
 
+    private function parseDocumentation(string $documentation, bool $singleLine = false): string
+    {
+        $s = \strtr($documentation, ['> <' => '><']);
+        $s = explode("\n", trim(\strtr($s, [
+            '<p>' => '',
+            '</p>' => "\n",
+        ])))[0];
+
+        $s = \strtr($s, [
+            '<code>' => '`',
+            '</code>' => '`',
+            '<i>' => '*',
+            '</i>' => '*',
+            '<b>' => '**',
+            '</b>' => '**',
+        ]);
+
+        \preg_match_all('/<a href="([^"]*)">/', $s, $matches);
+        $s = \preg_replace('/<a href="[^"]*">([^<]*)<\/a>/', '$1', $s);
+
+        $s = \strtr($s, [
+            '<a>' => '',
+            '</a>' => '',
+        ]);
+
+        if (false !== \strpos($s, '<')) {
+            throw new \InvalidArgumentException('remaining HTML code in documentation: ' . $s);
+        }
+
+        if (!$singleLine) {
+            $s = wordwrap($s, 117);
+            $s .= "\n";
+            foreach ($matches[1] as $link) {
+                $s .= "\n@see $link";
+            }
+        }
+
+        return $s;
+    }
+
     private function doGenerateResultClass(string $baseNamespace, string $className, bool $root = false, ?bool $useTrait = null, ?string $operationName = null): void
     {
         $inputShape = $this->definition->getShape($className);
@@ -155,7 +199,7 @@ class ApiGenerator
             $this->resultClassAddNamedConstructor($baseNamespace, $inputShape, $class);
         }
 
-        $this->resultClassAddProperties($baseNamespace, $root, $inputShape, $class, $namespace);
+        $this->resultClassAddProperties($baseNamespace, $root, $inputShape, $className, $class, $namespace);
 
         $this->fileWriter->write($namespace);
     }
@@ -167,6 +211,7 @@ class ApiGenerator
     {
         $operation = $this->definition->getOperation($operationName);
         $shapes = $this->definition->getShapes();
+        $documentations = $this->definition->getShapesDocumentation();
         $inputShape = $shapes[$className] ?? [];
         $members = $inputShape['members'];
 
@@ -194,7 +239,7 @@ PHP
         $requiredProperties = [];
 
         foreach ($members as $name => $data) {
-            $parameterType = $members[$name]['shape'];
+            $parameterType = $data['shape'];
             $memberShape = $shapes[$parameterType];
             $nullable = true;
             if ('structure' === $memberShape['type']) {
@@ -232,6 +277,10 @@ PHP
             }
 
             $property = $class->addProperty($name)->setPrivate();
+            if (null !== $propertyDocumentation = $this->definition->getParameterDocumentation($className, $name, $data['shape'])) {
+                $property->addComment($this->parseDocumentation($propertyDocumentation));
+            }
+
             if (\in_array($name, $shapes[$className]['required'] ?? [])) {
                 $requiredProperties[] = $name;
                 $property->addComment('@required');
@@ -599,12 +648,16 @@ PHP
     /**
      * Add properties and getters.
      */
-    private function resultClassAddProperties(string $baseNamespace, bool $root, ?array $inputShape, ClassType $class, PhpNamespace $namespace): void
+    private function resultClassAddProperties(string $baseNamespace, bool $root, ?array $inputShape, string $className, ClassType $class, PhpNamespace $namespace): void
     {
         $members = $inputShape['members'];
         foreach ($members as $name => $data) {
             $nullable = $returnType = null;
             $property = $class->addProperty($name)->setPrivate();
+            if (null !== $propertyDocumentation = $this->definition->getParameterDocumentation($className, $name, $data['shape'])) {
+                $property->addComment($this->parseDocumentation($propertyDocumentation));
+            }
+
             $parameterType = $members[$name]['shape'];
             $memberShape = $this->definition->getShape($parameterType);
 

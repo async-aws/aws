@@ -14,8 +14,11 @@ use AsyncAws\Core\Configuration;
 class Credentials implements CredentialProvider
 {
     private $accessKeyId;
+
     private $secretKey;
+
     private $sessionToken;
+
     private $expireDate;
 
     public function __construct(

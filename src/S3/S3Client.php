@@ -26,6 +26,8 @@ use AsyncAws\S3\Result\PutObjectOutput;
 class S3Client extends AbstractApi
 {
     /**
+     * Creates a copy of an object that is already stored in Amazon S3.
+     *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectCOPY.html
      *
      * @param array{
@@ -84,6 +86,10 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * Creates a new bucket. To create a bucket, you must register with Amazon S3 and have a valid AWS Access Key ID to
+     * authenticate requests. Anonymous requests are never allowed to create buckets. By creating the bucket, you become the
+     * bucket owner.
+     *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
      *
      * @param array{
@@ -116,6 +122,9 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * Removes the null version (if there is one) of an object and inserts a delete marker, which becomes the latest version
+     * of the object. If there isn't a null version, Amazon S3 does not remove any objects.
+     *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectDELETE.html
      *
      * @param array{
@@ -143,6 +152,9 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * Retrieves objects from Amazon S3. To use `GET`, you must have `READ` access to the object. If you grant `READ` access
+     * to the anonymous user, you can return the object without using an authorization header.
+     *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGET.html
      *
      * @param array{
@@ -183,6 +195,9 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * Returns the access control list (ACL) of an object. To use this operation, you must have READ_ACP access to the
+     * object.
+     *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGETacl.html
      *
      * @param array{
@@ -208,6 +223,9 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * The HEAD operation retrieves metadata from an object without returning the object itself. This operation is useful if
+     * you're only interested in an object's metadata. To use HEAD, you must have READ access to the object.
+     *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectHEAD.html
      *
      * @param array{
@@ -242,6 +260,10 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * Returns some or all (up to 1,000) of the objects in a bucket. You can use the request parameters as selection
+     * criteria to return a subset of the objects in a bucket. A 200 OK response can contain valid or invalid XML. Be sure
+     * to design your application to parse the contents of the response and handle it appropriately.
+     *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGET.html
      *
      * @param array{
@@ -270,6 +292,8 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * Adds an object to a bucket. You must have WRITE permissions on a bucket to add an object to it.
+     *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
      *
      * @param array{
@@ -321,6 +345,9 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * Uses the `acl` subresource to set the access control list (ACL) permissions for an object that already exists in a
+     * bucket. You must have `WRITE_ACP` permission to set the ACL of an object.
+     *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUTacl.html
      *
      * @param array{

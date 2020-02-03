@@ -4,9 +4,24 @@ namespace AsyncAws\Core\Sts\Result;
 
 class Credentials
 {
+    /**
+     * The access key ID that identifies the temporary security credentials.
+     */
     private $AccessKeyId;
+
+    /**
+     * The secret access key that can be used to sign requests.
+     */
     private $SecretAccessKey;
+
+    /**
+     * The token that users must pass to the service API to use the temporary credentials.
+     */
     private $SessionToken;
+
+    /**
+     * The date on which the current credentials expire.
+     */
     private $Expiration;
 
     /**

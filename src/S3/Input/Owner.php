@@ -5,10 +5,15 @@ namespace AsyncAws\S3\Input;
 class Owner
 {
     /**
+     * Container for the display name of the owner.
+     *
      * @var string|null
      */
     private $DisplayName;
+
     /**
+     * Container for the ID of the owner.
+     *
      * @var string|null
      */
     private $ID;

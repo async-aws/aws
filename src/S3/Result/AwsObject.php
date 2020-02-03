@@ -4,11 +4,35 @@ namespace AsyncAws\S3\Result;
 
 class AwsObject
 {
+    /**
+     * The name that you assign to an object. You use the object key to retrieve the object.
+     */
     private $Key;
+
+    /**
+     * The date the Object was Last Modified.
+     */
     private $LastModified;
+
+    /**
+     * The entity tag is an MD5 hash of the object. ETag reflects only changes to the contents of an object, not its
+     * metadata.
+     */
     private $ETag;
+
+    /**
+     * Size in bytes of the object.
+     */
     private $Size;
+
+    /**
+     * The class of storage used to store the object.
+     */
     private $StorageClass;
+
+    /**
+     * The owner of the object.
+     */
     private $Owner;
 
     /**

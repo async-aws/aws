@@ -70,7 +70,7 @@ return PhpCsFixer\Config::create()
         'single_quote' => true,
         'phpdoc_to_comment' => false,
         'ordered_class_elements' => ['sortAlgorithm'=>'none'],
-        'class_attributes_separation' => ['elements'=>['method']],
+        'class_attributes_separation' => ['elements'=>['property']],
         'array_indentation' => true,
     ])
     ->setFinder($finder)

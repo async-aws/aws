@@ -7,156 +7,279 @@ use AsyncAws\Core\Exception\InvalidArgument;
 class CopyObjectRequest
 {
     /**
+     * The canned ACL to apply to the object.
+     *
      * @var string|null
      */
     private $ACL;
+
     /**
+     * The name of the destination bucket.
+     *
      * @required
      *
      * @var string|null
      */
     private $Bucket;
+
     /**
+     * Specifies caching behavior along the request/reply chain.
+     *
      * @var string|null
      */
     private $CacheControl;
+
     /**
+     * Specifies presentational information for the object.
+     *
      * @var string|null
      */
     private $ContentDisposition;
+
     /**
+     * Specifies what content encodings have been applied to the object and thus what decoding mechanisms must be applied to
+     * obtain the media-type referenced by the Content-Type header field.
+     *
      * @var string|null
      */
     private $ContentEncoding;
+
     /**
+     * The language the content is in.
+     *
      * @var string|null
      */
     private $ContentLanguage;
+
     /**
+     * A standard MIME type describing the format of the object data.
+     *
      * @var string|null
      */
     private $ContentType;
+
     /**
+     * The name of the source bucket and key name of the source object, separated by a slash (/). Must be URL-encoded.
+     *
      * @required
      *
      * @var string|null
      */
     private $CopySource;
+
     /**
+     * Copies the object if its entity tag (ETag) matches the specified tag.
+     *
      * @var string|null
      */
     private $CopySourceIfMatch;
+
     /**
+     * Copies the object if it has been modified since the specified time.
+     *
      * @var \DateTimeImmutable|null
      */
     private $CopySourceIfModifiedSince;
+
     /**
+     * Copies the object if its entity tag (ETag) is different than the specified ETag.
+     *
      * @var string|null
      */
     private $CopySourceIfNoneMatch;
+
     /**
+     * Copies the object if it hasn't been modified since the specified time.
+     *
      * @var \DateTimeImmutable|null
      */
     private $CopySourceIfUnmodifiedSince;
+
     /**
+     * The date and time at which the object is no longer cacheable.
+     *
      * @var \DateTimeImmutable|null
      */
     private $Expires;
+
     /**
+     * Gives the grantee READ, READ_ACP, and WRITE_ACP permissions on the object.
+     *
      * @var string|null
      */
     private $GrantFullControl;
+
     /**
+     * Allows grantee to read the object data and its metadata.
+     *
      * @var string|null
      */
     private $GrantRead;
+
     /**
+     * Allows grantee to read the object ACL.
+     *
      * @var string|null
      */
     private $GrantReadACP;
+
     /**
+     * Allows grantee to write the ACL for the applicable object.
+     *
      * @var string|null
      */
     private $GrantWriteACP;
+
     /**
+     * The key of the destination object.
+     *
      * @required
      *
      * @var string|null
      */
     private $Key;
+
     /**
+     * A map of metadata to store with the object in S3.
+     *
      * @var array|null
      */
     private $Metadata;
+
     /**
+     * Specifies whether the metadata is copied from the source object or replaced with metadata provided in the request.
+     *
      * @var string|null
      */
     private $MetadataDirective;
+
     /**
+     * Specifies whether the object tag-set are copied from the source object or replaced with tag-set provided in the
+     * request.
+     *
      * @var string|null
      */
     private $TaggingDirective;
+
     /**
+     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
+     *
      * @var string|null
      */
     private $ServerSideEncryption;
+
     /**
+     * The type of storage to use for the object. Defaults to 'STANDARD'.
+     *
      * @var string|null
      */
     private $StorageClass;
+
     /**
+     * If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or
+     * to an external URL. Amazon S3 stores the value of this header in the object metadata.
+     *
      * @var string|null
      */
     private $WebsiteRedirectLocation;
+
     /**
+     * Specifies the algorithm to use to when encrypting the object (for example, AES256).
+     *
      * @var string|null
      */
     private $SSECustomerAlgorithm;
+
     /**
+     * Specifies the customer-provided encryption key for Amazon S3 to use in encrypting data. This value is used to store
+     * the object and then it is discarded; Amazon S3 does not store the encryption key. The key must be appropriate for use
+     * with the algorithm specified in the `x-amz-server-side​-encryption​-customer-algorithm` header.
+     *
      * @var string|null
      */
     private $SSECustomerKey;
+
     /**
+     * Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a
+     * message integrity check to ensure that the encryption key was transmitted without error.
+     *
      * @var string|null
      */
     private $SSECustomerKeyMD5;
+
     /**
+     * Specifies the AWS KMS key ID to use for object encryption. All GET and PUT requests for an object protected by AWS
+     * KMS will fail if not made via SSL or using SigV4. For information about configuring using any of the officially
+     * supported AWS SDKs and AWS CLI, see Specifying the Signature Version in Request Authentication in the *Amazon S3
+     * Developer Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version
+     *
      * @var string|null
      */
     private $SSEKMSKeyId;
+
     /**
+     * Specifies the AWS KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded
+     * UTF-8 string holding JSON with the encryption context key-value pairs.
+     *
      * @var string|null
      */
     private $SSEKMSEncryptionContext;
+
     /**
+     * Specifies the algorithm to use when decrypting the source object (for example, AES256).
+     *
      * @var string|null
      */
     private $CopySourceSSECustomerAlgorithm;
+
     /**
+     * Specifies the customer-provided encryption key for Amazon S3 to use to decrypt the source object. The encryption key
+     * provided in this header must be one that was used when the source object was created.
+     *
      * @var string|null
      */
     private $CopySourceSSECustomerKey;
+
     /**
+     * Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a
+     * message integrity check to ensure that the encryption key was transmitted without error.
+     *
      * @var string|null
      */
     private $CopySourceSSECustomerKeyMD5;
+
     /**
      * @var string|null
      */
     private $RequestPayer;
+
     /**
+     * The tag-set for the object destination object this value must be used in conjunction with the `TaggingDirective`. The
+     * tag-set must be encoded as URL Query parameters.
+     *
      * @var string|null
      */
     private $Tagging;
+
     /**
+     * The Object Lock mode that you want to apply to the copied object.
+     *
      * @var string|null
      */
     private $ObjectLockMode;
+
     /**
+     * The date and time when you want the copied object's Object Lock to expire.
+     *
      * @var \DateTimeImmutable|null
      */
     private $ObjectLockRetainUntilDate;
+
     /**
+     * Specifies whether you want to apply a Legal Hold to the copied object.
+     *
      * @var string|null
      */
     private $ObjectLockLegalHoldStatus;

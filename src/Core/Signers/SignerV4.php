@@ -39,6 +39,7 @@ class SignerV4 implements Signer
     private const ALGORITHM = 'AWS4-HMAC-SHA256';
 
     private $service;
+
     private $region;
 
     public function __construct(string $service, string $region)

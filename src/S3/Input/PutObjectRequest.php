@@ -7,126 +7,251 @@ use AsyncAws\Core\Exception\InvalidArgument;
 class PutObjectRequest
 {
     /**
+     * The canned ACL to apply to the object. For more information, see Canned ACL.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL
+     *
      * @var string|null
      */
     private $ACL;
+
     /**
+     * Object data.
+     *
      * @var string|resource|\Closure|null
      */
     private $Body;
+
     /**
+     * Bucket name to which the PUT operation was initiated.
+     *
      * @required
      *
      * @var string|null
      */
     private $Bucket;
+
     /**
+     * Can be used to specify caching behavior along the request/reply chain. For more information, see
+     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9.
+     *
+     * @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
+     *
      * @var string|null
      */
     private $CacheControl;
+
     /**
+     * Specifies presentational information for the object. For more information, see
+     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec19.html#sec19.5.1.
+     *
+     * @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec19.html#sec19.5.1
+     *
      * @var string|null
      */
     private $ContentDisposition;
+
     /**
+     * Specifies what content encodings have been applied to the object and thus what decoding mechanisms must be applied to
+     * obtain the media-type referenced by the Content-Type header field. For more information, see
+     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.11.
+     *
+     * @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.11
+     *
      * @var string|null
      */
     private $ContentEncoding;
+
     /**
+     * The language the content is in.
+     *
      * @var string|null
      */
     private $ContentLanguage;
+
     /**
+     * Size of the body in bytes. This parameter is useful when the size of the body cannot be determined automatically. For
+     * more information, see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13.
+     *
+     * @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13
+     *
      * @var string|null
      */
     private $ContentLength;
+
     /**
+     * The base64-encoded 128-bit MD5 digest of the message (without the headers) according to RFC 1864. This header can be
+     * used as a message integrity check to verify that the data is the same data that was originally sent. Although it is
+     * optional, we recommend using the Content-MD5 mechanism as an end-to-end integrity check. For more information about
+     * REST request authentication, see REST Authentication.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html
+     *
      * @var string|null
      */
     private $ContentMD5;
+
     /**
+     * A standard MIME type describing the format of the contents. For more information, see
+     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17.
+     *
+     * @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17
+     *
      * @var string|null
      */
     private $ContentType;
+
     /**
+     * The date and time at which the object is no longer cacheable. For more information, see
+     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.21.
+     *
+     * @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.21
+     *
      * @var \DateTimeImmutable|null
      */
     private $Expires;
+
     /**
+     * Gives the grantee READ, READ_ACP, and WRITE_ACP permissions on the object.
+     *
      * @var string|null
      */
     private $GrantFullControl;
+
     /**
+     * Allows grantee to read the object data and its metadata.
+     *
      * @var string|null
      */
     private $GrantRead;
+
     /**
+     * Allows grantee to read the object ACL.
+     *
      * @var string|null
      */
     private $GrantReadACP;
+
     /**
+     * Allows grantee to write the ACL for the applicable object.
+     *
      * @var string|null
      */
     private $GrantWriteACP;
+
     /**
+     * Object key for which the PUT operation was initiated.
+     *
      * @required
      *
      * @var string|null
      */
     private $Key;
+
     /**
+     * A map of metadata to store with the object in S3.
+     *
      * @var array|null
      */
     private $Metadata;
+
     /**
+     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
+     *
      * @var string|null
      */
     private $ServerSideEncryption;
+
     /**
+     * If you don't specify, Standard is the default storage class. Amazon S3 supports other storage classes.
+     *
      * @var string|null
      */
     private $StorageClass;
+
     /**
+     * If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or
+     * to an external URL. Amazon S3 stores the value of this header in the object metadata. For information about object
+     * metadata, see Object Key and Metadata.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html
+     *
      * @var string|null
      */
     private $WebsiteRedirectLocation;
+
     /**
+     * Specifies the algorithm to use to when encrypting the object (for example, AES256).
+     *
      * @var string|null
      */
     private $SSECustomerAlgorithm;
+
     /**
+     * Specifies the customer-provided encryption key for Amazon S3 to use in encrypting data. This value is used to store
+     * the object and then it is discarded; Amazon S3 does not store the encryption key. The key must be appropriate for use
+     * with the algorithm specified in the `x-amz-server-side​-encryption​-customer-algorithm` header.
+     *
      * @var string|null
      */
     private $SSECustomerKey;
+
     /**
+     * Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a
+     * message integrity check to ensure that the encryption key was transmitted without error.
+     *
      * @var string|null
      */
     private $SSECustomerKeyMD5;
+
     /**
+     * If `x-amz-server-side-encryption` is present and has the value of `aws:kms`, this header specifies the ID of the AWS
+     * Key Management Service (AWS KMS) symmetrical customer managed customer master key (CMK) that was used for the object.
+     *
      * @var string|null
      */
     private $SSEKMSKeyId;
+
     /**
+     * Specifies the AWS KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded
+     * UTF-8 string holding JSON with the encryption context key-value pairs.
+     *
      * @var string|null
      */
     private $SSEKMSEncryptionContext;
+
     /**
      * @var string|null
      */
     private $RequestPayer;
+
     /**
+     * The tag-set for the object. The tag-set must be encoded as URL Query parameters. (For example, "Key1=Value1").
+     *
      * @var string|null
      */
     private $Tagging;
+
     /**
+     * The Object Lock mode that you want to apply to this object.
+     *
      * @var string|null
      */
     private $ObjectLockMode;
+
     /**
+     * The date and time when you want this object's Object Lock to expire.
+     *
      * @var \DateTimeImmutable|null
      */
     private $ObjectLockRetainUntilDate;
+
     /**
+     * Specifies whether a legal hold will be applied to this object. For more information about S3 Object Lock, see Object
+     * Lock.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html
+     *
      * @var string|null
      */
     private $ObjectLockLegalHoldStatus;

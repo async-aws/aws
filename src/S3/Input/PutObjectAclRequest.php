@@ -7,54 +7,92 @@ use AsyncAws\Core\Exception\InvalidArgument;
 class PutObjectAclRequest
 {
     /**
+     * The canned ACL to apply to the object. For more information, see Canned ACL.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL
+     *
      * @var string|null
      */
     private $ACL;
+
     /**
+     * Contains the elements that set the ACL permissions for an object per grantee.
+     *
      * @var AccessControlPolicy|null
      */
     private $AccessControlPolicy;
+
     /**
+     * The bucket name that contains the object to which you want to attach the ACL.
+     *
      * @required
      *
      * @var string|null
      */
     private $Bucket;
+
     /**
+     * The base64-encoded 128-bit MD5 digest of the data. This header must be used as a message integrity check to verify
+     * that the request body was not corrupted in transit. For more information, go to RFC 1864.&gt;.
+     *
+     * @see http://www.ietf.org/rfc/rfc1864.txt
+     *
      * @var string|null
      */
     private $ContentMD5;
+
     /**
+     * Allows grantee the read, write, read ACP, and write ACP permissions on the bucket.
+     *
      * @var string|null
      */
     private $GrantFullControl;
+
     /**
+     * Allows grantee to list the objects in the bucket.
+     *
      * @var string|null
      */
     private $GrantRead;
+
     /**
+     * Allows grantee to read the bucket ACL.
+     *
      * @var string|null
      */
     private $GrantReadACP;
+
     /**
+     * Allows grantee to create, overwrite, and delete any object in the bucket.
+     *
      * @var string|null
      */
     private $GrantWrite;
+
     /**
+     * Allows grantee to write the ACL for the applicable bucket.
+     *
      * @var string|null
      */
     private $GrantWriteACP;
+
     /**
+     * Key for which the PUT operation was initiated.
+     *
      * @required
      *
      * @var string|null
      */
     private $Key;
+
     /**
      * @var string|null
      */
     private $RequestPayer;
+
     /**
+     * VersionId used to reference a specific version of the object.
+     *
      * @var string|null
      */
     private $VersionId;

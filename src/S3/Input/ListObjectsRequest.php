@@ -7,32 +7,52 @@ use AsyncAws\Core\Exception\InvalidArgument;
 class ListObjectsRequest
 {
     /**
+     * The name of the bucket containing the objects.
+     *
      * @required
      *
      * @var string|null
      */
     private $Bucket;
+
     /**
+     * A delimiter is a character you use to group keys.
+     *
      * @var string|null
      */
     private $Delimiter;
+
     /**
      * @var string|null
      */
     private $EncodingType;
+
     /**
+     * Specifies the key to start with when listing objects in a bucket.
+     *
      * @var string|null
      */
     private $Marker;
+
     /**
+     * Sets the maximum number of keys returned in the response. The response might contain fewer keys but will never
+     * contain more.
+     *
      * @var int|null
      */
     private $MaxKeys;
+
     /**
+     * Limits the response to keys that begin with the specified prefix.
+     *
      * @var string|null
      */
     private $Prefix;
+
     /**
+     * Confirms that the requester knows that she or he will be charged for the list objects request. Bucket owners need not
+     * specify this parameter in their requests.
+     *
      * @var string|null
      */
     private $RequestPayer;

@@ -4,10 +4,29 @@ namespace AsyncAws\S3\Result;
 
 class Grantee
 {
+    /**
+     * Screen name of the grantee.
+     */
     private $DisplayName;
+
+    /**
+     * Email address of the grantee.
+     */
     private $EmailAddress;
+
+    /**
+     * The canonical user ID of the grantee.
+     */
     private $ID;
+
+    /**
+     * Type of grantee.
+     */
     private $Type;
+
+    /**
+     * URI of the grantee group.
+     */
     private $URI;
 
     /**

@@ -7,12 +7,17 @@ use AsyncAws\Core\Exception\InvalidArgument;
 class Tag
 {
     /**
+     * The key for a session tag.
+     *
      * @required
      *
      * @var string|null
      */
     private $Key;
+
     /**
+     * The value for a session tag.
+     *
      * @required
      *
      * @var string|null

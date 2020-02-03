@@ -8,8 +8,16 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class GetObjectAclOutput extends Result
 {
+    /**
+     * Container for the bucket owner's display name and ID.
+     */
     private $Owner;
+
+    /**
+     * A list of grants.
+     */
     private $Grants = [];
+
     private $RequestCharged;
 
     /**

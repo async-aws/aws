@@ -7,24 +7,38 @@ use AsyncAws\Core\Exception\InvalidArgument;
 class Grantee
 {
     /**
+     * Screen name of the grantee.
+     *
      * @var string|null
      */
     private $DisplayName;
+
     /**
+     * Email address of the grantee.
+     *
      * @var string|null
      */
     private $EmailAddress;
+
     /**
+     * The canonical user ID of the grantee.
+     *
      * @var string|null
      */
     private $ID;
+
     /**
+     * Type of grantee.
+     *
      * @required
      *
      * @var string|null
      */
     private $Type;
+
     /**
+     * URI of the grantee group.
+     *
      * @var string|null
      */
     private $URI;
