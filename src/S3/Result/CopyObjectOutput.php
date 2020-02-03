@@ -146,8 +146,8 @@ class CopyObjectOutput extends Result
         $data = new \SimpleXMLElement($response->getContent(false));
 
         $this->CopyObjectResult = new CopyObjectResult([
-            'ETag' => $this->xmlValueOrNull($data->ETag, 'string'),
-            'LastModified' => $this->xmlValueOrNull($data->LastModified, '\DateTimeImmutable'),
+            'ETag' => $this->xmlValueOrNull($data->CopyObjectResult->ETag, 'string'),
+            'LastModified' => $this->xmlValueOrNull($data->CopyObjectResult->LastModified, '\DateTimeImmutable'),
         ]);
     }
 }

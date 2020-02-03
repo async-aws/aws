@@ -56,14 +56,14 @@ class AssumeRoleResponse extends Result
         $data = $data->AssumeRoleResult;
 
         $this->Credentials = new Credentials([
-            'AccessKeyId' => $this->xmlValueOrNull($data->AccessKeyId, 'string'),
-            'SecretAccessKey' => $this->xmlValueOrNull($data->SecretAccessKey, 'string'),
-            'SessionToken' => $this->xmlValueOrNull($data->SessionToken, 'string'),
-            'Expiration' => $this->xmlValueOrNull($data->Expiration, '\DateTimeImmutable'),
+            'AccessKeyId' => $this->xmlValueOrNull($data->Credentials->AccessKeyId, 'string'),
+            'SecretAccessKey' => $this->xmlValueOrNull($data->Credentials->SecretAccessKey, 'string'),
+            'SessionToken' => $this->xmlValueOrNull($data->Credentials->SessionToken, 'string'),
+            'Expiration' => $this->xmlValueOrNull($data->Credentials->Expiration, '\DateTimeImmutable'),
         ]);
         $this->AssumedRoleUser = new AssumedRoleUser([
-            'AssumedRoleId' => $this->xmlValueOrNull($data->AssumedRoleId, 'string'),
-            'Arn' => $this->xmlValueOrNull($data->Arn, 'string'),
+            'AssumedRoleId' => $this->xmlValueOrNull($data->AssumedRoleUser->AssumedRoleId, 'string'),
+            'Arn' => $this->xmlValueOrNull($data->AssumedRoleUser->Arn, 'string'),
         ]);
         $this->PackedPolicySize = $this->xmlValueOrNull($data->PackedPolicySize, 'int');
     }
