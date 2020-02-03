@@ -219,6 +219,9 @@ PHP
                     $parameterType = $listItemShape['type'] . '[]';
                     $constructorBody .= sprintf('$this->%s = $input["%s"] ?? [];' . "\n", $name, $name);
                 }
+            } elseif ($data['streaming'] ?? false) {
+                $parameterType = 'string|resource|\Closure';
+                $returnType = null;
             } else {
                 $returnType = $parameterType = $this->toPhpType($memberShape['type']);
                 if ('\DateTimeImmutable' !== $parameterType) {
@@ -474,6 +477,8 @@ PHP;
                 } else {
                     $param = $type . '[]';
                 }
+            } elseif ($data['streaming'] ?? false) {
+                $param = 'string|resource|\Closure';
             } elseif ('timestamp' === $param) {
                 $param = '\DateTimeImmutable|string';
             } else {
