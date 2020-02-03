@@ -5,39 +5,30 @@
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/s3\/2006-03-01\/docs-2.json",
             "methods": {
                 "PutObject": {
-                    "generated": "2020-02-03T22:51:25+01:00",
                     "separate-result-trait": false
                 },
                 "CreateBucket": {
-                    "generated": "2020-02-03T22:51:25+01:00",
                     "separate-result-trait": false
                 },
                 "DeleteObject": {
-                    "generated": "2020-02-03T22:51:25+01:00",
                     "separate-result-trait": false
                 },
                 "HeadObject": {
-                    "generated": "2020-02-03T22:51:25+01:00",
                     "separate-result-trait": false
                 },
                 "CopyObject": {
-                    "generated": "2020-02-03T22:51:25+01:00",
                     "separate-result-trait": false
                 },
                 "GetObject": {
-                    "generated": "2020-02-03T22:51:25+01:00",
                     "separate-result-trait": false
                 },
                 "PutObjectAcl": {
-                    "generated": "2020-02-03T22:51:25+01:00",
                     "separate-result-trait": false
                 },
                 "GetObjectAcl": {
-                    "generated": "2020-02-03T22:51:25+01:00",
                     "separate-result-trait": false
                 },
                 "ListObjects": {
-                    "generated": "2020-02-03T22:51:25+01:00",
                     "separate-result-trait": false
                 }
             }
@@ -52,7 +43,6 @@
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sqs\/2012-11-05\/docs-2.json",
             "methods": {
                 "SendMessage": {
-                    "generated": "2020-02-03T22:51:26+01:00",
                     "separate-result-trait": false
                 }
             }
@@ -63,11 +53,9 @@
             "namespace": "AsyncAws\\Core\\Sts",
             "methods": {
                 "GetCallerIdentity": {
-                    "generated": "2020-02-03T22:51:26+01:00",
                     "separate-result-trait": false
                 },
                 "AssumeRole": {
-                    "generated": "2020-02-03T22:51:26+01:00",
                     "separate-result-trait": false
                 }
             }
