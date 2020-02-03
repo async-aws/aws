@@ -41,7 +41,7 @@ class RegenerateCommand extends Command
         $this->setAliases(['update']);
         $this->setDescription('Regenerate or update a API client method.');
         $this->setDefinition([
-            new InputArgument('service', InputArgument::REQUIRED),
+            new InputArgument('service', InputArgument::OPTIONAL),
             new InputArgument('operation', InputArgument::OPTIONAL),
             new InputOption('all', null, InputOption::VALUE_NONE, 'Regenerate all operation in the service'),
         ]);
@@ -51,42 +51,100 @@ class RegenerateCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
+        $progressService = (new SymfonyStyle($input, $output->section()))->createProgressBar();
+        $progressService->setFormat(' %current%/%max% [%bar%] %message%');
+        $progressService->setMessage('Service');
+
+        $progressOperation = (new SymfonyStyle($input, $output->section()))->createProgressBar();
+        $progressOperation->setFormat(' %current%/%max% [%bar%] %message%');
+        $progressOperation->setMessage('Operation');
+
         $manifest = \json_decode(\file_get_contents($this->manifestFile), true);
-        if (!isset($manifest['services'][$service = $input->getArgument('service')])) {
-            $io->error(\sprintf('Service "%s" does not exist in manifest.json', $service));
-
-            return 1;
+        $serviceNames = $this->getServiceNames($input, $io, $manifest['services']);
+        if (\is_int($serviceNames)) {
+            return $serviceNames;
         }
 
-        $definitionArray = \json_decode(\file_get_contents($manifest['services'][$service]['source']), true);
-        $operationNames = $this->getOperationNames($input, $io, $definitionArray, $manifest['services'][$service]);
-        if (\is_int($operationNames)) {
-            return $operationNames;
+        $drawProgressService = \count($serviceNames) > 1;
+        $drawProgressService and $progressService->start(\count($serviceNames));
+        $operationCounter = 0;
+        foreach ($serviceNames as $serviceName) {
+            if ($drawProgressService) {
+                $progressService->advance();
+                $progressService->setMessage($serviceName);
+            }
+
+            $definitionArray = \json_decode(\file_get_contents($manifest['services'][$serviceName]['source']), true);
+            $operationNames = $this->getOperationNames($input, $io, $definitionArray, $manifest['services'][$serviceName]);
+            if (\is_int($operationNames)) {
+                return $operationNames;
+            }
+
+            $drawProgressOperation = \count($serviceNames) > 1 || \count($operationNames) > 1;
+            if ($drawProgressOperation) {
+                $progressOperation->start(\count($operationNames));
+            }
+
+            $definition = new ServiceDefinition($definitionArray);
+            $baseNamespace = $manifest['services'][$serviceName]['namespace'] ?? \sprintf('AsyncAws\\%s', $serviceName);
+            $resultNamespace = $baseNamespace . '\\Result';
+
+            foreach ($operationNames as $operationName) {
+                if ($drawProgressOperation) {
+                    $progressOperation->advance();
+                    $progressOperation->setMessage($operationName);
+                }
+
+                $operation = $definition->getOperation($operationName);
+                $operationConfig = $this->getOperationConfig($manifest, $serviceName, $operationName);
+                $resultClassName = $operation['output']['shape'];
+
+                if ($operationConfig['generate-method']) {
+                    $this->generator->generateOperation($definition, $operationName, $serviceName, $baseNamespace);
+                }
+
+                if ($operationConfig['generate-result']) {
+                    $this->generator->generateResultClass($definition, $operationName, $resultNamespace, $resultClassName, true, $operationConfig['separate-result-trait']);
+                }
+
+                // Update manifest file
+                $manifest['services'][$serviceName]['methods'][$operationName]['generated'] = \date('c');
+                \file_put_contents($this->manifestFile, \json_encode($manifest, \JSON_PRETTY_PRINT));
+                ++$operationCounter;
+            }
         }
 
-        $definition = new ServiceDefinition($definitionArray);
-        $baseNamespace = $manifest['services'][$service]['namespace'] ?? \sprintf('AsyncAws\\%s', $service);
-        $resultNamespace = $baseNamespace . '\\Result';
-
-        foreach ($operationNames as $operationName) {
-            $operation = $definition->getOperation($operationName);
-            $operationConfig = $this->getOperationConfig($manifest, $service, $operationName);
-            $resultClassName = $operation['output']['shape'];
-
-            if ($operationConfig['generate-method']) {
-                $this->generator->generateOperation($definition, $operationName, $service, $baseNamespace);
-            }
-
-            if ($operationConfig['generate-result']) {
-                $this->generator->generateResultClass($definition, $operationName, $resultNamespace, $resultClassName, true, $operationConfig['separate-result-trait']);
-            }
-
-            // Update manifest file
-            $manifest['services'][$service]['methods'][$operationName]['generated'] = \date('c');
-            \file_put_contents($this->manifestFile, \json_encode($manifest, \JSON_PRETTY_PRINT));
+        if ($operationCounter > 1) {
+            $io->success($operationCounter . ' operations regenerated');
+        } else {
+            $io->success('Operation regenerated');
         }
 
         return 0;
+    }
+
+    /**
+     * @return array|int
+     */
+    private function getServiceNames(InputInterface $input, SymfonyStyle $io, array $manifest)
+    {
+        if ($serviceName = $input->getArgument('service')) {
+            if (!isset($manifest[$serviceName])) {
+                $io->error(\sprintf('Could not find service named "%s".', $serviceName));
+
+                return 1;
+            }
+
+            return [$serviceName];
+        }
+
+        if ($input->getOption('all')) {
+            return array_keys($manifest);
+        }
+
+        $io->error('You must specify an service or use option "--all"');
+
+        return 1;
     }
 
     /**
@@ -118,7 +176,7 @@ class RegenerateCommand extends Command
         }
 
         if ($input->getOption('all')) {
-            return array_keys($manifest['methods']);
+            return array_keys($manifest['methods'] ?? []);
         }
 
         $io->error('You must specify an operation or use option "--all"');
