@@ -18,9 +18,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class RegenerateCommand extends Command
+class GenerateCommand extends Command
 {
-    protected static $defaultName = 'regenerate';
+    protected static $defaultName = 'generate';
 
     /**
      * @var string
@@ -39,11 +39,11 @@ class RegenerateCommand extends Command
     protected function configure()
     {
         $this->setAliases(['update']);
-        $this->setDescription('Regenerate or update a API client method.');
+        $this->setDescription('Create or update API client methods.');
         $this->setDefinition([
             new InputArgument('service', InputArgument::OPTIONAL),
             new InputArgument('operation', InputArgument::OPTIONAL),
-            new InputOption('all', null, InputOption::VALUE_NONE, 'Regenerate all operation in the service'),
+            new InputOption('all', null, InputOption::VALUE_NONE, 'Update all operations'),
         ]);
     }
 
@@ -110,17 +110,20 @@ class RegenerateCommand extends Command
                 }
 
                 // Update manifest file
-                $manifest['services'][$serviceName]['methods'][$operationName]['generated'] = \date('c');
+                if (!isset($manifest['services'][$serviceName]['methods'][$operationName])) {
+                    $manifest['services'][$serviceName]['methods'][$operationName] = [];
+                }
                 \file_put_contents($this->manifestFile, \json_encode($manifest, \JSON_PRETTY_PRINT));
                 ++$operationCounter;
             }
         }
 
         if ($operationCounter > 1) {
-            $io->success($operationCounter . ' operations regenerated');
+            $io->success($operationCounter . ' operations generated');
         } else {
-            $io->success('Operation regenerated');
+            $io->success('Operation generated');
         }
+        $io->note('Don\' forget to run clean the generated code:' . "\n" . 'php-cs-fixer fix ./src');
 
         return 0;
     }
@@ -167,11 +170,11 @@ class RegenerateCommand extends Command
                 return 1;
             }
 
-            $lastGenerated = $manifest['methods'][$operationName]['generated'] ?? null;
-            if (null === $lastGenerated) {
-                $io->error(\sprintf('Operation named "%s" has never been generated.', $operationName));
-
-                return 1;
+            if (!isset($manifest['methods'][$operationName])) {
+                $io->warning(\sprintf('Operation named "%s" has never been generated.', $operationName));
+                if (!$io->confirm('Do you want adding it?', true)) {
+                    return 1;
+                }
             }
 
             return [$operationName];
@@ -196,7 +199,7 @@ class RegenerateCommand extends Command
 
         return array_merge(
             $default,
-            $manifest['services'][$service]['methods'][$operationName]
+            $manifest['services'][$service]['methods'][$operationName] ?? []
         );
     }
 }
