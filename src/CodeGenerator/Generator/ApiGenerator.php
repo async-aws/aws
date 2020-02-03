@@ -173,6 +173,8 @@ class ApiGenerator
         // Add named constructor
         $class->addMethod('create')->setStatic(true)->setReturnType('self')->setBody(
             <<<PHP
+
+$e=2;
 return \$input instanceof self ? \$input : new self(\$input);
 PHP
         )->addParameter('input');
