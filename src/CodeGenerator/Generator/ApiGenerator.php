@@ -417,6 +417,9 @@ PHP;
         // Assert: $shape['type'] === 'structure'
         $safeRootObjectShape = $this->safeClassName($rootObjectShape);
         $body = "new $safeRootObjectShape([\n";
+        if ($rootObjectName) {
+            $prefix .= "->$rootObjectName";
+        }
         foreach ($shape['members'] as $name => $memberData) {
             $memberShape = $this->definition->getShape($memberData['shape']);
             if ('structure' === $memberShape['type']) {

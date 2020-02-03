@@ -52,8 +52,8 @@ class GetObjectAclOutput extends Result
 
         $data = new \SimpleXMLElement($response->getContent(false));
         $this->Owner = new Owner([
-            'DisplayName' => $this->xmlValueOrNull($data->DisplayName, 'string'),
-            'ID' => $this->xmlValueOrNull($data->ID, 'string'),
+            'DisplayName' => $this->xmlValueOrNull($data->Owner->DisplayName, 'string'),
+            'ID' => $this->xmlValueOrNull($data->Owner->ID, 'string'),
         ]);
         $this->Grants = [];
         foreach ($data->Grants as $item) {
