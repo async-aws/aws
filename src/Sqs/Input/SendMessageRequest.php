@@ -7,34 +7,59 @@ use AsyncAws\Core\Exception\InvalidArgument;
 class SendMessageRequest
 {
     /**
+     * The URL of the Amazon SQS queue to which a message is sent.
+     *
      * @required
      *
      * @var string|null
      */
     private $QueueUrl;
+
     /**
+     * The message to send. The maximum string size is 256 KB.
+     *
      * @required
      *
      * @var string|null
      */
     private $MessageBody;
+
     /**
+     * The length of time, in seconds, for which to delay a specific message. Valid values: 0 to 900. Maximum: 15 minutes.
+     * Messages with a positive `DelaySeconds` value become available for processing after the delay period is finished. If
+     * you don't specify a value, the default value for the queue applies.
+     *
      * @var int|null
      */
     private $DelaySeconds;
+
     /**
+     * Each message attribute consists of a `Name`, `Type`, and `Value`. For more information, see Amazon SQS Message
+     * Attributes in the *Amazon Simple Queue Service Developer Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-attributes.html
+     *
      * @var array|null
      */
     private $MessageAttributes;
+
     /**
+     * The message system attribute to send. Each message system attribute consists of a `Name`, `Type`, and `Value`.
+     *
      * @var array|null
      */
     private $MessageSystemAttributes;
+
     /**
+     * This parameter applies only to FIFO (first-in-first-out) queues.
+     *
      * @var string|null
      */
     private $MessageDeduplicationId;
+
     /**
+     * This parameter applies only to FIFO (first-in-first-out) queues.
+     *
      * @var string|null
      */
     private $MessageGroupId;

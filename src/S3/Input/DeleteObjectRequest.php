@@ -7,30 +7,47 @@ use AsyncAws\Core\Exception\InvalidArgument;
 class DeleteObjectRequest
 {
     /**
+     * The bucket name of the bucket containing the object.
+     *
      * @required
      *
      * @var string|null
      */
     private $Bucket;
+
     /**
+     * Key name of the object to delete.
+     *
      * @required
      *
      * @var string|null
      */
     private $Key;
+
     /**
+     * The concatenation of the authentication device's serial number, a space, and the value that is displayed on your
+     * authentication device. Required to permanently delete a versioned object if versioning is configured with MFA delete
+     * enabled.
+     *
      * @var string|null
      */
     private $MFA;
+
     /**
+     * VersionId used to reference a specific version of the object.
+     *
      * @var string|null
      */
     private $VersionId;
+
     /**
      * @var string|null
      */
     private $RequestPayer;
+
     /**
+     * Indicates whether S3 Object Lock should bypass Governance-mode restrictions to process this operation.
+     *
      * @var bool|null
      */
     private $BypassGovernanceRetention;

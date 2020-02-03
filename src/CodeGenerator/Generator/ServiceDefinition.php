@@ -12,6 +12,7 @@ namespace AsyncAws\CodeGenerator\Generator;
 class ServiceDefinition
 {
     private $definition;
+
     private $documentation;
 
     public function __construct(array $definition, array $documentation)

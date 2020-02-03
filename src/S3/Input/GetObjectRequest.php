@@ -7,82 +7,146 @@ use AsyncAws\Core\Exception\InvalidArgument;
 class GetObjectRequest
 {
     /**
+     * The bucket name containing the object.
+     *
      * @required
      *
      * @var string|null
      */
     private $Bucket;
+
     /**
+     * Return the object only if its entity tag (ETag) is the same as the one specified, otherwise return a 412
+     * (precondition failed).
+     *
      * @var string|null
      */
     private $IfMatch;
+
     /**
+     * Return the object only if it has been modified since the specified time, otherwise return a 304 (not modified).
+     *
      * @var \DateTimeImmutable|null
      */
     private $IfModifiedSince;
+
     /**
+     * Return the object only if its entity tag (ETag) is different from the one specified, otherwise return a 304 (not
+     * modified).
+     *
      * @var string|null
      */
     private $IfNoneMatch;
+
     /**
+     * Return the object only if it has not been modified since the specified time, otherwise return a 412 (precondition
+     * failed).
+     *
      * @var \DateTimeImmutable|null
      */
     private $IfUnmodifiedSince;
+
     /**
+     * Key of the object to get.
+     *
      * @required
      *
      * @var string|null
      */
     private $Key;
+
     /**
+     * Downloads the specified range bytes of an object. For more information about the HTTP Range header, see
+     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35.
+     *
+     * @see
+     *
      * @var string|null
      */
     private $Range;
+
     /**
+     * Sets the `Cache-Control` header of the response.
+     *
      * @var string|null
      */
     private $ResponseCacheControl;
+
     /**
+     * Sets the `Content-Disposition` header of the response.
+     *
      * @var string|null
      */
     private $ResponseContentDisposition;
+
     /**
+     * Sets the `Content-Encoding` header of the response.
+     *
      * @var string|null
      */
     private $ResponseContentEncoding;
+
     /**
+     * Sets the `Content-Language` header of the response.
+     *
      * @var string|null
      */
     private $ResponseContentLanguage;
+
     /**
+     * Sets the `Content-Type` header of the response.
+     *
      * @var string|null
      */
     private $ResponseContentType;
+
     /**
+     * Sets the `Expires` header of the response.
+     *
      * @var \DateTimeImmutable|null
      */
     private $ResponseExpires;
+
     /**
+     * VersionId used to reference a specific version of the object.
+     *
      * @var string|null
      */
     private $VersionId;
+
     /**
+     * Specifies the algorithm to use to when encrypting the object (for example, AES256).
+     *
      * @var string|null
      */
     private $SSECustomerAlgorithm;
+
     /**
+     * Specifies the customer-provided encryption key for Amazon S3 to use in encrypting data. This value is used to store
+     * the object and then it is discarded; Amazon S3 does not store the encryption key. The key must be appropriate for use
+     * with the algorithm specified in the `x-amz-server-side​-encryption​-customer-algorithm` header.
+     *
      * @var string|null
      */
     private $SSECustomerKey;
+
     /**
+     * Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a
+     * message integrity check to ensure that the encryption key was transmitted without error.
+     *
      * @var string|null
      */
     private $SSECustomerKeyMD5;
+
     /**
      * @var string|null
      */
     private $RequestPayer;
+
     /**
+     * Part number of the object being read. This is a positive integer between 1 and 10,000. Effectively performs a
+     * 'ranged' GET request for the part specified. Useful for downloading just a part of an object.
+     *
      * @var int|null
      */
     private $PartNumber;

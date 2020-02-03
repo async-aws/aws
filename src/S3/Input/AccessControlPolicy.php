@@ -5,10 +5,15 @@ namespace AsyncAws\S3\Input;
 class AccessControlPolicy
 {
     /**
+     * A list of grants.
+     *
      * @var Grant[]
      */
     private $Grants;
+
     /**
+     * Container for the bucket owner's display name and ID.
+     *
      * @var Owner|null
      */
     private $Owner;

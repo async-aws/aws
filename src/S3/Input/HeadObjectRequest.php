@@ -7,58 +7,105 @@ use AsyncAws\Core\Exception\InvalidArgument;
 class HeadObjectRequest
 {
     /**
+     * The name of the bucket containing the object.
+     *
      * @required
      *
      * @var string|null
      */
     private $Bucket;
+
     /**
+     * Return the object only if its entity tag (ETag) is the same as the one specified, otherwise return a 412
+     * (precondition failed).
+     *
      * @var string|null
      */
     private $IfMatch;
+
     /**
+     * Return the object only if it has been modified since the specified time, otherwise return a 304 (not modified).
+     *
      * @var \DateTimeImmutable|null
      */
     private $IfModifiedSince;
+
     /**
+     * Return the object only if its entity tag (ETag) is different from the one specified, otherwise return a 304 (not
+     * modified).
+     *
      * @var string|null
      */
     private $IfNoneMatch;
+
     /**
+     * Return the object only if it has not been modified since the specified time, otherwise return a 412 (precondition
+     * failed).
+     *
      * @var \DateTimeImmutable|null
      */
     private $IfUnmodifiedSince;
+
     /**
+     * The object key.
+     *
      * @required
      *
      * @var string|null
      */
     private $Key;
+
     /**
+     * Downloads the specified range bytes of an object. For more information about the HTTP Range header, see
+     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35.
+     *
+     * @see
+     *
      * @var string|null
      */
     private $Range;
+
     /**
+     * VersionId used to reference a specific version of the object.
+     *
      * @var string|null
      */
     private $VersionId;
+
     /**
+     * Specifies the algorithm to use to when encrypting the object (for example, AES256).
+     *
      * @var string|null
      */
     private $SSECustomerAlgorithm;
+
     /**
+     * Specifies the customer-provided encryption key for Amazon S3 to use in encrypting data. This value is used to store
+     * the object and then it is discarded; Amazon S3 does not store the encryption key. The key must be appropriate for use
+     * with the algorithm specified in the `x-amz-server-side​-encryption​-customer-algorithm` header.
+     *
      * @var string|null
      */
     private $SSECustomerKey;
+
     /**
+     * Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a
+     * message integrity check to ensure that the encryption key was transmitted without error.
+     *
      * @var string|null
      */
     private $SSECustomerKeyMD5;
+
     /**
      * @var string|null
      */
     private $RequestPayer;
+
     /**
+     * Part number of the object being read. This is a positive integer between 1 and 10,000. Effectively performs a
+     * 'ranged' HEAD request for the part specified. Useful querying about the size of the part and the number of parts in
+     * this object.
+     *
      * @var int|null
      */
     private $PartNumber;

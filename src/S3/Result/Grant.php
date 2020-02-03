@@ -4,7 +4,14 @@ namespace AsyncAws\S3\Result;
 
 class Grant
 {
+    /**
+     * The person being granted permissions.
+     */
     private $Grantee;
+
+    /**
+     * Specifies the permission given to the grantee.
+     */
     private $Permission;
 
     /**

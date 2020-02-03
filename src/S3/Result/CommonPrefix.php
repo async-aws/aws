@@ -4,6 +4,9 @@ namespace AsyncAws\S3\Result;
 
 class CommonPrefix
 {
+    /**
+     * Container for the specified common prefix.
+     */
     private $Prefix;
 
     /**

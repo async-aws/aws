@@ -10,8 +10,11 @@ namespace AsyncAws\Core\Signers;
 final class Request
 {
     private $method;
+
     private $url;
+
     private $headers;
+
     private $body;
 
     /**

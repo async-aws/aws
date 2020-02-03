@@ -25,6 +25,7 @@ use Nette\SmartObject;
 class ClassFactory
 {
     use SmartObject;
+
     private static $cache = [];
 
     public static function fromExistingClass(string $class): PhpNamespace

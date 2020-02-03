@@ -7,40 +7,66 @@ use AsyncAws\Core\Exception\InvalidArgument;
 class CreateBucketRequest
 {
     /**
+     * The canned ACL to apply to the bucket.
+     *
      * @var string|null
      */
     private $ACL;
+
     /**
+     * The name of the bucket to create.
+     *
      * @required
      *
      * @var string|null
      */
     private $Bucket;
+
     /**
+     * The configuration information for the bucket.
+     *
      * @var CreateBucketConfiguration|null
      */
     private $CreateBucketConfiguration;
+
     /**
+     * Allows grantee the read, write, read ACP, and write ACP permissions on the bucket.
+     *
      * @var string|null
      */
     private $GrantFullControl;
+
     /**
+     * Allows grantee to list the objects in the bucket.
+     *
      * @var string|null
      */
     private $GrantRead;
+
     /**
+     * Allows grantee to read the bucket ACL.
+     *
      * @var string|null
      */
     private $GrantReadACP;
+
     /**
+     * Allows grantee to create, overwrite, and delete any object in the bucket.
+     *
      * @var string|null
      */
     private $GrantWrite;
+
     /**
+     * Allows grantee to write the ACL for the applicable bucket.
+     *
      * @var string|null
      */
     private $GrantWriteACP;
+
     /**
+     * Specifies whether you want S3 Object Lock to be enabled for the new bucket.
+     *
      * @var bool|null
      */
     private $ObjectLockEnabledForBucket;

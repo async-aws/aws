@@ -4,7 +4,14 @@ namespace AsyncAws\S3\Result;
 
 class Owner
 {
+    /**
+     * Container for the display name of the owner.
+     */
     private $DisplayName;
+
+    /**
+     * Container for the ID of the owner.
+     */
     private $ID;
 
     /**
