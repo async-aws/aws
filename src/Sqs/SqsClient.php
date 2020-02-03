@@ -18,6 +18,8 @@ class SqsClient extends AbstractApi
     }
 
     /**
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#sendmessage
+     *
      * @param array{
      *   QueueUrl: string,
      *   MessageBody: string,

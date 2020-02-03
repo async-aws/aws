@@ -49,7 +49,7 @@ class ApiGenerator
         $inputShape = $definition->getShape($operation['input']['shape']) ?? [];
 
         $inputClassName = $operation['input']['shape'];
-        $this->generateInputClass($service, $definition->getApiVersion(), $operationName, $baseNamespace . '\\Input', $inputClassName, true);
+        $this->generateInputClass($service, $apiVersion = $definition->getApiVersion(), $operationName, $baseNamespace . '\\Input', $inputClassName, true);
 
         $namespace = ClassFactory::fromExistingClass(\sprintf('%s\\%sClient', $baseNamespace, $service));
         $safeClassName = $this->safeClassName($inputClassName);
@@ -66,7 +66,7 @@ class ApiGenerator
             $class->getMethod('getServiceCode')
                 ->setBody("return '$prefix';");
         }
-        if (null !== $version = $definition->getSignatureVersion()) {
+        if (null !== $signatureVersion = $definition->getSignatureVersion()) {
             if (!$class->hasMethod('getSignatureVersion')) {
                 $class->addMethod('getSignatureVersion')
                     ->setReturnType('string')
@@ -74,13 +74,15 @@ class ApiGenerator
                 ;
             }
             $class->getMethod('getSignatureVersion')
-                ->setBody("return '$version';");
+                ->setBody("return '$signatureVersion';");
         }
 
         $class->removeMethod(\lcfirst($operation['name']));
         $method = $class->addMethod(\lcfirst($operation['name']));
         if (isset($operation['documentationUrl'])) {
             $method->addComment('@see ' . $operation['documentationUrl']);
+        } elseif (null !== $prefix) {
+            $method->addComment('@see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-' . $prefix . '-' . $apiVersion . '.html#' . \strtolower($operation['name']));
         }
 
         $method->addComment('@param array{');
