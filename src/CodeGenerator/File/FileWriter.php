@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\File;
 
-use AsyncAws\Core\Exception\RuntimeException;
 use Nette\PhpGenerator\PhpNamespace;
 
 /**
@@ -40,7 +39,7 @@ class FileWriter
         $directory = \sprintf('%s/%s', $this->srcDirectory, str_replace('\\', '/', $fqcn));
         if (!is_dir($directory)) {
             if (false === mkdir($directory, 0777, true)) {
-                throw new RuntimeException(sprintf('Could not create directory "%s"', $directory));
+                throw new \RuntimeException(sprintf('Could not create directory "%s"', $directory));
             }
         }
 
