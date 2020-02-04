@@ -6,6 +6,11 @@ namespace AsyncAws\CodeGenerator\Command;
 
 use AsyncAws\CodeGenerator\Generator\ApiGenerator;
 use AsyncAws\CodeGenerator\Generator\ServiceDefinition;
+use PhpCsFixer\Config;
+use PhpCsFixer\Console\ConfigurationResolver;
+use PhpCsFixer\Error\ErrorsManager;
+use PhpCsFixer\Runner\Runner;
+use PhpCsFixer\ToolInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -44,6 +49,7 @@ class GenerateCommand extends Command
             new InputArgument('service', InputArgument::OPTIONAL),
             new InputArgument('operation', InputArgument::OPTIONAL),
             new InputOption('all', null, InputOption::VALUE_NONE, 'Update all operations'),
+            new InputOption('raw', 'r', InputOption::VALUE_NONE, 'Do not run php-cs-fixer. Option for debugging purpose.'),
         ]);
     }
 
@@ -86,20 +92,16 @@ class GenerateCommand extends Command
                 return $operationNames;
             }
 
-            $drawProgressOperation = \count($serviceNames) > 1 || \count($operationNames) > 1;
-            if ($drawProgressOperation) {
-                $progressOperation->start(\count($operationNames));
-            }
+            $progressOperation->start(\count($operationNames));
 
             $definition = new ServiceDefinition($definitionArray, $documentationArray);
             $baseNamespace = $manifest['services'][$serviceName]['namespace'] ?? \sprintf('AsyncAws\\%s', $serviceName);
             $resultNamespace = $baseNamespace . '\\Result';
 
             foreach ($operationNames as $operationName) {
-                if ($drawProgressOperation) {
-                    $progressOperation->setMessage($operationName);
-                    $progressOperation->advance();
-                }
+                $progressOperation->setMessage($operationName);
+                $progressOperation->advance();
+                $progressService->display();
 
                 $operation = $definition->getOperation($operationName);
                 $operationConfig = $this->getOperationConfig($manifest, $serviceName, $operationName);
@@ -120,6 +122,18 @@ class GenerateCommand extends Command
                 \file_put_contents($this->manifestFile, \json_encode($manifest, \JSON_PRETTY_PRINT));
                 ++$operationCounter;
             }
+
+            if (!$input->getOption('raw')) {
+                $progressOperation->setMessage('Fixing CS');
+                $progressOperation->display();
+                $this->fixCS($baseNamespace, $serviceName, $io);
+            }
+
+            $progressOperation->finish();
+        }
+
+        if ($drawProgressService) {
+            $progressService->finish();
         }
 
         if ($operationCounter > 1) {
@@ -127,7 +141,6 @@ class GenerateCommand extends Command
         } else {
             $io->success('Operation generated');
         }
-        $io->note('Don\' forget to run clean the generated code:' . "\n" . 'php-cs-fixer fix ./src');
 
         return 0;
     }
@@ -220,5 +233,51 @@ class GenerateCommand extends Command
             $default,
             $manifest['services'][$service]['methods'][$operationName] ?? []
         );
+    }
+
+    private function fixCs(string $baseNamespace, string $serviceName, SymfonyStyle $io): void
+    {
+        $reflection = new \ReflectionClass(\sprintf('%s\\%sClient', $baseNamespace, $serviceName));
+        $path = \dirname($reflection->getFileName());
+
+        // assert this
+        $baseDir = \dirname($this->manifestFile);
+        if (!\file_exists($baseDir . '/.php_cs')) {
+            $io->warning('Unable to run php-cs-fixer. Please define a .php_cs file alongside the manifest.json file');
+
+            return;
+        }
+
+        /** @var Config $config */
+        $resolver = new ConfigurationResolver(
+            new Config(),
+            [
+                'config' => $baseDir . '/.php_cs',
+                'allow-risky' => true,
+                'dry-run' => false,
+                'path' => [$path],
+                'path-mode' => 'override',
+                'using-cache' => true,
+                'cache-file' => $baseDir . '/.php_cs.cache',
+                'diff' => false,
+                'stop-on-violation' => false,
+            ],
+            $baseDir,
+            new ToolInfo()
+        );
+
+        $runner = new Runner(
+            $resolver->getFinder(),
+            $resolver->getFixers(),
+            $resolver->getDiffer(),
+            null,
+            new ErrorsManager(),
+            $resolver->getLinter(),
+            $resolver->isDryRun(),
+            $resolver->getCacheManager(),
+            $resolver->getDirectory(),
+            $resolver->shouldStopOnViolation()
+        );
+        $runner->fix();
     }
 }
