@@ -60,7 +60,7 @@ class GenerateCommand extends Command
         $progressOperation->setMessage('Operation');
 
         $manifest = \json_decode(\file_get_contents($this->manifestFile), true);
-        $serviceNames = $this->getServiceNames($input, $io, $manifest['services']);
+        $serviceNames = $this->getServiceNames($input->getArgument('service'), $input->getOption('all'), $io, $manifest['services']);
         if (\is_int($serviceNames)) {
             return $serviceNames;
         }
@@ -77,7 +77,11 @@ class GenerateCommand extends Command
 
             $definitionArray = \json_decode(\file_get_contents($manifest['services'][$serviceName]['source']), true);
             $documentationArray = \json_decode(\file_get_contents($manifest['services'][$serviceName]['documentation']), true);
-            $operationNames = $this->getOperationNames($input, $io, $definitionArray, $manifest['services'][$serviceName]);
+            if (\count($serviceNames) > 1) {
+                $operationNames = $this->getOperationNames(null, true, $io, $definitionArray, $manifest['services'][$serviceName]);
+            } else {
+                $operationNames = $this->getOperationNames($input->getArgument('operation'), $input->getOption('all'), $io, $definitionArray, $manifest['services'][$serviceName]);
+            }
             if (\is_int($operationNames)) {
                 return $operationNames;
             }
@@ -131,62 +135,77 @@ class GenerateCommand extends Command
     /**
      * @return array|int
      */
-    private function getServiceNames(InputInterface $input, SymfonyStyle $io, array $manifest)
+    private function getServiceNames(?string $inputServiceName, bool $returnAll, SymfonyStyle $io, array $manifest)
     {
-        if ($serviceName = $input->getArgument('service')) {
-            if (!isset($manifest[$serviceName])) {
-                $io->error(\sprintf('Could not find service named "%s".', $serviceName));
+        if ($inputServiceName) {
+            if (!isset($manifest[$inputServiceName])) {
+                $io->error(\sprintf('Could not find service named "%s".', $inputServiceName));
 
                 return 1;
             }
 
-            return [$serviceName];
+            return [$inputServiceName];
         }
 
-        if ($input->getOption('all')) {
-            return array_keys($manifest);
+        $services = array_keys($manifest);
+        if ($returnAll) {
+            return $services;
         }
 
-        $io->error('You must specify an service or use option "--all"');
+        $allServices = '<all services>';
+        $serviceName = $io->choice('Select the service to generate', \array_merge([$allServices], $services));
+        if ($serviceName === $allServices) {
+            return $services;
+        }
 
-        return 1;
+        return [$serviceName];
     }
 
     /**
      * @return array|int
      */
-    private function getOperationNames(InputInterface $input, SymfonyStyle $io, array $definition, array $manifest)
+    private function getOperationNames(?string $inputOperationName, bool $returnAll, SymfonyStyle $io, array $definition, array $manifest)
     {
-        if ($operationName = $input->getArgument('operation')) {
-            if ($input->getOption('all')) {
-                $io->error(\sprintf('Cannot use "--all" together with an operation. You passed "%s" as operation.', $operationName));
+        if ($inputOperationName) {
+            if ($returnAll) {
+                $io->error(\sprintf('Cannot use "--all" together with an operation. You passed "%s" as operation.', $inputOperationName));
 
                 return 1;
             }
 
-            if (!isset($definition['operations'][$operationName])) {
-                $io->error(\sprintf('Could not find operation named "%s".', $operationName));
+            if (!isset($definition['operations'][$inputOperationName])) {
+                $io->error(\sprintf('Could not find operation named "%s".', $inputOperationName));
 
                 return 1;
             }
 
-            if (!isset($manifest['methods'][$operationName])) {
-                $io->warning(\sprintf('Operation named "%s" has never been generated.', $operationName));
+            if (!isset($manifest['methods'][$inputOperationName])) {
+                $io->warning(\sprintf('Operation named "%s" has never been generated.', $inputOperationName));
                 if (!$io->confirm('Do you want adding it?', true)) {
                     return 1;
                 }
             }
 
-            return [$operationName];
+            return [$inputOperationName];
         }
 
-        if ($input->getOption('all')) {
-            return array_keys($manifest['methods'] ?? []);
+        $operations = array_keys($manifest['methods']);
+        if ($returnAll) {
+            return $operations;
         }
 
-        $io->error('You must specify an operation or use option "--all"');
+        $newOperation = '<new operation>';
+        $allOperations = '<all operation>';
 
-        return 1;
+        $operationName = $io->choice('Select the operation to generate', \array_merge([$allOperations, $newOperation], $operations));
+        if ($operationName === $allOperations) {
+            return $operations;
+        }
+        if ($operationName === $newOperation) {
+            return [$io->choice('Select the operation to generate', \array_keys($definition['operations']))];
+        }
+
+        return [$operationName];
     }
 
     private function getOperationConfig(array $manifest, string $service, string $operationName): array
