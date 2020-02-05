@@ -6,7 +6,6 @@ namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\Core\Exception\InvalidArgument;
-use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\StreamableBody;
 use AsyncAws\Core\XmlBuilder;
@@ -672,7 +671,7 @@ PHP
                 $mapKeyShape = $this->definition->getShape($memberShape['key']['shape']);
                 $mapValueShape = $this->definition->getShape($memberShape['value']['shape']);
                 if ('string' !== $mapKeyShape['type'] || 'string' !== $mapValueShape['type']) {
-                    throw new RuntimeException('Complex maps are not supported');
+                    throw new \RuntimeException('Complex maps are not supported');
                 }
                 $parameterType = 'array';
                 $nullable = false;
@@ -728,7 +727,6 @@ PHP
 
         // Parse headers
         $nonHeaders = [];
-        $headers = [];
         $body = '';
         foreach ($shape['members'] as $name => $member) {
             if (($member['location'] ?? null) !== 'header') {
@@ -736,7 +734,6 @@ PHP
 
                 continue;
             }
-            $headers[$name] = $member;
 
             $locationName = strtolower($member['locationName'] ?? $name);
             $memberShape = $this->definition->getShape($member['shape']);
