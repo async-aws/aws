@@ -29,7 +29,7 @@ class Credentials
      *   AccessKeyId: string,
      *   SecretAccessKey: string,
      *   SessionToken: string,
-     *   Expiration: \DateTimeImmutable|string,
+     *   Expiration: \DateTimeInterface|string,
      * } $input
      */
     public function __construct(array $input = [])

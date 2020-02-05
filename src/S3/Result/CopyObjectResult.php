@@ -18,7 +18,7 @@ class CopyObjectResult
     /**
      * @param array{
      *   ETag?: string,
-     *   LastModified?: \DateTimeImmutable|string,
+     *   LastModified?: \DateTimeInterface|string,
      * } $input
      */
     public function __construct(array $input = [])

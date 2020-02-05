@@ -272,7 +272,8 @@ PHP
                 if ('\DateTimeImmutable' !== $parameterType) {
                     $constructorBody .= sprintf('$this->%s = $input["%s"] ?? null;' . "\n", $name, $name);
                 } else {
-                    $constructorBody .= sprintf('$this->%s = !isset($input["%s"]) ? null : ($input["%s"] instanceof \DateTimeImmutable ? $input["%s"] : new \DateTimeImmutable($input["%s"]));' . "\n", $name, $name, $name, $name, $name);
+                    $constructorBody .= sprintf('$this->%s = !isset($input["%s"]) ? null : ($input["%s"] instanceof \DateTimeInterface ? $input["%s"] : new \DateTimeImmutable($input["%s"]));' . "\n", $name, $name, $name, $name, $name);
+                    $parameterType = $returnType = '\DateTimeInterface';
                 }
             }
 
@@ -532,7 +533,7 @@ PHP;
             } elseif ($data['streaming'] ?? false) {
                 $param = 'string|resource|\Closure';
             } elseif ('timestamp' === $param) {
-                $param = '\DateTimeImmutable|string';
+                $param = '\DateTimeInterface|string';
             } else {
                 $param = $this->toPhpType($param);
             }
