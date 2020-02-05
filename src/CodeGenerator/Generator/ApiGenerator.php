@@ -671,7 +671,7 @@ PHP
             } elseif ('map' === $memberShape['type']) {
                 $mapKeyShape = $this->definition->getShape($memberShape['key']['shape']);
                 $mapValueShape = $this->definition->getShape($memberShape['value']['shape']);
-                if ($mapKeyShape['type'] !== 'string' || $mapValueShape['type'] !== 'string') {
+                if ('string' !== $mapKeyShape['type'] || 'string' !== $mapValueShape['type']) {
                     throw new RuntimeException('Complex maps are not supported');
                 }
                 $parameterType = 'array';
@@ -751,7 +751,7 @@ PHP
 
             foreach ($headers as $headerName => $headerMember) {
                 $locationName = $headerMember['locationName'] ?? $headerName;
-                if (0===strpos($locationName, $member['locationName'])) {
+                if (0 === strpos($locationName, $member['locationName'])) {
                     $body .= "'$headerName' => \$headers['{$locationName}'] ?? null,\n";
                 }
             }
