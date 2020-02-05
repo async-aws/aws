@@ -719,6 +719,7 @@ PHP
 
         // Parse headers
         $nonHeaders = [];
+        $headers = [];
         $body = '';
         foreach ($shape['members'] as $name => $member) {
             if (($member['location'] ?? null) !== 'header') {
@@ -726,8 +727,25 @@ PHP
 
                 continue;
             }
+            $headers[$name] = $member;
+
             $locationName = $member['locationName'] ?? $name;
             $body .= "\$this->$name = \$headers['{$locationName}'];\n";
+        }
+
+        foreach ($nonHeaders as $name => $member) {
+            if (($member['location'] ?? null) !== 'headers') {
+                continue;
+            }
+
+            $body .= "\$this->$name = [\n";
+
+            foreach ($headers as $headerName => $headerMember) {
+                $locationName = $headerMember['locationName'] ?? $headerName;
+                $body .= "'$headerName' => \$headers['{$locationName}'],\n";
+            }
+
+            $body .="];\n";
         }
 
         $comment = '';

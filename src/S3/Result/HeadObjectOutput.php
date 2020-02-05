@@ -395,5 +395,34 @@ class HeadObjectOutput extends Result
         $this->ObjectLockMode = $headers['x-amz-object-lock-mode'];
         $this->ObjectLockRetainUntilDate = $headers['x-amz-object-lock-retain-until-date'];
         $this->ObjectLockLegalHoldStatus = $headers['x-amz-object-lock-legal-hold'];
+        $this->Metadata = [
+            'DeleteMarker' => $headers['x-amz-delete-marker'],
+            'AcceptRanges' => $headers['accept-ranges'],
+            'Expiration' => $headers['x-amz-expiration'],
+            'Restore' => $headers['x-amz-restore'],
+            'LastModified' => $headers['Last-Modified'],
+            'ContentLength' => $headers['Content-Length'],
+            'ETag' => $headers['ETag'],
+            'MissingMeta' => $headers['x-amz-missing-meta'],
+            'VersionId' => $headers['x-amz-version-id'],
+            'CacheControl' => $headers['Cache-Control'],
+            'ContentDisposition' => $headers['Content-Disposition'],
+            'ContentEncoding' => $headers['Content-Encoding'],
+            'ContentLanguage' => $headers['Content-Language'],
+            'ContentType' => $headers['Content-Type'],
+            'Expires' => $headers['Expires'],
+            'WebsiteRedirectLocation' => $headers['x-amz-website-redirect-location'],
+            'ServerSideEncryption' => $headers['x-amz-server-side-encryption'],
+            'SSECustomerAlgorithm' => $headers['x-amz-server-side-encryption-customer-algorithm'],
+            'SSECustomerKeyMD5' => $headers['x-amz-server-side-encryption-customer-key-MD5'],
+            'SSEKMSKeyId' => $headers['x-amz-server-side-encryption-aws-kms-key-id'],
+            'StorageClass' => $headers['x-amz-storage-class'],
+            'RequestCharged' => $headers['x-amz-request-charged'],
+            'ReplicationStatus' => $headers['x-amz-replication-status'],
+            'PartsCount' => $headers['x-amz-mp-parts-count'],
+            'ObjectLockMode' => $headers['x-amz-object-lock-mode'],
+            'ObjectLockRetainUntilDate' => $headers['x-amz-object-lock-retain-until-date'],
+            'ObjectLockLegalHoldStatus' => $headers['x-amz-object-lock-legal-hold'],
+        ];
     }
 }
