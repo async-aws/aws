@@ -4,33 +4,15 @@
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/s3\/2006-03-01\/api-2.json",
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/s3\/2006-03-01\/docs-2.json",
             "methods": {
-                "PutObject": {
-                    "separate-result-trait": false
-                },
-                "CreateBucket": {
-                    "separate-result-trait": false
-                },
-                "DeleteObject": {
-                    "separate-result-trait": false
-                },
-                "HeadObject": {
-                    "separate-result-trait": false
-                },
-                "CopyObject": {
-                    "separate-result-trait": false
-                },
-                "GetObject": {
-                    "separate-result-trait": false
-                },
-                "PutObjectAcl": {
-                    "separate-result-trait": false
-                },
-                "GetObjectAcl": {
-                    "separate-result-trait": false
-                },
-                "ListObjects": {
-                    "separate-result-trait": false
-                }
+                "PutObject": [],
+                "CreateBucket": [],
+                "DeleteObject": [],
+                "HeadObject": [],
+                "CopyObject": [],
+                "GetObject": [],
+                "PutObjectAcl": [],
+                "GetObjectAcl": [],
+                "ListObjects": []
             }
         },
         "Ses": {
@@ -42,9 +24,7 @@
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sqs\/2012-11-05\/api-2.json",
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sqs\/2012-11-05\/docs-2.json",
             "methods": {
-                "SendMessage": {
-                    "separate-result-trait": false
-                }
+                "SendMessage": []
             }
         },
         "Sts": {
@@ -52,12 +32,8 @@
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sts\/2011-06-15\/docs-2.json",
             "namespace": "AsyncAws\\Core\\Sts",
             "methods": {
-                "GetCallerIdentity": {
-                    "separate-result-trait": false
-                },
-                "AssumeRole": {
-                    "separate-result-trait": false
-                }
+                "GetCallerIdentity": [],
+                "AssumeRole": []
             }
         }
     }

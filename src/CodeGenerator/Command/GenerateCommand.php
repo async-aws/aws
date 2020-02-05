@@ -101,7 +101,7 @@ class GenerateCommand extends Command
             foreach ($operationNames as $operationName) {
                 $progressOperation->setMessage($operationName);
                 $progressOperation->advance();
-                $progressService->display();
+                $progressOperation->display();
 
                 $operation = $definition->getOperation($operationName);
                 $operationConfig = $this->getOperationConfig($manifest, $serviceName, $operationName);
@@ -225,7 +225,7 @@ class GenerateCommand extends Command
     {
         $default = [
             'generate-method' => true,
-            'separate-result-trait' => true,
+            'separate-result-trait' => false,
             'generate-result' => true,
         ];
 
