@@ -15,10 +15,13 @@ class ServiceDefinition
 
     private $documentation;
 
-    public function __construct(array $definition, array $documentation)
+    private $pagination;
+
+    public function __construct(array $definition, array $documentation, array $pagination)
     {
         $this->definition = $definition;
         $this->documentation = $documentation;
+        $this->pagination = $pagination;
     }
 
     public function getOperations(): array
@@ -34,6 +37,11 @@ class ServiceDefinition
     public function getOperationDocumentation(string $name): ?string
     {
         return $this->documentation['operations'][$name] ?? null;
+    }
+
+    public function getOperationPagination(string $name): ?array
+    {
+        return $this->pagination['pagination'][$name] ?? null;
     }
 
     public function getShapes(): array

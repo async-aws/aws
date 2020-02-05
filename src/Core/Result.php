@@ -118,11 +118,10 @@ class Result
 
     final protected function xmlValueOrNull(\SimpleXMLElement $xml, string $type)
     {
-        if (0 === $xml->count()) {
+        $value = $xml->__toString();
+        if (empty($value) && 0 === $xml->count()) {
             return null;
         }
-
-        $value = $xml->__toString();
 
         // Return the correct type
         switch ($type) {

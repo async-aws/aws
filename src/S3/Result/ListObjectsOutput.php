@@ -6,7 +6,7 @@ use AsyncAws\Core\Result;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-class ListObjectsOutput extends Result
+class ListObjectsOutput extends Result implements \IteratorAggregate
 {
     /**
      * A flag that indicates whether Amazon S3 returned all of the results that satisfied the search criteria.
@@ -65,23 +65,43 @@ class ListObjectsOutput extends Result
     private $EncodingType;
 
     /**
-     * @return CommonPrefix[]
+     * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.
+     *
+     * @return iterable<CommonPrefix>
      */
-    public function getCommonPrefixes(): array
+    public function getCommonPrefixes(bool $currentPageOnly = false): iterable
     {
         $this->initialize();
 
-        return $this->CommonPrefixes;
+        if ($currentPageOnly) {
+            return $this->CommonPrefixes;
+        }
+        while (true) {
+            yield from $this->CommonPrefixes;
+
+            // TODO load next results
+            break;
+        }
     }
 
     /**
-     * @return AwsObject[]
+     * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.
+     *
+     * @return iterable<AwsObject>
      */
-    public function getContents(): array
+    public function getContents(bool $currentPageOnly = false): iterable
     {
         $this->initialize();
 
-        return $this->Contents;
+        if ($currentPageOnly) {
+            return $this->Contents;
+        }
+        while (true) {
+            yield from $this->Contents;
+
+            // TODO load next results
+            break;
+        }
     }
 
     public function getDelimiter(): ?string
@@ -103,6 +123,24 @@ class ListObjectsOutput extends Result
         $this->initialize();
 
         return $this->IsTruncated;
+    }
+
+    /**
+     * Iterates over Contents then CommonPrefixes.
+     *
+     * @return \Traversable<AwsObject|CommonPrefix>
+     */
+    public function getIterator(): \Traversable
+    {
+        $this->initialize();
+
+        while (true) {
+            yield from $this->Contents;
+            yield from $this->CommonPrefixes;
+
+            // TODO load next results
+            break;
+        }
     }
 
     public function getMarker(): ?string

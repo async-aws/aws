@@ -3,6 +3,7 @@
         "S3": {
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/s3\/2006-03-01\/api-2.json",
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/s3\/2006-03-01\/docs-2.json",
+            "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/s3\/2006-03-01\/paginators-1.json",
             "methods": {
                 "PutObject": [],
                 "CreateBucket": [],
@@ -18,11 +19,13 @@
         "Ses": {
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sesv2\/2019-09-27\/api-2.json",
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sesv2\/2019-09-27\/docs-2.json",
+            "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sesv2\/2019-09-27\/paginators-1.json",
             "methods": []
         },
         "Sqs": {
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sqs\/2012-11-05\/api-2.json",
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sqs\/2012-11-05\/docs-2.json",
+            "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sqs\/2012-11-05\/paginators-1.json",
             "methods": {
                 "SendMessage": []
             }
@@ -30,6 +33,7 @@
         "Sts": {
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sts\/2011-06-15\/api-2.json",
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sts\/2011-06-15\/docs-2.json",
+            "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sts\/2011-06-15\/paginators-1.json",
             "namespace": "AsyncAws\\Core\\Sts",
             "methods": {
                 "GetCallerIdentity": [],

@@ -56,7 +56,7 @@ class GetObjectAclOutput extends Result
             'ID' => $this->xmlValueOrNull($data->Owner->ID, 'string'),
         ]);
         $this->Grants = [];
-        foreach ($data->Grants as $item) {
+        foreach ($data->Grant as $item) {
             $this->Grants[] = new Grant([
                 'Grantee' => new Grantee([
                     'DisplayName' => $this->xmlValueOrNull($item->Grantee->DisplayName, 'string'),
