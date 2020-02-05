@@ -368,21 +368,21 @@ class HeadObjectOutput extends Result
     {
         $headers = $response->getHeaders(false);
 
-        $this->DeleteMarker = $headers['x-amz-delete-marker'] ?? null;
+        $this->DeleteMarker = isset($headers['x-amz-delete-marker']) ? filter_var($headers['x-amz-delete-marker'], \FILTER_VALIDATE_BOOLEAN) : null;
         $this->AcceptRanges = $headers['accept-ranges'] ?? null;
         $this->Expiration = $headers['x-amz-expiration'] ?? null;
         $this->Restore = $headers['x-amz-restore'] ?? null;
-        $this->LastModified = $headers['Last-Modified'] ?? null;
+        $this->LastModified = isset($headers['Last-Modified']) ? new \DateTimeImmutable($headers['Last-Modified']) : null;
         $this->ContentLength = $headers['Content-Length'] ?? null;
         $this->ETag = $headers['ETag'] ?? null;
-        $this->MissingMeta = $headers['x-amz-missing-meta'] ?? null;
+        $this->MissingMeta = isset($headers['x-amz-missing-meta']) ? filter_var($headers['x-amz-missing-meta'], \FILTER_VALIDATE_INT) : null;
         $this->VersionId = $headers['x-amz-version-id'] ?? null;
         $this->CacheControl = $headers['Cache-Control'] ?? null;
         $this->ContentDisposition = $headers['Content-Disposition'] ?? null;
         $this->ContentEncoding = $headers['Content-Encoding'] ?? null;
         $this->ContentLanguage = $headers['Content-Language'] ?? null;
         $this->ContentType = $headers['Content-Type'] ?? null;
-        $this->Expires = $headers['Expires'] ?? null;
+        $this->Expires = isset($headers['Expires']) ? new \DateTimeImmutable($headers['Expires']) : null;
         $this->WebsiteRedirectLocation = $headers['x-amz-website-redirect-location'] ?? null;
         $this->ServerSideEncryption = $headers['x-amz-server-side-encryption'] ?? null;
         $this->SSECustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'] ?? null;
@@ -391,9 +391,9 @@ class HeadObjectOutput extends Result
         $this->StorageClass = $headers['x-amz-storage-class'] ?? null;
         $this->RequestCharged = $headers['x-amz-request-charged'] ?? null;
         $this->ReplicationStatus = $headers['x-amz-replication-status'] ?? null;
-        $this->PartsCount = $headers['x-amz-mp-parts-count'] ?? null;
+        $this->PartsCount = isset($headers['x-amz-mp-parts-count']) ? filter_var($headers['x-amz-mp-parts-count'], \FILTER_VALIDATE_INT) : null;
         $this->ObjectLockMode = $headers['x-amz-object-lock-mode'] ?? null;
-        $this->ObjectLockRetainUntilDate = $headers['x-amz-object-lock-retain-until-date'] ?? null;
+        $this->ObjectLockRetainUntilDate = isset($headers['x-amz-object-lock-retain-until-date']) ? new \DateTimeImmutable($headers['x-amz-object-lock-retain-until-date']) : null;
         $this->ObjectLockLegalHoldStatus = $headers['x-amz-object-lock-legal-hold'] ?? null;
         $this->Metadata = [];
         foreach ($headers as $name => $value) {

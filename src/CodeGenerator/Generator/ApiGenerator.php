@@ -739,7 +739,17 @@ PHP
             $headers[$name] = $member;
 
             $locationName = $member['locationName'] ?? $name;
-            $body .= "\$this->$name = \$headers['{$locationName}'] ?? null;\n";
+            $memberShape = $this->definition->getShape($member['shape']);
+            if ('timestamp' === $memberShape['type']) {
+                $body .= "\$this->$name = isset(\$headers['{$locationName}']) ? new \DateTimeImmutable(\$headers['{$locationName}']) : null;\n";
+            } else {
+                if (null !== $constant = $this->getFilterConstantFromType($memberShape['type'])) {
+                    // Convert to proper type
+                    $body .= "\$this->$name = isset(\$headers['{$locationName}']) ? filter_var(\$headers['{$locationName}'], {$constant}) : null;\n";
+                } else {
+                    $body .= "\$this->$name = \$headers['{$locationName}'] ?? null;\n";
+                }
+            }
         }
 
         foreach ($nonHeaders as $name => $member) {
@@ -747,7 +757,7 @@ PHP
                 continue;
             }
 
-            $length = strlen($member['locationName']);
+            $length = \strlen($member['locationName']);
             $body .= <<<PHP
 \$this->$name = [];
 foreach (\$headers as \$name => \$value) {
@@ -819,5 +829,18 @@ PHP;
             ->setBody($body);
         $method->addParameter('response')->setType(ResponseInterface::class);
         $method->addParameter('httpClient')->setType(HttpClientInterface::class)->setNullable(true);
+    }
+
+    private function getFilterConstantFromType(string $type): ?string
+    {
+        switch ($type) {
+            case 'integer':
+                return 'FILTER_VALIDATE_INT';
+            case 'boolean':
+                return 'FILTER_VALIDATE_BOOLEAN';
+            case 'string':
+            default:
+                return null;
+        }
     }
 }
