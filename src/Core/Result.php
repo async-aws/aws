@@ -129,9 +129,9 @@ class Result
             case '\DateTimeImmutable':
                 return new \DateTimeImmutable($value);
             case 'int':
-                return (int) $value;
+                return filter_var($value, \FILTER_VALIDATE_INT);
             case 'bool':
-                return 'true' === $value;
+                return filter_var($value, \FILTER_VALIDATE_BOOLEAN);
             case 'string':
             default:
                 return $value;
