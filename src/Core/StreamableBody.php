@@ -41,6 +41,13 @@ class StreamableBody
 
     public function getContentAsString(): string
     {
+        $resource = $this->getContentAsResource();
+
+        return \stream_get_contents($resource);
+    }
+
+    public function getContentAsResource()
+    {
         $resource = \fopen('php://temp', 'rw+');
 
         try {
@@ -51,7 +58,7 @@ class StreamableBody
             // Rewind
             \fseek($resource, 0, \SEEK_SET);
 
-            return \stream_get_contents($resource);
+            return $resource;
         } finally {
             fclose($resource);
         }
