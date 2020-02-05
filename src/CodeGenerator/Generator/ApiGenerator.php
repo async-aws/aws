@@ -756,13 +756,15 @@ PHP
             if (($member['location'] ?? null) !== 'headers') {
                 continue;
             }
+            unset($nonHeaders[$name]);
 
-            $length = \strlen($member['locationName']);
+            $locationName = strtolower($member['locationName'] ?? $name);
+            $length = \strlen($locationName);
             $body .= <<<PHP
 \$this->$name = [];
 foreach (\$headers as \$name => \$value) {
-    if (substr(\$name, 0, {$length}) === '{$member['locationName']}') {
-        \$this->{$name}[\$name] = \$value;
+    if (substr(\$name, 0, {$length}) === '{$locationName}') {
+        \$this->{$name}[\$name] = \$value[0];
     }
 }
 
@@ -806,10 +808,6 @@ PHP;
         } else {
             // All remaining members are in the body
             foreach ($nonHeaders as $name => $member) {
-                if (($member['location'] ?? null) === 'headers') {
-                    // There is a difference between 'header' and 'headers'
-                    continue;
-                }
                 $xmlParser .= $this->parseXmlResponse($name, $member['shape'], '$data');
             }
         }
