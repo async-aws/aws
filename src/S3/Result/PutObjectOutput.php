@@ -125,14 +125,14 @@ class PutObjectOutput extends Result
     {
         $headers = $response->getHeaders(false);
 
-        $this->Expiration = $headers['x-amz-expiration'];
-        $this->ETag = $headers['ETag'];
-        $this->ServerSideEncryption = $headers['x-amz-server-side-encryption'];
-        $this->VersionId = $headers['x-amz-version-id'];
-        $this->SSECustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'];
-        $this->SSECustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-MD5'];
-        $this->SSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'];
-        $this->SSEKMSEncryptionContext = $headers['x-amz-server-side-encryption-context'];
-        $this->RequestCharged = $headers['x-amz-request-charged'];
+        $this->Expiration = $headers['x-amz-expiration'] ?? null;
+        $this->ETag = $headers['ETag'] ?? null;
+        $this->ServerSideEncryption = $headers['x-amz-server-side-encryption'] ?? null;
+        $this->VersionId = $headers['x-amz-version-id'] ?? null;
+        $this->SSECustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'] ?? null;
+        $this->SSECustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-MD5'] ?? null;
+        $this->SSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'] ?? null;
+        $this->SSEKMSEncryptionContext = $headers['x-amz-server-side-encryption-context'] ?? null;
+        $this->RequestCharged = $headers['x-amz-request-charged'] ?? null;
     }
 }

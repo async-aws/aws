@@ -6,6 +6,7 @@ namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\StreamableBody;
 use AsyncAws\Core\XmlBuilder;
@@ -667,6 +668,14 @@ PHP
             if ('structure' === $memberShape['type']) {
                 $this->doGenerateResultClass($baseNamespace, $parameterType);
                 $parameterType = $baseNamespace . '\\' . $this->safeClassName($parameterType);
+            } elseif ('map' === $memberShape['type']) {
+                $mapKeyShape = $this->definition->getShape($memberShape['key']['shape']);
+                $mapValueShape = $this->definition->getShape($memberShape['value']['shape']);
+                if ($mapKeyShape['type'] !== 'string' || $mapValueShape['type'] !== 'string') {
+                    throw new RuntimeException('Complex maps are not supported');
+                }
+                $parameterType = 'array';
+                $nullable = false;
             } elseif ('list' === $memberShape['type']) {
                 $parameterType = 'array';
                 $nullable = false;
@@ -730,7 +739,7 @@ PHP
             $headers[$name] = $member;
 
             $locationName = $member['locationName'] ?? $name;
-            $body .= "\$this->$name = \$headers['{$locationName}'];\n";
+            $body .= "\$this->$name = \$headers['{$locationName}'] ?? null;\n";
         }
 
         foreach ($nonHeaders as $name => $member) {
@@ -742,7 +751,9 @@ PHP
 
             foreach ($headers as $headerName => $headerMember) {
                 $locationName = $headerMember['locationName'] ?? $headerName;
-                $body .= "'$headerName' => \$headers['{$locationName}'],\n";
+                if (0===strpos($locationName, $member['locationName'])) {
+                    $body .= "'$headerName' => \$headers['{$locationName}'] ?? null,\n";
+                }
             }
 
             $body .= "];\n";

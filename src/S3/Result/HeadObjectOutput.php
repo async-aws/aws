@@ -252,7 +252,7 @@ class HeadObjectOutput extends Result
         return $this->LastModified;
     }
 
-    public function getMetadata(): ?array
+    public function getMetadata(): array
     {
         $this->initialize();
 
@@ -368,61 +368,34 @@ class HeadObjectOutput extends Result
     {
         $headers = $response->getHeaders(false);
 
-        $this->DeleteMarker = $headers['x-amz-delete-marker'];
-        $this->AcceptRanges = $headers['accept-ranges'];
-        $this->Expiration = $headers['x-amz-expiration'];
-        $this->Restore = $headers['x-amz-restore'];
-        $this->LastModified = $headers['Last-Modified'];
-        $this->ContentLength = $headers['Content-Length'];
-        $this->ETag = $headers['ETag'];
-        $this->MissingMeta = $headers['x-amz-missing-meta'];
-        $this->VersionId = $headers['x-amz-version-id'];
-        $this->CacheControl = $headers['Cache-Control'];
-        $this->ContentDisposition = $headers['Content-Disposition'];
-        $this->ContentEncoding = $headers['Content-Encoding'];
-        $this->ContentLanguage = $headers['Content-Language'];
-        $this->ContentType = $headers['Content-Type'];
-        $this->Expires = $headers['Expires'];
-        $this->WebsiteRedirectLocation = $headers['x-amz-website-redirect-location'];
-        $this->ServerSideEncryption = $headers['x-amz-server-side-encryption'];
-        $this->SSECustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'];
-        $this->SSECustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-MD5'];
-        $this->SSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'];
-        $this->StorageClass = $headers['x-amz-storage-class'];
-        $this->RequestCharged = $headers['x-amz-request-charged'];
-        $this->ReplicationStatus = $headers['x-amz-replication-status'];
-        $this->PartsCount = $headers['x-amz-mp-parts-count'];
-        $this->ObjectLockMode = $headers['x-amz-object-lock-mode'];
-        $this->ObjectLockRetainUntilDate = $headers['x-amz-object-lock-retain-until-date'];
-        $this->ObjectLockLegalHoldStatus = $headers['x-amz-object-lock-legal-hold'];
+        $this->DeleteMarker = $headers['x-amz-delete-marker'] ?? null;
+        $this->AcceptRanges = $headers['accept-ranges'] ?? null;
+        $this->Expiration = $headers['x-amz-expiration'] ?? null;
+        $this->Restore = $headers['x-amz-restore'] ?? null;
+        $this->LastModified = $headers['Last-Modified'] ?? null;
+        $this->ContentLength = $headers['Content-Length'] ?? null;
+        $this->ETag = $headers['ETag'] ?? null;
+        $this->MissingMeta = $headers['x-amz-missing-meta'] ?? null;
+        $this->VersionId = $headers['x-amz-version-id'] ?? null;
+        $this->CacheControl = $headers['Cache-Control'] ?? null;
+        $this->ContentDisposition = $headers['Content-Disposition'] ?? null;
+        $this->ContentEncoding = $headers['Content-Encoding'] ?? null;
+        $this->ContentLanguage = $headers['Content-Language'] ?? null;
+        $this->ContentType = $headers['Content-Type'] ?? null;
+        $this->Expires = $headers['Expires'] ?? null;
+        $this->WebsiteRedirectLocation = $headers['x-amz-website-redirect-location'] ?? null;
+        $this->ServerSideEncryption = $headers['x-amz-server-side-encryption'] ?? null;
+        $this->SSECustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'] ?? null;
+        $this->SSECustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-MD5'] ?? null;
+        $this->SSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'] ?? null;
+        $this->StorageClass = $headers['x-amz-storage-class'] ?? null;
+        $this->RequestCharged = $headers['x-amz-request-charged'] ?? null;
+        $this->ReplicationStatus = $headers['x-amz-replication-status'] ?? null;
+        $this->PartsCount = $headers['x-amz-mp-parts-count'] ?? null;
+        $this->ObjectLockMode = $headers['x-amz-object-lock-mode'] ?? null;
+        $this->ObjectLockRetainUntilDate = $headers['x-amz-object-lock-retain-until-date'] ?? null;
+        $this->ObjectLockLegalHoldStatus = $headers['x-amz-object-lock-legal-hold'] ?? null;
         $this->Metadata = [
-            'DeleteMarker' => $headers['x-amz-delete-marker'],
-            'AcceptRanges' => $headers['accept-ranges'],
-            'Expiration' => $headers['x-amz-expiration'],
-            'Restore' => $headers['x-amz-restore'],
-            'LastModified' => $headers['Last-Modified'],
-            'ContentLength' => $headers['Content-Length'],
-            'ETag' => $headers['ETag'],
-            'MissingMeta' => $headers['x-amz-missing-meta'],
-            'VersionId' => $headers['x-amz-version-id'],
-            'CacheControl' => $headers['Cache-Control'],
-            'ContentDisposition' => $headers['Content-Disposition'],
-            'ContentEncoding' => $headers['Content-Encoding'],
-            'ContentLanguage' => $headers['Content-Language'],
-            'ContentType' => $headers['Content-Type'],
-            'Expires' => $headers['Expires'],
-            'WebsiteRedirectLocation' => $headers['x-amz-website-redirect-location'],
-            'ServerSideEncryption' => $headers['x-amz-server-side-encryption'],
-            'SSECustomerAlgorithm' => $headers['x-amz-server-side-encryption-customer-algorithm'],
-            'SSECustomerKeyMD5' => $headers['x-amz-server-side-encryption-customer-key-MD5'],
-            'SSEKMSKeyId' => $headers['x-amz-server-side-encryption-aws-kms-key-id'],
-            'StorageClass' => $headers['x-amz-storage-class'],
-            'RequestCharged' => $headers['x-amz-request-charged'],
-            'ReplicationStatus' => $headers['x-amz-replication-status'],
-            'PartsCount' => $headers['x-amz-mp-parts-count'],
-            'ObjectLockMode' => $headers['x-amz-object-lock-mode'],
-            'ObjectLockRetainUntilDate' => $headers['x-amz-object-lock-retain-until-date'],
-            'ObjectLockLegalHoldStatus' => $headers['x-amz-object-lock-legal-hold'],
         ];
     }
 }
