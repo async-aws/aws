@@ -745,7 +745,7 @@ PHP
                 $body .= "'$headerName' => \$headers['{$locationName}'],\n";
             }
 
-            $body .="];\n";
+            $body .= "];\n";
         }
 
         $comment = '';
