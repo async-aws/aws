@@ -738,16 +738,16 @@ PHP
             }
             $headers[$name] = $member;
 
-            $locationName = $member['locationName'] ?? $name;
+            $locationName = strtolower($member['locationName'] ?? $name);
             $memberShape = $this->definition->getShape($member['shape']);
             if ('timestamp' === $memberShape['type']) {
-                $body .= "\$this->$name = isset(\$headers['{$locationName}']) ? new \DateTimeImmutable(\$headers['{$locationName}']) : null;\n";
+                $body .= "\$this->$name = isset(\$headers['{$locationName}'][0]) ? new \DateTimeImmutable(\$headers['{$locationName}'][0]) : null;\n";
             } else {
                 if (null !== $constant = $this->getFilterConstantFromType($memberShape['type'])) {
                     // Convert to proper type
-                    $body .= "\$this->$name = isset(\$headers['{$locationName}']) ? filter_var(\$headers['{$locationName}'], {$constant}) : null;\n";
+                    $body .= "\$this->$name = isset(\$headers['{$locationName}'][0]) ? filter_var(\$headers['{$locationName}'][0], {$constant}) : null;\n";
                 } else {
-                    $body .= "\$this->$name = \$headers['{$locationName}'] ?? null;\n";
+                    $body .= "\$this->$name = \$headers['{$locationName}'][0] ?? null;\n";
                 }
             }
         }
