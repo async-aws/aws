@@ -747,16 +747,16 @@ PHP
                 continue;
             }
 
-            $body .= "\$this->$name = [\n";
+            $length = strlen($member['locationName']);
+            $body .= <<<PHP
+\$this->$name = [];
+foreach (\$headers as \$name => \$value) {
+    if (substr(\$name, 0, {$length}) === '{$member['locationName']}') {
+        \$this->{$name}[\$name] = \$value;
+    }
+}
 
-            foreach ($headers as $headerName => $headerMember) {
-                $locationName = $headerMember['locationName'] ?? $headerName;
-                if (0 === strpos($locationName, $member['locationName'])) {
-                    $body .= "'$headerName' => \$headers['{$locationName}'] ?? null,\n";
-                }
-            }
-
-            $body .= "];\n";
+PHP;
         }
 
         $comment = '';

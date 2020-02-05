@@ -424,8 +424,12 @@ class GetObjectOutput extends Result
         $this->ObjectLockMode = $headers['x-amz-object-lock-mode'] ?? null;
         $this->ObjectLockRetainUntilDate = $headers['x-amz-object-lock-retain-until-date'] ?? null;
         $this->ObjectLockLegalHoldStatus = $headers['x-amz-object-lock-legal-hold'] ?? null;
-        $this->Metadata = [
-        ];
+        $this->Metadata = [];
+        foreach ($headers as $name => $value) {
+            if ('x-amz-meta-' === substr($name, 0, 11)) {
+                $this->Metadata[$name] = $value;
+            }
+        }
 
         if (null !== $httpClient) {
             $this->Body = new StreamableBody($httpClient->stream($response));
