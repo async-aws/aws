@@ -38,7 +38,7 @@ class AwsObject
     /**
      * @param array{
      *   Key?: string,
-     *   LastModified?: \DateTimeImmutable|string,
+     *   LastModified?: \DateTimeInterface|string,
      *   ETag?: string,
      *   Size?: string,
      *   StorageClass?: string,

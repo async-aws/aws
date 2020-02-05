@@ -127,6 +127,7 @@ class Result
         // Return the correct type
         switch ($type) {
             case '\DateTimeImmutable':
+            case '\DateTimeInterface':
                 return new \DateTimeImmutable($value);
             case 'int':
                 return (int) $value;
