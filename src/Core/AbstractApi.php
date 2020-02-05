@@ -15,6 +15,8 @@ use AsyncAws\Core\Signers\Request;
 use AsyncAws\Core\Signers\Signer;
 use AsyncAws\Core\Signers\SignerV4;
 use AsyncAws\Core\Signers\SignerV4ForS3;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
@@ -42,6 +44,11 @@ abstract class AbstractApi
     protected $credentialProvider;
 
     /**
+     * @var LoggerInterface|null
+     */
+    protected $logger;
+
+    /**
      * @var Signer
      */
     private $signer;
@@ -49,7 +56,7 @@ abstract class AbstractApi
     /**
      * @param Configuration|array $configuration
      */
-    public function __construct($configuration = [], ?CredentialProvider $credentialProvider = null, ?HttpClientInterface $httpClient = null)
+    public function __construct($configuration = [], ?CredentialProvider $credentialProvider = null, ?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null)
     {
         if (\is_array($configuration)) {
             $configuration = Configuration::create($configuration);
@@ -58,11 +65,12 @@ abstract class AbstractApi
         }
 
         $this->httpClient = $httpClient ?? HttpClient::create();
+        $this->logger = $logger ?? new NullLogger();
         $this->configuration = $configuration;
         $this->credentialProvider = $credentialProvider ?? new CacheProvider(new ChainProvider([
             new ConfigurationProvider(),
-            new IniFileProvider(),
-            new InstanceProvider(),
+            new IniFileProvider($this->logger),
+            new InstanceProvider($this->httpClient, $this->logger),
         ]));
     }
 

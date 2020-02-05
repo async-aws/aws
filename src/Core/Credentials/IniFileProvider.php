@@ -60,13 +60,13 @@ class IniFileProvider implements CredentialProvider
         }
         $circularCollector[$profile] = true;
 
-        $profileData = $profilesData[$profile];
         if (!isset($profilesData[$profile])) {
             $this->logger->warning('Profile "{profile}" not found.', ['profile' => $profile]);
 
             return null;
         }
 
+        $profileData = $profilesData[$profile];
         if (isset($profileData[self::KEY_ACCESS_KEY_ID], $profileData[self::KEY_ACCESS_KEY_ID])) {
             return new Credentials(
                 $profileData[self::KEY_ACCESS_KEY_ID],
