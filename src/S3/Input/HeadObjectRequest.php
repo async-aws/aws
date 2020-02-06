@@ -129,7 +129,7 @@ class HeadObjectRequest
      *   PartNumber?: int,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
         $this->Bucket = $input['Bucket'] ?? null;
         $this->IfMatch = $input['IfMatch'] ?? null;

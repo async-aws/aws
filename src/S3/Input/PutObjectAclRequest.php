@@ -115,7 +115,7 @@ class PutObjectAclRequest
      *   VersionId?: string,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
         $this->ACL = $input['ACL'] ?? null;
         $this->AccessControlPolicy = isset($input['AccessControlPolicy']) ? AccessControlPolicy::create($input['AccessControlPolicy']) : null;

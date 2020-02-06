@@ -70,7 +70,7 @@ class ListObjectsRequest
      *   RequestPayer?: string,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
         $this->Bucket = $input['Bucket'] ?? null;
         $this->Delimiter = $input['Delimiter'] ?? null;

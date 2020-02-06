@@ -75,7 +75,7 @@ class SendMessageRequest
      *   MessageGroupId?: string,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
         $this->QueueUrl = $input['QueueUrl'] ?? null;
         $this->MessageBody = $input['MessageBody'] ?? null;

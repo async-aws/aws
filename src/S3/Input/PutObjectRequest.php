@@ -292,7 +292,7 @@ class PutObjectRequest
      *   ObjectLockLegalHoldStatus?: string,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
         $this->ACL = $input['ACL'] ?? null;
         $this->Bucket = $input['Bucket'] ?? null;
