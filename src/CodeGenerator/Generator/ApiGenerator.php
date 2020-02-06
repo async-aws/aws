@@ -911,7 +911,7 @@ PHP
     {
         $shape = $this->definition->getShape($className);
 
-        // Parse headers'
+        // Parse headers
         $nonHeaders = [];
         $body = '';
         foreach ($shape['members'] as $name => $member) {
