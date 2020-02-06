@@ -681,9 +681,10 @@ PHP;
     {
         foreach ($inputShape['members'] as $name => $data) {
             $nullable = !\in_array($name, $inputShape['required'] ?? []);
-            $param = $this->definition->getShape($data['shape'])['type'];
+            $memberShape = $this->definition->getShape($data['shape']);
+            $param = $memberShape['type'];
             if ('structure' === $param) {
-                $param = '\\' . $baseNamespace . '\\' . $name . '|array';
+                $param = '\\' . $baseNamespace . '\\' . $data['shape'] . '|array';
             } elseif ('list' === $param) {
                 $listItemShapeName = $this->definition->getShape($data['shape'])['member']['shape'];
 
