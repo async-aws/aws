@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
+use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Result;
@@ -120,9 +121,7 @@ class OperationGenerator
     private function generateInputClass(string $service, string $apiVersion, string $operationName, string $baseNamespace, string $className, bool $root = false)
     {
         $operation = $this->definition->getOperation($operationName);
-        $shapes = $this->definition->getShapes();
-        $documentations = $this->definition->getShapesDocumentation();
-        $inputShape = $shapes[$className] ?? [];
+        $inputShape = $this->definition->getShape($className);
         $members = $inputShape['members'];
 
         $namespace = new PhpNamespace($baseNamespace);
@@ -153,7 +152,7 @@ PHP
 
         foreach ($members as $name => $data) {
             $parameterType = $data['shape'];
-            $memberShape = $shapes[$parameterType];
+            $memberShape = $this->definition->getShape($parameterType);
             $nullable = true;
             if ('structure' === $memberShape['type']) {
                 $this->generateInputClass($service, $apiVersion, $operationName, $baseNamespace, $parameterType);
@@ -195,7 +194,7 @@ PHP
                 $property->addComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
 
-            if (\in_array($name, $shapes[$className]['required'] ?? [])) {
+            if (\in_array($name, $this->definition->getShape($className)['required'] ?? [])) {
                 $requiredProperties[] = $name;
                 $property->addComment('@required');
             }
@@ -247,7 +246,7 @@ PHP;
         }
 
         foreach ($members as $name => $data) {
-            $memberShape = $shapes[$data['shape']];
+            $memberShape = $this->definition->getShape($data['shape']);
             $type = $memberShape['type'] ?? null;
             if ('structure' === $type) {
                 $validateBody .= 'if ($this->' . $name . ') $this->' . $name . '->validate();' . "\n";
@@ -266,7 +265,7 @@ PHP;
         $this->fileWriter->write($namespace);
     }
 
-    private function inputClassRequestGetters(array $inputShape, ClassType $class, string $operation, string $apiVersion): void
+    private function inputClassRequestGetters(Shape $inputShape, ClassType $class, string $operation, string $apiVersion): void
     {
         foreach (['header' => '$headers', 'querystring' => '$query', 'payload' => '$payload'] as $requestPart => $varName) {
             $body[$requestPart] = $varName . ' = [];' . "\n";
@@ -319,7 +318,7 @@ PHP;
             return $xml;
         }
 
-        $xml[$shapeName] = $shape;
+        $xml[$shapeName] = $shape->toArray();
         $members = [];
         if (isset($shape['members'])) {
             $members = $shape['members'];
@@ -334,7 +333,7 @@ PHP;
         return $xml;
     }
 
-    private function setMethodBody(array $inputShape, Method $method, array $operation, $inputClassName): void
+    private function setMethodBody(Shape $inputShape, Method $method, array $operation, $inputClassName): void
     {
         $safeInputClassName = GeneratorHelper::safeClassName($inputClassName);
         $body = <<<PHP

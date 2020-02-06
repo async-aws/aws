@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
+use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\StreamableBody;
@@ -302,7 +303,7 @@ class ResultGenerator
         ]);
     }
 
-    private function resultClassAddNamedConstructor(string $baseNamespace, array $inputShape, ClassType $class): void
+    private function resultClassAddNamedConstructor(string $baseNamespace, Shape $inputShape, ClassType $class): void
     {
         $class->addMethod('create')->setStatic(true)->setReturnType('self')->setBody(
             <<<PHP
@@ -356,7 +357,7 @@ PHP
     /**
      * Add properties and getters.
      */
-    private function resultClassAddProperties(string $baseNamespace, bool $root, ?array $inputShape, string $className, ClassType $class, PhpNamespace $namespace): void
+    private function resultClassAddProperties(string $baseNamespace, bool $root, ?Shape $inputShape, string $className, ClassType $class, PhpNamespace $namespace): void
     {
         $members = $inputShape['members'];
         foreach ($members as $name => $data) {

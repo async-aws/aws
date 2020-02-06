@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
+use AsyncAws\CodeGenerator\Definition\Shape;
 use Nette\PhpGenerator\Method;
 
 /**
@@ -59,7 +60,7 @@ class GeneratorHelper
         return $output;
     }
 
-    public static function addMethodComment(ServiceDefinition $definition, Method $method, array $inputShape, string $baseNamespace): void
+    public static function addMethodComment(ServiceDefinition $definition, Method $method, Shape $inputShape, string $baseNamespace): void
     {
         foreach ($inputShape['members'] as $name => $data) {
             $nullable = !\in_array($name, $inputShape['required'] ?? []);

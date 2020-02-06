@@ -44,11 +44,6 @@ class ServiceDefinition
         return $this->pagination['pagination'][$name] ?? null;
     }
 
-    public function getShapes(): array
-    {
-        return $this->definition['shapes'] ?? [];
-    }
-
     public function getShapesDocumentation(): array
     {
         return $this->documentation['shapes'] ?? [];
@@ -63,9 +58,13 @@ class ServiceDefinition
         throw new \InvalidArgumentException(\sprintf('Missing documentation for %s::$%s of type %s', $className, $parameter, $type));
     }
 
-    public function getShape(string $name): ?array
+    public function getShape(string $name): ?Shape
     {
-        return $this->definition['shapes'][$name] ?? null;
+        if (isset($this->definition['shapes'][$name])) {
+            return Shape::create($this->definition['shapes'][$name]);
+        }
+
+        return null;
     }
 
     public function getVersion(): string
