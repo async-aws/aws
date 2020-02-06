@@ -46,7 +46,7 @@ class GetObjectAclRequest
      *   RequestPayer?: string,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
         $this->Bucket = $input['Bucket'] ?? null;
         $this->Key = $input['Key'] ?? null;

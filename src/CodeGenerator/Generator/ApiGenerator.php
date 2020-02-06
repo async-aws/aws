@@ -319,7 +319,10 @@ PHP
         $constructor->addComment('@param array{');
         $this->addMethodComment($constructor, $inputShape, $baseNamespace);
         $constructor->addComment('} $input');
-        $constructor->addParameter('input')->setType('array')->setDefaultValue([]);
+        $inputParameter = $constructor->addParameter('input')->setType('array');
+        if (empty($inputShape['required'])) {
+            $inputParameter->setDefaultValue([]);
+        }
         $constructorBody = '';
         $requiredProperties = [];
 

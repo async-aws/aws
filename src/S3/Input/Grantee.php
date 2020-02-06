@@ -52,7 +52,7 @@ class Grantee
      *   URI?: string,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
         $this->DisplayName = $input['DisplayName'] ?? null;
         $this->EmailAddress = $input['EmailAddress'] ?? null;

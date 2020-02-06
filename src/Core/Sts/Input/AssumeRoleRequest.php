@@ -121,7 +121,7 @@ class AssumeRoleRequest
      *   TokenCode?: string,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
         $this->RoleArn = $input['RoleArn'] ?? null;
         $this->RoleSessionName = $input['RoleSessionName'] ?? null;

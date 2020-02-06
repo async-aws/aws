@@ -30,7 +30,7 @@ class Tag
      *   Value: string,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
         $this->Key = $input['Key'] ?? null;
         $this->Value = $input['Value'] ?? null;
