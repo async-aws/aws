@@ -268,12 +268,13 @@ class GenerateCommand extends Command
             new ToolInfo()
         );
 
+        $e = new ErrorsManager();
         $runner = new Runner(
             $resolver->getFinder(),
             $resolver->getFixers(),
             $resolver->getDiffer(),
             null,
-            new ErrorsManager(),
+            $e,
             $resolver->getLinter(),
             $resolver->isDryRun(),
             $resolver->getCacheManager(),
@@ -281,6 +282,9 @@ class GenerateCommand extends Command
             $resolver->shouldStopOnViolation()
         );
         $runner->fix();
+        foreach ($e->getInvalidErrors() as $error) {
+            $io->error(sprintf('The generated file "%s" is invalid: %s', $error->getFilePath(), $error->getSource() ? $error->getSource()->getMessage() : 'unknown'));
+        }
     }
 
     private function loadFile(string $path): array
