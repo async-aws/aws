@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator;
 
+use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\File\FileWriter;
@@ -45,15 +46,16 @@ class ResultGenerator
     /**
      * Generate classes for the output. Ie, the result of the API call.
      */
-    public function generate(string $operationName, string $baseNamespace, Shape $shape, bool $root, bool $useTrait)
+    public function generate(Operation $operation, string $baseNamespace, bool $root, bool $useTrait)
     {
-        $this->generateResultClass($baseNamespace, $shape->getName(), $root, $useTrait, $operationName);
+        $output = $operation->getOutput();
+        $this->generateResultClass($baseNamespace, $output->getName(), $root, $useTrait, $operation);
         if ($useTrait) {
-            $this->generateOutputTrait($operationName, $baseNamespace, $shape->getName());
+            $this->generateOutputTrait($operation, $baseNamespace, $output->getName());
         }
     }
 
-    private function generateOutputTrait(string $operationName, string $baseNamespace, string $className)
+    private function generateOutputTrait(Operation $operation, string $baseNamespace, string $className)
     {
         $traitName = $className . 'Trait';
 
@@ -64,12 +66,12 @@ class ResultGenerator
         $namespace->addUse(HttpClientInterface::class);
 
         $isNew = !trait_exists($baseNamespace . '\\' . $traitName);
-        $this->resultClassPopulateResult($operationName, $className, $isNew, $namespace, $trait);
+        $this->resultClassPopulateResult($operation, $className, $isNew, $namespace, $trait);
 
         $this->fileWriter->write($namespace);
     }
 
-    private function generateResultClass(string $baseNamespace, string $className, bool $root = false, ?bool $useTrait = null, ?string $operationName = null): void
+    private function generateResultClass(string $baseNamespace, string $className, bool $root = false, ?bool $useTrait = null, ?Operation $operation = null): void
     {
         $inputShape = $this->definition->getShape($className);
 
@@ -86,7 +88,7 @@ class ResultGenerator
             } else {
                 $namespace->addUse(ResponseInterface::class);
                 $namespace->addUse(HttpClientInterface::class);
-                $this->resultClassPopulateResult($operationName, $className, false, $namespace, $class);
+                $this->resultClassPopulateResult($operation, $className, false, $namespace, $class);
                 $this->fileWriter->delete($traitName);
             }
         } else {
@@ -96,7 +98,7 @@ class ResultGenerator
 
         $this->resultClassAddProperties($baseNamespace, $root, $inputShape, $className, $class, $namespace);
         // should be called After Properties injection
-        if ($operationName && null !== $pagination = $this->definition->getOperationPagination($operationName)) {
+        if ($operation && null !== $pagination = $this->definition->getOperationPagination($operation->getName())) {
             $this->generateOutputPagination($pagination, $className, $baseNamespace, $class);
         }
 
@@ -427,7 +429,7 @@ PHP
         }
     }
 
-    private function resultClassPopulateResult(string $operationName, string $className, bool $isNew, PhpNamespace $namespace, ClassType $class): void
+    private function resultClassPopulateResult(Operation $operation, string $className, bool $isNew, PhpNamespace $namespace, ClassType $class): void
     {
         $shape = $this->definition->getShape($className);
 
@@ -513,7 +515,7 @@ PHP
 
         if (!empty($xmlParser)) {
             $body .= "\$data = new \SimpleXMLElement(\$response->getContent(false));";
-            $wrapper = $this->definition->getOperation($operationName)['output']['resultWrapper'] ?? null;
+            $wrapper = $operation->getOutputResultWrapper();
             if (null !== $wrapper) {
                 $body .= "\$data = \$data->$wrapper;\n";
             }

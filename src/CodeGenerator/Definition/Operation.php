@@ -69,4 +69,9 @@ class Operation implements \ArrayAccess
     {
         return $this->data;
     }
+
+    public function getOutputResultWrapper(): ?string
+    {
+        return $this->data['output']['resultWrapper'] ?? null;
+    }
 }
