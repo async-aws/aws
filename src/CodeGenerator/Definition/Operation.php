@@ -45,6 +45,17 @@ class Operation implements \ArrayAccess
         return null;
     }
 
+    public function getInput(): ?Shape
+    {
+        if (isset($this->data['input']['shape'])) {
+            $find = $this->shapeLocator;
+
+            return $find($this->data['input']['shape']);
+        }
+
+        return null;
+    }
+
     public function offsetExists($offset)
     {
         return isset($this->data[$offset]);

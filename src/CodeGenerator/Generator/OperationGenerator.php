@@ -46,16 +46,13 @@ class OperationGenerator
     /**
      * Update the API client with a new function call.
      */
-    public function generate(string $operationName, string $service, string $baseNamespace): void
+    public function generate(Operation $operation, string $service, string $baseNamespace): void
     {
-        $operation = $this->definition->getOperation($operationName);
-        $inputShape = $this->definition->getShape($operation['input']['shape']) ?? [];
-
-        $inputClassName = $operation['input']['shape'];
-        $this->generateInputClass($service, $apiVersion = $this->definition->getApiVersion(), $operationName, $baseNamespace . '\\Input', $inputClassName, true);
+        $inputShape = $operation->getInput();
+        $this->generateInputClass($service, $apiVersion = $this->definition->getApiVersion(), $operation, $baseNamespace . '\\Input', $inputShape, true);
 
         $namespace = ClassFactory::fromExistingClass(\sprintf('%s\\%sClient', $baseNamespace, $service));
-        $safeClassName = GeneratorHelper::safeClassName($inputClassName);
+        $safeClassName = GeneratorHelper::safeClassName($inputShape->getName());
         $namespace->addUse($baseNamespace . '\\Input\\' . $safeClassName);
         $classes = $namespace->getClasses();
         $class = $classes[\array_key_first($classes)];
@@ -82,7 +79,7 @@ class OperationGenerator
 
         $class->removeMethod(\lcfirst($operation['name']));
         $method = $class->addMethod(\lcfirst($operation['name']));
-        if (null !== $documentation = $this->definition->getOperationDocumentation($operationName)) {
+        if (null !== $documentation = $this->definition->getOperationDocumentation($operation->getName())) {
             $method->addComment(GeneratorHelper::parseDocumentation($documentation));
         }
 
@@ -96,7 +93,7 @@ class OperationGenerator
         GeneratorHelper::addMethodComment($this->definition, $method, $inputShape, $baseNamespace . '\\Input');
         $method->addComment('}|' . $safeClassName . ' $input');
         $operationMethodParameter = $method->addParameter('input');
-        if (empty($this->definition->getShape($inputClassName)['required'])) {
+        if (empty($inputShape['required'])) {
             $operationMethodParameter->setDefaultValue([]);
         }
 
@@ -111,7 +108,7 @@ class OperationGenerator
         }
 
         // Generate method body
-        $this->setMethodBody($inputShape, $method, $operation, $inputClassName);
+        $this->setMethodBody($inputShape, $method, $operation, $inputShape->getName());
 
         $this->fileWriter->write($namespace);
     }
@@ -119,14 +116,11 @@ class OperationGenerator
     /**
      * Generate classes for the input.
      */
-    private function generateInputClass(string $service, string $apiVersion, string $operationName, string $baseNamespace, string $className, bool $root = false)
+    private function generateInputClass(string $service, string $apiVersion, Operation $operation, string $baseNamespace, Shape $inputShape, bool $root = false)
     {
-        $operation = $this->definition->getOperation($operationName);
-        $inputShape = $this->definition->getShape($className);
         $members = $inputShape['members'];
-
         $namespace = new PhpNamespace($baseNamespace);
-        $class = $namespace->addClass(GeneratorHelper::safeClassName($className));
+        $class = $namespace->addClass(GeneratorHelper::safeClassName($inputShape->getName()));
         // Add named constructor
         $class->addMethod('create')->setStatic(true)->setReturnType('self')->setBody(
             <<<PHP
@@ -156,7 +150,7 @@ PHP
             $memberShape = $this->definition->getShape($parameterType);
             $nullable = true;
             if ('structure' === $memberShape['type']) {
-                $this->generateInputClass($service, $apiVersion, $operationName, $baseNamespace, $parameterType);
+                $this->generateInputClass($service, $apiVersion, $operation, $baseNamespace, $this->definition->getShape($parameterType));
                 $returnType = $baseNamespace . '\\' . $parameterType;
                 $constructorBody .= sprintf('$this->%s = isset($input["%s"]) ? %s::create($input["%s"]) : null;' . "\n", $name, $name, GeneratorHelper::safeClassName($parameterType), $name);
             } elseif ('list' === $memberShape['type']) {
@@ -166,7 +160,7 @@ PHP
 
                 // Is this a list of objects?
                 if ('structure' === $listItemShape['type']) {
-                    $this->generateInputClass($service, $apiVersion, $operationName, $baseNamespace, $listItemShapeName);
+                    $this->generateInputClass($service, $apiVersion, $operation, $baseNamespace, $this->definition->getShape($listItemShapeName));
                     $parameterType = $listItemShapeName . '[]';
                     $returnType = $baseNamespace . '\\' . $listItemShapeName;
                     $constructorBody .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, GeneratorHelper::safeClassName(
@@ -191,11 +185,11 @@ PHP
             }
 
             $property = $class->addProperty($name)->setPrivate();
-            if (null !== $propertyDocumentation = $this->definition->getParameterDocumentation($className, $name, $data['shape'])) {
+            if (null !== $propertyDocumentation = $this->definition->getParameterDocumentation($inputShape->getName(), $name, $data['shape'])) {
                 $property->addComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
 
-            if (\in_array($name, $this->definition->getShape($className)['required'] ?? [])) {
+            if (\in_array($name, $inputShape['required'] ?? [])) {
                 $requiredProperties[] = $name;
                 $property->addComment('@required');
             }
@@ -226,7 +220,7 @@ PHP
 
         $constructor->setBody($constructorBody);
         if ($root) {
-            $this->inputClassRequestGetters($inputShape, $class, $operationName, $apiVersion);
+            $this->inputClassRequestGetters($inputShape, $class, $operation->getName(), $apiVersion);
         }
 
         // Add validate()

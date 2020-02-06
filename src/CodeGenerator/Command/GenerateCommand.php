@@ -110,7 +110,7 @@ class GenerateCommand extends Command
                 $operationConfig = $this->getOperationConfig($manifest, $serviceName, $operationName);
 
                 if ($operationConfig['generate-method']) {
-                    $this->generator->operation($definition)->generate($operationName, $serviceName, $baseNamespace);
+                    $this->generator->operation($definition)->generate($operation, $serviceName, $baseNamespace);
                 }
 
                 if (isset($operation['output']) && $operationConfig['generate-result']) {
