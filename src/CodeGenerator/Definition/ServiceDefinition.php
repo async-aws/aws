@@ -104,6 +104,7 @@ class ServiceDefinition
     private function createClosureToFindShapes(): \Closure
     {
         $definition = $this;
+
         return \Closure::fromCallable(function (string $name) use ($definition) {
             return $definition->getShape($name);
         });

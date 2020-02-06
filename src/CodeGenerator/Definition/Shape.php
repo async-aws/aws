@@ -7,14 +7,14 @@ namespace AsyncAws\CodeGenerator\Definition;
 class Shape implements \ArrayAccess
 {
     /**
-     * @var string
-     */
-    private $name;
-
-    /**
      * @var array
      */
     protected $data;
+
+    /**
+     * @var string
+     */
+    private $name;
 
     /**
      * @var \Closure
