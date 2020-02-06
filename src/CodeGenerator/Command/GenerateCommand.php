@@ -27,16 +27,18 @@ class GenerateCommand extends Command
 {
     protected static $defaultName = 'generate';
 
-    /**
-     * @var string
-     */
     private $manifestFile;
+
+    private $cacheFile;
 
     private $generator;
 
-    public function __construct(string $manifestFile, ApiGenerator $generator)
+    private $cache;
+
+    public function __construct(string $manifestFile, string $cacheFile, ApiGenerator $generator)
     {
         $this->manifestFile = $manifestFile;
+        $this->cacheFile = $cacheFile;
         $this->generator = $generator;
         parent::__construct();
     }
@@ -81,9 +83,9 @@ class GenerateCommand extends Command
                 $progressService->display();
             }
 
-            $definitionArray = \json_decode(\file_get_contents($manifest['services'][$serviceName]['source']), true);
-            $documentationArray = \json_decode(\file_get_contents($manifest['services'][$serviceName]['documentation']), true);
-            $paginationArray = \json_decode(\file_get_contents($manifest['services'][$serviceName]['pagination']), true);
+            $definitionArray = $this->loadFile($manifest['services'][$serviceName]['source']);
+            $documentationArray = $this->loadFile($manifest['services'][$serviceName]['documentation']);
+            $paginationArray = $this->loadFile($manifest['services'][$serviceName]['pagination']);
             if (\count($serviceNames) > 1) {
                 $operationNames = $this->getOperationNames(null, true, $io, $definitionArray, $manifest['services'][$serviceName]);
             } else {
@@ -279,5 +281,19 @@ class GenerateCommand extends Command
             $resolver->shouldStopOnViolation()
         );
         $runner->fix();
+    }
+
+    private function loadFile(string $path): array
+    {
+        if (null === $this->cache) {
+            $this->cache = \file_exists($this->cacheFile) ? require($this->cacheFile) : [];
+        }
+
+        if (!isset($this->cache[$path])) {
+            $this->cache[$path] = \json_decode(\file_get_contents($path), true);
+            \file_put_contents($this->cacheFile, '<?php return ' . \var_export($this->cache, true) . ';');
+        }
+
+        return $this->cache[$path];
     }
 }
