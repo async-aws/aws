@@ -20,6 +20,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  * Generate API client methods and result classes.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ * @author Jérémy Derussé <jeremy@derusse.com>
  *
  * @internal
  */
@@ -36,6 +37,11 @@ class ResultGenerator
      * @var ServiceDefinition
      */
     private $definition;
+
+    /**
+     * @var XmlParser|null
+     */
+    private $xmlParser;
 
     public function __construct(FileWriter $fileWriter, ServiceDefinition $definition)
     {
@@ -183,126 +189,6 @@ class ResultGenerator
             ->addComment("@return \Traversable<$iteratorType>")
             ->setBody($iteratorBody)
         ;
-    }
-
-    private function parseXmlResponse(string $currentInput, ?string $memberName, array $memberData)
-    {
-        if (!empty($memberData['xmlAttribute'])) {
-            $input = $currentInput . '[' . var_export($memberData['locationName'], true) . ']';
-        } elseif (isset($memberData['locationName'])) {
-            $input = $currentInput . '->' . $memberData['locationName'];
-        } elseif ($memberName) {
-            $input = $currentInput . '->' . $memberName;
-        } else {
-            $input = $currentInput;
-        }
-
-        $shapeName = $memberData['shape'];
-        $shape = $this->definition->getShape($shapeName);
-        switch ($shape['type']) {
-            case 'list':
-                return $this->parseXmlResponseList($shapeName, $input);
-            case 'structure':
-                return $this->parseXmlResponseStructure($shapeName, $input);
-            case 'map':
-                return $this->parseXmlResponseMap($shapeName, $input);
-            case 'string':
-            case 'boolean':
-            case 'integer':
-            case 'long':
-            case 'timestamp':
-            case 'blob':
-                return $this->parseXmlResponseScalar($shapeName, $input);
-            default:
-                throw new \RuntimeException(sprintf('Type %s is not yet implemented', $shape['type']));
-        }
-    }
-
-    private function parseXmlResponseRoot(string $shapeName): string
-    {
-        $shape = $this->definition->getShape($shapeName);
-        $properties = [];
-
-        foreach ($shape['members'] as $memberName => $memberData) {
-            if (\in_array(($memberData['location'] ?? null), ['header', 'headers'])) {
-                continue;
-            }
-
-            $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
-                'PROPERTY_NAME' => $memberName,
-                'PROPERTY_ACCESSOR' => $this->parseXmlResponse('$data', $memberName, $memberData),
-            ]);
-        }
-
-        return implode("\n", $properties);
-    }
-
-    private function parseXmlResponseStructure(string $shapeName, string $input): string
-    {
-        $shape = $this->definition->getShape($shapeName);
-
-        $properties = [];
-        foreach ($shape['members'] as $memberName => $memberData) {
-            $properties[] = strtr('PROPERTY_NAME => PROPERTY_ACCESSOR,', [
-                'PROPERTY_NAME' => var_export($memberName, true),
-                'PROPERTY_ACCESSOR' => $this->parseXmlResponse($input, $memberName, $memberData),
-            ]);
-        }
-
-        return strtr('new CLASS_NAME([
-            PROPERTIES
-        ])', [
-            'CLASS_NAME' => GeneratorHelper::safeClassName($shapeName),
-            'PROPERTIES' => implode("\n", $properties),
-        ]);
-    }
-
-    private function parseXmlResponseScalar(string $shapeName, string $input): string
-    {
-        $shape = $this->definition->getShape($shapeName);
-
-        return strtr('$this->xmlValueOrNull(PROPERTY_ACCESSOR, PROPERTY_TYPE)', [
-            'PROPERTY_ACCESSOR' => $input,
-            'PROPERTY_TYPE' => \var_export(GeneratorHelper::toPhpType($shape['type']), true),
-        ]);
-    }
-
-    private function parseXmlResponseList(string $shapeName, string $input): string
-    {
-        $shape = $this->definition->getShape($shapeName);
-
-        return strtr('(function(\SimpleXMLElement $xml): array {
-            $items = [];
-            foreach ($xml as $item) {
-               $items[] = LIST_ACCESSOR;
-            }
-
-            return $items;
-        })(INPUT)', [
-            'LIST_ACCESSOR' => $this->parseXmlResponse('$item', null, ['shape' => $shape['member']['shape']]),
-            'INPUT' => $input,
-        ]);
-    }
-
-    private function parseXmlResponseMap(string $shapeName, string $input): string
-    {
-        $shape = $this->definition->getShape($shapeName);
-        if (!isset($shape['key']['locationName'])) {
-            throw new \RuntimeException('This is not implemented yet');
-        }
-
-        return strtr('(function(\SimpleXMLElement $xml): array {
-            $items = [];
-            foreach ($xml as $item) {
-               $items[$item->MAP_KEY->__toString()] = MAP_ACCESSOR;
-            }
-
-            return $items;
-        })(INPUT)', [
-            'MAP_KEY' => $shape['key']['locationName'],
-            'MAP_ACCESSOR' => $this->parseXmlResponse('$item', null, $shape['value']),
-            'INPUT' => $input,
-        ]);
     }
 
     private function resultClassAddNamedConstructor(string $baseNamespace, Shape $inputShape, ClassType $class): void
@@ -507,10 +393,10 @@ PHP
                     }
                 ', ['PROPERTY_NAME' => $name]);
             } else {
-                $xmlParser = $this->parseXmlResponseRoot($className);
+                $xmlParser = $this->parseXml($shape);
             }
         } else {
-            $xmlParser = $this->parseXmlResponseRoot($className);
+            $xmlParser = $this->parseXml($shape);
         }
 
         if (!empty($xmlParser)) {
@@ -528,5 +414,14 @@ PHP
             ->setBody($body);
         $method->addParameter('response')->setType(ResponseInterface::class);
         $method->addParameter('httpClient')->setType(HttpClientInterface::class)->setNullable(true);
+    }
+
+    private function parseXml(Shape $shape): string
+    {
+        if (null === $this->xmlParser) {
+            $this->xmlParser = new XmlParser();
+        }
+
+        return $this->xmlParser->parseXmlResponseRoot($this->definition, $shape);
     }
 }

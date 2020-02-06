@@ -20,6 +20,7 @@ use Nette\PhpGenerator\PhpNamespace;
  * Generate API client methods and result classes.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ * @author Jérémy Derussé <jeremy@derusse.com>
  *
  * @internal
  */
