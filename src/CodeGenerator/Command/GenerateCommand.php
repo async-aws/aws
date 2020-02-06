@@ -83,6 +83,7 @@ class GenerateCommand extends Command
 
             $definitionArray = \json_decode(\file_get_contents($manifest['services'][$serviceName]['source']), true);
             $documentationArray = \json_decode(\file_get_contents($manifest['services'][$serviceName]['documentation']), true);
+            $paginationArray = \json_decode(\file_get_contents($manifest['services'][$serviceName]['pagination']), true);
             if (\count($serviceNames) > 1) {
                 $operationNames = $this->getOperationNames(null, true, $io, $definitionArray, $manifest['services'][$serviceName]);
             } else {
@@ -94,7 +95,7 @@ class GenerateCommand extends Command
 
             $progressOperation->start(\count($operationNames));
 
-            $definition = new ServiceDefinition($definitionArray, $documentationArray);
+            $definition = new ServiceDefinition($definitionArray, $documentationArray, $paginationArray);
             $baseNamespace = $manifest['services'][$serviceName]['namespace'] ?? \sprintf('AsyncAws\\%s', $serviceName);
             $resultNamespace = $baseNamespace . '\\Result';
 

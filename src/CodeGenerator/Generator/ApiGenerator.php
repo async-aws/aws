@@ -11,6 +11,7 @@ use AsyncAws\Core\StreamableBody;
 use AsyncAws\Core\XmlBuilder;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Method;
+use Nette\PhpGenerator\Parameter;
 use Nette\PhpGenerator\PhpNamespace;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
@@ -200,8 +201,92 @@ class ApiGenerator
         }
 
         $this->resultClassAddProperties($baseNamespace, $root, $inputShape, $className, $class, $namespace);
+        // should be called After Properties injection
+        if ($operationName && null !== $pagination = $this->definition->getOperationPagination($operationName)) {
+            $this->generateOutputPagination($pagination, $className, $baseNamespace, $class);
+        }
 
         $this->fileWriter->write($namespace);
+    }
+
+    private function generateOutputPagination(array $pagination, string $className, string $baseNamespace, ClassType $class)
+    {
+        if (empty($pagination['result_key'])) {
+            throw new \RuntimeException('This is not implemented yet');
+        }
+
+        $class->addImplement(\IteratorAggregate::class);
+        $iteratorBody = '';
+        $iteratorTypes = [];
+        foreach ((array) $pagination['result_key'] as $resultKey) {
+            $iteratorBody .= strtr('yield from $this->PROPERTY_NAME;
+            ', [
+                'PROPERTY_NAME' => $resultKey,
+            ]);
+            $resultShapeName = $this->definition->getShape($className)['members'][$resultKey]['shape'];
+            $resultShape = $this->definition->getShape($resultShapeName);
+
+            if ('list' !== $resultShape['type']) {
+                throw new \RuntimeException('Cannot generate a pagination for a non-iterable result');
+            }
+
+            $listShape = $this->definition->getShape($resultShape['member']['shape']);
+            if ('structure' !== $listShape['type']) {
+                $iteratorTypes[] = $iteratorType = $this->toPhpType($listShape['type']);
+            } else {
+                $iteratorTypes[] = $iteratorType = $this->safeClassName($resultShape['member']['shape']);
+            }
+
+            $getter = 'get' . $resultKey;
+            if (!$class->hasMethod($getter)) {
+                throw new \RuntimeException(sprintf('Unable to find the method "%s" in "%s"', $getter, $className));
+            }
+            $getterBody = strtr('
+                $this->initialize();
+
+                if ($currentPageOnly) {
+                    return $this->PROPERTY_NAME;
+                }
+                while (true) {
+                    yield from $this->PROPERTY_NAME;
+
+                    // TODO load next results
+                    break;
+                }
+            ', [
+                'PROPERTY_NAME' => $resultKey,
+            ]);
+            $method = $class->getMethod($getter);
+            $method
+                ->setParameters([(new Parameter('currentPageOnly'))->setType('bool')->setDefaultValue(false)])
+                ->setReturnType('iterable')
+                ->setComment('@param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.')
+                ->addComment("@return iterable<$iteratorType>")
+                ->setBody($getterBody);
+        }
+
+        $iteratorType = implode('|', $iteratorTypes);
+
+        $iteratorBody = strtr('
+            $this->initialize();
+
+            while (true) {
+                ITERATE_PROPERTIES_CODE
+
+                // TODO load next results
+                break;
+            }
+        ', [
+            'ITERATE_PROPERTIES_CODE' => $iteratorBody,
+        ]);
+
+        $class->removeMethod('getIterator');
+        $class->addMethod('getIterator')
+            ->setReturnType(\Traversable::class)
+            ->addComment('Iterates over ' . implode(' then ', (array) $pagination['result_key']))
+            ->addComment("@return \Traversable<$iteratorType>")
+            ->setBody($iteratorBody)
+        ;
     }
 
     /**
@@ -400,15 +485,21 @@ PHP;
         if (!\in_array($shape['type'], ['structure', 'list'])) {
             $type = $this->toPhpType($shape['type']);
 
+            if (null === $rootObjectName) {
+                return "\$this->xmlValueOrNull($prefix, '$type');\n";
+            }
+
             return "\$this->$rootObjectName = \$this->xmlValueOrNull(\$data->$rootObjectName, '$type');\n";
         }
 
         if ('list' === $shape['type']) {
             $childCall = $this->parseXmlResponse(null, $shape['member']['shape'], '$item');
 
+            $location = $shape['member']['locationName'] ?? $rootObjectName;
+
             return <<<PHP
 \$this->$rootObjectName = [];
-foreach ($prefix->$rootObjectName as \$item) {
+foreach ($prefix->{$location} as \$item) {
     \$this->{$rootObjectName}[] = $childCall;
 }
 
@@ -428,7 +519,7 @@ PHP;
             } elseif ('list' === $memberShape['type']) {
                 // TODO check for list type
                 // TODO we should do something similar like above, but here we are in the middle of defining an array.
-                throw new \RuntimeException('This si not implemented yet');
+                throw new \RuntimeException('This is not implemented yet');
             //$body .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, $this->safeClassName($memberShape['member']['shape']), $name);
             } else {
                 $type = $this->toPhpType($memberShape['type']);
@@ -680,7 +771,7 @@ PHP
                     $this->doGenerateResultClass($baseNamespace, $listItemShapeName);
                     $returnType = $this->safeClassName($listItemShapeName);
                 } else {
-                    $returnType = $type . '[]';
+                    $returnType = $type;
                 }
             } elseif ($data['streaming'] ?? false) {
                 $parameterType = StreamableBody::class;
