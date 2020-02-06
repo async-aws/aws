@@ -28,7 +28,7 @@ class Message
 
     /**
      * @param array{
-     *   Subject: \AsyncAws\Ses\Input\Subject|array,
+     *   Subject: \AsyncAws\Ses\Input\Content|array,
      *   Body: \AsyncAws\Ses\Input\Body|array,
      * } $input
      */

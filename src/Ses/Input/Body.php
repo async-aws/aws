@@ -22,8 +22,8 @@ class Body
 
     /**
      * @param array{
-     *   Text?: \AsyncAws\Ses\Input\Text|array,
-     *   Html?: \AsyncAws\Ses\Input\Html|array,
+     *   Text?: \AsyncAws\Ses\Input\Content|array,
+     *   Html?: \AsyncAws\Ses\Input\Content|array,
      * } $input
      */
     public function __construct(array $input = [])

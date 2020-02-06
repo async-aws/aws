@@ -27,8 +27,8 @@ class EmailContent
 
     /**
      * @param array{
-     *   Simple?: \AsyncAws\Ses\Input\Simple|array,
-     *   Raw?: \AsyncAws\Ses\Input\Raw|array,
+     *   Simple?: \AsyncAws\Ses\Input\Message|array,
+     *   Raw?: \AsyncAws\Ses\Input\RawMessage|array,
      *   Template?: \AsyncAws\Ses\Input\Template|array,
      * } $input
      */
