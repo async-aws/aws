@@ -6,10 +6,10 @@ use AsyncAws\Core\Result;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-class GetQueueUrlResult extends Result
+class CreateQueueResult extends Result
 {
     /**
-     * The URL of the queue.
+     * The URL of the created Amazon SQS queue.
      */
     private $QueueUrl;
 
@@ -23,7 +23,7 @@ class GetQueueUrlResult extends Result
     protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
     {
         $data = new \SimpleXMLElement($response->getContent(false));
-        $data = $data->GetQueueUrlResult;
+        $data = $data->CreateQueueResult;
 
         $this->QueueUrl = $this->xmlValueOrNull($data->QueueUrl, 'string');
     }
