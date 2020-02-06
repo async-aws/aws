@@ -17,21 +17,26 @@ use Nette\PhpGenerator\Method;
  */
 class GeneratorHelper
 {
-    public static function toPhpType(?string $parameterType): string
+    public static function toPhpType(string $parameterType): string
     {
-        if ('boolean' === $parameterType) {
-            $parameterType = 'bool';
-        } elseif (\in_array($parameterType, ['integer'])) {
-            $parameterType = 'int';
-        } elseif (\in_array($parameterType, ['blob', 'long'])) {
-            $parameterType = 'string';
-        } elseif (\in_array($parameterType, ['map', 'list'])) {
-            $parameterType = 'array';
-        } elseif (\in_array($parameterType, ['timestamp'])) {
-            $parameterType = '\DateTimeImmutable';
+        switch ($parameterType) {
+            case 'list':
+            case 'structure':
+            case 'map':
+                return 'array';
+            case 'boolean':
+                return 'bool';
+            case 'integer':
+                return 'int';
+            case 'timestamp':
+                return '\DateTimeImmutable';
+            case 'string':
+            case 'long':
+            case 'blob':
+                return 'string';
+            default:
+                throw new \RuntimeException(sprintf('Type %s is not yet implemented', $parameterType));
         }
-
-        return $parameterType;
     }
 
     /**
