@@ -11,6 +11,8 @@ use Nette\PhpGenerator\Method;
  * Small methods that might be useful when generating code.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ *
+ * @internal
  */
 class GeneratorHelper
 {

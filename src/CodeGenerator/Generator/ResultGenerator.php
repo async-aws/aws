@@ -17,6 +17,8 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  * Generate API client methods and result classes.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ *
+ * @internal
  */
 class ResultGenerator
 {
