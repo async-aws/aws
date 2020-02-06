@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Command;
 
+use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
 use AsyncAws\CodeGenerator\Generator\ApiGenerator;
-use AsyncAws\CodeGenerator\Generator\ServiceDefinition;
 use PhpCsFixer\Config;
 use PhpCsFixer\Console\ConfigurationResolver;
 use PhpCsFixer\Error\ErrorsManager;
@@ -110,11 +110,11 @@ class GenerateCommand extends Command
                 $operationConfig = $this->getOperationConfig($manifest, $serviceName, $operationName);
 
                 if ($operationConfig['generate-method']) {
-                    $this->generator->generateOperation($definition, $operationName, $serviceName, $baseNamespace);
+                    $this->generator->operation($definition)->generate($operation, $serviceName, $baseNamespace);
                 }
 
                 if (isset($operation['output']) && $operationConfig['generate-result']) {
-                    $this->generator->generateResultClass($definition, $operationName, $resultNamespace, $operation['output']['shape'], true, $operationConfig['separate-result-trait']);
+                    $this->generator->result($definition)->generate($operation, $resultNamespace, true, $operationConfig['separate-result-trait']);
                 }
 
                 // Update manifest file

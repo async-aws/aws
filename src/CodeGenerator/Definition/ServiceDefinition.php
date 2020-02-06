@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\CodeGenerator\Generator;
+namespace AsyncAws\CodeGenerator\Definition;
 
 /**
  * A wrapper for the service definition array.
@@ -24,14 +24,13 @@ class ServiceDefinition
         $this->pagination = $pagination;
     }
 
-    public function getOperations(): array
+    public function getOperation(string $name): ?Operation
     {
-        return $this->definition['operations'] ?? [];
-    }
+        if (isset($this->definition['operations'][$name])) {
+            return Operation::create($this->definition['operations'][$name], $this->createClosureToFindShapes());
+        }
 
-    public function getOperation(string $name): ?array
-    {
-        return $this->definition['operations'][$name] ?? null;
+        return null;
     }
 
     public function getOperationDocumentation(string $name): ?string
@@ -42,11 +41,6 @@ class ServiceDefinition
     public function getOperationPagination(string $name): ?array
     {
         return $this->pagination['pagination'][$name] ?? null;
-    }
-
-    public function getShapes(): array
-    {
-        return $this->definition['shapes'] ?? [];
     }
 
     public function getShapesDocumentation(): array
@@ -63,9 +57,13 @@ class ServiceDefinition
         throw new \InvalidArgumentException(\sprintf('Missing documentation for %s::$%s of type %s', $className, $parameter, $type));
     }
 
-    public function getShape(string $name): ?array
+    public function getShape(string $name): ?Shape
     {
-        return $this->definition['shapes'][$name] ?? null;
+        if (isset($this->definition['shapes'][$name])) {
+            return Shape::create($name, $this->definition['shapes'][$name], $this->createClosureToFindShapes());
+        }
+
+        return null;
     }
 
     public function getVersion(): string
@@ -101,5 +99,14 @@ class ServiceDefinition
     public function getGlobalEndpoint(): string
     {
         return $this->definition['metadata']['globalEndpoint'];
+    }
+
+    private function createClosureToFindShapes(): \Closure
+    {
+        $definition = $this;
+
+        return \Closure::fromCallable(function (string $name) use ($definition) {
+            return $definition->getShape($name);
+        });
     }
 }
