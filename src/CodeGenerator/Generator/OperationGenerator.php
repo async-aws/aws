@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator;
 
+use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\File\FileWriter;
@@ -333,7 +334,7 @@ PHP;
         return $xml;
     }
 
-    private function setMethodBody(Shape $inputShape, Method $method, array $operation, $inputClassName): void
+    private function setMethodBody(Shape $inputShape, Method $method, Operation $operation, $inputClassName): void
     {
         $safeInputClassName = GeneratorHelper::safeClassName($inputClassName);
         $body = <<<PHP

@@ -6,23 +6,45 @@ namespace AsyncAws\CodeGenerator\Definition;
 
 class Shape implements \ArrayAccess
 {
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var array
+     */
     protected $data;
 
-    private function __construct(array $data)
+    /**
+     * @var \Closure
+     */
+    private $shapeLocator;
+
+    private function __construct()
     {
-        $this->data = $data;
     }
 
-    public static function create(array $data)
+    public static function create(string $name, array $data, \Closure $shapeLocator): Shape
     {
         switch ($data['type']) {
             case 'structure':
-                return new StructureShape($data);
+                $shape = new StructureShape();
+
+                break;
             case 'list':
-                return new ListShape($data);
+                $shape = new ListShape();
+
+                break;
             default:
-                return new self($data);
+                $shape = new self();
         }
+
+        $shape->name = $name;
+        $shape->data = $data;
+        $shape->shapeLocator = $shapeLocator;
+
+        return $shape;
     }
 
     public function offsetExists($offset)
@@ -48,5 +70,15 @@ class Shape implements \ArrayAccess
     public function toArray(): array
     {
         return $this->data;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getType(): string
+    {
+        return $this->data['type'];
     }
 }

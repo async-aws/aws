@@ -45,11 +45,11 @@ class ResultGenerator
     /**
      * Generate classes for the output. Ie, the result of the API call.
      */
-    public function generate(string $operationName, string $baseNamespace, string $className, bool $root, bool $useTrait)
+    public function generate(string $operationName, string $baseNamespace, Shape $shape, bool $root, bool $useTrait)
     {
-        $this->generateResultClass($baseNamespace, $className, $root, $useTrait, $operationName);
+        $this->generateResultClass($baseNamespace, $shape->getName(), $root, $useTrait, $operationName);
         if ($useTrait) {
-            $this->generateOutputTrait($operationName, $baseNamespace, $className);
+            $this->generateOutputTrait($operationName, $baseNamespace, $shape->getName());
         }
     }
 

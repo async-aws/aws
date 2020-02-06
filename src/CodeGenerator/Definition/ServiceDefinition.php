@@ -24,14 +24,13 @@ class ServiceDefinition
         $this->pagination = $pagination;
     }
 
-    public function getOperations(): array
+    public function getOperation(string $name): ?Operation
     {
-        return $this->definition['operations'] ?? [];
-    }
+        if (isset($this->definition['operations'][$name])) {
+            return Operation::create($this->definition['operations'][$name], $this->createClosureToFindShapes());
+        }
 
-    public function getOperation(string $name): ?array
-    {
-        return $this->definition['operations'][$name] ?? null;
+        return null;
     }
 
     public function getOperationDocumentation(string $name): ?string
@@ -61,7 +60,7 @@ class ServiceDefinition
     public function getShape(string $name): ?Shape
     {
         if (isset($this->definition['shapes'][$name])) {
-            return Shape::create($this->definition['shapes'][$name]);
+            return Shape::create($name, $this->definition['shapes'][$name], $this->createClosureToFindShapes());
         }
 
         return null;
@@ -100,5 +99,13 @@ class ServiceDefinition
     public function getGlobalEndpoint(): string
     {
         return $this->definition['metadata']['globalEndpoint'];
+    }
+
+    private function createClosureToFindShapes(): \Closure
+    {
+        $definition = $this;
+        return \Closure::fromCallable(function (string $name) use ($definition) {
+            return $definition->getShape($name);
+        });
     }
 }
