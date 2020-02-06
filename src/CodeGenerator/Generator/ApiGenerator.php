@@ -98,10 +98,15 @@ class ApiGenerator
             $operationMethodParameter->setDefaultValue([]);
         }
 
-        $outputClass = \sprintf('%s\\Result\\%s', $baseNamespace, $this->safeClassName($operation['output']['shape']));
-        $method->setReturnType($outputClass);
-        $namespace->addUse($outputClass);
-        $namespace->addUse(XmlBuilder::class);
+        if (isset($operation['output'])) {
+            $outputClass = \sprintf('%s\\Result\\%s', $baseNamespace, $this->safeClassName($operation['output']['shape']));
+            $method->setReturnType($outputClass);
+            $namespace->addUse($outputClass);
+            $namespace->addUse(XmlBuilder::class);
+        } else {
+            $method->setReturnType(Result::class);
+            $namespace->addUse(Result::class);
+        }
 
         // Generate method body
         $this->setMethodBody($inputShape, $method, $operation, $inputClassName);
@@ -672,6 +677,12 @@ PHP;
             $param = ', $this->httpClient';
         }
 
+        if (isset($operation['output'])) {
+            $return = "return new {$this->safeClassName($operation['output']['shape'])}(\$response$param);";
+        } else {
+            $return = "return new Result(\$response$param);";
+        }
+
         $method->setBody(
             $body .
             <<<PHP
@@ -683,7 +694,7 @@ PHP;
     \$this->getEndpoint(\$input->requestUri(), \$input->requestQuery())
 );
 
-return new {$this->safeClassName($operation['output']['shape'])}(\$response$param);
+$return
 PHP
         );
     }
@@ -692,6 +703,9 @@ PHP
     {
         $operation = $this->definition->getOperation($operationName);
 
+        if (!isset($operation['output'])) {
+            return false;
+        }
         // Check if output has streamable body
         $outputShape = $this->definition->getShape($operation['output']['shape']);
         $payload = $outputShape['payload'] ?? null;

@@ -27,7 +27,8 @@
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sqs\/2012-11-05\/docs-2.json",
             "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sqs\/2012-11-05\/paginators-1.json",
             "methods": {
-                "SendMessage": []
+                "SendMessage": [],
+                "DeleteMessage": []
             }
         },
         "Sts": {
