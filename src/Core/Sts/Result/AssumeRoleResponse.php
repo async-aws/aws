@@ -59,7 +59,7 @@ class AssumeRoleResponse extends Result
             'AccessKeyId' => $this->xmlValueOrNull($data->Credentials->AccessKeyId, 'string'),
             'SecretAccessKey' => $this->xmlValueOrNull($data->Credentials->SecretAccessKey, 'string'),
             'SessionToken' => $this->xmlValueOrNull($data->Credentials->SessionToken, 'string'),
-            'Expiration' => $this->xmlValueOrNull($data->Credentials->Expiration, '\DateTimeImmutable'),
+            'Expiration' => $this->xmlValueOrNull($data->Credentials->Expiration, '\\DateTimeImmutable'),
         ]);
         $this->AssumedRoleUser = new AssumedRoleUser([
             'AssumedRoleId' => $this->xmlValueOrNull($data->AssumedRoleUser->AssumedRoleId, 'string'),

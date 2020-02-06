@@ -12,11 +12,13 @@ use AsyncAws\Sqs\Input\GetQueueAttributesRequest;
 use AsyncAws\Sqs\Input\GetQueueUrlRequest;
 use AsyncAws\Sqs\Input\ListQueuesRequest;
 use AsyncAws\Sqs\Input\PurgeQueueRequest;
+use AsyncAws\Sqs\Input\ReceiveMessageRequest;
 use AsyncAws\Sqs\Input\SendMessageRequest;
 use AsyncAws\Sqs\Result\CreateQueueResult;
 use AsyncAws\Sqs\Result\GetQueueAttributesResult;
 use AsyncAws\Sqs\Result\GetQueueUrlResult;
 use AsyncAws\Sqs\Result\ListQueuesResult;
+use AsyncAws\Sqs\Result\ReceiveMessageResult;
 use AsyncAws\Sqs\Result\SendMessageResult;
 
 class SqsClient extends AbstractApi
@@ -227,6 +229,39 @@ class SqsClient extends AbstractApi
         );
 
         return new Result($response);
+    }
+
+    /**
+     * Retrieves one or more messages (up to 10), from the specified queue. Using the `WaitTimeSeconds` parameter enables
+     * long-poll support. For more information, see Amazon SQS Long Polling in the *Amazon Simple Queue Service Developer
+     * Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-long-polling.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#receivemessage
+     *
+     * @param array{
+     *   QueueUrl: string,
+     *   AttributeNames?: string[],
+     *   MessageAttributeNames?: string[],
+     *   MaxNumberOfMessages?: int,
+     *   VisibilityTimeout?: int,
+     *   WaitTimeSeconds?: int,
+     *   ReceiveRequestAttemptId?: string,
+     * }|ReceiveMessageRequest $input
+     */
+    public function receiveMessage($input): ReceiveMessageResult
+    {
+        $input = ReceiveMessageRequest::create($input);
+        $input->validate();
+
+        $response = $this->getResponse(
+            'POST',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
+
+        return new ReceiveMessageResult($response);
     }
 
     /**

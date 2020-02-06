@@ -487,59 +487,124 @@ PHP;
         $class->addMethod('requestUri')->setReturnType('string')->setBody($body['uri']);
     }
 
-    private function parseXmlResponse(?string $rootObjectName, string $rootObjectShape, string $prefix): string
+    private function parseXmlResponse(string $currentInput, ?string $memberName, array $memberData)
     {
-        $shape = $this->definition->getShape($rootObjectShape);
-        if (!\in_array($shape['type'], ['structure', 'list'])) {
-            $type = $this->toPhpType($shape['type']);
+        if (!empty($memberData['xmlAttribute'])) {
+            $input = $currentInput . '[' . var_export($memberData['locationName'], true) . ']';
+        } elseif (isset($memberData['locationName'])) {
+            $input = $currentInput . '->' . $memberData['locationName'];
+        } elseif ($memberName) {
+            $input = $currentInput . '->' . $memberName;
+        } else {
+            $input = $currentInput;
+        }
 
-            if (null === $rootObjectName) {
-                return "\$this->xmlValueOrNull($prefix, '$type');\n";
+        $shapeName = $memberData['shape'];
+        $shape = $this->definition->getShape($shapeName);
+        switch ($shape['type']) {
+            case 'list':
+                return $this->parseXmlResponseList($shapeName, $input);
+            case 'structure':
+                return $this->parseXmlResponseStructure($shapeName, $input);
+            case 'map':
+                return $this->parseXmlResponseMap($shapeName, $input);
+            case 'string':
+            case 'boolean':
+            case 'integer':
+            case 'long':
+            case 'timestamp':
+            case 'blob':
+                return $this->parseXmlResponseScalar($shapeName, $input);
+            default:
+                throw new \RuntimeException(sprintf('Type %s is not yet implemented', $shape['type']));
+        }
+    }
+
+    private function parseXmlResponseRoot(string $shapeName): string
+    {
+        $shape = $this->definition->getShape($shapeName);
+        $properties = [];
+
+        foreach ($shape['members'] as $memberName => $memberData) {
+            if (\in_array(($memberData['location'] ?? null), ['header', 'headers'])) {
+                continue;
             }
 
-            return "\$this->$rootObjectName = \$this->xmlValueOrNull(\$data->$rootObjectName, '$type');\n";
+            $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
+                'PROPERTY_NAME' => $memberName,
+                'PROPERTY_ACCESSOR' => $this->parseXmlResponse('$data', $memberName, $memberData),
+            ]);
         }
 
-        if ('list' === $shape['type']) {
-            $childCall = $this->parseXmlResponse(null, $shape['member']['shape'], '$item');
+        return implode("\n", $properties);
+    }
 
-            $location = $shape['member']['locationName'] ?? $rootObjectName;
+    private function parseXmlResponseStructure(string $shapeName, string $input): string
+    {
+        $shape = $this->definition->getShape($shapeName);
 
-            return <<<PHP
-\$this->$rootObjectName = [];
-foreach ($prefix->{$location} as \$item) {
-    \$this->{$rootObjectName}[] = $childCall;
-}
-
-PHP;
+        $properties = [];
+        foreach ($shape['members'] as $memberName => $memberData) {
+            $properties[] = strtr('PROPERTY_NAME => PROPERTY_ACCESSOR,', [
+                'PROPERTY_NAME' => var_export($memberName, true),
+                'PROPERTY_ACCESSOR' => $this->parseXmlResponse($input, $memberName, $memberData),
+            ]);
         }
 
-        // Assert: $shape['type'] === 'structure'
-        $safeRootObjectShape = $this->safeClassName($rootObjectShape);
-        $body = "new $safeRootObjectShape([\n";
-        if ($rootObjectName) {
-            $prefix .= "->$rootObjectName";
-        }
-        foreach ($shape['members'] as $name => $memberData) {
-            $memberShape = $this->definition->getShape($memberData['shape']);
-            if ('structure' === $memberShape['type']) {
-                $body .= "'$name' => " . $this->parseXmlResponse(null, $name, $prefix . '->' . $name) . ",\n";
-            } elseif ('list' === $memberShape['type']) {
-                // TODO check for list type
-                // TODO we should do something similar like above, but here we are in the middle of defining an array.
-                throw new \RuntimeException('This is not implemented yet');
-            //$body .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, $this->safeClassName($memberShape['member']['shape']), $name);
-            } else {
-                $type = $this->toPhpType($memberShape['type']);
-                $body .= "'$name' => \$this->xmlValueOrNull($prefix->$name, '$type'),\n";
+        return strtr('new CLASS_NAME([
+            PROPERTIES
+        ])', [
+            'CLASS_NAME' => $this->safeClassName($shapeName),
+            'PROPERTIES' => implode("\n", $properties),
+        ]);
+    }
+
+    private function parseXmlResponseScalar(string $shapeName, string $input): string
+    {
+        $shape = $this->definition->getShape($shapeName);
+
+        return strtr('$this->xmlValueOrNull(PROPERTY_ACCESSOR, PROPERTY_TYPE)', [
+            'PROPERTY_ACCESSOR' => $input,
+            'PROPERTY_TYPE' => \var_export($this->toPhpType($shape['type']), true),
+        ]);
+    }
+
+    private function parseXmlResponseList(string $shapeName, string $input): string
+    {
+        $shape = $this->definition->getShape($shapeName);
+
+        return strtr('(function(\SimpleXMLElement $xml): array {
+            $items = [];
+            foreach ($xml as $item) {
+               $items[] = LIST_ACCESSOR;
             }
-        }
-        $body .= '])';
-        if ($rootObjectName) {
-            $body = "\$this->$rootObjectName = $body;\n";
+
+            return $items;
+        })(INPUT)', [
+            'LIST_ACCESSOR' => $this->parseXmlResponse('$item', null, ['shape' => $shape['member']['shape']]),
+            'INPUT' => $input,
+        ]);
+    }
+
+    private function parseXmlResponseMap(string $shapeName, string $input): string
+    {
+        $shape = $this->definition->getShape($shapeName);
+        if (!isset($shape['key']['locationName'])) {
+            throw new \RuntimeException('This is not implemented yet');
         }
 
-        return $body;
+        return strtr('(function(\SimpleXMLElement $xml): array {
+            $items = [];
+            foreach ($xml as $item) {
+               $items[$item->MAP_KEY->__toString()] = MAP_ACCESSOR;
+            }
+
+            return $items;
+        })(INPUT)', [
+            'MAP_KEY' => $shape['key']['locationName'],
+            'MAP_ACCESSOR' => $this->parseXmlResponse('$item', null, $shape['value']),
+            'INPUT' => $input,
+        ]);
     }
 
     private function toPhpType(?string $parameterType): string
@@ -627,7 +692,7 @@ PHP;
                 if ('structure' === $type) {
                     $param = '\\' . $baseNamespace . '\\' . $listItemShapeName . '[]';
                 } else {
-                    $param = $type . '[]';
+                    $param = $this->toPhpType($type) . '[]';
                 }
             } elseif ($data['streaming'] ?? false) {
                 $param = 'string|resource|\Closure';
@@ -745,6 +810,18 @@ PHP
                 $listItemShapeName = $memberShape['member']['shape'];
                 $type = $this->definition->getShape($listItemShapeName)['type'];
                 if ('structure' === $type) {
+                    // todo this is needed in Input but useless in Result
+                    $this->doGenerateResultClass($baseNamespace, $listItemShapeName);
+                    $constructorBody .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, $this->safeClassName($listItemShapeName), $name);
+                } else {
+                    $constructorBody .= sprintf('$this->%s = $input["%s"] ?? [];' . "\n", $name, $name);
+                }
+            } elseif ('map' === $memberShape['type']) {
+                // Check if this is a list of objects
+                $listItemShapeName = $memberShape['value']['shape'];
+                $type = $this->definition->getShape($listItemShapeName)['type'];
+                if ('structure' === $type) {
+                    // todo this is needed in Input but useless in Result
                     $this->doGenerateResultClass($baseNamespace, $listItemShapeName);
                     $constructorBody .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, $this->safeClassName($listItemShapeName), $name);
                 } else {
@@ -778,8 +855,8 @@ PHP
                 $parameterType = $baseNamespace . '\\' . $this->safeClassName($parameterType);
             } elseif ('map' === $memberShape['type']) {
                 $mapKeyShape = $this->definition->getShape($memberShape['key']['shape']);
-                $mapValueShape = $this->definition->getShape($memberShape['value']['shape']);
-                if ('string' !== $mapKeyShape['type'] || 'string' !== $mapValueShape['type']) {
+
+                if ('string' !== $mapKeyShape['type']) {
                     throw new \RuntimeException('Complex maps are not supported');
                 }
                 $parameterType = 'array';
@@ -796,7 +873,7 @@ PHP
                     $this->doGenerateResultClass($baseNamespace, $listItemShapeName);
                     $returnType = $this->safeClassName($listItemShapeName);
                 } else {
-                    $returnType = $type;
+                    $returnType = $this->toPhpType($type);
                 }
             } elseif ($data['streaming'] ?? false) {
                 $parameterType = StreamableBody::class;
@@ -900,22 +977,18 @@ PHP
             if (true === ($member['streaming'] ?? false)) {
                 // Make sure we can stream this.
                 $namespace->addUse(StreamableBody::class);
-                $body .= <<<PHP
-if (null !== \$httpClient) {
-    \$this->$name = new StreamableBody(\$httpClient->stream(\$response));
-} else {
-    \$this->$name = \$response->getContent(false);
-}
-
-PHP;
+                $body .= strtr('
+                    if (null !== $httpClient) {
+                        $this->PROPERTY_NAME = new StreamableBody($httpClient->stream($response));
+                    } else {
+                        $this->PROPERTY_NAME = $response->getContent(false);
+                    }
+                ', ['PROPERTY_NAME' => $name]);
             } else {
-                $xmlParser .= "\n\n" . $this->parseXmlResponse($name, $member['shape'], '$data');
+                $xmlParser = $this->parseXmlResponseRoot($className);
             }
         } else {
-            // All remaining members are in the body
-            foreach ($nonHeaders as $name => $member) {
-                $xmlParser .= $this->parseXmlResponse($name, $member['shape'], '$data');
-            }
+            $xmlParser = $this->parseXmlResponseRoot($className);
         }
 
         if (!empty($xmlParser)) {

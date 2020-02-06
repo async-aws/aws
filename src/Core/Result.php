@@ -129,6 +129,7 @@ class Result
             case '\DateTimeInterface':
                 return new \DateTimeImmutable($value);
             case 'int':
+            case 'long':
                 return filter_var($value, \FILTER_VALIDATE_INT);
             case 'bool':
                 return filter_var($value, \FILTER_VALIDATE_BOOLEAN);

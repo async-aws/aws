@@ -55,18 +55,22 @@ class GetObjectAclOutput extends Result
             'DisplayName' => $this->xmlValueOrNull($data->Owner->DisplayName, 'string'),
             'ID' => $this->xmlValueOrNull($data->Owner->ID, 'string'),
         ]);
-        $this->Grants = [];
-        foreach ($data->Grant as $item) {
-            $this->Grants[] = new Grant([
-                'Grantee' => new Grantee([
-                    'DisplayName' => $this->xmlValueOrNull($item->Grantee->DisplayName, 'string'),
-                    'EmailAddress' => $this->xmlValueOrNull($item->Grantee->EmailAddress, 'string'),
-                    'ID' => $this->xmlValueOrNull($item->Grantee->ID, 'string'),
-                    'Type' => $this->xmlValueOrNull($item->Grantee->Type, 'string'),
-                    'URI' => $this->xmlValueOrNull($item->Grantee->URI, 'string'),
-                ]),
-                'Permission' => $this->xmlValueOrNull($item->Permission, 'string'),
-            ]);
-        }
+        $this->Grants = (function (\SimpleXMLElement $xml): array {
+            $items = [];
+            foreach ($xml as $item) {
+                $items[] = new Grant([
+                    'Grantee' => new Grantee([
+                        'DisplayName' => $this->xmlValueOrNull($item->Grantee->DisplayName, 'string'),
+                        'EmailAddress' => $this->xmlValueOrNull($item->Grantee->EmailAddress, 'string'),
+                        'ID' => $this->xmlValueOrNull($item->Grantee->ID, 'string'),
+                        'Type' => $this->xmlValueOrNull($item->Grantee['xsi:type'], 'string'),
+                        'URI' => $this->xmlValueOrNull($item->Grantee->URI, 'string'),
+                    ]),
+                    'Permission' => $this->xmlValueOrNull($item->Permission, 'string'),
+                ]);
+            }
+
+            return $items;
+        })($data->AccessControlList);
     }
 }
