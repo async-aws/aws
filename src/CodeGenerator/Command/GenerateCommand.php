@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Command;
 
 use AsyncAws\CodeGenerator\Generator\ApiGenerator;
-use AsyncAws\CodeGenerator\Generator\ServiceDefinition;
+use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
 use PhpCsFixer\Config;
 use PhpCsFixer\Console\ConfigurationResolver;
 use PhpCsFixer\Error\ErrorsManager;

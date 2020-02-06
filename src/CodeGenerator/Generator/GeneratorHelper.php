@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator;
 
-use AsyncAws\Core\Result;
+use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
 use Nette\PhpGenerator\Method;
 
 /**

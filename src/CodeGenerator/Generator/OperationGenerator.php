@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator;
 
+use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
 use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Result;

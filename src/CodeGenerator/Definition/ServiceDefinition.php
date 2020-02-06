@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\CodeGenerator\Generator;
+namespace AsyncAws\CodeGenerator\Definition;
 
 /**
  * A wrapper for the service definition array.
