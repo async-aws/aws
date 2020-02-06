@@ -121,11 +121,13 @@ class ApiGenerator
     {
         $this->definition = $definition;
         $this->doGenerateResultClass($baseNamespace, $className, $root, $useTrait, $operationName);
+        if ($useTrait) {
+            $this->generateOutputTrait($operationName, $baseNamespace, $className);
+        }
     }
 
-    public function generateOutputTrait(ServiceDefinition $definition, string $operationName, string $baseNamespace, string $className)
+    private function generateOutputTrait(string $operationName, string $baseNamespace, string $className)
     {
-        $this->definition = $definition;
         $traitName = $className . 'Trait';
 
         $namespace = new PhpNamespace($baseNamespace);
