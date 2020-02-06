@@ -48,7 +48,7 @@ class GetObjectAclOutput extends Result
     {
         $headers = $response->getHeaders(false);
 
-        $this->RequestCharged = $headers['x-amz-request-charged'];
+        $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent(false));
         $this->Owner = new Owner([

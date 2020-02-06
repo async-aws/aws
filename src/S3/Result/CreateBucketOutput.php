@@ -25,6 +25,6 @@ class CreateBucketOutput extends Result
     {
         $headers = $response->getHeaders(false);
 
-        $this->Location = $headers['Location'];
+        $this->Location = $headers['location'][0] ?? null;
     }
 }

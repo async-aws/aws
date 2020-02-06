@@ -133,15 +133,15 @@ class CopyObjectOutput extends Result
     {
         $headers = $response->getHeaders(false);
 
-        $this->Expiration = $headers['x-amz-expiration'];
-        $this->CopySourceVersionId = $headers['x-amz-copy-source-version-id'];
-        $this->VersionId = $headers['x-amz-version-id'];
-        $this->ServerSideEncryption = $headers['x-amz-server-side-encryption'];
-        $this->SSECustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'];
-        $this->SSECustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-MD5'];
-        $this->SSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'];
-        $this->SSEKMSEncryptionContext = $headers['x-amz-server-side-encryption-context'];
-        $this->RequestCharged = $headers['x-amz-request-charged'];
+        $this->Expiration = $headers['x-amz-expiration'][0] ?? null;
+        $this->CopySourceVersionId = $headers['x-amz-copy-source-version-id'][0] ?? null;
+        $this->VersionId = $headers['x-amz-version-id'][0] ?? null;
+        $this->ServerSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;
+        $this->SSECustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'][0] ?? null;
+        $this->SSECustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-md5'][0] ?? null;
+        $this->SSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
+        $this->SSEKMSEncryptionContext = $headers['x-amz-server-side-encryption-context'][0] ?? null;
+        $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent(false));
 

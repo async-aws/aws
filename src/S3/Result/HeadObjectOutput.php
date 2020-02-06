@@ -252,7 +252,7 @@ class HeadObjectOutput extends Result
         return $this->LastModified;
     }
 
-    public function getMetadata(): ?array
+    public function getMetadata(): array
     {
         $this->initialize();
 
@@ -368,32 +368,38 @@ class HeadObjectOutput extends Result
     {
         $headers = $response->getHeaders(false);
 
-        $this->DeleteMarker = $headers['x-amz-delete-marker'];
-        $this->AcceptRanges = $headers['accept-ranges'];
-        $this->Expiration = $headers['x-amz-expiration'];
-        $this->Restore = $headers['x-amz-restore'];
-        $this->LastModified = $headers['Last-Modified'];
-        $this->ContentLength = $headers['Content-Length'];
-        $this->ETag = $headers['ETag'];
-        $this->MissingMeta = $headers['x-amz-missing-meta'];
-        $this->VersionId = $headers['x-amz-version-id'];
-        $this->CacheControl = $headers['Cache-Control'];
-        $this->ContentDisposition = $headers['Content-Disposition'];
-        $this->ContentEncoding = $headers['Content-Encoding'];
-        $this->ContentLanguage = $headers['Content-Language'];
-        $this->ContentType = $headers['Content-Type'];
-        $this->Expires = $headers['Expires'];
-        $this->WebsiteRedirectLocation = $headers['x-amz-website-redirect-location'];
-        $this->ServerSideEncryption = $headers['x-amz-server-side-encryption'];
-        $this->SSECustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'];
-        $this->SSECustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-MD5'];
-        $this->SSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'];
-        $this->StorageClass = $headers['x-amz-storage-class'];
-        $this->RequestCharged = $headers['x-amz-request-charged'];
-        $this->ReplicationStatus = $headers['x-amz-replication-status'];
-        $this->PartsCount = $headers['x-amz-mp-parts-count'];
-        $this->ObjectLockMode = $headers['x-amz-object-lock-mode'];
-        $this->ObjectLockRetainUntilDate = $headers['x-amz-object-lock-retain-until-date'];
-        $this->ObjectLockLegalHoldStatus = $headers['x-amz-object-lock-legal-hold'];
+        $this->DeleteMarker = isset($headers['x-amz-delete-marker'][0]) ? filter_var($headers['x-amz-delete-marker'][0], \FILTER_VALIDATE_BOOLEAN) : null;
+        $this->AcceptRanges = $headers['accept-ranges'][0] ?? null;
+        $this->Expiration = $headers['x-amz-expiration'][0] ?? null;
+        $this->Restore = $headers['x-amz-restore'][0] ?? null;
+        $this->LastModified = isset($headers['last-modified'][0]) ? new \DateTimeImmutable($headers['last-modified'][0]) : null;
+        $this->ContentLength = $headers['content-length'][0] ?? null;
+        $this->ETag = $headers['etag'][0] ?? null;
+        $this->MissingMeta = isset($headers['x-amz-missing-meta'][0]) ? filter_var($headers['x-amz-missing-meta'][0], \FILTER_VALIDATE_INT) : null;
+        $this->VersionId = $headers['x-amz-version-id'][0] ?? null;
+        $this->CacheControl = $headers['cache-control'][0] ?? null;
+        $this->ContentDisposition = $headers['content-disposition'][0] ?? null;
+        $this->ContentEncoding = $headers['content-encoding'][0] ?? null;
+        $this->ContentLanguage = $headers['content-language'][0] ?? null;
+        $this->ContentType = $headers['content-type'][0] ?? null;
+        $this->Expires = isset($headers['expires'][0]) ? new \DateTimeImmutable($headers['expires'][0]) : null;
+        $this->WebsiteRedirectLocation = $headers['x-amz-website-redirect-location'][0] ?? null;
+        $this->ServerSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;
+        $this->SSECustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'][0] ?? null;
+        $this->SSECustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-md5'][0] ?? null;
+        $this->SSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
+        $this->StorageClass = $headers['x-amz-storage-class'][0] ?? null;
+        $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
+        $this->ReplicationStatus = $headers['x-amz-replication-status'][0] ?? null;
+        $this->PartsCount = isset($headers['x-amz-mp-parts-count'][0]) ? filter_var($headers['x-amz-mp-parts-count'][0], \FILTER_VALIDATE_INT) : null;
+        $this->ObjectLockMode = $headers['x-amz-object-lock-mode'][0] ?? null;
+        $this->ObjectLockRetainUntilDate = isset($headers['x-amz-object-lock-retain-until-date'][0]) ? new \DateTimeImmutable($headers['x-amz-object-lock-retain-until-date'][0]) : null;
+        $this->ObjectLockLegalHoldStatus = $headers['x-amz-object-lock-legal-hold'][0] ?? null;
+        $this->Metadata = [];
+        foreach ($headers as $name => $value) {
+            if ('x-amz-meta-' === substr($name, 0, 11)) {
+                $this->Metadata[$name] = $value[0];
+            }
+        }
     }
 }

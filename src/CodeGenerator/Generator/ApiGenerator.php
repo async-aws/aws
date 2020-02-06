@@ -759,6 +759,14 @@ PHP
             if ('structure' === $memberShape['type']) {
                 $this->doGenerateResultClass($baseNamespace, $parameterType);
                 $parameterType = $baseNamespace . '\\' . $this->safeClassName($parameterType);
+            } elseif ('map' === $memberShape['type']) {
+                $mapKeyShape = $this->definition->getShape($memberShape['key']['shape']);
+                $mapValueShape = $this->definition->getShape($memberShape['value']['shape']);
+                if ('string' !== $mapKeyShape['type'] || 'string' !== $mapValueShape['type']) {
+                    throw new \RuntimeException('Complex maps are not supported');
+                }
+                $parameterType = 'array';
+                $nullable = false;
             } elseif ('list' === $memberShape['type']) {
                 $parameterType = 'array';
                 $nullable = false;
@@ -818,8 +826,38 @@ PHP
 
                 continue;
             }
-            $locationName = $member['locationName'] ?? $name;
-            $body .= "\$this->$name = \$headers['{$locationName}'];\n";
+
+            $locationName = strtolower($member['locationName'] ?? $name);
+            $memberShape = $this->definition->getShape($member['shape']);
+            if ('timestamp' === $memberShape['type']) {
+                $body .= "\$this->$name = isset(\$headers['{$locationName}'][0]) ? new \DateTimeImmutable(\$headers['{$locationName}'][0]) : null;\n";
+            } else {
+                if (null !== $constant = $this->getFilterConstantFromType($memberShape['type'])) {
+                    // Convert to proper type
+                    $body .= "\$this->$name = isset(\$headers['{$locationName}'][0]) ? filter_var(\$headers['{$locationName}'][0], {$constant}) : null;\n";
+                } else {
+                    $body .= "\$this->$name = \$headers['{$locationName}'][0] ?? null;\n";
+                }
+            }
+        }
+
+        foreach ($nonHeaders as $name => $member) {
+            if (($member['location'] ?? null) !== 'headers') {
+                continue;
+            }
+            unset($nonHeaders[$name]);
+
+            $locationName = strtolower($member['locationName'] ?? $name);
+            $length = \strlen($locationName);
+            $body .= <<<PHP
+\$this->$name = [];
+foreach (\$headers as \$name => \$value) {
+    if (substr(\$name, 0, {$length}) === '{$locationName}') {
+        \$this->{$name}[\$name] = \$value[0];
+    }
+}
+
+PHP;
         }
 
         $comment = '';
@@ -859,10 +897,6 @@ PHP;
         } else {
             // All remaining members are in the body
             foreach ($nonHeaders as $name => $member) {
-                if (($member['location'] ?? null) === 'headers') {
-                    // There is a difference between 'header' and 'headers'
-                    continue;
-                }
                 $xmlParser .= $this->parseXmlResponse($name, $member['shape'], '$data');
             }
         }
@@ -882,5 +916,18 @@ PHP;
             ->setBody($body);
         $method->addParameter('response')->setType(ResponseInterface::class);
         $method->addParameter('httpClient')->setType(HttpClientInterface::class)->setNullable(true);
+    }
+
+    private function getFilterConstantFromType(string $type): ?string
+    {
+        switch ($type) {
+            case 'integer':
+                return 'FILTER_VALIDATE_INT';
+            case 'boolean':
+                return 'FILTER_VALIDATE_BOOLEAN';
+            case 'string':
+            default:
+                return null;
+        }
     }
 }

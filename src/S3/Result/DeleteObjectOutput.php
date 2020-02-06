@@ -45,8 +45,8 @@ class DeleteObjectOutput extends Result
     {
         $headers = $response->getHeaders(false);
 
-        $this->DeleteMarker = $headers['x-amz-delete-marker'];
-        $this->VersionId = $headers['x-amz-version-id'];
-        $this->RequestCharged = $headers['x-amz-request-charged'];
+        $this->DeleteMarker = isset($headers['x-amz-delete-marker'][0]) ? filter_var($headers['x-amz-delete-marker'][0], \FILTER_VALIDATE_BOOLEAN) : null;
+        $this->VersionId = $headers['x-amz-version-id'][0] ?? null;
+        $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
     }
 }
