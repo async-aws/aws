@@ -21,4 +21,7 @@
   <file src="src/S3/Result/ListObjectsOutput.php">
     <ArgumentTypeCoercion occurrences="3"/>
   </file>
+  <file src="src/Sqs/Result/ReceiveMessageResult.php">
+    <ArgumentTypeCoercion occurrences="2"/>
+  </file>
 </files>
