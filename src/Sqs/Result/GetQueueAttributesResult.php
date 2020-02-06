@@ -6,25 +6,25 @@ use AsyncAws\Core\Result;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-class GetQueueUrlResult extends Result
+class GetQueueAttributesResult extends Result
 {
     /**
-     * The URL of the queue.
+     * A map of attributes to their respective values.
      */
-    private $QueueUrl;
+    private $Attributes;
 
-    public function getQueueUrl(): ?string
+    public function getAttributes(): array
     {
         $this->initialize();
 
-        return $this->QueueUrl;
+        return $this->Attributes;
     }
 
     protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
     {
         $data = new \SimpleXMLElement($response->getContent(false));
-        $data = $data->GetQueueUrlResult;
+        $data = $data->GetQueueAttributesResult;
 
-        $this->QueueUrl = $this->xmlValueOrNull($data->QueueUrl, 'string');
+        $this->Attributes = $this->xmlValueOrNull($data->Attributes, 'array');
     }
 }
