@@ -216,7 +216,7 @@ class GenerateCommand extends Command
             return $operations;
         }
         if ($operationName === $newOperation) {
-            return [$io->choice('Select the operation to generate', \array_keys($definition['operations']))];
+            return [$io->choice('Select the operation to generate', array_diff(\array_keys($definition['operations']), \array_keys($manifest['methods'])))];
         }
 
         return [$operationName];
