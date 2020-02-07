@@ -16,7 +16,7 @@ class S3ClientTest extends TestCase
     public function testBasicUploadDownload()
     {
         $s3 = $this->getClient();
-        $input = new PutObjectRequest([]);
+        $input = new PutObjectRequest();
         $fileBody = 'foobar';
         $input->setBucket('foo')
             ->setKey('bar')
@@ -28,7 +28,7 @@ class S3ClientTest extends TestCase
         self::assertEquals(200, $info['status']);
 
         // Test get object
-        $input = new GetObjectRequest([]);
+        $input = new GetObjectRequest();
         $input->setBucket('foo')
             ->setKey('bar');
         $result = $s3->getObject($input);
@@ -48,7 +48,7 @@ class S3ClientTest extends TestCase
         $s3 = $this->getClient();
 
         // Test get object
-        $input = new GetObjectRequest([]);
+        $input = new GetObjectRequest();
         $input->setBucket('foo')
             ->setKey('no_file');
         $result = $s3->getObject($input);

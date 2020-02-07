@@ -19,7 +19,7 @@ class SqsClientTest extends TestCase
         $result->resolve();
         self::assertEquals(200, $result->info()['status']);
 
-        $input = new SendMessageRequest([]);
+        $input = new SendMessageRequest();
         $input
             ->setQueueUrl('https://foo.com/bar')
             ->setMessageBody('foobar');
