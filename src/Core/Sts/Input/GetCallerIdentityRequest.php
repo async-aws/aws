@@ -4,17 +4,9 @@ namespace AsyncAws\Core\Sts\Input;
 
 class GetCallerIdentityRequest
 {
-    /**
-     * @param array{
-     * } $input
-     */
-    public function __construct(array $input = [])
-    {
-    }
-
     public static function create($input): self
     {
-        return $input instanceof self ? $input : new self($input);
+        return $input instanceof self ? $input : new self();
     }
 
     public function requestBody(): array

@@ -250,7 +250,6 @@ class GenerateCommand extends Command
             return;
         }
 
-        /** @var Config $config */
         $resolver = new ConfigurationResolver(
             new Config(),
             [
