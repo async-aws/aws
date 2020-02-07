@@ -50,6 +50,9 @@ jobs:
             echo ::endgroup::
           done
 
+      - name: Initialize tests
+        run: make initialize
+
       - name: Run tests
         run: |
           ok=0
@@ -110,6 +113,9 @@ jobs:
             echo ::endgroup::
           done
 
+      - name: Initialize tests
+        run: make initialize
+
       - name: Run tests
         run: |
           ok=0
@@ -146,6 +152,9 @@ jobs:
       - name: Download dependencies
         run: |
           composer update --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Initialize tests
+        run: make initialize
 
       - name: Run tests
         run: |
