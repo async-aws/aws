@@ -33,5 +33,8 @@ jobs:
           composer req symfony/phpunit-bridge --no-update
           composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
 
+      - name: Initialize tests
+        run: make initialize
+
       - name: Run tests
         run: ./vendor/bin/simple-phpunit

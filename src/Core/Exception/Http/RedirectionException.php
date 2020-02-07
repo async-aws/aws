@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core\Exception\Http;
 
-use Symfony\Component\HttpClient\Exception\HttpExceptionTrait;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 
 /**

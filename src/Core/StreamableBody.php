@@ -43,7 +43,11 @@ class StreamableBody
     {
         $resource = $this->getContentAsResource();
 
-        return \stream_get_contents($resource);
+        try {
+            return \stream_get_contents($resource);
+        } finally {
+            \fclose($resource);
+        }
     }
 
     public function getContentAsResource()
@@ -59,8 +63,10 @@ class StreamableBody
             \fseek($resource, 0, \SEEK_SET);
 
             return $resource;
-        } finally {
-            fclose($resource);
+        } catch (\Throwable $e) {
+            \fclose($resource);
+
+            throw $e;
         }
     }
 }

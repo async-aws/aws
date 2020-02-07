@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="3.8.2@90d6b73fd8062432030ef39b7b6694b3902daa31">
-  <file src="src/Core/Sts/Input/Tag.php">
-    <InvalidParamDefault occurrences="1"/>
+  <file src="src/Core/Exception/Http/HttpExceptionTrait.php">
+    <InvalidArgument occurrences="4">
+      <code>$code</code>
+      <code>$url</code>
+      <code>$url</code>
+      <code>$code</code>
+    </InvalidArgument>
+    <PossiblyNullArgument occurrences="1">
+      <code>$response-&gt;getInfo('response_headers')</code>
+    </PossiblyNullArgument>
   </file>
   <file src="src/Core/Sts/Result/AssumeRoleResponse.php">
     <ArgumentTypeCoercion occurrences="2"/>
