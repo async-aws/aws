@@ -52,8 +52,9 @@ class StreamableBody
 
     public function getContentAsResource()
     {
+        $resource = \fopen('php://temp', 'rw+');
+
         try {
-            $resource = \fopen('php://temp', 'rw+');
             foreach ($this->responseStream as $chunk) {
                 fwrite($resource, $chunk->getContent());
             }
