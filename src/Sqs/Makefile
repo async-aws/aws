@@ -1,7 +1,7 @@
 .EXPORT_ALL_VARIABLES:
 
-# Build the PHP runtimes
-initialize:
+initialize: start-docker
+start-docker:
 	docker pull feathj/fake-sqs
 	docker start async_aws_sqs || docker run -d -p 9494:9494 --name async_aws_sqs feathj/fake-sqs
 

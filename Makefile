@@ -1,14 +1,14 @@
 SHELL := /bin/bash
 COMPONENTS := $(shell find src -maxdepth 4 -type f -name Makefile  | sed  -e 's/\/Makefile//g' | sort)
 
-# Initialize all compoennts the PHP runtimes
-initialize:
+initialize: start-docker
+start-docker:
 	PWD=pwd
 	set -e; \
 	for COMPONENT in $(COMPONENTS); do \
 		echo "###############################################"; \
 		echo "###############################################"; \
-		echo "### Initialize $${COMPONENT}"; \
+		echo "### Starting docker for $${COMPONENT}"; \
 		echo "###"; \
 		cd ${PWD} ; cd $${COMPONENT} ; \
 		make initialize; \
@@ -24,7 +24,7 @@ stop-docker:
 	for COMPONENT in $(COMPONENTS); do \
 		echo "###############################################"; \
 		echo "###############################################"; \
-		echo "### Initialize $${COMPONENT}"; \
+		echo "### Stopping docker on$${COMPONENT}"; \
 		echo "###"; \
 		cd ${PWD} ; cd $${COMPONENT} ; \
 		make stop-docker; \
