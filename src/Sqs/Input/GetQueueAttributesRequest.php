@@ -28,7 +28,7 @@ class GetQueueAttributesRequest
      *   AttributeNames?: string[],
      * } $input
      */
-    public function __construct(array $input)
+    public function __construct(array $input = [])
     {
         $this->QueueUrl = $input['QueueUrl'] ?? null;
         $this->AttributeNames = $input['AttributeNames'] ?? [];

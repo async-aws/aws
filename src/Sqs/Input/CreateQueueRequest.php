@@ -39,7 +39,7 @@ class CreateQueueRequest
      *   tags?: array,
      * } $input
      */
-    public function __construct(array $input)
+    public function __construct(array $input = [])
     {
         $this->QueueName = $input['QueueName'] ?? null;
         $this->Attributes = $input['Attributes'] ?? null;

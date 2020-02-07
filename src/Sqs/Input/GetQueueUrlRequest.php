@@ -29,7 +29,7 @@ class GetQueueUrlRequest
      *   QueueOwnerAWSAccountId?: string,
      * } $input
      */
-    public function __construct(array $input)
+    public function __construct(array $input = [])
     {
         $this->QueueName = $input['QueueName'] ?? null;
         $this->QueueOwnerAWSAccountId = $input['QueueOwnerAWSAccountId'] ?? null;

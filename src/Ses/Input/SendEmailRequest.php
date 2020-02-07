@@ -73,7 +73,7 @@ class SendEmailRequest
      *   ConfigurationSetName?: string,
      * } $input
      */
-    public function __construct(array $input)
+    public function __construct(array $input = [])
     {
         $this->FromEmailAddress = $input['FromEmailAddress'] ?? null;
         $this->Destination = isset($input['Destination']) ? Destination::create($input['Destination']) : null;

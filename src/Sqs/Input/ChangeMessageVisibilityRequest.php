@@ -41,7 +41,7 @@ class ChangeMessageVisibilityRequest
      *   VisibilityTimeout: int,
      * } $input
      */
-    public function __construct(array $input)
+    public function __construct(array $input = [])
     {
         $this->QueueUrl = $input['QueueUrl'] ?? null;
         $this->ReceiptHandle = $input['ReceiptHandle'] ?? null;

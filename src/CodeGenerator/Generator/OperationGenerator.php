@@ -230,7 +230,7 @@ PHP
             $constructor->addComment('} $input');
 
             $inputParameter = $constructor->addParameter('input')->setType('array');
-            if (empty($inputShape['required'])) {
+            if (empty($inputShape['required']) || $root) {
                 $inputParameter->setDefaultValue([]);
             }
             $constructor->setBody($constructorBody);
