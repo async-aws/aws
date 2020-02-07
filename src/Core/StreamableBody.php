@@ -43,24 +43,23 @@ class StreamableBody
     {
         $resource = $this->getContentAsResource();
 
-        return \stream_get_contents($resource);
+        try {
+            return \stream_get_contents($resource);
+        } finally {
+            \fclose($resource);
+        }
     }
 
     public function getContentAsResource()
     {
         $resource = \fopen('php://temp', 'rw+');
-
-        try {
-            foreach ($this->responseStream as $chunk) {
-                fwrite($resource, $chunk->getContent());
-            }
-
-            // Rewind
-            \fseek($resource, 0, \SEEK_SET);
-
-            return $resource;
-        } finally {
-            fclose($resource);
+        foreach ($this->responseStream as $chunk) {
+            fwrite($resource, $chunk->getContent());
         }
+
+        // Rewind
+        \fseek($resource, 0, \SEEK_SET);
+
+        return $resource;
     }
 }
