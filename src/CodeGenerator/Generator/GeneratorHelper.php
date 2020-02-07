@@ -67,7 +67,7 @@ class GeneratorHelper
 
     public static function addMethodComment(ServiceDefinition $definition, Shape $inputShape, string $baseNamespace): array
     {
-        $body = [] ;
+        $body = [];
         foreach ($inputShape['members'] as $name => $data) {
             $nullable = !\in_array($name, $inputShape['required'] ?? []);
             $memberShape = $definition->getShape($data['shape']);

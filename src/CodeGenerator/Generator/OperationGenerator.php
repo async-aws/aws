@@ -99,7 +99,7 @@ class OperationGenerator
             $method->addComment('}|' . $safeClassName . ' $input');
         } else {
             // No input array
-            $method->addComment('@param ' . $safeClassName . ' $input');
+            $method->addComment('@param array|' . $safeClassName . ' $input');
         }
 
         $operationMethodParameter = $method->addParameter('input');
@@ -217,11 +217,10 @@ return \$input instanceof self ? \$input : new self($selfParameter);
 PHP
         )->addParameter('input');
 
-
         if (!empty($constructorBody)) {
             $constructor = $class->addMethod('__construct');
             if ($root && isset($operation['documentationUrl'])) {
-                $constructor->addComment('@see '.$operation['documentationUrl']);
+                $constructor->addComment('@see ' . $operation['documentationUrl']);
             }
 
             $constructor->addComment('@param array{');
