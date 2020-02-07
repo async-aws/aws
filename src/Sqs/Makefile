@@ -8,5 +8,6 @@ start-docker:
 test: initialize
 	./vendor/bin/simple-phpunit
 
+clean: stop-docker
 stop-docker:
 	docker stop async_aws_sqs || true
