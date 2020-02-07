@@ -202,7 +202,9 @@ PHP
         // We need a constructor
         $constructor = $class->addMethod('__construct');
         $constructor->addComment('@param array{');
-        GeneratorHelper::addMethodComment($this->definition, $constructor, $inputShape, $baseNamespace);
+        foreach (GeneratorHelper::addMethodComment($this->definition, $inputShape, $baseNamespace) as $comment) {
+            $constructor->addComment($comment);
+        }
         $constructor->addComment('} $input');
         $constructor->addParameter('input')->setType('array')->setDefaultValue([]);
 

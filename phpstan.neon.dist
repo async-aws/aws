@@ -4,7 +4,12 @@ includes:
 parameters:
     level: 5
     paths:
-        - src/S3
+        - src
+
+    excludes_analyse:
+        - src/*/Tests/*
+        - src/**/Tests/*
+        - src/CodeGenerator/Generator/ClassFactory.php
 
     ignoreErrors:
         - '|Default value of the parameter #1 \$input \(array\(\)\)|'

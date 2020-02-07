@@ -6,7 +6,6 @@ namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
 use AsyncAws\CodeGenerator\Definition\Shape;
-use Nette\PhpGenerator\Method;
 
 /**
  * Small methods that might be useful when generating code.
@@ -66,8 +65,9 @@ class GeneratorHelper
         return $output;
     }
 
-    public static function addMethodComment(ServiceDefinition $definition, Method $method, Shape $inputShape, string $baseNamespace): void
+    public static function addMethodComment(ServiceDefinition $definition, Shape $inputShape, string $baseNamespace): array
     {
+        $body = [];
         foreach ($inputShape['members'] as $name => $data) {
             $nullable = !\in_array($name, $inputShape['required'] ?? []);
             $memberShape = $definition->getShape($data['shape']);
@@ -92,8 +92,10 @@ class GeneratorHelper
                 $param = self::toPhpType($param);
             }
 
-            $method->addComment(sprintf('  %s%s: %s,', $name, $nullable ? '?' : '', $param));
+            $body[] = sprintf('  %s%s: %s,', $name, $nullable ? '?' : '', $param);
         }
+
+        return $body;
     }
 
     public static function getFilterConstantFromType(string $type): ?string

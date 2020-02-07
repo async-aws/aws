@@ -90,9 +90,18 @@ class OperationGenerator
             $method->addComment('@see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-' . $prefix . '-' . $apiVersion . '.html#' . \strtolower($operation['name']));
         }
 
-        $method->addComment('@param array{');
-        GeneratorHelper::addMethodComment($this->definition, $method, $inputShape, $baseNamespace . '\\Input');
-        $method->addComment('}|' . $safeClassName . ' $input');
+        $comment = GeneratorHelper::addMethodComment($this->definition, $inputShape, $baseNamespace . '\\Input');
+        if (!empty($comment)) {
+            $method->addComment('@param array{');
+            foreach ($comment as $c) {
+                $method->addComment($c);
+            }
+            $method->addComment('}|' . $safeClassName . ' $input');
+        } else {
+            // No input array
+            $method->addComment('@param array|' . $safeClassName . ' $input');
+        }
+
         $operationMethodParameter = $method->addParameter('input');
         if (empty($inputShape['required'])) {
             $operationMethodParameter->setDefaultValue([]);
@@ -122,31 +131,12 @@ class OperationGenerator
         $members = $inputShape['members'];
         $namespace = new PhpNamespace($baseNamespace);
         $class = $namespace->addClass(GeneratorHelper::safeClassName($inputShape->getName()));
-        // Add named constructor
-        $class->addMethod('create')->setStatic(true)->setReturnType('self')->setBody(
-            <<<PHP
-return \$input instanceof self ? \$input : new self(\$input);
-PHP
-        )->addParameter('input');
-        $constructor = $class->addMethod('__construct');
 
-        if ($root) {
-            if (isset($operation['documentationUrl'])) {
-                $constructor->addComment('@see ' . $operation['documentationUrl']);
-            }
-        }
-
-        $constructor->addComment('@param array{');
-        GeneratorHelper::addMethodComment($this->definition, $constructor, $inputShape, $baseNamespace);
-        $constructor->addComment('} $input');
-        $inputParameter = $constructor->addParameter('input')->setType('array');
-        if (empty($inputShape['required'])) {
-            $inputParameter->setDefaultValue([]);
-        }
         $constructorBody = '';
         $requiredProperties = [];
 
         foreach ($members as $name => $data) {
+            $returnType = null;
             $parameterType = $data['shape'];
             $memberShape = $this->definition->getShape($parameterType);
             $nullable = true;
@@ -219,7 +209,32 @@ PHP
             ;
         }
 
-        $constructor->setBody($constructorBody);
+        // Add named constructor
+        $selfParameter = empty($constructorBody) ? '' : '$input';
+        $class->addMethod('create')->setStatic(true)->setReturnType('self')->setBody(
+            <<<PHP
+return \$input instanceof self ? \$input : new self($selfParameter);
+PHP
+        )->addParameter('input');
+
+        if (!empty($constructorBody)) {
+            $constructor = $class->addMethod('__construct');
+            if ($root && isset($operation['documentationUrl'])) {
+                $constructor->addComment('@see ' . $operation['documentationUrl']);
+            }
+
+            $constructor->addComment('@param array{');
+            foreach (GeneratorHelper::addMethodComment($this->definition, $inputShape, $baseNamespace) as $comment) {
+                $constructor->addComment($comment);
+            }
+            $constructor->addComment('} $input');
+
+            $inputParameter = $constructor->addParameter('input')->setType('array');
+            if (empty($inputShape['required'])) {
+                $inputParameter->setDefaultValue([]);
+            }
+            $constructor->setBody($constructorBody);
+        }
         if ($root) {
             $this->inputClassRequestGetters($inputShape, $class, $operation->getName(), $apiVersion);
         }
