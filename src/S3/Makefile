@@ -8,3 +8,6 @@ initialize:
 
 test: initialize
 	./vendor/bin/simple-phpunit
+
+stop-docker:
+	docker stop async_aws_s3 || true

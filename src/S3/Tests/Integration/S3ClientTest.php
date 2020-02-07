@@ -37,12 +37,10 @@ class S3ClientTest extends TestCase
         self::assertEquals($fileBody, $body);
 
         // Test Delete object
-        $result = $s3->deleteObject(['Bucket'=>'foo', 'Key'=>'bar']);
+        $result = $s3->deleteObject(['Bucket' => 'foo', 'Key' => 'bar']);
         $info = $result->resolve();
         $info = $result->info();
         self::assertEquals(204, $info['status']);
-
-
     }
 
     public function testGetFileNotExist()
