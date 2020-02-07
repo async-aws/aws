@@ -114,12 +114,12 @@ class HeadObjectRequest
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectHEAD.html
      *
      * @param array{
-     *   Bucket: string,
+     *   Bucket?: string,
      *   IfMatch?: string,
      *   IfModifiedSince?: \DateTimeInterface|string,
      *   IfNoneMatch?: string,
      *   IfUnmodifiedSince?: \DateTimeInterface|string,
-     *   Key: string,
+     *   Key?: string,
      *   Range?: string,
      *   VersionId?: string,
      *   SSECustomerAlgorithm?: string,

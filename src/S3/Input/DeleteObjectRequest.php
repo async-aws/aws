@@ -56,8 +56,8 @@ class DeleteObjectRequest
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectDELETE.html
      *
      * @param array{
-     *   Bucket: string,
-     *   Key: string,
+     *   Bucket?: string,
+     *   Key?: string,
      *   MFA?: string,
      *   VersionId?: string,
      *   RequestPayer?: string,

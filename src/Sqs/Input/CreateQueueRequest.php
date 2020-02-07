@@ -34,7 +34,7 @@ class CreateQueueRequest
 
     /**
      * @param array{
-     *   QueueName: string,
+     *   QueueName?: string,
      *   Attributes?: array,
      *   tags?: array,
      * } $input

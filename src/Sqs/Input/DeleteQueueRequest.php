@@ -17,7 +17,7 @@ class DeleteQueueRequest
 
     /**
      * @param array{
-     *   QueueUrl: string,
+     *   QueueUrl?: string,
      * } $input
      */
     public function __construct(array $input = [])

@@ -24,7 +24,7 @@ class GetQueueAttributesRequest
 
     /**
      * @param array{
-     *   QueueUrl: string,
+     *   QueueUrl?: string,
      *   AttributeNames?: string[],
      * } $input
      */

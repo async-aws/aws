@@ -76,7 +76,7 @@ class CreateBucketRequest
      *
      * @param array{
      *   ACL?: string,
-     *   Bucket: string,
+     *   Bucket?: string,
      *   CreateBucketConfiguration?: \AsyncAws\S3\Input\CreateBucketConfiguration|array,
      *   GrantFullControl?: string,
      *   GrantRead?: string,

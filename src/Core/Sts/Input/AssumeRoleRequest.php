@@ -109,8 +109,8 @@ class AssumeRoleRequest
 
     /**
      * @param array{
-     *   RoleArn: string,
-     *   RoleSessionName: string,
+     *   RoleArn?: string,
+     *   RoleSessionName?: string,
      *   PolicyArns?: \AsyncAws\Core\Sts\Input\PolicyDescriptorType[],
      *   Policy?: string,
      *   DurationSeconds?: int,

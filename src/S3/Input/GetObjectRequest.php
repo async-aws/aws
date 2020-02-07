@@ -155,12 +155,12 @@ class GetObjectRequest
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGET.html
      *
      * @param array{
-     *   Bucket: string,
+     *   Bucket?: string,
      *   IfMatch?: string,
      *   IfModifiedSince?: \DateTimeInterface|string,
      *   IfNoneMatch?: string,
      *   IfUnmodifiedSince?: \DateTimeInterface|string,
-     *   Key: string,
+     *   Key?: string,
      *   Range?: string,
      *   ResponseCacheControl?: string,
      *   ResponseContentDisposition?: string,

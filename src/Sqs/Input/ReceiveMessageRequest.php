@@ -63,7 +63,7 @@ class ReceiveMessageRequest
 
     /**
      * @param array{
-     *   QueueUrl: string,
+     *   QueueUrl?: string,
      *   AttributeNames?: string[],
      *   MessageAttributeNames?: string[],
      *   MaxNumberOfMessages?: int,

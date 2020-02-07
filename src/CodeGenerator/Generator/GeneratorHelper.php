@@ -65,7 +65,7 @@ class GeneratorHelper
         return $output;
     }
 
-    public static function addMethodComment(ServiceDefinition $definition, Shape $inputShape, string $baseNamespace): array
+    public static function addMethodComment(ServiceDefinition $definition, Shape $inputShape, string $baseNamespace, bool $allNullable = false): array
     {
         $body = [];
         foreach ($inputShape['members'] as $name => $data) {
@@ -92,7 +92,7 @@ class GeneratorHelper
                 $param = self::toPhpType($param);
             }
 
-            $body[] = sprintf('  %s%s: %s,', $name, $nullable ? '?' : '', $param);
+            $body[] = sprintf('  %s%s: %s,', $name, $allNullable || $nullable ? '?' : '', $param);
         }
 
         return $body;

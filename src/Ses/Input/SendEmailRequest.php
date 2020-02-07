@@ -65,10 +65,10 @@ class SendEmailRequest
     /**
      * @param array{
      *   FromEmailAddress?: string,
-     *   Destination: \AsyncAws\Ses\Input\Destination|array,
+     *   Destination?: \AsyncAws\Ses\Input\Destination|array,
      *   ReplyToAddresses?: string[],
      *   FeedbackForwardingEmailAddress?: string,
-     *   Content: \AsyncAws\Ses\Input\EmailContent|array,
+     *   Content?: \AsyncAws\Ses\Input\EmailContent|array,
      *   EmailTags?: \AsyncAws\Ses\Input\MessageTag[],
      *   ConfigurationSetName?: string,
      * } $input

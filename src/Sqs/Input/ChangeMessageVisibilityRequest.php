@@ -36,9 +36,9 @@ class ChangeMessageVisibilityRequest
 
     /**
      * @param array{
-     *   QueueUrl: string,
-     *   ReceiptHandle: string,
-     *   VisibilityTimeout: int,
+     *   QueueUrl?: string,
+     *   ReceiptHandle?: string,
+     *   VisibilityTimeout?: int,
      * } $input
      */
     public function __construct(array $input = [])

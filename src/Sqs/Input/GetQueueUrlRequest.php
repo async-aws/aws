@@ -25,7 +25,7 @@ class GetQueueUrlRequest
 
     /**
      * @param array{
-     *   QueueName: string,
+     *   QueueName?: string,
      *   QueueOwnerAWSAccountId?: string,
      * } $input
      */

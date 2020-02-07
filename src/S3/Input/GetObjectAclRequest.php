@@ -40,8 +40,8 @@ class GetObjectAclRequest
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGETacl.html
      *
      * @param array{
-     *   Bucket: string,
-     *   Key: string,
+     *   Bucket?: string,
+     *   Key?: string,
      *   VersionId?: string,
      *   RequestPayer?: string,
      * } $input

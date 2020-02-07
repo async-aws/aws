@@ -66,8 +66,8 @@ class SendMessageRequest
 
     /**
      * @param array{
-     *   QueueUrl: string,
-     *   MessageBody: string,
+     *   QueueUrl?: string,
+     *   MessageBody?: string,
      *   DelaySeconds?: int,
      *   MessageAttributes?: array,
      *   MessageSystemAttributes?: array,

@@ -224,7 +224,7 @@ PHP
             }
 
             $constructor->addComment('@param array{');
-            foreach (GeneratorHelper::addMethodComment($this->definition, $inputShape, $baseNamespace) as $comment) {
+            foreach (GeneratorHelper::addMethodComment($this->definition, $inputShape, $baseNamespace, $root) as $comment) {
                 $constructor->addComment($comment);
             }
             $constructor->addComment('} $input');

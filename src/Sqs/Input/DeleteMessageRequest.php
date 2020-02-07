@@ -26,8 +26,8 @@ class DeleteMessageRequest
 
     /**
      * @param array{
-     *   QueueUrl: string,
-     *   ReceiptHandle: string,
+     *   QueueUrl?: string,
+     *   ReceiptHandle?: string,
      * } $input
      */
     public function __construct(array $input = [])
