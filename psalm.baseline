@@ -23,6 +23,9 @@
   <file src="src/S3/Result/CopyObjectOutput.php">
     <ArgumentTypeCoercion occurrences="1"/>
   </file>
+  <file src="src/S3/Result/DeleteObjectsOutput.php">
+    <ArgumentTypeCoercion occurrences="2"/>
+  </file>
   <file src="src/S3/Result/GetObjectAclOutput.php">
     <ArgumentTypeCoercion occurrences="3"/>
   </file>

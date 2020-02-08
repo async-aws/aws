@@ -7,6 +7,7 @@ use AsyncAws\Core\XmlBuilder;
 use AsyncAws\S3\Input\CopyObjectRequest;
 use AsyncAws\S3\Input\CreateBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
+use AsyncAws\S3\Input\DeleteObjectsRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
@@ -16,6 +17,7 @@ use AsyncAws\S3\Input\PutObjectRequest;
 use AsyncAws\S3\Result\CopyObjectOutput;
 use AsyncAws\S3\Result\CreateBucketOutput;
 use AsyncAws\S3\Result\DeleteObjectOutput;
+use AsyncAws\S3\Result\DeleteObjectsOutput;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
@@ -149,6 +151,38 @@ class S3Client extends AbstractApi
         );
 
         return new DeleteObjectOutput($response);
+    }
+
+    /**
+     * This operation enables you to delete multiple objects from a bucket using a single HTTP request. If you know the
+     * object keys that you want to delete, then this operation provides a suitable alternative to sending individual delete
+     * requests, reducing per-request overhead.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/multiobjectdeleteapi.html
+     *
+     * @param array{
+     *   Bucket: string,
+     *   Delete: \AsyncAws\S3\Input\Delete|array,
+     *   MFA?: string,
+     *   RequestPayer?: string,
+     *   BypassGovernanceRetention?: bool,
+     * }|DeleteObjectsRequest $input
+     */
+    public function deleteObjects($input): DeleteObjectsOutput
+    {
+        $input = DeleteObjectsRequest::create($input);
+        $input->validate();
+        $xmlConfig = ['Delete' => ['type' => 'structure', 'required' => [0 => 'Objects'], 'members' => ['Objects' => ['shape' => 'ObjectIdentifierList', 'locationName' => 'Object'], 'Quiet' => ['shape' => 'Quiet']]], 'ObjectIdentifierList' => ['type' => 'list', 'member' => ['shape' => 'ObjectIdentifier'], 'flattened' => '1'], 'ObjectIdentifier' => ['type' => 'structure', 'required' => [0 => 'Key'], 'members' => ['Key' => ['shape' => 'ObjectKey'], 'VersionId' => ['shape' => 'ObjectVersionId']]], 'ObjectKey' => ['type' => 'string'], 'ObjectVersionId' => ['type' => 'string'], 'Quiet' => ['type' => 'boolean'], '_root' => ['type' => 'Delete', 'xmlName' => 'Delete', 'uri' => 'http://s3.amazonaws.com/doc/2006-03-01/']];
+        $payload = (new XmlBuilder($input->requestBody(), $xmlConfig))->getXml();
+
+        $response = $this->getResponse(
+            'POST',
+            $payload,
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
+
+        return new DeleteObjectsOutput($response);
     }
 
     /**
