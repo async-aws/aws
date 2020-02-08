@@ -143,7 +143,7 @@ class OperationGenerator
             if ('structure' === $memberShape['type']) {
                 $this->generateInputClass($service, $apiVersion, $operation, $baseNamespace, $this->definition->getShape($parameterType));
                 $returnType = $baseNamespace . '\\' . $parameterType;
-                $constructorBody .= sprintf('$this->%s = isset($input["%s"]) ? %s::create($input["%s"]) : null;' . "\n", $name, $name, GeneratorHelper::safeClassName($parameterType), $name);
+                $constructorBody .= strtr('$this->NAME = isset($input["NAME"]) ? SAFE_CLASS::create($input["NAME"]) : null;' . "\n", ['NAME' => $name, 'SAFE_CLASS' => GeneratorHelper::safeClassName($parameterType)]);
             } elseif ('list' === $memberShape['type']) {
                 $listItemShapeName = $memberShape['member']['shape'];
                 $listItemShape = $this->definition->getShape($listItemShapeName);
@@ -160,18 +160,18 @@ class OperationGenerator
                 } else {
                     // It is a scalar, like a string
                     $parameterType = $listItemShape['type'] . '[]';
-                    $constructorBody .= sprintf('$this->%s = $input["%s"] ?? [];' . "\n", $name, $name);
+                    $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $name]);
                 }
             } elseif ($data['streaming'] ?? false) {
                 $parameterType = 'string|resource|\Closure';
                 $returnType = null;
-                $constructorBody .= sprintf('$this->%s = $input["%s"] ?? null;' . "\n", $name, $name);
+                $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $name]);
             } else {
                 $returnType = $parameterType = GeneratorHelper::toPhpType($memberShape['type']);
                 if ('\DateTimeImmutable' !== $parameterType) {
-                    $constructorBody .= sprintf('$this->%s = $input["%s"] ?? null;' . "\n", $name, $name);
+                    $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $name]);
                 } else {
-                    $constructorBody .= sprintf('$this->%s = !isset($input["%s"]) ? null : ($input["%s"] instanceof \DateTimeInterface ? $input["%s"] : new \DateTimeImmutable($input["%s"]));' . "\n", $name, $name, $name, $name, $name);
+                    $constructorBody .= strtr('$this->NAME = !isset($input["NAME"]) ? null : ($input["NAME"] instanceof \DateTimeInterface ? $input["NAME"] : new \DateTimeImmutable($input["NAME"]));' . "\n", ['NAME' => $name]);
                     $parameterType = $returnType = '\DateTimeInterface';
                 }
             }

@@ -214,7 +214,7 @@ PHP
             $memberShape = $this->definition->getShape($parameterType);
             if ('structure' === $memberShape['type']) {
                 $this->generateResultClass($baseNamespace, $parameterType);
-                $constructorBody .= sprintf('$this->%s = isset($input["%s"]) ? %s::create($input["%s"]) : null;' . "\n", $name, $name, GeneratorHelper::safeClassName($parameterType), $name);
+                $constructorBody .= strtr('$this->NAME = isset($input["NAME"]) ? SAFE_CLASS::create($input["NAME"]) : null;' . "\n", ['NAME' => $name, 'SAFE_CLASS' => GeneratorHelper::safeClassName($parameterType)]);
             } elseif ('list' === $memberShape['type']) {
                 // Check if this is a list of objects
                 $listItemShapeName = $memberShape['member']['shape'];
@@ -222,9 +222,9 @@ PHP
                 if ('structure' === $type) {
                     // todo this is needed in Input but useless in Result
                     $this->generateResultClass($baseNamespace, $listItemShapeName);
-                    $constructorBody .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, GeneratorHelper::safeClassName($listItemShapeName), $name);
+                    $constructorBody .= strtr('$this->NAME = array_map(function($item) { return SAFE_CLASS::create($item); }, $input["NAME"] ?? []);' . "\n", ['NAME' => $name, 'SAFE_CLASS' => GeneratorHelper::safeClassName($listItemShapeName)]);
                 } else {
-                    $constructorBody .= sprintf('$this->%s = $input["%s"] ?? [];' . "\n", $name, $name);
+                    $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $name]);
                 }
             } elseif ('map' === $memberShape['type']) {
                 // Check if this is a list of objects
@@ -233,12 +233,12 @@ PHP
                 if ('structure' === $type) {
                     // todo this is needed in Input but useless in Result
                     $this->generateResultClass($baseNamespace, $listItemShapeName);
-                    $constructorBody .= sprintf('$this->%s = array_map(function($item) { return %s::create($item); }, $input["%s"] ?? []);' . "\n", $name, GeneratorHelper::safeClassName($listItemShapeName), $name);
+                    $constructorBody .= strtr('$this->NAME = array_map(function($item) { return SAFE_CLASS::create($item); }, $input["NAME"] ?? []);' . "\n", ['NAME' => $name, 'SAFE_CLASS' => GeneratorHelper::safeClassName($listItemShapeName)]);
                 } else {
-                    $constructorBody .= sprintf('$this->%s = $input["%s"] ?? [];' . "\n", $name, $name);
+                    $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $name]);
                 }
             } else {
-                $constructorBody .= sprintf('$this->%s = $input["%s"] ?? null;' . "\n", $name, $name);
+                $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $name]);
             }
         }
         $constructor->setBody($constructorBody);
