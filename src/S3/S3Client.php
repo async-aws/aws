@@ -78,10 +78,10 @@ class S3Client extends AbstractApi
         $input->validate();
 
         $response = $this->getResponse(
-        'PUT',
-        $input->requestBody(),
-        $input->requestHeaders(),
-        $this->getEndpoint($input->requestUri(), $input->requestQuery())
+            'PUT',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
         return new CopyObjectOutput($response);
@@ -114,10 +114,10 @@ class S3Client extends AbstractApi
         $payload = (new XmlBuilder($input->requestBody(), $xmlConfig))->getXml();
 
         $response = $this->getResponse(
-        'PUT',
-        $payload,
-        $input->requestHeaders(),
-        $this->getEndpoint($input->requestUri(), $input->requestQuery())
+            'PUT',
+            $payload,
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
         return new CreateBucketOutput($response);
@@ -144,10 +144,10 @@ class S3Client extends AbstractApi
         $input->validate();
 
         $response = $this->getResponse(
-        'DELETE',
-        $input->requestBody(),
-        $input->requestHeaders(),
-        $this->getEndpoint($input->requestUri(), $input->requestQuery())
+            'DELETE',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
         return new DeleteObjectOutput($response);
@@ -219,10 +219,10 @@ class S3Client extends AbstractApi
         $input->validate();
 
         $response = $this->getResponse(
-        'GET',
-        $input->requestBody(),
-        $input->requestHeaders(),
-        $this->getEndpoint($input->requestUri(), $input->requestQuery())
+            'GET',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
         return new GetObjectOutput($response, $this->httpClient);
@@ -247,10 +247,10 @@ class S3Client extends AbstractApi
         $input->validate();
 
         $response = $this->getResponse(
-        'GET',
-        $input->requestBody(),
-        $input->requestHeaders(),
-        $this->getEndpoint($input->requestUri(), $input->requestQuery())
+            'GET',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
         return new GetObjectAclOutput($response);
@@ -284,10 +284,10 @@ class S3Client extends AbstractApi
         $input->validate();
 
         $response = $this->getResponse(
-        'HEAD',
-        $input->requestBody(),
-        $input->requestHeaders(),
-        $this->getEndpoint($input->requestUri(), $input->requestQuery())
+            'HEAD',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
         return new HeadObjectOutput($response);
@@ -318,10 +318,10 @@ class S3Client extends AbstractApi
         $input->validate();
 
         $response = $this->getResponse(
-        'GET',
-        $input->requestBody(),
-        $input->requestHeaders(),
-        $this->getEndpoint($input->requestUri(), $input->requestQuery())
+            'GET',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
         return new ListObjectsV2Output($response);
@@ -371,10 +371,10 @@ class S3Client extends AbstractApi
         $input->validate();
         $payload = $input->getBody() ?? '';
         $response = $this->getResponse(
-        'PUT',
-        $payload,
-        $input->requestHeaders(),
-        $this->getEndpoint($input->requestUri(), $input->requestQuery())
+            'PUT',
+            $payload,
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
         return new PutObjectOutput($response);
@@ -409,10 +409,10 @@ class S3Client extends AbstractApi
         $payload = (new XmlBuilder($input->requestBody(), $xmlConfig))->getXml();
 
         $response = $this->getResponse(
-        'PUT',
-        $payload,
-        $input->requestHeaders(),
-        $this->getEndpoint($input->requestUri(), $input->requestQuery())
+            'PUT',
+            $payload,
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
         return new PutObjectAclOutput($response);
