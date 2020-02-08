@@ -76,21 +76,26 @@ trait HttpExceptionTrait
 
     private function parseXml(\SimpleXMLElement $xml): string
     {
-        if (0 === $xml->Error->count()) {
+        $type = $detail = '';
+
+        if (0 < $xml->Error->count()) {
+            $type = $xml->Error->Type->__toString();
+            $code = $xml->Error->Code->__toString();
+            $message = $xml->Error->Message->__toString();
+            $detail = $xml->Error->Detail->__toString();
+        } elseif (1 === $xml->Code->count() && 1 === $xml->Message->count()) {
+            $code = $xml->Code->__toString();
+            $message = $xml->Message->__toString();
+        } else {
             return '';
         }
-
-        $type = $xml->Error->Type->__toString();
-        $code = $xml->Error->Code->__toString();
-        $message = $xml->Error->Message->__toString();
-        $detail = $xml->Error->Detail->__toString();
 
         return <<<TEXT
 
 
-Type:    $type
 Code:    $code
 Message: $message
+Type:    $type
 Detail:  $detail
 
 TEXT;
