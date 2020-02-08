@@ -56,6 +56,9 @@ class GetObjectAclOutput extends Result
             'ID' => $this->xmlValueOrNull($data->Owner->ID, 'string'),
         ]);
         $this->Grants = (function (\SimpleXMLElement $xml): array {
+            if (0 === $xml->count() || 0 === $xml->Object->count()) {
+                return [];
+            }
             $items = [];
             foreach ($xml->Grant as $item) {
                 $items[] = new Grant([
