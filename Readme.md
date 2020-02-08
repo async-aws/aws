@@ -28,7 +28,7 @@ composer require async-aws/sqs
 
 ```php
 use AsyncAws\Sqs\SqsClient;
-use Symfony\Component\HttpClient\HttpClient;
+use AsyncAws\Sqs\Input\SendMessageRequest;
 
 $sqsClient = new SqsClient([
     'region' => 'eu-central-1',
@@ -36,43 +36,23 @@ $sqsClient = new SqsClient([
     'accessKeySecret' => 'bar',
 ]);
 
-$result = $sqsClient->sendMessage('my_queue', 'foobar');
-
+// Call a client's method with an array
+$result = $sqsClient->createQueue(['QueueName' => 'bar']);
 // Make sure the request is sent
 $result->resolve();
+
+
+// You can also call a client's method with an input object
+$input = new SendMessageRequest();
+$input
+    ->setQueueUrl('https://foo.com/bar')
+    ->setMessageBody('foobar');
+
+$result = $sqsClient->sendMessage($input);
+
+// Request is automatically sent when reading the response
+echo $result->getMessageId();
 ```
-
-
-You may also install the core package only. This allows you to do authenticated requests to any endpoint.
-
-```
-composer require async-aws/core
-```
-
-```php
-use AsyncAws\Core\AwsClient;
-use Symfony\Component\HttpClient\HttpClient;
-
-$awsClient = new AwsClient([
-    'region' => 'eu-central-1',
-    'accessKeyId' => 'foo',
-    'accessKeySecret' => 'bar',
-]);
-
-$result = $awsClient->request('POST', [
-    'Action' => 'SendMessage',
-    'MessageBody' => 'foobar'
-],
-[
-  /* headers */
-],
- 'https://sqs.eu-central-1.amazonaws.com/5555555555/my_queue'
-);
-
-// Make sure the request is sent
-$result->resolve();
-```
-
 
 ## How is it async first?
 
@@ -87,7 +67,6 @@ Except for being a wrapper around Symfony's HTTP client and make sure we use the
 async features properly, we also handle authentication, exceptions and provide
 some response objects.
 
-
 ## Organization
 
 | Repository | Namespace | Package name |
@@ -97,4 +76,3 @@ some response objects.
 | async-aws/s3 | AsyncAws\S3 | async-aws/s3
 | async-aws/ses | AsyncAws\Ses | async-aws/ses
 | async-aws/sqs | AsyncAws\Sqs | async-aws/sqs
-
