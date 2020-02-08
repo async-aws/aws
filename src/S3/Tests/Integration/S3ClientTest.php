@@ -47,6 +47,57 @@ class S3ClientTest extends TestCase
         self::assertEquals(204, $info['status']);
     }
 
+    public function testUploadFromResource()
+    {
+        $resource = \fopen('php://temp', 'rw+');
+        $content = 'some content';
+        fwrite($resource, $content);
+        // Dont rewind
+
+        $s3 = $this->getClient();
+        $input = new PutObjectRequest();
+        $input->setBucket('foo')
+            ->setKey('bar')
+            ->setBody($resource);
+        $result = $s3->putObject($input);
+
+        $result->resolve();
+        fclose($resource);
+        $info = $result->info();
+        self::assertEquals(200, $info['status']);
+
+        // Test get object
+        $result = $s3->getObject(['Bucket' => 'foo', 'Key' => 'bar']);
+        $body = $result->getBody()->getContentAsString();
+
+        self::assertEquals($content, $body);
+    }
+
+    public function testUploadFromClosure()
+    {
+        $content = 'some content';
+        $closure = \Closure::fromCallable(function () use ($content) {
+            return $content;
+        });
+
+        $s3 = $this->getClient();
+        $input = new PutObjectRequest();
+        $input->setBucket('foo')
+            ->setKey('bar')
+            ->setBody($closure);
+        $result = $s3->putObject($input);
+
+        $result->resolve();
+        $info = $result->info();
+        self::assertEquals(200, $info['status']);
+
+        // Test get object
+        $result = $s3->getObject(['Bucket' => 'foo', 'Key' => 'bar']);
+        $body = $result->getBody()->getContentAsString();
+
+        self::assertEquals($content, $body);
+    }
+
     public function testGetFileNotExist()
     {
         $s3 = $this->getClient();
