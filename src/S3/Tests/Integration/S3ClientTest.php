@@ -55,4 +55,18 @@ class S3ClientTest extends TestCase
         $this->expectException(ClientException::class);
         $result->getBody();
     }
+
+    public function testCreateDirectory()
+    {
+        $s3 = $this->getClient();
+
+        $result = $s3->putObject([
+            'Bucket' => 'foo',
+            'Key' => 'bar/',
+        ]);
+
+        $result->resolve();
+        $info = $result->info();
+        self::assertEquals(200, $info['status']);
+    }
 }

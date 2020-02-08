@@ -98,6 +98,8 @@ abstract class AbstractApi
         if (\is_array($body)) {
             $body = http_build_query($body, '', '&', \PHP_QUERY_RFC1738);
             $headers['content-type'] = 'application/x-www-form-urlencoded';
+        } elseif (empty($body)) {
+            $headers['content-length'] = '0';
         }
 
         $request = new Request($method, $this->fillEndpoint($endpoint), $headers, $body);
