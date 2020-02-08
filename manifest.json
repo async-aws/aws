@@ -13,7 +13,8 @@
                 "GetObject": [],
                 "PutObjectAcl": [],
                 "GetObjectAcl": [],
-                "ListObjectsV2": []
+                "ListObjectsV2": [],
+                "DeleteObjects": []
             }
         },
         "Ses": {
