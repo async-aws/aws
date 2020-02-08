@@ -295,6 +295,7 @@ class PutObjectRequest
     public function __construct(array $input = [])
     {
         $this->ACL = $input['ACL'] ?? null;
+        $this->Body = $input['Body'] ?? null;
         $this->Bucket = $input['Bucket'] ?? null;
         $this->CacheControl = $input['CacheControl'] ?? null;
         $this->ContentDisposition = $input['ContentDisposition'] ?? null;

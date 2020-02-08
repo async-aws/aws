@@ -20,8 +20,8 @@ class PutObjectRequestTest extends TestCase
             'Body' => $body,
         ]);
 
-        $this->assertEquals($bucket, $input->getBucket());
-        $this->assertEquals($key, $input->getKey());
-        $this->assertEquals($body, $input->getBody());
+        self::assertEquals($bucket, $input->getBucket());
+        self::assertEquals($key, $input->getKey());
+        self::assertEquals($body, $input->getBody());
     }
 }
