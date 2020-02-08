@@ -90,7 +90,6 @@ trait HttpExceptionTrait
             return '';
         }
 
-
         return <<<TEXT
 
 
