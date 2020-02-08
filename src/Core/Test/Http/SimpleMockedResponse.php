@@ -9,6 +9,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 class SimpleMockedResponse implements ResponseInterface
 {
     private $headers = [];
+
     private $content = '';
 
     public function __construct(string $content = '', array $headers = [])
@@ -16,7 +17,6 @@ class SimpleMockedResponse implements ResponseInterface
         $this->content = $content;
         $this->headers = $headers;
     }
-
 
     public function getStatusCode(): int
     {
@@ -47,5 +47,4 @@ class SimpleMockedResponse implements ResponseInterface
     {
         throw new \LogicException('Not implemented');
     }
-
 }

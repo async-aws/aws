@@ -209,7 +209,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         $this->IsTruncated = $this->xmlValueOrNull($data->IsTruncated, 'bool');
         $this->Contents = (function (\SimpleXMLElement $xml): array {
             $items = [];
-            foreach ($xml as $item) {
+            foreach ($xml->Object as $item) {
                 $items[] = new AwsObject([
                     'Key' => $this->xmlValueOrNull($item->Key, 'string'),
                     'LastModified' => $this->xmlValueOrNull($item->LastModified, '\\DateTimeImmutable'),
@@ -231,7 +231,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         $this->MaxKeys = $this->xmlValueOrNull($data->MaxKeys, 'int');
         $this->CommonPrefixes = (function (\SimpleXMLElement $xml): array {
             $items = [];
-            foreach ($xml as $item) {
+            foreach ($xml->CommonPrefix as $item) {
                 $items[] = new CommonPrefix([
                     'Prefix' => $this->xmlValueOrNull($item->Prefix, 'string'),
                 ]);

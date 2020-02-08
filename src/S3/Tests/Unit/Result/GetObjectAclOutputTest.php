@@ -8,7 +8,6 @@ use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\Grant;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpClient\Response\MockResponse;
 
 class GetObjectAclOutputTest extends TestCase
 {
@@ -44,10 +43,11 @@ XML
         $result = new GetObjectAclOutput($response);
 
         $grants = $result->getGrants();
-        $this->assertCount(2, $grants);
+        self::assertCount(2, $grants);
 
         foreach ($grants as $grant) {
-            $this->assertInstanceOf(Grant::class, $grant);
+            self::assertInstanceOf(Grant::class, $grant);
+            self::assertEquals('CanonicalUser', $grant->getGrantee()->getType());
         }
     }
 }

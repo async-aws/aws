@@ -30,7 +30,7 @@ class ReceiveMessageResult extends Result
 
         $this->Messages = (function (\SimpleXMLElement $xml): array {
             $items = [];
-            foreach ($xml as $item) {
+            foreach ($xml->Message as $item) {
                 $items[] = new Message([
                     'MessageId' => $this->xmlValueOrNull($item->MessageId, 'string'),
                     'ReceiptHandle' => $this->xmlValueOrNull($item->ReceiptHandle, 'string'),
@@ -53,7 +53,7 @@ class ReceiveMessageResult extends Result
                                 'BinaryValue' => $this->xmlValueOrNull($item->Value->BinaryValue, 'string'),
                                 'StringListValues' => (function (\SimpleXMLElement $xml): array {
                                     $items = [];
-                                    foreach ($xml as $item) {
+                                    foreach ($xml->StringListValue as $item) {
                                         $items[] = $this->xmlValueOrNull($item, 'string');
                                     }
 
@@ -61,7 +61,7 @@ class ReceiveMessageResult extends Result
                                 })($item->Value->StringListValue),
                                 'BinaryListValues' => (function (\SimpleXMLElement $xml): array {
                                     $items = [];
-                                    foreach ($xml as $item) {
+                                    foreach ($xml->BinaryListValue as $item) {
                                         $items[] = $this->xmlValueOrNull($item, 'string');
                                     }
 
