@@ -11,10 +11,13 @@ This will assure correctness and it will be easy to keep up to with API changes.
 To create a class run the `generate` command.
 
 ```cli
-./generate create S3 CreateBucket
+./generate
+
+# Or
+./generate S3 CreateBucket
 ```
 
-The `build/manifest.json` file contains information where the source is located
+The `./manifest.json` file contains information where the source is located
 and some metadata about the generated files and methods.
 
 You may also regenerate an existing endpoint and result classes:
