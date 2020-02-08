@@ -110,4 +110,18 @@ class S3ClientTest extends TestCase
         self::assertContains('list/prefix-1/', $prefixes);
         self::assertContains('list/content-2', $files);
     }
+
+    public function testDeleteObjects()
+    {
+        $s3 = $this->getClient();
+        $bucket = 'foo';
+
+        $result = $s3->deleteObjects([
+            'Bucket' => $bucket,
+            'Delete' => ['Objects' => [['Key' => 'foo/bar.txt'], ['Key' => 'foo/bix/xx.txt']]],
+        ]);
+
+        $info = $result->info();
+        self::assertEquals(204, $info['status']);
+    }
 }
