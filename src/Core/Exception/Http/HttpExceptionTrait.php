@@ -78,6 +78,8 @@ trait HttpExceptionTrait
                 // see RFC 7807 and https://jsonapi.org/format/#error-objects
                 $separator = isset($body['title'], $body['detail']) ? "\n\n" : '';
                 $message = ($body['title'] ?? '') . $separator . ($body['detail'] ?? '');
+            } elseif (isset($body['message'])) {
+                $message .= "\n\n".$body['message']."\n\n";
             }
         } else {
             try {
