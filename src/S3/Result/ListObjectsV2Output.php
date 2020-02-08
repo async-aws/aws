@@ -233,7 +233,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         $this->Delimiter = $this->xmlValueOrNull($data->Delimiter, 'string');
         $this->MaxKeys = $this->xmlValueOrNull($data->MaxKeys, 'int');
         $this->CommonPrefixes = (function (\SimpleXMLElement $xml): array {
-            if (0 === $xml->count() || 0 === $xml->Object->count()) {
+            if (0 === $xml->count() || 0 === $xml->CommonPrefix->count()) {
                 return [];
             }
             $items = [];

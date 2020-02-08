@@ -56,7 +56,7 @@ class DeleteObjectsOutput extends Result
 
         $data = new \SimpleXMLElement($response->getContent(false));
         $this->Deleted = (function (\SimpleXMLElement $xml): array {
-            if (0 === $xml->count() || 0 === $xml->Object->count()) {
+            if (0 === $xml->count() || 0 === $xml->DeletedObject->count()) {
                 return [];
             }
             $items = [];
@@ -72,7 +72,7 @@ class DeleteObjectsOutput extends Result
             return $items;
         })($data->Deleted);
         $this->Errors = (function (\SimpleXMLElement $xml): array {
-            if (0 === $xml->count() || 0 === $xml->Object->count()) {
+            if (0 === $xml->count() || 0 === $xml->Error->count()) {
                 return [];
             }
             $items = [];

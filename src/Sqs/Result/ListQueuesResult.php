@@ -56,7 +56,7 @@ class ListQueuesResult extends Result implements \IteratorAggregate
         $data = $data->ListQueuesResult;
 
         $this->QueueUrls = (function (\SimpleXMLElement $xml): array {
-            if (0 === $xml->count() || 0 === $xml->Object->count()) {
+            if (0 === $xml->count() || 0 === $xml->QueueUrl->count()) {
                 return [];
             }
             $items = [];

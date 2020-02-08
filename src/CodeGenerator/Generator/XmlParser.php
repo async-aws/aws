@@ -111,7 +111,7 @@ class XmlParser
     private function parseXmlResponseList(ListShape $shape, string $input): string
     {
         return strtr('(function(\SimpleXMLElement $xml): array {
-            if (0 === $xml->count() || 0 === $xml->Object->count()) {
+            if (0 === $xml->count() || 0 === $xml->LOCATION_NAME->count()) {
                 return [];
             }
             $items = [];
