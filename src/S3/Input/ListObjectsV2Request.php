@@ -4,10 +4,10 @@ namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
-class ListObjectsRequest
+class ListObjectsV2Request
 {
     /**
-     * The name of the bucket containing the objects.
+     * Bucket name to list.
      *
      * @required
      *
@@ -23,16 +23,11 @@ class ListObjectsRequest
     private $Delimiter;
 
     /**
-     * @var string|null
-     */
-    private $EncodingType;
-
-    /**
-     * Specifies the key to start with when listing objects in a bucket.
+     * Encoding type used by Amazon S3 to encode object keys in the response.
      *
      * @var string|null
      */
-    private $Marker;
+    private $EncodingType;
 
     /**
      * Sets the maximum number of keys returned in the response. The response might contain fewer keys but will never
@@ -50,23 +45,47 @@ class ListObjectsRequest
     private $Prefix;
 
     /**
-     * Confirms that the requester knows that she or he will be charged for the list objects request. Bucket owners need not
-     * specify this parameter in their requests.
+     * ContinuationToken indicates Amazon S3 that the list is being continued on this bucket with a token. ContinuationToken
+     * is obfuscated and is not a real key.
+     *
+     * @var string|null
+     */
+    private $ContinuationToken;
+
+    /**
+     * The owner field is not present in listV2 by default, if you want to return owner field with each key in the result
+     * then set the fetch owner field to true.
+     *
+     * @var bool|null
+     */
+    private $FetchOwner;
+
+    /**
+     * StartAfter is where you want Amazon S3 to start listing from. Amazon S3 starts listing after this specified key.
+     * StartAfter can be any key in the bucket.
+     *
+     * @var string|null
+     */
+    private $StartAfter;
+
+    /**
+     * Confirms that the requester knows that she or he will be charged for the list objects request in V2 style. Bucket
+     * owners need not specify this parameter in their requests.
      *
      * @var string|null
      */
     private $RequestPayer;
 
     /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGET.html
-     *
      * @param array{
      *   Bucket?: string,
      *   Delimiter?: string,
      *   EncodingType?: string,
-     *   Marker?: string,
      *   MaxKeys?: int,
      *   Prefix?: string,
+     *   ContinuationToken?: string,
+     *   FetchOwner?: bool,
+     *   StartAfter?: string,
      *   RequestPayer?: string,
      * } $input
      */
@@ -75,9 +94,11 @@ class ListObjectsRequest
         $this->Bucket = $input['Bucket'] ?? null;
         $this->Delimiter = $input['Delimiter'] ?? null;
         $this->EncodingType = $input['EncodingType'] ?? null;
-        $this->Marker = $input['Marker'] ?? null;
         $this->MaxKeys = $input['MaxKeys'] ?? null;
         $this->Prefix = $input['Prefix'] ?? null;
+        $this->ContinuationToken = $input['ContinuationToken'] ?? null;
+        $this->FetchOwner = $input['FetchOwner'] ?? null;
+        $this->StartAfter = $input['StartAfter'] ?? null;
         $this->RequestPayer = $input['RequestPayer'] ?? null;
     }
 
@@ -91,6 +112,11 @@ class ListObjectsRequest
         return $this->Bucket;
     }
 
+    public function getContinuationToken(): ?string
+    {
+        return $this->ContinuationToken;
+    }
+
     public function getDelimiter(): ?string
     {
         return $this->Delimiter;
@@ -101,9 +127,9 @@ class ListObjectsRequest
         return $this->EncodingType;
     }
 
-    public function getMarker(): ?string
+    public function getFetchOwner(): ?bool
     {
-        return $this->Marker;
+        return $this->FetchOwner;
     }
 
     public function getMaxKeys(): ?int
@@ -121,9 +147,14 @@ class ListObjectsRequest
         return $this->RequestPayer;
     }
 
+    public function getStartAfter(): ?string
+    {
+        return $this->StartAfter;
+    }
+
     public function requestBody(): array
     {
-        $payload = ['Action' => 'ListObjects', 'Version' => '2006-03-01'];
+        $payload = ['Action' => 'ListObjectsV2', 'Version' => '2006-03-01'];
 
         return $payload;
     }
@@ -147,14 +178,20 @@ class ListObjectsRequest
         if (null !== $this->EncodingType) {
             $query['encoding-type'] = $this->EncodingType;
         }
-        if (null !== $this->Marker) {
-            $query['marker'] = $this->Marker;
-        }
         if (null !== $this->MaxKeys) {
             $query['max-keys'] = $this->MaxKeys;
         }
         if (null !== $this->Prefix) {
             $query['prefix'] = $this->Prefix;
+        }
+        if (null !== $this->ContinuationToken) {
+            $query['continuation-token'] = $this->ContinuationToken;
+        }
+        if (null !== $this->FetchOwner) {
+            $query['fetch-owner'] = $this->FetchOwner;
+        }
+        if (null !== $this->StartAfter) {
+            $query['start-after'] = $this->StartAfter;
         }
 
         return $query;
@@ -165,12 +202,19 @@ class ListObjectsRequest
         $uri = [];
         $uri['Bucket'] = $this->Bucket ?? '';
 
-        return "/{$uri['Bucket']}";
+        return "/{$uri['Bucket']}?list-type=2";
     }
 
     public function setBucket(?string $value): self
     {
         $this->Bucket = $value;
+
+        return $this;
+    }
+
+    public function setContinuationToken(?string $value): self
+    {
+        $this->ContinuationToken = $value;
 
         return $this;
     }
@@ -189,9 +233,9 @@ class ListObjectsRequest
         return $this;
     }
 
-    public function setMarker(?string $value): self
+    public function setFetchOwner(?bool $value): self
     {
-        $this->Marker = $value;
+        $this->FetchOwner = $value;
 
         return $this;
     }
@@ -213,6 +257,13 @@ class ListObjectsRequest
     public function setRequestPayer(?string $value): self
     {
         $this->RequestPayer = $value;
+
+        return $this;
+    }
+
+    public function setStartAfter(?string $value): self
+    {
+        $this->StartAfter = $value;
 
         return $this;
     }

@@ -13,7 +13,7 @@
                 "GetObject": [],
                 "PutObjectAcl": [],
                 "GetObjectAcl": [],
-                "ListObjects": []
+                "ListObjectsV2": []
             }
         },
         "Ses": {

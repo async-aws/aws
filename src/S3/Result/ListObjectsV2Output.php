@@ -6,26 +6,13 @@ use AsyncAws\Core\Result;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-class ListObjectsOutput extends Result implements \IteratorAggregate
+class ListObjectsV2Output extends Result implements \IteratorAggregate
 {
     /**
-     * A flag that indicates whether Amazon S3 returned all of the results that satisfied the search criteria.
+     * Set to false if all of the results were returned. Set to true if more keys are available to return. If the number of
+     * results exceeds that specified by MaxKeys, all of the results might not be returned.
      */
     private $IsTruncated;
-
-    /**
-     * Indicates where in the bucket listing begins. Marker is included in the response if it was sent with the request.
-     */
-    private $Marker;
-
-    /**
-     * When response is truncated (the IsTruncated element value in the response is true), you can use the key name in this
-     * field as marker in the subsequent request to get next set of objects. Amazon S3 lists objects in alphabetical order
-     * Note: This element is returned only if you have delimiter request parameter specified. If response does not include
-     * the NextMaker and it is truncated, you can use the value of the last Key in the response as the marker in the
-     * subsequent request to get the next set of object keys.
-     */
-    private $NextMarker;
 
     /**
      * Metadata about each object returned.
@@ -44,25 +31,49 @@ class ListObjectsOutput extends Result implements \IteratorAggregate
 
     /**
      * Causes keys that contain the same string between the prefix and the first occurrence of the delimiter to be rolled up
-     * into a single result element in the `CommonPrefixes` collection. These rolled-up keys are not returned elsewhere in
-     * the response. Each rolled-up result counts as only one return against the `MaxKeys` value.
+     * into a single result element in the CommonPrefixes collection. These rolled-up keys are not returned elsewhere in the
+     * response. Each rolled-up result counts as only one return against the `MaxKeys` value.
      */
     private $Delimiter;
 
     /**
-     * The maximum number of keys returned in the response body.
+     * Sets the maximum number of keys returned in the response. The response might contain fewer keys but will never
+     * contain more.
      */
     private $MaxKeys;
 
     /**
-     * All of the keys rolled up in a common prefix count as a single return when calculating the number of returns.
+     * All of the keys rolled up into a common prefix count as a single return when calculating the number of returns.
      */
     private $CommonPrefixes = [];
 
     /**
-     * Encoding type used by Amazon S3 to encode object keys in the response.
+     * Encoding type used by Amazon S3 to encode object key names in the XML response.
      */
     private $EncodingType;
+
+    /**
+     * KeyCount is the number of keys returned with this request. KeyCount will always be less than equals to MaxKeys field.
+     * Say you ask for 50 keys, your result will include less than equals 50 keys.
+     */
+    private $KeyCount;
+
+    /**
+     * If ContinuationToken was sent with the request, it is included in the response.
+     */
+    private $ContinuationToken;
+
+    /**
+     * `NextContinuationToken` is sent when `isTruncated` is true, which means there are more keys in the bucket that can be
+     * listed. The next list requests to Amazon S3 can be continued with this `NextContinuationToken`.
+     * `NextContinuationToken` is obfuscated and is not a real key.
+     */
+    private $NextContinuationToken;
+
+    /**
+     * If StartAfter was sent with the request, it is included in the response.
+     */
+    private $StartAfter;
 
     /**
      * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.
@@ -104,6 +115,13 @@ class ListObjectsOutput extends Result implements \IteratorAggregate
         }
     }
 
+    public function getContinuationToken(): ?string
+    {
+        $this->initialize();
+
+        return $this->ContinuationToken;
+    }
+
     public function getDelimiter(): ?string
     {
         $this->initialize();
@@ -143,11 +161,11 @@ class ListObjectsOutput extends Result implements \IteratorAggregate
         }
     }
 
-    public function getMarker(): ?string
+    public function getKeyCount(): ?int
     {
         $this->initialize();
 
-        return $this->Marker;
+        return $this->KeyCount;
     }
 
     public function getMaxKeys(): ?int
@@ -164,11 +182,11 @@ class ListObjectsOutput extends Result implements \IteratorAggregate
         return $this->Name;
     }
 
-    public function getNextMarker(): ?string
+    public function getNextContinuationToken(): ?string
     {
         $this->initialize();
 
-        return $this->NextMarker;
+        return $this->NextContinuationToken;
     }
 
     public function getPrefix(): ?string
@@ -178,12 +196,17 @@ class ListObjectsOutput extends Result implements \IteratorAggregate
         return $this->Prefix;
     }
 
+    public function getStartAfter(): ?string
+    {
+        $this->initialize();
+
+        return $this->StartAfter;
+    }
+
     protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
     {
         $data = new \SimpleXMLElement($response->getContent(false));
         $this->IsTruncated = $this->xmlValueOrNull($data->IsTruncated, 'bool');
-        $this->Marker = $this->xmlValueOrNull($data->Marker, 'string');
-        $this->NextMarker = $this->xmlValueOrNull($data->NextMarker, 'string');
         $this->Contents = (function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
@@ -217,5 +240,9 @@ class ListObjectsOutput extends Result implements \IteratorAggregate
             return $items;
         })($data->CommonPrefixes);
         $this->EncodingType = $this->xmlValueOrNull($data->EncodingType, 'string');
+        $this->KeyCount = $this->xmlValueOrNull($data->KeyCount, 'int');
+        $this->ContinuationToken = $this->xmlValueOrNull($data->ContinuationToken, 'string');
+        $this->NextContinuationToken = $this->xmlValueOrNull($data->NextContinuationToken, 'string');
+        $this->StartAfter = $this->xmlValueOrNull($data->StartAfter, 'string');
     }
 }
