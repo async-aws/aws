@@ -116,8 +116,12 @@ class Result
     {
     }
 
-    final protected function xmlValueOrNull(\SimpleXMLElement $xml, string $type)
+    final protected function xmlValueOrNull(?\SimpleXMLElement $xml, string $type)
     {
+        if (null === $xml) {
+            return null;
+        }
+
         $value = $xml->__toString();
         if (empty($value) && 0 === $xml->count()) {
             return null;

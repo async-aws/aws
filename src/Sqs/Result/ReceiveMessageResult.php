@@ -29,8 +29,11 @@ class ReceiveMessageResult extends Result
         $data = $data->ReceiveMessageResult;
 
         $this->Messages = (function (\SimpleXMLElement $xml): array {
+            if (0 === $xml->count() || 0 === $xml->Message->count()) {
+                return [];
+            }
             $items = [];
-            foreach ($xml as $item) {
+            foreach ($xml->Message as $item) {
                 $items[] = new Message([
                     'MessageId' => $this->xmlValueOrNull($item->MessageId, 'string'),
                     'ReceiptHandle' => $this->xmlValueOrNull($item->ReceiptHandle, 'string'),
@@ -52,16 +55,22 @@ class ReceiveMessageResult extends Result
                                 'StringValue' => $this->xmlValueOrNull($item->Value->StringValue, 'string'),
                                 'BinaryValue' => $this->xmlValueOrNull($item->Value->BinaryValue, 'string'),
                                 'StringListValues' => (function (\SimpleXMLElement $xml): array {
+                                    if (0 === $xml->count() || 0 === $xml->StringListValue->count()) {
+                                        return [];
+                                    }
                                     $items = [];
-                                    foreach ($xml as $item) {
+                                    foreach ($xml->StringListValue as $item) {
                                         $items[] = $this->xmlValueOrNull($item, 'string');
                                     }
 
                                     return $items;
                                 })($item->Value->StringListValue),
                                 'BinaryListValues' => (function (\SimpleXMLElement $xml): array {
+                                    if (0 === $xml->count() || 0 === $xml->BinaryListValue->count()) {
+                                        return [];
+                                    }
                                     $items = [];
-                                    foreach ($xml as $item) {
+                                    foreach ($xml->BinaryListValue as $item) {
                                         $items[] = $this->xmlValueOrNull($item, 'string');
                                     }
 

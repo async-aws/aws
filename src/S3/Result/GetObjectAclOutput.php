@@ -56,14 +56,17 @@ class GetObjectAclOutput extends Result
             'ID' => $this->xmlValueOrNull($data->Owner->ID, 'string'),
         ]);
         $this->Grants = (function (\SimpleXMLElement $xml): array {
+            if (0 === $xml->count() || 0 === $xml->Grant->count()) {
+                return [];
+            }
             $items = [];
-            foreach ($xml as $item) {
+            foreach ($xml->Grant as $item) {
                 $items[] = new Grant([
                     'Grantee' => new Grantee([
                         'DisplayName' => $this->xmlValueOrNull($item->Grantee->DisplayName, 'string'),
                         'EmailAddress' => $this->xmlValueOrNull($item->Grantee->EmailAddress, 'string'),
                         'ID' => $this->xmlValueOrNull($item->Grantee->ID, 'string'),
-                        'Type' => $this->xmlValueOrNull($item->Grantee['xsi:type'], 'string'),
+                        'Type' => $this->xmlValueOrNull($item->Grantee->attributes('xsi', true)['type'][0] ?? null, 'string'),
                         'URI' => $this->xmlValueOrNull($item->Grantee->URI, 'string'),
                     ]),
                     'Permission' => $this->xmlValueOrNull($item->Permission, 'string'),
