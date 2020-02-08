@@ -103,19 +103,19 @@ class PutObjectAclRequest
      * @param array{
      *   ACL?: string,
      *   AccessControlPolicy?: \AsyncAws\S3\Input\AccessControlPolicy|array,
-     *   Bucket: string,
+     *   Bucket?: string,
      *   ContentMD5?: string,
      *   GrantFullControl?: string,
      *   GrantRead?: string,
      *   GrantReadACP?: string,
      *   GrantWrite?: string,
      *   GrantWriteACP?: string,
-     *   Key: string,
+     *   Key?: string,
      *   RequestPayer?: string,
      *   VersionId?: string,
      * } $input
      */
-    public function __construct(array $input)
+    public function __construct(array $input = [])
     {
         $this->ACL = $input['ACL'] ?? null;
         $this->AccessControlPolicy = isset($input['AccessControlPolicy']) ? AccessControlPolicy::create($input['AccessControlPolicy']) : null;

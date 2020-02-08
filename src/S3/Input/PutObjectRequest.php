@@ -262,7 +262,7 @@ class PutObjectRequest
      * @param array{
      *   ACL?: string,
      *   Body?: string|resource|\Closure,
-     *   Bucket: string,
+     *   Bucket?: string,
      *   CacheControl?: string,
      *   ContentDisposition?: string,
      *   ContentEncoding?: string,
@@ -275,7 +275,7 @@ class PutObjectRequest
      *   GrantRead?: string,
      *   GrantReadACP?: string,
      *   GrantWriteACP?: string,
-     *   Key: string,
+     *   Key?: string,
      *   Metadata?: array,
      *   ServerSideEncryption?: string,
      *   StorageClass?: string,
@@ -292,7 +292,7 @@ class PutObjectRequest
      *   ObjectLockLegalHoldStatus?: string,
      * } $input
      */
-    public function __construct(array $input)
+    public function __construct(array $input = [])
     {
         $this->ACL = $input['ACL'] ?? null;
         $this->Bucket = $input['Bucket'] ?? null;

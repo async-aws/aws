@@ -24,11 +24,11 @@ class GetQueueAttributesRequest
 
     /**
      * @param array{
-     *   QueueUrl: string,
+     *   QueueUrl?: string,
      *   AttributeNames?: string[],
      * } $input
      */
-    public function __construct(array $input)
+    public function __construct(array $input = [])
     {
         $this->QueueUrl = $input['QueueUrl'] ?? null;
         $this->AttributeNames = $input['AttributeNames'] ?? [];

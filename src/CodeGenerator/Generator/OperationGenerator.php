@@ -224,13 +224,13 @@ PHP
             }
 
             $constructor->addComment('@param array{');
-            foreach (GeneratorHelper::addMethodComment($this->definition, $inputShape, $baseNamespace) as $comment) {
+            foreach (GeneratorHelper::addMethodComment($this->definition, $inputShape, $baseNamespace, $root) as $comment) {
                 $constructor->addComment($comment);
             }
             $constructor->addComment('} $input');
 
             $inputParameter = $constructor->addParameter('input')->setType('array');
-            if (empty($inputShape['required'])) {
+            if (empty($inputShape['required']) || $root) {
                 $inputParameter->setDefaultValue([]);
             }
             $constructor->setBody($constructorBody);

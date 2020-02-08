@@ -26,11 +26,11 @@ class DeleteMessageRequest
 
     /**
      * @param array{
-     *   QueueUrl: string,
-     *   ReceiptHandle: string,
+     *   QueueUrl?: string,
+     *   ReceiptHandle?: string,
      * } $input
      */
-    public function __construct(array $input)
+    public function __construct(array $input = [])
     {
         $this->QueueUrl = $input['QueueUrl'] ?? null;
         $this->ReceiptHandle = $input['ReceiptHandle'] ?? null;

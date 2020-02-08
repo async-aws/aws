@@ -65,15 +65,15 @@ class SendEmailRequest
     /**
      * @param array{
      *   FromEmailAddress?: string,
-     *   Destination: \AsyncAws\Ses\Input\Destination|array,
+     *   Destination?: \AsyncAws\Ses\Input\Destination|array,
      *   ReplyToAddresses?: string[],
      *   FeedbackForwardingEmailAddress?: string,
-     *   Content: \AsyncAws\Ses\Input\EmailContent|array,
+     *   Content?: \AsyncAws\Ses\Input\EmailContent|array,
      *   EmailTags?: \AsyncAws\Ses\Input\MessageTag[],
      *   ConfigurationSetName?: string,
      * } $input
      */
-    public function __construct(array $input)
+    public function __construct(array $input = [])
     {
         $this->FromEmailAddress = $input['FromEmailAddress'] ?? null;
         $this->Destination = isset($input['Destination']) ? Destination::create($input['Destination']) : null;

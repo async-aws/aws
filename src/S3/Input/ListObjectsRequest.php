@@ -61,7 +61,7 @@ class ListObjectsRequest
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGET.html
      *
      * @param array{
-     *   Bucket: string,
+     *   Bucket?: string,
      *   Delimiter?: string,
      *   EncodingType?: string,
      *   Marker?: string,
@@ -70,7 +70,7 @@ class ListObjectsRequest
      *   RequestPayer?: string,
      * } $input
      */
-    public function __construct(array $input)
+    public function __construct(array $input = [])
     {
         $this->Bucket = $input['Bucket'] ?? null;
         $this->Delimiter = $input['Delimiter'] ?? null;

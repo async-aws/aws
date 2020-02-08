@@ -114,12 +114,12 @@ class HeadObjectRequest
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectHEAD.html
      *
      * @param array{
-     *   Bucket: string,
+     *   Bucket?: string,
      *   IfMatch?: string,
      *   IfModifiedSince?: \DateTimeInterface|string,
      *   IfNoneMatch?: string,
      *   IfUnmodifiedSince?: \DateTimeInterface|string,
-     *   Key: string,
+     *   Key?: string,
      *   Range?: string,
      *   VersionId?: string,
      *   SSECustomerAlgorithm?: string,
@@ -129,7 +129,7 @@ class HeadObjectRequest
      *   PartNumber?: int,
      * } $input
      */
-    public function __construct(array $input)
+    public function __construct(array $input = [])
     {
         $this->Bucket = $input['Bucket'] ?? null;
         $this->IfMatch = $input['IfMatch'] ?? null;

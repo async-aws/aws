@@ -76,7 +76,7 @@ class CreateBucketRequest
      *
      * @param array{
      *   ACL?: string,
-     *   Bucket: string,
+     *   Bucket?: string,
      *   CreateBucketConfiguration?: \AsyncAws\S3\Input\CreateBucketConfiguration|array,
      *   GrantFullControl?: string,
      *   GrantRead?: string,
@@ -86,7 +86,7 @@ class CreateBucketRequest
      *   ObjectLockEnabledForBucket?: bool,
      * } $input
      */
-    public function __construct(array $input)
+    public function __construct(array $input = [])
     {
         $this->ACL = $input['ACL'] ?? null;
         $this->Bucket = $input['Bucket'] ?? null;

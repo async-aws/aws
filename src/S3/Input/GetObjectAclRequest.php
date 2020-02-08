@@ -40,13 +40,13 @@ class GetObjectAclRequest
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGETacl.html
      *
      * @param array{
-     *   Bucket: string,
-     *   Key: string,
+     *   Bucket?: string,
+     *   Key?: string,
      *   VersionId?: string,
      *   RequestPayer?: string,
      * } $input
      */
-    public function __construct(array $input)
+    public function __construct(array $input = [])
     {
         $this->Bucket = $input['Bucket'] ?? null;
         $this->Key = $input['Key'] ?? null;

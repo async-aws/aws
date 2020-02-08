@@ -109,8 +109,8 @@ class AssumeRoleRequest
 
     /**
      * @param array{
-     *   RoleArn: string,
-     *   RoleSessionName: string,
+     *   RoleArn?: string,
+     *   RoleSessionName?: string,
      *   PolicyArns?: \AsyncAws\Core\Sts\Input\PolicyDescriptorType[],
      *   Policy?: string,
      *   DurationSeconds?: int,
@@ -121,7 +121,7 @@ class AssumeRoleRequest
      *   TokenCode?: string,
      * } $input
      */
-    public function __construct(array $input)
+    public function __construct(array $input = [])
     {
         $this->RoleArn = $input['RoleArn'] ?? null;
         $this->RoleSessionName = $input['RoleSessionName'] ?? null;

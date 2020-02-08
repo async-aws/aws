@@ -289,13 +289,13 @@ class CopyObjectRequest
      *
      * @param array{
      *   ACL?: string,
-     *   Bucket: string,
+     *   Bucket?: string,
      *   CacheControl?: string,
      *   ContentDisposition?: string,
      *   ContentEncoding?: string,
      *   ContentLanguage?: string,
      *   ContentType?: string,
-     *   CopySource: string,
+     *   CopySource?: string,
      *   CopySourceIfMatch?: string,
      *   CopySourceIfModifiedSince?: \DateTimeInterface|string,
      *   CopySourceIfNoneMatch?: string,
@@ -305,7 +305,7 @@ class CopyObjectRequest
      *   GrantRead?: string,
      *   GrantReadACP?: string,
      *   GrantWriteACP?: string,
-     *   Key: string,
+     *   Key?: string,
      *   Metadata?: array,
      *   MetadataDirective?: string,
      *   TaggingDirective?: string,
@@ -327,7 +327,7 @@ class CopyObjectRequest
      *   ObjectLockLegalHoldStatus?: string,
      * } $input
      */
-    public function __construct(array $input)
+    public function __construct(array $input = [])
     {
         $this->ACL = $input['ACL'] ?? null;
         $this->Bucket = $input['Bucket'] ?? null;
