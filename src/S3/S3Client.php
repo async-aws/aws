@@ -10,7 +10,7 @@ use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
-use AsyncAws\S3\Input\ListObjectsRequest;
+use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
 use AsyncAws\S3\Result\CopyObjectOutput;
@@ -19,7 +19,7 @@ use AsyncAws\S3\Result\DeleteObjectOutput;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
-use AsyncAws\S3\Result\ListObjectsOutput;
+use AsyncAws\S3\Result\ListObjectsV2Output;
 use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
 
@@ -261,24 +261,26 @@ class S3Client extends AbstractApi
 
     /**
      * Returns some or all (up to 1,000) of the objects in a bucket. You can use the request parameters as selection
-     * criteria to return a subset of the objects in a bucket. A 200 OK response can contain valid or invalid XML. Be sure
-     * to design your application to parse the contents of the response and handle it appropriately.
+     * criteria to return a subset of the objects in a bucket. A `200 OK` response can contain valid or invalid XML. Make
+     * sure to design your application to parse the contents of the response and handle it appropriately.
      *
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGET.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#listobjectsv2
      *
      * @param array{
      *   Bucket: string,
      *   Delimiter?: string,
      *   EncodingType?: string,
-     *   Marker?: string,
      *   MaxKeys?: int,
      *   Prefix?: string,
+     *   ContinuationToken?: string,
+     *   FetchOwner?: bool,
+     *   StartAfter?: string,
      *   RequestPayer?: string,
-     * }|ListObjectsRequest $input
+     * }|ListObjectsV2Request $input
      */
-    public function listObjects($input): ListObjectsOutput
+    public function listObjectsV2($input): ListObjectsV2Output
     {
-        $input = ListObjectsRequest::create($input);
+        $input = ListObjectsV2Request::create($input);
         $input->validate();
 
         $response = $this->getResponse(
@@ -288,7 +290,7 @@ class S3Client extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new ListObjectsOutput($response);
+        return new ListObjectsV2Output($response);
     }
 
     /**
