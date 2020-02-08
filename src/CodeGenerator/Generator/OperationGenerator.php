@@ -165,6 +165,7 @@ class OperationGenerator
             } elseif ($data['streaming'] ?? false) {
                 $parameterType = 'string|resource|\Closure';
                 $returnType = null;
+                $constructorBody .= sprintf('$this->%s = $input["%s"] ?? null;' . "\n", $name, $name);
             } else {
                 $returnType = $parameterType = GeneratorHelper::toPhpType($memberShape['type']);
                 if ('\DateTimeImmutable' !== $parameterType) {
