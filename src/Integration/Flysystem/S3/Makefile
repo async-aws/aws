@@ -1,13 +1,12 @@
-.EXPORT_ALL_VARIABLES:
 
 initialize: start-docker
 start-docker:
-	docker pull lphoward/fake-s3
-	docker start async_aws_s3 || docker run -d -p 4569:4569 --name async_aws_s3 lphoward/fake-s3
+	docker pull localstack/localstack
+	docker start async_aws || (docker run -d -p 4567-4584:4567-4584 --name async_aws localstack/localstack && sleep 5)
 
 test: initialize
 	./vendor/bin/simple-phpunit
 
 clean: stop-docker
 stop-docker:
-	docker stop async_aws_s3 || true
+	docker stop async_aws || true
