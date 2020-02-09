@@ -11,7 +11,7 @@ use Symfony\Contracts\HttpClient\ResponseStreamInterface;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class StreamableBody
+final class StreamableBody implements StreamableBodyInterface
 {
     /**
      * @var ResponseStreamInterface
@@ -29,16 +29,16 @@ class StreamableBody
     }
 
     /**
-     *  $fileHandler = fopen('/output.pdf', 'w');
-     *  foreach ($result->getBody()->getChunks() as $chunk) {
-     *     fwrite($fileHandler, $chunk->getContent());
-     *  }.
+     * @inheritDoc
      */
     public function getChunks(): ResponseStreamInterface
     {
         return $this->responseStream;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getContentAsString(): string
     {
         $resource = $this->getContentAsResource();
@@ -50,6 +50,9 @@ class StreamableBody
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getContentAsResource()
     {
         $resource = \fopen('php://temp', 'rw+');

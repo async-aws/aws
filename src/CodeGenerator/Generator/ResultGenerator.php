@@ -10,6 +10,7 @@ use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\StreamableBody;
+use AsyncAws\Core\StreamableBodyInterface;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Parameter;
 use Nette\PhpGenerator\PhpNamespace;
@@ -286,8 +287,8 @@ PHP
                     $returnType = GeneratorHelper::toPhpType($type);
                 }
             } elseif ($data['streaming'] ?? false) {
-                $parameterType = StreamableBody::class;
-                $namespace->addUse(StreamableBody::class);
+                $parameterType = StreamableBodyInterface::class;
+                $namespace->addUse(StreamableBodyInterface::class);
                 $nullable = false;
             } else {
                 $parameterType = GeneratorHelper::toPhpType($memberShape['type']);
