@@ -4,6 +4,7 @@ namespace AsyncAws\S3\Result;
 
 use AsyncAws\Core\Result;
 use AsyncAws\Core\StreamableBody;
+use AsyncAws\Core\StreamableBodyInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -181,7 +182,7 @@ class GetObjectOutput extends Result
         return $this->AcceptRanges;
     }
 
-    public function getBody(): StreamableBody
+    public function getBody(): StreamableBodyInterface
     {
         $this->initialize();
 
