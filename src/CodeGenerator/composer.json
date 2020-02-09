@@ -14,6 +14,7 @@
         "symfony/console": "^5.0",
         "symfony/http-client": "^4.4 || ^5.0",
         "symfony/http-client-contracts": "^1.0 || ^2.0",
+        "symfony/process": "^4.4 || ^5.0",
         "symfony/service-contracts": "^2.0"
     },
     "autoload": {

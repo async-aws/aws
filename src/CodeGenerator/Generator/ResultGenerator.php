@@ -96,7 +96,7 @@ class ResultGenerator
                 $namespace->addUse(ResponseInterface::class);
                 $namespace->addUse(HttpClientInterface::class);
                 $this->resultClassPopulateResult($operation, $className, false, $namespace, $class);
-                $this->fileWriter->delete($traitName);
+                $this->fileWriter->deleteClass($traitName);
             }
         } else {
             // Named constructor
