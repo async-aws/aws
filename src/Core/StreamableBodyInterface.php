@@ -22,12 +22,12 @@ interface StreamableBodyInterface
     public function getChunks(): ResponseStreamInterface;
 
     /**
-     * Download content into a temporary file and return a string.
+     * Download content into a temporary resource and return a string.
      */
     public function getContentAsString(): string;
 
     /**
-     * Download content into a temporary file and return the resource.
+     * Download content into a resource and then return that resource.
      *
      * @return resource
      */
