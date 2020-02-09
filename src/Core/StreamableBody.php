@@ -29,7 +29,7 @@ final class StreamableBody implements StreamableBodyInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getChunks(): ResponseStreamInterface
     {
@@ -37,7 +37,7 @@ final class StreamableBody implements StreamableBodyInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getContentAsString(): string
     {
@@ -51,7 +51,7 @@ final class StreamableBody implements StreamableBodyInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getContentAsResource()
     {
