@@ -67,6 +67,28 @@ Except for being a wrapper around Symfony's HTTP client and make sure we use the
 async features properly, we also handle authentication, exceptions and provide
 some response objects.
 
+## Pagination
+
+Some API Results are lists of items, like the result of `S3Client::listObjectsV2()`.
+These results implements `\IteratorAggregate`. They will automatically use AWS's
+pagination API to make a new request to fetch the remaining resources in the list.
+
+```php
+use AsyncAws\S3\S3Client;
+use AsyncAws\S3\Result\AwsObject;
+use AsyncAws\S3\Result\CommonPrefix;
+
+$s3Client = new S3Client();
+$result = $s3Client->listObjectsV2(['Bucket' => 'foo']);
+
+/** @var AwsObject|CommonPrefix $file */
+foreach($result as $file) {
+    if ($file instanceof AwsObject) {
+        echo $file->getKey();
+    }
+}
+```
+
 ## Organization
 
 | Repository | Namespace | Package name |
