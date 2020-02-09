@@ -12,7 +12,8 @@
         "psr/log": "~1.0",
         "symfony/http-client": "^4.4 || ^5.0",
         "symfony/http-client-contracts": "^1.0 || ^2.0",
-        "symfony/service-contracts": "^1.0 || ^2.0"
+        "symfony/service-contracts": "^1.0 || ^2.0",
+        "symfony/process": "^5.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
