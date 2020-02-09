@@ -16,6 +16,7 @@ use Symfony\Component\Process\Process;
 class FileWriter
 {
     private $printer;
+
     private $srcDirectory;
 
     public function __construct(string $srcDirectory)
