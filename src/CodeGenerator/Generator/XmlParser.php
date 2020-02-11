@@ -42,6 +42,8 @@ class XmlParser
 
     private function parseXmlResponse(string $currentInput, ?string $memberName, array $memberData)
     {
+        $shapeName = $memberData['shape'];
+        $shape = $this->definition->getShape($shapeName);
         if (!empty($memberData['xmlAttribute'])) {
             list($ns, $name) = explode(':', $memberData['locationName'] . ':');
             if (empty($name)) {
@@ -53,14 +55,14 @@ class XmlParser
             }
         } elseif (isset($memberData['locationName'])) {
             $input = $currentInput . '->' . $memberData['locationName'];
+        } elseif ($shape instanceof ListShape && $shape['flattened']) {
+            $input = $currentInput . '->' . ($shape->getMember()['locationName'] ?? $memberName);
         } elseif ($memberName) {
             $input = $currentInput . '->' . $memberName;
         } else {
             $input = $currentInput;
         }
 
-        $shapeName = $memberData['shape'];
-        $shape = $this->definition->getShape($shapeName);
         switch ($shape['type']) {
             case 'list':
                 /** @var ListShape $shape */
@@ -111,11 +113,8 @@ class XmlParser
     private function parseXmlResponseList(ListShape $shape, string $input): string
     {
         return strtr('(function(\SimpleXMLElement $xml): array {
-            if (0 === $xml->count() || 0 === $xml->LOCATION_NAME->count()) {
-                return [];
-            }
             $items = [];
-            foreach ($xml->LOCATION_NAME as $item) {
+            foreach (INPUT_PROPERTY as $item) {
                $items[] = LIST_ACCESSOR;
             }
 
@@ -123,7 +122,7 @@ class XmlParser
         })(INPUT)', [
             'LIST_ACCESSOR' => $this->parseXmlResponse('$item', null, ['shape' => $shape->getMember()['shape']]),
             'INPUT' => $input,
-            'LOCATION_NAME' => $shape->getMember()['locationName'] ?? $shape->getMember()['shape'],
+            'INPUT_PROPERTY' => ($shape['flattened'] ?? false ? '$xml' : '$xml->' . ($shape->getMember()['locationName'] ?? 'member')),
         ]);
     }
 
