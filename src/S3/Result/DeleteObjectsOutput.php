@@ -55,27 +55,27 @@ class DeleteObjectsOutput extends Result
         $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent(false));
-        $this->Deleted = (function (\SimpleXMLElement $xml): array {
+        $this->Deleted = (static function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
                 $items[] = new DeletedObject([
-                    'Key' => $this->xmlValueOrNull($item->Key, 'string'),
-                    'VersionId' => $this->xmlValueOrNull($item->VersionId, 'string'),
-                    'DeleteMarker' => $this->xmlValueOrNull($item->DeleteMarker, 'bool'),
-                    'DeleteMarkerVersionId' => $this->xmlValueOrNull($item->DeleteMarkerVersionId, 'string'),
+                    'Key' => static::xmlValueOrNull($item->Key, 'string'),
+                    'VersionId' => static::xmlValueOrNull($item->VersionId, 'string'),
+                    'DeleteMarker' => static::xmlValueOrNull($item->DeleteMarker, 'bool'),
+                    'DeleteMarkerVersionId' => static::xmlValueOrNull($item->DeleteMarkerVersionId, 'string'),
                 ]);
             }
 
             return $items;
         })($data->Deleted);
-        $this->Errors = (function (\SimpleXMLElement $xml): array {
+        $this->Errors = (static function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
                 $items[] = new Error([
-                    'Key' => $this->xmlValueOrNull($item->Key, 'string'),
-                    'VersionId' => $this->xmlValueOrNull($item->VersionId, 'string'),
-                    'Code' => $this->xmlValueOrNull($item->Code, 'string'),
-                    'Message' => $this->xmlValueOrNull($item->Message, 'string'),
+                    'Key' => static::xmlValueOrNull($item->Key, 'string'),
+                    'VersionId' => static::xmlValueOrNull($item->VersionId, 'string'),
+                    'Code' => static::xmlValueOrNull($item->Code, 'string'),
+                    'Message' => static::xmlValueOrNull($item->Message, 'string'),
                 ]);
             }
 

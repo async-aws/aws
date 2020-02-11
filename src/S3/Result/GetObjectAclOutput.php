@@ -52,21 +52,21 @@ class GetObjectAclOutput extends Result
 
         $data = new \SimpleXMLElement($response->getContent(false));
         $this->Owner = new Owner([
-            'DisplayName' => $this->xmlValueOrNull($data->Owner->DisplayName, 'string'),
-            'ID' => $this->xmlValueOrNull($data->Owner->ID, 'string'),
+            'DisplayName' => static::xmlValueOrNull($data->Owner->DisplayName, 'string'),
+            'ID' => static::xmlValueOrNull($data->Owner->ID, 'string'),
         ]);
-        $this->Grants = (function (\SimpleXMLElement $xml): array {
+        $this->Grants = (static function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml->Grant as $item) {
                 $items[] = new Grant([
                     'Grantee' => new Grantee([
-                        'DisplayName' => $this->xmlValueOrNull($item->Grantee->DisplayName, 'string'),
-                        'EmailAddress' => $this->xmlValueOrNull($item->Grantee->EmailAddress, 'string'),
-                        'ID' => $this->xmlValueOrNull($item->Grantee->ID, 'string'),
-                        'Type' => $this->xmlValueOrNull($item->Grantee->attributes('xsi', true)['type'][0] ?? null, 'string'),
-                        'URI' => $this->xmlValueOrNull($item->Grantee->URI, 'string'),
+                        'DisplayName' => static::xmlValueOrNull($item->Grantee->DisplayName, 'string'),
+                        'EmailAddress' => static::xmlValueOrNull($item->Grantee->EmailAddress, 'string'),
+                        'ID' => static::xmlValueOrNull($item->Grantee->ID, 'string'),
+                        'Type' => static::xmlValueOrNull($item->Grantee->attributes('xsi', true)['type'][0] ?? null, 'string'),
+                        'URI' => static::xmlValueOrNull($item->Grantee->URI, 'string'),
                     ]),
-                    'Permission' => $this->xmlValueOrNull($item->Permission, 'string'),
+                    'Permission' => static::xmlValueOrNull($item->Permission, 'string'),
                 ]);
             }
 

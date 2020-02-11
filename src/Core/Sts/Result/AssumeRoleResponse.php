@@ -56,15 +56,15 @@ class AssumeRoleResponse extends Result
         $data = $data->AssumeRoleResult;
 
         $this->Credentials = new Credentials([
-            'AccessKeyId' => $this->xmlValueOrNull($data->Credentials->AccessKeyId, 'string'),
-            'SecretAccessKey' => $this->xmlValueOrNull($data->Credentials->SecretAccessKey, 'string'),
-            'SessionToken' => $this->xmlValueOrNull($data->Credentials->SessionToken, 'string'),
-            'Expiration' => $this->xmlValueOrNull($data->Credentials->Expiration, '\\DateTimeImmutable'),
+            'AccessKeyId' => static::xmlValueOrNull($data->Credentials->AccessKeyId, 'string'),
+            'SecretAccessKey' => static::xmlValueOrNull($data->Credentials->SecretAccessKey, 'string'),
+            'SessionToken' => static::xmlValueOrNull($data->Credentials->SessionToken, 'string'),
+            'Expiration' => static::xmlValueOrNull($data->Credentials->Expiration, '\\DateTimeImmutable'),
         ]);
         $this->AssumedRoleUser = new AssumedRoleUser([
-            'AssumedRoleId' => $this->xmlValueOrNull($data->AssumedRoleUser->AssumedRoleId, 'string'),
-            'Arn' => $this->xmlValueOrNull($data->AssumedRoleUser->Arn, 'string'),
+            'AssumedRoleId' => static::xmlValueOrNull($data->AssumedRoleUser->AssumedRoleId, 'string'),
+            'Arn' => static::xmlValueOrNull($data->AssumedRoleUser->Arn, 'string'),
         ]);
-        $this->PackedPolicySize = $this->xmlValueOrNull($data->PackedPolicySize, 'int');
+        $this->PackedPolicySize = static::xmlValueOrNull($data->PackedPolicySize, 'int');
     }
 }

@@ -116,7 +116,7 @@ class Result
     {
     }
 
-    final protected function xmlValueOrNull(?\SimpleXMLElement $xml, string $type)
+    final protected static function xmlValueOrNull(?\SimpleXMLElement $xml, string $type)
     {
         if (null === $xml) {
             return null;

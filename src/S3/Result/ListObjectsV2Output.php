@@ -206,43 +206,43 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
     {
         $data = new \SimpleXMLElement($response->getContent(false));
-        $this->IsTruncated = $this->xmlValueOrNull($data->IsTruncated, 'bool');
-        $this->Contents = (function (\SimpleXMLElement $xml): array {
+        $this->IsTruncated = static::xmlValueOrNull($data->IsTruncated, 'bool');
+        $this->Contents = (static function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
                 $items[] = new AwsObject([
-                    'Key' => $this->xmlValueOrNull($item->Key, 'string'),
-                    'LastModified' => $this->xmlValueOrNull($item->LastModified, '\\DateTimeImmutable'),
-                    'ETag' => $this->xmlValueOrNull($item->ETag, 'string'),
-                    'Size' => $this->xmlValueOrNull($item->Size, 'string'),
-                    'StorageClass' => $this->xmlValueOrNull($item->StorageClass, 'string'),
+                    'Key' => static::xmlValueOrNull($item->Key, 'string'),
+                    'LastModified' => static::xmlValueOrNull($item->LastModified, '\\DateTimeImmutable'),
+                    'ETag' => static::xmlValueOrNull($item->ETag, 'string'),
+                    'Size' => static::xmlValueOrNull($item->Size, 'string'),
+                    'StorageClass' => static::xmlValueOrNull($item->StorageClass, 'string'),
                     'Owner' => new Owner([
-                        'DisplayName' => $this->xmlValueOrNull($item->Owner->DisplayName, 'string'),
-                        'ID' => $this->xmlValueOrNull($item->Owner->ID, 'string'),
+                        'DisplayName' => static::xmlValueOrNull($item->Owner->DisplayName, 'string'),
+                        'ID' => static::xmlValueOrNull($item->Owner->ID, 'string'),
                     ]),
                 ]);
             }
 
             return $items;
         })($data->Contents);
-        $this->Name = $this->xmlValueOrNull($data->Name, 'string');
-        $this->Prefix = $this->xmlValueOrNull($data->Prefix, 'string');
-        $this->Delimiter = $this->xmlValueOrNull($data->Delimiter, 'string');
-        $this->MaxKeys = $this->xmlValueOrNull($data->MaxKeys, 'int');
-        $this->CommonPrefixes = (function (\SimpleXMLElement $xml): array {
+        $this->Name = static::xmlValueOrNull($data->Name, 'string');
+        $this->Prefix = static::xmlValueOrNull($data->Prefix, 'string');
+        $this->Delimiter = static::xmlValueOrNull($data->Delimiter, 'string');
+        $this->MaxKeys = static::xmlValueOrNull($data->MaxKeys, 'int');
+        $this->CommonPrefixes = (static function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
                 $items[] = new CommonPrefix([
-                    'Prefix' => $this->xmlValueOrNull($item->Prefix, 'string'),
+                    'Prefix' => static::xmlValueOrNull($item->Prefix, 'string'),
                 ]);
             }
 
             return $items;
         })($data->CommonPrefixes);
-        $this->EncodingType = $this->xmlValueOrNull($data->EncodingType, 'string');
-        $this->KeyCount = $this->xmlValueOrNull($data->KeyCount, 'int');
-        $this->ContinuationToken = $this->xmlValueOrNull($data->ContinuationToken, 'string');
-        $this->NextContinuationToken = $this->xmlValueOrNull($data->NextContinuationToken, 'string');
-        $this->StartAfter = $this->xmlValueOrNull($data->StartAfter, 'string');
+        $this->EncodingType = static::xmlValueOrNull($data->EncodingType, 'string');
+        $this->KeyCount = static::xmlValueOrNull($data->KeyCount, 'int');
+        $this->ContinuationToken = static::xmlValueOrNull($data->ContinuationToken, 'string');
+        $this->NextContinuationToken = static::xmlValueOrNull($data->NextContinuationToken, 'string');
+        $this->StartAfter = static::xmlValueOrNull($data->StartAfter, 'string');
     }
 }

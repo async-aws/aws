@@ -23,6 +23,6 @@ class SendEmailResponse extends Result
     protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
     {
         $data = new \SimpleXMLElement($response->getContent(false));
-        $this->MessageId = $this->xmlValueOrNull($data->MessageId, 'string');
+        $this->MessageId = static::xmlValueOrNull($data->MessageId, 'string');
     }
 }

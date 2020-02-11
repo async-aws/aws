@@ -28,46 +28,46 @@ class ReceiveMessageResult extends Result
         $data = new \SimpleXMLElement($response->getContent(false));
         $data = $data->ReceiveMessageResult;
 
-        $this->Messages = (function (\SimpleXMLElement $xml): array {
+        $this->Messages = (static function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
                 $items[] = new Message([
-                    'MessageId' => $this->xmlValueOrNull($item->MessageId, 'string'),
-                    'ReceiptHandle' => $this->xmlValueOrNull($item->ReceiptHandle, 'string'),
-                    'MD5OfBody' => $this->xmlValueOrNull($item->MD5OfBody, 'string'),
-                    'Body' => $this->xmlValueOrNull($item->Body, 'string'),
-                    'Attributes' => (function (\SimpleXMLElement $xml): array {
+                    'MessageId' => static::xmlValueOrNull($item->MessageId, 'string'),
+                    'ReceiptHandle' => static::xmlValueOrNull($item->ReceiptHandle, 'string'),
+                    'MD5OfBody' => static::xmlValueOrNull($item->MD5OfBody, 'string'),
+                    'Body' => static::xmlValueOrNull($item->Body, 'string'),
+                    'Attributes' => (static function (\SimpleXMLElement $xml): array {
                         $items = [];
                         foreach ($xml as $item) {
-                            $items[$item->Name->__toString()] = $this->xmlValueOrNull($item->Value, 'string');
+                            $items[$item->Name->__toString()] = static::xmlValueOrNull($item->Value, 'string');
                         }
 
                         return $items;
                     })($item->Attribute),
-                    'MD5OfMessageAttributes' => $this->xmlValueOrNull($item->MD5OfMessageAttributes, 'string'),
-                    'MessageAttributes' => (function (\SimpleXMLElement $xml): array {
+                    'MD5OfMessageAttributes' => static::xmlValueOrNull($item->MD5OfMessageAttributes, 'string'),
+                    'MessageAttributes' => (static function (\SimpleXMLElement $xml): array {
                         $items = [];
                         foreach ($xml as $item) {
                             $items[$item->Name->__toString()] = new MessageAttributeValue([
-                                'StringValue' => $this->xmlValueOrNull($item->Value->StringValue, 'string'),
-                                'BinaryValue' => $this->xmlValueOrNull($item->Value->BinaryValue, 'string'),
-                                'StringListValues' => (function (\SimpleXMLElement $xml): array {
+                                'StringValue' => static::xmlValueOrNull($item->Value->StringValue, 'string'),
+                                'BinaryValue' => static::xmlValueOrNull($item->Value->BinaryValue, 'string'),
+                                'StringListValues' => (static function (\SimpleXMLElement $xml): array {
                                     $items = [];
                                     foreach ($xml->StringListValue as $item) {
-                                        $items[] = $this->xmlValueOrNull($item, 'string');
+                                        $items[] = static::xmlValueOrNull($item, 'string');
                                     }
 
                                     return $items;
                                 })($item->Value->StringListValue),
-                                'BinaryListValues' => (function (\SimpleXMLElement $xml): array {
+                                'BinaryListValues' => (static function (\SimpleXMLElement $xml): array {
                                     $items = [];
                                     foreach ($xml->BinaryListValue as $item) {
-                                        $items[] = $this->xmlValueOrNull($item, 'string');
+                                        $items[] = static::xmlValueOrNull($item, 'string');
                                     }
 
                                     return $items;
                                 })($item->Value->BinaryListValue),
-                                'DataType' => $this->xmlValueOrNull($item->Value->DataType, 'string'),
+                                'DataType' => static::xmlValueOrNull($item->Value->DataType, 'string'),
                             ]);
                         }
 

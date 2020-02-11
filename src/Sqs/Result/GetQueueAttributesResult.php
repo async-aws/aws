@@ -25,10 +25,10 @@ class GetQueueAttributesResult extends Result
         $data = new \SimpleXMLElement($response->getContent(false));
         $data = $data->GetQueueAttributesResult;
 
-        $this->Attributes = (function (\SimpleXMLElement $xml): array {
+        $this->Attributes = (static function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
-                $items[$item->Name->__toString()] = $this->xmlValueOrNull($item->Value, 'string');
+                $items[$item->Name->__toString()] = static::xmlValueOrNull($item->Value, 'string');
             }
 
             return $items;

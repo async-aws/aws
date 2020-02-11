@@ -104,7 +104,7 @@ class XmlParser
 
     private function parseXmlResponseScalar(Shape $shape, string $input): string
     {
-        return strtr('$this->xmlValueOrNull(PROPERTY_ACCESSOR, PROPERTY_TYPE)', [
+        return strtr('static::xmlValueOrNull(PROPERTY_ACCESSOR, PROPERTY_TYPE)', [
             'PROPERTY_ACCESSOR' => $input,
             'PROPERTY_TYPE' => \var_export(GeneratorHelper::toPhpType($shape['type']), true),
         ]);
@@ -112,7 +112,7 @@ class XmlParser
 
     private function parseXmlResponseList(ListShape $shape, string $input): string
     {
-        return strtr('(function(\SimpleXMLElement $xml): array {
+        return strtr('(static function(\SimpleXMLElement $xml): array {
             $items = [];
             foreach (INPUT_PROPERTY as $item) {
                $items[] = LIST_ACCESSOR;
@@ -132,7 +132,7 @@ class XmlParser
             throw new \RuntimeException('This is not implemented yet');
         }
 
-        return strtr('(function(\SimpleXMLElement $xml): array {
+        return strtr('(static function(\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
                $items[$item->MAP_KEY->__toString()] = MAP_ACCESSOR;

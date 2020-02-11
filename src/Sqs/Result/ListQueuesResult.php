@@ -55,10 +55,10 @@ class ListQueuesResult extends Result implements \IteratorAggregate
         $data = new \SimpleXMLElement($response->getContent(false));
         $data = $data->ListQueuesResult;
 
-        $this->QueueUrls = (function (\SimpleXMLElement $xml): array {
+        $this->QueueUrls = (static function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
-                $items[] = $this->xmlValueOrNull($item, 'string');
+                $items[] = static::xmlValueOrNull($item, 'string');
             }
 
             return $items;
