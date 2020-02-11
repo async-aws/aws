@@ -20,6 +20,16 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 class Result
 {
     /**
+     * @var AbstractApi|null
+     */
+    protected $client;
+
+    /**
+     * @var array|object|null
+     */
+    protected $lastRequest;
+
+    /**
      * @var ResponseInterface|null
      */
     private $response;
@@ -29,10 +39,12 @@ class Result
      */
     private $httpClient;
 
-    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient = null)
+    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient = null, AbstractApi $client = null, $lastRequest = null)
     {
         $this->response = $response;
         $this->httpClient = $httpClient;
+        $this->client = $client;
+        $this->lastRequest = $lastRequest;
     }
 
     /**

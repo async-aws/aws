@@ -29,7 +29,7 @@ XML
 
         $result = new ListObjectsV2Output($response);
 
-        $content = $result->getContents();
+        $content = $result->getContents(true);
         self::assertCount(0, $content);
     }
 }

@@ -115,7 +115,7 @@ class GenerateCommand extends Command
                 }
 
                 if (isset($operation['output']) && $operationConfig['generate-result']) {
-                    $this->generator->result($definition)->generate($operation, $resultNamespace, true, $operationConfig['separate-result-trait']);
+                    $this->generator->result($definition)->generate($operation, $serviceName, $resultNamespace, true, $operationConfig['separate-result-trait']);
                 }
 
                 // Update manifest file

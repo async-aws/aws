@@ -3,6 +3,8 @@
 namespace AsyncAws\S3\Result;
 
 use AsyncAws\Core\Result;
+use AsyncAws\S3\Input\ListObjectsV2Request;
+use AsyncAws\S3\S3Client;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -82,16 +84,31 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
      */
     public function getCommonPrefixes(bool $currentPageOnly = false): iterable
     {
-        $this->initialize();
-
         if ($currentPageOnly) {
-            return $this->CommonPrefixes;
-        }
-        while (true) {
+            $this->initialize();
             yield from $this->CommonPrefixes;
 
-            // TODO load next results
-            break;
+            return;
+        }
+
+        if (!$this->client instanceof S3Client) {
+            throw new \InvalidArgumentException('missing client injected in paginated result');
+        }
+        $input = $this->lastRequest;
+        if (!$input instanceof ListObjectsV2Request) {
+            throw new \InvalidArgumentException('missing last request injected in paginated result');
+        }
+        $page = $this;
+        while (true) {
+            yield from $page->getCommonPrefixes(true);
+
+            if (!$page->getNextContinuationToken()) {
+                break;
+            }
+
+            $input->setContinuationToken($page->getNextContinuationToken());
+
+            $page = $this->client->ListObjectsV2($input);
         }
     }
 
@@ -102,16 +119,31 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
      */
     public function getContents(bool $currentPageOnly = false): iterable
     {
-        $this->initialize();
-
         if ($currentPageOnly) {
-            return $this->Contents;
-        }
-        while (true) {
+            $this->initialize();
             yield from $this->Contents;
 
-            // TODO load next results
-            break;
+            return;
+        }
+
+        if (!$this->client instanceof S3Client) {
+            throw new \InvalidArgumentException('missing client injected in paginated result');
+        }
+        $input = $this->lastRequest;
+        if (!$input instanceof ListObjectsV2Request) {
+            throw new \InvalidArgumentException('missing last request injected in paginated result');
+        }
+        $page = $this;
+        while (true) {
+            yield from $page->getContents(true);
+
+            if (!$page->getNextContinuationToken()) {
+                break;
+            }
+
+            $input->setContinuationToken($page->getNextContinuationToken());
+
+            $page = $this->client->ListObjectsV2($input);
         }
     }
 
@@ -150,14 +182,25 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
      */
     public function getIterator(): \Traversable
     {
-        $this->initialize();
-
+        if (!$this->client instanceof S3Client) {
+            throw new \InvalidArgumentException('missing client injected in paginated result');
+        }
+        $input = $this->lastRequest;
+        if (!$input instanceof ListObjectsV2Request) {
+            throw new \InvalidArgumentException('missing last request injected in paginated result');
+        }
+        $page = $this;
         while (true) {
-            yield from $this->Contents;
-            yield from $this->CommonPrefixes;
+            yield from $page->getContents(true);
+            yield from $page->getCommonPrefixes(true);
 
-            // TODO load next results
-            break;
+            if (!$page->getNextContinuationToken()) {
+                break;
+            }
+
+            $input->setContinuationToken($page->getNextContinuationToken());
+
+            $page = $this->client->ListObjectsV2($input);
         }
     }
 

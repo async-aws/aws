@@ -53,10 +53,10 @@ class ResultGenerator
     /**
      * Generate classes for the output. Ie, the result of the API call.
      */
-    public function generate(Operation $operation, string $baseNamespace, bool $root, bool $useTrait)
+    public function generate(Operation $operation, string $service, string $baseNamespace, bool $root, bool $useTrait)
     {
         $output = $operation->getOutput();
-        $this->generateResultClass($baseNamespace, $output->getName(), $root, $useTrait, $operation);
+        $this->generateResultClass($service, $baseNamespace, $output->getName(), $root, $useTrait, $operation);
         if ($useTrait) {
             $this->generateOutputTrait($operation, $baseNamespace, $output->getName());
         }
@@ -78,7 +78,7 @@ class ResultGenerator
         $this->fileWriter->write($namespace);
     }
 
-    private function generateResultClass(string $baseNamespace, string $className, bool $root = false, ?bool $useTrait = null, ?Operation $operation = null): void
+    private function generateResultClass(string $service, string $baseNamespace, string $className, bool $root = false, ?bool $useTrait = null, ?Operation $operation = null): void
     {
         $inputShape = $this->definition->getShape($className);
 
@@ -100,19 +100,19 @@ class ResultGenerator
             }
         } else {
             // Named constructor
-            $this->resultClassAddNamedConstructor($baseNamespace, $inputShape, $class);
+            $this->resultClassAddNamedConstructor($service, $baseNamespace, $inputShape, $class);
         }
 
-        $this->resultClassAddProperties($baseNamespace, $root, $inputShape, $className, $class, $namespace);
+        $this->resultClassAddProperties($service, $baseNamespace, $root, $inputShape, $className, $class, $namespace);
         // should be called After Properties injection
         if ($operation && null !== $pagination = $this->definition->getOperationPagination($operation->getName())) {
-            $this->generateOutputPagination($pagination, $className, $baseNamespace, $class);
+            $this->generateOutputPagination($pagination, $className, $baseNamespace, $service, $operation, $namespace, $class);
         }
 
         $this->fileWriter->write($namespace);
     }
 
-    private function generateOutputPagination(array $pagination, string $className, string $baseNamespace, ClassType $class)
+    private function generateOutputPagination(array $pagination, string $className, string $baseNamespace, string $service, Operation $operation, PhpNamespace $namespace, ClassType $class)
     {
         if (empty($pagination['result_key'])) {
             throw new \RuntimeException('This is not implemented yet');
@@ -122,9 +122,11 @@ class ResultGenerator
         $iteratorBody = '';
         $iteratorTypes = [];
         foreach ((array) $pagination['result_key'] as $resultKey) {
-            $iteratorBody .= strtr('yield from $this->PROPERTY_NAME;
+            $singlePage = empty($pagination['output_token']);
+            $iteratorBody .= strtr('yield from $page->PROPERTY_ACCESSOR(SINGLE_PAGE_FLAG);
             ', [
-                'PROPERTY_NAME' => $resultKey,
+                'PROPERTY_ACCESSOR' => 'get' . $resultKey,
+                'SINGLE_PAGE_FLAG' => $singlePage ? '' : 'true',
             ]);
             $resultShapeName = $this->definition->getShape($className)['members'][$resultKey]['shape'];
             $resultShape = $this->definition->getShape($resultShapeName);
@@ -144,55 +146,129 @@ class ResultGenerator
             if (!$class->hasMethod($getter)) {
                 throw new \RuntimeException(sprintf('Unable to find the method "%s" in "%s"', $getter, $className));
             }
-            $getterBody = strtr('
-                $this->initialize();
 
-                if ($currentPageOnly) {
-                    return $this->PROPERTY_NAME;
-                }
-                while (true) {
-                    yield from $this->PROPERTY_NAME;
-
-                    // TODO load next results
-                    break;
-                }
-            ', [
-                'PROPERTY_NAME' => $resultKey,
-            ]);
             $method = $class->getMethod($getter);
             $method
-                ->setParameters([(new Parameter('currentPageOnly'))->setType('bool')->setDefaultValue(false)])
                 ->setReturnType('iterable')
-                ->setComment('@param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.')
-                ->addComment("@return iterable<$iteratorType>")
-                ->setBody($getterBody);
+                ->setComment('')
+            ;
+            if ($singlePage) {
+                $method
+                    ->setBody(strtr('
+                        $this->initialize();
+                        return $this->PROPERTY_NAME;
+                    ', [
+                        'PROPERTY_NAME' => $resultKey,
+                    ]));
+            } else {
+                $method
+                    ->setParameters([(new Parameter('currentPageOnly'))->setType('bool')->setDefaultValue(false)])
+                    ->addComment('@param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.')
+                    ->setBody(strtr('
+                        if ($currentPageOnly) {
+                            $this->initialize();
+                            yield from $this->PROPERTY_NAME;
+
+                            return;
+                        }
+
+                        PAGE_LOADER_CODE
+                    ', [
+                        'PROPERTY_NAME' => $resultKey,
+                        'PAGE_LOADER_CODE' => $this->generateOutputPaginationLoader(
+                            strtr('yield from $page->PROPERTY_ACCESSOR(true);', ['PROPERTY_ACCESSOR' => 'get' . $resultKey]),
+                            $pagination, $namespace, $baseNamespace, $service, $operation
+                        ),
+                    ]));
+            }
+
+            $method
+                ->addComment("@return iterable<$iteratorType>");
         }
 
         $iteratorType = implode('|', $iteratorTypes);
-
-        $iteratorBody = strtr('
-            $this->initialize();
-
-            while (true) {
-                ITERATE_PROPERTIES_CODE
-
-                // TODO load next results
-                break;
-            }
-        ', [
-            'ITERATE_PROPERTIES_CODE' => $iteratorBody,
-        ]);
 
         $class->removeMethod('getIterator');
         $class->addMethod('getIterator')
             ->setReturnType(\Traversable::class)
             ->addComment('Iterates over ' . implode(' then ', (array) $pagination['result_key']))
             ->addComment("@return \Traversable<$iteratorType>")
-            ->setBody($iteratorBody)
+            ->setBody($this->generateOutputPaginationLoader($iteratorBody, $pagination, $namespace, $baseNamespace, $service, $operation))
         ;
     }
 
-    private function resultClassAddNamedConstructor(string $baseNamespace, Shape $inputShape, ClassType $class): void
+    private function generateOutputPaginationLoader(string $iterator, array $pagination, PhpNamespace $namespace, string $baseNamespace, string $service, Operation $operation): string
+    {
+        if (empty($pagination['output_token'])) {
+            return \strtr($iterator, ['$page->' => '$this->']);
+        }
+
+        $inputToken = (array) $pagination['input_token'];
+        $outputToken = (array) $pagination['output_token'];
+        if (empty($pagination['more_results'])) {
+            $moreBody = '';
+            foreach ($outputToken as $index => $property) {
+                $moreBody .= strtr('
+                    if (!$page->MORE_ACCESSOR()) {
+                        break;
+                    }
+                ', [
+                    'MORE_ACCESSOR' => 'get' . trim(explode('||', $property)[0]),
+                ]);
+            }
+        } else {
+            $moreBody = strtr('
+                if (!$page->MORE_ACCESSOR()) {
+                    break;
+                }
+            ', [
+                'MORE_ACCESSOR' => 'get' . $pagination['more_results'],
+            ]);
+        }
+        $setter = '';
+        foreach ($inputToken as $index => $property) {
+            $setter .= strtr('
+                $input->SETTER($page->GETTER());
+            ', [
+                'SETTER' => 'set' . $property,
+                'GETTER' => 'get' . trim(explode('||', $outputToken[$index])[0]),
+            ]);
+        }
+
+        $baseNamespace = substr($baseNamespace, 0, \strrpos($baseNamespace, '\\'));
+        $inputShape = $operation->getInput();
+        $inputSafeClassName = GeneratorHelper::safeClassName($inputShape->getName());
+        $namespace->addUse($baseNamespace . '\\Input\\' . $inputSafeClassName);
+
+        $clientClassName = $service . 'Client';
+        $namespace->addUse($baseNamespace . '\\' . $clientClassName);
+
+        return strtr('
+            if (!$this->client instanceOf CLIENT_CLASSNAME) {
+                throw new \InvalidArgumentException(\'missing client injected in paginated result\');
+            }
+            $input = $this->lastRequest;
+            if (!$input instanceOf INPUT_CLASSNAME) {
+                throw new \InvalidArgumentException(\'missing last request injected in paginated result\');
+            }
+            $page = $this;
+            while (true) {
+                ITERATE_PROPERTIES_CODE
+                CHECK_MORE_RESULT_CODE
+                SET_TOKEN_CODE
+                $page = $this->client->OPERATION_NAME($input);
+            }
+        ', [
+            'CLIENT_CLASSNAME' => $clientClassName,
+            'INPUT_CLASSNAME' => $inputSafeClassName,
+            'ITERATE_PROPERTIES_CODE' => $iterator,
+            'CHECK_MORE_RESULT_CODE' => $moreBody,
+            'SET_TOKEN_CODE' => $setter,
+            'OPERATION_NAME' => $operation->getName(),
+        ]);
+    }
+
+    private function resultClassAddNamedConstructor(string $service, string $baseNamespace, Shape $inputShape, ClassType $class): void
     {
         $class->addMethod('create')->setStatic(true)->setReturnType('self')->setBody(
             <<<PHP
@@ -214,7 +290,7 @@ PHP
             $parameterType = $data['shape'];
             $memberShape = $this->definition->getShape($parameterType);
             if ('structure' === $memberShape['type']) {
-                $this->generateResultClass($baseNamespace, $parameterType);
+                $this->generateResultClass($service, $baseNamespace, $parameterType);
                 $constructorBody .= strtr('$this->NAME = isset($input["NAME"]) ? SAFE_CLASS::create($input["NAME"]) : null;' . "\n", ['NAME' => $name, 'SAFE_CLASS' => GeneratorHelper::safeClassName($parameterType)]);
             } elseif ('list' === $memberShape['type']) {
                 // Check if this is a list of objects
@@ -222,7 +298,7 @@ PHP
                 $type = $this->definition->getShape($listItemShapeName)['type'];
                 if ('structure' === $type) {
                     // todo this is needed in Input but useless in Result
-                    $this->generateResultClass($baseNamespace, $listItemShapeName);
+                    $this->generateResultClass($service, $baseNamespace, $listItemShapeName);
                     $constructorBody .= strtr('$this->NAME = array_map(function($item) { return SAFE_CLASS::create($item); }, $input["NAME"] ?? []);' . "\n", ['NAME' => $name, 'SAFE_CLASS' => GeneratorHelper::safeClassName($listItemShapeName)]);
                 } else {
                     $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $name]);
@@ -233,7 +309,7 @@ PHP
                 $type = $this->definition->getShape($listItemShapeName)['type'];
                 if ('structure' === $type) {
                     // todo this is needed in Input but useless in Result
-                    $this->generateResultClass($baseNamespace, $listItemShapeName);
+                    $this->generateResultClass($service, $baseNamespace, $listItemShapeName);
                     $constructorBody .= strtr('$this->NAME = array_map(function($item) { return SAFE_CLASS::create($item); }, $input["NAME"] ?? []);' . "\n", ['NAME' => $name, 'SAFE_CLASS' => GeneratorHelper::safeClassName($listItemShapeName)]);
                 } else {
                     $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $name]);
@@ -248,7 +324,7 @@ PHP
     /**
      * Add properties and getters.
      */
-    private function resultClassAddProperties(string $baseNamespace, bool $root, ?Shape $inputShape, string $className, ClassType $class, PhpNamespace $namespace): void
+    private function resultClassAddProperties(string $service, string $baseNamespace, bool $root, ?Shape $inputShape, string $className, ClassType $class, PhpNamespace $namespace): void
     {
         $members = $inputShape['members'];
         foreach ($members as $name => $data) {
@@ -262,7 +338,7 @@ PHP
             $memberShape = $this->definition->getShape($parameterType);
 
             if ('structure' === $memberShape['type']) {
-                $this->generateResultClass($baseNamespace, $parameterType);
+                $this->generateResultClass($service, $baseNamespace, $parameterType);
                 $parameterType = $baseNamespace . '\\' . GeneratorHelper::safeClassName($parameterType);
             } elseif ('map' === $memberShape['type']) {
                 $mapKeyShape = $this->definition->getShape($memberShape['key']['shape']);
@@ -281,7 +357,7 @@ PHP
                 $listItemShapeName = $memberShape['member']['shape'];
                 $type = $this->definition->getShape($listItemShapeName)['type'];
                 if ('structure' === $type) {
-                    $this->generateResultClass($baseNamespace, $listItemShapeName);
+                    $this->generateResultClass($service, $baseNamespace, $listItemShapeName);
                     $returnType = GeneratorHelper::safeClassName($listItemShapeName);
                 } else {
                     $returnType = GeneratorHelper::toPhpType($type);
