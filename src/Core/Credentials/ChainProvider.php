@@ -20,7 +20,7 @@ class ChainProvider implements CredentialProvider, ResetInterface
     private $providers;
 
     /**
-     * @var CredentialProvider[]
+     * @var (CredentialProvider|null)[]
      */
     private $lastSuccessfulProvider = [];
 
@@ -35,8 +35,12 @@ class ChainProvider implements CredentialProvider, ResetInterface
     public function getCredentials(Configuration $configuration): ?Credentials
     {
         $key = \spl_object_hash($configuration);
-        if (isset($this->lastSuccessfulProvider[$key])) {
-            return $this->lastSuccessfulProvider[$key]->getCredentials($configuration);
+        if (\array_key_exists($key, $this->lastSuccessfulProvider)) {
+            if (null === $provider = $this->lastSuccessfulProvider[$key]) {
+                return null;
+            }
+
+            return $provider->getCredentials($configuration);
         }
 
         foreach ($this->providers as $provider) {
@@ -46,6 +50,8 @@ class ChainProvider implements CredentialProvider, ResetInterface
                 return $credentials;
             }
         }
+
+        $this->lastSuccessfulProvider[$key] = null;
 
         return null;
     }
