@@ -68,9 +68,6 @@ jobs:
       run: |
         ./generate --all
 
-    - name: Fix cs
-      uses: docker://oskarstark/php-cs-fixer-ga
-
     - name: Assert up-to-date
       run: |
         if [ -n "$(git status src --porcelain)" ]; then
