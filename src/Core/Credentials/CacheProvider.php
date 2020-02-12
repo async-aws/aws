@@ -31,7 +31,7 @@ class CacheProvider implements CredentialProvider, ResetInterface
     public function getCredentials(Configuration $configuration): ?Credentials
     {
         $key = \spl_object_hash($configuration);
-        if (!isset($this->cache[$key]) || (null !== $this->cache[$key] && $this->cache[$key]->isExpired())) {
+        if (!\array_key_exists($key, $this->cache) || (null !== $this->cache[$key] && $this->cache[$key]->isExpired())) {
             $this->cache[$key] = $this->decorated->getCredentials($configuration);
         }
 

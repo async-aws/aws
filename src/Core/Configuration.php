@@ -97,4 +97,13 @@ class Configuration
 
         return isset($this->data[$name]);
     }
+
+    public function isDefault(string $name): bool
+    {
+        if (!isset(self::AVAILABLE_OPTIONS[$name])) {
+            throw new InvalidArgument(\sprintf('Invalid option "%s" passed to "%s::%s". ', $name, __CLASS__, __METHOD__));
+        }
+
+        return isset($this->data[$name], self::DEFAULT_OPTIONS[$name]) && $this->data[$name] === self::DEFAULT_OPTIONS[$name];
+    }
 }

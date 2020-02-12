@@ -67,11 +67,18 @@ abstract class AbstractApi
         $this->httpClient = $httpClient ?? HttpClient::create();
         $this->logger = $logger ?? new NullLogger();
         $this->configuration = $configuration;
-        $this->credentialProvider = $credentialProvider ?? new CacheProvider(new ChainProvider([
-            new ConfigurationProvider(),
-            new IniFileProvider($this->logger),
-            new InstanceProvider($this->httpClient, $this->logger),
-        ]));
+        if ($configuration->isDefault(Configuration::OPTION_ENDPOINT)) {
+            $this->credentialProvider = $credentialProvider ?? new CacheProvider(new ChainProvider([
+                new ConfigurationProvider(),
+                new IniFileProvider($this->logger),
+                new InstanceProvider($this->httpClient, $this->logger),
+            ]));
+        } else {
+            $this->credentialProvider = $credentialProvider ?? new CacheProvider(new ChainProvider([
+                new ConfigurationProvider(),
+                new IniFileProvider($this->logger),
+            ]));
+        }
     }
 
     /**
