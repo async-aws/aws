@@ -6,6 +6,7 @@ namespace AsyncAws\CodeGenerator\File;
 
 use AsyncAws\Core\Exception\RuntimeException;
 use Nette\PhpGenerator\PhpNamespace;
+use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 
 /**
@@ -18,6 +19,8 @@ class FileWriter
     private $printer;
 
     private $srcDirectory;
+
+    private $phpBin;
 
     public function __construct(string $srcDirectory)
     {
@@ -43,11 +46,10 @@ class FileWriter
         }
 
         $filename = \sprintf('%s/%s.php', $directory, $className);
-        $this->copyFile($filename, $filename . '.backup');
 
-        \file_put_contents($filename, "<?php\n\n" . $this->printer->printNamespace($namespace));
+        \file_put_contents($filename . '.errored', "<?php\n\n" . $this->printer->printNamespace($namespace));
 
-        $this->verifyFileSyntax($filename);
+        $this->verifyFileSyntax($filename . '.errored');
     }
 
     /**
@@ -65,34 +67,26 @@ class FileWriter
 
     private function verifyFileSyntax(string $filename): void
     {
-        $process = new Process(['php', '-l', $filename]);
+        if (null === $this->phpBin) {
+            $executableFinder = new PhpExecutableFinder();
+            $this->phpBin = $executableFinder->find(false);
+            $this->phpBin = false === $this->phpBin ? null : array_merge([$this->phpBin], $executableFinder->findArguments());
+        }
+
+        $process = new Process(\array_merge($this->phpBin, ['-l', $filename]));
         $process->run();
 
         if ($process->isSuccessful()) {
             // Remove backup and cleanup errored files
-            $this->removeFile($filename . '.backup');
-            $this->removeFile($filename . '.errored');
+            $this->moveFile($filename, \substr($filename, 0, -\strlen('.errored')));
 
             return;
         }
 
-        // Move the flawed file.
-        $this->copyFile($filename, $filename . '.errored');
-
-        // Try to restore backup
-        $this->copyFile($filename . '.backup', $filename);
-
         throw new RuntimeException(sprintf('Could not generate file "%s" due invalid syntax.' . "\n\n%s", $filename, $process->getOutput()));
     }
 
-    private function removeFile(string $filename): void
-    {
-        if (file_exists($filename)) {
-            unlink($filename);
-        }
-    }
-
-    private function copyFile(string $from, string $to): void
+    private function moveFile(string $from, string $to): void
     {
         if (file_exists($from)) {
             rename($from, $to);
