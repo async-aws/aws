@@ -50,23 +50,23 @@ class Message
 
     /**
      * @param array{
-     *   MessageId?: string,
-     *   ReceiptHandle?: string,
-     *   MD5OfBody?: string,
-     *   Body?: string,
-     *   Attributes?: array,
-     *   MD5OfMessageAttributes?: string,
-     *   MessageAttributes?: array,
+     *   MessageId: ?string,
+     *   ReceiptHandle: ?string,
+     *   MD5OfBody: ?string,
+     *   Body: ?string,
+     *   Attributes: ?array,
+     *   MD5OfMessageAttributes: ?string,
+     *   MessageAttributes: ?array,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
-        $this->MessageId = $input['MessageId'] ?? null;
-        $this->ReceiptHandle = $input['ReceiptHandle'] ?? null;
-        $this->MD5OfBody = $input['MD5OfBody'] ?? null;
-        $this->Body = $input['Body'] ?? null;
+        $this->MessageId = $input['MessageId'];
+        $this->ReceiptHandle = $input['ReceiptHandle'];
+        $this->MD5OfBody = $input['MD5OfBody'];
+        $this->Body = $input['Body'];
         $this->Attributes = $input['Attributes'] ?? [];
-        $this->MD5OfMessageAttributes = $input['MD5OfMessageAttributes'] ?? null;
+        $this->MD5OfMessageAttributes = $input['MD5OfMessageAttributes'];
         $this->MessageAttributes = array_map(function ($item) { return MessageAttributeValue::create($item); }, $input['MessageAttributes'] ?? []);
     }
 

@@ -56,15 +56,15 @@ class AssumeRoleResponse extends Result
         $data = $data->AssumeRoleResult;
 
         $this->Credentials = new Credentials([
-            'AccessKeyId' => $this->xmlValueOrNull($data->Credentials->AccessKeyId, 'string'),
-            'SecretAccessKey' => $this->xmlValueOrNull($data->Credentials->SecretAccessKey, 'string'),
-            'SessionToken' => $this->xmlValueOrNull($data->Credentials->SessionToken, 'string'),
-            'Expiration' => $this->xmlValueOrNull($data->Credentials->Expiration, '\\DateTimeImmutable'),
+            'AccessKeyId' => ($v = $data->Credentials->AccessKeyId) ? (string) $v : null,
+            'SecretAccessKey' => ($v = $data->Credentials->SecretAccessKey) ? (string) $v : null,
+            'SessionToken' => ($v = $data->Credentials->SessionToken) ? (string) $v : null,
+            'Expiration' => ($v = $data->Credentials->Expiration) ? new \DateTimeImmutable((string) $v) : null,
         ]);
         $this->AssumedRoleUser = new AssumedRoleUser([
-            'AssumedRoleId' => $this->xmlValueOrNull($data->AssumedRoleUser->AssumedRoleId, 'string'),
-            'Arn' => $this->xmlValueOrNull($data->AssumedRoleUser->Arn, 'string'),
+            'AssumedRoleId' => ($v = $data->AssumedRoleUser->AssumedRoleId) ? (string) $v : null,
+            'Arn' => ($v = $data->AssumedRoleUser->Arn) ? (string) $v : null,
         ]);
-        $this->PackedPolicySize = $this->xmlValueOrNull($data->PackedPolicySize, 'int');
+        $this->PackedPolicySize = ($v = $data->PackedPolicySize) ? (int) (string) $v : null;
     }
 }

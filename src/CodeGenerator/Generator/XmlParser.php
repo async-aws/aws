@@ -73,12 +73,19 @@ class XmlParser
             case 'map':
                 return $this->parseXmlResponseMap($shape, $input);
             case 'string':
-            case 'boolean':
-            case 'integer':
             case 'long':
-            case 'timestamp':
+                return $this->parseXmlResponseString($shape, $input);
+            case 'integer':
+                return $this->parseXmlResponseInteger($shape, $input);
+            case 'float':
+            case 'double':
+                return $this->parseXmlResponseFloat($shape, $input);
+            case 'boolean':
+                return $this->parseXmlResponseBool($shape, $input);
             case 'blob':
-                return $this->parseXmlResponseScalar($shape, $input);
+                return $this->parseXmlResponseBlob($shape, $input);
+            case 'timestamp':
+                return $this->parseXmlResponseTimestamp($shape, $input);
             default:
                 throw new \RuntimeException(sprintf('Type %s is not yet implemented', $shape['type']));
         }
@@ -102,12 +109,38 @@ class XmlParser
         ]);
     }
 
-    private function parseXmlResponseScalar(Shape $shape, string $input): string
+    private function parseXmlResponseString(Shape $shape, string $input): string
     {
-        return strtr('$this->xmlValueOrNull(PROPERTY_ACCESSOR, PROPERTY_TYPE)', [
-            'PROPERTY_ACCESSOR' => $input,
-            'PROPERTY_TYPE' => \var_export(GeneratorHelper::toPhpType($shape['type']), true),
-        ]);
+        return strtr('($v = INPUT) ? (string) $v : null', ['INPUT' => $input]);
+    }
+
+    private function parseXmlResponseInteger(Shape $shape, string $input): string
+    {
+        return strtr('($v = INPUT) ? (int) (string) $v : null', ['INPUT' => $input]);
+    }
+
+    private function parseXmlResponseFloat(Shape $shape, string $input): string
+    {
+        return strtr('($v = INPUT) ? (float) (string) $v : null', ['INPUT' => $input]);
+    }
+
+    private function parseXmlResponseBool(Shape $shape, string $input): string
+    {
+        return strtr('($v = INPUT) ? (string) $v === \'true\' : null', ['INPUT' => $input]);
+    }
+
+    private function parseXmlResponseBlob(Shape $shape, string $input): string
+    {
+        return strtr('($v = INPUT) ? base64_decode((string) $v) : null', ['INPUT' => $input]);
+    }
+
+    private function parseXmlResponseTimestamp(Shape $shape, string $input): string
+    {
+        if (isset($shape['timestampFormat']) && 'unixTimestamp' === $shape['timestampFormat']) {
+            return strtr('($v = INPUT) ? \DateTimeImmutable::setTimestamp((string) $v) : null', ['INPUT' => $input]);
+        }
+
+        return strtr('($v = INPUT) ? new \DateTimeImmutable((string) $v) : null', ['INPUT' => $input]);
     }
 
     private function parseXmlResponseList(ListShape $shape, string $input): string

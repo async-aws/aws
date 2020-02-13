@@ -85,10 +85,10 @@ class SendMessageResult extends Result
         $data = new \SimpleXMLElement($response->getContent(false));
         $data = $data->SendMessageResult;
 
-        $this->MD5OfMessageBody = $this->xmlValueOrNull($data->MD5OfMessageBody, 'string');
-        $this->MD5OfMessageAttributes = $this->xmlValueOrNull($data->MD5OfMessageAttributes, 'string');
-        $this->MD5OfMessageSystemAttributes = $this->xmlValueOrNull($data->MD5OfMessageSystemAttributes, 'string');
-        $this->MessageId = $this->xmlValueOrNull($data->MessageId, 'string');
-        $this->SequenceNumber = $this->xmlValueOrNull($data->SequenceNumber, 'string');
+        $this->MD5OfMessageBody = ($v = $data->MD5OfMessageBody) ? (string) $v : null;
+        $this->MD5OfMessageAttributes = ($v = $data->MD5OfMessageAttributes) ? (string) $v : null;
+        $this->MD5OfMessageSystemAttributes = ($v = $data->MD5OfMessageSystemAttributes) ? (string) $v : null;
+        $this->MessageId = ($v = $data->MessageId) ? (string) $v : null;
+        $this->SequenceNumber = ($v = $data->SequenceNumber) ? (string) $v : null;
     }
 }

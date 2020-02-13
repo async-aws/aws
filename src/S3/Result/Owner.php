@@ -16,14 +16,14 @@ class Owner
 
     /**
      * @param array{
-     *   DisplayName?: string,
-     *   ID?: string,
+     *   DisplayName: ?string,
+     *   ID: ?string,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
-        $this->DisplayName = $input['DisplayName'] ?? null;
-        $this->ID = $input['ID'] ?? null;
+        $this->DisplayName = $input['DisplayName'];
+        $this->ID = $input['ID'];
     }
 
     public static function create($input): self

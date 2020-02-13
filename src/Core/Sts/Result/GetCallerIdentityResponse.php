@@ -53,8 +53,8 @@ class GetCallerIdentityResponse extends Result
         $data = new \SimpleXMLElement($response->getContent(false));
         $data = $data->GetCallerIdentityResult;
 
-        $this->UserId = $this->xmlValueOrNull($data->UserId, 'string');
-        $this->Account = $this->xmlValueOrNull($data->Account, 'string');
-        $this->Arn = $this->xmlValueOrNull($data->Arn, 'string');
+        $this->UserId = ($v = $data->UserId) ? (string) $v : null;
+        $this->Account = ($v = $data->Account) ? (string) $v : null;
+        $this->Arn = ($v = $data->Arn) ? (string) $v : null;
     }
 }

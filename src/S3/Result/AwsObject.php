@@ -37,21 +37,21 @@ class AwsObject
 
     /**
      * @param array{
-     *   Key?: string,
-     *   LastModified?: \DateTimeInterface|string,
-     *   ETag?: string,
-     *   Size?: string,
-     *   StorageClass?: string,
-     *   Owner?: \AsyncAws\S3\Result\Owner|array,
+     *   Key: ?string,
+     *   LastModified: ?\DateTimeInterface,
+     *   ETag: ?string,
+     *   Size: ?string,
+     *   StorageClass: ?string,
+     *   Owner: null|\AsyncAws\S3\Result\Owner|array,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
-        $this->Key = $input['Key'] ?? null;
-        $this->LastModified = $input['LastModified'] ?? null;
-        $this->ETag = $input['ETag'] ?? null;
-        $this->Size = $input['Size'] ?? null;
-        $this->StorageClass = $input['StorageClass'] ?? null;
+        $this->Key = $input['Key'];
+        $this->LastModified = $input['LastModified'];
+        $this->ETag = $input['ETag'];
+        $this->Size = $input['Size'];
+        $this->StorageClass = $input['StorageClass'];
         $this->Owner = isset($input['Owner']) ? Owner::create($input['Owner']) : null;
     }
 

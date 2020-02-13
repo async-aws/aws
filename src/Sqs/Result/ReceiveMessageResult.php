@@ -32,29 +32,29 @@ class ReceiveMessageResult extends Result
             $items = [];
             foreach ($xml as $item) {
                 $items[] = new Message([
-                    'MessageId' => $this->xmlValueOrNull($item->MessageId, 'string'),
-                    'ReceiptHandle' => $this->xmlValueOrNull($item->ReceiptHandle, 'string'),
-                    'MD5OfBody' => $this->xmlValueOrNull($item->MD5OfBody, 'string'),
-                    'Body' => $this->xmlValueOrNull($item->Body, 'string'),
+                    'MessageId' => ($v = $item->MessageId) ? (string) $v : null,
+                    'ReceiptHandle' => ($v = $item->ReceiptHandle) ? (string) $v : null,
+                    'MD5OfBody' => ($v = $item->MD5OfBody) ? (string) $v : null,
+                    'Body' => ($v = $item->Body) ? (string) $v : null,
                     'Attributes' => (function (\SimpleXMLElement $xml): array {
                         $items = [];
                         foreach ($xml as $item) {
-                            $items[$item->Name->__toString()] = $this->xmlValueOrNull($item->Value, 'string');
+                            $items[$item->Name->__toString()] = ($v = $item->Value) ? (string) $v : null;
                         }
 
                         return $items;
                     })($item->Attribute),
-                    'MD5OfMessageAttributes' => $this->xmlValueOrNull($item->MD5OfMessageAttributes, 'string'),
+                    'MD5OfMessageAttributes' => ($v = $item->MD5OfMessageAttributes) ? (string) $v : null,
                     'MessageAttributes' => (function (\SimpleXMLElement $xml): array {
                         $items = [];
                         foreach ($xml as $item) {
                             $items[$item->Name->__toString()] = new MessageAttributeValue([
-                                'StringValue' => $this->xmlValueOrNull($item->Value->StringValue, 'string'),
-                                'BinaryValue' => $this->xmlValueOrNull($item->Value->BinaryValue, 'string'),
+                                'StringValue' => ($v = $item->Value->StringValue) ? (string) $v : null,
+                                'BinaryValue' => ($v = $item->Value->BinaryValue) ? base64_decode((string) $v) : null,
                                 'StringListValues' => (function (\SimpleXMLElement $xml): array {
                                     $items = [];
                                     foreach ($xml->StringListValue as $item) {
-                                        $items[] = $this->xmlValueOrNull($item, 'string');
+                                        $items[] = ($v = $item) ? (string) $v : null;
                                     }
 
                                     return $items;
@@ -62,12 +62,12 @@ class ReceiveMessageResult extends Result
                                 'BinaryListValues' => (function (\SimpleXMLElement $xml): array {
                                     $items = [];
                                     foreach ($xml->BinaryListValue as $item) {
-                                        $items[] = $this->xmlValueOrNull($item, 'string');
+                                        $items[] = ($v = $item) ? base64_decode((string) $v) : null;
                                     }
 
                                     return $items;
                                 })($item->Value->BinaryListValue),
-                                'DataType' => $this->xmlValueOrNull($item->Value->DataType, 'string'),
+                                'DataType' => ($v = $item->Value->DataType) ? (string) $v : null,
                             ]);
                         }
 

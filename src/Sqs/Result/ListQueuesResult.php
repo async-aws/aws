@@ -58,7 +58,7 @@ class ListQueuesResult extends Result implements \IteratorAggregate
         $this->QueueUrls = (function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
-                $items[] = $this->xmlValueOrNull($item, 'string');
+                $items[] = ($v = $item) ? (string) $v : null;
             }
 
             return $items;

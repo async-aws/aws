@@ -30,18 +30,18 @@ class Error
 
     /**
      * @param array{
-     *   Key?: string,
-     *   VersionId?: string,
-     *   Code?: string,
-     *   Message?: string,
+     *   Key: ?string,
+     *   VersionId: ?string,
+     *   Code: ?string,
+     *   Message: ?string,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
-        $this->Key = $input['Key'] ?? null;
-        $this->VersionId = $input['VersionId'] ?? null;
-        $this->Code = $input['Code'] ?? null;
-        $this->Message = $input['Message'] ?? null;
+        $this->Key = $input['Key'];
+        $this->VersionId = $input['VersionId'];
+        $this->Code = $input['Code'];
+        $this->Message = $input['Message'];
     }
 
     public static function create($input): self

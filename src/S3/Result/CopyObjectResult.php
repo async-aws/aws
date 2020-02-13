@@ -17,14 +17,14 @@ class CopyObjectResult
 
     /**
      * @param array{
-     *   ETag?: string,
-     *   LastModified?: \DateTimeInterface|string,
+     *   ETag: ?string,
+     *   LastModified: ?\DateTimeInterface,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
-        $this->ETag = $input['ETag'] ?? null;
-        $this->LastModified = $input['LastModified'] ?? null;
+        $this->ETag = $input['ETag'];
+        $this->LastModified = $input['LastModified'];
     }
 
     public static function create($input): self

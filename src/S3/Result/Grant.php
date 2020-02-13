@@ -16,14 +16,14 @@ class Grant
 
     /**
      * @param array{
-     *   Grantee?: \AsyncAws\S3\Result\Grantee|array,
-     *   Permission?: string,
+     *   Grantee: null|\AsyncAws\S3\Result\Grantee|array,
+     *   Permission: ?string,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
         $this->Grantee = isset($input['Grantee']) ? Grantee::create($input['Grantee']) : null;
-        $this->Permission = $input['Permission'] ?? null;
+        $this->Permission = $input['Permission'];
     }
 
     public static function create($input): self

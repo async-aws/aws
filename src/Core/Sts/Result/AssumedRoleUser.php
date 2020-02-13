@@ -24,10 +24,10 @@ class AssumedRoleUser
      *   Arn: string,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
-        $this->AssumedRoleId = $input['AssumedRoleId'] ?? null;
-        $this->Arn = $input['Arn'] ?? null;
+        $this->AssumedRoleId = $input['AssumedRoleId'];
+        $this->Arn = $input['Arn'];
     }
 
     public static function create($input): self

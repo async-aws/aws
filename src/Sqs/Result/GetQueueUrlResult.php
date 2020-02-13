@@ -25,6 +25,6 @@ class GetQueueUrlResult extends Result
         $data = new \SimpleXMLElement($response->getContent(false));
         $data = $data->GetQueueUrlResult;
 
-        $this->QueueUrl = $this->xmlValueOrNull($data->QueueUrl, 'string');
+        $this->QueueUrl = ($v = $data->QueueUrl) ? (string) $v : null;
     }
 }

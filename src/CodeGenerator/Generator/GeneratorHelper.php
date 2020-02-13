@@ -24,16 +24,19 @@ class GeneratorHelper
             case 'structure':
             case 'map':
                 return 'array';
-            case 'boolean':
-                return 'bool';
-            case 'integer':
-                return 'int';
-            case 'timestamp':
-                return '\DateTimeImmutable';
-            case 'string':
             case 'long':
+            case 'string':
             case 'blob':
                 return 'string';
+            case 'integer':
+                return 'int';
+            case 'float':
+            case 'double':
+                return 'float';
+            case 'boolean':
+                return 'bool';
+            case 'timestamp':
+                return '\DateTimeImmutable';
             default:
                 throw new \RuntimeException(sprintf('Type %s is not yet implemented', $parameterType));
         }
@@ -65,7 +68,7 @@ class GeneratorHelper
         return $output;
     }
 
-    public static function addMethodComment(ServiceDefinition $definition, Shape $inputShape, string $baseNamespace, bool $allNullable = false): array
+    public static function addMethodComment(ServiceDefinition $definition, Shape $inputShape, string $baseNamespace, bool $allNullable = false, bool $inputSafe = false): array
     {
         $body = [];
         foreach ($inputShape['members'] as $name => $data) {
@@ -87,12 +90,20 @@ class GeneratorHelper
             } elseif ($data['streaming'] ?? false) {
                 $param = 'string|resource|\Closure';
             } elseif ('timestamp' === $param) {
-                $param = '\DateTimeInterface|string';
+                $param = $inputSafe ? '\DateTimeInterface' : '\DateTimeInterface|string';
             } else {
                 $param = self::toPhpType($param);
             }
 
-            $body[] = sprintf('  %s%s: %s,', $name, $allNullable || $nullable ? '?' : '', $param);
+            if ($allNullable || $nullable) {
+                if ($inputSafe) {
+                    $body[] = sprintf('  %s: %s,', $name, \strpos($param, '|') ? 'null|' . $param : '?' . $param);
+                } else {
+                    $body[] = sprintf('  %s?: %s,', $name, $param);
+                }
+            } else {
+                $body[] = sprintf('  %s: %s,', $name, $param);
+            }
         }
 
         return $body;
