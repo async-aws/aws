@@ -16,6 +16,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
@@ -60,11 +61,11 @@ class GenerateCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $progressService = (new SymfonyStyle($input, $output->section()))->createProgressBar();
-        $progressService->setFormat(' %current%/%max% [%bar%] %message%');
+        $progressService->setFormat(' [%bar%] %message%');
         $progressService->setMessage('Service');
 
         $progressOperation = (new SymfonyStyle($input, $output->section()))->createProgressBar();
-        $progressOperation->setFormat(' %current%/%max% [%bar%] %message%');
+        $progressOperation->setFormat(' [%bar%] %message%');
         $progressOperation->setMessage('Operation');
 
         $manifest = \json_decode(\file_get_contents($this->manifestFile), true);
@@ -217,7 +218,11 @@ class GenerateCommand extends Command
             return $operations;
         }
         if ($operationName === $newOperation) {
-            return [$io->choice('Select the operation to generate', array_diff(\array_keys($definition['operations']), \array_keys($manifest['methods'])))];
+            $choices = \array_values(array_diff(\array_keys($definition['operations']), \array_keys($manifest['methods'])));
+            $question = new ChoiceQuestion('Select the operation(s) to generate', $choices);
+            $question->setMultiselect(true);
+
+            return $io->askQuestion($question);
         }
 
         return [$operationName];
