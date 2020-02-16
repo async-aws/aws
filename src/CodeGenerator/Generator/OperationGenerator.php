@@ -376,18 +376,17 @@ PHP;
             $payloadVariable = '$input->requestBody()';
         }
 
-        $param = '';
+        $params = ['$response', '$this->httpClient'];
         if ((null !== $pagination = $this->definition->getOperationPagination($operation['name'])) && !empty($pagination['output_token'])) {
-            $param = ', $this->httpClient, $this, $input';
-        } elseif ($this->operationRequiresHttpClient($operation['name'])) {
-            $param = ', $this->httpClient';
+            $params = \array_merge($params, ['$this', '$input']);
         }
+        $param = \implode(', ', $params);
 
         if (isset($operation['output'])) {
             $safeOutputClassName = GeneratorHelper::safeClassName($operation['output']['shape']);
-            $return = "return new {$safeOutputClassName}(\$response$param);";
+            $return = "return new {$safeOutputClassName}($param);";
         } else {
-            $return = "return new Result(\$response$param);";
+            $return = "return new Result($param);";
         }
 
         $method->setBody(
@@ -404,22 +403,5 @@ PHP;
 $return
 PHP
         );
-    }
-
-    private function operationRequiresHttpClient(string $operationName): bool
-    {
-        $operation = $this->definition->getOperation($operationName);
-
-        if (!isset($operation['output'])) {
-            return false;
-        }
-        // Check if output has streamable body
-        $outputShape = $this->definition->getShape($operation['output']['shape']);
-        $payload = $outputShape['payload'] ?? null;
-        if (null !== $payload && ($outputShape['members'][$payload]['streaming'] ?? false)) {
-            return true;
-        }
-
-        return false;
     }
 }

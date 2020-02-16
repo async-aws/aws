@@ -84,7 +84,7 @@ class S3Client extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new CopyObjectOutput($response);
+        return new CopyObjectOutput($response, $this->httpClient);
     }
 
     /**
@@ -120,7 +120,7 @@ class S3Client extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new CreateBucketOutput($response);
+        return new CreateBucketOutput($response, $this->httpClient);
     }
 
     /**
@@ -150,7 +150,7 @@ class S3Client extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new DeleteObjectOutput($response);
+        return new DeleteObjectOutput($response, $this->httpClient);
     }
 
     /**
@@ -182,7 +182,7 @@ class S3Client extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new DeleteObjectsOutput($response);
+        return new DeleteObjectsOutput($response, $this->httpClient);
     }
 
     /**
@@ -253,7 +253,7 @@ class S3Client extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new GetObjectAclOutput($response);
+        return new GetObjectAclOutput($response, $this->httpClient);
     }
 
     /**
@@ -290,7 +290,7 @@ class S3Client extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new HeadObjectOutput($response);
+        return new HeadObjectOutput($response, $this->httpClient);
     }
 
     /**
@@ -377,7 +377,7 @@ class S3Client extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new PutObjectOutput($response);
+        return new PutObjectOutput($response, $this->httpClient);
     }
 
     /**
@@ -415,7 +415,7 @@ class S3Client extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new PutObjectAclOutput($response);
+        return new PutObjectAclOutput($response, $this->httpClient);
     }
 
     protected function getServiceCode(): string

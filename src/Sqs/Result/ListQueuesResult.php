@@ -33,7 +33,7 @@ class ListQueuesResult extends Result implements \IteratorAggregate
         return $this->QueueUrls;
     }
 
-    protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
+    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
     {
         $data = new \SimpleXMLElement($response->getContent(false));
         $data = $data->ListQueuesResult;

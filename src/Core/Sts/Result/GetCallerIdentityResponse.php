@@ -48,7 +48,7 @@ class GetCallerIdentityResponse extends Result
         return $this->UserId;
     }
 
-    protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
+    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
     {
         $data = new \SimpleXMLElement($response->getContent(false));
         $data = $data->GetCallerIdentityResult;

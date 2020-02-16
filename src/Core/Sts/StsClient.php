@@ -46,7 +46,7 @@ class StsClient extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new AssumeRoleResponse($response);
+        return new AssumeRoleResponse($response, $this->httpClient);
     }
 
     /**
@@ -68,7 +68,7 @@ class StsClient extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new GetCallerIdentityResponse($response);
+        return new GetCallerIdentityResponse($response, $this->httpClient);
     }
 
     protected function getServiceCode(): string

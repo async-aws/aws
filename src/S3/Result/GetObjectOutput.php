@@ -392,7 +392,7 @@ class GetObjectOutput extends Result
         return $this->WebsiteRedirectLocation;
     }
 
-    protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
+    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
     {
         $headers = $response->getHeaders(false);
 
@@ -432,10 +432,6 @@ class GetObjectOutput extends Result
             }
         }
 
-        if (null !== $httpClient) {
-            $this->Body = new StreamableBody($httpClient->stream($response));
-        } else {
-            $this->Body = $response->getContent(false);
-        }
+        $this->Body = new StreamableBody($httpClient->stream($response));
     }
 }

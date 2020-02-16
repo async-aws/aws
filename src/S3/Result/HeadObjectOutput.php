@@ -364,7 +364,7 @@ class HeadObjectOutput extends Result
         return $this->WebsiteRedirectLocation;
     }
 
-    protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
+    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
     {
         $headers = $response->getHeaders(false);
 

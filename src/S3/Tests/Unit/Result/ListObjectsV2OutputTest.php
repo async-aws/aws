@@ -7,6 +7,7 @@ namespace AsyncAws\S3\Tests\Unit\Result;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\S3\Result\ListObjectsV2Output;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpClient\MockHttpClient;
 
 class ListObjectsV2OutputTest extends TestCase
 {
@@ -27,7 +28,7 @@ class ListObjectsV2OutputTest extends TestCase
 XML
 );
 
-        $result = new ListObjectsV2Output($response);
+        $result = new ListObjectsV2Output($response, new MockHttpClient());
 
         $content = $result->getContents(true);
         self::assertCount(0, $content);

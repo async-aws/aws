@@ -8,6 +8,7 @@ use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\Grant;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpClient\MockHttpClient;
 
 class GetObjectAclOutputTest extends TestCase
 {
@@ -40,7 +41,7 @@ class GetObjectAclOutputTest extends TestCase
 XML
 );
 
-        $result = new GetObjectAclOutput($response);
+        $result = new GetObjectAclOutput($response, new MockHttpClient());
 
         $grants = $result->getGrants();
         self::assertCount(2, $grants);
