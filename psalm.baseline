@@ -14,25 +14,23 @@
   <file src="src/Core/Sts/Result/AssumeRoleResponse.php">
     <ArgumentTypeCoercion occurrences="2"/>
   </file>
-  <file src="src/Core/Sts/Result/AssumedRoleUser.php">
-    <InvalidParamDefault occurrences="1"/>
-  </file>
-  <file src="src/Core/Sts/Result/Credentials.php">
-    <InvalidParamDefault occurrences="1"/>
-  </file>
-  <file src="src/S3/Result/CopyObjectOutput.php">
+  <file src="src/S3/Result/GetObjectAclOutput.php">
     <ArgumentTypeCoercion occurrences="1"/>
   </file>
-  <file src="src/S3/Result/DeleteObjectsOutput.php">
-    <ArgumentTypeCoercion occurrences="2"/>
-  </file>
-  <file src="src/S3/Result/GetObjectAclOutput.php">
-    <ArgumentTypeCoercion occurrences="3"/>
-  </file>
-  <file src="src/S3/Result/ListObjectsV2Output.php">
-    <ArgumentTypeCoercion occurrences="3"/>
-  </file>
   <file src="src/Sqs/Result/ReceiveMessageResult.php">
-    <ArgumentTypeCoercion occurrences="2"/>
+    <ArgumentTypeCoercion occurrences="1"/>
+  </file>
+  <file src="src/Symfony/DependencyInjection/AwsPackagesProvider.php">
+    <UndefinedClass occurrences="1">
+      <code>\AsyncAws\Sns\SnsClient</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Symfony/DependencyInjection/Configuration.php">
+    <PossiblyNullReference occurrences="1">
+      <code>scalarNode</code>
+    </PossiblyNullReference>
+    <PossiblyUndefinedMethod occurrences="1">
+      <code>scalarNode</code>
+    </PossiblyUndefinedMethod>
   </file>
 </files>
