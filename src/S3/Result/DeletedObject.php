@@ -28,18 +28,18 @@ class DeletedObject
 
     /**
      * @param array{
-     *   Key?: string,
-     *   VersionId?: string,
-     *   DeleteMarker?: bool,
-     *   DeleteMarkerVersionId?: string,
+     *   Key: ?string,
+     *   VersionId: ?string,
+     *   DeleteMarker: ?bool,
+     *   DeleteMarkerVersionId: ?string,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
-        $this->Key = $input['Key'] ?? null;
-        $this->VersionId = $input['VersionId'] ?? null;
-        $this->DeleteMarker = $input['DeleteMarker'] ?? null;
-        $this->DeleteMarkerVersionId = $input['DeleteMarkerVersionId'] ?? null;
+        $this->Key = $input['Key'];
+        $this->VersionId = $input['VersionId'];
+        $this->DeleteMarker = $input['DeleteMarker'];
+        $this->DeleteMarkerVersionId = $input['DeleteMarkerVersionId'];
     }
 
     public static function create($input): self

@@ -31,20 +31,20 @@ class Grantee
 
     /**
      * @param array{
-     *   DisplayName?: string,
-     *   EmailAddress?: string,
-     *   ID?: string,
+     *   DisplayName: ?string,
+     *   EmailAddress: ?string,
+     *   ID: ?string,
      *   Type: string,
-     *   URI?: string,
+     *   URI: ?string,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
-        $this->DisplayName = $input['DisplayName'] ?? null;
-        $this->EmailAddress = $input['EmailAddress'] ?? null;
-        $this->ID = $input['ID'] ?? null;
-        $this->Type = $input['Type'] ?? null;
-        $this->URI = $input['URI'] ?? null;
+        $this->DisplayName = $input['DisplayName'];
+        $this->EmailAddress = $input['EmailAddress'];
+        $this->ID = $input['ID'];
+        $this->Type = $input['Type'];
+        $this->URI = $input['URI'];
     }
 
     public static function create($input): self

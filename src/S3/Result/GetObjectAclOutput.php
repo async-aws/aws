@@ -52,21 +52,21 @@ class GetObjectAclOutput extends Result
 
         $data = new \SimpleXMLElement($response->getContent(false));
         $this->Owner = new Owner([
-            'DisplayName' => $this->xmlValueOrNull($data->Owner->DisplayName, 'string'),
-            'ID' => $this->xmlValueOrNull($data->Owner->ID, 'string'),
+            'DisplayName' => ($v = $data->Owner->DisplayName) ? (string) $v : null,
+            'ID' => ($v = $data->Owner->ID) ? (string) $v : null,
         ]);
         $this->Grants = (function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml->Grant as $item) {
                 $items[] = new Grant([
                     'Grantee' => new Grantee([
-                        'DisplayName' => $this->xmlValueOrNull($item->Grantee->DisplayName, 'string'),
-                        'EmailAddress' => $this->xmlValueOrNull($item->Grantee->EmailAddress, 'string'),
-                        'ID' => $this->xmlValueOrNull($item->Grantee->ID, 'string'),
-                        'Type' => $this->xmlValueOrNull($item->Grantee->attributes('xsi', true)['type'][0] ?? null, 'string'),
-                        'URI' => $this->xmlValueOrNull($item->Grantee->URI, 'string'),
+                        'DisplayName' => ($v = $item->Grantee->DisplayName) ? (string) $v : null,
+                        'EmailAddress' => ($v = $item->Grantee->EmailAddress) ? (string) $v : null,
+                        'ID' => ($v = $item->Grantee->ID) ? (string) $v : null,
+                        'Type' => ($v = $item->Grantee->attributes('xsi', true)['type'][0] ?? null) ? (string) $v : null,
+                        'URI' => ($v = $item->Grantee->URI) ? (string) $v : null,
                     ]),
-                    'Permission' => $this->xmlValueOrNull($item->Permission, 'string'),
+                    'Permission' => ($v = $item->Permission) ? (string) $v : null,
                 ]);
             }
 

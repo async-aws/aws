@@ -29,15 +29,15 @@ class Credentials
      *   AccessKeyId: string,
      *   SecretAccessKey: string,
      *   SessionToken: string,
-     *   Expiration: \DateTimeInterface|string,
+     *   Expiration: \DateTimeInterface,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
-        $this->AccessKeyId = $input['AccessKeyId'] ?? null;
-        $this->SecretAccessKey = $input['SecretAccessKey'] ?? null;
-        $this->SessionToken = $input['SessionToken'] ?? null;
-        $this->Expiration = $input['Expiration'] ?? null;
+        $this->AccessKeyId = $input['AccessKeyId'];
+        $this->SecretAccessKey = $input['SecretAccessKey'];
+        $this->SessionToken = $input['SessionToken'];
+        $this->Expiration = $input['Expiration'];
     }
 
     public static function create($input): self

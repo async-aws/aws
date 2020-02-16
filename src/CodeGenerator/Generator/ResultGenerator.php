@@ -203,11 +203,11 @@ PHP
         // We need a constructor
         $constructor = $class->addMethod('__construct');
         $constructor->addComment('@param array{');
-        foreach (GeneratorHelper::addMethodComment($this->definition, $inputShape, $baseNamespace) as $comment) {
+        foreach (GeneratorHelper::addMethodComment($this->definition, $inputShape, $baseNamespace, false, true) as $comment) {
             $constructor->addComment($comment);
         }
         $constructor->addComment('} $input');
-        $constructor->addParameter('input')->setType('array')->setDefaultValue([]);
+        $constructor->addParameter('input')->setType('array');
 
         $constructorBody = '';
         foreach ($inputShape['members'] as $name => $data) {
@@ -239,7 +239,7 @@ PHP
                     $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $name]);
                 }
             } else {
-                $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $name]);
+                $constructorBody .= strtr('$this->NAME = $input["NAME"];' . "\n", ['NAME' => $name]);
             }
         }
         $constructor->setBody($constructorBody);

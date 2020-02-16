@@ -11,12 +11,12 @@ class CommonPrefix
 
     /**
      * @param array{
-     *   Prefix?: string,
+     *   Prefix: ?string,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
-        $this->Prefix = $input['Prefix'] ?? null;
+        $this->Prefix = $input['Prefix'];
     }
 
     public static function create($input): self

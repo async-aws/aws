@@ -115,31 +115,4 @@ class Result
     protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
     {
     }
-
-    final protected function xmlValueOrNull(?\SimpleXMLElement $xml, string $type)
-    {
-        if (null === $xml) {
-            return null;
-        }
-
-        $value = $xml->__toString();
-        if (empty($value) && 0 === $xml->count()) {
-            return null;
-        }
-
-        // Return the correct type
-        switch ($type) {
-            case '\DateTimeImmutable':
-            case '\DateTimeInterface':
-                return new \DateTimeImmutable($value);
-            case 'int':
-            case 'long':
-                return filter_var($value, \FILTER_VALIDATE_INT);
-            case 'bool':
-                return filter_var($value, \FILTER_VALIDATE_BOOLEAN);
-            case 'string':
-            default:
-                return $value;
-        }
-    }
 }

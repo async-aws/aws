@@ -34,20 +34,20 @@ class MessageAttributeValue
 
     /**
      * @param array{
-     *   StringValue?: string,
-     *   BinaryValue?: string,
-     *   StringListValues?: string[],
-     *   BinaryListValues?: string[],
+     *   StringValue: ?string,
+     *   BinaryValue: ?string,
+     *   StringListValues: ?string[],
+     *   BinaryListValues: ?string[],
      *   DataType: string,
      * } $input
      */
-    public function __construct(array $input = [])
+    public function __construct(array $input)
     {
-        $this->StringValue = $input['StringValue'] ?? null;
-        $this->BinaryValue = $input['BinaryValue'] ?? null;
+        $this->StringValue = $input['StringValue'];
+        $this->BinaryValue = $input['BinaryValue'];
         $this->StringListValues = $input['StringListValues'] ?? [];
         $this->BinaryListValues = $input['BinaryListValues'] ?? [];
-        $this->DataType = $input['DataType'] ?? null;
+        $this->DataType = $input['DataType'];
     }
 
     public static function create($input): self

@@ -28,7 +28,7 @@ class GetQueueAttributesResult extends Result
         $this->Attributes = (function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
-                $items[$item->Name->__toString()] = $this->xmlValueOrNull($item->Value, 'string');
+                $items[$item->Name->__toString()] = ($v = $item->Value) ? (string) $v : null;
             }
 
             return $items;

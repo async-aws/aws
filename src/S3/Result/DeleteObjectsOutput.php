@@ -59,10 +59,10 @@ class DeleteObjectsOutput extends Result
             $items = [];
             foreach ($xml as $item) {
                 $items[] = new DeletedObject([
-                    'Key' => $this->xmlValueOrNull($item->Key, 'string'),
-                    'VersionId' => $this->xmlValueOrNull($item->VersionId, 'string'),
-                    'DeleteMarker' => $this->xmlValueOrNull($item->DeleteMarker, 'bool'),
-                    'DeleteMarkerVersionId' => $this->xmlValueOrNull($item->DeleteMarkerVersionId, 'string'),
+                    'Key' => ($v = $item->Key) ? (string) $v : null,
+                    'VersionId' => ($v = $item->VersionId) ? (string) $v : null,
+                    'DeleteMarker' => ($v = $item->DeleteMarker) ? 'true' === (string) $v : null,
+                    'DeleteMarkerVersionId' => ($v = $item->DeleteMarkerVersionId) ? (string) $v : null,
                 ]);
             }
 
@@ -72,10 +72,10 @@ class DeleteObjectsOutput extends Result
             $items = [];
             foreach ($xml as $item) {
                 $items[] = new Error([
-                    'Key' => $this->xmlValueOrNull($item->Key, 'string'),
-                    'VersionId' => $this->xmlValueOrNull($item->VersionId, 'string'),
-                    'Code' => $this->xmlValueOrNull($item->Code, 'string'),
-                    'Message' => $this->xmlValueOrNull($item->Message, 'string'),
+                    'Key' => ($v = $item->Key) ? (string) $v : null,
+                    'VersionId' => ($v = $item->VersionId) ? (string) $v : null,
+                    'Code' => ($v = $item->Code) ? (string) $v : null,
+                    'Message' => ($v = $item->Message) ? (string) $v : null,
                 ]);
             }
 

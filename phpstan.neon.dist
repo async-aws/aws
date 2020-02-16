@@ -12,4 +12,4 @@ parameters:
         - src/CodeGenerator/Generator/ClassFactory.php
 
     ignoreErrors:
-        - '|Default value of the parameter #1 \$input \(array\(\)\)|'
+        - '|Ternary operator condition is always true\.|'

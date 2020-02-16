@@ -206,43 +206,43 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
     {
         $data = new \SimpleXMLElement($response->getContent(false));
-        $this->IsTruncated = $this->xmlValueOrNull($data->IsTruncated, 'bool');
+        $this->IsTruncated = ($v = $data->IsTruncated) ? 'true' === (string) $v : null;
         $this->Contents = (function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
                 $items[] = new AwsObject([
-                    'Key' => $this->xmlValueOrNull($item->Key, 'string'),
-                    'LastModified' => $this->xmlValueOrNull($item->LastModified, '\\DateTimeImmutable'),
-                    'ETag' => $this->xmlValueOrNull($item->ETag, 'string'),
-                    'Size' => $this->xmlValueOrNull($item->Size, 'string'),
-                    'StorageClass' => $this->xmlValueOrNull($item->StorageClass, 'string'),
+                    'Key' => ($v = $item->Key) ? (string) $v : null,
+                    'LastModified' => ($v = $item->LastModified) ? new \DateTimeImmutable((string) $v) : null,
+                    'ETag' => ($v = $item->ETag) ? (string) $v : null,
+                    'Size' => ($v = $item->Size) ? (string) $v : null,
+                    'StorageClass' => ($v = $item->StorageClass) ? (string) $v : null,
                     'Owner' => new Owner([
-                        'DisplayName' => $this->xmlValueOrNull($item->Owner->DisplayName, 'string'),
-                        'ID' => $this->xmlValueOrNull($item->Owner->ID, 'string'),
+                        'DisplayName' => ($v = $item->Owner->DisplayName) ? (string) $v : null,
+                        'ID' => ($v = $item->Owner->ID) ? (string) $v : null,
                     ]),
                 ]);
             }
 
             return $items;
         })($data->Contents);
-        $this->Name = $this->xmlValueOrNull($data->Name, 'string');
-        $this->Prefix = $this->xmlValueOrNull($data->Prefix, 'string');
-        $this->Delimiter = $this->xmlValueOrNull($data->Delimiter, 'string');
-        $this->MaxKeys = $this->xmlValueOrNull($data->MaxKeys, 'int');
+        $this->Name = ($v = $data->Name) ? (string) $v : null;
+        $this->Prefix = ($v = $data->Prefix) ? (string) $v : null;
+        $this->Delimiter = ($v = $data->Delimiter) ? (string) $v : null;
+        $this->MaxKeys = ($v = $data->MaxKeys) ? (int) (string) $v : null;
         $this->CommonPrefixes = (function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
                 $items[] = new CommonPrefix([
-                    'Prefix' => $this->xmlValueOrNull($item->Prefix, 'string'),
+                    'Prefix' => ($v = $item->Prefix) ? (string) $v : null,
                 ]);
             }
 
             return $items;
         })($data->CommonPrefixes);
-        $this->EncodingType = $this->xmlValueOrNull($data->EncodingType, 'string');
-        $this->KeyCount = $this->xmlValueOrNull($data->KeyCount, 'int');
-        $this->ContinuationToken = $this->xmlValueOrNull($data->ContinuationToken, 'string');
-        $this->NextContinuationToken = $this->xmlValueOrNull($data->NextContinuationToken, 'string');
-        $this->StartAfter = $this->xmlValueOrNull($data->StartAfter, 'string');
+        $this->EncodingType = ($v = $data->EncodingType) ? (string) $v : null;
+        $this->KeyCount = ($v = $data->KeyCount) ? (int) (string) $v : null;
+        $this->ContinuationToken = ($v = $data->ContinuationToken) ? (string) $v : null;
+        $this->NextContinuationToken = ($v = $data->NextContinuationToken) ? (string) $v : null;
+        $this->StartAfter = ($v = $data->StartAfter) ? (string) $v : null;
     }
 }
