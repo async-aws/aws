@@ -244,19 +244,19 @@ class ResultGenerator
         $namespace->addUse($baseNamespace . '\\' . $clientClassName);
 
         return strtr('
-            if (!$this->client instanceOf CLIENT_CLASSNAME) {
+            if (!$this->awsClient instanceOf CLIENT_CLASSNAME) {
                 throw new \InvalidArgumentException(\'missing client injected in paginated result\');
             }
-            $input = $this->lastRequest;
-            if (!$input instanceOf INPUT_CLASSNAME) {
+            if (!$this->lastRequest instanceOf INPUT_CLASSNAME) {
                 throw new \InvalidArgumentException(\'missing last request injected in paginated result\');
             }
+            $input = clone $this->lastRequest;
             $page = $this;
             while (true) {
                 ITERATE_PROPERTIES_CODE
                 CHECK_MORE_RESULT_CODE
                 SET_TOKEN_CODE
-                $page = $this->client->OPERATION_NAME($input);
+                $page = $this->awsClient->OPERATION_NAME($input);
             }
         ', [
             'CLIENT_CLASSNAME' => $clientClassName,
