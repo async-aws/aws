@@ -83,7 +83,7 @@ class FileWriter
             return;
         }
 
-        throw new RuntimeException(sprintf('Could not generate file "%s" due invalid syntax.' . "\n\n%s", $filename, $process->getOutput()));
+        throw new RuntimeException(sprintf('Could not generate file "%s" due invalid syntax.' . "\n\n%s", $filename, $process->getErrorOutput()));
     }
 
     private function moveFile(string $from, string $to): void
