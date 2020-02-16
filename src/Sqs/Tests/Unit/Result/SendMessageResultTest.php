@@ -7,6 +7,7 @@ namespace AsyncAws\Sqs\Tests\Unit\Result;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Sqs\Result\SendMessageResult;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpClient\MockHttpClient;
 
 class SendMessageResultTest extends TestCase
 {
@@ -26,7 +27,7 @@ class SendMessageResultTest extends TestCase
 XML
         );
 
-        $result = new SendMessageResult($response);
+        $result = new SendMessageResult($response, new MockHttpClient());
 
         self::assertEquals('5fea7756-0ea4-451a-a703-a558b933e274', $result->getMessageId());
         self::assertEquals('fafb00f5732ab283681e124bf8747ed1', $result->getMD5OfMessageBody());

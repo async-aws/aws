@@ -7,6 +7,7 @@ namespace AsyncAws\Sqs\Tests\Unit\Result;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Sqs\Result\GetQueueAttributesResult;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpClient\MockHttpClient;
 
 class GetQueueAttributesResultTest extends TestCase
 {
@@ -59,7 +60,7 @@ class GetQueueAttributesResultTest extends TestCase
 XML
         );
 
-        $result = new GetQueueAttributesResult($response);
+        $result = new GetQueueAttributesResult($response, new MockHttpClient());
 
         self::assertArrayHasKey('MaximumMessageSize', $result->getAttributes());
         self::assertEquals('8192', $result->getAttributes()['MaximumMessageSize']);

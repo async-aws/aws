@@ -49,7 +49,7 @@ class SqsClient extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new Result($response);
+        return new Result($response, $this->httpClient);
     }
 
     /**
@@ -76,7 +76,7 @@ class SqsClient extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new CreateQueueResult($response);
+        return new CreateQueueResult($response, $this->httpClient);
     }
 
     /**
@@ -104,7 +104,7 @@ class SqsClient extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new Result($response);
+        return new Result($response, $this->httpClient);
     }
 
     /**
@@ -129,7 +129,7 @@ class SqsClient extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new Result($response);
+        return new Result($response, $this->httpClient);
     }
 
     /**
@@ -154,7 +154,7 @@ class SqsClient extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new GetQueueAttributesResult($response);
+        return new GetQueueAttributesResult($response, $this->httpClient);
     }
 
     /**
@@ -179,7 +179,7 @@ class SqsClient extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new GetQueueUrlResult($response);
+        return new GetQueueUrlResult($response, $this->httpClient);
     }
 
     /**
@@ -204,7 +204,7 @@ class SqsClient extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new ListQueuesResult($response);
+        return new ListQueuesResult($response, $this->httpClient);
     }
 
     /**
@@ -228,7 +228,7 @@ class SqsClient extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new Result($response);
+        return new Result($response, $this->httpClient);
     }
 
     /**
@@ -261,7 +261,7 @@ class SqsClient extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new ReceiveMessageResult($response);
+        return new ReceiveMessageResult($response, $this->httpClient);
     }
 
     /**
@@ -291,7 +291,7 @@ class SqsClient extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new SendMessageResult($response);
+        return new SendMessageResult($response, $this->httpClient);
     }
 
     protected function getServiceCode(): string

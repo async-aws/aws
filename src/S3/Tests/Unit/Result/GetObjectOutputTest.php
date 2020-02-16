@@ -7,6 +7,7 @@ namespace AsyncAws\S3\Tests\Unit\Result;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\S3\Result\GetObjectOutput;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpClient\MockHttpClient;
 
 class GetObjectOutputTest extends TestCase
 {
@@ -26,7 +27,7 @@ class GetObjectOutputTest extends TestCase
             'server' => [0 => 'AmazonS3'],
         ];
         $response = new SimpleMockedResponse('content', $headers);
-        $result = new GetObjectOutput($response);
+        $result = new GetObjectOutput($response, new MockHttpClient());
 
         $metadata = $result->getMetadata();
         self::assertCount(1, $metadata);

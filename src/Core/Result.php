@@ -35,11 +35,11 @@ class Result
     private $response;
 
     /**
-     * @var HttpClientInterface|null
+     * @var HttpClientInterface
      */
     private $httpClient;
 
-    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient = null, AbstractApi $client = null, $lastRequest = null)
+    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, AbstractApi $client = null, $lastRequest = null)
     {
         $this->response = $response;
         $this->httpClient = $httpClient;
@@ -50,15 +50,22 @@ class Result
     /**
      * Make sure the actual request is executed.
      *
+     * @param float|null $timeout Duration in seconds before aborting. When null wait until the end of execution.
+     *
+     * @return bool whether the request is executed or not
+     *
      * @throws Exception
      */
-    final public function resolve()
+    final public function resolve(?float $timeout = null): bool
     {
         if (null === $this->response) {
-            return;
+            return true;
         }
 
         try {
+            if (null !== $timeout && $this->httpClient->stream($this->response, $timeout)->current()->isTimeout()) {
+                return false;
+            }
             $statusCode = $this->response->getStatusCode();
         } catch (TransportExceptionInterface $e) {
             // When a network error occurs
@@ -76,6 +83,8 @@ class Result
         if (300 <= $statusCode) {
             throw new RedirectionException($this->response);
         }
+
+        return true;
     }
 
     /**
@@ -124,7 +133,7 @@ class Result
         }
     }
 
-    protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
+    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
     {
     }
 }

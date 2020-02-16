@@ -17,7 +17,7 @@ class PutObjectAclOutput extends Result
         return $this->RequestCharged;
     }
 
-    protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
+    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
     {
         $headers = $response->getHeaders(false);
 

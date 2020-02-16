@@ -7,6 +7,7 @@ namespace AsyncAws\Sqs\Tests\Unit\Result;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Sqs\Result\GetQueueUrlResult;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpClient\MockHttpClient;
 
 class GetQueueUrlResultTest extends TestCase
 {
@@ -24,7 +25,7 @@ class GetQueueUrlResultTest extends TestCase
 XML
         );
 
-        $result = new GetQueueUrlResult($response);
+        $result = new GetQueueUrlResult($response, new MockHttpClient());
 
         self::assertEquals('https://sqs.us-east-2.amazonaws.com/123456789012/MyQueue', $result->getQueueUrl());
     }

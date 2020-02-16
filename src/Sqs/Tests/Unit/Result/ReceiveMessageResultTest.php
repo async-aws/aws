@@ -7,6 +7,7 @@ namespace AsyncAws\Sqs\Tests\Unit\Result;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Sqs\Result\ReceiveMessageResult;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpClient\MockHttpClient;
 
 class ReceiveMessageResultTest extends TestCase
 {
@@ -49,7 +50,7 @@ class ReceiveMessageResultTest extends TestCase
 XML
         );
 
-        $result = new ReceiveMessageResult($response);
+        $result = new ReceiveMessageResult($response, new MockHttpClient());
 
         self::assertCount(1, $result->getMessages());
         $message = $result->getMessages()[0];

@@ -20,7 +20,7 @@ class SendEmailResponse extends Result
         return $this->MessageId;
     }
 
-    protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
+    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
     {
         $data = new \SimpleXMLElement($response->getContent(false));
         $this->MessageId = ($v = $data->MessageId) ? (string) $v : null;

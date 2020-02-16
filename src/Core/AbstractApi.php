@@ -89,7 +89,7 @@ abstract class AbstractApi
     {
         $response = $this->getResponse($method, $body, $headers, $endpoint);
 
-        return new Result($response);
+        return new Result($response, $this->httpClient);
     }
 
     abstract protected function getServiceCode(): string;

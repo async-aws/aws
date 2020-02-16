@@ -464,13 +464,7 @@ PHP
             if (true === ($member['streaming'] ?? false)) {
                 // Make sure we can stream this.
                 $namespace->addUse(StreamableBody::class);
-                $body .= strtr('
-                    if (null !== $httpClient) {
-                        $this->PROPERTY_NAME = new StreamableBody($httpClient->stream($response));
-                    } else {
-                        $this->PROPERTY_NAME = $response->getContent(false);
-                    }
-                ', ['PROPERTY_NAME' => $name]);
+                $body .= strtr('$this->PROPERTY_NAME = new StreamableBody($httpClient->stream($response));', ['PROPERTY_NAME' => $name]);
             } else {
                 $xmlParser = $this->parseXml($shape);
             }
@@ -492,7 +486,7 @@ PHP
             ->setProtected()
             ->setBody($body);
         $method->addParameter('response')->setType(ResponseInterface::class);
-        $method->addParameter('httpClient')->setType(HttpClientInterface::class)->setNullable(true);
+        $method->addParameter('httpClient')->setType(HttpClientInterface::class);
     }
 
     private function parseXml(Shape $shape): string
