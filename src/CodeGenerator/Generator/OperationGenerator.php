@@ -377,7 +377,9 @@ PHP;
         }
 
         $param = '';
-        if ($this->operationRequiresHttpClient($operation['name'])) {
+        if ((null !== $pagination = $this->definition->getOperationPagination($operation['name'])) && !empty($pagination['output_token'])) {
+            $param = ', $this->httpClient, $this, $input';
+        } elseif ($this->operationRequiresHttpClient($operation['name'])) {
             $param = ', $this->httpClient';
         }
 
@@ -417,8 +419,6 @@ PHP
         if (null !== $payload && ($outputShape['members'][$payload]['streaming'] ?? false)) {
             return true;
         }
-
-        // TODO check if pagination is supported
 
         return false;
     }

@@ -324,7 +324,7 @@ class S3Client extends AbstractApi
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
-        return new ListObjectsV2Output($response);
+        return new ListObjectsV2Output($response, $this->httpClient, $this, $input);
     }
 
     /**

@@ -20,34 +20,17 @@ class ListQueuesResult extends Result implements \IteratorAggregate
      */
     public function getIterator(): \Traversable
     {
-        $this->initialize();
-
-        while (true) {
-            yield from $this->QueueUrls;
-
-            // TODO load next results
-            break;
-        }
+        yield from $this->getQueueUrls();
     }
 
     /**
-     * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.
-     *
      * @return iterable<string>
      */
-    public function getQueueUrls(bool $currentPageOnly = false): iterable
+    public function getQueueUrls(): iterable
     {
         $this->initialize();
 
-        if ($currentPageOnly) {
-            return $this->QueueUrls;
-        }
-        while (true) {
-            yield from $this->QueueUrls;
-
-            // TODO load next results
-            break;
-        }
+        return $this->QueueUrls;
     }
 
     protected function populateResult(ResponseInterface $response, ?HttpClientInterface $httpClient): void
