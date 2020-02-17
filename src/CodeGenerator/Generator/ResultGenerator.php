@@ -185,6 +185,16 @@ class ResultGenerator
             ->addComment("@return \Traversable<$iteratorType>")
             ->setBody($this->generateOutputPaginationLoader($iteratorBody, $pagination, $namespace, $baseNamespace, $service, $operation))
         ;
+        if (!empty($pagination->getOutputToken())) {
+            $class->addProperty('prefetch')->setVisibility(ClassType::VISIBILITY_PRIVATE)->setComment('@var self[]')->setValue([]);
+            $class->removeMethod('__destruct');
+            $class->addMethod('__destruct')
+                ->setBody('
+                    while (!empty($this->prefetch)) {
+                        array_shift($this->prefetch)->cancel();
+                    }
+                ');
+        }
     }
 
     private function generateOutputPaginationLoader(string $iterator, Pagination $pagination, PhpNamespace $namespace, string $baseNamespace, string $service, Operation $operation): string
@@ -196,22 +206,14 @@ class ResultGenerator
         $inputToken = $pagination->getInputToken();
         $outputToken = $pagination->getOutputToken();
         if (null === $moreResult = $pagination->getMoreResults()) {
-            $moreBody = '';
+            $moreCondition = '';
             foreach ($outputToken as $index => $property) {
-                $moreBody .= strtr('
-                    if (!$page->MORE_ACCESSOR()) {
-                        break;
-                    }
-                ', [
+                $moreCondition .= strtr('$page->MORE_ACCESSOR()', [
                     'MORE_ACCESSOR' => 'get' . trim(explode('||', $property)[0]),
                 ]);
             }
         } else {
-            $moreBody = strtr('
-                if (!$page->MORE_ACCESSOR()) {
-                    break;
-                }
-            ', [
+            $moreCondition = strtr('$page->MORE_ACCESSOR()', [
                 'MORE_ACCESSOR' => 'get' . $moreResult,
             ]);
         }
@@ -237,22 +239,34 @@ class ResultGenerator
             if (!$this->awsClient instanceOf CLIENT_CLASSNAME) {
                 throw new \InvalidArgumentException(\'missing client injected in paginated result\');
             }
-            if (!$this->lastRequest instanceOf INPUT_CLASSNAME) {
+            if (!$this->request instanceOf INPUT_CLASSNAME) {
                 throw new \InvalidArgumentException(\'missing last request injected in paginated result\');
             }
-            $input = clone $this->lastRequest;
+            $input = clone $this->request;
             $page = $this;
             while (true) {
+                if (MORE_CONDITION) {
+                    SET_TOKEN_CODE
+                    $nextPage = $this->awsClient->OPERATION_NAME($input);
+                    $this->prefetch[spl_object_hash($nextPage)] = $nextPage;
+                } else {
+                    $nextPage = null;
+                }
+
                 ITERATE_PROPERTIES_CODE
-                CHECK_MORE_RESULT_CODE
-                SET_TOKEN_CODE
-                $page = $this->awsClient->OPERATION_NAME($input);
+
+                if ($nextPage === null) {
+                    break;
+                }
+
+                unset($this->prefetch[spl_object_hash($nextPage)]);
+                $page = $nextPage;
             }
         ', [
             'CLIENT_CLASSNAME' => $clientClassName,
             'INPUT_CLASSNAME' => $inputSafeClassName,
             'ITERATE_PROPERTIES_CODE' => $iterator,
-            'CHECK_MORE_RESULT_CODE' => $moreBody,
+            'MORE_CONDITION' => $moreCondition,
             'SET_TOKEN_CODE' => $setter,
             'OPERATION_NAME' => $operation->getName(),
         ]);

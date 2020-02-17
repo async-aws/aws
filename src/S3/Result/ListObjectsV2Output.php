@@ -78,6 +78,18 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     private $StartAfter;
 
     /**
+     * @var self[]
+     */
+    private $prefetch = [];
+
+    public function __destruct()
+    {
+        while (!empty($this->prefetch)) {
+            array_shift($this->prefetch)->cancel();
+        }
+    }
+
+    /**
      * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.
      *
      * @return iterable<CommonPrefix>
@@ -94,21 +106,29 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         if (!$this->awsClient instanceof S3Client) {
             throw new \InvalidArgumentException('missing client injected in paginated result');
         }
-        if (!$this->lastRequest instanceof ListObjectsV2Request) {
+        if (!$this->request instanceof ListObjectsV2Request) {
             throw new \InvalidArgumentException('missing last request injected in paginated result');
         }
-        $input = clone $this->lastRequest;
+        $input = clone $this->request;
         $page = $this;
         while (true) {
+            if ($page->getNextContinuationToken()) {
+                $input->setContinuationToken($page->getNextContinuationToken());
+
+                $nextPage = $this->awsClient->ListObjectsV2($input);
+                $this->prefetch[spl_object_hash($nextPage)] = $nextPage;
+            } else {
+                $nextPage = null;
+            }
+
             yield from $page->getCommonPrefixes(true);
 
-            if (!$page->getNextContinuationToken()) {
+            if (null === $nextPage) {
                 break;
             }
 
-            $input->setContinuationToken($page->getNextContinuationToken());
-
-            $page = $this->awsClient->ListObjectsV2($input);
+            unset($this->prefetch[spl_object_hash($nextPage)]);
+            $page = $nextPage;
         }
     }
 
@@ -129,21 +149,29 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         if (!$this->awsClient instanceof S3Client) {
             throw new \InvalidArgumentException('missing client injected in paginated result');
         }
-        if (!$this->lastRequest instanceof ListObjectsV2Request) {
+        if (!$this->request instanceof ListObjectsV2Request) {
             throw new \InvalidArgumentException('missing last request injected in paginated result');
         }
-        $input = clone $this->lastRequest;
+        $input = clone $this->request;
         $page = $this;
         while (true) {
+            if ($page->getNextContinuationToken()) {
+                $input->setContinuationToken($page->getNextContinuationToken());
+
+                $nextPage = $this->awsClient->ListObjectsV2($input);
+                $this->prefetch[spl_object_hash($nextPage)] = $nextPage;
+            } else {
+                $nextPage = null;
+            }
+
             yield from $page->getContents(true);
 
-            if (!$page->getNextContinuationToken()) {
+            if (null === $nextPage) {
                 break;
             }
 
-            $input->setContinuationToken($page->getNextContinuationToken());
-
-            $page = $this->awsClient->ListObjectsV2($input);
+            unset($this->prefetch[spl_object_hash($nextPage)]);
+            $page = $nextPage;
         }
     }
 
@@ -185,22 +213,30 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         if (!$this->awsClient instanceof S3Client) {
             throw new \InvalidArgumentException('missing client injected in paginated result');
         }
-        if (!$this->lastRequest instanceof ListObjectsV2Request) {
+        if (!$this->request instanceof ListObjectsV2Request) {
             throw new \InvalidArgumentException('missing last request injected in paginated result');
         }
-        $input = clone $this->lastRequest;
+        $input = clone $this->request;
         $page = $this;
         while (true) {
+            if ($page->getNextContinuationToken()) {
+                $input->setContinuationToken($page->getNextContinuationToken());
+
+                $nextPage = $this->awsClient->ListObjectsV2($input);
+                $this->prefetch[spl_object_hash($nextPage)] = $nextPage;
+            } else {
+                $nextPage = null;
+            }
+
             yield from $page->getContents(true);
             yield from $page->getCommonPrefixes(true);
 
-            if (!$page->getNextContinuationToken()) {
+            if (null === $nextPage) {
                 break;
             }
 
-            $input->setContinuationToken($page->getNextContinuationToken());
-
-            $page = $this->awsClient->ListObjectsV2($input);
+            unset($this->prefetch[spl_object_hash($nextPage)]);
+            $page = $nextPage;
         }
     }
 
