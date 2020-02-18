@@ -18,6 +18,8 @@ The goals of this client are:
 3) **No frequent updates.** Updates are great, but if changes are released multiple times every week you cannot keep up-to-date with the changelog. That is especially annoying when the changes are not related to services you use.
 4) **Readable code.** One should be able to read the code and follow the logic.
 
+[and much more...](./docs/compare.md)
+
 ## Installation and usage
 
 All APIs are located in different packages. To install SQS run
@@ -64,8 +66,8 @@ advantage of.
 #### So what is this library really doing?
 
 Except for being a wrapper around Symfony's HTTP client and make sure we use the
-async features properly, we also handle authentication, exceptions and provide
-some response objects.
+async features properly, we also [handle authentication](./docs/authentication.md), exceptions
+and provide some response objects.
 
 ## Pagination
 
