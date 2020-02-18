@@ -18,6 +18,8 @@ use AsyncAws\Sqs\Result\CreateQueueResult;
 use AsyncAws\Sqs\Result\GetQueueAttributesResult;
 use AsyncAws\Sqs\Result\GetQueueUrlResult;
 use AsyncAws\Sqs\Result\ListQueuesResult;
+use AsyncAws\Sqs\Result\QueueExists;
+use AsyncAws\Sqs\Result\QueueExistsWaiter;
 use AsyncAws\Sqs\Result\ReceiveMessageResult;
 use AsyncAws\Sqs\Result\SendMessageResult;
 
@@ -229,6 +231,31 @@ class SqsClient extends AbstractApi
         );
 
         return new Result($response, $this->httpClient);
+    }
+
+    /**
+     * Check status of operation getQueueUrl.
+     *
+     * @see getQueueUrl
+     *
+     * @param array{
+     *   QueueName: string,
+     *   QueueOwnerAWSAccountId?: string,
+     * }|GetQueueUrlRequest $input
+     */
+    public function queueExists($input): QueueExistsWaiter
+    {
+        $input = GetQueueUrlRequest::create($input);
+        $input->validate();
+
+        $response = $this->getResponse(
+            'POST',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
+
+        return new QueueExistsWaiter($response, $this->httpClient, $this, $input);
     }
 
     /**

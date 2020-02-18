@@ -83,7 +83,6 @@ class ResultGenerator
         if ($root) {
             $namespace->addUse(Result::class);
             $class->addExtend(Result::class);
-            $class->removeMethod('__destruct');
             $class->addMethod('__destruct')
                 ->addComment('Ensure current request is resolved and right exception is thrown.')
                 ->setBody('$this->resolve();');
@@ -185,7 +184,6 @@ class ResultGenerator
 
         $iteratorType = implode('|', $iteratorTypes);
 
-        $class->removeMethod('getIterator');
         $class->addMethod('getIterator')
             ->setReturnType(\Traversable::class)
             ->addComment('Iterates over ' . implode(' then ', $pagination->getResultkey()))
@@ -246,10 +244,10 @@ class ResultGenerator
             if (!$this->awsClient instanceOf CLIENT_CLASSNAME) {
                 throw new \InvalidArgumentException(\'missing client injected in paginated result\');
             }
-            if (!$this->request instanceOf INPUT_CLASSNAME) {
+            if (!$this->input instanceOf INPUT_CLASSNAME) {
                 throw new \InvalidArgumentException(\'missing last request injected in paginated result\');
             }
-            $input = clone $this->request;
+            $input = clone $this->input;
             $page = $this;
             while (true) {
                 if (MORE_CONDITION) {
@@ -289,11 +287,7 @@ class ResultGenerator
 
         // We need a constructor
         $constructor = $class->addMethod('__construct');
-        $constructor->addComment('@param array{');
-        foreach (GeneratorHelper::addMethodComment($shape, $baseNamespace, false, true) as $comment) {
-            $constructor->addComment($comment);
-        }
-        $constructor->addComment('} $input');
+        $constructor->addComment(GeneratorHelper::getParamDocblock($shape, $baseNamespace, null, false, true));
         $constructor->addParameter('input')->setType('array');
 
         $constructorBody = '';

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator;
 
-use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
 use AsyncAws\CodeGenerator\File\FileWriter;
 
 /**
@@ -24,14 +23,19 @@ class ApiGenerator
         $this->fileWriter = new FileWriter($srcDirectory);
     }
 
-    public function client(ServiceDefinition $definition): ClientGenerator
+    public function client(): ClientGenerator
     {
-        return new ClientGenerator($this->fileWriter, $definition);
+        return new ClientGenerator($this->fileWriter);
     }
 
-    public function operation(ServiceDefinition $definition): OperationGenerator
+    public function operation(): OperationGenerator
     {
-        return new OperationGenerator($this->fileWriter, $definition);
+        return new OperationGenerator($this->fileWriter);
+    }
+
+    public function waiter(): WaiterGenerator
+    {
+        return new WaiterGenerator($this->fileWriter);
     }
 
     public function result(): ResultGenerator

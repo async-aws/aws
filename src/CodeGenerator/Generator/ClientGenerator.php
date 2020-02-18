@@ -22,37 +22,27 @@ class ClientGenerator
      */
     private $fileWriter;
 
-    /**
-     * All public classes take a definition as first parameter.
-     *
-     * @var ServiceDefinition
-     */
-    private $definition;
-
-    public function __construct(FileWriter $fileWriter, ServiceDefinition $definition)
+    public function __construct(FileWriter $fileWriter)
     {
         $this->fileWriter = $fileWriter;
-        $this->definition = $definition;
     }
 
     /**
      * Update the API client with a constants function call.
      */
-    public function generate(string $service, string $baseNamespace): void
+    public function generate(ServiceDefinition $definition, string $service, string $baseNamespace): void
     {
         $namespace = ClassFactory::fromExistingClass(\sprintf('%s\\%sClient', $baseNamespace, $service));
 
         $classes = $namespace->getClasses();
         $class = $classes[\array_key_first($classes)];
-        if (null !== $prefix = $this->definition->getEndpointPrefix()) {
-            $class->removeMethod('getServiceCode');
+        if (null !== $prefix = $definition->getEndpointPrefix()) {
             $class->addMethod('getServiceCode')
                 ->setReturnType('string')
                 ->setVisibility(ClassType::VISIBILITY_PROTECTED)
                 ->setBody("return '$prefix';");
         }
-        if (null !== $signatureVersion = $this->definition->getSignatureVersion()) {
-            $class->removeMethod('getSignatureVersion');
+        if (null !== $signatureVersion = $definition->getSignatureVersion()) {
             $class->addMethod('getSignatureVersion')
                 ->setReturnType('string')
                 ->setVisibility(ClassType::VISIBILITY_PROTECTED)

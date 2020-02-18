@@ -111,10 +111,10 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         if (!$this->awsClient instanceof S3Client) {
             throw new \InvalidArgumentException('missing client injected in paginated result');
         }
-        if (!$this->request instanceof ListObjectsV2Request) {
+        if (!$this->input instanceof ListObjectsV2Request) {
             throw new \InvalidArgumentException('missing last request injected in paginated result');
         }
-        $input = clone $this->request;
+        $input = clone $this->input;
         $page = $this;
         while (true) {
             if ($page->getNextContinuationToken()) {
@@ -154,10 +154,10 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         if (!$this->awsClient instanceof S3Client) {
             throw new \InvalidArgumentException('missing client injected in paginated result');
         }
-        if (!$this->request instanceof ListObjectsV2Request) {
+        if (!$this->input instanceof ListObjectsV2Request) {
             throw new \InvalidArgumentException('missing last request injected in paginated result');
         }
-        $input = clone $this->request;
+        $input = clone $this->input;
         $page = $this;
         while (true) {
             if ($page->getNextContinuationToken()) {
@@ -218,10 +218,10 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         if (!$this->awsClient instanceof S3Client) {
             throw new \InvalidArgumentException('missing client injected in paginated result');
         }
-        if (!$this->request instanceof ListObjectsV2Request) {
+        if (!$this->input instanceof ListObjectsV2Request) {
             throw new \InvalidArgumentException('missing last request injected in paginated result');
         }
-        $input = clone $this->request;
+        $input = clone $this->input;
         $page = $this;
         while (true) {
             if ($page->getNextContinuationToken()) {
