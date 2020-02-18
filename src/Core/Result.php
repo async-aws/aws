@@ -27,7 +27,7 @@ class Result
     /**
      * @var array|object|null
      */
-    protected $lastRequest;
+    protected $request;
 
     /**
      * @var ResponseInterface|null
@@ -39,12 +39,12 @@ class Result
      */
     private $httpClient;
 
-    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, AbstractApi $awsClient = null, $lastRequest = null)
+    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, AbstractApi $awsClient = null, $request = null)
     {
         $this->response = $response;
         $this->httpClient = $httpClient;
         $this->awsClient = $awsClient;
-        $this->lastRequest = $lastRequest;
+        $this->request = $request;
     }
 
     /**
