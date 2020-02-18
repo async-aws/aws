@@ -11,7 +11,7 @@ class GetQueueAttributesResult extends Result
     /**
      * A map of attributes to their respective values.
      */
-    private $Attributes;
+    private $Attributes = [];
 
     public function getAttributes(): array
     {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator;
 
-use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
-use AsyncAws\CodeGenerator\Definition\Shape;
+use AsyncAws\CodeGenerator\Definition\ListShape;
+use AsyncAws\CodeGenerator\Definition\StructureShape;
 
 /**
  * Small methods that might be useful when generating code.
@@ -68,28 +68,27 @@ class GeneratorHelper
         return $output;
     }
 
-    public static function addMethodComment(ServiceDefinition $definition, Shape $inputShape, string $baseNamespace, bool $allNullable = false, bool $inputSafe = false): array
+    public static function addMethodComment(StructureShape $inputShape, string $baseNamespace, bool $allNullable = false, bool $inputSafe = false): array
     {
         $body = [];
-        foreach ($inputShape['members'] as $name => $data) {
-            $nullable = !\in_array($name, $inputShape['required'] ?? []);
-            $memberShape = $definition->getShape($data['shape']);
-            $param = $memberShape['type'];
-            if ('structure' === $param) {
-                $param = '\\' . $baseNamespace . '\\' . $data['shape'] . '|array';
-            } elseif ('list' === $param) {
-                $listItemShapeName = $definition->getShape($data['shape'])['member']['shape'];
+        foreach ($inputShape->getMembers() as $member) {
+            $nullable = !$member->isRequired();
+            $memberShape = $member->getShape();
+
+            if ($memberShape instanceof StructureShape) {
+                $param = '\\' . $baseNamespace . '\\' . self::safeClassName($memberShape->getName()) . '|array';
+            } elseif ($memberShape instanceof ListShape) {
+                $listMemberShape = $memberShape->getMember()->getShape();
 
                 // is the list item an object?
-                $type = $definition->getShape($listItemShapeName)['type'];
-                if ('structure' === $type) {
-                    $param = '\\' . $baseNamespace . '\\' . $listItemShapeName . '[]';
+                if ($listMemberShape instanceof StructureShape) {
+                    $param = '\\' . $baseNamespace . '\\' . self::safeClassName($listMemberShape->getName()) . '[]';
                 } else {
-                    $param = self::toPhpType($type) . '[]';
+                    $param = self::toPhpType($listMemberShape->getType()) . '[]';
                 }
-            } elseif ($data['streaming'] ?? false) {
+            } elseif ($member->isStreaming()) {
                 $param = 'string|resource|\Closure';
-            } elseif ('timestamp' === $param) {
+            } elseif ('timestamp' === $param = $memberShape->getType()) {
                 $param = $inputSafe ? '\DateTimeInterface' : '\DateTimeInterface|string';
             } else {
                 $param = self::toPhpType($param);
@@ -97,12 +96,12 @@ class GeneratorHelper
 
             if ($allNullable || $nullable) {
                 if ($inputSafe) {
-                    $body[] = sprintf('  %s: %s,', $name, \strpos($param, '|') ? 'null|' . $param : '?' . $param);
+                    $body[] = sprintf('  %s: %s,', $member->getName(), \strpos($param, '|') ? 'null|' . $param : '?' . $param);
                 } else {
-                    $body[] = sprintf('  %s?: %s,', $name, $param);
+                    $body[] = sprintf('  %s?: %s,', $member->getName(), $param);
                 }
             } else {
-                $body[] = sprintf('  %s: %s,', $name, $param);
+                $body[] = sprintf('  %s: %s,', $member->getName(), $param);
             }
         }
 

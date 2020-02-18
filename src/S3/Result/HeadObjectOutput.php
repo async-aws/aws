@@ -106,7 +106,7 @@ class HeadObjectOutput extends Result
     /**
      * A map of metadata to store with the object in S3.
      */
-    private $Metadata;
+    private $Metadata = [];
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
@@ -395,6 +395,7 @@ class HeadObjectOutput extends Result
         $this->ObjectLockMode = $headers['x-amz-object-lock-mode'][0] ?? null;
         $this->ObjectLockRetainUntilDate = isset($headers['x-amz-object-lock-retain-until-date'][0]) ? new \DateTimeImmutable($headers['x-amz-object-lock-retain-until-date'][0]) : null;
         $this->ObjectLockLegalHoldStatus = $headers['x-amz-object-lock-legal-hold'][0] ?? null;
+
         $this->Metadata = [];
         foreach ($headers as $name => $value) {
             if ('x-amz-meta-' === substr($name, 0, 11)) {
