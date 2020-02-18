@@ -27,58 +27,17 @@ class ServiceDefinition
     public function getOperation(string $name): ?Operation
     {
         if (isset($this->definition['operations'][$name])) {
-            return Operation::create($this->definition['operations'][$name], $this->createClosureToFindShapes());
+            return Operation::create(
+                $this->definition['operations'][$name] + [
+                    '_documentation' => $this->documentation['operations'][$name] ?? null,
+                    '_apiVersion' => $this->definition['metadata']['apiVersion'],
+                ],
+                $this->getPagination($name),
+                $this->createClosureToFindShape()
+            );
         }
 
         return null;
-    }
-
-    public function getOperationDocumentation(string $name): ?string
-    {
-        return $this->documentation['operations'][$name] ?? null;
-    }
-
-    public function getOperationPagination(string $name): ?array
-    {
-        return $this->pagination['pagination'][$name] ?? null;
-    }
-
-    public function getShapesDocumentation(): array
-    {
-        return $this->documentation['shapes'] ?? [];
-    }
-
-    public function getParameterDocumentation(string $className, string $parameter, string $type): ?string
-    {
-        if (\array_key_exists("$className\$$parameter", $this->documentation['shapes'][$type]['refs'] ?? [])) {
-            return $this->documentation['shapes'][$type]['refs']["$className\$$parameter"];
-        }
-
-        throw new \InvalidArgumentException(\sprintf('Missing documentation for %s::$%s of type %s', $className, $parameter, $type));
-    }
-
-    public function getShape(string $name): ?Shape
-    {
-        if (isset($this->definition['shapes'][$name])) {
-            return Shape::create($name, $this->definition['shapes'][$name], $this->createClosureToFindShapes());
-        }
-
-        return null;
-    }
-
-    public function getVersion(): string
-    {
-        return $this->definition['version'];
-    }
-
-    public function getMetadata(): array
-    {
-        return $this->definition['metadata'];
-    }
-
-    public function getServiceId(): string
-    {
-        return $this->definition['metadata']['serviceId'];
     }
 
     public function getApiVersion(): string
@@ -96,17 +55,35 @@ class ServiceDefinition
         return $this->definition['metadata']['endpointPrefix'];
     }
 
-    public function getGlobalEndpoint(): string
+    private function getPagination(string $name): ?Pagination
     {
-        return $this->definition['metadata']['globalEndpoint'];
+        if (isset($this->pagination['pagination'][$name])) {
+            return Pagination::create($this->pagination['pagination'][$name]);
+        }
+
+        return null;
     }
 
-    private function createClosureToFindShapes(): \Closure
+    private function getShape(string $name, ?Member $member): ?Shape
+    {
+        if (isset($this->definition['shapes'][$name])) {
+            $documentation = null;
+            if ($member instanceof StructureMember) {
+                $documentation = $this->documentation['shapes'][$name]['refs'][$member->getOwnerShape()->getName() . '$' . $member->getName()] ?? null;
+            }
+
+            return Shape::create($name, $this->definition['shapes'][$name] + ['_documentation' => $documentation], $this->createClosureToFindShape());
+        }
+
+        return null;
+    }
+
+    private function createClosureToFindShape(): \Closure
     {
         $definition = $this;
 
-        return \Closure::fromCallable(function (string $name) use ($definition) {
-            return $definition->getShape($name);
+        return \Closure::fromCallable(function (string $name, Member $member = null) use ($definition) {
+            return $definition->getShape($name, $member);
         });
     }
 }

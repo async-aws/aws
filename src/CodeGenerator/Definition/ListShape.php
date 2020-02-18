@@ -6,8 +6,13 @@ namespace AsyncAws\CodeGenerator\Definition;
 
 class ListShape extends Shape
 {
-    public function getMember()
+    public function getMember(): ListMember
     {
-        return $this->data['member'];
+        return new ListMember($this->data['member'], $this->shapeLocator);
+    }
+
+    public function isFlattened(): bool
+    {
+        return $this->data['flattened'] ?? false;
     }
 }

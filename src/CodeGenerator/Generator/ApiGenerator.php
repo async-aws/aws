@@ -24,13 +24,18 @@ class ApiGenerator
         $this->fileWriter = new FileWriter($srcDirectory);
     }
 
+    public function client(ServiceDefinition $definition): ClientGenerator
+    {
+        return new ClientGenerator($this->fileWriter, $definition);
+    }
+
     public function operation(ServiceDefinition $definition): OperationGenerator
     {
         return new OperationGenerator($this->fileWriter, $definition);
     }
 
-    public function result(ServiceDefinition $definition): ResultGenerator
+    public function result(): ResultGenerator
     {
-        return new ResultGenerator($this->fileWriter, $definition);
+        return new ResultGenerator($this->fileWriter);
     }
 }

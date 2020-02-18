@@ -102,20 +102,25 @@ class GenerateCommand extends Command
             $baseNamespace = $manifest['services'][$serviceName]['namespace'] ?? \sprintf('AsyncAws\\%s', $serviceName);
             $resultNamespace = $baseNamespace . '\\Result';
 
+            $this->generator->client($definition)->generate($serviceName, $baseNamespace);
+
             foreach ($operationNames as $operationName) {
                 $progressOperation->setMessage($operationName);
                 $progressOperation->advance();
                 $progressOperation->display();
 
-                $operation = $definition->getOperation($operationName);
+                if (null === $operation = $definition->getOperation($operationName)) {
+                    throw new \LogicException(\sprintf('The operation "%s" does not exists', $operationName));
+                }
+
                 $operationConfig = $this->getOperationConfig($manifest, $serviceName, $operationName);
 
                 if ($operationConfig['generate-method']) {
                     $this->generator->operation($definition)->generate($operation, $serviceName, $baseNamespace);
                 }
 
-                if (isset($operation['output']) && $operationConfig['generate-result']) {
-                    $this->generator->result($definition)->generate($operation, $serviceName, $resultNamespace, true, $operationConfig['separate-result-trait']);
+                if ($operationConfig['generate-result'] && null !== $operation->getOutput()) {
+                    $this->generator->result()->generate($operation, $serviceName, $resultNamespace, true, $operationConfig['separate-result-trait']);
                 }
 
                 // Update manifest file

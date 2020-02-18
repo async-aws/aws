@@ -6,8 +6,45 @@ namespace AsyncAws\CodeGenerator\Definition;
 
 class StructureShape extends Shape
 {
-    public function getMembers()
+    /**
+     * @return StructureMember[]
+     */
+    public function getMembers(): array
     {
-        return $this->data['members'];
+        $required = $this->data['required'] ?? [];
+        $members = [];
+        foreach ($this->data['members'] as $name => $member) {
+            $members[] = new StructureMember(
+                $member + ['_name' => $name, '_owner' => $this, '_required' => \in_array($name, $required)],
+                $this->shapeLocator
+            );
+        }
+
+        return $members;
+    }
+
+    public function getMember(string $name): StructureMember
+    {
+        if (!isset($this->data['members'][$name])) {
+            throw new \InvalidArgumentException(sprintf('The member "%s" does not exists.', $name));
+        }
+
+        return new StructureMember(
+            $this->data['members'][$name] + ['_name' => $name, '_owner' => $this, '_required' => \in_array($name, $this->data['required'] ?? [])],
+            $this->shapeLocator
+        );
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getRequired(): array
+    {
+        return $this->data['required'] ?? [];
+    }
+
+    public function getPayload(): ?string
+    {
+        return $this->data['payload'] ?? null;
     }
 }

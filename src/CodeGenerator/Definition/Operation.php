@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Definition;
 
-class Operation implements \ArrayAccess
+class Operation
 {
     /**
      * @var array
      */
     private $data;
+
+    /**
+     * @var ?Pagination
+     */
+    private $pagination;
 
     /**
      * @var \Closure
@@ -20,10 +25,11 @@ class Operation implements \ArrayAccess
     {
     }
 
-    public static function create(array $data, \Closure $shapeLocator): self
+    public static function create(array $data, ?Pagination $pagination, \Closure $shapeLocator): self
     {
         $operation = new self();
         $operation->data = $data;
+        $operation->pagination = $pagination;
         $operation->shapeLocator = $shapeLocator;
 
         return $operation;
@@ -34,55 +40,62 @@ class Operation implements \ArrayAccess
         return $this->data['name'];
     }
 
-    public function getOutput(): ?Shape
+    public function getDocumentation(): ?string
+    {
+        return $this->data['_documentation'] ?? null;
+    }
+
+    public function getApiVersion(): string
+    {
+        return $this->data['_apiVersion'];
+    }
+
+    public function getPagination(): ?Pagination
+    {
+        return $this->pagination;
+    }
+
+    public function getOutput(): ?StructureShape
     {
         if (isset($this->data['output']['shape'])) {
-            $find = $this->shapeLocator;
-
-            return $find($this->data['output']['shape']);
+            return ($this->shapeLocator)($this->data['output']['shape']);
         }
 
         return null;
     }
 
-    public function getInput(): ?Shape
+    public function getInput(): StructureShape
     {
         if (isset($this->data['input']['shape'])) {
-            $find = $this->shapeLocator;
+            $shape = ($this->shapeLocator)($this->data['input']['shape']);
 
-            return $find($this->data['input']['shape']);
+            if (!$shape instanceof StructureShape) {
+                throw new \InvalidArgumentException(sprintf('The operation "%s" should have an Structure Input.', $this->getName()));
+            }
+
+            return $shape;
         }
 
-        return null;
-    }
-
-    public function offsetExists($offset)
-    {
-        return isset($this->data[$offset]);
-    }
-
-    public function offsetGet($offset)
-    {
-        return $this->data[$offset];
-    }
-
-    public function offsetSet($offset, $value)
-    {
-        throw new \LogicException('Operations are read only.');
-    }
-
-    public function offsetUnset($offset)
-    {
-        throw new \LogicException('Operations are read only.');
-    }
-
-    public function toArray(): array
-    {
-        return $this->data;
+        throw new \InvalidArgumentException(sprintf('The operation "%s" does not have Input.', $this->getName()));
     }
 
     public function getOutputResultWrapper(): ?string
     {
         return $this->data['output']['resultWrapper'] ?? null;
+    }
+
+    public function getDocumentationUrl(): ?string
+    {
+        return $this->data['documentationUrl'] ?? null;
+    }
+
+    public function getHttpRequestUri(): ?string
+    {
+        return $this->data['http']['requestUri'] ?? null;
+    }
+
+    public function getHttpMethod(): ?string
+    {
+        return $this->data['http']['method'] ?? null;
     }
 }

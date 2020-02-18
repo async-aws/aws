@@ -29,7 +29,7 @@ class Message
     /**
      * A map of the attributes requested in `ReceiveMessage` to their respective values. Supported attributes:.
      */
-    private $Attributes;
+    private $Attributes = [];
 
     /**
      * An MD5 digest of the non-URL-encoded message attribute string. You can use this attribute to verify that Amazon SQS
@@ -46,7 +46,7 @@ class Message
      *
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-attributes.html
      */
-    private $MessageAttributes;
+    private $MessageAttributes = [];
 
     /**
      * @param array{
