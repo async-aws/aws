@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core\Exception\Http;
 
+use AsyncAws\Core\Exception\Exception;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
@@ -11,6 +12,6 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class NetworkException extends \RuntimeException implements HttpException, TransportExceptionInterface
+class NetworkException extends \RuntimeException implements Exception, TransportExceptionInterface
 {
 }

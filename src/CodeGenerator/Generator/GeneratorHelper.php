@@ -68,9 +68,14 @@ class GeneratorHelper
         return $output;
     }
 
-    public static function addMethodComment(StructureShape $inputShape, string $baseNamespace, bool $allNullable = false, bool $inputSafe = false): array
+    public static function getParamDocblock(StructureShape $inputShape, string $baseNamespace, ?string $alternateClassName, bool $allNullable = false, bool $inputSafe = false): string
     {
-        $body = [];
+        if (empty($inputShape->getMembers())) {
+            // No input array
+            return '@param array' . ($alternateClassName ? '|' . $alternateClassName : '') . ' $input';
+        }
+
+        $body = ['@param array{'];
         foreach ($inputShape->getMembers() as $member) {
             $nullable = !$member->isRequired();
             $memberShape = $member->getShape();
@@ -104,8 +109,9 @@ class GeneratorHelper
                 $body[] = sprintf('  %s: %s,', $member->getName(), $param);
             }
         }
+        $body[] = '}' . ($alternateClassName ? '|' . $alternateClassName : '') . ' $input';
 
-        return $body;
+        return \implode("\n", $body);
     }
 
     public static function getFilterConstantFromType(string $type): ?string

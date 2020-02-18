@@ -12,6 +12,11 @@ class Operation
     private $data;
 
     /**
+     * @var ServiceDefinition
+     */
+    private $service;
+
+    /**
      * @var ?Pagination
      */
     private $pagination;
@@ -25,10 +30,11 @@ class Operation
     {
     }
 
-    public static function create(array $data, ?Pagination $pagination, \Closure $shapeLocator): self
+    public static function create(array $data, ServiceDefinition $service, ?Pagination $pagination, \Closure $shapeLocator): self
     {
         $operation = new self();
         $operation->data = $data;
+        $operation->service = $service;
         $operation->pagination = $pagination;
         $operation->shapeLocator = $shapeLocator;
 
@@ -38,6 +44,11 @@ class Operation
     public function getName(): string
     {
         return $this->data['name'];
+    }
+
+    public function getService(): ServiceDefinition
+    {
+        return $this->service;
     }
 
     public function getDocumentation(): ?string

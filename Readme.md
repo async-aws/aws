@@ -91,6 +91,20 @@ foreach($result as $file) {
 }
 ```
 
+## Waiter
+
+Similar to Official AWS PHP SDK, Async-Aws provides waiters to let you wait
+until an long operation finished.
+
+```php
+// create a queue Async and don't wait for the response.
+$sqsClient->createQueue(['QueueName' => 'fooBar']);
+
+$sqsClient->waitForQueueExists(['QueueName' => 'fooBar']);
+```
+
+[more information about waiters and hasers...](./docs/waiter.md)
+
 ## Organization
 
 | Repository | Namespace | Package name |

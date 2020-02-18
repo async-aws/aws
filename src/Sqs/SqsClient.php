@@ -3,6 +3,8 @@
 namespace AsyncAws\Sqs;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Exception\Http\HttpException;
+use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Result;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
 use AsyncAws\Sqs\Input\CreateQueueRequest;
@@ -232,6 +234,35 @@ class SqsClient extends AbstractApi
     }
 
     /**
+     * @see getQueueUrl
+     *
+     * @param array{
+     *   QueueName: string,
+     *   QueueOwnerAWSAccountId?: string,
+     * }|GetQueueUrlRequest $input
+     */
+    public function queueExists($input): bool
+    {
+        $result = $this->GetQueueUrl($input);
+        $e = null;
+
+        try {
+            $result->resolve();
+        } catch (HttpException $e) {
+        }
+
+        if (200 === ($result->info()['status'] ?? 0)) {
+            return true;
+        }
+
+        if (null !== $e && 'QueueDoesNotExist' === $e->getAwsCode()) {
+            return false;
+        }
+
+        return false;
+    }
+
+    /**
      * Retrieves one or more messages (up to 10), from the specified queue. Using the `WaitTimeSeconds` parameter enables
      * long-poll support. For more information, see Amazon SQS Long Polling in the *Amazon Simple Queue Service Developer
      * Guide*.
@@ -292,6 +323,45 @@ class SqsClient extends AbstractApi
         );
 
         return new SendMessageResult($response, $this->httpClient);
+    }
+
+    /**
+     * @see queueExists
+     *
+     * @param array{
+     *   QueueName: string,
+     *   QueueOwnerAWSAccountId?: string,
+     * }|GetQueueUrlRequest $input
+     */
+    public function waitForQueueExists($input, float $delay = 5.0, int $maxAttempts = 40): void
+    {
+        $attempts = 0;
+        for (;;) {
+            $result = $this->GetQueueUrl($input);
+            $e = null;
+
+            try {
+                $result->resolve();
+            } catch (HttpException $e) {
+            }
+
+            for (;;) {
+                if (200 === ($result->info()['status'] ?? 0)) {
+                    return;
+                }
+
+                if (null !== $e && 'QueueDoesNotExist' === $e->getAwsCode()) {
+                    break;
+                }
+
+                break;
+            }
+
+            if (++$attempts >= $maxAttempts) {
+                throw new RuntimeException(\sprintf('Stopped waiting for "%s" after "%s" attempts.', 'GetQueueUrl', $attempts));
+            }
+            \usleep((int) ceil($delay * 1000000));
+        }
     }
 
     protected function getServiceCode(): string

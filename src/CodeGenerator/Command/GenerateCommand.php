@@ -87,10 +87,11 @@ class GenerateCommand extends Command
             $definitionArray = $this->loadFile($manifest['services'][$serviceName]['source']);
             $documentationArray = $this->loadFile($manifest['services'][$serviceName]['documentation']);
             $paginationArray = $this->loadFile($manifest['services'][$serviceName]['pagination']);
+            $waiterArray = isset($manifest['services'][$serviceName]['waiter']) ? $this->loadFile($manifest['services'][$serviceName]['waiter']) : ['waiters' => []];
             if (\count($serviceNames) > 1) {
-                $operationNames = $this->getOperationNames(null, true, $io, $definitionArray, $manifest['services'][$serviceName]);
+                $operationNames = $this->getOperationNames(null, true, $io, $definitionArray, $waiterArray, $manifest['services'][$serviceName]);
             } else {
-                $operationNames = $this->getOperationNames($input->getArgument('operation'), $input->getOption('all'), $io, $definitionArray, $manifest['services'][$serviceName]);
+                $operationNames = $this->getOperationNames($input->getArgument('operation'), $input->getOption('all'), $io, $definitionArray, $waiterArray, $manifest['services'][$serviceName]);
             }
             if (\is_int($operationNames)) {
                 return $operationNames;
@@ -98,35 +99,41 @@ class GenerateCommand extends Command
 
             $progressOperation->start(\count($operationNames));
 
-            $definition = new ServiceDefinition($definitionArray, $documentationArray, $paginationArray);
+            $definition = new ServiceDefinition($definitionArray, $documentationArray, $paginationArray, $waiterArray);
             $baseNamespace = $manifest['services'][$serviceName]['namespace'] ?? \sprintf('AsyncAws\\%s', $serviceName);
             $resultNamespace = $baseNamespace . '\\Result';
 
-            $this->generator->client($definition)->generate($serviceName, $baseNamespace);
+            $this->generator->client()->generate($definition, $serviceName, $baseNamespace);
 
             foreach ($operationNames as $operationName) {
                 $progressOperation->setMessage($operationName);
                 $progressOperation->advance();
                 $progressOperation->display();
 
-                if (null === $operation = $definition->getOperation($operationName)) {
-                    throw new \LogicException(\sprintf('The operation "%s" does not exists', $operationName));
-                }
-
                 $operationConfig = $this->getOperationConfig($manifest, $serviceName, $operationName);
+                if (null !== $operation = $definition->getOperation($operationName)) {
+                    if ($operationConfig['generate-method']) {
+                        $this->generator->operation()->generate($operation, $serviceName, $baseNamespace);
+                    }
 
-                if ($operationConfig['generate-method']) {
-                    $this->generator->operation($definition)->generate($operation, $serviceName, $baseNamespace);
-                }
+                    if ($operationConfig['generate-result'] && null !== $operation->getOutput()) {
+                        $this->generator->result()->generate($operation, $serviceName, $resultNamespace, true, $operationConfig['separate-result-trait']);
+                    }
+                } elseif (null !== $waiter = $definition->getWaiter($operationName)) {
+                    if ($operationConfig['generate-method']) {
+                        $this->generator->waiter()->generate($waiter, $serviceName, $baseNamespace);
+                    }
+                } else {
+                    $io->error(\sprintf('Could not find service or waiter named "%s".', $operationName));
 
-                if ($operationConfig['generate-result'] && null !== $operation->getOutput()) {
-                    $this->generator->result()->generate($operation, $serviceName, $resultNamespace, true, $operationConfig['separate-result-trait']);
+                    return 1;
                 }
 
                 // Update manifest file
                 if (!isset($manifest['services'][$serviceName]['methods'][$operationName])) {
                     $manifest['services'][$serviceName]['methods'][$operationName] = [];
                 }
+
                 \file_put_contents($this->manifestFile, \json_encode($manifest, \JSON_PRETTY_PRINT));
                 ++$operationCounter;
             }
@@ -185,7 +192,7 @@ class GenerateCommand extends Command
     /**
      * @return array|int
      */
-    private function getOperationNames(?string $inputOperationName, bool $returnAll, SymfonyStyle $io, array $definition, array $manifest)
+    private function getOperationNames(?string $inputOperationName, bool $returnAll, SymfonyStyle $io, array $definition, array $waiter, array $manifest)
     {
         if ($inputOperationName) {
             if ($returnAll) {
@@ -194,8 +201,8 @@ class GenerateCommand extends Command
                 return 1;
             }
 
-            if (!isset($definition['operations'][$inputOperationName])) {
-                $io->error(\sprintf('Could not find operation named "%s".', $inputOperationName));
+            if (!isset($definition['operations'][$inputOperationName]) && !isset($waiter['waiters'][$inputOperationName])) {
+                $io->error(\sprintf('Could not find operation or waiter named "%s".', $inputOperationName));
 
                 return 1;
             }
@@ -223,7 +230,7 @@ class GenerateCommand extends Command
             return $operations;
         }
         if ($operationName === $newOperation) {
-            $choices = \array_values(array_diff(\array_keys($definition['operations']), \array_keys($manifest['methods'])));
+            $choices = \array_values(array_diff(\array_keys($definition['operations'] + $waiter['waiters']), \array_keys($manifest['methods'])));
             $question = new ChoiceQuestion('Select the operation(s) to generate', $choices);
             $question->setMultiselect(true);
 

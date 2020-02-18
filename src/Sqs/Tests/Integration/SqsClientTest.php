@@ -177,6 +177,19 @@ class SqsClientTest extends TestCase
         self::assertEquals(0, (int) $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes()['ApproximateNumberOfMessages']);
     }
 
+    public function testQueueExists()
+    {
+        $sqs = $this->getClient();
+
+        $sqs->createQueue(['QueueName' => 'foo'])->resolve();
+        self::assertTrue($sqs->queueExists(['QueueName' => 'foo']));
+
+        $fooQueueUrl = $sqs->getQueueUrl(['QueueName' => 'foo'])->getQueueUrl();
+        $sqs->deleteQueue(['QueueUrl' => $fooQueueUrl])->resolve();
+
+        self::assertFalse($sqs->queueExists(['QueueName' => 'foo']));
+    }
+
     public function testReceiveMessage()
     {
         $sqs = $this->getClient();
@@ -214,5 +227,30 @@ class SqsClientTest extends TestCase
 
         $result = $sqs->sendMessage($input);
         self::assertNotNull($result->getMessageId());
+    }
+
+    public function testWaitForQueueExists()
+    {
+        $sqs = $this->getClient();
+
+        $sqs->createQueue(['QueueName' => 'foo'])->resolve();
+        $fooQueueUrl = $sqs->getQueueUrl(['QueueName' => 'foo'])->getQueueUrl();
+        $sqs->deleteQueue(['QueueUrl' => $fooQueueUrl])->resolve();
+        self::assertFalse($sqs->queueExists(['QueueName' => 'foo']));
+
+        // do not resolve on purpose
+        $sqs->createQueue(['QueueName' => 'foo']);
+        $sqs->waitForQueueExists(['QueueName' => 'foo'], 1, 5);
+
+        self::assertTrue($sqs->queueExists(['QueueName' => 'foo']));
+    }
+
+    public function testWaitForQueueFailedAfterMaxAttempts()
+    {
+        $sqs = $this->getClient();
+
+        self::expectExceptionMessage('Stopped waiting for "GetQueueUrl" after "2" attempts.');
+
+        $sqs->waitForQueueExists(['QueueName' => 'doesNotExists'], 0.01, 2);
     }
 }

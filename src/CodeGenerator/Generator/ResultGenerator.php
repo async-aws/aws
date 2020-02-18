@@ -289,11 +289,7 @@ class ResultGenerator
 
         // We need a constructor
         $constructor = $class->addMethod('__construct');
-        $constructor->addComment('@param array{');
-        foreach (GeneratorHelper::addMethodComment($shape, $baseNamespace, false, true) as $comment) {
-            $constructor->addComment($comment);
-        }
-        $constructor->addComment('} $input');
+        $constructor->addComment(GeneratorHelper::getParamDocblock($shape, $baseNamespace, null, false, true));
         $constructor->addParameter('input')->setType('array');
 
         $constructorBody = '';

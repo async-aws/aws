@@ -11,7 +11,30 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 trait HttpExceptionTrait
 {
+    /**
+     * @var ResponseInterface
+     */
     private $response;
+
+    /**
+     * @var ?string
+     */
+    private $awsCode;
+
+    /**
+     * @var ?string
+     */
+    private $awsType;
+
+    /**
+     * @var ?string
+     */
+    private $awsMessage;
+
+    /**
+     * @var ?string
+     */
+    private $awsDetail;
 
     public function __construct(ResponseInterface $response)
     {
@@ -74,18 +97,37 @@ trait HttpExceptionTrait
         return $this->response;
     }
 
+    public function getAwsCode(): ?string
+    {
+        return $this->awsCode;
+    }
+
+    public function getAwsType(): ?string
+    {
+        return $this->awsType;
+    }
+
+    public function getAwsMessage(): ?string
+    {
+        return $this->awsMessage;
+    }
+
+    public function getAwsDetail(): ?string
+    {
+        return $this->awsDetail;
+    }
+
     private function parseXml(\SimpleXMLElement $xml): string
     {
-        $type = $detail = '';
-
         if (0 < $xml->Error->count()) {
-            $type = $xml->Error->Type->__toString();
-            $code = $xml->Error->Code->__toString();
-            $message = $xml->Error->Message->__toString();
-            $detail = $xml->Error->Detail->__toString();
+            $this->awsType = $xml->Error->Type->__toString();
+            $this->awsCode = $xml->Error->Code->__toString();
+            $this->awsMessage = $xml->Error->Message->__toString();
+            $this->awsDetail = $xml->Error->Detail->__toString();
         } elseif (1 === $xml->Code->count() && 1 === $xml->Message->count()) {
-            $code = $xml->Code->__toString();
-            $message = $xml->Message->__toString();
+            $this->awsType = $this->awsDetail = '';
+            $this->awsCode = $xml->Code->__toString();
+            $this->awsMessage = $xml->Message->__toString();
         } else {
             return '';
         }
@@ -93,10 +135,10 @@ trait HttpExceptionTrait
         return <<<TEXT
 
 
-Code:    $code
-Message: $message
-Type:    $type
-Detail:  $detail
+Code:    $this->awsCode
+Message: $this->awsMessage
+Type:    $this->awsType
+Detail:  $this->awsDetail
 
 TEXT;
     }
