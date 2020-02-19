@@ -13,6 +13,14 @@ class CreateQueueResult extends Result
      */
     private $QueueUrl;
 
+    /**
+     * Ensure current request is resolved and right exception is thrown.
+     */
+    public function __destruct()
+    {
+        $this->resolve();
+    }
+
     public function getQueueUrl(): ?string
     {
         $this->initialize();

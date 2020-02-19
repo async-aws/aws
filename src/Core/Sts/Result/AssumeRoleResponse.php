@@ -29,6 +29,14 @@ class AssumeRoleResponse extends Result
      */
     private $PackedPolicySize;
 
+    /**
+     * Ensure current request is resolved and right exception is thrown.
+     */
+    public function __destruct()
+    {
+        $this->resolve();
+    }
+
     public function getAssumedRoleUser(): ?AssumedRoleUser
     {
         $this->initialize();

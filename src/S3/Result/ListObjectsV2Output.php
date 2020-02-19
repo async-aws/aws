@@ -82,11 +82,16 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
      */
     private $prefetch = [];
 
+    /**
+     * Ensure current request is resolved and right exception is thrown.
+     */
     public function __destruct()
     {
         while (!empty($this->prefetch)) {
             array_shift($this->prefetch)->cancel();
         }
+
+        $this->resolve();
     }
 
     /**

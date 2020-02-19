@@ -13,6 +13,14 @@ class SendEmailResponse extends Result
      */
     private $MessageId;
 
+    /**
+     * Ensure current request is resolved and right exception is thrown.
+     */
+    public function __destruct()
+    {
+        $this->resolve();
+    }
+
     public function getMessageId(): ?string
     {
         $this->initialize();
