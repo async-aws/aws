@@ -83,6 +83,10 @@ class ResultGenerator
         if ($root) {
             $namespace->addUse(Result::class);
             $class->addExtend(Result::class);
+            $class->removeMethod('__destruct');
+            $class->addMethod('__destruct')
+                ->addComment('Ensure current request is resolved and right exception is thrown.')
+                ->setBody('$this->resolve();');
 
             $traitName = $baseNamespace . '\\' . $shape->getName() . 'Trait';
             if ($useTrait) {
@@ -99,9 +103,12 @@ class ResultGenerator
         }
 
         $this->resultClassAddProperties($service, $baseNamespace, $root, $shape, $class, $namespace);
-        // must be called after Properties injection
-        if ($operation && null !== $pagination = $operation->getPagination()) {
-            $this->generateOutputPagination($pagination, $shape, $baseNamespace, $service, $operation, $namespace, $class);
+
+        if ($root) {
+            // must be called after Properties injection
+            if ($operation && null !== $pagination = $operation->getPagination()) {
+                $this->generateOutputPagination($pagination, $shape, $baseNamespace, $service, $operation, $namespace, $class);
+            }
         }
 
         $this->fileWriter->write($namespace);
@@ -187,13 +194,13 @@ class ResultGenerator
         ;
         if (!empty($pagination->getOutputToken())) {
             $class->addProperty('prefetch')->setVisibility(ClassType::VISIBILITY_PRIVATE)->setComment('@var self[]')->setValue([]);
-            $class->removeMethod('__destruct');
-            $class->addMethod('__destruct')
-                ->setBody('
+            $destruct = $class->getMethod('__destruct');
+            $destruct->setBody('
                     while (!empty($this->prefetch)) {
                         array_shift($this->prefetch)->cancel();
                     }
-                ');
+
+                ' . $destruct->getBody());
         }
     }
 

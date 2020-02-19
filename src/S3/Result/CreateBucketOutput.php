@@ -14,6 +14,14 @@ class CreateBucketOutput extends Result
      */
     private $Location;
 
+    /**
+     * Ensure current request is resolved and right exception is thrown.
+     */
+    public function __destruct()
+    {
+        $this->resolve();
+    }
+
     public function getLocation(): ?string
     {
         $this->initialize();

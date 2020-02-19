@@ -58,7 +58,7 @@ class Result
      */
     final public function resolve(?float $timeout = null): bool
     {
-        if (null === $this->response) {
+        if (!isset($this->response)) {
             return true;
         }
 
@@ -113,7 +113,7 @@ class Result
 
     final public function cancel(): void
     {
-        if (null === $this->response) {
+        if (!isset($this->response)) {
             return;
         }
 

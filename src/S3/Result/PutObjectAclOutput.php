@@ -10,6 +10,14 @@ class PutObjectAclOutput extends Result
 {
     private $RequestCharged;
 
+    /**
+     * Ensure current request is resolved and right exception is thrown.
+     */
+    public function __destruct()
+    {
+        $this->resolve();
+    }
+
     public function getRequestCharged(): ?string
     {
         $this->initialize();

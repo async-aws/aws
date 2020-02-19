@@ -21,6 +21,14 @@ class GetObjectAclOutput extends Result
     private $RequestCharged;
 
     /**
+     * Ensure current request is resolved and right exception is thrown.
+     */
+    public function __destruct()
+    {
+        $this->resolve();
+    }
+
+    /**
      * @return Grant[]
      */
     public function getGrants(): array

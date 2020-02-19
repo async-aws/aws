@@ -22,6 +22,14 @@ class DeleteObjectsOutput extends Result
     private $Errors = [];
 
     /**
+     * Ensure current request is resolved and right exception is thrown.
+     */
+    public function __destruct()
+    {
+        $this->resolve();
+    }
+
+    /**
      * @return DeletedObject[]
      */
     public function getDeleted(): array
