@@ -149,14 +149,21 @@ class CreateBucketRequest
         return $this->ObjectLockEnabledForBucket;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
-        $payload = ['Action' => 'CreateBucket', 'Version' => '2006-03-01'];
-        if (null !== $this->CreateBucketConfiguration) {
-            $payload['CreateBucketConfiguration'] = $this->CreateBucketConfiguration;
+        $document = new \DOMDocument('1.0', 'UTF-8');
+        $document->formatOutput = true;
+
+        if (null !== $input = $this->CreateBucketConfiguration) {
+            $document->appendChild($document_CreateBucketConfiguration = $document->createElement('CreateBucketConfiguration'));
+            $document_CreateBucketConfiguration->setAttribute('xmlns', 'http://s3.amazonaws.com/doc/2006-03-01/');
+
+            if (null !== $input_LocationConstraint = $input->getLocationConstraint()) {
+                $document_CreateBucketConfiguration->appendChild($document->createElement('LocationConstraint', $input_LocationConstraint));
+            }
         }
 
-        return $payload;
+        return $document->saveXML();
     }
 
     public function requestHeaders(): array

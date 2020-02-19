@@ -47,4 +47,14 @@ class StructureShape extends Shape
     {
         return $this->data['payload'] ?? null;
     }
+
+    public function getXmlNamespaceUri(): ?string
+    {
+        return $this->data['xmlNamespace']['uri'] ?? null;
+    }
+
+    public function getXmlNamespacePrefix(): ?string
+    {
+        return $this->data['xmlNamespace']['prefix'] ?? null;
+    }
 }

@@ -39,6 +39,11 @@ final class Request
         return $this->url;
     }
 
+    public function hasHeader($name): bool
+    {
+        return \array_key_exists($name, $this->headers);
+    }
+
     public function setHeader($name, $value): void
     {
         $this->headers[$name] = $value;

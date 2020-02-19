@@ -96,14 +96,36 @@ class DeleteObjectsRequest
         return $this->RequestPayer;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
-        $payload = ['Action' => 'DeleteObjects', 'Version' => '2006-03-01'];
-        if (null !== $this->Delete) {
-            $payload['Delete'] = $this->Delete;
+        $document = new \DOMDocument('1.0', 'UTF-8');
+        $document->formatOutput = true;
+
+        if (null === $input = $this->Delete) {
+            throw new InvalidArgument(sprintf('Missing parameter "Delete" in "%s". The value cannot be null.', __CLASS__));
         }
 
-        return $payload;
+        $document->appendChild($document_Delete = $document->createElement('Delete'));
+        $document_Delete->setAttribute('xmlns', 'http://s3.amazonaws.com/doc/2006-03-01/');
+
+        $input_Objects = $input->getObjects();
+
+        foreach ($input_Objects as $input_ObjectsItem) {
+            $document_Delete->appendChild($document_Delete_Objects = $document->createElement('Object'));
+
+            $input_ObjectsItem_Key = $input_ObjectsItem->getKey();
+            $document_Delete_Objects->appendChild($document->createElement('Key', $input_ObjectsItem_Key));
+
+            if (null !== $input_ObjectsItem_VersionId = $input_ObjectsItem->getVersionId()) {
+                $document_Delete_Objects->appendChild($document->createElement('VersionId', $input_ObjectsItem_VersionId));
+            }
+        }
+
+        if (null !== $input_Quiet = $input->getQuiet()) {
+            $document_Delete->appendChild($document->createElement('Quiet', $input_Quiet ? 'true' : 'false'));
+        }
+
+        return $document->saveXML();
     }
 
     public function requestHeaders(): array

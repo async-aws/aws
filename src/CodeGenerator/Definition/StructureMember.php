@@ -40,4 +40,9 @@ class StructureMember extends Member
     {
         return $this->data['xmlNamespace']['uri'] ?? null;
     }
+
+    public function getXmlNamespacePrefix(): ?string
+    {
+        return $this->data['xmlNamespace']['prefix'] ?? null;
+    }
 }
