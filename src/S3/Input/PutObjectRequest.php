@@ -151,7 +151,7 @@ class PutObjectRequest
     /**
      * A map of metadata to store with the object in S3.
      *
-     * @var array|null
+     * @var string[]
      */
     private $Metadata;
 
@@ -310,7 +310,7 @@ class PutObjectRequest
         $this->GrantReadACP = $input['GrantReadACP'] ?? null;
         $this->GrantWriteACP = $input['GrantWriteACP'] ?? null;
         $this->Key = $input['Key'] ?? null;
-        $this->Metadata = $input['Metadata'] ?? null;
+        $this->Metadata = $input['Metadata'] ?? [];
         $this->ServerSideEncryption = $input['ServerSideEncryption'] ?? null;
         $this->StorageClass = $input['StorageClass'] ?? null;
         $this->WebsiteRedirectLocation = $input['WebsiteRedirectLocation'] ?? null;
@@ -411,7 +411,7 @@ class PutObjectRequest
         return $this->Key;
     }
 
-    public function getMetadata(): ?array
+    public function getMetadata(): array
     {
         return $this->Metadata;
     }
@@ -704,7 +704,7 @@ class PutObjectRequest
         return $this;
     }
 
-    public function setMetadata(?array $value): self
+    public function setMetadata(array $value): self
     {
         $this->Metadata = $value;
 
