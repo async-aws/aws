@@ -71,15 +71,9 @@ class ChangeMessageVisibilityRequest
     public function requestBody(): array
     {
         $payload = ['Action' => 'ChangeMessageVisibility', 'Version' => '2012-11-05'];
-        if (null !== $this->QueueUrl) {
-            $payload['QueueUrl'] = $this->QueueUrl;
-        }
-        if (null !== $this->ReceiptHandle) {
-            $payload['ReceiptHandle'] = $this->ReceiptHandle;
-        }
-        if (null !== $this->VisibilityTimeout) {
-            $payload['VisibilityTimeout'] = $this->VisibilityTimeout;
-        }
+        $payload['QueueUrl'] = $this->QueueUrl;
+        $payload['ReceiptHandle'] = $this->ReceiptHandle;
+        $payload['VisibilityTimeout'] = $this->VisibilityTimeout;
 
         return $payload;
     }

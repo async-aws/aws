@@ -35,8 +35,9 @@ class ListQueuesRequest
     public function requestBody(): array
     {
         $payload = ['Action' => 'ListQueues', 'Version' => '2012-11-05'];
-        if (null !== $this->QueueNamePrefix) {
-            $payload['QueueNamePrefix'] = $this->QueueNamePrefix;
+
+        if (null !== $v = $this->QueueNamePrefix) {
+            $payload['QueueNamePrefix'] = $v;
         }
 
         return $payload;

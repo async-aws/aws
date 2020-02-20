@@ -30,6 +30,11 @@ trait MethodGeneratorTrait
     private $xmlDumper;
 
     /**
+     * @var ArrayDumper
+     */
+    private $arrayDumper;
+
+    /**
      * Generate classes for the input.
      */
     private function generateInputClass(string $service, Operation $operation, string $baseNamespace, StructureShape $inputShape, bool $root = false)
@@ -226,14 +231,15 @@ trait MethodGeneratorTrait
             }
         } else {
             $bodyType = 'array';
-            $body = "\$payload = ['Action' => '{$operation->getName()}', 'Version' => '{$operation->getApiVersion()}'];\n";
-            foreach ($inputShape->getMembers() as $member) {
-                // If location is not specified, it will go in the request body.
-                if ('payload' === ($member->getLocation() ?? 'payload')) {
-                    $body .= 'if ($this->' . $member->getName() . ' !== null) $payload["' . ($member->getLocationName() ?? $member->getName()) . '"] = $this->' . $member->getName() . ';' . "\n";
-                }
-            }
-            $body .= 'return $payload;' . "\n";
+            $body = strtr('
+                $payload = [\'Action\' => OPERATION_NAME, \'Version\' => API_VERSION];
+                CHILDREN_CODE
+                return $payload;
+            ', [
+                'OPERATION_NAME' => \var_export($operation->getName(), true),
+                'API_VERSION' => \var_export($operation->getApiVersion(), true),
+                'CHILDREN_CODE' => $this->dumpArray($inputShape),
+            ]);
         }
         $class->addMethod('requestBody')->setReturnType($bodyType)->setBody($body);
 
@@ -260,5 +266,14 @@ trait MethodGeneratorTrait
         }
 
         return $this->xmlDumper->dumpXmlRoot($member, $payloadProperty);
+    }
+
+    private function dumpArray(StructureShape $shape): string
+    {
+        if (null === $this->arrayDumper) {
+            $this->arrayDumper = new ArrayDumper();
+        }
+
+        return $this->arrayDumper->dumpArrayRoot($shape);
     }
 }

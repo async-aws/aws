@@ -79,7 +79,7 @@ class XmlDumper
         ]);
     }
 
-    private function dumpXmlMemberList(Member $member, string $output, string $input): string
+    private function dumpXmlMemberList(ListMember $member, string $output, string $input): string
     {
         return $this->dumpXmlShape($member, $member->getShape(), $output, $input);
     }

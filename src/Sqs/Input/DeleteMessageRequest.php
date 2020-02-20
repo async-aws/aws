@@ -54,12 +54,8 @@ class DeleteMessageRequest
     public function requestBody(): array
     {
         $payload = ['Action' => 'DeleteMessage', 'Version' => '2012-11-05'];
-        if (null !== $this->QueueUrl) {
-            $payload['QueueUrl'] = $this->QueueUrl;
-        }
-        if (null !== $this->ReceiptHandle) {
-            $payload['ReceiptHandle'] = $this->ReceiptHandle;
-        }
+        $payload['QueueUrl'] = $this->QueueUrl;
+        $payload['ReceiptHandle'] = $this->ReceiptHandle;
 
         return $payload;
     }

@@ -38,9 +38,7 @@ class DeleteQueueRequest
     public function requestBody(): array
     {
         $payload = ['Action' => 'DeleteQueue', 'Version' => '2012-11-05'];
-        if (null !== $this->QueueUrl) {
-            $payload['QueueUrl'] = $this->QueueUrl;
-        }
+        $payload['QueueUrl'] = $this->QueueUrl;
 
         return $payload;
     }

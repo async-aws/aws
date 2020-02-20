@@ -31,4 +31,9 @@ class Member
     {
         return $this->data['locationName'] ?? null;
     }
+
+    public function isFlattened(): ?bool
+    {
+        return $this->data['flattened'] ?? false;
+    }
 }

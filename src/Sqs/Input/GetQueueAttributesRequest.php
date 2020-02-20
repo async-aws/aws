@@ -52,12 +52,15 @@ class GetQueueAttributesRequest
     public function requestBody(): array
     {
         $payload = ['Action' => 'GetQueueAttributes', 'Version' => '2012-11-05'];
-        if (null !== $this->QueueUrl) {
-            $payload['QueueUrl'] = $this->QueueUrl;
-        }
-        if (null !== $this->AttributeNames) {
-            $payload['AttributeNames'] = $this->AttributeNames;
-        }
+        $indices = new \stdClass();
+        $payload['QueueUrl'] = $this->QueueUrl;
+        (static function ($input) use (&$payload, $indices) {
+            $indices->kbedee52 = 0;
+            foreach ($input as $value) {
+                ++$indices->kbedee52;
+                $payload["AttributeName.{$indices->kbedee52}"] = $value;
+            }
+        })($this->AttributeNames);
 
         return $payload;
     }
