@@ -142,7 +142,7 @@ class CopyObjectRequest
     /**
      * A map of metadata to store with the object in S3.
      *
-     * @var array|null
+     * @var string[]
      */
     private $Metadata;
 
@@ -347,7 +347,7 @@ class CopyObjectRequest
         $this->GrantReadACP = $input['GrantReadACP'] ?? null;
         $this->GrantWriteACP = $input['GrantWriteACP'] ?? null;
         $this->Key = $input['Key'] ?? null;
-        $this->Metadata = $input['Metadata'] ?? null;
+        $this->Metadata = $input['Metadata'] ?? [];
         $this->MetadataDirective = $input['MetadataDirective'] ?? null;
         $this->TaggingDirective = $input['TaggingDirective'] ?? null;
         $this->ServerSideEncryption = $input['ServerSideEncryption'] ?? null;
@@ -478,7 +478,7 @@ class CopyObjectRequest
         return $this->Key;
     }
 
-    public function getMetadata(): ?array
+    public function getMetadata(): array
     {
         return $this->Metadata;
     }
@@ -837,7 +837,7 @@ class CopyObjectRequest
         return $this;
     }
 
-    public function setMetadata(?array $value): self
+    public function setMetadata(array $value): self
     {
         $this->Metadata = $value;
 

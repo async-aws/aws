@@ -39,14 +39,14 @@ class SendMessageRequest
      *
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-attributes.html
      *
-     * @var array|null
+     * @var MessageAttributeValue[]
      */
     private $MessageAttributes;
 
     /**
      * The message system attribute to send. Each message system attribute consists of a `Name`, `Type`, and `Value`.
      *
-     * @var array|null
+     * @var MessageSystemAttributeValue[]
      */
     private $MessageSystemAttributes;
 
@@ -80,8 +80,16 @@ class SendMessageRequest
         $this->QueueUrl = $input['QueueUrl'] ?? null;
         $this->MessageBody = $input['MessageBody'] ?? null;
         $this->DelaySeconds = $input['DelaySeconds'] ?? null;
-        $this->MessageAttributes = $input['MessageAttributes'] ?? null;
-        $this->MessageSystemAttributes = $input['MessageSystemAttributes'] ?? null;
+
+        $this->MessageAttributes = [];
+        foreach ($input['MessageAttributes'] ?? [] as $key => $item) {
+            $this->MessageAttributes[$key] = MessageAttributeValue::create($item);
+        }
+
+        $this->MessageSystemAttributes = [];
+        foreach ($input['MessageSystemAttributes'] ?? [] as $key => $item) {
+            $this->MessageSystemAttributes[$key] = MessageSystemAttributeValue::create($item);
+        }
         $this->MessageDeduplicationId = $input['MessageDeduplicationId'] ?? null;
         $this->MessageGroupId = $input['MessageGroupId'] ?? null;
     }
@@ -96,7 +104,7 @@ class SendMessageRequest
         return $this->DelaySeconds;
     }
 
-    public function getMessageAttributes(): ?array
+    public function getMessageAttributes(): array
     {
         return $this->MessageAttributes;
     }
@@ -116,7 +124,7 @@ class SendMessageRequest
         return $this->MessageGroupId;
     }
 
-    public function getMessageSystemAttributes(): ?array
+    public function getMessageSystemAttributes(): array
     {
         return $this->MessageSystemAttributes;
     }
@@ -180,7 +188,7 @@ class SendMessageRequest
         return $this;
     }
 
-    public function setMessageAttributes(?array $value): self
+    public function setMessageAttributes(array $value): self
     {
         $this->MessageAttributes = $value;
 
@@ -208,7 +216,7 @@ class SendMessageRequest
         return $this;
     }
 
-    public function setMessageSystemAttributes(?array $value): self
+    public function setMessageSystemAttributes(array $value): self
     {
         $this->MessageSystemAttributes = $value;
 
@@ -228,6 +236,12 @@ class SendMessageRequest
             if (null === $this->$name) {
                 throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
             }
+        }
+        foreach ($this->MessageAttributes as $item) {
+            $item->validate();
+        }
+        foreach ($this->MessageSystemAttributes as $item) {
+            $item->validate();
         }
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Definition\ListShape;
+use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
 use AsyncAws\CodeGenerator\Definition\Shape;
@@ -138,11 +139,38 @@ class OperationGenerator
                     $parameterType = $listMemberClassName . '[]';
                     $returnType = $baseNamespace . '\\' . $listMemberClassName;
                     $constructorBody .= strtr('$this->NAME = array_map(function($item) { return SAFE_CLASS::create($item); }, $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'SAFE_CLASS' => GeneratorHelper::safeClassName($listMemberClassName)]);
-                } elseif ($listMemberShape instanceof ListShape) {
+                } elseif ($listMemberShape instanceof ListShape || $listMemberShape instanceof MapShape) {
                     throw new \RuntimeException('Recursive ListShape are not yet implemented');
                 } else {
                     // It is a scalar, like a string
                     $parameterType = GeneratorHelper::toPhpType($listMemberShape->getType()) . '[]';
+                    $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
+                }
+            } elseif ($memberShape instanceof MapShape) {
+                $mapValueShape = $memberShape->getValue()->getShape();
+                $nullable = false;
+
+                // Is this a list of objects?
+                if ($mapValueShape instanceof StructureShape) {
+                    $this->generateInputClass($service, $operation, $baseNamespace, $mapValueShape);
+                    $mapValueClassName = GeneratorHelper::safeClassName($mapValueShape->getName());
+
+                    $parameterType = $mapValueClassName . '[]';
+                    $returnType = $baseNamespace . '\\' . $mapValueClassName;
+                    $constructorBody .= strtr('
+                        $this->NAME = [];
+                        foreach ($input["NAME"] ?? [] as $key => $item) {
+                            $this->NAME[$key] = SAFE_CLASS::create($item);
+                        }
+                    ', [
+                        'NAME' => $member->getName(),
+                        'SAFE_CLASS' => GeneratorHelper::safeClassName($mapValueClassName),
+                    ]);
+                } elseif ($mapValueShape instanceof ListShape || $mapValueShape instanceof MapShape) {
+                    throw new \RuntimeException('Recursive ListShape are not yet implemented');
+                } else {
+                    // It is a scalar, like a string
+                    $parameterType = GeneratorHelper::toPhpType($mapValueShape->getType()) . '[]';
                     $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
                 }
             } elseif ($member->isStreaming()) {
@@ -240,10 +268,8 @@ class OperationGenerator
             $memberShape = $member->getShape();
             if ($memberShape instanceof StructureShape) {
                 $validateBody .= 'if ($this->' . $member->getName() . ') $this->' . $member->getName() . '->validate();' . "\n";
-            } elseif ($memberShape instanceof ListShape) {
-                if ($memberShape->getMember()->getShape() instanceof StructureShape) {
-                    $validateBody .= 'foreach ($this->' . $member->getName() . ' as $item) $item->validate();' . "\n";
-                }
+            } elseif (($memberShape instanceof ListShape && $memberShape->getMember()->getShape() instanceof StructureShape) || ($memberShape instanceof MapShape && $memberShape->getValue()->getShape() instanceof StructureShape)) {
+                $validateBody .= 'foreach ($this->' . $member->getName() . ' as $item) $item->validate();' . "\n";
             }
         }
 

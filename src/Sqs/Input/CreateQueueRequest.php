@@ -18,7 +18,7 @@ class CreateQueueRequest
     /**
      * A map of attributes with their corresponding values.
      *
-     * @var array|null
+     * @var string[]
      */
     private $Attributes;
 
@@ -28,7 +28,7 @@ class CreateQueueRequest
      *
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-tags.html
      *
-     * @var array|null
+     * @var string[]
      */
     private $tags;
 
@@ -42,8 +42,8 @@ class CreateQueueRequest
     public function __construct(array $input = [])
     {
         $this->QueueName = $input['QueueName'] ?? null;
-        $this->Attributes = $input['Attributes'] ?? null;
-        $this->tags = $input['tags'] ?? null;
+        $this->Attributes = $input['Attributes'] ?? [];
+        $this->tags = $input['tags'] ?? [];
     }
 
     public static function create($input): self
@@ -51,7 +51,7 @@ class CreateQueueRequest
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getAttributes(): ?array
+    public function getAttributes(): array
     {
         return $this->Attributes;
     }
@@ -61,7 +61,7 @@ class CreateQueueRequest
         return $this->QueueName;
     }
 
-    public function gettags(): ?array
+    public function gettags(): array
     {
         return $this->tags;
     }
@@ -101,7 +101,7 @@ class CreateQueueRequest
         return '/';
     }
 
-    public function setAttributes(?array $value): self
+    public function setAttributes(array $value): self
     {
         $this->Attributes = $value;
 
@@ -115,7 +115,7 @@ class CreateQueueRequest
         return $this;
     }
 
-    public function settags(?array $value): self
+    public function settags(array $value): self
     {
         $this->tags = $value;
 
