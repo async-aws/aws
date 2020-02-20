@@ -1,8 +1,10 @@
 <?php
 
-namespace AsyncAws\Core\Signers;
+namespace AsyncAws\S3\Signers;
 
 use AsyncAws\Core\Credentials\Credentials;
+use AsyncAws\Core\Signers\Request;
+use AsyncAws\Core\Signers\SignerV4;
 
 /**
  * Version4 of signer dedicated for service S3.

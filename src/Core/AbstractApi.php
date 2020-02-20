@@ -14,7 +14,6 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Signers\Request;
 use AsyncAws\Core\Signers\Signer;
 use AsyncAws\Core\Signers\SignerV4;
-use AsyncAws\Core\Signers\SignerV4ForS3;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\HttpClient;
@@ -135,23 +134,29 @@ abstract class AbstractApi
         return $endpoint . (false === \strpos($endpoint, '?') ? '?' : '&') . http_build_query($query);
     }
 
+    /**
+     * @return callable[]
+     */
+    protected function getSignerFactories(): array
+    {
+        return [
+            'v4' => static function (string $service, string $region) {
+                return new SignerV4($service, $region);
+            },
+        ];
+    }
+
     private function getSigner()
     {
         if (null === $this->signer) {
             /** @var string $region */
             $region = $this->configuration->get(Configuration::OPTION_REGION);
-            switch ($signatureVersion = $this->getSignatureVersion()) {
-                case 'v4':
-                    $this->signer = new SignerV4($this->getServiceCode(), $region);
-
-                    break;
-                case 's3':
-                    $this->signer = new SignerV4ForS3($this->getServiceCode(), $region);
-
-                    break;
-                default:
-                    throw new InvalidArgument(sprintf('The signature "%s" is not implemented.', $signatureVersion));
+            $factories = $this->getSignerFactories();
+            if (!isset($factories[$signatureVersion = $this->getSignatureVersion()])) {
+                throw new InvalidArgument(sprintf('The signature "%s" is not implemented.', $signatureVersion));
             }
+
+            $this->signer = $factories[$signatureVersion]($this->getServiceCode(), $region);
         }
 
         return $this->signer;
