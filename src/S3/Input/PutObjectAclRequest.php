@@ -196,14 +196,64 @@ class PutObjectAclRequest
         return $this->VersionId;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
-        $payload = ['Action' => 'PutObjectAcl', 'Version' => '2006-03-01'];
-        if (null !== $this->AccessControlPolicy) {
-            $payload['AccessControlPolicy'] = $this->AccessControlPolicy;
+        $document = new \DOMDocument('1.0', 'UTF-8');
+        $document->formatOutput = true;
+
+        if (null !== $input = $this->AccessControlPolicy) {
+            $document->appendChild($document_AccessControlPolicy = $document->createElement('AccessControlPolicy'));
+            $document_AccessControlPolicy->setAttribute('xmlns', 'http://s3.amazonaws.com/doc/2006-03-01/');
+
+            $input_Grants = $input->getGrants();
+
+            $document_AccessControlPolicy->appendChild($document_AccessControlPolicy_Grants = $document->createElement('AccessControlList'));
+            foreach ($input_Grants as $input_GrantsItem) {
+                $document_AccessControlPolicy_Grants->appendChild($document_AccessControlPolicy_Grants_Item = $document->createElement('Grant'));
+
+                if (null !== $input_GrantsItem_Grantee = $input_GrantsItem->getGrantee()) {
+                    $document_AccessControlPolicy_Grants_Item->appendChild($document_AccessControlPolicy_Grants_Item_Grantee = $document->createElement('Grantee'));
+                    $document_AccessControlPolicy_Grants_Item_Grantee->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
+
+                    if (null !== $input_GrantsItem_Grantee_DisplayName = $input_GrantsItem_Grantee->getDisplayName()) {
+                        $document_AccessControlPolicy_Grants_Item_Grantee->appendChild($document->createElement('DisplayName', $input_GrantsItem_Grantee_DisplayName));
+                    }
+
+                    if (null !== $input_GrantsItem_Grantee_EmailAddress = $input_GrantsItem_Grantee->getEmailAddress()) {
+                        $document_AccessControlPolicy_Grants_Item_Grantee->appendChild($document->createElement('EmailAddress', $input_GrantsItem_Grantee_EmailAddress));
+                    }
+
+                    if (null !== $input_GrantsItem_Grantee_ID = $input_GrantsItem_Grantee->getID()) {
+                        $document_AccessControlPolicy_Grants_Item_Grantee->appendChild($document->createElement('ID', $input_GrantsItem_Grantee_ID));
+                    }
+
+                    $input_GrantsItem_Grantee_Type = $input_GrantsItem_Grantee->getType();
+                    $document_AccessControlPolicy_Grants_Item_Grantee->setAttribute('xsi:type', $input_GrantsItem_Grantee_Type);
+
+                    if (null !== $input_GrantsItem_Grantee_URI = $input_GrantsItem_Grantee->getURI()) {
+                        $document_AccessControlPolicy_Grants_Item_Grantee->appendChild($document->createElement('URI', $input_GrantsItem_Grantee_URI));
+                    }
+                }
+
+                if (null !== $input_GrantsItem_Permission = $input_GrantsItem->getPermission()) {
+                    $document_AccessControlPolicy_Grants_Item->appendChild($document->createElement('Permission', $input_GrantsItem_Permission));
+                }
+            }
+
+            if (null !== $input_Owner = $input->getOwner()) {
+                $document_AccessControlPolicy->appendChild($document_AccessControlPolicy_Owner = $document->createElement('Owner'));
+
+                if (null !== $input_Owner_DisplayName = $input_Owner->getDisplayName()) {
+                    $document_AccessControlPolicy_Owner->appendChild($document->createElement('DisplayName', $input_Owner_DisplayName));
+                }
+
+                if (null !== $input_Owner_ID = $input_Owner->getID()) {
+                    $document_AccessControlPolicy_Owner->appendChild($document->createElement('ID', $input_Owner_ID));
+                }
+            }
         }
 
-        return $payload;
+        return $document->saveXML();
     }
 
     public function requestHeaders(): array

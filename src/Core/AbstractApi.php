@@ -107,6 +107,8 @@ abstract class AbstractApi
             $headers['content-type'] = 'application/x-www-form-urlencoded';
         } elseif (empty($body)) {
             $headers['content-length'] = '0';
+        } else {
+            $headers['content-type'] = 'text/plain';
         }
 
         $request = new Request($method, $this->fillEndpoint($endpoint), $headers, $body);

@@ -481,14 +481,9 @@ class PutObjectRequest
         return $this->WebsiteRedirectLocation;
     }
 
-    public function requestBody(): array
+    public function requestBody()
     {
-        $payload = ['Action' => 'PutObject', 'Version' => '2006-03-01'];
-        if (null !== $this->Body) {
-            $payload['Body'] = $this->Body;
-        }
-
-        return $payload;
+        return $this->Body ?? '';
     }
 
     public function requestHeaders(): array

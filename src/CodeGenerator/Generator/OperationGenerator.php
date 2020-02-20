@@ -8,12 +8,11 @@ use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
-use AsyncAws\CodeGenerator\Definition\Shape;
+use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Result;
-use AsyncAws\Core\XmlBuilder;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpNamespace;
@@ -39,6 +38,11 @@ class OperationGenerator
      * @var ServiceDefinition
      */
     private $definition;
+
+    /**
+     * @var XmlDumper
+     */
+    private $xmlDumper;
 
     public function __construct(FileWriter $fileWriter, ServiceDefinition $definition)
     {
@@ -93,7 +97,6 @@ class OperationGenerator
             $outputClass = \sprintf('%s\\Result\\%s', $baseNamespace, GeneratorHelper::safeClassName($output->getName()));
             $method->setReturnType($outputClass);
             $namespace->addUse($outputClass);
-            $namespace->addUse(XmlBuilder::class);
         } else {
             $method->setReturnType(Result::class);
             $namespace->addUse(Result::class);
@@ -280,11 +283,8 @@ class OperationGenerator
 
     private function inputClassRequestGetters(StructureShape $inputShape, ClassType $class, Operation $operation): void
     {
-        foreach (['header' => '$headers', 'querystring' => '$query', 'payload' => '$payload'] as $requestPart => $varName) {
+        foreach (['header' => '$headers', 'querystring' => '$query'] as $requestPart => $varName) {
             $body[$requestPart] = $varName . ' = [];' . "\n";
-            if ('payload' === $requestPart) {
-                $body[$requestPart] = $varName . " = ['Action' => '{$operation->getName()}', 'Version' => '{$this->definition->getApiVersion()}'];\n";
-            }
             foreach ($inputShape->getMembers() as $member) {
                 // If location is not specified, it will go in the request body.
                 if ($requestPart === ($member->getLocation() ?? 'payload')) {
@@ -297,110 +297,84 @@ class OperationGenerator
 
         $class->addMethod('requestHeaders')->setReturnType('array')->setBody($body['header']);
         $class->addMethod('requestQuery')->setReturnType('array')->setBody($body['querystring']);
-        $class->addMethod('requestBody')->setReturnType('array')->setBody($body['payload']);
-
-        foreach ($inputShape->getMembers() as $member) {
-            if ('uri' === $member->getLocation()) {
-                if (!isset($body['uri'])) {
-                    $body['uri'] = '$uri = [];' . "\n";
-                }
-                $body['uri'] .= \strtr('$uri["LOCATION"] = $this->NAME ?? "";', ['NAME' => $member->getName(), 'LOCATION' => $member->getLocationName()]);
-            }
-        }
-
-        $body['uri'] = $body['uri'] ?? '';
-        $body['uri'] .= 'return "' . str_replace(['{', '+}', '}'], ['{$uri[\'', '}', '\']}'], $operation->getHttpRequestUri()) . '";';
-
-        $class->addMethod('requestUri')->setReturnType('string')->setBody($body['uri']);
-    }
-
-    /**
-     * Pick only the config from $shapes we are interested in.
-     */
-    private function buildXmlConfig(Shape $shape): array
-    {
-        $xml[$shape->getName()] = [
-            'type' => $shape->getType(),
-        ];
-        if ($shape instanceof StructureShape) {
-            $members = [];
-            foreach ($shape->getMembers() as $member) {
-                $memberShape = $member->getShape();
-                $members[$member->getName()] = ['shape' => $memberShape->getName()];
-                if (null !== $locationName = $member->getLocationName()) {
-                    $members[$member->getName()] += ['locationName' => $locationName];
-                }
-                $xml += $this->buildXmlConfig($memberShape);
-            }
-
-            $xml[$shape->getName()]['members'] = $members;
-        } elseif ($shape instanceof ListShape) {
-            $memberShape = $shape->getMember()->getShape();
-            $xml[$shape->getName()]['member'] = ['shape' => $memberShape->getName()];
-
-            $xml += $this->buildXmlConfig($memberShape);
-        }
-
-        return $xml;
-    }
-
-    private function setMethodBody(StructureShape $inputShape, Method $method, Operation $operation, $inputClassName): void
-    {
-        $safeInputClassName = GeneratorHelper::safeClassName($inputClassName);
-        $body = strtr('
-            $input = SAFE_CLASS::create($input);
-            $input->validate();
-        ', ['SAFE_CLASS' => $safeInputClassName]);
 
         if (null !== $payloadProperty = $inputShape->getPayload()) {
             $member = $inputShape->getMember($payloadProperty);
             if ($member->isStreaming()) {
-                $body .= '$payload = $input->get' . $payloadProperty . '() ?? "";';
+                $bodyType = null;
+                $body = 'return $this->' . $payloadProperty . ' ?? "";';
             } else {
-                // Build XML
-                $memberShape = $member->getShape();
-                $xml = $this->buildXmlConfig($memberShape);
-                $xml['_root'] = [
-                    'type' => $memberShape->getName(),
-                    'xmlName' => $member->getLocationName(),
-                    'uri' => $member->getXmlNamespaceUri(),
-                ];
-
-                $body .= '$xmlConfig = ' . GeneratorHelper::printArray($xml) . ";\n";
-                $body .= '$payload = (new XmlBuilder($input->requestBody(), $xmlConfig))->getXml();' . "\n";
+                $bodyType = 'string';
+                $body = $this->dumpXml($member, $payloadProperty);
             }
-            $payloadVariable = '$payload';
         } else {
-            // This is a normal body application/x-www-form-urlencoded
-            $payloadVariable = '$input->requestBody()';
+            $bodyType = 'array';
+            $body = "\$payload = ['Action' => '{$operation->getName()}', 'Version' => '{$this->definition->getApiVersion()}'];\n";
+            foreach ($inputShape->getMembers() as $member) {
+                // If location is not specified, it will go in the request body.
+                if ('payload' === ($member->getLocation() ?? 'payload')) {
+                    $body .= 'if ($this->' . $member->getName() . ' !== null) $payload["' . ($member->getLocationName() ?? $member->getName()) . '"] = $this->' . $member->getName() . ';' . "\n";
+                }
+            }
+            $body .= 'return $payload;' . "\n";
+        }
+        $class->addMethod('requestBody')->setReturnType($bodyType)->setBody($body);
+
+        $requestUri = null;
+        foreach ($inputShape->getMembers() as $member) {
+            if ('uri' === $member->getLocation()) {
+                if (!isset($requestUri)) {
+                    $requestUri = '$uri = [];' . "\n";
+                }
+                $requestUri .= \strtr('$uri["LOCATION"] = $this->NAME ?? "";', ['NAME' => $member->getName(), 'LOCATION' => $member->getLocationName()]);
+            }
         }
 
+        $requestUri = $requestUri ?? '';
+        $requestUri .= 'return "' . str_replace(['{', '+}', '}'], ['{$uri[\'', '}', '\']}'], $operation->getHttpRequestUri()) . '";';
+
+        $class->addMethod('requestUri')->setReturnType('string')->setBody($requestUri);
+    }
+
+    private function dumpXml(StructureMember $member, string $payloadProperty): string
+    {
+        if (null === $this->xmlDumper) {
+            $this->xmlDumper = new XmlDumper();
+        }
+
+        return $this->xmlDumper->dumpXmlRoot($member, $payloadProperty);
+    }
+
+    private function setMethodBody(StructureShape $inputShape, Method $method, Operation $operation, $inputClassName): void
+    {
         $params = ['$response', '$this->httpClient'];
         if ((null !== $pagination = $operation->getPagination()) && !empty($pagination->getOutputToken())) {
             $params = \array_merge($params, ['$this', '$input']);
         }
-        $param = \implode(', ', $params);
 
         if (null !== $outputShape = $operation->getOutput()) {
             $safeOutputClassName = GeneratorHelper::safeClassName($outputShape->getName());
-            $return = "return new {$safeOutputClassName}($param);";
         } else {
-            $return = "return new Result($param);";
+            $safeOutputClassName = 'Result';
         }
 
-        $method->setBody(
-            $body .
-            <<<PHP
+        $method->setBody(strtr('
+$input = SAFE_CLASS::create($input);
+$input->validate();
 
-\$response = \$this->getResponse(
-    '{$operation->getHttpMethod()}',
-    $payloadVariable,
-    \$input->requestHeaders(),
-    \$this->getEndpoint(\$input->requestUri(), \$input->requestQuery())
+$response = $this->getResponse(
+    METHOD,
+    $input->requestBody(),
+    $input->requestHeaders(),
+    $this->getEndpoint($input->requestUri(), $input->requestQuery())
 );
 
-$return
-PHP
-        );
+return new RESULT_CLASS(RESULT_PARAM);
+        ', [
+            'SAFE_CLASS' => GeneratorHelper::safeClassName($inputClassName),
+            'METHOD' => \var_export($operation->getHttpMethod(), true),
+            'RESULT_CLASS' => $safeOutputClassName,
+            'RESULT_PARAM' => \implode(', ', $params),
+        ]));
     }
 }

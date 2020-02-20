@@ -87,10 +87,12 @@ class S3ClientTest extends TestCase
             $response->resolve();
         });
 
+        self::markTestIncomplete('The S3 image does not implement Pagination. https://github.com/jubos/fake-s3/issues/223');
+
         $input = (new ListObjectsV2Request())
             ->setBucket('foo')
             ->setPrefix('list/')
-//            ->setMaxKeys(2) // pagination is not implemented by FakeS3 https://github.com/jubos/fake-s3/issues/223
+//            ->setMaxKeys(2) // pagination is not implemented
             ->setDelimiter('/')
         ;
 
@@ -109,5 +111,22 @@ class S3ClientTest extends TestCase
 
         self::assertContains('list/prefix-1/', $prefixes);
         self::assertContains('list/content-2', $files);
+    }
+
+    public function testDeleteObjects()
+    {
+        self::markTestSkipped('The S3 image does not implement DeleteObjects. https://github.com/jubos/fake-s3/issues/97');
+
+        $s3 = $this->getClient();
+        $bucket = 'foo';
+
+        $result = $s3->deleteObjects([
+            'Bucket' => $bucket,
+            'Delete' => ['Objects' => [['Key' => 'foo/bar.txt'], ['Key' => 'foo/bix/xx.txt']]],
+        ]);
+
+        $result->resolve();
+        $info = $result->info();
+        self::assertEquals(204, $info['status']);
     }
 }
