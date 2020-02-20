@@ -1,6 +1,6 @@
-# Compare Async-Aws vs AWS PHP SDK
+# Compare AsyncAws vs AWS PHP SDK
 
-|   | AWS PHP SDK | Async-Aws |
+|   | AWS PHP SDK | AsyncAws |
 |---|-------------|-----------|
 | [Async](#async-experience)                    | | :heavy_check_mark: |
 | [Pagination](#pagination-experience)          | | :heavy_check_mark: |
@@ -15,17 +15,20 @@ By default, all calls are async. Thanks to the power of the
 [Symfony HTTP client](https://symfony.com/doc/current/components/http_client.html)
 the process is not blocking until you need to read the result.
 
-**Async-Aws:**
+**AsyncAws:**
 ```php
 $files = [];
 foreach (range(0, 10) as $index) {
     $files[] = $s3Client->putObject(['Bucket' => 'my.bucket', 'Key' => 'file-' . uniqid('file-', true), 'Body' => 'test']);
 }
+
 // at this point, calls to putObjects are not yet resolved
+
 foreach ($files as $file) {
     // calling $file->getKey() will wait the response from AWS and returned the real value
     $s3Client->deleteObject(['Bucket' => 'my.bucket', 'Key' => $file->getKey()]);
 }
+
 // no need to wait ends of deleteObject. It will be automatically resolved on destruct
 ```
 
@@ -41,7 +44,7 @@ foreach (range(0, 10) as $index) {
 $deletePromises = [];
 foreach ($promises as $promise) {
     $file = $promise->wait();
-    // calling $file->getKey() will wait the response from AWS and returned the real value
+
     $deletePromises[] = $s3Client->deleteObjectAsync(['Bucket' => 'my.bucket', 'Key' => $file['Key']]);
 }
 Promise\all($deletePromises)->wait();
@@ -49,11 +52,11 @@ Promise\all($deletePromises)->wait();
 
 ## Pagination eXperience
 
-Async-Aws handled, by default, the complexity of paginated results. You don't
+AsyncAws handles the complexity of paginated results. You don't
 have to worry about `IsTruncated` or `NextMarker` or calling magic methods, just
-iterates over results, Async-Aws do the rest.
+iterates over results, AsyncAws do the rest.
 
-**Async-Aws:**
+**AsyncAws:**
 ```php
 $objects = $s3Client->listObjectsV2(['Bucket' => 'my.bucket']);
 foreach ($objects as $object) {
@@ -89,21 +92,21 @@ foreach ($pages as $page) {
 
 ```
 
-*note*: Even if pagination is automatically handled, Async-Aws let you fetch
+*note*: Even if pagination is automatically handled, AsyncAws let you fetch
 only result for the current page.
 
 ## Developer eXperience
 
 Ever get the error `PHP Fatal error: Missing required client configuration
 options: version: (string)` in official AWS PHP SDK, and dig into documentation
-to blindly copy/paste `['version' => '2006-03-01']`? Async-Aws saved you from
+to blindly copy/paste `['version' => '2006-03-01']`? AsyncAws saved you from
 this complexity and use the right version for you.
 
-Async-Aws also provides real classes with documented getter and methods, while
+AsyncAws also provides real classes with documented getter and methods, while
  the
 official AWS PHP SDK uses magic methods and undocumented array accessor.
 
-| AWS PHP SDK | Async-Aws |
+| AWS PHP SDK | AsyncAws |
 |-------------|-----------|
 | ![AWS PHP SDK method doc](./res/aws-method.png) | ![async-aws method doc](./res/aa-method.png) |
 | ![AWS PHP SDK input doc](./res/aws-input.png)   | ![async-aws input doc](./res/aa-input.png)   |
@@ -111,18 +114,18 @@ official AWS PHP SDK uses magic methods and undocumented array accessor.
 
 ## Dependencies size
 
-By providing isolated package for each service, Async Aws is ultra thin. For
-instance `async-php/s3` + `async-php/core` weighs **0.6Mib**, while official AWS
+By providing isolated package for each service, AsyncAws is ultra thin. For
+instance `aws-async/s3` + `aws-async/core` weighs **0.6Mib**, while official AWS
 PHP SDK uses **22MiB** regardless of the number of services you use.
 
 ## Mock and Proxy
 
-Because Async-Aws uses real classes, it's easy to Mock them in PHPUnit tests or
-while the official AWS PHP SDK uses the `__call` magic methods which increase
+Because AsyncAws uses real classes, it is easy to Mock them in PHPUnit tests.
+The official AWS PHP SDK uses the magic `__call` methods which increase
 complexity and reduce the developer experience.
 
 ## Features coverage
 
-While Async-Aws focused on the most used operations (4 services and 19 methods),
+While AsyncAws focused on the most used operations (4 services and 19 methods),
 The official AWS PHP SDK covers the full scope of AWS (200 services and 8,000
 methods).
