@@ -1,6 +1,6 @@
 # Waiter and Haser
 
-Similar to Official AWS PHP SDK, Async-Aws provides waiters to let you wait
+Similar to Official AWS PHP SDK, AsyncAws provides waiters to let you wait
 until an long operation finished.
 
 To ease the development, the above code is wrapped in a helper called "waiter".
@@ -25,7 +25,7 @@ A waiter provides methods that let you check the status of the operation.
 * `getState()` returns the state of the operation either `sucess`, `failure` or `pending`
 * `wait($timeout, $delay)` waits until the state of the operation is determinate.
 
-As usual, Async-Aws is async and not blocking by default:
+As usual, AsyncAws is async and not blocking by default:
 
 ```php
 $waiter = $sqsClient->queueExists(['QueueName' => 'fooBar']);

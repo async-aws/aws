@@ -30,7 +30,7 @@ $client = new AwsClient([
 ]);
 ```
 
-> **NOTE**: When not defined, Async AWS will use the profile named `default`.
+> **NOTE**: When not defined, AsyncAWS will use the profile named `default`.
 
 The profile can refer to a [Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) and specify the
 source of another profile that contains the IAM user credentials with permission to use the role.
@@ -80,7 +80,7 @@ $client = new AwsClient([
 
 ## Using Credentials from Environment Variables
 
-Async AWS recognize Env variables that are used by most of official AWS tools and SDK.
+AsyncAWS recognize Env variables that are used by most of official AWS tools and SDK.
 
 ```cli
 $ export AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
@@ -118,7 +118,7 @@ $client = new AwsClient([
 
 ## Using EC2 Instance Metadata
 
-When you run code within an EC2 instance (or EKS, Lambda), Async Aws is able to fetch Credentials from the
+When you run code within an EC2 instance (or EKS, Lambda), AsyncAws is able to fetch Credentials from the
 [Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) attached to the instance.
 
 When running a single application on the Server, this is the simplest way to grant permissions to the application. You
@@ -126,7 +126,7 @@ have nothing to configure on the application, you only grant permissions on the 
 
 ## Precedence of Providers
 
-By default Async AWS uses a Provider that chain over all providers and uses the first provider in the chain that returns
+By default AsyncAWS uses a Provider that chain over all providers and uses the first provider in the chain that returns
 credentials without an error.
 
 The providers are currently chained in the following order:
