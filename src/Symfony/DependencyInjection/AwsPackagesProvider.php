@@ -21,6 +21,10 @@ class AwsPackagesProvider
                 'client' => \AsyncAws\Sqs\SqsClient::class,
                 'package' => 'async-aws/sqs',
             ],
+            'sts' => [
+                'client' => \AsyncAws\Core\Sts\StsClient::class,
+                'package' => 'async-aws/core',
+            ],
             'sns' => [
                 'client' => \AsyncAws\Sns\SnsClient::class,
                 'package' => 'async-aws/sns',

@@ -1,5 +1,5 @@
 {
-    "name": "async-aws/symfony-bundle",
+    "name": "async-aws/async-aws-bundle",
     "type": "symfony-bundle",
     "description": "Configure all your AsyncAWS services and enjoy the autowire greatness.",
     "keywords": [
