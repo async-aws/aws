@@ -134,6 +134,18 @@ abstract class AbstractApi
         return $endpoint . (false === \strpos($endpoint, '?') ? '?' : '&') . http_build_query($query);
     }
 
+    /**
+     * @return callable[]
+     */
+    protected function getSignerFactories(): array
+    {
+        return [
+            'v4' => static function (string $service, string $region) {
+                return new SignerV4($service, $region);
+            },
+        ];
+    }
+
     private function stringifyBody($body): array
     {
         if (\is_callable($body)) {
@@ -155,18 +167,6 @@ abstract class AbstractApi
         }
 
         return ['text/plain', (string) $body];
-    }
-
-    /**
-     * @return callable[]
-     */
-    protected function getSignerFactories(): array
-    {
-        return [
-            'v4' => static function (string $service, string $region) {
-                return new SignerV4($service, $region);
-            },
-        ];
     }
 
     private function getSigner()
