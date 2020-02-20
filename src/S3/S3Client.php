@@ -23,6 +23,7 @@ use AsyncAws\S3\Result\HeadObjectOutput;
 use AsyncAws\S3\Result\ListObjectsV2Output;
 use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
+use AsyncAws\S3\Signers\SignerV4ForS3;
 
 class S3Client extends AbstractApi
 {
@@ -419,5 +420,17 @@ class S3Client extends AbstractApi
     protected function getSignatureVersion(): string
     {
         return 's3';
+    }
+
+    /**
+     * @return callable[]
+     */
+    protected function getSignerFactories(): array
+    {
+        return [
+            's3' => static function (string $service, string $region) {
+                return new SignerV4ForS3($service, $region);
+            },
+        ] + parent::getSignerFactories();
     }
 }
