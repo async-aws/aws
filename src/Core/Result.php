@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core;
 
-use AsyncAws\Core\Exception\Exception;
 use AsyncAws\Core\Exception\Http\ClientException;
+use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Exception\Http\NetworkException;
 use AsyncAws\Core\Exception\Http\RedirectionException;
 use AsyncAws\Core\Exception\Http\ServerException;
@@ -25,9 +25,11 @@ class Result
     protected $awsClient;
 
     /**
-     * @var array|object|null
+     * Input used to build the API request that generate this Result.
+     *
+     * @var object|null
      */
-    protected $request;
+    protected $input;
 
     /**
      * @var ResponseInterface|null
@@ -44,7 +46,7 @@ class Result
         $this->response = $response;
         $this->httpClient = $httpClient;
         $this->awsClient = $awsClient;
-        $this->request = $request;
+        $this->input = $request;
     }
 
     /**
@@ -54,7 +56,8 @@ class Result
      *
      * @return bool whether the request is executed or not
      *
-     * @throws Exception
+     * @throws NetworkException
+     * @throws HttpException
      */
     final public function resolve(?float $timeout = null): bool
     {
@@ -128,7 +131,7 @@ class Result
         $this->resolve();
         $this->populateResult($this->response, $this->httpClient);
         unset($this->response);
-        if (null !== $this->httpClient) {
+        if (isset($this->httpClient)) {
             unset($this->httpClient);
         }
     }

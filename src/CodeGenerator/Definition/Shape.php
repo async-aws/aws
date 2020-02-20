@@ -34,7 +34,7 @@ class Shape
     {
         switch ($data['type']) {
             case 'structure':
-                $shape = new StructureShape();
+                $shape = ($data['exception'] ?? false) ? new ExceptionShape() : new StructureShape();
 
                 break;
             case 'list':

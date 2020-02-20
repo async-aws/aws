@@ -17,11 +17,14 @@ class ServiceDefinition
 
     private $pagination;
 
-    public function __construct(array $definition, array $documentation, array $pagination)
+    private $waiter;
+
+    public function __construct(array $definition, array $documentation, array $pagination, array $waiter)
     {
         $this->definition = $definition;
         $this->documentation = $documentation;
         $this->pagination = $pagination;
+        $this->waiter = $waiter;
     }
 
     public function getOperation(string $name): ?Operation
@@ -32,9 +35,19 @@ class ServiceDefinition
                     '_documentation' => $this->documentation['operations'][$name] ?? null,
                     '_apiVersion' => $this->definition['metadata']['apiVersion'],
                 ],
+                $this,
                 $this->getPagination($name),
                 $this->createClosureToFindShape()
             );
+        }
+
+        return null;
+    }
+
+    public function getWaiter(string $name): ?Waiter
+    {
+        if (isset($this->waiter['waiters'][$name])) {
+            return new Waiter($this->waiter['waiters'][$name] + ['name' => $name], $this->createClosureToFindOperation(), $this->createClosureToFindShape());
         }
 
         return null;
@@ -84,6 +97,15 @@ class ServiceDefinition
 
         return \Closure::fromCallable(function (string $name, Member $member = null) use ($definition) {
             return $definition->getShape($name, $member);
+        });
+    }
+
+    private function createClosureToFindOperation(): \Closure
+    {
+        $definition = $this;
+
+        return \Closure::fromCallable(function (string $name) use ($definition): ?Operation {
+            return $definition->getOperation($name);
         });
     }
 }

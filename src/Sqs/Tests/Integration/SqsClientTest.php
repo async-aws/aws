@@ -177,6 +177,22 @@ class SqsClientTest extends TestCase
         self::assertEquals(0, (int) $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes()['ApproximateNumberOfMessages']);
     }
 
+    public function testQueueExists()
+    {
+        $sqs = $this->getClient();
+
+        $sqs->createQueue(['QueueName' => 'foo'])->resolve();
+        $waiter = $sqs->queueExists(['QueueName' => 'foo']);
+        self::assertTrue($waiter->wait());
+        self::assertTrue($waiter->isSuccess());
+
+        $waiter = $sqs->queueExists(['QueueName' => 'does-not-exists']);
+        self::assertFalse($waiter->isSuccess());
+
+        // Can't test the above code, because Fake SQS returns the wrong error
+        // self::assertFalse($waiter->wait(0.01));
+    }
+
     public function testReceiveMessage()
     {
         $sqs = $this->getClient();
