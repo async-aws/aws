@@ -11,6 +11,7 @@ use AsyncAws\Core\Credentials\CredentialProvider;
 use AsyncAws\Core\Credentials\IniFileProvider;
 use AsyncAws\Core\Credentials\InstanceProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Signers\Request;
 use AsyncAws\Core\Signers\Signer;
 use AsyncAws\Core\Signers\SignerV4;
@@ -81,8 +82,8 @@ abstract class AbstractApi
     }
 
     /**
-     * @param string[]|string[][]                         $headers headers names provided as keys or as part of values
-     * @param array|string|resource|\Traversable|\Closure $body
+     * @param string[]|string[][]            $headers headers names provided as keys or as part of values
+     * @param array|string|resource|callable $body
      */
     final public function request(string $method, $body = '', $headers = [], ?string $endpoint = null): Result
     {
@@ -96,18 +97,17 @@ abstract class AbstractApi
     abstract protected function getSignatureVersion(): string;
 
     /**
-     * @param string[]|string[][]                         $headers headers names provided as keys or as part of values
-     * @param array|string|resource|\Traversable|\Closure $body
+     * @param string[]|string[][]            $headers headers names provided as keys or as part of values
+     * @param array|string|resource|callable $body
      */
     final protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null): ResponseInterface
     {
-        if (\is_array($body)) {
-            $body = http_build_query($body, '', '&', \PHP_QUERY_RFC1738);
-            $headers['content-type'] = 'application/x-www-form-urlencoded';
-        } elseif (empty($body)) {
+        [$contentType, $body] = $this->stringifyBody($body);
+        if (!isset($headers['content-type'])) {
+            $headers['content-type'] = $contentType;
+        }
+        if (empty($body)) {
             $headers['content-length'] = '0';
-        } else {
-            $headers['content-type'] = 'text/plain';
         }
 
         $request = new Request($method, $this->fillEndpoint($endpoint), $headers, $body);
@@ -144,6 +144,29 @@ abstract class AbstractApi
                 return new SignerV4($service, $region);
             },
         ];
+    }
+
+    private function stringifyBody($body): array
+    {
+        if (\is_callable($body)) {
+            return $this->stringifyBody($body());
+        }
+        if (\is_array($body)) {
+            return ['application/x-www-form-urlencoded', http_build_query($body, '', '&', \PHP_QUERY_RFC1738)];
+        }
+        if (\is_resource($body)) {
+            if (!stream_get_meta_data($body)['seekable']) {
+                throw new InvalidArgument(sprintf('The give body is not seekable. Therefor request can not be signed.'));
+            }
+            if (-1 === fseek($body, 0)) {
+                throw new RuntimeException('Unable to seek to resource');
+            }
+            if (false === $body = stream_get_contents($body)) {
+                throw new RuntimeException('Unable to read resource contents');
+            }
+        }
+
+        return ['text/plain', (string) $body];
     }
 
     private function getSigner()

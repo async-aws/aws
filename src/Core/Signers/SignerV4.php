@@ -113,6 +113,11 @@ class SignerV4 implements Signer
         return hash('sha256', $request->getBody());
     }
 
+    protected function getMd5Body(Request $request): string
+    {
+        return base64_encode(hash('md5', $request->getBody(), true));
+    }
+
     private function getCanonicalizedQuery(array $parseUrl): string
     {
         \parse_str($parseUrl['query'] ?? '', $query);
