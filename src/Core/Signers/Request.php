@@ -18,10 +18,9 @@ final class Request
     private $body;
 
     /**
-     * @param string[]|string[][]                         $headers
-     * @param array|string|resource|\Traversable|\Closure $body
+     * @param string[]|string[][] $headers
      */
-    public function __construct(string $method, string $url, array $headers, $body)
+    public function __construct(string $method, string $url, array $headers, string $body)
     {
         $this->method = $method;
         $this->url = $url;
@@ -54,7 +53,7 @@ final class Request
         return $this->headers;
     }
 
-    public function getBody()
+    public function getBody(): string
     {
         return $this->body;
     }
