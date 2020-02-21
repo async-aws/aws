@@ -36,7 +36,7 @@ jobs:
           ./vendor/bin/simple-phpunit install
           echo ::endgroup::
 
-      - name: Download dependencies
+      - name: Modify composer.json
         run: |
           CURRENT_DIR=$(pwd)
           for COMPONENT in $(find src -maxdepth 2 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
@@ -46,6 +46,17 @@ jobs:
             cd "$CURRENT_DIR/$COMPONENT"
             sed -i -re 's/"async-aws\/core": "[^"]+",/"async-aws\/core": "*@dev",/' composer.json
             sed -i -re 's/"require": \{/"repositories": [{"type": "path","url": "..\/Core"}],"require": \{/' composer.json
+            echo ::endgroup::
+          done
+
+      - name: Download dependencies
+        run: |
+          CURRENT_DIR=$(pwd)
+          for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
+          do
+            echo ::group::$COMPONENT
+            echo "$CURRENT_DIR/$COMPONENT"
+            cd "$CURRENT_DIR/$COMPONENT"
             composer update --no-interaction --prefer-dist --optimize-autoloader
             echo ::endgroup::
           done
