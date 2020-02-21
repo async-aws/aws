@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core\Tests;
 
+use AsyncAws\Core\Exception\Http\ClientException;
+use AsyncAws\Core\Result;
+use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpClient\HttpClient;
 
 class ResultTest extends TestCase
 {
@@ -46,5 +50,34 @@ class ResultTest extends TestCase
         self::assertTrue($data->Object ? true : false);
         self::assertTrue($data->EmptyObject ? true : false);
         self::assertFalse($data->DoesNotExists ? true : false);
+    }
+
+    public function testThrowExceptionDestruct()
+    {
+        $httpClient = HttpClient::create();
+        $result = new Result(new SimpleMockedResponse('Bad request', [], 400), $httpClient);
+
+        $this->expectException(ClientException::class);
+        unset($result);
+    }
+
+    public function testThrowExceptionOnlyOnce()
+    {
+        $httpClient = HttpClient::create();
+        $result = new Result(new SimpleMockedResponse('Bad request', [], 400), $httpClient);
+
+        try {
+            $result->resolve();
+            self::fail('resolve should throw exception.');
+        } catch (ClientException $e) {
+        }
+
+        // This should not be an exception.
+        try {
+            unset($result);
+            self::assertTrue(true);
+        } catch (ClientException $e) {
+            self::fail('A resolved result should not throw exception on destruct.');
+        }
     }
 }

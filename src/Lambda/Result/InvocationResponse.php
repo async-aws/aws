@@ -37,14 +37,6 @@ class InvocationResponse extends Result
      */
     private $ExecutedVersion;
 
-    /**
-     * Ensure current request is resolved and right exception is thrown.
-     */
-    public function __destruct()
-    {
-        $this->resolve();
-    }
-
     public function getExecutedVersion(): ?string
     {
         $this->initialize();

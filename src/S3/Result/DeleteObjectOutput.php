@@ -20,14 +20,6 @@ class DeleteObjectOutput extends Result
 
     private $RequestCharged;
 
-    /**
-     * Ensure current request is resolved and right exception is thrown.
-     */
-    public function __destruct()
-    {
-        $this->resolve();
-    }
-
     public function getDeleteMarker(): ?bool
     {
         $this->initialize();

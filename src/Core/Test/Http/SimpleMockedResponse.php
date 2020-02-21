@@ -12,15 +12,18 @@ class SimpleMockedResponse implements ResponseInterface
 
     private $content = '';
 
-    public function __construct(string $content = '', array $headers = [])
+    private $statusCode;
+
+    public function __construct(string $content = '', array $headers = [], int $statusCode = 200)
     {
         $this->content = $content;
         $this->headers = $headers;
+        $this->statusCode = $statusCode;
     }
 
     public function getStatusCode(): int
     {
-        return 200;
+        return $this->statusCode;
     }
 
     public function getHeaders(bool $throw = true): array
@@ -45,6 +48,14 @@ class SimpleMockedResponse implements ResponseInterface
 
     public function getInfo(string $type = null)
     {
-        throw new \LogicException('Not implemented');
+        if (null === $type || 'response_headers' === $type) {
+            return [];
+        }
+
+        if ('http_code' === $type) {
+            return $this->statusCode;
+        }
+
+        return 'info: ' . $type;
     }
 }
