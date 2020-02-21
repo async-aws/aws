@@ -17,7 +17,7 @@ class Configuration implements ConfigurationInterface
         /** @var ArrayNodeDefinition $rootNode */
         $rootNode = $treeBuilder->getRootNode();
         $rootNode
-            ->fixXmlConfig('service')
+            ->fixXmlConfig('client')
             ->children()
                 ->booleanNode('register_service')->info('If set to false, no services will be created.')->defaultTrue()->end()
                 ->scalarNode('credential_provider')->info('A service name for AsyncAws\Core\Credentials\CredentialProvider.')->defaultNull()->end()
@@ -25,7 +25,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('logger')->info('A service name for Psr\Log\LoggerInterface.')->end()
                 ->arrayNode('config')->info('Default config that will be merged will all services.')->normalizeKeys(false)->prototype('variable')->end()->end()
 
-                ->arrayNode('services')
+                ->arrayNode('clients')
                     ->beforeNormalization()->always()->then(\Closure::fromCallable([$this, 'validateType']))->end()
                     ->useAttributeAsKey('name')
                     ->arrayPrototype()
@@ -44,24 +44,24 @@ class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
-    private static function validateType(array $services)
+    private static function validateType(array $clients)
     {
         $awsServices = AwsPackagesProvider::getServiceNames();
-        foreach ($services as $name => $config) {
+        foreach ($clients as $name => $config) {
             if (\in_array($name, $awsServices)) {
                 if (isset($config['type']) && $name !== $config['type']) {
                     throw new InvalidConfigurationException(sprintf('You cannot define a service named "%s" with type "%s". That is super confusing.', $name, $config['type']));
                 }
-                $services[$name]['type'] = $name;
+                $clients[$name]['type'] = $name;
             } elseif (!isset($config['type'])) {
                 if (!\in_array($name, $awsServices)) {
-                    throw new InvalidConfigurationException(sprintf('The "async_aws.service.%s" does not have a type. We were unable to guess what AWS service you want. Please add "aws.service.%s.type".', $name, $name));
+                    throw new InvalidConfigurationException(sprintf('The "async_aws.client.%s" does not have a type. We were unable to guess what AWS service you want. Please add "aws.service.%s.type".', $name, $name));
                 }
 
-                $services[$name]['type'] = $name;
+                $clients[$name]['type'] = $name;
             }
         }
 
-        return $services;
+        return $clients;
     }
 }

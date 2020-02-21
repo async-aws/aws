@@ -10,23 +10,23 @@ class AwsPackagesProvider
     {
         return [
             's3' => [
-                'client' => \AsyncAws\S3\S3Client::class,
+                'class' => \AsyncAws\S3\S3Client::class,
                 'package' => 'async-aws/s3',
             ],
             'ses' => [
-                'client' => \AsyncAws\Ses\SesClient::class,
+                'class' => \AsyncAws\Ses\SesClient::class,
                 'package' => 'async-aws/ses',
             ],
             'sqs' => [
-                'client' => \AsyncAws\Sqs\SqsClient::class,
+                'class' => \AsyncAws\Sqs\SqsClient::class,
                 'package' => 'async-aws/sqs',
             ],
             'sts' => [
-                'client' => \AsyncAws\Core\Sts\StsClient::class,
+                'class' => \AsyncAws\Core\Sts\StsClient::class,
                 'package' => 'async-aws/core',
             ],
             'sns' => [
-                'client' => \AsyncAws\Sns\SnsClient::class,
+                'class' => \AsyncAws\Sns\SnsClient::class,
                 'package' => 'async-aws/sns',
             ],
         ];

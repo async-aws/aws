@@ -28,71 +28,71 @@ class ConfigurationTest extends TestCase
             'credential_provider' => null,
             'http_client' => null,
             'config' => [],
-            'services' => [],
+            'clients' => [],
         ]);
     }
 
     public function testServiceWithAwsName(): void
     {
         $this->assertProcessedConfigurationEquals([
-            ['services' => [
+            ['clients' => [
                 'sqs' => ['config' => ['foo' => 'bar']],
             ]],
         ], [
-            'services' => [
+            'clients' => [
                 'sqs' => [
                     'register_service' => true,
                     'config' => ['foo' => 'bar'],
                     'type' => 'sqs',
                 ],
             ],
-        ], 'services');
+        ], 'clients');
     }
 
     public function testServiceWithCustomName(): void
     {
         $this->assertProcessedConfigurationEquals([
-            ['services' => [
+            ['clients' => [
                 'foobar' => [
                     'type' => 'sqs',
                 ],
             ]],
         ], [
-            'services' => [
+            'clients' => [
                 'foobar' => [
                     'register_service' => true,
                     'type' => 'sqs',
                     'config' => [],
                 ],
             ],
-        ], 'services');
+        ], 'clients');
     }
 
     public function testServiceWithCustomNameWithoutType(): void
     {
         $this->assertConfigurationIsInvalid([
-            ['services' => [
+            ['clients' => [
                 'foobar' => [
                 ],
             ]],
-        ], 'The "async_aws.service.foobar" does not have a type');
+        ], 'The "async_aws.client.foobar" does not have a type');
     }
 
     public function testServiceWithCustomNameWithWrongType(): void
     {
         $this->assertConfigurationIsInvalid([
-            ['services' => [
+            ['clients' => [
                 'foobar' => [
                     'type' => 'blabla',
                 ],
             ]],
-        ], 'The value "blabla" is not allowed for path "async_aws.services.foobar.type"');
+        ], 'The value "blabla" is not allowed for path "async_aws.clients.foobar.type"');
     }
 
     public function testServiceWithAwsNameWithWrongType(): void
     {
         $this->assertConfigurationIsInvalid([
-            ['services' => [
+            ['clients' => [
                 'sqs' => [
                     'type' => 's3',
                 ],

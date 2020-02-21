@@ -28,10 +28,10 @@ class BundleInitializationTest extends BaseBundleTestCase
         $kernel->addConfigFile(__DIR__ . '/Resources/config/default.yaml');
         $this->bootKernel();
 
-        $this->assertServiceExists('async_aws.service.s3', S3Client::class);
-        $this->assertServiceExists('async_aws.service.sqs', SqsClient::class);
-        $this->assertServiceExists('async_aws.service.ses', SesClient::class);
-        $this->assertServiceExists('async_aws.service.foobar', SqsClient::class);
+        $this->assertServiceExists('async_aws.client.s3', S3Client::class);
+        $this->assertServiceExists('async_aws.client.sqs', SqsClient::class);
+        $this->assertServiceExists('async_aws.client.ses', SesClient::class);
+        $this->assertServiceExists('async_aws.client.foobar', SqsClient::class);
 
         // Test autowired clients
         $this->assertServiceExists(S3Client::class, S3Client::class);
@@ -52,9 +52,9 @@ class BundleInitializationTest extends BaseBundleTestCase
         $kernel->addConfigFile(__DIR__ . '/Resources/config/empty.yaml');
         $this->bootKernel();
 
-        $this->assertServiceExists('async_aws.service.s3', S3Client::class);
-        $this->assertServiceExists('async_aws.service.sqs', SqsClient::class);
-        $this->assertServiceExists('async_aws.service.ses', SesClient::class);
+        $this->assertServiceExists('async_aws.client.s3', S3Client::class);
+        $this->assertServiceExists('async_aws.client.sqs', SqsClient::class);
+        $this->assertServiceExists('async_aws.client.ses', SesClient::class);
 
         // Test autowired clients
         $this->assertServiceExists(S3Client::class, S3Client::class);
@@ -69,8 +69,8 @@ class BundleInitializationTest extends BaseBundleTestCase
         $this->bootKernel();
 
         $container = $this->getContainer();
-        self::assertFalse($container->has('async_aws.service.s3'));
-        self::assertFalse($container->has('async_aws.service.sqs'));
+        self::assertFalse($container->has('async_aws.client.s3'));
+        self::assertFalse($container->has('async_aws.client.sqs'));
         self::assertFalse($container->has(SqsClient::class));
     }
 
@@ -81,8 +81,8 @@ class BundleInitializationTest extends BaseBundleTestCase
         $this->bootKernel();
 
         $container = $this->getContainer();
-        self::assertTrue($container->has('async_aws.service.s3'));
-        self::assertFalse($container->has('async_aws.service.sqs'));
+        self::assertTrue($container->has('async_aws.client.s3'));
+        self::assertFalse($container->has('async_aws.client.sqs'));
         self::assertFalse($container->has(SqsClient::class));
     }
 

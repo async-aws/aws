@@ -28,10 +28,10 @@ class AsyncAwsExtension extends Extension
         $availableServices = AwsPackagesProvider::getAllServices();
         $usedServices = [];
         $defaultConfig = $config;
-        unset($defaultConfig['services']);
+        unset($defaultConfig['clients']);
 
-        foreach ($config['services'] as $name => $data) {
-            $client = $availableServices[$data['type']]['client'];
+        foreach ($config['clients'] as $name => $data) {
+            $client = $availableServices[$data['type']]['class'];
             if (!class_exists($client)) {
                 throw new InvalidConfigurationException(sprintf('You have configured "async_aws.%s" but the "%s" package is not installed. Try running "composer require %s"', $name, $name, $availableServices[$name]['package']));
             }
@@ -54,14 +54,14 @@ class AsyncAwsExtension extends Extension
             return $usedServices;
         }
 
-        unset($config['services']);
+        unset($config['clients']);
         $availableServices = AwsPackagesProvider::getAllServices();
         foreach ($availableServices as $name => $data) {
             if (\array_key_exists($name, $usedServices)) {
                 continue;
             }
 
-            $client = $data['client'];
+            $client = $data['class'];
             if (!class_exists($client)) {
                 continue;
             }
@@ -87,7 +87,7 @@ class AsyncAwsExtension extends Extension
         $definition->addArgument(isset($config['credential_provider']) ? new Reference($config['credential_provider']) : null);
         $definition->addArgument(isset($config['http_client']) ? new Reference($config['http_client']) : null);
         $definition->addArgument($logger);
-        $container->setDefinition(sprintf('async_aws.service.%s', $name), $definition);
+        $container->setDefinition(sprintf('async_aws.client.%s', $name), $definition);
     }
 
     private function autowireServices(ContainerBuilder $container, array $usedServices): void
@@ -99,7 +99,7 @@ class AsyncAwsExtension extends Extension
                 continue;
             }
 
-            $serviceId = sprintf('async_aws.service.%s', $name);
+            $serviceId = sprintf('async_aws.client.%s', $name);
             if (isset($awsServices[$name])) {
                 $container->setAlias($client, $serviceId);
 

@@ -27,7 +27,7 @@ async_aws:
     config: # Will be merged with other configuration
         region: eu-central-1
 
-    services:
+    clients:
         ses: ~ # This will complain if we dont have that package installed
         sqs:
             config:
@@ -40,11 +40,11 @@ The config above will create the following services:
 
 | Service name               | Autowired with                  |
 | -------------------------- | ------------------------------- |
-| `async_aws.service.ses`    | \AsyncAws\Ses\SesClient
-| `async_aws.service.sqs`    | \AsyncAws\Sqs\SqsClient
-| `async_aws.service.foobar` | \AsyncAws\Sqs\SqsClient $foobar
-| `async_aws.service.s3`     | \AsyncAws\S3\S3Client
-| `async_aws.service.sts`    | \AsyncAws\Core\Sts\StsClient
+| `async_aws.client.ses`    | \AsyncAws\Ses\SesClient
+| `async_aws.client.sqs`    | \AsyncAws\Sqs\SqsClient
+| `async_aws.client.foobar` | \AsyncAws\Sqs\SqsClient $foobar
+| `async_aws.client.s3`     | \AsyncAws\S3\S3Client
+| `async_aws.client.sts`    | \AsyncAws\Core\Sts\StsClient
 
 For a complete reference of the configuration please run:
 

@@ -3,6 +3,6 @@ framework:
         utf8: true
 
 async_aws:
-    services:
+    clients:
         sqs:
             register_service: false
