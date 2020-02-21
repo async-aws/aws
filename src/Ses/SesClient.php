@@ -43,6 +43,11 @@ class SesClient extends AbstractApi
         return 'email';
     }
 
+    protected function getSignatureScopeName(): string
+    {
+        return 'ses';
+    }
+
     protected function getSignatureVersion(): string
     {
         return 'v4';

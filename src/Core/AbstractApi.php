@@ -96,6 +96,8 @@ abstract class AbstractApi
 
     abstract protected function getSignatureVersion(): string;
 
+    abstract protected function getSignatureScopeName(): string;
+
     /**
      * @param string[]|string[][]            $headers headers names provided as keys or as part of values
      * @param array|string|resource|callable $body
@@ -179,7 +181,7 @@ abstract class AbstractApi
                 throw new InvalidArgument(sprintf('The signature "%s" is not implemented.', $signatureVersion));
             }
 
-            $this->signer = $factories[$signatureVersion]($this->getServiceCode(), $region);
+            $this->signer = $factories[$signatureVersion]($this->getSignatureScopeName(), $region);
         }
 
         return $this->signer;

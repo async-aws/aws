@@ -326,6 +326,11 @@ class SqsClient extends AbstractApi
         return 'sqs';
     }
 
+    protected function getSignatureScopeName(): string
+    {
+        return 'sqs';
+    }
+
     protected function getSignatureVersion(): string
     {
         return 'v4';

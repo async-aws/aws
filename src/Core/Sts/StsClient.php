@@ -76,6 +76,11 @@ class StsClient extends AbstractApi
         return 'sts';
     }
 
+    protected function getSignatureScopeName(): string
+    {
+        return 'sts';
+    }
+
     protected function getSignatureVersion(): string
     {
         return 'v4';

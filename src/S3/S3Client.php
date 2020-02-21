@@ -417,6 +417,11 @@ class S3Client extends AbstractApi
         return 's3';
     }
 
+    protected function getSignatureScopeName(): string
+    {
+        return 's3';
+    }
+
     protected function getSignatureVersion(): string
     {
         return 's3';
