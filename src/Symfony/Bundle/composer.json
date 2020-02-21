@@ -30,7 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-            "AsyncAws\\Symfony\\": ""
+            "AsyncAws\\Symfony\\Bundle\\": ""
         },
         "exclude-from-classmap": [
             "/Tests/"
