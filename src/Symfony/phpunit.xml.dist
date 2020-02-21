@@ -10,25 +10,21 @@
 >
     <php>
         <ini name="error_reporting" value="-1" />
+        <server name="SYMFONY_DEPRECATIONS_HELPER" value="0" />
     </php>
 
     <testsuites>
         <testsuite name="Test Suite">
-            <directory>./src/CodeGenerator/Tests/</directory>
-            <directory>./src/Core/Tests/</directory>
-            <directory>./src/S3/Tests/</directory>
-            <directory>./src/Ses/Tests/</directory>
-            <directory>./src/Sqs/Tests/</directory>
-            <directory>./src/Symfony/Tests/</directory>
+            <directory>./Tests/</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory>./src</directory>
+            <directory>./</directory>
             <exclude>
-                <directory>Tests</directory>
-                <directory>vendor</directory>
+                <directory>./Tests</directory>
+                <directory>./vendor</directory>
             </exclude>
         </whitelist>
     </filter>

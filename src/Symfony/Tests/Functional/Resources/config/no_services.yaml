@@ -1,0 +1,6 @@
+framework:
+  router:
+    utf8: true
+
+async_aws:
+    register_service: false

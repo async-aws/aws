@@ -1,0 +1,10 @@
+framework:
+    router:
+        utf8: true
+
+async_aws:
+    config:
+        region: eu-central-1
+    services:
+        sns: ~
+
