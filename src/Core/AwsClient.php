@@ -81,6 +81,12 @@ class AwsClient extends AbstractApi
         throw new RuntimeException(sprintf('The $endpoint parameter is required on "%s::request()".', __CLASS__));
     }
 
+    protected function getSignatureScopeName(): string
+    {
+        // This will never work on the base API. .
+        throw new RuntimeException(\sprintf('The signing name is required on "%s".', __CLASS__));
+    }
+
     protected function getSignatureVersion(): string
     {
         return 'v4';

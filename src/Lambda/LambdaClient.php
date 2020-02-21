@@ -142,6 +142,11 @@ class LambdaClient extends AbstractApi
         return 'lambda';
     }
 
+    protected function getSignatureScopeName(): string
+    {
+        return 'lambda';
+    }
+
     protected function getSignatureVersion(): string
     {
         return 'v4';

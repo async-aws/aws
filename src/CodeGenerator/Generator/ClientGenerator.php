@@ -58,6 +58,12 @@ class ClientGenerator
                 ->setVisibility(ClassType::VISIBILITY_PROTECTED)
                 ->setBody("return '$signatureVersion';");
         }
+        if (null !== $signingName = $definition->getSigningName()) {
+            $class->addMethod('getSignatureScopeName')
+                ->setReturnType('string')
+                ->setVisibility(ClassType::VISIBILITY_PROTECTED)
+                ->setBody("return '$signingName';");
+        }
 
         $this->fileWriter->write($namespace);
 

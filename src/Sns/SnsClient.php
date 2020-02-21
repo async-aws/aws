@@ -43,6 +43,11 @@ class SnsClient extends AbstractApi
         return 'sns';
     }
 
+    protected function getSignatureScopeName(): string
+    {
+        return 'sns';
+    }
+
     protected function getSignatureVersion(): string
     {
         return 'v4';

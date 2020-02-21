@@ -38,13 +38,13 @@ class SignerV4 implements Signer
     ];
     private const ALGORITHM = 'AWS4-HMAC-SHA256';
 
-    private $service;
+    private $scopeName;
 
     private $region;
 
-    public function __construct(string $service, string $region)
+    public function __construct(string $scopeName, string $region)
     {
-        $this->service = $service;
+        $this->scopeName = $scopeName;
         $this->region = $region;
     }
 
@@ -79,7 +79,7 @@ class SignerV4 implements Signer
             ]
         );
 
-        $credentialScope = [substr($amzDate, 0, 8), $this->region, $this->service, 'aws4_request'];
+        $credentialScope = [substr($amzDate, 0, 8), $this->region, $this->scopeName, 'aws4_request'];
 
         $signingKey = 'AWS4' . $credentials->getSecretKey();
         foreach ($credentialScope as $scopePart) {
