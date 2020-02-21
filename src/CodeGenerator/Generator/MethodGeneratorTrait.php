@@ -35,10 +35,20 @@ trait MethodGeneratorTrait
     private $arrayDumper;
 
     /**
+     * @var bool[]
+     */
+    private $generated = [];
+
+    /**
      * Generate classes for the input.
      */
     private function generateInputClass(string $service, Operation $operation, string $baseNamespace, StructureShape $inputShape, bool $root = false)
     {
+        if (isset($this->generated[$inputShape->getName()])) {
+            return;
+        }
+        $this->generated[$inputShape->getName()] = true;
+
         $members = $inputShape->getMembers();
         $namespace = new PhpNamespace($baseNamespace);
         $class = $namespace->addClass(GeneratorHelper::safeClassName($inputShape->getName()));
