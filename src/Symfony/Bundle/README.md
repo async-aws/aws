@@ -13,7 +13,16 @@ composer require async-aws/async-aws-bundle
 
 ## Configure
 
+The bundle will autowire all AsyncAws clients that you have installed. You can
+provide default configuration to all clients and specific configuration of each
+service you define.
+
 ```yaml
+
+# config/packages/async_aws.yaml
+# This example assume you have installed core, ses, sqs and S3
+#
+
 async_aws:
     config: # Will be merged with other configuration
         region: eu-central-1
@@ -35,9 +44,10 @@ The config above will create the following services:
 | `async_aws.service.sqs`    | \AsyncAws\Sqs\SqsClient
 | `async_aws.service.foobar` | \AsyncAws\Sqs\SqsClient $foobar
 | `async_aws.service.s3`     | \AsyncAws\S3\S3Client
+| `async_aws.service.sts`    | \AsyncAws\Core\Sts\StsClient
 
 For a complete reference of the configuration please run:
 
 ```cli
-php bin/console config:dump-reference asyncaws
+php bin/console config:dump-reference async_aws
 ```
