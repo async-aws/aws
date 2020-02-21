@@ -8,10 +8,10 @@ parameters:
 		-
 			message: "#^Class AsyncAws\\\\Sns\\\\SnsClient not found\\.$#"
 			count: 1
-			path: src/Symfony/DependencyInjection/AwsPackagesProvider.php
+			path: src/Symfony/Bundle/DependencyInjection/AwsPackagesProvider.php
 
 		-
 			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\:\\:scalarNode\\(\\)\\.$#"
 			count: 1
-			path: src/Symfony/DependencyInjection/Configuration.php
+			path: src/Symfony/Bundle/DependencyInjection/Configuration.php
 

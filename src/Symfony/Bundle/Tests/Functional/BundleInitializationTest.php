@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\Symfony\Tests\Functional;
+namespace AsyncAws\Symfony\Bundle\Tests\Functional;
 
 use AsyncAws\S3\S3Client;
 use AsyncAws\Ses\SesClient;
 use AsyncAws\Sqs\SqsClient;
-use AsyncAws\Symfony\AsyncAwsBundle;
+use AsyncAws\Symfony\Bundle\AsyncAwsBundle;
 use Nyholm\BundleTest\BaseBundleTestCase;
 use Nyholm\BundleTest\CompilerPass\PublicServicePass;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;

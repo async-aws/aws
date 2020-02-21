@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\Symfony\Tests\Unit\DependencyInjection;
+namespace AsyncAws\Symfony\Bundle\Tests\Unit\DependencyInjection;
 
-use AsyncAws\Symfony\DependencyInjection\Configuration;
+use AsyncAws\Symfony\Bundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
