@@ -6,12 +6,17 @@ parameters:
 			path: src/CodeGenerator/Command/GenerateCommand.php
 
 		-
+			message: "#^PHPDoc tag @param has invalid value \\(array\\{\nStringValue\\: \\?string,\nBinaryValue\\: \\?string,\nStringListValues\\: \\?string\\[\\],\nBinaryListValues\\: \\?string\\[\\],\nDataType\\: string,\\)\\: Unexpected token \"\\[\", expected '\\}' at offset 121$#"
+			count: 1
+			path: src/Sqs/Result/MessageAttributeValue.php
+
+		-
 			message: "#^Class AsyncAws\\\\Sns\\\\SnsClient not found\\.$#"
 			count: 1
-			path: src/Symfony/DependencyInjection/AwsPackagesProvider.php
+			path: src/Symfony/Bundle/DependencyInjection/AwsPackagesProvider.php
 
 		-
 			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\:\\:scalarNode\\(\\)\\.$#"
 			count: 1
-			path: src/Symfony/DependencyInjection/Configuration.php
+			path: src/Symfony/Bundle/DependencyInjection/Configuration.php
 
