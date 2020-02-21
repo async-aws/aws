@@ -103,7 +103,7 @@ class PublishLayerVersionRequest
             $payload['Description'] = $v;
         }
 
-        (static function ($input) use (&$payload) {
+        (static function (LayerVersionContentInput $input) use (&$payload) {
             if (null !== $v = $input->getS3Bucket()) {
                 $payload['Content']['S3Bucket'] = $v;
             }

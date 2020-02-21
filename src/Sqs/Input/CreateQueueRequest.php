@@ -71,7 +71,7 @@ class CreateQueueRequest
         $payload = ['Action' => 'CreateQueue', 'Version' => '2012-11-05'];
         $indices = new \stdClass();
         $payload['QueueName'] = $this->QueueName;
-        (static function ($input) use (&$payload, $indices) {
+        (static function (array $input) use (&$payload, $indices) {
             $indices->ka086d94 = 0;
             foreach ($input as $key => $value) {
                 ++$indices->ka086d94;
@@ -79,7 +79,7 @@ class CreateQueueRequest
                 $payload["Attribute.{$indices->ka086d94}.Value"] = $value;
             }
         })($this->Attributes);
-        (static function ($input) use (&$payload, $indices) {
+        (static function (array $input) use (&$payload, $indices) {
             $indices->k982963c = 0;
             foreach ($input as $key => $value) {
                 ++$indices->k982963c;

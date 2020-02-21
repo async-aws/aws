@@ -57,7 +57,7 @@ class InputGenerator
         $this->namespaceRegistry = $namespaceRegistry;
         $this->fileWriter = $fileWriter;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
-        $this->serializer = new SerializerProvider();
+        $this->serializer = new SerializerProvider($this->namespaceRegistry);
     }
 
     /**

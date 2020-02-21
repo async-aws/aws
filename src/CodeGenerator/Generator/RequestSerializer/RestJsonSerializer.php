@@ -11,6 +11,7 @@ use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 
 /**
  * Serialize a request body to a nice nested array.
@@ -21,6 +22,16 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
  */
 class RestJsonSerializer implements Serializer
 {
+    /**
+     * @var NamespaceRegistry
+     */
+    private $namespaceRegistry;
+
+    public function __construct(NamespaceRegistry $namespaceRegistry)
+    {
+        $this->namespaceRegistry = $namespaceRegistry;
+    }
+
     public function getContentType(): string
     {
         return 'application/json';
@@ -125,11 +136,12 @@ PHP;
             ]);
         }, $shape->getMembers()));
 
-        return strtr('(static function($input) use (&$payload) {
+        return strtr('(static function(CLASS_NAME $input) use (&$payload) {
                 MEMBERS_CODE
             })(INPUT);',
             [
                 'INPUT' => $input,
+                'CLASS_NAME' => $this->namespaceRegistry->getInput($shape)->getName(),
                 'MEMBERS_CODE' => $memberCode,
             ]);
     }

@@ -11,6 +11,7 @@ use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 
 /**
  * Serialize a request body to a flattened array with "." as separator.
@@ -21,6 +22,16 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
  */
 class QuerySerializer implements Serializer
 {
+    /**
+     * @var NamespaceRegistry
+     */
+    private $namespaceRegistry;
+
+    public function __construct(NamespaceRegistry $namespaceRegistry)
+    {
+        $this->namespaceRegistry = $namespaceRegistry;
+    }
+
     public function getContentType(): string
     {
         return 'application/x-www-form-urlencoded';
@@ -109,35 +120,38 @@ PHP;
 
     private function dumpArrayStructure(string $output, string $input, StructureShape $shape): string
     {
-        return strtr('(static function($input) use (USE) {
+        $memberCode = implode("\n", array_map(function (StructureMember $member) use ($output) {
+            $shape = $member->getShape();
+            if ($member->isRequired() || $shape instanceof ListShape || $shape instanceof MapShape) {
+                $body = 'MEMBER_CODE';
+                $inputElement = '$input->get' . $member->getName() . '()';
+            } else {
+                $body = 'if (null !== $v = INPUT_NAME) {
+                        MEMBER_CODE
+                    }';
+                $inputElement = '$v';
+            }
+
+            return strtr($body, [
+                'INPUT_NAME' => '$input->get' . $member->getName() . '()',
+                'MEMBER_CODE' => $this->dumpArrayElement(sprintf('%s.%s', $output, $this->getName($member)), $inputElement, $shape),
+            ]);
+        }, $shape->getMembers()));
+
+        return strtr('(static function(CLASS_NAME $input) use (USE) {
                 MEMBERS_CODE
             })(INPUT);',
         [
             'INPUT' => $input,
-            'MEMBERS_CODE' => $memberCode = implode("\n", array_map(function (StructureMember $member) use ($output) {
-                $shape = $member->getShape();
-                if ($member->isRequired() || $shape instanceof ListShape || $shape instanceof MapShape) {
-                    $body = 'MEMBER_CODE';
-                    $inputElement = '$input->get' . $member->getName() . '()';
-                } else {
-                    $body = 'if (null !== $v = INPUT_NAME) {
-                    MEMBER_CODE
-                }';
-                    $inputElement = '$v';
-                }
-
-                return strtr($body, [
-                    'INPUT_NAME' => '$input->get' . $member->getName() . '()',
-                    'MEMBER_CODE' => $this->dumpArrayElement(sprintf('%s.%s', $output, $this->getName($member)), $inputElement, $shape),
-                ]);
-            }, $shape->getMembers())),
+            'CLASS_NAME' => $this->namespaceRegistry->getInput($shape)->getName(),
+            'MEMBERS_CODE' => $memberCode,
             'USE' => \strpos($memberCode, '$indices') ? '&$payload, $indices' : '&$payload',
         ]);
     }
 
     private function dumpArrayMap(string $output, string $input, MapShape $shape): string
     {
-        return strtr('(static function($input) use (USE) {
+        return strtr('(static function(array $input) use (USE) {
                 $indices->INDEX_KEY = 0;
                 foreach ($input as $key => $value) {
                     $indices->INDEX_KEY++;
@@ -156,7 +170,7 @@ PHP;
 
     private function dumpArrayList(string $output, string $input, ListShape $shape): string
     {
-        return strtr('(static function($input) use (USE) {
+        return strtr('(static function(array $input) use (USE) {
                 $indices->INDEX_KEY = 0;
                 foreach ($input as $value) {
                     $indices->INDEX_KEY++;

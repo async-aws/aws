@@ -145,26 +145,26 @@ class SendMessageRequest
             $payload['DelaySeconds'] = $v;
         }
 
-        (static function ($input) use (&$payload, $indices) {
+        (static function (array $input) use (&$payload, $indices) {
             $indices->k2053d0e = 0;
             foreach ($input as $key => $value) {
                 ++$indices->k2053d0e;
                 $payload["MessageAttribute.{$indices->k2053d0e}.Name"] = $key;
-                (static function ($input) use (&$payload, $indices) {
+                (static function (MessageAttributeValue $input) use (&$payload, $indices) {
                     if (null !== $v = $input->getStringValue()) {
                         $payload["MessageAttribute.{$indices->k2053d0e}.Value.StringValue"] = $v;
                     }
                     if (null !== $v = $input->getBinaryValue()) {
                         $payload["MessageAttribute.{$indices->k2053d0e}.Value.BinaryValue"] = base64_encode($v);
                     }
-        (static function ($input) use (&$payload, $indices) {
+        (static function (array $input) use (&$payload, $indices) {
             $indices->k782bfa4 = 0;
             foreach ($input as $value) {
                 ++$indices->k782bfa4;
                 $payload["MessageAttribute.{$indices->k2053d0e}.Value.StringListValue.{$indices->k782bfa4}"] = $value;
             }
         })($input->getStringListValues());
-                    (static function ($input) use (&$payload, $indices) {
+                    (static function (array $input) use (&$payload, $indices) {
                         $indices->kc6c9229 = 0;
                         foreach ($input as $value) {
                             ++$indices->kc6c9229;
@@ -175,26 +175,26 @@ class SendMessageRequest
                 })($value);
             }
         })($this->MessageAttributes);
-        (static function ($input) use (&$payload, $indices) {
+        (static function (array $input) use (&$payload, $indices) {
             $indices->k6857220 = 0;
             foreach ($input as $key => $value) {
                 ++$indices->k6857220;
                 $payload["MessageSystemAttribute.{$indices->k6857220}.Name"] = $key;
-                (static function ($input) use (&$payload, $indices) {
+                (static function (MessageSystemAttributeValue $input) use (&$payload, $indices) {
                     if (null !== $v = $input->getStringValue()) {
                         $payload["MessageSystemAttribute.{$indices->k6857220}.Value.StringValue"] = $v;
                     }
                     if (null !== $v = $input->getBinaryValue()) {
                         $payload["MessageSystemAttribute.{$indices->k6857220}.Value.BinaryValue"] = base64_encode($v);
                     }
-        (static function ($input) use (&$payload, $indices) {
+        (static function (array $input) use (&$payload, $indices) {
             $indices->k2d98e9d = 0;
             foreach ($input as $value) {
                 ++$indices->k2d98e9d;
                 $payload["MessageSystemAttribute.{$indices->k6857220}.Value.StringListValue.{$indices->k2d98e9d}"] = $value;
             }
         })($input->getStringListValues());
-                    (static function ($input) use (&$payload, $indices) {
+                    (static function (array $input) use (&$payload, $indices) {
                         $indices->k4dcafc5 = 0;
                         foreach ($input as $value) {
                             ++$indices->k4dcafc5;

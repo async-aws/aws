@@ -132,7 +132,7 @@ class SendEmailRequest
             $payload['FromEmailAddress'] = $v;
         }
 
-        (static function ($input) use (&$payload) {
+        (static function (Destination $input) use (&$payload) {
             (static function (array $input) use (&$payload) {
                 foreach ($input as $value) {
                     $payload['Destination']['ToAddresses'][] = $value;
@@ -159,18 +159,18 @@ class SendEmailRequest
             $payload['FeedbackForwardingEmailAddress'] = $v;
         }
 
-        (static function ($input) use (&$payload) {
+        (static function (EmailContent $input) use (&$payload) {
             if (null !== $v = $input->getSimple()) {
-                (static function ($input) use (&$payload) {
-                    (static function ($input) use (&$payload) {
+                (static function (Message $input) use (&$payload) {
+                    (static function (Content $input) use (&$payload) {
                         $payload['Content']['Simple']['Subject']['Data'] = $input->getData();
                         if (null !== $v = $input->getCharset()) {
                             $payload['Content']['Simple']['Subject']['Charset'] = $v;
                         }
                     })($input->getSubject());
-                    (static function ($input) use (&$payload) {
+                    (static function (Body $input) use (&$payload) {
                         if (null !== $v = $input->getText()) {
-                            (static function ($input) use (&$payload) {
+                            (static function (Content $input) use (&$payload) {
                                 $payload['Content']['Simple']['Body']['Text']['Data'] = $input->getData();
                                 if (null !== $v = $input->getCharset()) {
                                     $payload['Content']['Simple']['Body']['Text']['Charset'] = $v;
@@ -178,7 +178,7 @@ class SendEmailRequest
                             })($v);
                         }
                         if (null !== $v = $input->getHtml()) {
-                            (static function ($input) use (&$payload) {
+                            (static function (Content $input) use (&$payload) {
                                 $payload['Content']['Simple']['Body']['Html']['Data'] = $input->getData();
                                 if (null !== $v = $input->getCharset()) {
                                     $payload['Content']['Simple']['Body']['Html']['Charset'] = $v;
@@ -189,12 +189,12 @@ class SendEmailRequest
                 })($v);
             }
             if (null !== $v = $input->getRaw()) {
-                (static function ($input) use (&$payload) {
+                (static function (RawMessage $input) use (&$payload) {
                     $payload['Content']['Raw']['Data'] = base64_encode($input->getData());
                 })($v);
             }
             if (null !== $v = $input->getTemplate()) {
-                (static function ($input) use (&$payload) {
+                (static function (Template $input) use (&$payload) {
                     if (null !== $v = $input->getTemplateArn()) {
                         $payload['Content']['Template']['TemplateArn'] = $v;
                     }
@@ -206,7 +206,7 @@ class SendEmailRequest
         })($this->Content);
         (static function (array $input) use (&$payload) {
             foreach ($input as $value) {
-                (static function ($input) use (&$payload) {
+                (static function (MessageTag $input) use (&$payload) {
                     $payload['EmailTags'][]['Name'] = $input->getName();
                     $payload['EmailTags'][]['Value'] = $input->getValue();
                 })($value);

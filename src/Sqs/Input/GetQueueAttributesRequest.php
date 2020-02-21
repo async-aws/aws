@@ -54,7 +54,7 @@ class GetQueueAttributesRequest
         $payload = ['Action' => 'GetQueueAttributes', 'Version' => '2012-11-05'];
         $indices = new \stdClass();
         $payload['QueueUrl'] = $this->QueueUrl;
-        (static function ($input) use (&$payload, $indices) {
+        (static function (array $input) use (&$payload, $indices) {
             $indices->kbedee52 = 0;
             foreach ($input as $value) {
                 ++$indices->kbedee52;
