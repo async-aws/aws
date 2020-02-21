@@ -94,6 +94,7 @@ class XmlDumper
         }
 
         switch ($shape->getType()) {
+            case 'blob':
             case 'string':
                 return $this->dumpXmlShapeString($member, $shape, $output, $input);
             case 'boolean':

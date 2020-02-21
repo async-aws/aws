@@ -6,6 +6,7 @@ namespace AsyncAws\Symfony\Bundle\Tests\Functional;
 
 use AsyncAws\S3\S3Client;
 use AsyncAws\Ses\SesClient;
+use AsyncAws\Sns\SnsClient;
 use AsyncAws\Sqs\SqsClient;
 use AsyncAws\Symfony\Bundle\AsyncAwsBundle;
 use Nyholm\BundleTest\BaseBundleTestCase;
@@ -88,6 +89,10 @@ class BundleInitializationTest extends BaseBundleTestCase
 
     public function testExceptionWhenConfigureServiceNotInstalled()
     {
+        if (class_exists(SnsClient::class)) {
+            self::markTestSkipped('SNSClient is installed..');
+        }
+
         $kernel = $this->createKernel();
         $kernel->addConfigFile(__DIR__ . '/Resources/config/not_installed_service.yaml');
 
