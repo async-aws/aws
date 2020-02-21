@@ -33,9 +33,4 @@
       <code>scalarNode</code>
     </PossiblyUndefinedMethod>
   </file>
-  <file src="src/Symfony/Bundle/Tests/Functional/BundleInitializationTest.php">
-    <ArgumentTypeCoercion occurrences="1">
-      <code>$instance</code>
-    </ArgumentTypeCoercion>
-  </file>
 </files>

@@ -6,11 +6,6 @@ parameters:
 			path: src/CodeGenerator/Command/GenerateCommand.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(array\\{\nStringValue\\: \\?string,\nBinaryValue\\: \\?string,\nStringListValues\\: \\?string\\[\\],\nBinaryListValues\\: \\?string\\[\\],\nDataType\\: string,\\)\\: Unexpected token \"\\[\", expected '\\}' at offset 121$#"
-			count: 1
-			path: src/Sqs/Result/MessageAttributeValue.php
-
-		-
 			message: "#^Class AsyncAws\\\\Sns\\\\SnsClient not found\\.$#"
 			count: 1
 			path: src/Symfony/Bundle/DependencyInjection/AwsPackagesProvider.php

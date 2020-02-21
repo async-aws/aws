@@ -12,6 +12,7 @@
         <ignoreFiles>
             <directory name="src/CodeGenerator" />
             <directory name="src/*/Tests" />
+            <directory name="src/Symfony/*/Tests" />
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>
