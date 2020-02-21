@@ -306,7 +306,7 @@ class CopyObjectRequest
      *   GrantReadACP?: string,
      *   GrantWriteACP?: string,
      *   Key?: string,
-     *   Metadata?: array,
+     *   Metadata?: string[],
      *   MetadataDirective?: string,
      *   TaggingDirective?: string,
      *   ServerSideEncryption?: string,

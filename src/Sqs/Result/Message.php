@@ -54,9 +54,9 @@ class Message
      *   ReceiptHandle: ?string,
      *   MD5OfBody: ?string,
      *   Body: ?string,
-     *   Attributes: ?array,
+     *   Attributes: ?string[],
      *   MD5OfMessageAttributes: ?string,
-     *   MessageAttributes: ?array,
+     *   MessageAttributes: ?\AsyncAws\Sqs\Result\MessageAttributeValue[],
      * } $input
      */
     public function __construct(array $input)
@@ -75,6 +75,9 @@ class Message
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * @return string[]
+     */
     public function getAttributes(): array
     {
         return $this->Attributes;
@@ -95,6 +98,9 @@ class Message
         return $this->MD5OfMessageAttributes;
     }
 
+    /**
+     * @return MessageAttributeValue[]
+     */
     public function getMessageAttributes(): array
     {
         return $this->MessageAttributes;

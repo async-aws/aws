@@ -69,7 +69,7 @@ class Operation
     public function getOutput(): ?StructureShape
     {
         if (isset($this->data['output']['shape'])) {
-            return ($this->shapeLocator)($this->data['output']['shape']);
+            return ($this->shapeLocator)($this->data['output']['shape'], null, ['resultWrapper' => $this->data['output']['resultWrapper'] ?? null]);
         }
 
         return null;
@@ -88,11 +88,6 @@ class Operation
         }
 
         throw new \InvalidArgumentException(sprintf('The operation "%s" does not have Input.', $this->getName()));
-    }
-
-    public function getOutputResultWrapper(): ?string
-    {
-        return $this->data['output']['resultWrapper'] ?? null;
     }
 
     public function getDocumentationUrl(): ?string

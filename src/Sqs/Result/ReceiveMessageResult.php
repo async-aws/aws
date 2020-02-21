@@ -47,7 +47,10 @@ class ReceiveMessageResult extends Result
                     'Attributes' => (function (\SimpleXMLElement $xml): array {
                         $items = [];
                         foreach ($xml as $item) {
-                            $items[$item->Name->__toString()] = ($v = $item->Value) ? (string) $v : null;
+                            $a = ($v = $item->Value) ? (string) $v : null;
+                            if (null !== $a) {
+                                $items[$item->Name->__toString()] = $a;
+                            }
                         }
 
                         return $items;
@@ -62,7 +65,10 @@ class ReceiveMessageResult extends Result
                                 'StringListValues' => (function (\SimpleXMLElement $xml): array {
                                     $items = [];
                                     foreach ($xml->StringListValue as $item) {
-                                        $items[] = ($v = $item) ? (string) $v : null;
+                                        $a = ($v = $item) ? (string) $v : null;
+                                        if (null !== $a) {
+                                            $items[] = $a;
+                                        }
                                     }
 
                                     return $items;
@@ -70,7 +76,10 @@ class ReceiveMessageResult extends Result
                                 'BinaryListValues' => (function (\SimpleXMLElement $xml): array {
                                     $items = [];
                                     foreach ($xml->BinaryListValue as $item) {
-                                        $items[] = ($v = $item) ? base64_decode((string) $v) : null;
+                                        $a = ($v = $item) ? base64_decode((string) $v) : null;
+                                        if (null !== $a) {
+                                            $items[] = $a;
+                                        }
                                     }
 
                                     return $items;

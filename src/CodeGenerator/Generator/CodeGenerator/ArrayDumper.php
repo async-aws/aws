@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\CodeGenerator\Generator;
+namespace AsyncAws\CodeGenerator\Generator\CodeGenerator;
 
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
@@ -18,7 +18,7 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
  */
 class ArrayDumper
 {
-    public function dumpArrayRoot(StructureShape $shape): string
+    public function dumpArray(StructureShape $shape): string
     {
         $body = implode("\n", array_map(function (StructureMember $member) {
             if (null !== $member->getLocation() ?? null) {
@@ -39,7 +39,7 @@ class ArrayDumper
 
             return strtr($body, [
                 'INPUT_NAME' => '$this->' . $member->getName(),
-                'MEMBER_CODE' => $this->dumpArray($this->getName($member), $inputElement, $shape),
+                'MEMBER_CODE' => $this->dumpArrayElement($this->getName($member), $inputElement, $shape),
             ]);
         }, $shape->getMembers()));
 
@@ -55,7 +55,7 @@ class ArrayDumper
         return $member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member');
     }
 
-    private function dumpArray(string $output, string $input, Shape $shape)
+    private function dumpArrayElement(string $output, string $input, Shape $shape)
     {
         switch (true) {
             case $shape instanceof StructureShape:
@@ -102,7 +102,7 @@ class ArrayDumper
 
                 return strtr($body, [
                     'INPUT_NAME' => '$input->get' . $member->getName() . '()',
-                    'MEMBER_CODE' => $this->dumpArray(sprintf('%s.%s', $output, $this->getName($member)), $inputElement, $shape),
+                    'MEMBER_CODE' => $this->dumpArrayElement(sprintf('%s.%s', $output, $this->getName($member)), $inputElement, $shape),
                 ]);
             }, $shape->getMembers())),
             'USE' => \strpos($memberCode, '$indices') ? '&$payload, $indices' : '&$payload',
@@ -123,7 +123,7 @@ class ArrayDumper
             'INPUT' => $input,
             'INDEX_KEY' => $indexKey = 'k' . \substr(sha1($output), 0, 7),
             'OUTPUT_KEY' => sprintf('%s.{$indices->%s}.%s', $output, $indexKey, $shape->getKey()->getLocationName() ?? 'key'),
-            'MEMBER_CODE' => $memberCode = $this->dumpArray(sprintf('%s.{$indices->%s}.%s', $output, $indexKey, $shape->getValue()->getLocationName() ?? 'value'), '$value', $shape->getValue()->getShape()),
+            'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$indices->%s}.%s', $output, $indexKey, $shape->getValue()->getLocationName() ?? 'value'), '$value', $shape->getValue()->getShape()),
             'USE' => \strpos($memberCode, '$indices') ? '&$payload, $indices' : '&$payload',
         ]);
     }
@@ -140,7 +140,7 @@ class ArrayDumper
             [
                 'INPUT' => $input,
                 'INDEX_KEY' => $indexKey = 'k' . \substr(sha1($output), 0, 7),
-                'MEMBER_CODE' => $memberCode = $this->dumpArray(sprintf('%s.{$indices->%s}', $output, $indexKey), '$value', $shape->getMember()->getShape()),
+                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$indices->%s}', $output, $indexKey), '$value', $shape->getMember()->getShape()),
                 'USE' => \strpos($memberCode, '$indices') ? '&$payload, $indices' : '&$payload',
             ]);
     }

@@ -246,20 +246,23 @@ class HeadObjectOutput extends Result
         return $this->Expiration;
     }
 
-    public function getExpires(): ?\DateTimeImmutable
+    public function getExpires(): ?\DateTimeInterface
     {
         $this->initialize();
 
         return $this->Expires;
     }
 
-    public function getLastModified(): ?\DateTimeImmutable
+    public function getLastModified(): ?\DateTimeInterface
     {
         $this->initialize();
 
         return $this->LastModified;
     }
 
+    /**
+     * @return string[]
+     */
     public function getMetadata(): array
     {
         $this->initialize();
@@ -288,7 +291,7 @@ class HeadObjectOutput extends Result
         return $this->ObjectLockMode;
     }
 
-    public function getObjectLockRetainUntilDate(): ?\DateTimeImmutable
+    public function getObjectLockRetainUntilDate(): ?\DateTimeInterface
     {
         $this->initialize();
 

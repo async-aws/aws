@@ -37,7 +37,7 @@ class CopyObjectResult
         return $this->ETag;
     }
 
-    public function getLastModified(): ?\DateTimeImmutable
+    public function getLastModified(): ?\DateTimeInterface
     {
         return $this->LastModified;
     }

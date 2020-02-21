@@ -6,6 +6,9 @@ namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
 use AsyncAws\CodeGenerator\File\FileWriter;
+use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
+use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
 use Nette\PhpGenerator\ClassType;
 
 /**
@@ -18,21 +21,28 @@ use Nette\PhpGenerator\ClassType;
 class ClientGenerator
 {
     /**
+     * @var NamespaceRegistry
+     */
+    private $namespaceRegistry;
+
+    /**
      * @var FileWriter
      */
     private $fileWriter;
 
-    public function __construct(FileWriter $fileWriter)
+    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter)
     {
+        $this->namespaceRegistry = $namespaceRegistry;
         $this->fileWriter = $fileWriter;
     }
 
     /**
      * Update the API client with a constants function call.
      */
-    public function generate(ServiceDefinition $definition, string $service, string $baseNamespace): void
+    public function generate(ServiceDefinition $definition): ClassName
     {
-        $namespace = ClassFactory::fromExistingClass(\sprintf('%s\\%sClient', $baseNamespace, $service));
+        $className = $this->namespaceRegistry->getClient($definition);
+        $namespace = ClassFactory::fromExistingClass($className->getFqdn());
 
         $classes = $namespace->getClasses();
         $class = $classes[\array_key_first($classes)];
@@ -50,5 +60,7 @@ class ClientGenerator
         }
 
         $this->fileWriter->write($namespace);
+
+        return $className;
     }
 }

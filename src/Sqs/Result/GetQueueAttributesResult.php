@@ -21,6 +21,9 @@ class GetQueueAttributesResult extends Result
         $this->resolve();
     }
 
+    /**
+     * @return string[]
+     */
     public function getAttributes(): array
     {
         $this->initialize();
@@ -36,7 +39,10 @@ class GetQueueAttributesResult extends Result
         $this->Attributes = (function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
-                $items[$item->Name->__toString()] = ($v = $item->Value) ? (string) $v : null;
+                $a = ($v = $item->Value) ? (string) $v : null;
+                if (null !== $a) {
+                    $items[$item->Name->__toString()] = $a;
+                }
             }
 
             return $items;

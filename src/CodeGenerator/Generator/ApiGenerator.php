@@ -10,6 +10,7 @@ use AsyncAws\CodeGenerator\File\FileWriter;
  * Generate API client methods and result classes.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ * @author Jérémy Derussé <jeremy@derusse.com>
  */
 class ApiGenerator
 {
@@ -23,23 +24,8 @@ class ApiGenerator
         $this->fileWriter = new FileWriter($srcDirectory);
     }
 
-    public function client(): ClientGenerator
+    public function service(string $baseNamespace): ServiceGenerator
     {
-        return new ClientGenerator($this->fileWriter);
-    }
-
-    public function operation(): OperationGenerator
-    {
-        return new OperationGenerator($this->fileWriter);
-    }
-
-    public function waiter(): WaiterGenerator
-    {
-        return new WaiterGenerator($this->fileWriter);
-    }
-
-    public function result(): ResultGenerator
-    {
-        return new ResultGenerator($this->fileWriter);
+        return new ServiceGenerator($this->fileWriter, $baseNamespace);
     }
 }

@@ -20,7 +20,7 @@ class SnsClient extends AbstractApi
      *   Message: string,
      *   Subject?: string,
      *   MessageStructure?: string,
-     *   MessageAttributes?: array,
+     *   MessageAttributes?: \AsyncAws\Sns\Input\MessageAttributeValue[],
      * }|PublishInput $input
      */
     public function publish($input): PublishResponse

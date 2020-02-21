@@ -35,8 +35,8 @@ class CreateQueueRequest
     /**
      * @param array{
      *   QueueName?: string,
-     *   Attributes?: array,
-     *   tags?: array,
+     *   Attributes?: string[],
+     *   tags?: string[],
      * } $input
      */
     public function __construct(array $input = [])

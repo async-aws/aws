@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Definition\Operation;
-use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\File\FileWriter;
+use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
+use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
+use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
 use AsyncAws\Core\Result;
 use Nette\PhpGenerator\Method;
 
@@ -20,29 +23,56 @@ use Nette\PhpGenerator\Method;
  */
 class OperationGenerator
 {
-    use MethodGeneratorTrait;
+    /**
+     * @var NamespaceRegistry
+     */
+    private $namespaceRegistry;
+
+    /**
+     * @var InputGenerator
+     */
+    private $inputGenerator;
+
+    /**
+     * @var ResultGenerator
+     */
+    private $resultGenerator;
+
+    /**
+     * @var PaginationGenerator
+     */
+    private $paginationGenerator;
 
     /**
      * @var FileWriter
      */
     private $fileWriter;
 
-    public function __construct(FileWriter $fileWriter)
+    /**
+     * @var TypeGenerator
+     */
+    private $typeGenerator;
+
+    public function __construct(NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator, PaginationGenerator $paginationGenerator, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null)
     {
+        $this->namespaceRegistry = $namespaceRegistry;
+        $this->inputGenerator = $inputGenerator;
+        $this->resultGenerator = $resultGenerator;
+        $this->paginationGenerator = $paginationGenerator;
         $this->fileWriter = $fileWriter;
+        $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
     }
 
     /**
      * Update the API client with a new function call.
      */
-    public function generate(Operation $operation, string $service, string $baseNamespace): void
+    public function generate(Operation $operation): void
     {
         $inputShape = $operation->getInput();
-        $this->generateInputClass($service, $operation, $baseNamespace . '\\Input', $inputShape, true);
+        $inputClass = $this->inputGenerator->generate($operation);
 
-        $namespace = ClassFactory::fromExistingClass(\sprintf('%s\\%sClient', $baseNamespace, $service));
-        $safeClassName = GeneratorHelper::safeClassName($inputShape->getName());
-        $namespace->addUse($baseNamespace . '\\Input\\' . $safeClassName);
+        $namespace = ClassFactory::fromExistingClass($this->namespaceRegistry->getClient($operation->getService())->getFqdn());
+        $namespace->addUse($inputClass->getFqdn());
         $classes = $namespace->getClasses();
         $class = $classes[\array_key_first($classes)];
 
@@ -56,43 +86,42 @@ class OperationGenerator
         } elseif (null !== $prefix = $operation->getService()->getEndpointPrefix()) {
             $method->addComment('@see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-' . $prefix . '-' . $operation->getService()->getApiVersion() . '.html#' . \strtolower($operation->getName()));
         }
-        $method->addComment(GeneratorHelper::getParamDocblock($inputShape, $baseNamespace . '\\Input', $safeClassName));
+        $method->addComment($this->typeGenerator->generateDocblock($inputShape, $inputClass));
 
         $operationMethodParameter = $method->addParameter('input');
         if (empty($inputShape->getRequired())) {
             $operationMethodParameter->setDefaultValue([]);
         }
 
-        if (null !== $output = $operation->getOutput()) {
-            $outputClass = \sprintf('%s\\Result\\%s', $baseNamespace, GeneratorHelper::safeClassName($output->getName()));
-            $method->setReturnType($outputClass);
-            $namespace->addUse($outputClass);
+        if (null !== $operation->getOutput()) {
+            $resutClass = $this->resultGenerator->generate($operation);
+            if (null !== $operation->getPagination()) {
+                $this->paginationGenerator->generate($operation);
+            }
+
+            $method->setReturnType($resutClass->getFqdn());
+            $namespace->addUse($resutClass->getFqdn());
         } else {
+            $resutClass = null;
             $method->setReturnType(Result::class);
             $namespace->addUse(Result::class);
         }
 
         // Generate method body
-        $this->setMethodBody($inputShape, $method, $operation, $inputShape->getName());
+        $this->setMethodBody($method, $operation, $inputClass, $resutClass);
 
         $this->fileWriter->write($namespace);
     }
 
-    private function setMethodBody(StructureShape $inputShape, Method $method, Operation $operation, $inputClassName): void
+    private function setMethodBody(Method $method, Operation $operation, ClassName $inputClass, ?ClassName $resultClass): void
     {
         $params = ['$response', '$this->httpClient'];
         if ((null !== $pagination = $operation->getPagination()) && !empty($pagination->getOutputToken())) {
             $params = \array_merge($params, ['$this', '$input']);
         }
 
-        if (null !== $outputShape = $operation->getOutput()) {
-            $safeOutputClassName = GeneratorHelper::safeClassName($outputShape->getName());
-        } else {
-            $safeOutputClassName = 'Result';
-        }
-
         $method->setBody(strtr('
-$input = SAFE_CLASS::create($input);
+$input = INPUT_CLASS::create($input);
 $input->validate();
 
 $response = $this->getResponse(
@@ -104,9 +133,9 @@ $response = $this->getResponse(
 
 return new RESULT_CLASS(RESULT_PARAM);
         ', [
-            'SAFE_CLASS' => GeneratorHelper::safeClassName($inputClassName),
+            'INPUT_CLASS' => $inputClass->getName(),
             'METHOD' => \var_export($operation->getHttpMethod(), true),
-            'RESULT_CLASS' => $safeOutputClassName,
+            'RESULT_CLASS' => $resultClass ? $resultClass->getName() : 'Result',
             'RESULT_PARAM' => \implode(', ', $params),
         ]));
     }

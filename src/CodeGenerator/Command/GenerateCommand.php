@@ -6,6 +6,7 @@ namespace AsyncAws\CodeGenerator\Command;
 
 use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
 use AsyncAws\CodeGenerator\Generator\ApiGenerator;
+use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use PhpCsFixer\Config;
 use PhpCsFixer\Console\ConfigurationResolver;
 use PhpCsFixer\Error\ErrorsManager;
@@ -99,11 +100,10 @@ class GenerateCommand extends Command
 
             $progressOperation->start(\count($operationNames));
 
-            $definition = new ServiceDefinition($definitionArray, $documentationArray, $paginationArray, $waiterArray);
-            $baseNamespace = $manifest['services'][$serviceName]['namespace'] ?? \sprintf('AsyncAws\\%s', $serviceName);
-            $resultNamespace = $baseNamespace . '\\Result';
+            $definition = new ServiceDefinition($serviceName, $definitionArray, $documentationArray, $paginationArray, $waiterArray);
+            $serviceGenerator = $this->generator->service($manifest['services'][$serviceName]['namespace'] ?? \sprintf('AsyncAws\\%s', $serviceName));
 
-            $this->generator->client()->generate($definition, $serviceName, $baseNamespace);
+            $clientClass = $serviceGenerator->client()->generate($definition);
 
             foreach ($operationNames as $operationName) {
                 $progressOperation->setMessage($operationName);
@@ -113,15 +113,11 @@ class GenerateCommand extends Command
                 $operationConfig = $this->getOperationConfig($manifest, $serviceName, $operationName);
                 if (null !== $operation = $definition->getOperation($operationName)) {
                     if ($operationConfig['generate-method']) {
-                        $this->generator->operation()->generate($operation, $serviceName, $baseNamespace);
-                    }
-
-                    if ($operationConfig['generate-result'] && null !== $operation->getOutput()) {
-                        $this->generator->result()->generate($operation, $serviceName, $resultNamespace, true, $operationConfig['separate-result-trait']);
+                        $serviceGenerator->operation()->generate($operation);
                     }
                 } elseif (null !== $waiter = $definition->getWaiter($operationName)) {
                     if ($operationConfig['generate-method']) {
-                        $this->generator->waiter()->generate($waiter, $serviceName, $baseNamespace);
+                        $serviceGenerator->waiter()->generate($waiter);
                     }
                 } else {
                     $io->error(\sprintf('Could not find service or waiter named "%s".', $operationName));
@@ -141,7 +137,7 @@ class GenerateCommand extends Command
             if (!$input->getOption('raw')) {
                 $progressOperation->setMessage('Fixing CS');
                 $progressOperation->display();
-                $this->fixCS($baseNamespace, $serviceName, $io);
+                $this->fixCS($clientClass, $io);
             }
 
             $progressOperation->finish();
@@ -244,8 +240,6 @@ class GenerateCommand extends Command
     {
         $default = [
             'generate-method' => true,
-            'separate-result-trait' => false,
-            'generate-result' => true,
         ];
 
         return array_merge(
@@ -254,9 +248,9 @@ class GenerateCommand extends Command
         );
     }
 
-    private function fixCs(string $baseNamespace, string $serviceName, SymfonyStyle $io): void
+    private function fixCs(ClassName $clientClass, SymfonyStyle $io): void
     {
-        $reflection = new \ReflectionClass(\sprintf('%s\\%sClient', $baseNamespace, $serviceName));
+        $reflection = new \ReflectionClass($clientClass->getFqdn());
         $path = \dirname($reflection->getFileName());
 
         // assert this

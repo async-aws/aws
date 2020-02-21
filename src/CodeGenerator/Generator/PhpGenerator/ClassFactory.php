@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\CodeGenerator\Generator;
+namespace AsyncAws\CodeGenerator\Generator\PhpGenerator;
 
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Closure;

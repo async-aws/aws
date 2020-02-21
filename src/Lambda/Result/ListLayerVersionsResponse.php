@@ -138,7 +138,10 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
                     'CompatibleRuntimes' => (function (\SimpleXMLElement $xml): array {
                         $items = [];
                         foreach ($xml as $item) {
-                            $items[] = ($v = $item) ? (string) $v : null;
+                            $a = ($v = $item) ? (string) $v : null;
+                            if (null !== $a) {
+                                $items[] = $a;
+                            }
                         }
 
                         return $items;

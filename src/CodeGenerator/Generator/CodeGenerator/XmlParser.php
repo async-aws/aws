@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\CodeGenerator\Generator;
+namespace AsyncAws\CodeGenerator\Generator\CodeGenerator;
 
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
@@ -10,6 +10,7 @@ use AsyncAws\CodeGenerator\Definition\Member;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 
 /**
  * @author Jérémy Derussé <jeremy@derusse.com>
@@ -18,7 +19,17 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
  */
 class XmlParser
 {
-    public function parseXmlResponseRoot(StructureShape $shape): string
+    /**
+     * @var NamespaceRegistry
+     */
+    private $namespaceRegistry;
+
+    public function __construct(NamespaceRegistry $namespaceRegistry)
+    {
+        $this->namespaceRegistry = $namespaceRegistry;
+    }
+
+    public function parseXml(StructureShape $shape): string
     {
         $properties = [];
 
@@ -29,7 +40,7 @@ class XmlParser
 
             $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
                 'PROPERTY_NAME' => $member->getName(),
-                'PROPERTY_ACCESSOR' => $this->parseXmlResponse($this->getInputAccessor('$data', $member), $member->getShape()),
+                'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$data', $member), $member->getShape()),
             ]);
         }
 
@@ -59,7 +70,7 @@ class XmlParser
         return $currentInput . ($member->getLocationName() ? '->' . $member->getLocationName() : '');
     }
 
-    private function parseXmlResponse(string $input, Shape $shape)
+    private function parseXmlElement(string $input, Shape $shape)
     {
         switch (true) {
             case $shape instanceof ListShape:
@@ -96,14 +107,14 @@ class XmlParser
         foreach ($shape->getMembers() as $member) {
             $properties[] = strtr('PROPERTY_NAME => PROPERTY_ACCESSOR,', [
                 'PROPERTY_NAME' => var_export($member->getName(), true),
-                'PROPERTY_ACCESSOR' => $this->parseXmlResponse($this->getInputAccessor($input, $member), $member->getShape()),
+                'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor($input, $member), $member->getShape()),
             ]);
         }
 
         return strtr('new CLASS_NAME([
             PROPERTIES
         ])', [
-            'CLASS_NAME' => GeneratorHelper::safeClassName($shape->getName()),
+            'CLASS_NAME' => $this->namespaceRegistry->getResult($shape)->getName(),
             'PROPERTIES' => implode("\n", $properties),
         ]);
     }
@@ -145,16 +156,31 @@ class XmlParser
     private function parseXmlResponseList(ListShape $shape, string $input): string
     {
         $shapeMember = $shape->getMember();
-
-        return strtr('(function(\SimpleXMLElement $xml): array {
+        if ($shapeMember->getShape() instanceof StructureShape) {
+            $body = '(function(\SimpleXMLElement $xml): array {
             $items = [];
             foreach (INPUT_PROPERTY as $item) {
                $items[] = LIST_ACCESSOR;
             }
 
             return $items;
-        })(INPUT)', [
-            'LIST_ACCESSOR' => $this->parseXmlResponse('$item', $shapeMember->getShape()),
+        })(INPUT)';
+        } else {
+            $body = '(function(\SimpleXMLElement $xml): array {
+            $items = [];
+            foreach (INPUT_PROPERTY as $item) {
+                $a = LIST_ACCESSOR;
+                if (null !== $a) {
+                    $items[] = $a;
+                }
+            }
+
+            return $items;
+        })(INPUT)';
+        }
+
+        return strtr($body, [
+            'LIST_ACCESSOR' => $this->parseXmlElement('$item', $shapeMember->getShape()),
             'INPUT' => $input,
             'INPUT_PROPERTY' => $shape->isFlattened() ? '$xml' : '$xml' . ($shapeMember->getLocationName() ? '->' . $shapeMember->getLocationName() : ''),
         ]);
@@ -167,17 +193,32 @@ class XmlParser
         }
 
         $shapeValue = $shape->getValue();
+        if ($shapeValue->getShape() instanceof StructureShape) {
+            $body = '(function(\SimpleXMLElement $xml): array {
+                $items = [];
+                foreach ($xml as $item) {
+                    $items[$item->MAP_KEY->__toString()] = MAP_ACCESSOR;
+                }
 
-        return strtr('(function(\SimpleXMLElement $xml): array {
-            $items = [];
-            foreach ($xml as $item) {
-               $items[$item->MAP_KEY->__toString()] = MAP_ACCESSOR;
-            }
+                return $items;
+            })(INPUT)';
+        } else {
+            $body = '(function(\SimpleXMLElement $xml): array {
+                $items = [];
+                foreach ($xml as $item) {
+                    $a = MAP_ACCESSOR;
+                    if (null !== $a) {
+                        $items[$item->MAP_KEY->__toString()] = $a;
+                    }
+                }
 
-            return $items;
-        })(INPUT)', [
+                return $items;
+            })(INPUT)';
+        }
+
+        return strtr($body, [
             'MAP_KEY' => $locationName,
-            'MAP_ACCESSOR' => $this->parseXmlResponse($this->getInputAccessor('$item', $shapeValue), $shapeValue->getShape()),
+            'MAP_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$item', $shapeValue), $shapeValue->getShape()),
             'INPUT' => $input,
         ]);
     }
