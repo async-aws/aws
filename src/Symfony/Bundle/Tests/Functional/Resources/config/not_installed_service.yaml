@@ -5,6 +5,6 @@ framework:
 async_aws:
     config:
         region: eu-central-1
-    services:
+    clients:
         sns: ~
 

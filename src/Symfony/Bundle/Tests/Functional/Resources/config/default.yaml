@@ -5,7 +5,7 @@ framework:
 async_aws:
     config:
         region: eu-central-1
-    services:
+    clients:
         sqs:
             config:
                 region: us-west-1
