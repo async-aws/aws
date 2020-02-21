@@ -158,13 +158,14 @@ class PaginationGenerator
         ;
         if (!empty($pagination->getOutputToken())) {
             $class->addProperty('prefetch')->setVisibility(ClassType::VISIBILITY_PRIVATE)->setComment('@var self[]')->setValue([]);
-            $destruct = $class->getMethod('__destruct');
-            $destruct->setBody('
+            $class->addMethod('__destruct')
+                ->setBody('
                     while (!empty($this->prefetch)) {
                         array_shift($this->prefetch)->cancel();
                     }
 
-                ' . $destruct->getBody());
+                    parent::__destruct();
+                ');
         }
 
         $this->fileWriter->write($namespace);

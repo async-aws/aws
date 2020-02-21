@@ -91,9 +91,6 @@ class ResultGenerator
         if ($root) {
             $namespace->addUse(Result::class);
             $class->addExtend(Result::class);
-            $class->addMethod('__destruct')
-                ->addComment('Ensure current request is resolved and right exception is thrown.')
-                ->setBody('$this->resolve();');
 
             $namespace->addUse(ResponseInterface::class);
             $namespace->addUse(HttpClientInterface::class);

@@ -27,14 +27,6 @@ class GetCallerIdentityResponse extends Result
      */
     private $Arn;
 
-    /**
-     * Ensure current request is resolved and right exception is thrown.
-     */
-    public function __destruct()
-    {
-        $this->resolve();
-    }
-
     public function getAccount(): ?string
     {
         $this->initialize();

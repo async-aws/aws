@@ -41,12 +41,27 @@ class Result
      */
     private $httpClient;
 
+    /**
+     * A Result can be resolved many times. This boolean is true if the result
+     * has been resolved at least once.
+     *
+     * @var bool
+     */
+    private $isResolved = false;
+
     public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, AbstractApi $awsClient = null, $request = null)
     {
         $this->response = $response;
         $this->httpClient = $httpClient;
         $this->awsClient = $awsClient;
         $this->input = $request;
+    }
+
+    public function __destruct()
+    {
+        if (false === $this->isResolved) {
+            $this->resolve();
+        }
     }
 
     /**
@@ -72,9 +87,12 @@ class Result
             $statusCode = $this->response->getStatusCode();
         } catch (TransportExceptionInterface $e) {
             // When a network error occurs
+            $this->isResolved = true;
+
             throw new NetworkException('Could not contact remote server.', 0, $e);
         }
 
+        $this->isResolved = true;
         if (500 <= $statusCode) {
             throw new ServerException($this->response);
         }
@@ -103,12 +121,12 @@ class Result
     {
         if (!isset($this->response)) {
             return [
-                'resolved' => true,
+                'resolved' => $this->isResolved,
             ];
         }
 
         return [
-            'resolved' => false,
+            'resolved' => $this->isResolved,
             'response' => $this->response,
             'status' => (int) $this->response->getInfo('http_code'),
         ];

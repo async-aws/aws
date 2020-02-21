@@ -51,14 +51,6 @@ class PublishLayerVersionResponse extends Result
     private $LicenseInfo;
 
     /**
-     * Ensure current request is resolved and right exception is thrown.
-     */
-    public function __destruct()
-    {
-        $this->resolve();
-    }
-
-    /**
      * @return string[]
      */
     public function getCompatibleRuntimes(): array

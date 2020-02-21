@@ -14,14 +14,6 @@ class ReceiveMessageResult extends Result
     private $Messages = [];
 
     /**
-     * Ensure current request is resolved and right exception is thrown.
-     */
-    public function __destruct()
-    {
-        $this->resolve();
-    }
-
-    /**
      * @return Message[]
      */
     public function getMessages(): array

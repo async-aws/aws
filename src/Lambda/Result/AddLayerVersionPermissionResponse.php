@@ -18,14 +18,6 @@ class AddLayerVersionPermissionResponse extends Result
      */
     private $RevisionId;
 
-    /**
-     * Ensure current request is resolved and right exception is thrown.
-     */
-    public function __destruct()
-    {
-        $this->resolve();
-    }
-
     public function getRevisionId(): ?string
     {
         $this->initialize();
