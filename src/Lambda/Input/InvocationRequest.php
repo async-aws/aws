@@ -107,19 +107,12 @@ class InvocationRequest
 
     public function requestBody(): string
     {
-        $document = new \DOMDocument('1.0', 'UTF-8');
-        $document->formatOutput = true;
-
-        if (null !== $input = $this->Payload) {
-            $document->appendChild($document->createElement('Payload', $input));
-        }
-
-        return $document->saveXML();
+        return $this->Payload ?? '';
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/json'];
         if (null !== $this->InvocationType) {
             $headers['X-Amz-Invocation-Type'] = $this->InvocationType;
         }

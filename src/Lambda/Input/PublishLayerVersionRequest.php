@@ -95,10 +95,9 @@ class PublishLayerVersionRequest
         return $this->LicenseInfo;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
         $payload = ['Action' => 'PublishLayerVersion', 'Version' => '2015-03-31'];
-        $indices = new \stdClass();
 
         if (null !== $v = $this->Description) {
             $payload['Description'] = $v;
@@ -106,23 +105,21 @@ class PublishLayerVersionRequest
 
         (static function ($input) use (&$payload) {
             if (null !== $v = $input->getS3Bucket()) {
-                $payload['Content.S3Bucket'] = $v;
+                $payload['Content']['S3Bucket'] = $v;
             }
             if (null !== $v = $input->getS3Key()) {
-                $payload['Content.S3Key'] = $v;
+                $payload['Content']['S3Key'] = $v;
             }
             if (null !== $v = $input->getS3ObjectVersion()) {
-                $payload['Content.S3ObjectVersion'] = $v;
+                $payload['Content']['S3ObjectVersion'] = $v;
             }
             if (null !== $v = $input->getZipFile()) {
-                $payload['Content.ZipFile'] = base64_encode($v);
+                $payload['Content']['ZipFile'] = base64_encode($v);
             }
         })($this->Content);
-        (static function ($input) use (&$payload, $indices) {
-            $indices->k45e4982 = 0;
+        (static function (array $input) use (&$payload) {
             foreach ($input as $value) {
-                ++$indices->k45e4982;
-                $payload["CompatibleRuntimes.{$indices->k45e4982}"] = $value;
+                $payload['CompatibleRuntimes'][] = $value;
             }
         })($this->CompatibleRuntimes);
 
@@ -130,12 +127,12 @@ class PublishLayerVersionRequest
             $payload['LicenseInfo'] = $v;
         }
 
-        return $payload;
+        return json_encode($payload);
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/json'];
 
         return $headers;
     }

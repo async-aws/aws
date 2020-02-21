@@ -558,16 +558,14 @@ class CopyObjectRequest
         return $this->WebsiteRedirectLocation;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
-        $payload = ['Action' => 'CopyObject', 'Version' => '2006-03-01'];
-
-        return $payload;
+        return '';
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/xml'];
         if (null !== $this->ACL) {
             $headers['x-amz-acl'] = $this->ACL;
         }

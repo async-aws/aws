@@ -68,19 +68,19 @@ class ChangeMessageVisibilityRequest
         return $this->VisibilityTimeout;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
         $payload = ['Action' => 'ChangeMessageVisibility', 'Version' => '2012-11-05'];
         $payload['QueueUrl'] = $this->QueueUrl;
         $payload['ReceiptHandle'] = $this->ReceiptHandle;
         $payload['VisibilityTimeout'] = $this->VisibilityTimeout;
 
-        return $payload;
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
         return $headers;
     }

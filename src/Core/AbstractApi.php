@@ -99,18 +99,16 @@ abstract class AbstractApi
     abstract protected function getSignatureScopeName(): string;
 
     /**
-     * @param string[]|string[][]            $headers headers names provided as keys or as part of values
-     * @param array|string|resource|callable $body
+     * @param string[]|string[][]      $headers headers names provided as keys or as part of values
+     * @param string|resource|callable $body
      */
     final protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null): ResponseInterface
     {
-        [$contentType, $body] = $this->stringifyBody($body);
+        $body = $this->stringifyBody($body);
         if (!isset($headers['content-type'])) {
-            $headers['content-type'] = $contentType;
+            $headers['content-type'] = 'text/plain';
         }
-        if (empty($body)) {
-            $headers['content-length'] = '0';
-        }
+        $headers['content-length'] = (string) \strlen($body);
 
         $request = new Request($method, $this->fillEndpoint($endpoint), $headers, $body);
         $this->getSigner()->Sign($request, $this->credentialProvider->getCredentials($this->configuration));
@@ -148,14 +146,12 @@ abstract class AbstractApi
         ];
     }
 
-    private function stringifyBody($body): array
+    private function stringifyBody($body): string
     {
         if (\is_callable($body)) {
             return $this->stringifyBody($body());
         }
-        if (\is_array($body)) {
-            return ['application/x-www-form-urlencoded', http_build_query($body, '', '&', \PHP_QUERY_RFC1738)];
-        }
+
         if (\is_resource($body)) {
             if (!stream_get_meta_data($body)['seekable']) {
                 throw new InvalidArgument(sprintf('The give body is not seekable. Therefor request can not be signed.'));
@@ -168,7 +164,7 @@ abstract class AbstractApi
             }
         }
 
-        return ['text/plain', (string) $body];
+        return (string) $body;
     }
 
     private function getSigner()

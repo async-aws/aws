@@ -123,7 +123,7 @@ class ReceiveMessageRequest
         return $this->WaitTimeSeconds;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
         $payload = ['Action' => 'ReceiveMessage', 'Version' => '2012-11-05'];
         $indices = new \stdClass();
@@ -159,12 +159,12 @@ class ReceiveMessageRequest
             $payload['ReceiveRequestAttemptId'] = $v;
         }
 
-        return $payload;
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
         return $headers;
     }

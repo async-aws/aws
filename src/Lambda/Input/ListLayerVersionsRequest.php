@@ -77,16 +77,16 @@ class ListLayerVersionsRequest
         return $this->MaxItems;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
         $payload = ['Action' => 'ListLayerVersions', 'Version' => '2015-03-31'];
 
-        return $payload;
+        return json_encode($payload);
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/json'];
 
         return $headers;
     }

@@ -14,6 +14,6 @@ class PublishInputTest extends TestCase
         $input = PublishInput::create(['Message' => 'foobar']);
         $body = $input->requestBody();
 
-        self::assertEquals('foobar', $body['Message']);
+        self::assertStringContainsString('Message=foobar', $body);
     }
 }

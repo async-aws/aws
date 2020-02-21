@@ -109,16 +109,14 @@ class DeleteObjectRequest
         return $this->VersionId;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
-        $payload = ['Action' => 'DeleteObject', 'Version' => '2006-03-01'];
-
-        return $payload;
+        return '';
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/xml'];
         if (null !== $this->MFA) {
             $headers['x-amz-mfa'] = $this->MFA;
         }

@@ -127,7 +127,7 @@ class PublishInput
         return $this->TopicArn;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
         $payload = ['Action' => 'Publish', 'Version' => '2010-03-31'];
         $indices = new \stdClass();
@@ -170,12 +170,12 @@ class PublishInput
             }
         })($this->MessageAttributes);
 
-        return $payload;
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
         return $headers;
     }

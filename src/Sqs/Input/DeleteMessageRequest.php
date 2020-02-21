@@ -51,18 +51,18 @@ class DeleteMessageRequest
         return $this->ReceiptHandle;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
         $payload = ['Action' => 'DeleteMessage', 'Version' => '2012-11-05'];
         $payload['QueueUrl'] = $this->QueueUrl;
         $payload['ReceiptHandle'] = $this->ReceiptHandle;
 
-        return $payload;
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
         return $headers;
     }

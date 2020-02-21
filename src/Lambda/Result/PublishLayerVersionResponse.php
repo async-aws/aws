@@ -111,20 +111,21 @@ class PublishLayerVersionResponse extends Result
 
     protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
     {
-        $data = new \SimpleXMLElement($response->getContent(false));
+        $data = json_decode($response->getContent(false), true);
+
         $this->Content = new LayerVersionContentOutput([
-            'Location' => ($v = $data->Content->Location) ? (string) $v : null,
-            'CodeSha256' => ($v = $data->Content->CodeSha256) ? (string) $v : null,
-            'CodeSize' => ($v = $data->Content->CodeSize) ? (string) $v : null,
+            'Location' => ($v = $data['Content']['Location']) ? (string) $v : null,
+            'CodeSha256' => ($v = $data['Content']['CodeSha256']) ? (string) $v : null,
+            'CodeSize' => ($v = $data['Content']['CodeSize']) ? (string) $v : null,
         ]);
-        $this->LayerArn = ($v = $data->LayerArn) ? (string) $v : null;
-        $this->LayerVersionArn = ($v = $data->LayerVersionArn) ? (string) $v : null;
-        $this->Description = ($v = $data->Description) ? (string) $v : null;
-        $this->CreatedDate = ($v = $data->CreatedDate) ? (string) $v : null;
-        $this->Version = ($v = $data->Version) ? (string) $v : null;
-        $this->CompatibleRuntimes = (function (\SimpleXMLElement $xml): array {
+        $this->LayerArn = ($v = $data['LayerArn']) ? (string) $v : null;
+        $this->LayerVersionArn = ($v = $data['LayerVersionArn']) ? (string) $v : null;
+        $this->Description = ($v = $data['Description']) ? (string) $v : null;
+        $this->CreatedDate = ($v = $data['CreatedDate']) ? (string) $v : null;
+        $this->Version = ($v = $data['Version']) ? (string) $v : null;
+        $this->CompatibleRuntimes = (function (array $json): array {
             $items = [];
-            foreach ($xml as $item) {
+            foreach ($json as $item) {
                 $a = ($v = $item) ? (string) $v : null;
                 if (null !== $a) {
                     $items[] = $a;
@@ -132,7 +133,7 @@ class PublishLayerVersionResponse extends Result
             }
 
             return $items;
-        })($data->CompatibleRuntimes);
-        $this->LicenseInfo = ($v = $data->LicenseInfo) ? (string) $v : null;
+        })($data['CompatibleRuntimes']);
+        $this->LicenseInfo = ($v = $data['LicenseInfo']) ? (string) $v : null;
     }
 }

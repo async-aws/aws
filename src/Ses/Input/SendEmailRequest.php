@@ -124,42 +124,34 @@ class SendEmailRequest
         return $this->ReplyToAddresses;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
         $payload = ['Action' => 'SendEmail', 'Version' => '2019-09-27'];
-        $indices = new \stdClass();
+
         if (null !== $v = $this->FromEmailAddress) {
             $payload['FromEmailAddress'] = $v;
         }
 
-        (static function ($input) use (&$payload, $indices) {
-            (static function ($input) use (&$payload, $indices) {
-                $indices->kb596653 = 0;
+        (static function ($input) use (&$payload) {
+            (static function (array $input) use (&$payload) {
                 foreach ($input as $value) {
-                    ++$indices->kb596653;
-                    $payload["Destination.ToAddresses.{$indices->kb596653}"] = $value;
+                    $payload['Destination']['ToAddresses'][] = $value;
                 }
             })($input->getToAddresses());
-            (static function ($input) use (&$payload, $indices) {
-                $indices->k46e4559 = 0;
+            (static function (array $input) use (&$payload) {
                 foreach ($input as $value) {
-                    ++$indices->k46e4559;
-                    $payload["Destination.CcAddresses.{$indices->k46e4559}"] = $value;
+                    $payload['Destination']['CcAddresses'][] = $value;
                 }
             })($input->getCcAddresses());
-            (static function ($input) use (&$payload, $indices) {
-                $indices->kc683997 = 0;
+            (static function (array $input) use (&$payload) {
                 foreach ($input as $value) {
-                    ++$indices->kc683997;
-                    $payload["Destination.BccAddresses.{$indices->kc683997}"] = $value;
+                    $payload['Destination']['BccAddresses'][] = $value;
                 }
             })($input->getBccAddresses());
         })($this->Destination);
-        (static function ($input) use (&$payload, $indices) {
-            $indices->k3079458 = 0;
+        (static function (array $input) use (&$payload) {
             foreach ($input as $value) {
-                ++$indices->k3079458;
-                $payload["ReplyToAddresses.{$indices->k3079458}"] = $value;
+                $payload['ReplyToAddresses'][] = $value;
             }
         })($this->ReplyToAddresses);
 
@@ -171,25 +163,25 @@ class SendEmailRequest
             if (null !== $v = $input->getSimple()) {
                 (static function ($input) use (&$payload) {
                     (static function ($input) use (&$payload) {
-                        $payload['Content.Simple.Subject.Data'] = $input->getData();
+                        $payload['Content']['Simple']['Subject']['Data'] = $input->getData();
                         if (null !== $v = $input->getCharset()) {
-                            $payload['Content.Simple.Subject.Charset'] = $v;
+                            $payload['Content']['Simple']['Subject']['Charset'] = $v;
                         }
                     })($input->getSubject());
                     (static function ($input) use (&$payload) {
                         if (null !== $v = $input->getText()) {
                             (static function ($input) use (&$payload) {
-                                $payload['Content.Simple.Body.Text.Data'] = $input->getData();
+                                $payload['Content']['Simple']['Body']['Text']['Data'] = $input->getData();
                                 if (null !== $v = $input->getCharset()) {
-                                    $payload['Content.Simple.Body.Text.Charset'] = $v;
+                                    $payload['Content']['Simple']['Body']['Text']['Charset'] = $v;
                                 }
                             })($v);
                         }
                         if (null !== $v = $input->getHtml()) {
                             (static function ($input) use (&$payload) {
-                                $payload['Content.Simple.Body.Html.Data'] = $input->getData();
+                                $payload['Content']['Simple']['Body']['Html']['Data'] = $input->getData();
                                 if (null !== $v = $input->getCharset()) {
-                                    $payload['Content.Simple.Body.Html.Charset'] = $v;
+                                    $payload['Content']['Simple']['Body']['Html']['Charset'] = $v;
                                 }
                             })($v);
                         }
@@ -198,27 +190,25 @@ class SendEmailRequest
             }
             if (null !== $v = $input->getRaw()) {
                 (static function ($input) use (&$payload) {
-                    $payload['Content.Raw.Data'] = base64_encode($input->getData());
+                    $payload['Content']['Raw']['Data'] = base64_encode($input->getData());
                 })($v);
             }
             if (null !== $v = $input->getTemplate()) {
                 (static function ($input) use (&$payload) {
                     if (null !== $v = $input->getTemplateArn()) {
-                        $payload['Content.Template.TemplateArn'] = $v;
+                        $payload['Content']['Template']['TemplateArn'] = $v;
                     }
                     if (null !== $v = $input->getTemplateData()) {
-                        $payload['Content.Template.TemplateData'] = $v;
+                        $payload['Content']['Template']['TemplateData'] = $v;
                     }
                 })($v);
             }
         })($this->Content);
-        (static function ($input) use (&$payload, $indices) {
-            $indices->k7c3bed1 = 0;
+        (static function (array $input) use (&$payload) {
             foreach ($input as $value) {
-                ++$indices->k7c3bed1;
-                (static function ($input) use (&$payload, $indices) {
-                    $payload["EmailTags.{$indices->k7c3bed1}.Name"] = $input->getName();
-                    $payload["EmailTags.{$indices->k7c3bed1}.Value"] = $input->getValue();
+                (static function ($input) use (&$payload) {
+                    $payload['EmailTags'][]['Name'] = $input->getName();
+                    $payload['EmailTags'][]['Value'] = $input->getValue();
                 })($value);
             }
         })($this->EmailTags);
@@ -227,12 +217,12 @@ class SendEmailRequest
             $payload['ConfigurationSetName'] = $v;
         }
 
-        return $payload;
+        return json_encode($payload);
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/json'];
 
         return $headers;
     }

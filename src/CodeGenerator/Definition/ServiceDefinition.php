@@ -81,6 +81,11 @@ class ServiceDefinition
         return $this->definition['metadata']['endpointPrefix'];
     }
 
+    public function getProtocol(): string
+    {
+        return $this->definition['metadata']['protocol'];
+    }
+
     private function getPagination(string $name): ?Pagination
     {
         if (isset($this->pagination['pagination'][$name])) {

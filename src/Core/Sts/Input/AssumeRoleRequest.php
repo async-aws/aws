@@ -190,7 +190,7 @@ class AssumeRoleRequest
         return $this->TransitiveTagKeys;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
         $payload = ['Action' => 'AssumeRole', 'Version' => '2011-06-15'];
         $indices = new \stdClass();
@@ -246,12 +246,12 @@ class AssumeRoleRequest
             $payload['TokenCode'] = $v;
         }
 
-        return $payload;
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
         return $headers;
     }

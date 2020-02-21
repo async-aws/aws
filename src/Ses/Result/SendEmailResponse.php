@@ -22,7 +22,8 @@ class SendEmailResponse extends Result
 
     protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
     {
-        $data = new \SimpleXMLElement($response->getContent(false));
-        $this->MessageId = ($v = $data->MessageId) ? (string) $v : null;
+        $data = json_decode($response->getContent(false), true);
+
+        $this->MessageId = ($v = $data['MessageId']) ? (string) $v : null;
     }
 }

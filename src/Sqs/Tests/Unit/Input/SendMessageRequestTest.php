@@ -28,8 +28,6 @@ class SendMessageRequestTest extends TestCase
             ],
         ]);
 
-        $encoded = http_build_query($input->requestBody(), '', '&', \PHP_QUERY_RFC1738);
-
         $expected = 'Action=SendMessage
 &Version=2012-11-05
 &MessageBody=This+is+a+test+message
@@ -41,6 +39,6 @@ class SendMessageRequestTest extends TestCase
 &MessageAttribute.2.Value.StringListValue.2=my_attribute_value_3
 &MessageAttribute.2.Value.DataType=String';
 
-        self::assertEquals($expected, \str_replace('&', "\n&", $encoded));
+        self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
     }
 }

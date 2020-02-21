@@ -128,7 +128,7 @@ class AddLayerVersionPermissionRequest
         return $this->VersionNumber;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
         $payload = ['Action' => 'AddLayerVersionPermission', 'Version' => '2015-03-31'];
 
@@ -140,12 +140,12 @@ class AddLayerVersionPermissionRequest
             $payload['OrganizationId'] = $v;
         }
 
-        return $payload;
+        return json_encode($payload);
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/json'];
 
         return $headers;
     }
