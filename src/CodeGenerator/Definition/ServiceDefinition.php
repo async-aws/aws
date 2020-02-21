@@ -11,6 +11,8 @@ namespace AsyncAws\CodeGenerator\Definition;
  */
 class ServiceDefinition
 {
+    private $name;
+
     private $definition;
 
     private $documentation;
@@ -19,12 +21,18 @@ class ServiceDefinition
 
     private $waiter;
 
-    public function __construct(array $definition, array $documentation, array $pagination, array $waiter)
+    public function __construct(string $name, array $definition, array $documentation, array $pagination, array $waiter)
     {
+        $this->name = $name;
         $this->definition = $definition;
         $this->documentation = $documentation;
         $this->pagination = $pagination;
         $this->waiter = $waiter;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     public function getOperation(string $name): ?Operation
@@ -77,7 +85,7 @@ class ServiceDefinition
         return null;
     }
 
-    private function getShape(string $name, ?Member $member): ?Shape
+    private function getShape(string $name, ?Member $member, array $extra): ?Shape
     {
         if (isset($this->definition['shapes'][$name])) {
             $documentation = null;
@@ -85,7 +93,7 @@ class ServiceDefinition
                 $documentation = $this->documentation['shapes'][$name]['refs'][$member->getOwnerShape()->getName() . '$' . $member->getName()] ?? null;
             }
 
-            return Shape::create($name, $this->definition['shapes'][$name] + ['_documentation' => $documentation], $this->createClosureToFindShape());
+            return Shape::create($name, $this->definition['shapes'][$name] + ['_documentation' => $documentation] + $extra, $this->createClosureToFindShape());
         }
 
         return null;
@@ -95,8 +103,8 @@ class ServiceDefinition
     {
         $definition = $this;
 
-        return \Closure::fromCallable(function (string $name, Member $member = null) use ($definition) {
-            return $definition->getShape($name, $member);
+        return \Closure::fromCallable(function (string $name, Member $member = null, array $extra = []) use ($definition) {
+            return $definition->getShape($name, $member, $extra);
         });
     }
 

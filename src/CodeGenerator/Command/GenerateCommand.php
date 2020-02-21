@@ -6,6 +6,7 @@ namespace AsyncAws\CodeGenerator\Command;
 
 use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
 use AsyncAws\CodeGenerator\Generator\ApiGenerator;
+use AsyncAws\CodeGenerator\Generator\NamespaceRegistry;
 use PhpCsFixer\Config;
 use PhpCsFixer\Console\ConfigurationResolver;
 use PhpCsFixer\Error\ErrorsManager;
@@ -99,17 +100,16 @@ class GenerateCommand extends Command
 
             $progressOperation->start(\count($operationNames));
 
-            $definition = new ServiceDefinition($definitionArray, $documentationArray, $paginationArray, $waiterArray);
+            $definition = new ServiceDefinition($serviceName, $definitionArray, $documentationArray, $paginationArray, $waiterArray);
             $baseNamespace = $manifest['services'][$serviceName]['namespace'] ?? \sprintf('AsyncAws\\%s', $serviceName);
-            $resultNamespace = $baseNamespace . '\\Result';
 
-
-            $clientGenerator = $this->generator->client();
-            $operationGenerator = $this->generator->operation();
-            $resultGenerator = $this->generator->result();
-            $waiterGenerator = $this->generator->waiter();
-
-            $clientGenerator->generate($definition, $serviceName, $baseNamespace);
+            $namespaceRegistry = new NamespaceRegistry($baseNamespace);
+            $clientGenerator = $this->generator->client($namespaceRegistry);
+            $inputGenerator = $this->generator->input($namespaceRegistry);
+            $resultGenerator = $this->generator->result($namespaceRegistry);
+            $waiterGenerator = $this->generator->waiter($namespaceRegistry, $inputGenerator);
+            $operationGenerator = $this->generator->operation($namespaceRegistry, $inputGenerator, $resultGenerator, $this->generator->pagination($namespaceRegistry, $inputGenerator, $resultGenerator));
+            $clientGenerator->generate($definition);
 
             foreach ($operationNames as $operationName) {
                 $progressOperation->setMessage($operationName);
@@ -119,15 +119,11 @@ class GenerateCommand extends Command
                 $operationConfig = $this->getOperationConfig($manifest, $serviceName, $operationName);
                 if (null !== $operation = $definition->getOperation($operationName)) {
                     if ($operationConfig['generate-method']) {
-                        $operationGenerator->generate($operation, $serviceName, $baseNamespace);
-                    }
-
-                    if ($operationConfig['generate-result'] && null !== $operation->getOutput()) {
-                        $resultGenerator->generate($operation, $serviceName, $resultNamespace, true, $operationConfig['separate-result-trait']);
+                        $operationGenerator->generate($operation);
                     }
                 } elseif (null !== $waiter = $definition->getWaiter($operationName)) {
                     if ($operationConfig['generate-method']) {
-                        $waiterGenerator->generate($waiter, $serviceName, $baseNamespace);
+                        $waiterGenerator->generate($waiter);
                     }
                 } else {
                     $io->error(\sprintf('Could not find service or waiter named "%s".', $operationName));
@@ -250,8 +246,6 @@ class GenerateCommand extends Command
     {
         $default = [
             'generate-method' => true,
-            'separate-result-trait' => false,
-            'generate-result' => true,
         ];
 
         return array_merge(

@@ -57,4 +57,9 @@ class StructureShape extends Shape
     {
         return $this->data['xmlNamespace']['prefix'] ?? null;
     }
+
+    public function getResultWrapper(): ?string
+    {
+        return $this->data['resultWrapper'] ?? null;
+    }
 }

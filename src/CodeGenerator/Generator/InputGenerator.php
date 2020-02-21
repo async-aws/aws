@@ -9,8 +9,8 @@ use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\Core\Exception\InvalidArgument;
-use AsyncAws\Core\Result;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
 
@@ -22,7 +22,7 @@ use Nette\PhpGenerator\PhpNamespace;
  *
  * @internal
  */
-trait MethodGeneratorTrait
+class InputGenerator
 {
     /**
      * @var XmlDumper
@@ -35,49 +35,68 @@ trait MethodGeneratorTrait
     private $arrayDumper;
 
     /**
-     * @var bool[]
+     * @var ClassName[]
      */
     private $generated = [];
 
     /**
-     * Generate classes for the input.
+     * @var NamespaceRegistry
      */
-    private function generateInputClass(string $service, Operation $operation, string $baseNamespace, StructureShape $inputShape, bool $root = false)
-    {
-        if (isset($this->generated[$inputShape->getName()])) {
-            return;
-        }
-        $this->generated[$inputShape->getName()] = true;
+    private $namespaceRegistry;
 
-        $members = $inputShape->getMembers();
-        $namespace = new PhpNamespace($baseNamespace);
-        $class = $namespace->addClass(GeneratorHelper::safeClassName($inputShape->getName()));
+    /**
+     * @var FileWriter
+     */
+    private $fileWriter;
+
+    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter)
+    {
+        $this->namespaceRegistry = $namespaceRegistry;
+        $this->fileWriter = $fileWriter;
+    }
+
+    /**
+     * Generate classes for the input. Ie, the request of the API call.
+     */
+    public function generate(Operation $operation): ClassName
+    {
+        return $this->generateInputClass($operation, $operation->getInput(), true);
+    }
+
+    private function generateInputClass(Operation $operation, StructureShape $shape, bool $root = false): ClassName
+    {
+        if (isset($this->generated[$shape->getName()])) {
+            return $this->generated[$shape->getName()];
+        }
+
+        $this->generated[$shape->getName()] = $className = $this->namespaceRegistry->getInput($shape);
+
+        $namespace = new PhpNamespace($className->getNamespace());
+        $class = $namespace->addClass($className->getName());
 
         $constructorBody = '';
         $requiredProperties = [];
 
-        foreach ($members as $member) {
+        foreach ($shape->getMembers() as $member) {
             $returnType = null;
             $memberShape = $member->getShape();
             $nullable = true;
             if ($memberShape instanceof StructureShape) {
-                $this->generateInputClass($service, $operation, $baseNamespace, $memberShape);
-                $memberClassName = GeneratorHelper::safeClassName($memberShape->getName());
-                $returnType = $baseNamespace . '\\' . $memberClassName;
+                $memberClass = $this->generateInputClass($operation, $memberShape);
+                $returnType = $memberClass->getFqdn();
                 $parameterType = $memberShape->getName();
-                $constructorBody .= strtr('$this->NAME = isset($input["NAME"]) ? SAFE_CLASS::create($input["NAME"]) : null;' . "\n", ['NAME' => $member->getName(), 'SAFE_CLASS' => $memberClassName]);
+                $constructorBody .= strtr('$this->NAME = isset($input["NAME"]) ? CLASS::create($input["NAME"]) : null;' . "\n", ['NAME' => $member->getName(), 'CLASS' => $memberClass->getName()]);
             } elseif ($memberShape instanceof ListShape) {
                 $listMemberShape = $memberShape->getMember()->getShape();
                 $nullable = false;
 
                 // Is this a list of objects?
                 if ($listMemberShape instanceof StructureShape) {
-                    $this->generateInputClass($service, $operation, $baseNamespace, $listMemberShape);
-                    $listMemberClassName = GeneratorHelper::safeClassName($listMemberShape->getName());
+                    $memberClass = $this->generateInputClass($operation, $listMemberShape);
 
-                    $parameterType = $listMemberClassName . '[]';
-                    $returnType = $baseNamespace . '\\' . $listMemberClassName;
-                    $constructorBody .= strtr('$this->NAME = array_map(function($item) { return SAFE_CLASS::create($item); }, $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'SAFE_CLASS' => GeneratorHelper::safeClassName($listMemberClassName)]);
+                    $parameterType = $memberClass->getName() . '[]';
+                    $returnType = $memberClass->getFqdn();
+                    $constructorBody .= strtr('$this->NAME = array_map(function($item) { return CLASS::create($item); }, $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'CLASS' => $memberClass->getName()]);
                 } elseif ($listMemberShape instanceof ListShape || $listMemberShape instanceof MapShape) {
                     throw new \RuntimeException('Recursive ListShape are not yet implemented');
                 } else {
@@ -91,19 +110,18 @@ trait MethodGeneratorTrait
 
                 // Is this a list of objects?
                 if ($mapValueShape instanceof StructureShape) {
-                    $this->generateInputClass($service, $operation, $baseNamespace, $mapValueShape);
-                    $mapValueClassName = GeneratorHelper::safeClassName($mapValueShape->getName());
+                    $memberClass = $this->generateInputClass($operation, $mapValueShape);
 
-                    $parameterType = $mapValueClassName . '[]';
-                    $returnType = $baseNamespace . '\\' . $mapValueClassName;
+                    $parameterType = $memberClass->getName() . '[]';
+                    $returnType = $memberClass->getFqdn();
                     $constructorBody .= strtr('
                         $this->NAME = [];
                         foreach ($input["NAME"] ?? [] as $key => $item) {
-                            $this->NAME[$key] = SAFE_CLASS::create($item);
+                            $this->NAME[$key] = CLASS::create($item);
                         }
                     ', [
                         'NAME' => $member->getName(),
-                        'SAFE_CLASS' => GeneratorHelper::safeClassName($mapValueClassName),
+                        'CLASS' => $memberClass->getName(),
                     ]);
                 } elseif ($mapValueShape instanceof ListShape || $mapValueShape instanceof MapShape) {
                     throw new \RuntimeException('Recursive ListShape are not yet implemented');
@@ -171,16 +189,16 @@ trait MethodGeneratorTrait
                 $constructor->addComment('@see ' . $documentationUrl);
             }
 
-            $constructor->addComment(GeneratorHelper::getParamDocblock($inputShape, $baseNamespace, null, $root));
+            $constructor->addComment(GeneratorHelper::getParamDocblock($shape, $className->getNamespace(), null, $root));
 
             $inputParameter = $constructor->addParameter('input')->setType('array');
-            if ($root || empty($inputShape->getRequired())) {
+            if ($root || empty($shape->getRequired())) {
                 $inputParameter->setDefaultValue([]);
             }
             $constructor->setBody($constructorBody);
         }
         if ($root) {
-            $this->inputClassRequestGetters($inputShape, $class, $operation);
+            $this->inputClassRequestGetters($shape, $class, $operation);
         }
 
         // Add validate()
@@ -199,7 +217,7 @@ trait MethodGeneratorTrait
             ]);
         }
 
-        foreach ($members as $member) {
+        foreach ($shape->getMembers() as $member) {
             $memberShape = $member->getShape();
             if ($memberShape instanceof StructureShape) {
                 $validateBody .= 'if ($this->' . $member->getName() . ') $this->' . $member->getName() . '->validate();' . "\n";
@@ -211,6 +229,8 @@ trait MethodGeneratorTrait
         $class->addMethod('validate')->setPublic()->setReturnType('void')->setBody(empty($validateBody) ? '// There are no required properties' : $validateBody);
 
         $this->fileWriter->write($namespace);
+
+        return $className;
     }
 
     private function inputClassRequestGetters(StructureShape $inputShape, ClassType $class, Operation $operation): void

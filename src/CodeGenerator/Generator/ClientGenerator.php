@@ -18,21 +18,27 @@ use Nette\PhpGenerator\ClassType;
 class ClientGenerator
 {
     /**
+     * @var NamespaceRegistry
+     */
+    private $namespaceRegistry;
+
+    /**
      * @var FileWriter
      */
     private $fileWriter;
 
-    public function __construct(FileWriter $fileWriter)
+    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter)
     {
+        $this->namespaceRegistry = $namespaceRegistry;
         $this->fileWriter = $fileWriter;
     }
 
     /**
      * Update the API client with a constants function call.
      */
-    public function generate(ServiceDefinition $definition, string $service, string $baseNamespace): void
+    public function generate(ServiceDefinition $definition): void
     {
-        $namespace = ClassFactory::fromExistingClass(\sprintf('%s\\%sClient', $baseNamespace, $service));
+        $namespace = ClassFactory::fromExistingClass($this->namespaceRegistry->getClient($definition)->getFqdn());
 
         $classes = $namespace->getClasses();
         $class = $classes[\array_key_first($classes)];

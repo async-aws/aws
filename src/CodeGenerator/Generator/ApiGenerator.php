@@ -23,23 +23,33 @@ class ApiGenerator
         $this->fileWriter = new FileWriter($srcDirectory);
     }
 
-    public function client(): ClientGenerator
+    public function client(NamespaceRegistry $namespaceRegistry): ClientGenerator
     {
-        return new ClientGenerator($this->fileWriter);
+        return new ClientGenerator($namespaceRegistry, $this->fileWriter);
     }
 
-    public function operation(): OperationGenerator
+    public function operation(NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator, PaginationGenerator $pagination): OperationGenerator
     {
-        return new OperationGenerator($this->fileWriter);
+        return new OperationGenerator($namespaceRegistry, $inputGenerator, $resultGenerator, $pagination, $this->fileWriter);
     }
 
-    public function waiter(): WaiterGenerator
+    public function waiter(NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator): WaiterGenerator
     {
-        return new WaiterGenerator($this->fileWriter);
+        return new WaiterGenerator($namespaceRegistry, $inputGenerator, $this->fileWriter);
     }
 
-    public function result(): ResultGenerator
+    public function pagination(NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator): PaginationGenerator
     {
-        return new ResultGenerator($this->fileWriter);
+        return new PaginationGenerator($namespaceRegistry, $inputGenerator, $resultGenerator, $this->fileWriter);
+    }
+
+    public function result(NamespaceRegistry $namespaceRegistry): ResultGenerator
+    {
+        return new ResultGenerator($namespaceRegistry, $this->fileWriter);
+    }
+
+    public function input(NamespaceRegistry $namespaceRegistry): InputGenerator
+    {
+        return new InputGenerator($namespaceRegistry, $this->fileWriter);
     }
 }
