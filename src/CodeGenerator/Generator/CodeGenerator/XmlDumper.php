@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\CodeGenerator\Generator;
+namespace AsyncAws\CodeGenerator\Generator\CodeGenerator;
 
 use AsyncAws\CodeGenerator\Definition\ListMember;
 use AsyncAws\CodeGenerator\Definition\ListShape;
@@ -18,7 +18,7 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
  */
 class XmlDumper
 {
-    public function dumpXmlRoot(StructureMember $member, string $payloadProperty): string
+    public function dumpXml(StructureMember $member, string $payloadProperty): string
     {
         return strtr('
             $document = new \DOMDocument(\'1.0\', \'UTF-8\');

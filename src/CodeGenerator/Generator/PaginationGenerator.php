@@ -9,8 +9,10 @@ use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Pagination;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\File\FileWriter;
+use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
+use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
 use AsyncAws\Core\Exception\LogicException;
-use AsyncAws\Core\Result;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Parameter;
 use Nette\PhpGenerator\PhpNamespace;
@@ -44,12 +46,18 @@ class PaginationGenerator
      */
     private $fileWriter;
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator, FileWriter $fileWriter)
+    /**
+     * @var TypeGenerator|null
+     */
+    private $typeGenerator;
+
+    public function __construct(NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null)
     {
         $this->namespaceRegistry = $namespaceRegistry;
         $this->inputGenerator = $inputGenerator;
         $this->resultGenerator = $resultGenerator;
         $this->fileWriter = $fileWriter;
+        $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
     }
 
     /**
@@ -93,12 +101,8 @@ class PaginationGenerator
             }
 
             $listShape = $resultShape->getMember()->getShape();
-            if ($listShape instanceof StructureShape) {
-                $className = $this->namespaceRegistry->getResult($listShape);
-                $iteratorTypes[] = $iteratorType = $className->getName();
-            } else {
-                $iteratorTypes[] = $iteratorType = GeneratorHelper::toPhpType($listShape->getType());
-            }
+            [$returnType, $iteratorType] = $this->typeGenerator->getPhpType($listShape, true);
+            $iteratorTypes[] = $iteratorType;
 
             $getter = 'get' . $resultKey;
             if (!$class->hasMethod($getter)) {

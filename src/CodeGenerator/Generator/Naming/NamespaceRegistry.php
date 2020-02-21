@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\CodeGenerator\Generator;
+namespace AsyncAws\CodeGenerator\Generator\Naming;
 
 use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
 use AsyncAws\CodeGenerator\Definition\StructureShape;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\CodeGenerator\Generator;
+namespace AsyncAws\CodeGenerator\Generator\Naming;
 
 /**
  * @author Jérémy Derussé <jeremy@derusse.com>
@@ -27,7 +27,7 @@ final class ClassName
 
     public static function create(string $namespace, string $name): self
     {
-        return new self($namespace, GeneratorHelper::safeClassName($name));
+        return new self($namespace, self::safeClassName($name));
     }
 
     public function getName(): string
@@ -43,5 +43,17 @@ final class ClassName
     public function getFqdn(): string
     {
         return $this->namespace . '\\' . $this->name;
+    }
+
+    /**
+     * Make sure we dont use a class name like Trait or Object.
+     */
+    private static function safeClassName(string $name): string
+    {
+        if (\in_array($name, ['Object', 'Class', 'Trait'])) {
+            return 'Aws' . $name;
+        }
+
+        return $name;
     }
 }

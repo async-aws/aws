@@ -69,7 +69,7 @@ class PublishInput
      *   Message?: string,
      *   Subject?: string,
      *   MessageStructure?: string,
-     *   MessageAttributes?: array,
+     *   MessageAttributes?: \AsyncAws\Sns\Input\MessageAttributeValue[],
      * } $input
      */
     public function __construct(array $input = [])

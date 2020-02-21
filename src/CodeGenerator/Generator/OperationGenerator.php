@@ -6,6 +6,10 @@ namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\File\FileWriter;
+use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
+use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
+use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
 use AsyncAws\Core\Result;
 use Nette\PhpGenerator\Method;
 
@@ -44,13 +48,19 @@ class OperationGenerator
      */
     private $fileWriter;
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator, PaginationGenerator $paginationGenerator, FileWriter $fileWriter)
+    /**
+     * @var TypeGenerator
+     */
+    private $typeGenerator;
+
+    public function __construct(NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator, PaginationGenerator $paginationGenerator, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null)
     {
         $this->namespaceRegistry = $namespaceRegistry;
         $this->inputGenerator = $inputGenerator;
         $this->resultGenerator = $resultGenerator;
         $this->paginationGenerator = $paginationGenerator;
         $this->fileWriter = $fileWriter;
+        $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
     }
 
     /**
@@ -76,7 +86,7 @@ class OperationGenerator
         } elseif (null !== $prefix = $operation->getService()->getEndpointPrefix()) {
             $method->addComment('@see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-' . $prefix . '-' . $operation->getService()->getApiVersion() . '.html#' . \strtolower($operation->getName()));
         }
-        $method->addComment(GeneratorHelper::getParamDocblock($inputShape, $inputClass->getNamespace(), $inputClass->getName()));
+        $method->addComment($this->typeGenerator->generateDocblock($inputShape, $inputClass));
 
         $operationMethodParameter = $method->addParameter('input');
         if (empty($inputShape->getRequired())) {

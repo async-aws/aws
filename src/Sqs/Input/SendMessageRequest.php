@@ -69,8 +69,8 @@ class SendMessageRequest
      *   QueueUrl?: string,
      *   MessageBody?: string,
      *   DelaySeconds?: int,
-     *   MessageAttributes?: array,
-     *   MessageSystemAttributes?: array,
+     *   MessageAttributes?: \AsyncAws\Sqs\Input\MessageAttributeValue[],
+     *   MessageSystemAttributes?: \AsyncAws\Sqs\Input\MessageSystemAttributeValue[],
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
      * } $input

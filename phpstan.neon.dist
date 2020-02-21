@@ -9,7 +9,7 @@ parameters:
     excludes_analyse:
         - src/*/Tests/*
         - src/**/Tests/*
-        - src/CodeGenerator/Generator/ClassFactory.php
+        - src/CodeGenerator/Generator/PhpGenerator/ClassFactory.php
 
     ignoreErrors:
         - '|Ternary operator condition is always true\.|'

@@ -50,7 +50,7 @@ class Credentials
         return $this->AccessKeyId;
     }
 
-    public function getExpiration(): \DateTimeImmutable
+    public function getExpiration(): \DateTimeInterface
     {
         return $this->Expiration;
     }

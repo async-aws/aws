@@ -10,6 +10,10 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Definition\Waiter;
 use AsyncAws\CodeGenerator\Definition\WaiterAcceptor;
 use AsyncAws\CodeGenerator\File\FileWriter;
+use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
+use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
+use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
 use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Result;
@@ -42,11 +46,17 @@ class WaiterGenerator
      */
     private $fileWriter;
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, FileWriter $fileWriter)
+    /**
+     * @var TypeGenerator
+     */
+    private $typeGenerator;
+
+    public function __construct(NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null)
     {
         $this->namespaceRegistry = $namespaceRegistry;
         $this->inputGenerator = $inputGenerator;
         $this->fileWriter = $fileWriter;
+        $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
     }
 
     /**
@@ -80,7 +90,7 @@ class WaiterGenerator
         $method = $class->addMethod(\lcfirst($waiter->getName()))
             ->setComment('Check status of operation ' . \lcfirst($operation->getName()))
             ->addComment('@see ' . \lcfirst($operation->getName()))
-            ->addComment(GeneratorHelper::getParamDocblock($inputShape, $inputClass->getNamespace(), $inputClass->getName()))
+            ->addComment($this->typeGenerator->generateDocblock($inputShape, $inputClass))
             ->setReturnType($resultClass->getFqdn())
             ->setBody(strtr('
 $input = INPUT_CLASS::create($input);

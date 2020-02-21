@@ -62,8 +62,8 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueName: string,
-     *   Attributes?: array,
-     *   tags?: array,
+     *   Attributes?: string[],
+     *   tags?: string[],
      * }|CreateQueueRequest $input
      */
     public function createQueue($input): CreateQueueResult
@@ -300,8 +300,8 @@ class SqsClient extends AbstractApi
      *   QueueUrl: string,
      *   MessageBody: string,
      *   DelaySeconds?: int,
-     *   MessageAttributes?: array,
-     *   MessageSystemAttributes?: array,
+     *   MessageAttributes?: \AsyncAws\Sqs\Input\MessageAttributeValue[],
+     *   MessageSystemAttributes?: \AsyncAws\Sqs\Input\MessageSystemAttributeValue[],
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
      * }|SendMessageRequest $input

@@ -70,7 +70,7 @@ class AwsObject
         return $this->Key;
     }
 
-    public function getLastModified(): ?\DateTimeImmutable
+    public function getLastModified(): ?\DateTimeInterface
     {
         return $this->LastModified;
     }

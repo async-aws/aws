@@ -276,7 +276,7 @@ class PutObjectRequest
      *   GrantReadACP?: string,
      *   GrantWriteACP?: string,
      *   Key?: string,
-     *   Metadata?: array,
+     *   Metadata?: string[],
      *   ServerSideEncryption?: string,
      *   StorageClass?: string,
      *   WebsiteRedirectLocation?: string,

@@ -7,9 +7,13 @@ namespace AsyncAws\CodeGenerator\Generator;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
-use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\File\FileWriter;
+use AsyncAws\CodeGenerator\Generator\CodeGenerator\ArrayDumper;
+use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
+use AsyncAws\CodeGenerator\Generator\CodeGenerator\XmlDumper;
+use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
+use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\Core\Exception\InvalidArgument;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
@@ -25,6 +29,21 @@ use Nette\PhpGenerator\PhpNamespace;
 class InputGenerator
 {
     /**
+     * @var NamespaceRegistry
+     */
+    private $namespaceRegistry;
+
+    /**
+     * @var FileWriter
+     */
+    private $fileWriter;
+
+    /**
+     * @var TypeGenerator
+     */
+    private $typeGenerator;
+
+    /**
      * @var XmlDumper
      */
     private $xmlDumper;
@@ -39,20 +58,13 @@ class InputGenerator
      */
     private $generated = [];
 
-    /**
-     * @var NamespaceRegistry
-     */
-    private $namespaceRegistry;
-
-    /**
-     * @var FileWriter
-     */
-    private $fileWriter;
-
-    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter)
+    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null, ?XmlDumper $xmlDumper = null, ?ArrayDumper $arrayDumper = null)
     {
         $this->namespaceRegistry = $namespaceRegistry;
         $this->fileWriter = $fileWriter;
+        $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
+        $this->arrayDumper = $arrayDumper ?? new ArrayDumper();
+        $this->xmlDumper = $xmlDumper ?? new XmlDumper();
     }
 
     /**
@@ -78,30 +90,22 @@ class InputGenerator
         $requiredProperties = [];
 
         foreach ($shape->getMembers() as $member) {
-            $returnType = null;
             $memberShape = $member->getShape();
+            [$returnType, $parameterType, $memberClassName] = $this->typeGenerator->getPhpType($memberShape);
             $nullable = true;
             if ($memberShape instanceof StructureShape) {
-                $memberClass = $this->generateInputClass($operation, $memberShape);
-                $returnType = $memberClass->getFqdn();
-                $parameterType = $memberShape->getName();
-                $constructorBody .= strtr('$this->NAME = isset($input["NAME"]) ? CLASS::create($input["NAME"]) : null;' . "\n", ['NAME' => $member->getName(), 'CLASS' => $memberClass->getName()]);
+                $this->generateInputClass($operation, $memberShape);
+                $constructorBody .= strtr('$this->NAME = isset($input["NAME"]) ? CLASS::create($input["NAME"]) : null;' . "\n", ['NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
             } elseif ($memberShape instanceof ListShape) {
                 $listMemberShape = $memberShape->getMember()->getShape();
                 $nullable = false;
 
-                // Is this a list of objects?
                 if ($listMemberShape instanceof StructureShape) {
-                    $memberClass = $this->generateInputClass($operation, $listMemberShape);
-
-                    $parameterType = $memberClass->getName() . '[]';
-                    $returnType = $memberClass->getFqdn();
-                    $constructorBody .= strtr('$this->NAME = array_map(function($item) { return CLASS::create($item); }, $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'CLASS' => $memberClass->getName()]);
+                    $this->generateInputClass($operation, $listMemberShape);
+                    $constructorBody .= strtr('$this->NAME = array_map(function($item) { return CLASS::create($item); }, $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
                 } elseif ($listMemberShape instanceof ListShape || $listMemberShape instanceof MapShape) {
                     throw new \RuntimeException('Recursive ListShape are not yet implemented');
                 } else {
-                    // It is a scalar, like a string
-                    $parameterType = GeneratorHelper::toPhpType($listMemberShape->getType()) . '[]';
                     $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
                 }
             } elseif ($memberShape instanceof MapShape) {
@@ -110,10 +114,8 @@ class InputGenerator
 
                 // Is this a list of objects?
                 if ($mapValueShape instanceof StructureShape) {
-                    $memberClass = $this->generateInputClass($operation, $mapValueShape);
+                    $this->generateInputClass($operation, $mapValueShape);
 
-                    $parameterType = $memberClass->getName() . '[]';
-                    $returnType = $memberClass->getFqdn();
                     $constructorBody .= strtr('
                         $this->NAME = [];
                         foreach ($input["NAME"] ?? [] as $key => $item) {
@@ -121,27 +123,22 @@ class InputGenerator
                         }
                     ', [
                         'NAME' => $member->getName(),
-                        'CLASS' => $memberClass->getName(),
+                        'CLASS' => $memberClassName->getName(),
                     ]);
                 } elseif ($mapValueShape instanceof ListShape || $mapValueShape instanceof MapShape) {
                     throw new \RuntimeException('Recursive ListShape are not yet implemented');
                 } else {
                     // It is a scalar, like a string
-                    $parameterType = GeneratorHelper::toPhpType($mapValueShape->getType()) . '[]';
                     $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
                 }
             } elseif ($member->isStreaming()) {
                 $parameterType = 'string|resource|\Closure';
                 $returnType = null;
                 $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $member->getName()]);
+            } elseif ('\DateTimeInterface' !== $parameterType) {
+                $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $member->getName()]);
             } else {
-                $returnType = $parameterType = GeneratorHelper::toPhpType($memberShape->getType());
-                if ('\DateTimeImmutable' !== $parameterType) {
-                    $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $member->getName()]);
-                } else {
-                    $constructorBody .= strtr('$this->NAME = !isset($input["NAME"]) ? null : ($input["NAME"] instanceof \DateTimeInterface ? $input["NAME"] : new \DateTimeImmutable($input["NAME"]));' . "\n", ['NAME' => $member->getName()]);
-                    $parameterType = $returnType = '\DateTimeInterface';
-                }
+                $constructorBody .= strtr('$this->NAME = !isset($input["NAME"]) ? null : ($input["NAME"] instanceof \DateTimeInterface ? $input["NAME"] : new \DateTimeImmutable($input["NAME"]));' . "\n", ['NAME' => $member->getName()]);
             }
 
             $property = $class->addProperty($member->getName())->setPrivate();
@@ -154,8 +151,6 @@ class InputGenerator
                 $property->addComment('@required');
             }
             $property->addComment('@var ' . $parameterType . ($nullable ? '|null' : ''));
-
-            $returnType = '[]' === substr($parameterType, -2) ? 'array' : $returnType;
 
             $class->addMethod('get' . $member->getName())
                 ->setReturnType($returnType)
@@ -189,7 +184,7 @@ class InputGenerator
                 $constructor->addComment('@see ' . $documentationUrl);
             }
 
-            $constructor->addComment(GeneratorHelper::getParamDocblock($shape, $className->getNamespace(), null, $root));
+            $constructor->addComment($this->typeGenerator->generateDocblock($shape, $className, false, $root));
 
             $inputParameter = $constructor->addParameter('input')->setType('array');
             if ($root || empty($shape->getRequired())) {
@@ -257,7 +252,7 @@ class InputGenerator
                 $body = 'return $this->' . $payloadProperty . ' ?? "";';
             } else {
                 $bodyType = 'string';
-                $body = $this->dumpXml($member, $payloadProperty);
+                $body = $this->xmlDumper->dumpXml($member, $payloadProperty);
             }
         } else {
             $bodyType = 'array';
@@ -268,7 +263,7 @@ class InputGenerator
             ', [
                 'OPERATION_NAME' => \var_export($operation->getName(), true),
                 'API_VERSION' => \var_export($operation->getApiVersion(), true),
-                'CHILDREN_CODE' => $this->dumpArray($inputShape),
+                'CHILDREN_CODE' => $this->arrayDumper->dumpArray($inputShape),
             ]);
         }
         $class->addMethod('requestBody')->setReturnType($bodyType)->setBody($body);
@@ -287,23 +282,5 @@ class InputGenerator
         $requestUri .= 'return "' . str_replace(['{', '+}', '}'], ['{$uri[\'', '}', '\']}'], $operation->getHttpRequestUri()) . '";';
 
         $class->addMethod('requestUri')->setReturnType('string')->setBody($requestUri);
-    }
-
-    private function dumpXml(StructureMember $member, string $payloadProperty): string
-    {
-        if (null === $this->xmlDumper) {
-            $this->xmlDumper = new XmlDumper();
-        }
-
-        return $this->xmlDumper->dumpXmlRoot($member, $payloadProperty);
-    }
-
-    private function dumpArray(StructureShape $shape): string
-    {
-        if (null === $this->arrayDumper) {
-            $this->arrayDumper = new ArrayDumper();
-        }
-
-        return $this->arrayDumper->dumpArrayRoot($shape);
     }
 }

@@ -9,6 +9,10 @@ use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\File\FileWriter;
+use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
+use AsyncAws\CodeGenerator\Generator\CodeGenerator\XmlParser;
+use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
+use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\StreamableBody;
@@ -29,11 +33,6 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 class ResultGenerator
 {
     /**
-     * @var XmlParser|null
-     */
-    private $xmlParser;
-
-    /**
      * @var ClassName[]
      */
     private $generated = [];
@@ -48,10 +47,22 @@ class ResultGenerator
      */
     private $fileWriter;
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter)
+    /**
+     * @var TypeGenerator
+     */
+    private $typeGenerator;
+
+    /**
+     * @var XmlParser
+     */
+    private $xmlParser;
+
+    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null, ?XmlParser $xmlParser = null)
     {
         $this->namespaceRegistry = $namespaceRegistry;
         $this->fileWriter = $fileWriter;
+        $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
+        $this->xmlParser = $xmlParser ?? new XmlParser($this->namespaceRegistry);
     }
 
     /**
@@ -109,7 +120,7 @@ class ResultGenerator
 
         // We need a constructor
         $constructor = $class->addMethod('__construct');
-        $constructor->addComment(GeneratorHelper::getParamDocblock($shape, $this->generated[$shape->getName()]->getNamespace(), null, false, true));
+        $constructor->addComment($this->typeGenerator->generateDocblock($shape, $this->generated[$shape->getName()], false, false, true));
         $constructor->addParameter('input')->setType('array');
 
         $constructorBody = '';
@@ -153,46 +164,47 @@ class ResultGenerator
             $nullable = $returnType = null;
             $memberShape = $member->getShape();
             $property = $class->addProperty($member->getName())->setPrivate();
+            [$returnType, $parameterType, $memberClassName] = $this->typeGenerator->getPhpType($memberShape, true);
             if (null !== $propertyDocumentation = $memberShape->getDocumentation()) {
                 $property->addComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
 
             if ($memberShape instanceof StructureShape) {
-                $resultClass = $this->generateResultClass($memberShape);
-                $parameterType = $resultClass->getFqdn();
+                $this->generateResultClass($memberShape);
             } elseif ($memberShape instanceof MapShape) {
                 $mapKeyShape = $memberShape->getKey()->getShape();
                 if ('string' !== $mapKeyShape->getType()) {
                     throw new \RuntimeException('Complex maps are not supported');
                 }
 
-                $parameterType = 'array';
+                if (($valueShape = $memberShape->getValue()->getShape()) instanceof StructureShape) {
+                    $this->generateResultClass($valueShape);
+                }
                 $nullable = false;
                 $property->setValue([]);
             } elseif ($memberShape instanceof ListShape) {
-                $listMemberShape = $memberShape->getMember()->getShape();
+                $memberShape->getMember()->getShape();
 
-                $parameterType = 'array';
+                if (($memberShape = $memberShape->getMember()->getShape()) instanceof StructureShape) {
+                    $this->generateResultClass($memberShape);
+                }
+
                 $nullable = false;
                 $property->setValue([]);
-
-                // Check if this is a list of objects
-                if ($listMemberShape instanceof StructureShape) {
-                    $resultClass = $this->generateResultClass($listMemberShape);
-                    $returnType = $resultClass->getName();
-                } else {
-                    $returnType = GeneratorHelper::toPhpType($listMemberShape->getType());
-                }
             } elseif ($member->isStreaming()) {
+                $returnType = StreamableBodyInterface::class;
                 $parameterType = StreamableBodyInterface::class;
+                $memberClassName = null;
                 $namespace->addUse(StreamableBodyInterface::class);
                 $nullable = false;
-            } else {
-                $parameterType = GeneratorHelper::toPhpType($memberShape->getType());
+            }
+
+            if (null !== $memberClassName) {
+                $namespace->addUse($memberClassName->getFqdn());
             }
 
             $method = $class->addMethod('get' . $member->getName())
-                ->setReturnType($parameterType)
+                ->setReturnType($returnType)
                 ->setBody(strtr('
                     INITIALIZE_CODE
 
@@ -203,8 +215,13 @@ class ResultGenerator
                 ]));
 
             $nullable = $nullable ?? !$member->isRequired();
-            if ($returnType) {
-                $method->addComment('@return ' . $returnType . ('array' === $parameterType ? '[]' : ''));
+            if ($parameterType) {
+                if ($parameterType !== $returnType && (null === $memberClassName || $memberClassName->getName() !== $parameterType)) {
+                    if ($nullable) {
+                        $parameterType = '?' . $parameterType;
+                    }
+                    $method->addComment('@return ' . $parameterType);
+                }
             }
             $method->setReturnNullable($nullable);
         }
@@ -230,7 +247,7 @@ class ResultGenerator
                     'LOCATION_NAME' => $locationName,
                 ]);
             } else {
-                if (null !== $constant = GeneratorHelper::getFilterConstantFromType($memberShape->getType())) {
+                if (null !== $constant = $this->typeGenerator->getFilterConstant($memberShape)) {
                     $body .= strtr('$this->NAME = isset($headers["LOCATION_NAME"][0]) ? filter_var($headers["LOCATION_NAME"][0], FILTER) : null;' . "\n", [
                         'NAME' => $member->getName(),
                         'LOCATION_NAME' => $locationName,
@@ -281,10 +298,10 @@ class ResultGenerator
                 $namespace->addUse(StreamableBody::class);
                 $body .= strtr('$this->PROPERTY_NAME = new StreamableBody($httpClient->stream($response));', ['PROPERTY_NAME' => $payloadProperty]);
             } else {
-                $xmlParser = $this->parseXml($shape);
+                $xmlParser = $this->xmlParser->parseXml($shape);
             }
         } else {
-            $xmlParser = $this->parseXml($shape);
+            $xmlParser = $this->xmlParser->parseXml($shape);
         }
 
         if (!empty($xmlParser)) {
@@ -301,14 +318,5 @@ class ResultGenerator
             ->setBody($body);
         $method->addParameter('response')->setType(ResponseInterface::class);
         $method->addParameter('httpClient')->setType(HttpClientInterface::class);
-    }
-
-    private function parseXml(StructureShape $shape): string
-    {
-        if (null === $this->xmlParser) {
-            $this->xmlParser = new XmlParser();
-        }
-
-        return $this->xmlParser->parseXmlResponseRoot($shape);
     }
 }

@@ -10,6 +10,7 @@ use AsyncAws\CodeGenerator\File\FileWriter;
  * Generate API client methods and result classes.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ * @author Jérémy Derussé <jeremy@derusse.com>
  */
 class ApiGenerator
 {
@@ -23,33 +24,8 @@ class ApiGenerator
         $this->fileWriter = new FileWriter($srcDirectory);
     }
 
-    public function client(NamespaceRegistry $namespaceRegistry): ClientGenerator
+    public function service(string $baseNamespace): ServiceGenerator
     {
-        return new ClientGenerator($namespaceRegistry, $this->fileWriter);
-    }
-
-    public function operation(NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator, PaginationGenerator $pagination): OperationGenerator
-    {
-        return new OperationGenerator($namespaceRegistry, $inputGenerator, $resultGenerator, $pagination, $this->fileWriter);
-    }
-
-    public function waiter(NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator): WaiterGenerator
-    {
-        return new WaiterGenerator($namespaceRegistry, $inputGenerator, $this->fileWriter);
-    }
-
-    public function pagination(NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator): PaginationGenerator
-    {
-        return new PaginationGenerator($namespaceRegistry, $inputGenerator, $resultGenerator, $this->fileWriter);
-    }
-
-    public function result(NamespaceRegistry $namespaceRegistry): ResultGenerator
-    {
-        return new ResultGenerator($namespaceRegistry, $this->fileWriter);
-    }
-
-    public function input(NamespaceRegistry $namespaceRegistry): InputGenerator
-    {
-        return new InputGenerator($namespaceRegistry, $this->fileWriter);
+        return new ServiceGenerator($this->fileWriter, $baseNamespace);
     }
 }
