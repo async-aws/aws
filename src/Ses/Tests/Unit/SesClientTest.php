@@ -45,7 +45,7 @@ class SesClientTest extends TestCase
             ]);
         });
 
-        $sqs = new SesClient([
+        $ses = new SesClient([
             'endpoint' => 'https://email.eu-west-1.amazonaws.com:8984',
         ], null, $httpClient);
 
@@ -61,7 +61,7 @@ class SesClientTest extends TestCase
                 'Body' => ['Text' => ['Data' => 'Hello There!']],
             ])
         ]));
-        $result = $sqs->sendEmail($input);
+        $result = $ses->sendEmail($input);
 
         self::assertEquals('foobar', $result->getMessageId());
     }
@@ -81,7 +81,7 @@ class SesClientTest extends TestCase
                 'http_code' => 418,
             ]);
         });
-        $sqs = new SesClient([], null, $httpClient);
+        $ses = new SesClient([], null, $httpClient);
 
         $input = new SendEmailRequest([
             'FromEmailAddress' =>'foo@test.se'
@@ -95,7 +95,7 @@ class SesClientTest extends TestCase
                 'Body' => ['Text' => ['Data' => 'Hello There!']],
             ])
         ]));
-        $result = $sqs->sendEmail($input);
+        $result = $ses->sendEmail($input);
 
         $this->expectException(ClientException::class);
         $this->expectExceptionMessage('HTTP 418 returned');

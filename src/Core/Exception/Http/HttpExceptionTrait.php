@@ -79,6 +79,7 @@ trait HttpExceptionTrait
                 $separator = isset($body['title'], $body['detail']) ? "\n\n" : '';
                 $message = ($body['title'] ?? '') . $separator . ($body['detail'] ?? '');
             } elseif (isset($body['message'])) {
+                $this->awsMessage = $body['message'];
                 $message .= "\n\n".$body['message']."\n\n";
             }
         } else {
