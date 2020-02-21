@@ -121,12 +121,12 @@ class Result
     {
         if (!isset($this->response)) {
             return [
-                'resolved' => true,
+                'resolved' => $this->isResolved,
             ];
         }
 
         return [
-            'resolved' => false,
+            'resolved' => $this->isResolved,
             'response' => $this->response,
             'status' => (int) $this->response->getInfo('http_code'),
         ];
