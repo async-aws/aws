@@ -126,26 +126,37 @@ class ReceiveMessageRequest
     public function requestBody(): array
     {
         $payload = ['Action' => 'ReceiveMessage', 'Version' => '2012-11-05'];
-        if (null !== $this->QueueUrl) {
-            $payload['QueueUrl'] = $this->QueueUrl;
+        $indices = new \stdClass();
+        $payload['QueueUrl'] = $this->QueueUrl;
+        (static function ($input) use (&$payload, $indices) {
+            $indices->kbedee52 = 0;
+            foreach ($input as $value) {
+                ++$indices->kbedee52;
+                $payload["AttributeName.{$indices->kbedee52}"] = $value;
+            }
+        })($this->AttributeNames);
+        (static function ($input) use (&$payload, $indices) {
+            $indices->k40753f1 = 0;
+            foreach ($input as $value) {
+                ++$indices->k40753f1;
+                $payload["MessageAttributeName.{$indices->k40753f1}"] = $value;
+            }
+        })($this->MessageAttributeNames);
+
+        if (null !== $v = $this->MaxNumberOfMessages) {
+            $payload['MaxNumberOfMessages'] = $v;
         }
-        if (null !== $this->AttributeNames) {
-            $payload['AttributeNames'] = $this->AttributeNames;
+
+        if (null !== $v = $this->VisibilityTimeout) {
+            $payload['VisibilityTimeout'] = $v;
         }
-        if (null !== $this->MessageAttributeNames) {
-            $payload['MessageAttributeNames'] = $this->MessageAttributeNames;
+
+        if (null !== $v = $this->WaitTimeSeconds) {
+            $payload['WaitTimeSeconds'] = $v;
         }
-        if (null !== $this->MaxNumberOfMessages) {
-            $payload['MaxNumberOfMessages'] = $this->MaxNumberOfMessages;
-        }
-        if (null !== $this->VisibilityTimeout) {
-            $payload['VisibilityTimeout'] = $this->VisibilityTimeout;
-        }
-        if (null !== $this->WaitTimeSeconds) {
-            $payload['WaitTimeSeconds'] = $this->WaitTimeSeconds;
-        }
-        if (null !== $this->ReceiveRequestAttemptId) {
-            $payload['ReceiveRequestAttemptId'] = $this->ReceiveRequestAttemptId;
+
+        if (null !== $v = $this->ReceiveRequestAttemptId) {
+            $payload['ReceiveRequestAttemptId'] = $v;
         }
 
         return $payload;

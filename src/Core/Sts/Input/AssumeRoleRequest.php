@@ -193,35 +193,57 @@ class AssumeRoleRequest
     public function requestBody(): array
     {
         $payload = ['Action' => 'AssumeRole', 'Version' => '2011-06-15'];
-        if (null !== $this->RoleArn) {
-            $payload['RoleArn'] = $this->RoleArn;
+        $indices = new \stdClass();
+        $payload['RoleArn'] = $this->RoleArn;
+        $payload['RoleSessionName'] = $this->RoleSessionName;
+        (static function ($input) use (&$payload, $indices) {
+            $indices->kd8fbed2 = 0;
+            foreach ($input as $value) {
+                ++$indices->kd8fbed2;
+                (static function ($input) use (&$payload, $indices) {
+                    if (null !== $v = $input->getarn()) {
+                        $payload["PolicyArns.{$indices->kd8fbed2}.arn"] = $v;
+                    }
+                })($value);
+            }
+        })($this->PolicyArns);
+
+        if (null !== $v = $this->Policy) {
+            $payload['Policy'] = $v;
         }
-        if (null !== $this->RoleSessionName) {
-            $payload['RoleSessionName'] = $this->RoleSessionName;
+
+        if (null !== $v = $this->DurationSeconds) {
+            $payload['DurationSeconds'] = $v;
         }
-        if (null !== $this->PolicyArns) {
-            $payload['PolicyArns'] = $this->PolicyArns;
+
+        (static function ($input) use (&$payload, $indices) {
+            $indices->k848eed0 = 0;
+            foreach ($input as $value) {
+                ++$indices->k848eed0;
+                (static function ($input) use (&$payload, $indices) {
+                    $payload["Tags.{$indices->k848eed0}.Key"] = $input->getKey();
+                    $payload["Tags.{$indices->k848eed0}.Value"] = $input->getValue();
+                })($value);
+            }
+        })($this->Tags);
+        (static function ($input) use (&$payload, $indices) {
+            $indices->k296eb4e = 0;
+            foreach ($input as $value) {
+                ++$indices->k296eb4e;
+                $payload["TransitiveTagKeys.{$indices->k296eb4e}"] = $value;
+            }
+        })($this->TransitiveTagKeys);
+
+        if (null !== $v = $this->ExternalId) {
+            $payload['ExternalId'] = $v;
         }
-        if (null !== $this->Policy) {
-            $payload['Policy'] = $this->Policy;
+
+        if (null !== $v = $this->SerialNumber) {
+            $payload['SerialNumber'] = $v;
         }
-        if (null !== $this->DurationSeconds) {
-            $payload['DurationSeconds'] = $this->DurationSeconds;
-        }
-        if (null !== $this->Tags) {
-            $payload['Tags'] = $this->Tags;
-        }
-        if (null !== $this->TransitiveTagKeys) {
-            $payload['TransitiveTagKeys'] = $this->TransitiveTagKeys;
-        }
-        if (null !== $this->ExternalId) {
-            $payload['ExternalId'] = $this->ExternalId;
-        }
-        if (null !== $this->SerialNumber) {
-            $payload['SerialNumber'] = $this->SerialNumber;
-        }
-        if (null !== $this->TokenCode) {
-            $payload['TokenCode'] = $this->TokenCode;
+
+        if (null !== $v = $this->TokenCode) {
+            $payload['TokenCode'] = $v;
         }
 
         return $payload;

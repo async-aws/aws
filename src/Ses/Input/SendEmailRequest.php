@@ -127,26 +127,104 @@ class SendEmailRequest
     public function requestBody(): array
     {
         $payload = ['Action' => 'SendEmail', 'Version' => '2019-09-27'];
-        if (null !== $this->FromEmailAddress) {
-            $payload['FromEmailAddress'] = $this->FromEmailAddress;
+        $indices = new \stdClass();
+        if (null !== $v = $this->FromEmailAddress) {
+            $payload['FromEmailAddress'] = $v;
         }
-        if (null !== $this->Destination) {
-            $payload['Destination'] = $this->Destination;
+
+        (static function ($input) use (&$payload, $indices) {
+            (static function ($input) use (&$payload, $indices) {
+                $indices->kb596653 = 0;
+                foreach ($input as $value) {
+                    ++$indices->kb596653;
+                    $payload["Destination.ToAddresses.{$indices->kb596653}"] = $value;
+                }
+            })($input->getToAddresses());
+            (static function ($input) use (&$payload, $indices) {
+                $indices->k46e4559 = 0;
+                foreach ($input as $value) {
+                    ++$indices->k46e4559;
+                    $payload["Destination.CcAddresses.{$indices->k46e4559}"] = $value;
+                }
+            })($input->getCcAddresses());
+            (static function ($input) use (&$payload, $indices) {
+                $indices->kc683997 = 0;
+                foreach ($input as $value) {
+                    ++$indices->kc683997;
+                    $payload["Destination.BccAddresses.{$indices->kc683997}"] = $value;
+                }
+            })($input->getBccAddresses());
+        })($this->Destination);
+        (static function ($input) use (&$payload, $indices) {
+            $indices->k3079458 = 0;
+            foreach ($input as $value) {
+                ++$indices->k3079458;
+                $payload["ReplyToAddresses.{$indices->k3079458}"] = $value;
+            }
+        })($this->ReplyToAddresses);
+
+        if (null !== $v = $this->FeedbackForwardingEmailAddress) {
+            $payload['FeedbackForwardingEmailAddress'] = $v;
         }
-        if (null !== $this->ReplyToAddresses) {
-            $payload['ReplyToAddresses'] = $this->ReplyToAddresses;
-        }
-        if (null !== $this->FeedbackForwardingEmailAddress) {
-            $payload['FeedbackForwardingEmailAddress'] = $this->FeedbackForwardingEmailAddress;
-        }
-        if (null !== $this->Content) {
-            $payload['Content'] = $this->Content;
-        }
-        if (null !== $this->EmailTags) {
-            $payload['EmailTags'] = $this->EmailTags;
-        }
-        if (null !== $this->ConfigurationSetName) {
-            $payload['ConfigurationSetName'] = $this->ConfigurationSetName;
+
+        (static function ($input) use (&$payload) {
+            if (null !== $v = $input->getSimple()) {
+                (static function ($input) use (&$payload) {
+                    (static function ($input) use (&$payload) {
+                        $payload['Content.Simple.Subject.Data'] = $input->getData();
+                        if (null !== $v = $input->getCharset()) {
+                            $payload['Content.Simple.Subject.Charset'] = $v;
+                        }
+                    })($input->getSubject());
+                    (static function ($input) use (&$payload) {
+                        if (null !== $v = $input->getText()) {
+                            (static function ($input) use (&$payload) {
+                                $payload['Content.Simple.Body.Text.Data'] = $input->getData();
+                                if (null !== $v = $input->getCharset()) {
+                                    $payload['Content.Simple.Body.Text.Charset'] = $v;
+                                }
+                            })($v);
+                        }
+                        if (null !== $v = $input->getHtml()) {
+                            (static function ($input) use (&$payload) {
+                                $payload['Content.Simple.Body.Html.Data'] = $input->getData();
+                                if (null !== $v = $input->getCharset()) {
+                                    $payload['Content.Simple.Body.Html.Charset'] = $v;
+                                }
+                            })($v);
+                        }
+                    })($input->getBody());
+                })($v);
+            }
+            if (null !== $v = $input->getRaw()) {
+                (static function ($input) use (&$payload) {
+                    $payload['Content.Raw.Data'] = base64_encode($input->getData());
+                })($v);
+            }
+            if (null !== $v = $input->getTemplate()) {
+                (static function ($input) use (&$payload) {
+                    if (null !== $v = $input->getTemplateArn()) {
+                        $payload['Content.Template.TemplateArn'] = $v;
+                    }
+                    if (null !== $v = $input->getTemplateData()) {
+                        $payload['Content.Template.TemplateData'] = $v;
+                    }
+                })($v);
+            }
+        })($this->Content);
+        (static function ($input) use (&$payload, $indices) {
+            $indices->k7c3bed1 = 0;
+            foreach ($input as $value) {
+                ++$indices->k7c3bed1;
+                (static function ($input) use (&$payload, $indices) {
+                    $payload["EmailTags.{$indices->k7c3bed1}.Name"] = $input->getName();
+                    $payload["EmailTags.{$indices->k7c3bed1}.Value"] = $input->getValue();
+                })($value);
+            }
+        })($this->EmailTags);
+
+        if (null !== $v = $this->ConfigurationSetName) {
+            $payload['ConfigurationSetName'] = $v;
         }
 
         return $payload;

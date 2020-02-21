@@ -53,11 +53,10 @@ class GetQueueUrlRequest
     public function requestBody(): array
     {
         $payload = ['Action' => 'GetQueueUrl', 'Version' => '2012-11-05'];
-        if (null !== $this->QueueName) {
-            $payload['QueueName'] = $this->QueueName;
-        }
-        if (null !== $this->QueueOwnerAWSAccountId) {
-            $payload['QueueOwnerAWSAccountId'] = $this->QueueOwnerAWSAccountId;
+        $payload['QueueName'] = $this->QueueName;
+
+        if (null !== $v = $this->QueueOwnerAWSAccountId) {
+            $payload['QueueOwnerAWSAccountId'] = $v;
         }
 
         return $payload;

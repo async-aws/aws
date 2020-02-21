@@ -69,15 +69,24 @@ class CreateQueueRequest
     public function requestBody(): array
     {
         $payload = ['Action' => 'CreateQueue', 'Version' => '2012-11-05'];
-        if (null !== $this->QueueName) {
-            $payload['QueueName'] = $this->QueueName;
-        }
-        if (null !== $this->Attributes) {
-            $payload['Attribute'] = $this->Attributes;
-        }
-        if (null !== $this->tags) {
-            $payload['Tag'] = $this->tags;
-        }
+        $indices = new \stdClass();
+        $payload['QueueName'] = $this->QueueName;
+        (static function ($input) use (&$payload, $indices) {
+            $indices->ka086d94 = 0;
+            foreach ($input as $key => $value) {
+                ++$indices->ka086d94;
+                $payload["Attribute.{$indices->ka086d94}.Name"] = $key;
+                $payload["Attribute.{$indices->ka086d94}.Value"] = $value;
+            }
+        })($this->Attributes);
+        (static function ($input) use (&$payload, $indices) {
+            $indices->k982963c = 0;
+            foreach ($input as $key => $value) {
+                ++$indices->k982963c;
+                $payload["Tag.{$indices->k982963c}.Key"] = $key;
+                $payload["Tag.{$indices->k982963c}.Value"] = $value;
+            }
+        })($this->tags);
 
         return $payload;
     }
