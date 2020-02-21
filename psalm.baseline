@@ -14,16 +14,14 @@
   <file src="src/Core/Sts/Result/AssumeRoleResponse.php">
     <ArgumentTypeCoercion occurrences="2"/>
   </file>
+  <file src="src/Lambda/Result/ListLayerVersionsResponse.php">
+    <InvalidArgument occurrences="1"/>
+  </file>
   <file src="src/S3/Result/GetObjectAclOutput.php">
     <ArgumentTypeCoercion occurrences="1"/>
   </file>
   <file src="src/Sqs/Result/ReceiveMessageResult.php">
     <ArgumentTypeCoercion occurrences="1"/>
-  </file>
-  <file src="src/Symfony/Bundle/DependencyInjection/AwsPackagesProvider.php">
-    <UndefinedClass occurrences="1">
-      <code>\AsyncAws\Sns\SnsClient</code>
-    </UndefinedClass>
   </file>
   <file src="src/Symfony/Bundle/DependencyInjection/Configuration.php">
     <PossiblyNullReference occurrences="1">

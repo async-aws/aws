@@ -1,0 +1,29 @@
+{
+    "name": "async-aws/lambda",
+    "type": "library",
+    "description": "",
+    "keywords": [
+        "aws",
+        "lambda"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.2.5",
+        "ext-SimpleXML": "*",
+        "async-aws/core": "^0.1",
+        "symfony/http-client-contracts": "^1.0 || ^2.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "AsyncAws\\Lambda\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    }
+}

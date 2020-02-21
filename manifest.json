@@ -1,5 +1,17 @@
 {
     "services": {
+        "Lambda": {
+            "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/lambda\/2015-03-31\/api-2.json",
+            "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/lambda\/2015-03-31\/docs-2.json",
+            "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/lambda\/2015-03-31\/paginators-1.json",
+            "waiter": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/lambda\/2015-03-31\/waiters-2.json",
+            "methods": {
+                "ListLayerVersions": [],
+                "Invoke": [],
+                "AddLayerVersionPermission": [],
+                "PublishLayerVersion": []
+            }
+        },
         "S3": {
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/s3\/2006-03-01\/api-2.json",
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/s3\/2006-03-01\/docs-2.json",
@@ -24,6 +36,14 @@
             "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sesv2\/2019-09-27\/paginators-1.json",
             "methods": {
                 "SendEmail": []
+            }
+        },
+        "Sns": {
+            "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sns\/2010-03-31\/api-2.json",
+            "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sns\/2010-03-31\/docs-2.json",
+            "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sns\/2010-03-31\/paginators-1.json",
+            "methods": {
+                "Publish": []
             }
         },
         "Sqs": {

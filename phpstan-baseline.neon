@@ -6,9 +6,9 @@ parameters:
 			path: src/CodeGenerator/Command/GenerateCommand.php
 
 		-
-			message: "#^Class AsyncAws\\\\Sns\\\\SnsClient not found\\.$#"
+			message: "#^PHPDoc tag @param has invalid value \\(array\\{\nLayerVersionArn\\: \\?string,\nVersion\\: \\?string,\nDescription\\: \\?string,\nCreatedDate\\: \\?string,\nCompatibleRuntimes\\: \\?string\\[\\],\nLicenseInfo\\: \\?string,\\)\\: Unexpected token \"\\[\", expected '\\}' at offset 185$#"
 			count: 1
-			path: src/Symfony/Bundle/DependencyInjection/AwsPackagesProvider.php
+			path: src/Lambda/Result/LayerVersionsListItem.php
 
 		-
 			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\:\\:scalarNode\\(\\)\\.$#"
