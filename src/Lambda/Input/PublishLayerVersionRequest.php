@@ -103,6 +103,7 @@ class PublishLayerVersionRequest
             $payload['Description'] = $v;
         }
 
+        // $this->Content
         (static function (LayerVersionContentInput $input) use (&$payload) {
             if (null !== $v = $input->getS3Bucket()) {
                 $payload['Content']['S3Bucket'] = $v;
@@ -117,6 +118,8 @@ class PublishLayerVersionRequest
                 $payload['Content']['ZipFile'] = base64_encode($v);
             }
         })($this->Content);
+
+        // $this->CompatibleRuntimes
         (static function (array $input) use (&$payload) {
             foreach ($input as $value) {
                 $payload['CompatibleRuntimes'][] = $value;

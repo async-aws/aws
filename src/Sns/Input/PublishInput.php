@@ -153,11 +153,13 @@ class PublishInput
             $payload['MessageStructure'] = $v;
         }
 
+        // $this->MessageAttributes
         (static function (array $input) use (&$payload, $indices) {
             $indices->kb0b4646 = 0;
             foreach ($input as $key => $value) {
                 ++$indices->kb0b4646;
                 $payload["MessageAttributes.{$indices->kb0b4646}.Name"] = $key;
+
                 (static function (MessageAttributeValue $input) use (&$payload, $indices) {
                     $payload["MessageAttributes.{$indices->kb0b4646}.Value.DataType"] = $input->getDataType();
                     if (null !== $v = $input->getStringValue()) {

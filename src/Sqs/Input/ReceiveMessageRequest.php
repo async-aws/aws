@@ -128,6 +128,8 @@ class ReceiveMessageRequest
         $payload = ['Action' => 'ReceiveMessage', 'Version' => '2012-11-05'];
         $indices = new \stdClass();
         $payload['QueueUrl'] = $this->QueueUrl;
+
+        // $this->AttributeNames
         (static function (array $input) use (&$payload, $indices) {
             $indices->kbedee52 = 0;
             foreach ($input as $value) {
@@ -135,6 +137,8 @@ class ReceiveMessageRequest
                 $payload["AttributeName.{$indices->kbedee52}"] = $value;
             }
         })($this->AttributeNames);
+
+        // $this->MessageAttributeNames
         (static function (array $input) use (&$payload, $indices) {
             $indices->k40753f1 = 0;
             foreach ($input as $value) {

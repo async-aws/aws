@@ -138,11 +138,15 @@ PHP;
             ]);
         }, $shape->getMembers()));
 
-        return strtr('(static function(CLASS_NAME $input) use (USE) {
+        return strtr('
+
+    COMMENT
+            (static function(CLASS_NAME $input) use (USE) {
                 MEMBERS_CODE
             })(INPUT);',
         [
             'INPUT' => $input,
+            'COMMENT' => false !== strpos($input, '->') ? '// '.$input : '',
             'CLASS_NAME' => $this->namespaceRegistry->getInput($shape)->getName(),
             'MEMBERS_CODE' => $memberCode,
             'USE' => \strpos($memberCode, '$indices') ? '&$payload, $indices' : '&$payload',
@@ -151,7 +155,10 @@ PHP;
 
     private function dumpArrayMap(string $output, string $input, MapShape $shape): string
     {
-        return strtr('(static function(array $input) use (USE) {
+        return strtr('
+
+    COMMENT
+            (static function(array $input) use (USE) {
                 $indices->INDEX_KEY = 0;
                 foreach ($input as $key => $value) {
                     $indices->INDEX_KEY++;
@@ -161,6 +168,7 @@ PHP;
             })(INPUT);',
         [
             'INPUT' => $input,
+            'COMMENT' => false !== strpos($input, '->') ? '// '.$input : '',
             'INDEX_KEY' => $indexKey = 'k' . \substr(sha1($output), 0, 7),
             'OUTPUT_KEY' => sprintf('%s.{$indices->%s}.%s', $output, $indexKey, $shape->getKey()->getLocationName() ?? 'key'),
             'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$indices->%s}.%s', $output, $indexKey, $shape->getValue()->getLocationName() ?? 'value'), '$value', $shape->getValue()->getShape()),
@@ -170,7 +178,10 @@ PHP;
 
     private function dumpArrayList(string $output, string $input, ListShape $shape): string
     {
-        return strtr('(static function(array $input) use (USE) {
+        return strtr('
+
+    COMMENT
+            (static function(array $input) use (USE) {
                 $indices->INDEX_KEY = 0;
                 foreach ($input as $value) {
                     $indices->INDEX_KEY++;
@@ -179,6 +190,7 @@ PHP;
             })(INPUT);',
             [
                 'INPUT' => $input,
+                'COMMENT' => false !== strpos($input, '->') ? '// '.$input : '',
                 'INDEX_KEY' => $indexKey = 'k' . \substr(sha1($output), 0, 7),
                 'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$indices->%s}', $output, $indexKey), '$value', $shape->getMember()->getShape()),
                 'USE' => \strpos($memberCode, '$indices') ? '&$payload, $indices' : '&$payload',

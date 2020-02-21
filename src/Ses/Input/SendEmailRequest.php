@@ -132,23 +132,32 @@ class SendEmailRequest
             $payload['FromEmailAddress'] = $v;
         }
 
+        // $this->Destination
         (static function (Destination $input) use (&$payload) {
+
+            // $input->getToAddresses()
             (static function (array $input) use (&$payload) {
                 foreach ($input as $value) {
                     $payload['Destination']['ToAddresses'][] = $value;
                 }
             })($input->getToAddresses());
+
+            // $input->getCcAddresses()
             (static function (array $input) use (&$payload) {
                 foreach ($input as $value) {
                     $payload['Destination']['CcAddresses'][] = $value;
                 }
             })($input->getCcAddresses());
+
+            // $input->getBccAddresses()
             (static function (array $input) use (&$payload) {
                 foreach ($input as $value) {
                     $payload['Destination']['BccAddresses'][] = $value;
                 }
             })($input->getBccAddresses());
         })($this->Destination);
+
+        // $this->ReplyToAddresses
         (static function (array $input) use (&$payload) {
             foreach ($input as $value) {
                 $payload['ReplyToAddresses'][] = $value;
@@ -159,15 +168,20 @@ class SendEmailRequest
             $payload['FeedbackForwardingEmailAddress'] = $v;
         }
 
+        // $this->Content
         (static function (EmailContent $input) use (&$payload) {
             if (null !== $v = $input->getSimple()) {
                 (static function (Message $input) use (&$payload) {
+
+            // $input->getSubject()
                     (static function (Content $input) use (&$payload) {
                         $payload['Content']['Simple']['Subject']['Data'] = $input->getData();
                         if (null !== $v = $input->getCharset()) {
                             $payload['Content']['Simple']['Subject']['Charset'] = $v;
                         }
                     })($input->getSubject());
+
+                    // $input->getBody()
                     (static function (Body $input) use (&$payload) {
                         if (null !== $v = $input->getText()) {
                             (static function (Content $input) use (&$payload) {
@@ -204,6 +218,8 @@ class SendEmailRequest
                 })($v);
             }
         })($this->Content);
+
+        // $this->EmailTags
         (static function (array $input) use (&$payload) {
             foreach ($input as $value) {
                 (static function (MessageTag $input) use (&$payload) {

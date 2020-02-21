@@ -136,11 +136,15 @@ PHP;
             ]);
         }, $shape->getMembers()));
 
-        return strtr('(static function(CLASS_NAME $input) use (&$payload) {
+        return strtr('
+
+    COMMENT
+            (static function(CLASS_NAME $input) use (&$payload) {
                 MEMBERS_CODE
             })(INPUT);',
             [
                 'INPUT' => $input,
+                'COMMENT' => false !== strpos($input, '->') ? '// '.$input : '',
                 'CLASS_NAME' => $this->namespaceRegistry->getInput($shape)->getName(),
                 'MEMBERS_CODE' => $memberCode,
             ]);
@@ -150,13 +154,17 @@ PHP;
     {
         $memberShape = $shape->getMember()->getShape();
 
-        return strtr('(static function(array $input) use (&$payload) {
+        return strtr('
+
+    COMMENT
+            (static function(array $input) use (&$payload) {
                 foreach ($input as $value) {
                     MEMBER_CODE
                 }
             })(INPUT);',
             [
                 'INPUT' => $input,
+                'COMMENT' => false !== strpos($input, '->') ? '// '.$input : '',
                 'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s[]', $output), '$value', $memberShape),
             ]);
     }
