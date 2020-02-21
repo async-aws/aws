@@ -40,6 +40,11 @@ class ResultGenerator
      */
     private $xmlParser;
 
+    /**
+     * @var bool[]
+     */
+    private $generated = [];
+
     public function __construct(FileWriter $fileWriter)
     {
         $this->fileWriter = $fileWriter;
@@ -77,6 +82,11 @@ class ResultGenerator
 
     private function generateResultClass(string $service, string $baseNamespace, StructureShape $shape, bool $root = false, ?bool $useTrait = null, ?Operation $operation = null): void
     {
+        if (isset($this->generated[$shape->getName()])) {
+            return;
+        }
+        $this->generated[$shape->getName()] = true;
+
         $namespace = new PhpNamespace($baseNamespace);
         $class = $namespace->addClass(GeneratorHelper::safeClassName($shape->getName()));
 

@@ -103,7 +103,13 @@ class GenerateCommand extends Command
             $baseNamespace = $manifest['services'][$serviceName]['namespace'] ?? \sprintf('AsyncAws\\%s', $serviceName);
             $resultNamespace = $baseNamespace . '\\Result';
 
-            $this->generator->client()->generate($definition, $serviceName, $baseNamespace);
+
+            $clientGenerator = $this->generator->client();
+            $operationGenerator = $this->generator->operation();
+            $resultGenerator = $this->generator->result();
+            $waiterGenerator = $this->generator->waiter();
+
+            $clientGenerator->generate($definition, $serviceName, $baseNamespace);
 
             foreach ($operationNames as $operationName) {
                 $progressOperation->setMessage($operationName);
@@ -113,15 +119,15 @@ class GenerateCommand extends Command
                 $operationConfig = $this->getOperationConfig($manifest, $serviceName, $operationName);
                 if (null !== $operation = $definition->getOperation($operationName)) {
                     if ($operationConfig['generate-method']) {
-                        $this->generator->operation()->generate($operation, $serviceName, $baseNamespace);
+                        $operationGenerator->generate($operation, $serviceName, $baseNamespace);
                     }
 
                     if ($operationConfig['generate-result'] && null !== $operation->getOutput()) {
-                        $this->generator->result()->generate($operation, $serviceName, $resultNamespace, true, $operationConfig['separate-result-trait']);
+                        $resultGenerator->generate($operation, $serviceName, $resultNamespace, true, $operationConfig['separate-result-trait']);
                     }
                 } elseif (null !== $waiter = $definition->getWaiter($operationName)) {
                     if ($operationConfig['generate-method']) {
-                        $this->generator->waiter()->generate($waiter, $serviceName, $baseNamespace);
+                        $waiterGenerator->generate($waiter, $serviceName, $baseNamespace);
                     }
                 } else {
                     $io->error(\sprintf('Could not find service or waiter named "%s".', $operationName));
