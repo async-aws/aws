@@ -42,11 +42,11 @@ class RestXmlSerializer implements Serializer
     {
         return strtr('
             $document = new \DOMDocument(\'1.0\', \'UTF-8\');
-            $document->formatOutput = true;
+            $document->formatOutput = false;
 
             CHILDREN_CODE
 
-            return $document->saveXML();
+            return $document->hasChildNodes() ? $document->saveXML() : \'\';
         ', [
             'CHILDREN_CODE' => $this->dumpXmlMember($member, '$document', '$this'),
         ]);

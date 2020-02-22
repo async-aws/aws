@@ -152,7 +152,7 @@ class CreateBucketRequest
     public function requestBody(): string
     {
         $document = new \DOMDocument('1.0', 'UTF-8');
-        $document->formatOutput = true;
+        $document->formatOutput = false;
 
         if (null !== $input = $this->CreateBucketConfiguration) {
             $document->appendChild($document_CreateBucketConfiguration = $document->createElement('CreateBucketConfiguration'));
@@ -163,7 +163,7 @@ class CreateBucketRequest
             }
         }
 
-        return $document->saveXML();
+        return $document->hasChildNodes() ? $document->saveXML() : '';
     }
 
     public function requestHeaders(): array

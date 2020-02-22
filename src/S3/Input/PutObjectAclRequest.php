@@ -199,7 +199,7 @@ class PutObjectAclRequest
     public function requestBody(): string
     {
         $document = new \DOMDocument('1.0', 'UTF-8');
-        $document->formatOutput = true;
+        $document->formatOutput = false;
 
         if (null !== $input = $this->AccessControlPolicy) {
             $document->appendChild($document_AccessControlPolicy = $document->createElement('AccessControlPolicy'));
@@ -253,7 +253,7 @@ class PutObjectAclRequest
             }
         }
 
-        return $document->saveXML();
+        return $document->hasChildNodes() ? $document->saveXML() : '';
     }
 
     public function requestHeaders(): array

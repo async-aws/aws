@@ -52,4 +52,18 @@ class PutObjectAclRequestTest extends TestCase
 
         self::assertXmlStringEqualsXmlString($expected, $input->requestBody());
     }
+
+    public function testCannedAcl()
+    {
+        $input = new PutObjectAclRequest(['Bucket' => 'foo-bucket', 'Key' => 'bar-key']);
+        $input->setACL('public-read');
+
+        $input->validate();
+
+        $headers = $input->requestHeaders();
+        self::assertArrayHasKey('x-amz-acl', $headers);
+        self::assertEquals('public-read', $headers['x-amz-acl']);
+        self::assertEquals('/foo-bucket/bar-key?acl', $input->requestUri());
+        self::assertEmpty($input->requestBody(), 'Request body should be empty when ACL is used');
+    }
 }
