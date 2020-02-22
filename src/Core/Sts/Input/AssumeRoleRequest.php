@@ -197,17 +197,18 @@ class AssumeRoleRequest
         $payload['RoleArn'] = $this->RoleArn;
         $payload['RoleSessionName'] = $this->RoleSessionName;
 
-        // $this->PolicyArns
         (static function (array $input) use (&$payload, $indices) {
             $indices->kd8fbed2 = 0;
             foreach ($input as $value) {
                 ++$indices->kd8fbed2;
 
-                (static function (PolicyDescriptorType $input) use (&$payload, $indices) {
-                    if (null !== $v = $input->getarn()) {
-                        $payload["PolicyArns.{$indices->kd8fbed2}.arn"] = $v;
-                    }
-                })($value);
+                if (null !== $value) {
+                    (static function (PolicyDescriptorType $input) use (&$payload, $indices) {
+                        if (null !== $v = $input->getarn()) {
+                            $payload["PolicyArns.{$indices->kd8fbed2}.arn"] = $input->getarn();
+                        }
+                    })($value);
+                }
             }
         })($this->PolicyArns);
 
@@ -219,20 +220,20 @@ class AssumeRoleRequest
             $payload['DurationSeconds'] = $v;
         }
 
-        // $this->Tags
         (static function (array $input) use (&$payload, $indices) {
             $indices->k848eed0 = 0;
             foreach ($input as $value) {
                 ++$indices->k848eed0;
 
-                (static function (Tag $input) use (&$payload, $indices) {
-                    $payload["Tags.{$indices->k848eed0}.Key"] = $input->getKey();
-                    $payload["Tags.{$indices->k848eed0}.Value"] = $input->getValue();
-                })($value);
+                if (null !== $value) {
+                    (static function (Tag $input) use (&$payload, $indices) {
+                        $payload["Tags.{$indices->k848eed0}.Key"] = $input->getKey();
+                        $payload["Tags.{$indices->k848eed0}.Value"] = $input->getValue();
+                    })($value);
+                }
             }
         })($this->Tags);
 
-        // $this->TransitiveTagKeys
         (static function (array $input) use (&$payload, $indices) {
             $indices->k296eb4e = 0;
             foreach ($input as $value) {

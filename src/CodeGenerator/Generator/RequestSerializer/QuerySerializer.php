@@ -124,51 +124,64 @@ PHP;
             $shape = $member->getShape();
             if ($member->isRequired() || $shape instanceof ListShape || $shape instanceof MapShape) {
                 $body = 'MEMBER_CODE';
-                $inputElement = '$input->get' . $member->getName() . '()';
             } else {
-                $body = 'if (null !== $v = INPUT_NAME) {
-                        MEMBER_CODE
-                    }';
-                $inputElement = '$v';
+                $body = '
+
+if (null !== $v = INPUT_NAME) {
+    MEMBER_CODE
+}';
             }
 
             return strtr($body, [
                 'INPUT_NAME' => '$input->get' . $member->getName() . '()',
-                'MEMBER_CODE' => $this->dumpArrayElement(sprintf('%s.%s', $output, $this->getName($member)), $inputElement, $shape),
+                'MEMBER_CODE' => $this->dumpArrayElement(sprintf('%s.%s', $output, $this->getName($member)), '$input->get' . $member->getName() . '()', $shape),
             ]);
         }, $shape->getMembers()));
 
-        return strtr('
-
-    COMMENT
-            (static function(CLASS_NAME $input) use (USE) {
-                MEMBERS_CODE
-            })(INPUT);',
-        [
+        $replaceData = [
             'INPUT' => $input,
-            'COMMENT' => false !== strpos($input, '->') ? '// '.$input : '',
             'CLASS_NAME' => $this->namespaceRegistry->getInput($shape)->getName(),
             'MEMBERS_CODE' => $memberCode,
             'USE' => \strpos($memberCode, '$indices') ? '&$payload, $indices' : '&$payload',
-        ]);
+        ];
+
+
+        if ($input === '$v') {
+            // No check for null needed
+            return strtr('
+
+(static function(CLASS_NAME $input) use (USE) {
+    MEMBERS_CODE
+})(INPUT);',
+                $replaceData
+            );
+        }
+
+        return strtr('
+
+if (null !== INPUT) {
+    (static function(CLASS_NAME $input) use (USE) {
+        MEMBERS_CODE
+    })(INPUT);
+}',
+            $replaceData);
+
     }
 
     private function dumpArrayMap(string $output, string $input, MapShape $shape): string
     {
         return strtr('
 
-    COMMENT
-            (static function(array $input) use (USE) {
-                $indices->INDEX_KEY = 0;
-                foreach ($input as $key => $value) {
-                    $indices->INDEX_KEY++;
-                    $payload["OUTPUT_KEY"] = $key;
-                    MEMBER_CODE
-                }
-            })(INPUT);',
+(static function(array $input) use (USE) {
+    $indices->INDEX_KEY = 0;
+    foreach ($input as $key => $value) {
+        $indices->INDEX_KEY++;
+        $payload["OUTPUT_KEY"] = $key;
+        MEMBER_CODE
+    }
+})(INPUT);',
         [
             'INPUT' => $input,
-            'COMMENT' => false !== strpos($input, '->') ? '// '.$input : '',
             'INDEX_KEY' => $indexKey = 'k' . \substr(sha1($output), 0, 7),
             'OUTPUT_KEY' => sprintf('%s.{$indices->%s}.%s', $output, $indexKey, $shape->getKey()->getLocationName() ?? 'key'),
             'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$indices->%s}.%s', $output, $indexKey, $shape->getValue()->getLocationName() ?? 'value'), '$value', $shape->getValue()->getShape()),
@@ -180,17 +193,15 @@ PHP;
     {
         return strtr('
 
-    COMMENT
-            (static function(array $input) use (USE) {
-                $indices->INDEX_KEY = 0;
-                foreach ($input as $value) {
-                    $indices->INDEX_KEY++;
-                    MEMBER_CODE
-                }
-            })(INPUT);',
+(static function(array $input) use (USE) {
+    $indices->INDEX_KEY = 0;
+    foreach ($input as $value) {
+        $indices->INDEX_KEY++;
+        MEMBER_CODE
+    }
+})(INPUT);',
             [
                 'INPUT' => $input,
-                'COMMENT' => false !== strpos($input, '->') ? '// '.$input : '',
                 'INDEX_KEY' => $indexKey = 'k' . \substr(sha1($output), 0, 7),
                 'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$indices->%s}', $output, $indexKey), '$value', $shape->getMember()->getShape()),
                 'USE' => \strpos($memberCode, '$indices') ? '&$payload, $indices' : '&$payload',

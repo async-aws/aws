@@ -135,7 +135,6 @@ class AddLayerVersionPermissionRequest
         $payload['StatementId'] = $this->StatementId;
         $payload['Action'] = $this->Action;
         $payload['Principal'] = $this->Principal;
-
         if (null !== $v = $this->OrganizationId) {
             $payload['OrganizationId'] = $v;
         }

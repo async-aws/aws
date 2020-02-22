@@ -11,7 +11,6 @@ use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
-use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 
 /**
  * @author Jérémy Derussé <jeremy@derusse.com>

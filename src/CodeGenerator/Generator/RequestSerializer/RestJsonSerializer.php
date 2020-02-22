@@ -55,11 +55,9 @@ PHP;
                 $body = 'MEMBER_CODE';
                 $inputElement = '$this->' . $member->getName();
             } else {
-                $body = '
-                    if (null !== $v = INPUT_NAME) {
+                $body = 'if (null !== $v = INPUT_NAME) {
                         MEMBER_CODE
-                    }
-                ';
+                    }';
                 $inputElement = '$v';
             }
 
@@ -124,7 +122,9 @@ PHP;
                 $body = 'MEMBER_CODE';
                 $inputElement = '$input->get' . $member->getName() . '()';
             } else {
-                $body = 'if (null !== $v = INPUT_NAME) {
+                $body = '
+
+                if (null !== $v = INPUT_NAME) {
                         MEMBER_CODE
                     }';
                 $inputElement = '$v';
@@ -136,18 +136,32 @@ PHP;
             ]);
         }, $shape->getMembers()));
 
+        $replaceData = [
+            'INPUT' => $input,
+            'CLASS_NAME' => $this->namespaceRegistry->getInput($shape)->getName(),
+            'MEMBERS_CODE' => $memberCode,
+        ];
+
+        if ($input === '$v') {
+            // No check for null needed
+            return strtr('
+
+(static function(CLASS_NAME $input) use (&$payload) {
+    MEMBERS_CODE
+})(INPUT);',
+                $replaceData
+            );
+        }
+
         return strtr('
 
-    COMMENT
-            (static function(CLASS_NAME $input) use (&$payload) {
-                MEMBERS_CODE
-            })(INPUT);',
-            [
-                'INPUT' => $input,
-                'COMMENT' => false !== strpos($input, '->') ? '// '.$input : '',
-                'CLASS_NAME' => $this->namespaceRegistry->getInput($shape)->getName(),
-                'MEMBERS_CODE' => $memberCode,
-            ]);
+if (null !== INPUT) {
+    (static function(CLASS_NAME $input) use (&$payload) {
+        MEMBERS_CODE
+    })(INPUT);
+}',
+            $replaceData
+        );
     }
 
     private function dumpArrayList(string $output, string $input, ListShape $shape): string
@@ -155,16 +169,14 @@ PHP;
         $memberShape = $shape->getMember()->getShape();
 
         return strtr('
-
-    COMMENT
-            (static function(array $input) use (&$payload) {
-                foreach ($input as $value) {
-                    MEMBER_CODE
-                }
-            })(INPUT);',
+(static function(array $input) use (&$payload) {
+    foreach ($input as $value) {
+        MEMBER_CODE
+    }
+})(INPUT);',
             [
                 'INPUT' => $input,
-                'COMMENT' => false !== strpos($input, '->') ? '// '.$input : '',
+                'COMMENT' => false !== strpos($input, '->') ? '// ' . $input : '',
                 'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s[]', $output), '$value', $memberShape),
             ]);
     }

@@ -103,29 +103,31 @@ class PublishLayerVersionRequest
             $payload['Description'] = $v;
         }
 
-        // $this->Content
-        (static function (LayerVersionContentInput $input) use (&$payload) {
-            if (null !== $v = $input->getS3Bucket()) {
-                $payload['Content']['S3Bucket'] = $v;
-            }
-            if (null !== $v = $input->getS3Key()) {
-                $payload['Content']['S3Key'] = $v;
-            }
-            if (null !== $v = $input->getS3ObjectVersion()) {
-                $payload['Content']['S3ObjectVersion'] = $v;
-            }
-            if (null !== $v = $input->getZipFile()) {
-                $payload['Content']['ZipFile'] = base64_encode($v);
-            }
-        })($this->Content);
+        if (null !== $this->Content) {
+            (static function (LayerVersionContentInput $input) use (&$payload) {
+                if (null !== $v = $input->getS3Bucket()) {
+                    $payload['Content']['S3Bucket'] = $v;
+                }
 
-        // $this->CompatibleRuntimes
+                if (null !== $v = $input->getS3Key()) {
+                    $payload['Content']['S3Key'] = $v;
+                }
+
+                if (null !== $v = $input->getS3ObjectVersion()) {
+                    $payload['Content']['S3ObjectVersion'] = $v;
+                }
+
+                if (null !== $v = $input->getZipFile()) {
+                    $payload['Content']['ZipFile'] = base64_encode($v);
+                }
+            })($this->Content);
+        }
+
         (static function (array $input) use (&$payload) {
             foreach ($input as $value) {
                 $payload['CompatibleRuntimes'][] = $value;
             }
         })($this->CompatibleRuntimes);
-
         if (null !== $v = $this->LicenseInfo) {
             $payload['LicenseInfo'] = $v;
         }
