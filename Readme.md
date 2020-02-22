@@ -117,4 +117,5 @@ echo $waiter->isSuccess(); // true
 | async-aws/s3 | AsyncAws\S3 | async-aws/s3
 | async-aws/ses | AsyncAws\Ses | async-aws/ses
 | async-aws/sqs | AsyncAws\Sqs | async-aws/sqs
+| async-aws/flysystem-s3 | AsyncAws\Flysystem\S3 | async-aws/flysystem-s3
 | async-aws/symfony-bundle | AsyncAws\Symfony\Bundle | async-aws/async-aws-bundle
