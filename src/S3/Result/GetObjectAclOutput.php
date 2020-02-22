@@ -63,7 +63,7 @@ class GetObjectAclOutput extends Result
                         'DisplayName' => ($v = $item->Grantee->DisplayName) ? (string) $v : null,
                         'EmailAddress' => ($v = $item->Grantee->EmailAddress) ? (string) $v : null,
                         'ID' => ($v = $item->Grantee->ID) ? (string) $v : null,
-                        'Type' => ($v = $item->Grantee->attributes('xsi', true)['type'][0] ?? null) ? (string) $v : null,
+                        'Type' => (string) ($item->Grantee->attributes('xsi', true)['type'][0] ?? null),
                         'URI' => ($v = $item->Grantee->URI) ? (string) $v : null,
                     ]),
                     'Permission' => ($v = $item->Permission) ? (string) $v : null,

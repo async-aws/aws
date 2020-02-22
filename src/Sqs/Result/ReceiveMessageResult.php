@@ -76,7 +76,7 @@ class ReceiveMessageResult extends Result
 
                                     return $items;
                                 })($item->Value->BinaryListValue),
-                                'DataType' => ($v = $item->Value->DataType) ? (string) $v : null,
+                                'DataType' => (string) $item->Value->DataType,
                             ]);
                         }
 

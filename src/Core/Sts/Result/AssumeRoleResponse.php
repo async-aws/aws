@@ -56,14 +56,14 @@ class AssumeRoleResponse extends Result
         $data = $data->AssumeRoleResult;
 
         $this->Credentials = new Credentials([
-            'AccessKeyId' => ($v = $data->Credentials->AccessKeyId) ? (string) $v : null,
-            'SecretAccessKey' => ($v = $data->Credentials->SecretAccessKey) ? (string) $v : null,
-            'SessionToken' => ($v = $data->Credentials->SessionToken) ? (string) $v : null,
-            'Expiration' => ($v = $data->Credentials->Expiration) ? new \DateTimeImmutable((string) $v) : null,
+            'AccessKeyId' => (string) $data->Credentials->AccessKeyId,
+            'SecretAccessKey' => (string) $data->Credentials->SecretAccessKey,
+            'SessionToken' => (string) $data->Credentials->SessionToken,
+            'Expiration' => new \DateTimeImmutable((string) $data->Credentials->Expiration),
         ]);
         $this->AssumedRoleUser = new AssumedRoleUser([
-            'AssumedRoleId' => ($v = $data->AssumedRoleUser->AssumedRoleId) ? (string) $v : null,
-            'Arn' => ($v = $data->AssumedRoleUser->Arn) ? (string) $v : null,
+            'AssumedRoleId' => (string) $data->AssumedRoleUser->AssumedRoleId,
+            'Arn' => (string) $data->AssumedRoleUser->Arn,
         ]);
         $this->PackedPolicySize = ($v = $data->PackedPolicySize) ? (int) (string) $v : null;
     }
