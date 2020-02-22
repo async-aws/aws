@@ -126,36 +126,36 @@ class RestJsonParser implements Parser
 
     private function parseResponseString(string $input): string
     {
-        return strtr('($v = INPUT) ? (string) $v : null', ['INPUT' => $input]);
+        return strtr('isset(INPUT) ? (string) INPUT : null', ['INPUT' => $input]);
     }
 
     private function parseResponseInteger(string $input): string
     {
-        return strtr('($v = INPUT) ? (int) (string) $v : null', ['INPUT' => $input]);
+        return strtr('isset(INPUT) ? (int) (string) INPUT : null', ['INPUT' => $input]);
     }
 
     private function parseResponseFloat(string $input): string
     {
-        return strtr('($v = INPUT) ? (float) (string) $v : null', ['INPUT' => $input]);
+        return strtr('isset(INPUT) ? (float) (string) INPUT : null', ['INPUT' => $input]);
     }
 
     private function parseResponseBool(string $input): string
     {
-        return strtr('($v = INPUT) ? (string) $v === \'true\' : null', ['INPUT' => $input]);
+        return strtr('isset(INPUT) ? (string) INPUT === \'true\' : null', ['INPUT' => $input]);
     }
 
     private function parseResponseBlob(string $input): string
     {
-        return strtr('($v = INPUT) ? base64_decode((string) $v) : null', ['INPUT' => $input]);
+        return strtr('isset(INPUT) ? base64_decode((string) INPUT) : null', ['INPUT' => $input]);
     }
 
     private function parseResponseTimestamp(Shape $shape, string $input): string
     {
         if ('unixTimestamp' === $shape->get('timestampFormat')) {
-            return strtr('($v = INPUT) ? \DateTimeImmutable::setTimestamp((string) $v) : null', ['INPUT' => $input]);
+            return strtr('isset(INPUT) ? \DateTimeImmutable::setTimestamp((string) INPUT) : null', ['INPUT' => $input]);
         }
 
-        return strtr('($v = INPUT) ? new \DateTimeImmutable((string) $v) : null', ['INPUT' => $input]);
+        return strtr('isset(INPUT) ? new \DateTimeImmutable((string) INPUT) : null', ['INPUT' => $input]);
     }
 
     private function parseResponseList(ListShape $shape, string $input): string
