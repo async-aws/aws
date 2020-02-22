@@ -18,4 +18,23 @@ class ClientExceptionTest extends TestCase
 
         self::assertEquals('Missing final \'@domain\'', $exception->getAwsMessage());
     }
+
+    public function testRestXmlError()
+    {
+        $xml = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<Error>
+    <Code>NoSuchKey</Code>
+    <Message>The specified key does not exist.</Message>
+    <Key>travis-ci/8173c58fa3af3cb90ab1/path.txt</Key>
+    <RequestId>E35DA9F89E2F4155</RequestId>
+    <HostId>fQa+jP2WL4wWRe+OFbw9H9HNqoailc7Zv+nRsjEqXjrsOuIy1ubQ1rOXA=</HostId>
+</Error>
+XML;
+
+        $response = new SimpleMockedResponse($xml, ['content-type' => 'text/xml'], 400);
+        $exception = new ClientException($response);
+
+        self::assertEquals('The specified key does not exist.', $exception->getAwsMessage());
+    }
 }
