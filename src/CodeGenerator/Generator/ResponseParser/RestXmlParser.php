@@ -40,7 +40,7 @@ class RestXmlParser implements Parser
 
             $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
                 'PROPERTY_NAME' => $member->getName(),
-                'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$data', $member), $member->getShape()),
+                'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$data', $member), $member->getShape(), $member->isRequired()),
             ]);
         }
 
@@ -80,7 +80,7 @@ class RestXmlParser implements Parser
         return $currentInput . ($member->getLocationName() ? '->' . $member->getLocationName() : '');
     }
 
-    private function parseXmlElement(string $input, Shape $shape)
+    private function parseXmlElement(string $input, Shape $shape, bool $required)
     {
         switch (true) {
             case $shape instanceof ListShape:
@@ -94,18 +94,18 @@ class RestXmlParser implements Parser
         switch ($shape->getType()) {
             case 'string':
             case 'long':
-                return $this->parseXmlResponseString($input);
+                return $this->parseXmlResponseString($input, $required);
             case 'integer':
-                return $this->parseXmlResponseInteger($input);
+                return $this->parseXmlResponseInteger($input, $required);
             case 'float':
             case 'double':
-                return $this->parseXmlResponseFloat($input);
+                return $this->parseXmlResponseFloat($input, $required);
             case 'boolean':
-                return $this->parseXmlResponseBool($input);
+                return $this->parseXmlResponseBool($input, $required);
             case 'blob':
-                return $this->parseXmlResponseBlob($input);
+                return $this->parseXmlResponseBlob($input, $required);
             case 'timestamp':
-                return $this->parseXmlResponseTimestamp($shape, $input);
+                return $this->parseXmlResponseTimestamp($shape, $input, $required);
         }
 
         throw new \RuntimeException(sprintf('Type %s is not yet implemented', $shape->getType()));
@@ -117,7 +117,7 @@ class RestXmlParser implements Parser
         foreach ($shape->getMembers() as $member) {
             $properties[] = strtr('PROPERTY_NAME => PROPERTY_ACCESSOR,', [
                 'PROPERTY_NAME' => var_export($member->getName(), true),
-                'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor($input, $member), $member->getShape()),
+                'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor($input, $member), $member->getShape(), $member->isRequired()),
             ]);
         }
 
@@ -129,35 +129,63 @@ class RestXmlParser implements Parser
         ]);
     }
 
-    private function parseXmlResponseString(string $input): string
+    private function parseXmlResponseString(string $input, bool $required): string
     {
+        if ($required) {
+            return strtr('(string) INPUT', ['INPUT' => $input]);
+        }
+
         return strtr('($v = INPUT) ? (string) $v : null', ['INPUT' => $input]);
     }
 
-    private function parseXmlResponseInteger(string $input): string
+    private function parseXmlResponseInteger(string $input, bool $required): string
     {
+        if ($required) {
+            return strtr('(int) (string) INPUT', ['INPUT' => $input]);
+        }
+
         return strtr('($v = INPUT) ? (int) (string) $v : null', ['INPUT' => $input]);
     }
 
-    private function parseXmlResponseFloat(string $input): string
+    private function parseXmlResponseFloat(string $input, bool $required): string
     {
+        if ($required) {
+            return strtr('(float) (string) INPUT', ['INPUT' => $input]);
+        }
+
         return strtr('($v = INPUT) ? (float) (string) $v : null', ['INPUT' => $input]);
     }
 
-    private function parseXmlResponseBool(string $input): string
+    private function parseXmlResponseBool(string $input, bool $required): string
     {
+        if ($required) {
+            return strtr('(string) INPUT  === \'true\'', ['INPUT' => $input]);
+        }
+
         return strtr('($v = INPUT) ? (string) $v === \'true\' : null', ['INPUT' => $input]);
     }
 
-    private function parseXmlResponseBlob(string $input): string
+    private function parseXmlResponseBlob(string $input, bool $required): string
     {
+        if ($required) {
+            return strtr('base64_decode((string) INPUT)', ['INPUT' => $input]);
+        }
+
         return strtr('($v = INPUT) ? base64_decode((string) $v) : null', ['INPUT' => $input]);
     }
 
-    private function parseXmlResponseTimestamp(Shape $shape, string $input): string
+    private function parseXmlResponseTimestamp(Shape $shape, string $input, bool $required): string
     {
         if ('unixTimestamp' === $shape->get('timestampFormat')) {
+            if ($required) {
+                return strtr('\DateTimeImmutable::setTimestamp((string) INPUT)', ['INPUT' => $input]);
+            }
+
             return strtr('($v = INPUT) ? \DateTimeImmutable::setTimestamp((string) $v) : null', ['INPUT' => $input]);
+        }
+
+        if ($required) {
+            return strtr('new \DateTimeImmutable((string) INPUT)', ['INPUT' => $input]);
         }
 
         return strtr('($v = INPUT) ? new \DateTimeImmutable((string) $v) : null', ['INPUT' => $input]);
@@ -190,7 +218,7 @@ class RestXmlParser implements Parser
         }
 
         return strtr($body, [
-            'LIST_ACCESSOR' => $this->parseXmlElement('$item', $shapeMember->getShape()),
+            'LIST_ACCESSOR' => $this->parseXmlElement('$item', $shapeMember->getShape(), false),
             'INPUT' => $input,
             'INPUT_PROPERTY' => $shape->isFlattened() ? '$xml' : '$xml' . ($shapeMember->getLocationName() ? '->' . $shapeMember->getLocationName() : ''),
         ]);
@@ -228,7 +256,7 @@ class RestXmlParser implements Parser
 
         return strtr($body, [
             'MAP_KEY' => $locationName,
-            'MAP_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$item', $shapeValue), $shapeValue->getShape()),
+            'MAP_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$item', $shapeValue), $shapeValue->getShape(), false),
             'INPUT' => $input,
         ]);
     }
