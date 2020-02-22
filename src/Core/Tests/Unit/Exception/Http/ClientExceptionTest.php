@@ -13,7 +13,7 @@ class ClientExceptionTest extends TestCase
     public function testRestJsonError()
     {
         $json = '{"message":"Missing final \'@domain\'"}';
-        $response = new SimpleMockedResponse($json, ['content-type'=>'application/json'], 400);
+        $response = new SimpleMockedResponse($json, ['content-type' => 'application/json'], 400);
         $exception = new ClientException($response);
 
         self::assertEquals('Missing final \'@domain\'', $exception->getAwsMessage());

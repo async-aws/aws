@@ -15,7 +15,6 @@ class SimpleMockedResponse implements ResponseInterface
     private $statusCode;
 
     /**
-     *
      * @param array $headers ['name'=>'value']
      */
     public function __construct(string $content = '', array $headers = [], int $statusCode = 200)
@@ -57,7 +56,7 @@ class SimpleMockedResponse implements ResponseInterface
             'http_code' => $this->statusCode,
         ];
 
-        if (null === $type ) {
+        if (null === $type) {
             return $info;
         }
 
