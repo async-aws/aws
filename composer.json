@@ -20,9 +20,9 @@
         "matthiasnoback/symfony-config-test": "^4.1",
         "nette/php-generator": "^3.3",
         "nette/utils": "^3.0",
-        "nyholm/symfony-bundle-test": "^1.6",
+        "nyholm/symfony-bundle-test": "^1.6.1",
         "symfony/config": "^4.4 || ^5.0",
-        "symfony/console": "^5.0",
+        "symfony/console": "^4.4 || ^5.0",
         "symfony/dependency-injection": "^4.4 || ^5.0",
         "symfony/http-kernel": "^4.4 || ^5.0",
         "symfony/phpunit-bridge": "^5.0"

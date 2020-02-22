@@ -14,6 +14,9 @@ class SimpleMockedResponse implements ResponseInterface
 
     private $statusCode;
 
+    /**
+     * @param array $headers ['name'=>'value']
+     */
     public function __construct(string $content = '', array $headers = [], int $statusCode = 200)
     {
         $this->content = $content;
@@ -48,14 +51,29 @@ class SimpleMockedResponse implements ResponseInterface
 
     public function getInfo(string $type = null)
     {
-        if (null === $type || 'response_headers' === $type) {
-            return [];
+        $info = [
+            'response_headers' => $this->getFlatHeaders(),
+            'http_code' => $this->statusCode,
+        ];
+
+        if (null === $type) {
+            return $info;
         }
 
-        if ('http_code' === $type) {
-            return $this->statusCode;
+        if (isset($info[$type])) {
+            return $info[$type];
         }
 
         return 'info: ' . $type;
+    }
+
+    private function getFlatHeaders()
+    {
+        $flat = [];
+        foreach ($this->headers as $name => $value) {
+            $flat[] = sprintf('%s: %s', $name, $value);
+        }
+
+        return $flat;
     }
 }
