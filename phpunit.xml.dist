@@ -31,6 +31,7 @@
         <whitelist>
             <directory>./src</directory>
             <exclude>
+                <directory>./src/CodeGenerator</directory>
                 <directory>./src/*/Tests</directory>
                 <directory>./src/*/*/Tests</directory>
                 <directory>./vendor</directory>
