@@ -3,7 +3,7 @@
 ![](https://github.com/async-aws/flysystem-s3/workflows/Tests/badge.svg?branch=master)
 ![](https://github.com/async-aws/flysystem-s3/workflows/BC%20Check/badge.svg?branch=master)
 
-Flysystem S3 adapter. Currently only compatible with Flysystem v2.
+Flysystem S3 adapter for Flysystem version 1 and 2.
 
 ## Install
 
