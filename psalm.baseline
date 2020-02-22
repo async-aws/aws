@@ -17,6 +17,9 @@
       <code>$input-&gt;getBody()</code>
     </PossiblyNullArgument>
   </file>
+  <file src="src/Sqs/Result/ReceiveMessageResult.php">
+    <InvalidArgument occurrences="1"/>
+  </file>
   <file src="src/Symfony/Bundle/DependencyInjection/Configuration.php">
     <PossiblyNullReference occurrences="1">
       <code>scalarNode</code>
