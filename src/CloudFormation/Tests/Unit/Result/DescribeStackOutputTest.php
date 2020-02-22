@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\CloudFormation\Tests\Unit\Result;
 
 use AsyncAws\CloudFormation\Result\DescribeStacksOutput;
+use AsyncAws\CloudFormation\Result\Stack;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -78,8 +79,12 @@ XML;
 
         $response = new SimpleMockedResponse($xml);
         $result = new DescribeStacksOutput($response, new MockHttpClient());
-        $result->resolve();
 
-        self::assertInstanceOf(DescribeStacksOutput::class, $result);
+        $stack = null;
+        foreach ($result->getStacks(true) as $s) {
+            $stack = $s;
+        }
+
+        self::assertInstanceOf(Stack::class, $stack, 'Could not find any stacks');
     }
 }
