@@ -112,6 +112,7 @@ jobs:
         env:
           # Make sure we dont download awfully old Symfony versions.
           SYMFONY_REQUIRE: 4.4.*
+          SYMFONY_DEPRECATIONS_HELPER: 9999
         run: |
           composer global require --no-progress --no-scripts --no-plugins symfony/flex
           CURRENT_DIR=$(pwd)
