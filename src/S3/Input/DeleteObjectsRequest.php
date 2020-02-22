@@ -125,11 +125,7 @@ class DeleteObjectsRequest
             $document_Delete->appendChild($document->createElement('Quiet', $input_Quiet ? 'true' : 'false'));
         }
 
-        if (!$document->hasChildNodes()) {
-            return '';
-        }
-
-        return $document->saveXML();
+        return $document->hasChildNodes() ? $document->saveXML() : '';
     }
 
     public function requestHeaders(): array

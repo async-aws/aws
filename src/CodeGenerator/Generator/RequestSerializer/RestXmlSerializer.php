@@ -46,11 +46,7 @@ class RestXmlSerializer implements Serializer
 
             CHILDREN_CODE
 
-            if (!$document->hasChildNodes()) {
-                return "";
-            }
-
-            return $document->saveXML();
+            return $document->hasChildNodes() ? $document->saveXML() : \'\';
         ', [
             'CHILDREN_CODE' => $this->dumpXmlMember($member, '$document', '$this'),
         ]);

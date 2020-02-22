@@ -253,11 +253,7 @@ class PutObjectAclRequest
             }
         }
 
-        if (!$document->hasChildNodes()) {
-            return '';
-        }
-
-        return $document->saveXML();
+        return $document->hasChildNodes() ? $document->saveXML() : '';
     }
 
     public function requestHeaders(): array
