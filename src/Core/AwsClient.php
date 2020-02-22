@@ -8,8 +8,10 @@ use AsyncAws\CloudFormation\CloudFormationClient;
 use AsyncAws\Core\Exception\MissingDependency;
 use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Sts\StsClient;
+use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\S3\S3Client;
 use AsyncAws\Ses\SesClient;
+use AsyncAws\Sns\SnsClient;
 use AsyncAws\Sqs\SqsClient;
 
 /**
@@ -26,7 +28,7 @@ class AwsClient extends AbstractApi
 
     public function cloudFormation(): CloudFormationClient
     {
-        if (!class_exists(S3Client::class)) {
+        if (!class_exists(CloudFormationClient::class)) {
             throw MissingDependency::create('async-aws/cloud-formation', 'CloudFormation');
         }
 
@@ -37,14 +39,14 @@ class AwsClient extends AbstractApi
         return $this->serviceCache[__METHOD__];
     }
 
-    public function sts(): StsClient
+    public function lambda(): LambdaClient
     {
-        if (!class_exists(StsClient::class)) {
-            throw MissingDependency::create('async-aws/core', 'STS');
+        if (!class_exists(LambdaClient::class)) {
+            throw MissingDependency::create('async-aws/lambda', 'Lambda');
         }
 
         if (!isset($this->serviceCache[__METHOD__])) {
-            $this->serviceCache[__METHOD__] = new StsClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+            $this->serviceCache[__METHOD__] = new LambdaClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];
@@ -76,6 +78,32 @@ class AwsClient extends AbstractApi
         return $this->serviceCache[__METHOD__];
     }
 
+    public function sns(): SnsClient
+    {
+        if (!class_exists(SnsClient::class)) {
+            throw MissingDependency::create('async-aws/sns', 'SNS');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new SnsClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function sts(): StsClient
+    {
+        if (!class_exists(StsClient::class)) {
+            throw MissingDependency::create('async-aws/core', 'STS');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new StsClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
     public function sqs(): SqsClient
     {
         if (!class_exists(SqsClient::class)) {
@@ -91,14 +119,13 @@ class AwsClient extends AbstractApi
 
     protected function getServiceCode(): string
     {
-        // This will never work on the base API. .
-        throw new RuntimeException(sprintf('The $endpoint parameter is required on "%s::request()".', __CLASS__));
+        return 'unknown-service';
     }
 
     protected function getSignatureScopeName(): string
     {
         // This will never work on the base API. .
-        throw new RuntimeException(\sprintf('The signing name is required on "%s".', __CLASS__));
+        throw new RuntimeException(sprintf('The signature scope name parameter is required on "%s::request()".', __CLASS__));
     }
 
     protected function getSignatureVersion(): string
