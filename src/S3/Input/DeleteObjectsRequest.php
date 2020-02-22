@@ -99,7 +99,7 @@ class DeleteObjectsRequest
     public function requestBody(): string
     {
         $document = new \DOMDocument('1.0', 'UTF-8');
-        $document->formatOutput = true;
+        $document->formatOutput = false;
 
         if (null === $input = $this->Delete) {
             throw new InvalidArgument(sprintf('Missing parameter "Delete" in "%s". The value cannot be null.', __CLASS__));
@@ -123,6 +123,10 @@ class DeleteObjectsRequest
 
         if (null !== $input_Quiet = $input->getQuiet()) {
             $document_Delete->appendChild($document->createElement('Quiet', $input_Quiet ? 'true' : 'false'));
+        }
+
+        if (!$document->hasChildNodes()) {
+            return '';
         }
 
         return $document->saveXML();

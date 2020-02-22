@@ -152,7 +152,7 @@ class CreateBucketRequest
     public function requestBody(): string
     {
         $document = new \DOMDocument('1.0', 'UTF-8');
-        $document->formatOutput = true;
+        $document->formatOutput = false;
 
         if (null !== $input = $this->CreateBucketConfiguration) {
             $document->appendChild($document_CreateBucketConfiguration = $document->createElement('CreateBucketConfiguration'));
@@ -161,6 +161,10 @@ class CreateBucketRequest
             if (null !== $input_LocationConstraint = $input->getLocationConstraint()) {
                 $document_CreateBucketConfiguration->appendChild($document->createElement('LocationConstraint', $input_LocationConstraint));
             }
+        }
+
+        if (!$document->hasChildNodes()) {
+            return '';
         }
 
         return $document->saveXML();
