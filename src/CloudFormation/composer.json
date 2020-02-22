@@ -1,0 +1,29 @@
+{
+    "name": "async-aws/cloud-formation",
+    "type": "library",
+    "description": "Async AWS CloudFormation client.",
+    "keywords": [
+        "aws",
+        "lambda"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.2.5",
+        "ext-SimpleXML": "*",
+        "async-aws/core": "^0.1",
+        "symfony/http-client-contracts": "^1.0 || ^2.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "AsyncAws\\CloudFormation\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    }
+}

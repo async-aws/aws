@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core;
 
+use AsyncAws\CloudFormation\CloudFormationClient;
 use AsyncAws\Core\Exception\MissingDependency;
 use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Sts\StsClient;
@@ -22,6 +23,19 @@ class AwsClient extends AbstractApi
      * @var array
      */
     private $serviceCache;
+
+    public function cloudFormation(): CloudFormationClient
+    {
+        if (!class_exists(S3Client::class)) {
+            throw MissingDependency::create('async-aws/cloud-formation', 'CloudFormation');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new CloudFormationClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
 
     public function sts(): StsClient
     {

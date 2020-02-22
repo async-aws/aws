@@ -1,5 +1,15 @@
 {
     "services": {
+        "CloudFormation": {
+            "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/cloudformation\/2010-05-15\/api-2.json",
+            "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/cloudformation\/2010-05-15\/docs-2.json",
+            "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/cloudformation\/2010-05-15\/paginators-1.json",
+            "waiter": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/cloudformation\/2010-05-15\/waiters-2.json",
+            "methods": {
+                "DescribeStacks": [],
+                "DescribeStackEvents": []
+            }
+        },
         "Lambda": {
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/lambda\/2015-03-31\/api-2.json",
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/lambda\/2015-03-31\/docs-2.json",
