@@ -14,9 +14,10 @@
 
     <testsuites>
         <testsuite name="Test Suite">
+            <directory>./src/CloudFormation/Tests/</directory>
             <directory>./src/CodeGenerator/Tests/</directory>
             <directory>./src/Core/Tests/</directory>
-            <directory>./src/Flysystem/Tests/</directory>
+            <directory>./src/Flysystem/S3/Tests/</directory>
             <directory>./src/Lambda/Tests/</directory>
             <directory>./src/S3/Tests/</directory>
             <directory>./src/Ses/Tests/</directory>
@@ -30,6 +31,7 @@
         <whitelist>
             <directory>./src</directory>
             <exclude>
+                <directory>./src/CodeGenerator</directory>
                 <directory>./src/*/Tests</directory>
                 <directory>./src/*/*/Tests</directory>
                 <directory>./vendor</directory>
