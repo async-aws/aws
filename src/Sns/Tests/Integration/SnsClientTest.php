@@ -1,24 +1,20 @@
 <?php
 
-namespace AsyncAws\Sns\Tests\Unit\Input;
+namespace AsyncAws\Sns\Tests\Integration;
 
+use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Sns\Input\MessageAttributeValue;
 use AsyncAws\Sns\Input\PublishInput;
+use AsyncAws\Sns\SnsClient;
 use PHPUnit\Framework\TestCase;
 
-class PublishInputTest extends TestCase
+class SnsClientTest extends TestCase
 {
-    public function testBody()
-    {
-        $input = PublishInput::create(['Message' => 'foobar']);
-        $body = $input->requestBody();
-
-        self::assertStringContainsString('Message=foobar', $body);
-    }
-
-    public function testRequestBody(): void
+    public function testPublish(): void
     {
         self::markTestIncomplete('Not implemented');
+
+        $client = $this->getClient();
 
         $input = new PublishInput([
             'TopicArn' => 'change me',
@@ -33,13 +29,17 @@ class PublishInputTest extends TestCase
                 'BinaryValue' => 'change me',
             ])],
         ]);
+        $result = $client->Publish($input);
 
-        $expected = trim('
-        Action=Publish
-        &Version=2010-03-31
-        &ChangeIt=Change+it
-                        ');
+        $result->resolve();
 
-        self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
+        self::assertStringContainsString('change it', $result->getMessageId());
+    }
+
+    private function getClient(): SnsClient
+    {
+        return new SnsClient([
+            'endpoint' => 'http://localhost',
+        ], new NullProvider());
     }
 }
