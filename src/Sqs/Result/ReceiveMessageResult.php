@@ -30,7 +30,7 @@ class ReceiveMessageResult extends Result
 
         $this->Messages = !$data->Message ? [] : (function (\SimpleXMLElement $xml): array {
             $items = [];
-            foreach ($xml->member as $item) {
+            foreach ($xml as $item) {
                 $items[] = new Message([
                     'MessageId' => ($v = $item->MessageId) ? (string) $v : null,
                     'ReceiptHandle' => ($v = $item->ReceiptHandle) ? (string) $v : null,
@@ -56,7 +56,7 @@ class ReceiveMessageResult extends Result
                                 'BinaryValue' => ($v = $item->Value->BinaryValue) ? base64_decode((string) $v) : null,
                                 'StringListValues' => !$item->Value->StringListValue ? [] : (function (\SimpleXMLElement $xml): array {
                                     $items = [];
-                                    foreach ($xml->StringListValue->member as $item) {
+                                    foreach ($xml->StringListValue as $item) {
                                         $a = (string) $item;
                                         if (null !== $a) {
                                             $items[] = $a;
@@ -67,7 +67,7 @@ class ReceiveMessageResult extends Result
                                 })($item->Value->StringListValue),
                                 'BinaryListValues' => !$item->Value->BinaryListValue ? [] : (function (\SimpleXMLElement $xml): array {
                                     $items = [];
-                                    foreach ($xml->BinaryListValue->member as $item) {
+                                    foreach ($xml->BinaryListValue as $item) {
                                         $a = base64_decode((string) $item);
                                         if (null !== $a) {
                                             $items[] = $a;

@@ -40,7 +40,7 @@ class ListQueuesResult extends Result implements \IteratorAggregate
 
         $this->QueueUrls = !$data->QueueUrl ? [] : (function (\SimpleXMLElement $xml): array {
             $items = [];
-            foreach ($xml->member as $item) {
+            foreach ($xml as $item) {
                 $a = (string) $item;
                 if (null !== $a) {
                     $items[] = $a;

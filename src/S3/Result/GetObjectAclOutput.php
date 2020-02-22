@@ -57,7 +57,7 @@ class GetObjectAclOutput extends Result
         ]);
         $this->Grants = !$data->AccessControlList ? [] : (function (\SimpleXMLElement $xml): array {
             $items = [];
-            foreach ($xml->Grant->member as $item) {
+            foreach ($xml->Grant as $item) {
                 $items[] = new Grant([
                     'Grantee' => !$item->Grantee ? null : new Grantee([
                         'DisplayName' => ($v = $item->Grantee->DisplayName) ? (string) $v : null,

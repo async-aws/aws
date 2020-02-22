@@ -57,7 +57,7 @@ class DeleteObjectsOutput extends Result
         $data = new \SimpleXMLElement($response->getContent(false));
         $this->Deleted = !$data->Deleted ? [] : (function (\SimpleXMLElement $xml): array {
             $items = [];
-            foreach ($xml->member as $item) {
+            foreach ($xml as $item) {
                 $items[] = new DeletedObject([
                     'Key' => ($v = $item->Key) ? (string) $v : null,
                     'VersionId' => ($v = $item->VersionId) ? (string) $v : null,
@@ -70,7 +70,7 @@ class DeleteObjectsOutput extends Result
         })($data->Deleted);
         $this->Errors = !$data->Error ? [] : (function (\SimpleXMLElement $xml): array {
             $items = [];
-            foreach ($xml->member as $item) {
+            foreach ($xml as $item) {
                 $items[] = new Error([
                     'Key' => ($v = $item->Key) ? (string) $v : null,
                     'VersionId' => ($v = $item->VersionId) ? (string) $v : null,
