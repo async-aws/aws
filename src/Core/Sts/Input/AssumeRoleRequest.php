@@ -205,7 +205,7 @@ class AssumeRoleRequest
                 if (null !== $value) {
                     (static function (PolicyDescriptorType $input) use (&$payload, $indices) {
                         if (null !== $v = $input->getarn()) {
-                            $payload["PolicyArns.{$indices->kd8fbed2}.arn"] = $input->getarn();
+                            $payload["PolicyArns.{$indices->kd8fbed2}.arn"] = $v;
                         }
                     })($value);
                 }

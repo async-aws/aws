@@ -204,7 +204,7 @@ class SendEmailRequest
 
                 if (null !== $v = $input->getRaw()) {
                     (static function (RawMessage $input) use (&$payload) {
-                        $payload['Content']['Raw']['Data'] = base64_encode($input->getData());
+                        $payload['Content']['Raw']['Data'] = base64_encode($input->getData() ?? '');
                     })($v);
                 }
 

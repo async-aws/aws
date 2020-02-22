@@ -164,11 +164,11 @@ class PublishInput
                         $payload["MessageAttributes.{$indices->kb0b4646}.Value.DataType"] = $input->getDataType();
 
                         if (null !== $v = $input->getStringValue()) {
-                            $payload["MessageAttributes.{$indices->kb0b4646}.Value.StringValue"] = $input->getStringValue();
+                            $payload["MessageAttributes.{$indices->kb0b4646}.Value.StringValue"] = $v;
                         }
 
                         if (null !== $v = $input->getBinaryValue()) {
-                            $payload["MessageAttributes.{$indices->kb0b4646}.Value.BinaryValue"] = base64_encode($input->getBinaryValue());
+                            $payload["MessageAttributes.{$indices->kb0b4646}.Value.BinaryValue"] = base64_encode($v);
                         }
                     })($value);
                 }

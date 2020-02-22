@@ -154,11 +154,11 @@ class SendMessageRequest
                 if (null !== $value) {
                     (static function (MessageAttributeValue $input) use (&$payload, $indices) {
                         if (null !== $v = $input->getStringValue()) {
-                            $payload["MessageAttribute.{$indices->k2053d0e}.Value.StringValue"] = $input->getStringValue();
+                            $payload["MessageAttribute.{$indices->k2053d0e}.Value.StringValue"] = $v;
                         }
 
                         if (null !== $v = $input->getBinaryValue()) {
-                            $payload["MessageAttribute.{$indices->k2053d0e}.Value.BinaryValue"] = base64_encode($input->getBinaryValue());
+                            $payload["MessageAttribute.{$indices->k2053d0e}.Value.BinaryValue"] = base64_encode($v);
                         }
 
         (static function (array $input) use (&$payload, $indices) {
@@ -191,11 +191,11 @@ class SendMessageRequest
                 if (null !== $value) {
                     (static function (MessageSystemAttributeValue $input) use (&$payload, $indices) {
                         if (null !== $v = $input->getStringValue()) {
-                            $payload["MessageSystemAttribute.{$indices->k6857220}.Value.StringValue"] = $input->getStringValue();
+                            $payload["MessageSystemAttribute.{$indices->k6857220}.Value.StringValue"] = $v;
                         }
 
                         if (null !== $v = $input->getBinaryValue()) {
-                            $payload["MessageSystemAttribute.{$indices->k6857220}.Value.BinaryValue"] = base64_encode($input->getBinaryValue());
+                            $payload["MessageSystemAttribute.{$indices->k6857220}.Value.BinaryValue"] = base64_encode($v);
                         }
 
         (static function (array $input) use (&$payload, $indices) {

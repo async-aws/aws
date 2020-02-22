@@ -209,7 +209,7 @@ if (null !== INPUT) {
     {
         return strtr('$payloadOUTPUT = base64_encode(INPUT);', [
             'OUTPUT' => $output,
-            'INPUT' => $input,
+            'INPUT' => false === strpos($input, '->') ? $input : $input . ' ?? \'\'',
         ]);
     }
 }

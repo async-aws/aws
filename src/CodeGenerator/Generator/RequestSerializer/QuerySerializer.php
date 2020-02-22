@@ -123,8 +123,10 @@ PHP;
         $memberCode = implode("\n", array_map(function (StructureMember $member) use ($output) {
             $shape = $member->getShape();
             if ($member->isRequired() || $shape instanceof ListShape || $shape instanceof MapShape) {
+                $inputElement = '$input->get' . $member->getName() . '()';
                 $body = 'MEMBER_CODE';
             } else {
+                $inputElement = '$v';
                 $body = '
 
 if (null !== $v = INPUT_NAME) {
@@ -134,7 +136,7 @@ if (null !== $v = INPUT_NAME) {
 
             return strtr($body, [
                 'INPUT_NAME' => '$input->get' . $member->getName() . '()',
-                'MEMBER_CODE' => $this->dumpArrayElement(sprintf('%s.%s', $output, $this->getName($member)), '$input->get' . $member->getName() . '()', $shape),
+                'MEMBER_CODE' => $this->dumpArrayElement(sprintf('%s.%s', $output, $this->getName($member)), $inputElement, $shape),
             ]);
         }, $shape->getMembers()));
 
@@ -234,7 +236,7 @@ if (null !== INPUT) {
     {
         return strtr('$payload["OUTPUT"] = base64_encode(INPUT);', [
             'OUTPUT' => $output,
-            'INPUT' => $input,
+            'INPUT' => false === strpos($input, '->') ? $input : $input . ' ?? \'\'',
         ]);
     }
 }
