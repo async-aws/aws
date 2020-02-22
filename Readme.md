@@ -110,12 +110,14 @@ echo $waiter->isSuccess(); // true
 
 ## Organization
 
-| Repository | Namespace | Package name |
-| ---------- | --------- | ------------ |
-| async-aws/aws | AsyncAws | async-aws/async-aws
-| async-aws/core | AsyncAws\Core | async-aws/core
-| async-aws/s3 | AsyncAws\S3 | async-aws/s3
-| async-aws/ses | AsyncAws\Ses | async-aws/ses
-| async-aws/sqs | AsyncAws\Sqs | async-aws/sqs
-| async-aws/flysystem-s3 | AsyncAws\Flysystem\S3 | async-aws/flysystem-s3
-| async-aws/symfony-bundle | AsyncAws\Symfony\Bundle | async-aws/async-aws-bundle
+| Repository                 | Namespace                 | Package name                |
+| -------------------------- | ------------------------- | --------------------------- |
+| async-aws/aws              | AsyncAws                  | async-aws/async-aws
+| async-aws/core             | AsyncAws\Core             | async-aws/core
+| async-aws/lambda           | AsyncAws\Lambda           | async-aws/lambda
+| async-aws/s3               | AsyncAws\S3               | async-aws/s3
+| async-aws/ses              | AsyncAws\Ses              | async-aws/ses
+| async-aws/sns              | AsyncAws\Sns              | async-aws/sns
+| async-aws/sqs              | AsyncAws\Sqs              | async-aws/sqs
+| async-aws/flysystem-s3     | AsyncAws\Flysystem\S3     | async-aws/flysystem-s3
+| async-aws/symfony-bundle   | AsyncAws\Symfony\Bundle   | async-aws/async-aws-bundle
