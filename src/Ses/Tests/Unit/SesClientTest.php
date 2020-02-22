@@ -43,7 +43,7 @@ class SesClientTest extends TestCase
         ], null, $httpClient);
 
         $input = new SendEmailRequest([
-            'FromEmailAddress' =>'foo@test.se'
+            'FromEmailAddress' => 'foo@test.se',
         ]);
         $input->setDestination(new Destination([
             'ToAddresses' => ['tobias.nyholm@gmail.com'],
@@ -52,13 +52,12 @@ class SesClientTest extends TestCase
             'Simple' => new Message([
                 'Subject' => ['Data' => 'Hello!'],
                 'Body' => ['Text' => ['Data' => 'Hello There!']],
-            ])
+            ]),
         ]));
         $result = $ses->sendEmail($input);
 
         self::assertEquals('foobar', $result->getMessageId());
     }
-
 
     public function testSendThrowsForErrorResponse()
     {
@@ -72,7 +71,7 @@ class SesClientTest extends TestCase
         $ses = new SesClient([], null, $httpClient);
 
         $input = new SendEmailRequest([
-            'FromEmailAddress' =>'foo' // no @test.se
+            'FromEmailAddress' => 'foo', // no @test.se
         ]);
         $input->setDestination(new Destination([
             'ToAddresses' => ['tobias.nyholm@gmail.com'],
@@ -81,7 +80,7 @@ class SesClientTest extends TestCase
             'Simple' => new Message([
                 'Subject' => ['Data' => 'Hello!'],
                 'Body' => ['Text' => ['Data' => 'Hello There!']],
-            ])
+            ]),
         ]));
         $result = $ses->sendEmail($input);
 
