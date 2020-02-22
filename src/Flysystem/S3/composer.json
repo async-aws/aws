@@ -2,6 +2,12 @@
     "name": "async-aws/flysystem-s3",
     "type": "library",
     "description": "Flysystem S3 adapter",
+    "keywords": [
+        "aws",
+        "s3",
+        "Flysystem",
+        "Filesystem"
+    ],
     "license": "MIT",
     "authors": [
         {

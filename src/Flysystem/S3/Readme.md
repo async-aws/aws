@@ -1,19 +1,23 @@
-# Flysystem v2 client for Async AWS S3
+# Flysystem adapter for Async AWS S3
 
+![](https://github.com/async-aws/flysystem-s3/workflows/Tests/badge.svg?branch=master)
+![](https://github.com/async-aws/flysystem-s3/workflows/BC%20Check/badge.svg?branch=master)
 
+Flysystem S3 adapter. Currently only compatible with Flysystem v2.
+
+## Install
+
+```cli
+composer require async-aws/flysystem-s3
 ```
-composer requireasync-aws/flysystem-v2-s3
-```
 
+## Use
 ```php
-<?php
-
 use League\Flysystem\Filesystem;
-use AsyncAws\Flysystem\S3Filesystem;
+use AsyncAws\Flysystem\S3\S3FilesystemV2;
 use AsyncAws\S3\S3Client;
-use AsyncAws\Flysystem\S3Filesystem;
 
-$adapter = new S3Filesystem(new S3Client(), 'bucket');
+$adapter = new S3FilesystemV2(new S3Client(), 'bucket');
 $filesystem = new Filesystem($adapter);
 $resource = tmpfile();
 

@@ -12,7 +12,7 @@ use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\FilesystemAdapterTestCase;
 use League\Flysystem\StorageAttributes;
 
-class S3FilesystemTest extends FilesystemAdapterTestCase
+class S3FilesystemV2Test extends FilesystemAdapterTestCase
 {
     private $shouldCleanUp = false;
 
@@ -27,8 +27,10 @@ class S3FilesystemTest extends FilesystemAdapterTestCase
     {
         static::$adapterPrefix = 'travis-ci/' . bin2hex(random_bytes(10));
 
-        // Fixme, Docker is not working
-        self::markTestSkipped('Docker image is not working.');
+        if (!getenv('FLYSYSTEM_AWS_S3_KEY')) {
+            // Fixme, Docker is not working
+            self::markTestSkipped('Docker image is not working.');
+        }
     }
 
     protected function tearDown(): void

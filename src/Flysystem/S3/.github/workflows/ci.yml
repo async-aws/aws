@@ -1,6 +1,9 @@
-name: CI
+name: Tests
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
 
@@ -14,10 +17,11 @@ jobs:
 
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@1.8.1
+        uses: shivammathur/setup-php@1.7.0
         with:
           php-version: ${{ matrix.php }}
-          coverage: none
+          coverage: xdebug
+          ini-values: xdebug.overload_var_dump=1
           tools: prestissimo
 
       - name: Checkout code
@@ -25,14 +29,9 @@ jobs:
 
       - name: Download dependencies
         run: |
-          composer update --no-interaction --prefer-dist --prefer-stable --optimize-autoloader
-
-      - name: Initialize tests
-        run: make initialize
+          composer config minimum-stability dev
+          composer req symfony/phpunit-bridge --no-update
+          composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
 
       - name: Run tests
-        run: |
-          echo ::group::Install
-          ./vendor/bin/simple-phpunit install
-          echo ::endgroup::
-          ./vendor/bin/simple-phpunit
+        run: ./vendor/bin/simple-phpunit
