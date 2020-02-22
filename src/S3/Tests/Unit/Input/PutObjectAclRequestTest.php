@@ -55,15 +55,15 @@ class PutObjectAclRequestTest extends TestCase
 
     public function testCannedAcl()
     {
-        $input = new PutObjectAclRequest(['Bucket'=>'foo-bucket', 'Key'=>'bar-key']);
+        $input = new PutObjectAclRequest(['Bucket' => 'foo-bucket', 'Key' => 'bar-key']);
         $input->setACL('public-read');
 
         $input->validate();
 
         $headers = $input->requestHeaders();
-        $this->assertArrayHasKey('x-amz-acl', $headers);
-        $this->assertEquals('public-read', $headers['x-amz-acl']);
-        $this->assertEquals('/foo-bucket/bar-key?acl', $input->requestUri());
-        $this->assertEmpty($input->requestBody(), 'Request body should be empty when ACL is used');
+        self::assertArrayHasKey('x-amz-acl', $headers);
+        self::assertEquals('public-read', $headers['x-amz-acl']);
+        self::assertEquals('/foo-bucket/bar-key?acl', $input->requestUri());
+        self::assertEmpty($input->requestBody(), 'Request body should be empty when ACL is used');
     }
 }
