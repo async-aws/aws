@@ -204,6 +204,7 @@ class RestXmlParser implements Parser
     {
         $shapeMember = $shape->getMember();
         if ($shapeMember->getShape() instanceof StructureShape) {
+            $listAccessorRequired = true;
             $body = '(function(\SimpleXMLElement $xml): array {
             $items = [];
             foreach (INPUT_PROPERTY as $item) {
@@ -213,6 +214,7 @@ class RestXmlParser implements Parser
             return $items;
         })(INPUT)';
         } else {
+            $listAccessorRequired = false;
             $body = '(function(\SimpleXMLElement $xml): array {
             $items = [];
             foreach (INPUT_PROPERTY as $item) {
@@ -231,7 +233,7 @@ class RestXmlParser implements Parser
         }
 
         return strtr($body, [
-            'LIST_ACCESSOR' => $this->parseXmlElement('$item', $shapeMember->getShape(), true),
+            'LIST_ACCESSOR' => $this->parseXmlElement('$item', $shapeMember->getShape(), $listAccessorRequired),
             'INPUT' => $input,
             'INPUT_PROPERTY' => $shape->isFlattened() ? '$xml' : ('$xml->' . ($shapeMember->getLocationName() ? $shapeMember->getLocationName() : 'member')),
         ]);

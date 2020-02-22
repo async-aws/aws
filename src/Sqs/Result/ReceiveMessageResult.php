@@ -57,7 +57,7 @@ class ReceiveMessageResult extends Result
                                 'StringListValues' => !$item->Value->StringListValue ? [] : (function (\SimpleXMLElement $xml): array {
                                     $items = [];
                                     foreach ($xml->StringListValue as $item) {
-                                        $a = (string) $item;
+                                        $a = ($v = $item) ? (string) $v : null;
                                         if (null !== $a) {
                                             $items[] = $a;
                                         }
@@ -68,7 +68,7 @@ class ReceiveMessageResult extends Result
                                 'BinaryListValues' => !$item->Value->BinaryListValue ? [] : (function (\SimpleXMLElement $xml): array {
                                     $items = [];
                                     foreach ($xml->BinaryListValue as $item) {
-                                        $a = base64_decode((string) $item);
+                                        $a = ($v = $item) ? base64_decode((string) $v) : null;
                                         if (null !== $a) {
                                             $items[] = $a;
                                         }

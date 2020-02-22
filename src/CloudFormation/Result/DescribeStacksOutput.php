@@ -170,7 +170,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
                     'NotificationARNs' => !$item->NotificationARNs ? [] : (function (\SimpleXMLElement $xml): array {
                         $items = [];
                         foreach ($xml->member as $item) {
-                            $a = (string) $item;
+                            $a = ($v = $item) ? (string) $v : null;
                             if (null !== $a) {
                                 $items[] = $a;
                             }
@@ -182,7 +182,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
                     'Capabilities' => !$item->Capabilities ? [] : (function (\SimpleXMLElement $xml): array {
                         $items = [];
                         foreach ($xml->member as $item) {
-                            $a = (string) $item;
+                            $a = ($v = $item) ? (string) $v : null;
                             if (null !== $a) {
                                 $items[] = $a;
                             }
