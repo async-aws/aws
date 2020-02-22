@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\Core\Tests;
+namespace AsyncAws\Core\Tests\Unit;
 
 use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Result;
