@@ -114,19 +114,19 @@ class PublishLayerVersionResponse extends Result
         $data = json_decode($response->getContent(false), true);
 
         $this->Content = new LayerVersionContentOutput([
-            'Location' => ($v = $data['Content']['Location']) ? (string) $v : null,
-            'CodeSha256' => ($v = $data['Content']['CodeSha256']) ? (string) $v : null,
-            'CodeSize' => ($v = $data['Content']['CodeSize']) ? (string) $v : null,
+            'Location' => isset($data['Content']['Location']) ? (string) $data['Content']['Location'] : null,
+            'CodeSha256' => isset($data['Content']['CodeSha256']) ? (string) $data['Content']['CodeSha256'] : null,
+            'CodeSize' => isset($data['Content']['CodeSize']) ? (string) $data['Content']['CodeSize'] : null,
         ]);
-        $this->LayerArn = ($v = $data['LayerArn']) ? (string) $v : null;
-        $this->LayerVersionArn = ($v = $data['LayerVersionArn']) ? (string) $v : null;
-        $this->Description = ($v = $data['Description']) ? (string) $v : null;
-        $this->CreatedDate = ($v = $data['CreatedDate']) ? (string) $v : null;
-        $this->Version = ($v = $data['Version']) ? (string) $v : null;
-        $this->CompatibleRuntimes = (function (array $json): array {
+        $this->LayerArn = isset($data['LayerArn']) ? (string) $data['LayerArn'] : null;
+        $this->LayerVersionArn = isset($data['LayerVersionArn']) ? (string) $data['LayerVersionArn'] : null;
+        $this->Description = isset($data['Description']) ? (string) $data['Description'] : null;
+        $this->CreatedDate = isset($data['CreatedDate']) ? (string) $data['CreatedDate'] : null;
+        $this->Version = isset($data['Version']) ? (string) $data['Version'] : null;
+        $this->CompatibleRuntimes = !$data['CompatibleRuntimes'] ? [] : (function (array $json): array {
             $items = [];
             foreach ($json as $item) {
-                $a = ($v = $item) ? (string) $v : null;
+                $a = isset($item) ? (string) $item : null;
                 if (null !== $a) {
                     $items[] = $a;
                 }
@@ -134,6 +134,6 @@ class PublishLayerVersionResponse extends Result
 
             return $items;
         })($data['CompatibleRuntimes']);
-        $this->LicenseInfo = ($v = $data['LicenseInfo']) ? (string) $v : null;
+        $this->LicenseInfo = isset($data['LicenseInfo']) ? (string) $data['LicenseInfo'] : null;
     }
 }

@@ -36,7 +36,7 @@ class AddLayerVersionPermissionResponse extends Result
     {
         $data = json_decode($response->getContent(false), true);
 
-        $this->Statement = ($v = $data['Statement']) ? (string) $v : null;
-        $this->RevisionId = ($v = $data['RevisionId']) ? (string) $v : null;
+        $this->Statement = isset($data['Statement']) ? (string) $data['Statement'] : null;
+        $this->RevisionId = isset($data['RevisionId']) ? (string) $data['RevisionId'] : null;
     }
 }

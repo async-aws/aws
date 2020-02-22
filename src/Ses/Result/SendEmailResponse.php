@@ -24,6 +24,6 @@ class SendEmailResponse extends Result
     {
         $data = json_decode($response->getContent(false), true);
 
-        $this->MessageId = ($v = $data['MessageId']) ? (string) $v : null;
+        $this->MessageId = isset($data['MessageId']) ? (string) $data['MessageId'] : null;
     }
 }

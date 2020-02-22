@@ -61,7 +61,7 @@ class DeleteObjectsOutput extends Result
                 $items[] = new DeletedObject([
                     'Key' => ($v = $item->Key) ? (string) $v : null,
                     'VersionId' => ($v = $item->VersionId) ? (string) $v : null,
-                    'DeleteMarker' => ($v = $item->DeleteMarker) ? 'true' === (string) $v : null,
+                    'DeleteMarker' => ($v = $item->DeleteMarker) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
                     'DeleteMarkerVersionId' => ($v = $item->DeleteMarkerVersionId) ? (string) $v : null,
                 ]);
             }

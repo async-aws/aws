@@ -287,7 +287,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
     {
         $data = new \SimpleXMLElement($response->getContent(false));
-        $this->IsTruncated = ($v = $data->IsTruncated) ? 'true' === (string) $v : null;
+        $this->IsTruncated = ($v = $data->IsTruncated) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
         $this->Contents = !$data->Contents ? [] : (function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {

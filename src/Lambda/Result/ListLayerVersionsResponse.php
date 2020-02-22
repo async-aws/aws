@@ -124,19 +124,19 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
     {
         $data = json_decode($response->getContent(false), true);
 
-        $this->NextMarker = ($v = $data['NextMarker']) ? (string) $v : null;
-        $this->LayerVersions = (function (array $json): array {
+        $this->NextMarker = isset($data['NextMarker']) ? (string) $data['NextMarker'] : null;
+        $this->LayerVersions = !$data['LayerVersions'] ? [] : (function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new LayerVersionsListItem([
-                    'LayerVersionArn' => ($v = $item['LayerVersionArn']) ? (string) $v : null,
-                    'Version' => ($v = $item['Version']) ? (string) $v : null,
-                    'Description' => ($v = $item['Description']) ? (string) $v : null,
-                    'CreatedDate' => ($v = $item['CreatedDate']) ? (string) $v : null,
-                    'CompatibleRuntimes' => (function (array $json): array {
+                    'LayerVersionArn' => isset($item['LayerVersionArn']) ? (string) $item['LayerVersionArn'] : null,
+                    'Version' => isset($item['Version']) ? (string) $item['Version'] : null,
+                    'Description' => isset($item['Description']) ? (string) $item['Description'] : null,
+                    'CreatedDate' => isset($item['CreatedDate']) ? (string) $item['CreatedDate'] : null,
+                    'CompatibleRuntimes' => !$item['CompatibleRuntimes'] ? [] : (function (array $json): array {
                         $items = [];
                         foreach ($json as $item) {
-                            $a = ($v = $item) ? (string) $v : null;
+                            $a = isset($item) ? (string) $item : null;
                             if (null !== $a) {
                                 $items[] = $a;
                             }
@@ -144,7 +144,7 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
 
                         return $items;
                     })($item['CompatibleRuntimes']),
-                    'LicenseInfo' => ($v = $item['LicenseInfo']) ? (string) $v : null,
+                    'LicenseInfo' => isset($item['LicenseInfo']) ? (string) $item['LicenseInfo'] : null,
                 ]);
             }
 

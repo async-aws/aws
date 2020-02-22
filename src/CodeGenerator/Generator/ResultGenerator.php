@@ -265,6 +265,7 @@ class ResultGenerator
             }
         }
 
+        // This will catch arbitrary values that exists in undefined "headers"
         foreach ($nonHeaders as $name => $member) {
             // "headers" are not "header"
             if ('headers' !== $member->getLocation()) {
@@ -290,6 +291,13 @@ class ResultGenerator
         // Prepend with $headers = ...
         if (!empty($body)) {
             $body = '$headers = $response->getHeaders(false);' . "\n\n" . $body;
+        }
+
+        // Find status code
+        foreach ($nonHeaders as $name => $member) {
+            if ('statusCode' === $member->getLocation()) {
+                $body = '$this->' . $member->getName() . ' = $response->getStatusCode();' . "\n" . $body;
+            }
         }
 
         $body .= "\n";
