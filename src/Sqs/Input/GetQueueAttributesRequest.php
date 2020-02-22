@@ -49,12 +49,13 @@ class GetQueueAttributesRequest
         return $this->QueueUrl;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
         $payload = ['Action' => 'GetQueueAttributes', 'Version' => '2012-11-05'];
         $indices = new \stdClass();
         $payload['QueueUrl'] = $this->QueueUrl;
-        (static function ($input) use (&$payload, $indices) {
+
+        (static function (array $input) use (&$payload, $indices) {
             $indices->kbedee52 = 0;
             foreach ($input as $value) {
                 ++$indices->kbedee52;
@@ -62,12 +63,12 @@ class GetQueueAttributesRequest
             }
         })($this->AttributeNames);
 
-        return $payload;
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
         return $headers;
     }

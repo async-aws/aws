@@ -124,115 +124,124 @@ class SendEmailRequest
         return $this->ReplyToAddresses;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
         $payload = ['Action' => 'SendEmail', 'Version' => '2019-09-27'];
-        $indices = new \stdClass();
         if (null !== $v = $this->FromEmailAddress) {
             $payload['FromEmailAddress'] = $v;
         }
 
-        (static function ($input) use (&$payload, $indices) {
-            (static function ($input) use (&$payload, $indices) {
-                $indices->kb596653 = 0;
-                foreach ($input as $value) {
-                    ++$indices->kb596653;
-                    $payload["Destination.ToAddresses.{$indices->kb596653}"] = $value;
-                }
-            })($input->getToAddresses());
-            (static function ($input) use (&$payload, $indices) {
-                $indices->k46e4559 = 0;
-                foreach ($input as $value) {
-                    ++$indices->k46e4559;
-                    $payload["Destination.CcAddresses.{$indices->k46e4559}"] = $value;
-                }
-            })($input->getCcAddresses());
-            (static function ($input) use (&$payload, $indices) {
-                $indices->kc683997 = 0;
-                foreach ($input as $value) {
-                    ++$indices->kc683997;
-                    $payload["Destination.BccAddresses.{$indices->kc683997}"] = $value;
-                }
-            })($input->getBccAddresses());
-        })($this->Destination);
-        (static function ($input) use (&$payload, $indices) {
-            $indices->k3079458 = 0;
+        if (null !== $this->Destination) {
+            (static function (Destination $input) use (&$payload) {
+                (static function (array $input) use (&$payload) {
+                    foreach ($input as $value) {
+                        $payload['Destination']['ToAddresses'][] = $value;
+                    }
+                })($input->getToAddresses());
+
+                (static function (array $input) use (&$payload) {
+                    foreach ($input as $value) {
+                        $payload['Destination']['CcAddresses'][] = $value;
+                    }
+                })($input->getCcAddresses());
+
+                (static function (array $input) use (&$payload) {
+                    foreach ($input as $value) {
+                        $payload['Destination']['BccAddresses'][] = $value;
+                    }
+                })($input->getBccAddresses());
+            })($this->Destination);
+        }
+
+        (static function (array $input) use (&$payload) {
             foreach ($input as $value) {
-                ++$indices->k3079458;
-                $payload["ReplyToAddresses.{$indices->k3079458}"] = $value;
+                $payload['ReplyToAddresses'][] = $value;
             }
         })($this->ReplyToAddresses);
-
         if (null !== $v = $this->FeedbackForwardingEmailAddress) {
             $payload['FeedbackForwardingEmailAddress'] = $v;
         }
 
-        (static function ($input) use (&$payload) {
-            if (null !== $v = $input->getSimple()) {
-                (static function ($input) use (&$payload) {
-                    (static function ($input) use (&$payload) {
-                        $payload['Content.Simple.Subject.Data'] = $input->getData();
-                        if (null !== $v = $input->getCharset()) {
-                            $payload['Content.Simple.Subject.Charset'] = $v;
-                        }
-                    })($input->getSubject());
-                    (static function ($input) use (&$payload) {
-                        if (null !== $v = $input->getText()) {
-                            (static function ($input) use (&$payload) {
-                                $payload['Content.Simple.Body.Text.Data'] = $input->getData();
+        if (null !== $this->Content) {
+            (static function (EmailContent $input) use (&$payload) {
+                if (null !== $v = $input->getSimple()) {
+                    (static function (Message $input) use (&$payload) {
+                        if (null !== $input->getSubject()) {
+                            (static function (Content $input) use (&$payload) {
+                                $payload['Content']['Simple']['Subject']['Data'] = $input->getData();
+
                                 if (null !== $v = $input->getCharset()) {
-                                    $payload['Content.Simple.Body.Text.Charset'] = $v;
+                                    $payload['Content']['Simple']['Subject']['Charset'] = $v;
                                 }
-                            })($v);
+                            })($input->getSubject());
                         }
-                        if (null !== $v = $input->getHtml()) {
-                            (static function ($input) use (&$payload) {
-                                $payload['Content.Simple.Body.Html.Data'] = $input->getData();
-                                if (null !== $v = $input->getCharset()) {
-                                    $payload['Content.Simple.Body.Html.Charset'] = $v;
+
+                        if (null !== $input->getBody()) {
+                            (static function (Body $input) use (&$payload) {
+                                if (null !== $v = $input->getText()) {
+                                    (static function (Content $input) use (&$payload) {
+                                        $payload['Content']['Simple']['Body']['Text']['Data'] = $input->getData();
+
+                                        if (null !== $v = $input->getCharset()) {
+                                            $payload['Content']['Simple']['Body']['Text']['Charset'] = $v;
+                                        }
+                                    })($v);
                                 }
-                            })($v);
+
+                                if (null !== $v = $input->getHtml()) {
+                                    (static function (Content $input) use (&$payload) {
+                                        $payload['Content']['Simple']['Body']['Html']['Data'] = $input->getData();
+
+                                        if (null !== $v = $input->getCharset()) {
+                                            $payload['Content']['Simple']['Body']['Html']['Charset'] = $v;
+                                        }
+                                    })($v);
+                                }
+                            })($input->getBody());
                         }
-                    })($input->getBody());
-                })($v);
-            }
-            if (null !== $v = $input->getRaw()) {
-                (static function ($input) use (&$payload) {
-                    $payload['Content.Raw.Data'] = base64_encode($input->getData());
-                })($v);
-            }
-            if (null !== $v = $input->getTemplate()) {
-                (static function ($input) use (&$payload) {
-                    if (null !== $v = $input->getTemplateArn()) {
-                        $payload['Content.Template.TemplateArn'] = $v;
-                    }
-                    if (null !== $v = $input->getTemplateData()) {
-                        $payload['Content.Template.TemplateData'] = $v;
-                    }
-                })($v);
-            }
-        })($this->Content);
-        (static function ($input) use (&$payload, $indices) {
-            $indices->k7c3bed1 = 0;
+                    })($v);
+                }
+
+                if (null !== $v = $input->getRaw()) {
+                    (static function (RawMessage $input) use (&$payload) {
+                        $payload['Content']['Raw']['Data'] = base64_encode($input->getData() ?? '');
+                    })($v);
+                }
+
+                if (null !== $v = $input->getTemplate()) {
+                    (static function (Template $input) use (&$payload) {
+                        if (null !== $v = $input->getTemplateArn()) {
+                            $payload['Content']['Template']['TemplateArn'] = $v;
+                        }
+
+                        if (null !== $v = $input->getTemplateData()) {
+                            $payload['Content']['Template']['TemplateData'] = $v;
+                        }
+                    })($v);
+                }
+            })($this->Content);
+        }
+
+        (static function (array $input) use (&$payload) {
             foreach ($input as $value) {
-                ++$indices->k7c3bed1;
-                (static function ($input) use (&$payload, $indices) {
-                    $payload["EmailTags.{$indices->k7c3bed1}.Name"] = $input->getName();
-                    $payload["EmailTags.{$indices->k7c3bed1}.Value"] = $input->getValue();
-                })($value);
+                if (null !== $value) {
+                    (static function (MessageTag $input) use (&$payload) {
+                        $payload['EmailTags'][]['Name'] = $input->getName();
+                        $payload['EmailTags'][]['Value'] = $input->getValue();
+                    })($value);
+                }
             }
         })($this->EmailTags);
-
         if (null !== $v = $this->ConfigurationSetName) {
             $payload['ConfigurationSetName'] = $v;
         }
 
-        return $payload;
+        return json_encode($payload);
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/json'];
 
         return $headers;
     }

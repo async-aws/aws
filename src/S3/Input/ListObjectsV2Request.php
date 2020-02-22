@@ -152,16 +152,14 @@ class ListObjectsV2Request
         return $this->StartAfter;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
-        $payload = ['Action' => 'ListObjectsV2', 'Version' => '2006-03-01'];
-
-        return $payload;
+        return '';
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/xml'];
         if (null !== $this->RequestPayer) {
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }

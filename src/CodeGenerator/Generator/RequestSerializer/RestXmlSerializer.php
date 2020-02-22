@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\CodeGenerator\Generator\CodeGenerator;
+namespace AsyncAws\CodeGenerator\Generator\RequestSerializer;
 
 use AsyncAws\CodeGenerator\Definition\ListMember;
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\Member;
+use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
@@ -16,9 +17,28 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
  *
  * @internal
  */
-class XmlDumper
+class RestXmlSerializer implements Serializer
 {
-    public function dumpXml(StructureMember $member, string $payloadProperty): string
+    public function getContentType(): string
+    {
+        return 'application/xml';
+    }
+
+    public function generateForShape(Operation $operation, StructureShape $shape): string
+    {
+        $httpMethod = $operation->getHttpMethod();
+        if (\in_array($httpMethod, ['DELETE', 'GET', 'HEAD'])) {
+            return 'return "";';
+        }
+
+        if (null === $shape->getPayload()) {
+            return 'return "";';
+        }
+
+        throw new \RuntimeException(sprintf('Generating an XML a body for "%s %s::%s" is not supported.', $httpMethod, $operation->getService()->getName(), $operation->getName()));
+    }
+
+    public function generateForMember(StructureMember $member, string $payloadProperty): string
     {
         return strtr('
             $document = new \DOMDocument(\'1.0\', \'UTF-8\');
@@ -28,10 +48,7 @@ class XmlDumper
 
             return $document->saveXML();
         ', [
-            'ROOT_NODE' => \var_export($member->getLocationName(), true),
-            'ROOT_URI' => (null !== $ns = $member->getXmlNamespaceUri()) ? strtr('$root->setAttribute(\'xmlns\', NS);', ['NS' => \var_export($ns, true)]) : '',
             'CHILDREN_CODE' => $this->dumpXmlMember($member, '$document', '$this'),
-            'PAYLOAD_PROPERTY' => $payloadProperty,
         ]);
     }
 

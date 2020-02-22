@@ -299,16 +299,14 @@ class GetObjectRequest
         return $this->VersionId;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
-        $payload = ['Action' => 'GetObject', 'Version' => '2006-03-01'];
-
-        return $payload;
+        return '';
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/xml'];
         if (null !== $this->IfMatch) {
             $headers['If-Match'] = $this->IfMatch;
         }

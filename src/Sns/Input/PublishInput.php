@@ -127,7 +127,7 @@ class PublishInput
         return $this->TopicArn;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
         $payload = ['Action' => 'Publish', 'Version' => '2010-03-31'];
         $indices = new \stdClass();
@@ -153,29 +153,34 @@ class PublishInput
             $payload['MessageStructure'] = $v;
         }
 
-        (static function ($input) use (&$payload, $indices) {
+        (static function (array $input) use (&$payload, $indices) {
             $indices->kb0b4646 = 0;
             foreach ($input as $key => $value) {
                 ++$indices->kb0b4646;
                 $payload["MessageAttributes.{$indices->kb0b4646}.Name"] = $key;
-                (static function ($input) use (&$payload, $indices) {
-                    $payload["MessageAttributes.{$indices->kb0b4646}.Value.DataType"] = $input->getDataType();
-                    if (null !== $v = $input->getStringValue()) {
-                        $payload["MessageAttributes.{$indices->kb0b4646}.Value.StringValue"] = $v;
-                    }
-                    if (null !== $v = $input->getBinaryValue()) {
-                        $payload["MessageAttributes.{$indices->kb0b4646}.Value.BinaryValue"] = base64_encode($v);
-                    }
-                })($value);
+
+                if (null !== $value) {
+                    (static function (MessageAttributeValue $input) use (&$payload, $indices) {
+                        $payload["MessageAttributes.{$indices->kb0b4646}.Value.DataType"] = $input->getDataType();
+
+                        if (null !== $v = $input->getStringValue()) {
+                            $payload["MessageAttributes.{$indices->kb0b4646}.Value.StringValue"] = $v;
+                        }
+
+                        if (null !== $v = $input->getBinaryValue()) {
+                            $payload["MessageAttributes.{$indices->kb0b4646}.Value.BinaryValue"] = base64_encode($v);
+                        }
+                    })($value);
+                }
             }
         })($this->MessageAttributes);
 
-        return $payload;
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
         return $headers;
     }

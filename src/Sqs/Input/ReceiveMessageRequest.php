@@ -123,19 +123,21 @@ class ReceiveMessageRequest
         return $this->WaitTimeSeconds;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
         $payload = ['Action' => 'ReceiveMessage', 'Version' => '2012-11-05'];
         $indices = new \stdClass();
         $payload['QueueUrl'] = $this->QueueUrl;
-        (static function ($input) use (&$payload, $indices) {
+
+        (static function (array $input) use (&$payload, $indices) {
             $indices->kbedee52 = 0;
             foreach ($input as $value) {
                 ++$indices->kbedee52;
                 $payload["AttributeName.{$indices->kbedee52}"] = $value;
             }
         })($this->AttributeNames);
-        (static function ($input) use (&$payload, $indices) {
+
+        (static function (array $input) use (&$payload, $indices) {
             $indices->k40753f1 = 0;
             foreach ($input as $value) {
                 ++$indices->k40753f1;
@@ -159,12 +161,12 @@ class ReceiveMessageRequest
             $payload['ReceiveRequestAttemptId'] = $v;
         }
 
-        return $payload;
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
         return $headers;
     }

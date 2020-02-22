@@ -10,9 +10,9 @@ use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
-use AsyncAws\CodeGenerator\Generator\CodeGenerator\XmlParser;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use AsyncAws\CodeGenerator\Generator\ResponseParser\ParserProvider;
 use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\StreamableBody;
@@ -53,16 +53,21 @@ class ResultGenerator
     private $typeGenerator;
 
     /**
-     * @var XmlParser
+     * @var ParserProvider
      */
-    private $xmlParser;
+    private $parserProvider;
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null, ?XmlParser $xmlParser = null)
+    /**
+     * @var Operation
+     */
+    private $operation;
+
+    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null)
     {
         $this->namespaceRegistry = $namespaceRegistry;
         $this->fileWriter = $fileWriter;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
-        $this->xmlParser = $xmlParser ?? new XmlParser($this->namespaceRegistry);
+        $this->parserProvider = new ParserProvider($this->namespaceRegistry);
     }
 
     /**
@@ -73,6 +78,7 @@ class ResultGenerator
         if (null === $output = $operation->getOutput()) {
             throw new LogicException(sprintf('The operation "%s" does not have any output to generate', $operation->getName()));
         }
+        $this->operation = $operation;
 
         return $this->generateResultClass($output, true);
     }
@@ -287,26 +293,13 @@ class ResultGenerator
         }
 
         $body .= "\n";
-        $xmlParser = '';
-        if (null !== $payloadProperty = $shape->getPayload()) {
-            $member = $shape->getMember($payloadProperty);
-            if ($member->isStreaming()) {
-                // Make sure we can stream this.
-                $namespace->addUse(StreamableBody::class);
-                $body .= strtr('$this->PROPERTY_NAME = new StreamableBody($httpClient->stream($response));', ['PROPERTY_NAME' => $payloadProperty]);
-            } else {
-                $xmlParser = $this->xmlParser->parseXml($shape);
-            }
+        $payloadProperty = $shape->getPayload();
+        if (null !== $payloadProperty && $shape->getMember($payloadProperty)->isStreaming()) {
+            // Make sure we can stream this.
+            $namespace->addUse(StreamableBody::class);
+            $body .= strtr('$this->PROPERTY_NAME = new StreamableBody($httpClient->stream($response));', ['PROPERTY_NAME' => $payloadProperty]);
         } else {
-            $xmlParser = $this->xmlParser->parseXml($shape);
-        }
-
-        if (!empty($xmlParser)) {
-            $body .= '$data = new \SimpleXMLElement($response->getContent(false));';
-            if (null !== $wrapper = $shape->getResultWrapper()) {
-                $body .= strtr('$data = $data->WRAPPER;' . "\n", ['WRAPPER' => $wrapper]);
-            }
-            $body .= "\n" . $xmlParser;
+            $body .= $this->parserProvider->get($this->operation->getService())->generate($shape);
         }
 
         $method = $class->addMethod('populateResult')

@@ -134,7 +134,7 @@ class SendMessageRequest
         return $this->QueueUrl;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
         $payload = ['Action' => 'SendMessage', 'Version' => '2012-11-05'];
         $indices = new \stdClass();
@@ -145,64 +145,77 @@ class SendMessageRequest
             $payload['DelaySeconds'] = $v;
         }
 
-        (static function ($input) use (&$payload, $indices) {
+        (static function (array $input) use (&$payload, $indices) {
             $indices->k2053d0e = 0;
             foreach ($input as $key => $value) {
                 ++$indices->k2053d0e;
                 $payload["MessageAttribute.{$indices->k2053d0e}.Name"] = $key;
-                (static function ($input) use (&$payload, $indices) {
-                    if (null !== $v = $input->getStringValue()) {
-                        $payload["MessageAttribute.{$indices->k2053d0e}.Value.StringValue"] = $v;
-                    }
-                    if (null !== $v = $input->getBinaryValue()) {
-                        $payload["MessageAttribute.{$indices->k2053d0e}.Value.BinaryValue"] = base64_encode($v);
-                    }
-        (static function ($input) use (&$payload, $indices) {
+
+                if (null !== $value) {
+                    (static function (MessageAttributeValue $input) use (&$payload, $indices) {
+                        if (null !== $v = $input->getStringValue()) {
+                            $payload["MessageAttribute.{$indices->k2053d0e}.Value.StringValue"] = $v;
+                        }
+
+                        if (null !== $v = $input->getBinaryValue()) {
+                            $payload["MessageAttribute.{$indices->k2053d0e}.Value.BinaryValue"] = base64_encode($v);
+                        }
+
+        (static function (array $input) use (&$payload, $indices) {
             $indices->k782bfa4 = 0;
             foreach ($input as $value) {
                 ++$indices->k782bfa4;
                 $payload["MessageAttribute.{$indices->k2053d0e}.Value.StringListValue.{$indices->k782bfa4}"] = $value;
             }
         })($input->getStringListValues());
-                    (static function ($input) use (&$payload, $indices) {
-                        $indices->kc6c9229 = 0;
-                        foreach ($input as $value) {
-                            ++$indices->kc6c9229;
-                            $payload["MessageAttribute.{$indices->k2053d0e}.Value.BinaryListValue.{$indices->kc6c9229}"] = base64_encode($value);
-                        }
-                    })($input->getBinaryListValues());
-                    $payload["MessageAttribute.{$indices->k2053d0e}.Value.DataType"] = $input->getDataType();
-                })($value);
+
+                        (static function (array $input) use (&$payload, $indices) {
+                            $indices->kc6c9229 = 0;
+                            foreach ($input as $value) {
+                                ++$indices->kc6c9229;
+                                $payload["MessageAttribute.{$indices->k2053d0e}.Value.BinaryListValue.{$indices->kc6c9229}"] = base64_encode($value);
+                            }
+                        })($input->getBinaryListValues());
+                        $payload["MessageAttribute.{$indices->k2053d0e}.Value.DataType"] = $input->getDataType();
+                    })($value);
+                }
             }
         })($this->MessageAttributes);
-        (static function ($input) use (&$payload, $indices) {
+
+        (static function (array $input) use (&$payload, $indices) {
             $indices->k6857220 = 0;
             foreach ($input as $key => $value) {
                 ++$indices->k6857220;
                 $payload["MessageSystemAttribute.{$indices->k6857220}.Name"] = $key;
-                (static function ($input) use (&$payload, $indices) {
-                    if (null !== $v = $input->getStringValue()) {
-                        $payload["MessageSystemAttribute.{$indices->k6857220}.Value.StringValue"] = $v;
-                    }
-                    if (null !== $v = $input->getBinaryValue()) {
-                        $payload["MessageSystemAttribute.{$indices->k6857220}.Value.BinaryValue"] = base64_encode($v);
-                    }
-        (static function ($input) use (&$payload, $indices) {
+
+                if (null !== $value) {
+                    (static function (MessageSystemAttributeValue $input) use (&$payload, $indices) {
+                        if (null !== $v = $input->getStringValue()) {
+                            $payload["MessageSystemAttribute.{$indices->k6857220}.Value.StringValue"] = $v;
+                        }
+
+                        if (null !== $v = $input->getBinaryValue()) {
+                            $payload["MessageSystemAttribute.{$indices->k6857220}.Value.BinaryValue"] = base64_encode($v);
+                        }
+
+        (static function (array $input) use (&$payload, $indices) {
             $indices->k2d98e9d = 0;
             foreach ($input as $value) {
                 ++$indices->k2d98e9d;
                 $payload["MessageSystemAttribute.{$indices->k6857220}.Value.StringListValue.{$indices->k2d98e9d}"] = $value;
             }
         })($input->getStringListValues());
-                    (static function ($input) use (&$payload, $indices) {
-                        $indices->k4dcafc5 = 0;
-                        foreach ($input as $value) {
-                            ++$indices->k4dcafc5;
-                            $payload["MessageSystemAttribute.{$indices->k6857220}.Value.BinaryListValue.{$indices->k4dcafc5}"] = base64_encode($value);
-                        }
-                    })($input->getBinaryListValues());
-                    $payload["MessageSystemAttribute.{$indices->k6857220}.Value.DataType"] = $input->getDataType();
-                })($value);
+
+                        (static function (array $input) use (&$payload, $indices) {
+                            $indices->k4dcafc5 = 0;
+                            foreach ($input as $value) {
+                                ++$indices->k4dcafc5;
+                                $payload["MessageSystemAttribute.{$indices->k6857220}.Value.BinaryListValue.{$indices->k4dcafc5}"] = base64_encode($value);
+                            }
+                        })($input->getBinaryListValues());
+                        $payload["MessageSystemAttribute.{$indices->k6857220}.Value.DataType"] = $input->getDataType();
+                    })($value);
+                }
             }
         })($this->MessageSystemAttributes);
 
@@ -214,12 +227,12 @@ class SendMessageRequest
             $payload['MessageGroupId'] = $v;
         }
 
-        return $payload;
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
         return $headers;
     }

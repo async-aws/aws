@@ -190,21 +190,25 @@ class AssumeRoleRequest
         return $this->TransitiveTagKeys;
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
         $payload = ['Action' => 'AssumeRole', 'Version' => '2011-06-15'];
         $indices = new \stdClass();
         $payload['RoleArn'] = $this->RoleArn;
         $payload['RoleSessionName'] = $this->RoleSessionName;
-        (static function ($input) use (&$payload, $indices) {
+
+        (static function (array $input) use (&$payload, $indices) {
             $indices->kd8fbed2 = 0;
             foreach ($input as $value) {
                 ++$indices->kd8fbed2;
-                (static function ($input) use (&$payload, $indices) {
-                    if (null !== $v = $input->getarn()) {
-                        $payload["PolicyArns.{$indices->kd8fbed2}.arn"] = $v;
-                    }
-                })($value);
+
+                if (null !== $value) {
+                    (static function (PolicyDescriptorType $input) use (&$payload, $indices) {
+                        if (null !== $v = $input->getarn()) {
+                            $payload["PolicyArns.{$indices->kd8fbed2}.arn"] = $v;
+                        }
+                    })($value);
+                }
             }
         })($this->PolicyArns);
 
@@ -216,17 +220,21 @@ class AssumeRoleRequest
             $payload['DurationSeconds'] = $v;
         }
 
-        (static function ($input) use (&$payload, $indices) {
+        (static function (array $input) use (&$payload, $indices) {
             $indices->k848eed0 = 0;
             foreach ($input as $value) {
                 ++$indices->k848eed0;
-                (static function ($input) use (&$payload, $indices) {
-                    $payload["Tags.{$indices->k848eed0}.Key"] = $input->getKey();
-                    $payload["Tags.{$indices->k848eed0}.Value"] = $input->getValue();
-                })($value);
+
+                if (null !== $value) {
+                    (static function (Tag $input) use (&$payload, $indices) {
+                        $payload["Tags.{$indices->k848eed0}.Key"] = $input->getKey();
+                        $payload["Tags.{$indices->k848eed0}.Value"] = $input->getValue();
+                    })($value);
+                }
             }
         })($this->Tags);
-        (static function ($input) use (&$payload, $indices) {
+
+        (static function (array $input) use (&$payload, $indices) {
             $indices->k296eb4e = 0;
             foreach ($input as $value) {
                 ++$indices->k296eb4e;
@@ -246,12 +254,12 @@ class AssumeRoleRequest
             $payload['TokenCode'] = $v;
         }
 
-        return $payload;
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
         return $headers;
     }

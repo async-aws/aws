@@ -9,11 +9,10 @@ use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\File\FileWriter;
-use AsyncAws\CodeGenerator\Generator\CodeGenerator\ArrayDumper;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
-use AsyncAws\CodeGenerator\Generator\CodeGenerator\XmlDumper;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use AsyncAws\CodeGenerator\Generator\RequestSerializer\SerializerProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
@@ -44,27 +43,21 @@ class InputGenerator
     private $typeGenerator;
 
     /**
-     * @var XmlDumper
+     * @var SerializerProvider
      */
-    private $xmlDumper;
-
-    /**
-     * @var ArrayDumper
-     */
-    private $arrayDumper;
+    private $serializer;
 
     /**
      * @var ClassName[]
      */
     private $generated = [];
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null, ?XmlDumper $xmlDumper = null, ?ArrayDumper $arrayDumper = null)
+    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null)
     {
         $this->namespaceRegistry = $namespaceRegistry;
         $this->fileWriter = $fileWriter;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
-        $this->arrayDumper = $arrayDumper ?? new ArrayDumper();
-        $this->xmlDumper = $xmlDumper ?? new XmlDumper();
+        $this->serializer = new SerializerProvider($this->namespaceRegistry);
     }
 
     /**
@@ -230,8 +223,11 @@ class InputGenerator
 
     private function inputClassRequestGetters(StructureShape $inputShape, ClassType $class, Operation $operation): void
     {
+        $serializer = $this->serializer->get($operation->getService());
+        $body['header'] = '$headers = [\'content-type\' => \'' . $serializer->getContentType() . '\'];' . "\n";
+        $body['querystring'] = '$query = [];' . "\n";
+
         foreach (['header' => '$headers', 'querystring' => '$query'] as $requestPart => $varName) {
-            $body[$requestPart] = $varName . ' = [];' . "\n";
             foreach ($inputShape->getMembers() as $member) {
                 // If location is not specified, it will go in the request body.
                 if ($requestPart === ($member->getLocation() ?? 'payload')) {
@@ -252,19 +248,11 @@ class InputGenerator
                 $body = 'return $this->' . $payloadProperty . ' ?? "";';
             } else {
                 $bodyType = 'string';
-                $body = $this->xmlDumper->dumpXml($member, $payloadProperty);
+                $body = $serializer->generateForMember($member, $payloadProperty);
             }
         } else {
-            $bodyType = 'array';
-            $body = strtr('
-                $payload = [\'Action\' => OPERATION_NAME, \'Version\' => API_VERSION];
-                CHILDREN_CODE
-                return $payload;
-            ', [
-                'OPERATION_NAME' => \var_export($operation->getName(), true),
-                'API_VERSION' => \var_export($operation->getApiVersion(), true),
-                'CHILDREN_CODE' => $this->arrayDumper->dumpArray($inputShape),
-            ]);
+            $bodyType = 'string';
+            $body = $serializer->generateForShape($operation, $inputShape);
         }
         $class->addMethod('requestBody')->setReturnType($bodyType)->setBody($body);
 

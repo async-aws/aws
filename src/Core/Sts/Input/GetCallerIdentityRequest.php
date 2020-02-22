@@ -9,16 +9,16 @@ class GetCallerIdentityRequest
         return $input instanceof self ? $input : new self();
     }
 
-    public function requestBody(): array
+    public function requestBody(): string
     {
         $payload = ['Action' => 'GetCallerIdentity', 'Version' => '2011-06-15'];
 
-        return $payload;
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
     public function requestHeaders(): array
     {
-        $headers = [];
+        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
         return $headers;
     }
