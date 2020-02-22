@@ -130,13 +130,13 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
             $items = [];
             foreach ($xml as $item) {
                 $items[] = new StackEvent([
-                    'StackId' => ($v = $item->StackId) ? (string) $v : null,
-                    'EventId' => ($v = $item->EventId) ? (string) $v : null,
-                    'StackName' => ($v = $item->StackName) ? (string) $v : null,
+                    'StackId' => (string) $item->StackId,
+                    'EventId' => (string) $item->EventId,
+                    'StackName' => (string) $item->StackName,
                     'LogicalResourceId' => ($v = $item->LogicalResourceId) ? (string) $v : null,
                     'PhysicalResourceId' => ($v = $item->PhysicalResourceId) ? (string) $v : null,
                     'ResourceType' => ($v = $item->ResourceType) ? (string) $v : null,
-                    'Timestamp' => ($v = $item->Timestamp) ? new \DateTimeImmutable((string) $v) : null,
+                    'Timestamp' => new \DateTimeImmutable((string) $item->Timestamp),
                     'ResourceStatus' => ($v = $item->ResourceStatus) ? (string) $v : null,
                     'ResourceStatusReason' => ($v = $item->ResourceStatusReason) ? (string) $v : null,
                     'ResourceProperties' => ($v = $item->ResourceProperties) ? (string) $v : null,

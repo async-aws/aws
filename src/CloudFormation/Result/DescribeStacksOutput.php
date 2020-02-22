@@ -131,7 +131,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
             foreach ($xml as $item) {
                 $items[] = new Stack([
                     'StackId' => ($v = $item->StackId) ? (string) $v : null,
-                    'StackName' => ($v = $item->StackName) ? (string) $v : null,
+                    'StackName' => (string) $item->StackName,
                     'ChangeSetId' => ($v = $item->ChangeSetId) ? (string) $v : null,
                     'Description' => ($v = $item->Description) ? (string) $v : null,
                     'Parameters' => (function (\SimpleXMLElement $xml): array {
@@ -147,7 +147,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
 
                         return $items;
                     })($item->Parameters),
-                    'CreationTime' => ($v = $item->CreationTime) ? new \DateTimeImmutable((string) $v) : null,
+                    'CreationTime' => new \DateTimeImmutable((string) $item->CreationTime),
                     'DeletionTime' => ($v = $item->DeletionTime) ? new \DateTimeImmutable((string) $v) : null,
                     'LastUpdatedTime' => ($v = $item->LastUpdatedTime) ? new \DateTimeImmutable((string) $v) : null,
                     'RollbackConfiguration' => new RollbackConfiguration([
@@ -155,8 +155,8 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
                             $items = [];
                             foreach ($xml as $item) {
                                 $items[] = new RollbackTrigger([
-                                    'Arn' => ($v = $item->Arn) ? (string) $v : null,
-                                    'Type' => ($v = $item->Type) ? (string) $v : null,
+                                    'Arn' => (string) $item->Arn,
+                                    'Type' => (string) $item->Type,
                                 ]);
                             }
 
@@ -164,7 +164,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
                         })($item->RollbackConfiguration->RollbackTriggers),
                         'MonitoringTimeInMinutes' => ($v = $item->RollbackConfiguration->MonitoringTimeInMinutes) ? (int) (string) $v : null,
                     ]),
-                    'StackStatus' => ($v = $item->StackStatus) ? (string) $v : null,
+                    'StackStatus' => (string) $item->StackStatus,
                     'StackStatusReason' => ($v = $item->StackStatusReason) ? (string) $v : null,
                     'DisableRollback' => ($v = $item->DisableRollback) ? 'true' === (string) $v : null,
                     'NotificationARNs' => (function (\SimpleXMLElement $xml): array {
@@ -208,8 +208,8 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
                         $items = [];
                         foreach ($xml as $item) {
                             $items[] = new Tag([
-                                'Key' => ($v = $item->Key) ? (string) $v : null,
-                                'Value' => ($v = $item->Value) ? (string) $v : null,
+                                'Key' => (string) $item->Key,
+                                'Value' => (string) $item->Value,
                             ]);
                         }
 
@@ -219,7 +219,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
                     'ParentId' => ($v = $item->ParentId) ? (string) $v : null,
                     'RootId' => ($v = $item->RootId) ? (string) $v : null,
                     'DriftInformation' => new StackDriftInformation([
-                        'StackDriftStatus' => ($v = $item->DriftInformation->StackDriftStatus) ? (string) $v : null,
+                        'StackDriftStatus' => (string) $item->DriftInformation->StackDriftStatus,
                         'LastCheckTimestamp' => ($v = $item->DriftInformation->LastCheckTimestamp) ? new \DateTimeImmutable((string) $v) : null,
                     ]),
                 ]);
