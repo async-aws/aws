@@ -92,11 +92,11 @@ class RestXmlParser implements Parser
     {
         switch (true) {
             case $shape instanceof ListShape:
-                return $this->parseXmlResponseList($shape, $input);
+                return $this->parseXmlResponseList($shape, $input, $required);
             case $shape instanceof StructureShape:
-                return $this->parseXmlResponseStructure($shape, $input);
+                return $this->parseXmlResponseStructure($shape, $input, $required);
             case $shape instanceof MapShape:
-                return $this->parseXmlResponseMap($shape, $input);
+                return $this->parseXmlResponseMap($shape, $input, $required);
         }
 
         switch ($shape->getType()) {
@@ -119,7 +119,7 @@ class RestXmlParser implements Parser
         throw new \RuntimeException(sprintf('Type %s is not yet implemented', $shape->getType()));
     }
 
-    private function parseXmlResponseStructure(StructureShape $shape, string $input): string
+    private function parseXmlResponseStructure(StructureShape $shape, string $input, bool $required): string
     {
         $properties = [];
         foreach ($shape->getMembers() as $member) {
@@ -129,9 +129,10 @@ class RestXmlParser implements Parser
             ]);
         }
 
-        return strtr('new CLASS_NAME([
+        return strtr('REQUIRED new CLASS_NAME([
             PROPERTIES
         ])', [
+            'REQUIRED' => $required ? '' : '!' . $input . ' ? null : ',
             'CLASS_NAME' => $this->namespaceRegistry->getResult($shape)->getName(),
             'PROPERTIES' => implode("\n", $properties),
         ]);
@@ -199,7 +200,7 @@ class RestXmlParser implements Parser
         return strtr('($v = INPUT) ? new \DateTimeImmutable((string) $v) : null', ['INPUT' => $input]);
     }
 
-    private function parseXmlResponseList(ListShape $shape, string $input): string
+    private function parseXmlResponseList(ListShape $shape, string $input, bool $required): string
     {
         $shapeMember = $shape->getMember();
         if ($shapeMember->getShape() instanceof StructureShape) {
@@ -225,14 +226,18 @@ class RestXmlParser implements Parser
         })(INPUT)';
         }
 
+        if (!$required) {
+            $body = '!INPUT ? [] : ' . $body;
+        }
+
         return strtr($body, [
-            'LIST_ACCESSOR' => $this->parseXmlElement('$item', $shapeMember->getShape(), false),
+            'LIST_ACCESSOR' => $this->parseXmlElement('$item', $shapeMember->getShape(), true),
             'INPUT' => $input,
             'INPUT_PROPERTY' => $shape->isFlattened() ? '$xml' : '$xml' . ($shapeMember->getLocationName() ? '->' . $shapeMember->getLocationName() : ''),
         ]);
     }
 
-    private function parseXmlResponseMap(MapShape $shape, string $input): string
+    private function parseXmlResponseMap(MapShape $shape, string $input, bool $required): string
     {
         if (null === $locationName = $shape->getKey()->getLocationName()) {
             throw new \RuntimeException('This is not implemented yet');
@@ -262,9 +267,13 @@ class RestXmlParser implements Parser
             })(INPUT)';
         }
 
+        if (!$required) {
+            $body = '!INPUT ? [] : ' . $body;
+        }
+
         return strtr($body, [
             'MAP_KEY' => $locationName,
-            'MAP_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$item', $shapeValue), $shapeValue->getShape(), false),
+            'MAP_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$item', $shapeValue), $shapeValue->getShape(), true),
             'INPUT' => $input,
         ]);
     }

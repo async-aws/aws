@@ -55,7 +55,7 @@ class DeleteObjectsOutput extends Result
         $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent(false));
-        $this->Deleted = (function (\SimpleXMLElement $xml): array {
+        $this->Deleted = !$data->Deleted ? [] : (function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
                 $items[] = new DeletedObject([
@@ -68,7 +68,7 @@ class DeleteObjectsOutput extends Result
 
             return $items;
         })($data->Deleted);
-        $this->Errors = (function (\SimpleXMLElement $xml): array {
+        $this->Errors = !$data->Error ? [] : (function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
                 $items[] = new Error([

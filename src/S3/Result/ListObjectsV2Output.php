@@ -288,7 +288,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     {
         $data = new \SimpleXMLElement($response->getContent(false));
         $this->IsTruncated = ($v = $data->IsTruncated) ? 'true' === (string) $v : null;
-        $this->Contents = (function (\SimpleXMLElement $xml): array {
+        $this->Contents = !$data->Contents ? [] : (function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
                 $items[] = new AwsObject([
@@ -297,7 +297,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
                     'ETag' => ($v = $item->ETag) ? (string) $v : null,
                     'Size' => ($v = $item->Size) ? (string) $v : null,
                     'StorageClass' => ($v = $item->StorageClass) ? (string) $v : null,
-                    'Owner' => new Owner([
+                    'Owner' => !$item->Owner ? null : new Owner([
                         'DisplayName' => ($v = $item->Owner->DisplayName) ? (string) $v : null,
                         'ID' => ($v = $item->Owner->ID) ? (string) $v : null,
                     ]),
@@ -310,7 +310,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         $this->Prefix = ($v = $data->Prefix) ? (string) $v : null;
         $this->Delimiter = ($v = $data->Delimiter) ? (string) $v : null;
         $this->MaxKeys = ($v = $data->MaxKeys) ? (int) (string) $v : null;
-        $this->CommonPrefixes = (function (\SimpleXMLElement $xml): array {
+        $this->CommonPrefixes = !$data->CommonPrefixes ? [] : (function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
                 $items[] = new CommonPrefix([

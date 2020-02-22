@@ -28,10 +28,10 @@ class GetQueueAttributesResult extends Result
         $data = new \SimpleXMLElement($response->getContent(false));
         $data = $data->GetQueueAttributesResult;
 
-        $this->Attributes = (function (\SimpleXMLElement $xml): array {
+        $this->Attributes = !$data->Attribute ? [] : (function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
-                $a = ($v = $item->Value) ? (string) $v : null;
+                $a = (string) $item->Value;
                 if (null !== $a) {
                     $items[$item->Name->__toString()] = $a;
                 }

@@ -6,7 +6,6 @@ namespace AsyncAws\CloudFormation\Tests\Unit\Result;
 
 use AsyncAws\CloudFormation\Result\DescribeStacksOutput;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
-use AsyncAws\Sqs\Result\CreateQueueResult;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 
@@ -81,6 +80,6 @@ XML;
         $result = new DescribeStacksOutput($response, new MockHttpClient());
         $result->resolve();
 
-        $this->assertInstanceOf(DescribeStacksOutput::class, $result);
+        self::assertInstanceOf(DescribeStacksOutput::class, $result);
     }
 }
