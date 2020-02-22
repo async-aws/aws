@@ -70,18 +70,11 @@ class AwsClient
         $this->httpClient = $httpClient ?? HttpClient::create();
         $this->logger = $logger ?? new NullLogger();
         $this->configuration = $configuration;
-        if ($configuration->isDefault(Configuration::OPTION_ENDPOINT)) {
-            $this->credentialProvider = $credentialProvider ?? new CacheProvider(new ChainProvider([
-                new ConfigurationProvider(),
-                new IniFileProvider($this->logger),
-                new InstanceProvider($this->httpClient, $this->logger),
-            ]));
-        } else {
-            $this->credentialProvider = $credentialProvider ?? new CacheProvider(new ChainProvider([
-                new ConfigurationProvider(),
-                new IniFileProvider($this->logger),
-            ]));
-        }
+        $this->credentialProvider = $credentialProvider ?? new CacheProvider(new ChainProvider([
+            new ConfigurationProvider(),
+            new IniFileProvider($this->logger),
+            new InstanceProvider($this->httpClient, $this->logger),
+        ]));
     }
 
     public function cloudFormation(): CloudFormationClient
