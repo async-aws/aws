@@ -142,7 +142,7 @@ PHP;
             'MEMBERS_CODE' => $memberCode,
         ];
 
-        if ($input === '$v') {
+        if ('$v' === $input) {
             // No check for null needed
             return strtr('
 

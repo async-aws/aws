@@ -145,8 +145,7 @@ if (null !== $v = INPUT_NAME) {
             'USE' => \strpos($memberCode, '$indices') ? '&$payload, $indices' : '&$payload',
         ];
 
-
-        if ($input === '$v') {
+        if ('$v' === $input) {
             // No check for null needed
             return strtr('
 
@@ -165,7 +164,6 @@ if (null !== INPUT) {
     })(INPUT);
 }',
             $replaceData);
-
     }
 
     private function dumpArrayMap(string $output, string $input, MapShape $shape): string
