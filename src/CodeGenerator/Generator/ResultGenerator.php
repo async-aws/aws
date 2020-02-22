@@ -100,20 +100,20 @@ class ResultGenerator
 
             $namespace->addUse(ResponseInterface::class);
             $namespace->addUse(HttpClientInterface::class);
-            $this->resultClassPopulateResult($shape, $namespace, $class);
+            $this->populateResult($shape, $namespace, $class);
         } else {
             // Named constructor
-            $this->resultClassAddNamedConstructor($shape, $class);
+            $this->namedConstructor($shape, $class);
         }
 
-        $this->resultClassAddProperties($root, $shape, $class, $namespace);
+        $this->addProperties($root, $shape, $class, $namespace);
 
         $this->fileWriter->write($namespace);
 
         return $className;
     }
 
-    private function resultClassAddNamedConstructor(StructureShape $shape, ClassType $class): void
+    private function namedConstructor(StructureShape $shape, ClassType $class): void
     {
         $class->addMethod('create')
             ->setStatic(true)
@@ -161,7 +161,7 @@ class ResultGenerator
     /**
      * Add properties and getters.
      */
-    private function resultClassAddProperties(bool $root, StructureShape $shape, ClassType $class, PhpNamespace $namespace): void
+    private function addProperties(bool $root, StructureShape $shape, ClassType $class, PhpNamespace $namespace): void
     {
         foreach ($shape->getMembers() as $member) {
             $nullable = $returnType = null;
@@ -230,7 +230,7 @@ class ResultGenerator
         }
     }
 
-    private function resultClassPopulateResult(StructureShape $shape, PhpNamespace $namespace, ClassType $class): void
+    private function populateResult(StructureShape $shape, PhpNamespace $namespace, ClassType $class): void
     {
         // Parse headers
         $nonHeaders = [];
