@@ -140,7 +140,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
                             $items[] = new Parameter([
                                 'ParameterKey' => ($v = $item->ParameterKey) ? (string) $v : null,
                                 'ParameterValue' => ($v = $item->ParameterValue) ? (string) $v : null,
-                                'UsePreviousValue' => ($v = $item->UsePreviousValue) ? 'true' === (string) $v : null,
+                                'UsePreviousValue' => ($v = $item->UsePreviousValue) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
                                 'ResolvedValue' => ($v = $item->ResolvedValue) ? (string) $v : null,
                             ]);
                         }
@@ -166,7 +166,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
                     ]),
                     'StackStatus' => (string) $item->StackStatus,
                     'StackStatusReason' => ($v = $item->StackStatusReason) ? (string) $v : null,
-                    'DisableRollback' => ($v = $item->DisableRollback) ? 'true' === (string) $v : null,
+                    'DisableRollback' => ($v = $item->DisableRollback) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
                     'NotificationARNs' => !$item->NotificationARNs ? [] : (function (\SimpleXMLElement $xml): array {
                         $items = [];
                         foreach ($xml->member as $item) {
@@ -215,7 +215,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
 
                         return $items;
                     })($item->Tags),
-                    'EnableTerminationProtection' => ($v = $item->EnableTerminationProtection) ? 'true' === (string) $v : null,
+                    'EnableTerminationProtection' => ($v = $item->EnableTerminationProtection) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
                     'ParentId' => ($v = $item->ParentId) ? (string) $v : null,
                     'RootId' => ($v = $item->RootId) ? (string) $v : null,
                     'DriftInformation' => !$item->DriftInformation ? null : new StackDriftInformation([

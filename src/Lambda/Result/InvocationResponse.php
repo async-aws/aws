@@ -82,7 +82,7 @@ class InvocationResponse extends Result
 
         $data = json_decode($response->getContent(false), true);
 
-        $this->StatusCode = ($v = $data['StatusCode']) ? (int) (string) $v : null;
-        $this->Payload = ($v = $data['Payload']) ? base64_decode((string) $v) : null;
+        $this->StatusCode = isset($data['StatusCode']) ? (int) $data['StatusCode'] : null;
+        $this->Payload = isset($data['Payload']) ? base64_decode((string) $data['Payload']) : null;
     }
 }

@@ -40,7 +40,7 @@ class RestJsonParser implements Parser
 
             $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
                 'PROPERTY_NAME' => $member->getName(),
-                'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('$data[\'%s\']', $this->getInputAccessorName($member)), $member->getShape()),
+                'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('$data[\'%s\']', $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired()),
             ]);
         }
 
@@ -75,44 +75,44 @@ class RestJsonParser implements Parser
         return $member->getLocationName();
     }
 
-    private function parseElement(string $input, Shape $shape)
+    private function parseElement(string $input, Shape $shape, bool $required)
     {
         switch (true) {
             case $shape instanceof ListShape:
-                return $this->parseResponseList($shape, $input);
+                return $this->parseResponseList($shape, $input, $required);
             case $shape instanceof StructureShape:
-                return $this->parseResponseStructure($shape, $input);
+                return $this->parseResponseStructure($shape, $input, $required);
             case $shape instanceof MapShape:
-                return $this->parseResponseMap($shape, $input);
+                return $this->parseResponseMap($shape, $input, $required);
         }
 
         switch ($shape->getType()) {
             case 'string':
             case 'long':
-                return $this->parseResponseString($input);
+                return $this->parseResponseString($input, $required);
             case 'integer':
-                return $this->parseResponseInteger($input);
+                return $this->parseResponseInteger($input, $required);
             case 'float':
             case 'double':
-                return $this->parseResponseFloat($input);
+                return $this->parseResponseFloat($input, $required);
             case 'boolean':
-                return $this->parseResponseBool($input);
+                return $this->parseResponseBool($input, $required);
             case 'blob':
-                return $this->parseResponseBlob($input);
+                return $this->parseResponseBlob($input, $required);
             case 'timestamp':
-                return $this->parseResponseTimestamp($shape, $input);
+                return $this->parseResponseTimestamp($shape, $input, $required);
         }
 
         throw new \RuntimeException(sprintf('Type %s is not yet implemented', $shape->getType()));
     }
 
-    private function parseResponseStructure(StructureShape $shape, string $input): string
+    private function parseResponseStructure(StructureShape $shape, string $input, bool $required): string
     {
         $properties = [];
         foreach ($shape->getMembers() as $member) {
             $properties[] = strtr('PROPERTY_NAME => PROPERTY_ACCESSOR,', [
                 'PROPERTY_NAME' => var_export($member->getName(), true),
-                'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('%s[\'%s\']', $input, $this->getInputAccessorName($member)), $member->getShape()),
+                'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('%s[\'%s\']', $input, $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired()),
             ]);
         }
 
@@ -124,44 +124,73 @@ class RestJsonParser implements Parser
         ]);
     }
 
-    private function parseResponseString(string $input): string
+    private function parseResponseString(string $input, bool $required): string
     {
+        if ($required) {
+            return strtr('(string) INPUT', ['INPUT' => $input]);
+        }
+
         return strtr('isset(INPUT) ? (string) INPUT : null', ['INPUT' => $input]);
     }
 
-    private function parseResponseInteger(string $input): string
+    private function parseResponseInteger(string $input, bool $required): string
     {
-        return strtr('isset(INPUT) ? (int) (string) INPUT : null', ['INPUT' => $input]);
+        if ($required) {
+            return strtr('(int) INPUT', ['INPUT' => $input]);
+        }
+
+        return strtr('isset(INPUT) ? (int) INPUT : null', ['INPUT' => $input]);
     }
 
-    private function parseResponseFloat(string $input): string
+    private function parseResponseFloat(string $input, bool $required): string
     {
-        return strtr('isset(INPUT) ? (float) (string) INPUT : null', ['INPUT' => $input]);
+        if ($required) {
+            return strtr('(float) INPUT', ['INPUT' => $input]);
+        }
+
+        return strtr('isset(INPUT) ? (float) INPUT : null', ['INPUT' => $input]);
     }
 
-    private function parseResponseBool(string $input): string
+    private function parseResponseBool(string $input, bool $required): string
     {
-        return strtr('isset(INPUT) ? (string) INPUT === \'true\' : null', ['INPUT' => $input]);
+        if ($required) {
+            return strtr('filter_var(INPUT, FILTER_VALIDATE_BOOLEAN)', ['INPUT' => $input]);
+        }
+
+        return strtr('isset(INPUT) ? filter_var(INPUT, FILTER_VALIDATE_BOOLEAN) : null', ['INPUT' => $input]);
     }
 
-    private function parseResponseBlob(string $input): string
+    private function parseResponseBlob(string $input, bool $required): string
     {
+        if ($required) {
+            return strtr('base64_decode((string) INPUT)', ['INPUT' => $input]);
+        }
+
         return strtr('isset(INPUT) ? base64_decode((string) INPUT) : null', ['INPUT' => $input]);
     }
 
-    private function parseResponseTimestamp(Shape $shape, string $input): string
+    private function parseResponseTimestamp(Shape $shape, string $input, bool $required): string
     {
         if ('unixTimestamp' === $shape->get('timestampFormat')) {
+            if ($required) {
+                return strtr('\DateTimeImmutable::setTimestamp((string) INPUT)', ['INPUT' => $input]);
+            }
+
             return strtr('isset(INPUT) ? \DateTimeImmutable::setTimestamp((string) INPUT) : null', ['INPUT' => $input]);
+        }
+
+        if ($required) {
+            return strtr('new \DateTimeImmutable((string) INPUT)', ['INPUT' => $input]);
         }
 
         return strtr('isset(INPUT) ? new \DateTimeImmutable((string) INPUT) : null', ['INPUT' => $input]);
     }
 
-    private function parseResponseList(ListShape $shape, string $input): string
+    private function parseResponseList(ListShape $shape, string $input, bool $required): string
     {
         $shapeMember = $shape->getMember();
         if ($shapeMember->getShape() instanceof StructureShape) {
+            $listAccessorRequired = true;
             $body = '(function(array $json): array {
             $items = [];
             foreach (INPUT_PROPERTY as $item) {
@@ -171,6 +200,7 @@ class RestJsonParser implements Parser
             return $items;
         })(INPUT)';
         } else {
+            $listAccessorRequired = false;
             $body = '(function(array $json): array {
             $items = [];
             foreach (INPUT_PROPERTY as $item) {
@@ -184,14 +214,18 @@ class RestJsonParser implements Parser
         })(INPUT)';
         }
 
+        if (!$required) {
+            $body = '!INPUT ? [] : ' . $body;
+        }
+
         return strtr($body, [
-            'LIST_ACCESSOR' => $this->parseElement('$item', $shapeMember->getShape()),
+            'LIST_ACCESSOR' => $this->parseElement('$item', $shapeMember->getShape(), $listAccessorRequired),
             'INPUT' => $input,
             'INPUT_PROPERTY' => $shape->isFlattened() ? '$json' : '$json' . ($shapeMember->getLocationName() ? '->' . $shapeMember->getLocationName() : ''),
         ]);
     }
 
-    private function parseResponseMap(MapShape $shape, string $input): string
+    private function parseResponseMap(MapShape $shape, string $input, bool $required): string
     {
         if (null === $locationName = $shape->getKey()->getLocationName()) {
             throw new \RuntimeException('This is not implemented yet');
@@ -221,9 +255,13 @@ class RestJsonParser implements Parser
             })(INPUT)';
         }
 
+        if (!$required) {
+            $body = '!INPUT ? [] : ' . $body;
+        }
+
         return strtr($body, [
             'MAP_KEY' => var_export($locationName, true),
-            'MAP_ACCESSOR' => $this->parseElement(sprintf('$item[\'%s\']', $this->getInputAccessorName($shapeValue)), $shapeValue->getShape()),
+            'MAP_ACCESSOR' => $this->parseElement(sprintf('$item[\'%s\']', $this->getInputAccessorName($shapeValue)), $shapeValue->getShape(), false),
             'INPUT' => $input,
         ]);
     }

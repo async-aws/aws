@@ -168,10 +168,10 @@ class RestXmlParser implements Parser
     private function parseXmlResponseBool(string $input, bool $required): string
     {
         if ($required) {
-            return strtr('(string) INPUT  === \'true\'', ['INPUT' => $input]);
+            return strtr('filter_var((string) INPUT, FILTER_VALIDATE_BOOLEAN)', ['INPUT' => $input]);
         }
 
-        return strtr('($v = INPUT) ? (string) $v === \'true\' : null', ['INPUT' => $input]);
+        return strtr('($v = INPUT) ? filter_var((string) $v, FILTER_VALIDATE_BOOLEAN) : null', ['INPUT' => $input]);
     }
 
     private function parseXmlResponseBlob(string $input, bool $required): string
