@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\S3\Tests\Integration;
 
+use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\S3\S3Client;
 
 trait GetClient
@@ -12,6 +13,6 @@ trait GetClient
     {
         return new S3Client([
             'endpoint' => 'http://localhost:4569',
-        ]);
+        ], new NullProvider());
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\Ses\Tests\Unit;
 
+use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Ses\Input\Destination;
 use AsyncAws\Ses\Input\EmailContent;
@@ -40,7 +41,7 @@ class SesClientTest extends TestCase
 
         $ses = new SesClient([
             'endpoint' => 'https://email.eu-west-1.amazonaws.com:8984',
-        ], null, $httpClient);
+        ], new NullProvider(), $httpClient);
 
         $input = new SendEmailRequest([
             'FromEmailAddress' => 'foo@test.se',
@@ -68,7 +69,7 @@ class SesClientTest extends TestCase
                 'http_code' => 400,
             ]);
         });
-        $ses = new SesClient([], null, $httpClient);
+        $ses = new SesClient([], new NullProvider(), $httpClient);
 
         $input = new SendEmailRequest([
             'FromEmailAddress' => 'foo', // no @test.se
