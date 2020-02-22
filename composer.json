@@ -17,6 +17,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
+        "league/flysystem": "^2.0@dev",
         "matthiasnoback/symfony-config-test": "^4.1",
         "nette/php-generator": "^3.3",
         "nette/utils": "^3.0",
