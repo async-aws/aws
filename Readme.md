@@ -114,6 +114,7 @@ echo $waiter->isSuccess(); // true
 | -------------------------- | ------------------------- | --------------------------- |
 | async-aws/aws              | AsyncAws                  | async-aws/async-aws
 | async-aws/core             | AsyncAws\Core             | async-aws/core
+| async-aws/cloud-formation  | AsyncAws\CloudFormation   | async-aws/cloud-formation
 | async-aws/lambda           | AsyncAws\Lambda           | async-aws/lambda
 | async-aws/s3               | AsyncAws\S3               | async-aws/s3
 | async-aws/ses              | AsyncAws\Ses              | async-aws/ses
