@@ -62,11 +62,19 @@ class RestXmlParser implements Parser
         if ($member instanceof StructureMember) {
             if ($member->isXmlAttribute()) {
                 [$ns, $name] = explode(':', $member->getLocationName() . ':');
+                $replaceData = [
+                    'INPUT' => $currentInput,
+                    'NS' => var_export($ns, true),
+                    'OR_NULL' => $member->isRequired() ? ' ?? null' : '',
+                ];
+
                 if (empty($name)) {
-                    return $currentInput . '[' . var_export($ns, true) . '][0] ?? null';
+                    return strtr('(INPUT[NS][0]OR_NULL)', $replaceData);
                 }
 
-                return $currentInput . '->attributes(' . var_export($ns, true) . ', true)[' . var_export($name, true) . '][0] ?? null';
+                $replaceData['NAME'] = var_export($name, true);
+
+                return strtr('(INPUT->attributes(NS, true)[NAME][0]OR_NULL)', $replaceData);
             }
 
             $shape = $member->getShape();
