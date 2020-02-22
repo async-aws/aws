@@ -38,13 +38,28 @@ class LambdaClient extends AbstractApi
         $input->validate();
 
         $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        'POST',
+        $input->requestBody(),
+        $input->requestHeaders(),
+        $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
         return new AddLayerVersionPermissionResponse($response, $this->httpClient);
+    }
+
+    protected function getServiceCode(): string
+    {
+        return 'lambda';
+    }
+
+    protected function getSignatureScopeName(): string
+    {
+        return 'lambda';
+    }
+
+    protected function getSignatureVersion(): string
+    {
+        return 'v4';
     }
 
     /**
@@ -68,10 +83,10 @@ class LambdaClient extends AbstractApi
         $input->validate();
 
         $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        'POST',
+        $input->requestBody(),
+        $input->requestHeaders(),
+        $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
         return new InvocationResponse($response, $this->httpClient);
@@ -98,10 +113,10 @@ class LambdaClient extends AbstractApi
         $input->validate();
 
         $response = $this->getResponse(
-            'GET',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        'GET',
+        $input->requestBody(),
+        $input->requestHeaders(),
+        $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
         return new ListLayerVersionsResponse($response, $this->httpClient, $this, $input);
@@ -128,27 +143,12 @@ class LambdaClient extends AbstractApi
         $input->validate();
 
         $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        'POST',
+        $input->requestBody(),
+        $input->requestHeaders(),
+        $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
         return new PublishLayerVersionResponse($response, $this->httpClient);
-    }
-
-    protected function getServiceCode(): string
-    {
-        return 'lambda';
-    }
-
-    protected function getSignatureScopeName(): string
-    {
-        return 'lambda';
-    }
-
-    protected function getSignatureVersion(): string
-    {
-        return 'v4';
     }
 }

@@ -74,15 +74,13 @@ class InvocationResponse extends Result
 
     protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
     {
+        $this->StatusCode = $response->getStatusCode();
         $headers = $response->getHeaders(false);
 
         $this->FunctionError = $headers['x-amz-function-error'][0] ?? null;
         $this->LogResult = $headers['x-amz-log-result'][0] ?? null;
         $this->ExecutedVersion = $headers['x-amz-executed-version'][0] ?? null;
 
-        $data = json_decode($response->getContent(false), true);
-
-        $this->StatusCode = isset($data['StatusCode']) ? (int) $data['StatusCode'] : null;
-        $this->Payload = isset($data['Payload']) ? base64_decode((string) $data['Payload']) : null;
+        $this->Payload = $response->getContent(false);
     }
 }

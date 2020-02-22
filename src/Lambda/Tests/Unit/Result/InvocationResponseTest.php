@@ -11,16 +11,13 @@ class InvocationResponseTest extends TestCase
 {
     public function testInvocationResponse(): void
     {
-        self::markTestIncomplete('Not implemented');
+        $json = '{"exitCode":0,"output":"Foobar"}';
 
-        $response = new SimpleMockedResponse('{"change": "it"}');
+        $response = new SimpleMockedResponse($json, ['content-type' => 'application/json'], 200);
 
         $result = new InvocationResponse($response, new MockHttpClient());
 
-        self::assertSame(1337, $result->getStatusCode());
-        self::assertStringContainsString('change it', $result->getFunctionError());
-        self::assertStringContainsString('change it', $result->getLogResult());
-        // self::assertTODO(expected, $result->getPayload());
-        self::assertStringContainsString('change it', $result->getExecutedVersion());
+        self::assertEquals($json, $result->getPayload());
+        self::assertEquals(200, $result->getStatusCode());
     }
 }

@@ -31,8 +31,11 @@ class RestJsonParser implements Parser
 
     public function generate(StructureShape $shape): string
     {
-        $properties = [];
+        if (null !== $payloadProperty = $shape->getPayload()) {
+            return strtr('$this->PROPERTY_NAME = $response->getContent(false);', ['PROPERTY_NAME' => $payloadProperty]);
+        }
 
+        $properties = [];
         foreach ($shape->getMembers() as $member) {
             if (\in_array($member->getLocation(), ['header', 'headers'])) {
                 continue;
