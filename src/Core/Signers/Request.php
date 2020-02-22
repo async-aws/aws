@@ -6,6 +6,8 @@ namespace AsyncAws\Core\Signers;
  * Dummy object to store a Request.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
+ *
+ * @internal
  */
 final class Request
 {
