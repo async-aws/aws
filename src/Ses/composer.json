@@ -1,7 +1,7 @@
 {
     "name": "async-aws/ses",
     "type": "library",
-    "description": "",
+    "description": "Async AWS SES client.",
     "keywords": [
         "aws",
         "ses"
