@@ -32,7 +32,7 @@
             <exclude>
                 <directory>./src/*/Tests</directory>
                 <directory>./src/*/*/Tests</directory>
-                <directory>vendor</directory>
+                <directory>./vendor</directory>
             </exclude>
         </whitelist>
     </filter>
