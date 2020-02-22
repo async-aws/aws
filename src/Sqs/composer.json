@@ -1,7 +1,7 @@
 {
     "name": "async-aws/sqs",
     "type": "library",
-    "description": "",
+    "description": "Async AWS SQS client.",
     "keywords": [
         "aws",
         "sqs"
