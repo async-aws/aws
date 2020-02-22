@@ -51,15 +51,15 @@ class GetObjectAclOutput extends Result
         $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent(false));
-        $this->Owner = new Owner([
+        $this->Owner = !$data->Owner ? null : new Owner([
             'DisplayName' => ($v = $data->Owner->DisplayName) ? (string) $v : null,
             'ID' => ($v = $data->Owner->ID) ? (string) $v : null,
         ]);
-        $this->Grants = (function (\SimpleXMLElement $xml): array {
+        $this->Grants = !$data->AccessControlList ? [] : (function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml->Grant as $item) {
                 $items[] = new Grant([
-                    'Grantee' => new Grantee([
+                    'Grantee' => !$item->Grantee ? null : new Grantee([
                         'DisplayName' => ($v = $item->Grantee->DisplayName) ? (string) $v : null,
                         'EmailAddress' => ($v = $item->Grantee->EmailAddress) ? (string) $v : null,
                         'ID' => ($v = $item->Grantee->ID) ? (string) $v : null,

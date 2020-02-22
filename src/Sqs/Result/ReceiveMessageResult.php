@@ -28,7 +28,7 @@ class ReceiveMessageResult extends Result
         $data = new \SimpleXMLElement($response->getContent(false));
         $data = $data->ReceiveMessageResult;
 
-        $this->Messages = (function (\SimpleXMLElement $xml): array {
+        $this->Messages = !$data->Message ? [] : (function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
                 $items[] = new Message([
@@ -36,7 +36,7 @@ class ReceiveMessageResult extends Result
                     'ReceiptHandle' => ($v = $item->ReceiptHandle) ? (string) $v : null,
                     'MD5OfBody' => ($v = $item->MD5OfBody) ? (string) $v : null,
                     'Body' => ($v = $item->Body) ? (string) $v : null,
-                    'Attributes' => (function (\SimpleXMLElement $xml): array {
+                    'Attributes' => !$item->Attribute ? [] : (function (\SimpleXMLElement $xml): array {
                         $items = [];
                         foreach ($xml as $item) {
                             $a = ($v = $item->Value) ? (string) $v : null;
@@ -48,13 +48,13 @@ class ReceiveMessageResult extends Result
                         return $items;
                     })($item->Attribute),
                     'MD5OfMessageAttributes' => ($v = $item->MD5OfMessageAttributes) ? (string) $v : null,
-                    'MessageAttributes' => (function (\SimpleXMLElement $xml): array {
+                    'MessageAttributes' => !$item->MessageAttribute ? [] : (function (\SimpleXMLElement $xml): array {
                         $items = [];
                         foreach ($xml as $item) {
-                            $items[$item->Name->__toString()] = new MessageAttributeValue([
+                            $items[$item->Name->__toString()] = !$item->Value ? null : new MessageAttributeValue([
                                 'StringValue' => ($v = $item->Value->StringValue) ? (string) $v : null,
                                 'BinaryValue' => ($v = $item->Value->BinaryValue) ? base64_decode((string) $v) : null,
-                                'StringListValues' => (function (\SimpleXMLElement $xml): array {
+                                'StringListValues' => !$item->Value->StringListValue ? [] : (function (\SimpleXMLElement $xml): array {
                                     $items = [];
                                     foreach ($xml->StringListValue as $item) {
                                         $a = ($v = $item) ? (string) $v : null;
@@ -65,7 +65,7 @@ class ReceiveMessageResult extends Result
 
                                     return $items;
                                 })($item->Value->StringListValue),
-                                'BinaryListValues' => (function (\SimpleXMLElement $xml): array {
+                                'BinaryListValues' => !$item->Value->BinaryListValue ? [] : (function (\SimpleXMLElement $xml): array {
                                     $items = [];
                                     foreach ($xml->BinaryListValue as $item) {
                                         $a = ($v = $item) ? base64_decode((string) $v) : null;

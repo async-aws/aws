@@ -13,3 +13,4 @@ parameters:
 
     ignoreErrors:
         - '|Ternary operator condition is always true\.|'
+        - '|Negated boolean expression is always false\.|'

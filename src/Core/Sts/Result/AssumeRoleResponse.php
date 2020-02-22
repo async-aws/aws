@@ -55,13 +55,13 @@ class AssumeRoleResponse extends Result
         $data = new \SimpleXMLElement($response->getContent(false));
         $data = $data->AssumeRoleResult;
 
-        $this->Credentials = new Credentials([
+        $this->Credentials = !$data->Credentials ? null : new Credentials([
             'AccessKeyId' => (string) $data->Credentials->AccessKeyId,
             'SecretAccessKey' => (string) $data->Credentials->SecretAccessKey,
             'SessionToken' => (string) $data->Credentials->SessionToken,
             'Expiration' => new \DateTimeImmutable((string) $data->Credentials->Expiration),
         ]);
-        $this->AssumedRoleUser = new AssumedRoleUser([
+        $this->AssumedRoleUser = !$data->AssumedRoleUser ? null : new AssumedRoleUser([
             'AssumedRoleId' => (string) $data->AssumedRoleUser->AssumedRoleId,
             'Arn' => (string) $data->AssumedRoleUser->Arn,
         ]);
