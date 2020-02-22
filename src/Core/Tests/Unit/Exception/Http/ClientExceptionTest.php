@@ -35,6 +35,7 @@ XML;
         $response = new SimpleMockedResponse($xml, ['content-type' => 'text/xml'], 400);
         $exception = new ClientException($response);
 
+        self::assertEquals('NoSuchKey', $exception->getAwsCode());
         self::assertEquals('The specified key does not exist.', $exception->getAwsMessage());
     }
 }
