@@ -5,26 +5,84 @@ declare(strict_types=1);
 namespace AsyncAws\Core;
 
 use AsyncAws\CloudFormation\CloudFormationClient;
+use AsyncAws\Core\Credentials\CacheProvider;
+use AsyncAws\Core\Credentials\ChainProvider;
+use AsyncAws\Core\Credentials\ConfigurationProvider;
+use AsyncAws\Core\Credentials\CredentialProvider;
+use AsyncAws\Core\Credentials\IniFileProvider;
+use AsyncAws\Core\Credentials\InstanceProvider;
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\MissingDependency;
-use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Sts\StsClient;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\S3\S3Client;
 use AsyncAws\Ses\SesClient;
 use AsyncAws\Sns\SnsClient;
 use AsyncAws\Sqs\SqsClient;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
+use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
  * Base API client that instantiate other API classes if needed.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class AwsClient extends AbstractApi
+class AwsClient
 {
     /**
      * @var array
      */
     private $serviceCache;
+
+    /**
+     * @var HttpClientInterface
+     */
+    private $httpClient;
+
+    /**
+     * @var Configuration
+     */
+    private $configuration;
+
+    /**
+     * @var CredentialProvider
+     */
+    private $credentialProvider;
+
+    /**
+     * @var LoggerInterface|null
+     */
+    private $logger;
+
+    /**
+     * @param Configuration|array $configuration
+     */
+    public function __construct($configuration = [], ?CredentialProvider $credentialProvider = null, ?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null)
+    {
+        if (\is_array($configuration)) {
+            $configuration = Configuration::create($configuration);
+        } elseif (!$configuration instanceof Configuration) {
+            throw new InvalidArgument(sprintf('Second argument to "%s::__construct()" must be an array or an instance of "%s"', __CLASS__, Configuration::class));
+        }
+
+        $this->httpClient = $httpClient ?? HttpClient::create();
+        $this->logger = $logger ?? new NullLogger();
+        $this->configuration = $configuration;
+        if ($configuration->isDefault(Configuration::OPTION_ENDPOINT)) {
+            $this->credentialProvider = $credentialProvider ?? new CacheProvider(new ChainProvider([
+                new ConfigurationProvider(),
+                new IniFileProvider($this->logger),
+                new InstanceProvider($this->httpClient, $this->logger),
+            ]));
+        } else {
+            $this->credentialProvider = $credentialProvider ?? new CacheProvider(new ChainProvider([
+                new ConfigurationProvider(),
+                new IniFileProvider($this->logger),
+            ]));
+        }
+    }
 
     public function cloudFormation(): CloudFormationClient
     {
@@ -115,21 +173,5 @@ class AwsClient extends AbstractApi
         }
 
         return $this->serviceCache[__METHOD__];
-    }
-
-    protected function getServiceCode(): string
-    {
-        return 'unknown-service';
-    }
-
-    protected function getSignatureScopeName(): string
-    {
-        // This will never work on the base API. .
-        throw new RuntimeException(sprintf('The signature scope name parameter is required on "%s::request()".', __CLASS__));
-    }
-
-    protected function getSignatureVersion(): string
-    {
-        return 'v4';
     }
 }

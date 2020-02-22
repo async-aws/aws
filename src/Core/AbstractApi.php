@@ -95,7 +95,7 @@ abstract class AbstractApi
      * @param string[]|string[][]      $headers headers names provided as keys or as part of values
      * @param string|resource|callable $body
      */
-    final protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null, ?string $scopeName = null): ResponseInterface
+    final protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null): ResponseInterface
     {
         $body = $this->stringifyBody($body);
         if (!isset($headers['content-type'])) {
@@ -104,7 +104,7 @@ abstract class AbstractApi
         $headers['content-length'] = (string) \strlen($body);
 
         $request = new Request($method, $this->fillEndpoint($endpoint), $headers, $body);
-        $this->getSigner($scopeName)->Sign($request, $this->credentialProvider->getCredentials($this->configuration));
+        $this->getSigner()->Sign($request, $this->credentialProvider->getCredentials($this->configuration));
 
         return $this->httpClient->request($request->getMethod(), $request->getUrl(), ['headers' => $request->getHeaders(), 'body' => $request->getBody()]);
     }
@@ -160,7 +160,7 @@ abstract class AbstractApi
         return (string) $body;
     }
 
-    private function getSigner(?string $scope = null)
+    private function getSigner()
     {
         if (null === $this->signer) {
             /** @var string $region */
@@ -170,10 +170,7 @@ abstract class AbstractApi
                 throw new InvalidArgument(sprintf('The signature "%s" is not implemented.', $signatureVersion));
             }
 
-            if (null === $scope) {
-                $scope = $this->getSignatureScopeName();
-            }
-            $this->signer = $factories[$signatureVersion]($scope, $region);
+            $this->signer = $factories[$signatureVersion]($this->getSignatureScopeName(), $region);
         }
 
         return $this->signer;
