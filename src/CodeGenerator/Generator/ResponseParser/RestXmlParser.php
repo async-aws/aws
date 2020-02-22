@@ -273,7 +273,7 @@ class RestXmlParser implements Parser
 
         return strtr($body, [
             'MAP_KEY' => $locationName,
-            'MAP_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$item', $shapeValue), $shapeValue->getShape(), true),
+            'MAP_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$item', $shapeValue), $shapeValue->getShape(), false),
             'INPUT' => $input,
         ]);
     }

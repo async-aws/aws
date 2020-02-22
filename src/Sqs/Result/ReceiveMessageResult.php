@@ -39,7 +39,7 @@ class ReceiveMessageResult extends Result
                     'Attributes' => !$item->Attribute ? [] : (function (\SimpleXMLElement $xml): array {
                         $items = [];
                         foreach ($xml as $item) {
-                            $a = (string) $item->Value;
+                            $a = ($v = $item->Value) ? (string) $v : null;
                             if (null !== $a) {
                                 $items[$item->Name->__toString()] = $a;
                             }
@@ -51,7 +51,7 @@ class ReceiveMessageResult extends Result
                     'MessageAttributes' => !$item->MessageAttribute ? [] : (function (\SimpleXMLElement $xml): array {
                         $items = [];
                         foreach ($xml as $item) {
-                            $items[$item->Name->__toString()] = new MessageAttributeValue([
+                            $items[$item->Name->__toString()] = !$item->Value ? null : new MessageAttributeValue([
                                 'StringValue' => ($v = $item->Value->StringValue) ? (string) $v : null,
                                 'BinaryValue' => ($v = $item->Value->BinaryValue) ? base64_decode((string) $v) : null,
                                 'StringListValues' => !$item->Value->StringListValue ? [] : (function (\SimpleXMLElement $xml): array {
