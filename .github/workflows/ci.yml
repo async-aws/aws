@@ -112,7 +112,6 @@ jobs:
         env:
           # Make sure we dont download awfully old Symfony versions.
           SYMFONY_REQUIRE: 4.4.*
-          SYMFONY_DEPRECATIONS_HELPER: 9999
         run: |
           composer global require --no-progress --no-scripts --no-plugins symfony/flex
           CURRENT_DIR=$(pwd)
@@ -132,6 +131,8 @@ jobs:
         run: make initialize
 
       - name: Run tests
+        env:
+          SYMFONY_DEPRECATIONS_HELPER: 9999
         run: |
           ok=0
           for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
