@@ -296,7 +296,7 @@ class ResultGenerator
         // Find status code
         foreach ($nonHeaders as $name => $member) {
             if ('statusCode' === $member->getLocation()) {
-                $body = '$this->'.$member->getName().' = $response->getStatusCode();' . "\n" . $body;
+                $body = '$this->' . $member->getName() . ' = $response->getStatusCode();' . "\n" . $body;
             }
         }
 

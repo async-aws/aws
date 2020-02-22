@@ -47,21 +47,6 @@ class LambdaClient extends AbstractApi
         return new AddLayerVersionPermissionResponse($response, $this->httpClient);
     }
 
-    protected function getServiceCode(): string
-    {
-        return 'lambda';
-    }
-
-    protected function getSignatureScopeName(): string
-    {
-        return 'lambda';
-    }
-
-    protected function getSignatureVersion(): string
-    {
-        return 'v4';
-    }
-
     /**
      * Invokes a Lambda function. You can invoke a function synchronously (and wait for the response), or asynchronously. To
      * invoke a function asynchronously, set `InvocationType` to `Event`.
@@ -150,5 +135,20 @@ class LambdaClient extends AbstractApi
         );
 
         return new PublishLayerVersionResponse($response, $this->httpClient);
+    }
+
+    protected function getServiceCode(): string
+    {
+        return 'lambda';
+    }
+
+    protected function getSignatureScopeName(): string
+    {
+        return 'lambda';
+    }
+
+    protected function getSignatureVersion(): string
+    {
+        return 'v4';
     }
 }
