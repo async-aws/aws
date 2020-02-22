@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace AsyncAws\Lambda\Tests\Unit\Input;
 
 use AsyncAws\Lambda\Input\InvocationRequest;
@@ -15,5 +13,23 @@ class InvocationRequestTest extends TestCase
         $uri = $input->requestUri();
 
         self::assertStringContainsString('foobar', $uri);
+    }
+
+    public function testRequestBody(): void
+    {
+        self::markTestIncomplete('Not implemented');
+
+        $input = new InvocationRequest([
+            'FunctionName' => 'change me',
+            'InvocationType' => 'change me',
+            'LogType' => 'change me',
+            'ClientContext' => 'change me',
+            'Payload' => 'change me',
+            'Qualifier' => 'change me',
+        ]);
+
+        $expected = '{"change": "it"}';
+
+        self::assertJsonStringEqualsJsonString($expected, $input->requestBody());
     }
 }

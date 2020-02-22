@@ -2,42 +2,28 @@
 
 namespace AsyncAws\S3\Tests\Unit\Input;
 
-use AsyncAws\S3\Input\PutObjectRequest;
+use AsyncAws\S3\Input\CopyObjectRequest;
 use PHPUnit\Framework\TestCase;
 
-class PutObjectRequestTest extends TestCase
+class CopyObjectRequestTest extends TestCase
 {
-    public function testConstructWithBody()
-    {
-        $bucket = 'foo';
-        $key = 'bar/baz/biz';
-        $body = 'contents';
-        $input = new PutObjectRequest([
-            'Bucket' => $bucket,
-            'Key' => $key,
-            'Body' => $body,
-        ]);
-
-        self::assertEquals($bucket, $input->getBucket());
-        self::assertEquals($key, $input->getKey());
-        self::assertEquals($body, $input->getBody());
-    }
-
     public function testRequestBody(): void
     {
         self::markTestIncomplete('Not implemented');
 
-        $input = new PutObjectRequest([
+        $input = new CopyObjectRequest([
             'ACL' => 'change me',
-            'Body' => 'change me',
             'Bucket' => 'change me',
             'CacheControl' => 'change me',
             'ContentDisposition' => 'change me',
             'ContentEncoding' => 'change me',
             'ContentLanguage' => 'change me',
-            'ContentLength' => 1337,
-            'ContentMD5' => 'change me',
             'ContentType' => 'change me',
+            'CopySource' => 'change me',
+            'CopySourceIfMatch' => 'change me',
+            'CopySourceIfModifiedSince' => new \DateTimeImmutable(),
+            'CopySourceIfNoneMatch' => 'change me',
+            'CopySourceIfUnmodifiedSince' => new \DateTimeImmutable(),
             'Expires' => new \DateTimeImmutable(),
             'GrantFullControl' => 'change me',
             'GrantRead' => 'change me',
@@ -45,6 +31,8 @@ class PutObjectRequestTest extends TestCase
             'GrantWriteACP' => 'change me',
             'Key' => 'change me',
             'Metadata' => ['change me' => 'change me'],
+            'MetadataDirective' => 'change me',
+            'TaggingDirective' => 'change me',
             'ServerSideEncryption' => 'change me',
             'StorageClass' => 'change me',
             'WebsiteRedirectLocation' => 'change me',
@@ -53,6 +41,9 @@ class PutObjectRequestTest extends TestCase
             'SSECustomerKeyMD5' => 'change me',
             'SSEKMSKeyId' => 'change me',
             'SSEKMSEncryptionContext' => 'change me',
+            'CopySourceSSECustomerAlgorithm' => 'change me',
+            'CopySourceSSECustomerKey' => 'change me',
+            'CopySourceSSECustomerKeyMD5' => 'change me',
             'RequestPayer' => 'change me',
             'Tagging' => 'change me',
             'ObjectLockMode' => 'change me',

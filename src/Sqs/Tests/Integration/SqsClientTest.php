@@ -1,9 +1,8 @@
 <?php
 
-declare(strict_types=1);
-
 namespace AsyncAws\Sqs\Tests\Integration;
 
+use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
 use AsyncAws\Sqs\Input\CreateQueueRequest;
 use AsyncAws\Sqs\Input\DeleteMessageRequest;
@@ -14,12 +13,11 @@ use AsyncAws\Sqs\Input\ListQueuesRequest;
 use AsyncAws\Sqs\Input\PurgeQueueRequest;
 use AsyncAws\Sqs\Input\ReceiveMessageRequest;
 use AsyncAws\Sqs\Input\SendMessageRequest;
+use AsyncAws\Sqs\SqsClient;
 use PHPUnit\Framework\TestCase;
 
 class SqsClientTest extends TestCase
 {
-    use GetClient;
-
     public function testChangeMessageVisibility()
     {
         $sqs = $this->getClient();
@@ -230,5 +228,12 @@ class SqsClientTest extends TestCase
 
         $result = $sqs->sendMessage($input);
         self::assertNotNull($result->getMessageId());
+    }
+
+    private function getClient(): SqsClient
+    {
+        return new SqsClient([
+            'endpoint' => 'http://localhost:9494',
+        ], new NullProvider());
     }
 }

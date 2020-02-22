@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\Flysystem\S3\Tests;
 
+use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Flysystem\S3\S3FilesystemV2;
 use AsyncAws\S3\S3Client;
 use League\Flysystem\Config;
@@ -101,12 +102,12 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
             // Use docker
             $this->shouldCleanUp = true;
 
-            return $this->s3Client = new S3Client(['endpoint' => 'http://localhost:4569']);
+            return $this->s3Client = new S3Client(['endpoint' => 'http://localhost:4569'], new NullProvider());
         }
 
         $this->shouldCleanUp = true;
         $options = ['accessKeyId' => $key, 'accessKeySecret' => $secret, 'region' => $region];
 
-        return $this->s3Client = new S3Client($options);
+        return $this->s3Client = new S3Client($options, new NullProvider());
     }
 }

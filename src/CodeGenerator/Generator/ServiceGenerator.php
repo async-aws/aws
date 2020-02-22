@@ -51,6 +51,11 @@ class ServiceGenerator
     private $result;
 
     /**
+     * @var TestGenerator
+     */
+    private $test;
+
+    /**
      * @var InputGenerator
      */
     private $input;
@@ -68,7 +73,7 @@ class ServiceGenerator
 
     public function operation(): OperationGenerator
     {
-        return $this->operation ?? $this->operation = new OperationGenerator($this->namespaceRegistry, $this->input(), $this->result(), $this->pagination(), $this->fileWriter);
+        return $this->operation ?? $this->operation = new OperationGenerator($this->namespaceRegistry, $this->input(), $this->result(), $this->pagination(), $this->test(), $this->fileWriter);
     }
 
     public function waiter(): WaiterGenerator
@@ -79,6 +84,11 @@ class ServiceGenerator
     public function pagination(): PaginationGenerator
     {
         return $this->pagination ?? $this->pagination = new PaginationGenerator($this->namespaceRegistry, $this->input(), $this->result(), $this->fileWriter);
+    }
+
+    public function test(): TestGenerator
+    {
+        return $this->test ?? $this->test = new TestGenerator($this->namespaceRegistry, $this->fileWriter);
     }
 
     public function result(): ResultGenerator

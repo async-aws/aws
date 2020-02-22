@@ -44,6 +44,11 @@ class OperationGenerator
     private $paginationGenerator;
 
     /**
+     * @var TestGenerator
+     */
+    private $testGenerator;
+
+    /**
      * @var FileWriter
      */
     private $fileWriter;
@@ -53,12 +58,13 @@ class OperationGenerator
      */
     private $typeGenerator;
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator, PaginationGenerator $paginationGenerator, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null)
+    public function __construct(NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator, PaginationGenerator $paginationGenerator, TestGenerator $testGenerator, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null)
     {
         $this->namespaceRegistry = $namespaceRegistry;
         $this->inputGenerator = $inputGenerator;
         $this->resultGenerator = $resultGenerator;
         $this->paginationGenerator = $paginationGenerator;
+        $this->testGenerator = $testGenerator;
         $this->fileWriter = $fileWriter;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
     }
@@ -111,6 +117,8 @@ class OperationGenerator
         $this->setMethodBody($method, $operation, $inputClass, $resutClass);
 
         $this->fileWriter->write($namespace);
+
+        $this->testGenerator->generate($operation);
     }
 
     private function setMethodBody(Method $method, Operation $operation, ClassName $inputClass, ?ClassName $resultClass): void
