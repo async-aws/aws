@@ -54,10 +54,10 @@ class CloudFormationClient extends AbstractApi
         $input->validate();
 
         $response = $this->getResponse(
-        'POST',
-        $input->requestBody(),
-        $input->requestHeaders(),
-        $this->getEndpoint($input->requestUri(), $input->requestQuery())
+            'POST',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );
 
         return new DescribeStacksOutput($response, $this->httpClient, $this, $input);
