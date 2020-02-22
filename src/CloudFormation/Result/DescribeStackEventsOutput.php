@@ -128,7 +128,7 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
 
         $this->StackEvents = !$data->StackEvents ? [] : (function (\SimpleXMLElement $xml): array {
             $items = [];
-            foreach ($xml as $item) {
+            foreach ($xml->member as $item) {
                 $items[] = new StackEvent([
                     'StackId' => (string) $item->StackId,
                     'EventId' => (string) $item->EventId,

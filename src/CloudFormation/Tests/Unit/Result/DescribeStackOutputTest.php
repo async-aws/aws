@@ -86,5 +86,8 @@ XML;
         }
 
         self::assertInstanceOf(Stack::class, $stack, 'Could not find any stacks');
+        $output = $stack->getOutputs();
+        self::assertCount(5, $output);
+        self::assertEquals('ConsoleLambdaFunctionQualifiedArn', $output[0]->getOutputKey());
     }
 }

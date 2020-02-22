@@ -128,7 +128,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
 
         $this->Stacks = !$data->Stacks ? [] : (function (\SimpleXMLElement $xml): array {
             $items = [];
-            foreach ($xml as $item) {
+            foreach ($xml->member as $item) {
                 $items[] = new Stack([
                     'StackId' => ($v = $item->StackId) ? (string) $v : null,
                     'StackName' => (string) $item->StackName,
@@ -136,7 +136,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
                     'Description' => ($v = $item->Description) ? (string) $v : null,
                     'Parameters' => !$item->Parameters ? [] : (function (\SimpleXMLElement $xml): array {
                         $items = [];
-                        foreach ($xml as $item) {
+                        foreach ($xml->member as $item) {
                             $items[] = new Parameter([
                                 'ParameterKey' => ($v = $item->ParameterKey) ? (string) $v : null,
                                 'ParameterValue' => ($v = $item->ParameterValue) ? (string) $v : null,
@@ -153,7 +153,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
                     'RollbackConfiguration' => !$item->RollbackConfiguration ? null : new RollbackConfiguration([
                         'RollbackTriggers' => !$item->RollbackConfiguration->RollbackTriggers ? [] : (function (\SimpleXMLElement $xml): array {
                             $items = [];
-                            foreach ($xml as $item) {
+                            foreach ($xml->member as $item) {
                                 $items[] = new RollbackTrigger([
                                     'Arn' => (string) $item->Arn,
                                     'Type' => (string) $item->Type,
@@ -169,7 +169,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
                     'DisableRollback' => ($v = $item->DisableRollback) ? 'true' === (string) $v : null,
                     'NotificationARNs' => !$item->NotificationARNs ? [] : (function (\SimpleXMLElement $xml): array {
                         $items = [];
-                        foreach ($xml as $item) {
+                        foreach ($xml->member as $item) {
                             $a = (string) $item;
                             if (null !== $a) {
                                 $items[] = $a;
@@ -181,7 +181,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
                     'TimeoutInMinutes' => ($v = $item->TimeoutInMinutes) ? (int) (string) $v : null,
                     'Capabilities' => !$item->Capabilities ? [] : (function (\SimpleXMLElement $xml): array {
                         $items = [];
-                        foreach ($xml as $item) {
+                        foreach ($xml->member as $item) {
                             $a = (string) $item;
                             if (null !== $a) {
                                 $items[] = $a;
@@ -192,7 +192,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
                     })($item->Capabilities),
                     'Outputs' => !$item->Outputs ? [] : (function (\SimpleXMLElement $xml): array {
                         $items = [];
-                        foreach ($xml as $item) {
+                        foreach ($xml->member as $item) {
                             $items[] = new Output([
                                 'OutputKey' => ($v = $item->OutputKey) ? (string) $v : null,
                                 'OutputValue' => ($v = $item->OutputValue) ? (string) $v : null,
@@ -206,7 +206,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
                     'RoleARN' => ($v = $item->RoleARN) ? (string) $v : null,
                     'Tags' => !$item->Tags ? [] : (function (\SimpleXMLElement $xml): array {
                         $items = [];
-                        foreach ($xml as $item) {
+                        foreach ($xml->member as $item) {
                             $items[] = new Tag([
                                 'Key' => (string) $item->Key,
                                 'Value' => (string) $item->Value,

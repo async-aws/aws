@@ -206,7 +206,7 @@ class RestXmlParser implements Parser
         if ($shapeMember->getShape() instanceof StructureShape) {
             $body = '(function(\SimpleXMLElement $xml): array {
             $items = [];
-            foreach (INPUT_PROPERTY as $item) {
+            foreach (INPUT_PROPERTY->member as $item) {
                $items[] = LIST_ACCESSOR;
             }
 
@@ -215,7 +215,7 @@ class RestXmlParser implements Parser
         } else {
             $body = '(function(\SimpleXMLElement $xml): array {
             $items = [];
-            foreach (INPUT_PROPERTY as $item) {
+            foreach (INPUT_PROPERTY->member as $item) {
                 $a = LIST_ACCESSOR;
                 if (null !== $a) {
                     $items[] = $a;
