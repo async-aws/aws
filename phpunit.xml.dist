@@ -30,8 +30,9 @@
         <whitelist>
             <directory>./src</directory>
             <exclude>
-                <directory>Tests</directory>
-                <directory>vendor</directory>
+                <directory>./src/*/Tests</directory>
+                <directory>./src/*/*/Tests</directory>
+                <directory>./vendor</directory>
             </exclude>
         </whitelist>
     </filter>
