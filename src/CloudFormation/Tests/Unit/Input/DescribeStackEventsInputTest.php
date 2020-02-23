@@ -3,7 +3,7 @@
 namespace AsyncAws\CloudFormation\Tests\Unit\Input;
 
 use AsyncAws\CloudFormation\Input\DescribeStackEventsInput;
-use PHPUnit\Framework\TestCase;
+use AsyncAws\Core\Test\TestCase;
 
 class DescribeStackEventsInputTest extends TestCase
 {
@@ -16,12 +16,12 @@ class DescribeStackEventsInputTest extends TestCase
             'NextToken' => 'change me',
         ]);
 
-        $expected = trim('
-        Action=DescribeStackEvents
-        &Version=2010-05-15
-        &ChangeIt=Change+it
-                        ');
+        $expected = '
+            Action=DescribeStackEvents
+            &Version=2010-05-15
+            &ChangeIt=Change+it
+        ';
 
-        self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
+        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
     }
 }

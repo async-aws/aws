@@ -2,8 +2,8 @@
 
 namespace AsyncAws\Sqs\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Sqs\Input\ListQueuesRequest;
-use PHPUnit\Framework\TestCase;
 
 class ListQueuesRequestTest extends TestCase
 {
@@ -14,12 +14,12 @@ class ListQueuesRequestTest extends TestCase
         ]);
 
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ListQueues.html */
-        $expected = trim('
+        $expected = '
 Action=ListQueues
 &Version=2012-11-05
 &QueueNamePrefix=M
-        ');
+        ';
 
-        self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
+        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
     }
 }

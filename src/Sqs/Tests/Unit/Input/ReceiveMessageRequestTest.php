@@ -2,8 +2,8 @@
 
 namespace AsyncAws\Sqs\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Sqs\Input\ReceiveMessageRequest;
-use PHPUnit\Framework\TestCase;
 
 class ReceiveMessageRequestTest extends TestCase
 {
@@ -20,7 +20,7 @@ class ReceiveMessageRequestTest extends TestCase
         ]);
 
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ReceiveMessage.html */
-        $expected = trim('
+        $expected = '
 Action=ReceiveMessage
 &Version=2012-11-05
 &QueueUrl=queueUrl
@@ -32,8 +32,8 @@ Action=ReceiveMessage
 &VisibilityTimeout=15
 &WaitTimeSeconds=20
 &ReceiveRequestAttemptId=abcdef
-        ');
+        ';
 
-        self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
+        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
     }
 }

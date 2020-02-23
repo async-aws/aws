@@ -2,8 +2,8 @@
 
 namespace AsyncAws\Sqs\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Sqs\Input\PurgeQueueRequest;
-use PHPUnit\Framework\TestCase;
 
 class PurgeQueueRequestTest extends TestCase
 {
@@ -14,12 +14,12 @@ class PurgeQueueRequestTest extends TestCase
         ]);
 
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_PurgeQueue.html */
-        $expected = trim('
+        $expected = '
 Action=PurgeQueue
 &Version=2012-11-05
 &QueueUrl=queueUrl
-        ');
+        ';
 
-        self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
+        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
     }
 }

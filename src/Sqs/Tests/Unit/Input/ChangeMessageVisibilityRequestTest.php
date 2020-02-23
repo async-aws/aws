@@ -2,8 +2,8 @@
 
 namespace AsyncAws\Sqs\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
-use PHPUnit\Framework\TestCase;
 
 class ChangeMessageVisibilityRequestTest extends TestCase
 {
@@ -16,14 +16,14 @@ class ChangeMessageVisibilityRequestTest extends TestCase
         ]);
 
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ChangeMessageVisibility.html */
-        $expected = trim('
+        $expected = '
 Action=ChangeMessageVisibility
 &Version=2012-11-05
 &QueueUrl=queueUrl
 &ReceiptHandle=MbZj6wDWli%2BJvwwJaBV%2B3dcjk2YW2vA3%2BSTFFljT
 &VisibilityTimeout=60
-        ');
+        ';
 
-        self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
+        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
     }
 }

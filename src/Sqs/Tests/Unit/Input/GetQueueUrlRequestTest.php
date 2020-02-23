@@ -2,8 +2,8 @@
 
 namespace AsyncAws\Sqs\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Sqs\Input\GetQueueUrlRequest;
-use PHPUnit\Framework\TestCase;
 
 class GetQueueUrlRequestTest extends TestCase
 {
@@ -15,13 +15,13 @@ class GetQueueUrlRequestTest extends TestCase
         ]);
 
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_GetQueueUrl.html */
-        $expected = trim('
+        $expected = '
 Action=GetQueueUrl
 &Version=2012-11-05
 &QueueName=MyQueue
 &QueueOwnerAWSAccountId=123456
-        ');
+        ';
 
-        self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
+        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
     }
 }

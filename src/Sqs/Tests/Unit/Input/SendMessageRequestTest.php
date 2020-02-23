@@ -2,10 +2,10 @@
 
 namespace AsyncAws\Sqs\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Sqs\Input\MessageAttributeValue;
 use AsyncAws\Sqs\Input\MessageSystemAttributeValue;
 use AsyncAws\Sqs\Input\SendMessageRequest;
-use PHPUnit\Framework\TestCase;
 
 class SendMessageRequestTest extends TestCase
 {
@@ -28,7 +28,7 @@ class SendMessageRequestTest extends TestCase
         ]);
 
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_SendMessage.html */
-        $expected = trim('
+        $expected = '
 Action=SendMessage
 &Version=2012-11-05
 &QueueUrl=queueUrl
@@ -43,8 +43,8 @@ Action=SendMessage
 &MessageSystemAttribute.1.Value.DataType=String
 &MessageDeduplicationId=abcdef
 &MessageGroupId=abcdef01
-        ');
+        ';
 
-        self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
+        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
     }
 }
