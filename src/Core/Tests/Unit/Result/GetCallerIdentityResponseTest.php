@@ -11,16 +11,24 @@ class GetCallerIdentityResponseTest extends TestCase
 {
     public function testGetCallerIdentityResponse(): void
     {
-        self::markTestIncomplete('Not implemented');
-
+        /** @see https://docs.aws.amazon.com/STS/latest/APIReference/API_GetCallerIdentity.html */
         $response = new SimpleMockedResponse('<?xml version="1.0" encoding="UTF-8"?>
-            <ChangeIt/>
+            <GetCallerIdentityResponse xmlns="https://sts.amazonaws.com/doc/2011-06-15/">
+                <GetCallerIdentityResult>
+                    <Arn>arn:aws:sts::123456789012:assumed-role/my-role-name/my-role-session-name</Arn>
+                    <UserId>ARO123EXAMPLE123:my-role-session-name</UserId>
+                    <Account>123456789012</Account>
+                </GetCallerIdentityResult>
+                <ResponseMetadata>
+                    <RequestId>01234567-89ab-cdef-0123-456789abcdef</RequestId>
+                </ResponseMetadata>
+            </GetCallerIdentityResponse>
         ');
 
         $result = new GetCallerIdentityResponse($response, new MockHttpClient());
 
-        self::assertStringContainsString('change it', $result->getUserId());
-        self::assertStringContainsString('change it', $result->getAccount());
-        self::assertStringContainsString('change it', $result->getArn());
+        self::assertStringContainsString('ARO123EXAMPLE123:my-role-session-name', $result->getUserId());
+        self::assertStringContainsString('123456789012', $result->getAccount());
+        self::assertStringContainsString('arn:aws:sts::123456789012:assumed-role/my-role-name/my-role-session-name', $result->getArn());
     }
 }

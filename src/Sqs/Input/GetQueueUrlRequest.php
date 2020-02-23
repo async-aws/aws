@@ -54,7 +54,6 @@ class GetQueueUrlRequest
     {
         $payload = ['Action' => 'GetQueueUrl', 'Version' => '2012-11-05'];
         $payload['QueueName'] = $this->QueueName;
-
         if (null !== $v = $this->QueueOwnerAWSAccountId) {
             $payload['QueueOwnerAWSAccountId'] = $v;
         }

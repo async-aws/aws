@@ -125,7 +125,7 @@ class PublishLayerVersionRequest
 
         (static function (array $input) use (&$payload) {
             foreach ($input as $value) {
-                $payload['CompatibleRuntimes'][] = $value;
+                $payload['CompatibleRuntimes']['member'][] = $value;
             }
         })($this->CompatibleRuntimes);
         if (null !== $v = $this->LicenseInfo) {

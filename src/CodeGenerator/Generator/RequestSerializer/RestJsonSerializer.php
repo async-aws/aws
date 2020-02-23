@@ -39,9 +39,7 @@ class RestJsonSerializer implements Serializer
 
     public function generateForMember(StructureMember $member, string $payloadProperty): string
     {
-        return <<<PHP
-return \$this->$payloadProperty ?? '';
-PHP;
+        return "return \$this->$payloadProperty ?? '';";
     }
 
     public function generateForShape(Operation $operation, StructureShape $shape): string
@@ -56,8 +54,8 @@ PHP;
                 $inputElement = '$this->' . $member->getName();
             } else {
                 $body = 'if (null !== $v = INPUT_NAME) {
-                        MEMBER_CODE
-                    }';
+                    MEMBER_CODE
+                }';
                 $inputElement = '$v';
             }
 
@@ -79,13 +77,44 @@ PHP;
         ]);
     }
 
-    private function getName(Member $member)
+    private function getQueryName(Member $member, string $default): string
     {
-        if (($shape = $member->getShape()) instanceof ListShape && $shape->isFlattened()) {
-            return $member->getLocationName() ?? $shape->getMember()->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member');
+        if (null !== $member->getQueryName()) {
+            return $member->getQueryName();
+        }
+        if (null !== $member->getLocationName()) {
+            return $member->getLocationName();
+        }
+        $shape = $member->getShape();
+        if ($member->isFlattened() && $shape instanceof ListShape && null !== $memberLocation = $shape->getMember()->getLocationName()) {
+            return $memberLocation;
         }
 
-        return $member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member');
+        return $default;
+    }
+
+    private function getName(Member $member): string
+    {
+        if ($member instanceof StructureMember) {
+            $name = $this->getQueryName($member, $member->getName());
+        } else {
+            $name = 'FIXME';
+        }
+
+        $shape = $member->getShape();
+        if ($shape instanceof ListShape) {
+            if (!$member->isFlattened() && !$shape->isFlattened()) {
+                return $name . '"]["' . ($shape->getMember()->getLocationName() ?? 'member');
+            }
+
+            return $this->getQueryName($shape->getMember(), 'FIXME');
+        }
+
+        if ($shape instanceof MapShape) {
+            return $name . ($shape->isFlattened() ? '' : '"]["entry');
+        }
+
+        return $name;
     }
 
     private function dumpArrayElement(string $output, string $input, Shape $shape)

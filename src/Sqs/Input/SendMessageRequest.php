@@ -140,7 +140,6 @@ class SendMessageRequest
         $indices = new \stdClass();
         $payload['QueueUrl'] = $this->QueueUrl;
         $payload['MessageBody'] = $this->MessageBody;
-
         if (null !== $v = $this->DelaySeconds) {
             $payload['DelaySeconds'] = $v;
         }
@@ -156,7 +155,6 @@ class SendMessageRequest
                         if (null !== $v = $input->getStringValue()) {
                             $payload["MessageAttribute.{$indices->k2053d0e}.Value.StringValue"] = $v;
                         }
-
                         if (null !== $v = $input->getBinaryValue()) {
                             $payload["MessageAttribute.{$indices->k2053d0e}.Value.BinaryValue"] = base64_encode($v);
                         }
@@ -193,7 +191,6 @@ class SendMessageRequest
                         if (null !== $v = $input->getStringValue()) {
                             $payload["MessageSystemAttribute.{$indices->k6857220}.Value.StringValue"] = $v;
                         }
-
                         if (null !== $v = $input->getBinaryValue()) {
                             $payload["MessageSystemAttribute.{$indices->k6857220}.Value.BinaryValue"] = base64_encode($v);
                         }
@@ -218,11 +215,9 @@ class SendMessageRequest
                 }
             }
         })($this->MessageSystemAttributes);
-
         if (null !== $v = $this->MessageDeduplicationId) {
             $payload['MessageDeduplicationId'] = $v;
         }
-
         if (null !== $v = $this->MessageGroupId) {
             $payload['MessageGroupId'] = $v;
         }

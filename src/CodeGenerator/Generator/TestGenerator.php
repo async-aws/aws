@@ -277,7 +277,7 @@ Action={$operation->getName()}
         return implode("\n", \array_map(function (StructureMember $member) {
             switch ($member->getShape()->getType()) {
                 case 'string':
-                    return sprintf('self::assertStringContainsString("change it", $result->get%s());', $member->getName());
+                    return sprintf('self::assertSame("changeIt", $result->get%s());', $member->getName());
                 case 'boolean':
                     return sprintf('self::assertFalse($result->get%s());', $member->getName());
                 case 'integer':

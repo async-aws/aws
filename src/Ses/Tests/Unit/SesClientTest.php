@@ -28,7 +28,7 @@ class SesClientTest extends TestCase
             $content = json_decode($options['body'], true);
 
             $this->assertSame('Hello!', $content['Content']['Simple']['Subject']['Data']);
-            $this->assertSame('tobias.nyholm@gmail.com', $content['Destination']['ToAddresses'][0]);
+            $this->assertSame('tobias.nyholm@gmail.com', $content['Destination']['ToAddresses']['member'][0]);
             $this->assertSame('foo@test.se', $content['FromEmailAddress']);
             $this->assertSame('Hello There!', $content['Content']['Simple']['Body']['Text']['Data']);
 
