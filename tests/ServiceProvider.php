@@ -8,6 +8,13 @@ class ServiceProvider
 {
     private static $cache;
 
+    public static function getAwsServices()
+    {
+        $manifest = self::getManifest();
+
+        return $manifest['services'];
+    }
+
     public static function getAwsServiceNames()
     {
         $manifest = self::getManifest();
@@ -17,8 +24,8 @@ class ServiceProvider
 
     private static function getManifest()
     {
-        if (self::$cache === null) {
-            $manifestFile = dirname(__DIR__).'/manifest.json';
+        if (null === self::$cache) {
+            $manifestFile = \dirname(__DIR__) . '/manifest.json';
             self::$cache = json_decode(file_get_contents($manifestFile), true);
         }
 
