@@ -25,11 +25,11 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
- * Base API client that instantiate other API classes if needed.
+ * Factory that instantiate API clients.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class AwsClient
+class AwsClientFactory
 {
     /**
      * @var array

@@ -22,10 +22,9 @@ aws_secret_access_key = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 Each section represents a credential `Profile` which can be referenced in the Configuration
 
 ```php
-use AsyncAws\Core\AwsClient;
-use Symfony\Component\HttpClient\HttpClient;
+use AsyncAws\Core\AwsClientFactory;
 
-$client = new AwsClient([
+$client = new AwsClientFactory([
     'profile' => 'project1'
 ]);
 ```
@@ -69,10 +68,9 @@ $ export AWS_CONFIG_FILE=/path/to/config_file
 ```
 
 ```php
-use AsyncAws\Core\AwsClient;
-use Symfony\Component\HttpClient\HttpClient;
+use AsyncAws\Core\AwsClientFactory;
 
-$client = new AwsClient([
+$client = new AwsClientFactory([
     'sharedCredentialsFile' => '/path/to/shared_credentials_file',
     'sharedConfigFile' => '/path/to/config_file',
 ]);
@@ -92,10 +90,9 @@ $ export AWS_SESSION_TOKEN=AQoDYXdzEJr...<remainder of security token>
 ```
 
 ```php
-use AsyncAws\Core\AwsClient;
-use Symfony\Component\HttpClient\HttpClient;
+use AsyncAws\Core\AwsClientFactory;
 
-$client = new AwsClient();
+$client = new AwsClientFactory();
 ```
 
 ## Using Hard-Coded Configuration
@@ -107,10 +104,9 @@ client configuration parameters.
 > repository accidentally
 
 ```php
-use AsyncAws\Core\AwsClient;
-use Symfony\Component\HttpClient\HttpClient;
+use AsyncAws\Core\AwsClientFactory;
 
-$client = new AwsClient([
+$client = new AwsClientFactory([
     'accessKeyId' => 'AKIAIOSFODNN7EXAMPLE',
     'accessKeySecret' => 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
 ]);
