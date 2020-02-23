@@ -9,6 +9,14 @@ class AwsPackagesProvider
     public static function getAllServices(): array
     {
         return [
+            'cloud_formation' => [
+                'class' => \AsyncAws\CloudFormation\CloudFormationClient::class,
+                'package' => 'async-aws/cloud-formation',
+            ],
+            'lambda' => [
+                'class' => \AsyncAws\Lambda\LambdaClient::class,
+                'package' => 'async-aws/lambda',
+            ],
             's3' => [
                 'class' => \AsyncAws\S3\S3Client::class,
                 'package' => 'async-aws/s3',
@@ -17,6 +25,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\Ses\SesClient::class,
                 'package' => 'async-aws/ses',
             ],
+            'sns' => [
+                'class' => \AsyncAws\Sns\SnsClient::class,
+                'package' => 'async-aws/sns',
+            ],
             'sqs' => [
                 'class' => \AsyncAws\Sqs\SqsClient::class,
                 'package' => 'async-aws/sqs',
@@ -24,10 +36,6 @@ class AwsPackagesProvider
             'sts' => [
                 'class' => \AsyncAws\Core\Sts\StsClient::class,
                 'package' => 'async-aws/core',
-            ],
-            'sns' => [
-                'class' => \AsyncAws\Sns\SnsClient::class,
-                'package' => 'async-aws/sns',
             ],
         ];
     }
