@@ -21,7 +21,7 @@ class AwsPackagesProviderTest extends TestCase
     }
 
     /**
-     * @link https://stackoverflow.com/a/1993772/1526789
+     * @see https://stackoverflow.com/a/1993772/1526789
      */
     private function snakeCase(string $input)
     {
