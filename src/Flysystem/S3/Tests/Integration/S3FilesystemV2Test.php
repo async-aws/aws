@@ -108,6 +108,6 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
         $this->shouldCleanUp = true;
         $options = ['accessKeyId' => $key, 'accessKeySecret' => $secret, 'region' => $region];
 
-        return $this->s3Client = new S3Client($options, new NullProvider());
+        return $this->s3Client = new S3Client($options);
     }
 }

@@ -11,41 +11,27 @@ class HeadObjectOutputTest extends TestCase
 {
     public function testHeadObjectOutput(): void
     {
-        self::markTestIncomplete('Not implemented');
+        $headers = [
+            'x-amz-id-2' => [0 => 'Hb0J19YAz/KDAIFnXuHRCISFYgL2rpPk4F0JmtKEd8eMwbD2N8ayhfW3dUalBuQGK4kEo6d3MBY='],
+            'x-amz-request-id' => [0 => 'C9DC31A2888EF715'],
+            'date' => [0 => 'Sun, 23 Feb 2020 08:56:00 GMT'],
+            'last-modified' => [0 => 'Sun, 23 Feb 2020 08:56:00 GMT'],
+            'etag' => [0 => '"98bf7d8c15784f0a3d63204441e1e2aa"'],
+            'accept-ranges' => [0 => 'bytes'],
+            'content-type' => [0 => 'text/plain+special'],
+            'content-length' => [0 => '8'],
+            'server' => [0 => 'AmazonS3'],
+        ];
 
-        $response = new SimpleMockedResponse('<?xml version="1.0" encoding="UTF-8"?>
-            <ChangeIt/>
-        ');
+        $response = new SimpleMockedResponse('', $headers);
 
         $result = new HeadObjectOutput($response, new MockHttpClient());
 
-        self::assertFalse($result->getDeleteMarker());
-        self::assertStringContainsString('change it', $result->getAcceptRanges());
-        self::assertStringContainsString('change it', $result->getExpiration());
-        self::assertStringContainsString('change it', $result->getRestore());
-        // self::assertTODO(expected, $result->getLastModified());
-        self::assertSame(1337, $result->getContentLength());
-        self::assertStringContainsString('change it', $result->getETag());
-        self::assertSame(1337, $result->getMissingMeta());
-        self::assertStringContainsString('change it', $result->getVersionId());
-        self::assertStringContainsString('change it', $result->getCacheControl());
-        self::assertStringContainsString('change it', $result->getContentDisposition());
-        self::assertStringContainsString('change it', $result->getContentEncoding());
-        self::assertStringContainsString('change it', $result->getContentLanguage());
-        self::assertStringContainsString('change it', $result->getContentType());
-        // self::assertTODO(expected, $result->getExpires());
-        self::assertStringContainsString('change it', $result->getWebsiteRedirectLocation());
-        self::assertStringContainsString('change it', $result->getServerSideEncryption());
-        // self::assertTODO(expected, $result->getMetadata());
-        self::assertStringContainsString('change it', $result->getSSECustomerAlgorithm());
-        self::assertStringContainsString('change it', $result->getSSECustomerKeyMD5());
-        self::assertStringContainsString('change it', $result->getSSEKMSKeyId());
-        self::assertStringContainsString('change it', $result->getStorageClass());
-        self::assertStringContainsString('change it', $result->getRequestCharged());
-        self::assertStringContainsString('change it', $result->getReplicationStatus());
-        self::assertSame(1337, $result->getPartsCount());
-        self::assertStringContainsString('change it', $result->getObjectLockMode());
-        // self::assertTODO(expected, $result->getObjectLockRetainUntilDate());
-        self::assertStringContainsString('change it', $result->getObjectLockLegalHoldStatus());
+        self::assertNull($result->getDeleteMarker());
+        self::assertEquals('bytes', $result->getAcceptRanges());
+        self::assertEquals(1582448160, $result->getLastModified()->getTimestamp());
+        self::assertEquals(8, $result->getContentLength());
+        self::assertEquals('text/plain+special', $result->getContentType());
+        self::assertEquals('"98bf7d8c15784f0a3d63204441e1e2aa"', $result->getETag());
     }
 }

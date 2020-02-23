@@ -15,13 +15,19 @@ class SimpleMockedResponse implements ResponseInterface
     private $statusCode;
 
     /**
-     * @param array $headers ['name'=>'value']
+     * @param array $headers ['name'=>'value'] OR ['name'=>['value']]
      */
     public function __construct(string $content = '', array $headers = [], int $statusCode = 200)
     {
         $this->content = $content;
-        $this->headers = $headers;
         $this->statusCode = $statusCode;
+        $this->headers = [];
+        foreach ($headers as $name => $value) {
+            if (!\is_array($value)) {
+                $value = [$value];
+            }
+            $this->headers[$name] = $value;
+        }
     }
 
     public function getStatusCode(): int
@@ -71,7 +77,7 @@ class SimpleMockedResponse implements ResponseInterface
     {
         $flat = [];
         foreach ($this->headers as $name => $value) {
-            $flat[] = sprintf('%s: %s', $name, $value);
+            $flat[] = sprintf('%s: %s', $name, implode(';', $value));
         }
 
         return $flat;

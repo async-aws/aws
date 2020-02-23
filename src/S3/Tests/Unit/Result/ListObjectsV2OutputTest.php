@@ -11,26 +11,31 @@ class ListObjectsV2OutputTest extends TestCase
 {
     public function testListObjectsV2Output(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $response = new SimpleMockedResponse('<?xml version="1.0" encoding="UTF-8"?>
-            <ChangeIt/>
-        ');
+<ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+    <Name>async-aws-test</Name>
+    <Prefix>travis-ci/a7c9995c116874232f86/</Prefix>
+    <KeyCount>1</KeyCount>
+    <MaxKeys>1000</MaxKeys>
+    <Delimiter>/</Delimiter>
+    <IsTruncated>false</IsTruncated>
+    <CommonPrefixes>
+        <Prefix>travis-ci/a7c9995c116874232f86/some/</Prefix>
+    </CommonPrefixes>
+</ListBucketResult>');
 
         $result = new ListObjectsV2Output($response, new MockHttpClient());
 
         self::assertFalse($result->getIsTruncated());
-        // self::assertTODO(expected, $result->getContents());
-        self::assertStringContainsString('change it', $result->getName());
-        self::assertStringContainsString('change it', $result->getPrefix());
-        self::assertStringContainsString('change it', $result->getDelimiter());
-        self::assertSame(1337, $result->getMaxKeys());
-        // self::assertTODO(expected, $result->getCommonPrefixes());
-        self::assertStringContainsString('change it', $result->getEncodingType());
-        self::assertSame(1337, $result->getKeyCount());
-        self::assertStringContainsString('change it', $result->getContinuationToken());
-        self::assertStringContainsString('change it', $result->getNextContinuationToken());
-        self::assertStringContainsString('change it', $result->getStartAfter());
+        self::assertEquals('async-aws-test', $result->getName());
+        self::assertEquals('travis-ci/a7c9995c116874232f86/', $result->getPrefix());
+        self::assertEquals('/', $result->getDelimiter());
+        self::assertEquals(1000, $result->getMaxKeys());
+
+        self::assertEquals(1, $result->getKeyCount());
+        self::assertNull($result->getContinuationToken());
+        self::assertNull($result->getNextContinuationToken());
+        self::assertNull($result->getStartAfter());
     }
 
     public function testNoObjects()
