@@ -11,12 +11,10 @@ class SendEmailResponseTest extends TestCase
 {
     public function testSendEmailResponse(): void
     {
-        self::markTestIncomplete('Not implemented');
-
-        $response = new SimpleMockedResponse('{"change": "it"}');
+        $response = new SimpleMockedResponse('{"MessageId": "abcdef"}');
 
         $result = new SendEmailResponse($response, new MockHttpClient());
 
-        self::assertStringContainsString('change it', $result->getMessageId());
+        self::assertStringContainsString('abcdef', $result->getMessageId());
     }
 }

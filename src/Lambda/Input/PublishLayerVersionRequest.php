@@ -98,7 +98,7 @@ class PublishLayerVersionRequest
     public function requestBody(): string
     {
         $payload = ['Action' => 'PublishLayerVersion', 'Version' => '2015-03-31'];
-
+        $indices = new \stdClass();
         if (null !== $v = $this->Description) {
             $payload['Description'] = $v;
         }
@@ -123,9 +123,11 @@ class PublishLayerVersionRequest
             })($this->Content);
         }
 
-        (static function (array $input) use (&$payload) {
+        (static function (array $input) use (&$payload, $indices) {
+            $indices->kea6f923 = -1;
             foreach ($input as $value) {
-                $payload['CompatibleRuntimes']['member'][] = $value;
+                ++$indices->kea6f923;
+                $payload['CompatibleRuntimes'][$indices->kea6f923] = $value;
             }
         })($this->CompatibleRuntimes);
         if (null !== $v = $this->LicenseInfo) {

@@ -19,7 +19,7 @@ class SesClientTest extends TestCase
 {
     public function testSendEmail(): void
     {
-        self::markTestIncomplete('Not implemented');
+        self::markTestSkipped('No Docker image for STS');
 
         $client = $this->getClient();
 
