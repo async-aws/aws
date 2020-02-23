@@ -9,18 +9,18 @@ class GetQueueUrlRequestTest extends TestCase
 {
     public function testRequestBody(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $input = new GetQueueUrlRequest([
-            'QueueName' => 'change me',
-            'QueueOwnerAWSAccountId' => 'change me',
+            'QueueName' => 'MyQueue',
+            'QueueOwnerAWSAccountId' => '123456',
         ]);
 
+        /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_GetQueueUrl.html */
         $expected = trim('
-        Action=GetQueueUrl
-        &Version=2012-11-05
-        &ChangeIt=Change+it
-                        ');
+Action=GetQueueUrl
+&Version=2012-11-05
+&QueueName=MyQueue
+&QueueOwnerAWSAccountId=123456
+        ');
 
         self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
     }

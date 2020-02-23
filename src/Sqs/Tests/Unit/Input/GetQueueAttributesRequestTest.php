@@ -9,18 +9,20 @@ class GetQueueAttributesRequestTest extends TestCase
 {
     public function testRequestBody(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $input = new GetQueueAttributesRequest([
-            'QueueUrl' => 'change me',
-            'AttributeNames' => ['change me'],
+            'QueueUrl' => 'queueUrl',
+            'AttributeNames' => ['VisibilityTimeout', 'DelaySeconds', 'ReceiveMessageWaitTimeSeconds'],
         ]);
 
+        /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_GetQueueAttributes.html */
         $expected = trim('
-        Action=GetQueueAttributes
-        &Version=2012-11-05
-        &ChangeIt=Change+it
-                        ');
+Action=GetQueueAttributes
+&Version=2012-11-05
+&QueueUrl=queueUrl
+&AttributeName.1=VisibilityTimeout
+&AttributeName.2=DelaySeconds
+&AttributeName.3=ReceiveMessageWaitTimeSeconds
+        ');
 
         self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
     }

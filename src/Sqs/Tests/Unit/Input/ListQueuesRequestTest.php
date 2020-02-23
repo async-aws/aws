@@ -9,17 +9,16 @@ class ListQueuesRequestTest extends TestCase
 {
     public function testRequestBody(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $input = new ListQueuesRequest([
-            'QueueNamePrefix' => 'change me',
+            'QueueNamePrefix' => 'M',
         ]);
 
+        /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ListQueues.html */
         $expected = trim('
-        Action=ListQueues
-        &Version=2012-11-05
-        &ChangeIt=Change+it
-                        ');
+Action=ListQueues
+&Version=2012-11-05
+&QueueNamePrefix=M
+        ');
 
         self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
     }
