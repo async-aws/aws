@@ -46,6 +46,11 @@ final class NamespaceRegistry
         return ClassName::create($this->baseNamespace, $definition->getName() . 'Client');
     }
 
+    public function getClientTest(ServiceDefinition $definition): ClassName
+    {
+        return ClassName::create($this->testNamespace . '\\Unit', $definition->getName() . 'ClientTest');
+    }
+
     public function getInput(StructureShape $shape): ClassName
     {
         return ClassName::create($this->inputNamespace, $shape->getName());

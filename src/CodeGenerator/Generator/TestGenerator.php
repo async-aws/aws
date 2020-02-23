@@ -53,6 +53,7 @@ class TestGenerator
     public function generate(Operation $operation): void
     {
         $this->generateIntegration($operation);
+        $this->generateClient($operation);
         $this->generateInput($operation, $operation->getInput());
         if (null !== $result = $operation->getOutput()) {
             $this->generateResult($operation, $result);
@@ -230,7 +231,7 @@ Action={$operation->getName()}
         $this->fileWriter->write($namespace);
     }
 
-    private function getInputCode(PhpNamespace $namespace, Shape $shape): string
+    private function getInputCode(PhpNamespace $namespace, Shape $shape, bool $includeOptionalParameters = true): string
     {
         switch (true) {
             case $shape instanceof StructureShape:
@@ -241,8 +242,10 @@ Action={$operation->getName()}
                     INPUT_ARGUMENTS
                 ])', [
                     'INPUT_CLASS' => $className->getName(),
-                    'INPUT_ARGUMENTS' => \implode("\n", \array_map(function (StructureMember $member) use ($namespace) {
-                        return sprintf('%s => %s,', \var_export($member->getName(), true), $this->getInputCode($namespace, $member->getShape()));
+                    'INPUT_ARGUMENTS' => \implode("\n", \array_map(function (StructureMember $member) use ($namespace, $includeOptionalParameters) {
+                        if ($member->isRequired() || $includeOptionalParameters) {
+                            return sprintf('%s => %s,', \var_export($member->getName(), true), $this->getInputCode($namespace, $member->getShape()));
+                        }
                     }, $shape->getMembers())),
                 ]);
             case $shape instanceof ListShape:
@@ -270,6 +273,59 @@ Action={$operation->getName()}
         }
 
         throw new \RuntimeException(sprintf('Type %s is not yet implemented', $shape->getType()));
+    }
+
+    /**
+     * Generate client unit tests.
+     */
+    private function generateClient(Operation $operation): void
+    {
+        $clientName = $this->namespaceRegistry->getClient($operation->getService());
+        $clientTestName = $this->namespaceRegistry->getClientTest($operation->getService());
+        $methodName = 'test' . $operation->getName();
+
+        try {
+            $namespace = ClassFactory::fromExistingClass($clientTestName->getFqdn());
+            $classes = $namespace->getClasses();
+            $class = $classes[\array_key_first($classes)];
+
+            if ($class->hasMethod($methodName)) {
+                return;
+            }
+        } catch (\ReflectionException $e) {
+            [$namespace, $class] = $this->createTestClass($clientTestName, $clientName);
+        }
+
+        if (null === $operation->getOutput()) {
+            $output = ClassName::create('AsyncAws\\Core', 'Result');
+        } else {
+            $output = $this->namespaceRegistry->getResult($operation->getOutput());
+        }
+        $class->setExtends(['PHPUnit\Framework\TestCase']);
+        $namespace->addUse('PHPUnit\Framework\TestCase');
+        $namespace->addUse(MockHttpClient::class);
+        $namespace->addUse(NullProvider::class);
+        $namespace->addUse($output->getFqdn());
+
+        $class->addMethod($methodName)
+            ->setReturnType('void')
+            ->setBody(strtr('
+                $client = new CLASS_NAME([], new NullProvider(), new MockHttpClient());
+
+                $input = INPUT_CONSTRUCTOR;
+                $result = $client->METHOD($input);
+
+                self::assertInstanceOf(RESULT::class, $result);
+                self::assertFalse($result->info()[\'resolved\']);
+
+            ', [
+                'CLASS_NAME' => $clientName->getName(),
+                'INPUT_CONSTRUCTOR' => $this->getInputCode($namespace, $operation->getInput(), false),
+                'RESULT' => $output->getName(),
+                'METHOD' => $operation->getName(),
+            ]));
+
+        $this->fileWriter->write($namespace);
     }
 
     private function getResultAssert(StructureShape $shape): string

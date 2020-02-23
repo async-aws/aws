@@ -1,24 +1,71 @@
 <?php
 
-declare(strict_types=1);
-
 namespace AsyncAws\Ses\Tests\Unit;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Exception\Http\ClientException;
+use AsyncAws\Ses\Input\Body;
+use AsyncAws\Ses\Input\Content;
 use AsyncAws\Ses\Input\Destination;
 use AsyncAws\Ses\Input\EmailContent;
 use AsyncAws\Ses\Input\Message;
+use AsyncAws\Ses\Input\RawMessage;
 use AsyncAws\Ses\Input\SendEmailRequest;
+use AsyncAws\Ses\Input\Template;
+use AsyncAws\Ses\Result\SendEmailResponse;
 use AsyncAws\Ses\SesClient;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
-
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class SesClientTest extends TestCase
 {
+    public function testSendEmail(): void
+    {
+        $client = new SesClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new SendEmailRequest([
+
+            'Destination' => new Destination([
+                'ToAddresses' => ['change me'],
+                'CcAddresses' => ['change me'],
+                'BccAddresses' => ['change me'],
+            ]),
+
+            'Content' => new EmailContent([
+                'Simple' => new Message([
+                    'Subject' => new Content([
+                        'Data' => 'change me',
+                        'Charset' => 'change me',
+                    ]),
+                    'Body' => new Body([
+                        'Text' => new Content([
+                            'Data' => 'change me',
+                            'Charset' => 'change me',
+                        ]),
+                        'Html' => new Content([
+                            'Data' => 'change me',
+                            'Charset' => 'change me',
+                        ]),
+                    ]),
+                ]),
+                'Raw' => new RawMessage([
+                    'Data' => 'change me',
+                ]),
+                'Template' => new Template([
+                    'TemplateArn' => 'change me',
+                    'TemplateData' => 'change me',
+                ]),
+            ]),
+
+        ]);
+        $result = $client->SendEmail($input);
+
+        self::assertInstanceOf(SendEmailResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testSendMessage()
     {
         $httpClient = new MockHttpClient(function (string $method, string $url, array $options): ResponseInterface {
