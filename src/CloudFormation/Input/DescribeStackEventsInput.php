@@ -48,11 +48,9 @@ class DescribeStackEventsInput
     public function requestBody(): string
     {
         $payload = ['Action' => 'DescribeStackEvents', 'Version' => '2010-05-15'];
-
         if (null !== $v = $this->StackName) {
             $payload['StackName'] = $v;
         }
-
         if (null !== $v = $this->NextToken) {
             $payload['NextToken'] = $v;
         }

@@ -32,6 +32,11 @@ class Member
         return $this->data['locationName'] ?? null;
     }
 
+    public function getQueryName(): ?string
+    {
+        return $this->data['queryName'] ?? null;
+    }
+
     public function isFlattened(): ?bool
     {
         return $this->data['flattened'] ?? false;

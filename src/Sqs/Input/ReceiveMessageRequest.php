@@ -144,19 +144,15 @@ class ReceiveMessageRequest
                 $payload["MessageAttributeName.{$indices->k40753f1}"] = $value;
             }
         })($this->MessageAttributeNames);
-
         if (null !== $v = $this->MaxNumberOfMessages) {
             $payload['MaxNumberOfMessages'] = $v;
         }
-
         if (null !== $v = $this->VisibilityTimeout) {
             $payload['VisibilityTimeout'] = $v;
         }
-
         if (null !== $v = $this->WaitTimeSeconds) {
             $payload['WaitTimeSeconds'] = $v;
         }
-
         if (null !== $v = $this->ReceiveRequestAttemptId) {
             $payload['ReceiveRequestAttemptId'] = $v;
         }

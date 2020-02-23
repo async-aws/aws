@@ -15,4 +15,9 @@ class MapShape extends Shape
     {
         return new MapKey($this->data['key'], $this->shapeLocator);
     }
+
+    public function isFlattened(): bool
+    {
+        return $this->data['flattened'] ?? false;
+    }
 }

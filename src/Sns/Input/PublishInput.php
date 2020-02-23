@@ -134,41 +134,34 @@ class PublishInput
         if (null !== $v = $this->TopicArn) {
             $payload['TopicArn'] = $v;
         }
-
         if (null !== $v = $this->TargetArn) {
             $payload['TargetArn'] = $v;
         }
-
         if (null !== $v = $this->PhoneNumber) {
             $payload['PhoneNumber'] = $v;
         }
-
         $payload['Message'] = $this->Message;
-
         if (null !== $v = $this->Subject) {
             $payload['Subject'] = $v;
         }
-
         if (null !== $v = $this->MessageStructure) {
             $payload['MessageStructure'] = $v;
         }
 
         (static function (array $input) use (&$payload, $indices) {
-            $indices->kb0b4646 = 0;
+            $indices->kd0379ae = 0;
             foreach ($input as $key => $value) {
-                ++$indices->kb0b4646;
-                $payload["MessageAttributes.{$indices->kb0b4646}.Name"] = $key;
+                ++$indices->kd0379ae;
+                $payload["MessageAttributes.entry.{$indices->kd0379ae}.Name"] = $key;
 
                 if (null !== $value) {
                     (static function (MessageAttributeValue $input) use (&$payload, $indices) {
-                        $payload["MessageAttributes.{$indices->kb0b4646}.Value.DataType"] = $input->getDataType();
-
+                        $payload["MessageAttributes.entry.{$indices->kd0379ae}.Value.DataType"] = $input->getDataType();
                         if (null !== $v = $input->getStringValue()) {
-                            $payload["MessageAttributes.{$indices->kb0b4646}.Value.StringValue"] = $v;
+                            $payload["MessageAttributes.entry.{$indices->kd0379ae}.Value.StringValue"] = $v;
                         }
-
                         if (null !== $v = $input->getBinaryValue()) {
-                            $payload["MessageAttributes.{$indices->kb0b4646}.Value.BinaryValue"] = base64_encode($v);
+                            $payload["MessageAttributes.entry.{$indices->kd0379ae}.Value.BinaryValue"] = base64_encode($v);
                         }
                     })($value);
                 }

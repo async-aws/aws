@@ -14,7 +14,7 @@ class StsClientTest extends TestCase
 {
     public function testAssumeRole(): void
     {
-        self::markTestIncomplete('Not implemented');
+        self::markTestSkipped('No Docker image for STS');
 
         $client = $this->getClient();
 
@@ -46,7 +46,7 @@ class StsClientTest extends TestCase
 
     public function testGetCallerIdentity(): void
     {
-        self::markTestIncomplete('Not implemented');
+        self::markTestSkipped('No Docker image for STS');
 
         $client = $this->getClient();
 

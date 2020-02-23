@@ -198,58 +198,53 @@ class AssumeRoleRequest
         $payload['RoleSessionName'] = $this->RoleSessionName;
 
         (static function (array $input) use (&$payload, $indices) {
-            $indices->kd8fbed2 = 0;
+            $indices->kfc822c1 = 0;
             foreach ($input as $value) {
-                ++$indices->kd8fbed2;
+                ++$indices->kfc822c1;
 
                 if (null !== $value) {
                     (static function (PolicyDescriptorType $input) use (&$payload, $indices) {
                         if (null !== $v = $input->getarn()) {
-                            $payload["PolicyArns.{$indices->kd8fbed2}.arn"] = $v;
+                            $payload["PolicyArns.member.{$indices->kfc822c1}.arn"] = $v;
                         }
                     })($value);
                 }
             }
         })($this->PolicyArns);
-
         if (null !== $v = $this->Policy) {
             $payload['Policy'] = $v;
         }
-
         if (null !== $v = $this->DurationSeconds) {
             $payload['DurationSeconds'] = $v;
         }
 
         (static function (array $input) use (&$payload, $indices) {
-            $indices->k848eed0 = 0;
+            $indices->k26dfc14 = 0;
             foreach ($input as $value) {
-                ++$indices->k848eed0;
+                ++$indices->k26dfc14;
 
                 if (null !== $value) {
                     (static function (Tag $input) use (&$payload, $indices) {
-                        $payload["Tags.{$indices->k848eed0}.Key"] = $input->getKey();
-                        $payload["Tags.{$indices->k848eed0}.Value"] = $input->getValue();
+                        $payload["Tags.member.{$indices->k26dfc14}.Key"] = $input->getKey();
+                        $payload["Tags.member.{$indices->k26dfc14}.Value"] = $input->getValue();
                     })($value);
                 }
             }
         })($this->Tags);
 
         (static function (array $input) use (&$payload, $indices) {
-            $indices->k296eb4e = 0;
+            $indices->k0ec5280 = 0;
             foreach ($input as $value) {
-                ++$indices->k296eb4e;
-                $payload["TransitiveTagKeys.{$indices->k296eb4e}"] = $value;
+                ++$indices->k0ec5280;
+                $payload["TransitiveTagKeys.member.{$indices->k0ec5280}"] = $value;
             }
         })($this->TransitiveTagKeys);
-
         if (null !== $v = $this->ExternalId) {
             $payload['ExternalId'] = $v;
         }
-
         if (null !== $v = $this->SerialNumber) {
             $payload['SerialNumber'] = $v;
         }
-
         if (null !== $v = $this->TokenCode) {
             $payload['TokenCode'] = $v;
         }

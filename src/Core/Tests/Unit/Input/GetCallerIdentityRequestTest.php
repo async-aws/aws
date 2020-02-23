@@ -9,17 +9,13 @@ class GetCallerIdentityRequestTest extends TestCase
 {
     public function testRequestBody(): void
     {
-        self::markTestIncomplete('Not implemented');
+        $input = new GetCallerIdentityRequest();
 
-        $input = new GetCallerIdentityRequest([
-
-        ]);
-
+        /** @see https://docs.aws.amazon.com/STS/latest/APIReference/API_GetCallerIdentity.html */
         $expected = trim('
-        Action=GetCallerIdentity
-        &Version=2011-06-15
-        &ChangeIt=Change+it
-                        ');
+Action=GetCallerIdentity
+&Version=2011-06-15
+        ');
 
         self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
     }

@@ -39,9 +39,7 @@ class QuerySerializer implements Serializer
 
     public function generateForMember(StructureMember $member, string $payloadProperty): string
     {
-        return <<<PHP
-return \$this->$payloadProperty ?? '';
-PHP;
+        return "return \$this->$payloadProperty ?? '';";
     }
 
     public function generateForShape(Operation $operation, StructureShape $shape): string
@@ -55,11 +53,9 @@ PHP;
                 $body = 'MEMBER_CODE';
                 $inputElement = '$this->' . $member->getName();
             } else {
-                $body = '
-                    if (null !== $v = INPUT_NAME) {
+                $body = 'if (null !== $v = INPUT_NAME) {
                         MEMBER_CODE
-                    }
-                ';
+                    }';
                 $inputElement = '$v';
             }
 
@@ -83,13 +79,44 @@ PHP;
         ]);
     }
 
-    private function getName(Member $member)
+    private function getQueryName(Member $member, string $default): string
     {
-        if (($shape = $member->getShape()) instanceof ListShape && $shape->isFlattened()) {
-            return $member->getLocationName() ?? $shape->getMember()->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member');
+        if (null !== $member->getQueryName()) {
+            return $member->getQueryName();
+        }
+        if (null !== $member->getLocationName()) {
+            return $member->getLocationName();
+        }
+        $shape = $member->getShape();
+        if ($member->isFlattened() && $shape instanceof ListShape && null !== $memberLocation = $shape->getMember()->getLocationName()) {
+            return $memberLocation;
         }
 
-        return $member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member');
+        return $default;
+    }
+
+    private function getName(Member $member): string
+    {
+        if ($member instanceof StructureMember) {
+            $name = $this->getQueryName($member, $member->getName());
+        } else {
+            $name = 'FIXME';
+        }
+
+        $shape = $member->getShape();
+        if ($shape instanceof ListShape) {
+            if (!$member->isFlattened() && !$shape->isFlattened()) {
+                return $name . '.' . ($shape->getMember()->getLocationName() ?? 'member');
+            }
+
+            return $this->getQueryName($shape->getMember(), 'FIXME');
+        }
+
+        if ($shape instanceof MapShape) {
+            return $name . ($shape->isFlattened() ? '' : '.entry');
+        }
+
+        return $name;
     }
 
     private function dumpArrayElement(string $output, string $input, Shape $shape)
@@ -123,15 +150,13 @@ PHP;
         $memberCode = implode("\n", array_map(function (StructureMember $member) use ($output) {
             $shape = $member->getShape();
             if ($member->isRequired() || $shape instanceof ListShape || $shape instanceof MapShape) {
-                $inputElement = '$input->get' . $member->getName() . '()';
                 $body = 'MEMBER_CODE';
+                $inputElement = '$input->get' . $member->getName() . '()';
             } else {
+                $body = 'if (null !== $v = INPUT_NAME) {
+                    MEMBER_CODE
+                }';
                 $inputElement = '$v';
-                $body = '
-
-if (null !== $v = INPUT_NAME) {
-    MEMBER_CODE
-}';
             }
 
             return strtr($body, [
@@ -165,7 +190,8 @@ if (null !== INPUT) {
         MEMBERS_CODE
     })(INPUT);
 }',
-            $replaceData);
+            $replaceData
+        );
     }
 
     private function dumpArrayMap(string $output, string $input, MapShape $shape): string
@@ -180,17 +206,19 @@ if (null !== INPUT) {
         MEMBER_CODE
     }
 })(INPUT);',
-        [
-            'INPUT' => $input,
-            'INDEX_KEY' => $indexKey = 'k' . \substr(sha1($output), 0, 7),
-            'OUTPUT_KEY' => sprintf('%s.{$indices->%s}.%s', $output, $indexKey, $shape->getKey()->getLocationName() ?? 'key'),
-            'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$indices->%s}.%s', $output, $indexKey, $shape->getValue()->getLocationName() ?? 'value'), '$value', $shape->getValue()->getShape()),
-            'USE' => \strpos($memberCode, '$indices') ? '&$payload, $indices' : '&$payload',
-        ]);
+            [
+                'INPUT' => $input,
+                'INDEX_KEY' => $indexKey = 'k' . \substr(sha1($output), 0, 7),
+                'OUTPUT_KEY' => sprintf('%s.{$indices->%s}.%s', $output, $indexKey, $this->getQueryName($shape->getKey(), 'key')),
+                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$indices->%s}.%s', $output, $indexKey, $this->getQueryName($shape->getValue(), 'value')), '$value', $shape->getValue()->getShape()),
+                'USE' => \strpos($memberCode, '$indices') ? '&$payload, $indices' : '&$payload',
+            ]);
     }
 
     private function dumpArrayList(string $output, string $input, ListShape $shape): string
     {
+        $memberShape = $shape->getMember()->getShape();
+
         return strtr('
 
 (static function(array $input) use (USE) {
@@ -203,7 +231,7 @@ if (null !== INPUT) {
             [
                 'INPUT' => $input,
                 'INDEX_KEY' => $indexKey = 'k' . \substr(sha1($output), 0, 7),
-                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$indices->%s}', $output, $indexKey), '$value', $shape->getMember()->getShape()),
+                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$indices->%s}', $output, $indexKey), '$value', $memberShape),
                 'USE' => \strpos($memberCode, '$indices') ? '&$payload, $indices' : '&$payload',
             ]);
     }

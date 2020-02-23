@@ -135,19 +135,19 @@ class SendEmailRequest
             (static function (Destination $input) use (&$payload) {
                 (static function (array $input) use (&$payload) {
                     foreach ($input as $value) {
-                        $payload['Destination']['ToAddresses'][] = $value;
+                        $payload['Destination']['ToAddresses']['member'][] = $value;
                     }
                 })($input->getToAddresses());
 
                 (static function (array $input) use (&$payload) {
                     foreach ($input as $value) {
-                        $payload['Destination']['CcAddresses'][] = $value;
+                        $payload['Destination']['CcAddresses']['member'][] = $value;
                     }
                 })($input->getCcAddresses());
 
                 (static function (array $input) use (&$payload) {
                     foreach ($input as $value) {
-                        $payload['Destination']['BccAddresses'][] = $value;
+                        $payload['Destination']['BccAddresses']['member'][] = $value;
                     }
                 })($input->getBccAddresses());
             })($this->Destination);
@@ -155,7 +155,7 @@ class SendEmailRequest
 
         (static function (array $input) use (&$payload) {
             foreach ($input as $value) {
-                $payload['ReplyToAddresses'][] = $value;
+                $payload['ReplyToAddresses']['member'][] = $value;
             }
         })($this->ReplyToAddresses);
         if (null !== $v = $this->FeedbackForwardingEmailAddress) {
@@ -226,8 +226,8 @@ class SendEmailRequest
             foreach ($input as $value) {
                 if (null !== $value) {
                     (static function (MessageTag $input) use (&$payload) {
-                        $payload['EmailTags'][]['Name'] = $input->getName();
-                        $payload['EmailTags'][]['Value'] = $input->getValue();
+                        $payload['EmailTags']['member'][]['Name'] = $input->getName();
+                        $payload['EmailTags']['member'][]['Value'] = $input->getValue();
                     })($value);
                 }
             }
