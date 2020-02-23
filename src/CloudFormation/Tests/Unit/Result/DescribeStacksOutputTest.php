@@ -104,6 +104,5 @@ XML;
         $output = $stack->getOutputs();
         self::assertCount(3, $output);
         self::assertEquals('WebsiteLambdaFunctionQualifiedArn', $output[0]->getOutputKey());
-
     }
 }

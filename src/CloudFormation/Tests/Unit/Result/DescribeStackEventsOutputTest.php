@@ -72,8 +72,6 @@ class DescribeStackEventsOutputTest extends TestCase
         self::assertEquals('sfhackday-dev', $stackEvents[0]->getLogicalResourceId());
         self::assertEquals('AWS::CloudFormation::Stack', $stackEvents[0]->getResourceType());
 
-
-
         self::assertNull($stackEvents[0]->getClientRequestToken());
         self::assertNull($stackEvents[0]->getResourceProperties());
         self::assertNull($stackEvents[0]->getResourceStatusReason());
