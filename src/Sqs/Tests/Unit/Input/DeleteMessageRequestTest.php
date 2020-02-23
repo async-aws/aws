@@ -9,17 +9,17 @@ class DeleteMessageRequestTest extends TestCase
 {
     public function testRequestBody(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $input = new DeleteMessageRequest([
-            'QueueUrl' => 'change me',
-            'ReceiptHandle' => 'change me',
+            'QueueUrl' => 'queueUrl',
+            'ReceiptHandle' => 'MbZj6wDWli+JvwwJaBV+3dcjk2YW2vA3+STFFljT',
         ]);
 
+        /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_DeleteMessage.html */
         $expected = trim('
-        Action=DeleteMessage
-        &Version=2012-11-05
-        &ChangeIt=Change+it
+Action=DeleteMessage
+&Version=2012-11-05
+&QueueUrl=queueUrl
+&ReceiptHandle=MbZj6wDWli%2BJvwwJaBV%2B3dcjk2YW2vA3%2BSTFFljT
                         ');
 
         self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));

@@ -9,17 +9,16 @@ class PurgeQueueRequestTest extends TestCase
 {
     public function testRequestBody(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $input = new PurgeQueueRequest([
-            'QueueUrl' => 'change me',
+            'QueueUrl' => 'queueUrl',
         ]);
 
+        /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_PurgeQueue.html */
         $expected = trim('
-        Action=PurgeQueue
-        &Version=2012-11-05
-        &ChangeIt=Change+it
-                        ');
+Action=PurgeQueue
+&Version=2012-11-05
+&QueueUrl=queueUrl
+        ');
 
         self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
     }
