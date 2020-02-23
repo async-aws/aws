@@ -11,61 +11,43 @@ class GetObjectOutputTest extends TestCase
 {
     public function testGetObjectOutput(): void
     {
-        self::markTestIncomplete('Not implemented');
-
-        $response = new SimpleMockedResponse('<?xml version="1.0" encoding="UTF-8"?>
-            <ChangeIt/>
-        ');
+        $headers = [
+            'x-amz-id-2' => 'eE1ciiorDCob2JGCZ0Y8VLKuFcRXcjKfz1kxgN2xnSpQG+yN+vmXjpTPQ0QKbRlc6tVidz0Ntd8=',
+            'x-amz-request-id' => '345FC7FD1AE48617',
+            'date' => 'Sun, 23 Feb 2020 08:57:06 GMT',
+            'last-modified' => 'Sun, 23 Feb 2020 08:57:05 GMT',
+            'etag' => '"98bf7d8c15784f0a3d63204441e1e2aa"',
+            'accept-ranges' => 'bytes',
+            'content-type' => 'text/plain',
+            'content-length' => '8',
+            'server' => 'AmazonS3',
+        ];
+        $response = new SimpleMockedResponse('', $headers);
 
         $result = new GetObjectOutput($response, new MockHttpClient());
 
         // self::assertTODO(expected, $result->getBody());
-        self::assertFalse($result->getDeleteMarker());
-        self::assertStringContainsString('change it', $result->getAcceptRanges());
-        self::assertStringContainsString('change it', $result->getExpiration());
-        self::assertStringContainsString('change it', $result->getRestore());
-        // self::assertTODO(expected, $result->getLastModified());
-        self::assertSame(1337, $result->getContentLength());
-        self::assertStringContainsString('change it', $result->getETag());
-        self::assertSame(1337, $result->getMissingMeta());
-        self::assertStringContainsString('change it', $result->getVersionId());
-        self::assertStringContainsString('change it', $result->getCacheControl());
-        self::assertStringContainsString('change it', $result->getContentDisposition());
-        self::assertStringContainsString('change it', $result->getContentEncoding());
-        self::assertStringContainsString('change it', $result->getContentLanguage());
-        self::assertStringContainsString('change it', $result->getContentRange());
-        self::assertStringContainsString('change it', $result->getContentType());
-        // self::assertTODO(expected, $result->getExpires());
-        self::assertStringContainsString('change it', $result->getWebsiteRedirectLocation());
-        self::assertStringContainsString('change it', $result->getServerSideEncryption());
-        // self::assertTODO(expected, $result->getMetadata());
-        self::assertStringContainsString('change it', $result->getSSECustomerAlgorithm());
-        self::assertStringContainsString('change it', $result->getSSECustomerKeyMD5());
-        self::assertStringContainsString('change it', $result->getSSEKMSKeyId());
-        self::assertStringContainsString('change it', $result->getStorageClass());
-        self::assertStringContainsString('change it', $result->getRequestCharged());
-        self::assertStringContainsString('change it', $result->getReplicationStatus());
-        self::assertSame(1337, $result->getPartsCount());
-        self::assertSame(1337, $result->getTagCount());
-        self::assertStringContainsString('change it', $result->getObjectLockMode());
-        // self::assertTODO(expected, $result->getObjectLockRetainUntilDate());
-        self::assertStringContainsString('change it', $result->getObjectLockLegalHoldStatus());
+        self::assertStringContainsString('98bf7d8c15784f0a3d63204441e1e2aa', $result->getETag());
+
+        self::assertNull($result->getDeleteMarker());
+        self::assertEquals('bytes', $result->getAcceptRanges());
+        self::assertEquals(1582448225, $result->getLastModified()->getTimestamp());
     }
 
     public function testMetadata()
     {
         $headers = [
-            'x-amz-id-2' => [0 => 'wHaofDPIxs4VoML+wxIjs/V+2Ke0B2bi6vDA6OPJctaYf2XgXJpdXCnuOTL0pPoQ48zMhL+fZXo='],
-            'x-amz-request-id' => [0 => '29A72C65D02ED350'],
-            'date' => [0 => 'Sat, 08 Feb 2020 15:58:09 GMT'],
-            'last-modified' => [0 => 'Sat, 08 Feb 2020 15:55:28 GMT'],
-            'etag' => [0 => '"9a0364b9e99bb480dd25e1f0284c8555"'],
-            'x-amz-meta-tobias' => [0 => 'nyholm'],
-            'accept-ranges' => [0 => 'bytes'],
-            'content-type' => [0 => 'application/x-www-form-urlencoded'],
-            'content-length' => [0 => '7'],
-            'connection' => [0 => 'close'],
-            'server' => [0 => 'AmazonS3'],
+            'x-amz-id-2' => 'wHaofDPIxs4VoML+wxIjs/V+2Ke0B2bi6vDA6OPJctaYf2XgXJpdXCnuOTL0pPoQ48zMhL+fZXo=',
+            'x-amz-request-id' => '29A72C65D02ED350',
+            'date' => 'Sat, 08 Feb 2020 15:58:09 GMT',
+            'last-modified' => 'Sat, 08 Feb 2020 15:55:28 GMT',
+            'etag' => '"9a0364b9e99bb480dd25e1f0284c8555"',
+            'x-amz-meta-tobias' => 'nyholm',
+            'accept-ranges' => 'bytes',
+            'content-type' => 'application/x-www-form-urlencoded',
+            'content-length' => '7',
+            'connection' => 'close',
+            'server' => 'AmazonS3',
         ];
         $response = new SimpleMockedResponse('content', $headers);
         $result = new GetObjectOutput($response, new MockHttpClient());
