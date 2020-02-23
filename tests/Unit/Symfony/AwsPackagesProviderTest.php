@@ -20,6 +20,9 @@ class AwsPackagesProviderTest extends TestCase
         }
     }
 
+    /**
+     * @link https://stackoverflow.com/a/1993772/1526789
+     */
     private function snakeCase(string $input)
     {
         preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
