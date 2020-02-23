@@ -9,7 +9,7 @@
 
 ### Changed
 
-- `AwsClient` does not extend from `AbstractApi`
+- Removed `AwsClient` and replaced it with `AwsClientFactory`
 - Class `AsuncAws\Core\Signers\Request` is marked as internal
 
 ## 0.1.0
