@@ -73,7 +73,7 @@ class RestJsonSerializer implements Serializer
             ', [
             'OPERATION_NAME' => \var_export($operation->getName(), true),
             'API_VERSION' => \var_export($operation->getApiVersion(), true),
-            'CHILDREN_CODE' => $body,
+            'CHILDREN_CODE' => false !== \strpos($body, '$indices') ? '$indices = new \stdClass();' . $body : $body,
         ]);
     }
 
@@ -99,19 +99,6 @@ class RestJsonSerializer implements Serializer
             $name = $this->getQueryName($member, $member->getName());
         } else {
             $name = 'FIXME';
-        }
-
-        $shape = $member->getShape();
-        if ($shape instanceof ListShape) {
-            if (!$member->isFlattened() && !$shape->isFlattened()) {
-                return $name . '"]["' . ($shape->getMember()->getLocationName() ?? 'member');
-            }
-
-            return $this->getQueryName($shape->getMember(), 'FIXME');
-        }
-
-        if ($shape instanceof MapShape) {
-            return $name . ($shape->isFlattened() ? '' : '"]["entry');
         }
 
         return $name;
@@ -169,13 +156,14 @@ class RestJsonSerializer implements Serializer
             'INPUT' => $input,
             'CLASS_NAME' => $this->namespaceRegistry->getInput($shape)->getName(),
             'MEMBERS_CODE' => $memberCode,
+            'USE' => \strpos($memberCode, '$indices') ? '&$payload, $indices' : '&$payload',
         ];
 
         if ('$v' === $input) {
             // No check for null needed
             return strtr('
 
-(static function(CLASS_NAME $input) use (&$payload) {
+(static function(CLASS_NAME $input) use (USE) {
     MEMBERS_CODE
 })(INPUT);',
                 $replaceData
@@ -185,7 +173,7 @@ class RestJsonSerializer implements Serializer
         return strtr('
 
 if (null !== INPUT) {
-    (static function(CLASS_NAME $input) use (&$payload) {
+    (static function(CLASS_NAME $input) use (USE) {
         MEMBERS_CODE
     })(INPUT);
 }',
@@ -198,15 +186,18 @@ if (null !== INPUT) {
         $memberShape = $shape->getMember()->getShape();
 
         return strtr('
-(static function(array $input) use (&$payload) {
+(static function(array $input) use (USE) {
+    $indices->INDEX_KEY = -1;
     foreach ($input as $value) {
+        $indices->INDEX_KEY++;
         MEMBER_CODE
     }
 })(INPUT);',
             [
                 'INPUT' => $input,
-                'COMMENT' => false !== strpos($input, '->') ? '// ' . $input : '',
-                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s[]', $output), '$value', $memberShape),
+                'INDEX_KEY' => $indexKey = 'k' . \substr(sha1($output), 0, 7),
+                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s[$indices->%s]', $output, $indexKey), '$value', $memberShape),
+                'USE' => \strpos($memberCode, '$indices') ? '&$payload, $indices' : '&$payload',
             ]);
     }
 

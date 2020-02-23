@@ -127,35 +127,44 @@ class SendEmailRequest
     public function requestBody(): string
     {
         $payload = ['Action' => 'SendEmail', 'Version' => '2019-09-27'];
+        $indices = new \stdClass();
         if (null !== $v = $this->FromEmailAddress) {
             $payload['FromEmailAddress'] = $v;
         }
 
         if (null !== $this->Destination) {
-            (static function (Destination $input) use (&$payload) {
-                (static function (array $input) use (&$payload) {
+            (static function (Destination $input) use (&$payload, $indices) {
+                (static function (array $input) use (&$payload, $indices) {
+                    $indices->kbe21867 = -1;
                     foreach ($input as $value) {
-                        $payload['Destination']['ToAddresses']['member'][] = $value;
+                        ++$indices->kbe21867;
+                        $payload['Destination']['ToAddresses'][$indices->kbe21867] = $value;
                     }
                 })($input->getToAddresses());
 
-                (static function (array $input) use (&$payload) {
+                (static function (array $input) use (&$payload, $indices) {
+                    $indices->k385be6f = -1;
                     foreach ($input as $value) {
-                        $payload['Destination']['CcAddresses']['member'][] = $value;
+                        ++$indices->k385be6f;
+                        $payload['Destination']['CcAddresses'][$indices->k385be6f] = $value;
                     }
                 })($input->getCcAddresses());
 
-                (static function (array $input) use (&$payload) {
+                (static function (array $input) use (&$payload, $indices) {
+                    $indices->k4191b78 = -1;
                     foreach ($input as $value) {
-                        $payload['Destination']['BccAddresses']['member'][] = $value;
+                        ++$indices->k4191b78;
+                        $payload['Destination']['BccAddresses'][$indices->k4191b78] = $value;
                     }
                 })($input->getBccAddresses());
             })($this->Destination);
         }
 
-        (static function (array $input) use (&$payload) {
+        (static function (array $input) use (&$payload, $indices) {
+            $indices->k6284657 = -1;
             foreach ($input as $value) {
-                $payload['ReplyToAddresses']['member'][] = $value;
+                ++$indices->k6284657;
+                $payload['ReplyToAddresses'][$indices->k6284657] = $value;
             }
         })($this->ReplyToAddresses);
         if (null !== $v = $this->FeedbackForwardingEmailAddress) {
@@ -222,12 +231,15 @@ class SendEmailRequest
             })($this->Content);
         }
 
-        (static function (array $input) use (&$payload) {
+        (static function (array $input) use (&$payload, $indices) {
+            $indices->k4a82301 = -1;
             foreach ($input as $value) {
+                ++$indices->k4a82301;
+
                 if (null !== $value) {
-                    (static function (MessageTag $input) use (&$payload) {
-                        $payload['EmailTags']['member'][]['Name'] = $input->getName();
-                        $payload['EmailTags']['member'][]['Value'] = $input->getValue();
+                    (static function (MessageTag $input) use (&$payload, $indices) {
+                        $payload['EmailTags'][$indices->k4a82301]['Name'] = $input->getName();
+                        $payload['EmailTags'][$indices->k4a82301]['Value'] = $input->getValue();
                     })($value);
                 }
             }

@@ -8,59 +8,81 @@ use AsyncAws\Ses\Input\Destination;
 use AsyncAws\Ses\Input\EmailContent;
 use AsyncAws\Ses\Input\Message;
 use AsyncAws\Ses\Input\MessageTag;
-use AsyncAws\Ses\Input\RawMessage;
 use AsyncAws\Ses\Input\SendEmailRequest;
-use AsyncAws\Ses\Input\Template;
 use PHPUnit\Framework\TestCase;
 
 class SendEmailRequestTest extends TestCase
 {
     public function testRequestBody(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $input = new SendEmailRequest([
-            'FromEmailAddress' => 'change me',
+            'FromEmailAddress' => 'jeremy@derusse.com',
             'Destination' => new Destination([
-                'ToAddresses' => ['change me'],
-                'CcAddresses' => ['change me'],
-                'BccAddresses' => ['change me'],
+                'ToAddresses' => ['jeremy+to@derusse.com'],
+                'CcAddresses' => ['jeremy+cc@derusse.'],
+                'BccAddresses' => ['jeremy+bcc@derusse.'],
             ]),
-            'ReplyToAddresses' => ['change me'],
-            'FeedbackForwardingEmailAddress' => 'change me',
+            'ReplyToAddresses' => ['jeremy+reply@derusse.com'],
             'Content' => new EmailContent([
                 'Simple' => new Message([
                     'Subject' => new Content([
-                        'Data' => 'change me',
-                        'Charset' => 'change me',
+                        'Data' => 'email subject',
+                        'Charset' => 'utf-8',
                     ]),
                     'Body' => new Body([
                         'Text' => new Content([
-                            'Data' => 'change me',
-                            'Charset' => 'change me',
-                        ]),
-                        'Html' => new Content([
-                            'Data' => 'change me',
-                            'Charset' => 'change me',
+                            'Data' => 'email body',
+                            'Charset' => 'utf-8',
                         ]),
                     ]),
                 ]),
-                'Raw' => new RawMessage([
-                    'Data' => 'change me',
-                ]),
-                'Template' => new Template([
-                    'TemplateArn' => 'change me',
-                    'TemplateData' => 'change me',
-                ]),
             ]),
             'EmailTags' => [new MessageTag([
-                'Name' => 'change me',
-                'Value' => 'change me',
+                'Name' => 'team',
+                'Value' => 'engineering',
             ])],
-            'ConfigurationSetName' => 'change me',
         ]);
 
-        $expected = '{"change": "it"}';
+        /** Used aws-sdk to generate the output */
+        $expected = '{
+            "Action": "SendEmail",
+            "Version": "2019-09-27",
+            "FromEmailAddress": "jeremy@derusse.com",
+            "Destination": {
+                "ToAddresses": [
+                    "jeremy+to@derusse.com"
+                ],
+                "CcAddresses": [
+                    "jeremy+cc@derusse."
+                ],
+                "BccAddresses": [
+                    "jeremy+bcc@derusse."
+                ]
+            },
+            "ReplyToAddresses": [
+                "jeremy+reply@derusse.com"
+            ],
+            "Content": {
+                "Simple": {
+                    "Subject": {
+                        "Data": "email subject",
+                        "Charset": "utf-8"
+                    },
+                    "Body": {
+                        "Text": {
+                            "Data": "email body",
+                            "Charset": "utf-8"
+                        }
+                    }
+                }
+            },
+            "EmailTags": [
+                {
+                  "Name": "team",
+                  "Value": "engineering"
+                }
+            ]
+        }';
 
         self::assertJsonStringEqualsJsonString($expected, $input->requestBody());
     }

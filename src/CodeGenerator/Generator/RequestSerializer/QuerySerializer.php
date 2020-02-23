@@ -220,7 +220,6 @@ if (null !== INPUT) {
         $memberShape = $shape->getMember()->getShape();
 
         return strtr('
-
 (static function(array $input) use (USE) {
     $indices->INDEX_KEY = 0;
     foreach ($input as $value) {
