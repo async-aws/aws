@@ -44,8 +44,12 @@ class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
-    private static function validateType(array $clients)
+    private static function validateType(?array $clients)
     {
+        if (null === $clients) {
+            return [];
+        }
+
         $awsServices = AwsPackagesProvider::getServiceNames();
         foreach ($clients as $name => $config) {
             if (\in_array($name, $awsServices)) {

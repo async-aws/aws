@@ -75,6 +75,18 @@ class BundleInitializationTest extends BaseBundleTestCase
         self::assertFalse($container->has(SqsClient::class));
     }
 
+    public function testEmptyClientsKey()
+    {
+        $kernel = $this->createKernel();
+        $kernel->addConfigFile(__DIR__ . '/Resources/config/empty_clients_key.yaml');
+        $this->bootKernel();
+
+        $container = $this->getContainer();
+        self::assertTrue($container->has('async_aws.client.s3'));
+        self::assertTrue($container->has('async_aws.client.sqs'));
+        self::assertTrue($container->has(SqsClient::class));
+    }
+
     public function testNotRegisterSqs()
     {
         $kernel = $this->createKernel();
