@@ -46,7 +46,7 @@ class Configuration implements ConfigurationInterface
 
     private static function validateType(?array $clients)
     {
-        if ($clients === null) {
+        if (null === $clients) {
             return [];
         }
 

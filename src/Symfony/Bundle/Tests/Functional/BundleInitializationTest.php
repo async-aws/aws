@@ -75,7 +75,6 @@ class BundleInitializationTest extends BaseBundleTestCase
         self::assertFalse($container->has(SqsClient::class));
     }
 
-
     public function testEmptyClientsKey()
     {
         $kernel = $this->createKernel();
