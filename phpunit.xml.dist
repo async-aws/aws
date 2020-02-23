@@ -15,6 +15,7 @@
     <testsuites>
         <testsuite name="Test Suite">
             <directory>./src/CloudFormation/Tests/</directory>
+            <directory>./src/CloudFormation/Tests/</directory>
             <directory>./src/CodeGenerator/Tests/</directory>
             <directory>./src/Core/Tests/</directory>
             <directory>./src/Flysystem/S3/Tests/</directory>
