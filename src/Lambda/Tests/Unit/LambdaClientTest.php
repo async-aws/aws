@@ -33,6 +33,7 @@ class LambdaClientTest extends TestCase
         $result = $client->AddLayerVersionPermission($input);
 
         self::assertInstanceOf(AddLayerVersionPermissionResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testInvoke(): void
@@ -46,6 +47,7 @@ class LambdaClientTest extends TestCase
         $result = $client->Invoke($input);
 
         self::assertInstanceOf(InvocationResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testListLayerVersions(): void
@@ -60,6 +62,7 @@ class LambdaClientTest extends TestCase
         $result = $client->ListLayerVersions($input);
 
         self::assertInstanceOf(ListLayerVersionsResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testPublishLayerVersion(): void
@@ -80,5 +83,6 @@ class LambdaClientTest extends TestCase
         $result = $client->PublishLayerVersion($input);
 
         self::assertInstanceOf(PublishLayerVersionResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 }

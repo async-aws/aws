@@ -63,6 +63,7 @@ class SesClientTest extends TestCase
         $result = $client->SendEmail($input);
 
         self::assertInstanceOf(SendEmailResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testSendMessage()

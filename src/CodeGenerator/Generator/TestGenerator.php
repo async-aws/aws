@@ -316,6 +316,7 @@ Action={$operation->getName()}
                 $result = $client->METHOD($input);
 
                 self::assertInstanceOf(RESULT::class, $result);
+                self::assertFalse($result->info()[\'resolved\']);
 
             ', [
                 'CLASS_NAME' => $clientName->getName(),

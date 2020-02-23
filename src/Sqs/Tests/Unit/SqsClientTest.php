@@ -38,6 +38,7 @@ class SqsClientTest extends TestCase
         $result = $client->ChangeMessageVisibility($input);
 
         self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testCreateQueue(): void
@@ -51,6 +52,7 @@ class SqsClientTest extends TestCase
         $result = $client->CreateQueue($input);
 
         self::assertInstanceOf(CreateQueueResult::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testDeleteMessage(): void
@@ -64,6 +66,7 @@ class SqsClientTest extends TestCase
         $result = $client->DeleteMessage($input);
 
         self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testDeleteQueue(): void
@@ -76,6 +79,7 @@ class SqsClientTest extends TestCase
         $result = $client->DeleteQueue($input);
 
         self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testGetQueueAttributes(): void
@@ -89,6 +93,7 @@ class SqsClientTest extends TestCase
         $result = $client->GetQueueAttributes($input);
 
         self::assertInstanceOf(GetQueueAttributesResult::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testGetQueueUrl(): void
@@ -102,6 +107,7 @@ class SqsClientTest extends TestCase
         $result = $client->GetQueueUrl($input);
 
         self::assertInstanceOf(GetQueueUrlResult::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testListQueues(): void
@@ -114,6 +120,7 @@ class SqsClientTest extends TestCase
         $result = $client->ListQueues($input);
 
         self::assertInstanceOf(ListQueuesResult::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testPurgeQueue(): void
@@ -126,6 +133,7 @@ class SqsClientTest extends TestCase
         $result = $client->PurgeQueue($input);
 
         self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testReceiveMessage(): void
@@ -139,6 +147,7 @@ class SqsClientTest extends TestCase
         $result = $client->ReceiveMessage($input);
 
         self::assertInstanceOf(ReceiveMessageResult::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testSendMessage(): void
@@ -153,5 +162,6 @@ class SqsClientTest extends TestCase
         $result = $client->SendMessage($input);
 
         self::assertInstanceOf(SendMessageResult::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 }

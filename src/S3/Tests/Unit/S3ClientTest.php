@@ -47,6 +47,7 @@ class S3ClientTest extends TestCase
         $result = $client->CopyObject($input);
 
         self::assertInstanceOf(CopyObjectOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testCreateBucket(): void
@@ -61,6 +62,7 @@ class S3ClientTest extends TestCase
         $result = $client->CreateBucket($input);
 
         self::assertInstanceOf(CreateBucketOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testDeleteObject(): void
@@ -75,6 +77,7 @@ class S3ClientTest extends TestCase
         $result = $client->DeleteObject($input);
 
         self::assertInstanceOf(DeleteObjectOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testDeleteObjects(): void
@@ -95,6 +98,7 @@ class S3ClientTest extends TestCase
         $result = $client->DeleteObjects($input);
 
         self::assertInstanceOf(DeleteObjectsOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testGetObject(): void
@@ -110,6 +114,7 @@ class S3ClientTest extends TestCase
         $result = $client->GetObject($input);
 
         self::assertInstanceOf(GetObjectOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testGetObjectAcl(): void
@@ -124,6 +129,7 @@ class S3ClientTest extends TestCase
         $result = $client->GetObjectAcl($input);
 
         self::assertInstanceOf(GetObjectAclOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testHeadObject(): void
@@ -139,6 +145,7 @@ class S3ClientTest extends TestCase
         $result = $client->HeadObject($input);
 
         self::assertInstanceOf(HeadObjectOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testListObjectsV2(): void
@@ -152,6 +159,7 @@ class S3ClientTest extends TestCase
         $result = $client->ListObjectsV2($input);
 
         self::assertInstanceOf(ListObjectsV2Output::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testPutObject(): void
@@ -168,6 +176,7 @@ class S3ClientTest extends TestCase
         $result = $client->PutObject($input);
 
         self::assertInstanceOf(PutObjectOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testPutObjectAcl(): void
@@ -184,5 +193,6 @@ class S3ClientTest extends TestCase
         $result = $client->PutObjectAcl($input);
 
         self::assertInstanceOf(PutObjectAclOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 }

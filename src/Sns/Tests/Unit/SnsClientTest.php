@@ -23,5 +23,6 @@ class SnsClientTest extends TestCase
         $result = $client->Publish($input);
 
         self::assertInstanceOf(PublishResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 }

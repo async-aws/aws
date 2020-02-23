@@ -23,6 +23,7 @@ class CloudFormationClientTest extends TestCase
         $result = $client->DescribeStackEvents($input);
 
         self::assertInstanceOf(DescribeStackEventsOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 
     public function testDescribeStacks(): void
@@ -35,5 +36,6 @@ class CloudFormationClientTest extends TestCase
         $result = $client->DescribeStacks($input);
 
         self::assertInstanceOf(DescribeStacksOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 }
