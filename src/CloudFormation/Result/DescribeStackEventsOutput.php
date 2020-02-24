@@ -22,27 +22,14 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
     private $NextToken;
 
     /**
-     * @var self[]
-     */
-    private $prefetch = [];
-
-    public function __destruct()
-    {
-        while (!empty($this->prefetch)) {
-            array_shift($this->prefetch)->cancel();
-        }
-
-        parent::__destruct();
-    }
-
-    /**
      * Iterates over StackEvents.
      *
      * @return \Traversable<StackEvent>
      */
     public function getIterator(): \Traversable
     {
-        if (!$this->awsClient instanceof CloudFormationClient) {
+        $client = $this->awsClient;
+        if (!$client instanceof CloudFormationClient) {
             throw new \InvalidArgumentException('missing client injected in paginated result');
         }
         if (!$this->input instanceof DescribeStackEventsInput) {
@@ -54,8 +41,7 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
             if ($page->getNextToken()) {
                 $input->setNextToken($page->getNextToken());
 
-                $nextPage = $this->awsClient->DescribeStackEvents($input);
-                $this->prefetch[spl_object_hash($nextPage)] = $nextPage;
+                $this->registerPrefetch($nextPage = $client->DescribeStackEvents($input));
             } else {
                 $nextPage = null;
             }
@@ -66,7 +52,7 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
                 break;
             }
 
-            unset($this->prefetch[spl_object_hash($nextPage)]);
+            $this->unregisterPrefetch($nextPage);
             $page = $nextPage;
         }
     }
@@ -92,7 +78,8 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
             return;
         }
 
-        if (!$this->awsClient instanceof CloudFormationClient) {
+        $client = $this->awsClient;
+        if (!$client instanceof CloudFormationClient) {
             throw new \InvalidArgumentException('missing client injected in paginated result');
         }
         if (!$this->input instanceof DescribeStackEventsInput) {
@@ -104,8 +91,7 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
             if ($page->getNextToken()) {
                 $input->setNextToken($page->getNextToken());
 
-                $nextPage = $this->awsClient->DescribeStackEvents($input);
-                $this->prefetch[spl_object_hash($nextPage)] = $nextPage;
+                $this->registerPrefetch($nextPage = $client->DescribeStackEvents($input));
             } else {
                 $nextPage = null;
             }
@@ -116,7 +102,7 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
                 break;
             }
 
-            unset($this->prefetch[spl_object_hash($nextPage)]);
+            $this->unregisterPrefetch($nextPage);
             $page = $nextPage;
         }
     }
