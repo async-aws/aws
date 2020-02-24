@@ -9,16 +9,22 @@ use Symfony\Component\HttpClient\MockHttpClient;
 
 class PublishResponseTest extends TestCase
 {
+    /**
+     * @see https://docs.aws.amazon.com/sns/latest/api/API_Publish.html#API_Publish_Examples
+     */
     public function testPublishResponse(): void
     {
-        self::markTestIncomplete('Not implemented');
-
-        $response = new SimpleMockedResponse('<?xml version="1.0" encoding="UTF-8"?>
-            <ChangeIt/>
-        ');
+        $response = new SimpleMockedResponse('<PublishResponse xmlns="https://sns.amazonaws.com/doc/2010-03-31/">
+    <PublishResult>
+        <MessageId>567910cd-659e-55d4-8ccb-5aaf14679dc0</MessageId>
+    </PublishResult>
+    <ResponseMetadata>
+        <RequestId>d74b8436-ae13-5ab4-a9ff-ce54dfea72a0</RequestId>
+    </ResponseMetadata>
+</PublishResponse>');
 
         $result = new PublishResponse($response, new MockHttpClient());
 
-        self::assertStringContainsString('change it', $result->getMessageId());
+        self::assertEquals('567910cd-659e-55d4-8ccb-5aaf14679dc0', $result->getMessageId());
     }
 }
