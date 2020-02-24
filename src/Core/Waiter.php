@@ -49,6 +49,13 @@ class Waiter
      */
     private $finalState;
 
+    /**
+     * A Result can be resolved many times. This variable contains the last resolve result.
+     *
+     * @var bool|NetworkException|null
+     */
+    private $resolveResult;
+
     public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, AbstractApi $awsClient, $request)
     {
         $this->response = $response;
@@ -59,8 +66,8 @@ class Waiter
 
     public function __destruct()
     {
-        if (null !== $this->response) {
-            $this->response->cancel();
+        if (null === $this->resolveResult) {
+            $this->resolve();
         }
     }
 
@@ -114,7 +121,6 @@ class Waiter
      * Make sure the actual request is executed.
      *
      * @param float|null $timeout Duration in seconds before aborting. When null wait until the end of execution.
-     * > When null wait until the end of execution => not what the code does, isn't it? See proposal in Result.php
      *
      * @return bool whether the request is executed or not
      *
@@ -122,20 +128,39 @@ class Waiter
      */
     final public function resolve(?float $timeout = null): bool
     {
-        if (null === $this->response) {// calling twice resolve() in a row will yield strange results I think
+        if (null !== $this->resolveResult) {
+            if ($this->resolveResult instanceof \Exception) {
+                throw $this->resolveResult;
+            }
+
+            if (\is_bool($this->resolveResult)) {
+                return $this->resolveResult;
+            }
+        }
+
+        if (null === $this->response) {
             return true;
         }
 
         try {
-            if (null !== $timeout && $this->httpClient->stream($this->response, $timeout)->current()->isTimeout()) {
-                return false;
+            if (null !== $timeout) {
+                foreach ($this->httpClient->stream($this->response, $timeout) as $chunk) {
+                    if ($chunk->isTimeout()) {
+                        return false;
+                    }
+                    if ($chunk->isFirst()) {
+                        break;
+                    }
+                }
             }
+
+            // Download the first bits of the response
+            $this->response->getStatusCode();
         } catch (TransportExceptionInterface $e) {
-            // When a network error occurs
-            throw new NetworkException('Could not contact remote server.', 0, $e);
+            throw $this->resolveResult = new NetworkException('Could not contact remote server.', 0, $e);
         }
 
-        return true;
+        return $this->resolveResult = true;
     }
 
     /**
@@ -151,12 +176,12 @@ class Waiter
     {
         if (null === $this->response) {
             return [
-                'resolved' => true,
+                'resolved' => null !== $this->resolveResult,
             ];
         }
 
         return [
-            'resolved' => false,
+            'resolved' => null !== $this->resolveResult,
             'response' => $this->response,
             'status' => (int) $this->response->getInfo('http_code'),
         ];
@@ -169,6 +194,8 @@ class Waiter
         }
 
         $this->response->cancel();
+        $this->resolveResult = false;
+        $this->response = null;
     }
 
     /**
@@ -198,7 +225,7 @@ class Waiter
             if ($delay > $timeout - (\microtime(true) - $start)) {
                 break;
             }
-            \usleep((int) ceil($delay * 1000000)); // This looks suspicious, there should be never be a need to sleep to me
+            \usleep((int) ceil($delay * 1000000));
             $this->stealResponse($this->refreshState());
         }
 
@@ -219,5 +246,7 @@ class Waiter
     {
         $this->response = $waiter->response;
         $waiter->response = null;
+        $waiter->resolveResult = true;
+        $this->resolveResult = null;
     }
 }

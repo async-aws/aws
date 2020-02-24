@@ -111,7 +111,7 @@ class PublishLayerVersionResponse extends Result
 
     protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
     {
-        $data = $response->getContent(false)->toArray();
+        $data = $response->toArray(false);
 
         $this->Content = new LayerVersionContentOutput([
             'Location' => isset($data['Content']['Location']) ? (string) $data['Content']['Location'] : null,

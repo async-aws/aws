@@ -47,7 +47,7 @@ class SimpleMockedResponse implements ResponseInterface
 
     public function toArray(bool $throw = true): array
     {
-        throw new \LogicException('Not implemented');
+        return \json_decode($this->getContent($throw), true);
     }
 
     public function cancel(): void
