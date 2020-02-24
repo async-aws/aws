@@ -8,6 +8,7 @@ use AsyncAws\Core\Configuration;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -37,7 +38,7 @@ class InstanceProvider implements CredentialProvider
     {
         // fetch current Profile
         try {
-            $response = $this->httpClient->request('GET', self::ENDPOINT, ['timeout' => 1.0]);
+            $response = $this->httpClient->request('GET', self::ENDPOINT, ['timeout' => 1.0]); // why hardcode 1.0 (same below)?
             $profile = $response->getContent();
         } catch (TransportExceptionInterface $e) {
             $this->logger->info('Failed to fetch Profile from Instance Metadata.', ['exception' => $e]);
@@ -52,17 +53,16 @@ class InstanceProvider implements CredentialProvider
         // fetch credentials from profile
         try {
             $response = $this->httpClient->request('GET', self::ENDPOINT . '/' . $profile, ['timeout' => 1.0]);
-            $result = \json_decode($response->getContent(), true);
-            if (\json_last_error() > 0) {
-                $this->logger->info('Failed to decode Credentials.', ['error' => \json_last_error_msg()]);
-
-                return null;
-            }
+            $result = $response->getContent()->toArray()
             if ('Success' !== $result['Code']) {
                 $this->logger->info('Unexpected instance profile.', ['response_code' => $result['Code']]);
 
                 return null;
             }
+        } catch (DecodingExceptionInterface $e) {
+            $this->logger->info('Failed to decode Credentials.', ['exception' => $e]);
+
+            return null;
         } catch (TransportExceptionInterface $e) {
             $this->logger->info('Failed to fetch Profile from Instance Metadata.', ['exception' => $e]);
 

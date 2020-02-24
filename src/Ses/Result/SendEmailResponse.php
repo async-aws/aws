@@ -22,7 +22,7 @@ class SendEmailResponse extends Result
 
     protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
     {
-        $data = json_decode($response->getContent(false), true);
+        $data = $response->toArray(false);
 
         $this->MessageId = isset($data['MessageId']) ? (string) $data['MessageId'] : null;
     }

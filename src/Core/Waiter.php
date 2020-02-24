@@ -59,7 +59,7 @@ class Waiter
 
     public function __destruct()
     {
-        if (isset($this->response)) {
+        if (null !== $this->response) {
             $this->response->cancel();
         }
     }
@@ -85,7 +85,7 @@ class Waiter
             return $this->finalState;
         }
 
-        if (!isset($this->response)) {
+        if (null === $this->response) {
             $this->stealResponse($this->refreshState());
         }
 
@@ -93,7 +93,7 @@ class Waiter
         $this->resolve();
 
         $state = $this->extractState($this->response, $exception);
-        unset($this->response);
+        $this->response = null;
 
         switch ($state) {
             case self::STATE_SUCCESS:
@@ -114,6 +114,7 @@ class Waiter
      * Make sure the actual request is executed.
      *
      * @param float|null $timeout Duration in seconds before aborting. When null wait until the end of execution.
+     * > When null wait until the end of execution => not what the code does, isn't it? See proposal in Result.php
      *
      * @return bool whether the request is executed or not
      *
@@ -121,7 +122,7 @@ class Waiter
      */
     final public function resolve(?float $timeout = null): bool
     {
-        if (!isset($this->response)) {
+        if (null === $this->response) {// calling twice resolve() in a row will yield strange results I think
             return true;
         }
 
@@ -148,7 +149,7 @@ class Waiter
      */
     final public function info(): array
     {
-        if (!isset($this->response)) {
+        if (null === $this->response) {
             return [
                 'resolved' => true,
             ];
@@ -163,7 +164,7 @@ class Waiter
 
     final public function cancel(): void
     {
-        if (!isset($this->response)) {
+        if (null === $this->response) {
             return;
         }
 
@@ -197,7 +198,7 @@ class Waiter
             if ($delay > $timeout - (\microtime(true) - $start)) {
                 break;
             }
-            \usleep((int) ceil($delay * 1000000));
+            \usleep((int) ceil($delay * 1000000)); // This looks suspicious, there should be never be a need to sleep to me
             $this->stealResponse($this->refreshState());
         }
 
@@ -217,6 +218,6 @@ class Waiter
     private function stealResponse(self $waiter): void
     {
         $this->response = $waiter->response;
-        unset($waiter->response);
+        $waiter->response = null;
     }
 }

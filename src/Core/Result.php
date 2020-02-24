@@ -85,20 +85,22 @@ class Result
      */
     final public function resolve(?float $timeout = null): bool
     {
-        if (!isset($this->response)) {
+        if ($this->isResolved) {
             return true;
         }
 
-        try {
-            if (null !== $timeout && $this->httpClient->stream($this->response, $timeout)->current()->isTimeout()) {
-                return false;
+        foreach ($this->httpClient->stream($this->response, $timeout) as $chunk) {
+            try {
+                if ($chunk->isTimeout()) {
+                    return false;
+                }
+                if ($chunk->isFirst()) {
+                    $statusCode = $this->response->getStatusCode();
+                    break;
+                }
+            } catch (TransportExceptionInterface $e) {
+                throw new NetworkException('Could not contact remote server.', 0, $e);
             }
-            $statusCode = $this->response->getStatusCode();
-        } catch (TransportExceptionInterface $e) {
-            // When a network error occurs
-            $this->isResolved = true;
-
-            throw new NetworkException('Could not contact remote server.', 0, $e);
         }
 
         $this->isResolved = true;
@@ -128,7 +130,7 @@ class Result
      */
     final public function info(): array
     {
-        if (!isset($this->response)) {
+        if (null === $this->response) {
             return [
                 'resolved' => $this->isResolved,
             ];
@@ -143,35 +145,33 @@ class Result
 
     final public function cancel(): void
     {
-        if (!isset($this->response)) {
+        if (null === $this->response) {
             return;
         }
 
         $this->response->cancel();
-        unset($this->response);
+        $this->response = null;
     }
 
     final protected function registerPrefetch(self $result): void
     {
-        $this->prefetchResults[spl_object_hash($result)] = $result;
+        $this->prefetchResults[spl_object_id($result)] = $result;
     }
 
     final protected function unregisterPrefetch(self $result): void
     {
-        unset($this->prefetchResults[spl_object_hash($result)]);
+        unset($this->prefetchResults[spl_object_id($result)]);
     }
 
     final protected function initialize(): void
     {
-        if (!isset($this->response)) {
+        if (null === $this->response) {
             return;
         }
         $this->resolve();
         $this->populateResult($this->response, $this->httpClient);
-        unset($this->response);
-        if (isset($this->httpClient)) {
-            unset($this->httpClient);
-        }
+        $this->response = null;
+        $this->httpClient = null;
     }
 
     protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void

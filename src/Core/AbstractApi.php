@@ -97,7 +97,7 @@ abstract class AbstractApi
      */
     final protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null): ResponseInterface
     {
-        $body = $this->stringifyBody($body);
+        $body = $this->stringifyBody($body); // can't we keep the streaming upload behavior?
         if (!isset($headers['content-type'])) {
             $headers['content-type'] = 'text/plain';
         }
