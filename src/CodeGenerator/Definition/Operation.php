@@ -22,6 +22,11 @@ class Operation
     private $pagination;
 
     /**
+     * @var Example
+     */
+    private $example;
+
+    /**
      * @var \Closure
      */
     private $shapeLocator;
@@ -30,12 +35,13 @@ class Operation
     {
     }
 
-    public static function create(array $data, ServiceDefinition $service, ?Pagination $pagination, \Closure $shapeLocator): self
+    public static function create(array $data, ServiceDefinition $service, ?Pagination $pagination, Example $example, \Closure $shapeLocator): self
     {
         $operation = new self();
         $operation->data = $data;
         $operation->service = $service;
         $operation->pagination = $pagination;
+        $operation->example = $example;
         $operation->shapeLocator = $shapeLocator;
 
         return $operation;
@@ -64,6 +70,11 @@ class Operation
     public function getPagination(): ?Pagination
     {
         return $this->pagination;
+    }
+
+    public function getExample(): Example
+    {
+        return $this->example;
     }
 
     public function getOutput(): ?StructureShape

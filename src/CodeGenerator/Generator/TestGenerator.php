@@ -82,23 +82,25 @@ class TestGenerator
         $class->setExtends([TestCase::class]);
         $namespace->addUse(TestCase::class);
 
+        $exampleInput = $operation->getExample()->getInput();
+        $comment = $exampleInput ? '// see example-1.json from SDK' : '// see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_METHOD.html';
         switch ($operation->getService()->getProtocol()) {
             case 'rest-xml':
-                $stub = '$expected = "<ChangeIt/>";';
+                $stub = sprintf('$expected = %s;', var_export($this->arrayToXml($exampleInput ?? ['change' => 'it']), true));
                 $assert = 'self::assertXmlStringEqualsXmlString($expected, $input->requestBody());';
 
                 break;
             case 'rest-json':
             case 'json':
-                $stub = '$expected = \'{"change": "it"}\';';
+                $stub = sprintf('$expected = %s;', var_export(\json_encode($exampleInput ?? ['change' => 'it'], \JSON_PRETTY_PRINT), true));
                 $assert = 'self::assertJsonStringEqualsJsonString($expected, $input->requestBody());';
 
                 break;
             case 'query':
-                $stub = "\$expected = '
+                $stub = sprintf('$expected = %s;', var_export($exampleInput ? $exampleInput : "
     Action={$operation->getName()}
     &Version={$operation->getApiVersion()}
-';";
+", true));
                 $assert = 'self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());';
 
                 break;
@@ -113,7 +115,7 @@ class TestGenerator
 
                 $input = INPUT_CONSTRUCTOR;
 
-                /** @see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_METHOD.html */
+                ' . $comment . '
                 STUB
 
                 ASSERT
@@ -153,22 +155,21 @@ class TestGenerator
         $namespace->addUse(SimpleMockedResponse::class);
         $namespace->addUse(MockHttpClient::class);
 
+        $exampleOutput = $operation->getExample()->getOutput();
+        $comment = $exampleOutput ? '// see example-1.json from SDK' : '// see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_METHOD.html';
         switch ($operation->getService()->getProtocol()) {
             case 'rest-xml':
             case 'query':
-                $stub = '$response = new SimpleMockedResponse(\'<?xml version="1.0" encoding="UTF-8"?>
-    <ChangeIt/>
-\');';
+                $stub = sprintf('$response = new SimpleMockedResponse(%s);', var_export($this->arrayToXml($exampleOutput ?? ['change' => 'it']), true));
 
                 break;
             case 'rest-json':
             case 'json':
-            $stub = '$response = new SimpleMockedResponse(\'{"change": "it"}\');';
+                $stub = sprintf('$response = new SimpleMockedResponse(%s);', var_export(\json_encode($exampleOutput ?? ['change' => 'it'], \JSON_PRETTY_PRINT), true));
 
                 break;
             default:
                 throw new \InvalidArgumentException(sprintf('unexpected protocol "%s".', $operation->getService()->getProtocol()));
-
         }
 
         $class->addMethod($methodName)
@@ -176,6 +177,7 @@ class TestGenerator
             ->setBody(strtr('
                 MARKER
 
+                ' . $comment . '
                 STUB
 
                 $client = new MockHttpClient($response);
@@ -388,6 +390,36 @@ class TestGenerator
         $this->fileWriter->write($namespace);
 
         return [$namespace, $class];
+    }
+
+    private function arrayToXml(array $data): string
+    {
+        $xml = new \SimpleXMLElement('<root/>');
+        $f = function (\SimpleXMLElement $element, array $data) use (&$f) {
+            foreach ($data as $key => $value) {
+                if (\is_array($value)) {
+                    if (!is_numeric($key)) {
+                        $f($element->addChild($key), $value);
+                    } else {
+                        $f($element->addChild("key_$key"), $value);
+                    }
+                } else {
+                    if (!is_numeric($key)) {
+                        $element->addChild($key, (string) $value);
+                    } else {
+                        $element->addChild("key_$key", $value);
+                    }
+                }
+            }
+        };
+        $f($xml, $data);
+
+        $dom = new \DOMDocument();
+        $dom->preserveWhiteSpace = false;
+        $dom->loadXML($xml->asXML());
+        $dom->formatOutput = true;
+
+        return $dom->saveXml($dom->firstChild->firstChild);
     }
 }
 

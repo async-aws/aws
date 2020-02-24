@@ -3,8 +3,8 @@
 namespace AsyncAws\Lambda\Tests\Unit\Result;
 
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Lambda\Result\PublishLayerVersionResponse;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class PublishLayerVersionResponseTest extends TestCase
@@ -13,18 +13,21 @@ class PublishLayerVersionResponseTest extends TestCase
     {
         self::markTestIncomplete('Not implemented');
 
-        $response = new SimpleMockedResponse('{"change": "it"}');
+        // see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_METHOD.html
+        $response = new SimpleMockedResponse('{
+            "change": "it"
+        }');
 
         $client = new MockHttpClient($response);
         $result = new PublishLayerVersionResponse($client->request('POST', 'http://localhost'), $client);
 
         // self::assertTODO(expected, $result->getContent());
-        self::assertStringContainsString('change it', $result->getLayerArn());
-        self::assertStringContainsString('change it', $result->getLayerVersionArn());
-        self::assertStringContainsString('change it', $result->getDescription());
-        self::assertStringContainsString('change it', $result->getCreatedDate());
+        self::assertSame('changeIt', $result->getLayerArn());
+        self::assertSame('changeIt', $result->getLayerVersionArn());
+        self::assertSame('changeIt', $result->getDescription());
+        self::assertSame('changeIt', $result->getCreatedDate());
         self::assertSame(1337, $result->getVersion());
         // self::assertTODO(expected, $result->getCompatibleRuntimes());
-        self::assertStringContainsString('change it', $result->getLicenseInfo());
+        self::assertSame('changeIt', $result->getLicenseInfo());
     }
 }

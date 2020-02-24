@@ -3,8 +3,8 @@
 namespace AsyncAws\S3\Tests\Unit\Result;
 
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Result\CopyObjectOutput;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class CopyObjectOutputTest extends TestCase
@@ -13,22 +13,24 @@ class CopyObjectOutputTest extends TestCase
     {
         self::markTestIncomplete('Not implemented');
 
-        $response = new SimpleMockedResponse('<?xml version="1.0" encoding="UTF-8"?>
-            <ChangeIt/>
-        ');
+        // see example-1.json from SDK
+        $response = new SimpleMockedResponse('<CopyObjectResult>
+          <ETag>"6805f2cfc46c0f04559748bb039d69ae"</ETag>
+          <LastModified>2016-12-15T17:38:53.000Z</LastModified>
+        </CopyObjectResult>');
 
         $client = new MockHttpClient($response);
         $result = new CopyObjectOutput($client->request('POST', 'http://localhost'), $client);
 
         // self::assertTODO(expected, $result->getCopyObjectResult());
-        self::assertStringContainsString('change it', $result->getExpiration());
-        self::assertStringContainsString('change it', $result->getCopySourceVersionId());
-        self::assertStringContainsString('change it', $result->getVersionId());
-        self::assertStringContainsString('change it', $result->getServerSideEncryption());
-        self::assertStringContainsString('change it', $result->getSSECustomerAlgorithm());
-        self::assertStringContainsString('change it', $result->getSSECustomerKeyMD5());
-        self::assertStringContainsString('change it', $result->getSSEKMSKeyId());
-        self::assertStringContainsString('change it', $result->getSSEKMSEncryptionContext());
-        self::assertStringContainsString('change it', $result->getRequestCharged());
+        self::assertSame('changeIt', $result->getExpiration());
+        self::assertSame('changeIt', $result->getCopySourceVersionId());
+        self::assertSame('changeIt', $result->getVersionId());
+        self::assertSame('changeIt', $result->getServerSideEncryption());
+        self::assertSame('changeIt', $result->getSSECustomerAlgorithm());
+        self::assertSame('changeIt', $result->getSSECustomerKeyMD5());
+        self::assertSame('changeIt', $result->getSSEKMSKeyId());
+        self::assertSame('changeIt', $result->getSSEKMSEncryptionContext());
+        self::assertSame('changeIt', $result->getRequestCharged());
     }
 }

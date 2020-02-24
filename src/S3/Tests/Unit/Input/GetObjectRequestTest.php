@@ -2,8 +2,8 @@
 
 namespace AsyncAws\S3\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Input\GetObjectRequest;
-use PHPUnit\Framework\TestCase;
 
 class GetObjectRequestTest extends TestCase
 {
@@ -33,7 +33,8 @@ class GetObjectRequestTest extends TestCase
             'PartNumber' => 1337,
         ]);
 
-        $expected = '<ChangeIt/>';
+        // see example-1.json from SDK
+        $expected = '<Bucket>examplebucket</Bucket>';
 
         self::assertXmlStringEqualsXmlString($expected, $input->requestBody());
     }

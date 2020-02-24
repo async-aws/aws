@@ -2,9 +2,9 @@
 
 namespace AsyncAws\Lambda\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Lambda\Input\LayerVersionContentInput;
 use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
-use PHPUnit\Framework\TestCase;
 
 class PublishLayerVersionRequestTest extends TestCase
 {
@@ -25,7 +25,10 @@ class PublishLayerVersionRequestTest extends TestCase
             'LicenseInfo' => 'change me',
         ]);
 
-        $expected = '{"change": "it"}';
+        // see https://docs.aws.amazon.com/Lambda/latest/APIReference/API_PublishLayerVersion.html
+        $expected = '{
+            "change": "it"
+        }';
 
         self::assertJsonStringEqualsJsonString($expected, $input->requestBody());
     }

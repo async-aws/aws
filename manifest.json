@@ -5,6 +5,7 @@
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/cloudformation\/2010-05-15\/docs-2.json",
             "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/cloudformation\/2010-05-15\/paginators-1.json",
             "waiter": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/cloudformation\/2010-05-15\/waiters-2.json",
+            "example": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/cloudformation\/2010-05-15\/examples-1.json",
             "methods": {
                 "DescribeStacks": [],
                 "DescribeStackEvents": []
@@ -15,6 +16,7 @@
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/lambda\/2015-03-31\/docs-2.json",
             "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/lambda\/2015-03-31\/paginators-1.json",
             "waiter": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/lambda\/2015-03-31\/waiters-2.json",
+            "example": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/lambda\/2015-03-31\/examples-1.json",
             "methods": {
                 "ListLayerVersions": [],
                 "Invoke": [],
@@ -27,6 +29,7 @@
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/s3\/2006-03-01\/docs-2.json",
             "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/s3\/2006-03-01\/paginators-1.json",
             "waiter": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/s3\/2006-03-01\/waiters-2.json",
+            "example": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/s3\/2006-03-01\/examples-1.json",
             "methods": {
                 "PutObject": [],
                 "CreateBucket": [],
@@ -44,6 +47,7 @@
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sesv2\/2019-09-27\/api-2.json",
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sesv2\/2019-09-27\/docs-2.json",
             "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sesv2\/2019-09-27\/paginators-1.json",
+            "example": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/email\/2010-12-01\/examples-1.json",
             "methods": {
                 "SendEmail": []
             }
@@ -52,6 +56,7 @@
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sns\/2010-03-31\/api-2.json",
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sns\/2010-03-31\/docs-2.json",
             "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sns\/2010-03-31\/paginators-1.json",
+            "example": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sns\/2010-03-31\/examples-1.json",
             "methods": {
                 "Publish": []
             }
@@ -61,6 +66,7 @@
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sqs\/2012-11-05\/docs-2.json",
             "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sqs\/2012-11-05\/paginators-1.json",
             "waiter": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sqs\/2012-11-05\/waiters-2.json",
+            "example": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/3.133.6\/src\/data\/sqs\/2012-11-05\/examples-1.json",
             "methods": {
                 "SendMessage": [],
                 "DeleteMessage": [],

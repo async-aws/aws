@@ -3,8 +3,8 @@
 namespace AsyncAws\S3\Tests\Unit\Result;
 
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Result\DeleteObjectOutput;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class DeleteObjectOutputTest extends TestCase
@@ -13,15 +13,14 @@ class DeleteObjectOutputTest extends TestCase
     {
         self::markTestIncomplete('Not implemented');
 
-        $response = new SimpleMockedResponse('<?xml version="1.0" encoding="UTF-8"?>
-            <ChangeIt/>
-        ');
+        // see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_METHOD.html
+        $response = new SimpleMockedResponse('<change>it</change>');
 
         $client = new MockHttpClient($response);
         $result = new DeleteObjectOutput($client->request('POST', 'http://localhost'), $client);
 
         self::assertFalse($result->getDeleteMarker());
-        self::assertStringContainsString('change it', $result->getVersionId());
-        self::assertStringContainsString('change it', $result->getRequestCharged());
+        self::assertSame('changeIt', $result->getVersionId());
+        self::assertSame('changeIt', $result->getRequestCharged());
     }
 }

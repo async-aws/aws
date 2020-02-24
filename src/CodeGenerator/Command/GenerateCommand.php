@@ -89,6 +89,7 @@ class GenerateCommand extends Command
             $documentationArray = $this->loadFile($manifest['services'][$serviceName]['documentation']);
             $paginationArray = $this->loadFile($manifest['services'][$serviceName]['pagination']);
             $waiterArray = isset($manifest['services'][$serviceName]['waiter']) ? $this->loadFile($manifest['services'][$serviceName]['waiter']) : ['waiters' => []];
+            $exampleArray = isset($manifest['services'][$serviceName]['example']) ? $this->loadFile($manifest['services'][$serviceName]['example']) : ['examples' => []];
             if (\count($serviceNames) > 1) {
                 $operationNames = $this->getOperationNames(null, true, $io, $definitionArray, $waiterArray, $manifest['services'][$serviceName]);
             } else {
@@ -100,7 +101,7 @@ class GenerateCommand extends Command
 
             $progressOperation->start(\count($operationNames));
 
-            $definition = new ServiceDefinition($serviceName, $definitionArray, $documentationArray, $paginationArray, $waiterArray);
+            $definition = new ServiceDefinition($serviceName, $definitionArray, $documentationArray, $paginationArray, $waiterArray, $exampleArray);
             $serviceGenerator = $this->generator->service($manifest['services'][$serviceName]['namespace'] ?? \sprintf('AsyncAws\\%s', $serviceName));
 
             $clientClass = $serviceGenerator->client()->generate($definition);

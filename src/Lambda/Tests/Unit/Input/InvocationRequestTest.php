@@ -2,8 +2,8 @@
 
 namespace AsyncAws\Lambda\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Lambda\Input\InvocationRequest;
-use PHPUnit\Framework\TestCase;
 
 class InvocationRequestTest extends TestCase
 {
@@ -20,15 +20,23 @@ class InvocationRequestTest extends TestCase
         self::markTestIncomplete('Not implemented');
 
         $input = new InvocationRequest([
-            'FunctionName' => 'change me',
-            'InvocationType' => 'change me',
-            'LogType' => 'change me',
-            'ClientContext' => 'change me',
-            'Payload' => 'change me',
-            'Qualifier' => 'change me',
+            'FunctionName' => 'MyFunction',
+            'InvocationType' => 'Event',
+            'LogType' => 'Tail',
+            'ClientContext' => 'MyApp',
+            'Payload' => 'fileb://file-path/input.json',
+            'Qualifier' => '1',
         ]);
 
-        $expected = '{"change": "it"}';
+        // see example-1.json from SDK
+        $expected = '{
+            "ClientContext": "MyApp",
+            "FunctionName": "MyFunction",
+            "InvocationType": "Event",
+            "LogType": "Tail",
+            "Payload": "fileb:\\/\\/file-path\\/input.json",
+            "Qualifier": "1"
+        }';
 
         self::assertJsonStringEqualsJsonString($expected, $input->requestBody());
     }

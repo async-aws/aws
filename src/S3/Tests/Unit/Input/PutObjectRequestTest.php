@@ -2,8 +2,8 @@
 
 namespace AsyncAws\S3\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Input\PutObjectRequest;
-use PHPUnit\Framework\TestCase;
 
 class PutObjectRequestTest extends TestCase
 {
@@ -60,7 +60,8 @@ class PutObjectRequestTest extends TestCase
             'ObjectLockLegalHoldStatus' => 'change me',
         ]);
 
-        $expected = '<ChangeIt/>';
+        // see example-1.json from SDK
+        $expected = '<Body>HappyFace.jpg</Body>';
 
         self::assertXmlStringEqualsXmlString($expected, $input->requestBody());
     }
