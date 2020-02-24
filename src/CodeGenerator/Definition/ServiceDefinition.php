@@ -21,13 +21,16 @@ class ServiceDefinition
 
     private $waiter;
 
-    public function __construct(string $name, array $definition, array $documentation, array $pagination, array $waiter)
+    private $example;
+
+    public function __construct(string $name, array $definition, array $documentation, array $pagination, array $waiter, array $example)
     {
         $this->name = $name;
         $this->definition = $definition;
         $this->documentation = $documentation;
         $this->pagination = $pagination;
         $this->waiter = $waiter;
+        $this->example = $example;
     }
 
     public function getName(): string
@@ -45,6 +48,7 @@ class ServiceDefinition
                 ],
                 $this,
                 $this->getPagination($name),
+                $this->getExample($name),
                 $this->createClosureToFindShape()
             );
         }
@@ -93,6 +97,11 @@ class ServiceDefinition
         }
 
         return null;
+    }
+
+    private function getExample(string $name): Example
+    {
+        return Example::create($this->example['examples'][$name][0] ?? []);
     }
 
     private function getShape(string $name, ?Member $member, array $extra): ?Shape

@@ -2,8 +2,8 @@
 
 namespace AsyncAws\Lambda\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
-use PHPUnit\Framework\TestCase;
 
 class ListLayerVersionsRequestTest extends TestCase
 {
@@ -18,7 +18,10 @@ class ListLayerVersionsRequestTest extends TestCase
             'MaxItems' => 1337,
         ]);
 
-        $expected = '{"change": "it"}';
+        // see https://docs.aws.amazon.com/Lambda/latest/APIReference/API_ListLayerVersions.html
+        $expected = '{
+            "change": "it"
+        }';
 
         self::assertJsonStringEqualsJsonString($expected, $input->requestBody());
     }

@@ -2,8 +2,8 @@
 
 namespace AsyncAws\S3\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Input\DeleteObjectRequest;
-use PHPUnit\Framework\TestCase;
 
 class DeleteObjectRequestTest extends TestCase
 {
@@ -20,7 +20,8 @@ class DeleteObjectRequestTest extends TestCase
             'BypassGovernanceRetention' => false,
         ]);
 
-        $expected = '<ChangeIt/>';
+        // see example-1.json from SDK
+        $expected = '<Bucket>ExampleBucket</Bucket>';
 
         self::assertXmlStringEqualsXmlString($expected, $input->requestBody());
     }

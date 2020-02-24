@@ -2,8 +2,8 @@
 
 namespace AsyncAws\S3\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Input\GetObjectAclRequest;
-use PHPUnit\Framework\TestCase;
 
 class GetObjectAclRequestTest extends TestCase
 {
@@ -18,7 +18,8 @@ class GetObjectAclRequestTest extends TestCase
             'RequestPayer' => 'change me',
         ]);
 
-        $expected = '<ChangeIt/>';
+        // see example-1.json from SDK
+        $expected = '<Bucket>examplebucket</Bucket>';
 
         self::assertXmlStringEqualsXmlString($expected, $input->requestBody());
     }

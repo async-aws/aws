@@ -2,86 +2,78 @@
 
 namespace AsyncAws\Ses\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Ses\Input\Body;
 use AsyncAws\Ses\Input\Content;
 use AsyncAws\Ses\Input\Destination;
 use AsyncAws\Ses\Input\EmailContent;
 use AsyncAws\Ses\Input\Message;
-use AsyncAws\Ses\Input\MessageTag;
 use AsyncAws\Ses\Input\SendEmailRequest;
-use PHPUnit\Framework\TestCase;
 
 class SendEmailRequestTest extends TestCase
 {
     public function testRequestBody(): void
     {
+        self::markTestIncomplete('Not implemented');
+
         $input = new SendEmailRequest([
             'FromEmailAddress' => 'jeremy@derusse.com',
             'Destination' => new Destination([
-                'ToAddresses' => ['jeremy+to@derusse.com'],
-                'CcAddresses' => ['jeremy+cc@derusse.'],
-                'BccAddresses' => ['jeremy+bcc@derusse.'],
+                'ToAddresses' => ['recipient1@example.com', 'recipient2@example.com'],
+                'CcAddresses' => ['recipient3@example.com'],
+                'BccAddresses' => [],
             ]),
-            'ReplyToAddresses' => ['jeremy+reply@derusse.com'],
+            'ReplyToAddresses' => [],
             'Content' => new EmailContent([
                 'Simple' => new Message([
                     'Subject' => new Content([
-                        'Data' => 'email subject',
-                        'Charset' => 'utf-8',
+                        'Data' => 'Test email',
+                        'Charset' => 'UTF-8',
                     ]),
                     'Body' => new Body([
                         'Text' => new Content([
-                            'Data' => 'email body',
-                            'Charset' => 'utf-8',
+                            'Data' => 'This is the message body in text format.',
+                            'Charset' => 'UTF-8',
+                        ]),
+                        'Html' => new Content([
+                            'Data' => 'This message body contains HTML formatting. It can, for example, contain links like this one: <a class="ulink" href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide" target="_blank">Amazon SES Developer Guide</a>.',
+                            'Charset' => 'UTF-8',
                         ]),
                     ]),
                 ]),
             ]),
-            'EmailTags' => [new MessageTag([
-                'Name' => 'team',
-                'Value' => 'engineering',
-            ])],
         ]);
 
-        /** Used aws-sdk to generate the output */
+        // see example-1.json from SDK
         $expected = '{
-            "Action": "SendEmail",
-            "Version": "2019-09-27",
             "FromEmailAddress": "jeremy@derusse.com",
             "Destination": {
-                "ToAddresses": [
-                    "jeremy+to@derusse.com"
-                ],
+                "BccAddresses": [],
                 "CcAddresses": [
-                    "jeremy+cc@derusse."
+                    "recipient3@example.com"
                 ],
-                "BccAddresses": [
-                    "jeremy+bcc@derusse."
+                "ToAddresses": [
+                    "recipient1@example.com",
+                    "recipient2@example.com"
                 ]
             },
-            "ReplyToAddresses": [
-                "jeremy+reply@derusse.com"
-            ],
-            "Content": {
-                "Simple": {
-                    "Subject": {
-                        "Data": "email subject",
-                        "Charset": "utf-8"
+            "Message": {
+                "Body": {
+                    "Html": {
+                        "Charset": "UTF-8",
+                        "Data": "This message body contains HTML formatting. It can, for example, contain links like this one: <a class=\\"ulink\\" href=\\"http:\\/\\/docs.aws.amazon.com\\/ses\\/latest\\/DeveloperGuide\\" target=\\"_blank\\">Amazon SES Developer Guide<\\/a>."
                     },
-                    "Body": {
-                        "Text": {
-                            "Data": "email body",
-                            "Charset": "utf-8"
-                        }
+                    "Text": {
+                        "Charset": "UTF-8",
+                        "Data": "This is the message body in text format."
                     }
+                },
+                "Subject": {
+                    "Charset": "UTF-8",
+                    "Data": "Test email"
                 }
             },
-            "EmailTags": [
-                {
-                  "Name": "team",
-                  "Value": "engineering"
-                }
-            ]
+            "ReplyToAddresses": [],
         }';
 
         self::assertJsonStringEqualsJsonString($expected, $input->requestBody());

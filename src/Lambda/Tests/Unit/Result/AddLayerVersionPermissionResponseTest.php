@@ -3,8 +3,8 @@
 namespace AsyncAws\Lambda\Tests\Unit\Result;
 
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Lambda\Result\AddLayerVersionPermissionResponse;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class AddLayerVersionPermissionResponseTest extends TestCase
@@ -13,11 +13,14 @@ class AddLayerVersionPermissionResponseTest extends TestCase
     {
         self::markTestIncomplete('Not implemented');
 
-        $response = new SimpleMockedResponse('{"change": "it"}');
+        // see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_METHOD.html
+        $response = new SimpleMockedResponse('{
+            "change": "it"
+        }');
 
         $result = new AddLayerVersionPermissionResponse($response, new MockHttpClient());
 
-        self::assertStringContainsString('change it', $result->getStatement());
-        self::assertStringContainsString('change it', $result->getRevisionId());
+        self::assertSame('changeIt', $result->getStatement());
+        self::assertSame('changeIt', $result->getRevisionId());
     }
 }

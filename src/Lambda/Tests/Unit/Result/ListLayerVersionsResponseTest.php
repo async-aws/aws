@@ -3,9 +3,9 @@
 namespace AsyncAws\Lambda\Tests\Unit\Result;
 
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Lambda\Result\LayerVersionsListItem;
 use AsyncAws\Lambda\Result\ListLayerVersionsResponse;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class ListLayerVersionsResponseTest extends TestCase

@@ -2,8 +2,8 @@
 
 namespace AsyncAws\S3\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Input\CopyObjectRequest;
-use PHPUnit\Framework\TestCase;
 
 class CopyObjectRequestTest extends TestCase
 {
@@ -51,7 +51,8 @@ class CopyObjectRequestTest extends TestCase
             'ObjectLockLegalHoldStatus' => 'change me',
         ]);
 
-        $expected = '<ChangeIt/>';
+        // see example-1.json from SDK
+        $expected = '<Bucket>destinationbucket</Bucket>';
 
         self::assertXmlStringEqualsXmlString($expected, $input->requestBody());
     }

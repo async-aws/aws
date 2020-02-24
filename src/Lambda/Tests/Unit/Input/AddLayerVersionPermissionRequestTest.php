@@ -2,8 +2,8 @@
 
 namespace AsyncAws\Lambda\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
-use PHPUnit\Framework\TestCase;
 
 class AddLayerVersionPermissionRequestTest extends TestCase
 {
@@ -21,7 +21,10 @@ class AddLayerVersionPermissionRequestTest extends TestCase
             'RevisionId' => 'change me',
         ]);
 
-        $expected = '{"change": "it"}';
+        // see https://docs.aws.amazon.com/Lambda/latest/APIReference/API_AddLayerVersionPermission.html
+        $expected = '{
+            "change": "it"
+        }';
 
         self::assertJsonStringEqualsJsonString($expected, $input->requestBody());
     }

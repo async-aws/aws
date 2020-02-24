@@ -3,8 +3,8 @@
 namespace AsyncAws\S3\Tests\Unit\Result;
 
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Result\CreateBucketOutput;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class CreateBucketOutputTest extends TestCase
@@ -13,12 +13,11 @@ class CreateBucketOutputTest extends TestCase
     {
         self::markTestIncomplete('Not implemented');
 
-        $response = new SimpleMockedResponse('<?xml version="1.0" encoding="UTF-8"?>
-            <ChangeIt/>
-        ');
+        // see example-1.json from SDK
+        $response = new SimpleMockedResponse('<Location>/examplebucket</Location>');
 
         $result = new CreateBucketOutput($response, new MockHttpClient());
 
-        self::assertStringContainsString('change it', $result->getLocation());
+        self::assertSame('changeIt', $result->getLocation());
     }
 }
