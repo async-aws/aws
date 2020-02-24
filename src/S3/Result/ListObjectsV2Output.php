@@ -78,20 +78,6 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     private $StartAfter;
 
     /**
-     * @var self[]
-     */
-    private $prefetch = [];
-
-    public function __destruct()
-    {
-        while (!empty($this->prefetch)) {
-            array_shift($this->prefetch)->cancel();
-        }
-
-        parent::__destruct();
-    }
-
-    /**
      * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.
      *
      * @return iterable<CommonPrefix>
@@ -105,7 +91,8 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
             return;
         }
 
-        if (!$this->awsClient instanceof S3Client) {
+        $client = $this->awsClient;
+        if (!$client instanceof S3Client) {
             throw new \InvalidArgumentException('missing client injected in paginated result');
         }
         if (!$this->input instanceof ListObjectsV2Request) {
@@ -117,8 +104,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
             if ($page->getNextContinuationToken()) {
                 $input->setContinuationToken($page->getNextContinuationToken());
 
-                $nextPage = $this->awsClient->ListObjectsV2($input);
-                $this->prefetch[spl_object_hash($nextPage)] = $nextPage;
+                $this->registerPrefetch($nextPage = $client->ListObjectsV2($input));
             } else {
                 $nextPage = null;
             }
@@ -129,7 +115,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
                 break;
             }
 
-            unset($this->prefetch[spl_object_hash($nextPage)]);
+            $this->unregisterPrefetch($nextPage);
             $page = $nextPage;
         }
     }
@@ -148,7 +134,8 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
             return;
         }
 
-        if (!$this->awsClient instanceof S3Client) {
+        $client = $this->awsClient;
+        if (!$client instanceof S3Client) {
             throw new \InvalidArgumentException('missing client injected in paginated result');
         }
         if (!$this->input instanceof ListObjectsV2Request) {
@@ -160,8 +147,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
             if ($page->getNextContinuationToken()) {
                 $input->setContinuationToken($page->getNextContinuationToken());
 
-                $nextPage = $this->awsClient->ListObjectsV2($input);
-                $this->prefetch[spl_object_hash($nextPage)] = $nextPage;
+                $this->registerPrefetch($nextPage = $client->ListObjectsV2($input));
             } else {
                 $nextPage = null;
             }
@@ -172,7 +158,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
                 break;
             }
 
-            unset($this->prefetch[spl_object_hash($nextPage)]);
+            $this->unregisterPrefetch($nextPage);
             $page = $nextPage;
         }
     }
@@ -212,7 +198,8 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
      */
     public function getIterator(): \Traversable
     {
-        if (!$this->awsClient instanceof S3Client) {
+        $client = $this->awsClient;
+        if (!$client instanceof S3Client) {
             throw new \InvalidArgumentException('missing client injected in paginated result');
         }
         if (!$this->input instanceof ListObjectsV2Request) {
@@ -224,8 +211,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
             if ($page->getNextContinuationToken()) {
                 $input->setContinuationToken($page->getNextContinuationToken());
 
-                $nextPage = $this->awsClient->ListObjectsV2($input);
-                $this->prefetch[spl_object_hash($nextPage)] = $nextPage;
+                $this->registerPrefetch($nextPage = $client->ListObjectsV2($input));
             } else {
                 $nextPage = null;
             }
@@ -237,7 +223,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
                 break;
             }
 
-            unset($this->prefetch[spl_object_hash($nextPage)]);
+            $this->unregisterPrefetch($nextPage);
             $page = $nextPage;
         }
     }

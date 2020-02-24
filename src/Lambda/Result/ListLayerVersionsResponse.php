@@ -21,27 +21,14 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
     private $LayerVersions = [];
 
     /**
-     * @var self[]
-     */
-    private $prefetch = [];
-
-    public function __destruct()
-    {
-        while (!empty($this->prefetch)) {
-            array_shift($this->prefetch)->cancel();
-        }
-
-        parent::__destruct();
-    }
-
-    /**
      * Iterates over LayerVersions.
      *
      * @return \Traversable<LayerVersionsListItem>
      */
     public function getIterator(): \Traversable
     {
-        if (!$this->awsClient instanceof LambdaClient) {
+        $client = $this->awsClient;
+        if (!$client instanceof LambdaClient) {
             throw new \InvalidArgumentException('missing client injected in paginated result');
         }
         if (!$this->input instanceof ListLayerVersionsRequest) {
@@ -53,8 +40,7 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
             if ($page->getNextMarker()) {
                 $input->setMarker($page->getNextMarker());
 
-                $nextPage = $this->awsClient->ListLayerVersions($input);
-                $this->prefetch[spl_object_hash($nextPage)] = $nextPage;
+                $this->registerPrefetch($nextPage = $client->ListLayerVersions($input));
             } else {
                 $nextPage = null;
             }
@@ -65,7 +51,7 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
                 break;
             }
 
-            unset($this->prefetch[spl_object_hash($nextPage)]);
+            $this->unregisterPrefetch($nextPage);
             $page = $nextPage;
         }
     }
@@ -84,7 +70,8 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
             return;
         }
 
-        if (!$this->awsClient instanceof LambdaClient) {
+        $client = $this->awsClient;
+        if (!$client instanceof LambdaClient) {
             throw new \InvalidArgumentException('missing client injected in paginated result');
         }
         if (!$this->input instanceof ListLayerVersionsRequest) {
@@ -96,8 +83,7 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
             if ($page->getNextMarker()) {
                 $input->setMarker($page->getNextMarker());
 
-                $nextPage = $this->awsClient->ListLayerVersions($input);
-                $this->prefetch[spl_object_hash($nextPage)] = $nextPage;
+                $this->registerPrefetch($nextPage = $client->ListLayerVersions($input));
             } else {
                 $nextPage = null;
             }
@@ -108,7 +94,7 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
                 break;
             }
 
-            unset($this->prefetch[spl_object_hash($nextPage)]);
+            $this->unregisterPrefetch($nextPage);
             $page = $nextPage;
         }
     }

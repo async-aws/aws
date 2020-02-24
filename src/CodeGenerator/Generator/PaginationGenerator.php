@@ -13,7 +13,6 @@ use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
 use AsyncAws\Core\Exception\LogicException;
-use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Parameter;
 use Nette\PhpGenerator\PhpNamespace;
 
@@ -156,17 +155,6 @@ class PaginationGenerator
             ->addComment("@return \Traversable<$iteratorType>")
             ->setBody($this->generateOutputPaginationLoader($iteratorBody, $pagination, $namespace, $operation))
         ;
-        if (!empty($pagination->getOutputToken())) {
-            $class->addProperty('prefetch')->setVisibility(ClassType::VISIBILITY_PRIVATE)->setComment('@var self[]')->setValue([]);
-            $class->addMethod('__destruct')
-                ->setBody('
-                    while (!empty($this->prefetch)) {
-                        array_shift($this->prefetch)->cancel();
-                    }
-
-                    parent::__destruct();
-                ');
-        }
 
         $this->fileWriter->write($namespace);
     }
@@ -207,7 +195,8 @@ class PaginationGenerator
         $namespace->addUse($clientClass->getFqdn());
 
         return strtr('
-            if (!$this->awsClient instanceOf CLIENT_CLASSNAME) {
+            $client = $this->awsClient;
+            if (!$client instanceOf CLIENT_CLASSNAME) {
                 throw new \InvalidArgumentException(\'missing client injected in paginated result\');
             }
             if (!$this->input instanceOf INPUT_CLASSNAME) {
@@ -218,8 +207,7 @@ class PaginationGenerator
             while (true) {
                 if (MORE_CONDITION) {
                     SET_TOKEN_CODE
-                    $nextPage = $this->awsClient->OPERATION_NAME($input);
-                    $this->prefetch[spl_object_hash($nextPage)] = $nextPage;
+                    $this->registerPrefetch($nextPage = $client->OPERATION_NAME($input));
                 } else {
                     $nextPage = null;
                 }
@@ -230,7 +218,7 @@ class PaginationGenerator
                     break;
                 }
 
-                unset($this->prefetch[spl_object_hash($nextPage)]);
+                $this->unregisterPrefetch($nextPage);
                 $page = $nextPage;
             }
         ', [

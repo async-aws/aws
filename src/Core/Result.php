@@ -37,6 +37,11 @@ class Result
     private $response;
 
     /**
+     * @var self[]
+     */
+    private $prefetchResults = [];
+
+    /**
      * @var HttpClientInterface
      */
     private $httpClient;
@@ -59,6 +64,10 @@ class Result
 
     public function __destruct()
     {
+        while (!empty($this->prefetchResponses)) {
+            array_shift($this->prefetchResponses)->cancel();
+        }
+
         if (false === $this->isResolved) {
             $this->resolve();
         }
@@ -139,6 +148,17 @@ class Result
         }
 
         $this->response->cancel();
+        unset($this->response);
+    }
+
+    final protected function registerPrefetch(self $result): void
+    {
+        $this->prefetchResults[spl_object_hash($result)] = $result;
+    }
+
+    final protected function unregisterPrefetch(self $result): void
+    {
+        unset($this->prefetchResults[spl_object_hash($result)]);
     }
 
     final protected function initialize(): void
