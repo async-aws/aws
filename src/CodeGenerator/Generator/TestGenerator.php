@@ -178,7 +178,8 @@ class TestGenerator
 
                 STUB
 
-                $result = new INPUT_CLASS($response, new MockHttpClient());
+                $client = new MockHttpClient($response);
+                $result = new INPUT_CLASS($client->request(\'POST\', \'http://localhost\'), $client);
 
                 ASSERT
             ', [

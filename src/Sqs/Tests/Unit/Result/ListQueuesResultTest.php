@@ -25,7 +25,8 @@ class ListQueuesResultTest extends TestCase
 XML
         );
 
-        $result = new ListQueuesResult($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new ListQueuesResult($client->request('POST', 'http://localhost'), $client);
 
         self::assertContains('https://sqs.us-east-2.amazonaws.com/123456789012/MyQueue', $result->getQueueUrls());
         self::assertContains('https://sqs.us-east-2.amazonaws.com/123456789012/MyQueue', $result);

@@ -15,7 +15,8 @@ class InvocationResponseTest extends TestCase
 
         $response = new SimpleMockedResponse($json, ['content-type' => 'application/json'], 200);
 
-        $result = new InvocationResponse($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new InvocationResponse($client->request('POST', 'http://localhost'), $client);
 
         self::assertEquals($json, $result->getPayload());
         self::assertEquals(200, $result->getStatusCode());

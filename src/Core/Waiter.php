@@ -49,6 +49,13 @@ class Waiter
      */
     private $finalState;
 
+    /**
+     * A Result can be resolved many times. This variable contains the last resolve result.
+     *
+     * @var bool|NetworkException|null
+     */
+    private $resolveResult;
+
     public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, AbstractApi $awsClient, $request)
     {
         $this->response = $response;
@@ -59,8 +66,8 @@ class Waiter
 
     public function __destruct()
     {
-        if (isset($this->response)) {
-            $this->response->cancel();
+        if (null === $this->resolveResult) {
+            $this->resolve();
         }
     }
 
@@ -85,7 +92,7 @@ class Waiter
             return $this->finalState;
         }
 
-        if (!isset($this->response)) {
+        if (null === $this->response) {
             $this->stealResponse($this->refreshState());
         }
 
@@ -93,7 +100,7 @@ class Waiter
         $this->resolve();
 
         $state = $this->extractState($this->response, $exception);
-        unset($this->response);
+        $this->response = null;
 
         switch ($state) {
             case self::STATE_SUCCESS:
@@ -121,20 +128,37 @@ class Waiter
      */
     final public function resolve(?float $timeout = null): bool
     {
-        if (!isset($this->response)) {
+        if (null !== $this->resolveResult) {
+            if ($this->resolveResult instanceof \Exception) {
+                throw $this->resolveResult;
+            }
+
+            if (\is_bool($this->resolveResult)) {
+                return $this->resolveResult;
+            }
+        }
+
+        if (null === $this->response) {
             return true;
         }
 
         try {
-            if (null !== $timeout && $this->httpClient->stream($this->response, $timeout)->current()->isTimeout()) {
-                return false;
+            foreach ($this->httpClient->stream($this->response, $timeout) as $chunk) {
+                if ($chunk->isTimeout()) {
+                    return false;
+                }
+                if ($chunk->isFirst()) {
+                    break;
+                }
             }
+
+            // Download the first bits of the response
+            $this->response->getStatusCode();
         } catch (TransportExceptionInterface $e) {
-            // When a network error occurs
-            throw new NetworkException('Could not contact remote server.', 0, $e);
+            throw $this->resolveResult = new NetworkException('Could not contact remote server.', 0, $e);
         }
 
-        return true;
+        return $this->resolveResult = true;
     }
 
     /**
@@ -148,14 +172,14 @@ class Waiter
      */
     final public function info(): array
     {
-        if (!isset($this->response)) {
+        if (null === $this->response) {
             return [
-                'resolved' => true,
+                'resolved' => null !== $this->resolveResult,
             ];
         }
 
         return [
-            'resolved' => false,
+            'resolved' => null !== $this->resolveResult,
             'response' => $this->response,
             'status' => (int) $this->response->getInfo('http_code'),
         ];
@@ -163,11 +187,13 @@ class Waiter
 
     final public function cancel(): void
     {
-        if (!isset($this->response)) {
+        if (null === $this->response) {
             return;
         }
 
         $this->response->cancel();
+        $this->resolveResult = false;
+        $this->response = null;
     }
 
     /**
@@ -217,6 +243,8 @@ class Waiter
     private function stealResponse(self $waiter): void
     {
         $this->response = $waiter->response;
-        unset($waiter->response);
+        $waiter->response = null;
+        $waiter->resolveResult = true;
+        $this->resolveResult = null;
     }
 }

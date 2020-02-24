@@ -27,7 +27,8 @@ class SendMessageResultTest extends TestCase
 XML
         );
 
-        $result = new SendMessageResult($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new SendMessageResult($client->request('POST', 'http://localhost'), $client);
 
         self::assertEquals('5fea7756-0ea4-451a-a703-a558b933e274', $result->getMessageId());
         self::assertEquals('fafb00f5732ab283681e124bf8747ed1', $result->getMD5OfMessageBody());

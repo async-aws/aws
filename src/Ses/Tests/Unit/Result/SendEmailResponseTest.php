@@ -13,7 +13,8 @@ class SendEmailResponseTest extends TestCase
     {
         $response = new SimpleMockedResponse('{"MessageId": "abcdef"}');
 
-        $result = new SendEmailResponse($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new SendEmailResponse($client->request('POST', 'http://localhost'), $client);
 
         self::assertStringContainsString('abcdef', $result->getMessageId());
     }

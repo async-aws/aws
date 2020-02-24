@@ -15,7 +15,8 @@ class PublishLayerVersionResponseTest extends TestCase
 
         $response = new SimpleMockedResponse('{"change": "it"}');
 
-        $result = new PublishLayerVersionResponse($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new PublishLayerVersionResponse($client->request('POST', 'http://localhost'), $client);
 
         // self::assertTODO(expected, $result->getContent());
         self::assertStringContainsString('change it', $result->getLayerArn());

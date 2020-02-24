@@ -17,7 +17,8 @@ class PutObjectAclOutputTest extends TestCase
             <ChangeIt/>
         ');
 
-        $result = new PutObjectAclOutput($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new PutObjectAclOutput($client->request('POST', 'http://localhost'), $client);
 
         self::assertStringContainsString('change it', $result->getRequestCharged());
     }

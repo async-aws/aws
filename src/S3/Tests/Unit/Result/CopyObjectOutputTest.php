@@ -17,7 +17,8 @@ class CopyObjectOutputTest extends TestCase
             <ChangeIt/>
         ');
 
-        $result = new CopyObjectOutput($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new CopyObjectOutput($client->request('POST', 'http://localhost'), $client);
 
         // self::assertTODO(expected, $result->getCopyObjectResult());
         self::assertStringContainsString('change it', $result->getExpiration());

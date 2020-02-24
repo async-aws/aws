@@ -50,7 +50,8 @@ class ReceiveMessageResultTest extends TestCase
 XML
         );
 
-        $result = new ReceiveMessageResult($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new ReceiveMessageResult($client->request('POST', 'http://localhost'), $client);
 
         self::assertCount(1, $result->getMessages());
         $message = $result->getMessages()[0];

@@ -9,6 +9,7 @@ use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Exception\Http\NetworkException;
 use AsyncAws\Core\Exception\Http\RedirectionException;
 use AsyncAws\Core\Exception\Http\ServerException;
+use AsyncAws\Core\Exception\RuntimeException;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
@@ -42,17 +43,16 @@ class Result
     private $prefetchResults = [];
 
     /**
-     * @var HttpClientInterface
+     * @var HttpClientInterface|null
      */
     private $httpClient;
 
     /**
-     * A Result can be resolved many times. This boolean is true if the result
-     * has been resolved at least once.
+     * A Result can be resolved many times. This variable contains the last resolve result.
      *
-     * @var bool
+     * @var bool|NetworkException|HttpException|null
      */
-    private $isResolved = false;
+    private $resolveResult;
 
     public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, AbstractApi $awsClient = null, $request = null)
     {
@@ -68,7 +68,7 @@ class Result
             array_shift($this->prefetchResponses)->cancel();
         }
 
-        if (false === $this->isResolved) {
+        if (null === $this->resolveResult) {
             $this->resolve();
         }
     }
@@ -85,36 +85,50 @@ class Result
      */
     final public function resolve(?float $timeout = null): bool
     {
-        if (!isset($this->response)) {
+        if (null !== $this->resolveResult) {
+            if ($this->resolveResult instanceof \Exception) {
+                throw $this->resolveResult;
+            }
+
+            if (\is_bool($this->resolveResult)) {
+                return $this->resolveResult;
+            }
+
+            throw new RuntimeException('Unexpected resolve state');
+        }
+
+        if (null === $this->response || null === $this->httpClient) {
             return true;
         }
 
         try {
-            if (null !== $timeout && $this->httpClient->stream($this->response, $timeout)->current()->isTimeout()) {
-                return false;
+            foreach ($this->httpClient->stream($this->response, $timeout) as $chunk) {
+                if ($chunk->isTimeout()) {
+                    return false;
+                }
+                if ($chunk->isFirst()) {
+                    break;
+                }
             }
+
             $statusCode = $this->response->getStatusCode();
         } catch (TransportExceptionInterface $e) {
-            // When a network error occurs
-            $this->isResolved = true;
-
-            throw new NetworkException('Could not contact remote server.', 0, $e);
+            throw $this->resolveResult = new NetworkException('Could not contact remote server.', 0, $e);
         }
 
-        $this->isResolved = true;
         if (500 <= $statusCode) {
-            throw new ServerException($this->response);
+            throw $this->resolveResult = new ServerException($this->response);
         }
 
         if (400 <= $statusCode) {
-            throw new ClientException($this->response);
+            throw $this->resolveResult = new ClientException($this->response);
         }
 
         if (300 <= $statusCode) {
-            throw new RedirectionException($this->response);
+            throw $this->resolveResult = new RedirectionException($this->response);
         }
 
-        return true;
+        return $this->resolveResult = true;
     }
 
     /**
@@ -128,14 +142,14 @@ class Result
      */
     final public function info(): array
     {
-        if (!isset($this->response)) {
+        if (null === $this->response) {
             return [
-                'resolved' => $this->isResolved,
+                'resolved' => null !== $this->resolveResult,
             ];
         }
 
         return [
-            'resolved' => $this->isResolved,
+            'resolved' => null !== $this->resolveResult,
             'response' => $this->response,
             'status' => (int) $this->response->getInfo('http_code'),
         ];
@@ -143,35 +157,35 @@ class Result
 
     final public function cancel(): void
     {
-        if (!isset($this->response)) {
+        if (null === $this->response) {
             return;
         }
 
         $this->response->cancel();
-        unset($this->response);
+        $this->resolveResult = false;
+        $this->response = null;
     }
 
     final protected function registerPrefetch(self $result): void
     {
-        $this->prefetchResults[spl_object_hash($result)] = $result;
+        $this->prefetchResults[spl_object_id($result)] = $result;
     }
 
     final protected function unregisterPrefetch(self $result): void
     {
-        unset($this->prefetchResults[spl_object_hash($result)]);
+        unset($this->prefetchResults[spl_object_id($result)]);
     }
 
     final protected function initialize(): void
     {
-        if (!isset($this->response)) {
+        if (null === $this->response || null === $this->httpClient) {
             return;
         }
+
         $this->resolve();
         $this->populateResult($this->response, $this->httpClient);
-        unset($this->response);
-        if (isset($this->httpClient)) {
-            unset($this->httpClient);
-        }
+        $this->response = null;
+        $this->httpClient = null;
     }
 
     protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void

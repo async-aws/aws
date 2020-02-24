@@ -25,7 +25,8 @@ class GetCallerIdentityResponseTest extends TestCase
             </GetCallerIdentityResponse>
         ');
 
-        $result = new GetCallerIdentityResponse($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new GetCallerIdentityResponse($client->request('POST', 'http://localhost'), $client);
 
         self::assertStringContainsString('ARO123EXAMPLE123:my-role-session-name', $result->getUserId());
         self::assertStringContainsString('123456789012', $result->getAccount());

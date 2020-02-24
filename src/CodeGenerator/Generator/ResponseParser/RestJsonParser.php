@@ -51,7 +51,7 @@ class RestJsonParser implements Parser
             return '';
         }
 
-        $body = '$data = json_decode($response->getContent(false), true);' . "\n";
+        $body = '$data = $response->toArray(false);' . "\n";
         if (null !== $wrapper = $shape->getResultWrapper()) {
             $body .= strtr('$data = $data[WRAPPER];' . "\n", ['WRAPPER' => var_export($wrapper, true)]);
         }

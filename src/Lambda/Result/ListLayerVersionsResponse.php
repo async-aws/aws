@@ -108,7 +108,7 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
 
     protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
     {
-        $data = json_decode($response->getContent(false), true);
+        $data = $response->toArray(false);
 
         $this->NextMarker = isset($data['NextMarker']) ? (string) $data['NextMarker'] : null;
         $this->LayerVersions = !$data['LayerVersions'] ? [] : (function (array $json): array {

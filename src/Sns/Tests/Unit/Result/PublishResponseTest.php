@@ -23,7 +23,8 @@ class PublishResponseTest extends TestCase
     </ResponseMetadata>
 </PublishResponse>');
 
-        $result = new PublishResponse($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new PublishResponse($client->request('POST', 'http://localhost'), $client);
 
         self::assertEquals('567910cd-659e-55d4-8ccb-5aaf14679dc0', $result->getMessageId());
     }

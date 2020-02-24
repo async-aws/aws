@@ -17,7 +17,8 @@ class CreateBucketOutputTest extends TestCase
             <ChangeIt/>
         ');
 
-        $result = new CreateBucketOutput($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new CreateBucketOutput($client->request('POST', 'http://localhost'), $client);
 
         self::assertStringContainsString('change it', $result->getLocation());
     }

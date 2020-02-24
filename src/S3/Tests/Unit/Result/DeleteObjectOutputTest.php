@@ -17,7 +17,8 @@ class DeleteObjectOutputTest extends TestCase
             <ChangeIt/>
         ');
 
-        $result = new DeleteObjectOutput($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new DeleteObjectOutput($client->request('POST', 'http://localhost'), $client);
 
         self::assertFalse($result->getDeleteMarker());
         self::assertStringContainsString('change it', $result->getVersionId());

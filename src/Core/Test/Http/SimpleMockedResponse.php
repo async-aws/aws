@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core\Test\Http;
 
-use Symfony\Contracts\HttpClient\ResponseInterface;
+use Symfony\Component\HttpClient\Response\MockResponse;
 
-class SimpleMockedResponse implements ResponseInterface
+class SimpleMockedResponse extends MockResponse
 {
     private $headers = [];
 
@@ -28,6 +28,8 @@ class SimpleMockedResponse implements ResponseInterface
             }
             $this->headers[$name] = $value;
         }
+
+        parent::__construct($content, ['response_headers' => $headers, 'http_code' => $statusCode]);
     }
 
     public function getStatusCode(): int
@@ -47,7 +49,7 @@ class SimpleMockedResponse implements ResponseInterface
 
     public function toArray(bool $throw = true): array
     {
-        throw new \LogicException('Not implemented');
+        return \json_decode($this->getContent($throw), true);
     }
 
     public function cancel(): void

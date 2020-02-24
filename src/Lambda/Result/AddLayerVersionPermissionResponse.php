@@ -34,7 +34,7 @@ class AddLayerVersionPermissionResponse extends Result
 
     protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
     {
-        $data = json_decode($response->getContent(false), true);
+        $data = $response->toArray(false);
 
         $this->Statement = isset($data['Statement']) ? (string) $data['Statement'] : null;
         $this->RevisionId = isset($data['RevisionId']) ? (string) $data['RevisionId'] : null;
