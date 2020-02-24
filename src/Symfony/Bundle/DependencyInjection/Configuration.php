@@ -21,7 +21,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->booleanNode('register_service')->info('If set to false, no services will be created.')->defaultTrue()->end()
                 ->scalarNode('credential_provider')->info('A service name for AsyncAws\Core\Credentials\CredentialProvider.')->defaultNull()->end()
-                ->scalarNode('http_client')->info('A service name for Symfony\Contracts\HttpClient\HttpClientInterface.')->defaultNull()->end()
+                ->scalarNode('http_client')->info('A service name for Symfony\Contracts\HttpClient\HttpClientInterface.')->end()
                 ->scalarNode('logger')->info('A service name for Psr\Log\LoggerInterface.')->end()
                 ->arrayNode('config')->info('Default config that will be merged will all services.')->normalizeKeys(false)->prototype('variable')->end()->end()
 

@@ -26,7 +26,6 @@ class ConfigurationTest extends TestCase
         ], [
             'register_service' => true,
             'credential_provider' => null,
-            'http_client' => null,
             'config' => [],
             'clients' => [],
         ]);

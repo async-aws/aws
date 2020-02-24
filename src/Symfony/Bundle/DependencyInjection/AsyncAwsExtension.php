@@ -81,11 +81,17 @@ class AsyncAwsExtension extends Extension
             // Use default Symfony logger unless explicitly set to null.
             $logger = new Reference('logger', ContainerInterface::NULL_ON_INVALID_REFERENCE);
         }
+        if (\array_key_exists('http_client', $config)) {
+            $httpClient = $config['http_client'] ? new Reference($config['http_client']) : null;
+        } else {
+            // Use default Symfony http_client unless explicitly set to null.
+            $httpClient = new Reference('http_client', ContainerInterface::NULL_ON_INVALID_REFERENCE);
+        }
 
         $definition = new Definition($clientClass);
         $definition->addArgument($config['config']);
         $definition->addArgument(isset($config['credential_provider']) ? new Reference($config['credential_provider']) : null);
-        $definition->addArgument(isset($config['http_client']) ? new Reference($config['http_client']) : null);
+        $definition->addArgument($httpClient);
         $definition->addArgument($logger);
         $container->setDefinition(sprintf('async_aws.client.%s', $name), $definition);
     }
