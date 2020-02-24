@@ -24,7 +24,8 @@ class ListObjectsV2OutputTest extends TestCase
     </CommonPrefixes>
 </ListBucketResult>');
 
-        $result = new ListObjectsV2Output($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new ListObjectsV2Output($client->request('POST', 'http://localhost'), $client);
 
         self::assertFalse($result->getIsTruncated());
         self::assertEquals('async-aws-test', $result->getName());
@@ -53,7 +54,8 @@ class ListObjectsV2OutputTest extends TestCase
         </ListBucketResult>
         ');
 
-        $result = new ListObjectsV2Output($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new ListObjectsV2Output($client->request('POST', 'http://localhost'), $client);
 
         $content = $result->getContents(true);
         self::assertCount(0, $content);

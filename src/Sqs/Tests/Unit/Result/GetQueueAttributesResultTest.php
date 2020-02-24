@@ -60,7 +60,8 @@ class GetQueueAttributesResultTest extends TestCase
 XML
         );
 
-        $result = new GetQueueAttributesResult($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new GetQueueAttributesResult($client->request('POST', 'http://localhost'), $client);
 
         self::assertArrayHasKey('MaximumMessageSize', $result->getAttributes());
         self::assertEquals('8192', $result->getAttributes()['MaximumMessageSize']);

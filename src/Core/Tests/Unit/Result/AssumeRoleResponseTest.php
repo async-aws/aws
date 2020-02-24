@@ -38,7 +38,8 @@ class AssumeRoleResponseTest extends TestCase
             </AssumeRoleResponse>
         ');
 
-        $result = new AssumeRoleResponse($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new AssumeRoleResponse($client->request('POST', 'http://localhost'), $client);
 
         self::assertSame('arn:aws:sts::123456789012:assumed-role/demo/TestAR', $result->getAssumedRoleUser()->getArn());
         self::assertSame('ARO123EXAMPLE123:TestAR', $result->getAssumedRoleUser()->getAssumedRoleId());

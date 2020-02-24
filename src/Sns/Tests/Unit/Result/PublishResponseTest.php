@@ -17,7 +17,8 @@ class PublishResponseTest extends TestCase
             <ChangeIt/>
         ');
 
-        $result = new PublishResponse($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new PublishResponse($client->request('POST', 'http://localhost'), $client);
 
         self::assertStringContainsString('change it', $result->getMessageId());
     }

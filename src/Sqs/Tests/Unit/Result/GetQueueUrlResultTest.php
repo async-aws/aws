@@ -25,7 +25,8 @@ class GetQueueUrlResultTest extends TestCase
 XML
         );
 
-        $result = new GetQueueUrlResult($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new GetQueueUrlResult($client->request('POST', 'http://localhost'), $client);
 
         self::assertEquals('https://sqs.us-east-2.amazonaws.com/123456789012/MyQueue', $result->getQueueUrl());
     }

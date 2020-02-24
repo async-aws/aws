@@ -102,14 +102,12 @@ class Result
         }
 
         try {
-            if (null !== $timeout) {
-                foreach ($this->httpClient->stream($this->response, $timeout) as $chunk) {
-                    if ($chunk->isTimeout()) {
-                        return false;
-                    }
-                    if ($chunk->isFirst()) {
-                        break;
-                    }
+            foreach ($this->httpClient->stream($this->response, $timeout) as $chunk) {
+                if ($chunk->isTimeout()) {
+                    return false;
+                }
+                if ($chunk->isFirst()) {
+                    break;
                 }
             }
 

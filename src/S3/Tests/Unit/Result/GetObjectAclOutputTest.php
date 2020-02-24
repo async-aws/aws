@@ -42,7 +42,8 @@ class GetObjectAclOutputTest extends TestCase
 </AccessControlList>
 </AccessControlPolicy>', $headers);
 
-        $result = new GetObjectAclOutput($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new GetObjectAclOutput($client->request('POST', 'http://localhost'), $client);
 
         self::assertEquals('requester', $result->getRequestCharged());
         self::assertEquals('78830d484ca31cf82348f0168785e7929a89f1409630f003170a6b48addfeb9b', $result->getOwner()->getID());
@@ -79,7 +80,8 @@ class GetObjectAclOutputTest extends TestCase
         </AccessControlPolicy>
         ');
 
-        $result = new GetObjectAclOutput($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new GetObjectAclOutput($client->request('POST', 'http://localhost'), $client);
 
         $grants = $result->getGrants();
         self::assertCount(2, $grants);

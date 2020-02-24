@@ -54,7 +54,8 @@ class DescribeStackEventsOutputTest extends TestCase
 </DescribeStackEventsResponse>
 ');
 
-        $result = new DescribeStackEventsOutput($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new DescribeStackEventsOutput($client->request('POST', 'http://localhost'), $client);
 
         /** @var StackEvent[] $stackEvents */
         $stackEvents = [];

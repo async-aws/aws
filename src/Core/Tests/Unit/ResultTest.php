@@ -8,7 +8,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpClient\MockHttpClient;
 
 class ResultTest extends TestCase
 {
@@ -54,8 +54,9 @@ class ResultTest extends TestCase
 
     public function testThrowExceptionDestruct()
     {
-        $httpClient = HttpClient::create();
-        $result = new Result(new SimpleMockedResponse('Bad request', [], 400), $httpClient);
+        $response = new SimpleMockedResponse('Bad request', [], 400);
+        $client = new MockHttpClient($response);
+        $result = new Result($client->request('POST', 'http://localhost'), $client);
 
         $this->expectException(ClientException::class);
         unset($result);
@@ -63,8 +64,9 @@ class ResultTest extends TestCase
 
     public function testThrowExceptionOnlyOnce()
     {
-        $httpClient = HttpClient::create();
-        $result = new Result(new SimpleMockedResponse('Bad request', [], 400), $httpClient);
+        $response = new SimpleMockedResponse('Bad request', [], 400);
+        $client = new MockHttpClient($response);
+        $result = new Result($client->request('POST', 'http://localhost'), $client);
 
         try {
             $result->resolve();

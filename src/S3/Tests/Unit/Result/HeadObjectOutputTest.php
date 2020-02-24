@@ -19,18 +19,19 @@ class HeadObjectOutputTest extends TestCase
             'etag' => [0 => '"98bf7d8c15784f0a3d63204441e1e2aa"'],
             'accept-ranges' => [0 => 'bytes'],
             'content-type' => [0 => 'text/plain+special'],
-            'content-length' => [0 => '8'],
+            'content-length' => [0 => '0'],
             'server' => [0 => 'AmazonS3'],
         ];
 
         $response = new SimpleMockedResponse('', $headers);
 
-        $result = new HeadObjectOutput($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new HeadObjectOutput($client->request('POST', 'http://localhost'), $client);
 
         self::assertNull($result->getDeleteMarker());
         self::assertEquals('bytes', $result->getAcceptRanges());
         self::assertEquals(1582448160, $result->getLastModified()->getTimestamp());
-        self::assertEquals(8, $result->getContentLength());
+        self::assertEquals(0, $result->getContentLength());
         self::assertEquals('text/plain+special', $result->getContentType());
         self::assertEquals('"98bf7d8c15784f0a3d63204441e1e2aa"', $result->getETag());
     }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core\Test\Http;
 
-use Symfony\Contracts\HttpClient\ResponseInterface;
+use Symfony\Component\HttpClient\Response\MockResponse;
 
-class SimpleMockedResponse implements ResponseInterface
+class SimpleMockedResponse extends MockResponse
 {
     private $headers = [];
 
@@ -28,6 +28,8 @@ class SimpleMockedResponse implements ResponseInterface
             }
             $this->headers[$name] = $value;
         }
+
+        parent::__construct($content, ['response_headers' => $headers, 'http_code' => $statusCode]);
     }
 
     public function getStatusCode(): int

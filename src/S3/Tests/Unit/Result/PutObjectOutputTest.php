@@ -17,7 +17,8 @@ class PutObjectOutputTest extends TestCase
             <ChangeIt/>
         ');
 
-        $result = new PutObjectOutput($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new PutObjectOutput($client->request('POST', 'http://localhost'), $client);
 
         self::assertStringContainsString('change it', $result->getExpiration());
         self::assertStringContainsString('change it', $result->getETag());

@@ -69,8 +69,8 @@ class DescribeStacksOutputTest extends TestCase
 
 XML;
 
-        $response = new SimpleMockedResponse($xml);
-        $result = new DescribeStacksOutput($response, new MockHttpClient());
+        $client = new MockHttpClient(new SimpleMockedResponse($xml));
+        $result = new DescribeStacksOutput($client->request('POST', 'http://localhost'), $client);
 
         $stack = null;
         foreach ($result->getStacks(true) as $s) {

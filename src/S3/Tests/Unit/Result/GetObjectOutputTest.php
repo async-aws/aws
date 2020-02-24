@@ -19,12 +19,13 @@ class GetObjectOutputTest extends TestCase
             'etag' => '"98bf7d8c15784f0a3d63204441e1e2aa"',
             'accept-ranges' => 'bytes',
             'content-type' => 'text/plain',
-            'content-length' => '8',
+            'content-length' => '0',
             'server' => 'AmazonS3',
         ];
         $response = new SimpleMockedResponse('', $headers);
 
-        $result = new GetObjectOutput($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new GetObjectOutput($client->request('POST', 'http://localhost'), $client);
 
         // self::assertTODO(expected, $result->getBody());
         self::assertStringContainsString('98bf7d8c15784f0a3d63204441e1e2aa', $result->getETag());
@@ -50,7 +51,8 @@ class GetObjectOutputTest extends TestCase
             'server' => 'AmazonS3',
         ];
         $response = new SimpleMockedResponse('content', $headers);
-        $result = new GetObjectOutput($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new GetObjectOutput($client->request('POST', 'http://localhost'), $client);
 
         $metadata = $result->getMetadata();
         self::assertCount(1, $metadata);

@@ -15,7 +15,8 @@ class AddLayerVersionPermissionResponseTest extends TestCase
 
         $response = new SimpleMockedResponse('{"change": "it"}');
 
-        $result = new AddLayerVersionPermissionResponse($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new AddLayerVersionPermissionResponse($client->request('POST', 'http://localhost'), $client);
 
         self::assertStringContainsString('change it', $result->getStatement());
         self::assertStringContainsString('change it', $result->getRevisionId());

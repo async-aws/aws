@@ -26,7 +26,8 @@ class CreateQueueResultTest extends TestCase
 XML
         );
 
-        $result = new CreateQueueResult($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new CreateQueueResult($client->request('POST', 'http://localhost'), $client);
 
         self::assertEquals('https://queue.amazonaws.com/123456789012/MyQueue', $result->getQueueUrl());
     }

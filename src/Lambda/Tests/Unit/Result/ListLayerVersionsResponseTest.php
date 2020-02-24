@@ -31,7 +31,8 @@ class ListLayerVersionsResponseTest extends TestCase
 
         $response = new SimpleMockedResponse(json_encode($data));
 
-        $result = new ListLayerVersionsResponse($response, new MockHttpClient());
+        $client = new MockHttpClient($response);
+        $result = new ListLayerVersionsResponse($client->request('POST', 'http://localhost'), $client);
 
         self::assertEquals($nextMarker, $result->getNextMarker());
         /** @var LayerVersionsListItem $version */
