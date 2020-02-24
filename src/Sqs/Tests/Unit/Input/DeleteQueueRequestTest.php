@@ -2,8 +2,8 @@
 
 namespace AsyncAws\Sqs\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Sqs\Input\DeleteQueueRequest;
-use PHPUnit\Framework\TestCase;
 
 class DeleteQueueRequestTest extends TestCase
 {
@@ -14,12 +14,12 @@ class DeleteQueueRequestTest extends TestCase
         ]);
 
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_DeleteQueue.html */
-        $expected = trim('
+        $expected = '
 Action=DeleteQueue
 &Version=2012-11-05
 &QueueUrl=queueUrl
-        ');
+        ';
 
-        self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
+        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
     }
 }

@@ -93,7 +93,7 @@ foreach($result as $file) {
 
 ## Waiter
 
-Similar to Official AWS PHP SDK, Async-Aws provides waiters to let you wait
+Similar to Official AWS PHP SDK, AsyncAws provides waiters to let you wait
 until an long operation finished.
 
 ```php

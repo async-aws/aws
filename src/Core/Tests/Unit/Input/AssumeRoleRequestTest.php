@@ -5,7 +5,7 @@ namespace AsyncAws\Core\Tests\Unit\Input;
 use AsyncAws\Core\Sts\Input\AssumeRoleRequest;
 use AsyncAws\Core\Sts\Input\PolicyDescriptorType;
 use AsyncAws\Core\Sts\Input\Tag;
-use PHPUnit\Framework\TestCase;
+use AsyncAws\Core\Test\TestCase;
 
 class AssumeRoleRequestTest extends TestCase
 {
@@ -35,7 +35,7 @@ class AssumeRoleRequestTest extends TestCase
         ]);
 
         /** @see https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html */
-        $expected = trim('
+        $expected = '
 Action=AssumeRole
 &Version=2011-06-15
 &RoleArn=arn%3Aaws%3A%3Aiam%3A%3A123456789012%3Arole%2Fdemo
@@ -53,8 +53,8 @@ Action=AssumeRole
 &TransitiveTagKeys.member.1=Project
 &TransitiveTagKeys.member.2=Cost-Center
 &ExternalId=123ABC
-        ');
+        ';
 
-        self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
+        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
     }
 }

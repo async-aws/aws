@@ -2,9 +2,9 @@
 
 namespace AsyncAws\Sns\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Sns\Input\MessageAttributeValue;
 use AsyncAws\Sns\Input\PublishInput;
-use PHPUnit\Framework\TestCase;
 
 class PublishInputTest extends TestCase
 {
@@ -34,12 +34,12 @@ class PublishInputTest extends TestCase
             ])],
         ]);
 
-        $expected = trim('
-        Action=Publish
-        &Version=2010-03-31
-        &ChangeIt=Change+it
-                        ');
+        $expected = '
+            Action=Publish
+            &Version=2010-03-31
+            &ChangeIt=Change+it
+        ';
 
-        self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
+        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
     }
 }

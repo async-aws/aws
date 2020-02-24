@@ -3,7 +3,7 @@
 namespace AsyncAws\Core\Tests\Unit\Input;
 
 use AsyncAws\Core\Sts\Input\GetCallerIdentityRequest;
-use PHPUnit\Framework\TestCase;
+use AsyncAws\Core\Test\TestCase;
 
 class GetCallerIdentityRequestTest extends TestCase
 {
@@ -12,11 +12,11 @@ class GetCallerIdentityRequestTest extends TestCase
         $input = new GetCallerIdentityRequest();
 
         /** @see https://docs.aws.amazon.com/STS/latest/APIReference/API_GetCallerIdentity.html */
-        $expected = trim('
+        $expected = '
 Action=GetCallerIdentity
 &Version=2011-06-15
-        ');
+        ';
 
-        self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
+        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
     }
 }

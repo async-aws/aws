@@ -10,6 +10,8 @@ parameters:
         - src/*/Tests/*
         - src/**/Tests/*
         - src/CodeGenerator/Generator/PhpGenerator/ClassFactory.php
+        - src/CodeGenerator/Generator/TestGenerator.php
+        - src/Core/Test/TestCase.php
 
     ignoreErrors:
         - '|Ternary operator condition is always true\.|'

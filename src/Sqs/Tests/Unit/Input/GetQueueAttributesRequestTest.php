@@ -2,8 +2,8 @@
 
 namespace AsyncAws\Sqs\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Sqs\Input\GetQueueAttributesRequest;
-use PHPUnit\Framework\TestCase;
 
 class GetQueueAttributesRequestTest extends TestCase
 {
@@ -15,15 +15,15 @@ class GetQueueAttributesRequestTest extends TestCase
         ]);
 
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_GetQueueAttributes.html */
-        $expected = trim('
+        $expected = '
 Action=GetQueueAttributes
 &Version=2012-11-05
 &QueueUrl=queueUrl
 &AttributeName.1=VisibilityTimeout
 &AttributeName.2=DelaySeconds
 &AttributeName.3=ReceiveMessageWaitTimeSeconds
-        ');
+        ';
 
-        self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
+        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
     }
 }

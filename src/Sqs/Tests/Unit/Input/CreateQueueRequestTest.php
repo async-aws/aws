@@ -2,8 +2,8 @@
 
 namespace AsyncAws\Sqs\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Sqs\Input\CreateQueueRequest;
-use PHPUnit\Framework\TestCase;
 
 class CreateQueueRequestTest extends TestCase
 {
@@ -16,7 +16,7 @@ class CreateQueueRequestTest extends TestCase
         ]);
 
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_CreateQueue.html */
-        $expected = trim('
+        $expected = '
 Action=CreateQueue
 &Version=2012-11-05
 &QueueName=MyQueue
@@ -24,8 +24,8 @@ Action=CreateQueue
 &Attribute.1.Value=45
 &Tag.1.Key=team
 &Tag.1.Value=Engineering
-        ');
+        ';
 
-        self::assertEquals($expected, \str_replace('&', "\n&", $input->requestBody()));
+        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
     }
 }

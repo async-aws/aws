@@ -16,8 +16,10 @@ use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
+use AsyncAws\Core\Test\TestCase;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
+use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 /**
@@ -65,7 +67,7 @@ class TestGenerator
         $className = $this->namespaceRegistry->getInputUnitTest($shape);
         $methodName = 'testRequestBody';
 
-        try {
+        if (\class_exists($className->getFqdn())) {
             $namespace = ClassFactory::fromExistingClass($className->getFqdn());
             $classes = $namespace->getClasses();
             $class = $classes[\array_key_first($classes)];
@@ -73,12 +75,12 @@ class TestGenerator
             if ($class->hasMethod($methodName)) {
                 return;
             }
-        } catch (\ReflectionException $e) {
+        } else {
             [$namespace, $class] = $this->createTestClass($className, $this->namespaceRegistry->getInput($shape));
         }
 
-        $class->setExtends(['PHPUnit\Framework\TestCase']);
-        $namespace->addUse('PHPUnit\Framework\TestCase');
+        $class->setExtends([TestCase::class]);
+        $namespace->addUse(TestCase::class);
 
         switch ($operation->getService()->getProtocol()) {
             case 'rest-xml':
@@ -93,12 +95,11 @@ class TestGenerator
 
                 break;
             case 'query':
-                $stub = "\$expected = trim('
-Action={$operation->getName()}
-&Version={$operation->getApiVersion()}
-&ChangeIt=Change+it
-                ');";
-                $assert = 'self::assertEquals($expected, \str_replace(\'&\', "\n&", $input->requestBody()));';
+                $stub = "\$expected = '
+    Action={$operation->getName()}
+    &Version={$operation->getApiVersion()}
+';";
+                $assert = 'self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());';
 
                 break;
             default:
@@ -112,12 +113,15 @@ Action={$operation->getName()}
 
                 $input = INPUT_CONSTRUCTOR;
 
+                /** @see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_METHOD.html */
                 STUB
 
                 ASSERT
             ', [
                 'MARKER' => self::MARKER,
                 'INPUT_CONSTRUCTOR' => $this->getInputCode($namespace, $operation->getInput()),
+                'SERVICE' => $operation->getService()->getName(),
+                'METHOD' => $operation->getName(),
                 'STUB' => $stub,
                 'ASSERT' => $assert,
             ]));
@@ -131,7 +135,7 @@ Action={$operation->getName()}
         $resultClass = $this->namespaceRegistry->getResult($shape);
         $methodName = 'test' . $shape->getName();
 
-        try {
+        if (\class_exists($className->getFqdn())) {
             $namespace = ClassFactory::fromExistingClass($className->getFqdn());
             $classes = $namespace->getClasses();
             $class = $classes[\array_key_first($classes)];
@@ -139,12 +143,12 @@ Action={$operation->getName()}
             if ($class->hasMethod($methodName)) {
                 return;
             }
-        } catch (\ReflectionException $e) {
+        } else {
             [$namespace, $class] = $this->createTestClass($className, $this->namespaceRegistry->getResult($shape));
         }
 
-        $class->setExtends(['PHPUnit\Framework\TestCase']);
-        $namespace->addUse('PHPUnit\Framework\TestCase');
+        $class->setExtends([TestCase::class]);
+        $namespace->addUse(TestCase::class);
         $namespace->addUse($resultClass->getFqdn());
         $namespace->addUse(SimpleMockedResponse::class);
         $namespace->addUse(MockHttpClient::class);
@@ -190,22 +194,22 @@ Action={$operation->getName()}
     private function generateIntegration(Operation $operation)
     {
         $className = $this->namespaceRegistry->getIntegrationTest($operation->getService());
+        $inputClassName = $this->namespaceRegistry->getInput($operation->getInput());
         $methodName = 'test' . $operation->getName();
 
-        try {
+        if (\class_exists($className->getFqdn())) {
             $namespace = ClassFactory::fromExistingClass($className->getFqdn());
             $classes = $namespace->getClasses();
             $class = $classes[\array_key_first($classes)];
             if ($class->hasMethod($methodName)) {
                 return;
             }
-        } catch (\ReflectionException $e) {
+        } else {
             [$namespace, $class] = $this->createClientTestClass($className, $operation);
         }
 
-        $class->setExtends(['PHPUnit\Framework\TestCase']);
-
-        $inputClassName = $this->namespaceRegistry->getInput($operation->getInput());
+        $class->setExtends([TestCase::class]);
+        $namespace->addUse(TestCase::class);
         $namespace->addUse($inputClassName->getFqdn());
 
         $class->addMethod($methodName)
@@ -301,8 +305,8 @@ Action={$operation->getName()}
         } else {
             $output = $this->namespaceRegistry->getResult($operation->getOutput());
         }
-        $class->setExtends(['PHPUnit\Framework\TestCase']);
-        $namespace->addUse('PHPUnit\Framework\TestCase');
+        $class->setExtends([TestCase::class]);
+        $namespace->addUse(TestCase::class);
         $namespace->addUse(MockHttpClient::class);
         $namespace->addUse(NullProvider::class);
         $namespace->addUse($output->getFqdn());
@@ -350,10 +354,10 @@ Action={$operation->getName()}
         $namespace = new PhpNamespace($testClassName->getNamespace());
         $namespace->addUse($sourceClassName->getFqdn());
 
-        $namespace->addUse('PHPUnit\Framework\TestCase');
+        $namespace->addUse(TestCase::class);
 
         $class = $namespace->addClass($testClassName->getName());
-        $class->addExtend('PHPUnit\Framework\TestCase');
+        $class->addExtend(TestCase::class);
 
         return [$namespace, $class];
     }
@@ -363,12 +367,12 @@ Action={$operation->getName()}
         $clientClassName = $this->namespaceRegistry->getClient($operation->getService());
 
         $namespace = new PhpNamespace($testClassName->getNamespace());
-        $namespace->addUse('PHPUnit\Framework\TestCase');
+        $namespace->addUse(TestCase::class);
         $namespace->addUse($clientClassName->getFqdn());
         $namespace->addUse(NullProvider::class);
 
         $class = $namespace->addClass($testClassName->getName());
-        $class->addExtend('PHPUnit\Framework\TestCase');
+        $class->addExtend(TestCase::class);
         $class->addMethod('getClient')
             ->setVisibility(ClassType::VISIBILITY_PRIVATE)
             ->setReturnType($clientClassName->getFqdn())
@@ -386,9 +390,10 @@ Action={$operation->getName()}
     }
 }
 
-if (!\class_exists('PHPUnit\Framework\TestCase')) {
-    class TestCase
+// Because AsyncAws use symfony/phpunit-bridge and don't requires phpunit/phpunit, this class may not exits but is required by the generator
+if (!\class_exists(PHPUnitTestCase::class)) {
+    class DummyTestCase
     {
     }
-    \class_alias(TestCase::class, 'PHPUnit\Framework\TestCase');
+    \class_alias(DummyTestCase::class, PHPUnitTestCase::class);
 }
