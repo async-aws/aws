@@ -1,15 +1,15 @@
 # Async AWS client
 
-If you are one of those people that love the Amazon PHP SDK but hate the fact
+If you are one of those people that like the Amazon PHP SDK but hate the fact
 that you need to download Guzzle, PSR-7 and **every** AWS API client to use it?
 
 This is the library for you!
 
 ## What is new?
 
-The official [AWS PHP SDK](https://github.com/aws/aws-sdk-php) is great. They are
-feature complete, support all Amazon APIs and is maintained by some really talented
-developers. This library is different. It is maintained by some fat and lazy people.
+The official [AWS PHP SDK](https://github.com/aws/aws-sdk-php) is great. It is
+feature complete, it supports all Amazon APIs and is maintained by some really talented
+developers. This library is different. It is maintained by some dumb and lazy people.
 
 The goals of this client are:
 
