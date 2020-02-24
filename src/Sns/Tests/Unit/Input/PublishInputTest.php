@@ -18,26 +18,16 @@ class PublishInputTest extends TestCase
 
     public function testRequestBody(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $input = new PublishInput([
-            'TopicArn' => 'change me',
-            'TargetArn' => 'change me',
-            'PhoneNumber' => 'change me',
-            'Message' => 'change me',
-            'Subject' => 'change me',
-            'MessageStructure' => 'change me',
-            'MessageAttributes' => ['change me' => new MessageAttributeValue([
-                'DataType' => 'change me',
-                'StringValue' => 'change me',
-                'BinaryValue' => 'change me',
-            ])],
+            'TopicArn' => 'arn:aws:sns:us-east-1:46563727:async',
+            'Message' => 'Foo',
         ]);
 
         $expected = '
             Action=Publish
             &Version=2010-03-31
-            &ChangeIt=Change+it
+            &TopicArn=arn%3Aaws%3Asns%3Aus-east-1%3A46563727%3Aasync
+            &Message=Foo
         ';
 
         self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
