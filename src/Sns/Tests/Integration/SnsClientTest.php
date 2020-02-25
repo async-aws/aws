@@ -12,7 +12,7 @@ class SnsClientTest extends TestCase
 {
     public function testPublish(): void
     {
-        self::markTestIncomplete('Not implemented');
+        self::markTestSkipped('No Docker image for Sns');
 
         $client = $this->getClient();
 

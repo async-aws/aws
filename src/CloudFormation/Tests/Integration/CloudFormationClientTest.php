@@ -12,7 +12,7 @@ class CloudFormationClientTest extends TestCase
 {
     public function testDescribeStackEvents(): void
     {
-        self::markTestIncomplete('Not implemented');
+        self::markTestSkipped('No Docker image for CloudFormation');
 
         $client = $this->getClient();
 
@@ -30,7 +30,7 @@ class CloudFormationClientTest extends TestCase
 
     public function testDescribeStacks(): void
     {
-        self::markTestIncomplete('Not implemented');
+        self::markTestSkipped('No Docker image for CloudFormation');
 
         $client = $this->getClient();
 
