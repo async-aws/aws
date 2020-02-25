@@ -14,8 +14,6 @@ class SendEmailRequestTest extends TestCase
 {
     public function testRequestBody(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $input = new SendEmailRequest([
             'FromEmailAddress' => 'jeremy@derusse.com',
             'Destination' => new Destination([
@@ -46,34 +44,36 @@ class SendEmailRequestTest extends TestCase
 
         // see example-1.json from SDK
         $expected = '{
+            "Action": "SendEmail",
+            "Version": "2019-09-27",
             "FromEmailAddress": "jeremy@derusse.com",
             "Destination": {
-                "BccAddresses": [],
-                "CcAddresses": [
-                    "recipient3@example.com"
-                ],
                 "ToAddresses": [
                     "recipient1@example.com",
                     "recipient2@example.com"
+                ],
+                "CcAddresses": [
+                    "recipient3@example.com"
                 ]
             },
-            "Message": {
-                "Body": {
-                    "Html": {
-                        "Charset": "UTF-8",
-                        "Data": "This message body contains HTML formatting. It can, for example, contain links like this one: <a class=\\"ulink\\" href=\\"http:\\/\\/docs.aws.amazon.com\\/ses\\/latest\\/DeveloperGuide\\" target=\\"_blank\\">Amazon SES Developer Guide<\\/a>."
+            "Content": {
+                "Simple": {
+                    "Subject": {
+                        "Data": "Test email",
+                        "Charset": "UTF-8"
                     },
-                    "Text": {
-                        "Charset": "UTF-8",
-                        "Data": "This is the message body in text format."
+                    "Body": {
+                        "Text": {
+                            "Data": "This is the message body in text format.",
+                            "Charset": "UTF-8"
+                        },
+                        "Html": {
+                            "Data": "This message body contains HTML formatting. It can, for example, contain links like this one: <a class=\\"ulink\\" href=\\"http:\\/\\/docs.aws.amazon.com\\/ses\\/latest\\/DeveloperGuide\\" target=\\"_blank\\">Amazon SES Developer Guide<\\/a>.",
+                            "Charset": "UTF-8"
+                        }
                     }
-                },
-                "Subject": {
-                    "Charset": "UTF-8",
-                    "Data": "Test email"
                 }
-            },
-            "ReplyToAddresses": [],
+            }
         }';
 
         self::assertJsonStringEqualsJsonString($expected, $input->requestBody());
