@@ -25,4 +25,24 @@ class DeleteObjectRequestTest extends TestCase
 
         self::assertXmlStringEqualsXmlString($expected, $input->requestBody());
     }
+
+    /**
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html#API_DeleteObject_Examples
+     */
+    public function testSimpleCase(): void
+    {
+        $version = 'UIORUnfndfiufdisojhr398493jfdkjFJjkndnqUifhnw89493jJFJ';
+        $input = new DeleteObjectRequest([
+            'Bucket' => 'my-bucket',
+            'Key' => 'my-second-image.jpg',
+            'VersionId' => $version,
+        ]);
+
+        self::assertEquals('/my-bucket/my-second-image.jpg', $input->requestUri());
+        self::assertEmpty($input->requestBody());
+
+        $query = $input->requestQuery();
+        self::arrayHasKey('versionId', $query);
+        self::assertEquals($version, $query['versionId']);
+    }
 }
