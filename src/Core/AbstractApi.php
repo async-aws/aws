@@ -11,7 +11,6 @@ use AsyncAws\Core\Credentials\CredentialProvider;
 use AsyncAws\Core\Credentials\IniFileProvider;
 use AsyncAws\Core\Credentials\InstanceProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
-use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Signers\Request;
 use AsyncAws\Core\Signers\Signer;
 use AsyncAws\Core\Signers\SignerV4;
@@ -97,14 +96,12 @@ abstract class AbstractApi
      */
     final protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null): ResponseInterface
     {
-        $body = $this->stringifyBody($body);
         if (!isset($headers['content-type'])) {
             $headers['content-type'] = 'text/plain';
         }
-        $headers['content-length'] = (string) \strlen($body);
 
         $request = new Request($method, $this->fillEndpoint($endpoint), $headers, $body);
-        $this->getSigner()->Sign($request, $this->credentialProvider->getCredentials($this->configuration));
+        $this->getSigner()->sign($request, $this->credentialProvider->getCredentials($this->configuration));
 
         return $this->httpClient->request($request->getMethod(), $request->getUrl(), ['headers' => $request->getHeaders(), 'body' => $request->getBody()]);
     }
@@ -137,27 +134,6 @@ abstract class AbstractApi
                 return new SignerV4($service, $region);
             },
         ];
-    }
-
-    private function stringifyBody($body): string
-    {
-        if (\is_callable($body)) {
-            return $this->stringifyBody($body());
-        }
-
-        if (\is_resource($body)) {
-            if (!stream_get_meta_data($body)['seekable']) {
-                throw new InvalidArgument(sprintf('The give body is not seekable. Therefor request can not be signed.'));
-            }
-            if (-1 === fseek($body, 0)) {
-                throw new RuntimeException('Unable to seek to resource');
-            }
-            if (false === $body = stream_get_contents($body)) {
-                throw new RuntimeException('Unable to read resource contents');
-            }
-        }
-
-        return (string) $body;
     }
 
     private function getSigner()
