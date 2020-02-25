@@ -7,20 +7,22 @@ use AsyncAws\S3\Input\GetObjectAclRequest;
 
 class GetObjectAclRequestTest extends TestCase
 {
-    public function testRequestBody(): void
+    /**
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAcl.html#API_GetObjectAcl_Examples
+     */
+    public function testSimpleCase(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $input = new GetObjectAclRequest([
-            'Bucket' => 'change me',
-            'Key' => 'change me',
-            'VersionId' => 'change me',
-            'RequestPayer' => 'change me',
+            'Bucket' => 'my-bucket',
+            'Key' => 'foo.jpg',
+            'VersionId' => 'abc123',
         ]);
 
-        // see example-1.json from SDK
-        $expected = '<Bucket>examplebucket</Bucket>';
+        self::assertEquals('/my-bucket/foo.jpg?acl', $input->requestUri());
+        self::assertEmpty($input->requestBody());
 
-        self::assertXmlStringEqualsXmlString($expected, $input->requestBody());
+        $query = $input->requestQuery();
+        self::arrayHasKey('versionId', $query);
+        self::assertEquals('abc123', $query['versionId']);
     }
 }
