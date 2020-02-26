@@ -37,3 +37,5 @@ $s3Client->PutObject([
 
 When using a `Closure`, it's important to provide the property `ContentLength`.
 This information is required by AWS, and cannot be guessed by AsyncAws.
+If `ContentLength` is absent, AsyncAws will read the output into memory before 
+sending the request.
