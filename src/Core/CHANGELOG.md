@@ -12,8 +12,9 @@
 ### Changed
 
 - Removed `AwsClient` and replaced it with `AwsClientFactory`
-- Class `AsuncAws\Core\Signers\Request` is marked as internal
+- Class `AsuncAws\Core\Signer\Request` is marked as internal
 - Make sure behavior of calling `Result::resolve()` is consistent.
+- Rename namespace `Signers` into `Signer`.
 
 ## 0.1.0
 

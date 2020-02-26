@@ -1,6 +1,6 @@
 <?php
 
-namespace AsyncAws\Core\Signers;
+namespace AsyncAws\Core\Signer;
 
 /**
  * Dummy object to store a Request.
