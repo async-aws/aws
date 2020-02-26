@@ -27,7 +27,7 @@ $s3Client->PutObject([
 $fp = \fopen('/path/to/big/file', 'r');
 $s3Client->PutObject([
     'Bucket' => 'ah-brightcove',
-    'Key' => 'callable',
+    'Key' => 'file.jpg',
     'ContentLength' => filesize('/path/to/big/file'), // This is important
     'Body' => static function(int $length) use ($fp) {
         return fread($fp, $length);
