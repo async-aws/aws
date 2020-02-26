@@ -19,7 +19,7 @@ $s3Client = new S3Client(['region' => 'eu-west-1']);
 $resource = \fopen('/path/to/big/file', 'r');
 $s3Client->PutObject([
     'Bucket' => 'ah-brightcove',
-    'Key' => 'resource',
+    'Key' => 'file.jpg',
     'Body' => $resource,
 ]);
 
