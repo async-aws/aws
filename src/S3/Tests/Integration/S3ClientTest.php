@@ -486,9 +486,11 @@ class S3ClientTest extends TestCase
 
     public function testUploadFromClosure()
     {
-        $content = 'some content';
-        $closure = \Closure::fromCallable(function () use ($content) {
-            return $content;
+        $parts = ['some ', 'content'];
+        $content = implode('', $parts);
+        $index = 0;
+        $closure = \Closure::fromCallable(function () use ($parts, &$index) {
+            return $parts[$index++] ?? '';
         });
 
         $s3 = $this->getClient();
@@ -524,7 +526,8 @@ class S3ClientTest extends TestCase
         $result = $s3->putObject($input);
 
         $result->resolve();
-        fclose($resource);
+        // Can not close the resource before destructing the client see https://github.com/symfony/symfony/issues/35859
+        // fclose($resource);
         $info = $result->info();
         self::assertEquals(200, $info['status']);
 
