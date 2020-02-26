@@ -526,8 +526,8 @@ class S3ClientTest extends TestCase
         $result = $s3->putObject($input);
 
         $result->resolve();
-        // Can not close the resource before destructing the client see https://github.com/symfony/symfony/issues/35859
-        // fclose($resource);
+        fclose($resource);
+
         $info = $result->info();
         self::assertEquals(200, $info['status']);
 

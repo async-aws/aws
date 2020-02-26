@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Core\Signer;
 
+use AsyncAws\Core\Stream\Stream;
+
 /**
  * Dummy object to store a Request.
  *
@@ -20,10 +22,9 @@ final class Request
     private $body;
 
     /**
-     * @param string[]|string[][]      $headers
-     * @param string|resource|callable $body
+     * @param string[]|string[][] $headers
      */
-    public function __construct(string $method, string $url, array $headers, $body)
+    public function __construct(string $method, string $url, array $headers, Stream $body)
     {
         $this->method = $method;
         $this->url = $url;
@@ -66,18 +67,12 @@ final class Request
         return $this->headers[strtolower($name)] ?? null;
     }
 
-    /**
-     * @return string|resource|callable
-     */
-    public function getBody()
+    public function getBody(): Stream
     {
         return $this->body;
     }
 
-    /**
-     * @param string|resource|callable $body
-     */
-    public function setBody($body)
+    public function setBody(Stream $body)
     {
         $this->body = $body;
     }

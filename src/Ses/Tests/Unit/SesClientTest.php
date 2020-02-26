@@ -4,6 +4,7 @@ namespace AsyncAws\Ses\Tests\Unit;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Exception\Http\ClientException;
+use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Ses\Input\Body;
 use AsyncAws\Ses\Input\Content;
 use AsyncAws\Ses\Input\Destination;
@@ -72,7 +73,7 @@ class SesClientTest extends TestCase
             $this->assertSame('POST', $method);
             $this->assertStringStartsWith('https://email.eu-west-1.amazonaws.com:8984/', $url);
 
-            $content = json_decode($options['body'], true);
+            $content = json_decode(StreamFactory::create($options['body'])->stringify(), true);
 
             $this->assertSame('Hello!', $content['Content']['Simple']['Subject']['Data']);
             $this->assertSame('tobias.nyholm@gmail.com', $content['Destination']['ToAddresses'][0]);

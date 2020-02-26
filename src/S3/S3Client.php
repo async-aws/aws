@@ -330,7 +330,7 @@ class S3Client extends AbstractApi
      *
      * @param array{
      *   ACL?: string,
-     *   Body?: string|resource|\Closure,
+     *   Body?: string|resource|callable|iterable,
      *   Bucket: string,
      *   CacheControl?: string,
      *   ContentDisposition?: string,

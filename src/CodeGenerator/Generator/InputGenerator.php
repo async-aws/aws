@@ -125,7 +125,7 @@ class InputGenerator
                     $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
                 }
             } elseif ($member->isStreaming()) {
-                $parameterType = 'string|resource|\Closure';
+                $parameterType = 'string|resource|callable|iterable';
                 $returnType = null;
                 $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $member->getName()]);
             } elseif ('\DateTimeInterface' !== $parameterType) {
