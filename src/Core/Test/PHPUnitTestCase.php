@@ -1,6 +1,5 @@
 <?php
 
-
 namespace AsyncAws\Core\Test;
 
 use PHPUnit\Framework\TestCase;
