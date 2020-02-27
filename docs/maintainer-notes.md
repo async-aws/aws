@@ -40,11 +40,11 @@ is an example for DynamoDB.
 
 1. Clone the async-aws/aws repository.
 1. Run `composer install`
-1. Create `./src/DynamoDb/DynamoDbClient.php`
+1. Create `./src/DynamoDb/DynamoDbClient.php` and add an empty `DynamoDbClient` class.
 1. Update `./manifest.json`
-   1. Look at the official SDK for resources in `./src/data`. [DynamoDB example](https://github.com/aws/aws-sdk-php/tree/3.133.23/src/data/dynamodb/2012-08-10)
+   1. Look at the official SDK for resources in `./src/data`. ([DynamoDB example](https://github.com/aws/aws-sdk-php/tree/3.133.23/src/data/dynamodb/2012-08-10))
    1. Add links to `source`,  `documentation`, `example`, `pagination`, `waiter` etc.
-   1. Leave the `methods` key empty. `"methods": {}`
+   1. Leave the `methods` key empty. (`"methods": {}`)
 1. Run `./generate DynamoDb` and generate the operations you need. Don't generate operations that you dont need.
 1. Complete the test stubs created in `./src/DynamoDb/Tests`
 
@@ -62,5 +62,5 @@ test stubs. Below is an example to generate an operation for Lambda.
 1. Select the operation you want to generate. Don't generate operations that you dont need.
 1. Complete the test stubs created in `./src/Lambda/Tests`
 
-If you started working on a new client, please submit a "Draft PR" to show your
+If you started working on a new operation, please submit a "Draft PR" to show your
 progress. Don't hesitate asking for help.
