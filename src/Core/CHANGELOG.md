@@ -8,12 +8,14 @@
 - Methods `AwsClient::cloudFormation()`, `AwsClient::lambda()`, `AwsClient::sns()`
 - Protected methods `Result::registerPrefetch()` and `Result::unregisterPrefetch()`
 - Timeout parameter to `InstanceProvider::__construct()`
+- Requests can now be streamed
+- Streamable request accepts iterable alongside string, callable, resource
 
 ### Changed
 
 - Removed `AwsClient` and replaced it with `AwsClientFactory`
-- Class `AsuncAws\Core\Signer\Request` is marked as internal
-- Make sure behavior of calling `Result::resolve()` is consistent.
+- Class `AsyncAws\Core\Signer\Request` is marked as internal
+- Make sure behavior of calling `Result::resolve()` is consistent
 - Rename namespace `Signers` into `Signer`.
 
 ## 0.1.0

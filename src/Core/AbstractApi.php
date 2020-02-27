@@ -14,6 +14,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Signer\Request;
 use AsyncAws\Core\Signer\Signer;
 use AsyncAws\Core\Signer\SignerV4;
+use AsyncAws\Core\Stream\StreamFactory;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\HttpClient;
@@ -74,8 +75,8 @@ abstract class AbstractApi
     }
 
     /**
-     * @param string[]|string[][]            $headers headers names provided as keys or as part of values
-     * @param array|string|resource|callable $body
+     * @param string[]|string[][]                    $headers headers names provided as keys or as part of values
+     * @param string|resource|callable|iterable|null $body
      */
     final public function request(string $method, $body = '', $headers = [], ?string $endpoint = null): Result
     {
@@ -91,8 +92,8 @@ abstract class AbstractApi
     abstract protected function getSignatureScopeName(): string;
 
     /**
-     * @param string[]|string[][]      $headers headers names provided as keys or as part of values
-     * @param string|resource|callable $body
+     * @param string[]|string[][]                    $headers headers names provided as keys or as part of values
+     * @param string|resource|callable|iterable|null $body
      */
     final protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null): ResponseInterface
     {
@@ -100,8 +101,14 @@ abstract class AbstractApi
             $headers['content-type'] = 'text/plain';
         }
 
-        $request = new Request($method, $this->fillEndpoint($endpoint), $headers, $body);
+        $stream = StreamFactory::create($body);
+
+        $request = new Request($method, $this->fillEndpoint($endpoint), $headers, $stream);
         $this->getSigner()->sign($request, $this->credentialProvider->getCredentials($this->configuration));
+
+        if (!$request->hasHeader('content-length') && null !== $length = $request->getBody()->length()) {
+            $request->setHeader('content-length', $length);
+        }
 
         return $this->httpClient->request($request->getMethod(), $request->getUrl(), ['headers' => $request->getHeaders(), 'body' => $request->getBody()]);
     }

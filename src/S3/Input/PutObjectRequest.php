@@ -18,7 +18,7 @@ class PutObjectRequest
     /**
      * Object data.
      *
-     * @var string|resource|\Closure|null
+     * @var string|resource|callable|iterable|null
      */
     private $Body;
 
@@ -261,7 +261,7 @@ class PutObjectRequest
      *
      * @param array{
      *   ACL?: string,
-     *   Body?: string|resource|\Closure,
+     *   Body?: string|resource|callable|iterable,
      *   Bucket?: string,
      *   CacheControl?: string,
      *   ContentDisposition?: string,

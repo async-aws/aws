@@ -66,7 +66,7 @@ class TypeGenerator
                     $param = $this->getNativePhpType($mapMemberShape->getType()) . '[]';
                 }
             } elseif ($member->isStreaming()) {
-                $param = 'string|resource|\Closure';
+                $param = 'string|resource|callable|iterable';
             } elseif ('timestamp' === $param = $memberShape->getType()) {
                 $param = $isResult ? '\DateTimeInterface' : '\DateTimeInterface|string';
             } else {
