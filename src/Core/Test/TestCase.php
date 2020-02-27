@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Core\Test;
 
+use PHPUnit\Framework\TestCase as PHPUnitTestCase;
+
 class TestCase extends PHPUnitTestCase
 {
     /**
@@ -14,4 +16,7 @@ class TestCase extends PHPUnitTestCase
 
         self::assertEqualsCanonicalizing($expectedArray, $actualArray, $message);
     }
+}
+if (!\class_exists(PHPUnitTestCase::class)) {
+    \class_alias(InternalTestCase::class, PHPUnitTestCase::class);
 }
