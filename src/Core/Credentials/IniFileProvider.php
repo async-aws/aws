@@ -18,26 +18,19 @@ use Psr\Log\NullLogger;
  */
 class IniFileProvider implements CredentialProvider
 {
-    private const KEY_ACCESS_KEY_ID = 'aws_access_key_id';
-    private const KEY_SECRET_ACCESS_KEY = 'aws_secret_access_key';
-    private const KEY_SESSION_TOKEN = 'aws_session_token';
-    private const KEY_ROLE_ARN = 'role_arn';
-    private const KEY_ROLE_SESSION_NAME = 'role_session_name';
-    private const KEY_SOURCE_PROFILE = 'source_profile';
+    private $iniFileLoader;
 
-    /**
-     * @var LoggerInterface
-     */
     private $logger;
 
-    public function __construct(?LoggerInterface $logger = null)
+    public function __construct(?LoggerInterface $logger = null, ?IniFileLoader $iniFileLoader = null)
     {
         $this->logger = $logger ?? new NullLogger();
+        $this->iniFileLoader = $iniFileLoader ?? new IniFileLoader($this->logger);
     }
 
     public function getCredentials(Configuration $configuration): ?Credentials
     {
-        $profilesData = $this->loadProfiles([
+        $profilesData = $this->iniFileLoader->loadProfiles([
             $configuration->get(Configuration::OPTION_SHARED_CREDENTIALS_FILE),
             $configuration->get(Configuration::OPTION_SHARED_CONFIG_FILE),
         ]);
@@ -67,15 +60,15 @@ class IniFileProvider implements CredentialProvider
         }
 
         $profileData = $profilesData[$profile];
-        if (isset($profileData[self::KEY_ACCESS_KEY_ID], $profileData[self::KEY_ACCESS_KEY_ID])) {
+        if (isset($profileData[IniFileLoader::KEY_ACCESS_KEY_ID], $profileData[IniFileLoader::KEY_ACCESS_KEY_ID])) {
             return new Credentials(
-                $profileData[self::KEY_ACCESS_KEY_ID],
-                $profileData[self::KEY_SECRET_ACCESS_KEY],
-                $profileData[self::KEY_SESSION_TOKEN] ?? null
+                $profileData[IniFileLoader::KEY_ACCESS_KEY_ID],
+                $profileData[IniFileLoader::KEY_SECRET_ACCESS_KEY],
+                $profileData[IniFileLoader::KEY_SESSION_TOKEN] ?? null
             );
         }
 
-        if (isset($profileData[self::KEY_ROLE_ARN])) {
+        if (isset($profileData[IniFileLoader::KEY_ROLE_ARN])) {
             return $this->getCredentialsFromRole($profilesData, $profileData, $profile, $circularCollector);
         }
 
@@ -86,9 +79,9 @@ class IniFileProvider implements CredentialProvider
 
     private function getCredentialsFromRole(array $profilesData, array $profileData, string $profile, array $circularCollector = []): ?Credentials
     {
-        $roleArn = (string) ($profileData[self::KEY_ROLE_ARN] ?? '');
-        $roleSessionName = (string) ($profileData[self::KEY_ROLE_SESSION_NAME] ?? \uniqid('async-aws-', true));
-        if (null === $sourceProfileName = $profileData[self::KEY_SOURCE_PROFILE] ?? null) {
+        $roleArn = (string) ($profileData[IniFileLoader::KEY_ROLE_ARN] ?? '');
+        $roleSessionName = (string) ($profileData[IniFileLoader::KEY_ROLE_SESSION_NAME] ?? \uniqid('async-aws-', true));
+        if (null === $sourceProfileName = $profileData[IniFileLoader::KEY_SOURCE_PROFILE] ?? null) {
             $this->logger->warning('The source profile is not defined in Role "{profile}".', ['profile' => $profile]);
 
             return null;
@@ -102,8 +95,7 @@ class IniFileProvider implements CredentialProvider
             return null;
         }
 
-        $stsClient = new StsClient(isset($profilesData[$sourceProfileName]['region']) ? ['region' => $profilesData[$sourceProfileName]['region']] : [], $sourceCredentials);
-
+        $stsClient = new StsClient(isset($profilesData[$sourceProfileName][IniFileLoader::KEY_REGION]) ? ['region' => $profilesData[$sourceProfileName][IniFileLoader::KEY_REGION]] : [], $sourceCredentials);
         $result = $stsClient->assumeRole([
             'RoleArn' => $roleArn,
             'RoleSessionName' => $roleSessionName,
@@ -125,61 +117,5 @@ class IniFileProvider implements CredentialProvider
             $credentials->getSessionToken(),
             $credentials->getExpiration()
         );
-    }
-
-    private function getHomeDir(): string
-    {
-        // On Linux/Unix-like systems, use the HOME environment variable
-        if (false !== $homeDir = \getenv('HOME')) {
-            return $homeDir;
-        }
-
-        // Get the HOMEDRIVE and HOMEPATH values for Windows hosts
-        $homeDrive = \getenv('HOMEDRIVE');
-        $homePath = \getenv('HOMEPATH');
-
-        return ($homeDrive && $homePath) ? $homeDrive . $homePath : '/';
-    }
-
-    private function loadProfiles(array $filepaths): array
-    {
-        $profilesData = [];
-        $homeDir = null;
-        foreach ($filepaths as $filepath) {
-            if ('' === $filepath) {
-                continue;
-            }
-            if ('~' === $filepath[0]) {
-                $homeDir = $homeDir ?? $this->getHomeDir();
-                $filepath = $homeDir . \substr($filepath, 1);
-            }
-            if (!\is_readable($filepath)) {
-                continue;
-            }
-
-            foreach ($this->parseIniFile($filepath) as $name => $profile) {
-                $name = \preg_replace('/^profile /', '', $name);
-                if (!isset($profilesData[$name])) {
-                    $profilesData[$name] = \array_map('trim', $profile);
-                }
-            }
-        }
-
-        return $profilesData;
-    }
-
-    private function parseIniFile(string $filepath): array
-    {
-        if (false === $data = \parse_ini_string(
-            \preg_replace('/^#/m', ';', \file_get_contents($filepath)),
-            true,
-            \INI_SCANNER_RAW
-        )) {
-            $this->logger->warning('The ini file {path} is invalid.', ['path' => $filepath]);
-
-            return [];
-        }
-
-        return $data;
     }
 }
