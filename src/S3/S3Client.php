@@ -23,7 +23,7 @@ use AsyncAws\S3\Result\HeadObjectOutput;
 use AsyncAws\S3\Result\ListObjectsV2Output;
 use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
-use AsyncAws\S3\Signers\SignerV4ForS3;
+use AsyncAws\S3\Signer\SignerV4ForS3;
 
 class S3Client extends AbstractApi
 {
