@@ -23,7 +23,6 @@
         "psr-4": {
             "AsyncAws\\Core\\": ""
         },
-        "files": ["Test/PHPUnitTestCase.php"],
         "exclude-from-classmap": [
             "/Tests/"
         ]

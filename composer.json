@@ -31,10 +31,7 @@
     "autoload": {
         "psr-4": {
             "AsyncAws\\": "src"
-        },
-        "files": [
-            "src/Core/Test/PHPUnitTestCase.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
