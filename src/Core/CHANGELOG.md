@@ -9,7 +9,7 @@
 - Protected methods `Result::registerPrefetch()` and `Result::unregisterPrefetch()`
 - Timeout parameter to `InstanceProvider::__construct()`
 - Requests can now be streamed
-- Strealable request accepts iterable alongside string, callable, resource
+- Streamable request accepts iterable alongside string, callable, resource
 
 ### Changed
 
