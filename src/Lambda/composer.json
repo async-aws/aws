@@ -9,7 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
-        "ext-SimpleXML": "*",
+        "ext-json": "*",
         "async-aws/core": "^0.2",
         "symfony/http-client-contracts": "^1.0 || ^2.0"
     },
