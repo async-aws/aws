@@ -3,10 +3,10 @@ parameters:
 		-
 			message: "#^Call to an undefined method Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\:\\:section\\(\\)\\.$#"
 			count: 2
-			path: src/CodeGenerator/Command/GenerateCommand.php
+			path: src/CodeGenerator/src/Command/GenerateCommand.php
 
 		-
 			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\:\\:scalarNode\\(\\)\\.$#"
 			count: 1
-			path: src/Symfony/Bundle/DependencyInjection/Configuration.php
+			path: src/Symfony/Bundle/src/DependencyInjection/Configuration.php
 

@@ -15,16 +15,16 @@
     <testsuites>
         <testsuite name="Test Suite">
             <directory>./tests/</directory>
-            <directory>./src/CloudFormation/Tests/</directory>
-            <directory>./src/CodeGenerator/Tests/</directory>
-            <directory>./src/Core/Tests/</directory>
-            <directory>./src/Flysystem/S3/Tests/</directory>
-            <directory>./src/Lambda/Tests/</directory>
-            <directory>./src/S3/Tests/</directory>
-            <directory>./src/Ses/Tests/</directory>
-            <directory>./src/Sns/Tests/</directory>
-            <directory>./src/Sqs/Tests/</directory>
-            <directory>./src/Symfony/Bundle/Tests/</directory>
+            <directory>./src/CloudFormation/tests/</directory>
+            <directory>./src/CodeGenerator/tests/</directory>
+            <directory>./src/Core/tests/</directory>
+            <directory>./src/Flysystem/S3/tests/</directory>
+            <directory>./src/Lambda/tests/</directory>
+            <directory>./src/S3/tests/</directory>
+            <directory>./src/Ses/tests/</directory>
+            <directory>./src/Sns/tests/</directory>
+            <directory>./src/Sqs/tests/</directory>
+            <directory>./src/Symfony/Bundle/tests/</directory>
         </testsuite>
     </testsuites>
 
@@ -33,8 +33,8 @@
             <directory>./src</directory>
             <exclude>
                 <directory>./src/CodeGenerator</directory>
-                <directory>./src/*/Tests</directory>
-                <directory>./src/*/*/Tests</directory>
+                <directory>./src/*/tests</directory>
+                <directory>./src/*/*/tests</directory>
                 <directory>./vendor</directory>
             </exclude>
         </whitelist>

@@ -31,12 +31,31 @@
     },
     "autoload": {
         "psr-4": {
-            "AsyncAws\\": "src"
+            "AsyncAws\\CloudFormation\\": "src/CloudFormation/src",
+            "AsyncAws\\CodeGenerator\\": "src/CodeGenerator/src",
+            "AsyncAws\\Core\\": "src/Core/src",
+            "AsyncAws\\Flysystem\\S3\\": "src/Flysystem/S3/src",
+            "AsyncAws\\Lambda\\": "src/Lambda/src",
+            "AsyncAws\\S3\\": "src/S3/src",
+            "AsyncAws\\Ses\\": "src/Ses/src",
+            "AsyncAws\\Sns\\": "src/Sns/src",
+            "AsyncAws\\Sqs\\": "src/Sqs/src",
+            "AsyncAws\\Symfony\\Bundle\\": "src/Symfony/Bundle/src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "AsyncAws\\Test\\": "tests"
+            "AsyncAws\\Test\\": "tests",
+            "AsyncAws\\CloudFormation\\Tests\\": "src/CloudFormation/tests",
+            "AsyncAws\\CodeGenerator\\Tests\\": "src/CodeGenerator/tests",
+            "AsyncAws\\Core\\Tests\\": "src/Core/tests",
+            "AsyncAws\\Flysystem\\S3\\Tests\\": "src/Flysystem/S3/tests",
+            "AsyncAws\\Lambda\\Tests\\": "src/Lambda/tests",
+            "AsyncAws\\S3\\Tests\\": "src/S3/tests",
+            "AsyncAws\\Ses\\Tests\\": "src/Ses/tests",
+            "AsyncAws\\Sns\\Tests\\": "src/Sns/tests",
+            "AsyncAws\\Sqs\\Tests\\": "src/Sqs/tests",
+            "AsyncAws\\Symfony\\Bundle\\Tests\\": "src/Symfony/Bundle/tests"
         }
     }
 }

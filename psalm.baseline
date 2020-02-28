@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="3.9.3@2e4154d76e24d1b4e59e6cc2bebef7790cb9e550">
-  <file src="src/Core/Exception/Http/HttpExceptionTrait.php">
+  <file src="src/Core/src/Exception/Http/HttpExceptionTrait.php">
     <InvalidArgument occurrences="4">
       <code>$code</code>
       <code>$url</code>
@@ -11,16 +11,16 @@
       <code>$response-&gt;getInfo('response_headers')</code>
     </PossiblyNullArgument>
   </file>
-  <file src="src/Ses/Input/SendEmailRequest.php">
+  <file src="src/Ses/src/Input/SendEmailRequest.php">
     <PossiblyNullArgument occurrences="2">
       <code>$input-&gt;getSubject()</code>
       <code>$input-&gt;getBody()</code>
     </PossiblyNullArgument>
   </file>
-  <file src="src/Sqs/Result/ReceiveMessageResult.php">
+  <file src="src/Sqs/src/Result/ReceiveMessageResult.php">
     <InvalidArgument occurrences="1"/>
   </file>
-  <file src="src/Symfony/Bundle/DependencyInjection/Configuration.php">
+  <file src="src/Symfony/Bundle/src/DependencyInjection/Configuration.php">
     <PossiblyNullReference occurrences="1">
       <code>scalarNode</code>
     </PossiblyNullReference>

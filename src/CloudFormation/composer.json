@@ -21,10 +21,12 @@
     },
     "autoload": {
         "psr-4": {
-            "AsyncAws\\CloudFormation\\": ""
-        },
-        "exclude-from-classmap": [
-            "/Tests/"
-        ]
+            "AsyncAws\\CloudFormation\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\CloudFormation\\Tests\\": "tests/"
+        }
     }
 }

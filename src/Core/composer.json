@@ -21,10 +21,12 @@
     },
     "autoload": {
         "psr-4": {
-            "AsyncAws\\Core\\": ""
-        },
-        "exclude-from-classmap": [
-            "/Tests/"
-        ]
+            "AsyncAws\\Core\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\Core\\Tests\\": "tests/"
+        }
     }
 }

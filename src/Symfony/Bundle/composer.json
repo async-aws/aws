@@ -30,11 +30,13 @@
     },
     "autoload": {
         "psr-4": {
-            "AsyncAws\\Symfony\\Bundle\\": ""
-        },
-        "exclude-from-classmap": [
-            "/Tests/"
-        ]
+            "AsyncAws\\Symfony\\Bundle\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\Symfony\\Bundle\\Tests\\": "tests/"
+        }
     },
     "minimum-stability": "dev"
 }

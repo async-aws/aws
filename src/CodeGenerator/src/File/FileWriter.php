@@ -37,13 +37,7 @@ class FileWriter
         $classes = $namespace->getClasses();
         $class = $classes[array_key_first($classes)];
         $className = $class->getName();
-
-        $directory = \sprintf('%s/%s', $this->srcDirectory, str_replace('\\', '/', $fqcn));
-        if (!is_dir($directory)) {
-            if (false === mkdir($directory, 0777, true)) {
-                throw new \RuntimeException(sprintf('Could not create directory "%s"', $directory));
-            }
-        }
+        $directory = $this->resolveDirectory($fqcn);
 
         $filename = \sprintf('%s/%s.php', $directory, $className);
 
@@ -91,5 +85,21 @@ class FileWriter
         if (file_exists($from)) {
             rename($from, $to);
         }
+    }
+
+    private function resolveDirectory(string $fqcn): string
+    {
+        $parts = explode('\\', $fqcn);
+        $service = array_shift($parts); // Lambda, S3, Sqs etc
+        array_unshift($parts, $service, 'src');
+
+        $directory = \sprintf('%s/%s', $this->srcDirectory, implode('/', $parts));
+        if (!is_dir($directory)) {
+            if (false === mkdir($directory, 0777, true)) {
+                throw new \RuntimeException(sprintf('Could not create directory "%s"', $directory));
+            }
+        }
+
+        return $directory;
     }
 }

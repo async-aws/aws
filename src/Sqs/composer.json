@@ -20,10 +20,12 @@
     },
     "autoload": {
         "psr-4": {
-            "AsyncAws\\Sqs\\": ""
-        },
-        "exclude-from-classmap": [
-            "/Tests/"
-        ]
+            "AsyncAws\\Sqs\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\Sqs\\Tests\\": "tests/"
+        }
     }
 }

@@ -20,10 +20,12 @@
     },
     "autoload": {
         "psr-4": {
-            "AsyncAws\\Lambda\\": ""
-        },
-        "exclude-from-classmap": [
-            "/Tests/"
-        ]
+            "AsyncAws\\Lambda\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\Lambda\\Tests\\": "tests/"
+        }
     }
 }
