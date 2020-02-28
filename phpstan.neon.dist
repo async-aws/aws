@@ -7,11 +7,11 @@ parameters:
         - src
 
     excludes_analyse:
-        - src/*/Tests/*
-        - src/**/Tests/*
-        - src/CodeGenerator/Generator/PhpGenerator/ClassFactory.php
-        - src/CodeGenerator/Generator/TestGenerator.php
-        - src/Core/Test/TestCase.php
+        - src/*/tests/*
+        - src/**/tests/*
+        - src/CodeGenerator/src/Generator/PhpGenerator/ClassFactory.php
+        - src/CodeGenerator/src/Generator/TestGenerator.php
+        - src/Core/src/Test/TestCase.php
 
     ignoreErrors:
         - '|Ternary operator condition is always true\.|'
