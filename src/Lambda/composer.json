@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "AsyncAws\\Lambda\\": "src/"
+            "AsyncAws\\Lambda\\": "src"
         }
     },
     "autoload-dev": {

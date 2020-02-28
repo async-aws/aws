@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "AsyncAws\\CloudFormation\\": "src/"
+            "AsyncAws\\CloudFormation\\": "src"
         }
     },
     "autoload-dev": {

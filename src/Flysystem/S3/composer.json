@@ -23,7 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "AsyncAws\\Flysystem\\S3\\": "src/"
+            "AsyncAws\\Flysystem\\S3\\": "src"
         }
     },
     "autoload-dev": {

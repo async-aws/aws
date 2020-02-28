@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "AsyncAws\\Core\\": "src/"
+            "AsyncAws\\Core\\": "src"
         }
     },
     "autoload-dev": {

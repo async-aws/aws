@@ -30,7 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-            "AsyncAws\\Symfony\\Bundle\\": "src/"
+            "AsyncAws\\Symfony\\Bundle\\": "src"
         }
     },
     "autoload-dev": {

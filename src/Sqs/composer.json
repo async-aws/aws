@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "AsyncAws\\Sqs\\": "src/"
+            "AsyncAws\\Sqs\\": "src"
         }
     },
     "autoload-dev": {
