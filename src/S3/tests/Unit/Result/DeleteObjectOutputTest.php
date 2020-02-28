@@ -13,7 +13,7 @@ class DeleteObjectOutputTest extends TestCase
     {
         self::markTestIncomplete('Not implemented');
 
-        // see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_METHOD.html
+        // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjects.html
         $response = new SimpleMockedResponse('<change>it</change>');
 
         $client = new MockHttpClient($response);

@@ -15,8 +15,6 @@ class StsClientTest extends TestCase
 {
     public function testAssumeRole(): void
     {
-        self::markTestSkipped('No Docker image for STS');
-
         $client = $this->getClient();
 
         $input = new AssumeRoleRequest([
@@ -47,10 +45,6 @@ class StsClientTest extends TestCase
 
     public function testAssumeRoleWithWebIdentity(): void
     {
-        self::markTestSkipped('No Docker image for STS');
-
-        self::markTestIncomplete('Not implemented');
-
         $client = $this->getClient();
 
         $input = new AssumeRoleWithWebIdentityRequest([
@@ -78,8 +72,6 @@ class StsClientTest extends TestCase
 
     public function testGetCallerIdentity(): void
     {
-        self::markTestSkipped('No Docker image for STS');
-
         $client = $this->getClient();
 
         $input = new GetCallerIdentityRequest([
@@ -96,6 +88,8 @@ class StsClientTest extends TestCase
 
     private function getClient(): StsClient
     {
+        self::markTestSkipped('No Docker image for STS');
+
         return new StsClient([
             'endpoint' => 'http://localhost',
         ], new NullProvider());

@@ -182,7 +182,7 @@ class S3ClientTest extends TestCase
 
     public function testDeleteObjects()
     {
-        self::markTestSkipped('The S3 image does not implement DeleteObjects. https://github.com/jubos/fake-s3/issues/97');
+        self::markTestSkipped('The S3 Docker image does not implement DeleteObjects. https://github.com/jubos/fake-s3/issues/97');
 
         $s3 = $this->getClient();
         $bucket = 'foo';

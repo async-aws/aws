@@ -12,8 +12,6 @@ class CloudFormationClientTest extends TestCase
 {
     public function testDescribeStackEvents(): void
     {
-        self::markTestSkipped('No Docker image for CloudFormation');
-
         $client = $this->getClient();
 
         $input = new DescribeStackEventsInput([
@@ -30,8 +28,6 @@ class CloudFormationClientTest extends TestCase
 
     public function testDescribeStacks(): void
     {
-        self::markTestSkipped('No Docker image for CloudFormation');
-
         $client = $this->getClient();
 
         $input = new DescribeStacksInput([
@@ -48,6 +44,8 @@ class CloudFormationClientTest extends TestCase
 
     private function getClient(): CloudFormationClient
     {
+        self::markTestSkipped('No Docker image for CloudFormation');
+
         return new CloudFormationClient([
             'endpoint' => 'http://localhost',
         ], new NullProvider());
