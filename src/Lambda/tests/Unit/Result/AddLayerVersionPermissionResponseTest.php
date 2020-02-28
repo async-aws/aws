@@ -11,17 +11,16 @@ class AddLayerVersionPermissionResponseTest extends TestCase
 {
     public function testAddLayerVersionPermissionResponse(): void
     {
-        self::markTestIncomplete('Not implemented');
-
-        // see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_METHOD.html
+        // see https://docs.aws.amazon.com/lambda/latest/dg/API_AddLayerVersionPermission.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
+            "RevisionId": "123456",
+            "Statement": "fooBar"
         }');
 
         $client = new MockHttpClient($response);
         $result = new AddLayerVersionPermissionResponse($client->request('POST', 'http://localhost'), $client);
 
-        self::assertSame('changeIt', $result->getStatement());
-        self::assertSame('changeIt', $result->getRevisionId());
+        self::assertSame('fooBar', $result->getStatement());
+        self::assertSame('123456', $result->getRevisionId());
     }
 }

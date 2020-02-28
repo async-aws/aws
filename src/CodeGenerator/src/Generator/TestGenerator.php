@@ -122,7 +122,7 @@ class TestGenerator
             ', [
                 'MARKER' => self::MARKER,
                 'INPUT_CONSTRUCTOR' => $this->getInputCode($namespace, $operation->getInput()),
-                'SERVICE' => $operation->getService()->getName(),
+                'SERVICE' => \strtolower($operation->getService()->getName()),
                 'METHOD' => $operation->getName(),
                 'STUB' => $stub,
                 'ASSERT' => $assert,
@@ -187,6 +187,8 @@ class TestGenerator
             ', [
                 'MARKER' => self::MARKER,
                 'INPUT_CLASS' => $resultClass->getName(),
+                'SERVICE' => \strtolower($operation->getService()->getName()),
+                'METHOD' => $operation->getName(),
                 'STUB' => $stub,
                 'ASSERT' => $this->getResultAssert($operation->getOutput()),
             ]));
@@ -218,8 +220,6 @@ class TestGenerator
         $class->addMethod($methodName)
             ->setReturnType('void')
             ->setBody(strtr('
-                MARKER
-
                 $client = $this->getClient();
 
                 $input = INPUT_CONSTRUCTOR;
@@ -229,7 +229,6 @@ class TestGenerator
 
                 RESULT_ASSERT
             ', [
-                'MARKER' => self::MARKER,
                 'INPUT_CONSTRUCTOR' => $this->getInputCode($namespace, $operation->getInput()),
                 'METHOD' => $operation->getName(),
                 'RESULT_ASSERT' => $operation->getOutput() ? $this->getResultAssert($operation->getOutput()) : '',
@@ -380,10 +379,13 @@ class TestGenerator
             ->setVisibility(ClassType::VISIBILITY_PRIVATE)
             ->setReturnType($clientClassName->getFqdn())
             ->setBody(strtr('
+    MARKER
+
     return new CLASS_NAME([
         \'endpoint\' => \'http://localhost\',
     ], new NullProvider());
             ', [
+                'MARKER' => self::MARKER,
                 'CLASS_NAME' => $clientClassName->getName(),
             ]));
 

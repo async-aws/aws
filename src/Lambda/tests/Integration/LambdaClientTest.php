@@ -15,7 +15,7 @@ class LambdaClientTest extends TestCase
 {
     public function testAddLayerVersionPermission(): void
     {
-        self::markTestIncomplete('Not implemented');
+        self::markTestSkipped('The Lambda Docker image does not implement AddLayerVersionPermission.');
 
         $client = $this->getClient();
 
@@ -38,40 +38,32 @@ class LambdaClientTest extends TestCase
 
     public function testInvoke(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $client = $this->getClient();
 
         $input = new InvocationRequest([
-            'FunctionName' => 'change me',
-            'InvocationType' => 'change me',
-            'LogType' => 'change me',
-            'ClientContext' => 'change me',
-            'Payload' => 'change me',
-            'Qualifier' => 'change me',
+            'FunctionName' => 'Index',
+            'Payload' => '{"name": "jderusse"}',
         ]);
         $result = $client->Invoke($input);
 
         $result->resolve();
 
-        self::assertSame(1337, $result->getStatusCode());
-        self::assertStringContainsString('change it', $result->getFunctionError());
-        self::assertStringContainsString('change it', $result->getLogResult());
-        // self::assertTODO(expected, $result->getPayload());
-        self::assertStringContainsString('change it', $result->getExecutedVersion());
+        self::assertSame(200, $result->getStatusCode());
+        self::assertNull($result->getFunctionError());
+        self::assertNull($result->getLogResult());
+        self::assertSame('"hello jderusse"', $result->getPayload());
+        self::assertSame('$LATEST', $result->getExecutedVersion());
     }
 
     public function testListLayerVersions(): void
     {
-        self::markTestIncomplete('Not implemented');
+        self::markTestSkipped('The Lambda Docker image does not implement AddLayerVersionPermission.');
 
         $client = $this->getClient();
 
         $input = new ListLayerVersionsRequest([
-            'CompatibleRuntime' => 'change me',
-            'LayerName' => 'change me',
-            'Marker' => 'change me',
-            'MaxItems' => 1337,
+            'CompatibleRuntime' => 'nodejs12.x',
+            'LayerName' => 'foo',
         ]);
         $result = $client->ListLayerVersions($input);
 
@@ -83,12 +75,12 @@ class LambdaClientTest extends TestCase
 
     public function testPublishLayerVersion(): void
     {
-        self::markTestIncomplete('Not implemented');
+        self::markTestSkipped('The Lambda Docker image does not implement AddLayerVersionPermission.');
 
         $client = $this->getClient();
 
         $input = new PublishLayerVersionRequest([
-            'LayerName' => 'change me',
+            'LayerName' => 'foo',
             'Description' => 'change me',
             'Content' => new LayerVersionContentInput([
                 'S3Bucket' => 'change me',
@@ -96,7 +88,7 @@ class LambdaClientTest extends TestCase
                 'S3ObjectVersion' => 'change me',
                 'ZipFile' => 'change me',
             ]),
-            'CompatibleRuntimes' => ['change me'],
+            'CompatibleRuntimes' => ['nodejs12.x'],
             'LicenseInfo' => 'change me',
         ]);
         $result = $client->PublishLayerVersion($input);
@@ -116,7 +108,7 @@ class LambdaClientTest extends TestCase
     private function getClient(): LambdaClient
     {
         return new LambdaClient([
-            'endpoint' => 'http://localhost',
+            'endpoint' => 'http://localhost:9001',
         ], new NullProvider());
     }
 }

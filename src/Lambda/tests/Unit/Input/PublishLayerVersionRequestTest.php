@@ -6,30 +6,59 @@ use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Lambda\Input\LayerVersionContentInput;
 use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
 
+/**
+ * @see https://docs.aws.amazon.com/lambda/latest/dg/API_PublishLayerVersion.html
+ */
 class PublishLayerVersionRequestTest extends TestCase
 {
-    public function testRequestBody(): void
-    {
-        self::markTestIncomplete('Not implemented');
+    /**
+     * @var PublishLayerVersionRequest
+     */
+    private $input;
 
-        $input = new PublishLayerVersionRequest([
-            'LayerName' => 'change me',
-            'Description' => 'change me',
+    public function setUp(): void
+    {
+        $this->input = new PublishLayerVersionRequest([
+            'LayerName' => 'demo',
+            'Description' => 'small description',
             'Content' => new LayerVersionContentInput([
-                'S3Bucket' => 'change me',
-                'S3Key' => 'change me',
-                'S3ObjectVersion' => 'change me',
-                'ZipFile' => 'change me',
+                'S3Bucket' => 'myBucket',
+                'S3Key' => 'path/to/file',
+                'S3ObjectVersion' => '123',
+                'ZipFile' => 'binary content',
             ]),
-            'CompatibleRuntimes' => ['change me'],
-            'LicenseInfo' => 'change me',
+            'CompatibleRuntimes' => ['nodejs10.x', 'nodejs12.x'],
+            'LicenseInfo' => 'MIT',
         ]);
 
-        // see https://docs.aws.amazon.com/Lambda/latest/APIReference/API_PublishLayerVersion.html
+        parent::setUp();
+    }
+
+    public function testRequestBody(): void
+    {
+        // see https://docs.aws.amazon.com/lambda/latest/dg/API_PublishLayerVersion.html
         $expected = '{
-            "change": "it"
+            "Action": "PublishLayerVersion",
+            "Version": "2015-03-31",
+            "Description": "small description",
+            "Content": {
+                "S3Bucket": "myBucket",
+                "S3Key": "path/to/file",
+                "S3ObjectVersion": "123",
+                "ZipFile": "YmluYXJ5IGNvbnRlbnQ="
+            },
+            "CompatibleRuntimes": ["nodejs10.x", "nodejs12.x"],
+            "LicenseInfo": "MIT"
         }';
 
-        self::assertJsonStringEqualsJsonString($expected, $input->requestBody());
+        self::assertJsonStringEqualsJsonString($expected, $this->input->requestBody());
+    }
+
+    public function testRequestUrl(): void
+    {
+        // see https://docs.aws.amazon.com/lambda/latest/dg/API_ListLayerVersions.html
+        $expected = '/2018-10-31/layers/demo/versions';
+
+        self::assertSame($expected, $this->input->requestUri());
     }
 }

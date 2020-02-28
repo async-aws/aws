@@ -12,8 +12,6 @@ class SnsClientTest extends TestCase
 {
     public function testPublish(): void
     {
-        self::markTestSkipped('No Docker image for Sns');
-
         $client = $this->getClient();
 
         $input = new PublishInput([
@@ -38,6 +36,8 @@ class SnsClientTest extends TestCase
 
     private function getClient(): SnsClient
     {
+        self::markTestSkipped('No Docker image for SNS');
+
         return new SnsClient([
             'endpoint' => 'http://localhost',
         ], new NullProvider());

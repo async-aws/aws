@@ -5,39 +5,43 @@ namespace AsyncAws\Lambda\Tests\Unit\Input;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Lambda\Input\InvocationRequest;
 
+/**
+ * @see example-1.json from SDK
+ * @see https://docs.aws.amazon.com/lambda/latest/dg/API_Invoke.html
+ */
 class InvocationRequestTest extends TestCase
 {
-    public function testFunctionName()
+    /**
+     * @var InvocationRequest
+     */
+    private $input;
+
+    public function setUp(): void
     {
-        $input = InvocationRequest::create(['FunctionName' => 'foobar']);
-        $uri = $input->requestUri();
-
-        self::assertStringContainsString('foobar', $uri);
-    }
-
-    public function testRequestBody(): void
-    {
-        self::markTestIncomplete('Not implemented');
-
-        $input = new InvocationRequest([
+        $this->input = new InvocationRequest([
             'FunctionName' => 'MyFunction',
             'InvocationType' => 'Event',
             'LogType' => 'Tail',
             'ClientContext' => 'MyApp',
-            'Payload' => 'fileb://file-path/input.json',
+            'Payload' => '{"name": "jderusse"}',
             'Qualifier' => '1',
         ]);
+        parent::setUp();
+    }
 
-        // see example-1.json from SDK
+    public function testRequestBody(): void
+    {
         $expected = '{
-            "ClientContext": "MyApp",
-            "FunctionName": "MyFunction",
-            "InvocationType": "Event",
-            "LogType": "Tail",
-            "Payload": "fileb:\\/\\/file-path\\/input.json",
-            "Qualifier": "1"
+            "name": "jderusse"
         }';
 
-        self::assertJsonStringEqualsJsonString($expected, $input->requestBody());
+        self::assertJsonStringEqualsJsonString($expected, $this->input->requestBody());
+    }
+
+    public function testRequestUri(): void
+    {
+        $expected = '/2015-03-31/functions/MyFunction/invocations';
+
+        self::assertSame($expected, $this->input->requestUri());
     }
 }

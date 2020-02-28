@@ -11,7 +11,7 @@ class AssumeRoleWithWebIdentityResponseTest extends TestCase
 {
     public function testAssumeRoleWithWebIdentityResponse(): void
     {
-        // see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_METHOD.html
+        // see https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html
         $response = new SimpleMockedResponse('<AssumeRoleWithWebIdentityResponse xmlns="https://sts.amazonaws.com/doc/2011-06-15/">
             <AssumeRoleWithWebIdentityResult>
                 <SubjectFromWebIdentityToken>amzn1.account.AF6RHO7KZU5XRVQJGXK6HB56KR2A</SubjectFromWebIdentityToken>

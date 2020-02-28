@@ -19,8 +19,6 @@ class SesClientTest extends TestCase
 {
     public function testSendEmail(): void
     {
-        self::markTestSkipped('No Docker image for STS');
-
         $client = $this->getClient();
 
         $input = new SendEmailRequest([
@@ -72,6 +70,8 @@ class SesClientTest extends TestCase
 
     private function getClient(): SesClient
     {
+        self::markTestSkipped('No Docker image for SES');
+
         return new SesClient([
             'endpoint' => 'http://localhost',
         ], new NullProvider());

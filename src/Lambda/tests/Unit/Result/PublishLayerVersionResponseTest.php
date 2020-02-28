@@ -11,23 +11,33 @@ class PublishLayerVersionResponseTest extends TestCase
 {
     public function testPublishLayerVersionResponse(): void
     {
-        self::markTestIncomplete('Not implemented');
-
-        // see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_METHOD.html
+        // see https://docs.aws.amazon.com/lambda/latest/dg/API_PublishLayerVersion.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+            "CompatibleRuntimes": ["nodejs10.x", "nodejs12.x"],
+            "Content": {
+                "CodeSha256": "456789abcdf",
+                "CodeSize": 145,
+                "Location": "http://s3.amazon/bucket/path"
+            },
+            "CreatedDate": "1997-07-16T19:20:30+01:00",
+            "Description": "demo",
+            "LayerArn": "arn:::fn:arn",
+            "LayerVersionArn": "arn:::version:arn",
+            "LicenseInfo": "MIT",
+            "Version": 4
+            }
+        ');
 
         $client = new MockHttpClient($response);
         $result = new PublishLayerVersionResponse($client->request('POST', 'http://localhost'), $client);
 
         // self::assertTODO(expected, $result->getContent());
-        self::assertSame('changeIt', $result->getLayerArn());
-        self::assertSame('changeIt', $result->getLayerVersionArn());
-        self::assertSame('changeIt', $result->getDescription());
-        self::assertSame('changeIt', $result->getCreatedDate());
-        self::assertSame(1337, $result->getVersion());
-        // self::assertTODO(expected, $result->getCompatibleRuntimes());
-        self::assertSame('changeIt', $result->getLicenseInfo());
+        self::assertSame('arn:::fn:arn', $result->getLayerArn());
+        self::assertSame('arn:::version:arn', $result->getLayerVersionArn());
+        self::assertSame('demo', $result->getDescription());
+        self::assertSame('1997-07-16T19:20:30+01:00', $result->getCreatedDate());
+        self::assertSame('4', $result->getVersion());
+        self::assertSame(['nodejs10.x', 'nodejs12.x'], $result->getCompatibleRuntimes());
+        self::assertSame('MIT', $result->getLicenseInfo());
     }
 }
