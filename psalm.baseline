@@ -17,7 +17,7 @@
       <code>$input-&gt;getBody()</code>
     </PossiblyNullArgument>
   </file>
-  <file src="src/Sqs/Result/ReceiveMessageResult.php">
+  <file src="src/Sqs/src/Result/ReceiveMessageResult.php">
     <InvalidArgument occurrences="1"/>
   </file>
   <file src="src/Symfony/Bundle/src/DependencyInjection/Configuration.php">
