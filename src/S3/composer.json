@@ -10,6 +10,9 @@
     "require": {
         "php": "^7.2.5",
         "ext-SimpleXML": "*",
+        "ext-dom": "*",
+        "ext-filter": "*",
+        "ext-hash": "*",
         "async-aws/core": "^0.3",
         "symfony/http-client-contracts": "^1.0 || ^2.0"
     },
