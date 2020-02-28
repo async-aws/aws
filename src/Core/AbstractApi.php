@@ -10,6 +10,7 @@ use AsyncAws\Core\Credentials\ConfigurationProvider;
 use AsyncAws\Core\Credentials\CredentialProvider;
 use AsyncAws\Core\Credentials\IniFileProvider;
 use AsyncAws\Core\Credentials\InstanceProvider;
+use AsyncAws\Core\Credentials\WebIdentityProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Signer\Request;
 use AsyncAws\Core\Signer\Signer;
@@ -69,6 +70,7 @@ abstract class AbstractApi
         $this->configuration = $configuration;
         $this->credentialProvider = $credentialProvider ?? new CacheProvider(new ChainProvider([
             new ConfigurationProvider(),
+            new WebIdentityProvider($this->logger),
             new IniFileProvider($this->logger),
             new InstanceProvider($this->httpClient, $this->logger),
         ]));

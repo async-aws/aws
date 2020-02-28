@@ -17,14 +17,6 @@ class TestCase extends PHPUnitTestCase
         self::assertEqualsCanonicalizing($expectedArray, $actualArray, $message);
     }
 }
-
-// Because AsyncAws use symfony/phpunit-bridge and don't requires phpunit/phpunit, this class may not exits but is required by the generator and static analyzer tools
 if (!\class_exists(PHPUnitTestCase::class)) {
-    class DummyTestCase
-    {
-        public static function assertEqualsCanonicalizing($expected, $actual, string $message = ''): void
-        {
-        }
-    }
-    \class_alias(DummyTestCase::class, PHPUnitTestCase::class);
+    \class_alias(InternalTestCase::class, PHPUnitTestCase::class);
 }

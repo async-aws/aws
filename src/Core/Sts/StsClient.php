@@ -4,8 +4,10 @@ namespace AsyncAws\Core\Sts;
 
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Sts\Input\AssumeRoleRequest;
+use AsyncAws\Core\Sts\Input\AssumeRoleWithWebIdentityRequest;
 use AsyncAws\Core\Sts\Input\GetCallerIdentityRequest;
 use AsyncAws\Core\Sts\Result\AssumeRoleResponse;
+use AsyncAws\Core\Sts\Result\AssumeRoleWithWebIdentityResponse;
 use AsyncAws\Core\Sts\Result\GetCallerIdentityResponse;
 
 class StsClient extends AbstractApi
@@ -47,6 +49,38 @@ class StsClient extends AbstractApi
         );
 
         return new AssumeRoleResponse($response, $this->httpClient);
+    }
+
+    /**
+     * Returns a set of temporary security credentials for users who have been authenticated in a mobile or web application
+     * with a web identity provider. Example providers include Amazon Cognito, Login with Amazon, Facebook, Google, or any
+     * OpenID Connect-compatible identity provider.
+     *
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sts-2011-06-15.html#assumerolewithwebidentity
+     *
+     * @param array{
+     *   RoleArn: string,
+     *   RoleSessionName: string,
+     *   WebIdentityToken: string,
+     *   ProviderId?: string,
+     *   PolicyArns?: \AsyncAws\Core\Sts\Input\PolicyDescriptorType[],
+     *   Policy?: string,
+     *   DurationSeconds?: int,
+     * }|AssumeRoleWithWebIdentityRequest $input
+     */
+    public function assumeRoleWithWebIdentity($input): AssumeRoleWithWebIdentityResponse
+    {
+        $input = AssumeRoleWithWebIdentityRequest::create($input);
+        $input->validate();
+
+        $response = $this->getResponse(
+            'POST',
+            $input->requestBody(),
+            $input->requestHeaders(),
+            $this->getEndpoint($input->requestUri(), $input->requestQuery())
+        );
+
+        return new AssumeRoleWithWebIdentityResponse($response, $this->httpClient);
     }
 
     /**
