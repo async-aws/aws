@@ -20,7 +20,7 @@ To create a class run the `generate` command.
 The `./manifest.json` file contains information where the source is located
 and some metadata about the generated files and methods.
 
-You may also regenerate an existing endpoint and result classes:
+You may also regenerate an existing operation and result classes:
 
 ```cli
 ./generate S3 CreateBucket
@@ -32,3 +32,34 @@ Or regenerate everything:
 ```cli
 ./generate --all
 ```
+
+## Creating a new client operation
+
+If you want to create a new operation to a client, you may just generate it and complete the
+test stubs. Below is an example to generate an operation for DynamoDB.
+
+1. Clone the async-aws/aws repository.
+1. Run `composer install`
+1. Run `./generate DynamoDb` and press "1" for generate a new operation.
+1. Select the operation you want to generate. Don't generate operations that you dont need.
+1. Use the [AWS Api Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations.html) to fill the expected Input/Result.
+
+If you started working on a new operation, please submit a "Draft PR" to show your
+progress. Don't hesitate asking for help.
+
+## Creating a new client
+
+If you want to create a new AWS client, there are a few steps to take. Below
+is an example for DynamoDB.
+
+1. Clone the async-aws/aws repository.
+1. Run `composer install`
+1. Create `./src/DynamoDb/DynamoDbClient.php` and add an empty `DynamoDbClient` class.
+1. Register the service in the `services` section of the `./manifest.json` file.
+   1. Look at the official SDK for resources in `./src/data`. ([DynamoDB example](https://github.com/aws/aws-sdk-php/tree/3.133.23/src/data/dynamodb/2012-08-10))
+   1. Add a link to `source`, and, if the files exists, links to `documentation`, `example`, `pagination`, `waiter` etc.
+   1. Leave the `methods` key empty. (`"methods": {}`)
+1. Adds operations you want following the [process previously defined](#creating-a-new-client-operation)
+
+If you started working on a new client, please submit a "Draft PR" to show your
+progress. Don't hesitate asking for help.
