@@ -90,9 +90,8 @@ class FileWriter
     private function resolveDirectory(string $fqcn): string
     {
         $parts = explode('\\', $fqcn);
-        $first = array_shift($parts); // AsyncAws
-        $second = array_shift($parts); // Service
-        array_unshift($parts, 'src', $second, $first);
+        $service = array_shift($parts); // Lambda, S3, Sqs etc
+        array_unshift($parts, $service, 'src');
 
         $directory = \sprintf('%s/%s', $this->srcDirectory, implode('/', $parts));
         if (!is_dir($directory)) {
