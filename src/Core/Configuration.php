@@ -21,6 +21,9 @@ class Configuration
     public const OPTION_SHARED_CREDENTIALS_FILE = 'sharedCredentialsFile';
     public const OPTION_SHARED_CONFIG_FILE = 'sharedConfigFile';
     public const OPTION_ENDPOINT = 'endpoint';
+    public const OPTION_ROLE_ARN = 'roleArn';
+    public const OPTION_WEB_IDENTITY_TOKEN_FILE = 'webIdentityTokenFile';
+    public const OPTION_ROLE_SESSION_NAME = 'roleSessionName';
 
     private const AVAILABLE_OPTIONS = [
         self::OPTION_REGION => true,
@@ -31,6 +34,9 @@ class Configuration
         self::OPTION_SHARED_CREDENTIALS_FILE => true,
         self::OPTION_SHARED_CONFIG_FILE => true,
         self::OPTION_ENDPOINT => true,
+        self::OPTION_ROLE_ARN => true,
+        self::OPTION_WEB_IDENTITY_TOKEN_FILE => true,
+        self::OPTION_ROLE_SESSION_NAME => true,
     ];
 
     private const FALLBACK_OPTIONS = [
@@ -41,6 +47,9 @@ class Configuration
         self::OPTION_SESSION_TOKEN => 'AWS_SESSION_TOKEN',
         self::OPTION_SHARED_CREDENTIALS_FILE => 'AWS_SHARED_CREDENTIALS_FILE',
         self::OPTION_SHARED_CONFIG_FILE => 'AWS_CONFIG_FILE',
+        self::OPTION_ROLE_ARN => 'AWS_ROLE_ARN',
+        self::OPTION_WEB_IDENTITY_TOKEN_FILE => 'AWS_WEB_IDENTITY_TOKEN_FILE',
+        self::OPTION_ROLE_SESSION_NAME => 'AWS_ROLE_SESSION_NAME',
     ];
 
     private const DEFAULT_OPTIONS = [
