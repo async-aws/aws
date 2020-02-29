@@ -6,7 +6,6 @@
     "require": {
         "php": "^7.2.5",
         "ext-SimpleXML": "*",
-        "ext-dom": "*",
         "ext-hash": "*",
         "ext-json": "*",
         "psr/log": "~1.0",
