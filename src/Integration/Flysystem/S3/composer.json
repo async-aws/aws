@@ -17,8 +17,8 @@
     ],
     "require": {
         "php": "^7.2.5",
-        "async-aws/core": "^0.1 || ^0.2 || ^0.3",
-        "async-aws/s3": "^0.1",
+        "async-aws/core": "^0.3",
+        "async-aws/s3": "^0.2",
         "league/flysystem": "^2.0@dev",
         "league/mime-type-detection": "dev-master"
     },
