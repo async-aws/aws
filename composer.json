@@ -19,6 +19,7 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
         "league/flysystem": "^2.0@dev",
+        "league/mime-type-detection": "dev-master",
         "matthiasnoback/symfony-config-test": "^4.1",
         "nette/php-generator": "^3.3",
         "nette/utils": "^3.0",
@@ -31,31 +32,31 @@
     },
     "autoload": {
         "psr-4": {
-            "AsyncAws\\CloudFormation\\": "src/CloudFormation/src",
+            "AsyncAws\\CloudFormation\\": "src/Service/CloudFormation/src",
             "AsyncAws\\CodeGenerator\\": "src/CodeGenerator/src",
             "AsyncAws\\Core\\": "src/Core/src",
-            "AsyncAws\\Flysystem\\S3\\": "src/Flysystem/S3/src",
-            "AsyncAws\\Lambda\\": "src/Lambda/src",
-            "AsyncAws\\S3\\": "src/S3/src",
-            "AsyncAws\\Ses\\": "src/Ses/src",
-            "AsyncAws\\Sns\\": "src/Sns/src",
-            "AsyncAws\\Sqs\\": "src/Sqs/src",
-            "AsyncAws\\Symfony\\Bundle\\": "src/Symfony/Bundle/src"
+            "AsyncAws\\Flysystem\\S3\\": "src/Integration/Flysystem/S3/src",
+            "AsyncAws\\Lambda\\": "src/Service/Lambda/src",
+            "AsyncAws\\S3\\": "src/Service/S3/src",
+            "AsyncAws\\Ses\\": "src/Service/Ses/src",
+            "AsyncAws\\Sns\\": "src/Service/Sns/src",
+            "AsyncAws\\Sqs\\": "src/Service/Sqs/src",
+            "AsyncAws\\Symfony\\Bundle\\": "src/Integration/Symfony/Bundle/src"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "AsyncAws\\Test\\": "tests",
-            "AsyncAws\\CloudFormation\\Tests\\": "src/CloudFormation/tests",
+            "AsyncAws\\CloudFormation\\Tests\\": "src/Service/CloudFormation/tests",
             "AsyncAws\\CodeGenerator\\Tests\\": "src/CodeGenerator/tests",
             "AsyncAws\\Core\\Tests\\": "src/Core/tests",
-            "AsyncAws\\Flysystem\\S3\\Tests\\": "src/Flysystem/S3/tests",
-            "AsyncAws\\Lambda\\Tests\\": "src/Lambda/tests",
-            "AsyncAws\\S3\\Tests\\": "src/S3/tests",
-            "AsyncAws\\Ses\\Tests\\": "src/Ses/tests",
-            "AsyncAws\\Sns\\Tests\\": "src/Sns/tests",
-            "AsyncAws\\Sqs\\Tests\\": "src/Sqs/tests",
-            "AsyncAws\\Symfony\\Bundle\\Tests\\": "src/Symfony/Bundle/tests"
+            "AsyncAws\\Flysystem\\S3\\Tests\\": "src/Integration/Flysystem/S3/tests",
+            "AsyncAws\\Lambda\\Tests\\": "src/Service/Lambda/tests",
+            "AsyncAws\\S3\\Tests\\": "src/Service/S3/tests",
+            "AsyncAws\\Ses\\Tests\\": "src/Service/Ses/tests",
+            "AsyncAws\\Sns\\Tests\\": "src/Service/Sns/tests",
+            "AsyncAws\\Sqs\\Tests\\": "src/Service/Sqs/tests",
+            "AsyncAws\\Symfony\\Bundle\\Tests\\": "src/Integration/Symfony/Bundle/tests"
         }
     }
 }

@@ -19,7 +19,6 @@ use League\Flysystem\DirectoryAttributes;
 use League\Flysystem\FileAttributes;
 use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\FilesystemOperationFailed;
-use League\Flysystem\MimeType;
 use League\Flysystem\PathPrefixer;
 use League\Flysystem\StorageAttributes;
 use League\Flysystem\UnableToCopyFile;
@@ -29,6 +28,7 @@ use League\Flysystem\UnableToReadFile;
 use League\Flysystem\UnableToRetrieveMetadata;
 use League\Flysystem\UnableToSetVisibility;
 use League\Flysystem\Visibility;
+use League\MimeTypeDetection\FinfoMimeTypeDetector;
 use Throwable;
 
 class S3FilesystemV2 implements FilesystemAdapter
@@ -286,7 +286,8 @@ class S3FilesystemV2 implements FilesystemAdapter
         $options = $this->createOptionsFromConfig($config);
         $shouldDetermineMimetype = '' !== $body && !\array_key_exists('ContentType', $options);
 
-        if ($shouldDetermineMimetype && $mimeType = MimeType::detectMimeType($key, $body)) {
+        if ($shouldDetermineMimetype) {
+            $mimeType = (new FinfoMimeTypeDetector())->detectMimeType($path, $body);
             $options['ContentType'] = $mimeType;
         }
 

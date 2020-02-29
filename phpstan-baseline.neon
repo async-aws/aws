@@ -8,5 +8,5 @@ parameters:
 		-
 			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\:\\:scalarNode\\(\\)\\.$#"
 			count: 1
-			path: src/Symfony/Bundle/src/DependencyInjection/Configuration.php
+			path: src/Integration/Symfony/Bundle/src/DependencyInjection/Configuration.php
 

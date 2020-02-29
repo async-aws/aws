@@ -15,16 +15,11 @@
     <testsuites>
         <testsuite name="Test Suite">
             <directory>./tests/</directory>
-            <directory>./src/CloudFormation/tests/</directory>
             <directory>./src/CodeGenerator/tests/</directory>
             <directory>./src/Core/tests/</directory>
-            <directory>./src/Flysystem/S3/tests/</directory>
-            <directory>./src/Lambda/tests/</directory>
-            <directory>./src/S3/tests/</directory>
-            <directory>./src/Ses/tests/</directory>
-            <directory>./src/Sns/tests/</directory>
-            <directory>./src/Sqs/tests/</directory>
-            <directory>./src/Symfony/Bundle/tests/</directory>
+            <directory>./src/Service/*/tests/</directory>
+            <directory>./src/Integration/*/tests/</directory>
+            <directory>./src/Integration/*/*/tests/</directory>
         </testsuite>
     </testsuites>
 

@@ -11,9 +11,9 @@
         <directory name="src" />
         <ignoreFiles>
             <directory name="src/CodeGenerator" />
-            <directory name="src/*/tests" />
-            <directory name="src/Flysystem/*/tests" />
-            <directory name="src/Symfony/*/tests" />
+            <directory name="src/Core/tests" />
+            <directory name="src/Service/*/tests" />
+            <directory name="src/Integration/*/*/tests" />
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>
