@@ -11,7 +11,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
-        "async-aws/core": "^0.1 || ^0.2",
+        "async-aws/core": "^0.1 || ^0.2 || ^0.3",
         "symfony/config": "^4.4 || ^5.0",
         "symfony/dependency-injection": "^4.4 || ^5.0",
         "symfony/http-kernel": "^4.4 || ^5.0"
