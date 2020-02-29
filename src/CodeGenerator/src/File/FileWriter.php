@@ -92,7 +92,7 @@ class FileWriter
         $parts = explode('\\', $fqcn);
         $service = array_shift($parts); // Lambda, S3, Sqs etc
         array_unshift($parts, $service, 'src');
-        if ($service !== 'Core') {
+        if ('Core' !== $service) {
             array_unshift($parts, 'Service');
         }
 
