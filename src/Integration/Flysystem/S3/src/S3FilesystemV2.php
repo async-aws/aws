@@ -29,7 +29,6 @@ use League\Flysystem\UnableToRetrieveMetadata;
 use League\Flysystem\UnableToSetVisibility;
 use League\Flysystem\Visibility;
 use League\MimeTypeDetection\FinfoMimeTypeDetector;
-use League\MimeTypeDetection\MimeTypeDetector;
 use Throwable;
 
 class S3FilesystemV2 implements FilesystemAdapter
@@ -288,7 +287,7 @@ class S3FilesystemV2 implements FilesystemAdapter
         $shouldDetermineMimetype = '' !== $body && !\array_key_exists('ContentType', $options);
 
         if ($shouldDetermineMimetype) {
-            $mimeType = (new FinfoMimeTypeDetector())->detectMimeTypeFromBuffer($path, $body);
+            $mimeType = (new FinfoMimeTypeDetector())->detectMimeTypeFromBuffer($body);
             $options['ContentType'] = $mimeType;
         }
 
