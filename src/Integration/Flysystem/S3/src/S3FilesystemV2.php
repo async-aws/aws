@@ -287,7 +287,7 @@ class S3FilesystemV2 implements FilesystemAdapter
         $shouldDetermineMimetype = '' !== $body && !\array_key_exists('ContentType', $options);
 
         if ($shouldDetermineMimetype) {
-            $mimeType = (new FinfoMimeTypeDetector())->detectMimeTypeFromBuffer($body);
+            $mimeType = (new FinfoMimeTypeDetector())->detectMimeType($path, $body);
             $options['ContentType'] = $mimeType;
         }
 
