@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.2.0
+
+### Added
+
+- Support for async-aws/core: ^0.3
+- Adding VarDumpers
+
 ## 0.1.1
 
 ### Added
