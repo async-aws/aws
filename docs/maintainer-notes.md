@@ -54,7 +54,8 @@ is an example for DynamoDB.
 
 1. Clone the async-aws/aws repository.
 1. Run `composer install`
-1. Create `./src/DynamoDb/DynamoDbClient.php` and add an empty `DynamoDbClient` class.
+1. Copy `./src/Service/.template` to `./src/Service/DynamoDb`
+1. Rename all occurrences of `Foobar` to `DynamoDb` and `foobar` to `dynamo-db`
 1. Register the service in the `services` section of the `./manifest.json` file.
    1. Look at the official SDK for resources in `./src/data`. ([DynamoDB example](https://github.com/aws/aws-sdk-php/tree/3.133.23/src/data/dynamodb/2012-08-10))
    1. Add a link to `source`, and, if the files exists, links to `documentation`, `example`, `pagination`, `waiter` etc.
