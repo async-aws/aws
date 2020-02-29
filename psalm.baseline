@@ -11,16 +11,16 @@
       <code>$response-&gt;getInfo('response_headers')</code>
     </PossiblyNullArgument>
   </file>
-  <file src="src/Ses/src/Input/SendEmailRequest.php">
+  <file src="src/Service/Ses/src/Input/SendEmailRequest.php">
     <PossiblyNullArgument occurrences="2">
       <code>$input-&gt;getSubject()</code>
       <code>$input-&gt;getBody()</code>
     </PossiblyNullArgument>
   </file>
-  <file src="src/Sqs/src/Result/ReceiveMessageResult.php">
+  <file src="src/Service/Sqs/src/Result/ReceiveMessageResult.php">
     <InvalidArgument occurrences="1"/>
   </file>
-  <file src="src/Symfony/Bundle/src/DependencyInjection/Configuration.php">
+  <file src="src/Integration/Symfony/Bundle/src/DependencyInjection/Configuration.php">
     <PossiblyNullReference occurrences="1">
       <code>scalarNode</code>
     </PossiblyNullReference>

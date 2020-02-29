@@ -14,17 +14,6 @@ use PHPUnit\Framework\TestCase;
  */
 class MetaFileTest extends TestCase
 {
-    public function testPHPUnit()
-    {
-        $phpunitFile = file_get_contents(\dirname(__DIR__, 2) . '/phpunit.xml.dist');
-        foreach (ServiceProvider::getAwsServices() as $serviceName => $serviceData) {
-            if (isset($serviceData['namespace'])) {
-                continue;
-            }
-            self::assertStringContainsStringIgnoringCase(sprintf('src/%s/tests', $serviceName), $phpunitFile, sprintf('Could not find "%s" in ./phpunit.xml.dist', $serviceName));
-        }
-    }
-
     public function testComposer()
     {
         $composerFile = file_get_contents(\dirname(__DIR__, 2) . '/composer.json');
