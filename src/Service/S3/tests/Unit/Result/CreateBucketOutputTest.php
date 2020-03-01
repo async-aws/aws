@@ -11,14 +11,12 @@ class CreateBucketOutputTest extends TestCase
 {
     public function testCreateBucketOutput(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         // see example-1.json from SDK
-        $response = new SimpleMockedResponse('<Location>/examplebucket</Location>');
+        $response = new SimpleMockedResponse('', ['Location' => '/examplebucket']);
 
         $client = new MockHttpClient($response);
         $result = new CreateBucketOutput($client->request('POST', 'http://localhost'), $client);
 
-        self::assertSame('changeIt', $result->getLocation());
+        self::assertSame('/examplebucket', $result->getLocation());
     }
 }

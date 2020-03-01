@@ -11,16 +11,20 @@ class PutObjectAclOutputTest extends TestCase
 {
     public function testPutObjectAclOutput(): void
     {
-        self::markTestIncomplete('Not implemented');
-
-        // see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_METHOD.html
-        $response = new SimpleMockedResponse('<?xml version="1.0"?>
-        <root/>
-        ');
+        // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectAcl.html
+        $response = new SimpleMockedResponse('', [
+            'x-amz-id-2' => 'eftixk72aD6Ap51T9AS1ed4OpIszj7UDNEHGran',
+            'x-amz-request-id' => '318BC8BC148832E5',
+            'x-amz-version-id' => '3/L4kqtJlcpXrof3vjVBH40Nr8X8gdRQBpUMLUo',
+            'x-amz-request-charged' => 'requester',
+            'Date' => 'Wed, 28 Oct 2009 22:32:00 GMT',
+            'Last-Modified' => 'Sun, 1 Jan 2006 12:00:00 GMT',
+            'Content-Length' => '0',
+        ]);
 
         $client = new MockHttpClient($response);
         $result = new PutObjectAclOutput($client->request('POST', 'http://localhost'), $client);
 
-        self::assertSame('changeIt', $result->getRequestCharged());
+        self::assertSame('requester', $result->getRequestCharged());
     }
 }

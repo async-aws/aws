@@ -4,29 +4,25 @@ namespace AsyncAws\S3\Tests\Unit\Result;
 
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
-use AsyncAws\S3\Result\PutObjectOutput;
+use AsyncAws\S3\Result\PutObjectAclOutput;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class PutObjectOutputTest extends TestCase
 {
     public function testPutObjectOutput(): void
     {
-        self::markTestIncomplete('Not implemented');
-
-        // see example-1.json from SDK
-        $response = new SimpleMockedResponse('<ETag>"6805f2cfc46c0f04559748bb039d69ae"</ETag>');
+        // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
+        $response = new SimpleMockedResponse('', [
+            'x-amz-id-2' => 'RUxG2sZJUfS+ezeAS2i0Xj6w/ST6xqF/8pFNHjTjTrECW56SCAUWGg+7QLVoj1GH',
+            'x-amz-request-id' => '8D017A90827290BA',
+            'x-amz-request-charged' => 'requester',
+            'Date' => 'Fri, 13 Apr 2012 05:40:25 GMT',
+            'ETag' => '"dd038b344cf9553547f8b395a814b274"',
+        ]);
 
         $client = new MockHttpClient($response);
-        $result = new PutObjectOutput($client->request('POST', 'http://localhost'), $client);
+        $result = new PutObjectAclOutput($client->request('POST', 'http://localhost'), $client);
 
-        self::assertSame('changeIt', $result->getExpiration());
-        self::assertSame('changeIt', $result->getETag());
-        self::assertSame('changeIt', $result->getServerSideEncryption());
-        self::assertSame('changeIt', $result->getVersionId());
-        self::assertSame('changeIt', $result->getSSECustomerAlgorithm());
-        self::assertSame('changeIt', $result->getSSECustomerKeyMD5());
-        self::assertSame('changeIt', $result->getSSEKMSKeyId());
-        self::assertSame('changeIt', $result->getSSEKMSEncryptionContext());
-        self::assertSame('changeIt', $result->getRequestCharged());
+        self::assertSame('requester', $result->getRequestCharged());
     }
 }
