@@ -32,16 +32,23 @@ class RestXmlParser implements Parser
     public function generate(StructureShape $shape): string
     {
         $properties = [];
-
-        foreach ($shape->getMembers() as $member) {
-            if (\in_array($member->getLocation(), ['header', 'headers'])) {
-                continue;
-            }
-
+        if (null !== $payload = $shape->getPayload()) {
+            $member = $shape->getMember($payload);
             $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
                 'PROPERTY_NAME' => $member->getName(),
-                'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$data', $member), $member->getShape(), $member->isRequired()),
+                'PROPERTY_ACCESSOR' => $this->parseXmlElement('$data', $member->getShape(), $member->isRequired()),
             ]);
+        } else {
+            foreach ($shape->getMembers() as $member) {
+                if (\in_array($member->getLocation(), ['header', 'headers'])) {
+                    continue;
+                }
+
+                $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
+                    'PROPERTY_NAME' => $member->getName(),
+                    'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$data', $member), $member->getShape(), $member->isRequired()),
+                ]);
+            }
         }
 
         if (empty($properties)) {

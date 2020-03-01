@@ -9,27 +9,17 @@ class HeadObjectRequestTest extends TestCase
 {
     public function testRequestBody(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $input = new HeadObjectRequest([
-            'Bucket' => 'change me',
-            'IfMatch' => 'change me',
-            'IfModifiedSince' => new \DateTimeImmutable(),
-            'IfNoneMatch' => 'change me',
-            'IfUnmodifiedSince' => new \DateTimeImmutable(),
-            'Key' => 'change me',
-            'Range' => 'change me',
-            'VersionId' => 'change me',
-            'SSECustomerAlgorithm' => 'change me',
-            'SSECustomerKey' => 'change me',
-            'SSECustomerKeyMD5' => 'change me',
-            'RequestPayer' => 'change me',
-            'PartNumber' => 1337,
+            'Bucket' => 'my-bucket',
+            'Key' => 'foo.jpg',
+            'VersionId' => 'abc123',
         ]);
 
-        // see example-1.json from SDK
-        $expected = '<Bucket>examplebucket</Bucket>';
+        self::assertEquals('/my-bucket/foo.jpg', $input->requestUri());
+        self::assertEmpty($input->requestBody());
 
-        self::assertXmlStringEqualsXmlString($expected, $input->requestBody());
+        $query = $input->requestQuery();
+        self::assertArrayHasKey('versionId', $query);
+        self::assertEquals('abc123', $query['versionId']);
     }
 }

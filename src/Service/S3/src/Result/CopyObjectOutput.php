@@ -144,9 +144,9 @@ class CopyObjectOutput extends Result
         $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent(false));
-        $this->CopyObjectResult = !$data->CopyObjectResult ? null : new CopyObjectResult([
-            'ETag' => ($v = $data->CopyObjectResult->ETag) ? (string) $v : null,
-            'LastModified' => ($v = $data->CopyObjectResult->LastModified) ? new \DateTimeImmutable((string) $v) : null,
+        $this->CopyObjectResult = !$data ? null : new CopyObjectResult([
+            'ETag' => ($v = $data->ETag) ? (string) $v : null,
+            'LastModified' => ($v = $data->LastModified) ? new \DateTimeImmutable((string) $v) : null,
         ]);
     }
 }

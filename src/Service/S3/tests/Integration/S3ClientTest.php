@@ -6,7 +6,6 @@ use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\S3\Input\AccessControlPolicy;
 use AsyncAws\S3\Input\CopyObjectRequest;
-use AsyncAws\S3\Input\CreateBucketConfiguration;
 use AsyncAws\S3\Input\CreateBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
@@ -58,89 +57,44 @@ class S3ClientTest extends TestCase
 
     public function testCopyObject(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $client = $this->getClient();
+        $client->putObject([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+            'Body' => 'content',
+        ])->resolve();
 
         $input = new CopyObjectRequest([
-            'ACL' => 'change me',
-            'Bucket' => 'change me',
-            'CacheControl' => 'change me',
-            'ContentDisposition' => 'change me',
-            'ContentEncoding' => 'change me',
-            'ContentLanguage' => 'change me',
-            'ContentType' => 'change me',
-            'CopySource' => 'change me',
-            'CopySourceIfMatch' => 'change me',
-            'CopySourceIfModifiedSince' => new \DateTimeImmutable(),
-            'CopySourceIfNoneMatch' => 'change me',
-            'CopySourceIfUnmodifiedSince' => new \DateTimeImmutable(),
-            'Expires' => new \DateTimeImmutable(),
-            'GrantFullControl' => 'change me',
-            'GrantRead' => 'change me',
-            'GrantReadACP' => 'change me',
-            'GrantWriteACP' => 'change me',
-            'Key' => 'change me',
-            'Metadata' => ['change me' => 'change me'],
-            'MetadataDirective' => 'change me',
-            'TaggingDirective' => 'change me',
-            'ServerSideEncryption' => 'change me',
-            'StorageClass' => 'change me',
-            'WebsiteRedirectLocation' => 'change me',
-            'SSECustomerAlgorithm' => 'change me',
-            'SSECustomerKey' => 'change me',
-            'SSECustomerKeyMD5' => 'change me',
-            'SSEKMSKeyId' => 'change me',
-            'SSEKMSEncryptionContext' => 'change me',
-            'CopySourceSSECustomerAlgorithm' => 'change me',
-            'CopySourceSSECustomerKey' => 'change me',
-            'CopySourceSSECustomerKeyMD5' => 'change me',
-            'RequestPayer' => 'change me',
-            'Tagging' => 'change me',
-            'ObjectLockMode' => 'change me',
-            'ObjectLockRetainUntilDate' => new \DateTimeImmutable(),
-            'ObjectLockLegalHoldStatus' => 'change me',
+            'Bucket' => 'foo',
+            'ContentType' => 'text/plain',
+            'CopySource' => 'foo/bar',
+            'Key' => 'baz',
         ]);
         $result = $client->CopyObject($input);
 
         $result->resolve();
 
-        // self::assertTODO(expected, $result->getCopyObjectResult());
-        self::assertStringContainsString('change it', $result->getExpiration());
-        self::assertStringContainsString('change it', $result->getCopySourceVersionId());
-        self::assertStringContainsString('change it', $result->getVersionId());
-        self::assertStringContainsString('change it', $result->getServerSideEncryption());
-        self::assertStringContainsString('change it', $result->getSSECustomerAlgorithm());
-        self::assertStringContainsString('change it', $result->getSSECustomerKeyMD5());
-        self::assertStringContainsString('change it', $result->getSSEKMSKeyId());
-        self::assertStringContainsString('change it', $result->getSSEKMSEncryptionContext());
-        self::assertStringContainsString('change it', $result->getRequestCharged());
+        // fetch copyied object
+        $result = $client->getObject([
+            'Bucket' => 'foo',
+            'Key' => 'baz',
+        ]);
+        self::assertEquals('content', $result->getBody()->getContentAsString());
     }
 
     public function testCreateBucket(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $client = $this->getClient();
 
         $input = new CreateBucketRequest([
-            'ACL' => 'change me',
-            'Bucket' => 'change me',
-            'CreateBucketConfiguration' => new CreateBucketConfiguration([
-                'LocationConstraint' => 'change me',
-            ]),
-            'GrantFullControl' => 'change me',
-            'GrantRead' => 'change me',
-            'GrantReadACP' => 'change me',
-            'GrantWrite' => 'change me',
-            'GrantWriteACP' => 'change me',
-            'ObjectLockEnabledForBucket' => false,
+            'Bucket' => 'qux',
         ]);
         $result = $client->CreateBucket($input);
 
         $result->resolve();
 
-        self::assertStringContainsString('change it', $result->getLocation());
+        // Because of FakeS3, response is null
+        self::assertNull($result->getLocation());
     }
 
     public function testCreateDirectory()
@@ -159,25 +113,28 @@ class S3ClientTest extends TestCase
 
     public function testDeleteObject(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $client = $this->getClient();
 
+        $client->putObject([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+        ])->resolve();
+
         $input = new DeleteObjectRequest([
-            'Bucket' => 'change me',
-            'Key' => 'change me',
-            'MFA' => 'change me',
-            'VersionId' => 'change me',
-            'RequestPayer' => 'change me',
-            'BypassGovernanceRetention' => false,
+            'Bucket' => 'foo',
+            'Key' => 'bar',
         ]);
         $result = $client->DeleteObject($input);
 
         $result->resolve();
 
-        self::assertFalse($result->getDeleteMarker());
-        self::assertStringContainsString('change it', $result->getVersionId());
-        self::assertStringContainsString('change it', $result->getRequestCharged());
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessage('HTTP/1.1 404 Not Found  returned for "http://localhost:4569/foo/bar".');
+
+        $client->getObject([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+        ]) - resolve();
     }
 
     public function testDeleteObjects()
@@ -212,142 +169,67 @@ class S3ClientTest extends TestCase
 
     public function testGetObject(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $client = $this->getClient();
+        $client->putObject([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+            'Body' => 'content',
+        ])->resolve();
 
-        $input = new GetObjectRequest([
-            'Bucket' => 'change me',
-            'IfMatch' => 'change me',
-            'IfModifiedSince' => new \DateTimeImmutable(),
-            'IfNoneMatch' => 'change me',
-            'IfUnmodifiedSince' => new \DateTimeImmutable(),
-            'Key' => 'change me',
-            'Range' => 'change me',
-            'ResponseCacheControl' => 'change me',
-            'ResponseContentDisposition' => 'change me',
-            'ResponseContentEncoding' => 'change me',
-            'ResponseContentLanguage' => 'change me',
-            'ResponseContentType' => 'change me',
-            'ResponseExpires' => new \DateTimeImmutable(),
-            'VersionId' => 'change me',
-            'SSECustomerAlgorithm' => 'change me',
-            'SSECustomerKey' => 'change me',
-            'SSECustomerKeyMD5' => 'change me',
-            'RequestPayer' => 'change me',
-            'PartNumber' => 1337,
+        $result = $client->getObject([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
         ]);
-        $result = $client->GetObject($input);
-
-        $result->resolve();
-
-        // self::assertTODO(expected, $result->getBody());
-        self::assertFalse($result->getDeleteMarker());
-        self::assertStringContainsString('change it', $result->getAcceptRanges());
-        self::assertStringContainsString('change it', $result->getExpiration());
-        self::assertStringContainsString('change it', $result->getRestore());
-        // self::assertTODO(expected, $result->getLastModified());
-        self::assertSame(1337, $result->getContentLength());
-        self::assertStringContainsString('change it', $result->getETag());
-        self::assertSame(1337, $result->getMissingMeta());
-        self::assertStringContainsString('change it', $result->getVersionId());
-        self::assertStringContainsString('change it', $result->getCacheControl());
-        self::assertStringContainsString('change it', $result->getContentDisposition());
-        self::assertStringContainsString('change it', $result->getContentEncoding());
-        self::assertStringContainsString('change it', $result->getContentLanguage());
-        self::assertStringContainsString('change it', $result->getContentRange());
-        self::assertStringContainsString('change it', $result->getContentType());
-        // self::assertTODO(expected, $result->getExpires());
-        self::assertStringContainsString('change it', $result->getWebsiteRedirectLocation());
-        self::assertStringContainsString('change it', $result->getServerSideEncryption());
-        // self::assertTODO(expected, $result->getMetadata());
-        self::assertStringContainsString('change it', $result->getSSECustomerAlgorithm());
-        self::assertStringContainsString('change it', $result->getSSECustomerKeyMD5());
-        self::assertStringContainsString('change it', $result->getSSEKMSKeyId());
-        self::assertStringContainsString('change it', $result->getStorageClass());
-        self::assertStringContainsString('change it', $result->getRequestCharged());
-        self::assertStringContainsString('change it', $result->getReplicationStatus());
-        self::assertSame(1337, $result->getPartsCount());
-        self::assertSame(1337, $result->getTagCount());
-        self::assertStringContainsString('change it', $result->getObjectLockMode());
-        // self::assertTODO(expected, $result->getObjectLockRetainUntilDate());
-        self::assertStringContainsString('change it', $result->getObjectLockLegalHoldStatus());
+        self::assertEquals('content', $result->getBody()->getContentAsString());
+        self::assertEquals('bytes', $result->getAcceptRanges());
+        self::assertSame('7', $result->getContentLength());
+        self::assertEquals('"9a0364b9e99bb480dd25e1f0284c8555"', $result->getETag());
+        self::assertEquals('application/xml', $result->getContentType());
     }
 
     public function testGetObjectAcl(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $client = $this->getClient();
+        $client->putObject([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+            'Body' => 'content',
+        ])->resolve();
 
         $input = new GetObjectAclRequest([
-            'Bucket' => 'change me',
-            'Key' => 'change me',
-            'VersionId' => 'change me',
-            'RequestPayer' => 'change me',
+            'Bucket' => 'foo',
+            'Key' => 'bar',
         ]);
         $result = $client->GetObjectAcl($input);
 
         $result->resolve();
 
-        // self::assertTODO(expected, $result->getOwner());
-        // self::assertTODO(expected, $result->getGrants());
-        self::assertStringContainsString('change it', $result->getRequestCharged());
+        self::assertSame('You', $result->getOwner()->getDisplayName());
+        self::assertCount(1, $result->getGrants());
+        self::assertSame('FULL_CONTROL', $result->getGrants()[0]->getPermission());
+        self::assertSame('You', $result->getGrants()[0]->getGrantee()->getDisplayName());
+        self::assertSame('CanonicalUser', $result->getGrants()[0]->getGrantee()->getType());
     }
 
     public function testHeadObject(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $client = $this->getClient();
+        $client->putObject([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+            'Body' => 'content',
+        ])->resolve();
 
         $input = new HeadObjectRequest([
-            'Bucket' => 'change me',
-            'IfMatch' => 'change me',
-            'IfModifiedSince' => new \DateTimeImmutable(),
-            'IfNoneMatch' => 'change me',
-            'IfUnmodifiedSince' => new \DateTimeImmutable(),
-            'Key' => 'change me',
-            'Range' => 'change me',
-            'VersionId' => 'change me',
-            'SSECustomerAlgorithm' => 'change me',
-            'SSECustomerKey' => 'change me',
-            'SSECustomerKeyMD5' => 'change me',
-            'RequestPayer' => 'change me',
-            'PartNumber' => 1337,
+            'Bucket' => 'foo',
+            'Key' => 'bar',
         ]);
         $result = $client->HeadObject($input);
 
         $result->resolve();
 
-        self::assertFalse($result->getDeleteMarker());
-        self::assertStringContainsString('change it', $result->getAcceptRanges());
-        self::assertStringContainsString('change it', $result->getExpiration());
-        self::assertStringContainsString('change it', $result->getRestore());
-        // self::assertTODO(expected, $result->getLastModified());
-        self::assertSame(1337, $result->getContentLength());
-        self::assertStringContainsString('change it', $result->getETag());
-        self::assertSame(1337, $result->getMissingMeta());
-        self::assertStringContainsString('change it', $result->getVersionId());
-        self::assertStringContainsString('change it', $result->getCacheControl());
-        self::assertStringContainsString('change it', $result->getContentDisposition());
-        self::assertStringContainsString('change it', $result->getContentEncoding());
-        self::assertStringContainsString('change it', $result->getContentLanguage());
-        self::assertStringContainsString('change it', $result->getContentType());
-        // self::assertTODO(expected, $result->getExpires());
-        self::assertStringContainsString('change it', $result->getWebsiteRedirectLocation());
-        self::assertStringContainsString('change it', $result->getServerSideEncryption());
-        // self::assertTODO(expected, $result->getMetadata());
-        self::assertStringContainsString('change it', $result->getSSECustomerAlgorithm());
-        self::assertStringContainsString('change it', $result->getSSECustomerKeyMD5());
-        self::assertStringContainsString('change it', $result->getSSEKMSKeyId());
-        self::assertStringContainsString('change it', $result->getStorageClass());
-        self::assertStringContainsString('change it', $result->getRequestCharged());
-        self::assertStringContainsString('change it', $result->getReplicationStatus());
-        self::assertSame(1337, $result->getPartsCount());
-        self::assertStringContainsString('change it', $result->getObjectLockMode());
-        // self::assertTODO(expected, $result->getObjectLockRetainUntilDate());
-        self::assertStringContainsString('change it', $result->getObjectLockLegalHoldStatus());
+        self::assertSame('0', $result->getContentLength());
+        self::assertEquals('"d41d8cd98f00b204e9800998ecf8427e"', $result->getETag());
     }
 
     public function testListObjectsV2()
@@ -363,7 +245,7 @@ class S3ClientTest extends TestCase
             $response->resolve();
         });
 
-        self::markTestIncomplete('The S3 image does not implement Pagination. https://github.com/jubos/fake-s3/issues/223');
+        self::markTestSkipped('The S3 image does not implement Pagination. https://github.com/jubos/fake-s3/issues/223');
 
         $input = (new ListObjectsV2Request())
             ->setBucket('foo')
@@ -391,97 +273,50 @@ class S3ClientTest extends TestCase
 
     public function testPutObject(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $client = $this->getClient();
 
         $input = new PutObjectRequest([
-            'ACL' => 'change me',
-            'Body' => 'change me',
-            'Bucket' => 'change me',
-            'CacheControl' => 'change me',
-            'ContentDisposition' => 'change me',
-            'ContentEncoding' => 'change me',
-            'ContentLanguage' => 'change me',
-            'ContentLength' => 1337,
-            'ContentMD5' => 'change me',
-            'ContentType' => 'change me',
-            'Expires' => new \DateTimeImmutable(),
-            'GrantFullControl' => 'change me',
-            'GrantRead' => 'change me',
-            'GrantReadACP' => 'change me',
-            'GrantWriteACP' => 'change me',
-            'Key' => 'change me',
-            'Metadata' => ['change me' => 'change me'],
-            'ServerSideEncryption' => 'change me',
-            'StorageClass' => 'change me',
-            'WebsiteRedirectLocation' => 'change me',
-            'SSECustomerAlgorithm' => 'change me',
-            'SSECustomerKey' => 'change me',
-            'SSECustomerKeyMD5' => 'change me',
-            'SSEKMSKeyId' => 'change me',
-            'SSEKMSEncryptionContext' => 'change me',
-            'RequestPayer' => 'change me',
-            'Tagging' => 'change me',
-            'ObjectLockMode' => 'change me',
-            'ObjectLockRetainUntilDate' => new \DateTimeImmutable(),
-            'ObjectLockLegalHoldStatus' => 'change me',
+            'Body' => 'content',
+            'Bucket' => 'foo',
+            'Key' => 'bar',
         ]);
         $result = $client->PutObject($input);
 
-        $result->resolve();
-
-        self::assertStringContainsString('change it', $result->getExpiration());
-        self::assertStringContainsString('change it', $result->getETag());
-        self::assertStringContainsString('change it', $result->getServerSideEncryption());
-        self::assertStringContainsString('change it', $result->getVersionId());
-        self::assertStringContainsString('change it', $result->getSSECustomerAlgorithm());
-        self::assertStringContainsString('change it', $result->getSSECustomerKeyMD5());
-        self::assertStringContainsString('change it', $result->getSSEKMSKeyId());
-        self::assertStringContainsString('change it', $result->getSSEKMSEncryptionContext());
-        self::assertStringContainsString('change it', $result->getRequestCharged());
+        self::assertEquals('"9a0364b9e99bb480dd25e1f0284c8555"', $result->getETag());
     }
 
     public function testPutObjectAcl(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $client = $this->getClient();
 
+        $client->PutObject([
+            'Body' => 'content',
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+        ])->resolve();
+
         $input = new PutObjectAclRequest([
-            'ACL' => 'change me',
             'AccessControlPolicy' => new AccessControlPolicy([
                 'Grants' => [new Grant([
                     'Grantee' => new Grantee([
-                        'DisplayName' => 'change me',
-                        'EmailAddress' => 'change me',
-                        'ID' => 'change me',
-                        'Type' => 'change me',
-                        'URI' => 'change me',
+                        'DisplayName' => 'me',
+                        'Type' => 'canonical',
                     ]),
-                    'Permission' => 'change me',
+                    'Permission' => 'FULL',
                 ])],
                 'Owner' => new Owner([
-                    'DisplayName' => 'change me',
-                    'ID' => 'change me',
+                    'DisplayName' => 'me',
                 ]),
             ]),
-            'Bucket' => 'change me',
-            'ContentMD5' => 'change me',
-            'GrantFullControl' => 'change me',
-            'GrantRead' => 'change me',
-            'GrantReadACP' => 'change me',
-            'GrantWrite' => 'change me',
-            'GrantWriteACP' => 'change me',
-            'Key' => 'change me',
-            'RequestPayer' => 'change me',
-            'VersionId' => 'change me',
+            'Bucket' => 'foo',
+            'Key' => 'bar',
         ]);
         $result = $client->PutObjectAcl($input);
 
         $result->resolve();
 
-        self::assertStringContainsString('change it', $result->getRequestCharged());
+        // Not flly Implemented by fakeS3
+        self::assertNull($result->getRequestCharged());
     }
 
     public function testUploadFromClosure()

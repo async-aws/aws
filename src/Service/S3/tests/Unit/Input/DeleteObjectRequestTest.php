@@ -7,29 +7,10 @@ use AsyncAws\S3\Input\DeleteObjectRequest;
 
 class DeleteObjectRequestTest extends TestCase
 {
-    public function testRequestBody(): void
-    {
-        self::markTestIncomplete('Not implemented');
-
-        $input = new DeleteObjectRequest([
-            'Bucket' => 'change me',
-            'Key' => 'change me',
-            'MFA' => 'change me',
-            'VersionId' => 'change me',
-            'RequestPayer' => 'change me',
-            'BypassGovernanceRetention' => false,
-        ]);
-
-        // see example-1.json from SDK
-        $expected = '<Bucket>ExampleBucket</Bucket>';
-
-        self::assertXmlStringEqualsXmlString($expected, $input->requestBody());
-    }
-
     /**
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html#API_DeleteObject_Examples
      */
-    public function testSimpleCase(): void
+    public function testRequestBody(): void
     {
         $version = 'UIORUnfndfiufdisojhr398493jfdkjFJjkndnqUifhnw89493jJFJ';
         $input = new DeleteObjectRequest([
@@ -42,7 +23,7 @@ class DeleteObjectRequestTest extends TestCase
         self::assertEmpty($input->requestBody());
 
         $query = $input->requestQuery();
-        self::arrayHasKey('versionId', $query);
+        self::assertArrayHasKey('versionId', $query);
         self::assertEquals($version, $query['versionId']);
     }
 }

@@ -9,23 +9,15 @@ class ListObjectsV2RequestTest extends TestCase
 {
     public function testRequestBody(): void
     {
-        self::markTestIncomplete('Not implemented');
-
         $input = new ListObjectsV2Request([
-            'Bucket' => 'change me',
-            'Delimiter' => 'change me',
-            'EncodingType' => 'change me',
-            'MaxKeys' => 1337,
-            'Prefix' => 'change me',
-            'ContinuationToken' => 'change me',
-            'FetchOwner' => false,
-            'StartAfter' => 'change me',
-            'RequestPayer' => 'change me',
+            'Bucket' => 'my-bucket',
+            'Delimiter' => '/',
+            'Prefix' => 'key',
         ]);
 
-        // see example-1.json from SDK
-        $expected = '<Bucket>examplebucket</Bucket>';
+        self::assertEquals('/my-bucket?list-type=2', $input->requestUri());
+        self::assertEmpty($input->requestBody());
 
-        self::assertXmlStringEqualsXmlString($expected, $input->requestBody());
+        self::assertSame(['delimiter' => '/', 'prefix' => 'key'], $input->requestQuery());
     }
 }

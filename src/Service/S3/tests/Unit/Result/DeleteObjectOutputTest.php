@@ -11,16 +11,18 @@ class DeleteObjectOutputTest extends TestCase
 {
     public function testDeleteObjectOutput(): void
     {
-        self::markTestIncomplete('Not implemented');
-
-        // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjects.html
-        $response = new SimpleMockedResponse('<change>it</change>');
+        // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html
+        $response = new SimpleMockedResponse('', [
+            'x-amz-request-charged' => 'requester',
+            'x-amz-version-id' => '3/L4kqtJlcpXroDTDmJ+rmSpXd3dIbrHY+MTRCxf3vjVBH40Nr8X8gdRQBpUMLUo',
+            'x-amz-delete-marker' => 'true',
+        ]);
 
         $client = new MockHttpClient($response);
         $result = new DeleteObjectOutput($client->request('POST', 'http://localhost'), $client);
 
-        self::assertFalse($result->getDeleteMarker());
-        self::assertSame('changeIt', $result->getVersionId());
-        self::assertSame('changeIt', $result->getRequestCharged());
+        self::assertTrue($result->getDeleteMarker());
+        self::assertSame('3/L4kqtJlcpXroDTDmJ+rmSpXd3dIbrHY+MTRCxf3vjVBH40Nr8X8gdRQBpUMLUo', $result->getVersionId());
+        self::assertSame('requester', $result->getRequestCharged());
     }
 }
