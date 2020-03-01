@@ -108,17 +108,16 @@ echo $waiter->isSuccess(); // true
 
 [more information about waiters and hasers...](./docs/waiter.md)
 
-## Organization
+## Packages overview
 
-| Repository                 | Namespace                 | Package name                |
-| -------------------------- | ------------------------- | --------------------------- |
-| async-aws/aws              | AsyncAws                  | async-aws/async-aws
-| async-aws/core             | AsyncAws\Core             | async-aws/core
-| async-aws/cloud-formation  | AsyncAws\CloudFormation   | async-aws/cloud-formation
-| async-aws/lambda           | AsyncAws\Lambda           | async-aws/lambda
-| async-aws/s3               | AsyncAws\S3               | async-aws/s3
-| async-aws/ses              | AsyncAws\Ses              | async-aws/ses
-| async-aws/sns              | AsyncAws\Sns              | async-aws/sns
-| async-aws/sqs              | AsyncAws\Sqs              | async-aws/sqs
-| async-aws/flysystem-s3     | AsyncAws\Flysystem\S3     | async-aws/flysystem-s3
-| async-aws/symfony-bundle   | AsyncAws\Symfony\Bundle   | async-aws/async-aws-bundle
+| Package name            | Badges                    |  BC check                 |
+| ----------------------- | ------------------------- | ------------------------- |
+| [async-aws/core](https://github.com/async-aws/core) | [![Latest Stable Version](https://poser.pugx.org/async-aws/core/v/stable)](https://packagist.org/packages/async-aws/core) [![Total Downloads](https://poser.pugx.org/async-aws/core/downloads)](https://packagist.org/packages/async-aws/core) | ![](https://github.com/async-aws/core/workflows/BC%20Check/badge.svg?branch=master)
+| [async-aws/cloud-formation](https://github.com/async-aws/cloud-formation) | [![Latest Stable Version](https://poser.pugx.org/async-aws/cloud-formation/v/stable)](https://packagist.org/packages/async-aws/cloud-formation) [![Total Downloads](https://poser.pugx.org/async-aws/cloud-formation/downloads)](https://packagist.org/packages/async-aws/cloud-formation) | ![](https://github.com/async-aws/cloud-formation/workflows/BC%20Check/badge.svg?branch=master)
+| [async-aws/lambda](https://github.com/async-aws/lambda) | [![Latest Stable Version](https://poser.pugx.org/async-aws/lambda/v/stable)](https://packagist.org/packages/async-aws/lambda) [![Total Downloads](https://poser.pugx.org/async-aws/lambda/downloads)](https://packagist.org/packages/async-aws/lambda) | ![](https://github.com/async-aws/lambda/workflows/BC%20Check/badge.svg?branch=master)
+| [async-aws/s3](https://github.com/async-aws/s3) | [![Latest Stable Version](https://poser.pugx.org/async-aws/s3/v/stable)](https://packagist.org/packages/async-aws/s3) [![Total Downloads](https://poser.pugx.org/async-aws/s3/downloads)](https://packagist.org/packages/async-aws/s3) | ![](https://github.com/async-aws/s3/workflows/BC%20Check/badge.svg?branch=master)
+| [async-aws/ses](https://github.com/async-aws/ses) | [![Latest Stable Version](https://poser.pugx.org/async-aws/ses/v/stable)](https://packagist.org/packages/async-aws/ses) [![Total Downloads](https://poser.pugx.org/async-aws/ses/downloads)](https://packagist.org/packages/async-aws/ses) | ![](https://github.com/async-aws/ses/workflows/BC%20Check/badge.svg?branch=master)
+| [async-aws/sns](https://github.com/async-aws/sns) | [![Latest Stable Version](https://poser.pugx.org/async-aws/sns/v/stable)](https://packagist.org/packages/async-aws/sns) [![Total Downloads](https://poser.pugx.org/async-aws/sns/downloads)](https://packagist.org/packages/async-aws/sns) | ![](https://github.com/async-aws/sns/workflows/BC%20Check/badge.svg?branch=master)
+| [async-aws/sqs](https://github.com/async-aws/sqs) | [![Latest Stable Version](https://poser.pugx.org/async-aws/sqs/v/stable)](https://packagist.org/packages/async-aws/sqs) [![Total Downloads](https://poser.pugx.org/async-aws/sqs/downloads)](https://packagist.org/packages/async-aws/sqs) | ![](https://github.com/async-aws/sqs/workflows/BC%20Check/badge.svg?branch=master)
+| [async-aws/flysystem-s3](https://github.com/async-aws/flysystem-s3) | [![Latest Stable Version](https://poser.pugx.org/async-aws/flysystem-s3/v/stable)](https://packagist.org/packages/async-aws/flysystem-s3) [![Total Downloads](https://poser.pugx.org/async-aws/flysystem-s3/downloads)](https://packagist.org/packages/async-aws/flysystem-s3) | ![](https://github.com/async-aws/flysystem-s3/workflows/BC%20Check/badge.svg?branch=master)
+| [async-aws/async-aws-bundle](https://github.com/async-aws/symfony-bundle) | [![Latest Stable Version](https://poser.pugx.org/async-aws/async-aws-bundle/v/stable)](https://packagist.org/packages/async-aws/async-aws-bundle) [![Total Downloads](https://poser.pugx.org/async-aws/async-aws-bundle/downloads)](https://packagist.org/packages/async-aws/async-aws-bundle) | ![](https://github.com/async-aws/symfony-bundle/workflows/BC%20Check/badge.svg?branch=master)
