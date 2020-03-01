@@ -104,6 +104,9 @@ class SendMessageRequest
         return $this->DelaySeconds;
     }
 
+    /**
+     * @return MessageAttributeValue[]
+     */
     public function getMessageAttributes(): array
     {
         return $this->MessageAttributes;
@@ -124,6 +127,9 @@ class SendMessageRequest
         return $this->MessageGroupId;
     }
 
+    /**
+     * @return MessageSystemAttributeValue[]
+     */
     public function getMessageSystemAttributes(): array
     {
         return $this->MessageSystemAttributes;
@@ -251,6 +257,9 @@ class SendMessageRequest
         return $this;
     }
 
+    /**
+     * @param MessageAttributeValue[] $value
+     */
     public function setMessageAttributes(array $value): self
     {
         $this->MessageAttributes = $value;
@@ -279,6 +288,9 @@ class SendMessageRequest
         return $this;
     }
 
+    /**
+     * @param MessageSystemAttributeValue[] $value
+     */
     public function setMessageSystemAttributes(array $value): self
     {
         $this->MessageSystemAttributes = $value;
@@ -295,14 +307,18 @@ class SendMessageRequest
 
     public function validate(): void
     {
-        foreach (['QueueUrl', 'MessageBody'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
-            }
+        if (null === $this->QueueUrl) {
+            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" when validating the "%s". The value cannot be null.', __CLASS__));
         }
+
+        if (null === $this->MessageBody) {
+            throw new InvalidArgument(sprintf('Missing parameter "MessageBody" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
         foreach ($this->MessageAttributes as $item) {
             $item->validate();
         }
+
         foreach ($this->MessageSystemAttributes as $item) {
             $item->validate();
         }

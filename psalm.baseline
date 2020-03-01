@@ -28,6 +28,16 @@
       <code>scalarNode</code>
     </PossiblyUndefinedMethod>
   </file>
+  <file src="src/Service/S3/src/Input/DeleteObjectsRequest.php">
+    <PossiblyNullArgument occurrences="1">
+      <code>$input_ObjectsItem_Key</code>
+    </PossiblyNullArgument>
+  </file>
+  <file src="src/Service/S3/src/Input/PutObjectAclRequest.php">
+    <PossiblyNullArgument occurrences="1">
+      <code>$input_GrantsItem_Grantee_Type</code>
+    </PossiblyNullArgument>
+  </file>
   <file src="src/Service/S3/src/Result/CopyObjectOutput.php">
     <TypeDoesNotContainType occurrences="1">
       <code>!$data</code>

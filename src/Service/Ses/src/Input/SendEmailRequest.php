@@ -104,6 +104,9 @@ class SendEmailRequest
         return $this->Destination;
     }
 
+    /**
+     * @return MessageTag[]
+     */
     public function getEmailTags(): array
     {
         return $this->EmailTags;
@@ -119,6 +122,9 @@ class SendEmailRequest
         return $this->FromEmailAddress;
     }
 
+    /**
+     * @return string[]
+     */
     public function getReplyToAddresses(): array
     {
         return $this->ReplyToAddresses;
@@ -291,6 +297,9 @@ class SendEmailRequest
         return $this;
     }
 
+    /**
+     * @param MessageTag[] $value
+     */
     public function setEmailTags(array $value): self
     {
         $this->EmailTags = $value;
@@ -312,6 +321,9 @@ class SendEmailRequest
         return $this;
     }
 
+    /**
+     * @param string[] $value
+     */
     public function setReplyToAddresses(array $value): self
     {
         $this->ReplyToAddresses = $value;
@@ -321,17 +333,16 @@ class SendEmailRequest
 
     public function validate(): void
     {
-        foreach (['Destination', 'Content'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
-            }
+        if (null === $this->Destination) {
+            throw new InvalidArgument(sprintf('Missing parameter "Destination" when validating the "%s". The value cannot be null.', __CLASS__));
         }
-        if ($this->Destination) {
-            $this->Destination->validate();
+        $this->Destination->validate();
+
+        if (null === $this->Content) {
+            throw new InvalidArgument(sprintf('Missing parameter "Content" when validating the "%s". The value cannot be null.', __CLASS__));
         }
-        if ($this->Content) {
-            $this->Content->validate();
-        }
+        $this->Content->validate();
+
         foreach ($this->EmailTags as $item) {
             $item->validate();
         }

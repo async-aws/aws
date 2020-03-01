@@ -3,6 +3,7 @@
 namespace AsyncAws\S3\Result;
 
 use AsyncAws\Core\Result;
+use AsyncAws\S3\Enum\RequestCharged;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -41,6 +42,9 @@ class DeleteObjectsOutput extends Result
         return $this->Errors;
     }
 
+    /**
+     * @return RequestCharged::REQUESTER|null
+     */
     public function getRequestCharged(): ?string
     {
         $this->initialize();

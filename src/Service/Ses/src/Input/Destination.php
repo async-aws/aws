@@ -44,21 +44,33 @@ class Destination
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * @return string[]
+     */
     public function getBccAddresses(): array
     {
         return $this->BccAddresses;
     }
 
+    /**
+     * @return string[]
+     */
     public function getCcAddresses(): array
     {
         return $this->CcAddresses;
     }
 
+    /**
+     * @return string[]
+     */
     public function getToAddresses(): array
     {
         return $this->ToAddresses;
     }
 
+    /**
+     * @param string[] $value
+     */
     public function setBccAddresses(array $value): self
     {
         $this->BccAddresses = $value;
@@ -66,6 +78,9 @@ class Destination
         return $this;
     }
 
+    /**
+     * @param string[] $value
+     */
     public function setCcAddresses(array $value): self
     {
         $this->CcAddresses = $value;
@@ -73,6 +88,9 @@ class Destination
         return $this;
     }
 
+    /**
+     * @param string[] $value
+     */
     public function setToAddresses(array $value): self
     {
         $this->ToAddresses = $value;

@@ -2,6 +2,8 @@
 
 namespace AsyncAws\S3\Result;
 
+use AsyncAws\S3\Enum\ObjectStorageClass;
+
 class AwsObject
 {
     /**
@@ -41,7 +43,7 @@ class AwsObject
      *   LastModified: ?\DateTimeInterface,
      *   ETag: ?string,
      *   Size: ?string,
-     *   StorageClass: ?string,
+     *   StorageClass: null|\AsyncAws\S3\Enum\ObjectStorageClass::STANDARD|\AsyncAws\S3\Enum\ObjectStorageClass::REDUCED_REDUNDANCY|\AsyncAws\S3\Enum\ObjectStorageClass::GLACIER|\AsyncAws\S3\Enum\ObjectStorageClass::STANDARD_IA|\AsyncAws\S3\Enum\ObjectStorageClass::ONEZONE_IA|\AsyncAws\S3\Enum\ObjectStorageClass::INTELLIGENT_TIERING|\AsyncAws\S3\Enum\ObjectStorageClass::DEEP_ARCHIVE,
      *   Owner: null|\AsyncAws\S3\Result\Owner|array,
      * } $input
      */
@@ -85,6 +87,9 @@ class AwsObject
         return $this->Size;
     }
 
+    /**
+     * @return ObjectStorageClass::STANDARD|ObjectStorageClass::REDUCED_REDUNDANCY|ObjectStorageClass::GLACIER|ObjectStorageClass::STANDARD_IA|ObjectStorageClass::ONEZONE_IA|ObjectStorageClass::INTELLIGENT_TIERING|ObjectStorageClass::DEEP_ARCHIVE|null
+     */
     public function getStorageClass(): ?string
     {
         return $this->StorageClass;

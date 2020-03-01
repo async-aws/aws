@@ -35,6 +35,9 @@ class AccessControlPolicy
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * @return Grant[]
+     */
     public function getGrants(): array
     {
         return $this->Grants;
@@ -45,6 +48,9 @@ class AccessControlPolicy
         return $this->Owner;
     }
 
+    /**
+     * @param Grant[] $value
+     */
     public function setGrants(array $value): self
     {
         $this->Grants = $value;
@@ -64,7 +70,8 @@ class AccessControlPolicy
         foreach ($this->Grants as $item) {
             $item->validate();
         }
-        if ($this->Owner) {
+
+        if (null !== $this->Owner) {
             $this->Owner->validate();
         }
     }

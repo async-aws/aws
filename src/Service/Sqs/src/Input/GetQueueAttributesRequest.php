@@ -3,6 +3,7 @@
 namespace AsyncAws\Sqs\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Sqs\Enum\QueueAttributeName;
 
 class GetQueueAttributesRequest
 {
@@ -39,6 +40,9 @@ class GetQueueAttributesRequest
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * @return string[]
+     */
     public function getAttributeNames(): array
     {
         return $this->AttributeNames;
@@ -85,6 +89,9 @@ class GetQueueAttributesRequest
         return '/';
     }
 
+    /**
+     * @param string[] $value
+     */
     public function setAttributeNames(array $value): self
     {
         $this->AttributeNames = $value;
@@ -101,9 +108,13 @@ class GetQueueAttributesRequest
 
     public function validate(): void
     {
-        foreach (['QueueUrl'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
+        if (null === $this->QueueUrl) {
+            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
+        foreach ($this->AttributeNames as $item) {
+            if (!isset(QueueAttributeName::AVAILABLE_QUEUEATTRIBUTENAME[$item])) {
+                throw new InvalidArgument(sprintf('Invalid parameter "AttributeNames" when validating the "%s". The value "%s" is not a valid "QueueAttributeName". Available values are %s.', __CLASS__, $item, implode(', ', array_keys(QueueAttributeName::AVAILABLE_QUEUEATTRIBUTENAME))));
             }
         }
     }

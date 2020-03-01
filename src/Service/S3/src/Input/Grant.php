@@ -2,6 +2,9 @@
 
 namespace AsyncAws\S3\Input;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\S3\Enum\Permission;
+
 class Grant
 {
     /**
@@ -14,14 +17,14 @@ class Grant
     /**
      * Specifies the permission given to the grantee.
      *
-     * @var string|null
+     * @var Permission::FULL_CONTROL|Permission::WRITE|Permission::WRITE_ACP|Permission::READ|Permission::READ_ACP|null
      */
     private $Permission;
 
     /**
      * @param array{
      *   Grantee?: \AsyncAws\S3\Input\Grantee|array,
-     *   Permission?: string,
+     *   Permission?: \AsyncAws\S3\Enum\Permission::FULL_CONTROL|\AsyncAws\S3\Enum\Permission::WRITE|\AsyncAws\S3\Enum\Permission::WRITE_ACP|\AsyncAws\S3\Enum\Permission::READ|\AsyncAws\S3\Enum\Permission::READ_ACP,
      * } $input
      */
     public function __construct(array $input = [])
@@ -40,6 +43,9 @@ class Grant
         return $this->Grantee;
     }
 
+    /**
+     * @return Permission::FULL_CONTROL|Permission::WRITE|Permission::WRITE_ACP|Permission::READ|Permission::READ_ACP|null
+     */
     public function getPermission(): ?string
     {
         return $this->Permission;
@@ -52,6 +58,9 @@ class Grant
         return $this;
     }
 
+    /**
+     * @param Permission::FULL_CONTROL|Permission::WRITE|Permission::WRITE_ACP|Permission::READ|Permission::READ_ACP|null $value
+     */
     public function setPermission(?string $value): self
     {
         $this->Permission = $value;
@@ -61,8 +70,14 @@ class Grant
 
     public function validate(): void
     {
-        if ($this->Grantee) {
+        if (null !== $this->Grantee) {
             $this->Grantee->validate();
+        }
+
+        if (null !== $this->Permission) {
+            if (!isset(Permission::AVAILABLE_PERMISSION[$this->Permission])) {
+                throw new InvalidArgument(sprintf('Invalid parameter "Permission" when validating the "%s". The value "%s" is not a valid "Permission". Available values are %s.', __CLASS__, $this->Permission, implode(', ', array_keys(Permission::AVAILABLE_PERMISSION))));
+            }
         }
     }
 }

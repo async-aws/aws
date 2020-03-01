@@ -51,6 +51,9 @@ class CreateQueueRequest
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * @return string[]
+     */
     public function getAttributes(): array
     {
         return $this->Attributes;
@@ -61,6 +64,9 @@ class CreateQueueRequest
         return $this->QueueName;
     }
 
+    /**
+     * @return string[]
+     */
     public function gettags(): array
     {
         return $this->tags;
@@ -112,6 +118,9 @@ class CreateQueueRequest
         return '/';
     }
 
+    /**
+     * @param string[] $value
+     */
     public function setAttributes(array $value): self
     {
         $this->Attributes = $value;
@@ -126,6 +135,9 @@ class CreateQueueRequest
         return $this;
     }
 
+    /**
+     * @param string[] $value
+     */
     public function settags(array $value): self
     {
         $this->tags = $value;
@@ -135,10 +147,8 @@ class CreateQueueRequest
 
     public function validate(): void
     {
-        foreach (['QueueName'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
-            }
+        if (null === $this->QueueName) {
+            throw new InvalidArgument(sprintf('Missing parameter "QueueName" when validating the "%s". The value cannot be null.', __CLASS__));
         }
     }
 }

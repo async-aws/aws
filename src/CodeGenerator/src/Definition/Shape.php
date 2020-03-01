@@ -71,6 +71,14 @@ class Shape
         return $this->data['type'];
     }
 
+    /**
+     * @return string[]
+     */
+    public function getEnum(): array
+    {
+        return $this->data['enum'] ?? [];
+    }
+
     public function get(string $name): ?string
     {
         return $this->data[$name] ?? null;

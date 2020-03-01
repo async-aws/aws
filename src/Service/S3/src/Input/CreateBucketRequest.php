@@ -3,13 +3,14 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\S3\Enum\BucketCannedACL;
 
 class CreateBucketRequest
 {
     /**
      * The canned ACL to apply to the bucket.
      *
-     * @var string|null
+     * @var BucketCannedACL::PRIVATE|BucketCannedACL::PUBLIC_READ|BucketCannedACL::PUBLIC_READ_WRITE|BucketCannedACL::AUTHENTICATED_READ|null
      */
     private $ACL;
 
@@ -75,7 +76,7 @@ class CreateBucketRequest
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
      *
      * @param array{
-     *   ACL?: string,
+     *   ACL?: \AsyncAws\S3\Enum\BucketCannedACL::PRIVATE|\AsyncAws\S3\Enum\BucketCannedACL::PUBLIC_READ|\AsyncAws\S3\Enum\BucketCannedACL::PUBLIC_READ_WRITE|\AsyncAws\S3\Enum\BucketCannedACL::AUTHENTICATED_READ,
      *   Bucket?: string,
      *   CreateBucketConfiguration?: \AsyncAws\S3\Input\CreateBucketConfiguration|array,
      *   GrantFullControl?: string,
@@ -104,6 +105,9 @@ class CreateBucketRequest
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * @return BucketCannedACL::PRIVATE|BucketCannedACL::PUBLIC_READ|BucketCannedACL::PUBLIC_READ_WRITE|BucketCannedACL::AUTHENTICATED_READ|null
+     */
     public function getACL(): ?string
     {
         return $this->ACL;
@@ -209,6 +213,9 @@ class CreateBucketRequest
         return "/{$uri['Bucket']}";
     }
 
+    /**
+     * @param BucketCannedACL::PRIVATE|BucketCannedACL::PUBLIC_READ|BucketCannedACL::PUBLIC_READ_WRITE|BucketCannedACL::AUTHENTICATED_READ|null $value
+     */
     public function setACL(?string $value): self
     {
         $this->ACL = $value;
@@ -274,12 +281,17 @@ class CreateBucketRequest
 
     public function validate(): void
     {
-        foreach (['Bucket'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
+        if (null !== $this->ACL) {
+            if (!isset(BucketCannedACL::AVAILABLE_BUCKETCANNEDACL[$this->ACL])) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ACL" when validating the "%s". The value "%s" is not a valid "BucketCannedACL". Available values are %s.', __CLASS__, $this->ACL, implode(', ', array_keys(BucketCannedACL::AVAILABLE_BUCKETCANNEDACL))));
             }
         }
-        if ($this->CreateBucketConfiguration) {
+
+        if (null === $this->Bucket) {
+            throw new InvalidArgument(sprintf('Missing parameter "Bucket" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
+        if (null !== $this->CreateBucketConfiguration) {
             $this->CreateBucketConfiguration->validate();
         }
     }

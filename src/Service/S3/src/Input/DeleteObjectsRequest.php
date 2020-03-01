@@ -3,6 +3,7 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\S3\Enum\RequestPayer;
 
 class DeleteObjectsRequest
 {
@@ -34,7 +35,7 @@ class DeleteObjectsRequest
     private $MFA;
 
     /**
-     * @var string|null
+     * @var RequestPayer::REQUESTER|null
      */
     private $RequestPayer;
 
@@ -53,7 +54,7 @@ class DeleteObjectsRequest
      *   Bucket?: string,
      *   Delete?: \AsyncAws\S3\Input\Delete|array,
      *   MFA?: string,
-     *   RequestPayer?: string,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::REQUESTER,
      *   BypassGovernanceRetention?: bool,
      * } $input
      */
@@ -91,6 +92,9 @@ class DeleteObjectsRequest
         return $this->MFA;
     }
 
+    /**
+     * @return RequestPayer::REQUESTER|null
+     */
     public function getRequestPayer(): ?string
     {
         return $this->RequestPayer;
@@ -187,6 +191,9 @@ class DeleteObjectsRequest
         return $this;
     }
 
+    /**
+     * @param RequestPayer::REQUESTER|null $value
+     */
     public function setRequestPayer(?string $value): self
     {
         $this->RequestPayer = $value;
@@ -196,13 +203,19 @@ class DeleteObjectsRequest
 
     public function validate(): void
     {
-        foreach (['Bucket', 'Delete'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
-            }
+        if (null === $this->Bucket) {
+            throw new InvalidArgument(sprintf('Missing parameter "Bucket" when validating the "%s". The value cannot be null.', __CLASS__));
         }
-        if ($this->Delete) {
-            $this->Delete->validate();
+
+        if (null === $this->Delete) {
+            throw new InvalidArgument(sprintf('Missing parameter "Delete" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+        $this->Delete->validate();
+
+        if (null !== $this->RequestPayer) {
+            if (!isset(RequestPayer::AVAILABLE_REQUESTPAYER[$this->RequestPayer])) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer". Available values are %s.', __CLASS__, $this->RequestPayer, implode(', ', array_keys(RequestPayer::AVAILABLE_REQUESTPAYER))));
+            }
         }
     }
 }

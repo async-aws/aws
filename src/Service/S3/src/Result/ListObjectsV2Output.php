@@ -3,6 +3,7 @@
 namespace AsyncAws\S3\Result;
 
 use AsyncAws\Core\Result;
+use AsyncAws\S3\Enum\EncodingType;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\S3Client;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -177,6 +178,9 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         return $this->Delimiter;
     }
 
+    /**
+     * @return EncodingType::URL|null
+     */
     public function getEncodingType(): ?string
     {
         $this->initialize();

@@ -2,6 +2,8 @@
 
 namespace AsyncAws\CloudFormation\Result;
 
+use AsyncAws\CloudFormation\Enum\StackStatus;
+
 class Stack
 {
     /**
@@ -133,7 +135,7 @@ class Stack
      *   DeletionTime: ?\DateTimeInterface,
      *   LastUpdatedTime: ?\DateTimeInterface,
      *   RollbackConfiguration: null|\AsyncAws\CloudFormation\Result\RollbackConfiguration|array,
-     *   StackStatus: string,
+     *   StackStatus: \AsyncAws\CloudFormation\Enum\StackStatus::CREATE_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::CREATE_FAILED|\AsyncAws\CloudFormation\Enum\StackStatus::CREATE_COMPLETE|\AsyncAws\CloudFormation\Enum\StackStatus::ROLLBACK_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::ROLLBACK_FAILED|\AsyncAws\CloudFormation\Enum\StackStatus::ROLLBACK_COMPLETE|\AsyncAws\CloudFormation\Enum\StackStatus::DELETE_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::DELETE_FAILED|\AsyncAws\CloudFormation\Enum\StackStatus::DELETE_COMPLETE|\AsyncAws\CloudFormation\Enum\StackStatus::UPDATE_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::UPDATE_COMPLETE_CLEANUP_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::UPDATE_COMPLETE|\AsyncAws\CloudFormation\Enum\StackStatus::UPDATE_ROLLBACK_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::UPDATE_ROLLBACK_FAILED|\AsyncAws\CloudFormation\Enum\StackStatus::UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::UPDATE_ROLLBACK_COMPLETE|\AsyncAws\CloudFormation\Enum\StackStatus::REVIEW_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::IMPORT_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::IMPORT_COMPLETE|\AsyncAws\CloudFormation\Enum\StackStatus::IMPORT_ROLLBACK_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::IMPORT_ROLLBACK_FAILED|\AsyncAws\CloudFormation\Enum\StackStatus::IMPORT_ROLLBACK_COMPLETE,
      *   StackStatusReason: ?string,
      *   DisableRollback: ?bool,
      *   NotificationARNs: ?string[],
@@ -281,6 +283,9 @@ class Stack
         return $this->StackName;
     }
 
+    /**
+     * @return StackStatus::CREATE_IN_PROGRESS|StackStatus::CREATE_FAILED|StackStatus::CREATE_COMPLETE|StackStatus::ROLLBACK_IN_PROGRESS|StackStatus::ROLLBACK_FAILED|StackStatus::ROLLBACK_COMPLETE|StackStatus::DELETE_IN_PROGRESS|StackStatus::DELETE_FAILED|StackStatus::DELETE_COMPLETE|StackStatus::UPDATE_IN_PROGRESS|StackStatus::UPDATE_COMPLETE_CLEANUP_IN_PROGRESS|StackStatus::UPDATE_COMPLETE|StackStatus::UPDATE_ROLLBACK_IN_PROGRESS|StackStatus::UPDATE_ROLLBACK_FAILED|StackStatus::UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS|StackStatus::UPDATE_ROLLBACK_COMPLETE|StackStatus::REVIEW_IN_PROGRESS|StackStatus::IMPORT_IN_PROGRESS|StackStatus::IMPORT_COMPLETE|StackStatus::IMPORT_ROLLBACK_IN_PROGRESS|StackStatus::IMPORT_ROLLBACK_FAILED|StackStatus::IMPORT_ROLLBACK_COMPLETE
+     */
     public function getStackStatus(): string
     {
         return $this->StackStatus;

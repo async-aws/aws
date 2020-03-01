@@ -69,6 +69,9 @@ class MessageSystemAttributeValue
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * @return string[]
+     */
     public function getBinaryListValues(): array
     {
         return $this->BinaryListValues;
@@ -84,6 +87,9 @@ class MessageSystemAttributeValue
         return $this->DataType;
     }
 
+    /**
+     * @return string[]
+     */
     public function getStringListValues(): array
     {
         return $this->StringListValues;
@@ -94,6 +100,9 @@ class MessageSystemAttributeValue
         return $this->StringValue;
     }
 
+    /**
+     * @param string[] $value
+     */
     public function setBinaryListValues(array $value): self
     {
         $this->BinaryListValues = $value;
@@ -115,6 +124,9 @@ class MessageSystemAttributeValue
         return $this;
     }
 
+    /**
+     * @param string[] $value
+     */
     public function setStringListValues(array $value): self
     {
         $this->StringListValues = $value;
@@ -131,10 +143,8 @@ class MessageSystemAttributeValue
 
     public function validate(): void
     {
-        foreach (['DataType'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
-            }
+        if (null === $this->DataType) {
+            throw new InvalidArgument(sprintf('Missing parameter "DataType" when validating the "%s". The value cannot be null.', __CLASS__));
         }
     }
 }

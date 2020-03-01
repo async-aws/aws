@@ -10,3 +10,9 @@ parameters:
 			count: 1
 			path: src/Integration/Symfony/Bundle/src/DependencyInjection/Configuration.php
 
+		-   "#^PHPDoc tag @param has invalid value#"
+		-   "#^PHPDoc tag @return with type AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^ ]+ is incompatible with native type string(\\|null)?\\.$#"
+		-   "#^Method AsyncAws\\\\[^ ]+ should return string\\|null but returns AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^\\.]+\\.$#"
+		-   "#^Property AsyncAws\\\\[^ ]+ \\(AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^\\)]+\\) does not accept string\\|null\\.$#"
+		-   "#^Invalid array key type AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^\\\\]+\\.$#"
+		-   "#^Parameter \\#3 ...\\$args of function sprintf expects bool\\|float\\|int\\|string\\|null, AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^ ]+ given\\.$#"

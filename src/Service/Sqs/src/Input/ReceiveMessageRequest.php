@@ -3,6 +3,7 @@
 namespace AsyncAws\Sqs\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Sqs\Enum\QueueAttributeName;
 
 class ReceiveMessageRequest
 {
@@ -88,6 +89,9 @@ class ReceiveMessageRequest
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * @return string[]
+     */
     public function getAttributeNames(): array
     {
         return $this->AttributeNames;
@@ -98,6 +102,9 @@ class ReceiveMessageRequest
         return $this->MaxNumberOfMessages;
     }
 
+    /**
+     * @return string[]
+     */
     public function getMessageAttributeNames(): array
     {
         return $this->MessageAttributeNames;
@@ -179,6 +186,9 @@ class ReceiveMessageRequest
         return '/';
     }
 
+    /**
+     * @param string[] $value
+     */
     public function setAttributeNames(array $value): self
     {
         $this->AttributeNames = $value;
@@ -193,6 +203,9 @@ class ReceiveMessageRequest
         return $this;
     }
 
+    /**
+     * @param string[] $value
+     */
     public function setMessageAttributeNames(array $value): self
     {
         $this->MessageAttributeNames = $value;
@@ -230,9 +243,13 @@ class ReceiveMessageRequest
 
     public function validate(): void
     {
-        foreach (['QueueUrl'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
+        if (null === $this->QueueUrl) {
+            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
+        foreach ($this->AttributeNames as $item) {
+            if (!isset(QueueAttributeName::AVAILABLE_QUEUEATTRIBUTENAME[$item])) {
+                throw new InvalidArgument(sprintf('Invalid parameter "AttributeNames" when validating the "%s". The value "%s" is not a valid "QueueAttributeName". Available values are %s.', __CLASS__, $item, implode(', ', array_keys(QueueAttributeName::AVAILABLE_QUEUEATTRIBUTENAME))));
             }
         }
     }

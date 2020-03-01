@@ -44,10 +44,8 @@ class RawMessage
 
     public function validate(): void
     {
-        foreach (['Data'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
-            }
+        if (null === $this->Data) {
+            throw new InvalidArgument(sprintf('Missing parameter "Data" when validating the "%s". The value cannot be null.', __CLASS__));
         }
     }
 }

@@ -63,10 +63,11 @@ class Body
 
     public function validate(): void
     {
-        if ($this->Text) {
+        if (null !== $this->Text) {
             $this->Text->validate();
         }
-        if ($this->Html) {
+
+        if (null !== $this->Html) {
             $this->Html->validate();
         }
     }

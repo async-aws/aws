@@ -3,6 +3,12 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\S3\Enum\ObjectCannedACL;
+use AsyncAws\S3\Enum\ObjectLockLegalHoldStatus;
+use AsyncAws\S3\Enum\ObjectLockMode;
+use AsyncAws\S3\Enum\RequestPayer;
+use AsyncAws\S3\Enum\ServerSideEncryption;
+use AsyncAws\S3\Enum\StorageClass;
 
 class PutObjectRequest
 {
@@ -11,7 +17,7 @@ class PutObjectRequest
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL
      *
-     * @var string|null
+     * @var ObjectCannedACL::PRIVATE|ObjectCannedACL::PUBLIC_READ|ObjectCannedACL::PUBLIC_READ_WRITE|ObjectCannedACL::AUTHENTICATED_READ|ObjectCannedACL::AWS_EXEC_READ|ObjectCannedACL::BUCKET_OWNER_READ|ObjectCannedACL::BUCKET_OWNER_FULL_CONTROL|null
      */
     private $ACL;
 
@@ -158,14 +164,14 @@ class PutObjectRequest
     /**
      * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
      *
-     * @var string|null
+     * @var ServerSideEncryption::AES256|ServerSideEncryption::AWS_KMS|null
      */
     private $ServerSideEncryption;
 
     /**
      * If you don't specify, Standard is the default storage class. Amazon S3 supports other storage classes.
      *
-     * @var string|null
+     * @var StorageClass::STANDARD|StorageClass::REDUCED_REDUNDANCY|StorageClass::STANDARD_IA|StorageClass::ONEZONE_IA|StorageClass::INTELLIGENT_TIERING|StorageClass::GLACIER|StorageClass::DEEP_ARCHIVE|null
      */
     private $StorageClass;
 
@@ -221,7 +227,7 @@ class PutObjectRequest
     private $SSEKMSEncryptionContext;
 
     /**
-     * @var string|null
+     * @var RequestPayer::REQUESTER|null
      */
     private $RequestPayer;
 
@@ -235,7 +241,7 @@ class PutObjectRequest
     /**
      * The Object Lock mode that you want to apply to this object.
      *
-     * @var string|null
+     * @var ObjectLockMode::GOVERNANCE|ObjectLockMode::COMPLIANCE|null
      */
     private $ObjectLockMode;
 
@@ -252,7 +258,7 @@ class PutObjectRequest
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html
      *
-     * @var string|null
+     * @var ObjectLockLegalHoldStatus::ON|ObjectLockLegalHoldStatus::OFF|null
      */
     private $ObjectLockLegalHoldStatus;
 
@@ -260,7 +266,7 @@ class PutObjectRequest
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
      *
      * @param array{
-     *   ACL?: string,
+     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::PRIVATE|\AsyncAws\S3\Enum\ObjectCannedACL::PUBLIC_READ|\AsyncAws\S3\Enum\ObjectCannedACL::PUBLIC_READ_WRITE|\AsyncAws\S3\Enum\ObjectCannedACL::AUTHENTICATED_READ|\AsyncAws\S3\Enum\ObjectCannedACL::AWS_EXEC_READ|\AsyncAws\S3\Enum\ObjectCannedACL::BUCKET_OWNER_READ|\AsyncAws\S3\Enum\ObjectCannedACL::BUCKET_OWNER_FULL_CONTROL,
      *   Body?: string|resource|callable|iterable,
      *   Bucket?: string,
      *   CacheControl?: string,
@@ -277,19 +283,19 @@ class PutObjectRequest
      *   GrantWriteACP?: string,
      *   Key?: string,
      *   Metadata?: string[],
-     *   ServerSideEncryption?: string,
-     *   StorageClass?: string,
+     *   ServerSideEncryption?: \AsyncAws\S3\Enum\ServerSideEncryption::AES256|\AsyncAws\S3\Enum\ServerSideEncryption::AWS_KMS,
+     *   StorageClass?: \AsyncAws\S3\Enum\StorageClass::STANDARD|\AsyncAws\S3\Enum\StorageClass::REDUCED_REDUNDANCY|\AsyncAws\S3\Enum\StorageClass::STANDARD_IA|\AsyncAws\S3\Enum\StorageClass::ONEZONE_IA|\AsyncAws\S3\Enum\StorageClass::INTELLIGENT_TIERING|\AsyncAws\S3\Enum\StorageClass::GLACIER|\AsyncAws\S3\Enum\StorageClass::DEEP_ARCHIVE,
      *   WebsiteRedirectLocation?: string,
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
      *   SSEKMSKeyId?: string,
      *   SSEKMSEncryptionContext?: string,
-     *   RequestPayer?: string,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::REQUESTER,
      *   Tagging?: string,
-     *   ObjectLockMode?: string,
+     *   ObjectLockMode?: \AsyncAws\S3\Enum\ObjectLockMode::GOVERNANCE|\AsyncAws\S3\Enum\ObjectLockMode::COMPLIANCE,
      *   ObjectLockRetainUntilDate?: \DateTimeInterface|string,
-     *   ObjectLockLegalHoldStatus?: string,
+     *   ObjectLockLegalHoldStatus?: \AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::ON|\AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::OFF,
      * } $input
      */
     public function __construct(array $input = [])
@@ -331,11 +337,17 @@ class PutObjectRequest
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * @return ObjectCannedACL::PRIVATE|ObjectCannedACL::PUBLIC_READ|ObjectCannedACL::PUBLIC_READ_WRITE|ObjectCannedACL::AUTHENTICATED_READ|ObjectCannedACL::AWS_EXEC_READ|ObjectCannedACL::BUCKET_OWNER_READ|ObjectCannedACL::BUCKET_OWNER_FULL_CONTROL|null
+     */
     public function getACL(): ?string
     {
         return $this->ACL;
     }
 
+    /**
+     * @return string|resource|callable|iterable|null
+     */
     public function getBody()
     {
         return $this->Body;
@@ -411,16 +423,25 @@ class PutObjectRequest
         return $this->Key;
     }
 
+    /**
+     * @return string[]
+     */
     public function getMetadata(): array
     {
         return $this->Metadata;
     }
 
+    /**
+     * @return ObjectLockLegalHoldStatus::ON|ObjectLockLegalHoldStatus::OFF|null
+     */
     public function getObjectLockLegalHoldStatus(): ?string
     {
         return $this->ObjectLockLegalHoldStatus;
     }
 
+    /**
+     * @return ObjectLockMode::GOVERNANCE|ObjectLockMode::COMPLIANCE|null
+     */
     public function getObjectLockMode(): ?string
     {
         return $this->ObjectLockMode;
@@ -431,6 +452,9 @@ class PutObjectRequest
         return $this->ObjectLockRetainUntilDate;
     }
 
+    /**
+     * @return RequestPayer::REQUESTER|null
+     */
     public function getRequestPayer(): ?string
     {
         return $this->RequestPayer;
@@ -461,11 +485,17 @@ class PutObjectRequest
         return $this->SSEKMSKeyId;
     }
 
+    /**
+     * @return ServerSideEncryption::AES256|ServerSideEncryption::AWS_KMS|null
+     */
     public function getServerSideEncryption(): ?string
     {
         return $this->ServerSideEncryption;
     }
 
+    /**
+     * @return StorageClass::STANDARD|StorageClass::REDUCED_REDUNDANCY|StorageClass::STANDARD_IA|StorageClass::ONEZONE_IA|StorageClass::INTELLIGENT_TIERING|StorageClass::GLACIER|StorageClass::DEEP_ARCHIVE|null
+     */
     public function getStorageClass(): ?string
     {
         return $this->StorageClass;
@@ -587,6 +617,9 @@ class PutObjectRequest
         return "/{$uri['Bucket']}/{$uri['Key']}";
     }
 
+    /**
+     * @param ObjectCannedACL::PRIVATE|ObjectCannedACL::PUBLIC_READ|ObjectCannedACL::PUBLIC_READ_WRITE|ObjectCannedACL::AUTHENTICATED_READ|ObjectCannedACL::AWS_EXEC_READ|ObjectCannedACL::BUCKET_OWNER_READ|ObjectCannedACL::BUCKET_OWNER_FULL_CONTROL|null $value
+     */
     public function setACL(?string $value): self
     {
         $this->ACL = $value;
@@ -594,6 +627,9 @@ class PutObjectRequest
         return $this;
     }
 
+    /**
+     * @param string|resource|callable|iterable|null $value
+     */
     public function setBody($value): self
     {
         $this->Body = $value;
@@ -699,6 +735,9 @@ class PutObjectRequest
         return $this;
     }
 
+    /**
+     * @param string[] $value
+     */
     public function setMetadata(array $value): self
     {
         $this->Metadata = $value;
@@ -706,6 +745,9 @@ class PutObjectRequest
         return $this;
     }
 
+    /**
+     * @param ObjectLockLegalHoldStatus::ON|ObjectLockLegalHoldStatus::OFF|null $value
+     */
     public function setObjectLockLegalHoldStatus(?string $value): self
     {
         $this->ObjectLockLegalHoldStatus = $value;
@@ -713,6 +755,9 @@ class PutObjectRequest
         return $this;
     }
 
+    /**
+     * @param ObjectLockMode::GOVERNANCE|ObjectLockMode::COMPLIANCE|null $value
+     */
     public function setObjectLockMode(?string $value): self
     {
         $this->ObjectLockMode = $value;
@@ -727,6 +772,9 @@ class PutObjectRequest
         return $this;
     }
 
+    /**
+     * @param RequestPayer::REQUESTER|null $value
+     */
     public function setRequestPayer(?string $value): self
     {
         $this->RequestPayer = $value;
@@ -769,6 +817,9 @@ class PutObjectRequest
         return $this;
     }
 
+    /**
+     * @param ServerSideEncryption::AES256|ServerSideEncryption::AWS_KMS|null $value
+     */
     public function setServerSideEncryption(?string $value): self
     {
         $this->ServerSideEncryption = $value;
@@ -776,6 +827,9 @@ class PutObjectRequest
         return $this;
     }
 
+    /**
+     * @param StorageClass::STANDARD|StorageClass::REDUCED_REDUNDANCY|StorageClass::STANDARD_IA|StorageClass::ONEZONE_IA|StorageClass::INTELLIGENT_TIERING|StorageClass::GLACIER|StorageClass::DEEP_ARCHIVE|null $value
+     */
     public function setStorageClass(?string $value): self
     {
         $this->StorageClass = $value;
@@ -799,9 +853,47 @@ class PutObjectRequest
 
     public function validate(): void
     {
-        foreach (['Bucket', 'Key'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
+        if (null !== $this->ACL) {
+            if (!isset(ObjectCannedACL::AVAILABLE_OBJECTCANNEDACL[$this->ACL])) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ACL" when validating the "%s". The value "%s" is not a valid "ObjectCannedACL". Available values are %s.', __CLASS__, $this->ACL, implode(', ', array_keys(ObjectCannedACL::AVAILABLE_OBJECTCANNEDACL))));
+            }
+        }
+
+        if (null === $this->Bucket) {
+            throw new InvalidArgument(sprintf('Missing parameter "Bucket" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
+        if (null === $this->Key) {
+            throw new InvalidArgument(sprintf('Missing parameter "Key" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
+        if (null !== $this->ServerSideEncryption) {
+            if (!isset(ServerSideEncryption::AVAILABLE_SERVERSIDEENCRYPTION[$this->ServerSideEncryption])) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ServerSideEncryption" when validating the "%s". The value "%s" is not a valid "ServerSideEncryption". Available values are %s.', __CLASS__, $this->ServerSideEncryption, implode(', ', array_keys(ServerSideEncryption::AVAILABLE_SERVERSIDEENCRYPTION))));
+            }
+        }
+
+        if (null !== $this->StorageClass) {
+            if (!isset(StorageClass::AVAILABLE_STORAGECLASS[$this->StorageClass])) {
+                throw new InvalidArgument(sprintf('Invalid parameter "StorageClass" when validating the "%s". The value "%s" is not a valid "StorageClass". Available values are %s.', __CLASS__, $this->StorageClass, implode(', ', array_keys(StorageClass::AVAILABLE_STORAGECLASS))));
+            }
+        }
+
+        if (null !== $this->RequestPayer) {
+            if (!isset(RequestPayer::AVAILABLE_REQUESTPAYER[$this->RequestPayer])) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer". Available values are %s.', __CLASS__, $this->RequestPayer, implode(', ', array_keys(RequestPayer::AVAILABLE_REQUESTPAYER))));
+            }
+        }
+
+        if (null !== $this->ObjectLockMode) {
+            if (!isset(ObjectLockMode::AVAILABLE_OBJECTLOCKMODE[$this->ObjectLockMode])) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockMode" when validating the "%s". The value "%s" is not a valid "ObjectLockMode". Available values are %s.', __CLASS__, $this->ObjectLockMode, implode(', ', array_keys(ObjectLockMode::AVAILABLE_OBJECTLOCKMODE))));
+            }
+        }
+
+        if (null !== $this->ObjectLockLegalHoldStatus) {
+            if (!isset(ObjectLockLegalHoldStatus::AVAILABLE_OBJECTLOCKLEGALHOLDSTATUS[$this->ObjectLockLegalHoldStatus])) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockLegalHoldStatus" when validating the "%s". The value "%s" is not a valid "ObjectLockLegalHoldStatus". Available values are %s.', __CLASS__, $this->ObjectLockLegalHoldStatus, implode(', ', array_keys(ObjectLockLegalHoldStatus::AVAILABLE_OBJECTLOCKLEGALHOLDSTATUS))));
             }
         }
     }

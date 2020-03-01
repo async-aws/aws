@@ -82,13 +82,15 @@ class EmailContent
 
     public function validate(): void
     {
-        if ($this->Simple) {
+        if (null !== $this->Simple) {
             $this->Simple->validate();
         }
-        if ($this->Raw) {
+
+        if (null !== $this->Raw) {
             $this->Raw->validate();
         }
-        if ($this->Template) {
+
+        if (null !== $this->Template) {
             $this->Template->validate();
         }
     }

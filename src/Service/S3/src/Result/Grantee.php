@@ -2,6 +2,8 @@
 
 namespace AsyncAws\S3\Result;
 
+use AsyncAws\S3\Enum\Type;
+
 class Grantee
 {
     /**
@@ -34,7 +36,7 @@ class Grantee
      *   DisplayName: ?string,
      *   EmailAddress: ?string,
      *   ID: ?string,
-     *   Type: string,
+     *   Type: \AsyncAws\S3\Enum\Type::CANONICAL_USER|\AsyncAws\S3\Enum\Type::AMAZON_CUSTOMER_BY_EMAIL|\AsyncAws\S3\Enum\Type::GROUP,
      *   URI: ?string,
      * } $input
      */
@@ -67,6 +69,9 @@ class Grantee
         return $this->ID;
     }
 
+    /**
+     * @return Type::CANONICAL_USER|Type::AMAZON_CUSTOMER_BY_EMAIL|Type::GROUP
+     */
     public function getType(): string
     {
         return $this->Type;

@@ -110,6 +110,9 @@ class AssumeRoleWithWebIdentityRequest
         return $this->Policy;
     }
 
+    /**
+     * @return PolicyDescriptorType[]
+     */
     public function getPolicyArns(): array
     {
         return $this->PolicyArns;
@@ -203,6 +206,9 @@ class AssumeRoleWithWebIdentityRequest
         return $this;
     }
 
+    /**
+     * @param PolicyDescriptorType[] $value
+     */
     public function setPolicyArns(array $value): self
     {
         $this->PolicyArns = $value;
@@ -240,11 +246,18 @@ class AssumeRoleWithWebIdentityRequest
 
     public function validate(): void
     {
-        foreach (['RoleArn', 'RoleSessionName', 'WebIdentityToken'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
-            }
+        if (null === $this->RoleArn) {
+            throw new InvalidArgument(sprintf('Missing parameter "RoleArn" when validating the "%s". The value cannot be null.', __CLASS__));
         }
+
+        if (null === $this->RoleSessionName) {
+            throw new InvalidArgument(sprintf('Missing parameter "RoleSessionName" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
+        if (null === $this->WebIdentityToken) {
+            throw new InvalidArgument(sprintf('Missing parameter "WebIdentityToken" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
         foreach ($this->PolicyArns as $item) {
             $item->validate();
         }

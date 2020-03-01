@@ -53,6 +53,11 @@ class ResultGenerator
     private $typeGenerator;
 
     /**
+     * @var EnumGenerator
+     */
+    private $enumGenerator;
+
+    /**
      * @var ParserProvider
      */
     private $parserProvider;
@@ -62,11 +67,12 @@ class ResultGenerator
      */
     private $operation;
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null)
+    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
     {
         $this->namespaceRegistry = $namespaceRegistry;
         $this->fileWriter = $fileWriter;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
+        $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->namespaceRegistry, $fileWriter);
         $this->parserProvider = new ParserProvider($this->namespaceRegistry);
     }
 
@@ -172,6 +178,11 @@ class ResultGenerator
                 $property->addComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
 
+            if (!empty($memberShape->getEnum())) {
+                $enumClassName = $this->enumGenerator->generate($memberShape);
+                $namespace->addUse($enumClassName->getFqdn());
+            }
+
             if ($memberShape instanceof StructureShape) {
                 $this->generateResultClass($memberShape);
             } elseif ($memberShape instanceof MapShape) {
@@ -218,13 +229,8 @@ class ResultGenerator
                 ]));
 
             $nullable = $nullable ?? !$member->isRequired();
-            if ($parameterType) {
-                if ($parameterType !== $returnType && (null === $memberClassName || $memberClassName->getName() !== $parameterType)) {
-                    if ($nullable) {
-                        $parameterType = '?' . $parameterType;
-                    }
-                    $method->addComment('@return ' . $parameterType);
-                }
+            if ($parameterType && $parameterType !== $returnType && (null === $memberClassName || $memberClassName->getName() !== $parameterType)) {
+                $method->addComment('@return ' . $parameterType . ($nullable ? '|null' : ''));
             }
             $method->setReturnNullable($nullable);
         }

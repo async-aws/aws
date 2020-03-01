@@ -8,6 +8,7 @@ use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Generator\EnumGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 
@@ -70,7 +71,13 @@ class TypeGenerator
             } elseif ('timestamp' === $param = $memberShape->getType()) {
                 $param = $isResult ? '\DateTimeInterface' : '\DateTimeInterface|string';
             } else {
-                $param = $this->getNativePhpType($param);
+                if (!empty($memberShape->getEnum())) {
+                    $param = \implode('|', \array_map(function (string $value) use ($memberShape) {
+                        return '\\' . $this->namespaceRegistry->getEnum($memberShape)->getFqdn() . '::' . EnumGenerator::canonicalizeName($value);
+                    }, $memberShape->getEnum()));
+                } else {
+                    $param = $this->getNativePhpType($param);
+                }
             }
 
             if ($allNullable || $nullable) {
@@ -124,7 +131,14 @@ class TypeGenerator
             return ['array', $this->getNativePhpType($listMemberShape->getType()) . '[]', null];
         }
 
-        return [$type = $this->getNativePhpType($shape->getType()), $type, null];
+        $type = $doc = $this->getNativePhpType($shape->getType());
+        if (!empty($shape->getEnum())) {
+            $doc = \implode('|', \array_map(function (string $value) use ($shape) {
+                return $shape->getName() . '::' . EnumGenerator::canonicalizeName($value);
+            }, $shape->getEnum()));
+        }
+
+        return [$type, $doc, null];
     }
 
     public function getFilterConstant(Shape $shape): ?string
