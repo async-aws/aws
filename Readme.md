@@ -108,7 +108,7 @@ echo $waiter->isSuccess(); // true
 
 [more information about waiters and hasers...](./docs/waiter.md)
 
-## Organization
+## Packages overview
 
 | Package name            | Badges                    |  BC check                 |
 | ----------------------- | ------------------------- | ------------------------- |
