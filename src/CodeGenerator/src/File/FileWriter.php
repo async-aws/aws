@@ -91,7 +91,7 @@ class FileWriter
     {
         $parts = explode('\\', $fqcn);
         $service = array_shift($parts); // Lambda, S3, Sqs etc
-        if (isset($parts[0]) && $parts[0] === 'Tests') {
+        if (isset($parts[0]) && 'Tests' === $parts[0]) {
             array_shift($parts); // Tests
             array_unshift($parts, $service, 'tests');
         } else {
