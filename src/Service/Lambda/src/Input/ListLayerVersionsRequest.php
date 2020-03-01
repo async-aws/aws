@@ -79,9 +79,7 @@ class ListLayerVersionsRequest
 
     public function requestBody(): string
     {
-        $payload = ['Action' => 'ListLayerVersions', 'Version' => '2015-03-31'];
-
-        return json_encode($payload);
+        return '{}';
     }
 
     public function requestHeaders(): array

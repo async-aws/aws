@@ -97,7 +97,7 @@ class PublishLayerVersionRequest
 
     public function requestBody(): string
     {
-        $payload = ['Action' => 'PublishLayerVersion', 'Version' => '2015-03-31'];
+        $payload = [];
         $indices = new \stdClass();
         if (null !== $v = $this->Description) {
             $payload['Description'] = $v;
