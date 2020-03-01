@@ -126,7 +126,7 @@ class SendEmailRequest
 
     public function requestBody(): string
     {
-        $payload = ['Action' => 'SendEmail', 'Version' => '2019-09-27'];
+        $payload = [];
         $indices = new \stdClass();
         if (null !== $v = $this->FromEmailAddress) {
             $payload['FromEmailAddress'] = $v;

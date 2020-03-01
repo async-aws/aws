@@ -28,8 +28,6 @@ class ListLayerVersionsRequestTest extends TestCase
     public function testRequestBody(): void
     {
         $expected = '{
-            "Action": "ListLayerVersions",
-            "Version": "2015-03-31"
         }';
 
         self::assertJsonStringEqualsJsonString($expected, $this->input->requestBody());

@@ -65,14 +65,16 @@ class RestJsonSerializer implements Serializer
             ]);
         }, $shape->getMembers()));
 
+        if ('' === trim($body)) {
+            return 'return "{}";';
+        }
+
         return strtr('
-                $payload = [\'Action\' => OPERATION_NAME, \'Version\' => API_VERSION];
+                $payload = [];
                 CHILDREN_CODE
 
                 return json_encode($payload);
             ', [
-            'OPERATION_NAME' => \var_export($operation->getName(), true),
-            'API_VERSION' => \var_export($operation->getApiVersion(), true),
             'CHILDREN_CODE' => false !== \strpos($body, '$indices') ? '$indices = new \stdClass();' . $body : $body,
         ]);
     }

@@ -33,7 +33,6 @@ class AddLayerVersionPermissionRequestTest extends TestCase
     {
         $expected = '{
            "Action": "lambda:GetLayerVersion",
-           "Version": "2015-03-31",
            "StatementId": "fooBar",
            "Principal": "123456789",
            "OrganizationId": "*"

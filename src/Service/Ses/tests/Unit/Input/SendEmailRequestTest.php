@@ -44,8 +44,6 @@ class SendEmailRequestTest extends TestCase
 
         // see example-1.json from SDK
         $expected = '{
-            "Action": "SendEmail",
-            "Version": "2019-09-27",
             "FromEmailAddress": "jeremy@derusse.com",
             "Destination": {
                 "ToAddresses": [

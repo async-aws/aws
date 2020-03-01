@@ -38,8 +38,6 @@ class PublishLayerVersionRequestTest extends TestCase
     {
         // see https://docs.aws.amazon.com/lambda/latest/dg/API_PublishLayerVersion.html
         $expected = '{
-            "Action": "PublishLayerVersion",
-            "Version": "2015-03-31",
             "Description": "small description",
             "Content": {
                 "S3Bucket": "myBucket",

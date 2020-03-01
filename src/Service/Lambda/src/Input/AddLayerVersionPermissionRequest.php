@@ -130,7 +130,7 @@ class AddLayerVersionPermissionRequest
 
     public function requestBody(): string
     {
-        $payload = ['Action' => 'AddLayerVersionPermission', 'Version' => '2015-03-31'];
+        $payload = [];
 
         $payload['StatementId'] = $this->StatementId;
         $payload['Action'] = $this->Action;
