@@ -31,7 +31,7 @@ use Symfony\Component\HttpClient\MockHttpClient;
  */
 class TestGenerator
 {
-    private const MARKER = 'self::markTestIncomplete(\'Not implemented\');';
+    private const MARKER = 'self::fail(\'Not implemented\');';
 
     /**
      * @var NamespaceRegistry
