@@ -3,6 +3,8 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\S3\Enum\ObjectCannedACL;
+use AsyncAws\S3\Enum\RequestPayer;
 
 class PutObjectAclRequest
 {
@@ -11,7 +13,7 @@ class PutObjectAclRequest
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL
      *
-     * @var string|null
+     * @var ObjectCannedACL::PRIVATE|ObjectCannedACL::PUBLIC_READ|ObjectCannedACL::PUBLIC_READ_WRITE|ObjectCannedACL::AUTHENTICATED_READ|ObjectCannedACL::AWS_EXEC_READ|ObjectCannedACL::BUCKET_OWNER_READ|ObjectCannedACL::BUCKET_OWNER_FULL_CONTROL|null
      */
     private $ACL;
 
@@ -86,7 +88,7 @@ class PutObjectAclRequest
     private $Key;
 
     /**
-     * @var string|null
+     * @var RequestPayer::REQUESTER|null
      */
     private $RequestPayer;
 
@@ -101,7 +103,7 @@ class PutObjectAclRequest
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUTacl.html
      *
      * @param array{
-     *   ACL?: string,
+     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::PRIVATE|\AsyncAws\S3\Enum\ObjectCannedACL::PUBLIC_READ|\AsyncAws\S3\Enum\ObjectCannedACL::PUBLIC_READ_WRITE|\AsyncAws\S3\Enum\ObjectCannedACL::AUTHENTICATED_READ|\AsyncAws\S3\Enum\ObjectCannedACL::AWS_EXEC_READ|\AsyncAws\S3\Enum\ObjectCannedACL::BUCKET_OWNER_READ|\AsyncAws\S3\Enum\ObjectCannedACL::BUCKET_OWNER_FULL_CONTROL,
      *   AccessControlPolicy?: \AsyncAws\S3\Input\AccessControlPolicy|array,
      *   Bucket?: string,
      *   ContentMD5?: string,
@@ -111,7 +113,7 @@ class PutObjectAclRequest
      *   GrantWrite?: string,
      *   GrantWriteACP?: string,
      *   Key?: string,
-     *   RequestPayer?: string,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::REQUESTER,
      *   VersionId?: string,
      * } $input
      */
@@ -136,6 +138,9 @@ class PutObjectAclRequest
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * @return ObjectCannedACL::PRIVATE|ObjectCannedACL::PUBLIC_READ|ObjectCannedACL::PUBLIC_READ_WRITE|ObjectCannedACL::AUTHENTICATED_READ|ObjectCannedACL::AWS_EXEC_READ|ObjectCannedACL::BUCKET_OWNER_READ|ObjectCannedACL::BUCKET_OWNER_FULL_CONTROL|null
+     */
     public function getACL(): ?string
     {
         return $this->ACL;
@@ -186,6 +191,9 @@ class PutObjectAclRequest
         return $this->Key;
     }
 
+    /**
+     * @return RequestPayer::REQUESTER|null
+     */
     public function getRequestPayer(): ?string
     {
         return $this->RequestPayer;
@@ -306,6 +314,9 @@ class PutObjectAclRequest
         return "/{$uri['Bucket']}/{$uri['Key']}?acl";
     }
 
+    /**
+     * @param ObjectCannedACL::PRIVATE|ObjectCannedACL::PUBLIC_READ|ObjectCannedACL::PUBLIC_READ_WRITE|ObjectCannedACL::AUTHENTICATED_READ|ObjectCannedACL::AWS_EXEC_READ|ObjectCannedACL::BUCKET_OWNER_READ|ObjectCannedACL::BUCKET_OWNER_FULL_CONTROL|null $value
+     */
     public function setACL(?string $value): self
     {
         $this->ACL = $value;
@@ -376,6 +387,9 @@ class PutObjectAclRequest
         return $this;
     }
 
+    /**
+     * @param RequestPayer::REQUESTER|null $value
+     */
     public function setRequestPayer(?string $value): self
     {
         $this->RequestPayer = $value;
@@ -392,13 +406,28 @@ class PutObjectAclRequest
 
     public function validate(): void
     {
-        foreach (['Bucket', 'Key'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
+        if (null !== $this->ACL) {
+            if (!isset(ObjectCannedACL::AVAILABLE_OBJECTCANNEDACL[$this->ACL])) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ACL" when validating the "%s". The value "%s" is not a valid "ObjectCannedACL". Available values are %s.', __CLASS__, $this->ACL, implode(', ', array_keys(ObjectCannedACL::AVAILABLE_OBJECTCANNEDACL))));
             }
         }
-        if ($this->AccessControlPolicy) {
+
+        if (null !== $this->AccessControlPolicy) {
             $this->AccessControlPolicy->validate();
+        }
+
+        if (null === $this->Bucket) {
+            throw new InvalidArgument(sprintf('Missing parameter "Bucket" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
+        if (null === $this->Key) {
+            throw new InvalidArgument(sprintf('Missing parameter "Key" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
+        if (null !== $this->RequestPayer) {
+            if (!isset(RequestPayer::AVAILABLE_REQUESTPAYER[$this->RequestPayer])) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer". Available values are %s.', __CLASS__, $this->RequestPayer, implode(', ', array_keys(RequestPayer::AVAILABLE_REQUESTPAYER))));
+            }
         }
     }
 }

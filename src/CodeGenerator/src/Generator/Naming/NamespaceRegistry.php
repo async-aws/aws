@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Generator\Naming;
 
 use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
+use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Definition\Waiter;
 
@@ -33,12 +34,18 @@ final class NamespaceRegistry
      */
     private $testNamespace;
 
-    public function __construct(string $baseNamespace, ?string $inputNamespace = '\\Input', ?string $resultNamespace = '\\Result', ?string $testNamespace = '\\Tests')
+    /**
+     * @var string
+     */
+    private $enumNamespace;
+
+    public function __construct(string $baseNamespace, ?string $inputNamespace = '\\Input', ?string $resultNamespace = '\\Result', ?string $testNamespace = '\\Tests', ?string $enumNamespace = '\\Enum')
     {
         $this->baseNamespace = $baseNamespace;
         $this->inputNamespace = '\\' === $inputNamespace[0] ? $baseNamespace . $inputNamespace : $inputNamespace;
         $this->resultNamespace = '\\' === $resultNamespace[0] ? $baseNamespace . $resultNamespace : $resultNamespace;
         $this->testNamespace = '\\' === $testNamespace[0] ? implode('\\', \array_slice(\explode('\\', $baseNamespace), 0, 2)) . $testNamespace : $testNamespace;
+        $this->enumNamespace = '\\' === $enumNamespace[0] ? $baseNamespace . $enumNamespace : $enumNamespace;
     }
 
     public function getClient(ServiceDefinition $definition): ClassName
@@ -59,6 +66,11 @@ final class NamespaceRegistry
     public function getResult(StructureShape $shape): ClassName
     {
         return ClassName::create($this->resultNamespace, $shape->getName());
+    }
+
+    public function getEnum(Shape $shape): ClassName
+    {
+        return ClassName::create($this->enumNamespace, $shape->getName());
     }
 
     public function getWaiter(Waiter $waiter): ClassName

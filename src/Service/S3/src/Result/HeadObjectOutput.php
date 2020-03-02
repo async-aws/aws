@@ -3,6 +3,12 @@
 namespace AsyncAws\S3\Result;
 
 use AsyncAws\Core\Result;
+use AsyncAws\S3\Enum\ObjectLockLegalHoldStatus;
+use AsyncAws\S3\Enum\ObjectLockMode;
+use AsyncAws\S3\Enum\ReplicationStatus;
+use AsyncAws\S3\Enum\RequestCharged;
+use AsyncAws\S3\Enum\ServerSideEncryption;
+use AsyncAws\S3\Enum\StorageClass;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -269,6 +275,9 @@ class HeadObjectOutput extends Result
         return $this->MissingMeta;
     }
 
+    /**
+     * @return ObjectLockLegalHoldStatus::ON|ObjectLockLegalHoldStatus::OFF|null
+     */
     public function getObjectLockLegalHoldStatus(): ?string
     {
         $this->initialize();
@@ -276,6 +285,9 @@ class HeadObjectOutput extends Result
         return $this->ObjectLockLegalHoldStatus;
     }
 
+    /**
+     * @return ObjectLockMode::GOVERNANCE|ObjectLockMode::COMPLIANCE|null
+     */
     public function getObjectLockMode(): ?string
     {
         $this->initialize();
@@ -297,6 +309,9 @@ class HeadObjectOutput extends Result
         return $this->PartsCount;
     }
 
+    /**
+     * @return ReplicationStatus::COMPLETE|ReplicationStatus::PENDING|ReplicationStatus::FAILED|ReplicationStatus::REPLICA|null
+     */
     public function getReplicationStatus(): ?string
     {
         $this->initialize();
@@ -304,6 +319,9 @@ class HeadObjectOutput extends Result
         return $this->ReplicationStatus;
     }
 
+    /**
+     * @return RequestCharged::REQUESTER|null
+     */
     public function getRequestCharged(): ?string
     {
         $this->initialize();
@@ -339,6 +357,9 @@ class HeadObjectOutput extends Result
         return $this->SSEKMSKeyId;
     }
 
+    /**
+     * @return ServerSideEncryption::AES256|ServerSideEncryption::AWS_KMS|null
+     */
     public function getServerSideEncryption(): ?string
     {
         $this->initialize();
@@ -346,6 +367,9 @@ class HeadObjectOutput extends Result
         return $this->ServerSideEncryption;
     }
 
+    /**
+     * @return StorageClass::STANDARD|StorageClass::REDUCED_REDUNDANCY|StorageClass::STANDARD_IA|StorageClass::ONEZONE_IA|StorageClass::INTELLIGENT_TIERING|StorageClass::GLACIER|StorageClass::DEEP_ARCHIVE|null
+     */
     public function getStorageClass(): ?string
     {
         $this->initialize();

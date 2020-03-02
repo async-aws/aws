@@ -219,10 +219,24 @@ class AddLayerVersionPermissionRequest
 
     public function validate(): void
     {
-        foreach (['LayerName', 'VersionNumber', 'StatementId', 'Action', 'Principal'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
-            }
+        if (null === $this->LayerName) {
+            throw new InvalidArgument(sprintf('Missing parameter "LayerName" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
+        if (null === $this->VersionNumber) {
+            throw new InvalidArgument(sprintf('Missing parameter "VersionNumber" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
+        if (null === $this->StatementId) {
+            throw new InvalidArgument(sprintf('Missing parameter "StatementId" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
+        if (null === $this->Action) {
+            throw new InvalidArgument(sprintf('Missing parameter "Action" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
+        if (null === $this->Principal) {
+            throw new InvalidArgument(sprintf('Missing parameter "Principal" when validating the "%s". The value cannot be null.', __CLASS__));
         }
     }
 }

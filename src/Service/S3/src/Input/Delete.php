@@ -2,8 +2,6 @@
 
 namespace AsyncAws\S3\Input;
 
-use AsyncAws\Core\Exception\InvalidArgument;
-
 class Delete
 {
     /**
@@ -39,6 +37,9 @@ class Delete
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * @return ObjectIdentifier[]
+     */
     public function getObjects(): array
     {
         return $this->Objects;
@@ -49,6 +50,9 @@ class Delete
         return $this->Quiet;
     }
 
+    /**
+     * @param ObjectIdentifier[] $value
+     */
     public function setObjects(array $value): self
     {
         $this->Objects = $value;
@@ -65,11 +69,6 @@ class Delete
 
     public function validate(): void
     {
-        foreach (['Objects'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
-            }
-        }
         foreach ($this->Objects as $item) {
             $item->validate();
         }

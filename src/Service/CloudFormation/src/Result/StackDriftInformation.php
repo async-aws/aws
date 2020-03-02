@@ -2,6 +2,8 @@
 
 namespace AsyncAws\CloudFormation\Result;
 
+use AsyncAws\CloudFormation\Enum\StackDriftStatus;
+
 class StackDriftInformation
 {
     /**
@@ -17,7 +19,7 @@ class StackDriftInformation
 
     /**
      * @param array{
-     *   StackDriftStatus: string,
+     *   StackDriftStatus: \AsyncAws\CloudFormation\Enum\StackDriftStatus::DRIFTED|\AsyncAws\CloudFormation\Enum\StackDriftStatus::IN_SYNC|\AsyncAws\CloudFormation\Enum\StackDriftStatus::UNKNOWN|\AsyncAws\CloudFormation\Enum\StackDriftStatus::NOT_CHECKED,
      *   LastCheckTimestamp: ?\DateTimeInterface,
      * } $input
      */
@@ -37,6 +39,9 @@ class StackDriftInformation
         return $this->LastCheckTimestamp;
     }
 
+    /**
+     * @return StackDriftStatus::DRIFTED|StackDriftStatus::IN_SYNC|StackDriftStatus::UNKNOWN|StackDriftStatus::NOT_CHECKED
+     */
     public function getStackDriftStatus(): string
     {
         return $this->StackDriftStatus;

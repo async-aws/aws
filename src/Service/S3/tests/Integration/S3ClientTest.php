@@ -4,6 +4,8 @@ namespace AsyncAws\S3\Tests\Integration;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Exception\Http\ClientException;
+use AsyncAws\S3\Enum\Permission;
+use AsyncAws\S3\Enum\Type;
 use AsyncAws\S3\Input\AccessControlPolicy;
 use AsyncAws\S3\Input\CopyObjectRequest;
 use AsyncAws\S3\Input\CreateBucketRequest;
@@ -300,9 +302,9 @@ class S3ClientTest extends TestCase
                 'Grants' => [new Grant([
                     'Grantee' => new Grantee([
                         'DisplayName' => 'me',
-                        'Type' => 'canonical',
+                        'Type' => Type::CANONICAL_USER,
                     ]),
-                    'Permission' => 'FULL',
+                    'Permission' => Permission::FULL_CONTROL,
                 ])],
                 'Owner' => new Owner([
                     'DisplayName' => 'me',

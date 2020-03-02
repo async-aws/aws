@@ -69,16 +69,14 @@ class Message
 
     public function validate(): void
     {
-        foreach (['Subject', 'Body'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
-            }
+        if (null === $this->Subject) {
+            throw new InvalidArgument(sprintf('Missing parameter "Subject" when validating the "%s". The value cannot be null.', __CLASS__));
         }
-        if ($this->Subject) {
-            $this->Subject->validate();
+        $this->Subject->validate();
+
+        if (null === $this->Body) {
+            throw new InvalidArgument(sprintf('Missing parameter "Body" when validating the "%s". The value cannot be null.', __CLASS__));
         }
-        if ($this->Body) {
-            $this->Body->validate();
-        }
+        $this->Body->validate();
     }
 }

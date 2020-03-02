@@ -3,6 +3,7 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\S3\Enum\RequestPayer;
 
 class GetObjectAclRequest
 {
@@ -32,7 +33,7 @@ class GetObjectAclRequest
     private $VersionId;
 
     /**
-     * @var string|null
+     * @var RequestPayer::REQUESTER|null
      */
     private $RequestPayer;
 
@@ -43,7 +44,7 @@ class GetObjectAclRequest
      *   Bucket?: string,
      *   Key?: string,
      *   VersionId?: string,
-     *   RequestPayer?: string,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::REQUESTER,
      * } $input
      */
     public function __construct(array $input = [])
@@ -69,6 +70,9 @@ class GetObjectAclRequest
         return $this->Key;
     }
 
+    /**
+     * @return RequestPayer::REQUESTER|null
+     */
     public function getRequestPayer(): ?string
     {
         return $this->RequestPayer;
@@ -127,6 +131,9 @@ class GetObjectAclRequest
         return $this;
     }
 
+    /**
+     * @param RequestPayer::REQUESTER|null $value
+     */
     public function setRequestPayer(?string $value): self
     {
         $this->RequestPayer = $value;
@@ -143,9 +150,17 @@ class GetObjectAclRequest
 
     public function validate(): void
     {
-        foreach (['Bucket', 'Key'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
+        if (null === $this->Bucket) {
+            throw new InvalidArgument(sprintf('Missing parameter "Bucket" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
+        if (null === $this->Key) {
+            throw new InvalidArgument(sprintf('Missing parameter "Key" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
+        if (null !== $this->RequestPayer) {
+            if (!isset(RequestPayer::AVAILABLE_REQUESTPAYER[$this->RequestPayer])) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer". Available values are %s.', __CLASS__, $this->RequestPayer, implode(', ', array_keys(RequestPayer::AVAILABLE_REQUESTPAYER))));
             }
         }
     }

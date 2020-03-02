@@ -65,10 +65,8 @@ class ObjectIdentifier
 
     public function validate(): void
     {
-        foreach (['Key'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
-            }
+        if (null === $this->Key) {
+            throw new InvalidArgument(sprintf('Missing parameter "Key" when validating the "%s". The value cannot be null.', __CLASS__));
         }
     }
 }

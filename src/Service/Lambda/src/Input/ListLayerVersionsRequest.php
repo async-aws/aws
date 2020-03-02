@@ -3,13 +3,14 @@
 namespace AsyncAws\Lambda\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Lambda\Enum\Runtime;
 
 class ListLayerVersionsRequest
 {
     /**
      * A runtime identifier. For example, `go1.x`.
      *
-     * @var string|null
+     * @var Runtime::NODEJS|Runtime::NODEJS_4_3|Runtime::NODEJS_6_10|Runtime::NODEJS_8_10|Runtime::NODEJS_10_X|Runtime::NODEJS_12_X|Runtime::JAVA_8|Runtime::JAVA_11|Runtime::PYTHON_2_7|Runtime::PYTHON_3_6|Runtime::PYTHON_3_7|Runtime::PYTHON_3_8|Runtime::DOTNETCORE_1_0|Runtime::DOTNETCORE_2_0|Runtime::DOTNETCORE_2_1|Runtime::NODEJS_4_3_EDGE|Runtime::GO_1_X|Runtime::RUBY_2_5|Runtime::PROVIDED|null
      */
     private $CompatibleRuntime;
 
@@ -38,7 +39,7 @@ class ListLayerVersionsRequest
 
     /**
      * @param array{
-     *   CompatibleRuntime?: string,
+     *   CompatibleRuntime?: \AsyncAws\Lambda\Enum\Runtime::NODEJS|\AsyncAws\Lambda\Enum\Runtime::NODEJS_4_3|\AsyncAws\Lambda\Enum\Runtime::NODEJS_6_10|\AsyncAws\Lambda\Enum\Runtime::NODEJS_8_10|\AsyncAws\Lambda\Enum\Runtime::NODEJS_10_X|\AsyncAws\Lambda\Enum\Runtime::NODEJS_12_X|\AsyncAws\Lambda\Enum\Runtime::JAVA_8|\AsyncAws\Lambda\Enum\Runtime::JAVA_11|\AsyncAws\Lambda\Enum\Runtime::PYTHON_2_7|\AsyncAws\Lambda\Enum\Runtime::PYTHON_3_6|\AsyncAws\Lambda\Enum\Runtime::PYTHON_3_7|\AsyncAws\Lambda\Enum\Runtime::PYTHON_3_8|\AsyncAws\Lambda\Enum\Runtime::DOTNETCORE_1_0|\AsyncAws\Lambda\Enum\Runtime::DOTNETCORE_2_0|\AsyncAws\Lambda\Enum\Runtime::DOTNETCORE_2_1|\AsyncAws\Lambda\Enum\Runtime::NODEJS_4_3_EDGE|\AsyncAws\Lambda\Enum\Runtime::GO_1_X|\AsyncAws\Lambda\Enum\Runtime::RUBY_2_5|\AsyncAws\Lambda\Enum\Runtime::PROVIDED,
      *   LayerName?: string,
      *   Marker?: string,
      *   MaxItems?: int,
@@ -57,6 +58,9 @@ class ListLayerVersionsRequest
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * @return Runtime::NODEJS|Runtime::NODEJS_4_3|Runtime::NODEJS_6_10|Runtime::NODEJS_8_10|Runtime::NODEJS_10_X|Runtime::NODEJS_12_X|Runtime::JAVA_8|Runtime::JAVA_11|Runtime::PYTHON_2_7|Runtime::PYTHON_3_6|Runtime::PYTHON_3_7|Runtime::PYTHON_3_8|Runtime::DOTNETCORE_1_0|Runtime::DOTNETCORE_2_0|Runtime::DOTNETCORE_2_1|Runtime::NODEJS_4_3_EDGE|Runtime::GO_1_X|Runtime::RUBY_2_5|Runtime::PROVIDED|null
+     */
     public function getCompatibleRuntime(): ?string
     {
         return $this->CompatibleRuntime;
@@ -113,6 +117,9 @@ class ListLayerVersionsRequest
         return "/2018-10-31/layers/{$uri['LayerName']}/versions";
     }
 
+    /**
+     * @param Runtime::NODEJS|Runtime::NODEJS_4_3|Runtime::NODEJS_6_10|Runtime::NODEJS_8_10|Runtime::NODEJS_10_X|Runtime::NODEJS_12_X|Runtime::JAVA_8|Runtime::JAVA_11|Runtime::PYTHON_2_7|Runtime::PYTHON_3_6|Runtime::PYTHON_3_7|Runtime::PYTHON_3_8|Runtime::DOTNETCORE_1_0|Runtime::DOTNETCORE_2_0|Runtime::DOTNETCORE_2_1|Runtime::NODEJS_4_3_EDGE|Runtime::GO_1_X|Runtime::RUBY_2_5|Runtime::PROVIDED|null $value
+     */
     public function setCompatibleRuntime(?string $value): self
     {
         $this->CompatibleRuntime = $value;
@@ -143,10 +150,14 @@ class ListLayerVersionsRequest
 
     public function validate(): void
     {
-        foreach (['LayerName'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
+        if (null !== $this->CompatibleRuntime) {
+            if (!isset(Runtime::AVAILABLE_RUNTIME[$this->CompatibleRuntime])) {
+                throw new InvalidArgument(sprintf('Invalid parameter "CompatibleRuntime" when validating the "%s". The value "%s" is not a valid "Runtime". Available values are %s.', __CLASS__, $this->CompatibleRuntime, implode(', ', array_keys(Runtime::AVAILABLE_RUNTIME))));
             }
+        }
+
+        if (null === $this->LayerName) {
+            throw new InvalidArgument(sprintf('Missing parameter "LayerName" when validating the "%s". The value cannot be null.', __CLASS__));
         }
     }
 }

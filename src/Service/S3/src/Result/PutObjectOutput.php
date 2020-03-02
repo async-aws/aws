@@ -3,6 +3,8 @@
 namespace AsyncAws\S3\Result;
 
 use AsyncAws\Core\Result;
+use AsyncAws\S3\Enum\RequestCharged;
+use AsyncAws\S3\Enum\ServerSideEncryption;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -72,6 +74,9 @@ class PutObjectOutput extends Result
         return $this->Expiration;
     }
 
+    /**
+     * @return RequestCharged::REQUESTER|null
+     */
     public function getRequestCharged(): ?string
     {
         $this->initialize();
@@ -107,6 +112,9 @@ class PutObjectOutput extends Result
         return $this->SSEKMSKeyId;
     }
 
+    /**
+     * @return ServerSideEncryption::AES256|ServerSideEncryption::AWS_KMS|null
+     */
     public function getServerSideEncryption(): ?string
     {
         $this->initialize();

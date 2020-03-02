@@ -97,6 +97,9 @@ class PublishInput
         return $this->Message;
     }
 
+    /**
+     * @return MessageAttributeValue[]
+     */
     public function getMessageAttributes(): array
     {
         return $this->MessageAttributes;
@@ -197,6 +200,9 @@ class PublishInput
         return $this;
     }
 
+    /**
+     * @param MessageAttributeValue[] $value
+     */
     public function setMessageAttributes(array $value): self
     {
         $this->MessageAttributes = $value;
@@ -241,11 +247,10 @@ class PublishInput
 
     public function validate(): void
     {
-        foreach (['Message'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
-            }
+        if (null === $this->Message) {
+            throw new InvalidArgument(sprintf('Missing parameter "Message" when validating the "%s". The value cannot be null.', __CLASS__));
         }
+
         foreach ($this->MessageAttributes as $item) {
             $item->validate();
         }

@@ -3,6 +3,7 @@
 namespace AsyncAws\Lambda\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Lambda\Enum\Runtime;
 
 class PublishLayerVersionRequest
 {
@@ -70,6 +71,9 @@ class PublishLayerVersionRequest
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * @return string[]
+     */
     public function getCompatibleRuntimes(): array
     {
         return $this->CompatibleRuntimes;
@@ -159,6 +163,9 @@ class PublishLayerVersionRequest
         return "/2018-10-31/layers/{$uri['LayerName']}/versions";
     }
 
+    /**
+     * @param string[] $value
+     */
     public function setCompatibleRuntimes(array $value): self
     {
         $this->CompatibleRuntimes = $value;
@@ -196,13 +203,19 @@ class PublishLayerVersionRequest
 
     public function validate(): void
     {
-        foreach (['LayerName', 'Content'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
-            }
+        if (null === $this->LayerName) {
+            throw new InvalidArgument(sprintf('Missing parameter "LayerName" when validating the "%s". The value cannot be null.', __CLASS__));
         }
-        if ($this->Content) {
-            $this->Content->validate();
+
+        if (null === $this->Content) {
+            throw new InvalidArgument(sprintf('Missing parameter "Content" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+        $this->Content->validate();
+
+        foreach ($this->CompatibleRuntimes as $item) {
+            if (!isset(Runtime::AVAILABLE_RUNTIME[$item])) {
+                throw new InvalidArgument(sprintf('Invalid parameter "CompatibleRuntimes" when validating the "%s". The value "%s" is not a valid "Runtime". Available values are %s.', __CLASS__, $item, implode(', ', array_keys(Runtime::AVAILABLE_RUNTIME))));
+            }
         }
     }
 }

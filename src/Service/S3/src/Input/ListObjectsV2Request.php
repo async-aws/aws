@@ -3,6 +3,8 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\S3\Enum\EncodingType;
+use AsyncAws\S3\Enum\RequestPayer;
 
 class ListObjectsV2Request
 {
@@ -25,7 +27,7 @@ class ListObjectsV2Request
     /**
      * Encoding type used by Amazon S3 to encode object keys in the response.
      *
-     * @var string|null
+     * @var EncodingType::URL|null
      */
     private $EncodingType;
 
@@ -72,7 +74,7 @@ class ListObjectsV2Request
      * Confirms that the requester knows that she or he will be charged for the list objects request in V2 style. Bucket
      * owners need not specify this parameter in their requests.
      *
-     * @var string|null
+     * @var RequestPayer::REQUESTER|null
      */
     private $RequestPayer;
 
@@ -80,13 +82,13 @@ class ListObjectsV2Request
      * @param array{
      *   Bucket?: string,
      *   Delimiter?: string,
-     *   EncodingType?: string,
+     *   EncodingType?: \AsyncAws\S3\Enum\EncodingType::URL,
      *   MaxKeys?: int,
      *   Prefix?: string,
      *   ContinuationToken?: string,
      *   FetchOwner?: bool,
      *   StartAfter?: string,
-     *   RequestPayer?: string,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::REQUESTER,
      * } $input
      */
     public function __construct(array $input = [])
@@ -122,6 +124,9 @@ class ListObjectsV2Request
         return $this->Delimiter;
     }
 
+    /**
+     * @return EncodingType::URL|null
+     */
     public function getEncodingType(): ?string
     {
         return $this->EncodingType;
@@ -142,6 +147,9 @@ class ListObjectsV2Request
         return $this->Prefix;
     }
 
+    /**
+     * @return RequestPayer::REQUESTER|null
+     */
     public function getRequestPayer(): ?string
     {
         return $this->RequestPayer;
@@ -224,6 +232,9 @@ class ListObjectsV2Request
         return $this;
     }
 
+    /**
+     * @param EncodingType::URL|null $value
+     */
     public function setEncodingType(?string $value): self
     {
         $this->EncodingType = $value;
@@ -252,6 +263,9 @@ class ListObjectsV2Request
         return $this;
     }
 
+    /**
+     * @param RequestPayer::REQUESTER|null $value
+     */
     public function setRequestPayer(?string $value): self
     {
         $this->RequestPayer = $value;
@@ -268,9 +282,19 @@ class ListObjectsV2Request
 
     public function validate(): void
     {
-        foreach (['Bucket'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
+        if (null === $this->Bucket) {
+            throw new InvalidArgument(sprintf('Missing parameter "Bucket" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
+        if (null !== $this->EncodingType) {
+            if (!isset(EncodingType::AVAILABLE_ENCODINGTYPE[$this->EncodingType])) {
+                throw new InvalidArgument(sprintf('Invalid parameter "EncodingType" when validating the "%s". The value "%s" is not a valid "EncodingType". Available values are %s.', __CLASS__, $this->EncodingType, implode(', ', array_keys(EncodingType::AVAILABLE_ENCODINGTYPE))));
+            }
+        }
+
+        if (null !== $this->RequestPayer) {
+            if (!isset(RequestPayer::AVAILABLE_REQUESTPAYER[$this->RequestPayer])) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer". Available values are %s.', __CLASS__, $this->RequestPayer, implode(', ', array_keys(RequestPayer::AVAILABLE_REQUESTPAYER))));
             }
         }
     }

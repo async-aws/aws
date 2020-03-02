@@ -67,10 +67,12 @@ class Tag
 
     public function validate(): void
     {
-        foreach (['Key', 'Value'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
-            }
+        if (null === $this->Key) {
+            throw new InvalidArgument(sprintf('Missing parameter "Key" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
+        if (null === $this->Value) {
+            throw new InvalidArgument(sprintf('Missing parameter "Value" when validating the "%s". The value cannot be null.', __CLASS__));
         }
     }
 }

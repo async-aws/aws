@@ -43,6 +43,11 @@ class InputGenerator
     private $typeGenerator;
 
     /**
+     * @var EnumGenerator
+     */
+    private $enumGenerator;
+
+    /**
      * @var SerializerProvider
      */
     private $serializer;
@@ -52,11 +57,12 @@ class InputGenerator
      */
     private $generated = [];
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null)
+    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
     {
         $this->namespaceRegistry = $namespaceRegistry;
         $this->fileWriter = $fileWriter;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
+        $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->namespaceRegistry, $fileWriter);
         $this->serializer = new SerializerProvider($this->namespaceRegistry);
     }
 
@@ -80,7 +86,6 @@ class InputGenerator
         $class = $namespace->addClass($className->getName());
 
         $constructorBody = '';
-        $requiredProperties = [];
 
         foreach ($shape->getMembers() as $member) {
             $memberShape = $member->getShape();
@@ -128,10 +133,10 @@ class InputGenerator
                 $parameterType = 'string|resource|callable|iterable';
                 $returnType = null;
                 $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $member->getName()]);
-            } elseif ('\DateTimeInterface' !== $parameterType) {
-                $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $member->getName()]);
-            } else {
+            } elseif ('timestamp' === $memberShape->getType()) {
                 $constructorBody .= strtr('$this->NAME = !isset($input["NAME"]) ? null : ($input["NAME"] instanceof \DateTimeInterface ? $input["NAME"] : new \DateTimeImmutable($input["NAME"]));' . "\n", ['NAME' => $member->getName()]);
+            } else {
+                $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $member->getName()]);
             }
 
             $property = $class->addProperty($member->getName())->setPrivate();
@@ -139,27 +144,37 @@ class InputGenerator
                 $property->addComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
 
+            if (!empty($memberShape->getEnum())) {
+                $enumClassName = $this->enumGenerator->generate($memberShape);
+                $namespace->addUse($enumClassName->getFqdn());
+            }
+
             if ($member->isRequired()) {
-                $requiredProperties[] = $member->getName();
                 $property->addComment('@required');
             }
             $property->addComment('@var ' . $parameterType . ($nullable ? '|null' : ''));
 
-            $class->addMethod('get' . $member->getName())
+            $getter = $class->addMethod('get' . $member->getName())
                 ->setReturnType($returnType)
                 ->setReturnNullable($nullable)
                 ->setBody(strtr('return $this->NAME;', ['NAME' => $member->getName()]));
 
-            $class->addMethod('set' . $member->getName())
+            $setter = $class->addMethod('set' . $member->getName())
                 ->setReturnType('self')
                 ->setBody(strtr('
                     $this->NAME = $value;
                     return $this;
                 ', [
                     'NAME' => $member->getName(),
-                ]))
+                ]));
+            $setter
                 ->addParameter('value')->setType($returnType)->setNullable($nullable)
             ;
+
+            if ($returnType !== $parameterType) {
+                $setter->addComment('@param ' . $parameterType . ($nullable ? '|null' : '') . ' $value');
+                $getter->addComment('@return ' . $parameterType . ($nullable ? '|null' : ''));
+            }
         }
 
         // Add named constructor
@@ -191,30 +206,113 @@ class InputGenerator
 
         // Add validate()
         $namespace->addUse(InvalidArgument::class);
-        $validateBody = '';
-
-        if (!empty($requiredProperties)) {
-            $validateBody = strtr('
-                foreach (["PROPERTIES"] as $name) {
-                    if (null === $this->$name) {
-                        throw new InvalidArgument(sprintf(\'Missing parameter "%s" when validating the "%s". The value cannot be null.\', $name, __CLASS__));
-                    }
-                }
-            ', [
-                'PROPERTIES' => implode('", "', $requiredProperties),
-            ]);
-        }
-
+        $validateBody = [];
         foreach ($shape->getMembers() as $member) {
             $memberShape = $member->getShape();
+            $memberValidate = [];
+            $required = $member->isRequired();
+            $nullable = true;
+
             if ($memberShape instanceof StructureShape) {
-                $validateBody .= 'if ($this->' . $member->getName() . ') $this->' . $member->getName() . '->validate();' . "\n";
-            } elseif (($memberShape instanceof ListShape && $memberShape->getMember()->getShape() instanceof StructureShape) || ($memberShape instanceof MapShape && $memberShape->getValue()->getShape() instanceof StructureShape)) {
-                $validateBody .= 'foreach ($this->' . $member->getName() . ' as $item) $item->validate();' . "\n";
+                $memberValidate[] = \strtr('$this->PROPERTY->validate();', [
+                    'PROPERTY' => $member->getName(),
+                ]);
+            } elseif ($memberShape instanceof ListShape) {
+                $nullable = false;
+                $listMemberShape = $memberShape->getMember()->getShape();
+                $itemValidate = [];
+                if ($listMemberShape instanceof StructureShape) {
+                    $itemValidate[] = '$item->validate();';
+                }
+                if (!empty($listMemberShape->getEnum())) {
+                    $enumClassName = $this->enumGenerator->generate($listMemberShape);
+                    $namespace->addUse($enumClassName->getFqdn());
+
+                    $itemValidate[] = \strtr('if (!isset(ENUMCLASS::AVAILABLE_ENUMCONST[$item])) {
+                        throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" when validating the "%s". The value "%s" is not a valid "ENUMCLASS". Available values are %s.\', __CLASS__, $item, implode(\', \', array_keys(ENUMCLASS::AVAILABLE_ENUMCONST))));
+                    }', [
+                        'ENUMCLASS' => $enumClassName->getName(),
+                        'PROPERTY' => $member->getName(),
+                        'ENUMCONST' => \strtoupper($enumClassName->getName()),
+
+                    ]);
+                }
+                if (!empty($itemValidate)) {
+                    $memberValidate[] = \strtr('foreach ($this->PROPERTY as $item) {
+                        VALIDATE
+                    }', [
+                        'VALIDATE' => implode("\n", $itemValidate),
+                        'PROPERTY' => $member->getName(),
+
+                    ]);
+                }
+            } elseif ($memberShape instanceof MapShape) {
+                $nullable = false;
+                $mapValueShape = $memberShape->getValue()->getShape();
+                $itemValidate = [];
+                if ($mapValueShape instanceof StructureShape) {
+                    $itemValidate[] = '$item->validate();';
+                }
+                if (!empty($mapValueShape->getEnum())) {
+                    $enumClassName = $this->enumGenerator->generate($mapValueShape);
+                    $namespace->addUse($enumClassName->getFqdn());
+
+                    $itemValidate[] = \strtr('if (!isset(ENUMCLASS::AVAILABLE_ENUMCONST[$item])) {
+                        throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" when validating the "%s". The value "%s" is not a valid "ENUMCLASS". Available values are %s.\', __CLASS__, $item, implode(\', \', array_keys(ENUMCLASS::AVAILABLE_ENUMCONST))));
+                    }', [
+                        'ENUMCLASS' => $enumClassName->getName(),
+                        'PROPERTY' => $member->getName(),
+                        'ENUMCONST' => \strtoupper($enumClassName->getName()),
+
+                    ]);
+                }
+                if (!empty($itemValidate)) {
+                    $memberValidate[] = \strtr('foreach ($this->PROPERTY as $item) {
+                        VALIDATE
+                    }', [
+                        'VALIDATE' => implode("\n", $itemValidate),
+                        'PROPERTY' => $member->getName(),
+
+                    ]);
+                }
+            } else {
+                if (!empty($memberShape->getEnum())) {
+                    $enumClassName = $this->enumGenerator->generate($memberShape);
+                    $namespace->addUse($enumClassName->getFqdn());
+
+                    $memberValidate[] = \strtr('if (!isset(ENUMCLASS::AVAILABLE_ENUMCONST[$this->PROPERTY])) {
+                        throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" when validating the "%s". The value "%s" is not a valid "ENUMCLASS". Available values are %s.\', __CLASS__, $this->PROPERTY, implode(\', \', array_keys(ENUMCLASS::AVAILABLE_ENUMCONST))));
+                    }', [
+                        'ENUMCLASS' => $enumClassName->getName(),
+                        'PROPERTY' => $member->getName(),
+                        'ENUMCONST' => \strtoupper($enumClassName->getName()),
+                    ]);
+                }
+            }
+
+            if ($required && $nullable) {
+                $validateBody[] = strtr('if (null === $this->PROPERTY) {
+                    throw new InvalidArgument(sprintf(\'Missing parameter "PROPERTY" when validating the "%s". The value cannot be null.\', __CLASS__));
+                }
+                VALIDATE', [
+                    'PROPERTY' => $member->getName(),
+                    'VALIDATE' => implode("\n\n", $memberValidate),
+                ]);
+            } elseif (!empty($memberValidate)) {
+                if ($nullable) {
+                    $validateBody[] = strtr('if (null !== $this->PROPERTY) {
+                        VALIDATE
+                    }', [
+                        'PROPERTY' => $member->getName(),
+                        'VALIDATE' => implode("\n\n", $memberValidate),
+                    ]);
+                } else {
+                    $validateBody[] = implode("\n\n", $memberValidate);
+                }
             }
         }
 
-        $class->addMethod('validate')->setPublic()->setReturnType('void')->setBody(empty($validateBody) ? '// There are no required properties' : $validateBody);
+        $class->addMethod('validate')->setPublic()->setReturnType('void')->setBody(empty($validateBody) ? '// There are no required properties' : \implode("\n\n", $validateBody));
 
         $this->fileWriter->write($namespace);
 

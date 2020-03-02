@@ -95,10 +95,12 @@ class DeleteMessageRequest
 
     public function validate(): void
     {
-        foreach (['QueueUrl', 'ReceiptHandle'] as $name) {
-            if (null === $this->$name) {
-                throw new InvalidArgument(sprintf('Missing parameter "%s" when validating the "%s". The value cannot be null.', $name, __CLASS__));
-            }
+        if (null === $this->QueueUrl) {
+            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
+        if (null === $this->ReceiptHandle) {
+            throw new InvalidArgument(sprintf('Missing parameter "ReceiptHandle" when validating the "%s". The value cannot be null.', __CLASS__));
         }
     }
 }
