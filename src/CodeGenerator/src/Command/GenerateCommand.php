@@ -29,6 +29,8 @@ class GenerateCommand extends Command
 {
     protected static $defaultName = 'generate';
 
+    private $manifest;
+
     private $manifestFile;
 
     private $cacheFile;
@@ -69,7 +71,7 @@ class GenerateCommand extends Command
         $progressOperation->setFormat(' [%bar%] %message%');
         $progressOperation->setMessage('Operation');
 
-        $manifest = \json_decode(\file_get_contents($this->manifestFile), true);
+        $manifest = $this->loadManifest();
         $serviceNames = $this->getServiceNames($input->getArgument('service'), $input->getOption('all'), $io, $manifest['services']);
         if (\is_int($serviceNames)) {
             return $serviceNames;
@@ -85,11 +87,11 @@ class GenerateCommand extends Command
                 $progressService->display();
             }
 
-            $definitionArray = $this->loadFile($manifest['services'][$serviceName]['source']);
-            $documentationArray = $this->loadFile($manifest['services'][$serviceName]['documentation']);
-            $paginationArray = $this->loadFile($manifest['services'][$serviceName]['pagination']);
-            $waiterArray = isset($manifest['services'][$serviceName]['waiter']) ? $this->loadFile($manifest['services'][$serviceName]['waiter']) : ['waiters' => []];
-            $exampleArray = isset($manifest['services'][$serviceName]['example']) ? $this->loadFile($manifest['services'][$serviceName]['example']) : ['examples' => []];
+            $definitionArray = $this->loadFile($manifest['services'][$serviceName]['source'], "$serviceName-source");
+            $documentationArray = $this->loadFile($manifest['services'][$serviceName]['documentation'], "$serviceName-documentation");
+            $paginationArray = $this->loadFile($manifest['services'][$serviceName]['pagination'], "$serviceName-pagination");
+            $waiterArray = isset($manifest['services'][$serviceName]['waiter']) ? $this->loadFile($manifest['services'][$serviceName]['waiter'], "$serviceName-waiter") : ['waiters' => []];
+            $exampleArray = isset($manifest['services'][$serviceName]['example']) ? $this->loadFile($manifest['services'][$serviceName]['example'], "$serviceName-example") : ['examples' => []];
             if (\count($serviceNames) > 1) {
                 $operationNames = $this->getOperationNames(null, true, $io, $definitionArray, $waiterArray, $manifest['services'][$serviceName]);
             } else {
@@ -131,7 +133,7 @@ class GenerateCommand extends Command
                     $manifest['services'][$serviceName]['methods'][$operationName] = [];
                 }
 
-                \file_put_contents($this->manifestFile, \json_encode($manifest, \JSON_PRETTY_PRINT));
+                $this->dumpManifest($manifest);
                 ++$operationCounter;
             }
 
@@ -298,17 +300,51 @@ class GenerateCommand extends Command
         }
     }
 
-    private function loadFile(string $path): array
+    private function loadFile(string $path, string $cacheKey): array
     {
+        $path = \strtr($path, $this->loadManifest()['variables'] ?? [[]]);
+
         if (null === $this->cache) {
             $this->cache = \file_exists($this->cacheFile) ? require($this->cacheFile) : [];
+
+            // temporary => to remove old way to cache files
+            foreach ($this->cache as $key => $data) {
+                if (0 === \strpos($key, 'https://')) {
+                    unset($this->cache[$key]);
+                }
+            }
         }
 
-        if (!isset($this->cache[$path])) {
-            $this->cache[$path] = \json_decode(\file_get_contents($path), true);
+        if (isset($this->cache[$cacheKey])) {
+            if ($path !== ($this->cache[$cacheKey]['path'] ?? null)) {
+                unset($this->cache[$cacheKey]);
+            }
+        }
+
+        if (!isset($this->cache[$cacheKey])) {
+            $this->cache[$cacheKey] = [
+                'path' => $path,
+                'content' => \json_decode(\file_get_contents($path), true),
+            ];
+
             \file_put_contents($this->cacheFile, '<?php return ' . \var_export($this->cache, true) . ';');
         }
 
-        return $this->cache[$path];
+        return $this->cache[$cacheKey]['content'];
+    }
+
+    private function loadManifest(): array
+    {
+        if (null !== $this->manifest) {
+            return $this->manifest;
+        }
+
+        return $this->manifest = \json_decode(\file_get_contents($this->manifestFile), true);
+    }
+
+    private function dumpManifest(array $manifest): void
+    {
+        $this->manifest = $manifest;
+        \file_put_contents($this->manifestFile, \json_encode($this->manifest, \JSON_PRETTY_PRINT));
     }
 }
