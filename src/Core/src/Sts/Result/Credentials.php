@@ -4,24 +4,12 @@ namespace AsyncAws\Core\Sts\Result;
 
 class Credentials
 {
-    /**
-     * The access key ID that identifies the temporary security credentials.
-     */
     private $AccessKeyId;
 
-    /**
-     * The secret access key that can be used to sign requests.
-     */
     private $SecretAccessKey;
 
-    /**
-     * The token that users must pass to the service API to use the temporary credentials.
-     */
     private $SessionToken;
 
-    /**
-     * The date on which the current credentials expire.
-     */
     private $Expiration;
 
     /**
@@ -45,21 +33,33 @@ class Credentials
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * The access key ID that identifies the temporary security credentials.
+     */
     public function getAccessKeyId(): string
     {
         return $this->AccessKeyId;
     }
 
+    /**
+     * The date on which the current credentials expire.
+     */
     public function getExpiration(): \DateTimeInterface
     {
         return $this->Expiration;
     }
 
+    /**
+     * The secret access key that can be used to sign requests.
+     */
     public function getSecretAccessKey(): string
     {
         return $this->SecretAccessKey;
     }
 
+    /**
+     * The token that users must pass to the service API to use the temporary credentials.
+     */
     public function getSessionToken(): string
     {
         return $this->SessionToken;

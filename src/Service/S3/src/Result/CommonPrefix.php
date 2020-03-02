@@ -4,9 +4,6 @@ namespace AsyncAws\S3\Result;
 
 class CommonPrefix
 {
-    /**
-     * Container for the specified common prefix.
-     */
     private $Prefix;
 
     /**
@@ -24,6 +21,9 @@ class CommonPrefix
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * Container for the specified common prefix.
+     */
     public function getPrefix(): ?string
     {
         return $this->Prefix;

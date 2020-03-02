@@ -174,9 +174,6 @@ class ResultGenerator
             $memberShape = $member->getShape();
             $property = $class->addProperty($member->getName())->setPrivate();
             [$returnType, $parameterType, $memberClassName] = $this->typeGenerator->getPhpType($memberShape, true);
-            if (null !== $propertyDocumentation = $memberShape->getDocumentation()) {
-                $property->addComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
-            }
 
             if (!empty($memberShape->getEnum())) {
                 $enumClassName = $this->enumGenerator->generate($memberShape);
@@ -227,6 +224,10 @@ class ResultGenerator
                     'INITIALIZE_CODE' => $root ? '$this->initialize();' : '',
                     'NAME' => $member->getName(),
                 ]));
+
+            if (null !== $propertyDocumentation = $memberShape->getDocumentation()) {
+                $method->addComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
+            }
 
             $nullable = $nullable ?? !$member->isRequired();
             if ($parameterType && $parameterType !== $returnType && (null === $memberClassName || $memberClassName->getName() !== $parameterType)) {

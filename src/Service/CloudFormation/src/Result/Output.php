@@ -4,24 +4,12 @@ namespace AsyncAws\CloudFormation\Result;
 
 class Output
 {
-    /**
-     * The key associated with the output.
-     */
     private $OutputKey;
 
-    /**
-     * The value associated with the output.
-     */
     private $OutputValue;
 
-    /**
-     * User defined description associated with the output.
-     */
     private $Description;
 
-    /**
-     * The name of the export associated with the output.
-     */
     private $ExportName;
 
     /**
@@ -45,21 +33,33 @@ class Output
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * User defined description associated with the output.
+     */
     public function getDescription(): ?string
     {
         return $this->Description;
     }
 
+    /**
+     * The name of the export associated with the output.
+     */
     public function getExportName(): ?string
     {
         return $this->ExportName;
     }
 
+    /**
+     * The key associated with the output.
+     */
     public function getOutputKey(): ?string
     {
         return $this->OutputKey;
     }
 
+    /**
+     * The value associated with the output.
+     */
     public function getOutputValue(): ?string
     {
         return $this->OutputValue;

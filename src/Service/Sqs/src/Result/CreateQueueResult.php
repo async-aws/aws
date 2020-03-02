@@ -8,11 +8,11 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class CreateQueueResult extends Result
 {
+    private $QueueUrl;
+
     /**
      * The URL of the created Amazon SQS queue.
      */
-    private $QueueUrl;
-
     public function getQueueUrl(): ?string
     {
         $this->initialize();

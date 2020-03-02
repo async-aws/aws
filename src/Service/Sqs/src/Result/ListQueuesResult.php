@@ -8,9 +8,6 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class ListQueuesResult extends Result implements \IteratorAggregate
 {
-    /**
-     * A list of queue URLs, up to 1,000 entries.
-     */
     private $QueueUrls = [];
 
     /**

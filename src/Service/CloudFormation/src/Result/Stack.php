@@ -6,122 +6,48 @@ use AsyncAws\CloudFormation\Enum\StackStatus;
 
 class Stack
 {
-    /**
-     * Unique identifier of the stack.
-     */
     private $StackId;
 
-    /**
-     * The name associated with the stack.
-     */
     private $StackName;
 
-    /**
-     * The unique ID of the change set.
-     */
     private $ChangeSetId;
 
-    /**
-     * A user-defined description associated with the stack.
-     */
     private $Description;
 
-    /**
-     * A list of `Parameter` structures.
-     */
     private $Parameters = [];
 
-    /**
-     * The time at which the stack was created.
-     */
     private $CreationTime;
 
-    /**
-     * The time the stack was deleted.
-     */
     private $DeletionTime;
 
-    /**
-     * The time the stack was last updated. This field will only be returned if the stack has been updated at least once.
-     */
     private $LastUpdatedTime;
 
-    /**
-     * The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the
-     * specified monitoring period afterwards.
-     */
     private $RollbackConfiguration;
 
-    /**
-     * Current status of the stack.
-     */
     private $StackStatus;
 
-    /**
-     * Success/failure message associated with the stack status.
-     */
     private $StackStatusReason;
 
-    /**
-     * Boolean to enable or disable rollback on stack creation failures:.
-     */
     private $DisableRollback;
 
-    /**
-     * SNS topic ARNs to which stack related events are published.
-     */
     private $NotificationARNs = [];
 
-    /**
-     * The amount of time within which stack creation should complete.
-     */
     private $TimeoutInMinutes;
 
-    /**
-     * The capabilities allowed in the stack.
-     */
     private $Capabilities = [];
 
-    /**
-     * A list of output structures.
-     */
     private $Outputs = [];
 
-    /**
-     * The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that is associated with the stack.
-     * During a stack operation, AWS CloudFormation uses this role's credentials to make calls on your behalf.
-     */
     private $RoleARN;
 
-    /**
-     * A list of `Tag`s that specify information about the stack.
-     */
     private $Tags = [];
 
-    /**
-     * Whether termination protection is enabled for the stack.
-     */
     private $EnableTerminationProtection;
 
-    /**
-     * For nested stacks--stacks created as resources for another stack--the stack ID of the direct parent of this stack.
-     * For the first level of nested stacks, the root stack is also the parent stack.
-     */
     private $ParentId;
 
-    /**
-     * For nested stacks--stacks created as resources for another stack--the stack ID of the top-level stack to which the
-     * nested stack ultimately belongs.
-     */
     private $RootId;
 
-    /**
-     * Information on whether a stack's actual configuration differs, or has *drifted*, from it's expected configuration, as
-     * defined in the stack template and any values specified as template parameters. For more information, see Detecting
-     * Unregulated Configuration Changes to Stacks and Resources.
-     *
-     * @see http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html
-     */
     private $DriftInformation;
 
     /**
@@ -189,41 +115,69 @@ class Stack
         return $this->Capabilities;
     }
 
+    /**
+     * The unique ID of the change set.
+     */
     public function getChangeSetId(): ?string
     {
         return $this->ChangeSetId;
     }
 
+    /**
+     * The time at which the stack was created.
+     */
     public function getCreationTime(): \DateTimeInterface
     {
         return $this->CreationTime;
     }
 
+    /**
+     * The time the stack was deleted.
+     */
     public function getDeletionTime(): ?\DateTimeInterface
     {
         return $this->DeletionTime;
     }
 
+    /**
+     * A user-defined description associated with the stack.
+     */
     public function getDescription(): ?string
     {
         return $this->Description;
     }
 
+    /**
+     * Boolean to enable or disable rollback on stack creation failures:.
+     */
     public function getDisableRollback(): ?bool
     {
         return $this->DisableRollback;
     }
 
+    /**
+     * Information on whether a stack's actual configuration differs, or has *drifted*, from it's expected configuration, as
+     * defined in the stack template and any values specified as template parameters. For more information, see Detecting
+     * Unregulated Configuration Changes to Stacks and Resources.
+     *
+     * @see http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html
+     */
     public function getDriftInformation(): ?StackDriftInformation
     {
         return $this->DriftInformation;
     }
 
+    /**
+     * Whether termination protection is enabled for the stack.
+     */
     public function getEnableTerminationProtection(): ?bool
     {
         return $this->EnableTerminationProtection;
     }
 
+    /**
+     * The time the stack was last updated. This field will only be returned if the stack has been updated at least once.
+     */
     public function getLastUpdatedTime(): ?\DateTimeInterface
     {
         return $this->LastUpdatedTime;
@@ -253,37 +207,61 @@ class Stack
         return $this->Parameters;
     }
 
+    /**
+     * For nested stacks--stacks created as resources for another stack--the stack ID of the direct parent of this stack.
+     * For the first level of nested stacks, the root stack is also the parent stack.
+     */
     public function getParentId(): ?string
     {
         return $this->ParentId;
     }
 
+    /**
+     * The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that is associated with the stack.
+     * During a stack operation, AWS CloudFormation uses this role's credentials to make calls on your behalf.
+     */
     public function getRoleARN(): ?string
     {
         return $this->RoleARN;
     }
 
+    /**
+     * The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the
+     * specified monitoring period afterwards.
+     */
     public function getRollbackConfiguration(): ?RollbackConfiguration
     {
         return $this->RollbackConfiguration;
     }
 
+    /**
+     * For nested stacks--stacks created as resources for another stack--the stack ID of the top-level stack to which the
+     * nested stack ultimately belongs.
+     */
     public function getRootId(): ?string
     {
         return $this->RootId;
     }
 
+    /**
+     * Unique identifier of the stack.
+     */
     public function getStackId(): ?string
     {
         return $this->StackId;
     }
 
+    /**
+     * The name associated with the stack.
+     */
     public function getStackName(): string
     {
         return $this->StackName;
     }
 
     /**
+     * Current status of the stack.
+     *
      * @return StackStatus::CREATE_IN_PROGRESS|StackStatus::CREATE_FAILED|StackStatus::CREATE_COMPLETE|StackStatus::ROLLBACK_IN_PROGRESS|StackStatus::ROLLBACK_FAILED|StackStatus::ROLLBACK_COMPLETE|StackStatus::DELETE_IN_PROGRESS|StackStatus::DELETE_FAILED|StackStatus::DELETE_COMPLETE|StackStatus::UPDATE_IN_PROGRESS|StackStatus::UPDATE_COMPLETE_CLEANUP_IN_PROGRESS|StackStatus::UPDATE_COMPLETE|StackStatus::UPDATE_ROLLBACK_IN_PROGRESS|StackStatus::UPDATE_ROLLBACK_FAILED|StackStatus::UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS|StackStatus::UPDATE_ROLLBACK_COMPLETE|StackStatus::REVIEW_IN_PROGRESS|StackStatus::IMPORT_IN_PROGRESS|StackStatus::IMPORT_COMPLETE|StackStatus::IMPORT_ROLLBACK_IN_PROGRESS|StackStatus::IMPORT_ROLLBACK_FAILED|StackStatus::IMPORT_ROLLBACK_COMPLETE
      */
     public function getStackStatus(): string
@@ -291,6 +269,9 @@ class Stack
         return $this->StackStatus;
     }
 
+    /**
+     * Success/failure message associated with the stack status.
+     */
     public function getStackStatusReason(): ?string
     {
         return $this->StackStatusReason;
@@ -304,6 +285,9 @@ class Stack
         return $this->Tags;
     }
 
+    /**
+     * The amount of time within which stack creation should complete.
+     */
     public function getTimeoutInMinutes(): ?int
     {
         return $this->TimeoutInMinutes;

@@ -8,35 +8,20 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class InvocationResponse extends Result
 {
-    /**
-     * The HTTP status code is in the 200 range for a successful request. For the `RequestResponse` invocation type, this
-     * status code is 200. For the `Event` invocation type, this status code is 202. For the `DryRun` invocation type, the
-     * status code is 204.
-     */
     private $StatusCode;
 
-    /**
-     * If present, indicates that an error occurred during function execution. Details about the error are included in the
-     * response payload.
-     */
     private $FunctionError;
 
-    /**
-     * The last 4 KB of the execution log, which is base64 encoded.
-     */
     private $LogResult;
 
-    /**
-     * The response from the function, or an error object.
-     */
     private $Payload;
+
+    private $ExecutedVersion;
 
     /**
      * The version of the function that executed. When you invoke a function with an alias, this indicates which version the
      * alias resolved to.
      */
-    private $ExecutedVersion;
-
     public function getExecutedVersion(): ?string
     {
         $this->initialize();
@@ -44,6 +29,10 @@ class InvocationResponse extends Result
         return $this->ExecutedVersion;
     }
 
+    /**
+     * If present, indicates that an error occurred during function execution. Details about the error are included in the
+     * response payload.
+     */
     public function getFunctionError(): ?string
     {
         $this->initialize();
@@ -51,6 +40,9 @@ class InvocationResponse extends Result
         return $this->FunctionError;
     }
 
+    /**
+     * The last 4 KB of the execution log, which is base64 encoded.
+     */
     public function getLogResult(): ?string
     {
         $this->initialize();
@@ -58,6 +50,9 @@ class InvocationResponse extends Result
         return $this->LogResult;
     }
 
+    /**
+     * The response from the function, or an error object.
+     */
     public function getPayload(): ?string
     {
         $this->initialize();
@@ -65,6 +60,11 @@ class InvocationResponse extends Result
         return $this->Payload;
     }
 
+    /**
+     * The HTTP status code is in the 200 range for a successful request. For the `RequestResponse` invocation type, this
+     * status code is 200. For the `Event` invocation type, this status code is 202. For the `DryRun` invocation type, the
+     * status code is 204.
+     */
     public function getStatusCode(): ?int
     {
         $this->initialize();

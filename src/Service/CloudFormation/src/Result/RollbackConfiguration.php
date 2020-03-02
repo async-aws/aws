@@ -4,15 +4,8 @@ namespace AsyncAws\CloudFormation\Result;
 
 class RollbackConfiguration
 {
-    /**
-     * The triggers to monitor during stack creation or update actions.
-     */
     private $RollbackTriggers = [];
 
-    /**
-     * The amount of time, in minutes, during which CloudFormation should monitor all the rollback triggers after the stack
-     * creation or update operation deploys all necessary resources.
-     */
     private $MonitoringTimeInMinutes;
 
     /**
@@ -32,6 +25,10 @@ class RollbackConfiguration
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * The amount of time, in minutes, during which CloudFormation should monitor all the rollback triggers after the stack
+     * creation or update operation deploys all necessary resources.
+     */
     public function getMonitoringTimeInMinutes(): ?int
     {
         return $this->MonitoringTimeInMinutes;

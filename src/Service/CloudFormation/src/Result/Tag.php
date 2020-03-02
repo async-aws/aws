@@ -4,15 +4,8 @@ namespace AsyncAws\CloudFormation\Result;
 
 class Tag
 {
-    /**
-     * *Required*. A string used to identify this tag. You can specify a maximum of 128 characters for a tag key. Tags owned
-     * by Amazon Web Services (AWS) have the reserved prefix: `aws:`.
-     */
     private $Key;
 
-    /**
-     * *Required*. A string containing the value for this tag. You can specify a maximum of 256 characters for a tag value.
-     */
     private $Value;
 
     /**
@@ -32,11 +25,18 @@ class Tag
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * *Required*. A string used to identify this tag. You can specify a maximum of 128 characters for a tag key. Tags owned
+     * by Amazon Web Services (AWS) have the reserved prefix: `aws:`.
+     */
     public function getKey(): string
     {
         return $this->Key;
     }
 
+    /**
+     * *Required*. A string containing the value for this tag. You can specify a maximum of 256 characters for a tag value.
+     */
     public function getValue(): string
     {
         return $this->Value;

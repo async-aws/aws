@@ -4,16 +4,8 @@ namespace AsyncAws\CloudFormation\Result;
 
 class RollbackTrigger
 {
-    /**
-     * The Amazon Resource Name (ARN) of the rollback trigger.
-     */
     private $Arn;
 
-    /**
-     * The resource type of the rollback trigger. Currently, AWS::CloudWatch::Alarm is the only supported resource type.
-     *
-     * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html
-     */
     private $Type;
 
     /**
@@ -33,11 +25,19 @@ class RollbackTrigger
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * The Amazon Resource Name (ARN) of the rollback trigger.
+     */
     public function getArn(): string
     {
         return $this->Arn;
     }
 
+    /**
+     * The resource type of the rollback trigger. Currently, AWS::CloudWatch::Alarm is the only supported resource type.
+     *
+     * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html
+     */
     public function getType(): string
     {
         return $this->Type;

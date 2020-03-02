@@ -4,48 +4,18 @@ namespace AsyncAws\Sqs\Result;
 
 class Message
 {
-    /**
-     * A unique identifier for the message. A `MessageId`is considered unique across all AWS accounts for an extended period
-     * of time.
-     */
     private $MessageId;
 
-    /**
-     * An identifier associated with the act of receiving the message. A new receipt handle is returned every time you
-     * receive a message. When deleting a message, you provide the last received receipt handle to delete the message.
-     */
     private $ReceiptHandle;
 
-    /**
-     * An MD5 digest of the non-URL-encoded message body string.
-     */
     private $MD5OfBody;
 
-    /**
-     * The message's contents (not URL-encoded).
-     */
     private $Body;
 
-    /**
-     * A map of the attributes requested in `ReceiveMessage` to their respective values. Supported attributes:.
-     */
     private $Attributes = [];
 
-    /**
-     * An MD5 digest of the non-URL-encoded message attribute string. You can use this attribute to verify that Amazon SQS
-     * received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For information
-     * about MD5, see RFC1321.
-     *
-     * @see https://www.ietf.org/rfc/rfc1321.txt
-     */
     private $MD5OfMessageAttributes;
 
-    /**
-     * Each message attribute consists of a `Name`, `Type`, and `Value`. For more information, see Amazon SQS Message
-     * Attributes in the *Amazon Simple Queue Service Developer Guide*.
-     *
-     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-attributes.html
-     */
     private $MessageAttributes = [];
 
     /**
@@ -76,6 +46,8 @@ class Message
     }
 
     /**
+     * A map of the attributes requested in `ReceiveMessage` to their respective values. Supported attributes:.
+     *
      * @return string[]
      */
     public function getAttributes(): array
@@ -83,22 +55,40 @@ class Message
         return $this->Attributes;
     }
 
+    /**
+     * The message's contents (not URL-encoded).
+     */
     public function getBody(): ?string
     {
         return $this->Body;
     }
 
+    /**
+     * An MD5 digest of the non-URL-encoded message body string.
+     */
     public function getMD5OfBody(): ?string
     {
         return $this->MD5OfBody;
     }
 
+    /**
+     * An MD5 digest of the non-URL-encoded message attribute string. You can use this attribute to verify that Amazon SQS
+     * received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For information
+     * about MD5, see RFC1321.
+     *
+     * @see https://www.ietf.org/rfc/rfc1321.txt
+     */
     public function getMD5OfMessageAttributes(): ?string
     {
         return $this->MD5OfMessageAttributes;
     }
 
     /**
+     * Each message attribute consists of a `Name`, `Type`, and `Value`. For more information, see Amazon SQS Message
+     * Attributes in the *Amazon Simple Queue Service Developer Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-attributes.html
+     *
      * @return MessageAttributeValue[]
      */
     public function getMessageAttributes(): array
@@ -106,11 +96,19 @@ class Message
         return $this->MessageAttributes;
     }
 
+    /**
+     * A unique identifier for the message. A `MessageId`is considered unique across all AWS accounts for an extended period
+     * of time.
+     */
     public function getMessageId(): ?string
     {
         return $this->MessageId;
     }
 
+    /**
+     * An identifier associated with the act of receiving the message. A new receipt handle is returned every time you
+     * receive a message. When deleting a message, you provide the last received receipt handle to delete the message.
+     */
     public function getReceiptHandle(): ?string
     {
         return $this->ReceiptHandle;

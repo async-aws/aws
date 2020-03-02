@@ -6,14 +6,8 @@ use AsyncAws\S3\Enum\Permission;
 
 class Grant
 {
-    /**
-     * The person being granted permissions.
-     */
     private $Grantee;
 
-    /**
-     * Specifies the permission given to the grantee.
-     */
     private $Permission;
 
     /**
@@ -33,12 +27,17 @@ class Grant
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * The person being granted permissions.
+     */
     public function getGrantee(): ?Grantee
     {
         return $this->Grantee;
     }
 
     /**
+     * Specifies the permission given to the grantee.
+     *
      * @return Permission::FULL_CONTROL|Permission::WRITE|Permission::WRITE_ACP|Permission::READ|Permission::READ_ACP|null
      */
     public function getPermission(): ?string

@@ -4,19 +4,10 @@ namespace AsyncAws\Lambda\Result;
 
 class LayerVersionContentOutput
 {
-    /**
-     * A link to the layer archive in Amazon S3 that is valid for 10 minutes.
-     */
     private $Location;
 
-    /**
-     * The SHA-256 hash of the layer archive.
-     */
     private $CodeSha256;
 
-    /**
-     * The size of the layer archive in bytes.
-     */
     private $CodeSize;
 
     /**
@@ -38,16 +29,25 @@ class LayerVersionContentOutput
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * The SHA-256 hash of the layer archive.
+     */
     public function getCodeSha256(): ?string
     {
         return $this->CodeSha256;
     }
 
+    /**
+     * The size of the layer archive in bytes.
+     */
     public function getCodeSize(): ?string
     {
         return $this->CodeSize;
     }
 
+    /**
+     * A link to the layer archive in Amazon S3 that is valid for 10 minutes.
+     */
     public function getLocation(): ?string
     {
         return $this->Location;

@@ -6,15 +6,8 @@ use AsyncAws\CloudFormation\Enum\StackDriftStatus;
 
 class StackDriftInformation
 {
-    /**
-     * Status of the stack's actual configuration compared to its expected template configuration.
-     */
     private $StackDriftStatus;
 
-    /**
-     * Most recent time when a drift detection operation was initiated on the stack, or any of its individual resources that
-     * support drift detection.
-     */
     private $LastCheckTimestamp;
 
     /**
@@ -34,12 +27,18 @@ class StackDriftInformation
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * Most recent time when a drift detection operation was initiated on the stack, or any of its individual resources that
+     * support drift detection.
+     */
     public function getLastCheckTimestamp(): ?\DateTimeInterface
     {
         return $this->LastCheckTimestamp;
     }
 
     /**
+     * Status of the stack's actual configuration compared to its expected template configuration.
+     *
      * @return StackDriftStatus::DRIFTED|StackDriftStatus::IN_SYNC|StackDriftStatus::UNKNOWN|StackDriftStatus::NOT_CHECKED
      */
     public function getStackDriftStatus(): string

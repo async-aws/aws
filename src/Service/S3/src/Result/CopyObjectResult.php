@@ -4,15 +4,8 @@ namespace AsyncAws\S3\Result;
 
 class CopyObjectResult
 {
-    /**
-     * Returns the ETag of the new object. The ETag reflects only changes to the contents of an object, not its metadata.
-     * The source and destination ETag is identical for a successfully copied object.
-     */
     private $ETag;
 
-    /**
-     * Returns the date that the object was last modified.
-     */
     private $LastModified;
 
     /**
@@ -32,11 +25,18 @@ class CopyObjectResult
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * Returns the ETag of the new object. The ETag reflects only changes to the contents of an object, not its metadata.
+     * The source and destination ETag is identical for a successfully copied object.
+     */
     public function getETag(): ?string
     {
         return $this->ETag;
     }
 
+    /**
+     * Returns the date that the object was last modified.
+     */
     public function getLastModified(): ?\DateTimeInterface
     {
         return $this->LastModified;
