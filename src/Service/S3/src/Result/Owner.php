@@ -10,8 +10,8 @@ class Owner
 
     /**
      * @param array{
-     *   DisplayName: ?string,
-     *   ID: ?string,
+     *   DisplayName: null|string,
+     *   ID: null|string,
      * } $input
      */
     public function __construct(array $input)

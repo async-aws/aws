@@ -14,10 +14,10 @@ class Error
 
     /**
      * @param array{
-     *   Key: ?string,
-     *   VersionId: ?string,
-     *   Code: ?string,
-     *   Message: ?string,
+     *   Key: null|string,
+     *   VersionId: null|string,
+     *   Code: null|string,
+     *   Message: null|string,
      * } $input
      */
     public function __construct(array $input)

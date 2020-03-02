@@ -140,7 +140,7 @@ class GetObjectRequest
     private $SSECustomerKeyMD5;
 
     /**
-     * @var RequestPayer::REQUESTER|null
+     * @var RequestPayer::*|null
      */
     private $RequestPayer;
 
@@ -173,7 +173,7 @@ class GetObjectRequest
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::REQUESTER,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   PartNumber?: int,
      * } $input
      */
@@ -246,7 +246,7 @@ class GetObjectRequest
     }
 
     /**
-     * @return RequestPayer::REQUESTER|null
+     * @return RequestPayer::*|null
      */
     public function getRequestPayer(): ?string
     {
@@ -439,7 +439,7 @@ class GetObjectRequest
     }
 
     /**
-     * @param RequestPayer::REQUESTER|null $value
+     * @param RequestPayer::*|null $value
      */
     public function setRequestPayer(?string $value): self
     {
@@ -529,8 +529,8 @@ class GetObjectRequest
         }
 
         if (null !== $this->RequestPayer) {
-            if (!isset(RequestPayer::AVAILABLE_REQUESTPAYER[$this->RequestPayer])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer". Available values are %s.', __CLASS__, $this->RequestPayer, implode(', ', array_keys(RequestPayer::AVAILABLE_REQUESTPAYER))));
+            if (!RequestPayer::exists($this->RequestPayer)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
             }
         }
     }

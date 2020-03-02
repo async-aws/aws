@@ -8,7 +8,7 @@ class CommonPrefix
 
     /**
      * @param array{
-     *   Prefix: ?string,
+     *   Prefix: null|string,
      * } $input
      */
     public function __construct(array $input)

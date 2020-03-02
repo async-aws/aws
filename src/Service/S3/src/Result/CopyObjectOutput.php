@@ -61,7 +61,7 @@ class CopyObjectOutput extends Result
     }
 
     /**
-     * @return RequestCharged::REQUESTER|null
+     * @return RequestCharged::*|null
      */
     public function getRequestCharged(): ?string
     {
@@ -117,7 +117,7 @@ class CopyObjectOutput extends Result
     /**
      * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
      *
-     * @return ServerSideEncryption::AES256|ServerSideEncryption::AWS_KMS|null
+     * @return ServerSideEncryption::*|null
      */
     public function getServerSideEncryption(): ?string
     {

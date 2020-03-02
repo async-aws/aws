@@ -12,7 +12,7 @@ class PutObjectAclOutput extends Result
     private $RequestCharged;
 
     /**
-     * @return RequestCharged::REQUESTER|null
+     * @return RequestCharged::*|null
      */
     public function getRequestCharged(): ?string
     {

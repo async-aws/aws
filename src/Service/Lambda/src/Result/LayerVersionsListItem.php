@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Lambda\Result;
 
+use AsyncAws\Lambda\Enum\Runtime;
+
 class LayerVersionsListItem
 {
     private $LayerVersionArn;
@@ -18,12 +20,12 @@ class LayerVersionsListItem
 
     /**
      * @param array{
-     *   LayerVersionArn: ?string,
-     *   Version: ?string,
-     *   Description: ?string,
-     *   CreatedDate: ?string,
-     *   CompatibleRuntimes: ?string[],
-     *   LicenseInfo: ?string,
+     *   LayerVersionArn: null|string,
+     *   Version: null|string,
+     *   Description: null|string,
+     *   CreatedDate: null|string,
+     *   CompatibleRuntimes: null|list<\AsyncAws\Lambda\Enum\Runtime::*>,
+     *   LicenseInfo: null|string,
      * } $input
      */
     public function __construct(array $input)
@@ -42,7 +44,7 @@ class LayerVersionsListItem
     }
 
     /**
-     * @return string[]
+     * @return list<Runtime::*>
      */
     public function getCompatibleRuntimes(): array
     {

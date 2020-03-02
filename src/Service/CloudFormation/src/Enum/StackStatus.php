@@ -26,28 +26,34 @@ class StackStatus
     public const UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS = 'UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS';
     public const UPDATE_ROLLBACK_FAILED = 'UPDATE_ROLLBACK_FAILED';
     public const UPDATE_ROLLBACK_IN_PROGRESS = 'UPDATE_ROLLBACK_IN_PROGRESS';
-    public const AVAILABLE_STACKSTATUS = [
-        self::CREATE_COMPLETE => true,
-        self::CREATE_FAILED => true,
-        self::CREATE_IN_PROGRESS => true,
-        self::DELETE_COMPLETE => true,
-        self::DELETE_FAILED => true,
-        self::DELETE_IN_PROGRESS => true,
-        self::IMPORT_COMPLETE => true,
-        self::IMPORT_IN_PROGRESS => true,
-        self::IMPORT_ROLLBACK_COMPLETE => true,
-        self::IMPORT_ROLLBACK_FAILED => true,
-        self::IMPORT_ROLLBACK_IN_PROGRESS => true,
-        self::REVIEW_IN_PROGRESS => true,
-        self::ROLLBACK_COMPLETE => true,
-        self::ROLLBACK_FAILED => true,
-        self::ROLLBACK_IN_PROGRESS => true,
-        self::UPDATE_COMPLETE => true,
-        self::UPDATE_COMPLETE_CLEANUP_IN_PROGRESS => true,
-        self::UPDATE_IN_PROGRESS => true,
-        self::UPDATE_ROLLBACK_COMPLETE => true,
-        self::UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS => true,
-        self::UPDATE_ROLLBACK_FAILED => true,
-        self::UPDATE_ROLLBACK_IN_PROGRESS => true,
-    ];
+
+    public static function exists(string $value): bool
+    {
+        $values = [
+            self::CREATE_COMPLETE => true,
+            self::CREATE_FAILED => true,
+            self::CREATE_IN_PROGRESS => true,
+            self::DELETE_COMPLETE => true,
+            self::DELETE_FAILED => true,
+            self::DELETE_IN_PROGRESS => true,
+            self::IMPORT_COMPLETE => true,
+            self::IMPORT_IN_PROGRESS => true,
+            self::IMPORT_ROLLBACK_COMPLETE => true,
+            self::IMPORT_ROLLBACK_FAILED => true,
+            self::IMPORT_ROLLBACK_IN_PROGRESS => true,
+            self::REVIEW_IN_PROGRESS => true,
+            self::ROLLBACK_COMPLETE => true,
+            self::ROLLBACK_FAILED => true,
+            self::ROLLBACK_IN_PROGRESS => true,
+            self::UPDATE_COMPLETE => true,
+            self::UPDATE_COMPLETE_CLEANUP_IN_PROGRESS => true,
+            self::UPDATE_IN_PROGRESS => true,
+            self::UPDATE_ROLLBACK_COMPLETE => true,
+            self::UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS => true,
+            self::UPDATE_ROLLBACK_FAILED => true,
+            self::UPDATE_ROLLBACK_IN_PROGRESS => true,
+        ];
+
+        return isset($values[$value]);
+    }
 }

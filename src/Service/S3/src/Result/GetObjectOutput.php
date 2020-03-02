@@ -250,7 +250,7 @@ class GetObjectOutput extends Result
      * Indicates whether this object has an active legal hold. This field is only returned if you have permission to view an
      * object's legal hold status.
      *
-     * @return ObjectLockLegalHoldStatus::ON|ObjectLockLegalHoldStatus::OFF|null
+     * @return ObjectLockLegalHoldStatus::*|null
      */
     public function getObjectLockLegalHoldStatus(): ?string
     {
@@ -262,7 +262,7 @@ class GetObjectOutput extends Result
     /**
      * The Object Lock mode currently in place for this object.
      *
-     * @return ObjectLockMode::GOVERNANCE|ObjectLockMode::COMPLIANCE|null
+     * @return ObjectLockMode::*|null
      */
     public function getObjectLockMode(): ?string
     {
@@ -295,7 +295,7 @@ class GetObjectOutput extends Result
      * Amazon S3 can return this if your request involves a bucket that is either a source or destination in a replication
      * rule.
      *
-     * @return ReplicationStatus::COMPLETE|ReplicationStatus::PENDING|ReplicationStatus::FAILED|ReplicationStatus::REPLICA|null
+     * @return ReplicationStatus::*|null
      */
     public function getReplicationStatus(): ?string
     {
@@ -305,7 +305,7 @@ class GetObjectOutput extends Result
     }
 
     /**
-     * @return RequestCharged::REQUESTER|null
+     * @return RequestCharged::*|null
      */
     public function getRequestCharged(): ?string
     {
@@ -360,7 +360,7 @@ class GetObjectOutput extends Result
     /**
      * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
      *
-     * @return ServerSideEncryption::AES256|ServerSideEncryption::AWS_KMS|null
+     * @return ServerSideEncryption::*|null
      */
     public function getServerSideEncryption(): ?string
     {
@@ -373,7 +373,7 @@ class GetObjectOutput extends Result
      * Provides storage class information of the object. Amazon S3 returns this header for all objects except for Standard
      * storage class objects.
      *
-     * @return StorageClass::STANDARD|StorageClass::REDUCED_REDUNDANCY|StorageClass::STANDARD_IA|StorageClass::ONEZONE_IA|StorageClass::INTELLIGENT_TIERING|StorageClass::GLACIER|StorageClass::DEEP_ARCHIVE|null
+     * @return StorageClass::*|null
      */
     public function getStorageClass(): ?string
     {

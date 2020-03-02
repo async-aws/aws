@@ -13,7 +13,7 @@ class PutObjectAclRequest
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL
      *
-     * @var ObjectCannedACL::PRIVATE|ObjectCannedACL::PUBLIC_READ|ObjectCannedACL::PUBLIC_READ_WRITE|ObjectCannedACL::AUTHENTICATED_READ|ObjectCannedACL::AWS_EXEC_READ|ObjectCannedACL::BUCKET_OWNER_READ|ObjectCannedACL::BUCKET_OWNER_FULL_CONTROL|null
+     * @var ObjectCannedACL::*|null
      */
     private $ACL;
 
@@ -88,7 +88,7 @@ class PutObjectAclRequest
     private $Key;
 
     /**
-     * @var RequestPayer::REQUESTER|null
+     * @var RequestPayer::*|null
      */
     private $RequestPayer;
 
@@ -103,7 +103,7 @@ class PutObjectAclRequest
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUTacl.html
      *
      * @param array{
-     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::PRIVATE|\AsyncAws\S3\Enum\ObjectCannedACL::PUBLIC_READ|\AsyncAws\S3\Enum\ObjectCannedACL::PUBLIC_READ_WRITE|\AsyncAws\S3\Enum\ObjectCannedACL::AUTHENTICATED_READ|\AsyncAws\S3\Enum\ObjectCannedACL::AWS_EXEC_READ|\AsyncAws\S3\Enum\ObjectCannedACL::BUCKET_OWNER_READ|\AsyncAws\S3\Enum\ObjectCannedACL::BUCKET_OWNER_FULL_CONTROL,
+     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::*,
      *   AccessControlPolicy?: \AsyncAws\S3\Input\AccessControlPolicy|array,
      *   Bucket?: string,
      *   ContentMD5?: string,
@@ -113,7 +113,7 @@ class PutObjectAclRequest
      *   GrantWrite?: string,
      *   GrantWriteACP?: string,
      *   Key?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::REQUESTER,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   VersionId?: string,
      * } $input
      */
@@ -139,7 +139,7 @@ class PutObjectAclRequest
     }
 
     /**
-     * @return ObjectCannedACL::PRIVATE|ObjectCannedACL::PUBLIC_READ|ObjectCannedACL::PUBLIC_READ_WRITE|ObjectCannedACL::AUTHENTICATED_READ|ObjectCannedACL::AWS_EXEC_READ|ObjectCannedACL::BUCKET_OWNER_READ|ObjectCannedACL::BUCKET_OWNER_FULL_CONTROL|null
+     * @return ObjectCannedACL::*|null
      */
     public function getACL(): ?string
     {
@@ -192,7 +192,7 @@ class PutObjectAclRequest
     }
 
     /**
-     * @return RequestPayer::REQUESTER|null
+     * @return RequestPayer::*|null
      */
     public function getRequestPayer(): ?string
     {
@@ -315,7 +315,7 @@ class PutObjectAclRequest
     }
 
     /**
-     * @param ObjectCannedACL::PRIVATE|ObjectCannedACL::PUBLIC_READ|ObjectCannedACL::PUBLIC_READ_WRITE|ObjectCannedACL::AUTHENTICATED_READ|ObjectCannedACL::AWS_EXEC_READ|ObjectCannedACL::BUCKET_OWNER_READ|ObjectCannedACL::BUCKET_OWNER_FULL_CONTROL|null $value
+     * @param ObjectCannedACL::*|null $value
      */
     public function setACL(?string $value): self
     {
@@ -388,7 +388,7 @@ class PutObjectAclRequest
     }
 
     /**
-     * @param RequestPayer::REQUESTER|null $value
+     * @param RequestPayer::*|null $value
      */
     public function setRequestPayer(?string $value): self
     {
@@ -407,8 +407,8 @@ class PutObjectAclRequest
     public function validate(): void
     {
         if (null !== $this->ACL) {
-            if (!isset(ObjectCannedACL::AVAILABLE_OBJECTCANNEDACL[$this->ACL])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ACL" when validating the "%s". The value "%s" is not a valid "ObjectCannedACL". Available values are %s.', __CLASS__, $this->ACL, implode(', ', array_keys(ObjectCannedACL::AVAILABLE_OBJECTCANNEDACL))));
+            if (!ObjectCannedACL::exists($this->ACL)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ACL" when validating the "%s". The value "%s" is not a valid "ObjectCannedACL".', __CLASS__, $this->ACL));
             }
         }
 
@@ -425,8 +425,8 @@ class PutObjectAclRequest
         }
 
         if (null !== $this->RequestPayer) {
-            if (!isset(RequestPayer::AVAILABLE_REQUESTPAYER[$this->RequestPayer])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer". Available values are %s.', __CLASS__, $this->RequestPayer, implode(', ', array_keys(RequestPayer::AVAILABLE_REQUESTPAYER))));
+            if (!RequestPayer::exists($this->RequestPayer)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
             }
         }
     }

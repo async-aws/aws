@@ -16,10 +16,10 @@ class MessageAttributeValue
 
     /**
      * @param array{
-     *   StringValue: ?string,
-     *   BinaryValue: ?string,
-     *   StringListValues: ?string[],
-     *   BinaryListValues: ?string[],
+     *   StringValue: null|string,
+     *   BinaryValue: null|string,
+     *   StringListValues: null|string[],
+     *   BinaryListValues: null|string[],
      *   DataType: string,
      * } $input
      */

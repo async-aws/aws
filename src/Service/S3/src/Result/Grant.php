@@ -13,7 +13,7 @@ class Grant
     /**
      * @param array{
      *   Grantee: null|\AsyncAws\S3\Result\Grantee|array,
-     *   Permission: null|\AsyncAws\S3\Enum\Permission::FULL_CONTROL|\AsyncAws\S3\Enum\Permission::WRITE|\AsyncAws\S3\Enum\Permission::WRITE_ACP|\AsyncAws\S3\Enum\Permission::READ|\AsyncAws\S3\Enum\Permission::READ_ACP,
+     *   Permission: null|\AsyncAws\S3\Enum\Permission::*,
      * } $input
      */
     public function __construct(array $input)
@@ -38,7 +38,7 @@ class Grant
     /**
      * Specifies the permission given to the grantee.
      *
-     * @return Permission::FULL_CONTROL|Permission::WRITE|Permission::WRITE_ACP|Permission::READ|Permission::READ_ACP|null
+     * @return Permission::*|null
      */
     public function getPermission(): ?string
     {

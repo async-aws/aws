@@ -6,8 +6,14 @@ class ObjectLockMode
 {
     public const COMPLIANCE = 'COMPLIANCE';
     public const GOVERNANCE = 'GOVERNANCE';
-    public const AVAILABLE_OBJECTLOCKMODE = [
-        self::COMPLIANCE => true,
-        self::GOVERNANCE => true,
-    ];
+
+    public static function exists(string $value): bool
+    {
+        $values = [
+            self::COMPLIANCE => true,
+            self::GOVERNANCE => true,
+        ];
+
+        return isset($values[$value]);
+    }
 }

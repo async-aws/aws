@@ -19,7 +19,7 @@ class ReceiveMessageRequest
     /**
      * A list of attributes that need to be returned along with each message. These attributes include:.
      *
-     * @var string[]
+     * @var list<QueueAttributeName::*>
      */
     private $AttributeNames;
 
@@ -65,7 +65,7 @@ class ReceiveMessageRequest
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   AttributeNames?: string[],
+     *   AttributeNames?: list<\AsyncAws\Sqs\Enum\QueueAttributeName::*>,
      *   MessageAttributeNames?: string[],
      *   MaxNumberOfMessages?: int,
      *   VisibilityTimeout?: int,
@@ -90,7 +90,7 @@ class ReceiveMessageRequest
     }
 
     /**
-     * @return string[]
+     * @return list<QueueAttributeName::*>
      */
     public function getAttributeNames(): array
     {
@@ -187,7 +187,7 @@ class ReceiveMessageRequest
     }
 
     /**
-     * @param string[] $value
+     * @param list<QueueAttributeName::*> $value
      */
     public function setAttributeNames(array $value): self
     {
@@ -248,8 +248,8 @@ class ReceiveMessageRequest
         }
 
         foreach ($this->AttributeNames as $item) {
-            if (!isset(QueueAttributeName::AVAILABLE_QUEUEATTRIBUTENAME[$item])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "AttributeNames" when validating the "%s". The value "%s" is not a valid "QueueAttributeName". Available values are %s.', __CLASS__, $item, implode(', ', array_keys(QueueAttributeName::AVAILABLE_QUEUEATTRIBUTENAME))));
+            if (!QueueAttributeName::exists($item)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "AttributeNames" when validating the "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $item));
             }
         }
     }

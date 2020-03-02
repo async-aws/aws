@@ -141,7 +141,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
-     *   AttributeNames?: string[],
+     *   AttributeNames?: list<\AsyncAws\Sqs\Enum\QueueAttributeName::*>,
      * }|GetQueueAttributesRequest $input
      */
     public function getQueueAttributes($input): GetQueueAttributesResult
@@ -268,7 +268,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
-     *   AttributeNames?: string[],
+     *   AttributeNames?: list<\AsyncAws\Sqs\Enum\QueueAttributeName::*>,
      *   MessageAttributeNames?: string[],
      *   MaxNumberOfMessages?: int,
      *   VisibilityTimeout?: int,

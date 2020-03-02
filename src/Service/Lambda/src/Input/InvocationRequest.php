@@ -20,14 +20,14 @@ class InvocationRequest
     /**
      * Choose from the following options.
      *
-     * @var InvocationType::EVENT|InvocationType::REQUEST_RESPONSE|InvocationType::DRY_RUN|null
+     * @var InvocationType::*|null
      */
     private $InvocationType;
 
     /**
      * Set to `Tail` to include the execution log in the response.
      *
-     * @var LogType::NONE|LogType::TAIL|null
+     * @var LogType::*|null
      */
     private $LogType;
 
@@ -55,8 +55,8 @@ class InvocationRequest
     /**
      * @param array{
      *   FunctionName?: string,
-     *   InvocationType?: \AsyncAws\Lambda\Enum\InvocationType::EVENT|\AsyncAws\Lambda\Enum\InvocationType::REQUEST_RESPONSE|\AsyncAws\Lambda\Enum\InvocationType::DRY_RUN,
-     *   LogType?: \AsyncAws\Lambda\Enum\LogType::NONE|\AsyncAws\Lambda\Enum\LogType::TAIL,
+     *   InvocationType?: \AsyncAws\Lambda\Enum\InvocationType::*,
+     *   LogType?: \AsyncAws\Lambda\Enum\LogType::*,
      *   ClientContext?: string,
      *   Payload?: string,
      *   Qualifier?: string,
@@ -88,7 +88,7 @@ class InvocationRequest
     }
 
     /**
-     * @return InvocationType::EVENT|InvocationType::REQUEST_RESPONSE|InvocationType::DRY_RUN|null
+     * @return InvocationType::*|null
      */
     public function getInvocationType(): ?string
     {
@@ -96,7 +96,7 @@ class InvocationRequest
     }
 
     /**
-     * @return LogType::NONE|LogType::TAIL|null
+     * @return LogType::*|null
      */
     public function getLogType(): ?string
     {
@@ -167,7 +167,7 @@ class InvocationRequest
     }
 
     /**
-     * @param InvocationType::EVENT|InvocationType::REQUEST_RESPONSE|InvocationType::DRY_RUN|null $value
+     * @param InvocationType::*|null $value
      */
     public function setInvocationType(?string $value): self
     {
@@ -177,7 +177,7 @@ class InvocationRequest
     }
 
     /**
-     * @param LogType::NONE|LogType::TAIL|null $value
+     * @param LogType::*|null $value
      */
     public function setLogType(?string $value): self
     {
@@ -207,14 +207,14 @@ class InvocationRequest
         }
 
         if (null !== $this->InvocationType) {
-            if (!isset(InvocationType::AVAILABLE_INVOCATIONTYPE[$this->InvocationType])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "InvocationType" when validating the "%s". The value "%s" is not a valid "InvocationType". Available values are %s.', __CLASS__, $this->InvocationType, implode(', ', array_keys(InvocationType::AVAILABLE_INVOCATIONTYPE))));
+            if (!InvocationType::exists($this->InvocationType)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "InvocationType" when validating the "%s". The value "%s" is not a valid "InvocationType".', __CLASS__, $this->InvocationType));
             }
         }
 
         if (null !== $this->LogType) {
-            if (!isset(LogType::AVAILABLE_LOGTYPE[$this->LogType])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "LogType" when validating the "%s". The value "%s" is not a valid "LogType". Available values are %s.', __CLASS__, $this->LogType, implode(', ', array_keys(LogType::AVAILABLE_LOGTYPE))));
+            if (!LogType::exists($this->LogType)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "LogType" when validating the "%s". The value "%s" is not a valid "LogType".', __CLASS__, $this->LogType));
             }
         }
     }

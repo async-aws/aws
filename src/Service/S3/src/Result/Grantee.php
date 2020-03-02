@@ -18,11 +18,11 @@ class Grantee
 
     /**
      * @param array{
-     *   DisplayName: ?string,
-     *   EmailAddress: ?string,
-     *   ID: ?string,
-     *   Type: \AsyncAws\S3\Enum\Type::CANONICAL_USER|\AsyncAws\S3\Enum\Type::AMAZON_CUSTOMER_BY_EMAIL|\AsyncAws\S3\Enum\Type::GROUP,
-     *   URI: ?string,
+     *   DisplayName: null|string,
+     *   EmailAddress: null|string,
+     *   ID: null|string,
+     *   Type: \AsyncAws\S3\Enum\Type::*,
+     *   URI: null|string,
      * } $input
      */
     public function __construct(array $input)
@@ -66,7 +66,7 @@ class Grantee
     /**
      * Type of grantee.
      *
-     * @return Type::CANONICAL_USER|Type::AMAZON_CUSTOMER_BY_EMAIL|Type::GROUP
+     * @return Type::*
      */
     public function getType(): string
     {

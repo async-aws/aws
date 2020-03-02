@@ -10,8 +10,8 @@ class RollbackConfiguration
 
     /**
      * @param array{
-     *   RollbackTriggers: ?\AsyncAws\CloudFormation\Result\RollbackTrigger[],
-     *   MonitoringTimeInMinutes: ?int,
+     *   RollbackTriggers: null|\AsyncAws\CloudFormation\Result\RollbackTrigger[],
+     *   MonitoringTimeInMinutes: null|int,
      * } $input
      */
     public function __construct(array $input)

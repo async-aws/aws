@@ -55,8 +55,8 @@ class LambdaClient extends AbstractApi
      *
      * @param array{
      *   FunctionName: string,
-     *   InvocationType?: \AsyncAws\Lambda\Enum\InvocationType::EVENT|\AsyncAws\Lambda\Enum\InvocationType::REQUEST_RESPONSE|\AsyncAws\Lambda\Enum\InvocationType::DRY_RUN,
-     *   LogType?: \AsyncAws\Lambda\Enum\LogType::NONE|\AsyncAws\Lambda\Enum\LogType::TAIL,
+     *   InvocationType?: \AsyncAws\Lambda\Enum\InvocationType::*,
+     *   LogType?: \AsyncAws\Lambda\Enum\LogType::*,
      *   ClientContext?: string,
      *   Payload?: string,
      *   Qualifier?: string,
@@ -86,7 +86,7 @@ class LambdaClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#listlayerversions
      *
      * @param array{
-     *   CompatibleRuntime?: \AsyncAws\Lambda\Enum\Runtime::NODEJS|\AsyncAws\Lambda\Enum\Runtime::NODEJS_4_3|\AsyncAws\Lambda\Enum\Runtime::NODEJS_6_10|\AsyncAws\Lambda\Enum\Runtime::NODEJS_8_10|\AsyncAws\Lambda\Enum\Runtime::NODEJS_10_X|\AsyncAws\Lambda\Enum\Runtime::NODEJS_12_X|\AsyncAws\Lambda\Enum\Runtime::JAVA_8|\AsyncAws\Lambda\Enum\Runtime::JAVA_11|\AsyncAws\Lambda\Enum\Runtime::PYTHON_2_7|\AsyncAws\Lambda\Enum\Runtime::PYTHON_3_6|\AsyncAws\Lambda\Enum\Runtime::PYTHON_3_7|\AsyncAws\Lambda\Enum\Runtime::PYTHON_3_8|\AsyncAws\Lambda\Enum\Runtime::DOTNETCORE_1_0|\AsyncAws\Lambda\Enum\Runtime::DOTNETCORE_2_0|\AsyncAws\Lambda\Enum\Runtime::DOTNETCORE_2_1|\AsyncAws\Lambda\Enum\Runtime::NODEJS_4_3_EDGE|\AsyncAws\Lambda\Enum\Runtime::GO_1_X|\AsyncAws\Lambda\Enum\Runtime::RUBY_2_5|\AsyncAws\Lambda\Enum\Runtime::PROVIDED,
+     *   CompatibleRuntime?: \AsyncAws\Lambda\Enum\Runtime::*,
      *   LayerName: string,
      *   Marker?: string,
      *   MaxItems?: int,
@@ -118,7 +118,7 @@ class LambdaClient extends AbstractApi
      *   LayerName: string,
      *   Description?: string,
      *   Content: \AsyncAws\Lambda\Input\LayerVersionContentInput|array,
-     *   CompatibleRuntimes?: string[],
+     *   CompatibleRuntimes?: list<\AsyncAws\Lambda\Enum\Runtime::*>,
      *   LicenseInfo?: string,
      * }|PublishLayerVersionRequest $input
      */

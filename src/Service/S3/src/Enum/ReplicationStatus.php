@@ -8,10 +8,16 @@ class ReplicationStatus
     public const FAILED = 'FAILED';
     public const PENDING = 'PENDING';
     public const REPLICA = 'REPLICA';
-    public const AVAILABLE_REPLICATIONSTATUS = [
-        self::COMPLETE => true,
-        self::FAILED => true,
-        self::PENDING => true,
-        self::REPLICA => true,
-    ];
+
+    public static function exists(string $value): bool
+    {
+        $values = [
+            self::COMPLETE => true,
+            self::FAILED => true,
+            self::PENDING => true,
+            self::REPLICA => true,
+        ];
+
+        return isset($values[$value]);
+    }
 }

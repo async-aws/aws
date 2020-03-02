@@ -17,14 +17,14 @@ class Grant
     /**
      * Specifies the permission given to the grantee.
      *
-     * @var Permission::FULL_CONTROL|Permission::WRITE|Permission::WRITE_ACP|Permission::READ|Permission::READ_ACP|null
+     * @var Permission::*|null
      */
     private $Permission;
 
     /**
      * @param array{
      *   Grantee?: \AsyncAws\S3\Input\Grantee|array,
-     *   Permission?: \AsyncAws\S3\Enum\Permission::FULL_CONTROL|\AsyncAws\S3\Enum\Permission::WRITE|\AsyncAws\S3\Enum\Permission::WRITE_ACP|\AsyncAws\S3\Enum\Permission::READ|\AsyncAws\S3\Enum\Permission::READ_ACP,
+     *   Permission?: \AsyncAws\S3\Enum\Permission::*,
      * } $input
      */
     public function __construct(array $input = [])
@@ -44,7 +44,7 @@ class Grant
     }
 
     /**
-     * @return Permission::FULL_CONTROL|Permission::WRITE|Permission::WRITE_ACP|Permission::READ|Permission::READ_ACP|null
+     * @return Permission::*|null
      */
     public function getPermission(): ?string
     {
@@ -59,7 +59,7 @@ class Grant
     }
 
     /**
-     * @param Permission::FULL_CONTROL|Permission::WRITE|Permission::WRITE_ACP|Permission::READ|Permission::READ_ACP|null $value
+     * @param Permission::*|null $value
      */
     public function setPermission(?string $value): self
     {
@@ -75,8 +75,8 @@ class Grant
         }
 
         if (null !== $this->Permission) {
-            if (!isset(Permission::AVAILABLE_PERMISSION[$this->Permission])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Permission" when validating the "%s". The value "%s" is not a valid "Permission". Available values are %s.', __CLASS__, $this->Permission, implode(', ', array_keys(Permission::AVAILABLE_PERMISSION))));
+            if (!Permission::exists($this->Permission)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "Permission" when validating the "%s". The value "%s" is not a valid "Permission".', __CLASS__, $this->Permission));
             }
         }
     }

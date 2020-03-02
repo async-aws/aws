@@ -2,6 +2,7 @@
 
 namespace AsyncAws\CloudFormation\Result;
 
+use AsyncAws\CloudFormation\Enum\Capability;
 use AsyncAws\CloudFormation\Enum\StackStatus;
 
 class Stack
@@ -52,27 +53,27 @@ class Stack
 
     /**
      * @param array{
-     *   StackId: ?string,
+     *   StackId: null|string,
      *   StackName: string,
-     *   ChangeSetId: ?string,
-     *   Description: ?string,
-     *   Parameters: ?\AsyncAws\CloudFormation\Result\Parameter[],
+     *   ChangeSetId: null|string,
+     *   Description: null|string,
+     *   Parameters: null|\AsyncAws\CloudFormation\Result\Parameter[],
      *   CreationTime: \DateTimeInterface,
-     *   DeletionTime: ?\DateTimeInterface,
-     *   LastUpdatedTime: ?\DateTimeInterface,
+     *   DeletionTime: null|\DateTimeInterface,
+     *   LastUpdatedTime: null|\DateTimeInterface,
      *   RollbackConfiguration: null|\AsyncAws\CloudFormation\Result\RollbackConfiguration|array,
-     *   StackStatus: \AsyncAws\CloudFormation\Enum\StackStatus::CREATE_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::CREATE_FAILED|\AsyncAws\CloudFormation\Enum\StackStatus::CREATE_COMPLETE|\AsyncAws\CloudFormation\Enum\StackStatus::ROLLBACK_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::ROLLBACK_FAILED|\AsyncAws\CloudFormation\Enum\StackStatus::ROLLBACK_COMPLETE|\AsyncAws\CloudFormation\Enum\StackStatus::DELETE_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::DELETE_FAILED|\AsyncAws\CloudFormation\Enum\StackStatus::DELETE_COMPLETE|\AsyncAws\CloudFormation\Enum\StackStatus::UPDATE_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::UPDATE_COMPLETE_CLEANUP_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::UPDATE_COMPLETE|\AsyncAws\CloudFormation\Enum\StackStatus::UPDATE_ROLLBACK_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::UPDATE_ROLLBACK_FAILED|\AsyncAws\CloudFormation\Enum\StackStatus::UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::UPDATE_ROLLBACK_COMPLETE|\AsyncAws\CloudFormation\Enum\StackStatus::REVIEW_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::IMPORT_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::IMPORT_COMPLETE|\AsyncAws\CloudFormation\Enum\StackStatus::IMPORT_ROLLBACK_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\StackStatus::IMPORT_ROLLBACK_FAILED|\AsyncAws\CloudFormation\Enum\StackStatus::IMPORT_ROLLBACK_COMPLETE,
-     *   StackStatusReason: ?string,
-     *   DisableRollback: ?bool,
-     *   NotificationARNs: ?string[],
-     *   TimeoutInMinutes: ?int,
-     *   Capabilities: ?string[],
-     *   Outputs: ?\AsyncAws\CloudFormation\Result\Output[],
-     *   RoleARN: ?string,
-     *   Tags: ?\AsyncAws\CloudFormation\Result\Tag[],
-     *   EnableTerminationProtection: ?bool,
-     *   ParentId: ?string,
-     *   RootId: ?string,
+     *   StackStatus: \AsyncAws\CloudFormation\Enum\StackStatus::*,
+     *   StackStatusReason: null|string,
+     *   DisableRollback: null|bool,
+     *   NotificationARNs: null|string[],
+     *   TimeoutInMinutes: null|int,
+     *   Capabilities: null|list<\AsyncAws\CloudFormation\Enum\Capability::*>,
+     *   Outputs: null|\AsyncAws\CloudFormation\Result\Output[],
+     *   RoleARN: null|string,
+     *   Tags: null|\AsyncAws\CloudFormation\Result\Tag[],
+     *   EnableTerminationProtection: null|bool,
+     *   ParentId: null|string,
+     *   RootId: null|string,
      *   DriftInformation: null|\AsyncAws\CloudFormation\Result\StackDriftInformation|array,
      * } $input
      */
@@ -108,7 +109,7 @@ class Stack
     }
 
     /**
-     * @return string[]
+     * @return list<Capability::*>
      */
     public function getCapabilities(): array
     {
@@ -262,7 +263,7 @@ class Stack
     /**
      * Current status of the stack.
      *
-     * @return StackStatus::CREATE_IN_PROGRESS|StackStatus::CREATE_FAILED|StackStatus::CREATE_COMPLETE|StackStatus::ROLLBACK_IN_PROGRESS|StackStatus::ROLLBACK_FAILED|StackStatus::ROLLBACK_COMPLETE|StackStatus::DELETE_IN_PROGRESS|StackStatus::DELETE_FAILED|StackStatus::DELETE_COMPLETE|StackStatus::UPDATE_IN_PROGRESS|StackStatus::UPDATE_COMPLETE_CLEANUP_IN_PROGRESS|StackStatus::UPDATE_COMPLETE|StackStatus::UPDATE_ROLLBACK_IN_PROGRESS|StackStatus::UPDATE_ROLLBACK_FAILED|StackStatus::UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS|StackStatus::UPDATE_ROLLBACK_COMPLETE|StackStatus::REVIEW_IN_PROGRESS|StackStatus::IMPORT_IN_PROGRESS|StackStatus::IMPORT_COMPLETE|StackStatus::IMPORT_ROLLBACK_IN_PROGRESS|StackStatus::IMPORT_ROLLBACK_FAILED|StackStatus::IMPORT_ROLLBACK_COMPLETE
+     * @return StackStatus::*
      */
     public function getStackStatus(): string
     {

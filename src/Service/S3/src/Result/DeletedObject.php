@@ -14,10 +14,10 @@ class DeletedObject
 
     /**
      * @param array{
-     *   Key: ?string,
-     *   VersionId: ?string,
-     *   DeleteMarker: ?bool,
-     *   DeleteMarkerVersionId: ?string,
+     *   Key: null|string,
+     *   VersionId: null|string,
+     *   DeleteMarker: null|bool,
+     *   DeleteMarkerVersionId: null|string,
      * } $input
      */
     public function __construct(array $input)

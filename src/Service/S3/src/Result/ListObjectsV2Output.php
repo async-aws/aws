@@ -146,7 +146,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     /**
      * Encoding type used by Amazon S3 to encode object key names in the XML response.
      *
-     * @return EncodingType::URL|null
+     * @return EncodingType::*|null
      */
     public function getEncodingType(): ?string
     {

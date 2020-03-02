@@ -20,11 +20,11 @@ class AwsObject
 
     /**
      * @param array{
-     *   Key: ?string,
-     *   LastModified: ?\DateTimeInterface,
-     *   ETag: ?string,
-     *   Size: ?string,
-     *   StorageClass: null|\AsyncAws\S3\Enum\ObjectStorageClass::STANDARD|\AsyncAws\S3\Enum\ObjectStorageClass::REDUCED_REDUNDANCY|\AsyncAws\S3\Enum\ObjectStorageClass::GLACIER|\AsyncAws\S3\Enum\ObjectStorageClass::STANDARD_IA|\AsyncAws\S3\Enum\ObjectStorageClass::ONEZONE_IA|\AsyncAws\S3\Enum\ObjectStorageClass::INTELLIGENT_TIERING|\AsyncAws\S3\Enum\ObjectStorageClass::DEEP_ARCHIVE,
+     *   Key: null|string,
+     *   LastModified: null|\DateTimeInterface,
+     *   ETag: null|string,
+     *   Size: null|string,
+     *   StorageClass: null|\AsyncAws\S3\Enum\ObjectStorageClass::*,
      *   Owner: null|\AsyncAws\S3\Result\Owner|array,
      * } $input
      */
@@ -87,7 +87,7 @@ class AwsObject
     /**
      * The class of storage used to store the object.
      *
-     * @return ObjectStorageClass::STANDARD|ObjectStorageClass::REDUCED_REDUNDANCY|ObjectStorageClass::GLACIER|ObjectStorageClass::STANDARD_IA|ObjectStorageClass::ONEZONE_IA|ObjectStorageClass::INTELLIGENT_TIERING|ObjectStorageClass::DEEP_ARCHIVE|null
+     * @return ObjectStorageClass::*|null
      */
     public function getStorageClass(): ?string
     {

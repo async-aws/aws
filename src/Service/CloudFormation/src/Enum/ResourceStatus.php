@@ -20,22 +20,28 @@ class ResourceStatus
     public const UPDATE_COMPLETE = 'UPDATE_COMPLETE';
     public const UPDATE_FAILED = 'UPDATE_FAILED';
     public const UPDATE_IN_PROGRESS = 'UPDATE_IN_PROGRESS';
-    public const AVAILABLE_RESOURCESTATUS = [
-        self::CREATE_COMPLETE => true,
-        self::CREATE_FAILED => true,
-        self::CREATE_IN_PROGRESS => true,
-        self::DELETE_COMPLETE => true,
-        self::DELETE_FAILED => true,
-        self::DELETE_IN_PROGRESS => true,
-        self::DELETE_SKIPPED => true,
-        self::IMPORT_COMPLETE => true,
-        self::IMPORT_FAILED => true,
-        self::IMPORT_IN_PROGRESS => true,
-        self::IMPORT_ROLLBACK_COMPLETE => true,
-        self::IMPORT_ROLLBACK_FAILED => true,
-        self::IMPORT_ROLLBACK_IN_PROGRESS => true,
-        self::UPDATE_COMPLETE => true,
-        self::UPDATE_FAILED => true,
-        self::UPDATE_IN_PROGRESS => true,
-    ];
+
+    public static function exists(string $value): bool
+    {
+        $values = [
+            self::CREATE_COMPLETE => true,
+            self::CREATE_FAILED => true,
+            self::CREATE_IN_PROGRESS => true,
+            self::DELETE_COMPLETE => true,
+            self::DELETE_FAILED => true,
+            self::DELETE_IN_PROGRESS => true,
+            self::DELETE_SKIPPED => true,
+            self::IMPORT_COMPLETE => true,
+            self::IMPORT_FAILED => true,
+            self::IMPORT_IN_PROGRESS => true,
+            self::IMPORT_ROLLBACK_COMPLETE => true,
+            self::IMPORT_ROLLBACK_FAILED => true,
+            self::IMPORT_ROLLBACK_IN_PROGRESS => true,
+            self::UPDATE_COMPLETE => true,
+            self::UPDATE_FAILED => true,
+            self::UPDATE_IN_PROGRESS => true,
+        ];
+
+        return isset($values[$value]);
+    }
 }

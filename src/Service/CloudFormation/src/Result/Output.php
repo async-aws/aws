@@ -14,10 +14,10 @@ class Output
 
     /**
      * @param array{
-     *   OutputKey: ?string,
-     *   OutputValue: ?string,
-     *   Description: ?string,
-     *   ExportName: ?string,
+     *   OutputKey: null|string,
+     *   OutputValue: null|string,
+     *   Description: null|string,
+     *   ExportName: null|string,
      * } $input
      */
     public function __construct(array $input)

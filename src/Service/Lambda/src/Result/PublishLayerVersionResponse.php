@@ -3,6 +3,7 @@
 namespace AsyncAws\Lambda\Result;
 
 use AsyncAws\Core\Result;
+use AsyncAws\Lambda\Enum\Runtime;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -25,7 +26,7 @@ class PublishLayerVersionResponse extends Result
     private $LicenseInfo;
 
     /**
-     * @return string[]
+     * @return list<Runtime::*>
      */
     public function getCompatibleRuntimes(): array
     {

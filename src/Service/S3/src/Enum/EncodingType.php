@@ -5,7 +5,13 @@ namespace AsyncAws\S3\Enum;
 class EncodingType
 {
     public const URL = 'url';
-    public const AVAILABLE_ENCODINGTYPE = [
-        self::URL => true,
-    ];
+
+    public static function exists(string $value): bool
+    {
+        $values = [
+            self::URL => true,
+        ];
+
+        return isset($values[$value]);
+    }
 }
