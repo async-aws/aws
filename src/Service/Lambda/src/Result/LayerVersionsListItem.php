@@ -4,34 +4,16 @@ namespace AsyncAws\Lambda\Result;
 
 class LayerVersionsListItem
 {
-    /**
-     * The ARN of the layer version.
-     */
     private $LayerVersionArn;
 
-    /**
-     * The version number.
-     */
     private $Version;
 
-    /**
-     * The description of the version.
-     */
     private $Description;
 
-    /**
-     * The date that the version was created, in ISO 8601 format. For example, `2018-11-27T15:10:45.123+0000`.
-     */
     private $CreatedDate;
 
-    /**
-     * The layer's compatible runtimes.
-     */
     private $CompatibleRuntimes = [];
 
-    /**
-     * The layer's open-source license.
-     */
     private $LicenseInfo;
 
     /**
@@ -67,26 +49,41 @@ class LayerVersionsListItem
         return $this->CompatibleRuntimes;
     }
 
+    /**
+     * The date that the version was created, in ISO 8601 format. For example, `2018-11-27T15:10:45.123+0000`.
+     */
     public function getCreatedDate(): ?string
     {
         return $this->CreatedDate;
     }
 
+    /**
+     * The description of the version.
+     */
     public function getDescription(): ?string
     {
         return $this->Description;
     }
 
+    /**
+     * The ARN of the layer version.
+     */
     public function getLayerVersionArn(): ?string
     {
         return $this->LayerVersionArn;
     }
 
+    /**
+     * The layer's open-source license.
+     */
     public function getLicenseInfo(): ?string
     {
         return $this->LicenseInfo;
     }
 
+    /**
+     * The version number.
+     */
     public function getVersion(): ?string
     {
         return $this->Version;

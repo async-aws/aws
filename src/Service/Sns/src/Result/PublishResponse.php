@@ -8,11 +8,11 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class PublishResponse extends Result
 {
+    private $MessageId;
+
     /**
      * Unique identifier assigned to the published message.
      */
-    private $MessageId;
-
     public function getMessageId(): ?string
     {
         $this->initialize();

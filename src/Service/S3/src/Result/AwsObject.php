@@ -6,35 +6,16 @@ use AsyncAws\S3\Enum\ObjectStorageClass;
 
 class AwsObject
 {
-    /**
-     * The name that you assign to an object. You use the object key to retrieve the object.
-     */
     private $Key;
 
-    /**
-     * The date the Object was Last Modified.
-     */
     private $LastModified;
 
-    /**
-     * The entity tag is an MD5 hash of the object. ETag reflects only changes to the contents of an object, not its
-     * metadata.
-     */
     private $ETag;
 
-    /**
-     * Size in bytes of the object.
-     */
     private $Size;
 
-    /**
-     * The class of storage used to store the object.
-     */
     private $StorageClass;
 
-    /**
-     * The owner of the object.
-     */
     private $Owner;
 
     /**
@@ -62,32 +43,50 @@ class AwsObject
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * The entity tag is an MD5 hash of the object. ETag reflects only changes to the contents of an object, not its
+     * metadata.
+     */
     public function getETag(): ?string
     {
         return $this->ETag;
     }
 
+    /**
+     * The name that you assign to an object. You use the object key to retrieve the object.
+     */
     public function getKey(): ?string
     {
         return $this->Key;
     }
 
+    /**
+     * The date the Object was Last Modified.
+     */
     public function getLastModified(): ?\DateTimeInterface
     {
         return $this->LastModified;
     }
 
+    /**
+     * The owner of the object.
+     */
     public function getOwner(): ?Owner
     {
         return $this->Owner;
     }
 
+    /**
+     * Size in bytes of the object.
+     */
     public function getSize(): ?string
     {
         return $this->Size;
     }
 
     /**
+     * The class of storage used to store the object.
+     *
      * @return ObjectStorageClass::STANDARD|ObjectStorageClass::REDUCED_REDUNDANCY|ObjectStorageClass::GLACIER|ObjectStorageClass::STANDARD_IA|ObjectStorageClass::ONEZONE_IA|ObjectStorageClass::INTELLIGENT_TIERING|ObjectStorageClass::DEEP_ARCHIVE|null
      */
     public function getStorageClass(): ?string

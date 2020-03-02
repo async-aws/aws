@@ -4,14 +4,8 @@ namespace AsyncAws\S3\Result;
 
 class Owner
 {
-    /**
-     * Container for the display name of the owner.
-     */
     private $DisplayName;
 
-    /**
-     * Container for the ID of the owner.
-     */
     private $ID;
 
     /**
@@ -31,11 +25,17 @@ class Owner
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * Container for the display name of the owner.
+     */
     public function getDisplayName(): ?string
     {
         return $this->DisplayName;
     }
 
+    /**
+     * Container for the ID of the owner.
+     */
     public function getID(): ?string
     {
         return $this->ID;

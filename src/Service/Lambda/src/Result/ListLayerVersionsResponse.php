@@ -10,14 +10,8 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class ListLayerVersionsResponse extends Result implements \IteratorAggregate
 {
-    /**
-     * A pagination token returned when the response doesn't contain all versions.
-     */
     private $NextMarker;
 
-    /**
-     * A list of versions.
-     */
     private $LayerVersions = [];
 
     /**
@@ -99,6 +93,9 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
         }
     }
 
+    /**
+     * A pagination token returned when the response doesn't contain all versions.
+     */
     public function getNextMarker(): ?string
     {
         $this->initialize();

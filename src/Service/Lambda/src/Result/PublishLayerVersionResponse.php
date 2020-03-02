@@ -8,46 +8,20 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class PublishLayerVersionResponse extends Result
 {
-    /**
-     * Details about the layer version.
-     */
     private $Content;
 
-    /**
-     * The ARN of the layer.
-     */
     private $LayerArn;
 
-    /**
-     * The ARN of the layer version.
-     */
     private $LayerVersionArn;
 
-    /**
-     * The description of the version.
-     */
     private $Description;
 
-    /**
-     * The date that the layer version was created, in ISO-8601 format (YYYY-MM-DDThh:mm:ss.sTZD).
-     *
-     * @see https://www.w3.org/TR/NOTE-datetime
-     */
     private $CreatedDate;
 
-    /**
-     * The version number.
-     */
     private $Version;
 
-    /**
-     * The layer's compatible runtimes.
-     */
     private $CompatibleRuntimes = [];
 
-    /**
-     * The layer's software license.
-     */
     private $LicenseInfo;
 
     /**
@@ -60,6 +34,9 @@ class PublishLayerVersionResponse extends Result
         return $this->CompatibleRuntimes;
     }
 
+    /**
+     * Details about the layer version.
+     */
     public function getContent(): ?LayerVersionContentOutput
     {
         $this->initialize();
@@ -67,6 +44,11 @@ class PublishLayerVersionResponse extends Result
         return $this->Content;
     }
 
+    /**
+     * The date that the layer version was created, in ISO-8601 format (YYYY-MM-DDThh:mm:ss.sTZD).
+     *
+     * @see https://www.w3.org/TR/NOTE-datetime
+     */
     public function getCreatedDate(): ?string
     {
         $this->initialize();
@@ -74,6 +56,9 @@ class PublishLayerVersionResponse extends Result
         return $this->CreatedDate;
     }
 
+    /**
+     * The description of the version.
+     */
     public function getDescription(): ?string
     {
         $this->initialize();
@@ -81,6 +66,9 @@ class PublishLayerVersionResponse extends Result
         return $this->Description;
     }
 
+    /**
+     * The ARN of the layer.
+     */
     public function getLayerArn(): ?string
     {
         $this->initialize();
@@ -88,6 +76,9 @@ class PublishLayerVersionResponse extends Result
         return $this->LayerArn;
     }
 
+    /**
+     * The ARN of the layer version.
+     */
     public function getLayerVersionArn(): ?string
     {
         $this->initialize();
@@ -95,6 +86,9 @@ class PublishLayerVersionResponse extends Result
         return $this->LayerVersionArn;
     }
 
+    /**
+     * The layer's software license.
+     */
     public function getLicenseInfo(): ?string
     {
         $this->initialize();
@@ -102,6 +96,9 @@ class PublishLayerVersionResponse extends Result
         return $this->LicenseInfo;
     }
 
+    /**
+     * The version number.
+     */
     public function getVersion(): ?string
     {
         $this->initialize();

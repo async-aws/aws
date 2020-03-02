@@ -6,29 +6,14 @@ use AsyncAws\S3\Enum\Type;
 
 class Grantee
 {
-    /**
-     * Screen name of the grantee.
-     */
     private $DisplayName;
 
-    /**
-     * Email address of the grantee.
-     */
     private $EmailAddress;
 
-    /**
-     * The canonical user ID of the grantee.
-     */
     private $ID;
 
-    /**
-     * Type of grantee.
-     */
     private $Type;
 
-    /**
-     * URI of the grantee group.
-     */
     private $URI;
 
     /**
@@ -54,22 +39,33 @@ class Grantee
         return $input instanceof self ? $input : new self($input);
     }
 
+    /**
+     * Screen name of the grantee.
+     */
     public function getDisplayName(): ?string
     {
         return $this->DisplayName;
     }
 
+    /**
+     * Email address of the grantee.
+     */
     public function getEmailAddress(): ?string
     {
         return $this->EmailAddress;
     }
 
+    /**
+     * The canonical user ID of the grantee.
+     */
     public function getID(): ?string
     {
         return $this->ID;
     }
 
     /**
+     * Type of grantee.
+     *
      * @return Type::CANONICAL_USER|Type::AMAZON_CUSTOMER_BY_EMAIL|Type::GROUP
      */
     public function getType(): string
@@ -77,6 +73,9 @@ class Grantee
         return $this->Type;
     }
 
+    /**
+     * URI of the grantee group.
+     */
     public function getURI(): ?string
     {
         return $this->URI;

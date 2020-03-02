@@ -8,9 +8,6 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class ReceiveMessageResult extends Result
 {
-    /**
-     * A list of messages.
-     */
     private $Messages = [];
 
     /**

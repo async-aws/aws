@@ -4,32 +4,14 @@ namespace AsyncAws\Sqs\Result;
 
 class MessageAttributeValue
 {
-    /**
-     * Strings are Unicode with UTF-8 binary encoding. For a list of code values, see ASCII Printable Characters.
-     *
-     * @see http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
-     */
     private $StringValue;
 
-    /**
-     * Binary type attributes can store any binary data, such as compressed data, encrypted data, or images.
-     */
     private $BinaryValue;
 
-    /**
-     * Not implemented. Reserved for future use.
-     */
     private $StringListValues = [];
 
-    /**
-     * Not implemented. Reserved for future use.
-     */
     private $BinaryListValues = [];
 
-    /**
-     * Amazon SQS supports the following logical data types: `String`, `Number`, and `Binary`. For the `Number` data type,
-     * you must use `StringValue`.
-     */
     private $DataType;
 
     /**
@@ -63,11 +45,18 @@ class MessageAttributeValue
         return $this->BinaryListValues;
     }
 
+    /**
+     * Binary type attributes can store any binary data, such as compressed data, encrypted data, or images.
+     */
     public function getBinaryValue(): ?string
     {
         return $this->BinaryValue;
     }
 
+    /**
+     * Amazon SQS supports the following logical data types: `String`, `Number`, and `Binary`. For the `Number` data type,
+     * you must use `StringValue`.
+     */
     public function getDataType(): string
     {
         return $this->DataType;
@@ -81,6 +70,11 @@ class MessageAttributeValue
         return $this->StringListValues;
     }
 
+    /**
+     * Strings are Unicode with UTF-8 binary encoding. For a list of code values, see ASCII Printable Characters.
+     *
+     * @see http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
+     */
     public function getStringValue(): ?string
     {
         return $this->StringValue;

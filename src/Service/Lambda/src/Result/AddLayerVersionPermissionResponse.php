@@ -8,16 +8,13 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class AddLayerVersionPermissionResponse extends Result
 {
-    /**
-     * The permission statement.
-     */
     private $Statement;
+
+    private $RevisionId;
 
     /**
      * A unique identifier for the current revision of the policy.
      */
-    private $RevisionId;
-
     public function getRevisionId(): ?string
     {
         $this->initialize();
@@ -25,6 +22,9 @@ class AddLayerVersionPermissionResponse extends Result
         return $this->RevisionId;
     }
 
+    /**
+     * The permission statement.
+     */
     public function getStatement(): ?string
     {
         $this->initialize();

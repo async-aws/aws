@@ -11,71 +11,28 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class ListObjectsV2Output extends Result implements \IteratorAggregate
 {
-    /**
-     * Set to false if all of the results were returned. Set to true if more keys are available to return. If the number of
-     * results exceeds that specified by MaxKeys, all of the results might not be returned.
-     */
     private $IsTruncated;
 
-    /**
-     * Metadata about each object returned.
-     */
     private $Contents = [];
 
-    /**
-     * Bucket name.
-     */
     private $Name;
 
-    /**
-     * Keys that begin with the indicated prefix.
-     */
     private $Prefix;
 
-    /**
-     * Causes keys that contain the same string between the prefix and the first occurrence of the delimiter to be rolled up
-     * into a single result element in the CommonPrefixes collection. These rolled-up keys are not returned elsewhere in the
-     * response. Each rolled-up result counts as only one return against the `MaxKeys` value.
-     */
     private $Delimiter;
 
-    /**
-     * Sets the maximum number of keys returned in the response. The response might contain fewer keys but will never
-     * contain more.
-     */
     private $MaxKeys;
 
-    /**
-     * All of the keys rolled up into a common prefix count as a single return when calculating the number of returns.
-     */
     private $CommonPrefixes = [];
 
-    /**
-     * Encoding type used by Amazon S3 to encode object key names in the XML response.
-     */
     private $EncodingType;
 
-    /**
-     * KeyCount is the number of keys returned with this request. KeyCount will always be less than equals to MaxKeys field.
-     * Say you ask for 50 keys, your result will include less than equals 50 keys.
-     */
     private $KeyCount;
 
-    /**
-     * If ContinuationToken was sent with the request, it is included in the response.
-     */
     private $ContinuationToken;
 
-    /**
-     * `NextContinuationToken` is sent when `isTruncated` is true, which means there are more keys in the bucket that can be
-     * listed. The next list requests to Amazon S3 can be continued with this `NextContinuationToken`.
-     * `NextContinuationToken` is obfuscated and is not a real key.
-     */
     private $NextContinuationToken;
 
-    /**
-     * If StartAfter was sent with the request, it is included in the response.
-     */
     private $StartAfter;
 
     /**
@@ -164,6 +121,9 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         }
     }
 
+    /**
+     * If ContinuationToken was sent with the request, it is included in the response.
+     */
     public function getContinuationToken(): ?string
     {
         $this->initialize();
@@ -171,6 +131,11 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         return $this->ContinuationToken;
     }
 
+    /**
+     * Causes keys that contain the same string between the prefix and the first occurrence of the delimiter to be rolled up
+     * into a single result element in the CommonPrefixes collection. These rolled-up keys are not returned elsewhere in the
+     * response. Each rolled-up result counts as only one return against the `MaxKeys` value.
+     */
     public function getDelimiter(): ?string
     {
         $this->initialize();
@@ -179,6 +144,8 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     }
 
     /**
+     * Encoding type used by Amazon S3 to encode object key names in the XML response.
+     *
      * @return EncodingType::URL|null
      */
     public function getEncodingType(): ?string
@@ -188,6 +155,10 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         return $this->EncodingType;
     }
 
+    /**
+     * Set to false if all of the results were returned. Set to true if more keys are available to return. If the number of
+     * results exceeds that specified by MaxKeys, all of the results might not be returned.
+     */
     public function getIsTruncated(): ?bool
     {
         $this->initialize();
@@ -232,6 +203,10 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         }
     }
 
+    /**
+     * KeyCount is the number of keys returned with this request. KeyCount will always be less than equals to MaxKeys field.
+     * Say you ask for 50 keys, your result will include less than equals 50 keys.
+     */
     public function getKeyCount(): ?int
     {
         $this->initialize();
@@ -239,6 +214,10 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         return $this->KeyCount;
     }
 
+    /**
+     * Sets the maximum number of keys returned in the response. The response might contain fewer keys but will never
+     * contain more.
+     */
     public function getMaxKeys(): ?int
     {
         $this->initialize();
@@ -246,6 +225,9 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         return $this->MaxKeys;
     }
 
+    /**
+     * Bucket name.
+     */
     public function getName(): ?string
     {
         $this->initialize();
@@ -253,6 +235,11 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         return $this->Name;
     }
 
+    /**
+     * `NextContinuationToken` is sent when `isTruncated` is true, which means there are more keys in the bucket that can be
+     * listed. The next list requests to Amazon S3 can be continued with this `NextContinuationToken`.
+     * `NextContinuationToken` is obfuscated and is not a real key.
+     */
     public function getNextContinuationToken(): ?string
     {
         $this->initialize();
@@ -260,6 +247,9 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         return $this->NextContinuationToken;
     }
 
+    /**
+     * Keys that begin with the indicated prefix.
+     */
     public function getPrefix(): ?string
     {
         $this->initialize();
@@ -267,6 +257,9 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         return $this->Prefix;
     }
 
+    /**
+     * If StartAfter was sent with the request, it is included in the response.
+     */
     public function getStartAfter(): ?string
     {
         $this->initialize();
