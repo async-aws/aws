@@ -14,5 +14,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: fetch tags
+        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+
       - name: Roave BC Check
         uses: docker://nyholm/roave-bc-check-ga
+        with:
+          entrypoint: ./.github/workflows/bc.entrypoint
