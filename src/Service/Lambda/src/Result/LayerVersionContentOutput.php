@@ -12,9 +12,9 @@ class LayerVersionContentOutput
 
     /**
      * @param array{
-     *   Location: ?string,
-     *   CodeSha256: ?string,
-     *   CodeSize: ?string,
+     *   Location: null|string,
+     *   CodeSha256: null|string,
+     *   CodeSize: null|string,
      * } $input
      */
     public function __construct(array $input)

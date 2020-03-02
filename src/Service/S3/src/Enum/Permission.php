@@ -9,11 +9,17 @@ class Permission
     public const READ_ACP = 'READ_ACP';
     public const WRITE = 'WRITE';
     public const WRITE_ACP = 'WRITE_ACP';
-    public const AVAILABLE_PERMISSION = [
-        self::FULL_CONTROL => true,
-        self::READ => true,
-        self::READ_ACP => true,
-        self::WRITE => true,
-        self::WRITE_ACP => true,
-    ];
+
+    public static function exists(string $value): bool
+    {
+        $values = [
+            self::FULL_CONTROL => true,
+            self::READ => true,
+            self::READ_ACP => true,
+            self::WRITE => true,
+            self::WRITE_ACP => true,
+        ];
+
+        return isset($values[$value]);
+    }
 }

@@ -8,7 +8,6 @@ use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
-use AsyncAws\CodeGenerator\Generator\EnumGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 
@@ -54,17 +53,21 @@ class TypeGenerator
                 // is the list item an object?
                 if ($listMemberShape instanceof StructureShape) {
                     $param = '\\' . $classNameFactory($listMemberShape)->getFqdn() . '[]';
+                } elseif (!empty($listMemberShape->getEnum())) {
+                    $param = 'list<\\' . $this->namespaceRegistry->getEnum($listMemberShape)->getFqdn() . '::*>';
                 } else {
                     $param = $this->getNativePhpType($listMemberShape->getType()) . '[]';
                 }
             } elseif ($memberShape instanceof MapShape) {
-                $mapMemberShape = $memberShape->getValue()->getShape();
+                $mapValueShape = $memberShape->getValue()->getShape();
 
                 // is the map item an object?
-                if ($mapMemberShape instanceof StructureShape) {
-                    $param = '\\' . $classNameFactory($mapMemberShape)->getFqdn() . '[]';
+                if ($mapValueShape instanceof StructureShape) {
+                    $param = '\\' . $classNameFactory($mapValueShape)->getFqdn() . '[]';
+                } elseif (!empty($mapValueShape->getEnum())) {
+                    $param = 'array<string, \\' . $this->namespaceRegistry->getEnum($mapValueShape)->getFqdn() . '::*>';
                 } else {
-                    $param = $this->getNativePhpType($mapMemberShape->getType()) . '[]';
+                    $param = $this->getNativePhpType($mapValueShape->getType()) . '[]';
                 }
             } elseif ($member->isStreaming()) {
                 $param = 'string|resource|callable|iterable';
@@ -72,9 +75,7 @@ class TypeGenerator
                 $param = $isResult ? '\DateTimeInterface' : '\DateTimeInterface|string';
             } else {
                 if (!empty($memberShape->getEnum())) {
-                    $param = \implode('|', \array_map(function (string $value) use ($memberShape) {
-                        return '\\' . $this->namespaceRegistry->getEnum($memberShape)->getFqdn() . '::' . EnumGenerator::canonicalizeName($value);
-                    }, $memberShape->getEnum()));
+                    $param = '\\' . $this->namespaceRegistry->getEnum($memberShape)->getFqdn() . '::*';
                 } else {
                     $param = $this->getNativePhpType($param);
                 }
@@ -82,7 +83,7 @@ class TypeGenerator
 
             if ($allNullable || $nullable) {
                 if ($isResult) {
-                    $body[] = sprintf('  %s: %s,', $member->getName(), \strpos($param, '|') ? 'null|' . $param : '?' . $param);
+                    $body[] = sprintf('  %s: %s,', $member->getName(), 'null|' . $param);
                 } else {
                     $body[] = sprintf('  %s?: %s,', $member->getName(), $param);
                 }
@@ -117,25 +118,35 @@ class TypeGenerator
                 return ['array', $className->getName() . '[]', $className];
             }
 
-            return ['array', $this->getNativePhpType($listMemberShape->getType()) . '[]', null];
+            if (!empty($listMemberShape->getEnum())) {
+                $doc = 'list<' . $listMemberShape->getName() . '::*>';
+            } else {
+                $doc = $this->getNativePhpType($listMemberShape->getType()) . '[]';
+            }
+
+            return ['array', $doc, null];
         }
 
         if ($shape instanceof MapShape) {
-            $listMemberShape = $shape->getValue()->getShape();
-            if ($listMemberShape instanceof StructureShape) {
-                $className = $classNameFactory($listMemberShape);
+            $mapValueShape = $shape->getValue()->getShape();
+            if ($mapValueShape instanceof StructureShape) {
+                $className = $classNameFactory($mapValueShape);
 
                 return ['array', $className->getName() . '[]', $className];
             }
 
-            return ['array', $this->getNativePhpType($listMemberShape->getType()) . '[]', null];
+            if (!empty($mapValueShape->getEnum())) {
+                $doc = 'array<string, ' . $mapValueShape->getName() . '::*>';
+            } else {
+                $doc = $this->getNativePhpType($mapValueShape->getType()) . '[]';
+            }
+
+            return ['array', $doc, null];
         }
 
         $type = $doc = $this->getNativePhpType($shape->getType());
         if (!empty($shape->getEnum())) {
-            $doc = \implode('|', \array_map(function (string $value) use ($shape) {
-                return $shape->getName() . '::' . EnumGenerator::canonicalizeName($value);
-            }, $shape->getEnum()));
+            $doc = $shape->getName() . '::*';
         }
 
         return [$type, $doc, null];

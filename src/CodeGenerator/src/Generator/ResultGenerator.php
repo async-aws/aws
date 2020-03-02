@@ -191,6 +191,11 @@ class ResultGenerator
                 if (($valueShape = $memberShape->getValue()->getShape()) instanceof StructureShape) {
                     $this->generateResultClass($valueShape);
                 }
+                if (!empty($valueShape->getEnum())) {
+                    $enumClassName = $this->enumGenerator->generate($valueShape);
+                    $namespace->addUse($enumClassName->getFqdn());
+                }
+
                 $nullable = false;
                 $property->setValue([]);
             } elseif ($memberShape instanceof ListShape) {
@@ -198,6 +203,10 @@ class ResultGenerator
 
                 if (($memberShape = $memberShape->getMember()->getShape()) instanceof StructureShape) {
                     $this->generateResultClass($memberShape);
+                }
+                if (!empty($memberShape->getEnum())) {
+                    $enumClassName = $this->enumGenerator->generate($memberShape);
+                    $namespace->addUse($enumClassName->getFqdn());
                 }
 
                 $nullable = false;

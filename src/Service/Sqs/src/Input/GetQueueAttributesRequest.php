@@ -19,14 +19,14 @@ class GetQueueAttributesRequest
     /**
      * A list of attributes for which to retrieve information.
      *
-     * @var string[]
+     * @var list<QueueAttributeName::*>
      */
     private $AttributeNames;
 
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   AttributeNames?: string[],
+     *   AttributeNames?: list<\AsyncAws\Sqs\Enum\QueueAttributeName::*>,
      * } $input
      */
     public function __construct(array $input = [])
@@ -41,7 +41,7 @@ class GetQueueAttributesRequest
     }
 
     /**
-     * @return string[]
+     * @return list<QueueAttributeName::*>
      */
     public function getAttributeNames(): array
     {
@@ -90,7 +90,7 @@ class GetQueueAttributesRequest
     }
 
     /**
-     * @param string[] $value
+     * @param list<QueueAttributeName::*> $value
      */
     public function setAttributeNames(array $value): self
     {
@@ -113,8 +113,8 @@ class GetQueueAttributesRequest
         }
 
         foreach ($this->AttributeNames as $item) {
-            if (!isset(QueueAttributeName::AVAILABLE_QUEUEATTRIBUTENAME[$item])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "AttributeNames" when validating the "%s". The value "%s" is not a valid "QueueAttributeName". Available values are %s.', __CLASS__, $item, implode(', ', array_keys(QueueAttributeName::AVAILABLE_QUEUEATTRIBUTENAME))));
+            if (!QueueAttributeName::exists($item)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "AttributeNames" when validating the "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $item));
             }
         }
     }

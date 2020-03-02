@@ -33,14 +33,14 @@ class StackEvent
      *   StackId: string,
      *   EventId: string,
      *   StackName: string,
-     *   LogicalResourceId: ?string,
-     *   PhysicalResourceId: ?string,
-     *   ResourceType: ?string,
+     *   LogicalResourceId: null|string,
+     *   PhysicalResourceId: null|string,
+     *   ResourceType: null|string,
      *   Timestamp: \DateTimeInterface,
-     *   ResourceStatus: null|\AsyncAws\CloudFormation\Enum\ResourceStatus::CREATE_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\ResourceStatus::CREATE_FAILED|\AsyncAws\CloudFormation\Enum\ResourceStatus::CREATE_COMPLETE|\AsyncAws\CloudFormation\Enum\ResourceStatus::DELETE_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\ResourceStatus::DELETE_FAILED|\AsyncAws\CloudFormation\Enum\ResourceStatus::DELETE_COMPLETE|\AsyncAws\CloudFormation\Enum\ResourceStatus::DELETE_SKIPPED|\AsyncAws\CloudFormation\Enum\ResourceStatus::UPDATE_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\ResourceStatus::UPDATE_FAILED|\AsyncAws\CloudFormation\Enum\ResourceStatus::UPDATE_COMPLETE|\AsyncAws\CloudFormation\Enum\ResourceStatus::IMPORT_FAILED|\AsyncAws\CloudFormation\Enum\ResourceStatus::IMPORT_COMPLETE|\AsyncAws\CloudFormation\Enum\ResourceStatus::IMPORT_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\ResourceStatus::IMPORT_ROLLBACK_IN_PROGRESS|\AsyncAws\CloudFormation\Enum\ResourceStatus::IMPORT_ROLLBACK_FAILED|\AsyncAws\CloudFormation\Enum\ResourceStatus::IMPORT_ROLLBACK_COMPLETE,
-     *   ResourceStatusReason: ?string,
-     *   ResourceProperties: ?string,
-     *   ClientRequestToken: ?string,
+     *   ResourceStatus: null|\AsyncAws\CloudFormation\Enum\ResourceStatus::*,
+     *   ResourceStatusReason: null|string,
+     *   ResourceProperties: null|string,
+     *   ClientRequestToken: null|string,
      * } $input
      */
     public function __construct(array $input)
@@ -106,7 +106,7 @@ class StackEvent
     /**
      * Current status of the resource.
      *
-     * @return ResourceStatus::CREATE_IN_PROGRESS|ResourceStatus::CREATE_FAILED|ResourceStatus::CREATE_COMPLETE|ResourceStatus::DELETE_IN_PROGRESS|ResourceStatus::DELETE_FAILED|ResourceStatus::DELETE_COMPLETE|ResourceStatus::DELETE_SKIPPED|ResourceStatus::UPDATE_IN_PROGRESS|ResourceStatus::UPDATE_FAILED|ResourceStatus::UPDATE_COMPLETE|ResourceStatus::IMPORT_FAILED|ResourceStatus::IMPORT_COMPLETE|ResourceStatus::IMPORT_IN_PROGRESS|ResourceStatus::IMPORT_ROLLBACK_IN_PROGRESS|ResourceStatus::IMPORT_ROLLBACK_FAILED|ResourceStatus::IMPORT_ROLLBACK_COMPLETE|null
+     * @return ResourceStatus::*|null
      */
     public function getResourceStatus(): ?string
     {

@@ -6,8 +6,14 @@ class MetadataDirective
 {
     public const COPY = 'COPY';
     public const REPLACE = 'REPLACE';
-    public const AVAILABLE_METADATADIRECTIVE = [
-        self::COPY => true,
-        self::REPLACE => true,
-    ];
+
+    public static function exists(string $value): bool
+    {
+        $values = [
+            self::COPY => true,
+            self::REPLACE => true,
+        ];
+
+        return isset($values[$value]);
+    }
 }

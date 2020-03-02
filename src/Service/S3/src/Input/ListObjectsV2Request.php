@@ -27,7 +27,7 @@ class ListObjectsV2Request
     /**
      * Encoding type used by Amazon S3 to encode object keys in the response.
      *
-     * @var EncodingType::URL|null
+     * @var EncodingType::*|null
      */
     private $EncodingType;
 
@@ -74,7 +74,7 @@ class ListObjectsV2Request
      * Confirms that the requester knows that she or he will be charged for the list objects request in V2 style. Bucket
      * owners need not specify this parameter in their requests.
      *
-     * @var RequestPayer::REQUESTER|null
+     * @var RequestPayer::*|null
      */
     private $RequestPayer;
 
@@ -82,13 +82,13 @@ class ListObjectsV2Request
      * @param array{
      *   Bucket?: string,
      *   Delimiter?: string,
-     *   EncodingType?: \AsyncAws\S3\Enum\EncodingType::URL,
+     *   EncodingType?: \AsyncAws\S3\Enum\EncodingType::*,
      *   MaxKeys?: int,
      *   Prefix?: string,
      *   ContinuationToken?: string,
      *   FetchOwner?: bool,
      *   StartAfter?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::REQUESTER,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      * } $input
      */
     public function __construct(array $input = [])
@@ -125,7 +125,7 @@ class ListObjectsV2Request
     }
 
     /**
-     * @return EncodingType::URL|null
+     * @return EncodingType::*|null
      */
     public function getEncodingType(): ?string
     {
@@ -148,7 +148,7 @@ class ListObjectsV2Request
     }
 
     /**
-     * @return RequestPayer::REQUESTER|null
+     * @return RequestPayer::*|null
      */
     public function getRequestPayer(): ?string
     {
@@ -233,7 +233,7 @@ class ListObjectsV2Request
     }
 
     /**
-     * @param EncodingType::URL|null $value
+     * @param EncodingType::*|null $value
      */
     public function setEncodingType(?string $value): self
     {
@@ -264,7 +264,7 @@ class ListObjectsV2Request
     }
 
     /**
-     * @param RequestPayer::REQUESTER|null $value
+     * @param RequestPayer::*|null $value
      */
     public function setRequestPayer(?string $value): self
     {
@@ -287,14 +287,14 @@ class ListObjectsV2Request
         }
 
         if (null !== $this->EncodingType) {
-            if (!isset(EncodingType::AVAILABLE_ENCODINGTYPE[$this->EncodingType])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "EncodingType" when validating the "%s". The value "%s" is not a valid "EncodingType". Available values are %s.', __CLASS__, $this->EncodingType, implode(', ', array_keys(EncodingType::AVAILABLE_ENCODINGTYPE))));
+            if (!EncodingType::exists($this->EncodingType)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "EncodingType" when validating the "%s". The value "%s" is not a valid "EncodingType".', __CLASS__, $this->EncodingType));
             }
         }
 
         if (null !== $this->RequestPayer) {
-            if (!isset(RequestPayer::AVAILABLE_REQUESTPAYER[$this->RequestPayer])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer". Available values are %s.', __CLASS__, $this->RequestPayer, implode(', ', array_keys(RequestPayer::AVAILABLE_REQUESTPAYER))));
+            if (!RequestPayer::exists($this->RequestPayer)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
             }
         }
     }

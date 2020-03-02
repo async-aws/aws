@@ -8,10 +8,16 @@ class StackDriftStatus
     public const IN_SYNC = 'IN_SYNC';
     public const NOT_CHECKED = 'NOT_CHECKED';
     public const UNKNOWN = 'UNKNOWN';
-    public const AVAILABLE_STACKDRIFTSTATUS = [
-        self::DRIFTED => true,
-        self::IN_SYNC => true,
-        self::NOT_CHECKED => true,
-        self::UNKNOWN => true,
-    ];
+
+    public static function exists(string $value): bool
+    {
+        $values = [
+            self::DRIFTED => true,
+            self::IN_SYNC => true,
+            self::NOT_CHECKED => true,
+            self::UNKNOWN => true,
+        ];
+
+        return isset($values[$value]);
+    }
 }

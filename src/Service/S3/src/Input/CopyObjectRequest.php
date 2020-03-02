@@ -17,7 +17,7 @@ class CopyObjectRequest
     /**
      * The canned ACL to apply to the object.
      *
-     * @var ObjectCannedACL::PRIVATE|ObjectCannedACL::PUBLIC_READ|ObjectCannedACL::PUBLIC_READ_WRITE|ObjectCannedACL::AUTHENTICATED_READ|ObjectCannedACL::AWS_EXEC_READ|ObjectCannedACL::BUCKET_OWNER_READ|ObjectCannedACL::BUCKET_OWNER_FULL_CONTROL|null
+     * @var ObjectCannedACL::*|null
      */
     private $ACL;
 
@@ -157,7 +157,7 @@ class CopyObjectRequest
     /**
      * Specifies whether the metadata is copied from the source object or replaced with metadata provided in the request.
      *
-     * @var MetadataDirective::COPY|MetadataDirective::REPLACE|null
+     * @var MetadataDirective::*|null
      */
     private $MetadataDirective;
 
@@ -165,21 +165,21 @@ class CopyObjectRequest
      * Specifies whether the object tag-set are copied from the source object or replaced with tag-set provided in the
      * request.
      *
-     * @var TaggingDirective::COPY|TaggingDirective::REPLACE|null
+     * @var TaggingDirective::*|null
      */
     private $TaggingDirective;
 
     /**
      * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
      *
-     * @var ServerSideEncryption::AES256|ServerSideEncryption::AWS_KMS|null
+     * @var ServerSideEncryption::*|null
      */
     private $ServerSideEncryption;
 
     /**
      * The type of storage to use for the object. Defaults to 'STANDARD'.
      *
-     * @var StorageClass::STANDARD|StorageClass::REDUCED_REDUNDANCY|StorageClass::STANDARD_IA|StorageClass::ONEZONE_IA|StorageClass::INTELLIGENT_TIERING|StorageClass::GLACIER|StorageClass::DEEP_ARCHIVE|null
+     * @var StorageClass::*|null
      */
     private $StorageClass;
 
@@ -259,7 +259,7 @@ class CopyObjectRequest
     private $CopySourceSSECustomerKeyMD5;
 
     /**
-     * @var RequestPayer::REQUESTER|null
+     * @var RequestPayer::*|null
      */
     private $RequestPayer;
 
@@ -274,7 +274,7 @@ class CopyObjectRequest
     /**
      * The Object Lock mode that you want to apply to the copied object.
      *
-     * @var ObjectLockMode::GOVERNANCE|ObjectLockMode::COMPLIANCE|null
+     * @var ObjectLockMode::*|null
      */
     private $ObjectLockMode;
 
@@ -288,7 +288,7 @@ class CopyObjectRequest
     /**
      * Specifies whether you want to apply a Legal Hold to the copied object.
      *
-     * @var ObjectLockLegalHoldStatus::ON|ObjectLockLegalHoldStatus::OFF|null
+     * @var ObjectLockLegalHoldStatus::*|null
      */
     private $ObjectLockLegalHoldStatus;
 
@@ -296,7 +296,7 @@ class CopyObjectRequest
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectCOPY.html
      *
      * @param array{
-     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::PRIVATE|\AsyncAws\S3\Enum\ObjectCannedACL::PUBLIC_READ|\AsyncAws\S3\Enum\ObjectCannedACL::PUBLIC_READ_WRITE|\AsyncAws\S3\Enum\ObjectCannedACL::AUTHENTICATED_READ|\AsyncAws\S3\Enum\ObjectCannedACL::AWS_EXEC_READ|\AsyncAws\S3\Enum\ObjectCannedACL::BUCKET_OWNER_READ|\AsyncAws\S3\Enum\ObjectCannedACL::BUCKET_OWNER_FULL_CONTROL,
+     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::*,
      *   Bucket?: string,
      *   CacheControl?: string,
      *   ContentDisposition?: string,
@@ -315,10 +315,10 @@ class CopyObjectRequest
      *   GrantWriteACP?: string,
      *   Key?: string,
      *   Metadata?: string[],
-     *   MetadataDirective?: \AsyncAws\S3\Enum\MetadataDirective::COPY|\AsyncAws\S3\Enum\MetadataDirective::REPLACE,
-     *   TaggingDirective?: \AsyncAws\S3\Enum\TaggingDirective::COPY|\AsyncAws\S3\Enum\TaggingDirective::REPLACE,
-     *   ServerSideEncryption?: \AsyncAws\S3\Enum\ServerSideEncryption::AES256|\AsyncAws\S3\Enum\ServerSideEncryption::AWS_KMS,
-     *   StorageClass?: \AsyncAws\S3\Enum\StorageClass::STANDARD|\AsyncAws\S3\Enum\StorageClass::REDUCED_REDUNDANCY|\AsyncAws\S3\Enum\StorageClass::STANDARD_IA|\AsyncAws\S3\Enum\StorageClass::ONEZONE_IA|\AsyncAws\S3\Enum\StorageClass::INTELLIGENT_TIERING|\AsyncAws\S3\Enum\StorageClass::GLACIER|\AsyncAws\S3\Enum\StorageClass::DEEP_ARCHIVE,
+     *   MetadataDirective?: \AsyncAws\S3\Enum\MetadataDirective::*,
+     *   TaggingDirective?: \AsyncAws\S3\Enum\TaggingDirective::*,
+     *   ServerSideEncryption?: \AsyncAws\S3\Enum\ServerSideEncryption::*,
+     *   StorageClass?: \AsyncAws\S3\Enum\StorageClass::*,
      *   WebsiteRedirectLocation?: string,
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
@@ -328,11 +328,11 @@ class CopyObjectRequest
      *   CopySourceSSECustomerAlgorithm?: string,
      *   CopySourceSSECustomerKey?: string,
      *   CopySourceSSECustomerKeyMD5?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::REQUESTER,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   Tagging?: string,
-     *   ObjectLockMode?: \AsyncAws\S3\Enum\ObjectLockMode::GOVERNANCE|\AsyncAws\S3\Enum\ObjectLockMode::COMPLIANCE,
+     *   ObjectLockMode?: \AsyncAws\S3\Enum\ObjectLockMode::*,
      *   ObjectLockRetainUntilDate?: \DateTimeInterface|string,
-     *   ObjectLockLegalHoldStatus?: \AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::ON|\AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::OFF,
+     *   ObjectLockLegalHoldStatus?: \AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::*,
      * } $input
      */
     public function __construct(array $input = [])
@@ -382,7 +382,7 @@ class CopyObjectRequest
     }
 
     /**
-     * @return ObjectCannedACL::PRIVATE|ObjectCannedACL::PUBLIC_READ|ObjectCannedACL::PUBLIC_READ_WRITE|ObjectCannedACL::AUTHENTICATED_READ|ObjectCannedACL::AWS_EXEC_READ|ObjectCannedACL::BUCKET_OWNER_READ|ObjectCannedACL::BUCKET_OWNER_FULL_CONTROL|null
+     * @return ObjectCannedACL::*|null
      */
     public function getACL(): ?string
     {
@@ -498,7 +498,7 @@ class CopyObjectRequest
     }
 
     /**
-     * @return MetadataDirective::COPY|MetadataDirective::REPLACE|null
+     * @return MetadataDirective::*|null
      */
     public function getMetadataDirective(): ?string
     {
@@ -506,7 +506,7 @@ class CopyObjectRequest
     }
 
     /**
-     * @return ObjectLockLegalHoldStatus::ON|ObjectLockLegalHoldStatus::OFF|null
+     * @return ObjectLockLegalHoldStatus::*|null
      */
     public function getObjectLockLegalHoldStatus(): ?string
     {
@@ -514,7 +514,7 @@ class CopyObjectRequest
     }
 
     /**
-     * @return ObjectLockMode::GOVERNANCE|ObjectLockMode::COMPLIANCE|null
+     * @return ObjectLockMode::*|null
      */
     public function getObjectLockMode(): ?string
     {
@@ -527,7 +527,7 @@ class CopyObjectRequest
     }
 
     /**
-     * @return RequestPayer::REQUESTER|null
+     * @return RequestPayer::*|null
      */
     public function getRequestPayer(): ?string
     {
@@ -560,7 +560,7 @@ class CopyObjectRequest
     }
 
     /**
-     * @return ServerSideEncryption::AES256|ServerSideEncryption::AWS_KMS|null
+     * @return ServerSideEncryption::*|null
      */
     public function getServerSideEncryption(): ?string
     {
@@ -568,7 +568,7 @@ class CopyObjectRequest
     }
 
     /**
-     * @return StorageClass::STANDARD|StorageClass::REDUCED_REDUNDANCY|StorageClass::STANDARD_IA|StorageClass::ONEZONE_IA|StorageClass::INTELLIGENT_TIERING|StorageClass::GLACIER|StorageClass::DEEP_ARCHIVE|null
+     * @return StorageClass::*|null
      */
     public function getStorageClass(): ?string
     {
@@ -581,7 +581,7 @@ class CopyObjectRequest
     }
 
     /**
-     * @return TaggingDirective::COPY|TaggingDirective::REPLACE|null
+     * @return TaggingDirective::*|null
      */
     public function getTaggingDirective(): ?string
     {
@@ -724,7 +724,7 @@ class CopyObjectRequest
     }
 
     /**
-     * @param ObjectCannedACL::PRIVATE|ObjectCannedACL::PUBLIC_READ|ObjectCannedACL::PUBLIC_READ_WRITE|ObjectCannedACL::AUTHENTICATED_READ|ObjectCannedACL::AWS_EXEC_READ|ObjectCannedACL::BUCKET_OWNER_READ|ObjectCannedACL::BUCKET_OWNER_FULL_CONTROL|null $value
+     * @param ObjectCannedACL::*|null $value
      */
     public function setACL(?string $value): self
     {
@@ -884,7 +884,7 @@ class CopyObjectRequest
     }
 
     /**
-     * @param MetadataDirective::COPY|MetadataDirective::REPLACE|null $value
+     * @param MetadataDirective::*|null $value
      */
     public function setMetadataDirective(?string $value): self
     {
@@ -894,7 +894,7 @@ class CopyObjectRequest
     }
 
     /**
-     * @param ObjectLockLegalHoldStatus::ON|ObjectLockLegalHoldStatus::OFF|null $value
+     * @param ObjectLockLegalHoldStatus::*|null $value
      */
     public function setObjectLockLegalHoldStatus(?string $value): self
     {
@@ -904,7 +904,7 @@ class CopyObjectRequest
     }
 
     /**
-     * @param ObjectLockMode::GOVERNANCE|ObjectLockMode::COMPLIANCE|null $value
+     * @param ObjectLockMode::*|null $value
      */
     public function setObjectLockMode(?string $value): self
     {
@@ -921,7 +921,7 @@ class CopyObjectRequest
     }
 
     /**
-     * @param RequestPayer::REQUESTER|null $value
+     * @param RequestPayer::*|null $value
      */
     public function setRequestPayer(?string $value): self
     {
@@ -966,7 +966,7 @@ class CopyObjectRequest
     }
 
     /**
-     * @param ServerSideEncryption::AES256|ServerSideEncryption::AWS_KMS|null $value
+     * @param ServerSideEncryption::*|null $value
      */
     public function setServerSideEncryption(?string $value): self
     {
@@ -976,7 +976,7 @@ class CopyObjectRequest
     }
 
     /**
-     * @param StorageClass::STANDARD|StorageClass::REDUCED_REDUNDANCY|StorageClass::STANDARD_IA|StorageClass::ONEZONE_IA|StorageClass::INTELLIGENT_TIERING|StorageClass::GLACIER|StorageClass::DEEP_ARCHIVE|null $value
+     * @param StorageClass::*|null $value
      */
     public function setStorageClass(?string $value): self
     {
@@ -993,7 +993,7 @@ class CopyObjectRequest
     }
 
     /**
-     * @param TaggingDirective::COPY|TaggingDirective::REPLACE|null $value
+     * @param TaggingDirective::*|null $value
      */
     public function setTaggingDirective(?string $value): self
     {
@@ -1012,8 +1012,8 @@ class CopyObjectRequest
     public function validate(): void
     {
         if (null !== $this->ACL) {
-            if (!isset(ObjectCannedACL::AVAILABLE_OBJECTCANNEDACL[$this->ACL])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ACL" when validating the "%s". The value "%s" is not a valid "ObjectCannedACL". Available values are %s.', __CLASS__, $this->ACL, implode(', ', array_keys(ObjectCannedACL::AVAILABLE_OBJECTCANNEDACL))));
+            if (!ObjectCannedACL::exists($this->ACL)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ACL" when validating the "%s". The value "%s" is not a valid "ObjectCannedACL".', __CLASS__, $this->ACL));
             }
         }
 
@@ -1030,44 +1030,44 @@ class CopyObjectRequest
         }
 
         if (null !== $this->MetadataDirective) {
-            if (!isset(MetadataDirective::AVAILABLE_METADATADIRECTIVE[$this->MetadataDirective])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "MetadataDirective" when validating the "%s". The value "%s" is not a valid "MetadataDirective". Available values are %s.', __CLASS__, $this->MetadataDirective, implode(', ', array_keys(MetadataDirective::AVAILABLE_METADATADIRECTIVE))));
+            if (!MetadataDirective::exists($this->MetadataDirective)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "MetadataDirective" when validating the "%s". The value "%s" is not a valid "MetadataDirective".', __CLASS__, $this->MetadataDirective));
             }
         }
 
         if (null !== $this->TaggingDirective) {
-            if (!isset(TaggingDirective::AVAILABLE_TAGGINGDIRECTIVE[$this->TaggingDirective])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "TaggingDirective" when validating the "%s". The value "%s" is not a valid "TaggingDirective". Available values are %s.', __CLASS__, $this->TaggingDirective, implode(', ', array_keys(TaggingDirective::AVAILABLE_TAGGINGDIRECTIVE))));
+            if (!TaggingDirective::exists($this->TaggingDirective)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "TaggingDirective" when validating the "%s". The value "%s" is not a valid "TaggingDirective".', __CLASS__, $this->TaggingDirective));
             }
         }
 
         if (null !== $this->ServerSideEncryption) {
-            if (!isset(ServerSideEncryption::AVAILABLE_SERVERSIDEENCRYPTION[$this->ServerSideEncryption])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ServerSideEncryption" when validating the "%s". The value "%s" is not a valid "ServerSideEncryption". Available values are %s.', __CLASS__, $this->ServerSideEncryption, implode(', ', array_keys(ServerSideEncryption::AVAILABLE_SERVERSIDEENCRYPTION))));
+            if (!ServerSideEncryption::exists($this->ServerSideEncryption)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ServerSideEncryption" when validating the "%s". The value "%s" is not a valid "ServerSideEncryption".', __CLASS__, $this->ServerSideEncryption));
             }
         }
 
         if (null !== $this->StorageClass) {
-            if (!isset(StorageClass::AVAILABLE_STORAGECLASS[$this->StorageClass])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "StorageClass" when validating the "%s". The value "%s" is not a valid "StorageClass". Available values are %s.', __CLASS__, $this->StorageClass, implode(', ', array_keys(StorageClass::AVAILABLE_STORAGECLASS))));
+            if (!StorageClass::exists($this->StorageClass)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "StorageClass" when validating the "%s". The value "%s" is not a valid "StorageClass".', __CLASS__, $this->StorageClass));
             }
         }
 
         if (null !== $this->RequestPayer) {
-            if (!isset(RequestPayer::AVAILABLE_REQUESTPAYER[$this->RequestPayer])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer". Available values are %s.', __CLASS__, $this->RequestPayer, implode(', ', array_keys(RequestPayer::AVAILABLE_REQUESTPAYER))));
+            if (!RequestPayer::exists($this->RequestPayer)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
             }
         }
 
         if (null !== $this->ObjectLockMode) {
-            if (!isset(ObjectLockMode::AVAILABLE_OBJECTLOCKMODE[$this->ObjectLockMode])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockMode" when validating the "%s". The value "%s" is not a valid "ObjectLockMode". Available values are %s.', __CLASS__, $this->ObjectLockMode, implode(', ', array_keys(ObjectLockMode::AVAILABLE_OBJECTLOCKMODE))));
+            if (!ObjectLockMode::exists($this->ObjectLockMode)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockMode" when validating the "%s". The value "%s" is not a valid "ObjectLockMode".', __CLASS__, $this->ObjectLockMode));
             }
         }
 
         if (null !== $this->ObjectLockLegalHoldStatus) {
-            if (!isset(ObjectLockLegalHoldStatus::AVAILABLE_OBJECTLOCKLEGALHOLDSTATUS[$this->ObjectLockLegalHoldStatus])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockLegalHoldStatus" when validating the "%s". The value "%s" is not a valid "ObjectLockLegalHoldStatus". Available values are %s.', __CLASS__, $this->ObjectLockLegalHoldStatus, implode(', ', array_keys(ObjectLockLegalHoldStatus::AVAILABLE_OBJECTLOCKLEGALHOLDSTATUS))));
+            if (!ObjectLockLegalHoldStatus::exists($this->ObjectLockLegalHoldStatus)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockLegalHoldStatus" when validating the "%s". The value "%s" is not a valid "ObjectLockLegalHoldStatus".', __CLASS__, $this->ObjectLockLegalHoldStatus));
             }
         }
     }

@@ -23,25 +23,31 @@ class Runtime
     public const PYTHON_3_7 = 'python3.7';
     public const PYTHON_3_8 = 'python3.8';
     public const RUBY_2_5 = 'ruby2.5';
-    public const AVAILABLE_RUNTIME = [
-        self::DOTNETCORE_1_0 => true,
-        self::DOTNETCORE_2_0 => true,
-        self::DOTNETCORE_2_1 => true,
-        self::GO_1_X => true,
-        self::JAVA_11 => true,
-        self::JAVA_8 => true,
-        self::NODEJS => true,
-        self::NODEJS_10_X => true,
-        self::NODEJS_12_X => true,
-        self::NODEJS_4_3 => true,
-        self::NODEJS_4_3_EDGE => true,
-        self::NODEJS_6_10 => true,
-        self::NODEJS_8_10 => true,
-        self::PROVIDED => true,
-        self::PYTHON_2_7 => true,
-        self::PYTHON_3_6 => true,
-        self::PYTHON_3_7 => true,
-        self::PYTHON_3_8 => true,
-        self::RUBY_2_5 => true,
-    ];
+
+    public static function exists(string $value): bool
+    {
+        $values = [
+            self::DOTNETCORE_1_0 => true,
+            self::DOTNETCORE_2_0 => true,
+            self::DOTNETCORE_2_1 => true,
+            self::GO_1_X => true,
+            self::JAVA_11 => true,
+            self::JAVA_8 => true,
+            self::NODEJS => true,
+            self::NODEJS_10_X => true,
+            self::NODEJS_12_X => true,
+            self::NODEJS_4_3 => true,
+            self::NODEJS_4_3_EDGE => true,
+            self::NODEJS_6_10 => true,
+            self::NODEJS_8_10 => true,
+            self::PROVIDED => true,
+            self::PYTHON_2_7 => true,
+            self::PYTHON_3_6 => true,
+            self::PYTHON_3_7 => true,
+            self::PYTHON_3_8 => true,
+            self::RUBY_2_5 => true,
+        ];
+
+        return isset($values[$value]);
+    }
 }

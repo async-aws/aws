@@ -10,7 +10,7 @@ class CreateBucketRequest
     /**
      * The canned ACL to apply to the bucket.
      *
-     * @var BucketCannedACL::PRIVATE|BucketCannedACL::PUBLIC_READ|BucketCannedACL::PUBLIC_READ_WRITE|BucketCannedACL::AUTHENTICATED_READ|null
+     * @var BucketCannedACL::*|null
      */
     private $ACL;
 
@@ -76,7 +76,7 @@ class CreateBucketRequest
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
      *
      * @param array{
-     *   ACL?: \AsyncAws\S3\Enum\BucketCannedACL::PRIVATE|\AsyncAws\S3\Enum\BucketCannedACL::PUBLIC_READ|\AsyncAws\S3\Enum\BucketCannedACL::PUBLIC_READ_WRITE|\AsyncAws\S3\Enum\BucketCannedACL::AUTHENTICATED_READ,
+     *   ACL?: \AsyncAws\S3\Enum\BucketCannedACL::*,
      *   Bucket?: string,
      *   CreateBucketConfiguration?: \AsyncAws\S3\Input\CreateBucketConfiguration|array,
      *   GrantFullControl?: string,
@@ -106,7 +106,7 @@ class CreateBucketRequest
     }
 
     /**
-     * @return BucketCannedACL::PRIVATE|BucketCannedACL::PUBLIC_READ|BucketCannedACL::PUBLIC_READ_WRITE|BucketCannedACL::AUTHENTICATED_READ|null
+     * @return BucketCannedACL::*|null
      */
     public function getACL(): ?string
     {
@@ -214,7 +214,7 @@ class CreateBucketRequest
     }
 
     /**
-     * @param BucketCannedACL::PRIVATE|BucketCannedACL::PUBLIC_READ|BucketCannedACL::PUBLIC_READ_WRITE|BucketCannedACL::AUTHENTICATED_READ|null $value
+     * @param BucketCannedACL::*|null $value
      */
     public function setACL(?string $value): self
     {
@@ -282,8 +282,8 @@ class CreateBucketRequest
     public function validate(): void
     {
         if (null !== $this->ACL) {
-            if (!isset(BucketCannedACL::AVAILABLE_BUCKETCANNEDACL[$this->ACL])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ACL" when validating the "%s". The value "%s" is not a valid "BucketCannedACL". Available values are %s.', __CLASS__, $this->ACL, implode(', ', array_keys(BucketCannedACL::AVAILABLE_BUCKETCANNEDACL))));
+            if (!BucketCannedACL::exists($this->ACL)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ACL" when validating the "%s". The value "%s" is not a valid "BucketCannedACL".', __CLASS__, $this->ACL));
             }
         }
 

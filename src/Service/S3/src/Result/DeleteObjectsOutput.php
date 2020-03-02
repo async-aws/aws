@@ -36,7 +36,7 @@ class DeleteObjectsOutput extends Result
     }
 
     /**
-     * @return RequestCharged::REQUESTER|null
+     * @return RequestCharged::*|null
      */
     public function getRequestCharged(): ?string
     {

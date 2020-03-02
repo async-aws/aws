@@ -42,7 +42,7 @@ class DeleteObjectRequest
     private $VersionId;
 
     /**
-     * @var RequestPayer::REQUESTER|null
+     * @var RequestPayer::*|null
      */
     private $RequestPayer;
 
@@ -61,7 +61,7 @@ class DeleteObjectRequest
      *   Key?: string,
      *   MFA?: string,
      *   VersionId?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::REQUESTER,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   BypassGovernanceRetention?: bool,
      * } $input
      */
@@ -101,7 +101,7 @@ class DeleteObjectRequest
     }
 
     /**
-     * @return RequestPayer::REQUESTER|null
+     * @return RequestPayer::*|null
      */
     public function getRequestPayer(): ?string
     {
@@ -182,7 +182,7 @@ class DeleteObjectRequest
     }
 
     /**
-     * @param RequestPayer::REQUESTER|null $value
+     * @param RequestPayer::*|null $value
      */
     public function setRequestPayer(?string $value): self
     {
@@ -209,8 +209,8 @@ class DeleteObjectRequest
         }
 
         if (null !== $this->RequestPayer) {
-            if (!isset(RequestPayer::AVAILABLE_REQUESTPAYER[$this->RequestPayer])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer". Available values are %s.', __CLASS__, $this->RequestPayer, implode(', ', array_keys(RequestPayer::AVAILABLE_REQUESTPAYER))));
+            if (!RequestPayer::exists($this->RequestPayer)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
             }
         }
     }

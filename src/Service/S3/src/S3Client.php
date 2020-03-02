@@ -33,7 +33,7 @@ class S3Client extends AbstractApi
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectCOPY.html
      *
      * @param array{
-     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::PRIVATE|\AsyncAws\S3\Enum\ObjectCannedACL::PUBLIC_READ|\AsyncAws\S3\Enum\ObjectCannedACL::PUBLIC_READ_WRITE|\AsyncAws\S3\Enum\ObjectCannedACL::AUTHENTICATED_READ|\AsyncAws\S3\Enum\ObjectCannedACL::AWS_EXEC_READ|\AsyncAws\S3\Enum\ObjectCannedACL::BUCKET_OWNER_READ|\AsyncAws\S3\Enum\ObjectCannedACL::BUCKET_OWNER_FULL_CONTROL,
+     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::*,
      *   Bucket: string,
      *   CacheControl?: string,
      *   ContentDisposition?: string,
@@ -52,10 +52,10 @@ class S3Client extends AbstractApi
      *   GrantWriteACP?: string,
      *   Key: string,
      *   Metadata?: string[],
-     *   MetadataDirective?: \AsyncAws\S3\Enum\MetadataDirective::COPY|\AsyncAws\S3\Enum\MetadataDirective::REPLACE,
-     *   TaggingDirective?: \AsyncAws\S3\Enum\TaggingDirective::COPY|\AsyncAws\S3\Enum\TaggingDirective::REPLACE,
-     *   ServerSideEncryption?: \AsyncAws\S3\Enum\ServerSideEncryption::AES256|\AsyncAws\S3\Enum\ServerSideEncryption::AWS_KMS,
-     *   StorageClass?: \AsyncAws\S3\Enum\StorageClass::STANDARD|\AsyncAws\S3\Enum\StorageClass::REDUCED_REDUNDANCY|\AsyncAws\S3\Enum\StorageClass::STANDARD_IA|\AsyncAws\S3\Enum\StorageClass::ONEZONE_IA|\AsyncAws\S3\Enum\StorageClass::INTELLIGENT_TIERING|\AsyncAws\S3\Enum\StorageClass::GLACIER|\AsyncAws\S3\Enum\StorageClass::DEEP_ARCHIVE,
+     *   MetadataDirective?: \AsyncAws\S3\Enum\MetadataDirective::*,
+     *   TaggingDirective?: \AsyncAws\S3\Enum\TaggingDirective::*,
+     *   ServerSideEncryption?: \AsyncAws\S3\Enum\ServerSideEncryption::*,
+     *   StorageClass?: \AsyncAws\S3\Enum\StorageClass::*,
      *   WebsiteRedirectLocation?: string,
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
@@ -65,11 +65,11 @@ class S3Client extends AbstractApi
      *   CopySourceSSECustomerAlgorithm?: string,
      *   CopySourceSSECustomerKey?: string,
      *   CopySourceSSECustomerKeyMD5?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::REQUESTER,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   Tagging?: string,
-     *   ObjectLockMode?: \AsyncAws\S3\Enum\ObjectLockMode::GOVERNANCE|\AsyncAws\S3\Enum\ObjectLockMode::COMPLIANCE,
+     *   ObjectLockMode?: \AsyncAws\S3\Enum\ObjectLockMode::*,
      *   ObjectLockRetainUntilDate?: \DateTimeInterface|string,
-     *   ObjectLockLegalHoldStatus?: \AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::ON|\AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::OFF,
+     *   ObjectLockLegalHoldStatus?: \AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::*,
      * }|CopyObjectRequest $input
      */
     public function copyObject($input): CopyObjectOutput
@@ -95,7 +95,7 @@ class S3Client extends AbstractApi
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
      *
      * @param array{
-     *   ACL?: \AsyncAws\S3\Enum\BucketCannedACL::PRIVATE|\AsyncAws\S3\Enum\BucketCannedACL::PUBLIC_READ|\AsyncAws\S3\Enum\BucketCannedACL::PUBLIC_READ_WRITE|\AsyncAws\S3\Enum\BucketCannedACL::AUTHENTICATED_READ,
+     *   ACL?: \AsyncAws\S3\Enum\BucketCannedACL::*,
      *   Bucket: string,
      *   CreateBucketConfiguration?: \AsyncAws\S3\Input\CreateBucketConfiguration|array,
      *   GrantFullControl?: string,
@@ -132,7 +132,7 @@ class S3Client extends AbstractApi
      *   Key: string,
      *   MFA?: string,
      *   VersionId?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::REQUESTER,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   BypassGovernanceRetention?: bool,
      * }|DeleteObjectRequest $input
      */
@@ -162,7 +162,7 @@ class S3Client extends AbstractApi
      *   Bucket: string,
      *   Delete: \AsyncAws\S3\Input\Delete|array,
      *   MFA?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::REQUESTER,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   BypassGovernanceRetention?: bool,
      * }|DeleteObjectsRequest $input
      */
@@ -205,7 +205,7 @@ class S3Client extends AbstractApi
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::REQUESTER,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   PartNumber?: int,
      * }|GetObjectRequest $input
      */
@@ -234,7 +234,7 @@ class S3Client extends AbstractApi
      *   Bucket: string,
      *   Key: string,
      *   VersionId?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::REQUESTER,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      * }|GetObjectAclRequest $input
      */
     public function getObjectAcl($input): GetObjectAclOutput
@@ -270,7 +270,7 @@ class S3Client extends AbstractApi
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::REQUESTER,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   PartNumber?: int,
      * }|HeadObjectRequest $input
      */
@@ -299,13 +299,13 @@ class S3Client extends AbstractApi
      * @param array{
      *   Bucket: string,
      *   Delimiter?: string,
-     *   EncodingType?: \AsyncAws\S3\Enum\EncodingType::URL,
+     *   EncodingType?: \AsyncAws\S3\Enum\EncodingType::*,
      *   MaxKeys?: int,
      *   Prefix?: string,
      *   ContinuationToken?: string,
      *   FetchOwner?: bool,
      *   StartAfter?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::REQUESTER,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      * }|ListObjectsV2Request $input
      */
     public function listObjectsV2($input): ListObjectsV2Output
@@ -329,7 +329,7 @@ class S3Client extends AbstractApi
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
      *
      * @param array{
-     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::PRIVATE|\AsyncAws\S3\Enum\ObjectCannedACL::PUBLIC_READ|\AsyncAws\S3\Enum\ObjectCannedACL::PUBLIC_READ_WRITE|\AsyncAws\S3\Enum\ObjectCannedACL::AUTHENTICATED_READ|\AsyncAws\S3\Enum\ObjectCannedACL::AWS_EXEC_READ|\AsyncAws\S3\Enum\ObjectCannedACL::BUCKET_OWNER_READ|\AsyncAws\S3\Enum\ObjectCannedACL::BUCKET_OWNER_FULL_CONTROL,
+     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::*,
      *   Body?: string|resource|callable|iterable,
      *   Bucket: string,
      *   CacheControl?: string,
@@ -346,19 +346,19 @@ class S3Client extends AbstractApi
      *   GrantWriteACP?: string,
      *   Key: string,
      *   Metadata?: string[],
-     *   ServerSideEncryption?: \AsyncAws\S3\Enum\ServerSideEncryption::AES256|\AsyncAws\S3\Enum\ServerSideEncryption::AWS_KMS,
-     *   StorageClass?: \AsyncAws\S3\Enum\StorageClass::STANDARD|\AsyncAws\S3\Enum\StorageClass::REDUCED_REDUNDANCY|\AsyncAws\S3\Enum\StorageClass::STANDARD_IA|\AsyncAws\S3\Enum\StorageClass::ONEZONE_IA|\AsyncAws\S3\Enum\StorageClass::INTELLIGENT_TIERING|\AsyncAws\S3\Enum\StorageClass::GLACIER|\AsyncAws\S3\Enum\StorageClass::DEEP_ARCHIVE,
+     *   ServerSideEncryption?: \AsyncAws\S3\Enum\ServerSideEncryption::*,
+     *   StorageClass?: \AsyncAws\S3\Enum\StorageClass::*,
      *   WebsiteRedirectLocation?: string,
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
      *   SSEKMSKeyId?: string,
      *   SSEKMSEncryptionContext?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::REQUESTER,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   Tagging?: string,
-     *   ObjectLockMode?: \AsyncAws\S3\Enum\ObjectLockMode::GOVERNANCE|\AsyncAws\S3\Enum\ObjectLockMode::COMPLIANCE,
+     *   ObjectLockMode?: \AsyncAws\S3\Enum\ObjectLockMode::*,
      *   ObjectLockRetainUntilDate?: \DateTimeInterface|string,
-     *   ObjectLockLegalHoldStatus?: \AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::ON|\AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::OFF,
+     *   ObjectLockLegalHoldStatus?: \AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::*,
      * }|PutObjectRequest $input
      */
     public function putObject($input): PutObjectOutput
@@ -383,7 +383,7 @@ class S3Client extends AbstractApi
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUTacl.html
      *
      * @param array{
-     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::PRIVATE|\AsyncAws\S3\Enum\ObjectCannedACL::PUBLIC_READ|\AsyncAws\S3\Enum\ObjectCannedACL::PUBLIC_READ_WRITE|\AsyncAws\S3\Enum\ObjectCannedACL::AUTHENTICATED_READ|\AsyncAws\S3\Enum\ObjectCannedACL::AWS_EXEC_READ|\AsyncAws\S3\Enum\ObjectCannedACL::BUCKET_OWNER_READ|\AsyncAws\S3\Enum\ObjectCannedACL::BUCKET_OWNER_FULL_CONTROL,
+     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::*,
      *   AccessControlPolicy?: \AsyncAws\S3\Input\AccessControlPolicy|array,
      *   Bucket: string,
      *   ContentMD5?: string,
@@ -393,7 +393,7 @@ class S3Client extends AbstractApi
      *   GrantWrite?: string,
      *   GrantWriteACP?: string,
      *   Key: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::REQUESTER,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   VersionId?: string,
      * }|PutObjectAclRequest $input
      */

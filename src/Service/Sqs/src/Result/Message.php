@@ -20,13 +20,13 @@ class Message
 
     /**
      * @param array{
-     *   MessageId: ?string,
-     *   ReceiptHandle: ?string,
-     *   MD5OfBody: ?string,
-     *   Body: ?string,
-     *   Attributes: ?string[],
-     *   MD5OfMessageAttributes: ?string,
-     *   MessageAttributes: ?\AsyncAws\Sqs\Result\MessageAttributeValue[],
+     *   MessageId: null|string,
+     *   ReceiptHandle: null|string,
+     *   MD5OfBody: null|string,
+     *   Body: null|string,
+     *   Attributes: null|string[],
+     *   MD5OfMessageAttributes: null|string,
+     *   MessageAttributes: null|\AsyncAws\Sqs\Result\MessageAttributeValue[],
      * } $input
      */
     public function __construct(array $input)

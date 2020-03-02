@@ -9,7 +9,6 @@ use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use Nette\PhpGenerator\ClassType;
-use Nette\PhpGenerator\Literal;
 use Nette\PhpGenerator\PhpNamespace;
 
 /**
@@ -61,13 +60,22 @@ class EnumGenerator
             $consts[self::canonicalizeName($value)] = $value;
         }
         \ksort($consts);
-        $availableCode = '';
+        $availableConsts = [];
         foreach ($consts as $constName => $constValue) {
             $class->addConstant($constName, $constValue)->setVisibility(ClassType::VISIBILITY_PUBLIC);
-            $availableCode .= 'self::' . $constName . ' => true,' . "\n";
+            $availableConsts[] = 'self::' . $constName . ' => true';
         }
-        $class->addConstant('AVAILABLE_' . \strtoupper($className->getName()), null)->setVisibility(ClassType::VISIBILITY_PUBLIC)
-        ->setValue(new Literal("[\n$availableCode]"));
+        $class->addMethod('exists')
+            ->setStatic(true)
+            ->setReturnType('bool')
+            ->setBody('
+                $values = [
+                    ' . implode(",\n", $availableConsts) . '
+                ];
+
+                return isset($values[$value]);
+            ')
+            ->addParameter('value')->setType('string');
 
         $this->fileWriter->write($namespace);
 

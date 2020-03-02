@@ -6,8 +6,14 @@ class ObjectLockLegalHoldStatus
 {
     public const OFF = 'OFF';
     public const ON = 'ON';
-    public const AVAILABLE_OBJECTLOCKLEGALHOLDSTATUS = [
-        self::OFF => true,
-        self::ON => true,
-    ];
+
+    public static function exists(string $value): bool
+    {
+        $values = [
+            self::OFF => true,
+            self::ON => true,
+        ];
+
+        return isset($values[$value]);
+    }
 }

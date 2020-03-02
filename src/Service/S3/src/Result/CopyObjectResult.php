@@ -10,8 +10,8 @@ class CopyObjectResult
 
     /**
      * @param array{
-     *   ETag: ?string,
-     *   LastModified: ?\DateTimeInterface,
+     *   ETag: null|string,
+     *   LastModified: null|\DateTimeInterface,
      * } $input
      */
     public function __construct(array $input)

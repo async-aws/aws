@@ -5,7 +5,13 @@ namespace AsyncAws\S3\Enum;
 class RequestPayer
 {
     public const REQUESTER = 'requester';
-    public const AVAILABLE_REQUESTPAYER = [
-        self::REQUESTER => true,
-    ];
+
+    public static function exists(string $value): bool
+    {
+        $values = [
+            self::REQUESTER => true,
+        ];
+
+        return isset($values[$value]);
+    }
 }

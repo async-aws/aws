@@ -12,8 +12,8 @@ class StackDriftInformation
 
     /**
      * @param array{
-     *   StackDriftStatus: \AsyncAws\CloudFormation\Enum\StackDriftStatus::DRIFTED|\AsyncAws\CloudFormation\Enum\StackDriftStatus::IN_SYNC|\AsyncAws\CloudFormation\Enum\StackDriftStatus::UNKNOWN|\AsyncAws\CloudFormation\Enum\StackDriftStatus::NOT_CHECKED,
-     *   LastCheckTimestamp: ?\DateTimeInterface,
+     *   StackDriftStatus: \AsyncAws\CloudFormation\Enum\StackDriftStatus::*,
+     *   LastCheckTimestamp: null|\DateTimeInterface,
      * } $input
      */
     public function __construct(array $input)
@@ -39,7 +39,7 @@ class StackDriftInformation
     /**
      * Status of the stack's actual configuration compared to its expected template configuration.
      *
-     * @return StackDriftStatus::DRIFTED|StackDriftStatus::IN_SYNC|StackDriftStatus::UNKNOWN|StackDriftStatus::NOT_CHECKED
+     * @return StackDriftStatus::*
      */
     public function getStackDriftStatus(): string
     {

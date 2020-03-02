@@ -37,7 +37,7 @@ class PublishLayerVersionRequest
      *
      * @see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
      *
-     * @var string[]
+     * @var list<Runtime::*>
      */
     private $CompatibleRuntimes;
 
@@ -53,7 +53,7 @@ class PublishLayerVersionRequest
      *   LayerName?: string,
      *   Description?: string,
      *   Content?: \AsyncAws\Lambda\Input\LayerVersionContentInput|array,
-     *   CompatibleRuntimes?: string[],
+     *   CompatibleRuntimes?: list<\AsyncAws\Lambda\Enum\Runtime::*>,
      *   LicenseInfo?: string,
      * } $input
      */
@@ -72,7 +72,7 @@ class PublishLayerVersionRequest
     }
 
     /**
-     * @return string[]
+     * @return list<Runtime::*>
      */
     public function getCompatibleRuntimes(): array
     {
@@ -164,7 +164,7 @@ class PublishLayerVersionRequest
     }
 
     /**
-     * @param string[] $value
+     * @param list<Runtime::*> $value
      */
     public function setCompatibleRuntimes(array $value): self
     {
@@ -213,8 +213,8 @@ class PublishLayerVersionRequest
         $this->Content->validate();
 
         foreach ($this->CompatibleRuntimes as $item) {
-            if (!isset(Runtime::AVAILABLE_RUNTIME[$item])) {
-                throw new InvalidArgument(sprintf('Invalid parameter "CompatibleRuntimes" when validating the "%s". The value "%s" is not a valid "Runtime". Available values are %s.', __CLASS__, $item, implode(', ', array_keys(Runtime::AVAILABLE_RUNTIME))));
+            if (!Runtime::exists($item)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "CompatibleRuntimes" when validating the "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $item));
             }
         }
     }

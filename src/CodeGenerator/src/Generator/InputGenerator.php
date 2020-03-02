@@ -152,7 +152,8 @@ class InputGenerator
             if ($member->isRequired()) {
                 $property->addComment('@required');
             }
-            $property->addComment('@var ' . $parameterType . ($nullable ? '|null' : ''));
+            // the "\n" helps php-cs-fixer to with potential wildcard in parameterType
+            $property->addComment("\n@var " . $parameterType . ($nullable ? '|null' : ''));
 
             $getter = $class->addMethod('get' . $member->getName())
                 ->setReturnType($returnType)
@@ -228,12 +229,11 @@ class InputGenerator
                     $enumClassName = $this->enumGenerator->generate($listMemberShape);
                     $namespace->addUse($enumClassName->getFqdn());
 
-                    $itemValidate[] = \strtr('if (!isset(ENUMCLASS::AVAILABLE_ENUMCONST[$item])) {
-                        throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" when validating the "%s". The value "%s" is not a valid "ENUMCLASS". Available values are %s.\', __CLASS__, $item, implode(\', \', array_keys(ENUMCLASS::AVAILABLE_ENUMCONST))));
+                    $itemValidate[] = \strtr('if (!ENUMCLASS::exists($item)) {
+                        throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" when validating the "%s". The value "%s" is not a valid "ENUMCLASS".\', __CLASS__, $item));
                     }', [
                         'ENUMCLASS' => $enumClassName->getName(),
                         'PROPERTY' => $member->getName(),
-                        'ENUMCONST' => \strtoupper($enumClassName->getName()),
 
                     ]);
                 }
@@ -257,13 +257,11 @@ class InputGenerator
                     $enumClassName = $this->enumGenerator->generate($mapValueShape);
                     $namespace->addUse($enumClassName->getFqdn());
 
-                    $itemValidate[] = \strtr('if (!isset(ENUMCLASS::AVAILABLE_ENUMCONST[$item])) {
-                        throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" when validating the "%s". The value "%s" is not a valid "ENUMCLASS". Available values are %s.\', __CLASS__, $item, implode(\', \', array_keys(ENUMCLASS::AVAILABLE_ENUMCONST))));
+                    $itemValidate[] = \strtr('if (!ENUMCLASS::exists($item)) {
+                        throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" when validating the "%s". The value "%s" is not a valid "ENUMCLASS".\', __CLASS__, $item));
                     }', [
                         'ENUMCLASS' => $enumClassName->getName(),
                         'PROPERTY' => $member->getName(),
-                        'ENUMCONST' => \strtoupper($enumClassName->getName()),
-
                     ]);
                 }
                 if (!empty($itemValidate)) {
@@ -280,12 +278,11 @@ class InputGenerator
                     $enumClassName = $this->enumGenerator->generate($memberShape);
                     $namespace->addUse($enumClassName->getFqdn());
 
-                    $memberValidate[] = \strtr('if (!isset(ENUMCLASS::AVAILABLE_ENUMCONST[$this->PROPERTY])) {
-                        throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" when validating the "%s". The value "%s" is not a valid "ENUMCLASS". Available values are %s.\', __CLASS__, $this->PROPERTY, implode(\', \', array_keys(ENUMCLASS::AVAILABLE_ENUMCONST))));
+                    $memberValidate[] = \strtr('if (!ENUMCLASS::exists($this->PROPERTY)) {
+                        throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" when validating the "%s". The value "%s" is not a valid "ENUMCLASS".\', __CLASS__, $this->PROPERTY));
                     }', [
                         'ENUMCLASS' => $enumClassName->getName(),
                         'PROPERTY' => $member->getName(),
-                        'ENUMCONST' => \strtoupper($enumClassName->getName()),
                     ]);
                 }
             }

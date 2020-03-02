@@ -14,10 +14,10 @@ class Parameter
 
     /**
      * @param array{
-     *   ParameterKey: ?string,
-     *   ParameterValue: ?string,
-     *   UsePreviousValue: ?bool,
-     *   ResolvedValue: ?string,
+     *   ParameterKey: null|string,
+     *   ParameterValue: null|string,
+     *   UsePreviousValue: null|bool,
+     *   ResolvedValue: null|string,
      * } $input
      */
     public function __construct(array $input)

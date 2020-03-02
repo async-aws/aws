@@ -33,7 +33,7 @@ class Grantee
      *
      * @required
      *
-     * @var Type::CANONICAL_USER|Type::AMAZON_CUSTOMER_BY_EMAIL|Type::GROUP|null
+     * @var Type::*|null
      */
     private $Type;
 
@@ -49,7 +49,7 @@ class Grantee
      *   DisplayName?: string,
      *   EmailAddress?: string,
      *   ID?: string,
-     *   Type: \AsyncAws\S3\Enum\Type::CANONICAL_USER|\AsyncAws\S3\Enum\Type::AMAZON_CUSTOMER_BY_EMAIL|\AsyncAws\S3\Enum\Type::GROUP,
+     *   Type: \AsyncAws\S3\Enum\Type::*,
      *   URI?: string,
      * } $input
      */
@@ -83,7 +83,7 @@ class Grantee
     }
 
     /**
-     * @return Type::CANONICAL_USER|Type::AMAZON_CUSTOMER_BY_EMAIL|Type::GROUP|null
+     * @return Type::*|null
      */
     public function getType(): ?string
     {
@@ -117,7 +117,7 @@ class Grantee
     }
 
     /**
-     * @param Type::CANONICAL_USER|Type::AMAZON_CUSTOMER_BY_EMAIL|Type::GROUP|null $value
+     * @param Type::*|null $value
      */
     public function setType(?string $value): self
     {
@@ -138,8 +138,8 @@ class Grantee
         if (null === $this->Type) {
             throw new InvalidArgument(sprintf('Missing parameter "Type" when validating the "%s". The value cannot be null.', __CLASS__));
         }
-        if (!isset(Type::AVAILABLE_TYPE[$this->Type])) {
-            throw new InvalidArgument(sprintf('Invalid parameter "Type" when validating the "%s". The value "%s" is not a valid "Type". Available values are %s.', __CLASS__, $this->Type, implode(', ', array_keys(Type::AVAILABLE_TYPE))));
+        if (!Type::exists($this->Type)) {
+            throw new InvalidArgument(sprintf('Invalid parameter "Type" when validating the "%s". The value "%s" is not a valid "Type".', __CLASS__, $this->Type));
         }
     }
 }

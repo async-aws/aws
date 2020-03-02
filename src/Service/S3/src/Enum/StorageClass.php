@@ -11,13 +11,19 @@ class StorageClass
     public const REDUCED_REDUNDANCY = 'REDUCED_REDUNDANCY';
     public const STANDARD = 'STANDARD';
     public const STANDARD_IA = 'STANDARD_IA';
-    public const AVAILABLE_STORAGECLASS = [
-        self::DEEP_ARCHIVE => true,
-        self::GLACIER => true,
-        self::INTELLIGENT_TIERING => true,
-        self::ONEZONE_IA => true,
-        self::REDUCED_REDUNDANCY => true,
-        self::STANDARD => true,
-        self::STANDARD_IA => true,
-    ];
+
+    public static function exists(string $value): bool
+    {
+        $values = [
+            self::DEEP_ARCHIVE => true,
+            self::GLACIER => true,
+            self::INTELLIGENT_TIERING => true,
+            self::ONEZONE_IA => true,
+            self::REDUCED_REDUNDANCY => true,
+            self::STANDARD => true,
+            self::STANDARD_IA => true,
+        ];
+
+        return isset($values[$value]);
+    }
 }

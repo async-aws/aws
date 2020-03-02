@@ -51,7 +51,7 @@ class PutObjectOutput extends Result
     }
 
     /**
-     * @return RequestCharged::REQUESTER|null
+     * @return RequestCharged::*|null
      */
     public function getRequestCharged(): ?string
     {
@@ -109,7 +109,7 @@ class PutObjectOutput extends Result
      * encryption key in your PUT request, the response includes this header. It confirms the encryption algorithm that
      * Amazon S3 used to encrypt the object.
      *
-     * @return ServerSideEncryption::AES256|ServerSideEncryption::AWS_KMS|null
+     * @return ServerSideEncryption::*|null
      */
     public function getServerSideEncryption(): ?string
     {
