@@ -1,0 +1,50 @@
+name: Watch for changes
+
+on:
+  schedule:
+  - cron: '0 6 * * *'
+
+jobs:
+  generated-code:
+    name: Assert Generated Code is uptodate with last version
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up PHP
+      uses: shivammathur/setup-php@1.8.1
+      with:
+        php-version: 7.4
+        coverage: none
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Download
+      run: |
+        composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
+
+    - name: Fetch last version
+      run: |
+        last=$(curl -s https://packagist.org/packages/aws/aws-sdk-php.json|jq '[.package.versions[]|select(.version|test("^\\d+\\.\\d+\\.\\d+$"))|.version]|max_by(.|[splits("[.]")]|map(tonumber))')
+        echo "Last AWS version is $last"
+
+        br=$(mktemp)
+        jq ".variables[\"\${LATEST}\"]=$last" manifest.json > "$br"
+        mv "$br" manifest.json
+
+    - name: Regenerate
+      run: |
+        ./generate --all
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: update generated code
+        title: Update generated code
+        body: |
+          The AWS API contract changed.
+
+          This PR contains the a new defintion for Services.
+        branch: bot-code-update
+
