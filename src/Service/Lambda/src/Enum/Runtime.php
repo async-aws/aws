@@ -23,6 +23,7 @@ class Runtime
     public const PYTHON_3_7 = 'python3.7';
     public const PYTHON_3_8 = 'python3.8';
     public const RUBY_2_5 = 'ruby2.5';
+    public const RUBY_2_7 = 'ruby2.7';
 
     public static function exists(string $value): bool
     {
@@ -46,6 +47,7 @@ class Runtime
             self::PYTHON_3_7 => true,
             self::PYTHON_3_8 => true,
             self::RUBY_2_5 => true,
+            self::RUBY_2_7 => true,
         ];
 
         return isset($values[$value]);
