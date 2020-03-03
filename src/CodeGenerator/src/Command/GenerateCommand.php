@@ -113,15 +113,10 @@ class GenerateCommand extends Command
                 $progressOperation->advance();
                 $progressOperation->display();
 
-                $operationConfig = $this->getOperationConfig($manifest, $serviceName, $operationName);
                 if (null !== $operation = $definition->getOperation($operationName)) {
-                    if ($operationConfig['generate-method']) {
-                        $serviceGenerator->operation()->generate($operation);
-                    }
+                    $serviceGenerator->operation()->generate($operation);
                 } elseif (null !== $waiter = $definition->getWaiter($operationName)) {
-                    if ($operationConfig['generate-method']) {
-                        $serviceGenerator->waiter()->generate($waiter);
-                    }
+                    $serviceGenerator->waiter()->generate($waiter);
                 } else {
                     $io->error(\sprintf('Could not find service or waiter named "%s".', $operationName));
 
@@ -129,11 +124,11 @@ class GenerateCommand extends Command
                 }
 
                 // Update manifest file
-                if (!isset($manifest['services'][$serviceName]['methods'][$operationName])) {
-                    $manifest['services'][$serviceName]['methods'][$operationName] = [];
+                if (!\in_array($operationName, $manifest['services'][$serviceName]['methods'])) {
+                    $manifest['services'][$serviceName]['methods'][] = $operationName;
+                    sort($manifest['services'][$serviceName]['methods']);
                 }
 
-                $this->dumpManifest($manifest);
                 ++$operationCounter;
             }
 
@@ -145,6 +140,8 @@ class GenerateCommand extends Command
 
             $progressOperation->finish();
         }
+
+        $this->dumpManifest($manifest);
 
         if ($drawProgressService) {
             $progressService->finish();
@@ -206,7 +203,7 @@ class GenerateCommand extends Command
                 return 1;
             }
 
-            if (!isset($manifest['methods'][$inputOperationName])) {
+            if (!\in_array($inputOperationName, $manifest['methods'])) {
                 $io->warning(\sprintf('Operation named "%s" has never been generated.', $inputOperationName));
                 if (!$io->confirm('Do you want adding it?', true)) {
                     return 1;
@@ -216,7 +213,7 @@ class GenerateCommand extends Command
             return [$inputOperationName];
         }
 
-        $operations = array_keys($manifest['methods']);
+        $operations = $manifest['methods'];
         if ($returnAll) {
             return $operations;
         }
@@ -229,7 +226,7 @@ class GenerateCommand extends Command
             return $operations;
         }
         if ($operationName === $newOperation) {
-            $choices = \array_values(array_diff(\array_keys($definition['operations'] + $waiter['waiters']), \array_keys($manifest['methods'])));
+            $choices = \array_values(array_diff(\array_keys($definition['operations'] + $waiter['waiters']), $manifest['methods']));
             $question = new ChoiceQuestion('Select the operation(s) to generate', $choices);
             $question->setMultiselect(true);
 
@@ -237,18 +234,6 @@ class GenerateCommand extends Command
         }
 
         return [$operationName];
-    }
-
-    private function getOperationConfig(array $manifest, string $service, string $operationName): array
-    {
-        $default = [
-            'generate-method' => true,
-        ];
-
-        return array_merge(
-            $default,
-            $manifest['services'][$service]['methods'][$operationName] ?? []
-        );
     }
 
     private function fixCs(ClassName $clientClass, SymfonyStyle $io): void
@@ -339,7 +324,9 @@ class GenerateCommand extends Command
             return $this->manifest;
         }
 
-        return $this->manifest = \json_decode(\file_get_contents($this->manifestFile), true);
+        $this->manifest = \json_decode(\file_get_contents($this->manifestFile), true);
+
+        return $this->manifest;
     }
 
     private function dumpManifest(array $manifest): void
