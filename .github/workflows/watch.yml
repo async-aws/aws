@@ -16,8 +16,14 @@ jobs:
         php-version: 7.4
         coverage: none
 
-    - name: Checkout code
-      uses: actions/checkout@v2
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.2.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Checkout via SSH
+      run: |
+        git clone --branch master git@github.com:${{ github.repository }}.git .
 
     - name: Download
       run: |
@@ -47,4 +53,3 @@ jobs:
 
           This PR contains the a new defintion for Services.
         branch: bot-code-update
-

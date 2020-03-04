@@ -1,10 +1,7 @@
 name: Checks
 
-on:
-  push:
-    branches:
-      - master
-  pull_request:
+# Must be on both "push" and "pull_request" to be triggered by PR created by BOT
+on: [push, pull_request]
 
 jobs:
   composer-normalize:
