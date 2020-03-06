@@ -76,6 +76,11 @@ abstract class AbstractApi
         ]));
     }
 
+    final public function getConfiguration(): Configuration
+    {
+        return $this->configuration;
+    }
+
     /**
      * @param string[]|string[][]                    $headers headers names provided as keys or as part of values
      * @param string|resource|callable|iterable|null $body
