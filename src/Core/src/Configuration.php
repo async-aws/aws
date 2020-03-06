@@ -83,8 +83,16 @@ class Configuration
             }
         }
 
+        foreach (self::DEFAULT_OPTIONS as $option => $defaultValue) {
+            if (isset($options[$option])) {
+                continue;
+            }
+
+            $options[$option] = $defaultValue;
+        }
+
         $configuration = new Configuration();
-        $configuration->data = \array_merge(self::DEFAULT_OPTIONS, $options);
+        $configuration->data = $options;
 
         return $configuration;
     }
