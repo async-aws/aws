@@ -1,5 +1,15 @@
 # Change Log
 
+## 0.3.1
+
+### Added
+
+- `AbstractApi::getConfiguration()`
+
+### Fixed
+
+- Make sure `Configuration::create(['foo'=>null])` is using the default value of "foo".
+
 ## 0.3.0
 
 ### Added
