@@ -44,11 +44,9 @@ jobs:
 
     - name: Check if anything changed
       run: |
-        if [[ $(git diff --numstat | wc -l) -ge 1 ]]; then
-          exit 0;
-        else
+        if [[ $(git diff --numstat | wc -l) -eq 1 ]]; then
           echo "No significant changes."
-          exit 1;
+          git reset --hard
         fi
 
     - name: Create Pull Request
