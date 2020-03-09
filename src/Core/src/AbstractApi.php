@@ -23,11 +23,12 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * Base class most APIs are inheriting.
+ * Base class all APIs are inheriting.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ * @author Jérémy Derussé <jeremy@derusse.com>
  */
-abstract class AbstractApi
+abstract class AbstractApi implements ApiInterface
 {
     /**
      * @var HttpClientInterface

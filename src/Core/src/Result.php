@@ -17,8 +17,10 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 /**
  * The result promise is always returned from every API call. Remember to call `resolve()` to
  * make sure the request is actually sent.
+ *
+ * @author Jérémy Derussé <jeremy@derusse.com>
  */
-class Result
+class Result implements ResultInterface
 {
     /**
      * @var AbstractApi|null
@@ -74,14 +76,7 @@ class Result
     }
 
     /**
-     * Make sure the actual request is executed.
-     *
-     * @param float|null $timeout Duration in seconds before aborting. When null wait until the end of execution.
-     *
-     * @return bool whether the request is executed or not
-     *
-     * @throws NetworkException
-     * @throws HttpException
+     * {@inheritdoc}
      */
     final public function resolve(?float $timeout = null): bool
     {
@@ -132,13 +127,7 @@ class Result
     }
 
     /**
-     * Returns info on the current request.
-     *
-     * @return array{
-     *                resolved: bool,
-     *                response?: ?ResponseInterface,
-     *                status?: int
-     *                }
+     * {@inheritdoc}
      */
     final public function info(): array
     {
@@ -155,6 +144,9 @@ class Result
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     final public function cancel(): void
     {
         if (null === $this->response) {
