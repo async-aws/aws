@@ -1,5 +1,15 @@
 # Change Log
 
+## 0.3.3
+
+### Added
+
+- Added a `ResultMockFactory` to helps creating tests
+
+### Fixed
+
+- Http method is replaced by PUT in REST calls
+
 ## 0.3.2
 
 ### Fixed
