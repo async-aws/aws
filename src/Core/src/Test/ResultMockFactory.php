@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core\Test;
 
+use AsyncAws\Core\Result;
+
 /**
  * An easy way to create Result objects for your tests.
  *
@@ -24,6 +26,11 @@ class ResultMockFactory
      */
     public static function create(string $class, array $data)
     {
+        $parent = get_parent_class($class);
+        if (false === $parent || $parent !== Result::class) {
+            throw new \LogicException(sprintf('The "%s::%s" can only be used for classes that extend "%s"', __CLASS__, __METHOD__, Result::class));
+        }
+
         $rereflectionClass = new \ReflectionClass($class);
         $object = $rereflectionClass->newInstanceWithoutConstructor();
 
