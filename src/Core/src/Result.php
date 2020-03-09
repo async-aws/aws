@@ -37,7 +37,7 @@ class Result implements ResultInterface
     private $response;
 
     /**
-     * @var self[]
+     * @var ResultInterface[]
      */
     private $prefetchResults = [];
 
@@ -155,12 +155,12 @@ class Result implements ResultInterface
         $this->response = null;
     }
 
-    final protected function registerPrefetch(self $result): void
+    final protected function registerPrefetch(ResultInterface $result): void
     {
         $this->prefetchResults[spl_object_id($result)] = $result;
     }
 
-    final protected function unregisterPrefetch(self $result): void
+    final protected function unregisterPrefetch(ResultInterface $result): void
     {
         unset($this->prefetchResults[spl_object_id($result)]);
     }
