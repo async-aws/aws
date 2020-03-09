@@ -85,16 +85,6 @@ abstract class AbstractApi implements ApiInterface
         return $this->configuration;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    final public function request(string $method, $body = '', $headers = [], ?string $endpoint = null): ResultInterface
-    {
-        $response = $this->getResponse($method, $body, $headers, $endpoint);
-
-        return new Result($response, $this->httpClient);
-    }
-
     abstract protected function getServiceCode(): string;
 
     abstract protected function getSignatureVersion(): string;
