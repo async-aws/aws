@@ -59,10 +59,12 @@ class ResultMockFactory
             }
 
             $getter = $rereflectionClass->getMethod('get' . $property->getName());
+            /** @psalm-suppress PossiblyNullReference */
             if (!$getter->hasReturnType() || $getter->getReturnType()->allowsNull()) {
                 continue;
             }
 
+            /** @psalm-suppress PossiblyNullReference */
             switch ($getter->getReturnType()->getName()) {
                 case 'int':
                     $propertyValue = 0;

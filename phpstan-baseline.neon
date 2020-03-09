@@ -6,14 +6,17 @@ parameters:
 			path: src/CodeGenerator/src/Command/GenerateCommand.php
 
 		-
+			message: "#^Method AsyncAws\\\\Core\\\\Test\\\\ResultMockFactory\\:\\:create\\(\\) should return T but returns object\\.$#"
+			count: 1
+			path: src/Core/src/Test/ResultMockFactory.php
+
+		-
+			message: "#^Call to an undefined method ReflectionType\\:\\:getName\\(\\)\\.$#"
+			count: 1
+			path: src/Core/src/Test/ResultMockFactory.php
+
+		-
 			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\:\\:scalarNode\\(\\)\\.$#"
 			count: 1
 			path: src/Integration/Symfony/Bundle/src/DependencyInjection/Configuration.php
 
-		-   "#^PHPDoc tag @param has invalid value#"
-		-   "#^PHPDoc tag @return with type AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^ ]+ is incompatible with native type string(\\|null)?\\.$#"
-		-   "#^Method AsyncAws\\\\[^ ]+ should return string\\|null but returns AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^\\.]+\\.$#"
-		-   "#^Property AsyncAws\\\\[^ ]+ \\(AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^\\)]+\\) does not accept string\\|null\\.$#"
-		-   "#^Parameter \\#3 ...\\$args of function sprintf expects bool\\|float\\|int\\|string\\|null, AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^ ]+ given\\.$#"
-		-   "#^Parameter \\#1 \\$value of static method AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^:]+::exists\\(\\) expects string, AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^ ]+ given\\.$#"
-		-   "#^PHPDoc tag @(var|return) has invalid value \\(list<[^:]+::\\*>\\): Unexpected token \"::\", expected '>' at offset \\d+.$#"

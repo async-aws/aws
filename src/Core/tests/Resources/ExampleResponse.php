@@ -9,9 +9,13 @@ use AsyncAws\Core\Result;
 class ExampleResponse extends Result
 {
     private $int;
+
     private $float;
+
     private $bool;
+
     private $array;
+
     private $string;
 
     public function getInt(): int

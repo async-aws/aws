@@ -6,7 +6,6 @@ namespace AsyncAws\Core\Tests\Unit\Test;
 
 use AsyncAws\Core\Sts\Result\AssumedRoleUser;
 use AsyncAws\Core\Sts\Result\AssumeRoleResponse;
-use AsyncAws\Core\Sts\StsClient;
 use AsyncAws\Core\Test\ResultMockFactory;
 use AsyncAws\Core\Tests\Resources\ExampleResponse;
 use PHPUnit\Framework\TestCase;
@@ -17,12 +16,12 @@ class ResultMockFactoryTest extends TestCase
     {
         /** @var AssumeRoleResponse $result */
         $result = ResultMockFactory::create(AssumeRoleResponse::class, [
-            'PackedPolicySize'=>342,
+            'PackedPolicySize' => 342,
         ]);
 
-        $this->assertInstanceOf(AssumeRoleResponse::class, $result);
-        $this->assertNull($result->getAssumedRoleUser());
-        $this->assertEquals(342, $result->getPackedPolicySize());
+        self::assertInstanceOf(AssumeRoleResponse::class, $result);
+        self::assertNull($result->getAssumedRoleUser());
+        self::assertEquals(342, $result->getPackedPolicySize());
     }
 
     public function testCreateAndFillEmptyParams()
@@ -30,18 +29,18 @@ class ResultMockFactoryTest extends TestCase
         /** @var ExampleResponse $result */
         $result = ResultMockFactory::create(ExampleResponse::class);
 
-        $this->assertEquals(0, $result->getInt());
-        $this->assertEquals([], $result->getArray());
-        $this->assertEquals(false, $result->getBool());
-        $this->assertEquals(0.0, $result->getFloat());
-        $this->assertEquals('', $result->getString());
+        self::assertEquals(0, $result->getInt());
+        self::assertEquals([], $result->getArray());
+        self::assertEquals(false, $result->getBool());
+        self::assertEquals(0.0, $result->getFloat());
+        self::assertEquals('', $result->getString());
     }
 
     public function testCreateWithInvalidParameters()
     {
         $this->expectException(\ReflectionException::class);
         ResultMockFactory::create(AssumeRoleResponse::class, [
-            'Foobar'=>'arn123',
+            'Foobar' => 'arn123',
         ]);
     }
 
@@ -49,8 +48,8 @@ class ResultMockFactoryTest extends TestCase
     {
         $this->expectException(\LogicException::class);
         ResultMockFactory::create(AssumedRoleUser::class, [
-            'Arn'=>'arn123',
-            'AssumedRoleId'=>'foo123'
+            'Arn' => 'arn123',
+            'AssumedRoleId' => 'foo123',
         ]);
     }
 }
