@@ -22,12 +22,13 @@ class ResultMockFactory
      *
      * @template T
      * @psalm-param class-string<T> $class
+     *
      * @return T
      */
-    public static function create(string $class, array $data)
+    public static function create(string $class, array $data = [])
     {
         $parent = get_parent_class($class);
-        if (false === $parent || $parent !== Result::class) {
+        if (false === $parent || Result::class !== $parent) {
             throw new \LogicException(sprintf('The "%s::%s" can only be used for classes that extend "%s"', __CLASS__, __METHOD__, Result::class));
         }
 
@@ -40,6 +41,59 @@ class ResultMockFactory
             $property->setValue($object, $propertyValue);
         }
 
+        self::addUndefinedProperties($rereflectionClass, $object, $data);
+
         return $object;
+    }
+
+    /**
+     * Try to add some values to the properties not defined in $data.
+     *
+     * @throws \ReflectionException
+     */
+    private static function addUndefinedProperties(\ReflectionClass $rereflectionClass, $object, array $data): void
+    {
+        foreach ($rereflectionClass->getProperties(\ReflectionProperty::IS_PRIVATE) as $property) {
+            if (\array_key_exists($property->getName(), $data)) {
+                continue;
+            }
+
+            $getter = $rereflectionClass->getMethod('get' . $property->getName());
+            if (!$getter->hasReturnType() || $getter->getReturnType()->allowsNull()) {
+                continue;
+            }
+
+            switch ($getter->getReturnType()->getName()) {
+                case 'int':
+                    $propertyValue = 0;
+
+                    break;
+                case 'string':
+                    $propertyValue = '';
+
+                    break;
+                case 'bool':
+                    $propertyValue = false;
+
+                    break;
+                case 'float':
+                    $propertyValue = 0.0;
+
+                    break;
+                case 'array':
+                    $propertyValue = [];
+
+                    break;
+                default:
+                    $propertyValue = null;
+
+                    break;
+            }
+
+            if (null !== $propertyValue) {
+                $property->setAccessible(true);
+                $property->setValue($object, $propertyValue);
+            }
+        }
     }
 }

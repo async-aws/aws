@@ -8,6 +8,7 @@ use AsyncAws\Core\Sts\Result\AssumedRoleUser;
 use AsyncAws\Core\Sts\Result\AssumeRoleResponse;
 use AsyncAws\Core\Sts\StsClient;
 use AsyncAws\Core\Test\ResultMockFactory;
+use AsyncAws\Core\Tests\Resources\ExampleResponse;
 use PHPUnit\Framework\TestCase;
 
 class ResultMockFactoryTest extends TestCase
@@ -22,6 +23,18 @@ class ResultMockFactoryTest extends TestCase
         $this->assertInstanceOf(AssumeRoleResponse::class, $result);
         $this->assertNull($result->getAssumedRoleUser());
         $this->assertEquals(342, $result->getPackedPolicySize());
+    }
+
+    public function testCreateAndFillEmptyParams()
+    {
+        /** @var ExampleResponse $result */
+        $result = ResultMockFactory::create(ExampleResponse::class);
+
+        $this->assertEquals(0, $result->getInt());
+        $this->assertEquals([], $result->getArray());
+        $this->assertEquals(false, $result->getBool());
+        $this->assertEquals(0.0, $result->getFloat());
+        $this->assertEquals('', $result->getString());
     }
 
     public function testCreateWithInvalidParameters()
