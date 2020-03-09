@@ -9,30 +9,41 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigurationTest extends TestCase
 {
-    public function testDefaultValues()
+    /**
+     * @dataProvider provideConfiguration
+     */
+    public function testCreate($config, $env, $expected)
     {
-        $config = Configuration::create(['endpoint' => 'foo']);
-        self::assertEquals('foo', $config->get('endpoint'));
+        foreach ($env as $key => $value) {
+            putenv("$key=$value");
+        }
 
-        $config = Configuration::create(['endpoint' => '']);
-        self::assertEquals('', $config->get('endpoint'));
+        try {
+            $config = Configuration::create($config);
+            foreach ($expected as $key => $value) {
+                self::assertEquals($value, $config->get($key));
+            }
+        } finally {
+            foreach ($env as $key => $value) {
+                putenv($key);
+            }
+        }
+    }
 
-        $config = Configuration::create([]);
-        self::assertEquals('https://%service%.%region%.amazonaws.com', $config->get('endpoint'));
+    public function provideConfiguration(): iterable
+    {
+        yield 'simple config' => [['endpoint' => 'foo'], [], ['endpoint' => 'foo']];
+        yield 'empty config' => [['endpoint' => ''], [], ['endpoint' => '']];
+        yield 'default' => [[], [], ['endpoint' => 'https://%service%.%region%.amazonaws.com']];
+        yield 'default when null' => [['endpoint' => null], [], ['endpoint' => 'https://%service%.%region%.amazonaws.com']];
 
-        // If a configuration value is set to null, we should use default value.
-        $config = Configuration::create(['endpoint' => null]);
-        self::assertEquals('https://%service%.%region%.amazonaws.com', $config->get('endpoint'));
+        yield 'default when env missing' => [[], [], ['profile' => 'default']];
+        yield 'fallback env' => [[], ['AWS_PROFILE' => 'foo'], ['profile' => 'foo']];
+        yield 'config priority on env' => [['profile' => 'bar'], ['AWS_PROFILE' => 'foo'], ['profile' => 'bar']];
 
-        $config = Configuration::create([]);
-        self::assertEquals('default', $config->get('profile'));
-
-        putenv('AWS_PROFILE=foo');
-        $config = Configuration::create([]);
-        self::assertEquals('foo', $config->get('profile'));
-
-        putenv('AWS_PROFILE');
-        $config = Configuration::create([]);
-        self::assertEquals('default', $config->get('profile'));
+        yield 'config with env group' => [['accessKeyId' => 'key'], [], ['accessKeyId' => 'key', 'sessionToken' => null]];
+        yield 'config with env group 2' => [['accessKeySecret' => 'secret'], [], ['accessKeySecret' => 'secret', 'accessKeyId' => null, 'sessionToken' => null]];
+        yield 'mix config and env' => [['accessKeyId' => 'key'], ['AWS_SESSION_TOKEN' => 'token'], ['accessKeyId' => 'key', 'sessionToken' => null]];
+        yield 'null config with env group' => [['accessKeyId' => null], ['AWS_SESSION_TOKEN' => 'token'], ['accessKeyId' => null, 'sessionToken' => 'token']];
     }
 }

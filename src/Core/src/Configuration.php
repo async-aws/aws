@@ -39,17 +39,22 @@ class Configuration
         self::OPTION_ROLE_SESSION_NAME => true,
     ];
 
+    // Put fallback options into groups to avoid mixing of provided config and environment variables
     private const FALLBACK_OPTIONS = [
-        self::OPTION_REGION => ['AWS_REGION', 'AWS_DEFAULT_REGION'],
-        self::OPTION_PROFILE => ['AWS_PROFILE', 'AWS_DEFAULT_PROFILE'],
-        self::OPTION_ACCESS_KEY_ID => ['AWS_ACCESS_KEY_ID', 'AWS_ACCESS_KEY'],
-        self::OPTION_SECRET_ACCESS_KEY => ['AWS_SECRET_ACCESS_KEY', 'AWS_SECRET_KEY'],
-        self::OPTION_SESSION_TOKEN => 'AWS_SESSION_TOKEN',
-        self::OPTION_SHARED_CREDENTIALS_FILE => 'AWS_SHARED_CREDENTIALS_FILE',
-        self::OPTION_SHARED_CONFIG_FILE => 'AWS_CONFIG_FILE',
-        self::OPTION_ROLE_ARN => 'AWS_ROLE_ARN',
-        self::OPTION_WEB_IDENTITY_TOKEN_FILE => 'AWS_WEB_IDENTITY_TOKEN_FILE',
-        self::OPTION_ROLE_SESSION_NAME => 'AWS_ROLE_SESSION_NAME',
+        [self::OPTION_REGION => ['AWS_REGION', 'AWS_DEFAULT_REGION']],
+        [self::OPTION_PROFILE => ['AWS_PROFILE', 'AWS_DEFAULT_PROFILE']],
+        [
+            self::OPTION_ACCESS_KEY_ID => ['AWS_ACCESS_KEY_ID', 'AWS_ACCESS_KEY'],
+            self::OPTION_SECRET_ACCESS_KEY => ['AWS_SECRET_ACCESS_KEY', 'AWS_SECRET_KEY'],
+            self::OPTION_SESSION_TOKEN => 'AWS_SESSION_TOKEN',
+        ],
+        [self::OPTION_SHARED_CREDENTIALS_FILE => 'AWS_SHARED_CREDENTIALS_FILE'],
+        [self::OPTION_SHARED_CONFIG_FILE => 'AWS_CONFIG_FILE'],
+        [
+            self::OPTION_ROLE_ARN => 'AWS_ROLE_ARN',
+            self::OPTION_WEB_IDENTITY_TOKEN_FILE => 'AWS_WEB_IDENTITY_TOKEN_FILE',
+            self::OPTION_ROLE_SESSION_NAME => 'AWS_ROLE_SESSION_NAME',
+        ],
     ];
 
     private const DEFAULT_OPTIONS = [
@@ -69,26 +74,32 @@ class Configuration
             throw new InvalidArgument(\sprintf('Invalid option(s) "%s" passed to "%s::%s". ', \implode('", "', \array_keys($invalidOptions)), __CLASS__, __METHOD__));
         }
 
-        foreach (self::FALLBACK_OPTIONS as $option => $envVariableNames) {
-            if (isset($options[$option])) {
-                continue;
+        foreach (self::FALLBACK_OPTIONS as $fallbackGroup) {
+            // prevent mixing env variables with config keys
+            foreach ($fallbackGroup as $option => $envVariableNames) {
+                if (isset($options[$option])) {
+                    continue 2;
+                }
             }
 
-            foreach ((array) $envVariableNames as $envVariableName) {
-                if (false !== $value = \getenv($envVariableName)) {
-                    $options[$option] = $value;
+            foreach ($fallbackGroup as $option => $envVariableNames) {
+                $envVariableNames = (array) $envVariableNames;
+                foreach ($envVariableNames as $envVariableName) {
+                    if (false !== $value = \getenv($envVariableName)) {
+                        $options[$option] = $value;
 
-                    break;
+                        break;
+                    }
                 }
             }
         }
 
-        foreach (self::DEFAULT_OPTIONS as $option => $defaultValue) {
-            if (isset($options[$option])) {
+        foreach (self::DEFAULT_OPTIONS as $optionTrigger => $defaultValue) {
+            if (isset($options[$optionTrigger])) {
                 continue;
             }
 
-            $options[$option] = $defaultValue;
+            $options[$optionTrigger] = $defaultValue;
         }
 
         $configuration = new Configuration();

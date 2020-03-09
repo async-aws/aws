@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.3.2
+
+### Fixed
+
+- `Configuration` don't mix anymore attributes injected by php array and env variables.
+
 ## 0.3.1
 
 ### Added
