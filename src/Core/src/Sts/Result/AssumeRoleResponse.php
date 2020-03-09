@@ -43,7 +43,7 @@ class AssumeRoleResponse extends Result
      * request. The request fails if the packed size is greater than 100 percent, which means the policies and tags exceeded
      * the allowed space.
      */
-    public function getPackedPolicySize(): int
+    public function getPackedPolicySize(): ?int
     {
         $this->initialize();
 
