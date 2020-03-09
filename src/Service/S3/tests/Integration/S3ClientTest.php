@@ -230,8 +230,8 @@ class S3ClientTest extends TestCase
 
         $result->resolve();
 
-        self::assertSame('0', $result->getContentLength());
-        self::assertEquals('"d41d8cd98f00b204e9800998ecf8427e"', $result->getETag());
+        self::assertSame('7', $result->getContentLength());
+        self::assertEquals('"9a0364b9e99bb480dd25e1f0284c8555"', $result->getETag());
     }
 
     public function testListObjectsV2()

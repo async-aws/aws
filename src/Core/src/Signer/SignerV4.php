@@ -68,7 +68,7 @@ class SignerV4 implements Signer
             $request->setHeader('x-amz-security-token', $sessionToken);
         }
 
-        $request->setHeader('host', $parsedUrl['host']);
+        $request->setHeader('host', $parsedUrl['host'] . (isset($parsedUrl['port']) ? ':' . $parsedUrl['port'] : ''));
         $request->setHeader('x-amz-date', $amzDate = gmdate('Ymd\THis\Z'));
         $credentialScope = [substr($amzDate, 0, 8), $this->region, $this->scopeName, 'aws4_request'];
 
