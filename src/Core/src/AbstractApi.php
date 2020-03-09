@@ -77,14 +77,16 @@ abstract class AbstractApi implements ApiInterface
         ]));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     final public function getConfiguration(): Configuration
     {
         return $this->configuration;
     }
 
     /**
-     * @param string[]|string[][]                    $headers headers names provided as keys or as part of values
-     * @param string|resource|callable|iterable|null $body
+     * {@inheritdoc}
      */
     final public function request(string $method, $body = '', $headers = [], ?string $endpoint = null): Result
     {

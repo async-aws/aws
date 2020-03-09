@@ -10,6 +10,9 @@ namespace AsyncAws\Core;
  */
 interface ApiInterface
 {
+    /**
+     * Get the configuration for this client.
+     */
     public function getConfiguration(): Configuration;
 
     /**
