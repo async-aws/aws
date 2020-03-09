@@ -3,7 +3,6 @@
 namespace AsyncAws\Sqs\Tests\Unit;
 
 use AsyncAws\Core\Credentials\NullProvider;
-use AsyncAws\Core\Result;
 use AsyncAws\Core\ResultInterface;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
 use AsyncAws\Sqs\Input\CreateQueueRequest;
