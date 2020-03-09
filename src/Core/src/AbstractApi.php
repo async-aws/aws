@@ -16,6 +16,7 @@ use AsyncAws\Core\Signer\Request;
 use AsyncAws\Core\Signer\Signer;
 use AsyncAws\Core\Signer\SignerV4;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Core\Stream\StringStream;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\HttpClient;
@@ -113,11 +114,18 @@ abstract class AbstractApi
         $request = new Request($method, $this->fillEndpoint($endpoint), $headers, $stream);
         $this->getSigner()->sign($request, $this->credentialProvider->getCredentials($this->configuration));
 
-        if (!$request->hasHeader('content-length') && null !== $length = $request->getBody()->length()) {
+        $length = $request->getBody()->length();
+        if (null !== $length && !$request->hasHeader('content-length')) {
             $request->setHeader('content-length', $length);
         }
 
-        return $this->httpClient->request($request->getMethod(), $request->getUrl(), ['headers' => $request->getHeaders(), 'body' => $request->getBody()]);
+        // Some servers (like testing Docker Images) does not supports `Transfer-Encoding: chunked` requests.
+        // The body is converted into string to prevent curl using `Transfer-Encoding: chunked` unless it really has to.
+        if (($requestBody = $request->getBody()) instanceof StringStream) {
+            $requestBody = $requestBody->stringify();
+        }
+
+        return $this->httpClient->request($request->getMethod(), $request->getUrl(), ['headers' => $request->getHeaders(), 'body' => 0 === $length ? null : $requestBody]);
     }
 
     /**
