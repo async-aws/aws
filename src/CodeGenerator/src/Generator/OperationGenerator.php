@@ -11,6 +11,7 @@ use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
 use AsyncAws\Core\Result;
+use AsyncAws\Core\ResultInterface;
 use Nette\PhpGenerator\Method;
 
 /**
@@ -100,21 +101,21 @@ class OperationGenerator
         }
 
         if (null !== $operation->getOutput()) {
-            $resutClass = $this->resultGenerator->generate($operation);
+            $resultClass = $this->resultGenerator->generate($operation);
             if (null !== $operation->getPagination()) {
                 $this->paginationGenerator->generate($operation);
             }
 
-            $method->setReturnType($resutClass->getFqdn());
-            $namespace->addUse($resutClass->getFqdn());
+            $method->setReturnType($resultClass->getFqdn());
+            $namespace->addUse($resultClass->getFqdn());
         } else {
-            $resutClass = null;
-            $method->setReturnType(Result::class);
-            $namespace->addUse(Result::class);
+            $resultClass = null;
+            $method->setReturnType(ResultInterface::class);
+            $namespace->addUse(ResultInterface::class);
         }
 
         // Generate method body
-        $this->setMethodBody($method, $operation, $inputClass, $resutClass);
+        $this->setMethodBody($method, $operation, $inputClass, $resultClass);
 
         $this->fileWriter->write($namespace);
 

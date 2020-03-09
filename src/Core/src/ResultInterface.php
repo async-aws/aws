@@ -9,8 +9,7 @@ use AsyncAws\Core\Exception\Http\NetworkException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The result promise is always returned from every API call. Remember to call `resolve()` to
- * make sure the request is actually sent.
+ * The result promise is always returned from every API call.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */

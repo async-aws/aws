@@ -23,7 +23,7 @@ class Waiter
     protected const WAIT_DELAY = 5.0;
 
     /**
-     * @var AbstractApi|null
+     * @var ApiInterface|null
      */
     protected $awsClient;
 
@@ -56,7 +56,7 @@ class Waiter
      */
     private $resolveResult;
 
-    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, AbstractApi $awsClient, $request)
+    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, ApiInterface $awsClient, $request)
     {
         $this->response = $response;
         $this->httpClient = $httpClient;

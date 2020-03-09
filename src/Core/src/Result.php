@@ -15,15 +15,12 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The result promise is always returned from every API call. Remember to call `resolve()` to
- * make sure the request is actually sent.
- *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
 class Result implements ResultInterface
 {
     /**
-     * @var AbstractApi|null
+     * @var ApiInterface|null
      */
     protected $awsClient;
 
@@ -56,7 +53,7 @@ class Result implements ResultInterface
      */
     private $resolveResult;
 
-    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, AbstractApi $awsClient = null, $request = null)
+    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, ApiInterface $awsClient = null, $request = null)
     {
         $this->response = $response;
         $this->httpClient = $httpClient;

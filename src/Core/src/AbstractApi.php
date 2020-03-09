@@ -88,7 +88,7 @@ abstract class AbstractApi implements ApiInterface
     /**
      * {@inheritdoc}
      */
-    final public function request(string $method, $body = '', $headers = [], ?string $endpoint = null): Result
+    final public function request(string $method, $body = '', $headers = [], ?string $endpoint = null): ResultInterface
     {
         $response = $this->getResponse($method, $body, $headers, $endpoint);
 

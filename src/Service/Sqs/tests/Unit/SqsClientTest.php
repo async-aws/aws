@@ -4,6 +4,7 @@ namespace AsyncAws\Sqs\Tests\Unit;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Result;
+use AsyncAws\Core\ResultInterface;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
 use AsyncAws\Sqs\Input\CreateQueueRequest;
 use AsyncAws\Sqs\Input\DeleteMessageRequest;
@@ -37,7 +38,7 @@ class SqsClientTest extends TestCase
         ]);
         $result = $client->ChangeMessageVisibility($input);
 
-        self::assertInstanceOf(Result::class, $result);
+        self::assertInstanceOf(ResultInterface::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
@@ -65,7 +66,7 @@ class SqsClientTest extends TestCase
         ]);
         $result = $client->DeleteMessage($input);
 
-        self::assertInstanceOf(Result::class, $result);
+        self::assertInstanceOf(ResultInterface::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
@@ -78,7 +79,7 @@ class SqsClientTest extends TestCase
         ]);
         $result = $client->DeleteQueue($input);
 
-        self::assertInstanceOf(Result::class, $result);
+        self::assertInstanceOf(ResultInterface::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
@@ -132,7 +133,7 @@ class SqsClientTest extends TestCase
         ]);
         $result = $client->PurgeQueue($input);
 
-        self::assertInstanceOf(Result::class, $result);
+        self::assertInstanceOf(ResultInterface::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 

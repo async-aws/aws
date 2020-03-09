@@ -4,6 +4,7 @@ namespace AsyncAws\Sqs;
 
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Result;
+use AsyncAws\Core\ResultInterface;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
 use AsyncAws\Sqs\Input\CreateQueueRequest;
 use AsyncAws\Sqs\Input\DeleteMessageRequest;
@@ -39,7 +40,7 @@ class SqsClient extends AbstractApi
      *   VisibilityTimeout: int,
      * }|ChangeMessageVisibilityRequest $input
      */
-    public function changeMessageVisibility($input): Result
+    public function changeMessageVisibility($input): ResultInterface
     {
         $input = ChangeMessageVisibilityRequest::create($input);
         $input->validate();
@@ -94,7 +95,7 @@ class SqsClient extends AbstractApi
      *   ReceiptHandle: string,
      * }|DeleteMessageRequest $input
      */
-    public function deleteMessage($input): Result
+    public function deleteMessage($input): ResultInterface
     {
         $input = DeleteMessageRequest::create($input);
         $input->validate();
@@ -119,7 +120,7 @@ class SqsClient extends AbstractApi
      *   QueueUrl: string,
      * }|DeleteQueueRequest $input
      */
-    public function deleteQueue($input): Result
+    public function deleteQueue($input): ResultInterface
     {
         $input = DeleteQueueRequest::create($input);
         $input->validate();
@@ -218,7 +219,7 @@ class SqsClient extends AbstractApi
      *   QueueUrl: string,
      * }|PurgeQueueRequest $input
      */
-    public function purgeQueue($input): Result
+    public function purgeQueue($input): ResultInterface
     {
         $input = PurgeQueueRequest::create($input);
         $input->validate();
