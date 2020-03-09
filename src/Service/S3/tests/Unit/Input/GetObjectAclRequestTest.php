@@ -19,7 +19,6 @@ class GetObjectAclRequestTest extends TestCase
         ]);
 
         self::assertEquals('/my-bucket/foo.jpg?acl', $input->requestUri());
-        self::assertEmpty($input->requestBody());
 
         $query = $input->requestQuery();
         self::assertArrayHasKey('versionId', $query);

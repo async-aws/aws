@@ -99,7 +99,7 @@ class LambdaClient extends AbstractApi
 
         $response = $this->getResponse(
             'GET',
-            $input->requestBody(),
+            null,
             $input->requestHeaders(),
             $this->getEndpoint($input->requestUri(), $input->requestQuery())
         );

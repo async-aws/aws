@@ -45,7 +45,7 @@ class RestJsonSerializer implements Serializer
     public function generateForShape(Operation $operation, StructureShape $shape): string
     {
         $body = implode("\n", array_map(function (StructureMember $member) {
-            if (null !== $member->getLocation() ?? null) {
+            if (null !== $member->getLocation()) {
                 return '';
             }
             $shape = $member->getShape();

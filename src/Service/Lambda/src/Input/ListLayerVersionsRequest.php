@@ -81,11 +81,6 @@ class ListLayerVersionsRequest
         return $this->MaxItems;
     }
 
-    public function requestBody(): string
-    {
-        return '{}';
-    }
-
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/json'];
