@@ -16,7 +16,6 @@ class ListObjectsV2RequestTest extends TestCase
         ]);
 
         self::assertEquals('/my-bucket?list-type=2', $input->requestUri());
-        self::assertEmpty($input->requestBody());
 
         self::assertSame(['delimiter' => '/', 'prefix' => 'key'], $input->requestQuery());
     }

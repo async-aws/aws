@@ -134,7 +134,7 @@ $input->validate();
 
 $response = $this->getResponse(
     METHOD,
-    $input->requestBody(),
+    BODY,
     $input->requestHeaders(),
     $this->getEndpoint($input->requestUri(), $input->requestQuery())
 );
@@ -143,6 +143,7 @@ return new RESULT_CLASS(RESULT_PARAM);
         ', [
             'INPUT_CLASS' => $inputClass->getName(),
             'METHOD' => \var_export($operation->getHttpMethod(), true),
+            'BODY' => $operation->hasBody() ? '$input->requestBody()' : 'null',
             'RESULT_CLASS' => $resultClass ? $resultClass->getName() : 'Result',
             'RESULT_PARAM' => \implode(', ', $params),
         ]));

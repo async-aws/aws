@@ -336,20 +336,33 @@ class InputGenerator
         $class->addMethod('requestHeaders')->setReturnType('array')->setBody($body['header']);
         $class->addMethod('requestQuery')->setReturnType('array')->setBody($body['querystring']);
 
-        if (null !== $payloadProperty = $inputShape->getPayload()) {
-            $member = $inputShape->getMember($payloadProperty);
-            if ($member->isStreaming()) {
-                $bodyType = null;
-                $body = 'return $this->' . $payloadProperty . ' ?? "";';
+        if ($operation->hasBody()) {
+            if (null !== $payloadProperty = $inputShape->getPayload()) {
+                $member = $inputShape->getMember($payloadProperty);
+                if ($member->isStreaming()) {
+                    $bodyType = null;
+                    $body = 'return $this->' . $payloadProperty . ' ?? "";';
+                } else {
+                    $bodyType = 'string';
+                    $body = $serializer->generateForMember($member, $payloadProperty);
+                }
             } else {
                 $bodyType = 'string';
-                $body = $serializer->generateForMember($member, $payloadProperty);
+                $body = $serializer->generateForShape($operation, $inputShape);
             }
+
+            $class->addMethod('requestBody')->setReturnType($bodyType)->setBody($body);
         } else {
-            $bodyType = 'string';
-            $body = $serializer->generateForShape($operation, $inputShape);
+            if (null !== $payloadProperty = $inputShape->getPayload()) {
+                throw new \LogicException(sprintf('Unexpected body in operation "%s"', $operation->getName()));
+            }
+
+            foreach ($inputShape->getMembers() as $member) {
+                if (null === $member->getLocation()) {
+                    throw new \LogicException(sprintf('Unexpected body in operation "%s"', $operation->getName()));
+                }
+            }
         }
-        $class->addMethod('requestBody')->setReturnType($bodyType)->setBody($body);
 
         $requestUri = null;
         foreach ($inputShape->getMembers() as $member) {

@@ -26,14 +26,6 @@ class ListLayerVersionsRequestTest extends TestCase
         parent::setUp();
     }
 
-    public function testRequestBody(): void
-    {
-        $expected = '{
-        }';
-
-        self::assertJsonStringEqualsJsonString($expected, $this->input->requestBody());
-    }
-
     public function testInvalidEnum(): void
     {
         $input = new ListLayerVersionsRequest([

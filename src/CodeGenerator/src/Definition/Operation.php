@@ -111,8 +111,17 @@ class Operation
         return $this->data['http']['requestUri'] ?? null;
     }
 
-    public function getHttpMethod(): ?string
+    public function getHttpMethod(): string
     {
-        return $this->data['http']['method'] ?? null;
+        if (isset($this->data['input']['method'])) {
+            throw new \InvalidArgumentException(sprintf('The operation "%s" should have an HTTP Method.', $this->getName()));
+        }
+
+        return $this->data['http']['method'];
+    }
+
+    public function hasBody(): bool
+    {
+        return \in_array($this->getHttpMethod(), ['PUT', 'POST']);
     }
 }

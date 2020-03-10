@@ -83,11 +83,6 @@ class GetObjectAclRequest
         return $this->VersionId;
     }
 
-    public function requestBody(): string
-    {
-        return '';
-    }
-
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/xml'];

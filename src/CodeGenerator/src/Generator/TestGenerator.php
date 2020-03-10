@@ -72,7 +72,7 @@ class TestGenerator
             $classes = $namespace->getClasses();
             $class = $classes[\array_key_first($classes)];
 
-            if ($class->hasMethod($methodName)) {
+            if ($class->hasMethod($methodName) || !$operation->hasBody()) {
                 return;
             }
         } else {

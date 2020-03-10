@@ -160,11 +160,6 @@ class ListObjectsV2Request
         return $this->StartAfter;
     }
 
-    public function requestBody(): string
-    {
-        return '';
-    }
-
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/xml'];
