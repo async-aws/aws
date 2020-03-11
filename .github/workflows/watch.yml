@@ -42,6 +42,13 @@ jobs:
       run: |
         ./generate --all
 
+    - name: Check if anything changed
+      run: |
+        if [[ $(git diff --numstat | wc -l) -eq 1 ]]; then
+          echo "No significant changes."
+          git reset --hard
+        fi
+
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v2
       with:
