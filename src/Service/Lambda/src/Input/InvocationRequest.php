@@ -113,11 +113,17 @@ class InvocationRequest
         return $this->Qualifier;
     }
 
+    /**
+     * @internal
+     */
     public function requestBody(): string
     {
         return $this->Payload ?? '';
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/json'];
@@ -134,6 +140,9 @@ class InvocationRequest
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -144,6 +153,9 @@ class InvocationRequest
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         $uri = [];

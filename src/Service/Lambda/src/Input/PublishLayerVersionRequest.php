@@ -99,6 +99,9 @@ class PublishLayerVersionRequest
         return $this->LicenseInfo;
     }
 
+    /**
+     * @internal
+     */
     public function requestBody(): string
     {
         $payload = [];
@@ -141,6 +144,9 @@ class PublishLayerVersionRequest
         return json_encode($payload);
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/json'];
@@ -148,6 +154,9 @@ class PublishLayerVersionRequest
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -155,6 +164,9 @@ class PublishLayerVersionRequest
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         $uri = [];

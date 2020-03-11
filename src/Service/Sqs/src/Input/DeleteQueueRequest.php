@@ -35,6 +35,9 @@ class DeleteQueueRequest
         return $this->QueueUrl;
     }
 
+    /**
+     * @internal
+     */
     public function requestBody(): string
     {
         $payload = ['Action' => 'DeleteQueue', 'Version' => '2012-11-05'];
@@ -43,6 +46,9 @@ class DeleteQueueRequest
         return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
@@ -50,6 +56,9 @@ class DeleteQueueRequest
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -57,6 +66,9 @@ class DeleteQueueRequest
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         return '/';

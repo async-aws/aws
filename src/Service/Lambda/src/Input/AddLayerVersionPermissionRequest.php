@@ -128,6 +128,9 @@ class AddLayerVersionPermissionRequest
         return $this->VersionNumber;
     }
 
+    /**
+     * @internal
+     */
     public function requestBody(): string
     {
         $payload = [];
@@ -142,6 +145,9 @@ class AddLayerVersionPermissionRequest
         return json_encode($payload);
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/json'];
@@ -149,6 +155,9 @@ class AddLayerVersionPermissionRequest
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -159,6 +168,9 @@ class AddLayerVersionPermissionRequest
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         $uri = [];

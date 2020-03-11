@@ -83,6 +83,9 @@ class GetObjectAclRequest
         return $this->VersionId;
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/xml'];
@@ -93,6 +96,9 @@ class GetObjectAclRequest
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -103,6 +109,9 @@ class GetObjectAclRequest
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         $uri = [];

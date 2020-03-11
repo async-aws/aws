@@ -50,6 +50,9 @@ class GetQueueUrlRequest
         return $this->QueueOwnerAWSAccountId;
     }
 
+    /**
+     * @internal
+     */
     public function requestBody(): string
     {
         $payload = ['Action' => 'GetQueueUrl', 'Version' => '2012-11-05'];
@@ -61,6 +64,9 @@ class GetQueueUrlRequest
         return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
@@ -68,6 +74,9 @@ class GetQueueUrlRequest
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -75,6 +84,9 @@ class GetQueueUrlRequest
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         return '/';
