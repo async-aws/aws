@@ -92,15 +92,11 @@ abstract class AbstractApi
      * @param string[]|string[][]                    $headers headers names provided as keys or as part of values
      * @param string|resource|callable|iterable|null $body
      */
-    final protected function getResponse(string $method, $body, $headers = [], ?string $endpoint = null): ResponseInterface
+    final protected function getResponse(string $method, $body, array $headers, string $endpoint): ResponseInterface
     {
-        if (!isset($headers['content-type'])) {
-            $headers['content-type'] = 'text/plain';
-        }
-
         $stream = StreamFactory::create($body);
 
-        $request = new Request($method, $this->fillEndpoint($endpoint), $headers, $stream);
+        $request = new Request($method, $endpoint, $headers, $stream);
         $this->getSigner()->sign($request, $this->credentialProvider->getCredentials($this->configuration));
 
         $length = $request->getBody()->length();
@@ -123,10 +119,13 @@ abstract class AbstractApi
      * @param string $uri   or path
      * @param array  $query parameters that should go in the query string
      */
-    protected function getEndpoint(string $uri, array $query): ?string
+    protected function getEndpoint(string $uri, array $query): string
     {
-        /** @var string $endpoint */
-        $endpoint = $this->configuration->get('endpoint');
+        /** @psalm-suppress PossiblyNullArgument */
+        $endpoint = strtr($this->configuration->get('endpoint'), [
+            '%region%' => $this->configuration->get('region'),
+            '%service%' => $this->getServiceCode(),
+        ]);
         $endpoint .= $uri;
         if (empty($query)) {
             return $endpoint;
@@ -161,16 +160,5 @@ abstract class AbstractApi
         }
 
         return $this->signer;
-    }
-
-    private function fillEndpoint(?string $endpoint): string
-    {
-        /** @var string $endpoint */
-        $endpoint = $endpoint ?? $this->configuration->get('endpoint');
-
-        return strtr($endpoint, [
-            '%region%' => $this->configuration->get('region'),
-            '%service%' => $this->getServiceCode(),
-        ]);
     }
 }
