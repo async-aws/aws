@@ -53,6 +53,9 @@ class GetQueueAttributesRequest
         return $this->QueueUrl;
     }
 
+    /**
+     * @internal
+     */
     public function requestBody(): string
     {
         $payload = ['Action' => 'GetQueueAttributes', 'Version' => '2012-11-05'];
@@ -70,6 +73,9 @@ class GetQueueAttributesRequest
         return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
@@ -77,6 +83,9 @@ class GetQueueAttributesRequest
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -84,6 +93,9 @@ class GetQueueAttributesRequest
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         return '/';

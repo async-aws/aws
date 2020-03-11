@@ -333,8 +333,8 @@ class InputGenerator
             $body[$requestPart] .= 'return ' . $varName . ';' . "\n";
         }
 
-        $class->addMethod('requestHeaders')->setReturnType('array')->setBody($body['header']);
-        $class->addMethod('requestQuery')->setReturnType('array')->setBody($body['querystring']);
+        $class->addMethod('requestHeaders')->setComment('@internal')->setReturnType('array')->setBody($body['header']);
+        $class->addMethod('requestQuery')->setComment('@internal')->setReturnType('array')->setBody($body['querystring']);
 
         if ($operation->hasBody()) {
             if (null !== $payloadProperty = $inputShape->getPayload()) {
@@ -351,7 +351,7 @@ class InputGenerator
                 $body = $serializer->generateForShape($operation, $inputShape);
             }
 
-            $class->addMethod('requestBody')->setReturnType($bodyType)->setBody($body);
+            $class->addMethod('requestBody')->setComment('@internal')->setReturnType($bodyType)->setBody($body);
         } else {
             if (null !== $payloadProperty = $inputShape->getPayload()) {
                 throw new \LogicException(sprintf('Unexpected body in operation "%s"', $operation->getName()));
@@ -377,6 +377,6 @@ class InputGenerator
         $requestUri = $requestUri ?? '';
         $requestUri .= 'return "' . str_replace(['{', '+}', '}'], ['{$uri[\'', '}', '\']}'], $operation->getHttpRequestUri()) . '";';
 
-        $class->addMethod('requestUri')->setReturnType('string')->setBody($requestUri);
+        $class->addMethod('requestUri')->setComment('@internal')->setReturnType('string')->setBody($requestUri);
     }
 }

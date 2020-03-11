@@ -204,6 +204,9 @@ class PutObjectAclRequest
         return $this->VersionId;
     }
 
+    /**
+     * @internal
+     */
     public function requestBody(): string
     {
         $document = new \DOMDocument('1.0', 'UTF-8');
@@ -264,6 +267,9 @@ class PutObjectAclRequest
         return $document->hasChildNodes() ? $document->saveXML() : '';
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/xml'];
@@ -295,6 +301,9 @@ class PutObjectAclRequest
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -305,6 +314,9 @@ class PutObjectAclRequest
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         $uri = [];

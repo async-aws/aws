@@ -9,6 +9,9 @@ class GetCallerIdentityRequest
         return $input instanceof self ? $input : new self();
     }
 
+    /**
+     * @internal
+     */
     public function requestBody(): string
     {
         $payload = ['Action' => 'GetCallerIdentity', 'Version' => '2011-06-15'];
@@ -16,6 +19,9 @@ class GetCallerIdentityRequest
         return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
@@ -23,6 +29,9 @@ class GetCallerIdentityRequest
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -30,6 +39,9 @@ class GetCallerIdentityRequest
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         return '/';

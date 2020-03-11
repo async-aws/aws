@@ -138,6 +138,9 @@ class AssumeRoleWithWebIdentityRequest
         return $this->WebIdentityToken;
     }
 
+    /**
+     * @internal
+     */
     public function requestBody(): string
     {
         $payload = ['Action' => 'AssumeRoleWithWebIdentity', 'Version' => '2011-06-15'];
@@ -173,6 +176,9 @@ class AssumeRoleWithWebIdentityRequest
         return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
@@ -180,6 +186,9 @@ class AssumeRoleWithWebIdentityRequest
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -187,6 +196,9 @@ class AssumeRoleWithWebIdentityRequest
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         return '/';

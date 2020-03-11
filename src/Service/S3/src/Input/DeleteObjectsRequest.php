@@ -100,6 +100,9 @@ class DeleteObjectsRequest
         return $this->RequestPayer;
     }
 
+    /**
+     * @internal
+     */
     public function requestBody(): string
     {
         $document = new \DOMDocument('1.0', 'UTF-8');
@@ -132,6 +135,9 @@ class DeleteObjectsRequest
         return $document->hasChildNodes() ? $document->saveXML() : '';
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/xml'];
@@ -148,6 +154,9 @@ class DeleteObjectsRequest
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -155,6 +164,9 @@ class DeleteObjectsRequest
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         $uri = [];

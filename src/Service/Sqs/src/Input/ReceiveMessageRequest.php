@@ -130,6 +130,9 @@ class ReceiveMessageRequest
         return $this->WaitTimeSeconds;
     }
 
+    /**
+     * @internal
+     */
     public function requestBody(): string
     {
         $payload = ['Action' => 'ReceiveMessage', 'Version' => '2012-11-05'];
@@ -167,6 +170,9 @@ class ReceiveMessageRequest
         return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
@@ -174,6 +180,9 @@ class ReceiveMessageRequest
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -181,6 +190,9 @@ class ReceiveMessageRequest
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         return '/';

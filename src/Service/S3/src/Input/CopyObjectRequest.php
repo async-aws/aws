@@ -593,11 +593,17 @@ class CopyObjectRequest
         return $this->WebsiteRedirectLocation;
     }
 
+    /**
+     * @internal
+     */
     public function requestBody(): string
     {
         return '';
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/xml'];
@@ -707,6 +713,9 @@ class CopyObjectRequest
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -714,6 +723,9 @@ class CopyObjectRequest
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         $uri = [];

@@ -81,6 +81,9 @@ class ListLayerVersionsRequest
         return $this->MaxItems;
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/json'];
@@ -88,6 +91,9 @@ class ListLayerVersionsRequest
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -104,6 +110,9 @@ class ListLayerVersionsRequest
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         $uri = [];
