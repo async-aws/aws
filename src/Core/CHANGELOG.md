@@ -2,7 +2,7 @@
 
 ## 0.3.3
 
-### Added
+### Added
 
 - Added a `ResultMockFactory` to helps creating tests
 

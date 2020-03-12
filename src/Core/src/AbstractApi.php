@@ -82,17 +82,6 @@ abstract class AbstractApi
         return $this->configuration;
     }
 
-    /**
-     * @param string[]|string[][]                    $headers headers names provided as keys or as part of values
-     * @param string|resource|callable|iterable|null $body
-     */
-    final public function request(string $method, $body = '', $headers = [], ?string $endpoint = null): Result
-    {
-        $response = $this->getResponse($method, $body, $headers, $endpoint);
-
-        return new Result($response, $this->httpClient);
-    }
-
     abstract protected function getServiceCode(): string;
 
     abstract protected function getSignatureVersion(): string;

@@ -32,6 +32,9 @@ class ListQueuesRequest
         return $this->QueueNamePrefix;
     }
 
+    /**
+     * @internal
+     */
     public function requestBody(): string
     {
         $payload = ['Action' => 'ListQueues', 'Version' => '2012-11-05'];
@@ -42,6 +45,9 @@ class ListQueuesRequest
         return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
@@ -49,6 +55,9 @@ class ListQueuesRequest
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -56,6 +65,9 @@ class ListQueuesRequest
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         return '/';

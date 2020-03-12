@@ -130,6 +130,9 @@ class SendEmailRequest
         return $this->ReplyToAddresses;
     }
 
+    /**
+     * @internal
+     */
     public function requestBody(): string
     {
         $payload = [];
@@ -257,6 +260,9 @@ class SendEmailRequest
         return json_encode($payload);
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/json'];
@@ -264,6 +270,9 @@ class SendEmailRequest
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -271,6 +280,9 @@ class SendEmailRequest
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         return '/v2/email/outbound-emails';

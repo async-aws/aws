@@ -45,6 +45,9 @@ class DescribeStackEventsInput
         return $this->StackName;
     }
 
+    /**
+     * @internal
+     */
     public function requestBody(): string
     {
         $payload = ['Action' => 'DescribeStackEvents', 'Version' => '2010-05-15'];
@@ -58,6 +61,9 @@ class DescribeStackEventsInput
         return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
@@ -65,6 +71,9 @@ class DescribeStackEventsInput
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -72,6 +81,9 @@ class DescribeStackEventsInput
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         return '/';

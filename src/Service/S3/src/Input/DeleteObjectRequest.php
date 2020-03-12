@@ -113,6 +113,9 @@ class DeleteObjectRequest
         return $this->VersionId;
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/xml'];
@@ -129,6 +132,9 @@ class DeleteObjectRequest
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -139,6 +145,9 @@ class DeleteObjectRequest
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         $uri = [];

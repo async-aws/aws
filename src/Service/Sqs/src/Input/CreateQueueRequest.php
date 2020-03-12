@@ -72,6 +72,9 @@ class CreateQueueRequest
         return $this->tags;
     }
 
+    /**
+     * @internal
+     */
     public function requestBody(): string
     {
         $payload = ['Action' => 'CreateQueue', 'Version' => '2012-11-05'];
@@ -99,6 +102,9 @@ class CreateQueueRequest
         return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
@@ -106,6 +112,9 @@ class CreateQueueRequest
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -113,6 +122,9 @@ class CreateQueueRequest
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         return '/';

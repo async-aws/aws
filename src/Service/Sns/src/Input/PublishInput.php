@@ -130,6 +130,9 @@ class PublishInput
         return $this->TopicArn;
     }
 
+    /**
+     * @internal
+     */
     public function requestBody(): string
     {
         $payload = ['Action' => 'Publish', 'Version' => '2010-03-31'];
@@ -174,6 +177,9 @@ class PublishInput
         return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
@@ -181,6 +187,9 @@ class PublishInput
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -188,6 +197,9 @@ class PublishInput
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         return '/';

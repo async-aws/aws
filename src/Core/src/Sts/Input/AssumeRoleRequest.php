@@ -199,6 +199,9 @@ class AssumeRoleRequest
         return $this->TransitiveTagKeys;
     }
 
+    /**
+     * @internal
+     */
     public function requestBody(): string
     {
         $payload = ['Action' => 'AssumeRole', 'Version' => '2011-06-15'];
@@ -261,6 +264,9 @@ class AssumeRoleRequest
         return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 
+    /**
+     * @internal
+     */
     public function requestHeaders(): array
     {
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
@@ -268,6 +274,9 @@ class AssumeRoleRequest
         return $headers;
     }
 
+    /**
+     * @internal
+     */
     public function requestQuery(): array
     {
         $query = [];
@@ -275,6 +284,9 @@ class AssumeRoleRequest
         return $query;
     }
 
+    /**
+     * @internal
+     */
     public function requestUri(): string
     {
         return '/';
