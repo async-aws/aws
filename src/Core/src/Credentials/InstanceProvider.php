@@ -93,7 +93,7 @@ class InstanceProvider implements CredentialProvider
      */
     private function toArray(ResponseInterface $response): array
     {
-        if ('' === $content = $$response->getContent(true)) {
+        if ('' === $content = $response->getContent(true)) {
             throw new TransportException('Response body is empty.');
         }
 
