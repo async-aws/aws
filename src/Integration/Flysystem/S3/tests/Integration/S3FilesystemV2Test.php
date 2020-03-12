@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\Flysystem\S3\Tests;
+namespace AsyncAws\Flysystem\S3\Tests\Integration;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Flysystem\S3\S3FilesystemV2;
