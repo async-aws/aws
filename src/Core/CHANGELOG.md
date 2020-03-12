@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.3.4
+
+### Fixed
+
+- Fix Instance Provider Role fetching
+
 ## 0.3.3
 
 ### Added

@@ -7,11 +7,14 @@ namespace AsyncAws\Core\Credentials;
 use AsyncAws\Core\Configuration;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Symfony\Component\HttpClient\Exception\JsonException;
+use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * Provides Credentials from the running EC2 metadata server using the IMDS version 1.
@@ -56,7 +59,8 @@ class InstanceProvider implements CredentialProvider
         // fetch credentials from profile
         try {
             $response = $this->httpClient->request('GET', self::ENDPOINT . '/' . $profile, ['timeout' => 1.0]);
-            $result = $response->toArray();
+            $result = $this->toArray($response);
+
             if ('Success' !== $result['Code']) {
                 $this->logger->info('Unexpected instance profile.', ['response_code' => $result['Code']]);
 
@@ -82,5 +86,34 @@ class InstanceProvider implements CredentialProvider
             $result['Token'],
             new \DateTimeImmutable($result['Expiration'])
         );
+    }
+
+    /**
+     * Copy of Symfony\Component\HttpClient\Response::toArray without assertion on Content-Type header.
+     */
+    private function toArray(ResponseInterface $response): array
+    {
+        if ('' === $content = $$response->getContent(true)) {
+            throw new TransportException('Response body is empty.');
+        }
+
+        try {
+            $content = json_decode($content, true, 512, \JSON_BIGINT_AS_STRING | (\PHP_VERSION_ID >= 70300 ? \JSON_THROW_ON_ERROR : 0));
+        } catch (\JsonException $e) {
+            /** @psalm-suppress InvalidArgument */
+            throw new JsonException(sprintf('%s for "%s".', $e->getMessage(), $response->getInfo('url')), $e->getCode());
+        }
+
+        if (\PHP_VERSION_ID < 70300 && \JSON_ERROR_NONE !== json_last_error()) {
+            /** @psalm-suppress InvalidArgument */
+            throw new JsonException(sprintf('%s for "%s".', json_last_error_msg(), $response->getInfo('url')), json_last_error());
+        }
+
+        if (!\is_array($content)) {
+            /** @psalm-suppress InvalidArgument */
+            throw new JsonException(sprintf('JSON content was expected to decode to an array, %s returned for "%s".', \gettype($content), $response->getInfo('url')));
+        }
+
+        return $content;
     }
 }
