@@ -499,7 +499,7 @@ class S3FilesystemV1Test extends TestCase
             ->willReturn($return);
 
         $output = $filesystem->getSize($path);
-        self::assertEquals(123, $output);
+        self::assertEquals($return, $output);
     }
 
     public function testMimetype()
@@ -519,7 +519,7 @@ class S3FilesystemV1Test extends TestCase
             ->willReturn($return);
 
         $output = $filesystem->getMimetype($path);
-        self::assertEquals('text/plain', $output);
+        self::assertEquals($return, $output);
     }
 
     public function testTimestamp()
@@ -539,7 +539,7 @@ class S3FilesystemV1Test extends TestCase
             ->willReturn($return);
 
         $output = $filesystem->getTimestamp($path);
-        self::assertEquals(1584187200, $output);
+        self::assertEquals($return, $output);
     }
 
     public function testWriteStream()
