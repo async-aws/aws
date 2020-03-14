@@ -11,7 +11,6 @@ use League\Flysystem\Config;
 use League\Flysystem\FileAttributes;
 use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\FilesystemAdapterTestCase;
-use League\Flysystem\StorageAttributes;
 use League\Flysystem\Visibility;
 
 class S3FilesystemV2Test extends FilesystemAdapterTestCase
@@ -37,7 +36,6 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
         static::$adapterPrefix = 'ci/' . bin2hex(random_bytes(10));
     }
 
-
     public function testWriting_with_a_specific_mime_type()
     {
         $adapter = $this->adapter();
@@ -52,7 +50,7 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
         $adapter->write('something/0/here.txt', 'contents', new Config());
         $adapter->write('something/1/also/here.txt', 'contents', new Config());
 
-        $contents = iterator_to_array($adapter->listContents('something', true));
+        $contents = iterator_to_array($adapter->listContents('', true));
 
         self::assertCount(2, $contents);
         self::assertContainsOnlyInstancesOf(FileAttributes::class, $contents);
@@ -62,35 +60,6 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
         /** @var FileAttributes $file */
         $file = $contents[1];
         self::assertEquals('something/1/also/here.txt', $file->path());
-    }
-
-    protected function createFilesystemAdapter(): FilesystemAdapter
-    {
-        $bucket = getenv('FLYSYSTEM_AWS_S3_BUCKET') ?: 'flysystem-test-bucket';
-        $prefix = getenv('FLYSYSTEM_AWS_S3_PREFIX') ?: static::$adapterPrefix;
-
-        return new S3FilesystemV2($this->s3Client(), $bucket, $prefix);
-    }
-
-    private function s3Client(): S3Client
-    {
-        if ($this->s3Client instanceof S3Client) {
-            return $this->s3Client;
-        }
-
-        $key = getenv('FLYSYSTEM_AWS_S3_KEY');
-        $secret = getenv('FLYSYSTEM_AWS_S3_SECRET');
-        $bucket = getenv('FLYSYSTEM_AWS_S3_BUCKET');
-        $region = getenv('FLYSYSTEM_AWS_S3_REGION') ?: 'eu-central-1';
-
-        if (!$key || !$secret || !$bucket) {
-            self::$docker = true;
-            return $this->s3Client = new S3Client(['endpoint' => 'http://localhost:4569'], new NullProvider());
-        }
-
-        $options = ['accessKeyId' => $key, 'accessKeySecret' => $secret, 'region' => $region];
-
-        return $this->s3Client = new S3Client($options);
     }
 
     /**
@@ -114,9 +83,9 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
 
         $adapter->copy('source.txt', 'destination.txt', new Config());
 
-        $this->assertTrue($adapter->fileExists('source.txt'));
-        $this->assertTrue($adapter->fileExists('destination.txt'));
-        $this->assertEquals('contents to be copied', $adapter->read('destination.txt'));
+        self::assertTrue($adapter->fileExists('source.txt'));
+        self::assertTrue($adapter->fileExists('destination.txt'));
+        self::assertEquals('contents to be copied', $adapter->read('destination.txt'));
     }
 
     /**
@@ -125,7 +94,7 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
     public function copying_a_file_with_collision(): void
     {
         if (self::$docker) {
-            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
+            self::markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
         }
 
         parent::copying_a_file_with_collision();
@@ -150,9 +119,9 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
             new Config([Config::OPTION_VISIBILITY => Visibility::PUBLIC])
         );
         $adapter->move('source.txt', 'destination.txt', new Config());
-        $this->assertFalse($adapter->fileExists('source.txt'), 'After moving a file should no longer exist in the original location.');
-        $this->assertTrue($adapter->fileExists('destination.txt'), 'After moving, a file should be present at the new location.');
-        $this->assertEquals('contents to be copied', $adapter->read('destination.txt'));
+        self::assertFalse($adapter->fileExists('source.txt'), 'After moving a file should no longer exist in the original location.');
+        self::assertTrue($adapter->fileExists('destination.txt'), 'After moving, a file should be present at the new location.');
+        self::assertEquals('contents to be copied', $adapter->read('destination.txt'));
     }
 
     /**
@@ -161,7 +130,7 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
     public function setting_visibility(): void
     {
         if (self::$docker) {
-            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
+            self::markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
         }
 
         parent::setting_visibility();
@@ -173,7 +142,7 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
     public function fetching_visibility_of_non_existing_file(): void
     {
         if (self::$docker) {
-            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
+            self::markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
         }
 
         parent::fetching_visibility_of_non_existing_file();
@@ -185,7 +154,7 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
     public function setting_visibility_on_a_file_that_does_not_exist(): void
     {
         if (self::$docker) {
-            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
+            self::markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
         }
 
         parent::setting_visibility_on_a_file_that_does_not_exist();
@@ -197,9 +166,39 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
     public function creating_a_directory(): void
     {
         if (self::$docker) {
-            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
+            self::markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
         }
 
         parent::creating_a_directory();
+    }
+
+    protected function createFilesystemAdapter(): FilesystemAdapter
+    {
+        $bucket = getenv('FLYSYSTEM_AWS_S3_BUCKET') ?: 'flysystem-test-bucket';
+        $prefix = getenv('FLYSYSTEM_AWS_S3_PREFIX') ?: static::$adapterPrefix;
+
+        return new S3FilesystemV2($this->s3Client(), $bucket, $prefix);
+    }
+
+    private function s3Client(): S3Client
+    {
+        if ($this->s3Client instanceof S3Client) {
+            return $this->s3Client;
+        }
+
+        $key = getenv('FLYSYSTEM_AWS_S3_KEY');
+        $secret = getenv('FLYSYSTEM_AWS_S3_SECRET');
+        $bucket = getenv('FLYSYSTEM_AWS_S3_BUCKET');
+        $region = getenv('FLYSYSTEM_AWS_S3_REGION') ?: 'eu-central-1';
+
+        if (!$key || !$secret || !$bucket) {
+            self::$docker = true;
+
+            return $this->s3Client = new S3Client(['endpoint' => 'http://localhost:4569'], new NullProvider());
+        }
+
+        $options = ['accessKeyId' => $key, 'accessKeySecret' => $secret, 'region' => $region];
+
+        return $this->s3Client = new S3Client($options);
     }
 }
