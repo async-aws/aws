@@ -563,9 +563,9 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
         $result = $this->client->listObjectsV2($options);
         $listing = [];
 
-        /** @var ListObjectsV2Output $single */
+        /** @var AwsObject|CommonPrefix $single */
         foreach ($result->getIterator() as $single) {
-            $listing = array_merge($listing, (array) $single->getContents(), (array) $single->getCommonPrefixes());
+            $listing[] = $single;
         }
 
         return $listing;

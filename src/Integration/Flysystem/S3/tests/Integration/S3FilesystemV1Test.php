@@ -73,6 +73,15 @@ class S3FilesystemV1Test extends TestCase
         self::assertEquals('contents to be copied', $adapter->read('destination.txt'));
     }
 
+    public function testWrite(): void
+    {
+        $adapter = $this->adapter();
+        $adapter->write('file.txt', 'my contents', new Config());
+
+        self::assertTrue($adapter->has('file.txt'));
+        self::assertEquals('my contents', $adapter->read('file.txt')['contents']);
+    }
+
     public function testMoveFile(): void
     {
         $adapter = $this->adapter();
