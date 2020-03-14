@@ -331,7 +331,7 @@ class InputGenerator
             foreach ($inputShape->getMembers() as $member) {
                 // If location is not specified, it will go in the request body.
                 if ($requestPart === ($member->getLocation() ?? 'payload')) {
-                    $body[$requestPart] .= 'if ($this->' . $member->getName() . ' !== null) ' . $varName . '["' . ($member->getLocationName() ?? $member->getName()) . '"] = ' . $this->stringify('$this->' . $member->getName(), $member) . ';' . "\n";
+                    $body[$requestPart] .= 'if ($this->' . $member->getName() . ' !== null) ' . $varName . '["' . ($member->getLocationName() ?? $member->getName()) . '"] = ' . $this->stringifyHeaderValue('$this->' . $member->getName(), $member) . ';' . "\n";
                 }
             }
         }
@@ -401,7 +401,7 @@ PHP
     /**
      * Convert variable to a string.
      */
-    private function stringify(string $variable, Member $member): string
+    private function stringifyHeaderValue(string $variable, Member $member): string
     {
         $type = $member->getShape()->getType();
         if ('timestamp' === $type) {
