@@ -316,13 +316,13 @@ class GetObjectRequest
             $headers['If-Match'] = $this->IfMatch;
         }
         if (null !== $this->IfModifiedSince) {
-            $headers['If-Modified-Since'] = $this->IfModifiedSince->format(\DateTimeInterface::RFC1123);
+            $headers['If-Modified-Since'] = $this->IfModifiedSince->format(\DateTimeInterface::RFC822);
         }
         if (null !== $this->IfNoneMatch) {
             $headers['If-None-Match'] = $this->IfNoneMatch;
         }
         if (null !== $this->IfUnmodifiedSince) {
-            $headers['If-Unmodified-Since'] = $this->IfUnmodifiedSince->format(\DateTimeInterface::RFC1123);
+            $headers['If-Unmodified-Since'] = $this->IfUnmodifiedSince->format(\DateTimeInterface::RFC822);
         }
         if (null !== $this->Range) {
             $headers['Range'] = $this->Range;
@@ -358,13 +358,13 @@ class GetObjectRequest
             $query['response-content-type'] = $this->ResponseContentType;
         }
         if (null !== $this->ResponseExpires) {
-            $query['response-expires'] = $this->ResponseExpires->format(\DateTimeInterface::ATOM);
+            $query['response-expires'] = $this->ResponseExpires->format(\DateTimeInterface::ISO8601);
         }
         if (null !== $this->VersionId) {
             $query['versionId'] = $this->VersionId;
         }
         if (null !== $this->PartNumber) {
-            $query['partNumber'] = $this->PartNumber;
+            $query['partNumber'] = (string) $this->PartNumber;
         }
 
         // Prepare URI

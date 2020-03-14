@@ -100,7 +100,7 @@ class ListLayerVersionsRequest
             $query['Marker'] = $this->Marker;
         }
         if (null !== $this->MaxItems) {
-            $query['MaxItems'] = $this->MaxItems;
+            $query['MaxItems'] = (string) $this->MaxItems;
         }
 
         // Prepare URI

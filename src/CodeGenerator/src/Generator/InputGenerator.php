@@ -331,7 +331,7 @@ class InputGenerator
             foreach ($inputShape->getMembers() as $member) {
                 // If location is not specified, it will go in the request body.
                 if ($requestPart === ($member->getLocation() ?? 'payload')) {
-                    $body[$requestPart] .= 'if ($this->' . $member->getName() . ' !== null) ' . $varName . '["' . ($member->getLocationName() ?? $member->getName()) . '"] = ' . $this->stringifyHeaderValue('$this->' . $member->getName(), $member) . ';' . "\n";
+                    $body[$requestPart] .= 'if ($this->' . $member->getName() . ' !== null) ' . $varName . '["' . ($member->getLocationName() ?? $member->getName()) . '"] = ' . $this->stringify('$this->' . $member->getName(), $member, $requestPart) . ';' . "\n";
                 }
             }
         }
@@ -401,21 +401,30 @@ PHP
     /**
      * Convert variable to a string.
      */
-    private function stringifyHeaderValue(string $variable, Member $member): string
+    private function stringify(string $variable, Member $member, string $part): string
     {
-        $type = $member->getShape()->getType();
-        if ('timestamp' === $type) {
-            if (in_array($member->getLocationName(), ['Expires', 'If-Modified-Since', 'If-Unmodified-Since'])) {
-                return $variable . '->format(\DateTimeInterface::RFC1123)';
-            }
-
-            return $variable . '->format(\DateTimeInterface::ATOM)';
+        if ($part !== 'header' && $part !== 'querystring') {
+            throw new \InvalidArgumentException(sprintf('Argument 3 of "%s::%s" must be either "header" or "querystring". Value "%s" provided', __CLASS__, __FUNCTION__, $part));
         }
 
-        if ('boolean' === $type) {
-            return $variable . ' ? "true" : "false"';
+        $shape = $member->getShape();
+        switch ($shape->getType()) {
+            case 'timestamp':
+                $format = strtoupper($shape->get('timestampFormat') ?? ($part === 'header' ? 'rfc822' : 'iso8601'));
+                if (!defined('\DateTimeInterface::'.$format)) {
+                    throw new \InvalidArgumentException('Constant "\DateTimeInterface::'.$format.'" does not exists.');
+                }
+
+                return $variable . '->format(\DateTimeInterface::'.$format.')';
+            case 'boolean':
+                return $variable . ' ? "true" : "false"';
+            case 'string':
+                return $variable;
+            case 'long':
+            case 'integer':
+            return '(string) '.$variable;
         }
 
-        return $variable;
+        throw new \InvalidArgumentException(sprintf('Type "%s" is not yet implemented', $shape->getType()));
     }
 }

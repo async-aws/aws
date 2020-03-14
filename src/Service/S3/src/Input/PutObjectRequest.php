@@ -536,7 +536,7 @@ class PutObjectRequest
             $headers['Content-Language'] = $this->ContentLanguage;
         }
         if (null !== $this->ContentLength) {
-            $headers['Content-Length'] = $this->ContentLength;
+            $headers['Content-Length'] = (string) $this->ContentLength;
         }
         if (null !== $this->ContentMD5) {
             $headers['Content-MD5'] = $this->ContentMD5;
@@ -545,7 +545,7 @@ class PutObjectRequest
             $headers['Content-Type'] = $this->ContentType;
         }
         if (null !== $this->Expires) {
-            $headers['Expires'] = $this->Expires->format(\DateTimeInterface::RFC1123);
+            $headers['Expires'] = $this->Expires->format(\DateTimeInterface::RFC822);
         }
         if (null !== $this->GrantFullControl) {
             $headers['x-amz-grant-full-control'] = $this->GrantFullControl;
@@ -593,7 +593,7 @@ class PutObjectRequest
             $headers['x-amz-object-lock-mode'] = $this->ObjectLockMode;
         }
         if (null !== $this->ObjectLockRetainUntilDate) {
-            $headers['x-amz-object-lock-retain-until-date'] = $this->ObjectLockRetainUntilDate->format(\DateTimeInterface::ATOM);
+            $headers['x-amz-object-lock-retain-until-date'] = $this->ObjectLockRetainUntilDate->format(\DateTimeInterface::ISO8601);
         }
         if (null !== $this->ObjectLockLegalHoldStatus) {
             $headers['x-amz-object-lock-legal-hold'] = $this->ObjectLockLegalHoldStatus;

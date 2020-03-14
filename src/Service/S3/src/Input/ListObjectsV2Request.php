@@ -182,7 +182,7 @@ class ListObjectsV2Request
             $query['encoding-type'] = $this->EncodingType;
         }
         if (null !== $this->MaxKeys) {
-            $query['max-keys'] = $this->MaxKeys;
+            $query['max-keys'] = (string) $this->MaxKeys;
         }
         if (null !== $this->Prefix) {
             $query['prefix'] = $this->Prefix;
