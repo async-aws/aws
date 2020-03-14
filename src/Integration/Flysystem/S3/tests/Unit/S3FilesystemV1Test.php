@@ -26,6 +26,13 @@ class S3FilesystemV1Test extends TestCase
     private const BUCKCET = 'my_bucket';
     private const PREFIX = 'all-files';
 
+    protected function setUp(): void
+    {
+        if (!interface_exists(AdapterInterface::class)) {
+            self::markTestSkipped('Flysystem v1 is not installed');
+        }
+    }
+
     public function testWrite()
     {
         $file = 'foo/bar.txt';
