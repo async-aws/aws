@@ -12,10 +12,8 @@ use AsyncAws\Core\Credentials\IniFileProvider;
 use AsyncAws\Core\Credentials\InstanceProvider;
 use AsyncAws\Core\Credentials\WebIdentityProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
-use AsyncAws\Core\Signer\Request;
 use AsyncAws\Core\Signer\Signer;
 use AsyncAws\Core\Signer\SignerV4;
-use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Core\Stream\StringStream;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -88,10 +86,6 @@ abstract class AbstractApi
 
     abstract protected function getSignatureScopeName(): string;
 
-    /**
-     * @param string[]|string[][]                    $headers headers names provided as keys or as part of values
-     * @param string|resource|callable|iterable|null $body
-     */
     final protected function getResponse(Request $request): ResponseInterface
     {
         $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery()));
@@ -113,6 +107,18 @@ abstract class AbstractApi
     }
 
     /**
+     * @return callable[]
+     */
+    protected function getSignerFactories(): array
+    {
+        return [
+            'v4' => static function (string $service, string $region) {
+                return new SignerV4($service, $region);
+            },
+        ];
+    }
+
+    /**
      * Fallback function for getting the endpoint. This could be overridden by any APIClient.
      *
      * @param string $uri   or path
@@ -131,18 +137,6 @@ abstract class AbstractApi
         }
 
         return $endpoint . (false === \strpos($endpoint, '?') ? '?' : '&') . http_build_query($query);
-    }
-
-    /**
-     * @return callable[]
-     */
-    protected function getSignerFactories(): array
-    {
-        return [
-            'v4' => static function (string $service, string $region) {
-                return new SignerV4($service, $region);
-            },
-        ];
     }
 
     private function getSigner()

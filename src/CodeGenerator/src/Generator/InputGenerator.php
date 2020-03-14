@@ -14,7 +14,7 @@ use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\RequestSerializer\SerializerProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
-use AsyncAws\Core\Signer\Request;
+use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
@@ -334,7 +334,6 @@ class InputGenerator
                 }
             }
         }
-
 
         if ($operation->hasBody()) {
             if (null !== $payloadProperty = $inputShape->getPayload()) {

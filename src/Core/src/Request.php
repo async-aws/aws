@@ -1,6 +1,6 @@
 <?php
 
-namespace AsyncAws\Core\Signer;
+namespace AsyncAws\Core;
 
 use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\Core\Stream\Stream;

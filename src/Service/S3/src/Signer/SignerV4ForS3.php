@@ -3,7 +3,7 @@
 namespace AsyncAws\S3\Signer;
 
 use AsyncAws\Core\Credentials\Credentials;
-use AsyncAws\Core\Signer\Request;
+use AsyncAws\Core\Request;
 use AsyncAws\Core\Signer\SignerV4;
 use AsyncAws\Core\Stream\StringStream;
 

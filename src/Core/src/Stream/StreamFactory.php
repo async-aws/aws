@@ -7,8 +7,6 @@ use AsyncAws\Core\Exception\InvalidArgument;
 /**
  * Create Streams.
  *
- * @internal
- *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
 class StreamFactory

@@ -3,7 +3,7 @@
 namespace AsyncAws\Core\Sts\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
-use AsyncAws\Core\Signer\Request;
+use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
 class AssumeRoleRequest

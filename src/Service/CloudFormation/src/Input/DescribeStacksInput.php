@@ -2,7 +2,7 @@
 
 namespace AsyncAws\CloudFormation\Input;
 
-use AsyncAws\Core\Signer\Request;
+use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
 class DescribeStacksInput

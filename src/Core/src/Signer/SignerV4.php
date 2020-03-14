@@ -4,6 +4,7 @@ namespace AsyncAws\Core\Signer;
 
 use AsyncAws\Core\Credentials\Credentials;
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\FixedSizeStream;
 use AsyncAws\Core\Stream\IterableStream;
 use AsyncAws\Core\Stream\Stream;
