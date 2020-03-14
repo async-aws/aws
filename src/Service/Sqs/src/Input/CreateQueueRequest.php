@@ -3,6 +3,8 @@
 namespace AsyncAws\Sqs\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 
 class CreateQueueRequest
 {
@@ -75,59 +77,19 @@ class CreateQueueRequest
     /**
      * @internal
      */
-    public function requestBody(): string
+    public function request(): Request
     {
-        $payload = ['Action' => 'CreateQueue', 'Version' => '2012-11-05'];
-        $indices = new \stdClass();
-        $payload['QueueName'] = $this->QueueName;
-
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->ka086d94 = 0;
-            foreach ($input as $key => $value) {
-                ++$indices->ka086d94;
-                $payload["Attribute.{$indices->ka086d94}.Name"] = $key;
-                $payload["Attribute.{$indices->ka086d94}.Value"] = $value;
-            }
-        })($this->Attributes);
-
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->k982963c = 0;
-            foreach ($input as $key => $value) {
-                ++$indices->k982963c;
-                $payload["Tag.{$indices->k982963c}.Key"] = $key;
-                $payload["Tag.{$indices->k982963c}.Value"] = $value;
-            }
-        })($this->tags);
-
-        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
-    }
-
-    /**
-     * @internal
-     */
-    public function requestHeaders(): array
-    {
+        // Prepare headers
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
+        // Prepare query
         $query = [];
 
-        return $query;
-    }
+        // Prepare URI
+        $uriString = '/';
 
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
-        return '/';
+        // Return the Request
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 
     /**
@@ -162,5 +124,32 @@ class CreateQueueRequest
         if (null === $this->QueueName) {
             throw new InvalidArgument(sprintf('Missing parameter "QueueName" when validating the "%s". The value cannot be null.', __CLASS__));
         }
+    }
+
+    private function requestBody(): string
+    {
+        $payload = ['Action' => 'CreateQueue', 'Version' => '2012-11-05'];
+        $indices = new \stdClass();
+        $payload['QueueName'] = $this->QueueName;
+
+        (static function (array $input) use (&$payload, $indices) {
+            $indices->ka086d94 = 0;
+            foreach ($input as $key => $value) {
+                ++$indices->ka086d94;
+                $payload["Attribute.{$indices->ka086d94}.Name"] = $key;
+                $payload["Attribute.{$indices->ka086d94}.Value"] = $value;
+            }
+        })($this->Attributes);
+
+        (static function (array $input) use (&$payload, $indices) {
+            $indices->k982963c = 0;
+            foreach ($input as $key => $value) {
+                ++$indices->k982963c;
+                $payload["Tag.{$indices->k982963c}.Key"] = $key;
+                $payload["Tag.{$indices->k982963c}.Value"] = $value;
+            }
+        })($this->tags);
+
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 }

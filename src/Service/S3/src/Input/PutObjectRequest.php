@@ -3,6 +3,8 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\ObjectCannedACL;
 use AsyncAws\S3\Enum\ObjectLockLegalHoldStatus;
 use AsyncAws\S3\Enum\ObjectLockMode;
@@ -514,16 +516,9 @@ class PutObjectRequest
     /**
      * @internal
      */
-    public function requestBody()
+    public function request(): Request
     {
-        return $this->Body ?? '';
-    }
-
-    /**
-     * @internal
-     */
-    public function requestHeaders(): array
-    {
+        // Prepare headers
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->ACL) {
             $headers['x-amz-acl'] = $this->ACL;
@@ -541,7 +536,7 @@ class PutObjectRequest
             $headers['Content-Language'] = $this->ContentLanguage;
         }
         if (null !== $this->ContentLength) {
-            $headers['Content-Length'] = $this->ContentLength;
+            $headers['Content-Length'] = (string) $this->ContentLength;
         }
         if (null !== $this->ContentMD5) {
             $headers['Content-MD5'] = $this->ContentMD5;
@@ -550,7 +545,7 @@ class PutObjectRequest
             $headers['Content-Type'] = $this->ContentType;
         }
         if (null !== $this->Expires) {
-            $headers['Expires'] = $this->Expires;
+            $headers['Expires'] = $this->Expires->format(\DateTimeInterface::RFC822);
         }
         if (null !== $this->GrantFullControl) {
             $headers['x-amz-grant-full-control'] = $this->GrantFullControl;
@@ -598,35 +593,23 @@ class PutObjectRequest
             $headers['x-amz-object-lock-mode'] = $this->ObjectLockMode;
         }
         if (null !== $this->ObjectLockRetainUntilDate) {
-            $headers['x-amz-object-lock-retain-until-date'] = $this->ObjectLockRetainUntilDate;
+            $headers['x-amz-object-lock-retain-until-date'] = $this->ObjectLockRetainUntilDate->format(\DateTimeInterface::ISO8601);
         }
         if (null !== $this->ObjectLockLegalHoldStatus) {
             $headers['x-amz-object-lock-legal-hold'] = $this->ObjectLockLegalHoldStatus;
         }
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
+        // Prepare query
         $query = [];
 
-        return $query;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
+        // Prepare URI
         $uri = [];
         $uri['Bucket'] = $this->Bucket ?? '';
         $uri['Key'] = $this->Key ?? '';
+        $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
 
-        return "/{$uri['Bucket']}/{$uri['Key']}";
+        // Return the Request
+        return new Request('PUT', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 
     /**
@@ -908,5 +891,10 @@ class PutObjectRequest
                 throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockLegalHoldStatus" when validating the "%s". The value "%s" is not a valid "ObjectLockLegalHoldStatus".', __CLASS__, $this->ObjectLockLegalHoldStatus));
             }
         }
+    }
+
+    private function requestBody()
+    {
+        return $this->Body ?? '';
     }
 }

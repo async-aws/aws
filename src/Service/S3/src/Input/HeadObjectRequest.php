@@ -3,6 +3,8 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 
 class HeadObjectRequest
@@ -223,20 +225,21 @@ class HeadObjectRequest
     /**
      * @internal
      */
-    public function requestHeaders(): array
+    public function request(): Request
     {
+        // Prepare headers
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->IfMatch) {
             $headers['If-Match'] = $this->IfMatch;
         }
         if (null !== $this->IfModifiedSince) {
-            $headers['If-Modified-Since'] = $this->IfModifiedSince;
+            $headers['If-Modified-Since'] = $this->IfModifiedSince->format(\DateTimeInterface::RFC822);
         }
         if (null !== $this->IfNoneMatch) {
             $headers['If-None-Match'] = $this->IfNoneMatch;
         }
         if (null !== $this->IfUnmodifiedSince) {
-            $headers['If-Unmodified-Since'] = $this->IfUnmodifiedSince;
+            $headers['If-Unmodified-Since'] = $this->IfUnmodifiedSince->format(\DateTimeInterface::RFC822);
         }
         if (null !== $this->Range) {
             $headers['Range'] = $this->Range;
@@ -254,35 +257,23 @@ class HeadObjectRequest
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
+        // Prepare query
         $query = [];
         if (null !== $this->VersionId) {
             $query['versionId'] = $this->VersionId;
         }
         if (null !== $this->PartNumber) {
-            $query['partNumber'] = $this->PartNumber;
+            $query['partNumber'] = (string) $this->PartNumber;
         }
 
-        return $query;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
+        // Prepare URI
         $uri = [];
         $uri['Bucket'] = $this->Bucket ?? '';
         $uri['Key'] = $this->Key ?? '';
+        $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
 
-        return "/{$uri['Bucket']}/{$uri['Key']}";
+        // Return the Request
+        return new Request('HEAD', $uriString, $query, $headers, StreamFactory::create(null));
     }
 
     public function setBucket(?string $value): self

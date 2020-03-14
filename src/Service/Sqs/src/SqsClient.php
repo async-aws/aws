@@ -44,12 +44,7 @@ class SqsClient extends AbstractApi
         $input = ChangeMessageVisibilityRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new Result($response, $this->httpClient);
     }
@@ -71,12 +66,7 @@ class SqsClient extends AbstractApi
         $input = CreateQueueRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new CreateQueueResult($response, $this->httpClient);
     }
@@ -99,12 +89,7 @@ class SqsClient extends AbstractApi
         $input = DeleteMessageRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new Result($response, $this->httpClient);
     }
@@ -124,12 +109,7 @@ class SqsClient extends AbstractApi
         $input = DeleteQueueRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new Result($response, $this->httpClient);
     }
@@ -149,12 +129,7 @@ class SqsClient extends AbstractApi
         $input = GetQueueAttributesRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new GetQueueAttributesResult($response, $this->httpClient);
     }
@@ -174,12 +149,7 @@ class SqsClient extends AbstractApi
         $input = GetQueueUrlRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new GetQueueUrlResult($response, $this->httpClient);
     }
@@ -199,12 +169,7 @@ class SqsClient extends AbstractApi
         $input = ListQueuesRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new ListQueuesResult($response, $this->httpClient);
     }
@@ -223,12 +188,7 @@ class SqsClient extends AbstractApi
         $input = PurgeQueueRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new Result($response, $this->httpClient);
     }
@@ -248,12 +208,7 @@ class SqsClient extends AbstractApi
         $input = GetQueueUrlRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new QueueExistsWaiter($response, $this->httpClient, $this, $input);
     }
@@ -281,12 +236,7 @@ class SqsClient extends AbstractApi
         $input = ReceiveMessageRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new ReceiveMessageResult($response, $this->httpClient);
     }
@@ -311,12 +261,7 @@ class SqsClient extends AbstractApi
         $input = SendMessageRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new SendMessageResult($response, $this->httpClient);
     }

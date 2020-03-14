@@ -3,6 +3,8 @@
 namespace AsyncAws\Ses\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 
 class SendEmailRequest
 {
@@ -133,7 +135,94 @@ class SendEmailRequest
     /**
      * @internal
      */
-    public function requestBody(): string
+    public function request(): Request
+    {
+        // Prepare headers
+        $headers = ['content-type' => 'application/json'];
+
+        // Prepare query
+        $query = [];
+
+        // Prepare URI
+        $uriString = '/v2/email/outbound-emails';
+
+        // Return the Request
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
+    }
+
+    public function setConfigurationSetName(?string $value): self
+    {
+        $this->ConfigurationSetName = $value;
+
+        return $this;
+    }
+
+    public function setContent(?EmailContent $value): self
+    {
+        $this->Content = $value;
+
+        return $this;
+    }
+
+    public function setDestination(?Destination $value): self
+    {
+        $this->Destination = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param MessageTag[] $value
+     */
+    public function setEmailTags(array $value): self
+    {
+        $this->EmailTags = $value;
+
+        return $this;
+    }
+
+    public function setFeedbackForwardingEmailAddress(?string $value): self
+    {
+        $this->FeedbackForwardingEmailAddress = $value;
+
+        return $this;
+    }
+
+    public function setFromEmailAddress(?string $value): self
+    {
+        $this->FromEmailAddress = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param string[] $value
+     */
+    public function setReplyToAddresses(array $value): self
+    {
+        $this->ReplyToAddresses = $value;
+
+        return $this;
+    }
+
+    public function validate(): void
+    {
+        if (null === $this->Destination) {
+            throw new InvalidArgument(sprintf('Missing parameter "Destination" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+        $this->Destination->validate();
+
+        if (null === $this->Content) {
+            throw new InvalidArgument(sprintf('Missing parameter "Content" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+        $this->Content->validate();
+
+        foreach ($this->EmailTags as $item) {
+            $item->validate();
+        }
+    }
+
+    private function requestBody(): string
     {
         $payload = [];
         $indices = new \stdClass();
@@ -258,105 +347,5 @@ class SendEmailRequest
         }
 
         return json_encode($payload);
-    }
-
-    /**
-     * @internal
-     */
-    public function requestHeaders(): array
-    {
-        $headers = ['content-type' => 'application/json'];
-
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
-        $query = [];
-
-        return $query;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
-        return '/v2/email/outbound-emails';
-    }
-
-    public function setConfigurationSetName(?string $value): self
-    {
-        $this->ConfigurationSetName = $value;
-
-        return $this;
-    }
-
-    public function setContent(?EmailContent $value): self
-    {
-        $this->Content = $value;
-
-        return $this;
-    }
-
-    public function setDestination(?Destination $value): self
-    {
-        $this->Destination = $value;
-
-        return $this;
-    }
-
-    /**
-     * @param MessageTag[] $value
-     */
-    public function setEmailTags(array $value): self
-    {
-        $this->EmailTags = $value;
-
-        return $this;
-    }
-
-    public function setFeedbackForwardingEmailAddress(?string $value): self
-    {
-        $this->FeedbackForwardingEmailAddress = $value;
-
-        return $this;
-    }
-
-    public function setFromEmailAddress(?string $value): self
-    {
-        $this->FromEmailAddress = $value;
-
-        return $this;
-    }
-
-    /**
-     * @param string[] $value
-     */
-    public function setReplyToAddresses(array $value): self
-    {
-        $this->ReplyToAddresses = $value;
-
-        return $this;
-    }
-
-    public function validate(): void
-    {
-        if (null === $this->Destination) {
-            throw new InvalidArgument(sprintf('Missing parameter "Destination" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-        $this->Destination->validate();
-
-        if (null === $this->Content) {
-            throw new InvalidArgument(sprintf('Missing parameter "Content" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-        $this->Content->validate();
-
-        foreach ($this->EmailTags as $item) {
-            $item->validate();
-        }
     }
 }

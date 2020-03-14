@@ -55,6 +55,6 @@ Action=AssumeRole
 &ExternalId=123ABC
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
+        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
     }
 }

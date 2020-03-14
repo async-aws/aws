@@ -1,11 +1,12 @@
 <?php
 
-namespace AsyncAws\Core\Signer;
+namespace AsyncAws\Core;
 
+use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\Core\Stream\Stream;
 
 /**
- * Dummy object to store a Request.
+ * Representation of a AWS Request.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  *
@@ -15,23 +16,29 @@ final class Request
 {
     private $method;
 
-    private $url;
+    private $uri;
 
     private $headers;
 
     private $body;
 
+    private $query;
+
+    private $endpoint;
+
     /**
      * @param string[]|string[][] $headers
      */
-    public function __construct(string $method, string $url, array $headers, Stream $body)
+    public function __construct(string $method, string $uri, array $query, array $headers, Stream $body)
     {
         $this->method = $method;
-        $this->url = $url;
+        $this->uri = $uri;
         foreach ($headers as $key => $value) {
             $this->headers[\strtolower($key)] = $value;
         }
         $this->body = $body;
+        $this->query = $query;
+        $this->endpoint = '';
     }
 
     public function getMethod(): string
@@ -39,9 +46,9 @@ final class Request
         return $this->method;
     }
 
-    public function getUrl(): string
+    public function getUri(): string
     {
-        return $this->url;
+        return $this->uri;
     }
 
     public function hasHeader($name): bool
@@ -75,5 +82,23 @@ final class Request
     public function setBody(Stream $body)
     {
         $this->body = $body;
+    }
+
+    public function getQuery(): array
+    {
+        return $this->query;
+    }
+
+    public function getEndpoint(): string
+    {
+        return $this->endpoint;
+    }
+
+    public function setEndpoint(string $endpoint): void
+    {
+        if (!empty($this->endpoint)) {
+            throw new LogicException('Request::$endpoint cannot be changed after it has a value.');
+        }
+        $this->endpoint = $endpoint;
     }
 }

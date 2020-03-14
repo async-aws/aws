@@ -3,6 +3,8 @@
 namespace AsyncAws\Core\Sts\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 
 class AssumeRoleRequest
 {
@@ -202,94 +204,19 @@ class AssumeRoleRequest
     /**
      * @internal
      */
-    public function requestBody(): string
+    public function request(): Request
     {
-        $payload = ['Action' => 'AssumeRole', 'Version' => '2011-06-15'];
-        $indices = new \stdClass();
-        $payload['RoleArn'] = $this->RoleArn;
-        $payload['RoleSessionName'] = $this->RoleSessionName;
-
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->kfc822c1 = 0;
-            foreach ($input as $value) {
-                ++$indices->kfc822c1;
-
-                if (null !== $value) {
-                    (static function (PolicyDescriptorType $input) use (&$payload, $indices) {
-                        if (null !== $v = $input->getarn()) {
-                            $payload["PolicyArns.member.{$indices->kfc822c1}.arn"] = $v;
-                        }
-                    })($value);
-                }
-            }
-        })($this->PolicyArns);
-        if (null !== $v = $this->Policy) {
-            $payload['Policy'] = $v;
-        }
-        if (null !== $v = $this->DurationSeconds) {
-            $payload['DurationSeconds'] = $v;
-        }
-
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->k26dfc14 = 0;
-            foreach ($input as $value) {
-                ++$indices->k26dfc14;
-
-                if (null !== $value) {
-                    (static function (Tag $input) use (&$payload, $indices) {
-                        $payload["Tags.member.{$indices->k26dfc14}.Key"] = $input->getKey();
-                        $payload["Tags.member.{$indices->k26dfc14}.Value"] = $input->getValue();
-                    })($value);
-                }
-            }
-        })($this->Tags);
-
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->k0ec5280 = 0;
-            foreach ($input as $value) {
-                ++$indices->k0ec5280;
-                $payload["TransitiveTagKeys.member.{$indices->k0ec5280}"] = $value;
-            }
-        })($this->TransitiveTagKeys);
-        if (null !== $v = $this->ExternalId) {
-            $payload['ExternalId'] = $v;
-        }
-        if (null !== $v = $this->SerialNumber) {
-            $payload['SerialNumber'] = $v;
-        }
-        if (null !== $v = $this->TokenCode) {
-            $payload['TokenCode'] = $v;
-        }
-
-        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
-    }
-
-    /**
-     * @internal
-     */
-    public function requestHeaders(): array
-    {
+        // Prepare headers
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
+        // Prepare query
         $query = [];
 
-        return $query;
-    }
+        // Prepare URI
+        $uriString = '/';
 
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
-        return '/';
+        // Return the Request
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 
     public function setDurationSeconds(?int $value): self
@@ -388,5 +315,67 @@ class AssumeRoleRequest
         foreach ($this->Tags as $item) {
             $item->validate();
         }
+    }
+
+    private function requestBody(): string
+    {
+        $payload = ['Action' => 'AssumeRole', 'Version' => '2011-06-15'];
+        $indices = new \stdClass();
+        $payload['RoleArn'] = $this->RoleArn;
+        $payload['RoleSessionName'] = $this->RoleSessionName;
+
+        (static function (array $input) use (&$payload, $indices) {
+            $indices->kfc822c1 = 0;
+            foreach ($input as $value) {
+                ++$indices->kfc822c1;
+
+                if (null !== $value) {
+                    (static function (PolicyDescriptorType $input) use (&$payload, $indices) {
+                        if (null !== $v = $input->getarn()) {
+                            $payload["PolicyArns.member.{$indices->kfc822c1}.arn"] = $v;
+                        }
+                    })($value);
+                }
+            }
+        })($this->PolicyArns);
+        if (null !== $v = $this->Policy) {
+            $payload['Policy'] = $v;
+        }
+        if (null !== $v = $this->DurationSeconds) {
+            $payload['DurationSeconds'] = $v;
+        }
+
+        (static function (array $input) use (&$payload, $indices) {
+            $indices->k26dfc14 = 0;
+            foreach ($input as $value) {
+                ++$indices->k26dfc14;
+
+                if (null !== $value) {
+                    (static function (Tag $input) use (&$payload, $indices) {
+                        $payload["Tags.member.{$indices->k26dfc14}.Key"] = $input->getKey();
+                        $payload["Tags.member.{$indices->k26dfc14}.Value"] = $input->getValue();
+                    })($value);
+                }
+            }
+        })($this->Tags);
+
+        (static function (array $input) use (&$payload, $indices) {
+            $indices->k0ec5280 = 0;
+            foreach ($input as $value) {
+                ++$indices->k0ec5280;
+                $payload["TransitiveTagKeys.member.{$indices->k0ec5280}"] = $value;
+            }
+        })($this->TransitiveTagKeys);
+        if (null !== $v = $this->ExternalId) {
+            $payload['ExternalId'] = $v;
+        }
+        if (null !== $v = $this->SerialNumber) {
+            $payload['SerialNumber'] = $v;
+        }
+        if (null !== $v = $this->TokenCode) {
+            $payload['TokenCode'] = $v;
+        }
+
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 }

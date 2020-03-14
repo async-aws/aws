@@ -4,6 +4,7 @@ namespace AsyncAws\Core\Signer;
 
 use AsyncAws\Core\Credentials\Credentials;
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\FixedSizeStream;
 use AsyncAws\Core\Stream\IterableStream;
 use AsyncAws\Core\Stream\Stream;
@@ -61,8 +62,8 @@ class SignerV4 implements Signer
             return;
         }
 
-        if (false === $parsedUrl = parse_url($request->getUrl())) {
-            throw new InvalidArgument(sprintf('The endpoint "%s" is invalid.', $request->getUrl()));
+        if (false === $parsedUrl = parse_url($request->getEndpoint())) {
+            throw new InvalidArgument(sprintf('The endpoint "%s" is invalid.', $request->getEndpoint()));
         }
         if (null !== $sessionToken = $credentials->getSessionToken()) {
             $request->setHeader('x-amz-security-token', $sessionToken);

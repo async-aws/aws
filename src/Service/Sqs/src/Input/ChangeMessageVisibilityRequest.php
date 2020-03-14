@@ -3,6 +3,8 @@
 namespace AsyncAws\Sqs\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 
 class ChangeMessageVisibilityRequest
 {
@@ -71,42 +73,19 @@ class ChangeMessageVisibilityRequest
     /**
      * @internal
      */
-    public function requestBody(): string
+    public function request(): Request
     {
-        $payload = ['Action' => 'ChangeMessageVisibility', 'Version' => '2012-11-05'];
-        $payload['QueueUrl'] = $this->QueueUrl;
-        $payload['ReceiptHandle'] = $this->ReceiptHandle;
-        $payload['VisibilityTimeout'] = $this->VisibilityTimeout;
-
-        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
-    }
-
-    /**
-     * @internal
-     */
-    public function requestHeaders(): array
-    {
+        // Prepare headers
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
+        // Prepare query
         $query = [];
 
-        return $query;
-    }
+        // Prepare URI
+        $uriString = '/';
 
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
-        return '/';
+        // Return the Request
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 
     public function setQueueUrl(?string $value): self
@@ -143,5 +122,15 @@ class ChangeMessageVisibilityRequest
         if (null === $this->VisibilityTimeout) {
             throw new InvalidArgument(sprintf('Missing parameter "VisibilityTimeout" when validating the "%s". The value cannot be null.', __CLASS__));
         }
+    }
+
+    private function requestBody(): string
+    {
+        $payload = ['Action' => 'ChangeMessageVisibility', 'Version' => '2012-11-05'];
+        $payload['QueueUrl'] = $this->QueueUrl;
+        $payload['ReceiptHandle'] = $this->ReceiptHandle;
+        $payload['VisibilityTimeout'] = $this->VisibilityTimeout;
+
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 }

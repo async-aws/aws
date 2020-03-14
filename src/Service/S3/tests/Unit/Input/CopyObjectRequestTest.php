@@ -19,10 +19,10 @@ class CopyObjectRequestTest extends TestCase
             'CopySource' => '/bucket/my-image.jpg',
         ]);
 
-        self::assertEmpty($input->requestBody());
-        $requestHeaders = $input->requestHeaders();
+        self::assertEmpty($input->request()->getBody()->stringify());
+        $requestHeaders = $input->request()->getHeaders();
         self::assertEquals('/bucket/my-image.jpg', $requestHeaders['x-amz-copy-source']);
 
-        self::assertEquals('/my-bucket/my-second-image.jpg', $input->requestUri());
+        self::assertEquals('/my-bucket/my-second-image.jpg', $input->request()->getUri());
     }
 }

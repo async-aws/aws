@@ -3,6 +3,8 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\ObjectCannedACL;
 use AsyncAws\S3\Enum\RequestPayer;
 
@@ -207,71 +209,9 @@ class PutObjectAclRequest
     /**
      * @internal
      */
-    public function requestBody(): string
+    public function request(): Request
     {
-        $document = new \DOMDocument('1.0', 'UTF-8');
-        $document->formatOutput = false;
-
-        if (null !== $input = $this->AccessControlPolicy) {
-            $document->appendChild($document_AccessControlPolicy = $document->createElement('AccessControlPolicy'));
-            $document_AccessControlPolicy->setAttribute('xmlns', 'http://s3.amazonaws.com/doc/2006-03-01/');
-
-            $input_Grants = $input->getGrants();
-
-            $document_AccessControlPolicy->appendChild($document_AccessControlPolicy_Grants = $document->createElement('AccessControlList'));
-            foreach ($input_Grants as $input_GrantsItem) {
-                $document_AccessControlPolicy_Grants->appendChild($document_AccessControlPolicy_Grants_Item = $document->createElement('Grant'));
-
-                if (null !== $input_GrantsItem_Grantee = $input_GrantsItem->getGrantee()) {
-                    $document_AccessControlPolicy_Grants_Item->appendChild($document_AccessControlPolicy_Grants_Item_Grantee = $document->createElement('Grantee'));
-                    $document_AccessControlPolicy_Grants_Item_Grantee->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
-
-                    if (null !== $input_GrantsItem_Grantee_DisplayName = $input_GrantsItem_Grantee->getDisplayName()) {
-                        $document_AccessControlPolicy_Grants_Item_Grantee->appendChild($document->createElement('DisplayName', $input_GrantsItem_Grantee_DisplayName));
-                    }
-
-                    if (null !== $input_GrantsItem_Grantee_EmailAddress = $input_GrantsItem_Grantee->getEmailAddress()) {
-                        $document_AccessControlPolicy_Grants_Item_Grantee->appendChild($document->createElement('EmailAddress', $input_GrantsItem_Grantee_EmailAddress));
-                    }
-
-                    if (null !== $input_GrantsItem_Grantee_ID = $input_GrantsItem_Grantee->getID()) {
-                        $document_AccessControlPolicy_Grants_Item_Grantee->appendChild($document->createElement('ID', $input_GrantsItem_Grantee_ID));
-                    }
-
-                    $input_GrantsItem_Grantee_Type = $input_GrantsItem_Grantee->getType();
-                    $document_AccessControlPolicy_Grants_Item_Grantee->setAttribute('xsi:type', $input_GrantsItem_Grantee_Type);
-
-                    if (null !== $input_GrantsItem_Grantee_URI = $input_GrantsItem_Grantee->getURI()) {
-                        $document_AccessControlPolicy_Grants_Item_Grantee->appendChild($document->createElement('URI', $input_GrantsItem_Grantee_URI));
-                    }
-                }
-
-                if (null !== $input_GrantsItem_Permission = $input_GrantsItem->getPermission()) {
-                    $document_AccessControlPolicy_Grants_Item->appendChild($document->createElement('Permission', $input_GrantsItem_Permission));
-                }
-            }
-
-            if (null !== $input_Owner = $input->getOwner()) {
-                $document_AccessControlPolicy->appendChild($document_AccessControlPolicy_Owner = $document->createElement('Owner'));
-
-                if (null !== $input_Owner_DisplayName = $input_Owner->getDisplayName()) {
-                    $document_AccessControlPolicy_Owner->appendChild($document->createElement('DisplayName', $input_Owner_DisplayName));
-                }
-
-                if (null !== $input_Owner_ID = $input_Owner->getID()) {
-                    $document_AccessControlPolicy_Owner->appendChild($document->createElement('ID', $input_Owner_ID));
-                }
-            }
-        }
-
-        return $document->hasChildNodes() ? $document->saveXML() : '';
-    }
-
-    /**
-     * @internal
-     */
-    public function requestHeaders(): array
-    {
+        // Prepare headers
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->ACL) {
             $headers['x-amz-acl'] = $this->ACL;
@@ -298,32 +238,20 @@ class PutObjectAclRequest
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
+        // Prepare query
         $query = [];
         if (null !== $this->VersionId) {
             $query['versionId'] = $this->VersionId;
         }
 
-        return $query;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
+        // Prepare URI
         $uri = [];
         $uri['Bucket'] = $this->Bucket ?? '';
         $uri['Key'] = $this->Key ?? '';
+        $uriString = "/{$uri['Bucket']}/{$uri['Key']}?acl";
 
-        return "/{$uri['Bucket']}/{$uri['Key']}?acl";
+        // Return the Request
+        return new Request('PUT', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 
     /**
@@ -441,5 +369,65 @@ class PutObjectAclRequest
                 throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
             }
         }
+    }
+
+    private function requestBody(): string
+    {
+        $document = new \DOMDocument('1.0', 'UTF-8');
+        $document->formatOutput = false;
+
+        if (null !== $input = $this->AccessControlPolicy) {
+            $document->appendChild($document_AccessControlPolicy = $document->createElement('AccessControlPolicy'));
+            $document_AccessControlPolicy->setAttribute('xmlns', 'http://s3.amazonaws.com/doc/2006-03-01/');
+
+            $input_Grants = $input->getGrants();
+
+            $document_AccessControlPolicy->appendChild($document_AccessControlPolicy_Grants = $document->createElement('AccessControlList'));
+            foreach ($input_Grants as $input_GrantsItem) {
+                $document_AccessControlPolicy_Grants->appendChild($document_AccessControlPolicy_Grants_Item = $document->createElement('Grant'));
+
+                if (null !== $input_GrantsItem_Grantee = $input_GrantsItem->getGrantee()) {
+                    $document_AccessControlPolicy_Grants_Item->appendChild($document_AccessControlPolicy_Grants_Item_Grantee = $document->createElement('Grantee'));
+                    $document_AccessControlPolicy_Grants_Item_Grantee->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
+
+                    if (null !== $input_GrantsItem_Grantee_DisplayName = $input_GrantsItem_Grantee->getDisplayName()) {
+                        $document_AccessControlPolicy_Grants_Item_Grantee->appendChild($document->createElement('DisplayName', $input_GrantsItem_Grantee_DisplayName));
+                    }
+
+                    if (null !== $input_GrantsItem_Grantee_EmailAddress = $input_GrantsItem_Grantee->getEmailAddress()) {
+                        $document_AccessControlPolicy_Grants_Item_Grantee->appendChild($document->createElement('EmailAddress', $input_GrantsItem_Grantee_EmailAddress));
+                    }
+
+                    if (null !== $input_GrantsItem_Grantee_ID = $input_GrantsItem_Grantee->getID()) {
+                        $document_AccessControlPolicy_Grants_Item_Grantee->appendChild($document->createElement('ID', $input_GrantsItem_Grantee_ID));
+                    }
+
+                    $input_GrantsItem_Grantee_Type = $input_GrantsItem_Grantee->getType();
+                    $document_AccessControlPolicy_Grants_Item_Grantee->setAttribute('xsi:type', $input_GrantsItem_Grantee_Type);
+
+                    if (null !== $input_GrantsItem_Grantee_URI = $input_GrantsItem_Grantee->getURI()) {
+                        $document_AccessControlPolicy_Grants_Item_Grantee->appendChild($document->createElement('URI', $input_GrantsItem_Grantee_URI));
+                    }
+                }
+
+                if (null !== $input_GrantsItem_Permission = $input_GrantsItem->getPermission()) {
+                    $document_AccessControlPolicy_Grants_Item->appendChild($document->createElement('Permission', $input_GrantsItem_Permission));
+                }
+            }
+
+            if (null !== $input_Owner = $input->getOwner()) {
+                $document_AccessControlPolicy->appendChild($document_AccessControlPolicy_Owner = $document->createElement('Owner'));
+
+                if (null !== $input_Owner_DisplayName = $input_Owner->getDisplayName()) {
+                    $document_AccessControlPolicy_Owner->appendChild($document->createElement('DisplayName', $input_Owner_DisplayName));
+                }
+
+                if (null !== $input_Owner_ID = $input_Owner->getID()) {
+                    $document_AccessControlPolicy_Owner->appendChild($document->createElement('ID', $input_Owner_ID));
+                }
+            }
+        }
+
+        return $document->hasChildNodes() ? $document->saveXML() : '';
     }
 }

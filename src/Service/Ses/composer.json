@@ -10,7 +10,7 @@
     "require": {
         "php": "^7.2.5",
         "ext-json": "*",
-        "async-aws/core": "^0.3",
+        "async-aws/core": "^0.4",
         "symfony/http-client-contracts": "^1.0 || ^2.0"
     },
     "extra": {

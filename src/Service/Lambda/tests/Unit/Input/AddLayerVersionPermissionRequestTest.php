@@ -38,19 +38,19 @@ class AddLayerVersionPermissionRequestTest extends TestCase
            "OrganizationId": "*"
         }';
 
-        self::assertJsonStringEqualsJsonString($expected, $this->input->requestBody());
+        self::assertJsonStringEqualsJsonString($expected, $this->input->request()->getBody()->stringify());
     }
 
     public function testRequestUri(): void
     {
         $expected = '/2018-10-31/layers/nodejs/versions/2/policy';
 
-        self::assertSame($expected, $this->input->requestUri());
+        self::assertSame($expected, $this->input->request()->getUri());
     }
 
     public function testRequestQuery(): void
     {
         $expected = ['RevisionId' => '123456'];
-        self::assertSame($expected, $this->input->requestQuery());
+        self::assertSame($expected, $this->input->request()->getQuery());
     }
 }

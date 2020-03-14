@@ -3,6 +3,8 @@
 namespace AsyncAws\Sqs\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 
 class GetQueueUrlRequest
 {
@@ -53,43 +55,19 @@ class GetQueueUrlRequest
     /**
      * @internal
      */
-    public function requestBody(): string
+    public function request(): Request
     {
-        $payload = ['Action' => 'GetQueueUrl', 'Version' => '2012-11-05'];
-        $payload['QueueName'] = $this->QueueName;
-        if (null !== $v = $this->QueueOwnerAWSAccountId) {
-            $payload['QueueOwnerAWSAccountId'] = $v;
-        }
-
-        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
-    }
-
-    /**
-     * @internal
-     */
-    public function requestHeaders(): array
-    {
+        // Prepare headers
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
+        // Prepare query
         $query = [];
 
-        return $query;
-    }
+        // Prepare URI
+        $uriString = '/';
 
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
-        return '/';
+        // Return the Request
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 
     public function setQueueName(?string $value): self
@@ -111,5 +89,16 @@ class GetQueueUrlRequest
         if (null === $this->QueueName) {
             throw new InvalidArgument(sprintf('Missing parameter "QueueName" when validating the "%s". The value cannot be null.', __CLASS__));
         }
+    }
+
+    private function requestBody(): string
+    {
+        $payload = ['Action' => 'GetQueueUrl', 'Version' => '2012-11-05'];
+        $payload['QueueName'] = $this->QueueName;
+        if (null !== $v = $this->QueueOwnerAWSAccountId) {
+            $payload['QueueOwnerAWSAccountId'] = $v;
+        }
+
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 }

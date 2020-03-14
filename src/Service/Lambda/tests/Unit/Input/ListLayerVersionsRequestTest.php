@@ -41,6 +41,6 @@ class ListLayerVersionsRequestTest extends TestCase
     {
         $expected = '/2018-10-31/layers/demo/versions';
 
-        self::assertSame($expected, $this->input->requestUri());
+        self::assertSame($expected, $this->input->request()->getUri());
     }
 }

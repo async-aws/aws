@@ -132,18 +132,11 @@ class OperationGenerator
 $input = INPUT_CLASS::create($input);
 $input->validate();
 
-$response = $this->getResponse(
-    METHOD,
-    BODY,
-    $input->requestHeaders(),
-    $this->getEndpoint($input->requestUri(), $input->requestQuery())
-);
+$response = $this->getResponse($input->request());
 
 return new RESULT_CLASS(RESULT_PARAM);
         ', [
             'INPUT_CLASS' => $inputClass->getName(),
-            'METHOD' => \var_export($operation->getHttpMethod(), true),
-            'BODY' => $operation->hasBody() ? '$input->requestBody()' : 'null',
             'RESULT_CLASS' => $resultClass ? $resultClass->getName() : 'Result',
             'RESULT_PARAM' => \implode(', ', $params),
         ]));

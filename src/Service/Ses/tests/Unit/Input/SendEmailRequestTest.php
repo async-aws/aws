@@ -74,6 +74,6 @@ class SendEmailRequestTest extends TestCase
             }
         }';
 
-        self::assertJsonStringEqualsJsonString($expected, $input->requestBody());
+        self::assertJsonStringEqualsJsonString($expected, $input->request()->getBody()->stringify());
     }
 }

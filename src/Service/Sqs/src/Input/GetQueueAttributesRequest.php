@@ -3,6 +3,8 @@
 namespace AsyncAws\Sqs\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
 
 class GetQueueAttributesRequest
@@ -56,49 +58,19 @@ class GetQueueAttributesRequest
     /**
      * @internal
      */
-    public function requestBody(): string
+    public function request(): Request
     {
-        $payload = ['Action' => 'GetQueueAttributes', 'Version' => '2012-11-05'];
-        $indices = new \stdClass();
-        $payload['QueueUrl'] = $this->QueueUrl;
-
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->kbedee52 = 0;
-            foreach ($input as $value) {
-                ++$indices->kbedee52;
-                $payload["AttributeName.{$indices->kbedee52}"] = $value;
-            }
-        })($this->AttributeNames);
-
-        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
-    }
-
-    /**
-     * @internal
-     */
-    public function requestHeaders(): array
-    {
+        // Prepare headers
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
+        // Prepare query
         $query = [];
 
-        return $query;
-    }
+        // Prepare URI
+        $uriString = '/';
 
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
-        return '/';
+        // Return the Request
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 
     /**
@@ -129,5 +101,22 @@ class GetQueueAttributesRequest
                 throw new InvalidArgument(sprintf('Invalid parameter "AttributeNames" when validating the "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $item));
             }
         }
+    }
+
+    private function requestBody(): string
+    {
+        $payload = ['Action' => 'GetQueueAttributes', 'Version' => '2012-11-05'];
+        $indices = new \stdClass();
+        $payload['QueueUrl'] = $this->QueueUrl;
+
+        (static function (array $input) use (&$payload, $indices) {
+            $indices->kbedee52 = 0;
+            foreach ($input as $value) {
+                ++$indices->kbedee52;
+                $payload["AttributeName.{$indices->kbedee52}"] = $value;
+            }
+        })($this->AttributeNames);
+
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 }

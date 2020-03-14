@@ -96,17 +96,11 @@ class WaiterGenerator
 $input = INPUT_CLASS::create($input);
 $input->validate();
 
-$response = $this->getResponse(
-    METHOD,
-    $input->requestBody(),
-    $input->requestHeaders(),
-    $this->getEndpoint($input->requestUri(), $input->requestQuery())
-);
+$response = $this->getResponse($input->request());
 
 return new RESULT_CLASS($response, $this->httpClient, $this, $input);
             ', [
                 'INPUT_CLASS' => $inputClass->getName(),
-                'METHOD' => \var_export($operation->getHttpMethod(), true),
                 'RESULT_CLASS' => $resultClass->getName(),
             ]));
 

@@ -49,7 +49,7 @@ class PublishLayerVersionRequestTest extends TestCase
             "LicenseInfo": "MIT"
         }';
 
-        self::assertJsonStringEqualsJsonString($expected, $this->input->requestBody());
+        self::assertJsonStringEqualsJsonString($expected, $this->input->request()->getBody()->stringify());
     }
 
     public function testRequestUrl(): void
@@ -57,6 +57,6 @@ class PublishLayerVersionRequestTest extends TestCase
         // see https://docs.aws.amazon.com/lambda/latest/dg/API_ListLayerVersions.html
         $expected = '/2018-10-31/layers/demo/versions';
 
-        self::assertSame($expected, $this->input->requestUri());
+        self::assertSame($expected, $this->input->request()->getUri());
     }
 }

@@ -3,6 +3,7 @@
 namespace AsyncAws\Core\Signer;
 
 use AsyncAws\Core\Credentials\Credentials;
+use AsyncAws\Core\Request;
 
 /**
  * Interface for signing a request.

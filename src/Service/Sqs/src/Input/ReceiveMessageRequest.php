@@ -3,6 +3,8 @@
 namespace AsyncAws\Sqs\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
 
 class ReceiveMessageRequest
@@ -133,69 +135,19 @@ class ReceiveMessageRequest
     /**
      * @internal
      */
-    public function requestBody(): string
+    public function request(): Request
     {
-        $payload = ['Action' => 'ReceiveMessage', 'Version' => '2012-11-05'];
-        $indices = new \stdClass();
-        $payload['QueueUrl'] = $this->QueueUrl;
-
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->kbedee52 = 0;
-            foreach ($input as $value) {
-                ++$indices->kbedee52;
-                $payload["AttributeName.{$indices->kbedee52}"] = $value;
-            }
-        })($this->AttributeNames);
-
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->k40753f1 = 0;
-            foreach ($input as $value) {
-                ++$indices->k40753f1;
-                $payload["MessageAttributeName.{$indices->k40753f1}"] = $value;
-            }
-        })($this->MessageAttributeNames);
-        if (null !== $v = $this->MaxNumberOfMessages) {
-            $payload['MaxNumberOfMessages'] = $v;
-        }
-        if (null !== $v = $this->VisibilityTimeout) {
-            $payload['VisibilityTimeout'] = $v;
-        }
-        if (null !== $v = $this->WaitTimeSeconds) {
-            $payload['WaitTimeSeconds'] = $v;
-        }
-        if (null !== $v = $this->ReceiveRequestAttemptId) {
-            $payload['ReceiveRequestAttemptId'] = $v;
-        }
-
-        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
-    }
-
-    /**
-     * @internal
-     */
-    public function requestHeaders(): array
-    {
+        // Prepare headers
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
+        // Prepare query
         $query = [];
 
-        return $query;
-    }
+        // Prepare URI
+        $uriString = '/';
 
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
-        return '/';
+        // Return the Request
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 
     /**
@@ -264,5 +216,42 @@ class ReceiveMessageRequest
                 throw new InvalidArgument(sprintf('Invalid parameter "AttributeNames" when validating the "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $item));
             }
         }
+    }
+
+    private function requestBody(): string
+    {
+        $payload = ['Action' => 'ReceiveMessage', 'Version' => '2012-11-05'];
+        $indices = new \stdClass();
+        $payload['QueueUrl'] = $this->QueueUrl;
+
+        (static function (array $input) use (&$payload, $indices) {
+            $indices->kbedee52 = 0;
+            foreach ($input as $value) {
+                ++$indices->kbedee52;
+                $payload["AttributeName.{$indices->kbedee52}"] = $value;
+            }
+        })($this->AttributeNames);
+
+        (static function (array $input) use (&$payload, $indices) {
+            $indices->k40753f1 = 0;
+            foreach ($input as $value) {
+                ++$indices->k40753f1;
+                $payload["MessageAttributeName.{$indices->k40753f1}"] = $value;
+            }
+        })($this->MessageAttributeNames);
+        if (null !== $v = $this->MaxNumberOfMessages) {
+            $payload['MaxNumberOfMessages'] = $v;
+        }
+        if (null !== $v = $this->VisibilityTimeout) {
+            $payload['VisibilityTimeout'] = $v;
+        }
+        if (null !== $v = $this->WaitTimeSeconds) {
+            $payload['WaitTimeSeconds'] = $v;
+        }
+        if (null !== $v = $this->ReceiveRequestAttemptId) {
+            $payload['ReceiveRequestAttemptId'] = $v;
+        }
+
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 }

@@ -11,7 +11,7 @@ class PublishInputTest extends TestCase
     public function testBody()
     {
         $input = PublishInput::create(['Message' => 'foobar']);
-        $body = $input->requestBody();
+        $body = $input->request()->getBody()->stringify();
 
         self::assertStringContainsString('Message=foobar', $body);
     }
@@ -39,6 +39,6 @@ class PublishInputTest extends TestCase
             &MessageAttributes.entry.1.Value.StringValue=Foobar
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
+        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
     }
 }

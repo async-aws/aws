@@ -3,6 +3,8 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 
 class GetObjectRequest
@@ -306,20 +308,21 @@ class GetObjectRequest
     /**
      * @internal
      */
-    public function requestHeaders(): array
+    public function request(): Request
     {
+        // Prepare headers
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->IfMatch) {
             $headers['If-Match'] = $this->IfMatch;
         }
         if (null !== $this->IfModifiedSince) {
-            $headers['If-Modified-Since'] = $this->IfModifiedSince;
+            $headers['If-Modified-Since'] = $this->IfModifiedSince->format(\DateTimeInterface::RFC822);
         }
         if (null !== $this->IfNoneMatch) {
             $headers['If-None-Match'] = $this->IfNoneMatch;
         }
         if (null !== $this->IfUnmodifiedSince) {
-            $headers['If-Unmodified-Since'] = $this->IfUnmodifiedSince;
+            $headers['If-Unmodified-Since'] = $this->IfUnmodifiedSince->format(\DateTimeInterface::RFC822);
         }
         if (null !== $this->Range) {
             $headers['Range'] = $this->Range;
@@ -337,14 +340,7 @@ class GetObjectRequest
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
+        // Prepare query
         $query = [];
         if (null !== $this->ResponseCacheControl) {
             $query['response-cache-control'] = $this->ResponseCacheControl;
@@ -362,28 +358,23 @@ class GetObjectRequest
             $query['response-content-type'] = $this->ResponseContentType;
         }
         if (null !== $this->ResponseExpires) {
-            $query['response-expires'] = $this->ResponseExpires;
+            $query['response-expires'] = $this->ResponseExpires->format(\DateTimeInterface::ISO8601);
         }
         if (null !== $this->VersionId) {
             $query['versionId'] = $this->VersionId;
         }
         if (null !== $this->PartNumber) {
-            $query['partNumber'] = $this->PartNumber;
+            $query['partNumber'] = (string) $this->PartNumber;
         }
 
-        return $query;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
+        // Prepare URI
         $uri = [];
         $uri['Bucket'] = $this->Bucket ?? '';
         $uri['Key'] = $this->Key ?? '';
+        $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
 
-        return "/{$uri['Bucket']}/{$uri['Key']}";
+        // Return the Request
+        return new Request('GET', $uriString, $query, $headers, StreamFactory::create(null));
     }
 
     public function setBucket(?string $value): self

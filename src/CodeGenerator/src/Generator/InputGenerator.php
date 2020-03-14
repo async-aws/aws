@@ -6,6 +6,7 @@ namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
+use AsyncAws\CodeGenerator\Definition\Member;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\File\FileWriter;
@@ -14,6 +15,8 @@ use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\RequestSerializer\SerializerProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
 
@@ -202,6 +205,8 @@ class InputGenerator
             $constructor->setBody($constructorBody);
         }
         if ($root) {
+            $namespace->addUse(Request::class);
+            $namespace->addUse(StreamFactory::class);
             $this->inputClassRequestGetters($shape, $class, $operation);
         }
 
@@ -326,33 +331,30 @@ class InputGenerator
             foreach ($inputShape->getMembers() as $member) {
                 // If location is not specified, it will go in the request body.
                 if ($requestPart === ($member->getLocation() ?? 'payload')) {
-                    $body[$requestPart] .= 'if ($this->' . $member->getName() . ' !== null) ' . $varName . '["' . ($member->getLocationName() ?? $member->getName()) . '"] = $this->' . $member->getName() . ';' . "\n";
+                    $body[$requestPart] .= 'if ($this->' . $member->getName() . ' !== null) ' . $varName . '["' . ($member->getLocationName() ?? $member->getName()) . '"] = ' . $this->stringify('$this->' . $member->getName(), $member, $requestPart) . ';' . "\n";
                 }
             }
-
-            $body[$requestPart] .= 'return ' . $varName . ';' . "\n";
         }
-
-        $class->addMethod('requestHeaders')->setComment('@internal')->setReturnType('array')->setBody($body['header']);
-        $class->addMethod('requestQuery')->setComment('@internal')->setReturnType('array')->setBody($body['querystring']);
 
         if ($operation->hasBody()) {
             if (null !== $payloadProperty = $inputShape->getPayload()) {
                 $member = $inputShape->getMember($payloadProperty);
                 if ($member->isStreaming()) {
                     $bodyType = null;
-                    $body = 'return $this->' . $payloadProperty . ' ?? "";';
+                    $body['body'] = 'return $this->' . $payloadProperty . ' ?? "";';
                 } else {
                     $bodyType = 'string';
-                    $body = $serializer->generateForMember($member, $payloadProperty);
+                    $body['body'] = $serializer->generateForMember($member, $payloadProperty);
                 }
             } else {
                 $bodyType = 'string';
-                $body = $serializer->generateForShape($operation, $inputShape);
+                $body['body'] = $serializer->generateForShape($operation, $inputShape);
             }
 
-            $class->addMethod('requestBody')->setComment('@internal')->setReturnType($bodyType)->setBody($body);
+            $class->addMethod('requestBody')->setReturnType($bodyType)->setBody($body['body'])->setPrivate();
+            $bodyCall = '$this->requestBody()';
         } else {
+            $bodyCall = 'null';
             if (null !== $payloadProperty = $inputShape->getPayload()) {
                 throw new \LogicException(sprintf('Unexpected body in operation "%s"', $operation->getName()));
             }
@@ -374,9 +376,55 @@ class InputGenerator
             }
         }
 
-        $requestUri = $requestUri ?? '';
-        $requestUri .= 'return "' . str_replace(['{', '+}', '}'], ['{$uri[\'', '}', '\']}'], $operation->getHttpRequestUri()) . '";';
+        $body['uri'] = $requestUri ?? '';
+        $body['uri'] .= '$uriString = "' . str_replace(['{', '+}', '}'], ['{$uri[\'', '}', '\']}'], $operation->getHttpRequestUri()) . '";';
 
-        $class->addMethod('requestUri')->setComment('@internal')->setReturnType('string')->setBody($requestUri);
+        $method = \var_export($operation->getHttpMethod(), true);
+
+        $class->addMethod('request')->setComment('@internal')->setReturnType(Request::class)->setBody(<<<PHP
+
+// Prepare headers
+{$body['header']}
+
+// Prepare query
+{$body['querystring']}
+
+// Prepare URI
+{$body['uri']}
+
+// Return the Request
+return new Request($method, \$uriString, \$query, \$headers, StreamFactory::create($bodyCall));
+PHP
+);
+    }
+
+    /**
+     * Convert variable to a string.
+     */
+    private function stringify(string $variable, Member $member, string $part): string
+    {
+        if ('header' !== $part && 'querystring' !== $part) {
+            throw new \InvalidArgumentException(sprintf('Argument 3 of "%s::%s" must be either "header" or "querystring". Value "%s" provided', __CLASS__, __FUNCTION__, $part));
+        }
+
+        $shape = $member->getShape();
+        switch ($shape->getType()) {
+            case 'timestamp':
+                $format = strtoupper($shape->get('timestampFormat') ?? ('header' === $part ? 'rfc822' : 'iso8601'));
+                if (!\defined('\DateTimeInterface::' . $format)) {
+                    throw new \InvalidArgumentException('Constant "\DateTimeInterface::' . $format . '" does not exists.');
+                }
+
+                return $variable . '->format(\DateTimeInterface::' . $format . ')';
+            case 'boolean':
+                return $variable . ' ? "true" : "false"';
+            case 'string':
+                return $variable;
+            case 'long':
+            case 'integer':
+            return '(string) ' . $variable;
+        }
+
+        throw new \InvalidArgumentException(sprintf('Type "%s" is not yet implemented', $shape->getType()));
     }
 }

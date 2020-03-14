@@ -28,12 +28,7 @@ class SnsClient extends AbstractApi
         $input = PublishInput::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new PublishResponse($response, $this->httpClient);
     }

@@ -3,6 +3,8 @@
 namespace AsyncAws\Lambda\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Lambda\Enum\Runtime;
 
 class PublishLayerVersionRequest
@@ -102,77 +104,21 @@ class PublishLayerVersionRequest
     /**
      * @internal
      */
-    public function requestBody(): string
+    public function request(): Request
     {
-        $payload = [];
-        $indices = new \stdClass();
-        if (null !== $v = $this->Description) {
-            $payload['Description'] = $v;
-        }
-
-        if (null !== $this->Content) {
-            (static function (LayerVersionContentInput $input) use (&$payload) {
-                if (null !== $v = $input->getS3Bucket()) {
-                    $payload['Content']['S3Bucket'] = $v;
-                }
-
-                if (null !== $v = $input->getS3Key()) {
-                    $payload['Content']['S3Key'] = $v;
-                }
-
-                if (null !== $v = $input->getS3ObjectVersion()) {
-                    $payload['Content']['S3ObjectVersion'] = $v;
-                }
-
-                if (null !== $v = $input->getZipFile()) {
-                    $payload['Content']['ZipFile'] = base64_encode($v);
-                }
-            })($this->Content);
-        }
-
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->kea6f923 = -1;
-            foreach ($input as $value) {
-                ++$indices->kea6f923;
-                $payload['CompatibleRuntimes'][$indices->kea6f923] = $value;
-            }
-        })($this->CompatibleRuntimes);
-        if (null !== $v = $this->LicenseInfo) {
-            $payload['LicenseInfo'] = $v;
-        }
-
-        return json_encode($payload);
-    }
-
-    /**
-     * @internal
-     */
-    public function requestHeaders(): array
-    {
+        // Prepare headers
         $headers = ['content-type' => 'application/json'];
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
+        // Prepare query
         $query = [];
 
-        return $query;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
+        // Prepare URI
         $uri = [];
         $uri['LayerName'] = $this->LayerName ?? '';
+        $uriString = "/2018-10-31/layers/{$uri['LayerName']}/versions";
 
-        return "/2018-10-31/layers/{$uri['LayerName']}/versions";
+        // Return the Request
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 
     /**
@@ -229,5 +175,47 @@ class PublishLayerVersionRequest
                 throw new InvalidArgument(sprintf('Invalid parameter "CompatibleRuntimes" when validating the "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $item));
             }
         }
+    }
+
+    private function requestBody(): string
+    {
+        $payload = [];
+        $indices = new \stdClass();
+        if (null !== $v = $this->Description) {
+            $payload['Description'] = $v;
+        }
+
+        if (null !== $this->Content) {
+            (static function (LayerVersionContentInput $input) use (&$payload) {
+                if (null !== $v = $input->getS3Bucket()) {
+                    $payload['Content']['S3Bucket'] = $v;
+                }
+
+                if (null !== $v = $input->getS3Key()) {
+                    $payload['Content']['S3Key'] = $v;
+                }
+
+                if (null !== $v = $input->getS3ObjectVersion()) {
+                    $payload['Content']['S3ObjectVersion'] = $v;
+                }
+
+                if (null !== $v = $input->getZipFile()) {
+                    $payload['Content']['ZipFile'] = base64_encode($v);
+                }
+            })($this->Content);
+        }
+
+        (static function (array $input) use (&$payload, $indices) {
+            $indices->kea6f923 = -1;
+            foreach ($input as $value) {
+                ++$indices->kea6f923;
+                $payload['CompatibleRuntimes'][$indices->kea6f923] = $value;
+            }
+        })($this->CompatibleRuntimes);
+        if (null !== $v = $this->LicenseInfo) {
+            $payload['LicenseInfo'] = $v;
+        }
+
+        return json_encode($payload);
     }
 }

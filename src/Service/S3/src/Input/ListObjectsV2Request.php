@@ -3,6 +3,8 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\EncodingType;
 use AsyncAws\S3\Enum\RequestPayer;
 
@@ -163,21 +165,15 @@ class ListObjectsV2Request
     /**
      * @internal
      */
-    public function requestHeaders(): array
+    public function request(): Request
     {
+        // Prepare headers
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->RequestPayer) {
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
+        // Prepare query
         $query = [];
         if (null !== $this->Delimiter) {
             $query['delimiter'] = $this->Delimiter;
@@ -186,7 +182,7 @@ class ListObjectsV2Request
             $query['encoding-type'] = $this->EncodingType;
         }
         if (null !== $this->MaxKeys) {
-            $query['max-keys'] = $this->MaxKeys;
+            $query['max-keys'] = (string) $this->MaxKeys;
         }
         if (null !== $this->Prefix) {
             $query['prefix'] = $this->Prefix;
@@ -195,24 +191,19 @@ class ListObjectsV2Request
             $query['continuation-token'] = $this->ContinuationToken;
         }
         if (null !== $this->FetchOwner) {
-            $query['fetch-owner'] = $this->FetchOwner;
+            $query['fetch-owner'] = $this->FetchOwner ? 'true' : 'false';
         }
         if (null !== $this->StartAfter) {
             $query['start-after'] = $this->StartAfter;
         }
 
-        return $query;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
+        // Prepare URI
         $uri = [];
         $uri['Bucket'] = $this->Bucket ?? '';
+        $uriString = "/{$uri['Bucket']}?list-type=2";
 
-        return "/{$uri['Bucket']}?list-type=2";
+        // Return the Request
+        return new Request('GET', $uriString, $query, $headers, StreamFactory::create(null));
     }
 
     public function setBucket(?string $value): self

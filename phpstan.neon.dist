@@ -27,3 +27,4 @@ parameters:
         -   "#^Parameter \\#3 ...\\$args of function sprintf expects bool\\|float\\|int\\|string\\|null, AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^ ]+ given\\.$#"
         -   "#^Parameter \\#1 \\$value of static method AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^:]+::exists\\(\\) expects string, AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^ ]+ given\\.$#"
         -   "#^PHPDoc tag @(var|return) has invalid value \\(list<[^:]+::\\*>\\): Unexpected token \"::\", expected '>' at offset \\d+.$#"
+        -   "#^Parameter \\#4 \\$headers of class AsyncAws\\\\Core\\\\Request constructor expects array<array<string>\\|string>, array<string, AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^ ]+ given\\.$#"

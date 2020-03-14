@@ -20,6 +20,6 @@ Action=ListQueues
 &QueueNamePrefix=M
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
+        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
     }
 }

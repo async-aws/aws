@@ -19,9 +19,9 @@ class DeleteObjectRequestTest extends TestCase
             'VersionId' => $version,
         ]);
 
-        self::assertEquals('/my-bucket/my-second-image.jpg', $input->requestUri());
+        self::assertEquals('/my-bucket/my-second-image.jpg', $input->request()->getUri());
 
-        $query = $input->requestQuery();
+        $query = $input->request()->getQuery();
         self::assertArrayHasKey('versionId', $query);
         self::assertEquals($version, $query['versionId']);
     }

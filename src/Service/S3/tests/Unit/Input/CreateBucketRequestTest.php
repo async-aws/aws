@@ -25,6 +25,6 @@ class CreateBucketRequestTest extends TestCase
             </CreateBucketConfiguration>
         ';
 
-        self::assertXmlStringEqualsXmlString($expected, $input->requestBody());
+        self::assertXmlStringEqualsXmlString($expected, $input->request()->getBody()->stringify());
     }
 }

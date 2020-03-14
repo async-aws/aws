@@ -3,6 +3,8 @@
 namespace AsyncAws\Lambda\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Lambda\Enum\InvocationType;
 use AsyncAws\Lambda\Enum\LogType;
 
@@ -116,16 +118,9 @@ class InvocationRequest
     /**
      * @internal
      */
-    public function requestBody(): string
+    public function request(): Request
     {
-        return $this->Payload ?? '';
-    }
-
-    /**
-     * @internal
-     */
-    public function requestHeaders(): array
-    {
+        // Prepare headers
         $headers = ['content-type' => 'application/json'];
         if (null !== $this->InvocationType) {
             $headers['X-Amz-Invocation-Type'] = $this->InvocationType;
@@ -137,31 +132,19 @@ class InvocationRequest
             $headers['X-Amz-Client-Context'] = $this->ClientContext;
         }
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
+        // Prepare query
         $query = [];
         if (null !== $this->Qualifier) {
             $query['Qualifier'] = $this->Qualifier;
         }
 
-        return $query;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
+        // Prepare URI
         $uri = [];
         $uri['FunctionName'] = $this->FunctionName ?? '';
+        $uriString = "/2015-03-31/functions/{$uri['FunctionName']}/invocations";
 
-        return "/2015-03-31/functions/{$uri['FunctionName']}/invocations";
+        // Return the Request
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 
     public function setClientContext(?string $value): self
@@ -229,5 +212,10 @@ class InvocationRequest
                 throw new InvalidArgument(sprintf('Invalid parameter "LogType" when validating the "%s". The value "%s" is not a valid "LogType".', __CLASS__, $this->LogType));
             }
         }
+    }
+
+    private function requestBody(): string
+    {
+        return $this->Payload ?? '';
     }
 }

@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Sqs\Input;
 
+use AsyncAws\Core\Request;
+use AsyncAws\Core\Stream\StreamFactory;
+
 class ListQueuesRequest
 {
     /**
@@ -35,42 +38,19 @@ class ListQueuesRequest
     /**
      * @internal
      */
-    public function requestBody(): string
+    public function request(): Request
     {
-        $payload = ['Action' => 'ListQueues', 'Version' => '2012-11-05'];
-        if (null !== $v = $this->QueueNamePrefix) {
-            $payload['QueueNamePrefix'] = $v;
-        }
-
-        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
-    }
-
-    /**
-     * @internal
-     */
-    public function requestHeaders(): array
-    {
+        // Prepare headers
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
+        // Prepare query
         $query = [];
 
-        return $query;
-    }
+        // Prepare URI
+        $uriString = '/';
 
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
-        return '/';
+        // Return the Request
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 
     public function setQueueNamePrefix(?string $value): self
@@ -83,5 +63,15 @@ class ListQueuesRequest
     public function validate(): void
     {
         // There are no required properties
+    }
+
+    private function requestBody(): string
+    {
+        $payload = ['Action' => 'ListQueues', 'Version' => '2012-11-05'];
+        if (null !== $v = $this->QueueNamePrefix) {
+            $payload['QueueNamePrefix'] = $v;
+        }
+
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 }
