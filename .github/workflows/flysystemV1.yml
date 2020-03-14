@@ -46,6 +46,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+
+      - name: Initialize tests
+        run: |
+          cd src/Integration/Flysystem/S3
+          make initialize
+
       - name: Download phpunit
         run: |
           rm composer.*
@@ -65,11 +71,6 @@ jobs:
           composer req --no-update league/flysystem:^1.0
           sed -i -re 's/"require": \{/"minimum-stability": "dev","prefer-stable": true,"require": \{/' composer.json
           composer update --no-interaction --prefer-dist --optimize-autoloader
-
-      - name: Initialize tests
-        run: |
-          cd src/Integration/Flysystem/S3
-          make initialize
 
       - name: Run tests
         run: |

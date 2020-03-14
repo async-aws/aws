@@ -363,20 +363,24 @@ class S3FilesystemV1Test extends TestCase
             ->onlyMethods(['resolve', 'getIterator', 'getContents', 'getCommonPrefixes'])
             ->getMock();
 
-        $result->method('getIterator')->willReturn(new class($result) implements \Iterator {
-            private $item;
+        $items = [
+            new AwsObject(['Key' => self::PREFIX . '/my_key', 'LastModified' => null, 'ETag' => null, 'Size' => null, 'StorageClass' => null, 'Owner' => null]),
+            new CommonPrefix(['Prefix' => self::PREFIX . '/common_prefix']),
+        ];
+        $result->method('getIterator')->willReturn(new class($items) implements \Iterator {
+            private $items;
 
             private $position;
 
-            public function __construct($item)
+            public function __construct($items)
             {
-                $this->item = [$item];
+                $this->items = $items;
                 $this->position = 0;
             }
 
             public function current()
             {
-                return $this->item[$this->position];
+                return $this->items[$this->position];
             }
 
             public function next()
@@ -391,7 +395,7 @@ class S3FilesystemV1Test extends TestCase
 
             public function valid()
             {
-                return isset($this->item[$this->position]);
+                return isset($this->items[$this->position]);
             }
 
             public function rewind()
@@ -399,8 +403,6 @@ class S3FilesystemV1Test extends TestCase
                 $this->position = 0;
             }
         });
-        $result->method('getContents')->willReturn([new AwsObject(['Key' => self::PREFIX . '/my_key', 'LastModified' => null, 'ETag' => null, 'Size' => null, 'StorageClass' => null, 'Owner' => null])]);
-        $result->method('getCommonPrefixes')->willReturn([new CommonPrefix(['Prefix' => self::PREFIX . '/common_prefix'])]);
 
         $s3Client = $this->getMockBuilder(S3Client::class)
             ->disableOriginalConstructor()
