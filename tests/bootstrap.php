@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+die('root file');
 require_once \dirname(__DIR__) . '/vendor/autoload.php';
 $file = \dirname(__DIR__) . '/vendor/league/flysystem/test-functions.php';
 if (file_exists($file)) {
