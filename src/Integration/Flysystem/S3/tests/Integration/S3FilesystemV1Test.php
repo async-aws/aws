@@ -6,15 +6,9 @@ namespace AsyncAws\Flysystem\S3\Tests\Integration;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Flysystem\S3\S3FilesystemV1;
-use AsyncAws\Flysystem\S3\S3FilesystemV2;
 use AsyncAws\S3\S3Client;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\Config;
-use League\Flysystem\FileAttributes;
-use League\Flysystem\FilesystemAdapter;
-use League\Flysystem\FilesystemAdapterTestCase;
-use League\Flysystem\StorageAttributes;
-use League\Flysystem\Visibility;
 use PHPUnit\Framework\TestCase;
 
 class S3FilesystemV1Test extends TestCase
@@ -60,7 +54,7 @@ class S3FilesystemV1Test extends TestCase
         }
 
         foreach ($adapter->listContents('', false) as $item) {
-            if ($item['type'] === 'dir') {
+            if ('dir' === $item['type']) {
                 $adapter->deleteDirectory($item['path']);
             } else {
                 $adapter->delete($item['path']);
@@ -90,21 +84,21 @@ class S3FilesystemV1Test extends TestCase
         self::assertEquals('contents to be copied', $adapter->read('destination.txt'));
     }
 
+    public function adapter(): AdapterInterface
+    {
+        if (!$this->adapter instanceof AdapterInterface) {
+            $this->adapter = $this->createFilesystemAdapter();
+        }
+
+        return $this->adapter;
+    }
+
     protected function createFilesystemAdapter(): AdapterInterface
     {
         $bucket = getenv('FLYSYSTEM_AWS_S3_BUCKET') ?: 'flysystem-bucket-v1';
         $prefix = getenv('FLYSYSTEM_AWS_S3_PREFIX') ?: static::$adapterPrefix;
 
         return new S3FilesystemV1($this->s3Client(), $bucket, $prefix);
-    }
-
-    public function adapter(): AdapterInterface
-    {
-        if ( ! $this->adapter instanceof AdapterInterface) {
-            $this->adapter = $this->createFilesystemAdapter();
-        }
-
-        return $this->adapter;
     }
 
     private function s3Client(): S3Client
