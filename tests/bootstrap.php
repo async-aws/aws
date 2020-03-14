@@ -8,5 +8,5 @@ if (file_exists($file)) {
     require_once $file;
 }
 
-require_once dirname(__DIR__) . '/src/Integration/Flysystem/S3/tests/version-bridge.php';
-require_once dirname(__DIR__) . '/src/Integration/Flysystem/S3/tests/version-bridge-tests.php';
+require_once \dirname(__DIR__) . '/src/Integration/Flysystem/S3/tests/version-bridge.php';
+require_once \dirname(__DIR__) . '/src/Integration/Flysystem/S3/tests/version-bridge-tests.php';
