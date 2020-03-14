@@ -87,13 +87,13 @@ class TestGenerator
         switch ($operation->getService()->getProtocol()) {
             case 'rest-xml':
                 $stub = sprintf('$expected = %s;', var_export($this->arrayToXml($exampleInput ?? ['change' => 'it']), true));
-                $assert = 'self::assertXmlStringEqualsXmlString($expected, $input->requestBody());';
+                $assert = 'self::assertXmlStringEqualsXmlString($expected, $input->request()->getBody()->stringify());';
 
                 break;
             case 'rest-json':
             case 'json':
                 $stub = sprintf('$expected = %s;', var_export(\json_encode($exampleInput ?? ['change' => 'it'], \JSON_PRETTY_PRINT), true));
-                $assert = 'self::assertJsonStringEqualsJsonString($expected, $input->requestBody());';
+                $assert = 'self::assertJsonStringEqualsJsonString($expected, $input->request()->getBody()->stringify());';
 
                 break;
             case 'query':
@@ -101,7 +101,7 @@ class TestGenerator
     Action={$operation->getName()}
     &Version={$operation->getApiVersion()}
 ", true));
-                $assert = 'self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());';
+                $assert = 'self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());';
 
                 break;
             default:

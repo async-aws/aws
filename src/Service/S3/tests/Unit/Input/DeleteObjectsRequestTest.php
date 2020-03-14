@@ -41,6 +41,6 @@ class DeleteObjectsRequestTest extends TestCase
             </Delete>
         ';
 
-        self::assertXmlStringEqualsXmlString($expected, $input->requestBody());
+        self::assertXmlStringEqualsXmlString($expected, $input->request()->getBody()->stringify());
     }
 }

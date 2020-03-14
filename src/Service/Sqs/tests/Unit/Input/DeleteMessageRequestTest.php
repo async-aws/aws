@@ -22,6 +22,6 @@ Action=DeleteMessage
 &ReceiptHandle=MbZj6wDWli%2BJvwwJaBV%2B3dcjk2YW2vA3%2BSTFFljT
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
+        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
     }
 }

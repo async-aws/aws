@@ -208,12 +208,7 @@ class SqsClient extends AbstractApi
         $input = GetQueueUrlRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new QueueExistsWaiter($response, $this->httpClient, $this, $input);
     }

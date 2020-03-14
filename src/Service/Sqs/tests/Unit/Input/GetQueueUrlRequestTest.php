@@ -22,6 +22,6 @@ Action=GetQueueUrl
 &QueueOwnerAWSAccountId=123456
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
+        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
     }
 }

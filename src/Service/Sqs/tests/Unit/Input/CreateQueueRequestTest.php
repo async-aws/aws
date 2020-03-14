@@ -26,6 +26,6 @@ Action=CreateQueue
 &Tag.1.Value=Engineering
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
+        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
     }
 }

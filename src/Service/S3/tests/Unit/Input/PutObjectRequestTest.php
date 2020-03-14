@@ -21,6 +21,6 @@ class PutObjectRequestTest extends TestCase
         self::assertEquals($bucket, $input->getBucket());
         self::assertEquals($key, $input->getKey());
         self::assertEquals($body, $input->getBody());
-        self::assertEquals($body, $input->requestBody());
+        self::assertEquals($body, $input->request()->getBody()->stringify());
     }
 }

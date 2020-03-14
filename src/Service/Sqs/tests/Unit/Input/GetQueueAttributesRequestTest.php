@@ -24,6 +24,6 @@ Action=GetQueueAttributes
 &AttributeName.3=ReceiveMessageWaitTimeSeconds
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
+        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
     }
 }

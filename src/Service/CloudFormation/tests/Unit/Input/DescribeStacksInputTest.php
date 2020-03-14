@@ -22,6 +22,6 @@ class DescribeStacksInputTest extends TestCase
             &NextToken=bar
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
+        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
     }
 }

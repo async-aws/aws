@@ -45,6 +45,6 @@ Action=SendMessage
 &MessageGroupId=abcdef01
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
+        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
     }
 }

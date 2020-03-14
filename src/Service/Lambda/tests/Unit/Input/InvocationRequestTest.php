@@ -35,13 +35,13 @@ class InvocationRequestTest extends TestCase
             "name": "jderusse"
         }';
 
-        self::assertJsonStringEqualsJsonString($expected, $this->input->requestBody());
+        self::assertJsonStringEqualsJsonString($expected, $this->input->request()->getBody()->stringify());
     }
 
     public function testRequestUri(): void
     {
         $expected = '/2015-03-31/functions/MyFunction/invocations';
 
-        self::assertSame($expected, $this->input->requestUri());
+        self::assertSame($expected, $this->input->request()->getUri());
     }
 }

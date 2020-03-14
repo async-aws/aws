@@ -50,7 +50,7 @@ class PutObjectAclRequestTest extends TestCase
             </AccessControlPolicy>
         ';
 
-        self::assertXmlStringEqualsXmlString($expected, $input->requestBody());
+        self::assertXmlStringEqualsXmlString($expected, $input->request()->getBody()->stringify());
     }
 
     public function testCannedAcl()
@@ -60,10 +60,10 @@ class PutObjectAclRequestTest extends TestCase
 
         $input->validate();
 
-        $headers = $input->requestHeaders();
+        $headers = $input->request()->getHeaders();
         self::assertArrayHasKey('x-amz-acl', $headers);
         self::assertEquals('public-read', $headers['x-amz-acl']);
-        self::assertEquals('/foo-bucket/bar-key?acl', $input->requestUri());
-        self::assertEmpty($input->requestBody(), 'Request body should be empty when ACL is used');
+        self::assertEquals('/foo-bucket/bar-key?acl', $input->request()->getUri());
+        self::assertEmpty($input->request()->getBody()->stringify(), 'Request body should be empty when ACL is used');
     }
 }

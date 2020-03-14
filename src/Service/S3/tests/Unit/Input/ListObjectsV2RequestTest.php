@@ -15,8 +15,8 @@ class ListObjectsV2RequestTest extends TestCase
             'Prefix' => 'key',
         ]);
 
-        self::assertEquals('/my-bucket?list-type=2', $input->requestUri());
+        self::assertEquals('/my-bucket?list-type=2', $input->request()->getUri());
 
-        self::assertSame(['delimiter' => '/', 'prefix' => 'key'], $input->requestQuery());
+        self::assertSame(['delimiter' => '/', 'prefix' => 'key'], $input->request()->getQuery());
     }
 }

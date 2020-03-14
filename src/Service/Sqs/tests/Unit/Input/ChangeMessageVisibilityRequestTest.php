@@ -24,6 +24,6 @@ Action=ChangeMessageVisibility
 &VisibilityTimeout=60
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
+        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
     }
 }

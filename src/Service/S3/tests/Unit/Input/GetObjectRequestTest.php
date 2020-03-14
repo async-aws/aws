@@ -18,9 +18,9 @@ class GetObjectRequestTest extends TestCase
             'VersionId' => 'abc123',
         ]);
 
-        self::assertEquals('/my-bucket/foo.jpg', $input->requestUri());
+        self::assertEquals('/my-bucket/foo.jpg', $input->request()->getUri());
 
-        $query = $input->requestQuery();
+        $query = $input->request()->getQuery();
         self::assertArrayHasKey('versionId', $query);
         self::assertEquals('abc123', $query['versionId']);
     }

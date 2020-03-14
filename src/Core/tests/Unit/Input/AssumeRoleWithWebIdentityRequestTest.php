@@ -36,6 +36,6 @@ class AssumeRoleWithWebIdentityRequestTest extends TestCase
             &WebIdentityToken=FooBarBz
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
+        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
     }
 }

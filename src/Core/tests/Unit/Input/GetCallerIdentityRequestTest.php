@@ -17,6 +17,6 @@ Action=GetCallerIdentity
 &Version=2011-06-15
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->requestBody());
+        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
     }
 }
