@@ -7,7 +7,7 @@ use AsyncAws\Sqs\Input\ListQueuesRequest;
 
 class ListQueuesRequestTest extends TestCase
 {
-    public function testRequestBody(): void
+    public function testRequest(): void
     {
         $input = new ListQueuesRequest([
             'QueueNamePrefix' => 'M',
@@ -15,11 +15,14 @@ class ListQueuesRequestTest extends TestCase
 
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ListQueues.html */
         $expected = '
-Action=ListQueues
-&Version=2012-11-05
-&QueueNamePrefix=M
+            POST / HTTP/1.0
+            Content-Type: application/x-www-form-urlencoded
+
+            Action=ListQueues
+            &Version=2012-11-05
+            &QueueNamePrefix=M
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

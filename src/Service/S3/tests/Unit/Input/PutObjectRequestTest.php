@@ -7,20 +7,20 @@ use AsyncAws\S3\Input\PutObjectRequest;
 
 class PutObjectRequestTest extends TestCase
 {
-    public function testRequestBody()
+    public function testRequest()
     {
-        $bucket = 'foo';
-        $key = 'bar/baz/biz';
-        $body = 'contents';
         $input = new PutObjectRequest([
-            'Bucket' => $bucket,
-            'Key' => $key,
-            'Body' => $body,
+            'Bucket' => 'foo',
+            'Key' => 'bar/baz/biz',
+            'Body' => 'contents',
         ]);
 
-        self::assertEquals($bucket, $input->getBucket());
-        self::assertEquals($key, $input->getKey());
-        self::assertEquals($body, $input->getBody());
-        self::assertEquals($body, $input->request()->getBody()->stringify());
+        $expected = '
+            PUT /foo/bar/baz/biz HTTP/1.0
+
+            contents
+        ';
+
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

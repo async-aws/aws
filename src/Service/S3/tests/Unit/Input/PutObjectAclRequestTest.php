@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AsyncAws\S3\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Input\PutObjectAclRequest;
-use PHPUnit\Framework\TestCase;
 
 class PutObjectAclRequestTest extends TestCase
 {
-    public function testRequestBody()
+    public function testRequest()
     {
         $input = PutObjectAclRequest::create(
             [
@@ -33,6 +33,9 @@ class PutObjectAclRequestTest extends TestCase
         );
 
         $expected = '
+            PUT / HTTP/1.0
+            Content-Type: application/xml
+
             <AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
               <AccessControlList>
                 <Grant>
@@ -50,7 +53,7 @@ class PutObjectAclRequestTest extends TestCase
             </AccessControlPolicy>
         ';
 
-        self::assertXmlStringEqualsXmlString($expected, $input->request()->getBody()->stringify());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 
     public function testCannedAcl()
@@ -58,12 +61,13 @@ class PutObjectAclRequestTest extends TestCase
         $input = new PutObjectAclRequest(['Bucket' => 'foo-bucket', 'Key' => 'bar-key']);
         $input->setACL('public-read');
 
-        $input->validate();
+        $expected = '
+            PUT /foo-bucket/bar-key?acl HTTP/1.0
+            Content-Type: application/xml
+            x-amz-acl: public-read
 
-        $headers = $input->request()->getHeaders();
-        self::assertArrayHasKey('x-amz-acl', $headers);
-        self::assertEquals('public-read', $headers['x-amz-acl']);
-        self::assertEquals('/foo-bucket/bar-key?acl', $input->request()->getUri());
-        self::assertEmpty($input->request()->getBody()->stringify(), 'Request body should be empty when ACL is used');
+        ';
+
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

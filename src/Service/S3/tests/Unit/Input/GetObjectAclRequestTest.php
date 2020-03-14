@@ -10,7 +10,7 @@ class GetObjectAclRequestTest extends TestCase
     /**
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAcl.html#API_GetObjectAcl_Examples
      */
-    public function testRequestBody(): void
+    public function testRequest(): void
     {
         $input = new GetObjectAclRequest([
             'Bucket' => 'my-bucket',
@@ -18,10 +18,11 @@ class GetObjectAclRequestTest extends TestCase
             'VersionId' => 'abc123',
         ]);
 
-        self::assertEquals('/my-bucket/foo.jpg?acl', $input->request()->getUri());
+        $expected = '
+            GET /my-bucket/foo.jpg?acl&versionId=abc123 HTTP/1.0
+            Content-Type: application/xml
+        ';
 
-        $query = $input->request()->getQuery();
-        self::assertArrayHasKey('versionId', $query);
-        self::assertEquals('abc123', $query['versionId']);
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

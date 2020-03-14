@@ -11,14 +11,9 @@ use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
  */
 class PublishLayerVersionRequestTest extends TestCase
 {
-    /**
-     * @var PublishLayerVersionRequest
-     */
-    private $input;
-
-    public function setUp(): void
+    public function testRequest(): void
     {
-        $this->input = new PublishLayerVersionRequest([
+        $input = new PublishLayerVersionRequest([
             'LayerName' => 'demo',
             'Description' => 'small description',
             'Content' => new LayerVersionContentInput([
@@ -31,32 +26,24 @@ class PublishLayerVersionRequestTest extends TestCase
             'LicenseInfo' => 'MIT',
         ]);
 
-        parent::setUp();
-    }
-
-    public function testRequestBody(): void
-    {
         // see https://docs.aws.amazon.com/lambda/latest/dg/API_PublishLayerVersion.html
-        $expected = '{
-            "Description": "small description",
-            "Content": {
-                "S3Bucket": "myBucket",
-                "S3Key": "path/to/file",
-                "S3ObjectVersion": "123",
-                "ZipFile": "YmluYXJ5IGNvbnRlbnQ="
-            },
-            "CompatibleRuntimes": ["nodejs10.x", "nodejs12.x"],
-            "LicenseInfo": "MIT"
-        }';
+        $expected = '
+            POST /2018-10-31/layers/demo/versions HTTP/1.0
+            Content-Type: application/json
 
-        self::assertJsonStringEqualsJsonString($expected, $this->input->request()->getBody()->stringify());
-    }
+            {
+                "Description": "small description",
+                "Content": {
+                    "S3Bucket": "myBucket",
+                    "S3Key": "path/to/file",
+                    "S3ObjectVersion": "123",
+                    "ZipFile": "YmluYXJ5IGNvbnRlbnQ="
+                },
+                "CompatibleRuntimes": ["nodejs10.x", "nodejs12.x"],
+                "LicenseInfo": "MIT"
+            }
+        ';
 
-    public function testRequestUrl(): void
-    {
-        // see https://docs.aws.amazon.com/lambda/latest/dg/API_ListLayerVersions.html
-        $expected = '/2018-10-31/layers/demo/versions';
-
-        self::assertSame($expected, $this->input->request()->getUri());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

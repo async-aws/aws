@@ -10,7 +10,7 @@ class CopyObjectRequestTest extends TestCase
     /**
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html#API_CopyObject_Examples
      */
-    public function testRequestBody(): void
+    public function testRequest(): void
     {
         $input = new CopyObjectRequest([
             'Key' => 'my-second-image.jpg',
@@ -19,10 +19,12 @@ class CopyObjectRequestTest extends TestCase
             'CopySource' => '/bucket/my-image.jpg',
         ]);
 
-        self::assertEmpty($input->request()->getBody()->stringify());
-        $requestHeaders = $input->request()->getHeaders();
-        self::assertEquals('/bucket/my-image.jpg', $requestHeaders['x-amz-copy-source']);
+        $expected = '
+            PUT /my-bucket/my-second-image.jpg HTTP/1.0
+            Content-Type: image/jpg
+            x-amz-copy-source: /bucket/my-image.jpg
+        ';
 
-        self::assertEquals('/my-bucket/my-second-image.jpg', $input->request()->getUri());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

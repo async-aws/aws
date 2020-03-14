@@ -7,7 +7,7 @@ use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
 
 class ChangeMessageVisibilityRequestTest extends TestCase
 {
-    public function testRequestBody(): void
+    public function testRequest(): void
     {
         $input = new ChangeMessageVisibilityRequest([
             'QueueUrl' => 'queueUrl',
@@ -17,13 +17,16 @@ class ChangeMessageVisibilityRequestTest extends TestCase
 
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ChangeMessageVisibility.html */
         $expected = '
-Action=ChangeMessageVisibility
-&Version=2012-11-05
-&QueueUrl=queueUrl
-&ReceiptHandle=MbZj6wDWli%2BJvwwJaBV%2B3dcjk2YW2vA3%2BSTFFljT
-&VisibilityTimeout=60
+            POST / HTTP/1.0
+            Content-Type: application/x-www-form-urlencoded
+
+            Action=ChangeMessageVisibility
+            &Version=2012-11-05
+            &QueueUrl=queueUrl
+            &ReceiptHandle=MbZj6wDWli%2BJvwwJaBV%2B3dcjk2YW2vA3%2BSTFFljT
+            &VisibilityTimeout=60
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

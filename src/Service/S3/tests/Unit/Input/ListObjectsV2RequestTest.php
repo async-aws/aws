@@ -7,7 +7,7 @@ use AsyncAws\S3\Input\ListObjectsV2Request;
 
 class ListObjectsV2RequestTest extends TestCase
 {
-    public function testRequestBody(): void
+    public function testRequest(): void
     {
         $input = new ListObjectsV2Request([
             'Bucket' => 'my-bucket',
@@ -15,8 +15,11 @@ class ListObjectsV2RequestTest extends TestCase
             'Prefix' => 'key',
         ]);
 
-        self::assertEquals('/my-bucket?list-type=2', $input->request()->getUri());
+        $expected = '
+            GET /my-bucket?delimiter=/&prefix=key&list-type=2 HTTP/1.0
+            Content-Type: application/xml
+        ';
 
-        self::assertSame(['delimiter' => '/', 'prefix' => 'key'], $input->request()->getQuery());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

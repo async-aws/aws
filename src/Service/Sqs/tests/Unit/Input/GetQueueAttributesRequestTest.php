@@ -7,7 +7,7 @@ use AsyncAws\Sqs\Input\GetQueueAttributesRequest;
 
 class GetQueueAttributesRequestTest extends TestCase
 {
-    public function testRequestBody(): void
+    public function testRequest(): void
     {
         $input = new GetQueueAttributesRequest([
             'QueueUrl' => 'queueUrl',
@@ -16,14 +16,17 @@ class GetQueueAttributesRequestTest extends TestCase
 
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_GetQueueAttributes.html */
         $expected = '
-Action=GetQueueAttributes
-&Version=2012-11-05
-&QueueUrl=queueUrl
-&AttributeName.1=VisibilityTimeout
-&AttributeName.2=DelaySeconds
-&AttributeName.3=ReceiveMessageWaitTimeSeconds
+            POST / HTTP/1.0
+            Content-Type: application/x-www-form-urlencoded
+
+            Action=GetQueueAttributes
+            &Version=2012-11-05
+            &QueueUrl=queueUrl
+            &AttributeName.1=VisibilityTimeout
+            &AttributeName.2=DelaySeconds
+            &AttributeName.3=ReceiveMessageWaitTimeSeconds
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

@@ -11,19 +11,19 @@ use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
  */
 class ListLayerVersionsRequestTest extends TestCase
 {
-    /**
-     * @var ListLayerVersionsRequest
-     */
-    private $input;
-
-    public function setUp(): void
+    public function testRequest(): void
     {
-        $this->input = new ListLayerVersionsRequest([
+        $input = new ListLayerVersionsRequest([
             'CompatibleRuntime' => 'nodejs12.x',
             'LayerName' => 'demo',
         ]);
 
-        parent::setUp();
+        $expected = '
+            GET /2018-10-31/layers/demo/versions?CompatibleRuntime=nodejs12.x HTTP/1.0
+            Content-Type: application/json
+        ';
+
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 
     public function testInvalidEnum(): void
@@ -35,12 +35,5 @@ class ListLayerVersionsRequestTest extends TestCase
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('Invalid parameter "CompatibleRuntime" when validating the "AsyncAws\Lambda\Input\ListLayerVersionsRequest". The value "boom" is not a valid "Runtime".');
         $input->validate();
-    }
-
-    public function testRequestUrl(): void
-    {
-        $expected = '/2018-10-31/layers/demo/versions';
-
-        self::assertSame($expected, $this->input->request()->getUri());
     }
 }

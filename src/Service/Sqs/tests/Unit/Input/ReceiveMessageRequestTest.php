@@ -7,7 +7,7 @@ use AsyncAws\Sqs\Input\ReceiveMessageRequest;
 
 class ReceiveMessageRequestTest extends TestCase
 {
-    public function testRequestBody(): void
+    public function testRequest(): void
     {
         $input = new ReceiveMessageRequest([
             'QueueUrl' => 'queueUrl',
@@ -21,19 +21,22 @@ class ReceiveMessageRequestTest extends TestCase
 
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ReceiveMessage.html */
         $expected = '
-Action=ReceiveMessage
-&Version=2012-11-05
-&QueueUrl=queueUrl
-&AttributeName.1=VisibilityTimeout
-&AttributeName.2=DelaySeconds
-&AttributeName.3=ReceiveMessageWaitTimeSeconds
-&MessageAttributeName.1=Attribute1
-&MaxNumberOfMessages=5
-&VisibilityTimeout=15
-&WaitTimeSeconds=20
-&ReceiveRequestAttemptId=abcdef
+            POST / HTTP/1.0
+            Content-Type: application/x-www-form-urlencoded
+
+            Action=ReceiveMessage
+            &Version=2012-11-05
+            &QueueUrl=queueUrl
+            &AttributeName.1=VisibilityTimeout
+            &AttributeName.2=DelaySeconds
+            &AttributeName.3=ReceiveMessageWaitTimeSeconds
+            &MessageAttributeName.1=Attribute1
+            &MaxNumberOfMessages=5
+            &VisibilityTimeout=15
+            &WaitTimeSeconds=20
+            &ReceiveRequestAttemptId=abcdef
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

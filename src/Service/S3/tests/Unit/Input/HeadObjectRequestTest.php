@@ -7,7 +7,7 @@ use AsyncAws\S3\Input\HeadObjectRequest;
 
 class HeadObjectRequestTest extends TestCase
 {
-    public function testRequestBody(): void
+    public function testRequest(): void
     {
         $input = new HeadObjectRequest([
             'Bucket' => 'my-bucket',
@@ -15,10 +15,11 @@ class HeadObjectRequestTest extends TestCase
             'VersionId' => 'abc123',
         ]);
 
-        self::assertEquals('/my-bucket/foo.jpg', $input->request()->getUri());
+        $expected = '
+            HEAD /my-bucket/foo.jpg?versionId=abc123 HTTP/1.0
+            Content-Type: application/xml
+        ';
 
-        $query = $input->request()->getQuery();
-        self::assertArrayHasKey('versionId', $query);
-        self::assertEquals('abc123', $query['versionId']);
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

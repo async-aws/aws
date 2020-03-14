@@ -65,7 +65,7 @@ class TestGenerator
     private function generateInput(Operation $operation, StructureShape $shape)
     {
         $className = $this->namespaceRegistry->getInputUnitTest($shape);
-        $methodName = 'testRequestBody';
+        $methodName = 'testRequest';
 
         if (\class_exists($className->getFqdn())) {
             $namespace = ClassFactory::fromExistingClass($className->getFqdn());
@@ -84,24 +84,25 @@ class TestGenerator
 
         $exampleInput = $operation->getExample()->getInput();
         $comment = $exampleInput ? '// see example-1.json from SDK' : '// see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_METHOD.html';
+
         switch ($operation->getService()->getProtocol()) {
             case 'rest-xml':
-                $stub = sprintf('$expected = %s;', var_export($this->arrayToXml($exampleInput ?? ['change' => 'it']), true));
-                $assert = 'self::assertXmlStringEqualsXmlString($expected, $input->request()->getBody()->stringify());';
+                $stub = substr(var_export($this->arrayToXml($exampleInput ?? ['change' => 'it']), true), 1, -1);
+                $contenType = 'application/xml';
 
                 break;
             case 'rest-json':
             case 'json':
-                $stub = sprintf('$expected = %s;', var_export(\json_encode($exampleInput ?? ['change' => 'it'], \JSON_PRETTY_PRINT), true));
-                $assert = 'self::assertJsonStringEqualsJsonString($expected, $input->request()->getBody()->stringify());';
+                $stub = substr(var_export(\json_encode($exampleInput ?? ['change' => 'it'], \JSON_PRETTY_PRINT), true), 1, -1);
+                $contenType = 'application/json';
 
                 break;
             case 'query':
-                $stub = sprintf('$expected = %s;', var_export($exampleInput ? $exampleInput : "
+                $stub = substr(var_export($exampleInput ? $exampleInput : "
     Action={$operation->getName()}
     &Version={$operation->getApiVersion()}
-", true));
-                $assert = 'self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());';
+", true), 1, -1);
+                $contenType = 'application/x-www-form-urlencoded';
 
                 break;
             default:
@@ -116,16 +117,21 @@ class TestGenerator
                 $input = INPUT_CONSTRUCTOR;
 
                 ' . $comment . '
-                STUB
+                $expected = \'
+                    METHOD / HTTP/1.0
+                    Content-Type: CONTENT_TYPE
 
-                ASSERT
+                    STUB
+                \';
+
+                self::assertRequestEqualsHttpRequest($expected, $input->request());
             ', [
                 'MARKER' => self::MARKER,
                 'INPUT_CONSTRUCTOR' => $this->getInputCode($namespace, $operation->getInput()),
                 'SERVICE' => \strtolower($operation->getService()->getName()),
-                'METHOD' => $operation->getName(),
-                'STUB' => $stub,
-                'ASSERT' => $assert,
+                'METHOD' => $operation->getHttpMethod(),
+                'CONTENT_TYPE' => $contenType,
+                'STUB' => trim($stub),
             ]));
 
         $this->fileWriter->write($namespace);

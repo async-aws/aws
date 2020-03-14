@@ -7,7 +7,7 @@ use AsyncAws\Sqs\Input\CreateQueueRequest;
 
 class CreateQueueRequestTest extends TestCase
 {
-    public function testRequestBody(): void
+    public function testRequest(): void
     {
         $input = new CreateQueueRequest([
             'QueueName' => 'MyQueue',
@@ -17,15 +17,18 @@ class CreateQueueRequestTest extends TestCase
 
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_CreateQueue.html */
         $expected = '
-Action=CreateQueue
-&Version=2012-11-05
-&QueueName=MyQueue
-&Attribute.1.Name=DelaySeconds
-&Attribute.1.Value=45
-&Tag.1.Key=team
-&Tag.1.Value=Engineering
+            POST / HTTP/1.0
+            Content-Type: application/x-www-form-urlencoded
+
+            Action=CreateQueue
+            &Version=2012-11-05
+            &QueueName=MyQueue
+            &Attribute.1.Name=DelaySeconds
+            &Attribute.1.Value=45
+            &Tag.1.Key=team
+            &Tag.1.Value=Engineering
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

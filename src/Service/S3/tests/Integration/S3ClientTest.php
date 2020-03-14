@@ -176,6 +176,7 @@ class S3ClientTest extends TestCase
             'Bucket' => 'foo',
             'Key' => 'bar',
             'Body' => 'content',
+            'ContentType' => 'image/jpg',
         ])->resolve();
 
         $result = $client->getObject([
@@ -186,7 +187,7 @@ class S3ClientTest extends TestCase
         self::assertEquals('bytes', $result->getAcceptRanges());
         self::assertSame('7', $result->getContentLength());
         self::assertEquals('"9a0364b9e99bb480dd25e1f0284c8555"', $result->getETag());
-        self::assertEquals('application/xml', $result->getContentType());
+        self::assertEquals('image/jpg', $result->getContentType());
     }
 
     public function testGetObjectAcl(): void

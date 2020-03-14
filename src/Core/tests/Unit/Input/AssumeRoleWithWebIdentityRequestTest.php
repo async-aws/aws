@@ -8,7 +8,7 @@ use AsyncAws\Core\Test\TestCase;
 
 class AssumeRoleWithWebIdentityRequestTest extends TestCase
 {
-    public function testRequestBody(): void
+    public function testRequest(): void
     {
         $input = new AssumeRoleWithWebIdentityRequest([
             'RoleArn' => 'arn:aws:iam::123456789012:role/FederatedWebIdentityRole',
@@ -25,6 +25,9 @@ class AssumeRoleWithWebIdentityRequestTest extends TestCase
 
         // see https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html
         $expected = '
+            POST / HTTP/1.0
+            Content-Type: application/x-www-form-urlencoded
+
             Action=AssumeRoleWithWebIdentity
             &Version=2011-06-15
             &DurationSeconds=3600
@@ -36,6 +39,6 @@ class AssumeRoleWithWebIdentityRequestTest extends TestCase
             &WebIdentityToken=FooBarBz
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

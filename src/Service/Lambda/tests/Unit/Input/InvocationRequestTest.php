@@ -11,14 +11,9 @@ use AsyncAws\Lambda\Input\InvocationRequest;
  */
 class InvocationRequestTest extends TestCase
 {
-    /**
-     * @var InvocationRequest
-     */
-    private $input;
-
-    public function setUp(): void
+    public function testRequest(): void
     {
-        $this->input = new InvocationRequest([
+        $input = new InvocationRequest([
             'FunctionName' => 'MyFunction',
             'InvocationType' => 'Event',
             'LogType' => 'Tail',
@@ -26,22 +21,20 @@ class InvocationRequestTest extends TestCase
             'Payload' => '{"name": "jderusse"}',
             'Qualifier' => '1',
         ]);
-        parent::setUp();
-    }
 
-    public function testRequestBody(): void
-    {
-        $expected = '{
-            "name": "jderusse"
-        }';
+        $expected = '
+            POST /2015-03-31/functions/MyFunction/invocations?Qualifier=1 HTTP/1.0
+            Content-Type: application/json
+            x-amz-invocation-type: Event
+            x-amz-log-type: Tail
+            x-amz-client-context: MyApp
 
-        self::assertJsonStringEqualsJsonString($expected, $this->input->request()->getBody()->stringify());
-    }
 
-    public function testRequestUri(): void
-    {
-        $expected = '/2015-03-31/functions/MyFunction/invocations';
+            {
+                "name": "jderusse"
+            }
+        ';
 
-        self::assertSame($expected, $this->input->request()->getUri());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }
