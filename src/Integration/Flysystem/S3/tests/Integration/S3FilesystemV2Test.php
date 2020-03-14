@@ -172,6 +172,14 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
         parent::creating_a_directory();
     }
 
+    /**
+     * @test
+     */
+    public function fetching_the_mime_type_of_an_svg_file(): void
+    {
+        self::markTestSkipped(sprintf('Test "%s" will always fail because test resources are not available.', __FUNCTION__));
+    }
+
     protected function createFilesystemAdapter(): FilesystemAdapter
     {
         $bucket = getenv('FLYSYSTEM_AWS_S3_BUCKET') ?: 'flysystem-test-bucket';
