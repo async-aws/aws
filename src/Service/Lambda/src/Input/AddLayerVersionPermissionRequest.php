@@ -135,17 +135,22 @@ class AddLayerVersionPermissionRequest
      */
     public function request(): Request
     {
+        // Prepare headers
+        $headers = ['content-type' => 'application/json'];
+
+        // Prepare URI
         $uri = [];
         $uri['LayerName'] = $this->LayerName ?? '';
         $uri['VersionNumber'] = $this->VersionNumber ?? '';
         $uriString = "/2018-10-31/layers/{$uri['LayerName']}/versions/{$uri['VersionNumber']}/policy";
-        $headers = ['content-type' => 'application/json'];
 
+        // Prepare query
         $query = [];
         if (null !== $this->RevisionId) {
             $query['RevisionId'] = $this->RevisionId;
         }
 
+        // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 

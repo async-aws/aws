@@ -120,9 +120,7 @@ class InvocationRequest
      */
     public function request(): Request
     {
-        $uri = [];
-        $uri['FunctionName'] = $this->FunctionName ?? '';
-        $uriString = "/2015-03-31/functions/{$uri['FunctionName']}/invocations";
+        // Prepare headers
         $headers = ['content-type' => 'application/json'];
         if (null !== $this->InvocationType) {
             $headers['X-Amz-Invocation-Type'] = $this->InvocationType;
@@ -134,11 +132,18 @@ class InvocationRequest
             $headers['X-Amz-Client-Context'] = $this->ClientContext;
         }
 
+        // Prepare URI
+        $uri = [];
+        $uri['FunctionName'] = $this->FunctionName ?? '';
+        $uriString = "/2015-03-31/functions/{$uri['FunctionName']}/invocations";
+
+        // Prepare query
         $query = [];
         if (null !== $this->Qualifier) {
             $query['Qualifier'] = $this->Qualifier;
         }
 
+        // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 

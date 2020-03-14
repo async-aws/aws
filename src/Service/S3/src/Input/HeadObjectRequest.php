@@ -227,10 +227,7 @@ class HeadObjectRequest
      */
     public function request(): Request
     {
-        $uri = [];
-        $uri['Bucket'] = $this->Bucket ?? '';
-        $uri['Key'] = $this->Key ?? '';
-        $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
+        // Prepare headers
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->IfMatch) {
             $headers['If-Match'] = $this->IfMatch;
@@ -260,6 +257,13 @@ class HeadObjectRequest
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
 
+        // Prepare URI
+        $uri = [];
+        $uri['Bucket'] = $this->Bucket ?? '';
+        $uri['Key'] = $this->Key ?? '';
+        $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
+
+        // Prepare query
         $query = [];
         if (null !== $this->VersionId) {
             $query['versionId'] = $this->VersionId;
@@ -268,6 +272,7 @@ class HeadObjectRequest
             $query['partNumber'] = $this->PartNumber;
         }
 
+        // Return the Request
         return new Request('HEAD', $uriString, $query, $headers, StreamFactory::create(null));
     }
 

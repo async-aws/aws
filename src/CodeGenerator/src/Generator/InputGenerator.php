@@ -381,10 +381,17 @@ class InputGenerator
         $method = \var_export($operation->getHttpMethod(), true);
 
         $class->addMethod('request')->setComment('@internal')->setReturnType(Request::class)->setBody(<<<PHP
-$requestUri
+
+// Prepare headers
 {$body['header']}
+
+// Prepare URI
+$requestUri
+
+// Prepare query
 {$body['querystring']}
 
+// Return the Request
 return new Request($method, \$uriString, \$query, \$headers, StreamFactory::create($bodyCall));
 PHP
 );

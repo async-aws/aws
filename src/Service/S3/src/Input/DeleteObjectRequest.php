@@ -120,10 +120,7 @@ class DeleteObjectRequest
      */
     public function request(): Request
     {
-        $uri = [];
-        $uri['Bucket'] = $this->Bucket ?? '';
-        $uri['Key'] = $this->Key ?? '';
-        $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
+        // Prepare headers
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->MFA) {
             $headers['x-amz-mfa'] = $this->MFA;
@@ -135,11 +132,19 @@ class DeleteObjectRequest
             $headers['x-amz-bypass-governance-retention'] = $this->BypassGovernanceRetention;
         }
 
+        // Prepare URI
+        $uri = [];
+        $uri['Bucket'] = $this->Bucket ?? '';
+        $uri['Key'] = $this->Key ?? '';
+        $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
+
+        // Prepare query
         $query = [];
         if (null !== $this->VersionId) {
             $query['versionId'] = $this->VersionId;
         }
 
+        // Return the Request
         return new Request('DELETE', $uriString, $query, $headers, StreamFactory::create(null));
     }
 

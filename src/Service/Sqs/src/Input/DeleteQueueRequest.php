@@ -42,11 +42,16 @@ class DeleteQueueRequest
      */
     public function request(): Request
     {
-        $uriString = '/';
+        // Prepare headers
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
+        // Prepare URI
+        $uriString = '/';
+
+        // Prepare query
         $query = [];
 
+        // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 

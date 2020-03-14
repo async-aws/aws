@@ -107,9 +107,7 @@ class DeleteObjectsRequest
      */
     public function request(): Request
     {
-        $uri = [];
-        $uri['Bucket'] = $this->Bucket ?? '';
-        $uriString = "/{$uri['Bucket']}?delete";
+        // Prepare headers
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->MFA) {
             $headers['x-amz-mfa'] = $this->MFA;
@@ -121,8 +119,15 @@ class DeleteObjectsRequest
             $headers['x-amz-bypass-governance-retention'] = $this->BypassGovernanceRetention;
         }
 
+        // Prepare URI
+        $uri = [];
+        $uri['Bucket'] = $this->Bucket ?? '';
+        $uriString = "/{$uri['Bucket']}?delete";
+
+        // Prepare query
         $query = [];
 
+        // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 

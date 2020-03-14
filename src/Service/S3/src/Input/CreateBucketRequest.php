@@ -160,9 +160,7 @@ class CreateBucketRequest
      */
     public function request(): Request
     {
-        $uri = [];
-        $uri['Bucket'] = $this->Bucket ?? '';
-        $uriString = "/{$uri['Bucket']}";
+        // Prepare headers
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->ACL) {
             $headers['x-amz-acl'] = $this->ACL;
@@ -186,8 +184,15 @@ class CreateBucketRequest
             $headers['x-amz-bucket-object-lock-enabled'] = $this->ObjectLockEnabledForBucket;
         }
 
+        // Prepare URI
+        $uri = [];
+        $uri['Bucket'] = $this->Bucket ?? '';
+        $uriString = "/{$uri['Bucket']}";
+
+        // Prepare query
         $query = [];
 
+        // Return the Request
         return new Request('PUT', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 

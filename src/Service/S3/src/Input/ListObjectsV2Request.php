@@ -167,14 +167,18 @@ class ListObjectsV2Request
      */
     public function request(): Request
     {
-        $uri = [];
-        $uri['Bucket'] = $this->Bucket ?? '';
-        $uriString = "/{$uri['Bucket']}?list-type=2";
+        // Prepare headers
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->RequestPayer) {
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
 
+        // Prepare URI
+        $uri = [];
+        $uri['Bucket'] = $this->Bucket ?? '';
+        $uriString = "/{$uri['Bucket']}?list-type=2";
+
+        // Prepare query
         $query = [];
         if (null !== $this->Delimiter) {
             $query['delimiter'] = $this->Delimiter;
@@ -198,6 +202,7 @@ class ListObjectsV2Request
             $query['start-after'] = $this->StartAfter;
         }
 
+        // Return the Request
         return new Request('GET', $uriString, $query, $headers, StreamFactory::create(null));
     }
 

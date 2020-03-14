@@ -137,11 +137,16 @@ class SendEmailRequest
      */
     public function request(): Request
     {
-        $uriString = '/v2/email/outbound-emails';
+        // Prepare headers
         $headers = ['content-type' => 'application/json'];
 
+        // Prepare URI
+        $uriString = '/v2/email/outbound-emails';
+
+        // Prepare query
         $query = [];
 
+        // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 

@@ -518,10 +518,7 @@ class PutObjectRequest
      */
     public function request(): Request
     {
-        $uri = [];
-        $uri['Bucket'] = $this->Bucket ?? '';
-        $uri['Key'] = $this->Key ?? '';
-        $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
+        // Prepare headers
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->ACL) {
             $headers['x-amz-acl'] = $this->ACL;
@@ -602,8 +599,16 @@ class PutObjectRequest
             $headers['x-amz-object-lock-legal-hold'] = $this->ObjectLockLegalHoldStatus;
         }
 
+        // Prepare URI
+        $uri = [];
+        $uri['Bucket'] = $this->Bucket ?? '';
+        $uri['Key'] = $this->Key ?? '';
+        $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
+
+        // Prepare query
         $query = [];
 
+        // Return the Request
         return new Request('PUT', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 
