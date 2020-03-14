@@ -3,6 +3,8 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Signer\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 
 class GetObjectRequest
@@ -306,8 +308,12 @@ class GetObjectRequest
     /**
      * @internal
      */
-    public function requestHeaders(): array
+    public function request(): Request
     {
+        $uri = [];
+        $uri['Bucket'] = $this->Bucket ?? '';
+        $uri['Key'] = $this->Key ?? '';
+        $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->IfMatch) {
             $headers['If-Match'] = $this->IfMatch;
@@ -337,14 +343,6 @@ class GetObjectRequest
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
         $query = [];
         if (null !== $this->ResponseCacheControl) {
             $query['response-cache-control'] = $this->ResponseCacheControl;
@@ -371,19 +369,7 @@ class GetObjectRequest
             $query['partNumber'] = $this->PartNumber;
         }
 
-        return $query;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
-        $uri = [];
-        $uri['Bucket'] = $this->Bucket ?? '';
-        $uri['Key'] = $this->Key ?? '';
-
-        return "/{$uri['Bucket']}/{$uri['Key']}";
+        return new Request('GET', $uriString, $query, $headers, StreamFactory::create(null));
     }
 
     public function setBucket(?string $value): self

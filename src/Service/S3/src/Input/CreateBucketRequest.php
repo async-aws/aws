@@ -3,6 +3,8 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Signer\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\BucketCannedACL;
 
 class CreateBucketRequest
@@ -156,28 +158,11 @@ class CreateBucketRequest
     /**
      * @internal
      */
-    public function requestBody(): string
+    public function request(): Request
     {
-        $document = new \DOMDocument('1.0', 'UTF-8');
-        $document->formatOutput = false;
-
-        if (null !== $input = $this->CreateBucketConfiguration) {
-            $document->appendChild($document_CreateBucketConfiguration = $document->createElement('CreateBucketConfiguration'));
-            $document_CreateBucketConfiguration->setAttribute('xmlns', 'http://s3.amazonaws.com/doc/2006-03-01/');
-
-            if (null !== $input_LocationConstraint = $input->getLocationConstraint()) {
-                $document_CreateBucketConfiguration->appendChild($document->createElement('LocationConstraint', $input_LocationConstraint));
-            }
-        }
-
-        return $document->hasChildNodes() ? $document->saveXML() : '';
-    }
-
-    /**
-     * @internal
-     */
-    public function requestHeaders(): array
-    {
+        $uri = [];
+        $uri['Bucket'] = $this->Bucket ?? '';
+        $uriString = "/{$uri['Bucket']}";
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->ACL) {
             $headers['x-amz-acl'] = $this->ACL;
@@ -201,28 +186,9 @@ class CreateBucketRequest
             $headers['x-amz-bucket-object-lock-enabled'] = $this->ObjectLockEnabledForBucket;
         }
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
         $query = [];
 
-        return $query;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
-        $uri = [];
-        $uri['Bucket'] = $this->Bucket ?? '';
-
-        return "/{$uri['Bucket']}";
+        return new Request('PUT', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 
     /**
@@ -306,5 +272,22 @@ class CreateBucketRequest
         if (null !== $this->CreateBucketConfiguration) {
             $this->CreateBucketConfiguration->validate();
         }
+    }
+
+    private function requestBody(): string
+    {
+        $document = new \DOMDocument('1.0', 'UTF-8');
+        $document->formatOutput = false;
+
+        if (null !== $input = $this->CreateBucketConfiguration) {
+            $document->appendChild($document_CreateBucketConfiguration = $document->createElement('CreateBucketConfiguration'));
+            $document_CreateBucketConfiguration->setAttribute('xmlns', 'http://s3.amazonaws.com/doc/2006-03-01/');
+
+            if (null !== $input_LocationConstraint = $input->getLocationConstraint()) {
+                $document_CreateBucketConfiguration->appendChild($document->createElement('LocationConstraint', $input_LocationConstraint));
+            }
+        }
+
+        return $document->hasChildNodes() ? $document->saveXML() : '';
     }
 }

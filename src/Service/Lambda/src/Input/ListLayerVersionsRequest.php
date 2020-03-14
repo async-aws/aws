@@ -3,6 +3,8 @@
 namespace AsyncAws\Lambda\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Signer\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Lambda\Enum\Runtime;
 
 class ListLayerVersionsRequest
@@ -84,18 +86,13 @@ class ListLayerVersionsRequest
     /**
      * @internal
      */
-    public function requestHeaders(): array
+    public function request(): Request
     {
+        $uri = [];
+        $uri['LayerName'] = $this->LayerName ?? '';
+        $uriString = "/2018-10-31/layers/{$uri['LayerName']}/versions";
         $headers = ['content-type' => 'application/json'];
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
         $query = [];
         if (null !== $this->CompatibleRuntime) {
             $query['CompatibleRuntime'] = $this->CompatibleRuntime;
@@ -107,18 +104,7 @@ class ListLayerVersionsRequest
             $query['MaxItems'] = $this->MaxItems;
         }
 
-        return $query;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
-        $uri = [];
-        $uri['LayerName'] = $this->LayerName ?? '';
-
-        return "/2018-10-31/layers/{$uri['LayerName']}/versions";
+        return new Request('GET', $uriString, $query, $headers, StreamFactory::create(null));
     }
 
     /**

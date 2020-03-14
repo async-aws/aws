@@ -3,6 +3,8 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Signer\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\EncodingType;
 use AsyncAws\S3\Enum\RequestPayer;
 
@@ -163,21 +165,16 @@ class ListObjectsV2Request
     /**
      * @internal
      */
-    public function requestHeaders(): array
+    public function request(): Request
     {
+        $uri = [];
+        $uri['Bucket'] = $this->Bucket ?? '';
+        $uriString = "/{$uri['Bucket']}?list-type=2";
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->RequestPayer) {
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
         $query = [];
         if (null !== $this->Delimiter) {
             $query['delimiter'] = $this->Delimiter;
@@ -201,18 +198,7 @@ class ListObjectsV2Request
             $query['start-after'] = $this->StartAfter;
         }
 
-        return $query;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
-        $uri = [];
-        $uri['Bucket'] = $this->Bucket ?? '';
-
-        return "/{$uri['Bucket']}?list-type=2";
+        return new Request('GET', $uriString, $query, $headers, StreamFactory::create(null));
     }
 
     public function setBucket(?string $value): self

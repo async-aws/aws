@@ -3,6 +3,8 @@
 namespace AsyncAws\Sqs\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Signer\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 
 class SendMessageRequest
 {
@@ -143,7 +145,91 @@ class SendMessageRequest
     /**
      * @internal
      */
-    public function requestBody(): string
+    public function request(): Request
+    {
+        $uriString = '/';
+        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
+
+        $query = [];
+
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
+    }
+
+    public function setDelaySeconds(?int $value): self
+    {
+        $this->DelaySeconds = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param MessageAttributeValue[] $value
+     */
+    public function setMessageAttributes(array $value): self
+    {
+        $this->MessageAttributes = $value;
+
+        return $this;
+    }
+
+    public function setMessageBody(?string $value): self
+    {
+        $this->MessageBody = $value;
+
+        return $this;
+    }
+
+    public function setMessageDeduplicationId(?string $value): self
+    {
+        $this->MessageDeduplicationId = $value;
+
+        return $this;
+    }
+
+    public function setMessageGroupId(?string $value): self
+    {
+        $this->MessageGroupId = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param MessageSystemAttributeValue[] $value
+     */
+    public function setMessageSystemAttributes(array $value): self
+    {
+        $this->MessageSystemAttributes = $value;
+
+        return $this;
+    }
+
+    public function setQueueUrl(?string $value): self
+    {
+        $this->QueueUrl = $value;
+
+        return $this;
+    }
+
+    public function validate(): void
+    {
+        if (null === $this->QueueUrl) {
+            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
+        if (null === $this->MessageBody) {
+            throw new InvalidArgument(sprintf('Missing parameter "MessageBody" when validating the "%s". The value cannot be null.', __CLASS__));
+        }
+
+        foreach ($this->MessageAttributes as $item) {
+            $item->validate();
+        }
+
+        foreach ($this->MessageSystemAttributes as $item) {
+            $item->validate();
+        }
+    }
+
+    private function requestBody(): string
     {
         $payload = ['Action' => 'SendMessage', 'Version' => '2012-11-05'];
         $indices = new \stdClass();
@@ -232,107 +318,5 @@ class SendMessageRequest
         }
 
         return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
-    }
-
-    /**
-     * @internal
-     */
-    public function requestHeaders(): array
-    {
-        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
-
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
-        $query = [];
-
-        return $query;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
-        return '/';
-    }
-
-    public function setDelaySeconds(?int $value): self
-    {
-        $this->DelaySeconds = $value;
-
-        return $this;
-    }
-
-    /**
-     * @param MessageAttributeValue[] $value
-     */
-    public function setMessageAttributes(array $value): self
-    {
-        $this->MessageAttributes = $value;
-
-        return $this;
-    }
-
-    public function setMessageBody(?string $value): self
-    {
-        $this->MessageBody = $value;
-
-        return $this;
-    }
-
-    public function setMessageDeduplicationId(?string $value): self
-    {
-        $this->MessageDeduplicationId = $value;
-
-        return $this;
-    }
-
-    public function setMessageGroupId(?string $value): self
-    {
-        $this->MessageGroupId = $value;
-
-        return $this;
-    }
-
-    /**
-     * @param MessageSystemAttributeValue[] $value
-     */
-    public function setMessageSystemAttributes(array $value): self
-    {
-        $this->MessageSystemAttributes = $value;
-
-        return $this;
-    }
-
-    public function setQueueUrl(?string $value): self
-    {
-        $this->QueueUrl = $value;
-
-        return $this;
-    }
-
-    public function validate(): void
-    {
-        if (null === $this->QueueUrl) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->MessageBody) {
-            throw new InvalidArgument(sprintf('Missing parameter "MessageBody" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        foreach ($this->MessageAttributes as $item) {
-            $item->validate();
-        }
-
-        foreach ($this->MessageSystemAttributes as $item) {
-            $item->validate();
-        }
     }
 }

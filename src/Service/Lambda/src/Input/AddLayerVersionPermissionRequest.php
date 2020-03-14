@@ -3,6 +3,8 @@
 namespace AsyncAws\Lambda\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Signer\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 
 class AddLayerVersionPermissionRequest
 {
@@ -131,53 +133,20 @@ class AddLayerVersionPermissionRequest
     /**
      * @internal
      */
-    public function requestBody(): string
+    public function request(): Request
     {
-        $payload = [];
-
-        $payload['StatementId'] = $this->StatementId;
-        $payload['Action'] = $this->Action;
-        $payload['Principal'] = $this->Principal;
-        if (null !== $v = $this->OrganizationId) {
-            $payload['OrganizationId'] = $v;
-        }
-
-        return json_encode($payload);
-    }
-
-    /**
-     * @internal
-     */
-    public function requestHeaders(): array
-    {
+        $uri = [];
+        $uri['LayerName'] = $this->LayerName ?? '';
+        $uri['VersionNumber'] = $this->VersionNumber ?? '';
+        $uriString = "/2018-10-31/layers/{$uri['LayerName']}/versions/{$uri['VersionNumber']}/policy";
         $headers = ['content-type' => 'application/json'];
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
         $query = [];
         if (null !== $this->RevisionId) {
             $query['RevisionId'] = $this->RevisionId;
         }
 
-        return $query;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
-        $uri = [];
-        $uri['LayerName'] = $this->LayerName ?? '';
-        $uri['VersionNumber'] = $this->VersionNumber ?? '';
-
-        return "/2018-10-31/layers/{$uri['LayerName']}/versions/{$uri['VersionNumber']}/policy";
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 
     public function setAction(?string $value): self
@@ -250,5 +219,19 @@ class AddLayerVersionPermissionRequest
         if (null === $this->Principal) {
             throw new InvalidArgument(sprintf('Missing parameter "Principal" when validating the "%s". The value cannot be null.', __CLASS__));
         }
+    }
+
+    private function requestBody(): string
+    {
+        $payload = [];
+
+        $payload['StatementId'] = $this->StatementId;
+        $payload['Action'] = $this->Action;
+        $payload['Principal'] = $this->Principal;
+        if (null !== $v = $this->OrganizationId) {
+            $payload['OrganizationId'] = $v;
+        }
+
+        return json_encode($payload);
     }
 }

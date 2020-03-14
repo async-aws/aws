@@ -14,6 +14,8 @@ use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\RequestSerializer\SerializerProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Signer\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
 
@@ -202,6 +204,8 @@ class InputGenerator
             $constructor->setBody($constructorBody);
         }
         if ($root) {
+            $namespace->addUse(Request::class);
+            $namespace->addUse(StreamFactory::class);
             $this->inputClassRequestGetters($shape, $class, $operation);
         }
 
@@ -329,30 +333,28 @@ class InputGenerator
                     $body[$requestPart] .= 'if ($this->' . $member->getName() . ' !== null) ' . $varName . '["' . ($member->getLocationName() ?? $member->getName()) . '"] = $this->' . $member->getName() . ';' . "\n";
                 }
             }
-
-            $body[$requestPart] .= 'return ' . $varName . ';' . "\n";
         }
 
-        $class->addMethod('requestHeaders')->setComment('@internal')->setReturnType('array')->setBody($body['header']);
-        $class->addMethod('requestQuery')->setComment('@internal')->setReturnType('array')->setBody($body['querystring']);
 
         if ($operation->hasBody()) {
             if (null !== $payloadProperty = $inputShape->getPayload()) {
                 $member = $inputShape->getMember($payloadProperty);
                 if ($member->isStreaming()) {
                     $bodyType = null;
-                    $body = 'return $this->' . $payloadProperty . ' ?? "";';
+                    $body['body'] = 'return $this->' . $payloadProperty . ' ?? "";';
                 } else {
                     $bodyType = 'string';
-                    $body = $serializer->generateForMember($member, $payloadProperty);
+                    $body['body'] = $serializer->generateForMember($member, $payloadProperty);
                 }
             } else {
                 $bodyType = 'string';
-                $body = $serializer->generateForShape($operation, $inputShape);
+                $body['body'] = $serializer->generateForShape($operation, $inputShape);
             }
 
-            $class->addMethod('requestBody')->setComment('@internal')->setReturnType($bodyType)->setBody($body);
+            $class->addMethod('requestBody')->setReturnType($bodyType)->setBody($body['body'])->setPrivate();
+            $bodyCall = '$this->requestBody()';
         } else {
+            $bodyCall = 'null';
             if (null !== $payloadProperty = $inputShape->getPayload()) {
                 throw new \LogicException(sprintf('Unexpected body in operation "%s"', $operation->getName()));
             }
@@ -375,8 +377,17 @@ class InputGenerator
         }
 
         $requestUri = $requestUri ?? '';
-        $requestUri .= 'return "' . str_replace(['{', '+}', '}'], ['{$uri[\'', '}', '\']}'], $operation->getHttpRequestUri()) . '";';
+        $requestUri .= '$uriString = "' . str_replace(['{', '+}', '}'], ['{$uri[\'', '}', '\']}'], $operation->getHttpRequestUri()) . '";';
 
-        $class->addMethod('requestUri')->setComment('@internal')->setReturnType('string')->setBody($requestUri);
+        $method = \var_export($operation->getHttpMethod(), true);
+
+        $class->addMethod('request')->setComment('@internal')->setReturnType(Request::class)->setBody(<<<PHP
+$requestUri
+{$body['header']}
+{$body['querystring']}
+
+return new Request($method, \$uriString, \$query, \$headers, StreamFactory::create($bodyCall));
+PHP
+);
     }
 }

@@ -37,12 +37,7 @@ class LambdaClient extends AbstractApi
         $input = AddLayerVersionPermissionRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new AddLayerVersionPermissionResponse($response, $this->httpClient);
     }
@@ -67,12 +62,7 @@ class LambdaClient extends AbstractApi
         $input = InvocationRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new InvocationResponse($response, $this->httpClient);
     }
@@ -97,12 +87,7 @@ class LambdaClient extends AbstractApi
         $input = ListLayerVersionsRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'GET',
-            null,
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new ListLayerVersionsResponse($response, $this->httpClient, $this, $input);
     }
@@ -127,12 +112,7 @@ class LambdaClient extends AbstractApi
         $input = PublishLayerVersionRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new PublishLayerVersionResponse($response, $this->httpClient);
     }

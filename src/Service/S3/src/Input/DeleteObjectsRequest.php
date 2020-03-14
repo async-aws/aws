@@ -3,6 +3,8 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Signer\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 
 class DeleteObjectsRequest
@@ -103,43 +105,11 @@ class DeleteObjectsRequest
     /**
      * @internal
      */
-    public function requestBody(): string
+    public function request(): Request
     {
-        $document = new \DOMDocument('1.0', 'UTF-8');
-        $document->formatOutput = false;
-
-        if (null === $input = $this->Delete) {
-            throw new InvalidArgument(sprintf('Missing parameter "Delete" in "%s". The value cannot be null.', __CLASS__));
-        }
-
-        $document->appendChild($document_Delete = $document->createElement('Delete'));
-        $document_Delete->setAttribute('xmlns', 'http://s3.amazonaws.com/doc/2006-03-01/');
-
-        $input_Objects = $input->getObjects();
-
-        foreach ($input_Objects as $input_ObjectsItem) {
-            $document_Delete->appendChild($document_Delete_Objects = $document->createElement('Object'));
-
-            $input_ObjectsItem_Key = $input_ObjectsItem->getKey();
-            $document_Delete_Objects->appendChild($document->createElement('Key', $input_ObjectsItem_Key));
-
-            if (null !== $input_ObjectsItem_VersionId = $input_ObjectsItem->getVersionId()) {
-                $document_Delete_Objects->appendChild($document->createElement('VersionId', $input_ObjectsItem_VersionId));
-            }
-        }
-
-        if (null !== $input_Quiet = $input->getQuiet()) {
-            $document_Delete->appendChild($document->createElement('Quiet', $input_Quiet ? 'true' : 'false'));
-        }
-
-        return $document->hasChildNodes() ? $document->saveXML() : '';
-    }
-
-    /**
-     * @internal
-     */
-    public function requestHeaders(): array
-    {
+        $uri = [];
+        $uri['Bucket'] = $this->Bucket ?? '';
+        $uriString = "/{$uri['Bucket']}?delete";
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->MFA) {
             $headers['x-amz-mfa'] = $this->MFA;
@@ -151,28 +121,9 @@ class DeleteObjectsRequest
             $headers['x-amz-bypass-governance-retention'] = $this->BypassGovernanceRetention;
         }
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
         $query = [];
 
-        return $query;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
-        $uri = [];
-        $uri['Bucket'] = $this->Bucket ?? '';
-
-        return "/{$uri['Bucket']}?delete";
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 
     public function setBucket(?string $value): self
@@ -229,5 +180,37 @@ class DeleteObjectsRequest
                 throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
             }
         }
+    }
+
+    private function requestBody(): string
+    {
+        $document = new \DOMDocument('1.0', 'UTF-8');
+        $document->formatOutput = false;
+
+        if (null === $input = $this->Delete) {
+            throw new InvalidArgument(sprintf('Missing parameter "Delete" in "%s". The value cannot be null.', __CLASS__));
+        }
+
+        $document->appendChild($document_Delete = $document->createElement('Delete'));
+        $document_Delete->setAttribute('xmlns', 'http://s3.amazonaws.com/doc/2006-03-01/');
+
+        $input_Objects = $input->getObjects();
+
+        foreach ($input_Objects as $input_ObjectsItem) {
+            $document_Delete->appendChild($document_Delete_Objects = $document->createElement('Object'));
+
+            $input_ObjectsItem_Key = $input_ObjectsItem->getKey();
+            $document_Delete_Objects->appendChild($document->createElement('Key', $input_ObjectsItem_Key));
+
+            if (null !== $input_ObjectsItem_VersionId = $input_ObjectsItem->getVersionId()) {
+                $document_Delete_Objects->appendChild($document->createElement('VersionId', $input_ObjectsItem_VersionId));
+            }
+        }
+
+        if (null !== $input_Quiet = $input->getQuiet()) {
+            $document_Delete->appendChild($document->createElement('Quiet', $input_Quiet ? 'true' : 'false'));
+        }
+
+        return $document->hasChildNodes() ? $document->saveXML() : '';
     }
 }

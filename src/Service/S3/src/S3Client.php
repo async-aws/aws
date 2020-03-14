@@ -77,12 +77,7 @@ class S3Client extends AbstractApi
         $input = CopyObjectRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'PUT',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new CopyObjectOutput($response, $this->httpClient);
     }
@@ -111,12 +106,7 @@ class S3Client extends AbstractApi
         $input = CreateBucketRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'PUT',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new CreateBucketOutput($response, $this->httpClient);
     }
@@ -141,12 +131,7 @@ class S3Client extends AbstractApi
         $input = DeleteObjectRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'DELETE',
-            null,
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new DeleteObjectOutput($response, $this->httpClient);
     }
@@ -171,12 +156,7 @@ class S3Client extends AbstractApi
         $input = DeleteObjectsRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'POST',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new DeleteObjectsOutput($response, $this->httpClient);
     }
@@ -214,12 +194,7 @@ class S3Client extends AbstractApi
         $input = GetObjectRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'GET',
-            null,
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new GetObjectOutput($response, $this->httpClient);
     }
@@ -242,12 +217,7 @@ class S3Client extends AbstractApi
         $input = GetObjectAclRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'GET',
-            null,
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new GetObjectAclOutput($response, $this->httpClient);
     }
@@ -279,12 +249,7 @@ class S3Client extends AbstractApi
         $input = HeadObjectRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'HEAD',
-            null,
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new HeadObjectOutput($response, $this->httpClient);
     }
@@ -313,12 +278,7 @@ class S3Client extends AbstractApi
         $input = ListObjectsV2Request::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'GET',
-            null,
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new ListObjectsV2Output($response, $this->httpClient, $this, $input);
     }
@@ -366,12 +326,7 @@ class S3Client extends AbstractApi
         $input = PutObjectRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'PUT',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new PutObjectOutput($response, $this->httpClient);
     }
@@ -402,12 +357,7 @@ class S3Client extends AbstractApi
         $input = PutObjectAclRequest::create($input);
         $input->validate();
 
-        $response = $this->getResponse(
-            'PUT',
-            $input->requestBody(),
-            $input->requestHeaders(),
-            $this->getEndpoint($input->requestUri(), $input->requestQuery())
-        );
+        $response = $this->getResponse($input->request());
 
         return new PutObjectAclOutput($response, $this->httpClient);
     }

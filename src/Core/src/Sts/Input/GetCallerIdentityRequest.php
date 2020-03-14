@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Core\Sts\Input;
 
+use AsyncAws\Core\Signer\Request;
+use AsyncAws\Core\Stream\StreamFactory;
+
 class GetCallerIdentityRequest
 {
     public static function create($input): self
@@ -12,43 +15,25 @@ class GetCallerIdentityRequest
     /**
      * @internal
      */
-    public function requestBody(): string
+    public function request(): Request
     {
-        $payload = ['Action' => 'GetCallerIdentity', 'Version' => '2011-06-15'];
-
-        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
-    }
-
-    /**
-     * @internal
-     */
-    public function requestHeaders(): array
-    {
+        $uriString = '/';
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
         $query = [];
 
-        return $query;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
-        return '/';
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 
     public function validate(): void
     {
         // There are no required properties
+    }
+
+    private function requestBody(): string
+    {
+        $payload = ['Action' => 'GetCallerIdentity', 'Version' => '2011-06-15'];
+
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 }

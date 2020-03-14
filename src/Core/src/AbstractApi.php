@@ -92,11 +92,10 @@ abstract class AbstractApi
      * @param string[]|string[][]                    $headers headers names provided as keys or as part of values
      * @param string|resource|callable|iterable|null $body
      */
-    final protected function getResponse(string $method, $body, array $headers, string $endpoint): ResponseInterface
+    final protected function getResponse(Request $request): ResponseInterface
     {
-        $stream = StreamFactory::create($body);
+        $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery()));
 
-        $request = new Request($method, $endpoint, $headers, $stream);
         $this->getSigner()->sign($request, $this->credentialProvider->getCredentials($this->configuration));
 
         $length = $request->getBody()->length();
@@ -110,7 +109,7 @@ abstract class AbstractApi
             $requestBody = $requestBody->stringify();
         }
 
-        return $this->httpClient->request($request->getMethod(), $request->getUrl(), ['headers' => $request->getHeaders(), 'body' => 0 === $length ? null : $requestBody]);
+        return $this->httpClient->request($request->getMethod(), $request->getEndpoint(), ['headers' => $request->getHeaders(), 'body' => 0 === $length ? null : $requestBody]);
     }
 
     /**
@@ -119,7 +118,7 @@ abstract class AbstractApi
      * @param string $uri   or path
      * @param array  $query parameters that should go in the query string
      */
-    protected function getEndpoint(string $uri, array $query): string
+    private function getEndpoint(string $uri, array $query): string
     {
         /** @psalm-suppress PossiblyNullArgument */
         $endpoint = strtr($this->configuration->get('endpoint'), [

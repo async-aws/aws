@@ -3,6 +3,8 @@
 namespace AsyncAws\Sns\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Signer\Request;
+use AsyncAws\Core\Stream\StreamFactory;
 
 class PublishInput
 {
@@ -133,76 +135,14 @@ class PublishInput
     /**
      * @internal
      */
-    public function requestBody(): string
+    public function request(): Request
     {
-        $payload = ['Action' => 'Publish', 'Version' => '2010-03-31'];
-        $indices = new \stdClass();
-        if (null !== $v = $this->TopicArn) {
-            $payload['TopicArn'] = $v;
-        }
-        if (null !== $v = $this->TargetArn) {
-            $payload['TargetArn'] = $v;
-        }
-        if (null !== $v = $this->PhoneNumber) {
-            $payload['PhoneNumber'] = $v;
-        }
-        $payload['Message'] = $this->Message;
-        if (null !== $v = $this->Subject) {
-            $payload['Subject'] = $v;
-        }
-        if (null !== $v = $this->MessageStructure) {
-            $payload['MessageStructure'] = $v;
-        }
-
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->kd0379ae = 0;
-            foreach ($input as $key => $value) {
-                ++$indices->kd0379ae;
-                $payload["MessageAttributes.entry.{$indices->kd0379ae}.Name"] = $key;
-
-                if (null !== $value) {
-                    (static function (MessageAttributeValue $input) use (&$payload, $indices) {
-                        $payload["MessageAttributes.entry.{$indices->kd0379ae}.Value.DataType"] = $input->getDataType();
-                        if (null !== $v = $input->getStringValue()) {
-                            $payload["MessageAttributes.entry.{$indices->kd0379ae}.Value.StringValue"] = $v;
-                        }
-                        if (null !== $v = $input->getBinaryValue()) {
-                            $payload["MessageAttributes.entry.{$indices->kd0379ae}.Value.BinaryValue"] = base64_encode($v);
-                        }
-                    })($value);
-                }
-            }
-        })($this->MessageAttributes);
-
-        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
-    }
-
-    /**
-     * @internal
-     */
-    public function requestHeaders(): array
-    {
+        $uriString = '/';
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
-        return $headers;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestQuery(): array
-    {
         $query = [];
 
-        return $query;
-    }
-
-    /**
-     * @internal
-     */
-    public function requestUri(): string
-    {
-        return '/';
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
     }
 
     public function setMessage(?string $value): self
@@ -266,5 +206,49 @@ class PublishInput
         foreach ($this->MessageAttributes as $item) {
             $item->validate();
         }
+    }
+
+    private function requestBody(): string
+    {
+        $payload = ['Action' => 'Publish', 'Version' => '2010-03-31'];
+        $indices = new \stdClass();
+        if (null !== $v = $this->TopicArn) {
+            $payload['TopicArn'] = $v;
+        }
+        if (null !== $v = $this->TargetArn) {
+            $payload['TargetArn'] = $v;
+        }
+        if (null !== $v = $this->PhoneNumber) {
+            $payload['PhoneNumber'] = $v;
+        }
+        $payload['Message'] = $this->Message;
+        if (null !== $v = $this->Subject) {
+            $payload['Subject'] = $v;
+        }
+        if (null !== $v = $this->MessageStructure) {
+            $payload['MessageStructure'] = $v;
+        }
+
+        (static function (array $input) use (&$payload, $indices) {
+            $indices->kd0379ae = 0;
+            foreach ($input as $key => $value) {
+                ++$indices->kd0379ae;
+                $payload["MessageAttributes.entry.{$indices->kd0379ae}.Name"] = $key;
+
+                if (null !== $value) {
+                    (static function (MessageAttributeValue $input) use (&$payload, $indices) {
+                        $payload["MessageAttributes.entry.{$indices->kd0379ae}.Value.DataType"] = $input->getDataType();
+                        if (null !== $v = $input->getStringValue()) {
+                            $payload["MessageAttributes.entry.{$indices->kd0379ae}.Value.StringValue"] = $v;
+                        }
+                        if (null !== $v = $input->getBinaryValue()) {
+                            $payload["MessageAttributes.entry.{$indices->kd0379ae}.Value.BinaryValue"] = base64_encode($v);
+                        }
+                    })($value);
+                }
+            }
+        })($this->MessageAttributes);
+
+        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
     }
 }
