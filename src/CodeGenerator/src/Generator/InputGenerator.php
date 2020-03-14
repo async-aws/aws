@@ -403,26 +403,26 @@ PHP
      */
     private function stringify(string $variable, Member $member, string $part): string
     {
-        if ($part !== 'header' && $part !== 'querystring') {
+        if ('header' !== $part && 'querystring' !== $part) {
             throw new \InvalidArgumentException(sprintf('Argument 3 of "%s::%s" must be either "header" or "querystring". Value "%s" provided', __CLASS__, __FUNCTION__, $part));
         }
 
         $shape = $member->getShape();
         switch ($shape->getType()) {
             case 'timestamp':
-                $format = strtoupper($shape->get('timestampFormat') ?? ($part === 'header' ? 'rfc822' : 'iso8601'));
-                if (!defined('\DateTimeInterface::'.$format)) {
-                    throw new \InvalidArgumentException('Constant "\DateTimeInterface::'.$format.'" does not exists.');
+                $format = strtoupper($shape->get('timestampFormat') ?? ('header' === $part ? 'rfc822' : 'iso8601'));
+                if (!\defined('\DateTimeInterface::' . $format)) {
+                    throw new \InvalidArgumentException('Constant "\DateTimeInterface::' . $format . '" does not exists.');
                 }
 
-                return $variable . '->format(\DateTimeInterface::'.$format.')';
+                return $variable . '->format(\DateTimeInterface::' . $format . ')';
             case 'boolean':
                 return $variable . ' ? "true" : "false"';
             case 'string':
                 return $variable;
             case 'long':
             case 'integer':
-            return '(string) '.$variable;
+            return '(string) ' . $variable;
         }
 
         throw new \InvalidArgumentException(sprintf('Type "%s" is not yet implemented', $shape->getType()));
