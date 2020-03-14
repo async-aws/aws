@@ -22,6 +22,11 @@
         "league/flysystem": "^1.0.65 || ^2.0.0-alpha.1",
         "league/mime-type-detection": "^1.0"
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.3-dev"
+        }
+    },
     "autoload": {
         "psr-4": {
             "AsyncAws\\Flysystem\\S3\\": "src"
