@@ -1,6 +1,23 @@
 # Change Log
 
-## 0.3.4
+## 0.4.0
+
+### Added
+
+- Test class `AsyncAws\Core\Test\SimpleStreamableBody`
+
+### Changed
+
+- Moved `AsyncAws\Core\Signer\Request` to `AsyncAws\Core\Request`.
+- Added constructor argument to  `AsyncAws\Core\Request::__construct()` to support query parameters.
+- Renamed `AsyncAws\Core\Request::getUrl()` to `AsyncAws\Core\Request::getEndpoint()`
+- Class `AsyncAws\Core\Stream\StreamFactory` is not internal anymore.
+- Removed `requestBody()`, `requestHeaders()`, `requestQuery()` and `requestUri()` input classes. They are replaced with `request()`.
+
+### Removed
+
+- Public `AbstractApi::request()` was removed.
+- Protected function `AbstractApi::getEndpoint()` was made private.
 
 ### Fixed
 
