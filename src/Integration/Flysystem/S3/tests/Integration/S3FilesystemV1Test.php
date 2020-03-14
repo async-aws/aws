@@ -62,17 +62,6 @@ class S3FilesystemV1Test extends TestCase
         }
     }
 
-    public function testCopyFile(): void
-    {
-        $adapter = $this->adapter();
-        $adapter->write('source.txt', 'contents to be copied', new Config());
-        $adapter->copy('source.txt', 'destination.txt');
-
-        self::assertTrue($adapter->has('source.txt'));
-        self::assertTrue($adapter->has('destination.txt'));
-        self::assertEquals('contents to be copied', $adapter->read('destination.txt'));
-    }
-
     public function testWrite(): void
     {
         $adapter = $this->adapter();
@@ -82,15 +71,17 @@ class S3FilesystemV1Test extends TestCase
         self::assertEquals('my contents', $adapter->read('file.txt')['contents']);
     }
 
-    public function testMoveFile(): void
+    public function testListContents(): void
     {
         $adapter = $this->adapter();
-        $adapter->write('source.txt', 'contents to be copied', new Config());
-        $adapter->rename('source.txt', 'destination.txt');
+        $adapter->write('file.txt', 'my contents', new Config());
+        $adapter->write('foo/file2.txt', '22', new Config());
+        $result = $adapter->listContents('foo');
 
-        self::assertFalse($adapter->has('source.txt'), 'After moving a file should no longer exist in the original location.');
-        self::assertTrue($adapter->has('destination.txt'), 'After moving, a file should be present at the new location.');
-        self::assertEquals('contents to be copied', $adapter->read('destination.txt'));
+        self::assertCount(2, $result);
+        self::assertEquals('file', $result[0]['type']);
+        self::assertEquals('foo/file2.txt', $result[0]['path']);
+        self::assertEquals('dir', $result[1]['type']);
     }
 
     public function adapter(): AdapterInterface

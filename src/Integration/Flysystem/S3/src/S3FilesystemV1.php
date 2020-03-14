@@ -10,7 +10,6 @@ use AsyncAws\S3\Result\AwsObject;
 use AsyncAws\S3\Result\CommonPrefix;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
-use AsyncAws\S3\Result\ListObjectsV2Output;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\S3Client;
 use League\Flysystem\Adapter\AbstractAdapter;

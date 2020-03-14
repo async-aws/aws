@@ -365,7 +365,7 @@ class S3FilesystemV1Test extends TestCase
 
         $items = [
             new AwsObject(['Key' => self::PREFIX . '/my_key', 'LastModified' => null, 'ETag' => null, 'Size' => null, 'StorageClass' => null, 'Owner' => null]),
-            new CommonPrefix(['Prefix' => self::PREFIX . '/common_prefix'])
+            new CommonPrefix(['Prefix' => self::PREFIX . '/common_prefix']),
         ];
         $result->method('getIterator')->willReturn(new class($items) implements \Iterator {
             private $items;
