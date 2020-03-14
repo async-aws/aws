@@ -82,11 +82,11 @@ class CreateQueueRequest
         // Prepare headers
         $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
-        // Prepare URI
-        $uriString = '/';
-
         // Prepare query
         $query = [];
+
+        // Prepare URI
+        $uriString = '/';
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));

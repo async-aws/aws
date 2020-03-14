@@ -109,13 +109,13 @@ class PublishLayerVersionRequest
         // Prepare headers
         $headers = ['content-type' => 'application/json'];
 
+        // Prepare query
+        $query = [];
+
         // Prepare URI
         $uri = [];
         $uri['LayerName'] = $this->LayerName ?? '';
         $uriString = "/2018-10-31/layers/{$uri['LayerName']}/versions";
-
-        // Prepare query
-        $query = [];
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));

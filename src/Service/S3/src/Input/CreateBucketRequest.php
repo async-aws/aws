@@ -184,13 +184,13 @@ class CreateBucketRequest
             $headers['x-amz-bucket-object-lock-enabled'] = $this->ObjectLockEnabledForBucket ? 'true' : 'false';
         }
 
+        // Prepare query
+        $query = [];
+
         // Prepare URI
         $uri = [];
         $uri['Bucket'] = $this->Bucket ?? '';
         $uriString = "/{$uri['Bucket']}";
-
-        // Prepare query
-        $query = [];
 
         // Return the Request
         return new Request('PUT', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));

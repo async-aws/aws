@@ -599,14 +599,14 @@ class PutObjectRequest
             $headers['x-amz-object-lock-legal-hold'] = $this->ObjectLockLegalHoldStatus;
         }
 
+        // Prepare query
+        $query = [];
+
         // Prepare URI
         $uri = [];
         $uri['Bucket'] = $this->Bucket ?? '';
         $uri['Key'] = $this->Key ?? '';
         $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
-
-        // Prepare query
-        $query = [];
 
         // Return the Request
         return new Request('PUT', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));

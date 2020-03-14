@@ -91,11 +91,6 @@ class ListLayerVersionsRequest
         // Prepare headers
         $headers = ['content-type' => 'application/json'];
 
-        // Prepare URI
-        $uri = [];
-        $uri['LayerName'] = $this->LayerName ?? '';
-        $uriString = "/2018-10-31/layers/{$uri['LayerName']}/versions";
-
         // Prepare query
         $query = [];
         if (null !== $this->CompatibleRuntime) {
@@ -107,6 +102,11 @@ class ListLayerVersionsRequest
         if (null !== $this->MaxItems) {
             $query['MaxItems'] = $this->MaxItems;
         }
+
+        // Prepare URI
+        $uri = [];
+        $uri['LayerName'] = $this->LayerName ?? '';
+        $uriString = "/2018-10-31/layers/{$uri['LayerName']}/versions";
 
         // Return the Request
         return new Request('GET', $uriString, $query, $headers, StreamFactory::create(null));

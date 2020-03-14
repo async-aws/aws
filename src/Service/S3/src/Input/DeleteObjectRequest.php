@@ -132,17 +132,17 @@ class DeleteObjectRequest
             $headers['x-amz-bypass-governance-retention'] = $this->BypassGovernanceRetention ? 'true' : 'false';
         }
 
-        // Prepare URI
-        $uri = [];
-        $uri['Bucket'] = $this->Bucket ?? '';
-        $uri['Key'] = $this->Key ?? '';
-        $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
-
         // Prepare query
         $query = [];
         if (null !== $this->VersionId) {
             $query['versionId'] = $this->VersionId;
         }
+
+        // Prepare URI
+        $uri = [];
+        $uri['Bucket'] = $this->Bucket ?? '';
+        $uri['Key'] = $this->Key ?? '';
+        $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
 
         // Return the Request
         return new Request('DELETE', $uriString, $query, $headers, StreamFactory::create(null));

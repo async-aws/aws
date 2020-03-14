@@ -376,8 +376,8 @@ class InputGenerator
             }
         }
 
-        $requestUri = $requestUri ?? '';
-        $requestUri .= '$uriString = "' . str_replace(['{', '+}', '}'], ['{$uri[\'', '}', '\']}'], $operation->getHttpRequestUri()) . '";';
+        $body['uri'] = $requestUri ?? '';
+        $body['uri'] .= '$uriString = "' . str_replace(['{', '+}', '}'], ['{$uri[\'', '}', '\']}'], $operation->getHttpRequestUri()) . '";';
 
         $method = \var_export($operation->getHttpMethod(), true);
 
@@ -386,11 +386,11 @@ class InputGenerator
 // Prepare headers
 {$body['header']}
 
-// Prepare URI
-$requestUri
-
 // Prepare query
 {$body['querystring']}
+
+// Prepare URI
+{$body['uri']}
 
 // Return the Request
 return new Request($method, \$uriString, \$query, \$headers, StreamFactory::create($bodyCall));

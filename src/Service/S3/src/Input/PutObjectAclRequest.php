@@ -238,17 +238,17 @@ class PutObjectAclRequest
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
 
-        // Prepare URI
-        $uri = [];
-        $uri['Bucket'] = $this->Bucket ?? '';
-        $uri['Key'] = $this->Key ?? '';
-        $uriString = "/{$uri['Bucket']}/{$uri['Key']}?acl";
-
         // Prepare query
         $query = [];
         if (null !== $this->VersionId) {
             $query['versionId'] = $this->VersionId;
         }
+
+        // Prepare URI
+        $uri = [];
+        $uri['Bucket'] = $this->Bucket ?? '';
+        $uri['Key'] = $this->Key ?? '';
+        $uriString = "/{$uri['Bucket']}/{$uri['Key']}?acl";
 
         // Return the Request
         return new Request('PUT', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));

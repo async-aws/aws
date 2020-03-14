@@ -119,13 +119,13 @@ class DeleteObjectsRequest
             $headers['x-amz-bypass-governance-retention'] = $this->BypassGovernanceRetention ? 'true' : 'false';
         }
 
+        // Prepare query
+        $query = [];
+
         // Prepare URI
         $uri = [];
         $uri['Bucket'] = $this->Bucket ?? '';
         $uriString = "/{$uri['Bucket']}?delete";
-
-        // Prepare query
-        $query = [];
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));

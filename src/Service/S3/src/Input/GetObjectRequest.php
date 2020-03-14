@@ -340,12 +340,6 @@ class GetObjectRequest
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
 
-        // Prepare URI
-        $uri = [];
-        $uri['Bucket'] = $this->Bucket ?? '';
-        $uri['Key'] = $this->Key ?? '';
-        $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
-
         // Prepare query
         $query = [];
         if (null !== $this->ResponseCacheControl) {
@@ -372,6 +366,12 @@ class GetObjectRequest
         if (null !== $this->PartNumber) {
             $query['partNumber'] = $this->PartNumber;
         }
+
+        // Prepare URI
+        $uri = [];
+        $uri['Bucket'] = $this->Bucket ?? '';
+        $uri['Key'] = $this->Key ?? '';
+        $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
 
         // Return the Request
         return new Request('GET', $uriString, $query, $headers, StreamFactory::create(null));
