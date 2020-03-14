@@ -14,7 +14,7 @@ class S3FilesystemV2Test extends TestCase
 {
     public static function setUpBeforeClass(): void
     {
-        if (!interface_exists(\League\Flysystem\Visibility::class)) {
+        if (!class_exists(\League\Flysystem\Visibility::class)) {
             self::markTestSkipped('Flysystem v2 is not installed');
         }
     }

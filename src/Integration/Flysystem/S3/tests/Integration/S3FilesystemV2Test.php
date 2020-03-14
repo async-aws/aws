@@ -15,8 +15,11 @@ use League\Flysystem\StorageAttributes;
 
 class S3FilesystemV2Test extends FilesystemAdapterTestCase
 {
-    private $shouldCleanUp = false;
+    private static $docker = false;
 
+    /**
+     * @var string
+     */
     private static $adapterPrefix = 'test-prefix';
 
     /**
@@ -26,36 +29,13 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
 
     public static function setUpBeforeClass(): void
     {
-        if (!interface_exists(\League\Flysystem\Visibility::class)) {
+        if (!class_exists(\League\Flysystem\Visibility::class)) {
             self::markTestSkipped('Flysystem v2 is not installed');
         }
 
-        static::$adapterPrefix = 'travis-ci/' . bin2hex(random_bytes(10));
-
-        if (!getenv('FLYSYSTEM_AWS_S3_KEY')) {
-            // Fixme, Docker is not working
-            self::markTestSkipped('Docker image is not working.');
-        }
+        static::$adapterPrefix = 'ci/' . bin2hex(random_bytes(10));
     }
 
-    protected function tearDown(): void
-    {
-        if (!$this->shouldCleanUp) {
-            return;
-        }
-
-        $adapter = $this->adapter();
-        /** @var StorageAttributes[] $listing */
-        $listing = $adapter->listContents('', false);
-
-        foreach ($listing as $item) {
-            if ($item->isFile()) {
-                $adapter->delete($item->path());
-            } else {
-                $adapter->deleteDirectory($item->path());
-            }
-        }
-    }
 
     public function testWriting_with_a_specific_mime_type()
     {
@@ -71,7 +51,7 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
         $adapter->write('something/0/here.txt', 'contents', new Config());
         $adapter->write('something/1/also/here.txt', 'contents', new Config());
 
-        $contents = iterator_to_array($adapter->listContents('', true));
+        $contents = iterator_to_array($adapter->listContents('something', true));
 
         self::assertCount(2, $contents);
         self::assertContainsOnlyInstancesOf(FileAttributes::class, $contents);
@@ -103,15 +83,96 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
         $region = getenv('FLYSYSTEM_AWS_S3_REGION') ?: 'eu-central-1';
 
         if (!$key || !$secret || !$bucket) {
-            // Use docker
-            $this->shouldCleanUp = true;
-
+            self::$docker = true;
             return $this->s3Client = new S3Client(['endpoint' => 'http://localhost:4569'], new NullProvider());
         }
 
-        $this->shouldCleanUp = true;
         $options = ['accessKeyId' => $key, 'accessKeySecret' => $secret, 'region' => $region];
 
         return $this->s3Client = new S3Client($options);
+    }
+
+    /**
+     * @test
+     */
+    public function copying_a_file(): void
+    {
+        if (self::$docker) {
+            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "lphoward/fake-s3"', __FUNCTION__));
+        }
+
+        parent::copying_a_file();
+    }
+
+    /**
+     * @test
+     */
+    public function copying_a_file_with_collision(): void
+    {
+        if (self::$docker) {
+            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "lphoward/fake-s3"', __FUNCTION__));
+        }
+
+        parent::copying_a_file_with_collision();
+    }
+
+    /**
+     * @test
+     */
+    public function moving_a_file(): void
+    {
+        if (self::$docker) {
+            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "lphoward/fake-s3"', __FUNCTION__));
+        }
+
+        parent::moving_a_file();
+    }
+
+    /**
+     * @test
+     */
+    public function setting_visibility(): void
+    {
+        if (self::$docker) {
+            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "lphoward/fake-s3"', __FUNCTION__));
+        }
+
+        parent::setting_visibility();
+    }
+
+    /**
+     * @test
+     */
+    public function fetching_visibility_of_non_existing_file(): void
+    {
+        if (self::$docker) {
+            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "lphoward/fake-s3"', __FUNCTION__));
+        }
+
+        parent::fetching_visibility_of_non_existing_file();
+    }
+
+    /**
+     * @test
+     */
+    public function setting_visibility_on_a_file_that_does_not_exist(): void
+    {
+        if (self::$docker) {
+            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "lphoward/fake-s3"', __FUNCTION__));
+        }
+
+        parent::setting_visibility_on_a_file_that_does_not_exist();
+    }
+
+    /**
+     * @test
+     */
+    public function checking_if_files_exist(): void
+    {
+        if (self::$docker) {
+            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "lphoward/fake-s3"', __FUNCTION__));
+        }
+
+        parent::checking_if_files_exist();
     }
 }
