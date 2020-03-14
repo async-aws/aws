@@ -5,9 +5,15 @@ declare(strict_types=1);
 namespace AsyncAws\Flysystem\S3;
 
 use AsyncAws\Core\Exception\Http\ClientException;
+use AsyncAws\Core\StreamableBodyInterface;
+use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\ObjectIdentifier;
 use AsyncAws\S3\Result\AwsObject;
+use AsyncAws\S3\Result\CommonPrefix;
+use AsyncAws\S3\Result\GetObjectOutput;
+use AsyncAws\S3\Result\HeadObjectOutput;
 use AsyncAws\S3\Result\ListObjectsV2Output;
+use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\S3Client;
 use League\Flysystem\Adapter\AbstractAdapter;
 use League\Flysystem\Adapter\CanOverwriteFiles;
@@ -160,7 +166,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
      */
     public function deleteDir($dirname)
     {
-       $prefix = $this->applyPathPrefix($dirname) . '/';
+        $prefix = $this->applyPathPrefix($dirname) . '/';
 
         $objects = [];
         $params = ['Bucket' => $this->bucket, 'Prefix' => $prefix];
@@ -235,7 +241,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
         $response = $this->readObject($path);
 
         if ($response !== false) {
-            $response['contents'] = $response['contents']->getContents();
+            $response['contents'] = $response['contents']->getContentAsString();
         }
 
         return $response;
@@ -275,7 +281,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
         $result = $this->client->listObjectsV2($options);
         $listing = [];
 
-        /** @var ListObjectsV2Output$single */
+        /** @var ListObjectsV2Output $single */
         foreach ($result->getIterator() as $single) {
             $listing = array_merge($listing, $single->getContents(), $single->getCommonPrefixes());
         }
@@ -308,8 +314,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
             throw $exception;
         }
 
-        // TODO fix this.
-        return $this->normalizeResponse($result->toArray(), $path);
+        return $this->normalizeResponse($result, $path);
     }
 
 
@@ -417,7 +422,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
         $response = $this->readObject($path);
 
         if ($response !== false) {
-            $response['stream'] = $response['contents']->detach();
+            $response['stream'] = $response['contents']->getContentAsResource();
             unset($response['contents']);
         }
 
@@ -450,8 +455,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
             return false;
         }
 
-        // TODO fix me
-        return $this->normalizeResponse($response->toArray(), $path);
+        return $this->normalizeResponse($result, $path);
     }
 
     /**
@@ -573,19 +577,20 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
             }
         }
 
+        $result = $this->client->putObject(array_merge($options, [
+            'Bucket' => $this->bucket,
+            'Key'=> $key,
+            'Body' => $body,
+            'ACL' => $acl,
+        ]));
+
         try {
-            $this->client->putObject(array_merge($options, [
-                'Bucket' => $this->bucket,
-                'Key'=> $key,
-                'Body' => $body,
-                'ACL' => $acl,
-            ]));
+            $result->resolve();
         } catch (ClientException $e) {
             return false;
         }
 
-        // TODO fix me
-        return $this->normalizeResponse($options, $path);
+        return $this->normalizeResponse($result, $path);
     }
 
     /**
@@ -638,22 +643,19 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     /**
      * Normalize the object result array.
      *
-     * @param array  $response
-     * @param string $path
-     *
-     * @return array
+     * @param AwsObject|CommonPrefix|HeadObjectOutput|GetObjectOutput|PutObjectOutput  $output
      */
-    protected function normalizeResponse(array $response, $path = null)
+    protected function normalizeResponse(object $output, ?string $path = null): array
     {
         $result = [
             'path' => $path ?: $this->removePathPrefix(
-                isset($response['Key']) ? $response['Key'] : $response['Prefix']
+                method_exists($output, 'getKey') ? $output->getKey() : (method_exists($output, 'getPrefix') ? $output->getPrefix() : null)
             ),
         ];
         $result = array_merge($result, Util::pathinfo($result['path']));
 
-        if (isset($response['LastModified'])) {
-            $result['timestamp'] = strtotime($response['LastModified']);
+        if (method_exists($output, 'getLastModified')) {
+            $result['timestamp'] = $output->getLastModified()->getTimestamp();
         }
 
         if ($this->isOnlyDir($result['path'])) {
@@ -663,7 +665,20 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
             return $result;
         }
 
-        return array_merge($result, Util::map($response, static::$resultMap), ['type' => 'file']);
+        return array_merge($result, $this->resultMap($output, static::$resultMap), ['type' => 'file']);
+    }
+
+    private function resultMap(object $object, array $map)
+    {
+        $result = [];
+        foreach ($map as $from => $to) {
+            $methodName = 'get'.$from;
+            if (method_exists($object, $methodName)) {
+                $result[$to] = call_user_func([$object, $methodName]);
+            }
+        }
+
+        return $result;
     }
 
     protected function doesDirectoryExist(string $location): bool
