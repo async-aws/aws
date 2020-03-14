@@ -14,6 +14,7 @@ use AsyncAws\S3\Result\CommonPrefix;
 use AsyncAws\S3\Result\DeleteObjectOutput;
 use AsyncAws\S3\Result\DeleteObjectsOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
+use AsyncAws\S3\Result\HeadObjectOutput;
 use AsyncAws\S3\Result\ListObjectsV2Output;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\S3Client;
@@ -301,6 +302,7 @@ class S3FilesystemV1Test extends TestCase
         $output = $filesystem->read($path);
         $this->assertFalse($output);
     }
+
     public function testRead()
     {
         $path = 'foo/bar.txt';
@@ -429,13 +431,204 @@ class S3FilesystemV1Test extends TestCase
         $this->assertEquals('my_key', $output['path']);
     }
 
+
+
+    public function testMetadata()
+    {
+        $path = 'foo/bar.txt';
+
+        $result = $this->getMockBuilder(HeadObjectOutput::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['resolve', 'getLastModified', 'getContentLength', 'getContentType'])
+            ->getMock();
+
+        $result->method('getLastModified')->willReturn(new \DateTimeImmutable('2020-03-14 12:00:00'));
+        $result->method('getContentLength')->willReturn('123');
+        $result->method('getContentType')->willReturn('text/plain');
+
+        $s3Client = $this->getMockBuilder(S3Client::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['headObject'])
+            ->getMock();
+
+        $s3Client->expects(self::once())
+            ->method('headObject')
+            ->with(self::callback(function (array $input) use ($path) {
+                if ($input['Key'] !== self::PREFIX . '/' . $path) {
+                    return false;
+                }
+
+                if ($input['Bucket'] !== self::BUCKCET) {
+                    return false;
+                }
+
+                return true;
+            }))->willReturn($result);
+
+        $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
+
+        $output = $filesystem->getMetadata($path);
+        $this->assertArrayHasKey('type', $output);
+        $this->assertEquals('file', $output['type']);
+        $this->assertArrayHasKey('path', $output);
+        $this->assertEquals($path, $output['path']);
+        $this->assertArrayHasKey('timestamp', $output);
+        $this->assertEquals(1584187200, $output['timestamp']);
+        $this->assertArrayHasKey('size', $output);
+        $this->assertEquals('123', $output['size']);
+        $this->assertArrayHasKey('mimetype', $output);
+        $this->assertEquals('text/plain', $output['mimetype']);
+
+    }
+
+
+    public function testGetSize()
+    {
+        $path = 'foo/bar.txt';
+        $return = [
+            'size' => '123',
+        ];
+
+        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getMetadata'])
+            ->getMock();
+        $filesystem->expects($this->once())
+            ->method('getMetadata')
+            ->with($path)
+            ->willReturn($return);
+
+        $output = $filesystem->getSize($path);
+        $this->assertEquals(123, $output);
+    }
+
+    public function testMimetype()
+    {
+        $path = 'foo/bar.txt';
+        $return = [
+            'mimetype' => 'text/plain',
+        ];
+
+        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getMetadata'])
+            ->getMock();
+        $filesystem->expects($this->once())
+            ->method('getMetadata')
+            ->with($path)
+            ->willReturn($return);
+
+        $output = $filesystem->getSize($path);
+        $this->assertEquals('text/plain', $output);
+    }
+
+    public function testTimestamp()
+    {
+        $path = 'foo/bar.txt';
+        $return = [
+            'timestamp' => 1584187200,
+        ];
+
+        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getMetadata'])
+            ->getMock();
+        $filesystem->expects($this->once())
+            ->method('getMetadata')
+            ->with($path)
+            ->willReturn($return);
+
+        $output = $filesystem->getSize($path);
+        $this->assertEquals(1584187200, $output);
+    }
+
+
     public function testWriteStream()
     {
+        $path = 'foo/bar.txt';
+        $contents = (new SimpleStreamableBody('contents'))->getContentAsResource();
+        $config = new Config();
+        $return = ['foobar'];
+
+        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['upload'])
+            ->getMock();
+        $filesystem->expects($this->once())
+            ->method('upload')
+            ->with($path, $contents, $config)
+            ->willReturn($return);
+
+        // We test upload function in testWrite.
+        $output = $filesystem->writeStream($path, $contents, $config);
+        $this->assertEquals($return, $output);
     }
 
 
     public function testUpdateStream()
     {
+        $path = 'foo/bar.txt';
+        $contents = (new SimpleStreamableBody('contents'))->getContentAsResource();
+        $config = new Config();
+        $return = ['foobar'];
+
+        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['upload'])
+            ->getMock();
+        $filesystem->expects($this->once())
+            ->method('upload')
+            ->with($path, $contents, $config)
+            ->willReturn($return);
+
+        // We test upload function in testWrite.
+        $output = $filesystem->updateStream($path, $contents, $config);
+        $this->assertEquals($return, $output);
+    }
+
+    public function testReadStream()
+    {
+        $path = 'foo/bar.txt';
+        $content = 'my content';
+
+        $result = $this->getMockBuilder(GetObjectOutput::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['resolve', 'getLastModified', 'getBody'])
+            ->getMock();
+
+        $result->method('getBody')->willReturn(new SimpleStreamableBody($content));
+
+        $s3Client = $this->getMockBuilder(S3Client::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getObject'])
+            ->getMock();
+
+        $s3Client->expects(self::once())
+            ->method('getObject')
+            ->with(self::callback(function (array $input) use ($path) {
+                if ($input['Key'] !== self::PREFIX . '/' . $path) {
+                    return false;
+                }
+
+                if ($input['Bucket'] !== self::BUCKCET) {
+                    return false;
+                }
+
+                return true;
+            }))->willReturn($result);
+
+        $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
+
+        $output = $filesystem->readStream($path);
+        $this->assertArrayHasKey('type', $output);
+        $this->assertEquals('file', $output['type']);
+        $this->assertArrayHasKey('path', $output);
+        $this->assertEquals($path, $output['path']);
+        $this->assertArrayHasKey('stream', $output);
+        $this->assertArrayNotHasKey('contents', $output);
+
+        // Make sure we convert StreamableBodyInterface
+        $this->assertIsResource($output['stream']);
     }
 
 

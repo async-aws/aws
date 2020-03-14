@@ -323,11 +323,16 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
      *
      * @param string $path
      *
-     * @return false|array
+     * @return false|integer
      */
     public function getSize($path)
     {
-        return $this->getMetadata($path);
+        $metadata = $this->getMetadata($path);
+        if (!isset($metadata['size'])) {
+            return false;
+        }
+
+        return (int) $metadata['size'];
     }
 
     /**
@@ -335,11 +340,16 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
      *
      * @param string $path
      *
-     * @return false|array
+     * @return false|string
      */
     public function getMimetype($path)
     {
-        return $this->getMetadata($path);
+        $metadata = $this->getMetadata($path);
+        if (!isset($metadata['mimetype'])) {
+            return false;
+        }
+
+        return $metadata['mimetype'];
     }
 
     /**
@@ -347,11 +357,16 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
      *
      * @param string $path
      *
-     * @return false|array
+     * @return false|integer
      */
     public function getTimestamp($path)
     {
-        return $this->getMetadata($path);
+        $metadata = $this->getMetadata($path);
+        if (!isset($metadata['timestamp'])) {
+            return false;
+        }
+
+        return $metadata['timestamp'];
     }
 
     /**
