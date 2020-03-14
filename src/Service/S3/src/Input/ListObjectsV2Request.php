@@ -196,7 +196,7 @@ class ListObjectsV2Request
             $query['continuation-token'] = $this->ContinuationToken;
         }
         if (null !== $this->FetchOwner) {
-            $query['fetch-owner'] = $this->FetchOwner;
+            $query['fetch-owner'] = $this->FetchOwner ? 'true' : 'false';
         }
         if (null !== $this->StartAfter) {
             $query['start-after'] = $this->StartAfter;

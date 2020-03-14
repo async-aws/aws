@@ -181,7 +181,7 @@ class CreateBucketRequest
             $headers['x-amz-grant-write-acp'] = $this->GrantWriteACP;
         }
         if (null !== $this->ObjectLockEnabledForBucket) {
-            $headers['x-amz-bucket-object-lock-enabled'] = $this->ObjectLockEnabledForBucket;
+            $headers['x-amz-bucket-object-lock-enabled'] = $this->ObjectLockEnabledForBucket ? 'true' : 'false';
         }
 
         // Prepare URI

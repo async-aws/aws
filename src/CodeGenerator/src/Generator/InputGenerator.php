@@ -6,6 +6,7 @@ namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
+use AsyncAws\CodeGenerator\Definition\Member;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\File\FileWriter;
@@ -330,7 +331,7 @@ class InputGenerator
             foreach ($inputShape->getMembers() as $member) {
                 // If location is not specified, it will go in the request body.
                 if ($requestPart === ($member->getLocation() ?? 'payload')) {
-                    $body[$requestPart] .= 'if ($this->' . $member->getName() . ' !== null) ' . $varName . '["' . ($member->getLocationName() ?? $member->getName()) . '"] = $this->' . $member->getName() . ';' . "\n";
+                    $body[$requestPart] .= 'if ($this->' . $member->getName() . ' !== null) ' . $varName . '["' . ($member->getLocationName() ?? $member->getName()) . '"] = ' . $this->stringify('$this->' . $member->getName(), $member) . ';' . "\n";
                 }
             }
         }
@@ -395,5 +396,26 @@ $requestUri
 return new Request($method, \$uriString, \$query, \$headers, StreamFactory::create($bodyCall));
 PHP
 );
+    }
+
+    /**
+     * Convert variable to a string.
+     */
+    private function stringify(string $variable, Member $member): string
+    {
+        $type = $member->getShape()->getType();
+        if ('timestamp' === $type) {
+            if ('Expires' === $member->getLocationName()) {
+                return $variable . '->format(\DateTimeInterface::RFC1123)';
+            }
+
+            return $variable . '->format(\DateTimeInterface::ATOM)';
+        }
+
+        if ('boolean' === $type) {
+            return $variable . ' ? "true" : "false"';
+        }
+
+        return $variable;
     }
 }

@@ -545,7 +545,7 @@ class PutObjectRequest
             $headers['Content-Type'] = $this->ContentType;
         }
         if (null !== $this->Expires) {
-            $headers['Expires'] = $this->Expires;
+            $headers['Expires'] = $this->Expires->format(\DateTimeInterface::RFC1123);
         }
         if (null !== $this->GrantFullControl) {
             $headers['x-amz-grant-full-control'] = $this->GrantFullControl;
@@ -593,7 +593,7 @@ class PutObjectRequest
             $headers['x-amz-object-lock-mode'] = $this->ObjectLockMode;
         }
         if (null !== $this->ObjectLockRetainUntilDate) {
-            $headers['x-amz-object-lock-retain-until-date'] = $this->ObjectLockRetainUntilDate;
+            $headers['x-amz-object-lock-retain-until-date'] = $this->ObjectLockRetainUntilDate->format(\DateTimeInterface::ATOM);
         }
         if (null !== $this->ObjectLockLegalHoldStatus) {
             $headers['x-amz-object-lock-legal-hold'] = $this->ObjectLockLegalHoldStatus;

@@ -627,16 +627,16 @@ class CopyObjectRequest
             $headers['x-amz-copy-source-if-match'] = $this->CopySourceIfMatch;
         }
         if (null !== $this->CopySourceIfModifiedSince) {
-            $headers['x-amz-copy-source-if-modified-since'] = $this->CopySourceIfModifiedSince;
+            $headers['x-amz-copy-source-if-modified-since'] = $this->CopySourceIfModifiedSince->format(\DateTimeInterface::ATOM);
         }
         if (null !== $this->CopySourceIfNoneMatch) {
             $headers['x-amz-copy-source-if-none-match'] = $this->CopySourceIfNoneMatch;
         }
         if (null !== $this->CopySourceIfUnmodifiedSince) {
-            $headers['x-amz-copy-source-if-unmodified-since'] = $this->CopySourceIfUnmodifiedSince;
+            $headers['x-amz-copy-source-if-unmodified-since'] = $this->CopySourceIfUnmodifiedSince->format(\DateTimeInterface::ATOM);
         }
         if (null !== $this->Expires) {
-            $headers['Expires'] = $this->Expires;
+            $headers['Expires'] = $this->Expires->format(\DateTimeInterface::RFC1123);
         }
         if (null !== $this->GrantFullControl) {
             $headers['x-amz-grant-full-control'] = $this->GrantFullControl;
@@ -699,7 +699,7 @@ class CopyObjectRequest
             $headers['x-amz-object-lock-mode'] = $this->ObjectLockMode;
         }
         if (null !== $this->ObjectLockRetainUntilDate) {
-            $headers['x-amz-object-lock-retain-until-date'] = $this->ObjectLockRetainUntilDate;
+            $headers['x-amz-object-lock-retain-until-date'] = $this->ObjectLockRetainUntilDate->format(\DateTimeInterface::ATOM);
         }
         if (null !== $this->ObjectLockLegalHoldStatus) {
             $headers['x-amz-object-lock-legal-hold'] = $this->ObjectLockLegalHoldStatus;

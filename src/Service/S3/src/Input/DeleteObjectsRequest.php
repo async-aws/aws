@@ -116,7 +116,7 @@ class DeleteObjectsRequest
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
         if (null !== $this->BypassGovernanceRetention) {
-            $headers['x-amz-bypass-governance-retention'] = $this->BypassGovernanceRetention;
+            $headers['x-amz-bypass-governance-retention'] = $this->BypassGovernanceRetention ? 'true' : 'false';
         }
 
         // Prepare URI
