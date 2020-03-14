@@ -9,3 +9,4 @@ if (file_exists($file)) {
 }
 
 require_once __DIR__ . '/version-bridge.php';
+require_once __DIR__ . '/version-bridge-tests.php';
