@@ -12,6 +12,7 @@ use League\Flysystem\FileAttributes;
 use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\FilesystemAdapterTestCase;
 use League\Flysystem\StorageAttributes;
+use League\Flysystem\Visibility;
 
 class S3FilesystemV2Test extends FilesystemAdapterTestCase
 {
@@ -97,11 +98,25 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
      */
     public function copying_a_file(): void
     {
-        if (self::$docker) {
-            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "lphoward/fake-s3"', __FUNCTION__));
+        if (!self::$docker) {
+            // canned ACL is not supported in fake-s3: https://github.com/jubos/fake-s3/issues/104
+            parent::copying_a_file();
+
+            return;
         }
 
-        parent::copying_a_file();
+        $adapter = $this->adapter();
+        $adapter->write(
+            'source.txt',
+            'contents to be copied',
+            new Config([Config::OPTION_VISIBILITY => Visibility::PUBLIC])
+        );
+
+        $adapter->copy('source.txt', 'destination.txt', new Config());
+
+        $this->assertTrue($adapter->fileExists('source.txt'));
+        $this->assertTrue($adapter->fileExists('destination.txt'));
+        $this->assertEquals('contents to be copied', $adapter->read('destination.txt'));
     }
 
     /**
@@ -110,7 +125,7 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
     public function copying_a_file_with_collision(): void
     {
         if (self::$docker) {
-            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "lphoward/fake-s3"', __FUNCTION__));
+            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
         }
 
         parent::copying_a_file_with_collision();
@@ -121,11 +136,23 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
      */
     public function moving_a_file(): void
     {
-        if (self::$docker) {
-            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "lphoward/fake-s3"', __FUNCTION__));
+        if (!self::$docker) {
+            // canned ACL is not supported in fake-s3: https://github.com/jubos/fake-s3/issues/104
+            parent::moving_a_file();
+
+            return;
         }
 
-        parent::moving_a_file();
+        $adapter = $this->adapter();
+        $adapter->write(
+            'source.txt',
+            'contents to be copied',
+            new Config([Config::OPTION_VISIBILITY => Visibility::PUBLIC])
+        );
+        $adapter->move('source.txt', 'destination.txt', new Config());
+        $this->assertFalse($adapter->fileExists('source.txt'), 'After moving a file should no longer exist in the original location.');
+        $this->assertTrue($adapter->fileExists('destination.txt'), 'After moving, a file should be present at the new location.');
+        $this->assertEquals('contents to be copied', $adapter->read('destination.txt'));
     }
 
     /**
@@ -134,7 +161,7 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
     public function setting_visibility(): void
     {
         if (self::$docker) {
-            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "lphoward/fake-s3"', __FUNCTION__));
+            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
         }
 
         parent::setting_visibility();
@@ -146,7 +173,7 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
     public function fetching_visibility_of_non_existing_file(): void
     {
         if (self::$docker) {
-            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "lphoward/fake-s3"', __FUNCTION__));
+            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
         }
 
         parent::fetching_visibility_of_non_existing_file();
@@ -158,7 +185,7 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
     public function setting_visibility_on_a_file_that_does_not_exist(): void
     {
         if (self::$docker) {
-            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "lphoward/fake-s3"', __FUNCTION__));
+            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
         }
 
         parent::setting_visibility_on_a_file_that_does_not_exist();
@@ -167,12 +194,12 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
     /**
      * @test
      */
-    public function checking_if_files_exist(): void
+    public function creating_a_directory(): void
     {
         if (self::$docker) {
-            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "lphoward/fake-s3"', __FUNCTION__));
+            $this->markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
         }
 
-        parent::checking_if_files_exist();
+        parent::creating_a_directory();
     }
 }
