@@ -4,9 +4,6 @@
 
 ### Added
 
-- `AsyncAws\Core\Request::getQuery()`
-- `AsyncAws\Core\Request::getUri()`
-- `AsyncAws\Core\Request::setEndpoint()`
 - Test class `AsyncAws\Core\Test\SimpleStreamableBody`
 
 ### Changed
@@ -21,7 +18,6 @@
 
 - Public `AbstractApi::request()` was removed.
 - Protected function `AbstractApi::getEndpoint()` was made private.
-- Private function `AbstractApi::fillEndpoint()` was removed.
 
 ### Fixed
 
