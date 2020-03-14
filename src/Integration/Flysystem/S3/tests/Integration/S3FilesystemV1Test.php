@@ -55,7 +55,7 @@ class S3FilesystemV1Test extends TestCase
 
         foreach ($adapter->listContents('', false) as $item) {
             if ('dir' === $item['type']) {
-                $adapter->deleteDirectory($item['path']);
+                $adapter->deleteDir($item['path']);
             } else {
                 $adapter->delete($item['path']);
             }
