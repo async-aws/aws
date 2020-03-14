@@ -8,13 +8,14 @@ use AsyncAws\Flysystem\S3\S3FilesystemV2;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\S3Client;
 use League\Flysystem\Config;
+use League\Flysystem\FilesystemAdapter;
 use PHPUnit\Framework\TestCase;
 
 class S3FilesystemV2Test extends TestCase
 {
     public static function setUpBeforeClass(): void
     {
-        if (!interface_exists(\League\Flysystem\Visibility::class)) {
+        if (!interface_exists(FilesystemAdapter::class)) {
             self::markTestSkipped('Flysystem v2 is not installed');
         }
     }

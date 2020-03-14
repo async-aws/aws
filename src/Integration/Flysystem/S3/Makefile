@@ -2,8 +2,8 @@
 
 initialize: start-docker
 start-docker:
-	docker pull lphoward/fake-s3
-	docker start async_aws_s3 || docker run -d -p 4569:4569 --name async_aws_s3 lphoward/fake-s3
+	docker pull nyholm/fake-s3
+	docker start async_aws_s3 || docker run -d -p 4569:4569 --name async_aws_s3 nyholm/fake-s3
 
 test: initialize
 	./vendor/bin/simple-phpunit
