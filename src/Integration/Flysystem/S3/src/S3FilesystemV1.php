@@ -655,7 +655,10 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
         $result = array_merge($result, Util::pathinfo($result['path']));
 
         if (method_exists($output, 'getLastModified')) {
-            $result['timestamp'] = $output->getLastModified()->getTimestamp();
+            $dateTime = $output->getLastModified();
+            if (null !== $dateTime) {
+                $result['timestamp'] = $dateTime->getTimestamp();
+            }
         }
 
         if ($this->isOnlyDir($result['path'])) {

@@ -10,6 +10,7 @@ use AsyncAws\Core\Test\SimpleStreamableBody;
 use AsyncAws\Flysystem\S3\S3FilesystemV1;
 use AsyncAws\Flysystem\S3\S3FilesystemV2;
 use AsyncAws\S3\Result\AwsObject;
+use AsyncAws\S3\Result\CommonPrefix;
 use AsyncAws\S3\Result\DeleteObjectOutput;
 use AsyncAws\S3\Result\DeleteObjectsOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
@@ -345,6 +346,87 @@ class S3FilesystemV1Test extends TestCase
         // Make sure we convert StreamableBodyInterface
         $this->assertIsString($output['contents']);
         $this->assertEquals($content, $output['contents']);
+    }
+
+    public function testListContents()
+    {
+        $path = 'foo';
+
+        $result = $this->getMockBuilder(ListObjectsV2Output::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['resolve', 'getIterator', 'getContents', 'getCommonPrefixes'])
+            ->getMock();
+
+        $result->method('getIterator')->willReturn(new class($result) implements \Iterator {
+            private $item;
+            private $position;
+
+            public function __construct($item)
+            {
+                $this->item = [$item];
+                $this->position = 0;
+            }
+
+            public function current()
+            {
+                return $this->item[$this->position];
+            }
+
+            public function next()
+            {
+                $this->position++;
+            }
+
+            public function key()
+            {
+                return $this->position;
+            }
+
+            public function valid()
+            {
+                return isset($this->item[$this->position]);
+            }
+
+            public function rewind()
+            {
+                $this->position = 0;
+            }
+
+        });
+        $result->method('getContents')->willReturn([new AwsObject(['Key'=>self::PREFIX.'/my_key', 'LastModified'=>null, 'ETag'=>null, 'Size'=>null, 'StorageClass'=>null, 'Owner'=>null])]);
+        $result->method('getCommonPrefixes')->willReturn([new CommonPrefix(['Prefix'=>self::PREFIX.'/common_prefix'])]);
+
+        $s3Client = $this->getMockBuilder(S3Client::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['listObjectsV2'])
+            ->getMock();
+
+        $s3Client->expects(self::once())
+            ->method('listObjectsV2')
+            ->with(self::callback(function (array $input) use ($path) {
+                if ($input['Prefix'] !== self::PREFIX . '/' . $path . '/') {
+                    return false;
+                }
+
+                if ($input['Delimiter'] !== '/') {
+                    return false;
+                }
+
+                if ($input['Bucket'] !== self::BUCKCET) {
+                    return false;
+                }
+
+                return true;
+            }))->willReturn($result);
+
+        $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
+
+        $outputs = $filesystem->listContents($path);
+        $output = $outputs[0];
+        $this->assertArrayHasKey('type', $output);
+        $this->assertEquals('file', $output['type']);
+        $this->assertArrayHasKey('path', $output);
+        $this->assertEquals('my_key', $output['path']);
     }
 
     public function testWriteStream()
