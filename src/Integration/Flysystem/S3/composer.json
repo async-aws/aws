@@ -32,6 +32,5 @@
             "AsyncAws\\Flysystem\\S3\\Tests\\": "tests/"
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "minimum-stability": "dev"
 }
