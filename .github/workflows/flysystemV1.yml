@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@1.8.1
+        uses: shivammathur/setup-php@2.1.2
         with:
           php-version: 7.4
           coverage: none
