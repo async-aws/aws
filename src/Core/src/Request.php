@@ -18,7 +18,7 @@ final class Request
 
     private $uri;
 
-    private $headers;
+    private $headers = [];
 
     private $body;
 
