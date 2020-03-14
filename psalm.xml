@@ -8,6 +8,7 @@
     errorBaseline="psalm.baseline"
 >
     <projectFiles>
+        <file name="src/Integration/Flysystem/S3/tests/version-bridge.php" />
         <directory name="src" />
         <ignoreFiles>
             <directory name="src/CodeGenerator" />

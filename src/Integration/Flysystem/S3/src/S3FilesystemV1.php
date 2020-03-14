@@ -23,9 +23,6 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
 {
     const PUBLIC_GRANT_URI = 'http://acs.amazonaws.com/groups/global/AllUsers';
 
-    /**
-     * @var array
-     */
     private static $resultMap = [
         'Body' => 'contents',
         'ContentLength' => 'size',
@@ -37,9 +34,6 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
         'VersionId' => 'versionid',
     ];
 
-    /**
-     * @var array
-     */
     private static $metaOptions = [
         'ACL',
         'CacheControl',
@@ -88,13 +82,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     }
 
     /**
-     * Write a new file.
-     *
-     * @param string $path
-     * @param string $contents
-     * @param Config $config   Config object
-     *
-     * @return false|array false on failure file meta data on success
+     * {@inheritdoc}
      */
     public function write($path, $contents, Config $config)
     {
@@ -102,13 +90,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     }
 
     /**
-     * Update a file.
-     *
-     * @param string $path
-     * @param string $contents
-     * @param Config $config   Config object
-     *
-     * @return false|array false on failure file meta data on success
+     * {@inheritdoc}
      */
     public function update($path, $contents, Config $config)
     {
@@ -116,12 +98,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     }
 
     /**
-     * Rename a file.
-     *
-     * @param string $path
-     * @param string $newpath
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function rename($path, $newpath)
     {
@@ -133,11 +110,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     }
 
     /**
-     * Delete a file.
-     *
-     * @param string $path
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function delete($path)
     {
@@ -156,11 +129,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     }
 
     /**
-     * Delete a directory.
-     *
-     * @param string $dirname
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function deleteDir($dirname)
     {
@@ -187,11 +156,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     }
 
     /**
-     * Create a directory.
-     *
-     * @param string $dirname directory name
-     *
-     * @return bool|array
+     * {@inheritdoc}
      */
     public function createDir($dirname, Config $config)
     {
@@ -199,11 +164,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     }
 
     /**
-     * Check whether a file exists.
-     *
-     * @param string $path
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function has($path)
     {
@@ -228,11 +189,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     }
 
     /**
-     * Read a file.
-     *
-     * @param string $path
-     *
-     * @return false|array
+     * {@inheritdoc}
      */
     public function read($path)
     {
@@ -246,12 +203,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     }
 
     /**
-     * List contents of a directory.
-     *
-     * @param string $directory
-     * @param bool   $recursive
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function listContents($directory = '', $recursive = false)
     {
@@ -270,11 +222,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     }
 
     /**
-     * Get all the meta data of a file or directory.
-     *
-     * @param string $path
-     *
-     * @return false|array
+     * {@inheritdoc}
      */
     public function getMetadata($path)
     {
@@ -298,64 +246,31 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     }
 
     /**
-     * Get all the meta data of a file or directory.
-     *
-     * @param string $path
-     *
-     * @return false|int
+     * {@inheritdoc}
      */
     public function getSize($path)
     {
-        $metadata = $this->getMetadata($path);
-        if (!isset($metadata['size'])) {
-            return false;
-        }
-
-        return (int) $metadata['size'];
+        return $this->getMetadata($path);
     }
 
     /**
-     * Get the mimetype of a file.
-     *
-     * @param string $path
-     *
-     * @return false|string
+     * {@inheritdoc}
      */
     public function getMimetype($path)
     {
-        $metadata = $this->getMetadata($path);
-        if (!isset($metadata['mimetype'])) {
-            return false;
-        }
-
-        return $metadata['mimetype'];
+        return $this->getMetadata($path);
     }
 
     /**
-     * Get the timestamp of a file.
-     *
-     * @param string $path
-     *
-     * @return false|int
+     * {@inheritdoc}
      */
     public function getTimestamp($path)
     {
-        $metadata = $this->getMetadata($path);
-        if (!isset($metadata['timestamp'])) {
-            return false;
-        }
-
-        return $metadata['timestamp'];
+        return $this->getMetadata($path);
     }
 
     /**
-     * Write a new file using a stream.
-     *
-     * @param string   $path
-     * @param resource $resource
-     * @param Config   $config   Config object
-     *
-     * @return array|false false on failure file meta data on success
+     * {@inheritdoc}
      */
     public function writeStream($path, $resource, Config $config)
     {
@@ -363,13 +278,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     }
 
     /**
-     * Update a file using a stream.
-     *
-     * @param string   $path
-     * @param resource $resource
-     * @param Config   $config   Config object
-     *
-     * @return array|false false on failure file meta data on success
+     * {@inheritdoc}
      */
     public function updateStream($path, $resource, Config $config)
     {
@@ -377,12 +286,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     }
 
     /**
-     * Copy a file.
-     *
-     * @param string $path
-     * @param string $newpath
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function copy($path, $newpath)
     {
@@ -404,17 +308,13 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     }
 
     /**
-     * Read a file as a stream.
-     *
-     * @param string $path
-     *
-     * @return array|false
+     * {@inheritdoc}
      */
     public function readStream($path)
     {
         $response = $this->readObject($path);
 
-        if (false !== $response) {
+        if (\is_array($response) && isset($response['contents'])) {
             $response['stream'] = $response['contents']->getContentAsResource();
             unset($response['contents']);
         }
@@ -423,12 +323,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     }
 
     /**
-     * Set the visibility for a file.
-     *
-     * @param string $path
-     * @param string $visibility
-     *
-     * @return array|false file meta data
+     * {@inheritdoc}
      */
     public function setVisibility($path, $visibility)
     {
@@ -448,11 +343,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     }
 
     /**
-     * Get the visibility of a file.
-     *
-     * @param string $path
-     *
-     * @return array|false
+     * {@inheritdoc}
      */
     public function getVisibility($path)
     {
@@ -480,29 +371,11 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     }
 
     /**
-     * @return array
-     */
-    protected function retrievePaginatedListing(array $options)
-    {
-        $result = $this->client->listObjectsV2($options);
-        $listing = [];
-
-        /** @var ListObjectsV2Output $single */
-        foreach ($result->getIterator() as $single) {
-            $listing = array_merge($listing, $single->getContents(), $single->getCommonPrefixes());
-        }
-
-        return $listing;
-    }
-
-    /**
      * Read an object and normalize the response.
      *
-     * @param string $path
-     *
-     * @return array|bool
+     * @return array|false
      */
-    protected function readObject($path)
+    protected function readObject(string $path)
     {
         $options = [
             'Bucket' => $this->bucket,
@@ -526,12 +399,8 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * Get the object acl presented as a visibility.
-     *
-     * @param string $path
-     *
-     * @return string
      */
-    protected function getRawVisibility($path)
+    protected function getRawVisibility(string $path): string
     {
         $result = $this->client->getObjectAcl([
             'Bucket' => $this->bucket,
@@ -563,12 +432,11 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     /**
      * Upload an object.
      *
-     * @param string          $path
      * @param string|resource $body
      *
-     * @return array|bool
+     * @return array|false
      */
-    protected function upload($path, $body, Config $config)
+    protected function upload(string $path, $body, Config $config)
     {
         $key = $this->applyPathPrefix($path);
         $options = $this->getOptionsFromConfig($config);
@@ -606,10 +474,8 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
 
     /**
      * Get options from the config.
-     *
-     * @return array
      */
-    protected function getOptionsFromConfig(Config $config)
+    protected function getOptionsFromConfig(Config $config): array
     {
         $options = $this->options;
 
@@ -665,7 +531,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
             return $result;
         }
 
-        return array_merge($result, $this->resultMap($output, static::$resultMap), ['type' => 'file']);
+        return array_merge($result, $this->resultMap($output), ['type' => 'file']);
     }
 
     protected function doesDirectoryExist(string $location): bool
@@ -692,22 +558,31 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
         }
     }
 
+    private function retrievePaginatedListing(array $options): array
+    {
+        $result = $this->client->listObjectsV2($options);
+        $listing = [];
+
+        /** @var ListObjectsV2Output $single */
+        foreach ($result->getIterator() as $single) {
+            $listing = array_merge($listing, (array) $single->getContents(), (array) $single->getCommonPrefixes());
+        }
+
+        return $listing;
+    }
+
     /**
      * Check if the path contains only directories.
-     *
-     * @param string $path
-     *
-     * @return bool
      */
-    private function isOnlyDir($path)
+    private function isOnlyDir(string $path): bool
     {
         return '/' === substr($path, -1);
     }
 
-    private function resultMap(object $object, array $map)
+    private function resultMap(object $object): array
     {
         $result = [];
-        foreach ($map as $from => $to) {
+        foreach (static::$resultMap as $from => $to) {
             $methodName = 'get' . $from;
             if (method_exists($object, $methodName)) {
                 $result[$to] = \call_user_func([$object, $methodName]);

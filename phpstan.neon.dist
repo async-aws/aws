@@ -6,6 +6,9 @@ parameters:
     paths:
         - src
 
+    autoload_files:
+        - src/Integration/Flysystem/S3/tests/version-bridge.php
+
     excludes_analyse:
         - src/*/tests/*
         - src/**/tests/*
