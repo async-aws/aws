@@ -24,6 +24,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Initialize tests
+        run: make initialize
+
       - name: Download phpunit
         run: |
           rm composer.*
@@ -62,9 +65,6 @@ jobs:
             echo ::endgroup::
           done
 
-      - name: Initialize tests
-        run: make initialize
-
       - name: Run tests
         run: |
           ok=0
@@ -95,6 +95,9 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Initialize tests
+        run: make initialize
 
       - name: Download phpunit
         run: |
@@ -127,9 +130,6 @@ jobs:
             composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-lowest
             echo ::endgroup::
           done
-
-      - name: Initialize tests
-        run: make initialize
 
       - name: Run tests
         env:
@@ -166,12 +166,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Initialize tests
+        run: make initialize
+
       - name: Download dependencies
         run: |
           composer update --no-interaction --prefer-dist --optimize-autoloader
-
-      - name: Initialize tests
-        run: make initialize
 
       - name: Run tests
         run: |
