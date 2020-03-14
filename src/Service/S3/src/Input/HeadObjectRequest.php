@@ -233,13 +233,13 @@ class HeadObjectRequest
             $headers['If-Match'] = $this->IfMatch;
         }
         if (null !== $this->IfModifiedSince) {
-            $headers['If-Modified-Since'] = $this->IfModifiedSince->format(\DateTimeInterface::ATOM);
+            $headers['If-Modified-Since'] = $this->IfModifiedSince->format(\DateTimeInterface::RFC1123);
         }
         if (null !== $this->IfNoneMatch) {
             $headers['If-None-Match'] = $this->IfNoneMatch;
         }
         if (null !== $this->IfUnmodifiedSince) {
-            $headers['If-Unmodified-Since'] = $this->IfUnmodifiedSince->format(\DateTimeInterface::ATOM);
+            $headers['If-Unmodified-Since'] = $this->IfUnmodifiedSince->format(\DateTimeInterface::RFC1123);
         }
         if (null !== $this->Range) {
             $headers['Range'] = $this->Range;

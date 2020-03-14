@@ -405,7 +405,7 @@ PHP
     {
         $type = $member->getShape()->getType();
         if ('timestamp' === $type) {
-            if ('Expires' === $member->getLocationName()) {
+            if (in_array($member->getLocationName(), ['Expires', 'If-Modified-Since', 'If-Unmodified-Since'])) {
                 return $variable . '->format(\DateTimeInterface::RFC1123)';
             }
 
