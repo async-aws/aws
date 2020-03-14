@@ -324,7 +324,13 @@ class InputGenerator
     private function inputClassRequestGetters(StructureShape $inputShape, ClassType $class, Operation $operation): void
     {
         $serializer = $this->serializer->get($operation->getService());
-        $body['header'] = '$headers = [\'content-type\' => \'' . $serializer->getContentType() . '\'];' . "\n";
+
+        if ((null !== $payloadProperty = $inputShape->getPayload()) && $inputShape->getMember($payloadProperty)->isStreaming()) {
+            $body['header'] = '$headers = [];' . "\n";
+        } else {
+            $body['header'] = '$headers = [\'content-type\' => \'' . $serializer->getContentType() . '\'];' . "\n";
+        }
+
         $body['querystring'] = '$query = [];' . "\n";
 
         foreach (['header' => '$headers', 'querystring' => '$query'] as $requestPart => $varName) {

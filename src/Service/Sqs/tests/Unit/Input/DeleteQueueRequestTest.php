@@ -7,7 +7,7 @@ use AsyncAws\Sqs\Input\DeleteQueueRequest;
 
 class DeleteQueueRequestTest extends TestCase
 {
-    public function testRequestBody(): void
+    public function testRequest(): void
     {
         $input = new DeleteQueueRequest([
             'QueueUrl' => 'queueUrl',
@@ -15,11 +15,14 @@ class DeleteQueueRequestTest extends TestCase
 
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_DeleteQueue.html */
         $expected = '
-Action=DeleteQueue
-&Version=2012-11-05
-&QueueUrl=queueUrl
+            POST / HTTP/1.0
+            Content-Type: application/x-www-form-urlencoded
+
+            Action=DeleteQueue
+            &Version=2012-11-05
+            &QueueUrl=queueUrl
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

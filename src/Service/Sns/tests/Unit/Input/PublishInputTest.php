@@ -8,15 +8,7 @@ use AsyncAws\Sns\Input\PublishInput;
 
 class PublishInputTest extends TestCase
 {
-    public function testBody()
-    {
-        $input = PublishInput::create(['Message' => 'foobar']);
-        $body = $input->request()->getBody()->stringify();
-
-        self::assertStringContainsString('Message=foobar', $body);
-    }
-
-    public function testRequestBody(): void
+    public function testRequest(): void
     {
         $input = new PublishInput([
             'TopicArn' => 'arn:aws:sns:us-east-1:46563727:async',
@@ -29,6 +21,9 @@ class PublishInputTest extends TestCase
         ]);
 
         $expected = '
+            POST / HTTP/1.0
+            Content-Type: application/x-www-form-urlencoded
+
             Action=Publish
             &Version=2010-03-31
             &TopicArn=arn%3Aaws%3Asns%3Aus-east-1%3A46563727%3Aasync
@@ -39,6 +34,6 @@ class PublishInputTest extends TestCase
             &MessageAttributes.entry.1.Value.StringValue=Foobar
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

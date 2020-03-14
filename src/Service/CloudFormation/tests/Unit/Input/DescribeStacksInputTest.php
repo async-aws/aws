@@ -7,7 +7,7 @@ use AsyncAws\Core\Test\TestCase;
 
 class DescribeStacksInputTest extends TestCase
 {
-    public function testRequestBody(): void
+    public function testRequest(): void
     {
         $input = new DescribeStacksInput([
             'StackName' => 'foo',
@@ -16,12 +16,15 @@ class DescribeStacksInputTest extends TestCase
 
         // see https://docs.aws.amazon.com/CloudFormation/latest/APIReference/API_DescribeStacks.html
         $expected = '
+            POST / HTTP/1.0
+            Content-Type: application/x-www-form-urlencoded
+
             Action=DescribeStacks
             &Version=2010-05-15
             &StackName=foo
             &NextToken=bar
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

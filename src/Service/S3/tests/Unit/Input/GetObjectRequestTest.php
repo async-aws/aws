@@ -10,7 +10,7 @@ class GetObjectRequestTest extends TestCase
     /**
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
      */
-    public function testRequestBody(): void
+    public function testRequest(): void
     {
         $input = new GetObjectRequest([
             'Bucket' => 'my-bucket',
@@ -18,10 +18,11 @@ class GetObjectRequestTest extends TestCase
             'VersionId' => 'abc123',
         ]);
 
-        self::assertEquals('/my-bucket/foo.jpg', $input->request()->getUri());
+        $expected = '
+            GET /my-bucket/foo.jpg?versionId=abc123 HTTP/1.0
+            Content-Type: application/xml
+        ';
 
-        $query = $input->request()->getQuery();
-        self::assertArrayHasKey('versionId', $query);
-        self::assertEquals('abc123', $query['versionId']);
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

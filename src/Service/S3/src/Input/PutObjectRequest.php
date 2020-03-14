@@ -519,7 +519,7 @@ class PutObjectRequest
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/xml'];
+        $headers = [];
         if (null !== $this->ACL) {
             $headers['x-amz-acl'] = $this->ACL;
         }

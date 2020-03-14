@@ -10,14 +10,9 @@ use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
  */
 class AddLayerVersionPermissionRequestTest extends TestCase
 {
-    /**
-     * @var AddLayerVersionPermissionRequest
-     */
-    private $input;
-
-    public function setUp(): void
+    public function testRequest(): void
     {
-        $this->input = new AddLayerVersionPermissionRequest([
+        $input = new AddLayerVersionPermissionRequest([
             'LayerName' => 'nodejs',
             'VersionNumber' => 2,
             'StatementId' => 'fooBar',
@@ -26,31 +21,19 @@ class AddLayerVersionPermissionRequestTest extends TestCase
             'OrganizationId' => '*',
             'RevisionId' => '123456',
         ]);
-        parent::setUp();
-    }
 
-    public function testRequestBody(): void
-    {
-        $expected = '{
-           "Action": "lambda:GetLayerVersion",
-           "StatementId": "fooBar",
-           "Principal": "123456789",
-           "OrganizationId": "*"
-        }';
+        $expected = '
+            POST /2018-10-31/layers/nodejs/versions/2/policy?RevisionId=123456 HTTP/1.0
+            Content-Type: application/json
 
-        self::assertJsonStringEqualsJsonString($expected, $this->input->request()->getBody()->stringify());
-    }
+            {
+               "Action": "lambda:GetLayerVersion",
+               "StatementId": "fooBar",
+               "Principal": "123456789",
+               "OrganizationId": "*"
+            }
+        ';
 
-    public function testRequestUri(): void
-    {
-        $expected = '/2018-10-31/layers/nodejs/versions/2/policy';
-
-        self::assertSame($expected, $this->input->request()->getUri());
-    }
-
-    public function testRequestQuery(): void
-    {
-        $expected = ['RevisionId' => '123456'];
-        self::assertSame($expected, $this->input->request()->getQuery());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

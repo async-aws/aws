@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AsyncAws\S3\Tests\Unit\Input;
 
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Input\DeleteObjectsRequest;
-use PHPUnit\Framework\TestCase;
 
 class DeleteObjectsRequestTest extends TestCase
 {
-    public function testRequestBody()
+    public function testRequest()
     {
         $input = DeleteObjectsRequest::create(
             [
@@ -29,6 +29,9 @@ class DeleteObjectsRequestTest extends TestCase
         );
 
         $expected = '
+            POST /?delete HTTP/1.0
+            Content-Type: application/xml
+
             <Delete xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
                <Object>
                   <Key>SampleDocument.txt</Key>
@@ -41,6 +44,6 @@ class DeleteObjectsRequestTest extends TestCase
             </Delete>
         ';
 
-        self::assertXmlStringEqualsXmlString($expected, $input->request()->getBody()->stringify());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

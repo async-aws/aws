@@ -33,6 +33,7 @@ final class Request
     {
         $this->method = $method;
         $this->uri = $uri;
+        $this->headers = [];
         foreach ($headers as $key => $value) {
             $this->headers[\strtolower($key)] = $value;
         }

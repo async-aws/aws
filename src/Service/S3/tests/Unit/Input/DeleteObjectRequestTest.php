@@ -10,7 +10,7 @@ class DeleteObjectRequestTest extends TestCase
     /**
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html#API_DeleteObject_Examples
      */
-    public function testRequestBody(): void
+    public function testRequest(): void
     {
         $version = 'UIORUnfndfiufdisojhr398493jfdkjFJjkndnqUifhnw89493jJFJ';
         $input = new DeleteObjectRequest([
@@ -19,10 +19,11 @@ class DeleteObjectRequestTest extends TestCase
             'VersionId' => $version,
         ]);
 
-        self::assertEquals('/my-bucket/my-second-image.jpg', $input->request()->getUri());
+        $expected = '
+            DELETE /my-bucket/my-second-image.jpg?versionId=UIORUnfndfiufdisojhr398493jfdkjFJjkndnqUifhnw89493jJFJ HTTP/1.0
+            Content-Type: application/xml
+        ';
 
-        $query = $input->request()->getQuery();
-        self::assertArrayHasKey('versionId', $query);
-        self::assertEquals($version, $query['versionId']);
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

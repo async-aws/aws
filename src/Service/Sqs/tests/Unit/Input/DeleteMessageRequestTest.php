@@ -7,7 +7,7 @@ use AsyncAws\Sqs\Input\DeleteMessageRequest;
 
 class DeleteMessageRequestTest extends TestCase
 {
-    public function testRequestBody(): void
+    public function testRequest(): void
     {
         $input = new DeleteMessageRequest([
             'QueueUrl' => 'queueUrl',
@@ -16,12 +16,15 @@ class DeleteMessageRequestTest extends TestCase
 
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_DeleteMessage.html */
         $expected = '
-Action=DeleteMessage
-&Version=2012-11-05
-&QueueUrl=queueUrl
-&ReceiptHandle=MbZj6wDWli%2BJvwwJaBV%2B3dcjk2YW2vA3%2BSTFFljT
+            POST / HTTP/1.0
+            Content-Type: application/x-www-form-urlencoded
+
+            Action=DeleteMessage
+            &Version=2012-11-05
+            &QueueUrl=queueUrl
+            &ReceiptHandle=MbZj6wDWli%2BJvwwJaBV%2B3dcjk2YW2vA3%2BSTFFljT
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

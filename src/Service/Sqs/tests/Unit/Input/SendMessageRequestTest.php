@@ -9,7 +9,7 @@ use AsyncAws\Sqs\Input\SendMessageRequest;
 
 class SendMessageRequestTest extends TestCase
 {
-    public function testRequestBody(): void
+    public function testRequest(): void
     {
         $input = new SendMessageRequest([
             'QueueUrl' => 'queueUrl',
@@ -29,22 +29,25 @@ class SendMessageRequestTest extends TestCase
 
         /** @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_SendMessage.html */
         $expected = '
-Action=SendMessage
-&Version=2012-11-05
-&QueueUrl=queueUrl
-&MessageBody=This+is+a+test+message
-&DelaySeconds=45
-&MessageAttribute.1.Name=my_attribute_name_1
-&MessageAttribute.1.Value.StringValue=my_attribute_value_1
-&MessageAttribute.1.Value.DataType=String
-&MessageSystemAttribute.1.Name=my_attribute_name_2
-&MessageSystemAttribute.1.Value.StringListValue.1=my_attribute_value_2
-&MessageSystemAttribute.1.Value.StringListValue.2=my_attribute_value_3
-&MessageSystemAttribute.1.Value.DataType=String
-&MessageDeduplicationId=abcdef
-&MessageGroupId=abcdef01
+            POST / HTTP/1.0
+            Content-Type: application/x-www-form-urlencoded
+
+            Action=SendMessage
+            &Version=2012-11-05
+            &QueueUrl=queueUrl
+            &MessageBody=This+is+a+test+message
+            &DelaySeconds=45
+            &MessageAttribute.1.Name=my_attribute_name_1
+            &MessageAttribute.1.Value.StringValue=my_attribute_value_1
+            &MessageAttribute.1.Value.DataType=String
+            &MessageSystemAttribute.1.Name=my_attribute_name_2
+            &MessageSystemAttribute.1.Value.StringListValue.1=my_attribute_value_2
+            &MessageSystemAttribute.1.Value.StringListValue.2=my_attribute_value_3
+            &MessageSystemAttribute.1.Value.DataType=String
+            &MessageDeduplicationId=abcdef
+            &MessageGroupId=abcdef01
         ';
 
-        self::assertHttpFormEqualsHttpForm($expected, $input->request()->getBody()->stringify());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }
