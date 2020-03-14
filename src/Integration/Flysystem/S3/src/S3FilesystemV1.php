@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace AsyncAws\Flysystem\S3;
 
 use AsyncAws\Core\Exception\Http\ClientException;
-use AsyncAws\Core\StreamableBodyInterface;
-use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\ObjectIdentifier;
 use AsyncAws\S3\Result\AwsObject;
 use AsyncAws\S3\Result\CommonPrefix;
@@ -29,14 +27,14 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
      * @var array
      */
     private static $resultMap = [
-        'Body'          => 'contents',
+        'Body' => 'contents',
         'ContentLength' => 'size',
-        'ContentType'   => 'mimetype',
-        'Size'          => 'size',
-        'Metadata'      => 'metadata',
-        'StorageClass'  => 'storageclass',
-        'ETag'          => 'etag',
-        'VersionId'     => 'versionid',
+        'ContentType' => 'mimetype',
+        'Size' => 'size',
+        'Metadata' => 'metadata',
+        'StorageClass' => 'storageclass',
+        'ETag' => 'etag',
+        'VersionId' => 'versionid',
     ];
 
     /**
@@ -94,7 +92,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
      *
      * @param string $path
      * @param string $contents
-     * @param Config $config Config object
+     * @param Config $config   Config object
      *
      * @return false|array false on failure file meta data on success
      */
@@ -108,7 +106,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
      *
      * @param string $path
      * @param string $contents
-     * @param Config $config Config object
+     * @param Config $config   Config object
      *
      * @return false|array false on failure file meta data on success
      */
@@ -127,7 +125,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
      */
     public function rename($path, $newpath)
     {
-        if ( ! $this->copy($path, $newpath)) {
+        if (!$this->copy($path, $newpath)) {
             return false;
         }
 
@@ -148,13 +146,13 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
         $result = $this->client->deleteObject(
             [
                 'Bucket' => $this->bucket,
-                'Key'    => $location,
+                'Key' => $location,
             ]
         );
 
         $result->resolve();
 
-        return ! $this->has($path);
+        return !$this->has($path);
     }
 
     /**
@@ -192,7 +190,6 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
      * Create a directory.
      *
      * @param string $dirname directory name
-     * @param Config $config
      *
      * @return bool|array
      */
@@ -219,9 +216,10 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
 
         try {
             $result->resolve();
+
             return true;
         } catch (ClientException $e) {
-            if ($e->getResponse()->getStatusCode() !== 404) {
+            if (404 !== $e->getResponse()->getStatusCode()) {
                 throw $e;
             }
         }
@@ -240,7 +238,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     {
         $response = $this->readObject($path);
 
-        if ($response !== false) {
+        if (false !== $response) {
             $response['contents'] = $response['contents']->getContentAsString();
         }
 
@@ -260,7 +258,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
         $prefix = $this->applyPathPrefix(rtrim($directory, '/') . '/');
         $options = ['Bucket' => $this->bucket, 'Prefix' => ltrim($prefix, '/')];
 
-        if ($recursive === false) {
+        if (false === $recursive) {
             $options['Delimiter'] = '/';
         }
 
@@ -269,24 +267,6 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
         $normalized = array_map($normalizer, $listing);
 
         return Util::emulateDirectories($normalized);
-    }
-
-    /**
-     * @param array $options
-     *
-     * @return array
-     */
-    protected function retrievePaginatedListing(array $options)
-    {
-        $result = $this->client->listObjectsV2($options);
-        $listing = [];
-
-        /** @var ListObjectsV2Output $single */
-        foreach ($result->getIterator() as $single) {
-            $listing = array_merge($listing, $single->getContents(), $single->getCommonPrefixes());
-        }
-
-        return $listing;
     }
 
     /**
@@ -299,15 +279,15 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     public function getMetadata($path)
     {
         $result = $this->client->headObject([
-                'Bucket' => $this->bucket,
-                'Key'    => $this->applyPathPrefix($path),
-            ] + $this->options
+            'Bucket' => $this->bucket,
+            'Key' => $this->applyPathPrefix($path),
+        ] + $this->options
         );
 
         try {
             $result->resolve();
         } catch (ClientException $exception) {
-            if ($exception->getResponse()->getStatusCode() === 404) {
+            if (404 === $exception->getResponse()->getStatusCode()) {
                 return false;
             }
 
@@ -317,13 +297,12 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
         return $this->normalizeResponse($result, $path);
     }
 
-
     /**
      * Get all the meta data of a file or directory.
      *
      * @param string $path
      *
-     * @return false|integer
+     * @return false|int
      */
     public function getSize($path)
     {
@@ -357,7 +336,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
      *
      * @param string $path
      *
-     * @return false|integer
+     * @return false|int
      */
     public function getTimestamp($path)
     {
@@ -374,7 +353,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
      *
      * @param string   $path
      * @param resource $resource
-     * @param Config   $config Config object
+     * @param Config   $config   Config object
      *
      * @return array|false false on failure file meta data on success
      */
@@ -388,7 +367,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
      *
      * @param string   $path
      * @param resource $resource
-     * @param Config   $config Config object
+     * @param Config   $config   Config object
      *
      * @return array|false false on failure file meta data on success
      */
@@ -408,11 +387,11 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     public function copy($path, $newpath)
     {
         $result = $this->client->copyObject([
-                'Bucket'     => $this->bucket,
-                'Key'        => $this->applyPathPrefix($newpath),
-                'CopySource' => rawurlencode('/' . $this->applyPathPrefix($path)),
-                'ACL'        => $this->getRawVisibility($path) === AdapterInterface::VISIBILITY_PUBLIC ? 'public-read' : 'private',
-            ] + $this->options
+            'Bucket' => $this->bucket,
+            'Key' => $this->applyPathPrefix($newpath),
+            'CopySource' => rawurlencode('/' . $this->applyPathPrefix($path)),
+            'ACL' => AdapterInterface::VISIBILITY_PUBLIC === $this->getRawVisibility($path) ? 'public-read' : 'private',
+        ] + $this->options
         );
 
         try {
@@ -435,41 +414,12 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     {
         $response = $this->readObject($path);
 
-        if ($response !== false) {
+        if (false !== $response) {
             $response['stream'] = $response['contents']->getContentAsResource();
             unset($response['contents']);
         }
 
         return $response;
-    }
-
-    /**
-     * Read an object and normalize the response.
-     *
-     * @param string $path
-     *
-     * @return array|bool
-     */
-    protected function readObject($path)
-    {
-        $options = [
-            'Bucket' => $this->bucket,
-            'Key'    => $this->applyPathPrefix($path),
-        ];
-
-        if (isset($this->options['@http'])) {
-            $options['@http'] = $this->options['@http'];
-        }
-
-        $result = $this->client->getObject($options + $this->options);
-
-        try {
-            $result->resolve();
-        } catch (ClientException $e) {
-            return false;
-        }
-
-        return $this->normalizeResponse($result, $path);
     }
 
     /**
@@ -484,8 +434,8 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     {
         $result = $this->client->putObjectAcl([
             'Bucket' => $this->bucket,
-            'Key'    => $this->applyPathPrefix($path),
-            'ACL'    => $visibility === AdapterInterface::VISIBILITY_PUBLIC ? 'public-read' : 'private',
+            'Key' => $this->applyPathPrefix($path),
+            'ACL' => AdapterInterface::VISIBILITY_PUBLIC === $visibility ? 'public-read' : 'private',
         ]);
 
         try {
@@ -522,11 +472,56 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     /**
      * {@inheritdoc}
      */
-    public function setPathPrefix($prefix)
+    public function setPathPrefix($prefix): void
     {
         $prefix = ltrim($prefix, '/');
 
-        return parent::setPathPrefix($prefix);
+        parent::setPathPrefix($prefix);
+    }
+
+    /**
+     * @return array
+     */
+    protected function retrievePaginatedListing(array $options)
+    {
+        $result = $this->client->listObjectsV2($options);
+        $listing = [];
+
+        /** @var ListObjectsV2Output $single */
+        foreach ($result->getIterator() as $single) {
+            $listing = array_merge($listing, $single->getContents(), $single->getCommonPrefixes());
+        }
+
+        return $listing;
+    }
+
+    /**
+     * Read an object and normalize the response.
+     *
+     * @param string $path
+     *
+     * @return array|bool
+     */
+    protected function readObject($path)
+    {
+        $options = [
+            'Bucket' => $this->bucket,
+            'Key' => $this->applyPathPrefix($path),
+        ];
+
+        if (isset($this->options['@http'])) {
+            $options['@http'] = $this->options['@http'];
+        }
+
+        $result = $this->client->getObject($options + $this->options);
+
+        try {
+            $result->resolve();
+        } catch (ClientException $e) {
+            return false;
+        }
+
+        return $this->normalizeResponse($result, $path);
     }
 
     /**
@@ -540,7 +535,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     {
         $result = $this->client->getObjectAcl([
             'Bucket' => $this->bucket,
-            'Key'    => $this->applyPathPrefix($path),
+            'Key' => $this->applyPathPrefix($path),
         ]);
 
         $result->resolve();
@@ -553,10 +548,11 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
 
             if (
                 null !== $grantee->getURI()
-                && $grantee->getURI() === self::PUBLIC_GRANT_URI
-                && $grant->getPermission() === 'READ'
+                && self::PUBLIC_GRANT_URI === $grantee->getURI()
+                && 'READ' === $grant->getPermission()
             ) {
                 $visibility = AdapterInterface::VISIBILITY_PUBLIC;
+
                 break;
             }
         }
@@ -569,7 +565,6 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
      *
      * @param string          $path
      * @param string|resource $body
-     * @param Config          $config
      *
      * @return array|bool
      */
@@ -577,25 +572,25 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     {
         $key = $this->applyPathPrefix($path);
         $options = $this->getOptionsFromConfig($config);
-        $acl = array_key_exists('ACL', $options) ? $options['ACL'] : 'private';
+        $acl = \array_key_exists('ACL', $options) ? $options['ACL'] : 'private';
 
         if (!$this->isOnlyDir($path)) {
-            if ( ! isset($options['ContentType'])) {
+            if (!isset($options['ContentType'])) {
                 $options['ContentType'] = Util::guessMimeType($path, $body);
             }
 
-            if ( ! isset($options['ContentLength'])) {
-                $options['ContentLength'] = is_resource($body) ? Util::getStreamSize($body) : Util::contentSize($body);
+            if (!isset($options['ContentLength'])) {
+                $options['ContentLength'] = \is_resource($body) ? Util::getStreamSize($body) : Util::contentSize($body);
             }
 
-            if ($options['ContentLength'] === null) {
+            if (null === $options['ContentLength']) {
                 unset($options['ContentLength']);
             }
         }
 
         $result = $this->client->putObject(array_merge($options, [
             'Bucket' => $this->bucket,
-            'Key'=> $key,
+            'Key' => $key,
             'Body' => $body,
             'ACL' => $acl,
         ]));
@@ -610,21 +605,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     }
 
     /**
-     * Check if the path contains only directories
-     *
-     * @param string $path
-     *
-     * @return bool
-     */
-    private function isOnlyDir($path)
-    {
-        return substr($path, -1) === '/';
-    }
-
-    /**
      * Get options from the config.
-     *
-     * @param Config $config
      *
      * @return array
      */
@@ -636,7 +617,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
             // For local reference
             $options['visibility'] = $visibility;
             // For external reference
-            $options['ACL'] = $visibility === AdapterInterface::VISIBILITY_PUBLIC ? 'public-read' : 'private';
+            $options['ACL'] = AdapterInterface::VISIBILITY_PUBLIC === $visibility ? 'public-read' : 'private';
         }
 
         if ($mimetype = $config->get('mimetype')) {
@@ -647,7 +628,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
         }
 
         foreach (static::$metaOptions as $option) {
-            if ( ! $config->has($option)) {
+            if (!$config->has($option)) {
                 continue;
             }
             $options[$option] = $config->get($option);
@@ -659,7 +640,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     /**
      * Normalize the object result array.
      *
-     * @param AwsObject|CommonPrefix|HeadObjectOutput|GetObjectOutput|PutObjectOutput  $output
+     * @param AwsObject|CommonPrefix|HeadObjectOutput|GetObjectOutput|PutObjectOutput $output
      */
     protected function normalizeResponse(object $output, ?string $path = null): array
     {
@@ -687,28 +668,15 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
         return array_merge($result, $this->resultMap($output, static::$resultMap), ['type' => 'file']);
     }
 
-    private function resultMap(object $object, array $map)
-    {
-        $result = [];
-        foreach ($map as $from => $to) {
-            $methodName = 'get'.$from;
-            if (method_exists($object, $methodName)) {
-                $result[$to] = call_user_func([$object, $methodName]);
-            }
-        }
-
-        return $result;
-    }
-
     protected function doesDirectoryExist(string $location): bool
     {
         // Maybe this isn't an actual key, but a prefix.
         // Do a prefix listing of objects to determine.
-        $result = $this->client->listObjects([
-                'Bucket'  => $this->bucket,
-                'Prefix'  => rtrim($location, '/') . '/',
-                'MaxKeys' => 1,
-            ]
+        $result = $this->client->listObjectsV2([
+            'Bucket' => $this->bucket,
+            'Prefix' => rtrim($location, '/') . '/',
+            'MaxKeys' => 1,
+        ]
         );
 
         try {
@@ -716,11 +684,36 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
 
             return !empty($result->getContents()) || !empty($result->getCommonPrefixes());
         } catch (ClientException $e) {
-            if ($e->getResponse()->getStatusCode() === 403) {
+            if (403 === $e->getResponse()->getStatusCode()) {
                 return false;
             }
 
             throw $e;
         }
+    }
+
+    /**
+     * Check if the path contains only directories.
+     *
+     * @param string $path
+     *
+     * @return bool
+     */
+    private function isOnlyDir($path)
+    {
+        return '/' === substr($path, -1);
+    }
+
+    private function resultMap(object $object, array $map)
+    {
+        $result = [];
+        foreach ($map as $from => $to) {
+            $methodName = 'get' . $from;
+            if (method_exists($object, $methodName)) {
+                $result[$to] = \call_user_func([$object, $methodName]);
+            }
+        }
+
+        return $result;
     }
 }

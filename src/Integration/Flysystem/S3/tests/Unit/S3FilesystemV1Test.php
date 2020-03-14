@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace AsyncAws\Flysystem\S3\Tests\Unit;
 
-use AsyncAws\Core\Exception\Http\ClientException;
-use AsyncAws\Core\StreamableBody;
 use AsyncAws\Core\Test\SimpleStreamableBody;
 use AsyncAws\Flysystem\S3\S3FilesystemV1;
-use AsyncAws\Flysystem\S3\S3FilesystemV2;
 use AsyncAws\S3\Result\AwsObject;
 use AsyncAws\S3\Result\CommonPrefix;
 use AsyncAws\S3\Result\CopyObjectOutput;
@@ -52,14 +49,14 @@ class S3FilesystemV1Test extends TestCase
                 if ('contents' !== $input['Body']) {
                     return false;
                 }
-                if ($input['Bucket'] !== self::BUCKCET) {
+                if (self::BUCKCET !== $input['Bucket']) {
                     return false;
                 }
 
                 return true;
             }))->willReturn($result);
 
-        $filesystem = new S3FilesystemV1($s3Client,  self::BUCKCET, self::PREFIX);
+        $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
         $filesystem->write($file, 'contents', new Config());
     }
 
@@ -74,16 +71,15 @@ class S3FilesystemV1Test extends TestCase
             ->disableOriginalConstructor()
             ->onlyMethods(['upload'])
             ->getMock();
-        $filesystem->expects($this->once())
+        $filesystem->expects(self::once())
             ->method('upload')
             ->with($path, $contents, $config)
             ->willReturn($return);
 
         // We test upload function in testWrite.
         $output = $filesystem->update($path, $contents, $config);
-        $this->assertEquals($return, $output);
+        self::assertEquals($return, $output);
     }
-
 
     public function testRename()
     {
@@ -94,20 +90,19 @@ class S3FilesystemV1Test extends TestCase
             ->disableOriginalConstructor()
             ->onlyMethods(['copy', 'delete'])
             ->getMock();
-        $filesystem->expects($this->once())
+        $filesystem->expects(self::once())
             ->method('copy')
             ->with($path, $newPath)
             ->willReturn(true);
-        $filesystem->expects($this->once())
+        $filesystem->expects(self::once())
             ->method('delete')
             ->with($path)
             ->willReturn(true);
 
         // We test upload function in testWrite.
         $output = $filesystem->rename($path, $newPath);
-        $this->assertTrue($output);
+        self::assertTrue($output);
     }
-
 
     public function testRenameFail()
     {
@@ -118,17 +113,17 @@ class S3FilesystemV1Test extends TestCase
             ->disableOriginalConstructor()
             ->onlyMethods(['copy', 'delete'])
             ->getMock();
-        $filesystem->expects($this->once())
+        $filesystem->expects(self::once())
             ->method('copy')
             ->with($path, $newPath)
             ->willReturn(false);
-        $filesystem->expects($this->never())
+        $filesystem->expects(self::never())
             ->method('delete')
             ->with($path);
 
         // We test upload function in testWrite.
         $output = $filesystem->rename($path, $newPath);
-        $this->assertFalse($output);
+        self::assertFalse($output);
     }
 
     public function testDelete()
@@ -152,7 +147,7 @@ class S3FilesystemV1Test extends TestCase
                     return false;
                 }
 
-                if ($input['Bucket'] !== self::BUCKCET) {
+                if (self::BUCKCET !== $input['Bucket']) {
                     return false;
                 }
 
@@ -164,19 +159,19 @@ class S3FilesystemV1Test extends TestCase
             ->onlyMethods(['has'])
             ->getMock();
 
-        $filesystem->expects($this->once())
+        $filesystem->expects(self::once())
             ->method('has')
             ->with($path)
             ->willReturn(false);
 
         $output = $filesystem->delete($path);
-        $this->assertTrue($output);
+        self::assertTrue($output);
     }
 
     public function testDeleteDir()
     {
         $path = 'foo';
-        $objects = [new AwsObject(['Key'=>'my_key', 'LastModified'=>null, 'ETag'=>null, 'Size'=>null, 'StorageClass'=>null, 'Owner'=>null])];
+        $objects = [new AwsObject(['Key' => 'my_key', 'LastModified' => null, 'ETag' => null, 'Size' => null, 'StorageClass' => null, 'Owner' => null])];
 
         $s3Client = $this->getMockBuilder(S3Client::class)
             ->disableOriginalConstructor()
@@ -198,13 +193,12 @@ class S3FilesystemV1Test extends TestCase
                     return false;
                 }
 
-                if ($input['Bucket'] !== self::BUCKCET) {
+                if (self::BUCKCET !== $input['Bucket']) {
                     return false;
                 }
 
                 return true;
             }))->willReturn($listResult);
-
 
         $deleteResult = $this->getMockBuilder(DeleteObjectsOutput::class)
             ->disableOriginalConstructor()
@@ -214,7 +208,7 @@ class S3FilesystemV1Test extends TestCase
         $s3Client->expects(self::once())
             ->method('deleteObjects')
             ->with(self::callback(function (array $input) use ($objects) {
-                if (count($input['Delete']['Objects']) !== count($objects)) {
+                if (\count($input['Delete']['Objects']) !== \count($objects)) {
                     return false;
                 }
 
@@ -222,17 +216,17 @@ class S3FilesystemV1Test extends TestCase
                     return false;
                 }
 
-                if ($input['Bucket'] !== self::BUCKCET) {
+                if (self::BUCKCET !== $input['Bucket']) {
                     return false;
                 }
 
                 return true;
             }))->willReturn($deleteResult);
 
-        $filesystem = new S3FilesystemV1($s3Client,  self::BUCKCET, self::PREFIX);
+        $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
 
         $output = $filesystem->deleteDir($path);
-        $this->assertTrue($output);
+        self::assertTrue($output);
     }
 
     public function testCreateDir()
@@ -245,13 +239,13 @@ class S3FilesystemV1Test extends TestCase
             ->disableOriginalConstructor()
             ->onlyMethods(['upload'])
             ->getMock();
-        $filesystem->expects($this->once())
+        $filesystem->expects(self::once())
             ->method('upload')
-            ->with($path.'/', '', $config)
+            ->with($path . '/', '', $config)
             ->willReturn($return);
 
         $output = $filesystem->createDir($path, $config);
-        $this->assertEquals($return, $output);
+        self::assertEquals($return, $output);
     }
 
     public function testHasFile()
@@ -275,7 +269,7 @@ class S3FilesystemV1Test extends TestCase
                     return false;
                 }
 
-                if ($input['Bucket'] !== self::BUCKCET) {
+                if (self::BUCKCET !== $input['Bucket']) {
                     return false;
                 }
 
@@ -285,7 +279,7 @@ class S3FilesystemV1Test extends TestCase
         $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
 
         $output = $filesystem->has($path);
-        $this->assertTrue($output);
+        self::assertTrue($output);
     }
 
     public function testReadFail()
@@ -297,13 +291,13 @@ class S3FilesystemV1Test extends TestCase
             ->onlyMethods(['readObject'])
             ->getMock();
 
-        $filesystem->expects($this->once())
+        $filesystem->expects(self::once())
             ->method('readObject')
             ->with($path)
             ->willReturn(false);
 
         $output = $filesystem->read($path);
-        $this->assertFalse($output);
+        self::assertFalse($output);
     }
 
     public function testRead()
@@ -331,7 +325,7 @@ class S3FilesystemV1Test extends TestCase
                     return false;
                 }
 
-                if ($input['Bucket'] !== self::BUCKCET) {
+                if (self::BUCKCET !== $input['Bucket']) {
                     return false;
                 }
 
@@ -341,16 +335,16 @@ class S3FilesystemV1Test extends TestCase
         $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
 
         $output = $filesystem->read($path);
-        $this->assertArrayHasKey('type', $output);
-        $this->assertEquals('file', $output['type']);
-        $this->assertArrayHasKey('path', $output);
-        $this->assertEquals($path, $output['path']);
-        $this->assertArrayHasKey('timestamp', $output);
-        $this->assertArrayHasKey('contents', $output);
+        self::assertArrayHasKey('type', $output);
+        self::assertEquals('file', $output['type']);
+        self::assertArrayHasKey('path', $output);
+        self::assertEquals($path, $output['path']);
+        self::assertArrayHasKey('timestamp', $output);
+        self::assertArrayHasKey('contents', $output);
 
         // Make sure we convert StreamableBodyInterface
-        $this->assertIsString($output['contents']);
-        $this->assertEquals($content, $output['contents']);
+        self::assertIsString($output['contents']);
+        self::assertEquals($content, $output['contents']);
     }
 
     public function testListContents()
@@ -364,6 +358,7 @@ class S3FilesystemV1Test extends TestCase
 
         $result->method('getIterator')->willReturn(new class($result) implements \Iterator {
             private $item;
+
             private $position;
 
             public function __construct($item)
@@ -379,7 +374,7 @@ class S3FilesystemV1Test extends TestCase
 
             public function next()
             {
-                $this->position++;
+                ++$this->position;
             }
 
             public function key()
@@ -396,10 +391,9 @@ class S3FilesystemV1Test extends TestCase
             {
                 $this->position = 0;
             }
-
         });
-        $result->method('getContents')->willReturn([new AwsObject(['Key'=>self::PREFIX.'/my_key', 'LastModified'=>null, 'ETag'=>null, 'Size'=>null, 'StorageClass'=>null, 'Owner'=>null])]);
-        $result->method('getCommonPrefixes')->willReturn([new CommonPrefix(['Prefix'=>self::PREFIX.'/common_prefix'])]);
+        $result->method('getContents')->willReturn([new AwsObject(['Key' => self::PREFIX . '/my_key', 'LastModified' => null, 'ETag' => null, 'Size' => null, 'StorageClass' => null, 'Owner' => null])]);
+        $result->method('getCommonPrefixes')->willReturn([new CommonPrefix(['Prefix' => self::PREFIX . '/common_prefix'])]);
 
         $s3Client = $this->getMockBuilder(S3Client::class)
             ->disableOriginalConstructor()
@@ -413,11 +407,11 @@ class S3FilesystemV1Test extends TestCase
                     return false;
                 }
 
-                if ($input['Delimiter'] !== '/') {
+                if ('/' !== $input['Delimiter']) {
                     return false;
                 }
 
-                if ($input['Bucket'] !== self::BUCKCET) {
+                if (self::BUCKCET !== $input['Bucket']) {
                     return false;
                 }
 
@@ -428,13 +422,11 @@ class S3FilesystemV1Test extends TestCase
 
         $outputs = $filesystem->listContents($path);
         $output = $outputs[0];
-        $this->assertArrayHasKey('type', $output);
-        $this->assertEquals('file', $output['type']);
-        $this->assertArrayHasKey('path', $output);
-        $this->assertEquals('my_key', $output['path']);
+        self::assertArrayHasKey('type', $output);
+        self::assertEquals('file', $output['type']);
+        self::assertArrayHasKey('path', $output);
+        self::assertEquals('my_key', $output['path']);
     }
-
-
 
     public function testMetadata()
     {
@@ -461,7 +453,7 @@ class S3FilesystemV1Test extends TestCase
                     return false;
                 }
 
-                if ($input['Bucket'] !== self::BUCKCET) {
+                if (self::BUCKCET !== $input['Bucket']) {
                     return false;
                 }
 
@@ -471,19 +463,17 @@ class S3FilesystemV1Test extends TestCase
         $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
 
         $output = $filesystem->getMetadata($path);
-        $this->assertArrayHasKey('type', $output);
-        $this->assertEquals('file', $output['type']);
-        $this->assertArrayHasKey('path', $output);
-        $this->assertEquals($path, $output['path']);
-        $this->assertArrayHasKey('timestamp', $output);
-        $this->assertEquals(1584187200, $output['timestamp']);
-        $this->assertArrayHasKey('size', $output);
-        $this->assertEquals('123', $output['size']);
-        $this->assertArrayHasKey('mimetype', $output);
-        $this->assertEquals('text/plain', $output['mimetype']);
-
+        self::assertArrayHasKey('type', $output);
+        self::assertEquals('file', $output['type']);
+        self::assertArrayHasKey('path', $output);
+        self::assertEquals($path, $output['path']);
+        self::assertArrayHasKey('timestamp', $output);
+        self::assertEquals(1584187200, $output['timestamp']);
+        self::assertArrayHasKey('size', $output);
+        self::assertEquals('123', $output['size']);
+        self::assertArrayHasKey('mimetype', $output);
+        self::assertEquals('text/plain', $output['mimetype']);
     }
-
 
     public function testGetSize()
     {
@@ -496,13 +486,13 @@ class S3FilesystemV1Test extends TestCase
             ->disableOriginalConstructor()
             ->onlyMethods(['getMetadata'])
             ->getMock();
-        $filesystem->expects($this->once())
+        $filesystem->expects(self::once())
             ->method('getMetadata')
             ->with($path)
             ->willReturn($return);
 
         $output = $filesystem->getSize($path);
-        $this->assertEquals(123, $output);
+        self::assertEquals(123, $output);
     }
 
     public function testMimetype()
@@ -516,13 +506,13 @@ class S3FilesystemV1Test extends TestCase
             ->disableOriginalConstructor()
             ->onlyMethods(['getMetadata'])
             ->getMock();
-        $filesystem->expects($this->once())
+        $filesystem->expects(self::once())
             ->method('getMetadata')
             ->with($path)
             ->willReturn($return);
 
         $output = $filesystem->getMimetype($path);
-        $this->assertEquals('text/plain', $output);
+        self::assertEquals('text/plain', $output);
     }
 
     public function testTimestamp()
@@ -536,15 +526,14 @@ class S3FilesystemV1Test extends TestCase
             ->disableOriginalConstructor()
             ->onlyMethods(['getMetadata'])
             ->getMock();
-        $filesystem->expects($this->once())
+        $filesystem->expects(self::once())
             ->method('getMetadata')
             ->with($path)
             ->willReturn($return);
 
         $output = $filesystem->getTimestamp($path);
-        $this->assertEquals(1584187200, $output);
+        self::assertEquals(1584187200, $output);
     }
-
 
     public function testWriteStream()
     {
@@ -557,16 +546,15 @@ class S3FilesystemV1Test extends TestCase
             ->disableOriginalConstructor()
             ->onlyMethods(['upload'])
             ->getMock();
-        $filesystem->expects($this->once())
+        $filesystem->expects(self::once())
             ->method('upload')
             ->with($path, $contents, $config)
             ->willReturn($return);
 
         // We test upload function in testWrite.
         $output = $filesystem->writeStream($path, $contents, $config);
-        $this->assertEquals($return, $output);
+        self::assertEquals($return, $output);
     }
-
 
     public function testUpdateStream()
     {
@@ -579,14 +567,14 @@ class S3FilesystemV1Test extends TestCase
             ->disableOriginalConstructor()
             ->onlyMethods(['upload'])
             ->getMock();
-        $filesystem->expects($this->once())
+        $filesystem->expects(self::once())
             ->method('upload')
             ->with($path, $contents, $config)
             ->willReturn($return);
 
         // We test upload function in testWrite.
         $output = $filesystem->updateStream($path, $contents, $config);
-        $this->assertEquals($return, $output);
+        self::assertEquals($return, $output);
     }
 
     public function testReadStream()
@@ -613,7 +601,7 @@ class S3FilesystemV1Test extends TestCase
                     return false;
                 }
 
-                if ($input['Bucket'] !== self::BUCKCET) {
+                if (self::BUCKCET !== $input['Bucket']) {
                     return false;
                 }
 
@@ -623,17 +611,16 @@ class S3FilesystemV1Test extends TestCase
         $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
 
         $output = $filesystem->readStream($path);
-        $this->assertArrayHasKey('type', $output);
-        $this->assertEquals('file', $output['type']);
-        $this->assertArrayHasKey('path', $output);
-        $this->assertEquals($path, $output['path']);
-        $this->assertArrayHasKey('stream', $output);
-        $this->assertArrayNotHasKey('contents', $output);
+        self::assertArrayHasKey('type', $output);
+        self::assertEquals('file', $output['type']);
+        self::assertArrayHasKey('path', $output);
+        self::assertEquals($path, $output['path']);
+        self::assertArrayHasKey('stream', $output);
+        self::assertArrayNotHasKey('contents', $output);
 
         // Make sure we convert StreamableBodyInterface
-        $this->assertIsResource($output['stream']);
+        self::assertIsResource($output['stream']);
     }
-
 
     public function testCopy()
     {
@@ -657,11 +644,11 @@ class S3FilesystemV1Test extends TestCase
                     return false;
                 }
 
-                if ($input['CopySource'] !== rawurlencode('/'.self::PREFIX . '/' . $path)) {
+                if ($input['CopySource'] !== rawurlencode('/' . self::PREFIX . '/' . $path)) {
                     return false;
                 }
 
-                if ($input['Bucket'] !== self::BUCKCET) {
+                if (self::BUCKCET !== $input['Bucket']) {
                     return false;
                 }
 
@@ -673,15 +660,14 @@ class S3FilesystemV1Test extends TestCase
             ->onlyMethods(['getRawVisibility'])
             ->getMock();
 
-        $filesystem->expects($this->once())
+        $filesystem->expects(self::once())
             ->method('getRawVisibility')
             ->with($path)
             ->willReturn(AdapterInterface::VISIBILITY_PUBLIC);
 
         $output = $filesystem->copy($path, $newPath);
-        $this->assertTrue($output);
+        self::assertTrue($output);
     }
-
 
     public function testSetVisibility()
     {
@@ -705,11 +691,11 @@ class S3FilesystemV1Test extends TestCase
                     return false;
                 }
 
-                if ($input['Bucket'] !== self::BUCKCET) {
+                if (self::BUCKCET !== $input['Bucket']) {
                     return false;
                 }
 
-                if ($input['ACL'] !== 'private') {
+                if ('private' !== $input['ACL']) {
                     return false;
                 }
 
@@ -719,11 +705,9 @@ class S3FilesystemV1Test extends TestCase
         $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
 
         $output = $filesystem->setVisibility($path, $acl);
-        $this->assertArrayHasKey('path', $output);
-        $this->assertArrayHasKey('visibility', $output);
-
+        self::assertArrayHasKey('path', $output);
+        self::assertArrayHasKey('visibility', $output);
     }
-
 
     public function testGetVisibility()
     {
@@ -734,15 +718,15 @@ class S3FilesystemV1Test extends TestCase
             ->onlyMethods(['getRawVisibility'])
             ->getMock();
 
-        $filesystem->expects($this->once())
+        $filesystem->expects(self::once())
             ->method('getRawVisibility')
             ->with($path)
             ->willReturn(AdapterInterface::VISIBILITY_PUBLIC);
 
         $output = $filesystem->getVisibility($path);
-        $this->assertIsArray($output);
-        $this->assertArrayHasKey('visibility', $output);
-        $this->assertEquals(AdapterInterface::VISIBILITY_PUBLIC, $output['visibility']);
+        self::assertIsArray($output);
+        self::assertArrayHasKey('visibility', $output);
+        self::assertEquals(AdapterInterface::VISIBILITY_PUBLIC, $output['visibility']);
     }
 
     public function testPathPrefix()
@@ -754,12 +738,12 @@ class S3FilesystemV1Test extends TestCase
         $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
 
         $filesystem->setPathPrefix('prefix');
-        $this->assertEquals('prefix/', $filesystem->getPathPrefix());
+        self::assertEquals('prefix/', $filesystem->getPathPrefix());
         $filesystem->setPathPrefix('prefix/');
-        $this->assertEquals('prefix/', $filesystem->getPathPrefix());
+        self::assertEquals('prefix/', $filesystem->getPathPrefix());
 
         $path = 'foo/bar.txt';
-        $this->assertEquals('prefix/'.$path, $filesystem->applyPathPrefix($path));
-        $this->assertEquals('prefix/'.$path, $filesystem->applyPathPrefix('/'.$path));
+        self::assertEquals('prefix/' . $path, $filesystem->applyPathPrefix($path));
+        self::assertEquals('prefix/' . $path, $filesystem->applyPathPrefix('/' . $path));
     }
 }
