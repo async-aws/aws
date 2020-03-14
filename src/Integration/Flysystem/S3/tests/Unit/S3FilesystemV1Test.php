@@ -11,13 +11,16 @@ use AsyncAws\Flysystem\S3\S3FilesystemV1;
 use AsyncAws\Flysystem\S3\S3FilesystemV2;
 use AsyncAws\S3\Result\AwsObject;
 use AsyncAws\S3\Result\CommonPrefix;
+use AsyncAws\S3\Result\CopyObjectOutput;
 use AsyncAws\S3\Result\DeleteObjectOutput;
 use AsyncAws\S3\Result\DeleteObjectsOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
 use AsyncAws\S3\Result\ListObjectsV2Output;
+use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\S3Client;
+use League\Flysystem\AdapterInterface;
 use League\Flysystem\Config;
 use PHPUnit\Framework\TestCase;
 
@@ -518,7 +521,7 @@ class S3FilesystemV1Test extends TestCase
             ->with($path)
             ->willReturn($return);
 
-        $output = $filesystem->getSize($path);
+        $output = $filesystem->getMimetype($path);
         $this->assertEquals('text/plain', $output);
     }
 
@@ -538,7 +541,7 @@ class S3FilesystemV1Test extends TestCase
             ->with($path)
             ->willReturn($return);
 
-        $output = $filesystem->getSize($path);
+        $output = $filesystem->getTimestamp($path);
         $this->assertEquals(1584187200, $output);
     }
 
@@ -634,10 +637,129 @@ class S3FilesystemV1Test extends TestCase
 
     public function testCopy()
     {
+        $path = 'foo/bar.txt';
+        $newPath = 'foo/new.txt';
+
+        $result = $this->getMockBuilder(CopyObjectOutput::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['resolve'])
+            ->getMock();
+
+        $s3Client = $this->getMockBuilder(S3Client::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['copyObject'])
+            ->getMock();
+
+        $s3Client->expects(self::once())
+            ->method('copyObject')
+            ->with(self::callback(function (array $input) use ($path, $newPath) {
+                if ($input['Key'] !== self::PREFIX . '/' . $newPath) {
+                    return false;
+                }
+
+                if ($input['CopySource'] !== rawurlencode('/'.self::PREFIX . '/' . $path)) {
+                    return false;
+                }
+
+                if ($input['Bucket'] !== self::BUCKCET) {
+                    return false;
+                }
+
+                return isset($input['ACL']);
+            }))->willReturn($result);
+
+        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+            ->setConstructorArgs([$s3Client,  self::BUCKCET, self::PREFIX])
+            ->onlyMethods(['getRawVisibility'])
+            ->getMock();
+
+        $filesystem->expects($this->once())
+            ->method('getRawVisibility')
+            ->with($path)
+            ->willReturn(AdapterInterface::VISIBILITY_PUBLIC);
+
+        $output = $filesystem->copy($path, $newPath);
+        $this->assertTrue($output);
     }
 
 
     public function testSetVisibility()
     {
+        $path = 'foo/bar.txt';
+        $acl = AdapterInterface::VISIBILITY_PRIVATE;
+
+        $result = $this->getMockBuilder(PutObjectAclOutput::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['resolve'])
+            ->getMock();
+
+        $s3Client = $this->getMockBuilder(S3Client::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['putObjectAcl'])
+            ->getMock();
+
+        $s3Client->expects(self::once())
+            ->method('putObjectAcl')
+            ->with(self::callback(function (array $input) use ($path) {
+                if ($input['Key'] !== self::PREFIX . '/' . $path) {
+                    return false;
+                }
+
+                if ($input['Bucket'] !== self::BUCKCET) {
+                    return false;
+                }
+
+                if ($input['ACL'] !== 'private') {
+                    return false;
+                }
+
+                return true;
+            }))->willReturn($result);
+
+        $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
+
+        $output = $filesystem->setVisibility($path, $acl);
+        $this->assertArrayHasKey('path', $output);
+        $this->assertArrayHasKey('visibility', $output);
+
+    }
+
+
+    public function testGetVisibility()
+    {
+        $path = 'foo/bar.txt';
+
+        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getRawVisibility'])
+            ->getMock();
+
+        $filesystem->expects($this->once())
+            ->method('getRawVisibility')
+            ->with($path)
+            ->willReturn(AdapterInterface::VISIBILITY_PUBLIC);
+
+        $output = $filesystem->getVisibility($path);
+        $this->assertIsArray($output);
+        $this->assertArrayHasKey('visibility', $output);
+        $this->assertEquals(AdapterInterface::VISIBILITY_PUBLIC, $output['visibility']);
+    }
+
+    public function testPathPrefix()
+    {
+        $s3Client = $this->getMockBuilder(S3Client::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
+
+        $filesystem->setPathPrefix('prefix');
+        $this->assertEquals('prefix/', $filesystem->getPathPrefix());
+        $filesystem->setPathPrefix('prefix/');
+        $this->assertEquals('prefix/', $filesystem->getPathPrefix());
+
+        $path = 'foo/bar.txt';
+        $this->assertEquals('prefix/'.$path, $filesystem->applyPathPrefix($path));
+        $this->assertEquals('prefix/'.$path, $filesystem->applyPathPrefix('/'.$path));
     }
 }

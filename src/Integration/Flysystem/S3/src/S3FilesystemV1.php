@@ -410,9 +410,8 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
         $result = $this->client->copyObject([
                 'Bucket'     => $this->bucket,
                 'Key'        => $this->applyPathPrefix($newpath),
-                'CopySource' => rawurlencode($this->bucket . '/' . $this->applyPathPrefix($path)),
-                'ACL'        => $this->getRawVisibility($path) === AdapterInterface::VISIBILITY_PUBLIC
-                    ? 'public-read' : 'private',
+                'CopySource' => rawurlencode('/' . $this->applyPathPrefix($path)),
+                'ACL'        => $this->getRawVisibility($path) === AdapterInterface::VISIBILITY_PUBLIC ? 'public-read' : 'private',
             ] + $this->options
         );
 
@@ -507,7 +506,9 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
      */
     public function getVisibility($path)
     {
-        return ['visibility' => $this->getRawVisibility($path)];
+        $rawVisibility = $this->getRawVisibility($path);
+
+        return ['visibility' => $rawVisibility];
     }
 
     /**
