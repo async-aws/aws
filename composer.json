@@ -18,7 +18,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
-        "league/flysystem": "^2.0.0-alpha.1",
+        "league/flysystem": "^1.0.65 || ^2.0.0-alpha.1",
         "league/mime-type-detection": "^1.0",
         "matthiasnoback/symfony-config-test": "^4.1",
         "nette/php-generator": "^3.3",

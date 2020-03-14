@@ -19,7 +19,7 @@
         "php": "^7.2.5",
         "async-aws/core": "^0.3",
         "async-aws/s3": "^0.2",
-        "league/flysystem": "^2.0.0-alpha.1",
+        "league/flysystem": "^1.0.65 || ^2.0.0-alpha.1",
         "league/mime-type-detection": "^1.0"
     },
     "autoload": {

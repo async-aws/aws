@@ -26,6 +26,10 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
 
     public static function setUpBeforeClass(): void
     {
+        if (!interface_exists(\League\Flysystem\Visibility::class)) {
+            self::markTestSkipped('Flysystem v2 is not installed');
+        }
+
         static::$adapterPrefix = 'travis-ci/' . bin2hex(random_bytes(10));
 
         if (!getenv('FLYSYSTEM_AWS_S3_KEY')) {

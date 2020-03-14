@@ -12,6 +12,7 @@ parameters:
         - src/CodeGenerator/src/Generator/PhpGenerator/ClassFactory.php
         - src/CodeGenerator/src/Generator/TestGenerator.php
         - src/Core/src/Test/TestCase.php
+        - src/Integration/Flysystem/S3/src/S3FilesystemV1.php
 
     ignoreErrors:
         - '|Ternary operator condition is always true\.|'

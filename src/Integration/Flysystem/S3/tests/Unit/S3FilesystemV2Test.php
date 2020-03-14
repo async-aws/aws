@@ -12,6 +12,13 @@ use PHPUnit\Framework\TestCase;
 
 class S3FilesystemV2Test extends TestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        if (!interface_exists(\League\Flysystem\Visibility::class)) {
+            self::markTestSkipped('Flysystem v2 is not installed');
+        }
+    }
+
     public function testWrite()
     {
         $file = 'foo/bar.txt';
