@@ -8,11 +8,14 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\StreamableBodyInterface;
 use AsyncAws\Flysystem\S3\Visibility\PortableVisibilityConverter;
 use AsyncAws\Flysystem\S3\Visibility\VisibilityConverter;
-use AsyncAws\S3\Input\ObjectIdentifier;
-use AsyncAws\S3\Result\AwsObject;
-use AsyncAws\S3\Result\CommonPrefix;
+use AsyncAws\S3\Input\ObjectIdentifier as InputObjectIdentifier;
+use AsyncAws\S3\Result\AwsObject as ResultAwsObject;
+use AsyncAws\S3\Result\CommonPrefix as ResultCommonPrefix;
 use AsyncAws\S3\Result\HeadObjectOutput;
 use AsyncAws\S3\S3Client;
+use AsyncAws\S3\ValueObject\AwsObject;
+use AsyncAws\S3\ValueObject\CommonPrefix;
+use AsyncAws\S3\ValueObject\ObjectIdentifier;
 use Generator;
 use League\Flysystem\Config;
 use League\Flysystem\DirectoryAttributes;
@@ -352,7 +355,7 @@ class S3FilesystemV2 implements FilesystemAdapter
             } elseif ($item instanceof CommonPrefix) {
                 $path = $this->prefixer->stripPrefix($item->getPrefix() ?? '');
             } else {
-                throw new \RuntimeException(sprintf('Argument 2 of "%s::%s" cannot be null when $item is not instance of "%s" or %s', __CLASS__, __METHOD__, AwsObject::class, CommonPrefix::class));
+                throw new \RuntimeException(sprintf('Argument 2 of "%s" cannot be null when $item is not instance of "%s" or %s', __METHOD__, AwsObject::class, CommonPrefix::class));
             }
         }
 
@@ -377,7 +380,7 @@ class S3FilesystemV2 implements FilesystemAdapter
             $dateTime = $item->getLastModified();
             $metadata = $this->extractExtraMetadata($item);
         } else {
-            throw new \RuntimeException(sprintf('Object of class "%s" is not supported in %s::%s()', \get_class($item), __CLASS__, __METHOD__));
+            throw new \RuntimeException(sprintf('Object of class "%s" is not supported in %s()', \get_class($item), __METHOD__));
         }
 
         if ($dateTime instanceof \DateTimeInterface) {
@@ -428,4 +431,14 @@ class S3FilesystemV2 implements FilesystemAdapter
             throw UnableToReadFile::fromLocation($path, '', $exception);
         }
     }
+}
+
+// to remove wth release of 0.4 of async-aws/s3
+if (!\class_exists(AwsObject::class)) {
+    /** @psalm-suppress UndefinedClass */
+    \class_alias(ResultAwsObject::class, AwsObject::class);
+    /** @psalm-suppress UndefinedClass */
+    \class_alias(ResultCommonPrefix::class, CommonPrefix::class);
+    /** @psalm-suppress UndefinedClass */
+    \class_alias(InputObjectIdentifier::class, ObjectIdentifier::class);
 }

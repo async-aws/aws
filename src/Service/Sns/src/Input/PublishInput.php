@@ -5,6 +5,7 @@ namespace AsyncAws\Sns\Input;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Sns\ValueObject\MessageAttributeValue;
 
 class PublishInput
 {
@@ -71,7 +72,7 @@ class PublishInput
      *   Message?: string,
      *   Subject?: string,
      *   MessageStructure?: string,
-     *   MessageAttributes?: \AsyncAws\Sns\Input\MessageAttributeValue[],
+     *   MessageAttributes?: \AsyncAws\Sns\ValueObject\MessageAttributeValue[],
      * } $input
      */
     public function __construct(array $input = [])

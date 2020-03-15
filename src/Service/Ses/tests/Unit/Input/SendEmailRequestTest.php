@@ -3,12 +3,12 @@
 namespace AsyncAws\Ses\Tests\Unit\Input;
 
 use AsyncAws\Core\Test\TestCase;
-use AsyncAws\Ses\Input\Body;
-use AsyncAws\Ses\Input\Content;
-use AsyncAws\Ses\Input\Destination;
-use AsyncAws\Ses\Input\EmailContent;
-use AsyncAws\Ses\Input\Message;
 use AsyncAws\Ses\Input\SendEmailRequest;
+use AsyncAws\Ses\ValueObject\Body;
+use AsyncAws\Ses\ValueObject\Content;
+use AsyncAws\Ses\ValueObject\Destination;
+use AsyncAws\Ses\ValueObject\EmailContent;
+use AsyncAws\Ses\ValueObject\Message;
 
 class SendEmailRequestTest extends TestCase
 {

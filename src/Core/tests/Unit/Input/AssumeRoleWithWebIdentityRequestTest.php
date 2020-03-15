@@ -3,7 +3,7 @@
 namespace AsyncAws\Core\Tests\Unit\Input;
 
 use AsyncAws\Core\Sts\Input\AssumeRoleWithWebIdentityRequest;
-use AsyncAws\Core\Sts\Input\PolicyDescriptorType;
+use AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType;
 use AsyncAws\Core\Test\TestCase;
 
 class AssumeRoleWithWebIdentityRequestTest extends TestCase

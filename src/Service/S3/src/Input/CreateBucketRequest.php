@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\BucketCannedACL;
+use AsyncAws\S3\ValueObject\CreateBucketConfiguration;
 
 class CreateBucketRequest
 {
@@ -80,7 +81,7 @@ class CreateBucketRequest
      * @param array{
      *   ACL?: \AsyncAws\S3\Enum\BucketCannedACL::*,
      *   Bucket?: string,
-     *   CreateBucketConfiguration?: \AsyncAws\S3\Input\CreateBucketConfiguration|array,
+     *   CreateBucketConfiguration?: \AsyncAws\S3\ValueObject\CreateBucketConfiguration|array,
      *   GrantFullControl?: string,
      *   GrantRead?: string,
      *   GrantReadACP?: string,

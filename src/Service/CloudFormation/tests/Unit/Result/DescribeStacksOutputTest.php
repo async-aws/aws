@@ -3,10 +3,10 @@
 namespace AsyncAws\CloudFormation\Tests\Unit\Result;
 
 use AsyncAws\CloudFormation\Result\DescribeStacksOutput;
-use AsyncAws\CloudFormation\Result\RollbackConfiguration;
-use AsyncAws\CloudFormation\Result\Stack;
-use AsyncAws\CloudFormation\Result\StackDriftInformation;
-use AsyncAws\CloudFormation\Result\Tag;
+use AsyncAws\CloudFormation\ValueObject\RollbackConfiguration;
+use AsyncAws\CloudFormation\ValueObject\Stack;
+use AsyncAws\CloudFormation\ValueObject\StackDriftInformation;
+use AsyncAws\CloudFormation\ValueObject\Tag;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;

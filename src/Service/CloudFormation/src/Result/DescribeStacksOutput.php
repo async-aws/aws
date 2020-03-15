@@ -4,14 +4,28 @@ namespace AsyncAws\CloudFormation\Result;
 
 use AsyncAws\CloudFormation\CloudFormationClient;
 use AsyncAws\CloudFormation\Input\DescribeStacksInput;
+use AsyncAws\CloudFormation\ValueObject\Output;
+use AsyncAws\CloudFormation\ValueObject\Parameter;
+use AsyncAws\CloudFormation\ValueObject\RollbackConfiguration;
+use AsyncAws\CloudFormation\ValueObject\RollbackTrigger;
+use AsyncAws\CloudFormation\ValueObject\Stack;
+use AsyncAws\CloudFormation\ValueObject\StackDriftInformation;
+use AsyncAws\CloudFormation\ValueObject\Tag;
 use AsyncAws\Core\Result;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class DescribeStacksOutput extends Result implements \IteratorAggregate
 {
+    /**
+     * A list of stack structures.
+     */
     private $Stacks = [];
 
+    /**
+     * If the output exceeds 1 MB in size, a string that identifies the next page of stacks. If no additional page exists,
+     * this value is null.
+     */
     private $NextToken;
 
     /**
@@ -50,10 +64,6 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
         }
     }
 
-    /**
-     * If the output exceeds 1 MB in size, a string that identifies the next page of stacks. If no additional page exists,
-     * this value is null.
-     */
     public function getNextToken(): ?string
     {
         $this->initialize();

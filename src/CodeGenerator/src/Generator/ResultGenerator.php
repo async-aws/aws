@@ -17,6 +17,7 @@ use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\StreamableBody;
 use AsyncAws\Core\StreamableBodyInterface;
+use Nette\InvalidStateException;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -53,6 +54,11 @@ class ResultGenerator
     private $typeGenerator;
 
     /**
+     * @var ObjectGenerator
+     */
+    private $objectGenerator;
+
+    /**
      * @var EnumGenerator
      */
     private $enumGenerator;
@@ -67,13 +73,14 @@ class ResultGenerator
      */
     private $operation;
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
+    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, ?ObjectGenerator $objectGenerator = null, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
     {
         $this->namespaceRegistry = $namespaceRegistry;
         $this->fileWriter = $fileWriter;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
         $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->namespaceRegistry, $fileWriter);
         $this->parserProvider = new ParserProvider($this->namespaceRegistry);
+        $this->objectGenerator = $objectGenerator ?? new ObjectGenerator($namespaceRegistry, $fileWriter, $this->typeGenerator, $this->enumGenerator);
     }
 
     /**
@@ -86,10 +93,10 @@ class ResultGenerator
         }
         $this->operation = $operation;
 
-        return $this->generateResultClass($output, true);
+        return $this->generateResultClass($output);
     }
 
-    private function generateResultClass(StructureShape $shape, bool $root = false): ClassName
+    private function generateResultClass(StructureShape $shape): ClassName
     {
         if (isset($this->generated[$shape->getName()])) {
             return $this->generated[$shape->getName()];
@@ -100,88 +107,41 @@ class ResultGenerator
         $namespace = new PhpNamespace($className->getNamespace());
         $class = $namespace->addClass($className->getName());
 
-        if ($root) {
-            $namespace->addUse(Result::class);
-            $class->addExtend(Result::class);
+        $namespace->addUse(Result::class);
+        $class->addExtend(Result::class);
 
-            $namespace->addUse(ResponseInterface::class);
-            $namespace->addUse(HttpClientInterface::class);
-            $this->populateResult($shape, $namespace, $class);
-        } else {
-            // Named constructor
-            $this->namedConstructor($shape, $class);
-        }
+        $namespace->addUse(ResponseInterface::class);
+        $namespace->addUse(HttpClientInterface::class);
+        $this->populateResult($shape, $namespace, $class);
 
-        $this->addProperties($root, $shape, $class, $namespace);
+        $this->addProperties($shape, $class, $namespace);
+        $this->addUse($shape, $namespace);
 
         $this->fileWriter->write($namespace);
 
         return $className;
     }
 
-    private function namedConstructor(StructureShape $shape, ClassType $class): void
-    {
-        $class->addMethod('create')
-            ->setStatic(true)
-            ->setReturnType('self')
-            ->setBody('return $input instanceof self ? $input : new self($input);')
-            ->addParameter('input');
-
-        // We need a constructor
-        $constructor = $class->addMethod('__construct');
-        $constructor->addComment($this->typeGenerator->generateDocblock($shape, $this->generated[$shape->getName()], false, false, true));
-        $constructor->addParameter('input')->setType('array');
-
-        $constructorBody = '';
-        foreach ($shape->getMembers() as $member) {
-            $memberShape = $member->getShape();
-            if ($memberShape instanceof StructureShape) {
-                $resultClass = $this->generateResultClass($memberShape);
-                $constructorBody .= strtr('$this->NAME = isset($input["NAME"]) ? CLASS::create($input["NAME"]) : null;' . "\n", ['NAME' => $member->getName(), 'CLASS' => $resultClass->getName()]);
-            } elseif ($memberShape instanceof ListShape) {
-                $listMemberShape = $memberShape->getMember()->getShape();
-
-                // Check if this is a list of objects
-                if ($listMemberShape instanceof StructureShape) {
-                    $resultClass = $this->generateResultClass($listMemberShape);
-                    $constructorBody .= strtr('$this->NAME = array_map(function($item) { return CLASS::create($item); }, $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'CLASS' => $resultClass->getName()]);
-                } else {
-                    $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
-                }
-            } elseif ($memberShape instanceof MapShape) {
-                $mapValueShape = $memberShape->getValue()->getShape();
-
-                if ($mapValueShape instanceof StructureShape) {
-                    $resultClass = $this->generateResultClass($mapValueShape);
-                    $constructorBody .= strtr('$this->NAME = array_map(function($item) { return CLASS::create($item); }, $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'CLASS' => $resultClass->getName()]);
-                } else {
-                    $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
-                }
-            } else {
-                $constructorBody .= strtr('$this->NAME = $input["NAME"];' . "\n", ['NAME' => $member->getName()]);
-            }
-        }
-        $constructor->setBody($constructorBody);
-    }
-
     /**
      * Add properties and getters.
      */
-    private function addProperties(bool $root, StructureShape $shape, ClassType $class, PhpNamespace $namespace): void
+    private function addProperties(StructureShape $shape, ClassType $class, PhpNamespace $namespace): void
     {
         foreach ($shape->getMembers() as $member) {
             $nullable = $returnType = null;
             $memberShape = $member->getShape();
             $property = $class->addProperty($member->getName())->setPrivate();
-            [$returnType, $parameterType, $memberClassName] = $this->typeGenerator->getPhpType($memberShape, true);
+            if (null !== $propertyDocumentation = $memberShape->getDocumentation()) {
+                $property->setComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
+            }
+            [$returnType, $parameterType, $memberClassName] = $this->typeGenerator->getPhpType($memberShape);
 
             if (!empty($memberShape->getEnum())) {
-                $enumClassName = $this->enumGenerator->generate($memberShape);
-                $namespace->addUse($enumClassName->getFqdn());
+                $this->enumGenerator->generate($memberShape);
             }
 
             if ($memberShape instanceof StructureShape) {
-                $this->generateResultClass($memberShape);
+                $this->objectGenerator->generate($memberShape);
             } elseif ($memberShape instanceof MapShape) {
                 $mapKeyShape = $memberShape->getKey()->getShape();
                 if ('string' !== $mapKeyShape->getType()) {
@@ -189,11 +149,10 @@ class ResultGenerator
                 }
 
                 if (($valueShape = $memberShape->getValue()->getShape()) instanceof StructureShape) {
-                    $this->generateResultClass($valueShape);
+                    $this->objectGenerator->generate($valueShape);
                 }
                 if (!empty($valueShape->getEnum())) {
-                    $enumClassName = $this->enumGenerator->generate($valueShape);
-                    $namespace->addUse($enumClassName->getFqdn());
+                    $this->enumGenerator->generate($valueShape);
                 }
 
                 $nullable = false;
@@ -202,11 +161,10 @@ class ResultGenerator
                 $memberShape->getMember()->getShape();
 
                 if (($memberShape = $memberShape->getMember()->getShape()) instanceof StructureShape) {
-                    $this->generateResultClass($memberShape);
+                    $this->objectGenerator->generate($memberShape);
                 }
                 if (!empty($memberShape->getEnum())) {
-                    $enumClassName = $this->enumGenerator->generate($memberShape);
-                    $namespace->addUse($enumClassName->getFqdn());
+                    $this->enumGenerator->generate($memberShape);
                 }
 
                 $nullable = false;
@@ -215,28 +173,25 @@ class ResultGenerator
                 $returnType = StreamableBodyInterface::class;
                 $parameterType = StreamableBodyInterface::class;
                 $memberClassName = null;
-                $namespace->addUse(StreamableBodyInterface::class);
                 $nullable = false;
             }
 
             if (null !== $memberClassName) {
-                $namespace->addUse($memberClassName->getFqdn());
+                try {
+                    $namespace->addUse($memberClassName->getFqdn());
+                } catch (InvalidStateException $e) {
+                }
             }
 
             $method = $class->addMethod('get' . $member->getName())
                 ->setReturnType($returnType)
                 ->setBody(strtr('
-                    INITIALIZE_CODE
+                    $this->initialize();
 
                     return $this->NAME;
                 ', [
-                    'INITIALIZE_CODE' => $root ? '$this->initialize();' : '',
                     'NAME' => $member->getName(),
                 ]));
-
-            if (null !== $propertyDocumentation = $memberShape->getDocumentation()) {
-                $method->addComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
-            }
 
             $nullable = $nullable ?? !$member->isRequired();
             if ($parameterType && $parameterType !== $returnType && (null === $memberClassName || $memberClassName->getName() !== $parameterType)) {
@@ -332,5 +287,38 @@ class ResultGenerator
             ->setBody($body);
         $method->addParameter('response')->setType(ResponseInterface::class);
         $method->addParameter('httpClient')->setType(HttpClientInterface::class);
+    }
+
+    private function addUse(StructureShape $shape, PhpNamespace $namespace)
+    {
+        foreach ($shape->getMembers() as $member) {
+            $memberShape = $member->getShape();
+            if (!empty($memberShape->getEnum())) {
+                $namespace->addUse($this->namespaceRegistry->getEnum($memberShape)->getFqdn());
+            }
+
+            if ($memberShape instanceof StructureShape) {
+                $this->addUse($memberShape, $namespace);
+                $namespace->addUse($this->namespaceRegistry->getObject($memberShape)->getFqdn());
+            } elseif ($memberShape instanceof MapShape) {
+                if (($valueShape = $memberShape->getValue()->getShape()) instanceof StructureShape) {
+                    $this->addUse($valueShape, $namespace);
+                    $namespace->addUse($this->namespaceRegistry->getObject($valueShape)->getFqdn());
+                }
+                if (!empty($valueShape->getEnum())) {
+                    $namespace->addUse($this->namespaceRegistry->getEnum($valueShape)->getFqdn());
+                }
+            } elseif ($memberShape instanceof ListShape) {
+                if (($memberShape = $memberShape->getMember()->getShape()) instanceof StructureShape) {
+                    $this->addUse($memberShape, $namespace);
+                    $namespace->addUse($this->namespaceRegistry->getObject($memberShape)->getFqdn());
+                }
+                if (!empty($memberShape->getEnum())) {
+                    $namespace->addUse($this->namespaceRegistry->getEnum($memberShape)->getFqdn());
+                }
+            } elseif ($member->isStreaming()) {
+                $namespace->addUse(StreamableBodyInterface::class);
+            }
+        }
     }
 }

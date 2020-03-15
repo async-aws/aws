@@ -4,15 +4,24 @@ namespace AsyncAws\S3\Result;
 
 use AsyncAws\Core\Result;
 use AsyncAws\S3\Enum\RequestCharged;
+use AsyncAws\S3\ValueObject\DeletedObject;
+use AsyncAws\S3\ValueObject\Error;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class DeleteObjectsOutput extends Result
 {
+    /**
+     * Container element for a successful delete. It identifies the object that was successfully deleted.
+     */
     private $Deleted = [];
 
     private $RequestCharged;
 
+    /**
+     * Container for a failed delete operation that describes the object that Amazon S3 attempted to delete and the error it
+     * encountered.
+     */
     private $Errors = [];
 
     /**

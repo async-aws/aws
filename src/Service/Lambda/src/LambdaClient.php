@@ -102,7 +102,7 @@ class LambdaClient extends AbstractApi
      * @param array{
      *   LayerName: string,
      *   Description?: string,
-     *   Content: \AsyncAws\Lambda\Input\LayerVersionContentInput|array,
+     *   Content: \AsyncAws\Lambda\ValueObject\LayerVersionContentInput|array,
      *   CompatibleRuntimes?: list<\AsyncAws\Lambda\Enum\Runtime::*>,
      *   LicenseInfo?: string,
      * }|PublishLayerVersionRequest $input

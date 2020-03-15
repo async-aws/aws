@@ -3,9 +3,9 @@
 namespace AsyncAws\Sqs\Tests\Unit\Input;
 
 use AsyncAws\Core\Test\TestCase;
-use AsyncAws\Sqs\Input\MessageAttributeValue;
-use AsyncAws\Sqs\Input\MessageSystemAttributeValue;
 use AsyncAws\Sqs\Input\SendMessageRequest;
+use AsyncAws\Sqs\ValueObject\MessageAttributeValue;
+use AsyncAws\Sqs\ValueObject\MessageSystemAttributeValue;
 
 class SendMessageRequestTest extends TestCase
 {

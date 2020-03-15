@@ -3,8 +3,8 @@
 namespace AsyncAws\Lambda\Tests\Unit\Input;
 
 use AsyncAws\Core\Test\TestCase;
-use AsyncAws\Lambda\Input\LayerVersionContentInput;
 use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
+use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
 
 /**
  * @see https://docs.aws.amazon.com/lambda/latest/dg/API_PublishLayerVersion.html

@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace AsyncAws\Flysystem\S3;
 
 use AsyncAws\Core\Exception\Http\ClientException;
-use AsyncAws\S3\Input\ObjectIdentifier;
-use AsyncAws\S3\Result\AwsObject;
-use AsyncAws\S3\Result\CommonPrefix;
+use AsyncAws\S3\Input\ObjectIdentifier as InputObjectIdentifier;
+use AsyncAws\S3\Result\AwsObject as ResultAwsObject;
+use AsyncAws\S3\Result\CommonPrefix as ResultCommonPrefix;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\S3Client;
+use AsyncAws\S3\ValueObject\AwsObject;
+use AsyncAws\S3\ValueObject\CommonPrefix;
+use AsyncAws\S3\ValueObject\ObjectIdentifier;
 use League\Flysystem\Adapter\AbstractAdapter;
 use League\Flysystem\Adapter\CanOverwriteFiles;
 use League\Flysystem\AdapterInterface;
@@ -590,4 +593,14 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
 
         return $result;
     }
+}
+
+// to remove wth release of 0.4 of async-aws/s3
+if (!\class_exists(AwsObject::class)) {
+    /** @psalm-suppress UndefinedClass */
+    \class_alias(ResultAwsObject::class, AwsObject::class);
+    /** @psalm-suppress UndefinedClass */
+    \class_alias(ResultCommonPrefix::class, CommonPrefix::class);
+    /** @psalm-suppress UndefinedClass */
+    \class_alias(InputObjectIdentifier::class, ObjectIdentifier::class);
 }

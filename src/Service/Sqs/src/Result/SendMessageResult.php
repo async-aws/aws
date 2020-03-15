@@ -8,54 +8,29 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class SendMessageResult extends Result
 {
+    /**
+     * An MD5 digest of the non-URL-encoded message attribute string. You can use this attribute to verify that Amazon SQS
+     * received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For information
+     * about MD5, see RFC1321.
+     *
+     * @see https://www.ietf.org/rfc/rfc1321.txt
+     */
     private $MD5OfMessageBody;
 
+    /**
+     * An MD5 digest of the non-URL-encoded message attribute string. You can use this attribute to verify that Amazon SQS
+     * received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For information
+     * about MD5, see RFC1321.
+     *
+     * @see https://www.ietf.org/rfc/rfc1321.txt
+     */
     private $MD5OfMessageAttributes;
-
-    private $MD5OfMessageSystemAttributes;
-
-    private $MessageId;
-
-    private $SequenceNumber;
-
-    /**
-     * An MD5 digest of the non-URL-encoded message attribute string. You can use this attribute to verify that Amazon SQS
-     * received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For information
-     * about MD5, see RFC1321.
-     *
-     * @see https://www.ietf.org/rfc/rfc1321.txt
-     */
-    public function getMD5OfMessageAttributes(): ?string
-    {
-        $this->initialize();
-
-        return $this->MD5OfMessageAttributes;
-    }
-
-    /**
-     * An MD5 digest of the non-URL-encoded message attribute string. You can use this attribute to verify that Amazon SQS
-     * received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For information
-     * about MD5, see RFC1321.
-     *
-     * @see https://www.ietf.org/rfc/rfc1321.txt
-     */
-    public function getMD5OfMessageBody(): ?string
-    {
-        $this->initialize();
-
-        return $this->MD5OfMessageBody;
-    }
 
     /**
      * An MD5 digest of the non-URL-encoded message system attribute string. You can use this attribute to verify that
      * Amazon SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest.
      */
-    public function getMD5OfMessageSystemAttributes(): ?string
-    {
-        $this->initialize();
-
-        return $this->MD5OfMessageSystemAttributes;
-    }
+    private $MD5OfMessageSystemAttributes;
 
     /**
      * An attribute containing the `MessageId` of the message sent to the queue. For more information, see Queue and Message
@@ -63,6 +38,34 @@ class SendMessageResult extends Result
      *
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-message-identifiers.html
      */
+    private $MessageId;
+
+    /**
+     * This parameter applies only to FIFO (first-in-first-out) queues.
+     */
+    private $SequenceNumber;
+
+    public function getMD5OfMessageAttributes(): ?string
+    {
+        $this->initialize();
+
+        return $this->MD5OfMessageAttributes;
+    }
+
+    public function getMD5OfMessageBody(): ?string
+    {
+        $this->initialize();
+
+        return $this->MD5OfMessageBody;
+    }
+
+    public function getMD5OfMessageSystemAttributes(): ?string
+    {
+        $this->initialize();
+
+        return $this->MD5OfMessageSystemAttributes;
+    }
+
     public function getMessageId(): ?string
     {
         $this->initialize();
@@ -70,9 +73,6 @@ class SendMessageResult extends Result
         return $this->MessageId;
     }
 
-    /**
-     * This parameter applies only to FIFO (first-in-first-out) queues.
-     */
     public function getSequenceNumber(): ?string
     {
         $this->initialize();

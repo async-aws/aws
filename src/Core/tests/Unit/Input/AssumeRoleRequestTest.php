@@ -3,8 +3,8 @@
 namespace AsyncAws\Core\Tests\Unit\Input;
 
 use AsyncAws\Core\Sts\Input\AssumeRoleRequest;
-use AsyncAws\Core\Sts\Input\PolicyDescriptorType;
-use AsyncAws\Core\Sts\Input\Tag;
+use AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType;
+use AsyncAws\Core\Sts\ValueObject\Tag;
 use AsyncAws\Core\Test\TestCase;
 
 class AssumeRoleRequestTest extends TestCase

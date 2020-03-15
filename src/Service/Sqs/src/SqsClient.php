@@ -250,8 +250,8 @@ class SqsClient extends AbstractApi
      *   QueueUrl: string,
      *   MessageBody: string,
      *   DelaySeconds?: int,
-     *   MessageAttributes?: \AsyncAws\Sqs\Input\MessageAttributeValue[],
-     *   MessageSystemAttributes?: \AsyncAws\Sqs\Input\MessageSystemAttributeValue[],
+     *   MessageAttributes?: \AsyncAws\Sqs\ValueObject\MessageAttributeValue[],
+     *   MessageSystemAttributes?: \AsyncAws\Sqs\ValueObject\MessageSystemAttributeValue[],
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
      * }|SendMessageRequest $input

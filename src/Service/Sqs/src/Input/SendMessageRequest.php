@@ -5,6 +5,8 @@ namespace AsyncAws\Sqs\Input;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Sqs\ValueObject\MessageAttributeValue;
+use AsyncAws\Sqs\ValueObject\MessageSystemAttributeValue;
 
 class SendMessageRequest
 {
@@ -71,8 +73,8 @@ class SendMessageRequest
      *   QueueUrl?: string,
      *   MessageBody?: string,
      *   DelaySeconds?: int,
-     *   MessageAttributes?: \AsyncAws\Sqs\Input\MessageAttributeValue[],
-     *   MessageSystemAttributes?: \AsyncAws\Sqs\Input\MessageSystemAttributeValue[],
+     *   MessageAttributes?: \AsyncAws\Sqs\ValueObject\MessageAttributeValue[],
+     *   MessageSystemAttributes?: \AsyncAws\Sqs\ValueObject\MessageSystemAttributeValue[],
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
      * } $input

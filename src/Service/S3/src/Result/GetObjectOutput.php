@@ -16,71 +16,171 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class GetObjectOutput extends Result
 {
+    /**
+     * Object data.
+     */
     private $Body;
 
+    /**
+     * Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If false, this response header
+     * does not appear in the response.
+     */
     private $DeleteMarker;
-
-    private $AcceptRanges;
-
-    private $Expiration;
-
-    private $Restore;
-
-    private $LastModified;
-
-    private $ContentLength;
-
-    private $ETag;
-
-    private $MissingMeta;
-
-    private $VersionId;
-
-    private $CacheControl;
-
-    private $ContentDisposition;
-
-    private $ContentEncoding;
-
-    private $ContentLanguage;
-
-    private $ContentRange;
-
-    private $ContentType;
-
-    private $Expires;
-
-    private $WebsiteRedirectLocation;
-
-    private $ServerSideEncryption;
-
-    private $Metadata = [];
-
-    private $SSECustomerAlgorithm;
-
-    private $SSECustomerKeyMD5;
-
-    private $SSEKMSKeyId;
-
-    private $StorageClass;
-
-    private $RequestCharged;
-
-    private $ReplicationStatus;
-
-    private $PartsCount;
-
-    private $TagCount;
-
-    private $ObjectLockMode;
-
-    private $ObjectLockRetainUntilDate;
-
-    private $ObjectLockLegalHoldStatus;
 
     /**
      * Indicates that a range of bytes was specified.
      */
+    private $AcceptRanges;
+
+    /**
+     * If the object expiration is configured (see PUT Bucket lifecycle), the response includes this header. It includes the
+     * expiry-date and rule-id key-value pairs providing object expiration information. The value of the rule-id is URL
+     * encoded.
+     */
+    private $Expiration;
+
+    /**
+     * Provides information about object restoration operation and expiration time of the restored object copy.
+     */
+    private $Restore;
+
+    /**
+     * Last modified date of the object.
+     */
+    private $LastModified;
+
+    /**
+     * Size of the body in bytes.
+     */
+    private $ContentLength;
+
+    /**
+     * An ETag is an opaque identifier assigned by a web server to a specific version of a resource found at a URL.
+     */
+    private $ETag;
+
+    /**
+     * This is set to the number of metadata entries not returned in `x-amz-meta` headers. This can happen if you create
+     * metadata using an API like SOAP that supports more flexible metadata than the REST API. For example, using SOAP, you
+     * can create metadata whose values are not legal HTTP headers.
+     */
+    private $MissingMeta;
+
+    /**
+     * Version of the object.
+     */
+    private $VersionId;
+
+    /**
+     * Specifies caching behavior along the request/reply chain.
+     */
+    private $CacheControl;
+
+    /**
+     * Specifies presentational information for the object.
+     */
+    private $ContentDisposition;
+
+    /**
+     * Specifies what content encodings have been applied to the object and thus what decoding mechanisms must be applied to
+     * obtain the media-type referenced by the Content-Type header field.
+     */
+    private $ContentEncoding;
+
+    /**
+     * The language the content is in.
+     */
+    private $ContentLanguage;
+
+    /**
+     * The portion of the object returned in the response.
+     */
+    private $ContentRange;
+
+    /**
+     * A standard MIME type describing the format of the object data.
+     */
+    private $ContentType;
+
+    /**
+     * The date and time at which the object is no longer cacheable.
+     */
+    private $Expires;
+
+    /**
+     * If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or
+     * to an external URL. Amazon S3 stores the value of this header in the object metadata.
+     */
+    private $WebsiteRedirectLocation;
+
+    /**
+     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
+     */
+    private $ServerSideEncryption;
+
+    /**
+     * A map of metadata to store with the object in S3.
+     */
+    private $Metadata = [];
+
+    /**
+     * If server-side encryption with a customer-provided encryption key was requested, the response will include this
+     * header confirming the encryption algorithm used.
+     */
+    private $SSECustomerAlgorithm;
+
+    /**
+     * If server-side encryption with a customer-provided encryption key was requested, the response will include this
+     * header to provide round-trip message integrity verification of the customer-provided encryption key.
+     */
+    private $SSECustomerKeyMD5;
+
+    /**
+     * If present, specifies the ID of the AWS Key Management Service (AWS KMS) symmetric customer managed customer master
+     * key (CMK) that was used for the object.
+     */
+    private $SSEKMSKeyId;
+
+    /**
+     * Provides storage class information of the object. Amazon S3 returns this header for all objects except for Standard
+     * storage class objects.
+     */
+    private $StorageClass;
+
+    private $RequestCharged;
+
+    /**
+     * Amazon S3 can return this if your request involves a bucket that is either a source or destination in a replication
+     * rule.
+     */
+    private $ReplicationStatus;
+
+    /**
+     * The count of parts this object has.
+     */
+    private $PartsCount;
+
+    /**
+     * The number of tags, if any, on the object.
+     */
+    private $TagCount;
+
+    /**
+     * The Object Lock mode currently in place for this object.
+     */
+    private $ObjectLockMode;
+
+    /**
+     * The date and time when this object's Object Lock will expire.
+     */
+    private $ObjectLockRetainUntilDate;
+
+    /**
+     * Indicates whether this object has an active legal hold. This field is only returned if you have permission to view an
+     * object's legal hold status.
+     */
+    private $ObjectLockLegalHoldStatus;
+
     public function getAcceptRanges(): ?string
     {
         $this->initialize();
@@ -88,9 +188,6 @@ class GetObjectOutput extends Result
         return $this->AcceptRanges;
     }
 
-    /**
-     * Object data.
-     */
     public function getBody(): StreamableBodyInterface
     {
         $this->initialize();
@@ -98,9 +195,6 @@ class GetObjectOutput extends Result
         return $this->Body;
     }
 
-    /**
-     * Specifies caching behavior along the request/reply chain.
-     */
     public function getCacheControl(): ?string
     {
         $this->initialize();
@@ -108,9 +202,6 @@ class GetObjectOutput extends Result
         return $this->CacheControl;
     }
 
-    /**
-     * Specifies presentational information for the object.
-     */
     public function getContentDisposition(): ?string
     {
         $this->initialize();
@@ -118,10 +209,6 @@ class GetObjectOutput extends Result
         return $this->ContentDisposition;
     }
 
-    /**
-     * Specifies what content encodings have been applied to the object and thus what decoding mechanisms must be applied to
-     * obtain the media-type referenced by the Content-Type header field.
-     */
     public function getContentEncoding(): ?string
     {
         $this->initialize();
@@ -129,9 +216,6 @@ class GetObjectOutput extends Result
         return $this->ContentEncoding;
     }
 
-    /**
-     * The language the content is in.
-     */
     public function getContentLanguage(): ?string
     {
         $this->initialize();
@@ -139,9 +223,6 @@ class GetObjectOutput extends Result
         return $this->ContentLanguage;
     }
 
-    /**
-     * Size of the body in bytes.
-     */
     public function getContentLength(): ?string
     {
         $this->initialize();
@@ -149,9 +230,6 @@ class GetObjectOutput extends Result
         return $this->ContentLength;
     }
 
-    /**
-     * The portion of the object returned in the response.
-     */
     public function getContentRange(): ?string
     {
         $this->initialize();
@@ -159,9 +237,6 @@ class GetObjectOutput extends Result
         return $this->ContentRange;
     }
 
-    /**
-     * A standard MIME type describing the format of the object data.
-     */
     public function getContentType(): ?string
     {
         $this->initialize();
@@ -169,10 +244,6 @@ class GetObjectOutput extends Result
         return $this->ContentType;
     }
 
-    /**
-     * Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If false, this response header
-     * does not appear in the response.
-     */
     public function getDeleteMarker(): ?bool
     {
         $this->initialize();
@@ -180,9 +251,6 @@ class GetObjectOutput extends Result
         return $this->DeleteMarker;
     }
 
-    /**
-     * An ETag is an opaque identifier assigned by a web server to a specific version of a resource found at a URL.
-     */
     public function getETag(): ?string
     {
         $this->initialize();
@@ -190,11 +258,6 @@ class GetObjectOutput extends Result
         return $this->ETag;
     }
 
-    /**
-     * If the object expiration is configured (see PUT Bucket lifecycle), the response includes this header. It includes the
-     * expiry-date and rule-id key-value pairs providing object expiration information. The value of the rule-id is URL
-     * encoded.
-     */
     public function getExpiration(): ?string
     {
         $this->initialize();
@@ -202,9 +265,6 @@ class GetObjectOutput extends Result
         return $this->Expiration;
     }
 
-    /**
-     * The date and time at which the object is no longer cacheable.
-     */
     public function getExpires(): ?\DateTimeInterface
     {
         $this->initialize();
@@ -212,9 +272,6 @@ class GetObjectOutput extends Result
         return $this->Expires;
     }
 
-    /**
-     * Last modified date of the object.
-     */
     public function getLastModified(): ?\DateTimeInterface
     {
         $this->initialize();
@@ -223,8 +280,6 @@ class GetObjectOutput extends Result
     }
 
     /**
-     * A map of metadata to store with the object in S3.
-     *
      * @return string[]
      */
     public function getMetadata(): array
@@ -234,11 +289,6 @@ class GetObjectOutput extends Result
         return $this->Metadata;
     }
 
-    /**
-     * This is set to the number of metadata entries not returned in `x-amz-meta` headers. This can happen if you create
-     * metadata using an API like SOAP that supports more flexible metadata than the REST API. For example, using SOAP, you
-     * can create metadata whose values are not legal HTTP headers.
-     */
     public function getMissingMeta(): ?int
     {
         $this->initialize();
@@ -247,9 +297,6 @@ class GetObjectOutput extends Result
     }
 
     /**
-     * Indicates whether this object has an active legal hold. This field is only returned if you have permission to view an
-     * object's legal hold status.
-     *
      * @return ObjectLockLegalHoldStatus::*|null
      */
     public function getObjectLockLegalHoldStatus(): ?string
@@ -260,8 +307,6 @@ class GetObjectOutput extends Result
     }
 
     /**
-     * The Object Lock mode currently in place for this object.
-     *
      * @return ObjectLockMode::*|null
      */
     public function getObjectLockMode(): ?string
@@ -271,9 +316,6 @@ class GetObjectOutput extends Result
         return $this->ObjectLockMode;
     }
 
-    /**
-     * The date and time when this object's Object Lock will expire.
-     */
     public function getObjectLockRetainUntilDate(): ?\DateTimeInterface
     {
         $this->initialize();
@@ -281,9 +323,6 @@ class GetObjectOutput extends Result
         return $this->ObjectLockRetainUntilDate;
     }
 
-    /**
-     * The count of parts this object has.
-     */
     public function getPartsCount(): ?int
     {
         $this->initialize();
@@ -292,9 +331,6 @@ class GetObjectOutput extends Result
     }
 
     /**
-     * Amazon S3 can return this if your request involves a bucket that is either a source or destination in a replication
-     * rule.
-     *
      * @return ReplicationStatus::*|null
      */
     public function getReplicationStatus(): ?string
@@ -314,9 +350,6 @@ class GetObjectOutput extends Result
         return $this->RequestCharged;
     }
 
-    /**
-     * Provides information about object restoration operation and expiration time of the restored object copy.
-     */
     public function getRestore(): ?string
     {
         $this->initialize();
@@ -324,10 +357,6 @@ class GetObjectOutput extends Result
         return $this->Restore;
     }
 
-    /**
-     * If server-side encryption with a customer-provided encryption key was requested, the response will include this
-     * header confirming the encryption algorithm used.
-     */
     public function getSSECustomerAlgorithm(): ?string
     {
         $this->initialize();
@@ -335,10 +364,6 @@ class GetObjectOutput extends Result
         return $this->SSECustomerAlgorithm;
     }
 
-    /**
-     * If server-side encryption with a customer-provided encryption key was requested, the response will include this
-     * header to provide round-trip message integrity verification of the customer-provided encryption key.
-     */
     public function getSSECustomerKeyMD5(): ?string
     {
         $this->initialize();
@@ -346,10 +371,6 @@ class GetObjectOutput extends Result
         return $this->SSECustomerKeyMD5;
     }
 
-    /**
-     * If present, specifies the ID of the AWS Key Management Service (AWS KMS) symmetric customer managed customer master
-     * key (CMK) that was used for the object.
-     */
     public function getSSEKMSKeyId(): ?string
     {
         $this->initialize();
@@ -358,8 +379,6 @@ class GetObjectOutput extends Result
     }
 
     /**
-     * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
-     *
      * @return ServerSideEncryption::*|null
      */
     public function getServerSideEncryption(): ?string
@@ -370,9 +389,6 @@ class GetObjectOutput extends Result
     }
 
     /**
-     * Provides storage class information of the object. Amazon S3 returns this header for all objects except for Standard
-     * storage class objects.
-     *
      * @return StorageClass::*|null
      */
     public function getStorageClass(): ?string
@@ -382,9 +398,6 @@ class GetObjectOutput extends Result
         return $this->StorageClass;
     }
 
-    /**
-     * The number of tags, if any, on the object.
-     */
     public function getTagCount(): ?int
     {
         $this->initialize();
@@ -392,9 +405,6 @@ class GetObjectOutput extends Result
         return $this->TagCount;
     }
 
-    /**
-     * Version of the object.
-     */
     public function getVersionId(): ?string
     {
         $this->initialize();
@@ -402,10 +412,6 @@ class GetObjectOutput extends Result
         return $this->VersionId;
     }
 
-    /**
-     * If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or
-     * to an external URL. Amazon S3 stores the value of this header in the object metadata.
-     */
     public function getWebsiteRedirectLocation(): ?string
     {
         $this->initialize();

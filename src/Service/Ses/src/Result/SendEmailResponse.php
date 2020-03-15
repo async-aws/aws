@@ -8,11 +8,11 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class SendEmailResponse extends Result
 {
-    private $MessageId;
-
     /**
      * A unique identifier for the message that is generated when the message is accepted.
      */
+    private $MessageId;
+
     public function getMessageId(): ?string
     {
         $this->initialize();

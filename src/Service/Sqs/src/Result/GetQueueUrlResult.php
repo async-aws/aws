@@ -8,11 +8,11 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class GetQueueUrlResult extends Result
 {
-    private $QueueUrl;
-
     /**
      * The URL of the queue.
      */
+    private $QueueUrl;
+
     public function getQueueUrl(): ?string
     {
         $this->initialize();

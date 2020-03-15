@@ -140,7 +140,7 @@ class RestXmlParser implements Parser
             PROPERTIES
         ])', [
             'REQUIRED' => $required ? '' : '!' . $input . ' ? null : ',
-            'CLASS_NAME' => $this->namespaceRegistry->getResult($shape)->getName(),
+            'CLASS_NAME' => $this->namespaceRegistry->getObject($shape)->getName(),
             'PROPERTIES' => implode("\n", $properties),
         ]);
     }

@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Lambda\Enum\Runtime;
+use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
 
 class PublishLayerVersionRequest
 {
@@ -54,7 +55,7 @@ class PublishLayerVersionRequest
      * @param array{
      *   LayerName?: string,
      *   Description?: string,
-     *   Content?: \AsyncAws\Lambda\Input\LayerVersionContentInput|array,
+     *   Content?: \AsyncAws\Lambda\ValueObject\LayerVersionContentInput|array,
      *   CompatibleRuntimes?: list<\AsyncAws\Lambda\Enum\Runtime::*>,
      *   LicenseInfo?: string,
      * } $input

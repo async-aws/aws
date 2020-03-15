@@ -92,7 +92,7 @@ class S3Client extends AbstractApi
      * @param array{
      *   ACL?: \AsyncAws\S3\Enum\BucketCannedACL::*,
      *   Bucket: string,
-     *   CreateBucketConfiguration?: \AsyncAws\S3\Input\CreateBucketConfiguration|array,
+     *   CreateBucketConfiguration?: \AsyncAws\S3\ValueObject\CreateBucketConfiguration|array,
      *   GrantFullControl?: string,
      *   GrantRead?: string,
      *   GrantReadACP?: string,
@@ -145,7 +145,7 @@ class S3Client extends AbstractApi
      *
      * @param array{
      *   Bucket: string,
-     *   Delete: \AsyncAws\S3\Input\Delete|array,
+     *   Delete: \AsyncAws\S3\ValueObject\Delete|array,
      *   MFA?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   BypassGovernanceRetention?: bool,
@@ -339,7 +339,7 @@ class S3Client extends AbstractApi
      *
      * @param array{
      *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::*,
-     *   AccessControlPolicy?: \AsyncAws\S3\Input\AccessControlPolicy|array,
+     *   AccessControlPolicy?: \AsyncAws\S3\ValueObject\AccessControlPolicy|array,
      *   Bucket: string,
      *   ContentMD5?: string,
      *   GrantFullControl?: string,

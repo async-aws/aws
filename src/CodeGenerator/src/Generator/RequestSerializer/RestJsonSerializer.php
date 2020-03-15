@@ -61,7 +61,7 @@ class RestJsonSerializer implements Serializer
 
             return strtr($body, [
                 'INPUT_NAME' => '$this->' . $member->getName(),
-                'MEMBER_CODE' => $this->dumpArrayElement(sprintf('["%s"]', $this->getName($member)), $inputElement, $shape),
+                'MEMBER_CODE' => $this->dumpArrayElement(sprintf('["%s"]', $this->getName($member)), $inputElement, $shape, $member->isRequired()),
             ]);
         }, $shape->getMembers()));
 
@@ -106,7 +106,7 @@ class RestJsonSerializer implements Serializer
         return $name;
     }
 
-    private function dumpArrayElement(string $output, string $input, Shape $shape)
+    private function dumpArrayElement(string $output, string $input, Shape $shape, bool $isRequired = false)
     {
         switch (true) {
             case $shape instanceof StructureShape:
@@ -126,7 +126,7 @@ class RestJsonSerializer implements Serializer
             case 'timestamp':
                 return $this->dumpArrayTimestamp($output, $input, $shape);
             case 'blob':
-                return $this->dumpArrayBlob($output, $input, $shape);
+                return $this->dumpArrayBlob($output, $input, $shape, $isRequired);
         }
 
         throw new \RuntimeException(sprintf('Type %s is not yet implemented', $shape->getType()));
@@ -150,7 +150,7 @@ class RestJsonSerializer implements Serializer
 
             return strtr($body, [
                 'INPUT_NAME' => '$input->get' . $member->getName() . '()',
-                'MEMBER_CODE' => $this->dumpArrayElement(sprintf('%s["%s"]', $output, $this->getName($member)), $inputElement, $shape),
+                'MEMBER_CODE' => $this->dumpArrayElement(sprintf('%s["%s"]', $output, $this->getName($member)), $inputElement, $shape, $member->isRequired()),
             ]);
         }, $shape->getMembers()));
 
@@ -198,7 +198,7 @@ if (null !== INPUT) {
             [
                 'INPUT' => $input,
                 'INDEX_KEY' => $indexKey = 'k' . \substr(sha1($output), 0, 7),
-                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s[$indices->%s]', $output, $indexKey), '$value', $memberShape),
+                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s[$indices->%s]', $output, $indexKey), '$value', $memberShape, true),
                 'USE' => \strpos($memberCode, '$indices') ? '&$payload, $indices' : '&$payload',
             ]);
     }
@@ -227,11 +227,11 @@ if (null !== INPUT) {
         ]);
     }
 
-    private function dumpArrayBlob(string $output, string $input, Shape $shape): string
+    private function dumpArrayBlob(string $output, string $input, Shape $shape, bool $isRequired): string
     {
         return strtr('$payloadOUTPUT = base64_encode(INPUT);', [
             'OUTPUT' => $output,
-            'INPUT' => false === strpos($input, '->') ? $input : $input . ' ?? \'\'',
+            'INPUT' => ($isRequired || false === strpos($input, '->')) ? $input : $input . ' ?? \'\'',
         ]);
     }
 }

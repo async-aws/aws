@@ -5,7 +5,6 @@ namespace AsyncAws\Lambda\Tests\Unit;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
-use AsyncAws\Lambda\Input\LayerVersionContentInput;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
 use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
 use AsyncAws\Lambda\LambdaClient;
@@ -13,6 +12,7 @@ use AsyncAws\Lambda\Result\AddLayerVersionPermissionResponse;
 use AsyncAws\Lambda\Result\InvocationResponse;
 use AsyncAws\Lambda\Result\ListLayerVersionsResponse;
 use AsyncAws\Lambda\Result\PublishLayerVersionResponse;
+use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 
