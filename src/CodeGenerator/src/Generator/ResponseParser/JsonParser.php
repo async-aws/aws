@@ -17,7 +17,7 @@ use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
  *
  * @internal
  */
-class RestJsonParser implements Parser
+class JsonParser implements Parser
 {
     /**
      * @var NamespaceRegistry
@@ -230,11 +230,26 @@ class RestJsonParser implements Parser
 
     private function parseResponseMap(MapShape $shape, string $input, bool $required): string
     {
+        $shapeValue = $shape->getValue();
+
         if (null === $locationName = $shape->getKey()->getLocationName()) {
-            throw new \RuntimeException('This is not implemented yet');
+            // This is a map
+
+            $body = '(function(array $json): array {
+                $items = [];
+                foreach ($json as $name => $value) {
+                    $items[$name] = CLASS::create($value);
+                }
+
+                return $items;
+            })(INPUT)';
+
+            return strtr($body, [
+                'CLASS' => $shape->getValue()->getShape()->getName(),
+                'INPUT' => $input,
+            ]);
         }
 
-        $shapeValue = $shape->getValue();
         if ($shapeValue->getShape() instanceof StructureShape) {
             $body = '(function(array $json): array {
                 $items = [];

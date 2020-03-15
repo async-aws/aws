@@ -243,11 +243,20 @@ class TestGenerator
         $this->fileWriter->write($namespace);
     }
 
-    private function getInputCode(PhpNamespace $namespace, Shape $shape, bool $includeOptionalParameters = true): string
+    private function getInputCode(PhpNamespace $namespace, Shape $shape, bool $includeOptionalParameters = true, bool $nested = false): string
     {
         switch (true) {
             case $shape instanceof StructureShape:
-                $className = $this->namespaceRegistry->getInput($shape);
+                if ($nested && ($shape instanceof StructureShape || $shape instanceof ListShape || $shape instanceof MapShape)) {
+                    // TODO make sure the output has some smart code instead. Like a loop or recursion
+                    return '""';
+                }
+
+                if (substr($shape->getName(), -5) === 'Input') {
+                    $className = $this->namespaceRegistry->getInput($shape);
+                } else {
+                    $className = $this->namespaceRegistry->getObject($shape);
+                }
                 $namespace->addUse($className->getFqdn());
 
                 return strtr('new INPUT_CLASS([
@@ -266,7 +275,7 @@ class TestGenerator
                 ]);
             case $shape instanceof MapShape:
                 return strtr('["change me" => INPUT_ARGUMENTS]', [
-                    'INPUT_ARGUMENTS' => $this->getInputCode($namespace, $shape->getValue()->getShape()),
+                    'INPUT_ARGUMENTS' => $this->getInputCode($namespace, $shape->getValue()->getShape(), $includeOptionalParameters, true),
                 ]);
         }
 

@@ -19,7 +19,7 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
  *
  * @internal
  */
-class RestJsonSerializer implements Serializer
+class JsonSerializer implements Serializer
 {
     public function getContentType(): string
     {
@@ -103,7 +103,7 @@ class RestJsonSerializer implements Serializer
             case $shape instanceof ListShape:
                 return $this->dumpArrayList($output, $input, $shape);
             case $shape instanceof MapShape:
-                throw new \RuntimeException('MapShapes are not implemented');
+                return $this->dumpArrayMap($output, $input, $shape);
         }
 
         switch ($shape->getType()) {
@@ -154,6 +154,22 @@ class RestJsonSerializer implements Serializer
             [
                 'INPUT' => $input,
                 'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s[$index]', $output), '$mapValue', $memberShape, true),
+            ]);
+    }
+
+    private function dumpArrayMap(string $output, string $input, MapShape $shape): string
+    {
+        $memberCode = $this->dumpArrayElement($output . '[$name]', '$value', $shape->getValue()->getShape());
+
+        return strtr('
+if (is_array(INPUT)) {
+    foreach (INPUT as $name => $value) {
+        MEMBER_CODE
+    }
+}',
+            [
+                'INPUT' => $input,
+                'MEMBER_CODE' => $memberCode,
             ]);
     }
 

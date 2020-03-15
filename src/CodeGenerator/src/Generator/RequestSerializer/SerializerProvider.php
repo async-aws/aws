@@ -20,11 +20,12 @@ class SerializerProvider
         switch ($definition->getProtocol()) {
             case 'rest-xml':
                 return new RestXmlSerializer();
-            case 'rest-json':
-                return new RestJsonSerializer();
             case 'query':
                 return new QuerySerializer();
+            case 'rest-json':
             case 'json':
+                return new JsonSerializer();
+
             default:
                 throw new \LogicException(sprintf('Serializer for "%s" is not implemented yet', $definition->getProtocol()));
         }
