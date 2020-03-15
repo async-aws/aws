@@ -60,6 +60,8 @@ is an example for DynamoDB.
    1. Look at the official SDK for resources in `./src/data`. ([DynamoDB example](https://github.com/aws/aws-sdk-php/tree/3.133.23/src/data/dynamodb/2012-08-10))
    1. Add a link to `source`, and, if the files exists, links to `documentation`, `example`, `pagination`, `waiter` etc.
    1. Leave the `methods` key empty. (`"methods": []`)
+1. Configure the autoload section of `./composer.json` to include the new service (`"AsyncAws\\DynamoDb\\": "src/Service/DynamoDb/src"`)
+1. Run `composer dump-autoload`
 1. Adds operations you want following the [process previously defined](#creating-a-new-client-operation)
 
 If you started working on a new client, please submit a "Draft PR" to show your
