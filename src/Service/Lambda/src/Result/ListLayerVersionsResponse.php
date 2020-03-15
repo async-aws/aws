@@ -112,7 +112,7 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
         $data = $response->toArray(false);
 
         $this->NextMarker = isset($data['NextMarker']) ? (string) $data['NextMarker'] : null;
-        $this->LayerVersions = !$data['LayerVersions'] ? [] : (function (array $json): array {
+        $this->LayerVersions = empty($data['LayerVersions']) ? [] : (function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new LayerVersionsListItem([
@@ -120,7 +120,7 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
                     'Version' => isset($item['Version']) ? (string) $item['Version'] : null,
                     'Description' => isset($item['Description']) ? (string) $item['Description'] : null,
                     'CreatedDate' => isset($item['CreatedDate']) ? (string) $item['CreatedDate'] : null,
-                    'CompatibleRuntimes' => !$item['CompatibleRuntimes'] ? [] : (function (array $json): array {
+                    'CompatibleRuntimes' => empty($item['CompatibleRuntimes']) ? [] : (function (array $json): array {
                         $items = [];
                         foreach ($json as $item) {
                             $a = isset($item) ? (string) $item : null;

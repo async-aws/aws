@@ -35,6 +35,7 @@ class ParserProvider
             case 'rest-json':
                 return new RestJsonParser($this->namespaceRegistry);
             case 'json':
+                return new JsonParser($this->namespaceRegistry);
             default:
                 throw new \LogicException(sprintf('Parser for "%s" is not implemented yet', $definition->getProtocol()));
         }

@@ -209,7 +209,7 @@ class AssumeRoleRequest
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
+        $headers = ['Content-Type' => 'application/x-www-form-urlencoded'];
 
         // Prepare query
         $query = [];

@@ -121,7 +121,7 @@ class DeleteObjectRequest
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/xml'];
+        $headers = ['Content-Type' => 'application/xml'];
         if (null !== $this->MFA) {
             $headers['x-amz-mfa'] = $this->MFA;
         }

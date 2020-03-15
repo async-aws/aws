@@ -15,6 +15,7 @@ use AsyncAws\Core\Credentials\WebIdentityProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\MissingDependency;
 use AsyncAws\Core\Sts\StsClient;
+use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\S3\S3Client;
 use AsyncAws\Ses\SesClient;
@@ -87,6 +88,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new CloudFormationClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function dynamoDb(): DynamoDbClient
+    {
+        if (!class_exists(DynamoDbClient::class)) {
+            throw MissingDependency::create('async-aws/dynamo-db', 'DynamoDb');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new DynamoDbClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];

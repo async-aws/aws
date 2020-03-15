@@ -162,7 +162,7 @@ class CreateBucketRequest
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/xml'];
+        $headers = ['Content-Type' => 'application/xml'];
         if (null !== $this->ACL) {
             if (!BucketCannedACL::exists($this->ACL)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "BucketCannedACL".', __CLASS__, $this->ACL));

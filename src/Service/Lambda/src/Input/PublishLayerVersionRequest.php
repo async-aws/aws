@@ -108,7 +108,7 @@ class PublishLayerVersionRequest
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/json'];
+        $headers = ['Content-Type' => 'application/json'];
 
         // Prepare query
         $query = [];

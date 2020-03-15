@@ -311,7 +311,7 @@ class GetObjectRequest
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/xml'];
+        $headers = ['Content-Type' => 'application/xml'];
         if (null !== $this->IfMatch) {
             $headers['If-Match'] = $this->IfMatch;
         }
