@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
+use AsyncAws\S3\ValueObject\Delete;
 
 class DeleteObjectsRequest
 {
@@ -54,7 +55,7 @@ class DeleteObjectsRequest
      *
      * @param array{
      *   Bucket?: string,
-     *   Delete?: \AsyncAws\S3\Input\Delete|array,
+     *   Delete?: \AsyncAws\S3\ValueObject\Delete|array,
      *   MFA?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   BypassGovernanceRetention?: bool,

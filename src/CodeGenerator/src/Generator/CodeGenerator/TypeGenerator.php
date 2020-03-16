@@ -31,14 +31,12 @@ class TypeGenerator
         $this->namespaceRegistry = $namespaceRegistry;
     }
 
-    public function generateDocblock(StructureShape $shape, ClassName $className, bool $alternateClass = true, bool $allNullable = false, bool $isResult = false): string
+    public function generateDocblock(StructureShape $shape, ClassName $className, bool $alternateClass = true, bool $allNullable = false, bool $isObject = false): string
     {
         if (empty($shape->getMembers())) {
             // No input array
             return '@param array' . ($alternateClass ? '|' . $className->getName() : '') . ' $input';
         }
-
-        $classNameFactory = [$this->namespaceRegistry, $isResult ? 'getResult' : 'getInput'];
 
         $body = ['@param array{'];
         foreach ($shape->getMembers() as $member) {
@@ -46,13 +44,13 @@ class TypeGenerator
             $memberShape = $member->getShape();
 
             if ($memberShape instanceof StructureShape) {
-                $param = '\\' . $classNameFactory($memberShape)->getFqdn() . '|array';
+                $param = '\\' . $this->namespaceRegistry->getObject($memberShape)->getFqdn() . '|array';
             } elseif ($memberShape instanceof ListShape) {
                 $listMemberShape = $memberShape->getMember()->getShape();
 
                 // is the list item an object?
                 if ($listMemberShape instanceof StructureShape) {
-                    $param = '\\' . $classNameFactory($listMemberShape)->getFqdn() . '[]';
+                    $param = '\\' . $this->namespaceRegistry->getObject($listMemberShape)->getFqdn() . '[]';
                 } elseif (!empty($listMemberShape->getEnum())) {
                     $param = 'list<\\' . $this->namespaceRegistry->getEnum($listMemberShape)->getFqdn() . '::*>';
                 } else {
@@ -63,7 +61,7 @@ class TypeGenerator
 
                 // is the map item an object?
                 if ($mapValueShape instanceof StructureShape) {
-                    $param = '\\' . $classNameFactory($mapValueShape)->getFqdn() . '[]';
+                    $param = '\\' . $this->namespaceRegistry->getObject($mapValueShape)->getFqdn() . '[]';
                 } elseif (!empty($mapValueShape->getEnum())) {
                     $param = 'array<string, \\' . $this->namespaceRegistry->getEnum($mapValueShape)->getFqdn() . '::*>';
                 } else {
@@ -72,7 +70,7 @@ class TypeGenerator
             } elseif ($member->isStreaming()) {
                 $param = 'string|resource|callable|iterable';
             } elseif ('timestamp' === $param = $memberShape->getType()) {
-                $param = $isResult ? '\DateTimeInterface' : '\DateTimeInterface|string';
+                $param = $isObject ? '\DateTimeInterface' : '\DateTimeInterface|string';
             } else {
                 if (!empty($memberShape->getEnum())) {
                     $param = '\\' . $this->namespaceRegistry->getEnum($memberShape)->getFqdn() . '::*';
@@ -82,8 +80,8 @@ class TypeGenerator
             }
 
             if ($allNullable || $nullable) {
-                if ($isResult) {
-                    $body[] = sprintf('  %s: %s,', $member->getName(), 'null|' . $param);
+                if ($isObject) {
+                    $body[] = sprintf('  %s?: %s,', $member->getName(), 'null|' . $param);
                 } else {
                     $body[] = sprintf('  %s?: %s,', $member->getName(), $param);
                 }
@@ -101,11 +99,10 @@ class TypeGenerator
      *
      * @return array{string, string, ?ClassName} [typeHint value, docblock representation, ClassName related]
      */
-    public function getPhpType(Shape $shape, bool $isResult = false): array
+    public function getPhpType(Shape $shape): array
     {
-        $classNameFactory = [$this->namespaceRegistry, $isResult ? 'getResult' : 'getInput'];
         if ($shape instanceof StructureShape) {
-            $className = $classNameFactory($shape);
+            $className = $this->namespaceRegistry->getObject($shape);
 
             return [$className->getFqdn(), $className->getName(), $className];
         }
@@ -113,7 +110,7 @@ class TypeGenerator
         if ($shape instanceof ListShape) {
             $listMemberShape = $shape->getMember()->getShape();
             if ($listMemberShape instanceof StructureShape) {
-                $className = $classNameFactory($listMemberShape);
+                $className = $this->namespaceRegistry->getObject($listMemberShape);
 
                 return ['array', $className->getName() . '[]', $className];
             }
@@ -130,7 +127,7 @@ class TypeGenerator
         if ($shape instanceof MapShape) {
             $mapValueShape = $shape->getValue()->getShape();
             if ($mapValueShape instanceof StructureShape) {
-                $className = $classNameFactory($mapValueShape);
+                $className = $this->namespaceRegistry->getObject($mapValueShape);
 
                 return ['array', $className->getName() . '[]', $className];
             }

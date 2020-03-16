@@ -5,6 +5,7 @@ namespace AsyncAws\Core\Sts\Input;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType;
 
 class AssumeRoleWithWebIdentityRequest
 {
@@ -81,7 +82,7 @@ class AssumeRoleWithWebIdentityRequest
      *   RoleSessionName?: string,
      *   WebIdentityToken?: string,
      *   ProviderId?: string,
-     *   PolicyArns?: \AsyncAws\Core\Sts\Input\PolicyDescriptorType[],
+     *   PolicyArns?: \AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType[],
      *   Policy?: string,
      *   DurationSeconds?: int,
      * } $input

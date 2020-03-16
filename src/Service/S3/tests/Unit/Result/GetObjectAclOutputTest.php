@@ -4,7 +4,7 @@ namespace AsyncAws\S3\Tests\Unit\Result;
 
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\S3\Result\GetObjectAclOutput;
-use AsyncAws\S3\Result\Grant;
+use AsyncAws\S3\ValueObject\Grant;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 

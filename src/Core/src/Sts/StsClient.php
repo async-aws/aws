@@ -26,10 +26,10 @@ class StsClient extends AbstractApi
      * @param array{
      *   RoleArn: string,
      *   RoleSessionName: string,
-     *   PolicyArns?: \AsyncAws\Core\Sts\Input\PolicyDescriptorType[],
+     *   PolicyArns?: \AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType[],
      *   Policy?: string,
      *   DurationSeconds?: int,
-     *   Tags?: \AsyncAws\Core\Sts\Input\Tag[],
+     *   Tags?: \AsyncAws\Core\Sts\ValueObject\Tag[],
      *   TransitiveTagKeys?: string[],
      *   ExternalId?: string,
      *   SerialNumber?: string,
@@ -58,7 +58,7 @@ class StsClient extends AbstractApi
      *   RoleSessionName: string,
      *   WebIdentityToken: string,
      *   ProviderId?: string,
-     *   PolicyArns?: \AsyncAws\Core\Sts\Input\PolicyDescriptorType[],
+     *   PolicyArns?: \AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType[],
      *   Policy?: string,
      *   DurationSeconds?: int,
      * }|AssumeRoleWithWebIdentityRequest $input

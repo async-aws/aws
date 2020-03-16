@@ -122,7 +122,7 @@ class RestJsonParser implements Parser
         return strtr('new CLASS_NAME([
             PROPERTIES
         ])', [
-            'CLASS_NAME' => $this->namespaceRegistry->getResult($shape)->getName(),
+            'CLASS_NAME' => $this->namespaceRegistry->getObject($shape)->getName(),
             'PROPERTIES' => implode("\n", $properties),
         ]);
     }

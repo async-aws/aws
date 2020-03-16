@@ -3,7 +3,7 @@
 namespace AsyncAws\CloudFormation\Tests\Unit\Result;
 
 use AsyncAws\CloudFormation\Result\DescribeStackEventsOutput;
-use AsyncAws\CloudFormation\Result\StackEvent;
+use AsyncAws\CloudFormation\ValueObject\StackEvent;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;

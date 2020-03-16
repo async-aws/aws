@@ -4,13 +4,22 @@ namespace AsyncAws\S3\Result;
 
 use AsyncAws\Core\Result;
 use AsyncAws\S3\Enum\RequestCharged;
+use AsyncAws\S3\ValueObject\Grant;
+use AsyncAws\S3\ValueObject\Grantee;
+use AsyncAws\S3\ValueObject\Owner;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class GetObjectAclOutput extends Result
 {
+    /**
+     * Container for the bucket owner's display name and ID.
+     */
     private $Owner;
 
+    /**
+     * A list of grants.
+     */
     private $Grants = [];
 
     private $RequestCharged;
@@ -25,9 +34,6 @@ class GetObjectAclOutput extends Result
         return $this->Grants;
     }
 
-    /**
-     * Container for the bucket owner's display name and ID.
-     */
     public function getOwner(): ?Owner
     {
         $this->initialize();

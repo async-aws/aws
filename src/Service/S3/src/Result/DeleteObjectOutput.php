@@ -9,15 +9,18 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class DeleteObjectOutput extends Result
 {
+    /**
+     * Specifies whether the versioned object that was permanently deleted was (true) or was not (false) a delete marker.
+     */
     private $DeleteMarker;
 
+    /**
+     * Returns the version ID of the delete marker created as a result of the DELETE operation.
+     */
     private $VersionId;
 
     private $RequestCharged;
 
-    /**
-     * Specifies whether the versioned object that was permanently deleted was (true) or was not (false) a delete marker.
-     */
     public function getDeleteMarker(): ?bool
     {
         $this->initialize();
@@ -35,9 +38,6 @@ class DeleteObjectOutput extends Result
         return $this->RequestCharged;
     }
 
-    /**
-     * Returns the version ID of the delete marker created as a result of the DELETE operation.
-     */
     public function getVersionId(): ?string
     {
         $this->initialize();

@@ -8,12 +8,12 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class CreateBucketOutput extends Result
 {
-    private $Location;
-
     /**
      * Specifies the Region where the bucket will be created. If you are creating a bucket on the US East (N. Virginia)
      * Region (us-east-1), you do not need to specify the location.
      */
+    private $Location;
+
     public function getLocation(): ?string
     {
         $this->initialize();

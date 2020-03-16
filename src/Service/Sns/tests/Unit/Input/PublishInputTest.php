@@ -3,8 +3,8 @@
 namespace AsyncAws\Sns\Tests\Unit\Input;
 
 use AsyncAws\Core\Test\TestCase;
-use AsyncAws\Sns\Input\MessageAttributeValue;
 use AsyncAws\Sns\Input\PublishInput;
+use AsyncAws\Sns\ValueObject\MessageAttributeValue;
 
 class PublishInputTest extends TestCase
 {

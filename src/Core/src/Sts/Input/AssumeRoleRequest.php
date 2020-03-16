@@ -5,6 +5,8 @@ namespace AsyncAws\Core\Sts\Input;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType;
+use AsyncAws\Core\Sts\ValueObject\Tag;
 
 class AssumeRoleRequest
 {
@@ -113,10 +115,10 @@ class AssumeRoleRequest
      * @param array{
      *   RoleArn?: string,
      *   RoleSessionName?: string,
-     *   PolicyArns?: \AsyncAws\Core\Sts\Input\PolicyDescriptorType[],
+     *   PolicyArns?: \AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType[],
      *   Policy?: string,
      *   DurationSeconds?: int,
-     *   Tags?: \AsyncAws\Core\Sts\Input\Tag[],
+     *   Tags?: \AsyncAws\Core\Sts\ValueObject\Tag[],
      *   TransitiveTagKeys?: string[],
      *   ExternalId?: string,
      *   SerialNumber?: string,

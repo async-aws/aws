@@ -3,11 +3,16 @@
 namespace AsyncAws\Sqs\Result;
 
 use AsyncAws\Core\Result;
+use AsyncAws\Sqs\ValueObject\Message;
+use AsyncAws\Sqs\ValueObject\MessageAttributeValue;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class ReceiveMessageResult extends Result
 {
+    /**
+     * A list of messages.
+     */
     private $Messages = [];
 
     /**

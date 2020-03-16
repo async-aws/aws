@@ -7,6 +7,8 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\ObjectCannedACL;
 use AsyncAws\S3\Enum\RequestPayer;
+use AsyncAws\S3\ValueObject\AccessControlPolicy;
+use AsyncAws\S3\ValueObject\Grantee;
 
 class PutObjectAclRequest
 {
@@ -106,7 +108,7 @@ class PutObjectAclRequest
      *
      * @param array{
      *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::*,
-     *   AccessControlPolicy?: \AsyncAws\S3\Input\AccessControlPolicy|array,
+     *   AccessControlPolicy?: \AsyncAws\S3\ValueObject\AccessControlPolicy|array,
      *   Bucket?: string,
      *   ContentMD5?: string,
      *   GrantFullControl?: string,

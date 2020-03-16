@@ -100,7 +100,7 @@ class PaginationGenerator
             }
 
             $listShape = $resultShape->getMember()->getShape();
-            [$returnType, $iteratorType] = $this->typeGenerator->getPhpType($listShape, true);
+            [$returnType, $iteratorType] = $this->typeGenerator->getPhpType($listShape);
             $iteratorTypes[] = $iteratorType;
 
             $getter = 'get' . $resultKey;

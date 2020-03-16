@@ -8,11 +8,12 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class GetQueueAttributesResult extends Result
 {
+    /**
+     * A map of attributes to their respective values.
+     */
     private $Attributes = [];
 
     /**
-     * A map of attributes to their respective values.
-     *
      * @return string[]
      */
     public function getAttributes(): array

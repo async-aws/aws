@@ -5,6 +5,14 @@ namespace AsyncAws\Ses\Input;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Ses\ValueObject\Body;
+use AsyncAws\Ses\ValueObject\Content;
+use AsyncAws\Ses\ValueObject\Destination;
+use AsyncAws\Ses\ValueObject\EmailContent;
+use AsyncAws\Ses\ValueObject\Message;
+use AsyncAws\Ses\ValueObject\MessageTag;
+use AsyncAws\Ses\ValueObject\RawMessage;
+use AsyncAws\Ses\ValueObject\Template;
 
 class SendEmailRequest
 {
@@ -67,11 +75,11 @@ class SendEmailRequest
     /**
      * @param array{
      *   FromEmailAddress?: string,
-     *   Destination?: \AsyncAws\Ses\Input\Destination|array,
+     *   Destination?: \AsyncAws\Ses\ValueObject\Destination|array,
      *   ReplyToAddresses?: string[],
      *   FeedbackForwardingEmailAddress?: string,
-     *   Content?: \AsyncAws\Ses\Input\EmailContent|array,
-     *   EmailTags?: \AsyncAws\Ses\Input\MessageTag[],
+     *   Content?: \AsyncAws\Ses\ValueObject\EmailContent|array,
+     *   EmailTags?: \AsyncAws\Ses\ValueObject\MessageTag[],
      *   ConfigurationSetName?: string,
      * } $input
      */
@@ -311,7 +319,7 @@ class SendEmailRequest
 
                 if (null !== $v = $input->getRaw()) {
                     (static function (RawMessage $input) use (&$payload) {
-                        $payload['Content']['Raw']['Data'] = base64_encode($input->getData() ?? '');
+                        $payload['Content']['Raw']['Data'] = base64_encode($input->getData());
                     })($v);
                 }
 
