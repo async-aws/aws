@@ -18,13 +18,13 @@ parameters:
         - src/Integration/Flysystem/S3/src/S3FilesystemV1.php
 
     ignoreErrors:
-        - '|Ternary operator condition is always true\.|'
-        - '|Negated boolean expression is always false\.|'
-        -   "#^PHPDoc tag @param has invalid value#"
-        -   "#^PHPDoc tag @return with type AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^ ]+ is incompatible with native type string(\\|null)?\\.$#"
-        -   "#^Method AsyncAws\\\\[^ ]+ should return string\\|null but returns AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^\\.]+\\.$#"
-        -   "#^Property AsyncAws\\\\[^ ]+ \\(AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^\\)]+\\) does not accept string\\|null\\.$#"
-        -   "#^Parameter \\#3 ...\\$args of function sprintf expects bool\\|float\\|int\\|string\\|null, AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^ ]+ given\\.$#"
-        -   "#^Parameter \\#1 \\$value of static method AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^:]+::exists\\(\\) expects string, AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^ ]+ given\\.$#"
-        -   "#^PHPDoc tag @(var|return) has invalid value \\(list<[^:]+::\\*>\\): Unexpected token \"::\", expected '>' at offset \\d+.$#"
-        -   "#^Parameter \\#4 \\$headers of class AsyncAws\\\\Core\\\\Request constructor expects array<array<string>\\|string>, array<string, AsyncAws\\\\[^\\\\]+\\\\Enum\\\\[^ ]+ given\\.$#"
+        - '#Ternary operator condition is always true\.#'
+        - '#Negated boolean expression is always false\.#'
+        - '#^PHPDoc tag @param has invalid value#'
+        - '#^PHPDoc tag @return with type AsyncAws\\[^\\]+\\Enum\\[^ ]+ is incompatible with native type string(\|null)?\.$#'
+        - '#^Method AsyncAws\\[^ ]+ should return string\|null but returns AsyncAws\\[^\\]+\\Enum\\[^\.]+\.$#'
+        - '#^Property AsyncAws\\[^ ]+ \(AsyncAws\\[^\\]+\\Enum\\[^\)]+\) does not accept string\|null\.$#'
+        - '#^Parameter \#3 ...\$args of function sprintf expects bool\|float\|int\|string\|null, AsyncAws\\[^\\]+\\Enum\\[^ ]+ given\.$#'
+        - '#^Parameter \#1 \$value of static method AsyncAws\\[^\\]+\\Enum\\[^:]+::exists\(\) expects string, AsyncAws\\[^\\]+\\Enum\\[^ ]+ given\.$#'
+        - '#^PHPDoc tag @(var|return) has invalid value \(list<[^:]+::\*>\): Unexpected token "::", expected .>. at offset \d+.$#'
+        - '#^Parameter \#4 \$headers of class AsyncAws\\Core\\Request constructor expects array<array<string>\|string>, array<string, AsyncAws\\[^\\]+\\Enum\\[^ ]+ given\.$#'
