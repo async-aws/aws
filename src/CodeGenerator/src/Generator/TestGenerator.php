@@ -252,7 +252,7 @@ class TestGenerator
                     return '""';
                 }
 
-                if (substr($shape->getName(), -5) === 'Input') {
+                if ('Input' === substr($shape->getName(), -5)) {
                     $className = $this->namespaceRegistry->getInput($shape);
                 } else {
                     $className = $this->namespaceRegistry->getObject($shape);
