@@ -129,10 +129,10 @@ class AssumeRoleRequest
     {
         $this->RoleArn = $input['RoleArn'] ?? null;
         $this->RoleSessionName = $input['RoleSessionName'] ?? null;
-        $this->PolicyArns = array_map(function ($item) { return PolicyDescriptorType::create($item); }, $input['PolicyArns'] ?? []);
+        $this->PolicyArns = array_map([PolicyDescriptorType::class, 'create'], $input['PolicyArns'] ?? []);
         $this->Policy = $input['Policy'] ?? null;
         $this->DurationSeconds = $input['DurationSeconds'] ?? null;
-        $this->Tags = array_map(function ($item) { return Tag::create($item); }, $input['Tags'] ?? []);
+        $this->Tags = array_map([Tag::class, 'create'], $input['Tags'] ?? []);
         $this->TransitiveTagKeys = $input['TransitiveTagKeys'] ?? [];
         $this->ExternalId = $input['ExternalId'] ?? null;
         $this->SerialNumber = $input['SerialNumber'] ?? null;

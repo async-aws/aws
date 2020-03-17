@@ -9,11 +9,9 @@ class LogType
 
     public static function exists(string $value): bool
     {
-        $values = [
+        return isset([
             self::NONE => true,
             self::TAIL => true,
-        ];
-
-        return isset($values[$value]);
+        ][$value]);
     }
 }

@@ -9,11 +9,9 @@ class ObjectLockLegalHoldStatus
 
     public static function exists(string $value): bool
     {
-        $values = [
+        return isset([
             self::OFF => true,
             self::ON => true,
-        ];
-
-        return isset($values[$value]);
+        ][$value]);
     }
 }

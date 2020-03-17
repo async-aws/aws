@@ -69,11 +69,9 @@ class EnumGenerator
             ->setStatic(true)
             ->setReturnType('bool')
             ->setBody('
-                $values = [
+                return isset([
                     ' . implode(",\n", $availableConsts) . '
-                ];
-
-                return isset($values[$value]);
+                ][$value]);
             ')
             ->addParameter('value')->setType('string');
 

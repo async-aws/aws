@@ -108,7 +108,7 @@ class InputGenerator
 
                 if ($listMemberShape instanceof StructureShape) {
                     $memberClassName = $this->objectGenerator->generate($listMemberShape);
-                    $constructorBody .= strtr('$this->NAME = array_map(function($item) { return CLASS::create($item); }, $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
+                    $constructorBody .= strtr('$this->NAME = array_map([CLASS::class, "create"], $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
                 } elseif ($listMemberShape instanceof ListShape || $listMemberShape instanceof MapShape) {
                     throw new \RuntimeException('Recursive ListShape are not yet implemented');
                 } else {

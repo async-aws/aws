@@ -67,7 +67,7 @@ class Message
         $this->Body = $input['Body'] ?? null;
         $this->Attributes = $input['Attributes'] ?? [];
         $this->MD5OfMessageAttributes = $input['MD5OfMessageAttributes'] ?? null;
-        $this->MessageAttributes = array_map(function ($item) { return MessageAttributeValue::create($item); }, $input['MessageAttributes'] ?? []);
+        $this->MessageAttributes = array_map([MessageAttributeValue::class, 'create'], $input['MessageAttributes'] ?? []);
     }
 
     public static function create($input): self

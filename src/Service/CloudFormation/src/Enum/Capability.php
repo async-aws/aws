@@ -10,12 +10,10 @@ class Capability
 
     public static function exists(string $value): bool
     {
-        $values = [
+        return isset([
             self::CAPABILITY_AUTO_EXPAND => true,
             self::CAPABILITY_IAM => true,
             self::CAPABILITY_NAMED_IAM => true,
-        ];
-
-        return isset($values[$value]);
+        ][$value]);
     }
 }

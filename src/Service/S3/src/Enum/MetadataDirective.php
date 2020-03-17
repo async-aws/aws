@@ -9,11 +9,9 @@ class MetadataDirective
 
     public static function exists(string $value): bool
     {
-        $values = [
+        return isset([
             self::COPY => true,
             self::REPLACE => true,
-        ];
-
-        return isset($values[$value]);
+        ][$value]);
     }
 }

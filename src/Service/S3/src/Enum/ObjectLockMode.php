@@ -9,11 +9,9 @@ class ObjectLockMode
 
     public static function exists(string $value): bool
     {
-        $values = [
+        return isset([
             self::COMPLIANCE => true,
             self::GOVERNANCE => true,
-        ];
-
-        return isset($values[$value]);
+        ][$value]);
     }
 }

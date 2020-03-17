@@ -88,7 +88,7 @@ class SendEmailRequest
         $this->ReplyToAddresses = $input['ReplyToAddresses'] ?? [];
         $this->FeedbackForwardingEmailAddress = $input['FeedbackForwardingEmailAddress'] ?? null;
         $this->Content = isset($input['Content']) ? EmailContent::create($input['Content']) : null;
-        $this->EmailTags = array_map(function ($item) { return MessageTag::create($item); }, $input['EmailTags'] ?? []);
+        $this->EmailTags = array_map([MessageTag::class, 'create'], $input['EmailTags'] ?? []);
         $this->ConfigurationSetName = $input['ConfigurationSetName'] ?? null;
     }
 

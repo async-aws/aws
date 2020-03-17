@@ -8,10 +8,8 @@ class RequestPayer
 
     public static function exists(string $value): bool
     {
-        $values = [
+        return isset([
             self::REQUESTER => true,
-        ];
-
-        return isset($values[$value]);
+        ][$value]);
     }
 }

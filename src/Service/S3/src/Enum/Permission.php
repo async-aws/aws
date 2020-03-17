@@ -12,14 +12,12 @@ class Permission
 
     public static function exists(string $value): bool
     {
-        $values = [
+        return isset([
             self::FULL_CONTROL => true,
             self::READ => true,
             self::READ_ACP => true,
             self::WRITE => true,
             self::WRITE_ACP => true,
-        ];
-
-        return isset($values[$value]);
+        ][$value]);
     }
 }

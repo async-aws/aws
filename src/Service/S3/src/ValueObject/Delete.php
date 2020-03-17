@@ -22,7 +22,7 @@ class Delete
      */
     public function __construct(array $input)
     {
-        $this->Objects = array_map(function ($item) { return ObjectIdentifier::create($item); }, $input['Objects'] ?? []);
+        $this->Objects = array_map([ObjectIdentifier::class, 'create'], $input['Objects'] ?? []);
         $this->Quiet = $input['Quiet'] ?? null;
     }
 
