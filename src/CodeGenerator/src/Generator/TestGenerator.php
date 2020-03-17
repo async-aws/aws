@@ -257,6 +257,7 @@ class TestGenerator
                 } else {
                     $className = $this->namespaceRegistry->getObject($shape);
                 }
+
                 $namespace->addUse($className->getFqdn());
 
                 return strtr('new INPUT_CLASS([
