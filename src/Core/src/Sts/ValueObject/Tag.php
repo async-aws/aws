@@ -43,6 +43,18 @@ class Tag
         return $this->Value;
     }
 
+    /**
+     * @internal
+     */
+    public function requestBody(): array
+    {
+        $payload = [];
+        $payload['Key'] = $this->Key;
+        $payload['Value'] = $this->Value;
+
+        return $payload;
+    }
+
     public function validate(): void
     {
         if (null === $this->Key) {

@@ -6,11 +6,13 @@ namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
+use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use AsyncAws\CodeGenerator\Generator\RequestSerializer\SerializerProvider;
 use AsyncAws\Core\StreamableBodyInterface;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
@@ -52,12 +54,23 @@ class ObjectGenerator
      */
     private $enumGenerator;
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
+    /**
+     * @var SerializerProvider
+     */
+    private $serializer;
+
+    private $managedMethods;
+
+    private $usedShapedInput;
+
+    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, array $managedMethods, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
     {
         $this->namespaceRegistry = $namespaceRegistry;
         $this->fileWriter = $fileWriter;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
         $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->namespaceRegistry, $fileWriter);
+        $this->serializer = new SerializerProvider();
+        $this->managedMethods = $managedMethods;
     }
 
     public function generate(StructureShape $shape): ClassName
@@ -76,9 +89,48 @@ class ObjectGenerator
         $this->addProperties($shape, $class, $namespace);
         $this->generateValidate($shape, $class, $namespace);
 
+        $serializer = $this->serializer->get($shape->getService());
+        if ($this->isShapeUsedInput($shape)) {
+            [$returnType, $requestBody, $args] = $serializer->generateRequestBuilder($shape) + [null, null, []];
+            $method = $class->addMethod('requestBody')->setReturnType($returnType)->setBody($requestBody)->setPublic()->setComment('@internal');
+            foreach ($args as $arg => $type) {
+                $method->addParameter($arg)->setType($type);
+            }
+        }
+
         $this->fileWriter->write($namespace);
 
         return $className;
+    }
+
+    private function isShapeUsedInput(StructureShape $shape): bool
+    {
+        if (null === $this->usedShapedInput) {
+            $service = $shape->getService();
+            $walk = function (Shape $shape) use (&$walk) {
+                $this->usedShapedInput[$shape->getName()] = true;
+                if ($shape instanceof StructureShape) {
+                    foreach ($shape->getMembers() as $member) {
+                        $walk($member->getShape());
+                    }
+                } elseif ($shape instanceof ListShape) {
+                    $walk($shape->getMember()->getShape());
+                } elseif ($shape instanceof MapShape) {
+                    $walk($shape->getValue()->getShape());
+                }
+            };
+
+            foreach ($this->managedMethods as $method) {
+                if (null !== $operation = $service->getOperation($method)) {
+                    $walk($operation->getInput());
+                }
+                if (null !== $waiter = $service->getWaiter($method)) {
+                    $walk($waiter->getOperation()->getInput());
+                }
+            }
+        }
+
+        return $this->usedShapedInput[$shape->getName()] ?? false;
     }
 
     private function namedConstructor(StructureShape $shape, ClassType $class): void

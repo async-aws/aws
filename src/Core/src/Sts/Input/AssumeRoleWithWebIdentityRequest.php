@@ -155,8 +155,11 @@ class AssumeRoleWithWebIdentityRequest
         // Prepare URI
         $uriString = '/';
 
+        // Prepare Body
+        $body = http_build_query(['Action' => 'AssumeRoleWithWebIdentity', 'Version' => '2011-06-15'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
+
         // Return the Request
-        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     public function setDurationSeconds(?int $value): self
@@ -230,10 +233,12 @@ class AssumeRoleWithWebIdentityRequest
         }
     }
 
-    private function requestBody(): string
+    /**
+     * @internal
+     */
+    private function requestBody(): array
     {
-        $payload = ['Action' => 'AssumeRoleWithWebIdentity', 'Version' => '2011-06-15'];
-        $indices = new \stdClass();
+        $payload = [];
         $payload['RoleArn'] = $this->RoleArn;
         $payload['RoleSessionName'] = $this->RoleSessionName;
         $payload['WebIdentityToken'] = $this->WebIdentityToken;
@@ -241,20 +246,16 @@ class AssumeRoleWithWebIdentityRequest
             $payload['ProviderId'] = $v;
         }
 
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->kfc822c1 = 0;
-            foreach ($input as $value) {
-                ++$indices->kfc822c1;
-
-                if (null !== $value) {
-                    (static function (PolicyDescriptorType $input) use (&$payload, $indices) {
-                        if (null !== $v = $input->getarn()) {
-                            $payload["PolicyArns.member.{$indices->kfc822c1}.arn"] = $v;
-                        }
-                    })($value);
+        $index = 0;
+        foreach ($this->PolicyArns as $mapValue) {
+            ++$index;
+            if (null !== $v = $mapValue) {
+                foreach ($v->requestBody() as $bodyKey => $bodyValue) {
+                    $payload["PolicyArns.member.{$index}.$bodyKey"] = $bodyValue;
                 }
             }
-        })($this->PolicyArns);
+        }
+
         if (null !== $v = $this->Policy) {
             $payload['Policy'] = $v;
         }
@@ -262,6 +263,6 @@ class AssumeRoleWithWebIdentityRequest
             $payload['DurationSeconds'] = $v;
         }
 
-        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
+        return $payload;
     }
 }

@@ -53,6 +53,25 @@ class EmailContent
         return $this->Template;
     }
 
+    /**
+     * @internal
+     */
+    public function requestBody(): array
+    {
+        $payload = [];
+        if (null !== $v = $this->Simple) {
+            $payload['Simple'] = $v->requestBody();
+        }
+        if (null !== $v = $this->Raw) {
+            $payload['Raw'] = $v->requestBody();
+        }
+        if (null !== $v = $this->Template) {
+            $payload['Template'] = $v->requestBody();
+        }
+
+        return $payload;
+    }
+
     public function validate(): void
     {
         if (null !== $this->Simple) {

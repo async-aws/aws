@@ -67,8 +67,11 @@ class DeleteMessageRequest
         // Prepare URI
         $uriString = '/';
 
+        // Prepare Body
+        $body = http_build_query(['Action' => 'DeleteMessage', 'Version' => '2012-11-05'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
+
         // Return the Request
-        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     public function setQueueUrl(?string $value): self
@@ -96,12 +99,15 @@ class DeleteMessageRequest
         }
     }
 
-    private function requestBody(): string
+    /**
+     * @internal
+     */
+    private function requestBody(): array
     {
-        $payload = ['Action' => 'DeleteMessage', 'Version' => '2012-11-05'];
+        $payload = [];
         $payload['QueueUrl'] = $this->QueueUrl;
         $payload['ReceiptHandle'] = $this->ReceiptHandle;
 
-        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
+        return $payload;
     }
 }

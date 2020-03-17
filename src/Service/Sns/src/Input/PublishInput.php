@@ -147,8 +147,11 @@ class PublishInput
         // Prepare URI
         $uriString = '/';
 
+        // Prepare Body
+        $body = http_build_query(['Action' => 'Publish', 'Version' => '2010-03-31'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
+
         // Return the Request
-        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     public function setMessage(?string $value): self
@@ -214,10 +217,12 @@ class PublishInput
         }
     }
 
-    private function requestBody(): string
+    /**
+     * @internal
+     */
+    private function requestBody(): array
     {
-        $payload = ['Action' => 'Publish', 'Version' => '2010-03-31'];
-        $indices = new \stdClass();
+        $payload = [];
         if (null !== $v = $this->TopicArn) {
             $payload['TopicArn'] = $v;
         }
@@ -235,26 +240,17 @@ class PublishInput
             $payload['MessageStructure'] = $v;
         }
 
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->kd0379ae = 0;
-            foreach ($input as $key => $value) {
-                ++$indices->kd0379ae;
-                $payload["MessageAttributes.entry.{$indices->kd0379ae}.Name"] = $key;
-
-                if (null !== $value) {
-                    (static function (MessageAttributeValue $input) use (&$payload, $indices) {
-                        $payload["MessageAttributes.entry.{$indices->kd0379ae}.Value.DataType"] = $input->getDataType();
-                        if (null !== $v = $input->getStringValue()) {
-                            $payload["MessageAttributes.entry.{$indices->kd0379ae}.Value.StringValue"] = $v;
-                        }
-                        if (null !== $v = $input->getBinaryValue()) {
-                            $payload["MessageAttributes.entry.{$indices->kd0379ae}.Value.BinaryValue"] = base64_encode($v);
-                        }
-                    })($value);
+        $index = 0;
+        foreach ($this->MessageAttributes as $mapKey => $listValue) {
+            ++$index;
+            $payload["MessageAttributes.entry.{$index}.Name"] = $mapKey;
+            if (null !== $v = $listValue) {
+                foreach ($v->requestBody() as $bodyKey => $bodyValue) {
+                    $payload["MessageAttributes.entry.{$index}.Value.$bodyKey"] = $bodyValue;
                 }
             }
-        })($this->MessageAttributes);
+        }
 
-        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
+        return $payload;
     }
 }

@@ -47,6 +47,22 @@ class Grant
         return $this->Permission;
     }
 
+    /**
+     * @internal
+     */
+    public function requestBody(\DomElement $node, \DomDocument $document): void
+    {
+        if (null !== $v = $this->Grantee) {
+            $node->appendChild($child = $document->createElement('Grantee'));
+            $child->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
+
+            $v->requestBody($child, $document);
+        }
+        if (null !== $v = $this->Permission) {
+            $node->appendChild($document->createElement('Permission', $v));
+        }
+    }
+
     public function validate(): void
     {
         if (null !== $this->Grantee) {

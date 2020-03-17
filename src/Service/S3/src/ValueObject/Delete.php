@@ -44,6 +44,23 @@ class Delete
         return $this->Quiet;
     }
 
+    /**
+     * @internal
+     */
+    public function requestBody(\DomElement $node, \DomDocument $document): void
+    {
+        foreach ($this->Objects as $item) {
+            $node->appendChild($child = $document->createElement('Object'));
+
+            /** @psalm-suppress PossiblyNullReference */
+            $item->requestBody($child, $document);
+        }
+
+        if (null !== $v = $this->Quiet) {
+            $node->appendChild($document->createElement('Quiet', $v ? 'true' : 'false'));
+        }
+    }
+
     public function validate(): void
     {
         foreach ($this->Objects as $item) {

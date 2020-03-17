@@ -43,6 +43,17 @@ class ObjectIdentifier
         return $this->VersionId;
     }
 
+    /**
+     * @internal
+     */
+    public function requestBody(\DomElement $node, \DomDocument $document): void
+    {
+        $node->appendChild($document->createElement('Key', $this->Key));
+        if (null !== $v = $this->VersionId) {
+            $node->appendChild($document->createElement('VersionId', $v));
+        }
+    }
+
     public function validate(): void
     {
         if (null === $this->Key) {

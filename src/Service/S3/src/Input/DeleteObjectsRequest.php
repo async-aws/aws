@@ -128,8 +128,15 @@ class DeleteObjectsRequest
         $uri['Bucket'] = $this->Bucket ?? '';
         $uriString = "/{$uri['Bucket']}?delete";
 
+        // Prepare Body
+
+        $document = new \DOMDocument('1.0', 'UTF-8');
+        $document->formatOutput = false;
+        $this->requestBody($document, $document);
+        $body = $document->hasChildNodes() ? $document->saveXML() : '';
+
         // Return the Request
-        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     public function setBucket(?string $value): self
@@ -188,35 +195,14 @@ class DeleteObjectsRequest
         }
     }
 
-    private function requestBody(): string
+    /**
+     * @internal
+     */
+    private function requestBody(\DomNode $node, \DomDocument $document): void
     {
-        $document = new \DOMDocument('1.0', 'UTF-8');
-        $document->formatOutput = false;
-
-        if (null === $input = $this->Delete) {
-            throw new InvalidArgument(sprintf('Missing parameter "Delete" in "%s". The value cannot be null.', __CLASS__));
-        }
-
-        $document->appendChild($document_Delete = $document->createElement('Delete'));
-        $document_Delete->setAttribute('xmlns', 'http://s3.amazonaws.com/doc/2006-03-01/');
-
-        $input_Objects = $input->getObjects();
-
-        foreach ($input_Objects as $input_ObjectsItem) {
-            $document_Delete->appendChild($document_Delete_Objects = $document->createElement('Object'));
-
-            $input_ObjectsItem_Key = $input_ObjectsItem->getKey();
-            $document_Delete_Objects->appendChild($document->createElement('Key', $input_ObjectsItem_Key));
-
-            if (null !== $input_ObjectsItem_VersionId = $input_ObjectsItem->getVersionId()) {
-                $document_Delete_Objects->appendChild($document->createElement('VersionId', $input_ObjectsItem_VersionId));
-            }
-        }
-
-        if (null !== $input_Quiet = $input->getQuiet()) {
-            $document_Delete->appendChild($document->createElement('Quiet', $input_Quiet ? 'true' : 'false'));
-        }
-
-        return $document->hasChildNodes() ? $document->saveXML() : '';
+        $node->appendChild($child = $document->createElement('Delete'));
+        $child->setAttribute('xmlns', 'http://s3.amazonaws.com/doc/2006-03-01/');
+        /** @psalm-suppress PossiblyNullReference */
+        $this->Delete->requestBody($child, $document);
     }
 }

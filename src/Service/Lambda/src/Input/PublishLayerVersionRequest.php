@@ -118,8 +118,12 @@ class PublishLayerVersionRequest
         $uri['LayerName'] = $this->LayerName ?? '';
         $uriString = "/2018-10-31/layers/{$uri['LayerName']}/versions";
 
+        // Prepare Body
+        $bodyPayload = $this->requestBody();
+        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload);
+
         // Return the Request
-        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     /**
@@ -178,45 +182,30 @@ class PublishLayerVersionRequest
         }
     }
 
-    private function requestBody(): string
+    /**
+     * @internal
+     */
+    private function requestBody(): array
     {
         $payload = [];
-        $indices = new \stdClass();
+
         if (null !== $v = $this->Description) {
             $payload['Description'] = $v;
         }
-
-        if (null !== $this->Content) {
-            (static function (LayerVersionContentInput $input) use (&$payload) {
-                if (null !== $v = $input->getS3Bucket()) {
-                    $payload['Content']['S3Bucket'] = $v;
-                }
-
-                if (null !== $v = $input->getS3Key()) {
-                    $payload['Content']['S3Key'] = $v;
-                }
-
-                if (null !== $v = $input->getS3ObjectVersion()) {
-                    $payload['Content']['S3ObjectVersion'] = $v;
-                }
-
-                if (null !== $v = $input->getZipFile()) {
-                    $payload['Content']['ZipFile'] = base64_encode($v);
-                }
-            })($this->Content);
+        if (null !== $v = $this->Content) {
+            $payload['Content'] = $v->requestBody();
         }
 
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->kea6f923 = -1;
-            foreach ($input as $value) {
-                ++$indices->kea6f923;
-                $payload['CompatibleRuntimes'][$indices->kea6f923] = $value;
-            }
-        })($this->CompatibleRuntimes);
+        $index = -1;
+        foreach ($this->CompatibleRuntimes as $mapValue) {
+            ++$index;
+            $payload['CompatibleRuntimes'][$index] = $mapValue;
+        }
+
         if (null !== $v = $this->LicenseInfo) {
             $payload['LicenseInfo'] = $v;
         }
 
-        return json_encode($payload);
+        return $payload;
     }
 }

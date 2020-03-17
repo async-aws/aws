@@ -108,8 +108,11 @@ class GetObjectAclRequest
         $uri['Key'] = $this->Key ?? '';
         $uriString = "/{$uri['Bucket']}/{$uri['Key']}?acl";
 
+        // Prepare Body
+        $body = '';
+
         // Return the Request
-        return new Request('GET', $uriString, $query, $headers, StreamFactory::create(null));
+        return new Request('GET', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     public function setBucket(?string $value): self

@@ -143,8 +143,11 @@ class InvocationRequest
         $uri['FunctionName'] = $this->FunctionName ?? '';
         $uriString = "/2015-03-31/functions/{$uri['FunctionName']}/invocations";
 
+        // Prepare Body
+        $body = $this->Payload ?? '';
+
         // Return the Request
-        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     public function setClientContext(?string $value): self
@@ -212,10 +215,5 @@ class InvocationRequest
                 throw new InvalidArgument(sprintf('Invalid parameter "LogType" when validating the "%s". The value "%s" is not a valid "LogType".', __CLASS__, $this->LogType));
             }
         }
-    }
-
-    private function requestBody(): string
-    {
-        return $this->Payload ?? '';
     }
 }

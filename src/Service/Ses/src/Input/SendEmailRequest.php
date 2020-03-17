@@ -11,8 +11,6 @@ use AsyncAws\Ses\ValueObject\Destination;
 use AsyncAws\Ses\ValueObject\EmailContent;
 use AsyncAws\Ses\ValueObject\Message;
 use AsyncAws\Ses\ValueObject\MessageTag;
-use AsyncAws\Ses\ValueObject\RawMessage;
-use AsyncAws\Ses\ValueObject\Template;
 
 class SendEmailRequest
 {
@@ -154,8 +152,12 @@ class SendEmailRequest
         // Prepare URI
         $uriString = '/v2/email/outbound-emails';
 
+        // Prepare Body
+        $bodyPayload = $this->requestBody();
+        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload);
+
         // Return the Request
-        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     public function setConfigurationSetName(?string $value): self
@@ -230,130 +232,44 @@ class SendEmailRequest
         }
     }
 
-    private function requestBody(): string
+    /**
+     * @internal
+     */
+    private function requestBody(): array
     {
         $payload = [];
-        $indices = new \stdClass();
         if (null !== $v = $this->FromEmailAddress) {
             $payload['FromEmailAddress'] = $v;
         }
-
-        if (null !== $this->Destination) {
-            (static function (Destination $input) use (&$payload, $indices) {
-                (static function (array $input) use (&$payload, $indices) {
-                    $indices->kbe21867 = -1;
-                    foreach ($input as $value) {
-                        ++$indices->kbe21867;
-                        $payload['Destination']['ToAddresses'][$indices->kbe21867] = $value;
-                    }
-                })($input->getToAddresses());
-
-                (static function (array $input) use (&$payload, $indices) {
-                    $indices->k385be6f = -1;
-                    foreach ($input as $value) {
-                        ++$indices->k385be6f;
-                        $payload['Destination']['CcAddresses'][$indices->k385be6f] = $value;
-                    }
-                })($input->getCcAddresses());
-
-                (static function (array $input) use (&$payload, $indices) {
-                    $indices->k4191b78 = -1;
-                    foreach ($input as $value) {
-                        ++$indices->k4191b78;
-                        $payload['Destination']['BccAddresses'][$indices->k4191b78] = $value;
-                    }
-                })($input->getBccAddresses());
-            })($this->Destination);
+        if (null !== $v = $this->Destination) {
+            $payload['Destination'] = $v->requestBody();
         }
 
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->k6284657 = -1;
-            foreach ($input as $value) {
-                ++$indices->k6284657;
-                $payload['ReplyToAddresses'][$indices->k6284657] = $value;
-            }
-        })($this->ReplyToAddresses);
+        $index = -1;
+        foreach ($this->ReplyToAddresses as $mapValue) {
+            ++$index;
+            $payload['ReplyToAddresses'][$index] = $mapValue;
+        }
+
         if (null !== $v = $this->FeedbackForwardingEmailAddress) {
             $payload['FeedbackForwardingEmailAddress'] = $v;
         }
-
-        if (null !== $this->Content) {
-            (static function (EmailContent $input) use (&$payload) {
-                if (null !== $v = $input->getSimple()) {
-                    (static function (Message $input) use (&$payload) {
-                        if (null !== $input->getSubject()) {
-                            (static function (Content $input) use (&$payload) {
-                                $payload['Content']['Simple']['Subject']['Data'] = $input->getData();
-
-                                if (null !== $v = $input->getCharset()) {
-                                    $payload['Content']['Simple']['Subject']['Charset'] = $v;
-                                }
-                            })($input->getSubject());
-                        }
-
-                        if (null !== $input->getBody()) {
-                            (static function (Body $input) use (&$payload) {
-                                if (null !== $v = $input->getText()) {
-                                    (static function (Content $input) use (&$payload) {
-                                        $payload['Content']['Simple']['Body']['Text']['Data'] = $input->getData();
-
-                                        if (null !== $v = $input->getCharset()) {
-                                            $payload['Content']['Simple']['Body']['Text']['Charset'] = $v;
-                                        }
-                                    })($v);
-                                }
-
-                                if (null !== $v = $input->getHtml()) {
-                                    (static function (Content $input) use (&$payload) {
-                                        $payload['Content']['Simple']['Body']['Html']['Data'] = $input->getData();
-
-                                        if (null !== $v = $input->getCharset()) {
-                                            $payload['Content']['Simple']['Body']['Html']['Charset'] = $v;
-                                        }
-                                    })($v);
-                                }
-                            })($input->getBody());
-                        }
-                    })($v);
-                }
-
-                if (null !== $v = $input->getRaw()) {
-                    (static function (RawMessage $input) use (&$payload) {
-                        $payload['Content']['Raw']['Data'] = base64_encode($input->getData());
-                    })($v);
-                }
-
-                if (null !== $v = $input->getTemplate()) {
-                    (static function (Template $input) use (&$payload) {
-                        if (null !== $v = $input->getTemplateArn()) {
-                            $payload['Content']['Template']['TemplateArn'] = $v;
-                        }
-
-                        if (null !== $v = $input->getTemplateData()) {
-                            $payload['Content']['Template']['TemplateData'] = $v;
-                        }
-                    })($v);
-                }
-            })($this->Content);
+        if (null !== $v = $this->Content) {
+            $payload['Content'] = $v->requestBody();
         }
 
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->k4a82301 = -1;
-            foreach ($input as $value) {
-                ++$indices->k4a82301;
-
-                if (null !== $value) {
-                    (static function (MessageTag $input) use (&$payload, $indices) {
-                        $payload['EmailTags'][$indices->k4a82301]['Name'] = $input->getName();
-                        $payload['EmailTags'][$indices->k4a82301]['Value'] = $input->getValue();
-                    })($value);
-                }
+        $index = -1;
+        foreach ($this->EmailTags as $mapValue) {
+            ++$index;
+            if (null !== $v = $mapValue) {
+                $payload['EmailTags'][$index] = $v->requestBody();
             }
-        })($this->EmailTags);
+        }
+
         if (null !== $v = $this->ConfigurationSetName) {
             $payload['ConfigurationSetName'] = $v;
         }
 
-        return json_encode($payload);
+        return $payload;
     }
 }

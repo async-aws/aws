@@ -62,8 +62,11 @@ class DescribeStacksInput
         // Prepare URI
         $uriString = '/';
 
+        // Prepare Body
+        $body = http_build_query(['Action' => 'DescribeStacks', 'Version' => '2010-05-15'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
+
         // Return the Request
-        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     public function setNextToken(?string $value): self
@@ -85,9 +88,12 @@ class DescribeStacksInput
         // There are no required properties
     }
 
-    private function requestBody(): string
+    /**
+     * @internal
+     */
+    private function requestBody(): array
     {
-        $payload = ['Action' => 'DescribeStacks', 'Version' => '2010-05-15'];
+        $payload = [];
         if (null !== $v = $this->StackName) {
             $payload['StackName'] = $v;
         }
@@ -95,6 +101,6 @@ class DescribeStacksInput
             $payload['NextToken'] = $v;
         }
 
-        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
+        return $payload;
     }
 }

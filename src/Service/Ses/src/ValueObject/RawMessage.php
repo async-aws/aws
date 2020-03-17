@@ -31,6 +31,17 @@ class RawMessage
         return $this->Data;
     }
 
+    /**
+     * @internal
+     */
+    public function requestBody(): array
+    {
+        $payload = [];
+        $payload['Data'] = base64_encode($this->Data);
+
+        return $payload;
+    }
+
     public function validate(): void
     {
         if (null === $this->Data) {

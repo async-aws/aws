@@ -24,8 +24,8 @@ class ApiGenerator
         $this->fileWriter = new FileWriter($srcDirectory);
     }
 
-    public function service(string $baseNamespace): ServiceGenerator
+    public function service(string $baseNamespace, array $managedOperations): ServiceGenerator
     {
-        return new ServiceGenerator($this->fileWriter, $baseNamespace);
+        return new ServiceGenerator($this->fileWriter, $baseNamespace, $managedOperations);
     }
 }

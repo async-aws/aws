@@ -36,6 +36,16 @@ class CreateBucketConfiguration
         return $this->LocationConstraint;
     }
 
+    /**
+     * @internal
+     */
+    public function requestBody(\DomElement $node, \DomDocument $document): void
+    {
+        if (null !== $v = $this->LocationConstraint) {
+            $node->appendChild($document->createElement('LocationConstraint', $v));
+        }
+    }
+
     public function validate(): void
     {
         if (null !== $this->LocationConstraint) {

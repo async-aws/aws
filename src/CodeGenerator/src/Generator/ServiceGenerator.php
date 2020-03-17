@@ -27,6 +27,11 @@ class ServiceGenerator
     private $namespaceRegistry;
 
     /**
+     * @var array
+     */
+    private $managedOperations;
+
+    /**
      * @var ClientGenerator
      */
     private $client;
@@ -76,9 +81,10 @@ class ServiceGenerator
      */
     private $type;
 
-    public function __construct(FileWriter $fileWriter, string $baseNamespace)
+    public function __construct(FileWriter $fileWriter, string $baseNamespace, array $managedOperations)
     {
         $this->fileWriter = $fileWriter;
+        $this->managedOperations = $managedOperations;
         $this->namespaceRegistry = new NamespaceRegistry($baseNamespace);
     }
 
@@ -129,6 +135,6 @@ class ServiceGenerator
 
     public function object(): ObjectGenerator
     {
-        return $this->object ?? $this->object = new ObjectGenerator($this->namespaceRegistry, $this->fileWriter, $this->type(), $this->enum());
+        return $this->object ?? $this->object = new ObjectGenerator($this->namespaceRegistry, $this->fileWriter, $this->managedOperations, $this->type(), $this->enum());
     }
 }

@@ -83,6 +83,26 @@ class Grantee
         return $this->URI;
     }
 
+    /**
+     * @internal
+     */
+    public function requestBody(\DomElement $node, \DomDocument $document): void
+    {
+        if (null !== $v = $this->DisplayName) {
+            $node->appendChild($document->createElement('DisplayName', $v));
+        }
+        if (null !== $v = $this->EmailAddress) {
+            $node->appendChild($document->createElement('EmailAddress', $v));
+        }
+        if (null !== $v = $this->ID) {
+            $node->appendChild($document->createElement('ID', $v));
+        }
+        $node->setAttribute('xsi:type', $this->Type);
+        if (null !== $v = $this->URI) {
+            $node->appendChild($document->createElement('URI', $v));
+        }
+    }
+
     public function validate(): void
     {
         if (null === $this->Type) {

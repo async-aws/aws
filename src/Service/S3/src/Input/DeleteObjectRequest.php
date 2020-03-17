@@ -144,8 +144,11 @@ class DeleteObjectRequest
         $uri['Key'] = $this->Key ?? '';
         $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
 
+        // Prepare Body
+        $body = '';
+
         // Return the Request
-        return new Request('DELETE', $uriString, $query, $headers, StreamFactory::create(null));
+        return new Request('DELETE', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     public function setBucket(?string $value): self

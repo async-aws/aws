@@ -108,8 +108,11 @@ class ListLayerVersionsRequest
         $uri['LayerName'] = $this->LayerName ?? '';
         $uriString = "/2018-10-31/layers/{$uri['LayerName']}/versions";
 
+        // Prepare Body
+        $body = '';
+
         // Return the Request
-        return new Request('GET', $uriString, $query, $headers, StreamFactory::create(null));
+        return new Request('GET', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     /**

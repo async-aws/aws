@@ -193,8 +193,15 @@ class CreateBucketRequest
         $uri['Bucket'] = $this->Bucket ?? '';
         $uriString = "/{$uri['Bucket']}";
 
+        // Prepare Body
+
+        $document = new \DOMDocument('1.0', 'UTF-8');
+        $document->formatOutput = false;
+        $this->requestBody($document, $document);
+        $body = $document->hasChildNodes() ? $document->saveXML() : '';
+
         // Return the Request
-        return new Request('PUT', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
+        return new Request('PUT', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     /**
@@ -280,20 +287,16 @@ class CreateBucketRequest
         }
     }
 
-    private function requestBody(): string
+    /**
+     * @internal
+     */
+    private function requestBody(\DomNode $node, \DomDocument $document): void
     {
-        $document = new \DOMDocument('1.0', 'UTF-8');
-        $document->formatOutput = false;
+        if (null !== $v = $this->CreateBucketConfiguration) {
+            $node->appendChild($child = $document->createElement('CreateBucketConfiguration'));
+            $child->setAttribute('xmlns', 'http://s3.amazonaws.com/doc/2006-03-01/');
 
-        if (null !== $input = $this->CreateBucketConfiguration) {
-            $document->appendChild($document_CreateBucketConfiguration = $document->createElement('CreateBucketConfiguration'));
-            $document_CreateBucketConfiguration->setAttribute('xmlns', 'http://s3.amazonaws.com/doc/2006-03-01/');
-
-            if (null !== $input_LocationConstraint = $input->getLocationConstraint()) {
-                $document_CreateBucketConfiguration->appendChild($document->createElement('LocationConstraint', $input_LocationConstraint));
-            }
+            $v->requestBody($child, $document);
         }
-
-        return $document->hasChildNodes() ? $document->saveXML() : '';
     }
 }

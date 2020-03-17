@@ -202,8 +202,11 @@ class ListObjectsV2Request
         $uri['Bucket'] = $this->Bucket ?? '';
         $uriString = "/{$uri['Bucket']}?list-type=2";
 
+        // Prepare Body
+        $body = '';
+
         // Return the Request
-        return new Request('GET', $uriString, $query, $headers, StreamFactory::create(null));
+        return new Request('GET', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     public function setBucket(?string $value): self

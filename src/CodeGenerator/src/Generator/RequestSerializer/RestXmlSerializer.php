@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator\RequestSerializer;
 
-use AsyncAws\CodeGenerator\Definition\ListMember;
 use AsyncAws\CodeGenerator\Definition\ListShape;
+use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Member;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
@@ -24,81 +24,50 @@ class RestXmlSerializer implements Serializer
         return 'application/xml';
     }
 
-    public function generateForShape(Operation $operation, StructureShape $shape): string
+    public function generateRequestBody(Operation $operation, StructureShape $shape): array
     {
-        $httpMethod = $operation->getHttpMethod();
-        if (\in_array($httpMethod, ['DELETE', 'GET', 'HEAD'])) {
-            return 'return "";';
+        if (null === $payloadProperty = $shape->getPayload()) {
+            return ['$body = "";', false];
         }
 
-        if (null === $shape->getPayload()) {
-            return 'return "";';
+        $member = $shape->getMember($payloadProperty);
+        if ($member->isStreaming()) {
+            return ['$body = $this->' . $payloadProperty . ' ?? "";', false];
         }
 
-        throw new \RuntimeException(sprintf('Generating an XML a body for "%s %s::%s" is not supported.', $httpMethod, $operation->getService()->getName(), $operation->getName()));
-    }
-
-    public function generateForMember(StructureMember $member, string $payloadProperty): string
-    {
-        return strtr('
+        return ['
             $document = new \DOMDocument(\'1.0\', \'UTF-8\');
             $document->formatOutput = false;
-
-            CHILDREN_CODE
-
-            return $document->hasChildNodes() ? $document->saveXML() : \'\';
-        ', [
-            'CHILDREN_CODE' => $this->dumpXmlMember($member, '$document', '$this'),
-        ]);
+            $this->requestBody($document, $document);
+            $body = $document->hasChildNodes() ? $document->saveXML() : "";
+        ',  true, ['node' => '\DomNode']];
     }
 
-    private function dumpXmlMember(Member $member, string $output, string $input): string
+    public function generateRequestBuilder(StructureShape $shape): array
     {
-        switch (true) {
-            case $member instanceof StructureMember:
-                return $this->dumpXmlMemberStructure($member, $output, $input);
-            case $member instanceof ListMember:
-                return $this->dumpXmlMemberList($member, $output, $input);
-        }
-
-        throw new \RuntimeException(sprintf('Type %s is not yet implemented', \get_class($member)));
-    }
-
-    private function dumpXmlMemberStructure(StructureMember $member, string $output, string $input): string
-    {
-        if ($member->isRequired() || $member->getShape() instanceof ListShape) {
-            if ('$this' === $input) {
-                $body = '
-                    if (null === INPUT_E = INPUT->INPUT_NAME) {
-                        throw new InvalidArgument(sprintf(\'Missing parameter "INPUT_NAME" in "%s". The value cannot be null.\', __CLASS__));
-                    }
-                    SHAPE_CODE
-                ';
-            } else {
-                $body = '
-                    INPUT_E = INPUT->INPUT_NAME;
-                    SHAPE_CODE
-                ';
+        $body = implode("\n", array_map(function (StructureMember $member) {
+            if (null !== $member->getLocation()) {
+                return '';
             }
-        } else {
-            $body = '
-                if (null !== INPUT_E = INPUT->INPUT_NAME) {
-                    SHAPE_CODE
-                }
-            ';
-        }
 
-        return strtr($body, [
-            'INPUT' => $input,
-            'INPUT_E' => $inputElement = ('$this' === $input ? '$input' : $input . '_' . $member->getName()),
-            'INPUT_NAME' => '$this' === $input ? $member->getName() : 'get' . $member->getName() . '()',
-            'SHAPE_CODE' => $this->dumpXmlShape($member, $member->getShape(), $output, $inputElement),
-        ]);
-    }
+            $shape = $member->getShape();
+            if ($member->isRequired() || $shape instanceof ListShape || $shape instanceof MapShape) {
+                $body = 'MEMBER_CODE';
+                $inputElement = '$this->' . $member->getName();
+            } else {
+                $body = 'if (null !== $v = INPUT_NAME) {
+                    MEMBER_CODE
+                }';
+                $inputElement = '$v';
+            }
 
-    private function dumpXmlMemberList(ListMember $member, string $output, string $input): string
-    {
-        return $this->dumpXmlShape($member, $member->getShape(), $output, $input);
+            return strtr($body, [
+                'INPUT_NAME' => '$this->' . $member->getName(),
+                'MEMBER_CODE' => $this->dumpXmlShape($member, $member->getShape(), '$node', $inputElement),
+            ]);
+        }, $shape->getMembers()));
+
+        return ['void', $body, ['node' => '\DomElement', 'document' => '\DomDocument']];
     }
 
     private function dumpXmlShape(Member $member, Shape $shape, string $output, string $input): string
@@ -113,9 +82,9 @@ class RestXmlSerializer implements Serializer
         switch ($shape->getType()) {
             case 'blob':
             case 'string':
-                return $this->dumpXmlShapeString($member, $shape, $output, $input);
+                return $this->dumpXmlShapeString($member, $output, $input);
             case 'boolean':
-                return $this->dumpXmlShapeBoolean($member, $shape, $output, $input);
+                return $this->dumpXmlShapeBoolean($member, $output, $input);
         }
 
         throw new \RuntimeException(sprintf('Type %s is not yet implemented', $shape->getType()));
@@ -123,8 +92,6 @@ class RestXmlSerializer implements Serializer
 
     private function dumpXmlShapeStructure(Member $member, StructureShape $shape, string $output, string $input): string
     {
-        $outputElement = $output . '_' . ($member instanceof StructureMember ? $member->getName() : 'Item');
-
         $xmlnsValue = '';
         $xmlnsAttribute = '';
         if ($member instanceof StructureMember && null !== $ns = $member->getXmlNamespaceUri()) {
@@ -136,17 +103,16 @@ class RestXmlSerializer implements Serializer
         }
 
         return strtr('
-            OUTPUT->appendChild(OUTPUT_E = $document->createElement(OUTPUT_NAME));
+            OUTPUT->appendChild($child = $document->createElement(NODE_NAME));
             SET_XMLNS_CODE
-            MEMBERS_CODE
+            PSALM
+            INPUT->requestBody($child, $document);
         ', [
             'OUTPUT' => $output,
-            'OUTPUT_E' => $outputElement,
-            'OUTPUT_NAME' => \var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
-            'SET_XMLNS_CODE' => $xmlnsValue ? strtr('OUTPUT_E->setAttribute(NS_ATTRIBUTE, NS_VALUE);', ['OUTPUT_E' => $outputElement, 'NS_ATTRIBUTE' => \var_export($xmlnsAttribute, true), 'NS_VALUE' => \var_export($xmlnsValue, true)]) : '',
-            'MEMBERS_CODE' => implode("\n", \array_map(function (StructureMember $member) use ($outputElement, $input) {
-                return $this->dumpXmlMember($member, $outputElement, $input);
-            }, $shape->getMembers())),
+            'NODE_NAME' => \var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
+            'SET_XMLNS_CODE' => $xmlnsValue ? strtr('$child->setAttribute(NS_ATTRIBUTE, NS_VALUE);', ['NS_ATTRIBUTE' => \var_export($xmlnsAttribute, true), 'NS_VALUE' => \var_export($xmlnsValue, true)]) : '',
+            'PSALM' => '$v' === $input ? '' : '/** @psalm-suppress PossiblyNullReference */',
+            'INPUT' => $input,
         ]);
     }
 
@@ -154,58 +120,55 @@ class RestXmlSerializer implements Serializer
     {
         if ($shape->isFlattened()) {
             return strtr('
-                foreach (INPUT as INPUT_E) {
+                foreach (INPUT as $item) {
                     MEMBER_CODE
                 }
             ', [
                 'INPUT' => $input,
-                'INPUT_E' => $inputElement = ('$this' === $input ? '$item' : $input . 'Item'),
-                'MEMBER_CODE' => $this->dumpXmlShape($member, $shape->getMember()->getShape(), $output, $inputElement),
+                'MEMBER_CODE' => $this->dumpXmlShape($member, $shape->getMember()->getShape(), $output, '$item'),
             ]);
         }
 
         return strtr('
-                OUTPUT->appendChild(OUTPUT_E = $document->createElement(OUTPUT_NAME));
-                foreach (INPUT as INPUT_E) {
+                OUTPUT->appendChild($nodeList = $document->createElement(NODE_NAME));
+                foreach (INPUT as $item) {
                     MEMBER_CODE
                 }
             ', [
             'OUTPUT' => $output,
-            'OUTPUT_E' => $outputElement = $output . '_' . ($member instanceof StructureMember ? $member->getName() : 'member'),
-            'OUTPUT_NAME' => \var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
+            'NODE_NAME' => \var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
             'INPUT' => $input,
-            'INPUT_E' => $inputElement = ('$this' === $input ? '$item' : $input . 'Item'),
-            'MEMBER_CODE' => $this->dumpXmlMember($shape->getMember(), $outputElement, $inputElement),
+            'MEMBER_CODE' => $this->dumpXmlShape($shape->getMember(), $shape->getMember()->getShape(), '$nodeList', '$item'),
         ]);
     }
 
-    private function dumpXmlShapeString(Member $member, Shape $shape, string $output, string $input): string
+    private function dumpXmlShapeString(Member $member, string $output, string $input): string
     {
         if ($member instanceof StructureMember && $member->isXmlAttribute()) {
-            $body = 'OUTPUT->setAttribute(OUTPUT_NAME, INPUT);';
+            $body = 'OUTPUT->setAttribute(NODE_NAME, INPUT);';
         } else {
-            $body = 'OUTPUT->appendChild($document->createElement(OUTPUT_NAME, INPUT));';
+            $body = 'OUTPUT->appendChild($document->createElement(NODE_NAME, INPUT));';
         }
 
         return \strtr($body, [
             'INPUT' => $input,
             'OUTPUT' => $output,
-            'OUTPUT_NAME' => \var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
+            'NODE_NAME' => \var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
         ]);
     }
 
-    private function dumpXmlShapeBoolean(Member $member, Shape $shape, string $output, string $input): string
+    private function dumpXmlShapeBoolean(Member $member, string $output, string $input): string
     {
         if ($member instanceof StructureMember && $member->isXmlAttribute()) {
             throw new \InvalidArgumentException('Boolean Shape with xmlAttribute is not yet implemented.');
         }
 
-        $body = 'OUTPUT->appendChild($document->createElement(OUTPUT_NAME, INPUT ? \'true\' : \'false\'));';
+        $body = 'OUTPUT->appendChild($document->createElement(NODE_NAME, INPUT ? \'true\' : \'false\'));';
 
         return \strtr($body, [
             'INPUT' => $input,
             'OUTPUT' => $output,
-            'OUTPUT_NAME' => \var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
+            'NODE_NAME' => \var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
         ]);
     }
 }
