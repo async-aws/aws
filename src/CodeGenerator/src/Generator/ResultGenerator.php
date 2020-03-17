@@ -299,14 +299,14 @@ class ResultGenerator
 
             if ($memberShape instanceof StructureShape) {
                 $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
-                if (!in_array($fqdn, $namespace->getUses())) {
+                if (!\in_array($fqdn, $namespace->getUses())) {
                     $namespace->addUse($fqdn);
                     $this->addUse($memberShape, $namespace);
                 }
             } elseif ($memberShape instanceof MapShape) {
                 if (($valueShape = $memberShape->getValue()->getShape()) instanceof StructureShape) {
                     $fqdn = $this->namespaceRegistry->getObject($valueShape)->getFqdn();
-                    if (!in_array($fqdn, $namespace->getUses())) {
+                    if (!\in_array($fqdn, $namespace->getUses())) {
                         $namespace->addUse($fqdn);
                         $this->addUse($valueShape, $namespace);
                     }
@@ -317,7 +317,7 @@ class ResultGenerator
             } elseif ($memberShape instanceof ListShape) {
                 if (($memberShape = $memberShape->getMember()->getShape()) instanceof StructureShape) {
                     $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
-                    if (!in_array($fqdn, $namespace->getUses())) {
+                    if (!\in_array($fqdn, $namespace->getUses())) {
                         $namespace->addUse($fqdn);
                         $this->addUse($memberShape, $namespace);
                     }
