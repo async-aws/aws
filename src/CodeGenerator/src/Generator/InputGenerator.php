@@ -325,7 +325,7 @@ PHP
         throw new \InvalidArgumentException(sprintf('Type "%s" is not yet implemented', $shape->getType()));
     }
 
-    private function addUse(StructureShape $shape, PhpNamespace $namespace, array $addedUses = [])
+    private function addUse(StructureShape $shape, PhpNamespace $namespace, array $addedFqdn = [])
     {
         foreach ($shape->getMembers() as $member) {
             $memberShape = $member->getShape();
@@ -335,17 +335,17 @@ PHP
 
             if ($memberShape instanceof StructureShape) {
                 $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
-                if (!\in_array($fqdn, $addedUses)) {
-                    $addedUses[] = $fqdn;
-                    $this->addUse($memberShape, $namespace, $addedUses);
+                if (!\in_array($fqdn, $addedFqdn)) {
+                    $addedFqdn[] = $fqdn;
+                    $this->addUse($memberShape, $namespace, $addedFqdn);
                     $namespace->addUse($fqdn);
                 }
             } elseif ($memberShape instanceof MapShape) {
                 if (($valueShape = $memberShape->getValue()->getShape()) instanceof StructureShape) {
                     $fqdn = $this->namespaceRegistry->getObject($valueShape)->getFqdn();
-                    if (!\in_array($fqdn, $addedUses)) {
-                        $addedUses[] = $fqdn;
-                        $this->addUse($valueShape, $namespace, $addedUses);
+                    if (!\in_array($fqdn, $addedFqdn)) {
+                        $addedFqdn[] = $fqdn;
+                        $this->addUse($valueShape, $namespace, $addedFqdn);
                         $namespace->addUse($fqdn);
                     }
                 }
@@ -355,9 +355,9 @@ PHP
             } elseif ($memberShape instanceof ListShape) {
                 if (($memberShape = $memberShape->getMember()->getShape()) instanceof StructureShape) {
                     $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
-                    if (!\in_array($fqdn, $addedUses)) {
-                        $addedUses[] = $fqdn;
-                        $this->addUse($memberShape, $namespace, $addedUses);
+                    if (!\in_array($fqdn, $addedFqdn)) {
+                        $addedFqdn[] = $fqdn;
+                        $this->addUse($memberShape, $namespace, $addedFqdn);
                         $namespace->addUse($fqdn);
                     }
                 }
