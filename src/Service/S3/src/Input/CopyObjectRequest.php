@@ -714,8 +714,11 @@ class CopyObjectRequest
         $uri['Key'] = $this->Key ?? '';
         $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
 
+        // Prepare Body
+        $body = '';
+
         // Return the Request
-        return new Request('PUT', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
+        return new Request('PUT', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     /**
@@ -1065,10 +1068,5 @@ class CopyObjectRequest
                 throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockLegalHoldStatus" when validating the "%s". The value "%s" is not a valid "ObjectLockLegalHoldStatus".', __CLASS__, $this->ObjectLockLegalHoldStatus));
             }
         }
-    }
-
-    private function requestBody(): string
-    {
-        return '';
     }
 }

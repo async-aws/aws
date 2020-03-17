@@ -158,8 +158,11 @@ class SendMessageRequest
         // Prepare URI
         $uriString = '/';
 
+        // Prepare Body
+        $body = http_build_query(['Action' => 'SendMessage', 'Version' => '2012-11-05'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
+
         // Return the Request
-        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     public function setDelaySeconds(?int $value): self
@@ -236,87 +239,40 @@ class SendMessageRequest
         }
     }
 
-    private function requestBody(): string
+    /**
+     * @internal
+     */
+    private function requestBody(): array
     {
-        $payload = ['Action' => 'SendMessage', 'Version' => '2012-11-05'];
-        $indices = new \stdClass();
+        $payload = [];
         $payload['QueueUrl'] = $this->QueueUrl;
         $payload['MessageBody'] = $this->MessageBody;
         if (null !== $v = $this->DelaySeconds) {
             $payload['DelaySeconds'] = $v;
         }
 
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->k2053d0e = 0;
-            foreach ($input as $key => $value) {
-                ++$indices->k2053d0e;
-                $payload["MessageAttribute.{$indices->k2053d0e}.Name"] = $key;
-
-                if (null !== $value) {
-                    (static function (MessageAttributeValue $input) use (&$payload, $indices) {
-                        if (null !== $v = $input->getStringValue()) {
-                            $payload["MessageAttribute.{$indices->k2053d0e}.Value.StringValue"] = $v;
-                        }
-                        if (null !== $v = $input->getBinaryValue()) {
-                            $payload["MessageAttribute.{$indices->k2053d0e}.Value.BinaryValue"] = base64_encode($v);
-                        }
-
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->k782bfa4 = 0;
-            foreach ($input as $value) {
-                ++$indices->k782bfa4;
-                $payload["MessageAttribute.{$indices->k2053d0e}.Value.StringListValue.{$indices->k782bfa4}"] = $value;
-            }
-        })($input->getStringListValues());
-
-                        (static function (array $input) use (&$payload, $indices) {
-                            $indices->kc6c9229 = 0;
-                            foreach ($input as $value) {
-                                ++$indices->kc6c9229;
-                                $payload["MessageAttribute.{$indices->k2053d0e}.Value.BinaryListValue.{$indices->kc6c9229}"] = base64_encode($value);
-                            }
-                        })($input->getBinaryListValues());
-                        $payload["MessageAttribute.{$indices->k2053d0e}.Value.DataType"] = $input->getDataType();
-                    })($value);
+        $index = 0;
+        foreach ($this->MessageAttributes as $mapKey => $listValue) {
+            ++$index;
+            $payload["MessageAttribute.{$index}.Name"] = $mapKey;
+            if (null !== $v = $listValue) {
+                foreach ($v->requestBody() as $bodyKey => $bodyValue) {
+                    $payload["MessageAttribute.{$index}.Value.$bodyKey"] = $bodyValue;
                 }
             }
-        })($this->MessageAttributes);
+        }
 
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->k6857220 = 0;
-            foreach ($input as $key => $value) {
-                ++$indices->k6857220;
-                $payload["MessageSystemAttribute.{$indices->k6857220}.Name"] = $key;
-
-                if (null !== $value) {
-                    (static function (MessageSystemAttributeValue $input) use (&$payload, $indices) {
-                        if (null !== $v = $input->getStringValue()) {
-                            $payload["MessageSystemAttribute.{$indices->k6857220}.Value.StringValue"] = $v;
-                        }
-                        if (null !== $v = $input->getBinaryValue()) {
-                            $payload["MessageSystemAttribute.{$indices->k6857220}.Value.BinaryValue"] = base64_encode($v);
-                        }
-
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->k2d98e9d = 0;
-            foreach ($input as $value) {
-                ++$indices->k2d98e9d;
-                $payload["MessageSystemAttribute.{$indices->k6857220}.Value.StringListValue.{$indices->k2d98e9d}"] = $value;
-            }
-        })($input->getStringListValues());
-
-                        (static function (array $input) use (&$payload, $indices) {
-                            $indices->k4dcafc5 = 0;
-                            foreach ($input as $value) {
-                                ++$indices->k4dcafc5;
-                                $payload["MessageSystemAttribute.{$indices->k6857220}.Value.BinaryListValue.{$indices->k4dcafc5}"] = base64_encode($value);
-                            }
-                        })($input->getBinaryListValues());
-                        $payload["MessageSystemAttribute.{$indices->k6857220}.Value.DataType"] = $input->getDataType();
-                    })($value);
+        $index = 0;
+        foreach ($this->MessageSystemAttributes as $mapKey => $listValue) {
+            ++$index;
+            $payload["MessageSystemAttribute.{$index}.Name"] = $mapKey;
+            if (null !== $v = $listValue) {
+                foreach ($v->requestBody() as $bodyKey => $bodyValue) {
+                    $payload["MessageSystemAttribute.{$index}.Value.$bodyKey"] = $bodyValue;
                 }
             }
-        })($this->MessageSystemAttributes);
+        }
+
         if (null !== $v = $this->MessageDeduplicationId) {
             $payload['MessageDeduplicationId'] = $v;
         }
@@ -324,6 +280,6 @@ class SendMessageRequest
             $payload['MessageGroupId'] = $v;
         }
 
-        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
+        return $payload;
     }
 }

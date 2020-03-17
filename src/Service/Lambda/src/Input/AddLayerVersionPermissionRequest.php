@@ -150,8 +150,12 @@ class AddLayerVersionPermissionRequest
         $uri['VersionNumber'] = $this->VersionNumber ?? '';
         $uriString = "/2018-10-31/layers/{$uri['LayerName']}/versions/{$uri['VersionNumber']}/policy";
 
+        // Prepare Body
+        $bodyPayload = $this->requestBody();
+        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload);
+
         // Return the Request
-        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     public function setAction(?string $value): self
@@ -226,7 +230,10 @@ class AddLayerVersionPermissionRequest
         }
     }
 
-    private function requestBody(): string
+    /**
+     * @internal
+     */
+    private function requestBody(): array
     {
         $payload = [];
 
@@ -237,6 +244,6 @@ class AddLayerVersionPermissionRequest
             $payload['OrganizationId'] = $v;
         }
 
-        return json_encode($payload);
+        return $payload;
     }
 }

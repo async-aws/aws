@@ -67,14 +67,14 @@ class InputGenerator
      */
     private $generated = [];
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, ?ObjectGenerator $objectGenerator = null, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
+    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, ObjectGenerator $objectGenerator, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
     {
         $this->namespaceRegistry = $namespaceRegistry;
         $this->fileWriter = $fileWriter;
+        $this->objectGenerator = $objectGenerator;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
         $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->namespaceRegistry, $fileWriter);
-        $this->serializer = new SerializerProvider($this->namespaceRegistry);
-        $this->objectGenerator = $objectGenerator ?? new ObjectGenerator($namespaceRegistry, $fileWriter, $this->typeGenerator, $this->enumGenerator);
+        $this->serializer = new SerializerProvider();
     }
 
     /**
@@ -239,24 +239,16 @@ class InputGenerator
         }
 
         if ($operation->hasBody()) {
-            if (null !== $payloadProperty = $inputShape->getPayload()) {
-                $member = $inputShape->getMember($payloadProperty);
-                if ($member->isStreaming()) {
-                    $bodyType = null;
-                    $body['body'] = 'return $this->' . $payloadProperty . ' ?? "";';
-                } else {
-                    $bodyType = 'string';
-                    $body['body'] = $serializer->generateForMember($member, $payloadProperty);
+            [$body['body'], $hasRequestBody, $overrideArgs] = $serializer->generateRequestBody($operation, $inputShape) + [null, null, []];
+            if ($hasRequestBody) {
+                [$returnType, $requestBody, $args] = $serializer->generateRequestBuilder($inputShape) + [null, null, []];
+                $method = $class->addMethod('requestBody')->setReturnType($returnType)->setBody($requestBody)->setPrivate()->setComment('@internal');
+                foreach ($overrideArgs + $args as $arg => $type) {
+                    $method->addParameter($arg)->setType($type);
                 }
-            } else {
-                $bodyType = 'string';
-                $body['body'] = $serializer->generateForShape($operation, $inputShape);
             }
-
-            $class->addMethod('requestBody')->setReturnType($bodyType)->setBody($body['body'])->setPrivate();
-            $bodyCall = '$this->requestBody()';
         } else {
-            $bodyCall = 'null';
+            $body['body'] = '$body = "";';
             if (null !== $payloadProperty = $inputShape->getPayload()) {
                 throw new \LogicException(sprintf('Unexpected body in operation "%s"', $operation->getName()));
             }
@@ -294,8 +286,11 @@ class InputGenerator
 // Prepare URI
 {$body['uri']}
 
+// Prepare Body
+{$body['body']}
+
 // Return the Request
-return new Request($method, \$uriString, \$query, \$headers, StreamFactory::create($bodyCall));
+return new Request($method, \$uriString, \$query, \$headers, StreamFactory::create(\$body));
 PHP
 );
     }

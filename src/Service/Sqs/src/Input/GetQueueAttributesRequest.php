@@ -69,8 +69,11 @@ class GetQueueAttributesRequest
         // Prepare URI
         $uriString = '/';
 
+        // Prepare Body
+        $body = http_build_query(['Action' => 'GetQueueAttributes', 'Version' => '2012-11-05'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
+
         // Return the Request
-        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     /**
@@ -103,20 +106,20 @@ class GetQueueAttributesRequest
         }
     }
 
-    private function requestBody(): string
+    /**
+     * @internal
+     */
+    private function requestBody(): array
     {
-        $payload = ['Action' => 'GetQueueAttributes', 'Version' => '2012-11-05'];
-        $indices = new \stdClass();
+        $payload = [];
         $payload['QueueUrl'] = $this->QueueUrl;
 
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->kbedee52 = 0;
-            foreach ($input as $value) {
-                ++$indices->kbedee52;
-                $payload["AttributeName.{$indices->kbedee52}"] = $value;
-            }
-        })($this->AttributeNames);
+        $index = 0;
+        foreach ($this->AttributeNames as $mapValue) {
+            ++$index;
+            $payload["AttributeName.{$index}"] = $mapValue;
+        }
 
-        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
+        return $payload;
     }
 }

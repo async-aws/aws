@@ -60,6 +60,23 @@ class MessageAttributeValue
         return $this->StringValue;
     }
 
+    /**
+     * @internal
+     */
+    public function requestBody(): array
+    {
+        $payload = [];
+        $payload['DataType'] = $this->DataType;
+        if (null !== $v = $this->StringValue) {
+            $payload['StringValue'] = $v;
+        }
+        if (null !== $v = $this->BinaryValue) {
+            $payload['BinaryValue'] = base64_encode($v);
+        }
+
+        return $payload;
+    }
+
     public function validate(): void
     {
         if (null === $this->DataType) {

@@ -44,6 +44,26 @@ class AccessControlPolicy
         return $this->Owner;
     }
 
+    /**
+     * @internal
+     */
+    public function requestBody(\DomElement $node, \DomDocument $document): void
+    {
+        $node->appendChild($nodeList = $document->createElement('AccessControlList'));
+        foreach ($this->Grants as $item) {
+            $nodeList->appendChild($child = $document->createElement('Grant'));
+
+            /** @psalm-suppress PossiblyNullReference */
+            $item->requestBody($child, $document);
+        }
+
+        if (null !== $v = $this->Owner) {
+            $node->appendChild($child = $document->createElement('Owner'));
+
+            $v->requestBody($child, $document);
+        }
+    }
+
     public function validate(): void
     {
         foreach ($this->Grants as $item) {

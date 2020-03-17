@@ -43,6 +43,22 @@ class Template
         return $this->TemplateData;
     }
 
+    /**
+     * @internal
+     */
+    public function requestBody(): array
+    {
+        $payload = [];
+        if (null !== $v = $this->TemplateArn) {
+            $payload['TemplateArn'] = $v;
+        }
+        if (null !== $v = $this->TemplateData) {
+            $payload['TemplateData'] = $v;
+        }
+
+        return $payload;
+    }
+
     public function validate(): void
     {
         // There are no required properties

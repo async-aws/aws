@@ -65,6 +65,28 @@ class LayerVersionContentInput
         return $this->ZipFile;
     }
 
+    /**
+     * @internal
+     */
+    public function requestBody(): array
+    {
+        $payload = [];
+        if (null !== $v = $this->S3Bucket) {
+            $payload['S3Bucket'] = $v;
+        }
+        if (null !== $v = $this->S3Key) {
+            $payload['S3Key'] = $v;
+        }
+        if (null !== $v = $this->S3ObjectVersion) {
+            $payload['S3ObjectVersion'] = $v;
+        }
+        if (null !== $v = $this->ZipFile) {
+            $payload['ZipFile'] = base64_encode($v);
+        }
+
+        return $payload;
+    }
+
     public function validate(): void
     {
         // There are no required properties

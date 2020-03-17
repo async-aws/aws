@@ -43,6 +43,22 @@ class Body
         return $this->Text;
     }
 
+    /**
+     * @internal
+     */
+    public function requestBody(): array
+    {
+        $payload = [];
+        if (null !== $v = $this->Text) {
+            $payload['Text'] = $v->requestBody();
+        }
+        if (null !== $v = $this->Html) {
+            $payload['Html'] = $v->requestBody();
+        }
+
+        return $payload;
+    }
+
     public function validate(): void
     {
         if (null !== $this->Text) {

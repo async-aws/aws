@@ -17,6 +17,11 @@ class Shape
     protected $shapeLocator;
 
     /**
+     * @var \Closure
+     */
+    protected $serviceLocator;
+
+    /**
      * @var string
      */
     private $name;
@@ -30,7 +35,7 @@ class Shape
     {
     }
 
-    public static function create(string $name, array $data, \Closure $shapeLocator): Shape
+    public static function create(string $name, array $data, \Closure $shapeLocator, \Closure $serviceLocator): Shape
     {
         switch ($data['type']) {
             case 'structure':
@@ -52,6 +57,7 @@ class Shape
         $shape->name = $name;
         $shape->data = $data;
         $shape->shapeLocator = $shapeLocator;
+        $shape->serviceLocator = $serviceLocator;
 
         return $shape;
     }
@@ -82,5 +88,10 @@ class Shape
     public function get(string $name): ?string
     {
         return $this->data[$name] ?? null;
+    }
+
+    public function getService(): ServiceDefinition
+    {
+        return ($this->serviceLocator)();
     }
 }

@@ -88,6 +88,36 @@ class MessageAttributeValue
         return $this->StringValue;
     }
 
+    /**
+     * @internal
+     */
+    public function requestBody(): array
+    {
+        $payload = [];
+        if (null !== $v = $this->StringValue) {
+            $payload['StringValue'] = $v;
+        }
+        if (null !== $v = $this->BinaryValue) {
+            $payload['BinaryValue'] = base64_encode($v);
+        }
+
+        $index = 0;
+        foreach ($this->StringListValues as $mapValue) {
+            ++$index;
+            $payload["StringListValue.{$index}"] = $mapValue;
+        }
+
+        $index = 0;
+        foreach ($this->BinaryListValues as $mapValue) {
+            ++$index;
+            $payload["BinaryListValue.{$index}"] = base64_encode($mapValue);
+        }
+
+        $payload['DataType'] = $this->DataType;
+
+        return $payload;
+    }
+
     public function validate(): void
     {
         if (null === $this->DataType) {

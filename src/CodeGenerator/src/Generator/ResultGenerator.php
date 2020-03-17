@@ -73,14 +73,14 @@ class ResultGenerator
      */
     private $operation;
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, ?ObjectGenerator $objectGenerator = null, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
+    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, ObjectGenerator $objectGenerator, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
     {
         $this->namespaceRegistry = $namespaceRegistry;
         $this->fileWriter = $fileWriter;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
         $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->namespaceRegistry, $fileWriter);
         $this->parserProvider = new ParserProvider($this->namespaceRegistry);
-        $this->objectGenerator = $objectGenerator ?? new ObjectGenerator($namespaceRegistry, $fileWriter, $this->typeGenerator, $this->enumGenerator);
+        $this->objectGenerator = $objectGenerator;
     }
 
     /**

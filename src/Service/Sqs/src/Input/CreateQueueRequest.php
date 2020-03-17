@@ -88,8 +88,11 @@ class CreateQueueRequest
         // Prepare URI
         $uriString = '/';
 
+        // Prepare Body
+        $body = http_build_query(['Action' => 'CreateQueue', 'Version' => '2012-11-05'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
+
         // Return the Request
-        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     /**
@@ -126,30 +129,28 @@ class CreateQueueRequest
         }
     }
 
-    private function requestBody(): string
+    /**
+     * @internal
+     */
+    private function requestBody(): array
     {
-        $payload = ['Action' => 'CreateQueue', 'Version' => '2012-11-05'];
-        $indices = new \stdClass();
+        $payload = [];
         $payload['QueueName'] = $this->QueueName;
 
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->ka086d94 = 0;
-            foreach ($input as $key => $value) {
-                ++$indices->ka086d94;
-                $payload["Attribute.{$indices->ka086d94}.Name"] = $key;
-                $payload["Attribute.{$indices->ka086d94}.Value"] = $value;
-            }
-        })($this->Attributes);
+        $index = 0;
+        foreach ($this->Attributes as $mapKey => $listValue) {
+            ++$index;
+            $payload["Attribute.{$index}.Name"] = $mapKey;
+            $payload["Attribute.{$index}.Value"] = $listValue;
+        }
 
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->k982963c = 0;
-            foreach ($input as $key => $value) {
-                ++$indices->k982963c;
-                $payload["Tag.{$indices->k982963c}.Key"] = $key;
-                $payload["Tag.{$indices->k982963c}.Value"] = $value;
-            }
-        })($this->tags);
+        $index = 0;
+        foreach ($this->tags as $mapKey => $listValue) {
+            ++$index;
+            $payload["Tag.{$index}.Key"] = $mapKey;
+            $payload["Tag.{$index}.Value"] = $listValue;
+        }
 
-        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
+        return $payload;
     }
 }

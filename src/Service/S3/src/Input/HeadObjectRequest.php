@@ -272,8 +272,11 @@ class HeadObjectRequest
         $uri['Key'] = $this->Key ?? '';
         $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
 
+        // Prepare Body
+        $body = '';
+
         // Return the Request
-        return new Request('HEAD', $uriString, $query, $headers, StreamFactory::create(null));
+        return new Request('HEAD', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     public function setBucket(?string $value): self

@@ -46,6 +46,22 @@ class Message
         return $this->Subject;
     }
 
+    /**
+     * @internal
+     */
+    public function requestBody(): array
+    {
+        $payload = [];
+        if (null !== $v = $this->Subject) {
+            $payload['Subject'] = $v->requestBody();
+        }
+        if (null !== $v = $this->Body) {
+            $payload['Body'] = $v->requestBody();
+        }
+
+        return $payload;
+    }
+
     public function validate(): void
     {
         if (null === $this->Subject) {

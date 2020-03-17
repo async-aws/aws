@@ -112,7 +112,7 @@ class ServiceDefinition
                 $documentation = $this->documentation['shapes'][$name]['refs'][$member->getOwnerShape()->getName() . '$' . $member->getName()] ?? null;
             }
 
-            return Shape::create($name, $this->definition['shapes'][$name] + ['_documentation' => $documentation] + $extra, $this->createClosureToFindShape());
+            return Shape::create($name, $this->definition['shapes'][$name] + ['_documentation' => $documentation] + $extra, $this->createClosureToFindShape(), $this->createClosureToService());
         }
 
         return null;
@@ -124,6 +124,15 @@ class ServiceDefinition
 
         return \Closure::fromCallable(function (string $name, Member $member = null, array $extra = []) use ($definition) {
             return $definition->getShape($name, $member, $extra);
+        });
+    }
+
+    private function createClosureToService(): \Closure
+    {
+        $definition = $this;
+
+        return \Closure::fromCallable(function () use ($definition) {
+            return $definition;
         });
     }
 

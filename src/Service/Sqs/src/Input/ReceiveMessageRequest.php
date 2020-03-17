@@ -146,8 +146,11 @@ class ReceiveMessageRequest
         // Prepare URI
         $uriString = '/';
 
+        // Prepare Body
+        $body = http_build_query(['Action' => 'ReceiveMessage', 'Version' => '2012-11-05'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
+
         // Return the Request
-        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     /**
@@ -218,27 +221,26 @@ class ReceiveMessageRequest
         }
     }
 
-    private function requestBody(): string
+    /**
+     * @internal
+     */
+    private function requestBody(): array
     {
-        $payload = ['Action' => 'ReceiveMessage', 'Version' => '2012-11-05'];
-        $indices = new \stdClass();
+        $payload = [];
         $payload['QueueUrl'] = $this->QueueUrl;
 
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->kbedee52 = 0;
-            foreach ($input as $value) {
-                ++$indices->kbedee52;
-                $payload["AttributeName.{$indices->kbedee52}"] = $value;
-            }
-        })($this->AttributeNames);
+        $index = 0;
+        foreach ($this->AttributeNames as $mapValue) {
+            ++$index;
+            $payload["AttributeName.{$index}"] = $mapValue;
+        }
 
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->k40753f1 = 0;
-            foreach ($input as $value) {
-                ++$indices->k40753f1;
-                $payload["MessageAttributeName.{$indices->k40753f1}"] = $value;
-            }
-        })($this->MessageAttributeNames);
+        $index = 0;
+        foreach ($this->MessageAttributeNames as $mapValue) {
+            ++$index;
+            $payload["MessageAttributeName.{$index}"] = $mapValue;
+        }
+
         if (null !== $v = $this->MaxNumberOfMessages) {
             $payload['MaxNumberOfMessages'] = $v;
         }
@@ -252,6 +254,6 @@ class ReceiveMessageRequest
             $payload['ReceiveRequestAttemptId'] = $v;
         }
 
-        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
+        return $payload;
     }
 }

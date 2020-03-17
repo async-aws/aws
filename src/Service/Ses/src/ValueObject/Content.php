@@ -45,6 +45,20 @@ class Content
         return $this->Data;
     }
 
+    /**
+     * @internal
+     */
+    public function requestBody(): array
+    {
+        $payload = [];
+        $payload['Data'] = $this->Data;
+        if (null !== $v = $this->Charset) {
+            $payload['Charset'] = $v;
+        }
+
+        return $payload;
+    }
+
     public function validate(): void
     {
         if (null === $this->Data) {

@@ -11,7 +11,6 @@ use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
-use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 
 /**
  * Serialize a request body to a flattened array with "." as separator.
@@ -22,27 +21,24 @@ use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
  */
 class QuerySerializer implements Serializer
 {
-    /**
-     * @var NamespaceRegistry
-     */
-    private $namespaceRegistry;
-
-    public function __construct(NamespaceRegistry $namespaceRegistry)
-    {
-        $this->namespaceRegistry = $namespaceRegistry;
-    }
-
     public function getContentType(): string
     {
         return 'application/x-www-form-urlencoded';
     }
 
-    public function generateForMember(StructureMember $member, string $payloadProperty): string
+    public function generateRequestBody(Operation $operation, StructureShape $shape): array
     {
-        return "return \$this->$payloadProperty ?? '';";
+        if (null !== $payloadProperty = $shape->getPayload()) {
+            return ['$body = $this->' . $payloadProperty . ' ?? "";', false];
+        }
+
+        return [strtr('$body = http_build_query([\'Action\' => OPERATION_NAME, \'Version\' => API_VERSION] + $this->requestBody(), \'\', \'&\', \PHP_QUERY_RFC1738);', [
+            'OPERATION_NAME' => \var_export($operation->getName(), true),
+            'API_VERSION' => \var_export($operation->getApiVersion(), true),
+        ]), true];
     }
 
-    public function generateForShape(Operation $operation, StructureShape $shape): string
+    public function generateRequestBuilder(StructureShape $shape): array
     {
         $body = implode("\n", array_map(function (StructureMember $member) {
             if (null !== $member->getLocation()) {
@@ -54,8 +50,8 @@ class QuerySerializer implements Serializer
                 $inputElement = '$this->' . $member->getName();
             } else {
                 $body = 'if (null !== $v = INPUT_NAME) {
-                        MEMBER_CODE
-                    }';
+                    MEMBER_CODE
+                }';
                 $inputElement = '$v';
             }
 
@@ -65,18 +61,14 @@ class QuerySerializer implements Serializer
             ]);
         }, $shape->getMembers()));
 
-        // Official SDK uses: return http_build_query($payload, null, '&', \PHP_QUERY_RFC3986);
-
-        return strtr('
-                $payload = [\'Action\' => OPERATION_NAME, \'Version\' => API_VERSION];
+        return ['array', strtr('
+                $payload = [];
                 CHILDREN_CODE
 
-                return http_build_query($payload, \'\', \'&\', \PHP_QUERY_RFC1738);
+                return $payload;
             ', [
-            'OPERATION_NAME' => \var_export($operation->getName(), true),
-            'API_VERSION' => \var_export($operation->getApiVersion(), true),
-            'CHILDREN_CODE' => false !== \strpos($body, '$indices') ? '$indices = new \stdClass();' . $body : $body,
-        ]);
+            'CHILDREN_CODE' => $body,
+        ])];
     }
 
     private function getQueryName(Member $member, string $default): string
@@ -147,71 +139,40 @@ class QuerySerializer implements Serializer
 
     private function dumpArrayStructure(string $output, string $input, StructureShape $shape): string
     {
-        $memberCode = implode("\n", array_map(function (StructureMember $member) use ($output) {
-            $shape = $member->getShape();
-            if ($member->isRequired() || $shape instanceof ListShape || $shape instanceof MapShape) {
-                $body = 'MEMBER_CODE';
-                $inputElement = '$input->get' . $member->getName() . '()';
-            } else {
-                $body = 'if (null !== $v = INPUT_NAME) {
-                    MEMBER_CODE
-                }';
-                $inputElement = '$v';
+        $memberCode = strtr('
+            foreach ($v->requestBody() as $bodyKey => $bodyValue) {
+                $payload["OUTPUT.$bodyKey"] = $bodyValue;
             }
-
-            return strtr($body, [
-                'INPUT_NAME' => '$input->get' . $member->getName() . '()',
-                'MEMBER_CODE' => $this->dumpArrayElement(sprintf('%s.%s', $output, $this->getName($member)), $inputElement, $shape),
-            ]);
-        }, $shape->getMembers()));
-
-        $replaceData = [
-            'INPUT' => $input,
-            'CLASS_NAME' => $this->namespaceRegistry->getInput($shape)->getName(),
-            'MEMBERS_CODE' => $memberCode,
-            'USE' => \strpos($memberCode, '$indices') ? '&$payload, $indices' : '&$payload',
-        ];
+        ', ['OUTPUT' => $output]);
 
         if ('$v' === $input) {
-            // No check for null needed
-            return strtr('
-
-(static function(CLASS_NAME $input) use (USE) {
-    MEMBERS_CODE
-})(INPUT);',
-                $replaceData
-            );
+            $body = 'MEMBER_CODE';
+        } else {
+            $body = 'if (null !== $v = INPUT) {
+                MEMBER_CODE
+            }';
         }
 
-        return strtr('
-
-if (null !== INPUT) {
-    (static function(CLASS_NAME $input) use (USE) {
-        MEMBERS_CODE
-    })(INPUT);
-}',
-            $replaceData
-        );
+        return strtr($body, [
+            'INPUT' => $input,
+            'MEMBER_CODE' => $memberCode,
+        ]);
     }
 
     private function dumpArrayMap(string $output, string $input, MapShape $shape): string
     {
         return strtr('
-
-(static function(array $input) use (USE) {
-    $indices->INDEX_KEY = 0;
-    foreach ($input as $key => $value) {
-        $indices->INDEX_KEY++;
-        $payload["OUTPUT_KEY"] = $key;
-        MEMBER_CODE
-    }
-})(INPUT);',
+            $index = 0;
+            foreach (INPUT as $mapKey => $listValue) {
+                $index++;
+                $payload["OUTPUT_KEY"] = $mapKey;
+                MEMBER_CODE
+            }
+        ',
             [
                 'INPUT' => $input,
-                'INDEX_KEY' => $indexKey = 'k' . \substr(sha1($output), 0, 7),
-                'OUTPUT_KEY' => sprintf('%s.{$indices->%s}.%s', $output, $indexKey, $this->getQueryName($shape->getKey(), 'key')),
-                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$indices->%s}.%s', $output, $indexKey, $this->getQueryName($shape->getValue(), 'value')), '$value', $shape->getValue()->getShape()),
-                'USE' => \strpos($memberCode, '$indices') ? '&$payload, $indices' : '&$payload',
+                'OUTPUT_KEY' => sprintf('%s.{$index}.%s', $output, $this->getQueryName($shape->getKey(), 'key')),
+                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$index}.%s', $output, $this->getQueryName($shape->getValue(), 'value')), '$listValue', $shape->getValue()->getShape()),
             ]);
     }
 
@@ -220,18 +181,15 @@ if (null !== INPUT) {
         $memberShape = $shape->getMember()->getShape();
 
         return strtr('
-(static function(array $input) use (USE) {
-    $indices->INDEX_KEY = 0;
-    foreach ($input as $value) {
-        $indices->INDEX_KEY++;
-        MEMBER_CODE
-    }
-})(INPUT);',
+            $index = 0;
+            foreach (INPUT as $mapValue) {
+                $index++;
+                MEMBER_CODE
+            }
+        ',
             [
                 'INPUT' => $input,
-                'INDEX_KEY' => $indexKey = 'k' . \substr(sha1($output), 0, 7),
-                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$indices->%s}', $output, $indexKey), '$value', $memberShape),
-                'USE' => \strpos($memberCode, '$indices') ? '&$payload, $indices' : '&$payload',
+                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$index}', $output), '$mapValue', $memberShape),
             ]);
     }
 

@@ -217,8 +217,11 @@ class AssumeRoleRequest
         // Prepare URI
         $uriString = '/';
 
+        // Prepare Body
+        $body = http_build_query(['Action' => 'AssumeRole', 'Version' => '2011-06-15'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
+
         // Return the Request
-        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     public function setDurationSeconds(?int $value): self
@@ -319,27 +322,25 @@ class AssumeRoleRequest
         }
     }
 
-    private function requestBody(): string
+    /**
+     * @internal
+     */
+    private function requestBody(): array
     {
-        $payload = ['Action' => 'AssumeRole', 'Version' => '2011-06-15'];
-        $indices = new \stdClass();
+        $payload = [];
         $payload['RoleArn'] = $this->RoleArn;
         $payload['RoleSessionName'] = $this->RoleSessionName;
 
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->kfc822c1 = 0;
-            foreach ($input as $value) {
-                ++$indices->kfc822c1;
-
-                if (null !== $value) {
-                    (static function (PolicyDescriptorType $input) use (&$payload, $indices) {
-                        if (null !== $v = $input->getarn()) {
-                            $payload["PolicyArns.member.{$indices->kfc822c1}.arn"] = $v;
-                        }
-                    })($value);
+        $index = 0;
+        foreach ($this->PolicyArns as $mapValue) {
+            ++$index;
+            if (null !== $v = $mapValue) {
+                foreach ($v->requestBody() as $bodyKey => $bodyValue) {
+                    $payload["PolicyArns.member.{$index}.$bodyKey"] = $bodyValue;
                 }
             }
-        })($this->PolicyArns);
+        }
+
         if (null !== $v = $this->Policy) {
             $payload['Policy'] = $v;
         }
@@ -347,27 +348,22 @@ class AssumeRoleRequest
             $payload['DurationSeconds'] = $v;
         }
 
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->k26dfc14 = 0;
-            foreach ($input as $value) {
-                ++$indices->k26dfc14;
-
-                if (null !== $value) {
-                    (static function (Tag $input) use (&$payload, $indices) {
-                        $payload["Tags.member.{$indices->k26dfc14}.Key"] = $input->getKey();
-                        $payload["Tags.member.{$indices->k26dfc14}.Value"] = $input->getValue();
-                    })($value);
+        $index = 0;
+        foreach ($this->Tags as $mapValue) {
+            ++$index;
+            if (null !== $v = $mapValue) {
+                foreach ($v->requestBody() as $bodyKey => $bodyValue) {
+                    $payload["Tags.member.{$index}.$bodyKey"] = $bodyValue;
                 }
             }
-        })($this->Tags);
+        }
 
-        (static function (array $input) use (&$payload, $indices) {
-            $indices->k0ec5280 = 0;
-            foreach ($input as $value) {
-                ++$indices->k0ec5280;
-                $payload["TransitiveTagKeys.member.{$indices->k0ec5280}"] = $value;
-            }
-        })($this->TransitiveTagKeys);
+        $index = 0;
+        foreach ($this->TransitiveTagKeys as $mapValue) {
+            ++$index;
+            $payload["TransitiveTagKeys.member.{$index}"] = $mapValue;
+        }
+
         if (null !== $v = $this->ExternalId) {
             $payload['ExternalId'] = $v;
         }
@@ -378,6 +374,6 @@ class AssumeRoleRequest
             $payload['TokenCode'] = $v;
         }
 
-        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
+        return $payload;
     }
 }

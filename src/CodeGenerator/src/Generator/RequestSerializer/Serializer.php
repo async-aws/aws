@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Generator\RequestSerializer;
 
 use AsyncAws\CodeGenerator\Definition\Operation;
-use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 
 /**
@@ -15,9 +14,9 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
  */
 interface Serializer
 {
-    public function generateForMember(StructureMember $member, string $payloadProperty): string;
+    public function generateRequestBody(Operation $operation, StructureShape $shape): array;
 
-    public function generateForShape(Operation $operation, StructureShape $shape): string;
+    public function generateRequestBuilder(StructureShape $shape): array;
 
     public function getContentType(): string;
 }

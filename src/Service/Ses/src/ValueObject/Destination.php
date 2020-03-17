@@ -62,6 +62,34 @@ class Destination
         return $this->ToAddresses;
     }
 
+    /**
+     * @internal
+     */
+    public function requestBody(): array
+    {
+        $payload = [];
+
+        $index = -1;
+        foreach ($this->ToAddresses as $mapValue) {
+            ++$index;
+            $payload['ToAddresses'][$index] = $mapValue;
+        }
+
+        $index = -1;
+        foreach ($this->CcAddresses as $mapValue) {
+            ++$index;
+            $payload['CcAddresses'][$index] = $mapValue;
+        }
+
+        $index = -1;
+        foreach ($this->BccAddresses as $mapValue) {
+            ++$index;
+            $payload['BccAddresses'][$index] = $mapValue;
+        }
+
+        return $payload;
+    }
+
     public function validate(): void
     {
         // There are no required properties

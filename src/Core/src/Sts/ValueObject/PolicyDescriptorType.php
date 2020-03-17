@@ -32,6 +32,19 @@ class PolicyDescriptorType
         return $this->arn;
     }
 
+    /**
+     * @internal
+     */
+    public function requestBody(): array
+    {
+        $payload = [];
+        if (null !== $v = $this->arn) {
+            $payload['arn'] = $v;
+        }
+
+        return $payload;
+    }
+
     public function validate(): void
     {
         // There are no required properties

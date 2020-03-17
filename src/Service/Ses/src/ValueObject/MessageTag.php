@@ -43,6 +43,18 @@ class MessageTag
         return $this->Value;
     }
 
+    /**
+     * @internal
+     */
+    public function requestBody(): array
+    {
+        $payload = [];
+        $payload['Name'] = $this->Name;
+        $payload['Value'] = $this->Value;
+
+        return $payload;
+    }
+
     public function validate(): void
     {
         if (null === $this->Name) {

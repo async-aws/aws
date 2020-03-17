@@ -66,8 +66,11 @@ class GetQueueUrlRequest
         // Prepare URI
         $uriString = '/';
 
+        // Prepare Body
+        $body = http_build_query(['Action' => 'GetQueueUrl', 'Version' => '2012-11-05'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
+
         // Return the Request
-        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($this->requestBody()));
+        return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
     public function setQueueName(?string $value): self
@@ -91,14 +94,17 @@ class GetQueueUrlRequest
         }
     }
 
-    private function requestBody(): string
+    /**
+     * @internal
+     */
+    private function requestBody(): array
     {
-        $payload = ['Action' => 'GetQueueUrl', 'Version' => '2012-11-05'];
+        $payload = [];
         $payload['QueueName'] = $this->QueueName;
         if (null !== $v = $this->QueueOwnerAWSAccountId) {
             $payload['QueueOwnerAWSAccountId'] = $v;
         }
 
-        return http_build_query($payload, '', '&', \PHP_QUERY_RFC1738);
+        return $payload;
     }
 }
