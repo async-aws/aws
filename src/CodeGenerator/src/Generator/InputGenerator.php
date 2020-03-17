@@ -325,7 +325,7 @@ PHP
         throw new \InvalidArgumentException(sprintf('Type "%s" is not yet implemented', $shape->getType()));
     }
 
-    private function addUse(StructureShape $shape, PhpNamespace $namespace)
+    private function addUse(StructureShape $shape, PhpNamespace $namespace, array $addedFqdn = [])
     {
         foreach ($shape->getMembers() as $member) {
             $memberShape = $member->getShape();
@@ -334,20 +334,32 @@ PHP
             }
 
             if ($memberShape instanceof StructureShape) {
-                $this->addUse($memberShape, $namespace);
-                $namespace->addUse($this->namespaceRegistry->getObject($memberShape)->getFqdn());
+                $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
+                if (!\in_array($fqdn, $addedFqdn)) {
+                    $addedFqdn[] = $fqdn;
+                    $this->addUse($memberShape, $namespace, $addedFqdn);
+                    $namespace->addUse($fqdn);
+                }
             } elseif ($memberShape instanceof MapShape) {
                 if (($valueShape = $memberShape->getValue()->getShape()) instanceof StructureShape) {
-                    $this->addUse($valueShape, $namespace);
-                    $namespace->addUse($this->namespaceRegistry->getObject($valueShape)->getFqdn());
+                    $fqdn = $this->namespaceRegistry->getObject($valueShape)->getFqdn();
+                    if (!\in_array($fqdn, $addedFqdn)) {
+                        $addedFqdn[] = $fqdn;
+                        $this->addUse($valueShape, $namespace, $addedFqdn);
+                        $namespace->addUse($fqdn);
+                    }
                 }
                 if (!empty($valueShape->getEnum())) {
                     $namespace->addUse($this->namespaceRegistry->getEnum($valueShape)->getFqdn());
                 }
             } elseif ($memberShape instanceof ListShape) {
                 if (($memberShape = $memberShape->getMember()->getShape()) instanceof StructureShape) {
-                    $this->addUse($memberShape, $namespace);
-                    $namespace->addUse($this->namespaceRegistry->getObject($memberShape)->getFqdn());
+                    $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
+                    if (!\in_array($fqdn, $addedFqdn)) {
+                        $addedFqdn[] = $fqdn;
+                        $this->addUse($memberShape, $namespace, $addedFqdn);
+                        $namespace->addUse($fqdn);
+                    }
                 }
                 if (!empty($memberShape->getEnum())) {
                     $namespace->addUse($this->namespaceRegistry->getEnum($memberShape)->getFqdn());
