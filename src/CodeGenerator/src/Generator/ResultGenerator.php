@@ -294,9 +294,7 @@ class ResultGenerator
         foreach ($shape->getMembers() as $member) {
             $memberShape = $member->getShape();
             if (!empty($memberShape->getEnum())) {
-                $fqdn = $this->namespaceRegistry->getEnum($memberShape)->getFqdn();
-                $addedUses[] = $fqdn;
-                $namespace->addUse($fqdn);
+                $namespace->addUse($this->namespaceRegistry->getEnum($memberShape)->getFqdn());
             }
 
             if ($memberShape instanceof StructureShape) {
@@ -316,9 +314,7 @@ class ResultGenerator
                     }
                 }
                 if (!empty($valueShape->getEnum())) {
-                    $fqdn = $this->namespaceRegistry->getEnum($valueShape)->getFqdn();
-                    $addedUses[] = $fqdn;
-                    $namespace->addUse($fqdn);
+                    $namespace->addUse($this->namespaceRegistry->getEnum($valueShape)->getFqdn());
                 }
             } elseif ($memberShape instanceof ListShape) {
                 if (($memberShape = $memberShape->getMember()->getShape()) instanceof StructureShape) {
@@ -330,9 +326,7 @@ class ResultGenerator
                     }
                 }
                 if (!empty($memberShape->getEnum())) {
-                    $fqdn = $this->namespaceRegistry->getEnum($memberShape)->getFqdn();
-                    $addedUses[] = $fqdn;
-                    $namespace->addUse($fqdn);
+                    $namespace->addUse($this->namespaceRegistry->getEnum($memberShape)->getFqdn());
                 }
             } elseif ($member->isStreaming()) {
                 $namespace->addUse(StreamableBodyInterface::class);
