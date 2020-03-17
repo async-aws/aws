@@ -298,20 +298,29 @@ class ResultGenerator
             }
 
             if ($memberShape instanceof StructureShape) {
-                $this->addUse($memberShape, $namespace);
-                $namespace->addUse($this->namespaceRegistry->getObject($memberShape)->getFqdn());
+                $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
+                if (!in_array($fqdn, $namespace->getUses())) {
+                    $namespace->addUse($fqdn);
+                    $this->addUse($memberShape, $namespace);
+                }
             } elseif ($memberShape instanceof MapShape) {
                 if (($valueShape = $memberShape->getValue()->getShape()) instanceof StructureShape) {
-                    $this->addUse($valueShape, $namespace);
-                    $namespace->addUse($this->namespaceRegistry->getObject($valueShape)->getFqdn());
+                    $fqdn = $this->namespaceRegistry->getObject($valueShape)->getFqdn();
+                    if (!in_array($fqdn, $namespace->getUses())) {
+                        $namespace->addUse($fqdn);
+                        $this->addUse($valueShape, $namespace);
+                    }
                 }
                 if (!empty($valueShape->getEnum())) {
                     $namespace->addUse($this->namespaceRegistry->getEnum($valueShape)->getFqdn());
                 }
             } elseif ($memberShape instanceof ListShape) {
                 if (($memberShape = $memberShape->getMember()->getShape()) instanceof StructureShape) {
-                    $this->addUse($memberShape, $namespace);
-                    $namespace->addUse($this->namespaceRegistry->getObject($memberShape)->getFqdn());
+                    $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
+                    if (!in_array($fqdn, $namespace->getUses())) {
+                        $namespace->addUse($fqdn);
+                        $this->addUse($memberShape, $namespace);
+                    }
                 }
                 if (!empty($memberShape->getEnum())) {
                     $namespace->addUse($this->namespaceRegistry->getEnum($memberShape)->getFqdn());

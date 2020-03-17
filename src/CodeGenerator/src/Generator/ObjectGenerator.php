@@ -108,7 +108,8 @@ class ObjectGenerator
         if (null === $this->usedShapedInput) {
             $service = $shape->getService();
             $walk = function (Shape $shape) use (&$walk) {
-                if (isset($this->usedShapedInput[$shape->getName()]) {
+                if (isset($this->usedShapedInput[$shape->getName()])) {
+                    // Node already visited
                     return;
                 }
 
