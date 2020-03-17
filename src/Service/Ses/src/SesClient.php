@@ -25,10 +25,7 @@ class SesClient extends AbstractApi
      */
     public function sendEmail($input): SendEmailResponse
     {
-        $input = SendEmailRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(SendEmailRequest::create($input)->request());
 
         return new SendEmailResponse($response, $this->httpClient);
     }

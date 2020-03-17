@@ -52,9 +52,4 @@ class LayerVersionContentOutput
     {
         return $this->Location;
     }
-
-    public function validate(): void
-    {
-        // There are no required properties
-    }
 }

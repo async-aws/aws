@@ -53,9 +53,4 @@ class Owner
             $node->appendChild($document->createElement('ID', $v));
         }
     }
-
-    public function validate(): void
-    {
-        // There are no required properties
-    }
 }

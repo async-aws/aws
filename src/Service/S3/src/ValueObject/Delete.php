@@ -2,6 +2,8 @@
 
 namespace AsyncAws\S3\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 class Delete
 {
     /**
@@ -49,22 +51,17 @@ class Delete
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        foreach ($this->Objects as $item) {
+        if (null === $v = $this->Objects) {
+            throw new InvalidArgument(sprintf('Missing parameter "Objects" for "%s". The value cannot be null.', __CLASS__));
+        }
+        foreach ($v as $item) {
             $node->appendChild($child = $document->createElement('Object'));
 
-            /** @psalm-suppress PossiblyNullReference */
             $item->requestBody($child, $document);
         }
 
         if (null !== $v = $this->Quiet) {
             $node->appendChild($document->createElement('Quiet', $v ? 'true' : 'false'));
-        }
-    }
-
-    public function validate(): void
-    {
-        foreach ($this->Objects as $item) {
-            $item->validate();
         }
     }
 }

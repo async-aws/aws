@@ -41,9 +41,4 @@ class CopyObjectResult
     {
         return $this->LastModified;
     }
-
-    public function validate(): void
-    {
-        // There are no required properties
-    }
 }

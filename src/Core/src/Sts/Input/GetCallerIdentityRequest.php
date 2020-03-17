@@ -33,11 +33,6 @@ class GetCallerIdentityRequest
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
-    public function validate(): void
-    {
-        // There are no required properties
-    }
-
     /**
      * @internal
      */

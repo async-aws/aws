@@ -115,11 +115,4 @@ class Message
     {
         return $this->ReceiptHandle;
     }
-
-    public function validate(): void
-    {
-        foreach ($this->MessageAttributes as $item) {
-            $item->validate();
-        }
-    }
 }

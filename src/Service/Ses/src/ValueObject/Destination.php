@@ -70,28 +70,23 @@ class Destination
         $payload = [];
 
         $index = -1;
-        foreach ($this->ToAddresses as $mapValue) {
+        foreach ($this->ToAddresses as $listValue) {
             ++$index;
-            $payload['ToAddresses'][$index] = $mapValue;
+            $payload['ToAddresses'][$index] = $listValue;
         }
 
         $index = -1;
-        foreach ($this->CcAddresses as $mapValue) {
+        foreach ($this->CcAddresses as $listValue) {
             ++$index;
-            $payload['CcAddresses'][$index] = $mapValue;
+            $payload['CcAddresses'][$index] = $listValue;
         }
 
         $index = -1;
-        foreach ($this->BccAddresses as $mapValue) {
+        foreach ($this->BccAddresses as $listValue) {
             ++$index;
-            $payload['BccAddresses'][$index] = $mapValue;
+            $payload['BccAddresses'][$index] = $listValue;
         }
 
         return $payload;
-    }
-
-    public function validate(): void
-    {
-        // There are no required properties
     }
 }

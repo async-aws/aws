@@ -521,6 +521,9 @@ class PutObjectRequest
         // Prepare headers
         $headers = [];
         if (null !== $this->ACL) {
+            if (!ObjectCannedACL::exists($this->ACL)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "ObjectCannedACL".', __CLASS__, $this->ACL));
+            }
             $headers['x-amz-acl'] = $this->ACL;
         }
         if (null !== $this->CacheControl) {
@@ -536,7 +539,7 @@ class PutObjectRequest
             $headers['Content-Language'] = $this->ContentLanguage;
         }
         if (null !== $this->ContentLength) {
-            $headers['Content-Length'] = (string) $this->ContentLength;
+            $headers['Content-Length'] = $this->ContentLength;
         }
         if (null !== $this->ContentMD5) {
             $headers['Content-MD5'] = $this->ContentMD5;
@@ -560,9 +563,15 @@ class PutObjectRequest
             $headers['x-amz-grant-write-acp'] = $this->GrantWriteACP;
         }
         if (null !== $this->ServerSideEncryption) {
+            if (!ServerSideEncryption::exists($this->ServerSideEncryption)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ServerSideEncryption" for "%s". The value "%s" is not a valid "ServerSideEncryption".', __CLASS__, $this->ServerSideEncryption));
+            }
             $headers['x-amz-server-side-encryption'] = $this->ServerSideEncryption;
         }
         if (null !== $this->StorageClass) {
+            if (!StorageClass::exists($this->StorageClass)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "StorageClass" for "%s". The value "%s" is not a valid "StorageClass".', __CLASS__, $this->StorageClass));
+            }
             $headers['x-amz-storage-class'] = $this->StorageClass;
         }
         if (null !== $this->WebsiteRedirectLocation) {
@@ -584,18 +593,27 @@ class PutObjectRequest
             $headers['x-amz-server-side-encryption-context'] = $this->SSEKMSEncryptionContext;
         }
         if (null !== $this->RequestPayer) {
+            if (!RequestPayer::exists($this->RequestPayer)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
+            }
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
         if (null !== $this->Tagging) {
             $headers['x-amz-tagging'] = $this->Tagging;
         }
         if (null !== $this->ObjectLockMode) {
+            if (!ObjectLockMode::exists($this->ObjectLockMode)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockMode" for "%s". The value "%s" is not a valid "ObjectLockMode".', __CLASS__, $this->ObjectLockMode));
+            }
             $headers['x-amz-object-lock-mode'] = $this->ObjectLockMode;
         }
         if (null !== $this->ObjectLockRetainUntilDate) {
             $headers['x-amz-object-lock-retain-until-date'] = $this->ObjectLockRetainUntilDate->format(\DateTimeInterface::ISO8601);
         }
         if (null !== $this->ObjectLockLegalHoldStatus) {
+            if (!ObjectLockLegalHoldStatus::exists($this->ObjectLockLegalHoldStatus)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockLegalHoldStatus" for "%s". The value "%s" is not a valid "ObjectLockLegalHoldStatus".', __CLASS__, $this->ObjectLockLegalHoldStatus));
+            }
             $headers['x-amz-object-lock-legal-hold'] = $this->ObjectLockLegalHoldStatus;
         }
 
@@ -604,8 +622,14 @@ class PutObjectRequest
 
         // Prepare URI
         $uri = [];
-        $uri['Bucket'] = $this->Bucket ?? '';
-        $uri['Key'] = $this->Key ?? '';
+        if (null === $v = $this->Bucket) {
+            throw new InvalidArgument(sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $uri['Bucket'] = $v;
+        if (null === $v = $this->Key) {
+            throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $uri['Key'] = $v;
         $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
 
         // Prepare Body
@@ -847,52 +871,5 @@ class PutObjectRequest
         $this->WebsiteRedirectLocation = $value;
 
         return $this;
-    }
-
-    public function validate(): void
-    {
-        if (null !== $this->ACL) {
-            if (!ObjectCannedACL::exists($this->ACL)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ACL" when validating the "%s". The value "%s" is not a valid "ObjectCannedACL".', __CLASS__, $this->ACL));
-            }
-        }
-
-        if (null === $this->Bucket) {
-            throw new InvalidArgument(sprintf('Missing parameter "Bucket" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->Key) {
-            throw new InvalidArgument(sprintf('Missing parameter "Key" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null !== $this->ServerSideEncryption) {
-            if (!ServerSideEncryption::exists($this->ServerSideEncryption)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ServerSideEncryption" when validating the "%s". The value "%s" is not a valid "ServerSideEncryption".', __CLASS__, $this->ServerSideEncryption));
-            }
-        }
-
-        if (null !== $this->StorageClass) {
-            if (!StorageClass::exists($this->StorageClass)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "StorageClass" when validating the "%s". The value "%s" is not a valid "StorageClass".', __CLASS__, $this->StorageClass));
-            }
-        }
-
-        if (null !== $this->RequestPayer) {
-            if (!RequestPayer::exists($this->RequestPayer)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
-            }
-        }
-
-        if (null !== $this->ObjectLockMode) {
-            if (!ObjectLockMode::exists($this->ObjectLockMode)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockMode" when validating the "%s". The value "%s" is not a valid "ObjectLockMode".', __CLASS__, $this->ObjectLockMode));
-            }
-        }
-
-        if (null !== $this->ObjectLockLegalHoldStatus) {
-            if (!ObjectLockLegalHoldStatus::exists($this->ObjectLockLegalHoldStatus)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockLegalHoldStatus" when validating the "%s". The value "%s" is not a valid "ObjectLockLegalHoldStatus".', __CLASS__, $this->ObjectLockLegalHoldStatus));
-            }
-        }
     }
 }

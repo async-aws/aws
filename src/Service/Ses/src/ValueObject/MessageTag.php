@@ -49,20 +49,15 @@ class MessageTag
     public function requestBody(): array
     {
         $payload = [];
-        $payload['Name'] = $this->Name;
-        $payload['Value'] = $this->Value;
+        if (null === $v = $this->Name) {
+            throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['Name'] = $v;
+        if (null === $v = $this->Value) {
+            throw new InvalidArgument(sprintf('Missing parameter "Value" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['Value'] = $v;
 
         return $payload;
-    }
-
-    public function validate(): void
-    {
-        if (null === $this->Name) {
-            throw new InvalidArgument(sprintf('Missing parameter "Name" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->Value) {
-            throw new InvalidArgument(sprintf('Missing parameter "Value" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
     }
 }

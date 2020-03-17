@@ -254,6 +254,9 @@ class HeadObjectRequest
             $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->SSECustomerKeyMD5;
         }
         if (null !== $this->RequestPayer) {
+            if (!RequestPayer::exists($this->RequestPayer)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
+            }
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
 
@@ -268,8 +271,14 @@ class HeadObjectRequest
 
         // Prepare URI
         $uri = [];
-        $uri['Bucket'] = $this->Bucket ?? '';
-        $uri['Key'] = $this->Key ?? '';
+        if (null === $v = $this->Bucket) {
+            throw new InvalidArgument(sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $uri['Bucket'] = $v;
+        if (null === $v = $this->Key) {
+            throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $uri['Key'] = $v;
         $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
 
         // Prepare Body
@@ -371,22 +380,5 @@ class HeadObjectRequest
         $this->VersionId = $value;
 
         return $this;
-    }
-
-    public function validate(): void
-    {
-        if (null === $this->Bucket) {
-            throw new InvalidArgument(sprintf('Missing parameter "Bucket" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->Key) {
-            throw new InvalidArgument(sprintf('Missing parameter "Key" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null !== $this->RequestPayer) {
-            if (!RequestPayer::exists($this->RequestPayer)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
-            }
-        }
     }
 }

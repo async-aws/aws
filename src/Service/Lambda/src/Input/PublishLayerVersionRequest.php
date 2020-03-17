@@ -115,7 +115,10 @@ class PublishLayerVersionRequest
 
         // Prepare URI
         $uri = [];
-        $uri['LayerName'] = $this->LayerName ?? '';
+        if (null === $v = $this->LayerName) {
+            throw new InvalidArgument(sprintf('Missing parameter "LayerName" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $uri['LayerName'] = $v;
         $uriString = "/2018-10-31/layers/{$uri['LayerName']}/versions";
 
         // Prepare Body
@@ -164,24 +167,6 @@ class PublishLayerVersionRequest
         return $this;
     }
 
-    public function validate(): void
-    {
-        if (null === $this->LayerName) {
-            throw new InvalidArgument(sprintf('Missing parameter "LayerName" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->Content) {
-            throw new InvalidArgument(sprintf('Missing parameter "Content" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-        $this->Content->validate();
-
-        foreach ($this->CompatibleRuntimes as $item) {
-            if (!Runtime::exists($item)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "CompatibleRuntimes" when validating the "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $item));
-            }
-        }
-    }
-
     /**
      * @internal
      */
@@ -192,14 +177,18 @@ class PublishLayerVersionRequest
         if (null !== $v = $this->Description) {
             $payload['Description'] = $v;
         }
-        if (null !== $v = $this->Content) {
-            $payload['Content'] = $v->requestBody();
+        if (null === $v = $this->Content) {
+            throw new InvalidArgument(sprintf('Missing parameter "Content" for "%s". The value cannot be null.', __CLASS__));
         }
+        $payload['Content'] = $v->requestBody();
 
         $index = -1;
-        foreach ($this->CompatibleRuntimes as $mapValue) {
+        foreach ($this->CompatibleRuntimes as $listValue) {
             ++$index;
-            $payload['CompatibleRuntimes'][$index] = $mapValue;
+            if (!Runtime::exists($listValue)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "CompatibleRuntimes" for "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $listValue));
+            }
+            $payload['CompatibleRuntimes'][$index] = $listValue;
         }
 
         if (null !== $v = $this->LicenseInfo) {

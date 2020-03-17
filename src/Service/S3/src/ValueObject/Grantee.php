@@ -97,19 +97,15 @@ class Grantee
         if (null !== $v = $this->ID) {
             $node->appendChild($document->createElement('ID', $v));
         }
-        $node->setAttribute('xsi:type', $this->Type);
+        if (null === $v = $this->Type) {
+            throw new InvalidArgument(sprintf('Missing parameter "Type" for "%s". The value cannot be null.', __CLASS__));
+        }
+        if (!Type::exists($v)) {
+            throw new InvalidArgument(sprintf('Invalid parameter "xsi:type" for "%s". The value "%s" is not a valid "Type".', __CLASS__, $v));
+        }
+        $node->setAttribute('xsi:type', $v);
         if (null !== $v = $this->URI) {
             $node->appendChild($document->createElement('URI', $v));
-        }
-    }
-
-    public function validate(): void
-    {
-        if (null === $this->Type) {
-            throw new InvalidArgument(sprintf('Missing parameter "Type" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-        if (!Type::exists($this->Type)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "Type" when validating the "%s". The value "%s" is not a valid "Type".', __CLASS__, $this->Type));
         }
     }
 }

@@ -13,6 +13,7 @@ use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\RequestSerializer\SerializerProvider;
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\StreamableBodyInterface;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
@@ -27,8 +28,6 @@ use Nette\PhpGenerator\PhpNamespace;
  */
 class ObjectGenerator
 {
-    use ValidableTrait;
-
     /**
      * @var ClassName[]
      */
@@ -69,7 +68,7 @@ class ObjectGenerator
         $this->fileWriter = $fileWriter;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
         $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->namespaceRegistry, $fileWriter);
-        $this->serializer = new SerializerProvider();
+        $this->serializer = new SerializerProvider($this->namespaceRegistry);
         $this->managedMethods = $managedMethods;
     }
 
@@ -87,7 +86,6 @@ class ObjectGenerator
         // Named constructor
         $this->namedConstructor($shape, $class);
         $this->addProperties($shape, $class, $namespace);
-        $this->generateValidate($shape, $class, $namespace);
 
         $serializer = $this->serializer->get($shape->getService());
         if ($this->isShapeUsedInput($shape)) {
@@ -98,6 +96,7 @@ class ObjectGenerator
             }
         }
 
+        $namespace->addUse(InvalidArgument::class);
         $this->fileWriter->write($namespace);
 
         return $className;

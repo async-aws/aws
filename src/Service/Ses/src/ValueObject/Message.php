@@ -52,26 +52,15 @@ class Message
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->Subject) {
-            $payload['Subject'] = $v->requestBody();
+        if (null === $v = $this->Subject) {
+            throw new InvalidArgument(sprintf('Missing parameter "Subject" for "%s". The value cannot be null.', __CLASS__));
         }
-        if (null !== $v = $this->Body) {
-            $payload['Body'] = $v->requestBody();
+        $payload['Subject'] = $v->requestBody();
+        if (null === $v = $this->Body) {
+            throw new InvalidArgument(sprintf('Missing parameter "Body" for "%s". The value cannot be null.', __CLASS__));
         }
+        $payload['Body'] = $v->requestBody();
 
         return $payload;
-    }
-
-    public function validate(): void
-    {
-        if (null === $this->Subject) {
-            throw new InvalidArgument(sprintf('Missing parameter "Subject" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-        $this->Subject->validate();
-
-        if (null === $this->Body) {
-            throw new InvalidArgument(sprintf('Missing parameter "Body" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-        $this->Body->validate();
     }
 }

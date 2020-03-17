@@ -86,9 +86,4 @@ class LayerVersionContentInput
 
         return $payload;
     }
-
-    public function validate(): void
-    {
-        // There are no required properties
-    }
 }

@@ -2,7 +2,6 @@
 
 namespace AsyncAws\S3\ValueObject;
 
-use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\S3\Enum\ObjectStorageClass;
 
 class AwsObject
@@ -94,18 +93,5 @@ class AwsObject
     public function getStorageClass(): ?string
     {
         return $this->StorageClass;
-    }
-
-    public function validate(): void
-    {
-        if (null !== $this->StorageClass) {
-            if (!ObjectStorageClass::exists($this->StorageClass)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "StorageClass" when validating the "%s". The value "%s" is not a valid "ObjectStorageClass".', __CLASS__, $this->StorageClass));
-            }
-        }
-
-        if (null !== $this->Owner) {
-            $this->Owner->validate();
-        }
     }
 }

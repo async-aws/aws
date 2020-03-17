@@ -2,8 +2,6 @@
 
 namespace AsyncAws\Core\Sts\ValueObject;
 
-use AsyncAws\Core\Exception\InvalidArgument;
-
 class Credentials
 {
     /**
@@ -65,24 +63,5 @@ class Credentials
     public function getSessionToken(): string
     {
         return $this->SessionToken;
-    }
-
-    public function validate(): void
-    {
-        if (null === $this->AccessKeyId) {
-            throw new InvalidArgument(sprintf('Missing parameter "AccessKeyId" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->SecretAccessKey) {
-            throw new InvalidArgument(sprintf('Missing parameter "SecretAccessKey" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->SessionToken) {
-            throw new InvalidArgument(sprintf('Missing parameter "SessionToken" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->Expiration) {
-            throw new InvalidArgument(sprintf('Missing parameter "Expiration" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
     }
 }

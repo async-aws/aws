@@ -44,11 +44,4 @@ class RollbackConfiguration
     {
         return $this->RollbackTriggers;
     }
-
-    public function validate(): void
-    {
-        foreach ($this->RollbackTriggers as $item) {
-            $item->validate();
-        }
-    }
 }

@@ -123,9 +123,15 @@ class InvocationRequest
         // Prepare headers
         $headers = ['content-type' => 'application/json'];
         if (null !== $this->InvocationType) {
+            if (!InvocationType::exists($this->InvocationType)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "InvocationType" for "%s". The value "%s" is not a valid "InvocationType".', __CLASS__, $this->InvocationType));
+            }
             $headers['X-Amz-Invocation-Type'] = $this->InvocationType;
         }
         if (null !== $this->LogType) {
+            if (!LogType::exists($this->LogType)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "LogType" for "%s". The value "%s" is not a valid "LogType".', __CLASS__, $this->LogType));
+            }
             $headers['X-Amz-Log-Type'] = $this->LogType;
         }
         if (null !== $this->ClientContext) {
@@ -140,7 +146,10 @@ class InvocationRequest
 
         // Prepare URI
         $uri = [];
-        $uri['FunctionName'] = $this->FunctionName ?? '';
+        if (null === $v = $this->FunctionName) {
+            throw new InvalidArgument(sprintf('Missing parameter "FunctionName" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $uri['FunctionName'] = $v;
         $uriString = "/2015-03-31/functions/{$uri['FunctionName']}/invocations";
 
         // Prepare Body
@@ -196,24 +205,5 @@ class InvocationRequest
         $this->Qualifier = $value;
 
         return $this;
-    }
-
-    public function validate(): void
-    {
-        if (null === $this->FunctionName) {
-            throw new InvalidArgument(sprintf('Missing parameter "FunctionName" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null !== $this->InvocationType) {
-            if (!InvocationType::exists($this->InvocationType)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "InvocationType" when validating the "%s". The value "%s" is not a valid "InvocationType".', __CLASS__, $this->InvocationType));
-            }
-        }
-
-        if (null !== $this->LogType) {
-            if (!LogType::exists($this->LogType)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "LogType" when validating the "%s". The value "%s" is not a valid "LogType".', __CLASS__, $this->LogType));
-            }
-        }
     }
 }

@@ -146,8 +146,14 @@ class AddLayerVersionPermissionRequest
 
         // Prepare URI
         $uri = [];
-        $uri['LayerName'] = $this->LayerName ?? '';
-        $uri['VersionNumber'] = $this->VersionNumber ?? '';
+        if (null === $v = $this->LayerName) {
+            throw new InvalidArgument(sprintf('Missing parameter "LayerName" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $uri['LayerName'] = $v;
+        if (null === $v = $this->VersionNumber) {
+            throw new InvalidArgument(sprintf('Missing parameter "VersionNumber" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $uri['VersionNumber'] = $v;
         $uriString = "/2018-10-31/layers/{$uri['LayerName']}/versions/{$uri['VersionNumber']}/policy";
 
         // Prepare Body
@@ -207,29 +213,6 @@ class AddLayerVersionPermissionRequest
         return $this;
     }
 
-    public function validate(): void
-    {
-        if (null === $this->LayerName) {
-            throw new InvalidArgument(sprintf('Missing parameter "LayerName" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->VersionNumber) {
-            throw new InvalidArgument(sprintf('Missing parameter "VersionNumber" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->StatementId) {
-            throw new InvalidArgument(sprintf('Missing parameter "StatementId" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->Action) {
-            throw new InvalidArgument(sprintf('Missing parameter "Action" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->Principal) {
-            throw new InvalidArgument(sprintf('Missing parameter "Principal" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-    }
-
     /**
      * @internal
      */
@@ -237,9 +220,18 @@ class AddLayerVersionPermissionRequest
     {
         $payload = [];
 
-        $payload['StatementId'] = $this->StatementId;
-        $payload['Action'] = $this->Action;
-        $payload['Principal'] = $this->Principal;
+        if (null === $v = $this->StatementId) {
+            throw new InvalidArgument(sprintf('Missing parameter "StatementId" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['StatementId'] = $v;
+        if (null === $v = $this->Action) {
+            throw new InvalidArgument(sprintf('Missing parameter "Action" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['Action'] = $v;
+        if (null === $v = $this->Principal) {
+            throw new InvalidArgument(sprintf('Missing parameter "Principal" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['Principal'] = $v;
         if (null !== $v = $this->OrganizationId) {
             $payload['OrganizationId'] = $v;
         }

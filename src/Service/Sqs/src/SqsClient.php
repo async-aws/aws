@@ -41,10 +41,7 @@ class SqsClient extends AbstractApi
      */
     public function changeMessageVisibility($input): Result
     {
-        $input = ChangeMessageVisibilityRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(ChangeMessageVisibilityRequest::create($input)->request());
 
         return new Result($response, $this->httpClient);
     }
@@ -63,10 +60,7 @@ class SqsClient extends AbstractApi
      */
     public function createQueue($input): CreateQueueResult
     {
-        $input = CreateQueueRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(CreateQueueRequest::create($input)->request());
 
         return new CreateQueueResult($response, $this->httpClient);
     }
@@ -86,10 +80,7 @@ class SqsClient extends AbstractApi
      */
     public function deleteMessage($input): Result
     {
-        $input = DeleteMessageRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(DeleteMessageRequest::create($input)->request());
 
         return new Result($response, $this->httpClient);
     }
@@ -106,10 +97,7 @@ class SqsClient extends AbstractApi
      */
     public function deleteQueue($input): Result
     {
-        $input = DeleteQueueRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(DeleteQueueRequest::create($input)->request());
 
         return new Result($response, $this->httpClient);
     }
@@ -126,10 +114,7 @@ class SqsClient extends AbstractApi
      */
     public function getQueueAttributes($input): GetQueueAttributesResult
     {
-        $input = GetQueueAttributesRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(GetQueueAttributesRequest::create($input)->request());
 
         return new GetQueueAttributesResult($response, $this->httpClient);
     }
@@ -146,10 +131,7 @@ class SqsClient extends AbstractApi
      */
     public function getQueueUrl($input): GetQueueUrlResult
     {
-        $input = GetQueueUrlRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(GetQueueUrlRequest::create($input)->request());
 
         return new GetQueueUrlResult($response, $this->httpClient);
     }
@@ -166,10 +148,7 @@ class SqsClient extends AbstractApi
      */
     public function listQueues($input = []): ListQueuesResult
     {
-        $input = ListQueuesRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(ListQueuesRequest::create($input)->request());
 
         return new ListQueuesResult($response, $this->httpClient);
     }
@@ -185,10 +164,7 @@ class SqsClient extends AbstractApi
      */
     public function purgeQueue($input): Result
     {
-        $input = PurgeQueueRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(PurgeQueueRequest::create($input)->request());
 
         return new Result($response, $this->httpClient);
     }
@@ -206,8 +182,6 @@ class SqsClient extends AbstractApi
     public function queueExists($input): QueueExistsWaiter
     {
         $input = GetQueueUrlRequest::create($input);
-        $input->validate();
-
         $response = $this->getResponse($input->request());
 
         return new QueueExistsWaiter($response, $this->httpClient, $this, $input);
@@ -233,10 +207,7 @@ class SqsClient extends AbstractApi
      */
     public function receiveMessage($input): ReceiveMessageResult
     {
-        $input = ReceiveMessageRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(ReceiveMessageRequest::create($input)->request());
 
         return new ReceiveMessageResult($response, $this->httpClient);
     }
@@ -258,10 +229,7 @@ class SqsClient extends AbstractApi
      */
     public function sendMessage($input): SendMessageResult
     {
-        $input = SendMessageRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(SendMessageRequest::create($input)->request());
 
         return new SendMessageResult($response, $this->httpClient);
     }

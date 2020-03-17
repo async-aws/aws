@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Generator\RequestSerializer;
 
 use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
+use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 
 /**
  * Provide the correct serializer according to the definition.
@@ -15,15 +16,22 @@ use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
  */
 class SerializerProvider
 {
+    private $namespaceRegistry;
+
+    public function __construct(NamespaceRegistry $namespaceRegistry)
+    {
+        $this->namespaceRegistry = $namespaceRegistry;
+    }
+
     public function get(ServiceDefinition $definition): Serializer
     {
         switch ($definition->getProtocol()) {
             case 'rest-xml':
-                return new RestXmlSerializer();
+                return new RestXmlSerializer($this->namespaceRegistry);
             case 'rest-json':
-                return new RestJsonSerializer();
+                return new RestJsonSerializer($this->namespaceRegistry);
             case 'query':
-                return new QuerySerializer();
+                return new QuerySerializer($this->namespaceRegistry);
             case 'json':
             default:
                 throw new \LogicException(sprintf('Serializer for "%s" is not implemented yet', $definition->getProtocol()));

@@ -66,9 +66,4 @@ class DeletedObject
     {
         return $this->VersionId;
     }
-
-    public function validate(): void
-    {
-        // There are no required properties
-    }
 }

@@ -11,6 +11,7 @@ use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 
 /**
  * @author Jérémy Derussé <jeremy@derusse.com>
@@ -19,6 +20,13 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
  */
 class RestXmlSerializer implements Serializer
 {
+    private $namespaceRegistry;
+
+    public function __construct(NamespaceRegistry $namespaceRegistry)
+    {
+        $this->namespaceRegistry = $namespaceRegistry;
+    }
+
     public function getContentType(): string
     {
         return 'application/xml';
@@ -32,7 +40,16 @@ class RestXmlSerializer implements Serializer
 
         $member = $shape->getMember($payloadProperty);
         if ($member->isStreaming()) {
-            return ['$body = $this->' . $payloadProperty . ' ?? "";', false];
+            if ($shape->getMember($payloadProperty)->isRequired()) {
+                $body = 'if (null === $v = $this->PROPERTY) {
+                    throw new InvalidArgument(sprintf(\'Missing parameter "PROPERTY" for "%s". The value cannot be null.\', __CLASS__));
+                }
+                $body = $v;';
+            } else {
+                $body = '$body = $this->PROPERTY ?? "";';
+            }
+
+            return [strtr($body, ['PROPERTY' => $payloadProperty]), false];
         }
 
         return ['
@@ -51,18 +68,24 @@ class RestXmlSerializer implements Serializer
             }
 
             $shape = $member->getShape();
-            if ($member->isRequired() || $shape instanceof ListShape || $shape instanceof MapShape) {
+            if ($member->isRequired()) {
+                $body = 'if (null === $v = $this->PROPERTY) {
+                    throw new InvalidArgument(sprintf(\'Missing parameter "PROPERTY" for "%s". The value cannot be null.\', __CLASS__));
+                }
+                MEMBER_CODE';
+                $inputElement = '$v';
+            } elseif ($shape instanceof ListShape || $shape instanceof MapShape) {
                 $body = 'MEMBER_CODE';
                 $inputElement = '$this->' . $member->getName();
             } else {
-                $body = 'if (null !== $v = INPUT_NAME) {
+                $body = 'if (null !== $v = $this->PROPERTY) {
                     MEMBER_CODE
                 }';
                 $inputElement = '$v';
             }
 
             return strtr($body, [
-                'INPUT_NAME' => '$this->' . $member->getName(),
+                'PROPERTY' => $member->getName(),
                 'MEMBER_CODE' => $this->dumpXmlShape($member, $member->getShape(), '$node', $inputElement),
             ]);
         }, $shape->getMembers()));
@@ -82,7 +105,7 @@ class RestXmlSerializer implements Serializer
         switch ($shape->getType()) {
             case 'blob':
             case 'string':
-                return $this->dumpXmlShapeString($member, $output, $input);
+                return $this->dumpXmlShapeString($member, $shape, $output, $input);
             case 'boolean':
                 return $this->dumpXmlShapeBoolean($member, $output, $input);
         }
@@ -105,13 +128,11 @@ class RestXmlSerializer implements Serializer
         return strtr('
             OUTPUT->appendChild($child = $document->createElement(NODE_NAME));
             SET_XMLNS_CODE
-            PSALM
             INPUT->requestBody($child, $document);
         ', [
             'OUTPUT' => $output,
             'NODE_NAME' => \var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
             'SET_XMLNS_CODE' => $xmlnsValue ? strtr('$child->setAttribute(NS_ATTRIBUTE, NS_VALUE);', ['NS_ATTRIBUTE' => \var_export($xmlnsAttribute, true), 'NS_VALUE' => \var_export($xmlnsValue, true)]) : '',
-            'PSALM' => '$v' === $input ? '' : '/** @psalm-suppress PossiblyNullReference */',
             'INPUT' => $input,
         ]);
     }
@@ -119,8 +140,7 @@ class RestXmlSerializer implements Serializer
     private function dumpXmlShapeList(Member $member, ListShape $shape, string $output, string $input): string
     {
         if ($shape->isFlattened()) {
-            return strtr('
-                foreach (INPUT as $item) {
+            return strtr('foreach (INPUT as $item) {
                     MEMBER_CODE
                 }
             ', [
@@ -130,11 +150,11 @@ class RestXmlSerializer implements Serializer
         }
 
         return strtr('
-                OUTPUT->appendChild($nodeList = $document->createElement(NODE_NAME));
-                foreach (INPUT as $item) {
-                    MEMBER_CODE
-                }
-            ', [
+            OUTPUT->appendChild($nodeList = $document->createElement(NODE_NAME));
+            foreach (INPUT as $item) {
+                MEMBER_CODE
+            }
+        ', [
             'OUTPUT' => $output,
             'NODE_NAME' => \var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
             'INPUT' => $input,
@@ -142,7 +162,7 @@ class RestXmlSerializer implements Serializer
         ]);
     }
 
-    private function dumpXmlShapeString(Member $member, string $output, string $input): string
+    private function dumpXmlShapeString(Member $member, Shape $shape, string $output, string $input): string
     {
         if ($member instanceof StructureMember && $member->isXmlAttribute()) {
             $body = 'OUTPUT->setAttribute(NODE_NAME, INPUT);';
@@ -150,11 +170,24 @@ class RestXmlSerializer implements Serializer
             $body = 'OUTPUT->appendChild($document->createElement(NODE_NAME, INPUT));';
         }
 
-        return \strtr($body, [
+        $replacements = [
             'INPUT' => $input,
             'OUTPUT' => $output,
             'NODE_NAME' => \var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
-        ]);
+        ];
+        if (!empty($shape->getEnum())) {
+            $enumClassName = $this->namespaceRegistry->getEnum($shape);
+            $body = 'if (!ENUM_CLASS::exists(INPUT)) {
+                    throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, INPUT));
+                }
+            ' . $body;
+            $replacements += [
+                'ENUM_CLASS' => $enumClassName->getName(),
+                'PROPERTY' => $member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'),
+            ];
+        }
+
+        return strtr($body, $replacements);
     }
 
     private function dumpXmlShapeBoolean(Member $member, string $output, string $input): string

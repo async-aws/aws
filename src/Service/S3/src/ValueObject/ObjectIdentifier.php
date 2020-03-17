@@ -48,16 +48,12 @@ class ObjectIdentifier
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        $node->appendChild($document->createElement('Key', $this->Key));
+        if (null === $v = $this->Key) {
+            throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $node->appendChild($document->createElement('Key', $v));
         if (null !== $v = $this->VersionId) {
             $node->appendChild($document->createElement('VersionId', $v));
-        }
-    }
-
-    public function validate(): void
-    {
-        if (null === $this->Key) {
-            throw new InvalidArgument(sprintf('Missing parameter "Key" when validating the "%s". The value cannot be null.', __CLASS__));
         }
     }
 }

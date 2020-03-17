@@ -51,18 +51,14 @@ class Content
     public function requestBody(): array
     {
         $payload = [];
-        $payload['Data'] = $this->Data;
+        if (null === $v = $this->Data) {
+            throw new InvalidArgument(sprintf('Missing parameter "Data" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['Data'] = $v;
         if (null !== $v = $this->Charset) {
             $payload['Charset'] = $v;
         }
 
         return $payload;
-    }
-
-    public function validate(): void
-    {
-        if (null === $this->Data) {
-            throw new InvalidArgument(sprintf('Missing parameter "Data" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
     }
 }

@@ -49,20 +49,15 @@ class Tag
     public function requestBody(): array
     {
         $payload = [];
-        $payload['Key'] = $this->Key;
-        $payload['Value'] = $this->Value;
+        if (null === $v = $this->Key) {
+            throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['Key'] = $v;
+        if (null === $v = $this->Value) {
+            throw new InvalidArgument(sprintf('Missing parameter "Value" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['Value'] = $v;
 
         return $payload;
-    }
-
-    public function validate(): void
-    {
-        if (null === $this->Key) {
-            throw new InvalidArgument(sprintf('Missing parameter "Key" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->Value) {
-            throw new InvalidArgument(sprintf('Missing parameter "Value" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
     }
 }
