@@ -289,41 +289,50 @@ class ResultGenerator
         $method->addParameter('httpClient')->setType(HttpClientInterface::class);
     }
 
-    private function addUse(StructureShape $shape, PhpNamespace $namespace)
+    private function addUse(StructureShape $shape, PhpNamespace $namespace, array $addedUses = [])
     {
         foreach ($shape->getMembers() as $member) {
             $memberShape = $member->getShape();
             if (!empty($memberShape->getEnum())) {
-                $namespace->addUse($this->namespaceRegistry->getEnum($memberShape)->getFqdn());
+                $fqdn = $this->namespaceRegistry->getEnum($memberShape)->getFqdn();
+                $addedUses[] = $fqdn;
+                $namespace->addUse($fqdn);
             }
 
             if ($memberShape instanceof StructureShape) {
                 $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
-                if (!\in_array($fqdn, $namespace->getUses())) {
+                if (!\in_array($fqdn, $addedUses)) {
+                    $addedUses[] = $fqdn;
+                    $this->addUse($memberShape, $namespace, $addedUses);
                     $namespace->addUse($fqdn);
-                    $this->addUse($memberShape, $namespace);
                 }
             } elseif ($memberShape instanceof MapShape) {
                 if (($valueShape = $memberShape->getValue()->getShape()) instanceof StructureShape) {
                     $fqdn = $this->namespaceRegistry->getObject($valueShape)->getFqdn();
-                    if (!\in_array($fqdn, $namespace->getUses())) {
+                    if (!\in_array($fqdn, $addedUses)) {
+                        $addedUses[] = $fqdn;
+                        $this->addUse($valueShape, $namespace, $addedUses);
                         $namespace->addUse($fqdn);
-                        $this->addUse($valueShape, $namespace);
                     }
                 }
                 if (!empty($valueShape->getEnum())) {
-                    $namespace->addUse($this->namespaceRegistry->getEnum($valueShape)->getFqdn());
+                    $fqdn = $this->namespaceRegistry->getEnum($valueShape)->getFqdn();
+                    $addedUses[] = $fqdn;
+                    $namespace->addUse($fqdn);
                 }
             } elseif ($memberShape instanceof ListShape) {
                 if (($memberShape = $memberShape->getMember()->getShape()) instanceof StructureShape) {
                     $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
-                    if (!\in_array($fqdn, $namespace->getUses())) {
+                    if (!\in_array($fqdn, $addedUses)) {
+                        $addedUses[] = $fqdn;
+                        $this->addUse($memberShape, $namespace, $addedUses);
                         $namespace->addUse($fqdn);
-                        $this->addUse($memberShape, $namespace);
                     }
                 }
                 if (!empty($memberShape->getEnum())) {
-                    $namespace->addUse($this->namespaceRegistry->getEnum($memberShape)->getFqdn());
+                    $fqdn = $this->namespaceRegistry->getEnum($memberShape)->getFqdn();
+                    $addedUses[] = $fqdn;
+                    $namespace->addUse($fqdn);
                 }
             } elseif ($member->isStreaming()) {
                 $namespace->addUse(StreamableBodyInterface::class);
