@@ -255,7 +255,7 @@ class S3Client extends AbstractApi
     public function listObjectsV2($input): ListObjectsV2Output
     {
         $input = ListObjectsV2Request::create($input);
-        $response = $this->getResponse($input);
+        $response = $this->getResponse($input->request());
 
         return new ListObjectsV2Output($response, $this->httpClient, $this, $input);
     }

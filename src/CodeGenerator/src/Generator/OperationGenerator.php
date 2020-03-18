@@ -126,7 +126,7 @@ class OperationGenerator
         if ((null !== $pagination = $operation->getPagination()) && !empty($pagination->getOutputToken())) {
             $body = '
                 $input = INPUT_CLASS::create($input);
-                $response = $this->getResponse($input);
+                $response = $this->getResponse($input->request());
 
                 return new RESULT_CLASS($response, $this->httpClient, $this, $input);
             ';

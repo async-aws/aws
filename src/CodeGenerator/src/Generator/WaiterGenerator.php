@@ -94,7 +94,7 @@ class WaiterGenerator
             ->setReturnType($resultClass->getFqdn())
             ->setBody(strtr('
                 $input = INPUT_CLASS::create($input);
-                $response = $this->getResponse($input);
+                $response = $this->getResponse($input->request());
 
                 return new RESULT_CLASS($response, $this->httpClient, $this, $input);
             ', [
