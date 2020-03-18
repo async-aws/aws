@@ -39,7 +39,7 @@ class DescribeTableOutput extends Result
     {
         $data = $response->toArray(false);
 
-        $this->Table = new TableDescription([
+        $this->Table = empty($data['Table']) ? null : new TableDescription([
             'AttributeDefinitions' => empty($data['Table']['AttributeDefinitions']) ? [] : (function (array $json): array {
                 $items = [];
                 foreach ($json as $item) {
@@ -65,7 +65,7 @@ class DescribeTableOutput extends Result
             })($data['Table']['KeySchema']),
             'TableStatus' => isset($data['Table']['TableStatus']) ? (string) $data['Table']['TableStatus'] : null,
             'CreationDateTime' => isset($data['Table']['CreationDateTime']) ? \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['Table']['CreationDateTime'])) : null,
-            'ProvisionedThroughput' => new ProvisionedThroughputDescription([
+            'ProvisionedThroughput' => empty($data['Table']['ProvisionedThroughput']) ? null : new ProvisionedThroughputDescription([
                 'LastIncreaseDateTime' => isset($data['Table']['ProvisionedThroughput']['LastIncreaseDateTime']) ? \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['Table']['ProvisionedThroughput']['LastIncreaseDateTime'])) : null,
                 'LastDecreaseDateTime' => isset($data['Table']['ProvisionedThroughput']['LastDecreaseDateTime']) ? \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['Table']['ProvisionedThroughput']['LastDecreaseDateTime'])) : null,
                 'NumberOfDecreasesToday' => isset($data['Table']['ProvisionedThroughput']['NumberOfDecreasesToday']) ? (string) $data['Table']['ProvisionedThroughput']['NumberOfDecreasesToday'] : null,
@@ -76,7 +76,7 @@ class DescribeTableOutput extends Result
             'ItemCount' => isset($data['Table']['ItemCount']) ? (string) $data['Table']['ItemCount'] : null,
             'TableArn' => isset($data['Table']['TableArn']) ? (string) $data['Table']['TableArn'] : null,
             'TableId' => isset($data['Table']['TableId']) ? (string) $data['Table']['TableId'] : null,
-            'BillingModeSummary' => new BillingModeSummary([
+            'BillingModeSummary' => empty($data['Table']['BillingModeSummary']) ? null : new BillingModeSummary([
                 'BillingMode' => isset($data['Table']['BillingModeSummary']['BillingMode']) ? (string) $data['Table']['BillingModeSummary']['BillingMode'] : null,
                 'LastUpdateToPayPerRequestDateTime' => isset($data['Table']['BillingModeSummary']['LastUpdateToPayPerRequestDateTime']) ? \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['Table']['BillingModeSummary']['LastUpdateToPayPerRequestDateTime'])) : null,
             ]),
@@ -96,7 +96,7 @@ class DescribeTableOutput extends Result
 
                             return $items;
                         })($item['KeySchema']),
-                        'Projection' => new Projection([
+                        'Projection' => empty($item['Projection']) ? null : new Projection([
                             'ProjectionType' => isset($item['Projection']['ProjectionType']) ? (string) $item['Projection']['ProjectionType'] : null,
                             'NonKeyAttributes' => empty($item['Projection']['NonKeyAttributes']) ? [] : (function (array $json): array {
                                 $items = [];
@@ -134,7 +134,7 @@ class DescribeTableOutput extends Result
 
                             return $items;
                         })($item['KeySchema']),
-                        'Projection' => new Projection([
+                        'Projection' => empty($item['Projection']) ? null : new Projection([
                             'ProjectionType' => isset($item['Projection']['ProjectionType']) ? (string) $item['Projection']['ProjectionType'] : null,
                             'NonKeyAttributes' => empty($item['Projection']['NonKeyAttributes']) ? [] : (function (array $json): array {
                                 $items = [];
@@ -150,7 +150,7 @@ class DescribeTableOutput extends Result
                         ]),
                         'IndexStatus' => isset($item['IndexStatus']) ? (string) $item['IndexStatus'] : null,
                         'Backfilling' => isset($item['Backfilling']) ? filter_var($item['Backfilling'], \FILTER_VALIDATE_BOOLEAN) : null,
-                        'ProvisionedThroughput' => new ProvisionedThroughputDescription([
+                        'ProvisionedThroughput' => empty($item['ProvisionedThroughput']) ? null : new ProvisionedThroughputDescription([
                             'LastIncreaseDateTime' => isset($item['ProvisionedThroughput']['LastIncreaseDateTime']) ? \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['ProvisionedThroughput']['LastIncreaseDateTime'])) : null,
                             'LastDecreaseDateTime' => isset($item['ProvisionedThroughput']['LastDecreaseDateTime']) ? \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['ProvisionedThroughput']['LastDecreaseDateTime'])) : null,
                             'NumberOfDecreasesToday' => isset($item['ProvisionedThroughput']['NumberOfDecreasesToday']) ? (string) $item['ProvisionedThroughput']['NumberOfDecreasesToday'] : null,
@@ -165,7 +165,7 @@ class DescribeTableOutput extends Result
 
                 return $items;
             })($data['Table']['GlobalSecondaryIndexes']),
-            'StreamSpecification' => new StreamSpecification([
+            'StreamSpecification' => empty($data['Table']['StreamSpecification']) ? null : new StreamSpecification([
                 'StreamEnabled' => filter_var($data['Table']['StreamSpecification']['StreamEnabled'], \FILTER_VALIDATE_BOOLEAN),
                 'StreamViewType' => isset($data['Table']['StreamSpecification']['StreamViewType']) ? (string) $data['Table']['StreamSpecification']['StreamViewType'] : null,
             ]),
@@ -181,7 +181,7 @@ class DescribeTableOutput extends Result
                         'ReplicaStatusDescription' => isset($item['ReplicaStatusDescription']) ? (string) $item['ReplicaStatusDescription'] : null,
                         'ReplicaStatusPercentProgress' => isset($item['ReplicaStatusPercentProgress']) ? (string) $item['ReplicaStatusPercentProgress'] : null,
                         'KMSMasterKeyId' => isset($item['KMSMasterKeyId']) ? (string) $item['KMSMasterKeyId'] : null,
-                        'ProvisionedThroughputOverride' => new ProvisionedThroughputOverride([
+                        'ProvisionedThroughputOverride' => empty($item['ProvisionedThroughputOverride']) ? null : new ProvisionedThroughputOverride([
                             'ReadCapacityUnits' => isset($item['ProvisionedThroughputOverride']['ReadCapacityUnits']) ? (string) $item['ProvisionedThroughputOverride']['ReadCapacityUnits'] : null,
                         ]),
                         'GlobalSecondaryIndexes' => empty($item['GlobalSecondaryIndexes']) ? [] : (function (array $json): array {
@@ -189,7 +189,7 @@ class DescribeTableOutput extends Result
                             foreach ($json as $item) {
                                 $items[] = new ReplicaGlobalSecondaryIndexDescription([
                                     'IndexName' => isset($item['IndexName']) ? (string) $item['IndexName'] : null,
-                                    'ProvisionedThroughputOverride' => new ProvisionedThroughputOverride([
+                                    'ProvisionedThroughputOverride' => empty($item['ProvisionedThroughputOverride']) ? null : new ProvisionedThroughputOverride([
                                         'ReadCapacityUnits' => isset($item['ProvisionedThroughputOverride']['ReadCapacityUnits']) ? (string) $item['ProvisionedThroughputOverride']['ReadCapacityUnits'] : null,
                                     ]),
                                 ]);
@@ -202,19 +202,19 @@ class DescribeTableOutput extends Result
 
                 return $items;
             })($data['Table']['Replicas']),
-            'RestoreSummary' => new RestoreSummary([
+            'RestoreSummary' => empty($data['Table']['RestoreSummary']) ? null : new RestoreSummary([
                 'SourceBackupArn' => isset($data['Table']['RestoreSummary']['SourceBackupArn']) ? (string) $data['Table']['RestoreSummary']['SourceBackupArn'] : null,
                 'SourceTableArn' => isset($data['Table']['RestoreSummary']['SourceTableArn']) ? (string) $data['Table']['RestoreSummary']['SourceTableArn'] : null,
                 'RestoreDateTime' => \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['Table']['RestoreSummary']['RestoreDateTime'])),
                 'RestoreInProgress' => filter_var($data['Table']['RestoreSummary']['RestoreInProgress'], \FILTER_VALIDATE_BOOLEAN),
             ]),
-            'SSEDescription' => new SSEDescription([
+            'SSEDescription' => empty($data['Table']['SSEDescription']) ? null : new SSEDescription([
                 'Status' => isset($data['Table']['SSEDescription']['Status']) ? (string) $data['Table']['SSEDescription']['Status'] : null,
                 'SSEType' => isset($data['Table']['SSEDescription']['SSEType']) ? (string) $data['Table']['SSEDescription']['SSEType'] : null,
                 'KMSMasterKeyArn' => isset($data['Table']['SSEDescription']['KMSMasterKeyArn']) ? (string) $data['Table']['SSEDescription']['KMSMasterKeyArn'] : null,
                 'InaccessibleEncryptionDateTime' => isset($data['Table']['SSEDescription']['InaccessibleEncryptionDateTime']) ? \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['Table']['SSEDescription']['InaccessibleEncryptionDateTime'])) : null,
             ]),
-            'ArchivalSummary' => new ArchivalSummary([
+            'ArchivalSummary' => empty($data['Table']['ArchivalSummary']) ? null : new ArchivalSummary([
                 'ArchivalDateTime' => isset($data['Table']['ArchivalSummary']['ArchivalDateTime']) ? \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['Table']['ArchivalSummary']['ArchivalDateTime'])) : null,
                 'ArchivalReason' => isset($data['Table']['ArchivalSummary']['ArchivalReason']) ? (string) $data['Table']['ArchivalSummary']['ArchivalReason'] : null,
                 'ArchivalBackupArn' => isset($data['Table']['ArchivalSummary']['ArchivalBackupArn']) ? (string) $data['Table']['ArchivalSummary']['ArchivalBackupArn'] : null,

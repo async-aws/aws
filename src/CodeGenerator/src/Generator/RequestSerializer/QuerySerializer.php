@@ -31,7 +31,7 @@ class QuerySerializer implements Serializer
 
     public function getHeaders(Operation $operation): string
     {
-        return '["content-type" => "application/x-www-form-urlencoded"]';
+        return '["Content-Type" => "application/x-www-form-urlencoded"]';
     }
 
     public function generateRequestBody(Operation $operation, StructureShape $shape): array

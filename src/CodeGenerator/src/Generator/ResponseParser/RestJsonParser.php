@@ -130,12 +130,20 @@ class RestJsonParser implements Parser
             ]);
         }
 
-        return strtr('new CLASS_NAME([
+        $body = 'new CLASS_NAME([
             PROPERTIES
-        ])', [
-            'CLASS_NAME' => $this->namespaceRegistry->getObject($shape)->getName(),
-            'PROPERTIES' => implode("\n", $properties),
-        ]);
+        ])';
+
+        if (!$required) {
+            $body = 'empty(INPUT) ? null : ' . $body;
+        }
+
+        return strtr(
+            $body, [
+                'INPUT' => $input,
+                'CLASS_NAME' => $this->namespaceRegistry->getObject($shape)->getName(),
+                'PROPERTIES' => implode("\n", $properties),
+            ]);
     }
 
     private function parseResponseString(string $input, bool $required): string

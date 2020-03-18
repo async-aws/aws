@@ -115,7 +115,7 @@ class PublishLayerVersionResponse extends Result
     {
         $data = $response->toArray(false);
 
-        $this->Content = new LayerVersionContentOutput([
+        $this->Content = empty($data['Content']) ? null : new LayerVersionContentOutput([
             'Location' => isset($data['Content']['Location']) ? (string) $data['Content']['Location'] : null,
             'CodeSha256' => isset($data['Content']['CodeSha256']) ? (string) $data['Content']['CodeSha256'] : null,
             'CodeSize' => isset($data['Content']['CodeSize']) ? (string) $data['Content']['CodeSize'] : null,
