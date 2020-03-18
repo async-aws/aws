@@ -11,7 +11,7 @@ use AsyncAws\CodeGenerator\Definition\Shape;
  *
  * @internal
  */
-class JsonParser extends RestJsonParser
+class JsonRpcParser extends RestJsonParser
 {
     protected function parseResponseTimestamp(Shape $shape, string $input, bool $required): string
     {

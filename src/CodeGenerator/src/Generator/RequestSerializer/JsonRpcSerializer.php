@@ -14,19 +14,20 @@ use AsyncAws\CodeGenerator\Definition\Shape;
  *
  * @internal
  */
-class JsonSerializer extends RestJsonSerializer
+class JsonRpcSerializer extends RestJsonSerializer
 {
     public function getHeaders(Operation $operation): string
     {
         return strtr(<<<PHP
 [
-    'Content-Type' => 'application/x-amz-json-1.0',
-    'X-Amz-Target' => TARGET,
+    'Content-Type' => 'application/x-amz-json-VERSION',
+    'X-Amz-Target' => 'TARGET',
 ];
 
 PHP,
         [
-            'TARGET' => sprintf('"%s.%s"', $operation->getService()->getTargetPrefix(), $operation->getName()),
+            'VERSION' => number_format($operation->getService()->getJsonVersion(), 1),
+            'TARGET' => sprintf('%s.%s', $operation->getService()->getTargetPrefix(), $operation->getName()),
         ]);
     }
 
