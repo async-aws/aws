@@ -22,6 +22,7 @@ class UpdateTableInputTest extends TestCase
         $expected = '
 POST / HTTP/1.0
 Content-Type: application/x-amz-json-1.0
+X-AMZ-Target: DynamoDB_20120810.UpdateTable
 
 {
     "TableName": "Thread",
