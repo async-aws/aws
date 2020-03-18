@@ -29,7 +29,7 @@ class StackStatus
 
     public static function exists(string $value): bool
     {
-        $values = [
+        return isset([
             self::CREATE_COMPLETE => true,
             self::CREATE_FAILED => true,
             self::CREATE_IN_PROGRESS => true,
@@ -52,8 +52,6 @@ class StackStatus
             self::UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS => true,
             self::UPDATE_ROLLBACK_FAILED => true,
             self::UPDATE_ROLLBACK_IN_PROGRESS => true,
-        ];
-
-        return isset($values[$value]);
+        ][$value]);
     }
 }

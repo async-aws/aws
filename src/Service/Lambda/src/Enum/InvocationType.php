@@ -10,12 +10,10 @@ class InvocationType
 
     public static function exists(string $value): bool
     {
-        $values = [
+        return isset([
             self::DRY_RUN => true,
             self::EVENT => true,
             self::REQUEST_RESPONSE => true,
-        ];
-
-        return isset($values[$value]);
+        ][$value]);
     }
 }

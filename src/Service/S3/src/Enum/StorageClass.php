@@ -14,7 +14,7 @@ class StorageClass
 
     public static function exists(string $value): bool
     {
-        $values = [
+        return isset([
             self::DEEP_ARCHIVE => true,
             self::GLACIER => true,
             self::INTELLIGENT_TIERING => true,
@@ -22,8 +22,6 @@ class StorageClass
             self::REDUCED_REDUNDANCY => true,
             self::STANDARD => true,
             self::STANDARD_IA => true,
-        ];
-
-        return isset($values[$value]);
+        ][$value]);
     }
 }

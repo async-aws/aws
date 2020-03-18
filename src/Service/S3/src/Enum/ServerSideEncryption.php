@@ -9,11 +9,9 @@ class ServerSideEncryption
 
     public static function exists(string $value): bool
     {
-        $values = [
+        return isset([
             self::AES256 => true,
             self::AWS_KMS => true,
-        ];
-
-        return isset($values[$value]);
+        ][$value]);
     }
 }

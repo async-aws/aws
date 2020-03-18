@@ -163,7 +163,7 @@ class ObjectGenerator
                 // Check if this is a list of objects
                 if ($listMemberShape instanceof StructureShape) {
                     $objectClass = $this->generate($listMemberShape);
-                    $constructorBody .= strtr('$this->NAME = array_map(function($item) { return CLASS::create($item); }, $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
+                    $constructorBody .= strtr('$this->NAME = array_map([CLASS::class, "create"], $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
                 } else {
                     $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
                 }
@@ -172,7 +172,7 @@ class ObjectGenerator
 
                 if ($mapValueShape instanceof StructureShape) {
                     $objectClass = $this->generate($mapValueShape);
-                    $constructorBody .= strtr('$this->NAME = array_map(function($item) { return CLASS::create($item); }, $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
+                    $constructorBody .= strtr('$this->NAME = array_map([CLASS::class, "create"], $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
                 } else {
                     $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
                 }

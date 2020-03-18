@@ -14,7 +14,7 @@ class ObjectCannedACL
 
     public static function exists(string $value): bool
     {
-        $values = [
+        return isset([
             self::AUTHENTICATED_READ => true,
             self::AWS_EXEC_READ => true,
             self::BUCKET_OWNER_FULL_CONTROL => true,
@@ -22,8 +22,6 @@ class ObjectCannedACL
             self::PRIVATE => true,
             self::PUBLIC_READ => true,
             self::PUBLIC_READ_WRITE => true,
-        ];
-
-        return isset($values[$value]);
+        ][$value]);
     }
 }

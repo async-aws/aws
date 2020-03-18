@@ -25,7 +25,7 @@ class QueueAttributeName
 
     public static function exists(string $value): bool
     {
-        $values = [
+        return isset([
             self::ALL => true,
             self::APPROXIMATE_NUMBER_OF_MESSAGES => true,
             self::APPROXIMATE_NUMBER_OF_MESSAGES_DELAYED => true,
@@ -44,8 +44,6 @@ class QueueAttributeName
             self::RECEIVE_MESSAGE_WAIT_TIME_SECONDS => true,
             self::REDRIVE_POLICY => true,
             self::VISIBILITY_TIMEOUT => true,
-        ];
-
-        return isset($values[$value]);
+        ][$value]);
     }
 }

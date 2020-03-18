@@ -18,7 +18,7 @@ class BucketLocationConstraint
 
     public static function exists(string $value): bool
     {
-        $values = [
+        return isset([
             self::AP_NORTHEAST_1 => true,
             self::AP_SOUTHEAST_1 => true,
             self::AP_SOUTHEAST_2 => true,
@@ -30,8 +30,6 @@ class BucketLocationConstraint
             self::SA_EAST_1 => true,
             self::US_WEST_1 => true,
             self::US_WEST_2 => true,
-        ];
-
-        return isset($values[$value]);
+        ][$value]);
     }
 }

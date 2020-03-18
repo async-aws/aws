@@ -27,7 +27,7 @@ class Runtime
 
     public static function exists(string $value): bool
     {
-        $values = [
+        return isset([
             self::DOTNETCORE_1_0 => true,
             self::DOTNETCORE_2_0 => true,
             self::DOTNETCORE_2_1 => true,
@@ -48,8 +48,6 @@ class Runtime
             self::PYTHON_3_8 => true,
             self::RUBY_2_5 => true,
             self::RUBY_2_7 => true,
-        ];
-
-        return isset($values[$value]);
+        ][$value]);
     }
 }

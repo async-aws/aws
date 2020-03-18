@@ -11,13 +11,11 @@ class ReplicationStatus
 
     public static function exists(string $value): bool
     {
-        $values = [
+        return isset([
             self::COMPLETE => true,
             self::FAILED => true,
             self::PENDING => true,
             self::REPLICA => true,
-        ];
-
-        return isset($values[$value]);
+        ][$value]);
     }
 }

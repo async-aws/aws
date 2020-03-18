@@ -158,7 +158,7 @@ class Stack
         $this->StackName = $input['StackName'] ?? null;
         $this->ChangeSetId = $input['ChangeSetId'] ?? null;
         $this->Description = $input['Description'] ?? null;
-        $this->Parameters = array_map(function ($item) { return Parameter::create($item); }, $input['Parameters'] ?? []);
+        $this->Parameters = array_map([Parameter::class, 'create'], $input['Parameters'] ?? []);
         $this->CreationTime = $input['CreationTime'] ?? null;
         $this->DeletionTime = $input['DeletionTime'] ?? null;
         $this->LastUpdatedTime = $input['LastUpdatedTime'] ?? null;
@@ -169,9 +169,9 @@ class Stack
         $this->NotificationARNs = $input['NotificationARNs'] ?? [];
         $this->TimeoutInMinutes = $input['TimeoutInMinutes'] ?? null;
         $this->Capabilities = $input['Capabilities'] ?? [];
-        $this->Outputs = array_map(function ($item) { return Output::create($item); }, $input['Outputs'] ?? []);
+        $this->Outputs = array_map([Output::class, 'create'], $input['Outputs'] ?? []);
         $this->RoleARN = $input['RoleARN'] ?? null;
-        $this->Tags = array_map(function ($item) { return Tag::create($item); }, $input['Tags'] ?? []);
+        $this->Tags = array_map([Tag::class, 'create'], $input['Tags'] ?? []);
         $this->EnableTerminationProtection = $input['EnableTerminationProtection'] ?? null;
         $this->ParentId = $input['ParentId'] ?? null;
         $this->RootId = $input['RootId'] ?? null;

@@ -93,7 +93,7 @@ class AssumeRoleWithWebIdentityRequest
         $this->RoleSessionName = $input['RoleSessionName'] ?? null;
         $this->WebIdentityToken = $input['WebIdentityToken'] ?? null;
         $this->ProviderId = $input['ProviderId'] ?? null;
-        $this->PolicyArns = array_map(function ($item) { return PolicyDescriptorType::create($item); }, $input['PolicyArns'] ?? []);
+        $this->PolicyArns = array_map([PolicyDescriptorType::class, 'create'], $input['PolicyArns'] ?? []);
         $this->Policy = $input['Policy'] ?? null;
         $this->DurationSeconds = $input['DurationSeconds'] ?? null;
     }

@@ -23,7 +23,7 @@ class ResourceStatus
 
     public static function exists(string $value): bool
     {
-        $values = [
+        return isset([
             self::CREATE_COMPLETE => true,
             self::CREATE_FAILED => true,
             self::CREATE_IN_PROGRESS => true,
@@ -40,8 +40,6 @@ class ResourceStatus
             self::UPDATE_COMPLETE => true,
             self::UPDATE_FAILED => true,
             self::UPDATE_IN_PROGRESS => true,
-        ];
-
-        return isset($values[$value]);
+        ][$value]);
     }
 }

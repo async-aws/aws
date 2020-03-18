@@ -23,7 +23,7 @@ class RollbackConfiguration
      */
     public function __construct(array $input)
     {
-        $this->RollbackTriggers = array_map(function ($item) { return RollbackTrigger::create($item); }, $input['RollbackTriggers'] ?? []);
+        $this->RollbackTriggers = array_map([RollbackTrigger::class, 'create'], $input['RollbackTriggers'] ?? []);
         $this->MonitoringTimeInMinutes = $input['MonitoringTimeInMinutes'] ?? null;
     }
 

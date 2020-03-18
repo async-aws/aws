@@ -11,13 +11,11 @@ class StackDriftStatus
 
     public static function exists(string $value): bool
     {
-        $values = [
+        return isset([
             self::DRIFTED => true,
             self::IN_SYNC => true,
             self::NOT_CHECKED => true,
             self::UNKNOWN => true,
-        ];
-
-        return isset($values[$value]);
+        ][$value]);
     }
 }

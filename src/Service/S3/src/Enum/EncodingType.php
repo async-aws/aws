@@ -8,10 +8,8 @@ class EncodingType
 
     public static function exists(string $value): bool
     {
-        $values = [
+        return isset([
             self::URL => true,
-        ];
-
-        return isset($values[$value]);
+        ][$value]);
     }
 }
