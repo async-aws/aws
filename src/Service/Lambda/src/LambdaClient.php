@@ -78,7 +78,8 @@ class LambdaClient extends AbstractApi
      */
     public function listLayerVersions($input): ListLayerVersionsResponse
     {
-        $response = $this->getResponse($input = ListLayerVersionsRequest::create($input)->request());
+        $input = ListLayerVersionsRequest::create($input);
+        $response = $this->getResponse($input);
 
         return new ListLayerVersionsResponse($response, $this->httpClient, $this, $input);
     }

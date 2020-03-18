@@ -24,7 +24,8 @@ class CloudFormationClient extends AbstractApi
      */
     public function describeStackEvents($input = []): DescribeStackEventsOutput
     {
-        $response = $this->getResponse($input = DescribeStackEventsInput::create($input)->request());
+        $input = DescribeStackEventsInput::create($input);
+        $response = $this->getResponse($input);
 
         return new DescribeStackEventsOutput($response, $this->httpClient, $this, $input);
     }
@@ -42,7 +43,8 @@ class CloudFormationClient extends AbstractApi
      */
     public function describeStacks($input = []): DescribeStacksOutput
     {
-        $response = $this->getResponse($input = DescribeStacksInput::create($input)->request());
+        $input = DescribeStacksInput::create($input);
+        $response = $this->getResponse($input);
 
         return new DescribeStacksOutput($response, $this->httpClient, $this, $input);
     }
