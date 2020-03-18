@@ -112,6 +112,19 @@ jobs:
           ./vendor/bin/simple-phpunit install
           echo ::endgroup::
 
+      - name: Modify composer.json
+        run: |
+          CURRENT_DIR=$(pwd)
+          for COMPONENT in $(find src/Service -maxdepth 2 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
+          do
+            echo ::group::$COMPONENT
+            echo "$CURRENT_DIR/$COMPONENT"
+            cd "$CURRENT_DIR/$COMPONENT"
+            sed -i -re 's/"async-aws\/core": "[^"]+",/"async-aws\/core": "*@dev",/' composer.json
+            sed -i -re 's/"require": \{/"repositories": [{"type": "path","url": "..\/..\/Core"}],"require": \{/' composer.json
+            echo ::endgroup::
+          done
+
       - name: Download dependencies
         env:
           # Make sure we dont download awfully old Symfony versions.
@@ -119,13 +132,11 @@ jobs:
         run: |
           composer global require --no-progress --no-scripts --no-plugins symfony/flex
           CURRENT_DIR=$(pwd)
-          for COMPONENT in $(find src/Service -maxdepth 2 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
+          for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
           do
             echo ::group::$COMPONENT
             echo "$CURRENT_DIR/$COMPONENT"
             cd "$CURRENT_DIR/$COMPONENT"
-
-            sed -i -re 's/"require": \{/"minimum-stability": "dev","prefer-stable": true,"require": \{/' composer.json
 
             composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-lowest
             echo ::endgroup::
