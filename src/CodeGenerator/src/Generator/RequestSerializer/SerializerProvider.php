@@ -33,6 +33,8 @@ class SerializerProvider
             case 'query':
                 return new QuerySerializer($this->namespaceRegistry);
             case 'json':
+                return new JsonSerializer($this->namespaceRegistry);
+
             default:
                 throw new \LogicException(sprintf('Serializer for "%s" is not implemented yet', $definition->getProtocol()));
         }

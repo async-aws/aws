@@ -27,9 +27,9 @@ class RestXmlSerializer implements Serializer
         $this->namespaceRegistry = $namespaceRegistry;
     }
 
-    public function getContentType(): string
+    public function getHeaders(Operation $operation): string
     {
-        return 'application/xml';
+        return '["content-type" => "application/xml"]';
     }
 
     public function generateRequestBody(Operation $operation, StructureShape $shape): array

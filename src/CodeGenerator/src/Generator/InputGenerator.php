@@ -222,7 +222,7 @@ class InputGenerator
         if ((null !== $payloadProperty = $inputShape->getPayload()) && $inputShape->getMember($payloadProperty)->isStreaming()) {
             $body['header'] = '$headers = [];' . "\n";
         } else {
-            $body['header'] = '$headers = [\'content-type\' => \'' . $serializer->getContentType() . '\'];' . "\n";
+            $body['header'] = '$headers = ' . $serializer->getHeaders($operation) . ';' . "\n";
         }
 
         $body['querystring'] = '$query = [];' . "\n";

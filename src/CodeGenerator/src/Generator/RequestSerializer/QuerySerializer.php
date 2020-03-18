@@ -29,9 +29,9 @@ class QuerySerializer implements Serializer
         $this->namespaceRegistry = $namespaceRegistry;
     }
 
-    public function getContentType(): string
+    public function getHeaders(Operation $operation): string
     {
-        return 'application/x-www-form-urlencoded';
+        return '["content-type" => "application/x-www-form-urlencoded"]';
     }
 
     public function generateRequestBody(Operation $operation, StructureShape $shape): array

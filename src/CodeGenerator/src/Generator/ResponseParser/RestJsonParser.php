@@ -60,6 +60,17 @@ class RestJsonParser implements Parser
         return $body;
     }
 
+    protected function parseResponseTimestamp(Shape $shape, string $input, bool $required): string
+    {
+        $body = 'new \DateTimeImmutable((string) INPUT)';
+
+        if (!$required) {
+            $body = 'isset(INPUT) ? ' . $body . ' : null';
+        }
+
+        return strtr($body, ['INPUT' => $input]);
+    }
+
     private function getInputAccessorName(Member $member)
     {
         if ($member instanceof StructureMember) {
@@ -119,12 +130,20 @@ class RestJsonParser implements Parser
             ]);
         }
 
-        return strtr('new CLASS_NAME([
+        $body = 'new CLASS_NAME([
             PROPERTIES
-        ])', [
-            'CLASS_NAME' => $this->namespaceRegistry->getObject($shape)->getName(),
-            'PROPERTIES' => implode("\n", $properties),
-        ]);
+        ])';
+
+        if (!$required) {
+            $body = 'empty(INPUT) ? null : ' . $body;
+        }
+
+        return strtr(
+            $body, [
+                'INPUT' => $input,
+                'CLASS_NAME' => $this->namespaceRegistry->getObject($shape)->getName(),
+                'PROPERTIES' => implode("\n", $properties),
+            ]);
     }
 
     private function parseResponseString(string $input, bool $required): string
@@ -172,23 +191,6 @@ class RestJsonParser implements Parser
         return strtr('isset(INPUT) ? base64_decode((string) INPUT) : null', ['INPUT' => $input]);
     }
 
-    private function parseResponseTimestamp(Shape $shape, string $input, bool $required): string
-    {
-        if ('unixTimestamp' === $shape->get('timestampFormat')) {
-            if ($required) {
-                return strtr('\DateTimeImmutable::setTimestamp((string) INPUT)', ['INPUT' => $input]);
-            }
-
-            return strtr('isset(INPUT) ? \DateTimeImmutable::setTimestamp((string) INPUT) : null', ['INPUT' => $input]);
-        }
-
-        if ($required) {
-            return strtr('new \DateTimeImmutable((string) INPUT)', ['INPUT' => $input]);
-        }
-
-        return strtr('isset(INPUT) ? new \DateTimeImmutable((string) INPUT) : null', ['INPUT' => $input]);
-    }
-
     private function parseResponseList(ListShape $shape, string $input, bool $required): string
     {
         $shapeMember = $shape->getMember();
@@ -218,7 +220,7 @@ class RestJsonParser implements Parser
         }
 
         if (!$required) {
-            $body = '!INPUT ? [] : ' . $body;
+            $body = 'empty(INPUT) ? [] : ' . $body;
         }
 
         return strtr($body, [
@@ -230,11 +232,35 @@ class RestJsonParser implements Parser
 
     private function parseResponseMap(MapShape $shape, string $input, bool $required): string
     {
-        if (null === $locationName = $shape->getKey()->getLocationName()) {
-            throw new \RuntimeException('This is not implemented yet');
-        }
-
         $shapeValue = $shape->getValue();
+
+        if (null === $locationName = $shape->getKey()->getLocationName()) {
+            // We need to use array keys
+            if ($shapeValue->getShape() instanceof StructureShape) {
+                $body = '(function(array $json): array {
+                $items = [];
+                foreach ($json as $name => $value) {
+                   $items[$name] = CLASS::create($value);
+                }
+
+                return $items;
+            })(INPUT)';
+
+                if (!$required) {
+                    $body = 'empty(INPUT) ? [] : ' . $body;
+                }
+
+                return strtr($body, [
+                    'CLASS' => $shape->getValue()->getShape()->getName(),
+                    'INPUT' => $input,
+                ]);
+            }
+
+            // Allow recursive calls
+            throw new \RuntimeException('Not supported yet');
+        }
+        $inputAccessorName = $this->getInputAccessorName($shapeValue);
+
         if ($shapeValue->getShape() instanceof StructureShape) {
             $body = '(function(array $json): array {
                 $items = [];
@@ -259,12 +285,12 @@ class RestJsonParser implements Parser
         }
 
         if (!$required) {
-            $body = '!INPUT ? [] : ' . $body;
+            $body = 'empty(INPUT) ? [] : ' . $body;
         }
 
         return strtr($body, [
             'MAP_KEY' => var_export($locationName, true),
-            'MAP_ACCESSOR' => $this->parseElement(sprintf('$item[\'%s\']', $this->getInputAccessorName($shapeValue)), $shapeValue->getShape(), false),
+            'MAP_ACCESSOR' => $this->parseElement(sprintf('$item[\'%s\']', $inputAccessorName), $shapeValue->getShape(), false),
             'INPUT' => $input,
         ]);
     }

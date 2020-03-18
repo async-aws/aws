@@ -9,6 +9,10 @@ class AwsPackagesProvider
     public static function getAllServices(): array
     {
         return [
+            'dynamo_db' => [
+                'class' => \AsyncAws\DynamoDb\DynamoDbClient::class,
+                'package' => 'async-aws/dynamo-db',
+            ],
             'cloud_formation' => [
                 'class' => \AsyncAws\CloudFormation\CloudFormationClient::class,
                 'package' => 'async-aws/cloud-formation',

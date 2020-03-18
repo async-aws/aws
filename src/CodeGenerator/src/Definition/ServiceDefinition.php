@@ -85,6 +85,11 @@ class ServiceDefinition
         return $this->definition['metadata']['endpointPrefix'];
     }
 
+    public function getTargetPrefix(): string
+    {
+        return $this->definition['metadata']['targetPrefix'];
+    }
+
     public function getProtocol(): string
     {
         return $this->definition['metadata']['protocol'];

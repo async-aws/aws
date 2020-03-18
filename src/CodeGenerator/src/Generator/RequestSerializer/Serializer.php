@@ -18,5 +18,5 @@ interface Serializer
 
     public function generateRequestBuilder(StructureShape $shape): array;
 
-    public function getContentType(): string;
+    public function getHeaders(Operation $operation): string;
 }

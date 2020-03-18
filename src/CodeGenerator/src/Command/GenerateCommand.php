@@ -240,7 +240,8 @@ class GenerateCommand extends Command
     private function fixCs(ClassName $clientClass, SymfonyStyle $io): void
     {
         $reflection = new \ReflectionClass($clientClass->getFqdn());
-        $path = \dirname($reflection->getFileName());
+        $srcPath = \dirname($reflection->getFileName());
+        $testPath = realpath($srcPath . '/../tests');
 
         // assert this
         $baseDir = \dirname($this->manifestFile);
@@ -256,7 +257,7 @@ class GenerateCommand extends Command
                 'config' => $baseDir . '/.php_cs',
                 'allow-risky' => true,
                 'dry-run' => false,
-                'path' => [$path],
+                'path' => [$srcPath, $testPath],
                 'path-mode' => 'override',
                 'using-cache' => true,
                 'cache-file' => $baseDir . '/.php_cs.cache',

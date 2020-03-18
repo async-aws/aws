@@ -29,9 +29,9 @@ class RestJsonSerializer implements Serializer
         $this->namespaceRegistry = $namespaceRegistry;
     }
 
-    public function getContentType(): string
+    public function getHeaders(Operation $operation): string
     {
-        return 'application/json';
+        return '["content-type" => "application/json"]';
     }
 
     public function generateRequestBody(Operation $operation, StructureShape $shape): array
@@ -59,15 +59,15 @@ class RestJsonSerializer implements Serializer
                 return '';
             }
             $shape = $member->getShape();
-            if ($member->isRequired()) {
+            if ($shape instanceof ListShape || $shape instanceof MapShape) {
+                $body = 'MEMBER_CODE';
+                $inputElement = '$this->' . $member->getName();
+            } elseif ($member->isRequired()) {
                 $body = 'if (null === $v = $this->PROPERTY) {
                     throw new InvalidArgument(sprintf(\'Missing parameter "PROPERTY" for "%s". The value cannot be null.\', __CLASS__));
                 }
                 MEMBER_CODE';
                 $inputElement = '$v';
-            } elseif ($shape instanceof ListShape || $shape instanceof MapShape) {
-                $body = 'MEMBER_CODE';
-                $inputElement = '$this->' . $member->getName();
             } else {
                 $body = 'if (null !== $v = $this->PROPERTY) {
                     MEMBER_CODE
@@ -91,6 +91,14 @@ class RestJsonSerializer implements Serializer
         ])];
     }
 
+    protected function dumpArrayBoolean(string $output, string $input, Shape $shape): string
+    {
+        return strtr('$payloadOUTPUT = INPUT ? "true" : "false";', [
+            'OUTPUT' => $output,
+            'INPUT' => $input,
+        ]);
+    }
+
     private function getQueryName(Member $member, string $default): string
     {
         if (null !== $member->getQueryName()) {
@@ -112,7 +120,7 @@ class RestJsonSerializer implements Serializer
         if ($member instanceof StructureMember) {
             $name = $this->getQueryName($member, $member->getName());
         } else {
-            throw new \RuntimeException('Guessing the name fot this member not yet implemented');
+            throw new \RuntimeException('Guessing the name for this member not yet implemented');
         }
 
         return $name;
@@ -126,7 +134,7 @@ class RestJsonSerializer implements Serializer
             case $shape instanceof ListShape:
                 return $this->dumpArrayList($output, $input, $contextProperty, $shape);
             case $shape instanceof MapShape:
-                throw new \RuntimeException('MapShapes are not implemented');
+                return $this->dumpArrayMap($output, $input, $contextProperty, $shape);
         }
 
         switch ($shape->getType()) {
@@ -170,6 +178,20 @@ class RestJsonSerializer implements Serializer
             ]);
     }
 
+    private function dumpArrayMap(string $output, string $input, $contextProperty, MapShape $shape): string
+    {
+        $memberCode = $this->dumpArrayElement($output . '[$name]', '$v', $contextProperty, $shape->getValue()->getShape());
+
+        return strtr('
+foreach (INPUT as $name => $v) {
+    MEMBER_CODE
+}',
+            [
+                'INPUT' => $input,
+                'MEMBER_CODE' => $memberCode,
+            ]);
+    }
+
     private function dumpArrayScalar(string $output, string $input, string $contextProperty, Shape $shape): string
     {
         $body = '$payloadOUTPUT = INPUT;';
@@ -190,14 +212,6 @@ class RestJsonSerializer implements Serializer
         }
 
         return strtr($body, $replacements);
-    }
-
-    private function dumpArrayBoolean(string $output, string $input, Shape $shape): string
-    {
-        return strtr('$payloadOUTPUT = INPUT ? "true" : "false";', [
-            'OUTPUT' => $output,
-            'INPUT' => $input,
-        ]);
     }
 
     private function dumpArrayTimestamp(string $output, string $input, Shape $shape): string

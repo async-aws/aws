@@ -115,7 +115,7 @@ class PublishLayerVersionResponse extends Result
     {
         $data = $response->toArray(false);
 
-        $this->Content = new LayerVersionContentOutput([
+        $this->Content = empty($data['Content']) ? null : new LayerVersionContentOutput([
             'Location' => isset($data['Content']['Location']) ? (string) $data['Content']['Location'] : null,
             'CodeSha256' => isset($data['Content']['CodeSha256']) ? (string) $data['Content']['CodeSha256'] : null,
             'CodeSize' => isset($data['Content']['CodeSize']) ? (string) $data['Content']['CodeSize'] : null,
@@ -125,7 +125,7 @@ class PublishLayerVersionResponse extends Result
         $this->Description = isset($data['Description']) ? (string) $data['Description'] : null;
         $this->CreatedDate = isset($data['CreatedDate']) ? (string) $data['CreatedDate'] : null;
         $this->Version = isset($data['Version']) ? (string) $data['Version'] : null;
-        $this->CompatibleRuntimes = !$data['CompatibleRuntimes'] ? [] : (function (array $json): array {
+        $this->CompatibleRuntimes = empty($data['CompatibleRuntimes']) ? [] : (function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? (string) $item : null;
