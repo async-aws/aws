@@ -28,8 +28,13 @@ class S3FilesystemV2Test extends TestCase
         $prefix = 'all-files';
         $bucket = 'foobar';
 
-        $client = new MockHttpClient();
-        $result = new PutObjectOutput(new Response($client->request('POST', 'http://localhost'), $client));
+        if (\class_exists(Response::class)) {
+            $client = new MockHttpClient();
+            $result = new PutObjectOutput(new Response($client->request('POST', 'http://localhost'), $client));
+        } else {
+            $client = new MockHttpClient();
+            $result = new PutObjectOutput($client->request('POST', 'http://localhost'), $client);
+        }
 
         $s3Client = $this->getMockBuilder(S3Client::class)
             ->disableOriginalConstructor()
