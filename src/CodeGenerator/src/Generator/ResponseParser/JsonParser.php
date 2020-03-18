@@ -15,10 +15,10 @@ class JsonParser extends RestJsonParser
 {
     protected function parseResponseTimestamp(Shape $shape, string $input, bool $required): string
     {
-        $body = '\DateTimeImmutable::createFromFormat(\'U.u\', \sprintf(\'%.6F\', INPUT))';
-
-        if (!$required) {
-            $body = 'isset(INPUT) ? ' . $body . ' : null';
+        if ($required) {
+            $body = '/** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat(\'U.u\', \sprintf(\'%.6F\', INPUT))';
+        } else {
+            $body = '(isset(INPUT) && ($d = \DateTimeImmutable::createFromFormat(\'U.u\', \sprintf(\'%.6F\', INPUT)))) ? $d : null';
         }
 
         return strtr($body, ['INPUT' => $input]);
