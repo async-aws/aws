@@ -121,7 +121,7 @@ class InvocationRequest
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['Content-Type' => 'application/json'];
+        $headers = ['content-type' => 'application/json'];
         if (null !== $this->InvocationType) {
             if (!InvocationType::exists($this->InvocationType)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "InvocationType" for "%s". The value "%s" is not a valid "InvocationType".', __CLASS__, $this->InvocationType));

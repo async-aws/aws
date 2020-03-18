@@ -91,7 +91,7 @@ class GetObjectAclRequest
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['Content-Type' => 'application/xml'];
+        $headers = ['content-type' => 'application/xml'];
         if (null !== $this->RequestPayer) {
             if (!RequestPayer::exists($this->RequestPayer)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));

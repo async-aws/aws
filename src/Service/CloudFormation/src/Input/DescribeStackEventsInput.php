@@ -54,7 +54,7 @@ class DescribeStackEventsInput
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['Content-Type' => 'application/x-www-form-urlencoded'];
+        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
         // Prepare query
         $query = [];

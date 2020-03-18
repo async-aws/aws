@@ -12,10 +12,12 @@ class QueryOutputTest extends TestCase
 {
     public function testQueryOutput(): void
     {
-
         // see example-1.json from SDK
         $response = new SimpleMockedResponse('{
-            "ConsumedCapacity": [],
+            "ConsumedCapacity": {
+                "CapacityUnits": 1,
+                "TableName": "Reply"
+            },
             "Count": 2,
             "Items": [
                 {

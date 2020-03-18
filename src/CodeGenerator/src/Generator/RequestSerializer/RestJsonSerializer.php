@@ -31,7 +31,7 @@ class RestJsonSerializer implements Serializer
 
     public function getHeaders(Operation $operation): string
     {
-        return '["Content-Type" => "application/json"]';
+        return '["content-type" => "application/json"]';
     }
 
     public function generateRequestBody(Operation $operation, StructureShape $shape): array

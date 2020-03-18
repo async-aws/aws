@@ -228,7 +228,7 @@ class HeadObjectRequest
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['Content-Type' => 'application/xml'];
+        $headers = ['content-type' => 'application/xml'];
         if (null !== $this->IfMatch) {
             $headers['If-Match'] = $this->IfMatch;
         }

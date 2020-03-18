@@ -214,7 +214,7 @@ class PutObjectAclRequest
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['Content-Type' => 'application/xml'];
+        $headers = ['content-type' => 'application/xml'];
         if (null !== $this->ACL) {
             if (!ObjectCannedACL::exists($this->ACL)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "ObjectCannedACL".', __CLASS__, $this->ACL));

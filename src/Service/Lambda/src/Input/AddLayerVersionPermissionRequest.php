@@ -136,7 +136,7 @@ class AddLayerVersionPermissionRequest
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['Content-Type' => 'application/json'];
+        $headers = ['content-type' => 'application/json'];
 
         // Prepare query
         $query = [];

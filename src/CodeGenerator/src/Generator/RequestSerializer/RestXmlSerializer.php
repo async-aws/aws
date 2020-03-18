@@ -29,7 +29,7 @@ class RestXmlSerializer implements Serializer
 
     public function getHeaders(Operation $operation): string
     {
-        return '["Content-Type" => "application/xml"]';
+        return '["content-type" => "application/xml"]';
     }
 
     public function generateRequestBody(Operation $operation, StructureShape $shape): array

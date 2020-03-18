@@ -54,7 +54,7 @@ class UpdateTableOutputTest extends TestCase
         self::assertEquals('Artist', $result->getTableDescription()->getAttributeDefinitions()[0]->getAttributeName());
         self::assertEquals('SongTitle', $result->getTableDescription()->getAttributeDefinitions()[1]->getAttributeName());
         self::assertEquals('2015-01-21 19:02:32', $result->getTableDescription()->getCreationDateTime()->format('Y-m-d H:i:s'));
-        self::assertEquals('060000', $result->getTableDescription()->getCreationDateTime()->format('u'));
+        self::assertEquals('062000', $result->getTableDescription()->getCreationDateTime()->format('u'));
         self::assertEquals('Artist', $result->getTableDescription()->getKeySchema()[0]->getAttributeName());
         self::assertEquals('HASH', $result->getTableDescription()->getKeySchema()[0]->getKeyType());
         self::assertEquals('MusicCollection', $result->getTableDescription()->getTableName());
