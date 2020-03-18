@@ -40,7 +40,7 @@ class StsClient extends AbstractApi
     {
         $response = $this->getResponse(AssumeRoleRequest::create($input)->request());
 
-        return new AssumeRoleResponse($response, $this->httpClient);
+        return new AssumeRoleResponse($response);
     }
 
     /**
@@ -64,7 +64,7 @@ class StsClient extends AbstractApi
     {
         $response = $this->getResponse(AssumeRoleWithWebIdentityRequest::create($input)->request());
 
-        return new AssumeRoleWithWebIdentityResponse($response, $this->httpClient);
+        return new AssumeRoleWithWebIdentityResponse($response);
     }
 
     /**
@@ -78,7 +78,7 @@ class StsClient extends AbstractApi
     {
         $response = $this->getResponse(GetCallerIdentityRequest::create($input)->request());
 
-        return new GetCallerIdentityResponse($response, $this->httpClient);
+        return new GetCallerIdentityResponse($response);
     }
 
     protected function getServiceCode(): string

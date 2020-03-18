@@ -2,6 +2,7 @@
 
 namespace AsyncAws\S3\Tests\Unit\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Result\CreateBucketOutput;
@@ -15,7 +16,7 @@ class CreateBucketOutputTest extends TestCase
         $response = new SimpleMockedResponse('', ['Location' => '/examplebucket']);
 
         $client = new MockHttpClient($response);
-        $result = new CreateBucketOutput($client->request('POST', 'http://localhost'), $client);
+        $result = new CreateBucketOutput(new Response($client->request('POST', 'http://localhost'), $client));
 
         self::assertSame('/examplebucket', $result->getLocation());
     }

@@ -2,10 +2,9 @@
 
 namespace AsyncAws\S3\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\S3\Enum\RequestCharged;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class PutObjectAclOutput extends Result
 {
@@ -21,9 +20,9 @@ class PutObjectAclOutput extends Result
         return $this->RequestCharged;
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $headers = $response->getHeaders(false);
+        $headers = $response->getHeaders();
 
         $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
     }

@@ -36,7 +36,7 @@ class LambdaClient extends AbstractApi
     {
         $response = $this->getResponse(AddLayerVersionPermissionRequest::create($input)->request());
 
-        return new AddLayerVersionPermissionResponse($response, $this->httpClient);
+        return new AddLayerVersionPermissionResponse($response);
     }
 
     /**
@@ -58,7 +58,7 @@ class LambdaClient extends AbstractApi
     {
         $response = $this->getResponse(InvocationRequest::create($input)->request());
 
-        return new InvocationResponse($response, $this->httpClient);
+        return new InvocationResponse($response);
     }
 
     /**
@@ -81,7 +81,7 @@ class LambdaClient extends AbstractApi
         $input = ListLayerVersionsRequest::create($input);
         $response = $this->getResponse($input->request());
 
-        return new ListLayerVersionsResponse($response, $this->httpClient, $this, $input);
+        return new ListLayerVersionsResponse($response, $this, $input);
     }
 
     /**
@@ -103,7 +103,7 @@ class LambdaClient extends AbstractApi
     {
         $response = $this->getResponse(PublishLayerVersionRequest::create($input)->request());
 
-        return new PublishLayerVersionResponse($response, $this->httpClient);
+        return new PublishLayerVersionResponse($response);
     }
 
     protected function getServiceCode(): string

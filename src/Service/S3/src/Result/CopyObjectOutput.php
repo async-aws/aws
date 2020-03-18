@@ -2,12 +2,11 @@
 
 namespace AsyncAws\S3\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\S3\Enum\RequestCharged;
 use AsyncAws\S3\Enum\ServerSideEncryption;
 use AsyncAws\S3\ValueObject\CopyObjectResult;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class CopyObjectOutput extends Result
 {
@@ -138,9 +137,9 @@ class CopyObjectOutput extends Result
         return $this->VersionId;
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $headers = $response->getHeaders(false);
+        $headers = $response->getHeaders();
 
         $this->Expiration = $headers['x-amz-expiration'][0] ?? null;
         $this->CopySourceVersionId = $headers['x-amz-copy-source-version-id'][0] ?? null;
@@ -152,7 +151,7 @@ class CopyObjectOutput extends Result
         $this->SSEKMSEncryptionContext = $headers['x-amz-server-side-encryption-context'][0] ?? null;
         $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
-        $data = new \SimpleXMLElement($response->getContent(false));
+        $data = new \SimpleXMLElement($response->getContent());
         $this->CopyObjectResult = !$data ? null : new CopyObjectResult([
             'ETag' => ($v = $data->ETag) ? (string) $v : null,
             'LastModified' => ($v = $data->LastModified) ? new \DateTimeImmutable((string) $v) : null,

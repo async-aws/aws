@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Core\Tests\Unit\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Sts\Result\GetCallerIdentityResponse;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use PHPUnit\Framework\TestCase;
@@ -26,7 +27,7 @@ class GetCallerIdentityResponseTest extends TestCase
         ');
 
         $client = new MockHttpClient($response);
-        $result = new GetCallerIdentityResponse($client->request('POST', 'http://localhost'), $client);
+        $result = new GetCallerIdentityResponse(new Response($client->request('POST', 'http://localhost'), $client));
 
         self::assertStringContainsString('ARO123EXAMPLE123:my-role-session-name', $result->getUserId());
         self::assertStringContainsString('123456789012', $result->getAccount());

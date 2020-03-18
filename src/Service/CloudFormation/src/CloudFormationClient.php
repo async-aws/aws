@@ -27,7 +27,7 @@ class CloudFormationClient extends AbstractApi
         $input = DescribeStackEventsInput::create($input);
         $response = $this->getResponse($input->request());
 
-        return new DescribeStackEventsOutput($response, $this->httpClient, $this, $input);
+        return new DescribeStackEventsOutput($response, $this, $input);
     }
 
     /**
@@ -46,7 +46,7 @@ class CloudFormationClient extends AbstractApi
         $input = DescribeStacksInput::create($input);
         $response = $this->getResponse($input->request());
 
-        return new DescribeStacksOutput($response, $this->httpClient, $this, $input);
+        return new DescribeStacksOutput($response, $this, $input);
     }
 
     protected function getServiceCode(): string

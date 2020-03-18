@@ -6,14 +6,13 @@ use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Waiter;
 use AsyncAws\Sqs\Input\GetQueueUrlRequest;
 use AsyncAws\Sqs\SqsClient;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class QueueExistsWaiter extends Waiter
 {
     protected const WAIT_TIMEOUT = 200.0;
     protected const WAIT_DELAY = 5.0;
 
-    protected function extractState(ResponseInterface $response, ?HttpException $exception): string
+    protected function extractState(\AsyncAws\Core\Response $response, ?HttpException $exception): string
     {
         if (200 === $response->getStatusCode()) {
             return self::STATE_SUCCESS;

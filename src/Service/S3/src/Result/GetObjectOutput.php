@@ -2,8 +2,8 @@
 
 namespace AsyncAws\S3\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
-use AsyncAws\Core\StreamableBody;
 use AsyncAws\Core\StreamableBodyInterface;
 use AsyncAws\S3\Enum\ObjectLockLegalHoldStatus;
 use AsyncAws\S3\Enum\ObjectLockMode;
@@ -11,8 +11,6 @@ use AsyncAws\S3\Enum\ReplicationStatus;
 use AsyncAws\S3\Enum\RequestCharged;
 use AsyncAws\S3\Enum\ServerSideEncryption;
 use AsyncAws\S3\Enum\StorageClass;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class GetObjectOutput extends Result
 {
@@ -419,9 +417,9 @@ class GetObjectOutput extends Result
         return $this->WebsiteRedirectLocation;
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $headers = $response->getHeaders(false);
+        $headers = $response->getHeaders();
 
         $this->DeleteMarker = isset($headers['x-amz-delete-marker'][0]) ? filter_var($headers['x-amz-delete-marker'][0], \FILTER_VALIDATE_BOOLEAN) : null;
         $this->AcceptRanges = $headers['accept-ranges'][0] ?? null;
@@ -460,6 +458,6 @@ class GetObjectOutput extends Result
             }
         }
 
-        $this->Body = new StreamableBody($httpClient->stream($response));
+        $this->Body = $response->toStream();
     }
 }

@@ -2,9 +2,8 @@
 
 namespace AsyncAws\Sqs\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class SendMessageResult extends Result
 {
@@ -80,9 +79,9 @@ class SendMessageResult extends Result
         return $this->SequenceNumber;
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent(false));
+        $data = new \SimpleXMLElement($response->getContent());
         $data = $data->SendMessageResult;
 
         $this->MD5OfMessageBody = ($v = $data->MD5OfMessageBody) ? (string) $v : null;

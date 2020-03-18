@@ -2,11 +2,10 @@
 
 namespace AsyncAws\S3\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\S3\Enum\RequestCharged;
 use AsyncAws\S3\Enum\ServerSideEncryption;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class PutObjectOutput extends Result
 {
@@ -129,9 +128,9 @@ class PutObjectOutput extends Result
         return $this->VersionId;
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $headers = $response->getHeaders(false);
+        $headers = $response->getHeaders();
 
         $this->Expiration = $headers['x-amz-expiration'][0] ?? null;
         $this->ETag = $headers['etag'][0] ?? null;

@@ -2,6 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Tests\Unit\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\DynamoDb\Result\ListTablesOutput;
@@ -23,7 +24,7 @@ class ListTablesOutputTest extends TestCase
         }');
 
         $client = new MockHttpClient($response);
-        $result = new ListTablesOutput($client->request('POST', 'http://localhost'), $client);
+        $result = new ListTablesOutput(new Response($client->request('POST', 'http://localhost'), $client));
 
         $tableNames = $result->getTableNames(true);
         foreach ($tableNames as $name) {

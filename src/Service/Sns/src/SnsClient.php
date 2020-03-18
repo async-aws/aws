@@ -27,7 +27,7 @@ class SnsClient extends AbstractApi
     {
         $response = $this->getResponse(PublishInput::create($input)->request());
 
-        return new PublishResponse($response, $this->httpClient);
+        return new PublishResponse($response);
     }
 
     protected function getServiceCode(): string

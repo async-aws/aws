@@ -2,9 +2,8 @@
 
 namespace AsyncAws\Sqs\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class GetQueueAttributesResult extends Result
 {
@@ -23,9 +22,9 @@ class GetQueueAttributesResult extends Result
         return $this->Attributes;
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent(false));
+        $data = new \SimpleXMLElement($response->getContent());
         $data = $data->GetQueueAttributesResult;
 
         $this->Attributes = !$data->Attribute ? [] : (function (\SimpleXMLElement $xml): array {

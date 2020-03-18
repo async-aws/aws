@@ -2,9 +2,8 @@
 
 namespace AsyncAws\Sqs\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class CreateQueueResult extends Result
 {
@@ -20,9 +19,9 @@ class CreateQueueResult extends Result
         return $this->QueueUrl;
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent(false));
+        $data = new \SimpleXMLElement($response->getContent());
         $data = $data->CreateQueueResult;
 
         $this->QueueUrl = ($v = $data->QueueUrl) ? (string) $v : null;

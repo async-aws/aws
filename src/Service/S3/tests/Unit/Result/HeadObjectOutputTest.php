@@ -2,6 +2,7 @@
 
 namespace AsyncAws\S3\Tests\Unit\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\S3\Result\HeadObjectOutput;
 use PHPUnit\Framework\TestCase;
@@ -26,7 +27,7 @@ class HeadObjectOutputTest extends TestCase
         $response = new SimpleMockedResponse('', $headers);
 
         $client = new MockHttpClient($response);
-        $result = new HeadObjectOutput($client->request('POST', 'http://localhost'), $client);
+        $result = new HeadObjectOutput(new Response($client->request('POST', 'http://localhost'), $client));
 
         self::assertNull($result->getDeleteMarker());
         self::assertEquals('bytes', $result->getAcceptRanges());

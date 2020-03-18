@@ -13,8 +13,7 @@
         "ext-dom": "*",
         "ext-filter": "*",
         "ext-hash": "*",
-        "async-aws/core": "^0.4",
-        "symfony/http-client-contracts": "^1.0 || ^2.0"
+        "async-aws/core": "^0.5"
     },
     "extra": {
         "branch-alias": {

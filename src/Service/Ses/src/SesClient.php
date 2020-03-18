@@ -27,7 +27,7 @@ class SesClient extends AbstractApi
     {
         $response = $this->getResponse(SendEmailRequest::create($input)->request());
 
-        return new SendEmailResponse($response, $this->httpClient);
+        return new SendEmailResponse($response);
     }
 
     protected function getServiceCode(): string

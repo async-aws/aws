@@ -15,6 +15,7 @@ use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
 use AsyncAws\Core\Credentials\NullProvider;
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use Nette\PhpGenerator\ClassType;
@@ -191,7 +192,7 @@ class TestGenerator
                 STUB
 
                 $client = new MockHttpClient($response);
-                $result = new INPUT_CLASS($client->request(\'POST\', \'http://localhost\'), $client);
+                $result = new INPUT_CLASS(new Response($client->request(\'POST\', \'http://localhost\'), $client));
 
                 ASSERT
             ', [
@@ -202,6 +203,7 @@ class TestGenerator
                 'STUB' => $stub,
                 'ASSERT' => $this->getResultAssert($operation->getOutput()),
             ]));
+        $namespace->addUse(Response::class);
 
         $this->fileWriter->write($namespace);
     }

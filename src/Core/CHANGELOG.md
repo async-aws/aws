@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.5.0
+
+### Changed
+
+- The `StreamableBodyInterface::getChunks` now returns a iterrable of string.
+
 ## 0.4.0
 
 ### Added

@@ -2,6 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Tests\Unit\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\DynamoDb\Result\UpdateItemOutput;
@@ -30,7 +31,7 @@ class UpdateItemOutputTest extends TestCase
         }');
 
         $client = new MockHttpClient($response);
-        $result = new UpdateItemOutput($client->request('POST', 'http://localhost'), $client);
+        $result = new UpdateItemOutput(new Response($client->request('POST', 'http://localhost'), $client));
 
         $attributes = $result->getAttributes();
         self::assertCount(4, $attributes);

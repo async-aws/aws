@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\Core\Tests\Unit;
 
 use AsyncAws\Core\Exception\Http\ClientException;
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use PHPUnit\Framework\TestCase;
@@ -56,7 +57,7 @@ class ResultTest extends TestCase
     {
         $response = new SimpleMockedResponse('Bad request', [], 400);
         $client = new MockHttpClient($response);
-        $result = new Result($client->request('POST', 'http://localhost'), $client);
+        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client));
 
         $this->expectException(ClientException::class);
         unset($result);
@@ -66,7 +67,7 @@ class ResultTest extends TestCase
     {
         $response = new SimpleMockedResponse('Bad request', [], 400);
         $client = new MockHttpClient($response);
-        $result = new Result($client->request('POST', 'http://localhost'), $client);
+        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client));
 
         try {
             $result->resolve();

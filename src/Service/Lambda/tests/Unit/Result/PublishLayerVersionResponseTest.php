@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Lambda\Tests\Unit\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Lambda\Result\PublishLayerVersionResponse;
@@ -29,7 +30,7 @@ class PublishLayerVersionResponseTest extends TestCase
         ');
 
         $client = new MockHttpClient($response);
-        $result = new PublishLayerVersionResponse($client->request('POST', 'http://localhost'), $client);
+        $result = new PublishLayerVersionResponse(new Response($client->request('POST', 'http://localhost'), $client));
 
         // self::assertTODO(expected, $result->getContent());
         self::assertSame('arn:::fn:arn', $result->getLayerArn());

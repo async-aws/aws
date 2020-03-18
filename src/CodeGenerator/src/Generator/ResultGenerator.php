@@ -14,6 +14,7 @@ use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\ResponseParser\ParserProvider;
 use AsyncAws\Core\Exception\LogicException;
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\StreamableBody;
 use AsyncAws\Core\StreamableBodyInterface;
@@ -261,7 +262,7 @@ class ResultGenerator
 
         // Prepend with $headers = ...
         if (!empty($body)) {
-            $body = '$headers = $response->getHeaders(false);' . "\n\n" . $body;
+            $body = '$headers = $response->getHeaders();' . "\n\n" . $body;
         }
 
         // Find status code
@@ -276,17 +277,17 @@ class ResultGenerator
         if (null !== $payloadProperty && $shape->getMember($payloadProperty)->isStreaming()) {
             // Make sure we can stream this.
             $namespace->addUse(StreamableBody::class);
-            $body .= strtr('$this->PROPERTY_NAME = new StreamableBody($httpClient->stream($response));', ['PROPERTY_NAME' => $payloadProperty]);
+            $body .= strtr('$this->PROPERTY_NAME = $response->toStream();', ['PROPERTY_NAME' => $payloadProperty]);
         } else {
             $body .= $this->parserProvider->get($this->operation->getService())->generate($shape);
         }
 
+        $namespace->addUse(Response::class);
         $method = $class->addMethod('populateResult')
             ->setReturnType('void')
             ->setProtected()
             ->setBody($body);
-        $method->addParameter('response')->setType(ResponseInterface::class);
-        $method->addParameter('httpClient')->setType(HttpClientInterface::class);
+        $method->addParameter('response')->setType(Response::class);
     }
 
     private function addUse(StructureShape $shape, PhpNamespace $namespace, array $addedFqdn = [])

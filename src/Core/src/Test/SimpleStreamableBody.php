@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AsyncAws\Core\Test;
 
 use AsyncAws\Core\StreamableBodyInterface;
-use Symfony\Contracts\HttpClient\ResponseStreamInterface;
 
 /**
  * Simple streamable body used for testing.
@@ -24,9 +23,9 @@ class SimpleStreamableBody implements StreamableBodyInterface
         $this->data = $data;
     }
 
-    public function getChunks(): ResponseStreamInterface
+    public function getChunks(): iterable
     {
-        throw new \LogicException('This class is used used for testing. Function "getChunks" is not implemented. ');
+        yield $this->data;
     }
 
     public function getContentAsString(): string

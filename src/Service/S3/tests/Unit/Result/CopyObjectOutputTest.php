@@ -2,6 +2,7 @@
 
 namespace AsyncAws\S3\Tests\Unit\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Result\CopyObjectOutput;
@@ -19,7 +20,7 @@ class CopyObjectOutputTest extends TestCase
         </CopyObjectResult>');
 
         $client = new MockHttpClient($response);
-        $result = new CopyObjectOutput($client->request('POST', 'http://localhost'), $client);
+        $result = new CopyObjectOutput(new Response($client->request('POST', 'http://localhost'), $client));
 
         self::assertNotNull($result->getCopyObjectResult());
         self::assertEquals('"6805f2cfc46c0f04559748bb039d69ae"', $result->getCopyObjectResult()->getETag());

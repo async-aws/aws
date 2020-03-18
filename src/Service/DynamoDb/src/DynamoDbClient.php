@@ -51,7 +51,7 @@ class DynamoDbClient extends AbstractApi
     {
         $response = $this->getResponse(CreateTableInput::create($input)->request());
 
-        return new CreateTableOutput($response, $this->httpClient);
+        return new CreateTableOutput($response);
     }
 
     /**
@@ -77,7 +77,7 @@ class DynamoDbClient extends AbstractApi
     {
         $response = $this->getResponse(DeleteItemInput::create($input)->request());
 
-        return new DeleteItemOutput($response, $this->httpClient);
+        return new DeleteItemOutput($response);
     }
 
     /**
@@ -97,7 +97,7 @@ class DynamoDbClient extends AbstractApi
     {
         $response = $this->getResponse(DeleteTableInput::create($input)->request());
 
-        return new DeleteTableOutput($response, $this->httpClient);
+        return new DeleteTableOutput($response);
     }
 
     /**
@@ -114,7 +114,7 @@ class DynamoDbClient extends AbstractApi
     {
         $response = $this->getResponse(DescribeTableInput::create($input)->request());
 
-        return new DescribeTableOutput($response, $this->httpClient);
+        return new DescribeTableOutput($response);
     }
 
     /**
@@ -137,7 +137,7 @@ class DynamoDbClient extends AbstractApi
     {
         $response = $this->getResponse(GetItemInput::create($input)->request());
 
-        return new GetItemOutput($response, $this->httpClient);
+        return new GetItemOutput($response);
     }
 
     /**
@@ -156,7 +156,7 @@ class DynamoDbClient extends AbstractApi
         $input = ListTablesInput::create($input);
         $response = $this->getResponse($input->request());
 
-        return new ListTablesOutput($response, $this->httpClient, $this, $input);
+        return new ListTablesOutput($response, $this, $input);
     }
 
     /**
@@ -185,7 +185,7 @@ class DynamoDbClient extends AbstractApi
     {
         $response = $this->getResponse(PutItemInput::create($input)->request());
 
-        return new PutItemOutput($response, $this->httpClient);
+        return new PutItemOutput($response);
     }
 
     /**
@@ -219,7 +219,7 @@ class DynamoDbClient extends AbstractApi
         $input = QueryInput::create($input);
         $response = $this->getResponse($input->request());
 
-        return new QueryOutput($response, $this->httpClient, $this, $input);
+        return new QueryOutput($response, $this, $input);
     }
 
     /**
@@ -252,7 +252,7 @@ class DynamoDbClient extends AbstractApi
         $input = ScanInput::create($input);
         $response = $this->getResponse($input->request());
 
-        return new ScanOutput($response, $this->httpClient, $this, $input);
+        return new ScanOutput($response, $this, $input);
     }
 
     /**
@@ -282,7 +282,7 @@ class DynamoDbClient extends AbstractApi
     {
         $response = $this->getResponse(UpdateItemInput::create($input)->request());
 
-        return new UpdateItemOutput($response, $this->httpClient);
+        return new UpdateItemOutput($response);
     }
 
     /**
@@ -306,7 +306,7 @@ class DynamoDbClient extends AbstractApi
     {
         $response = $this->getResponse(UpdateTableInput::create($input)->request());
 
-        return new UpdateTableOutput($response, $this->httpClient);
+        return new UpdateTableOutput($response);
     }
 
     protected function getServiceCode(): string

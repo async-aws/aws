@@ -2,6 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\DynamoDb\ValueObject\ArchivalSummary;
 use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
@@ -18,8 +19,6 @@ use AsyncAws\DynamoDb\ValueObject\RestoreSummary;
 use AsyncAws\DynamoDb\ValueObject\SSEDescription;
 use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
 use AsyncAws\DynamoDb\ValueObject\TableDescription;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class DescribeTableOutput extends Result
 {
@@ -35,9 +34,9 @@ class DescribeTableOutput extends Result
         return $this->Table;
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $data = $response->toArray(false);
+        $data = $response->toArray();
 
         $this->Table = empty($data['Table']) ? null : new TableDescription([
             'AttributeDefinitions' => empty($data['Table']['AttributeDefinitions']) ? [] : (function (array $json): array {

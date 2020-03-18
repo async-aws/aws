@@ -76,7 +76,7 @@ class S3Client extends AbstractApi
     {
         $response = $this->getResponse(CopyObjectRequest::create($input)->request());
 
-        return new CopyObjectOutput($response, $this->httpClient);
+        return new CopyObjectOutput($response);
     }
 
     /**
@@ -102,7 +102,7 @@ class S3Client extends AbstractApi
     {
         $response = $this->getResponse(CreateBucketRequest::create($input)->request());
 
-        return new CreateBucketOutput($response, $this->httpClient);
+        return new CreateBucketOutput($response);
     }
 
     /**
@@ -124,7 +124,7 @@ class S3Client extends AbstractApi
     {
         $response = $this->getResponse(DeleteObjectRequest::create($input)->request());
 
-        return new DeleteObjectOutput($response, $this->httpClient);
+        return new DeleteObjectOutput($response);
     }
 
     /**
@@ -146,7 +146,7 @@ class S3Client extends AbstractApi
     {
         $response = $this->getResponse(DeleteObjectsRequest::create($input)->request());
 
-        return new DeleteObjectsOutput($response, $this->httpClient);
+        return new DeleteObjectsOutput($response);
     }
 
     /**
@@ -181,7 +181,7 @@ class S3Client extends AbstractApi
     {
         $response = $this->getResponse(GetObjectRequest::create($input)->request());
 
-        return new GetObjectOutput($response, $this->httpClient);
+        return new GetObjectOutput($response);
     }
 
     /**
@@ -201,7 +201,7 @@ class S3Client extends AbstractApi
     {
         $response = $this->getResponse(GetObjectAclRequest::create($input)->request());
 
-        return new GetObjectAclOutput($response, $this->httpClient);
+        return new GetObjectAclOutput($response);
     }
 
     /**
@@ -230,7 +230,7 @@ class S3Client extends AbstractApi
     {
         $response = $this->getResponse(HeadObjectRequest::create($input)->request());
 
-        return new HeadObjectOutput($response, $this->httpClient);
+        return new HeadObjectOutput($response);
     }
 
     /**
@@ -257,7 +257,7 @@ class S3Client extends AbstractApi
         $input = ListObjectsV2Request::create($input);
         $response = $this->getResponse($input->request());
 
-        return new ListObjectsV2Output($response, $this->httpClient, $this, $input);
+        return new ListObjectsV2Output($response, $this, $input);
     }
 
     /**
@@ -302,7 +302,7 @@ class S3Client extends AbstractApi
     {
         $response = $this->getResponse(PutObjectRequest::create($input)->request());
 
-        return new PutObjectOutput($response, $this->httpClient);
+        return new PutObjectOutput($response);
     }
 
     /**
@@ -330,7 +330,7 @@ class S3Client extends AbstractApi
     {
         $response = $this->getResponse(PutObjectAclRequest::create($input)->request());
 
-        return new PutObjectAclOutput($response, $this->httpClient);
+        return new PutObjectAclOutput($response);
     }
 
     protected function getServiceCode(): string

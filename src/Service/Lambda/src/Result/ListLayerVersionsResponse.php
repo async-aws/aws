@@ -2,12 +2,11 @@
 
 namespace AsyncAws\Lambda\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\Lambda\ValueObject\LayerVersionsListItem;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class ListLayerVersionsResponse extends Result implements \IteratorAggregate
 {
@@ -107,9 +106,9 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
         return $this->NextMarker;
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $data = $response->toArray(false);
+        $data = $response->toArray();
 
         $this->NextMarker = isset($data['NextMarker']) ? (string) $data['NextMarker'] : null;
         $this->LayerVersions = empty($data['LayerVersions']) ? [] : (function (array $json): array {

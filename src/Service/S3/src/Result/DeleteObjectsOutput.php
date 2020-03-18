@@ -2,12 +2,11 @@
 
 namespace AsyncAws\S3\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\S3\Enum\RequestCharged;
 use AsyncAws\S3\ValueObject\DeletedObject;
 use AsyncAws\S3\ValueObject\Error;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class DeleteObjectsOutput extends Result
 {
@@ -54,13 +53,13 @@ class DeleteObjectsOutput extends Result
         return $this->RequestCharged;
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $headers = $response->getHeaders(false);
+        $headers = $response->getHeaders();
 
         $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
-        $data = new \SimpleXMLElement($response->getContent(false));
+        $data = new \SimpleXMLElement($response->getContent());
         $this->Deleted = !$data->Deleted ? [] : (function (\SimpleXMLElement $xml): array {
             $items = [];
             foreach ($xml as $item) {
