@@ -13,7 +13,8 @@ jobs:
 
       - name: Download dependencies
         run: |
-          composer req --no-update league/flysystem:^1.0
+          composer remove --no-update --no-interaction --dev league/flysystem-adapter-test-utilities
+          composer req --no-update --dev league/flysystem:^1.0
           composer update --no-interaction --prefer-dist --optimize-autoloader
 
       - name:  Modify config
@@ -68,7 +69,8 @@ jobs:
       - name: Download dependencies
         run: |
           cd src/Integration/Flysystem/S3
-          composer req --no-update league/flysystem:^1.0
+          composer remove --no-update --no-interaction --dev league/flysystem-adapter-test-utilities
+          composer req --no-update --dev league/flysystem:^1.0
           sed -i -re 's/"require": \{/"minimum-stability": "dev","prefer-stable": true,"require": \{/' composer.json
           composer update --no-interaction --prefer-dist --optimize-autoloader
 

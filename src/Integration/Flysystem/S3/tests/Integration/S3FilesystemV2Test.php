@@ -7,11 +7,15 @@ namespace AsyncAws\Flysystem\S3\Tests\Integration;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Flysystem\S3\S3FilesystemV2;
 use AsyncAws\S3\S3Client;
+use League\Flysystem\AdapterTestUtilities\FilesystemAdapterTestCase;
 use League\Flysystem\Config;
 use League\Flysystem\FileAttributes;
 use League\Flysystem\FilesystemAdapter;
-use League\Flysystem\FilesystemAdapterTestCase;
 use League\Flysystem\Visibility;
+
+if (!\class_exists(FilesystemAdapterTestCase::class)) {
+    \class_alias(\League\Flysystem\FilesystemAdapterTestCase::class, FilesystemAdapterTestCase::class);
+}
 
 class S3FilesystemV2Test extends FilesystemAdapterTestCase
 {
