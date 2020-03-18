@@ -119,13 +119,13 @@ jobs:
         run: |
           composer global require --no-progress --no-scripts --no-plugins symfony/flex
           CURRENT_DIR=$(pwd)
-          for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
+          for COMPONENT in $(find src/Service -maxdepth 2 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
           do
             echo ::group::$COMPONENT
             echo "$CURRENT_DIR/$COMPONENT"
             cd "$CURRENT_DIR/$COMPONENT"
 
-            sed -i -re 's/"require": \{/"minimum-stability": "alpha","prefer-stable": true,"require": \{/' composer.json
+            sed -i -re 's/"require": \{/"minimum-stability": "dev","prefer-stable": true,"require": \{/' composer.json
 
             composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-lowest
             echo ::endgroup::
