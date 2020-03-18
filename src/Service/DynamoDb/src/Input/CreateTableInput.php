@@ -323,12 +323,9 @@ class CreateTableInput
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->AttributeDefinitions) {
-            throw new InvalidArgument(sprintf('Missing parameter "AttributeDefinitions" for "%s". The value cannot be null.', __CLASS__));
-        }
 
         $index = -1;
-        foreach ($v as $listValue) {
+        foreach ($this->AttributeDefinitions as $listValue) {
             ++$index;
             $payload['AttributeDefinitions'][$index] = $listValue->requestBody();
         }
@@ -337,12 +334,9 @@ class CreateTableInput
             throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TableName'] = $v;
-        if (null === $v = $this->KeySchema) {
-            throw new InvalidArgument(sprintf('Missing parameter "KeySchema" for "%s". The value cannot be null.', __CLASS__));
-        }
 
         $index = -1;
-        foreach ($v as $listValue) {
+        foreach ($this->KeySchema as $listValue) {
             ++$index;
             $payload['KeySchema'][$index] = $listValue->requestBody();
         }

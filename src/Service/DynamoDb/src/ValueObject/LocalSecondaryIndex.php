@@ -70,12 +70,9 @@ class LocalSecondaryIndex
             throw new InvalidArgument(sprintf('Missing parameter "IndexName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['IndexName'] = $v;
-        if (null === $v = $this->KeySchema) {
-            throw new InvalidArgument(sprintf('Missing parameter "KeySchema" for "%s". The value cannot be null.', __CLASS__));
-        }
 
         $index = -1;
-        foreach ($v as $listValue) {
+        foreach ($this->KeySchema as $listValue) {
             ++$index;
             $payload['KeySchema'][$index] = $listValue->requestBody();
         }

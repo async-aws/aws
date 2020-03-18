@@ -345,11 +345,8 @@ class PutItemInput
             throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TableName'] = $v;
-        if (null === $v = $this->Item) {
-            throw new InvalidArgument(sprintf('Missing parameter "Item" for "%s". The value cannot be null.', __CLASS__));
-        }
 
-        foreach ($v as $name => $v) {
+        foreach ($this->Item as $name => $v) {
             $payload['Item'][$name] = $v->requestBody();
         }
 
