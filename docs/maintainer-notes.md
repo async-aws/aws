@@ -61,6 +61,7 @@ is an example for DynamoDB.
    1. Add a link to `source`, and, if the files exists, links to `documentation`, `example`, `pagination`, `waiter` etc.
    1. Leave the `methods` key empty. (`"methods": []`)
 1. Configure the autoload section of `./composer.json` to include the new service (`"AsyncAws\\DynamoDb\\": "src/Service/DynamoDb/src"`)
+1. Do the same thing with the autoload-dev section of `./composer.json`.
 1. Run `composer dump-autoload`
 1. Adds operations you want following the [process previously defined](#creating-a-new-client-operation)
 
