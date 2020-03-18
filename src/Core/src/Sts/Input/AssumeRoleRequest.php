@@ -303,41 +303,26 @@ class AssumeRoleRequest
         return $this;
     }
 
-    public function validate(): void
-    {
-        if (null === $this->RoleArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "RoleArn" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->RoleSessionName) {
-            throw new InvalidArgument(sprintf('Missing parameter "RoleSessionName" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        foreach ($this->PolicyArns as $item) {
-            $item->validate();
-        }
-
-        foreach ($this->Tags as $item) {
-            $item->validate();
-        }
-    }
-
     /**
      * @internal
      */
     private function requestBody(): array
     {
         $payload = [];
-        $payload['RoleArn'] = $this->RoleArn;
-        $payload['RoleSessionName'] = $this->RoleSessionName;
+        if (null === $v = $this->RoleArn) {
+            throw new InvalidArgument(sprintf('Missing parameter "RoleArn" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['RoleArn'] = $v;
+        if (null === $v = $this->RoleSessionName) {
+            throw new InvalidArgument(sprintf('Missing parameter "RoleSessionName" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['RoleSessionName'] = $v;
 
         $index = 0;
         foreach ($this->PolicyArns as $mapValue) {
             ++$index;
-            if (null !== $v = $mapValue) {
-                foreach ($v->requestBody() as $bodyKey => $bodyValue) {
-                    $payload["PolicyArns.member.{$index}.$bodyKey"] = $bodyValue;
-                }
+            foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
+                $payload["PolicyArns.member.{$index}.$bodyKey"] = $bodyValue;
             }
         }
 
@@ -351,10 +336,8 @@ class AssumeRoleRequest
         $index = 0;
         foreach ($this->Tags as $mapValue) {
             ++$index;
-            if (null !== $v = $mapValue) {
-                foreach ($v->requestBody() as $bodyKey => $bodyValue) {
-                    $payload["Tags.member.{$index}.$bodyKey"] = $bodyValue;
-                }
+            foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
+                $payload["Tags.member.{$index}.$bodyKey"] = $bodyValue;
             }
         }
 

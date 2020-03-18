@@ -2,8 +2,6 @@
 
 namespace AsyncAws\Core\Sts\ValueObject;
 
-use AsyncAws\Core\Exception\InvalidArgument;
-
 class AssumedRoleUser
 {
     /**
@@ -45,16 +43,5 @@ class AssumedRoleUser
     public function getAssumedRoleId(): string
     {
         return $this->AssumedRoleId;
-    }
-
-    public function validate(): void
-    {
-        if (null === $this->AssumedRoleId) {
-            throw new InvalidArgument(sprintf('Missing parameter "AssumedRoleId" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->Arn) {
-            throw new InvalidArgument(sprintf('Missing parameter "Arn" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
     }
 }

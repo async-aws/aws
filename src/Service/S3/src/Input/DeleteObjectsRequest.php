@@ -114,6 +114,9 @@ class DeleteObjectsRequest
             $headers['x-amz-mfa'] = $this->MFA;
         }
         if (null !== $this->RequestPayer) {
+            if (!RequestPayer::exists($this->RequestPayer)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
+            }
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
         if (null !== $this->BypassGovernanceRetention) {
@@ -125,7 +128,10 @@ class DeleteObjectsRequest
 
         // Prepare URI
         $uri = [];
-        $uri['Bucket'] = $this->Bucket ?? '';
+        if (null === $v = $this->Bucket) {
+            throw new InvalidArgument(sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $uri['Bucket'] = $v;
         $uriString = "/{$uri['Bucket']}?delete";
 
         // Prepare Body
@@ -177,32 +183,17 @@ class DeleteObjectsRequest
         return $this;
     }
 
-    public function validate(): void
-    {
-        if (null === $this->Bucket) {
-            throw new InvalidArgument(sprintf('Missing parameter "Bucket" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->Delete) {
-            throw new InvalidArgument(sprintf('Missing parameter "Delete" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-        $this->Delete->validate();
-
-        if (null !== $this->RequestPayer) {
-            if (!RequestPayer::exists($this->RequestPayer)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
-            }
-        }
-    }
-
     /**
      * @internal
      */
     private function requestBody(\DomNode $node, \DomDocument $document): void
     {
+        if (null === $v = $this->Delete) {
+            throw new InvalidArgument(sprintf('Missing parameter "Delete" for "%s". The value cannot be null.', __CLASS__));
+        }
+
         $node->appendChild($child = $document->createElement('Delete'));
         $child->setAttribute('xmlns', 'http://s3.amazonaws.com/doc/2006-03-01/');
-        /** @psalm-suppress PossiblyNullReference */
-        $this->Delete->requestBody($child, $document);
+        $v->requestBody($child, $document);
     }
 }

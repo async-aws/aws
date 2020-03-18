@@ -71,19 +71,4 @@ class EmailContent
 
         return $payload;
     }
-
-    public function validate(): void
-    {
-        if (null !== $this->Simple) {
-            $this->Simple->validate();
-        }
-
-        if (null !== $this->Raw) {
-            $this->Raw->validate();
-        }
-
-        if (null !== $this->Template) {
-            $this->Template->validate();
-        }
-    }
 }

@@ -58,15 +58,4 @@ class Body
 
         return $payload;
     }
-
-    public function validate(): void
-    {
-        if (null !== $this->Text) {
-            $this->Text->validate();
-        }
-
-        if (null !== $this->Html) {
-            $this->Html->validate();
-        }
-    }
 }

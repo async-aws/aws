@@ -87,20 +87,16 @@ class GetQueueUrlRequest
         return $this;
     }
 
-    public function validate(): void
-    {
-        if (null === $this->QueueName) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueName" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-    }
-
     /**
      * @internal
      */
     private function requestBody(): array
     {
         $payload = [];
-        $payload['QueueName'] = $this->QueueName;
+        if (null === $v = $this->QueueName) {
+            throw new InvalidArgument(sprintf('Missing parameter "QueueName" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['QueueName'] = $v;
         if (null !== $v = $this->QueueOwnerAWSAccountId) {
             $payload['QueueOwnerAWSAccountId'] = $v;
         }

@@ -122,33 +122,29 @@ class CreateQueueRequest
         return $this;
     }
 
-    public function validate(): void
-    {
-        if (null === $this->QueueName) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueName" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-    }
-
     /**
      * @internal
      */
     private function requestBody(): array
     {
         $payload = [];
-        $payload['QueueName'] = $this->QueueName;
+        if (null === $v = $this->QueueName) {
+            throw new InvalidArgument(sprintf('Missing parameter "QueueName" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['QueueName'] = $v;
 
         $index = 0;
-        foreach ($this->Attributes as $mapKey => $listValue) {
+        foreach ($this->Attributes as $mapKey => $mapValue) {
             ++$index;
             $payload["Attribute.{$index}.Name"] = $mapKey;
-            $payload["Attribute.{$index}.Value"] = $listValue;
+            $payload["Attribute.{$index}.Value"] = $mapValue;
         }
 
         $index = 0;
-        foreach ($this->tags as $mapKey => $listValue) {
+        foreach ($this->tags as $mapKey => $mapValue) {
             ++$index;
             $payload["Tag.{$index}.Key"] = $mapKey;
-            $payload["Tag.{$index}.Value"] = $listValue;
+            $payload["Tag.{$index}.Value"] = $mapValue;
         }
 
         return $payload;

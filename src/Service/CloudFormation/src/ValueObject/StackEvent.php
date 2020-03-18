@@ -3,7 +3,6 @@
 namespace AsyncAws\CloudFormation\ValueObject;
 
 use AsyncAws\CloudFormation\Enum\ResourceStatus;
-use AsyncAws\Core\Exception\InvalidArgument;
 
 class StackEvent
 {
@@ -155,30 +154,5 @@ class StackEvent
     public function getTimestamp(): \DateTimeInterface
     {
         return $this->Timestamp;
-    }
-
-    public function validate(): void
-    {
-        if (null === $this->StackId) {
-            throw new InvalidArgument(sprintf('Missing parameter "StackId" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->EventId) {
-            throw new InvalidArgument(sprintf('Missing parameter "EventId" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->StackName) {
-            throw new InvalidArgument(sprintf('Missing parameter "StackName" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->Timestamp) {
-            throw new InvalidArgument(sprintf('Missing parameter "Timestamp" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null !== $this->ResourceStatus) {
-            if (!ResourceStatus::exists($this->ResourceStatus)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ResourceStatus" when validating the "%s". The value "%s" is not a valid "ResourceStatus".', __CLASS__, $this->ResourceStatus));
-            }
-        }
     }
 }

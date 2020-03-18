@@ -65,20 +65,16 @@ class DeleteQueueRequest
         return $this;
     }
 
-    public function validate(): void
-    {
-        if (null === $this->QueueUrl) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-    }
-
     /**
      * @internal
      */
     private function requestBody(): array
     {
         $payload = [];
-        $payload['QueueUrl'] = $this->QueueUrl;
+        if (null === $v = $this->QueueUrl) {
+            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['QueueUrl'] = $v;
 
         return $payload;
     }

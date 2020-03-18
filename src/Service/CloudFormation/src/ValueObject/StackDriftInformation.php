@@ -3,7 +3,6 @@
 namespace AsyncAws\CloudFormation\ValueObject;
 
 use AsyncAws\CloudFormation\Enum\StackDriftStatus;
-use AsyncAws\Core\Exception\InvalidArgument;
 
 class StackDriftInformation
 {
@@ -46,15 +45,5 @@ class StackDriftInformation
     public function getStackDriftStatus(): string
     {
         return $this->StackDriftStatus;
-    }
-
-    public function validate(): void
-    {
-        if (null === $this->StackDriftStatus) {
-            throw new InvalidArgument(sprintf('Missing parameter "StackDriftStatus" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-        if (!StackDriftStatus::exists($this->StackDriftStatus)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "StackDriftStatus" when validating the "%s". The value "%s" is not a valid "StackDriftStatus".', __CLASS__, $this->StackDriftStatus));
-        }
     }
 }

@@ -14,6 +14,7 @@ use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\RequestSerializer\SerializerProvider;
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Core\StreamableBodyInterface;
@@ -30,8 +31,6 @@ use Nette\PhpGenerator\PhpNamespace;
  */
 class InputGenerator
 {
-    use ValidableTrait;
-
     /**
      * @var NamespaceRegistry
      */
@@ -74,7 +73,7 @@ class InputGenerator
         $this->objectGenerator = $objectGenerator;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
         $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->namespaceRegistry, $fileWriter);
-        $this->serializer = new SerializerProvider();
+        $this->serializer = new SerializerProvider($this->namespaceRegistry);
     }
 
     /**
@@ -208,8 +207,7 @@ class InputGenerator
         $namespace->addUse(StreamFactory::class);
         $this->inputClassRequestGetters($shape, $class, $operation);
 
-        $this->generateValidate($shape, $class, $namespace);
-
+        $namespace->addUse(InvalidArgument::class);
         $this->addUse($shape, $namespace);
 
         $this->fileWriter->write($namespace);
@@ -229,12 +227,52 @@ class InputGenerator
 
         $body['querystring'] = '$query = [];' . "\n";
 
-        foreach (['header' => '$headers', 'querystring' => '$query'] as $requestPart => $varName) {
+        foreach (['header' => '$headers', 'querystring' => '$query', 'uri' => '$uri'] as $requestPart => $varName) {
             foreach ($inputShape->getMembers() as $member) {
                 // If location is not specified, it will go in the request body.
-                if ($requestPart === ($member->getLocation() ?? 'payload')) {
-                    $body[$requestPart] .= 'if ($this->' . $member->getName() . ' !== null) ' . $varName . '["' . ($member->getLocationName() ?? $member->getName()) . '"] = ' . $this->stringify('$this->' . $member->getName(), $member, $requestPart) . ';' . "\n";
+                if ($requestPart !== $member->getLocation()) {
+                    continue;
                 }
+
+                $memberShape = $member->getShape();
+                if ($member->isRequired()) {
+                    $bodyCode = 'if (null === $v = $this->PROPERTY) {
+                        throw new InvalidArgument(sprintf(\'Missing parameter "PROPERTY" for "%s". The value cannot be null.\', __CLASS__));
+                    }
+                    VALIDATE_ENUM
+                    VAR_NAME["LOCATION"] = VALUE;';
+                    $inputElement = '$v';
+                } else {
+                    $bodyCode = 'if (null !== $this->PROPERTY) {
+                        VALIDATE_ENUM
+                        VAR_NAME["LOCATION"] = VALUE;
+                    }';
+                    $inputElement = '$this->' . $member->getName();
+                }
+                $validateEnum = '';
+                if (!empty($memberShape->getEnum())) {
+                    $enumClassName = $this->namespaceRegistry->getEnum($memberShape);
+                    $validateEnum = strtr('if (!ENUM_CLASS::exists(INPUT)) {
+                        throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, $this->PROPERTY));
+                    }', [
+                        'INPUT' => $inputElement,
+                        'ENUM_CLASS' => $enumClassName->getName(),
+                        'PROPERTY' => $member->getName(),
+                    ]);
+                }
+
+                $bodyCode = strtr($bodyCode, [
+                    'PROPERTY' => $member->getName(),
+                    'VAR_NAME' => $varName,
+                    'LOCATION' => $member->getLocationName() ?? $member->getName(),
+                    'VALIDATE_ENUM' => $validateEnum,
+                    'INPUT' => $inputElement,
+                    'VALUE' => $this->stringify($inputElement, $member, $requestPart),
+                ]);
+                if (!isset($body[$requestPart])) {
+                    $body[$requestPart] = $varName . ' = [];' . "\n";
+                }
+                $body[$requestPart] .= implode("\n", \array_filter(array_map('trim', explode("\n", $bodyCode))));
             }
         }
 
@@ -261,16 +299,7 @@ class InputGenerator
         }
 
         $requestUri = null;
-        foreach ($inputShape->getMembers() as $member) {
-            if ('uri' === $member->getLocation()) {
-                if (!isset($requestUri)) {
-                    $requestUri = '$uri = [];' . "\n";
-                }
-                $requestUri .= \strtr('$uri["LOCATION"] = $this->NAME ?? "";', ['NAME' => $member->getName(), 'LOCATION' => $member->getLocationName()]);
-            }
-        }
-
-        $body['uri'] = $requestUri ?? '';
+        $body['uri'] = $body['uri'] ?? '';
         $body['uri'] .= '$uriString = "' . str_replace(['{', '+}', '}'], ['{$uri[\'', '}', '\']}'], $operation->getHttpRequestUri()) . '";';
 
         $method = \var_export($operation->getHttpMethod(), true);
@@ -300,8 +329,8 @@ PHP
      */
     private function stringify(string $variable, Member $member, string $part): string
     {
-        if ('header' !== $part && 'querystring' !== $part) {
-            throw new \InvalidArgumentException(sprintf('Argument 3 of "%s::%s" must be either "header" or "querystring". Value "%s" provided', __CLASS__, __FUNCTION__, $part));
+        if ('header' !== $part && 'querystring' !== $part && 'uri' !== $part) {
+            throw new \InvalidArgumentException(sprintf('Argument 3 of "%s::%s" must be either "header" or "querystring" or "uri". Value "%s" provided', __CLASS__, __FUNCTION__, $part));
         }
 
         $shape = $member->getShape();
@@ -316,8 +345,8 @@ PHP
             case 'boolean':
                 return $variable . ' ? "true" : "false"';
             case 'string':
-                return $variable;
             case 'long':
+                return $variable;
             case 'integer':
             return '(string) ' . $variable;
         }

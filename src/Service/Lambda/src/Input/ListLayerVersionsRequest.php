@@ -94,6 +94,9 @@ class ListLayerVersionsRequest
         // Prepare query
         $query = [];
         if (null !== $this->CompatibleRuntime) {
+            if (!Runtime::exists($this->CompatibleRuntime)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "CompatibleRuntime" for "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $this->CompatibleRuntime));
+            }
             $query['CompatibleRuntime'] = $this->CompatibleRuntime;
         }
         if (null !== $this->Marker) {
@@ -105,7 +108,10 @@ class ListLayerVersionsRequest
 
         // Prepare URI
         $uri = [];
-        $uri['LayerName'] = $this->LayerName ?? '';
+        if (null === $v = $this->LayerName) {
+            throw new InvalidArgument(sprintf('Missing parameter "LayerName" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $uri['LayerName'] = $v;
         $uriString = "/2018-10-31/layers/{$uri['LayerName']}/versions";
 
         // Prepare Body
@@ -144,18 +150,5 @@ class ListLayerVersionsRequest
         $this->MaxItems = $value;
 
         return $this;
-    }
-
-    public function validate(): void
-    {
-        if (null !== $this->CompatibleRuntime) {
-            if (!Runtime::exists($this->CompatibleRuntime)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "CompatibleRuntime" when validating the "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $this->CompatibleRuntime));
-            }
-        }
-
-        if (null === $this->LayerName) {
-            throw new InvalidArgument(sprintf('Missing parameter "LayerName" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
     }
 }

@@ -83,11 +83,6 @@ class DescribeStacksInput
         return $this;
     }
 
-    public function validate(): void
-    {
-        // There are no required properties
-    }
-
     /**
      * @internal
      */

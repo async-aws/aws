@@ -33,7 +33,7 @@ class ListLayerVersionsRequestTest extends TestCase
             'CompatibleRuntime' => 'boom',
         ]);
         $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage('Invalid parameter "CompatibleRuntime" when validating the "AsyncAws\Lambda\Input\ListLayerVersionsRequest". The value "boom" is not a valid "Runtime".');
-        $input->validate();
+        $this->expectExceptionMessage('Invalid parameter "CompatibleRuntime" for "AsyncAws\Lambda\Input\ListLayerVersionsRequest". The value "boom" is not a valid "Runtime".');
+        $input->request();
     }
 }

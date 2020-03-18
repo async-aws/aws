@@ -66,7 +66,10 @@ class MessageAttributeValue
     public function requestBody(): array
     {
         $payload = [];
-        $payload['DataType'] = $this->DataType;
+        if (null === $v = $this->DataType) {
+            throw new InvalidArgument(sprintf('Missing parameter "DataType" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['DataType'] = $v;
         if (null !== $v = $this->StringValue) {
             $payload['StringValue'] = $v;
         }
@@ -75,12 +78,5 @@ class MessageAttributeValue
         }
 
         return $payload;
-    }
-
-    public function validate(): void
-    {
-        if (null === $this->DataType) {
-            throw new InvalidArgument(sprintf('Missing parameter "DataType" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
     }
 }

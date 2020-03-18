@@ -123,22 +123,24 @@ class OperationGenerator
 
     private function setMethodBody(Method $method, Operation $operation, ClassName $inputClass, ?ClassName $resultClass): void
     {
-        $params = ['$response', '$this->httpClient'];
         if ((null !== $pagination = $operation->getPagination()) && !empty($pagination->getOutputToken())) {
-            $params = \array_merge($params, ['$this', '$input']);
+            $body = '
+                $input = INPUT_CLASS::create($input);
+                $response = $this->getResponse($input->request());
+
+                return new RESULT_CLASS($response, $this->httpClient, $this, $input);
+            ';
+        } else {
+            $body = '
+                $response = $this->getResponse(INPUT_CLASS::create($input)->request());
+
+                return new RESULT_CLASS($response, $this->httpClient);
+            ';
         }
 
-        $method->setBody(strtr('
-$input = INPUT_CLASS::create($input);
-$input->validate();
-
-$response = $this->getResponse($input->request());
-
-return new RESULT_CLASS(RESULT_PARAM);
-        ', [
+        $method->setBody(strtr($body, [
             'INPUT_CLASS' => $inputClass->getName(),
             'RESULT_CLASS' => $resultClass ? $resultClass->getName() : 'Result',
-            'RESULT_PARAM' => \implode(', ', $params),
         ]));
     }
 }

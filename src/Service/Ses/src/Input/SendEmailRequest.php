@@ -215,23 +215,6 @@ class SendEmailRequest
         return $this;
     }
 
-    public function validate(): void
-    {
-        if (null === $this->Destination) {
-            throw new InvalidArgument(sprintf('Missing parameter "Destination" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-        $this->Destination->validate();
-
-        if (null === $this->Content) {
-            throw new InvalidArgument(sprintf('Missing parameter "Content" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-        $this->Content->validate();
-
-        foreach ($this->EmailTags as $item) {
-            $item->validate();
-        }
-    }
-
     /**
      * @internal
      */
@@ -241,29 +224,29 @@ class SendEmailRequest
         if (null !== $v = $this->FromEmailAddress) {
             $payload['FromEmailAddress'] = $v;
         }
-        if (null !== $v = $this->Destination) {
-            $payload['Destination'] = $v->requestBody();
+        if (null === $v = $this->Destination) {
+            throw new InvalidArgument(sprintf('Missing parameter "Destination" for "%s". The value cannot be null.', __CLASS__));
         }
+        $payload['Destination'] = $v->requestBody();
 
         $index = -1;
-        foreach ($this->ReplyToAddresses as $mapValue) {
+        foreach ($this->ReplyToAddresses as $listValue) {
             ++$index;
-            $payload['ReplyToAddresses'][$index] = $mapValue;
+            $payload['ReplyToAddresses'][$index] = $listValue;
         }
 
         if (null !== $v = $this->FeedbackForwardingEmailAddress) {
             $payload['FeedbackForwardingEmailAddress'] = $v;
         }
-        if (null !== $v = $this->Content) {
-            $payload['Content'] = $v->requestBody();
+        if (null === $v = $this->Content) {
+            throw new InvalidArgument(sprintf('Missing parameter "Content" for "%s". The value cannot be null.', __CLASS__));
         }
+        $payload['Content'] = $v->requestBody();
 
         $index = -1;
-        foreach ($this->EmailTags as $mapValue) {
+        foreach ($this->EmailTags as $listValue) {
             ++$index;
-            if (null !== $v = $mapValue) {
-                $payload['EmailTags'][$index] = $v->requestBody();
-            }
+            $payload['EmailTags'][$index] = $listValue->requestBody();
         }
 
         if (null !== $v = $this->ConfigurationSetName) {

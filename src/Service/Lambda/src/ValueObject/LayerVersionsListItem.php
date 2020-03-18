@@ -2,7 +2,6 @@
 
 namespace AsyncAws\Lambda\ValueObject;
 
-use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Lambda\Enum\Runtime;
 
 class LayerVersionsListItem
@@ -93,14 +92,5 @@ class LayerVersionsListItem
     public function getVersion(): ?string
     {
         return $this->Version;
-    }
-
-    public function validate(): void
-    {
-        foreach ($this->CompatibleRuntimes as $item) {
-            if (!Runtime::exists($item)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "CompatibleRuntimes" when validating the "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $item));
-            }
-        }
     }
 }

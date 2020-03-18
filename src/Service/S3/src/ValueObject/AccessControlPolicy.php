@@ -53,7 +53,6 @@ class AccessControlPolicy
         foreach ($this->Grants as $item) {
             $nodeList->appendChild($child = $document->createElement('Grant'));
 
-            /** @psalm-suppress PossiblyNullReference */
             $item->requestBody($child, $document);
         }
 
@@ -61,17 +60,6 @@ class AccessControlPolicy
             $node->appendChild($child = $document->createElement('Owner'));
 
             $v->requestBody($child, $document);
-        }
-    }
-
-    public function validate(): void
-    {
-        foreach ($this->Grants as $item) {
-            $item->validate();
-        }
-
-        if (null !== $this->Owner) {
-            $this->Owner->validate();
         }
     }
 }

@@ -13,6 +13,8 @@ class PutObjectAclRequestTest extends TestCase
     {
         $input = PutObjectAclRequest::create(
             [
+                'Bucket' => 'foo',
+                'Key' => 'bar',
                 'AccessControlPolicy' => [
                     'Grants' => [
                         [
@@ -33,7 +35,7 @@ class PutObjectAclRequestTest extends TestCase
         );
 
         $expected = '
-            PUT / HTTP/1.0
+            PUT /foo/bar?acl HTTP/1.0
             Content-Type: application/xml
 
             <AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/">

@@ -11,6 +11,7 @@ use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 
 /**
  * Serialize a request body to a flattened array with "." as separator.
@@ -21,6 +22,13 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
  */
 class QuerySerializer implements Serializer
 {
+    private $namespaceRegistry;
+
+    public function __construct(NamespaceRegistry $namespaceRegistry)
+    {
+        $this->namespaceRegistry = $namespaceRegistry;
+    }
+
     public function getContentType(): string
     {
         return 'application/x-www-form-urlencoded';
@@ -29,7 +37,16 @@ class QuerySerializer implements Serializer
     public function generateRequestBody(Operation $operation, StructureShape $shape): array
     {
         if (null !== $payloadProperty = $shape->getPayload()) {
-            return ['$body = $this->' . $payloadProperty . ' ?? "";', false];
+            if ($shape->getMember($payloadProperty)->isRequired()) {
+                $body = 'if (null === $v = $this->PROPERTY) {
+                    throw new InvalidArgument(sprintf(\'Missing parameter "PROPERTY" for "%s". The value cannot be null.\', __CLASS__));
+                }
+                $body = $v;';
+            } else {
+                $body = '$body = $this->PROPERTY ?? "";';
+            }
+
+            return [strtr($body, ['PROPERTY' => $payloadProperty]), false];
         }
 
         return [strtr('$body = http_build_query([\'Action\' => OPERATION_NAME, \'Version\' => API_VERSION] + $this->requestBody(), \'\', \'&\', \PHP_QUERY_RFC1738);', [
@@ -45,19 +62,25 @@ class QuerySerializer implements Serializer
                 return '';
             }
             $shape = $member->getShape();
-            if ($member->isRequired() || $shape instanceof ListShape || $shape instanceof MapShape) {
+            if ($member->isRequired()) {
+                $body = 'if (null === $v = $this->PROPERTY) {
+                    throw new InvalidArgument(sprintf(\'Missing parameter "PROPERTY" for "%s". The value cannot be null.\', __CLASS__));
+                }
+                MEMBER_CODE';
+                $inputElement = '$v';
+            } elseif ($shape instanceof ListShape || $shape instanceof MapShape) {
                 $body = 'MEMBER_CODE';
                 $inputElement = '$this->' . $member->getName();
             } else {
-                $body = 'if (null !== $v = INPUT_NAME) {
+                $body = 'if (null !== $v = $this->PROPERTY) {
                     MEMBER_CODE
                 }';
                 $inputElement = '$v';
             }
 
             return strtr($body, [
-                'INPUT_NAME' => '$this->' . $member->getName(),
-                'MEMBER_CODE' => $this->dumpArrayElement($this->getName($member), $inputElement, $shape),
+                'PROPERTY' => $member->getName(),
+                'MEMBER_CODE' => $this->dumpArrayElement($name = $this->getName($member), $inputElement, $name, $shape),
             ]);
         }, $shape->getMembers()));
 
@@ -92,7 +115,7 @@ class QuerySerializer implements Serializer
         if ($member instanceof StructureMember) {
             $name = $this->getQueryName($member, $member->getName());
         } else {
-            $name = 'FIXME';
+            throw new \RuntimeException('Guessing the name fot this member not yet implemented');
         }
 
         $shape = $member->getShape();
@@ -111,21 +134,21 @@ class QuerySerializer implements Serializer
         return $name;
     }
 
-    private function dumpArrayElement(string $output, string $input, Shape $shape)
+    private function dumpArrayElement(string $output, string $input, string $contextProperty, Shape $shape)
     {
         switch (true) {
             case $shape instanceof StructureShape:
                 return $this->dumpArrayStructure($output, $input, $shape);
             case $shape instanceof ListShape:
-                return $this->dumpArrayList($output, $input, $shape);
+                return $this->dumpArrayList($output, $input, $contextProperty, $shape);
             case $shape instanceof MapShape:
-                return $this->dumpArrayMap($output, $input, $shape);
+                return $this->dumpArrayMap($output, $input, $contextProperty, $shape);
         }
 
         switch ($shape->getType()) {
             case 'string':
             case 'integer':
-                return $this->dumpArrayScalar($output, $input, $shape);
+                return $this->dumpArrayScalar($output, $input, $contextProperty, $shape);
             case 'boolean':
                 return $this->dumpArrayBoolean($output, $input, $shape);
             case 'timestamp':
@@ -139,31 +162,20 @@ class QuerySerializer implements Serializer
 
     private function dumpArrayStructure(string $output, string $input, StructureShape $shape): string
     {
-        $memberCode = strtr('
-            foreach ($v->requestBody() as $bodyKey => $bodyValue) {
+        return strtr('foreach (INPUT->requestBody() as $bodyKey => $bodyValue) {
                 $payload["OUTPUT.$bodyKey"] = $bodyValue;
             }
-        ', ['OUTPUT' => $output]);
-
-        if ('$v' === $input) {
-            $body = 'MEMBER_CODE';
-        } else {
-            $body = 'if (null !== $v = INPUT) {
-                MEMBER_CODE
-            }';
-        }
-
-        return strtr($body, [
+        ', [
+            'OUTPUT' => $output,
             'INPUT' => $input,
-            'MEMBER_CODE' => $memberCode,
         ]);
     }
 
-    private function dumpArrayMap(string $output, string $input, MapShape $shape): string
+    private function dumpArrayMap(string $output, string $input, string $contextProperty, MapShape $shape): string
     {
         return strtr('
             $index = 0;
-            foreach (INPUT as $mapKey => $listValue) {
+            foreach (INPUT as $mapKey => $mapValue) {
                 $index++;
                 $payload["OUTPUT_KEY"] = $mapKey;
                 MEMBER_CODE
@@ -172,11 +184,11 @@ class QuerySerializer implements Serializer
             [
                 'INPUT' => $input,
                 'OUTPUT_KEY' => sprintf('%s.{$index}.%s', $output, $this->getQueryName($shape->getKey(), 'key')),
-                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$index}.%s', $output, $this->getQueryName($shape->getValue(), 'value')), '$listValue', $shape->getValue()->getShape()),
+                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$index}.%s', $output, $this->getQueryName($shape->getValue(), 'value')), '$mapValue', $contextProperty, $shape->getValue()->getShape()),
             ]);
     }
 
-    private function dumpArrayList(string $output, string $input, ListShape $shape): string
+    private function dumpArrayList(string $output, string $input, string $contextProperty, ListShape $shape): string
     {
         $memberShape = $shape->getMember()->getShape();
 
@@ -189,16 +201,30 @@ class QuerySerializer implements Serializer
         ',
             [
                 'INPUT' => $input,
-                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$index}', $output), '$mapValue', $memberShape),
+                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$index}', $output), '$mapValue', $contextProperty, $memberShape),
             ]);
     }
 
-    private function dumpArrayScalar(string $output, string $input, Shape $shape): string
+    private function dumpArrayScalar(string $output, string $input, string $contextProperty, Shape $shape): string
     {
-        return strtr('$payload["OUTPUT"] = INPUT;', [
+        $body = '$payload["OUTPUT"] = INPUT;';
+        $replacements = [
             'OUTPUT' => $output,
             'INPUT' => $input,
-        ]);
+        ];
+        if (!empty($shape->getEnum())) {
+            $enumClassName = $this->namespaceRegistry->getEnum($shape);
+            $body = 'if (!ENUM_CLASS::exists(INPUT)) {
+                    throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, INPUT));
+                }
+            ' . $body;
+            $replacements += [
+                'ENUM_CLASS' => $enumClassName->getName(),
+                'PROPERTY' => $contextProperty,
+            ];
+        }
+
+        return strtr($body, $replacements);
     }
 
     private function dumpArrayBoolean(string $output, string $input, Shape $shape): string

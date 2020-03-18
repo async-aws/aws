@@ -88,25 +88,20 @@ class DeleteMessageRequest
         return $this;
     }
 
-    public function validate(): void
-    {
-        if (null === $this->QueueUrl) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->ReceiptHandle) {
-            throw new InvalidArgument(sprintf('Missing parameter "ReceiptHandle" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-    }
-
     /**
      * @internal
      */
     private function requestBody(): array
     {
         $payload = [];
-        $payload['QueueUrl'] = $this->QueueUrl;
-        $payload['ReceiptHandle'] = $this->ReceiptHandle;
+        if (null === $v = $this->QueueUrl) {
+            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['QueueUrl'] = $v;
+        if (null === $v = $this->ReceiptHandle) {
+            throw new InvalidArgument(sprintf('Missing parameter "ReceiptHandle" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['ReceiptHandle'] = $v;
 
         return $payload;
     }

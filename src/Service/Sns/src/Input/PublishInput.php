@@ -206,17 +206,6 @@ class PublishInput
         return $this;
     }
 
-    public function validate(): void
-    {
-        if (null === $this->Message) {
-            throw new InvalidArgument(sprintf('Missing parameter "Message" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        foreach ($this->MessageAttributes as $item) {
-            $item->validate();
-        }
-    }
-
     /**
      * @internal
      */
@@ -232,7 +221,10 @@ class PublishInput
         if (null !== $v = $this->PhoneNumber) {
             $payload['PhoneNumber'] = $v;
         }
-        $payload['Message'] = $this->Message;
+        if (null === $v = $this->Message) {
+            throw new InvalidArgument(sprintf('Missing parameter "Message" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['Message'] = $v;
         if (null !== $v = $this->Subject) {
             $payload['Subject'] = $v;
         }
@@ -241,13 +233,11 @@ class PublishInput
         }
 
         $index = 0;
-        foreach ($this->MessageAttributes as $mapKey => $listValue) {
+        foreach ($this->MessageAttributes as $mapKey => $mapValue) {
             ++$index;
             $payload["MessageAttributes.entry.{$index}.Name"] = $mapKey;
-            if (null !== $v = $listValue) {
-                foreach ($v->requestBody() as $bodyKey => $bodyValue) {
-                    $payload["MessageAttributes.entry.{$index}.Value.$bodyKey"] = $bodyValue;
-                }
+            foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
+                $payload["MessageAttributes.entry.{$index}.Value.$bodyKey"] = $bodyValue;
             }
         }
 

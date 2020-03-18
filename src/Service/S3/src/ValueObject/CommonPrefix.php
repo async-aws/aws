@@ -28,9 +28,4 @@ class CommonPrefix
     {
         return $this->Prefix;
     }
-
-    public function validate(): void
-    {
-        // There are no required properties
-    }
 }

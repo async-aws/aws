@@ -220,56 +220,39 @@ class SendMessageRequest
         return $this;
     }
 
-    public function validate(): void
-    {
-        if (null === $this->QueueUrl) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->MessageBody) {
-            throw new InvalidArgument(sprintf('Missing parameter "MessageBody" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        foreach ($this->MessageAttributes as $item) {
-            $item->validate();
-        }
-
-        foreach ($this->MessageSystemAttributes as $item) {
-            $item->validate();
-        }
-    }
-
     /**
      * @internal
      */
     private function requestBody(): array
     {
         $payload = [];
-        $payload['QueueUrl'] = $this->QueueUrl;
-        $payload['MessageBody'] = $this->MessageBody;
+        if (null === $v = $this->QueueUrl) {
+            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['QueueUrl'] = $v;
+        if (null === $v = $this->MessageBody) {
+            throw new InvalidArgument(sprintf('Missing parameter "MessageBody" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['MessageBody'] = $v;
         if (null !== $v = $this->DelaySeconds) {
             $payload['DelaySeconds'] = $v;
         }
 
         $index = 0;
-        foreach ($this->MessageAttributes as $mapKey => $listValue) {
+        foreach ($this->MessageAttributes as $mapKey => $mapValue) {
             ++$index;
             $payload["MessageAttribute.{$index}.Name"] = $mapKey;
-            if (null !== $v = $listValue) {
-                foreach ($v->requestBody() as $bodyKey => $bodyValue) {
-                    $payload["MessageAttribute.{$index}.Value.$bodyKey"] = $bodyValue;
-                }
+            foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
+                $payload["MessageAttribute.{$index}.Value.$bodyKey"] = $bodyValue;
             }
         }
 
         $index = 0;
-        foreach ($this->MessageSystemAttributes as $mapKey => $listValue) {
+        foreach ($this->MessageSystemAttributes as $mapKey => $mapValue) {
             ++$index;
             $payload["MessageSystemAttribute.{$index}.Name"] = $mapKey;
-            if (null !== $v = $listValue) {
-                foreach ($v->requestBody() as $bodyKey => $bodyValue) {
-                    $payload["MessageSystemAttribute.{$index}.Value.$bodyKey"] = $bodyValue;
-                }
+            foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
+                $payload["MessageSystemAttribute.{$index}.Value.$bodyKey"] = $bodyValue;
             }
         }
 

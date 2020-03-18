@@ -164,6 +164,9 @@ class CreateBucketRequest
         // Prepare headers
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->ACL) {
+            if (!BucketCannedACL::exists($this->ACL)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "BucketCannedACL".', __CLASS__, $this->ACL));
+            }
             $headers['x-amz-acl'] = $this->ACL;
         }
         if (null !== $this->GrantFullControl) {
@@ -190,7 +193,10 @@ class CreateBucketRequest
 
         // Prepare URI
         $uri = [];
-        $uri['Bucket'] = $this->Bucket ?? '';
+        if (null === $v = $this->Bucket) {
+            throw new InvalidArgument(sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $uri['Bucket'] = $v;
         $uriString = "/{$uri['Bucket']}";
 
         // Prepare Body
@@ -270,23 +276,6 @@ class CreateBucketRequest
         return $this;
     }
 
-    public function validate(): void
-    {
-        if (null !== $this->ACL) {
-            if (!BucketCannedACL::exists($this->ACL)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ACL" when validating the "%s". The value "%s" is not a valid "BucketCannedACL".', __CLASS__, $this->ACL));
-            }
-        }
-
-        if (null === $this->Bucket) {
-            throw new InvalidArgument(sprintf('Missing parameter "Bucket" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null !== $this->CreateBucketConfiguration) {
-            $this->CreateBucketConfiguration->validate();
-        }
-    }
-
     /**
      * @internal
      */
@@ -295,7 +284,6 @@ class CreateBucketRequest
         if (null !== $v = $this->CreateBucketConfiguration) {
             $node->appendChild($child = $document->createElement('CreateBucketConfiguration'));
             $child->setAttribute('xmlns', 'http://s3.amazonaws.com/doc/2006-03-01/');
-
             $v->requestBody($child, $document);
         }
     }

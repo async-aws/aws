@@ -69,9 +69,4 @@ class Parameter
     {
         return $this->UsePreviousValue;
     }
-
-    public function validate(): void
-    {
-        // There are no required properties
-    }
 }

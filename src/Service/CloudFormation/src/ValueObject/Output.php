@@ -64,9 +64,4 @@ class Output
     {
         return $this->OutputValue;
     }
-
-    public function validate(): void
-    {
-        // There are no required properties
-    }
 }

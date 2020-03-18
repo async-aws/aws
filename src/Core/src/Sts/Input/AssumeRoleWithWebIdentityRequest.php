@@ -214,34 +214,24 @@ class AssumeRoleWithWebIdentityRequest
         return $this;
     }
 
-    public function validate(): void
-    {
-        if (null === $this->RoleArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "RoleArn" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->RoleSessionName) {
-            throw new InvalidArgument(sprintf('Missing parameter "RoleSessionName" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->WebIdentityToken) {
-            throw new InvalidArgument(sprintf('Missing parameter "WebIdentityToken" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        foreach ($this->PolicyArns as $item) {
-            $item->validate();
-        }
-    }
-
     /**
      * @internal
      */
     private function requestBody(): array
     {
         $payload = [];
-        $payload['RoleArn'] = $this->RoleArn;
-        $payload['RoleSessionName'] = $this->RoleSessionName;
-        $payload['WebIdentityToken'] = $this->WebIdentityToken;
+        if (null === $v = $this->RoleArn) {
+            throw new InvalidArgument(sprintf('Missing parameter "RoleArn" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['RoleArn'] = $v;
+        if (null === $v = $this->RoleSessionName) {
+            throw new InvalidArgument(sprintf('Missing parameter "RoleSessionName" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['RoleSessionName'] = $v;
+        if (null === $v = $this->WebIdentityToken) {
+            throw new InvalidArgument(sprintf('Missing parameter "WebIdentityToken" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['WebIdentityToken'] = $v;
         if (null !== $v = $this->ProviderId) {
             $payload['ProviderId'] = $v;
         }
@@ -249,10 +239,8 @@ class AssumeRoleWithWebIdentityRequest
         $index = 0;
         foreach ($this->PolicyArns as $mapValue) {
             ++$index;
-            if (null !== $v = $mapValue) {
-                foreach ($v->requestBody() as $bodyKey => $bodyValue) {
-                    $payload["PolicyArns.member.{$index}.$bodyKey"] = $bodyValue;
-                }
+            foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
+                $payload["PolicyArns.member.{$index}.$bodyKey"] = $bodyValue;
             }
         }
 

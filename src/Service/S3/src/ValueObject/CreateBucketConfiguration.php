@@ -42,16 +42,10 @@ class CreateBucketConfiguration
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
         if (null !== $v = $this->LocationConstraint) {
-            $node->appendChild($document->createElement('LocationConstraint', $v));
-        }
-    }
-
-    public function validate(): void
-    {
-        if (null !== $this->LocationConstraint) {
-            if (!BucketLocationConstraint::exists($this->LocationConstraint)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "LocationConstraint" when validating the "%s". The value "%s" is not a valid "BucketLocationConstraint".', __CLASS__, $this->LocationConstraint));
+            if (!BucketLocationConstraint::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "LocationConstraint" for "%s". The value "%s" is not a valid "BucketLocationConstraint".', __CLASS__, $v));
             }
+            $node->appendChild($document->createElement('LocationConstraint', $v));
         }
     }
 }

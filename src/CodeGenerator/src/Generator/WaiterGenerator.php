@@ -93,12 +93,10 @@ class WaiterGenerator
             ->addComment($this->typeGenerator->generateDocblock($inputShape, $inputClass))
             ->setReturnType($resultClass->getFqdn())
             ->setBody(strtr('
-$input = INPUT_CLASS::create($input);
-$input->validate();
+                $input = INPUT_CLASS::create($input);
+                $response = $this->getResponse($input->request());
 
-$response = $this->getResponse($input->request());
-
-return new RESULT_CLASS($response, $this->httpClient, $this, $input);
+                return new RESULT_CLASS($response, $this->httpClient, $this, $input);
             ', [
                 'INPUT_CLASS' => $inputClass->getName(),
                 'RESULT_CLASS' => $resultClass->getName(),

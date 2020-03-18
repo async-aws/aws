@@ -93,30 +93,23 @@ class GetQueueAttributesRequest
         return $this;
     }
 
-    public function validate(): void
-    {
-        if (null === $this->QueueUrl) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        foreach ($this->AttributeNames as $item) {
-            if (!QueueAttributeName::exists($item)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "AttributeNames" when validating the "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $item));
-            }
-        }
-    }
-
     /**
      * @internal
      */
     private function requestBody(): array
     {
         $payload = [];
-        $payload['QueueUrl'] = $this->QueueUrl;
+        if (null === $v = $this->QueueUrl) {
+            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['QueueUrl'] = $v;
 
         $index = 0;
         foreach ($this->AttributeNames as $mapValue) {
             ++$index;
+            if (!QueueAttributeName::exists($mapValue)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "AttributeName" for "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $mapValue));
+            }
             $payload["AttributeName.{$index}"] = $mapValue;
         }
 

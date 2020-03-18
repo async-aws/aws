@@ -13,6 +13,7 @@ class DeleteObjectsRequestTest extends TestCase
     {
         $input = DeleteObjectsRequest::create(
             [
+                'Bucket' => 'foo',
                 'Delete' => [
                     'Objects' => [
                         [
@@ -29,7 +30,7 @@ class DeleteObjectsRequestTest extends TestCase
         );
 
         $expected = '
-            POST /?delete HTTP/1.0
+            POST /foo?delete HTTP/1.0
             Content-Type: application/xml
 
             <Delete xmlns="http://s3.amazonaws.com/doc/2006-03-01/">

@@ -2,8 +2,6 @@
 
 namespace AsyncAws\CloudFormation\ValueObject;
 
-use AsyncAws\Core\Exception\InvalidArgument;
-
 class Tag
 {
     /**
@@ -42,16 +40,5 @@ class Tag
     public function getValue(): string
     {
         return $this->Value;
-    }
-
-    public function validate(): void
-    {
-        if (null === $this->Key) {
-            throw new InvalidArgument(sprintf('Missing parameter "Key" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->Value) {
-            throw new InvalidArgument(sprintf('Missing parameter "Value" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
     }
 }

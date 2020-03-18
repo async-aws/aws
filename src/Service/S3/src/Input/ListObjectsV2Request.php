@@ -170,6 +170,9 @@ class ListObjectsV2Request
         // Prepare headers
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->RequestPayer) {
+            if (!RequestPayer::exists($this->RequestPayer)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
+            }
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
 
@@ -179,6 +182,9 @@ class ListObjectsV2Request
             $query['delimiter'] = $this->Delimiter;
         }
         if (null !== $this->EncodingType) {
+            if (!EncodingType::exists($this->EncodingType)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "EncodingType" for "%s". The value "%s" is not a valid "EncodingType".', __CLASS__, $this->EncodingType));
+            }
             $query['encoding-type'] = $this->EncodingType;
         }
         if (null !== $this->MaxKeys) {
@@ -199,7 +205,10 @@ class ListObjectsV2Request
 
         // Prepare URI
         $uri = [];
-        $uri['Bucket'] = $this->Bucket ?? '';
+        if (null === $v = $this->Bucket) {
+            throw new InvalidArgument(sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $uri['Bucket'] = $v;
         $uriString = "/{$uri['Bucket']}?list-type=2";
 
         // Prepare Body
@@ -276,24 +285,5 @@ class ListObjectsV2Request
         $this->StartAfter = $value;
 
         return $this;
-    }
-
-    public function validate(): void
-    {
-        if (null === $this->Bucket) {
-            throw new InvalidArgument(sprintf('Missing parameter "Bucket" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null !== $this->EncodingType) {
-            if (!EncodingType::exists($this->EncodingType)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "EncodingType" when validating the "%s". The value "%s" is not a valid "EncodingType".', __CLASS__, $this->EncodingType));
-            }
-        }
-
-        if (null !== $this->RequestPayer) {
-            if (!RequestPayer::exists($this->RequestPayer)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
-            }
-        }
     }
 }

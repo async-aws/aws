@@ -74,10 +74,7 @@ class S3Client extends AbstractApi
      */
     public function copyObject($input): CopyObjectOutput
     {
-        $input = CopyObjectRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(CopyObjectRequest::create($input)->request());
 
         return new CopyObjectOutput($response, $this->httpClient);
     }
@@ -103,10 +100,7 @@ class S3Client extends AbstractApi
      */
     public function createBucket($input): CreateBucketOutput
     {
-        $input = CreateBucketRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(CreateBucketRequest::create($input)->request());
 
         return new CreateBucketOutput($response, $this->httpClient);
     }
@@ -128,10 +122,7 @@ class S3Client extends AbstractApi
      */
     public function deleteObject($input): DeleteObjectOutput
     {
-        $input = DeleteObjectRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(DeleteObjectRequest::create($input)->request());
 
         return new DeleteObjectOutput($response, $this->httpClient);
     }
@@ -153,10 +144,7 @@ class S3Client extends AbstractApi
      */
     public function deleteObjects($input): DeleteObjectsOutput
     {
-        $input = DeleteObjectsRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(DeleteObjectsRequest::create($input)->request());
 
         return new DeleteObjectsOutput($response, $this->httpClient);
     }
@@ -191,10 +179,7 @@ class S3Client extends AbstractApi
      */
     public function getObject($input): GetObjectOutput
     {
-        $input = GetObjectRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(GetObjectRequest::create($input)->request());
 
         return new GetObjectOutput($response, $this->httpClient);
     }
@@ -214,10 +199,7 @@ class S3Client extends AbstractApi
      */
     public function getObjectAcl($input): GetObjectAclOutput
     {
-        $input = GetObjectAclRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(GetObjectAclRequest::create($input)->request());
 
         return new GetObjectAclOutput($response, $this->httpClient);
     }
@@ -246,10 +228,7 @@ class S3Client extends AbstractApi
      */
     public function headObject($input): HeadObjectOutput
     {
-        $input = HeadObjectRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(HeadObjectRequest::create($input)->request());
 
         return new HeadObjectOutput($response, $this->httpClient);
     }
@@ -276,8 +255,6 @@ class S3Client extends AbstractApi
     public function listObjectsV2($input): ListObjectsV2Output
     {
         $input = ListObjectsV2Request::create($input);
-        $input->validate();
-
         $response = $this->getResponse($input->request());
 
         return new ListObjectsV2Output($response, $this->httpClient, $this, $input);
@@ -323,10 +300,7 @@ class S3Client extends AbstractApi
      */
     public function putObject($input): PutObjectOutput
     {
-        $input = PutObjectRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(PutObjectRequest::create($input)->request());
 
         return new PutObjectOutput($response, $this->httpClient);
     }
@@ -354,10 +328,7 @@ class S3Client extends AbstractApi
      */
     public function putObjectAcl($input): PutObjectAclOutput
     {
-        $input = PutObjectAclRequest::create($input);
-        $input->validate();
-
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse(PutObjectAclRequest::create($input)->request());
 
         return new PutObjectAclOutput($response, $this->httpClient);
     }

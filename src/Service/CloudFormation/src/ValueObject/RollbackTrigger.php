@@ -2,8 +2,6 @@
 
 namespace AsyncAws\CloudFormation\ValueObject;
 
-use AsyncAws\Core\Exception\InvalidArgument;
-
 class RollbackTrigger
 {
     /**
@@ -43,16 +41,5 @@ class RollbackTrigger
     public function getType(): string
     {
         return $this->Type;
-    }
-
-    public function validate(): void
-    {
-        if (null === $this->Arn) {
-            throw new InvalidArgument(sprintf('Missing parameter "Arn" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->Type) {
-            throw new InvalidArgument(sprintf('Missing parameter "Type" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
     }
 }

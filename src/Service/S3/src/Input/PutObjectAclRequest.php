@@ -216,6 +216,9 @@ class PutObjectAclRequest
         // Prepare headers
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->ACL) {
+            if (!ObjectCannedACL::exists($this->ACL)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "ObjectCannedACL".', __CLASS__, $this->ACL));
+            }
             $headers['x-amz-acl'] = $this->ACL;
         }
         if (null !== $this->ContentMD5) {
@@ -237,6 +240,9 @@ class PutObjectAclRequest
             $headers['x-amz-grant-write-acp'] = $this->GrantWriteACP;
         }
         if (null !== $this->RequestPayer) {
+            if (!RequestPayer::exists($this->RequestPayer)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
+            }
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
 
@@ -248,8 +254,14 @@ class PutObjectAclRequest
 
         // Prepare URI
         $uri = [];
-        $uri['Bucket'] = $this->Bucket ?? '';
-        $uri['Key'] = $this->Key ?? '';
+        if (null === $v = $this->Bucket) {
+            throw new InvalidArgument(sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $uri['Bucket'] = $v;
+        if (null === $v = $this->Key) {
+            throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $uri['Key'] = $v;
         $uriString = "/{$uri['Bucket']}/{$uri['Key']}?acl";
 
         // Prepare Body
@@ -353,33 +365,6 @@ class PutObjectAclRequest
         return $this;
     }
 
-    public function validate(): void
-    {
-        if (null !== $this->ACL) {
-            if (!ObjectCannedACL::exists($this->ACL)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ACL" when validating the "%s". The value "%s" is not a valid "ObjectCannedACL".', __CLASS__, $this->ACL));
-            }
-        }
-
-        if (null !== $this->AccessControlPolicy) {
-            $this->AccessControlPolicy->validate();
-        }
-
-        if (null === $this->Bucket) {
-            throw new InvalidArgument(sprintf('Missing parameter "Bucket" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null === $this->Key) {
-            throw new InvalidArgument(sprintf('Missing parameter "Key" when validating the "%s". The value cannot be null.', __CLASS__));
-        }
-
-        if (null !== $this->RequestPayer) {
-            if (!RequestPayer::exists($this->RequestPayer)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" when validating the "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
-            }
-        }
-    }
-
     /**
      * @internal
      */
@@ -388,7 +373,6 @@ class PutObjectAclRequest
         if (null !== $v = $this->AccessControlPolicy) {
             $node->appendChild($child = $document->createElement('AccessControlPolicy'));
             $child->setAttribute('xmlns', 'http://s3.amazonaws.com/doc/2006-03-01/');
-
             $v->requestBody($child, $document);
         }
     }

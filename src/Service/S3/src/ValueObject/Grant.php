@@ -55,24 +55,13 @@ class Grant
         if (null !== $v = $this->Grantee) {
             $node->appendChild($child = $document->createElement('Grantee'));
             $child->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
-
             $v->requestBody($child, $document);
         }
         if (null !== $v = $this->Permission) {
-            $node->appendChild($document->createElement('Permission', $v));
-        }
-    }
-
-    public function validate(): void
-    {
-        if (null !== $this->Grantee) {
-            $this->Grantee->validate();
-        }
-
-        if (null !== $this->Permission) {
-            if (!Permission::exists($this->Permission)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Permission" when validating the "%s". The value "%s" is not a valid "Permission".', __CLASS__, $this->Permission));
+            if (!Permission::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "Permission" for "%s". The value "%s" is not a valid "Permission".', __CLASS__, $v));
             }
+            $node->appendChild($document->createElement('Permission', $v));
         }
     }
 }
