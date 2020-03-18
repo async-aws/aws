@@ -11,9 +11,8 @@ use AsyncAws\CloudFormation\ValueObject\RollbackTrigger;
 use AsyncAws\CloudFormation\ValueObject\Stack;
 use AsyncAws\CloudFormation\ValueObject\StackDriftInformation;
 use AsyncAws\CloudFormation\ValueObject\Tag;
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class DescribeStacksOutput extends Result implements \IteratorAggregate
 {
@@ -114,9 +113,9 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
         }
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent(false));
+        $data = new \SimpleXMLElement($response->getContent());
         $data = $data->DescribeStacksResult;
 
         $this->Stacks = !$data->Stacks ? [] : (function (\SimpleXMLElement $xml): array {

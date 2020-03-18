@@ -2,13 +2,12 @@
 
 namespace AsyncAws\DynamoDb\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\Capacity;
 use AsyncAws\DynamoDb\ValueObject\ConsumedCapacity;
 use AsyncAws\DynamoDb\ValueObject\ItemCollectionMetrics;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class DeleteItemOutput extends Result
 {
@@ -59,9 +58,9 @@ class DeleteItemOutput extends Result
         return $this->ItemCollectionMetrics;
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $data = $response->toArray(false);
+        $data = $response->toArray();
 
         $this->Attributes = empty($data['Attributes']) ? [] : (function (array $json): array {
             $items = [];

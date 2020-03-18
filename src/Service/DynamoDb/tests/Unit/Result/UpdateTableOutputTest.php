@@ -2,6 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Tests\Unit\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\DynamoDb\Result\UpdateTableOutput;
@@ -49,7 +50,7 @@ class UpdateTableOutputTest extends TestCase
         }');
 
         $client = new MockHttpClient($response);
-        $result = new UpdateTableOutput($client->request('POST', 'http://localhost'), $client);
+        $result = new UpdateTableOutput(new Response($client->request('POST', 'http://localhost'), $client));
 
         self::assertEquals('Artist', $result->getTableDescription()->getAttributeDefinitions()[0]->getAttributeName());
         self::assertEquals('SongTitle', $result->getTableDescription()->getAttributeDefinitions()[1]->getAttributeName());

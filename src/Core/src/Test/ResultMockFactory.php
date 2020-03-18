@@ -34,6 +34,7 @@ class ResultMockFactory
 
         $rereflectionClass = new \ReflectionClass($class);
         $object = $rereflectionClass->newInstanceWithoutConstructor();
+        $data['initialized'] = true;
 
         foreach ($data as $propertyName => $propertyValue) {
             $property = $rereflectionClass->getProperty($propertyName);

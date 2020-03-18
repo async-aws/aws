@@ -2,6 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Tests\Unit\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\DynamoDb\Result\GetItemOutput;
@@ -27,7 +28,7 @@ class GetItemOutputTest extends TestCase
         }');
 
         $client = new MockHttpClient($response);
-        $result = new GetItemOutput($client->request('POST', 'http://localhost'), $client);
+        $result = new GetItemOutput(new Response($client->request('POST', 'http://localhost'), $client));
 
         self::assertEquals('Songs About Life', $result->getItem()['AlbumTitle']->getS());
         self::assertEquals('Acme Band', $result->getItem()['Artist']->getS());

@@ -2,6 +2,7 @@
 
 namespace AsyncAws\S3\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\S3\Enum\EncodingType;
 use AsyncAws\S3\Input\ListObjectsV2Request;
@@ -9,8 +10,6 @@ use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\AwsObject;
 use AsyncAws\S3\ValueObject\CommonPrefix;
 use AsyncAws\S3\ValueObject\Owner;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class ListObjectsV2Output extends Result implements \IteratorAggregate
 {
@@ -277,9 +276,9 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         return $this->StartAfter;
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent(false));
+        $data = new \SimpleXMLElement($response->getContent());
         $this->IsTruncated = ($v = $data->IsTruncated) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
         $this->Contents = !$data->Contents ? [] : (function (\SimpleXMLElement $xml): array {
             $items = [];

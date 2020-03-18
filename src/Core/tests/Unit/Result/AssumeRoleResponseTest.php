@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Core\Tests\Unit\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Sts\Result\AssumeRoleResponse;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use PHPUnit\Framework\TestCase;
@@ -39,7 +40,7 @@ class AssumeRoleResponseTest extends TestCase
         ');
 
         $client = new MockHttpClient($response);
-        $result = new AssumeRoleResponse($client->request('POST', 'http://localhost'), $client);
+        $result = new AssumeRoleResponse(new Response($client->request('POST', 'http://localhost'), $client));
 
         self::assertSame('arn:aws:sts::123456789012:assumed-role/demo/TestAR', $result->getAssumedRoleUser()->getArn());
         self::assertSame('ARO123EXAMPLE123:TestAR', $result->getAssumedRoleUser()->getAssumedRoleId());

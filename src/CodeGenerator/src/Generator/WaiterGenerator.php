@@ -16,6 +16,7 @@ use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
 use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Exception\RuntimeException;
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Waiter as WaiterResult;
 use Nette\PhpGenerator\ClassType;
@@ -96,7 +97,7 @@ class WaiterGenerator
                 $input = INPUT_CLASS::create($input);
                 $response = $this->getResponse($input->request());
 
-                return new RESULT_CLASS($response, $this->httpClient, $this, $input);
+                return new RESULT_CLASS($response, $this, $input);
             ', [
                 'INPUT_CLASS' => $inputClass->getName(),
                 'RESULT_CLASS' => $resultClass->getName(),
@@ -159,7 +160,7 @@ class WaiterGenerator
 
                 return $exception === null ? self::STATE_PENDING :  self::STATE_FAILURE;
             ', ['ACCEPTOR_CODE' => \implode("\n", \array_map([$this, 'getAcceptorBody'], $waiter->getAcceptors()))]));
-        $method->addParameter('response')->setType(ResponseInterface::class);
+        $method->addParameter('response')->setType(Response::class);
         $method->addParameter('exception')->setType(HttpException::class)->setNullable(true);
 
         $this->fileWriter->write($namespace);

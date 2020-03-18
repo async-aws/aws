@@ -2,6 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Tests\Unit\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\DynamoDb\Result\PutItemOutput;
@@ -21,7 +22,7 @@ class PutItemOutputTest extends TestCase
         }');
 
         $client = new MockHttpClient($response);
-        $result = new PutItemOutput($client->request('POST', 'http://localhost'), $client);
+        $result = new PutItemOutput(new Response($client->request('POST', 'http://localhost'), $client));
 
         self::assertEquals(1, $result->getConsumedCapacity()->getCapacityUnits());
         self::assertEquals('Music', $result->getConsumedCapacity()->getTableName());

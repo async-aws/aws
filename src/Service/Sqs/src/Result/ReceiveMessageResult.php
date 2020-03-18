@@ -2,11 +2,10 @@
 
 namespace AsyncAws\Sqs\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Sqs\ValueObject\Message;
 use AsyncAws\Sqs\ValueObject\MessageAttributeValue;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class ReceiveMessageResult extends Result
 {
@@ -25,9 +24,9 @@ class ReceiveMessageResult extends Result
         return $this->Messages;
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent(false));
+        $data = new \SimpleXMLElement($response->getContent());
         $data = $data->ReceiveMessageResult;
 
         $this->Messages = !$data->Message ? [] : (function (\SimpleXMLElement $xml): array {

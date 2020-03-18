@@ -2,9 +2,8 @@
 
 namespace AsyncAws\Lambda\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class InvocationResponse extends Result
 {
@@ -72,15 +71,15 @@ class InvocationResponse extends Result
         return $this->StatusCode;
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
         $this->StatusCode = $response->getStatusCode();
-        $headers = $response->getHeaders(false);
+        $headers = $response->getHeaders();
 
         $this->FunctionError = $headers['x-amz-function-error'][0] ?? null;
         $this->LogResult = $headers['x-amz-log-result'][0] ?? null;
         $this->ExecutedVersion = $headers['x-amz-executed-version'][0] ?? null;
 
-        $this->Payload = $response->getContent(false);
+        $this->Payload = $response->getContent();
     }
 }

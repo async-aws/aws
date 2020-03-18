@@ -5,9 +5,8 @@ namespace AsyncAws\CloudFormation\Result;
 use AsyncAws\CloudFormation\CloudFormationClient;
 use AsyncAws\CloudFormation\Input\DescribeStackEventsInput;
 use AsyncAws\CloudFormation\ValueObject\StackEvent;
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class DescribeStackEventsOutput extends Result implements \IteratorAggregate
 {
@@ -108,9 +107,9 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
         }
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent(false));
+        $data = new \SimpleXMLElement($response->getContent());
         $data = $data->DescribeStackEventsResult;
 
         $this->StackEvents = !$data->StackEvents ? [] : (function (\SimpleXMLElement $xml): array {

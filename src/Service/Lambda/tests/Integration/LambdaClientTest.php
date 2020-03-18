@@ -5,10 +5,10 @@ namespace AsyncAws\Lambda\Tests\Integration;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
-use AsyncAws\Lambda\Input\LayerVersionContentInput;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
 use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
 use AsyncAws\Lambda\LambdaClient;
+use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
 use PHPUnit\Framework\TestCase;
 
 class LambdaClientTest extends TestCase

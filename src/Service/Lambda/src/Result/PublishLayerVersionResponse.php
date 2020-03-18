@@ -2,11 +2,10 @@
 
 namespace AsyncAws\Lambda\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Lambda\Enum\Runtime;
 use AsyncAws\Lambda\ValueObject\LayerVersionContentOutput;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class PublishLayerVersionResponse extends Result
 {
@@ -111,9 +110,9 @@ class PublishLayerVersionResponse extends Result
         return $this->Version;
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $data = $response->toArray(false);
+        $data = $response->toArray();
 
         $this->Content = empty($data['Content']) ? null : new LayerVersionContentOutput([
             'Location' => isset($data['Content']['Location']) ? (string) $data['Content']['Location'] : null,

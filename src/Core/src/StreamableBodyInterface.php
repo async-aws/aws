@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core;
 
-use Symfony\Contracts\HttpClient\ResponseStreamInterface;
-
 /**
  * Stream a response body.
  */
@@ -16,10 +14,12 @@ interface StreamableBodyInterface
      *
      *     $fileHandler = fopen('/output.pdf', 'w');
      *     foreach ($result->getBody()->getChunks() as $chunk) {
-     *       fwrite($fileHandler, $chunk->getContent());
+     *       fwrite($fileHandler, $chunk);
      *     }
+     *
+     * @return iterable<string>
      */
-    public function getChunks(): ResponseStreamInterface;
+    public function getChunks(): iterable;
 
     /**
      * Download content into a temporary resource and return a string.

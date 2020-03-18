@@ -19,7 +19,6 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * Base class most APIs are inheriting.
@@ -31,22 +30,22 @@ abstract class AbstractApi
     /**
      * @var HttpClientInterface
      */
-    protected $httpClient;
+    private $httpClient;
 
     /**
      * @var Configuration
      */
-    protected $configuration;
+    private $configuration;
 
     /**
      * @var CredentialProvider
      */
-    protected $credentialProvider;
+    private $credentialProvider;
 
     /**
      * @var LoggerInterface|null
      */
-    protected $logger;
+    private $logger;
 
     /**
      * @var Signer
@@ -86,7 +85,7 @@ abstract class AbstractApi
 
     abstract protected function getSignatureScopeName(): string;
 
-    final protected function getResponse(Request $request): ResponseInterface
+    final protected function getResponse(Request $request): Response
     {
         $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery()));
 
@@ -103,7 +102,9 @@ abstract class AbstractApi
             $requestBody = $requestBody->stringify();
         }
 
-        return $this->httpClient->request($request->getMethod(), $request->getEndpoint(), ['headers' => $request->getHeaders(), 'body' => 0 === $length ? null : $requestBody]);
+        $response = $this->httpClient->request($request->getMethod(), $request->getEndpoint(), ['headers' => $request->getHeaders(), 'body' => 0 === $length ? null : $requestBody]);
+
+        return new Response($response, $this->httpClient);
     }
 
     /**

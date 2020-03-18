@@ -128,13 +128,13 @@ class OperationGenerator
                 $input = INPUT_CLASS::create($input);
                 $response = $this->getResponse($input->request());
 
-                return new RESULT_CLASS($response, $this->httpClient, $this, $input);
+                return new RESULT_CLASS($response, $this, $input);
             ';
         } else {
             $body = '
                 $response = $this->getResponse(INPUT_CLASS::create($input)->request());
 
-                return new RESULT_CLASS($response, $this->httpClient);
+                return new RESULT_CLASS($response);
             ';
         }
 

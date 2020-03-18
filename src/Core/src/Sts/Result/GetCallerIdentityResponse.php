@@ -2,9 +2,8 @@
 
 namespace AsyncAws\Core\Sts\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class GetCallerIdentityResponse extends Result
 {
@@ -48,9 +47,9 @@ class GetCallerIdentityResponse extends Result
         return $this->UserId;
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent(false));
+        $data = new \SimpleXMLElement($response->getContent());
         $data = $data->GetCallerIdentityResult;
 
         $this->UserId = ($v = $data->UserId) ? (string) $v : null;

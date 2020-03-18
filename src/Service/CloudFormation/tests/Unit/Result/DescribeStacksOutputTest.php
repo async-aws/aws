@@ -7,6 +7,7 @@ use AsyncAws\CloudFormation\ValueObject\RollbackConfiguration;
 use AsyncAws\CloudFormation\ValueObject\Stack;
 use AsyncAws\CloudFormation\ValueObject\StackDriftInformation;
 use AsyncAws\CloudFormation\ValueObject\Tag;
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -70,7 +71,7 @@ class DescribeStacksOutputTest extends TestCase
 XML;
 
         $client = new MockHttpClient(new SimpleMockedResponse($xml));
-        $result = new DescribeStacksOutput($client->request('POST', 'http://localhost'), $client);
+        $result = new DescribeStacksOutput(new Response($client->request('POST', 'http://localhost'), $client));
 
         $stack = null;
         foreach ($result->getStacks(true) as $s) {

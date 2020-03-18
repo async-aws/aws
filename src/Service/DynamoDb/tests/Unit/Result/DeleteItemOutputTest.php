@@ -2,6 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Tests\Unit\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\DynamoDb\Result\DeleteItemOutput;
@@ -20,7 +21,7 @@ class DeleteItemOutputTest extends TestCase
         }');
 
         $client = new MockHttpClient($response);
-        $result = new DeleteItemOutput($client->request('POST', 'http://localhost'), $client);
+        $result = new DeleteItemOutput(new Response($client->request('POST', 'http://localhost'), $client));
 
         self::assertEquals(1, $result->getConsumedCapacity()->getCapacityUnits());
         self::assertEquals('Music', $result->getConsumedCapacity()->getTableName());

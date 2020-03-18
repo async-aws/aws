@@ -2,6 +2,7 @@
 
 namespace AsyncAws\S3\Tests\Unit\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Result\PutObjectAclOutput;
@@ -23,7 +24,7 @@ class PutObjectAclOutputTest extends TestCase
         ]);
 
         $client = new MockHttpClient($response);
-        $result = new PutObjectAclOutput($client->request('POST', 'http://localhost'), $client);
+        $result = new PutObjectAclOutput(new Response($client->request('POST', 'http://localhost'), $client));
 
         self::assertSame('requester', $result->getRequestCharged());
     }

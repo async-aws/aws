@@ -2,13 +2,12 @@
 
 namespace AsyncAws\S3\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\S3\Enum\RequestCharged;
 use AsyncAws\S3\ValueObject\Grant;
 use AsyncAws\S3\ValueObject\Grantee;
 use AsyncAws\S3\ValueObject\Owner;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class GetObjectAclOutput extends Result
 {
@@ -51,13 +50,13 @@ class GetObjectAclOutput extends Result
         return $this->RequestCharged;
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $headers = $response->getHeaders(false);
+        $headers = $response->getHeaders();
 
         $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
-        $data = new \SimpleXMLElement($response->getContent(false));
+        $data = new \SimpleXMLElement($response->getContent());
         $this->Owner = !$data->Owner ? null : new Owner([
             'DisplayName' => ($v = $data->Owner->DisplayName) ? (string) $v : null,
             'ID' => ($v = $data->Owner->ID) ? (string) $v : null,

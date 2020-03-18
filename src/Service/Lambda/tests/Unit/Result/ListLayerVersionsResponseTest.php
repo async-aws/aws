@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Lambda\Tests\Unit\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Lambda\Result\LayerVersionsListItem;
@@ -32,7 +33,7 @@ class ListLayerVersionsResponseTest extends TestCase
         $response = new SimpleMockedResponse(json_encode($data));
 
         $client = new MockHttpClient($response);
-        $result = new ListLayerVersionsResponse($client->request('POST', 'http://localhost'), $client);
+        $result = new ListLayerVersionsResponse(new Response($client->request('POST', 'http://localhost'), $client));
 
         self::assertEquals($nextMarker, $result->getNextMarker());
         /** @var LayerVersionsListItem $version */

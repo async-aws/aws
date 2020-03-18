@@ -55,7 +55,7 @@ class RestXmlParser implements Parser
             return '';
         }
 
-        $body = '$data = new \SimpleXMLElement($response->getContent(false));';
+        $body = '$data = new \SimpleXMLElement($response->getContent());';
         if (null !== $wrapper = $shape->getResultWrapper()) {
             $body .= strtr('$data = $data->WRAPPER;' . "\n", ['WRAPPER' => $wrapper]);
         }

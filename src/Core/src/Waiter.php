@@ -6,9 +6,6 @@ namespace AsyncAws\Core;
 
 use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Exception\Http\NetworkException;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * The waiter promise is always returned from every API call to a waiter.
@@ -35,14 +32,16 @@ class Waiter
     protected $input;
 
     /**
-     * @var ResponseInterface|null
+     * @var Response
      */
     private $response;
 
     /**
-     * @var HttpClientInterface
+     * Whether or not a new response should be fetched.
+     *
+     * @var bool
      */
-    private $httpClient;
+    private $needRefresh = false;
 
     /**
      * @var string|null
@@ -56,10 +55,9 @@ class Waiter
      */
     private $resolveResult;
 
-    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, AbstractApi $awsClient, $request)
+    public function __construct(Response $response, AbstractApi $awsClient, $request)
     {
         $this->response = $response;
-        $this->httpClient = $httpClient;
         $this->awsClient = $awsClient;
         $this->input = $request;
     }
@@ -92,7 +90,7 @@ class Waiter
             return $this->finalState;
         }
 
-        if (null === $this->response) {
+        if ($this->needRefresh) {
             $this->stealResponse($this->refreshState());
         }
 
@@ -100,7 +98,7 @@ class Waiter
         $this->resolve();
 
         $state = $this->extractState($this->response, $exception);
-        $this->response = null;
+        $this->needRefresh = true;
 
         switch ($state) {
             case self::STATE_SUCCESS:
@@ -128,37 +126,7 @@ class Waiter
      */
     final public function resolve(?float $timeout = null): bool
     {
-        if (null !== $this->resolveResult) {
-            if ($this->resolveResult instanceof \Exception) {
-                throw $this->resolveResult;
-            }
-
-            if (\is_bool($this->resolveResult)) {
-                return $this->resolveResult;
-            }
-        }
-
-        if (null === $this->response) {
-            return true;
-        }
-
-        try {
-            foreach ($this->httpClient->stream($this->response, $timeout) as $chunk) {
-                if ($chunk->isTimeout()) {
-                    return false;
-                }
-                if ($chunk->isFirst()) {
-                    break;
-                }
-            }
-
-            // Download the first bits of the response
-            $this->response->getStatusCode();
-        } catch (TransportExceptionInterface $e) {
-            throw $this->resolveResult = new NetworkException('Could not contact remote server.', 0, $e);
-        }
-
-        return $this->resolveResult = true;
+        return $this->response->resolve($timeout, false);
     }
 
     /**
@@ -166,34 +134,19 @@ class Waiter
      *
      * @return array{
      *                resolved: bool,
-     *                response?: ?ResponseInterface,
+     *                response?: ?\Symfony\Contracts\HttpClient\ResponseInterface,
      *                status?: int
      *                }
      */
     final public function info(): array
     {
-        if (null === $this->response) {
-            return [
-                'resolved' => null !== $this->resolveResult,
-            ];
-        }
-
-        return [
-            'resolved' => null !== $this->resolveResult,
-            'response' => $this->response,
-            'status' => (int) $this->response->getInfo('http_code'),
-        ];
+        return $this->response->info();
     }
 
     final public function cancel(): void
     {
-        if (null === $this->response) {
-            return;
-        }
-
         $this->response->cancel();
-        $this->resolveResult = false;
-        $this->response = null;
+        $this->needRefresh = true;
     }
 
     /**
@@ -230,7 +183,7 @@ class Waiter
         return false;
     }
 
-    protected function extractState(ResponseInterface $response, ?HttpException $exception): string
+    protected function extractState(Response $response, ?HttpException $exception): string
     {
         return self::STATE_PENDING;
     }
@@ -243,8 +196,6 @@ class Waiter
     private function stealResponse(self $waiter): void
     {
         $this->response = $waiter->response;
-        $waiter->response = null;
-        $waiter->resolveResult = true;
-        $this->resolveResult = null;
+        $this->needRefresh = false;
     }
 }

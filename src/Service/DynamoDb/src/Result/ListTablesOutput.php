@@ -2,11 +2,10 @@
 
 namespace AsyncAws\DynamoDb\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Input\ListTablesInput;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class ListTablesOutput extends Result implements \IteratorAggregate
 {
@@ -108,9 +107,9 @@ class ListTablesOutput extends Result implements \IteratorAggregate
         }
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $data = $response->toArray(false);
+        $data = $response->toArray();
 
         $this->TableNames = empty($data['TableNames']) ? [] : (function (array $json): array {
             $items = [];

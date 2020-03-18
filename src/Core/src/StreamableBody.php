@@ -31,9 +31,11 @@ final class StreamableBody implements StreamableBodyInterface
     /**
      * {@inheritdoc}
      */
-    public function getChunks(): ResponseStreamInterface
+    public function getChunks(): iterable
     {
-        return $this->responseStream;
+        foreach ($this->responseStream as $chunk) {
+            yield $chunk->getContent();
+        }
     }
 
     /**

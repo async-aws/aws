@@ -2,11 +2,10 @@
 
 namespace AsyncAws\Core\Sts\Result;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Sts\ValueObject\AssumedRoleUser;
 use AsyncAws\Core\Sts\ValueObject\Credentials;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class AssumeRoleWithWebIdentityResponse extends Result
 {
@@ -93,9 +92,9 @@ class AssumeRoleWithWebIdentityResponse extends Result
         return $this->SubjectFromWebIdentityToken;
     }
 
-    protected function populateResult(ResponseInterface $response, HttpClientInterface $httpClient): void
+    protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent(false));
+        $data = new \SimpleXMLElement($response->getContent());
         $data = $data->AssumeRoleWithWebIdentityResult;
 
         $this->Credentials = !$data->Credentials ? null : new Credentials([
