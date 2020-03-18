@@ -90,6 +90,11 @@ class ServiceDefinition
         return $this->definition['metadata']['targetPrefix'];
     }
 
+    public function getJsonVersion(): float
+    {
+        return (float) $this->definition['metadata']['jsonVersion'];
+    }
+
     public function getProtocol(): string
     {
         return $this->definition['metadata']['protocol'];
