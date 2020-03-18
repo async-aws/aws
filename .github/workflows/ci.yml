@@ -50,6 +50,7 @@ jobs:
             cd "$CURRENT_DIR/$COMPONENT"
             sed -i -re 's/"async-aws\/core": "[^"]+",/"async-aws\/core": "*@dev",/' composer.json
             sed -i -re 's/"require": \{/"repositories": [{"type": "path","url": "..\/..\/Core"}],"require": \{/' composer.json
+            cat composer.json
             echo ::endgroup::
           done
 
@@ -122,6 +123,7 @@ jobs:
             cd "$CURRENT_DIR/$COMPONENT"
 
             sed -i -re 's/"require": \{/"minimum-stability": "dev","prefer-stable": true,"require": \{/' composer.json
+            cat composer.json
 
             echo ::endgroup::
           done
