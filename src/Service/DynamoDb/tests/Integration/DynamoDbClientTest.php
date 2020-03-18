@@ -13,19 +13,15 @@ use AsyncAws\DynamoDb\Input\DeleteTableInput;
 use AsyncAws\DynamoDb\Input\DescribeTableInput;
 use AsyncAws\DynamoDb\Input\GetItemInput;
 use AsyncAws\DynamoDb\Input\ListTablesInput;
-use AsyncAws\DynamoDb\Input\PutItemInput;
 use AsyncAws\DynamoDb\Input\QueryInput;
 use AsyncAws\DynamoDb\Input\ScanInput;
 use AsyncAws\DynamoDb\Input\UpdateItemInput;
 use AsyncAws\DynamoDb\Input\UpdateTableInput;
 use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
-use AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndex;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use AsyncAws\DynamoDb\ValueObject\LocalSecondaryIndex;
 use AsyncAws\DynamoDb\ValueObject\Projection;
 use AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput;
-use AsyncAws\DynamoDb\ValueObject\SSESpecification;
-use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
 use AsyncAws\DynamoDb\ValueObject\Tag;
 
 class DynamoDbClientTest extends TestCase
@@ -131,68 +127,7 @@ class DynamoDbClientTest extends TestCase
 
     public function testCreateTable(): void
     {
-        $client = $this->getClient();
-
-        $input = new CreateTableInput([
-            'AttributeDefinitions' => [new AttributeDefinition([
-                'AttributeName' => 'change me',
-                'AttributeType' => 'change me',
-            ])],
-            'TableName' => 'change me',
-            'KeySchema' => [new KeySchemaElement([
-                'AttributeName' => 'change me',
-                'KeyType' => 'change me',
-            ])],
-            'LocalSecondaryIndexes' => [new LocalSecondaryIndex([
-                'IndexName' => 'change me',
-                'KeySchema' => [new KeySchemaElement([
-                    'AttributeName' => 'change me',
-                    'KeyType' => 'change me',
-                ])],
-                'Projection' => new Projection([
-                    'ProjectionType' => 'change me',
-                    'NonKeyAttributes' => ['change me'],
-                ]),
-            ])],
-            'GlobalSecondaryIndexes' => [new GlobalSecondaryIndex([
-                'IndexName' => 'change me',
-                'KeySchema' => [new KeySchemaElement([
-                    'AttributeName' => 'change me',
-                    'KeyType' => 'change me',
-                ])],
-                'Projection' => new Projection([
-                    'ProjectionType' => 'change me',
-                    'NonKeyAttributes' => ['change me'],
-                ]),
-                'ProvisionedThroughput' => new ProvisionedThroughput([
-                    'ReadCapacityUnits' => 1337,
-                    'WriteCapacityUnits' => 1337,
-                ]),
-            ])],
-            'BillingMode' => 'change me',
-            'ProvisionedThroughput' => new ProvisionedThroughput([
-                'ReadCapacityUnits' => 1337,
-                'WriteCapacityUnits' => 1337,
-            ]),
-            'StreamSpecification' => new StreamSpecification([
-                'StreamEnabled' => false,
-                'StreamViewType' => 'change me',
-            ]),
-            'SSESpecification' => new SSESpecification([
-                'Enabled' => false,
-                'SSEType' => 'change me',
-                'KMSMasterKeyId' => 'change me',
-            ]),
-            'Tags' => [new Tag([
-                'Key' => 'change me',
-                'Value' => 'change me',
-            ])],
-        ]);
-        $result = $client->CreateTable($input);
-
-        $result->resolve();
-
-        // self::assertTODO(expected, $result->getTableDescription());
+        self::markTestSkipped('This is tested in setUp()');
     }
 
     public function testDeleteItem(): void
@@ -217,16 +152,7 @@ class DynamoDbClientTest extends TestCase
 
     public function testDeleteTable(): void
     {
-        $client = $this->getClient();
-
-        $input = new DeleteTableInput([
-            'TableName' => 'change me',
-        ]);
-        $result = $client->DeleteTable($input);
-
-        $result->resolve();
-
-        // self::assertTODO(expected, $result->getTableDescription());
+        self::markTestSkipped('This is tested in tearDown()');
     }
 
     public function testDescribeTable(): void
@@ -277,27 +203,7 @@ class DynamoDbClientTest extends TestCase
 
     public function testPutItem(): void
     {
-        $client = $this->getClient();
-
-        $input = new PutItemInput([
-            'TableName' => 'change me',
-            'Item' => ['change me' => ''],
-            'Expected' => ['change me' => ''],
-            'ReturnValues' => 'change me',
-            'ReturnConsumedCapacity' => 'change me',
-            'ReturnItemCollectionMetrics' => 'change me',
-            'ConditionalOperator' => 'change me',
-            'ConditionExpression' => 'change me',
-            'ExpressionAttributeNames' => ['change me' => 'change me'],
-            'ExpressionAttributeValues' => ['change me' => ''],
-        ]);
-        $result = $client->PutItem($input);
-
-        $result->resolve();
-
-        // self::assertTODO(expected, $result->getAttributes());
-        // self::assertTODO(expected, $result->getConsumedCapacity());
-        // self::assertTODO(expected, $result->getItemCollectionMetrics());
+        self::markTestSkipped('This is tested in setUp()');
     }
 
     public function testQuery(): void
