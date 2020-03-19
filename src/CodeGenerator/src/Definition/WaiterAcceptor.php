@@ -7,6 +7,7 @@ namespace AsyncAws\CodeGenerator\Definition;
 class WaiterAcceptor
 {
     public const MATCHER_STATUS = 'status';
+    public const MATCHER_PATH = 'path';
     public const MATCHER_ERROR = 'error';
 
     public const STATE_SUCCESS = 'success';
@@ -54,6 +55,11 @@ class WaiterAcceptor
     public function getExpected(): string
     {
         return (string) $this->data['expected'];
+    }
+
+    public function getArgument(): string
+    {
+        return (string) $this->data['argument'];
     }
 
     public function getState(): string

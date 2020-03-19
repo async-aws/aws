@@ -1,25 +1,25 @@
 <?php
 
-namespace AsyncAws\Sqs\Result;
+namespace AsyncAws\DynamoDb\Result;
 
 use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Waiter;
-use AsyncAws\Sqs\Input\GetQueueUrlRequest;
-use AsyncAws\Sqs\SqsClient;
+use AsyncAws\DynamoDb\DynamoDbClient;
+use AsyncAws\DynamoDb\Input\DescribeTableInput;
 
-class QueueExistsWaiter extends Waiter
+class TableExistsWaiter extends Waiter
 {
-    protected const WAIT_TIMEOUT = 200.0;
-    protected const WAIT_DELAY = 5.0;
+    protected const WAIT_TIMEOUT = 500.0;
+    protected const WAIT_DELAY = 20.0;
 
     protected function extractState(Response $response, ?HttpException $exception): string
     {
-        if (200 === $response->getStatusCode()) {
+        if (200 === $response->getStatusCode() && 'ACTIVE' === ($response->toArray()['Table']['TableStatus'] ?? null)) {
             return self::STATE_SUCCESS;
         }
 
-        if (null !== $exception && 'AWS.SimpleQueueService.NonExistentQueue' === $exception->getAwsCode() && 400 === $exception->getCode()) {
+        if (null !== $exception) {
             return self::STATE_PENDING;
         }
 
@@ -29,13 +29,13 @@ class QueueExistsWaiter extends Waiter
 
     protected function refreshState(): Waiter
     {
-        if (!$this->awsClient instanceof SqsClient) {
+        if (!$this->awsClient instanceof DynamoDbClient) {
             throw new \InvalidArgumentException('missing client injected in waiter result');
         }
-        if (!$this->input instanceof GetQueueUrlRequest) {
+        if (!$this->input instanceof DescribeTableInput) {
             throw new \InvalidArgumentException('missing last request injected in waiter result');
         }
 
-        return $this->awsClient->QueueExists($this->input);
+        return $this->awsClient->TableExists($this->input);
     }
 }

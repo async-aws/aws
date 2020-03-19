@@ -11,6 +11,7 @@ use AsyncAws\S3\Input\CreateBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
+use AsyncAws\S3\Input\HeadBucketRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\PutObjectAclRequest;
@@ -374,6 +375,39 @@ class S3ClientTest extends TestCase
         $body = $result->getBody()->getContentAsString();
 
         self::assertEquals($content, $body);
+    }
+
+    public function testBucketExists(): void
+    {
+        $client = $this->getClient();
+
+        $client->CreateBucket(['Bucket' => 'foo'])->resolve();
+
+        $input = new HeadBucketRequest([
+            'Bucket' => 'foo',
+        ]);
+
+        self::assertTrue($client->bucketExists($input)->isSuccess());
+        self::assertFalse($client->bucketExists(['Bucket' => 'does-not-exists'])->isSuccess());
+    }
+
+    public function testKeyExists(): void
+    {
+        $client = $this->getClient();
+
+        $client->putObject([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+            'Body' => 'content',
+        ])->resolve();
+
+        $input = new HeadObjectRequest([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+        ]);
+
+        self::assertTrue($client->objectExists($input)->isSuccess());
+        self::assertFalse($client->objectExists(['Bucket' => 'foo', 'Key' => 'does-not-exists'])->isSuccess());
     }
 
     private function getClient(): S3Client

@@ -23,6 +23,7 @@ use AsyncAws\DynamoDb\Result\ListTablesOutput;
 use AsyncAws\DynamoDb\Result\PutItemOutput;
 use AsyncAws\DynamoDb\Result\QueryOutput;
 use AsyncAws\DynamoDb\Result\ScanOutput;
+use AsyncAws\DynamoDb\Result\TableExistsWaiter;
 use AsyncAws\DynamoDb\Result\UpdateItemOutput;
 use AsyncAws\DynamoDb\Result\UpdateTableOutput;
 
@@ -253,6 +254,23 @@ class DynamoDbClient extends AbstractApi
         $response = $this->getResponse($input->request());
 
         return new ScanOutput($response, $this, $input);
+    }
+
+    /**
+     * Check status of operation describeTable.
+     *
+     * @see describeTable
+     *
+     * @param array{
+     *   TableName: string,
+     * }|DescribeTableInput $input
+     */
+    public function tableExists($input): TableExistsWaiter
+    {
+        $input = DescribeTableInput::create($input);
+        $response = $this->getResponse($input->request());
+
+        return new TableExistsWaiter($response, $this, $input);
     }
 
     /**

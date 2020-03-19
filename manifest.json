@@ -30,6 +30,7 @@
                 "PutItem",
                 "Query",
                 "Scan",
+                "TableExists",
                 "UpdateItem",
                 "UpdateTable"
             ]
@@ -54,6 +55,7 @@
             "waiter": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/s3\/2006-03-01\/waiters-2.json",
             "example": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/s3\/2006-03-01\/examples-1.json",
             "methods": [
+                "BucketExists",
                 "CopyObject",
                 "CreateBucket",
                 "DeleteObject",
@@ -62,6 +64,7 @@
                 "GetObjectAcl",
                 "HeadObject",
                 "ListObjectsV2",
+                "ObjectExists",
                 "PutObject",
                 "PutObjectAcl"
             ]

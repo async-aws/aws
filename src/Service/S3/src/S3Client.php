@@ -9,10 +9,12 @@ use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\DeleteObjectsRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
+use AsyncAws\S3\Input\HeadBucketRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
+use AsyncAws\S3\Result\BucketExistsWaiter;
 use AsyncAws\S3\Result\CopyObjectOutput;
 use AsyncAws\S3\Result\CreateBucketOutput;
 use AsyncAws\S3\Result\DeleteObjectOutput;
@@ -21,12 +23,30 @@ use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
 use AsyncAws\S3\Result\ListObjectsV2Output;
+use AsyncAws\S3\Result\ObjectExistsWaiter;
 use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\Signer\SignerV4ForS3;
 
 class S3Client extends AbstractApi
 {
+    /**
+     * Check status of operation headBucket.
+     *
+     * @see headBucket
+     *
+     * @param array{
+     *   Bucket: string,
+     * }|HeadBucketRequest $input
+     */
+    public function bucketExists($input): BucketExistsWaiter
+    {
+        $input = HeadBucketRequest::create($input);
+        $response = $this->getResponse($input->request());
+
+        return new BucketExistsWaiter($response, $this, $input);
+    }
+
     /**
      * Creates a copy of an object that is already stored in Amazon S3.
      *
@@ -258,6 +278,35 @@ class S3Client extends AbstractApi
         $response = $this->getResponse($input->request());
 
         return new ListObjectsV2Output($response, $this, $input);
+    }
+
+    /**
+     * Check status of operation headObject.
+     *
+     * @see headObject
+     *
+     * @param array{
+     *   Bucket: string,
+     *   IfMatch?: string,
+     *   IfModifiedSince?: \DateTimeInterface|string,
+     *   IfNoneMatch?: string,
+     *   IfUnmodifiedSince?: \DateTimeInterface|string,
+     *   Key: string,
+     *   Range?: string,
+     *   VersionId?: string,
+     *   SSECustomerAlgorithm?: string,
+     *   SSECustomerKey?: string,
+     *   SSECustomerKeyMD5?: string,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   PartNumber?: int,
+     * }|HeadObjectRequest $input
+     */
+    public function objectExists($input): ObjectExistsWaiter
+    {
+        $input = HeadObjectRequest::create($input);
+        $response = $this->getResponse($input->request());
+
+        return new ObjectExistsWaiter($response, $this, $input);
     }
 
     /**
