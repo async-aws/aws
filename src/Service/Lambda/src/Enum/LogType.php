@@ -5,7 +5,6 @@ namespace AsyncAws\Lambda\Enum;
 class LogType
 {
     public const NONE = 'None';
-    public const FOO = 'Small';
     public const TAIL = 'Tail';
 
     public static function exists(string $value): bool
