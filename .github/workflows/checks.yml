@@ -73,8 +73,8 @@ jobs:
           echo "###################################################"
           echo "#"
           echo "#  One of two things are wrong here:"
-          echo "#   1) You have modified generated code.
-          echo "#   2) You have modified the code generator and not regenerated the code.
+          echo "#   1) You have modified generated code."
+          echo "#   2) You have modified the code generator and not regenerated the code."
           echo "#"
           echo "#  You may solve both problems by running `./generate --all`"
           echo "#"
