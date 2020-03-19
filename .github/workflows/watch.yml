@@ -58,5 +58,5 @@ jobs:
         body: |
           The AWS API contract changed.
 
-          This PR contains the a new defintion for Services.
+          This PR contains the a new definition for Services.
         branch: bot-code-update
