@@ -11,16 +11,12 @@ use AsyncAws\DynamoDb\Input\DescribeTableInput;
 class TableNotExistsWaiter extends Waiter
 {
     protected const WAIT_TIMEOUT = 500.0;
-    protected const WAIT_DELAY = 2.0;
+    protected const WAIT_DELAY = 20.0;
 
     protected function extractState(Response $response, ?HttpException $exception): string
     {
-        if (400 === $response->getStatusCode()) {
-            // {"__type":"com.amazonaws.dynamodb.v20120810#ResourceNotFoundException","message":"Requested resource not found: Table: errors not found"}
-            list(, $errorType) = explode('#', $response->toArray()['__type'] ?? '', 2);
-            if ('ResourceNotFoundException' === $errorType) {
-                return self::STATE_SUCCESS;
-            }
+        if (null !== $exception && 'ResourceNotFoundException' === $exception->getAwsCode()) {
+            return self::STATE_SUCCESS;
         }
 
         /** @psalm-suppress TypeDoesNotContainType */

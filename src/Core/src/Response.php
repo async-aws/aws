@@ -34,6 +34,11 @@ class Response
      */
     private $resolveResult;
 
+    /**
+     * @var HttpException
+     */
+    private $exception;
+
     public function __construct(ResponseInterface $response, HttpClientInterface $httpClient)
     {
         $this->response = $response;
@@ -87,18 +92,17 @@ class Response
             throw $this->resolveResult = new NetworkException('Could not contact remote server.', 0, $e);
         }
 
-        if ($throw) {
-            if (500 <= $statusCode) {
-                throw $this->resolveResult = new ServerException($this->response);
-            }
-
-            if (400 <= $statusCode) {
-                throw $this->resolveResult = new ClientException($this->response);
-            }
-
-            if (300 <= $statusCode) {
-                throw $this->resolveResult = new RedirectionException($this->response);
-            }
+        if (500 <= $statusCode) {
+            $this->exception = new ServerException($this->response);
+        }
+        if (400 <= $statusCode) {
+            $this->exception = new ClientException($this->response);
+        }
+        if (300 <= $statusCode) {
+            $this->exception = new RedirectionException($this->response);
+        }
+        if ($throw && null !== $this->exception) {
+            throw $this->resolveResult = $this->exception;
         }
 
         return $this->resolveResult = true;
@@ -157,5 +161,12 @@ class Response
     final public function toStream(): StreamableBody
     {
         return new StreamableBody($this->httpClient->stream($this->response));
+    }
+
+    final public function getException(): ?HttpException
+    {
+        $this->resolve();
+
+        return $this->exception;
     }
 }

@@ -85,6 +85,9 @@ trait HttpExceptionTrait
                 $this->awsMessage = $body['Message'];
                 $message .= "\n\n" . $body['Message'] . "\n\n";
             }
+            if (isset($body['__type'])) {
+                list(, $this->awsCode) = explode('#', $body['__type'], 2);
+            }
         } else {
             try {
                 $body = $response->getContent(false);

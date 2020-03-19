@@ -11,12 +11,16 @@ use AsyncAws\DynamoDb\Input\DescribeTableInput;
 class TableExistsWaiter extends Waiter
 {
     protected const WAIT_TIMEOUT = 500.0;
-    protected const WAIT_DELAY = 5.0;
+    protected const WAIT_DELAY = 20.0;
 
     protected function extractState(Response $response, ?HttpException $exception): string
     {
         if (200 === $response->getStatusCode() && 'ACTIVE' === ($response->toArray()['Table']['TableStatus'] ?? null)) {
             return self::STATE_SUCCESS;
+        }
+
+        if (null !== $exception && 'ResourceNotFoundException' === $exception->getAwsCode()) {
+            return self::STATE_PENDING;
         }
 
         /** @psalm-suppress TypeDoesNotContainType */

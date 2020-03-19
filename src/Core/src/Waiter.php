@@ -94,10 +94,9 @@ class Waiter
             $this->stealResponse($this->refreshState());
         }
 
-        $exception = null;
         $this->resolve();
 
-        $state = $this->extractState($this->response, $exception);
+        $state = $this->extractState($this->response, $this->response->getException());
         $this->needRefresh = true;
 
         switch ($state) {
