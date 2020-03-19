@@ -34,11 +34,6 @@ class Response
      */
     private $resolveResult;
 
-    /**
-     * @var HttpException
-     */
-    private $exception;
-
     public function __construct(ResponseInterface $response, HttpClientInterface $httpClient)
     {
         $this->response = $response;
@@ -56,14 +51,13 @@ class Response
      * Make sure the actual request is executed.
      *
      * @param float|null $timeout Duration in seconds before aborting. When null wait until the end of execution.
-     * @param bool       $throw   Whether an exception should be thrown on 3/4/5xx status codes
      *
      * @return bool whether the request is executed or not
      *
      * @throws NetworkException
      * @throws HttpException
      */
-    final public function resolve(?float $timeout = null, bool $throw = true): bool
+    final public function resolve(?float $timeout = null): bool
     {
         if (null !== $this->resolveResult) {
             if ($this->resolveResult instanceof \Exception) {
@@ -93,16 +87,15 @@ class Response
         }
 
         if (500 <= $statusCode) {
-            $this->exception = new ServerException($this->response);
+            throw $this->resolveResult = new ServerException($this->response);
         }
+
         if (400 <= $statusCode) {
-            $this->exception = new ClientException($this->response);
+            throw $this->resolveResult = new ClientException($this->response);
         }
+
         if (300 <= $statusCode) {
-            $this->exception = new RedirectionException($this->response);
-        }
-        if ($throw && null !== $this->exception) {
-            throw $this->resolveResult = $this->exception;
+            throw $this->resolveResult = new RedirectionException($this->response);
         }
 
         return $this->resolveResult = true;
@@ -161,12 +154,5 @@ class Response
     final public function toStream(): StreamableBody
     {
         return new StreamableBody($this->httpClient->stream($this->response));
-    }
-
-    final public function getException(): ?HttpException
-    {
-        $this->resolve();
-
-        return $this->exception;
     }
 }
