@@ -81,6 +81,9 @@ trait HttpExceptionTrait
             } elseif (isset($body['message'])) {
                 $this->awsMessage = $body['message'];
                 $message .= "\n\n" . $body['message'] . "\n\n";
+            } elseif (isset($body['Message'])) {
+                $this->awsMessage = $body['Message'];
+                $message .= "\n\n" . $body['Message'] . "\n\n";
             }
         } else {
             try {
