@@ -218,14 +218,15 @@ class WaiterGenerator
     {
         $checks = [];
         $error = $acceptor->getError();
-        if (null !== $expected = $acceptor->getExpected()) {
+        if ($error->hasError()) {
+            if (null !== $code = $error->getCode()) {
+                $checks[] = '$exception->getAwsCode() === ' . \var_export($code, true);
+            }
+            if (null !== $code = $error->getStatusCode()) {
+                $checks[] = '$exception->getCode() === ' . \var_export($code, true);
+            }
+        } elseif (null !== $expected = $acceptor->getExpected()) {
             $checks[] = '$exception->getAwsCode() === ' . \var_export($expected, true);
-        }
-        if (null !== $code = $error->getCode()) {
-            $checks[] = '$exception->getAwsCode() === ' . \var_export($code, true);
-        }
-        if (null !== $code = $error->getStatusCode()) {
-            $checks[] = '$exception->getCode() === ' . \var_export($code, true);
         }
 
         if (0 === \count($checks)) {
