@@ -158,10 +158,13 @@ class WaiterGenerator
             ->setBody(strtr('
                 ACCEPTOR_CODE
 
+                /** @psalm-suppress TypeDoesNotContainType */
                 return $exception === null ? self::STATE_PENDING :  self::STATE_FAILURE;
             ', ['ACCEPTOR_CODE' => \implode("\n", \array_map([$this, 'getAcceptorBody'], $waiter->getAcceptors()))]));
         $method->addParameter('response')->setType(Response::class);
         $method->addParameter('exception')->setType(HttpException::class)->setNullable(true);
+
+        $namespace->addUse(Response::class);
 
         $this->fileWriter->write($namespace);
 
@@ -177,6 +180,8 @@ class WaiterGenerator
         switch ($acceptor->getMatcher()) {
             case WaiterAcceptor::MATCHER_STATUS:
                 return $this->getAcceptorStatusBody($acceptor);
+            case WaiterAcceptor::MATCHER_PATH:
+                return $this->getAcceptorPathBody($acceptor);
             default:
                 throw new \RuntimeException(sprintf('Acceptor matcher "%s" is not yet implemented', $acceptor->getMatcher()));
         }
@@ -190,6 +195,19 @@ class WaiterGenerator
             }
         ', [
             'EXPECTED' => $acceptor->getExpected(),
+            'BEHAVIOR' => $this->getAcceptorBehavior($acceptor),
+        ]);
+    }
+
+    private function getAcceptorPathBody(WaiterAcceptor $acceptor): string
+    {
+        return strtr('
+            if (200 === $response->getStatusCode() && EXPECTED === ($response->toArray()[PATH] ?? null)) {
+                return self::BEHAVIOR;
+            }
+        ', [
+            'PATH' => '"' . strtr($acceptor->getArgument(), ['.' => '"]["']) . '"',
+            'EXPECTED' => \var_export($acceptor->getExpected(), true),
             'BEHAVIOR' => $this->getAcceptorBehavior($acceptor),
         ]);
     }

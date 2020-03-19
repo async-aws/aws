@@ -1,0 +1,74 @@
+<?php
+
+namespace AsyncAws\S3\Input;
+
+use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Request;
+use AsyncAws\Core\Stream\StreamFactory;
+
+class HeadBucketRequest
+{
+    /**
+     * The bucket name.
+     *
+     * @required
+     *
+     * @var string|null
+     */
+    private $Bucket;
+
+    /**
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketHEAD.html
+     *
+     * @param array{
+     *   Bucket?: string,
+     * } $input
+     */
+    public function __construct(array $input = [])
+    {
+        $this->Bucket = $input['Bucket'] ?? null;
+    }
+
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getBucket(): ?string
+    {
+        return $this->Bucket;
+    }
+
+    /**
+     * @internal
+     */
+    public function request(): Request
+    {
+        // Prepare headers
+        $headers = ['content-type' => 'application/xml'];
+
+        // Prepare query
+        $query = [];
+
+        // Prepare URI
+        $uri = [];
+        if (null === $v = $this->Bucket) {
+            throw new InvalidArgument(sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $uri['Bucket'] = $v;
+        $uriString = "/{$uri['Bucket']}";
+
+        // Prepare Body
+        $body = '';
+
+        // Return the Request
+        return new Request('HEAD', $uriString, $query, $headers, StreamFactory::create($body));
+    }
+
+    public function setBucket(?string $value): self
+    {
+        $this->Bucket = $value;
+
+        return $this;
+    }
+}

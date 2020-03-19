@@ -1,16 +1,16 @@
 <?php
 
-namespace AsyncAws\Sqs\Result;
+namespace AsyncAws\S3\Result;
 
 use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Waiter;
-use AsyncAws\Sqs\Input\GetQueueUrlRequest;
-use AsyncAws\Sqs\SqsClient;
+use AsyncAws\S3\Input\HeadBucketRequest;
+use AsyncAws\S3\S3Client;
 
-class QueueExistsWaiter extends Waiter
+class BucketExistsWaiter extends Waiter
 {
-    protected const WAIT_TIMEOUT = 200.0;
+    protected const WAIT_TIMEOUT = 100.0;
     protected const WAIT_DELAY = 5.0;
 
     protected function extractState(Response $response, ?HttpException $exception): string
@@ -19,7 +19,15 @@ class QueueExistsWaiter extends Waiter
             return self::STATE_SUCCESS;
         }
 
-        if (null !== $exception && 'AWS.SimpleQueueService.NonExistentQueue' === $exception->getAwsCode() && 400 === $exception->getCode()) {
+        if (301 === $response->getStatusCode()) {
+            return self::STATE_SUCCESS;
+        }
+
+        if (403 === $response->getStatusCode()) {
+            return self::STATE_SUCCESS;
+        }
+
+        if (404 === $response->getStatusCode()) {
             return self::STATE_PENDING;
         }
 
@@ -29,13 +37,13 @@ class QueueExistsWaiter extends Waiter
 
     protected function refreshState(): Waiter
     {
-        if (!$this->awsClient instanceof SqsClient) {
+        if (!$this->awsClient instanceof S3Client) {
             throw new \InvalidArgumentException('missing client injected in waiter result');
         }
-        if (!$this->input instanceof GetQueueUrlRequest) {
+        if (!$this->input instanceof HeadBucketRequest) {
             throw new \InvalidArgumentException('missing last request injected in waiter result');
         }
 
-        return $this->awsClient->QueueExists($this->input);
+        return $this->awsClient->BucketExists($this->input);
     }
 }

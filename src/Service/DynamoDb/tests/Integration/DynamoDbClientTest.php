@@ -277,6 +277,18 @@ class DynamoDbClientTest extends TestCase
         self::assertEquals(8, $result->getTableDescription()->getProvisionedThroughput()->getWriteCapacityUnits());
     }
 
+    public function testTableExists(): void
+    {
+        $client = $this->getClient();
+
+        $input = new DescribeTableInput([
+            'TableName' => $this->tableName,
+        ]);
+
+        self::assertTrue($client->tableExists($input)->isSuccess());
+        self::assertFalse($client->tableExists(['TableName' => 'does-not-exists'])->isSuccess());
+    }
+
     private function getClient(): DynamoDbClient
     {
         if ($this->client instanceof DynamoDbClient) {
