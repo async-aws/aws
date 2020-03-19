@@ -44,7 +44,7 @@ jobs:
         exit $ok
 
   output-generated:
-    name: Output Regenerated
+    name: Generated output not changed
     runs-on: ubuntu-latest
 
     steps:
@@ -68,17 +68,21 @@ jobs:
     - name: Assert up-to-date
       run: |
         if [ -n "$(git status src --porcelain)" ]; then
+          echo ""
+          echo "###################################################"
+          echo "###################################################"
+          echo "#"
+          echo "#  One of two things are wrong here:"
+          echo "#   1) You have modified generated code."
+          echo "#   2) You have modified the code generator and not regenerated the code."
+          echo "#"
+          echo "#  You may solve both problems by running './generate --all'"
+          echo "#"
+          echo "###################################################"
+          echo "###################################################"
+          echo ""
+
           git diff src
+
           exit 1
         fi
-
-#  roave-bc-check:
-#    name: Roave BC Check
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v2
-#
-#      - name: Roave BC Check
-#        uses: docker://nyholm/roave-bc-check-ga
