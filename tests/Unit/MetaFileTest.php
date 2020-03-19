@@ -36,7 +36,7 @@ class MetaFileTest extends TestCase
                 continue;
             }
 
-            self::assertTrue(false !== strpos($readme, $serviceData['packageName']), sprintf('There is no mention of "%s" in the Readme.md', $serviceData['packageName']));
+            self::assertTrue(false !== strpos($readme, $serviceData['package_name']), sprintf('There is no mention of "%s" in the Readme.md', $serviceData['package_name']));
         }
     }
 }
