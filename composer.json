@@ -1,7 +1,6 @@
 {
-    "name": "async-aws/async-aws",
-    "type": "library",
-    "description": "Root package, that include all AWS API clients",
+    "description": "Root repository cannot be installed with composer. Use subpackages like async-aws/s3",
+    "type": "project",
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
