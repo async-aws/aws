@@ -8,15 +8,19 @@ use AsyncAws\Core\Waiter;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Input\DescribeTableInput;
 
-class TableExistsWaiter extends Waiter
+class TableNotExistsWaiter extends Waiter
 {
     protected const WAIT_TIMEOUT = 500.0;
-    protected const WAIT_DELAY = 5.0;
+    protected const WAIT_DELAY = 2.0;
 
     protected function extractState(Response $response, ?HttpException $exception): string
     {
-        if (200 === $response->getStatusCode() && 'ACTIVE' === ($response->toArray()['Table']['TableStatus'] ?? null)) {
-            return self::STATE_SUCCESS;
+        if (400 === $response->getStatusCode()) {
+            // {"__type":"com.amazonaws.dynamodb.v20120810#ResourceNotFoundException","message":"Requested resource not found: Table: errors not found"}
+            list(, $errorType) = explode('#', $response->toArray()['__type'] ?? '', 2);
+            if ('ResourceNotFoundException' === $errorType) {
+                return self::STATE_SUCCESS;
+            }
         }
 
         /** @psalm-suppress TypeDoesNotContainType */
@@ -32,6 +36,6 @@ class TableExistsWaiter extends Waiter
             throw new \InvalidArgumentException('missing last request injected in waiter result');
         }
 
-        return $this->awsClient->TableExists($this->input);
+        return $this->awsClient->TableNotExists($this->input);
     }
 }

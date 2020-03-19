@@ -30,6 +30,4 @@ parameters:
         - '#^Parameter \#4 \$headers of class AsyncAws\\Core\\Request constructor expects array<array<string>\|string>, array<string, AsyncAws\\[^\\]+\\Enum\\[^ ]+ given\.$#'
         - message: '#^Class AsyncAws\\S3\\(Result|Input)\\[^ ]* not found\.$#'
           path: src/Integration/Flysystem/S3/src
-        - message: '#^Else branch is unreachable because ternary operator condition is always true\.$#'
-          path: src/Service/*/src/Result/*Waiter.php
 
