@@ -14,7 +14,7 @@ class ServiceProvider
         $data = [];
         foreach ($manifest['services'] as $name => $service) {
             $service['snake_case'] = self::snakeCase($name);
-            $service['package_name'] = 'async-aws/' . str_replace('_', '-', $service['snakeCase']);
+            $service['package_name'] = 'async-aws/' . str_replace('_', '-', $service['snake_case']);
             $data[$name] = $service;
         }
 
