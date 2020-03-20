@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core\Tests\Unit\Test;
 
+use AsyncAws\Core\Exception\Http\ClientException;
+use AsyncAws\Core\Result;
 use AsyncAws\Core\Sts\Result\AssumedRoleUser;
 use AsyncAws\Core\Sts\Result\AssumeRoleResponse;
 use AsyncAws\Core\Test\ResultMockFactory;
@@ -51,5 +53,34 @@ class ResultMockFactoryTest extends TestCase
             'Arn' => 'arn123',
             'AssumedRoleId' => 'foo123',
         ]);
+    }
+
+    public function testCreateWithResult()
+    {
+        $result = ResultMockFactory::create(Result::class, []);
+
+        self::assertInstanceOf(Result::class, $result);
+    }
+
+    public function testCallToResolveDontFail()
+    {
+        $result = ResultMockFactory::create(Result::class, []);
+
+        self::assertTrue($result->resolve());
+    }
+
+    public function testCreateFailling()
+    {
+        $result = ResultMockFactory::createFailing(Result::class, 400, 'Boom');
+
+        $this->expectException(ClientException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessage('HTTP 400 returned for "http://localhost/".
+
+Boom
+
+');
+
+        $result->resolve();
     }
 }

@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core\Test;
 
+use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Core\Test\Http\SimpleMockedResponse;
+use Symfony\Component\HttpClient\MockHttpClient;
 
 /**
  * An easy way to create Result objects for your tests.
@@ -13,6 +16,36 @@ use AsyncAws\Core\Result;
  */
 class ResultMockFactory
 {
+    /**
+     * Instantiate a Result class that throws exception.
+     *
+     * <code>
+     * ResultMockFactory::createFailing(SendEmailResponse::class, 400, 'invalid value');
+     * </code>
+     *
+     * @template T
+     * @psalm-param class-string<T> $class
+     *
+     * @return Result|T
+     */
+    public static function createFailing(string $class, int $code, ?string $message = null)
+    {
+        if (Result::class !== $class) {
+            $parent = get_parent_class($class);
+            if (false === $parent || Result::class !== $parent) {
+                throw new \LogicException(sprintf('The "%s::%s" can only be used for classes that extend "%s"', __CLASS__, __METHOD__, Result::class));
+            }
+        }
+
+        $httpResponse = new SimpleMockedResponse(\json_encode(['message' => $message]), ['content-type' => 'application/json'], $code);
+        $client = new MockHttpClient($httpResponse);
+        $response = new Response($client->request('POST', 'http://localhost'), $client);
+
+        $reflectionClass = new \ReflectionClass($class);
+
+        return $reflectionClass->newInstance($response);
+    }
+
     /**
      * Instantiate a Result class with some data.
      *
@@ -23,26 +56,34 @@ class ResultMockFactory
      * @template T
      * @psalm-param class-string<T> $class
      *
-     * @return T
+     * @return Result|T
      */
     public static function create(string $class, array $data = [])
     {
-        $parent = get_parent_class($class);
-        if (false === $parent || Result::class !== $parent) {
-            throw new \LogicException(sprintf('The "%s::%s" can only be used for classes that extend "%s"', __CLASS__, __METHOD__, Result::class));
+        if (Result::class !== $class) {
+            $parent = get_parent_class($class);
+            if (false === $parent || Result::class !== $parent) {
+                throw new \LogicException(sprintf('The "%s::%s" can only be used for classes that extend "%s"', __CLASS__, __METHOD__, Result::class));
+            }
         }
 
-        $rereflectionClass = new \ReflectionClass($class);
-        $object = $rereflectionClass->newInstanceWithoutConstructor();
+        $reflectionClass = new \ReflectionClass(Response::class);
+        $response = $reflectionClass->newInstanceWithoutConstructor();
+        $property = $reflectionClass->getProperty('resolveResult');
+        $property->setAccessible(true);
+        $property->setValue($response, true);
+
+        $reflectionClass = new \ReflectionClass($class);
+        $object = $reflectionClass->newInstance($response);
         $data['initialized'] = true;
 
         foreach ($data as $propertyName => $propertyValue) {
-            $property = $rereflectionClass->getProperty($propertyName);
+            $property = $reflectionClass->getProperty($propertyName);
             $property->setAccessible(true);
             $property->setValue($object, $propertyValue);
         }
 
-        self::addUndefinedProperties($rereflectionClass, $object, $data);
+        self::addUndefinedProperties($reflectionClass, $object, $data);
 
         return $object;
     }
@@ -52,14 +93,18 @@ class ResultMockFactory
      *
      * @throws \ReflectionException
      */
-    private static function addUndefinedProperties(\ReflectionClass $rereflectionClass, $object, array $data): void
+    private static function addUndefinedProperties(\ReflectionClass $reflectionClass, $object, array $data): void
     {
-        foreach ($rereflectionClass->getProperties(\ReflectionProperty::IS_PRIVATE) as $property) {
+        foreach ($reflectionClass->getProperties(\ReflectionProperty::IS_PRIVATE) as $property) {
             if (\array_key_exists($property->getName(), $data)) {
                 continue;
             }
 
-            $getter = $rereflectionClass->getMethod('get' . $property->getName());
+            if (!$reflectionClass->hasMethod('get' . $property->getName())) {
+                continue;
+            }
+
+            $getter = $reflectionClass->getMethod('get' . $property->getName());
             /** @psalm-suppress PossiblyNullReference */
             if (!$getter->hasReturnType() || $getter->getReturnType()->allowsNull()) {
                 continue;
