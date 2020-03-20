@@ -13,4 +13,6 @@ use AsyncAws\Core\Request;
 interface Signer
 {
     public function sign(Request $request, ?Credentials $credentials): void;
+
+    public function presign(Request $request, ?Credentials $credentials, ?\DateTimeInterface $expires = null): void;
 }

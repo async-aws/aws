@@ -22,4 +22,9 @@ class SignerV4ForS3 extends SignerV4
 
         parent::sign($request, $credentials);
     }
+
+    public function getPresignHashPayload(Request $request): string
+    {
+        return 'UNSIGNED-PAYLOAD';
+    }
 }

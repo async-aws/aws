@@ -56,6 +56,82 @@ class SignerV4 implements Signer
         $this->region = $region;
     }
 
+    public function presign(Request $request, ?Credentials $credentials, ?\DateTimeInterface $expires = null): void
+    {
+        if (null === $credentials) {
+            return;
+        }
+
+        if (false === $parsedUrl = parse_url($request->getEndpoint())) {
+            throw new InvalidArgument(sprintf('The endpoint "%s" is invalid.', $request->getEndpoint()));
+        }
+        if (null !== $sessionToken = $credentials->getSessionToken()) {
+            $request->setHeader('x-amz-security-token', $sessionToken);
+        }
+
+        $this->convertPostToGet($request);
+
+        $request->setHeader('host', $parsedUrl['host'] . (isset($parsedUrl['port']) ? ':' . $parsedUrl['port'] : ''));
+        foreach ($request->getHeaders() as $name => $header) {
+            if ('x-amz' === substr($name, 0, 5)) {
+                $request->setQueryAttribute($name, $header);
+            }
+
+            if (isset(self::BLACKLIST_HEADERS[$name])) {
+                $request->removeHeader($name);
+            }
+        }
+        $request->removeHeader('x-amz-content-sha256');
+        $request->removeHeader('x-amz-security-token');
+
+        $request->setQueryAttribute('X-Amz-Date', $amzDate = gmdate('Ymd\THis\Z'));
+        $credentialScope = [substr($amzDate, 0, 8), $this->region, $this->scopeName, 'aws4_request'];
+
+        $signingKey = 'AWS4' . $credentials->getSecretKey();
+        foreach ($credentialScope as $scopePart) {
+            $signingKey = hash_hmac('sha256', $scopePart, $signingKey, true);
+        }
+
+        $canonicalHeaders = $this->getCanonicalizedHeaders($request);
+
+        $duration = null === $expires ? 3600 : max(0, $expires->getTimestamp() - time());
+        if ($duration > 604800) {
+            throw new InvalidArgument('The expiration must not exceed one week');
+        }
+
+        $request->setQueryAttribute('X-Amz-Algorithm', self::ALGORITHM_REQUEST);
+        $request->setQueryAttribute('X-Amz-Credential', $credentials->getAccessKeyId() . '/' . implode('/', $credentialScope));
+        $request->setQueryAttribute('X-Amz-Expires', $duration);
+
+        $request->setBody($body = StringStream::create($request->getBody()));
+        $request->setQueryAttribute('X-Amz-Content-Sha256', $this->getPresignHashPayload($request));
+
+        $canonicalHeaders = $this->getCanonicalizedHeaders($request);
+        $request->setQueryAttribute('X-Amz-SignedHeaders', implode(';', \array_keys($canonicalHeaders)));
+
+        // fetch endpoint again to take new paremerters into account
+        $parsedUrl = parse_url($request->getEndpoint());
+
+        $canonicalRequest = implode("\n", [
+            $request->getMethod(),
+            $this->getCanonicalizedPath($parsedUrl),
+            $this->getCanonicalizedQuery($parsedUrl),
+            \implode("\n", array_values($canonicalHeaders)),
+            '', // empty line after headers
+            implode(';', \array_keys($canonicalHeaders)),
+            $request->getQueryAttribute('X-Amz-Content-Sha256'),
+        ]);
+
+        $signature = hash_hmac('sha256', implode("\n", [
+            self::ALGORITHM_REQUEST,
+            $amzDate,
+            implode('/', $credentialScope),
+            hash('sha256', $canonicalRequest),
+        ]), $signingKey);
+
+        $request->setQueryAttribute('X-Amz-Signature', $signature);
+    }
+
     public function sign(Request $request, ?Credentials $credentials): void
     {
         if (null === $credentials) {
@@ -82,7 +158,6 @@ class SignerV4 implements Signer
         $this->prepareBody($request, $amzDate, implode('/', $credentialScope), $signature, $signingKey);
 
         $canonicalHeaders = $this->getCanonicalizedHeaders($request);
-
         $canonicalRequest = implode("\n", [
             $request->getMethod(),
             $this->getCanonicalizedPath($parsedUrl),
@@ -110,6 +185,32 @@ class SignerV4 implements Signer
         );
 
         $request->setHeader('authorization', $authorizationHeader);
+    }
+
+    protected function getPresignHashPayload(Request $request): string
+    {
+        $request->setBody($body = StringStream::create($request->getBody()));
+
+        return hash('sha256', $body->stringify());
+    }
+
+    private function convertPostToGet(Request $request): void
+    {
+        if ('POST' !== $request->getMethod()) {
+            return;
+        }
+
+        $request->setMethod('GET');
+        if ('application/x-www-form-urlencoded' === $request->getHeader('Content-Type')) {
+            \parse_str($request->getBody()->stringify(), $params);
+            foreach ($params as $name => $value) {
+                $request->setQueryAttribute($name, $value);
+            }
+        }
+
+        $request->removeHeader('content-type');
+        $request->removeHeader('content-length');
+        $request->setBody(StringStream::create(''));
     }
 
     private function prepareBody(Request $request, string $amzDate, string $credentialScope, string &$signature, string $signingKey): void
