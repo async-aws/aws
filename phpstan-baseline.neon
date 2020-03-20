@@ -6,11 +6,6 @@ parameters:
 			path: src/CodeGenerator/src/Command/GenerateCommand.php
 
 		-
-			message: '#^Method AsyncAws\\Core\\Test\\ResultMockFactory::create\(\) should return T but returns object\.$#'
-			count: 1
-			path: src/Core/src/Test/ResultMockFactory.php
-
-		-
 			message: '#^Call to an undefined method ReflectionType::getName\(\)\.$#'
 			count: 1
 			path: src/Core/src/Test/ResultMockFactory.php
