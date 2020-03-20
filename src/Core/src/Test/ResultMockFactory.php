@@ -17,7 +17,7 @@ use Symfony\Component\HttpClient\MockHttpClient;
 class ResultMockFactory
 {
     /**
-     * Instantiate a Result class hat throws exception.
+     * Instantiate a Result class that throws exception.
      *
      * <code>
      * ResultMockFactory::createFailing(SendEmailResponse::class, 400, 'invalid value');
