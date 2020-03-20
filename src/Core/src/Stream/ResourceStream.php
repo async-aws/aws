@@ -66,4 +66,12 @@ final class ResourceStream implements Stream
             yield \fread($this->content, $this->chunkSize);
         }
     }
+
+    /**
+     * @return resource
+     */
+    public function getResource()
+    {
+        return $this->content;
+    }
 }

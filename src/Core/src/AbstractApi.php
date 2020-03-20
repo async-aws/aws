@@ -14,7 +14,11 @@ use AsyncAws\Core\Credentials\WebIdentityProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Signer\Signer;
 use AsyncAws\Core\Signer\SignerV4;
+use AsyncAws\Core\Stream\ResourceStream;
 use AsyncAws\Core\Stream\StringStream;
+use AsyncAws\Core\Tests\Unit\Stream\ResourceStreamTest;
+use Nyholm\Psr7\Factory\Psr17Factory;
+use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\HttpClient;
@@ -85,6 +89,47 @@ abstract class AbstractApi
     abstract protected function getSignatureVersion(): string;
 
     abstract protected function getSignatureScopeName(): string;
+
+    final public function presign(Input $input): RequestInterface
+    {
+        if (!\class_exists(Psr17Factory::class)) {
+            throw new \LogicException('You cannot presign requests as the "nyholm/psr7" package is not installed. Try running "composer require nyholm/psr7".');
+        }
+        $request = $input->request();
+        $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery()));
+
+        // todo sign
+        // $this->getSigner()->presign($request, $this->credentialProvider->getCredentials($this->configuration));
+
+        $length = $request->getBody()->length();
+        if (null !== $length && !$request->hasHeader('content-length')) {
+            $request->setHeader('content-length', $length);
+        }
+
+        // Some servers (like testing Docker Images) does not supports `Transfer-Encoding: chunked` requests.
+        // The body is converted into string to prevent curl using `Transfer-Encoding: chunked` unless it really has to.
+        if (($requestBody = $request->getBody()) instanceof StringStream) {
+            $requestBody = $requestBody->stringify();
+        }
+
+        $factory = new Psr17Factory();
+        $psr = $factory->createRequest(
+            $request->getMethod(),
+            $request->getEndpoint()
+        );
+        foreach ($request->getHeaders() as $headerName => $headerValue) {
+            $psr->withAddedHeader($headerName, $headerValue);
+        }
+        if ($length > 0) {
+            if ($requestBody instanceof ResourceStream) {
+                $psr->withBody($factory->createStreamFromResource($requestBody->getResource()));
+            } else {
+                $psr->withBody($factory->createStream($requestBody->stringify()));
+            }
+        }
+
+        return $psr;
+    }
 
     final protected function getResponse(Request $request): Response
     {

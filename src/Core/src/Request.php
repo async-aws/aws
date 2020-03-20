@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\Core\Stream\Stream;
 
 /**
- * Representation of a AWS Request.
+ * Representation of an HTTP Request.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  *
