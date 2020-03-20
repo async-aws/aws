@@ -3,10 +3,11 @@
 namespace AsyncAws\Lambda\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-class AddLayerVersionPermissionRequest
+class AddLayerVersionPermissionRequest implements Input
 {
     /**
      * The name or Amazon Resource Name (ARN) of the layer.

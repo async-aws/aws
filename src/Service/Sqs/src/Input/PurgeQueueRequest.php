@@ -3,10 +3,11 @@
 namespace AsyncAws\Sqs\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-class PurgeQueueRequest
+class PurgeQueueRequest implements Input
 {
     /**
      * The URL of the queue from which the `PurgeQueue` action deletes messages.

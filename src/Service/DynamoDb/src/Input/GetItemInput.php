@@ -3,12 +3,13 @@
 namespace AsyncAws\DynamoDb\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 
-class GetItemInput
+class GetItemInput implements Input
 {
     /**
      * The name of the table containing the requested item.

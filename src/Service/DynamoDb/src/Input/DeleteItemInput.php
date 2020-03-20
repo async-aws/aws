@@ -3,6 +3,7 @@
 namespace AsyncAws\DynamoDb\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\DynamoDb\Enum\ConditionalOperator;
@@ -12,7 +13,7 @@ use AsyncAws\DynamoDb\Enum\ReturnValue;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue;
 
-class DeleteItemInput
+class DeleteItemInput implements Input
 {
     /**
      * The name of the table from which to delete the item.

@@ -3,6 +3,7 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\MetadataDirective;
@@ -14,7 +15,7 @@ use AsyncAws\S3\Enum\ServerSideEncryption;
 use AsyncAws\S3\Enum\StorageClass;
 use AsyncAws\S3\Enum\TaggingDirective;
 
-class CopyObjectRequest
+class CopyObjectRequest implements Input
 {
     /**
      * The canned ACL to apply to the object.

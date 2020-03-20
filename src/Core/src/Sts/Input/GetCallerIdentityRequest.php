@@ -2,10 +2,11 @@
 
 namespace AsyncAws\Core\Sts\Input;
 
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-class GetCallerIdentityRequest
+class GetCallerIdentityRequest implements Input
 {
     public static function create($input): self
     {

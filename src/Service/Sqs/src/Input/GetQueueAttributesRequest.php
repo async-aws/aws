@@ -3,11 +3,12 @@
 namespace AsyncAws\Sqs\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
 
-class GetQueueAttributesRequest
+class GetQueueAttributesRequest implements Input
 {
     /**
      * The URL of the Amazon SQS queue whose attribute information is retrieved.

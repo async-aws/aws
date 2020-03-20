@@ -3,11 +3,12 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 
-class GetObjectAclRequest
+class GetObjectAclRequest implements Input
 {
     /**
      * The bucket name that contains the object for which to get the ACL information.

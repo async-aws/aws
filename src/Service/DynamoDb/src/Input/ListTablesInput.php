@@ -2,10 +2,11 @@
 
 namespace AsyncAws\DynamoDb\Input;
 
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-class ListTablesInput
+class ListTablesInput implements Input
 {
     /**
      * The first table name that this operation will evaluate. Use the value that was returned for `LastEvaluatedTableName`

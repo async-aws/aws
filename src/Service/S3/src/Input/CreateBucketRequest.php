@@ -3,12 +3,13 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\BucketCannedACL;
 use AsyncAws\S3\ValueObject\CreateBucketConfiguration;
 
-class CreateBucketRequest
+class CreateBucketRequest implements Input
 {
     /**
      * The canned ACL to apply to the bucket.

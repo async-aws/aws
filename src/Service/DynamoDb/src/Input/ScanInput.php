@@ -3,6 +3,7 @@
 namespace AsyncAws\DynamoDb\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\DynamoDb\Enum\ConditionalOperator;
@@ -11,7 +12,7 @@ use AsyncAws\DynamoDb\Enum\Select;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\Condition;
 
-class ScanInput
+class ScanInput implements Input
 {
     /**
      * The name of the table containing the requested items; or, if you provide `IndexName`, the name of the table to which

@@ -3,10 +3,11 @@
 namespace AsyncAws\Sqs\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-class ChangeMessageVisibilityRequest
+class ChangeMessageVisibilityRequest implements Input
 {
     /**
      * The URL of the Amazon SQS queue whose message's visibility is changed.
