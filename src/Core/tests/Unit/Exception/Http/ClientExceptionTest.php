@@ -49,4 +49,35 @@ XML;
         self::assertSame('ResourceNotFoundException', $exception->getAwsCode());
         self::assertSame('Requested resource not found: Table: tablename not found', $exception->getAwsMessage());
     }
+
+    public function testCloudFormationXmlError()
+    {
+        $content = '<ErrorResponse xmlns="http://cloudformation.amazonaws.com/doc/2010-05-15/">
+  <Error>
+    <Type>Sender</Type>
+    <Code>ValidationError</Code>
+    <Message>Stack [foo-dev] does not exist</Message>
+  </Error>
+  <RequestId>f1479c09-9fff-498a-89e5-b69d211fa206</RequestId>
+</ErrorResponse>
+';
+        $response = new SimpleMockedResponse($content, ['content-type' => 'text/xml'], 400);
+        $exception = new ClientException($response);
+
+        self::assertSame(400, $exception->getCode());
+        self::assertSame('Sender', $exception->getAwsType());
+        self::assertSame('ValidationError', $exception->getAwsCode());
+        self::assertSame('Stack [foo-dev] does not exist', $exception->getAwsMessage());
+    }
+
+    public function testLambdaJsonError()
+    {
+        $content = '{"Type":"User","message":"Invalid Layer name: arn:aws:lambda:eu-central-2:12345:layer:foobar"}';
+        $response = new SimpleMockedResponse($content, ['content-type' => 'application/json'], 400);
+        $exception = new ClientException($response);
+
+        self::assertSame(400, $exception->getCode());
+        self::assertSame('User', $exception->getAwsType());
+        self::assertSame('Invalid Layer name: arn:aws:lambda:eu-central-2:12345:layer:foobar', $exception->getAwsMessage());
+    }
 }
