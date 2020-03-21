@@ -11,6 +11,9 @@ namespace AsyncAws\Core\Stream;
  */
 interface Stream extends \IteratorAggregate
 {
+    /**
+     * Length in bytes.
+     */
     public function length(): ?int;
 
     public function stringify(): string;
