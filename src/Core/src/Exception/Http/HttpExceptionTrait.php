@@ -43,33 +43,11 @@ trait HttpExceptionTrait
         $this->response = $response;
         $code = $response->getInfo('http_code');
         $url = $response->getInfo('url');
+        $content = $response->getContent(false);
         $message = sprintf('HTTP %d returned for "%s".', $code, $url);
 
-        $httpCodeFound = false;
-        $isJson = false;
-        foreach (array_reverse($response->getInfo('response_headers')) as $h) {
-            if (0 === strpos($h, 'HTTP/')) {
-                if ($httpCodeFound) {
-                    break;
-                }
-
-                $message = sprintf('%s returned for "%s".', $h, $url);
-                $httpCodeFound = true;
-            }
-
-            if (0 === stripos($h, 'content-type:')) {
-                if (preg_match('/\bjson\b/i', $h)) {
-                    $isJson = true;
-                }
-
-                if ($httpCodeFound) {
-                    break;
-                }
-            }
-        }
-
-        $content = $response->getContent(false);
-        if ($isJson && $body = json_decode($content, true)) {
+        // Try json_decode it first, fallback to XML
+        if ($body = json_decode($content, true)) {
             $this->parseJson($body);
         } else {
             try {

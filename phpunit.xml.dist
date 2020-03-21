@@ -30,6 +30,8 @@
                 <directory>./src/CodeGenerator</directory>
                 <directory>./src/*/tests</directory>
                 <directory>./src/*/*/tests</directory>
+                <directory>./src/*/*/*/tests</directory>
+                <file>./src/Integration/Flysystem/S3/src/S3FilesystemV1.php</file>
                 <directory>./vendor</directory>
             </exclude>
         </whitelist>

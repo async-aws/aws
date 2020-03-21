@@ -8,8 +8,7 @@ use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Exception\Http\NetworkException;
 
 /**
- * The result promise is always returned from every API call. Remember to call `resolve()` to
- * make sure the request is actually sent.
+ * Base class for all return values from a Api Client methods. Example: `FooClient::bar(): Result`.
  */
 class Result
 {

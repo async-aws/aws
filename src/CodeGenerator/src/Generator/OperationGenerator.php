@@ -100,21 +100,21 @@ class OperationGenerator
         }
 
         if (null !== $operation->getOutput()) {
-            $resutClass = $this->resultGenerator->generate($operation);
+            $resultClass = $this->resultGenerator->generate($operation);
             if (null !== $operation->getPagination()) {
                 $this->paginationGenerator->generate($operation);
             }
 
-            $method->setReturnType($resutClass->getFqdn());
-            $namespace->addUse($resutClass->getFqdn());
+            $method->setReturnType($resultClass->getFqdn());
+            $namespace->addUse($resultClass->getFqdn());
         } else {
-            $resutClass = null;
+            $resultClass = null;
             $method->setReturnType(Result::class);
             $namespace->addUse(Result::class);
         }
 
         // Generate method body
-        $this->setMethodBody($method, $operation, $inputClass, $resutClass);
+        $this->setMethodBody($method, $operation, $inputClass, $resultClass);
 
         $this->fileWriter->write($namespace);
 

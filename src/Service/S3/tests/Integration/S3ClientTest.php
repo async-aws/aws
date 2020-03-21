@@ -132,7 +132,7 @@ class S3ClientTest extends TestCase
         $result->resolve();
 
         $this->expectException(ClientException::class);
-        $this->expectExceptionMessage('HTTP/1.1 404 Not Found  returned for "http://localhost:4569/foo/bar".');
+        $this->expectExceptionMessage('HTTP 404 returned for "http://localhost:4569/foo/bar".');
 
         $client->getObject([
             'Bucket' => 'foo',
