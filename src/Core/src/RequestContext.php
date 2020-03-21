@@ -25,20 +25,20 @@ class RequestContext
     private $operation;
 
     /**
-     * @var \DateTimeImmutable|null
+     * @var \DateTimeInterface|null
      */
     private $expirationDate;
 
     /**
-     * @var \DateTimeImmutable|null
+     * @var \DateTimeInterface|null
      */
     private $currentDate;
 
     /**
      * @param array{
      *  operation?: null|string
-     *  expirationDate?: null|\DateTimeImmutable
-     *  currentDate?: null|\DateTimeImmutable
+     *  expirationDate?: null|\\DateTimeInterface
+     *  currentDate?: null|\\DateTimeInterface
      * }
      */
     public function __construct(array $options = [])
@@ -57,12 +57,12 @@ class RequestContext
         return $this->operation;
     }
 
-    public function getExpirationDate(): ?\DateTimeImmutable
+    public function getExpirationDate(): ?\DateTimeInterface
     {
         return $this->expirationDate;
     }
 
-    public function getCurrentDate(): ?\DateTimeImmutable
+    public function getCurrentDate(): ?\DateTimeInterface
     {
         return $this->currentDate;
     }

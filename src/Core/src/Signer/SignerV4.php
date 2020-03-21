@@ -60,7 +60,7 @@ class SignerV4 implements Signer
     public function presign(Request $request, Credentials $credentials, RequestContext $context): void
     {
         $now = $context->getCurrentDate() ?? new \DateTimeImmutable();
-        $expires = $context->getExpirationDate() ?? $now->add(new \DateInterval('PT1H'));
+        $expires = $context->getExpirationDate() ?? (new \DateTimeImmutable($now->format(\DateTimeInterface::ATOM)))->add(new \DateInterval('PT1H'));
 
         $this->handleSignature($request, $credentials, $now, $expires, true);
     }
