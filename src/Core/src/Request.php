@@ -102,6 +102,12 @@ class Request
         return \array_key_exists($name, $this->query);
     }
 
+    public function removeQueryAttribute($name): void
+    {
+        unset($this->query[$name]);
+        $this->endpoint = '';
+    }
+
     public function setQueryAttribute($name, $value): void
     {
         $this->query[$name] = $value;
@@ -121,7 +127,7 @@ class Request
     public function getEndpoint(): string
     {
         if (empty($this->endpoint)) {
-            $this->endpoint = $this->parsed['scheme'] . '://' . $this->parsed['host'] . (isset($this->parsed['port']) ? ':' . $this->parsed['host'] : '') . $this->uri . (false === \strpos($this->uri, '?') ? '?' : '&') . http_build_query($this->query);
+            $this->endpoint = $this->parsed['scheme'] . '://' . $this->parsed['host'] . (isset($this->parsed['port']) ? ':' . $this->parsed['port'] : '') . $this->uri . (false === \strpos($this->uri, '?') ? '?' : '&') . http_build_query($this->query);
         }
 
         return $this->endpoint;
@@ -132,7 +138,10 @@ class Request
         if (!empty($this->endpoint)) {
             throw new LogicException('Request::$endpoint cannot be changed after it has a value.');
         }
+
         $this->endpoint = $endpoint;
         $this->parsed = \parse_url($this->endpoint);
+        \parse_str($this->parsed['query'] ?? '', $this->query);
+        $this->uri = $this->parsed['path'] ?? '/';
     }
 }

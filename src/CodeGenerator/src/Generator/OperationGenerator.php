@@ -126,13 +126,13 @@ class OperationGenerator
         if ((null !== $pagination = $operation->getPagination()) && !empty($pagination->getOutputToken())) {
             $body = '
                 $input = INPUT_CLASS::create($input);
-                $response = $this->getResponse($input->request());
+                $response = $this->getResponse($input->request(), OPERATION_NAME);
 
                 return new RESULT_CLASS($response, $this, $input);
             ';
         } else {
             $body = '
-                $response = $this->getResponse(INPUT_CLASS::create($input)->request());
+                $response = $this->getResponse(INPUT_CLASS::create($input)->request(), OPERATION_NAME);
 
                 return new RESULT_CLASS($response);
             ';
@@ -140,6 +140,7 @@ class OperationGenerator
 
         $method->setBody(strtr($body, [
             'INPUT_CLASS' => $inputClass->getName(),
+            'OPERATION_NAME' => \var_export($operation->getName(), true),
             'RESULT_CLASS' => $resultClass ? $resultClass->getName() : 'Result',
         ]));
     }

@@ -51,7 +51,7 @@ class DynamoDbClient extends AbstractApi
      */
     public function createTable($input): CreateTableOutput
     {
-        $response = $this->getResponse(CreateTableInput::create($input)->request());
+        $response = $this->getResponse(CreateTableInput::create($input)->request(), 'CreateTable');
 
         return new CreateTableOutput($response);
     }
@@ -77,7 +77,7 @@ class DynamoDbClient extends AbstractApi
      */
     public function deleteItem($input): DeleteItemOutput
     {
-        $response = $this->getResponse(DeleteItemInput::create($input)->request());
+        $response = $this->getResponse(DeleteItemInput::create($input)->request(), 'DeleteItem');
 
         return new DeleteItemOutput($response);
     }
@@ -97,7 +97,7 @@ class DynamoDbClient extends AbstractApi
      */
     public function deleteTable($input): DeleteTableOutput
     {
-        $response = $this->getResponse(DeleteTableInput::create($input)->request());
+        $response = $this->getResponse(DeleteTableInput::create($input)->request(), 'DeleteTable');
 
         return new DeleteTableOutput($response);
     }
@@ -114,7 +114,7 @@ class DynamoDbClient extends AbstractApi
      */
     public function describeTable($input): DescribeTableOutput
     {
-        $response = $this->getResponse(DescribeTableInput::create($input)->request());
+        $response = $this->getResponse(DescribeTableInput::create($input)->request(), 'DescribeTable');
 
         return new DescribeTableOutput($response);
     }
@@ -137,7 +137,7 @@ class DynamoDbClient extends AbstractApi
      */
     public function getItem($input): GetItemOutput
     {
-        $response = $this->getResponse(GetItemInput::create($input)->request());
+        $response = $this->getResponse(GetItemInput::create($input)->request(), 'GetItem');
 
         return new GetItemOutput($response);
     }
@@ -156,7 +156,7 @@ class DynamoDbClient extends AbstractApi
     public function listTables($input = []): ListTablesOutput
     {
         $input = ListTablesInput::create($input);
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse($input->request(), 'ListTables');
 
         return new ListTablesOutput($response, $this, $input);
     }
@@ -185,7 +185,7 @@ class DynamoDbClient extends AbstractApi
      */
     public function putItem($input): PutItemOutput
     {
-        $response = $this->getResponse(PutItemInput::create($input)->request());
+        $response = $this->getResponse(PutItemInput::create($input)->request(), 'PutItem');
 
         return new PutItemOutput($response);
     }
@@ -219,7 +219,7 @@ class DynamoDbClient extends AbstractApi
     public function query($input): QueryOutput
     {
         $input = QueryInput::create($input);
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse($input->request(), 'Query');
 
         return new QueryOutput($response, $this, $input);
     }
@@ -252,7 +252,7 @@ class DynamoDbClient extends AbstractApi
     public function scan($input): ScanOutput
     {
         $input = ScanInput::create($input);
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse($input->request(), 'Scan');
 
         return new ScanOutput($response, $this, $input);
     }
@@ -269,7 +269,7 @@ class DynamoDbClient extends AbstractApi
     public function tableExists($input): TableExistsWaiter
     {
         $input = DescribeTableInput::create($input);
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse($input->request(), 'DescribeTable');
 
         return new TableExistsWaiter($response, $this, $input);
     }
@@ -316,7 +316,7 @@ class DynamoDbClient extends AbstractApi
      */
     public function updateItem($input): UpdateItemOutput
     {
-        $response = $this->getResponse(UpdateItemInput::create($input)->request());
+        $response = $this->getResponse(UpdateItemInput::create($input)->request(), 'UpdateItem');
 
         return new UpdateItemOutput($response);
     }
@@ -340,7 +340,7 @@ class DynamoDbClient extends AbstractApi
      */
     public function updateTable($input): UpdateTableOutput
     {
-        $response = $this->getResponse(UpdateTableInput::create($input)->request());
+        $response = $this->getResponse(UpdateTableInput::create($input)->request(), 'UpdateTable');
 
         return new UpdateTableOutput($response);
     }

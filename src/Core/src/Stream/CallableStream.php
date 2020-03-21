@@ -59,4 +59,14 @@ final class CallableStream implements Stream
             yield $data;
         }
     }
+
+    public function hash(string $algo = 'sha256', bool $raw = false): string
+    {
+        $ctx = hash_init($algo);
+        foreach ($this as $chunk) {
+            hash_update($ctx, $chunk);
+        }
+
+        return hash_final($ctx, $raw);
+    }
 }

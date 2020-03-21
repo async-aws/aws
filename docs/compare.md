@@ -111,8 +111,8 @@ $input = new GetObjectRequest(['Bucket' => 'my-bucket', 'Key' => 'test]);
 $content = $s3Client->getObject($input);
 
 // Presign Url
-$psr7 = $s3Client->presign($input, new \Datetime('+60 min'));
-echo (string) $psr7->getUri();
+$url = $s3Client->presign($input, new \Datetime('+60 min'));
+echo (string) $url;
 ```
 
 **Official AWS PHP SDK:**

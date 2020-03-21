@@ -328,7 +328,7 @@ class S3ClientTest extends TestCase
         $parts = ['some ', 'content'];
         $content = implode('', $parts);
         $index = 0;
-        $closure = \Closure::fromCallable(function () use ($parts, &$index) {
+        $closure = \Closure::fromCallable(static function () use ($parts, &$index) {
             return $parts[$index++] ?? '';
         });
 

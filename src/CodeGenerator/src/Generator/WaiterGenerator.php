@@ -95,11 +95,12 @@ class WaiterGenerator
             ->setReturnType($resultClass->getFqdn())
             ->setBody(strtr('
                 $input = INPUT_CLASS::create($input);
-                $response = $this->getResponse($input->request());
+                $response = $this->getResponse($input->request(), OPERATION_NAME);
 
                 return new RESULT_CLASS($response, $this, $input);
             ', [
                 'INPUT_CLASS' => $inputClass->getName(),
+                'OPERATION_NAME' => \var_export($operation->getName(), true),
                 'RESULT_CLASS' => $resultClass->getName(),
             ]));
 

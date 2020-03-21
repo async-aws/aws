@@ -12,7 +12,7 @@ use AsyncAws\Core\Request;
  */
 interface Signer
 {
-    public function sign(Request $request, ?Credentials $credentials): void;
+    public function sign(Request $request, ?Credentials $credentials, ?string $operation = null, \DateTimeInterface $now = null): void;
 
-    public function presign(Request $request, ?Credentials $credentials, ?\DateTimeInterface $expires = null): void;
+    public function presign(Request $request, ?Credentials $credentials, \DateTimeInterface $expires, ?\DateTimeInterface $now = null): void;
 }

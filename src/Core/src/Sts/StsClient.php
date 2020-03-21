@@ -38,7 +38,7 @@ class StsClient extends AbstractApi
      */
     public function assumeRole($input): AssumeRoleResponse
     {
-        $response = $this->getResponse(AssumeRoleRequest::create($input)->request());
+        $response = $this->getResponse(AssumeRoleRequest::create($input)->request(), 'AssumeRole');
 
         return new AssumeRoleResponse($response);
     }
@@ -62,7 +62,7 @@ class StsClient extends AbstractApi
      */
     public function assumeRoleWithWebIdentity($input): AssumeRoleWithWebIdentityResponse
     {
-        $response = $this->getResponse(AssumeRoleWithWebIdentityRequest::create($input)->request());
+        $response = $this->getResponse(AssumeRoleWithWebIdentityRequest::create($input)->request(), 'AssumeRoleWithWebIdentity');
 
         return new AssumeRoleWithWebIdentityResponse($response);
     }
@@ -76,7 +76,7 @@ class StsClient extends AbstractApi
      */
     public function getCallerIdentity($input = []): GetCallerIdentityResponse
     {
-        $response = $this->getResponse(GetCallerIdentityRequest::create($input)->request());
+        $response = $this->getResponse(GetCallerIdentityRequest::create($input)->request(), 'GetCallerIdentity');
 
         return new GetCallerIdentityResponse($response);
     }

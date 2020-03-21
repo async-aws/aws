@@ -34,7 +34,7 @@ class LambdaClient extends AbstractApi
      */
     public function addLayerVersionPermission($input): AddLayerVersionPermissionResponse
     {
-        $response = $this->getResponse(AddLayerVersionPermissionRequest::create($input)->request());
+        $response = $this->getResponse(AddLayerVersionPermissionRequest::create($input)->request(), 'AddLayerVersionPermission');
 
         return new AddLayerVersionPermissionResponse($response);
     }
@@ -56,7 +56,7 @@ class LambdaClient extends AbstractApi
      */
     public function invoke($input): InvocationResponse
     {
-        $response = $this->getResponse(InvocationRequest::create($input)->request());
+        $response = $this->getResponse(InvocationRequest::create($input)->request(), 'Invoke');
 
         return new InvocationResponse($response);
     }
@@ -79,7 +79,7 @@ class LambdaClient extends AbstractApi
     public function listLayerVersions($input): ListLayerVersionsResponse
     {
         $input = ListLayerVersionsRequest::create($input);
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse($input->request(), 'ListLayerVersions');
 
         return new ListLayerVersionsResponse($response, $this, $input);
     }
@@ -101,7 +101,7 @@ class LambdaClient extends AbstractApi
      */
     public function publishLayerVersion($input): PublishLayerVersionResponse
     {
-        $response = $this->getResponse(PublishLayerVersionRequest::create($input)->request());
+        $response = $this->getResponse(PublishLayerVersionRequest::create($input)->request(), 'PublishLayerVersion');
 
         return new PublishLayerVersionResponse($response);
     }

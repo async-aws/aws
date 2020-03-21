@@ -13,9 +13,6 @@
         "symfony/http-client-contracts": "^1.0 || ^2.0",
         "symfony/service-contracts": "^1.0 || ^2.0"
     },
-    "require-dev": {
-        "nyholm/psr7": "1.0"
-    },
     "extra": {
         "branch-alias": {
             "dev-master": "0.5-dev"

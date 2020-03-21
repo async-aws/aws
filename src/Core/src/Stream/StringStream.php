@@ -51,4 +51,9 @@ final class StringStream implements Stream
     {
         yield $this->content;
     }
+
+    public function hash(string $algo = 'sha256', bool $raw = false): string
+    {
+        return \hash($algo, $this->content, $raw);
+    }
 }

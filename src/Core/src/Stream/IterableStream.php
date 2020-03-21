@@ -50,4 +50,14 @@ final class IterableStream implements Stream
     {
         yield from $this->content;
     }
+
+    public function hash(string $algo = 'sha256', bool $raw = false): string
+    {
+        $ctx = hash_init($algo);
+        foreach ($this->content as $chunk) {
+            hash_update($ctx, $chunk);
+        }
+
+        return hash_final($ctx, $raw);
+    }
 }

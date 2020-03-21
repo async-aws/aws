@@ -17,4 +17,6 @@ interface Stream extends \IteratorAggregate
     public function length(): ?int;
 
     public function stringify(): string;
+
+    public function hash(string $algo = 'sha256', bool $raw = false): string;
 }

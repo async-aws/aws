@@ -14,10 +14,7 @@ use AsyncAws\Core\Credentials\WebIdentityProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Signer\Signer;
 use AsyncAws\Core\Signer\SignerV4;
-use AsyncAws\Core\Stream\ResourceStream;
 use AsyncAws\Core\Stream\StringStream;
-use Nyholm\Psr7\Factory\Psr17Factory;
-use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\HttpClient;
@@ -83,38 +80,14 @@ abstract class AbstractApi
         return $this->configuration;
     }
 
-    final public function presign(Input $input, ?\DateTimeInterface $expires = null): RequestInterface
+    final public function presign(Input $input, ?\DateTimeInterface $expires = null): string
     {
-        if (!\class_exists(Psr17Factory::class)) {
-            throw new \LogicException('You cannot presign requests as the "nyholm/psr7" package is not installed. Try running "composer require nyholm/psr7".');
-        }
         $request = $input->request();
         $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery()));
 
-        $this->getSigner()->presign($request, $this->credentialProvider->getCredentials($this->configuration), $expires);
+        $this->getSigner()->presign($request, $this->credentialProvider->getCredentials($this->configuration), $expires ? $expires : new \DateTimeImmutable('+60min'));
 
-        $length = $request->getBody()->length();
-        if (null !== $length && $length > 0 && !$request->hasHeader('content-length')) {
-            $request->setHeader('content-length', $length);
-        }
-
-        $factory = new Psr17Factory();
-        $psr = $factory->createRequest(
-            $request->getMethod(),
-            $request->getEndpoint()
-        );
-        foreach ($request->getHeaders() as $headerName => $headerValue) {
-            $psr->withAddedHeader($headerName, $headerValue);
-        }
-        if ($length > 0) {
-            if (($requestBody = $request->getBody()) instanceof ResourceStream) {
-                $psr->withBody($factory->createStreamFromResource($requestBody->getResource()));
-            } else {
-                $psr->withBody($factory->createStream($requestBody->stringify()));
-            }
-        }
-
-        return $psr;
+        return $request->getEndpoint();
     }
 
     abstract protected function getServiceCode(): string;
@@ -123,12 +96,11 @@ abstract class AbstractApi
 
     abstract protected function getSignatureScopeName(): string;
 
-    final protected function getResponse(Request $request): Response
+    final protected function getResponse(Request $request, ?string $operation = null): Response
     {
         $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery()));
 
-        $this->getSigner()->sign($request, $this->credentialProvider->getCredentials($this->configuration));
-
+        $this->getSigner()->sign($request, $this->credentialProvider->getCredentials($this->configuration), $operation);
         $length = $request->getBody()->length();
         if (null !== $length && !$request->hasHeader('content-length')) {
             $request->setHeader('content-length', $length);

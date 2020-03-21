@@ -41,7 +41,7 @@ class SqsClient extends AbstractApi
      */
     public function changeMessageVisibility($input): Result
     {
-        $response = $this->getResponse(ChangeMessageVisibilityRequest::create($input)->request());
+        $response = $this->getResponse(ChangeMessageVisibilityRequest::create($input)->request(), 'ChangeMessageVisibility');
 
         return new Result($response);
     }
@@ -60,7 +60,7 @@ class SqsClient extends AbstractApi
      */
     public function createQueue($input): CreateQueueResult
     {
-        $response = $this->getResponse(CreateQueueRequest::create($input)->request());
+        $response = $this->getResponse(CreateQueueRequest::create($input)->request(), 'CreateQueue');
 
         return new CreateQueueResult($response);
     }
@@ -80,7 +80,7 @@ class SqsClient extends AbstractApi
      */
     public function deleteMessage($input): Result
     {
-        $response = $this->getResponse(DeleteMessageRequest::create($input)->request());
+        $response = $this->getResponse(DeleteMessageRequest::create($input)->request(), 'DeleteMessage');
 
         return new Result($response);
     }
@@ -97,7 +97,7 @@ class SqsClient extends AbstractApi
      */
     public function deleteQueue($input): Result
     {
-        $response = $this->getResponse(DeleteQueueRequest::create($input)->request());
+        $response = $this->getResponse(DeleteQueueRequest::create($input)->request(), 'DeleteQueue');
 
         return new Result($response);
     }
@@ -114,7 +114,7 @@ class SqsClient extends AbstractApi
      */
     public function getQueueAttributes($input): GetQueueAttributesResult
     {
-        $response = $this->getResponse(GetQueueAttributesRequest::create($input)->request());
+        $response = $this->getResponse(GetQueueAttributesRequest::create($input)->request(), 'GetQueueAttributes');
 
         return new GetQueueAttributesResult($response);
     }
@@ -131,7 +131,7 @@ class SqsClient extends AbstractApi
      */
     public function getQueueUrl($input): GetQueueUrlResult
     {
-        $response = $this->getResponse(GetQueueUrlRequest::create($input)->request());
+        $response = $this->getResponse(GetQueueUrlRequest::create($input)->request(), 'GetQueueUrl');
 
         return new GetQueueUrlResult($response);
     }
@@ -148,7 +148,7 @@ class SqsClient extends AbstractApi
      */
     public function listQueues($input = []): ListQueuesResult
     {
-        $response = $this->getResponse(ListQueuesRequest::create($input)->request());
+        $response = $this->getResponse(ListQueuesRequest::create($input)->request(), 'ListQueues');
 
         return new ListQueuesResult($response);
     }
@@ -164,7 +164,7 @@ class SqsClient extends AbstractApi
      */
     public function purgeQueue($input): Result
     {
-        $response = $this->getResponse(PurgeQueueRequest::create($input)->request());
+        $response = $this->getResponse(PurgeQueueRequest::create($input)->request(), 'PurgeQueue');
 
         return new Result($response);
     }
@@ -182,7 +182,7 @@ class SqsClient extends AbstractApi
     public function queueExists($input): QueueExistsWaiter
     {
         $input = GetQueueUrlRequest::create($input);
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse($input->request(), 'GetQueueUrl');
 
         return new QueueExistsWaiter($response, $this, $input);
     }
@@ -207,7 +207,7 @@ class SqsClient extends AbstractApi
      */
     public function receiveMessage($input): ReceiveMessageResult
     {
-        $response = $this->getResponse(ReceiveMessageRequest::create($input)->request());
+        $response = $this->getResponse(ReceiveMessageRequest::create($input)->request(), 'ReceiveMessage');
 
         return new ReceiveMessageResult($response);
     }
@@ -229,7 +229,7 @@ class SqsClient extends AbstractApi
      */
     public function sendMessage($input): SendMessageResult
     {
-        $response = $this->getResponse(SendMessageRequest::create($input)->request());
+        $response = $this->getResponse(SendMessageRequest::create($input)->request(), 'SendMessage');
 
         return new SendMessageResult($response);
     }
