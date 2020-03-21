@@ -75,11 +75,7 @@ class ResultMockFactoryTest extends TestCase
 
         $this->expectException(ClientException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessage('HTTP 400 returned for "http://localhost/".
-
-Boom
-
-');
+        $this->expectExceptionMessageRegExp('@HTTP 400 returned for "http://localhost/".*Boom@sm');
 
         $result->resolve();
     }

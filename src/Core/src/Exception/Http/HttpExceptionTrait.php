@@ -6,6 +6,8 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
+ * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ * @author Jérémy Derussé <jeremy@derusse.com>
  *
  * @internal
  */
@@ -66,40 +68,27 @@ trait HttpExceptionTrait
             }
         }
 
-        // Try to guess a better error message using common API error formats
-        // The MIME type isn't explicitly checked because some formats inherit from others
-        // Ex: JSON:API follows RFC 7807 semantics, Hydra can be used in any JSON-LD-compatible format
-        if ($isJson && $body = json_decode($response->getContent(false), true)) {
-            if (isset($body['__type'])) {
-                $parts = explode('#', $body['__type'], 2);
-                $this->awsCode = $parts[1] ?? $parts[0];
-                $message .= "\n\n" . $body['__type'] . "\n\n";
-            }
-
-            if (isset($body['hydra:title']) || isset($body['hydra:description'])) {
-                // see http://www.hydra-cg.com/spec/latest/core/#description-of-http-status-codes-and-errors
-                $separator = isset($body['hydra:title'], $body['hydra:description']) ? "\n\n" : '';
-                $message = ($body['hydra:title'] ?? '') . $separator . ($body['hydra:description'] ?? '');
-            } elseif (isset($body['title']) || isset($body['detail'])) {
-                // see RFC 7807 and https://jsonapi.org/format/#error-objects
-                $separator = isset($body['title'], $body['detail']) ? "\n\n" : '';
-                $message = ($body['title'] ?? '') . $separator . ($body['detail'] ?? '');
-            } elseif (isset($body['message'])) {
-                $this->awsMessage = $body['message'];
-                $message .= "\n\n" . $body['message'] . "\n\n";
-            } elseif (isset($body['Message'])) {
-                $this->awsMessage = $body['Message'];
-                $message .= "\n\n" . $body['Message'] . "\n\n";
-            }
+        $content = $response->getContent(false);
+        if ($isJson && $body = json_decode($content, true)) {
+            $this->parseJson($body);
         } else {
             try {
-                $body = $response->getContent(false);
-                $xml = new \SimpleXMLElement($body);
-                $message .= $this->parseXml($xml);
+                $xml = new \SimpleXMLElement($content);
+                $this->parseXml($xml);
             } catch (\Throwable $e) {
                 // Not XML ¯\_(ツ)_/¯
             }
         }
+
+        $message .= <<<TEXT
+
+
+Code:    $this->awsCode
+Message: $this->awsMessage
+Type:    $this->awsType
+Detail:  $this->awsDetail
+
+TEXT;
 
         parent::__construct($message, $code);
     }
@@ -129,7 +118,7 @@ trait HttpExceptionTrait
         return $this->awsDetail;
     }
 
-    private function parseXml(\SimpleXMLElement $xml): string
+    private function parseXml(\SimpleXMLElement $xml): void
     {
         if (0 < $xml->Error->count()) {
             $this->awsType = $xml->Error->Type->__toString();
@@ -140,18 +129,23 @@ trait HttpExceptionTrait
             $this->awsType = $this->awsDetail = '';
             $this->awsCode = $xml->Code->__toString();
             $this->awsMessage = $xml->Message->__toString();
-        } else {
-            return '';
+        }
+    }
+
+    private function parseJson($body): void
+    {
+        if (isset($body['message'])) {
+            $this->awsMessage = $body['message'];
+        } elseif (isset($body['Message'])) {
+            $this->awsMessage = $body['Message'];
         }
 
-        return <<<TEXT
-
-
-Code:    $this->awsCode
-Message: $this->awsMessage
-Type:    $this->awsType
-Detail:  $this->awsDetail
-
-TEXT;
+        if (isset($body['Type'])) {
+            $this->awsType = $body['Type'];
+        } elseif (isset($body['__type'])) {
+            $parts = explode('#', $body['__type'], 2);
+            $this->awsCode = $parts[1] ?? $parts[0];
+            $this->awsType = $body['__type'];
+        }
     }
 }
