@@ -16,7 +16,7 @@ use Psr\Log\NullLogger;
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-class IniFileProvider implements CredentialProvider
+final class IniFileProvider implements CredentialProvider
 {
     private $iniFileLoader;
 

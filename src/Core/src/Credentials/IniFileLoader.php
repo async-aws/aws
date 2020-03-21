@@ -12,7 +12,7 @@ use Psr\Log\NullLogger;
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-class IniFileLoader
+final class IniFileLoader
 {
     public const KEY_REGION = 'region';
     public const KEY_ACCESS_KEY_ID = 'aws_access_key_id';

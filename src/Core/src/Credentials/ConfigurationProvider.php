@@ -11,7 +11,7 @@ use AsyncAws\Core\Configuration;
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-class ConfigurationProvider implements CredentialProvider
+final class ConfigurationProvider implements CredentialProvider
 {
     public function getCredentials(Configuration $configuration): ?Credentials
     {

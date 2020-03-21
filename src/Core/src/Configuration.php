@@ -10,6 +10,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
  * Helper object that holds all configuration to the API.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ * @author Jérémy Derussé <jeremy@derusse.com>
  */
 class Configuration
 {

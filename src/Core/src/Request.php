@@ -12,7 +12,7 @@ use AsyncAws\Core\Stream\Stream;
  *
  * @internal
  */
-final class Request
+class Request
 {
     private $method;
 

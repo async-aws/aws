@@ -11,7 +11,7 @@ use AsyncAws\Core\Configuration;
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-class Credentials implements CredentialProvider
+final class Credentials implements CredentialProvider
 {
     private $accessKeyId;
 
