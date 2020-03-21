@@ -182,8 +182,6 @@ class WaiterGenerator
                 return $this->getAcceptorStatusBody($acceptor);
             case WaiterAcceptor::MATCHER_PATH:
                 return $this->getAcceptorPathBody($acceptor);
-            case WaiterAcceptor::MATCHER_ERROR:
-                return $this->getAcceptorErrorBody($acceptor);
             default:
                 throw new \RuntimeException(sprintf('Acceptor matcher "%s" is not yet implemented', $acceptor->getMatcher()));
         }
@@ -220,13 +218,13 @@ class WaiterGenerator
         $error = $acceptor->getError();
         if ($error->hasError()) {
             if (null !== $code = $error->getCode()) {
-                $checks[] = '$exception->getAwsCode() === ' . \var_export($code, true);
+                $checks[] = \var_export($code, true) . ' === $exception->getAwsCode()';
             }
             if (null !== $code = $error->getStatusCode()) {
-                $checks[] = '$exception->getCode() === ' . \var_export($code, true);
+                $checks[] = \var_export($code, true) . ' === $exception->getCode()';
             }
         } elseif (null !== $expected = $acceptor->getExpected()) {
-            $checks[] = '$exception->getAwsCode() === ' . \var_export($expected, true);
+            $checks[] = \var_export($expected, true) . ' === $exception->getAwsCode()';
         }
 
         if (0 === \count($checks)) {

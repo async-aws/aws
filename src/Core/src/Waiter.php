@@ -64,11 +64,7 @@ class Waiter
 
     public function __destruct()
     {
-        try {
-            $this->response->resolve();
-        } catch (\Exception $exception) {
-            // hide error
-        }
+        $this->resolve();
     }
 
     final public function isSuccess(): bool
@@ -127,11 +123,14 @@ class Waiter
      * @param float|null $timeout Duration in seconds before aborting. When null wait until the end of execution.
      *
      * @throws NetworkException
-     * @throws HttpException
      */
     final public function resolve(?float $timeout = null): bool
     {
-        return $this->response->resolve($timeout);
+        try {
+            return $this->response->resolve($timeout);
+        } catch (HttpException $exception) {
+            return true;
+        }
     }
 
     /**
@@ -168,12 +167,8 @@ class Waiter
 
         $start = \microtime(true);
         while (true) {
-            try {
-                if (!$this->response->resolve($timeout - (\microtime(true) - $start))) {
-                    break;
-                }
-            } catch (HttpException $exception) {
-                // HTTP errors are valid responses
+            if (!$this->resolve($timeout - (\microtime(true) - $start))) {
+                break;
             }
 
             switch ($this->getState()) {
