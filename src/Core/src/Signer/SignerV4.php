@@ -155,8 +155,7 @@ class SignerV4 implements Signer
         }
 
         $host = $parsedUrl['host'];
-        $defaultPort = ('https' === $parsedUrl['scheme'] ? 443 : 80);
-        if (($parsedUrl['port'] ?? $defaultPort) !== $defaultPort) {
+        if (isset($parsedUrl['port'])) {
             $host .= ':' . $parsedUrl['port'];
         }
 
@@ -253,7 +252,6 @@ class SignerV4 implements Signer
         // no need to stream small body. It's simple to convert it to string directly
         if ($contentLength < self::CHUNK_SIZE) {
             $request->setBody($body = StringStream::create($body));
-            $request->setHeader('content-length', $contentLength);
 
             return;
         }
@@ -296,6 +294,9 @@ class SignerV4 implements Signer
                 continue;
             }
 
+            if (!\is_array($values) && false !== \strpos($values, ',')) {
+                $values = array_map('trim', \explode(',', $values));
+            }
             if (\is_array($values)) {
                 sort($values);
                 $value = \implode(',', $values);
