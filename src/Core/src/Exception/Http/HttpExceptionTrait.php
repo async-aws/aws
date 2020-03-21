@@ -70,6 +70,12 @@ trait HttpExceptionTrait
         // The MIME type isn't explicitly checked because some formats inherit from others
         // Ex: JSON:API follows RFC 7807 semantics, Hydra can be used in any JSON-LD-compatible format
         if ($isJson && $body = json_decode($response->getContent(false), true)) {
+            if (isset($body['__type'])) {
+                $parts = explode('#', $body['__type'], 2);
+                $this->awsCode = $parts[1] ?? $parts[0];
+                $message .= "\n\n" . $body['__type'] . "\n\n";
+            }
+
             if (isset($body['hydra:title']) || isset($body['hydra:description'])) {
                 // see http://www.hydra-cg.com/spec/latest/core/#description-of-http-status-codes-and-errors
                 $separator = isset($body['hydra:title'], $body['hydra:description']) ? "\n\n" : '';

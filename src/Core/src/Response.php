@@ -51,14 +51,13 @@ class Response
      * Make sure the actual request is executed.
      *
      * @param float|null $timeout Duration in seconds before aborting. When null wait until the end of execution.
-     * @param bool       $throw   Whether an exception should be thrown on 3/4/5xx status codes
      *
      * @return bool whether the request is executed or not
      *
      * @throws NetworkException
      * @throws HttpException
      */
-    final public function resolve(?float $timeout = null, bool $throw = true): bool
+    final public function resolve(?float $timeout = null): bool
     {
         if (null !== $this->resolveResult) {
             if ($this->resolveResult instanceof \Exception) {
@@ -87,18 +86,16 @@ class Response
             throw $this->resolveResult = new NetworkException('Could not contact remote server.', 0, $e);
         }
 
-        if ($throw) {
-            if (500 <= $statusCode) {
-                throw $this->resolveResult = new ServerException($this->response);
-            }
+        if (500 <= $statusCode) {
+            throw $this->resolveResult = new ServerException($this->response);
+        }
 
-            if (400 <= $statusCode) {
-                throw $this->resolveResult = new ClientException($this->response);
-            }
+        if (400 <= $statusCode) {
+            throw $this->resolveResult = new ClientException($this->response);
+        }
 
-            if (300 <= $statusCode) {
-                throw $this->resolveResult = new RedirectionException($this->response);
-            }
+        if (300 <= $statusCode) {
+            throw $this->resolveResult = new RedirectionException($this->response);
         }
 
         return $this->resolveResult = true;

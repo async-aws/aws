@@ -64,9 +64,7 @@ class Waiter
 
     public function __destruct()
     {
-        if (null === $this->resolveResult) {
-            $this->resolve();
-        }
+        $this->resolve();
     }
 
     final public function isSuccess(): bool
@@ -94,8 +92,12 @@ class Waiter
             $this->stealResponse($this->refreshState());
         }
 
-        $exception = null;
-        $this->resolve();
+        try {
+            $this->response->resolve();
+            $exception = null;
+        } catch (HttpException $exception) {
+            // use $exception later
+        }
 
         $state = $this->extractState($this->response, $exception);
         $this->needRefresh = true;
@@ -120,13 +122,15 @@ class Waiter
      *
      * @param float|null $timeout Duration in seconds before aborting. When null wait until the end of execution.
      *
-     * @return bool whether the request is executed or not
-     *
      * @throws NetworkException
      */
     final public function resolve(?float $timeout = null): bool
     {
-        return $this->response->resolve($timeout, false);
+        try {
+            return $this->response->resolve($timeout);
+        } catch (HttpException $exception) {
+            return true;
+        }
     }
 
     /**

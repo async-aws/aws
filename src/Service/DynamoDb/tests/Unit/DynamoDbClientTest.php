@@ -26,6 +26,8 @@ use AsyncAws\DynamoDb\Result\ListTablesOutput;
 use AsyncAws\DynamoDb\Result\PutItemOutput;
 use AsyncAws\DynamoDb\Result\QueryOutput;
 use AsyncAws\DynamoDb\Result\ScanOutput;
+use AsyncAws\DynamoDb\Result\TableExistsWaiter;
+use AsyncAws\DynamoDb\Result\TableNotExistsWaiter;
 use AsyncAws\DynamoDb\Result\UpdateItemOutput;
 use AsyncAws\DynamoDb\Result\UpdateTableOutput;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
@@ -157,6 +159,34 @@ class DynamoDbClientTest extends TestCase
         $result = $client->Scan($input);
 
         self::assertInstanceOf(ScanOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testTableExists(): void
+    {
+        $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new DescribeTableInput([
+            'TableName' => 'Foobar',
+
+        ]);
+        $result = $client->tableExists($input);
+
+        self::assertInstanceOf(TableExistsWaiter::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testTableNotExists(): void
+    {
+        $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new DescribeTableInput([
+            'TableName' => 'Foobar',
+
+        ]);
+        $result = $client->tableNotExists($input);
+
+        self::assertInstanceOf(TableNotExistsWaiter::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 

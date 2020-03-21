@@ -214,17 +214,25 @@ class WaiterGenerator
 
     private function getAcceptorErrorBody(ErrorWaiterAcceptor $acceptor): string
     {
-        $checks = ['$exception !== null'];
+        $checks = [];
         $error = $acceptor->getError();
-        if (null !== $code = $error->getCode()) {
-            $checks[] = '$exception->getAwsCode() === ' . \var_export($code, true);
+        if ($error->hasError()) {
+            if (null !== $code = $error->getCode()) {
+                $checks[] = \var_export($code, true) . ' === $exception->getAwsCode()';
+            }
+            if (null !== $code = $error->getStatusCode()) {
+                $checks[] = \var_export($code, true) . ' === $exception->getCode()';
+            }
+        } elseif (null !== $expected = $acceptor->getExpected()) {
+            $checks[] = \var_export($expected, true) . ' === $exception->getAwsCode()';
         }
-        if (null !== $code = $error->getStatusCode()) {
-            $checks[] = '$exception->getCode() === ' . \var_export($code, true);
+
+        if (0 === \count($checks)) {
+            return '';
         }
 
         return strtr('
-            if (EXPECTED) {
+            if ($exception !== null && EXPECTED) {
                 return self::BEHAVIOR;
             }
         ', [
