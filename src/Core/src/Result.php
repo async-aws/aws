@@ -8,7 +8,7 @@ use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Exception\Http\NetworkException;
 
 /**
- * Base class for all return values from a service's operation. Eg: FooClient::bar(): Result
+ * Base class for all return values from a Api Client methods. Example: `FooClient::bar(): Result`.
  */
 class Result
 {
