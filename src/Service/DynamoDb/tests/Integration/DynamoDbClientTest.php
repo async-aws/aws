@@ -289,6 +289,18 @@ class DynamoDbClientTest extends TestCase
         self::assertFalse($client->tableExists(['TableName' => 'does-not-exists'])->isSuccess());
     }
 
+    public function testTableNotExists(): void
+    {
+        $client = $this->getClient();
+
+        $input = new DescribeTableInput([
+            'TableName' => $this->tableName,
+        ]);
+
+        self::assertFalse($client->tableNotExists($input)->isSuccess());
+        self::assertTrue($client->tableNotExists(['TableName' => 'does-not-exists'])->isSuccess());
+    }
+
     private function getClient(): DynamoDbClient
     {
         if ($this->client instanceof DynamoDbClient) {

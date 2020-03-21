@@ -38,4 +38,15 @@ XML;
         self::assertEquals('NoSuchKey', $exception->getAwsCode());
         self::assertEquals('The specified key does not exist.', $exception->getAwsMessage());
     }
+
+    public function testDynamoDbError()
+    {
+        $json = '{"__type":"com.amazonaws.dynamodb.v20120810#ResourceNotFoundException","message":"Requested resource not found: Table: tablename not found"}';
+        $response = new SimpleMockedResponse($json, ['content-type' => 'application/x-amz-json-1.0'], 400);
+        $exception = new ClientException($response);
+
+        self::assertSame(400, $exception->getCode());
+        self::assertSame('ResourceNotFoundException', $exception->getAwsCode());
+        self::assertSame('Requested resource not found: Table: tablename not found', $exception->getAwsMessage());
+    }
 }
