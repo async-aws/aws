@@ -24,6 +24,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  * Base class most APIs are inheriting.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ * @author Jérémy Derussé <jeremy@derusse.com>
  */
 abstract class AbstractApi
 {

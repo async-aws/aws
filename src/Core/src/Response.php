@@ -57,7 +57,7 @@ class Response
      * @throws NetworkException
      * @throws HttpException
      */
-    final public function resolve(?float $timeout = null): bool
+    public function resolve(?float $timeout = null): bool
     {
         if (null !== $this->resolveResult) {
             if ($this->resolveResult instanceof \Exception) {
@@ -110,7 +110,7 @@ class Response
      *                status?: int
      *                }
      */
-    final public function info(): array
+    public function info(): array
     {
         return [
             'resolved' => null !== $this->resolveResult,
@@ -119,39 +119,39 @@ class Response
         ];
     }
 
-    final public function cancel(): void
+    public function cancel(): void
     {
         $this->response->cancel();
         $this->resolveResult = false;
     }
 
-    final public function getHeaders(): array
+    public function getHeaders(): array
     {
         $this->resolve();
 
         return $this->response->getHeaders(false);
     }
 
-    final public function getContent(): string
+    public function getContent(): string
     {
         $this->resolve();
 
         return $this->response->getContent(false);
     }
 
-    final public function toArray(): array
+    public function toArray(): array
     {
         $this->resolve();
 
         return $this->response->toArray(false);
     }
 
-    final public function getStatusCode(): int
+    public function getStatusCode(): int
     {
         return $this->response->getStatusCode();
     }
 
-    final public function toStream(): StreamableBody
+    public function toStream(): StreamableBody
     {
         return new StreamableBody($this->httpClient->stream($this->response));
     }

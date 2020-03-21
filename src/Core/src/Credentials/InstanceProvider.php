@@ -23,7 +23,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-class InstanceProvider implements CredentialProvider
+final class InstanceProvider implements CredentialProvider
 {
     private const ENDPOINT = 'http://169.254.169.254/latest/meta-data/iam/security-credentials';
 

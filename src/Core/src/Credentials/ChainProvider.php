@@ -15,7 +15,7 @@ use Symfony\Contracts\Service\ResetInterface;
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-class ChainProvider implements CredentialProvider, ResetInterface
+final class ChainProvider implements CredentialProvider, ResetInterface
 {
     private $providers;
 
