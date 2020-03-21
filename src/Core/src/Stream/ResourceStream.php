@@ -11,7 +11,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-final class ResourceStream implements Stream
+final class ResourceStream implements RequestStream
 {
     /**
      * @var resource

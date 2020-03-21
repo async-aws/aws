@@ -11,7 +11,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
  */
 class StreamFactory
 {
-    public static function create($content): Stream
+    public static function create($content): RequestStream
     {
         if (null === $content || \is_string($content)) {
             return StringStream::create($content ?? '');

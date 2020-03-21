@@ -11,7 +11,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-final class IterableStream implements Stream
+final class IterableStream implements RequestStream
 {
     private $content;
 

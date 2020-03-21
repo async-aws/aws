@@ -17,8 +17,8 @@ use AsyncAws\CodeGenerator\Generator\RequestSerializer\SerializerProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
+use AsyncAws\Core\Stream\ResultStream;
 use AsyncAws\Core\Stream\StreamFactory;
-use AsyncAws\Core\StreamableBodyInterface;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
 
@@ -400,7 +400,7 @@ PHP
                     $namespace->addUse($this->namespaceRegistry->getEnum($memberShape)->getFqdn());
                 }
             } elseif ($member->isStreaming()) {
-                $namespace->addUse(StreamableBodyInterface::class);
+                $namespace->addUse(ResultStream::class);
             }
         }
     }

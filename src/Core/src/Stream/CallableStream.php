@@ -12,7 +12,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-final class CallableStream implements Stream
+final class CallableStream implements RequestStream
 {
     private $content;
 
