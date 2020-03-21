@@ -47,7 +47,6 @@ trait HttpExceptionTrait
 
         $httpCodeFound = false;
         $isJson = false;
-        $isXml = false;
         foreach (array_reverse($response->getInfo('response_headers')) as $h) {
             if (0 === strpos($h, 'HTTP/')) {
                 if ($httpCodeFound) {
@@ -61,8 +60,6 @@ trait HttpExceptionTrait
             if (0 === stripos($h, 'content-type:')) {
                 if (preg_match('/\bjson\b/i', $h)) {
                     $isJson = true;
-                } elseif (preg_match('/\bxml\b/i', $h)) {
-                    $isXml = true;
                 }
 
                 if ($httpCodeFound) {
@@ -74,7 +71,7 @@ trait HttpExceptionTrait
         $content = $response->getContent(false);
         if ($isJson && $body = json_decode($content, true)) {
             $this->parseJson($body);
-        } elseif ($isXml) {
+        } else {
             try {
                 $xml = new \SimpleXMLElement($content);
                 $this->parseXml($xml);
