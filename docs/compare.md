@@ -4,7 +4,7 @@
 |---|-------------|-----------|
 | [Async](#async-experience)                    | | :heavy_check_mark: |
 | [Pagination](#pagination-experience)          | | :heavy_check_mark: |
-| [Presign](#presign-experience)          | | :heavy_check_mark: |
+| [Presign](#presign-experience)                | | :heavy_check_mark: |
 | [Weight](#dependencies-size)                  | | :heavy_check_mark: |
 | [Developer Experience](#developer-experience) | | :heavy_check_mark: |
 | [Mock / Proxy](#mock-and-proxy)               | | :heavy_check_mark: |
@@ -112,7 +112,7 @@ $content = $s3Client->getObject($input);
 
 // Presign Url
 $url = $s3Client->presign($input, new \Datetime('+60 min'));
-echo (string) $url;
+echo $url;
 ```
 
 **Official AWS PHP SDK:**
