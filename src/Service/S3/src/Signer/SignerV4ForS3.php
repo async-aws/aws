@@ -4,6 +4,7 @@ namespace AsyncAws\S3\Signer;
 
 use AsyncAws\Core\Credentials\Credentials;
 use AsyncAws\Core\Request;
+use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Signer\SignerV4;
 
 /**
@@ -26,24 +27,18 @@ class SignerV4ForS3 extends SignerV4
         'PutObjectLockConfiguration' => true,
     ];
 
-    public function presign(Request $request, ?Credentials $credentials, \DateTimeInterface $expires, ?\DateTimeInterface $now = null): void
+    public function presign(Request $request, Credentials $credentials, RequestContext $context): void
     {
-        if (null != $credentials) {
-            return;
-        }
         if (!$request->hasHeader('x-amz-content-sha256')) {
             $request->setHeader('x-amz-content-sha256', $request->getBody()->hash());
         }
 
-        parent::presign($request, $credentials, $expires, $now);
+        parent::presign($request, $credentials, $context);
     }
 
-    public function sign(Request $request, ?Credentials $credentials, ?string $operation = null, ?\DateTimeInterface $now = null): void
+    public function sign(Request $request, Credentials $credentials, RequestContext $context): void
     {
-        if (null != $credentials) {
-            return;
-        }
-        if ((null === $operation || isset(self::MD5_OPERATIONS[$operation])) && !$request->hasHeader('content-md5')) {
+        if ((null === ($operation = $context->getOperation()) || isset(self::MD5_OPERATIONS[$operation])) && !$request->hasHeader('content-md5')) {
             $request->setHeader('content-md5', base64_encode($request->getBody()->hash('md5', true)));
         }
 
@@ -51,7 +46,7 @@ class SignerV4ForS3 extends SignerV4
             $request->setHeader('x-amz-content-sha256', $request->getBody()->hash());
         }
 
-        parent::sign($request, $credentials, $operation, $now);
+        parent::sign($request, $credentials, $context);
     }
 
     protected function buildBodyDigest(Request $request, bool $isPresign): string

@@ -85,7 +85,9 @@ abstract class AbstractApi
         $request = $input->request();
         $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery()));
 
-        $this->getSigner()->presign($request, $this->credentialProvider->getCredentials($this->configuration), $expires ? $expires : new \DateTimeImmutable('+60min'));
+        if (null !== $credentials = $this->credentialProvider->getCredentials($this->configuration)) {
+            $this->getSigner()->presign($request, $credentials, new RequestContext(['expirationDate' => $expires]));
+        }
 
         return $request->getEndpoint();
     }
@@ -96,11 +98,14 @@ abstract class AbstractApi
 
     abstract protected function getSignatureScopeName(): string;
 
-    final protected function getResponse(Request $request, ?string $operation = null): Response
+    final protected function getResponse(Request $request, ?RequestContext $context = null): Response
     {
         $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery()));
 
-        $this->getSigner()->sign($request, $this->credentialProvider->getCredentials($this->configuration), $operation);
+        if (null !== $credentials = $this->credentialProvider->getCredentials($this->configuration)) {
+            $this->getSigner()->sign($request, $credentials, $context ?? new RequestContext());
+        }
+
         $length = $request->getBody()->length();
         if (null !== $length && !$request->hasHeader('content-length')) {
             $request->setHeader('content-length', $length);

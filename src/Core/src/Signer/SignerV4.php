@@ -5,6 +5,7 @@ namespace AsyncAws\Core\Signer;
 use AsyncAws\Core\Credentials\Credentials;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Request;
+use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Stream\FixedSizeStream;
 use AsyncAws\Core\Stream\IterableStream;
 use AsyncAws\Core\Stream\Stream;
@@ -56,14 +57,19 @@ class SignerV4 implements Signer
         $this->region = $region;
     }
 
-    public function presign(Request $request, ?Credentials $credentials, \DateTimeInterface $expires, ?\DateTimeInterface $now = null): void
+    public function presign(Request $request, Credentials $credentials, RequestContext $context): void
     {
-        $this->handleSignature($request, $credentials, $now ?? new \DateTimeImmutable(), $expires, true);
+        $now = $context->getCurrentDate() ?? new \DateTimeImmutable();
+        $expires = $context->getExpirationDate() ?? $now->add(new \DateInterval('PT1H'));
+
+        $this->handleSignature($request, $credentials, $now, $expires, true);
     }
 
-    public function sign(Request $request, ?Credentials $credentials, ?string $operation = null, ?\DateTimeInterface $now = null): void
+    public function sign(Request $request, Credentials $credentials, RequestContext $context): void
     {
-        $this->handleSignature($request, $credentials, $now ?? new \DateTimeImmutable(), null, false);
+        $now = $context->getCurrentDate() ?? new \DateTimeImmutable();
+
+        $this->handleSignature($request, $credentials, $now, $now, false);
     }
 
     protected function buildBodyDigest(Request $request, bool $isPresign): string
@@ -81,7 +87,7 @@ class SignerV4 implements Signer
         return $hash;
     }
 
-    private function handleSignature(Request $request, ?Credentials $credentials, \DateTimeInterface $now, ?\DateTimeInterface $expires, bool $isPresign = false): void
+    private function handleSignature(Request $request, ?Credentials $credentials, \DateTimeInterface $now, \DateTimeInterface $expires, bool $isPresign = false): void
     {
         if (null === $credentials) {
             return;
@@ -173,11 +179,19 @@ class SignerV4 implements Signer
         }
     }
 
-    private function buildTime(Request $request, \DateTimeInterface $now, ?\DateTimeInterface $expires, bool $isPresign): void
+    private function buildTime(Request $request, \DateTimeInterface $now, \DateTimeInterface $expires, bool $isPresign): void
     {
         if ($isPresign) {
+            $duration = $expires->getTimestamp() - $now->getTimestamp();
+            if ($duration > 604800) {
+                throw new InvalidArgument('The expiration date of presigned URL must be less than one week');
+            }
+            if ($duration < 0) {
+                throw new InvalidArgument('The expiration date of presigned URL must be in the future');
+            }
+
             $request->setQueryAttribute('X-Amz-Date', gmdate('Ymd\THis\Z', $now->getTimestamp()));
-            $request->setQueryAttribute('X-Amz-Expires', $expires ? $expires->getTimestamp() - $now->getTimestamp() : 3600);
+            $request->setQueryAttribute('X-Amz-Expires', $duration);
         } else {
             $request->setHeader('X-Amz-Date', gmdate('Ymd\THis\Z', $now->getTimestamp()));
         }
