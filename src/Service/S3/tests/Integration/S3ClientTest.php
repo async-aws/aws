@@ -391,6 +391,20 @@ class S3ClientTest extends TestCase
         self::assertFalse($client->bucketExists(['Bucket' => 'does-not-exists'])->isSuccess());
     }
 
+    public function testBucketNotExists(): void
+    {
+        $client = $this->getClient();
+
+        $client->CreateBucket(['Bucket' => 'foo'])->resolve();
+
+        $input = new HeadBucketRequest([
+            'Bucket' => 'foo',
+        ]);
+
+        self::assertFalse($client->bucketNotExists($input)->isSuccess());
+        self::assertTrue($client->bucketNotExists(['Bucket' => 'does-not-exists'])->isSuccess());
+    }
+
     public function testKeyExists(): void
     {
         $client = $this->getClient();
@@ -408,6 +422,25 @@ class S3ClientTest extends TestCase
 
         self::assertTrue($client->objectExists($input)->isSuccess());
         self::assertFalse($client->objectExists(['Bucket' => 'foo', 'Key' => 'does-not-exists'])->isSuccess());
+    }
+
+    public function testKeyNotExists(): void
+    {
+        $client = $this->getClient();
+
+        $client->putObject([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+            'Body' => 'content',
+        ])->resolve();
+
+        $input = new HeadObjectRequest([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+        ]);
+
+        self::assertFalse($client->objectNotExists($input)->isSuccess());
+        self::assertTrue($client->objectNotExists(['Bucket' => 'foo', 'Key' => 'does-not-exists'])->isSuccess());
     }
 
     private function getClient(): S3Client
