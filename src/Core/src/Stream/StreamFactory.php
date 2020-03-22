@@ -17,7 +17,7 @@ class StreamFactory
             return StringStream::create($content ?? '');
         }
         if (\is_callable($content)) {
-            return CallableStream::create($content);
+            return RewindableStream::create(CallableStream::create($content));
         }
         if (\is_iterable($content)) {
             return IterableStream::create($content);

@@ -3,11 +3,12 @@
 namespace AsyncAws\Sqs\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
 
-class ReceiveMessageRequest
+class ReceiveMessageRequest implements Input
 {
     /**
      * The URL of the Amazon SQS queue from which messages are received.

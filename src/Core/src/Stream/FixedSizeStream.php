@@ -77,4 +77,9 @@ final class FixedSizeStream implements Stream
             yield $chunk;
         }
     }
+
+    public function hash(string $algo = 'sha256', bool $raw = false): string
+    {
+        return $this->content->hash($algo, $raw);
+    }
 }

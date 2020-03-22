@@ -15,6 +15,7 @@ use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\RequestSerializer\SerializerProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Core\StreamableBodyInterface;
@@ -209,6 +210,11 @@ class InputGenerator
 
         $namespace->addUse(InvalidArgument::class);
         $this->addUse($shape, $namespace);
+
+        if ($class->hasMethod('request')) {
+            $class->addImplement(Input::class);
+            $namespace->addUse(Input::class);
+        }
 
         $this->fileWriter->write($namespace);
 

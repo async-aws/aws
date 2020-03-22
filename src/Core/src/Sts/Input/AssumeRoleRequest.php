@@ -3,12 +3,13 @@
 namespace AsyncAws\Core\Sts\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType;
 use AsyncAws\Core\Sts\ValueObject\Tag;
 
-class AssumeRoleRequest
+class AssumeRoleRequest implements Input
 {
     /**
      * The Amazon Resource Name (ARN) of the role to assume.

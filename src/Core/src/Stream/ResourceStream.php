@@ -66,4 +66,33 @@ final class ResourceStream implements Stream
             yield \fread($this->content, $this->chunkSize);
         }
     }
+
+    /**
+     * @return resource
+     */
+    public function getResource()
+    {
+        return $this->content;
+    }
+
+    public function hash(string $algo = 'sha256', bool $raw = false): string
+    {
+        $pos = ftell($this->content);
+
+        if ($pos > 0 && -1 === fseek($this->content, 0)) {
+            throw new InvalidArgument('Unable to seek the content.');
+        }
+
+        $ctx = hash_init($algo);
+        while (!feof($this->content)) {
+            hash_update($ctx, fread($this->content, 1048576));
+        }
+
+        $out = hash_final($ctx, $raw);
+        if (-1 === fseek($this->content, $pos)) {
+            throw new InvalidArgument('Unable to seek the content.');
+        }
+
+        return $out;
+    }
 }

@@ -3,11 +3,12 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 
-class DeleteObjectRequest
+class DeleteObjectRequest implements Input
 {
     /**
      * The bucket name of the bucket containing the object.

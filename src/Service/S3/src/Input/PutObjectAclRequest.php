@@ -3,6 +3,7 @@
 namespace AsyncAws\S3\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\ObjectCannedACL;
@@ -10,7 +11,7 @@ use AsyncAws\S3\Enum\RequestPayer;
 use AsyncAws\S3\ValueObject\AccessControlPolicy;
 use AsyncAws\S3\ValueObject\Grantee;
 
-class PutObjectAclRequest
+class PutObjectAclRequest implements Input
 {
     /**
      * The canned ACL to apply to the object. For more information, see Canned ACL.

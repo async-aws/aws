@@ -3,10 +3,11 @@
 namespace AsyncAws\Sqs\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-class GetQueueUrlRequest
+class GetQueueUrlRequest implements Input
 {
     /**
      * The name of the queue whose URL must be fetched. Maximum 80 characters. Valid values: alphanumeric characters,

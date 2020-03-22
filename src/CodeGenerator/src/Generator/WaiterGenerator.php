@@ -16,6 +16,7 @@ use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
 use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Exception\RuntimeException;
+use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Waiter as WaiterResult;
@@ -71,6 +72,7 @@ class WaiterGenerator
         $namespace = ClassFactory::fromExistingClass($this->namespaceRegistry->getClient($operation->getService())->getFqdn());
         $namespace->addUse(HttpException::class);
         $namespace->addUse(RuntimeException::class);
+        $namespace->addUse(RequestContext::class);
 
         $classes = $namespace->getClasses();
         $class = $classes[\array_key_first($classes)];
@@ -95,11 +97,12 @@ class WaiterGenerator
             ->setReturnType($resultClass->getFqdn())
             ->setBody(strtr('
                 $input = INPUT_CLASS::create($input);
-                $response = $this->getResponse($input->request());
+                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME]));
 
                 return new RESULT_CLASS($response, $this, $input);
             ', [
                 'INPUT_CLASS' => $inputClass->getName(),
+                'OPERATION_NAME' => \var_export($operation->getName(), true),
                 'RESULT_CLASS' => $resultClass->getName(),
             ]));
 

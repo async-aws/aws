@@ -3,6 +3,7 @@
 namespace AsyncAws\S3;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\RequestContext;
 use AsyncAws\S3\Input\CopyObjectRequest;
 use AsyncAws\S3\Input\CreateBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
@@ -42,7 +43,7 @@ class S3Client extends AbstractApi
     public function bucketExists($input): BucketExistsWaiter
     {
         $input = HeadBucketRequest::create($input);
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadBucket']));
 
         return new BucketExistsWaiter($response, $this, $input);
     }
@@ -94,7 +95,7 @@ class S3Client extends AbstractApi
      */
     public function copyObject($input): CopyObjectOutput
     {
-        $response = $this->getResponse(CopyObjectRequest::create($input)->request());
+        $response = $this->getResponse(CopyObjectRequest::create($input)->request(), new RequestContext(['operation' => 'CopyObject']));
 
         return new CopyObjectOutput($response);
     }
@@ -120,7 +121,7 @@ class S3Client extends AbstractApi
      */
     public function createBucket($input): CreateBucketOutput
     {
-        $response = $this->getResponse(CreateBucketRequest::create($input)->request());
+        $response = $this->getResponse(CreateBucketRequest::create($input)->request(), new RequestContext(['operation' => 'CreateBucket']));
 
         return new CreateBucketOutput($response);
     }
@@ -142,7 +143,7 @@ class S3Client extends AbstractApi
      */
     public function deleteObject($input): DeleteObjectOutput
     {
-        $response = $this->getResponse(DeleteObjectRequest::create($input)->request());
+        $response = $this->getResponse(DeleteObjectRequest::create($input)->request(), new RequestContext(['operation' => 'DeleteObject']));
 
         return new DeleteObjectOutput($response);
     }
@@ -164,7 +165,7 @@ class S3Client extends AbstractApi
      */
     public function deleteObjects($input): DeleteObjectsOutput
     {
-        $response = $this->getResponse(DeleteObjectsRequest::create($input)->request());
+        $response = $this->getResponse(DeleteObjectsRequest::create($input)->request(), new RequestContext(['operation' => 'DeleteObjects']));
 
         return new DeleteObjectsOutput($response);
     }
@@ -199,7 +200,7 @@ class S3Client extends AbstractApi
      */
     public function getObject($input): GetObjectOutput
     {
-        $response = $this->getResponse(GetObjectRequest::create($input)->request());
+        $response = $this->getResponse(GetObjectRequest::create($input)->request(), new RequestContext(['operation' => 'GetObject']));
 
         return new GetObjectOutput($response);
     }
@@ -219,7 +220,7 @@ class S3Client extends AbstractApi
      */
     public function getObjectAcl($input): GetObjectAclOutput
     {
-        $response = $this->getResponse(GetObjectAclRequest::create($input)->request());
+        $response = $this->getResponse(GetObjectAclRequest::create($input)->request(), new RequestContext(['operation' => 'GetObjectAcl']));
 
         return new GetObjectAclOutput($response);
     }
@@ -248,7 +249,7 @@ class S3Client extends AbstractApi
      */
     public function headObject($input): HeadObjectOutput
     {
-        $response = $this->getResponse(HeadObjectRequest::create($input)->request());
+        $response = $this->getResponse(HeadObjectRequest::create($input)->request(), new RequestContext(['operation' => 'HeadObject']));
 
         return new HeadObjectOutput($response);
     }
@@ -275,7 +276,7 @@ class S3Client extends AbstractApi
     public function listObjectsV2($input): ListObjectsV2Output
     {
         $input = ListObjectsV2Request::create($input);
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListObjectsV2']));
 
         return new ListObjectsV2Output($response, $this, $input);
     }
@@ -304,7 +305,7 @@ class S3Client extends AbstractApi
     public function objectExists($input): ObjectExistsWaiter
     {
         $input = HeadObjectRequest::create($input);
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadObject']));
 
         return new ObjectExistsWaiter($response, $this, $input);
     }
@@ -349,7 +350,7 @@ class S3Client extends AbstractApi
      */
     public function putObject($input): PutObjectOutput
     {
-        $response = $this->getResponse(PutObjectRequest::create($input)->request());
+        $response = $this->getResponse(PutObjectRequest::create($input)->request(), new RequestContext(['operation' => 'PutObject']));
 
         return new PutObjectOutput($response);
     }
@@ -377,7 +378,7 @@ class S3Client extends AbstractApi
      */
     public function putObjectAcl($input): PutObjectAclOutput
     {
-        $response = $this->getResponse(PutObjectAclRequest::create($input)->request());
+        $response = $this->getResponse(PutObjectAclRequest::create($input)->request(), new RequestContext(['operation' => 'PutObjectAcl']));
 
         return new PutObjectAclOutput($response);
     }

@@ -3,11 +3,12 @@
 namespace AsyncAws\Lambda\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Lambda\Enum\Runtime;
 
-class ListLayerVersionsRequest
+class ListLayerVersionsRequest implements Input
 {
     /**
      * A runtime identifier. For example, `go1.x`.

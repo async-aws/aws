@@ -4,6 +4,7 @@
 |---|-------------|-----------|
 | [Async](#async-experience)                    | | :heavy_check_mark: |
 | [Pagination](#pagination-experience)          | | :heavy_check_mark: |
+| [Presign](#presign-experience)                | | :heavy_check_mark: |
 | [Weight](#dependencies-size)                  | | :heavy_check_mark: |
 | [Developer Experience](#developer-experience) | | :heavy_check_mark: |
 | [Mock / Proxy](#mock-and-proxy)               | | :heavy_check_mark: |
@@ -95,6 +96,41 @@ foreach ($pages as $page) {
 *note*: Even if pagination is automatically handled, AsyncAws let you fetch
 only result for the current page.
 
+## Presign eXperience
+
+AWS allow pre-generating sign url that let user access to a resource
+without exposing the key. For instance, provide a link to Download a S3 Object.
+AsycAWS provides a fancy way to generate such url by reusing the same objects
+used in the standard way.
+
+**AsyncAws:**
+```php
+$input = new GetObjectRequest(['Bucket' => 'my-bucket', 'Key' => 'test]);
+
+// Sign on the fly
+$content = $s3Client->getObject($input);
+
+// Presign Url
+$url = $s3Client->presign($input, new \Datetime('+60 min'));
+echo $url;
+```
+
+**Official AWS PHP SDK:**
+```php
+
+// Sign on the fly
+$content = $s3Client->getObject(['Bucket' => 'my-bucket', 'Key' => 'test]);
+
+// Presign Url
+$command = $s3Client->getCommand('GetObject', ['Bucket' => 'my-bucket', 'Key' => 'test]);
+$psr7 = $s3Client->createPresignedRequest($cmd, '+60 min');
+echo (string) $psr7->getUri();
+
+```
+
+*note*: While official AWS PHP SDK provide methods to presign S3 methods only,
+AsyncAws let you presign requests for every services.
+
 ## Developer eXperience
 
 Ever get the error `PHP Fatal error: Missing required client configuration
@@ -103,8 +139,7 @@ to blindly copy/paste `['version' => '2006-03-01']`? AsyncAws saved you from
 this complexity and use the right version for you.
 
 AsyncAws also provides real classes with documented getter and methods, while
- the
-official AWS PHP SDK uses magic methods and undocumented array accessor.
+the official AWS PHP SDK uses magic methods and undocumented array accessor.
 
 | AWS PHP SDK | AsyncAws |
 |-------------|-----------|

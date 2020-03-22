@@ -3,6 +3,7 @@
 namespace AsyncAws\Lambda;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\RequestContext;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
@@ -34,7 +35,7 @@ class LambdaClient extends AbstractApi
      */
     public function addLayerVersionPermission($input): AddLayerVersionPermissionResponse
     {
-        $response = $this->getResponse(AddLayerVersionPermissionRequest::create($input)->request());
+        $response = $this->getResponse(AddLayerVersionPermissionRequest::create($input)->request(), new RequestContext(['operation' => 'AddLayerVersionPermission']));
 
         return new AddLayerVersionPermissionResponse($response);
     }
@@ -56,7 +57,7 @@ class LambdaClient extends AbstractApi
      */
     public function invoke($input): InvocationResponse
     {
-        $response = $this->getResponse(InvocationRequest::create($input)->request());
+        $response = $this->getResponse(InvocationRequest::create($input)->request(), new RequestContext(['operation' => 'Invoke']));
 
         return new InvocationResponse($response);
     }
@@ -79,7 +80,7 @@ class LambdaClient extends AbstractApi
     public function listLayerVersions($input): ListLayerVersionsResponse
     {
         $input = ListLayerVersionsRequest::create($input);
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListLayerVersions']));
 
         return new ListLayerVersionsResponse($response, $this, $input);
     }
@@ -101,7 +102,7 @@ class LambdaClient extends AbstractApi
      */
     public function publishLayerVersion($input): PublishLayerVersionResponse
     {
-        $response = $this->getResponse(PublishLayerVersionRequest::create($input)->request());
+        $response = $this->getResponse(PublishLayerVersionRequest::create($input)->request(), new RequestContext(['operation' => 'PublishLayerVersion']));
 
         return new PublishLayerVersionResponse($response);
     }

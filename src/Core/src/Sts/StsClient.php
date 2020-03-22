@@ -3,6 +3,7 @@
 namespace AsyncAws\Core\Sts;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Sts\Input\AssumeRoleRequest;
 use AsyncAws\Core\Sts\Input\AssumeRoleWithWebIdentityRequest;
 use AsyncAws\Core\Sts\Input\GetCallerIdentityRequest;
@@ -38,7 +39,7 @@ class StsClient extends AbstractApi
      */
     public function assumeRole($input): AssumeRoleResponse
     {
-        $response = $this->getResponse(AssumeRoleRequest::create($input)->request());
+        $response = $this->getResponse(AssumeRoleRequest::create($input)->request(), new RequestContext(['operation' => 'AssumeRole']));
 
         return new AssumeRoleResponse($response);
     }
@@ -62,7 +63,7 @@ class StsClient extends AbstractApi
      */
     public function assumeRoleWithWebIdentity($input): AssumeRoleWithWebIdentityResponse
     {
-        $response = $this->getResponse(AssumeRoleWithWebIdentityRequest::create($input)->request());
+        $response = $this->getResponse(AssumeRoleWithWebIdentityRequest::create($input)->request(), new RequestContext(['operation' => 'AssumeRoleWithWebIdentity']));
 
         return new AssumeRoleWithWebIdentityResponse($response);
     }
@@ -76,7 +77,7 @@ class StsClient extends AbstractApi
      */
     public function getCallerIdentity($input = []): GetCallerIdentityResponse
     {
-        $response = $this->getResponse(GetCallerIdentityRequest::create($input)->request());
+        $response = $this->getResponse(GetCallerIdentityRequest::create($input)->request(), new RequestContext(['operation' => 'GetCallerIdentity']));
 
         return new GetCallerIdentityResponse($response);
     }

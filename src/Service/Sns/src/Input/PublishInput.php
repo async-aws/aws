@@ -3,11 +3,12 @@
 namespace AsyncAws\Sns\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Sns\ValueObject\MessageAttributeValue;
 
-class PublishInput
+class PublishInput implements Input
 {
     /**
      * The topic you want to publish to.

@@ -7,6 +7,7 @@ use AsyncAws\CloudFormation\Input\DescribeStacksInput;
 use AsyncAws\CloudFormation\Result\DescribeStackEventsOutput;
 use AsyncAws\CloudFormation\Result\DescribeStacksOutput;
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\RequestContext;
 
 class CloudFormationClient extends AbstractApi
 {
@@ -25,7 +26,7 @@ class CloudFormationClient extends AbstractApi
     public function describeStackEvents($input = []): DescribeStackEventsOutput
     {
         $input = DescribeStackEventsInput::create($input);
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStackEvents']));
 
         return new DescribeStackEventsOutput($response, $this, $input);
     }
@@ -44,7 +45,7 @@ class CloudFormationClient extends AbstractApi
     public function describeStacks($input = []): DescribeStacksOutput
     {
         $input = DescribeStacksInput::create($input);
-        $response = $this->getResponse($input->request());
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStacks']));
 
         return new DescribeStacksOutput($response, $this, $input);
     }

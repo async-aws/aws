@@ -3,6 +3,7 @@
 namespace AsyncAws\Sns;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\RequestContext;
 use AsyncAws\Sns\Input\PublishInput;
 use AsyncAws\Sns\Result\PublishResponse;
 
@@ -25,7 +26,7 @@ class SnsClient extends AbstractApi
      */
     public function publish($input): PublishResponse
     {
-        $response = $this->getResponse(PublishInput::create($input)->request());
+        $response = $this->getResponse(PublishInput::create($input)->request(), new RequestContext(['operation' => 'Publish']));
 
         return new PublishResponse($response);
     }

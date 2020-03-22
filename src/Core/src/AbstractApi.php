@@ -80,17 +80,31 @@ abstract class AbstractApi
         return $this->configuration;
     }
 
+    final public function presign(Input $input, ?\DateTimeInterface $expires = null): string
+    {
+        $request = $input->request();
+        $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery()));
+
+        if (null !== $credentials = $this->credentialProvider->getCredentials($this->configuration)) {
+            $this->getSigner()->presign($request, $credentials, new RequestContext(['expirationDate' => $expires]));
+        }
+
+        return $request->getEndpoint();
+    }
+
     abstract protected function getServiceCode(): string;
 
     abstract protected function getSignatureVersion(): string;
 
     abstract protected function getSignatureScopeName(): string;
 
-    final protected function getResponse(Request $request): Response
+    final protected function getResponse(Request $request, ?RequestContext $context = null): Response
     {
         $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery()));
 
-        $this->getSigner()->sign($request, $this->credentialProvider->getCredentials($this->configuration));
+        if (null !== $credentials = $this->credentialProvider->getCredentials($this->configuration)) {
+            $this->getSigner()->sign($request, $credentials, $context ?? new RequestContext());
+        }
 
         $length = $request->getBody()->length();
         if (null !== $length && !$request->hasHeader('content-length')) {

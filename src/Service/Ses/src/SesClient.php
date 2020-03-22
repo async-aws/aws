@@ -3,6 +3,7 @@
 namespace AsyncAws\Ses;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\RequestContext;
 use AsyncAws\Ses\Input\SendEmailRequest;
 use AsyncAws\Ses\Result\SendEmailResponse;
 
@@ -25,7 +26,7 @@ class SesClient extends AbstractApi
      */
     public function sendEmail($input): SendEmailResponse
     {
-        $response = $this->getResponse(SendEmailRequest::create($input)->request());
+        $response = $this->getResponse(SendEmailRequest::create($input)->request(), new RequestContext(['operation' => 'SendEmail']));
 
         return new SendEmailResponse($response);
     }

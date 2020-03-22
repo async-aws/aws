@@ -10,6 +10,7 @@ use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
+use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
 use Nette\PhpGenerator\Method;
 
@@ -113,6 +114,7 @@ class OperationGenerator
             $namespace->addUse(Result::class);
         }
 
+        $namespace->addUse(RequestContext::class);
         // Generate method body
         $this->setMethodBody($method, $operation, $inputClass, $resultClass);
 
@@ -126,13 +128,13 @@ class OperationGenerator
         if ((null !== $pagination = $operation->getPagination()) && !empty($pagination->getOutputToken())) {
             $body = '
                 $input = INPUT_CLASS::create($input);
-                $response = $this->getResponse($input->request());
+                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME]));
 
                 return new RESULT_CLASS($response, $this, $input);
             ';
         } else {
             $body = '
-                $response = $this->getResponse(INPUT_CLASS::create($input)->request());
+                $response = $this->getResponse(INPUT_CLASS::create($input)->request(), new RequestContext(["operation" => OPERATION_NAME]));
 
                 return new RESULT_CLASS($response);
             ';
@@ -140,6 +142,7 @@ class OperationGenerator
 
         $method->setBody(strtr($body, [
             'INPUT_CLASS' => $inputClass->getName(),
+            'OPERATION_NAME' => \var_export($operation->getName(), true),
             'RESULT_CLASS' => $resultClass ? $resultClass->getName() : 'Result',
         ]));
     }

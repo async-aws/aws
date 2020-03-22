@@ -3,6 +3,7 @@
 namespace AsyncAws\DynamoDb\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\DynamoDb\Enum\ConditionalOperator;
@@ -13,7 +14,7 @@ use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\AttributeValueUpdate;
 use AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue;
 
-class UpdateItemInput
+class UpdateItemInput implements Input
 {
     /**
      * The name of the table containing the item to update.

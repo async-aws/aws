@@ -3,12 +3,13 @@
 namespace AsyncAws\Lambda\Input;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Lambda\Enum\Runtime;
 use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
 
-class PublishLayerVersionRequest
+class PublishLayerVersionRequest implements Input
 {
     /**
      * The name or Amazon Resource Name (ARN) of the layer.
