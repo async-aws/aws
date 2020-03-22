@@ -10,13 +10,12 @@ use AsyncAws\Core\Exception\InvalidArgument;
  * @author Jérémy Derussé <jeremy@derusse.com>
  *
  * @internal
- * @final
  */
-class IterableStream implements RequestStream, ReadOnceResultStream
+final class IterableStream implements ReadOnceResultStream, RequestStream
 {
     private $content;
 
-    protected function __construct(iterable $content)
+    private function __construct(iterable $content)
     {
         $this->content = $content;
     }

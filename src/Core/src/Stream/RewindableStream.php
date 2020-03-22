@@ -110,8 +110,8 @@ final class RewindableStream implements RequestStream
 
     public function read(): void
     {
+        // Use getIterator() to read stream content to $this->fallback
         foreach ($this as $chunk) {
-            // do noting.
         }
     }
 }
