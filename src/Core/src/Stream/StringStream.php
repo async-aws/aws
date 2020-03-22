@@ -7,9 +7,9 @@ use AsyncAws\Core\Exception\InvalidArgument;
 /**
  * Convert a string into a Stream.
  *
- * @internal
- *
  * @author Jérémy Derussé <jeremy@derusse.com>
+ *
+ * @internal
  */
 final class StringStream implements RequestStream
 {

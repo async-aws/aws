@@ -7,9 +7,9 @@ use AsyncAws\Core\Exception\InvalidArgument;
 /**
  * Convert a resource into a Stream.
  *
- * @internal
- *
  * @author Jérémy Derussé <jeremy@derusse.com>
+ *
+ * @internal
  */
 final class ResourceStream implements RequestStream
 {

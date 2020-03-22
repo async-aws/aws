@@ -8,7 +8,9 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Stream\FixedSizeStream;
 use AsyncAws\Core\Stream\IterableStream;
+use AsyncAws\Core\Stream\ReadOnceResultStream;
 use AsyncAws\Core\Stream\RequestStream;
+use AsyncAws\Core\Stream\RewindableStream;
 use AsyncAws\Core\Stream\StringStream;
 
 /**
@@ -77,6 +79,11 @@ class SignerV4 implements Signer
         if ($request->hasHeader('x-amz-content-sha256')) {
             $hash = ((array) $request->getHeader('x-amz-content-sha256'))[0];
         } else {
+            $body = $request->getBody();
+            if ($body instanceof ReadOnceResultStream) {
+                $request->setBody($body = RewindableStream::create($body));
+            }
+
             $hash = $request->getBody()->hash();
         }
 
@@ -242,6 +249,13 @@ class SignerV4 implements Signer
         if ($request->hasHeader('content-length')) {
             $contentLength = (int) ((array) $request->getHeader('content-length'))[0];
         } else {
+            $contentLength = $body->length();
+        }
+
+        // If content length is unknown, use the rewindable stream to read it once locally in order to get the length
+        if (null === $contentLength) {
+            $request->setBody($body = RewindableStream::create($body));
+            $body->read();
             $contentLength = $body->length();
         }
 
