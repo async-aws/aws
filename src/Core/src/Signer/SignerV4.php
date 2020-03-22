@@ -87,12 +87,8 @@ class SignerV4 implements Signer
         return $hash;
     }
 
-    private function handleSignature(Request $request, ?Credentials $credentials, \DateTimeInterface $now, \DateTimeInterface $expires, bool $isPresign): void
+    private function handleSignature(Request $request, Credentials $credentials, \DateTimeInterface $now, \DateTimeInterface $expires, bool $isPresign): void
     {
-        if (null === $credentials) {
-            return;
-        }
-
         $this->removePresign($request);
         $this->sanitizeHostForHeader($request);
         $this->assignAmzQueryValues($request, $credentials, $isPresign);

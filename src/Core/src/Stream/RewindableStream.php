@@ -87,6 +87,7 @@ final class RewindableStream implements Stream
 
                     \fseek($memoryStream, 0);
                     \stream_copy_to_stream($memoryStream, $resource);
+                    \fclose($memoryStream);
                 }
             }
             yield $chunk;
