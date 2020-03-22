@@ -122,7 +122,7 @@ class Waiter
      *
      * @param float|null $timeout Duration in seconds before aborting. When null wait until the end of execution.
      *
-     * @return bool whether the request is executed or not
+     * @return bool false on timeout. True if the response has returned with as status code.
      *
      * @throws NetworkException
      */
@@ -171,19 +171,21 @@ class Waiter
 
         $start = \microtime(true);
         while (true) {
+            // If request times out
             if (!$this->resolve($timeout - (\microtime(true) - $start))) {
                 break;
             }
 
-            switch ($this->getState()) {
-                case self::STATE_SUCCESS:
-                case self::STATE_FAILURE:
-                    return true;
+            // If we reached a final state
+            if (in_array($this->getState(), [self::STATE_SUCCESS, self::STATE_FAILURE])) {
+                return true;
             }
 
+            // If the timeout will expire during our sleep, then exit early.
             if ($delay > $timeout - (\microtime(true) - $start)) {
                 break;
             }
+
             \usleep((int) ceil($delay * 1000000));
             $this->stealResponse($this->refreshState());
         }
