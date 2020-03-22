@@ -7,6 +7,12 @@ use AsyncAws\Core\Exception\InvalidArgument;
 /**
  * Provides a Stream that can be read several time.
  *
+ * This is for internal use only. One cannot iterate only over a few items of the stream.
+ * If iterating over a stream, the full stream must be consumed before calling methods:
+ * - stringify
+ * - length
+ * - hash
+ *
  * @internal
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
