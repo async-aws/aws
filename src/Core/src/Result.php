@@ -26,9 +26,6 @@ class Result
 
     protected $initialized = false;
 
-    /**
-     * @var Response
-     */
     private $response;
 
     /**

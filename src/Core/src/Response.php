@@ -25,12 +25,13 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 class Response
 {
-    private $response;
+    private $httpResponse;
 
     private $httpClient;
 
     /**
      * A Result can be resolved many times. This variable contains the last resolve result.
+     * Null means that the result has never been resolved.
      *
      * @var bool|NetworkException|HttpException|null
      */
@@ -38,7 +39,7 @@ class Response
 
     public function __construct(ResponseInterface $response, HttpClientInterface $httpClient)
     {
-        $this->response = $response;
+        $this->httpResponse = $response;
         $this->httpClient = $httpClient;
     }
 
@@ -52,7 +53,8 @@ class Response
     /**
      * Make sure the actual request is executed.
      *
-     * @param float|null $timeout Duration in seconds before aborting. When null wait until the end of execution.
+     * @param float|null $timeout Duration in seconds before aborting. When null wait
+     *                            until the end of execution. Using 0 means non-blocking
      *
      * @return bool whether the request is executed or not
      *
@@ -74,7 +76,7 @@ class Response
         }
 
         try {
-            foreach ($this->httpClient->stream($this->response, $timeout) as $chunk) {
+            foreach ($this->httpClient->stream($this->httpResponse, $timeout) as $chunk) {
                 if ($chunk->isTimeout()) {
                     return false;
                 }
@@ -83,21 +85,21 @@ class Response
                 }
             }
 
-            $statusCode = $this->response->getStatusCode();
+            $statusCode = $this->httpResponse->getStatusCode();
         } catch (TransportExceptionInterface $e) {
             throw $this->resolveResult = new NetworkException('Could not contact remote server.', 0, $e);
         }
 
         if (500 <= $statusCode) {
-            throw $this->resolveResult = new ServerException($this->response);
+            throw $this->resolveResult = new ServerException($this->httpResponse);
         }
 
         if (400 <= $statusCode) {
-            throw $this->resolveResult = new ClientException($this->response);
+            throw $this->resolveResult = new ClientException($this->httpResponse);
         }
 
         if (300 <= $statusCode) {
-            throw $this->resolveResult = new RedirectionException($this->response);
+            throw $this->resolveResult = new RedirectionException($this->httpResponse);
         }
 
         return $this->resolveResult = true;
@@ -116,14 +118,14 @@ class Response
     {
         return [
             'resolved' => null !== $this->resolveResult,
-            'response' => $this->response,
-            'status' => (int) $this->response->getInfo('http_code'),
+            'response' => $this->httpResponse,
+            'status' => (int) $this->httpResponse->getInfo('http_code'),
         ];
     }
 
     public function cancel(): void
     {
-        $this->response->cancel();
+        $this->httpResponse->cancel();
         $this->resolveResult = false;
     }
 
@@ -131,30 +133,30 @@ class Response
     {
         $this->resolve();
 
-        return $this->response->getHeaders(false);
+        return $this->httpResponse->getHeaders(false);
     }
 
     public function getContent(): string
     {
         $this->resolve();
 
-        return $this->response->getContent(false);
+        return $this->httpResponse->getContent(false);
     }
 
     public function toArray(): array
     {
         $this->resolve();
 
-        return $this->response->toArray(false);
+        return $this->httpResponse->toArray(false);
     }
 
     public function getStatusCode(): int
     {
-        return $this->response->getStatusCode();
+        return $this->httpResponse->getStatusCode();
     }
 
     public function toStream(): ResultStream
     {
-        return new ResponseBodyStream($this->httpClient->stream($this->response));
+        return new ResponseBodyStream($this->httpClient->stream($this->httpResponse));
     }
 }

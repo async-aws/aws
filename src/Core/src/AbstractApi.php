@@ -21,7 +21,7 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
- * Base class most APIs are inheriting.
+ * Base class all API clients are inheriting.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  * @author Jérémy Derussé <jeremy@derusse.com>
