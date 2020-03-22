@@ -14,7 +14,7 @@ use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\RequestSerializer\SerializerProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
-use AsyncAws\Core\StreamableBodyInterface;
+use AsyncAws\Core\Stream\ResultStream;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
 
@@ -232,9 +232,9 @@ class ObjectGenerator
 
                 $nullable = false;
             } elseif ($member->isStreaming()) {
-                $returnType = StreamableBodyInterface::class;
-                $parameterType = StreamableBodyInterface::class;
-                $namespace->addUse(StreamableBodyInterface::class);
+                $returnType = ResultStream::class;
+                $parameterType = ResultStream::class;
+                $namespace->addUse(ResultStream::class);
                 $nullable = false;
             }
 

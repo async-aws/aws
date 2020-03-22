@@ -11,7 +11,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-final class StringStream implements Stream
+final class StringStream implements RequestStream
 {
     private $content;
 
@@ -27,14 +27,14 @@ final class StringStream implements Stream
         if ($content instanceof self) {
             return $content;
         }
-        if ($content instanceof Stream) {
+        if ($content instanceof RequestStream) {
             return new self($content->stringify());
         }
         if (\is_string($content)) {
             return new self($content);
         }
 
-        throw new InvalidArgument(sprintf('Expect content to be a "%s" or as "string". "%s" given.', Stream::class, \is_object($content) ? \get_class($content) : \gettype($content)));
+        throw new InvalidArgument(sprintf('Expect content to be a "%s" or as "string". "%s" given.', RequestStream::class, \is_object($content) ? \get_class($content) : \gettype($content)));
     }
 
     public function length(): int

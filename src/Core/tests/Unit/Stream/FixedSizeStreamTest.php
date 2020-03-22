@@ -7,7 +7,7 @@ namespace AsyncAws\Core\Tests\Unit\Stream;
 use AsyncAws\Core\Stream\CallableStream;
 use AsyncAws\Core\Stream\FixedSizeStream;
 use AsyncAws\Core\Stream\IterableStream;
-use AsyncAws\Core\Stream\Stream;
+use AsyncAws\Core\Stream\RequestStream;
 use AsyncAws\Core\Stream\StringStream;
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +16,7 @@ class FixedSizeStreamTest extends TestCase
     /**
      * @dataProvider provideLengths
      */
-    public function testLength(Stream $content, ?int $expected): void
+    public function testLength(RequestStream $content, ?int $expected): void
     {
         $stream = FixedSizeStream::create($content);
 
@@ -26,7 +26,7 @@ class FixedSizeStreamTest extends TestCase
     /**
      * @dataProvider provideStrings
      */
-    public function testStringify(Stream $content, string $expected): void
+    public function testStringify(RequestStream $content, string $expected): void
     {
         $stream = FixedSizeStream::create($content);
 
@@ -36,7 +36,7 @@ class FixedSizeStreamTest extends TestCase
     /**
      * @dataProvider provideChunks
      */
-    public function testChunk(Stream $content, int $size, array $expected): void
+    public function testChunk(RequestStream $content, int $size, array $expected): void
     {
         $stream = FixedSizeStream::create($content, $size);
 

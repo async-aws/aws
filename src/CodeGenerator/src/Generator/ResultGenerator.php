@@ -16,8 +16,8 @@ use AsyncAws\CodeGenerator\Generator\ResponseParser\ParserProvider;
 use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
-use AsyncAws\Core\StreamableBody;
-use AsyncAws\Core\StreamableBodyInterface;
+use AsyncAws\Core\Stream\ResponseBodyStream;
+use AsyncAws\Core\Stream\ResultStream;
 use Nette\InvalidStateException;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
@@ -171,8 +171,8 @@ class ResultGenerator
                 $nullable = false;
                 $property->setValue([]);
             } elseif ($member->isStreaming()) {
-                $returnType = StreamableBodyInterface::class;
-                $parameterType = StreamableBodyInterface::class;
+                $returnType = ResultStream::class;
+                $parameterType = ResultStream::class;
                 $memberClassName = null;
                 $nullable = false;
             }
@@ -276,7 +276,7 @@ class ResultGenerator
         $payloadProperty = $shape->getPayload();
         if (null !== $payloadProperty && $shape->getMember($payloadProperty)->isStreaming()) {
             // Make sure we can stream this.
-            $namespace->addUse(StreamableBody::class);
+            $namespace->addUse(ResponseBodyStream::class);
             $body .= strtr('$this->PROPERTY_NAME = $response->toStream();', ['PROPERTY_NAME' => $payloadProperty]);
         } else {
             $body .= $this->parserProvider->get($this->operation->getService())->generate($shape);
@@ -330,7 +330,7 @@ class ResultGenerator
                     $namespace->addUse($this->namespaceRegistry->getEnum($memberShape)->getFqdn());
                 }
             } elseif ($member->isStreaming()) {
-                $namespace->addUse(StreamableBodyInterface::class);
+                $namespace->addUse(ResultStream::class);
             }
         }
     }

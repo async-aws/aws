@@ -1,22 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AsyncAws\Core\Stream;
 
 /**
- * Provides method to convert a input into string or chunks.
- *
- * @internal
- *
- * @author Jérémy Derussé <jeremy@derusse.com>
+ * @deprecated Use RequestStream
  */
-interface Stream extends \IteratorAggregate
+interface Stream extends RequestStream
 {
-    /**
-     * Length in bytes.
-     */
-    public function length(): ?int;
-
-    public function stringify(): string;
-
-    public function hash(string $algo = 'sha256', bool $raw = false): string;
 }

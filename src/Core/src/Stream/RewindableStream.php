@@ -17,16 +17,16 @@ use AsyncAws\Core\Exception\InvalidArgument;
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-final class RewindableStream implements Stream
+final class RewindableStream implements RequestStream
 {
     private $content;
 
     /**
-     * @var Stream
+     * @var RequestStream
      */
     private $fallback;
 
-    private function __construct(Stream $content)
+    private function __construct(RequestStream $content)
     {
         $this->content = $content;
     }
@@ -36,7 +36,7 @@ final class RewindableStream implements Stream
         if ($content instanceof self) {
             return $content;
         }
-        if ($content instanceof Stream) {
+        if ($content instanceof RequestStream) {
             return new self($content);
         }
 

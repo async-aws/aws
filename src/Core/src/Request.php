@@ -3,7 +3,7 @@
 namespace AsyncAws\Core;
 
 use AsyncAws\Core\Exception\LogicException;
-use AsyncAws\Core\Stream\Stream;
+use AsyncAws\Core\Stream\RequestStream;
 
 /**
  * Representation of an HTTP Request.
@@ -31,7 +31,7 @@ class Request
     /**
      * @param string[]|string[][] $headers
      */
-    public function __construct(string $method, string $uri, array $query, array $headers, Stream $body)
+    public function __construct(string $method, string $uri, array $query, array $headers, RequestStream $body)
     {
         $this->method = $method;
         $this->uri = $uri;
@@ -87,12 +87,12 @@ class Request
         unset($this->headers[strtolower($name)]);
     }
 
-    public function getBody(): Stream
+    public function getBody(): RequestStream
     {
         return $this->body;
     }
 
-    public function setBody(Stream $body)
+    public function setBody(RequestStream $body)
     {
         $this->body = $body;
     }

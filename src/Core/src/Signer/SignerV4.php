@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Stream\FixedSizeStream;
 use AsyncAws\Core\Stream\IterableStream;
-use AsyncAws\Core\Stream\Stream;
+use AsyncAws\Core\Stream\RequestStream;
 use AsyncAws\Core\Stream\StringStream;
 
 /**
@@ -263,7 +263,7 @@ class SignerV4 implements Signer
         $metaLength = \strlen(";chunk-signature=\r\n\r\n") + 64;
         $request->setHeader('content-length', $contentLength + $fullChunkCount * ($metaLength + \strlen((string) dechex(self::CHUNK_SIZE))) + ($chunkCount - $fullChunkCount) * ($metaLength + \strlen((string) dechex($contentLength % self::CHUNK_SIZE))) + $metaLength + 1);
 
-        $body = IterableStream::create((function (Stream $body) use ($now, $credentialString, $signingKey, &$signature): iterable {
+        $body = IterableStream::create((function (RequestStream $body) use ($now, $credentialString, $signingKey, &$signature): iterable {
             foreach (FixedSizeStream::create($body, self::CHUNK_SIZE) as $chunk) {
                 $stringToSign = $this->buildChunkStringToSign($now, $credentialString, $signature, $chunk);
                 $signature = $this->buildSignature($stringToSign, $signingKey);

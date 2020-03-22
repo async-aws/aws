@@ -4,7 +4,7 @@ namespace AsyncAws\S3\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
-use AsyncAws\Core\StreamableBodyInterface;
+use AsyncAws\Core\Stream\ResultStream;
 use AsyncAws\S3\Enum\ObjectLockLegalHoldStatus;
 use AsyncAws\S3\Enum\ObjectLockMode;
 use AsyncAws\S3\Enum\ReplicationStatus;
@@ -186,7 +186,7 @@ class GetObjectOutput extends Result
         return $this->AcceptRanges;
     }
 
-    public function getBody(): StreamableBodyInterface
+    public function getBody(): ResultStream
     {
         $this->initialize();
 

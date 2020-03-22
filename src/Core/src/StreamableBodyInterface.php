@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\Core;
 
 /**
- * Stream a response body.
+ * @deprecated Use ResultStream instead
  */
 interface StreamableBodyInterface
 {

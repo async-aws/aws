@@ -6,8 +6,8 @@ namespace AsyncAws\Core\Tests\Unit\Stream;
 
 use AsyncAws\Core\Stream\CallableStream;
 use AsyncAws\Core\Stream\IterableStream;
+use AsyncAws\Core\Stream\RequestStream;
 use AsyncAws\Core\Stream\RewindableStream;
-use AsyncAws\Core\Stream\Stream;
 use AsyncAws\Core\Stream\StringStream;
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +16,7 @@ class RewindableStreamTest extends TestCase
     /**
      * @dataProvider provideLengths
      */
-    public function testLength(Stream $content, ?int $expected): void
+    public function testLength(RequestStream $content, ?int $expected): void
     {
         $stream = RewindableStream::create($content);
 
@@ -26,7 +26,7 @@ class RewindableStreamTest extends TestCase
     /**
      * @dataProvider provideStrings
      */
-    public function testStringify(Stream $content, string $expected): void
+    public function testStringify(RequestStream $content, string $expected): void
     {
         $stream = RewindableStream::create($content);
 
@@ -36,7 +36,7 @@ class RewindableStreamTest extends TestCase
     /**
      * @dataProvider provideChunks
      */
-    public function testChunk(Stream $content, array $expected): void
+    public function testChunk(RequestStream $content, array $expected): void
     {
         $stream = RewindableStream::create($content);
 

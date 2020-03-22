@@ -10,6 +10,8 @@ use AsyncAws\Core\Exception\Http\NetworkException;
 use AsyncAws\Core\Exception\Http\RedirectionException;
 use AsyncAws\Core\Exception\Http\ServerException;
 use AsyncAws\Core\Exception\RuntimeException;
+use AsyncAws\Core\Stream\ResponseBodyStream;
+use AsyncAws\Core\Stream\ResultStream;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
@@ -151,8 +153,8 @@ class Response
         return $this->response->getStatusCode();
     }
 
-    public function toStream(): StreamableBody
+    public function toStream(): ResultStream
     {
-        return new StreamableBody($this->httpClient->stream($this->response));
+        return new ResponseBodyStream($this->httpClient->stream($this->response));
     }
 }
