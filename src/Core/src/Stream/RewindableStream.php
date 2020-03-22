@@ -78,8 +78,8 @@ final class RewindableStream implements Stream
             \fwrite($resource, $chunk);
             if ($inmemory) {
                 $size += \strlen($chunk);
-                // switch to filesystem
-                if ($size > 1) {
+                // switch to filesystem if string larger that 1 Mb
+                if ($size > 1024 * 1024) {
                     $memoryStream = $resource;
                     $resource = \tmpfile();
                     $this->fallback = ResourceStream::create($resource);
