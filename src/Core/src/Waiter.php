@@ -177,7 +177,7 @@ class Waiter
             }
 
             // If we reached a final state
-            if (in_array($this->getState(), [self::STATE_SUCCESS, self::STATE_FAILURE])) {
+            if (\in_array($this->getState(), [self::STATE_SUCCESS, self::STATE_FAILURE])) {
                 return true;
             }
 
