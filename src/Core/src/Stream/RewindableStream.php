@@ -22,7 +22,7 @@ final class RewindableStream implements RequestStream
     private $content;
 
     /**
-     * @var Stream
+     * @var RequestStream
      */
     private $fallback;
 
