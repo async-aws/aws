@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\Flysystem\S3;
 
 use AsyncAws\Core\Exception\Http\ClientException;
-use AsyncAws\Core\StreamableBodyInterface;
+use AsyncAws\Core\Stream\ResultStream;
 use AsyncAws\Flysystem\S3\Visibility\PortableVisibilityConverter;
 use AsyncAws\Flysystem\S3\Visibility\VisibilityConverter;
 use AsyncAws\S3\Input\ObjectIdentifier as InputObjectIdentifier;
@@ -420,7 +420,7 @@ class S3FilesystemV2 implements FilesystemAdapter
         }
     }
 
-    private function readObject(string $path): StreamableBodyInterface
+    private function readObject(string $path): ResultStream
     {
         $options = ['Bucket' => $this->bucket, 'Key' => $this->prefixer->prefixPath($path)];
         $result = $this->client->getObject($options);

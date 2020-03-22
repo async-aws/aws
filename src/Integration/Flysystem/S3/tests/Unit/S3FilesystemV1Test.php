@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AsyncAws\Flysystem\S3\Tests\Unit;
 
-use AsyncAws\Core\Test\SimpleStreamableBody;
+use AsyncAws\Core\Test\ResultMockFactory;
+use AsyncAws\Core\Test\SimpleResultStream;
 use AsyncAws\Flysystem\S3\S3FilesystemV1;
-use AsyncAws\S3\Result\AwsObject;
-use AsyncAws\S3\Result\CommonPrefix;
+use AsyncAws\S3\Enum\StorageClass;
 use AsyncAws\S3\Result\CopyObjectOutput;
 use AsyncAws\S3\Result\DeleteObjectOutput;
 use AsyncAws\S3\Result\DeleteObjectsOutput;
@@ -17,6 +17,8 @@ use AsyncAws\S3\Result\ListObjectsV2Output;
 use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\S3Client;
+use AsyncAws\S3\ValueObject\AwsObject;
+use AsyncAws\S3\ValueObject\CommonPrefix;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\Config;
 use PHPUnit\Framework\TestCase;
@@ -37,11 +39,6 @@ class S3FilesystemV1Test extends TestCase
     {
         $file = 'foo/bar.txt';
 
-        $result = $this->getMockBuilder(PutObjectOutput::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['resolve'])
-            ->getMock();
-
         $s3Client = $this->getMockBuilder(S3Client::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['putObject'])
@@ -61,7 +58,7 @@ class S3FilesystemV1Test extends TestCase
                 }
 
                 return true;
-            }))->willReturn($result);
+            }))->willReturn(ResultMockFactory::create(PutObjectOutput::class));
 
         $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
         $filesystem->write($file, 'contents', new Config());
@@ -137,11 +134,6 @@ class S3FilesystemV1Test extends TestCase
     {
         $path = 'foo/bar.txt';
 
-        $result = $this->getMockBuilder(DeleteObjectOutput::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['resolve'])
-            ->getMock();
-
         $s3Client = $this->getMockBuilder(S3Client::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['deleteObject'])
@@ -159,7 +151,7 @@ class S3FilesystemV1Test extends TestCase
                 }
 
                 return true;
-            }))->willReturn($result);
+            }))->willReturn(ResultMockFactory::create(DeleteObjectOutput::class));
 
         $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
             ->setConstructorArgs([$s3Client,  self::BUCKCET, self::PREFIX])
@@ -185,13 +177,9 @@ class S3FilesystemV1Test extends TestCase
             ->onlyMethods(['deleteObjects', 'listObjectsV2'])
             ->getMock();
 
-        $listResult = $this->getMockBuilder(ListObjectsV2Output::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['getContents'])
-            ->getMock();
-
-        $listResult->method('getContents')
-            ->willReturn($objects);
+        $listResult = ResultMockFactory::create(ListObjectsV2Output::class, [
+            'Contents' => $objects,
+        ]);
 
         $s3Client->expects(self::once())
             ->method('listObjectsV2')
@@ -206,11 +194,6 @@ class S3FilesystemV1Test extends TestCase
 
                 return true;
             }))->willReturn($listResult);
-
-        $deleteResult = $this->getMockBuilder(DeleteObjectsOutput::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['resolve'])
-            ->getMock();
 
         $s3Client->expects(self::once())
             ->method('deleteObjects')
@@ -228,7 +211,7 @@ class S3FilesystemV1Test extends TestCase
                 }
 
                 return true;
-            }))->willReturn($deleteResult);
+            }))->willReturn(ResultMockFactory::create(DeleteObjectsOutput::class));
 
         $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
 
@@ -264,11 +247,6 @@ class S3FilesystemV1Test extends TestCase
             ->onlyMethods(['getObject'])
             ->getMock();
 
-        $result = $this->getMockBuilder(GetObjectOutput::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['resolve'])
-            ->getMock();
-
         $s3Client->expects(self::once())
             ->method('getObject')
             ->with(self::callback(function (array $input) use ($path) {
@@ -281,7 +259,7 @@ class S3FilesystemV1Test extends TestCase
                 }
 
                 return true;
-            }))->willReturn($result);
+            }))->willReturn(ResultMockFactory::create(GetObjectOutput::class));
 
         $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
 
@@ -312,13 +290,10 @@ class S3FilesystemV1Test extends TestCase
         $path = 'foo/bar.txt';
         $content = 'my content';
 
-        $result = $this->getMockBuilder(GetObjectOutput::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['resolve', 'getLastModified', 'getBody'])
-            ->getMock();
-
-        $result->method('getLastModified')->willReturn(new \DateTimeImmutable());
-        $result->method('getBody')->willReturn(new SimpleStreamableBody($content));
+        $result = ResultMockFactory::create(GetObjectOutput::class, [
+            'LastModified' => new \DateTimeImmutable(),
+            'Body' => new SimpleResultStream($content),
+        ]);
 
         $s3Client = $this->getMockBuilder(S3Client::class)
             ->disableOriginalConstructor()
@@ -349,7 +324,7 @@ class S3FilesystemV1Test extends TestCase
         self::assertArrayHasKey('timestamp', $output);
         self::assertArrayHasKey('contents', $output);
 
-        // Make sure we convert StreamableBodyInterface
+        // Make sure we convert ResultStream
         self::assertIsString($output['contents']);
         self::assertEquals($content, $output['contents']);
     }
@@ -441,14 +416,11 @@ class S3FilesystemV1Test extends TestCase
     {
         $path = 'foo/bar.txt';
 
-        $result = $this->getMockBuilder(HeadObjectOutput::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['resolve', 'getLastModified', 'getContentLength', 'getContentType'])
-            ->getMock();
-
-        $result->method('getLastModified')->willReturn(new \DateTimeImmutable('2020-03-14 12:00:00'));
-        $result->method('getContentLength')->willReturn('123');
-        $result->method('getContentType')->willReturn('text/plain');
+        $result = ResultMockFactory::create(HeadObjectOutput::class, [
+            'LastModified' => new \DateTimeImmutable('2020-03-14 12:00:00'),
+            'ContentLength' => '123',
+            'ContentType' => 'text/plain',
+        ]);
 
         $s3Client = $this->getMockBuilder(S3Client::class)
             ->disableOriginalConstructor()
@@ -547,7 +519,7 @@ class S3FilesystemV1Test extends TestCase
     public function testWriteStream()
     {
         $path = 'foo/bar.txt';
-        $contents = (new SimpleStreamableBody('contents'))->getContentAsResource();
+        $contents = (new SimpleResultStream('contents'))->getContentAsResource();
         $config = new Config();
         $return = ['foobar'];
 
@@ -568,7 +540,7 @@ class S3FilesystemV1Test extends TestCase
     public function testUpdateStream()
     {
         $path = 'foo/bar.txt';
-        $contents = (new SimpleStreamableBody('contents'))->getContentAsResource();
+        $contents = (new SimpleResultStream('contents'))->getContentAsResource();
         $config = new Config();
         $return = ['foobar'];
 
@@ -591,12 +563,13 @@ class S3FilesystemV1Test extends TestCase
         $path = 'foo/bar.txt';
         $content = 'my content';
 
-        $result = $this->getMockBuilder(GetObjectOutput::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['resolve', 'getLastModified', 'getBody'])
-            ->getMock();
-
-        $result->method('getBody')->willReturn(new SimpleStreamableBody($content));
+        $result = ResultMockFactory::create(GetObjectOutput::class, [
+            'StorageClass' => StorageClass::STANDARD,
+            'Metadata' => [],
+            'ContentLength' => (string) \strlen($content),
+            'ContentType' => 'text/plain',
+            'Body' => new SimpleResultStream($content),
+        ]);
 
         $s3Client = $this->getMockBuilder(S3Client::class)
             ->disableOriginalConstructor()
@@ -627,7 +600,7 @@ class S3FilesystemV1Test extends TestCase
         self::assertArrayHasKey('stream', $output);
         self::assertArrayNotHasKey('contents', $output);
 
-        // Make sure we convert StreamableBodyInterface
+        // Make sure we convert ResultStream
         self::assertIsResource($output['stream']);
     }
 
@@ -635,11 +608,6 @@ class S3FilesystemV1Test extends TestCase
     {
         $path = 'foo/bar.txt';
         $newPath = 'foo/new.txt';
-
-        $result = $this->getMockBuilder(CopyObjectOutput::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['resolve'])
-            ->getMock();
 
         $s3Client = $this->getMockBuilder(S3Client::class)
             ->disableOriginalConstructor()
@@ -662,7 +630,7 @@ class S3FilesystemV1Test extends TestCase
                 }
 
                 return isset($input['ACL']);
-            }))->willReturn($result);
+            }))->willReturn(ResultMockFactory::create(CopyObjectOutput::class));
 
         $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
             ->setConstructorArgs([$s3Client,  self::BUCKCET, self::PREFIX])
@@ -683,10 +651,7 @@ class S3FilesystemV1Test extends TestCase
         $path = 'foo/bar.txt';
         $acl = AdapterInterface::VISIBILITY_PRIVATE;
 
-        $result = $this->getMockBuilder(PutObjectAclOutput::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['resolve'])
-            ->getMock();
+        $result = ResultMockFactory::create(PutObjectAclOutput::class);
 
         $s3Client = $this->getMockBuilder(S3Client::class)
             ->disableOriginalConstructor()
