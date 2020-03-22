@@ -20,10 +20,6 @@ class StreamFactory
             return CallableStream::create($content);
         }
         if (\is_iterable($content)) {
-            if ($content instanceof \Generator) {
-                return GeneratorIterableStream::create($content);
-            }
-
             return IterableStream::create($content);
         }
         if (\is_resource($content)) {

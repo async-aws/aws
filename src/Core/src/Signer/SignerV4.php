@@ -81,7 +81,6 @@ class SignerV4 implements Signer
         } else {
             $body = $request->getBody();
             if ($body instanceof ReadOnceResultStream) {
-                dd($body);
                 $request->setBody($body = RewindableStream::create($body));
             }
 
@@ -256,7 +255,7 @@ class SignerV4 implements Signer
         // If content length is unknown, use the rewindable stream to read it once locally in order to get the length
         if (null === $contentLength) {
             $request->setBody($body = RewindableStream::create($body));
-            $body->travers();
+            $body->read();
             $contentLength = $body->length();
         }
 

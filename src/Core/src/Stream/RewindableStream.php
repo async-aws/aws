@@ -108,7 +108,7 @@ final class RewindableStream implements RequestStream
         return hash_final($ctx, $raw);
     }
 
-    public function travers(): void
+    public function read(): void
     {
         foreach ($this as $chunk) {
             // do noting.

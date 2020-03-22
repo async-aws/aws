@@ -12,7 +12,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
  * @internal
  * @final
  */
-class IterableStream implements RequestStream
+class IterableStream implements RequestStream, ReadOnceResultStream
 {
     private $content;
 
