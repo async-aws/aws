@@ -8,11 +8,11 @@ use AsyncAws\Core\Exception\InvalidArgument;
  * Convert a "Curl Callable" into a Stream
  * The Callable must return a chunk at each call. And return an empty string on last call.
  *
- * @internal
- *
  * @author Jérémy Derussé <jeremy@derusse.com>
+ *
+ * @internal
  */
-final class CallableStream implements RequestStream
+final class CallableStream implements ReadOnceResultStream, RequestStream
 {
     private $content;
 

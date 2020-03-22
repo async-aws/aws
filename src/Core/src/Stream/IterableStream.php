@@ -7,15 +7,16 @@ use AsyncAws\Core\Exception\InvalidArgument;
 /**
  * Convert an iterator into a Stream.
  *
- * @internal
- *
  * @author Jérémy Derussé <jeremy@derusse.com>
+ *
+ * @internal
+ * @final
  */
-final class IterableStream implements RequestStream
+class IterableStream implements RequestStream
 {
     private $content;
 
-    private function __construct(iterable $content)
+    protected function __construct(iterable $content)
     {
         $this->content = $content;
     }

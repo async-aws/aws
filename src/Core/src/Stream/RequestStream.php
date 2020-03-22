@@ -5,9 +5,9 @@ namespace AsyncAws\Core\Stream;
 /**
  * Provides method to convert a input into string or chunks.
  *
- * @internal
- *
  * @author Jérémy Derussé <jeremy@derusse.com>
+ *
+ * @internal
  */
 interface RequestStream extends \IteratorAggregate
 {

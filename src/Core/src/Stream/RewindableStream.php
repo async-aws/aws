@@ -13,9 +13,9 @@ use AsyncAws\Core\Exception\InvalidArgument;
  * - length
  * - hash
  *
- * @internal
- *
  * @author Jérémy Derussé <jeremy@derusse.com>
+ *
+ * @internal
  */
 final class RewindableStream implements RequestStream
 {
@@ -106,5 +106,12 @@ final class RewindableStream implements RequestStream
         }
 
         return hash_final($ctx, $raw);
+    }
+
+    public function travers(): void
+    {
+        foreach ($this as $chunk) {
+            // do noting.
+        }
     }
 }
