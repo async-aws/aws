@@ -53,7 +53,8 @@ class Response
     /**
      * Make sure the actual request is executed.
      *
-     * @param float|null $timeout Duration in seconds before aborting. When null wait until the end of execution.
+     * @param float|null $timeout Duration in seconds before aborting. When null wait
+     *                            until the end of execution. Using 0 means non-blocking
      *
      * @return bool whether the request is executed or not
      *
