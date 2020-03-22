@@ -122,6 +122,8 @@ class Waiter
      *
      * @param float|null $timeout Duration in seconds before aborting. When null wait until the end of execution.
      *
+     * @return bool whether the request is executed or not
+     *
      * @throws NetworkException
      */
     final public function resolve(?float $timeout = null): bool
@@ -159,6 +161,8 @@ class Waiter
      *
      * @param float $timeout Duration in seconds before aborting
      * @param float $delay   Duration in seconds between each check
+     *
+     * @return bool true if a final state was reached
      */
     final public function wait(float $timeout = null, float $delay = null): bool
     {
