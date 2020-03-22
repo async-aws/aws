@@ -36,10 +36,10 @@ class AsyncAwsExtension extends Extension
                 throw new InvalidConfigurationException(sprintf('You have configured "async_aws.%s" but the "%s" package is not installed. Try running "composer require %s"', $name, $name, $availableServices[$name]['package']));
             }
 
-            $config = array_merge($defaultConfig, $data);
-            if ($config['register_service']) {
+            $serviceConfig = array_merge($defaultConfig, $data);
+            if ($serviceConfig['register_service']) {
                 $usedServices[$name] = $client;
-                $this->addServiceDefinition($container, $name, $config, $client);
+                $this->addServiceDefinition($container, $name, $serviceConfig, $client);
             } else {
                 $usedServices[$name] = null;
             }
