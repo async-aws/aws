@@ -6,8 +6,8 @@ namespace AsyncAws\Core\Tests\Unit\Test;
 
 use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Result;
-use AsyncAws\Core\Sts\Result\AssumedRoleUser;
 use AsyncAws\Core\Sts\Result\AssumeRoleResponse;
+use AsyncAws\Core\Sts\ValueObject\AssumedRoleUser;
 use AsyncAws\Core\Test\ResultMockFactory;
 use AsyncAws\Core\Tests\Resources\ExampleResponse;
 use PHPUnit\Framework\TestCase;
@@ -49,6 +49,7 @@ class ResultMockFactoryTest extends TestCase
     public function testCreateWithInvalidClass()
     {
         $this->expectException(\LogicException::class);
+        $this->expectExceptionMessage('can only be used for classes that extend "AsyncAws\Core\Result"');
         ResultMockFactory::create(AssumedRoleUser::class, [
             'Arn' => 'arn123',
             'AssumedRoleId' => 'foo123',

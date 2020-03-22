@@ -75,8 +75,11 @@ class ResultMockFactory
 
         $reflectionClass = new \ReflectionClass($class);
         $object = $reflectionClass->newInstance($response);
-        $data['initialized'] = true;
+        if (Result::class !== $class) {
+            self::addPropertiesOnResult($reflectionClass, $object, $class);
+        }
 
+        $data['initialized'] = true;
         foreach ($data as $propertyName => $propertyValue) {
             $property = $reflectionClass->getProperty($propertyName);
             $property->setAccessible(true);
@@ -142,6 +145,51 @@ class ResultMockFactory
                 $property->setAccessible(true);
                 $property->setValue($object, $propertyValue);
             }
+        }
+    }
+
+    /**
+     * Set input and aws client to handle pagination.
+     */
+    private static function addPropertiesOnResult(\ReflectionClass $reflectionClass, object $object, string $class): void
+    {
+        if (false === $pos = strrpos($class, '\\')) {
+            throw new \LogicException(sprintf('Expected class "%s" to have a backslash. ', $class));
+        }
+
+        $className = substr($class, $pos + 1);
+        if ('Output' === substr($className, -6)) {
+            $classNameWithoutSuffix = substr($className, 0, -6);
+        } elseif ('Response' === substr($className, -8)) {
+            $classNameWithoutSuffix = substr($className, 0, -8);
+        } else {
+            throw new \LogicException(sprintf('Unknown class suffix: "%s"', $className));
+        }
+
+        if (false === $pos = strrpos($class, '\\', -2 - \strlen($className))) {
+            throw new \LogicException(sprintf('Expected class "%s" to have more than one backslash. ', $class));
+        }
+
+        $baseNamespace = substr($class, 0, $pos);
+        if (false === $pos = strrpos($baseNamespace, '\\')) {
+            throw new \LogicException(sprintf('Expected base namespace "%s" to have a backslash. ', $baseNamespace));
+        }
+
+        $awsClientClass = $baseNamespace . (substr($baseNamespace, $pos)) . 'Client';
+        $inputClass = $baseNamespace . '\\Input\\' . $classNameWithoutSuffix . 'Request';
+
+        if (class_exists($awsClientClass)) {
+            $awsClientMock = (new \ReflectionClass($awsClientClass))->newInstanceWithoutConstructor();
+            $property = $reflectionClass->getProperty('awsClient');
+            $property->setAccessible(true);
+            $property->setValue($object, $awsClientMock);
+        }
+
+        if (class_exists($inputClass)) {
+            $inputMock = (new \ReflectionClass($inputClass))->newInstanceWithoutConstructor();
+            $property = $reflectionClass->getProperty('input');
+            $property->setAccessible(true);
+            $property->setValue($object, $inputMock);
         }
     }
 }
