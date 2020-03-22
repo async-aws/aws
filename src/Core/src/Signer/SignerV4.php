@@ -87,7 +87,7 @@ class SignerV4 implements Signer
         return $hash;
     }
 
-    private function handleSignature(Request $request, ?Credentials $credentials, \DateTimeInterface $now, \DateTimeInterface $expires, bool $isPresign = false): void
+    private function handleSignature(Request $request, ?Credentials $credentials, \DateTimeInterface $now, \DateTimeInterface $expires, bool $isPresign): void
     {
         if (null === $credentials) {
             return;
