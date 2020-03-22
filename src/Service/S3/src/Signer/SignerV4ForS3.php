@@ -27,15 +27,6 @@ class SignerV4ForS3 extends SignerV4
         'PutObjectLockConfiguration' => true,
     ];
 
-    public function presign(Request $request, Credentials $credentials, RequestContext $context): void
-    {
-        if (!$request->hasHeader('x-amz-content-sha256')) {
-            $request->setHeader('x-amz-content-sha256', $request->getBody()->hash());
-        }
-
-        parent::presign($request, $credentials, $context);
-    }
-
     public function sign(Request $request, Credentials $credentials, RequestContext $context): void
     {
         if ((null === ($operation = $context->getOperation()) || isset(self::MD5_OPERATIONS[$operation])) && !$request->hasHeader('content-md5')) {
