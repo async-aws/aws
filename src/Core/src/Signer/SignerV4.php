@@ -120,7 +120,7 @@ class SignerV4 implements Signer
         $bodyDigest = $this->buildBodyDigest($request, $isPresign);
 
         if ($isPresign) {
-            // Should be called after `buildBodyDigest` because header this method may remove `x-amz-content-sha256`
+            // Should be called after `buildBodyDigest` because this method may remove the header `x-amz-content-sha256`
             $this->convertHeaderToQuery($request);
         }
 
