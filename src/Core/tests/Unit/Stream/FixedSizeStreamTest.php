@@ -43,6 +43,16 @@ class FixedSizeStreamTest extends TestCase
         self::assertSame($expected, \iterator_to_array($stream));
     }
 
+    /**
+     * @dataProvider provideChunks
+     */
+    public function testDecoratingFixedSize(RequestStream $content, int $size, array $expected): void
+    {
+        $stream = FixedSizeStream::create(FixedSizeStream::create($content, \random_int(1, 10)), $size);
+
+        self::assertSame($expected, \iterator_to_array($stream));
+    }
+
     public function provideLengths(): iterable
     {
         yield [StringStream::create('Hello world'), 11];
