@@ -69,27 +69,11 @@ final class RewindableStream implements RequestStream
             return;
         }
 
-        $resource = \fopen('php://memory', 'r+b');
+        $resource = \fopen('php://temp', 'r+b');
         $this->fallback = ResourceStream::create($resource);
 
-        $size = 0;
-        $inmemory = true;
         foreach ($this->content as $chunk) {
             \fwrite($resource, $chunk);
-            if ($inmemory) {
-                $size += \strlen($chunk);
-                // switch to filesystem if string larger that 1 Mb
-                if ($size > 1024 * 1024) {
-                    $memoryStream = $resource;
-                    $resource = \tmpfile();
-                    $this->fallback = ResourceStream::create($resource);
-                    $inmemory = false;
-
-                    \fseek($memoryStream, 0);
-                    \stream_copy_to_stream($memoryStream, $resource);
-                    \fclose($memoryStream);
-                }
-            }
             yield $chunk;
         }
     }
