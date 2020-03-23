@@ -84,11 +84,9 @@ final class ResourceStream implements RequestStream
         }
 
         $ctx = hash_init($algo);
-        while (!feof($this->content)) {
-            hash_update($ctx, fread($this->content, 1048576));
-        }
-
+        hash_update_stream($ctx, $this->content);
         $out = hash_final($ctx, $raw);
+
         if (-1 === fseek($this->content, $pos)) {
             throw new InvalidArgument('Unable to seek the content.');
         }
