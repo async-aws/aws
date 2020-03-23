@@ -64,7 +64,8 @@ class SignerV4 implements Signer
         } else {
             $now = new \DateTimeImmutable($now->format(\DateTimeInterface::ATOM));
         }
-        $now = $now->setTimezone(new \DateTimeZone('GMT'));
+        // Signer date have to be UTC https://docs.aws.amazon.com/general/latest/gr/sigv4-date-handling.html
+        $now = $now->setTimezone(new \DateTimeZone('UTC'));
         $expires = $context->getExpirationDate() ?? $now->add(new \DateInterval('PT1H'));
 
         $this->handleSignature($request, $credentials, $now, $expires, true);
@@ -77,7 +78,8 @@ class SignerV4 implements Signer
         } else {
             $now = new \DateTimeImmutable($now->format(\DateTimeInterface::ATOM));
         }
-        $now = $now->setTimezone(new \DateTimeZone('GMT'));
+        // Signer date have to be UTC https://docs.aws.amazon.com/general/latest/gr/sigv4-date-handling.html
+        $now = $now->setTimezone(new \DateTimeZone('UTC'));
 
         $this->handleSignature($request, $credentials, $now, $now, false);
     }
