@@ -29,7 +29,7 @@ final class FixedSizeStream implements RequestStream
             if ($content->chunkSize === $chunkSize) {
                 return $content;
             }
-            
+
             return new self($content->content, $chunkSize);
         }
 
