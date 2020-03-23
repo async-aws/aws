@@ -108,12 +108,12 @@ class SignerV4 implements Signer
         $credentialString = \implode('/', $credentialScope);
         $signingKey = $this->buildSigningKey($credentials, $credentialScope);
 
-        // signature is passed by reference to convertBodyToStream
-        $signature = '';
         if ($isPresign) {
             // Should be called before `buildBodyDigest` because this method may alter the body
             $this->convertBodyToQuery($request);
         } else {
+            // $signature does not exists but passed by reference then computed buildSignature
+            $signature = '';
             $this->convertBodyToStream($request, $now, $credentialString, $signingKey, $signature);
         }
 
