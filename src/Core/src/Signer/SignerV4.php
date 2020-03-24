@@ -61,15 +61,27 @@ class SignerV4 implements Signer
 
     public function presign(Request $request, Credentials $credentials, RequestContext $context): void
     {
-        $now = $context->getCurrentDate() ?? new \DateTimeImmutable();
-        $expires = $context->getExpirationDate() ?? (new \DateTimeImmutable($now->format(\DateTimeInterface::ATOM)))->add(new \DateInterval('PT1H'));
+        if (null === $now = $context->getCurrentDate()) {
+            $now = new \DateTimeImmutable();
+        } else {
+            $now = new \DateTimeImmutable($now->format(\DateTimeInterface::ATOM));
+        }
+        // Signer date have to be UTC https://docs.aws.amazon.com/general/latest/gr/sigv4-date-handling.html
+        $now = $now->setTimezone(new \DateTimeZone('UTC'));
+        $expires = $context->getExpirationDate() ?? $now->add(new \DateInterval('PT1H'));
 
         $this->handleSignature($request, $credentials, $now, $expires, true);
     }
 
     public function sign(Request $request, Credentials $credentials, RequestContext $context): void
     {
-        $now = $context->getCurrentDate() ?? new \DateTimeImmutable();
+        if (null === $now = $context->getCurrentDate()) {
+            $now = new \DateTimeImmutable();
+        } else {
+            $now = new \DateTimeImmutable($now->format(\DateTimeInterface::ATOM));
+        }
+        // Signer date have to be UTC https://docs.aws.amazon.com/general/latest/gr/sigv4-date-handling.html
+        $now = $now->setTimezone(new \DateTimeZone('UTC'));
 
         $this->handleSignature($request, $credentials, $now, $now, false);
     }
@@ -105,19 +117,19 @@ class SignerV4 implements Signer
         $credentialString = \implode('/', $credentialScope);
         $signingKey = $this->buildSigningKey($credentials, $credentialScope);
 
-        // signature is passed by reference to convertBodyToStream
-        $signature = '';
         if ($isPresign) {
             // Should be called before `buildBodyDigest` because this method may alter the body
             $this->convertBodyToQuery($request);
         } else {
+            // $signature does not exists but passed by reference then computed buildSignature
+            $signature = '';
             $this->convertBodyToStream($request, $now, $credentialString, $signingKey, $signature);
         }
 
         $bodyDigest = $this->buildBodyDigest($request, $isPresign);
 
         if ($isPresign) {
-            // Should be called after `buildBodyDigest` because header this method may remove `x-amz-content-sha256`
+            // Should be called after `buildBodyDigest` because this method may remove the header `x-amz-content-sha256`
             $this->convertHeaderToQuery($request);
         }
 
@@ -196,16 +208,16 @@ class SignerV4 implements Signer
                 throw new InvalidArgument('The expiration date of presigned URL must be in the future');
             }
 
-            $request->setQueryAttribute('X-Amz-Date', gmdate('Ymd\THis\Z', $now->getTimestamp()));
+            $request->setQueryAttribute('X-Amz-Date', $now->format('Ymd\THis\Z'));
             $request->setQueryAttribute('X-Amz-Expires', $duration);
         } else {
-            $request->setHeader('X-Amz-Date', gmdate('Ymd\THis\Z', $now->getTimestamp()));
+            $request->setHeader('X-Amz-Date', $now->format('Ymd\THis\Z'));
         }
     }
 
     private function buildCredentialString(Request $request, Credentials $credentials, \DateTimeInterface $now, bool $isPresign): array
     {
-        $credentialScope = [gmdate('Ymd', $now->getTimestamp()), $this->region, $this->scopeName, 'aws4_request'];
+        $credentialScope = [$now->format('Ymd'), $this->region, $this->scopeName, 'aws4_request'];
 
         if ($isPresign) {
             $request->setQueryAttribute('X-Amz-Credential', $credentials->getAccessKeyId() . '/' . implode('/', $credentialScope));
@@ -380,7 +392,7 @@ class SignerV4 implements Signer
     {
         return implode("\n", [
             self::ALGORITHM_REQUEST,
-            gmdate('Ymd\THis\Z', $now->getTimestamp()),
+            $now->format('Ymd\THis\Z'),
             $credentialString,
             hash('sha256', $canonicalRequest),
         ]);
@@ -393,7 +405,7 @@ class SignerV4 implements Signer
 
         return implode("\n", [
             self::ALGORITHM_CHUNK,
-            gmdate('Ymd\THis\Z', $now->getTimestamp()),
+            $now->format('Ymd\THis\Z'),
             $credentialString,
             $signature,
             $emptyHash,

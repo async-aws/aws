@@ -23,16 +23,13 @@ final class FixedSizeStream implements RequestStream
         $this->chunkSize = $chunkSize;
     }
 
-    public static function create($content, int $chunkSize = 64 * 1024): FixedSizeStream
+    public static function create(RequestStream $content, int $chunkSize = 64 * 1024): FixedSizeStream
     {
         if ($content instanceof self) {
             return $content;
         }
-        if ($content instanceof RequestStream) {
-            return new self($content, $chunkSize);
-        }
 
-        throw new InvalidArgument(sprintf('Expect content to be an instance of "%s". "%s" given.', RequestStream::class, \is_object($content) ? \get_class($content) : \gettype($content)));
+        return new self($content, $chunkSize);
     }
 
     public function length(): ?int

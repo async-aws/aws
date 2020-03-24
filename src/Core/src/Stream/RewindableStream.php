@@ -2,8 +2,6 @@
 
 namespace AsyncAws\Core\Stream;
 
-use AsyncAws\Core\Exception\InvalidArgument;
-
 /**
  * Provides a Stream that can be read several time.
  *
@@ -31,16 +29,13 @@ final class RewindableStream implements RequestStream
         $this->content = $content;
     }
 
-    public static function create($content): RewindableStream
+    public static function create(RequestStream $content): RewindableStream
     {
         if ($content instanceof self) {
             return $content;
         }
-        if ($content instanceof RequestStream) {
-            return new self($content);
-        }
 
-        throw new InvalidArgument(sprintf('Expect content to be a "Stream". "%s" given.', \is_object($content) ? \get_class($content) : \gettype($content)));
+        return new self($content);
     }
 
     public function length(): ?int
@@ -69,27 +64,11 @@ final class RewindableStream implements RequestStream
             return;
         }
 
-        $resource = \fopen('php://memory', 'r+b');
+        $resource = \fopen('php://temp', 'r+b');
         $this->fallback = ResourceStream::create($resource);
 
-        $size = 0;
-        $inmemory = true;
         foreach ($this->content as $chunk) {
             \fwrite($resource, $chunk);
-            if ($inmemory) {
-                $size += \strlen($chunk);
-                // switch to filesystem if string larger that 1 Mb
-                if ($size > 1024 * 1024) {
-                    $memoryStream = $resource;
-                    $resource = \tmpfile();
-                    $this->fallback = ResourceStream::create($resource);
-                    $inmemory = false;
-
-                    \fseek($memoryStream, 0);
-                    \stream_copy_to_stream($memoryStream, $resource);
-                    \fclose($memoryStream);
-                }
-            }
             yield $chunk;
         }
     }
