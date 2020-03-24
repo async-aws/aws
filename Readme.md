@@ -40,9 +40,9 @@ $sqsClient = new SqsClient([
 
 // Call a client's method with an array
 $result = $sqsClient->createQueue(['QueueName' => 'bar']);
-// Make sure the request is sent
-$result->resolve();
 
+// Request is automatically sent when reading the result
+echo $result->getMessageId();
 
 // You can also call a client's method with an input object
 $input = new SendMessageRequest();
@@ -50,10 +50,10 @@ $input
     ->setQueueUrl('https://foo.com/bar')
     ->setMessageBody('foobar');
 
-$result = $sqsClient->sendMessage($input);
+// Since we dont use a $result to get the return value,
+// the HTTP request is sent automatically.
+$sqsClient->sendMessage($input);
 
-// Request is automatically sent when reading the response
-echo $result->getMessageId();
 ```
 
 ## How is it async first?
@@ -77,8 +77,8 @@ API to make a new request to fetch the remaining resources in the list.
 
 ```php
 use AsyncAws\S3\S3Client;
-use AsyncAws\S3\Result\AwsObject;
-use AsyncAws\S3\Result\CommonPrefix;
+use AsyncAws\S3\ValueObject\AwsObject;
+use AsyncAws\S3\ValueObject\CommonPrefix;
 
 $s3Client = new S3Client();
 $result = $s3Client->listObjectsV2(['Bucket' => 'foo']);
@@ -97,13 +97,20 @@ Similar to Official AWS PHP SDK, AsyncAws provides waiters to let you wait
 until an long operation finished.
 
 ```php
-// create a queue Async and don't wait for the response.
-$sqsClient->createQueue(['QueueName' => 'fooBar']);
+use AsyncAws\DynamoDb\DynamoDbClient;
 
-$waiter = $sqsClient->queueExists(['QueueName' => 'fooBar']);
+$dbClient = new DynamoDbClient();
+$dbClient->createTable([]);
+
+// create a new table. It normally takes around 5 seconds to complete this action.
+$dbClient->createTable(['TableName' => 'foobar', /* ...*/]);
+
+$waiter = $dbClient->tableExists(['TableName' => 'foobar']);
 echo $waiter->isSuccess(); // false
+
 $waiter->wait();
 echo $waiter->isSuccess(); // true
+
 ```
 
 [more information about waiters and hasers...](./docs/waiter.md)
