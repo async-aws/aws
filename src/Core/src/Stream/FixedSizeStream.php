@@ -26,7 +26,11 @@ final class FixedSizeStream implements RequestStream
     public static function create(RequestStream $content, int $chunkSize = 64 * 1024): FixedSizeStream
     {
         if ($content instanceof self) {
-            return $content;
+            if ($content->chunkSize === $chunkSize) {
+                return $content;
+            }
+
+            return new self($content->content, $chunkSize);
         }
 
         return new self($content, $chunkSize);
