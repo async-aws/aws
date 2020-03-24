@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AsyncAws\Core\Tests\Unit;
+namespace AsyncAws\Core\Tests\Unit\Signer;
 
 use AsyncAws\Core\Credentials\Credentials;
 use AsyncAws\Core\Request;
