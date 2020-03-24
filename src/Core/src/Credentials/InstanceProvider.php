@@ -100,7 +100,7 @@ final class InstanceProvider implements CredentialProvider
         try {
             $content = json_decode($content, true, 512, \JSON_BIGINT_AS_STRING | (\PHP_VERSION_ID >= 70300 ? \JSON_THROW_ON_ERROR : 0));
         } catch (\JsonException $e) {
-            /** @psalm-suppress InvalidArgument */
+            /** @psalm-suppress all */
             throw new JsonException(sprintf('%s for "%s".', $e->getMessage(), $response->getInfo('url')), $e->getCode());
         }
 

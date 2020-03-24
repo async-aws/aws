@@ -157,6 +157,10 @@ class SignerV4 implements Signer
             throw new InvalidArgument(sprintf('The endpoint "%s" is invalid.', $request->getEndpoint()));
         }
 
+        if (!isset($parsedUrl['host'])) {
+            return;
+        }
+
         $host = $parsedUrl['host'];
         if (isset($parsedUrl['port'])) {
             $host .= ':' . $parsedUrl['port'];

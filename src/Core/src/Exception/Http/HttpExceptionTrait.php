@@ -41,7 +41,9 @@ trait HttpExceptionTrait
     public function __construct(ResponseInterface $response)
     {
         $this->response = $response;
+        /** @var int $code */
         $code = $response->getInfo('http_code');
+        /** @var string $url */
         $url = $response->getInfo('url');
         $content = $response->getContent(false);
         $message = sprintf('HTTP %d returned for "%s".', $code, $url);
