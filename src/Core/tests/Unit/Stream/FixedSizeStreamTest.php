@@ -48,7 +48,7 @@ class FixedSizeStreamTest extends TestCase
      */
     public function testDecoratingFixedSize(RequestStream $content, int $size, array $expected): void
     {
-        $stream = FixedSizeStream::create(FixedSizeStream::create($content, \random_int(1, 10)), $size);
+        $stream = FixedSizeStream::create(FixedSizeStream::create($content, 5), $size);
 
         self::assertSame($expected, \iterator_to_array($stream));
     }
