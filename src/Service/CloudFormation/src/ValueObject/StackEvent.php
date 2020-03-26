@@ -71,7 +71,7 @@ class StackEvent
      *   LogicalResourceId?: null|string,
      *   PhysicalResourceId?: null|string,
      *   ResourceType?: null|string,
-     *   Timestamp: \DateTimeInterface,
+     *   Timestamp: \DateTimeImmutable,
      *   ResourceStatus?: null|\AsyncAws\CloudFormation\Enum\ResourceStatus::*,
      *   ResourceStatusReason?: null|string,
      *   ResourceProperties?: null|string,
@@ -151,7 +151,7 @@ class StackEvent
         return $this->StackName;
     }
 
-    public function getTimestamp(): \DateTimeInterface
+    public function getTimestamp(): \DateTimeImmutable
     {
         return $this->Timestamp;
     }

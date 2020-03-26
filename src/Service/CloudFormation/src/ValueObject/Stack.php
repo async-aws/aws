@@ -132,9 +132,9 @@ class Stack
      *   ChangeSetId?: null|string,
      *   Description?: null|string,
      *   Parameters?: null|\AsyncAws\CloudFormation\ValueObject\Parameter[],
-     *   CreationTime: \DateTimeInterface,
-     *   DeletionTime?: null|\DateTimeInterface,
-     *   LastUpdatedTime?: null|\DateTimeInterface,
+     *   CreationTime: \DateTimeImmutable,
+     *   DeletionTime?: null|\DateTimeImmutable,
+     *   LastUpdatedTime?: null|\DateTimeImmutable,
      *   RollbackConfiguration?: null|\AsyncAws\CloudFormation\ValueObject\RollbackConfiguration|array,
      *   StackStatus: \AsyncAws\CloudFormation\Enum\StackStatus::*,
      *   StackStatusReason?: null|string,
@@ -195,12 +195,12 @@ class Stack
         return $this->ChangeSetId;
     }
 
-    public function getCreationTime(): \DateTimeInterface
+    public function getCreationTime(): \DateTimeImmutable
     {
         return $this->CreationTime;
     }
 
-    public function getDeletionTime(): ?\DateTimeInterface
+    public function getDeletionTime(): ?\DateTimeImmutable
     {
         return $this->DeletionTime;
     }
@@ -225,7 +225,7 @@ class Stack
         return $this->EnableTerminationProtection;
     }
 
-    public function getLastUpdatedTime(): ?\DateTimeInterface
+    public function getLastUpdatedTime(): ?\DateTimeImmutable
     {
         return $this->LastUpdatedTime;
     }

@@ -22,7 +22,7 @@ class ArchivalSummary
 
     /**
      * @param array{
-     *   ArchivalDateTime?: null|\DateTimeInterface,
+     *   ArchivalDateTime?: null|\DateTimeImmutable,
      *   ArchivalReason?: null|string,
      *   ArchivalBackupArn?: null|string,
      * } $input
@@ -44,7 +44,7 @@ class ArchivalSummary
         return $this->ArchivalBackupArn;
     }
 
-    public function getArchivalDateTime(): ?\DateTimeInterface
+    public function getArchivalDateTime(): ?\DateTimeImmutable
     {
         return $this->ArchivalDateTime;
     }

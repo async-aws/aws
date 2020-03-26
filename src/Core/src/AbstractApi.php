@@ -80,7 +80,7 @@ abstract class AbstractApi
         return $this->configuration;
     }
 
-    final public function presign(Input $input, ?\DateTimeInterface $expires = null): string
+    final public function presign(Input $input, ?\DateTimeImmutable $expires = null): string
     {
         $request = $input->request();
         $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery()));

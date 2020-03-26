@@ -25,7 +25,7 @@ final class Credentials implements CredentialProvider
         string $accessKeyId,
         string $secretKey,
         ?string $sessionToken = null,
-        ?\DateTimeInterface $expireDate = null
+        ?\DateTimeImmutable $expireDate = null
     ) {
         $this->accessKeyId = $accessKeyId;
         $this->secretKey = $secretKey;
@@ -48,14 +48,14 @@ final class Credentials implements CredentialProvider
         return $this->sessionToken;
     }
 
-    public function getExpireDate(): ?\DateTimeInterface
+    public function getExpireDate(): ?\DateTimeImmutable
     {
         return $this->expireDate;
     }
 
     public function isExpired(): bool
     {
-        return null !== $this->expireDate && new \DateTime() >= $this->expireDate;
+        return null !== $this->expireDate && new \DateTimeImmutable() >= $this->expireDate;
     }
 
     public function getCredentials(Configuration $configuration): ?Credentials

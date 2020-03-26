@@ -40,7 +40,7 @@ class AwsObject
     /**
      * @param array{
      *   Key?: null|string,
-     *   LastModified?: null|\DateTimeInterface,
+     *   LastModified?: null|\DateTimeImmutable,
      *   ETag?: null|string,
      *   Size?: null|string,
      *   StorageClass?: null|\AsyncAws\S3\Enum\ObjectStorageClass::*,
@@ -72,7 +72,7 @@ class AwsObject
         return $this->Key;
     }
 
-    public function getLastModified(): ?\DateTimeInterface
+    public function getLastModified(): ?\DateTimeImmutable
     {
         return $this->LastModified;
     }

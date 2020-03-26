@@ -128,7 +128,7 @@ class TableDescription
      *   TableName?: null|string,
      *   KeySchema?: null|\AsyncAws\DynamoDb\ValueObject\KeySchemaElement[],
      *   TableStatus?: null|\AsyncAws\DynamoDb\Enum\TableStatus::*,
-     *   CreationDateTime?: null|\DateTimeInterface,
+     *   CreationDateTime?: null|\DateTimeImmutable,
      *   ProvisionedThroughput?: null|\AsyncAws\DynamoDb\ValueObject\ProvisionedThroughputDescription|array,
      *   TableSizeBytes?: null|string,
      *   ItemCount?: null|string,
@@ -195,7 +195,7 @@ class TableDescription
         return $this->BillingModeSummary;
     }
 
-    public function getCreationDateTime(): ?\DateTimeInterface
+    public function getCreationDateTime(): ?\DateTimeImmutable
     {
         return $this->CreationDateTime;
     }
