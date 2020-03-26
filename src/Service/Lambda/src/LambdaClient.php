@@ -4,14 +4,17 @@ namespace AsyncAws\Lambda;
 
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\Core\Response;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
 use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
+use AsyncAws\Lambda\Closure\BatchAsyncClosureInterface;
 use AsyncAws\Lambda\Result\AddLayerVersionPermissionResponse;
 use AsyncAws\Lambda\Result\InvocationResponse;
 use AsyncAws\Lambda\Result\ListLayerVersionsResponse;
 use AsyncAws\Lambda\Result\PublishLayerVersionResponse;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class LambdaClient extends AbstractApi
 {
@@ -59,7 +62,40 @@ class LambdaClient extends AbstractApi
     {
         $response = $this->getResponse(InvocationRequest::create($input)->request(), new RequestContext(['operation' => 'Invoke']));
 
-        return new InvocationResponse($response);
+        return new InvocationResponse($response, $this->httpClient); // @todo see with httpClient as private
+    }
+
+    /**
+     * Invokes a Lambda function foreach given InvocationRequest given.
+     *
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#invoke
+     * @see https://symfony.com/doc/current/components/http_client.html#concurrent-requests
+     *
+     * @param InvocationRequest[] $inputs
+     * @return InvocationResponse[]
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
+    public function invokeBatchAsync(HttpClientInterface $httpClient, array $inputs, BatchAsyncClosureInterface $callback): array
+    {
+        $httpResponses = [];
+        foreach ($inputs as $input) {
+            $httpResponses[] = $this->createHttpResponse(
+                InvocationRequest::create($input)->request(),
+                new RequestContext(['operation' => 'Invoke'])
+            );
+        }
+
+        $invocationResponses = [];
+        foreach ($httpClient->stream($httpResponses) as $httpResponse => $chunk) {
+            if ($chunk->isLast()) {
+                $response = new Response($httpResponse, $httpClient);
+                $invocationResponse = new InvocationResponse($response, $this);
+                $callback($invocationResponse);
+                $invocationResponses[] = $invocationResponse;
+            }
+        }
+
+        return $invocationResponses;
     }
 
     /**

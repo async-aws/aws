@@ -44,7 +44,7 @@ class LambdaClientTest extends TestCase
             'FunctionName' => 'Index',
             'Payload' => '{"name": "jderusse"}',
         ]);
-        $result = $client->Invoke($input);
+        $result = $client->Invoke($input); // @todo Find why the capital I ?
 
         $result->resolve();
 
@@ -53,6 +53,19 @@ class LambdaClientTest extends TestCase
         self::assertNull($result->getLogResult());
         self::assertSame('"hello jderusse"', $result->getPayload());
         self::assertSame('$LATEST', $result->getExecutedVersion());
+    }
+
+    public function testInvokeBatchAsync(): void
+    {
+        $client = $this->getClient();
+
+//        $input = new InvocationRequest([
+//            'FunctionName' => 'Index',
+//            'Payload' => '{"name": "jderusse"}',
+//        ]);
+        $result = $client->invokeBatchAsync($input);
+
+        // @todo Implement
     }
 
     public function testListLayerVersions(): void

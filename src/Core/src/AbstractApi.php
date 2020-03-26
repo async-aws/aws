@@ -19,6 +19,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * Base class all API clients are inheriting.
@@ -100,6 +101,17 @@ abstract class AbstractApi
 
     final protected function getResponse(Request $request, ?RequestContext $context = null): Response
     {
+        return new Response(
+            $this->createHttpResponse($request, $context),
+            $this->httpClient
+        );
+    }
+
+    /**
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
+    final protected function createHttpResponse(Request $request, ?RequestContext $context = null): ResponseInterface
+    {
         $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery()));
 
         if (null !== $credentials = $this->credentialProvider->getCredentials($this->configuration)) {
@@ -117,9 +129,7 @@ abstract class AbstractApi
             $requestBody = $requestBody->stringify();
         }
 
-        $response = $this->httpClient->request($request->getMethod(), $request->getEndpoint(), ['headers' => $request->getHeaders(), 'body' => 0 === $length ? null : $requestBody]);
-
-        return new Response($response, $this->httpClient);
+        return $this->httpClient->request($request->getMethod(), $request->getEndpoint(), ['headers' => $request->getHeaders(), 'body' => 0 === $length ? null : $requestBody]);
     }
 
     /**
