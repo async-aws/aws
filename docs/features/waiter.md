@@ -1,4 +1,8 @@
-# Waiter and Haser
+---
+category: features
+---
+
+# Waiter
 
 Similar to Official AWS PHP SDK, AsyncAws provides waiters to let you wait
 until an long operation finished.
@@ -6,15 +10,18 @@ until an long operation finished.
 To ease the development, the above code is wrapped in a helper called "waiter".
 
 ```php
-// create a queue Async and don't wait for the response.
-$sqsClient->createQueue(['QueueName' => 'fooBar']);
+use AsyncAws\DynamoDb\DynamoDbClient;
 
-$waiter = $sqsClient->queueExists(['QueueName' => 'fooBar']);
+$dbClient = new DynamoDbClient();
+$dbClient->createTable([]);
 
+// create a new table. It normally takes around 5 seconds to complete this action.
+$dbClient->createTable(['TableName' => 'foobar', /* ...*/]);
+
+$waiter = $dbClient->tableExists(['TableName' => 'foobar']);
 echo $waiter->isSuccess(); // false
 
 $waiter->wait();
-
 echo $waiter->isSuccess(); // true
 ```
 
@@ -28,7 +35,7 @@ A waiter provides methods that let you check the status of the operation.
 As usual, AsyncAws is async and not blocking by default:
 
 ```php
-$waiter = $sqsClient->queueExists(['QueueName' => 'fooBar']);
+$waiter = $dbClient->tableExists(['TableName' => 'foobar']);
 while(true) {
     if ($waiter->wait(0)) {
         // When method `wait` returns true, the state is resolved.

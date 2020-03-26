@@ -1,0 +1,101 @@
+@import './variables';
+
+
+.logo {
+    width: 200px;
+}
+
+
+.sidebar {
+    min-width: $sidebarWidth;
+    max-width: $sidebarWidth;
+    background: $white;
+    color: $dark;
+    transition: all 0.3s;
+    position: relative;
+
+    ul li{
+        font-size: 16px;
+
+        /* Sub menu */
+        >ul{
+            margin-left: 10px;
+            li{
+                font-size: 14px;
+            }
+        }
+
+        a {
+            padding: 10px 0;
+            display: block;
+            color: $dark;
+            border-bottom: 1px solid rgba(0,0,0,.1);
+            &:hover{
+                color: lighten($dark, 25%);
+            }
+        }
+    }
+
+    /* On large screens, how should the button behave */
+    &.active{
+        margin-left: -$sidebarWidth;
+        .custom-menu-toggle{
+            margin-right: -50px;
+        }
+    }
+
+    /* On small screens, how should the button behave */
+    @include media-breakpoint-down(md){
+        margin-left: -$sidebarWidth;
+        &.active {
+            margin-left: 0;
+        }
+        .custom-menu-toggle{
+            margin-right: -50px !important;
+            top: 10px !important;
+        }
+    }
+
+    .custom-menu-toggle{
+        display: inline-block;
+        position: absolute;
+        top: 20px;
+        right: 0;
+        margin-right: -20px;
+        @include transition(.3s);
+        .btn{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            &.btn-primary{
+                background: $darkGreen;
+                border-color: $darkGreen;
+                &:hover, &:focus{
+                    background: $darkGreen !important;
+                    border-color: $darkGreen !important;
+                }
+            }
+
+            span{
+                @include media-breakpoint-down(md){
+                    display: none;
+                }
+            }
+        }
+
+    }
+
+    a[data-toggle="collapse"] {
+        position: relative;
+    }
+
+    .dropdown-toggle::after {
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+    }
+}
+
+
