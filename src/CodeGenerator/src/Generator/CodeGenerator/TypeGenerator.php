@@ -70,7 +70,7 @@ class TypeGenerator
             } elseif ($member->isStreaming()) {
                 $param = 'string|resource|callable|iterable';
             } elseif ('timestamp' === $param = $memberShape->getType()) {
-                $param = $isObject ? '\DateTimeInterface' : '\DateTimeInterface|string';
+                $param = $isObject ? '\DateTimeImmutable' : '\DateTimeImmutable|string';
             } else {
                 if (!empty($memberShape->getEnum())) {
                     $param = '\\' . $this->namespaceRegistry->getEnum($memberShape)->getFqdn() . '::*';
@@ -181,7 +181,7 @@ class TypeGenerator
             case 'boolean':
                 return 'bool';
             case 'timestamp':
-                return '\DateTimeInterface';
+                return '\DateTimeImmutable';
             default:
                 throw new \RuntimeException(sprintf('Type %s is not yet implemented', $parameterType));
         }

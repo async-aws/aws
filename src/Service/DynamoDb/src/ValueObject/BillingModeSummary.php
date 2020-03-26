@@ -20,7 +20,7 @@ class BillingModeSummary
     /**
      * @param array{
      *   BillingMode?: null|\AsyncAws\DynamoDb\Enum\BillingMode::*,
-     *   LastUpdateToPayPerRequestDateTime?: null|\DateTimeInterface,
+     *   LastUpdateToPayPerRequestDateTime?: null|\DateTimeImmutable,
      * } $input
      */
     public function __construct(array $input)
@@ -42,7 +42,7 @@ class BillingModeSummary
         return $this->BillingMode;
     }
 
-    public function getLastUpdateToPayPerRequestDateTime(): ?\DateTimeInterface
+    public function getLastUpdateToPayPerRequestDateTime(): ?\DateTimeImmutable
     {
         return $this->LastUpdateToPayPerRequestDateTime;
     }

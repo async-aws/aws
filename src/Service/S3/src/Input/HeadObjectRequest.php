@@ -30,7 +30,7 @@ class HeadObjectRequest implements Input
     /**
      * Return the object only if it has been modified since the specified time, otherwise return a 304 (not modified).
      *
-     * @var \DateTimeInterface|null
+     * @var \DateTimeImmutable|null
      */
     private $IfModifiedSince;
 
@@ -46,7 +46,7 @@ class HeadObjectRequest implements Input
      * Return the object only if it has not been modified since the specified time, otherwise return a 412 (precondition
      * failed).
      *
-     * @var \DateTimeInterface|null
+     * @var \DateTimeImmutable|null
      */
     private $IfUnmodifiedSince;
 
@@ -120,9 +120,9 @@ class HeadObjectRequest implements Input
      * @param array{
      *   Bucket?: string,
      *   IfMatch?: string,
-     *   IfModifiedSince?: \DateTimeInterface|string,
+     *   IfModifiedSince?: \DateTimeImmutable|string,
      *   IfNoneMatch?: string,
-     *   IfUnmodifiedSince?: \DateTimeInterface|string,
+     *   IfUnmodifiedSince?: \DateTimeImmutable|string,
      *   Key?: string,
      *   Range?: string,
      *   VersionId?: string,
@@ -137,9 +137,9 @@ class HeadObjectRequest implements Input
     {
         $this->Bucket = $input['Bucket'] ?? null;
         $this->IfMatch = $input['IfMatch'] ?? null;
-        $this->IfModifiedSince = !isset($input['IfModifiedSince']) ? null : ($input['IfModifiedSince'] instanceof \DateTimeInterface ? $input['IfModifiedSince'] : new \DateTimeImmutable($input['IfModifiedSince']));
+        $this->IfModifiedSince = !isset($input['IfModifiedSince']) ? null : ($input['IfModifiedSince'] instanceof \DateTimeImmutable ? $input['IfModifiedSince'] : new \DateTimeImmutable($input['IfModifiedSince']));
         $this->IfNoneMatch = $input['IfNoneMatch'] ?? null;
-        $this->IfUnmodifiedSince = !isset($input['IfUnmodifiedSince']) ? null : ($input['IfUnmodifiedSince'] instanceof \DateTimeInterface ? $input['IfUnmodifiedSince'] : new \DateTimeImmutable($input['IfUnmodifiedSince']));
+        $this->IfUnmodifiedSince = !isset($input['IfUnmodifiedSince']) ? null : ($input['IfUnmodifiedSince'] instanceof \DateTimeImmutable ? $input['IfUnmodifiedSince'] : new \DateTimeImmutable($input['IfUnmodifiedSince']));
         $this->Key = $input['Key'] ?? null;
         $this->Range = $input['Range'] ?? null;
         $this->VersionId = $input['VersionId'] ?? null;
@@ -165,7 +165,7 @@ class HeadObjectRequest implements Input
         return $this->IfMatch;
     }
 
-    public function getIfModifiedSince(): ?\DateTimeInterface
+    public function getIfModifiedSince(): ?\DateTimeImmutable
     {
         return $this->IfModifiedSince;
     }
@@ -175,7 +175,7 @@ class HeadObjectRequest implements Input
         return $this->IfNoneMatch;
     }
 
-    public function getIfUnmodifiedSince(): ?\DateTimeInterface
+    public function getIfUnmodifiedSince(): ?\DateTimeImmutable
     {
         return $this->IfUnmodifiedSince;
     }
@@ -303,7 +303,7 @@ class HeadObjectRequest implements Input
         return $this;
     }
 
-    public function setIfModifiedSince(?\DateTimeInterface $value): self
+    public function setIfModifiedSince(?\DateTimeImmutable $value): self
     {
         $this->IfModifiedSince = $value;
 
@@ -317,7 +317,7 @@ class HeadObjectRequest implements Input
         return $this;
     }
 
-    public function setIfUnmodifiedSince(?\DateTimeInterface $value): self
+    public function setIfUnmodifiedSince(?\DateTimeImmutable $value): self
     {
         $this->IfUnmodifiedSince = $value;
 

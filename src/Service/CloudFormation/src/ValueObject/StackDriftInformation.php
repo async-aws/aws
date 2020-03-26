@@ -20,7 +20,7 @@ class StackDriftInformation
     /**
      * @param array{
      *   StackDriftStatus: \AsyncAws\CloudFormation\Enum\StackDriftStatus::*,
-     *   LastCheckTimestamp?: null|\DateTimeInterface,
+     *   LastCheckTimestamp?: null|\DateTimeImmutable,
      * } $input
      */
     public function __construct(array $input)
@@ -34,7 +34,7 @@ class StackDriftInformation
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getLastCheckTimestamp(): ?\DateTimeInterface
+    public function getLastCheckTimestamp(): ?\DateTimeImmutable
     {
         return $this->LastCheckTimestamp;
     }

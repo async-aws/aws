@@ -29,7 +29,7 @@ class Credentials
      *   AccessKeyId: string,
      *   SecretAccessKey: string,
      *   SessionToken: string,
-     *   Expiration: \DateTimeInterface,
+     *   Expiration: \DateTimeImmutable,
      * } $input
      */
     public function __construct(array $input)
@@ -50,7 +50,7 @@ class Credentials
         return $this->AccessKeyId;
     }
 
-    public function getExpiration(): \DateTimeInterface
+    public function getExpiration(): \DateTimeImmutable
     {
         return $this->Expiration;
     }

@@ -18,7 +18,7 @@ class CopyObjectResult
     /**
      * @param array{
      *   ETag?: null|string,
-     *   LastModified?: null|\DateTimeInterface,
+     *   LastModified?: null|\DateTimeImmutable,
      * } $input
      */
     public function __construct(array $input)
@@ -37,7 +37,7 @@ class CopyObjectResult
         return $this->ETag;
     }
 
-    public function getLastModified(): ?\DateTimeInterface
+    public function getLastModified(): ?\DateTimeImmutable
     {
         return $this->LastModified;
     }

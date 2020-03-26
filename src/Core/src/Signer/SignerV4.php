@@ -63,9 +63,8 @@ class SignerV4 implements Signer
     {
         if (null === $now = $context->getCurrentDate()) {
             $now = new \DateTimeImmutable();
-        } else {
-            $now = new \DateTimeImmutable($now->format(\DateTimeInterface::ATOM));
         }
+
         // Signer date have to be UTC https://docs.aws.amazon.com/general/latest/gr/sigv4-date-handling.html
         $now = $now->setTimezone(new \DateTimeZone('UTC'));
         $expires = $context->getExpirationDate() ?? $now->add(new \DateInterval('PT1H'));
@@ -77,9 +76,8 @@ class SignerV4 implements Signer
     {
         if (null === $now = $context->getCurrentDate()) {
             $now = new \DateTimeImmutable();
-        } else {
-            $now = new \DateTimeImmutable($now->format(\DateTimeInterface::ATOM));
         }
+
         // Signer date have to be UTC https://docs.aws.amazon.com/general/latest/gr/sigv4-date-handling.html
         $now = $now->setTimezone(new \DateTimeZone('UTC'));
 
@@ -106,7 +104,7 @@ class SignerV4 implements Signer
         return $hash;
     }
 
-    private function handleSignature(Request $request, Credentials $credentials, \DateTimeInterface $now, \DateTimeInterface $expires, bool $isPresign): void
+    private function handleSignature(Request $request, Credentials $credentials, \DateTimeImmutable $now, \DateTimeImmutable $expires, bool $isPresign): void
     {
         $this->removePresign($request);
         $this->sanitizeHostForHeader($request);
@@ -197,7 +195,7 @@ class SignerV4 implements Signer
         }
     }
 
-    private function buildTime(Request $request, \DateTimeInterface $now, \DateTimeInterface $expires, bool $isPresign): void
+    private function buildTime(Request $request, \DateTimeImmutable $now, \DateTimeImmutable $expires, bool $isPresign): void
     {
         if ($isPresign) {
             $duration = $expires->getTimestamp() - $now->getTimestamp();
@@ -215,7 +213,7 @@ class SignerV4 implements Signer
         }
     }
 
-    private function buildCredentialString(Request $request, Credentials $credentials, \DateTimeInterface $now, bool $isPresign): array
+    private function buildCredentialString(Request $request, Credentials $credentials, \DateTimeImmutable $now, bool $isPresign): array
     {
         $credentialScope = [$now->format('Ymd'), $this->region, $this->scopeName, 'aws4_request'];
 
@@ -259,7 +257,7 @@ class SignerV4 implements Signer
         $request->setBody(StringStream::create(''));
     }
 
-    private function convertBodyToStream(Request $request, \DateTimeInterface $now, string $credentialString, string $signingKey, string &$signature): void
+    private function convertBodyToStream(Request $request, \DateTimeImmutable $now, string $credentialString, string $signingKey, string &$signature): void
     {
         $body = $request->getBody();
         if ($request->hasHeader('content-length')) {
@@ -388,7 +386,7 @@ class SignerV4 implements Signer
         return '/' . str_replace('%2F', '/', $doubleEncoded);
     }
 
-    private function buildStringToSign(\DateTimeInterface $now, string $credentialString, string $canonicalRequest): string
+    private function buildStringToSign(\DateTimeImmutable $now, string $credentialString, string $canonicalRequest): string
     {
         return implode("\n", [
             self::ALGORITHM_REQUEST,
@@ -398,7 +396,7 @@ class SignerV4 implements Signer
         ]);
     }
 
-    private function buildChunkStringToSign(\DateTimeInterface $now, string $credentialString, string $signature, string $chunk): string
+    private function buildChunkStringToSign(\DateTimeImmutable $now, string $credentialString, string $signature, string $chunk): string
     {
         static $emptyHash;
         $emptyHash = $emptyHash ?? hash('sha256', '');

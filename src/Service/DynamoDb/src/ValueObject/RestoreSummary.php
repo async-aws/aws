@@ -28,7 +28,7 @@ class RestoreSummary
      * @param array{
      *   SourceBackupArn?: null|string,
      *   SourceTableArn?: null|string,
-     *   RestoreDateTime: \DateTimeInterface,
+     *   RestoreDateTime: \DateTimeImmutable,
      *   RestoreInProgress: bool,
      * } $input
      */
@@ -45,7 +45,7 @@ class RestoreSummary
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getRestoreDateTime(): \DateTimeInterface
+    public function getRestoreDateTime(): \DateTimeImmutable
     {
         return $this->RestoreDateTime;
     }

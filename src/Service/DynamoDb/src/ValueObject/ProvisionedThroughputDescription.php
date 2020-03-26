@@ -36,8 +36,8 @@ class ProvisionedThroughputDescription
 
     /**
      * @param array{
-     *   LastIncreaseDateTime?: null|\DateTimeInterface,
-     *   LastDecreaseDateTime?: null|\DateTimeInterface,
+     *   LastIncreaseDateTime?: null|\DateTimeImmutable,
+     *   LastDecreaseDateTime?: null|\DateTimeImmutable,
      *   NumberOfDecreasesToday?: null|string,
      *   ReadCapacityUnits?: null|string,
      *   WriteCapacityUnits?: null|string,
@@ -57,12 +57,12 @@ class ProvisionedThroughputDescription
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getLastDecreaseDateTime(): ?\DateTimeInterface
+    public function getLastDecreaseDateTime(): ?\DateTimeImmutable
     {
         return $this->LastDecreaseDateTime;
     }
 
-    public function getLastIncreaseDateTime(): ?\DateTimeInterface
+    public function getLastIncreaseDateTime(): ?\DateTimeImmutable
     {
         return $this->LastIncreaseDateTime;
     }

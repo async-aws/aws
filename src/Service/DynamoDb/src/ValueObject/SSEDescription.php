@@ -35,7 +35,7 @@ class SSEDescription
      *   Status?: null|\AsyncAws\DynamoDb\Enum\SSEStatus::*,
      *   SSEType?: null|\AsyncAws\DynamoDb\Enum\SSEType::*,
      *   KMSMasterKeyArn?: null|string,
-     *   InaccessibleEncryptionDateTime?: null|\DateTimeInterface,
+     *   InaccessibleEncryptionDateTime?: null|\DateTimeImmutable,
      * } $input
      */
     public function __construct(array $input)
@@ -51,7 +51,7 @@ class SSEDescription
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getInaccessibleEncryptionDateTime(): ?\DateTimeInterface
+    public function getInaccessibleEncryptionDateTime(): ?\DateTimeImmutable
     {
         return $this->InaccessibleEncryptionDateTime;
     }

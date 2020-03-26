@@ -116,7 +116,7 @@ class PutObjectRequest implements Input
      *
      * @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.21
      *
-     * @var \DateTimeInterface|null
+     * @var \DateTimeImmutable|null
      */
     private $Expires;
 
@@ -251,7 +251,7 @@ class PutObjectRequest implements Input
     /**
      * The date and time when you want this object's Object Lock to expire.
      *
-     * @var \DateTimeInterface|null
+     * @var \DateTimeImmutable|null
      */
     private $ObjectLockRetainUntilDate;
 
@@ -279,7 +279,7 @@ class PutObjectRequest implements Input
      *   ContentLength?: string,
      *   ContentMD5?: string,
      *   ContentType?: string,
-     *   Expires?: \DateTimeInterface|string,
+     *   Expires?: \DateTimeImmutable|string,
      *   GrantFullControl?: string,
      *   GrantRead?: string,
      *   GrantReadACP?: string,
@@ -297,7 +297,7 @@ class PutObjectRequest implements Input
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   Tagging?: string,
      *   ObjectLockMode?: \AsyncAws\S3\Enum\ObjectLockMode::*,
-     *   ObjectLockRetainUntilDate?: \DateTimeInterface|string,
+     *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
      *   ObjectLockLegalHoldStatus?: \AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::*,
      * } $input
      */
@@ -313,7 +313,7 @@ class PutObjectRequest implements Input
         $this->ContentLength = $input['ContentLength'] ?? null;
         $this->ContentMD5 = $input['ContentMD5'] ?? null;
         $this->ContentType = $input['ContentType'] ?? null;
-        $this->Expires = !isset($input['Expires']) ? null : ($input['Expires'] instanceof \DateTimeInterface ? $input['Expires'] : new \DateTimeImmutable($input['Expires']));
+        $this->Expires = !isset($input['Expires']) ? null : ($input['Expires'] instanceof \DateTimeImmutable ? $input['Expires'] : new \DateTimeImmutable($input['Expires']));
         $this->GrantFullControl = $input['GrantFullControl'] ?? null;
         $this->GrantRead = $input['GrantRead'] ?? null;
         $this->GrantReadACP = $input['GrantReadACP'] ?? null;
@@ -331,7 +331,7 @@ class PutObjectRequest implements Input
         $this->RequestPayer = $input['RequestPayer'] ?? null;
         $this->Tagging = $input['Tagging'] ?? null;
         $this->ObjectLockMode = $input['ObjectLockMode'] ?? null;
-        $this->ObjectLockRetainUntilDate = !isset($input['ObjectLockRetainUntilDate']) ? null : ($input['ObjectLockRetainUntilDate'] instanceof \DateTimeInterface ? $input['ObjectLockRetainUntilDate'] : new \DateTimeImmutable($input['ObjectLockRetainUntilDate']));
+        $this->ObjectLockRetainUntilDate = !isset($input['ObjectLockRetainUntilDate']) ? null : ($input['ObjectLockRetainUntilDate'] instanceof \DateTimeImmutable ? $input['ObjectLockRetainUntilDate'] : new \DateTimeImmutable($input['ObjectLockRetainUntilDate']));
         $this->ObjectLockLegalHoldStatus = $input['ObjectLockLegalHoldStatus'] ?? null;
     }
 
@@ -396,7 +396,7 @@ class PutObjectRequest implements Input
         return $this->ContentType;
     }
 
-    public function getExpires(): ?\DateTimeInterface
+    public function getExpires(): ?\DateTimeImmutable
     {
         return $this->Expires;
     }
@@ -450,7 +450,7 @@ class PutObjectRequest implements Input
         return $this->ObjectLockMode;
     }
 
-    public function getObjectLockRetainUntilDate(): ?\DateTimeInterface
+    public function getObjectLockRetainUntilDate(): ?\DateTimeImmutable
     {
         return $this->ObjectLockRetainUntilDate;
     }
@@ -716,7 +716,7 @@ class PutObjectRequest implements Input
         return $this;
     }
 
-    public function setExpires(?\DateTimeInterface $value): self
+    public function setExpires(?\DateTimeImmutable $value): self
     {
         $this->Expires = $value;
 
@@ -788,7 +788,7 @@ class PutObjectRequest implements Input
         return $this;
     }
 
-    public function setObjectLockRetainUntilDate(?\DateTimeInterface $value): self
+    public function setObjectLockRetainUntilDate(?\DateTimeImmutable $value): self
     {
         $this->ObjectLockRetainUntilDate = $value;
 

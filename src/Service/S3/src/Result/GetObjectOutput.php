@@ -263,14 +263,14 @@ class GetObjectOutput extends Result
         return $this->Expiration;
     }
 
-    public function getExpires(): ?\DateTimeInterface
+    public function getExpires(): ?\DateTimeImmutable
     {
         $this->initialize();
 
         return $this->Expires;
     }
 
-    public function getLastModified(): ?\DateTimeInterface
+    public function getLastModified(): ?\DateTimeImmutable
     {
         $this->initialize();
 
@@ -314,7 +314,7 @@ class GetObjectOutput extends Result
         return $this->ObjectLockMode;
     }
 
-    public function getObjectLockRetainUntilDate(): ?\DateTimeInterface
+    public function getObjectLockRetainUntilDate(): ?\DateTimeImmutable
     {
         $this->initialize();
 
