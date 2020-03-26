@@ -44,7 +44,7 @@ h2 {
 }
 
 .content {
-    width: calc(100% - #{$sidebarWidth});
+    width: 100%;
     padding: 0;
     min-height: 100vh;
     transition: all 0.3s;
