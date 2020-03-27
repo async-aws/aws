@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="/assets/app.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>{{ metaTitle|default('AsyncAWS') }}</title>
+</head>
+<body>
+<div class="d-flex">
+    <nav id="sidebar" class="sidebar">
+        <div class="custom-menu-toggle">
+            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                <i class="fa fa-bars"></i>
+                <span class="sr-only">Toggle Menu</span>
+            </button>
+        </div>
+        <div class="p-4 pt-1">
+            <a href="index.html" class="logo mx-auto d-block">
+                <img src="/assets/image/logo.png" />
+            </a>
+            <ul class="list-unstyled p-0 mb-5">
+
+            {% for menu_category, item in menu %}
+                {% if item.section is defined %}
+                <li>
+                    <a href="#{{ menu_category }}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{ item.section }}</a>
+                    <ul class="collapse list-unstyled {{ menu_category == category ? 'show' : '' }}" id="{{ menu_category }}">
+                {% endif %}
+                {% for itemId, item in item.items %}
+                    <li class="">
+                        <a href="{{ item.url }}">
+                            {{ item.text }}
+                        </a>
+                    </li>
+                {% endfor %}
+                    {% if item.section is defined %}
+                    </ul>
+                </li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+
+            <p class="copyright">
+                Async AWS is created by <br>
+                <a href="https://github.com/jderusse">Jérémy Derussé</a>,
+                <a href="https://github.com/Nyholm">Tobias Nyholm</a> <br>
+                and <a href="https://github.com/async-aws/aws/graphs/contributors">contributors</a>.
+            </p>
+        </div>
+    </nav>
+
+    <main role="main" id="content" class="content p-4 p-md-5 pt-5">
+    {% block body %}{% endblock %}
+    </main>
+</div>
+
+<script src="/assets/app.js"></script>
+</body>
+</html>

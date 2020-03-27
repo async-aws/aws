@@ -1,0 +1,88 @@
+template:
+    index: index.md
+    directory: website/template
+
+include:
+    - docs
+
+scripts:
+    before:
+        - make website-assets
+
+menu:
+    root:
+        items:
+            home:
+                text: Start
+                url: /
+            compare:
+                text: Compare with AWS
+                url: /compare.html
+
+    authentication:
+        section: Authentication
+        items:
+            intro:
+                text: Overview
+                url: /authentication/
+            hard_coded:
+                text: Hard-Coded values
+                url: /authentication/hard_coded.html
+            environment:
+                text: Environment variables
+                url: /authentication/environment.html
+
+            web_identity:
+                text: WebIdentity
+                url: /authentication/web_identity.html
+
+            file:
+                text: Credentials file
+                url: /authentication/credentials_file.html
+
+            ec2_metadata:
+                text: EC2 instance metadata
+                url: /authentication/ec2_metadata.html
+    features:
+        section: Features
+        items:
+            async:
+                text: Why "async"?
+                url: /features/async.html
+            pagination:
+                text: Pagination
+                url: /features/pagination.html
+            presign:
+                text: Presign requests
+                url: /features/presign.html
+            waiters:
+                text: Waiters
+                url: /features/waiter.html
+
+    clients:
+        section: Api clients
+        items:
+            lambda:
+                text: Lambda
+                url: /clients/lambda.html
+            sqs:
+                text: SQS
+                url: /clients/sqs.html
+
+
+    contribute:
+        section: Contribute
+        items:
+            intro:
+                text: Introduction
+                url: /contribute/
+
+            generate:
+                text: Generate code
+                url: /contribute/generate.html
+
+    github:
+        items:
+            github:
+                text: Github
+                url: https://github.com/async-aws/aws

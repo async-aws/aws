@@ -31,3 +31,10 @@ stop-docker:
 		make stop-docker; \
 		echo ""; \
 	done
+
+
+website-assets: website/template/assets/app.css
+website/template/assets/app.css: website/node_modules website/assets/*
+	cd website && ./node_modules/.bin/encore prod
+website/node_modules: website/package.json
+	cd website && npm install

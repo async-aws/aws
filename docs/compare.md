@@ -1,14 +1,17 @@
 # Compare AsyncAws vs AWS PHP SDK
 
+An overview over how AsyncAws differ from the official AWS PHP SDK
+
 |   | AWS PHP SDK | AsyncAws |
 |---|-------------|-----------|
-| [Async](#async-experience)                    | | :heavy_check_mark: |
-| [Pagination](#pagination-experience)          | | :heavy_check_mark: |
-| [Presign](#presign-experience)                | | :heavy_check_mark: |
-| [Weight](#dependencies-size)                  | | :heavy_check_mark: |
-| [Developer Experience](#developer-experience) | | :heavy_check_mark: |
-| [Mock / Proxy](#mock-and-proxy)               | | :heavy_check_mark: |
-| [Features Coverage](#features-coverage)       | :heavy_check_mark: | |
+| [Async](#async-experience)                    | | <i class="fa fa-check"></i> |
+| [Pagination](#pagination-experience)          | | <i class="fa fa-check"></i> |
+| [Presign](#presign-experience)                | | <i class="fa fa-check"></i> |
+| [Weight](#dependencies-size)                  | | <i class="fa fa-check"></i> |
+| [Developer Experience](#developer-experience) | | <i class="fa fa-check"></i> |
+| [Mock / Proxy](#mock-and-proxy)               | | <i class="fa fa-check"></i> |
+| [Features Coverage](#features-coverage)       | <i class="fa fa-check"></i> | |
+
 
 ## Async eXperience
 
@@ -105,7 +108,7 @@ used in the standard way.
 
 **AsyncAws:**
 ```php
-$input = new GetObjectRequest(['Bucket' => 'my-bucket', 'Key' => 'test]);
+$input = new GetObjectRequest(['Bucket' => 'my-bucket', 'Key' => 'test']);
 
 // Sign on the fly
 $content = $s3Client->getObject($input);
@@ -119,16 +122,16 @@ echo $url;
 ```php
 
 // Sign on the fly
-$content = $s3Client->getObject(['Bucket' => 'my-bucket', 'Key' => 'test]);
+$content = $s3Client->getObject(['Bucket' => 'my-bucket', 'Key' => 'test']);
 
 // Presign Url
-$command = $s3Client->getCommand('GetObject', ['Bucket' => 'my-bucket', 'Key' => 'test]);
+$command = $s3Client->getCommand('GetObject', ['Bucket' => 'my-bucket', 'Key' => 'test']);
 $psr7 = $s3Client->createPresignedRequest($cmd, '+60 min');
 echo (string) $psr7->getUri();
 
 ```
 
-*note*: While official AWS PHP SDK provide methods to presign S3 methods only,
+*Note*: While official AWS PHP SDK provide methods to presign S3 methods only,
 AsyncAws let you presign requests for every services.
 
 ## Developer eXperience
@@ -142,10 +145,10 @@ AsyncAws also provides real classes with documented getter and methods, while
 the official AWS PHP SDK uses magic methods and undocumented array accessor.
 
 | AWS PHP SDK | AsyncAws |
-|-------------|-----------|
-| ![AWS PHP SDK method doc](./res/aws-method.png) | ![async-aws method doc](./res/aa-method.png) |
-| ![AWS PHP SDK input doc](./res/aws-input.png)   | ![async-aws input doc](./res/aa-input.png)   |
-| ![AWS PHP SDK result doc](./res/aws-result.png) | ![async-aws result doc](./res/aa-result.png) |
+| ----------- | -------- |
+| [![AWS PHP SDK method doc](/assets/image/compare/aws-method.png)](/assets/image/compare/aws-method.png) | [![async-aws method doc](/assets/image/compare/aa-method.png)](/assets/image/compare/aa-method.png)
+| [![AWS PHP SDK input doc](/assets/image/compare/aws-input.png)](/assets/image/compare/aws-input.png)    | [![async-aws input doc](/assets/image/compare/aa-input.png)](/assets/image/compare/aa-input.png)
+| [![AWS PHP SDK result doc](/assets/image/compare/aws-result.png)](/assets/image/compare/aws-result.png) | [![async-aws result doc](/assets/image/compare/aa-result.png)](/assets/image/compare/aa-result.png)
 
 ## Dependencies size
 
@@ -161,6 +164,6 @@ complexity and reduce the developer experience.
 
 ## Features coverage
 
-While AsyncAws focused on the most used operations (4 services and 19 methods),
+While AsyncAws focused on the most used operations (around 7 services),
 The official AWS PHP SDK covers the full scope of AWS (200 services and 8,000
 methods).

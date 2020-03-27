@@ -1,0 +1,68 @@
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+@import './variables';
+@import './sidebar';
+@import './code';
+
+body{
+    font-family: $font-primary;
+    font-size: 1rem;
+    line-height: 1.8;
+    font-weight: normal;
+    background: #fafafa;
+    color: $dark;
+}
+
+p {
+    max-width: 45rem;
+}
+li {
+    max-width: 40rem;
+}
+
+a {
+    transition: .3s all ease;
+    color: $darkGreen;
+    &:hover, &:focus {
+        text-decoration: none !important;
+        outline: none !important;
+        box-shadow: none;
+    }
+}
+
+h1, h2, h3, h4, h5,
+.h1, .h2, .h3, .h4, .h5 {
+    line-height: 1.5;
+    font-weight: 400;
+    font-family: $font-primary;
+    color: $black;
+}
+
+h2 {
+    margin-top: 1.5rem;
+}
+
+.content {
+    width: 100%;
+    padding: 0;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+table {
+    max-width: 100%;
+    img {
+        max-width: 100%;
+    }
+    td {
+        text-align: center;
+    }
+    td:first-of-type {
+        text-align: left;
+    }
+    th {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}

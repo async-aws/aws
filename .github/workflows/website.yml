@@ -1,0 +1,48 @@
+name: Build website
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Generate
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up PHP
+      uses: shivammathur/setup-php@2.1.2
+      with:
+        php-version: 7.4
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.2.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        path: 'aws'
+
+    - name: Checkout Website repo via SSH
+      run: |
+        git clone --branch master git@github.com:async-aws/async-aws.github.io.git website
+
+    - name: Download Couscous Phar
+      run: |
+        curl -OS http://couscous.io/couscous.phar
+        chmod +x couscous.phar
+
+    - name: Generate website
+      run: |
+        ./couscous.phar generate --target website aws
+
+    - name: Commit & push the new files
+      run: |
+        cd website
+        git config --local user.email "github@async-aws.com"
+        git config --local user.name "AsyncAWS Bot"
+        git commit -m "Update website" -a
+        git push

@@ -1,37 +1,8 @@
-# Maintainer notes
+---
+category: contribute
+---
 
-A few notes that are good to know if you contribute or maintain this library.
-
-## Generated code
-
-Most functions in our API clients are generated. So are the result classes. They
-are generated from the JSON provided by the official [AWS PHP SDK](https://github.com/aws/aws-sdk-php).
-This will assure correctness and it will be easy to keep up to with API changes.
-
-To create a class run the `generate` command.
-
-```cli
-./generate
-
-# Or
-./generate S3 CreateBucket
-```
-
-The `./manifest.json` file contains information where the source is located
-and some metadata about the generated files and methods.
-
-You may also regenerate an existing operation and result classes:
-
-```cli
-./generate S3 CreateBucket
-./generate S3 --all
-```
-
-Or regenerate everything:
-
-```cli
-./generate --all
-```
+# Generating new code
 
 ## Creating a new client operation
 
@@ -62,7 +33,6 @@ is an example for DynamoDB.
    1. Leave the `methods` key empty. (`"methods": []`)
 1. Configure the autoload section of `./composer.json` to include the new service (`"AsyncAws\\DynamoDb\\": "src/Service/DynamoDb/src"`)
 1. Do the same thing with the autoload-dev section of `./composer.json`.
-1. Add the package to the end of `./Readme.md`
 1. Run `composer dump-autoload`
 1. Adds operations you want following the [process previously defined](#creating-a-new-client-operation)
 
