@@ -12,11 +12,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Download dependencies
-        run: |
-          echo "Update website from commit async-aws/aws@${{ github.sha }}"
-          composer update --no-interaction --prefer-dist --optimize-autoloader
-
       - name: PHPStan
         uses: docker://oskarstark/phpstan-ga
         with:
