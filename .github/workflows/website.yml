@@ -43,6 +43,6 @@ jobs:
       run: |
         cd website
         git config --local user.email "github@async-aws.com"
-        git config --local user.name "Async AWS Bot"
+        git config --local user.name "AsyncAWS Bot"
         git commit -m "Update website" -a
         git push
