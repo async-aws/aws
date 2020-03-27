@@ -9,8 +9,6 @@ scripts:
     before:
         - make website-assets
 
-title: Async AWS
-
 menu:
     root:
         items:
