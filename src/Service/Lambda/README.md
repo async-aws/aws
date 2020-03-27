@@ -11,23 +11,10 @@ An API client for Lambda.
 composer require async-aws/lambda
 ```
 
-## Usage
+## Documentation
 
-```cli
-export AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
-export AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-```
-See [docs/authentication.md](https://github.com/async-aws/aws/blob/master/docs/authentication.md) to see how to authenticate against AWS server.
+See https://async-aws.com/clients/lambda.html for documentation.
 
-```php
-$client = new LambdaClient([
-    'region' => 'us-east-1',
-]);
+## Contribute
 
-$result = $client->invoke([
-  'FunctionName' => 'app-dev-hello_world', // Find it here: https://console.aws.amazon.com/lambda/home?region=us-east-1#/functions
-  'Payload' => '{"name": "async-aws/lambda"}',
-]);
-
-$result->getPayload(); // hello async-aws/lambda
-```
+Contributions are welcome and appreciated. Please read https://async-aws.com/contribute/

@@ -10,3 +10,7 @@ An API client for Sns.
 ```cli
 composer require async-aws/sns
 ```
+
+## Contribute
+
+Contributions are welcome and appreciated. Please read https://async-aws.com/contribute/

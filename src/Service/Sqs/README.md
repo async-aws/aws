@@ -10,3 +10,11 @@ An API client for SQS.
 ```cli
 composer require async-aws/sqs
 ```
+
+## Documentation
+
+See https://async-aws.com/clients/sqs.html for documentation.
+
+## Contribute
+
+Contributions are welcome and appreciated. Please read https://async-aws.com/contribute/

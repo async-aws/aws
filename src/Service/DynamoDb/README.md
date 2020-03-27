@@ -10,3 +10,7 @@ An API client for DynamoDb.
 ```cli
 composer require async-aws/dynamo-db
 ```
+
+## Contribute
+
+Contributions are welcome and appreciated. Please read https://async-aws.com/contribute/
