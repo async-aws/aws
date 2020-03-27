@@ -61,12 +61,15 @@ menu:
                 text: Waiters
                 url: /features/waiter.html
 
-#    clients:
-#        section: Api clients
-#        items:
-#            sqs:
-#                text: SQS
-#                url: /clients/sqs.html
+    clients:
+        section: Api clients
+        items:
+            lambda:
+                text: Lambda
+                url: /clients/lambda.html
+            sqs:
+                text: SQS
+                url: /clients/sqs.html
 
 
     contribute:
