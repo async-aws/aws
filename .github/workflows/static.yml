@@ -14,6 +14,7 @@ jobs:
 
       - name: Download dependencies
         run: |
+          echo "Update website from commit async-aws/aws@${{ github.sha }}"
           composer update --no-interaction --prefer-dist --optimize-autoloader
 
       - name: PHPStan
