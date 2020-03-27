@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - website
 
 jobs:
   build:
@@ -36,22 +35,14 @@ jobs:
         curl -OS http://couscous.io/couscous.phar
         chmod +x couscous.phar
 
-    - name: Download Couscous Phar
-      run: |
-        curl -OS http://couscous.io/couscous.phar
-        chmod +x couscous.phar
-
     - name: Generate website
       run: |
         ./couscous.phar generate --target website aws
-        echo "async-aws.com" > CNAME
 
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v2
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        branch: bot-code-update
-        commit-message: Update website
-        title: Update website
-        body: |
-          The documentation has been updated on the main repo. Lets update here too.
+    - name: Commit & push the new files
+      run: |
+        cd website
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "Update website" -a
+        git push
