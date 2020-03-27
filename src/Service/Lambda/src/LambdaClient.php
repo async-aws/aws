@@ -62,7 +62,7 @@ class LambdaClient extends AbstractApi
     {
         $response = $this->getResponse(InvocationRequest::create($input)->request(), new RequestContext(['operation' => 'Invoke']));
 
-        return new InvocationResponse($response, $this->httpClient); // @todo see with httpClient as private
+        return new InvocationResponse($response);
     }
 
     /**
@@ -72,7 +72,9 @@ class LambdaClient extends AbstractApi
      * @see https://symfony.com/doc/current/components/http_client.html#concurrent-requests
      *
      * @param InvocationRequest[] $inputs
+     *
      * @return InvocationResponse[]
+     *
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function invokeBatchAsync(HttpClientInterface $httpClient, array $inputs, BatchAsyncClosureInterface $callback): array
