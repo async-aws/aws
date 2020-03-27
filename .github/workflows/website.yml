@@ -1,9 +1,10 @@
 name: Build website
 
-on: [pull_request]
-#  push:
-#    branches:
-#      - master
+on:
+  push:
+    branches:
+      - master
+      - website
 
 jobs:
   build:
