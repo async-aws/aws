@@ -42,7 +42,7 @@ jobs:
     - name: Commit & push the new files
       run: |
         cd website
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        git config --local user.email "github@async-aws.com"
+        git config --local user.name "Async AWS Bot"
         git commit -m "Update website" -a
         git push
