@@ -4,7 +4,7 @@ category: features
 
 # Async
 
-When to call `resolve()`?
+TODO: When to call `resolve()`?
 
 ## Batch requests
 
@@ -24,7 +24,7 @@ for ($i = 0; $i < 10; ++$i) {
 
 while (!empty($results)) {
     foreach ($results as $i => $result) {
-        if ($result->resolve(0)) {
+        if ($result->resolve(0.01)) {
             echo $result->getPayload();
             unset($results[$i]);
         }
