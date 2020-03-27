@@ -44,5 +44,5 @@ jobs:
         cd website
         git config --local user.email "github@async-aws.com"
         git config --local user.name "AsyncAWS Bot"
-        git commit -m "Update website from commit `git --git-dir=./../aws/.git rev-parse HEAD`" -a
+        git commit -a -m "Update website from commit async-aws/aws@${{ github.sha }}"
         git push
