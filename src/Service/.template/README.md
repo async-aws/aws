@@ -10,3 +10,11 @@ An API client for Foobar.
 ```cli
 composer require async-aws/foobar
 ```
+
+## Documentation
+
+See https://async-aws.com/clients/foobar.html for documentation.
+
+## Contribute
+
+Contributions are welcome and appreciated. Please read https://async-aws.com/contribute/
