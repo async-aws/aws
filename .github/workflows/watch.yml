@@ -1,8 +1,11 @@
 name: Watch for changes
 
 on:
+  push:
+    branches:
+    - bot-fork  # do not forget to revert
   schedule:
-    - cron: '0 6 * * *'
+  - cron: '0 6 * * *'
 
 jobs:
   generated-code:
@@ -10,53 +13,66 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up PHP
-        uses: shivammathur/setup-php@2.1.2
-        with:
-          php-version: 7.4
-          coverage: none
+    - name: Set up PHP
+      uses: shivammathur/setup-php@2.1.2
+      with:
+        php-version: 7.4
+        coverage: none
 
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.2.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        ref: master
+        token: ${{ secrets.BOT_GITHUB_TOKEN }} # un comment if git config user.password does not work
 
-      - name: Checkout via SSH
-        run: |
-          git clone --branch master git@github.com:${{ github.repository }}.git .
+    - name: Switch remote to fork via SSH
+      run: |
+        git config user.password ${{ secrets.BOT_GITHUB_TOKEN }}
+        git remote set-url origin https://github.com/async-aws-bot/aws
+        git fetch --unshallow -p origin
 
-      - name: Download
-        run: |
-          composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
+    - name: Test # to remove before merging
+      run: |
+        date > tmp.txt
 
-      - name: Fetch last version
-        run: |
-          last=$(curl -s https://packagist.org/packages/aws/aws-sdk-php.json|jq '[.package.versions[]|select(.version|test("^\\d+\\.\\d+\\.\\d+$"))|.version]|max_by(.|[splits("[.]")]|map(tonumber))')
-          echo "Last AWS version is $last"
+    - name: Download dependencies
+      run: |
+        composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
 
-          br=$(mktemp)
-          jq ".variables[\"\${LATEST}\"]=$last" manifest.json > "$br"
-          mv "$br" manifest.json
+    - name: Fetch last version
+      id: fetch_version
+      run: |
+        last=$(curl -s https://packagist.org/packages/aws/aws-sdk-php.json|jq '[.package.versions[]|select(.version|test("^\\d+\\.\\d+\\.\\d+$"))|.version]|max_by(.|[splits("[.]")]|map(tonumber))')
+        echo "Last AWS version is $last"
+        echo ::set-output name=last::$last
 
-      - name: Regenerate
-        run: |
-          ./generate --all
+        br=$(mktemp)
+        jq ".variables[\"\${LATEST}\"]=$last" manifest.json > "$br"
+        mv "$br" manifest.json
 
-      - name: Check if anything changed
-        run: |
-          if [[ $(git diff --numstat | wc -l) -eq 1 ]]; then
-            echo "No significant changes."
-            git reset --hard
-          fi
+    - name: Regenerate
+      run: |
+        ./generate --all
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: update generated code
-          title: Update generated code
-          body: |
-            The AWS API contract changed.
+    - name: Check if anything changed
+      run: |
+        if [[ $(git diff --numstat | wc -l) -eq 1 ]]; then
+          echo "No significant changes."
+          git reset --hard
+        fi
 
-            This PR contains the a new definition for Services.
-          branch: bot-code-update
+    - name: Create Pull Request
+#      uses: peter-evans/create-pull-request@master
+      uses: jderusse/create-pull-request@fork # to revert when PR merged
+      with:
+        token: ${{ secrets.BOT_GITHUB_TOKEN }}
+        author: AsyncAws Bot <github@async-aws.com>
+        committer: AsyncAws Bot <github@async-aws.com>
+        commit-message: update generated code
+        title: Update generated code
+        body: |
+          The AWS API contract changed with version ${{ steps.fetch_version.outputs.last }}.
+
+          This PR contains the a new definition for Services.
+        branch: bot-code-update
+        request-to-parent: true
