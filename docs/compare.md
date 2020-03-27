@@ -114,7 +114,7 @@ $input = new GetObjectRequest(['Bucket' => 'my-bucket', 'Key' => 'test']);
 $content = $s3Client->getObject($input);
 
 // Presign Url
-$url = $s3Client->presign($input, new \Datetime('+60 min'));
+$url = $s3Client->presign($input, new \DateTimeImmutable('+60 min'));
 echo $url;
 ```
 
