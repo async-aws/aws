@@ -122,10 +122,10 @@ echo $url;
 ```php
 
 // Sign on the fly
-$content = $s3Client->getObject(['Bucket' => 'my-bucket', 'Key' => 'test]);
+$content = $s3Client->getObject(['Bucket' => 'my-bucket', 'Key' => 'test']);
 
 // Presign Url
-$command = $s3Client->getCommand('GetObject', ['Bucket' => 'my-bucket', 'Key' => 'test]);
+$command = $s3Client->getCommand('GetObject', ['Bucket' => 'my-bucket', 'Key' => 'test']);
 $psr7 = $s3Client->createPresignedRequest($cmd, '+60 min');
 echo (string) $psr7->getUri();
 
