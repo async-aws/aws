@@ -6,6 +6,7 @@ namespace AsyncAws\Core;
 
 use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Exception\Http\NetworkException;
+use Symfony\Contracts\HttpClient\ResponseStreamInterface;
 
 /**
  * Base class for all return values from a Api Client methods. Example: `FooClient::bar(): Result`.
@@ -79,6 +80,22 @@ class Result
     final public function cancel(): void
     {
         $this->response->cancel();
+    }
+
+    /**
+     * This only work if the http responses are produced by the same HTTP client.
+     * See https://symfony.com/doc/current/components/http_client.html#multiplexing-responses.
+     *
+     * @param self[] $results
+     */
+    public static function multiplex(array $results, float $timeout = null): ResponseStreamInterface
+    {
+        $responses = [];
+        foreach ($results as $result) {
+            $responses[] = $result->response;
+        }
+
+        return Response::multiplex($responses, $timeout);
     }
 
     final protected function registerPrefetch(self $result): void

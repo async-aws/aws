@@ -15,6 +15,7 @@ use AsyncAws\Core\Stream\ResultStream;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
+use Symfony\Contracts\HttpClient\ResponseStreamInterface;
 
 /**
  * The response provides a facade to manipulate HttpResponses.
@@ -153,6 +154,23 @@ class Response
     public function getStatusCode(): int
     {
         return $this->httpResponse->getStatusCode();
+    }
+
+    /**
+     * @param self[] $responses
+     */
+    public static function multiplex(array $responses, float $timeout = null): ResponseStreamInterface
+    {
+        $httpResponses = [];
+        $httpClient = null;
+        foreach ($responses as $response) {
+            if (null === $httpClient) {
+                $httpClient = $response->httpClient;
+            }
+            $httpResponses[] = $response->httpResponse;
+        }
+
+        return $httpClient->stream($httpResponses, $timeout);
     }
 
     public function toStream(): ResultStream
