@@ -41,8 +41,16 @@ jobs:
 
     - name: Commit & push the new files
       run: |
+        echo "::group::Setup"
         cd website
         git config --local user.email "github@async-aws.com"
         git config --local user.name "AsyncAWS Bot"
-        git commit -a -m "Update website from commit async-aws/aws@${{ github.sha }}"
+        echo "::endgroup::"
+        echo "::group::git status"
+        git add .
+        git status
+        echo "::endgroup::"
+        echo "::group::git push"
+        git commit -m "Update website from commit async-aws/aws@${{ github.sha }}" -a
         git push
+        echo "::endgroup::"
