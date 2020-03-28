@@ -50,7 +50,7 @@ Now you are good to go.
 So here is an overview how the build process works every time there is a push to
 master:
 
-### Generate the HTML
+### 1. Generate the HTML
 
 We use a tool called [Couscous](http://couscous.io/) to convert all markdown files
 in `./docs` to HTML files. Couscous then looks at the Twig template in `./website/template`
@@ -62,7 +62,7 @@ The sidebar menu structure is defined in `./couscous.yml`.
 All frontend assets are built using Webpack Encore. The source files lives in
 `./website/assets`.
 
-### Publishing the files
+### 2. Publishing the files
 
 There is a github action that make sure to generate the HTML and push it do a
 "read only"-repository for the website. That repository is using Github Pages to

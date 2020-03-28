@@ -20,11 +20,12 @@ include (in no particular order:
 
 - Write issues
 - Comment on issues
-- Verify bugs on other people's issues
+- Verify bugs submitted by other people
 - Review PRs
 - Test PRs
 - Write documentation
 - Make the website more pretty and accessible
+- Tweet or blog about AsyncAws
 
 Read more about documentation and the website [here](./here.md).
 
