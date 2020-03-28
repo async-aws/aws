@@ -34,7 +34,7 @@ The AWS region the client should be targeting.
 
 **Default:** 'default'
 
-The name of the AWS Profile configured when using [credential and configuration files](/authentication/credentials_file.md)
+The name of the AWS Profile configured when using [credential and configuration files](/authentication/credentials-file.md)
 for authentication.
 
 ### accessKeyId
@@ -57,14 +57,14 @@ for more information.
 
 **Default:** '~/.aws/credentials'
 
-The credentials file to look in when using [credential and configuration files](/authentication/credentials_file.md)
+The credentials file to look in when using [credential and configuration files](/authentication/credentials-file.md)
 for authentication.
 
 ### sharedConfigFile
 
 **Default:** '~/.aws/config'
 
-The config file to look in when using [credential and configuration files](/authentication/credentials_file.md)
+The config file to look in when using [credential and configuration files](/authentication/credentials-file.md)
 for authentication.
 
 ### endpoint
@@ -74,11 +74,11 @@ for authentication.
 ### roleArn
 
 The Amazon Resource Name (ARN) of the role that the caller is assuming when using
-the [WebIdentity Provider](/authentication/web_identity.md)
+the [WebIdentity Provider](/authentication/web-identity.md)
 
 ### webIdentityTokenFile
 
-Path to the file that contains the OAuth 2.0 access token when using the [WebIdentity Provider](/authentication/web_identity.md)
+Path to the file that contains the OAuth 2.0 access token when using the [WebIdentity Provider](/authentication/web-identity.md)
 
 ### roleSessionName
 

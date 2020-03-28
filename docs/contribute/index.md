@@ -2,7 +2,7 @@
 category: contribute
 ---
 
-# Contribute
+# Contribution guide
 
 Contribution are always appreciated. Like most contribution guides there are links
 to [how to fork a repository](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)
@@ -76,11 +76,3 @@ $ ./generate --all
 ```
 
 Read more about generating new code [here](./generate.md).
-
-## Backwards compatibility promise
-
-This package is currently stabilizing. Versions released in April 2020 is considered
-fairly stable. After 1.0 is released the library strictly follows the process to
-keep backwards compatibility defined by Symfony.
-
-See [Symfony backwards compatibility promise](https://symfony.com/bc) for more information.

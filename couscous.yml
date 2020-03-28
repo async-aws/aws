@@ -12,7 +12,7 @@ scripts:
 menu:
     root:
         items:
-            home:
+            index:
                 text: Start
                 url: /
             compare:
@@ -22,31 +22,22 @@ menu:
                 text: Configuration
                 url: /configuration.html
 
-    authentication:
-        section: Authentication
+    clients:
+        # Clients are in alphabetical order
+        section: Api clients
         items:
-            intro:
+            index:
                 text: Overview
-                url: /authentication/
-            hard_coded:
-                text: Hard-Coded values
-                url: /authentication/hard_coded.html
-            environment:
-                text: Environment variables
-                url: /authentication/environment.html
+                url: /clients/
+            lambda:
+                text: Lambda
+                url: /clients/lambda.html
+            s3:
+                text: S3
+                url: /clients/s3.html
 
-            web_identity:
-                text: WebIdentity
-                url: /authentication/web_identity.html
-
-            file:
-                text: Credentials file
-                url: /authentication/credentials_file.html
-
-            ec2_metadata:
-                text: EC2 instance metadata
-                url: /authentication/ec2_metadata.html
     features:
+        # Feature are in alphabetical order after "why async?"
         section: Features
         items:
             async:
@@ -58,37 +49,60 @@ menu:
             presign:
                 text: Presign requests
                 url: /features/presign.html
-            waiters:
+            waiter:
                 text: Waiters
                 url: /features/waiter.html
             tests:
                 text: Writing tests
                 url: /features/tests.html
 
-    clients:
-        section: Api clients
+    integration:
+        # Order of importance
+        section: Integration
         items:
-            lambda:
-                text: Lambda
-                url: /clients/lambda.html
-            s3:
-                text: S3
-                url: /clients/s3.html
+            symfony-bundle:
+                text: Symfony Bundle
+                url: /integration/symfony-bundle.html
+            flysystem:
+                text: Flysystem
+                url: /integration/flysystem.html
+
+    authentication:
+        # Authentication providers are in alphabetical order
+        section: Authentication
+        items:
+            index:
+                text: Overview
+                url: /authentication/
+            credentials-file:
+                text: Credentials file
+                url: /authentication/credentials-file.html
+            ec2-metadata:
+                text: EC2 instance metadata
+                url: /authentication/ec2-metadata.html
+            environment:
+                text: Environment variables
+                url: /authentication/environment.html
+            hard-coded:
+                text: Hard-Coded values
+                url: /authentication/hard-coded.html
+            web-identity:
+                text: WebIdentity
+                url: /authentication/web-identity.html
 
     contribute:
+        # Order of importance
         section: Contribute
         items:
-            intro:
+            index:
                 text: Introduction
                 url: /contribute/
-
+            website:
+                text: Documentation
+                url: /contribute/website.html
             generate:
                 text: Generate code
                 url: /contribute/generate.html
-
-            documentation:
-                text: Documentation
-                url: /contribute/website.html
 
     github:
         items:

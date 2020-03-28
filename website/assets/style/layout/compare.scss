@@ -1,0 +1,14 @@
+.page-compare {
+    table {
+        td {
+            text-align: center;
+        }
+        td:first-of-type {
+            text-align: left;
+        }
+        th {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    }
+}

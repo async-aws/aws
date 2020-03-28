@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="/assets/app.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>{{ metaTitle|default('AsyncAWS') }}</title>
 </head>
@@ -15,7 +14,7 @@
     <nav id="sidebar" class="sidebar">
         <div class="custom-menu-toggle">
             <button type="button" id="sidebarCollapse" class="btn btn-primary">
-                <i class="fa fa-bars"></i>
+                &#9776;
                 <span class="sr-only">Toggle Menu</span>
             </button>
         </div>
@@ -25,31 +24,36 @@
             </a>
             <ul class="list-unstyled p-0 mb-5">
 
-            {% for menu_category, item in menu %}
-                {% if item.section is defined %}
+            {% for rootItemId, rootItem in menu %}
+                {% if rootItem.section is defined %}
                 <li>
-                    <a href="#{{ menu_category }}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{ item.section }}</a>
-                    <ul class="collapse list-unstyled {{ menu_category == category ? 'show' : '' }}" id="{{ menu_category }}">
+                    <a href="#{{ rootItemId }}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{ rootItem.section }}</a>
+                    <ul class="collapse list-unstyled {{ rootItemId == category ? 'show' : '' }}" id="{{ rootItemId }}">
                 {% endif %}
-                {% for itemId, item in item.items %}
-                    <li class="">
+                {% for itemId, item in rootItem.items %}
+                    <li {{ ((category is defined and rootItemId in currentFile) or (category is not defined and rootItem.section is not defined)) and itemId in currentFile  ? 'class="current"' : '' }}">
                         <a href="{{ item.url }}">
                             {{ item.text }}
                         </a>
                     </li>
                 {% endfor %}
-                    {% if item.section is defined %}
+                    {% if rootItem.section is defined %}
                     </ul>
                 </li>
                 {% endif %}
             {% endfor %}
             </ul>
 
-            <p class="copyright">
+            <p class="created-by">
                 Async AWS is created by <br>
                 <a href="https://github.com/jderusse">Jérémy Derussé</a>,
                 <a href="https://github.com/Nyholm">Tobias Nyholm</a> <br>
                 and <a href="https://github.com/async-aws/aws/graphs/contributors">contributors</a>.
+            </p>
+
+            <p class="copyright mt-5">
+                Copyright &copy; 2020<br>
+                Project licensed under MIT
             </p>
         </div>
     </nav>

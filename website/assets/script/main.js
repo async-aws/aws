@@ -1,16 +1,7 @@
-require('bootstrap');
+require('bootstrap/js/src/collapse');
 require('./highlight');
 require('../style/main.scss');
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
-
-jQuery = require('jquery');
-
-(function($) {
-
-    $('#sidebarCollapse').on('click', function () {
-        $('#sidebar').toggleClass('active');
-    });
-
-})(jQuery);
-
+document.getElementById("sidebarCollapse").addEventListener("click", function(){
+    document.getElementById("sidebar").classList.toggle("active");
+});

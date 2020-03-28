@@ -1,11 +1,3 @@
-@import './variables';
-
-
-.logo {
-    width: 200px;
-}
-
-
 .sidebar {
     min-width: $sidebarWidth;
     max-width: $sidebarWidth;
@@ -14,15 +6,15 @@
     transition: all 0.3s;
     position: relative;
 
-    ul li{
-        font-size: 16px;
+    .logo {
+        width: 200px;
+    }
 
+    ul li{
         /* Sub menu */
         >ul{
             margin-left: 10px;
-            li{
-                font-size: 14px;
-            }
+            li{}
         }
 
         a {
@@ -33,6 +25,11 @@
             &:hover{
                 color: lighten($dark, 25%);
             }
+        }
+
+        /* Current menu items */
+        &.current a {
+            font-weight: bold;
         }
     }
 

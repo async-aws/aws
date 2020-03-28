@@ -1,8 +1,13 @@
 @import '~highlight.js/styles/a11y-dark.css';
 
+pre code {
+    max-width: 50rem;
+}
+
 .hljs, .language-text {
     padding-top: 1rem;
-    padding-left: 1rem;
+    padding-left: 1.5rem;
+    padding-bottom: 1rem;
 }
 
 .language-text {

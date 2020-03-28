@@ -1,9 +1,8 @@
-@import '~bootstrap/scss/bootstrap';
-@import '~bootstrap/scss/variables';
-@import '~bootstrap/scss/mixins';
+@import './bootstrap';
 @import './variables';
 @import './sidebar';
 @import './code';
+@import './layout/compare';
 
 body{
     font-family: $font-primary;
@@ -61,17 +60,11 @@ h4, .h4 {
 
 table {
     max-width: 100%;
+    margin-bottom: 1rem;
     img {
         max-width: 100%;
     }
-    td {
-        text-align: center;
-    }
-    td:first-of-type {
-        text-align: left;
-    }
-    th {
-        padding-left: 1rem;
+    td, th {
         padding-right: 1rem;
     }
 }
@@ -80,4 +73,8 @@ blockquote {
     margin-left: 1rem;
     padding-left: 1rem;
     border-left: 10px solid $red;
+}
+
+img {
+    max-width: 100%;
 }

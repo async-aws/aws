@@ -1,17 +1,19 @@
-# Flysystem adapter for AsyncAws S3
+---
+category: integration
+---
 
-![](https://github.com/async-aws/flysystem-s3/workflows/Tests/badge.svg?branch=master)
-![](https://github.com/async-aws/flysystem-s3/workflows/BC%20Check/badge.svg?branch=master)
+# Flysystem integration
 
-Flysystem S3 adapter for Flysystem version 1 and 2.
+The Flysystem integration supports both Flysystem version 1 and version 2.
 
 ## Install
 
-```cli
-composer require async-aws/flysystem-s3
+```shell
+$ composer require async-aws/flysystem-s3
 ```
 
 ## Use
+
 ```php
 use League\Flysystem\Filesystem;
 use AsyncAws\Flysystem\S3\S3FilesystemV2;

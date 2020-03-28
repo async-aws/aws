@@ -43,7 +43,7 @@ exceptions and provide input and result objects.
 
 Read more about [how do use asynchronous features](./features/async.md).
 
-## Installation and usage
+## Quick example
 
 All APIs are located in different packages. To install SQS run
 
@@ -77,3 +77,14 @@ $input
 // the HTTP request is sent automatically.
 $sqs->sendMessage($input);
 ```
+
+Continue reading about our different [API clients](/clients/index.md) or select
+a topic in the sidebar.
+
+## Backwards compatibility promise
+
+This package is currently stabilizing. Versions released in April 2020 is considered
+fairly stable. After 1.0 is released the library strictly follows the process to
+keep backwards compatibility defined by Symfony.
+
+See [Symfony backwards compatibility promise](https://symfony.com/bc) for more information.

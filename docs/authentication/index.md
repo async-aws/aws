@@ -19,11 +19,11 @@ the first provider in the chain that returns credentials without an error.
 
 The providers are currently chained in the following order:
 
-- [Hard-Coded Configuration](./hard_coded.md)
+- [Hard-Coded Configuration](./hard-coded.md)
 - [Environment Variables](./environment.md)
-- [WebIdentity](./web_identity.md)
-- [Credential and Configuration Files](./credentials_file.md)
-- [EC2 Instance Metadata](./ec2_metadata.md)
+- [WebIdentity](./web-identity.md)
+- [Credential and Configuration Files](./credentials-file.md)
+- [EC2 Instance Metadata](./ec2-metadata.md)
 
 ## Testing with authentication providers
 
