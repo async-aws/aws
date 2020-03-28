@@ -21,5 +21,5 @@ $result = $lambda->invoke([
   'Payload' => '{"name": "async-aws/lambda"}',
 ]);
 
-$result->getPayload();
+echo $result->getPayload();
 ```
