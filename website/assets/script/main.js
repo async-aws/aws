@@ -1,4 +1,4 @@
-require('bootstrap/js/src/collapse');
+require('./bootstrap');
 require('../style/main.scss');
 
 document.getElementById("sidebarCollapse").addEventListener("click", function(){

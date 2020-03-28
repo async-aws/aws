@@ -1,5 +1,8 @@
 /*
- * We dont need all of Bootstrap for our simple website. Just include what is needed
+ * We dont need all of Bootstrap for our simple website. Just include what is needed.
+ *
+ * The output of this file is put in the vendor chunk. That should
+ * is rarely changed.
  */
 
 @import "~bootstrap/scss/functions";

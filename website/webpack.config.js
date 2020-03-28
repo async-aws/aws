@@ -38,12 +38,17 @@ Encore
 
     .enableSassLoader()
     .enablePostCssLoader()
-    /*.splitEntryChunks()
+    .splitEntryChunks()
     .configureSplitChunks(function (splitChunks) {
         // https://webpack.js.org/plugins/split-chunks-plugin/
-        splitChunks.name = !Encore.isProduction();
+        //splitChunks.name = !Encore.isProduction();
+        splitChunks.cacheGroups = {
+            defaultVendors: {
+                test: /[\\/]node_modules[\\/]|bootstrap.(js|scss)/
+            }
+        }
     })
-     */
+
 
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
