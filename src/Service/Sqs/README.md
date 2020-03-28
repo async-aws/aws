@@ -1,4 +1,4 @@
-# Async AWS SQS Client
+# AsyncAws SQS Client
 
 ![](https://github.com/async-aws/sqs/workflows/Tests/badge.svg?branch=master)
 ![](https://github.com/async-aws/sqs/workflows/BC%20Check/badge.svg?branch=master)

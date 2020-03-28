@@ -1,7 +1,7 @@
 {
     "name": "async-aws/s3",
     "type": "library",
-    "description": "Async AWS S3 client.",
+    "description": "AsyncAws S3 client.",
     "keywords": [
         "aws",
         "s3"

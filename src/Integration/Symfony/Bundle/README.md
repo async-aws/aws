@@ -1,4 +1,4 @@
-# Async AWS Symfony Bundle
+# AsyncAws Symfony Bundle
 
 ![](https://github.com/async-aws/symfony-bundle/workflows/Tests/badge.svg?branch=master)
 ![](https://github.com/async-aws/symfony-bundle/workflows/BC%20Check/badge.svg?branch=master)

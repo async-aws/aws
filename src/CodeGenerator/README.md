@@ -1,4 +1,4 @@
-# Async AWS Code Generator
+# AsyncAws Code Generator
 
 ![](https://github.com/async-aws/code-generator/workflows/Tests/badge.svg?branch=master)
 ![](https://github.com/async-aws/code-generator/workflows/BC%20Check/badge.svg?branch=master)

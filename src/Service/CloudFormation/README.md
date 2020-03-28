@@ -1,4 +1,4 @@
-# Async AWS CloudFormation Client
+# AsyncAws CloudFormation Client
 
 ![](https://github.com/async-aws/cloud-formation/workflows/Tests/badge.svg?branch=master)
 ![](https://github.com/async-aws/cloud-formation/workflows/BC%20Check/badge.svg?branch=master)

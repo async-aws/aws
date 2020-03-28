@@ -1,7 +1,7 @@
 {
     "name": "async-aws/lambda",
     "type": "library",
-    "description": "Async AWS Lambda client.",
+    "description": "AsyncAws Lambda client.",
     "keywords": [
         "aws",
         "lambda"

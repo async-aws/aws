@@ -20,6 +20,17 @@ changes to the Markdown files in `./docs` is everything one need to do.
 If a new file is created and it should be in the website's sidebar menu, then remember
 to update `./couscous.yml`.
 
+Here are some guidelines that are helpful when writing good documentation:
+
+- Write `AsyncAws` or `async-aws` to refer to the project.
+- Dont use "we" at any cost.
+- Try not to write "you"
+- Define variables all variables to make examples executable.
+- Use meaningful naming of variables and values. Avoid `foobar` and dummy values.
+- Write examples with  use `use` statements and don't use `<?php`
+- Use input objects over arrays.
+- Use short variable names for clients. Ie `$lambda` over `$lambdaClient` and `$s3` over `$s3Client`
+
 ## Improving the website's appearance
 
 To update the websites HTML or style one need to use Couscous. Its basic operations

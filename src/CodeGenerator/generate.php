@@ -4,7 +4,7 @@ use AsyncAws\CodeGenerator\Command\GenerateCommand;
 use AsyncAws\CodeGenerator\Generator\ApiGenerator;
 use Symfony\Component\Console\Application;
 
-$application = new Application('Async AWS', '0.1.0');
+$application = new Application('AsyncAws', '0.1.0');
 
 $src = getenv('ASYNC_AWS_GENERATE_SRC') ?: __DIR__ . '/src';
 $cache = getenv('ASYNC_AWS_GENERATE_CACHE') ?: __DIR__ . '/.async-aws.cache';
