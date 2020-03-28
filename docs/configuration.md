@@ -1,23 +1,22 @@
 
 # Configuration
 
-There are some configuration you can pass to an API client. It can be done with an
-array or `Configuration` object.
+There are some configuration you can pass to an API client. Use an instance of the
+`Configuration` class or a plain array.
 
 ```php
 use AsyncAws\Sqs\SqsClient;
 use AsyncAws\Core\Configuration;
 
-$sqs = new SqsClient([
-    'region' => 'eu-central-1',
-]);
-
-// Or with a Configuration object
 $config = Configuration::create([
     'region' => 'eu-central-1',
 ]);
-
 $sqs = new SqsClient($config);
+
+// Or with an array
+$sqs = new SqsClient([
+    'region' => 'eu-central-1',
+]);
 ```
 
 ## Configuration reference
