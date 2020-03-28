@@ -27,6 +27,7 @@ Encore
         pattern: /\.(png|jpg|jpeg|svg|webmanifest)$/
     })
 
+    .disableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())
     // enables hashed filenames (e.g. app.abc123.css)

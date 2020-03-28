@@ -1,3 +1,4 @@
+require('bootstrap/js/src/collapse');
 require('./highlight');
 require('../style/main.scss');
 
