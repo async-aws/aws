@@ -2,7 +2,7 @@
 category: contribute
 ---
 
-# Contribute
+# Contribution guide
 
 Contribution are always appreciated. Like most contribution guides there are links
 to [how to fork a repository](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)

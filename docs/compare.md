@@ -66,6 +66,8 @@ foreach ($promises as $promise) {
 Promise\all($deletePromises)->wait();
 ```
 
+Read more about [how to async works](/features/async.md).
+
 ## Pagination experience
 
 AsyncAws handles the complexity of paginated results. You don't
