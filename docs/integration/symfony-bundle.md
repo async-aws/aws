@@ -18,9 +18,10 @@ The bundle will autowire all AsyncAws clients that you have installed. You can
 provide default configuration to all clients and specific configuration of each
 service you define.
 
+This example assume you have installed core, ses, sqs and s3:
+
 ```yaml
 # config/packages/async_aws.yaml
-# This example assume you have installed core, ses, sqs and S3
 
 async_aws:
     config: # Will be merged with other configuration
@@ -47,6 +48,6 @@ The config above will create the following services:
 
 For a complete reference of the configuration please run:
 
-```cli
-php bin/console config:dump-reference async_aws
+```shell
+$ php bin/console config:dump-reference async_aws
 ```
