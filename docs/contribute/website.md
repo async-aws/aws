@@ -73,7 +73,12 @@ The sidebar menu structure is defined in `./couscous.yml`.
 All frontend assets are built using Webpack Encore. The source files lives in
 `./website/assets`.
 
-### 2. Publishing the files
+### 2. Process HTML files
+
+After the HTML files are generated, Couscous will execute `make website-highlight`.
+That will look at the generated HTML and style all code examples with `highlight.js`.
+
+### 3. Publishing the files
 
 There is a github action that make sure to generate the HTML and push it do a
 "read only"-repository for the website. That repository is using Github Pages to
