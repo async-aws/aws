@@ -48,7 +48,7 @@ The AWS access key secret used for authentication.
 
 ### sessionToken
 
-???
+A token passed to AWS API to use temporary credentials.
 
 ### sharedCredentialsFile
 
@@ -70,12 +70,12 @@ for authentication.
 
 ### roleArn
 
-???
+The AWS Arn to the role used with the [WebIdentity Provider](/authentication/web_identity.md)
 
 ### webIdentityTokenFile
 
-???
+The file containing the WebIdentityToken used with the [WebIdentity Provider](/authentication/web_identity.md)
 
 ### roleSessionName
 
-???
+The session name used with the [WebIdentity Provider](/authentication/web_identity.md)
