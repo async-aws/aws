@@ -53,12 +53,10 @@ walk(outputDir, function(err, files) {
                 dom.window.document.querySelectorAll('pre code').forEach((block) => {
                     highlight.highlightBlock(block);
                 });
-                //console.log(file);
-                //fs.writeFile(file, dom.serialize());
+
                 fs.writeFile(file, dom.serialize(), function (err) {
                     if (err) return console.log(err);
                     console.log(file);
-
                 });
             });
         });
