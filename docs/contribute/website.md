@@ -32,15 +32,15 @@ generating the HTML.
 
 What you basically need to do is to open two terminals. In one you run
 
-```bash
-couscous preview
+```shell
+$ couscous preview
 ```
 
 And to make sure the assets are updating when you making a change to the asset source:
 
-```bash
-cd website
-./node_modules/.bin/encore dev --watch
+```shell
+$ cd website
+$ ./node_modules/.bin/encore dev --watch
 ```
 
 Now you are good to go.

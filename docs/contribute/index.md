@@ -50,11 +50,11 @@ changed. Only the test code can be manually changed.
 
 To create a class run the `generate` command.
 
-```bash
-./generate
+```shell
+$ ./generate
 
 # Or
-./generate S3 CreateBucket
+$ ./generate S3 CreateBucket
 ```
 
 The `./manifest.json` file contains information where the source is located
@@ -62,15 +62,15 @@ and some metadata about the generated files and methods.
 
 You may also regenerate an existing operation and result classes:
 
-```bash
-./generate S3 CreateBucket
-./generate S3 --all
+```shell
+$ ./generate S3 CreateBucket
+$ ./generate S3 --all
 ```
 
 Or regenerate everything:
 
-```bash
-./generate --all
+```shell
+$ ./generate --all
 ```
 
 Read more about generating new code [here](./generate.md).
