@@ -8,13 +8,13 @@ An overview over how AsyncAws differ from the official AWS PHP SDK
 
 |   | AWS PHP SDK | AsyncAws |
 |---|-------------|-----------|
-| [Asynchronous](#async-experience)             | | <i class="fa fa-check"></i> |
-| [Pagination](#pagination-experience)          | | <i class="fa fa-check"></i> |
-| [Presign](#presign-experience)                | | <i class="fa fa-check"></i> |
-| [Developer experience](#developer-experience) | | <i class="fa fa-check"></i> |
-| [Package size](#dependencies-size)            | | <i class="fa fa-check"></i> |
-| [Mock and testing](#mock-and-testing)         | | <i class="fa fa-check"></i> |
-| [Features coverage](#features-coverage)       | <i class="fa fa-check"></i> | |
+| [Asynchronous](#async-experience)             | | &#x2714; |
+| [Pagination](#pagination-experience)          | | &#x2714; |
+| [Presign](#presign-experience)                | | &#x2714; |
+| [Developer experience](#developer-experience) | | &#x2714; |
+| [Package size](#dependencies-size)            | | &#x2714; |
+| [Mock and testing](#mock-and-testing)         | | &#x2714; |
+| [Features coverage](#features-coverage)       | &#x2714; | |
 
 ## Asynchronous experience
 
