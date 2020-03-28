@@ -8,14 +8,13 @@ An overview over how AsyncAws differ from the official AWS PHP SDK
 
 |   | AWS PHP SDK | AsyncAws |
 |---|-------------|-----------|
-| [Asynchronous](#async-experience)                    | | <i class="fa fa-check"></i> |
+| [Asynchronous](#async-experience)             | | <i class="fa fa-check"></i> |
 | [Pagination](#pagination-experience)          | | <i class="fa fa-check"></i> |
 | [Presign](#presign-experience)                | | <i class="fa fa-check"></i> |
-| [Weight](#dependencies-size)                  | | <i class="fa fa-check"></i> |
 | [Developer experience](#developer-experience) | | <i class="fa fa-check"></i> |
-| [Mock / Proxy](#mock-and-proxy)               | | <i class="fa fa-check"></i> |
-| [Features Coverage](#features-coverage)       | <i class="fa fa-check"></i> | |
-
+| [Package size](#dependencies-size)            | | <i class="fa fa-check"></i> |
+| [Mock and testing](#mock-and-testing)         | | <i class="fa fa-check"></i> |
+| [Features coverage](#features-coverage)       | <i class="fa fa-check"></i> | |
 
 ## Asynchronous experience
 
@@ -185,13 +184,16 @@ the official AWS PHP SDK uses magic methods and undocumented array accessor.
 | [![AWS PHP SDK input doc](/assets/image/compare/aws-input.png)](/assets/image/compare/aws-input.png)    | [![async-aws input doc](/assets/image/compare/aa-input.png)](/assets/image/compare/aa-input.png)
 | [![AWS PHP SDK result doc](/assets/image/compare/aws-result.png)](/assets/image/compare/aws-result.png) | [![async-aws result doc](/assets/image/compare/aa-result.png)](/assets/image/compare/aa-result.png)
 
-## Dependencies size
+## Package size
 
 By providing isolated package for each service, AsyncAws is ultra thin. For
 instance `aws-async/s3` + `aws-async/core` weighs **0.6Mib**, while official AWS
 PHP SDK weighs **22MiB** regardless of the number of API services you use.
 
-## Mock and proxy
+This have an increased importance if you are using Docker or if you deploy your
+applications on AWS Lambda.
+
+## Mock and testing
 
 Because AsyncAws uses real classes, it is easy to mock them in PHPUnit tests.
 The official AWS PHP SDK uses the magic `__call` methods which increase
