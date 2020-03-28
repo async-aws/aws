@@ -27,7 +27,7 @@ are equally important. Some super helpful things include (in no particular order
 - Make the website more pretty and accessible
 - Tweet or blog about AsyncAws
 
-Read more about documentation and the website [here](./here.md).
+Read more about documentation and the website [here](./website.md).
 
 ## This repo is special
 
