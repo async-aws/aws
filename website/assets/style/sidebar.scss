@@ -1,11 +1,5 @@
 @import './variables';
 
-
-.logo {
-    width: 200px;
-}
-
-
 .sidebar {
     min-width: $sidebarWidth;
     max-width: $sidebarWidth;
@@ -13,6 +7,10 @@
     color: $dark;
     transition: all 0.3s;
     position: relative;
+
+    .logo {
+        width: 200px;
+    }
 
     ul li{
         /* Sub menu */
