@@ -75,14 +75,14 @@ client like:
 
 ```yaml
 services:
-  AsyncAws\DynamoDb\DynamoDbClient:
-    arguments:
-        - region: 'eu-central-1'
-          accessKeyId: 'AKIAIOSFODNN7EXAMPLE'
-          accessKeySecret: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
-        - ~ # Use the default authentication providers
-        - '@http_client'
-        - '@logger'
+    AsyncAws\DynamoDb\DynamoDbClient:
+        arguments:
+            - region: 'eu-central-1'
+              accessKeyId: 'AKIAIOSFODNN7EXAMPLE'
+              accessKeySecret: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+            - ~ # Use the default authentication providers
+            - '@http_client'
+            - '@logger'
 ```
 
 If you are using Symfony you may ease configuration by install the [Symfony Bundle](/integration/symfony-bundle.md).
