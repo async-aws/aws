@@ -49,23 +49,6 @@ $dynamoDb = new DynamoDbClient([
 See section about [authentication](/authentication/index.md) to learn more about
 different ways to authenticate.
 
-### Client factory
-
-There is a `AwsClientFactory` that can be used to instantiate API clients.
-
-```php
-use AsyncAws\Core\AwsClientFactory;
-
-$factory = new AwsClientFactory([
-   'region' => 'eu-central-1',
-   'accessKeyId' => 'AKIAIOSFODNN7EXAMPLE',
-   'accessKeySecret' => 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
-]);
-
-$dynamoDb = $factory->dynamoDb();
-$sqs = $factory->sqs();
-```
-
 ### Dependency injection container
 
 If your application is using a dependency injection container, you may configure a
@@ -109,6 +92,24 @@ class AsyncAwsProvider extends ServiceProvider
         );
     }
 }
+```
+
+### Client factory
+
+If you dont use dependency injection, you might be interested in the `AwsClientFactory`
+that can be used to instantiate API clients.
+
+```php
+use AsyncAws\Core\AwsClientFactory;
+
+$factory = new AwsClientFactory([
+   'region' => 'eu-central-1',
+   'accessKeyId' => 'AKIAIOSFODNN7EXAMPLE',
+   'accessKeySecret' => 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+]);
+
+$dynamoDb = $factory->dynamoDb();
+$sqs = $factory->sqs();
 ```
 
 ## Use

@@ -30,17 +30,25 @@ use AsyncAws\S3\S3Client;
 $s3 = new S3Client();
 $files = [];
 foreach (range(0, 10) as $index) {
-    $files[] = $s3->putObject(['Bucket' => 'my.bucket', 'Key' => 'file-' . uniqid('file-', true), 'Body' => 'test']);
+    $files[] = $s3->putObject([
+        'Bucket' => 'my.bucket',
+        'Key' => 'file-' . uniqid('file-', true),
+        'Body' => 'test',
+    ]);
 }
 
-// at this point, calls to putObjects are not yet resolved
+// At this point, calls to putObjects are not yet resolved
 
 foreach ($files as $file) {
-    // calling $file->getKey() will wait the response from AWS and returned the real value
-    $s3->deleteObject(['Bucket' => 'my.bucket', 'Key' => $file->getKey()]);
+    // calling $file->getKey() will wait the response from AWS
+    $s3->deleteObject([
+        'Bucket' => 'my.bucket',
+        'Key' => $file->getKey(),
+    ]);
 }
 
-// no need to wait ends of deleteObject. It will be automatically resolved on destruct
+// No need to wait ends of deleteObject.
+// It will be automatically resolved on destruct.
 ```
 
 ### Official AWS PHP SDK
@@ -52,14 +60,21 @@ use GuzzleHttp\Promise;
 $s3Client = new S3Client([]);
 $promises = [];
 foreach (range(0, 10) as $index) {
-    $promises[] = $s3Client->putObjectAsync(['Bucket' => 'my.bucket', 'Key' => 'file-' . uniqid('file-', true), 'Body' => 'test']);
+    $promises[] = $s3Client->putObjectAsync([
+        'Bucket' => 'my.bucket',
+        'Key' => 'file-' . uniqid('file-', true),
+        'Body' => 'test',
+    ]);
 }
 
 $deletePromises = [];
 foreach ($promises as $promise) {
     $file = $promise->wait();
 
-    $deletePromises[] = $s3Client->deleteObjectAsync(['Bucket' => 'my.bucket', 'Key' => $file['Key']]);
+    $deletePromises[] = $s3Client->deleteObjectAsync([
+        'Bucket' => 'my.bucket',
+        'Key' => $file['Key'],
+    ]);
 }
 
 Promise\all($deletePromises)->wait();
@@ -94,7 +109,11 @@ use Aws\S3\S3Client;
 $s3Client = new S3Client([]);
 $nextToken = null;
 do {
-    $objects = $s3Client->ListObjectsV2(['Bucket' => 'my-bucket', 'NextContinuationToken' => $nextToken]);
+    $objects = $s3Client->ListObjectsV2([
+        'Bucket' => 'my-bucket',
+        'NextContinuationToken' => $nextToken,
+    ]);
+
     foreach ($objects['Contents'] as $object) {
         // ...
     }
@@ -134,7 +153,10 @@ use AsyncAws\S3\S3Client;
 use AsyncAws\S3\Input\GetObjectRequest;
 
 $s3 = new S3Client();
-$input = new GetObjectRequest(['Bucket' => 'my-bucket', 'Key' => 'test']);
+$input = new GetObjectRequest([
+    'Bucket' => 'my-bucket',
+    'Key' => 'test',
+]);
 
 // Sign on the fly
 $content = $s3->getObject($input);
@@ -151,10 +173,16 @@ use Aws\S3\S3Client;
 
 $s3Client = new S3Client([]);
 // Sign on the fly
-$content = $s3Client->getObject(['Bucket' => 'my-bucket', 'Key' => 'test']);
+$content = $s3Client->getObject([
+    'Bucket' => 'my-bucket',
+    'Key' => 'test',
+]);
 
 // Presign Url
-$command = $s3Client->getCommand('GetObject', ['Bucket' => 'my-bucket', 'Key' => 'test']);
+$command = $s3Client->getCommand('GetObject', [
+    'Bucket' => 'my-bucket',
+    'Key' => 'test',
+]);
 $psr7 = $s3Client->createPresignedRequest($cmd, '+60 min');
 echo (string) $psr7->getUri();
 
