@@ -27,17 +27,18 @@ are equally important. Some super helpful things include (in no particular order
 - Make the website more pretty and accessible
 - Tweet or blog about AsyncAws
 
-Read more about documentation and the website [here](./here.md).
+Read more about documentation and the website [here](./website.md).
 
 ## This repo is special
 
 ### Mono repository
 
 It means that all PRs and issues goes to [async-aws/aws](https://github.com/async-aws/aws)
-and not to individual client's repositories. On a merge to master we use [Subtree Split](https://www.subtreesplit.com/)
-to push the changes to other repositories.
+and not to individual client's repositories. When a commit is merged to master, the
+[Subtree Split](https://www.subtreesplit.com/) service will push the changes to other
+repositories.
 
-We do this to simplify maintenance.
+Using a mono repository will simplify maintenance.
 
 ### Generated code
 
@@ -76,3 +77,10 @@ $ ./generate --all
 
 Read more about generating new code [here](./generate.md).
 
+## Backwards compatibility promise
+
+This package is currently stabilizing. Versions released in April 2020 is considered
+fairly stable. After 1.0 is released the library strictly follows the process to
+keep backwards compatibility defined by Symfony.
+
+See [Symfony backwards compatibility promise](https://symfony.com/bc) for more information.

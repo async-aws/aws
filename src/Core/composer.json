@@ -1,7 +1,7 @@
 {
     "name": "async-aws/core",
     "type": "library",
-    "description": "Async AWS core package with common classes and interfaces.",
+    "description": "AsyncAws core package with common classes and interfaces.",
     "license": "MIT",
     "require": {
         "php": "^7.2.5",

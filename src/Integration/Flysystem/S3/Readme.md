@@ -1,4 +1,4 @@
-# Flysystem adapter for Async AWS S3
+# Flysystem adapter for AsyncAws S3
 
 ![](https://github.com/async-aws/flysystem-s3/workflows/Tests/badge.svg?branch=master)
 ![](https://github.com/async-aws/flysystem-s3/workflows/BC%20Check/badge.svg?branch=master)

@@ -1,7 +1,7 @@
 {
     "name": "async-aws/cloud-formation",
     "type": "library",
-    "description": "Async AWS CloudFormation client.",
+    "description": "AsyncAws CloudFormation client.",
     "keywords": [
         "aws",
         "lambda"

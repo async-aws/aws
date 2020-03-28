@@ -1,7 +1,7 @@
 {
     "name": "async-aws/foobar",
     "type": "library",
-    "description": "Async AWS Foobar client.",
+    "description": "AsyncAws Foobar client.",
     "keywords": [
         "aws",
         "foobar"

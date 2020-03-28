@@ -2,7 +2,7 @@
 category: features
 ---
 
-# Async
+# How to work asynchronous
 
 Asynchronous stuff can be confusing and because of that it is normal to try to stay
 away from it. But hopefully, using this library will straight forward. The goal is
@@ -138,18 +138,17 @@ If the function is called again, it will give you the same output without contac
 the remote server again.
 
 The function has a `?float $timeout = null` argument. If the timeout is set to
-`2.0`, we will wait for 2 seconds for a response. If a response is received, the function
-will return `true` or thrown an exception. If the timeout is reached, it will return
-`false`.
+`2.0`, the HTTP client will wait for 2 seconds for a response. If a response is received,
+the function will return `true` or thrown an exception. If the timeout is reached,
+it will return `false`.
 
 Use `$result->resolve(0)` for a non-blocking call.
 
 ### Batch requests
 
-With the knowledge of the resolve function we can do some cool stuff. In this example
-we are creating 10 `InvocationRequest`s and printing their result. The result
-that is downloaded first will be printed first. The order the requests are created
-do not matter.
+Consider the following example. It is creating 10 `InvocationRequest`s and printing
+their result. The result that is downloaded first will be printed first. The order
+the requests are created do not matter.
 
 ```php
 use AsyncAws\Lambda\LambdaClient;

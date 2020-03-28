@@ -151,6 +151,8 @@ echo (string) $psr7->getUri();
 > **Note**: While official AWS PHP SDK provide methods to presign S3 methods only,
 > AsyncAws let you presign requests for every services.
 
+Read more about [presign feature](/features/presign.md).
+
 ## Developer eXperience
 
 Ever get the error `PHP Fatal error: Missing required client configuration
@@ -178,6 +180,8 @@ PHP SDK uses **22MiB** regardless of the number of services you use.
 Because AsyncAws uses real classes, it is easy to Mock them in PHPUnit tests.
 The official AWS PHP SDK uses the magic `__call` methods which increase
 complexity and reduce the developer experience.
+
+Read more about [writing tests](/features/tests.md).
 
 ## Features coverage
 

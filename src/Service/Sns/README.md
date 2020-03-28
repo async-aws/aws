@@ -1,4 +1,4 @@
-# Async AWS Sns Client
+# AsyncAws Sns Client
 
 ![](https://github.com/async-aws/sns/workflows/Tests/badge.svg?branch=master)
 ![](https://github.com/async-aws/sns/workflows/BC%20Check/badge.svg?branch=master)

@@ -1,7 +1,7 @@
 {
     "name": "async-aws/dynamo-db",
     "type": "library",
-    "description": "Async AWS DynamoDb client.",
+    "description": "AsyncAws DynamoDb client.",
     "keywords": [
         "aws",
         "dynamo-db"
