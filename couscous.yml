@@ -12,7 +12,7 @@ scripts:
 menu:
     root:
         items:
-            home:
+            index:
                 text: Start
                 url: /
             compare:
@@ -25,27 +25,25 @@ menu:
     authentication:
         section: Authentication
         items:
-            overview:
+            index:
                 text: Overview
                 url: /authentication/
-            hard_coded:
+            hard-coded:
                 text: Hard-Coded values
                 url: /authentication/hard-coded.html
             environment:
                 text: Environment variables
                 url: /authentication/environment.html
-
-            web_identity:
+            web-identity:
                 text: WebIdentity
                 url: /authentication/web-identity.html
-
-            file:
+            credentials-ile:
                 text: Credentials file
                 url: /authentication/credentials-file.html
-
-            ec2_metadata:
+            ec2-metadata:
                 text: EC2 instance metadata
                 url: /authentication/ec2-metadata.html
+
     features:
         section: Features
         items:
@@ -58,7 +56,7 @@ menu:
             presign:
                 text: Presign requests
                 url: /features/presign.html
-            waiters:
+            waiter:
                 text: Waiters
                 url: /features/waiter.html
             tests:
@@ -68,10 +66,9 @@ menu:
     clients:
         section: Api clients
         items:
-            overview:
+            index:
                 text: Overview
                 url: /clients/index.html
-
             lambda:
                 text: Lambda
                 url: /clients/lambda.html
@@ -86,22 +83,20 @@ menu:
                 text: Flysystem
                 url: /integration/flysystem.html
 
-            symfony_bundle:
+            symfony-bundle:
                 text: Symfony Bundle
                 url: /integration/symfony-bundle.html
 
     contribute:
         section: Contribute
         items:
-            intro:
+            index:
                 text: Introduction
                 url: /contribute/
-
             generate:
                 text: Generate code
                 url: /contribute/generate.html
-
-            documentation:
+            website:
                 text: Documentation
                 url: /contribute/website.html
 

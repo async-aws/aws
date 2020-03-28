@@ -15,14 +15,10 @@
     position: relative;
 
     ul li{
-        font-size: 16px;
-
         /* Sub menu */
         >ul{
             margin-left: 10px;
-            li{
-                font-size: 14px;
-            }
+            li{}
         }
 
         a {
@@ -33,6 +29,11 @@
             &:hover{
                 color: lighten($dark, 25%);
             }
+        }
+
+        /* Current menu items */
+        &.current a {
+            font-weight: bold;
         }
     }
 
