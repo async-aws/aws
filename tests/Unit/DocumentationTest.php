@@ -66,7 +66,6 @@ class DocumentationTest extends TestCase
         }
     }
 
-
     public function testClientDocs()
     {
         $readme = file_get_contents(\dirname(__DIR__, 2) . '/docs/clients/index.md');
@@ -80,7 +79,7 @@ class DocumentationTest extends TestCase
             // See if we can find package name
             $packageName = $serviceData['package_name'];
             self::assertTrue(false !== strpos($readme, $packageName), sprintf('There is no mention of "%s" in the /docs/clients/index.md', $packageName));
-            self::assertTrue(false !== strpos($readme, 'https://packagist.org/packages/'.$packageName), sprintf('There is no link "%s" on packagist', $packageName));
+            self::assertTrue(false !== strpos($readme, 'https://packagist.org/packages/' . $packageName), sprintf('There is no link "%s" on packagist', $packageName));
         }
     }
 }
