@@ -77,3 +77,6 @@ $input
 // the HTTP request is sent automatically.
 $sqs->sendMessage($input);
 ```
+
+Continue reading about our different [API clients](/clients/index.md) or select
+a topic in the sidebar.

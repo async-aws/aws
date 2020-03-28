@@ -51,14 +51,18 @@ different ways to authenticate.
 
 ## Use
 
-Every API client has functions that represent operations or API calls. Every such
+Every API client has functions that represent "operations" or API calls. Every such
 function takes an Input object (or array) as parameter and will return a Result.
 See the API client's class to learn what operations are supported and what the input
 and output are.
 
-Your IDE will also be helpful. See example from PHPStorm:
+All Input object for SQS is located in [`AsyncAws\Sqs\Input\*`](https://github.com/async-aws/aws/tree/master/src/Service/Sqs/src/Input)
+and the Results are located in [`AsyncAws\Sqs\Result\*`](https://github.com/async-aws/aws/tree/master/src/Service/Sqs/src/Result).
 
-[![async-aws method doc](/assets/image/compare/aa-method.png)](/assets/image/compare/aa-method.png)
+Your IDE will also be helpful to discover function and how to use them. See example
+from PHPStorm:
+
+[![PHPStorm function help](/assets/image/compare/aa-method.png)](/assets/image/compare/aa-method.png)
 
 ## All supported clients
 
