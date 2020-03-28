@@ -12,7 +12,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-class Configuration
+final class Configuration
 {
     public const OPTION_REGION = 'region';
     public const OPTION_PROFILE = 'profile';
@@ -125,14 +125,5 @@ class Configuration
         }
 
         return isset($this->data[$name]);
-    }
-
-    public function isDefault(string $name): bool
-    {
-        if (!isset(self::AVAILABLE_OPTIONS[$name])) {
-            throw new InvalidArgument(\sprintf('Invalid option "%s" passed to "%s::%s". ', $name, __CLASS__, __METHOD__));
-        }
-
-        return isset($this->data[$name], self::DEFAULT_OPTIONS[$name]) && $this->data[$name] === self::DEFAULT_OPTIONS[$name];
     }
 }

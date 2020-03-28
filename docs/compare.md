@@ -19,24 +19,29 @@ By default, all calls are async. Thanks to the power of the
 [Symfony HTTP client](https://symfony.com/doc/current/components/http_client.html)
 the process is not blocking until you need to read the result.
 
-**AsyncAws:**
+#### AsyncAws
+
 ```php
+use AsyncAws\S3\S3Client;
+
+$s3 = new S3Client();
 $files = [];
 foreach (range(0, 10) as $index) {
-    $files[] = $s3Client->putObject(['Bucket' => 'my.bucket', 'Key' => 'file-' . uniqid('file-', true), 'Body' => 'test']);
+    $files[] = $s3->putObject(['Bucket' => 'my.bucket', 'Key' => 'file-' . uniqid('file-', true), 'Body' => 'test']);
 }
 
 // at this point, calls to putObjects are not yet resolved
 
 foreach ($files as $file) {
     // calling $file->getKey() will wait the response from AWS and returned the real value
-    $s3Client->deleteObject(['Bucket' => 'my.bucket', 'Key' => $file->getKey()]);
+    $s3->deleteObject(['Bucket' => 'my.bucket', 'Key' => $file->getKey()]);
 }
 
 // no need to wait ends of deleteObject. It will be automatically resolved on destruct
 ```
 
-**Official AWS PHP SDK:**
+#### Official AWS PHP SDK
+
 ```php
 use GuzzleHttp\Promise;
 
@@ -60,15 +65,21 @@ AsyncAws handles the complexity of paginated results. You don't
 have to worry about `IsTruncated` or `NextMarker` or calling magic methods, just
 iterates over results, AsyncAws do the rest.
 
-**AsyncAws:**
+#### AsyncAws
+
 ```php
-$objects = $s3Client->listObjectsV2(['Bucket' => 'my.bucket']);
+use AsyncAws\S3\S3Client;
+
+$s3 = new S3Client();
+
+$objects = $s3->listObjectsV2(['Bucket' => 'my.bucket']);
 foreach ($objects as $object) {
     //
 }
 ```
 
-**Official AWS PHP SDK:**
+#### Official AWS PHP SDK
+
 ```php
 $nextToken = null;
 do {
@@ -96,8 +107,8 @@ foreach ($pages as $page) {
 
 ```
 
-*note*: Even if pagination is automatically handled, AsyncAws let you fetch
-only result for the current page.
+> **Note**: Even if pagination is automatically handled, AsyncAws let you fetch only
+> result for the current page.
 
 ## Presign eXperience
 
@@ -106,19 +117,25 @@ without exposing the key. For instance, provide a link to Download a S3 Object.
 AsycAWS provides a fancy way to generate such url by reusing the same objects
 used in the standard way.
 
-**AsyncAws:**
+#### AsyncAws
+
 ```php
+use AsyncAws\S3\S3Client;
+use AsyncAws\S3\Input\GetObjectRequest;
+
+$s3 = new S3Client();
 $input = new GetObjectRequest(['Bucket' => 'my-bucket', 'Key' => 'test']);
 
 // Sign on the fly
-$content = $s3Client->getObject($input);
+$content = $s3->getObject($input);
 
 // Presign Url
-$url = $s3Client->presign($input, new \DateTimeImmutable('+60 min'));
+$url = $s3->presign($input, new \DateTimeImmutable('+60 min'));
 echo $url;
 ```
 
-**Official AWS PHP SDK:**
+#### Official AWS PHP SDK
+
 ```php
 
 // Sign on the fly
@@ -131,8 +148,8 @@ echo (string) $psr7->getUri();
 
 ```
 
-*Note*: While official AWS PHP SDK provide methods to presign S3 methods only,
-AsyncAws let you presign requests for every services.
+> **Note**: While official AWS PHP SDK provide methods to presign S3 methods only,
+> AsyncAws let you presign requests for every services.
 
 ## Developer eXperience
 

@@ -32,9 +32,13 @@ A waiter provides methods that let you check the status of the operation.
 * `getState()` returns the state of the operation either `sucess`, `failure` or `pending`
 * `wait($timeout, $delay)` waits until the state of the operation is determinate.
 
-As usual, AsyncAws is async and not blocking by default:
+To make sure to use `wait()` as non blocking. Set the timeout to `0`:
 
 ```php
+use AsyncAws\DynamoDb\DynamoDbClient;
+
+$dbClient = new DynamoDbClient();
+
 $waiter = $dbClient->tableExists(['TableName' => 'foobar']);
 while(true) {
     if ($waiter->wait(0)) {

@@ -44,8 +44,8 @@ Read more about the async features [here](./features/async.md).
 
 All APIs are located in different packages. To install SQS run
 
-```bash
-composer require async-aws/sqs
+```shell
+$ composer require async-aws/sqs
 ```
 
 ```php
@@ -62,7 +62,7 @@ $sqsClient = new SqsClient([
 $result = $sqsClient->createQueue(['QueueName' => 'bar']);
 
 // Request is automatically sent when reading the result
-echo $result->getMessageId();
+echo $result->getQueueUrl();
 
 // You can also call a client's method with an input object
 $input = new SendMessageRequest();

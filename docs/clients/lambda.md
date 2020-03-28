@@ -5,21 +5,19 @@ category: clients
 
 # Lambda Client
 
-```bash
-export AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
-export AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-```
-See [docs/authentication.md](https://github.com/async-aws/aws/blob/master/docs/authentication.md) to see how to authenticate against AWS server.
+See section about [authentication](/authentication/index.md) to learn how to
+authenticate against AWS server.
 
 ```php
-$client = new LambdaClient([
-    'region' => 'us-east-1',
-]);
+use AsyncAws\Lambda\LambdaClient;
 
-$result = $client->invoke([
-  'FunctionName' => 'app-dev-hello_world', // Find it here: https://console.aws.amazon.com/lambda/home?region=us-east-1#/functions
+$lambda = new LambdaClient();
+
+// Find FunctionName here: https://console.aws.amazon.com/lambda/home?region=us-east-1#/functions
+$result = $lambda->invoke([
+  'FunctionName' => 'app-dev-hello_world',
   'Payload' => '{"name": "async-aws/lambda"}',
 ]);
 
-$result->getPayload(); // hello async-aws/lambda
+$result->getPayload();
 ```

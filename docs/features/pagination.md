@@ -12,9 +12,13 @@ API to make a new request to fetch the remaining resources in the list.
 use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\AwsObject;
 use AsyncAws\S3\ValueObject\CommonPrefix;
+use AsyncAws\S3\Input\ListObjectsV2Request;
 
-$s3Client = new S3Client();
-$result = $s3Client->listObjectsV2(['Bucket' => 'foo']);
+$s3 = new S3Client();
+$input = new ListObjectsV2Request();
+$input->setBucket('Foobar');
+
+$result = $s3->listObjectsV2($input);
 
 /** @var AwsObject|CommonPrefix $file */
 foreach($result as $file) {
@@ -24,3 +28,10 @@ foreach($result as $file) {
 }
 ```
 
+If you want to disable pagination, you may call the `getContents()` function with
+boolean `true` as first argument.
+
+```diff
+-foreach($result as $file) {
++foreach($result->getContents(true) as $file) {
+```

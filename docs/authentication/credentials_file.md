@@ -29,7 +29,7 @@ $client = new AwsClientFactory([
 ]);
 ```
 
-> **NOTE**: When not defined, AsyncAWS will use the profile named `default`.
+> **Note**: When not defined, AsyncAWS will use the profile named `default`.
 
 The profile can refer to a [Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) and specify the
 source of another profile that contains the IAM user credentials with permission to use the role.
@@ -62,7 +62,7 @@ region=us-west-2
 
 The path to the `credentials` and `config` file can be *optionnaly* configured either with Configuration or env variables.
 
-```bash
+```shell
 $ export AWS_SHARED_CREDENTIALS_FILE=/path/to/shared_credentials_file
 $ export AWS_CONFIG_FILE=/path/to/config_file
 ```

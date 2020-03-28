@@ -18,6 +18,9 @@ menu:
             compare:
                 text: Compare with AWS
                 url: /compare.html
+            configuration:
+                text: Configuration
+                url: /configuration.html
 
     authentication:
         section: Authentication
@@ -68,10 +71,6 @@ menu:
             s3:
                 text: S3
                 url: /clients/s3.html
-            sqs:
-                text: SQS
-                url: /clients/sqs.html
-
 
     contribute:
         section: Contribute
@@ -83,6 +82,10 @@ menu:
             generate:
                 text: Generate code
                 url: /contribute/generate.html
+
+            documentation:
+                text: Documentation
+                url: /contribute/website.html
 
     github:
         items:

@@ -39,8 +39,17 @@ h1, h2, h3, h4, h5,
     color: $black;
 }
 
-h2 {
+h2, .h2 {
+    margin-top: 2rem;
+    border-bottom: 1px solid $gray-300;
+}
+
+h3, .h3 {
     margin-top: 1.5rem;
+    font-size: 1.4rem;
+}
+h4, .h4 {
+    font-size: 1.15rem;
 }
 
 .content {
@@ -65,4 +74,10 @@ table {
         padding-left: 1rem;
         padding-right: 1rem;
     }
+}
+
+blockquote {
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: 10px solid $red;
 }
