@@ -8,22 +8,22 @@ An overview over how AsyncAws differ from the official AWS PHP SDK
 
 |   | AWS PHP SDK | AsyncAws |
 |---|-------------|-----------|
-| [Async](#async-experience)                    | | <i class="fa fa-check"></i> |
+| [Asynchronous](#async-experience)                    | | <i class="fa fa-check"></i> |
 | [Pagination](#pagination-experience)          | | <i class="fa fa-check"></i> |
 | [Presign](#presign-experience)                | | <i class="fa fa-check"></i> |
 | [Weight](#dependencies-size)                  | | <i class="fa fa-check"></i> |
-| [Developer Experience](#developer-experience) | | <i class="fa fa-check"></i> |
+| [Developer experience](#developer-experience) | | <i class="fa fa-check"></i> |
 | [Mock / Proxy](#mock-and-proxy)               | | <i class="fa fa-check"></i> |
 | [Features Coverage](#features-coverage)       | <i class="fa fa-check"></i> | |
 
 
-## Async eXperience
+## Asynchronous experience
 
-By default, all calls are async. Thanks to the power of the
+All API calls are asynchronous by default. Thanks to the power of the
 [Symfony HTTP client](https://symfony.com/doc/current/components/http_client.html)
 the process is not blocking until you need to read the result.
 
-#### AsyncAws
+### AsyncAws
 
 ```php
 use AsyncAws\S3\S3Client;
@@ -44,11 +44,13 @@ foreach ($files as $file) {
 // no need to wait ends of deleteObject. It will be automatically resolved on destruct
 ```
 
-#### Official AWS PHP SDK
+### Official AWS PHP SDK
 
 ```php
+use Aws\S3\S3Client;
 use GuzzleHttp\Promise;
 
+$s3Client = new S3Client([]);
 $promises = [];
 foreach (range(0, 10) as $index) {
     $promises[] = $s3Client->putObjectAsync(['Bucket' => 'my.bucket', 'Key' => 'file-' . uniqid('file-', true), 'Body' => 'test']);
@@ -60,16 +62,17 @@ foreach ($promises as $promise) {
 
     $deletePromises[] = $s3Client->deleteObjectAsync(['Bucket' => 'my.bucket', 'Key' => $file['Key']]);
 }
+
 Promise\all($deletePromises)->wait();
 ```
 
-## Pagination eXperience
+## Pagination experience
 
 AsyncAws handles the complexity of paginated results. You don't
 have to worry about `IsTruncated` or `NextMarker` or calling magic methods, just
 iterates over results, AsyncAws do the rest.
 
-#### AsyncAws
+### AsyncAws
 
 ```php
 use AsyncAws\S3\S3Client;
@@ -78,21 +81,24 @@ $s3 = new S3Client();
 
 $objects = $s3->listObjectsV2(['Bucket' => 'my.bucket']);
 foreach ($objects as $object) {
-    //
+    // ...
 }
 ```
 
-#### Official AWS PHP SDK
+### Official AWS PHP SDK
 
 ```php
+use Aws\S3\S3Client;
+
+$s3Client = new S3Client([]);
 $nextToken = null;
 do {
     $objects = $s3Client->ListObjectsV2(['Bucket' => 'my-bucket', 'NextContinuationToken' => $nextToken]);
     foreach ($objects['Contents'] as $object) {
-        //
+        // ...
     }
     foreach ($objects['CommonPrefixes'] as $object) {
-        //
+        // ...
     }
     $nextToken = $objects['ContinuationToken'];
 } while ($nextToken !== null);
@@ -102,26 +108,25 @@ do {
 $pages = $s3Client->getPaginator('ListObjectsV2', ['Bucket' => 'my.bucket']);
 foreach ($pages as $page) {
     foreach ($page['Contents'] as $object) {
-        //
+        // ...
     }
     foreach ($page['CommonPrefixes'] as $object) {
-        //
+        // ...
     }
 }
 
 ```
 
-> **Note**: Even if pagination is automatically handled, AsyncAws let you fetch only
-> result for the current page.
+Read more about [pagination](/features/pagination.md).
 
-## Presign eXperience
+## Presign experience
 
 AWS allow pre-generating sign url that let user access to a resource
-without exposing the key. For instance, provide a link to Download a S3 Object.
+without exposing the key. For instance, provide a link to download an S3 Object.
 AsycAWS provides a fancy way to generate such url by reusing the same objects
 used in the standard way.
 
-#### AsyncAws
+### AsyncAws
 
 ```php
 use AsyncAws\S3\S3Client;
@@ -138,10 +143,12 @@ $url = $s3->presign($input, new \DateTimeImmutable('+60 min'));
 echo $url;
 ```
 
-#### Official AWS PHP SDK
+### Official AWS PHP SDK
 
 ```php
+use Aws\S3\S3Client;
 
+$s3Client = new S3Client([]);
 // Sign on the fly
 $content = $s3Client->getObject(['Bucket' => 'my-bucket', 'Key' => 'test']);
 
@@ -157,14 +164,17 @@ echo (string) $psr7->getUri();
 
 Read more about [presign feature](/features/presign.md).
 
-## Developer eXperience
+## Developer experience
 
-Ever get the error `PHP Fatal error: Missing required client configuration
-options: version: (string)` in official AWS PHP SDK, and dig into documentation
-to blindly copy/paste `['version' => '2006-03-01']`? AsyncAws saved you from
-this complexity and use the right version for you.
+Have you ever got an error like this when using the official AWS PHP SDK?
 
-AsyncAws also provides real classes with documented getter and methods, while
+> PHP Fatal error: Missing required client configuration options: version: (string)
+
+The solution is to dig into the documentation and blindly copy the version in the
+examples... AsyncAws will pick the correct version of the API for you. No need to
+worry about that.
+
+AsyncAws also provides real classes with documented getters and methods, while
 the official AWS PHP SDK uses magic methods and undocumented array accessor.
 
 | AWS PHP SDK | AsyncAws |
@@ -177,11 +187,11 @@ the official AWS PHP SDK uses magic methods and undocumented array accessor.
 
 By providing isolated package for each service, AsyncAws is ultra thin. For
 instance `aws-async/s3` + `aws-async/core` weighs **0.6Mib**, while official AWS
-PHP SDK uses **22MiB** regardless of the number of services you use.
+PHP SDK weighs **22MiB** regardless of the number of API services you use.
 
-## Mock and Proxy
+## Mock and proxy
 
-Because AsyncAws uses real classes, it is easy to Mock them in PHPUnit tests.
+Because AsyncAws uses real classes, it is easy to mock them in PHPUnit tests.
 The official AWS PHP SDK uses the magic `__call` methods which increase
 complexity and reduce the developer experience.
 
@@ -192,3 +202,5 @@ Read more about [writing tests](/features/tests.md).
 While AsyncAws focused on the most used operations (around 7 services),
 The official AWS PHP SDK covers the full scope of AWS (200 services and 8,000
 methods).
+
+Read more about what [clients supported](/clients/index.md).
