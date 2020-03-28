@@ -13,8 +13,8 @@ use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\AwsObject;
 use AsyncAws\S3\ValueObject\CommonPrefix;
 
-$s3Client = new S3Client();
-$result = $s3Client->listObjectsV2(['Bucket' => 'foo']);
+$s3 = new S3Client();
+$result = $s3->listObjectsV2(['Bucket' => 'foo']);
 
 /** @var AwsObject|CommonPrefix $file */
 foreach($result as $file) {

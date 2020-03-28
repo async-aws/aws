@@ -62,7 +62,7 @@ $sqsClient = new SqsClient([
 $result = $sqsClient->createQueue(['QueueName' => 'bar']);
 
 // Request is automatically sent when reading the result
-echo $result->getMessageId();
+echo $result->getQueueUrl();
 
 // You can also call a client's method with an input object
 $input = new SendMessageRequest();
