@@ -9,6 +9,7 @@ use AsyncAws\Test\ServiceProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Verify documentation bugs.
@@ -80,6 +81,31 @@ class DocumentationTest extends TestCase
             $packageName = $serviceData['package_name'];
             self::assertTrue(false !== strpos($readme, $packageName), sprintf('There is no mention of "%s" in the /docs/clients/index.md', $packageName));
             self::assertTrue(false !== strpos($readme, 'https://packagist.org/packages/' . $packageName), sprintf('There is no link "%s" on packagist', $packageName));
+        }
+    }
+
+    /**
+     * Verify menu follow a pattern to help the sidebar menu to select "current" item.
+     */
+    public function testCouscousMenu()
+    {
+        $config = Yaml::parse(file_get_contents(\dirname(__DIR__, 2) . '/couscous.yml'));
+
+        foreach ($config['menu'] as $category => $categoryData) {
+            $urlPrefix = isset($categoryData['section']) ?  '/' . $category: '';
+            foreach ($categoryData['items'] as $name => $data) {
+                if (substr($data['url'], 0, 8) === 'https://') {
+                    continue;
+                }
+
+                if ($name === 'index') {
+                    $expected = sprintf('%s/', $urlPrefix);
+                } else {
+                    $expected = sprintf('%s/%s.html', $urlPrefix, $name);
+                }
+
+                self::assertEquals($expected, $data['url'], sprintf('Expected URL for "menu.%s.%s" to be "%s". Please update URL or config keys.', $category, $name, $expected));
+            }
         }
     }
 }

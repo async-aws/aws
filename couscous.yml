@@ -37,7 +37,7 @@ menu:
             web-identity:
                 text: WebIdentity
                 url: /authentication/web-identity.html
-            credentials-ile:
+            credentials-file:
                 text: Credentials file
                 url: /authentication/credentials-file.html
             ec2-metadata:
@@ -68,7 +68,7 @@ menu:
         items:
             index:
                 text: Overview
-                url: /clients/index.html
+                url: /clients/
             lambda:
                 text: Lambda
                 url: /clients/lambda.html
