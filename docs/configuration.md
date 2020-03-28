@@ -47,7 +47,11 @@ The AWS access key secret used for authentication.
 
 ### sessionToken
 
-A token passed to AWS API to use temporary credentials.
+The AWS session token passed alongside temporary credentials.
+
+See [AWS documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html)
+and [CLI reference](https://docs.aws.amazon.com/cli/latest/reference/sts/get-session-token.html)
+for more information.
 
 ### sharedCredentialsFile
 
@@ -69,12 +73,16 @@ for authentication.
 
 ### roleArn
 
-The AWS Arn to the role used with the [WebIdentity Provider](/authentication/web_identity.md)
+The Amazon Resource Name (ARN) of the role that the caller is assuming when using
+the [WebIdentity Provider](/authentication/web_identity.md)
 
 ### webIdentityTokenFile
 
-The file containing the WebIdentityToken used with the [WebIdentity Provider](/authentication/web_identity.md)
+Path to the file that contains the OAuth 2.0 access token when using the [WebIdentity Provider](/authentication/web_identity.md)
 
 ### roleSessionName
 
-The session name used with the [WebIdentity Provider](/authentication/web_identity.md)
+**Default:** 'async-aws-' followed by random chars
+
+An identifier for the assumed role session
+
