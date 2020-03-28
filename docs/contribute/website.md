@@ -14,7 +14,7 @@ would improve the website.
 
 ## Writing documentation
 
-Writing documentation to the website in no more complex than it normally is. Making
+Writing documentation to the website in not more complex than it normally is. Making
 changes to the Markdown files in `./docs` is everything one need to do.
 
 If a new file is created and it should be in the website's sidebar menu, then remember
@@ -22,11 +22,11 @@ to update `./couscous.yml`.
 
 ## Improving the website's appearance
 
-To update the websites HTML or style one need to use Couscous. Its basic operation
-is found in their [Getting started guide](http://couscous.io/docs/getting-started.html).
+To update the websites HTML or style one need to use Couscous. Its basic operations
+are found in their [Getting started guide](http://couscous.io/docs/getting-started.html).
 You do also need NPM installed to build the assets.
 
-There is a Makefile script to run `npm install` and `encore prod`. You may run it
+There is a Makefile script to run `npm install` and `encore prod`. It will be executed
 with `make website-assets`. That script will automatically run before Couscous is
 generating the HTML.
 
@@ -47,14 +47,14 @@ Now you are good to go.
 
 ## The process of building the website
 
-So here is an overview how the build process works every time there is a push to
-master:
+So here is an overview how the automated build process works every time there is
+a push to master:
 
 ### 1. Generate the HTML
 
-We use a tool called [Couscous](http://couscous.io/) to convert all markdown files
+We use [Couscous](http://couscous.io/) to convert all markdown files
 in `./docs` to HTML files. Couscous then looks at the Twig template in `./website/template`
-to get the base HTML layout. All markdown files will use the `default.twig` template
+to get the basic HTML layout. All markdown files will use the `default.twig` template
 unless other is specified at the metadata section at the top of the markdown file.
 
 The sidebar menu structure is defined in `./couscous.yml`.

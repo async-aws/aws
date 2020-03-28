@@ -5,8 +5,9 @@ category: features
 # Async
 
 Asynchronous stuff can be confusing and because of that it is normal to try to stay
-away. But hopefully it will be straight forward using this library. The goal is to
-always be "async first" but you dont have to care about async if you dont want to.
+away from it. But hopefully, using this library will straight forward. The goal is
+to always be "async first" but developers don't have to care about async if they
+don't want to.
 
 ## Normal use cases
 
@@ -59,11 +60,11 @@ The HTTP request is not actually sent until the properties on `$result` are acce
 On the first call to a getter, the HTTP response will be downloaded and the body
 will be parsed.
 
-This behavior can be observed with a debugger.
+This behavior can be observed when using a debugger like xDebug.
 
 ### Not using the result
 
-Consider this rare edge case:
+Consider this rare scenario:
 
 ```php
 use AsyncAws\Sqs\SqsClient;
@@ -86,21 +87,46 @@ sendSqsMessage($sqs);
 ```
 
 In this example `$result` is never used. The HTTP request will be send on `$result->__desctuct()`.
-But that does not happen until after the 100 lines of business logic which can be
-a bit confusing.
+But that does not happen until the end of the block, after the 100 lines of business
+logic. This can be a bit confusing.
 
-This scenario can be solved in to ways. First, the simplest solution:
+This scenario can be solved in a few ways. **Solution A** is the best one to use but
+the others are listed as examples.
+
+#### Solution A
 
 ```diff
 -    $result = $sqs->sendMessage($input);
 +    $sqs->sendMessage($input);
 ```
 
-The other solution is to use `$result->resolve()`. See [below](#using-resolve-function).
+#### Solution B
+
+```diff
+    $result = $sqs->sendMessage($input);
++   $result->getMessageId();
+```
+
+#### Solution C
+
+```diff
+    $result = $sqs->sendMessage($input);
++   unset($result);
+```
+
+#### Solution D
+
+This solution requires some more explanation. See [below](#using-resolve-function)
+for more info.
+
+```diff
+    $result = $sqs->sendMessage($input);
++   $result->resolve();
+```
 
 ## Advanced use cases
 
-The normal use cases covers 80% of all code. Let's dig in to the advanced stuff.
+The normal use cases covers 90% of all code. Let's dig in to the advanced stuff.
 
 ### Using resolve-function
 
@@ -111,7 +137,7 @@ Calling this function with no arguments will either return `true` or throw an ex
 If the function is called again, it will give you the same output without contacting
 the remote server again.
 
-The function also has a `?float $timeout = null` argument. If the timeout is set to
+The function has a `?float $timeout = null` argument. If the timeout is set to
 `2.0`, we will wait for 2 seconds for a response. If a response is received, the function
 will return `true` or thrown an exception. If the timeout is reached, it will return
 `false`.
@@ -121,7 +147,7 @@ Use `$result->resolve(0)` for a non-blocking call.
 ### Batch requests
 
 With the knowledge of the resolve function we can do some cool stuff. In this example
-we are creating 10 `InvocationRequest`s and just printing their result. The result
+we are creating 10 `InvocationRequest`s and printing their result. The result
 that is downloaded first will be printed first. The order the requests are created
 do not matter.
 
