@@ -34,10 +34,11 @@ Read more about documentation and the website [here](./website.md).
 ### Mono repository
 
 It means that all PRs and issues goes to [async-aws/aws](https://github.com/async-aws/aws)
-and not to individual client's repositories. On a merge to master we use [Subtree Split](https://www.subtreesplit.com/)
-to push the changes to other repositories.
+and not to individual client's repositories. When a commit is merged to master, the
+[Subtree Split](https://www.subtreesplit.com/) service will push the changes to other
+repositories.
 
-We do this to simplify maintenance.
+Using a mono repository will simplify maintenance.
 
 ### Generated code
 

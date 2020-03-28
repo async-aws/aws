@@ -63,7 +63,7 @@ a push to master:
 
 ### 1. Generate the HTML
 
-We use [Couscous](http://couscous.io/) to convert all markdown files
+The first step is to use [Couscous](http://couscous.io/) to convert all Markdown files
 in `./docs` to HTML files. Couscous then looks at the Twig template in `./website/template`
 to get the basic HTML layout. All markdown files will use the `default.twig` template
 unless other is specified at the metadata section at the top of the markdown file.
