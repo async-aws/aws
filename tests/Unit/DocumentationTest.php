@@ -92,13 +92,13 @@ class DocumentationTest extends TestCase
         $config = Yaml::parse(file_get_contents(\dirname(__DIR__, 2) . '/couscous.yml'));
 
         foreach ($config['menu'] as $category => $categoryData) {
-            $urlPrefix = isset($categoryData['section']) ?  '/' . $category: '';
+            $urlPrefix = isset($categoryData['section']) ? '/' . $category : '';
             foreach ($categoryData['items'] as $name => $data) {
-                if (substr($data['url'], 0, 8) === 'https://') {
+                if ('https://' === substr($data['url'], 0, 8)) {
                     continue;
                 }
 
-                if ($name === 'index') {
+                if ('index' === $name) {
                     $expected = sprintf('%s/', $urlPrefix);
                 } else {
                     $expected = sprintf('%s/%s.html', $urlPrefix, $name);
