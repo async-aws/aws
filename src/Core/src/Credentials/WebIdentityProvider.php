@@ -59,8 +59,8 @@ final class WebIdentityProvider implements CredentialProvider
         }
 
         $profileData = $profilesData[$profile];
-        $roleArn = $profileData[IniFileLoader::KEY_WEB_IDENTITY_TOKEN_FILE] ?? null;
-        $tokenFile = $profileData[IniFileLoader::KEY_ROLE_ARN] ?? null;
+        $roleArn = $profileData[IniFileLoader::KEY_ROLE_ARN] ?? null;
+        $tokenFile = $profileData[IniFileLoader::KEY_WEB_IDENTITY_TOKEN_FILE] ?? null;
 
         if (null !== $roleArn && null !== $tokenFile) {
             return $this->getCredentialsFromRole(
