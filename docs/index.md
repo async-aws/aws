@@ -26,7 +26,7 @@ The goals of this client are:
    annoying when the changes are not related to services you use.
 1. **Readable code.** One should be able to read the code and follow the logic.
 
-See [full comparison](./compare.md).
+See [full comparison](./compare.md) between AsyncAws and the official AWS PHP SDK.
 
 ## How is it async first?
 
@@ -41,7 +41,7 @@ Except for being a wrapper around Symfony's HTTP client and make sure the asynch
 features are properly used, AsyncAws also [handles authentication](./authtentication/authentication.md),
 exceptions and provide input and result objects.
 
-Read more about the features features [here](./features/async.md).
+Read more about [how do use asynchronous features](./features/async.md).
 
 ## Installation and usage
 
@@ -76,5 +76,4 @@ $input
 // Since the returned value is ignored,
 // the HTTP request is sent automatically.
 $sqs->sendMessage($input);
-
 ```

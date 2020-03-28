@@ -2,7 +2,7 @@
 category: features
 ---
 
-# Async
+# How to work asynchronous
 
 Asynchronous stuff can be confusing and because of that it is normal to try to stay
 away from it. But hopefully, using this library will straight forward. The goal is

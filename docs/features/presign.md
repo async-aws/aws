@@ -2,7 +2,7 @@
 category: features
 ---
 
-# Presign
+# Presign URLs
 
 You may "presign" all requests with the `$client->presign()` function. It will return
 a URL that is safe to share to anyone. The URL contains encrypted authentication
