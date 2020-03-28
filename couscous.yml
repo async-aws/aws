@@ -25,7 +25,7 @@ menu:
     authentication:
         section: Authentication
         items:
-            intro:
+            overview:
                 text: Overview
                 url: /authentication/
             hard_coded:
@@ -68,6 +68,10 @@ menu:
     clients:
         section: Api clients
         items:
+            overview:
+                text: Overview
+                url: /clients/index.html
+
             lambda:
                 text: Lambda
                 url: /clients/lambda.html

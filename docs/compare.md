@@ -1,3 +1,7 @@
+---
+layout: compare
+---
+
 # Compare AsyncAws vs AWS PHP SDK
 
 An overview over how AsyncAws differ from the official AWS PHP SDK

@@ -5,8 +5,9 @@ category: clients
 
 # Lambda Client
 
-See section about [authentication](/authentication/index.md) to learn how to
-authenticate against AWS server.
+## Examples
+
+### Invoke a function
 
 ```php
 use AsyncAws\Lambda\LambdaClient;

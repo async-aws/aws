@@ -4,6 +4,7 @@
 @import './variables';
 @import './sidebar';
 @import './code';
+@import './layout/compare';
 
 body{
     font-family: $font-primary;
@@ -64,14 +65,7 @@ table {
     img {
         max-width: 100%;
     }
-    td {
-        text-align: center;
-    }
-    td:first-of-type {
-        text-align: left;
-    }
-    th {
-        padding-left: 1rem;
+    td, th {
         padding-right: 1rem;
     }
 }
