@@ -151,6 +151,8 @@ echo (string) $psr7->getUri();
 > **Note**: While official AWS PHP SDK provide methods to presign S3 methods only,
 > AsyncAws let you presign requests for every services.
 
+Read more about [presign feature](/features/presign.md).
+
 ## Developer eXperience
 
 Ever get the error `PHP Fatal error: Missing required client configuration
