@@ -1,4 +1,3 @@
-
 import highlight from 'highlight.js/lib/highlight';
 
 highlight.registerLanguage('php', require('highlight.js/lib/languages/php'));
