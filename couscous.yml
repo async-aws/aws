@@ -22,29 +22,22 @@ menu:
                 text: Configuration
                 url: /configuration.html
 
-    authentication:
-        section: Authentication
+    clients:
+        # Clients are in alphabetical order
+        section: Api clients
         items:
             index:
                 text: Overview
-                url: /authentication/
-            hard-coded:
-                text: Hard-Coded values
-                url: /authentication/hard-coded.html
-            environment:
-                text: Environment variables
-                url: /authentication/environment.html
-            web-identity:
-                text: WebIdentity
-                url: /authentication/web-identity.html
-            credentials-file:
-                text: Credentials file
-                url: /authentication/credentials-file.html
-            ec2-metadata:
-                text: EC2 instance metadata
-                url: /authentication/ec2-metadata.html
+                url: /clients/
+            lambda:
+                text: Lambda
+                url: /clients/lambda.html
+            s3:
+                text: S3
+                url: /clients/s3.html
 
     features:
+        # Feature are in alphabetical order after "why async?"
         section: Features
         items:
             async:
@@ -63,42 +56,53 @@ menu:
                 text: Writing tests
                 url: /features/tests.html
 
-    clients:
-        section: Api clients
-        items:
-            index:
-                text: Overview
-                url: /clients/
-            lambda:
-                text: Lambda
-                url: /clients/lambda.html
-            s3:
-                text: S3
-                url: /clients/s3.html
-
     integration:
+        # Order of importance
         section: Integration
         items:
+            symfony-bundle:
+                text: Symfony Bundle
+                url: /integration/symfony-bundle.html
             flysystem:
                 text: Flysystem
                 url: /integration/flysystem.html
 
-            symfony-bundle:
-                text: Symfony Bundle
-                url: /integration/symfony-bundle.html
+    authentication:
+        # Authentication providers are in alphabetical order
+        section: Authentication
+        items:
+            index:
+                text: Overview
+                url: /authentication/
+            credentials-file:
+                text: Credentials file
+                url: /authentication/credentials-file.html
+            ec2-metadata:
+                text: EC2 instance metadata
+                url: /authentication/ec2-metadata.html
+            environment:
+                text: Environment variables
+                url: /authentication/environment.html
+            hard-coded:
+                text: Hard-Coded values
+                url: /authentication/hard-coded.html
+            web-identity:
+                text: WebIdentity
+                url: /authentication/web-identity.html
 
     contribute:
+        # Order of importance
         section: Contribute
         items:
             index:
                 text: Introduction
                 url: /contribute/
-            generate:
-                text: Generate code
-                url: /contribute/generate.html
             website:
                 text: Documentation
                 url: /contribute/website.html
+            generate:
+                text: Generate code
+                url: /contribute/generate.html
 
     github:
         items:
