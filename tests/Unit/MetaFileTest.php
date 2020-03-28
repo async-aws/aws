@@ -30,13 +30,13 @@ class MetaFileTest extends TestCase
 
     public function testReadme()
     {
-        $readme = file_get_contents(\dirname(__DIR__, 2) . '/Readme.md');
+        $readme = file_get_contents(\dirname(__DIR__, 2) . '/README.md');
         foreach (ServiceProvider::getAwsServices() as $serviceName => $serviceData) {
             if (isset($serviceData['namespace'])) {
                 continue;
             }
 
-            self::assertTrue(false !== strpos($readme, $serviceData['package_name']), sprintf('There is no mention of "%s" in the Readme.md', $serviceData['package_name']));
+            self::assertTrue(false !== strpos($readme, $serviceData['package_name']), sprintf('There is no mention of "%s" in the README.md', $serviceData['package_name']));
         }
     }
 }

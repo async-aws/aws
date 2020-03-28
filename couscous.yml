@@ -30,22 +30,22 @@ menu:
                 url: /authentication/
             hard_coded:
                 text: Hard-Coded values
-                url: /authentication/hard_coded.html
+                url: /authentication/hard-coded.html
             environment:
                 text: Environment variables
                 url: /authentication/environment.html
 
             web_identity:
                 text: WebIdentity
-                url: /authentication/web_identity.html
+                url: /authentication/web-identity.html
 
             file:
                 text: Credentials file
-                url: /authentication/credentials_file.html
+                url: /authentication/credentials-file.html
 
             ec2_metadata:
                 text: EC2 instance metadata
-                url: /authentication/ec2_metadata.html
+                url: /authentication/ec2-metadata.html
     features:
         section: Features
         items:
@@ -78,6 +78,17 @@ menu:
             s3:
                 text: S3
                 url: /clients/s3.html
+
+    integration:
+        section: Integration
+        items:
+            flysystem:
+                text: Flysystem
+                url: /integration/flysystem.html
+
+            symfony_bundle:
+                text: Symfony Bundle
+                url: /integration/symfony-bundle.html
 
     contribute:
         section: Contribute

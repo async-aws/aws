@@ -17,6 +17,4 @@ See https://async-aws.com/clients/s3.html for documentation.
 
 ## Contribute
 
-Yes please.
-
-See https://async-aws.com/contribute/
+Contributions are welcome and appreciated. Please read https://async-aws.com/contribute/
