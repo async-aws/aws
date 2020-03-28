@@ -181,6 +181,8 @@ Because AsyncAws uses real classes, it is easy to Mock them in PHPUnit tests.
 The official AWS PHP SDK uses the magic `__call` methods which increase
 complexity and reduce the developer experience.
 
+Read more about [writing tests](/features/tests.md).
+
 ## Features coverage
 
 While AsyncAws focused on the most used operations (around 7 services),

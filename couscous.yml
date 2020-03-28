@@ -61,6 +61,9 @@ menu:
             waiters:
                 text: Waiters
                 url: /features/waiter.html
+            tests:
+                text: Writing tests
+                url: /features/tests.html
 
     clients:
         section: Api clients
