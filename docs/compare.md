@@ -107,7 +107,7 @@ foreach ($pages as $page) {
 
 ```
 
-> Note: Even if pagination is automatically handled, AsyncAws let you fetch only
+> **Note**: Even if pagination is automatically handled, AsyncAws let you fetch only
 > result for the current page.
 
 ## Presign eXperience
@@ -148,8 +148,8 @@ echo (string) $psr7->getUri();
 
 ```
 
-*Note*: While official AWS PHP SDK provide methods to presign S3 methods only,
-AsyncAws let you presign requests for every services.
+> **Note**: While official AWS PHP SDK provide methods to presign S3 methods only,
+> AsyncAws let you presign requests for every services.
 
 ## Developer eXperience
 

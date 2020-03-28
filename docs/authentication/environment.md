@@ -15,8 +15,7 @@ $ export AWS_SESSION_TOKEN=AQoDYXdzEJr...<remainder of security token>
    # The session key for your AWS account. This is needed only when you are using temporary credentials.
 ```
 
-> **NOTE**: You cannot mix env variables with configuration config with
-> hard-coded configuration.
+> **Note**: You cannot mix env variables with configuration config with hard-coded configuration.
 
 ```php
 use AsyncAws\Core\AwsClientFactory;

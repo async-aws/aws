@@ -66,3 +66,9 @@ table {
         padding-right: 1rem;
     }
 }
+
+blockquote {
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: 10px solid $red;
+}

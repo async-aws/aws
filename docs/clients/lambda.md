@@ -5,7 +5,7 @@ category: clients
 
 # Lambda Client
 
-See section about [autnetication](/docs/authentication/index.md) to learn how to
+See section about [authentication](/authentication/index.md) to learn how to
 authenticate against AWS server.
 
 ```php

@@ -16,5 +16,5 @@ $client = new AwsClientFactory([
 ]);
 ```
 
-> **WARNING**: Hard-coding your credentials can be dangerous because it’s easy to commit your credentials into an SCM
+> **Warning**: Hard-coding your credentials can be dangerous because it’s easy to commit your credentials into an SCM
 > repository accidentally
