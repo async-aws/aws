@@ -27,37 +27,55 @@ they are used for.
 
 ### region
 
-**Default:** us-east-1
+**Default:** 'us-east-1'
 
 The AWS region the client should be targeting.
 
 ### profile
 
-**Default:** default
+**Default:** 'default'
 
 The name of the AWS Profile configured when using [credential and configuration files](/authentication/credentials_file.md)
 for authentication.
 
 ### accessKeyId
 
+The AWS access key id used for authentication.
+
 ### accessKeySecret
+
+The AWS access key secret used for authentication.
 
 ### sessionToken
 
+???
+
 ### sharedCredentialsFile
 
-**Default:** ~/.aws/credentials
+**Default:** '~/.aws/credentials'
+
+The credentials file to look in when using [credential and configuration files](/authentication/credentials_file.md)
+for authentication.
 
 ### sharedConfigFile
 
-**Default:** ~/.aws/config
+**Default:** '~/.aws/config'
+
+The config file to look in when using [credential and configuration files](/authentication/credentials_file.md)
+for authentication.
 
 ### endpoint
 
-**Default:** https://%service%.%region%.amazonaws.com
+**Default:** 'https://%service%.%region%.amazonaws.com'
 
 ### roleArn
 
+???
+
 ### webIdentityTokenFile
 
+???
+
 ### roleSessionName
+
+???

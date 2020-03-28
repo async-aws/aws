@@ -18,6 +18,9 @@ menu:
             compare:
                 text: Compare with AWS
                 url: /compare.html
+            configuration:
+                text: Configuration
+                url: /configuration.html
 
     authentication:
         section: Authentication

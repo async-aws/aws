@@ -33,7 +33,7 @@ class DocumentationTest extends TestCase
                 continue;
             }
 
-            $startOfSection = $optionHeading . sprintf("\n\n**Default:** %s\n", $defaultOptions[$name]);
+            $startOfSection = $optionHeading . sprintf("\n\n**Default:** %s\n", var_export($defaultOptions[$name], true));
             if (false !== strpos($docs, $startOfSection)) {
                 continue;
             }
