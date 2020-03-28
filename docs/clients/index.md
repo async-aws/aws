@@ -4,25 +4,25 @@ category: clients
 
 # Clients overview
 
-There are a few API Clients, but not all of them are promoted with a separate page
-in the documentation. On this page you find a complete list of clients and some
-installation instructions.
+AsyncAws have implemented the most popular API Clients, but not all of them are promoted
+with their own page in the documentation. On this page you find a complete list of
+clients and some installation instructions.
 
 ## Install and configure
 
-You install each client with composer. Here is an example to install DynamoDb:
+You install a client with Composer. Here is an example to install DynamoDb:
 
 ```shell
 $ composer require async-aws/dynamo-db
 ```
 
 To instantiate a DynamoDb client (or any other client) you could provide four arguments.
-All arguments are optional. Sensible defaults are used for each argument.
+All arguments are optional and sensible defaults are used.
 
 ```php
-use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Credentials\ConfigurationProvider;
+use AsyncAws\DynamoDb\DynamoDbClient;
 
 $config = Configuration::create([
     'region' => 'eu-central-1',
@@ -56,8 +56,8 @@ function takes an Input object (or array) as parameter and will return a Result.
 See the API client's class to learn what operations are supported and what the input
 and output are.
 
-All Input object for SQS is located in [`AsyncAws\Sqs\Input\*`](https://github.com/async-aws/aws/tree/master/src/Service/Sqs/src/Input)
-and the Results are located in [`AsyncAws\Sqs\Result\*`](https://github.com/async-aws/aws/tree/master/src/Service/Sqs/src/Result).
+All Input objects for SQS is located in [`AsyncAws\Sqs\Input\*`](https://github.com/async-aws/aws/tree/master/src/Service/Sqs/src/Input)
+and all Result objects are located in [`AsyncAws\Sqs\Result\*`](https://github.com/async-aws/aws/tree/master/src/Service/Sqs/src/Result).
 
 Your IDE will also be helpful to discover function and how to use them. See example
 from PHPStorm:
@@ -66,8 +66,8 @@ from PHPStorm:
 
 ## All supported clients
 
-Here is a list of supported clients. If need another client or a new operation you
-may be able to automatically generate that. See the [contribution guide](/contribute/index.md)
+Here is a list of supported clients. If there is a need for another client or a new
+operation, it can be automatically generated. See the [contribution guide](/contribute/index.md)
 for more information.
 
 | Api Client                  | Package name
