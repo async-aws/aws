@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace AsyncAws\Test\Unit;
 
 use AsyncAws\Core\Configuration;
-use AsyncAws\Test\ServiceProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
 /**
- * Verify documentation bugs
+ * Verify documentation bugs.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
@@ -25,7 +24,7 @@ class DocumentationTest extends TestCase
         $defaultOptions = $refl->getConstant('DEFAULT_OPTIONS');
 
         foreach ($availableOptions as $name => $value) {
-            $optionHeading = '### '.$name;
+            $optionHeading = '### ' . $name;
 
             self::assertTrue(false !== strpos($docs, $optionHeading), sprintf('There is no mention of "%s" in the /docs/configuration.md.', $name));
 
@@ -40,7 +39,7 @@ class DocumentationTest extends TestCase
 
             // Prepare a good error message.
             $start = strpos($docs, $optionHeading);
-            $excerpt = substr($docs, $start, strlen($optionHeading));
+            $excerpt = substr($docs, $start, \strlen($optionHeading));
             self::assertEquals($excerpt, $startOfSection, sprintf('There is no mention of "%s"\'s default value.', $name));
         }
     }
