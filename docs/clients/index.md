@@ -4,9 +4,9 @@ category: clients
 
 # Clients overview
 
-AsyncAws have implemented the most popular API Clients, but not all of them are promoted
-with their own page in the documentation. On this page you find a complete list of
-clients and some installation instructions.
+AsyncAws has implemented the most popular API clients, but not all of them are promoted
+with their own page in the documentation. On this page you find some installation
+instructions and a complete list of clients.
 
 ## Install and configure
 
@@ -34,7 +34,7 @@ $logger = // ... A PSR-3 logger
 $dynamoDb = new DynamoDbClient($config, $credentialProvider, $httpClient, $logger);
 ```
 
-A normal call to instantiate a DynamoDb client might look like:
+A common way to instantiate a DynamoDb client might look like:
 
 ```php
 use AsyncAws\DynamoDb\DynamoDbClient;
@@ -48,6 +48,68 @@ $dynamoDb = new DynamoDbClient([
 
 See section about [authentication](/authentication/index.md) to learn more about
 different ways to authenticate.
+
+### Client factory
+
+There is a `AwsClientFactory` that can be used to instantiate API clients.
+
+```php
+use AsyncAws\Core\AwsClientFactory;
+
+$factory = new AwsClientFactory([
+   'region' => 'eu-central-1',
+   'accessKeyId' => 'AKIAIOSFODNN7EXAMPLE',
+   'accessKeySecret' => 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+]);
+
+$dynamoDb = $factory->dynamoDb();
+$sqs = $factory->sqs();
+```
+
+### Dependency injection container
+
+If your application is using a dependency injection container, you may configure a
+client like:
+
+#### Symfony
+
+```yaml
+services:
+  AsyncAws\DynamoDb\DynamoDbClient:
+    arguments:
+        - region: 'eu-central-1'
+          accessKeyId: 'AKIAIOSFODNN7EXAMPLE'
+          accessKeySecret: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+        - ~ # Use the default authentication providers
+        - '@http_client'
+        - '@logger'
+```
+
+If you are using Symfony you may ease configuration by install the [Symfony Bundle](/integration/symfony-bundle.md).
+
+#### Laravel
+
+```php
+use Illuminate\Support\ServiceProvider;
+use AsyncAws\DynamoDb\DynamoDbClient;
+
+class AsyncAwsProvider extends ServiceProvider
+{
+    public function register()
+    {
+        $this->app->bind(
+            DynamoDbClient::class,
+            function($app) {
+                return new DynamoDbClient([
+                   'region' => 'eu-central-1',
+                   'accessKeyId' => 'AKIAIOSFODNN7EXAMPLE',
+                   'accessKeySecret' => 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+                ]);
+            }
+        );
+    }
+}
+```
 
 ## Use
 
