@@ -38,6 +38,7 @@ jobs:
     - name: Generate website
       run: |
         ./couscous.phar generate --target website aws
+        cd aws/website && npm run highlight `pwd`/../../website/.couscous/generated
 
     - name: Commit & push the new files
       run: |
