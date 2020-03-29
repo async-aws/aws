@@ -16,19 +16,15 @@ jobs:
         with:
           php-version: 7.4
 
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.2.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           path: 'source'
+          token: ${{ secrets.BOT_GITHUB_TOKEN }}
 
-      - name: Checkout Website repo via SSH
+      - name: Checkout Website repo
         run: |
-          git clone --branch master git@github.com:async-aws/website.git output
+          git clone --branch master http://github.com/async-aws/website output
 
       - name: Download Couscous Phar
         run: |
