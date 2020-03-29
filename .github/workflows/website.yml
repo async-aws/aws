@@ -46,6 +46,10 @@ jobs:
 
       - name: Commit & push the new files
         run: |
+          if [[ $(git diff --numstat | wc -l) -eq 0 ]]; then
+            echo "No changes found. Exiting."
+            exit 0;
+          fi
           echo "::group::Setup"
           cd output
           git config --local user.email "github@async-aws.com"
