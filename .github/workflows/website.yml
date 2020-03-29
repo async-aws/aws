@@ -38,7 +38,7 @@ jobs:
     - name: Generate website
       run: |
         ./couscous.phar generate --target output source
-        cd source/website && npm run highlight `pwd`/../../output/.couscous/generated
+        cd source/website && npm run highlight `pwd`/../../output
         pwd
 
     - name: Commit & push the new files
