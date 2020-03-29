@@ -19,9 +19,9 @@ class CompleteMultipartUploadRequestTest extends TestCase
             'Key' => 'example-object',
             'MultipartUpload' => new CompletedMultipartUpload([
                 'Parts' => [
-                    new CompletedPart(['ETag' => 'a54357aff0632cce46d942af68356b38', 'PartNumber' => 1]),
-                    new CompletedPart(['ETag' => '0c78aef83f66abc1fa1e8477f296d394', 'PartNumber' => 2]),
-                    new CompletedPart(['ETag' => 'acbd18db4cc2f85cedef654fccc4a4d8', 'PartNumber' => 3]),
+                    new CompletedPart(['ETag' => '"a54357aff0632cce46d942af68356b38"', 'PartNumber' => 1]),
+                    new CompletedPart(['ETag' => '"0c78aef83f66abc1fa1e8477f296d394"', 'PartNumber' => 2]),
+                    new CompletedPart(['ETag' => '"acbd18db4cc2f85cedef654fccc4a4d8"', 'PartNumber' => 3]),
                 ],
             ]),
             'UploadId' => 'AAAsb2FkIElEIGZvciBlbHZpbmcncyWeeS1tb3ZpZS5tMnRzIRRwbG9hZA',

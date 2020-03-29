@@ -70,7 +70,7 @@ class ListPartsOutputTest extends TestCase
         $part = $part[1];
         self::assertEquals('3', $part->getPartNumber());
         self::assertEquals('10485760', $part->getSize());
-        self::assertEquals('aaaa18db4cc2f85cedef654fccc4a4x8', $part->getETag());
+        self::assertEquals('"aaaa18db4cc2f85cedef654fccc4a4x8"', $part->getETag());
         self::assertEquals(new \DateTimeImmutable('2010-11-10T20:48:33.000Z'), $part->getLastModified());
     }
 }

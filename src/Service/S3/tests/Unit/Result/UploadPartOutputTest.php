@@ -20,6 +20,6 @@ class UploadPartOutputTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new UploadPartOutput(new Response($client->request('POST', 'http://localhost'), $client));
 
-        self::assertSame('b54357faf0632cce46e942fa68356b38', $result->getETag());
+        self::assertSame('"b54357faf0632cce46e942fa68356b38"', $result->getETag());
     }
 }

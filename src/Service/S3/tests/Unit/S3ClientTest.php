@@ -4,16 +4,22 @@ namespace AsyncAws\S3\Tests\Unit;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\S3\Input\AbortMultipartUploadRequest;
+use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
 use AsyncAws\S3\Input\CopyObjectRequest;
 use AsyncAws\S3\Input\CreateBucketRequest;
+use AsyncAws\S3\Input\CreateMultipartUploadRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\DeleteObjectsRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
+use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
+use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
+use AsyncAws\S3\Input\UploadPartRequest;
 use AsyncAws\S3\Result\AbortMultipartUploadOutput;
 use AsyncAws\S3\Result\CompleteMultipartUploadOutput;
 use AsyncAws\S3\Result\CopyObjectOutput;
@@ -31,14 +37,8 @@ use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\Result\UploadPartOutput;
 use AsyncAws\S3\S3Client;
-use AsyncAws\S3\ValueObject\AbortMultipartUploadRequest;
-use AsyncAws\S3\ValueObject\CompleteMultipartUploadRequest;
-use AsyncAws\S3\ValueObject\CreateMultipartUploadRequest;
 use AsyncAws\S3\ValueObject\Delete;
-use AsyncAws\S3\ValueObject\ListMultipartUploadsRequest;
-use AsyncAws\S3\ValueObject\ListPartsRequest;
 use AsyncAws\S3\ValueObject\ObjectIdentifier;
-use AsyncAws\S3\ValueObject\UploadPartRequest;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class S3ClientTest extends TestCase
@@ -48,9 +48,9 @@ class S3ClientTest extends TestCase
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
 
         $input = new AbortMultipartUploadRequest([
-            'Bucket' => 'change me',
-            'Key' => 'change me',
-            'UploadId' => 'change me',
+            'Bucket' => 'example-bucket',
+            'Key' => 'file.png',
+            'UploadId' => '123',
 
         ]);
         $result = $client->AbortMultipartUpload($input);
@@ -64,11 +64,9 @@ class S3ClientTest extends TestCase
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
 
         $input = new CompleteMultipartUploadRequest([
-            'Bucket' => 'change me',
-            'Key' => 'change me',
-
-            'UploadId' => 'change me',
-
+            'Bucket' => 'example-bucket',
+            'Key' => 'file.png',
+            'UploadId' => '123',
         ]);
         $result = $client->CompleteMultipartUpload($input);
 
@@ -81,13 +79,9 @@ class S3ClientTest extends TestCase
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
 
         $input = new CopyObjectRequest([
-
-            'Bucket' => 'change me',
-
+            'Bucket' => 'example-bucket',
             'CopySource' => 'change me',
-
-            'Key' => 'change me',
-
+            'Key' => 'file.png',
         ]);
         $result = $client->CopyObject($input);
 
@@ -100,9 +94,7 @@ class S3ClientTest extends TestCase
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
 
         $input = new CreateBucketRequest([
-
-            'Bucket' => 'change me',
-
+            'Bucket' => 'example-bucket',
         ]);
         $result = $client->CreateBucket($input);
 
@@ -115,11 +107,8 @@ class S3ClientTest extends TestCase
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
 
         $input = new CreateMultipartUploadRequest([
-
-            'Bucket' => 'change me',
-
-            'Key' => 'change me',
-
+            'Bucket' => 'example-bucket',
+            'Key' => 'file.png',
         ]);
         $result = $client->CreateMultipartUpload($input);
 
@@ -132,8 +121,8 @@ class S3ClientTest extends TestCase
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
 
         $input = new DeleteObjectRequest([
-            'Bucket' => 'change me',
-            'Key' => 'change me',
+            'Bucket' => 'example-bucket',
+            'Key' => 'file.png',
 
         ]);
         $result = $client->DeleteObject($input);
@@ -147,10 +136,10 @@ class S3ClientTest extends TestCase
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
 
         $input = new DeleteObjectsRequest([
-            'Bucket' => 'change me',
+            'Bucket' => 'example-bucket',
             'Delete' => new Delete([
                 'Objects' => [new ObjectIdentifier([
-                    'Key' => 'change me',
+                    'Key' => 'file.png',
                     'VersionId' => 'change me',
                 ])],
                 'Quiet' => false,
@@ -168,10 +157,8 @@ class S3ClientTest extends TestCase
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
 
         $input = new GetObjectRequest([
-            'Bucket' => 'change me',
-
-            'Key' => 'change me',
-
+            'Bucket' => 'example-bucket',
+            'Key' => 'file.png',
         ]);
         $result = $client->GetObject($input);
 
@@ -184,9 +171,8 @@ class S3ClientTest extends TestCase
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
 
         $input = new GetObjectAclRequest([
-            'Bucket' => 'change me',
-            'Key' => 'change me',
-
+            'Bucket' => 'example-bucket',
+            'Key' => 'file.png',
         ]);
         $result = $client->GetObjectAcl($input);
 
@@ -199,10 +185,8 @@ class S3ClientTest extends TestCase
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
 
         $input = new HeadObjectRequest([
-            'Bucket' => 'change me',
-
-            'Key' => 'change me',
-
+            'Bucket' => 'example-bucket',
+            'Key' => 'file.png',
         ]);
         $result = $client->HeadObject($input);
 
@@ -215,8 +199,7 @@ class S3ClientTest extends TestCase
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
 
         $input = new ListMultipartUploadsRequest([
-            'Bucket' => 'change me',
-
+            'Bucket' => 'example-bucket',
         ]);
         $result = $client->ListMultipartUploads($input);
 
@@ -229,8 +212,7 @@ class S3ClientTest extends TestCase
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
 
         $input = new ListObjectsV2Request([
-            'Bucket' => 'change me',
-
+            'Bucket' => 'example-bucket',
         ]);
         $result = $client->ListObjectsV2($input);
 
@@ -243,11 +225,9 @@ class S3ClientTest extends TestCase
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
 
         $input = new ListPartsRequest([
-            'Bucket' => 'change me',
-            'Key' => 'change me',
-
-            'UploadId' => 'change me',
-
+            'Bucket' => 'example-bucket',
+            'Key' => 'file.png',
+            'UploadId' => '123',
         ]);
         $result = $client->ListParts($input);
 
@@ -260,11 +240,8 @@ class S3ClientTest extends TestCase
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
 
         $input = new PutObjectRequest([
-
-            'Bucket' => 'change me',
-
-            'Key' => 'change me',
-
+            'Bucket' => 'example-bucket',
+            'Key' => 'file.png',
         ]);
         $result = $client->PutObject($input);
 
@@ -277,11 +254,8 @@ class S3ClientTest extends TestCase
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
 
         $input = new PutObjectAclRequest([
-
-            'Bucket' => 'change me',
-
-            'Key' => 'change me',
-
+            'Bucket' => 'example-bucket',
+            'Key' => 'file.png',
         ]);
         $result = $client->PutObjectAcl($input);
 
@@ -294,12 +268,10 @@ class S3ClientTest extends TestCase
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
 
         $input = new UploadPartRequest([
-
-            'Bucket' => 'change me',
-
-            'Key' => 'change me',
+            'Bucket' => 'example-bucket',
+            'Key' => 'file.png',
             'PartNumber' => 1337,
-            'UploadId' => 'change me',
+            'UploadId' => '123',
 
         ]);
         $result = $client->UploadPart($input);

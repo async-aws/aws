@@ -27,6 +27,6 @@ class CompleteMultipartUploadOutputTest extends TestCase
         self::assertSame('http://Example-Bucket.s3.eu-central-1.amazonaws.com/Example-Object', $result->getLocation());
         self::assertSame('Example-Bucket', $result->getBucket());
         self::assertSame('Example-Object', $result->getKey());
-        self::assertSame('3858f62230ac3c915f300c664312c11f-9', $result->getETag());
+        self::assertSame('"3858f62230ac3c915f300c664312c11f-9"', $result->getETag());
     }
 }

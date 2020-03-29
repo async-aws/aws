@@ -28,8 +28,7 @@ class GetObjectOutputTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new GetObjectOutput(new Response($client->request('POST', 'http://localhost'), $client));
 
-        // self::assertTODO(expected, $result->getBody());
-        self::assertStringContainsString('98bf7d8c15784f0a3d63204441e1e2aa', $result->getETag());
+        self::assertEquals('"98bf7d8c15784f0a3d63204441e1e2aa"', $result->getETag());
 
         self::assertNull($result->getDeleteMarker());
         self::assertEquals('bytes', $result->getAcceptRanges());
