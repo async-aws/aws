@@ -46,16 +46,21 @@ jobs:
 
       - name: Commit & push the new files
         run: |
-          echo "::group::Setup"
-          cd output
-          git config --local user.email "github@async-aws.com"
-          git config --local user.name "AsyncAWS Bot"
-          echo "::endgroup::"
           echo "::group::git status"
-          git add .
+          cd output
           git status
           echo "::endgroup::"
+
+          if [[ $(git diff --numstat | wc -l) -eq 0 ]]; then
+            echo "No changes found. Exiting."
+            exit 0;
+          fi
+
+          git config --local user.email "github@async-aws.com"
+          git config --local user.name "AsyncAWS Bot"
+
           echo "::group::git push"
+          git add .
           git commit -m "Update website from commit async-aws/aws@${{ github.sha }}" -a
           git push
           echo "::endgroup::"
