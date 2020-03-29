@@ -28,7 +28,7 @@ jobs:
 
       - name: Checkout Website repo via SSH
         run: |
-          git clone --branch master git@github.com:async-aws/async-aws.github.io.git output
+          git clone --branch master git@github.com:async-aws/website.git output
 
       - name: Download Couscous Phar
         run: |
