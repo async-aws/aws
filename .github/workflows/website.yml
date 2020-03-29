@@ -20,7 +20,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: 'source'
-          token: ${{ secrets.BOT_GITHUB_TOKEN }}
 
       - name: Checkout Website repo
         run: |
@@ -52,6 +51,10 @@ jobs:
             echo "No changes found. Exiting."
             exit 0;
           fi
+
+          git config --local user.email "github@async-aws.com"
+          git config --local user.name "AsyncAWS Bot"
+          git config --local user.password ${{ secrets.BOT_GITHUB_TOKEN }}
 
           echo "::group::git push"
           git add .
