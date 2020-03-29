@@ -52,11 +52,11 @@ jobs:
           cd output
           git add .
           git status
+          echo "::endgroup::"
           if [[ $(git diff --numstat | wc -l) -eq 0 ]]; then
             echo "No changes found. Exiting."
             exit 0;
           fi
-          echo "::endgroup::"
           echo "::group::git push"
           git commit -m "Update website from commit async-aws/aws@${{ github.sha }}" -a
           git push
