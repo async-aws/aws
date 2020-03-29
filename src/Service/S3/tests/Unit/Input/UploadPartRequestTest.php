@@ -7,31 +7,27 @@ use AsyncAws\S3\Input\UploadPartRequest;
 
 class UploadPartRequestTest extends TestCase
 {
+    /**
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html#API_UploadPart_Examples
+     */
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new UploadPartRequest([
-            'Body' => 'change me',
-            'Bucket' => 'change me',
-            'ContentLength' => 1337,
-            'ContentMD5' => 'change me',
-            'Key' => 'change me',
-            'PartNumber' => 1337,
-            'UploadId' => 'change me',
-            'SSECustomerAlgorithm' => 'change me',
-            'SSECustomerKey' => 'change me',
-            'SSECustomerKeyMD5' => 'change me',
-            'RequestPayer' => 'change me',
+            'Body' => 'movie',
+            'Bucket' => 'example-bucket',
+            'ContentMD5' => 'pUNXr/BjKK5G2UKvaRRrOA==',
+            'Key' => 'my-movie.m2ts',
+            'PartNumber' => 1,
+            'UploadId' => 'VCVsb2FkIElEIGZvciBlbZZpbmcncyBteS1tb3ZpZS5tMnRzIHVwbG9hZR',
         ]);
 
         // see example-1.json from SDK
         $expected = '
-                            PUT / HTTP/1.0
-                            Content-Type: application/xml
+PUT /example-bucket/my-movie.m2ts?partNumber=1&uploadId=VCVsb2FkIElEIGZvciBlbZZpbmcncyBteS1tb3ZpZS5tMnRzIHVwbG9hZR HTTP/1.1
+Content-MD5: pUNXr/BjKK5G2UKvaRRrOA==
 
-                            <Body>fileToUpload</Body>
-                        ';
+movie
+';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

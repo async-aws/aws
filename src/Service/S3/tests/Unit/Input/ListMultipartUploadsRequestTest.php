@@ -7,27 +7,22 @@ use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 
 class ListMultipartUploadsRequestTest extends TestCase
 {
+    /**
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html#API_ListMultipartUploads_Examples
+     */
     public function testRequest(): void
     {
-        self::fail('Not implemented');
 
         $input = new ListMultipartUploadsRequest([
-            'Bucket' => 'change me',
-            'Delimiter' => 'change me',
-            'EncodingType' => 'change me',
-            'KeyMarker' => 'change me',
-            'MaxUploads' => 1337,
-            'Prefix' => 'change me',
-            'UploadIdMarker' => 'change me',
+            'Bucket' => 'example-bucket',
+            'Delimiter' => '/',
         ]);
 
         // see example-1.json from SDK
         $expected = '
-                            GET / HTTP/1.0
-                            Content-Type: application/xml
-
-                            <Bucket>examplebucket</Bucket>
-                        ';
+GET /example-bucket?uploads&delimiter=/ HTTP/1.1
+Content-Type: application/xml
+';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

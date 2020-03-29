@@ -7,24 +7,23 @@ use AsyncAws\S3\Input\AbortMultipartUploadRequest;
 
 class AbortMultipartUploadRequestTest extends TestCase
 {
+    /**
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html#API_AbortMultipartUpload_Examples
+     */
     public function testRequest(): void
     {
-        self::fail('Not implemented');
 
         $input = new AbortMultipartUploadRequest([
-            'Bucket' => 'change me',
-            'Key' => 'change me',
-            'UploadId' => 'change me',
-            'RequestPayer' => 'change me',
+            'Bucket' => 'example-bucket',
+            'Key' => 'example-object',
+            'UploadId' => 'VXBsb2FkIElEIGZvciBlbHZpbmcncyBteS1tb3ZpZS5tMnRzIHVwbG9hZ',
         ]);
 
         // see example-1.json from SDK
         $expected = '
-                            DELETE / HTTP/1.0
-                            Content-Type: application/xml
-
-                            <Bucket>examplebucket</Bucket>
-                        ';
+DELETE /example-bucket/example-object?uploadId=VXBsb2FkIElEIGZvciBlbHZpbmcncyBteS1tb3ZpZS5tMnRzIHVwbG9hZ HTTP/1.1
+Content-Type: application/xml
+';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

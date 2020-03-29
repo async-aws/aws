@@ -7,26 +7,25 @@ use AsyncAws\S3\Input\ListPartsRequest;
 
 class ListPartsRequestTest extends TestCase
 {
+    /**
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html#API_ListParts_Examples
+     */
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new ListPartsRequest([
-            'Bucket' => 'change me',
-            'Key' => 'change me',
-            'MaxParts' => 1337,
-            'PartNumberMarker' => 1337,
-            'UploadId' => 'change me',
-            'RequestPayer' => 'change me',
+            'Bucket' => 'example-bucket',
+            'Key' => 'example-object',
+            'MaxParts' => 2,
+            'PartNumberMarker' => 1,
+            'UploadId' => 'XXBsb2FkIElEIGZvciBlbHZpbmcncyVcdS1tb3ZpZS5tMnRzEEEwbG9hZA',
         ]);
 
         // see example-1.json from SDK
         $expected = '
-                            GET / HTTP/1.0
-                            Content-Type: application/xml
 
-                            <Bucket>examplebucket</Bucket>
-                        ';
+GET /example-bucket/example-object?uploadId=XXBsb2FkIElEIGZvciBlbHZpbmcncyVcdS1tb3ZpZS5tMnRzEEEwbG9hZA&max-parts=2&part-number-marker=1 HTTP/1.1
+Content-Type: application/xml
+';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
