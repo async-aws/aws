@@ -24,12 +24,12 @@ Here are some guidelines that are helpful when writing good documentation:
 
 - Write `AsyncAws` or `async-aws` to refer to the project.
 - Dont use "we" at any cost.
-- Try not to write "you"
+- Try not to write "you".
 - Define all variables to make examples executable.
-- Use meaningful naming of variables and values. Avoid `foobar` and dummy values.
-- Write examples with  use `use` statements and don't use `<?php`
+- Use meaningful names of variables and values. Avoid "foobar" and other dummy values.
+- Write examples with  use `use` statements and don't use `<?php`.
 - Use input objects over arrays.
-- Use short variable names for clients. Ie `$lambda` over `$lambdaClient` and `$s3` over `$s3Client`
+- Use short variable names for clients. Ie `$lambda` over `$lambdaClient` and `$s3` over `$s3Client`.
 
 ## Improving the website's appearance
 
