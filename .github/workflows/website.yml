@@ -51,6 +51,7 @@ jobs:
           git status
           echo "::endgroup::"
 
+          git add -N .
           if [[ $(git diff --numstat | wc -l) -eq 0 ]]; then
             echo "No changes found. Exiting."
             exit 0;
