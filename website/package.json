@@ -3,12 +3,12 @@
         "bootstrap": "^4.4.1",
         "core-js": "^3.6.4",
         "highlight.js": "^9.18.1",
-        "jquery": "^3.4.1",
-        "popper.js": "^1.16.1"
+        "jquery": "^3.4.1"
     },
     "devDependencies": {
         "@symfony/webpack-encore": "^0.28.3",
         "autoprefixer": "^9.7.5",
+        "jsdom": "^16.2.1",
         "node-sass": "^4.13.1",
         "postcss-loader": "^3.0.0",
         "sass-loader": "^7.3.1"
