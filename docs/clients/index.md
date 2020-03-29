@@ -135,11 +135,11 @@ for more information.
 
 | Api Client                  | Package name
 | --------------------------- | ----------------------------------------------------------------------------------------
-| CloudFormation              | [async-aws/cloud-formation](https://packagist.org/packages/async-aws/cloud-formation)
-| DynamoDb                    | [async-aws/dynamo-db](https://packagist.org/packages/async-aws/dynamo-db)
+| [CloudFormation](./cf.md)   | [async-aws/cloud-formation](https://packagist.org/packages/async-aws/cloud-formation)
+| [DynamoDb]('./dynamodb.md)  | [async-aws/dynamo-db](https://packagist.org/packages/async-aws/dynamo-db)
 | [Lambda](./lambda.md)       | [async-aws/lambda](https://packagist.org/packages/async-aws/lambda)
 | [S3](./s3.md)               | [async-aws/s3](https://packagist.org/packages/async-aws/s3)
-| SES                         | [async-aws/ses](https://packagist.org/packages/async-aws/ses)
-| SMS                         | [async-aws/sns](https://packagist.org/packages/async-aws/sns)
-| STS                         | [async-aws/core](https://packagist.org/packages/async-aws/core)
-| SQS                         | [async-aws/sqs](https://packagist.org/packages/async-aws/sqs)
+| [SES](./ses.md)             | [async-aws/ses](https://packagist.org/packages/async-aws/ses)
+| [SNS](./sns.md)             | [async-aws/sns](https://packagist.org/packages/async-aws/sns)
+| [STS](./sts.md)             | [async-aws/core](https://packagist.org/packages/async-aws/core)
+| [SQS](./sqs.md)             | [async-aws/sqs](https://packagist.org/packages/async-aws/sqs)
