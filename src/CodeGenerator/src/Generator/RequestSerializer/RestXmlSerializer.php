@@ -105,6 +105,7 @@ class RestXmlSerializer implements Serializer
         switch ($shape->getType()) {
             case 'blob':
             case 'string':
+            case 'integer':
                 return $this->dumpXmlShapeString($member, $shape, $output, $input);
             case 'boolean':
                 return $this->dumpXmlShapeBoolean($member, $output, $input);

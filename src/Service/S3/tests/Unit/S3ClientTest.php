@@ -3,6 +3,7 @@
 namespace AsyncAws\S3\Tests\Unit;
 
 use AsyncAws\Core\Credentials\NullProvider;
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Input\CopyObjectRequest;
 use AsyncAws\S3\Input\CreateBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
@@ -13,24 +14,64 @@ use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
+use AsyncAws\S3\Result\AbortMultipartUploadOutput;
+use AsyncAws\S3\Result\CompleteMultipartUploadOutput;
 use AsyncAws\S3\Result\CopyObjectOutput;
 use AsyncAws\S3\Result\CreateBucketOutput;
+use AsyncAws\S3\Result\CreateMultipartUploadOutput;
 use AsyncAws\S3\Result\DeleteObjectOutput;
 use AsyncAws\S3\Result\DeleteObjectsOutput;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
+use AsyncAws\S3\Result\ListMultipartUploadsOutput;
 use AsyncAws\S3\Result\ListObjectsV2Output;
 use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\S3Client;
+use AsyncAws\S3\ValueObject\AbortMultipartUploadRequest;
+use AsyncAws\S3\ValueObject\CompleteMultipartUploadRequest;
+use AsyncAws\S3\ValueObject\CreateMultipartUploadRequest;
 use AsyncAws\S3\ValueObject\Delete;
+use AsyncAws\S3\ValueObject\ListMultipartUploadsRequest;
 use AsyncAws\S3\ValueObject\ObjectIdentifier;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class S3ClientTest extends TestCase
 {
+    public function testAbortMultipartUpload(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new AbortMultipartUploadRequest([
+            'Bucket' => 'change me',
+            'Key' => 'change me',
+            'UploadId' => 'change me',
+
+        ]);
+        $result = $client->AbortMultipartUpload($input);
+
+        self::assertInstanceOf(AbortMultipartUploadOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testCompleteMultipartUpload(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new CompleteMultipartUploadRequest([
+            'Bucket' => 'change me',
+            'Key' => 'change me',
+
+            'UploadId' => 'change me',
+
+        ]);
+        $result = $client->CompleteMultipartUpload($input);
+
+        self::assertInstanceOf(CompleteMultipartUploadOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testCopyObject(): void
     {
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
@@ -62,6 +103,23 @@ class S3ClientTest extends TestCase
         $result = $client->CreateBucket($input);
 
         self::assertInstanceOf(CreateBucketOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testCreateMultipartUpload(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new CreateMultipartUploadRequest([
+
+            'Bucket' => 'change me',
+
+            'Key' => 'change me',
+
+        ]);
+        $result = $client->CreateMultipartUpload($input);
+
+        self::assertInstanceOf(CreateMultipartUploadOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
@@ -145,6 +203,20 @@ class S3ClientTest extends TestCase
         $result = $client->HeadObject($input);
 
         self::assertInstanceOf(HeadObjectOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testListMultipartUploads(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new ListMultipartUploadsRequest([
+            'Bucket' => 'change me',
+
+        ]);
+        $result = $client->ListMultipartUploads($input);
+
+        self::assertInstanceOf(ListMultipartUploadsOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
