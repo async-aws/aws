@@ -70,10 +70,12 @@
                 "HeadObject",
                 "ListMultipartUploads",
                 "ListObjectsV2",
+                "ListParts",
                 "ObjectExists",
                 "ObjectNotExists",
                 "PutObject",
-                "PutObjectAcl"
+                "PutObjectAcl",
+                "UploadPart"
             ]
         },
         "Ses": {

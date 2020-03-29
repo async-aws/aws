@@ -19,8 +19,10 @@ use AsyncAws\S3\Input\HeadBucketRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
+use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
+use AsyncAws\S3\Input\UploadPartRequest;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\AccessControlPolicy;
@@ -476,6 +478,38 @@ class S3ClientTest extends TestCase
         self::assertContains('list/content-2', $files);
     }
 
+    public function testListParts(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ListPartsRequest([
+            'Bucket' => 'change me',
+            'Key' => 'change me',
+            'MaxParts' => 1337,
+            'PartNumberMarker' => 1337,
+            'UploadId' => 'change me',
+            'RequestPayer' => 'change me',
+        ]);
+        $result = $client->ListParts($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getAbortDate());
+        self::assertSame('changeIt', $result->getAbortRuleId());
+        self::assertSame('changeIt', $result->getBucket());
+        self::assertSame('changeIt', $result->getKey());
+        self::assertSame('changeIt', $result->getUploadId());
+        self::assertSame(1337, $result->getPartNumberMarker());
+        self::assertSame(1337, $result->getNextPartNumberMarker());
+        self::assertSame(1337, $result->getMaxParts());
+        self::assertFalse($result->getIsTruncated());
+        // self::assertTODO(expected, $result->getParts());
+        // self::assertTODO(expected, $result->getInitiator());
+        // self::assertTODO(expected, $result->getOwner());
+        self::assertSame('changeIt', $result->getStorageClass());
+        self::assertSame('changeIt', $result->getRequestCharged());
+    }
+
     public function testPutObject(): void
     {
         $client = $this->getClient();
@@ -576,6 +610,35 @@ class S3ClientTest extends TestCase
         $body = $result->getBody()->getContentAsString();
 
         self::assertEquals($content, $body);
+    }
+
+    public function testUploadPart(): void
+    {
+        $client = $this->getClient();
+
+        $input = new UploadPartRequest([
+            'Body' => 'change me',
+            'Bucket' => 'change me',
+            'ContentLength' => 1337,
+            'ContentMD5' => 'change me',
+            'Key' => 'change me',
+            'PartNumber' => 1337,
+            'UploadId' => 'change me',
+            'SSECustomerAlgorithm' => 'change me',
+            'SSECustomerKey' => 'change me',
+            'SSECustomerKeyMD5' => 'change me',
+            'RequestPayer' => 'change me',
+        ]);
+        $result = $client->UploadPart($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getServerSideEncryption());
+        self::assertSame('changeIt', $result->getETag());
+        self::assertSame('changeIt', $result->getSSECustomerAlgorithm());
+        self::assertSame('changeIt', $result->getSSECustomerKeyMD5());
+        self::assertSame('changeIt', $result->getSSEKMSKeyId());
+        self::assertSame('changeIt', $result->getRequestCharged());
     }
 
     private function getClient(): S3Client

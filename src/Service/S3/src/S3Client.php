@@ -17,8 +17,10 @@ use AsyncAws\S3\Input\HeadBucketRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
+use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
+use AsyncAws\S3\Input\UploadPartRequest;
 use AsyncAws\S3\Result\AbortMultipartUploadOutput;
 use AsyncAws\S3\Result\BucketExistsWaiter;
 use AsyncAws\S3\Result\BucketNotExistsWaiter;
@@ -33,10 +35,12 @@ use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
 use AsyncAws\S3\Result\ListMultipartUploadsOutput;
 use AsyncAws\S3\Result\ListObjectsV2Output;
+use AsyncAws\S3\Result\ListPartsOutput;
 use AsyncAws\S3\Result\ObjectExistsWaiter;
 use AsyncAws\S3\Result\ObjectNotExistsWaiter;
 use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
+use AsyncAws\S3\Result\UploadPartOutput;
 use AsyncAws\S3\Signer\SignerV4ForS3;
 
 class S3Client extends AbstractApi
@@ -420,6 +424,34 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * Lists the parts that have been uploaded for a specific multipart upload. This operation must include the upload ID,
+     * which you obtain by sending the initiate multipart upload request (see CreateMultipartUpload). This request returns a
+     * maximum of 1,000 uploaded parts. The default number of parts returned is 1,000 parts. You can restrict the number of
+     * parts returned by specifying the `max-parts` request parameter. If your multipart upload consists of more than 1,000
+     * parts, the response returns an `IsTruncated` field with the value of true, and a `NextPartNumberMarker` element. In
+     * subsequent `ListParts` requests you can include the part-number-marker query string parameter and set its value to
+     * the `NextPartNumberMarker` field value from the previous response.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadListParts.html
+     *
+     * @param array{
+     *   Bucket: string,
+     *   Key: string,
+     *   MaxParts?: int,
+     *   PartNumberMarker?: int,
+     *   UploadId: string,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     * }|ListPartsRequest $input
+     */
+    public function listParts($input): ListPartsOutput
+    {
+        $input = ListPartsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListParts']));
+
+        return new ListPartsOutput($response, $this, $input);
+    }
+
+    /**
      * Check status of operation headObject.
      *
      * @see headObject
@@ -548,6 +580,32 @@ class S3Client extends AbstractApi
         $response = $this->getResponse(PutObjectAclRequest::create($input)->request(), new RequestContext(['operation' => 'PutObjectAcl']));
 
         return new PutObjectAclOutput($response);
+    }
+
+    /**
+     * Uploads a part in a multipart upload.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadUploadPart.html
+     *
+     * @param array{
+     *   Body?: string|resource|callable|iterable,
+     *   Bucket: string,
+     *   ContentLength?: string,
+     *   ContentMD5?: string,
+     *   Key: string,
+     *   PartNumber: int,
+     *   UploadId: string,
+     *   SSECustomerAlgorithm?: string,
+     *   SSECustomerKey?: string,
+     *   SSECustomerKeyMD5?: string,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     * }|UploadPartRequest $input
+     */
+    public function uploadPart($input): UploadPartOutput
+    {
+        $response = $this->getResponse(UploadPartRequest::create($input)->request(), new RequestContext(['operation' => 'UploadPart']));
+
+        return new UploadPartOutput($response);
     }
 
     protected function getServiceCode(): string

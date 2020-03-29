@@ -26,15 +26,19 @@ use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
 use AsyncAws\S3\Result\ListMultipartUploadsOutput;
 use AsyncAws\S3\Result\ListObjectsV2Output;
+use AsyncAws\S3\Result\ListPartsOutput;
 use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
+use AsyncAws\S3\Result\UploadPartOutput;
 use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\AbortMultipartUploadRequest;
 use AsyncAws\S3\ValueObject\CompleteMultipartUploadRequest;
 use AsyncAws\S3\ValueObject\CreateMultipartUploadRequest;
 use AsyncAws\S3\ValueObject\Delete;
 use AsyncAws\S3\ValueObject\ListMultipartUploadsRequest;
+use AsyncAws\S3\ValueObject\ListPartsRequest;
 use AsyncAws\S3\ValueObject\ObjectIdentifier;
+use AsyncAws\S3\ValueObject\UploadPartRequest;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class S3ClientTest extends TestCase
@@ -234,6 +238,23 @@ class S3ClientTest extends TestCase
         self::assertFalse($result->info()['resolved']);
     }
 
+    public function testListParts(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new ListPartsRequest([
+            'Bucket' => 'change me',
+            'Key' => 'change me',
+
+            'UploadId' => 'change me',
+
+        ]);
+        $result = $client->ListParts($input);
+
+        self::assertInstanceOf(ListPartsOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testPutObject(): void
     {
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
@@ -265,6 +286,25 @@ class S3ClientTest extends TestCase
         $result = $client->PutObjectAcl($input);
 
         self::assertInstanceOf(PutObjectAclOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testUploadPart(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new UploadPartRequest([
+
+            'Bucket' => 'change me',
+
+            'Key' => 'change me',
+            'PartNumber' => 1337,
+            'UploadId' => 'change me',
+
+        ]);
+        $result = $client->UploadPart($input);
+
+        self::assertInstanceOf(UploadPartOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 }
