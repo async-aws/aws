@@ -57,12 +57,12 @@ use AsyncAws\Sqs\Input\SendMessageRequest;
 
 $sqs = new SqsClient([
     'region' => 'eu-central-1',
-    'accessKeyId' => 'foo',
-    'accessKeySecret' => 'bar',
+    'accessKeyId' => 'AKIAIOSFODNN7EXAMPLE',
+    'accessKeySecret' => 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
 ]);
 
 // Call a client's method with an array
-$result = $sqs->createQueue(['QueueName' => 'bar']);
+$result = $sqs->createQueue(['QueueName' => 'invoice']);
 
 // Request is automatically sent when reading the result
 echo $result->getQueueUrl();
@@ -70,8 +70,8 @@ echo $result->getQueueUrl();
 // You can also call a client's method with an input object
 $input = new SendMessageRequest();
 $input
-    ->setQueueUrl('https://foo.com/bar')
-    ->setMessageBody('foobar');
+    ->setQueueUrl('https://sqs.us-east-2.amazonaws.com/123456789012/invoice')
+    ->setMessageBody('invoiceId: 1337');
 
 // Since the returned value is ignored,
 // the HTTP request is sent automatically.

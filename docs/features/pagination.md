@@ -16,7 +16,7 @@ use AsyncAws\S3\Input\ListObjectsV2Request;
 
 $s3 = new S3Client();
 $input = new ListObjectsV2Request();
-$input->setBucket('Foobar');
+$input->setBucket('my-company-website');
 
 $result = $s3->listObjectsV2($input);
 
