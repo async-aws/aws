@@ -51,12 +51,14 @@ walk(outputDir, function(err, files) {
         .forEach(function(file) {
             JSDOM.fromFile(file, {}).then(dom => {
                 dom.window.document.querySelectorAll('pre code').forEach((block) => {
-                    highlight.highlightBlock(block);
+                    if (!block.classList.contains('hljs')) {
+                        highlight.highlightBlock(block);
+                    }
                 });
 
                 fs.writeFile(file, dom.serialize(), function (err) {
                     if (err) return console.log(err);
-                    console.log(file);
+                    console.log("Done: "+file);
                 });
             });
         });
