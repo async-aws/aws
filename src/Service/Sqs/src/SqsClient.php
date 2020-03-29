@@ -19,7 +19,6 @@ use AsyncAws\Sqs\Result\CreateQueueResult;
 use AsyncAws\Sqs\Result\GetQueueAttributesResult;
 use AsyncAws\Sqs\Result\GetQueueUrlResult;
 use AsyncAws\Sqs\Result\ListQueuesResult;
-use AsyncAws\Sqs\Result\QueueExists;
 use AsyncAws\Sqs\Result\QueueExistsWaiter;
 use AsyncAws\Sqs\Result\ReceiveMessageResult;
 use AsyncAws\Sqs\Result\SendMessageResult;
