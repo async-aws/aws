@@ -82,7 +82,7 @@ class AsyncAwsTwigExtension extends AbstractExtension
 
     public function renderStyle(string $name)
     {
-        return $this->renderTag($name, 'css', '<link rel="stylesheet" href="%s"/>');
+        return $this->renderTag($name, 'css', '<link rel="stylesheet" href="%s">');
     }
 
     public function renderScript(string $name)
