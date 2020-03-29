@@ -50,7 +50,6 @@ jobs:
           git config --local user.email "github@async-aws.com"
           git config --local user.name "AsyncAWS Bot"
           cd output
-          git add .
           git status
           echo "::endgroup::"
           if [[ $(git diff --numstat | wc -l) -eq 0 ]]; then
@@ -58,6 +57,8 @@ jobs:
             exit 0;
           fi
           echo "::group::git push"
+          git add .
           git commit -m "Update website from commit async-aws/aws@${{ github.sha }}" -a
           git push
           echo "::endgroup::"
+
