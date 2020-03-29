@@ -37,16 +37,17 @@ jobs:
 
       - name: Generate website
         run: |
+          echo "::group::Couscous"
           ./couscous.phar generate --target output source
+          echo "::endgroup::"
+          echo "::group::Highlight"
           cd source/website && npm run highlight `pwd`/../../output
-          pwd
+          echo "::endgroup::"
 
       - name: Commit & push the new files
         run: |
           echo "::group::Setup"
-          pwd
           cd output
-          pwd
           git config --local user.email "github@async-aws.com"
           git config --local user.name "AsyncAWS Bot"
           echo "::endgroup::"
