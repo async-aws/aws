@@ -199,7 +199,7 @@ Have you ever got an error like this when using the official AWS PHP SDK?
 
 > PHP Fatal error: Missing required client configuration options: version: (string)
 
-The solution is to dig into the documentation and blindly copy the version in the
+The solution is to dig into the documentation and blindly copy the `version` from the
 examples... AsyncAws will pick the correct version of the API for you. No need to
 worry about that.
 
@@ -224,7 +224,7 @@ applications on AWS Lambda.
 ## Mock and testing
 
 Because AsyncAws uses real classes, it is easy to mock them in PHPUnit tests.
-The official AWS PHP SDK uses the magic `__call` methods which increase
+The official AWS PHP SDK uses the magic `__call()` methods which increase
 complexity and reduce the developer experience.
 
 Read more about [writing tests](/features/tests.md).
