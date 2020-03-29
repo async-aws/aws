@@ -39,5 +39,7 @@ website/template/assets/app.css: website/node_modules website/assets/*
 website/node_modules: website/package.json
 	cd website && npm install
 
-website-highlight:
-	cd website && npm run highlight `pwd`/../.couscous/generated
+website-highlight: website/node_modules
+ifneq (,$(wildcard .couscous/generated/index.html))
+	cd website && npm run highlight ${PWD}/.couscous/generated;
+endif
