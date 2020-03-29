@@ -70,14 +70,13 @@ class ListMultipartUploadsOutputTest extends TestCase
 
         /** @var MultipartUpload $upload */
         $upload = $uploads[1];
-        $this->assertEquals('my-movie.m2ts', $upload->getKey());
-        $this->assertEquals('VXBsb2FkIElEIGZvciBlbHZpbmcncyBteS1tb3ZpZS5tMnRzIHVwbG9hZA', $upload->getUploadId());
-        $this->assertEquals('STANDARD', $upload->getStorageClass());
-        $this->assertEquals(new \DateTimeImmutable('2010-11-10T20:48:33.000Z'), $upload->getInitiated());
-        $this->assertEquals('b1d16700c70b0b05597d7acd6a3f92be', $upload->getOwner()->getID());
-        $this->assertEquals('OwnerDisplayName', $upload->getOwner()->getDisplayName());
-        $this->assertEquals('b1d16700c70b0b05597d7acd6a3f92be', $upload->getInitiator()->getID());
-        $this->assertEquals('InitiatorDisplayName', $upload->getInitiator()->getDisplayName());
-
+        self::assertEquals('my-movie.m2ts', $upload->getKey());
+        self::assertEquals('VXBsb2FkIElEIGZvciBlbHZpbmcncyBteS1tb3ZpZS5tMnRzIHVwbG9hZA', $upload->getUploadId());
+        self::assertEquals('STANDARD', $upload->getStorageClass());
+        self::assertEquals(new \DateTimeImmutable('2010-11-10T20:48:33.000Z'), $upload->getInitiated());
+        self::assertEquals('b1d16700c70b0b05597d7acd6a3f92be', $upload->getOwner()->getID());
+        self::assertEquals('OwnerDisplayName', $upload->getOwner()->getDisplayName());
+        self::assertEquals('b1d16700c70b0b05597d7acd6a3f92be', $upload->getInitiator()->getID());
+        self::assertEquals('InitiatorDisplayName', $upload->getInitiator()->getDisplayName());
     }
 }

@@ -6,7 +6,6 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Result\ListPartsOutput;
-use AsyncAws\S3\ValueObject\MultipartUpload;
 use AsyncAws\S3\ValueObject\Part;
 use Symfony\Component\HttpClient\MockHttpClient;
 
@@ -61,17 +60,17 @@ class ListPartsOutputTest extends TestCase
         self::assertTrue($result->getIsTruncated());
         self::assertSame('STANDARD', $result->getStorageClass());
 
-        $this->assertEquals('75aa57f09aa0c8caeab4f8c24e99d10f8e7faeebf76c078efc7c6caea54ba06a', $result->getOwner()->getID());
-        $this->assertEquals('someName', $result->getOwner()->getDisplayName());
-        $this->assertEquals('arn:aws:iam::111122223333:user/some-user-11116a31-17b5-4fb7-9df5-b288870f11xx', $result->getInitiator()->getID());
-        $this->assertEquals('umat-user-11116a31-17b5-4fb7-9df5-b288870f11xx', $result->getInitiator()->getDisplayName());
+        self::assertEquals('75aa57f09aa0c8caeab4f8c24e99d10f8e7faeebf76c078efc7c6caea54ba06a', $result->getOwner()->getID());
+        self::assertEquals('someName', $result->getOwner()->getDisplayName());
+        self::assertEquals('arn:aws:iam::111122223333:user/some-user-11116a31-17b5-4fb7-9df5-b288870f11xx', $result->getInitiator()->getID());
+        self::assertEquals('umat-user-11116a31-17b5-4fb7-9df5-b288870f11xx', $result->getInitiator()->getDisplayName());
 
         $part = iterator_to_array($result->getParts(true));
         /** @var Part $part */
         $part = $part[1];
-        $this->assertEquals('3', $part->getPartNumber());
-        $this->assertEquals('10485760', $part->getSize());
-        $this->assertEquals('aaaa18db4cc2f85cedef654fccc4a4x8', $part->getETag());
-        $this->assertEquals(new \DateTimeImmutable('2010-11-10T20:48:33.000Z'), $part->getLastModified());
+        self::assertEquals('3', $part->getPartNumber());
+        self::assertEquals('10485760', $part->getSize());
+        self::assertEquals('aaaa18db4cc2f85cedef654fccc4a4x8', $part->getETag());
+        self::assertEquals(new \DateTimeImmutable('2010-11-10T20:48:33.000Z'), $part->getLastModified());
     }
 }

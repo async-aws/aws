@@ -12,7 +12,6 @@ class AbortMultipartUploadRequestTest extends TestCase
      */
     public function testRequest(): void
     {
-
         $input = new AbortMultipartUploadRequest([
             'Bucket' => 'example-bucket',
             'Key' => 'example-object',

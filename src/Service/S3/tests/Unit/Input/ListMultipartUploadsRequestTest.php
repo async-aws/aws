@@ -12,7 +12,6 @@ class ListMultipartUploadsRequestTest extends TestCase
      */
     public function testRequest(): void
     {
-
         $input = new ListMultipartUploadsRequest([
             'Bucket' => 'example-bucket',
             'Delimiter' => '/',

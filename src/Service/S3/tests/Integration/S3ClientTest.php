@@ -41,16 +41,15 @@ class S3ClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new AbortMultipartUploadRequest([
-            'Bucket' => 'change me',
-            'Key' => 'change me',
-            'UploadId' => 'change me',
-            'RequestPayer' => 'change me',
+            'Bucket' => 'foo',
+            'Key' => 'Bar',
+            'UploadId' => '123',
         ]);
         $result = $client->AbortMultipartUpload($input);
 
         $result->resolve();
 
-        self::assertSame('changeIt', $result->getRequestCharged());
+        self::assertEquals(204, $result->info()['status']);
     }
 
     public function testBasicUploadDownload()
@@ -113,11 +112,12 @@ class S3ClientTest extends TestCase
 
     public function testCompleteMultipartUpload(): void
     {
+        self::markTestSkipped('Not supported on Docker');
         $client = $this->getClient();
 
         $input = new CompleteMultipartUploadRequest([
-            'Bucket' => 'change me',
-            'Key' => 'change me',
+            'Bucket' => 'foo',
+            'Key' => 'bar',
             'MultipartUpload' => new CompletedMultipartUpload([
                 'Parts' => [new CompletedPart([
                     'ETag' => 'change me',
@@ -125,7 +125,6 @@ class S3ClientTest extends TestCase
                 ])],
             ]),
             'UploadId' => 'change me',
-            'RequestPayer' => 'change me',
         ]);
         $result = $client->CompleteMultipartUpload($input);
 
@@ -203,49 +202,15 @@ class S3ClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new CreateMultipartUploadRequest([
-            'ACL' => 'change me',
-            'Bucket' => 'change me',
-            'CacheControl' => 'change me',
-            'ContentDisposition' => 'change me',
-            'ContentEncoding' => 'change me',
-            'ContentLanguage' => 'change me',
-            'ContentType' => 'change me',
-            'Expires' => new \DateTimeImmutable(),
-            'GrantFullControl' => 'change me',
-            'GrantRead' => 'change me',
-            'GrantReadACP' => 'change me',
-            'GrantWriteACP' => 'change me',
-            'Key' => 'change me',
-            'Metadata' => ['change me' => 'change me'],
-            'ServerSideEncryption' => 'change me',
-            'StorageClass' => 'change me',
-            'WebsiteRedirectLocation' => 'change me',
-            'SSECustomerAlgorithm' => 'change me',
-            'SSECustomerKey' => 'change me',
-            'SSECustomerKeyMD5' => 'change me',
-            'SSEKMSKeyId' => 'change me',
-            'SSEKMSEncryptionContext' => 'change me',
-            'RequestPayer' => 'change me',
-            'Tagging' => 'change me',
-            'ObjectLockMode' => 'change me',
-            'ObjectLockRetainUntilDate' => new \DateTimeImmutable(),
-            'ObjectLockLegalHoldStatus' => 'change me',
+            'Bucket' => 'foo',
+            'Key' => 'bar',
         ]);
         $result = $client->CreateMultipartUpload($input);
 
         $result->resolve();
 
-        // self::assertTODO(expected, $result->getAbortDate());
-        self::assertSame('changeIt', $result->getAbortRuleId());
-        self::assertSame('changeIt', $result->getBucket());
-        self::assertSame('changeIt', $result->getKey());
-        self::assertSame('changeIt', $result->getUploadId());
-        self::assertSame('changeIt', $result->getServerSideEncryption());
-        self::assertSame('changeIt', $result->getSSECustomerAlgorithm());
-        self::assertSame('changeIt', $result->getSSECustomerKeyMD5());
-        self::assertSame('changeIt', $result->getSSEKMSKeyId());
-        self::assertSame('changeIt', $result->getSSEKMSEncryptionContext());
-        self::assertSame('changeIt', $result->getRequestCharged());
+        self::assertSame('foo', $result->getBucket());
+        self::assertNotNull($result->getUploadId());
     }
 
     public function testDeleteObject(): void
@@ -410,22 +375,19 @@ class S3ClientTest extends TestCase
 
     public function testListMultipartUploads(): void
     {
+        self::markTestSkipped('Not really supported on Docker');
         $client = $this->getClient();
 
         $input = new ListMultipartUploadsRequest([
-            'Bucket' => 'change me',
-            'Delimiter' => 'change me',
-            'EncodingType' => 'change me',
-            'KeyMarker' => 'change me',
-            'MaxUploads' => 1337,
-            'Prefix' => 'change me',
-            'UploadIdMarker' => 'change me',
+            'Bucket' => 'foo',
+            'Delimiter' => '/',
+            'MaxUploads' => 2,
         ]);
         $result = $client->ListMultipartUploads($input);
 
         $result->resolve();
 
-        self::assertSame('changeIt', $result->getBucket());
+        self::assertSame('foo', $result->getBucket());
         self::assertSame('changeIt', $result->getKeyMarker());
         self::assertSame('changeIt', $result->getUploadIdMarker());
         self::assertSame('changeIt', $result->getNextKeyMarker());
@@ -480,6 +442,7 @@ class S3ClientTest extends TestCase
 
     public function testListParts(): void
     {
+        self::markTestSkipped('');
         $client = $this->getClient();
 
         $input = new ListPartsRequest([
@@ -617,28 +580,17 @@ class S3ClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new UploadPartRequest([
-            'Body' => 'change me',
-            'Bucket' => 'change me',
-            'ContentLength' => 1337,
-            'ContentMD5' => 'change me',
-            'Key' => 'change me',
-            'PartNumber' => 1337,
-            'UploadId' => 'change me',
-            'SSECustomerAlgorithm' => 'change me',
-            'SSECustomerKey' => 'change me',
-            'SSECustomerKeyMD5' => 'change me',
-            'RequestPayer' => 'change me',
+            'Body' => 'movie',
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+            'PartNumber' => 2,
+            'UploadId' => '123',
         ]);
         $result = $client->UploadPart($input);
 
         $result->resolve();
 
-        self::assertSame('changeIt', $result->getServerSideEncryption());
-        self::assertSame('changeIt', $result->getETag());
-        self::assertSame('changeIt', $result->getSSECustomerAlgorithm());
-        self::assertSame('changeIt', $result->getSSECustomerKeyMD5());
-        self::assertSame('changeIt', $result->getSSEKMSKeyId());
-        self::assertSame('changeIt', $result->getRequestCharged());
+        self::assertEquals(200, $result->info()['status']);
     }
 
     private function getClient(): S3Client
