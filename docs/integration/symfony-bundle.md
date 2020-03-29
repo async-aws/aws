@@ -32,7 +32,7 @@ async_aws:
         sqs:
             config:
                 region: us-west-1
-        foobar:
+        delayed:
             type: sqs
 ```
 
@@ -42,7 +42,7 @@ The config above will create the following services:
 | -------------------------- | ------------------------------- |
 | `async_aws.client.ses`     | AsyncAws\Ses\SesClient
 | `async_aws.client.sqs`     | AsyncAws\Sqs\SqsClient
-| `async_aws.client.foobar`  | AsyncAws\Sqs\SqsClient $foobar
+| `async_aws.client.delayed` | AsyncAws\Sqs\SqsClient $delayed
 | `async_aws.client.s3`      | AsyncAws\S3\S3Client
 | `async_aws.client.sts`     | AsyncAws\Core\Sts\StsClient
 

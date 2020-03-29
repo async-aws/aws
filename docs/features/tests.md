@@ -18,7 +18,7 @@ class S3UploadTest extends TestCase
 {
     public function testWrite()
     {
-        $file = '/foo/bar.txt';
+        $file = '/path/file.txt';
 
         $s3Client = $this->getMockBuilder(S3Client::class)
             ->disableOriginalConstructor()

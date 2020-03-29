@@ -17,9 +17,9 @@ $dbClient->createTable([]);
 
 // Create a new table.
 // It normally takes around 5 seconds to complete this action.
-$dbClient->createTable(['TableName' => 'foobar', /* ...*/]);
+$dbClient->createTable(['TableName' => 'errors', /* ...*/]);
 
-$waiter = $dbClient->tableExists(['TableName' => 'foobar']);
+$waiter = $dbClient->tableExists(['TableName' => 'errors']);
 echo $waiter->isSuccess(); // false
 
 $waiter->wait();
@@ -40,7 +40,7 @@ use AsyncAws\DynamoDb\DynamoDbClient;
 
 $dbClient = new DynamoDbClient();
 
-$waiter = $dbClient->tableExists(['TableName' => 'foobar']);
+$waiter = $dbClient->tableExists(['TableName' => 'errors']);
 while(true) {
     if ($waiter->wait(0)) {
         // When method `wait` returns true, the state is resolved.

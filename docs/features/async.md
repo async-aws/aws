@@ -25,8 +25,8 @@ $sqs = new SqsClient();
 
 $input = new SendMessageRequest();
 $input
-    ->setQueueUrl('https://foo.com/bar')
-    ->setMessageBody('foobar');
+    ->setQueueUrl('https://sqs.us-east-2.amazonaws.com/123456789012/invoice')
+    ->setMessageBody('invoiceId: 1337');
 
 $sqs->sendMessage($input);
 ```
@@ -48,8 +48,8 @@ $sqs = new SqsClient();
 
 $input = new SendMessageRequest();
 $input
-    ->setQueueUrl('https://foo.com/bar')
-    ->setMessageBody('foobar');
+    ->setQueueUrl('https://sqs.us-east-2.amazonaws.com/123456789012/invoice')
+    ->setMessageBody('invoiceId: 1337');
 
 $result = $sqs->sendMessage($input);
 
@@ -73,8 +73,8 @@ use AsyncAws\Sqs\Input\SendMessageRequest;
 function sendSqsMessage($client) {
     $input = new SendMessageRequest();
     $input
-        ->setQueueUrl('https://foo.com/bar')
-        ->setMessageBody('foobar');
+        ->setQueueUrl('https://sqs.us-east-2.amazonaws.com/123456789012/invoice')
+        ->setMessageBody('invoiceId: 1337');
 
     $result = $client->sendMessage($input);
 
