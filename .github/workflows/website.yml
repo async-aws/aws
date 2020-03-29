@@ -11,50 +11,50 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Set up PHP
-      uses: shivammathur/setup-php@2.1.2
-      with:
-        php-version: 7.4
+      - name: Set up PHP
+        uses: shivammathur/setup-php@2.1.2
+        with:
+          php-version: 7.4
 
-    - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.2.0
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.2.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Checkout code
-      uses: actions/checkout@v2
-      with:
-        path: 'source'
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          path: 'source'
 
-    - name: Checkout Website repo via SSH
-      run: |
-        git clone --branch master git@github.com:async-aws/async-aws.github.io.git output
+      - name: Checkout Website repo via SSH
+        run: |
+          git clone --branch master git@github.com:async-aws/async-aws.github.io.git output
 
-    - name: Download Couscous Phar
-      run: |
-        curl -OS http://couscous.io/couscous.phar
-        chmod +x couscous.phar
+      - name: Download Couscous Phar
+        run: |
+          curl -OS http://couscous.io/couscous.phar
+          chmod +x couscous.phar
 
-    - name: Generate website
-      run: |
-        ./couscous.phar generate --target output source
-        cd source/website && npm run highlight `pwd`/../../output
-        pwd
+      - name: Generate website
+        run: |
+          ./couscous.phar generate --target output source
+          cd source/website && npm run highlight `pwd`/../../output
+          pwd
 
-    - name: Commit & push the new files
-      run: |
-        echo "::group::Setup"
-        pwd
-        cd output
-        pwd
-        git config --local user.email "github@async-aws.com"
-        git config --local user.name "AsyncAWS Bot"
-        echo "::endgroup::"
-        echo "::group::git status"
-        git add .
-        git status
-        echo "::endgroup::"
-        echo "::group::git push"
-        git commit -m "Update website from commit async-aws/aws@${{ github.sha }}" -a
-        git push
-        echo "::endgroup::"
+      - name: Commit & push the new files
+        run: |
+          echo "::group::Setup"
+          pwd
+          cd output
+          pwd
+          git config --local user.email "github@async-aws.com"
+          git config --local user.name "AsyncAWS Bot"
+          echo "::endgroup::"
+          echo "::group::git status"
+          git add .
+          git status
+          echo "::endgroup::"
+          echo "::group::git push"
+          git commit -m "Update website from commit async-aws/aws@${{ github.sha }}" -a
+          git push
+          echo "::endgroup::"

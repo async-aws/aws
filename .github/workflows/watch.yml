@@ -2,7 +2,7 @@ name: Watch for changes
 
 on:
   schedule:
-  - cron: '0 6 * * *'
+    - cron: '0 6 * * *'
 
 jobs:
   generated-code:
@@ -10,53 +10,53 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Set up PHP
-      uses: shivammathur/setup-php@2.1.2
-      with:
-        php-version: 7.4
-        coverage: none
+      - name: Set up PHP
+        uses: shivammathur/setup-php@2.1.2
+        with:
+          php-version: 7.4
+          coverage: none
 
-    - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.2.0
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.2.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Checkout via SSH
-      run: |
-        git clone --branch master git@github.com:${{ github.repository }}.git .
+      - name: Checkout via SSH
+        run: |
+          git clone --branch master git@github.com:${{ github.repository }}.git .
 
-    - name: Download
-      run: |
-        composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
+      - name: Download
+        run: |
+          composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
 
-    - name: Fetch last version
-      run: |
-        last=$(curl -s https://packagist.org/packages/aws/aws-sdk-php.json|jq '[.package.versions[]|select(.version|test("^\\d+\\.\\d+\\.\\d+$"))|.version]|max_by(.|[splits("[.]")]|map(tonumber))')
-        echo "Last AWS version is $last"
+      - name: Fetch last version
+        run: |
+          last=$(curl -s https://packagist.org/packages/aws/aws-sdk-php.json|jq '[.package.versions[]|select(.version|test("^\\d+\\.\\d+\\.\\d+$"))|.version]|max_by(.|[splits("[.]")]|map(tonumber))')
+          echo "Last AWS version is $last"
 
-        br=$(mktemp)
-        jq ".variables[\"\${LATEST}\"]=$last" manifest.json > "$br"
-        mv "$br" manifest.json
+          br=$(mktemp)
+          jq ".variables[\"\${LATEST}\"]=$last" manifest.json > "$br"
+          mv "$br" manifest.json
 
-    - name: Regenerate
-      run: |
-        ./generate --all
+      - name: Regenerate
+        run: |
+          ./generate --all
 
-    - name: Check if anything changed
-      run: |
-        if [[ $(git diff --numstat | wc -l) -eq 1 ]]; then
-          echo "No significant changes."
-          git reset --hard
-        fi
+      - name: Check if anything changed
+        run: |
+          if [[ $(git diff --numstat | wc -l) -eq 1 ]]; then
+            echo "No significant changes."
+            git reset --hard
+          fi
 
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v2
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        commit-message: update generated code
-        title: Update generated code
-        body: |
-          The AWS API contract changed.
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: update generated code
+          title: Update generated code
+          body: |
+            The AWS API contract changed.
 
-          This PR contains the a new definition for Services.
-        branch: bot-code-update
+            This PR contains the a new definition for Services.
+          branch: bot-code-update
