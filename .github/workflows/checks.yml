@@ -9,80 +9,80 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Set up PHP
-      uses: shivammathur/setup-php@2.1.2
-      with:
-        php-version: 7.4
-        coverage: none
+      - name: Set up PHP
+        uses: shivammathur/setup-php@2.1.2
+        with:
+          php-version: 7.4
+          coverage: none
 
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Download
-      run: |
-        curl -L https://github.com/ergebnis/composer-normalize/releases/latest/download/composer-normalize.phar --output normalize.phar
-        chmod +x normalize.phar
+      - name: Download
+        run: |
+          curl -L https://github.com/ergebnis/composer-normalize/releases/latest/download/composer-normalize.phar --output normalize.phar
+          chmod +x normalize.phar
 
-    - name: Normalize
-      run: |
-        ok=0
-        echo ::group::Root
-        ./normalize.phar --dry-run
-        echo ::endgroup::
-        for COMPONENT in $(find src -maxdepth 4 -type f -name composer.json | sort)
-        do
-          echo ::group::$COMPONENT
-          localExit=0
-          ./normalize.phar $COMPONENT --dry-run || localExit=1
-          ok=$(( $localExit || $ok ))
+      - name: Normalize
+        run: |
+          ok=0
+          echo ::group::Root
+          ./normalize.phar --dry-run
           echo ::endgroup::
-          if [ $localExit -ne 0 ]; then
-            echo "::error::$COMPONENT failed"
-          fi
-        done
+          for COMPONENT in $(find src -maxdepth 4 -type f -name composer.json | sort)
+          do
+            echo ::group::$COMPONENT
+            localExit=0
+            ./normalize.phar $COMPONENT --dry-run || localExit=1
+            ok=$(( $localExit || $ok ))
+            echo ::endgroup::
+            if [ $localExit -ne 0 ]; then
+              echo "::error::$COMPONENT failed"
+            fi
+          done
 
-        exit $ok
+          exit $ok
 
   output-generated:
     name: Generated output not changed
     runs-on: ubuntu-latest
 
     steps:
-    - name: Set up PHP
-      uses: shivammathur/setup-php@2.1.2
-      with:
-        php-version: 7.4
-        coverage: none
+      - name: Set up PHP
+        uses: shivammathur/setup-php@2.1.2
+        with:
+          php-version: 7.4
+          coverage: none
 
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Download
-      run: |
-        composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
+      - name: Download
+        run: |
+          composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
 
-    - name: Regenerate
-      run: |
-        ./generate --all
+      - name: Regenerate
+        run: |
+          ./generate --all
 
-    - name: Assert up-to-date
-      run: |
-        if [ -n "$(git status src --porcelain)" ]; then
-          echo ""
-          echo "###################################################"
-          echo "###################################################"
-          echo "#"
-          echo "#  One of two things are wrong here:"
-          echo "#   1) You have modified generated code."
-          echo "#   2) You have modified the code generator and not regenerated the code."
-          echo "#"
-          echo "#  You may solve both problems by running './generate --all'"
-          echo "#"
-          echo "###################################################"
-          echo "###################################################"
-          echo ""
+      - name: Assert up-to-date
+        run: |
+          if [ -n "$(git status src --porcelain)" ]; then
+            echo ""
+            echo "###################################################"
+            echo "###################################################"
+            echo "#"
+            echo "#  One of two things are wrong here:"
+            echo "#   1) You have modified generated code."
+            echo "#   2) You have modified the code generator and not regenerated the code."
+            echo "#"
+            echo "#  You may solve both problems by running './generate --all'"
+            echo "#"
+            echo "###################################################"
+            echo "###################################################"
+            echo ""
 
-          git diff src
+            git diff src
 
-          exit 1
-        fi
+            exit 1
+          fi
