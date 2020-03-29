@@ -31,7 +31,7 @@
                     <ul class="collapse list-unstyled {{ rootItemId == category ? 'show' : '' }}" id="{{ rootItemId }}">
                 {% endif %}
                 {% for itemId, item in rootItem.items %}
-                    <li {{ ((category is defined and rootItemId in currentFile) or (category is not defined and rootItem.section is not defined)) and itemId in currentFile  ? 'class="current"' : '' }}">
+                    <li {{ ((category is defined and rootItemId in currentFile) or (category is not defined and rootItem.section is not defined)) and itemId in currentFile  ? 'class="current"' : '' }}>
                         <a href="{{ item.url }}">
                             {{ item.text }}
                         </a>
