@@ -7,7 +7,7 @@ category: contribute
 Contribution are always appreciated. Like most contribution guides there are links
 to [how to fork a repository](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)
 and [information about Pull Requests](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
-There are aslo some extra info you need to know about the async-aws/aws repository
+There are also some extra info you need to know about the async-aws/aws repository
 that might differ from other repositories.
 
 1. It is a mono repository
