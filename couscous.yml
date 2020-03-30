@@ -31,12 +31,30 @@ menu:
             index:
                 text: Overview
                 url: /clients/
+            cf:
+                text: Cloud Formation
+                url: /clients/cf.html
+            dynamodb:
+                text: DynamoDB
+                url: /clients/dynamodb.html
             lambda:
                 text: Lambda
                 url: /clients/lambda.html
             s3:
                 text: S3
                 url: /clients/s3.html
+            ses:
+                text: SES
+                url: /clients/ses.html
+            sns:
+                text: SNS
+                url: /clients/sns.html
+            sqs:
+                text: SQS
+                url: /clients/sqs.html
+            sts:
+                text: STS
+                url: /clients/sts.html
 
     features:
         # Feature are in alphabetical order after "why async?"
