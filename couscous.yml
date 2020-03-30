@@ -33,7 +33,7 @@ menu:
                 url: /clients/
             cf:
                 text: Cloud Formation
-                url: /clients/cs.html
+                url: /clients/cf.html
             dynamodb:
                 text: DynamoDB
                 url: /clients/dynamodb.html
