@@ -1,9 +1,6 @@
 name: Watch for changes
 
 on:
-  push:
-    branches:
-    - bot-fork  # do not forget to revert
   schedule:
   - cron: '0 6 * * *'
 
@@ -30,10 +27,6 @@ jobs:
           git config user.password ${{ secrets.BOT_GITHUB_TOKEN }}
           git remote set-url origin https://github.com/async-aws-bot/aws
           git fetch --unshallow -p origin
-
-      - name: Test # to remove before merging
-        run: |
-          date > tmp.txt
 
       - name: Download dependencies
         run: |
