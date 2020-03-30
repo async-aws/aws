@@ -144,6 +144,10 @@ it will return `false`.
 
 Use `$result->resolve(0)` for a non-blocking call.
 
+The function has also a `$fullResponse` arguments. When false (default value)
+the HTTP client will wait for only the first bytes. Otherwise, the HTTP client
+will wait until receiving the entire response.
+
 ### Batch requests
 
 Consider the following example. It is creating 10 `InvocationRequest`s and printing
@@ -166,7 +170,7 @@ for ($i = 0; $i < 10; ++$i) {
 
 while (!empty($results)) {
     foreach ($results as $i => $result) {
-        if ($result->resolve(0.01)) {
+        if ($result->resolve(0.01, true)) {
             echo $result->getPayload();
             unset($results[$i]);
         }

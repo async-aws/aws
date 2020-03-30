@@ -37,6 +37,13 @@ class Response
      */
     private $resolveResult;
 
+    /**
+     * State of the response stream
+     *
+     * @var bool
+     */
+    private $streamable = true;
+
     public function __construct(ResponseInterface $response, HttpClientInterface $httpClient)
     {
         $this->httpResponse = $response;
@@ -53,15 +60,16 @@ class Response
     /**
      * Make sure the actual request is executed.
      *
-     * @param float|null $timeout Duration in seconds before aborting. When null wait
-     *                            until the end of execution. Using 0 means non-blocking
+     * @param float|null $timeout      Duration in seconds before aborting. When null wait
+     *                                 until the end of execution. Using 0 means non-blocking
+     * @param bool       $fullResponse Wait until receiving the entire response or only the first bytes
      *
      * @return bool whether the request is executed or not
      *
      * @throws NetworkException
      * @throws HttpException
      */
-    public function resolve(?float $timeout = null): bool
+    public function resolve(?float $timeout = null, bool $fullResponse = false): bool
     {
         if (null !== $this->resolveResult) {
             if ($this->resolveResult instanceof \Exception) {
@@ -80,7 +88,16 @@ class Response
                 if ($chunk->isTimeout()) {
                     return false;
                 }
-                if ($chunk->isFirst()) {
+                if ($fullResponse) {
+                    if ($chunk->isLast()) {
+                        $this->streamable = false;
+                        break;
+                    }
+
+                    if ($this->streamable && $chunk->getContent() !== '') {
+                        $this->streamable = false;
+                    }
+                } elseif($chunk->isFirst()) {
                     break;
                 }
             }
@@ -157,6 +174,10 @@ class Response
 
     public function toStream(): ResultStream
     {
+        if (!$this->streamable) {
+            throw new RuntimeException('Unable to rewind a response that have already been streamed. Don\'t call resolve() with $fullResponse=true.');
+        }
+
         return new ResponseBodyStream($this->httpClient->stream($this->httpResponse));
     }
 }

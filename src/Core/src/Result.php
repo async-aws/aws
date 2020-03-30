@@ -50,16 +50,17 @@ class Result
     /**
      * Make sure the actual request is executed.
      *
-     * @param float|null $timeout Duration in seconds before aborting. When null wait until the end of execution.
+     * @param float|null $timeout      Duration in seconds before aborting. When null wait until the end of execution.
+     * @param bool       $fullResponse Wait until receiving the entire response or only the first bytes
      *
      * @return bool whether the request is executed or not
      *
      * @throws NetworkException
      * @throws HttpException
      */
-    final public function resolve(?float $timeout = null): bool
+    final public function resolve(?float $timeout = null, bool $fullResponse = false): bool
     {
-        return $this->response->resolve($timeout);
+        return $this->response->resolve($timeout, $fullResponse);
     }
 
     /**
