@@ -53,6 +53,18 @@ class ResultTest extends TestCase
         self::assertFalse($data->DoesNotExists ? true : false);
     }
 
+    public function testResolveFully()
+    {
+        $response = new SimpleMockedResponse('OK', [], 200);
+        $client = new MockHttpClient($response);
+        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client));
+
+        self::assertTrue($result->resolve());
+        self::assertTrue($result->resolve());
+        self::assertTrue($result->resolve(null, true));
+        self::assertTrue($result->resolve(null, true));
+    }
+
     public function testThrowExceptionDestruct()
     {
         $response = new SimpleMockedResponse('Bad request', [], 400);

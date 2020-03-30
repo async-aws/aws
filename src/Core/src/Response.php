@@ -38,11 +38,18 @@ class Response
     private $resolveResult;
 
     /**
-     * State of the response stream.
+     * State of the response chunk readability.
      *
      * @var bool
      */
     private $streamable = true;
+
+    /**
+     * State of the response fully streamed.
+     *
+     * @var bool
+     */
+    private $fullyResolved = false;
 
     public function __construct(ResponseInterface $response, HttpClientInterface $httpClient)
     {
@@ -71,7 +78,7 @@ class Response
      */
     public function resolve(?float $timeout = null, bool $fullResponse = false): bool
     {
-        if (null !== $this->resolveResult) {
+        if (null !== $this->resolveResult && (!$fullResponse || $this->fullyResolved)) {
             if ($this->resolveResult instanceof \Exception) {
                 throw $this->resolveResult;
             }
@@ -88,18 +95,17 @@ class Response
                 if ($chunk->isTimeout()) {
                     return false;
                 }
-                if ($fullResponse) {
-                    if ($chunk->isLast()) {
-                        $this->streamable = false;
-
-                        break;
-                    }
-
-                    if ($this->streamable && '' !== $chunk->getContent()) {
-                        $this->streamable = false;
-                    }
-                } elseif ($chunk->isFirst()) {
+                if ($chunk->isFirst()) {
                     break;
+                }
+                if ($chunk->isLast()) {
+                    $this->streamable = false;
+                    $this->fullyResolved = true;
+
+                    break;
+                }
+                if ($fullResponse && $this->streamable && '' !== $chunk->getContent()) {
+                    $this->streamable = false;
                 }
             }
 
