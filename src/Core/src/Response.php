@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core;
 
+use AsyncAws\Core\Exception\Exception;
 use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Exception\Http\NetworkException;
@@ -65,7 +66,15 @@ class Response
     public function resolve(?float $timeout = null): bool
     {
         if (null !== $this->resolveResult) {
-            return $this->handleResolvedStatus();
+            if ($this->resolveResult instanceof \Exception) {
+                throw $this->resolveResult;
+            }
+
+            if (\is_bool($this->resolveResult)) {
+                return $this->resolveResult;
+            }
+
+            throw new RuntimeException('Unexpected resolve state');
         }
 
         try {
@@ -78,7 +87,7 @@ class Response
                 }
             }
 
-            return $this->handleUnresolvedStatus();
+            return $this->handleStatus();
         } catch (TransportExceptionInterface $e) {
             throw $this->resolveResult = new NetworkException('Could not contact remote server.', 0, $e);
         }
@@ -104,7 +113,11 @@ class Response
         $httpClient = null;
         foreach ($responses as $response) {
             if (null !== $response->resolveResult) {
-                yield $response => $response->handleResolvedStatus();
+                if (\is_bool($response->resolveResult)) {
+                    yield $response => $response->resolveResult;
+                } else {
+                    yield $response => true;
+                }
 
                 continue;
             }
@@ -130,7 +143,12 @@ class Response
                     $response = $responseMap[\spl_object_id($httpResponse)] ?? null;
 
                     if (null !== $response) {
-                        yield $response => $response->handleUnresolvedStatus();
+                        try {
+                            $resolved = $response->handleStatus();
+                            yield $response => $resolved;
+                        } catch (Exception $e) {
+                            yield $response => true;
+                        }
                     }
                     unset($responseMap[\spl_object_id($httpResponse)]);
                     if (empty($responseMap)) {
@@ -225,20 +243,7 @@ class Response
         return new ResponseBodyStream($this->httpClient->stream($this->httpResponse));
     }
 
-    private function handleResolvedStatus(): bool
-    {
-        if ($this->resolveResult instanceof \Exception) {
-            throw $this->resolveResult;
-        }
-
-        if (\is_bool($this->resolveResult)) {
-            return $this->resolveResult;
-        }
-
-        throw new RuntimeException('Unexpected resolve state');
-    }
-
-    private function handleUnresolvedStatus(): bool
+    private function handleStatus(): bool
     {
         try {
             $statusCode = $this->httpResponse->getStatusCode();
