@@ -38,7 +38,7 @@ class Response
     private $resolveResult;
 
     /**
-     * State of the response stream
+     * State of the response stream.
      *
      * @var bool
      */
@@ -91,13 +91,14 @@ class Response
                 if ($fullResponse) {
                     if ($chunk->isLast()) {
                         $this->streamable = false;
+
                         break;
                     }
 
-                    if ($this->streamable && $chunk->getContent() !== '') {
+                    if ($this->streamable && '' !== $chunk->getContent()) {
                         $this->streamable = false;
                     }
-                } elseif($chunk->isFirst()) {
+                } elseif ($chunk->isFirst()) {
                     break;
                 }
             }
