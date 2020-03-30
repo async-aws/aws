@@ -151,6 +151,7 @@ their result. The result that is downloaded first will be printed first. The ord
 the requests are created do not matter.
 
 ```php
+use AsyncAws\Core\Result;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\Lambda\Input\InvocationRequest;
 
@@ -164,13 +165,8 @@ for ($i = 0; $i < 10; ++$i) {
     ]));
 }
 
-while (!empty($results)) {
-    foreach ($results as $i => $result) {
-        if ($result->resolve(0.01)) {
-            echo $result->getPayload();
-            unset($results[$i]);
-        }
-    }
+foreach (Result::resolveAll($results, null) as $result => $resolved) {
+    echo $result->getPayload();
 }
 ```
 

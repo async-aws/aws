@@ -83,4 +83,21 @@ class ResultTest extends TestCase
             self::fail('A resolved result should not throw exception on destruct.');
         }
     }
+
+    public function testResolveAll()
+    {
+        $client1 = new MockHttpClient(new SimpleMockedResponse('OK', [], 200));
+        $result1 = new Result(new Response($client1->request('POST', 'http://localhost'), $client1));
+
+        $client2 = new MockHttpClient(new SimpleMockedResponse('OK', [], 200));
+        $result2 = new Result(new Response($client2->request('POST', 'http://localhost'), $client2));
+
+        $counter = 0;
+        foreach (Result::resolveAll([$result1, $result2]) as $result => $resolved) {
+            self::assertTrue($resolved);
+            self::assertTrue($result2 === $result || $result1 === $result);
+            ++$counter;
+        }
+        self::assertSame(2, $counter);
+    }
 }

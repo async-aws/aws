@@ -65,15 +65,7 @@ class Response
     public function resolve(?float $timeout = null): bool
     {
         if (null !== $this->resolveResult) {
-            if ($this->resolveResult instanceof \Exception) {
-                throw $this->resolveResult;
-            }
-
-            if (\is_bool($this->resolveResult)) {
-                return $this->resolveResult;
-            }
-
-            throw new RuntimeException('Unexpected resolve state');
+            return $this->handleResolvedStatus();
         }
 
         try {
@@ -86,24 +78,74 @@ class Response
                 }
             }
 
-            $statusCode = $this->httpResponse->getStatusCode();
+            return $this->handleUnresolvedStatus();
         } catch (TransportExceptionInterface $e) {
             throw $this->resolveResult = new NetworkException('Could not contact remote server.', 0, $e);
         }
+    }
 
-        if (500 <= $statusCode) {
-            throw $this->resolveResult = new ServerException($this->httpResponse);
+    /**
+     * Make sure all provided requests are executed.
+     *
+     * @param self[]     $responses
+     * @param float|null $timeout   Duration in seconds before aborting. When null wait
+     *                              until the end of execution. Using 0 means non-blocking
+     *
+     * @return iterable<self, bool> whether the request is executed or not
+     *
+     * @throws NetworkException
+     * @throws HttpException
+     */
+    final public static function resolveAll(iterable $responses, float $timeout = null): iterable
+    {
+        /** @var self[] $responseMap */
+        $responseMap = [];
+        $httpResponses = [];
+        $httpClient = null;
+        foreach ($responses as $response) {
+            if (null !== $response->resolveResult) {
+                yield $response => $response->handleResolvedStatus();
+
+                continue;
+            }
+
+            if (null === $httpClient) {
+                $httpClient = $response->httpClient;
+            }
+            $httpResponses[] = $response->httpResponse;
+            $responseMap[\spl_object_id($response->httpResponse)] = $response;
         }
 
-        if (400 <= $statusCode) {
-            throw $this->resolveResult = new ClientException($this->httpResponse);
+        // response is empty
+        if (null === $httpClient) {
+            return;
         }
 
-        if (300 <= $statusCode) {
-            throw $this->resolveResult = new RedirectionException($this->httpResponse);
+        try {
+            foreach ($httpClient->stream($httpResponses, $timeout) as $httpResponse => $chunk) {
+                if ($chunk->isTimeout()) {
+                    continue;
+                }
+                if ($chunk->isFirst()) {
+                    $response = $responseMap[\spl_object_id($httpResponse)] ?? null;
+
+                    if (null !== $response) {
+                        yield $response => $response->handleUnresolvedStatus();
+                    }
+                    unset($responseMap[\spl_object_id($httpResponse)]);
+                    if (empty($responseMap)) {
+                        // early exit if all statusCode are known. We don't have to wait for all responses bodies
+                        return;
+                    }
+                }
+            }
+        } catch (TransportExceptionInterface $e) {
+            throw new NetworkException('Could not contact remote server.', 0, $e);
         }
 
-        return $this->resolveResult = true;
+        foreach ($responseMap as $response) {
+            yield $response => false;
+        }
     }
 
     /**
@@ -181,5 +223,41 @@ class Response
         }
 
         return new ResponseBodyStream($this->httpClient->stream($this->httpResponse));
+    }
+
+    private function handleResolvedStatus(): bool
+    {
+        if ($this->resolveResult instanceof \Exception) {
+            throw $this->resolveResult;
+        }
+
+        if (\is_bool($this->resolveResult)) {
+            return $this->resolveResult;
+        }
+
+        throw new RuntimeException('Unexpected resolve state');
+    }
+
+    private function handleUnresolvedStatus(): bool
+    {
+        try {
+            $statusCode = $this->httpResponse->getStatusCode();
+        } catch (TransportExceptionInterface $e) {
+            throw $this->resolveResult = new NetworkException('Could not contact remote server.', 0, $e);
+        }
+
+        if (500 <= $statusCode) {
+            throw $this->resolveResult = new ServerException($this->httpResponse);
+        }
+
+        if (400 <= $statusCode) {
+            throw $this->resolveResult = new ClientException($this->httpResponse);
+        }
+
+        if (300 <= $statusCode) {
+            throw $this->resolveResult = new RedirectionException($this->httpResponse);
+        }
+
+        return $this->resolveResult = true;
     }
 }

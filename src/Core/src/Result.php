@@ -63,6 +63,32 @@ class Result
     }
 
     /**
+     * Make sure all provided requests are executed.
+     *
+     * @param self[]     $results
+     * @param float|null $timeout Duration in seconds before aborting. When null wait
+     *                            until the end of execution. Using 0 means non-blocking
+     *
+     * @return iterable<self, bool> whether the request is executed or not
+     *
+     * @throws NetworkException
+     * @throws HttpException
+     */
+    final public static function resolveAll(iterable $results, float $timeout = null): iterable
+    {
+        $resultMap = [];
+        $responses = [];
+        foreach ($results as $result) {
+            $responses[] = $result->response;
+            $resultMap[\spl_object_id($result->response)] = $result;
+        }
+
+        foreach (Response::resolveAll($responses, $timeout) as $response => $resolved) {
+            yield $resultMap[\spl_object_id($response)] => $resolved;
+        }
+    }
+
+    /**
      * Returns info on the current request.
      *
      * @return array{
