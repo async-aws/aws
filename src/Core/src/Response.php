@@ -10,6 +10,7 @@ use AsyncAws\Core\Exception\Http\NetworkException;
 use AsyncAws\Core\Exception\Http\RedirectionException;
 use AsyncAws\Core\Exception\Http\ServerException;
 use AsyncAws\Core\Exception\RuntimeException;
+use AsyncAws\Core\Stream\ResponseBodyResourceStream;
 use AsyncAws\Core\Stream\ResponseBodyStream;
 use AsyncAws\Core\Stream\ResultStream;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
@@ -157,6 +158,13 @@ class Response
 
     public function toStream(): ResultStream
     {
+        if (\method_exists($this->httpResponse, 'toStream')) {
+            return new ResponseBodyResourceStream($this->httpResponse->toStream());
+        }
+
+        // ensure no exceptions are thrown
+        $this->resolve();
+
         return new ResponseBodyStream($this->httpClient->stream($this->httpResponse));
     }
 }
