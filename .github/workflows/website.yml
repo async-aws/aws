@@ -23,7 +23,7 @@ jobs:
 
       - name: Checkout Website repo
         run: |
-          git clone --branch master http://github.com/async-aws/website output
+          git clone --branch master http://${{ secrets.BOT_GITHUB_TOKEN }}:x-oauth-basic@github.com/async-aws/website output
 
       - name: Download Couscous Phar
         run: |
@@ -54,7 +54,6 @@ jobs:
 
           git config --local user.email "github@async-aws.com"
           git config --local user.name "AsyncAWS Bot"
-          git config --local user.password ${{ secrets.BOT_GITHUB_TOKEN }}
 
           echo "::group::git push"
           git add .
