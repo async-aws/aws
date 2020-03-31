@@ -10,6 +10,7 @@ use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Exception\Http\NetworkException;
 use AsyncAws\Core\Exception\Http\RedirectionException;
 use AsyncAws\Core\Exception\Http\ServerException;
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Stream\ResponseBodyResourceStream;
 use AsyncAws\Core\Stream\ResponseBodyStream;
@@ -125,9 +126,13 @@ class Response
             $responseMap[\spl_object_id($response->httpResponse)] = $response;
         }
 
-        // response is empty
-        if (null === $httpClient) {
+        // no reponse provided (or all responses already resolved)
+        if (empty($httpResponses)) {
             return;
+        }
+
+        if (null === $httpClient) {
+            throw new InvalidArgument('At least one response should have contains an Http Client');
         }
 
         try {
@@ -138,6 +143,7 @@ class Response
                 if ($chunk->isFirst()) {
                     $response = $responseMap[\spl_object_id($httpResponse)] ?? null;
 
+                    // Check if null, just in case symfony yield several time a `first` chunk for the same response
                     if (null !== $response) {
                         try {
                             $response->handleStatus();
