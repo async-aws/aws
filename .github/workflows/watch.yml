@@ -27,6 +27,7 @@ jobs:
           git config user.password ${{ secrets.BOT_GITHUB_TOKEN }}
           git remote set-url origin https://github.com/async-aws-bot/aws
           git fetch --unshallow -p origin
+          git push origin master
 
       - name: Download dependencies
         run: |
