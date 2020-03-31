@@ -15,6 +15,7 @@ use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Stream\ResponseBodyResourceStream;
 use AsyncAws\Core\Stream\ResponseBodyStream;
 use AsyncAws\Core\Stream\ResultStream;
+use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
@@ -152,51 +153,59 @@ class Response
             throw new InvalidArgument('At least one response should have contain an Http Client');
         }
 
-        try {
-            foreach ($httpClient->stream($httpResponses, $timeout) as $httpResponse => $chunk) {
+        foreach ($httpClient->stream($httpResponses, $timeout) as $httpResponse => $chunk) {
+            $hash = \spl_object_id($httpResponse);
+
+            try {
                 if ($chunk->isTimeout()) {
                     // Receiving a timeout mean all responses are inactive.
                     break;
                 }
-
-                $response = $responseMap[$hash = \spl_object_id($httpResponse)] ?? null;
-                // Check if null, just in case symfony yield an unexpected response.
-                if (null === $response) {
-                    continue;
+            } catch (TransportException $e) {
+                unset($indexMap[$hash]);
+                if (empty($indexMap)) {
+                    // early exit if all statusCode are known. We don't have to wait for all responses
+                    return;
                 }
 
-                if (!$response->streamStarted && '' !== $chunk->getContent()) {
-                    $response->streamStarted = true;
-                }
+                continue;
+            }
 
-                // index could be null if already yield
-                $index = $indexMap[$hash] ?? null;
-                if ($chunk->isLast()) {
-                    $response->bodyDownloaded = true;
-                    if (null !== $index && $downloadBody) {
-                        unset($indexMap[$hash]);
-                        yield $index => $response;
-                    }
-                }
-                if ($chunk->isFirst()) {
-                    try {
-                        // call handleStatus to set internal state: `resolveResult` and ignore errors
-                        $response->handleStatus();
-                    } catch (Exception $e) {
-                    }
-                    if (null !== $index && !$downloadBody) {
-                        unset($indexMap[$hash]);
-                        yield $index => $response;
+            $response = $responseMap[$hash] ?? null;
+            // Check if null, just in case symfony yield an unexpected response.
+            if (null === $response) {
+                continue;
+            }
 
-                        if (empty($indexMap)) {
-                            // early exit if all statusCode are known. We don't have to wait for all responses bodies
-                            return;
-                        }
-                    }
+            if (!$response->streamStarted && '' !== $chunk->getContent()) {
+                $response->streamStarted = true;
+            }
+
+            // index could be null if already yield
+            $index = $indexMap[$hash] ?? null;
+            if ($chunk->isLast()) {
+                $response->bodyDownloaded = true;
+                if (null !== $index && $downloadBody) {
+                    unset($indexMap[$hash]);
+                    yield $index => $response;
                 }
             }
-        } catch (TransportExceptionInterface $e) {
-            throw new NetworkException('Could not contact remote server.', 0, $e);
+            if ($chunk->isFirst()) {
+                try {
+                    // call handleStatus to set internal state: `resolveResult` and ignore errors
+                    $response->handleStatus();
+                } catch (Exception $e) {
+                }
+                if (null !== $index && !$downloadBody) {
+                    unset($indexMap[$hash]);
+                    yield $index => $response;
+                }
+            }
+
+            if (empty($indexMap)) {
+                // early exit if all statusCode are known. We don't have to wait for all responses
+                return;
+            }
         }
     }
 
