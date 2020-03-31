@@ -7,7 +7,7 @@ namespace AsyncAws\Core\Stream;
 use AsyncAws\Core\Exception\RuntimeException;
 
 /**
- * Stream a resource body.
+ * Provides a ResultStream from a resource filled by an HTTP response body
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
@@ -33,32 +33,16 @@ class ResponseBodyResourceStream implements ResultStream
      */
     public function getChunks(): iterable
     {
-        $inPos = 0;
-        while (true) {
-            // move the cursor to reading position and remember the original position (it may changes)
-            $outPos = \ftell($this->resource);
-            if ($outPos !== $inPos && 0 !== \fseek($this->resource, $inPos)) {
-                throw new RuntimeException('The stream is not seekable');
+        $pos = \ftell($this->resource);
+        if (0 !== $pos && !\rewind($this->resource)) {
+            throw new RuntimeException('The stream is not rewindable');
+        }
+        try {
+            while (!\feof($this->resource)) {
+                yield \fread($this->resource, 64 * 1024);
             }
-
-            $content = \fread($this->resource, 64 * 1024);
-            // break here as `feof` always returns false after calling `ftell`
-            if (\feof($this->resource)) {
-                if (\fseek($this->resource, $outPos)) {
-                    throw new RuntimeException('The stream is not seekable');
-                }
-                yield $content;
-
-                break;
-            }
-
-            // move the cursor to original position and remember the reading position
-            $inPos = \ftell($this->resource);
-            if ($outPos !== $inPos && 0 !== \fseek($this->resource, $outPos)) {
-                throw new RuntimeException('The stream is not seekable');
-            }
-
-            yield $content;
+        } finally {
+            \fseek($this->resource, $pos);
         }
     }
 

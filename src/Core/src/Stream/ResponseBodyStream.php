@@ -20,11 +20,6 @@ class ResponseBodyStream implements ResultStream
     private $responseStream;
 
     /**
-     * @var resource|null
-     */
-    private $resource;
-
-    /**
      * @var ResponseBodyResourceStream|null
      */
     private $fallback;
@@ -48,16 +43,15 @@ class ResponseBodyStream implements ResultStream
             return $this->fallback->getChunks();
         }
 
-        if (null === $this->resource) {
-            $this->resource = \fopen('php://temp', 'rb+');
-        }
+        $resource = \fopen('php://temp', 'rb+');
         foreach ($this->responseStream as $chunk) {
             $chunkContent = $chunk->getContent();
-            \fwrite($this->resource, $chunkContent);
-            yield $chunkContent;
+            \fwrite($resource, $chunkContent);
         }
 
-        $this->fallback = new ResponseBodyResourceStream($this->resource);
+        $this->fallback = new ResponseBodyResourceStream($resource);
+
+        return $this->fallback->getChunks();
     }
 
     /**

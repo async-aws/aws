@@ -158,7 +158,7 @@ class Response
 
     public function toStream(): ResultStream
     {
-        if (\method_exists($this->httpResponse, 'toStream')) {
+        if (is_callable([$this->httpResponse, 'toStream'])) {
             return new ResponseBodyResourceStream($this->httpResponse->toStream());
         }
 
