@@ -69,12 +69,12 @@ class Result
      * @param float|null $timeout Duration in seconds before aborting. When null wait
      *                            until the end of execution. Using 0 means non-blocking
      *
-     * @return iterable<self, bool> whether the request is executed or not
+     * @return iterable<self>
      *
      * @throws NetworkException
      * @throws HttpException
      */
-    final public static function resolveAll(iterable $results, float $timeout = null): iterable
+    final public static function multiplex(iterable $results, float $timeout = null): iterable
     {
         $resultMap = [];
         $responses = [];
@@ -83,8 +83,8 @@ class Result
             $resultMap[\spl_object_id($result->response)] = $result;
         }
 
-        foreach (Response::resolveAll($responses, $timeout) as $response => $resolved) {
-            yield $resultMap[\spl_object_id($response)] => $resolved;
+        foreach (Response::multiplex($responses, $timeout) as $response) {
+            yield $resultMap[\spl_object_id($response)];
         }
     }
 

@@ -73,7 +73,7 @@ class LambdaClientTest extends TestCase
 
         $resolves = [];
         /** @var InvocationResponse[] $result */
-        foreach (Result::resolveAll($results) as $result => $_) {
+        foreach (Result::multiplex($results) as $result) {
             $resolves[] = $result->getPayload();
         }
 

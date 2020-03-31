@@ -100,12 +100,12 @@ class Response
      * @param float|null $timeout   Duration in seconds before aborting. When null wait
      *                              until the end of execution. Using 0 means non-blocking
      *
-     * @return iterable<self, bool> whether the request is executed or not
+     * @return iterable<self>
      *
      * @throws NetworkException
      * @throws HttpException
      */
-    final public static function resolveAll(iterable $responses, float $timeout = null): iterable
+    final public static function multiplex(iterable $responses, float $timeout = null): iterable
     {
         /** @var self[] $responseMap */
         $responseMap = [];
@@ -113,11 +113,7 @@ class Response
         $httpClient = null;
         foreach ($responses as $response) {
             if (null !== $response->resolveResult) {
-                if (\is_bool($response->resolveResult)) {
-                    yield $response => $response->resolveResult;
-                } else {
-                    yield $response => true;
-                }
+                yield $response;
 
                 continue;
             }
@@ -144,11 +140,10 @@ class Response
 
                     if (null !== $response) {
                         try {
-                            $resolved = $response->handleStatus();
-                            yield $response => $resolved;
+                            $response->handleStatus();
                         } catch (Exception $e) {
-                            yield $response => true;
                         }
+                        yield $response;
                     }
                     unset($responseMap[\spl_object_id($httpResponse)]);
                     if (empty($responseMap)) {
@@ -159,10 +154,6 @@ class Response
             }
         } catch (TransportExceptionInterface $e) {
             throw new NetworkException('Could not contact remote server.', 0, $e);
-        }
-
-        foreach ($responseMap as $response) {
-            yield $response => false;
         }
     }
 

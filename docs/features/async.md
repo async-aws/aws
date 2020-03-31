@@ -165,7 +165,7 @@ for ($i = 0; $i < 10; ++$i) {
     ]));
 }
 
-foreach (Result::resolveAll($results, null) as $result => $resolved) {
+foreach (Result::multiplex($results) as $result) {
     echo $result->getPayload();
 }
 ```

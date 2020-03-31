@@ -84,7 +84,7 @@ class ResultTest extends TestCase
         }
     }
 
-    public function testResolveAll()
+    public function testMultiplex()
     {
         $client1 = new MockHttpClient(new SimpleMockedResponse('OK', [], 200));
         $result1 = new Result(new Response($client1->request('POST', 'http://localhost'), $client1));
@@ -93,15 +93,15 @@ class ResultTest extends TestCase
         $result2 = new Result(new Response($client2->request('POST', 'http://localhost'), $client2));
 
         $counter = 0;
-        foreach (Result::resolveAll([$result1, $result2]) as $result => $resolved) {
-            self::assertTrue($resolved);
+        foreach (Result::multiplex([$result1, $result2]) as $result) {
+            self::assertTrue($result->info()['resolved']);
             self::assertTrue($result2 === $result || $result1 === $result);
             ++$counter;
         }
         self::assertSame(2, $counter);
     }
 
-    public function testResolveAllWithoutExcpetion()
+    public function testMultiplexWithoutExcpetion()
     {
         $client1 = new MockHttpClient(new SimpleMockedResponse('KO', [], 400));
         $result1 = new Result(new Response($client1->request('POST', 'http://localhost'), $client1));
@@ -110,8 +110,8 @@ class ResultTest extends TestCase
         $result2 = new Result(new Response($client2->request('POST', 'http://localhost'), $client2));
 
         $counter = 0;
-        foreach (Result::resolveAll([$result1, $result2]) as $result => $resolved) {
-            self::assertTrue($resolved);
+        foreach (Result::multiplex([$result1, $result2]) as $result) {
+            self::assertTrue($result->info()['resolved']);
             self::assertTrue($result2 === $result || $result1 === $result);
             ++$counter;
         }
