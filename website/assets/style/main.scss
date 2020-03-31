@@ -24,7 +24,8 @@ a {
     transition: .3s all ease;
     color: $darkGreen;
     &:hover, &:focus {
-        text-decoration: none !important;
+        color: darken($darkGreen, 25%);
+        text-decoration: underline;
         outline: none !important;
         box-shadow: none;
     }
