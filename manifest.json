@@ -56,20 +56,26 @@
             "waiter": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/s3\/2006-03-01\/waiters-2.json",
             "example": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/s3\/2006-03-01\/examples-1.json",
             "methods": [
+                "AbortMultipartUpload",
                 "BucketExists",
                 "BucketNotExists",
+                "CompleteMultipartUpload",
                 "CopyObject",
                 "CreateBucket",
+                "CreateMultipartUpload",
                 "DeleteObject",
                 "DeleteObjects",
                 "GetObject",
                 "GetObjectAcl",
                 "HeadObject",
+                "ListMultipartUploads",
                 "ListObjectsV2",
+                "ListParts",
                 "ObjectExists",
                 "ObjectNotExists",
                 "PutObject",
-                "PutObjectAcl"
+                "PutObjectAcl",
+                "UploadPart"
             ]
         },
         "Ses": {

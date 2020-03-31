@@ -4,38 +4,62 @@ namespace AsyncAws\S3\Tests\Integration;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Exception\Http\ClientException;
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Enum\Permission;
 use AsyncAws\S3\Enum\Type;
+use AsyncAws\S3\Input\AbortMultipartUploadRequest;
+use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
 use AsyncAws\S3\Input\CopyObjectRequest;
 use AsyncAws\S3\Input\CreateBucketRequest;
+use AsyncAws\S3\Input\CreateMultipartUploadRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\HeadBucketRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
+use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
+use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
+use AsyncAws\S3\Input\UploadPartRequest;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\AccessControlPolicy;
 use AsyncAws\S3\ValueObject\AwsObject;
 use AsyncAws\S3\ValueObject\CommonPrefix;
+use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
+use AsyncAws\S3\ValueObject\CompletedPart;
 use AsyncAws\S3\ValueObject\Grant;
 use AsyncAws\S3\ValueObject\Grantee;
 use AsyncAws\S3\ValueObject\Owner;
-use PHPUnit\Framework\TestCase;
 
 class S3ClientTest extends TestCase
 {
+    public function testAbortMultipartUpload(): void
+    {
+        $client = $this->getClient();
+
+        $input = new AbortMultipartUploadRequest([
+            'Bucket' => 'foo',
+            'Key' => 'Bar',
+            'UploadId' => '123',
+        ]);
+        $result = $client->AbortMultipartUpload($input);
+
+        $result->resolve();
+
+        self::assertEquals(204, $result->info()['status']);
+    }
+
     public function testBasicUploadDownload()
     {
         $s3 = $this->getClient();
         $input = new PutObjectRequest();
         $fileBody = 'foobar';
         $input->setBucket('foo')
-            ->setKey('bar')
-            ->setBody($fileBody);
+        ->setKey('bar')
+        ->setBody($fileBody);
         $result = $s3->putObject($input);
 
         $result->resolve();
@@ -45,7 +69,7 @@ class S3ClientTest extends TestCase
         // Test get object
         $input = new GetObjectRequest();
         $input->setBucket('foo')
-            ->setKey('bar');
+        ->setKey('bar');
         $result = $s3->getObject($input);
         $body = $result->getBody()->getContentAsString();
 
@@ -56,6 +80,65 @@ class S3ClientTest extends TestCase
         $result->resolve();
         $info = $result->info();
         self::assertEquals(204, $info['status']);
+    }
+
+    public function testBucketExists(): void
+    {
+        $client = $this->getClient();
+
+        $client->CreateBucket(['Bucket' => 'foo'])->resolve();
+
+        $input = new HeadBucketRequest([
+            'Bucket' => 'foo',
+        ]);
+
+        self::assertTrue($client->bucketExists($input)->isSuccess());
+        self::assertFalse($client->bucketExists(['Bucket' => 'does-not-exists'])->isSuccess());
+    }
+
+    public function testBucketNotExists(): void
+    {
+        $client = $this->getClient();
+
+        $client->CreateBucket(['Bucket' => 'foo'])->resolve();
+
+        $input = new HeadBucketRequest([
+            'Bucket' => 'foo',
+        ]);
+
+        self::assertFalse($client->bucketNotExists($input)->isSuccess());
+        self::assertTrue($client->bucketNotExists(['Bucket' => 'does-not-exists'])->isSuccess());
+    }
+
+    public function testCompleteMultipartUpload(): void
+    {
+        self::markTestSkipped('Not supported on Docker');
+        $client = $this->getClient();
+
+        $input = new CompleteMultipartUploadRequest([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+            'MultipartUpload' => new CompletedMultipartUpload([
+                'Parts' => [new CompletedPart([
+                    'ETag' => 'change me',
+                    'PartNumber' => 1337,
+                ])],
+            ]),
+            'UploadId' => 'change me',
+        ]);
+        $result = $client->CompleteMultipartUpload($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getLocation());
+        self::assertSame('changeIt', $result->getBucket());
+        self::assertSame('changeIt', $result->getKey());
+        self::assertSame('changeIt', $result->getExpiration());
+        self::assertSame('changeIt', $result->getETag());
+        self::assertSame('changeIt', $result->getServerSideEncryption());
+        self::assertSame('changeIt', $result->getVersionId());
+        self::assertSame('changeIt', $result->getSSEKMSKeyId());
+        self::assertSame('changeIt', $result->getRequestCharged());
     }
 
     public function testCopyObject(): void
@@ -114,6 +197,22 @@ class S3ClientTest extends TestCase
         self::assertEquals(200, $info['status']);
     }
 
+    public function testCreateMultipartUpload(): void
+    {
+        $client = $this->getClient();
+
+        $input = new CreateMultipartUploadRequest([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+        ]);
+        $result = $client->CreateMultipartUpload($input);
+
+        $result->resolve();
+
+        self::assertSame('foo', $result->getBucket());
+        self::assertNotNull($result->getUploadId());
+    }
+
     public function testDeleteObject(): void
     {
         $client = $this->getClient();
@@ -164,7 +263,7 @@ class S3ClientTest extends TestCase
         // Test get object
         $input = new GetObjectRequest();
         $input->setBucket('foo')
-            ->setKey('no_file');
+        ->setKey('no_file');
         $result = $s3->getObject($input);
         $this->expectException(ClientException::class);
         $result->getBody();
@@ -236,6 +335,72 @@ class S3ClientTest extends TestCase
         self::assertEquals('"9a0364b9e99bb480dd25e1f0284c8555"', $result->getETag());
     }
 
+    public function testKeyExists(): void
+    {
+        $client = $this->getClient();
+
+        $client->putObject([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+            'Body' => 'content',
+        ])->resolve();
+
+        $input = new HeadObjectRequest([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+        ]);
+
+        self::assertTrue($client->objectExists($input)->isSuccess());
+        self::assertFalse($client->objectExists(['Bucket' => 'foo', 'Key' => 'does-not-exists'])->isSuccess());
+    }
+
+    public function testKeyNotExists(): void
+    {
+        $client = $this->getClient();
+
+        $client->putObject([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+            'Body' => 'content',
+        ])->resolve();
+
+        $input = new HeadObjectRequest([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+        ]);
+
+        self::assertFalse($client->objectNotExists($input)->isSuccess());
+        self::assertTrue($client->objectNotExists(['Bucket' => 'foo', 'Key' => 'does-not-exists'])->isSuccess());
+    }
+
+    public function testListMultipartUploads(): void
+    {
+        self::markTestSkipped('Not really supported on Docker');
+        $client = $this->getClient();
+
+        $input = new ListMultipartUploadsRequest([
+            'Bucket' => 'foo',
+            'Delimiter' => '/',
+            'MaxUploads' => 2,
+        ]);
+        $result = $client->ListMultipartUploads($input);
+
+        $result->resolve();
+
+        self::assertSame('foo', $result->getBucket());
+        self::assertSame('changeIt', $result->getKeyMarker());
+        self::assertSame('changeIt', $result->getUploadIdMarker());
+        self::assertSame('changeIt', $result->getNextKeyMarker());
+        self::assertSame('changeIt', $result->getPrefix());
+        self::assertSame('changeIt', $result->getDelimiter());
+        self::assertSame('changeIt', $result->getNextUploadIdMarker());
+        self::assertSame(1337, $result->getMaxUploads());
+        self::assertFalse($result->getIsTruncated());
+        // self::assertTODO(expected, $result->getUploads());
+        // self::assertTODO(expected, $result->getCommonPrefixes());
+        self::assertSame('changeIt', $result->getEncodingType());
+    }
+
     public function testListObjectsV2()
     {
         $s3 = $this->getClient();
@@ -252,10 +417,10 @@ class S3ClientTest extends TestCase
         self::markTestSkipped('The S3 image does not implement Pagination. https://github.com/jubos/fake-s3/issues/223');
 
         $input = (new ListObjectsV2Request())
-            ->setBucket('foo')
-            ->setPrefix('list/')
-            //->setMaxKeys(2) // pagination is not implemented
-            ->setDelimiter('/')
+        ->setBucket('foo')
+        ->setPrefix('list/')
+        //->setMaxKeys(2) // pagination is not implemented
+        ->setDelimiter('/')
         ;
 
         $result = $s3->listObjectsV2($input);
@@ -273,6 +438,39 @@ class S3ClientTest extends TestCase
 
         self::assertContains('list/prefix-1/', $prefixes);
         self::assertContains('list/content-2', $files);
+    }
+
+    public function testListParts(): void
+    {
+        self::markTestSkipped('');
+        $client = $this->getClient();
+
+        $input = new ListPartsRequest([
+            'Bucket' => 'change me',
+            'Key' => 'change me',
+            'MaxParts' => 1337,
+            'PartNumberMarker' => 1337,
+            'UploadId' => 'change me',
+            'RequestPayer' => 'change me',
+        ]);
+        $result = $client->ListParts($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getAbortDate());
+        self::assertSame('changeIt', $result->getAbortRuleId());
+        self::assertSame('changeIt', $result->getBucket());
+        self::assertSame('changeIt', $result->getKey());
+        self::assertSame('changeIt', $result->getUploadId());
+        self::assertSame(1337, $result->getPartNumberMarker());
+        self::assertSame(1337, $result->getNextPartNumberMarker());
+        self::assertSame(1337, $result->getMaxParts());
+        self::assertFalse($result->getIsTruncated());
+        // self::assertTODO(expected, $result->getParts());
+        // self::assertTODO(expected, $result->getInitiator());
+        // self::assertTODO(expected, $result->getOwner());
+        self::assertSame('changeIt', $result->getStorageClass());
+        self::assertSame('changeIt', $result->getRequestCharged());
     }
 
     public function testPutObject(): void
@@ -335,8 +533,8 @@ class S3ClientTest extends TestCase
         $s3 = $this->getClient();
         $input = new PutObjectRequest();
         $input->setBucket('foo')
-            ->setKey('bar')
-            ->setBody($closure);
+        ->setKey('bar')
+        ->setBody($closure);
         $result = $s3->putObject($input);
 
         $result->resolve();
@@ -360,8 +558,8 @@ class S3ClientTest extends TestCase
         $s3 = $this->getClient();
         $input = new PutObjectRequest();
         $input->setBucket('foo')
-            ->setKey('bar')
-            ->setBody($resource);
+        ->setKey('bar')
+        ->setBody($resource);
         $result = $s3->putObject($input);
 
         $result->resolve();
@@ -377,70 +575,22 @@ class S3ClientTest extends TestCase
         self::assertEquals($content, $body);
     }
 
-    public function testBucketExists(): void
+    public function testUploadPart(): void
     {
         $client = $this->getClient();
 
-        $client->CreateBucket(['Bucket' => 'foo'])->resolve();
-
-        $input = new HeadBucketRequest([
-            'Bucket' => 'foo',
-        ]);
-
-        self::assertTrue($client->bucketExists($input)->isSuccess());
-        self::assertFalse($client->bucketExists(['Bucket' => 'does-not-exists'])->isSuccess());
-    }
-
-    public function testBucketNotExists(): void
-    {
-        $client = $this->getClient();
-
-        $client->CreateBucket(['Bucket' => 'foo'])->resolve();
-
-        $input = new HeadBucketRequest([
-            'Bucket' => 'foo',
-        ]);
-
-        self::assertFalse($client->bucketNotExists($input)->isSuccess());
-        self::assertTrue($client->bucketNotExists(['Bucket' => 'does-not-exists'])->isSuccess());
-    }
-
-    public function testKeyExists(): void
-    {
-        $client = $this->getClient();
-
-        $client->putObject([
+        $input = new UploadPartRequest([
+            'Body' => 'movie',
             'Bucket' => 'foo',
             'Key' => 'bar',
-            'Body' => 'content',
-        ])->resolve();
-
-        $input = new HeadObjectRequest([
-            'Bucket' => 'foo',
-            'Key' => 'bar',
+            'PartNumber' => 2,
+            'UploadId' => '123',
         ]);
+        $result = $client->UploadPart($input);
 
-        self::assertTrue($client->objectExists($input)->isSuccess());
-        self::assertFalse($client->objectExists(['Bucket' => 'foo', 'Key' => 'does-not-exists'])->isSuccess());
-    }
+        $result->resolve();
 
-    public function testKeyNotExists(): void
-    {
-        $client = $this->getClient();
-
-        $client->putObject([
-            'Bucket' => 'foo',
-            'Key' => 'bar',
-            'Body' => 'content',
-        ])->resolve();
-
-        $input = new HeadObjectRequest([
-            'Bucket' => 'foo',
-            'Key' => 'bar',
-        ]);
-
-        self::assertFalse($client->objectNotExists($input)->isSuccess());
-        self::assertTrue($client->objectNotExists(['Bucket' => 'foo', 'Key' => 'does-not-exists'])->isSuccess());
+        self::assertEquals(200, $result->info()['status']);
     }
 
     private function getClient(): S3Client

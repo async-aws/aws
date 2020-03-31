@@ -4,35 +4,69 @@ namespace AsyncAws\S3;
 
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\S3\Input\AbortMultipartUploadRequest;
+use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
 use AsyncAws\S3\Input\CopyObjectRequest;
 use AsyncAws\S3\Input\CreateBucketRequest;
+use AsyncAws\S3\Input\CreateMultipartUploadRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\DeleteObjectsRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\HeadBucketRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
+use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
+use AsyncAws\S3\Input\ListPartsRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
+use AsyncAws\S3\Input\UploadPartRequest;
+use AsyncAws\S3\Result\AbortMultipartUploadOutput;
 use AsyncAws\S3\Result\BucketExistsWaiter;
 use AsyncAws\S3\Result\BucketNotExistsWaiter;
+use AsyncAws\S3\Result\CompleteMultipartUploadOutput;
 use AsyncAws\S3\Result\CopyObjectOutput;
 use AsyncAws\S3\Result\CreateBucketOutput;
+use AsyncAws\S3\Result\CreateMultipartUploadOutput;
 use AsyncAws\S3\Result\DeleteObjectOutput;
 use AsyncAws\S3\Result\DeleteObjectsOutput;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
+use AsyncAws\S3\Result\ListMultipartUploadsOutput;
 use AsyncAws\S3\Result\ListObjectsV2Output;
+use AsyncAws\S3\Result\ListPartsOutput;
 use AsyncAws\S3\Result\ObjectExistsWaiter;
 use AsyncAws\S3\Result\ObjectNotExistsWaiter;
 use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
+use AsyncAws\S3\Result\UploadPartOutput;
 use AsyncAws\S3\Signer\SignerV4ForS3;
 
 class S3Client extends AbstractApi
 {
+    /**
+     * This operation aborts a multipart upload. After a multipart upload is aborted, no additional parts can be uploaded
+     * using that upload ID. The storage consumed by any previously uploaded parts will be freed. However, if any part
+     * uploads are currently in progress, those part uploads might or might not succeed. As a result, it might be necessary
+     * to abort a given multipart upload multiple times in order to completely free all storage consumed by all parts.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadAbort.html
+     *
+     * @param array{
+     *   Bucket: string,
+     *   Key: string,
+     *   UploadId: string,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     * }|AbortMultipartUploadRequest $input
+     */
+    public function abortMultipartUpload($input): AbortMultipartUploadOutput
+    {
+        $response = $this->getResponse(AbortMultipartUploadRequest::create($input)->request(), new RequestContext(['operation' => 'AbortMultipartUpload']));
+
+        return new AbortMultipartUploadOutput($response);
+    }
+
     /**
      * Check status of operation headBucket.
      *
@@ -65,6 +99,26 @@ class S3Client extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadBucket']));
 
         return new BucketNotExistsWaiter($response, $this, $input);
+    }
+
+    /**
+     * Completes a multipart upload by assembling previously uploaded parts.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadComplete.html
+     *
+     * @param array{
+     *   Bucket: string,
+     *   Key: string,
+     *   MultipartUpload?: \AsyncAws\S3\ValueObject\CompletedMultipartUpload|array,
+     *   UploadId: string,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     * }|CompleteMultipartUploadRequest $input
+     */
+    public function completeMultipartUpload($input): CompleteMultipartUploadOutput
+    {
+        $response = $this->getResponse(CompleteMultipartUploadRequest::create($input)->request(), new RequestContext(['operation' => 'CompleteMultipartUpload']));
+
+        return new CompleteMultipartUploadOutput($response);
     }
 
     /**
@@ -143,6 +197,51 @@ class S3Client extends AbstractApi
         $response = $this->getResponse(CreateBucketRequest::create($input)->request(), new RequestContext(['operation' => 'CreateBucket']));
 
         return new CreateBucketOutput($response);
+    }
+
+    /**
+     * This operation initiates a multipart upload and returns an upload ID. This upload ID is used to associate all of the
+     * parts in the specific multipart upload. You specify this upload ID in each of your subsequent upload part requests
+     * (see UploadPart). You also include this upload ID in the final request to either complete or abort the multipart
+     * upload request.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadInitiate.html
+     *
+     * @param array{
+     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::*,
+     *   Bucket: string,
+     *   CacheControl?: string,
+     *   ContentDisposition?: string,
+     *   ContentEncoding?: string,
+     *   ContentLanguage?: string,
+     *   ContentType?: string,
+     *   Expires?: \DateTimeImmutable|string,
+     *   GrantFullControl?: string,
+     *   GrantRead?: string,
+     *   GrantReadACP?: string,
+     *   GrantWriteACP?: string,
+     *   Key: string,
+     *   Metadata?: string[],
+     *   ServerSideEncryption?: \AsyncAws\S3\Enum\ServerSideEncryption::*,
+     *   StorageClass?: \AsyncAws\S3\Enum\StorageClass::*,
+     *   WebsiteRedirectLocation?: string,
+     *   SSECustomerAlgorithm?: string,
+     *   SSECustomerKey?: string,
+     *   SSECustomerKeyMD5?: string,
+     *   SSEKMSKeyId?: string,
+     *   SSEKMSEncryptionContext?: string,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   Tagging?: string,
+     *   ObjectLockMode?: \AsyncAws\S3\Enum\ObjectLockMode::*,
+     *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
+     *   ObjectLockLegalHoldStatus?: \AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::*,
+     * }|CreateMultipartUploadRequest $input
+     */
+    public function createMultipartUpload($input): CreateMultipartUploadOutput
+    {
+        $response = $this->getResponse(CreateMultipartUploadRequest::create($input)->request(), new RequestContext(['operation' => 'CreateMultipartUpload']));
+
+        return new CreateMultipartUploadOutput($response);
     }
 
     /**
@@ -274,6 +373,30 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * This operation lists in-progress multipart uploads. An in-progress multipart upload is a multipart upload that has
+     * been initiated using the Initiate Multipart Upload request, but has not yet been completed or aborted.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadListMPUpload.html
+     *
+     * @param array{
+     *   Bucket: string,
+     *   Delimiter?: string,
+     *   EncodingType?: \AsyncAws\S3\Enum\EncodingType::*,
+     *   KeyMarker?: string,
+     *   MaxUploads?: int,
+     *   Prefix?: string,
+     *   UploadIdMarker?: string,
+     * }|ListMultipartUploadsRequest $input
+     */
+    public function listMultipartUploads($input): ListMultipartUploadsOutput
+    {
+        $input = ListMultipartUploadsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListMultipartUploads']));
+
+        return new ListMultipartUploadsOutput($response, $this, $input);
+    }
+
+    /**
      * Returns some or all (up to 1,000) of the objects in a bucket. You can use the request parameters as selection
      * criteria to return a subset of the objects in a bucket. A `200 OK` response can contain valid or invalid XML. Make
      * sure to design your application to parse the contents of the response and handle it appropriately.
@@ -298,6 +421,34 @@ class S3Client extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListObjectsV2']));
 
         return new ListObjectsV2Output($response, $this, $input);
+    }
+
+    /**
+     * Lists the parts that have been uploaded for a specific multipart upload. This operation must include the upload ID,
+     * which you obtain by sending the initiate multipart upload request (see CreateMultipartUpload). This request returns a
+     * maximum of 1,000 uploaded parts. The default number of parts returned is 1,000 parts. You can restrict the number of
+     * parts returned by specifying the `max-parts` request parameter. If your multipart upload consists of more than 1,000
+     * parts, the response returns an `IsTruncated` field with the value of true, and a `NextPartNumberMarker` element. In
+     * subsequent `ListParts` requests you can include the part-number-marker query string parameter and set its value to
+     * the `NextPartNumberMarker` field value from the previous response.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadListParts.html
+     *
+     * @param array{
+     *   Bucket: string,
+     *   Key: string,
+     *   MaxParts?: int,
+     *   PartNumberMarker?: int,
+     *   UploadId: string,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     * }|ListPartsRequest $input
+     */
+    public function listParts($input): ListPartsOutput
+    {
+        $input = ListPartsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListParts']));
+
+        return new ListPartsOutput($response, $this, $input);
     }
 
     /**
@@ -429,6 +580,32 @@ class S3Client extends AbstractApi
         $response = $this->getResponse(PutObjectAclRequest::create($input)->request(), new RequestContext(['operation' => 'PutObjectAcl']));
 
         return new PutObjectAclOutput($response);
+    }
+
+    /**
+     * Uploads a part in a multipart upload.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadUploadPart.html
+     *
+     * @param array{
+     *   Body?: string|resource|callable|iterable,
+     *   Bucket: string,
+     *   ContentLength?: string,
+     *   ContentMD5?: string,
+     *   Key: string,
+     *   PartNumber: int,
+     *   UploadId: string,
+     *   SSECustomerAlgorithm?: string,
+     *   SSECustomerKey?: string,
+     *   SSECustomerKeyMD5?: string,
+     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     * }|UploadPartRequest $input
+     */
+    public function uploadPart($input): UploadPartOutput
+    {
+        $response = $this->getResponse(UploadPartRequest::create($input)->request(), new RequestContext(['operation' => 'UploadPart']));
+
+        return new UploadPartOutput($response);
     }
 
     protected function getServiceCode(): string
