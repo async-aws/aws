@@ -40,6 +40,20 @@ class Response
      */
     private $resolveResult;
 
+    /**
+     * A flag that indicated that the body have been downloaded.
+     *
+     * @var bool
+     */
+    private $bodyDownloaded = false;
+
+    /**
+     * A flag that indicated that the body started being downloaded.
+     *
+     * @var bool
+     */
+    private $streamStarted = false;
+
     public function __construct(ResponseInterface $response, HttpClientInterface $httpClient)
     {
         $this->httpResponse = $response;
@@ -98,23 +112,25 @@ class Response
      * Make sure all provided requests are executed.
      *
      * @param self[]     $responses
-     * @param float|null $timeout   Duration in seconds before aborting. When null wait
-     *                              until the end of execution. Using 0 means non-blocking
+     * @param float|null $timeout      Duration in seconds before aborting. When null wait
+     *                                 until the end of execution. Using 0 means non-blocking
+     * @param bool       $downloadBody Wait until receiving the entire response body or only the first bytes
      *
      * @return iterable<self>
      *
      * @throws NetworkException
      * @throws HttpException
      */
-    final public static function multiplex(iterable $responses, float $timeout = null): iterable
+    final public static function multiplex(iterable $responses, float $timeout = null, bool $downloadBody = false): iterable
     {
         /** @var self[] $responseMap */
         $responseMap = [];
+        $indexMap = [];
         $httpResponses = [];
         $httpClient = null;
-        foreach ($responses as $response) {
-            if (null !== $response->resolveResult) {
-                yield $response;
+        foreach ($responses as $index => $response) {
+            if (null !== $response->resolveResult && (!$downloadBody || $response->bodyDownloaded)) {
+                yield $index => $response;
 
                 continue;
             }
@@ -123,38 +139,59 @@ class Response
                 $httpClient = $response->httpClient;
             }
             $httpResponses[] = $response->httpResponse;
-            $responseMap[\spl_object_id($response->httpResponse)] = $response;
+            $indexMap[$hash = \spl_object_id($response->httpResponse)] = $index;
+            $responseMap[$hash] = $response;
         }
 
-        // no reponse provided (or all responses already resolved)
+        // no response provided (or all responses already resolved)
         if (empty($httpResponses)) {
             return;
         }
 
         if (null === $httpClient) {
-            throw new InvalidArgument('At least one response should have contains an Http Client');
+            throw new InvalidArgument('At least one response should have contain an Http Client');
         }
 
         try {
             foreach ($httpClient->stream($httpResponses, $timeout) as $httpResponse => $chunk) {
                 if ($chunk->isTimeout()) {
+                    // Receiving a timeout mean all responses are inactive.
+                    break;
+                }
+
+                $response = $responseMap[$hash = \spl_object_id($httpResponse)] ?? null;
+                // Check if null, just in case symfony yield an unexpected response.
+                if (null === $response) {
                     continue;
                 }
-                if ($chunk->isFirst()) {
-                    $response = $responseMap[\spl_object_id($httpResponse)] ?? null;
 
-                    // Check if null, just in case symfony yield several time a `first` chunk for the same response
-                    if (null !== $response) {
-                        try {
-                            $response->handleStatus();
-                        } catch (Exception $e) {
-                        }
-                        yield $response;
+                if (!$response->streamStarted && '' !== $chunk->getContent()) {
+                    $response->streamStarted = true;
+                }
+
+                // index could be null if already yield
+                $index = $indexMap[$hash] ?? null;
+                if ($chunk->isLast()) {
+                    $response->bodyDownloaded = true;
+                    if (null !== $index && $downloadBody) {
+                        unset($indexMap[$hash]);
+                        yield $index => $response;
                     }
-                    unset($responseMap[\spl_object_id($httpResponse)]);
-                    if (empty($responseMap)) {
-                        // early exit if all statusCode are known. We don't have to wait for all responses bodies
-                        return;
+                }
+                if ($chunk->isFirst()) {
+                    try {
+                        // call handleStatus to set internal state: `resolveResult` and ignore errors
+                        $response->handleStatus();
+                    } catch (Exception $e) {
+                    }
+                    if (null !== $index && !$downloadBody) {
+                        unset($indexMap[$hash]);
+                        yield $index => $response;
+
+                        if (empty($indexMap)) {
+                            // early exit if all statusCode are known. We don't have to wait for all responses bodies
+                            return;
+                        }
                     }
                 }
             }
@@ -168,14 +205,16 @@ class Response
      *
      * @return array{
      *                resolved: bool,
-     *                response?: ?ResponseInterface,
-     *                status?: int
+     *                body_downloaded: bool,
+     *                response: \Symfony\Contracts\HttpClient\ResponseInterface,
+     *                status: int,
      *                }
      */
     public function info(): array
     {
         return [
             'resolved' => null !== $this->resolveResult,
+            'body_downloaded' => $this->bodyDownloaded,
             'response' => $this->httpResponse,
             'status' => (int) $this->httpResponse->getInfo('http_code'),
         ];
@@ -206,7 +245,10 @@ class Response
     {
         $this->resolve();
 
-        return $this->httpResponse->getContent(false);
+        $content = $this->httpResponse->getContent(false);
+        $this->bodyDownloaded = true;
+
+        return $content;
     }
 
     /**
@@ -217,7 +259,10 @@ class Response
     {
         $this->resolve();
 
-        return $this->httpResponse->toArray(false);
+        $content = $this->httpResponse->toArray(false);
+        $this->bodyDownloaded = true;
+
+        return $content;
     }
 
     public function getStatusCode(): int
@@ -235,6 +280,10 @@ class Response
 
         if (\is_callable([$this->httpResponse, 'toStream'])) {
             return new ResponseBodyResourceStream($this->httpResponse->toStream());
+        }
+
+        if ($this->streamStarted) {
+            throw new RuntimeException('Can not create a ResultStream because the body started being downloaded. Do not call Result::multiplex');
         }
 
         return new ResponseBodyStream($this->httpClient->stream($this->httpResponse));

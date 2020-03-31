@@ -66,25 +66,26 @@ class Result
      * Make sure all provided requests are executed.
      *
      * @param self[]     $results
-     * @param float|null $timeout Duration in seconds before aborting. When null wait
-     *                            until the end of execution. Using 0 means non-blocking
+     * @param float|null $timeout      Duration in seconds before aborting. When null wait
+     *                                 until the end of execution. Using 0 means non-blocking
+     * @param bool       $downloadBody Wait until receiving the entire response body or only the first bytes
      *
      * @return iterable<self>
      *
      * @throws NetworkException
      * @throws HttpException
      */
-    final public static function multiplex(iterable $results, float $timeout = null): iterable
+    final public static function multiplex(iterable $results, float $timeout = null, bool $downloadBody = false): iterable
     {
         $resultMap = [];
         $responses = [];
-        foreach ($results as $result) {
-            $responses[] = $result->response;
+        foreach ($results as $index => $result) {
+            $responses[$index] = $result->response;
             $resultMap[\spl_object_id($result->response)] = $result;
         }
 
-        foreach (Response::multiplex($responses, $timeout) as $response) {
-            yield $resultMap[\spl_object_id($response)];
+        foreach (Response::multiplex($responses, $timeout, $downloadBody) as $index => $response) {
+            yield $index => $resultMap[\spl_object_id($response)];
         }
     }
 
@@ -93,8 +94,9 @@ class Result
      *
      * @return array{
      *                resolved: bool,
-     *                response?: ?\Symfony\Contracts\HttpClient\ResponseInterface,
-     *                status?: int
+     *                body_downloaded: bool,
+     *                response: \Symfony\Contracts\HttpClient\ResponseInterface,
+     *                status: int,
      *                }
      */
     final public function info(): array

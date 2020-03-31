@@ -77,7 +77,9 @@ class LambdaClientTest extends TestCase
 
         $resolves = [];
         /** @var InvocationResponse[] $result */
-        foreach (Result::multiplex($results) as $result) {
+        foreach (Result::multiplex($results, null, true) as $index => $result) {
+            // assert $index match original order
+            self::assertSame($expected[$index], $result->getPayload());
             $resolves[] = $result->getPayload();
         }
 

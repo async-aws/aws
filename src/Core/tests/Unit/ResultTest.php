@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\Core\Tests\Unit;
 
 use AsyncAws\Core\Exception\Http\ClientException;
+use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
@@ -86,22 +87,23 @@ class ResultTest extends TestCase
 
     public function testMultiplex()
     {
-        $client1 = new MockHttpClient(new SimpleMockedResponse('OK', [], 200));
-        $result1 = new Result(new Response($client1->request('POST', 'http://localhost'), $client1));
-
-        $client2 = new MockHttpClient(new SimpleMockedResponse('OK', [], 200));
-        $result2 = new Result(new Response($client2->request('POST', 'http://localhost'), $client2));
+        $results = [];
+        for ($i = 0; $i < 10; ++$i) {
+            $client = new MockHttpClient(new SimpleMockedResponse('OK', [], 200));
+            $results[] = new Result(new Response($client->request('POST', 'http://localhost'), $client));
+        }
 
         $counter = 0;
-        foreach (Result::multiplex([$result1, $result2]) as $result) {
+        foreach (Result::multiplex($results) as $index => $result) {
             self::assertTrue($result->info()['resolved']);
-            self::assertTrue($result2 === $result || $result1 === $result);
+            self::assertFalse($result->info()['body_downloaded']);
+            self::assertSame($results[$index], $result);
             ++$counter;
         }
-        self::assertSame(2, $counter);
+        self::assertSame(10, $counter);
     }
 
-    public function testMultiplexWithoutExcpetion()
+    public function testMultiplexWithException()
     {
         $client1 = new MockHttpClient(new SimpleMockedResponse('KO', [], 400));
         $result1 = new Result(new Response($client1->request('POST', 'http://localhost'), $client1));
@@ -116,5 +118,33 @@ class ResultTest extends TestCase
             ++$counter;
         }
         self::assertSame(2, $counter);
+
+        $this->expectException(HttpException::class);
+        $result1->resolve();
+    }
+
+    public function testMultiplexWithBody()
+    {
+        $client = new MockHttpClient(new SimpleMockedResponse('OK', [], 200));
+        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client));
+
+        foreach (Result::multiplex([$result], null, true) as $result) {
+            self::assertTrue($result->info()['resolved']);
+            self::assertTrue($result->info()['body_downloaded']);
+        }
+    }
+
+    public function testMultiplexWithBodyAfterManuallyResolve()
+    {
+        $client = new MockHttpClient(new SimpleMockedResponse('OK', [], 200));
+        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client));
+
+        $result->resolve();
+        self::assertTrue($result->info()['resolved']);
+        self::assertFalse($result->info()['body_downloaded']);
+
+        foreach (Result::multiplex([$result], null, true) as $result) {
+            self::assertTrue($result->info()['body_downloaded']);
+        }
     }
 }

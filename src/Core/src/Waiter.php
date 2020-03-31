@@ -140,8 +140,9 @@ class Waiter
      *
      * @return array{
      *                resolved: bool,
-     *                response?: ?\Symfony\Contracts\HttpClient\ResponseInterface,
-     *                status?: int
+     *                body_downloaded: bool,
+     *                response: \Symfony\Contracts\HttpClient\ResponseInterface,
+     *                status: int,
      *                }
      */
     final public function info(): array

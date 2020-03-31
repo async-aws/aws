@@ -150,6 +150,18 @@ Consider the following example. It is creating 10 `InvocationRequest`s and print
 their result. The result that is downloaded first will be printed first. The order
 the requests are created do not matter.
 
+The `Result::multiplex` function will iterate over provided results, and yield
+the the response as soon as it has been resolved.
+
+The function has a `?float $timeout = null` argument. If the timeout is set to
+`2.0`, the HTTP client will wait for 2 seconds for responses. Each time a response
+is received, the function will yield the response. If the timeout is reached, or
+all responses are resolved, the loop stops.
+
+The function has also a `$fullResponse` arguments. When false (default value)
+the HTTP client will wait for only the first bytes. Otherwise, the HTTP client
+will wait until receiving the entire response.
+
 ```php
 use AsyncAws\Core\Result;
 use AsyncAws\Lambda\LambdaClient;
@@ -165,7 +177,7 @@ for ($i = 0; $i < 10; ++$i) {
     ]));
 }
 
-foreach (Result::multiplex($results) as $result) {
+foreach (Result::multiplex($results, null, true) as $result) {
     echo $result->getPayload();
 }
 ```
