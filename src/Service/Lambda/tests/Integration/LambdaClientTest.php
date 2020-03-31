@@ -59,6 +59,10 @@ class LambdaClientTest extends TestCase
 
     public function testInvokeMultiplex(): void
     {
+        if (!\method_exists(Result::class, 'multiplex')) {
+            self::markTestSkipped('Core does not contains the feature');
+        }
+
         $client = $this->getClient();
 
         $results = [];
