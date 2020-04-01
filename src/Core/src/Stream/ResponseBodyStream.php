@@ -9,7 +9,7 @@ use Symfony\Contracts\HttpClient\ResponseStreamInterface;
 
 /**
  * Stream a HTTP response body.
- * This class is a BC layer for Http Response that does not supports toStream.
+ * This class is a BC layer for Http Response that does not support `toStream()`.
  * When calling `getChunks` you must read all the chunks before being able to call this method (or another method) again.
  * When calling `getContentAsResource`, it first, fully read the Response Body in a blocking way.
  *
@@ -49,7 +49,7 @@ class ResponseBodyStream implements ResultStream
             return $this->fallback->getChunks();
         }
         if ($this->partialRead) {
-            throw new LogicException(\sprintf('You can not call "%s". Another process doesn\'t reading "getChunks" till  the end.', __METHOD__));
+            throw new LogicException(\sprintf('You can not call "%s". Another process doesn\'t reading "getChunks" till the end.', __METHOD__));
         }
 
         $resource = \fopen('php://temp', 'rb+');

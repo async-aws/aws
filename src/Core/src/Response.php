@@ -130,6 +130,10 @@ class Response
         $this->resolveResult = false;
     }
 
+    /**
+     * @throws NetworkException
+     * @throws HttpException
+     */
     public function getHeaders(): array
     {
         $this->resolve();
@@ -137,6 +141,10 @@ class Response
         return $this->httpResponse->getHeaders(false);
     }
 
+    /**
+     * @throws NetworkException
+     * @throws HttpException
+     */
     public function getContent(): string
     {
         $this->resolve();
@@ -144,6 +152,10 @@ class Response
         return $this->httpResponse->getContent(false);
     }
 
+    /**
+     * @throws NetworkException
+     * @throws HttpException
+     */
     public function toArray(): array
     {
         $this->resolve();
@@ -156,6 +168,10 @@ class Response
         return $this->httpResponse->getStatusCode();
     }
 
+    /**
+     * @throws NetworkException
+     * @throws HttpException
+     */
     public function toStream(): ResultStream
     {
         $this->resolve();
