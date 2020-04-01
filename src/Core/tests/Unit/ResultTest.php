@@ -88,7 +88,7 @@ class ResultTest extends TestCase
     public function testMultiplex()
     {
         $results = [];
-        $client = new MockHttpClient((function() {while(true) yield new SimpleMockedResponse('OK', [], 200);})());
+        $client = new MockHttpClient((function () { while (true) { yield new SimpleMockedResponse('OK', [], 200); } })());
         for ($i = 0; $i < 10; ++$i) {
             $results[] = new Result(new Response($client->request('POST', 'http://localhost'), $client));
         }

@@ -36,9 +36,9 @@ class Response
 
     /**
      * A Result can be resolved many times. This variable contains the last resolve result.
-     * Null means that the result has never been resolved. Array contains material to create an exception
+     * Null means that the result has never been resolved. Array contains material to create an exception.
      *
-     * @var bool|array|null
+     * @var bool|HttpException|NetworkException|array|null
      */
     private $resolveResult;
 
@@ -57,7 +57,7 @@ class Response
     private $streamStarted = false;
 
     /**
-     * A flag that indicated that an exception has been thrown to the user
+     * A flag that indicated that an exception has been thrown to the user.
      */
     private $didThrow = false;
 
@@ -130,7 +130,7 @@ class Response
         $httpResponses = [];
         $httpClient = null;
         foreach ($responses as $index => $response) {
-            if (null !== $response->resolveResult && ($response->resolveResult !== true || !$downloadBody || $response->bodyDownloaded)) {
+            if (null !== $response->resolveResult && (true !== $response->resolveResult || !$downloadBody || $response->bodyDownloaded)) {
                 yield $index => $response;
 
                 continue;
@@ -346,10 +346,12 @@ class Response
 
         if (\is_array($this->resolveResult)) {
             [$class, $args] = $this->resolveResult;
+            /** @psalm-suppress PropertyTypeCoercion */
             $this->resolveResult = new $class(...$args);
         }
         if ($this->resolveResult instanceof Exception) {
             $this->didThrow = true;
+
             throw $this->resolveResult;
         }
 
