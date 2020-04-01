@@ -160,7 +160,7 @@ class Response
     {
         $this->resolve();
 
-        if (is_callable([$this->httpResponse, 'toStream'])) {
+        if (\is_callable([$this->httpResponse, 'toStream'])) {
             return new ResponseBodyResourceStream($this->httpResponse->toStream());
         }
 

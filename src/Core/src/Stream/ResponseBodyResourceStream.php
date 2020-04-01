@@ -7,7 +7,7 @@ namespace AsyncAws\Core\Stream;
 use AsyncAws\Core\Exception\RuntimeException;
 
 /**
- * Provides a ResultStream from a resource filled by an HTTP response body
+ * Provides a ResultStream from a resource filled by an HTTP response body.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
@@ -37,6 +37,7 @@ class ResponseBodyResourceStream implements ResultStream
         if (0 !== $pos && !\rewind($this->resource)) {
             throw new RuntimeException('The stream is not rewindable');
         }
+
         try {
             while (!\feof($this->resource)) {
                 yield \fread($this->resource, 64 * 1024);

@@ -9,7 +9,7 @@ use Symfony\Contracts\HttpClient\ResponseStreamInterface;
 /**
  * Stream a HTTP response body.
  * This class is a NC layer for Http Client that does not supports toStream
- * When calling `getChunks` or `getContentAsResource` it first, fully read download the Response Body in a blocking way
+ * When calling `getChunks` or `getContentAsResource` it first, fully read download the Response Body in a blocking way.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  * @author Jérémy Derussé <jeremy@derusse.com>
