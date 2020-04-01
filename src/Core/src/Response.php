@@ -11,6 +11,7 @@ use AsyncAws\Core\Exception\Http\NetworkException;
 use AsyncAws\Core\Exception\Http\RedirectionException;
 use AsyncAws\Core\Exception\Http\ServerException;
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Stream\ResponseBodyResourceStream;
 use AsyncAws\Core\Stream\ResponseBodyStream;
@@ -35,9 +36,9 @@ class Response
 
     /**
      * A Result can be resolved many times. This variable contains the last resolve result.
-     * Null means that the result has never been resolved.
+     * Null means that the result has never been resolved. Array contains material to create an exception
      *
-     * @var bool|NetworkException|HttpException|null
+     * @var bool|array|null
      */
     private $resolveResult;
 
@@ -56,9 +57,9 @@ class Response
     private $streamStarted = false;
 
     /**
-     * A flag that indicated that an exception has been catch and should be rethrown
+     * A flag that indicated that an exception has been thrown to the user
      */
-    private $shouldThrow = false;
+    private $didThrow = false;
 
     public function __construct(ResponseInterface $response, HttpClientInterface $httpClient)
     {
@@ -68,7 +69,7 @@ class Response
 
     public function __destruct()
     {
-        if (null === $this->resolveResult) {
+        if (null === $this->resolveResult || !$this->didThrow) {
             $this->resolve();
         }
     }
@@ -86,20 +87,8 @@ class Response
      */
     public function resolve(?float $timeout = null): bool
     {
-        if ($this->shouldThrow) {
-            $this->shouldThrow = false;
-            $this->handleStatus();
-        }
         if (null !== $this->resolveResult) {
-            if ($this->resolveResult instanceof \Exception) {
-                throw $this->resolveResult;
-            }
-
-            if (\is_bool($this->resolveResult)) {
-                return $this->resolveResult;
-            }
-
-            throw new RuntimeException('Unexpected resolve state');
+            return $this->getResolveStatus();
         }
 
         try {
@@ -112,10 +101,12 @@ class Response
                 }
             }
 
-            return $this->handleStatus();
+            $this->defineResolveStatus();
         } catch (TransportExceptionInterface $e) {
-            throw $this->resolveResult = new NetworkException('Could not contact remote server.', 0, $e);
+            $this->resolveResult = new NetworkException('Could not contact remote server.', 0, $e);
         }
+
+        return $this->getResolveStatus();
     }
 
     /**
@@ -139,7 +130,7 @@ class Response
         $httpResponses = [];
         $httpClient = null;
         foreach ($responses as $index => $response) {
-            if (null !== $response->resolveResult && (!$downloadBody || $response->bodyDownloaded)) {
+            if (null !== $response->resolveResult && ($response->resolveResult !== true || !$downloadBody || $response->bodyDownloaded)) {
                 yield $index => $response;
 
                 continue;
@@ -147,6 +138,8 @@ class Response
 
             if (null === $httpClient) {
                 $httpClient = $response->httpClient;
+            } elseif ($httpClient !== $response->httpClient) {
+                throw new LogicException('Unable to multiplex the given results, they all have to be created with the same HttpClient');
             }
             $httpResponses[] = $response->httpResponse;
             $indexMap[$hash = \spl_object_id($response->httpResponse)] = $index;
@@ -164,33 +157,39 @@ class Response
 
         foreach ($httpClient->stream($httpResponses, $timeout) as $httpResponse => $chunk) {
             $hash = \spl_object_id($httpResponse);
-            try {
-                if ($chunk->isTimeout()) {
-                    // Receiving a timeout mean all responses are inactive.
-                    break;
-                }
-            } catch (TransportException $e) {
-                unset($indexMap[$hash]);
-                if (empty($indexMap)) {
-                    // early exit if all statusCode are known. We don't have to wait for all responses
-                    return;
-                }
-
-                continue;
-            }
-
             $response = $responseMap[$hash] ?? null;
             // Check if null, just in case symfony yield an unexpected response.
             if (null === $response) {
                 continue;
             }
 
+            // index could be null if already yield
+            $index = $indexMap[$hash] ?? null;
+
+            try {
+                if ($chunk->isTimeout()) {
+                    // Receiving a timeout mean all responses are inactive.
+                    break;
+                }
+            } catch (TransportException $e) {
+                // Exception is stored as an array, because storing an instance of \Exception will create a circular
+                // reference and prevent `__destruct` beeing called.
+                $response->resolveResult = [NetworkException::class, ['Could not contact remote server.', 0, $e]];
+
+                if (null !== $index) {
+                    unset($indexMap[$hash]);
+                    yield $index => $response;
+                    if (empty($indexMap)) {
+                        // early exit if all statusCode are known. We don't have to wait for all responses
+                        return;
+                    }
+                }
+            }
+
             if (!$response->streamStarted && '' !== $chunk->getContent()) {
                 $response->streamStarted = true;
             }
 
-            // index could be null if already yield
-            $index = $indexMap[$hash] ?? null;
             if ($chunk->isLast()) {
                 $response->bodyDownloaded = true;
                 if (null !== $index && $downloadBody) {
@@ -199,15 +198,7 @@ class Response
                 }
             }
             if ($chunk->isFirst()) {
-                try {
-                    // call handleStatus to set internal state: `resolveResult` and ignore errors
-                    $response->handleStatus();
-                } catch (Exception $e) {
-                    // unset resolveResult because of refcount: the exception contains a reference to the `$response`
-                    // which prevent the `__destructor` beeing called
-                    $response->resolveResult = null;
-                    $response->shouldThrow = true;
-                }
+                $response->defineResolveStatus();
                 if (null !== $index && !$downloadBody) {
                     unset($indexMap[$hash]);
                     yield $index => $response;
@@ -234,7 +225,7 @@ class Response
     public function info(): array
     {
         return [
-            'resolved' => $this->shouldThrow || null !== $this->resolveResult,
+            'resolved' => null !== $this->resolveResult,
             'body_downloaded' => $this->bodyDownloaded,
             'response' => $this->httpResponse,
             'status' => (int) $this->httpResponse->getInfo('http_code'),
@@ -266,10 +257,11 @@ class Response
     {
         $this->resolve();
 
-        $content = $this->httpResponse->getContent(false);
-        $this->bodyDownloaded = true;
-
-        return $content;
+        try {
+            return $this->httpResponse->getContent(false);
+        } finally {
+            $this->bodyDownloaded = true;
+        }
     }
 
     /**
@@ -280,10 +272,11 @@ class Response
     {
         $this->resolve();
 
-        $content = $this->httpResponse->toArray(false);
-        $this->bodyDownloaded = true;
-
-        return $content;
+        try {
+            return $this->httpResponse->toArray(false);
+        } finally {
+            $this->bodyDownloaded = true;
+        }
     }
 
     public function getStatusCode(): int
@@ -304,32 +297,62 @@ class Response
         }
 
         if ($this->streamStarted) {
-            throw new RuntimeException('Can not create a ResultStream because the body started being downloaded. Do not call Result::multiplex');
+            throw new RuntimeException('Can not create a ResultStream because the body started being downloaded. The body was started to be downloaded in Response::multiplex()');
         }
 
-        return new ResponseBodyStream($this->httpClient->stream($this->httpResponse));
+        try {
+            return new ResponseBodyStream($this->httpClient->stream($this->httpResponse));
+        } finally {
+            $this->bodyDownloaded = true;
+        }
     }
 
-    private function handleStatus(): bool
+    private function defineResolveStatus(): void
     {
         try {
             $statusCode = $this->httpResponse->getStatusCode();
         } catch (TransportExceptionInterface $e) {
-            throw $this->resolveResult = new NetworkException('Could not contact remote server.', 0, $e);
+            $this->resolveResult = [NetworkException::class, ['Could not contact remote server.', 0, $e]];
+
+            return;
         }
 
         if (500 <= $statusCode) {
-            throw $this->resolveResult = new ServerException($this->httpResponse);
+            $this->resolveResult = [ServerException::class, [$this->httpResponse]];
+
+            return;
         }
 
         if (400 <= $statusCode) {
-            throw $this->resolveResult = new ClientException($this->httpResponse);
+            $this->resolveResult = [ClientException::class, [$this->httpResponse]];
+
+            return;
         }
 
         if (300 <= $statusCode) {
-            throw $this->resolveResult = new RedirectionException($this->httpResponse);
+            $this->resolveResult = [RedirectionException::class, [$this->httpResponse]];
+
+            return;
         }
 
-        return $this->resolveResult = true;
+        $this->resolveResult = true;
+    }
+
+    private function getResolveStatus(): bool
+    {
+        if (\is_bool($this->resolveResult)) {
+            return $this->resolveResult;
+        }
+
+        if (\is_array($this->resolveResult)) {
+            [$class, $args] = $this->resolveResult;
+            $this->resolveResult = new $class(...$args);
+        }
+        if ($this->resolveResult instanceof Exception) {
+            $this->didThrow = true;
+            throw $this->resolveResult;
+        }
+
+        throw new RuntimeException('Unexpected resolve state');
     }
 }
