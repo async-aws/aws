@@ -158,12 +158,11 @@ class Response
 
     public function toStream(): ResultStream
     {
+        $this->resolve();
+
         if (is_callable([$this->httpResponse, 'toStream'])) {
             return new ResponseBodyResourceStream($this->httpResponse->toStream());
         }
-
-        // ensure no exceptions are thrown
-        $this->resolve();
 
         return new ResponseBodyStream($this->httpClient->stream($this->httpResponse));
     }
