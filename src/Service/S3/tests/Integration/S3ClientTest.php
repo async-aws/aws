@@ -290,6 +290,27 @@ class S3ClientTest extends TestCase
         self::assertEquals('image/jpg', $result->getContentType());
     }
 
+    public function testGetObjectConsistent(): void
+    {
+        $client = $this->getClient();
+        $client->putObject([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+            'Body' => 'content',
+            'ContentType' => 'image/jpg',
+        ])->resolve();
+
+        $result = $client->getObject([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+        ]);
+        self::assertEquals('content', $result->getBody()->getContentAsString());
+        // calling it twice to ensure consitency
+        self::assertEquals('content', $result->getBody()->getContentAsString());
+        self::assertEquals('content', \stream_get_contents($result->getBody()->getContentAsResource()));
+        self::assertEquals('content', \implode('', \iterator_to_array($result->getBody()->getChunks())));
+    }
+
     public function testGetObjectAcl(): void
     {
         $client = $this->getClient();

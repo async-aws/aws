@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core\Stream;
 
+use AsyncAws\Core\Exception\LogicException;
 use Symfony\Contracts\HttpClient\ResponseStreamInterface;
 
 /**
  * Stream a HTTP response body.
+ * This class is a BC layer for Http Response that does not support `toStream()`.
+ * When calling `getChunks` you must read all the chunks before being able to call this method (or another method) again.
+ * When calling `getContentAsResource`, it first, fully read the Response Body in a blocking way.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ * @author Jérémy Derussé <jeremy@derusse.com>
  */
 class ResponseBodyStream implements ResultStream
 {
@@ -17,6 +22,13 @@ class ResponseBodyStream implements ResultStream
      * @var ResponseStreamInterface
      */
     private $responseStream;
+
+    /**
+     * @var ResponseBodyResourceStream|null
+     */
+    private $fallback;
+
+    private $partialRead = false;
 
     public function __construct(ResponseStreamInterface $responseStream)
     {
@@ -33,9 +45,23 @@ class ResponseBodyStream implements ResultStream
      */
     public function getChunks(): iterable
     {
-        foreach ($this->responseStream as $chunk) {
-            yield $chunk->getContent();
+        if (null !== $this->fallback) {
+            return $this->fallback->getChunks();
         }
+        if ($this->partialRead) {
+            throw new LogicException(\sprintf('You can not call "%s". Another process doesn\'t reading "getChunks" till the end.', __METHOD__));
+        }
+
+        $resource = \fopen('php://temp', 'rb+');
+        foreach ($this->responseStream as $chunk) {
+            $this->partialRead = true;
+            $chunkContent = $chunk->getContent();
+            \fwrite($resource, $chunkContent);
+            yield $chunkContent;
+        }
+
+        $this->fallback = new ResponseBodyResourceStream($resource);
+        $this->partialRead = false;
     }
 
     /**
@@ -43,13 +69,13 @@ class ResponseBodyStream implements ResultStream
      */
     public function getContentAsString(): string
     {
-        $resource = $this->getContentAsResource();
-
-        try {
-            return \stream_get_contents($resource);
-        } finally {
-            \fclose($resource);
+        if (null === $this->fallback) {
+            // Use getChunks() to read stream content to $this->fallback
+            foreach ($this->getChunks() as $chunk) {
+            }
         }
+
+        return $this->fallback->getContentAsString();
     }
 
     /**
@@ -57,21 +83,12 @@ class ResponseBodyStream implements ResultStream
      */
     public function getContentAsResource()
     {
-        $resource = \fopen('php://temp', 'rw+');
-
-        try {
-            foreach ($this->responseStream as $chunk) {
-                fwrite($resource, $chunk->getContent());
+        if (null === $this->fallback) {
+            // Use getChunks() to read stream content to $this->fallback
+            foreach ($this->getChunks() as $chunk) {
             }
-
-            // Rewind
-            \fseek($resource, 0, \SEEK_SET);
-
-            return $resource;
-        } catch (\Throwable $e) {
-            \fclose($resource);
-
-            throw $e;
         }
+
+        return $this->fallback->getContentAsResource();
     }
 }

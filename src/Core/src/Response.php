@@ -10,6 +10,7 @@ use AsyncAws\Core\Exception\Http\NetworkException;
 use AsyncAws\Core\Exception\Http\RedirectionException;
 use AsyncAws\Core\Exception\Http\ServerException;
 use AsyncAws\Core\Exception\RuntimeException;
+use AsyncAws\Core\Stream\ResponseBodyResourceStream;
 use AsyncAws\Core\Stream\ResponseBodyStream;
 use AsyncAws\Core\Stream\ResultStream;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
@@ -129,6 +130,10 @@ class Response
         $this->resolveResult = false;
     }
 
+    /**
+     * @throws NetworkException
+     * @throws HttpException
+     */
     public function getHeaders(): array
     {
         $this->resolve();
@@ -136,6 +141,10 @@ class Response
         return $this->httpResponse->getHeaders(false);
     }
 
+    /**
+     * @throws NetworkException
+     * @throws HttpException
+     */
     public function getContent(): string
     {
         $this->resolve();
@@ -143,6 +152,10 @@ class Response
         return $this->httpResponse->getContent(false);
     }
 
+    /**
+     * @throws NetworkException
+     * @throws HttpException
+     */
     public function toArray(): array
     {
         $this->resolve();
@@ -155,8 +168,18 @@ class Response
         return $this->httpResponse->getStatusCode();
     }
 
+    /**
+     * @throws NetworkException
+     * @throws HttpException
+     */
     public function toStream(): ResultStream
     {
+        $this->resolve();
+
+        if (\is_callable([$this->httpResponse, 'toStream'])) {
+            return new ResponseBodyResourceStream($this->httpResponse->toStream());
+        }
+
         return new ResponseBodyStream($this->httpClient->stream($this->httpResponse));
     }
 }
