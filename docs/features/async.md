@@ -150,7 +150,7 @@ Consider the following example. It is creating 10 `InvocationRequest`s and print
 their result. The result that is downloaded first will be printed first. The order
 the requests are created do not matter.
 
-The `Result::multiplex` function will iterate over provided results, and yield
+The `Result::wait` function will iterate over provided results, and yield
 the the response as soon as it has been resolved.
 
 The function has a `?float $timeout = null` argument. If the timeout is set to
@@ -177,7 +177,7 @@ for ($i = 0; $i < 10; ++$i) {
     ]));
 }
 
-foreach (Result::multiplex($results, null, true) as $result) {
+foreach (Result::wait($results, null, true) as $result) {
     echo $result->getPayload();
 }
 ```
