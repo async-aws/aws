@@ -88,8 +88,8 @@ class ResultTest extends TestCase
     public function testMultiplex()
     {
         $results = [];
+        $client = new MockHttpClient((function() {while(true) yield new SimpleMockedResponse('OK', [], 200);})());
         for ($i = 0; $i < 10; ++$i) {
-            $client = new MockHttpClient(new SimpleMockedResponse('OK', [], 200));
             $results[] = new Result(new Response($client->request('POST', 'http://localhost'), $client));
         }
 
@@ -105,11 +105,9 @@ class ResultTest extends TestCase
 
     public function testMultiplexWithMixException()
     {
-        $client1 = new MockHttpClient(new SimpleMockedResponse('Bad request', [], 400));
-        $result1 = new Result(new Response($client1->request('POST', 'http://localhost'), $client1));
-
-        $client2 = new MockHttpClient(new SimpleMockedResponse('OK', [], 200));
-        $result2 = new Result(new Response($client2->request('POST', 'http://localhost'), $client2));
+        $client = new MockHttpClient([new SimpleMockedResponse('Bad request', [], 400), new SimpleMockedResponse('OK', [], 200)]);
+        $result1 = new Result(new Response($client->request('POST', 'http://localhost'), $client));
+        $result2 = new Result(new Response($client->request('POST', 'http://localhost'), $client));
 
         $counter = 0;
         foreach (Result::multiplex([$result1, $result2]) as $result) {

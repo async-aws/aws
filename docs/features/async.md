@@ -158,9 +158,9 @@ The function has a `?float $timeout = null` argument. If the timeout is set to
 is received, the function will yield the response. If the timeout is reached, or
 all responses are resolved, the loop stops.
 
-The function has also a `$fullResponse` arguments. When false (default value)
-the HTTP client will wait for only the first bytes. Otherwise, the HTTP client
-will wait until receiving the entire response.
+The function has also a `$fullResponse` argument. When `false` (default value)
+the HTTP client will wait only for HTTP status code and headers. When `true`,
+the HTTP client will wait until receiving the full response body.
 
 ```php
 use AsyncAws\Core\Result;

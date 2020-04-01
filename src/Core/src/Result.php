@@ -64,6 +64,8 @@ class Result
 
     /**
      * Make sure all provided requests are executed.
+     * This only work if the http responses are produced by the same HTTP client.
+     * See https://symfony.com/doc/current/components/http_client.html#multiplexing-responses.
      *
      * @param self[]     $results
      * @param float|null $timeout      Duration in seconds before aborting. When null wait
@@ -81,11 +83,11 @@ class Result
         $responses = [];
         foreach ($results as $index => $result) {
             $responses[$index] = $result->response;
-            $resultMap[\spl_object_id($result->response)] = $result;
+            $resultMap[$index] = $result;
         }
 
         foreach (Response::multiplex($responses, $timeout, $downloadBody) as $index => $response) {
-            yield $index => $resultMap[\spl_object_id($response)];
+            yield $index => $resultMap[$index];
         }
     }
 
