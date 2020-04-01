@@ -57,9 +57,9 @@ class LambdaClientTest extends TestCase
         self::assertSame('$LATEST', $result->getExecutedVersion());
     }
 
-    public function testInvokeMultiplex(): void
+    public function testInvokeWait(): void
     {
-        if (!\method_exists(Result::class, 'multiplex')) {
+        if (!\method_exists(Result::class, 'wait')) {
             self::markTestSkipped('Core does not contains the feature');
         }
 
@@ -77,14 +77,14 @@ class LambdaClientTest extends TestCase
 
         $resolves = [];
         /** @var InvocationResponse[] $result */
-        foreach (Result::multiplex($results, null, true) as $index => $result) {
+        foreach (Result::wait($results, null, true) as $index => $result) {
             // assert $index match original order
             self::assertSame($expected[$index], $result->getPayload());
             $resolves[] = $result->getPayload();
         }
 
         self::assertEqualsCanonicalizing($expected, $resolves);
-        // Multiplex should mix responses
+        // wait should mix responses
         self::assertNotEquals($expected, $resolves);
     }
 

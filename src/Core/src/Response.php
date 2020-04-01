@@ -122,7 +122,7 @@ class Response
      * @throws NetworkException
      * @throws HttpException
      */
-    final public static function multiplex(iterable $responses, float $timeout = null, bool $downloadBody = false): iterable
+    final public static function wait(iterable $responses, float $timeout = null, bool $downloadBody = false): iterable
     {
         /** @var self[] $responseMap */
         $responseMap = [];
@@ -139,7 +139,7 @@ class Response
             if (null === $httpClient) {
                 $httpClient = $response->httpClient;
             } elseif ($httpClient !== $response->httpClient) {
-                throw new LogicException('Unable to multiplex the given results, they all have to be created with the same HttpClient');
+                throw new LogicException('Unable to wait for the given results, they all have to be created with the same HttpClient');
             }
             $httpResponses[] = $response->httpResponse;
             $indexMap[$hash = \spl_object_id($response->httpResponse)] = $index;
@@ -297,7 +297,7 @@ class Response
         }
 
         if ($this->streamStarted) {
-            throw new RuntimeException('Can not create a ResultStream because the body started being downloaded. The body was started to be downloaded in Response::multiplex()');
+            throw new RuntimeException('Can not create a ResultStream because the body started being downloaded. The body was started to be downloaded in Response::wait()');
         }
 
         try {

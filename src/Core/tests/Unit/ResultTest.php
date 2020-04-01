@@ -85,7 +85,7 @@ class ResultTest extends TestCase
         }
     }
 
-    public function testMultiplex()
+    public function testWait()
     {
         $results = [];
         $client = new MockHttpClient((function () { while (true) { yield new SimpleMockedResponse('OK', [], 200); } })());
@@ -94,7 +94,7 @@ class ResultTest extends TestCase
         }
 
         $counter = 0;
-        foreach (Result::multiplex($results) as $index => $result) {
+        foreach (Result::wait($results) as $index => $result) {
             self::assertTrue($result->info()['resolved']);
             self::assertFalse($result->info()['body_downloaded']);
             self::assertSame($results[$index], $result);
@@ -103,14 +103,14 @@ class ResultTest extends TestCase
         self::assertSame(10, $counter);
     }
 
-    public function testMultiplexWithMixException()
+    public function testWaitWithMixException()
     {
         $client = new MockHttpClient([new SimpleMockedResponse('Bad request', [], 400), new SimpleMockedResponse('OK', [], 200)]);
         $result1 = new Result(new Response($client->request('POST', 'http://localhost'), $client));
         $result2 = new Result(new Response($client->request('POST', 'http://localhost'), $client));
 
         $counter = 0;
-        foreach (Result::multiplex([$result1, $result2]) as $result) {
+        foreach (Result::wait([$result1, $result2]) as $result) {
             self::assertTrue($result->info()['resolved']);
             ++$counter;
         }
@@ -120,12 +120,12 @@ class ResultTest extends TestCase
         $result1->resolve();
     }
 
-    public function testMultiplexWithExceptionOnDestruct()
+    public function testWaitWithExceptionOnDestruct()
     {
         $client = new MockHttpClient(new SimpleMockedResponse('Bad request', [], 400));
         $result = new Result(new Response($client->request('POST', 'http://localhost'), $client));
 
-        foreach (Result::multiplex([$result]) as $r) {
+        foreach (Result::wait([$result]) as $r) {
             self::assertTrue($r->info()['resolved']);
         }
 
@@ -133,18 +133,18 @@ class ResultTest extends TestCase
         unset($result, $r);
     }
 
-    public function testMultiplexWithBody()
+    public function testWaitWithBody()
     {
         $client = new MockHttpClient(new SimpleMockedResponse('OK', [], 200));
         $result = new Result(new Response($client->request('POST', 'http://localhost'), $client));
 
-        foreach (Result::multiplex([$result], null, true) as $result) {
+        foreach (Result::wait([$result], null, true) as $result) {
             self::assertTrue($result->info()['resolved']);
             self::assertTrue($result->info()['body_downloaded']);
         }
     }
 
-    public function testMultiplexWithBodyAfterManuallyResolve()
+    public function testWaitWithBodyAfterManuallyResolve()
     {
         $client = new MockHttpClient(new SimpleMockedResponse('OK', [], 200));
         $result = new Result(new Response($client->request('POST', 'http://localhost'), $client));
@@ -153,7 +153,7 @@ class ResultTest extends TestCase
         self::assertTrue($result->info()['resolved']);
         self::assertFalse($result->info()['body_downloaded']);
 
-        foreach (Result::multiplex([$result], null, true) as $result) {
+        foreach (Result::wait([$result], null, true) as $result) {
             self::assertTrue($result->info()['body_downloaded']);
         }
     }

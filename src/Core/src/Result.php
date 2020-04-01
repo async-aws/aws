@@ -77,7 +77,7 @@ class Result
      * @throws NetworkException
      * @throws HttpException
      */
-    final public static function multiplex(iterable $results, float $timeout = null, bool $downloadBody = false): iterable
+    final public static function wait(iterable $results, float $timeout = null, bool $downloadBody = false): iterable
     {
         $resultMap = [];
         $responses = [];
@@ -86,7 +86,7 @@ class Result
             $resultMap[$index] = $result;
         }
 
-        foreach (Response::multiplex($responses, $timeout, $downloadBody) as $index => $response) {
+        foreach (Response::wait($responses, $timeout, $downloadBody) as $index => $response) {
             yield $index => $resultMap[$index];
         }
     }
