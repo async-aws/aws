@@ -3,11 +3,13 @@
 namespace AsyncAws\Lambda\Tests\Integration;
 
 use AsyncAws\Core\Credentials\NullProvider;
+use AsyncAws\Core\Result;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
 use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
 use AsyncAws\Lambda\LambdaClient;
+use AsyncAws\Lambda\Result\InvocationResponse;
 use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
 use PHPUnit\Framework\TestCase;
 
@@ -53,6 +55,37 @@ class LambdaClientTest extends TestCase
         self::assertNull($result->getLogResult());
         self::assertSame('"hello jderusse"', $result->getPayload());
         self::assertSame('$LATEST', $result->getExecutedVersion());
+    }
+
+    public function testInvokeWait(): void
+    {
+        if (!\method_exists(Result::class, 'wait')) {
+            self::markTestSkipped('Core does not contains the feature');
+        }
+
+        $client = $this->getClient();
+
+        $results = [];
+        $expected = [];
+        for ($i = 0; $i < 10; ++$i) {
+            $expected[] = '"hello ' . $i . '"';
+            $results[] = $client->Invoke(new InvocationRequest([
+                'FunctionName' => 'Index',
+                'Payload' => \json_encode(['name' => $i]),
+            ]));
+        }
+
+        $resolves = [];
+        /** @var InvocationResponse[] $result */
+        foreach (Result::wait($results, null, true) as $index => $result) {
+            // assert $index match original order
+            self::assertSame($expected[$index], $result->getPayload());
+            $resolves[] = $result->getPayload();
+        }
+
+        self::assertEqualsCanonicalizing($expected, $resolves);
+        // wait should mix responses
+        self::assertNotEquals($expected, $resolves);
     }
 
     public function testListLayerVersions(): void

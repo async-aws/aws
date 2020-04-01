@@ -53,7 +53,15 @@ trait HttpExceptionTrait
             $this->parseJson($body);
         } else {
             try {
-                $xml = new \SimpleXMLElement($content);
+                set_error_handler(static function ($errno, $errstr, $errfile, $errline) {
+                    throw new \RuntimeException($errstr, $errno);
+                });
+
+                try {
+                    $xml = new \SimpleXMLElement($content);
+                } finally {
+                    restore_error_handler();
+                }
                 $this->parseXml($xml);
             } catch (\Throwable $e) {
                 // Not XML ¯\_(ツ)_/¯

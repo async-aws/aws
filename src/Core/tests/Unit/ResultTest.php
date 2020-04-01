@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\Core\Tests\Unit;
 
 use AsyncAws\Core\Exception\Http\ClientException;
+use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
@@ -81,6 +82,79 @@ class ResultTest extends TestCase
             self::assertTrue(true);
         } catch (ClientException $e) {
             self::fail('A resolved result should not throw exception on destruct.');
+        }
+    }
+
+    public function testWait()
+    {
+        $results = [];
+        $client = new MockHttpClient((function () { while (true) { yield new SimpleMockedResponse('OK', [], 200); } })());
+        for ($i = 0; $i < 10; ++$i) {
+            $results[] = new Result(new Response($client->request('POST', 'http://localhost'), $client));
+        }
+
+        $counter = 0;
+        foreach (Result::wait($results) as $index => $result) {
+            self::assertTrue($result->info()['resolved']);
+            self::assertFalse($result->info()['body_downloaded']);
+            self::assertSame($results[$index], $result);
+            ++$counter;
+        }
+        self::assertSame(10, $counter);
+    }
+
+    public function testWaitWithMixException()
+    {
+        $client = new MockHttpClient([new SimpleMockedResponse('Bad request', [], 400), new SimpleMockedResponse('OK', [], 200)]);
+        $result1 = new Result(new Response($client->request('POST', 'http://localhost'), $client));
+        $result2 = new Result(new Response($client->request('POST', 'http://localhost'), $client));
+
+        $counter = 0;
+        foreach (Result::wait([$result1, $result2]) as $result) {
+            self::assertTrue($result->info()['resolved']);
+            ++$counter;
+        }
+        self::assertSame(2, $counter);
+
+        $this->expectException(HttpException::class);
+        $result1->resolve();
+    }
+
+    public function testWaitWithExceptionOnDestruct()
+    {
+        $client = new MockHttpClient(new SimpleMockedResponse('Bad request', [], 400));
+        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client));
+
+        foreach (Result::wait([$result]) as $r) {
+            self::assertTrue($r->info()['resolved']);
+        }
+
+        $this->expectException(HttpException::class);
+        unset($result, $r);
+    }
+
+    public function testWaitWithBody()
+    {
+        $client = new MockHttpClient(new SimpleMockedResponse('OK', [], 200));
+        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client));
+
+        foreach (Result::wait([$result], null, true) as $result) {
+            self::assertTrue($result->info()['resolved']);
+            self::assertTrue($result->info()['body_downloaded']);
+        }
+    }
+
+    public function testWaitWithBodyAfterManuallyResolve()
+    {
+        $client = new MockHttpClient(new SimpleMockedResponse('OK', [], 200));
+        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client));
+
+        $result->resolve();
+        self::assertTrue($result->info()['resolved']);
+        self::assertFalse($result->info()['body_downloaded']);
+
+        foreach (Result::wait([$result], null, true) as $result) {
+            self::assertTrue($result->info()['body_downloaded']);
         }
     }
 }

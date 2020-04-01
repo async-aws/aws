@@ -63,12 +63,42 @@ class Result
     }
 
     /**
+     * Make sure all provided requests are executed.
+     * This only work if the http responses are produced by the same HTTP client.
+     * See https://symfony.com/doc/current/components/http_client.html#multiplexing-responses.
+     *
+     * @param self[]     $results
+     * @param float|null $timeout      Duration in seconds before aborting. When null wait
+     *                                 until the end of execution. Using 0 means non-blocking
+     * @param bool       $downloadBody Wait until receiving the entire response body or only the first bytes
+     *
+     * @return iterable<self>
+     *
+     * @throws NetworkException
+     * @throws HttpException
+     */
+    final public static function wait(iterable $results, float $timeout = null, bool $downloadBody = false): iterable
+    {
+        $resultMap = [];
+        $responses = [];
+        foreach ($results as $index => $result) {
+            $responses[$index] = $result->response;
+            $resultMap[$index] = $result;
+        }
+
+        foreach (Response::wait($responses, $timeout, $downloadBody) as $index => $response) {
+            yield $index => $resultMap[$index];
+        }
+    }
+
+    /**
      * Returns info on the current request.
      *
      * @return array{
      *                resolved: bool,
-     *                response?: ?\Symfony\Contracts\HttpClient\ResponseInterface,
-     *                status?: int
+     *                body_downloaded: bool,
+     *                response: \Symfony\Contracts\HttpClient\ResponseInterface,
+     *                status: int,
      *                }
      */
     final public function info(): array
