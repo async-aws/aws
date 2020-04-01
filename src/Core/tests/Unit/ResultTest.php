@@ -103,9 +103,9 @@ class ResultTest extends TestCase
         self::assertSame(10, $counter);
     }
 
-    public function testMultiplexWithException()
+    public function testMultiplexWithMixException()
     {
-        $client1 = new MockHttpClient(new SimpleMockedResponse('KO', [], 400));
+        $client1 = new MockHttpClient(new SimpleMockedResponse('Bad request', [], 400));
         $result1 = new Result(new Response($client1->request('POST', 'http://localhost'), $client1));
 
         $client2 = new MockHttpClient(new SimpleMockedResponse('OK', [], 200));
@@ -114,13 +114,25 @@ class ResultTest extends TestCase
         $counter = 0;
         foreach (Result::multiplex([$result1, $result2]) as $result) {
             self::assertTrue($result->info()['resolved']);
-            self::assertTrue($result2 === $result || $result1 === $result);
             ++$counter;
         }
         self::assertSame(2, $counter);
 
         $this->expectException(HttpException::class);
         $result1->resolve();
+    }
+
+    public function testMultiplexWithExceptionOnDestruct()
+    {
+        $client = new MockHttpClient(new SimpleMockedResponse('Bad request', [], 400));
+        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client));
+
+        foreach (Result::multiplex([$result]) as $r) {
+            self::assertTrue($r->info()['resolved']);
+        }
+
+        $this->expectException(HttpException::class);
+        unset($result, $r);
     }
 
     public function testMultiplexWithBody()

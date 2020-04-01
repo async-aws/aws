@@ -55,6 +55,11 @@ class Response
      */
     private $streamStarted = false;
 
+    /**
+     * A flag that indicated that an exception has been catch and should be rethrown
+     */
+    private $shouldThrow = false;
+
     public function __construct(ResponseInterface $response, HttpClientInterface $httpClient)
     {
         $this->httpResponse = $response;
@@ -81,6 +86,10 @@ class Response
      */
     public function resolve(?float $timeout = null): bool
     {
+        if ($this->shouldThrow) {
+            $this->shouldThrow = false;
+            $this->handleStatus();
+        }
         if (null !== $this->resolveResult) {
             if ($this->resolveResult instanceof \Exception) {
                 throw $this->resolveResult;
@@ -155,7 +164,6 @@ class Response
 
         foreach ($httpClient->stream($httpResponses, $timeout) as $httpResponse => $chunk) {
             $hash = \spl_object_id($httpResponse);
-
             try {
                 if ($chunk->isTimeout()) {
                     // Receiving a timeout mean all responses are inactive.
@@ -195,6 +203,10 @@ class Response
                     // call handleStatus to set internal state: `resolveResult` and ignore errors
                     $response->handleStatus();
                 } catch (Exception $e) {
+                    // unset resolveResult because of refcount: the exception contains a reference to the `$response`
+                    // which prevent the `__destructor` beeing called
+                    $response->resolveResult = null;
+                    $response->shouldThrow = true;
                 }
                 if (null !== $index && !$downloadBody) {
                     unset($indexMap[$hash]);
@@ -222,7 +234,7 @@ class Response
     public function info(): array
     {
         return [
-            'resolved' => null !== $this->resolveResult,
+            'resolved' => $this->shouldThrow || null !== $this->resolveResult,
             'body_downloaded' => $this->bodyDownloaded,
             'response' => $this->httpResponse,
             'status' => (int) $this->httpResponse->getInfo('http_code'),
