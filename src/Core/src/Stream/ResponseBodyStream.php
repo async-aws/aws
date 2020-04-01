@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core\Stream;
 
+use AsyncAws\Core\Exception\LogicException;
 use Symfony\Contracts\HttpClient\ResponseStreamInterface;
 
 /**
  * Stream a HTTP response body.
- * This class is a NC layer for Http Client that does not supports toStream
- * When calling `getChunks` or `getContentAsResource` it first, fully read download the Response Body in a blocking way.
+ * This class is a BC layer for Http Response that does not supports toStream.
+ * When calling `getChunks` you must read all the chunks before being able to call this method (or another method) again.
+ * When calling `getContentAsResource`, it first, fully read the Response Body in a blocking way.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  * @author Jérémy Derussé <jeremy@derusse.com>
@@ -25,6 +27,8 @@ class ResponseBodyStream implements ResultStream
      * @var ResponseBodyResourceStream|null
      */
     private $fallback;
+
+    private $partialRead = false;
 
     public function __construct(ResponseStreamInterface $responseStream)
     {
@@ -44,16 +48,20 @@ class ResponseBodyStream implements ResultStream
         if (null !== $this->fallback) {
             return $this->fallback->getChunks();
         }
+        if ($this->partialRead) {
+            throw new LogicException(\sprintf('You can not call "%s". Another process doesn\'t reading "getChunks" till  the end.', __METHOD__));
+        }
 
         $resource = \fopen('php://temp', 'rb+');
         foreach ($this->responseStream as $chunk) {
+            $this->partialRead = true;
             $chunkContent = $chunk->getContent();
             \fwrite($resource, $chunkContent);
+            yield $chunkContent;
         }
 
         $this->fallback = new ResponseBodyResourceStream($resource);
-
-        return $this->fallback->getChunks();
+        $this->partialRead = false;
     }
 
     /**
