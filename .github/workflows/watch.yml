@@ -66,6 +66,6 @@ jobs:
           body: |
             The AWS API contract changed with version ${{ steps.fetch_version.outputs.last }}.
 
-            This PR contains the a new definition for Services.
+            This PR contains the new definition for Services.
           branch: bot-code-update
           request-to-parent: true
