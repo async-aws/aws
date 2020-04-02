@@ -67,7 +67,7 @@ class LambdaClientTest extends TestCase
 
         $results = [];
         $expected = [];
-        for ($i = 0; $i < 7; ++$i) {
+        for ($i = 0; $i < 27; ++$i) {
             $expected[] = '"hello ' . $i . '"';
             $results[] = $client->Invoke(new InvocationRequest([
                 'FunctionName' => 'Index',
