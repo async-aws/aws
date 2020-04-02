@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Website;
 
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 class AsyncAwsTwigExtension extends AbstractExtension
 {
@@ -21,11 +23,11 @@ class AsyncAwsTwigExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('asset', [$this, 'getAssetUrl']),
-            new \Twig_SimpleFunction('renderStyle', [$this, 'renderStyle'], [
+            new TwigFunction('asset', [$this, 'getAssetUrl']),
+            new TwigFunction('renderStyle', [$this, 'renderStyle'], [
                 'is_safe' => ['html'],
             ]),
-            new \Twig_SimpleFunction('renderScript', [$this, 'renderScript'], [
+            new TwigFunction('renderScript', [$this, 'renderScript'], [
                 'is_safe' => ['html'],
             ]),
         ];
@@ -34,7 +36,7 @@ class AsyncAwsTwigExtension extends AbstractExtension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter('asset', [$this, 'parseAssetUrls']),
+            new TwigFilter('asset', [$this, 'parseAssetUrls']),
         ];
     }
 
