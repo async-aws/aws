@@ -1,7 +1,7 @@
 .sidebar {
     min-width: $sidebarWidth;
     max-width: $sidebarWidth;
-    background: $white;
+    box-shadow: -3px 0 10px 5px rgba(0,0,0,.1);
     color: $dark;
     transition: all 0.3s;
     position: relative;
