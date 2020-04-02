@@ -1,0 +1,7 @@
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    # Set infinite cache on assets
+	cache-control = '''
+	max-age=31449600,
+	immutable'''
