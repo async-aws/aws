@@ -27,7 +27,7 @@ jobs:
 
       - name: Download Couscous Phar
         run: |
-          curl -OS http://couscous.io/couscous.phar
+          curl -OSL https://raw.githubusercontent.com/Nyholm/Couscous/twig-production/couscous.phar
           chmod +x couscous.phar
 
       - name: Generate website

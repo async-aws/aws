@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="/assets/app.css">
+    {{ renderStyle('app') }}
 
     <title>{{ metaTitle|default('AsyncAWS') }}</title>
 </head>
@@ -20,7 +20,7 @@
         </div>
         <div class="p-4 pt-1">
             <a href="/" class="logo mx-auto d-block">
-                <img src="/assets/image/logo.png" alt="AsyncAws logo" />
+                <img src="{{ asset('assets/image/logo.png') }}" alt="AsyncAws logo" />
             </a>
             <ul class="list-unstyled p-0 mb-5">
 
@@ -63,6 +63,6 @@
     </main>
 </div>
 
-<script src="/assets/app.js"></script>
+{{ renderScript('app') }}
 </body>
 </html>

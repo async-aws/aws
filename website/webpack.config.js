@@ -11,17 +11,13 @@ Encore
     .setOutputPath('template/assets/')
     // public path used by the web server to access the output path
     .setPublicPath('/assets')
-    // only needed for CDN's or sub-directory deploy
-    //.setManifestKeyPrefix('build/')
-
     .addEntry('app', './assets/script/main.js')
 
     .copyFiles({
         from: './assets/image',
 
         // if versioning is enabled, add the file hash too
-        to: 'image/[path][name].[ext]',
-        //to: 'image/[path][name].[hash:8].[ext]',
+        to: 'image/[path][name].[hash:8].[ext]',
 
         // only copy files matching this pattern
         pattern: /\.(png|jpg|jpeg|svg|webmanifest)$/
@@ -31,7 +27,7 @@ Encore
     .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())
     // enables hashed filenames (e.g. app.abc123.css)
-    //.enableVersioning(Encore.isProduction())
+    .enableVersioning(Encore.isProduction())
 
     // enables @babel/preset-env polyfills
     .configureBabelPresetEnv((config) => {
@@ -42,12 +38,17 @@ Encore
 
     .enableSassLoader()
     .enablePostCssLoader()
-    /*.splitEntryChunks()
+    .splitEntryChunks()
     .configureSplitChunks(function (splitChunks) {
         // https://webpack.js.org/plugins/split-chunks-plugin/
-        splitChunks.name = !Encore.isProduction();
+        //splitChunks.name = !Encore.isProduction();
+        splitChunks.cacheGroups = {
+            defaultVendors: {
+                test: /[\\/]node_modules[\\/]|bootstrap.(js|scss)/
+            }
+        }
     })
-     */
+
 
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
