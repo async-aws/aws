@@ -100,7 +100,7 @@ class AsyncAwsTwigExtension extends AbstractExtension
         }
 
         foreach ($entrypoints['entrypoints'][$name][$prefix] as $file) {
-            $output.= sprintf($template, $file);
+            $output.= sprintf($template, htmlspecialchars($file));
         }
 
         return $output;
