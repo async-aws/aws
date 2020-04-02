@@ -44,11 +44,6 @@ abstract class AbstractApi
     private $credentialProvider;
 
     /**
-     * @var LoggerInterface|null
-     */
-    private $logger;
-
-    /**
      * @var Signer
      */
     private $signer;
@@ -65,13 +60,13 @@ abstract class AbstractApi
         }
 
         $this->httpClient = $httpClient ?? HttpClient::create();
-        $this->logger = $logger ?? new NullLogger();
+        $logger = $logger ?? new NullLogger();
         $this->configuration = $configuration;
         $this->credentialProvider = $credentialProvider ?? new CacheProvider(new ChainProvider([
             new ConfigurationProvider(),
-            new WebIdentityProvider($this->logger),
-            new IniFileProvider($this->logger),
-            new InstanceProvider($this->httpClient, $this->logger),
+            new WebIdentityProvider($logger),
+            new IniFileProvider($logger),
+            new InstanceProvider($this->httpClient, $logger),
         ]));
     }
 
