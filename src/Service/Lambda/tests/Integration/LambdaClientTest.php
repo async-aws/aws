@@ -67,11 +67,11 @@ class LambdaClientTest extends TestCase
 
         $results = [];
         $expected = [];
-        for ($i = 0; $i < 5; ++$i) {
+        for ($i = 0; $i < 7; ++$i) {
             $expected[] = '"hello ' . $i . '"';
             $results[] = $client->Invoke(new InvocationRequest([
                 'FunctionName' => 'Index',
-                'Payload' => \json_encode(['name' => $i, 'delay' => 10000*($i % 3)]),
+                'Payload' => \json_encode(['name' => $i, 'delay' => 80 * ($i % 3)]),
             ]));
         }
 
@@ -79,13 +79,12 @@ class LambdaClientTest extends TestCase
         /** @var InvocationResponse[] $result */
         foreach (Result::wait($results, null, true) as $index => $result) {
             // assert $index match original order
-            //self::assertSame($expected[$index], $result->getPayload());
+            self::assertSame($expected[$index], $result->getPayload());
             $resolves[] = $result->getPayload();
         }
 
-        //self::assertEqualsCanonicalizing($expected, $resolves);
+        self::assertEqualsCanonicalizing($expected, $resolves);
         // wait should mix responses
-        print_r($resolves);
         self::assertNotEquals($expected, $resolves);
     }
 

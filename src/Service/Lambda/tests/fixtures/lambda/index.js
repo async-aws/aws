@@ -1,7 +1,7 @@
 exports.handler = async (event) => {
     function wait(event){
         return new Promise((resolve, reject) => {
-            setTimeout(() => resolve(`hello ${event.name}. Sleep ${event.delay}`), event.delay)
+            setTimeout(() => resolve(`hello ${event.name}`), event.delay)
         });
     }
 
