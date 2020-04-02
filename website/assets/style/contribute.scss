@@ -1,0 +1,58 @@
+.contribute {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    .contribute-badge {
+        position: absolute;
+        top: 35px;
+        right: -51px;
+        width: 200px;
+        color: $dark;
+        transform: rotate(45deg);
+        background: $white;
+        text-align: center;
+        line-height: 25px;
+        text-transform: uppercase;
+        box-shadow: 0 5px 10px -5px rgba(0,0,0,.1);
+    }
+
+    &:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out
+    }
+
+    &:focus {
+        .contribute-badge {
+            text-decoration: underline;
+        }
+    }
+
+    > svg {
+        position: absolute;
+        top: 0;
+        border: 0;
+        right: 0;
+        fill: $dark;
+        color: $white;
+    }
+
+    @keyframes octocat-wave {
+        0%, 100% {
+            transform: rotate(0)
+        }
+        20%, 60% {
+            transform: rotate(-25deg)
+        }
+        40%, 80% {
+            transform: rotate(10deg)
+        }
+    }
+    @media (max-width: 500px) {
+        &:hover .octo-arm {
+            animation: none
+        }
+        .octo-arm {
+            animation: octocat-wave 560ms ease-in-out
+        }
+    }
+}
