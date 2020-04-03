@@ -23,14 +23,14 @@ class InvocationRequest implements Input
     /**
      * Choose from the following options.
      *
-     * @var InvocationType::*|null
+     * @var null|InvocationType::*
      */
     private $InvocationType;
 
     /**
      * Set to `Tail` to include the execution log in the response.
      *
-     * @var LogType::*|null
+     * @var null|LogType::*
      */
     private $LogType;
 

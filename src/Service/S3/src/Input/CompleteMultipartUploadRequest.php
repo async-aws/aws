@@ -46,7 +46,7 @@ class CompleteMultipartUploadRequest implements Input
     private $UploadId;
 
     /**
-     * @var RequestPayer::*|null
+     * @var null|RequestPayer::*
      */
     private $RequestPayer;
 

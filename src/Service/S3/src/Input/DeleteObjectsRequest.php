@@ -39,7 +39,7 @@ class DeleteObjectsRequest implements Input
     private $MFA;
 
     /**
-     * @var RequestPayer::*|null
+     * @var null|RequestPayer::*
      */
     private $RequestPayer;
 

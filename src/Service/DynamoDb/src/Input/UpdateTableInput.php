@@ -39,7 +39,7 @@ class UpdateTableInput implements Input
      * capacity values are estimated based on the consumed read and write capacity of your table and global secondary
      * indexes over the past 30 minutes.
      *
-     * @var BillingMode::*|null
+     * @var null|BillingMode::*
      */
     private $BillingMode;
 

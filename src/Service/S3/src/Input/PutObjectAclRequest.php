@@ -18,7 +18,7 @@ class PutObjectAclRequest implements Input
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL
      *
-     * @var ObjectCannedACL::*|null
+     * @var null|ObjectCannedACL::*
      */
     private $ACL;
 
@@ -93,7 +93,7 @@ class PutObjectAclRequest implements Input
     private $Key;
 
     /**
-     * @var RequestPayer::*|null
+     * @var null|RequestPayer::*
      */
     private $RequestPayer;
 

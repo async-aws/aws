@@ -35,7 +35,7 @@ class QueryInput implements Input
      * The attributes to be returned in the result. You can retrieve all item attributes, specific item attributes, the
      * count of matching items, or in the case of an index, some or all of the attributes projected into the index.
      *
-     * @var Select::*|null
+     * @var null|Select::*
      */
     private $Select;
 
@@ -98,7 +98,7 @@ class QueryInput implements Input
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html
      *
-     * @var ConditionalOperator::*|null
+     * @var null|ConditionalOperator::*
      */
     private $ConditionalOperator;
 
@@ -119,7 +119,7 @@ class QueryInput implements Input
     private $ExclusiveStartKey;
 
     /**
-     * @var ReturnConsumedCapacity::*|null
+     * @var null|ReturnConsumedCapacity::*
      */
     private $ReturnConsumedCapacity;
 
