@@ -242,18 +242,18 @@ class SendMessageRequest implements Input
         $index = 0;
         foreach ($this->MessageAttributes as $mapKey => $mapValue) {
             ++$index;
-            $payload["MessageAttribute.{$index}.Name"] = $mapKey;
+            $payload["MessageAttribute.$index.Name"] = $mapKey;
             foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["MessageAttribute.{$index}.Value.$bodyKey"] = $bodyValue;
+                $payload["MessageAttribute.$index.Value.$bodyKey"] = $bodyValue;
             }
         }
 
         $index = 0;
         foreach ($this->MessageSystemAttributes as $mapKey => $mapValue) {
             ++$index;
-            $payload["MessageSystemAttribute.{$index}.Name"] = $mapKey;
+            $payload["MessageSystemAttribute.$index.Name"] = $mapKey;
             foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["MessageSystemAttribute.{$index}.Value.$bodyKey"] = $bodyValue;
+                $payload["MessageSystemAttribute.$index.Value.$bodyKey"] = $bodyValue;
             }
         }
 

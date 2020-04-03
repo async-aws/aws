@@ -236,9 +236,9 @@ class PublishInput implements Input
         $index = 0;
         foreach ($this->MessageAttributes as $mapKey => $mapValue) {
             ++$index;
-            $payload["MessageAttributes.entry.{$index}.Name"] = $mapKey;
+            $payload["MessageAttributes.entry.$index.Name"] = $mapKey;
             foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["MessageAttributes.entry.{$index}.Value.$bodyKey"] = $bodyValue;
+                $payload["MessageAttributes.entry.$index.Value.$bodyKey"] = $bodyValue;
             }
         }
 

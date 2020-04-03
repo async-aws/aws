@@ -183,8 +183,8 @@ class QuerySerializer implements Serializer
         ',
             [
                 'INPUT' => $input,
-                'OUTPUT_KEY' => sprintf('%s.{$index}.%s', $output, $this->getQueryName($shape->getKey(), 'key')),
-                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$index}.%s', $output, $this->getQueryName($shape->getValue(), 'value')), '$mapValue', $contextProperty, $shape->getValue()->getShape()),
+                'OUTPUT_KEY' => sprintf('%s.$index.%s', $output, $this->getQueryName($shape->getKey(), 'key')),
+                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.$index.%s', $output, $this->getQueryName($shape->getValue(), 'value')), '$mapValue', $contextProperty, $shape->getValue()->getShape()),
             ]);
     }
 
@@ -201,7 +201,7 @@ class QuerySerializer implements Serializer
         ',
             [
                 'INPUT' => $input,
-                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.{$index}', $output), '$mapValue', $contextProperty, $memberShape),
+                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.$index', $output), '$mapValue', $contextProperty, $memberShape),
             ]);
     }
 
