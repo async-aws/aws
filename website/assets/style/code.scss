@@ -38,14 +38,9 @@ code {
     background-position: center center;
 
     &.btn-copy-ok {
-        transition: .3s all ease;
-        background-color: lighten($green, 40%);
-        border-color: lighten($green, 40%);
         background-image: url(./res/copy-ok.svg);
-        background-size: 70%;
     }
     &.btn-copy-error {
-        background-color: lighten($red, 10%);
-        border-color: lighten($red, 10%);
+        background-image: url(./res/copy-error.svg);
     }
 }

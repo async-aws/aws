@@ -1,4 +1,4 @@
-for (const elem of document.getElementsByTagName('code')) {
+for (const elem of document.querySelectorAll('code.hljs')) {
     const button = document.createElement('div');
     button.classList.add('btn-copy');
     button.title = 'copy to clipboard';
