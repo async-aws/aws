@@ -69,7 +69,7 @@ class CreateTableInput implements Input
      * Controls how you are charged for read and write throughput and how you manage capacity. This setting can be changed
      * later.
      *
-     * @var BillingMode::*|null
+     * @var null|BillingMode::*
      */
     private $BillingMode;
 

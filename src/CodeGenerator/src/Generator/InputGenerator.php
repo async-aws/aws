@@ -160,7 +160,7 @@ class InputGenerator
                 $property->addComment('@required');
             }
             // the "\n" helps php-cs-fixer to with potential wildcard in parameterType
-            $property->addComment("\n@var " . $parameterType . ($nullable ? '|null' : ''));
+            $property->addComment("\n@var " . ($nullable ? 'null|' : '') . $parameterType);
 
             $getter = $class->addMethod('get' . $member->getName())
                 ->setReturnType($returnType)

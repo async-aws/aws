@@ -18,7 +18,7 @@ class CreateMultipartUploadRequest implements Input
     /**
      * The canned ACL to apply to the object.
      *
-     * @var ObjectCannedACL::*|null
+     * @var null|ObjectCannedACL::*
      */
     private $ACL;
 
@@ -121,14 +121,14 @@ class CreateMultipartUploadRequest implements Input
     /**
      * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
      *
-     * @var ServerSideEncryption::*|null
+     * @var null|ServerSideEncryption::*
      */
     private $ServerSideEncryption;
 
     /**
      * The type of storage to use for the object. Defaults to 'STANDARD'.
      *
-     * @var StorageClass::*|null
+     * @var null|StorageClass::*
      */
     private $StorageClass;
 
@@ -185,7 +185,7 @@ class CreateMultipartUploadRequest implements Input
     private $SSEKMSEncryptionContext;
 
     /**
-     * @var RequestPayer::*|null
+     * @var null|RequestPayer::*
      */
     private $RequestPayer;
 
@@ -199,7 +199,7 @@ class CreateMultipartUploadRequest implements Input
     /**
      * Specifies the Object Lock mode that you want to apply to the uploaded object.
      *
-     * @var ObjectLockMode::*|null
+     * @var null|ObjectLockMode::*
      */
     private $ObjectLockMode;
 
@@ -213,7 +213,7 @@ class CreateMultipartUploadRequest implements Input
     /**
      * Specifies whether you want to apply a Legal Hold to the uploaded object.
      *
-     * @var ObjectLockLegalHoldStatus::*|null
+     * @var null|ObjectLockLegalHoldStatus::*
      */
     private $ObjectLockLegalHoldStatus;
 

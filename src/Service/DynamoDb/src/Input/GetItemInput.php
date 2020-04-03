@@ -48,7 +48,7 @@ class GetItemInput implements Input
     private $ConsistentRead;
 
     /**
-     * @var ReturnConsumedCapacity::*|null
+     * @var null|ReturnConsumedCapacity::*
      */
     private $ReturnConsumedCapacity;
 

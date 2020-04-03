@@ -20,7 +20,7 @@ class PutObjectRequest implements Input
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL
      *
-     * @var ObjectCannedACL::*|null
+     * @var null|ObjectCannedACL::*
      */
     private $ACL;
 
@@ -167,14 +167,14 @@ class PutObjectRequest implements Input
     /**
      * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
      *
-     * @var ServerSideEncryption::*|null
+     * @var null|ServerSideEncryption::*
      */
     private $ServerSideEncryption;
 
     /**
      * If you don't specify, Standard is the default storage class. Amazon S3 supports other storage classes.
      *
-     * @var StorageClass::*|null
+     * @var null|StorageClass::*
      */
     private $StorageClass;
 
@@ -230,7 +230,7 @@ class PutObjectRequest implements Input
     private $SSEKMSEncryptionContext;
 
     /**
-     * @var RequestPayer::*|null
+     * @var null|RequestPayer::*
      */
     private $RequestPayer;
 
@@ -244,7 +244,7 @@ class PutObjectRequest implements Input
     /**
      * The Object Lock mode that you want to apply to this object.
      *
-     * @var ObjectLockMode::*|null
+     * @var null|ObjectLockMode::*
      */
     private $ObjectLockMode;
 
@@ -261,7 +261,7 @@ class PutObjectRequest implements Input
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html
      *
-     * @var ObjectLockLegalHoldStatus::*|null
+     * @var null|ObjectLockLegalHoldStatus::*
      */
     private $ObjectLockLegalHoldStatus;
 

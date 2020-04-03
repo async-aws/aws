@@ -143,7 +143,7 @@ class GetObjectRequest implements Input
     private $SSECustomerKeyMD5;
 
     /**
-     * @var RequestPayer::*|null
+     * @var null|RequestPayer::*
      */
     private $RequestPayer;
 

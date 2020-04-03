@@ -36,7 +36,7 @@ class GetObjectAclRequest implements Input
     private $VersionId;
 
     /**
-     * @var RequestPayer::*|null
+     * @var null|RequestPayer::*
      */
     private $RequestPayer;
 

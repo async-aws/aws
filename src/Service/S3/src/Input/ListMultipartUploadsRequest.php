@@ -27,7 +27,7 @@ class ListMultipartUploadsRequest implements Input
     private $Delimiter;
 
     /**
-     * @var EncodingType::*|null
+     * @var null|EncodingType::*
      */
     private $EncodingType;
 

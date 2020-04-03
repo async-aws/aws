@@ -48,12 +48,12 @@ class PutItemInput implements Input
      * Use `ReturnValues` if you want to get the item attributes as they appeared before they were updated with the
      * `PutItem` request. For `PutItem`, the valid values are:.
      *
-     * @var ReturnValue::*|null
+     * @var null|ReturnValue::*
      */
     private $ReturnValues;
 
     /**
-     * @var ReturnConsumedCapacity::*|null
+     * @var null|ReturnConsumedCapacity::*
      */
     private $ReturnConsumedCapacity;
 
@@ -62,7 +62,7 @@ class PutItemInput implements Input
      * item collections, if any, that were modified during the operation are returned in the response. If set to `NONE` (the
      * default), no statistics are returned.
      *
-     * @var ReturnItemCollectionMetrics::*|null
+     * @var null|ReturnItemCollectionMetrics::*
      */
     private $ReturnItemCollectionMetrics;
 
@@ -72,7 +72,7 @@ class PutItemInput implements Input
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html
      *
-     * @var ConditionalOperator::*|null
+     * @var null|ConditionalOperator::*
      */
     private $ConditionalOperator;
 
