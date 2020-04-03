@@ -38,7 +38,7 @@ boolean `true` as first argument.
 +foreach($result->getStacks(true) as $stack) {
 ```
 
-Some Endpoints return several lists of items in the same response, like the
+Some endpoints return several lists of items in the same response, like the
 result of `S3::ListObjectsV2()`.
 When iterating over those results, all lists will be mixed in the yielded items.
 
