@@ -13,7 +13,7 @@ instructions and a complete list of clients.
 You install a client with Composer. Here is an example to install DynamoDb:
 
 ```shell
-$ composer require async-aws/dynamo-db
+composer require async-aws/dynamo-db
 ```
 
 To instantiate a DynamoDb client (or any other client) you could provide four arguments.

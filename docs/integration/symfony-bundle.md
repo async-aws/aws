@@ -9,7 +9,7 @@ A small SymfonyBundle that helps with configuration and autowiring.
 ## Install
 
 ```shell
-$ composer require async-aws/async-aws-bundle
+composer require async-aws/async-aws-bundle
 ```
 
 ## Configure

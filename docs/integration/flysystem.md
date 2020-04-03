@@ -9,7 +9,7 @@ The Flysystem integration supports both Flysystem version 1 and version 2.
 ## Install
 
 ```shell
-$ composer require async-aws/flysystem-s3
+composer require async-aws/flysystem-s3
 ```
 
 ## Use
