@@ -73,7 +73,7 @@ class Metric
         foreach ($this->Dimensions as $mapValue) {
             ++$index;
             foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["Dimensions.member.{$index}.$bodyKey"] = $bodyValue;
+                $payload["Dimensions.member.$index.$bodyKey"] = $bodyValue;
             }
         }
 

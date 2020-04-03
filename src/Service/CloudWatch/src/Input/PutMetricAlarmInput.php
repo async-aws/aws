@@ -83,7 +83,7 @@ class PutMetricAlarmInput implements Input
      * `ExtendedStatistic`. When you call `PutMetricAlarm` and specify a `MetricName`, you must specify either `Statistic`
      * or `ExtendedStatistic,` but not both.
      *
-     * @var Statistic::*|null
+     * @var null|Statistic::*
      */
     private $Statistic;
 
@@ -117,7 +117,7 @@ class PutMetricAlarmInput implements Input
      * when you create a custom metric. Units help provide conceptual meaning to your data. Metric data points that specify
      * a unit of measure, such as Percent, are aggregated separately.
      *
-     * @var StandardUnit::*|null
+     * @var null|StandardUnit::*
      */
     private $Unit;
 
@@ -621,19 +621,19 @@ class PutMetricAlarmInput implements Input
         $index = 0;
         foreach ($this->OKActions as $mapValue) {
             ++$index;
-            $payload["OKActions.member.{$index}"] = $mapValue;
+            $payload["OKActions.member.$index"] = $mapValue;
         }
 
         $index = 0;
         foreach ($this->AlarmActions as $mapValue) {
             ++$index;
-            $payload["AlarmActions.member.{$index}"] = $mapValue;
+            $payload["AlarmActions.member.$index"] = $mapValue;
         }
 
         $index = 0;
         foreach ($this->InsufficientDataActions as $mapValue) {
             ++$index;
-            $payload["InsufficientDataActions.member.{$index}"] = $mapValue;
+            $payload["InsufficientDataActions.member.$index"] = $mapValue;
         }
 
         if (null !== $v = $this->MetricName) {
@@ -656,7 +656,7 @@ class PutMetricAlarmInput implements Input
         foreach ($this->Dimensions as $mapValue) {
             ++$index;
             foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["Dimensions.member.{$index}.$bodyKey"] = $bodyValue;
+                $payload["Dimensions.member.$index.$bodyKey"] = $bodyValue;
             }
         }
 
@@ -697,7 +697,7 @@ class PutMetricAlarmInput implements Input
         foreach ($this->Metrics as $mapValue) {
             ++$index;
             foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["Metrics.member.{$index}.$bodyKey"] = $bodyValue;
+                $payload["Metrics.member.$index.$bodyKey"] = $bodyValue;
             }
         }
 
@@ -705,7 +705,7 @@ class PutMetricAlarmInput implements Input
         foreach ($this->Tags as $mapValue) {
             ++$index;
             foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["Tags.member.{$index}.$bodyKey"] = $bodyValue;
+                $payload["Tags.member.$index.$bodyKey"] = $bodyValue;
             }
         }
 
