@@ -17,6 +17,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\CloudFormation\CloudFormationClient::class,
                 'package' => 'async-aws/cloud-formation',
             ],
+            'cloud_watch' => [
+                'class' => \AsyncAws\CloudWatch\CloudWatchClient::class,
+                'package' => 'async-aws/cloud-watch',
+            ],
             'lambda' => [
                 'class' => \AsyncAws\Lambda\LambdaClient::class,
                 'package' => 'async-aws/lambda',

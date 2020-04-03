@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\Core;
 
 use AsyncAws\CloudFormation\CloudFormationClient;
+use AsyncAws\CloudWatch\CloudWatchClient;
 use AsyncAws\Core\Credentials\CacheProvider;
 use AsyncAws\Core\Credentials\ChainProvider;
 use AsyncAws\Core\Credentials\ConfigurationProvider;
@@ -88,6 +89,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new CloudFormationClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function cloudWatch(): CloudWatchClient
+    {
+        if (!class_exists(CloudWatchClient::class)) {
+            throw MissingDependency::create('async-aws/cloud-watch', 'CloudWatch');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new CloudWatchClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];

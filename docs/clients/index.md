@@ -136,7 +136,8 @@ for more information.
 | Api Client                  | Package name
 | --------------------------- | ----------------------------------------------------------------------------------------
 | [CloudFormation](./cf.md)   | [async-aws/cloud-formation](https://packagist.org/packages/async-aws/cloud-formation)
-| [DynamoDb]('./dynamodb.md)  | [async-aws/dynamo-db](https://packagist.org/packages/async-aws/dynamo-db)
+| CloudWatch                  | [async-aws/cloud-watch](https://packagist.org/packages/async-aws/cloud-watch)
+| [DynamoDb](./dynamodb.md)   | [async-aws/dynamo-db](https://packagist.org/packages/async-aws/dynamo-db)
 | [Lambda](./lambda.md)       | [async-aws/lambda](https://packagist.org/packages/async-aws/lambda)
 | [S3](./s3.md)               | [async-aws/s3](https://packagist.org/packages/async-aws/s3)
 | [SES](./ses.md)             | [async-aws/ses](https://packagist.org/packages/async-aws/ses)
