@@ -4,34 +4,63 @@ category: features
 
 # Pagination
 
-Some API Results are lists of items, like the result of `S3Client::listObjectsV2()`.
+Some API Results are lists of items, like the result of `CloudFormationClient::DescribeStacks()`.
 These results implement `\IteratorAggregate` and will automatically use AWS's pagination
 API to make a new request to fetch the remaining resources in the list.
 
 ```php
-use AsyncAws\S3\S3Client;
-use AsyncAws\S3\ValueObject\AwsObject;
-use AsyncAws\S3\ValueObject\CommonPrefix;
-use AsyncAws\S3\Input\ListObjectsV2Request;
+use AsyncAws\CloudFormation\CloudFormationClient;
+use AsyncAws\CloudFormation\ValueObject\Stack;
 
-$s3 = new S3Client();
-$input = new ListObjectsV2Request();
-$input->setBucket('my-company-website');
+$cloudFormation = new CloudFormationClient();
 
-$result = $s3->listObjectsV2($input);
+$result = $cloudFormation->describeStacks();
 
-/** @var AwsObject|CommonPrefix $file */
-foreach($result as $file) {
-    if ($file instanceof AwsObject) {
-        echo $file->getKey();
-    }
+/** @var Stack $stack */
+foreach($result as $stack) {
+    echo $stack->getStackName();
 }
 ```
 
-If you want to disable pagination, you may call the `getContents()` function with
+These results also provide methods to fetch metadata returned by AWS or
+to explicitly access the list of items by using a meaningful method name.
+
+```diff
+-foreach($result as $stack) {
++foreach($result->getStacks() as $stack) {
+```
+
+If you want to disable pagination, you may call the `getStacks()` function with
 boolean `true` as first argument.
 
 ```diff
--foreach($result as $file) {
-+foreach($result->getContents(true) as $file) {
+-foreach($result->getStacks() as $stack) {
++foreach($result->getStacks(true) as $stack) {
+```
+
+Some endpoints return several lists of items in the same response, like the
+result of `S3::ListObjectsV2()`.
+When iterating over those results, all lists will be mixed in the yielded items.
+
+```php
+use AsyncAws\S3\Input\ListObjectsV2Request;
+use AsyncAws\S3\S3Client;
+use AsyncAws\S3\ValueObject\AwsObject;
+use AsyncAws\S3\ValueObject\CommonPrefix;
+
+$s3 = new S3Client();
+
+$objects = $s3->listObjectsV2(new ListObjectsV2Request([
+    'Bucket' => 'my-company-website',
+    'Delimiter' => '/'
+]));
+
+/** @var AwsObject|CommonPrefix $object */
+foreach($objects as $object) {
+    if ($object instanceof AwsObject) {
+        echo '- '.$object->getKey();
+    } else {
+        echo 'd '.$object->getPrefix();
+    }
+}
 ```
