@@ -1,0 +1,30 @@
+{
+    "name": "async-aws/cloud-watch",
+    "type": "library",
+    "description": "AsyncAws CloudWatch client.",
+    "keywords": [
+        "aws",
+        "cloud-watch"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.2.5",
+        "ext-json": "*",
+        "async-aws/core": "^0.5"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "AsyncAws\\CloudWatch\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\CloudWatch\\Tests\\": "tests/"
+        }
+    }
+}

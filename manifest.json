@@ -14,6 +14,15 @@
                 "DescribeStacks"
             ]
         },
+        "CloudWatch": {
+            "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/monitoring\/2010-08-01\/api-2.json",
+            "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/monitoring\/2010-08-01\/docs-2.json",
+            "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/monitoring\/2010-08-01\/paginators-1.json",
+            "example": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/monitoring\/2010-08-01\/examples-1.json",
+            "methods": [
+                "PutMetricAlarm"
+            ]
+        },
         "DynamoDb": {
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/dynamodb\/2012-08-10\/api-2.json",
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/dynamodb\/2012-08-10\/docs-2.json",
