@@ -156,7 +156,7 @@ class PutMetricAlarmInput implements Input
      *
      * @required
      *
-     * @var ComparisonOperator::*|null
+     * @var null|ComparisonOperator::*
      */
     private $ComparisonOperator;
 
