@@ -104,13 +104,13 @@ class MessageAttributeValue
         $index = 0;
         foreach ($this->StringListValues as $mapValue) {
             ++$index;
-            $payload["StringListValue.{$index}"] = $mapValue;
+            $payload["StringListValue.$index"] = $mapValue;
         }
 
         $index = 0;
         foreach ($this->BinaryListValues as $mapValue) {
             ++$index;
-            $payload["BinaryListValue.{$index}"] = base64_encode($mapValue);
+            $payload["BinaryListValue.$index"] = base64_encode($mapValue);
         }
 
         if (null === $v = $this->DataType) {

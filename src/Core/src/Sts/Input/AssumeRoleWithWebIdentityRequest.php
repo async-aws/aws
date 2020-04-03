@@ -241,7 +241,7 @@ class AssumeRoleWithWebIdentityRequest implements Input
         foreach ($this->PolicyArns as $mapValue) {
             ++$index;
             foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["PolicyArns.member.{$index}.$bodyKey"] = $bodyValue;
+                $payload["PolicyArns.member.$index.$bodyKey"] = $bodyValue;
             }
         }
 

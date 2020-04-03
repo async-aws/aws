@@ -226,13 +226,13 @@ class ReceiveMessageRequest implements Input
             if (!QueueAttributeName::exists($mapValue)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "AttributeName" for "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $mapValue));
             }
-            $payload["AttributeName.{$index}"] = $mapValue;
+            $payload["AttributeName.$index"] = $mapValue;
         }
 
         $index = 0;
         foreach ($this->MessageAttributeNames as $mapValue) {
             ++$index;
-            $payload["MessageAttributeName.{$index}"] = $mapValue;
+            $payload["MessageAttributeName.$index"] = $mapValue;
         }
 
         if (null !== $v = $this->MaxNumberOfMessages) {

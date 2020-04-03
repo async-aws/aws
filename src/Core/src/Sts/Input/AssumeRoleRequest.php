@@ -323,7 +323,7 @@ class AssumeRoleRequest implements Input
         foreach ($this->PolicyArns as $mapValue) {
             ++$index;
             foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["PolicyArns.member.{$index}.$bodyKey"] = $bodyValue;
+                $payload["PolicyArns.member.$index.$bodyKey"] = $bodyValue;
             }
         }
 
@@ -338,14 +338,14 @@ class AssumeRoleRequest implements Input
         foreach ($this->Tags as $mapValue) {
             ++$index;
             foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["Tags.member.{$index}.$bodyKey"] = $bodyValue;
+                $payload["Tags.member.$index.$bodyKey"] = $bodyValue;
             }
         }
 
         $index = 0;
         foreach ($this->TransitiveTagKeys as $mapValue) {
             ++$index;
-            $payload["TransitiveTagKeys.member.{$index}"] = $mapValue;
+            $payload["TransitiveTagKeys.member.$index"] = $mapValue;
         }
 
         if (null !== $v = $this->ExternalId) {

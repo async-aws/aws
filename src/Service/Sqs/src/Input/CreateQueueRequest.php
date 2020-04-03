@@ -137,15 +137,15 @@ class CreateQueueRequest implements Input
         $index = 0;
         foreach ($this->Attributes as $mapKey => $mapValue) {
             ++$index;
-            $payload["Attribute.{$index}.Name"] = $mapKey;
-            $payload["Attribute.{$index}.Value"] = $mapValue;
+            $payload["Attribute.$index.Name"] = $mapKey;
+            $payload["Attribute.$index.Value"] = $mapValue;
         }
 
         $index = 0;
         foreach ($this->tags as $mapKey => $mapValue) {
             ++$index;
-            $payload["Tag.{$index}.Key"] = $mapKey;
-            $payload["Tag.{$index}.Value"] = $mapValue;
+            $payload["Tag.$index.Key"] = $mapKey;
+            $payload["Tag.$index.Value"] = $mapValue;
         }
 
         return $payload;
