@@ -62,6 +62,16 @@ class AsyncAwsTwigExtension extends AbstractExtension
         return $content;
     }
 
+    public function renderStyle(string $name)
+    {
+        return $this->renderTag($name, 'css', '<link rel="stylesheet" href="%s">');
+    }
+
+    public function renderScript(string $name)
+    {
+        return $this->renderTag($name, 'js', '<script src="%s"></script>');
+    }
+
     private function getManifest(): array
     {
         if (null === $this->manifestCache) {
@@ -82,16 +92,6 @@ class AsyncAwsTwigExtension extends AbstractExtension
         return $this->entrypointsCache;
     }
 
-    public function renderStyle(string $name)
-    {
-        return $this->renderTag($name, 'css', '<link rel="stylesheet" href="%s">');
-    }
-
-    public function renderScript(string $name)
-    {
-        return $this->renderTag($name, 'js', '<script src="%s"></script>');
-    }
-
     private function renderTag(string $name, string $prefix, string $template)
     {
         $output = '';
@@ -102,7 +102,7 @@ class AsyncAwsTwigExtension extends AbstractExtension
         }
 
         foreach ($entrypoints['entrypoints'][$name][$prefix] as $file) {
-            $output.= sprintf($template, htmlspecialchars($file));
+            $output .= sprintf($template, htmlspecialchars($file));
         }
 
         return $output;
