@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 /**
- * Read directory and all its contents
+ * Read directory for files.
  * @see https://stackoverflow.com/a/5827895/1526789
  */
 let walk = function(dir, done) {

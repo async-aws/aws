@@ -1,14 +1,13 @@
-const walk = require('./walk');
 const fs = require('fs');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
+const walk = require('./walk');
 
 let highlight = require('./highlight')
 let headerLinks = require('./header-links')
 
 const outputDir = process.argv[2];
 console.log('Dir: ', outputDir);
-
 
 walk(outputDir, function (err, files) {
     if (err) throw err;

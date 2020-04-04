@@ -1,5 +1,3 @@
-
-// Create a list of HTML files and run highlight.js on them.
 module.exports = function(dom) {
     dom.window.document.querySelectorAll('h2, h3').forEach((headline) => {
 
