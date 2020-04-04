@@ -34,9 +34,6 @@ class GetCallerIdentityRequest implements Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
-    /**
-     * @internal
-     */
     private function requestBody(): array
     {
         $payload = [];

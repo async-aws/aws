@@ -209,9 +209,6 @@ class ReceiveMessageRequest implements Input
         return $this;
     }
 
-    /**
-     * @internal
-     */
     private function requestBody(): array
     {
         $payload = [];
