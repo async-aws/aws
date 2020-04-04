@@ -36,7 +36,7 @@
             {% for rootItemId, rootItem in menu %}
                 {% if rootItem.section is defined %}
                 <li>
-                    <a href="#{{ rootItemId }}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{ rootItem.section }}</a>
+                    <a href="javascript:void(0)" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{ rootItem.section }}</a>
                     <ul class="collapse list-unstyled {{ rootItemId == category ? 'show' : '' }}" id="{{ rootItemId }}">
                 {% endif %}
                 {% for itemId, item in rootItem.items %}
