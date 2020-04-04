@@ -43,7 +43,7 @@ Encore
         // https://webpack.js.org/plugins/split-chunks-plugin/
         //splitChunks.name = !Encore.isProduction();
         splitChunks.cacheGroups = {
-            defaultVendors: {
+            vendors: {
                 test: /[\\/]node_modules[\\/]|bootstrap.(js|scss)/
             }
         }
