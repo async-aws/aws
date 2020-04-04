@@ -64,3 +64,9 @@ code {
         background-image: url(./res/copy-error.svg);
     }
 }
+
+@include media-breakpoint-down(md){
+    .btn-copy {
+        display: none;
+    }
+}
