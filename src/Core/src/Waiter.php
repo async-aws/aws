@@ -48,13 +48,6 @@ class Waiter
      */
     private $finalState;
 
-    /**
-     * A Result can be resolved many times. This variable contains the last resolve result.
-     *
-     * @var bool|NetworkException|null
-     */
-    private $resolveResult;
-
     public function __construct(Response $response, AbstractApi $awsClient, $request)
     {
         $this->response = $response;

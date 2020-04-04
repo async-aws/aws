@@ -6,6 +6,8 @@ namespace AsyncAws\Core\Stream;
 
 /**
  * Marker for ResultStream that can be read only once.
+ *
+ * @internal
  */
 interface ReadOnceResultStream
 {
