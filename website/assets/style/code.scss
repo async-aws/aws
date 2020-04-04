@@ -65,7 +65,7 @@ code {
     }
 }
 
-@media (max-width: 500px) {
+@include media-breakpoint-down(md){
     .btn-copy {
         display: none;
     }
