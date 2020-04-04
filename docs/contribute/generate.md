@@ -12,7 +12,7 @@ test stubs. Below is an example to generate an operation for DynamoDB.
 1. Clone the async-aws/aws repository.
 1. Run `composer install`
 1. Run `./generate DynamoDb` and press "1" for generate a new operation.
-1. Select the operation you want to generate. Don't generate operations that you dont need.
+1. Select the operation you want to generate. Don't generate operations that you don't need.
 1. Use the [AWS Api Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations.html) to fill the expected Input/Result.
 
 If you started working on a new operation, please submit a "Draft PR" to show your

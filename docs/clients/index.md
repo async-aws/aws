@@ -96,7 +96,7 @@ class AsyncAwsProvider extends ServiceProvider
 
 ### Client factory
 
-If you dont use dependency injection, you might be interested in the `AwsClientFactory`
+If you don't use dependency injection, you might be interested in the `AwsClientFactory`
 that can be used to instantiate API clients.
 
 ```php
