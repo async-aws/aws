@@ -1,4 +1,4 @@
-module.exports = function(dom) {
+module.exports = dom => {
     for(const headline of dom.window.document.querySelectorAll('h2, h3')) {
         const id = headline.getAttribute('id');
         const link = dom.window.document.createElement('a');
