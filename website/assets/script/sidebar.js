@@ -10,14 +10,14 @@ let isUlHidden = function (ul) {
 
 
 // The submenu
-let elements = document.getElementsByClassName('dropdown-toggle');
-for (let i = 0; i < elements.length; i++) {
-    elements[i].addEventListener("click", function(event){
-        let link = el = elements[i];
+const elements = document.getElementsByClassName('dropdown-toggle');
+for (const element of elements) {
+    element.addEventListener("click", () => {
+        let el = element;
         let ul = undefined;
 
         while (el = el.nextSibling ) {
-            if (el.nodeName.toLowerCase() == 'ul') {
+            if (el.nodeName.toLowerCase() === 'ul') {
                 ul = el;
                 break;
             }
@@ -31,12 +31,12 @@ for (let i = 0; i < elements.length; i++) {
         // Start the toggle
         if (isUlHidden(ul)) {
             ul.classList.add("show");
-            link.classList.remove("collapsed");
-            link.setAttribute('aria-expanded', true);
+            element.classList.remove("collapsed");
+            element.setAttribute('aria-expanded', true);
         } else {
             ul.classList.remove("show");
-            link.classList.add("collapsed");
-            link.setAttribute('aria-expanded', false);
+            element.classList.add("collapsed");
+            element.setAttribute('aria-expanded', false);
         }
     });
 }
