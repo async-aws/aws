@@ -5,6 +5,7 @@
 ### Changed
 
 - The `StreamableBodyInterface::getChunks` now returns a iterrable of string.
+- The `AsyncAws\Core\Sts\Input\*` and `AsyncAws\Core\Sts\ValueObject*` classes are marked final.
 
 ## 0.4.0
 

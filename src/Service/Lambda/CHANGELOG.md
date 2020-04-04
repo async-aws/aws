@@ -7,6 +7,7 @@
 - Moved value objects to a dedicated namespace.
 - Results' `populateResult()` has only one argument. It takes a `AsyncAws\Core\Response`.
 - Using `DateTimeImmutable` instead of `DateTimeInterface`
+- The `AsyncAws\Lambda\Enum\*`, `AsyncAws\Lambda\Input\*` and `AsyncAws\Lambda\ValueObject*` classes are marked final.
 
 ### Removed
 

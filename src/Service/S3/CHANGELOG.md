@@ -7,6 +7,7 @@
 - Support for presign
 - Multipart upload
 - Waiters: `S3Client::bucketExists()` and `S3Client::objectExists()`
+- The `AsyncAws\S3\Enum\*`, `AsyncAws\S3\Input\*` and `AsyncAws\S3\ValueObject*` classes are marked final.
 
 ### Changed
 
