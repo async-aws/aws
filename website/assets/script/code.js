@@ -1,21 +1,23 @@
-window.onCopyClick = (button) => {
-    try {
-        const elem = button.parentNode;
-        copyText(elem.innerText);
+for (const button of document.querySelectorAll('.btn-copy')) {
+    button.addEventListener('click', () => {
+        try {
+            const elem = button.parentNode;
+            copyText(elem.innerText);
 
-        button.title = 'copied!';
-        button.classList.add('btn-copy-ok');
-        setTimeout(() => {
-            button.classList.remove('btn-copy-ok');
-        }, 3000);
-    } catch (e) {
-        console.error(e);
-        button.classList.add('btn-copy-error');
-        setTimeout(() => {
-            button.classList.remove('btn-copy-error');
-        }, 3000);
-    }
-};
+            button.title = 'copied!';
+            button.classList.add('btn-copy-ok');
+            setTimeout(() => {
+                button.classList.remove('btn-copy-ok');
+            }, 3000);
+        } catch (e) {
+            console.error(e);
+            button.classList.add('btn-copy-error');
+            setTimeout(() => {
+                button.classList.remove('btn-copy-error');
+            }, 3000);
+        }
+    });
+}
 
 const copyText = text => {
     const t = document.createElement('textarea');

@@ -3,7 +3,6 @@ module.exports = function (dom) {
         const button = dom.window.document.createElement('div');
         button.classList.add('btn-copy');
         button.title = 'copy to clipboard';
-        button.setAttribute('onclick', 'onCopyClick(this)');
         elem.prepend(button);
     }
 };
