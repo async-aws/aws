@@ -7,7 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-final class DeleteTableInput implements Input
+final class DeleteTableInput extends Input
 {
     /**
      * The name of the table to delete.
@@ -21,11 +21,13 @@ final class DeleteTableInput implements Input
     /**
      * @param array{
      *   TableName?: string,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->TableName = $input['TableName'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

@@ -9,7 +9,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Lambda\Enum\Runtime;
 use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
 
-final class PublishLayerVersionRequest implements Input
+final class PublishLayerVersionRequest extends Input
 {
     /**
      * The name or Amazon Resource Name (ARN) of the layer.
@@ -59,6 +59,7 @@ final class PublishLayerVersionRequest implements Input
      *   Content?: \AsyncAws\Lambda\ValueObject\LayerVersionContentInput|array,
      *   CompatibleRuntimes?: list<\AsyncAws\Lambda\Enum\Runtime::*>,
      *   LicenseInfo?: string,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -68,6 +69,7 @@ final class PublishLayerVersionRequest implements Input
         $this->Content = isset($input['Content']) ? LayerVersionContentInput::create($input['Content']) : null;
         $this->CompatibleRuntimes = $input['CompatibleRuntimes'] ?? [];
         $this->LicenseInfo = $input['LicenseInfo'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

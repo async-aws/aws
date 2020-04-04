@@ -22,11 +22,13 @@ class SnsClient extends AbstractApi
      *   Subject?: string,
      *   MessageStructure?: string,
      *   MessageAttributes?: \AsyncAws\Sns\ValueObject\MessageAttributeValue[],
+     *   @region?: string,
      * }|PublishInput $input
      */
     public function publish($input): PublishResponse
     {
-        $response = $this->getResponse(PublishInput::create($input)->request(), new RequestContext(['operation' => 'Publish']));
+        $input = PublishInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Publish', 'region' => $input->getRegion()]));
 
         return new PublishResponse($response);
     }

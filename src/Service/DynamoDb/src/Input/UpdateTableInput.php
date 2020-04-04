@@ -14,7 +14,7 @@ use AsyncAws\DynamoDb\ValueObject\ReplicationGroupUpdate;
 use AsyncAws\DynamoDb\ValueObject\SSESpecification;
 use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
 
-final class UpdateTableInput implements Input
+final class UpdateTableInput extends Input
 {
     /**
      * An array of attributes that describe the key schema for the table and indexes. If you are adding a new global
@@ -89,6 +89,7 @@ final class UpdateTableInput implements Input
      *   StreamSpecification?: \AsyncAws\DynamoDb\ValueObject\StreamSpecification|array,
      *   SSESpecification?: \AsyncAws\DynamoDb\ValueObject\SSESpecification|array,
      *   ReplicaUpdates?: \AsyncAws\DynamoDb\ValueObject\ReplicationGroupUpdate[],
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -101,6 +102,7 @@ final class UpdateTableInput implements Input
         $this->StreamSpecification = isset($input['StreamSpecification']) ? StreamSpecification::create($input['StreamSpecification']) : null;
         $this->SSESpecification = isset($input['SSESpecification']) ? SSESpecification::create($input['SSESpecification']) : null;
         $this->ReplicaUpdates = array_map([ReplicationGroupUpdate::class, 'create'], $input['ReplicaUpdates'] ?? []);
+        parent::__construct($input);
     }
 
     public static function create($input): self

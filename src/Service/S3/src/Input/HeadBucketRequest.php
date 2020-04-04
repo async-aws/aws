@@ -7,7 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-final class HeadBucketRequest implements Input
+final class HeadBucketRequest extends Input
 {
     /**
      * The bucket name.
@@ -23,11 +23,13 @@ final class HeadBucketRequest implements Input
      *
      * @param array{
      *   Bucket?: string,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->Bucket = $input['Bucket'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

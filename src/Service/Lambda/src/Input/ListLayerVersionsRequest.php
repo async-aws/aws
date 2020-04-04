@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Lambda\Enum\Runtime;
 
-final class ListLayerVersionsRequest implements Input
+final class ListLayerVersionsRequest extends Input
 {
     /**
      * A runtime identifier. For example, `go1.x`.
@@ -46,6 +46,7 @@ final class ListLayerVersionsRequest implements Input
      *   LayerName?: string,
      *   Marker?: string,
      *   MaxItems?: int,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -54,6 +55,7 @@ final class ListLayerVersionsRequest implements Input
         $this->LayerName = $input['LayerName'] ?? null;
         $this->Marker = $input['Marker'] ?? null;
         $this->MaxItems = $input['MaxItems'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\EncodingType;
 
-final class ListMultipartUploadsRequest implements Input
+final class ListMultipartUploadsRequest extends Input
 {
     /**
      * Name of the bucket to which the multipart upload was initiated.
@@ -76,6 +76,7 @@ final class ListMultipartUploadsRequest implements Input
      *   MaxUploads?: int,
      *   Prefix?: string,
      *   UploadIdMarker?: string,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -87,6 +88,7 @@ final class ListMultipartUploadsRequest implements Input
         $this->MaxUploads = $input['MaxUploads'] ?? null;
         $this->Prefix = $input['Prefix'] ?? null;
         $this->UploadIdMarker = $input['UploadIdMarker'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

@@ -13,7 +13,7 @@ use AsyncAws\S3\Enum\RequestPayer;
 use AsyncAws\S3\Enum\ServerSideEncryption;
 use AsyncAws\S3\Enum\StorageClass;
 
-final class PutObjectRequest implements Input
+final class PutObjectRequest extends Input
 {
     /**
      * The canned ACL to apply to the object. For more information, see Canned ACL.
@@ -299,6 +299,7 @@ final class PutObjectRequest implements Input
      *   ObjectLockMode?: \AsyncAws\S3\Enum\ObjectLockMode::*,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
      *   ObjectLockLegalHoldStatus?: \AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::*,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -333,6 +334,7 @@ final class PutObjectRequest implements Input
         $this->ObjectLockMode = $input['ObjectLockMode'] ?? null;
         $this->ObjectLockRetainUntilDate = !isset($input['ObjectLockRetainUntilDate']) ? null : ($input['ObjectLockRetainUntilDate'] instanceof \DateTimeImmutable ? $input['ObjectLockRetainUntilDate'] : new \DateTimeImmutable($input['ObjectLockRetainUntilDate']));
         $this->ObjectLockLegalHoldStatus = $input['ObjectLockLegalHoldStatus'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

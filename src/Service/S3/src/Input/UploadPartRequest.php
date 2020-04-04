@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 
-final class UploadPartRequest implements Input
+final class UploadPartRequest extends Input
 {
     /**
      * Object data.
@@ -113,6 +113,7 @@ final class UploadPartRequest implements Input
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -128,6 +129,7 @@ final class UploadPartRequest implements Input
         $this->SSECustomerKey = $input['SSECustomerKey'] ?? null;
         $this->SSECustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
         $this->RequestPayer = $input['RequestPayer'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

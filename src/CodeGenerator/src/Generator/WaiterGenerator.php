@@ -93,11 +93,11 @@ class WaiterGenerator
         $method = $class->addMethod(\lcfirst($waiter->getName()))
             ->setComment('Check status of operation ' . \lcfirst($operation->getName()))
             ->addComment('@see ' . \lcfirst($operation->getName()))
-            ->addComment($this->typeGenerator->generateDocblock($inputShape, $inputClass))
+            ->addComment($this->typeGenerator->generateDocblock($inputShape, $inputClass, true, false, false, ['  @region?: string,']))
             ->setReturnType($resultClass->getFqdn())
             ->setBody(strtr('
                 $input = INPUT_CLASS::create($input);
-                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME]));
+                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion()]));
 
                 return new RESULT_CLASS($response, $this, $input);
             ', [

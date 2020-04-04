@@ -21,12 +21,13 @@ class CloudFormationClient extends AbstractApi
      * @param array{
      *   StackName?: string,
      *   NextToken?: string,
+     *   @region?: string,
      * }|DescribeStackEventsInput $input
      */
     public function describeStackEvents($input = []): DescribeStackEventsOutput
     {
         $input = DescribeStackEventsInput::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStackEvents']));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStackEvents', 'region' => $input->getRegion()]));
 
         return new DescribeStackEventsOutput($response, $this, $input);
     }
@@ -40,12 +41,13 @@ class CloudFormationClient extends AbstractApi
      * @param array{
      *   StackName?: string,
      *   NextToken?: string,
+     *   @region?: string,
      * }|DescribeStacksInput $input
      */
     public function describeStacks($input = []): DescribeStacksOutput
     {
         $input = DescribeStacksInput::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStacks']));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStacks', 'region' => $input->getRegion()]));
 
         return new DescribeStacksOutput($response, $this, $input);
     }

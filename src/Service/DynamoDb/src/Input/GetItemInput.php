@@ -9,7 +9,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 
-final class GetItemInput implements Input
+final class GetItemInput extends Input
 {
     /**
      * The name of the table containing the requested item.
@@ -77,6 +77,7 @@ final class GetItemInput implements Input
      *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
      *   ProjectionExpression?: string,
      *   ExpressionAttributeNames?: string[],
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -92,6 +93,7 @@ final class GetItemInput implements Input
         $this->ReturnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
         $this->ProjectionExpression = $input['ProjectionExpression'] ?? null;
         $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? [];
+        parent::__construct($input);
     }
 
     public static function create($input): self

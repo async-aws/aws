@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 
-final class GetObjectRequest implements Input
+final class GetObjectRequest extends Input
 {
     /**
      * The bucket name containing the object.
@@ -178,6 +178,7 @@ final class GetObjectRequest implements Input
      *   SSECustomerKeyMD5?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   PartNumber?: int,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -201,6 +202,7 @@ final class GetObjectRequest implements Input
         $this->SSECustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
         $this->RequestPayer = $input['RequestPayer'] ?? null;
         $this->PartNumber = $input['PartNumber'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

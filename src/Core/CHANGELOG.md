@@ -2,6 +2,10 @@
 
 ## 0.5.0
 
+### Added
+
+- Add support for multiregion via `@region` input parameter.
+
 ### Changed
 
 - The `StreamableBodyInterface::getChunks` now returns a iterrable of string.

@@ -31,9 +31,9 @@ class TypeGenerator
         $this->namespaceRegistry = $namespaceRegistry;
     }
 
-    public function generateDocblock(StructureShape $shape, ClassName $className, bool $alternateClass = true, bool $allNullable = false, bool $isObject = false): string
+    public function generateDocblock(StructureShape $shape, ClassName $className, bool $alternateClass = true, bool $allNullable = false, bool $isObject = false, array $extra = []): string
     {
-        if (empty($shape->getMembers())) {
+        if (empty($shape->getMembers()) && empty($extra)) {
             // No input array
             return '@param array' . ($alternateClass ? '|' . $className->getName() : '') . ' $input';
         }
@@ -89,6 +89,7 @@ class TypeGenerator
                 $body[] = sprintf('  %s: %s,', $member->getName(), $param);
             }
         }
+        $body = \array_merge($body, $extra);
         $body[] = '}' . ($alternateClass ? '|' . $className->getName() : '') . ' $input';
 
         return \implode("\n", $body);

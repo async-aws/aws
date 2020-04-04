@@ -9,7 +9,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\EncodingType;
 use AsyncAws\S3\Enum\RequestPayer;
 
-final class ListObjectsV2Request implements Input
+final class ListObjectsV2Request extends Input
 {
     /**
      * Bucket name to list.
@@ -92,6 +92,7 @@ final class ListObjectsV2Request implements Input
      *   FetchOwner?: bool,
      *   StartAfter?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -105,6 +106,7 @@ final class ListObjectsV2Request implements Input
         $this->FetchOwner = $input['FetchOwner'] ?? null;
         $this->StartAfter = $input['StartAfter'] ?? null;
         $this->RequestPayer = $input['RequestPayer'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

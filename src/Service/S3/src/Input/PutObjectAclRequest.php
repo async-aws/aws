@@ -11,7 +11,7 @@ use AsyncAws\S3\Enum\RequestPayer;
 use AsyncAws\S3\ValueObject\AccessControlPolicy;
 use AsyncAws\S3\ValueObject\Grantee;
 
-final class PutObjectAclRequest implements Input
+final class PutObjectAclRequest extends Input
 {
     /**
      * The canned ACL to apply to the object. For more information, see Canned ACL.
@@ -120,6 +120,7 @@ final class PutObjectAclRequest implements Input
      *   Key?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   VersionId?: string,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -136,6 +137,7 @@ final class PutObjectAclRequest implements Input
         $this->Key = $input['Key'] ?? null;
         $this->RequestPayer = $input['RequestPayer'] ?? null;
         $this->VersionId = $input['VersionId'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

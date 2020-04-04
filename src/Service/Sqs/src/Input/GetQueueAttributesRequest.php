@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
 
-final class GetQueueAttributesRequest implements Input
+final class GetQueueAttributesRequest extends Input
 {
     /**
      * The URL of the Amazon SQS queue whose attribute information is retrieved.
@@ -30,12 +30,14 @@ final class GetQueueAttributesRequest implements Input
      * @param array{
      *   QueueUrl?: string,
      *   AttributeNames?: list<\AsyncAws\Sqs\Enum\QueueAttributeName::*>,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->QueueUrl = $input['QueueUrl'] ?? null;
         $this->AttributeNames = $input['AttributeNames'] ?? [];
+        parent::__construct($input);
     }
 
     public static function create($input): self

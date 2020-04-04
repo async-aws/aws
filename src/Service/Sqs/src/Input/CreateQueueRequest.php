@@ -7,7 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-final class CreateQueueRequest implements Input
+final class CreateQueueRequest extends Input
 {
     /**
      * The name of the new queue. The following limits apply to this name:.
@@ -40,6 +40,7 @@ final class CreateQueueRequest implements Input
      *   QueueName?: string,
      *   Attributes?: string[],
      *   tags?: string[],
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -47,6 +48,7 @@ final class CreateQueueRequest implements Input
         $this->QueueName = $input['QueueName'] ?? null;
         $this->Attributes = $input['Attributes'] ?? [];
         $this->tags = $input['tags'] ?? [];
+        parent::__construct($input);
     }
 
     public static function create($input): self

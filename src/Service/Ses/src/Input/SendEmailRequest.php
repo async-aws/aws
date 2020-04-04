@@ -13,7 +13,7 @@ use AsyncAws\Ses\ValueObject\EmailContent;
 use AsyncAws\Ses\ValueObject\Message;
 use AsyncAws\Ses\ValueObject\MessageTag;
 
-final class SendEmailRequest implements Input
+final class SendEmailRequest extends Input
 {
     /**
      * The email address that you want to use as the "From" address for the email. The address that you specify has to be
@@ -80,6 +80,7 @@ final class SendEmailRequest implements Input
      *   Content?: \AsyncAws\Ses\ValueObject\EmailContent|array,
      *   EmailTags?: \AsyncAws\Ses\ValueObject\MessageTag[],
      *   ConfigurationSetName?: string,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -91,6 +92,7 @@ final class SendEmailRequest implements Input
         $this->Content = isset($input['Content']) ? EmailContent::create($input['Content']) : null;
         $this->EmailTags = array_map([MessageTag::class, 'create'], $input['EmailTags'] ?? []);
         $this->ConfigurationSetName = $input['ConfigurationSetName'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

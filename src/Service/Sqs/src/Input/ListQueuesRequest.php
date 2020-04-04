@@ -6,7 +6,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-final class ListQueuesRequest implements Input
+final class ListQueuesRequest extends Input
 {
     /**
      * A string to use for filtering the list results. Only those queues whose name begins with the specified string are
@@ -19,11 +19,13 @@ final class ListQueuesRequest implements Input
     /**
      * @param array{
      *   QueueNamePrefix?: string,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->QueueNamePrefix = $input['QueueNamePrefix'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

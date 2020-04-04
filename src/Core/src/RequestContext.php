@@ -14,6 +14,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 class RequestContext
 {
     public const AVAILABLE_OPTIONS = [
+        'region' => true,
         'operation' => true,
         'expirationDate' => true,
         'currentDate' => true,
@@ -23,6 +24,11 @@ class RequestContext
      * @var string|null
      */
     private $operation;
+
+    /**
+     * @var string|null
+     */
+    private $region;
 
     /**
      * @var \DateTimeImmutable|null
@@ -37,6 +43,7 @@ class RequestContext
     /**
      * @param array{
      *  operation?: null|string
+     *  region?: null|string
      *  expirationDate?: null|\DateTimeImmutable
      *  currentDate?: null|\DateTimeImmutable
      * }
@@ -55,6 +62,11 @@ class RequestContext
     public function getOperation(): ?string
     {
         return $this->operation;
+    }
+
+    public function getRegion(): ?string
+    {
+        return $this->region;
     }
 
     public function getExpirationDate(): ?\DateTimeImmutable

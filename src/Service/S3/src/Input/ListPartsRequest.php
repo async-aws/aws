@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 
-final class ListPartsRequest implements Input
+final class ListPartsRequest extends Input
 {
     /**
      * Name of the bucket to which the parts are being uploaded.
@@ -66,6 +66,7 @@ final class ListPartsRequest implements Input
      *   PartNumberMarker?: int,
      *   UploadId?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -76,6 +77,7 @@ final class ListPartsRequest implements Input
         $this->PartNumberMarker = $input['PartNumberMarker'] ?? null;
         $this->UploadId = $input['UploadId'] ?? null;
         $this->RequestPayer = $input['RequestPayer'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

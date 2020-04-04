@@ -15,7 +15,7 @@ use AsyncAws\S3\Enum\ServerSideEncryption;
 use AsyncAws\S3\Enum\StorageClass;
 use AsyncAws\S3\Enum\TaggingDirective;
 
-final class CopyObjectRequest implements Input
+final class CopyObjectRequest extends Input
 {
     /**
      * The canned ACL to apply to the object.
@@ -336,6 +336,7 @@ final class CopyObjectRequest implements Input
      *   ObjectLockMode?: \AsyncAws\S3\Enum\ObjectLockMode::*,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
      *   ObjectLockLegalHoldStatus?: \AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::*,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -377,6 +378,7 @@ final class CopyObjectRequest implements Input
         $this->ObjectLockMode = $input['ObjectLockMode'] ?? null;
         $this->ObjectLockRetainUntilDate = !isset($input['ObjectLockRetainUntilDate']) ? null : ($input['ObjectLockRetainUntilDate'] instanceof \DateTimeImmutable ? $input['ObjectLockRetainUntilDate'] : new \DateTimeImmutable($input['ObjectLockRetainUntilDate']));
         $this->ObjectLockLegalHoldStatus = $input['ObjectLockLegalHoldStatus'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

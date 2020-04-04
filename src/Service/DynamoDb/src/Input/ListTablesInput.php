@@ -6,7 +6,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-final class ListTablesInput implements Input
+final class ListTablesInput extends Input
 {
     /**
      * The first table name that this operation will evaluate. Use the value that was returned for `LastEvaluatedTableName`
@@ -27,12 +27,14 @@ final class ListTablesInput implements Input
      * @param array{
      *   ExclusiveStartTableName?: string,
      *   Limit?: int,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->ExclusiveStartTableName = $input['ExclusiveStartTableName'] ?? null;
         $this->Limit = $input['Limit'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

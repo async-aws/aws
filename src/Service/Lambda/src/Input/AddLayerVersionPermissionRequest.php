@@ -7,7 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-final class AddLayerVersionPermissionRequest implements Input
+final class AddLayerVersionPermissionRequest extends Input
 {
     /**
      * The name or Amazon Resource Name (ARN) of the layer.
@@ -78,6 +78,7 @@ final class AddLayerVersionPermissionRequest implements Input
      *   Principal?: string,
      *   OrganizationId?: string,
      *   RevisionId?: string,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -89,6 +90,7 @@ final class AddLayerVersionPermissionRequest implements Input
         $this->Principal = $input['Principal'] ?? null;
         $this->OrganizationId = $input['OrganizationId'] ?? null;
         $this->RevisionId = $input['RevisionId'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

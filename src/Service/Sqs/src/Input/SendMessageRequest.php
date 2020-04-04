@@ -9,7 +9,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Sqs\ValueObject\MessageAttributeValue;
 use AsyncAws\Sqs\ValueObject\MessageSystemAttributeValue;
 
-final class SendMessageRequest implements Input
+final class SendMessageRequest extends Input
 {
     /**
      * The URL of the Amazon SQS queue to which a message is sent.
@@ -78,6 +78,7 @@ final class SendMessageRequest implements Input
      *   MessageSystemAttributes?: \AsyncAws\Sqs\ValueObject\MessageSystemAttributeValue[],
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -97,6 +98,7 @@ final class SendMessageRequest implements Input
         }
         $this->MessageDeduplicationId = $input['MessageDeduplicationId'] ?? null;
         $this->MessageGroupId = $input['MessageGroupId'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

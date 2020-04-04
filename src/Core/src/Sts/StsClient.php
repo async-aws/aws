@@ -35,11 +35,13 @@ class StsClient extends AbstractApi
      *   ExternalId?: string,
      *   SerialNumber?: string,
      *   TokenCode?: string,
+     *   @region?: string,
      * }|AssumeRoleRequest $input
      */
     public function assumeRole($input): AssumeRoleResponse
     {
-        $response = $this->getResponse(AssumeRoleRequest::create($input)->request(), new RequestContext(['operation' => 'AssumeRole']));
+        $input = AssumeRoleRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AssumeRole', 'region' => $input->getRegion()]));
 
         return new AssumeRoleResponse($response);
     }
@@ -59,11 +61,13 @@ class StsClient extends AbstractApi
      *   PolicyArns?: \AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType[],
      *   Policy?: string,
      *   DurationSeconds?: int,
+     *   @region?: string,
      * }|AssumeRoleWithWebIdentityRequest $input
      */
     public function assumeRoleWithWebIdentity($input): AssumeRoleWithWebIdentityResponse
     {
-        $response = $this->getResponse(AssumeRoleWithWebIdentityRequest::create($input)->request(), new RequestContext(['operation' => 'AssumeRoleWithWebIdentity']));
+        $input = AssumeRoleWithWebIdentityRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AssumeRoleWithWebIdentity', 'region' => $input->getRegion()]));
 
         return new AssumeRoleWithWebIdentityResponse($response);
     }
@@ -73,11 +77,14 @@ class StsClient extends AbstractApi
      *
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sts-2011-06-15.html#getcalleridentity
      *
-     * @param array|GetCallerIdentityRequest $input
+     * @param array{
+     *   @region?: string,
+     * }|GetCallerIdentityRequest $input
      */
     public function getCallerIdentity($input = []): GetCallerIdentityResponse
     {
-        $response = $this->getResponse(GetCallerIdentityRequest::create($input)->request(), new RequestContext(['operation' => 'GetCallerIdentity']));
+        $input = GetCallerIdentityRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetCallerIdentity', 'region' => $input->getRegion()]));
 
         return new GetCallerIdentityResponse($response);
     }

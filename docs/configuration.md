@@ -30,6 +30,9 @@ they are used for.
 
 The AWS region the client should be targeting.
 
+> **Note**: Region can also be defined by providing a `@region` parameter in
+> operation's input
+
 ### profile
 
 **Default:** 'default'

@@ -22,11 +22,13 @@ class SesClient extends AbstractApi
      *   Content: \AsyncAws\Ses\ValueObject\EmailContent|array,
      *   EmailTags?: \AsyncAws\Ses\ValueObject\MessageTag[],
      *   ConfigurationSetName?: string,
+     *   @region?: string,
      * }|SendEmailRequest $input
      */
     public function sendEmail($input): SendEmailResponse
     {
-        $response = $this->getResponse(SendEmailRequest::create($input)->request(), new RequestContext(['operation' => 'SendEmail']));
+        $input = SendEmailRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SendEmail', 'region' => $input->getRegion()]));
 
         return new SendEmailResponse($response);
     }

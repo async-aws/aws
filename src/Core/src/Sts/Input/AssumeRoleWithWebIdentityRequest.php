@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType;
 
-final class AssumeRoleWithWebIdentityRequest implements Input
+final class AssumeRoleWithWebIdentityRequest extends Input
 {
     /**
      * The Amazon Resource Name (ARN) of the role that the caller is assuming.
@@ -86,6 +86,7 @@ final class AssumeRoleWithWebIdentityRequest implements Input
      *   PolicyArns?: \AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType[],
      *   Policy?: string,
      *   DurationSeconds?: int,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -97,6 +98,7 @@ final class AssumeRoleWithWebIdentityRequest implements Input
         $this->PolicyArns = array_map([PolicyDescriptorType::class, 'create'], $input['PolicyArns'] ?? []);
         $this->Policy = $input['Policy'] ?? null;
         $this->DurationSeconds = $input['DurationSeconds'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self
