@@ -92,6 +92,7 @@ class InputGenerator
 
         $namespace = new PhpNamespace($className->getNamespace());
         $class = $namespace->addClass($className->getName());
+        $class->setFinal();
 
         $constructorBody = '';
 
