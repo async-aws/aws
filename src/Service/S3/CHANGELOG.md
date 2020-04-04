@@ -1,5 +1,24 @@
 # Change Log
 
+## 0.4.0
+
+### Added
+
+- Support for presign
+- Multipart upload
+- Waiters: `S3Client::bucketExists()` and `S3Client::objectExists()`
+
+### Changed
+
+- Moved value objects to a dedicated namespace.
+- Results' `populateResult()` has only one argument. It takes a `AsyncAws\Core\Response`.
+- Using `DateTimeImmutable` instead of `DateTimeInterface`
+
+### Removed
+
+- Dependency on `symfony/http-client-contracts`
+- All `validate()` methods on the inputs. They are merged with `request()`.
+
 ## 0.3.0
 
 ### Added
