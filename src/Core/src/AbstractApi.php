@@ -117,7 +117,7 @@ abstract class AbstractApi
             $request->getEndpoint(),
             [
                 'headers' => $request->getHeaders(),
-                'body' => 0 === $length ? null : $requestBody
+                'body' => 0 === $length ? null : $requestBody,
             ]
         );
 
