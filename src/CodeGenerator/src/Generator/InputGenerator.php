@@ -192,19 +192,18 @@ class InputGenerator
             ->setReturnType('self')
             ->setBody(strtr('
                 return $input instanceof self ? $input : new self(ARGS);
-            ', ['ARGS' => empty($constructorBody) ? '' : '$input']))
+            ', ['ARGS' => '$input']))
             ->addParameter('input');
 
-        if (!empty($constructorBody)) {
-            $constructor = $class->addMethod('__construct');
-            if (null !== $documentationUrl = $operation->getDocumentationUrl()) {
-                $constructor->addComment('@see ' . $documentationUrl);
-            }
-
-            $constructor->addComment($this->typeGenerator->generateDocblock($shape, $className, false, true));
-            $constructor->addParameter('input')->setType('array')->setDefaultValue([]);
-            $constructor->setBody($constructorBody);
+        $constructorBody .= 'parent::__construct($input);';
+        $constructor = $class->addMethod('__construct');
+        if (null !== $documentationUrl = $operation->getDocumentationUrl()) {
+            $constructor->addComment('@see ' . $documentationUrl);
         }
+        $constructor->addComment($this->typeGenerator->generateDocblock($shape, $className, false, true, false, ['  @region?: string,']));
+        $constructor->addParameter('input')->setType('array')->setDefaultValue([]);
+        $constructor->setBody($constructorBody);
+
         $namespace->addUse(Request::class);
         $namespace->addUse(StreamFactory::class);
         $this->inputClassRequestGetters($shape, $class, $operation);
@@ -212,10 +211,8 @@ class InputGenerator
         $namespace->addUse(InvalidArgument::class);
         $this->addUse($shape, $namespace);
 
-        if ($class->hasMethod('request')) {
-            $class->addImplement(Input::class);
-            $namespace->addUse(Input::class);
-        }
+        $class->addExtend(Input::class);
+        $namespace->addUse(Input::class);
 
         $this->fileWriter->write($namespace);
 

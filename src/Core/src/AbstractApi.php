@@ -44,9 +44,9 @@ abstract class AbstractApi
     private $credentialProvider;
 
     /**
-     * @var Signer
+     * @var Signer[]
      */
-    private $signer;
+    private $signers;
 
     /**
      * @param Configuration|array $configuration
@@ -78,10 +78,10 @@ abstract class AbstractApi
     final public function presign(Input $input, ?\DateTimeImmutable $expires = null): string
     {
         $request = $input->request();
-        $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery()));
+        $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery(), $input->getRegion()));
 
         if (null !== $credentials = $this->credentialProvider->getCredentials($this->configuration)) {
-            $this->getSigner()->presign($request, $credentials, new RequestContext(['expirationDate' => $expires]));
+            $this->getSigner($input->getRegion())->presign($request, $credentials, new RequestContext(['expirationDate' => $expires]));
         }
 
         return $request->getEndpoint();
@@ -95,10 +95,10 @@ abstract class AbstractApi
 
     final protected function getResponse(Request $request, ?RequestContext $context = null): Response
     {
-        $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery()));
+        $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery(), $context ? $context->getRegion() : null));
 
         if (null !== $credentials = $this->credentialProvider->getCredentials($this->configuration)) {
-            $this->getSigner()->sign($request, $credentials, $context ?? new RequestContext());
+            $this->getSigner($context ? $context->getRegion() : null)->sign($request, $credentials, $context ?? new RequestContext());
         }
 
         $length = $request->getBody()->length();
@@ -142,11 +142,11 @@ abstract class AbstractApi
      * @param string $uri   or path
      * @param array  $query parameters that should go in the query string
      */
-    private function getEndpoint(string $uri, array $query): string
+    private function getEndpoint(string $uri, array $query, ?string $region): string
     {
         /** @psalm-suppress PossiblyNullArgument */
         $endpoint = strtr($this->configuration->get('endpoint'), [
-            '%region%' => $this->configuration->get('region'),
+            '%region%' => $region ?? $this->configuration->get('region'),
             '%service%' => $this->getServiceCode(),
         ]);
         $endpoint .= $uri;
@@ -157,19 +157,20 @@ abstract class AbstractApi
         return $endpoint . (false === \strpos($endpoint, '?') ? '?' : '&') . http_build_query($query);
     }
 
-    private function getSigner()
+    private function getSigner(?string $region)
     {
-        if (null === $this->signer) {
+        if (!isset($this->signers[$region])) {
             /** @var string $region */
-            $region = $this->configuration->get(Configuration::OPTION_REGION);
+            $region = $region ?? $this->configuration->get(Configuration::OPTION_REGION);
             $factories = $this->getSignerFactories();
             if (!isset($factories[$signatureVersion = $this->getSignatureVersion()])) {
                 throw new InvalidArgument(sprintf('The signature "%s" is not implemented.', $signatureVersion));
             }
 
-            $this->signer = $factories[$signatureVersion]($this->getSignatureScopeName(), $region);
+            $this->signers[$region] = $factories[$signatureVersion]($this->getSignatureScopeName(), $region);
         }
 
-        return $this->signer;
+        /** @psalm-suppress PossiblyNullArrayOffset */
+        return $this->signers[$region];
     }
 }

@@ -93,7 +93,7 @@ class OperationGenerator
         } elseif (null !== $prefix = $operation->getService()->getEndpointPrefix()) {
             $method->addComment('@see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-' . $prefix . '-' . $operation->getService()->getApiVersion() . '.html#' . \strtolower($operation->getName()));
         }
-        $method->addComment($this->typeGenerator->generateDocblock($inputShape, $inputClass));
+        $method->addComment($this->typeGenerator->generateDocblock($inputShape, $inputClass, true, false, false, ['  @region?: string,']));
 
         $operationMethodParameter = $method->addParameter('input');
         if (empty($inputShape->getRequired())) {
@@ -128,13 +128,14 @@ class OperationGenerator
         if ((null !== $pagination = $operation->getPagination()) && !empty($pagination->getOutputToken())) {
             $body = '
                 $input = INPUT_CLASS::create($input);
-                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME]));
+                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion()]));
 
                 return new RESULT_CLASS($response, $this, $input);
             ';
         } else {
             $body = '
-                $response = $this->getResponse(INPUT_CLASS::create($input)->request(), new RequestContext(["operation" => OPERATION_NAME]));
+                $input = INPUT_CLASS::create($input);
+                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion()]));
 
                 return new RESULT_CLASS($response);
             ';

@@ -9,7 +9,24 @@ namespace AsyncAws\Core;
  *
  * @internal
  */
-interface Input
+abstract class Input
 {
-    public function request(): Request;
+    public $region;
+
+    /**
+     * @param array{
+     *   @region?: ?string,
+     * } $input
+     */
+    protected function __construct(array $input)
+    {
+        $this->region = $input['@region'] ?? null;
+    }
+
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
+    abstract public function request(): Request;
 }
