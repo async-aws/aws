@@ -73,13 +73,18 @@ class ResultMockFactory
         $property->setAccessible(true);
         $property->setValue($response, true);
 
+        // Make sure the Result is initialized
+        $reflectionClass = new \ReflectionClass(Result::class);
+        $initializedProperty = $reflectionClass->getProperty('initialized');
+        $initializedProperty->setAccessible(true);
+
         $reflectionClass = new \ReflectionClass($class);
         $object = $reflectionClass->newInstance($response);
         if (Result::class !== $class) {
             self::addPropertiesOnResult($reflectionClass, $object, $class);
         }
 
-        $data['initialized'] = true;
+        $initializedProperty->setValue($object, true);
         foreach ($data as $propertyName => $propertyValue) {
             $property = $reflectionClass->getProperty($propertyName);
             $property->setAccessible(true);

@@ -112,7 +112,14 @@ abstract class AbstractApi
             $requestBody = $requestBody->stringify();
         }
 
-        $response = $this->httpClient->request($request->getMethod(), $request->getEndpoint(), ['headers' => $request->getHeaders(), 'body' => 0 === $length ? null : $requestBody]);
+        $response = $this->httpClient->request(
+            $request->getMethod(),
+            $request->getEndpoint(),
+            [
+                'headers' => $request->getHeaders(),
+                'body' => 0 === $length ? null : $requestBody,
+            ]
+        );
 
         return new Response($response, $this->httpClient);
     }
