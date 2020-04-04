@@ -5,7 +5,7 @@
 ### Added
 
 - Support for async-aws/core: ^0.4 and ^0.5
-- Added support for DynamicDb
+- Added support for DynamoDb
 
 ## 0.2.0
 
