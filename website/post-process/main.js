@@ -5,6 +5,7 @@ const walk = require('./walk');
 
 const highlight = require('./highlight')
 const headerLinks = require('./header-links')
+const copyCode = require('./copy-code')
 
 const outputDir = process.argv[2];
 console.log('Dir: ', outputDir);
@@ -18,6 +19,7 @@ walk(outputDir, (err, files) => {
                 // Run our post processors
                 highlight(dom);
                 headerLinks(dom);
+                copyCode(dom);
 
                 // Only write the file once
                 fs.writeFile(file, dom.serialize(), err => {
