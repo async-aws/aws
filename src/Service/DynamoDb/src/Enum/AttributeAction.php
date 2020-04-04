@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Enum;
 
-class AttributeAction
+final class AttributeAction
 {
     public const ADD = 'ADD';
     public const DELETE = 'DELETE';

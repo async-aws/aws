@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\Enum;
 
-class Type
+final class Type
 {
     public const AMAZON_CUSTOMER_BY_EMAIL = 'AmazonCustomerByEmail';
     public const CANONICAL_USER = 'CanonicalUser';

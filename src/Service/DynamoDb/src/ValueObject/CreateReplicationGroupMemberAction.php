@@ -4,7 +4,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
-class CreateReplicationGroupMemberAction
+final class CreateReplicationGroupMemberAction
 {
     /**
      * The Region where the new replica will be created.

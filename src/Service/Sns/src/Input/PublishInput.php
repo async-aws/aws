@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Sns\ValueObject\MessageAttributeValue;
 
-class PublishInput implements Input
+final class PublishInput implements Input
 {
     /**
      * The topic you want to publish to.

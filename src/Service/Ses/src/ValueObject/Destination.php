@@ -2,7 +2,7 @@
 
 namespace AsyncAws\Ses\ValueObject;
 
-class Destination
+final class Destination
 {
     /**
      * An array that contains the email addresses of the "To" recipients for the email.

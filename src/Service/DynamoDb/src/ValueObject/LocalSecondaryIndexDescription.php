@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
-class LocalSecondaryIndexDescription
+final class LocalSecondaryIndexDescription
 {
     /**
      * Represents the name of the local secondary index.

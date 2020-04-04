@@ -2,7 +2,7 @@
 
 namespace AsyncAws\CloudFormation\Enum;
 
-class StackStatus
+final class StackStatus
 {
     public const CREATE_COMPLETE = 'CREATE_COMPLETE';
     public const CREATE_FAILED = 'CREATE_FAILED';

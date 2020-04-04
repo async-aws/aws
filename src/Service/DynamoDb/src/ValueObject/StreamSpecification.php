@@ -5,7 +5,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\DynamoDb\Enum\StreamViewType;
 
-class StreamSpecification
+final class StreamSpecification
 {
     /**
      * Indicates whether DynamoDB Streams is enabled (true) or disabled (false) on the table.

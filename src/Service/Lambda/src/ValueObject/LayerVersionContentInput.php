@@ -2,7 +2,7 @@
 
 namespace AsyncAws\Lambda\ValueObject;
 
-class LayerVersionContentInput
+final class LayerVersionContentInput
 {
     /**
      * The Amazon S3 bucket of the layer archive.

@@ -2,7 +2,7 @@
 
 namespace AsyncAws\Ses\ValueObject;
 
-class Body
+final class Body
 {
     /**
      * An object that represents the version of the message that is displayed in email clients that don't support HTML, or

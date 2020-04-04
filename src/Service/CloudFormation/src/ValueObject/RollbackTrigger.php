@@ -2,7 +2,7 @@
 
 namespace AsyncAws\CloudFormation\ValueObject;
 
-class RollbackTrigger
+final class RollbackTrigger
 {
     /**
      * The Amazon Resource Name (ARN) of the rollback trigger.

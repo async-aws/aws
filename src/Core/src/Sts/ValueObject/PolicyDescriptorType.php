@@ -2,7 +2,7 @@
 
 namespace AsyncAws\Core\Sts\ValueObject;
 
-class PolicyDescriptorType
+final class PolicyDescriptorType
 {
     /**
      * The Amazon Resource Name (ARN) of the IAM managed policy to use as a session policy for the role. For more

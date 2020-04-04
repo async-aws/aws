@@ -5,7 +5,7 @@ namespace AsyncAws\S3\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\S3\Enum\BucketLocationConstraint;
 
-class CreateBucketConfiguration
+final class CreateBucketConfiguration
 {
     /**
      * Specifies the Region where the bucket will be created. If you don't specify a Region, the bucket is created in the US

@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 
-class GetObjectRequest implements Input
+final class GetObjectRequest implements Input
 {
     /**
      * The bucket name containing the object.

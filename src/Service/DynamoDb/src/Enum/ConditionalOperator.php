@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Enum;
 
-class ConditionalOperator
+final class ConditionalOperator
 {
     public const AND = 'AND';
     public const OR = 'OR';

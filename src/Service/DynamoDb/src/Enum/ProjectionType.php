@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Enum;
 
-class ProjectionType
+final class ProjectionType
 {
     public const ALL = 'ALL';
     public const INCLUDE = 'INCLUDE';

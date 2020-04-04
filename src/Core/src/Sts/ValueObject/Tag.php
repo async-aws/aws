@@ -4,7 +4,7 @@ namespace AsyncAws\Core\Sts\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
-class Tag
+final class Tag
 {
     /**
      * The key for a session tag.

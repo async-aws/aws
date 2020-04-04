@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Enum;
 
-class ReturnConsumedCapacity
+final class ReturnConsumedCapacity
 {
     public const INDEXES = 'INDEXES';
     public const NONE = 'NONE';

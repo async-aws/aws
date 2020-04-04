@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\ValueObject;
 
-class CompletedMultipartUpload
+final class CompletedMultipartUpload
 {
     /**
      * Array of CompletedPart data types.

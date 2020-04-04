@@ -14,7 +14,7 @@ use AsyncAws\DynamoDb\ValueObject\ReplicationGroupUpdate;
 use AsyncAws\DynamoDb\ValueObject\SSESpecification;
 use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
 
-class UpdateTableInput implements Input
+final class UpdateTableInput implements Input
 {
     /**
      * An array of attributes that describe the key schema for the table and indexes. If you are adding a new global

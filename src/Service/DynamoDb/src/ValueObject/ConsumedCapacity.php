@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
-class ConsumedCapacity
+final class ConsumedCapacity
 {
     /**
      * The name of the table that was affected by the operation.

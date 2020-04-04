@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\Enum;
 
-class MetadataDirective
+final class MetadataDirective
 {
     public const COPY = 'COPY';
     public const REPLACE = 'REPLACE';

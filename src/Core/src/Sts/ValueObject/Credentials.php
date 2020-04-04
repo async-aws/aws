@@ -2,7 +2,7 @@
 
 namespace AsyncAws\Core\Sts\ValueObject;
 
-class Credentials
+final class Credentials
 {
     /**
      * The access key ID that identifies the temporary security credentials.

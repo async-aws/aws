@@ -13,7 +13,7 @@ use AsyncAws\DynamoDb\Enum\ReturnValue;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue;
 
-class DeleteItemInput implements Input
+final class DeleteItemInput implements Input
 {
     /**
      * The name of the table from which to delete the item.

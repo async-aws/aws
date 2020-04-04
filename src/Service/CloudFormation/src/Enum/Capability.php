@@ -2,7 +2,7 @@
 
 namespace AsyncAws\CloudFormation\Enum;
 
-class Capability
+final class Capability
 {
     public const CAPABILITY_AUTO_EXPAND = 'CAPABILITY_AUTO_EXPAND';
     public const CAPABILITY_IAM = 'CAPABILITY_IAM';

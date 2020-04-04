@@ -7,7 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-class DeleteMessageRequest implements Input
+final class DeleteMessageRequest implements Input
 {
     /**
      * The URL of the Amazon SQS queue from which messages are deleted.

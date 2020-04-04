@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType;
 
-class AssumeRoleWithWebIdentityRequest implements Input
+final class AssumeRoleWithWebIdentityRequest implements Input
 {
     /**
      * The Amazon Resource Name (ARN) of the role that the caller is assuming.

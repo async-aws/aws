@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\Enum;
 
-class ReplicationStatus
+final class ReplicationStatus
 {
     public const COMPLETE = 'COMPLETE';
     public const FAILED = 'FAILED';

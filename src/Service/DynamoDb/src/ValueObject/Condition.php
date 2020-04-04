@@ -5,7 +5,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\DynamoDb\Enum\ComparisonOperator;
 
-class Condition
+final class Condition
 {
     /**
      * One or more values to evaluate against the supplied attribute. The number of values in the list depends on the

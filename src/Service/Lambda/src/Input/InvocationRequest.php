@@ -9,7 +9,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Lambda\Enum\InvocationType;
 use AsyncAws\Lambda\Enum\LogType;
 
-class InvocationRequest implements Input
+final class InvocationRequest implements Input
 {
     /**
      * The name of the Lambda function, version, or alias.

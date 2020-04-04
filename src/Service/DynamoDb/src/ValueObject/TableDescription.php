@@ -4,7 +4,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\DynamoDb\Enum\TableStatus;
 
-class TableDescription
+final class TableDescription
 {
     /**
      * An array of `AttributeDefinition` objects. Each of these objects describes one attribute in the table and index key

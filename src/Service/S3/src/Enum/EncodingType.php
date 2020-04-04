@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\Enum;
 
-class EncodingType
+final class EncodingType
 {
     public const URL = 'url';
 

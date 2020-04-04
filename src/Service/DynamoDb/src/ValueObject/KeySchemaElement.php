@@ -5,7 +5,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\DynamoDb\Enum\KeyType;
 
-class KeySchemaElement
+final class KeySchemaElement
 {
     /**
      * The name of a key attribute.

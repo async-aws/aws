@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Enum;
 
-class ScalarAttributeType
+final class ScalarAttributeType
 {
     public const B = 'B';
     public const N = 'N';

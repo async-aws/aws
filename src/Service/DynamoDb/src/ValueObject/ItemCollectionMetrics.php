@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
-class ItemCollectionMetrics
+final class ItemCollectionMetrics
 {
     /**
      * The partition key value of the item collection. This value is the same as the partition key value of the item.

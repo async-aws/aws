@@ -4,7 +4,7 @@ namespace AsyncAws\S3\ValueObject;
 
 use AsyncAws\S3\Enum\ObjectStorageClass;
 
-class AwsObject
+final class AwsObject
 {
     /**
      * The name that you assign to an object. You use the object key to retrieve the object.

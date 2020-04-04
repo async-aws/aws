@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\ValueObject;
 
-class Part
+final class Part
 {
     /**
      * Part number identifying the part. This is a positive integer between 1 and 10,000.

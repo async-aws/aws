@@ -2,7 +2,7 @@
 
 namespace AsyncAws\Lambda\Enum;
 
-class InvocationType
+final class InvocationType
 {
     public const DRY_RUN = 'DryRun';
     public const EVENT = 'Event';

@@ -4,7 +4,7 @@ namespace AsyncAws\CloudFormation\ValueObject;
 
 use AsyncAws\CloudFormation\Enum\StackDriftStatus;
 
-class StackDriftInformation
+final class StackDriftInformation
 {
     /**
      * Status of the stack's actual configuration compared to its expected template configuration.

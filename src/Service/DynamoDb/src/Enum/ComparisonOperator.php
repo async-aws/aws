@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Enum;
 
-class ComparisonOperator
+final class ComparisonOperator
 {
     public const BEGINS_WITH = 'BEGINS_WITH';
     public const BETWEEN = 'BETWEEN';

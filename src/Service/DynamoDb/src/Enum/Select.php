@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Enum;
 
-class Select
+final class Select
 {
     public const ALL_ATTRIBUTES = 'ALL_ATTRIBUTES';
     public const ALL_PROJECTED_ATTRIBUTES = 'ALL_PROJECTED_ATTRIBUTES';

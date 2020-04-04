@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\Enum;
 
-class ObjectLockLegalHoldStatus
+final class ObjectLockLegalHoldStatus
 {
     public const OFF = 'OFF';
     public const ON = 'ON';

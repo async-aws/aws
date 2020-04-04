@@ -4,7 +4,7 @@ namespace AsyncAws\Sns\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
-class MessageAttributeValue
+final class MessageAttributeValue
 {
     /**
      * Amazon SNS supports the following logical data types: String, String.Array, Number, and Binary. For more information,

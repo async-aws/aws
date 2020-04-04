@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\Enum;
 
-class ObjectStorageClass
+final class ObjectStorageClass
 {
     public const DEEP_ARCHIVE = 'DEEP_ARCHIVE';
     public const GLACIER = 'GLACIER';

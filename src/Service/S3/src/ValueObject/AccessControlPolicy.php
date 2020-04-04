@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\ValueObject;
 
-class AccessControlPolicy
+final class AccessControlPolicy
 {
     /**
      * A list of grants.

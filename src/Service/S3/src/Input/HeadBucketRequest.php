@@ -7,7 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-class HeadBucketRequest implements Input
+final class HeadBucketRequest implements Input
 {
     /**
      * The bucket name.

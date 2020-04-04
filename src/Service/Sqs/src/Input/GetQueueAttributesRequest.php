@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
 
-class GetQueueAttributesRequest implements Input
+final class GetQueueAttributesRequest implements Input
 {
     /**
      * The URL of the Amazon SQS queue whose attribute information is retrieved.

@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Enum;
 
-class TableStatus
+final class TableStatus
 {
     public const ACTIVE = 'ACTIVE';
     public const ARCHIVED = 'ARCHIVED';

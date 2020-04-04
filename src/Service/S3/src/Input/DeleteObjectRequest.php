@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 
-class DeleteObjectRequest implements Input
+final class DeleteObjectRequest implements Input
 {
     /**
      * The bucket name of the bucket containing the object.

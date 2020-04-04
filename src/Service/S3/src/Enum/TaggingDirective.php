@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\Enum;
 
-class TaggingDirective
+final class TaggingDirective
 {
     public const COPY = 'COPY';
     public const REPLACE = 'REPLACE';

@@ -15,7 +15,7 @@ use AsyncAws\S3\Enum\ServerSideEncryption;
 use AsyncAws\S3\Enum\StorageClass;
 use AsyncAws\S3\Enum\TaggingDirective;
 
-class CopyObjectRequest implements Input
+final class CopyObjectRequest implements Input
 {
     /**
      * The canned ACL to apply to the object.

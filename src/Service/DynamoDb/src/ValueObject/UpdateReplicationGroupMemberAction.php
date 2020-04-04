@@ -4,7 +4,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
-class UpdateReplicationGroupMemberAction
+final class UpdateReplicationGroupMemberAction
 {
     /**
      * The Region where the replica exists.

@@ -4,7 +4,7 @@ namespace AsyncAws\CloudFormation\ValueObject;
 
 use AsyncAws\CloudFormation\Enum\ResourceStatus;
 
-class StackEvent
+final class StackEvent
 {
     /**
      * The unique ID name of the instance of the stack.

@@ -5,7 +5,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\DynamoDb\Enum\SSEType;
 
-class SSESpecification
+final class SSESpecification
 {
     /**
      * Indicates whether server-side encryption is done using an AWS managed CMK or an AWS owned CMK. If enabled (true),

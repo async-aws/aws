@@ -4,7 +4,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\DynamoDb\Enum\ReplicaStatus;
 
-class ReplicaDescription
+final class ReplicaDescription
 {
     /**
      * The name of the Region.

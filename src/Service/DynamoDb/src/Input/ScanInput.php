@@ -12,7 +12,7 @@ use AsyncAws\DynamoDb\Enum\Select;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\Condition;
 
-class ScanInput implements Input
+final class ScanInput implements Input
 {
     /**
      * The name of the table containing the requested items; or, if you provide `IndexName`, the name of the table to which

@@ -4,7 +4,7 @@ namespace AsyncAws\S3\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
-class ObjectIdentifier
+final class ObjectIdentifier
 {
     /**
      * Key name of the object to delete.

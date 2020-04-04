@@ -16,7 +16,7 @@ use AsyncAws\DynamoDb\ValueObject\SSESpecification;
 use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
 use AsyncAws\DynamoDb\ValueObject\Tag;
 
-class CreateTableInput implements Input
+final class CreateTableInput implements Input
 {
     /**
      * An array of attributes that describe the key schema for the table and indexes.

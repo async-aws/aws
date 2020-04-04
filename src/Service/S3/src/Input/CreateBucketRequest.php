@@ -9,7 +9,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\BucketCannedACL;
 use AsyncAws\S3\ValueObject\CreateBucketConfiguration;
 
-class CreateBucketRequest implements Input
+final class CreateBucketRequest implements Input
 {
     /**
      * The canned ACL to apply to the bucket.

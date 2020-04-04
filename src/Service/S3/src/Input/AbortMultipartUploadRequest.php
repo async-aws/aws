@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 
-class AbortMultipartUploadRequest implements Input
+final class AbortMultipartUploadRequest implements Input
 {
     /**
      * The bucket name to which the upload was taking place.

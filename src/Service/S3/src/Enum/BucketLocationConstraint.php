@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\Enum;
 
-class BucketLocationConstraint
+final class BucketLocationConstraint
 {
     public const AP_NORTHEAST_1 = 'ap-northeast-1';
     public const AP_SOUTHEAST_1 = 'ap-southeast-1';

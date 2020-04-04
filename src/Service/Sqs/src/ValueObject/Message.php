@@ -2,7 +2,7 @@
 
 namespace AsyncAws\Sqs\ValueObject;
 
-class Message
+final class Message
 {
     /**
      * A unique identifier for the message. A `MessageId`is considered unique across all AWS accounts for an extended period

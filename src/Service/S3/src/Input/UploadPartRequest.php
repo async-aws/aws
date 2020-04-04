@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 
-class UploadPartRequest implements Input
+final class UploadPartRequest implements Input
 {
     /**
      * Object data.

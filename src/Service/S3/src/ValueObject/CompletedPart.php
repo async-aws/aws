@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\ValueObject;
 
-class CompletedPart
+final class CompletedPart
 {
     /**
      * Entity tag returned when the part was uploaded.

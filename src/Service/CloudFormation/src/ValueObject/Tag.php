@@ -2,7 +2,7 @@
 
 namespace AsyncAws\CloudFormation\ValueObject;
 
-class Tag
+final class Tag
 {
     /**
      * *Required*. A string used to identify this tag. You can specify a maximum of 128 characters for a tag key. Tags owned

@@ -9,7 +9,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 
-class GetItemInput implements Input
+final class GetItemInput implements Input
 {
     /**
      * The name of the table containing the requested item.

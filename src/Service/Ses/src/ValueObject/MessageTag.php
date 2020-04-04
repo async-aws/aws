@@ -4,7 +4,7 @@ namespace AsyncAws\Ses\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
-class MessageTag
+final class MessageTag
 {
     /**
      * The name of the message tag. The message tag name has to meet the following criteria:.

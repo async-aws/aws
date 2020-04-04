@@ -4,7 +4,7 @@ namespace AsyncAws\Ses\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
-class Message
+final class Message
 {
     /**
      * The subject line of the email. The subject line can only contain 7-bit ASCII characters. However, you can specify

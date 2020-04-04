@@ -2,7 +2,7 @@
 
 namespace AsyncAws\Lambda\ValueObject;
 
-class LayerVersionContentOutput
+final class LayerVersionContentOutput
 {
     /**
      * A link to the layer archive in Amazon S3 that is valid for 10 minutes.

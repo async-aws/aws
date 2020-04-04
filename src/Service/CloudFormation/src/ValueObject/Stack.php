@@ -5,7 +5,7 @@ namespace AsyncAws\CloudFormation\ValueObject;
 use AsyncAws\CloudFormation\Enum\Capability;
 use AsyncAws\CloudFormation\Enum\StackStatus;
 
-class Stack
+final class Stack
 {
     /**
      * Unique identifier of the stack.

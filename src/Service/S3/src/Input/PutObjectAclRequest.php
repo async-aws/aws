@@ -11,7 +11,7 @@ use AsyncAws\S3\Enum\RequestPayer;
 use AsyncAws\S3\ValueObject\AccessControlPolicy;
 use AsyncAws\S3\ValueObject\Grantee;
 
-class PutObjectAclRequest implements Input
+final class PutObjectAclRequest implements Input
 {
     /**
      * The canned ACL to apply to the object. For more information, see Canned ACL.

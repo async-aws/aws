@@ -2,7 +2,7 @@
 
 namespace AsyncAws\Ses\ValueObject;
 
-class Template
+final class Template
 {
     /**
      * The Amazon Resource Name (ARN) of the template.

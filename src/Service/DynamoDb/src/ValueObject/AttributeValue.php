@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
-class AttributeValue
+final class AttributeValue
 {
     /**
      * An attribute of type String. For example:.

@@ -9,7 +9,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Sqs\ValueObject\MessageAttributeValue;
 use AsyncAws\Sqs\ValueObject\MessageSystemAttributeValue;
 
-class SendMessageRequest implements Input
+final class SendMessageRequest implements Input
 {
     /**
      * The URL of the Amazon SQS queue to which a message is sent.

@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\EncodingType;
 
-class ListMultipartUploadsRequest implements Input
+final class ListMultipartUploadsRequest implements Input
 {
     /**
      * Name of the bucket to which the multipart upload was initiated.

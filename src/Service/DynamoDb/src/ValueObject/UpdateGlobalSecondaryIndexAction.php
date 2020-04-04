@@ -4,7 +4,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
-class UpdateGlobalSecondaryIndexAction
+final class UpdateGlobalSecondaryIndexAction
 {
     /**
      * The name of the global secondary index to be updated.

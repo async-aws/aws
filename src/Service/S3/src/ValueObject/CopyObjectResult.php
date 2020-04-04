@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\ValueObject;
 
-class CopyObjectResult
+final class CopyObjectResult
 {
     /**
      * Returns the ETag of the new object. The ETag reflects only changes to the contents of an object, not its metadata.

@@ -4,7 +4,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
-class DeleteReplicationGroupMemberAction
+final class DeleteReplicationGroupMemberAction
 {
     /**
      * The Region where the replica exists.
