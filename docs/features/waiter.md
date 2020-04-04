@@ -12,14 +12,14 @@ To ease the development, the above code is wrapped in a helper called "waiter".
 ```php
 use AsyncAws\DynamoDb\DynamoDbClient;
 
-$dbClient = new DynamoDbClient();
-$dbClient->createTable([]);
+$dynamoDb = new DynamoDbClient();
+$dynamoDb->createTable([]);
 
 // Create a new table.
 // It normally takes around 5 seconds to complete this action.
-$dbClient->createTable(['TableName' => 'errors', /* ...*/]);
+$dynamoDb->createTable(['TableName' => 'errors', /* ...*/]);
 
-$waiter = $dbClient->tableExists(['TableName' => 'errors']);
+$waiter = $dynamoDb->tableExists(['TableName' => 'errors']);
 echo $waiter->isSuccess(); // false
 
 $waiter->wait();
@@ -38,9 +38,9 @@ To make sure to use `wait()` as non blocking. Set the timeout to `0`:
 ```php
 use AsyncAws\DynamoDb\DynamoDbClient;
 
-$dbClient = new DynamoDbClient();
+$dynamoDb = new DynamoDbClient();
 
-$waiter = $dbClient->tableExists(['TableName' => 'errors']);
+$waiter = $dynamoDb->tableExists(['TableName' => 'errors']);
 while(true) {
     if ($waiter->wait(0)) {
         // When method `wait` returns true, the state is resolved.

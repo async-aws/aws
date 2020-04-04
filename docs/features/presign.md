@@ -15,13 +15,13 @@ for a limited time.
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\S3Client;
 
-$s3Client = new S3Client();
+$s3 = new S3Client();
 $input = new GetObjectRequest([
     'Bucket' => 'my-bucket',
     'Key' => 'test',
 ]);
 
-$url = $s3Client->presign($input, new \DateTimeImmutable('+60 min'));
+$url = $s3->presign($input, new \DateTimeImmutable('+60 min'));
 
 echo $url;
 ```

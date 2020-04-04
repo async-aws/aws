@@ -20,14 +20,14 @@ class S3UploadTest extends TestCase
     {
         $file = '/path/file.txt';
 
-        $s3Client = $this->getMockBuilder(S3Client::class)
+        $s3 = $this->getMockBuilder(S3Client::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['putObject'])
             ->getMock();
 
         $result = ResultMockFactory::create(PutObjectOutput::class);
 
-        $s3Client->expects(self::once())
+        $s3->expects(self::once())
             ->method('putObject')
             ->with(self::callback(function (array $input) use ($file) {
                 if ($input['Key'] !== $file) {
@@ -44,7 +44,7 @@ class S3UploadTest extends TestCase
                 return true;
             }))->willReturn($result);
 
-        $uploader = new FileUploader($s3Client);
+        $uploader = new FileUploader($s3);
         $uploader->write($file, 'my file contents');
     }
 }
