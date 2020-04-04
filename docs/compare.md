@@ -57,10 +57,10 @@ foreach ($files as $file) {
 use Aws\S3\S3Client;
 use GuzzleHttp\Promise;
 
-$s3Client = new S3Client([]);
+$s3 = new S3Client([]);
 $promises = [];
 foreach (range(0, 10) as $index) {
-    $promises[] = $s3Client->putObjectAsync([
+    $promises[] = $s3->putObjectAsync([
         'Bucket' => 'my.bucket',
         'Key' => 'file-' . uniqid('file-', true),
         'Body' => 'test',
@@ -71,7 +71,7 @@ $deletePromises = [];
 foreach ($promises as $promise) {
     $file = $promise->wait();
 
-    $deletePromises[] = $s3Client->deleteObjectAsync([
+    $deletePromises[] = $s3->deleteObjectAsync([
         'Bucket' => 'my.bucket',
         'Key' => $file['Key'],
     ]);
@@ -106,10 +106,10 @@ foreach ($objects as $object) {
 ```php
 use Aws\S3\S3Client;
 
-$s3Client = new S3Client([]);
+$s3 = new S3Client([]);
 $nextToken = null;
 do {
-    $objects = $s3Client->ListObjectsV2([
+    $objects = $s3->ListObjectsV2([
         'Bucket' => 'my-bucket',
         'NextContinuationToken' => $nextToken,
     ]);
@@ -125,7 +125,7 @@ do {
 
 // or with paginator
 
-$pages = $s3Client->getPaginator('ListObjectsV2', ['Bucket' => 'my.bucket']);
+$pages = $s3->getPaginator('ListObjectsV2', ['Bucket' => 'my.bucket']);
 foreach ($pages as $page) {
     foreach ($page['Contents'] as $object) {
         // ...
@@ -171,19 +171,19 @@ echo $url;
 ```php
 use Aws\S3\S3Client;
 
-$s3Client = new S3Client([]);
+$s3 = new S3Client([]);
 // Sign on the fly
-$content = $s3Client->getObject([
+$content = $s3->getObject([
     'Bucket' => 'my-bucket',
     'Key' => 'test',
 ]);
 
 // Presign Url
-$command = $s3Client->getCommand('GetObject', [
+$command = $s3->getCommand('GetObject', [
     'Bucket' => 'my-bucket',
     'Key' => 'test',
 ]);
-$psr7 = $s3Client->createPresignedRequest($cmd, '+60 min');
+$psr7 = $s3->createPresignedRequest($cmd, '+60 min');
 echo (string) $psr7->getUri();
 
 ```
