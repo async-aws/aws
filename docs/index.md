@@ -28,22 +28,7 @@ The goals of this client are:
 
 See [full comparison](./compare.md) between AsyncAws and the official AWS PHP SDK.
 
-## How is it async first?
-
-The secret ingredient in creating asynchronous first is not implemented in this library.
-It actually comes from [Symfony's HTTP client](https://symfony.com/doc/current/components/http_client.html).
-They have implemented all the cool asynchronous features that this AWS library just
-take advantage of.
-
-#### So what is this library really doing?
-
-Except for being a wrapper around Symfony's HTTP client and make sure the asynchronous
-features are properly used, AsyncAws also [handles authentication](./authtentication/authentication.md),
-exceptions and provide input and result objects.
-
-Read more about [how do use asynchronous features](./features/async.md).
-
-## Quick example
+## Installation and usage
 
 All APIs are located in different packages. To install SQS run
 
@@ -80,6 +65,21 @@ $sqs->sendMessage($input);
 
 Continue reading about our different [API clients](/clients/index.md) or select
 a topic in the sidebar.
+
+## How is it async first?
+
+The secret ingredient in creating asynchronous first is not implemented in this library.
+It actually comes from [Symfony's HTTP client](https://symfony.com/doc/current/components/http_client.html).
+They have implemented all the cool asynchronous features that this AWS library just
+take advantage of.
+
+#### So what is this library really doing?
+
+Except for being a wrapper around Symfony's HTTP client and make sure the asynchronous
+features are properly used, AsyncAws also [handles authentication](./authtentication/authentication.md),
+exceptions and provide input and result objects.
+
+Read more about [how do use asynchronous features](./features/async.md).
 
 ## Backwards compatibility promise
 

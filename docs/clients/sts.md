@@ -1,11 +1,11 @@
 ---
 layout: client
 category: clients
+name: STS
+package: async-aws/core
 ---
 
-# STS Client
-
-## Examples
+## Usage
 
 ### Retrieve current Account
 

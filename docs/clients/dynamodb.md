@@ -1,11 +1,12 @@
 ---
 layout: client
 category: clients
+name: DynamoDb
+package: async-aws/dynamo-db
 ---
 
-# DynamoDb Client
+## Usage
 
-## Examples
 
 ### Create a table
 

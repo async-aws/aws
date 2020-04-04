@@ -1,11 +1,11 @@
 ---
 layout: client
 category: clients
+name: SES
+package: async-aws/ses
 ---
 
-# SES Client
-
-## Examples
+## Usage
 
 ### Send a message
 

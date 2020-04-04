@@ -2,6 +2,16 @@
 
 {% block body %}
 
+    <h1>{{ name }} client</h1>
+
+    <p>This page contains some example usage for {{ name }}. There are other
+        resources that explain <a href="/authentication/">authentication</a> and
+        <a href="/clients/">configuration</a>.</p>
+
+    <p>The {{ name }} package could be installed with Composer.</p>
+
+    <pre><code class="language-shell hljs">composer require {{ package }}</code></pre>
+
     {{ content|asset|raw }}
 
 {% endblock %}
