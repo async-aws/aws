@@ -31,11 +31,13 @@ class LambdaClient extends AbstractApi
      *   Principal: string,
      *   OrganizationId?: string,
      *   RevisionId?: string,
+     *   @region?: string,
      * }|AddLayerVersionPermissionRequest $input
      */
     public function addLayerVersionPermission($input): AddLayerVersionPermissionResponse
     {
-        $response = $this->getResponse(AddLayerVersionPermissionRequest::create($input)->request(), new RequestContext(['operation' => 'AddLayerVersionPermission']));
+        $input = AddLayerVersionPermissionRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AddLayerVersionPermission', 'region' => $input->getRegion()]));
 
         return new AddLayerVersionPermissionResponse($response);
     }
@@ -53,11 +55,13 @@ class LambdaClient extends AbstractApi
      *   ClientContext?: string,
      *   Payload?: string,
      *   Qualifier?: string,
+     *   @region?: string,
      * }|InvocationRequest $input
      */
     public function invoke($input): InvocationResponse
     {
-        $response = $this->getResponse(InvocationRequest::create($input)->request(), new RequestContext(['operation' => 'Invoke']));
+        $input = InvocationRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Invoke', 'region' => $input->getRegion()]));
 
         return new InvocationResponse($response);
     }
@@ -75,12 +79,13 @@ class LambdaClient extends AbstractApi
      *   LayerName: string,
      *   Marker?: string,
      *   MaxItems?: int,
+     *   @region?: string,
      * }|ListLayerVersionsRequest $input
      */
     public function listLayerVersions($input): ListLayerVersionsResponse
     {
         $input = ListLayerVersionsRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListLayerVersions']));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListLayerVersions', 'region' => $input->getRegion()]));
 
         return new ListLayerVersionsResponse($response, $this, $input);
     }
@@ -98,11 +103,13 @@ class LambdaClient extends AbstractApi
      *   Content: \AsyncAws\Lambda\ValueObject\LayerVersionContentInput|array,
      *   CompatibleRuntimes?: list<\AsyncAws\Lambda\Enum\Runtime::*>,
      *   LicenseInfo?: string,
+     *   @region?: string,
      * }|PublishLayerVersionRequest $input
      */
     public function publishLayerVersion($input): PublishLayerVersionResponse
     {
-        $response = $this->getResponse(PublishLayerVersionRequest::create($input)->request(), new RequestContext(['operation' => 'PublishLayerVersion']));
+        $input = PublishLayerVersionRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PublishLayerVersion', 'region' => $input->getRegion()]));
 
         return new PublishLayerVersionResponse($response);
     }

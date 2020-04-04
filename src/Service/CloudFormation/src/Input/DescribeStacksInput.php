@@ -6,7 +6,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-final class DescribeStacksInput implements Input
+final class DescribeStacksInput extends Input
 {
     /**
      * The name or the unique stack ID that is associated with the stack, which are not always interchangeable:.
@@ -26,12 +26,14 @@ final class DescribeStacksInput implements Input
      * @param array{
      *   StackName?: string,
      *   NextToken?: string,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->StackName = $input['StackName'] ?? null;
         $this->NextToken = $input['NextToken'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

@@ -6,11 +6,16 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-final class GetCallerIdentityRequest implements Input
+final class GetCallerIdentityRequest extends Input
 {
+    public function __construct(array $input = [])
+    {
+        parent::__construct($input);
+    }
+
     public static function create($input): self
     {
-        return $input instanceof self ? $input : new self();
+        return $input instanceof self ? $input : new self($input);
     }
 
     /**

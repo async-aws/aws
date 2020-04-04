@@ -7,7 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-final class ChangeMessageVisibilityRequest implements Input
+final class ChangeMessageVisibilityRequest extends Input
 {
     /**
      * The URL of the Amazon SQS queue whose message's visibility is changed.
@@ -42,6 +42,7 @@ final class ChangeMessageVisibilityRequest implements Input
      *   QueueUrl?: string,
      *   ReceiptHandle?: string,
      *   VisibilityTimeout?: int,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -49,6 +50,7 @@ final class ChangeMessageVisibilityRequest implements Input
         $this->QueueUrl = $input['QueueUrl'] ?? null;
         $this->ReceiptHandle = $input['ReceiptHandle'] ?? null;
         $this->VisibilityTimeout = $input['VisibilityTimeout'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

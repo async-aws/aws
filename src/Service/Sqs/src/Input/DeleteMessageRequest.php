@@ -7,7 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-final class DeleteMessageRequest implements Input
+final class DeleteMessageRequest extends Input
 {
     /**
      * The URL of the Amazon SQS queue from which messages are deleted.
@@ -31,12 +31,14 @@ final class DeleteMessageRequest implements Input
      * @param array{
      *   QueueUrl?: string,
      *   ReceiptHandle?: string,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->QueueUrl = $input['QueueUrl'] ?? null;
         $this->ReceiptHandle = $input['ReceiptHandle'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

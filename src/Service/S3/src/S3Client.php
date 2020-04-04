@@ -58,11 +58,13 @@ class S3Client extends AbstractApi
      *   Key: string,
      *   UploadId: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   @region?: string,
      * }|AbortMultipartUploadRequest $input
      */
     public function abortMultipartUpload($input): AbortMultipartUploadOutput
     {
-        $response = $this->getResponse(AbortMultipartUploadRequest::create($input)->request(), new RequestContext(['operation' => 'AbortMultipartUpload']));
+        $input = AbortMultipartUploadRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AbortMultipartUpload', 'region' => $input->getRegion()]));
 
         return new AbortMultipartUploadOutput($response);
     }
@@ -74,12 +76,13 @@ class S3Client extends AbstractApi
      *
      * @param array{
      *   Bucket: string,
+     *   @region?: string,
      * }|HeadBucketRequest $input
      */
     public function bucketExists($input): BucketExistsWaiter
     {
         $input = HeadBucketRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadBucket']));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadBucket', 'region' => $input->getRegion()]));
 
         return new BucketExistsWaiter($response, $this, $input);
     }
@@ -91,12 +94,13 @@ class S3Client extends AbstractApi
      *
      * @param array{
      *   Bucket: string,
+     *   @region?: string,
      * }|HeadBucketRequest $input
      */
     public function bucketNotExists($input): BucketNotExistsWaiter
     {
         $input = HeadBucketRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadBucket']));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadBucket', 'region' => $input->getRegion()]));
 
         return new BucketNotExistsWaiter($response, $this, $input);
     }
@@ -112,11 +116,13 @@ class S3Client extends AbstractApi
      *   MultipartUpload?: \AsyncAws\S3\ValueObject\CompletedMultipartUpload|array,
      *   UploadId: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   @region?: string,
      * }|CompleteMultipartUploadRequest $input
      */
     public function completeMultipartUpload($input): CompleteMultipartUploadOutput
     {
-        $response = $this->getResponse(CompleteMultipartUploadRequest::create($input)->request(), new RequestContext(['operation' => 'CompleteMultipartUpload']));
+        $input = CompleteMultipartUploadRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CompleteMultipartUpload', 'region' => $input->getRegion()]));
 
         return new CompleteMultipartUploadOutput($response);
     }
@@ -164,11 +170,13 @@ class S3Client extends AbstractApi
      *   ObjectLockMode?: \AsyncAws\S3\Enum\ObjectLockMode::*,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
      *   ObjectLockLegalHoldStatus?: \AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::*,
+     *   @region?: string,
      * }|CopyObjectRequest $input
      */
     public function copyObject($input): CopyObjectOutput
     {
-        $response = $this->getResponse(CopyObjectRequest::create($input)->request(), new RequestContext(['operation' => 'CopyObject']));
+        $input = CopyObjectRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CopyObject', 'region' => $input->getRegion()]));
 
         return new CopyObjectOutput($response);
     }
@@ -190,11 +198,13 @@ class S3Client extends AbstractApi
      *   GrantWrite?: string,
      *   GrantWriteACP?: string,
      *   ObjectLockEnabledForBucket?: bool,
+     *   @region?: string,
      * }|CreateBucketRequest $input
      */
     public function createBucket($input): CreateBucketOutput
     {
-        $response = $this->getResponse(CreateBucketRequest::create($input)->request(), new RequestContext(['operation' => 'CreateBucket']));
+        $input = CreateBucketRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateBucket', 'region' => $input->getRegion()]));
 
         return new CreateBucketOutput($response);
     }
@@ -235,11 +245,13 @@ class S3Client extends AbstractApi
      *   ObjectLockMode?: \AsyncAws\S3\Enum\ObjectLockMode::*,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
      *   ObjectLockLegalHoldStatus?: \AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::*,
+     *   @region?: string,
      * }|CreateMultipartUploadRequest $input
      */
     public function createMultipartUpload($input): CreateMultipartUploadOutput
     {
-        $response = $this->getResponse(CreateMultipartUploadRequest::create($input)->request(), new RequestContext(['operation' => 'CreateMultipartUpload']));
+        $input = CreateMultipartUploadRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateMultipartUpload', 'region' => $input->getRegion()]));
 
         return new CreateMultipartUploadOutput($response);
     }
@@ -257,11 +269,13 @@ class S3Client extends AbstractApi
      *   VersionId?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   BypassGovernanceRetention?: bool,
+     *   @region?: string,
      * }|DeleteObjectRequest $input
      */
     public function deleteObject($input): DeleteObjectOutput
     {
-        $response = $this->getResponse(DeleteObjectRequest::create($input)->request(), new RequestContext(['operation' => 'DeleteObject']));
+        $input = DeleteObjectRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteObject', 'region' => $input->getRegion()]));
 
         return new DeleteObjectOutput($response);
     }
@@ -279,11 +293,13 @@ class S3Client extends AbstractApi
      *   MFA?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   BypassGovernanceRetention?: bool,
+     *   @region?: string,
      * }|DeleteObjectsRequest $input
      */
     public function deleteObjects($input): DeleteObjectsOutput
     {
-        $response = $this->getResponse(DeleteObjectsRequest::create($input)->request(), new RequestContext(['operation' => 'DeleteObjects']));
+        $input = DeleteObjectsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteObjects', 'region' => $input->getRegion()]));
 
         return new DeleteObjectsOutput($response);
     }
@@ -314,11 +330,13 @@ class S3Client extends AbstractApi
      *   SSECustomerKeyMD5?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   PartNumber?: int,
+     *   @region?: string,
      * }|GetObjectRequest $input
      */
     public function getObject($input): GetObjectOutput
     {
-        $response = $this->getResponse(GetObjectRequest::create($input)->request(), new RequestContext(['operation' => 'GetObject']));
+        $input = GetObjectRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetObject', 'region' => $input->getRegion()]));
 
         return new GetObjectOutput($response);
     }
@@ -334,11 +352,13 @@ class S3Client extends AbstractApi
      *   Key: string,
      *   VersionId?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   @region?: string,
      * }|GetObjectAclRequest $input
      */
     public function getObjectAcl($input): GetObjectAclOutput
     {
-        $response = $this->getResponse(GetObjectAclRequest::create($input)->request(), new RequestContext(['operation' => 'GetObjectAcl']));
+        $input = GetObjectAclRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetObjectAcl', 'region' => $input->getRegion()]));
 
         return new GetObjectAclOutput($response);
     }
@@ -363,11 +383,13 @@ class S3Client extends AbstractApi
      *   SSECustomerKeyMD5?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   PartNumber?: int,
+     *   @region?: string,
      * }|HeadObjectRequest $input
      */
     public function headObject($input): HeadObjectOutput
     {
-        $response = $this->getResponse(HeadObjectRequest::create($input)->request(), new RequestContext(['operation' => 'HeadObject']));
+        $input = HeadObjectRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadObject', 'region' => $input->getRegion()]));
 
         return new HeadObjectOutput($response);
     }
@@ -386,12 +408,13 @@ class S3Client extends AbstractApi
      *   MaxUploads?: int,
      *   Prefix?: string,
      *   UploadIdMarker?: string,
+     *   @region?: string,
      * }|ListMultipartUploadsRequest $input
      */
     public function listMultipartUploads($input): ListMultipartUploadsOutput
     {
         $input = ListMultipartUploadsRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListMultipartUploads']));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListMultipartUploads', 'region' => $input->getRegion()]));
 
         return new ListMultipartUploadsOutput($response, $this, $input);
     }
@@ -413,12 +436,13 @@ class S3Client extends AbstractApi
      *   FetchOwner?: bool,
      *   StartAfter?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   @region?: string,
      * }|ListObjectsV2Request $input
      */
     public function listObjectsV2($input): ListObjectsV2Output
     {
         $input = ListObjectsV2Request::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListObjectsV2']));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListObjectsV2', 'region' => $input->getRegion()]));
 
         return new ListObjectsV2Output($response, $this, $input);
     }
@@ -441,12 +465,13 @@ class S3Client extends AbstractApi
      *   PartNumberMarker?: int,
      *   UploadId: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   @region?: string,
      * }|ListPartsRequest $input
      */
     public function listParts($input): ListPartsOutput
     {
         $input = ListPartsRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListParts']));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListParts', 'region' => $input->getRegion()]));
 
         return new ListPartsOutput($response, $this, $input);
     }
@@ -470,12 +495,13 @@ class S3Client extends AbstractApi
      *   SSECustomerKeyMD5?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   PartNumber?: int,
+     *   @region?: string,
      * }|HeadObjectRequest $input
      */
     public function objectExists($input): ObjectExistsWaiter
     {
         $input = HeadObjectRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadObject']));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadObject', 'region' => $input->getRegion()]));
 
         return new ObjectExistsWaiter($response, $this, $input);
     }
@@ -499,12 +525,13 @@ class S3Client extends AbstractApi
      *   SSECustomerKeyMD5?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   PartNumber?: int,
+     *   @region?: string,
      * }|HeadObjectRequest $input
      */
     public function objectNotExists($input): ObjectNotExistsWaiter
     {
         $input = HeadObjectRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadObject']));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadObject', 'region' => $input->getRegion()]));
 
         return new ObjectNotExistsWaiter($response, $this, $input);
     }
@@ -545,11 +572,13 @@ class S3Client extends AbstractApi
      *   ObjectLockMode?: \AsyncAws\S3\Enum\ObjectLockMode::*,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
      *   ObjectLockLegalHoldStatus?: \AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::*,
+     *   @region?: string,
      * }|PutObjectRequest $input
      */
     public function putObject($input): PutObjectOutput
     {
-        $response = $this->getResponse(PutObjectRequest::create($input)->request(), new RequestContext(['operation' => 'PutObject']));
+        $input = PutObjectRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutObject', 'region' => $input->getRegion()]));
 
         return new PutObjectOutput($response);
     }
@@ -573,11 +602,13 @@ class S3Client extends AbstractApi
      *   Key: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   VersionId?: string,
+     *   @region?: string,
      * }|PutObjectAclRequest $input
      */
     public function putObjectAcl($input): PutObjectAclOutput
     {
-        $response = $this->getResponse(PutObjectAclRequest::create($input)->request(), new RequestContext(['operation' => 'PutObjectAcl']));
+        $input = PutObjectAclRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutObjectAcl', 'region' => $input->getRegion()]));
 
         return new PutObjectAclOutput($response);
     }
@@ -599,11 +630,13 @@ class S3Client extends AbstractApi
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   @region?: string,
      * }|UploadPartRequest $input
      */
     public function uploadPart($input): UploadPartOutput
     {
-        $response = $this->getResponse(UploadPartRequest::create($input)->request(), new RequestContext(['operation' => 'UploadPart']));
+        $input = UploadPartRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UploadPart', 'region' => $input->getRegion()]));
 
         return new UploadPartOutput($response);
     }

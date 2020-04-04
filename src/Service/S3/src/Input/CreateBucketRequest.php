@@ -9,7 +9,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\BucketCannedACL;
 use AsyncAws\S3\ValueObject\CreateBucketConfiguration;
 
-final class CreateBucketRequest implements Input
+final class CreateBucketRequest extends Input
 {
     /**
      * The canned ACL to apply to the bucket.
@@ -89,6 +89,7 @@ final class CreateBucketRequest implements Input
      *   GrantWrite?: string,
      *   GrantWriteACP?: string,
      *   ObjectLockEnabledForBucket?: bool,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -102,6 +103,7 @@ final class CreateBucketRequest implements Input
         $this->GrantWrite = $input['GrantWrite'] ?? null;
         $this->GrantWriteACP = $input['GrantWriteACP'] ?? null;
         $this->ObjectLockEnabledForBucket = $input['ObjectLockEnabledForBucket'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

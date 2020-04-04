@@ -13,7 +13,7 @@ use AsyncAws\DynamoDb\Enum\ReturnValue;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue;
 
-final class DeleteItemInput implements Input
+final class DeleteItemInput extends Input
 {
     /**
      * The name of the table from which to delete the item.
@@ -109,6 +109,7 @@ final class DeleteItemInput implements Input
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: string[],
      *   ExpressionAttributeValues?: \AsyncAws\DynamoDb\ValueObject\AttributeValue[],
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -135,6 +136,7 @@ final class DeleteItemInput implements Input
         foreach ($input['ExpressionAttributeValues'] ?? [] as $key => $item) {
             $this->ExpressionAttributeValues[$key] = AttributeValue::create($item);
         }
+        parent::__construct($input);
     }
 
     public static function create($input): self

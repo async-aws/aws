@@ -37,11 +37,13 @@ class SqsClient extends AbstractApi
      *   QueueUrl: string,
      *   ReceiptHandle: string,
      *   VisibilityTimeout: int,
+     *   @region?: string,
      * }|ChangeMessageVisibilityRequest $input
      */
     public function changeMessageVisibility($input): Result
     {
-        $response = $this->getResponse(ChangeMessageVisibilityRequest::create($input)->request(), new RequestContext(['operation' => 'ChangeMessageVisibility']));
+        $input = ChangeMessageVisibilityRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ChangeMessageVisibility', 'region' => $input->getRegion()]));
 
         return new Result($response);
     }
@@ -56,11 +58,13 @@ class SqsClient extends AbstractApi
      *   QueueName: string,
      *   Attributes?: string[],
      *   tags?: string[],
+     *   @region?: string,
      * }|CreateQueueRequest $input
      */
     public function createQueue($input): CreateQueueResult
     {
-        $response = $this->getResponse(CreateQueueRequest::create($input)->request(), new RequestContext(['operation' => 'CreateQueue']));
+        $input = CreateQueueRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateQueue', 'region' => $input->getRegion()]));
 
         return new CreateQueueResult($response);
     }
@@ -76,11 +80,13 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueUrl: string,
      *   ReceiptHandle: string,
+     *   @region?: string,
      * }|DeleteMessageRequest $input
      */
     public function deleteMessage($input): Result
     {
-        $response = $this->getResponse(DeleteMessageRequest::create($input)->request(), new RequestContext(['operation' => 'DeleteMessage']));
+        $input = DeleteMessageRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteMessage', 'region' => $input->getRegion()]));
 
         return new Result($response);
     }
@@ -93,11 +99,13 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
+     *   @region?: string,
      * }|DeleteQueueRequest $input
      */
     public function deleteQueue($input): Result
     {
-        $response = $this->getResponse(DeleteQueueRequest::create($input)->request(), new RequestContext(['operation' => 'DeleteQueue']));
+        $input = DeleteQueueRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteQueue', 'region' => $input->getRegion()]));
 
         return new Result($response);
     }
@@ -110,11 +118,13 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueUrl: string,
      *   AttributeNames?: list<\AsyncAws\Sqs\Enum\QueueAttributeName::*>,
+     *   @region?: string,
      * }|GetQueueAttributesRequest $input
      */
     public function getQueueAttributes($input): GetQueueAttributesResult
     {
-        $response = $this->getResponse(GetQueueAttributesRequest::create($input)->request(), new RequestContext(['operation' => 'GetQueueAttributes']));
+        $input = GetQueueAttributesRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetQueueAttributes', 'region' => $input->getRegion()]));
 
         return new GetQueueAttributesResult($response);
     }
@@ -127,11 +137,13 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueName: string,
      *   QueueOwnerAWSAccountId?: string,
+     *   @region?: string,
      * }|GetQueueUrlRequest $input
      */
     public function getQueueUrl($input): GetQueueUrlResult
     {
-        $response = $this->getResponse(GetQueueUrlRequest::create($input)->request(), new RequestContext(['operation' => 'GetQueueUrl']));
+        $input = GetQueueUrlRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetQueueUrl', 'region' => $input->getRegion()]));
 
         return new GetQueueUrlResult($response);
     }
@@ -144,11 +156,13 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueNamePrefix?: string,
+     *   @region?: string,
      * }|ListQueuesRequest $input
      */
     public function listQueues($input = []): ListQueuesResult
     {
-        $response = $this->getResponse(ListQueuesRequest::create($input)->request(), new RequestContext(['operation' => 'ListQueues']));
+        $input = ListQueuesRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListQueues', 'region' => $input->getRegion()]));
 
         return new ListQueuesResult($response);
     }
@@ -160,11 +174,13 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
+     *   @region?: string,
      * }|PurgeQueueRequest $input
      */
     public function purgeQueue($input): Result
     {
-        $response = $this->getResponse(PurgeQueueRequest::create($input)->request(), new RequestContext(['operation' => 'PurgeQueue']));
+        $input = PurgeQueueRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PurgeQueue', 'region' => $input->getRegion()]));
 
         return new Result($response);
     }
@@ -177,12 +193,13 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueName: string,
      *   QueueOwnerAWSAccountId?: string,
+     *   @region?: string,
      * }|GetQueueUrlRequest $input
      */
     public function queueExists($input): QueueExistsWaiter
     {
         $input = GetQueueUrlRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetQueueUrl']));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetQueueUrl', 'region' => $input->getRegion()]));
 
         return new QueueExistsWaiter($response, $this, $input);
     }
@@ -203,11 +220,13 @@ class SqsClient extends AbstractApi
      *   VisibilityTimeout?: int,
      *   WaitTimeSeconds?: int,
      *   ReceiveRequestAttemptId?: string,
+     *   @region?: string,
      * }|ReceiveMessageRequest $input
      */
     public function receiveMessage($input): ReceiveMessageResult
     {
-        $response = $this->getResponse(ReceiveMessageRequest::create($input)->request(), new RequestContext(['operation' => 'ReceiveMessage']));
+        $input = ReceiveMessageRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ReceiveMessage', 'region' => $input->getRegion()]));
 
         return new ReceiveMessageResult($response);
     }
@@ -225,11 +244,13 @@ class SqsClient extends AbstractApi
      *   MessageSystemAttributes?: \AsyncAws\Sqs\ValueObject\MessageSystemAttributeValue[],
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
+     *   @region?: string,
      * }|SendMessageRequest $input
      */
     public function sendMessage($input): SendMessageResult
     {
-        $response = $this->getResponse(SendMessageRequest::create($input)->request(), new RequestContext(['operation' => 'SendMessage']));
+        $input = SendMessageRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SendMessage', 'region' => $input->getRegion()]));
 
         return new SendMessageResult($response);
     }

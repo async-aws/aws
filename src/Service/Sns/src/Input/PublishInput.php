@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Sns\ValueObject\MessageAttributeValue;
 
-final class PublishInput implements Input
+final class PublishInput extends Input
 {
     /**
      * The topic you want to publish to.
@@ -74,6 +74,7 @@ final class PublishInput implements Input
      *   Subject?: string,
      *   MessageStructure?: string,
      *   MessageAttributes?: \AsyncAws\Sns\ValueObject\MessageAttributeValue[],
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -89,6 +90,7 @@ final class PublishInput implements Input
         foreach ($input['MessageAttributes'] ?? [] as $key => $item) {
             $this->MessageAttributes[$key] = MessageAttributeValue::create($item);
         }
+        parent::__construct($input);
     }
 
     public static function create($input): self

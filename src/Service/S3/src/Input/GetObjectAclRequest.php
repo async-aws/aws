@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 
-final class GetObjectAclRequest implements Input
+final class GetObjectAclRequest extends Input
 {
     /**
      * The bucket name that contains the object for which to get the ACL information.
@@ -48,6 +48,7 @@ final class GetObjectAclRequest implements Input
      *   Key?: string,
      *   VersionId?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -56,6 +57,7 @@ final class GetObjectAclRequest implements Input
         $this->Key = $input['Key'] ?? null;
         $this->VersionId = $input['VersionId'] ?? null;
         $this->RequestPayer = $input['RequestPayer'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

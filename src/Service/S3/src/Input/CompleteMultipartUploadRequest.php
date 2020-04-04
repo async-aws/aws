@@ -9,7 +9,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
 
-final class CompleteMultipartUploadRequest implements Input
+final class CompleteMultipartUploadRequest extends Input
 {
     /**
      * Name of the bucket to which the multipart upload was initiated.
@@ -59,6 +59,7 @@ final class CompleteMultipartUploadRequest implements Input
      *   MultipartUpload?: \AsyncAws\S3\ValueObject\CompletedMultipartUpload|array,
      *   UploadId?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -68,6 +69,7 @@ final class CompleteMultipartUploadRequest implements Input
         $this->MultipartUpload = isset($input['MultipartUpload']) ? CompletedMultipartUpload::create($input['MultipartUpload']) : null;
         $this->UploadId = $input['UploadId'] ?? null;
         $this->RequestPayer = $input['RequestPayer'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

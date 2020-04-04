@@ -9,7 +9,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 use AsyncAws\S3\ValueObject\Delete;
 
-final class DeleteObjectsRequest implements Input
+final class DeleteObjectsRequest extends Input
 {
     /**
      * The bucket name containing the objects to delete.
@@ -60,6 +60,7 @@ final class DeleteObjectsRequest implements Input
      *   MFA?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   BypassGovernanceRetention?: bool,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -69,6 +70,7 @@ final class DeleteObjectsRequest implements Input
         $this->MFA = $input['MFA'] ?? null;
         $this->RequestPayer = $input['RequestPayer'] ?? null;
         $this->BypassGovernanceRetention = $input['BypassGovernanceRetention'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

@@ -12,7 +12,7 @@ use AsyncAws\DynamoDb\Enum\Select;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\Condition;
 
-final class ScanInput implements Input
+final class ScanInput extends Input
 {
     /**
      * The name of the table containing the requested items; or, if you provide `IndexName`, the name of the table to which
@@ -171,6 +171,7 @@ final class ScanInput implements Input
      *   ExpressionAttributeNames?: string[],
      *   ExpressionAttributeValues?: \AsyncAws\DynamoDb\ValueObject\AttributeValue[],
      *   ConsistentRead?: bool,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -203,6 +204,7 @@ final class ScanInput implements Input
             $this->ExpressionAttributeValues[$key] = AttributeValue::create($item);
         }
         $this->ConsistentRead = $input['ConsistentRead'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

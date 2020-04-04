@@ -16,7 +16,7 @@ use AsyncAws\DynamoDb\ValueObject\SSESpecification;
 use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
 use AsyncAws\DynamoDb\ValueObject\Tag;
 
-final class CreateTableInput implements Input
+final class CreateTableInput extends Input
 {
     /**
      * An array of attributes that describe the key schema for the table and indexes.
@@ -116,6 +116,7 @@ final class CreateTableInput implements Input
      *   StreamSpecification?: \AsyncAws\DynamoDb\ValueObject\StreamSpecification|array,
      *   SSESpecification?: \AsyncAws\DynamoDb\ValueObject\SSESpecification|array,
      *   Tags?: \AsyncAws\DynamoDb\ValueObject\Tag[],
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -130,6 +131,7 @@ final class CreateTableInput implements Input
         $this->StreamSpecification = isset($input['StreamSpecification']) ? StreamSpecification::create($input['StreamSpecification']) : null;
         $this->SSESpecification = isset($input['SSESpecification']) ? SSESpecification::create($input['SSESpecification']) : null;
         $this->Tags = array_map([Tag::class, 'create'], $input['Tags'] ?? []);
+        parent::__construct($input);
     }
 
     public static function create($input): self

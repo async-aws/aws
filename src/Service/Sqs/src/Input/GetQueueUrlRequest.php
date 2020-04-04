@@ -7,7 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-final class GetQueueUrlRequest implements Input
+final class GetQueueUrlRequest extends Input
 {
     /**
      * The name of the queue whose URL must be fetched. Maximum 80 characters. Valid values: alphanumeric characters,
@@ -30,12 +30,14 @@ final class GetQueueUrlRequest implements Input
      * @param array{
      *   QueueName?: string,
      *   QueueOwnerAWSAccountId?: string,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->QueueName = $input['QueueName'] ?? null;
         $this->QueueOwnerAWSAccountId = $input['QueueOwnerAWSAccountId'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

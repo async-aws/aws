@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
 
-final class ReceiveMessageRequest implements Input
+final class ReceiveMessageRequest extends Input
 {
     /**
      * The URL of the Amazon SQS queue from which messages are received.
@@ -74,6 +74,7 @@ final class ReceiveMessageRequest implements Input
      *   VisibilityTimeout?: int,
      *   WaitTimeSeconds?: int,
      *   ReceiveRequestAttemptId?: string,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -85,6 +86,7 @@ final class ReceiveMessageRequest implements Input
         $this->VisibilityTimeout = $input['VisibilityTimeout'] ?? null;
         $this->WaitTimeSeconds = $input['WaitTimeSeconds'] ?? null;
         $this->ReceiveRequestAttemptId = $input['ReceiveRequestAttemptId'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

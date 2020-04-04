@@ -9,7 +9,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType;
 use AsyncAws\Core\Sts\ValueObject\Tag;
 
-final class AssumeRoleRequest implements Input
+final class AssumeRoleRequest extends Input
 {
     /**
      * The Amazon Resource Name (ARN) of the role to assume.
@@ -124,6 +124,7 @@ final class AssumeRoleRequest implements Input
      *   ExternalId?: string,
      *   SerialNumber?: string,
      *   TokenCode?: string,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -138,6 +139,7 @@ final class AssumeRoleRequest implements Input
         $this->ExternalId = $input['ExternalId'] ?? null;
         $this->SerialNumber = $input['SerialNumber'] ?? null;
         $this->TokenCode = $input['TokenCode'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 
-final class AbortMultipartUploadRequest implements Input
+final class AbortMultipartUploadRequest extends Input
 {
     /**
      * The bucket name to which the upload was taking place.
@@ -50,6 +50,7 @@ final class AbortMultipartUploadRequest implements Input
      *   Key?: string,
      *   UploadId?: string,
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -58,6 +59,7 @@ final class AbortMultipartUploadRequest implements Input
         $this->Key = $input['Key'] ?? null;
         $this->UploadId = $input['UploadId'] ?? null;
         $this->RequestPayer = $input['RequestPayer'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

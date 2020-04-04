@@ -9,7 +9,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Lambda\Enum\InvocationType;
 use AsyncAws\Lambda\Enum\LogType;
 
-final class InvocationRequest implements Input
+final class InvocationRequest extends Input
 {
     /**
      * The name of the Lambda function, version, or alias.
@@ -63,6 +63,7 @@ final class InvocationRequest implements Input
      *   ClientContext?: string,
      *   Payload?: string,
      *   Qualifier?: string,
+     *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
@@ -73,6 +74,7 @@ final class InvocationRequest implements Input
         $this->ClientContext = $input['ClientContext'] ?? null;
         $this->Payload = $input['Payload'] ?? null;
         $this->Qualifier = $input['Qualifier'] ?? null;
+        parent::__construct($input);
     }
 
     public static function create($input): self

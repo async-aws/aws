@@ -48,11 +48,13 @@ class DynamoDbClient extends AbstractApi
      *   StreamSpecification?: \AsyncAws\DynamoDb\ValueObject\StreamSpecification|array,
      *   SSESpecification?: \AsyncAws\DynamoDb\ValueObject\SSESpecification|array,
      *   Tags?: \AsyncAws\DynamoDb\ValueObject\Tag[],
+     *   @region?: string,
      * }|CreateTableInput $input
      */
     public function createTable($input): CreateTableOutput
     {
-        $response = $this->getResponse(CreateTableInput::create($input)->request(), new RequestContext(['operation' => 'CreateTable']));
+        $input = CreateTableInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateTable', 'region' => $input->getRegion()]));
 
         return new CreateTableOutput($response);
     }
@@ -74,11 +76,13 @@ class DynamoDbClient extends AbstractApi
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: string[],
      *   ExpressionAttributeValues?: \AsyncAws\DynamoDb\ValueObject\AttributeValue[],
+     *   @region?: string,
      * }|DeleteItemInput $input
      */
     public function deleteItem($input): DeleteItemOutput
     {
-        $response = $this->getResponse(DeleteItemInput::create($input)->request(), new RequestContext(['operation' => 'DeleteItem']));
+        $input = DeleteItemInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteItem', 'region' => $input->getRegion()]));
 
         return new DeleteItemOutput($response);
     }
@@ -94,11 +98,13 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
+     *   @region?: string,
      * }|DeleteTableInput $input
      */
     public function deleteTable($input): DeleteTableOutput
     {
-        $response = $this->getResponse(DeleteTableInput::create($input)->request(), new RequestContext(['operation' => 'DeleteTable']));
+        $input = DeleteTableInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteTable', 'region' => $input->getRegion()]));
 
         return new DeleteTableOutput($response);
     }
@@ -111,11 +117,13 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
+     *   @region?: string,
      * }|DescribeTableInput $input
      */
     public function describeTable($input): DescribeTableOutput
     {
-        $response = $this->getResponse(DescribeTableInput::create($input)->request(), new RequestContext(['operation' => 'DescribeTable']));
+        $input = DescribeTableInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeTable', 'region' => $input->getRegion()]));
 
         return new DescribeTableOutput($response);
     }
@@ -134,11 +142,13 @@ class DynamoDbClient extends AbstractApi
      *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
      *   ProjectionExpression?: string,
      *   ExpressionAttributeNames?: string[],
+     *   @region?: string,
      * }|GetItemInput $input
      */
     public function getItem($input): GetItemOutput
     {
-        $response = $this->getResponse(GetItemInput::create($input)->request(), new RequestContext(['operation' => 'GetItem']));
+        $input = GetItemInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetItem', 'region' => $input->getRegion()]));
 
         return new GetItemOutput($response);
     }
@@ -152,12 +162,13 @@ class DynamoDbClient extends AbstractApi
      * @param array{
      *   ExclusiveStartTableName?: string,
      *   Limit?: int,
+     *   @region?: string,
      * }|ListTablesInput $input
      */
     public function listTables($input = []): ListTablesOutput
     {
         $input = ListTablesInput::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListTables']));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListTables', 'region' => $input->getRegion()]));
 
         return new ListTablesOutput($response, $this, $input);
     }
@@ -182,11 +193,13 @@ class DynamoDbClient extends AbstractApi
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: string[],
      *   ExpressionAttributeValues?: \AsyncAws\DynamoDb\ValueObject\AttributeValue[],
+     *   @region?: string,
      * }|PutItemInput $input
      */
     public function putItem($input): PutItemOutput
     {
-        $response = $this->getResponse(PutItemInput::create($input)->request(), new RequestContext(['operation' => 'PutItem']));
+        $input = PutItemInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutItem', 'region' => $input->getRegion()]));
 
         return new PutItemOutput($response);
     }
@@ -215,12 +228,13 @@ class DynamoDbClient extends AbstractApi
      *   KeyConditionExpression?: string,
      *   ExpressionAttributeNames?: string[],
      *   ExpressionAttributeValues?: \AsyncAws\DynamoDb\ValueObject\AttributeValue[],
+     *   @region?: string,
      * }|QueryInput $input
      */
     public function query($input): QueryOutput
     {
         $input = QueryInput::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Query']));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Query', 'region' => $input->getRegion()]));
 
         return new QueryOutput($response, $this, $input);
     }
@@ -248,12 +262,13 @@ class DynamoDbClient extends AbstractApi
      *   ExpressionAttributeNames?: string[],
      *   ExpressionAttributeValues?: \AsyncAws\DynamoDb\ValueObject\AttributeValue[],
      *   ConsistentRead?: bool,
+     *   @region?: string,
      * }|ScanInput $input
      */
     public function scan($input): ScanOutput
     {
         $input = ScanInput::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Scan']));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Scan', 'region' => $input->getRegion()]));
 
         return new ScanOutput($response, $this, $input);
     }
@@ -265,12 +280,13 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
+     *   @region?: string,
      * }|DescribeTableInput $input
      */
     public function tableExists($input): TableExistsWaiter
     {
         $input = DescribeTableInput::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeTable']));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeTable', 'region' => $input->getRegion()]));
 
         return new TableExistsWaiter($response, $this, $input);
     }
@@ -282,12 +298,13 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
+     *   @region?: string,
      * }|DescribeTableInput $input
      */
     public function tableNotExists($input): TableNotExistsWaiter
     {
         $input = DescribeTableInput::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeTable']));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeTable', 'region' => $input->getRegion()]));
 
         return new TableNotExistsWaiter($response, $this, $input);
     }
@@ -313,11 +330,13 @@ class DynamoDbClient extends AbstractApi
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: string[],
      *   ExpressionAttributeValues?: \AsyncAws\DynamoDb\ValueObject\AttributeValue[],
+     *   @region?: string,
      * }|UpdateItemInput $input
      */
     public function updateItem($input): UpdateItemOutput
     {
-        $response = $this->getResponse(UpdateItemInput::create($input)->request(), new RequestContext(['operation' => 'UpdateItem']));
+        $input = UpdateItemInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateItem', 'region' => $input->getRegion()]));
 
         return new UpdateItemOutput($response);
     }
@@ -337,11 +356,13 @@ class DynamoDbClient extends AbstractApi
      *   StreamSpecification?: \AsyncAws\DynamoDb\ValueObject\StreamSpecification|array,
      *   SSESpecification?: \AsyncAws\DynamoDb\ValueObject\SSESpecification|array,
      *   ReplicaUpdates?: \AsyncAws\DynamoDb\ValueObject\ReplicationGroupUpdate[],
+     *   @region?: string,
      * }|UpdateTableInput $input
      */
     public function updateTable($input): UpdateTableOutput
     {
-        $response = $this->getResponse(UpdateTableInput::create($input)->request(), new RequestContext(['operation' => 'UpdateTable']));
+        $input = UpdateTableInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateTable', 'region' => $input->getRegion()]));
 
         return new UpdateTableOutput($response);
     }
