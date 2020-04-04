@@ -20,6 +20,6 @@
         "not dead"
     ],
     "scripts": {
-        "highlight": "node hightlight/main.js"
+        "post-process": "node post-process/main.js"
     }
 }

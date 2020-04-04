@@ -9,7 +9,7 @@ scripts:
     before:
         - make website-assets
     after:
-        - make website-highlight
+        - make website-post-process
 
 menu:
     root:
