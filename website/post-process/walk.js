@@ -5,14 +5,14 @@ const path = require('path');
  * Read directory for files.
  * @see https://stackoverflow.com/a/5827895/1526789
  */
-let walk = function(dir, done) {
+const walk = function(dir, done) {
     var results = [];
     fs.readdir(dir, function(err, list) {
         if (err) return done(err);
-        var pending = list.length;
+        let pending = list.length;
         if (!pending) return done(null, results);
-        list.forEach(function(file) {
-            file = path.resolve(dir, file);
+        for(const filePath of list) {
+            const file = path.resolve(dir, filePath);
             fs.stat(file, function(err, stat) {
                 if (stat && stat.isDirectory()) {
                     walk(file, function(err, res) {
@@ -24,7 +24,7 @@ let walk = function(dir, done) {
                     if (!--pending) done(null, results);
                 }
             });
-        });
+        };
     });
 };
 

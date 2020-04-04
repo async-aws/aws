@@ -1,22 +1,19 @@
-
 // The toggle button
-document.getElementById("sidebarCollapse").addEventListener("click", function(){
-    document.getElementById("sidebar").classList.toggle("active");
+document.getElementById('sidebarCollapse').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('active');
 });
 
-let isUlHidden = function (ul) {
+const isUlHidden = (ul) => {
     return !ul.classList.contains('show');
 };
 
-
 // The submenu
-const elements = document.getElementsByClassName('dropdown-toggle');
-for (const element of elements) {
-    element.addEventListener("click", () => {
+for (const element of document.getElementsByClassName('dropdown-toggle')) {
+    element.addEventListener('click', () => {
         let el = element;
         let ul = undefined;
 
-        while (el = el.nextSibling ) {
+        while (el = el.nextSibling) {
             if (el.nodeName.toLowerCase() === 'ul') {
                 ul = el;
                 break;
@@ -30,12 +27,12 @@ for (const element of elements) {
 
         // Start the toggle
         if (isUlHidden(ul)) {
-            ul.classList.add("show");
-            element.classList.remove("collapsed");
+            ul.classList.add('show');
+            element.classList.remove('collapsed');
             element.setAttribute('aria-expanded', true);
         } else {
-            ul.classList.remove("show");
-            element.classList.add("collapsed");
+            ul.classList.remove('show');
+            element.classList.add('collapsed');
             element.setAttribute('aria-expanded', false);
         }
     });

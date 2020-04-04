@@ -7,10 +7,9 @@ highlight.registerLanguage('shell', require('highlight.js/lib/languages/bash'));
 highlight.registerLanguage('yaml', require('highlight.js/lib/languages/yaml'));
 
 module.exports = function(dom) {
-    dom.window.document.querySelectorAll('pre code').forEach((block) => {
+    for (const block of dom.window.document.querySelectorAll('pre code')) {
         if (!block.classList.contains('hljs')) {
             highlight.highlightBlock(block);
         }
-    });
+    }
 };
-

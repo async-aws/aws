@@ -1,10 +1,10 @@
 const fs = require('fs');
-const jsdom = require("jsdom");
+const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const walk = require('./walk');
 
-let highlight = require('./highlight')
-let headerLinks = require('./header-links')
+const highlight = require('./highlight')
+const headerLinks = require('./header-links')
 
 const outputDir = process.argv[2];
 console.log('Dir: ', outputDir);
@@ -24,7 +24,7 @@ walk(outputDir, function (err, files) {
                 // Only write the file once
                 fs.writeFile(file, dom.serialize(), function (err) {
                     if (err) return console.log(err);
-                    console.log("Done: "+file);
+                    console.log('Done: '+file);
                 });
             });
         });
