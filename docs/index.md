@@ -48,7 +48,7 @@ Read more about [how do use asynchronous features](./features/async.md).
 All APIs are located in different packages. To install SQS run
 
 ```shell
-$ composer require async-aws/sqs
+composer require async-aws/sqs
 ```
 
 ```php

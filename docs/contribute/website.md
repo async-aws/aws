@@ -44,14 +44,14 @@ generating the HTML.
 What you basically need to do is to open two terminals. In one you run
 
 ```shell
-$ couscous preview
+couscous preview
 ```
 
 And to make sure the assets are updating when you making a change to the asset source:
 
 ```shell
-$ cd website
-$ ./node_modules/.bin/encore dev --watch
+cd website
+./node_modules/.bin/encore dev --watch
 ```
 
 Now you are good to go.

@@ -9,7 +9,7 @@ A small SymfonyBundle that helps with configuration and autowiring.
 ## Install
 
 ```shell
-$ composer require async-aws/async-aws-bundle
+composer require async-aws/async-aws-bundle
 ```
 
 ## Configure
@@ -49,5 +49,5 @@ The config above will create the following services:
 For a complete reference of the configuration please run:
 
 ```shell
-$ php bin/console config:dump-reference async_aws
+php bin/console config:dump-reference async_aws
 ```

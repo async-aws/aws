@@ -63,8 +63,8 @@ region=us-west-2
 The path to the `credentials` and `config` file can be *optionnaly* configured either with Configuration or env variables.
 
 ```shell
-$ export AWS_SHARED_CREDENTIALS_FILE=/path/to/shared_credentials_file
-$ export AWS_CONFIG_FILE=/path/to/config_file
+export AWS_SHARED_CREDENTIALS_FILE=/path/to/shared_credentials_file
+export AWS_CONFIG_FILE=/path/to/config_file
 ```
 
 ```php

@@ -4,6 +4,26 @@ pre code {
     max-width: 50rem;
 }
 
+code.language-shell {
+    border-top: 30px solid lighten(#2b2b2b, 10%);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    overflow-x: visible;
+
+    &:before {
+        content: "";
+        position: relative;
+        left: 0;
+        top: -34px;
+        display: block;
+        border-radius: 50%;
+        background: #fc2230;
+        box-shadow: 0 0 0 2px #fc2230, 1.5em 0 0 2px #fd9332, 3em 0 0 2px #7cc74c;
+        height: 7px;
+        width: 7px;
+    }
+}
+
 .hljs, .language-text {
     padding-top: 1rem;
     padding-left: 1.5rem;
