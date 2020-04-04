@@ -28,4 +28,4 @@ The providers are currently chained in the following order:
 ## Testing with authentication providers
 
 The default provider chain could be too slow or too complex for testing. It is recommended
-to use the `NullProvider` in tests where you dont provide valid configuration values.
+to use the `NullProvider` in tests where you don't provide valid configuration values.

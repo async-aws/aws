@@ -28,7 +28,7 @@ async_aws:
         region: eu-central-1
 
     clients:
-        ses: ~ # This will complain if we dont have that package installed
+        ses: ~ # This will complain if we don't have that package installed
         sqs:
             config:
                 region: us-west-1
