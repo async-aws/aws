@@ -117,7 +117,7 @@ the others are listed as examples.
 #### Solution D
 
 This solution requires some more explanation. See [below](#using-resolve-function)
-for more info.
+for more information.
 
 ```diff
     $result = $sqs->sendMessage($input);
