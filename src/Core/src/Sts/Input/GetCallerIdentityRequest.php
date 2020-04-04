@@ -8,6 +8,11 @@ use AsyncAws\Core\Stream\StreamFactory;
 
 final class GetCallerIdentityRequest extends Input
 {
+    /**
+     * @param array{
+     *   @region?: string,
+     * } $input
+     */
     public function __construct(array $input = [])
     {
         parent::__construct($input);

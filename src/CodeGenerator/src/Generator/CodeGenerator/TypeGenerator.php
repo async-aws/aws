@@ -33,7 +33,7 @@ class TypeGenerator
 
     public function generateDocblock(StructureShape $shape, ClassName $className, bool $alternateClass = true, bool $allNullable = false, bool $isObject = false, array $extra = []): string
     {
-        if (empty($shape->getMembers())) {
+        if (empty($shape->getMembers()) && empty($extra)) {
             // No input array
             return '@param array' . ($alternateClass ? '|' . $className->getName() : '') . ' $input';
         }

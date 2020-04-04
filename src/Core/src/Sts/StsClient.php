@@ -77,7 +77,9 @@ class StsClient extends AbstractApi
      *
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sts-2011-06-15.html#getcalleridentity
      *
-     * @param array|GetCallerIdentityRequest $input
+     * @param array{
+     *   @region?: string,
+     * }|GetCallerIdentityRequest $input
      */
     public function getCallerIdentity($input = []): GetCallerIdentityResponse
     {
