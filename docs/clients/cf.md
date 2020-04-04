@@ -1,11 +1,11 @@
 ---
 layout: client
 category: clients
+name: CloudFormation
+package: async-aws/cloud-formation
 ---
 
-# CloudFormation Client
-
-## Examples
+## Usage
 
 ### List stacks
 

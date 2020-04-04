@@ -1,11 +1,11 @@
 ---
 layout: client
 category: clients
+name: Lambda
+package: async-aws/lambda
 ---
 
-# Lambda Client
-
-## Examples
+## Usage
 
 ### Invoke a function
 

@@ -1,11 +1,11 @@
 ---
 layout: client
 category: clients
+name: SQS
+package: async-aws/sqs
 ---
 
-# SNS Client
-
-## Examples
+## Usage
 
 ### Send a message
 
