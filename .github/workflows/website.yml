@@ -35,8 +35,8 @@ jobs:
           echo "::group::Couscous"
           ./couscous.phar generate --target output source
           echo "::endgroup::"
-          echo "::group::Highlight"
-          cd source/website && npm run highlight `pwd`/../../output
+          echo "::group::Post process"
+          cd source/website && npm run post-process `pwd`/../../output
           echo "::endgroup::"
 
       - name: Commit & push the new files
