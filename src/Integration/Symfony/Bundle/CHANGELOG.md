@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.2.1
+
+### Added
+
+- Support for async-aws/core: ^0.4 and ^0.5
+- Added support for DynamoDb
+
 ## 0.2.0
 
 ### Added
