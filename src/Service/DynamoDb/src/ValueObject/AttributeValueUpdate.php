@@ -5,7 +5,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\DynamoDb\Enum\AttributeAction;
 
-class AttributeValueUpdate
+final class AttributeValueUpdate
 {
     /**
      * Represents the data for an attribute.

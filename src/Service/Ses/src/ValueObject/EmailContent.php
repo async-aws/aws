@@ -2,7 +2,7 @@
 
 namespace AsyncAws\Ses\ValueObject;
 
-class EmailContent
+final class EmailContent
 {
     /**
      * The simple email message. The message consists of a subject and a message body.

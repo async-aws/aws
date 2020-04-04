@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Enum;
 
-class ReplicaStatus
+final class ReplicaStatus
 {
     public const ACTIVE = 'ACTIVE';
     public const CREATING = 'CREATING';

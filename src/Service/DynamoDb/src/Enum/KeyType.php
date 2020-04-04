@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Enum;
 
-class KeyType
+final class KeyType
 {
     public const HASH = 'HASH';
     public const RANGE = 'RANGE';

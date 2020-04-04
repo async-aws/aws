@@ -6,6 +6,7 @@
 
 - Moved value objects to a dedicated namespace.
 - Results' `populateResult()` has only one argument. It takes a `AsyncAws\Core\Response`.
+- The `AsyncAws\Sqs\Enum\*`, `AsyncAws\Sqs\Input\*` and `AsyncAws\Sqs\ValueObject*` classes are marked final.
 
 ### Removed
 

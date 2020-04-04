@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Enum;
 
-class ReturnItemCollectionMetrics
+final class ReturnItemCollectionMetrics
 {
     public const NONE = 'NONE';
     public const SIZE = 'SIZE';

@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Enum;
 
-class IndexStatus
+final class IndexStatus
 {
     public const ACTIVE = 'ACTIVE';
     public const CREATING = 'CREATING';

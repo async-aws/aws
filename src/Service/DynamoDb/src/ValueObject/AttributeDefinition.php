@@ -5,7 +5,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\DynamoDb\Enum\ScalarAttributeType;
 
-class AttributeDefinition
+final class AttributeDefinition
 {
     /**
      * A name for the attribute.

@@ -13,7 +13,7 @@ use AsyncAws\S3\Enum\RequestPayer;
 use AsyncAws\S3\Enum\ServerSideEncryption;
 use AsyncAws\S3\Enum\StorageClass;
 
-class PutObjectRequest implements Input
+final class PutObjectRequest implements Input
 {
     /**
      * The canned ACL to apply to the object. For more information, see Canned ACL.

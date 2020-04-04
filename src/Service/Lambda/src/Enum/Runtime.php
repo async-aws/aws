@@ -2,7 +2,7 @@
 
 namespace AsyncAws\Lambda\Enum;
 
-class Runtime
+final class Runtime
 {
     public const DOTNETCORE_1_0 = 'dotnetcore1.0';
     public const DOTNETCORE_2_0 = 'dotnetcore2.0';

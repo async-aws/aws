@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\ValueObject;
 
-class Initiator
+final class Initiator
 {
     /**
      * If the principal is an AWS account, it provides the Canonical User ID. If the principal is an IAM User, it provides a

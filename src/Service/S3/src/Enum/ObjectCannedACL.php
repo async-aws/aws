@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\Enum;
 
-class ObjectCannedACL
+final class ObjectCannedACL
 {
     public const AUTHENTICATED_READ = 'authenticated-read';
     public const AWS_EXEC_READ = 'aws-exec-read';

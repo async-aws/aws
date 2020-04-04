@@ -9,7 +9,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
 
-class CompleteMultipartUploadRequest implements Input
+final class CompleteMultipartUploadRequest implements Input
 {
     /**
      * Name of the bucket to which the multipart upload was initiated.

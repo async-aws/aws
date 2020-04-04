@@ -4,7 +4,7 @@ namespace AsyncAws\Ses\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
-class Content
+final class Content
 {
     /**
      * The content of the message itself.

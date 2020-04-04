@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
-class Capacity
+final class Capacity
 {
     /**
      * The total number of read capacity units consumed on a table or an index.

@@ -7,7 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-class CreateQueueRequest implements Input
+final class CreateQueueRequest implements Input
 {
     /**
      * The name of the new queue. The following limits apply to this name:.

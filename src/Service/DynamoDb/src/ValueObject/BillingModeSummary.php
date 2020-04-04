@@ -4,7 +4,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\DynamoDb\Enum\BillingMode;
 
-class BillingModeSummary
+final class BillingModeSummary
 {
     /**
      * Controls how you are charged for read and write throughput and how you manage capacity. This setting can be changed

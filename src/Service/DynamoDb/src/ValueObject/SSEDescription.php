@@ -5,7 +5,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\DynamoDb\Enum\SSEStatus;
 use AsyncAws\DynamoDb\Enum\SSEType;
 
-class SSEDescription
+final class SSEDescription
 {
     /**
      * Represents the current state of server-side encryption. The only supported values are:.

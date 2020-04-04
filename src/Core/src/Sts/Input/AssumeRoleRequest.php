@@ -9,7 +9,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType;
 use AsyncAws\Core\Sts\ValueObject\Tag;
 
-class AssumeRoleRequest implements Input
+final class AssumeRoleRequest implements Input
 {
     /**
      * The Amazon Resource Name (ARN) of the role to assume.

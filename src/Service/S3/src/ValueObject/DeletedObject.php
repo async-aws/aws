@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\ValueObject;
 
-class DeletedObject
+final class DeletedObject
 {
     /**
      * The name of the deleted object.

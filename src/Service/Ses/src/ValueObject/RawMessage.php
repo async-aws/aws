@@ -4,7 +4,7 @@ namespace AsyncAws\Ses\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
-class RawMessage
+final class RawMessage
 {
     /**
      * The raw email message. The message has to meet the following criteria:.

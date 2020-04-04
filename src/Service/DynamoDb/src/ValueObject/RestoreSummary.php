@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
-class RestoreSummary
+final class RestoreSummary
 {
     /**
      * The Amazon Resource Name (ARN) of the backup from which the table was restored.

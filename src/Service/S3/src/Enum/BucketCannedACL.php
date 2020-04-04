@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\Enum;
 
-class BucketCannedACL
+final class BucketCannedACL
 {
     public const AUTHENTICATED_READ = 'authenticated-read';
     public const PRIVATE = 'private';

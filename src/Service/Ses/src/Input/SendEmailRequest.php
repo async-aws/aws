@@ -13,7 +13,7 @@ use AsyncAws\Ses\ValueObject\EmailContent;
 use AsyncAws\Ses\ValueObject\Message;
 use AsyncAws\Ses\ValueObject\MessageTag;
 
-class SendEmailRequest implements Input
+final class SendEmailRequest implements Input
 {
     /**
      * The email address that you want to use as the "From" address for the email. The address that you specify has to be

@@ -5,7 +5,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\DynamoDb\Enum\ProjectionType;
 
-class Projection
+final class Projection
 {
     /**
      * The set of attributes that are projected into the index:.

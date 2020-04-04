@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
-class ProvisionedThroughputDescription
+final class ProvisionedThroughputDescription
 {
     /**
      * The date and time of the last provisioned throughput increase for this table.

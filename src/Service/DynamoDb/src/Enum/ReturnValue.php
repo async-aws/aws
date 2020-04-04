@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Enum;
 
-class ReturnValue
+final class ReturnValue
 {
     public const ALL_NEW = 'ALL_NEW';
     public const ALL_OLD = 'ALL_OLD';

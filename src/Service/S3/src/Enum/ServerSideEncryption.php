@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\Enum;
 
-class ServerSideEncryption
+final class ServerSideEncryption
 {
     public const AES256 = 'AES256';
     public const AWS_KMS = 'aws:kms';

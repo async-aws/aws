@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\Enum;
 
-class Permission
+final class Permission
 {
     public const FULL_CONTROL = 'FULL_CONTROL';
     public const READ = 'READ';

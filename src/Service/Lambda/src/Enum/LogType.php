@@ -2,7 +2,7 @@
 
 namespace AsyncAws\Lambda\Enum;
 
-class LogType
+final class LogType
 {
     public const NONE = 'None';
     public const TAIL = 'Tail';

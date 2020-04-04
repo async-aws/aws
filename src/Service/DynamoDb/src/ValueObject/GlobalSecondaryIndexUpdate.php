@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
-class GlobalSecondaryIndexUpdate
+final class GlobalSecondaryIndexUpdate
 {
     /**
      * The name of an existing global secondary index, along with new provisioned throughput settings to be applied to that

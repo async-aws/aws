@@ -4,7 +4,7 @@ namespace AsyncAws\Sqs\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
-class MessageSystemAttributeValue
+final class MessageSystemAttributeValue
 {
     /**
      * Strings are Unicode with UTF-8 binary encoding. For a list of code values, see ASCII Printable Characters.

@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 
-class ListPartsRequest implements Input
+final class ListPartsRequest implements Input
 {
     /**
      * Name of the bucket to which the parts are being uploaded.

@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\Enum;
 
-class ObjectLockMode
+final class ObjectLockMode
 {
     public const COMPLIANCE = 'COMPLIANCE';
     public const GOVERNANCE = 'GOVERNANCE';

@@ -6,7 +6,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-class GetCallerIdentityRequest implements Input
+final class GetCallerIdentityRequest implements Input
 {
     public static function create($input): self
     {

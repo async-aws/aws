@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Enum;
 
-class SSEType
+final class SSEType
 {
     public const AES256 = 'AES256';
     public const KMS = 'KMS';

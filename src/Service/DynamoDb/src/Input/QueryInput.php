@@ -12,7 +12,7 @@ use AsyncAws\DynamoDb\Enum\Select;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\Condition;
 
-class QueryInput implements Input
+final class QueryInput implements Input
 {
     /**
      * The name of the table containing the requested items.

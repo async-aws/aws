@@ -9,7 +9,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Lambda\Enum\Runtime;
 use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
 
-class PublishLayerVersionRequest implements Input
+final class PublishLayerVersionRequest implements Input
 {
     /**
      * The name or Amazon Resource Name (ARN) of the layer.

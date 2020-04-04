@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
 
-class ReceiveMessageRequest implements Input
+final class ReceiveMessageRequest implements Input
 {
     /**
      * The URL of the Amazon SQS queue from which messages are received.

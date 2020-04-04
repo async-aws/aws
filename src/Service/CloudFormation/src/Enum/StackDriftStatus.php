@@ -2,7 +2,7 @@
 
 namespace AsyncAws\CloudFormation\Enum;
 
-class StackDriftStatus
+final class StackDriftStatus
 {
     public const DRIFTED = 'DRIFTED';
     public const IN_SYNC = 'IN_SYNC';

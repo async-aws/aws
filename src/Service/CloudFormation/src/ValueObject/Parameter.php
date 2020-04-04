@@ -2,7 +2,7 @@
 
 namespace AsyncAws\CloudFormation\ValueObject;
 
-class Parameter
+final class Parameter
 {
     /**
      * The key associated with the parameter. If you don't specify a key and value for a particular parameter, AWS

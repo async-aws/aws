@@ -6,7 +6,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-class DescribeStacksInput implements Input
+final class DescribeStacksInput implements Input
 {
     /**
      * The name or the unique stack ID that is associated with the stack, which are not always interchangeable:.

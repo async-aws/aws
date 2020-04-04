@@ -2,7 +2,7 @@
 
 namespace AsyncAws\Core\Sts\ValueObject;
 
-class AssumedRoleUser
+final class AssumedRoleUser
 {
     /**
      * A unique identifier that contains the role ID and the role session name of the role that is being assumed. The role

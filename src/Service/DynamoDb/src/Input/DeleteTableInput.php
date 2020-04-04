@@ -7,7 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
-class DeleteTableInput implements Input
+final class DeleteTableInput implements Input
 {
     /**
      * The name of the table to delete.

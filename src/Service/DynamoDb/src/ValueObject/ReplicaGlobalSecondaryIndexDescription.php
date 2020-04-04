@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
-class ReplicaGlobalSecondaryIndexDescription
+final class ReplicaGlobalSecondaryIndexDescription
 {
     /**
      * The name of the global secondary index.

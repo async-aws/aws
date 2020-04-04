@@ -4,7 +4,7 @@ namespace AsyncAws\S3\ValueObject;
 
 use AsyncAws\S3\Enum\StorageClass;
 
-class MultipartUpload
+final class MultipartUpload
 {
     /**
      * Upload ID that identifies the multipart upload.

@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
-class ReplicationGroupUpdate
+final class ReplicationGroupUpdate
 {
     /**
      * The parameters required for creating a replica for the table.

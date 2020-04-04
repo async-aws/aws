@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\Enum;
 
-class RequestPayer
+final class RequestPayer
 {
     public const REQUESTER = 'requester';
 

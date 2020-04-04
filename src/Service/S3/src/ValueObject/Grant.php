@@ -5,7 +5,7 @@ namespace AsyncAws\S3\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\S3\Enum\Permission;
 
-class Grant
+final class Grant
 {
     /**
      * The person being granted permissions.

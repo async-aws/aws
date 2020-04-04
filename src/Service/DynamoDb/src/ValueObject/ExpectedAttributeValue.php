@@ -5,7 +5,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\DynamoDb\Enum\ComparisonOperator;
 
-class ExpectedAttributeValue
+final class ExpectedAttributeValue
 {
     /**
      * Represents the data for the expected attribute.

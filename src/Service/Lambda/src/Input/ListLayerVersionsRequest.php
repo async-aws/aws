@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Lambda\Enum\Runtime;
 
-class ListLayerVersionsRequest implements Input
+final class ListLayerVersionsRequest implements Input
 {
     /**
      * A runtime identifier. For example, `go1.x`.

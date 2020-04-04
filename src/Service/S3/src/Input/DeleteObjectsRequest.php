@@ -9,7 +9,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 use AsyncAws\S3\ValueObject\Delete;
 
-class DeleteObjectsRequest implements Input
+final class DeleteObjectsRequest implements Input
 {
     /**
      * The bucket name containing the objects to delete.

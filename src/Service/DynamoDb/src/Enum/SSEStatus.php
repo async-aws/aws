@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\Enum;
 
-class SSEStatus
+final class SSEStatus
 {
     public const DISABLED = 'DISABLED';
     public const DISABLING = 'DISABLING';

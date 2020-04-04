@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\RequestPayer;
 
-class HeadObjectRequest implements Input
+final class HeadObjectRequest implements Input
 {
     /**
      * The name of the bucket containing the object.

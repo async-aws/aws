@@ -5,7 +5,7 @@ namespace AsyncAws\S3\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\S3\Enum\Type;
 
-class Grantee
+final class Grantee
 {
     /**
      * Screen name of the grantee.

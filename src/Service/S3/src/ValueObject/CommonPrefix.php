@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\ValueObject;
 
-class CommonPrefix
+final class CommonPrefix
 {
     /**
      * Container for the specified common prefix.

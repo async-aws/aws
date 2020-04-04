@@ -2,7 +2,7 @@
 
 namespace AsyncAws\CloudFormation\ValueObject;
 
-class Output
+final class Output
 {
     /**
      * The key associated with the output.

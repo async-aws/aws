@@ -13,7 +13,7 @@ use AsyncAws\DynamoDb\Enum\ReturnValue;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue;
 
-class PutItemInput implements Input
+final class PutItemInput implements Input
 {
     /**
      * The name of the table to contain the item.

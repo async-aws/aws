@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\ValueObject;
 
-class Owner
+final class Owner
 {
     /**
      * Container for the display name of the owner.

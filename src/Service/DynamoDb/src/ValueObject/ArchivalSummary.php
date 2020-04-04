@@ -2,7 +2,7 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
-class ArchivalSummary
+final class ArchivalSummary
 {
     /**
      * The date and time when table archival was initiated by DynamoDB, in UNIX epoch time format.

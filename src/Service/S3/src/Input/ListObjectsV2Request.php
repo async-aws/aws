@@ -9,7 +9,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\EncodingType;
 use AsyncAws\S3\Enum\RequestPayer;
 
-class ListObjectsV2Request implements Input
+final class ListObjectsV2Request implements Input
 {
     /**
      * Bucket name to list.

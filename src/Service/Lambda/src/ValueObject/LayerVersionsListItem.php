@@ -4,7 +4,7 @@ namespace AsyncAws\Lambda\ValueObject;
 
 use AsyncAws\Lambda\Enum\Runtime;
 
-class LayerVersionsListItem
+final class LayerVersionsListItem
 {
     /**
      * The ARN of the layer version.

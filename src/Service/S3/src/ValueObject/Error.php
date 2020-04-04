@@ -2,7 +2,7 @@
 
 namespace AsyncAws\S3\ValueObject;
 
-class Error
+final class Error
 {
     /**
      * The error key.

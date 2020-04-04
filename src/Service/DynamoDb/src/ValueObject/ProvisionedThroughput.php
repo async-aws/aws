@@ -4,7 +4,7 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
-class ProvisionedThroughput
+final class ProvisionedThroughput
 {
     /**
      * The maximum number of strongly consistent reads consumed per second before DynamoDB returns a `ThrottlingException`.

@@ -13,7 +13,7 @@ use AsyncAws\S3\Enum\RequestPayer;
 use AsyncAws\S3\Enum\ServerSideEncryption;
 use AsyncAws\S3\Enum\StorageClass;
 
-class CreateMultipartUploadRequest implements Input
+final class CreateMultipartUploadRequest implements Input
 {
     /**
      * The canned ACL to apply to the object.
