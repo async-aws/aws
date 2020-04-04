@@ -168,9 +168,6 @@ class PublishLayerVersionRequest implements Input
         return $this;
     }
 
-    /**
-     * @internal
-     */
     private function requestBody(): array
     {
         $payload = [];

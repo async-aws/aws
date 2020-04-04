@@ -277,9 +277,6 @@ class CreateBucketRequest implements Input
         return $this;
     }
 
-    /**
-     * @internal
-     */
     private function requestBody(\DomNode $node, \DomDocument $document): void
     {
         if (null !== $v = $this->CreateBucketConfiguration) {

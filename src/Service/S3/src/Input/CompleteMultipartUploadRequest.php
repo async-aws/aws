@@ -185,9 +185,6 @@ class CompleteMultipartUploadRequest implements Input
         return $this;
     }
 
-    /**
-     * @internal
-     */
     private function requestBody(\DomNode $node, \DomDocument $document): void
     {
         if (null !== $v = $this->MultipartUpload) {

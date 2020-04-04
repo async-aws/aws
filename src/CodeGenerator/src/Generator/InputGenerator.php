@@ -286,7 +286,7 @@ class InputGenerator
             [$body['body'], $hasRequestBody, $overrideArgs] = $serializer->generateRequestBody($operation, $inputShape) + [null, null, []];
             if ($hasRequestBody) {
                 [$returnType, $requestBody, $args] = $serializer->generateRequestBuilder($inputShape) + [null, null, []];
-                $method = $class->addMethod('requestBody')->setReturnType($returnType)->setBody($requestBody)->setPrivate()->setComment('@internal');
+                $method = $class->addMethod('requestBody')->setReturnType($returnType)->setBody($requestBody)->setPrivate();
                 foreach ($overrideArgs + $args as $arg => $type) {
                     $method->addParameter($arg)->setType($type);
                 }
