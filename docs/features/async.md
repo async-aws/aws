@@ -88,7 +88,7 @@ sendSqsMessage($sqs);
 
 In this example `$result` is never used. The HTTP request will be send on `$result->__desctuct()`.
 But that does not happen until the end of the block, after the 100 lines of business
-logic. This can be a bit confusing.
+logic. This can be a bit confusing, especially when an exception is thrown.
 
 This scenario can be solved in a few ways. **Solution A** is the best one to use but
 the others are listed as examples.
@@ -117,7 +117,7 @@ the others are listed as examples.
 #### Solution D
 
 This solution requires some more explanation. See [below](#using-resolve-function)
-for more info.
+for more information.
 
 ```diff
     $result = $sqs->sendMessage($input);
@@ -142,21 +142,22 @@ The function has a `?float $timeout = null` argument. If the timeout is set to
 the function will return `true` or thrown an exception. If the timeout is reached,
 it will return `false`.
 
-Use `$result->resolve(0)` for a non-blocking call.
+> **Note:** The call `$result->resolve()` is a blocking call because we are waiting
+> for the response. Use `$result->resolve(0)` for a non-blocking call.
 
 ### Batch requests
 
-Consider the following example. It is creating 10 `InvocationRequest`s and printing
-their result. The result that is downloaded first will be printed first. The order
+Consider the following example. It is creating 10 Lambda `InvocationRequest`s and printing
+their result. The HTTP response that is downloaded first will be printed first. The order
 the requests are created do not matter.
 
-The `Result::wait` function will iterate over provided results, and yield
+The `Result::wait()` function will iterate over provided results, and yield
 the the response as soon as it has been resolved.
 
 The function has a `?float $timeout = null` argument. If the timeout is set to
-`2.0`, the HTTP client will wait for 2 seconds for responses. Each time a response
+`2.0`, the HTTP client will wait up to 2 seconds for responses. Each time a response
 is received, the function will yield the response. If the timeout is reached, or
-all responses are resolved, the loop stops.
+all responses are resolved, the loop will stop.
 
 The function has also a `$fullResponse` argument. When `false` (default value)
 the HTTP client will wait only for HTTP status code and headers. When `true`,
@@ -172,7 +173,7 @@ $lambda = new LambdaClient();
 $results = [];
 for ($i = 0; $i < 10; ++$i) {
     $results[] = $lambda->invoke(new InvocationRequest([
-        'FunctionName' => 'app-dev-hellow_world',
+        'FunctionName' => 'app-dev-hello_world',
         'Payload' => "{\"name\": $i}",
     ]));
 }

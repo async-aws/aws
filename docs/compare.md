@@ -235,4 +235,4 @@ While AsyncAws focused on the most used operations (around 7 services),
 The official AWS PHP SDK covers the full scope of AWS (200 services and 8,000
 methods).
 
-Read more about what [clients supported](/clients/index.md).
+Read more about what [clients are supported](/clients/index.md).

@@ -75,8 +75,9 @@ All frontend assets are built using Webpack Encore. The source files lives in
 
 ### 2. Process HTML files
 
-After the HTML files are generated, Couscous will execute `make website-highlight`.
-That will look at the generated HTML and style all code examples with `highlight.js`.
+After the HTML files are generated, Couscous will execute `make website-post-process`.
+That will look at the generated HTML and make some changes to it. As example it will
+style all code examples with `highlight.js`.
 
 ### 3. Publishing the files
 
