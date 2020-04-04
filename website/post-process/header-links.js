@@ -1,13 +1,12 @@
 module.exports = function(dom) {
-    dom.window.document.querySelectorAll('h2, h3').forEach((headline) => {
+    for(const headline of dom.window.document.querySelectorAll('h2, h3')) {
+        const id = headline.getAttribute('id');
+        const link = dom.window.document.createElement('a');
 
-        let id = headline.getAttribute('id');
-        let link = dom.window.document.createElement('a');
         link.setAttribute('href', '#' + id);
         link.setAttribute('title', 'Permalink to this headline');
         link.setAttribute('class', 'headerlink');
         link.innerHTML = '¶';
-        headline.innerHTML = headline.innerHTML + link.outerHTML;
-    });
+        headline.append(link);
+    }
 };
-
