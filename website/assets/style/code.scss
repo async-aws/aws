@@ -64,3 +64,9 @@ code {
         background-image: url(./res/copy-error.svg);
     }
 }
+
+@media (max-width: 500px) {
+    .btn-copy {
+        display: none;
+    }
+}
