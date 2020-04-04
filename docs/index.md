@@ -43,7 +43,7 @@ exceptions and provide input and result objects.
 
 Read more about [how do use asynchronous features](./features/async.md).
 
-## Quick example
+## Installation and usage
 
 All APIs are located in different packages. To install SQS run
 
