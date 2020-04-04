@@ -60,6 +60,11 @@ h4, .h4 {
     font-weight: 400;
     padding-left: 7px;
     text-decoration: none;
+    color: $gray-500;
+
+    &:hover, &:focus {
+        color: $darkGreen;
+    }
 }
 
 .content {
