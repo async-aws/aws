@@ -21,7 +21,7 @@ for (const elem of document.querySelectorAll('code.hljs')) {
     elem.prepend(button);
 }
 
-const copyText = (text) => {
+const copyText = text => {
     const t = document.createElement('textarea');
     try  {
         t.value = text;

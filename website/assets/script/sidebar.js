@@ -3,7 +3,7 @@ document.getElementById('sidebarCollapse').addEventListener('click', () => {
     document.getElementById('sidebar').classList.toggle('active');
 });
 
-const isUlHidden = (ul) => {
+const isUlHidden = ul => {
     return !ul.classList.contains('show');
 };
 
