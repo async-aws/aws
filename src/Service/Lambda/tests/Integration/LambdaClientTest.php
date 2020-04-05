@@ -84,8 +84,6 @@ class LambdaClientTest extends TestCase
         }
 
         self::assertEqualsCanonicalizing($expected, $resolves);
-        // wait should mix responses
-        self::assertNotEquals($expected, $resolves);
     }
 
     public function testListLayerVersions(): void
