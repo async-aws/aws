@@ -5,11 +5,39 @@
 ### Added
 
 - Add support for multiregion via `@region` input parameter.
+- DynamoDB support.
+- `ResultMockFactory` was updated with `createFailing()` and support for pagination.
+- `AbstractApi::presign()`.
+- `Result::wait()` for multiplexing downloads.
+- Interface `AsyncAws\Core\Input`.
+- `AsyncAws\Core\Stream\ResponseBodyResourceStream` and `AsyncAws\Core\Stream\ResponseBodyStream`.
+- Internal `AsyncAws\Core\Response` to encapsulate the HTTP client.
+- Internal `AsyncAws\Core\RequestContext`.
+- Internal `AsyncAws\Core\Stream\RewindableStream`.
+
+### Removed
+
+- The input's `validate()` function was merged with the `request()` function.
+- `Configuration::isDefault()`.
+- Protected property `AbstractApi::$logger`.
+- `AsyncAws\Core\StreamableBody` in favor of `AsyncAws\Core\Stream\ResponseBodyStream`.
 
 ### Changed
 
-- The `StreamableBodyInterface::getChunks` now returns a iterrable of string.
+- Exceptions will contain more information from the HTTP response.
+- Moved STS value objects to a dedicated namespace.
 - The `AsyncAws\Core\Sts\Input\*` and `AsyncAws\Core\Sts\ValueObject*` classes are marked final.
+- Using `DateTimeImmutable` instead of `DateTimeInterface`.
+- Protected properties `AbstractApi::$httpClient`, `AbstractApi::$configuration` and `AbstractApi::$credentialProvider` are now private.
+- `AbstractApi::getResponse()` has new signature. New optional second argument `?RequestContext $context = null` and the return type is `AsyncAws\Core\Response`.
+- The `CredentialProvider`s and `Configuration` are now `final`.
+- Renamed `AsyncAws\Core\Stream\Stream` to `AsyncAws\Core\Stream\RequestStream`.
+- Renamed `AsyncAws\Core\StreamableBodyInterface` to `AsyncAws\Core\Stream\ResultStream`.
+- The `ResultStream::getChunks()` now returns a iterable of string.
+
+### Fixed
+
+- Bugfix in `WebIdentityProvider`
 
 ## 0.4.0
 
