@@ -97,6 +97,9 @@ class InputGenerator
         $constructorBody = '';
 
         foreach ($shape->getMembers() as $member) {
+            if ('region' === $member->getName()) {
+                throw new \RuntimeException('Member conflict with "@region" parameter.');
+            }
             $memberShape = $member->getShape();
             [$returnType, $parameterType, $memberClassName] = $this->typeGenerator->getPhpType($memberShape);
             $nullable = true;
