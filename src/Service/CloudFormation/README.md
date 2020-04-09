@@ -11,6 +11,10 @@ An API client for CloudFormation.
 composer require async-aws/cloud-formation
 ```
 
+## Documentation
+
+See https://async-aws.com/clients/cf.html for documentation.
+
 ## Contribute
 
 Contributions are welcome and appreciated. Please read https://async-aws.com/contribute/
