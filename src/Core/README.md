@@ -11,3 +11,11 @@ the STS client to handle authentication.
 ```cli
 composer require async-aws/core
 ```
+
+## Documentation
+
+See https://async-aws.com for documentation.
+
+## Contribute
+
+Contributions are welcome and appreciated. Please read https://async-aws.com/contribute/
