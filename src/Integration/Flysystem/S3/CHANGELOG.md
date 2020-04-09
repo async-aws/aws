@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.3.1
+
+### Added
+
+- Support for Flysystem v2 alpha 1
+- Support for async-aws/s3:0.4
+
 ## 0.3.0
 
 ### Added
