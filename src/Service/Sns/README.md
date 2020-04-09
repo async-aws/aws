@@ -11,6 +11,10 @@ An API client for Sns.
 composer require async-aws/sns
 ```
 
+## Documentation
+
+See https://async-aws.com/clients/sns.html for documentation.
+
 ## Contribute
 
 Contributions are welcome and appreciated. Please read https://async-aws.com/contribute/

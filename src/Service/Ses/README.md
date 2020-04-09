@@ -11,6 +11,10 @@ An API client for SQS.
 composer require async-aws/ses
 ```
 
+## Documentation
+
+See https://async-aws.com/clients/ses.html for documentation.
+
 ## Contribute
 
 Contributions are welcome and appreciated. Please read https://async-aws.com/contribute/
