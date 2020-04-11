@@ -18,6 +18,10 @@ use League\Flysystem\AdapterInterface;
 use League\Flysystem\Config;
 use League\Flysystem\Util;
 
+if (!class_exists(AbstractAdapter::class)) {
+    throw new \LogicException('You cannot use "AsyncAws\Flysystem\S3\S3FilesystemV1" as the "league/flysystem:1.x" package is not installed. Try running "composer require league/flysystem:^1.0".');
+}
+
 class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
 {
     const PUBLIC_GRANT_URI = 'http://acs.amazonaws.com/groups/global/AllUsers';
