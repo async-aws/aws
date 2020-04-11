@@ -20,7 +20,7 @@ final class ChainProvider implements CredentialProvider, ResetInterface
     private $providers;
 
     /**
-     * @var (CredentialProvider|null)[]
+     * @var CredentialProvider[]
      */
     private $lastSuccessfulProvider = [];
 
