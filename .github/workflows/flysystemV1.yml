@@ -27,13 +27,13 @@ jobs:
           sed -i -re 's/S3FilesystemV1/S3FilesystemV2/' psalm.xml
 
       - name: PHPStan
-        uses: OskarStark/phpstan-ga
+        uses: OskarStark/phpstan-ga@master
         with:
           entrypoint: /composer/vendor/bin/phpstan
           args: analyze --no-progress
 
       - name: Psalm
-        uses: psalm/psalm-github-actions
+        uses: psalm/psalm-github-actions@master
         with:
           args: --no-progress --show-info=false --stats
 
