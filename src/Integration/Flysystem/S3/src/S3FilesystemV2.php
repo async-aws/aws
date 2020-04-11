@@ -8,9 +8,6 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Stream\ResultStream;
 use AsyncAws\Flysystem\S3\Visibility\PortableVisibilityConverter;
 use AsyncAws\Flysystem\S3\Visibility\VisibilityConverter;
-use AsyncAws\S3\Input\ObjectIdentifier as InputObjectIdentifier;
-use AsyncAws\S3\Result\AwsObject as ResultAwsObject;
-use AsyncAws\S3\Result\CommonPrefix as ResultCommonPrefix;
 use AsyncAws\S3\Result\HeadObjectOutput;
 use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\AwsObject;
@@ -431,14 +428,4 @@ class S3FilesystemV2 implements FilesystemAdapter
             throw UnableToReadFile::fromLocation($path, '', $exception);
         }
     }
-}
-
-// to remove wth release of 0.4 of async-aws/s3
-if (!\class_exists(AwsObject::class)) {
-    /** @psalm-suppress UndefinedClass */
-    \class_alias(ResultAwsObject::class, AwsObject::class);
-    /** @psalm-suppress UndefinedClass */
-    \class_alias(ResultCommonPrefix::class, CommonPrefix::class);
-    /** @psalm-suppress UndefinedClass */
-    \class_alias(InputObjectIdentifier::class, ObjectIdentifier::class);
 }
