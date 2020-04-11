@@ -31,6 +31,10 @@ use League\Flysystem\Visibility;
 use League\MimeTypeDetection\FinfoMimeTypeDetector;
 use Throwable;
 
+if (!interface_exists(FilesystemAdapter::class)) {
+    throw new \LogicException('You cannot use "AsyncAws\Flysystem\S3\S3FilesystemV2" as the "league/flysystem:2.x" package is not installed. Try running "composer require league/flysystem:^2.0".');
+}
+
 class S3FilesystemV2 implements FilesystemAdapter
 {
     /**
