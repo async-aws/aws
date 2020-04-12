@@ -167,6 +167,8 @@ class ResultMockFactory
             $classNameWithoutSuffix = substr($className, 0, -6);
         } elseif ('Response' === substr($className, -8)) {
             $classNameWithoutSuffix = substr($className, 0, -8);
+        } elseif ('Result' === substr($className, -6)) {
+            $classNameWithoutSuffix = substr($className, 0, -6);
         } else {
             throw new \LogicException(sprintf('Unknown class suffix: "%s"', $className));
         }
