@@ -84,7 +84,7 @@ class TestGenerator
         $namespace->addUse(TestCase::class);
 
         $exampleInput = $operation->getExample()->getInput();
-        $comment = $exampleInput ? '// see example-1.json from SDK' : '// see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_METHOD.html';
+        $comment = $exampleInput ? '// see example-1.json from SDK' : '// see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_OPERATION.html';
 
         switch ($operation->getService()->getProtocol()) {
             case 'rest-xml':
@@ -135,6 +135,7 @@ class TestGenerator
                 'INPUT_CONSTRUCTOR' => $this->getInputCode($namespace, $operation->getInput()),
                 'SERVICE' => \strtolower($operation->getService()->getName()),
                 'METHOD' => $operation->getHttpMethod(),
+                'OPERATION' => $operation->getName(),
                 'CONTENT_TYPE' => $contenType,
                 'STUB' => trim($stub),
             ]));
@@ -167,7 +168,7 @@ class TestGenerator
         $namespace->addUse(MockHttpClient::class);
 
         $exampleOutput = $operation->getExample()->getOutput();
-        $comment = $exampleOutput ? '// see example-1.json from SDK' : '// see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_METHOD.html';
+        $comment = $exampleOutput ? '// see example-1.json from SDK' : '// see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_OPERATION.html';
         switch ($operation->getService()->getProtocol()) {
             case 'rest-xml':
             case 'query':
@@ -199,7 +200,7 @@ class TestGenerator
                 'MARKER' => self::MARKER,
                 'INPUT_CLASS' => $resultClass->getName(),
                 'SERVICE' => \strtolower($operation->getService()->getName()),
-                'METHOD' => $operation->getName(),
+                'OPERATION' => $operation->getName(),
                 'STUB' => $stub,
                 'ASSERT' => $this->getResultAssert($operation->getOutput()),
             ]));
