@@ -30,6 +30,14 @@ class ConfigurationTest extends TestCase
         }
     }
 
+    public function testIsDefault()
+    {
+        $config = Configuration::create(['region' => 'eu-west-3']);
+
+        self::assertTrue($config->isDefault('endpoint'));
+        self::assertFalse($config->isDefault('region'));
+    }
+
     public function provideConfiguration(): iterable
     {
         yield 'simple config' => [['endpoint' => 'foo'], [], ['endpoint' => 'foo']];

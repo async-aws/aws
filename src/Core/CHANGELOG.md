@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.5.1
+
+### Added
+
+- Add `Configuration::isDefault` methods.
+
 ## 0.5.0
 
 ### Added
