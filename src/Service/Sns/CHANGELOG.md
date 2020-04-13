@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.5.0
+
+### Added
+
+- Added operations `CreateTopic`, `DeleteTopic`, `ListSubscriptionsByTopic`, `Subscribe` and `Unsubscribe`.
+
 ## 0.4.0
 
 ### Changed
