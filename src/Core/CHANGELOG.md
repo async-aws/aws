@@ -6,6 +6,10 @@
 
 - Add `Configuration::isDefault` methods.
 
+### Fixed
+
+- Allow mocking of Results classes named "*Result"
+
 ## 0.5.0
 
 ### Added
