@@ -6,7 +6,7 @@ declare(strict_types=1);
  * Create necessary classes for the tests to be compatible with flysystem v1 and v2.
  */
 
-namespace League\Flysystem {
+namespace League\Flysystem;
 
     use PHPUnit\Framework\TestCase;
 
@@ -16,4 +16,3 @@ namespace League\Flysystem {
         {
         }
     }
-}
