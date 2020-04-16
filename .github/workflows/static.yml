@@ -34,7 +34,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: PHP-CS-Fixer
-        uses: OskarStark/php-cs-fixer-ga@2.16.0
+        uses: OskarStark/php-cs-fixer-ga@master
         with:
           args: --dry-run --diff-format udiff
 
