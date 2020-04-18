@@ -21,9 +21,9 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
     private $NextToken;
 
     /**
-     * Iterates over.
+     * Iterates over Parameters.
      *
-     * @return \Traversable<>
+     * @return \Traversable<Parameter>
      */
     public function getIterator(): \Traversable
     {
@@ -45,6 +45,8 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
                 $nextPage = null;
             }
 
+            yield from $page->getParameters(true);
+
             if (null === $nextPage) {
                 break;
             }
@@ -62,13 +64,46 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return Parameter[]
+     * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.
+     *
+     * @return iterable<Parameter>
      */
-    public function getParameters(): array
+    public function getParameters(bool $currentPageOnly = false): iterable
     {
-        $this->initialize();
+        if ($currentPageOnly) {
+            $this->initialize();
+            yield from $this->Parameters;
 
-        return $this->Parameters;
+            return;
+        }
+
+        $client = $this->awsClient;
+        if (!$client instanceof SsmClient) {
+            throw new \InvalidArgumentException('missing client injected in paginated result');
+        }
+        if (!$this->input instanceof GetParametersByPathRequest) {
+            throw new \InvalidArgumentException('missing last request injected in paginated result');
+        }
+        $input = clone $this->input;
+        $page = $this;
+        while (true) {
+            if ($page->getNextToken()) {
+                $input->setNextToken($page->getNextToken());
+
+                $this->registerPrefetch($nextPage = $client->GetParametersByPath($input));
+            } else {
+                $nextPage = null;
+            }
+
+            yield from $page->getParameters(true);
+
+            if (null === $nextPage) {
+                break;
+            }
+
+            $this->unregisterPrefetch($nextPage);
+            $page = $nextPage;
+        }
     }
 
     protected function populateResult(Response $response): void
