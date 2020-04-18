@@ -21,6 +21,7 @@ use AsyncAws\S3\S3Client;
 use AsyncAws\Ses\SesClient;
 use AsyncAws\Sns\SnsClient;
 use AsyncAws\Sqs\SqsClient;
+use AsyncAws\Ssm\SsmClient;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\HttpClient;
@@ -158,19 +159,6 @@ class AwsClientFactory
         return $this->serviceCache[__METHOD__];
     }
 
-    public function sts(): StsClient
-    {
-        if (!class_exists(StsClient::class)) {
-            throw MissingDependency::create('async-aws/core', 'STS');
-        }
-
-        if (!isset($this->serviceCache[__METHOD__])) {
-            $this->serviceCache[__METHOD__] = new StsClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
-        }
-
-        return $this->serviceCache[__METHOD__];
-    }
-
     public function sqs(): SqsClient
     {
         if (!class_exists(SqsClient::class)) {
@@ -179,6 +167,32 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new SqsClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function ssm(): SsmClient
+    {
+        if (!class_exists(SsmClient::class)) {
+            throw MissingDependency::create('async-aws/ssm', 'SSM');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new SsmClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function sts(): StsClient
+    {
+        if (!class_exists(StsClient::class)) {
+            throw MissingDependency::create('async-aws/core', 'STS');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new StsClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];

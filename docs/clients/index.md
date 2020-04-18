@@ -141,5 +141,6 @@ for more information.
 | [S3](./s3.md)               | [async-aws/s3](https://packagist.org/packages/async-aws/s3)
 | [SES](./ses.md)             | [async-aws/ses](https://packagist.org/packages/async-aws/ses)
 | [SNS](./sns.md)             | [async-aws/sns](https://packagist.org/packages/async-aws/sns)
-| [STS](./sts.md)             | [async-aws/core](https://packagist.org/packages/async-aws/core)
 | [SQS](./sqs.md)             | [async-aws/sqs](https://packagist.org/packages/async-aws/sqs)
+| [SSM](./ssm.md)             | [async-aws/ssm](https://packagist.org/packages/async-aws/ssm)
+| [STS](./sts.md)             | [async-aws/core](https://packagist.org/packages/async-aws/core)
