@@ -43,6 +43,7 @@
             "AsyncAws\\Ses\\": "src/Service/Ses/src",
             "AsyncAws\\Sns\\": "src/Service/Sns/src",
             "AsyncAws\\Sqs\\": "src/Service/Sqs/src",
+            "AsyncAws\\Ssm\\": "src/Service/Ssm/src",
             "AsyncAws\\Symfony\\Bundle\\": "src/Integration/Symfony/Bundle/src"
         }
     },
@@ -59,6 +60,7 @@
             "AsyncAws\\Ses\\Tests\\": "src/Service/Ses/tests",
             "AsyncAws\\Sns\\Tests\\": "src/Service/Sns/tests",
             "AsyncAws\\Sqs\\Tests\\": "src/Service/Sqs/tests",
+            "AsyncAws\\Ssm\\Tests\\": "src/Service/Ssm/tests",
             "AsyncAws\\Symfony\\Bundle\\Tests\\": "src/Integration/Symfony/Bundle/tests"
         }
     }

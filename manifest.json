@@ -121,6 +121,20 @@
                 "SendMessage"
             ]
         },
+        "Ssm": {
+            "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/ssm\/2014-11-06\/api-2.json",
+            "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/ssm\/2014-11-06\/docs-2.json",
+            "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/ssm\/2014-11-06\/paginators-1.json",
+            "example": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/ssm\/2014-11-06\/examples-1.json",
+            "namespace": "AsyncAws\\Ssm",
+            "methods": [
+                "DeleteParameter",
+                "GetParameter",
+                "GetParameters",
+                "GetParametersByPath",
+                "PutParameter"
+            ]
+        },
         "Sts": {
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/sts\/2011-06-15\/api-2.json",
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/sts\/2011-06-15\/docs-2.json",
