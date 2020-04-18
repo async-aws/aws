@@ -9,21 +9,20 @@ class DeleteParameterRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new DeleteParameterRequest([
-            'Name' => 'change me',
+            'Name' => 'EC2DevServerType',
         ]);
 
         // see https://docs.aws.amazon.com/ssm/latest/APIReference/API_DeleteParameter.html
         $expected = '
-                            POST / HTTP/1.0
-                            Content-Type: application/x-amz-json-1.0
+            POST / HTTP/1.0
+            Content-Type: application/x-amz-json-1.1
+            X-Amz-Target: AmazonSSM.DeleteParameter
 
-                            {
-            "change": "it"
-        }
-                        ';
+            {
+                "Name": "EC2DevServerType"
+            }
+        ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

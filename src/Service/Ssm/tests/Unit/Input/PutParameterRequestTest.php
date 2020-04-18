@@ -3,40 +3,35 @@
 namespace AsyncAws\Ssm\Tests\Unit\Input;
 
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Ssm\Enum\ParameterType;
 use AsyncAws\Ssm\Input\PutParameterRequest;
-use AsyncAws\Ssm\ValueObject\Tag;
 
 class PutParameterRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new PutParameterRequest([
-            'Name' => 'change me',
-            'Description' => 'change me',
-            'Value' => 'change me',
-            'Type' => 'change me',
-            'KeyId' => 'change me',
-            'Overwrite' => false,
-            'AllowedPattern' => 'change me',
-            'Tags' => [new Tag([
-                'Key' => 'change me',
-                'Value' => 'change me',
-            ])],
-            'Tier' => 'change me',
-            'Policies' => 'change me',
+            'Name' => 'EC2TestServerType',
+            'Description' => 'Instance type for Test servers',
+            'Value' => 't2.large',
+            'Type' => ParameterType::STRING,
+            'Overwrite' => true,
         ]);
 
         // see https://docs.aws.amazon.com/ssm/latest/APIReference/API_PutParameter.html
         $expected = '
-                            POST / HTTP/1.0
-                            Content-Type: application/x-amz-json-1.0
+            POST / HTTP/1.0
+            Content-Type: application/x-amz-json-1.1
+            X-Amz-Target: AmazonSSM.PutParameter
 
-                            {
-            "change": "it"
-        }
-                        ';
+            {
+                "Overwrite": true,
+                "Type": "String",
+                "Name": "EC2TestServerType",
+                "Value": "t2.large",
+                "Description": "Instance type for Test servers"
+            }
+        ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

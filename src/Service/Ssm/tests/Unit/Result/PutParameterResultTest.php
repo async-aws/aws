@@ -12,17 +12,14 @@ class PutParameterResultTest extends TestCase
 {
     public function testPutParameterResult(): void
     {
-        self::fail('Not implemented');
-
         // see https://docs.aws.amazon.com/ssm/latest/APIReference/API_PutParameter.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
+            "Version": 2
         }');
 
         $client = new MockHttpClient($response);
         $result = new PutParameterResult(new Response($client->request('POST', 'http://localhost'), $client));
 
-        self::assertSame(1337, $result->getVersion());
-        self::assertSame('changeIt', $result->getTier());
+        self::assertSame('2', $result->getVersion());
     }
 }

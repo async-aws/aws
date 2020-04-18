@@ -9,22 +9,20 @@ class GetParameterRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new GetParameterRequest([
-            'Name' => 'change me',
-            'WithDecryption' => false,
+            'Name' => 'MyGitHubPassword',
         ]);
 
         // see https://docs.aws.amazon.com/ssm/latest/APIReference/API_GetParameter.html
         $expected = '
-                            POST / HTTP/1.0
-                            Content-Type: application/x-amz-json-1.0
+            POST / HTTP/1.0
+            Content-Type: application/x-amz-json-1.1
+            X-Amz-Target: AmazonSSM.GetParameter
 
-                            {
-            "change": "it"
-        }
-                        ';
+            {
+                "Name": "MyGitHubPassword"
+            }
+        ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

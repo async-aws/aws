@@ -9,22 +9,24 @@ class GetParametersRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new GetParametersRequest([
-            'Names' => ['change me'],
-            'WithDecryption' => false,
+            'Names' => ['EC2DevServerType', 'EC2TestServerType', 'EC2ProdServerType'],
         ]);
 
         // see https://docs.aws.amazon.com/ssm/latest/APIReference/API_GetParameters.html
         $expected = '
-                            POST / HTTP/1.0
-                            Content-Type: application/x-amz-json-1.0
+        POST / HTTP/1.0
+        Content-Type: application/x-amz-json-1.1
+            X-Amz-Target: AmazonSSM.GetParameters
 
-                            {
-            "change": "it"
+        {
+            "Names": [
+                "EC2DevServerType",
+                "EC2TestServerType",
+                "EC2ProdServerType"
+            ]
         }
-                        ';
+        ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

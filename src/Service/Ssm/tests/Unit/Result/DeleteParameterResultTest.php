@@ -12,12 +12,10 @@ class DeleteParameterResultTest extends TestCase
 {
     public function testDeleteParameterResult(): void
     {
-        self::fail('Not implemented');
+        self::markTestSkipped('Nothing to test');
 
         // see https://docs.aws.amazon.com/ssm/latest/APIReference/API_DeleteParameter.html
-        $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+        $response = new SimpleMockedResponse('{}');
 
         $client = new MockHttpClient($response);
         $result = new DeleteParameterResult(new Response($client->request('POST', 'http://localhost'), $client));
