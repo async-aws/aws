@@ -83,7 +83,8 @@ class SignerV4 implements Signer
     protected function buildBodyDigest(Request $request, bool $isPresign): string
     {
         if ($request->hasHeader('x-amz-content-sha256')) {
-            $hash = ((array) $request->getHeader('x-amz-content-sha256'))[0];
+            /** @var string $hash */
+            $hash = $request->getHeader('x-amz-content-sha256');
         } else {
             $body = $request->getBody();
             if ($body instanceof ReadOnceResultStream) {
@@ -257,7 +258,7 @@ class SignerV4 implements Signer
     {
         $body = $request->getBody();
         if ($request->hasHeader('content-length')) {
-            $contentLength = (int) ((array) $request->getHeader('content-length'))[0];
+            $contentLength = (int) $request->getHeader('content-length');
         } else {
             $contentLength = $body->length();
         }
@@ -278,14 +279,14 @@ class SignerV4 implements Signer
 
         // Convert the body into a chunked stream
         $request->setHeader('content-encoding', 'aws-chunked');
-        $request->setHeader('x-amz-decoded-content-length', $contentLength);
+        $request->setHeader('x-amz-decoded-content-length', (string) $contentLength);
         $request->setHeader('x-amz-content-sha256', 'STREAMING-' . self::ALGORITHM_CHUNK);
 
         // Compute size of content + metadata used sign each Chunk
         $chunkCount = (int) ceil($contentLength / self::CHUNK_SIZE);
         $fullChunkCount = $chunkCount * self::CHUNK_SIZE === $contentLength ? $chunkCount : ($chunkCount - 1);
         $metaLength = \strlen(";chunk-signature=\r\n\r\n") + 64;
-        $request->setHeader('content-length', $contentLength + $fullChunkCount * ($metaLength + \strlen((string) dechex(self::CHUNK_SIZE))) + ($chunkCount - $fullChunkCount) * ($metaLength + \strlen((string) dechex($contentLength % self::CHUNK_SIZE))) + $metaLength + 1);
+        $request->setHeader('content-length', (string) ($contentLength + $fullChunkCount * ($metaLength + \strlen((string) dechex(self::CHUNK_SIZE))) + ($chunkCount - $fullChunkCount) * ($metaLength + \strlen((string) dechex($contentLength % self::CHUNK_SIZE))) + $metaLength + 1));
 
         $body = IterableStream::create((function (RequestStream $body) use ($now, $credentialString, $signingKey, &$signature): iterable {
             foreach (FixedSizeStream::create($body, self::CHUNK_SIZE) as $chunk) {
