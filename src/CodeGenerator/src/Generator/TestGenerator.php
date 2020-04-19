@@ -99,7 +99,7 @@ class TestGenerator
                 break;
             case 'json':
                 $stub = substr(var_export(\json_encode($exampleInput ?? ['change' => 'it'], \JSON_PRETTY_PRINT), true), 1, -1);
-                $contenType = 'application/x-amz-json-'.number_format($operation->getService()->getJsonVersion(), 1);
+                $contenType = 'application/x-amz-json-' . number_format($operation->getService()->getJsonVersion(), 1);
 
                 break;
             case 'query':
