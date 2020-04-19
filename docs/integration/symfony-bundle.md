@@ -63,7 +63,7 @@ AsyncAws leverage this feature and by storing secrets in [AWS SSM Parameter Stor
 async_aws:
     secrets: ~
 #        path: /parameters/my-project
-#        recurcive: true
+#        recursive: true
 #        client: app-secret
 #    clients:
 #        app-secret:
@@ -80,7 +80,7 @@ doctrine:
         password: '%env(DATABASE_PASSWORD)%'
 ```
 
-When `recurcive` option is `true`, AsyncAws Bundle will retrieve all parameters
+When `recursive` option is `true`, AsyncAws Bundle will retrieve all parameters
 within a hierarchy, then will trim the `path` prefix option, replace `/` by `_`
 and uppercase the parameter name. ie. in the above configuration, a parameter
 stored in `/parameters/my-project/database/password` will be referenced by
