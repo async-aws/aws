@@ -32,7 +32,6 @@ is an example for DynamoDB.
    1. Look at the official SDK for resources in `./src/data`. ([DynamoDB example](https://github.com/aws/aws-sdk-php/tree/3.133.23/src/data/dynamodb/2012-08-10))
    1. Add a link to `source`, and, if the files exists, links to `documentation`, `example`, `pagination`, `waiter` etc.
    1. Leave the `methods` key empty. (`"methods": []`)
-1. Add entry for the client in the `AsyncAws\Symfony\Bundle\DependencyInjection\AwsPackagesProvider::getAllServices` method.
 1. Configure the autoload section of `./composer.json` to include the new service (`"AsyncAws\\DynamoDb\\": "src/Service/DynamoDb/src"`)
 1. Do the same thing with the autoload-dev section of `./composer.json`.
 1. Run `composer dump-autoload`
