@@ -29,7 +29,8 @@ class Request
     private $parsed;
 
     /**
-     * @param string[]|string[][] $headers
+     * @param string[] $query
+     * @param string[] $headers
      */
     public function __construct(string $method, string $uri, array $query, array $headers, RequestStream $body)
     {
@@ -37,7 +38,7 @@ class Request
         $this->uri = $uri;
         $this->headers = [];
         foreach ($headers as $key => $value) {
-            $this->headers[\strtolower($key)] = $value;
+            $this->headers[\strtolower($key)] = (string) $value;
         }
         $this->body = $body;
         $this->query = $query;
@@ -64,7 +65,7 @@ class Request
         return \array_key_exists(strtolower($name), $this->headers);
     }
 
-    public function setHeader($name, $value): void
+    public function setHeader($name, ?string $value): void
     {
         $this->headers[strtolower($name)] = $value;
     }
@@ -74,10 +75,7 @@ class Request
         return $this->headers;
     }
 
-    /**
-     * @return string|string[]
-     */
-    public function getHeader(string $name)
+    public function getHeader(string $name): ?string
     {
         return $this->headers[strtolower($name)] ?? null;
     }

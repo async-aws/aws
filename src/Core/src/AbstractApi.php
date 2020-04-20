@@ -103,7 +103,7 @@ abstract class AbstractApi
 
         $length = $request->getBody()->length();
         if (null !== $length && !$request->hasHeader('content-length')) {
-            $request->setHeader('content-length', $length);
+            $request->setHeader('content-length', (string) $length);
         }
 
         // Some servers (like testing Docker Images) does not supports `Transfer-Encoding: chunked` requests.

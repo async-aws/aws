@@ -513,10 +513,20 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
      */
     protected function normalizeResponse(object $output, ?string $path = null): array
     {
+        if (empty($path)) {
+            if ($output instanceof AwsObject) {
+                $path = $output->getKey();
+            } elseif ($output instanceof CommonPrefix) {
+                $path = $output->getPrefix();
+            }
+            if (empty($path)) {
+                throw new \InvalidArgumentException('The provided path should not be null');
+            }
+
+            $path = $this->removePathPrefix($path);
+        }
         $result = [
-            'path' => $path ?: $this->removePathPrefix(
-                method_exists($output, 'getKey') ? $output->getKey() : (method_exists($output, 'getPrefix') ? $output->getPrefix() : null)
-            ),
+            'path' => $path,
         ];
         $result = array_merge($result, Util::pathinfo($result['path']));
 
