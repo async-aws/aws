@@ -76,6 +76,7 @@ class TestCase extends PHPUnitTestCase
                 break;
             case 'application/json':
             case 'application/x-amz-json-1.0':
+            case 'application/x-amz-json-1.1':
                 if ('' === \trim($body)) {
                     self::assertSame($body, $actual->getBody()->stringify());
                 } else {
