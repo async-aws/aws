@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.5.2
+
+### Fixed
+
+- Add support for `Content-Type: application/x-amz-json-1.1` in test case.
+
 ## 0.5.1
 
 ### Added
