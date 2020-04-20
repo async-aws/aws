@@ -515,7 +515,8 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     {
         $result = [
             'path' => $path ?: $this->removePathPrefix(
-                method_exists($output, 'getKey') ? $output->getKey() : (method_exists($output, 'getPrefix') ? $output->getPrefix() : null)
+            /** @psalm-suppress PossiblyNullArgument */
+            method_exists($output, 'getKey') ? $output->getKey() : (method_exists($output, 'getPrefix') ? $output->getPrefix() : null)
             ),
         ];
         $result = array_merge($result, Util::pathinfo($result['path']));
