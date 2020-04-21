@@ -83,10 +83,21 @@ class PaginationGenerator
         $class = $classes[\array_key_first($classes)];
 
         $class->addImplement(\IteratorAggregate::class);
+        $resultKeys = $pagination->getResultkey();
+        if (empty($resultKeys)) {
+            foreach ($operation->getOutput()->getMembers() as $member) {
+                if ($member->getShape() instanceof ListShape) {
+                    $resultKeys[] = $member->getName();
+                }
+            }
+        }
 
+        if (empty($resultKeys)) {
+            throw new \RuntimeException('Pagination without resultkey is not yet implemented');
+        }
         $iteratorBody = '';
         $iteratorTypes = [];
-        foreach ($pagination->getResultkey() as $resultKey) {
+        foreach ($resultKeys as $resultKey) {
             $singlePage = empty($pagination->getOutputToken());
             $iteratorBody .= strtr('yield from $page->PROPERTY_ACCESSOR(SINGLE_PAGE_FLAG);
             ', [
@@ -151,7 +162,7 @@ class PaginationGenerator
 
         $class->addMethod('getIterator')
             ->setReturnType(\Traversable::class)
-            ->addComment('Iterates over ' . implode(' then ', $pagination->getResultkey()))
+            ->addComment('Iterates over ' . implode(' then ', $resultKeys))
             ->addComment("@return \Traversable<$iteratorType>")
             ->setBody($this->generateOutputPaginationLoader($iteratorBody, $pagination, $namespace, $operation))
         ;

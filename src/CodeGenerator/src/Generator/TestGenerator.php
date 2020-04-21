@@ -99,7 +99,7 @@ class TestGenerator
                 break;
             case 'json':
                 $stub = substr(var_export(\json_encode($exampleInput ?? ['change' => 'it'], \JSON_PRETTY_PRINT), true), 1, -1);
-                $contenType = 'application/x-amz-json-1.0';
+                $contenType = 'application/x-amz-json-' . number_format($operation->getService()->getJsonVersion(), 1);
 
                 break;
             case 'query':
@@ -117,19 +117,19 @@ class TestGenerator
         $class->addMethod($methodName)
             ->setReturnType('void')
             ->setBody(strtr('
-                MARKER
+        MARKER
 
-                $input = INPUT_CONSTRUCTOR;
+        $input = INPUT_CONSTRUCTOR;
 
-                ' . $comment . '
-                $expected = \'
-                    METHOD / HTTP/1.0
-                    Content-Type: CONTENT_TYPE
+        ' . $comment . '
+        $expected = \'
+            METHOD / HTTP/1.0
+            Content-Type: CONTENT_TYPE
 
-                    STUB
-                \';
+            STUB
+        \';
 
-                self::assertRequestEqualsHttpRequest($expected, $input->request());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
             ', [
                 'MARKER' => self::MARKER,
                 'INPUT_CONSTRUCTOR' => $this->getInputCode($namespace, $operation->getInput()),

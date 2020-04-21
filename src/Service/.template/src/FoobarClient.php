@@ -9,16 +9,16 @@ class FoobarClient extends AbstractApi
 
     protected function getServiceCode(): string
     {
-        return 'foo';
+        return '';
     }
 
     protected function getSignatureScopeName(): string
     {
-        return 'bar';
+        return '';
     }
 
     protected function getSignatureVersion(): string
     {
-        return 'baz';
+        return '';
     }
 }

@@ -1,0 +1,30 @@
+{
+    "name": "async-aws/ssm",
+    "type": "library",
+    "description": "AsyncAws SSM client.",
+    "keywords": [
+        "aws",
+        "ssm"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.2.5",
+        "ext-json": "*",
+        "async-aws/core": "^0.5.2"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "AsyncAws\\Ssm\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\Ssm\\Tests\\": "tests/"
+        }
+    }
+}
