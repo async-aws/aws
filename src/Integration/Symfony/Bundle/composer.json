@@ -21,7 +21,8 @@
         "async-aws/ses": "^0.3",
         "async-aws/sqs": "^0.3",
         "matthiasnoback/symfony-config-test": "^4.1",
-        "nyholm/symfony-bundle-test": "^1.6.1"
+        "nyholm/symfony-bundle-test": "^1.6.1",
+        "symfony/framework-bundle": "^4.4 || ^5.0"
     },
     "extra": {
         "branch-alias": {
@@ -37,6 +38,5 @@
         "psr-4": {
             "AsyncAws\\Symfony\\Bundle\\Tests\\": "tests/"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
