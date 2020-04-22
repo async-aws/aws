@@ -37,6 +37,5 @@
         "psr-4": {
             "AsyncAws\\Symfony\\Bundle\\Tests\\": "tests/"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
