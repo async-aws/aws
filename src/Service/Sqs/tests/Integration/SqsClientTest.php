@@ -198,7 +198,9 @@ class SqsClientTest extends TestCase
         $sqs->createQueue(['QueueName' => 'foo'])->resolve();
         $fooQueueUrl = $sqs->getQueueUrl(['QueueName' => 'foo'])->getQueueUrl();
         $sqs->purgeQueue(['QueueUrl' => $fooQueueUrl])->resolve();
-        $sqs->sendMessage(['QueueUrl' => $fooQueueUrl, 'MessageBody' => 'foo'])->resolve();
+        $sqs->sendMessage(['QueueUrl' => $fooQueueUrl, 'MessageBody' => 'foo', 'MessageAttributes' => [
+            'foo' => ['DataType' => 'String', 'StringValue' => 'bar'],
+        ]])->resolve();
         $attributes = $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes();
         self::assertEquals(1, (int) $attributes['ApproximateNumberOfMessages']);
         self::assertEquals(0, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
@@ -206,11 +208,16 @@ class SqsClientTest extends TestCase
         $input = (new ReceiveMessageRequest())
             ->setQueueUrl($fooQueueUrl)
             ->setMaxNumberOfMessages(1)
-            ->setWaitTimeSeconds(1);
+            ->setWaitTimeSeconds(1)
+            ->setMessageAttributeNames(['All'])
+        ;
 
         $messages = $sqs->receiveMessage($input)->getMessages();
         self::assertCount(1, $messages);
         self::assertEquals('foo', $messages[0]->getBody());
+        self::assertCount(1, $messages[0]->getMessageAttributes());
+        self::assertArrayHasKey('foo', $messages[0]->getMessageAttributes());
+        self::assertSame('bar', $messages[0]->getMessageAttributes()['foo']->getStringValue());
     }
 
     public function testSendMessage()
