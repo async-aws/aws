@@ -19,7 +19,7 @@ class SsmVaultTest extends TestCase
         $client = $this->createMock(SsmClient::class);
         $ssmVault = new SsmVault($client, $path, true);
 
-        $client->expects($this->once())
+        $client->expects(self::once())
             ->method('getParametersByPath')
             ->willReturn(ResultMockFactory::create(GetParametersByPathResult::class, ['Parameters' => [new Parameter(['Name' => $parameterName, 'Value' => 'value'])]]));
 

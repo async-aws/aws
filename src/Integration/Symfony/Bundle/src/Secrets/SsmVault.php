@@ -9,7 +9,9 @@ use Symfony\Component\DependencyInjection\EnvVarLoaderInterface;
 class SsmVault implements EnvVarLoaderInterface
 {
     private $client;
+
     private $path;
+
     private $recursive;
 
     public function __construct(SsmClient $client, ?string $path, bool $recursive)
@@ -29,10 +31,13 @@ class SsmVault implements EnvVarLoaderInterface
 
         $secrets = [];
         $prefixLen = \strlen($this->path);
-        /** @var Parameter[] $parameters */
+        /** @var Parameter $parameter */
         foreach ($parameters as $parameter) {
-            $name = \strtoupper(\strtr(ltrim(substr($parameter->getName(), $prefixLen), '/'), '/', '_'));
-            $secrets[$name] = $parameter->getValue();
+            if ((null === $name = $parameter->getName()) || (null === $value = $parameter->getValue())) {
+                continue;
+            }
+            $name = \strtoupper(\strtr(ltrim(substr($name, $prefixLen), '/'), '/', '_'));
+            $secrets[$name] = $value;
         }
 
         return $secrets;

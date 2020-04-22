@@ -21,7 +21,7 @@ class AsyncAwsExtension extends Extension
 
         $usedServices = $this->registerConfiguredServices($container, $config);
         $usedServices = $this->registerInstalledServices($container, $config, $usedServices);
-        $this->registerEnvLoader($container ,$config);
+        $this->registerEnvLoader($container, $config);
         $this->autowireServices($container, $usedServices);
     }
 
@@ -113,7 +113,7 @@ class AsyncAwsExtension extends Extension
             if (!isset($config['clients'][$client])) {
                 throw new InvalidConfigurationException(sprintf('The client "%s" configured in "async_aws.secrets" does not exists. Available clients are "%s"', $client, implode(', ', \array_keys($config['clients']))));
             }
-            if ($config['clients'][$client]['type'] !== 'ssm') {
+            if ('ssm' !== $config['clients'][$client]['type']) {
                 throw new InvalidConfigurationException(sprintf('The client "%s" configured in "async_aws.secrets" is not a SSM client.', $client));
             }
         } else {
@@ -123,17 +123,16 @@ class AsyncAwsExtension extends Extension
                 $client = 'secrets';
                 $i = 1;
                 while (isset($config['clients'][$client])) {
-                    $client = 'secrets_'.$i;
+                    $client = 'secrets_' . $i;
                 }
             }
             $this->addServiceDefinition($container, $client, $config, $className);
         }
 
-
         $container->register(SsmVault::class)
             ->setAutoconfigured(true)
             ->setArguments([
-                new Reference('async_aws.client.'.$client),
+                new Reference('async_aws.client.' . $client),
                 $config['secrets']['path'],
                 $config['secrets']['recursive'],
             ]);
