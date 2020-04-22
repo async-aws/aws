@@ -35,8 +35,6 @@ $directories = array_merge(...array_values(array_map(function ($part) {
     return glob(__DIR__.'/src/'.$part.'/*', GLOB_ONLYDIR | GLOB_NOSORT);
 }, $braces)));
 
-$directories[] = __DIR__.'/src/Symfony/Contracts';
-
 foreach ($directories as $dir) {
     if ($filesystem->exists($composer = "$dir/composer.json")) {
         $packages[json_decode(file_get_contents($composer))->name] = $dir;
@@ -54,15 +52,14 @@ foreach (glob("$pathToProject/vendor/async-aws/*", GLOB_ONLYDIR | GLOB_NOSORT) a
         continue;
     }
 
-    $sfDir = ('\\' === DIRECTORY_SEPARATOR || $copy) ? $packages[$package] : $filesystem->makePathRelative($packages[$package], dirname(realpath($dir)));
-
+    $packageDir = ('\\' === DIRECTORY_SEPARATOR || $copy) ? $packages[$package] : $filesystem->makePathRelative($packages[$package], dirname(realpath($dir)));
     $filesystem->remove($dir);
 
     if ($copy) {
-        $filesystem->mirror($sfDir, $dir);
+        $filesystem->mirror($packageDir, $dir);
         echo "\"$package\" has been copied from \"$packages[$package]\".".PHP_EOL;
     } else {
-        $filesystem->symlink($sfDir, $dir);
+        $filesystem->symlink(rtrim($packageDir, '/'), $dir);
         echo "\"$package\" has been linked to \"$packages[$package]\".".PHP_EOL;
     }
 }
