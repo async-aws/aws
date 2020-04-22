@@ -29,6 +29,39 @@ are equally important. Some super helpful things include (in no particular order
 
 Read more about documentation and the website [here](./website.md).
 
+## Test the PR in a local project
+
+Sometimes, it's helpful to test the PR in a real project. This can be achieved
+by using the provided `link` binary which detects AsyncAws dependencies use by
+the project and replaces them by a symlink to the AsyncAws source code.
+
+```shell
+cd my-test-project
+
+/path-to-async-aws/link
+"async-aws/core" has been linked to "/path-to-async-aws/src/./Core".
+"async-aws/sqs" has been linked to "/path-to-async-aws/src/Service/Sqs".
+```
+
+The filesystem tree should look like.
+
+```text
+.
+├── my-test-project
+│   ├── composer.json
+│   ├── src
+│   └── vendor
+│       ├── async-aws
+│       │   ├── core -> path-to-async-aws/src/Core
+│       │   └── sqs -> path-to-async-aws/src/Services/Sqs
+│       ├── autoload.php
+│       └── composer
+└── aws
+    ├── link
+    └── src
+```
+
+
 ## This repo is special
 
 ### Mono repository
