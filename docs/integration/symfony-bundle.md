@@ -51,3 +51,37 @@ For a complete reference of the configuration please run:
 ```shell
 php bin/console config:dump-reference async_aws
 ```
+
+## Using SSM to store secrets
+
+Since version 4.4, Symfony provides [secrets management](https://symfony.com/doc/current/configuration/secrets.html).
+AsyncAws leverage this feature and by storing secrets in [AWS SSM Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html):
+
+```yaml
+# config/packages/async_aws.yaml
+
+async_aws:
+    secrets: ~
+#        path: /parameters/my-project
+#        recursive: true
+#        client: app-secret
+#    clients:
+#        app-secret:
+#            type: ssm
+```
+
+Parameters stored in SSM will be available as env variable:
+
+```yaml
+# config/packages/doctrine.yaml
+
+doctrine:
+    dbal:
+        password: '%env(DATABASE_PASSWORD)%'
+```
+
+When `recursive` option is `true`, AsyncAws Bundle will retrieve all parameters
+within a hierarchy, then will trim the `path` prefix option, replace `/` by `_`
+and uppercase the parameter name. ie. in the above configuration, a parameter
+stored in `/parameters/my-project/database/password` will be referenced by
+`DATABASE_PASSWORD`.

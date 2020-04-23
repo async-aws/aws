@@ -8,3 +8,9 @@ async_aws:
         ses: ~
         foobar:
             type: sqs
+        secret:
+            type: ssm
+    secrets:
+        path: /application1
+        recursive: true
+        client: secret

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\Symfony\Bundle\DependencyInjection;
 
+use AsyncAws\Symfony\Bundle\Secrets\SsmVault;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -20,6 +21,7 @@ class AsyncAwsExtension extends Extension
 
         $usedServices = $this->registerConfiguredServices($container, $config);
         $usedServices = $this->registerInstalledServices($container, $config, $usedServices);
+        $this->registerEnvLoader($container, $config);
         $this->autowireServices($container, $usedServices);
     }
 
@@ -33,7 +35,7 @@ class AsyncAwsExtension extends Extension
         foreach ($config['clients'] as $name => $data) {
             $client = $availableServices[$data['type']]['class'];
             if (!class_exists($client)) {
-                throw new InvalidConfigurationException(sprintf('You have configured "async_aws.%s" but the "%s" package is not installed. Try running "composer require %s"', $name, $name, $availableServices[$name]['package']));
+                throw new InvalidConfigurationException(sprintf('You have configured "async_aws.%s" but the "%s" package is not installed. Try running "composer require %s"', $name, $data['type'], $availableServices[$data['type']]['package']));
             }
 
             $serviceConfig = array_merge($defaultConfig, $data);
@@ -94,6 +96,46 @@ class AsyncAwsExtension extends Extension
         $definition->addArgument($httpClient);
         $definition->addArgument($logger);
         $container->setDefinition(sprintf('async_aws.client.%s', $name), $definition);
+    }
+
+    private function registerEnvLoader(ContainerBuilder $container, array $config): void
+    {
+        if (!$config['secrets']['enabled']) {
+            return;
+        }
+
+        $availableServices = AwsPackagesProvider::getAllServices();
+        if (!class_exists($className = $availableServices['ssm']['class'])) {
+            throw new InvalidConfigurationException(sprintf('You have enabled "async_aws.secrets" but the "%s" package is not installed. Try running "composer require %s"', 'ssm', $availableServices['ssm']['package']));
+        }
+
+        if (null !== $client = $config['secrets']['client']) {
+            if (!isset($config['clients'][$client])) {
+                throw new InvalidConfigurationException(sprintf('The client "%s" configured in "async_aws.secrets" does not exists. Available clients are "%s"', $client, implode(', ', \array_keys($config['clients']))));
+            }
+            if ('ssm' !== $config['clients'][$client]['type']) {
+                throw new InvalidConfigurationException(sprintf('The client "%s" configured in "async_aws.secrets" is not a SSM client.', $client));
+            }
+        } else {
+            if (!isset($config['clients']['ssm'])) {
+                $client = 'ssm';
+            } else {
+                $client = 'secrets';
+                $i = 1;
+                while (isset($config['clients'][$client])) {
+                    $client = 'secrets_' . $i;
+                }
+            }
+            $this->addServiceDefinition($container, $client, $config, $className);
+        }
+
+        $container->register(SsmVault::class)
+            ->setAutoconfigured(true)
+            ->setArguments([
+                new Reference('async_aws.client.' . $client),
+                $config['secrets']['path'],
+                $config['secrets']['recursive'],
+            ]);
     }
 
     private function autowireServices(ContainerBuilder $container, array $usedServices): void

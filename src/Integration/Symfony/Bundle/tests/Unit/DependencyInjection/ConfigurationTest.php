@@ -28,6 +28,12 @@ class ConfigurationTest extends TestCase
             'credential_provider' => null,
             'config' => [],
             'clients' => [],
+            'secrets' => [
+                'enabled' => false,
+                'path' => null,
+                'recursive' => true,
+                'client' => null,
+            ],
         ]);
     }
 

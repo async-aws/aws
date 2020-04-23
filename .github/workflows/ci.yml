@@ -51,9 +51,25 @@ jobs:
             echo ::group::$COMPONENT
             echo "$CURRENT_DIR/$COMPONENT"
             cd "$CURRENT_DIR/$COMPONENT"
+
             sed -i -re 's/"async-aws\/core": "[^"]+"/"async-aws\/core": "*@dev"/' composer.json
             sed -i -re 's/"require": \{/"repositories": [{"type": "path","url": "..\/..\/Core"}],"require": \{/' composer.json
+            sed -i -re 's/"require": \{/"minimum-stability": "dev","prefer-stable": true,"require": \{/' composer.json
             cat composer.json
+
+            echo ::endgroup::
+          done
+
+          cd "$CURRENT_DIR"
+          for COMPONENT in $(find src/Integration -maxdepth 3 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
+          do
+            echo ::group::mi$COMPONENT
+            echo "$CURRENT_DIR/$COMPONENT"
+            cd "$CURRENT_DIR/$COMPONENT"
+
+            sed -i -re 's/"require": \{/"minimum-stability": "dev","prefer-stable": true,"require": \{/' composer.json
+            cat composer.json
+
             echo ::endgroup::
           done
 
@@ -65,8 +81,14 @@ jobs:
             echo ::group::$COMPONENT
             echo "$CURRENT_DIR/$COMPONENT"
             cd "$CURRENT_DIR/$COMPONENT"
-            composer update --no-interaction --prefer-dist --optimize-autoloader
+
+            localExit=0
+            composer update --no-interaction --prefer-dist --optimize-autoloader || localExit=1
             echo ::endgroup::
+            if [ $localExit -ne 0 ]; then
+              echo "::error::$COMPONENT error"
+              exit $localExit
+            fi
           done
 
       - name: Run tests
@@ -131,6 +153,19 @@ jobs:
             echo ::endgroup::
           done
 
+          cd "$CURRENT_DIR"
+          for COMPONENT in $(find src/Integration/Symfony -maxdepth 2 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
+          do
+            echo ::group::$COMPONENT
+            echo "$CURRENT_DIR/$COMPONENT"
+            cd "$CURRENT_DIR/$COMPONENT"
+
+            sed -i -re 's/"require": \{/"minimum-stability": "dev","prefer-stable": true,"require": \{/' composer.json
+            cat composer.json
+
+            echo ::endgroup::
+          done
+
       - name: Download dependencies
         env:
           # Make sure we dont download awfully old Symfony versions.
@@ -144,8 +179,13 @@ jobs:
             echo "$CURRENT_DIR/$COMPONENT"
             cd "$CURRENT_DIR/$COMPONENT"
 
-            composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-lowest
+            localExit=0
+            composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-lowest || localExit=1
             echo ::endgroup::
+            if [ $localExit -ne 0 ]; then
+              echo "::error::$COMPONENT error"
+              exit $localExit
+            fi
           done
 
       - name: Run tests

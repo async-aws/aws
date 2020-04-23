@@ -17,9 +17,10 @@
         "symfony/http-kernel": "^4.4 || ^5.0"
     },
     "require-dev": {
-        "async-aws/s3": "^0.3",
-        "async-aws/ses": "^0.3",
-        "async-aws/sqs": "^0.3",
+        "async-aws/s3": "^0.3 || ^0.4",
+        "async-aws/ses": "^0.3 || ^0.4",
+        "async-aws/sqs": "^0.3 || ^0.4",
+        "async-aws/ssm": "^0.1",
         "matthiasnoback/symfony-config-test": "^4.1",
         "nyholm/symfony-bundle-test": "^1.6.1"
     },

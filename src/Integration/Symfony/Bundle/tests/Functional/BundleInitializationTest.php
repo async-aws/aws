@@ -8,7 +8,9 @@ use AsyncAws\S3\S3Client;
 use AsyncAws\Ses\SesClient;
 use AsyncAws\Sns\SnsClient;
 use AsyncAws\Sqs\SqsClient;
+use AsyncAws\Ssm\SsmClient;
 use AsyncAws\Symfony\Bundle\AsyncAwsBundle;
+use AsyncAws\Symfony\Bundle\Secrets\SsmVault;
 use Nyholm\BundleTest\BaseBundleTestCase;
 use Nyholm\BundleTest\CompilerPass\PublicServicePass;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -33,6 +35,7 @@ class BundleInitializationTest extends BaseBundleTestCase
         $this->assertServiceExists('async_aws.client.sqs', SqsClient::class);
         $this->assertServiceExists('async_aws.client.ses', SesClient::class);
         $this->assertServiceExists('async_aws.client.foobar', SqsClient::class);
+        $this->assertServiceExists('async_aws.client.secret', SsmClient::class);
 
         // Test autowired clients
         $this->assertServiceExists(S3Client::class, S3Client::class);
@@ -41,6 +44,9 @@ class BundleInitializationTest extends BaseBundleTestCase
 
         // Test autowire by name
         $this->assertServiceExists(SqsClient::class . ' $foobar', SqsClient::class);
+
+        // Test secret
+        $this->assertServiceExists(SsmVault::class, SsmVault::class);
 
         $container = $this->getContainer();
         self::assertFalse($container->has(SqsClient::class . ' $notFound'));
