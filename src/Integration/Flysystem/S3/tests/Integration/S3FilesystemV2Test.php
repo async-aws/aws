@@ -98,7 +98,7 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
     public function copying_a_file_with_collision(): void
     {
         if (self::$docker) {
-            self::markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
+            self::markTestSkipped(sprintf('Test "%s" will always fail when using docker image "asyncaws/testing-s3"', __FUNCTION__));
         }
 
         parent::copying_a_file_with_collision();
@@ -134,7 +134,7 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
     public function setting_visibility(): void
     {
         if (self::$docker) {
-            self::markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
+            self::markTestSkipped(sprintf('Test "%s" will always fail when using docker image "asyncaws/testing-s3"', __FUNCTION__));
         }
 
         parent::setting_visibility();
@@ -146,7 +146,7 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
     public function fetching_visibility_of_non_existing_file(): void
     {
         if (self::$docker) {
-            self::markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
+            self::markTestSkipped(sprintf('Test "%s" will always fail when using docker image "asyncaws/testing-s3"', __FUNCTION__));
         }
 
         parent::fetching_visibility_of_non_existing_file();
@@ -158,7 +158,7 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
     public function setting_visibility_on_a_file_that_does_not_exist(): void
     {
         if (self::$docker) {
-            self::markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
+            self::markTestSkipped(sprintf('Test "%s" will always fail when using docker image "asyncaws/testing-s3"', __FUNCTION__));
         }
 
         parent::setting_visibility_on_a_file_that_does_not_exist();
@@ -170,7 +170,7 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
     public function creating_a_directory(): void
     {
         if (self::$docker) {
-            self::markTestSkipped(sprintf('Test "%s" will always fail when using docker image "nyholm/fake-s3"', __FUNCTION__));
+            self::markTestSkipped(sprintf('Test "%s" will always fail when using docker image "asyncaws/testing-s3"', __FUNCTION__));
         }
 
         parent::creating_a_directory();
