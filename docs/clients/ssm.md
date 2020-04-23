@@ -17,7 +17,7 @@ use AsyncAws\Ssm\ValueObject\Parameter;
 $ssm = new SsmClient();
 
 $parameters = $ssm->getParametersByPath(new GetParametersByPathRequest([
-    'Path' => '/projects/web-site',
+    'Path' => '/projects/website',
     'Recursive' => true,
     'WithDecryption' => true,
 ]));
@@ -38,7 +38,7 @@ use AsyncAws\Ssm\SsmClient;
 
 $ssm = new SsmClient();
 $parameters = $ssm->putParameter(new PutParameterRequest([
-    'Name' => '/projects/web-site/database_password',
+    'Name' => '/projects/website/database_password',
     'Value' => strtr(base64_encode(random_bytes(24)), '+/', '-_'),
     'Type' => ParameterType::SECURE_STRING,
     // 'KeyId' => $customKmsKeyId,
