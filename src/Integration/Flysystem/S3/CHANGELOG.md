@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.3.2
+
+### Fixed
+
+- Better check if file exists.
+
 ## 0.3.1
 
 ### Added

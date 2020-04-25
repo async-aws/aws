@@ -173,22 +173,12 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
     {
         $location = $this->applyPathPrefix($path);
 
-        $result = $this->client->getObject(array_merge($this->options, [
+        $result = $this->client->objectExists(array_merge($this->options, [
             'Bucket' => $this->bucket,
             'Key' => $location,
         ]));
 
-        try {
-            $result->resolve();
-
-            return true;
-        } catch (ClientException $e) {
-            if (404 !== $e->getResponse()->getStatusCode()) {
-                throw $e;
-            }
-        }
-
-        return $this->doesDirectoryExist($location);
+        return $result->isSuccess();
     }
 
     /**
@@ -545,30 +535,6 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
         }
 
         return array_merge($result, $this->resultMap($output), ['type' => 'file']);
-    }
-
-    protected function doesDirectoryExist(string $location): bool
-    {
-        // Maybe this isn't an actual key, but a prefix.
-        // Do a prefix listing of objects to determine.
-        $result = $this->client->listObjectsV2([
-            'Bucket' => $this->bucket,
-            'Prefix' => rtrim($location, '/') . '/',
-            'MaxKeys' => 1,
-        ]
-        );
-
-        try {
-            $result->resolve();
-
-            return !empty($result->getContents()) || !empty($result->getCommonPrefixes());
-        } catch (ClientException $e) {
-            if (403 === $e->getResponse()->getStatusCode()) {
-                return false;
-            }
-
-            throw $e;
-        }
     }
 
     private function retrievePaginatedListing(array $options): array
