@@ -1,5 +1,15 @@
 # Change Log
 
+## 0.2.2
+
+### Added
+
+- Support for loading environment variables from SSM
+
+### Fixed
+
+- Config when client config override default config.
+
 ## 0.2.1
 
 ### Added
