@@ -1,0 +1,15 @@
+async_aws:
+    config:
+        region: eu-central-1
+        accessKeyId: key
+        accessKeySecret: secret
+    clients:
+        ses: ~
+        s3:
+            config:
+                region: us-west-1
+
+        sqs:
+            config:
+                accessKeyId: ~
+                accessKeySecret: ~

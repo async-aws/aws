@@ -105,6 +105,34 @@ class BundleInitializationTest extends BaseBundleTestCase
         self::assertFalse($container->has(SqsClient::class));
     }
 
+    public function testConfigOverride()
+    {
+        $kernel = $this->createKernel();
+        $kernel->addConfigFile(__DIR__ . '/Resources/config/override.yaml');
+        $this->bootKernel();
+
+        $container = $this->getContainer();
+        self::assertTrue($container->has('async_aws.client.s3'));
+        self::assertTrue($container->has('async_aws.client.ses'));
+        self::assertTrue($container->has('async_aws.client.sqs'));
+
+        /** @var SesClient $ses */
+        $ses = $container->get('async_aws.client.ses');
+        self::assertEquals('eu-central-1', $ses->getConfiguration()->get('region'));
+
+        /** @var S3Client $s3 */
+        $s3 = $container->get('async_aws.client.s3');
+        self::assertEquals('us-west-1', $s3->getConfiguration()->get('region'));
+        self::assertEquals('key', $s3->getConfiguration()->get('accessKeyId'));
+        self::assertEquals('secret', $s3->getConfiguration()->get('accessKeySecret'));
+
+        /** @var SqsClient $sqs */
+        $sqs = $container->get('async_aws.client.sqs');
+        self::assertEquals('eu-central-1', $sqs->getConfiguration()->get('region'));
+        self::assertFalse($sqs->getConfiguration()->has('accessKeyId'));
+        self::assertFalse($sqs->getConfiguration()->has('accessKeySecret'));
+    }
+
     public function testExceptionWhenConfigureServiceNotInstalled()
     {
         if (class_exists(SnsClient::class)) {
