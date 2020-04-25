@@ -7,6 +7,7 @@ namespace AsyncAws\Core\Test;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
+use AsyncAws\Core\Waiter;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 /**
@@ -67,11 +68,7 @@ class ResultMockFactory
             }
         }
 
-        $reflectionClass = new \ReflectionClass(Response::class);
-        $response = $reflectionClass->newInstanceWithoutConstructor();
-        $property = $reflectionClass->getProperty('resolveResult');
-        $property->setAccessible(true);
-        $property->setValue($response, true);
+        $response = self::getResponseObject();
 
         // Make sure the Result is initialized
         $reflectionClass = new \ReflectionClass(Result::class);
@@ -94,6 +91,44 @@ class ResultMockFactory
         self::addUndefinedProperties($reflectionClass, $object, $data);
 
         return $object;
+    }
+
+    /**
+     * Instantiate a Waiter class with a final state.
+     *
+     * @template T
+     * @psalm-param class-string<T> $class
+     *
+     * @return Result|T
+     */
+    public static function waiter(string $class, string $finalState)
+    {
+        if (Result::class !== $class) {
+            $parent = get_parent_class($class);
+            if (false === $parent || Waiter::class !== $parent) {
+                throw new \LogicException(sprintf('The "%s::%s" can only be used for classes that extend "%s"', __CLASS__, __METHOD__, Waiter::class));
+            }
+        }
+
+        if (Waiter::STATE_SUCCESS !== $finalState && Waiter::STATE_FAILURE !== $finalState) {
+            throw new \LogicException(sprintf('The state passed to "%s::%s" must be "%s" or "%s".', __CLASS__, __METHOD__, Waiter::STATE_SUCCESS, Waiter::STATE_FAILURE));
+        }
+
+        $response = self::getResponseObject();
+
+        $reflectionClass = new \ReflectionClass(Waiter::class);
+        $propertyResponse = $reflectionClass->getProperty('response');
+        $propertyResponse->setAccessible(true);
+
+        $propertyState = $reflectionClass->getProperty('finalState');
+        $propertyState->setAccessible(true);
+
+        $reflectionClass = new \ReflectionClass($class);
+        $result = $reflectionClass->newInstanceWithoutConstructor();
+        $propertyResponse->setValue($result, $response);
+        $propertyState->setValue($result, $finalState);
+
+        return $result;
     }
 
     /**
@@ -198,5 +233,16 @@ class ResultMockFactory
             $property->setAccessible(true);
             $property->setValue($object, $inputMock);
         }
+    }
+
+    private static function getResponseObject(): Response
+    {
+        $reflectionClass = new \ReflectionClass(Response::class);
+        $response = $reflectionClass->newInstanceWithoutConstructor();
+        $property = $reflectionClass->getProperty('resolveResult');
+        $property->setAccessible(true);
+        $property->setValue($response, true);
+
+        return $response;
     }
 }
