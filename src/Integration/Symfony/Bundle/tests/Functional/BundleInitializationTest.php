@@ -118,19 +118,19 @@ class BundleInitializationTest extends BaseBundleTestCase
 
         /** @var SesClient $ses */
         $ses = $container->get('async_aws.client.ses');
-        $this->assertEquals('eu-central-1', $ses->getConfiguration()->get('region'));
+        self::assertEquals('eu-central-1', $ses->getConfiguration()->get('region'));
 
         /** @var S3Client $s3 */
         $s3 = $container->get('async_aws.client.s3');
-        $this->assertEquals('us-west-1', $s3->getConfiguration()->get('region'));
-        $this->assertEquals('key', $s3->getConfiguration()->get('accessKeyId'));
-        $this->assertEquals('secret', $s3->getConfiguration()->get('accessKeySecret'));
+        self::assertEquals('us-west-1', $s3->getConfiguration()->get('region'));
+        self::assertEquals('key', $s3->getConfiguration()->get('accessKeyId'));
+        self::assertEquals('secret', $s3->getConfiguration()->get('accessKeySecret'));
 
         /** @var SqsClient $sqs */
         $sqs = $container->get('async_aws.client.sqs');
-        $this->assertEquals('eu-central-1', $sqs->getConfiguration()->get('region'));
-        $this->assertFalse($sqs->getConfiguration()->has('accessKeyId'));
-        $this->assertFalse($sqs->getConfiguration()->has('accessKeySecret'));
+        self::assertEquals('eu-central-1', $sqs->getConfiguration()->get('region'));
+        self::assertFalse($sqs->getConfiguration()->has('accessKeyId'));
+        self::assertFalse($sqs->getConfiguration()->has('accessKeySecret'));
     }
 
     public function testExceptionWhenConfigureServiceNotInstalled()
