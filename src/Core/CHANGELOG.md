@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.5.3
+
+### Added
+
+- Support for SSM client in `AwsClientFactory`
+- Support for Waiters in `ResultMockFactory`
+
 ## 0.5.2
 
 ### Fixed
