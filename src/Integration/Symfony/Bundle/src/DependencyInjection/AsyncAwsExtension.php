@@ -30,7 +30,7 @@ class AsyncAwsExtension extends Extension
         $availableServices = AwsPackagesProvider::getAllServices();
         $usedServices = [];
         $defaultConfig = $config;
-        unset($defaultConfig['clients']);
+        unset($defaultConfig['clients'], $defaultConfig['secrets']);
 
         foreach ($config['clients'] as $name => $data) {
             $client = $availableServices[$data['type']]['class'];
@@ -39,6 +39,7 @@ class AsyncAwsExtension extends Extension
             }
 
             $serviceConfig = array_merge($defaultConfig, $data);
+            $serviceConfig['config'] = array_merge($defaultConfig['config'], $data['config']);
             if ($serviceConfig['register_service']) {
                 $usedServices[$name] = $client;
                 $this->addServiceDefinition($container, $name, $serviceConfig, $client);
