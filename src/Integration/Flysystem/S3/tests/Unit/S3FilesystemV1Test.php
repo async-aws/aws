@@ -6,6 +6,7 @@ namespace AsyncAws\Flysystem\S3\Tests\Unit;
 
 use AsyncAws\Core\Test\ResultMockFactory;
 use AsyncAws\Core\Test\SimpleResultStream;
+use AsyncAws\Core\Waiter;
 use AsyncAws\Flysystem\S3\S3FilesystemV1;
 use AsyncAws\S3\Enum\StorageClass;
 use AsyncAws\S3\Result\CopyObjectOutput;
@@ -14,6 +15,7 @@ use AsyncAws\S3\Result\DeleteObjectsOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
 use AsyncAws\S3\Result\ListObjectsV2Output;
+use AsyncAws\S3\Result\ObjectExistsWaiter;
 use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\S3Client;
@@ -244,11 +246,11 @@ class S3FilesystemV1Test extends TestCase
 
         $s3Client = $this->getMockBuilder(S3Client::class)
             ->disableOriginalConstructor()
-            ->onlyMethods(['getObject'])
+            ->onlyMethods(['objectExists'])
             ->getMock();
 
         $s3Client->expects(self::once())
-            ->method('getObject')
+            ->method('objectExists')
             ->with(self::callback(function (array $input) use ($path) {
                 if ($input['Key'] !== self::PREFIX . '/' . $path) {
                     return false;
@@ -259,7 +261,7 @@ class S3FilesystemV1Test extends TestCase
                 }
 
                 return true;
-            }))->willReturn(ResultMockFactory::create(GetObjectOutput::class));
+            }))->willReturn(ResultMockFactory::waiter(ObjectExistsWaiter::class, Waiter::STATE_SUCCESS));
 
         $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
 
