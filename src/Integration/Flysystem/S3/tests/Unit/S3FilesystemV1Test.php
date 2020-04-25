@@ -6,7 +6,6 @@ namespace AsyncAws\Flysystem\S3\Tests\Unit;
 
 use AsyncAws\Core\Test\ResultMockFactory;
 use AsyncAws\Core\Test\SimpleResultStream;
-use AsyncAws\Core\Waiter;
 use AsyncAws\Flysystem\S3\S3FilesystemV1;
 use AsyncAws\S3\Enum\StorageClass;
 use AsyncAws\S3\Result\CopyObjectOutput;
