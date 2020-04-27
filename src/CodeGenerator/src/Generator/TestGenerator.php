@@ -21,6 +21,7 @@ use AsyncAws\Core\Test\TestCase;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 /**
@@ -193,7 +194,7 @@ class TestGenerator
                 STUB
 
                 $client = new MockHttpClient($response);
-                $result = new INPUT_CLASS(new Response($client->request(\'POST\', \'http://localhost\'), $client));
+                $result = new INPUT_CLASS(new Response($client->request(\'POST\', \'http://localhost\'), $client, new NullLogger()));
 
                 ASSERT
             ', [
@@ -205,6 +206,7 @@ class TestGenerator
                 'ASSERT' => $this->getResultAssert($operation->getOutput()),
             ]));
         $namespace->addUse(Response::class);
+        $namespace->addUse(NullLogger::class);
 
         $this->fileWriter->write($namespace);
     }

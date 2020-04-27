@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Sns\Result\SubscribeResponse;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class SubscribeResponseTest extends TestCase
@@ -23,7 +24,7 @@ class SubscribeResponseTest extends TestCase
 </SubscribeResponse>');
 
         $client = new MockHttpClient($response);
-        $result = new SubscribeResponse(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new SubscribeResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertSame('arn:aws:sns:us-west-2:123456789012:MyTopic:6b0e71bd-7e97-4d97-80ce-4a0994e55286', $result->getSubscriptionArn());
     }

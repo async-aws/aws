@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Sns\Result\ListSubscriptionsByTopicResponse;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class ListSubscriptionsByTopicResponseTest extends TestCase
@@ -31,7 +32,7 @@ class ListSubscriptionsByTopicResponseTest extends TestCase
 </ListSubscriptionsByTopicResponse>');
 
         $client = new MockHttpClient($response);
-        $result = new ListSubscriptionsByTopicResponse(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new ListSubscriptionsByTopicResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         $subcsribtion = \iterator_to_array($result->getSubscriptions(true))[0];
 

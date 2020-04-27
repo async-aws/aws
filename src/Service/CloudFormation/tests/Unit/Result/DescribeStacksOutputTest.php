@@ -10,6 +10,7 @@ use AsyncAws\CloudFormation\ValueObject\Tag;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class DescribeStacksOutputTest extends TestCase
@@ -71,7 +72,7 @@ class DescribeStacksOutputTest extends TestCase
 XML;
 
         $client = new MockHttpClient(new SimpleMockedResponse($xml));
-        $result = new DescribeStacksOutput(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new DescribeStacksOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         $stack = null;
         foreach ($result->getStacks(true) as $s) {

@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Sns\Result\CreateTopicResponse;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class CreateTopicResponseTest extends TestCase
@@ -23,7 +24,7 @@ class CreateTopicResponseTest extends TestCase
 </CreateTopicResponse>');
 
         $client = new MockHttpClient($response);
-        $result = new CreateTopicResponse(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new CreateTopicResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertSame('arn:aws:sns:us-east-2:123456789012:My-Topic', $result->getTopicArn());
     }

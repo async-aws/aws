@@ -7,6 +7,7 @@ use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\ValueObject\Grant;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class GetObjectAclOutputTest extends TestCase
@@ -44,7 +45,7 @@ class GetObjectAclOutputTest extends TestCase
 </AccessControlPolicy>', $headers);
 
         $client = new MockHttpClient($response);
-        $result = new GetObjectAclOutput(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new GetObjectAclOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertEquals('requester', $result->getRequestCharged());
         self::assertEquals('78830d484ca31cf82348f0168785e7929a89f1409630f003170a6b48addfeb9b', $result->getOwner()->getID());
@@ -82,7 +83,7 @@ class GetObjectAclOutputTest extends TestCase
         ');
 
         $client = new MockHttpClient($response);
-        $result = new GetObjectAclOutput(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new GetObjectAclOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         $grants = $result->getGrants();
         self::assertCount(2, $grants);

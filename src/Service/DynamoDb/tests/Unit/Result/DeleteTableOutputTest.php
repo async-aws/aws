@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\DynamoDb\Result\DeleteTableOutput;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class DeleteTableOutputTest extends TestCase
@@ -29,7 +30,7 @@ class DeleteTableOutputTest extends TestCase
         }');
 
         $client = new MockHttpClient($response);
-        $result = new DeleteTableOutput(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new DeleteTableOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertEquals(0, $result->getTableDescription()->getItemCount());
         self::assertEquals(1, $result->getTableDescription()->getProvisionedThroughput()->getNumberOfDecreasesToday());

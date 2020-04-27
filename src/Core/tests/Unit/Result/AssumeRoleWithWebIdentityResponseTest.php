@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Sts\Result\AssumeRoleWithWebIdentityResponse;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class AssumeRoleWithWebIdentityResponseTest extends TestCase
@@ -35,7 +36,7 @@ class AssumeRoleWithWebIdentityResponseTest extends TestCase
         </AssumeRoleWithWebIdentityResponse>');
 
         $client = new MockHttpClient($response);
-        $result = new AssumeRoleWithWebIdentityResponse(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new AssumeRoleWithWebIdentityResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         // self::assertTODO(expected, $result->getCredentials());
         self::assertSame('amzn1.account.AF6RHO7KZU5XRVQJGXK6HB56KR2A', $result->getSubjectFromWebIdentityToken());

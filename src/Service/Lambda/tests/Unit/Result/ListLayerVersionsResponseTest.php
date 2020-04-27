@@ -7,6 +7,7 @@ use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Lambda\Result\LayerVersionsListItem;
 use AsyncAws\Lambda\Result\ListLayerVersionsResponse;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class ListLayerVersionsResponseTest extends TestCase
@@ -33,7 +34,7 @@ class ListLayerVersionsResponseTest extends TestCase
         $response = new SimpleMockedResponse(json_encode($data));
 
         $client = new MockHttpClient($response);
-        $result = new ListLayerVersionsResponse(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new ListLayerVersionsResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertEquals($nextMarker, $result->getNextMarker());
         /** @var LayerVersionsListItem $version */

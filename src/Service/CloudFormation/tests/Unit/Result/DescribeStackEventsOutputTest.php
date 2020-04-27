@@ -7,6 +7,7 @@ use AsyncAws\CloudFormation\ValueObject\StackEvent;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class DescribeStackEventsOutputTest extends TestCase
@@ -56,7 +57,7 @@ class DescribeStackEventsOutputTest extends TestCase
 ');
 
         $client = new MockHttpClient($response);
-        $result = new DescribeStackEventsOutput(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new DescribeStackEventsOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         /** @var StackEvent[] $stackEvents */
         $stackEvents = [];

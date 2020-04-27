@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\DynamoDb\Result\CreateTableOutput;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class CreateTableOutputTest extends TestCase
@@ -49,7 +50,7 @@ class CreateTableOutputTest extends TestCase
         }');
 
         $client = new MockHttpClient($response);
-        $result = new CreateTableOutput(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new CreateTableOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertEquals('Artist', $result->getTableDescription()->getAttributeDefinitions()[0]->getAttributeName());
         self::assertEquals('SongTitle', $result->getTableDescription()->getAttributeDefinitions()[1]->getAttributeName());

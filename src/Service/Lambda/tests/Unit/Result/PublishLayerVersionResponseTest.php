@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Lambda\Result\PublishLayerVersionResponse;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class PublishLayerVersionResponseTest extends TestCase
@@ -30,7 +31,7 @@ class PublishLayerVersionResponseTest extends TestCase
         ');
 
         $client = new MockHttpClient($response);
-        $result = new PublishLayerVersionResponse(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new PublishLayerVersionResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         // self::assertTODO(expected, $result->getContent());
         self::assertSame('arn:::fn:arn', $result->getLayerArn());

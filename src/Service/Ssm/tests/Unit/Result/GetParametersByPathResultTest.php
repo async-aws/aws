@@ -9,6 +9,7 @@ use AsyncAws\Ssm\Input\GetParametersByPathRequest;
 use AsyncAws\Ssm\Result\GetParametersByPathResult;
 use AsyncAws\Ssm\SsmClient;
 use AsyncAws\Ssm\ValueObject\Parameter;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class GetParametersByPathResultTest extends TestCase
@@ -52,7 +53,7 @@ class GetParametersByPathResultTest extends TestCase
         }');
 
         $client = new MockHttpClient($response);
-        $result = new GetParametersByPathResult(new Response($client->request('POST', 'http://localhost'), $client), new SsmClient(), new GetParametersByPathRequest());
+        $result = new GetParametersByPathResult(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new SsmClient(), new GetParametersByPathRequest());
 
         self::assertCount(5, $result->getParameters());
         self::assertInstanceOf(Parameter::class, \iterator_to_array($result->getParameters())[0]);

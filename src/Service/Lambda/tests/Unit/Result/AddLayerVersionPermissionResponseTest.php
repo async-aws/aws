@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Lambda\Result\AddLayerVersionPermissionResponse;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class AddLayerVersionPermissionResponseTest extends TestCase
@@ -19,7 +20,7 @@ class AddLayerVersionPermissionResponseTest extends TestCase
         }');
 
         $client = new MockHttpClient($response);
-        $result = new AddLayerVersionPermissionResponse(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new AddLayerVersionPermissionResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertSame('fooBar', $result->getStatement());
         self::assertSame('123456', $result->getRevisionId());

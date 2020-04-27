@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\DynamoDb\Result\UpdateItemOutput;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class UpdateItemOutputTest extends TestCase
@@ -31,7 +32,7 @@ class UpdateItemOutputTest extends TestCase
         }');
 
         $client = new MockHttpClient($response);
-        $result = new UpdateItemOutput(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new UpdateItemOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         $attributes = $result->getAttributes();
         self::assertCount(4, $attributes);

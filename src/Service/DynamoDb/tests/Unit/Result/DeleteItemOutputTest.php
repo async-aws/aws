@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\DynamoDb\Result\DeleteItemOutput;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class DeleteItemOutputTest extends TestCase
@@ -21,7 +22,7 @@ class DeleteItemOutputTest extends TestCase
         }');
 
         $client = new MockHttpClient($response);
-        $result = new DeleteItemOutput(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new DeleteItemOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertEquals(1, $result->getConsumedCapacity()->getCapacityUnits());
         self::assertEquals('Music', $result->getConsumedCapacity()->getTableName());

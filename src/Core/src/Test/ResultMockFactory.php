@@ -8,6 +8,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Waiter;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 /**
@@ -40,7 +41,7 @@ class ResultMockFactory
 
         $httpResponse = new SimpleMockedResponse(\json_encode(['message' => $message]), ['content-type' => 'application/json'], $code);
         $client = new MockHttpClient($httpResponse);
-        $response = new Response($client->request('POST', 'http://localhost'), $client);
+        $response = new Response($client->request('POST', 'http://localhost'), $client, new NullLogger());
 
         $reflectionClass = new \ReflectionClass($class);
 

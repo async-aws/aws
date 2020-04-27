@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Sns\Result\PublishResponse;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class PublishResponseTest extends TestCase
@@ -25,7 +26,7 @@ class PublishResponseTest extends TestCase
 </PublishResponse>');
 
         $client = new MockHttpClient($response);
-        $result = new PublishResponse(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new PublishResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertEquals('567910cd-659e-55d4-8ccb-5aaf14679dc0', $result->getMessageId());
     }

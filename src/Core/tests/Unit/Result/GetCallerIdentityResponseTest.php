@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Sts\Result\GetCallerIdentityResponse;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class GetCallerIdentityResponseTest extends TestCase
@@ -27,7 +28,7 @@ class GetCallerIdentityResponseTest extends TestCase
         ');
 
         $client = new MockHttpClient($response);
-        $result = new GetCallerIdentityResponse(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new GetCallerIdentityResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertStringContainsString('ARO123EXAMPLE123:my-role-session-name', $result->getUserId());
         self::assertStringContainsString('123456789012', $result->getAccount());

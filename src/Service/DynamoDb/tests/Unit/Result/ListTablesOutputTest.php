@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\DynamoDb\Result\ListTablesOutput;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class ListTablesOutputTest extends TestCase
@@ -24,7 +25,7 @@ class ListTablesOutputTest extends TestCase
         }');
 
         $client = new MockHttpClient($response);
-        $result = new ListTablesOutput(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new ListTablesOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         $tableNames = $result->getTableNames(true);
         foreach ($tableNames as $name) {
