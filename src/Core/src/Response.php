@@ -325,19 +325,19 @@ class Response
         }
 
         if (500 <= $statusCode) {
-            $this->resolveResult = [ServerException::class, [$this->httpResponse, $this->logger]];
+            $this->resolveResult = [ServerException::class, [$this->httpResponse]];
 
             return;
         }
 
         if (400 <= $statusCode) {
-            $this->resolveResult = [ClientException::class, [$this->httpResponse, $this->logger]];
+            $this->resolveResult = [ClientException::class, [$this->httpResponse]];
 
             return;
         }
 
         if (300 <= $statusCode) {
-            $this->resolveResult = [RedirectionException::class, [$this->httpResponse, $this->logger]];
+            $this->resolveResult = [RedirectionException::class, [$this->httpResponse]];
 
             return;
         }
