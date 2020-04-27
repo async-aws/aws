@@ -39,7 +39,7 @@ trait HttpExceptionTrait
      */
     private $awsDetail;
 
-    public function __construct(ResponseInterface $response, LoggerInterface $logger)
+    public function __construct(ResponseInterface $response)
     {
         $this->response = $response;
         /** @var int $code */
@@ -68,13 +68,6 @@ trait HttpExceptionTrait
                 // Not XML ¯\_(ツ)_/¯
             }
         }
-
-        $logger->error($message, [
-            'aws_code' => $this->awsCode,
-            'aws_message' => $this->awsMessage,
-            'aws_type' => $this->awsType,
-            'aws_detail' => $this->awsDetail,
-        ]);
 
         $message .= <<<TEXT
 

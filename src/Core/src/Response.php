@@ -359,6 +359,17 @@ class Response
         if ($this->resolveResult instanceof Exception) {
             $this->didThrow = true;
 
+            /** @var int $code */
+            $code = $this->httpResponse->getInfo('http_code');
+            /** @var string $url */
+            $url = $this->httpResponse->getInfo('url');
+            $this->logger->error(sprintf('HTTP %d returned for "%s".', $code, $url), [
+                'aws_code' => $this->resolveResult->getAwsCode(),
+                'aws_message' => $this->resolveResult->getAwsMessage(),
+                'aws_type' => $this->resolveResult->getAwsType(),
+                'aws_detail' => $this->resolveResult->getAwsDetail(),
+            ]);
+
             throw $this->resolveResult;
         }
 

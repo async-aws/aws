@@ -15,7 +15,7 @@ class ClientExceptionTest extends TestCase
     {
         $json = '{"message":"Missing final \'@domain\'"}';
         $response = new SimpleMockedResponse($json, ['content-type' => 'application/json'], 400);
-        $exception = new ClientException($response, new NullLogger());
+        $exception = new ClientException($response);
 
         self::assertEquals('Missing final \'@domain\'', $exception->getAwsMessage());
     }
@@ -34,7 +34,7 @@ class ClientExceptionTest extends TestCase
 XML;
 
         $response = new SimpleMockedResponse($xml, ['content-type' => 'text/xml'], 400);
-        $exception = new ClientException($response, new NullLogger());
+        $exception = new ClientException($response);
 
         self::assertEquals('NoSuchKey', $exception->getAwsCode());
         self::assertEquals('The specified key does not exist.', $exception->getAwsMessage());
@@ -44,7 +44,7 @@ XML;
     {
         $json = '{"__type":"com.amazonaws.dynamodb.v20120810#ResourceNotFoundException","message":"Requested resource not found: Table: tablename not found"}';
         $response = new SimpleMockedResponse($json, ['content-type' => 'application/x-amz-json-1.0'], 400);
-        $exception = new ClientException($response, new NullLogger());
+        $exception = new ClientException($response);
 
         self::assertSame(400, $exception->getCode());
         self::assertSame('ResourceNotFoundException', $exception->getAwsCode());
@@ -63,7 +63,7 @@ XML;
 </ErrorResponse>
 ';
         $response = new SimpleMockedResponse($content, ['content-type' => 'text/xml'], 400);
-        $exception = new ClientException($response, new NullLogger());
+        $exception = new ClientException($response);
 
         self::assertSame(400, $exception->getCode());
         self::assertSame('Sender', $exception->getAwsType());
@@ -75,7 +75,7 @@ XML;
     {
         $content = '{"Type":"User","message":"Invalid Layer name: arn:aws:lambda:eu-central-2:12345:layer:foobar"}';
         $response = new SimpleMockedResponse($content, ['content-type' => 'application/json'], 400);
-        $exception = new ClientException($response, new NullLogger());
+        $exception = new ClientException($response);
 
         self::assertSame(400, $exception->getCode());
         self::assertSame('User', $exception->getAwsType());
