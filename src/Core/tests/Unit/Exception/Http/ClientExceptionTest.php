@@ -7,7 +7,6 @@ namespace AsyncAws\Core\Tests\Unit\Exception\Http;
 use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use PHPUnit\Framework\TestCase;
-use Psr\Log\NullLogger;
 
 class ClientExceptionTest extends TestCase
 {

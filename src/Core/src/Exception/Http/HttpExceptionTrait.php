@@ -2,7 +2,6 @@
 
 namespace AsyncAws\Core\Exception\Http;
 
-use Psr\Log\LoggerInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**

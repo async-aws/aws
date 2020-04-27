@@ -356,9 +356,8 @@ class Response
             /** @psalm-suppress PropertyTypeCoercion */
             $this->resolveResult = new $class(...$args);
         }
-        if ($this->resolveResult instanceof Exception) {
-            $this->didThrow = true;
 
+        if ($this->resolveResult instanceof HttpException) {
             /** @var int $code */
             $code = $this->httpResponse->getInfo('http_code');
             /** @var string $url */
@@ -369,6 +368,10 @@ class Response
                 'aws_type' => $this->resolveResult->getAwsType(),
                 'aws_detail' => $this->resolveResult->getAwsDetail(),
             ]);
+        }
+
+        if ($this->resolveResult instanceof Exception) {
+            $this->didThrow = true;
 
             throw $this->resolveResult;
         }
