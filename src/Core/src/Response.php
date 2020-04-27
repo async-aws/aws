@@ -173,7 +173,7 @@ class Response
                 }
             } catch (TransportException $e) {
                 // Exception is stored as an array, because storing an instance of \Exception will create a circular
-                // reference and prevent `__destruct` beeing called.
+                // reference and prevent `__destruct` being called.
                 $response->resolveResult = [NetworkException::class, ['Could not contact remote server.', 0, $e]];
 
                 if (null !== $index) {

@@ -160,7 +160,7 @@ class S3ClientTest extends TestCase
 
         $result->resolve();
 
-        // fetch copyied object
+        // fetch copied object
         $result = $client->getObject([
             'Bucket' => 'foo',
             'Key' => 'baz',
