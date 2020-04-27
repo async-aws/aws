@@ -16,6 +16,7 @@ use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Stream\ResponseBodyResourceStream;
 use AsyncAws\Core\Stream\ResponseBodyStream;
 use AsyncAws\Core\Stream\ResultStream;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -61,10 +62,16 @@ class Response
      */
     private $didThrow = false;
 
-    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient)
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, LoggerInterface $logger)
     {
         $this->httpResponse = $response;
         $this->httpClient = $httpClient;
+        $this->logger = $logger;
     }
 
     public function __destruct()
@@ -318,19 +325,19 @@ class Response
         }
 
         if (500 <= $statusCode) {
-            $this->resolveResult = [ServerException::class, [$this->httpResponse]];
+            $this->resolveResult = [ServerException::class, [$this->httpResponse, $this->logger]];
 
             return;
         }
 
         if (400 <= $statusCode) {
-            $this->resolveResult = [ClientException::class, [$this->httpResponse]];
+            $this->resolveResult = [ClientException::class, [$this->httpResponse, $this->logger]];
 
             return;
         }
 
         if (300 <= $statusCode) {
-            $this->resolveResult = [RedirectionException::class, [$this->httpResponse]];
+            $this->resolveResult = [RedirectionException::class, [$this->httpResponse, $this->logger]];
 
             return;
         }

@@ -49,6 +49,11 @@ abstract class AbstractApi
     private $signers;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * @param Configuration|array $configuration
      */
     public function __construct($configuration = [], ?CredentialProvider $credentialProvider = null, ?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null)
@@ -60,13 +65,13 @@ abstract class AbstractApi
         }
 
         $this->httpClient = $httpClient ?? HttpClient::create();
-        $logger = $logger ?? new NullLogger();
+        $this->logger = $logger ?? new NullLogger();
         $this->configuration = $configuration;
         $this->credentialProvider = $credentialProvider ?? new CacheProvider(new ChainProvider([
             new ConfigurationProvider(),
-            new WebIdentityProvider($logger),
-            new IniFileProvider($logger),
-            new InstanceProvider($this->httpClient, $logger),
+            new WebIdentityProvider($this->logger),
+            new IniFileProvider($this->logger),
+            new InstanceProvider($this->httpClient, $this->logger),
         ]));
     }
 
@@ -121,7 +126,7 @@ abstract class AbstractApi
             ]
         );
 
-        return new Response($response, $this->httpClient);
+        return new Response($response, $this->httpClient, $this->logger);
     }
 
     /**
