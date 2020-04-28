@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Result\CreateMultipartUploadOutput;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class CreateMultipartUploadOutputTest extends TestCase
@@ -23,7 +24,7 @@ class CreateMultipartUploadOutputTest extends TestCase
 </InitiateMultipartUploadResult>');
 
         $client = new MockHttpClient($response);
-        $result = new CreateMultipartUploadOutput(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new CreateMultipartUploadOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertSame('example-bucket', $result->getBucket());
         self::assertSame('example-object', $result->getKey());

@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Ses\Result\SendEmailResponse;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class SendEmailResponseTest extends TestCase
@@ -18,7 +19,7 @@ class SendEmailResponseTest extends TestCase
         }');
 
         $client = new MockHttpClient($response);
-        $result = new SendEmailResponse(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new SendEmailResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertSame('EXAMPLE78603177f-7a5433e7-8edb-42ae-af10-f0181f34d6ee-000000', $result->getMessageId());
     }

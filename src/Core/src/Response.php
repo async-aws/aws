@@ -16,6 +16,7 @@ use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Stream\ResponseBodyResourceStream;
 use AsyncAws\Core\Stream\ResponseBodyStream;
 use AsyncAws\Core\Stream\ResultStream;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -61,10 +62,16 @@ class Response
      */
     private $didThrow = false;
 
-    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient)
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, LoggerInterface $logger)
     {
         $this->httpResponse = $response;
         $this->httpClient = $httpClient;
+        $this->logger = $logger;
     }
 
     public function __destruct()
@@ -349,6 +356,20 @@ class Response
             /** @psalm-suppress PropertyTypeCoercion */
             $this->resolveResult = new $class(...$args);
         }
+
+        if ($this->resolveResult instanceof HttpException) {
+            /** @var int $code */
+            $code = $this->httpResponse->getInfo('http_code');
+            /** @var string $url */
+            $url = $this->httpResponse->getInfo('url');
+            $this->logger->error(sprintf('HTTP %d returned for "%s".', $code, $url), [
+                'aws_code' => $this->resolveResult->getAwsCode(),
+                'aws_message' => $this->resolveResult->getAwsMessage(),
+                'aws_type' => $this->resolveResult->getAwsType(),
+                'aws_detail' => $this->resolveResult->getAwsDetail(),
+            ]);
+        }
+
         if ($this->resolveResult instanceof Exception) {
             $this->didThrow = true;
 

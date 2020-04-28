@@ -7,6 +7,7 @@ use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Ssm\Enum\ParameterType;
 use AsyncAws\Ssm\Result\GetParameterResult;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class GetParameterResultTest extends TestCase
@@ -27,7 +28,7 @@ class GetParameterResultTest extends TestCase
         }');
 
         $client = new MockHttpClient($response);
-        $result = new GetParameterResult(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new GetParameterResult(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertSame('arn:aws:ssm:us-east-2:111122223333:parameter/MyGitHubPassword', $result->getParameter()->getARN());
         self::assertSame('20200225 190128 800000', $result->getParameter()->getLastModifiedDate()->format('Ymd His u'));

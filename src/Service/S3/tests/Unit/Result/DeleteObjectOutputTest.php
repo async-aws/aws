@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Result\DeleteObjectOutput;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class DeleteObjectOutputTest extends TestCase
@@ -20,7 +21,7 @@ class DeleteObjectOutputTest extends TestCase
         ]);
 
         $client = new MockHttpClient($response);
-        $result = new DeleteObjectOutput(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new DeleteObjectOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertTrue($result->getDeleteMarker());
         self::assertSame('3/L4kqtJlcpXroDTDmJ+rmSpXd3dIbrHY+MTRCxf3vjVBH40Nr8X8gdRQBpUMLUo', $result->getVersionId());

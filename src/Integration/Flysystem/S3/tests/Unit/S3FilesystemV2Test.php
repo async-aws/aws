@@ -11,6 +11,7 @@ use AsyncAws\S3\S3Client;
 use League\Flysystem\Config;
 use League\Flysystem\FilesystemAdapter;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class S3FilesystemV2Test extends TestCase
@@ -30,7 +31,7 @@ class S3FilesystemV2Test extends TestCase
 
         if (\class_exists(Response::class)) {
             $client = new MockHttpClient();
-            $result = new PutObjectOutput(new Response($client->request('POST', 'http://localhost'), $client));
+            $result = new PutObjectOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
         } else {
             $client = new MockHttpClient();
             $result = new PutObjectOutput($client->request('POST', 'http://localhost'), $client);

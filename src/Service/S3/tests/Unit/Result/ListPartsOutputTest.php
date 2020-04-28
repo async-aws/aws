@@ -7,6 +7,7 @@ use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Result\ListPartsOutput;
 use AsyncAws\S3\ValueObject\Part;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class ListPartsOutputTest extends TestCase
@@ -49,7 +50,7 @@ class ListPartsOutputTest extends TestCase
 </ListPartsResult>');
 
         $client = new MockHttpClient($response);
-        $result = new ListPartsOutput(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new ListPartsOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertSame('example-bucket', $result->getBucket());
         self::assertSame('example-object', $result->getKey());

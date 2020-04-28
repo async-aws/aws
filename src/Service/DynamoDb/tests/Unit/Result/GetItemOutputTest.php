@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\DynamoDb\Result\GetItemOutput;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class GetItemOutputTest extends TestCase
@@ -28,7 +29,7 @@ class GetItemOutputTest extends TestCase
         }');
 
         $client = new MockHttpClient($response);
-        $result = new GetItemOutput(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new GetItemOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertEquals('Songs About Life', $result->getItem()['AlbumTitle']->getS());
         self::assertEquals('Acme Band', $result->getItem()['Artist']->getS());

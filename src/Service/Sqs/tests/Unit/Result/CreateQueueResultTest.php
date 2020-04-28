@@ -8,6 +8,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Sqs\Result\CreateQueueResult;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class CreateQueueResultTest extends TestCase
@@ -28,7 +29,7 @@ XML
         );
 
         $client = new MockHttpClient($response);
-        $result = new CreateQueueResult(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new CreateQueueResult(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertEquals('https://queue.amazonaws.com/123456789012/MyQueue', $result->getQueueUrl());
     }

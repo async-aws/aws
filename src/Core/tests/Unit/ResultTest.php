@@ -10,6 +10,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class ResultTest extends TestCase
@@ -58,7 +59,7 @@ class ResultTest extends TestCase
     {
         $response = new SimpleMockedResponse('Bad request', [], 400);
         $client = new MockHttpClient($response);
-        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         $this->expectException(ClientException::class);
         unset($result);
@@ -68,7 +69,7 @@ class ResultTest extends TestCase
     {
         $response = new SimpleMockedResponse('Bad request', [], 400);
         $client = new MockHttpClient($response);
-        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         try {
             $result->resolve();
@@ -90,7 +91,7 @@ class ResultTest extends TestCase
         $results = [];
         $client = new MockHttpClient((function () { while (true) { yield new SimpleMockedResponse('OK', [], 200); } })());
         for ($i = 0; $i < 10; ++$i) {
-            $results[] = new Result(new Response($client->request('POST', 'http://localhost'), $client));
+            $results[] = new Result(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
         }
 
         $counter = 0;
@@ -106,8 +107,8 @@ class ResultTest extends TestCase
     public function testWaitWithMixException()
     {
         $client = new MockHttpClient([new SimpleMockedResponse('Bad request', [], 400), new SimpleMockedResponse('OK', [], 200)]);
-        $result1 = new Result(new Response($client->request('POST', 'http://localhost'), $client));
-        $result2 = new Result(new Response($client->request('POST', 'http://localhost'), $client));
+        $result1 = new Result(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
+        $result2 = new Result(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         $counter = 0;
         foreach (Result::wait([$result1, $result2]) as $result) {
@@ -123,7 +124,7 @@ class ResultTest extends TestCase
     public function testWaitWithExceptionOnDestruct()
     {
         $client = new MockHttpClient(new SimpleMockedResponse('Bad request', [], 400));
-        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         foreach (Result::wait([$result]) as $r) {
             self::assertTrue($r->info()['resolved']);
@@ -136,7 +137,7 @@ class ResultTest extends TestCase
     public function testWaitWithBody()
     {
         $client = new MockHttpClient(new SimpleMockedResponse('OK', [], 200));
-        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         foreach (Result::wait([$result], null, true) as $result) {
             self::assertTrue($result->info()['resolved']);
@@ -147,7 +148,7 @@ class ResultTest extends TestCase
     public function testWaitWithBodyAfterManuallyResolve()
     {
         $client = new MockHttpClient(new SimpleMockedResponse('OK', [], 200));
-        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new Result(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         $result->resolve();
         self::assertTrue($result->info()['resolved']);

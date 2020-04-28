@@ -7,6 +7,7 @@ use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\DynamoDb\Result\QueryOutput;
 use AsyncAws\DynamoDb\ValueObject\ConsumedCapacity;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class QueryOutputTest extends TestCase
@@ -31,7 +32,7 @@ class QueryOutputTest extends TestCase
         }');
 
         $client = new MockHttpClient($response);
-        $result = new QueryOutput(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new QueryOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         $items = $result->getItems(true);
         foreach ($items as $name => $item) {

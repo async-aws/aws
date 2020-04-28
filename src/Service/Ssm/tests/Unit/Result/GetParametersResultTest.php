@@ -7,6 +7,7 @@ use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Ssm\Result\GetParametersResult;
 use AsyncAws\Ssm\ValueObject\Parameter;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class GetParametersResultTest extends TestCase
@@ -39,7 +40,7 @@ class GetParametersResultTest extends TestCase
         }');
 
         $client = new MockHttpClient($response);
-        $result = new GetParametersResult(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new GetParametersResult(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertCount(3, $result->getParameters());
         self::assertInstanceOf(Parameter::class, $result->getParameters()[0]);

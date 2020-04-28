@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\S3\Result\GetObjectOutput;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class GetObjectOutputTest extends TestCase
@@ -26,7 +27,7 @@ class GetObjectOutputTest extends TestCase
         $response = new SimpleMockedResponse('', $headers);
 
         $client = new MockHttpClient($response);
-        $result = new GetObjectOutput(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new GetObjectOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertEquals('"98bf7d8c15784f0a3d63204441e1e2aa"', $result->getETag());
 
@@ -52,7 +53,7 @@ class GetObjectOutputTest extends TestCase
         ];
         $response = new SimpleMockedResponse('content', $headers);
         $client = new MockHttpClient($response);
-        $result = new GetObjectOutput(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new GetObjectOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         $metadata = $result->getMetadata();
         self::assertCount(1, $metadata);

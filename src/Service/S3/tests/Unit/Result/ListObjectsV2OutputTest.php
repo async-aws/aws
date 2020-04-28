@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\S3\Result\ListObjectsV2Output;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class ListObjectsV2OutputTest extends TestCase
@@ -26,7 +27,7 @@ class ListObjectsV2OutputTest extends TestCase
 </ListBucketResult>');
 
         $client = new MockHttpClient($response);
-        $result = new ListObjectsV2Output(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new ListObjectsV2Output(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertFalse($result->getIsTruncated());
         self::assertEquals('async-aws-test', $result->getName());
@@ -56,7 +57,7 @@ class ListObjectsV2OutputTest extends TestCase
         ');
 
         $client = new MockHttpClient($response);
-        $result = new ListObjectsV2Output(new Response($client->request('POST', 'http://localhost'), $client));
+        $result = new ListObjectsV2Output(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         $content = $result->getContents(true);
         self::assertCount(0, $content);
