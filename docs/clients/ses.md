@@ -30,7 +30,7 @@ $result = $ses->sendEmail(new SendEmailRequest([
         ]),
     ]),
     'Destination' => new Destination([
-        'ToAddresses' => 'customer@customer-company.com'
+        'ToAddresses' => ['customer@customer-company.com']
     ]),
 ]));
 
