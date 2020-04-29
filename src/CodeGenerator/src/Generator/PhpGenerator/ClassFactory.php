@@ -120,9 +120,9 @@ class ClassFactory
         $method->setReturnReference($from->returnsReference());
         $method->setVariadic($from->isVariadic());
         $method->setComment(Helpers::unformatDocComment((string) $from->getDocComment()));
-        if ($from->hasReturnType()) {
-            $method->setReturnType($from->getReturnType()->getName());
-            $method->setReturnNullable($from->getReturnType()->allowsNull());
+        if ($from->hasReturnType() && ($type = $from->getReturnType()) instanceof \ReflectionNamedType) {
+            $method->setReturnType($type->getName());
+            $method->setReturnNullable($type->allowsNull());
         }
 
         return $method;
@@ -140,9 +140,9 @@ class ClassFactory
         if (!$from->isClosure()) {
             $function->setComment(Helpers::unformatDocComment((string) $from->getDocComment()));
         }
-        if ($from->hasReturnType()) {
-            $function->setReturnType($from->getReturnType()->getName());
-            $function->setReturnNullable($from->getReturnType()->allowsNull());
+        if ($from->hasReturnType() && ($type = $from->getReturnType()) instanceof \ReflectionNamedType) {
+            $function->setReturnType($type->getName());
+            $function->setReturnNullable($type->allowsNull());
         }
 
         return $function;
@@ -152,8 +152,10 @@ class ClassFactory
     {
         $param = new Parameter($from->getName());
         $param->setReference($from->isPassedByReference());
-        $param->setType($from->hasType() ? $from->getType()->getName() : null);
-        $param->setNullable($from->hasType() && $from->getType()->allowsNull());
+        if ($from->hasType() && ($type = $from->getType()) instanceof \ReflectionNamedType) {
+            $param->setType($type->getName());
+            $param->setNullable($type->allowsNull());
+        }
         if ($from->isDefaultValueAvailable()) {
             $param->setDefaultValue($from->isDefaultValueConstant()
                 ? new Literal($from->getDefaultValueConstantName())
@@ -175,7 +177,7 @@ class ClassFactory
             ? ClassType::VISIBILITY_PRIVATE
             : ($from->isProtected() ? ClassType::VISIBILITY_PROTECTED : ClassType::VISIBILITY_PUBLIC)
         );
-        if (\PHP_VERSION_ID >= 70400 && ($type = $from->getType())) {
+        if (\PHP_VERSION_ID >= 70400 && ($type = $from->getType()) instanceof \ReflectionNamedType) {
             $prop->setType($type->getName());
             $prop->setNullable($type->allowsNull());
             $prop->setInitialized(\array_key_exists($prop->getName(), $defaults));
