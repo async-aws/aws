@@ -62,7 +62,7 @@ class GenerateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        \assert($output instanceof ConsoleOutputInterface);
+        /** @var ConsoleOutputInterface $output */
         $io = new SymfonyStyle($input, $output);
 
         $progressService = (new SymfonyStyle($input, $output->section()))->createProgressBar();
