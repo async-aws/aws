@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.5.4
+
+### Added
+
+- Logging on HTTP exceptions.
+
 ## 0.5.3
 
 ### Added
