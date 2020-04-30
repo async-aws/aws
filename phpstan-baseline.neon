@@ -1,17 +1,2 @@
 parameters:
-	ignoreErrors:
-		-
-			message: '#^Call to an undefined method Symfony\\Component\\Console\\Output\\OutputInterface::section\(\)\.$#'
-			count: 2
-			path: src/CodeGenerator/src/Command/GenerateCommand.php
-
-		-
-			message: '#^Call to an undefined method ReflectionType::getName\(\)\.$#'
-			count: 1
-			path: src/Core/src/Test/ResultMockFactory.php
-
-		-
-			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface::scalarNode\(\)\.$#'
-			count: 1
-			path: src/Integration/Symfony/Bundle/src/DependencyInjection/Configuration.php
-
+    ignoreErrors:

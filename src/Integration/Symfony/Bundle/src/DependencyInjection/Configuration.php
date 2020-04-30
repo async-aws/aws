@@ -16,6 +16,7 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('async_aws');
         /** @var ArrayNodeDefinition $rootNode */
         $rootNode = $treeBuilder->getRootNode();
+        /** @phpstan-ignore-next-line */
         $rootNode
             ->fixXmlConfig('client')
             ->children()
