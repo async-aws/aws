@@ -12,7 +12,7 @@ final class Parameter
     private $Name;
 
     /**
-     * The type of parameter. Valid values include the following: String, String list, Secure string.
+     * The type of parameter. Valid values include the following: `String`, `StringList`, and `SecureString`.
      */
     private $Type;
 
