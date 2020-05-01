@@ -48,6 +48,8 @@ trait HttpExceptionTrait
         $content = $response->getContent(false);
         $message = sprintf('HTTP %d returned for "%s".', $code, $url);
 
+        $this->awsType = $response->getHeaders(false)['x-amzn-errortype'][0] ?? null;
+
         // Try json_decode it first, fallback to XML
         if ($body = json_decode($content, true)) {
             $this->parseJson($body);
