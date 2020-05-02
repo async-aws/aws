@@ -9,7 +9,6 @@ class PutLifecycleEventHookExecutionStatusInputTest extends TestCase
 {
     public function testRequest(): void
     {
-
         $input = new PutLifecycleEventHookExecutionStatusInput([
             'deploymentId' => '123',
             'lifecycleEventHookExecutionId' => 'abc',
