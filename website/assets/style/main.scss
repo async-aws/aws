@@ -100,3 +100,9 @@ blockquote {
 img {
     max-width: 100%;
 }
+
+@include media-breakpoint-down(md) {
+    .no-mobile-x-scroll {
+        overflow-x: hidden;
+    }
+}
