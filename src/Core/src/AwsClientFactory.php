@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\Core;
 
 use AsyncAws\CloudFormation\CloudFormationClient;
+use AsyncAws\CodeDeploy\CodeDeployClient;
 use AsyncAws\Core\Credentials\CacheProvider;
 use AsyncAws\Core\Credentials\ChainProvider;
 use AsyncAws\Core\Credentials\ConfigurationProvider;
@@ -89,6 +90,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new CloudFormationClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function codeDeploy(): CodeDeployClient
+    {
+        if (!class_exists(CodeDeployClient::class)) {
+            throw MissingDependency::create('async-aws/code-deploy', 'CodeDeploy');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new CodeDeployClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];

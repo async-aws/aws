@@ -136,6 +136,7 @@ for more information.
 | Api Client                  | Package name
 | --------------------------- | ----------------------------------------------------------------------------------------
 | [CloudFormation](./cf.md)   | [async-aws/cloud-formation](https://packagist.org/packages/async-aws/cloud-formation)
+| CodeDeploy                  | [async-aws/code-deploy](https://packagist.org/packages/async-aws/code-deploy)
 | [DynamoDb]('./dynamodb.md)  | [async-aws/dynamo-db](https://packagist.org/packages/async-aws/dynamo-db)
 | [Lambda](./lambda.md)       | [async-aws/lambda](https://packagist.org/packages/async-aws/lambda)
 | [S3](./s3.md)               | [async-aws/s3](https://packagist.org/packages/async-aws/s3)
