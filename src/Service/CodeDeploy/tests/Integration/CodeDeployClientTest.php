@@ -16,7 +16,7 @@ class CodeDeployClientTest extends TestCase
         $input = new PutLifecycleEventHookExecutionStatusInput([
             'deploymentId' => 'change me',
             'lifecycleEventHookExecutionId' => 'change me',
-            'status' => 'change me',
+            'status' => 'Succeeded',
         ]);
         $result = $client->PutLifecycleEventHookExecutionStatus($input);
 
@@ -27,7 +27,7 @@ class CodeDeployClientTest extends TestCase
 
     private function getClient(): CodeDeployClient
     {
-        self::fail('Not implemented');
+        self::markTestSkipped('There is not docker image available for CodeDeploy.');
 
         return new CodeDeployClient([
             'endpoint' => 'http://localhost',

@@ -9,23 +9,24 @@ class PutLifecycleEventHookExecutionStatusInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
 
         $input = new PutLifecycleEventHookExecutionStatusInput([
-            'deploymentId' => 'change me',
-            'lifecycleEventHookExecutionId' => 'change me',
-            'status' => 'change me',
+            'deploymentId' => '123',
+            'lifecycleEventHookExecutionId' => 'abc',
+            'status' => 'Succeeded',
         ]);
 
-        // see https://docs.aws.amazon.com/codedeploy/latest/APIReference/API_PutLifecycleEventHookExecutionStatus.html
         $expected = '
-                    POST / HTTP/1.0
-                    Content-Type: application/x-amz-json-1.1
+POST / HTTP/1.0
+Content-Type: application/x-amz-json-1.1
+x-amz-target: CodeDeploy_20141006.PutLifecycleEventHookExecutionStatus
 
-                    {
-            "change": "it"
-        }
-                ';
+{
+    "deploymentId": "123",
+    "lifecycleEventHookExecutionId": "abc",
+    "status": "Succeeded"
+}
+';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

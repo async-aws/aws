@@ -16,7 +16,9 @@ class CodeDeployClientTest extends TestCase
         $client = new CodeDeployClient([], new NullProvider(), new MockHttpClient());
 
         $input = new PutLifecycleEventHookExecutionStatusInput([
-
+            'deploymentId' => '123',
+            'lifecycleEventHookExecutionId' => 'abc',
+            'status' => 'Succeeded',
         ]);
         $result = $client->PutLifecycleEventHookExecutionStatus($input);
 
