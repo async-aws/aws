@@ -52,6 +52,9 @@ menu:
             sqs:
                 text: SQS
                 url: /clients/sqs.html
+            ssm:
+                text: SSM
+                url: /clients/ssm.html
             sts:
                 text: STS
                 url: /clients/sts.html
