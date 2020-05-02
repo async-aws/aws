@@ -36,6 +36,7 @@
     "autoload": {
         "psr-4": {
             "AsyncAws\\CloudFormation\\": "src/Service/CloudFormation/src",
+            "AsyncAws\\CodeDeploy\\": "src/Service/CodeDeploy/src",
             "AsyncAws\\DynamoDb\\": "src/Service/DynamoDb/src",
             "AsyncAws\\CodeGenerator\\": "src/CodeGenerator/src",
             "AsyncAws\\Core\\": "src/Core/src",
@@ -53,6 +54,7 @@
         "psr-4": {
             "AsyncAws\\Test\\": "tests",
             "AsyncAws\\CloudFormation\\Tests\\": "src/Service/CloudFormation/tests",
+            "AsyncAws\\CodeDeploy\\Tests\\": "src/Service/CodeDeploy/tests",
             "AsyncAws\\DynamoDb\\Tests\\": "src/Service/DynamoDb/tests",
             "AsyncAws\\CodeGenerator\\Tests\\": "src/CodeGenerator/tests",
             "AsyncAws\\Core\\Tests\\": "src/Core/tests",
