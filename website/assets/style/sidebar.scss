@@ -33,7 +33,7 @@
         }
     }
 
-    /* On large screens, how should the button behave */
+    /* How should the button behave on large screens */
     &.active{
         margin-left: -$sidebarWidth;
         .custom-menu-toggle{
@@ -41,11 +41,14 @@
         }
     }
 
-    /* On small screens, how should the button behave */
+    /* How should the button behave on small screens */
     @include media-breakpoint-down(md){
         margin-left: -$sidebarWidth;
         &.active {
             margin-left: 0;
+            .custom-menu-toggle{
+                margin-right: 15px !important;
+            }
         }
         .custom-menu-toggle{
             margin-right: -50px !important;

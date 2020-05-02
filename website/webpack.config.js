@@ -24,7 +24,6 @@ Encore
     })
 
     .disableSingleRuntimeChunk()
-    .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())
     // enables hashed filenames (e.g. app.abc123.css)
     .enableVersioning(Encore.isProduction())
@@ -48,10 +47,10 @@ Encore
             }
         }
     })
-
-
-    // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
 ;
+
+if (Encore.isProduction()) {
+    Encore.cleanupOutputBeforeBuild()
+}
 
 module.exports = Encore.getWebpackConfig();
