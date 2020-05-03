@@ -6,6 +6,16 @@
 
 - Logging on HTTP exceptions.
 
+## 1.0.0
+
+### Added
+
+- Support for CodeDeploy client in `AwsClientFactory`
+
+### Fixed
+
+- Handle Aws Error type in JsonRest error responses
+
 ## 0.5.3
 
 ### Added
