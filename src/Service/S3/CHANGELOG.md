@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.0
+
+### Added
+
+- Support for async-aws/core 1.0.
+
 ## 0.4.0
 
 ### Added

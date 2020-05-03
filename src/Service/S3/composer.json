@@ -13,11 +13,11 @@
         "ext-dom": "*",
         "ext-filter": "*",
         "ext-hash": "*",
-        "async-aws/core": "^0.5"
+        "async-aws/core": "^1.0"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.4-dev"
+            "dev-master": "1.1-dev"
         }
     },
     "autoload": {
