@@ -1,16 +1,14 @@
 # Change Log
 
-## 0.5.1
-
-### Changed
-
-- Support only version 1.0 of async-aws/core
-
-## 0.5.0
+## 0.4.1
 
 ### Added
 
 - Added operations `CreateTopic`, `DeleteTopic`, `ListSubscriptionsByTopic`, `Subscribe` and `Unsubscribe`.
+
+### Changed
+
+- Support only version 1.0 of async-aws/core
 
 ## 0.4.0
 
