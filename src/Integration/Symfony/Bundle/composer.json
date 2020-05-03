@@ -11,15 +11,15 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
-        "async-aws/core": "^0.3 || ^0.4 || ^0.5",
+        "async-aws/core": "^1.0",
         "symfony/config": "^4.4 || ^5.0",
         "symfony/dependency-injection": "^4.4 || ^5.0",
         "symfony/http-kernel": "^4.4 || ^5.0"
     },
     "require-dev": {
-        "async-aws/s3": "^0.3 || ^0.4",
-        "async-aws/ses": "^0.3 || ^0.4",
-        "async-aws/sqs": "^0.3 || ^0.4",
+        "async-aws/s3": "^1.0",
+        "async-aws/ses": "^1.0",
+        "async-aws/sqs": "^1.0",
         "async-aws/ssm": "^0.1",
         "matthiasnoback/symfony-config-test": "^4.1",
         "nyholm/symfony-bundle-test": "^1.6.1"

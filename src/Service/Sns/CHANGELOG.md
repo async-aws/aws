@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.5.1
+
+### Changed
+
+- Support only version 1.0 of async-aws/core
+
 ## 0.5.0
 
 ### Added
