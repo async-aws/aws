@@ -84,7 +84,7 @@ Read more about [how do use asynchronous features](./features/async.md).
 ## Backwards compatibility promise
 
 Backwards compatibility is the most important feature of any open source library.
-This project is inspired by Symfony and will strictly follow their the process to
+This project is inspired by Symfony and will strictly follow their process to
 keep backwards compatibility.
 
 See [Symfony backwards compatibility promise](https://symfony.com/bc) for more information.
