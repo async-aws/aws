@@ -177,6 +177,7 @@ class ClassFactory
             ? ClassType::VISIBILITY_PRIVATE
             : ($from->isProtected() ? ClassType::VISIBILITY_PROTECTED : ClassType::VISIBILITY_PUBLIC)
         );
+        /** @phpstan-ignore-next-line */
         if (\PHP_VERSION_ID >= 70400 && ($type = $from->getType()) instanceof \ReflectionNamedType) {
             $prop->setType($type->getName());
             $prop->setNullable($type->allowsNull());
