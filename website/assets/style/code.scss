@@ -1,5 +1,12 @@
 @import '~highlight.js/styles/darcula.css';
 
+.hljs-deletion {
+    color: #cb7832;
+}
+.hljs-addition {
+    color: #6a8759;
+}
+
 pre code {
     max-width: 50rem;
 }
