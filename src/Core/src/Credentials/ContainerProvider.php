@@ -32,7 +32,7 @@ final class ContainerProvider implements CredentialProvider
     private $httpClient;
 
     private $timeout;
-    
+
     private $envUri;
 
     public function __construct(?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null, float $timeout = 1.0)
