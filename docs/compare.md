@@ -259,7 +259,7 @@ Read more about [writing tests](/features/tests.md).
 
 ## Features coverage
 
-While AsyncAws focused on the most used operations (around 7 services),
+While AsyncAws focused on the most used operations (around a dozen services),
 The official AWS PHP SDK covers the full scope of AWS (200 services and 8,000
 methods).
 
