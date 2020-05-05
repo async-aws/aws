@@ -1,0 +1,32 @@
+{
+    "name": "async-aws/monolog-cloudwatch",
+    "type": "library",
+    "description": "Monolog CloudWatch Logs adapter",
+    "keywords": [
+        "aws",
+        "Monolog",
+        "CloudWatch",
+        "Logs"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.2.5",
+        "async-aws/cloud-watch-logs": "^0.1",
+        "monolog/monolog": "^1.1"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "AsyncAws\\Monolog\\CloudWatch\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\Monolog\\CloudWatch\\Tests\\": "tests/"
+        }
+    }
+}
