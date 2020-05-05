@@ -139,7 +139,7 @@ the remote server again.
 
 The function has a `?float $timeout = null` argument. If the timeout is set to
 `2.0`, the HTTP client will wait for 2 seconds for a response. If a response is received,
-the function will return `true` or thrown an exception. If the timeout is reached,
+the function will return `true` or throw an exception. If the timeout is reached,
 it will return `false`.
 
 > **Note:** The call `$result->resolve()` is a blocking call because we are waiting
