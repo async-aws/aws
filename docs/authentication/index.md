@@ -23,6 +23,7 @@ The providers are currently chained in the following order:
 1. [Environment Variables](./environment.md)
 1. [WebIdentity](./web-identity.md)
 1. [Credential and Configuration Files](./credentials-file.md)
+1. [ECS Container Credentials](./ecs-container.md)
 1. [EC2 Instance Metadata](./ec2-metadata.md)
 
 ## Testing with authentication providers
