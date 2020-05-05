@@ -24,8 +24,6 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 final class ContainerProvider implements CredentialProvider
 {
     private const ENDPOINT = 'http://169.254.170.2';
-    private const ENV_URI = 'AWS_CONTAINER_CREDENTIALS_RELATIVE_URI';
-    private const ENV_TIMEOUT = 'AWS_METADATA_SERVICE_TIMEOUT';
 
     private $logger;
 
@@ -33,28 +31,24 @@ final class ContainerProvider implements CredentialProvider
 
     private $timeout;
 
-    private $envUri;
-
-    public function __construct(?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null, float $timeout = 1.0)
+    public function __construct(?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null)
     {
         $this->logger = $logger ?? new NullLogger();
         $this->httpClient = $httpClient ?? HttpClient::create();
-        $this->timeout = getenv(self::ENV_TIMEOUT) ?: $timeout;
-        $this->envUri = getenv(self::ENV_URI) ?: '';
     }
 
     public function getCredentials(Configuration $configuration): ?Credentials
     {
+        $timeout = $configuration->get(Configuration::OPTION_METADATA_SERVICE_TIMEOUT);
+        $envUri = $configuration->get(Configuration::OPTION_ECS_AUTH_ENDPOINT);
+        // introduces an early exit if the env variable is not set.
+        if (empty($envUri)) {
+            return null;
+        }
         // fetch credentials from ecs endpoint
         try {
-            $response = $this->httpClient->request('GET', self::ENDPOINT . $this->envUri, ['timeout' => $this->timeout]);
-            $result = $this->toArray($response);
-
-            if (200 != $response->getStatusCode()) {
-                $this->logger->info('Unexpected instance profile.', ['response_code' => $result['Code']]);
-
-                return null;
-            }
+            $response = $this->httpClient->request('GET', self::ENDPOINT . $envUri, ['timeout' => $timeout]);
+            $result = $response->toArray();
         } catch (DecodingExceptionInterface $e) {
             $this->logger->info('Failed to decode Credentials.', ['exception' => $e]);
 
@@ -75,34 +69,5 @@ final class ContainerProvider implements CredentialProvider
             $result['Token'],
             new \DateTimeImmutable($result['Expiration'])
         );
-    }
-
-    /**
-     * Copy of Symfony\Component\HttpClient\Response::toArray without assertion on Content-Type header.
-     */
-    private function toArray(ResponseInterface $response): array
-    {
-        if ('' === $content = $response->getContent(true)) {
-            throw new TransportException('Response body is empty.');
-        }
-
-        try {
-            $content = json_decode($content, true, 512, \JSON_BIGINT_AS_STRING | (\PHP_VERSION_ID >= 70300 ? \JSON_THROW_ON_ERROR : 0));
-        } catch (\JsonException $e) {
-            /** @psalm-suppress all */
-            throw new JsonException(sprintf('%s for "%s".', $e->getMessage(), $response->getInfo('url')), $e->getCode());
-        }
-
-        if (\PHP_VERSION_ID < 70300 && \JSON_ERROR_NONE !== json_last_error()) {
-            /** @psalm-suppress InvalidArgument */
-            throw new JsonException(sprintf('%s for "%s".', json_last_error_msg(), $response->getInfo('url')), json_last_error());
-        }
-
-        if (!\is_array($content)) {
-            /** @psalm-suppress InvalidArgument */
-            throw new JsonException(sprintf('JSON content was expected to decode to an array, %s returned for "%s".', \gettype($content), $response->getInfo('url')));
-        }
-
-        return $content;
     }
 }

@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.1.0
+
+### Added
+
+- Support for ECS Credentials Provider
+
+### Changed
+
+- Timeout parameter on EC2 Instance and ECS Credentials Provider now is fetched from environment variable. Otherwise, it is set to 1.0
+
 ## 0.5.4
 
 ### Added
