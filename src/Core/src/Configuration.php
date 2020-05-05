@@ -73,7 +73,7 @@ final class Configuration
         self::OPTION_SHARED_CONFIG_FILE => '~/.aws/config',
         // https://docs.aws.amazon.com/general/latest/gr/rande.html
         self::OPTION_ENDPOINT => 'https://%service%.%region%.amazonaws.com',
-        self::OPTION_METADATA_SERVICE_TIMEOUT => 1.0
+        self::OPTION_METADATA_SERVICE_TIMEOUT => 1.0,
     ];
 
     private $data = [];
