@@ -32,19 +32,22 @@ final class ContainerProvider implements CredentialProvider
     private $httpClient;
 
     private $timeout;
+    
+    private $envUri;
 
     public function __construct(?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null, float $timeout = 1.0)
     {
         $this->logger = $logger ?? new NullLogger();
         $this->httpClient = $httpClient ?? HttpClient::create();
-        $this->timeout = getenv(self::ENV_TIMEOUT) ?? $timeout;
+        $this->timeout = getenv(self::ENV_TIMEOUT) ?: $timeout;
+        $this->envUri = getenv(self::ENV_URI) ?: '';
     }
 
     public function getCredentials(Configuration $configuration): ?Credentials
     {
         // fetch credentials from ecs endpoint
         try {
-            $response = $this->httpClient->request('GET', self::ENDPOINT . getenv(self::ENV_URI), ['timeout' => $this->timeout]);
+            $response = $this->httpClient->request('GET', self::ENDPOINT . $this->envUri, ['timeout' => $this->timeout]);
             $result = $this->toArray($response);
 
             if (200 != $response->getStatusCode()) {
