@@ -13,7 +13,7 @@ class PutLifecycleEventHookExecutionStatusOutput extends Result
      */
     private $lifecycleEventHookExecutionId;
 
-    public function getlifecycleEventHookExecutionId(): ?string
+    public function getLifecycleEventHookExecutionId(): ?string
     {
         $this->initialize();
 

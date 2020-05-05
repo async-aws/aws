@@ -27,7 +27,7 @@ final class PolicyDescriptorType
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getarn(): ?string
+    public function getArn(): ?string
     {
         return $this->arn;
     }

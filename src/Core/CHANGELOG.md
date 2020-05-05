@@ -6,11 +6,9 @@
 
 - Support for ECS Credentials Provider
 
-## 0.5.4
+### Fixed
 
-### Added
-
-- Logging on HTTP exceptions.
+- Use camelCase for all getter methods.
 
 ## 1.0.0
 
@@ -21,6 +19,12 @@
 ### Fixed
 
 - Handle Aws Error type in JsonRest error responses
+
+## 0.5.4
+
+### Added
+
+- Logging on HTTP exceptions.
 
 ## 0.5.3
 
