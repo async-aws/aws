@@ -40,8 +40,6 @@ final class Configuration
         self::OPTION_ROLE_ARN => true,
         self::OPTION_WEB_IDENTITY_TOKEN_FILE => true,
         self::OPTION_ROLE_SESSION_NAME => true,
-        self::OPTION_ECS_AUTH_ENDPOINT => true,
-        self::OPTION_METADATA_SERVICE_TIMEOUT => true,
     ];
 
     // Put fallback options into groups to avoid mixing of provided config and environment variables
