@@ -25,7 +25,7 @@ final class Configuration
     public const OPTION_ROLE_ARN = 'roleArn';
     public const OPTION_WEB_IDENTITY_TOKEN_FILE = 'webIdentityTokenFile';
     public const OPTION_ROLE_SESSION_NAME = 'roleSessionName';
-    public const OPTION_ECS_AUTH_ENDPOINT = 'ecsAuthenticationEndpoint';
+    public const OPTION_CONTAINER_CREDENTIALS_RELATIVE_URI = 'containerCredentialsRelativeUri';
     public const OPTION_METADATA_SERVICE_TIMEOUT = 'metadataServiceTimeout';
 
     private const AVAILABLE_OPTIONS = [
@@ -59,10 +59,8 @@ final class Configuration
             self::OPTION_WEB_IDENTITY_TOKEN_FILE => 'AWS_WEB_IDENTITY_TOKEN_FILE',
             self::OPTION_ROLE_SESSION_NAME => 'AWS_ROLE_SESSION_NAME',
         ],
-        [
-            self::OPTION_ECS_AUTH_ENDPOINT => 'AWS_CONTAINER_CREDENTIALS_RELATIVE_URI',
-            self::OPTION_METADATA_SERVICE_TIMEOUT => 'AWS_METADATA_SERVICE_TIMEOUT',
-        ],
+        [self::OPTION_CONTAINER_CREDENTIALS_RELATIVE_URI => 'AWS_CONTAINER_CREDENTIALS_RELATIVE_URI',],
+        [self::OPTION_METADATA_SERVICE_TIMEOUT => 'AWS_METADATA_SERVICE_TIMEOUT',],
     ];
 
     private const DEFAULT_OPTIONS = [
