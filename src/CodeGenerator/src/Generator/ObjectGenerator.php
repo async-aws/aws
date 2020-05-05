@@ -239,7 +239,7 @@ class ObjectGenerator
                 $nullable = false;
             }
 
-            $method = $class->addMethod('get' . $member->getName())
+            $method = $class->addMethod('get' . \ucfirst($member->getName()))
                 ->setReturnType($returnType)
                 ->setBody(strtr('
                     return $this->NAME;

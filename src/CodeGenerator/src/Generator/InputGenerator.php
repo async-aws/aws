@@ -166,12 +166,12 @@ class InputGenerator
             // the "\n" helps php-cs-fixer to with potential wildcard in parameterType
             $property->addComment("\n@var " . ($nullable ? 'null|' : '') . $parameterType);
 
-            $getter = $class->addMethod('get' . $member->getName())
+            $getter = $class->addMethod('get' . \ucfirst($member->getName()))
                 ->setReturnType($returnType)
                 ->setReturnNullable($nullable)
                 ->setBody(strtr('return $this->NAME;', ['NAME' => $member->getName()]));
 
-            $setter = $class->addMethod('set' . $member->getName())
+            $setter = $class->addMethod('set' . \ucfirst($member->getName()))
                 ->setReturnType('self')
                 ->setBody(strtr('
                     $this->NAME = $value;
