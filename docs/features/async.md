@@ -86,11 +86,11 @@ $sqs = new SqsClient();
 sendSqsMessage($sqs);
 ```
 
-In this example `$result` is never used. The HTTP request will be send on `$result->__desctuct()`.
+In this example `$result` is never used. The HTTP request will be sent on `$result->__destruct()`.
 But that does not happen until the end of the block, after the 100 lines of business
 logic. This can be a bit confusing, especially when an exception is thrown.
 
-This scenario can be solved in a few ways. **Solution A** is the best one to use but
+This scenario can be solved in a few ways. **Solution A** is the best one to use, but
 the others are listed as examples.
 
 #### Solution A
