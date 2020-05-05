@@ -33,18 +33,18 @@ final class InstanceProvider implements CredentialProvider
 
     private $timeout;
 
-    public function __construct(?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null)
+    public function __construct(?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null, float $timeout = 1.0)
     {
         $this->logger = $logger ?? new NullLogger();
         $this->httpClient = $httpClient ?? HttpClient::create();
+        $this->timeout = $timeout;
     }
 
     public function getCredentials(Configuration $configuration): ?Credentials
     {
-        $timeout = $configuration->get(Configuration::OPTION_METADATA_SERVICE_TIMEOUT);
         // fetch current Profile
         try {
-            $response = $this->httpClient->request('GET', self::ENDPOINT, ['timeout' => $timeout]);
+            $response = $this->httpClient->request('GET', self::ENDPOINT, ['timeout' => $this->timeout]);
             $profile = $response->getContent();
         } catch (TransportExceptionInterface $e) {
             $this->logger->info('Failed to fetch Profile from Instance Metadata.', ['exception' => $e]);

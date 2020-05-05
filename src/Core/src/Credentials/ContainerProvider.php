@@ -26,8 +26,6 @@ final class ContainerProvider implements CredentialProvider
 
     private $httpClient;
 
-    private $timeout;
-
     public function __construct(?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null)
     {
         $this->logger = $logger ?? new NullLogger();
