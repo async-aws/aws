@@ -1,4 +1,4 @@
-# Async AWS client
+# AsyncAws client
 
 If you are one of those people that like the Amazon PHP SDK but hate the fact that you need to download Guzzle, PSR-7 and every AWS API client to use it?
 

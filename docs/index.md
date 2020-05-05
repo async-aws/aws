@@ -59,7 +59,7 @@ $input
     ->setMessageBody('invoiceId: 1337');
 
 // Since the returned value is ignored,
-// the HTTP request is sent automatically.
+// the HTTP request is sent immediately.
 $sqs->sendMessage($input);
 ```
 
