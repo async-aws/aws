@@ -83,8 +83,8 @@ Read more about [how do use asynchronous features](./features/async.md).
 
 ## Backwards compatibility promise
 
-This package is currently stabilizing. Versions released in April 2020 is considered
-fairly stable. After 1.0 is released the library strictly follows the process to
-keep backwards compatibility defined by Symfony.
+Backwards compatibility is the most important feature of any open source library.
+This project is inspired by Symfony and will strictly follow their process to
+keep backwards compatibility.
 
 See [Symfony backwards compatibility promise](https://symfony.com/bc) for more information.
