@@ -79,9 +79,9 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     private $remainingRequests = self::RPS_LIMIT;
 
     /**
-     * @var \DateTimeImmutable
+     * @var int|null
      */
-    private $savedTime;
+    private $lastRequestTimestamp;
 
     /**
      * @param CloudWatchLogsClient $client
@@ -120,8 +120,6 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
         $this->batchSize = $batchSize;
 
         parent::__construct($level, $bubble);
-
-        $this->savedTime = new \DateTimeImmutable();
     }
 
     /**
@@ -162,10 +160,13 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
         }
     }
 
+    /**
+     * There is a quota of 5 requests per second per log stream.
+     * Additional requests are throttled. This quota can't be changed.
+     */
     private function checkThrottle(): void
     {
-        $diff = (new \DateTimeImmutable())->diff($this->savedTime)->s;
-        $sameSecond = 0 === $diff;
+        $sameSecond = $this->lastRequestTimestamp === \time();
 
         if ($sameSecond && $this->remainingRequests > 0) {
             --$this->remainingRequests;
@@ -176,7 +177,7 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
             $this->remainingRequests = self::RPS_LIMIT;
         }
 
-        $this->savedTime = new \DateTimeImmutable();
+        $this->lastRequestTimestamp = \time();
     }
 
     private function flushBuffer(): void
