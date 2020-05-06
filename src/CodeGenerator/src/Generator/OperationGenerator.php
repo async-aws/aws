@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator;
 
+use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
@@ -107,12 +108,13 @@ class OperationGenerator
                 $returnTypes = [$resultClass->getName()];
                 foreach ($resultKeys as $resultKey) {
                     $resultShape = $output->getMember($resultKey)->getShape();
-                    [$returnType, $returnDoc, $class] = $this->typeGenerator->getPhpType($resultShape->getMember()->getShape());
-
-                    if (null !== $class) {
-                        $namespace->addUse($class->getFqdn());
+                    if ($resultShape instanceof ListShape) {
+                        [$returnType, $returnDoc, $class] = $this->typeGenerator->getPhpType($resultShape->getMember()->getShape());
+                        if (null !== $class) {
+                            $namespace->addUse($class->getFqdn());
+                        }
+                        $returnTypes[] = $returnDoc . '[]';
                     }
-                    $returnTypes[] = $returnDoc . '[]';
                 }
                 $method->addComment(sprintf('@return %s', implode('|', $returnTypes)));
             }
