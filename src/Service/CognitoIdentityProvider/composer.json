@@ -4,6 +4,9 @@
     "description": "AsyncAws CognitoIdentityProvider client.",
     "keywords": [
         "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
         "cognito-identity-provider"
     ],
     "license": "MIT",

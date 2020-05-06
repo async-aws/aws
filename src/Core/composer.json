@@ -2,6 +2,13 @@
     "name": "async-aws/core",
     "type": "library",
     "description": "AsyncAws core package with common classes and interfaces.",
+    "keywords": [
+        "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
+        "sts"
+    ],
     "license": "MIT",
     "require": {
         "php": "^7.2.5",

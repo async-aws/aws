@@ -4,6 +4,9 @@
     "description": "AsyncAws Lambda client.",
     "keywords": [
         "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
         "lambda"
     ],
     "license": "MIT",

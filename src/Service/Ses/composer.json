@@ -4,6 +4,9 @@
     "description": "AsyncAws SES client.",
     "keywords": [
         "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
         "ses"
     ],
     "license": "MIT",

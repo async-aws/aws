@@ -4,7 +4,10 @@
     "description": "AsyncAws CloudFormation client.",
     "keywords": [
         "aws",
-        "lambda"
+        "amazon",
+        "sdk",
+        "async-aws",
+        "cloud-formation"
     ],
     "license": "MIT",
     "require": {

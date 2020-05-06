@@ -4,6 +4,9 @@
     "description": "AsyncAws SSM client.",
     "keywords": [
         "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
         "ssm"
     ],
     "license": "MIT",

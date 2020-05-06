@@ -4,6 +4,9 @@
     "description": "AsyncAws SQS client.",
     "keywords": [
         "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
         "sqs"
     ],
     "license": "MIT",

@@ -4,6 +4,9 @@
     "description": "AsyncAws S3 client.",
     "keywords": [
         "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
         "s3"
     ],
     "license": "MIT",
