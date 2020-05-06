@@ -1,0 +1,30 @@
+{
+    "name": "async-aws/cognito-identity-provider",
+    "type": "library",
+    "description": "AsyncAws CognitoIdentityProvider client.",
+    "keywords": [
+        "aws",
+        "cognito-identity-provider"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.2.5",
+        "ext-json": "*",
+        "async-aws/core": "^1.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "AsyncAws\\CognitoIdentityProvider\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\CognitoIdentityProvider\\Tests\\": "tests/"
+        }
+    }
+}

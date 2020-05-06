@@ -34,6 +34,9 @@ menu:
             cf:
                 text: Cloud Formation
                 url: /clients/cf.html
+            cognito-idp:
+                text: Cognito Identity provider
+                url: /clients/cognito-idp.html
             dynamodb:
                 text: DynamoDB
                 url: /clients/dynamodb.html

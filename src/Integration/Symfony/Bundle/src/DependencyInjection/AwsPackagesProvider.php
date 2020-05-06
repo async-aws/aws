@@ -17,6 +17,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\CodeDeploy\CodeDeployClient::class,
                 'package' => 'async-aws/code-deploy',
             ],
+            'cognito_identity_provider' => [
+                'class' => \AsyncAws\CognitoIdentityProvider\CognitoIdentityProviderClient::class,
+                'package' => 'async-aws/cognito-identity-provider',
+            ],
             'dynamo_db' => [
                 'class' => \AsyncAws\DynamoDb\DynamoDbClient::class,
                 'package' => 'async-aws/dynamo-db',

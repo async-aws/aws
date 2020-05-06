@@ -6,6 +6,7 @@ namespace AsyncAws\Core;
 
 use AsyncAws\CloudFormation\CloudFormationClient;
 use AsyncAws\CodeDeploy\CodeDeployClient;
+use AsyncAws\CognitoIdentityProvider\CognitoIdentityProviderClient;
 use AsyncAws\Core\Credentials\CacheProvider;
 use AsyncAws\Core\Credentials\ChainProvider;
 use AsyncAws\Core\Credentials\ConfigurationProvider;
@@ -209,6 +210,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new StsClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function cognitoIdentityProvider(): CognitoIdentityProviderClient
+    {
+        if (!class_exists(CognitoIdentityProviderClient::class)) {
+            throw MissingDependency::create('aws/cognito-identity-provider', 'CognitoIdentityProvider');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new CognitoIdentityProviderClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];

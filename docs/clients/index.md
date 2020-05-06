@@ -133,15 +133,16 @@ Here is a list of supported clients. If there is a need for another client or a 
 operation, it can be automatically generated. See the [contribution guide](/contribute/index.md)
 for more information.
 
-| Api Client                  | Package name
-| --------------------------- | ----------------------------------------------------------------------------------------
-| [CloudFormation](./cf.md)   | [async-aws/cloud-formation](https://packagist.org/packages/async-aws/cloud-formation)
-| CodeDeploy                  | [async-aws/code-deploy](https://packagist.org/packages/async-aws/code-deploy)
-| [DynamoDb]('./dynamodb.md)  | [async-aws/dynamo-db](https://packagist.org/packages/async-aws/dynamo-db)
-| [Lambda](./lambda.md)       | [async-aws/lambda](https://packagist.org/packages/async-aws/lambda)
-| [S3](./s3.md)               | [async-aws/s3](https://packagist.org/packages/async-aws/s3)
-| [SES](./ses.md)             | [async-aws/ses](https://packagist.org/packages/async-aws/ses)
-| [SNS](./sns.md)             | [async-aws/sns](https://packagist.org/packages/async-aws/sns)
-| [SQS](./sqs.md)             | [async-aws/sqs](https://packagist.org/packages/async-aws/sqs)
-| [SSM](./ssm.md)             | [async-aws/ssm](https://packagist.org/packages/async-aws/ssm)
-| [STS](./sts.md)             | [async-aws/core](https://packagist.org/packages/async-aws/core)
+| Api Client                                  | Package name                                                                                              |
+|---------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| [CloudFormation](./cf.md)                   | [async-aws/cloud-formation](https://packagist.org/packages/async-aws/cloud-formation)                     |
+| CodeDeploy                                  | [async-aws/code-deploy](https://packagist.org/packages/async-aws/code-deploy)                             |
+| [CognitoIdentityProvider](./cognito-idp.md) | [async-aws/cognito-identity-provider](https://packagist.org/packages/async-aws/cognito-identity-provider) |
+| [DynamoDb]('./dynamodb.md)                  | [async-aws/dynamo-db](https://packagist.org/packages/async-aws/dynamo-db)                                 |
+| [Lambda](./lambda.md)                       | [async-aws/lambda](https://packagist.org/packages/async-aws/lambda)                                       |
+| [S3](./s3.md)                               | [async-aws/s3](https://packagist.org/packages/async-aws/s3)                                               |
+| [SES](./ses.md)                             | [async-aws/ses](https://packagist.org/packages/async-aws/ses)                                             |
+| [SNS](./sns.md)                             | [async-aws/sns](https://packagist.org/packages/async-aws/sns)                                             |
+| [SQS](./sqs.md)                             | [async-aws/sqs](https://packagist.org/packages/async-aws/sqs)                                             |
+| [SSM](./ssm.md)                             | [async-aws/ssm](https://packagist.org/packages/async-aws/ssm)                                             |
+| [STS](./sts.md)                             | [async-aws/core](https://packagist.org/packages/async-aws/core)                                           |
