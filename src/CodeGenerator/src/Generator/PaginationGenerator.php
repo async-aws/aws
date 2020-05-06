@@ -101,7 +101,7 @@ class PaginationGenerator
             $singlePage = empty($pagination->getOutputToken());
             $iteratorBody .= strtr('yield from $page->PROPERTY_ACCESSOR(SINGLE_PAGE_FLAG);
             ', [
-                'PROPERTY_ACCESSOR' => 'get' . \ucfirst($resultKey),
+                'PROPERTY_ACCESSOR' => $getter = 'get' . \ucfirst($resultKey),
                 'SINGLE_PAGE_FLAG' => $singlePage ? '' : 'true',
             ]);
             $resultShape = $shape->getMember($resultKey)->getShape();
@@ -114,7 +114,6 @@ class PaginationGenerator
             [$returnType, $iteratorType] = $this->typeGenerator->getPhpType($listShape);
             $iteratorTypes[] = $iteratorType;
 
-            $getter = 'get' . \ucfirst($resultKey);
             if (!$class->hasMethod($getter)) {
                 throw new \RuntimeException(sprintf('Unable to find the method "%s" in "%s"', $getter, $shape->getName()));
             }
