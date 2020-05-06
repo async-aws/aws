@@ -89,3 +89,14 @@ Path to the file that contains the OAuth 2.0 access token when using the [WebIde
 
 An identifier for the assumed role session
 
+### metadataServiceTimeout
+
+**Default:** 1.0
+
+Defines the timeout when fetching credentials from authoritative endpoints.
+
+### containerCredentialsRelativeUri
+
+The relative path that is used to fetch credentials inside and ECS instance.
+See [IAM Roles for Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html) for more information.
+

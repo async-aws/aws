@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.0
+
+### Added
+
+- Support for ECS Credentials Provider
+
 ## 0.5.4
 
 ### Added

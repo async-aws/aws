@@ -9,6 +9,7 @@ use AsyncAws\CodeDeploy\CodeDeployClient;
 use AsyncAws\Core\Credentials\CacheProvider;
 use AsyncAws\Core\Credentials\ChainProvider;
 use AsyncAws\Core\Credentials\ConfigurationProvider;
+use AsyncAws\Core\Credentials\ContainerProvider;
 use AsyncAws\Core\Credentials\CredentialProvider;
 use AsyncAws\Core\Credentials\IniFileProvider;
 use AsyncAws\Core\Credentials\InstanceProvider;
@@ -78,6 +79,7 @@ class AwsClientFactory
             new ConfigurationProvider(),
             new WebIdentityProvider($this->logger),
             new IniFileProvider($this->logger),
+            new ContainerProvider($this->httpClient, $this->logger),
             new InstanceProvider($this->httpClient, $this->logger),
         ]));
     }
