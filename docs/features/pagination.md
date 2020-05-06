@@ -10,7 +10,6 @@ API to make a new request to fetch the remaining resources in the list.
 
 ```php
 use AsyncAws\CloudFormation\CloudFormationClient;
-use AsyncAws\CloudFormation\ValueObject\Stack;
 
 $cloudFormation = new CloudFormationClient();
 
@@ -44,7 +43,6 @@ When iterating over those results, all lists will be mixed in the yielded items.
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\AwsObject;
-use AsyncAws\S3\ValueObject\CommonPrefix;
 
 $s3 = new S3Client();
 

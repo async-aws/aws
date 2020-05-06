@@ -12,7 +12,6 @@ package: async-aws/ssm
 ```php
 use AsyncAws\Ssm\Input\GetParametersByPathRequest;
 use AsyncAws\Ssm\SsmClient;
-use AsyncAws\Ssm\ValueObject\Parameter;
 
 $ssm = new SsmClient();
 
