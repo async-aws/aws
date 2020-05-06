@@ -12,8 +12,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
-        "async-aws/cloud-watch-logs": "^0.1",
-        "monolog/monolog": "^1.1"
+        "async-aws/cloud-watch-logs": "^0.1-dev",
+        "monolog/monolog": "^1.1 || ^2.0"
     },
     "extra": {
         "branch-alias": {
