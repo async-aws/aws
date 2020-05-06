@@ -252,16 +252,16 @@ class TestGenerator
         $this->fileWriter->write($namespace);
     }
 
-    private function getInputCode(PhpNamespace $namespace, Shape $shape, bool $includeOptionalParameters = true, bool $nested = false): string
+    private function getInputCode(PhpNamespace $namespace, Shape $shape, bool $includeOptionalParameters = true, array $recursion = []): string
     {
+        if (isset($recursion[$shape->getName()])) {
+            return '""';
+        }
+        $recursion[$shape->getName()] = true;
+
         switch (true) {
             case $shape instanceof StructureShape:
-                if ($nested && ($shape instanceof StructureShape || $shape instanceof ListShape || $shape instanceof MapShape)) {
-                    // TODO make sure the output has some smart code instead. Like a loop or recursion
-                    return '""';
-                }
-
-                if ('Input' === substr($shape->getName(), -5) || 'Request' === substr($shape->getName(), -7)) {
+                if (1 === \count($recursion)) {
                     $className = $this->namespaceRegistry->getInput($shape);
                 } else {
                     $className = $this->namespaceRegistry->getObject($shape);
@@ -272,19 +272,23 @@ class TestGenerator
                     INPUT_ARGUMENTS
                 ])', [
                     'INPUT_CLASS' => $className->getName(),
-                    'INPUT_ARGUMENTS' => \implode("\n", \array_map(function (StructureMember $member) use ($namespace, $includeOptionalParameters) {
+                    'INPUT_ARGUMENTS' => \implode("\n", \array_map(function (StructureMember $member) use ($namespace, $includeOptionalParameters, $recursion) {
                         if ($member->isRequired() || $includeOptionalParameters) {
-                            return sprintf('%s => %s,', \var_export($member->getName(), true), $this->getInputCode($namespace, $member->getShape()));
+                            return sprintf(
+                                '%s => %s,',
+                                \var_export($member->getName(), true),
+                                $this->getInputCode($namespace, $member->getShape(), $includeOptionalParameters, $recursion)
+                            );
                         }
                     }, $shape->getMembers())),
                 ]);
             case $shape instanceof ListShape:
                 return strtr('[INPUT_ARGUMENTS]', [
-                    'INPUT_ARGUMENTS' => $this->getInputCode($namespace, $shape->getMember()->getShape()),
+                    'INPUT_ARGUMENTS' => $this->getInputCode($namespace, $shape->getMember()->getShape(), $includeOptionalParameters, $recursion),
                 ]);
             case $shape instanceof MapShape:
                 return strtr('["change me" => INPUT_ARGUMENTS]', [
-                    'INPUT_ARGUMENTS' => $this->getInputCode($namespace, $shape->getValue()->getShape(), $includeOptionalParameters, true),
+                    'INPUT_ARGUMENTS' => $this->getInputCode($namespace, $shape->getValue()->getShape(), $includeOptionalParameters, $recursion),
                 ]);
         }
 
