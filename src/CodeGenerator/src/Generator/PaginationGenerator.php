@@ -101,7 +101,7 @@ class PaginationGenerator
             $singlePage = empty($pagination->getOutputToken());
             $iteratorBody .= strtr('yield from $page->PROPERTY_ACCESSOR(SINGLE_PAGE_FLAG);
             ', [
-                'PROPERTY_ACCESSOR' => 'get' . $resultKey,
+                'PROPERTY_ACCESSOR' => $getter = 'get' . \ucfirst($resultKey),
                 'SINGLE_PAGE_FLAG' => $singlePage ? '' : 'true',
             ]);
             $resultShape = $shape->getMember($resultKey)->getShape();
@@ -114,7 +114,6 @@ class PaginationGenerator
             [$returnType, $iteratorType] = $this->typeGenerator->getPhpType($listShape);
             $iteratorTypes[] = $iteratorType;
 
-            $getter = 'get' . $resultKey;
             if (!$class->hasMethod($getter)) {
                 throw new \RuntimeException(sprintf('Unable to find the method "%s" in "%s"', $getter, $shape->getName()));
             }
@@ -148,7 +147,7 @@ class PaginationGenerator
                     ', [
                         'PROPERTY_NAME' => $resultKey,
                         'PAGE_LOADER_CODE' => $this->generateOutputPaginationLoader(
-                            strtr('yield from $page->PROPERTY_ACCESSOR(true);', ['PROPERTY_ACCESSOR' => 'get' . $resultKey]),
+                            strtr('yield from $page->PROPERTY_ACCESSOR(true);', ['PROPERTY_ACCESSOR' => 'get' . \ucfirst($resultKey)]),
                             $pagination, $namespace, $operation
                         ),
                     ]));
@@ -182,12 +181,12 @@ class PaginationGenerator
             $moreCondition = '';
             foreach ($outputToken as $index => $property) {
                 $moreCondition .= strtr('$page->MORE_ACCESSOR()', [
-                    'MORE_ACCESSOR' => 'get' . trim(explode('||', $property)[0]),
+                    'MORE_ACCESSOR' => 'get' . \ucfirst(trim(explode('||', $property)[0])),
                 ]);
             }
         } else {
             $moreCondition = strtr('$page->MORE_ACCESSOR()', [
-                'MORE_ACCESSOR' => 'get' . $moreResult,
+                'MORE_ACCESSOR' => 'get' . \ucfirst($moreResult),
             ]);
         }
         $setter = '';
@@ -195,8 +194,8 @@ class PaginationGenerator
             $setter .= strtr('
                 $input->SETTER($page->GETTER());
             ', [
-                'SETTER' => 'set' . $property,
-                'GETTER' => 'get' . trim(explode('||', $outputToken[$index])[0]),
+                'SETTER' => 'set' . \ucfirst($property),
+                'GETTER' => 'get' . \ucfirst(trim(explode('||', $outputToken[$index])[0])),
             ]);
         }
 

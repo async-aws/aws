@@ -72,7 +72,7 @@ final class CreateQueueRequest extends Input
     /**
      * @return string[]
      */
-    public function gettags(): array
+    public function getTags(): array
     {
         return $this->tags;
     }
@@ -118,7 +118,7 @@ final class CreateQueueRequest extends Input
     /**
      * @param string[] $value
      */
-    public function settags(array $value): self
+    public function setTags(array $value): self
     {
         $this->tags = $value;
 

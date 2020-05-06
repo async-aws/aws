@@ -53,12 +53,12 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getdeploymentId(): ?string
+    public function getDeploymentId(): ?string
     {
         return $this->deploymentId;
     }
 
-    public function getlifecycleEventHookExecutionId(): ?string
+    public function getLifecycleEventHookExecutionId(): ?string
     {
         return $this->lifecycleEventHookExecutionId;
     }
@@ -66,7 +66,7 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
     /**
      * @return LifecycleEventStatus::*|null
      */
-    public function getstatus(): ?string
+    public function getStatus(): ?string
     {
         return $this->status;
     }
@@ -96,14 +96,14 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
-    public function setdeploymentId(?string $value): self
+    public function setDeploymentId(?string $value): self
     {
         $this->deploymentId = $value;
 
         return $this;
     }
 
-    public function setlifecycleEventHookExecutionId(?string $value): self
+    public function setLifecycleEventHookExecutionId(?string $value): self
     {
         $this->lifecycleEventHookExecutionId = $value;
 
@@ -113,7 +113,7 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
     /**
      * @param LifecycleEventStatus::*|null $value
      */
-    public function setstatus(?string $value): self
+    public function setStatus(?string $value): self
     {
         $this->status = $value;
 

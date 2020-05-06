@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.1
+
+### Fixed
+
+- Use camelCase for all getter methods.
+
 ## 1.0.0
 
 ### Added
