@@ -15,8 +15,6 @@ use AsyncAws\CloudFormation\ValueObject\Stack;
 $cloudFormation = new CloudFormationClient();
 
 $result = $cloudFormation->describeStacks();
-
-/** @var Stack $stack */
 foreach($result as $stack) {
     echo $stack->getStackName();
 }
@@ -54,8 +52,6 @@ $objects = $s3->listObjectsV2(new ListObjectsV2Request([
     'Bucket' => 'my-company-website',
     'Delimiter' => '/'
 ]));
-
-/** @var AwsObject|CommonPrefix $object */
 foreach($objects as $object) {
     if ($object instanceof AwsObject) {
         echo '- '.$object->getKey();

@@ -23,7 +23,6 @@ $parameters = $ssm->getParametersByPath(new GetParametersByPathRequest([
 ]));
 
 $secrets = [];
-/** @var Parameter $parameter */
 foreach ($parameters as $parameter) {
     $secrets[$parameter->getName()] = $parameter->getValue();
 }
