@@ -166,7 +166,7 @@ class DynamoDbClient extends AbstractApi
      *   @region?: string,
      * }|ListTablesInput $input
      *
-     * @return ListTablesOutput|string[]
+     * @return \Traversable<string> & ListTablesOutput
      */
     public function listTables($input = []): ListTablesOutput
     {
@@ -234,7 +234,7 @@ class DynamoDbClient extends AbstractApi
      *   @region?: string,
      * }|QueryInput $input
      *
-     * @return QueryOutput|AttributeValue[][]
+     * @return \Traversable<array<string, AttributeValue>> & QueryOutput
      */
     public function query($input): QueryOutput
     {
@@ -270,7 +270,7 @@ class DynamoDbClient extends AbstractApi
      *   @region?: string,
      * }|ScanInput $input
      *
-     * @return ScanOutput|AttributeValue[][]
+     * @return \Traversable<array<string, AttributeValue>> & ScanOutput
      */
     public function scan($input): ScanOutput
     {

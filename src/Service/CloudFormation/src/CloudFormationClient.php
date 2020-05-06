@@ -26,7 +26,7 @@ class CloudFormationClient extends AbstractApi
      *   @region?: string,
      * }|DescribeStackEventsInput $input
      *
-     * @return DescribeStackEventsOutput|StackEvent[]
+     * @return \Traversable<StackEvent> & DescribeStackEventsOutput
      */
     public function describeStackEvents($input = []): DescribeStackEventsOutput
     {
@@ -48,7 +48,7 @@ class CloudFormationClient extends AbstractApi
      *   @region?: string,
      * }|DescribeStacksInput $input
      *
-     * @return DescribeStacksOutput|Stack[]
+     * @return \Traversable<Stack> & DescribeStacksOutput
      */
     public function describeStacks($input = []): DescribeStacksOutput
     {

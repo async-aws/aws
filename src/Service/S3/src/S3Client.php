@@ -415,7 +415,7 @@ class S3Client extends AbstractApi
      *   @region?: string,
      * }|ListMultipartUploadsRequest $input
      *
-     * @return ListMultipartUploadsOutput|MultipartUpload[]|CommonPrefix[]
+     * @return \Traversable<MultipartUpload|CommonPrefix> & ListMultipartUploadsOutput
      */
     public function listMultipartUploads($input): ListMultipartUploadsOutput
     {
@@ -445,7 +445,7 @@ class S3Client extends AbstractApi
      *   @region?: string,
      * }|ListObjectsV2Request $input
      *
-     * @return ListObjectsV2Output|AwsObject[]|CommonPrefix[]
+     * @return \Traversable<AwsObject|CommonPrefix> & ListObjectsV2Output
      */
     public function listObjectsV2($input): ListObjectsV2Output
     {
@@ -476,7 +476,7 @@ class S3Client extends AbstractApi
      *   @region?: string,
      * }|ListPartsRequest $input
      *
-     * @return ListPartsOutput|Part[]
+     * @return \Traversable<Part> & ListPartsOutput
      */
     public function listParts($input): ListPartsOutput
     {

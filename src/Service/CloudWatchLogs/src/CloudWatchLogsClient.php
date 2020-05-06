@@ -28,7 +28,7 @@ class CloudWatchLogsClient extends AbstractApi
      *   @region?: string,
      * }|DescribeLogStreamsRequest $input
      *
-     * @return DescribeLogStreamsResponse|LogStream[]
+     * @return \Traversable<LogStream> & DescribeLogStreamsResponse
      */
     public function describeLogStreams($input): DescribeLogStreamsResponse
     {

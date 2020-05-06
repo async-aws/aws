@@ -105,18 +105,18 @@ class OperationGenerator
             $resultClass = $this->resultGenerator->generate($operation);
             if (null !== $operation->getPagination()) {
                 $resultKeys = $this->paginationGenerator->generate($operation);
-                $returnTypes = [$resultClass->getName()];
+                $returnTypes = [];
                 foreach ($resultKeys as $resultKey) {
                     $resultShape = $output->getMember($resultKey)->getShape();
                     if ($resultShape instanceof ListShape) {
-                        [$returnType, $returnDoc, $class] = $this->typeGenerator->getPhpType($resultShape->getMember()->getShape());
-                        if (null !== $class) {
-                            $namespace->addUse($class->getFqdn());
+                        [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($resultShape->getMember()->getShape());
+                        foreach ($memberClassNames as $memberClassName) {
+                            $namespace->addUse($memberClassName->getFqdn());
                         }
-                        $returnTypes[] = $returnDoc . '[]';
+                        $returnTypes[] = $parameterType;
                     }
                 }
-                $method->addComment(sprintf('@return %s', implode('|', $returnTypes)));
+                $method->addComment(sprintf('@return \Traversable<%s> & %s', implode('|', $returnTypes), $resultClass->getName()));
             }
 
             $method->setReturnType($resultClass->getFqdn());

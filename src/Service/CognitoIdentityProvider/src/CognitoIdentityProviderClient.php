@@ -165,7 +165,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   @region?: string,
      * }|ListUsersRequest $input
      *
-     * @return ListUsersResponse|UserType[]
+     * @return \Traversable<UserType> & ListUsersResponse
      */
     public function listUsers($input): ListUsersResponse
     {

@@ -75,7 +75,7 @@ class SnsClient extends AbstractApi
      *   @region?: string,
      * }|ListSubscriptionsByTopicInput $input
      *
-     * @return ListSubscriptionsByTopicResponse|Subscription[]
+     * @return \Traversable<Subscription> & ListSubscriptionsByTopicResponse
      */
     public function listSubscriptionsByTopic($input): ListSubscriptionsByTopicResponse
     {

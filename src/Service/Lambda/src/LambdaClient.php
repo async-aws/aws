@@ -83,7 +83,7 @@ class LambdaClient extends AbstractApi
      *   @region?: string,
      * }|ListLayerVersionsRequest $input
      *
-     * @return ListLayerVersionsResponse|LayerVersionsListItem[]
+     * @return \Traversable<LayerVersionsListItem> & ListLayerVersionsResponse
      */
     public function listLayerVersions($input): ListLayerVersionsResponse
     {
