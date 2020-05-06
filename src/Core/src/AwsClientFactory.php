@@ -218,7 +218,7 @@ class AwsClientFactory
     public function cognitoIdentityProvider(): CognitoIdentityProviderClient
     {
         if (!class_exists(CognitoIdentityProviderClient::class)) {
-            throw MissingDependency::create('async-aws/core', 'CognitoIdentityProvider');
+            throw MissingDependency::create('aws/cognito-identity-provider', 'CognitoIdentityProvider');
         }
 
         if (!isset($this->serviceCache[__METHOD__])) {
