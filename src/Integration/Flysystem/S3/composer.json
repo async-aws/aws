@@ -4,6 +4,9 @@
     "description": "Flysystem S3 adapter",
     "keywords": [
         "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
         "s3",
         "Flysystem",
         "Filesystem"

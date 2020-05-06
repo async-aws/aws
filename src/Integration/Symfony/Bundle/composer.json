@@ -4,7 +4,9 @@
     "description": "Configure all your AsyncAWS services and enjoy the autowire greatness.",
     "keywords": [
         "aws",
-        "async",
+        "amazon",
+        "sdk",
+        "async-aws",
         "symfony",
         "bundle"
     ],
