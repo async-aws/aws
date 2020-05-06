@@ -27,7 +27,7 @@ jobs:
           sed -i -re 's/S3FilesystemV1/S3FilesystemV2/' psalm.xml
 
       - name: PHPStan
-        uses: OskarStark/phpstan-ga@master
+        uses: OskarStark/phpstan-ga@0.12.23
         with:
           entrypoint: /composer/vendor/bin/phpstan
           args: analyze --no-progress

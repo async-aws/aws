@@ -20,7 +20,7 @@ jobs:
           composer update --no-interaction --prefer-dist --optimize-autoloader
 
       - name: PHPStan
-        uses: OskarStark/phpstan-ga@master
+        uses: OskarStark/phpstan-ga@0.12.23
         with:
           entrypoint: /composer/vendor/bin/phpstan
           args: analyze --no-progress
@@ -34,7 +34,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: PHP-CS-Fixer
-        uses: OskarStark/php-cs-fixer-ga@master
+        uses: OskarStark/php-cs-fixer-ga@2.16.3.1
         with:
           args: --dry-run --diff-format udiff
 
