@@ -1,0 +1,33 @@
+{
+    "name": "async-aws/illuminate-mail",
+    "type": "library",
+    "description": "AsyncAws integration for Illuminate Mail.",
+    "keywords": [
+        "aws",
+        "async-aws",
+        "illuminate",
+        "mail"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.2.5",
+        "ext-json": "*",
+        "async-aws/ses": "^1.0",
+        "illuminate/mail": "^7.10"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "AsyncAws\\Illuminate\\Mail\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\Illuminate\\Mail\\Tests\\": "tests/"
+        }
+    }
+}
