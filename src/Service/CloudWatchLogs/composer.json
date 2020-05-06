@@ -4,6 +4,10 @@
     "description": "AsyncAws CloudWatchLogs client.",
     "keywords": [
         "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
+        "cloud-watch",
         "logs"
     ],
     "license": "MIT",
