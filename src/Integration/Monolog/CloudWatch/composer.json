@@ -1,9 +1,10 @@
 {
     "name": "async-aws/monolog-cloudwatch",
     "type": "library",
-    "description": "Monolog CloudWatch Logs adapter",
+    "description": "Monolog integration with CloudWatch logs",
     "keywords": [
         "aws",
+        "aync-aws",
         "Monolog",
         "CloudWatch",
         "Logs"
