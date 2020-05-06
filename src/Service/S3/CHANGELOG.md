@@ -6,6 +6,10 @@
 
 - Backported split request behavior in `SignerV4ForS3`
 
+### Fixed
+
+- Add return typehint for `listMultipartUploads`, `listObjectsV2` and `listParts`
+
 ## 1.0.0
 
 ### Added

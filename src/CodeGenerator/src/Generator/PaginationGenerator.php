@@ -62,7 +62,7 @@ class PaginationGenerator
     /**
      * Generate classes for the output. Ie, the result of the API call.
      */
-    public function generate(Operation $operation): void
+    public function generate(Operation $operation): array
     {
         if (null === $pagination = $operation->getPagination()) {
             throw new LogicException(sprintf('The operation "%s" does not have any pagination to generate', $operation->getName()));
@@ -71,10 +71,10 @@ class PaginationGenerator
             throw new LogicException(sprintf('The operation "%s" does not have output for the pagination', $operation->getName()));
         }
 
-        $this->generateOutputPagination($operation, $pagination, $output);
+        return $this->generateOutputPagination($operation, $pagination, $output);
     }
 
-    private function generateOutputPagination(Operation $operation, Pagination $pagination, StructureShape $shape): void
+    private function generateOutputPagination(Operation $operation, Pagination $pagination, StructureShape $shape): array
     {
         $outputClass = $this->resultGenerator->generate($operation);
 
@@ -171,6 +171,8 @@ class PaginationGenerator
         ;
 
         $this->fileWriter->write($namespace);
+
+        return $resultKeys;
     }
 
     private function generateOutputPaginationLoader(string $iterator, Pagination $pagination, PhpNamespace $namespace, Operation $operation): string

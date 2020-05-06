@@ -158,6 +158,8 @@ class SqsClient extends AbstractApi
      *   QueueNamePrefix?: string,
      *   @region?: string,
      * }|ListQueuesRequest $input
+     *
+     * @return ListQueuesResult|string[]
      */
     public function listQueues($input = []): ListQueuesResult
     {

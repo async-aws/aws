@@ -100,10 +100,21 @@ class OperationGenerator
             $operationMethodParameter->setDefaultValue([]);
         }
 
-        if (null !== $operation->getOutput()) {
+        if (null !== $output = $operation->getOutput()) {
             $resultClass = $this->resultGenerator->generate($operation);
             if (null !== $operation->getPagination()) {
-                $this->paginationGenerator->generate($operation);
+                $resultKeys = $this->paginationGenerator->generate($operation);
+                $returnTypes = [$resultClass->getName()];
+                foreach ($resultKeys as $resultKey) {
+                    $resultShape = $output->getMember($resultKey)->getShape();
+                    [$returnType, $returnDoc, $class] = $this->typeGenerator->getPhpType($resultShape->getMember()->getShape());
+
+                    if (null !== $class) {
+                        $namespace->addUse($class->getFqdn());
+                    }
+                    $returnTypes[] = $returnDoc . '[]';
+                }
+                $method->addComment(sprintf('@return %s', implode('|', $returnTypes)));
             }
 
             $method->setReturnType($resultClass->getFqdn());

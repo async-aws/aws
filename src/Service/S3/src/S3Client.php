@@ -42,6 +42,10 @@ use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\Result\UploadPartOutput;
 use AsyncAws\S3\Signer\SignerV4ForS3;
+use AsyncAws\S3\ValueObject\AwsObject;
+use AsyncAws\S3\ValueObject\CommonPrefix;
+use AsyncAws\S3\ValueObject\MultipartUpload;
+use AsyncAws\S3\ValueObject\Part;
 
 class S3Client extends AbstractApi
 {
@@ -410,6 +414,8 @@ class S3Client extends AbstractApi
      *   UploadIdMarker?: string,
      *   @region?: string,
      * }|ListMultipartUploadsRequest $input
+     *
+     * @return ListMultipartUploadsOutput|MultipartUpload[]|CommonPrefix[]
      */
     public function listMultipartUploads($input): ListMultipartUploadsOutput
     {
@@ -438,6 +444,8 @@ class S3Client extends AbstractApi
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   @region?: string,
      * }|ListObjectsV2Request $input
+     *
+     * @return ListObjectsV2Output|AwsObject[]|CommonPrefix[]
      */
     public function listObjectsV2($input): ListObjectsV2Output
     {
@@ -467,6 +475,8 @@ class S3Client extends AbstractApi
      *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
      *   @region?: string,
      * }|ListPartsRequest $input
+     *
+     * @return ListPartsOutput|Part[]
      */
     public function listParts($input): ListPartsOutput
     {
