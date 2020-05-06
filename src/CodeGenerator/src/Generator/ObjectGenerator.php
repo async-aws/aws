@@ -6,6 +6,7 @@ namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
+use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\File\FileWriter;
@@ -151,33 +152,47 @@ class ObjectGenerator
         $constructor->addComment($this->typeGenerator->generateDocblock($shape, $this->generated[$shape->getName()], false, false, true));
         $constructor->addParameter('input')->setType('array');
 
+        $handleDeprecationCanonical = $shape->getService()->hasBcLayer(ServiceDefinition::BC_CANONICAL_INPUT);
         $constructorBody = '';
         foreach ($shape->getMembers() as $member) {
+            if ($handleDeprecationCanonical && $member->canonicalInputKey() !== $member->getName()) {
+                $constructorBody .= \strtr(
+                    'if (isset($input["LNAME"])) {
+                        @trigger_error(sprintf("Using key LNAME in \"%s\" is deprecated. Use UNAME instead.", __CLASS__), E_USER_DEPRECATED);
+                        $input["UNAME"] = $input["LNAME"];
+                    }',
+                    [
+                        'LNAME' => $member->getName(),
+                        'UNAME' => $member->canonicalInputKey(),
+                    ]
+                );
+            }
+
             $memberShape = $member->getShape();
             if ($memberShape instanceof StructureShape) {
                 $objectClass = $this->generate($memberShape);
-                $constructorBody .= strtr('$this->NAME = isset($input["NAME"]) ? CLASS::create($input["NAME"]) : null;' . "\n", ['NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
+                $constructorBody .= strtr('$this->PROPERTY_NAME = isset($input["INPUT_KEY"]) ? CLASS::create($input["INPUT_KEY"]) : null;' . "\n", ['PROPERTY_NAME' => $member->canonicalPropertyName(), 'INPUT_KEY' => $member->canonicalInputKey(), 'CLASS' => $objectClass->getName()]);
             } elseif ($memberShape instanceof ListShape) {
                 $listMemberShape = $memberShape->getMember()->getShape();
 
                 // Check if this is a list of objects
                 if ($listMemberShape instanceof StructureShape) {
                     $objectClass = $this->generate($listMemberShape);
-                    $constructorBody .= strtr('$this->NAME = array_map([CLASS::class, "create"], $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
+                    $constructorBody .= strtr('$this->PROPERTY_NAME = array_map([CLASS::class, "create"], $input["INPUT_KEY"] ?? []);' . "\n", ['PROPERTY_NAME' => $member->canonicalPropertyName(), 'INPUT_KEY' => $member->canonicalInputKey(), 'CLASS' => $objectClass->getName()]);
                 } else {
-                    $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
+                    $constructorBody .= strtr('$this->PROPERTY_NAME = $input["INPUT_KEY"] ?? [];' . "\n", ['PROPERTY_NAME' => $member->canonicalPropertyName(), 'INPUT_KEY' => $member->canonicalInputKey()]);
                 }
             } elseif ($memberShape instanceof MapShape) {
                 $mapValueShape = $memberShape->getValue()->getShape();
 
                 if ($mapValueShape instanceof StructureShape) {
                     $objectClass = $this->generate($mapValueShape);
-                    $constructorBody .= strtr('$this->NAME = array_map([CLASS::class, "create"], $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
+                    $constructorBody .= strtr('$this->PROPERTY_NAME = array_map([CLASS::class, "create"], $input["INPUT_KEY"] ?? []);' . "\n", ['PROPERTY_NAME' => $member->canonicalPropertyName(), 'INPUT_KEY' => $member->canonicalInputKey(), 'CLASS' => $objectClass->getName()]);
                 } else {
-                    $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
+                    $constructorBody .= strtr('$this->PROPERTY_NAME = $input["INPUT_KEY"] ?? [];' . "\n", ['PROPERTY_NAME' => $member->canonicalPropertyName(), 'INPUT_KEY' => $member->canonicalInputKey()]);
                 }
             } else {
-                $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $member->getName()]);
+                $constructorBody .= strtr('$this->PROPERTY_NAME = $input["INPUT_KEY"] ?? null;' . "\n", ['PROPERTY_NAME' => $member->canonicalPropertyName(), 'INPUT_KEY' => $member->canonicalInputKey()]);
             }
         }
         $constructor->setBody($constructorBody);
@@ -191,7 +206,7 @@ class ObjectGenerator
         foreach ($shape->getMembers() as $member) {
             $nullable = $returnType = null;
             $memberShape = $member->getShape();
-            $property = $class->addProperty($member->getName())->setPrivate();
+            $property = $class->addProperty($member->canonicalPropertyName())->setPrivate();
             if (null !== $propertyDocumentation = $memberShape->getDocumentation()) {
                 $property->setComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
@@ -239,12 +254,12 @@ class ObjectGenerator
                 $nullable = false;
             }
 
-            $method = $class->addMethod('get' . $member->getName())
+            $method = $class->addMethod('get' . $member->canonicalMethodName())
                 ->setReturnType($returnType)
                 ->setBody(strtr('
                     return $this->NAME;
                 ', [
-                    'NAME' => $member->getName(),
+                    'NAME' => $member->canonicalPropertyName(),
                 ]));
 
             $nullable = $nullable ?? !$member->isRequired();

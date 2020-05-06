@@ -131,7 +131,7 @@ class ResultGenerator
         foreach ($shape->getMembers() as $member) {
             $nullable = $returnType = null;
             $memberShape = $member->getShape();
-            $property = $class->addProperty($member->getName())->setPrivate();
+            $property = $class->addProperty($member->canonicalPropertyName())->setPrivate();
             if (null !== $propertyDocumentation = $memberShape->getDocumentation()) {
                 $property->setComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
@@ -184,14 +184,14 @@ class ResultGenerator
                 }
             }
 
-            $method = $class->addMethod('get' . $member->getName())
+            $method = $class->addMethod('get' . $member->canonicalMethodName())
                 ->setReturnType($returnType)
                 ->setBody(strtr('
                     $this->initialize();
 
                     return $this->NAME;
                 ', [
-                    'NAME' => $member->getName(),
+                    'NAME' => $member->canonicalPropertyName(),
                 ]));
 
             $nullable = $nullable ?? !$member->isRequired();
@@ -217,20 +217,20 @@ class ResultGenerator
             $locationName = strtolower($member->getLocationName() ?? $member->getName());
             $memberShape = $member->getShape();
             if ('timestamp' === $memberShape->getType()) {
-                $body .= strtr('$this->NAME = isset($headers["LOCATION_NAME"][0]) ? new \DateTimeImmutable($headers["LOCATION_NAME"][0]) : null;' . "\n", [
-                    'NAME' => $member->getName(),
+                $body .= strtr('$this->PROPERTY_NAME = isset($headers["LOCATION_NAME"][0]) ? new \DateTimeImmutable($headers["LOCATION_NAME"][0]) : null;' . "\n", [
+                    'PROPERTY_NAME' => $member->canonicalPropertyName(),
                     'LOCATION_NAME' => $locationName,
                 ]);
             } else {
                 if (null !== $constant = $this->typeGenerator->getFilterConstant($memberShape)) {
-                    $body .= strtr('$this->NAME = isset($headers["LOCATION_NAME"][0]) ? filter_var($headers["LOCATION_NAME"][0], FILTER) : null;' . "\n", [
-                        'NAME' => $member->getName(),
+                    $body .= strtr('$this->PROPERTY_NAME = isset($headers["LOCATION_NAME"][0]) ? filter_var($headers["LOCATION_NAME"][0], FILTER) : null;' . "\n", [
+                        'PROPERTY_NAME' => $member->canonicalPropertyName(),
                         'LOCATION_NAME' => $locationName,
                         'FILTER' => $constant,
                     ]);
                 } else {
-                    $body .= strtr('$this->NAME = $headers["LOCATION_NAME"][0] ?? null;' . "\n", [
-                        'NAME' => $member->getName(),
+                    $body .= strtr('$this->PROPERTY_NAME = $headers["LOCATION_NAME"][0] ?? null;' . "\n", [
+                        'PROPERTY_NAME' => $member->canonicalPropertyName(),
                         'LOCATION_NAME' => $locationName,
                     ]);
                 }
@@ -250,11 +250,11 @@ class ResultGenerator
                 $this->NAME = [];
                 foreach ($headers as $name => $value) {
                     if (substr($name, 0, LENGTH) === "LOCATION_NAME") {
-                        $this->NAME[$name] = $value[0];
+                        $this->PROPERTY_NAME[$name] = $value[0];
                     }
                 }
             ', [
-                'NAME' => $member->getName(),
+                'PROPERTY_NAME' => $member->canonicalPropertyName(),
                 'LENGTH' => \strlen($locationName),
                 'LOCATION_NAME' => $locationName,
             ]);
@@ -268,7 +268,7 @@ class ResultGenerator
         // Find status code
         foreach ($nonHeaders as $name => $member) {
             if ('statusCode' === $member->getLocation()) {
-                $body = '$this->' . $member->getName() . ' = $response->getStatusCode();' . "\n" . $body;
+                $body = '$this->' . $member->canonicalPropertyName() . ' = $response->getStatusCode();' . "\n" . $body;
             }
         }
 

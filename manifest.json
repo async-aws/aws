@@ -129,6 +129,9 @@
                 "QueueExists",
                 "ReceiveMessage",
                 "SendMessage"
+            ],
+            "bc_layers": [
+                "canonicalInputKey"
             ]
         },
         "Ssm": {
@@ -153,6 +156,9 @@
                 "AssumeRole",
                 "AssumeRoleWithWebIdentity",
                 "GetCallerIdentity"
+            ],
+            "bc_layers": [
+                "canonicalInputKey"
             ]
         }
     }

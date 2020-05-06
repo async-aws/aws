@@ -81,12 +81,12 @@ class TypeGenerator
 
             if ($allNullable || $nullable) {
                 if ($isObject) {
-                    $body[] = sprintf('  %s?: %s,', $member->getName(), 'null|' . $param);
+                    $body[] = sprintf('  %s?: %s,', $member->canonicalInputKey(), 'null|' . $param);
                 } else {
-                    $body[] = sprintf('  %s?: %s,', $member->getName(), $param);
+                    $body[] = sprintf('  %s?: %s,', $member->canonicalInputKey(), $param);
                 }
             } else {
-                $body[] = sprintf('  %s: %s,', $member->getName(), $param);
+                $body[] = sprintf('  %s: %s,', $member->canonicalInputKey(), $param);
             }
         }
         $body = \array_merge($body, $extra);

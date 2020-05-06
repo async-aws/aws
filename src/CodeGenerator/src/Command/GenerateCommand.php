@@ -105,8 +105,9 @@ class GenerateCommand extends Command
 
             $progressOperation->start(\count($operationNames));
 
+            $bcLayers = \array_unique($manifest['services'][$serviceName]['bc_layers'] ?? []);
             $managedOperations = \array_unique(\array_merge($manifest['services'][$serviceName]['methods'], $operationNames));
-            $definition = new ServiceDefinition($serviceName, $definitionArray, $documentationArray, $paginationArray, $waiterArray, $exampleArray);
+            $definition = new ServiceDefinition($serviceName, $definitionArray, $documentationArray, $paginationArray, $waiterArray, $exampleArray, $bcLayers);
             $serviceGenerator = $this->generator->service($manifest['services'][$serviceName]['namespace'] ?? \sprintf('AsyncAws\\%s', $serviceName), $managedOperations);
 
             $clientClass = $serviceGenerator->client()->generate($definition);

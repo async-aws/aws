@@ -97,14 +97,17 @@ class PaginationGenerator
         }
         $iteratorBody = '';
         $iteratorTypes = [];
+        $canonicalNames = [];
         foreach ($resultKeys as $resultKey) {
+            $member = $shape->getMember($resultKey);
+            $canonicalNames[] = $member->canonicalPropertyName();
             $singlePage = empty($pagination->getOutputToken());
             $iteratorBody .= strtr('yield from $page->PROPERTY_ACCESSOR(SINGLE_PAGE_FLAG);
             ', [
-                'PROPERTY_ACCESSOR' => 'get' . $resultKey,
+                'PROPERTY_ACCESSOR' => 'get' . $member->canonicalMethodName(),
                 'SINGLE_PAGE_FLAG' => $singlePage ? '' : 'true',
             ]);
-            $resultShape = $shape->getMember($resultKey)->getShape();
+            $resultShape = $member->getShape();
 
             if (!$resultShape instanceof ListShape) {
                 throw new \RuntimeException('Cannot generate a pagination for a non-iterable result');
@@ -114,7 +117,7 @@ class PaginationGenerator
             [$returnType, $iteratorType] = $this->typeGenerator->getPhpType($listShape);
             $iteratorTypes[] = $iteratorType;
 
-            $getter = 'get' . $resultKey;
+            $getter = 'get' . $member->canonicalMethodName();
             if (!$class->hasMethod($getter)) {
                 throw new \RuntimeException(sprintf('Unable to find the method "%s" in "%s"', $getter, $shape->getName()));
             }
@@ -130,7 +133,7 @@ class PaginationGenerator
                         $this->initialize();
                         return $this->PROPERTY_NAME;
                     ', [
-                        'PROPERTY_NAME' => $resultKey,
+                        'PROPERTY_NAME' => $member->canonicalPropertyName(),
                     ]));
             } else {
                 $method
@@ -146,9 +149,9 @@ class PaginationGenerator
 
                         PAGE_LOADER_CODE
                     ', [
-                        'PROPERTY_NAME' => $resultKey,
+                        'PROPERTY_NAME' => $member->canonicalPropertyName(),
                         'PAGE_LOADER_CODE' => $this->generateOutputPaginationLoader(
-                            strtr('yield from $page->PROPERTY_ACCESSOR(true);', ['PROPERTY_ACCESSOR' => 'get' . $resultKey]),
+                            strtr('yield from $page->PROPERTY_ACCESSOR(true);', ['PROPERTY_ACCESSOR' => 'get' . $member->canonicalMethodName()]),
                             $pagination, $namespace, $operation
                         ),
                     ]));
@@ -162,7 +165,7 @@ class PaginationGenerator
 
         $class->addMethod('getIterator')
             ->setReturnType(\Traversable::class)
-            ->addComment('Iterates over ' . implode(' then ', $resultKeys))
+            ->addComment('Iterates over ' . implode(' then ', $canonicalNames))
             ->addComment("@return \Traversable<$iteratorType>")
             ->setBody($this->generateOutputPaginationLoader($iteratorBody, $pagination, $namespace, $operation))
         ;

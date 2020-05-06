@@ -422,7 +422,7 @@ class HeadObjectOutput extends Result
         $this->ObjectLockRetainUntilDate = isset($headers['x-amz-object-lock-retain-until-date'][0]) ? new \DateTimeImmutable($headers['x-amz-object-lock-retain-until-date'][0]) : null;
         $this->ObjectLockLegalHoldStatus = $headers['x-amz-object-lock-legal-hold'][0] ?? null;
 
-        $this->Metadata = [];
+        $this->NAME = [];
         foreach ($headers as $name => $value) {
             if ('x-amz-meta-' === substr($name, 0, 11)) {
                 $this->Metadata[$name] = $value[0];

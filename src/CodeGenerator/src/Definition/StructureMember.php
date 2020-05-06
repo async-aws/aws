@@ -11,6 +11,21 @@ class StructureMember extends Member
         return $this->data['_name'];
     }
 
+    public function canonicalPropertyName(): string
+    {
+        return \ucfirst($this->data['_name']);
+    }
+
+    public function canonicalMethodName(): string
+    {
+        return \ucfirst($this->data['_name']);
+    }
+
+    public function canonicalInputKey(): string
+    {
+        return \ucfirst($this->data['_name']);
+    }
+
     public function getOwnerShape(): StructureShape
     {
         return $this->data['_owner'];

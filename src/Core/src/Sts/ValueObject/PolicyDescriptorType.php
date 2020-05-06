@@ -10,16 +10,20 @@ final class PolicyDescriptorType
      *
      * @see https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html
      */
-    private $arn;
+    private $Arn;
 
     /**
      * @param array{
-     *   arn?: null|string,
+     *   Arn?: null|string,
      * } $input
      */
     public function __construct(array $input)
     {
-        $this->arn = $input['arn'] ?? null;
+        if (isset($input['arn'])) {
+            @trigger_error(sprintf('Using key arn in "%s" is deprecated. Use Arn instead.', __CLASS__), \E_USER_DEPRECATED);
+            $input['Arn'] = $input['arn'];
+        }
+        $this->Arn = $input['Arn'] ?? null;
     }
 
     public static function create($input): self
@@ -27,9 +31,9 @@ final class PolicyDescriptorType
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getarn(): ?string
+    public function getArn(): ?string
     {
-        return $this->arn;
+        return $this->Arn;
     }
 
     /**
@@ -38,7 +42,7 @@ final class PolicyDescriptorType
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->arn) {
+        if (null !== $v = $this->Arn) {
             $payload['arn'] = $v;
         }
 

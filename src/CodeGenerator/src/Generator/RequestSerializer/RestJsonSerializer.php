@@ -61,10 +61,10 @@ class RestJsonSerializer implements Serializer
             $shape = $member->getShape();
             if ($shape instanceof ListShape || $shape instanceof MapShape) {
                 $body = 'MEMBER_CODE';
-                $inputElement = '$this->' . $member->getName();
+                $inputElement = '$this->' . $member->canonicalPropertyName();
             } elseif ($member->isRequired()) {
                 $body = 'if (null === $v = $this->PROPERTY) {
-                    throw new InvalidArgument(sprintf(\'Missing parameter "PROPERTY" for "%s". The value cannot be null.\', __CLASS__));
+                    throw new InvalidArgument(sprintf(\'Missing parameter "INPUT_KEY" for "%s". The value cannot be null.\', __CLASS__));
                 }
                 MEMBER_CODE';
                 $inputElement = '$v';
@@ -76,7 +76,8 @@ class RestJsonSerializer implements Serializer
             }
 
             return strtr($body, [
-                'PROPERTY' => $member->getName(),
+                'PROPERTY' => $member->canonicalPropertyName(),
+                'INPUT_KEY' => $member->canonicalInputKey(),
                 'MEMBER_CODE' => $this->dumpArrayElement(sprintf('["%s"]', $name = $this->getName($member)), $inputElement, $name, $shape, $member->isRequired()),
             ]);
         }, $shape->getMembers()));

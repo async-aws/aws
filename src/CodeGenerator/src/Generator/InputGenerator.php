@@ -8,6 +8,7 @@ use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Member;
 use AsyncAws\CodeGenerator\Definition\Operation;
+use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
@@ -96,27 +97,42 @@ class InputGenerator
 
         $constructorBody = '';
 
+        $handleDeprecationCanonical = $operation->getService()->hasBcLayer(ServiceDefinition::BC_CANONICAL_INPUT);
         foreach ($shape->getMembers() as $member) {
             if ('region' === $member->getName()) {
                 throw new \RuntimeException('Member conflict with "@region" parameter.');
             }
+
+            if ($handleDeprecationCanonical && $member->canonicalInputKey() !== $member->getName()) {
+                $constructorBody .= \strtr(
+                    'if (isset($input["LNAME"])) {
+                        @trigger_error(sprintf("Using key LNAME in \"%s\" is deprecated. Use UNAME instead.", __CLASS__), E_USER_DEPRECATED);
+                        $input["UNAME"] = $input["LNAME"];
+                    }',
+                    [
+                        'LNAME' => $member->getName(),
+                        'UNAME' => $member->canonicalInputKey(),
+                    ]
+                );
+            }
+
             $memberShape = $member->getShape();
             [$returnType, $parameterType, $memberClassName] = $this->typeGenerator->getPhpType($memberShape);
             $nullable = true;
             if ($memberShape instanceof StructureShape) {
                 $memberClassName = $this->objectGenerator->generate($memberShape);
-                $constructorBody .= strtr('$this->NAME = isset($input["NAME"]) ? CLASS::create($input["NAME"]) : null;' . "\n", ['NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
+                $constructorBody .= strtr('$this->PROPERTY_NAME = isset($input["INPUT_KEY"]) ? CLASS::create($input["INPUT_KEY"]) : null;' . "\n", ['PROPERTY_NAME' => $member->canonicalPropertyName(), 'INPUT_KEY' => $member->canonicalInputKey(), 'CLASS' => $memberClassName->getName()]);
             } elseif ($memberShape instanceof ListShape) {
                 $listMemberShape = $memberShape->getMember()->getShape();
                 $nullable = false;
 
                 if ($listMemberShape instanceof StructureShape) {
                     $memberClassName = $this->objectGenerator->generate($listMemberShape);
-                    $constructorBody .= strtr('$this->NAME = array_map([CLASS::class, "create"], $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
+                    $constructorBody .= strtr('$this->PROPERTY_NAME = array_map([CLASS::class, "create"], $input["INPUT_KEY"] ?? []);' . "\n", ['PROPERTY_NAME' => $member->canonicalPropertyName(), 'INPUT_KEY' => $member->canonicalInputKey(), 'CLASS' => $memberClassName->getName()]);
                 } elseif ($listMemberShape instanceof ListShape || $listMemberShape instanceof MapShape) {
                     throw new \RuntimeException('Recursive ListShape are not yet implemented');
                 } else {
-                    $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
+                    $constructorBody .= strtr('$this->PROPERTY_NAME = $input["INPUT_KEY"] ?? [];' . "\n", ['PROPERTY_NAME' => $member->canonicalPropertyName(), 'INPUT_KEY' => $member->canonicalInputKey()]);
                 }
             } elseif ($memberShape instanceof MapShape) {
                 $mapValueShape = $memberShape->getValue()->getShape();
@@ -127,31 +143,31 @@ class InputGenerator
                     $memberClassName = $this->objectGenerator->generate($mapValueShape);
 
                     $constructorBody .= strtr('
-                        $this->NAME = [];
-                        foreach ($input["NAME"] ?? [] as $key => $item) {
-                            $this->NAME[$key] = CLASS::create($item);
+                        $this->PROPERTY_NAME = [];
+                        foreach ($input["INPUT_KEY"] ?? [] as $key => $item) {
+                            $this->PROPERTY_NAME[$key] = CLASS::create($item);
                         }
                     ', [
-                        'NAME' => $member->getName(),
+                        'PROPERTY_NAME' => $member->canonicalPropertyName(), 'INPUT_KEY' => $member->canonicalInputKey(),
                         'CLASS' => $memberClassName->getName(),
                     ]);
                 } elseif ($mapValueShape instanceof ListShape || $mapValueShape instanceof MapShape) {
                     throw new \RuntimeException('Recursive ListShape are not yet implemented');
                 } else {
                     // It is a scalar, like a string
-                    $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
+                    $constructorBody .= strtr('$this->PROPERTY_NAME = $input["INPUT_KEY"] ?? [];' . "\n", ['PROPERTY_NAME' => $member->canonicalPropertyName(), 'INPUT_KEY' => $member->canonicalInputKey()]);
                 }
             } elseif ($member->isStreaming()) {
                 $parameterType = 'string|resource|callable|iterable';
                 $returnType = null;
-                $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $member->getName()]);
+                $constructorBody .= strtr('$this->PROPERTY_NAME = $input["INPUT_KEY"] ?? null;' . "\n", ['PROPERTY_NAME' => $member->canonicalPropertyName(), 'INPUT_KEY' => $member->canonicalInputKey()]);
             } elseif ('timestamp' === $memberShape->getType()) {
-                $constructorBody .= strtr('$this->NAME = !isset($input["NAME"]) ? null : ($input["NAME"] instanceof \DateTimeImmutable ? $input["NAME"] : new \DateTimeImmutable($input["NAME"]));' . "\n", ['NAME' => $member->getName()]);
+                $constructorBody .= strtr('$this->PROPERTY_NAME = !isset($input["INPUT_KEY"]) ? null : ($input["INPUT_KEY"] instanceof \DateTimeImmutable ? $input["INPUT_KEY"] : new \DateTimeImmutable($input["INPUT_KEY"]));' . "\n", ['PROPERTY_NAME' => $member->canonicalPropertyName(), 'INPUT_KEY' => $member->canonicalInputKey()]);
             } else {
-                $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $member->getName()]);
+                $constructorBody .= strtr('$this->PROPERTY_NAME = $input["INPUT_KEY"] ?? null;' . "\n", ['PROPERTY_NAME' => $member->canonicalPropertyName(), 'INPUT_KEY' => $member->canonicalInputKey()]);
             }
 
-            $property = $class->addProperty($member->getName())->setPrivate();
+            $property = $class->addProperty($member->canonicalPropertyName())->setPrivate();
             if (null !== $propertyDocumentation = $memberShape->getDocumentation()) {
                 $property->addComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
@@ -166,18 +182,18 @@ class InputGenerator
             // the "\n" helps php-cs-fixer to with potential wildcard in parameterType
             $property->addComment("\n@var " . ($nullable ? 'null|' : '') . $parameterType);
 
-            $getter = $class->addMethod('get' . $member->getName())
+            $getter = $class->addMethod('get' . $member->canonicalMethodName())
                 ->setReturnType($returnType)
                 ->setReturnNullable($nullable)
-                ->setBody(strtr('return $this->NAME;', ['NAME' => $member->getName()]));
+                ->setBody(strtr('return $this->NAME;', ['NAME' => $member->canonicalPropertyName()]));
 
-            $setter = $class->addMethod('set' . $member->getName())
+            $setter = $class->addMethod('set' . $member->canonicalMethodName())
                 ->setReturnType('self')
                 ->setBody(strtr('
                     $this->NAME = $value;
                     return $this;
                 ', [
-                    'NAME' => $member->getName(),
+                    'NAME' => $member->canonicalPropertyName(),
                 ]));
             $setter
                 ->addParameter('value')->setType($returnType)->setNullable($nullable)
@@ -244,7 +260,7 @@ class InputGenerator
                 $memberShape = $member->getShape();
                 if ($member->isRequired()) {
                     $bodyCode = 'if (null === $v = $this->PROPERTY) {
-                        throw new InvalidArgument(sprintf(\'Missing parameter "PROPERTY" for "%s". The value cannot be null.\', __CLASS__));
+                        throw new InvalidArgument(sprintf(\'Missing parameter "INPUT_KEY" for "%s". The value cannot be null.\', __CLASS__));
                     }
                     VALIDATE_ENUM
                     VAR_NAME["LOCATION"] = VALUE;';
@@ -254,22 +270,24 @@ class InputGenerator
                         VALIDATE_ENUM
                         VAR_NAME["LOCATION"] = VALUE;
                     }';
-                    $inputElement = '$this->' . $member->getName();
+                    $inputElement = '$this->' . $member->canonicalPropertyName();
                 }
                 $validateEnum = '';
                 if (!empty($memberShape->getEnum())) {
                     $enumClassName = $this->namespaceRegistry->getEnum($memberShape);
                     $validateEnum = strtr('if (!ENUM_CLASS::exists(INPUT)) {
-                        throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, $this->PROPERTY));
+                        throw new InvalidArgument(sprintf(\'Invalid parameter "INPUT_KEY" for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, $this->PROPERTY));
                     }', [
                         'INPUT' => $inputElement,
                         'ENUM_CLASS' => $enumClassName->getName(),
-                        'PROPERTY' => $member->getName(),
+                        'PROPERTY' => $member->canonicalPropertyName(),
+                        'INPUT_KEY' => $member->canonicalInputKey(),
                     ]);
                 }
 
                 $bodyCode = strtr($bodyCode, [
-                    'PROPERTY' => $member->getName(),
+                    'PROPERTY' => $member->canonicalPropertyName(),
+                    'INPUT_KEY' => $member->canonicalInputKey(),
                     'VAR_NAME' => $varName,
                     'LOCATION' => $member->getLocationName() ?? $member->getName(),
                     'VALIDATE_ENUM' => $validateEnum,

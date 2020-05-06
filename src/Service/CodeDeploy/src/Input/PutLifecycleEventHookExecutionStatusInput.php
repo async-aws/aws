@@ -15,7 +15,7 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
      *
      * @var string|null
      */
-    private $deploymentId;
+    private $DeploymentId;
 
     /**
      * The execution ID of a deployment's lifecycle hook. A deployment lifecycle hook is specified in the `hooks` section of
@@ -23,28 +23,28 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
      *
      * @var string|null
      */
-    private $lifecycleEventHookExecutionId;
+    private $LifecycleEventHookExecutionId;
 
     /**
      * The result of a Lambda function that validates a deployment lifecycle event (`Succeeded` or `Failed`).
      *
      * @var null|LifecycleEventStatus::*
      */
-    private $status;
+    private $Status;
 
     /**
      * @param array{
-     *   deploymentId?: string,
-     *   lifecycleEventHookExecutionId?: string,
-     *   status?: \AsyncAws\CodeDeploy\Enum\LifecycleEventStatus::*,
+     *   DeploymentId?: string,
+     *   LifecycleEventHookExecutionId?: string,
+     *   Status?: \AsyncAws\CodeDeploy\Enum\LifecycleEventStatus::*,
      *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
-        $this->deploymentId = $input['deploymentId'] ?? null;
-        $this->lifecycleEventHookExecutionId = $input['lifecycleEventHookExecutionId'] ?? null;
-        $this->status = $input['status'] ?? null;
+        $this->DeploymentId = $input['DeploymentId'] ?? null;
+        $this->LifecycleEventHookExecutionId = $input['LifecycleEventHookExecutionId'] ?? null;
+        $this->Status = $input['Status'] ?? null;
         parent::__construct($input);
     }
 
@@ -53,22 +53,22 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getdeploymentId(): ?string
+    public function getDeploymentId(): ?string
     {
-        return $this->deploymentId;
+        return $this->DeploymentId;
     }
 
-    public function getlifecycleEventHookExecutionId(): ?string
+    public function getLifecycleEventHookExecutionId(): ?string
     {
-        return $this->lifecycleEventHookExecutionId;
+        return $this->LifecycleEventHookExecutionId;
     }
 
     /**
      * @return LifecycleEventStatus::*|null
      */
-    public function getstatus(): ?string
+    public function getStatus(): ?string
     {
-        return $this->status;
+        return $this->Status;
     }
 
     /**
@@ -96,16 +96,16 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
-    public function setdeploymentId(?string $value): self
+    public function setDeploymentId(?string $value): self
     {
-        $this->deploymentId = $value;
+        $this->DeploymentId = $value;
 
         return $this;
     }
 
-    public function setlifecycleEventHookExecutionId(?string $value): self
+    public function setLifecycleEventHookExecutionId(?string $value): self
     {
-        $this->lifecycleEventHookExecutionId = $value;
+        $this->LifecycleEventHookExecutionId = $value;
 
         return $this;
     }
@@ -113,9 +113,9 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
     /**
      * @param LifecycleEventStatus::*|null $value
      */
-    public function setstatus(?string $value): self
+    public function setStatus(?string $value): self
     {
-        $this->status = $value;
+        $this->Status = $value;
 
         return $this;
     }
@@ -123,13 +123,13 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->deploymentId) {
+        if (null !== $v = $this->DeploymentId) {
             $payload['deploymentId'] = $v;
         }
-        if (null !== $v = $this->lifecycleEventHookExecutionId) {
+        if (null !== $v = $this->LifecycleEventHookExecutionId) {
             $payload['lifecycleEventHookExecutionId'] = $v;
         }
-        if (null !== $v = $this->status) {
+        if (null !== $v = $this->Status) {
             if (!LifecycleEventStatus::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "status" for "%s". The value "%s" is not a valid "LifecycleEventStatus".', __CLASS__, $v));
             }

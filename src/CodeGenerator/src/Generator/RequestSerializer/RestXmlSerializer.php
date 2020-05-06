@@ -70,13 +70,13 @@ class RestXmlSerializer implements Serializer
             $shape = $member->getShape();
             if ($member->isRequired()) {
                 $body = 'if (null === $v = $this->PROPERTY) {
-                    throw new InvalidArgument(sprintf(\'Missing parameter "PROPERTY" for "%s". The value cannot be null.\', __CLASS__));
+                    throw new InvalidArgument(sprintf(\'Missing parameter "INPUT_KEY" for "%s". The value cannot be null.\', __CLASS__));
                 }
                 MEMBER_CODE';
                 $inputElement = '$v';
             } elseif ($shape instanceof ListShape || $shape instanceof MapShape) {
                 $body = 'MEMBER_CODE';
-                $inputElement = '$this->' . $member->getName();
+                $inputElement = '$this->' . $member->canonicalPropertyName();
             } else {
                 $body = 'if (null !== $v = $this->PROPERTY) {
                     MEMBER_CODE
@@ -85,7 +85,8 @@ class RestXmlSerializer implements Serializer
             }
 
             return strtr($body, [
-                'PROPERTY' => $member->getName(),
+                'PROPERTY' => $member->canonicalPropertyName(),
+                'INPUT_KEY' => $member->canonicalInputKey(),
                 'MEMBER_CODE' => $this->dumpXmlShape($member, $member->getShape(), '$node', $inputElement),
             ]);
         }, $shape->getMembers()));
@@ -179,12 +180,12 @@ class RestXmlSerializer implements Serializer
         if (!empty($shape->getEnum())) {
             $enumClassName = $this->namespaceRegistry->getEnum($shape);
             $body = 'if (!ENUM_CLASS::exists(INPUT)) {
-                    throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, INPUT));
+                    throw new InvalidArgument(sprintf(\'Invalid parameter "INPUT_KEY" for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, INPUT));
                 }
             ' . $body;
             $replacements += [
                 'ENUM_CLASS' => $enumClassName->getName(),
-                'PROPERTY' => $member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'),
+                'INPUT_KEY' => $member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'),
             ];
         }
 

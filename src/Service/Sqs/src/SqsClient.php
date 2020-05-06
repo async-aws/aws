@@ -57,7 +57,7 @@ class SqsClient extends AbstractApi
      * @param array{
      *   QueueName: string,
      *   Attributes?: string[],
-     *   tags?: string[],
+     *   Tags?: string[],
      *   @region?: string,
      * }|CreateQueueRequest $input
      */

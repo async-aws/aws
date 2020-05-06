@@ -16,9 +16,9 @@ class CodeDeployClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-codedeploy-2014-10-06.html#putlifecycleeventhookexecutionstatus
      *
      * @param array{
-     *   deploymentId?: string,
-     *   lifecycleEventHookExecutionId?: string,
-     *   status?: \AsyncAws\CodeDeploy\Enum\LifecycleEventStatus::*,
+     *   DeploymentId?: string,
+     *   LifecycleEventHookExecutionId?: string,
+     *   Status?: \AsyncAws\CodeDeploy\Enum\LifecycleEventStatus::*,
      *   @region?: string,
      * }|PutLifecycleEventHookExecutionStatusInput $input
      */

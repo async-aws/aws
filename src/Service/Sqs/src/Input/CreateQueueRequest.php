@@ -33,13 +33,13 @@ final class CreateQueueRequest extends Input
      *
      * @var string[]
      */
-    private $tags;
+    private $Tags;
 
     /**
      * @param array{
      *   QueueName?: string,
      *   Attributes?: string[],
-     *   tags?: string[],
+     *   Tags?: string[],
      *   @region?: string,
      * } $input
      */
@@ -47,7 +47,11 @@ final class CreateQueueRequest extends Input
     {
         $this->QueueName = $input['QueueName'] ?? null;
         $this->Attributes = $input['Attributes'] ?? [];
-        $this->tags = $input['tags'] ?? [];
+        if (isset($input['tags'])) {
+            @trigger_error(sprintf('Using key tags in "%s" is deprecated. Use Tags instead.', __CLASS__), \E_USER_DEPRECATED);
+            $input['Tags'] = $input['tags'];
+        }
+        $this->Tags = $input['Tags'] ?? [];
         parent::__construct($input);
     }
 
@@ -72,9 +76,9 @@ final class CreateQueueRequest extends Input
     /**
      * @return string[]
      */
-    public function gettags(): array
+    public function getTags(): array
     {
-        return $this->tags;
+        return $this->Tags;
     }
 
     /**
@@ -118,9 +122,9 @@ final class CreateQueueRequest extends Input
     /**
      * @param string[] $value
      */
-    public function settags(array $value): self
+    public function setTags(array $value): self
     {
-        $this->tags = $value;
+        $this->Tags = $value;
 
         return $this;
     }
@@ -141,7 +145,7 @@ final class CreateQueueRequest extends Input
         }
 
         $index = 0;
-        foreach ($this->tags as $mapKey => $mapValue) {
+        foreach ($this->Tags as $mapKey => $mapValue) {
             ++$index;
             $payload["Tag.$index.Key"] = $mapKey;
             $payload["Tag.$index.Value"] = $mapValue;

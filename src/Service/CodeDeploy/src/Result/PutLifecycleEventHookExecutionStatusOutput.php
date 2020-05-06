@@ -11,13 +11,13 @@ class PutLifecycleEventHookExecutionStatusOutput extends Result
      * The execution ID of the lifecycle event hook. A hook is specified in the `hooks` section of the deployment's AppSpec
      * file.
      */
-    private $lifecycleEventHookExecutionId;
+    private $LifecycleEventHookExecutionId;
 
-    public function getlifecycleEventHookExecutionId(): ?string
+    public function getLifecycleEventHookExecutionId(): ?string
     {
         $this->initialize();
 
-        return $this->lifecycleEventHookExecutionId;
+        return $this->LifecycleEventHookExecutionId;
     }
 
     protected function populateResult(Response $response): void

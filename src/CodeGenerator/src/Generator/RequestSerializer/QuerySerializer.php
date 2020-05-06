@@ -64,13 +64,13 @@ class QuerySerializer implements Serializer
             $shape = $member->getShape();
             if ($member->isRequired()) {
                 $body = 'if (null === $v = $this->PROPERTY) {
-                    throw new InvalidArgument(sprintf(\'Missing parameter "PROPERTY" for "%s". The value cannot be null.\', __CLASS__));
+                    throw new InvalidArgument(sprintf(\'Missing parameter "INPUT_KEY" for "%s". The value cannot be null.\', __CLASS__));
                 }
                 MEMBER_CODE';
                 $inputElement = '$v';
             } elseif ($shape instanceof ListShape || $shape instanceof MapShape) {
                 $body = 'MEMBER_CODE';
-                $inputElement = '$this->' . $member->getName();
+                $inputElement = '$this->' . $member->canonicalPropertyName();
             } else {
                 $body = 'if (null !== $v = $this->PROPERTY) {
                     MEMBER_CODE
@@ -79,7 +79,8 @@ class QuerySerializer implements Serializer
             }
 
             return strtr($body, [
-                'PROPERTY' => $member->getName(),
+                'PROPERTY' => $member->canonicalPropertyName(),
+                'INPUT_KEY' => $member->canonicalInputKey(),
                 'MEMBER_CODE' => $this->dumpArrayElement($name = $this->getName($member), $inputElement, $name, $shape),
             ]);
         }, $shape->getMembers()));

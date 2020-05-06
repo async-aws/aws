@@ -11,6 +11,8 @@ namespace AsyncAws\CodeGenerator\Definition;
  */
 class ServiceDefinition
 {
+    public const BC_CANONICAL_INPUT = 'canonicalInputKey';
+
     private $name;
 
     private $definition;
@@ -23,7 +25,9 @@ class ServiceDefinition
 
     private $example;
 
-    public function __construct(string $name, array $definition, array $documentation, array $pagination, array $waiter, array $example)
+    private $bcLayers;
+
+    public function __construct(string $name, array $definition, array $documentation, array $pagination, array $waiter, array $example, array $bcLayers)
     {
         $this->name = $name;
         $this->definition = $definition;
@@ -31,6 +35,7 @@ class ServiceDefinition
         $this->pagination = $pagination;
         $this->waiter = $waiter;
         $this->example = $example;
+        $this->bcLayers = $bcLayers;
     }
 
     public function getName(): string
@@ -98,6 +103,16 @@ class ServiceDefinition
     public function getProtocol(): string
     {
         return $this->definition['metadata']['protocol'];
+    }
+
+    public function getBcLayers(): array
+    {
+        return $this->bcLayers;
+    }
+
+    public function hasBcLayer(string $bcName): bool
+    {
+        return \in_array($bcName, $this->bcLayers, true);
     }
 
     private function getPagination(string $name): ?Pagination
