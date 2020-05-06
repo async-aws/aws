@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\Core;
 
 use AsyncAws\CloudFormation\CloudFormationClient;
+use AsyncAws\CloudWatchLogs\CloudWatchLogsClient;
 use AsyncAws\CodeDeploy\CodeDeployClient;
 use AsyncAws\CognitoIdentityProvider\CognitoIdentityProviderClient;
 use AsyncAws\Core\Credentials\CacheProvider;
@@ -93,6 +94,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new CloudFormationClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function cloudWatchLogs(): CloudWatchLogsClient
+    {
+        if (!class_exists(CloudWatchLogsClient::class)) {
+            throw MissingDependency::create('async-aws/cloud-watch-logs', 'CloudWatchLogs');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new CloudWatchLogsClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];
