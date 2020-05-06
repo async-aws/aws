@@ -1,8 +1,9 @@
 <?php
 
-namespace Illuminate\Mail\Transport;
+namespace AsyncAws\Illuminate\Mail\Transport;
 
 use AsyncAws\Ses\SesClient;
+use Illuminate\Mail\Transport\Transport;
 use Swift_Mime_SimpleMessage;
 
 class AsyncAwsSesTransport extends Transport
