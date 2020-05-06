@@ -7,7 +7,6 @@ package: async-aws/cognito-identity-provider
 
 ## Usage
 
-
 ### Create a user as an admin
 
 ```php

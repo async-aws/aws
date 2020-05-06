@@ -10,8 +10,6 @@ class AdminCreateUserRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        // self::fail('Not implemented');
-
         $input = new AdminCreateUserRequest([
             'UserPoolId' => 'us-east-1_1337oL33t',
             'Username' => '1c202820-8eb5-11ea-bc55-0242ac130003',
