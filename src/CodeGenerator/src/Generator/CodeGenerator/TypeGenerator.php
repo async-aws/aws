@@ -61,11 +61,17 @@ class TypeGenerator
 
                 // is the map item an object?
                 if ($mapValueShape instanceof StructureShape) {
-                    $param = '\\' . $this->namespaceRegistry->getObject($mapValueShape)->getFqdn() . '[]';
+                    $param = '\\' . $this->namespaceRegistry->getObject($mapValueShape)->getFqdn();
                 } elseif (!empty($mapValueShape->getEnum())) {
-                    $param = 'array<string, \\' . $this->namespaceRegistry->getEnum($mapValueShape)->getFqdn() . '::*>';
+                    $param = '\\' . $this->namespaceRegistry->getEnum($mapValueShape)->getFqdn() . '::*';
                 } else {
-                    $param = $this->getNativePhpType($mapValueShape->getType()) . '[]';
+                    $param = $this->getNativePhpType($mapValueShape->getType());
+                }
+                $mapKeyShape = $memberShape->getKey()->getShape();
+                if (!empty($mapKeyShape->getEnum())) {
+                    $param = 'array<\\' . $this->namespaceRegistry->getEnum($mapKeyShape)->getFqdn() . '::*, ' . $param . '>';
+                } else {
+                    $param .= '[]';
                 }
             } elseif ($member->isStreaming()) {
                 $param = 'string|resource|callable|iterable';
@@ -98,56 +104,67 @@ class TypeGenerator
     /**
      * Return php type information for the given shape.
      *
-     * @return array{string, string, ?ClassName} [typeHint value, docblock representation, ClassName related]
+     * @return array{string, string, ClassName[]} [typeHint value, docblock representation, ClassName related]
      */
     public function getPhpType(Shape $shape): array
     {
+        $memberClassNames = [];
         if ($shape instanceof StructureShape) {
-            $className = $this->namespaceRegistry->getObject($shape);
+            $memberClassNames[] = $className = $this->namespaceRegistry->getObject($shape);
 
-            return [$className->getFqdn(), $className->getName(), $className];
+            return [$className->getFqdn(), $className->getName(), $memberClassNames];
         }
 
         if ($shape instanceof ListShape) {
             $listMemberShape = $shape->getMember()->getShape();
             if ($listMemberShape instanceof StructureShape) {
-                $className = $this->namespaceRegistry->getObject($listMemberShape);
+                $memberClassNames[] = $className = $this->namespaceRegistry->getObject($listMemberShape);
 
-                return ['array', $className->getName() . '[]', $className];
+                return ['array', $className->getName() . '[]', $memberClassNames];
             }
 
             if (!empty($listMemberShape->getEnum())) {
-                $doc = 'list<' . $listMemberShape->getName() . '::*>';
+                $memberClassNames[] = $memberClassName = $this->namespaceRegistry->getEnum($listMemberShape);
+                $doc = 'list<' . $memberClassName->getName() . '::*>';
             } else {
                 $doc = $this->getNativePhpType($listMemberShape->getType()) . '[]';
             }
 
-            return ['array', $doc, null];
+            return ['array', $doc, $memberClassNames];
         }
 
         if ($shape instanceof MapShape) {
             $mapValueShape = $shape->getValue()->getShape();
             if ($mapValueShape instanceof StructureShape) {
-                $className = $this->namespaceRegistry->getObject($mapValueShape);
-
-                return ['array', $className->getName() . '[]', $className];
-            }
-
-            if (!empty($mapValueShape->getEnum())) {
-                $doc = 'array<string, ' . $mapValueShape->getName() . '::*>';
+                $memberClassNames[] = $className = $this->namespaceRegistry->getObject($mapValueShape);
+                $doc = $className->getName();
+            } elseif (!empty($mapValueShape->getEnum())) {
+                $memberClassNames[] = $memberClassName = $this->namespaceRegistry->getEnum($mapValueShape);
+                $doc = $memberClassName->getName() . '::*';
             } else {
-                $doc = $this->getNativePhpType($mapValueShape->getType()) . '[]';
+                $doc = $this->getNativePhpType($mapValueShape->getType());
             }
 
-            return ['array', $doc, null];
+            $mapKeyShape = $shape->getKey()->getShape();
+            $keyType = null;
+            if (!empty($mapKeyShape->getEnum())) {
+                $memberClassNames[] = $memberClassName = $this->namespaceRegistry->getEnum($mapKeyShape);
+                $doc = 'array<' . $memberClassName->getName() . '::*, ' . $doc . '>';
+            } else {
+                $doc .= '[]';
+            }
+
+            return ['array', $doc, $memberClassNames];
         }
 
         $type = $doc = $this->getNativePhpType($shape->getType());
         if (!empty($shape->getEnum())) {
-            $doc = $shape->getName() . '::*';
+            $memberClassNames[] = $memberClassName = $this->namespaceRegistry->getEnum($shape);
+
+            $doc = $memberClassName->getName() . '::*';
         }
 
-        return [$type, $doc, null];
+        return [$type, $doc, $memberClassNames];
     }
 
     public function getFilterConstant(Shape $shape): ?string

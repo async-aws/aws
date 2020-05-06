@@ -101,7 +101,10 @@ class InputGenerator
                 throw new \RuntimeException('Member conflict with "@region" parameter.');
             }
             $memberShape = $member->getShape();
-            [$returnType, $parameterType, $memberClassName] = $this->typeGenerator->getPhpType($memberShape);
+            [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($memberShape);
+            foreach ($memberClassNames as $memberClassName) {
+                $namespace->addUse($memberClassName->getFqdn());
+            }
             $nullable = true;
             if ($memberShape instanceof StructureShape) {
                 $memberClassName = $this->objectGenerator->generate($memberShape);
@@ -119,6 +122,10 @@ class InputGenerator
                     $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
                 }
             } elseif ($memberShape instanceof MapShape) {
+                $mapKeyShape = $memberShape->getKey()->getShape();
+                if (!empty($mapKeyShape->getEnum())) {
+                    $this->enumGenerator->generate($mapKeyShape);
+                }
                 $mapValueShape = $memberShape->getValue()->getShape();
                 $nullable = false;
 

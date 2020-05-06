@@ -18,7 +18,6 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Stream\ResponseBodyStream;
 use AsyncAws\Core\Stream\ResultStream;
-use Nette\InvalidStateException;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -135,7 +134,10 @@ class ResultGenerator
             if (null !== $propertyDocumentation = $memberShape->getDocumentation()) {
                 $property->setComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
-            [$returnType, $parameterType, $memberClassName] = $this->typeGenerator->getPhpType($memberShape);
+            [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($memberShape);
+            foreach ($memberClassNames as $memberClassName) {
+                $namespace->addUse($memberClassName->getFqdn());
+            }
 
             if (!empty($memberShape->getEnum())) {
                 $this->enumGenerator->generate($memberShape);
@@ -147,6 +149,9 @@ class ResultGenerator
                 $mapKeyShape = $memberShape->getKey()->getShape();
                 if ('string' !== $mapKeyShape->getType()) {
                     throw new \RuntimeException('Complex maps are not supported');
+                }
+                if (!empty($mapKeyShape->getEnum())) {
+                    $this->enumGenerator->generate($mapKeyShape);
                 }
 
                 if (($valueShape = $memberShape->getValue()->getShape()) instanceof StructureShape) {
@@ -173,15 +178,8 @@ class ResultGenerator
             } elseif ($member->isStreaming()) {
                 $returnType = ResultStream::class;
                 $parameterType = ResultStream::class;
-                $memberClassName = null;
+                $memberClassNames = [];
                 $nullable = false;
-            }
-
-            if (null !== $memberClassName) {
-                try {
-                    $namespace->addUse($memberClassName->getFqdn());
-                } catch (InvalidStateException $e) {
-                }
             }
 
             $method = $class->addMethod('get' . \ucfirst($member->getName()))
@@ -195,7 +193,7 @@ class ResultGenerator
                 ]));
 
             $nullable = $nullable ?? !$member->isRequired();
-            if ($parameterType && $parameterType !== $returnType && (null === $memberClassName || $memberClassName->getName() !== $parameterType)) {
+            if ($parameterType && $parameterType !== $returnType && (empty($memberClassNames) || $memberClassNames[0]->getName() !== $parameterType)) {
                 $method->addComment('@return ' . $parameterType . ($nullable ? '|null' : ''));
             }
             $method->setReturnNullable($nullable);

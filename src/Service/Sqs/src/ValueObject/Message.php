@@ -2,6 +2,8 @@
 
 namespace AsyncAws\Sqs\ValueObject;
 
+use AsyncAws\Sqs\Enum\MessageSystemAttributeName;
+
 final class Message
 {
     /**
@@ -54,7 +56,7 @@ final class Message
      *   ReceiptHandle?: null|string,
      *   MD5OfBody?: null|string,
      *   Body?: null|string,
-     *   Attributes?: null|string[],
+     *   Attributes?: null|array<\AsyncAws\Sqs\Enum\MessageSystemAttributeName::*, string>,
      *   MD5OfMessageAttributes?: null|string,
      *   MessageAttributes?: null|\AsyncAws\Sqs\ValueObject\MessageAttributeValue[],
      * } $input
@@ -76,7 +78,7 @@ final class Message
     }
 
     /**
-     * @return string[]
+     * @return array<MessageSystemAttributeName::*, string>
      */
     public function getAttributes(): array
     {

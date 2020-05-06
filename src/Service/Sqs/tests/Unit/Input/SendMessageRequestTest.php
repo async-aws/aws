@@ -3,6 +3,7 @@
 namespace AsyncAws\Sqs\Tests\Unit\Input;
 
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Sqs\Enum\MessageSystemAttributeNameForSends;
 use AsyncAws\Sqs\Input\SendMessageRequest;
 use AsyncAws\Sqs\ValueObject\MessageAttributeValue;
 use AsyncAws\Sqs\ValueObject\MessageSystemAttributeValue;
@@ -19,7 +20,7 @@ class SendMessageRequestTest extends TestCase
                 'StringValue' => 'my_attribute_value_1',
                 'DataType' => 'String',
             ])],
-            'MessageSystemAttributes' => ['my_attribute_name_2' => new MessageSystemAttributeValue([
+            'MessageSystemAttributes' => [MessageSystemAttributeNameForSends::AWSTRACE_HEADER => new MessageSystemAttributeValue([
                 'StringListValues' => ['my_attribute_value_2', 'my_attribute_value_3'],
                 'DataType' => 'String',
             ])],
@@ -40,7 +41,7 @@ class SendMessageRequestTest extends TestCase
             &MessageAttribute.1.Name=my_attribute_name_1
             &MessageAttribute.1.Value.StringValue=my_attribute_value_1
             &MessageAttribute.1.Value.DataType=String
-            &MessageSystemAttribute.1.Name=my_attribute_name_2
+            &MessageSystemAttribute.1.Name=AWSTraceHeader
             &MessageSystemAttribute.1.Value.StringListValue.1=my_attribute_value_2
             &MessageSystemAttribute.1.Value.StringListValue.2=my_attribute_value_3
             &MessageSystemAttribute.1.Value.DataType=String

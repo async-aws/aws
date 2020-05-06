@@ -180,13 +180,27 @@ class RestJsonSerializer implements Serializer
 
     private function dumpArrayMap(string $output, string $input, $contextProperty, MapShape $shape): string
     {
+        $mapKeyShape = $shape->getKey()->getShape();
+        if (!empty($mapKeyShape->getEnum())) {
+            $enumClassName = $this->namespaceRegistry->getEnum($mapKeyShape);
+            $validateEnum = strtr('if (!ENUM_CLASS::exists($mapKey)) {
+                    throw new InvalidArgument(sprintf(\'Invalid key for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, $mapKey));
+                }', [
+                'ENUM_CLASS' => $enumClassName->getName(),
+            ]);
+        } else {
+            $validateEnum = '';
+        }
+
         $memberCode = $this->dumpArrayElement($output . '[$name]', '$v', $contextProperty, $shape->getValue()->getShape());
 
         return strtr('
 foreach (INPUT as $name => $v) {
+    VALIDATE_ENUM
     MEMBER_CODE
 }',
             [
+                'VALIDATE_ENUM' => $validateEnum,
                 'INPUT' => $input,
                 'MEMBER_CODE' => $memberCode,
             ]);

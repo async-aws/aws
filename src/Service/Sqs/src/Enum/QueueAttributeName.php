@@ -2,7 +2,7 @@
 
 namespace AsyncAws\Sqs\Enum;
 
-class QueueAttributeName
+final class QueueAttributeName
 {
     public const ALL = 'All';
     public const APPROXIMATE_NUMBER_OF_MESSAGES = 'ApproximateNumberOfMessages';

@@ -196,7 +196,10 @@ class ObjectGenerator
                 $property->setComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
 
-            [$returnType, $parameterType, $memberClassName] = $this->typeGenerator->getPhpType($memberShape);
+            [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($memberShape);
+            foreach ($memberClassNames as $memberClassName) {
+                $namespace->addUse($memberClassName->getFqdn());
+            }
 
             if (!empty($memberShape->getEnum())) {
                 $enumClassName = $this->enumGenerator->generate($memberShape);
@@ -209,6 +212,9 @@ class ObjectGenerator
                 $mapKeyShape = $memberShape->getKey()->getShape();
                 if ('string' !== $mapKeyShape->getType()) {
                     throw new \RuntimeException('Complex maps are not supported');
+                }
+                if (!empty($mapKeyShape->getEnum())) {
+                    $this->enumGenerator->generate($mapKeyShape);
                 }
 
                 if (($valueShape = $memberShape->getValue()->getShape()) instanceof StructureShape) {
@@ -248,7 +254,7 @@ class ObjectGenerator
                 ]));
 
             $nullable = $nullable ?? !$member->isRequired();
-            if ($parameterType && $parameterType !== $returnType && (null === $memberClassName || $memberClassName->getName() !== $parameterType)) {
+            if ($parameterType && $parameterType !== $returnType && (empty($memberClassNames) || $memberClassNames[0]->getName() !== $parameterType)) {
                 $method->addComment('@return ' . $parameterType . ($nullable ? '|null' : ''));
             }
             $method->setReturnNullable($nullable);

@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Sqs\Enum\MessageSystemAttributeNameForSends;
 use AsyncAws\Sqs\ValueObject\MessageAttributeValue;
 use AsyncAws\Sqs\ValueObject\MessageSystemAttributeValue;
 
@@ -51,7 +52,7 @@ final class SendMessageRequest extends Input
     /**
      * The message system attribute to send. Each message system attribute consists of a `Name`, `Type`, and `Value`.
      *
-     * @var MessageSystemAttributeValue[]
+     * @var array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue>
      */
     private $MessageSystemAttributes;
 
@@ -75,7 +76,7 @@ final class SendMessageRequest extends Input
      *   MessageBody?: string,
      *   DelaySeconds?: int,
      *   MessageAttributes?: \AsyncAws\Sqs\ValueObject\MessageAttributeValue[],
-     *   MessageSystemAttributes?: \AsyncAws\Sqs\ValueObject\MessageSystemAttributeValue[],
+     *   MessageSystemAttributes?: array<\AsyncAws\Sqs\Enum\MessageSystemAttributeNameForSends::*, \AsyncAws\Sqs\ValueObject\MessageSystemAttributeValue>,
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
      *   @region?: string,
@@ -135,7 +136,7 @@ final class SendMessageRequest extends Input
     }
 
     /**
-     * @return MessageSystemAttributeValue[]
+     * @return array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue>
      */
     public function getMessageSystemAttributes(): array
     {
@@ -207,7 +208,7 @@ final class SendMessageRequest extends Input
     }
 
     /**
-     * @param MessageSystemAttributeValue[] $value
+     * @param array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue> $value
      */
     public function setMessageSystemAttributes(array $value): self
     {
@@ -249,6 +250,9 @@ final class SendMessageRequest extends Input
 
         $index = 0;
         foreach ($this->MessageSystemAttributes as $mapKey => $mapValue) {
+            if (!MessageSystemAttributeNameForSends::exists($mapKey)) {
+                throw new InvalidArgument(sprintf('Invalid key for "%s". The value "%s" is not a valid "MessageSystemAttributeNameForSends".', __CLASS__, $mapKey));
+            }
             ++$index;
             $payload["MessageSystemAttribute.$index.Name"] = $mapKey;
             foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {

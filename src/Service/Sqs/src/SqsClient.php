@@ -56,7 +56,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueName: string,
-     *   Attributes?: string[],
+     *   Attributes?: array<\AsyncAws\Sqs\Enum\QueueAttributeName::*, string>,
      *   tags?: string[],
      *   @region?: string,
      * }|CreateQueueRequest $input
@@ -241,7 +241,7 @@ class SqsClient extends AbstractApi
      *   MessageBody: string,
      *   DelaySeconds?: int,
      *   MessageAttributes?: \AsyncAws\Sqs\ValueObject\MessageAttributeValue[],
-     *   MessageSystemAttributes?: \AsyncAws\Sqs\ValueObject\MessageSystemAttributeValue[],
+     *   MessageSystemAttributes?: array<\AsyncAws\Sqs\Enum\MessageSystemAttributeNameForSends::*, \AsyncAws\Sqs\ValueObject\MessageSystemAttributeValue>,
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
      *   @region?: string,

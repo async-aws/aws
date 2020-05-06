@@ -4,6 +4,7 @@ namespace AsyncAws\Sqs\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Sqs\Enum\QueueAttributeName;
 
 class GetQueueAttributesResult extends Result
 {
@@ -13,7 +14,7 @@ class GetQueueAttributesResult extends Result
     private $Attributes = [];
 
     /**
-     * @return string[]
+     * @return array<QueueAttributeName::*, string>
      */
     public function getAttributes(): array
     {
