@@ -14,6 +14,16 @@
                 "DescribeStacks"
             ]
         },
+        "CloudWatchLogs": {
+            "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/logs\/2014-03-28\/api-2.json",
+            "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/logs\/2014-03-28\/docs-2.json",
+            "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/logs\/2014-03-28\/paginators-1.json",
+            "example": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/logs\/2014-03-28\/examples-1.json",
+            "methods": [
+                "DescribeLogStreams",
+                "PutLogEvents"
+            ]
+        },
         "CodeDeploy": {
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/codedeploy\/2014-10-06\/api-2.json",
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/codedeploy\/2014-10-06\/docs-2.json",

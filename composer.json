@@ -36,6 +36,7 @@
     "autoload": {
         "psr-4": {
             "AsyncAws\\CloudFormation\\": "src/Service/CloudFormation/src",
+            "AsyncAws\\CloudWatchLogs\\": "src/Service/CloudWatchLogs/src",
             "AsyncAws\\CodeDeploy\\": "src/Service/CodeDeploy/src",
             "AsyncAws\\CognitoIdentityProvider\\": "src/Service/CognitoIdentityProvider/src",
             "AsyncAws\\DynamoDb\\": "src/Service/DynamoDb/src",
@@ -55,6 +56,7 @@
         "psr-4": {
             "AsyncAws\\Test\\": "tests",
             "AsyncAws\\CloudFormation\\Tests\\": "src/Service/CloudFormation/tests",
+            "AsyncAws\\CloudWatchLogs\\Tests\\": "src/Service/CloudWatchLogs/tests",
             "AsyncAws\\CodeDeploy\\Tests\\": "src/Service/CodeDeploy/tests",
             "AsyncAws\\CognitoIdentityProvider\\Tests\\": "src/Service/CognitoIdentityProvider/tests",
             "AsyncAws\\DynamoDb\\Tests\\": "src/Service/DynamoDb/tests",

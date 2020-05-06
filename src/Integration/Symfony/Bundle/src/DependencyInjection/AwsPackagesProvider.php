@@ -13,6 +13,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\CloudFormation\CloudFormationClient::class,
                 'package' => 'async-aws/cloud-formation',
             ],
+            'cloud_watch_logs' => [
+                'class' => \AsyncAws\CloudWatchLogs\CloudWatchLogsClient::class,
+                'package' => 'async-aws/cloud-watch-logs',
+            ],
             'code_deploy' => [
                 'class' => \AsyncAws\CodeDeploy\CodeDeployClient::class,
                 'package' => 'async-aws/code-deploy',
