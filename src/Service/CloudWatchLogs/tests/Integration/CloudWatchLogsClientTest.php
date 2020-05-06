@@ -52,7 +52,7 @@ class CloudWatchLogsClientTest extends TestCase
 
     private function getClient(): CloudWatchLogsClient
     {
-        self::markTestSkipped('There is not docker image available for CodeDeploy.');
+        self::markTestSkipped('There is no docker image available for CloudWatchLogs.');
 
         return new CloudWatchLogsClient([
             'endpoint' => 'http://localhost',
