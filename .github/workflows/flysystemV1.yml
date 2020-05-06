@@ -25,6 +25,8 @@ jobs:
         run: |
           sed -i -re 's/S3FilesystemV1/S3FilesystemV2/' phpstan.neon.dist
           sed -i -re 's/S3FilesystemV1/S3FilesystemV2/' psalm.xml
+          sed -i -re '/Integration\/Laravel\/Filesystem/d' phpstan.neon.dist
+          sed -i -re '/Integration\/Laravel\/Filesystem/d' psalm.xml
 
       - name: PHPStan
         uses: OskarStark/phpstan-ga@0.12.23

@@ -18,6 +18,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16.3",
+        "illuminate/filesystem": "^6.18.13 || ^7.10",
         "illuminate/queue": "^6.18.11 || ^7.10",
         "league/flysystem": "^1.0.65 || ^2.0.0-alpha.2",
         "league/flysystem-adapter-test-utilities": "2.x-dev",
@@ -52,6 +53,7 @@
             "AsyncAws\\Sns\\": "src/Service/Sns/src",
             "AsyncAws\\Sqs\\": "src/Service/Sqs/src",
             "AsyncAws\\Ssm\\": "src/Service/Ssm/src",
+            "AsyncAws\\Illuminate\\Filesystem\\": "src/Integration/Laravel/Filesystem/src",
             "AsyncAws\\Illuminate\\Queue\\": "src/Integration/Laravel/Queue/src",
             "AsyncAws\\Symfony\\Bundle\\": "src/Integration/Symfony/Bundle/src"
         }
@@ -74,6 +76,7 @@
             "AsyncAws\\Sns\\Tests\\": "src/Service/Sns/tests",
             "AsyncAws\\Sqs\\Tests\\": "src/Service/Sqs/tests",
             "AsyncAws\\Ssm\\Tests\\": "src/Service/Ssm/tests",
+            "AsyncAws\\Illuminate\\Filesystem\\Tests\\": "src/Integration/Laravel/Filesystem/tests",
             "AsyncAws\\Illuminate\\Queue\\Tests\\": "src/Integration/Laravel/Queue/tests",
             "AsyncAws\\Symfony\\Bundle\\Tests\\": "src/Integration/Symfony/Bundle/tests"
         }
