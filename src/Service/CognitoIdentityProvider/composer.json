@@ -1,7 +1,7 @@
 {
     "name": "async-aws/cognito-identity-provider",
     "type": "library",
-    "description": "AsyncAws CognitoIdentityProvider client.",
+    "description": "CognitoIdentityProvider client, part of the AWS SDK provided by AsyncAws.",
     "keywords": [
         "aws",
         "amazon",

@@ -1,7 +1,7 @@
 {
     "name": "async-aws/cloud-watch-logs",
     "type": "library",
-    "description": "AsyncAws CloudWatchLogs client.",
+    "description": "CloudWatchLogs client, part of the AWS SDK provided by AsyncAws.",
     "keywords": [
         "aws",
         "amazon",

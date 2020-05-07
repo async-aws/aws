@@ -1,7 +1,7 @@
 {
     "name": "async-aws/ssm",
     "type": "library",
-    "description": "AsyncAws SSM client.",
+    "description": "SSM client, part of the AWS SDK provided by AsyncAws.",
     "keywords": [
         "aws",
         "amazon",

@@ -1,7 +1,7 @@
 {
     "name": "async-aws/s3",
     "type": "library",
-    "description": "AsyncAws S3 client.",
+    "description": "S3 client, part of the AWS SDK provided by AsyncAws.",
     "keywords": [
         "aws",
         "amazon",

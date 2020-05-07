@@ -1,7 +1,7 @@
 {
     "name": "async-aws/sns",
     "type": "library",
-    "description": "AsyncAws SNS client.",
+    "description": "SNS client, part of the AWS SDK provided by AsyncAws.",
     "keywords": [
         "aws",
         "amazon",

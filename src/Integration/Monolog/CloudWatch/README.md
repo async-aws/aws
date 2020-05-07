@@ -5,7 +5,7 @@
 
 CloudWatch Logs adapter for Monolog version 1 and 2.
 
-This package is heavily inspired by https://github.com/maxbanton/cwh
+This package is heavily inspired by [maxbanton/cwh](https://github.com/maxbanton/cwh).
 
 ## Install
 
