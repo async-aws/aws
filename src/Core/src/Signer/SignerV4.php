@@ -22,8 +22,6 @@ use AsyncAws\S3\Signer\SignerV4ForS3;
 class SignerV4 implements Signer
 {
     private const ALGORITHM_REQUEST = 'AWS4-HMAC-SHA256';
-    private const ALGORITHM_CHUNK = self::ALGORITHM_REQUEST . '-PAYLOAD';
-    private const CHUNK_SIZE = 64 * 1024;
 
     private const BLACKLIST_HEADERS = [
         'cache-control' => true,
@@ -115,50 +113,9 @@ class SignerV4 implements Signer
         if (null === $contentLength) {
             $request->setBody($body = RewindableStream::create($body));
             $body->read();
-            $contentLength = $body->length();
         }
 
-        if (!$this instanceof SignerV4ForS3) {
-            $request->setBody($body = StringStream::create($body));
-
-            return;
-        }
-        // Code below is dedicated to S3 signature and has been moved to SignerV4ForS3.
-        // It can be removed in Core version 2.0
-
-        // no need to stream small body. It's simple to convert it to string directly
-        if ($contentLength < self::CHUNK_SIZE) {
-            $request->setBody($body = StringStream::create($body));
-
-            return;
-        }
-
-        // Convert the body into a chunked stream
-        $request->setHeader('content-encoding', 'aws-chunked');
-        $request->setHeader('x-amz-decoded-content-length', (string) $contentLength);
-        $request->setHeader('x-amz-content-sha256', 'STREAMING-' . self::ALGORITHM_CHUNK);
-
-        // Compute size of content + metadata used sign each Chunk
-        $chunkCount = (int) ceil($contentLength / self::CHUNK_SIZE);
-        $fullChunkCount = $chunkCount * self::CHUNK_SIZE === $contentLength ? $chunkCount : ($chunkCount - 1);
-        $metaLength = \strlen(";chunk-signature=\r\n\r\n") + 64;
-        $request->setHeader('content-length', (string) ($contentLength + $fullChunkCount * ($metaLength + \strlen((string) dechex(self::CHUNK_SIZE))) + ($chunkCount - $fullChunkCount) * ($metaLength + \strlen((string) dechex($contentLength % self::CHUNK_SIZE))) + $metaLength + 1));
-
-        $body = IterableStream::create((function (RequestStream $body) use ($now, $credentialString, $signingKey, &$signature): iterable {
-            foreach (FixedSizeStream::create($body, self::CHUNK_SIZE) as $chunk) {
-                $stringToSign = $this->buildChunkStringToSign($now, $credentialString, $signature, $chunk);
-                $signature = $this->buildSignature($stringToSign, $signingKey);
-
-                yield sprintf("%s;chunk-signature=%s\r\n", dechex(\strlen($chunk)), $signature) . "$chunk\r\n";
-            }
-
-            $stringToSign = $this->buildChunkStringToSign($now, $credentialString, $signature, '');
-            $signature = $this->buildSignature($stringToSign, $signingKey);
-
-            yield sprintf("%s;chunk-signature=%s\r\n\r\n", dechex(0), $signature);
-        })($body));
-
-        $request->setBody($body);
+        $request->setBody($body = StringStream::create($body));
     }
 
     private function handleSignature(Request $request, Credentials $credentials, \DateTimeImmutable $now, \DateTimeImmutable $expires, bool $isPresign): void
@@ -399,21 +356,6 @@ class SignerV4 implements Signer
             $now->format('Ymd\THis\Z'),
             $credentialString,
             hash('sha256', $canonicalRequest),
-        ]);
-    }
-
-    private function buildChunkStringToSign(\DateTimeImmutable $now, string $credentialString, string $signature, string $chunk): string
-    {
-        static $emptyHash;
-        $emptyHash = $emptyHash ?? hash('sha256', '');
-
-        return implode("\n", [
-            self::ALGORITHM_CHUNK,
-            $now->format('Ymd\THis\Z'),
-            $credentialString,
-            $signature,
-            $emptyHash,
-            hash('sha256', $chunk),
         ]);
     }
 
