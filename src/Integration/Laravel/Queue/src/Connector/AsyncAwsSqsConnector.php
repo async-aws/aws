@@ -4,6 +4,7 @@ namespace AsyncAws\Illuminate\Queue\Connector;
 
 use AsyncAws\Illuminate\Queue\AsyncAwsSqsQueue;
 use AsyncAws\Sqs\SqsClient;
+use Illuminate\Contracts\Queue\Queue;
 use Illuminate\Queue\Connectors\ConnectorInterface;
 use Symfony\Component\HttpClient\HttpClient;
 
@@ -12,7 +13,7 @@ class AsyncAwsSqsConnector implements ConnectorInterface
     /**
      * Establish a queue connection.
      *
-     * @return \Illuminate\Contracts\Queue\Queue
+     * @return Queue
      */
     public function connect(array $config)
     {
@@ -24,7 +25,7 @@ class AsyncAwsSqsConnector implements ConnectorInterface
         }
 
         return new AsyncAwsSqsQueue(
-            new SqsClient($clientConfig, null, HttpClient::create(['timeout' => 20])),
+            new SqsClient($clientConfig, null, HttpClient::create(['timeout' => 30])),
             $config['queue'],
             $config['prefix'] ?? '',
             $config['suffix'] ?? ''

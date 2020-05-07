@@ -8,19 +8,22 @@ use Illuminate\Container\Container;
 use Illuminate\Contracts\Queue\Job as JobContract;
 use Illuminate\Queue\Jobs\Job;
 
+/**
+ * This class is a port from Illuminate\Queue\Jobs\SqsJob.
+ */
 class AsyncAwsSqsJob extends Job implements JobContract
 {
     /**
      * The Amazon SQS client instance.
      *
-     * @var \AsyncAws\Sqs\SqsClient
+     * @var SqsClient
      */
     protected $sqs;
 
     /**
      * The Amazon SQS job instance.
      *
-     * @var \AsyncAws\Sqs\ValueObject\Message
+     * @var Message
      */
     protected $job;
 

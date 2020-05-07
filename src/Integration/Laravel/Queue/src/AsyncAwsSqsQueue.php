@@ -9,12 +9,15 @@ use Illuminate\Contracts\Queue\Queue as QueueContract;
 use Illuminate\Queue\Queue;
 use Illuminate\Support\Str;
 
+/**
+ * This class is a port from Illuminate\Queue\SqsQueue.
+ */
 class AsyncAwsSqsQueue extends Queue implements QueueContract
 {
     /**
      * The Amazon SQS instance.
      *
-     * @var \AsyncAws\Sqs\SqsClient
+     * @var SqsClient
      */
     protected $sqs;
 
@@ -72,7 +75,7 @@ class AsyncAwsSqsQueue extends Queue implements QueueContract
 
         $attributes = $response->getAttributes();
 
-        return (int) $attributes['ApproximateNumberOfMessages'];
+        return (int) $attributes[QueueAttributeName::APPROXIMATE_NUMBER_OF_MESSAGES];
     }
 
     /**
@@ -169,7 +172,7 @@ class AsyncAwsSqsQueue extends Queue implements QueueContract
     /**
      * Get the underlying SQS instance.
      *
-     * @return \AsyncAws\Sqs\SqsClient
+     * @return SqsClient
      */
     public function getSqs()
     {
