@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.2.4
+
+### Changed
+
+- Added support for Cognito Identity Provider.
+- Added support for CloudWatch Logs.
+
 ## 0.2.3
 
 ### Changed
