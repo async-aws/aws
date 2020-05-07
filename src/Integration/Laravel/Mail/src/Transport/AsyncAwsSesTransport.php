@@ -3,15 +3,20 @@
 namespace AsyncAws\Illuminate\Mail\Transport;
 
 use AsyncAws\Ses\SesClient;
+use AsyncAws\Ses\ValueObject\EmailContent;
+use AsyncAws\Ses\ValueObject\RawMessage;
 use Illuminate\Mail\Transport\Transport;
 use Swift_Mime_SimpleMessage;
 
+/**
+ * This class is a port from Illuminate\Mail\Transport\SesTransport.
+ */
 class AsyncAwsSesTransport extends Transport
 {
     /**
      * The Amazon SES instance.
      *
-     * @var \AsyncAws\Ses\SesClient
+     * @var SesClient
      */
     protected $ses;
 
@@ -25,8 +30,8 @@ class AsyncAwsSesTransport extends Transport
     /**
      * Create a new SES transport instance.
      *
-     * @param  \AsyncAws\Ses\SesClient  $ses
-     * @param  array  $options
+     * @param array $options
+     *
      * @return void
      */
     public function __construct(SesClient $ses, $options = [])
@@ -43,14 +48,12 @@ class AsyncAwsSesTransport extends Transport
         $this->beforeSendPerformed($message);
 
         $result = $this->ses->sendEmail(
-            array_merge(
-                $this->options, [
-                    'Source' => key($message->getSender() ?: $message->getFrom()),
-                    'RawMessage' => [
-                        'Data' => $message->toString(),
-                    ],
-                ]
-            )
+            array_merge($this->options, [
+                'FromEmailAddress' => key($message->getSender() ?: $message->getFrom()),
+                'Content' => new EmailContent([
+                    'Raw' => new RawMessage(['Data' => $message->toString()]),
+                ]),
+            ])
         );
 
         $message->getHeaders()->addTextHeader('X-SES-Message-ID', $result->getMessageId());
@@ -63,7 +66,7 @@ class AsyncAwsSesTransport extends Transport
     /**
      * Get the Amazon SES client for the SesTransport instance.
      *
-     * @return \AsyncAws\Ses\SesClient
+     * @return SesClient
      */
     public function ses()
     {
@@ -83,7 +86,6 @@ class AsyncAwsSesTransport extends Transport
     /**
      * Set the transmission options being used by the transport.
      *
-     * @param  array  $options
      * @return array
      */
     public function setOptions(array $options)

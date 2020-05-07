@@ -6,14 +6,14 @@
         "aws",
         "async-aws",
         "illuminate",
+        "ses",
         "mail"
     ],
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
-        "ext-json": "*",
         "async-aws/ses": "^1.0",
-        "illuminate/mail": "^7.10"
+        "illuminate/mail": "^6.18.13 || ^7.10"
     },
     "extra": {
         "branch-alias": {
