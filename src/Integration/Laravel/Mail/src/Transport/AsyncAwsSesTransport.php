@@ -49,7 +49,7 @@ class AsyncAwsSesTransport extends Transport
 
         $input = [
             'Content' => new EmailContent([
-                'Raw' => ['Data' => $message->toString()],
+                'Raw' => new RawMessage(['Data' => $message->toString()]),
             ]),
         ];
 
