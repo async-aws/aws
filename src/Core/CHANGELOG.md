@@ -1,11 +1,5 @@
 # Change Log
 
-## 1.1.1
-
-### Fixed
-
-- SignerV4 split only S3 requests.
-
 ## 1.1.0
 
 ### Added
@@ -14,6 +8,7 @@
 
 ### Fixed
 
+- remove code from SignerV4 dedicated to S3 requests.
 - Use camelCase for all getter methods.
 
 ## 1.0.0
