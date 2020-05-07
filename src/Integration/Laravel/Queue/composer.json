@@ -14,7 +14,7 @@
         "php": "^7.2.5",
         "ext-json": "*",
         "async-aws/sqs": "^1.0",
-        "illuminate/queue": "^6.18.11|| ^7.10"
+        "illuminate/queue": "^6.18.11 || ^7.10"
     },
     "extra": {
         "branch-alias": {
