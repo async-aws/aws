@@ -42,7 +42,7 @@ final class InstanceProvider implements CredentialProvider
 
     public function getCredentials(Configuration $configuration): ?Credentials
     {
-        // fetch current Profile
+        // Fetch current Profile
         try {
             $response = $this->httpClient->request('GET', self::ENDPOINT, ['timeout' => $this->timeout]);
             $profile = $response->getContent();
@@ -56,9 +56,9 @@ final class InstanceProvider implements CredentialProvider
             return null;
         }
 
-        // fetch credentials from profile
+        // Fetch credentials from profile
         try {
-            $response = $this->httpClient->request('GET', self::ENDPOINT . '/' . $profile, ['timeout' => 1.0]);
+            $response = $this->httpClient->request('GET', self::ENDPOINT . '/' . $profile, ['timeout' => $this->timeout]);
             $result = $this->toArray($response);
 
             if ('Success' !== $result['Code']) {

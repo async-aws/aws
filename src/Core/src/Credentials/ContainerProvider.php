@@ -26,23 +26,26 @@ final class ContainerProvider implements CredentialProvider
 
     private $httpClient;
 
-    public function __construct(?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null)
+    private $timeout;
+
+    public function __construct(?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null, float $timeout = 1.0)
     {
         $this->logger = $logger ?? new NullLogger();
         $this->httpClient = $httpClient ?? HttpClient::create();
+        $this->timeout = $timeout;
     }
 
     public function getCredentials(Configuration $configuration): ?Credentials
     {
-        $timeout = $configuration->get(Configuration::OPTION_METADATA_SERVICE_TIMEOUT);
         $relativeUri = $configuration->get(Configuration::OPTION_CONTAINER_CREDENTIALS_RELATIVE_URI);
         // introduces an early exit if the env variable is not set.
         if (empty($relativeUri)) {
             return null;
         }
+
         // fetch credentials from ecs endpoint
         try {
-            $response = $this->httpClient->request('GET', self::ENDPOINT . $relativeUri, ['timeout' => $timeout]);
+            $response = $this->httpClient->request('GET', self::ENDPOINT . $relativeUri, ['timeout' => $this->timeout]);
             $result = $response->toArray();
         } catch (DecodingExceptionInterface $e) {
             $this->logger->info('Failed to decode Credentials.', ['exception' => $e]);

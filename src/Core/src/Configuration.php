@@ -26,7 +26,6 @@ final class Configuration
     public const OPTION_WEB_IDENTITY_TOKEN_FILE = 'webIdentityTokenFile';
     public const OPTION_ROLE_SESSION_NAME = 'roleSessionName';
     public const OPTION_CONTAINER_CREDENTIALS_RELATIVE_URI = 'containerCredentialsRelativeUri';
-    public const OPTION_METADATA_SERVICE_TIMEOUT = 'metadataServiceTimeout';
 
     private const AVAILABLE_OPTIONS = [
         self::OPTION_REGION => true,
@@ -40,7 +39,6 @@ final class Configuration
         self::OPTION_ROLE_ARN => true,
         self::OPTION_WEB_IDENTITY_TOKEN_FILE => true,
         self::OPTION_ROLE_SESSION_NAME => true,
-        self::OPTION_METADATA_SERVICE_TIMEOUT => true,
         self::OPTION_CONTAINER_CREDENTIALS_RELATIVE_URI => true,
     ];
 
@@ -61,7 +59,6 @@ final class Configuration
             self::OPTION_ROLE_SESSION_NAME => 'AWS_ROLE_SESSION_NAME',
         ],
         [self::OPTION_CONTAINER_CREDENTIALS_RELATIVE_URI => 'AWS_CONTAINER_CREDENTIALS_RELATIVE_URI'],
-        [self::OPTION_METADATA_SERVICE_TIMEOUT => 'AWS_METADATA_SERVICE_TIMEOUT'],
     ];
 
     private const DEFAULT_OPTIONS = [
@@ -71,7 +68,6 @@ final class Configuration
         self::OPTION_SHARED_CONFIG_FILE => '~/.aws/config',
         // https://docs.aws.amazon.com/general/latest/gr/rande.html
         self::OPTION_ENDPOINT => 'https://%service%.%region%.amazonaws.com',
-        self::OPTION_METADATA_SERVICE_TIMEOUT => 1.0,
     ];
 
     private $data = [];
