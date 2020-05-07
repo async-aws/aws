@@ -34,9 +34,9 @@ menu:
             cf:
                 text: Cloud Formation
                 url: /clients/cf.html
-            cloud-watch-log:
+            cloud-watch-logs:
                 text: Cloud Watch Log
-                url: /clients/cloud-watch-log.html
+                url: /clients/cloud-watch-logs.html
             cognito-idp:
                 text: Cognito Identity provider
                 url: /clients/cognito-idp.html
