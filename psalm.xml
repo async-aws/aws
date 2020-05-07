@@ -16,6 +16,7 @@
             <directory name="src/Service/*/tests" />
             <directory name="src/Integration/*/*/tests" />
             <file name="src/Integration/Flysystem/S3/src/S3FilesystemV1.php" />
+            <file name="src/Integration/Laravel/Filesystem/src/AsyncAwsFilesystemManager.php" />
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>

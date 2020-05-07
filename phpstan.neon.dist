@@ -15,6 +15,7 @@ parameters:
         - src/CodeGenerator/src/Generator/TestGenerator.php
         - src/Core/src/Test/TestCase.php
         - src/Integration/Flysystem/S3/src/S3FilesystemV1.php
+        - src/Integration/Laravel/Filesystem/src/AsyncAwsFilesystemManager.php
 
     ignoreErrors:
         - '#Ternary operator condition is always true\.#'
