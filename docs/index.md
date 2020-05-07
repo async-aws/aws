@@ -19,11 +19,13 @@ The goals of this client are:
 
 1. **Async first.** Everything is asynchronous and responses are only downloaded
    if needed.
-1. **Not feature complete.** AsyncAws is only covering the handful of AWS APIs
-   that are used by most people.
-1. **No frequent updates.** Updates are great, but if changes are released multiple
-   times every week you cannot keep up-to-date with the changelog. That is especially
-   annoying when the changes are not related to services you use.
+1. **Not feature complete.** AsyncAws is currently covering around a dozen of AWS
+   APIs (the most popular ones). We are happy to generate more features if needed.
+   Just ask or [contribute](./contribute/index.md).
+1. **Only relevant updates.** Updates are great, but if changes are released multiple
+   times every week you cannot keep up-to-date with the changelog. AsyncAws uses
+   one package per client so packages are small and the updates are always related
+   to your application.
 1. **Readable code.** One should be able to read the code and follow the logic.
 
 See [full comparison](./compare.md) between AsyncAws and the official AWS PHP SDK.
