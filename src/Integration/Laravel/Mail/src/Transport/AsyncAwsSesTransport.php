@@ -4,6 +4,7 @@ namespace AsyncAws\Illuminate\Mail\Transport;
 
 use AsyncAws\Ses\SesClient;
 use AsyncAws\Ses\ValueObject\EmailContent;
+use AsyncAws\Ses\ValueObject\RawMessage;
 use Illuminate\Mail\Transport\Transport;
 use Swift_Mime_SimpleMessage;
 
@@ -48,7 +49,7 @@ class AsyncAwsSesTransport extends Transport
 
         $input = [
             'Content' => new EmailContent([
-                'Raw' => ['Data' => $message->toString()],
+                'Raw' => new RawMessage(['Data' => $message->toString()]),
             ]),
         ];
 
