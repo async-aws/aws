@@ -25,7 +25,7 @@ The goals of this client are:
 1. **Only relevant updates.** Updates are great, but if changes are released multiple
    times every week you cannot keep up-to-date with the changelog. AsyncAws uses
    one package per client so packages are small and the updates are always related
-   for your application.
+   to your application.
 1. **Readable code.** One should be able to read the code and follow the logic.
 
 See [full comparison](./compare.md) between AsyncAws and the official AWS PHP SDK.
