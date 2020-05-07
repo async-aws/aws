@@ -13,7 +13,7 @@ composer require async-aws/cognito-identity-provider
 
 ## Documentation
 
-See https://async-aws.com/clients/cognito-identity-provider.html for documentation.
+See https://async-aws.com/clients/cognito-idp.html for documentation.
 
 ## Contribute
 
