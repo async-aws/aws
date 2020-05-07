@@ -9,7 +9,7 @@ The Monolog integration supports both Monolog version 1 and version 2.
 ## Install
 
 ```shell
-composer require async-aws/monolog-cloudwatch
+composer require async-aws/monolog-cloud-watch
 ```
 
 ## Use
