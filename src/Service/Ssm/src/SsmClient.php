@@ -106,13 +106,14 @@ class SsmClient extends AbstractApi
      *   Name: string,
      *   Description?: string,
      *   Value: string,
-     *   Type: \AsyncAws\Ssm\Enum\ParameterType::*,
+     *   Type?: \AsyncAws\Ssm\Enum\ParameterType::*,
      *   KeyId?: string,
      *   Overwrite?: bool,
      *   AllowedPattern?: string,
      *   Tags?: \AsyncAws\Ssm\ValueObject\Tag[],
      *   Tier?: \AsyncAws\Ssm\Enum\ParameterTier::*,
      *   Policies?: string,
+     *   DataType?: string,
      *   @region?: string,
      * }|PutParameterRequest $input
      */

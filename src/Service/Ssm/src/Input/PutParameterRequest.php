@@ -43,8 +43,6 @@ final class PutParameterRequest extends Input
     /**
      * The type of parameter that you want to add to the system.
      *
-     * @required
-     *
      * @var null|ParameterType::*
      */
     private $Type;
@@ -99,6 +97,13 @@ final class PutParameterRequest extends Input
     private $Policies;
 
     /**
+     * The data type for a String parameter. Supported data types include plain text and Amazon Machine Image IDs.
+     *
+     * @var string|null
+     */
+    private $DataType;
+
+    /**
      * @param array{
      *   Name?: string,
      *   Description?: string,
@@ -110,6 +115,7 @@ final class PutParameterRequest extends Input
      *   Tags?: \AsyncAws\Ssm\ValueObject\Tag[],
      *   Tier?: \AsyncAws\Ssm\Enum\ParameterTier::*,
      *   Policies?: string,
+     *   DataType?: string,
      *   @region?: string,
      * } $input
      */
@@ -125,6 +131,7 @@ final class PutParameterRequest extends Input
         $this->Tags = array_map([Tag::class, 'create'], $input['Tags'] ?? []);
         $this->Tier = $input['Tier'] ?? null;
         $this->Policies = $input['Policies'] ?? null;
+        $this->DataType = $input['DataType'] ?? null;
         parent::__construct($input);
     }
 
@@ -136,6 +143,11 @@ final class PutParameterRequest extends Input
     public function getAllowedPattern(): ?string
     {
         return $this->AllowedPattern;
+    }
+
+    public function getDataType(): ?string
+    {
+        return $this->DataType;
     }
 
     public function getDescription(): ?string
@@ -220,6 +232,13 @@ final class PutParameterRequest extends Input
     public function setAllowedPattern(?string $value): self
     {
         $this->AllowedPattern = $value;
+
+        return $this;
+    }
+
+    public function setDataType(?string $value): self
+    {
+        $this->DataType = $value;
 
         return $this;
     }
@@ -310,13 +329,12 @@ final class PutParameterRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Value" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Value'] = $v;
-        if (null === $v = $this->Type) {
-            throw new InvalidArgument(sprintf('Missing parameter "Type" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->Type) {
+            if (!ParameterType::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "ParameterType".', __CLASS__, $v));
+            }
+            $payload['Type'] = $v;
         }
-        if (!ParameterType::exists($v)) {
-            throw new InvalidArgument(sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "ParameterType".', __CLASS__, $v));
-        }
-        $payload['Type'] = $v;
         if (null !== $v = $this->KeyId) {
             $payload['KeyId'] = $v;
         }
@@ -341,6 +359,9 @@ final class PutParameterRequest extends Input
         }
         if (null !== $v = $this->Policies) {
             $payload['Policies'] = $v;
+        }
+        if (null !== $v = $this->DataType) {
+            $payload['DataType'] = $v;
         }
 
         return $payload;

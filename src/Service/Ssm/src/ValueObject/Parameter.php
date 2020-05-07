@@ -49,6 +49,11 @@ final class Parameter
     private $ARN;
 
     /**
+     * The data type of the parameter, such as `text` or `aws:ec2:image`. The default is `text`.
+     */
+    private $DataType;
+
+    /**
      * @param array{
      *   Name?: null|string,
      *   Type?: null|\AsyncAws\Ssm\Enum\ParameterType::*,
@@ -58,6 +63,7 @@ final class Parameter
      *   SourceResult?: null|string,
      *   LastModifiedDate?: null|\DateTimeImmutable,
      *   ARN?: null|string,
+     *   DataType?: null|string,
      * } $input
      */
     public function __construct(array $input)
@@ -70,6 +76,7 @@ final class Parameter
         $this->SourceResult = $input['SourceResult'] ?? null;
         $this->LastModifiedDate = $input['LastModifiedDate'] ?? null;
         $this->ARN = $input['ARN'] ?? null;
+        $this->DataType = $input['DataType'] ?? null;
     }
 
     public static function create($input): self
@@ -80,6 +87,11 @@ final class Parameter
     public function getARN(): ?string
     {
         return $this->ARN;
+    }
+
+    public function getDataType(): ?string
+    {
+        return $this->DataType;
     }
 
     public function getLastModifiedDate(): ?\DateTimeImmutable
