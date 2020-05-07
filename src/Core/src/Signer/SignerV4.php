@@ -12,6 +12,7 @@ use AsyncAws\Core\Stream\ReadOnceResultStream;
 use AsyncAws\Core\Stream\RequestStream;
 use AsyncAws\Core\Stream\RewindableStream;
 use AsyncAws\Core\Stream\StringStream;
+use AsyncAws\S3\Signer\SignerV4ForS3;
 
 /**
  * Version4 of signer.
@@ -254,7 +255,7 @@ class SignerV4 implements Signer
         $request->setBody(StringStream::create(''));
     }
 
-    private function convertBodyToStream(Request $request, \DateTimeImmutable $now, string $credentialString, string $signingKey, string &$signature): void
+    protected function convertBodyToStream(Request $request, \DateTimeImmutable $now, string $credentialString, string $signingKey, string &$signature): void
     {
         $body = $request->getBody();
         if ($request->hasHeader('content-length')) {
@@ -269,6 +270,13 @@ class SignerV4 implements Signer
             $body->read();
             $contentLength = $body->length();
         }
+
+        if (!$this instanceof SignerV4ForS3) {
+            $request->setBody($body = StringStream::create($body));
+
+            return;
+        }
+        // Code above can be removed in version 2.0
 
         // no need to stream small body. It's simple to convert it to string directly
         if ($contentLength < self::CHUNK_SIZE) {

@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.1
+
+### Fixed
+
+- SignerV4 split only S3 requests.
+
 ## 1.1.0
 
 ### Added
