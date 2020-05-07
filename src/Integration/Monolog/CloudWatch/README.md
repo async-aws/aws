@@ -1,7 +1,7 @@
 # Monolog integration with CloudWatch logs
 
-![](https://github.com/async-aws/monolog-cloudwatch/workflows/Tests/badge.svg?branch=master)
-![](https://github.com/async-aws/monolog-cloudwatch/workflows/BC%20Check/badge.svg?branch=master)
+![](https://github.com/async-aws/monolog-cloud-watch/workflows/Tests/badge.svg?branch=master)
+![](https://github.com/async-aws/monolog-cloud-watch/workflows/BC%20Check/badge.svg?branch=master)
 
 CloudWatch Logs adapter for Monolog version 1 and 2.
 
@@ -10,7 +10,7 @@ This package is heavily inspired by [maxbanton/cwh](https://github.com/maxbanton
 ## Install
 
 ```cli
-composer require async-aws/monolog-cloudwatch
+composer require async-aws/monolog-cloud-watch
 ```
 
 ## Documentation
