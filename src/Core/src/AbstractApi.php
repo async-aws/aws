@@ -73,7 +73,7 @@ abstract class AbstractApi
             new WebIdentityProvider($this->logger),
             new IniFileProvider($this->logger),
             new ContainerProvider($this->httpClient, $this->logger),
-            new InstanceProvider($this->httpClient, $this->logger),
+            new InstanceProvider($this->httpClient, $this->logger, 2.0),
         ]));
     }
 

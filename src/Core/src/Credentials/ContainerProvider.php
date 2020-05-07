@@ -34,12 +34,13 @@ final class ContainerProvider implements CredentialProvider
 
     public function getCredentials(Configuration $configuration): ?Credentials
     {
-        $timeout = $configuration->get(Configuration::OPTION_METADATA_SERVICE_TIMEOUT);
         $relativeUri = $configuration->get(Configuration::OPTION_CONTAINER_CREDENTIALS_RELATIVE_URI);
         // introduces an early exit if the env variable is not set.
         if (empty($relativeUri)) {
             return null;
         }
+
+        $timeout = (float) $configuration->get(Configuration::OPTION_METADATA_SERVICE_TIMEOUT);
         // fetch credentials from ecs endpoint
         try {
             $response = $this->httpClient->request('GET', self::ENDPOINT . $relativeUri, ['timeout' => $timeout]);

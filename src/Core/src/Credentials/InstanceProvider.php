@@ -33,18 +33,23 @@ final class InstanceProvider implements CredentialProvider
 
     private $timeout;
 
-    public function __construct(?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null, float $timeout = 1.0)
+    public function __construct(?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null)
     {
         $this->logger = $logger ?? new NullLogger();
         $this->httpClient = $httpClient ?? HttpClient::create();
-        $this->timeout = $timeout;
+        if (\func_num_args() > 2) {
+            \trigger_deprecation('async-aws/core', '1.0', 'Argument #2 of %S is deprecated and will be removed in 2.0. Use Configuration[metadataServiceTimeout] instead.', __METHOD__);
+            $this->timeout = (float) \func_get_arg(2);
+        }
     }
 
     public function getCredentials(Configuration $configuration): ?Credentials
     {
+        $timeout = $this->timeout ?? (float) $configuration->get(Configuration::OPTION_METADATA_SERVICE_TIMEOUT);
+
         // fetch current Profile
         try {
-            $response = $this->httpClient->request('GET', self::ENDPOINT, ['timeout' => $this->timeout]);
+            $response = $this->httpClient->request('GET', self::ENDPOINT, ['timeout' => $timeout]);
             $profile = $response->getContent();
         } catch (TransportExceptionInterface $e) {
             $this->logger->info('Failed to fetch Profile from Instance Metadata.', ['exception' => $e]);
@@ -58,7 +63,7 @@ final class InstanceProvider implements CredentialProvider
 
         // fetch credentials from profile
         try {
-            $response = $this->httpClient->request('GET', self::ENDPOINT . '/' . $profile, ['timeout' => 1.0]);
+            $response = $this->httpClient->request('GET', self::ENDPOINT . '/' . $profile, ['timeout' => $timeout]);
             $result = $this->toArray($response);
 
             if ('Success' !== $result['Code']) {

@@ -5,10 +5,16 @@
 ### Added
 
 - Support for ECS Credentials Provider
+- Configure `InstanceProvider`'s timeout with `Configuration`'s `metadataServiceTimeout`
 
 ### Fixed
 
 - Use camelCase for all getter methods.
+- Error thrown by Configuration because `metadataServiceTimeout` is a float
+
+### Deprecated
+
+- Parameter `timeout` of `InstanceProvider`. Use `Configuration`'s `metadataServiceTimeout` instead
 
 ## 1.0.0
 
