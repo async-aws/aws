@@ -123,7 +123,7 @@ class SignerV4 implements Signer
 
             return;
         }
-        // Code above is dedicated to S3 signature and has been moved to SignerV4ForS3.
+        // Code below is dedicated to S3 signature and has been moved to SignerV4ForS3.
         // It can be removed in Core version 2.0
 
         // no need to stream small body. It's simple to convert it to string directly
