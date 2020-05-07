@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.0
+
+### Added
+
+- Backported split request behavior in `SignerV4ForS3`
+
 ## 1.0.0
 
 ### Added

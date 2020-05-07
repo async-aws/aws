@@ -20,6 +20,9 @@
         "symfony/http-client-contracts": "^1.1.8 || ^2.0",
         "symfony/service-contracts": "^1.0 || ^2.0"
     },
+    "conflict": {
+        "async-aws/s3": "<1.1"
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.1-dev"

@@ -8,6 +8,7 @@
 
 ### Fixed
 
+- Fixed invalid chunking of request with large body for most clients but S3. This version removed the invalid code from SignerV4 to make sure requests are not chunked.
 - Use camelCase for all getter methods.
 
 ## 1.0.0
