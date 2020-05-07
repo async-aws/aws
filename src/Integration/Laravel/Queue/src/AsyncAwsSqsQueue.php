@@ -143,6 +143,8 @@ class AsyncAwsSqsQueue extends Queue implements QueueContract
                 $this->connectionName, $queue
             );
         }
+
+        return null;
     }
 
     /**

@@ -27,7 +27,6 @@ class AsyncAwsSqsJob extends Job implements JobContract
     /**
      * Create a new job instance.
      *
-     * @param array  $job
      * @param string $connectionName
      * @param string $queue
      *
