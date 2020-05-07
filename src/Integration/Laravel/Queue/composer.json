@@ -1,0 +1,34 @@
+{
+    "name": "async-aws/illuminate-queue",
+    "type": "library",
+    "description": "AsyncAws integration for Illuminate Queue.",
+    "keywords": [
+        "aws",
+        "async-aws",
+        "laravel",
+        "illuminate",
+        "sqs",
+        "queue"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.2.5",
+        "async-aws/sqs": "^1.0",
+        "illuminate/queue": "^6.18.11 || ^7.10"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "AsyncAws\\Illuminate\\Queue\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\Illuminate\\Queue\\Tests\\": "tests/"
+        }
+    }
+}
