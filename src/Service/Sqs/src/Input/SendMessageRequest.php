@@ -45,7 +45,7 @@ final class SendMessageRequest extends Input
      *
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-attributes.html
      *
-     * @var MessageAttributeValue[]
+     * @var array<string, MessageAttributeValue>
      */
     private $MessageAttributes;
 
@@ -75,7 +75,7 @@ final class SendMessageRequest extends Input
      *   QueueUrl?: string,
      *   MessageBody?: string,
      *   DelaySeconds?: int,
-     *   MessageAttributes?: \AsyncAws\Sqs\ValueObject\MessageAttributeValue[],
+     *   MessageAttributes?: array<string, \AsyncAws\Sqs\ValueObject\MessageAttributeValue>,
      *   MessageSystemAttributes?: array<\AsyncAws\Sqs\Enum\MessageSystemAttributeNameForSends::*, \AsyncAws\Sqs\ValueObject\MessageSystemAttributeValue>,
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
@@ -113,7 +113,7 @@ final class SendMessageRequest extends Input
     }
 
     /**
-     * @return MessageAttributeValue[]
+     * @return array<string, MessageAttributeValue>
      */
     public function getMessageAttributes(): array
     {
@@ -177,7 +177,7 @@ final class SendMessageRequest extends Input
     }
 
     /**
-     * @param MessageAttributeValue[] $value
+     * @param array<string, MessageAttributeValue> $value
      */
     public function setMessageAttributes(array $value): self
     {

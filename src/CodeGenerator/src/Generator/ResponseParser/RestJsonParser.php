@@ -240,7 +240,7 @@ class RestJsonParser implements Parser
                 $body = '(function(array $json): array {
                 $items = [];
                 foreach ($json as $name => $value) {
-                   $items[$name] = CLASS::create($value);
+                   $items[(string) $name] = CLASS::create($value);
                 }
 
                 return $items;

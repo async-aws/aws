@@ -58,7 +58,7 @@ final class Message
      *   Body?: null|string,
      *   Attributes?: null|array<\AsyncAws\Sqs\Enum\MessageSystemAttributeName::*, string>,
      *   MD5OfMessageAttributes?: null|string,
-     *   MessageAttributes?: null|\AsyncAws\Sqs\ValueObject\MessageAttributeValue[],
+     *   MessageAttributes?: null|array<string, \AsyncAws\Sqs\ValueObject\MessageAttributeValue>,
      * } $input
      */
     public function __construct(array $input)
@@ -101,7 +101,7 @@ final class Message
     }
 
     /**
-     * @return MessageAttributeValue[]
+     * @return array<string, MessageAttributeValue>
      */
     public function getMessageAttributes(): array
     {

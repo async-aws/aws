@@ -153,7 +153,7 @@ final class CopyObjectRequest extends Input
     /**
      * A map of metadata to store with the object in S3.
      *
-     * @var string[]
+     * @var array<string, string>
      */
     private $Metadata;
 
@@ -317,7 +317,7 @@ final class CopyObjectRequest extends Input
      *   GrantReadACP?: string,
      *   GrantWriteACP?: string,
      *   Key?: string,
-     *   Metadata?: string[],
+     *   Metadata?: array<string, string>,
      *   MetadataDirective?: \AsyncAws\S3\Enum\MetadataDirective::*,
      *   TaggingDirective?: \AsyncAws\S3\Enum\TaggingDirective::*,
      *   ServerSideEncryption?: \AsyncAws\S3\Enum\ServerSideEncryption::*,
@@ -495,7 +495,7 @@ final class CopyObjectRequest extends Input
     }
 
     /**
-     * @return string[]
+     * @return array<string, string>
      */
     public function getMetadata(): array
     {
@@ -906,7 +906,7 @@ final class CopyObjectRequest extends Input
     }
 
     /**
-     * @param string[] $value
+     * @param array<string, string> $value
      */
     public function setMetadata(array $value): self
     {

@@ -30,7 +30,7 @@ final class UpdateItemInput extends Input
      *
      * @required
      *
-     * @var AttributeValue[]
+     * @var array<string, AttributeValue>
      */
     private $Key;
 
@@ -40,7 +40,7 @@ final class UpdateItemInput extends Input
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributeUpdates.html
      *
-     * @var AttributeValueUpdate[]
+     * @var array<string, AttributeValueUpdate>
      */
     private $AttributeUpdates;
 
@@ -50,7 +50,7 @@ final class UpdateItemInput extends Input
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.Expected.html
      *
-     * @var ExpectedAttributeValue[]
+     * @var array<string, ExpectedAttributeValue>
      */
     private $Expected;
 
@@ -105,31 +105,31 @@ final class UpdateItemInput extends Input
      * One or more substitution tokens for attribute names in an expression. The following are some use cases for using
      * `ExpressionAttributeNames`:.
      *
-     * @var string[]
+     * @var array<string, string>
      */
     private $ExpressionAttributeNames;
 
     /**
      * One or more values that can be substituted in an expression.
      *
-     * @var AttributeValue[]
+     * @var array<string, AttributeValue>
      */
     private $ExpressionAttributeValues;
 
     /**
      * @param array{
      *   TableName?: string,
-     *   Key?: \AsyncAws\DynamoDb\ValueObject\AttributeValue[],
-     *   AttributeUpdates?: \AsyncAws\DynamoDb\ValueObject\AttributeValueUpdate[],
-     *   Expected?: \AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue[],
+     *   Key?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
+     *   AttributeUpdates?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValueUpdate>,
+     *   Expected?: array<string, \AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue>,
      *   ConditionalOperator?: \AsyncAws\DynamoDb\Enum\ConditionalOperator::*,
      *   ReturnValues?: \AsyncAws\DynamoDb\Enum\ReturnValue::*,
      *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
      *   ReturnItemCollectionMetrics?: \AsyncAws\DynamoDb\Enum\ReturnItemCollectionMetrics::*,
      *   UpdateExpression?: string,
      *   ConditionExpression?: string,
-     *   ExpressionAttributeNames?: string[],
-     *   ExpressionAttributeValues?: \AsyncAws\DynamoDb\ValueObject\AttributeValue[],
+     *   ExpressionAttributeNames?: array<string, string>,
+     *   ExpressionAttributeValues?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
      *   @region?: string,
      * } $input
      */
@@ -172,7 +172,7 @@ final class UpdateItemInput extends Input
     }
 
     /**
-     * @return AttributeValueUpdate[]
+     * @return array<string, AttributeValueUpdate>
      */
     public function getAttributeUpdates(): array
     {
@@ -193,7 +193,7 @@ final class UpdateItemInput extends Input
     }
 
     /**
-     * @return ExpectedAttributeValue[]
+     * @return array<string, ExpectedAttributeValue>
      */
     public function getExpected(): array
     {
@@ -201,7 +201,7 @@ final class UpdateItemInput extends Input
     }
 
     /**
-     * @return string[]
+     * @return array<string, string>
      */
     public function getExpressionAttributeNames(): array
     {
@@ -209,7 +209,7 @@ final class UpdateItemInput extends Input
     }
 
     /**
-     * @return AttributeValue[]
+     * @return array<string, AttributeValue>
      */
     public function getExpressionAttributeValues(): array
     {
@@ -217,7 +217,7 @@ final class UpdateItemInput extends Input
     }
 
     /**
-     * @return AttributeValue[]
+     * @return array<string, AttributeValue>
      */
     public function getKey(): array
     {
@@ -284,7 +284,7 @@ final class UpdateItemInput extends Input
     }
 
     /**
-     * @param AttributeValueUpdate[] $value
+     * @param array<string, AttributeValueUpdate> $value
      */
     public function setAttributeUpdates(array $value): self
     {
@@ -311,7 +311,7 @@ final class UpdateItemInput extends Input
     }
 
     /**
-     * @param ExpectedAttributeValue[] $value
+     * @param array<string, ExpectedAttributeValue> $value
      */
     public function setExpected(array $value): self
     {
@@ -321,7 +321,7 @@ final class UpdateItemInput extends Input
     }
 
     /**
-     * @param string[] $value
+     * @param array<string, string> $value
      */
     public function setExpressionAttributeNames(array $value): self
     {
@@ -331,7 +331,7 @@ final class UpdateItemInput extends Input
     }
 
     /**
-     * @param AttributeValue[] $value
+     * @param array<string, AttributeValue> $value
      */
     public function setExpressionAttributeValues(array $value): self
     {
@@ -341,7 +341,7 @@ final class UpdateItemInput extends Input
     }
 
     /**
-     * @param AttributeValue[] $value
+     * @param array<string, AttributeValue> $value
      */
     public function setKey(array $value): self
     {

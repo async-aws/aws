@@ -25,7 +25,7 @@ final class GetItemInput extends Input
      *
      * @required
      *
-     * @var AttributeValue[]
+     * @var array<string, AttributeValue>
      */
     private $Key;
 
@@ -64,19 +64,19 @@ final class GetItemInput extends Input
      * One or more substitution tokens for attribute names in an expression. The following are some use cases for using
      * `ExpressionAttributeNames`:.
      *
-     * @var string[]
+     * @var array<string, string>
      */
     private $ExpressionAttributeNames;
 
     /**
      * @param array{
      *   TableName?: string,
-     *   Key?: \AsyncAws\DynamoDb\ValueObject\AttributeValue[],
+     *   Key?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
      *   AttributesToGet?: string[],
      *   ConsistentRead?: bool,
      *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
      *   ProjectionExpression?: string,
-     *   ExpressionAttributeNames?: string[],
+     *   ExpressionAttributeNames?: array<string, string>,
      *   @region?: string,
      * } $input
      */
@@ -115,7 +115,7 @@ final class GetItemInput extends Input
     }
 
     /**
-     * @return string[]
+     * @return array<string, string>
      */
     public function getExpressionAttributeNames(): array
     {
@@ -123,7 +123,7 @@ final class GetItemInput extends Input
     }
 
     /**
-     * @return AttributeValue[]
+     * @return array<string, AttributeValue>
      */
     public function getKey(): array
     {
@@ -191,7 +191,7 @@ final class GetItemInput extends Input
     }
 
     /**
-     * @param string[] $value
+     * @param array<string, string> $value
      */
     public function setExpressionAttributeNames(array $value): self
     {
@@ -201,7 +201,7 @@ final class GetItemInput extends Input
     }
 
     /**
-     * @param AttributeValue[] $value
+     * @param array<string, AttributeValue> $value
      */
     public function setKey(array $value): self
     {

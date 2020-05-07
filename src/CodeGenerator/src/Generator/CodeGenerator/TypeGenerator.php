@@ -71,7 +71,7 @@ class TypeGenerator
                 if (!empty($mapKeyShape->getEnum())) {
                     $param = 'array<\\' . $this->namespaceRegistry->getEnum($mapKeyShape)->getFqdn() . '::*, ' . $param . '>';
                 } else {
-                    $param .= '[]';
+                    $param = 'array<string, ' . $param . '>';
                 }
             } elseif ($member->isStreaming()) {
                 $param = 'string|resource|callable|iterable';
@@ -151,7 +151,7 @@ class TypeGenerator
                 $memberClassNames[] = $memberClassName = $this->namespaceRegistry->getEnum($mapKeyShape);
                 $doc = 'array<' . $memberClassName->getName() . '::*, ' . $doc . '>';
             } else {
-                $doc .= '[]';
+                $doc = 'array<string, ' . $doc . '>';
             }
 
             return ['array', $doc, $memberClassNames];

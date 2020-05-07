@@ -30,7 +30,7 @@ final class PutItemInput extends Input
      *
      * @required
      *
-     * @var AttributeValue[]
+     * @var array<string, AttributeValue>
      */
     private $Item;
 
@@ -40,7 +40,7 @@ final class PutItemInput extends Input
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.Expected.html
      *
-     * @var ExpectedAttributeValue[]
+     * @var array<string, ExpectedAttributeValue>
      */
     private $Expected;
 
@@ -87,29 +87,29 @@ final class PutItemInput extends Input
      * One or more substitution tokens for attribute names in an expression. The following are some use cases for using
      * `ExpressionAttributeNames`:.
      *
-     * @var string[]
+     * @var array<string, string>
      */
     private $ExpressionAttributeNames;
 
     /**
      * One or more values that can be substituted in an expression.
      *
-     * @var AttributeValue[]
+     * @var array<string, AttributeValue>
      */
     private $ExpressionAttributeValues;
 
     /**
      * @param array{
      *   TableName?: string,
-     *   Item?: \AsyncAws\DynamoDb\ValueObject\AttributeValue[],
-     *   Expected?: \AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue[],
+     *   Item?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
+     *   Expected?: array<string, \AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue>,
      *   ReturnValues?: \AsyncAws\DynamoDb\Enum\ReturnValue::*,
      *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
      *   ReturnItemCollectionMetrics?: \AsyncAws\DynamoDb\Enum\ReturnItemCollectionMetrics::*,
      *   ConditionalOperator?: \AsyncAws\DynamoDb\Enum\ConditionalOperator::*,
      *   ConditionExpression?: string,
-     *   ExpressionAttributeNames?: string[],
-     *   ExpressionAttributeValues?: \AsyncAws\DynamoDb\ValueObject\AttributeValue[],
+     *   ExpressionAttributeNames?: array<string, string>,
+     *   ExpressionAttributeValues?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
      *   @region?: string,
      * } $input
      */
@@ -159,7 +159,7 @@ final class PutItemInput extends Input
     }
 
     /**
-     * @return ExpectedAttributeValue[]
+     * @return array<string, ExpectedAttributeValue>
      */
     public function getExpected(): array
     {
@@ -167,7 +167,7 @@ final class PutItemInput extends Input
     }
 
     /**
-     * @return string[]
+     * @return array<string, string>
      */
     public function getExpressionAttributeNames(): array
     {
@@ -175,7 +175,7 @@ final class PutItemInput extends Input
     }
 
     /**
-     * @return AttributeValue[]
+     * @return array<string, AttributeValue>
      */
     public function getExpressionAttributeValues(): array
     {
@@ -183,7 +183,7 @@ final class PutItemInput extends Input
     }
 
     /**
-     * @return AttributeValue[]
+     * @return array<string, AttributeValue>
      */
     public function getItem(): array
     {
@@ -262,7 +262,7 @@ final class PutItemInput extends Input
     }
 
     /**
-     * @param ExpectedAttributeValue[] $value
+     * @param array<string, ExpectedAttributeValue> $value
      */
     public function setExpected(array $value): self
     {
@@ -272,7 +272,7 @@ final class PutItemInput extends Input
     }
 
     /**
-     * @param string[] $value
+     * @param array<string, string> $value
      */
     public function setExpressionAttributeNames(array $value): self
     {
@@ -282,7 +282,7 @@ final class PutItemInput extends Input
     }
 
     /**
-     * @param AttributeValue[] $value
+     * @param array<string, AttributeValue> $value
      */
     public function setExpressionAttributeValues(array $value): self
     {
@@ -292,7 +292,7 @@ final class PutItemInput extends Input
     }
 
     /**
-     * @param AttributeValue[] $value
+     * @param array<string, AttributeValue> $value
      */
     public function setItem(array $value): self
     {

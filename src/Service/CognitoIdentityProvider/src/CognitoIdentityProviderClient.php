@@ -39,7 +39,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   ForceAliasCreation?: bool,
      *   MessageAction?: \AsyncAws\CognitoIdentityProvider\Enum\MessageActionType::*,
      *   DesiredDeliveryMediums?: list<\AsyncAws\CognitoIdentityProvider\Enum\DeliveryMediumType::*>,
-     *   ClientMetadata?: string[],
+     *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * }|AdminCreateUserRequest $input
      */
@@ -98,7 +98,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   UserPoolId: string,
      *   Username: string,
      *   UserAttributes: \AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType[],
-     *   ClientMetadata?: string[],
+     *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * }|AdminUpdateUserAttributesRequest $input
      */

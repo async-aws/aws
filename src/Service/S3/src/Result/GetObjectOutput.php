@@ -278,7 +278,7 @@ class GetObjectOutput extends Result
     }
 
     /**
-     * @return string[]
+     * @return array<string, string>
      */
     public function getMetadata(): array
     {
