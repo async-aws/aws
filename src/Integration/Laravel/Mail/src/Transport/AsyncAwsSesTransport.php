@@ -47,17 +47,20 @@ class AsyncAwsSesTransport extends Transport
     {
         $this->beforeSendPerformed($message);
 
-        $result = $this->ses->sendEmail(
-            array_merge($this->options, [
-                'FromEmailAddress' => key($message->getSender() ?: $message->getFrom()),
-                'Content' => new EmailContent([
-                    'Raw' => new RawMessage(['Data' => $message->toString()]),
-                ]),
-            ])
-        );
+        $input = [
+            'Content' => new EmailContent([
+                'Raw' => new RawMessage(['Data' => $message->toString()]),
+            ]),
+        ];
+
+        $from = key($message->getSender() ?: $message->getFrom());
+        if (is_string($from)) {
+            $input['FromEmailAddress'] = $from;
+        }
+
+        $result = $this->ses->sendEmail(array_merge($this->options, $input));
 
         $message->getHeaders()->addTextHeader('X-SES-Message-ID', $result->getMessageId());
-
         $this->sendPerformed($message);
 
         return $this->numberOfRecipients($message);
