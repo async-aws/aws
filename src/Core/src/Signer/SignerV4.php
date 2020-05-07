@@ -6,13 +6,9 @@ use AsyncAws\Core\Credentials\Credentials;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\RequestContext;
-use AsyncAws\Core\Stream\FixedSizeStream;
-use AsyncAws\Core\Stream\IterableStream;
 use AsyncAws\Core\Stream\ReadOnceResultStream;
-use AsyncAws\Core\Stream\RequestStream;
 use AsyncAws\Core\Stream\RewindableStream;
 use AsyncAws\Core\Stream\StringStream;
-use AsyncAws\S3\Signer\SignerV4ForS3;
 
 /**
  * Version4 of signer.
