@@ -11,6 +11,7 @@
 ### Fixed
 
 - Use camelCase for all getter methods.
+- Add return typehint for `listQueues`
 
 ## 1.0.0
 

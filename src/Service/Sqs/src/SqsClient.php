@@ -158,6 +158,8 @@ class SqsClient extends AbstractApi
      *   QueueNamePrefix?: string,
      *   @region?: string,
      * }|ListQueuesRequest $input
+     *
+     * @return \Traversable<string> & ListQueuesResult
      */
     public function listQueues($input = []): ListQueuesResult
     {

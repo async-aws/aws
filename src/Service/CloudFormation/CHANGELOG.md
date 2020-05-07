@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.4.2
+
+### Fixed
+
+- Add return typehint for `describeStackEvents` and `describeStacks`
+
 ## 0.4.1
 
 ### Changed

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator;
 
+use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
@@ -100,10 +101,22 @@ class OperationGenerator
             $operationMethodParameter->setDefaultValue([]);
         }
 
-        if (null !== $operation->getOutput()) {
+        if (null !== $output = $operation->getOutput()) {
             $resultClass = $this->resultGenerator->generate($operation);
             if (null !== $operation->getPagination()) {
-                $this->paginationGenerator->generate($operation);
+                $resultKeys = $this->paginationGenerator->generate($operation);
+                $returnTypes = [];
+                foreach ($resultKeys as $resultKey) {
+                    $resultShape = $output->getMember($resultKey)->getShape();
+                    if ($resultShape instanceof ListShape) {
+                        [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($resultShape->getMember()->getShape());
+                        foreach ($memberClassNames as $memberClassName) {
+                            $namespace->addUse($memberClassName->getFqdn());
+                        }
+                        $returnTypes[] = $parameterType;
+                    }
+                }
+                $method->addComment(sprintf('@return \Traversable<%s> & %s', implode('|', $returnTypes), $resultClass->getName()));
             }
 
             $method->setReturnType($resultClass->getFqdn());

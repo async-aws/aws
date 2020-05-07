@@ -15,6 +15,7 @@ use AsyncAws\Sns\Result\CreateTopicResponse;
 use AsyncAws\Sns\Result\ListSubscriptionsByTopicResponse;
 use AsyncAws\Sns\Result\PublishResponse;
 use AsyncAws\Sns\Result\SubscribeResponse;
+use AsyncAws\Sns\ValueObject\Subscription;
 
 class SnsClient extends AbstractApi
 {
@@ -73,6 +74,8 @@ class SnsClient extends AbstractApi
      *   NextToken?: string,
      *   @region?: string,
      * }|ListSubscriptionsByTopicInput $input
+     *
+     * @return \Traversable<Subscription> & ListSubscriptionsByTopicResponse
      */
     public function listSubscriptionsByTopic($input): ListSubscriptionsByTopicResponse
     {

@@ -19,6 +19,7 @@ use AsyncAws\CognitoIdentityProvider\Result\ChangePasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ListUsersResponse;
 use AsyncAws\CognitoIdentityProvider\Result\SetUserMFAPreferenceResponse;
 use AsyncAws\CognitoIdentityProvider\Result\VerifySoftwareTokenResponse;
+use AsyncAws\CognitoIdentityProvider\ValueObject\UserType;
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
@@ -163,6 +164,8 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Filter?: string,
      *   @region?: string,
      * }|ListUsersRequest $input
+     *
+     * @return \Traversable<UserType> & ListUsersResponse
      */
     public function listUsers($input): ListUsersResponse
     {

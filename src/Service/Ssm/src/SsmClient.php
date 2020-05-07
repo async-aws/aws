@@ -14,6 +14,7 @@ use AsyncAws\Ssm\Result\GetParameterResult;
 use AsyncAws\Ssm\Result\GetParametersByPathResult;
 use AsyncAws\Ssm\Result\GetParametersResult;
 use AsyncAws\Ssm\Result\PutParameterResult;
+use AsyncAws\Ssm\ValueObject\Parameter;
 
 class SsmClient extends AbstractApi
 {
@@ -88,6 +89,8 @@ class SsmClient extends AbstractApi
      *   NextToken?: string,
      *   @region?: string,
      * }|GetParametersByPathRequest $input
+     *
+     * @return \Traversable<Parameter> & GetParametersByPathResult
      */
     public function getParametersByPath($input): GetParametersByPathResult
     {

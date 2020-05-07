@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.2.1
+
+### Fixed
+
+- Add return typehint for `listTables`, `query` and `scan`
+
 ## 0.2.0
 
 ### Added

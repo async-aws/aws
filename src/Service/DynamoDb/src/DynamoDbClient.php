@@ -28,6 +28,7 @@ use AsyncAws\DynamoDb\Result\TableExistsWaiter;
 use AsyncAws\DynamoDb\Result\TableNotExistsWaiter;
 use AsyncAws\DynamoDb\Result\UpdateItemOutput;
 use AsyncAws\DynamoDb\Result\UpdateTableOutput;
+use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 
 class DynamoDbClient extends AbstractApi
 {
@@ -164,6 +165,8 @@ class DynamoDbClient extends AbstractApi
      *   Limit?: int,
      *   @region?: string,
      * }|ListTablesInput $input
+     *
+     * @return \Traversable<string> & ListTablesOutput
      */
     public function listTables($input = []): ListTablesOutput
     {
@@ -230,6 +233,8 @@ class DynamoDbClient extends AbstractApi
      *   ExpressionAttributeValues?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
      *   @region?: string,
      * }|QueryInput $input
+     *
+     * @return \Traversable<array<string, AttributeValue>> & QueryOutput
      */
     public function query($input): QueryOutput
     {
@@ -264,6 +269,8 @@ class DynamoDbClient extends AbstractApi
      *   ConsistentRead?: bool,
      *   @region?: string,
      * }|ScanInput $input
+     *
+     * @return \Traversable<array<string, AttributeValue>> & ScanOutput
      */
     public function scan($input): ScanOutput
     {

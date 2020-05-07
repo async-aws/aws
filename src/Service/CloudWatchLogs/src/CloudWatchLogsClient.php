@@ -6,6 +6,7 @@ use AsyncAws\CloudWatchLogs\Input\DescribeLogStreamsRequest;
 use AsyncAws\CloudWatchLogs\Input\PutLogEventsRequest;
 use AsyncAws\CloudWatchLogs\Result\DescribeLogStreamsResponse;
 use AsyncAws\CloudWatchLogs\Result\PutLogEventsResponse;
+use AsyncAws\CloudWatchLogs\ValueObject\LogStream;
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\RequestContext;
 
@@ -26,6 +27,8 @@ class CloudWatchLogsClient extends AbstractApi
      *   limit?: int,
      *   @region?: string,
      * }|DescribeLogStreamsRequest $input
+     *
+     * @return \Traversable<LogStream> & DescribeLogStreamsResponse
      */
     public function describeLogStreams($input): DescribeLogStreamsResponse
     {

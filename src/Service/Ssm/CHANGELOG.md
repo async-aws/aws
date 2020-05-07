@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.1.2
+
+### Fixed
+
+- Add return typehint for `getParametersByPath`
+
 ## 0.1.1
 
 ### Changed
