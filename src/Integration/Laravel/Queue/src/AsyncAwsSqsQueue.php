@@ -5,6 +5,7 @@ namespace AsyncAws\Illuminate\Queue;
 use AsyncAws\Illuminate\Queue\Job\AsyncAwsSqsJob;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
 use AsyncAws\Sqs\SqsClient;
+use Illuminate\Contracts\Queue\Job;
 use Illuminate\Contracts\Queue\Queue as QueueContract;
 use Illuminate\Queue\Queue;
 use Illuminate\Support\Str;
@@ -131,7 +132,7 @@ class AsyncAwsSqsQueue extends Queue implements QueueContract
      *
      * @param string|null $queue
      *
-     * @return \Illuminate\Contracts\Queue\Job|null
+     * @return Job|null
      */
     public function pop($queue = null)
     {
