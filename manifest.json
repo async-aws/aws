@@ -1,6 +1,6 @@
 {
     "variables": {
-        "${LATEST}": "3.135.6"
+        "${LATEST}": "3.137.4"
     },
     "services": {
         "CloudFormation": {

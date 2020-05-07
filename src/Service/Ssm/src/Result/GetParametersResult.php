@@ -54,6 +54,7 @@ class GetParametersResult extends Result
                     'SourceResult' => isset($item['SourceResult']) ? (string) $item['SourceResult'] : null,
                     'LastModifiedDate' => (isset($item['LastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['LastModifiedDate'])))) ? $d : null,
                     'ARN' => isset($item['ARN']) ? (string) $item['ARN'] : null,
+                    'DataType' => isset($item['DataType']) ? (string) $item['DataType'] : null,
                 ]);
             }
 
