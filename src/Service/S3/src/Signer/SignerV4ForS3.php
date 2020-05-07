@@ -79,7 +79,7 @@ class SignerV4ForS3 extends SignerV4
 
         // no need to stream small body. It's simple to convert it to string directly
         if ($contentLength < self::CHUNK_SIZE) {
-            $request->setBody($body = StringStream::create($body));
+            $request->setBody(StringStream::create($body));
 
             return;
         }

@@ -8,7 +8,7 @@
 
 ### Fixed
 
-- remove code from SignerV4 dedicated to S3 requests.
+- Fixed invalid signature for all clients but S3 which does not support `aws-chunked` transfert encoding.
 - Use camelCase for all getter methods.
 
 ## 1.0.0
