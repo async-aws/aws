@@ -6,6 +6,7 @@ use AsyncAws\Core\Credentials\Credentials;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Signer\SignerV4;
+use AsyncAws\Core\Signer\SigningContext;
 use AsyncAws\Core\Stream\FixedSizeStream;
 use AsyncAws\Core\Stream\IterableStream;
 use AsyncAws\Core\Stream\RequestStream;
@@ -59,8 +60,9 @@ class SignerV4ForS3 extends SignerV4
         return parent::buildBodyDigest($request, $isPresign);
     }
 
-    protected function convertBodyToStream(Request $request, \DateTimeImmutable $now, string $credentialString, string $signingKey, string &$signature): void
+    protected function convertBodyToStream(SigningContext $context): void
     {
+        $request = $context->getRequest();
         $body = $request->getBody();
         if ($request->hasHeader('content-length')) {
             $contentLength = (int) $request->getHeader('content-length');
@@ -92,17 +94,19 @@ class SignerV4ForS3 extends SignerV4
         $fullChunkCount = $chunkCount * self::CHUNK_SIZE === $contentLength ? $chunkCount : ($chunkCount - 1);
         $metaLength = \strlen(";chunk-signature=\r\n\r\n") + 64;
         $request->setHeader('content-length', (string) ($contentLength + $fullChunkCount * ($metaLength + \strlen((string) dechex(self::CHUNK_SIZE))) + ($chunkCount - $fullChunkCount) * ($metaLength + \strlen((string) dechex($contentLength % self::CHUNK_SIZE))) + $metaLength + 1));
-
-        $body = IterableStream::create((function (RequestStream $body) use ($now, $credentialString, $signingKey, &$signature): iterable {
+        $body = IterableStream::create((function (RequestStream $body) use ($context): iterable {
+            $now = $context->getNow();
+            $credentialString = $context->getCredentialString();
+            $signingKey = $context->getSigningKey();
+            $signature = $context->getSignature();
             foreach (FixedSizeStream::create($body, self::CHUNK_SIZE) as $chunk) {
                 $stringToSign = $this->buildChunkStringToSign($now, $credentialString, $signature, $chunk);
-                $signature = $this->buildSignature($stringToSign, $signingKey);
-
+                $context->setSignature($signature = $this->buildSignature($stringToSign, $signingKey));
                 yield sprintf("%s;chunk-signature=%s\r\n", dechex(\strlen($chunk)), $signature) . "$chunk\r\n";
             }
 
             $stringToSign = $this->buildChunkStringToSign($now, $credentialString, $signature, '');
-            $signature = $this->buildSignature($stringToSign, $signingKey);
+            $context->setSignature($signature = $this->buildSignature($stringToSign, $signingKey));
 
             yield sprintf("%s;chunk-signature=%s\r\n\r\n", dechex(0), $signature);
         })($body));

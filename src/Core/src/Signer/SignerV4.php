@@ -96,22 +96,10 @@ class SignerV4 implements Signer
         return $hash;
     }
 
-    protected function convertBodyToStream(Request $request, \DateTimeImmutable $now, string $credentialString, string $signingKey, string &$signature): void
+    protected function convertBodyToStream(SigningContext $context): void
     {
-        $body = $request->getBody();
-        if ($request->hasHeader('content-length')) {
-            $contentLength = (int) $request->getHeader('content-length');
-        } else {
-            $contentLength = $body->length();
-        }
-
-        // If content length is unknown, use the rewindable stream to read it once locally in order to get the length
-        if (null === $contentLength) {
-            $request->setBody($body = RewindableStream::create($body));
-            $body->read();
-        }
-
-        $request->setBody($body = StringStream::create($body));
+        $request = $context->getRequest();
+        $request->setBody(StringStream::create($request->getBody()));
     }
 
     private function handleSignature(Request $request, Credentials $credentials, \DateTimeImmutable $now, \DateTimeImmutable $expires, bool $isPresign): void
@@ -122,16 +110,17 @@ class SignerV4 implements Signer
 
         $this->buildTime($request, $now, $expires, $isPresign);
         $credentialScope = $this->buildCredentialString($request, $credentials, $now, $isPresign);
-        $credentialString = \implode('/', $credentialScope);
-        $signingKey = $this->buildSigningKey($credentials, $credentialScope);
-
+        $context = new SigningContext(
+            $request,
+            $now,
+            \implode('/', $credentialScope),
+            $this->buildSigningKey($credentials, $credentialScope)
+        );
         if ($isPresign) {
             // Should be called before `buildBodyDigest` because this method may alter the body
             $this->convertBodyToQuery($request);
         } else {
-            // $signature does not exists but passed by reference then computed buildSignature
-            $signature = '';
-            $this->convertBodyToStream($request, $now, $credentialString, $signingKey, $signature);
+            $this->convertBodyToStream($context);
         }
 
         $bodyDigest = $this->buildBodyDigest($request, $isPresign);
@@ -143,8 +132,8 @@ class SignerV4 implements Signer
 
         $canonicalHeaders = $this->buildCanonicalHeaders($request, $isPresign);
         $canonicalRequest = $this->buildCanonicalRequest($request, $canonicalHeaders, $bodyDigest);
-        $stringToSign = $this->buildStringToSign($now, $credentialString, $canonicalRequest);
-        $signature = $this->buildSignature($stringToSign, $signingKey);
+        $stringToSign = $this->buildStringToSign($context->getNow(), $context->getCredentialString(), $canonicalRequest);
+        $context->setSignature($signature = $this->buildSignature($stringToSign, $context->getSigningKey()));
 
         if ($isPresign) {
             $request->setQueryAttribute('X-Amz-Signature', $signature);
