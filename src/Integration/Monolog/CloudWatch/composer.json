@@ -1,5 +1,5 @@
 {
-    "name": "async-aws/monolog-cloudwatch",
+    "name": "async-aws/monolog-cloud-watch",
     "type": "library",
     "description": "Monolog integration with CloudWatch logs",
     "keywords": [
@@ -12,7 +12,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
-        "async-aws/cloud-watch-logs": "^0.1-dev",
+        "async-aws/cloud-watch-logs": "^0.1",
         "monolog/monolog": "^1.1 || ^2.0"
     },
     "extra": {
