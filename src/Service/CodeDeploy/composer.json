@@ -1,7 +1,7 @@
 {
     "name": "async-aws/code-deploy",
     "type": "library",
-    "description": "AsyncAws CodeDeploy client.",
+    "description": "CodeDeploy client, part of the AWS SDK provided by AsyncAws.",
     "keywords": [
         "aws",
         "amazon",

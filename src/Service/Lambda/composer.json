@@ -1,7 +1,7 @@
 {
     "name": "async-aws/lambda",
     "type": "library",
-    "description": "AsyncAws Lambda client.",
+    "description": "Lambda client, part of the AWS SDK provided by AsyncAws.",
     "keywords": [
         "aws",
         "amazon",

@@ -1,7 +1,7 @@
 {
     "name": "async-aws/cloud-formation",
     "type": "library",
-    "description": "AsyncAws CloudFormation client.",
+    "description": "CloudFormation client, part of the AWS SDK provided by AsyncAws.",
     "keywords": [
         "aws",
         "amazon",
