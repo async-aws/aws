@@ -61,7 +61,7 @@ final class PublishInput extends Input
     /**
      * Message attributes for Publish action.
      *
-     * @var MessageAttributeValue[]
+     * @var array<string, MessageAttributeValue>
      */
     private $MessageAttributes;
 
@@ -73,7 +73,7 @@ final class PublishInput extends Input
      *   Message?: string,
      *   Subject?: string,
      *   MessageStructure?: string,
-     *   MessageAttributes?: \AsyncAws\Sns\ValueObject\MessageAttributeValue[],
+     *   MessageAttributes?: array<string, \AsyncAws\Sns\ValueObject\MessageAttributeValue>,
      *   @region?: string,
      * } $input
      */
@@ -104,7 +104,7 @@ final class PublishInput extends Input
     }
 
     /**
-     * @return MessageAttributeValue[]
+     * @return array<string, MessageAttributeValue>
      */
     public function getMessageAttributes(): array
     {
@@ -165,7 +165,7 @@ final class PublishInput extends Input
     }
 
     /**
-     * @param MessageAttributeValue[] $value
+     * @param array<string, MessageAttributeValue> $value
      */
     public function setMessageAttributes(array $value): self
     {

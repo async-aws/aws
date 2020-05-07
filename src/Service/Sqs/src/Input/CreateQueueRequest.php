@@ -32,7 +32,7 @@ final class CreateQueueRequest extends Input
      *
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-tags.html
      *
-     * @var string[]
+     * @var array<string, string>
      */
     private $tags;
 
@@ -40,7 +40,7 @@ final class CreateQueueRequest extends Input
      * @param array{
      *   QueueName?: string,
      *   Attributes?: array<\AsyncAws\Sqs\Enum\QueueAttributeName::*, string>,
-     *   tags?: string[],
+     *   tags?: array<string, string>,
      *   @region?: string,
      * } $input
      */
@@ -71,7 +71,7 @@ final class CreateQueueRequest extends Input
     }
 
     /**
-     * @return string[]
+     * @return array<string, string>
      */
     public function getTags(): array
     {
@@ -117,7 +117,7 @@ final class CreateQueueRequest extends Input
     }
 
     /**
-     * @param string[] $value
+     * @param array<string, string> $value
      */
     public function setTags(array $value): self
     {

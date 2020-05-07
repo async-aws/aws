@@ -28,7 +28,7 @@ class SnsClient extends AbstractApi
      *
      * @param array{
      *   Name: string,
-     *   Attributes?: string[],
+     *   Attributes?: array<string, string>,
      *   Tags?: \AsyncAws\Sns\ValueObject\Tag[],
      *   @region?: string,
      * }|CreateTopicInput $input
@@ -94,7 +94,7 @@ class SnsClient extends AbstractApi
      *   Message: string,
      *   Subject?: string,
      *   MessageStructure?: string,
-     *   MessageAttributes?: \AsyncAws\Sns\ValueObject\MessageAttributeValue[],
+     *   MessageAttributes?: array<string, \AsyncAws\Sns\ValueObject\MessageAttributeValue>,
      *   @region?: string,
      * }|PublishInput $input
      */
@@ -117,7 +117,7 @@ class SnsClient extends AbstractApi
      *   TopicArn: string,
      *   Protocol: string,
      *   Endpoint?: string,
-     *   Attributes?: string[],
+     *   Attributes?: array<string, string>,
      *   ReturnSubscriptionArn?: bool,
      *   @region?: string,
      * }|SubscribeInput $input

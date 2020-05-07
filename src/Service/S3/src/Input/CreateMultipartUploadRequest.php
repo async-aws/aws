@@ -114,7 +114,7 @@ final class CreateMultipartUploadRequest extends Input
     /**
      * A map of metadata to store with the object in S3.
      *
-     * @var string[]
+     * @var array<string, string>
      */
     private $Metadata;
 
@@ -234,7 +234,7 @@ final class CreateMultipartUploadRequest extends Input
      *   GrantReadACP?: string,
      *   GrantWriteACP?: string,
      *   Key?: string,
-     *   Metadata?: string[],
+     *   Metadata?: array<string, string>,
      *   ServerSideEncryption?: \AsyncAws\S3\Enum\ServerSideEncryption::*,
      *   StorageClass?: \AsyncAws\S3\Enum\StorageClass::*,
      *   WebsiteRedirectLocation?: string,
@@ -357,7 +357,7 @@ final class CreateMultipartUploadRequest extends Input
     }
 
     /**
-     * @return string[]
+     * @return array<string, string>
      */
     public function getMetadata(): array
     {
@@ -659,7 +659,7 @@ final class CreateMultipartUploadRequest extends Input
     }
 
     /**
-     * @param string[] $value
+     * @param array<string, string> $value
      */
     public function setMetadata(array $value): self
     {

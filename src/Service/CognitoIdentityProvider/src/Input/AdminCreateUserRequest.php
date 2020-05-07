@@ -85,7 +85,7 @@ final class AdminCreateUserRequest extends Input
     /**
      * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
      *
-     * @var string[]
+     * @var array<string, string>
      */
     private $ClientMetadata;
 
@@ -99,7 +99,7 @@ final class AdminCreateUserRequest extends Input
      *   ForceAliasCreation?: bool,
      *   MessageAction?: \AsyncAws\CognitoIdentityProvider\Enum\MessageActionType::*,
      *   DesiredDeliveryMediums?: list<\AsyncAws\CognitoIdentityProvider\Enum\DeliveryMediumType::*>,
-     *   ClientMetadata?: string[],
+     *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * } $input
      */
@@ -123,7 +123,7 @@ final class AdminCreateUserRequest extends Input
     }
 
     /**
-     * @return string[]
+     * @return array<string, string>
      */
     public function getClientMetadata(): array
     {
@@ -208,7 +208,7 @@ final class AdminCreateUserRequest extends Input
     }
 
     /**
-     * @param string[] $value
+     * @param array<string, string> $value
      */
     public function setClientMetadata(array $value): self
     {

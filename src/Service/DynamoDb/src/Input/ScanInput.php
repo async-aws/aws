@@ -71,7 +71,7 @@ final class ScanInput extends Input
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ScanFilter.html
      *
-     * @var Condition[]
+     * @var array<string, Condition>
      */
     private $ScanFilter;
 
@@ -89,7 +89,7 @@ final class ScanInput extends Input
      * The primary key of the first item that this operation will evaluate. Use the value that was returned for
      * `LastEvaluatedKey` in the previous operation.
      *
-     * @var AttributeValue[]
+     * @var array<string, AttributeValue>
      */
     private $ExclusiveStartKey;
 
@@ -135,14 +135,14 @@ final class ScanInput extends Input
      * One or more substitution tokens for attribute names in an expression. The following are some use cases for using
      * `ExpressionAttributeNames`:.
      *
-     * @var string[]
+     * @var array<string, string>
      */
     private $ExpressionAttributeNames;
 
     /**
      * One or more values that can be substituted in an expression.
      *
-     * @var AttributeValue[]
+     * @var array<string, AttributeValue>
      */
     private $ExpressionAttributeValues;
 
@@ -160,16 +160,16 @@ final class ScanInput extends Input
      *   AttributesToGet?: string[],
      *   Limit?: int,
      *   Select?: \AsyncAws\DynamoDb\Enum\Select::*,
-     *   ScanFilter?: \AsyncAws\DynamoDb\ValueObject\Condition[],
+     *   ScanFilter?: array<string, \AsyncAws\DynamoDb\ValueObject\Condition>,
      *   ConditionalOperator?: \AsyncAws\DynamoDb\Enum\ConditionalOperator::*,
-     *   ExclusiveStartKey?: \AsyncAws\DynamoDb\ValueObject\AttributeValue[],
+     *   ExclusiveStartKey?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
      *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
      *   TotalSegments?: int,
      *   Segment?: int,
      *   ProjectionExpression?: string,
      *   FilterExpression?: string,
-     *   ExpressionAttributeNames?: string[],
-     *   ExpressionAttributeValues?: \AsyncAws\DynamoDb\ValueObject\AttributeValue[],
+     *   ExpressionAttributeNames?: array<string, string>,
+     *   ExpressionAttributeValues?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
      *   ConsistentRead?: bool,
      *   @region?: string,
      * } $input
@@ -234,7 +234,7 @@ final class ScanInput extends Input
     }
 
     /**
-     * @return AttributeValue[]
+     * @return array<string, AttributeValue>
      */
     public function getExclusiveStartKey(): array
     {
@@ -242,7 +242,7 @@ final class ScanInput extends Input
     }
 
     /**
-     * @return string[]
+     * @return array<string, string>
      */
     public function getExpressionAttributeNames(): array
     {
@@ -250,7 +250,7 @@ final class ScanInput extends Input
     }
 
     /**
-     * @return AttributeValue[]
+     * @return array<string, AttributeValue>
      */
     public function getExpressionAttributeValues(): array
     {
@@ -286,7 +286,7 @@ final class ScanInput extends Input
     }
 
     /**
-     * @return Condition[]
+     * @return array<string, Condition>
      */
     public function getScanFilter(): array
     {
@@ -369,7 +369,7 @@ final class ScanInput extends Input
     }
 
     /**
-     * @param AttributeValue[] $value
+     * @param array<string, AttributeValue> $value
      */
     public function setExclusiveStartKey(array $value): self
     {
@@ -379,7 +379,7 @@ final class ScanInput extends Input
     }
 
     /**
-     * @param string[] $value
+     * @param array<string, string> $value
      */
     public function setExpressionAttributeNames(array $value): self
     {
@@ -389,7 +389,7 @@ final class ScanInput extends Input
     }
 
     /**
-     * @param AttributeValue[] $value
+     * @param array<string, AttributeValue> $value
      */
     public function setExpressionAttributeValues(array $value): self
     {
@@ -437,7 +437,7 @@ final class ScanInput extends Input
     }
 
     /**
-     * @param Condition[] $value
+     * @param array<string, Condition> $value
      */
     public function setScanFilter(array $value): self
     {

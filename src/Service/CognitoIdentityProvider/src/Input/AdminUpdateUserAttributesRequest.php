@@ -40,7 +40,7 @@ final class AdminUpdateUserAttributesRequest extends Input
     /**
      * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
      *
-     * @var string[]
+     * @var array<string, string>
      */
     private $ClientMetadata;
 
@@ -49,7 +49,7 @@ final class AdminUpdateUserAttributesRequest extends Input
      *   UserPoolId?: string,
      *   Username?: string,
      *   UserAttributes?: \AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType[],
-     *   ClientMetadata?: string[],
+     *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * } $input
      */
@@ -68,7 +68,7 @@ final class AdminUpdateUserAttributesRequest extends Input
     }
 
     /**
-     * @return string[]
+     * @return array<string, string>
      */
     public function getClientMetadata(): array
     {
@@ -119,7 +119,7 @@ final class AdminUpdateUserAttributesRequest extends Input
     }
 
     /**
-     * @param string[] $value
+     * @param array<string, string> $value
      */
     public function setClientMetadata(array $value): self
     {

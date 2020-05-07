@@ -35,7 +35,7 @@ class DeleteItemOutput extends Result
     private $ItemCollectionMetrics;
 
     /**
-     * @return AttributeValue[]
+     * @return array<string, AttributeValue>
      */
     public function getAttributes(): array
     {
@@ -65,7 +65,7 @@ class DeleteItemOutput extends Result
         $this->Attributes = empty($data['Attributes']) ? [] : (function (array $json): array {
             $items = [];
             foreach ($json as $name => $value) {
-                $items[$name] = AttributeValue::create($value);
+                $items[(string) $name] = AttributeValue::create($value);
             }
 
             return $items;
@@ -83,7 +83,7 @@ class DeleteItemOutput extends Result
             'LocalSecondaryIndexes' => empty($data['ConsumedCapacity']['LocalSecondaryIndexes']) ? [] : (function (array $json): array {
                 $items = [];
                 foreach ($json as $name => $value) {
-                    $items[$name] = Capacity::create($value);
+                    $items[(string) $name] = Capacity::create($value);
                 }
 
                 return $items;
@@ -91,7 +91,7 @@ class DeleteItemOutput extends Result
             'GlobalSecondaryIndexes' => empty($data['ConsumedCapacity']['GlobalSecondaryIndexes']) ? [] : (function (array $json): array {
                 $items = [];
                 foreach ($json as $name => $value) {
-                    $items[$name] = Capacity::create($value);
+                    $items[(string) $name] = Capacity::create($value);
                 }
 
                 return $items;
@@ -101,7 +101,7 @@ class DeleteItemOutput extends Result
             'ItemCollectionKey' => empty($data['ItemCollectionMetrics']['ItemCollectionKey']) ? [] : (function (array $json): array {
                 $items = [];
                 foreach ($json as $name => $value) {
-                    $items[$name] = AttributeValue::create($value);
+                    $items[(string) $name] = AttributeValue::create($value);
                 }
 
                 return $items;

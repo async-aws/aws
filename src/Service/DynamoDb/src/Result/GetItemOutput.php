@@ -33,7 +33,7 @@ class GetItemOutput extends Result
     }
 
     /**
-     * @return AttributeValue[]
+     * @return array<string, AttributeValue>
      */
     public function getItem(): array
     {
@@ -49,7 +49,7 @@ class GetItemOutput extends Result
         $this->Item = empty($data['Item']) ? [] : (function (array $json): array {
             $items = [];
             foreach ($json as $name => $value) {
-                $items[$name] = AttributeValue::create($value);
+                $items[(string) $name] = AttributeValue::create($value);
             }
 
             return $items;
@@ -67,7 +67,7 @@ class GetItemOutput extends Result
             'LocalSecondaryIndexes' => empty($data['ConsumedCapacity']['LocalSecondaryIndexes']) ? [] : (function (array $json): array {
                 $items = [];
                 foreach ($json as $name => $value) {
-                    $items[$name] = Capacity::create($value);
+                    $items[(string) $name] = Capacity::create($value);
                 }
 
                 return $items;
@@ -75,7 +75,7 @@ class GetItemOutput extends Result
             'GlobalSecondaryIndexes' => empty($data['ConsumedCapacity']['GlobalSecondaryIndexes']) ? [] : (function (array $json): array {
                 $items = [];
                 foreach ($json as $name => $value) {
-                    $items[$name] = Capacity::create($value);
+                    $items[(string) $name] = Capacity::create($value);
                 }
 
                 return $items;

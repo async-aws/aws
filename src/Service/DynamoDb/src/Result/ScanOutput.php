@@ -65,7 +65,7 @@ class ScanOutput extends Result implements \IteratorAggregate
     /**
      * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.
      *
-     * @return iterable<AttributeValue[]>
+     * @return iterable<array<string, AttributeValue>>
      */
     public function getItems(bool $currentPageOnly = false): iterable
     {
@@ -108,7 +108,7 @@ class ScanOutput extends Result implements \IteratorAggregate
     /**
      * Iterates over Items.
      *
-     * @return \Traversable<AttributeValue[]>
+     * @return \Traversable<array<string, AttributeValue>>
      */
     public function getIterator(): \Traversable
     {
@@ -142,7 +142,7 @@ class ScanOutput extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return AttributeValue[]
+     * @return array<string, AttributeValue>
      */
     public function getLastEvaluatedKey(): array
     {
@@ -168,7 +168,7 @@ class ScanOutput extends Result implements \IteratorAggregate
                 $a = empty($item) ? [] : (function (array $json): array {
                     $items = [];
                     foreach ($json as $name => $value) {
-                        $items[$name] = AttributeValue::create($value);
+                        $items[(string) $name] = AttributeValue::create($value);
                     }
 
                     return $items;
@@ -185,7 +185,7 @@ class ScanOutput extends Result implements \IteratorAggregate
         $this->LastEvaluatedKey = empty($data['LastEvaluatedKey']) ? [] : (function (array $json): array {
             $items = [];
             foreach ($json as $name => $value) {
-                $items[$name] = AttributeValue::create($value);
+                $items[(string) $name] = AttributeValue::create($value);
             }
 
             return $items;
@@ -203,7 +203,7 @@ class ScanOutput extends Result implements \IteratorAggregate
             'LocalSecondaryIndexes' => empty($data['ConsumedCapacity']['LocalSecondaryIndexes']) ? [] : (function (array $json): array {
                 $items = [];
                 foreach ($json as $name => $value) {
-                    $items[$name] = Capacity::create($value);
+                    $items[(string) $name] = Capacity::create($value);
                 }
 
                 return $items;
@@ -211,7 +211,7 @@ class ScanOutput extends Result implements \IteratorAggregate
             'GlobalSecondaryIndexes' => empty($data['ConsumedCapacity']['GlobalSecondaryIndexes']) ? [] : (function (array $json): array {
                 $items = [];
                 foreach ($json as $name => $value) {
-                    $items[$name] = Capacity::create($value);
+                    $items[(string) $name] = Capacity::create($value);
                 }
 
                 return $items;

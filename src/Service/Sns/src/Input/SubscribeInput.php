@@ -37,7 +37,7 @@ final class SubscribeInput extends Input
     /**
      * A map of attributes with their corresponding values.
      *
-     * @var string[]
+     * @var array<string, string>
      */
     private $Attributes;
 
@@ -54,7 +54,7 @@ final class SubscribeInput extends Input
      *   TopicArn?: string,
      *   Protocol?: string,
      *   Endpoint?: string,
-     *   Attributes?: string[],
+     *   Attributes?: array<string, string>,
      *   ReturnSubscriptionArn?: bool,
      *   @region?: string,
      * } $input
@@ -75,7 +75,7 @@ final class SubscribeInput extends Input
     }
 
     /**
-     * @return string[]
+     * @return array<string, string>
      */
     public function getAttributes(): array
     {
@@ -124,7 +124,7 @@ final class SubscribeInput extends Input
     }
 
     /**
-     * @param string[] $value
+     * @param array<string, string> $value
      */
     public function setAttributes(array $value): self
     {

@@ -22,7 +22,7 @@ final class CreateTopicInput extends Input
     /**
      * A map of attributes with their corresponding values.
      *
-     * @var string[]
+     * @var array<string, string>
      */
     private $Attributes;
 
@@ -36,7 +36,7 @@ final class CreateTopicInput extends Input
     /**
      * @param array{
      *   Name?: string,
-     *   Attributes?: string[],
+     *   Attributes?: array<string, string>,
      *   Tags?: \AsyncAws\Sns\ValueObject\Tag[],
      *   @region?: string,
      * } $input
@@ -55,7 +55,7 @@ final class CreateTopicInput extends Input
     }
 
     /**
-     * @return string[]
+     * @return array<string, string>
      */
     public function getAttributes(): array
     {
@@ -97,7 +97,7 @@ final class CreateTopicInput extends Input
     }
 
     /**
-     * @param string[] $value
+     * @param array<string, string> $value
      */
     public function setAttributes(array $value): self
     {

@@ -78,7 +78,7 @@ final class QueryInput extends Input
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.KeyConditions.html
      *
-     * @var Condition[]
+     * @var array<string, Condition>
      */
     private $KeyConditions;
 
@@ -88,7 +88,7 @@ final class QueryInput extends Input
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.QueryFilter.html
      *
-     * @var Condition[]
+     * @var array<string, Condition>
      */
     private $QueryFilter;
 
@@ -114,7 +114,7 @@ final class QueryInput extends Input
      * The primary key of the first item that this operation will evaluate. Use the value that was returned for
      * `LastEvaluatedKey` in the previous operation.
      *
-     * @var AttributeValue[]
+     * @var array<string, AttributeValue>
      */
     private $ExclusiveStartKey;
 
@@ -150,14 +150,14 @@ final class QueryInput extends Input
      * One or more substitution tokens for attribute names in an expression. The following are some use cases for using
      * `ExpressionAttributeNames`:.
      *
-     * @var string[]
+     * @var array<string, string>
      */
     private $ExpressionAttributeNames;
 
     /**
      * One or more values that can be substituted in an expression.
      *
-     * @var AttributeValue[]
+     * @var array<string, AttributeValue>
      */
     private $ExpressionAttributeValues;
 
@@ -169,17 +169,17 @@ final class QueryInput extends Input
      *   AttributesToGet?: string[],
      *   Limit?: int,
      *   ConsistentRead?: bool,
-     *   KeyConditions?: \AsyncAws\DynamoDb\ValueObject\Condition[],
-     *   QueryFilter?: \AsyncAws\DynamoDb\ValueObject\Condition[],
+     *   KeyConditions?: array<string, \AsyncAws\DynamoDb\ValueObject\Condition>,
+     *   QueryFilter?: array<string, \AsyncAws\DynamoDb\ValueObject\Condition>,
      *   ConditionalOperator?: \AsyncAws\DynamoDb\Enum\ConditionalOperator::*,
      *   ScanIndexForward?: bool,
-     *   ExclusiveStartKey?: \AsyncAws\DynamoDb\ValueObject\AttributeValue[],
+     *   ExclusiveStartKey?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
      *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
      *   ProjectionExpression?: string,
      *   FilterExpression?: string,
      *   KeyConditionExpression?: string,
-     *   ExpressionAttributeNames?: string[],
-     *   ExpressionAttributeValues?: \AsyncAws\DynamoDb\ValueObject\AttributeValue[],
+     *   ExpressionAttributeNames?: array<string, string>,
+     *   ExpressionAttributeValues?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
      *   @region?: string,
      * } $input
      */
@@ -248,7 +248,7 @@ final class QueryInput extends Input
     }
 
     /**
-     * @return AttributeValue[]
+     * @return array<string, AttributeValue>
      */
     public function getExclusiveStartKey(): array
     {
@@ -256,7 +256,7 @@ final class QueryInput extends Input
     }
 
     /**
-     * @return string[]
+     * @return array<string, string>
      */
     public function getExpressionAttributeNames(): array
     {
@@ -264,7 +264,7 @@ final class QueryInput extends Input
     }
 
     /**
-     * @return AttributeValue[]
+     * @return array<string, AttributeValue>
      */
     public function getExpressionAttributeValues(): array
     {
@@ -287,7 +287,7 @@ final class QueryInput extends Input
     }
 
     /**
-     * @return Condition[]
+     * @return array<string, Condition>
      */
     public function getKeyConditions(): array
     {
@@ -305,7 +305,7 @@ final class QueryInput extends Input
     }
 
     /**
-     * @return Condition[]
+     * @return array<string, Condition>
      */
     public function getQueryFilter(): array
     {
@@ -391,7 +391,7 @@ final class QueryInput extends Input
     }
 
     /**
-     * @param AttributeValue[] $value
+     * @param array<string, AttributeValue> $value
      */
     public function setExclusiveStartKey(array $value): self
     {
@@ -401,7 +401,7 @@ final class QueryInput extends Input
     }
 
     /**
-     * @param string[] $value
+     * @param array<string, string> $value
      */
     public function setExpressionAttributeNames(array $value): self
     {
@@ -411,7 +411,7 @@ final class QueryInput extends Input
     }
 
     /**
-     * @param AttributeValue[] $value
+     * @param array<string, AttributeValue> $value
      */
     public function setExpressionAttributeValues(array $value): self
     {
@@ -442,7 +442,7 @@ final class QueryInput extends Input
     }
 
     /**
-     * @param Condition[] $value
+     * @param array<string, Condition> $value
      */
     public function setKeyConditions(array $value): self
     {
@@ -466,7 +466,7 @@ final class QueryInput extends Input
     }
 
     /**
-     * @param Condition[] $value
+     * @param array<string, Condition> $value
      */
     public function setQueryFilter(array $value): self
     {

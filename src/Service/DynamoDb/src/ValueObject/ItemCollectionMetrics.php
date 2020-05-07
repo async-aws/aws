@@ -19,7 +19,7 @@ final class ItemCollectionMetrics
 
     /**
      * @param array{
-     *   ItemCollectionKey?: null|\AsyncAws\DynamoDb\ValueObject\AttributeValue[],
+     *   ItemCollectionKey?: null|array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
      *   SizeEstimateRangeGB?: null|float[],
      * } $input
      */
@@ -35,7 +35,7 @@ final class ItemCollectionMetrics
     }
 
     /**
-     * @return AttributeValue[]
+     * @return array<string, AttributeValue>
      */
     public function getItemCollectionKey(): array
     {
