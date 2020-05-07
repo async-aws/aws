@@ -11,7 +11,7 @@ composer require async-aws/illuminate-queue
 
 ## Documentation
 
-See https://async-aws.com/ for documentation.
+See https://async-aws.com/integration/laravel.html for documentation.
 
 ## Contribute
 

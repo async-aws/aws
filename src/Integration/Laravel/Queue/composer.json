@@ -13,12 +13,18 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
-        "async-aws/sqs": "^1.0",
-        "illuminate/queue": "^6.18.11 || ^7.10"
+        "async-aws/sqs": "^1.1",
+        "illuminate/queue": "^6.18.11 || ^7.10",
+        "illuminate/support": "^6.18.13 || ^7.10"
     },
     "extra": {
         "branch-alias": {
             "dev-master": "0.1-dev"
+        },
+        "laravel": {
+            "providers": [
+                "AsyncAws\\Illuminate\\Queue\\ServiceProvider"
+            ]
         }
     },
     "autoload": {

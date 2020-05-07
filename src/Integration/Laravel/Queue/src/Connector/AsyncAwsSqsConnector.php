@@ -18,7 +18,7 @@ class AsyncAwsSqsConnector implements ConnectorInterface
     public function connect(array $config)
     {
         $clientConfig = [];
-        if ($config['key'] && $config['secret']) {
+        if (isset($config['key']) && isset($config['secret'])) {
             $clientConfig['accessKeyId'] = $config['key'] ?? null;
             $clientConfig['accessKeySecret'] = $config['secret'] ?? null;
             $clientConfig['sessionToken'] = $config['token'] ?? null;
