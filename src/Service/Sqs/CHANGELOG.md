@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.0
+
+### Added
+
+- Added enum `MessageSystemAttributeName`, `MessageSystemAttributeNameForSends` and `QueueAttributeName`.
+
 ## 1.0.1
 
 ### Fixed

@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Sqs\Enum\QueueAttributeName;
 
 final class CreateQueueRequest extends Input
 {
@@ -21,7 +22,7 @@ final class CreateQueueRequest extends Input
     /**
      * A map of attributes with their corresponding values.
      *
-     * @var string[]
+     * @var array<QueueAttributeName::*, string>
      */
     private $Attributes;
 
@@ -38,7 +39,7 @@ final class CreateQueueRequest extends Input
     /**
      * @param array{
      *   QueueName?: string,
-     *   Attributes?: string[],
+     *   Attributes?: array<\AsyncAws\Sqs\Enum\QueueAttributeName::*, string>,
      *   tags?: string[],
      *   @region?: string,
      * } $input
@@ -57,7 +58,7 @@ final class CreateQueueRequest extends Input
     }
 
     /**
-     * @return string[]
+     * @return array<QueueAttributeName::*, string>
      */
     public function getAttributes(): array
     {
@@ -99,7 +100,7 @@ final class CreateQueueRequest extends Input
     }
 
     /**
-     * @param string[] $value
+     * @param array<QueueAttributeName::*, string> $value
      */
     public function setAttributes(array $value): self
     {
@@ -135,6 +136,9 @@ final class CreateQueueRequest extends Input
 
         $index = 0;
         foreach ($this->Attributes as $mapKey => $mapValue) {
+            if (!QueueAttributeName::exists($mapKey)) {
+                throw new InvalidArgument(sprintf('Invalid key for "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $mapKey));
+            }
             ++$index;
             $payload["Attribute.$index.Name"] = $mapKey;
             $payload["Attribute.$index.Value"] = $mapValue;

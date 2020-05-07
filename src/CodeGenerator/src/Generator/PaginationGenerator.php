@@ -111,7 +111,11 @@ class PaginationGenerator
             }
 
             $listShape = $resultShape->getMember()->getShape();
-            [$returnType, $iteratorType] = $this->typeGenerator->getPhpType($listShape);
+            [$returnType, $iteratorType, $memberClassNames] = $this->typeGenerator->getPhpType($listShape);
+            foreach ($memberClassNames as $memberClassName) {
+                $namespace->addUse($memberClassName->getFqdn());
+            }
+
             $iteratorTypes[] = $iteratorType;
 
             if (!$class->hasMethod($getter)) {

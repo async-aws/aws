@@ -173,9 +173,22 @@ class QuerySerializer implements Serializer
 
     private function dumpArrayMap(string $output, string $input, string $contextProperty, MapShape $shape): string
     {
+        $mapKeyShape = $shape->getKey()->getShape();
+        if (!empty($mapKeyShape->getEnum())) {
+            $enumClassName = $this->namespaceRegistry->getEnum($mapKeyShape);
+            $validateEnum = strtr('if (!ENUM_CLASS::exists($mapKey)) {
+                    throw new InvalidArgument(sprintf(\'Invalid key for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, $mapKey));
+                }', [
+                'ENUM_CLASS' => $enumClassName->getName(),
+            ]);
+        } else {
+            $validateEnum = '';
+        }
+
         return strtr('
             $index = 0;
             foreach (INPUT as $mapKey => $mapValue) {
+                VALIDATE_ENUM
                 $index++;
                 $payload["OUTPUT_KEY"] = $mapKey;
                 MEMBER_CODE
@@ -183,6 +196,7 @@ class QuerySerializer implements Serializer
         ',
             [
                 'INPUT' => $input,
+                'VALIDATE_ENUM' => $validateEnum,
                 'OUTPUT_KEY' => sprintf('%s.$index.%s', $output, $this->getQueryName($shape->getKey(), 'key')),
                 'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s.$index.%s', $output, $this->getQueryName($shape->getValue(), 'value')), '$mapValue', $contextProperty, $shape->getValue()->getShape()),
             ]);

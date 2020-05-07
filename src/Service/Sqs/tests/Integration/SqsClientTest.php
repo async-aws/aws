@@ -3,6 +3,7 @@
 namespace AsyncAws\Sqs\Tests\Integration;
 
 use AsyncAws\Core\Credentials\NullProvider;
+use AsyncAws\Sqs\Enum\QueueAttributeName;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
 use AsyncAws\Sqs\Input\CreateQueueRequest;
 use AsyncAws\Sqs\Input\DeleteMessageRequest;
@@ -54,7 +55,7 @@ class SqsClientTest extends TestCase
 
         $input = (new CreateQueueRequest())
             ->setQueueName('baz')
-            ->setAttributes(['foo', 'bar']);
+            ->setAttributes([QueueAttributeName::APPROXIMATE_NUMBER_OF_MESSAGES_DELAYED => '10']);
         $result = $sqs->createQueue($input);
 
         self::assertStringContainsString('http', $result->getQueueUrl());
