@@ -90,7 +90,7 @@ class AsyncAwsSqsJob extends Job implements JobContract
      */
     public function getJobId()
     {
-        return $this->job->getMessageId();
+        return (string) $this->job->getMessageId();
     }
 
     /**
@@ -100,7 +100,7 @@ class AsyncAwsSqsJob extends Job implements JobContract
      */
     public function getRawBody()
     {
-        return $this->job->getBody();
+        return (string) $this->job->getBody();
     }
 
     /**

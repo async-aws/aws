@@ -78,9 +78,9 @@ class AsyncAwsSqsQueue extends Queue implements QueueContract
     /**
      * Push a new job onto the queue.
      *
-     * @param string      $job
-     * @param mixed       $data
-     * @param string|null $queue
+     * @param \Closure|string|object $job
+     * @param mixed                  $data
+     * @param string|null            $queue
      *
      * @return mixed
      */
@@ -108,7 +108,7 @@ class AsyncAwsSqsQueue extends Queue implements QueueContract
      * Push a new job onto the queue after a delay.
      *
      * @param \DateTimeInterface|\DateInterval|int $delay
-     * @param string                               $job
+     * @param \Closure|string|object               $job
      * @param mixed                                $data
      * @param string|null                          $queue
      *
@@ -139,8 +139,11 @@ class AsyncAwsSqsQueue extends Queue implements QueueContract
 
         foreach ($response->getMessages() as $message) {
             return new AsyncAwsSqsJob(
-                $this->container, $this->sqs, $message,
-                $this->connectionName, $queue
+                $this->container,
+                $this->sqs,
+                $message,
+                $this->connectionName,
+                $queue
             );
         }
 
