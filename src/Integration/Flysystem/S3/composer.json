@@ -1,7 +1,7 @@
 {
     "name": "async-aws/flysystem-s3",
     "type": "library",
-    "description": "Flysystem S3 adapter",
+    "description": "Flysystem S3 adapter from AsyncAws.",
     "keywords": [
         "aws",
         "amazon",
