@@ -53,7 +53,10 @@ class AsyncAwsSesTransport extends Transport
             ]),
         ];
 
-        $from = key($message->getSender() ?: $message->getFrom());
+        $from = $message->getSender() ?: $message->getFrom();
+        if (\is_array($from)) {
+            $from = reset($from);
+        }
         if (\is_string($from)) {
             $input['FromEmailAddress'] = $from;
         }
