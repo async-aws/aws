@@ -1,7 +1,7 @@
 {
     "name": "async-aws/core",
     "type": "library",
-    "description": "AsyncAws core package with common classes and interfaces.",
+    "description": "Core package to integrate with AWS. This is a lightweight AWS SDK provider by AsyncAws.",
     "keywords": [
         "aws",
         "amazon",
