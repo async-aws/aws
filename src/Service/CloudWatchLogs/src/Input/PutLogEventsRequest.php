@@ -43,6 +43,8 @@ final class PutLogEventsRequest extends Input
      * `PutLogEvents` twice within a narrow time period using the same value for `sequenceToken`, both calls may be
      * successful, or one may be rejected.
      *
+     * @see https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeLogStreams.html
+     *
      * @var string|null
      */
     private $sequenceToken;
