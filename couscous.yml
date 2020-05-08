@@ -95,6 +95,9 @@ menu:
             flysystem:
                 text: Flysystem
                 url: /integration/flysystem.html
+            monolog:
+                text: Monolog
+                url: /integration/monolog.html
 
     authentication:
         # Authentication providers are in alphabetical order
