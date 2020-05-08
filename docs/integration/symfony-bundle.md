@@ -65,12 +65,18 @@ async_aws:
 #        path: /parameters/my-project
 #        recursive: true
 #        client: app-secret
+#        cache:
+#            pool: cache.app
+#            ttl: 3600
 #    clients:
 #        app-secret:
 #            type: ssm
 ```
 
 Parameters stored in SSM will be available as env variable:
+
+> **Warning**: Fetching parameters from SSM is billed by AWS. AsyncAws provide
+> an optional cache layer that can be enabled with the `cache` configuration.
 
 ```yaml
 # config/packages/doctrine.yaml
