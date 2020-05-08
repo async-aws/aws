@@ -105,8 +105,13 @@ final class LogStream
         return $this->logStreamName;
     }
 
+    /**
+     * @deprecated
+     */
     public function getStoredBytes(): ?string
     {
+        @trigger_error(\sprintf('The property "storedBytes" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
+
         return $this->storedBytes;
     }
 

@@ -41,4 +41,9 @@ class Member
     {
         return $this->data['flattened'] ?? false;
     }
+
+    public function isDeprecated(): ?bool
+    {
+        return $this->data['deprecated'] ?? false;
+    }
 }

@@ -75,9 +75,14 @@ class RestJsonSerializer implements Serializer
                 $inputElement = '$v';
             }
 
+            $deprecation = '';
+            if ($member->isDeprecated()) {
+                $deprecation = strtr('@trigger_error(\sprintf(\'The property "NAME" of "%s" is deprecated by AWS.\', __CLASS__), E_USER_DEPRECATED);', ['NAME' => $member->getName()]);
+            }
+
             return strtr($body, [
                 'PROPERTY' => $member->getName(),
-                'MEMBER_CODE' => $this->dumpArrayElement(sprintf('["%s"]', $name = $this->getName($member)), $inputElement, $name, $shape, $member->isRequired()),
+                'MEMBER_CODE' => $deprecation . $this->dumpArrayElement(sprintf('["%s"]', $name = $this->getName($member)), $inputElement, $name, $shape, $member->isRequired()),
             ]);
         }, $shape->getMembers()));
 

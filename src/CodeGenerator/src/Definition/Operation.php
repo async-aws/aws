@@ -124,4 +124,9 @@ class Operation
     {
         return \in_array($this->getHttpMethod(), ['PUT', 'POST']);
     }
+
+    public function isDeprecated(): bool
+    {
+        return $this->data['deprecated'] ?? false;
+    }
 }
