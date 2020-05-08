@@ -25,7 +25,7 @@
         "async-aws/ssm": "^0.1",
         "matthiasnoback/symfony-config-test": "^4.1",
         "nyholm/symfony-bundle-test": "^1.6.1",
-        "symfony/cache": "^5.0"
+        "symfony/cache": "^4.4 || ^5.0"
     },
     "extra": {
         "branch-alias": {

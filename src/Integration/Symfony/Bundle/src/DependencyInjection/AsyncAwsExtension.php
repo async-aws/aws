@@ -6,7 +6,6 @@ namespace AsyncAws\Symfony\Bundle\DependencyInjection;
 
 use AsyncAws\Symfony\Bundle\Secrets\CachedEnvVarLoader;
 use AsyncAws\Symfony\Bundle\Secrets\SsmVault;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
