@@ -106,6 +106,14 @@ class DocumentationTest extends TestCase
 
                 self::assertEquals($expected, $data['url'], sprintf('Expected URL for "menu.%s.%s" to be "%s". Please update URL or config keys.', $category, $name, $expected));
             }
+
+            $docsDir = \dirname(__DIR__, 2) . '/docs/' . $category;
+            $files = \is_dir($docsDir) ? (new Finder())->in($docsDir)->depth('== 0')->name('*.md') : [];
+            foreach ($files as $file) {
+                $key = $file->getFilenameWithoutExtension();
+
+                self::assertArrayHasKey($key, $config['menu'][$category]['items'], sprintf('Expected menu item "menu.%s.items.%s" to exist.', $category, $key));
+            }
         }
     }
 }
