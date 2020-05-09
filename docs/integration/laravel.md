@@ -10,6 +10,8 @@ Cache, Filesystem, Mail and Queue.
 
 ## Illuminate Cache
 
+A DynamoDb integration with Illuminate Cache.
+
 ### Install
 
 ```shell
