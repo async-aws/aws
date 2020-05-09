@@ -10,7 +10,7 @@ Cache, Filesystem, Mail and Queue.
 
 ## Illuminate Cache
 
-A DynamoDb integration with Illuminate Cache.
+Use DynamoDb as a Illuminate Cache store.
 
 ### Install
 
@@ -40,6 +40,8 @@ key will not work.
 
 ## Illuminate Filesystem
 
+Use S3 as filesystem.
+
 ### Install
 
 ```shell
@@ -64,6 +66,8 @@ composer require async-aws/illuminate-filesystem
 
 ## Illuminate Mail
 
+Send emails with SES.
+
 ### Install
 
 ```shell
@@ -84,6 +88,8 @@ composer require async-aws/illuminate-mail
 ```
 
 ## Illuminate Queue
+
+Use SQS with Illuminate Queue.
 
 ### Install
 
