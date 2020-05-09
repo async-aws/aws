@@ -12,7 +12,7 @@ assumed by the WebIdentity.
 
 That authentication mechanism allows use of fined-grained Roles in an EKS
 cluster (AWS managed service for K8S). It let you assign a specific role per
-POD. Similar to [EC2 Instance Metadata](#using-ec2-instance-metadata) you
+POD. Similar to [EC2 Instance Metadata](./ec2-metadata.md) you
 have nothing to configure on the application, you only configure the role and
 permission assumed by the POD's ServiceAccount. See [AWS documentation](https://aws.amazon.com/blogs/opensource/introducing-fine-grained-iam-roles-service-accounts/)
 for more information.

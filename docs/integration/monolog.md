@@ -27,7 +27,7 @@ $handler = new CloudWatchLogsHandler($client, $groupName, $streamName);
 
 $logger = new Logger('logger');
 $logger->pushHandler($handler);
-$logger->error('an error occured');
+$logger->error('an error occurred');
 ```
 
 ## Configuration
@@ -36,7 +36,7 @@ The CloudWatchLogsHandler accepts the following parameters:
 
 - `$client`: the CloudWatchLogsClient instance
 - `$group`: name of the CloudWatch Log Group which was created previously
-- `$stream`: name of the CloudWatcg Log Stream which was created previously
+- `$stream`: name of the CloudWatch Log Stream which was created previously
 - `$batchSize`: number of log records that are pushed to CloudWatch in a single call. This number cannot exceed 10,000.
 - `$level`: minimum logging level at which this handler will be triggered (see https://github.com/Seldaek/monolog/blob/master/doc/01-usage.md#log-levels)
 - `$bubble`: whether the messages that are handled can bubble up the stack or not (see https://github.com/Seldaek/monolog/blob/master/doc/01-usage.md#core-concepts)

@@ -60,7 +60,7 @@ aws_secret_access_key = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 region=us-west-2
 ```
 
-The path to the `credentials` and `config` file can be *optionnaly* configured either with Configuration or env variables.
+The path to the `credentials` and `config` file can be *optionally* configured either with Configuration or env variables.
 
 ```shell
 export AWS_SHARED_CREDENTIALS_FILE=/path/to/shared_credentials_file
