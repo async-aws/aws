@@ -15,7 +15,7 @@ class ServiceProvider extends AbstractServiceProvider
         /** @var CacheManager $manager */
         $manager = $this->app['cache'];
 
-        $manager->extend('async-aws-dynam-db', \Closure::fromCallable([$this, 'createStore']));
+        $manager->extend('async-aws-dynamodb', \Closure::fromCallable([$this, 'createStore']));
     }
 
     public function createStore($app, array $config): AsyncAwsDynamoDbStore
