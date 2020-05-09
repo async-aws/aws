@@ -15,20 +15,33 @@ class ServiceProvider extends AbstractServiceProvider
         /** @var CacheManager $manager */
         $manager = $this->app['cache'];
 
-        $manager->extend('async-aws-dynamodb', \Closure::fromCallable([$this, 'createStore']));
+        $closure = $this->getClosure();
+        $manager->extend('async-aws-dynamodb', function ($app, array $config) use ($closure) {
+            return $this->repository($closure($app, $config));
+        });
     }
 
     public function createStore($app, array $config): AsyncAwsDynamoDbStore
     {
-        $clientConfig = [];
-        if (isset($config['key']) && isset($config['secret'])) {
-            $clientConfig['accessKeyId'] = $config['key'] ?? null;
-            $clientConfig['accessKeySecret'] = $config['secret'] ?? null;
-            $clientConfig['sessionToken'] = $config['token'] ?? null;
-        }
+        $closure = $this->getClosure();
 
-        $sesClient = new DynamoDbClient($clientConfig);
+        return $closure($app, $config);
+    }
 
-        return new AsyncAwsDynamoDbStore($sesClient, $config['table']);
+    private function getClosure(): \Closure
+    {
+        return \Closure::fromCallable(function ($app, array $config) {
+            $clientConfig = [];
+            if (isset($config['key']) && isset($config['secret'])) {
+                $clientConfig['accessKeyId'] = $config['key'] ?? null;
+                $clientConfig['accessKeySecret'] = $config['secret'] ?? null;
+                $clientConfig['sessionToken'] = $config['token'] ?? null;
+            }
+
+            $sesClient = new DynamoDbClient($clientConfig);
+            $store = new AsyncAwsDynamoDbStore($sesClient, $config['table']);
+
+            return $store;
+        });
     }
 }
