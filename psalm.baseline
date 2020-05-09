@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.9.3@2e4154d76e24d1b4e59e6cc2bebef7790cb9e550">
-  <file src="src/Core/src/Exception/Http/HttpExceptionTrait.php">
-    <InvalidArgument occurrences="4">
-      <code>$code</code>
-      <code>$url</code>
-      <code>$url</code>
-      <code>$code</code>
-    </InvalidArgument>
-    <PossiblyNullArgument occurrences="1">
-      <code>$response-&gt;getInfo('response_headers')</code>
-    </PossiblyNullArgument>
+<files psalm-version="3.11.2@d470903722cfcbc1cd04744c5491d3e6d13ec3d9">
+  <file src="src/Integration/Laravel/Cache/src/ServiceProvider.php">
+    <UndefinedInterfaceMethod occurrences="1">
+      <code>$this-&gt;app</code>
+    </UndefinedInterfaceMethod>
+    <UndefinedMethod occurrences="2">
+      <code>getPrefix</code>
+      <code>repository</code>
+    </UndefinedMethod>
   </file>
-  <file src="src/Service/Ses/src/Input/SendEmailRequest.php">
-    <PossiblyNullArgument occurrences="2">
-      <code>$input-&gt;getSubject()</code>
-      <code>$input-&gt;getBody()</code>
-    </PossiblyNullArgument>
+  <file src="src/Integration/Laravel/Filesystem/src/ServiceProvider.php">
+    <UndefinedInterfaceMethod occurrences="1">
+      <code>$this-&gt;app</code>
+    </UndefinedInterfaceMethod>
   </file>
-  <file src="src/Service/Sqs/src/Result/ReceiveMessageResult.php">
+  <file src="src/Integration/Laravel/Mail/src/ServiceProvider.php">
+    <UndefinedInterfaceMethod occurrences="1">
+      <code>$this-&gt;app</code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="src/Integration/Laravel/Mail/src/Transport/AsyncAwsSesTransport.php">
     <InvalidArgument occurrences="1"/>
+  </file>
+  <file src="src/Integration/Laravel/Queue/src/ServiceProvider.php">
+    <UndefinedInterfaceMethod occurrences="1">
+      <code>$this-&gt;app</code>
+    </UndefinedInterfaceMethod>
   </file>
   <file src="src/Integration/Symfony/Bundle/src/DependencyInjection/Configuration.php">
     <PossiblyNullReference occurrences="1">
@@ -28,24 +35,12 @@
       <code>scalarNode</code>
     </PossiblyUndefinedMethod>
   </file>
-  <file src="src/Service/S3/src/Input/DeleteObjectsRequest.php">
-    <PossiblyNullArgument occurrences="1">
-      <code>$input_ObjectsItem_Key</code>
-    </PossiblyNullArgument>
-  </file>
-  <file src="src/Service/S3/src/Input/PutObjectAclRequest.php">
-    <PossiblyNullArgument occurrences="1">
-      <code>$input_GrantsItem_Grantee_Type</code>
-    </PossiblyNullArgument>
-  </file>
-  <file src="src/Integration/Laravel/Cache/src/ServiceProvider.php">
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>$this-&gt;app</code>
-    </UndefinedInterfaceMethod>
-  </file>
   <file src="src/Service/S3/src/Result/CopyObjectOutput.php">
     <TypeDoesNotContainType occurrences="1">
       <code>!$data</code>
     </TypeDoesNotContainType>
+  </file>
+  <file src="src/Service/Sqs/src/Result/ReceiveMessageResult.php">
+    <InvalidArgument occurrences="1"/>
   </file>
 </files>

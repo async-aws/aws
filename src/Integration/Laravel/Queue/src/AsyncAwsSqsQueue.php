@@ -3,6 +3,7 @@
 namespace AsyncAws\Illuminate\Queue;
 
 use AsyncAws\Illuminate\Queue\Job\AsyncAwsSqsJob;
+use AsyncAws\Sqs\Enum\MessageSystemAttributeName;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
 use AsyncAws\Sqs\SqsClient;
 use Illuminate\Contracts\Queue\Job;
@@ -138,7 +139,7 @@ class AsyncAwsSqsQueue extends Queue implements QueueContract
     {
         $response = $this->sqs->receiveMessage([
             'QueueUrl' => $queue = $this->getQueue($queue),
-            'AttributeNames' => ['ApproximateReceiveCount'],
+            'AttributeNames' => [MessageSystemAttributeName::APPROXIMATE_RECEIVE_COUNT],
         ]);
 
         foreach ($response->getMessages() as $message) {
@@ -161,7 +162,7 @@ class AsyncAwsSqsQueue extends Queue implements QueueContract
      *
      * @return string
      */
-    public function getQueue($queue)
+    public function getQueue($queue = null)
     {
         $queue = $queue ?: $this->default;
 

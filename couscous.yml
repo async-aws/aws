@@ -92,6 +92,9 @@ menu:
             symfony-bundle:
                 text: Symfony Bundle
                 url: /integration/symfony-bundle.html
+            laravel:
+                text: Laravel
+                url: /integration/laravel.html
             flysystem:
                 text: Flysystem
                 url: /integration/flysystem.html
