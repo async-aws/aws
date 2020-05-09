@@ -18,6 +18,9 @@ class ServiceProvider extends AbstractServiceProvider
         $closure = $this->getClosure();
         $manager->extend('async-aws-dynamodb', function ($app, array $config) use ($closure) {
             /** @phpstan-ignore-next-line */
+            $config['prefix'] = $this->getPrefix($config);
+
+            /** @phpstan-ignore-next-line */
             return $this->repository($closure($app, $config));
         });
     }
@@ -40,7 +43,13 @@ class ServiceProvider extends AbstractServiceProvider
             }
 
             $sesClient = new DynamoDbClient($clientConfig);
-            $store = new AsyncAwsDynamoDbStore($sesClient, $config['table']);
+            $store = new AsyncAwsDynamoDbStore(
+                $sesClient, $config['table'],
+                $config['attributes']['key'] ?? 'key',
+                $config['attributes']['value'] ?? 'value',
+                $config['attributes']['expiration'] ?? 'expires_at',
+                $config['prefix']
+            );
 
             return $store;
         });
