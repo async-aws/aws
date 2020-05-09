@@ -142,7 +142,7 @@ class AsyncAwsDynamoDbStore implements Store
             $result[$key] = $this->get($key);
         }
 
-        // TODO Use BatchWriteItem. Blocked by https://github.com/async-aws/aws/issues/566
+        // TODO Use BatchGetItem. Blocked by https://github.com/async-aws/aws/issues/566
         return $result;
     }
 
