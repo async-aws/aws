@@ -231,7 +231,8 @@ class AsyncAwsDynamoDbStore implements Store
 
             return true;
         } catch (HttpException $e) {
-            if (null !== $e->getAwsType() && Str::contains($e->getAwsType(), 'ConditionalCheckFailedException')) {
+            $type = $e->getAwsType();
+            if (null !== $type && Str::contains($type, 'ConditionalCheckFailedException')) {
                 return false;
             }
 
@@ -277,7 +278,8 @@ class AsyncAwsDynamoDbStore implements Store
 
             return (int) $response->getAttributes()[$this->valueAttribute]->getN();
         } catch (HttpException $e) {
-            if (null !== $e->getAwsType() && Str::contains($e->getAwsType(), 'ConditionalCheckFailedException')) {
+            $type = $e->getAwsType();
+            if (null !== $type && Str::contains($type, 'ConditionalCheckFailedException')) {
                 return false;
             }
 
@@ -323,7 +325,8 @@ class AsyncAwsDynamoDbStore implements Store
 
             return (int) $response->getAttributes()[$this->valueAttribute]->getN();
         } catch (HttpException $e) {
-            if (null !== $e->getAwsType() && Str::contains($e->getAwsType(), 'ConditionalCheckFailedException')) {
+            $type = $e->getAwsType();
+            if (null !== $type && Str::contains($type, 'ConditionalCheckFailedException')) {
                 return false;
             }
 
