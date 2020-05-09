@@ -18,6 +18,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16.3",
+        "illuminate/cache": "^6.18.13 || ^7.10",
         "illuminate/filesystem": "^6.18.13 || ^7.10",
         "illuminate/mail": "^6.18.13 || ^7.10",
         "illuminate/queue": "^6.18.13 || ^7.10",
@@ -54,6 +55,7 @@
             "AsyncAws\\Sns\\": "src/Service/Sns/src",
             "AsyncAws\\Sqs\\": "src/Service/Sqs/src",
             "AsyncAws\\Ssm\\": "src/Service/Ssm/src",
+            "AsyncAws\\Illuminate\\Cache\\": "src/Integration/Laravel/Cache/src",
             "AsyncAws\\Illuminate\\Filesystem\\": "src/Integration/Laravel/Filesystem/src",
             "AsyncAws\\Illuminate\\Mail\\": "src/Integration/Laravel/Mail/src",
             "AsyncAws\\Illuminate\\Queue\\": "src/Integration/Laravel/Queue/src",
@@ -78,6 +80,7 @@
             "AsyncAws\\Sns\\Tests\\": "src/Service/Sns/tests",
             "AsyncAws\\Sqs\\Tests\\": "src/Service/Sqs/tests",
             "AsyncAws\\Ssm\\Tests\\": "src/Service/Ssm/tests",
+            "AsyncAws\\Illuminate\\Cache\\Tests\\": "src/Integration/Laravel/Cache/tests",
             "AsyncAws\\Illuminate\\Filesystem\\Tests\\": "src/Integration/Laravel/Filesystem/tests",
             "AsyncAws\\Illuminate\\Mail\\Tests\\": "src/Integration/Laravel/Mail/tests",
             "AsyncAws\\Illuminate\\Queue\\Tests\\": "src/Integration/Laravel/Queue/tests",

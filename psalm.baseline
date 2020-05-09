@@ -38,6 +38,11 @@
       <code>$input_GrantsItem_Grantee_Type</code>
     </PossiblyNullArgument>
   </file>
+  <file src="src/Integration/Laravel/Cache/src/ServiceProvider.php">
+    <UndefinedInterfaceMethod occurrences="1">
+      <code>$this-&gt;app</code>
+    </UndefinedInterfaceMethod>
+  </file>
   <file src="src/Service/S3/src/Result/CopyObjectOutput.php">
     <TypeDoesNotContainType occurrences="1">
       <code>!$data</code>
