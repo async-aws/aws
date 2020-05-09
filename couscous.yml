@@ -112,6 +112,9 @@ menu:
             ec2-metadata:
                 text: EC2 instance metadata
                 url: /authentication/ec2-metadata.html
+            ecs-container:
+                text: ECS container metadata
+                url: /authentication/ecs-container.html
             environment:
                 text: Environment variables
                 url: /authentication/environment.html
