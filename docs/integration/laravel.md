@@ -16,8 +16,9 @@ Cache, Filesystem, Mail and Queue.
 composer require async-aws/illuminate-cache
 ```
 
-You also need to create a DynamoDb table with `Partition key: "key"`. Using a different
-partition key will not work.
+Go to Aws Console to create a DynamoDb table. It is important that the table is using
+a Primary key (also called Partition key) to `key`. Any other value of the Primary
+key will not work.
 
 ### Configure
 
