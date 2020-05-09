@@ -10,7 +10,6 @@ use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\InteractsWithTime;
 use Illuminate\Support\Str;
-use RuntimeException;
 
 /**
  * This class is a port from Illuminate\Cache\DynamoDbStore.
@@ -383,27 +382,28 @@ class AsyncAwsDynamoDbStore implements Store
             // Delete the table
             $this->dynamoDb->deleteTable(['TableName' => $this->table]);
         } catch (HttpException $e) {
-            if ($e->getCode() !== 404) {
+            $code = (int) $e->getCode();
+            if (404 !== $code) {
                 // Any error but "table not found"
-                throw new \RuntimeException('Could not flush DynamoDb cache. Table could not be deleted.', $e->getCode(), $e);
+                throw new \RuntimeException('Could not flush DynamoDb cache. Table could not be deleted.', $code, $e);
             }
         }
 
         // Wait until table is removed
-        if (!$this->dynamoDb->tableNotExists(['TableName'=>$this->table])->wait()->isSuccess()) {
+        if (!$this->dynamoDb->tableNotExists(['TableName' => $this->table])->wait()->isSuccess()) {
             throw new \RuntimeException('Could not flush DynamoDb cache. Table could not be deleted.');
         }
 
         // Create a new table
         $this->dynamoDb->createTable([
-            'TableName'=> $this->table,
+            'TableName' => $this->table,
             'KeySchema' => [
                 new KeySchemaElement(['AttributeName' => 'key', 'KeyType' => KeyType::HASH]),
             ],
         ]);
 
         // Wait until table is created
-        if (!$this->dynamoDb->tableExists(['TableName'=>$this->table])->wait()->isSuccess()) {
+        if (!$this->dynamoDb->tableExists(['TableName' => $this->table])->wait()->isSuccess()) {
             throw new \RuntimeException('Could not flush DynamoDb cache. Table could not be created.');
         }
 
