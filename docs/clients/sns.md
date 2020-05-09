@@ -16,7 +16,7 @@ use AsyncAws\Sns\SnsClient;
 $sns = new SnsClient();
 
 $result = $sns->publish(new PublishInput([
-    'TopicArn' => 'arn:aws:sns:us-east-1:46563727:purshase',
+    'TopicArn' => 'arn:aws:sns:us-east-1:46563727:purchase',
     'Message' => 'New Purchase order',
 ]));
 

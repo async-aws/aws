@@ -8,11 +8,11 @@ An overview over how AsyncAws differ from the official AWS PHP SDK
 
 |   | AWS PHP SDK | AsyncAws |
 |---|-------------|-----------|
-| [Asynchronous](#async-experience)             | | &#x2714; |
+| [Asynchronous](#asynchronous-experience)      | | &#x2714; |
 | [Pagination](#pagination-experience)          | | &#x2714; |
 | [Presign](#presign-experience)                | | &#x2714; |
 | [Developer experience](#developer-experience) | | &#x2714; |
-| [Package size](#dependencies-size)            | | &#x2714; |
+| [Package size](#package-size)                 | | &#x2714; |
 | [Mock and testing](#mock-and-testing)         | | &#x2714; |
 | [Features coverage](#features-coverage)       | &#x2714; | |
 
@@ -246,7 +246,7 @@ By providing isolated package for each service, AsyncAws is ultra thin. For
 instance `aws-async/s3` + `aws-async/core` weighs **0.6Mib**, while official AWS
 PHP SDK weighs **22MiB** regardless of the number of API services you use.
 
-This have an increased importance if you are using Docker or if you deploy your
+This has an increased importance if you are using Docker or if you deploy your
 applications on AWS Lambda.
 
 ## Mock and testing

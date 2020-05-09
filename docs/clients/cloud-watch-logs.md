@@ -42,7 +42,7 @@ $result = $cloudWatchLogs->putLogEvents(new PutLogEventsRequest([
     'logEvents' => [
         new InputLogEvent([
             'timestamp' => date('U.u') * 1000,
-            'message' => 'an error occured',
+            'message' => 'an error occurred',
         ]),
     ],
     'sequenceToken' => $currentSequenceToken,

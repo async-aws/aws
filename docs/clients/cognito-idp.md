@@ -28,6 +28,7 @@ $cognitoIdp->adminCreateUser([
 
 ```php
 use AsyncAws\CognitoIdentityProvider\CognitoIdentityProviderClient;
+use AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType;
 
 $cognitoIdp = new CognitoIdentityProviderClient();
 
@@ -37,12 +38,12 @@ $result = $cognitoIdp->adminGetUser([
     'UserAttributes' => [
         new AttributeType(['Name' => 'phone_number', 'Value' => '+33600000000'])
     ],
-]]);
+]);
 
 echo 'User status is: ' . $result->getUserStatus() . PHP_EOL;
-$givenNameAttribute = array_filter(
+$givenNameAttribute = current(array_filter(
     $result->getUserAttributes(),
-    function ($attr) { return $attr->getName() === 'given_name'); } ,
-);
+    function ($attr) { return $attr->getName() === 'given_name'; }
+));
 echo 'User given name is: ' . $givenNameAttribute->getValue() . PHP_EOL;
 ```
