@@ -80,7 +80,6 @@ class AsyncAwsSqsQueueTest extends TestCase
 
                 // verify that body is serialized.
                 $body = json_decode($input['MessageBody'], true);
-                $this->assertArrayHasKey('uuid', $body);
                 $this->assertArrayHasKey('displayName', $body);
                 $this->assertArrayHasKey('job', $body);
                 $this->assertArrayHasKey('data', $body);
