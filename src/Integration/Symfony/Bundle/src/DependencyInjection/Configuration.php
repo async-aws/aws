@@ -48,6 +48,13 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('path')->info('Path to the parameters.')->defaultNull()->end()
                         ->booleanNode('recursive')->info('Retrieve all parameters within a hierarchy.')->defaultValue(true)->end()
                         ->scalarNode('client')->info('Name of the SSM client. When null, use the default SSM configuration.')->defaultNull()->end()
+                        ->arrayNode('cache')
+                            ->canBeEnabled()
+                            ->children()
+                                ->scalarNode('pool')->info('Identifier of the Symfony Cache Pool.')->defaultValue('cache.system')->end()
+                                ->integerNode('ttl')->info('Duration of cache in seconds')->min(0)->defaultValue(600)->end()
+                            ->end()
+                        ->end()
                     ->end()
                 ->end()
             ->end();

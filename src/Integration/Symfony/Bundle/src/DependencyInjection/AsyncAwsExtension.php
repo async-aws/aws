@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\Symfony\Bundle\DependencyInjection;
 
+use AsyncAws\Symfony\Bundle\Secrets\CachedEnvVarLoader;
 use AsyncAws\Symfony\Bundle\Secrets\SsmVault;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -11,6 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Contracts\Cache\CacheInterface;
 
 class AsyncAwsExtension extends Extension
 {
@@ -137,6 +139,20 @@ class AsyncAwsExtension extends Extension
                 $config['secrets']['path'],
                 $config['secrets']['recursive'],
             ]);
+
+        if ($config['secrets']['cache']['enabled']) {
+            if (!\interface_exists(CacheInterface::class)) {
+                throw new InvalidConfigurationException(sprintf('You have enabled "async_aws.secrets.cache" but the "symfony/cache" package is not installed. Try running "composer require symfony/cache"'));
+            }
+
+            $container->Register(CachedEnvVarLoader::class)
+                ->setDecoratedService(SsmVault::class)
+                ->setArguments([
+                    new Reference(CachedEnvVarLoader::class . '.inner'),
+                    new Reference($config['secrets']['cache']['pool']),
+                    $config['secrets']['cache']['ttl'],
+                ]);
+        }
     }
 
     private function autowireServices(ContainerBuilder $container, array $usedServices): void

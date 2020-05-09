@@ -33,6 +33,11 @@ class ConfigurationTest extends TestCase
                 'path' => null,
                 'recursive' => true,
                 'client' => null,
+                'cache' => [
+                    'enabled' => false,
+                    'pool' => 'cache.system',
+                    'ttl' => 600,
+                ],
             ],
         ]);
     }
