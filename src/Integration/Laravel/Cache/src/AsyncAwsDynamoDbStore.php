@@ -90,12 +90,16 @@ class AsyncAwsDynamoDbStore implements Store
     /**
      * Retrieve an item from the cache by key.
      *
-     * @param string $key
+     * @param string|array $key
      *
      * @return mixed
      */
     public function get($key)
     {
+        if (is_array($key)) {
+            return $this->many($key);
+        }
+
         $response = $this->dynamo->getItem([
             'TableName' => $this->table,
             'ConsistentRead' => false,
@@ -227,7 +231,7 @@ class AsyncAwsDynamoDbStore implements Store
 
             return true;
         } catch (HttpException $e) {
-            if (Str::contains($e->getAwsType(), 'ConditionalCheckFailedException')) {
+            if (null !== $e->getAwsType() && Str::contains($e->getAwsType(), 'ConditionalCheckFailedException')) {
                 return false;
             }
 
@@ -273,7 +277,7 @@ class AsyncAwsDynamoDbStore implements Store
 
             return (int) $response->getAttributes()[$this->valueAttribute]->getN();
         } catch (HttpException $e) {
-            if (Str::contains($e->getAwsType(), 'ConditionalCheckFailedException')) {
+            if (null !== $e->getAwsType() && Str::contains($e->getAwsType(), 'ConditionalCheckFailedException')) {
                 return false;
             }
 
@@ -319,7 +323,7 @@ class AsyncAwsDynamoDbStore implements Store
 
             return (int) $response->getAttributes()[$this->valueAttribute]->getN();
         } catch (HttpException $e) {
-            if (Str::contains($e->getAwsType(), 'ConditionalCheckFailedException')) {
+            if (null !== $e->getAwsType() && Str::contains($e->getAwsType(), 'ConditionalCheckFailedException')) {
                 return false;
             }
 
