@@ -246,12 +246,19 @@ class ObjectGenerator
             }
 
             $method = $class->addMethod('get' . \ucfirst($member->getName()))
-                ->setReturnType($returnType)
-                ->setBody(strtr('
+                ->setReturnType($returnType);
+
+            $deprecation = '';
+            if ($member->isDeprecated()) {
+                $method->addComment('@deprecated');
+                $deprecation = strtr('@trigger_error(\sprintf(\'The property "NAME" of "%s" is deprecated by AWS.\', __CLASS__), E_USER_DEPRECATED);', ['NAME' => $member->getName()]);
+            }
+
+            $method->setBody($deprecation . strtr('
                     return $this->NAME;
                 ', [
-                    'NAME' => $member->getName(),
-                ]));
+                'NAME' => $member->getName(),
+            ]));
 
             $nullable = $nullable ?? !$member->isRequired();
             if ($parameterType && $parameterType !== $returnType && (empty($memberClassNames) || $memberClassNames[0]->getName() !== $parameterType)) {

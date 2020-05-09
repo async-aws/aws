@@ -84,9 +84,14 @@ class RestXmlSerializer implements Serializer
                 $inputElement = '$v';
             }
 
+            $deprecation = '';
+            if ($member->isDeprecated()) {
+                $deprecation = strtr('@trigger_error(\sprintf(\'The property "NAME" of "%s" is deprecated by AWS.\', __CLASS__), E_USER_DEPRECATED);', ['NAME' => $member->getName()]);
+            }
+
             return strtr($body, [
                 'PROPERTY' => $member->getName(),
-                'MEMBER_CODE' => $this->dumpXmlShape($member, $member->getShape(), '$node', $inputElement),
+                'MEMBER_CODE' => $deprecation . $this->dumpXmlShape($member, $member->getShape(), '$node', $inputElement),
             ]);
         }, $shape->getMembers()));
 

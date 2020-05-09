@@ -175,17 +175,23 @@ class InputGenerator
 
             $getter = $class->addMethod('get' . \ucfirst($member->getName()))
                 ->setReturnType($returnType)
-                ->setReturnNullable($nullable)
-                ->setBody(strtr('return $this->NAME;', ['NAME' => $member->getName()]));
-
+                ->setReturnNullable($nullable);
             $setter = $class->addMethod('set' . \ucfirst($member->getName()))
-                ->setReturnType('self')
-                ->setBody(strtr('
+                ->setReturnType('self');
+
+            $deprecation = '';
+            if ($member->isDeprecated()) {
+                $getter->addComment('@deprecated');
+                $setter->addComment('@deprecated');
+                $deprecation = strtr('@trigger_error(\sprintf(\'The property "NAME" of "%s" is deprecated by AWS.\', __CLASS__), E_USER_DEPRECATED);', ['NAME' => $member->getName()]);
+            }
+            $getter->setBody($deprecation . strtr('return $this->NAME;', ['NAME' => $member->getName()]));
+            $setter->setBody($deprecation . strtr('
                     $this->NAME = $value;
                     return $this;
                 ', [
-                    'NAME' => $member->getName(),
-                ]));
+                'NAME' => $member->getName(),
+            ]));
             $setter
                 ->addParameter('value')->setType($returnType)->setNullable($nullable)
             ;

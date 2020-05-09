@@ -138,15 +138,21 @@ class OperationGenerator
 
     private function setMethodBody(Method $method, Operation $operation, ClassName $inputClass, ?ClassName $resultClass): void
     {
+        $body = '';
+        if ($operation->isDeprecated()) {
+            $method->addComment('@deprecated');
+            $body .= '@trigger_error(\sprintf(\'The operation "%s" is deprecated by AWS.\', __FUNCTION__), E_USER_DEPRECATED);';
+        }
+
         if ((null !== $pagination = $operation->getPagination()) && !empty($pagination->getOutputToken())) {
-            $body = '
+            $body .= '
                 $input = INPUT_CLASS::create($input);
                 $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion()]));
 
                 return new RESULT_CLASS($response, $this, $input);
             ';
         } else {
-            $body = '
+            $body .= '
                 $input = INPUT_CLASS::create($input);
                 $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion()]));
 
