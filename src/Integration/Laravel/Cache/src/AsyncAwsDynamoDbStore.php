@@ -390,7 +390,9 @@ class AsyncAwsDynamoDbStore implements Store
         }
 
         // Wait until table is removed
-        if (!$this->dynamoDb->tableNotExists(['TableName' => $this->table])->wait()->isSuccess()) {
+        $response = $this->dynamoDb->tableNotExists(['TableName' => $this->table]);
+        $response->wait();
+        if (!$response->isSuccess()) {
             throw new \RuntimeException('Could not flush DynamoDb cache. Table could not be deleted.');
         }
 
@@ -403,7 +405,9 @@ class AsyncAwsDynamoDbStore implements Store
         ]);
 
         // Wait until table is created
-        if (!$this->dynamoDb->tableExists(['TableName' => $this->table])->wait()->isSuccess()) {
+        $response = $this->dynamoDb->tableExists(['TableName' => $this->table]);
+        $response->wait();
+        if (!$response->isSuccess()) {
             throw new \RuntimeException('Could not flush DynamoDb cache. Table could not be created.');
         }
 
