@@ -2,7 +2,7 @@
 
 namespace AsyncAws\Illuminate\Cache;
 
-use AsyncAws\Core\Exception\Exception;
+use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Carbon;
@@ -226,9 +226,8 @@ class AsyncAwsDynamoDbStore implements Store
             ]);
 
             return true;
-        } catch (Exception $e) {
-            // TODO better validate if it was ConditionalCheckFailed
-            if (Str::contains($e->getMessage(), 'ConditionalCheckFailed')) {
+        } catch (HttpException $e) {
+            if (Str::contains($e->getAwsType(), 'ConditionalCheckFailedException')) {
                 return false;
             }
 
@@ -273,9 +272,8 @@ class AsyncAwsDynamoDbStore implements Store
             ]);
 
             return (int) $response->getAttributes()[$this->valueAttribute]->getN();
-        } catch (Exception $e) {
-            // TODO better validate if it was ConditionalCheckFailed
-            if (Str::contains($e->getMessage(), 'ConditionalCheckFailed')) {
+        } catch (HttpException $e) {
+            if (Str::contains($e->getAwsType(), 'ConditionalCheckFailedException')) {
                 return false;
             }
 
@@ -320,9 +318,8 @@ class AsyncAwsDynamoDbStore implements Store
             ]);
 
             return (int) $response->getAttributes()[$this->valueAttribute]->getN();
-        } catch (Exception $e) {
-            // TODO better validate if it was ConditionalCheckFailed
-            if (Str::contains($e->getMessage(), 'ConditionalCheckFailed')) {
+        } catch (HttpException $e) {
+            if (Str::contains($e->getAwsType(), 'ConditionalCheckFailedException')) {
                 return false;
             }
 
