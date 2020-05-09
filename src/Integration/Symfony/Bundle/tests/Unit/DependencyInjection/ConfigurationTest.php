@@ -35,7 +35,7 @@ class ConfigurationTest extends TestCase
                 'client' => null,
                 'cache' => [
                     'enabled' => false,
-                    'pool' => null,
+                    'pool' => 'cache.system',
                     'ttl' => 600,
                 ],
             ],

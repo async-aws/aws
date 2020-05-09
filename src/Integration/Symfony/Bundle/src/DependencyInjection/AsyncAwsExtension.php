@@ -7,7 +7,6 @@ namespace AsyncAws\Symfony\Bundle\DependencyInjection;
 use AsyncAws\Symfony\Bundle\Secrets\CachedEnvVarLoader;
 use AsyncAws\Symfony\Bundle\Secrets\SsmVault;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Definition;
@@ -146,18 +145,11 @@ class AsyncAwsExtension extends Extension
                 throw new InvalidConfigurationException(sprintf('You have enabled "async_aws.secrets.cache" but the "symfony/cache" package is not installed. Try running "composer require symfony/cache"'));
             }
 
-            if (null === $cacheId = $config['secrets']['cache']['pool']) {
-                $cacheDefinition = new ChildDefinition('cache.adapter.filesystem');
-                $cacheDefinition->addTag('cache.pool');
-
-                $container->setDefinition($cacheId = 'cache.async-aws', $cacheDefinition);
-            }
-
             $container->Register(CachedEnvVarLoader::class)
                 ->setDecoratedService(SsmVault::class)
                 ->setArguments([
                     new Reference(CachedEnvVarLoader::class . '.inner'),
-                    new Reference($cacheId),
+                    new Reference($config['secrets']['cache']['pool']),
                     $config['secrets']['cache']['ttl'],
                 ]);
         }

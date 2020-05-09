@@ -51,7 +51,7 @@ class Configuration implements ConfigurationInterface
                         ->arrayNode('cache')
                             ->canBeEnabled()
                             ->children()
-                                ->scalarNode('pool')->info('Identifier of the Symfony Cache Pool.')->defaultNull()->end()
+                                ->scalarNode('pool')->info('Identifier of the Symfony Cache Pool.')->defaultValue('cache.system')->end()
                                 ->integerNode('ttl')->info('Duration of cache in seconds')->min(0)->defaultValue(600)->end()
                             ->end()
                         ->end()
