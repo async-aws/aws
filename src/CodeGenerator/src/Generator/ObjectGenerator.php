@@ -257,8 +257,8 @@ class ObjectGenerator
             $method->setBody($deprecation . strtr('
                     return $this->NAME;
                 ', [
-                    'NAME' => $member->getName(),
-                ]));
+                'NAME' => $member->getName(),
+            ]));
 
             $nullable = $nullable ?? !$member->isRequired();
             if ($parameterType && $parameterType !== $returnType && (empty($memberClassNames) || $memberClassNames[0]->getName() !== $parameterType)) {

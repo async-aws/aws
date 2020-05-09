@@ -190,8 +190,8 @@ class InputGenerator
                     $this->NAME = $value;
                     return $this;
                 ', [
-                    'NAME' => $member->getName(),
-                ]));
+                'NAME' => $member->getName(),
+            ]));
             $setter
                 ->addParameter('value')->setType($returnType)->setNullable($nullable)
             ;
