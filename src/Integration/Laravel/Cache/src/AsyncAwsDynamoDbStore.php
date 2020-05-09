@@ -22,42 +22,42 @@ class AsyncAwsDynamoDbStore implements Store
      *
      * @var DynamoDbClient
      */
-    protected $dynamo;
+    private $dynamoDb;
 
     /**
      * The table name.
      *
      * @var string
      */
-    protected $table;
+    private $table;
 
     /**
      * The name of the attribute that should hold the key.
      *
      * @var string
      */
-    protected $keyAttribute;
+    private $keyAttribute;
 
     /**
      * The name of the attribute that should hold the value.
      *
      * @var string
      */
-    protected $valueAttribute;
+    private $valueAttribute;
 
     /**
      * The name of the attribute that should hold the expiration timestamp.
      *
      * @var string
      */
-    protected $expirationAttribute;
+    private $expirationAttribute;
 
     /**
      * A string that should be prepended to keys.
      *
      * @var string
      */
-    protected $prefix;
+    private $prefix;
 
     /**
      * Create a new store instance.
@@ -79,7 +79,7 @@ class AsyncAwsDynamoDbStore implements Store
         $prefix = ''
     ) {
         $this->table = $table;
-        $this->dynamo = $dynamo;
+        $this->dynamoDb = $dynamo;
         $this->keyAttribute = $keyAttribute;
         $this->valueAttribute = $valueAttribute;
         $this->expirationAttribute = $expirationAttribute;
@@ -100,7 +100,7 @@ class AsyncAwsDynamoDbStore implements Store
             return $this->many($key);
         }
 
-        $response = $this->dynamo->getItem([
+        $response = $this->dynamoDb->getItem([
             'TableName' => $this->table,
             'ConsistentRead' => false,
             'Key' => [
@@ -157,7 +157,7 @@ class AsyncAwsDynamoDbStore implements Store
      */
     public function put($key, $value, $seconds)
     {
-        $this->dynamo->putItem([
+        $this->dynamoDb->putItem([
             'TableName' => $this->table,
             'Item' => [
                 $this->keyAttribute => [
@@ -204,7 +204,7 @@ class AsyncAwsDynamoDbStore implements Store
     public function add($key, $value, $seconds)
     {
         try {
-            $this->dynamo->putItem([
+            $this->dynamoDb->putItem([
                 'TableName' => $this->table,
                 'Item' => [
                     $this->keyAttribute => [
@@ -251,7 +251,7 @@ class AsyncAwsDynamoDbStore implements Store
     public function increment($key, $value = 1)
     {
         try {
-            $response = $this->dynamo->updateItem([
+            $response = $this->dynamoDb->updateItem([
                 'TableName' => $this->table,
                 'Key' => [
                     $this->keyAttribute => [
@@ -298,7 +298,7 @@ class AsyncAwsDynamoDbStore implements Store
     public function decrement($key, $value = 1)
     {
         try {
-            $response = $this->dynamo->updateItem([
+            $response = $this->dynamoDb->updateItem([
                 'TableName' => $this->table,
                 'Key' => [
                     $this->keyAttribute => [
@@ -356,7 +356,7 @@ class AsyncAwsDynamoDbStore implements Store
      */
     public function forget($key)
     {
-        $this->dynamo->deleteItem([
+        $this->dynamoDb->deleteItem([
             'TableName' => $this->table,
             'Key' => [
                 $this->keyAttribute => [
@@ -409,7 +409,7 @@ class AsyncAwsDynamoDbStore implements Store
      *
      * @return bool
      */
-    protected function isExpired(array $item, $expiration = null)
+    private function isExpired(array $item, $expiration = null)
     {
         $expiration = $expiration ?: Carbon::now();
 
@@ -424,7 +424,7 @@ class AsyncAwsDynamoDbStore implements Store
      *
      * @return int
      */
-    protected function toTimestamp($seconds)
+    private function toTimestamp($seconds)
     {
         return $seconds > 0
                     ? $this->availableAt($seconds)
@@ -438,7 +438,7 @@ class AsyncAwsDynamoDbStore implements Store
      *
      * @return mixed
      */
-    protected function serialize($value)
+    private function serialize($value)
     {
         return is_numeric($value) ? (string) $value : serialize($value);
     }
@@ -450,7 +450,7 @@ class AsyncAwsDynamoDbStore implements Store
      *
      * @return mixed
      */
-    protected function unserialize($value)
+    private function unserialize($value)
     {
         if (false !== filter_var($value, \FILTER_VALIDATE_INT)) {
             return (int) $value;
@@ -470,7 +470,7 @@ class AsyncAwsDynamoDbStore implements Store
      *
      * @return string
      */
-    protected function type($value)
+    private function type($value)
     {
         return is_numeric($value) ? 'N' : 'S';
     }

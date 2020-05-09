@@ -22,7 +22,7 @@ class ServiceProviderTest extends TestCase
 
         self::assertInstanceOf(AsyncAwsDynamoDbStore::class, $store);
         $refl = new \ReflectionClass($store);
-        $property = $refl->getProperty('dynamo');
+        $property = $refl->getProperty('dynamoDb');
         $property->setAccessible(true);
         $client = $property->getValue($store);
 
