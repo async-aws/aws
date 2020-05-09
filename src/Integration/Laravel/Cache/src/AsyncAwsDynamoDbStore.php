@@ -117,8 +117,8 @@ class AsyncAwsDynamoDbStore implements Store
 
         if (isset($item[$this->valueAttribute])) {
             return $this->unserialize(
-                $item[$this->valueAttribute]['S'] ??
-                $item[$this->valueAttribute]['N'] ??
+                $item[$this->valueAttribute]->getS() ??
+                $item[$this->valueAttribute]->getN() ??
                 null
             );
         }
@@ -138,45 +138,8 @@ class AsyncAwsDynamoDbStore implements Store
             $result[$key] = $this->get($key);
         }
 
-        return $result;
-
         // TODO Use BatchWriteItem. Blocked by https://github.com/async-aws/aws/issues/566
-
-        $prefixedKeys = array_map(function ($key) {
-            return $this->prefix . $key;
-        }, $keys);
-
-        $response = $this->dynamo->batchGetItem([
-            'RequestItems' => [
-                $this->table => [
-                    'ConsistentRead' => false,
-                    'Keys' => collect($prefixedKeys)->map(function ($key) {
-                        return [
-                            $this->keyAttribute => [
-                                'S' => $key,
-                            ],
-                        ];
-                    })->all(),
-                ],
-            ],
-        ]);
-
-        $now = Carbon::now();
-
-        return array_merge(collect(array_flip($keys))->map(function () {
-        })->all(), collect($response['Responses'][$this->table])->mapWithKeys(function ($response) use ($now) {
-            if ($this->isExpired($response, $now)) {
-                $value = null;
-            } else {
-                $value = $this->unserialize(
-                    $response[$this->valueAttribute]['S'] ??
-                    $response[$this->valueAttribute]['N'] ??
-                    null
-                );
-            }
-
-            return [Str::replaceFirst($this->prefix, '', $response[$this->keyAttribute]['S']) => $value];
-        })->all());
+        return $result;
     }
 
     /**
@@ -221,33 +184,7 @@ class AsyncAwsDynamoDbStore implements Store
             $this->put($key, $value, $seconds);
         }
 
-        return true;
-
         // TODO Use BatchWriteItem. Blocked by https://github.com/async-aws/aws/issues/566
-        $expiration = $this->toTimestamp($seconds);
-
-        $this->dynamo->batchWriteItem([
-            'RequestItems' => [
-                $this->table => collect($values)->map(function ($value, $key) use ($expiration) {
-                    return [
-                        'PutRequest' => [
-                            'Item' => [
-                                $this->keyAttribute => [
-                                    'S' => $this->prefix . $key,
-                                ],
-                                $this->valueAttribute => [
-                                    $this->type($value) => $this->serialize($value),
-                                ],
-                                $this->expirationAttribute => [
-                                    'N' => (string) $expiration,
-                                ],
-                            ],
-                        ],
-                    ];
-                })->values()->all(),
-            ],
-        ]);
-
         return true;
     }
 
@@ -335,7 +272,7 @@ class AsyncAwsDynamoDbStore implements Store
                 'ReturnValues' => 'UPDATED_NEW',
             ]);
 
-            return (int) $response->getAttributes()[$this->valueAttribute]['N'];
+            return (int) $response->getAttributes()[$this->valueAttribute]->getN();
         } catch (Exception $e) {
             // TODO better validate if it was ConditionalCheckFailed
             if (Str::contains($e->getMessage(), 'ConditionalCheckFailed')) {
@@ -382,7 +319,7 @@ class AsyncAwsDynamoDbStore implements Store
                 'ReturnValues' => 'UPDATED_NEW',
             ]);
 
-            return (int) $response->getAttributes()[$this->valueAttribute]['N'];
+            return (int) $response->getAttributes()[$this->valueAttribute]->getN();
         } catch (Exception $e) {
             // TODO better validate if it was ConditionalCheckFailed
             if (Str::contains($e->getMessage(), 'ConditionalCheckFailed')) {
@@ -473,7 +410,7 @@ class AsyncAwsDynamoDbStore implements Store
         $expiration = $expiration ?: Carbon::now();
 
         return isset($item[$this->expirationAttribute]) &&
-               $expiration->getTimestamp() >= $item[$this->expirationAttribute]['N'];
+               $expiration->getTimestamp() >= $item[$this->expirationAttribute]->getN();
     }
 
     /**
