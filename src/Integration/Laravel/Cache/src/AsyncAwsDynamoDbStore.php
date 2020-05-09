@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Enum\KeyType;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
+use Illuminate\Contracts\Cache\LockProvider;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\InteractsWithTime;
@@ -14,7 +15,7 @@ use Illuminate\Support\Str;
 /**
  * This class is a port from Illuminate\Cache\DynamoDbStore.
  */
-class AsyncAwsDynamoDbStore implements Store
+class AsyncAwsDynamoDbStore implements LockProvider, Store
 {
     use InteractsWithTime;
 
@@ -346,6 +347,33 @@ class AsyncAwsDynamoDbStore implements Store
     public function forever($key, $value)
     {
         return $this->put($key, $value, Carbon::now()->addYears(5)->getTimestamp());
+    }
+
+    /**
+     * Get a lock instance.
+     *
+     * @param string      $name
+     * @param int         $seconds
+     * @param string|null $owner
+     *
+     * @return AsyncAwsDynamoDbLock
+     */
+    public function lock($name, $seconds = 0, $owner = null)
+    {
+        return new AsyncAwsDynamoDbLock($this, $this->prefix . $name, $seconds, $owner);
+    }
+
+    /**
+     * Restore a lock instance using the owner identifier.
+     *
+     * @param string $name
+     * @param string $owner
+     *
+     * @return AsyncAwsDynamoDbLock
+     */
+    public function restoreLock($name, $owner)
+    {
+        return $this->lock($name, 0, $owner);
     }
 
     /**
