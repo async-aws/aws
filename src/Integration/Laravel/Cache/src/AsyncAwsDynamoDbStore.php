@@ -96,7 +96,7 @@ class AsyncAwsDynamoDbStore implements Store
      */
     public function get($key)
     {
-        if (is_array($key)) {
+        if (\is_array($key)) {
             return $this->many($key);
         }
 
