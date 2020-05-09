@@ -4,6 +4,9 @@
     <UndefinedInterfaceMethod occurrences="1">
       <code>$this-&gt;app</code>
     </UndefinedInterfaceMethod>
+    <UndefinedInterfaceMethod occurrences="1">
+      <code>$this-&gt;repository</code>
+    </UndefinedInterfaceMethod>
   </file>
   <file src="src/Integration/Laravel/Filesystem/src/ServiceProvider.php">
     <UndefinedInterfaceMethod occurrences="1">
