@@ -133,7 +133,15 @@ class AsyncAwsDynamoDbStore implements Store
      */
     public function many(array $keys)
     {
-        throw new \LogicException('Not implemented');
+        $result = [];
+        foreach ($keys as $key) {
+            $result[$key] = $this->get($key);
+        }
+
+        return $result;
+
+        // TODO Use BatchWriteItem. Blocked by https://github.com/async-aws/aws/issues/566
+
         $prefixedKeys = array_map(function ($key) {
             return $this->prefix . $key;
         }, $keys);
@@ -209,7 +217,13 @@ class AsyncAwsDynamoDbStore implements Store
      */
     public function putMany(array $values, $seconds)
     {
-        throw new \LogicException('Not implemented');
+        foreach ($values as $key => $value) {
+            $this->put($key, $value, $seconds);
+        }
+
+        return true;
+
+        // TODO Use BatchWriteItem. Blocked by https://github.com/async-aws/aws/issues/566
         $expiration = $this->toTimestamp($seconds);
 
         $this->dynamo->batchWriteItem([

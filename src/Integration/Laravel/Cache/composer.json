@@ -13,11 +13,17 @@
         "php": "^7.2.5",
         "ext-json": "*",
         "async-aws/dynamo-db": "^0.2",
-        "illuminate/cache": "^6.18.13 || ^7.10"
+        "illuminate/cache": "^6.18.13 || ^7.10",
+        "illuminate/support": "^6.18.13 || ^7.10"
     },
     "extra": {
         "branch-alias": {
             "dev-master": "0.1-dev"
+        },
+        "laravel": {
+            "providers": [
+                "AsyncAws\\Illuminate\\Cache\\ServiceProvider"
+            ]
         }
     },
     "autoload": {
