@@ -3,6 +3,7 @@
 namespace AsyncAws\Illuminate\Mail\Transport;
 
 use AsyncAws\Ses\SesClient;
+use AsyncAws\Ses\ValueObject\Destination;
 use AsyncAws\Ses\ValueObject\EmailContent;
 use AsyncAws\Ses\ValueObject\RawMessage;
 use Illuminate\Mail\Transport\Transport;
@@ -51,11 +52,16 @@ class AsyncAwsSesTransport extends Transport
             'Content' => new EmailContent([
                 'Raw' => new RawMessage(['Data' => $message->toString()]),
             ]),
+            'Destination' => new Destination([
+                'ToAddresses' => empty($message->getTo()) ? null : array_keys($message->getTo()),
+                'CcAddresses' => empty($message->getCc()) ? null : array_keys($message->getCc()),
+                'BccAddresses' => empty($message->getBcc()) ? null : array_keys($message->getBcc()),
+            ]),
         ];
 
         $from = $message->getSender() ?: $message->getFrom();
         if (\is_array($from)) {
-            $from = reset($from);
+            $from = key($from);
         }
         if (\is_string($from)) {
             $input['FromEmailAddress'] = $from;

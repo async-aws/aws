@@ -21,14 +21,10 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           coverage: none
-          ini-values: xdebug.overload_var_dump=1
           tools: flex
 
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Initialize tests
-        run: make initialize
 
       - name: Download dependencies
         run: |

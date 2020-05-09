@@ -14,11 +14,20 @@
         "ext-json": "*",
         "async-aws/core": "^1.0",
         "async-aws/flysystem-s3": "^0.3.3",
-        "illuminate/filesystem": "^6.18.13 || ^7.10"
+        "illuminate/filesystem": "^6.18.13 || ^7.10",
+        "illuminate/support": "^6.18.13 || ^7.10"
+    },
+    "conflict": {
+        "league/flysystem": ">=2.0.0"
     },
     "extra": {
         "branch-alias": {
             "dev-master": "0.1-dev"
+        },
+        "laravel": {
+            "providers": [
+                "AsyncAws\\Illuminate\\Filesystem\\ServiceProvider"
+            ]
         }
     },
     "autoload": {
