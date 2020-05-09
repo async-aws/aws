@@ -4,9 +4,10 @@
     <UndefinedInterfaceMethod occurrences="1">
       <code>$this-&gt;app</code>
     </UndefinedInterfaceMethod>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>$this-&gt;repository</code>
-    </UndefinedInterfaceMethod>
+    <UndefinedMethod occurrences="2">
+      <code>getPrefix</code>
+      <code>repository</code>
+    </UndefinedMethod>
   </file>
   <file src="src/Integration/Laravel/Filesystem/src/ServiceProvider.php">
     <UndefinedInterfaceMethod occurrences="1">
