@@ -25,7 +25,7 @@ class AsyncAwsFilesystemManager extends FilesystemManager
         }
 
         if (!empty($config['endpoint'])) {
-            $clientConfig['endpoint'] = $config['endpoint'];
+            $s3Config['endpoint'] = $config['endpoint'];
         }
 
         $root = $config['root'] ?? '';
