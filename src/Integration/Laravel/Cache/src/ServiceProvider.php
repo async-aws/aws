@@ -48,7 +48,7 @@ class ServiceProvider extends AbstractServiceProvider
                 $config['attributes']['key'] ?? 'key',
                 $config['attributes']['value'] ?? 'value',
                 $config['attributes']['expiration'] ?? 'expires_at',
-                $config['prefix']
+                $config['prefix'] ?? ''
             );
 
             return $store;
