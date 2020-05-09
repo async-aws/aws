@@ -17,6 +17,7 @@ class ServiceProvider extends AbstractServiceProvider
 
         $closure = $this->getClosure();
         $manager->extend('async-aws-dynamodb', function ($app, array $config) use ($closure) {
+            /** @phpstan-ignore-next-line */
             return $this->repository($closure($app, $config));
         });
     }
