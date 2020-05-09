@@ -7,6 +7,7 @@ namespace AsyncAws\Illuminate\Queue\Tests\Unit;
 use AsyncAws\Core\Test\ResultMockFactory;
 use AsyncAws\Illuminate\Queue\AsyncAwsSqsQueue;
 use AsyncAws\Illuminate\Queue\Job\AsyncAwsSqsJob;
+use AsyncAws\Illuminate\Queue\Tests\Resource\CreateUser;
 use AsyncAws\Sqs\Enum\MessageSystemAttributeName;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
 use AsyncAws\Sqs\Result\GetQueueAttributesResult;
@@ -53,6 +54,48 @@ class AsyncAwsSqsQueueTest extends TestCase
 
         $queue = new AsyncAwsSqsQueue($sqs, $this->queue);
         self::assertEquals(4, $queue->size());
+    }
+
+    public function testPush()
+    {
+        $result = ResultMockFactory::create(SendMessageResult::class, [
+            'MessageId' => 'my-id',
+        ]);
+
+        $sqs = $this->getMockBuilder(SqsClient::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['sendMessage'])
+            ->getMock();
+
+        $sqs->expects(self::once())
+            ->method('sendMessage')
+            ->with(self::callback(function (array $input) {
+                if ($input['QueueUrl'] !== $this->queue) {
+                    return false;
+                }
+
+                if (!isset($input['MessageBody'])) {
+                    return false;
+                }
+
+                // verify that body is serialized.
+                $body = json_decode($input['MessageBody'], true);
+                $this->assertArrayHasKey('uuid', $body);
+                $this->assertArrayHasKey('displayName', $body);
+                $this->assertArrayHasKey('job', $body);
+                $this->assertArrayHasKey('data', $body);
+
+                if (CreateUser::class !== $body['displayName']) {
+                    return false;
+                }
+
+                return true;
+            }))
+            ->willReturn($result);
+
+        $queue = new AsyncAwsSqsQueue($sqs, $this->queue);
+        $output = $queue->push(new CreateUser('Alic', 'alice@example.com'));
+        self::assertEquals('my-id', $output);
     }
 
     public function testPushRaw()
@@ -130,7 +173,7 @@ class AsyncAwsSqsQueueTest extends TestCase
     public function testPop()
     {
         $data = [
-            'Body' => 'super raw body',
+            'Body' => '{"uuid":"401eddde-fd9e-4dcd-83f3-d1ffe2ec4259","displayName":"AsyncAws\\\Illuminate\\\Queue\\\Tests\\\Resource\\\CreateUser","job":"Illuminate\\\Queue\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"delay":null,"timeout":null,"timeoutAt":null,"data":{"commandName":"AsyncAws\\\Illuminate\\\Queue\\\Tests\\\Resource\\\CreateUser","command":"O:51:\"AsyncAws\\\Illuminate\\\Queue\\\Tests\\\Resource\\\CreateUser\":2:{s:57:\"\u0000AsyncAws\\\Illuminate\\\Queue\\\Tests\\\Resource\\\CreateUser\u0000name\";s:4:\"Alic\";s:58:\"\u0000AsyncAws\\\Illuminate\\\Queue\\\Tests\\\Resource\\\CreateUser\u0000email\";s:17:\"alice@example.com\";}"}}',
             'MessageId' => 'message-id-example',
             'Attributes' => ['ApproximateReceiveCount' => '3'],
             'ReceiptHandle' => '123',
