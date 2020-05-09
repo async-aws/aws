@@ -28,6 +28,10 @@ class ServiceProvider extends AbstractServiceProvider
             $clientConfig['sessionToken'] = $config['token'] ?? null;
         }
 
+        if (!empty($config['region'])) {
+            $clientConfig['region'] = $config['region'];
+        }
+
         $sesClient = new SesClient($clientConfig);
 
         return new AsyncAwsSesTransport($sesClient, $config);

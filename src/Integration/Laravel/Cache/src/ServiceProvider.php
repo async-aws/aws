@@ -42,6 +42,14 @@ class ServiceProvider extends AbstractServiceProvider
                 $clientConfig['sessionToken'] = $config['token'] ?? null;
             }
 
+            if (!empty($config['endpoint'])) {
+                $clientConfig['endpoint'] = $config['endpoint'];
+            }
+
+            if (!empty($config['region'])) {
+                $clientConfig['region'] = $config['region'];
+            }
+
             $sesClient = new DynamoDbClient($clientConfig);
             $store = new AsyncAwsDynamoDbStore(
                 $sesClient, $config['table'],

@@ -24,6 +24,10 @@ class AsyncAwsFilesystemManager extends FilesystemManager
             $s3Config['sessionToken'] = $config['token'] ?? null;
         }
 
+        if (!empty($config['endpoint'])) {
+            $clientConfig['endpoint'] = $config['endpoint'];
+        }
+
         $root = $config['root'] ?? '';
         $options = $config['options'] ?? [];
 

@@ -6,7 +6,7 @@ category: integration
 
 The AsyncAws integrations for Laravel are similar to the integrations for the
 official AWS SDK. The sections below describe how you can install and configure
-Cache, Filesystem, Queue and Mail.
+Cache, Filesystem, Mail and Queue.
 
 ## Illuminate Cache
 
@@ -16,7 +16,7 @@ Cache, Filesystem, Queue and Mail.
 composer require async-aws/illuminate-cache
 ```
 
-You also need to create a DynamoDb table with `Partition key: key`. Using a different
+You also need to create a DynamoDb table with `Partition key: "key"`. Using a different
 partition key will not work.
 
 ### Configure
@@ -55,8 +55,28 @@ composer require async-aws/illuminate-filesystem
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION'),
         'bucket' => env('AWS_BUCKET'),
-        'url' => env('AWS_URL'),
         'endpoint' => env('AWS_ENDPOINT'),
+    ],
+```
+
+## Illuminate Mail
+
+### Install
+
+```shell
+composer require async-aws/illuminate-mail
+```
+
+### Configure
+
+```diff
+# config/mail.php
+
+    'ses' => [
+-       'driver' => 'ses',
++       'driver' => 'async-aws-ses',
+        'key' => env('AWS_ACCESS_KEY_ID'),
+        'secret' => env('AWS_SECRET_ACCESS_KEY'),
     ],
 ```
 
@@ -84,25 +104,3 @@ composer require async-aws/illuminate-queue
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 ```
-
-## Illuminate Mail
-
-### Install
-
-```shell
-composer require async-aws/illuminate-mail
-```
-
-### Configure
-
-```diff
-# config/mail.php
-
-    'ses' => [
--       'driver' => 'ses',
-+       'driver' => 'async-aws-ses',
-        'key' => env('AWS_ACCESS_KEY_ID'),
-        'secret' => env('AWS_SECRET_ACCESS_KEY'),
-    ],
-```
-

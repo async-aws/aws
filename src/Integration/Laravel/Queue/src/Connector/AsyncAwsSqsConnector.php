@@ -24,6 +24,10 @@ class AsyncAwsSqsConnector implements ConnectorInterface
             $clientConfig['sessionToken'] = $config['token'] ?? null;
         }
 
+        if (!empty($config['region'])) {
+            $clientConfig['region'] = $config['region'];
+        }
+
         return new AsyncAwsSqsQueue(
             new SqsClient($clientConfig, null, HttpClient::create(['timeout' => 30])),
             $config['queue'],
