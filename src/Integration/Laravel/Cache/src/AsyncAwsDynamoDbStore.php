@@ -4,6 +4,8 @@ namespace AsyncAws\Illuminate\Cache;
 
 use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\DynamoDb\DynamoDbClient;
+use AsyncAws\DynamoDb\Enum\KeyType;
+use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\InteractsWithTime;
@@ -377,7 +379,35 @@ class AsyncAwsDynamoDbStore implements Store
      */
     public function flush()
     {
-        throw new RuntimeException('DynamoDb does not support flushing an entire table. Please create a new table.');
+        try {
+            // Delete the table
+            $this->dynamoDb->deleteTable(['TableName' => $this->table]);
+        } catch (HttpException $e) {
+            if ($e->getCode() !== 404) {
+                // Any error but "table not found"
+                throw new \RuntimeException('Could not flush DynamoDb cache. Table could not be deleted.', $e->getCode(), $e);
+            }
+        }
+
+        // Wait until table is removed
+        if (!$this->dynamoDb->tableNotExists(['TableName'=>$this->table])->isSuccess()) {
+            throw new \RuntimeException('Could not flush DynamoDb cache. Table could not be deleted.');
+        }
+
+        // Create a new table
+        $this->dynamoDb->createTable([
+            'TableName'=> $this->table,
+            'KeySchema' => [
+                new KeySchemaElement(['AttributeName' => 'key', 'KeyType' => KeyType::HASH]),
+            ],
+        ]);
+
+        // Wait until table is created
+        if (!$this->dynamoDb->tableExists(['TableName'=>$this->table])->isSuccess()) {
+            throw new \RuntimeException('Could not flush DynamoDb cache. Table could not be created.');
+        }
+
+        return true;
     }
 
     /**
