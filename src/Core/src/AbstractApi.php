@@ -164,7 +164,7 @@ abstract class AbstractApi
             if (null === $region && !$this->configuration->isDefault('region')) {
                 $region = $this->configuration->get('region');
             }
-            $endpoint = $this->getEndpointPattern($region) . $uri;
+            $endpoint = $this->getEndpointPattern($region);
         }
 
         /** @psalm-suppress PossiblyNullArgument */
