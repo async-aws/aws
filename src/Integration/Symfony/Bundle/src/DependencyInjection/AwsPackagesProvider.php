@@ -29,6 +29,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\DynamoDb\DynamoDbClient::class,
                 'package' => 'async-aws/dynamo-db',
             ],
+            'event_bridge' => [
+                'class' => \AsyncAws\EventBridge\EventBridgeClient::class,
+                'package' => 'async-aws/event-bridge',
+            ],
             'lambda' => [
                 'class' => \AsyncAws\Lambda\LambdaClient::class,
                 'package' => 'async-aws/lambda',
