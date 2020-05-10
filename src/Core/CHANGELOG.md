@@ -6,6 +6,7 @@
 
 - Support for EventBridge in `AwsClientFactory`
 - Support for IAM in `AwsClientFactory`
+- Add a `PersistingCacheProvider` and enable it by default for `InstanceProvider` and `ContainerProvider`.
 
 ## 1.1.0
 
