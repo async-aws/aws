@@ -33,6 +33,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\EventBridge\EventBridgeClient::class,
                 'package' => 'async-aws/event-bridge',
             ],
+            'iam' => [
+                'class' => \AsyncAws\Iam\IamClient::class,
+                'package' => 'async-aws/iam',
+            ],
             'lambda' => [
                 'class' => \AsyncAws\Lambda\LambdaClient::class,
                 'package' => 'async-aws/lambda',

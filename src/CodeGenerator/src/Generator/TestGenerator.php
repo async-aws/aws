@@ -104,7 +104,7 @@ class TestGenerator
 
                 break;
             case 'query':
-                $stub = substr(var_export($exampleInput ? $exampleInput : "
+                $stub = substr(var_export($exampleInput ? (\is_array($exampleInput) ? \http_build_query($exampleInput, '', '&', \PHP_QUERY_RFC1738) : $exampleInput) : "
     Action={$operation->getName()}
     &Version={$operation->getApiVersion()}
 ", true), 1, -1);
@@ -124,10 +124,10 @@ class TestGenerator
 
         ' . $comment . '
         $expected = \'
-            METHOD / HTTP/1.0
-            Content-Type: CONTENT_TYPE
+    METHOD / HTTP/1.0
+    Content-Type: CONTENT_TYPE
 
-            STUB
+    STUB
         \';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
@@ -147,6 +147,8 @@ class TestGenerator
     private function generateResult(Operation $operation, StructureShape $shape)
     {
         $className = $this->namespaceRegistry->getResultUnitTest($shape);
+        $clientClass = $this->namespaceRegistry->getClient($operation->getService());
+        $inputClass = $this->namespaceRegistry->getInput($operation->getInput());
         $resultClass = $this->namespaceRegistry->getResult($shape);
         $methodName = 'test' . $shape->getName();
 
@@ -164,6 +166,8 @@ class TestGenerator
 
         $class->setExtends([TestCase::class]);
         $namespace->addUse(TestCase::class);
+        $namespace->addUse($clientClass->getFqdn());
+        $namespace->addUse($inputClass->getFqdn());
         $namespace->addUse($resultClass->getFqdn());
         $namespace->addUse(SimpleMockedResponse::class);
         $namespace->addUse(MockHttpClient::class);
@@ -185,6 +189,11 @@ class TestGenerator
                 throw new \InvalidArgumentException(sprintf('unexpected protocol "%s".', $operation->getService()->getProtocol()));
         }
 
+        if (null !== $operation->getPagination()) {
+            $resultConstruct = '$result = new RESULT_CLASS(new Response($client->request(\'POST\', \'http://localhost\'), $client, new NullLogger()), new CLIENT_CLASS(), new INPUT_CLASS([]));';
+        } else {
+            $resultConstruct = '$result = new RESULT_CLASS(new Response($client->request(\'POST\', \'http://localhost\'), $client, new NullLogger()));';
+        }
         $class->addMethod($methodName)
             ->setReturnType('void')
             ->setBody(strtr('
@@ -194,12 +203,14 @@ class TestGenerator
                 STUB
 
                 $client = new MockHttpClient($response);
-                $result = new INPUT_CLASS(new Response($client->request(\'POST\', \'http://localhost\'), $client, new NullLogger()));
+                ' . $resultConstruct . '
 
                 ASSERT
             ', [
                 'MARKER' => self::MARKER,
-                'INPUT_CLASS' => $resultClass->getName(),
+                'RESULT_CLASS' => $resultClass->getName(),
+                'INPUT_CLASS' => $inputClass->getName(),
+                'CLIENT_CLASS' => $clientClass->getName(),
                 'SERVICE' => \strtolower($operation->getService()->getName()),
                 'OPERATION' => $operation->getName(),
                 'STUB' => $stub,
@@ -431,13 +442,13 @@ class TestGenerator
                     if (!is_numeric($key)) {
                         $f($element->addChild($key), $value);
                     } else {
-                        $f($element->addChild("key_$key"), $value);
+                        $f($element->addChild('member'), $value);
                     }
                 } else {
                     if (!is_numeric($key)) {
                         $element->addChild($key, (string) $value);
                     } else {
-                        $element->addChild("key_$key", $value);
+                        $element->addChild('member', $value);
                     }
                 }
             }

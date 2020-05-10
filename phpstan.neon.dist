@@ -1,6 +1,3 @@
-includes:
-    - phpstan-baseline.neon
-
 parameters:
     level: 5
     paths:
@@ -21,4 +18,4 @@ parameters:
         - '#Ternary operator condition is always true\.#'
         - '#Negated boolean expression is always false\.#'
         - '#^PHPDoc tag @param has invalid value#'
-        - '#^Parameter \#1 \$input of class AsyncAws\\[^\\]+\\ValueObject\\[^ ]+ constructor expects array\([^\)]+\), array\([^\)]+\) given\.#'
+        - '#^Parameter \#1 \$input of class AsyncAws\\[^\\]+\\ValueObject\\[^ ]+ constructor expects (array\(\)\|)?array\([^\)]+\), array\([^\)]+\) given\.#'

@@ -65,6 +65,20 @@
                 "PutEvents"
             ]
         },
+        "Iam": {
+            "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/iam\/2010-05-08\/api-2.json",
+            "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/iam\/2010-05-08\/docs-2.json",
+            "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/iam\/2010-05-08\/paginators-1.json",
+            "waiter": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/iam\/2010-05-08\/waiters-2.json",
+            "example": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/iam\/2010-05-08\/examples-1.json",
+            "methods": [
+                "CreateUser",
+                "DeleteUser",
+                "GetUser",
+                "ListUsers",
+                "UpdateUser"
+            ]
+        },
         "Lambda": {
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/lambda\/2015-03-31\/api-2.json",
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/lambda\/2015-03-31\/docs-2.json",

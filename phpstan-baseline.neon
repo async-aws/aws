@@ -1,7 +1,0 @@
-parameters:
-	ignoreErrors:
-		-
-			message: "#^Parameter \\#1 \\$input of class AsyncAws\\\\Ses\\\\ValueObject\\\\EmailContent constructor expects array\\(\\)\\|array\\('Simple' \\=\\> array\\|AsyncAws\\\\Ses\\\\ValueObject\\\\Message\\|null, 'Raw' \\=\\> array\\|AsyncAws\\\\Ses\\\\ValueObject\\\\RawMessage\\|null, 'Template' \\=\\> array\\|AsyncAws\\\\Ses\\\\ValueObject\\\\Template\\|null\\), array\\('Raw' \\=\\> AsyncAws\\\\Ses\\\\ValueObject\\\\RawMessage\\) given\\.$#"
-			count: 1
-			path: src/Integration/Laravel/Mail/src/Transport/AsyncAwsSesTransport.php
-

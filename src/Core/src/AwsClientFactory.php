@@ -21,6 +21,7 @@ use AsyncAws\Core\Exception\MissingDependency;
 use AsyncAws\Core\Sts\StsClient;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\EventBridge\EventBridgeClient;
+use AsyncAws\Iam\IamClient;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\S3\S3Client;
 use AsyncAws\Ses\SesClient;
@@ -147,6 +148,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new EventBridgeClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function iam(): IamClient
+    {
+        if (!class_exists(IamClient::class)) {
+            throw MissingDependency::create('async-aws/iam', 'DynamoDb');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new IamClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];
