@@ -65,98 +65,140 @@ class GenerateCommand extends Command
         /** @var ConsoleOutputInterface $output */
         $io = new SymfonyStyle($input, $output);
 
-        $progressService = (new SymfonyStyle($input, $output->section()))->createProgressBar();
-        $progressService->setFormat(' [%bar%] %message%');
-        $progressService->setMessage('Service');
-
-        $progressOperation = (new SymfonyStyle($input, $output->section()))->createProgressBar();
-        $progressOperation->setFormat(' [%bar%] %message%');
-        $progressOperation->setMessage('Operation');
-
+        /** @var ConsoleOutputInterface $output */
         $manifest = $this->loadManifest();
         $serviceNames = $this->getServiceNames($input->getArgument('service'), $input->getOption('all'), $io, $manifest['services']);
         if (\is_int($serviceNames)) {
             return $serviceNames;
         }
 
-        $drawProgressService = \count($serviceNames) > 1;
-        $drawProgressService and $progressService->start(\count($serviceNames));
-        $operationCounter = 0;
-        foreach ($serviceNames as $serviceName) {
-            if ($drawProgressService) {
-                $progressService->setMessage($serviceName);
-                $progressService->advance();
-                $progressService->display();
-            }
+        if (\count($serviceNames) > 1 && $input->getOption('all') && \extension_loaded('pcntl')) {
+            $manifest = $this->generateServicesParallel($io, $input, $output, $manifest, $serviceNames);
+        } else {
+            $manifest = $this->generateServicesSequential($io, $input, $output, $manifest, $serviceNames);
+        }
 
-            $definitionArray = $this->loadFile($manifest['services'][$serviceName]['source'], "$serviceName-source");
-            $documentationArray = $this->loadFile($manifest['services'][$serviceName]['documentation'], "$serviceName-documentation");
-            $paginationArray = $this->loadFile($manifest['services'][$serviceName]['pagination'], "$serviceName-pagination");
-            $waiterArray = isset($manifest['services'][$serviceName]['waiter']) ? $this->loadFile($manifest['services'][$serviceName]['waiter'], "$serviceName-waiter") : ['waiters' => []];
-            $exampleArray = isset($manifest['services'][$serviceName]['example']) ? $this->loadFile($manifest['services'][$serviceName]['example'], "$serviceName-example") : ['examples' => []];
-            if (\count($serviceNames) > 1) {
-                $operationNames = $this->getOperationNames(null, true, $io, $definitionArray, $waiterArray, $manifest['services'][$serviceName]);
-            } else {
-                $operationNames = $this->getOperationNames($input->getArgument('operation'), $input->getOption('all'), $io, $definitionArray, $waiterArray, $manifest['services'][$serviceName]);
-            }
-            if (\is_int($operationNames)) {
-                return $operationNames;
-            }
-
-            $progressOperation->start(\count($operationNames));
-
-            $managedOperations = \array_unique(\array_merge($manifest['services'][$serviceName]['methods'], $operationNames));
-            $definition = new ServiceDefinition($serviceName, $definitionArray, $documentationArray, $paginationArray, $waiterArray, $exampleArray);
-            $serviceGenerator = $this->generator->service($manifest['services'][$serviceName]['namespace'] ?? \sprintf('AsyncAws\\%s', $serviceName), $managedOperations);
-
-            $clientClass = $serviceGenerator->client()->generate($definition);
-
-            foreach ($operationNames as $operationName) {
-                $progressOperation->setMessage($operationName);
-                $progressOperation->advance();
-                $progressOperation->display();
-
-                if (null !== $operation = $definition->getOperation($operationName)) {
-                    $serviceGenerator->operation()->generate($operation);
-                } elseif (null !== $waiter = $definition->getWaiter($operationName)) {
-                    $serviceGenerator->waiter()->generate($waiter);
-                } else {
-                    $io->error(\sprintf('Could not find service or waiter named "%s".', $operationName));
-
-                    return 1;
-                }
-
-                // Update manifest file
-                if (!\in_array($operationName, $manifest['services'][$serviceName]['methods'])) {
-                    $manifest['services'][$serviceName]['methods'][] = $operationName;
-                    sort($manifest['services'][$serviceName]['methods']);
-                }
-
-                ++$operationCounter;
-            }
-
-            if (!$input->getOption('raw')) {
-                $progressOperation->setMessage('Fixing CS');
-                $progressOperation->display();
-                $this->fixCS($clientClass, $io);
-            }
-
-            $progressOperation->finish();
+        if (\is_int($manifest)) {
+            return $manifest;
         }
 
         $this->dumpManifest($manifest);
-
-        if ($drawProgressService) {
-            $progressService->finish();
-        }
-
-        if ($operationCounter > 1) {
-            $io->success($operationCounter . ' operations generated');
-        } else {
-            $io->success('Operation generated');
-        }
+        $io->success('Operations generated');
 
         return 0;
+    }
+
+    private function generateServicesParallel(SymfonyStyle $io, InputInterface $input, ConsoleOutputInterface $output, array $manifest, array $serviceNames)
+    {
+        $progress = (new SymfonyStyle($input, $output->section()))->createProgressBar();
+        $progress->setFormat(' [%bar%] %message%');
+        $progress->setMessage('...');
+        $progress->start(\count($serviceNames));
+
+        $pids = [];
+        foreach ($serviceNames as $serviceName) {
+            $pid = \pcntl_fork();
+            if (-1 == $pid) {
+                throw new \RuntimeException('Failed to fork');
+            }
+            if (!$pid) {
+                $code = $this->generateService($io, $input, $manifest, $serviceName);
+                if (\is_int($code)) {
+                    die($code);
+                }
+                die(0);
+            }
+
+            $pids[$pid] = $serviceName;
+        }
+
+        while (\count($pids) > 0) {
+            $pid = \pcntl_wait($status);
+            if (0 !== $status) {
+                return $status;
+            }
+
+            $progress->setMessage($pids[$pid]);
+            $progress->advance();
+            $progress->display();
+            unset($pids[$pid]);
+        }
+        $progress->finish();
+
+        return $manifest;
+    }
+
+    private function generateServicesSequential(SymfonyStyle $io, InputInterface $input, ConsoleOutputInterface $output, array $manifest, array $serviceNames)
+    {
+        if (\count($serviceNames) > 1) {
+            $progress = (new SymfonyStyle($input, $output->section()))->createProgressBar();
+            $progress->setFormat(' [%bar%] %message%');
+            $progress->setMessage('...');
+            $progress->start(\count($serviceNames));
+        }
+
+        foreach ($serviceNames as $serviceName) {
+            $manifest = $this->generateService($io, $input, $manifest, $serviceName);
+            if (\is_int($manifest)) {
+                return $manifest;
+            }
+
+            if (isset($progress)) {
+                $progress->setMessage($serviceName);
+                $progress->advance();
+                $progress->display();
+            }
+        }
+
+        if (isset($progress)) {
+            $progress->finish();
+        }
+
+        return $manifest;
+    }
+
+    private function generateService(SymfonyStyle $io, InputInterface $input, array $manifest, string $serviceName)
+    {
+        $definitionArray = $this->loadFile($manifest['services'][$serviceName]['source'], "$serviceName-source");
+        $documentationArray = $this->loadFile($manifest['services'][$serviceName]['documentation'], "$serviceName-documentation");
+        $paginationArray = $this->loadFile($manifest['services'][$serviceName]['pagination'], "$serviceName-pagination");
+        $waiterArray = isset($manifest['services'][$serviceName]['waiter']) ? $this->loadFile($manifest['services'][$serviceName]['waiter'], "$serviceName-waiter") : ['waiters' => []];
+        $exampleArray = isset($manifest['services'][$serviceName]['example']) ? $this->loadFile($manifest['services'][$serviceName]['example'], "$serviceName-example") : ['examples' => []];
+
+        $operationNames = $this->getOperationNames($input->getArgument('operation'), $input->getOption('all'), $io, $definitionArray, $waiterArray, $manifest['services'][$serviceName]);
+        if (\is_int($operationNames)) {
+            return $operationNames;
+        }
+
+        $managedOperations = \array_unique(\array_merge($manifest['services'][$serviceName]['methods'], $operationNames));
+        $definition = new ServiceDefinition($serviceName, $definitionArray, $documentationArray, $paginationArray, $waiterArray, $exampleArray);
+        $serviceGenerator = $this->generator->service($manifest['services'][$serviceName]['namespace'] ?? \sprintf('AsyncAws\\%s', $serviceName), $managedOperations);
+
+        $clientClass = $serviceGenerator->client()->generate($definition);
+
+        foreach ($operationNames as $operationName) {
+            if (null !== $operation = $definition->getOperation($operationName)) {
+                $serviceGenerator->operation()->generate($operation);
+            } elseif (null !== $waiter = $definition->getWaiter($operationName)) {
+                $serviceGenerator->waiter()->generate($waiter);
+            } else {
+                $io->error(\sprintf('Could not find service or waiter named "%s".', $operationName));
+
+                return 1;
+            }
+
+            // Update manifest file
+            if (!\in_array($operationName, $manifest['services'][$serviceName]['methods'])) {
+                $manifest['services'][$serviceName]['methods'][] = $operationName;
+                sort($manifest['services'][$serviceName]['methods']);
+            }
+        }
+
+        if (!$input->getOption('raw')) {
+            $this->fixCS($clientClass, $io);
+        }
+
+        return $manifest;
     }
 
     /**
