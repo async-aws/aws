@@ -12,7 +12,7 @@ class PutEventsRequestTest extends TestCase
     {
         $input = new PutEventsRequest([
             'Entries' => [new PutEventsRequestEntry([
-                'Time' => new \DateTimeImmutable('2020-05-10 12:14:00'),
+                'Time' => new \DateTimeImmutable('2020-05-10 12:14:00', new \DateTimeZone('UTC')),
                 'Source' => 'com.mycompany.myapp',
                 'Resources' => ['resource1', 'resource2'],
                 'DetailType' => 'myDetailType',
