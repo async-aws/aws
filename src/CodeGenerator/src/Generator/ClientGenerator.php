@@ -52,6 +52,16 @@ class ClientGenerator
                 ->setVisibility(ClassType::VISIBILITY_PROTECTED)
                 ->setBody("return '$prefix';");
         }
+        if (null !== $endpoint = $definition->getGlobalEndpoint()) {
+            $class->addMethod('getEndpointPattern')
+                ->setReturnType('string')
+                ->setVisibility(ClassType::VISIBILITY_PROTECTED)
+                ->setBody("return \$region ? parent::getEndpointPattern(\$region) : 'https://$endpoint';")
+                ->addParameter('region')
+                    ->setType('string')
+                    ->setNullable(true)
+            ;
+        }
         if (null !== $signatureVersion = $definition->getSignatureVersion()) {
             $class->addMethod('getSignatureVersion')
                 ->setReturnType('string')

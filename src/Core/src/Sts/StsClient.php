@@ -89,6 +89,11 @@ class StsClient extends AbstractApi
         return new GetCallerIdentityResponse($response);
     }
 
+    protected function getEndpointPattern(?string $region): string
+    {
+        return $region ? parent::getEndpointPattern($region) : 'https://sts.amazonaws.com';
+    }
+
     protected function getServiceCode(): string
     {
         return 'sts';
