@@ -143,6 +143,11 @@ abstract class AbstractApi
         ];
     }
 
+    protected function getEndpointPattern(?string $region): string
+    {
+        return $this->configuration->get('endpoint');
+    }
+
     /**
      * Fallback function for getting the endpoint. This could be overridden by any APIClient.
      *
@@ -151,12 +156,21 @@ abstract class AbstractApi
      */
     private function getEndpoint(string $uri, array $query, ?string $region): string
     {
+        if (!$this->configuration->isDefault('endpoint')) {
+            $endpoint = $this->configuration->get('endpoint');
+        } else {
+            if (null === $region && !$this->configuration->isDefault('region')) {
+                $region = $this->configuration->get('region');
+            }
+            $endpoint = $this->getEndpointPattern($region) . $uri;
+        }
+
         /** @psalm-suppress PossiblyNullArgument */
-        $endpoint = strtr($this->configuration->get('endpoint'), [
+        $endpoint = strtr($endpoint, [
             '%region%' => $region ?? $this->configuration->get('region'),
             '%service%' => $this->getServiceCode(),
         ]);
-        $endpoint .= $uri;
+
         if (empty($query)) {
             return $endpoint;
         }

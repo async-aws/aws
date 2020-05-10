@@ -85,6 +85,11 @@ class ServiceDefinition
         return $this->definition['metadata']['endpointPrefix'];
     }
 
+    public function getGlobalEndpoint(): ?string
+    {
+        return $this->definition['metadata']['globalEndpoint'] ?? null;
+    }
+
     public function getTargetPrefix(): string
     {
         return $this->definition['metadata']['targetPrefix'];

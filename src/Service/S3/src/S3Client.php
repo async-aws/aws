@@ -651,6 +651,11 @@ class S3Client extends AbstractApi
         return new UploadPartOutput($response);
     }
 
+    protected function getEndpointPattern(?string $region): string
+    {
+        return $region ? parent::getEndpointPattern($region) : 'https://s3.amazonaws.com';
+    }
+
     protected function getServiceCode(): string
     {
         return 's3';
