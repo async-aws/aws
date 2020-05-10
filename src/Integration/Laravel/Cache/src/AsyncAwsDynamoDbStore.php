@@ -5,6 +5,7 @@ namespace AsyncAws\Illuminate\Cache;
 use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Enum\KeyType;
+use AsyncAws\DynamoDb\Result\TableNotExistsWaiter;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Carbon;
@@ -391,7 +392,7 @@ class AsyncAwsDynamoDbStore implements Store
 
         // Wait until table is removed
         $response = $this->dynamoDb->tableNotExists(['TableName' => $this->table]);
-        $response->wait();
+        $response->wait(100, 3);
         if (!$response->isSuccess()) {
             throw new \RuntimeException('Could not flush DynamoDb cache. Table could not be deleted.');
         }
@@ -406,7 +407,7 @@ class AsyncAwsDynamoDbStore implements Store
 
         // Wait until table is created
         $response = $this->dynamoDb->tableExists(['TableName' => $this->table]);
-        $response->wait();
+        $response->wait(100, 3);
         if (!$response->isSuccess()) {
             throw new \RuntimeException('Could not flush DynamoDb cache. Table could not be created.');
         }
