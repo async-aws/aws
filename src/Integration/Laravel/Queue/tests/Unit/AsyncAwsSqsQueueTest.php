@@ -8,7 +8,6 @@ use AsyncAws\Core\Test\ResultMockFactory;
 use AsyncAws\Illuminate\Queue\AsyncAwsSqsQueue;
 use AsyncAws\Illuminate\Queue\Job\AsyncAwsSqsJob;
 use AsyncAws\Illuminate\Queue\Tests\Resource\CreateUser;
-use AsyncAws\Sqs\Enum\MessageSystemAttributeName;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
 use AsyncAws\Sqs\Result\GetQueueAttributesResult;
 use AsyncAws\Sqs\Result\ReceiveMessageResult;
