@@ -5,7 +5,6 @@ namespace AsyncAws\Illuminate\Cache;
 use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Enum\KeyType;
-use AsyncAws\DynamoDb\Result\TableNotExistsWaiter;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Carbon;
