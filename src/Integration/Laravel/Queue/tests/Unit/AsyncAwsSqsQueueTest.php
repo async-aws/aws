@@ -199,7 +199,7 @@ class AsyncAwsSqsQueueTest extends TestCase
                     return false;
                 }
 
-                if ([MessageSystemAttributeName::APPROXIMATE_RECEIVE_COUNT] !== $input['AttributeNames']) {
+                if (['All'] !== $input['AttributeNames']) {
                     return false;
                 }
 
