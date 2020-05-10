@@ -18,8 +18,6 @@ use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
-use AsyncAws\Ssm\Input\GetParametersByPathRequest;
-use AsyncAws\Ssm\SsmClient;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
@@ -444,13 +442,13 @@ class TestGenerator
                     if (!is_numeric($key)) {
                         $f($element->addChild($key), $value);
                     } else {
-                        $f($element->addChild("member"), $value);
+                        $f($element->addChild('member'), $value);
                     }
                 } else {
                     if (!is_numeric($key)) {
                         $element->addChild($key, (string) $value);
                     } else {
-                        $element->addChild("member", $value);
+                        $element->addChild('member', $value);
                     }
                 }
             }

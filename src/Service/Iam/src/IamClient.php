@@ -120,6 +120,11 @@ class IamClient extends AbstractApi
         return new Result($response);
     }
 
+    protected function getEndpointPattern(?string $region): string
+    {
+        return $region ? parent::getEndpointPattern($region) : 'https://iam.amazonaws.com';
+    }
+
     protected function getServiceCode(): string
     {
         return 'iam';
