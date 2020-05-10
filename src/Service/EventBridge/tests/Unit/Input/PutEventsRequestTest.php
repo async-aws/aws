@@ -10,6 +10,7 @@ class PutEventsRequestTest extends TestCase
 {
     public function testRequest(): void
     {
+        \date_default_timezone_set('UTC');
         $input = new PutEventsRequest([
             'Entries' => [new PutEventsRequestEntry([
                 'Time' => new \DateTimeImmutable('2020-05-10 12:14:00'),

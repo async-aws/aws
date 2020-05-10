@@ -171,6 +171,7 @@ abstract class AbstractApi
             '%service%' => $this->getServiceCode(),
         ]);
 
+        $endpoint .= $uri;
         if (empty($query)) {
             return $endpoint;
         }
