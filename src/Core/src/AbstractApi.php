@@ -143,7 +143,9 @@ abstract class AbstractApi
         ];
     }
 
-    /** @psalm-suppress InvalidNullableReturnType */
+    /**
+     * @psalm-suppress InvalidNullableReturnType
+     */
     protected function getEndpointPattern(?string $region): string
     {
         /** @psalm-suppress NullableReturnStatement */
