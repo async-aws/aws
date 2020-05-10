@@ -4,7 +4,7 @@ category: contribute
 
 # Contribution guide
 
-Contribution are always appreciated. Like most contribution guides there are links
+Contributions are always appreciated. Like most contribution guides there are links
 to [how to fork a repository](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)
 and [information about Pull Requests](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
 There are also some extra information you need to know about the async-aws/aws repository
@@ -32,7 +32,7 @@ Read more about documentation and the website [here](./website.md).
 ## Test the PR in a local project
 
 Sometimes, it's helpful to test the PR in a real project. This can be achieved
-by using the provided `link` binary which detects AsyncAws dependencies use by
+by using the provided `link` binary which detects AsyncAws dependencies used by
 the project and replaces them by a symlink to the AsyncAws source code.
 
 ```shell
