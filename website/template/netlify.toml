@@ -5,3 +5,18 @@
     cache-control = '''
     max-age=31449600,
     immutable'''
+
+[[plugins]]
+package = "netlify-plugin-checklinks"
+
+  # https://github.com/munter/netlify-plugin-checklinks
+  [plugins.inputs]
+  entryPoints = [
+    "*.html",
+  ]
+  recursive = true
+  pretty = true
+  skipPatterns = []
+  todoPatterns = []
+  checkExternal = false
+  followSourceMaps = false
