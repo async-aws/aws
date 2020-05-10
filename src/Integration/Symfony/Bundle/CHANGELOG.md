@@ -1,5 +1,9 @@
 # Change Log
 
+## NOT RELEASED
+
+- Added support for EventBridge.
+
 ## 0.2.4
 
 ### Changed
