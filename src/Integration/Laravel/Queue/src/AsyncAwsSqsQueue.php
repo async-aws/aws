@@ -3,7 +3,6 @@
 namespace AsyncAws\Illuminate\Queue;
 
 use AsyncAws\Illuminate\Queue\Job\AsyncAwsSqsJob;
-use AsyncAws\Sqs\Enum\MessageSystemAttributeName;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
 use AsyncAws\Sqs\SqsClient;
 use Illuminate\Contracts\Queue\Job;
@@ -139,7 +138,7 @@ class AsyncAwsSqsQueue extends Queue implements QueueContract
     {
         $response = $this->sqs->receiveMessage([
             'QueueUrl' => $queue = $this->getQueue($queue),
-            'AttributeNames' => [MessageSystemAttributeName::APPROXIMATE_RECEIVE_COUNT],
+            'AttributeNames' => [QueueAttributeName::ALL],
         ]);
 
         foreach ($response->getMessages() as $message) {
