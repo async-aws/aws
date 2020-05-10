@@ -56,6 +56,15 @@
                 "UpdateTable"
             ]
         },
+        "EventBridge": {
+            "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/eventbridge\/2015-10-07\/api-2.json",
+            "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/eventbridge\/2015-10-07\/docs-2.json",
+            "pagination": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/eventbridge\/2015-10-07\/paginators-1.json",
+            "example": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/eventbridge\/2015-10-07\/examples-1.json",
+            "methods": [
+                "PutEvents"
+            ]
+        },
         "Lambda": {
             "source": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/lambda\/2015-03-31\/api-2.json",
             "documentation": "https:\/\/raw.githubusercontent.com\/aws\/aws-sdk-php\/${LATEST}\/src\/data\/lambda\/2015-03-31\/docs-2.json",
