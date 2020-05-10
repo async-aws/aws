@@ -5,6 +5,7 @@
 ### Added
 
 - Support for EventBridge in `AwsClientFactory`
+- Support for IAM in `AwsClientFactory`
 
 ## 1.1.0
 

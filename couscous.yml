@@ -43,6 +43,9 @@ menu:
             dynamodb:
                 text: DynamoDB
                 url: /clients/dynamodb.html
+            iam:
+                text: IAM
+                url: /clients/iam.html
             lambda:
                 text: Lambda
                 url: /clients/lambda.html

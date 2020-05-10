@@ -13,7 +13,7 @@ composer require async-aws/foobar
 
 ## Documentation
 
-See https://async-aws.com for documentation.
+See https://async-aws.com/clients/foobar.html for documentation.
 
 ## Contribute
 

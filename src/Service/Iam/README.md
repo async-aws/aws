@@ -13,7 +13,7 @@ composer require async-aws/iam
 
 ## Documentation
 
-See https://async-aws.com for documentation.
+See https://async-aws.com/clients/iam.html for documentation.
 
 ## Contribute
 
