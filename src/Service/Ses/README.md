@@ -3,7 +3,7 @@
 ![](https://github.com/async-aws/ses/workflows/Tests/badge.svg?branch=master)
 ![](https://github.com/async-aws/ses/workflows/BC%20Check/badge.svg?branch=master)
 
-An API client for SQS.
+An API client for SES.
 
 ## Install
 
