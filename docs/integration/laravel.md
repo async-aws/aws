@@ -27,15 +27,15 @@ key will not work.
 ```diff
 # config/filesystems.php
 
-    'dynamodb' => [
--       'driver' => 'dynamodb',
-+       'driver' => 'async-aws-dynamodb',
-        'key' => env('AWS_ACCESS_KEY_ID'),
-        'secret' => env('AWS_SECRET_ACCESS_KEY'),
-        'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
-        'table' => env('DYNAMODB_CACHE_TABLE', 'cache'),
-        'endpoint' => env('DYNAMODB_ENDPOINT'),
-    ],
+ 'dynamodb' => [
+-    'driver' => 'dynamodb',
++    'driver' => 'async-aws-dynamodb',
+     'key' => env('AWS_ACCESS_KEY_ID'),
+     'secret' => env('AWS_SECRET_ACCESS_KEY'),
+     'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
+     'table' => env('DYNAMODB_CACHE_TABLE', 'cache'),
+     'endpoint' => env('DYNAMODB_ENDPOINT'),
+ ],
 ```
 
 ## Illuminate Filesystem
@@ -53,15 +53,15 @@ composer require async-aws/illuminate-filesystem
 ```diff
 # config/filesystems.php
 
-    's3' => [
--       'driver' => 's3',
-+       'driver' => 'async-aws-s3',
-        'key' => env('AWS_ACCESS_KEY_ID'),
-        'secret' => env('AWS_SECRET_ACCESS_KEY'),
-        'region' => env('AWS_DEFAULT_REGION'),
-        'bucket' => env('AWS_BUCKET'),
-        'endpoint' => env('AWS_ENDPOINT'),
-    ],
+ 's3' => [
+-    'driver' => 's3',
++    'driver' => 'async-aws-s3',
+     'key' => env('AWS_ACCESS_KEY_ID'),
+     'secret' => env('AWS_SECRET_ACCESS_KEY'),
+     'region' => env('AWS_DEFAULT_REGION'),
+     'bucket' => env('AWS_BUCKET'),
+     'endpoint' => env('AWS_ENDPOINT'),
+ ],
 ```
 
 ## Illuminate Mail
@@ -79,12 +79,12 @@ composer require async-aws/illuminate-mail
 ```diff
 # config/mail.php
 
-    'ses' => [
--       'driver' => 'ses',
-+       'driver' => 'async-aws-ses',
-        'key' => env('AWS_ACCESS_KEY_ID'),
-        'secret' => env('AWS_SECRET_ACCESS_KEY'),
-    ],
+ 'ses' => [
+-    'driver' => 'ses',
++    'driver' => 'async-aws-ses',
+     'key' => env('AWS_ACCESS_KEY_ID'),
+     'secret' => env('AWS_SECRET_ACCESS_KEY'),
+ ],
 ```
 
 ## Illuminate Queue
@@ -102,14 +102,14 @@ composer require async-aws/illuminate-queue
 ```diff
 # config/queue.php
 
-    'sqs' => [
--       'driver' => 'sqs',
-+       'driver' => 'async-aws-sqs',
-        'key' => env('AWS_ACCESS_KEY_ID'),
-        'secret' => env('AWS_SECRET_ACCESS_KEY'),
-        'prefix' => env('SQS_PREFIX', 'https://sqs.us-east-1.amazonaws.com/your-account-id'),
-        'queue' => env('SQS_QUEUE', 'your-queue-name'),
-        'suffix' => env('SQS_SUFFIX'),
-        'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
-    ],
+ 'sqs' => [
+-    'driver' => 'sqs',
++    'driver' => 'async-aws-sqs',
+     'key' => env('AWS_ACCESS_KEY_ID'),
+     'secret' => env('AWS_SECRET_ACCESS_KEY'),
+     'prefix' => env('SQS_PREFIX', 'https://sqs.us-east-1.amazonaws.com/your-account-id'),
+     'queue' => env('SQS_QUEUE', 'your-queue-name'),
+     'suffix' => env('SQS_SUFFIX'),
+     'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
+ ],
 ```

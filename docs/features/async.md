@@ -103,15 +103,15 @@ the others are listed as examples.
 #### Solution B
 
 ```diff
-    $result = $sqs->sendMessage($input);
-+   $result->getMessageId();
+     $result = $sqs->sendMessage($input);
++    $result->getMessageId();
 ```
 
 #### Solution C
 
 ```diff
-    $result = $sqs->sendMessage($input);
-+   unset($result);
+     $result = $sqs->sendMessage($input);
++    unset($result);
 ```
 
 #### Solution D
@@ -120,8 +120,8 @@ This solution requires some more explanation. See [below](#using-resolve-functio
 for more information.
 
 ```diff
-    $result = $sqs->sendMessage($input);
-+   $result->resolve();
+     $result = $sqs->sendMessage($input);
++    $result->resolve();
 ```
 
 ## Advanced use cases
