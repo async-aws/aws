@@ -6,7 +6,8 @@
 
 - Support for EventBridge in `AwsClientFactory`
 - Support for IAM in `AwsClientFactory`
-- Add a `PersistingCacheProvider` and enable it by default for `InstanceProvider` and `ContainerProvider`.
+- Add a `PsrCacheProvider` and `SymfonyCacheProvider` to persists crendentials in a cache pool
+- Add a `Credential::adjustExpireDate` method for adjusting the time according to the time difference with AWS clock
 
 ## 1.1.0
 

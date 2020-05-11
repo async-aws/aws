@@ -30,3 +30,10 @@ The providers are currently chained in the following order:
 
 The default provider chain could be too slow or too complex for testing. It is recommended
 to use the `NullProvider` in tests where you don't provide valid configuration values.
+
+## Caching credential
+
+Fetching credential from AWS metadata endpoint (EC2 Instance, ECS Container,
+WebIdentity...) for each request can introduce latency. AsyncAws provides a
+`PsrCacheProvider` and a `SymfonyCacheProvider` decorator to persist and reuse
+credentials between each request.

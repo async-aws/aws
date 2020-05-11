@@ -79,7 +79,7 @@ class AwsClientFactory
         $this->httpClient = $httpClient ?? HttpClient::create();
         $this->logger = $logger ?? new NullLogger();
         $this->configuration = $configuration;
-        $this->credentialProvider = $credentialProvider ?? ChainProvider::createDefaultChain($this->httpClient, $this->logger);
+        $this->credentialProvider = $credentialProvider ?? new CacheProvider(ChainProvider::createDefaultChain($this->httpClient, $this->logger));
     }
 
     public function cloudFormation(): CloudFormationClient

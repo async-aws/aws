@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core;
 
+use AsyncAws\Core\Credentials\CacheProvider;
 use AsyncAws\Core\Credentials\ChainProvider;
 use AsyncAws\Core\Credentials\CredentialProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
@@ -62,7 +63,7 @@ abstract class AbstractApi
         $this->httpClient = $httpClient ?? HttpClient::create();
         $this->logger = $logger ?? new NullLogger();
         $this->configuration = $configuration;
-        $this->credentialProvider = $credentialProvider ?? ChainProvider::createDefaultChain($this->httpClient, $this->logger);
+        $this->credentialProvider = $credentialProvider ?? new CacheProvider(ChainProvider::createDefaultChain($this->httpClient, $this->logger));
     }
 
     final public function getConfiguration(): Configuration
