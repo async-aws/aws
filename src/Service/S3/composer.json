@@ -16,7 +16,7 @@
         "ext-dom": "*",
         "ext-filter": "*",
         "ext-hash": "*",
-        "async-aws/core": "^1.0"
+        "async-aws/core": "^1.2"
     },
     "extra": {
         "branch-alias": {
