@@ -75,7 +75,7 @@ final class Credentials implements CredentialProvider
             return $expireDate;
         }
 
-        if ($reference !== null) {
+        if (null !== $reference) {
             $expireDate = (new \DateTimeImmutable())->add($reference->diff($expireDate));
         }
 

@@ -17,6 +17,7 @@ use Psr\Cache\CacheItemPoolInterface;
 final class PsrCacheProvider implements CredentialProvider
 {
     private $cache;
+
     private $decorated;
 
     public function __construct(CredentialProvider $decorated, CacheItemPoolInterface $cache)
@@ -27,7 +28,7 @@ final class PsrCacheProvider implements CredentialProvider
 
     public function getCredentials(Configuration $configuration): ?Credentials
     {
-        $item = $this->cache->getItem(sha1(\serialize([$configuration, \get_class($this->decorated)])));
+        $item = $this->cache->getItem('AsyncAws.Credentials.' . sha1(\serialize([$configuration, \get_class($this->decorated)])));
         if (!$item->isHit()) {
             $item->set($credential = $this->decorated->getCredentials($configuration));
 

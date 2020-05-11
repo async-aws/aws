@@ -20,6 +20,7 @@ use Symfony\Contracts\Cache\ItemInterface;
 final class SymfonyCacheProvider implements CredentialProvider
 {
     private $cache;
+
     private $decorated;
 
     public function __construct(CredentialProvider $decorated, CacheInterface $cache)
@@ -30,7 +31,7 @@ final class SymfonyCacheProvider implements CredentialProvider
 
     public function getCredentials(Configuration $configuration): ?Credentials
     {
-        return $this->cache->get(sha1(\serialize([$configuration, \get_class($this->decorated)])), function (ItemInterface $item) use ($configuration) {
+        return $this->cache->get('AsyncAws.Credentials.' . sha1(\serialize([$configuration, \get_class($this->decorated)])), function (ItemInterface $item) use ($configuration) {
             $credential = $this->decorated->getCredentials($configuration);
 
             if (null !== $credential && $credential->isCacheable()) {
