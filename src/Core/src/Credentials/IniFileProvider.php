@@ -101,7 +101,11 @@ final class IniFileProvider implements CredentialProvider
             return null;
         }
 
-        $stsClient = new StsClient(isset($profilesData[$sourceProfileName][IniFileLoader::KEY_REGION]) ? ['region' => $profilesData[$sourceProfileName][IniFileLoader::KEY_REGION]] : [], $sourceCredentials, $this->httpClient);
+        $stsClient = new StsClient(
+            isset($profilesData[$sourceProfileName][IniFileLoader::KEY_REGION]) ? ['region' => $profilesData[$sourceProfileName][IniFileLoader::KEY_REGION]] : [],
+            $sourceCredentials,
+            $this->httpClient
+        );
         $result = $stsClient->assumeRole([
             'RoleArn' => $roleArn,
             'RoleSessionName' => $roleSessionName,

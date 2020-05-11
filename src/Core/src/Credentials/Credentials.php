@@ -71,10 +71,6 @@ final class Credentials implements CredentialProvider
 
     public static function adjustExpireDate(\DateTimeImmutable $expireDate, ?\DateTimeImmutable $reference = null): \DateTimeImmutable
     {
-        if (null === $expireDate) {
-            return $expireDate;
-        }
-
         if (null !== $reference) {
             $expireDate = (new \DateTimeImmutable())->add($reference->diff($expireDate));
         }

@@ -100,18 +100,18 @@ class AsyncAwsExtension extends Extension
         if ((null === $credentialServiceId = $config['credential_provider']) && \class_exists(SymfonyCacheProvider::class) && \interface_exists(CacheInterface::class)) {
             $credentialServiceId = 'async_aws.credential';
             if (!$container->hasDefinition($credentialServiceId)) {
-                $container->Register($credentialServiceId, CredentialProvider::class)
+                $container->register($credentialServiceId, CredentialProvider::class)
                     ->setFactory([ChainProvider::class, 'createDefaultChain'])
                     ->setArguments([$httpClient, $logger]);
 
-                $container->Register('async_aws.credential.cache', SymfonyCacheProvider::class)
+                $container->register('async_aws.credential.cache', SymfonyCacheProvider::class)
                     ->setDecoratedService($credentialServiceId)
                     ->setArguments([
                         new Reference('async_aws.credential.cache.inner'),
                         new Reference('cache.app'),
                     ]);
 
-                $container->Register('async_aws.credential.memory', CacheProvider::class)
+                $container->register('async_aws.credential.memory', CacheProvider::class)
                     ->setDecoratedService($credentialServiceId)
                     ->setArguments([
                         new Reference('async_aws.credential.memory.inner'),
@@ -172,7 +172,7 @@ class AsyncAwsExtension extends Extension
                 throw new InvalidConfigurationException(sprintf('You have enabled "async_aws.secrets.cache" but the "symfony/cache" package is not installed. Try running "composer require symfony/cache"'));
             }
 
-            $container->Register(CachedEnvVarLoader::class)
+            $container->register(CachedEnvVarLoader::class)
                 ->setDecoratedService(SsmVault::class)
                 ->setArguments([
                     new Reference(CachedEnvVarLoader::class . '.inner'),
