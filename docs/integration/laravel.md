@@ -25,7 +25,7 @@ key will not work.
 ### Configure
 
 ```diff
-# config/filesystems.php
+# config/cache.php
 
  'dynamodb' => [
 -    'driver' => 'dynamodb',
