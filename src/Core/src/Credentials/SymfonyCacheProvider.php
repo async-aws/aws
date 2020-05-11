@@ -34,8 +34,8 @@ final class SymfonyCacheProvider implements CredentialProvider
         return $this->cache->get('AsyncAws.Credentials.' . sha1(\serialize([$configuration, \get_class($this->decorated)])), function (ItemInterface $item) use ($configuration) {
             $credential = $this->decorated->getCredentials($configuration);
 
-            if (null !== $credential && $credential->isCacheable()) {
-                $item->expiresAt($credential->getExpireDate());
+            if (null !== $credential && null !== $exp = $credential->getExpireDate()) {
+                $item->expiresAt($exp);
             } else {
                 $item->expiresAfter(0);
             }

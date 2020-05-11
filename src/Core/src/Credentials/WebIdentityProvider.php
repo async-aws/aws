@@ -121,8 +121,7 @@ final class WebIdentityProvider implements CredentialProvider
             $credentials->getAccessKeyId(),
             $credentials->getSecretAccessKey(),
             $credentials->getSessionToken(),
-            Credentials::adjustExpireDate($credentials->getExpiration(), $date),
-            true
+            Credentials::adjustExpireDate($credentials->getExpiration(), $date)
         );
     }
 }

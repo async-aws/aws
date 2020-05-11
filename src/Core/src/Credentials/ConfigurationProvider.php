@@ -23,9 +23,7 @@ final class ConfigurationProvider implements CredentialProvider
             return new Credentials(
                 $configuration->get(Configuration::OPTION_ACCESS_KEY_ID),
                 $configuration->get(Configuration::OPTION_SECRET_ACCESS_KEY),
-                $configuration->get(Configuration::OPTION_SESSION_TOKEN),
-                null,
-                true
+                $configuration->get(Configuration::OPTION_SESSION_TOKEN)
             );
         }
 

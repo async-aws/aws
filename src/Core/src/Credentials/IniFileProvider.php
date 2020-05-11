@@ -68,9 +68,7 @@ final class IniFileProvider implements CredentialProvider
             return new Credentials(
                 $profileData[IniFileLoader::KEY_ACCESS_KEY_ID],
                 $profileData[IniFileLoader::KEY_SECRET_ACCESS_KEY],
-                $profileData[IniFileLoader::KEY_SESSION_TOKEN] ?? null,
-                null,
-                false // do not cache credentials, the file may be edited by user
+                $profileData[IniFileLoader::KEY_SESSION_TOKEN] ?? null
             );
         }
 
@@ -130,8 +128,7 @@ final class IniFileProvider implements CredentialProvider
             $credentials->getAccessKeyId(),
             $credentials->getSecretAccessKey(),
             $credentials->getSessionToken(),
-            Credentials::adjustExpireDate($credentials->getExpiration(), $date),
-            true
+            Credentials::adjustExpireDate($credentials->getExpiration(), $date)
         );
     }
 }

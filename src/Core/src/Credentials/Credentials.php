@@ -23,20 +23,16 @@ final class Credentials implements CredentialProvider
 
     private $expireDate;
 
-    private $cacheable;
-
     public function __construct(
         string $accessKeyId,
         string $secretKey,
         ?string $sessionToken = null,
-        ?\DateTimeImmutable $expireDate = null,
-        bool $cacheable = false
+        ?\DateTimeImmutable $expireDate = null
     ) {
         $this->accessKeyId = $accessKeyId;
         $this->secretKey = $secretKey;
         $this->sessionToken = $sessionToken;
         $this->expireDate = $expireDate;
-        $this->cacheable = $cacheable;
     }
 
     public function getAccessKeyId(): string
@@ -76,10 +72,5 @@ final class Credentials implements CredentialProvider
         }
 
         return $expireDate->sub(new \DateInterval(sprintf('PT%dS', self::EXPIRATION_DRIFT)));
-    }
-
-    public function isCacheable(): bool
-    {
-        return $this->cacheable;
     }
 }

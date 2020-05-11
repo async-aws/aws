@@ -88,8 +88,7 @@ final class InstanceProvider implements CredentialProvider
             $result['AccessKeyId'],
             $result['SecretAccessKey'],
             $result['Token'],
-            Credentials::adjustExpireDate(new \DateTimeImmutable($result['Expiration']), $date),
-            true
+            Credentials::adjustExpireDate(new \DateTimeImmutable($result['Expiration']), $date)
         );
     }
 

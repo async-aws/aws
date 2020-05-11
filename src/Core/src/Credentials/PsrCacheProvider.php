@@ -32,8 +32,8 @@ final class PsrCacheProvider implements CredentialProvider
         if (!$item->isHit()) {
             $item->set($credential = $this->decorated->getCredentials($configuration));
 
-            if (null !== $credential && $credential->isCacheable()) {
-                $item->expiresAt($credential->getExpireDate());
+            if (null !== $credential && null !== $exp = $credential->getExpireDate()) {
+                $item->expiresAt($exp);
                 $this->cache->save($item);
             }
         }
