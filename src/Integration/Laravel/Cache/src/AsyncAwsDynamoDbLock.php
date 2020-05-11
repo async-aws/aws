@@ -46,8 +46,6 @@ class AsyncAwsDynamoDbLock extends Lock
 
     /**
      * Release the lock.
-     *
-     * @return bool
      */
     public function release()
     {
