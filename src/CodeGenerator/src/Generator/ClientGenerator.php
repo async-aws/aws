@@ -9,6 +9,7 @@ use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use Nette\PhpGenerator\ClassType;
 
 /**
@@ -98,7 +99,8 @@ class ClientGenerator
         if (isset($global['aws'])) {
             $body .= $dumpConfig($global['aws']);
         } else {
-            $body .= 'throw new \\InvalidArgumentException(sprintf(\'The region "%s" is not supported by "' . $definition->getName() . '".\', $region));';
+            $namespace->addUse(UnsupportedRegion::class);
+            $body .= 'throw new UnsupportedRegion(sprintf(\'The region "%s" is not supported by "' . $definition->getName() . '".\', $region));';
         }
 
         $class->addMethod('getEndpointMetadata')
