@@ -33,6 +33,46 @@ class SesClient extends AbstractApi
         return new SendEmailResponse($response);
     }
 
+    protected function getEndpointMetadata(string $region): array
+    {
+        switch ($region) {
+            case 'ap-south-1':
+            case 'ap-southeast-2':
+            case 'eu-central-1':
+            case 'eu-west-1':
+            case 'us-east-1':
+            case 'us-west-2':
+                return [
+                    'endpoint' => 'https://email.%region%.amazonaws.com',
+                    'signRegion' => $region,
+                    'signService' => 'email',
+                    'signVersions' => [
+                        0 => 'v4',
+                    ],
+                ];
+            case 'us-gov-west-1':
+                return [
+                    'endpoint' => 'https://email.%region%.amazonaws.com',
+                    'signRegion' => $region,
+                    'signService' => 'email',
+                    'signVersions' => [
+                        0 => 'v4',
+                    ],
+                ];
+            case 'fips-us-gov-west-1':
+                return [
+                    'endpoint' => 'https://email-fips.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'email',
+                    'signVersions' => [
+                        0 => 'v4',
+                    ],
+                ];
+        }
+
+        throw new \InvalidArgumentException(sprintf('The region "%s" is not supported by "Ses".', $region));
+    }
+
     protected function getServiceCode(): string
     {
         return 'email';

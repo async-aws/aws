@@ -107,7 +107,6 @@ class ClientGenerator
             ->setBody($body)
             ->addParameter('region')
                 ->setType('string')
-                ->setNullable(true)
         ;
 
         if (null !== $signatureVersion = $definition->getSignatureVersion()) {

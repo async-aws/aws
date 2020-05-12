@@ -146,12 +146,15 @@ abstract class AbstractApi
     /**
      * This method is a BC layer for client that does not require core:^1.2.
      *
-     * @return array{endpoint: string, signRegion: string, signService: string, signVersions: list<string>}
+     * @return array{endpoint: string, signRegion: string, signService: string, signVersions: string[]}
      */
     protected function getEndpointMetadata(string $region): array
     {
+        /** @var string $endpoint */
+        $endpoint = $this->configuration->get('endpoint');
+
         return [
-            'endpoint' => $this->configuration->get('endpoint'),
+            'endpoint' => $endpoint,
             'signRegion' => $region,
             'signService' => $this->getSignatureScopeName(),
             'signVersions' => [$this->getSignatureVersion()],
@@ -166,7 +169,9 @@ abstract class AbstractApi
      */
     private function getEndpoint(string $uri, array $query, ?string $region): string
     {
-        $metadata = $this->getEndpointMetadata($region = $this->configuration->get('region'));
+        /** @var string $region */
+        $region = $region ?? $this->configuration->get('region');
+        $metadata = $this->getEndpointMetadata($region);
         if (!$this->configuration->isDefault('endpoint')) {
             $endpoint = $this->configuration->get('endpoint');
         } else {
@@ -189,8 +194,8 @@ abstract class AbstractApi
 
     private function getSigner(?string $region)
     {
-        $region = $region ?? $this->configuration->get(Configuration::OPTION_REGION);
         /** @var string $region */
+        $region = $region ?? $this->configuration->get(Configuration::OPTION_REGION);
         if (!isset($this->signers[$region])) {
             $metadata = $this->getEndpointMetadata($region);
             $factories = $this->getSignerFactories();
