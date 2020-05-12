@@ -2,8 +2,6 @@
 
 namespace AsyncAws\CloudFormation\Result;
 
-use AsyncAws\CloudFormation\CloudFormationClient;
-use AsyncAws\CloudFormation\Input\DescribeStacksInput;
 use AsyncAws\CloudFormation\ValueObject\Output;
 use AsyncAws\CloudFormation\ValueObject\Parameter;
 use AsyncAws\CloudFormation\ValueObject\RollbackConfiguration;
@@ -14,7 +12,7 @@ use AsyncAws\CloudFormation\ValueObject\Tag;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
-class DescribeStacksOutput extends Result implements \IteratorAggregate
+class DescribeStacksOutput extends Result
 {
     /**
      * A list of stack structures.
@@ -27,42 +25,6 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
      */
     private $NextToken;
 
-    /**
-     * Iterates over Stacks.
-     *
-     * @return \Traversable<Stack>
-     */
-    public function getIterator(): \Traversable
-    {
-        $client = $this->awsClient;
-        if (!$client instanceof CloudFormationClient) {
-            throw new \InvalidArgumentException('missing client injected in paginated result');
-        }
-        if (!$this->input instanceof DescribeStacksInput) {
-            throw new \InvalidArgumentException('missing last request injected in paginated result');
-        }
-        $input = clone $this->input;
-        $page = $this;
-        while (true) {
-            if ($page->getNextToken()) {
-                $input->setNextToken($page->getNextToken());
-
-                $this->registerPrefetch($nextPage = $client->DescribeStacks($input));
-            } else {
-                $nextPage = null;
-            }
-
-            yield from $page->getStacks(true);
-
-            if (null === $nextPage) {
-                break;
-            }
-
-            $this->unregisterPrefetch($nextPage);
-            $page = $nextPage;
-        }
-    }
-
     public function getNextToken(): ?string
     {
         $this->initialize();
@@ -71,46 +33,13 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
     }
 
     /**
-     * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.
-     *
-     * @return iterable<Stack>
+     * @return Stack[]
      */
-    public function getStacks(bool $currentPageOnly = false): iterable
+    public function getStacks(): array
     {
-        if ($currentPageOnly) {
-            $this->initialize();
-            yield from $this->Stacks;
+        $this->initialize();
 
-            return;
-        }
-
-        $client = $this->awsClient;
-        if (!$client instanceof CloudFormationClient) {
-            throw new \InvalidArgumentException('missing client injected in paginated result');
-        }
-        if (!$this->input instanceof DescribeStacksInput) {
-            throw new \InvalidArgumentException('missing last request injected in paginated result');
-        }
-        $input = clone $this->input;
-        $page = $this;
-        while (true) {
-            if ($page->getNextToken()) {
-                $input->setNextToken($page->getNextToken());
-
-                $this->registerPrefetch($nextPage = $client->DescribeStacks($input));
-            } else {
-                $nextPage = null;
-            }
-
-            yield from $page->getStacks(true);
-
-            if (null === $nextPage) {
-                break;
-            }
-
-            $this->unregisterPrefetch($nextPage);
-            $page = $nextPage;
-        }
+        return $this->Stacks;
     }
 
     protected function populateResult(Response $response): void
