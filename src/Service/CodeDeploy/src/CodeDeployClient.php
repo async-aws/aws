@@ -5,6 +5,7 @@ namespace AsyncAws\CodeDeploy;
 use AsyncAws\CodeDeploy\Input\PutLifecycleEventHookExecutionStatusInput;
 use AsyncAws\CodeDeploy\Result\PutLifecycleEventHookExecutionStatusOutput;
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 
@@ -31,8 +32,11 @@ class CodeDeployClient extends AbstractApi
         return new PutLifecycleEventHookExecutionStatusOutput($response);
     }
 
-    protected function getEndpointMetadata(string $region): array
+    protected function getEndpointMetadata(?string $region): array
     {
+        if (null === $region) {
+            $region = Configuration::DEFAULT_REGION;
+        }
         switch ($region) {
             case 'af-south-1':
             case 'ap-east-1':

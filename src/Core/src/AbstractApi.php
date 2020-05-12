@@ -144,14 +144,22 @@ abstract class AbstractApi
     }
 
     /**
-     * This method is a BC layer for client that does not require core:^1.2.
+     * Returns the AWS endpoint metadata for the given region.
+     * When user did not provide a region, the client have to either return a global endpoint or fallback to
+     * the Configuration::DEFAULT_REGION constant.
+     *
+     * This implementation is a BC layer for client that does not require core:^1.2.
+     *
+     * @param ?string $region region provided by the user (without fallback to a default region)
      *
      * @return array{endpoint: string, signRegion: string, signService: string, signVersions: string[]}
      */
-    protected function getEndpointMetadata(string $region): array
+    protected function getEndpointMetadata(?string $region): array
     {
         /** @var string $endpoint */
         $endpoint = $this->configuration->get('endpoint');
+        /** @var string $region */
+        $region = $region ?? $this->configuration->get('region');
 
         return [
             'endpoint' => $endpoint,
@@ -162,15 +170,16 @@ abstract class AbstractApi
     }
 
     /**
-     * Fallback function for getting the endpoint. This could be overridden by any APIClient.
+     * Build the endpoint full uri.
      *
-     * @param string $uri   or path
-     * @param array  $query parameters that should go in the query string
+     * @param string  $uri    or path
+     * @param array   $query  parameters that should go in the query string
+     * @param ?string $region region provided by the user in the `@region` parameter of the Input
      */
     private function getEndpoint(string $uri, array $query, ?string $region): string
     {
         /** @var string $region */
-        $region = $region ?? $this->configuration->get('region');
+        $region = $region ?? $this->configuration->isDefault('region') ? null : $this->configuration->get('region');
         $metadata = $this->getEndpointMetadata($region);
         if (!$this->configuration->isDefault('endpoint')) {
             $endpoint = $this->configuration->get('endpoint');
@@ -180,8 +189,8 @@ abstract class AbstractApi
 
         /** @psalm-suppress PossiblyNullArgument */
         $endpoint = strtr($endpoint, [
-            '%region%' => $region,
-            '%service%' => $this->getServiceCode(),
+            '%region%' => $region ?? $this->configuration->get('region'),
+            '%service%' => $this->getServiceCode(), // if people provides a custom endpoint 'http://%service%.localhost/
         ]);
 
         $endpoint .= $uri;
@@ -192,10 +201,13 @@ abstract class AbstractApi
         return $endpoint . (false === \strpos($endpoint, '?') ? '?' : '&') . http_build_query($query);
     }
 
+    /**
+     * @param ?string $region region provided by the user in the `@region` parameter of the Input
+     */
     private function getSigner(?string $region)
     {
         /** @var string $region */
-        $region = $region ?? $this->configuration->get(Configuration::OPTION_REGION);
+        $region = $region ?? $this->configuration->isDefault('region') ? null : $this->configuration->get('region');
         if (!isset($this->signers[$region])) {
             $metadata = $this->getEndpointMetadata($region);
             $factories = $this->getSignerFactories();
@@ -212,7 +224,7 @@ abstract class AbstractApi
                 throw new InvalidArgument(sprintf('None of the signatures "%s" is implemented.', \implode(', ', $metadata['signVersions'])));
             }
 
-            $this->signers[$region] = $factory($metadata['signService'], $metadata['signRegion'] ?? $region);
+            $this->signers[$region] = $factory($metadata['signService'], $metadata['signRegion']);
         }
 
         /** @psalm-suppress PossiblyNullArrayOffset */

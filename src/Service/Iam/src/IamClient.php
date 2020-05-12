@@ -120,7 +120,7 @@ class IamClient extends AbstractApi
         return new Result($response);
     }
 
-    protected function getEndpointMetadata(string $region): array
+    protected function getEndpointMetadata(?string $region): array
     {
         switch ($region) {
             case 'iam-fips':

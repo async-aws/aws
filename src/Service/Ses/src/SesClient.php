@@ -3,6 +3,7 @@
 namespace AsyncAws\Ses;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Ses\Input\SendEmailRequest;
@@ -34,8 +35,11 @@ class SesClient extends AbstractApi
         return new SendEmailResponse($response);
     }
 
-    protected function getEndpointMetadata(string $region): array
+    protected function getEndpointMetadata(?string $region): array
     {
+        if (null === $region) {
+            $region = Configuration::DEFAULT_REGION;
+        }
         switch ($region) {
             case 'ap-south-1':
             case 'ap-southeast-2':

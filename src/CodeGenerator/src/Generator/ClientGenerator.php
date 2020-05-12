@@ -9,6 +9,7 @@ use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
+use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use Nette\PhpGenerator\ClassType;
 
@@ -55,7 +56,12 @@ class ClientGenerator
         }
 
         $endpoints = $definition->getEndpoints();
-        $body = 'switch ($region) {' . \PHP_EOL;
+        $body = '';
+        if (!isset($endpoints['_global']['aws'])) {
+            $namespace->addUse(Configuration::class);
+            $body .= 'if ($region === null) { $region = Configuration::DEFAULT_REGION; }' . \PHP_EOL;
+        }
+        $body .= 'switch ($region) {' . \PHP_EOL;
         $dumpConfig = function ($config) {
             sort($config['signVersions']);
 
@@ -113,6 +119,7 @@ class ClientGenerator
             ->setBody($body)
             ->addParameter('region')
                 ->setType('string')
+                ->setNullable(true)
         ;
 
         if (null !== $signatureVersion = $definition->getSignatureVersion()) {

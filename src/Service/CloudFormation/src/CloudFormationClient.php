@@ -9,6 +9,7 @@ use AsyncAws\CloudFormation\Result\DescribeStacksOutput;
 use AsyncAws\CloudFormation\ValueObject\Stack;
 use AsyncAws\CloudFormation\ValueObject\StackEvent;
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 
@@ -59,8 +60,11 @@ class CloudFormationClient extends AbstractApi
         return new DescribeStacksOutput($response, $this, $input);
     }
 
-    protected function getEndpointMetadata(string $region): array
+    protected function getEndpointMetadata(?string $region): array
     {
+        if (null === $region) {
+            $region = Configuration::DEFAULT_REGION;
+        }
         switch ($region) {
             case 'af-south-1':
             case 'ap-east-1':

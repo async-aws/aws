@@ -21,6 +21,7 @@ use AsyncAws\CognitoIdentityProvider\Result\SetUserMFAPreferenceResponse;
 use AsyncAws\CognitoIdentityProvider\Result\VerifySoftwareTokenResponse;
 use AsyncAws\CognitoIdentityProvider\ValueObject\UserType;
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
@@ -221,8 +222,11 @@ class CognitoIdentityProviderClient extends AbstractApi
         return new VerifySoftwareTokenResponse($response);
     }
 
-    protected function getEndpointMetadata(string $region): array
+    protected function getEndpointMetadata(?string $region): array
     {
+        if (null === $region) {
+            $region = Configuration::DEFAULT_REGION;
+        }
         switch ($region) {
             case 'ap-northeast-1':
             case 'ap-northeast-2':

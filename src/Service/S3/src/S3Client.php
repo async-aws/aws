@@ -651,7 +651,7 @@ class S3Client extends AbstractApi
         return new UploadPartOutput($response);
     }
 
-    protected function getEndpointMetadata(string $region): array
+    protected function getEndpointMetadata(?string $region): array
     {
         switch ($region) {
             case 'af-south-1':

@@ -3,6 +3,7 @@
 namespace AsyncAws\EventBridge;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\EventBridge\Input\PutEventsRequest;
@@ -28,8 +29,11 @@ class EventBridgeClient extends AbstractApi
         return new PutEventsResponse($response);
     }
 
-    protected function getEndpointMetadata(string $region): array
+    protected function getEndpointMetadata(?string $region): array
     {
+        if (null === $region) {
+            $region = Configuration::DEFAULT_REGION;
+        }
         switch ($region) {
             case 'af-south-1':
             case 'ap-east-1':
