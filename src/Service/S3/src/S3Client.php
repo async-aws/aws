@@ -661,8 +661,8 @@ class S3Client extends AbstractApi
                     'signRegion' => 'us-east-1',
                     'signService' => 's3',
                     'signVersions' => [
-                        0 => 's3',
-                        1 => 's3v4',
+                        0 => 's3v4',
+                        1 => 's3',
                     ],
                 ];
             case 'af-south-1':
@@ -710,8 +710,8 @@ class S3Client extends AbstractApi
                     'signRegion' => 'ap-northeast-1',
                     'signService' => 's3',
                     'signVersions' => [
-                        0 => 's3',
-                        1 => 's3v4',
+                        0 => 's3v4',
+                        1 => 's3',
                     ],
                 ];
             case 'ap-southeast-1':
@@ -720,8 +720,8 @@ class S3Client extends AbstractApi
                     'signRegion' => 'ap-southeast-1',
                     'signService' => 's3',
                     'signVersions' => [
-                        0 => 's3',
-                        1 => 's3v4',
+                        0 => 's3v4',
+                        1 => 's3',
                     ],
                 ];
             case 'ap-southeast-2':
@@ -730,8 +730,8 @@ class S3Client extends AbstractApi
                     'signRegion' => 'ap-southeast-2',
                     'signService' => 's3',
                     'signVersions' => [
-                        0 => 's3',
-                        1 => 's3v4',
+                        0 => 's3v4',
+                        1 => 's3',
                     ],
                 ];
             case 'eu-west-1':
@@ -740,8 +740,8 @@ class S3Client extends AbstractApi
                     'signRegion' => 'eu-west-1',
                     'signService' => 's3',
                     'signVersions' => [
-                        0 => 's3',
-                        1 => 's3v4',
+                        0 => 's3v4',
+                        1 => 's3',
                     ],
                 ];
             case 'fips-us-gov-west-1':
@@ -750,8 +750,8 @@ class S3Client extends AbstractApi
                     'signRegion' => 'us-gov-west-1',
                     'signService' => 's3',
                     'signVersions' => [
-                        0 => 's3',
-                        1 => 's3v4',
+                        0 => 's3v4',
+                        1 => 's3',
                     ],
                 ];
             case 's3-external-1':
@@ -760,8 +760,8 @@ class S3Client extends AbstractApi
                     'signRegion' => 'us-east-1',
                     'signService' => 's3',
                     'signVersions' => [
-                        0 => 's3',
-                        1 => 's3v4',
+                        0 => 's3v4',
+                        1 => 's3',
                     ],
                 ];
             case 'sa-east-1':
@@ -770,8 +770,8 @@ class S3Client extends AbstractApi
                     'signRegion' => 'sa-east-1',
                     'signService' => 's3',
                     'signVersions' => [
-                        0 => 's3',
-                        1 => 's3v4',
+                        0 => 's3v4',
+                        1 => 's3',
                     ],
                 ];
             case 'us-east-1':
@@ -780,8 +780,8 @@ class S3Client extends AbstractApi
                     'signRegion' => 'us-east-1',
                     'signService' => 's3',
                     'signVersions' => [
-                        0 => 's3',
-                        1 => 's3v4',
+                        0 => 's3v4',
+                        1 => 's3',
                     ],
                 ];
             case 'us-gov-east-1':
@@ -790,8 +790,8 @@ class S3Client extends AbstractApi
                     'signRegion' => 'us-gov-east-1',
                     'signService' => 's3',
                     'signVersions' => [
-                        0 => 's3',
-                        1 => 's3v4',
+                        0 => 's3v4',
+                        1 => 's3',
                     ],
                 ];
             case 'us-gov-west-1':
@@ -800,8 +800,8 @@ class S3Client extends AbstractApi
                     'signRegion' => 'us-gov-west-1',
                     'signService' => 's3',
                     'signVersions' => [
-                        0 => 's3',
-                        1 => 's3v4',
+                        0 => 's3v4',
+                        1 => 's3',
                     ],
                 ];
             case 'us-iso-east-1':
@@ -819,8 +819,8 @@ class S3Client extends AbstractApi
                     'signRegion' => 'us-west-1',
                     'signService' => 's3',
                     'signVersions' => [
-                        0 => 's3',
-                        1 => 's3v4',
+                        0 => 's3v4',
+                        1 => 's3',
                     ],
                 ];
             case 'us-west-2':
@@ -829,8 +829,8 @@ class S3Client extends AbstractApi
                     'signRegion' => 'us-west-2',
                     'signService' => 's3',
                     'signVersions' => [
-                        0 => 's3',
-                        1 => 's3v4',
+                        0 => 's3v4',
+                        1 => 's3',
                     ],
                 ];
         }
@@ -860,6 +860,9 @@ class S3Client extends AbstractApi
     {
         return [
             's3' => static function (string $service, string $region) {
+                return new SignerV4ForS3($service, $region);
+            },
+            's3v4' => static function (string $service, string $region) {
                 return new SignerV4ForS3($service, $region);
             },
         ] + parent::getSignerFactories();

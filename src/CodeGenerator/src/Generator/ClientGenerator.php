@@ -55,15 +55,23 @@ class ClientGenerator
                 ->setBody("return '$prefix';");
         }
 
+        $supportedVersions = eval(sprintf('class A%s extends %s {
+            public function __construct() {}
+            public function getVersion() {
+                return array_keys($this->getSignerFactories());
+            }
+        } return (new A%1$s)->getVersion();', sha1(\uniqid('', true)), $className->getFqdn()));
+
         $endpoints = $definition->getEndpoints();
-        $dumpConfig = function ($config) {
-            sort($config['signVersions']);
+        $dumpConfig = static function ($config) use ($supportedVersions) {
+            $signatureVersions = \array_intersect($supportedVersions, $config['signVersions']);
+            rsort($signatureVersions);
 
             return strtr(sprintf('        return %s;' . \PHP_EOL, \var_export([
                 'endpoint' => $config['endpoint'],
                 'signRegion' => $config['signRegion'] ?? '%region%',
                 'signService' => $config['signService'],
-                'signVersions' => $config['signVersions'],
+                'signVersions' => \array_values($signatureVersions),
             ], true)), ['\'%region%\'' => '$region']);
         };
 
