@@ -52,16 +52,64 @@ class ClientGenerator
                 ->setVisibility(ClassType::VISIBILITY_PROTECTED)
                 ->setBody("return '$prefix';");
         }
-        if (null !== $endpoint = $definition->getGlobalEndpoint()) {
-            $class->addMethod('getEndpointPattern')
-                ->setReturnType('string')
-                ->setVisibility(ClassType::VISIBILITY_PROTECTED)
-                ->setBody("return \$region ? parent::getEndpointPattern(\$region) : 'https://$endpoint';")
-                ->addParameter('region')
-                    ->setType('string')
-                    ->setNullable(true)
-            ;
+
+        $endpoints = $definition->getEndpoints();
+        $body = 'switch ($region) {' . \PHP_EOL;
+        $default = $endpoints['_default'] ?? [];
+        $global = $endpoints['_global'] ?? [];
+        unset($endpoints['_default'], $endpoints['_global']);
+        $dumpConfig = function ($config) {
+            sort($config['signVersions']);
+
+            return strtr(sprintf('        return %s;' . \PHP_EOL, \var_export([
+                'endpoint' => $config['endpoint'],
+                'signRegion' => $config['signRegion'] ?? '%region%',
+                'signService' => $config['signService'],
+                'signVersions' => $config['signVersions'],
+            ], true)), ['\'%region%\'' => '$region']);
+        };
+        foreach ($default as $config) {
+            if (empty($config['regions'])) {
+                continue;
+            }
+            sort($config['regions']);
+            foreach ($config['regions'] as $region) {
+                $body .= sprintf('    case %s:' . \PHP_EOL, \var_export($region, true));
+            }
+            $body .= $dumpConfig($config);
         }
+        ksort($endpoints);
+        foreach ($endpoints as $region => $config) {
+            $body .= sprintf('    case %s:' . \PHP_EOL, \var_export($region, true));
+            $body .= $dumpConfig($config);
+        }
+        foreach ($global as $config) {
+            if (empty($config['regions'])) {
+                continue;
+            }
+            sort($config['regions']);
+            foreach ($config['regions'] as $region) {
+                $body .= sprintf('    case %s:' . \PHP_EOL, \var_export($region, true));
+            }
+            $body .= $dumpConfig($config);
+        }
+        $body .= '}' . \PHP_EOL;
+
+        if (isset($global['aws'])) {
+            $body .= $dumpConfig($global['aws']);
+        } else {
+            $body .= 'throw new \\InvalidArgumentException(sprintf(\'The region "%s" is not supported by "' . $definition->getName() . '".\', $region));';
+        }
+
+        $class->addMethod('getEndpointMetadata')
+            ->setReturnType('array')
+            ->setVisibility(ClassType::VISIBILITY_PROTECTED)
+            ->setBody($body)
+            ->addParameter('region')
+                ->setType('string')
+                ->setNullable(true)
+        ;
+
         if (null !== $signatureVersion = $definition->getSignatureVersion()) {
             $class->addMethod('getSignatureVersion')
                 ->setReturnType('string')

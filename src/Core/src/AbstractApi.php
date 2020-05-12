@@ -144,12 +144,18 @@ abstract class AbstractApi
     }
 
     /**
-     * @psalm-suppress InvalidNullableReturnType
+     * This method is a BC layer for client that does not require core:^1.2.
+     *
+     * @return array{endpoint: string, signRegion: string, signService: string, signVersions: list<string>}
      */
-    protected function getEndpointPattern(?string $region): string
+    protected function getEndpointMetadata(string $region): array
     {
-        /** @psalm-suppress NullableReturnStatement */
-        return $this->configuration->get('endpoint');
+        return [
+            'endpoint' => $this->configuration->get('endpoint'),
+            'signRegion' => $region,
+            'signService' => $this->getSignatureScopeName(),
+            'signVersions' => [$this->getSignatureVersion()],
+        ];
     }
 
     /**
@@ -160,18 +166,16 @@ abstract class AbstractApi
      */
     private function getEndpoint(string $uri, array $query, ?string $region): string
     {
+        $metadata = $this->getEndpointMetadata($region = $this->configuration->get('region'));
         if (!$this->configuration->isDefault('endpoint')) {
             $endpoint = $this->configuration->get('endpoint');
         } else {
-            if (null === $region && !$this->configuration->isDefault('region')) {
-                $region = $this->configuration->get('region');
-            }
-            $endpoint = $this->getEndpointPattern($region);
+            $endpoint = $metadata['endpoint'];
         }
 
         /** @psalm-suppress PossiblyNullArgument */
         $endpoint = strtr($endpoint, [
-            '%region%' => $region ?? $this->configuration->get('region'),
+            '%region%' => $region,
             '%service%' => $this->getServiceCode(),
         ]);
 
@@ -185,15 +189,25 @@ abstract class AbstractApi
 
     private function getSigner(?string $region)
     {
+        $region = $region ?? $this->configuration->get(Configuration::OPTION_REGION);
+        /** @var string $region */
         if (!isset($this->signers[$region])) {
-            /** @var string $region */
-            $region = $region ?? $this->configuration->get(Configuration::OPTION_REGION);
+            $metadata = $this->getEndpointMetadata($region);
             $factories = $this->getSignerFactories();
-            if (!isset($factories[$signatureVersion = $this->getSignatureVersion()])) {
-                throw new InvalidArgument(sprintf('The signature "%s" is not implemented.', $signatureVersion));
+            $factory = null;
+            foreach ($metadata['signVersions'] as $signatureVersion) {
+                if (isset($factories[$signatureVersion])) {
+                    $factory = $factories[$signatureVersion];
+
+                    break;
+                }
             }
 
-            $this->signers[$region] = $factories[$signatureVersion]($this->getSignatureScopeName(), $region);
+            if (null === $factory) {
+                throw new InvalidArgument(sprintf('None of the signatures "%s" is implemented.', \implode(', ', $metadata['signVersions'])));
+            }
+
+            $this->signers[$region] = $factory($metadata['signService'], $metadata['signRegion'] ?? $region);
         }
 
         /** @psalm-suppress PossiblyNullArrayOffset */

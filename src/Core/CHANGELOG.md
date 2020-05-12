@@ -6,6 +6,7 @@
 
 - Support for EventBridge in `AwsClientFactory`
 - Support for IAM in `AwsClientFactory`
+- Support for global and regional endpoints
 
 ## 1.1.0
 
