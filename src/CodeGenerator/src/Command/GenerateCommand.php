@@ -283,9 +283,14 @@ class GenerateCommand extends Command
 
     private function fixCs(ClassName $clientClass, SymfonyStyle $io): void
     {
-        $reflection = new \ReflectionClass($clientClass->getFqdn());
-        $srcPath = \dirname($reflection->getFileName());
-        $testPath = realpath($srcPath . '/../tests');
+        $srcPath = \dirname((new \ReflectionClass($clientClass->getFqdn()))->getFileName());
+        $testPath = \substr($srcPath, 0, \strrpos($srcPath, '/src/')) . '/tests';
+        if (!\is_dir($srcPath)) {
+            throw new \InvalidArgumentException(sprintf('The src dir "%s" does not exists', $srcPath));
+        }
+        if (!\is_dir($testPath)) {
+            throw new \InvalidArgumentException(sprintf('The test dir "%s" does not exists', $testPath));
+        }
 
         // assert this
         $baseDir = \dirname($this->manifestFile);
