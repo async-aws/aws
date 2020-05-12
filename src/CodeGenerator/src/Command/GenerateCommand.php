@@ -337,13 +337,6 @@ class GenerateCommand extends Command
 
         if (null === $this->cache) {
             $this->cache = \file_exists($this->cacheFile) ? require($this->cacheFile) : [];
-
-            // temporary => to remove old way to cache files
-            foreach ($this->cache as $key => $data) {
-                if (0 === \strpos($key, 'https://')) {
-                    unset($this->cache[$key]);
-                }
-            }
         }
 
         if (isset($this->cache[$cacheKey])) {
