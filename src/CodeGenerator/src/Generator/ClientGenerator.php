@@ -56,12 +56,6 @@ class ClientGenerator
         }
 
         $endpoints = $definition->getEndpoints();
-        $body = '';
-        if (!isset($endpoints['_global']['aws'])) {
-            $namespace->addUse(Configuration::class);
-            $body .= 'if ($region === null) { $region = Configuration::DEFAULT_REGION; }' . \PHP_EOL;
-        }
-        $body .= 'switch ($region) {' . \PHP_EOL;
         $dumpConfig = function ($config) {
             sort($config['signVersions']);
 
@@ -73,6 +67,29 @@ class ClientGenerator
             ], true)), ['\'%region%\'' => '$region']);
         };
 
+        $body = '';
+        if (!isset($endpoints['_global']['aws'])) {
+            $namespace->addUse(Configuration::class);
+            $body .= 'if ($region === null) { $region = Configuration::DEFAULT_REGION; }' . \PHP_EOL;
+        }
+        $body .= 'switch ($region) {' . \PHP_EOL;
+
+        foreach ($endpoints['_global'] ?? [] as $partitionName => $config) {
+            if (empty($config['regions']) && 'aws' !== $partitionName) {
+                continue;
+            }
+            sort($config['regions']);
+            if ('aws' === $partitionName) {
+                if (empty($config['signRegion'])) {
+                    throw new \RuntimeException('Global endpoint without signRegion is not yet supported');
+                }
+                $body .= '    case null:' . \PHP_EOL;
+            }
+            foreach ($config['regions'] as $region) {
+                $body .= sprintf('    case %s:' . \PHP_EOL, \var_export($region, true));
+            }
+            $body .= $dumpConfig($config);
+        }
         foreach ($endpoints['_default'] ?? [] as $config) {
             if (empty($config['regions'])) {
                 continue;
@@ -91,27 +108,9 @@ class ClientGenerator
             $body .= sprintf('    case %s:' . \PHP_EOL, \var_export($region, true));
             $body .= $dumpConfig($config);
         }
-        foreach ($endpoints['_global'] ?? [] as $partition => $config) {
-            if (empty($config['regions'])) {
-                continue;
-            }
-            if ('aws' === $partition) {
-                continue; // skip `aws` partition which is the default case.
-            }
-            sort($config['regions']);
-            foreach ($config['regions'] as $region) {
-                $body .= sprintf('    case %s:' . \PHP_EOL, \var_export($region, true));
-            }
-            $body .= $dumpConfig($config);
-        }
         $body .= '}' . \PHP_EOL;
-
-        if (isset($endpoints['_global']['aws'])) {
-            $body .= $dumpConfig($endpoints['_global']['aws']);
-        } else {
-            $namespace->addUse(UnsupportedRegion::class);
-            $body .= 'throw new UnsupportedRegion(sprintf(\'The region "%s" is not supported by "' . $definition->getName() . '".\', $region));';
-        }
+        $body .= 'throw new UnsupportedRegion(sprintf(\'The region "%s" is not supported by "' . $definition->getName() . '".\', $region));';
+        $namespace->addUse(UnsupportedRegion::class);
 
         $class->addMethod('getEndpointMetadata')
             ->setReturnType('array')

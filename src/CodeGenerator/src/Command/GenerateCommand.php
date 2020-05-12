@@ -210,14 +210,16 @@ class GenerateCommand extends Command
                 unset($serviceEndpoints[$service['partitionEndpoint']]);
                 unset($serviceEndpoints['_global'][$partition['partition']]['region']);
                 $serviceEndpoints['_global'][$partition['partition']]['regions'] = [];
-                foreach ($partition['regions'] as $region => $_) {
-                    if (isset($serviceEndpoints[$region])) {
-                        continue;
+                if (!($service['isRegionalized'] ?? true)) {
+                    foreach ($partition['regions'] as $region => $_) {
+                        if (isset($serviceEndpoints[$region])) {
+                            continue;
+                        }
+                        if (\in_array($region, $serviceEndpoints['_default'][$partition['partition']]['regions'] ?? [])) {
+                            continue;
+                        }
+                        $serviceEndpoints['_global'][$partition['partition']]['regions'][] = $region;
                     }
-                    if (\in_array($region, $serviceEndpoints['_default'][$partition['partition']]['regions'] ?? [])) {
-                        continue;
-                    }
-                    $serviceEndpoints['_global'][$partition['partition']]['regions'][] = $region;
                 }
             }
         }

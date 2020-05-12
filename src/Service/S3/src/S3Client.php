@@ -3,6 +3,7 @@
 namespace AsyncAws\S3;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\S3\Input\AbortMultipartUploadRequest;
 use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
@@ -654,6 +655,16 @@ class S3Client extends AbstractApi
     protected function getEndpointMetadata(?string $region): array
     {
         switch ($region) {
+            case null:
+                return [
+                    'endpoint' => 'https://s3.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 's3',
+                    'signVersions' => [
+                        0 => 's3',
+                        1 => 's3v4',
+                    ],
+                ];
             case 'af-south-1':
             case 'ap-east-1':
             case 'ap-northeast-2':
@@ -824,15 +835,7 @@ class S3Client extends AbstractApi
                 ];
         }
 
-        return [
-            'endpoint' => 'https://s3.amazonaws.com',
-            'signRegion' => 'us-east-1',
-            'signService' => 's3',
-            'signVersions' => [
-                0 => 's3',
-                1 => 's3v4',
-            ],
-        ];
+        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "S3".', $region));
     }
 
     protected function getServiceCode(): string

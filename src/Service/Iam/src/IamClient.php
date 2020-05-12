@@ -3,6 +3,7 @@
 namespace AsyncAws\Iam;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
 use AsyncAws\Iam\Input\CreateUserRequest;
@@ -123,9 +124,29 @@ class IamClient extends AbstractApi
     protected function getEndpointMetadata(?string $region): array
     {
         switch ($region) {
-            case 'iam-fips':
+            case null:
+            case 'af-south-1':
+            case 'ap-east-1':
+            case 'ap-northeast-1':
+            case 'ap-northeast-2':
+            case 'ap-south-1':
+            case 'ap-southeast-1':
+            case 'ap-southeast-2':
+            case 'ca-central-1':
+            case 'eu-central-1':
+            case 'eu-north-1':
+            case 'eu-south-1':
+            case 'eu-west-1':
+            case 'eu-west-2':
+            case 'eu-west-3':
+            case 'me-south-1':
+            case 'sa-east-1':
+            case 'us-east-1':
+            case 'us-east-2':
+            case 'us-west-1':
+            case 'us-west-2':
                 return [
-                    'endpoint' => 'https://iam-fips.amazonaws.com',
+                    'endpoint' => 'https://iam.amazonaws.com',
                     'signRegion' => 'us-east-1',
                     'signService' => 'iam',
                     'signVersions' => [
@@ -170,16 +191,18 @@ class IamClient extends AbstractApi
                         0 => 'v4',
                     ],
                 ];
+            case 'iam-fips':
+                return [
+                    'endpoint' => 'https://iam-fips.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'iam',
+                    'signVersions' => [
+                        0 => 'v4',
+                    ],
+                ];
         }
 
-        return [
-            'endpoint' => 'https://iam.amazonaws.com',
-            'signRegion' => 'us-east-1',
-            'signService' => 'iam',
-            'signVersions' => [
-                0 => 'v4',
-            ],
-        ];
+        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Iam".', $region));
     }
 
     protected function getServiceCode(): string
