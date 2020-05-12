@@ -92,16 +92,17 @@ class StsClient extends AbstractApi
 
     protected function getEndpointMetadata(?string $region): array
     {
+        if (null === $region) {
+            return [
+                'endpoint' => 'https://sts.amazonaws.com',
+                'signRegion' => 'us-east-1',
+                'signService' => 'sts',
+                'signVersions' => [
+                    0 => 'v4',
+                ],
+            ];
+        }
         switch ($region) {
-            case null:
-                return [
-                    'endpoint' => 'https://sts.amazonaws.com',
-                    'signRegion' => 'us-east-1',
-                    'signService' => 'sts',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
-                ];
             case 'af-south-1':
             case 'ap-east-1':
             case 'ap-northeast-1':

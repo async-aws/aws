@@ -79,20 +79,19 @@ class ClientGenerator
         if (!isset($endpoints['_global']['aws'])) {
             $namespace->addUse(Configuration::class);
             $body .= 'if ($region === null) { $region = Configuration::DEFAULT_REGION; }' . \PHP_EOL;
+        } else {
+            if (empty($endpoints['_global']['aws']['signRegion'])) {
+                throw new \RuntimeException('Global endpoint without signRegion is not yet supported');
+            }
+            $body .= 'if ($region === null) { ' . $dumpConfig($endpoints['_global']['aws']) . ' }' . \PHP_EOL;
         }
         $body .= 'switch ($region) {' . \PHP_EOL;
 
         foreach ($endpoints['_global'] ?? [] as $partitionName => $config) {
-            if (empty($config['regions']) && 'aws' !== $partitionName) {
+            if (empty($config['regions'])) {
                 continue;
             }
             sort($config['regions']);
-            if ('aws' === $partitionName) {
-                if (empty($config['signRegion'])) {
-                    throw new \RuntimeException('Global endpoint without signRegion is not yet supported');
-                }
-                $body .= '    case null:' . \PHP_EOL;
-            }
             foreach ($config['regions'] as $region) {
                 $body .= sprintf('    case %s:' . \PHP_EOL, \var_export($region, true));
             }

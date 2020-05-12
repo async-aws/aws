@@ -123,8 +123,17 @@ class IamClient extends AbstractApi
 
     protected function getEndpointMetadata(?string $region): array
     {
+        if (null === $region) {
+            return [
+                'endpoint' => 'https://iam.amazonaws.com',
+                'signRegion' => 'us-east-1',
+                'signService' => 'iam',
+                'signVersions' => [
+                    0 => 'v4',
+                ],
+            ];
+        }
         switch ($region) {
-            case null:
             case 'af-south-1':
             case 'ap-east-1':
             case 'ap-northeast-1':

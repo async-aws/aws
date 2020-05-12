@@ -654,17 +654,18 @@ class S3Client extends AbstractApi
 
     protected function getEndpointMetadata(?string $region): array
     {
+        if (null === $region) {
+            return [
+                'endpoint' => 'https://s3.amazonaws.com',
+                'signRegion' => 'us-east-1',
+                'signService' => 's3',
+                'signVersions' => [
+                    0 => 's3v4',
+                    1 => 's3',
+                ],
+            ];
+        }
         switch ($region) {
-            case null:
-                return [
-                    'endpoint' => 'https://s3.amazonaws.com',
-                    'signRegion' => 'us-east-1',
-                    'signService' => 's3',
-                    'signVersions' => [
-                        0 => 's3v4',
-                        1 => 's3',
-                    ],
-                ];
             case 'af-south-1':
             case 'ap-east-1':
             case 'ap-northeast-2':
