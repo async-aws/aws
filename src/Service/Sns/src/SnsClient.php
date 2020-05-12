@@ -3,6 +3,7 @@
 namespace AsyncAws\Sns;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
 use AsyncAws\Sns\Input\CreateTopicInput;
@@ -269,7 +270,7 @@ class SnsClient extends AbstractApi
                 ];
         }
 
-        throw new \InvalidArgumentException(sprintf('The region "%s" is not supported by "Sns".', $region));
+        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Sns".', $region));
     }
 
     protected function getServiceCode(): string

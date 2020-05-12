@@ -3,6 +3,7 @@
 namespace AsyncAws\Ses;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Ses\Input\SendEmailRequest;
 use AsyncAws\Ses\Result\SendEmailResponse;
@@ -70,7 +71,7 @@ class SesClient extends AbstractApi
                 ];
         }
 
-        throw new \InvalidArgumentException(sprintf('The region "%s" is not supported by "Ses".', $region));
+        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Ses".', $region));
     }
 
     protected function getServiceCode(): string

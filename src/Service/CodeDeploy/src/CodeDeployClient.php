@@ -5,6 +5,7 @@ namespace AsyncAws\CodeDeploy;
 use AsyncAws\CodeDeploy\Input\PutLifecycleEventHookExecutionStatusInput;
 use AsyncAws\CodeDeploy\Result\PutLifecycleEventHookExecutionStatusOutput;
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 
 class CodeDeployClient extends AbstractApi
@@ -146,7 +147,7 @@ class CodeDeployClient extends AbstractApi
                 ];
         }
 
-        throw new \InvalidArgumentException(sprintf('The region "%s" is not supported by "CodeDeploy".', $region));
+        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "CodeDeploy".', $region));
     }
 
     protected function getServiceCode(): string

@@ -3,6 +3,7 @@
 namespace AsyncAws\EventBridge;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\EventBridge\Input\PutEventsRequest;
 use AsyncAws\EventBridge\Result\PutEventsResponse;
@@ -142,7 +143,7 @@ class EventBridgeClient extends AbstractApi
                 ];
         }
 
-        throw new \InvalidArgumentException(sprintf('The region "%s" is not supported by "EventBridge".', $region));
+        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "EventBridge".', $region));
     }
 
     protected function getServiceCode(): string

@@ -21,6 +21,7 @@ use AsyncAws\CognitoIdentityProvider\Result\SetUserMFAPreferenceResponse;
 use AsyncAws\CognitoIdentityProvider\Result\VerifySoftwareTokenResponse;
 use AsyncAws\CognitoIdentityProvider\ValueObject\UserType;
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
 
@@ -272,7 +273,7 @@ class CognitoIdentityProviderClient extends AbstractApi
                 ];
         }
 
-        throw new \InvalidArgumentException(sprintf('The region "%s" is not supported by "CognitoIdentityProvider".', $region));
+        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "CognitoIdentityProvider".', $region));
     }
 
     protected function getServiceCode(): string

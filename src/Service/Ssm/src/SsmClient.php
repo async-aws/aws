@@ -3,6 +3,7 @@
 namespace AsyncAws\Ssm;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Ssm\Input\DeleteParameterRequest;
 use AsyncAws\Ssm\Input\GetParameterRequest;
@@ -262,7 +263,7 @@ class SsmClient extends AbstractApi
                 ];
         }
 
-        throw new \InvalidArgumentException(sprintf('The region "%s" is not supported by "Ssm".', $region));
+        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Ssm".', $region));
     }
 
     protected function getServiceCode(): string

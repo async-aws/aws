@@ -9,6 +9,7 @@ use AsyncAws\CloudFormation\Result\DescribeStacksOutput;
 use AsyncAws\CloudFormation\ValueObject\Stack;
 use AsyncAws\CloudFormation\ValueObject\StackEvent;
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 
 class CloudFormationClient extends AbstractApi
@@ -165,7 +166,7 @@ class CloudFormationClient extends AbstractApi
                 ];
         }
 
-        throw new \InvalidArgumentException(sprintf('The region "%s" is not supported by "CloudFormation".', $region));
+        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "CloudFormation".', $region));
     }
 
     protected function getServiceCode(): string

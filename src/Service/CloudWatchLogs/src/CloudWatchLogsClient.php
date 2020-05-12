@@ -8,6 +8,7 @@ use AsyncAws\CloudWatchLogs\Result\DescribeLogStreamsResponse;
 use AsyncAws\CloudWatchLogs\Result\PutLogEventsResponse;
 use AsyncAws\CloudWatchLogs\ValueObject\LogStream;
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 
 class CloudWatchLogsClient extends AbstractApi
@@ -130,7 +131,7 @@ class CloudWatchLogsClient extends AbstractApi
                 ];
         }
 
-        throw new \InvalidArgumentException(sprintf('The region "%s" is not supported by "CloudWatchLogs".', $region));
+        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "CloudWatchLogs".', $region));
     }
 
     protected function getServiceCode(): string

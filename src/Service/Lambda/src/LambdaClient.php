@@ -3,6 +3,7 @@
 namespace AsyncAws\Lambda;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
@@ -233,7 +234,7 @@ class LambdaClient extends AbstractApi
                 ];
         }
 
-        throw new \InvalidArgumentException(sprintf('The region "%s" is not supported by "Lambda".', $region));
+        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Lambda".', $region));
     }
 
     protected function getServiceCode(): string

@@ -56,9 +56,6 @@ class ClientGenerator
 
         $endpoints = $definition->getEndpoints();
         $body = 'switch ($region) {' . \PHP_EOL;
-        $default = $endpoints['_default'] ?? [];
-        $global = $endpoints['_global'] ?? [];
-        unset($endpoints['_default'], $endpoints['_global']);
         $dumpConfig = function ($config) {
             sort($config['signVersions']);
 
@@ -69,7 +66,8 @@ class ClientGenerator
                 'signVersions' => $config['signVersions'],
             ], true)), ['\'%region%\'' => '$region']);
         };
-        foreach ($default as $config) {
+
+        foreach ($endpoints['_default'] ?? [] as $config) {
             if (empty($config['regions'])) {
                 continue;
             }
@@ -81,12 +79,18 @@ class ClientGenerator
         }
         ksort($endpoints);
         foreach ($endpoints as $region => $config) {
+            if ('_' === $region[0]) {
+                continue; // skip `_default` and `_global`
+            }
             $body .= sprintf('    case %s:' . \PHP_EOL, \var_export($region, true));
             $body .= $dumpConfig($config);
         }
-        foreach ($global as $config) {
+        foreach ($endpoints['_global'] ?? [] as $partition => $config) {
             if (empty($config['regions'])) {
                 continue;
+            }
+            if ('aws' === $partition) {
+                continue; // skip `aws` partition which is the default case.
             }
             sort($config['regions']);
             foreach ($config['regions'] as $region) {
@@ -96,8 +100,8 @@ class ClientGenerator
         }
         $body .= '}' . \PHP_EOL;
 
-        if (isset($global['aws'])) {
-            $body .= $dumpConfig($global['aws']);
+        if (isset($endpoints['_global']['aws'])) {
+            $body .= $dumpConfig($endpoints['_global']['aws']);
         } else {
             $namespace->addUse(UnsupportedRegion::class);
             $body .= 'throw new UnsupportedRegion(sprintf(\'The region "%s" is not supported by "' . $definition->getName() . '".\', $region));';

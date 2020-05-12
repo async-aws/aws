@@ -3,6 +3,7 @@
 namespace AsyncAws\Sqs;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
@@ -380,7 +381,7 @@ class SqsClient extends AbstractApi
                 ];
         }
 
-        throw new \InvalidArgumentException(sprintf('The region "%s" is not supported by "Sqs".', $region));
+        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Sqs".', $region));
     }
 
     protected function getServiceCode(): string

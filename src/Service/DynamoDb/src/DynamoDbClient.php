@@ -3,6 +3,7 @@
 namespace AsyncAws\DynamoDb;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\DynamoDb\Input\CreateTableInput;
 use AsyncAws\DynamoDb\Input\DeleteItemInput;
@@ -517,7 +518,7 @@ class DynamoDbClient extends AbstractApi
                 ];
         }
 
-        throw new \InvalidArgumentException(sprintf('The region "%s" is not supported by "DynamoDb".', $region));
+        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "DynamoDb".', $region));
     }
 
     protected function getServiceCode(): string
