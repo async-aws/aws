@@ -18,7 +18,7 @@ jobs:
       - name: Download dependencies
         run: |
           composer remove --no-update --no-interaction --dev league/flysystem-adapter-test-utilities
-          composer req --no-update --dev league/flysystem:^1.0
+          composer req --no-update --dev league/flysystem:^1.0 league/flysystem-cached-adapter:^1.0
           composer update --no-interaction --prefer-dist --optimize-autoloader
 
       - name:  Modify config

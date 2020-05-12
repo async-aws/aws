@@ -84,6 +84,19 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
         $this->options = $options;
     }
 
+    public function getClient(): S3Client
+    {
+        return $this->client;
+    }
+
+    /**
+     * Get the S3Client bucket.
+     */
+    public function getBucket(): string
+    {
+        return $this->bucket;
+    }
+
     /**
      * {@inheritdoc}
      */
