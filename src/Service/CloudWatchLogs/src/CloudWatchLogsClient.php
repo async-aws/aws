@@ -66,6 +66,7 @@ class CloudWatchLogsClient extends AbstractApi
         if (null === $region) {
             $region = Configuration::DEFAULT_REGION;
         }
+
         switch ($region) {
             case 'af-south-1':
             case 'ap-east-1':

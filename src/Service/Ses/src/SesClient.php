@@ -40,6 +40,7 @@ class SesClient extends AbstractApi
         if (null === $region) {
             $region = Configuration::DEFAULT_REGION;
         }
+
         switch ($region) {
             case 'ap-south-1':
             case 'ap-southeast-2':

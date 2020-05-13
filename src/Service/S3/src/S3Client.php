@@ -665,6 +665,7 @@ class S3Client extends AbstractApi
                 ],
             ];
         }
+
         switch ($region) {
             case 'af-south-1':
             case 'ap-east-1':

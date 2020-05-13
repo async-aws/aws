@@ -67,7 +67,7 @@ class ClientGenerator
             $signatureVersions = \array_intersect($supportedVersions, $config['signVersions']);
             rsort($signatureVersions);
 
-            return strtr(sprintf('        return %s;' . \PHP_EOL, \var_export([
+            return strtr(sprintf("        return %s;\n", \var_export([
                 'endpoint' => $config['endpoint'],
                 'signRegion' => $config['signRegion'] ?? '%region%',
                 'signService' => $config['signService'],
@@ -78,14 +78,22 @@ class ClientGenerator
         $body = '';
         if (!isset($endpoints['_global']['aws'])) {
             $namespace->addUse(Configuration::class);
-            $body .= 'if ($region === null) { $region = Configuration::DEFAULT_REGION; }' . \PHP_EOL;
+            $body .= 'if ($region === null) {
+                $region = Configuration::DEFAULT_REGION;
+            }
+
+            ';
         } else {
             if (empty($endpoints['_global']['aws']['signRegion'])) {
                 throw new \RuntimeException('Global endpoint without signRegion is not yet supported');
             }
-            $body .= 'if ($region === null) { ' . $dumpConfig($endpoints['_global']['aws']) . ' }' . \PHP_EOL;
+            $body .= 'if ($region === null) {
+                ' . $dumpConfig($endpoints['_global']['aws']) . '
+            }
+
+            ';
         }
-        $body .= 'switch ($region) {' . \PHP_EOL;
+        $body .= "switch (\$region) {\n";
 
         foreach ($endpoints['_global'] ?? [] as $partitionName => $config) {
             if (empty($config['regions'])) {
@@ -93,7 +101,7 @@ class ClientGenerator
             }
             sort($config['regions']);
             foreach ($config['regions'] as $region) {
-                $body .= sprintf('    case %s:' . \PHP_EOL, \var_export($region, true));
+                $body .= sprintf("    case %s:\n", \var_export($region, true));
             }
             $body .= $dumpConfig($config);
         }
@@ -103,7 +111,7 @@ class ClientGenerator
             }
             sort($config['regions']);
             foreach ($config['regions'] as $region) {
-                $body .= sprintf('    case %s:' . \PHP_EOL, \var_export($region, true));
+                $body .= sprintf("    case %s:\n", \var_export($region, true));
             }
             $body .= $dumpConfig($config);
         }
@@ -112,11 +120,12 @@ class ClientGenerator
             if ('_' === $region[0]) {
                 continue; // skip `_default` and `_global`
             }
-            $body .= sprintf('    case %s:' . \PHP_EOL, \var_export($region, true));
+            $body .= sprintf("    case %s:\n", \var_export($region, true));
             $body .= $dumpConfig($config);
         }
-        $body .= '}' . \PHP_EOL;
-        $body .= 'throw new UnsupportedRegion(sprintf(\'The region "%s" is not supported by "' . $definition->getName() . '".\', $region));';
+        $body .= '}
+            throw new UnsupportedRegion(sprintf(\'The region "%s" is not supported by "' . $definition->getName() . '".\', $region));
+        ';
         $namespace->addUse(UnsupportedRegion::class);
 
         $class->addMethod('getEndpointMetadata')

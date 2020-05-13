@@ -227,6 +227,7 @@ class CognitoIdentityProviderClient extends AbstractApi
         if (null === $region) {
             $region = Configuration::DEFAULT_REGION;
         }
+
         switch ($region) {
             case 'ap-northeast-1':
             case 'ap-northeast-2':
