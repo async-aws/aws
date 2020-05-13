@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace AsyncAws\Symfony\Bundle\DependencyInjection;
 
+use AsyncAws\Core\Credentials\CacheProvider;
+use AsyncAws\Core\Credentials\ChainProvider;
+use AsyncAws\Core\Credentials\CredentialProvider;
+use AsyncAws\Core\Credentials\SymfonyCacheProvider;
 use AsyncAws\Symfony\Bundle\Secrets\CachedEnvVarLoader;
 use AsyncAws\Symfony\Bundle\Secrets\SsmVault;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -93,9 +97,32 @@ class AsyncAwsExtension extends Extension
             $httpClient = new Reference('http_client', ContainerInterface::NULL_ON_INVALID_REFERENCE);
         }
 
+        if ((null === $credentialServiceId = $config['credential_provider']) && \class_exists(SymfonyCacheProvider::class) && \interface_exists(CacheInterface::class)) {
+            $credentialServiceId = 'async_aws.credential';
+            if (!$container->hasDefinition($credentialServiceId)) {
+                $container->register($credentialServiceId, CredentialProvider::class)
+                    ->setFactory([ChainProvider::class, 'createDefaultChain'])
+                    ->setArguments([$httpClient, $logger]);
+
+                $container->register('async_aws.credential.cache', SymfonyCacheProvider::class)
+                    ->setDecoratedService($credentialServiceId)
+                    ->setArguments([
+                        new Reference('async_aws.credential.cache.inner'),
+                        new Reference('cache.app'),
+                    ]);
+
+                $container->register('async_aws.credential.memory', CacheProvider::class)
+                    ->setDecoratedService($credentialServiceId)
+                    ->setArguments([
+                        new Reference('async_aws.credential.memory.inner'),
+                        new Reference('cache.app'),
+                    ]);
+            }
+        }
+
         $definition = new Definition($clientClass);
         $definition->addArgument($config['config']);
-        $definition->addArgument(isset($config['credential_provider']) ? new Reference($config['credential_provider']) : null);
+        $definition->addArgument($credentialServiceId ? new Reference($credentialServiceId) : null);
         $definition->addArgument($httpClient);
         $definition->addArgument($logger);
         $container->setDefinition(sprintf('async_aws.client.%s', $name), $definition);
@@ -145,7 +172,7 @@ class AsyncAwsExtension extends Extension
                 throw new InvalidConfigurationException(sprintf('You have enabled "async_aws.secrets.cache" but the "symfony/cache" package is not installed. Try running "composer require symfony/cache"'));
             }
 
-            $container->Register(CachedEnvVarLoader::class)
+            $container->register(CachedEnvVarLoader::class)
                 ->setDecoratedService(SsmVault::class)
                 ->setArguments([
                     new Reference(CachedEnvVarLoader::class . '.inner'),

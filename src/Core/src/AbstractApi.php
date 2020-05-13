@@ -6,12 +6,7 @@ namespace AsyncAws\Core;
 
 use AsyncAws\Core\Credentials\CacheProvider;
 use AsyncAws\Core\Credentials\ChainProvider;
-use AsyncAws\Core\Credentials\ConfigurationProvider;
-use AsyncAws\Core\Credentials\ContainerProvider;
 use AsyncAws\Core\Credentials\CredentialProvider;
-use AsyncAws\Core\Credentials\IniFileProvider;
-use AsyncAws\Core\Credentials\InstanceProvider;
-use AsyncAws\Core\Credentials\WebIdentityProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Signer\Signer;
 use AsyncAws\Core\Signer\SignerV4;
@@ -68,13 +63,7 @@ abstract class AbstractApi
         $this->httpClient = $httpClient ?? HttpClient::create();
         $this->logger = $logger ?? new NullLogger();
         $this->configuration = $configuration;
-        $this->credentialProvider = $credentialProvider ?? new CacheProvider(new ChainProvider([
-            new ConfigurationProvider(),
-            new WebIdentityProvider($this->logger),
-            new IniFileProvider($this->logger),
-            new ContainerProvider($this->httpClient, $this->logger),
-            new InstanceProvider($this->httpClient, $this->logger),
-        ]));
+        $this->credentialProvider = $credentialProvider ?? new CacheProvider(ChainProvider::createDefaultChain($this->httpClient, $this->logger));
     }
 
     final public function getConfiguration(): Configuration

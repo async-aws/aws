@@ -61,11 +61,15 @@ final class ContainerProvider implements CredentialProvider
             return null;
         }
 
+        if (null !== $date = $response->getHeaders(false)['date'][0] ?? null) {
+            $date = new \DateTimeImmutable($date);
+        }
+
         return new Credentials(
             $result['AccessKeyId'],
             $result['SecretAccessKey'],
             $result['Token'],
-            new \DateTimeImmutable($result['Expiration'])
+            Credentials::adjustExpireDate(new \DateTimeImmutable($result['Expiration']), $date)
         );
     }
 }

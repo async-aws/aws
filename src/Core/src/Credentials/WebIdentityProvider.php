@@ -8,6 +8,7 @@ use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Sts\StsClient;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
  * Provides Credentials from Web Identity or OpenID Connect Federation.
@@ -22,10 +23,13 @@ final class WebIdentityProvider implements CredentialProvider
 
     private $logger;
 
-    public function __construct(?LoggerInterface $logger = null, ?IniFileLoader $iniFileLoader = null)
+    private $httpClient;
+
+    public function __construct(?LoggerInterface $logger = null, ?IniFileLoader $iniFileLoader = null, ?HttpClientInterface $httpClient = null)
     {
         $this->logger = $logger ?? new NullLogger();
         $this->iniFileLoader = $iniFileLoader ?? new IniFileLoader($this->logger);
+        $this->httpClient = $httpClient;
     }
 
     public function getCredentials(Configuration $configuration): ?Credentials
@@ -91,7 +95,7 @@ final class WebIdentityProvider implements CredentialProvider
             return null;
         }
 
-        $stsClient = new StsClient(['region' => $region], new NullProvider());
+        $stsClient = new StsClient(['region' => $region], new NullProvider(), $this->httpClient);
         $result = $stsClient->assumeRoleWithWebIdentity([
             'RoleArn' => $roleArn,
             'RoleSessionName' => $sessionName,
@@ -108,11 +112,16 @@ final class WebIdentityProvider implements CredentialProvider
             return null;
         }
 
+        $date = null;
+        if ((null !== $response = $result->info()['response'] ?? null) && null !== $date = $response->getHeaders(false)['date'][0] ?? null) {
+            $date = new \DateTimeImmutable($date);
+        }
+
         return new Credentials(
             $credentials->getAccessKeyId(),
             $credentials->getSecretAccessKey(),
             $credentials->getSessionToken(),
-            $credentials->getExpiration()
+            Credentials::adjustExpireDate($credentials->getExpiration(), $date)
         );
     }
 }

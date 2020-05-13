@@ -13,6 +13,8 @@ use AsyncAws\Core\Configuration;
  */
 final class Credentials implements CredentialProvider
 {
+    private const EXPIRATION_DRIFT = 30;
+
     private $accessKeyId;
 
     private $secretKey;
@@ -61,5 +63,14 @@ final class Credentials implements CredentialProvider
     public function getCredentials(Configuration $configuration): ?Credentials
     {
         return $this->isExpired() ? null : $this;
+    }
+
+    public static function adjustExpireDate(\DateTimeImmutable $expireDate, ?\DateTimeImmutable $reference = null): \DateTimeImmutable
+    {
+        if (null !== $reference) {
+            $expireDate = (new \DateTimeImmutable())->add($reference->diff($expireDate));
+        }
+
+        return $expireDate->sub(new \DateInterval(sprintf('PT%dS', self::EXPIRATION_DRIFT)));
     }
 }

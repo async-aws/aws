@@ -30,3 +30,25 @@ The providers are currently chained in the following order:
 
 The default provider chain could be too slow or too complex for testing. It is recommended
 to use the `NullProvider` in tests where you don't provide valid configuration values.
+
+## Caching credential
+
+Fetching credential from AWS metadata endpoint (EC2 Instance, ECS Container,
+WebIdentity...) for each request can introduce latency. AsyncAws provides a
+`PsrCacheProvider` and a `SymfonyCacheProvider` decorator to persist and reuse
+credentials between each request.
+
+```php
+use AsyncAws\Core\Credentials\CacheProvider;
+use AsyncAws\Core\Credentials\ChainProvider;
+use AsyncAws\Core\Credentials\SymfonyCacheProvider;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+
+$provider = ChainProvider::createDefaultChain();
+$provider = new SymfonyCacheProvider($provider, new FilesystemAdapter('test'));
+
+// optional, decorate the provider with the in-memory Cache provider
+$provider = new CacheProvider($provider);
+
+$s3 = new S3Client([], $provider);
+```

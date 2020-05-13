@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace AsyncAws\Core\Credentials;
 
 use AsyncAws\Core\Configuration;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
+use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\Service\ResetInterface;
 
 /**
@@ -59,5 +63,19 @@ final class ChainProvider implements CredentialProvider, ResetInterface
     public function reset()
     {
         $this->lastSuccessfulProvider = [];
+    }
+
+    public static function createDefaultChain(?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null): CredentialProvider
+    {
+        $httpClient = $httpClient ?? HttpClient::create();
+        $logger = $logger ?? new NullLogger();
+
+        return new ChainProvider([
+            new ConfigurationProvider(),
+            new WebIdentityProvider($logger, null, $httpClient),
+            new IniFileProvider($logger, null, $httpClient),
+            new ContainerProvider($httpClient, $logger),
+            new InstanceProvider($httpClient, $logger),
+        ]);
     }
 }
