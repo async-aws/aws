@@ -7,7 +7,6 @@ namespace AsyncAws\Illuminate\Filesystem;
 use AsyncAws\Flysystem\S3\S3FilesystemV1;
 use AsyncAws\S3\Input\GetObjectRequest;
 use Illuminate\Filesystem\FilesystemAdapter;
-use League\Flysystem\Cached\CachedAdapter;
 
 /**
  * A small class that override the url() function.
