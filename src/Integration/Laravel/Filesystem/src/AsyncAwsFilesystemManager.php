@@ -38,6 +38,6 @@ class AsyncAwsFilesystemManager extends FilesystemManager
             throw new \RuntimeException('Could not use AsyncAwsS3 since Flysystem v1 is not installed. Run "composer require league/flysystem:^1.0"');
         }
 
-        return new FilesystemAdapter($this->createFlysystem($flysystemAdapter, $config));
+        return new AsyncAwsFilesystemAdapter($this->createFlysystem($flysystemAdapter, $config));
     }
 }
