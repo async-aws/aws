@@ -60,7 +60,7 @@ class AsyncAwsFilesystemAdapter extends FilesystemAdapter
 
         // remove all query parameters.
         if (false === $pos = strpos($url, '?')) {
-            throw new \RuntimeException('Expected presigned URL to include a quiery string');
+            throw new \RuntimeException('Expected presigned URL to include a query string');
         }
 
         return substr($url, 0, $pos);
@@ -74,7 +74,8 @@ class AsyncAwsFilesystemAdapter extends FilesystemAdapter
 
         $adapter = $this->driver->getAdapter();
 
-        if ($adapter instanceof CachedAdapter) {
+        // Try to unwrap CacheAdapter etc.
+        while (!$adapter instanceof S3FilesystemV1 && method_exists($adapter, 'getAdapter')) {
             $adapter = $adapter->getAdapter();
         }
 

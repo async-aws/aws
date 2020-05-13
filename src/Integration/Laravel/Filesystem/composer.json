@@ -20,9 +20,6 @@
     "conflict": {
         "league/flysystem": ">=2.0.0"
     },
-    "require-dev": {
-        "league/flysystem-cached-adapter": "^1.0"
-    },
     "extra": {
         "branch-alias": {
             "dev-master": "0.1-dev"
