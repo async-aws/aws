@@ -10,6 +10,12 @@
 - Add a `Credential::adjustExpireDate` method for adjusting the time according to the time difference with AWS clock
 - Support for global and regional endpoints
 
+### Deprecation
+
+- Clients extending `AbstractApi` should override `getEndpointMetata`. The method will be abstract in 2.0
+- Custom endpoints should not contain `%region%` and `%service` placeholder. They won't be replaced anymore in 2.0
+- Protected methods `getServiceCode`, `getSignatureVersion` and `getSignatureScopeName` of AbstractApi are deprecated and will be removed in 2.0
+
 ## 1.1.0
 
 ### Added
