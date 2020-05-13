@@ -242,39 +242,31 @@ class CognitoIdentityProviderClient extends AbstractApi
             case 'us-east-2':
             case 'us-west-2':
                 return [
-                    'endpoint' => 'https://cognito-idp.%region%.amazonaws.com',
+                    'endpoint' => "https://cognito-idp.$region.amazonaws.com",
                     'signRegion' => $region,
                     'signService' => 'cognito-idp',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://cognito-idp-fips.us-east-1.amazonaws.com',
                     'signRegion' => 'us-east-1',
                     'signService' => 'cognito-idp',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-east-2':
                 return [
                     'endpoint' => 'https://cognito-idp-fips.us-east-2.amazonaws.com',
                     'signRegion' => 'us-east-2',
                     'signService' => 'cognito-idp',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-west-2':
                 return [
                     'endpoint' => 'https://cognito-idp-fips.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',
                     'signService' => 'cognito-idp',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
         }
 
@@ -283,16 +275,22 @@ class CognitoIdentityProviderClient extends AbstractApi
 
     protected function getServiceCode(): string
     {
+        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
+
         return 'cognito-idp';
     }
 
     protected function getSignatureScopeName(): string
     {
+        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
+
         return 'cognito-idp';
     }
 
     protected function getSignatureVersion(): string
     {
+        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
+
         return 'v4';
     }
 }

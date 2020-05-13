@@ -48,12 +48,6 @@ class ClientGenerator
 
         $classes = $namespace->getClasses();
         $class = $classes[\array_key_first($classes)];
-        if (null !== $prefix = $definition->getEndpointPrefix()) {
-            $class->addMethod('getServiceCode')
-                ->setReturnType('string')
-                ->setVisibility(ClassType::VISIBILITY_PROTECTED)
-                ->setBody("return '$prefix';");
-        }
 
         $supportedVersions = eval(sprintf('class A%s extends %s {
             public function __construct() {}
@@ -67,12 +61,17 @@ class ClientGenerator
             $signatureVersions = \array_intersect($supportedVersions, $config['signVersions']);
             rsort($signatureVersions);
 
-            return strtr(sprintf("        return %s;\n", \var_export([
-                'endpoint' => $config['endpoint'],
-                'signRegion' => $config['signRegion'] ?? '%region%',
-                'signService' => $config['signService'],
-                'signVersions' => \array_values($signatureVersions),
-            ], true)), ['\'%region%\'' => '$region']);
+            return strtr('        return [
+                "endpoint" => "ENDPOINT",
+                "signRegion" => REGION,
+                "signService" => SIGN_SERVICE,
+                "signVersions" => SIGN_VERSIONS,
+            ];' . "\n", [
+                'ENDPOINT' => strtr($config['endpoint'], ['%region%' => '$region']),
+                'REGION' => isset($config['signRegion']) ? \var_export($config['signRegion'], true) : '$region',
+                'SIGN_SERVICE' => var_export($config['signService'], true),
+                'SIGN_VERSIONS' => \json_encode($signatureVersions),
+            ]);
         };
 
         $body = '';
@@ -136,19 +135,6 @@ class ClientGenerator
                 ->setType('string')
                 ->setNullable(true)
         ;
-
-        if (null !== $signatureVersion = $definition->getSignatureVersion()) {
-            $class->addMethod('getSignatureVersion')
-                ->setReturnType('string')
-                ->setVisibility(ClassType::VISIBILITY_PROTECTED)
-                ->setBody("return '$signatureVersion';");
-        }
-        if (null !== $signingName = $definition->getSigningName()) {
-            $class->addMethod('getSignatureScopeName')
-                ->setReturnType('string')
-                ->setVisibility(ClassType::VISIBILITY_PROTECTED)
-                ->setBody("return '$signingName';");
-        }
 
         $this->fileWriter->write($namespace);
 

@@ -128,9 +128,7 @@ class IamClient extends AbstractApi
                 'endpoint' => 'https://iam.amazonaws.com',
                 'signRegion' => 'us-east-1',
                 'signService' => 'iam',
-                'signVersions' => [
-                    0 => 'v4',
-                ],
+                'signVersions' => ['v4'],
             ];
         }
 
@@ -159,9 +157,7 @@ class IamClient extends AbstractApi
                     'endpoint' => 'https://iam.amazonaws.com',
                     'signRegion' => 'us-east-1',
                     'signService' => 'iam',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'cn-north-1':
             case 'cn-northwest-1':
@@ -169,9 +165,7 @@ class IamClient extends AbstractApi
                     'endpoint' => 'https://iam.cn-north-1.amazonaws.com.cn',
                     'signRegion' => 'cn-north-1',
                     'signService' => 'iam',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-gov-east-1':
             case 'us-gov-west-1':
@@ -179,36 +173,28 @@ class IamClient extends AbstractApi
                     'endpoint' => 'https://iam.us-gov.amazonaws.com',
                     'signRegion' => 'us-gov-west-1',
                     'signService' => 'iam',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-iso-east-1':
                 return [
                     'endpoint' => 'https://iam.us-iso-east-1.c2s.ic.gov',
                     'signRegion' => 'us-iso-east-1',
                     'signService' => 'iam',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-isob-east-1':
                 return [
                     'endpoint' => 'https://iam.us-isob-east-1.sc2s.sgov.gov',
                     'signRegion' => 'us-isob-east-1',
                     'signService' => 'iam',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'iam-fips':
                 return [
                     'endpoint' => 'https://iam-fips.amazonaws.com',
                     'signRegion' => 'us-east-1',
                     'signService' => 'iam',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
         }
 
@@ -217,16 +203,22 @@ class IamClient extends AbstractApi
 
     protected function getServiceCode(): string
     {
+        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
+
         return 'iam';
     }
 
     protected function getSignatureScopeName(): string
     {
+        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
+
         return 'iam';
     }
 
     protected function getSignatureVersion(): string
     {
+        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
+
         return 'v4';
     }
 }

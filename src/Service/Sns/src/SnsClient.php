@@ -184,94 +184,74 @@ class SnsClient extends AbstractApi
             case 'us-west-1':
             case 'us-west-2':
                 return [
-                    'endpoint' => 'https://sns.%region%.amazonaws.com',
+                    'endpoint' => "https://sns.$region.amazonaws.com",
                     'signRegion' => $region,
                     'signService' => 'sns',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'cn-north-1':
             case 'cn-northwest-1':
                 return [
-                    'endpoint' => 'https://sns.%region%.amazonaws.com.cn',
+                    'endpoint' => "https://sns.$region.amazonaws.com.cn",
                     'signRegion' => $region,
                     'signService' => 'sns',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-gov-east-1':
                 return [
-                    'endpoint' => 'https://sns.%region%.amazonaws.com',
+                    'endpoint' => "https://sns.$region.amazonaws.com",
                     'signRegion' => $region,
                     'signService' => 'sns',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-isob-east-1':
                 return [
-                    'endpoint' => 'https://sns.%region%.sc2s.sgov.gov',
+                    'endpoint' => "https://sns.$region.sc2s.sgov.gov",
                     'signRegion' => $region,
                     'signService' => 'sns',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://sns-fips.us-east-1.amazonaws.com',
                     'signRegion' => 'us-east-1',
                     'signService' => 'sns',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-east-2':
                 return [
                     'endpoint' => 'https://sns-fips.us-east-2.amazonaws.com',
                     'signRegion' => 'us-east-2',
                     'signService' => 'sns',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-west-1':
                 return [
                     'endpoint' => 'https://sns-fips.us-west-1.amazonaws.com',
                     'signRegion' => 'us-west-1',
                     'signService' => 'sns',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-west-2':
                 return [
                     'endpoint' => 'https://sns-fips.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',
                     'signService' => 'sns',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-gov-west-1':
                 return [
                     'endpoint' => 'https://sns.us-gov-west-1.amazonaws.com',
                     'signRegion' => 'us-gov-west-1',
                     'signService' => 'sns',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-iso-east-1':
                 return [
                     'endpoint' => 'https://sns.us-iso-east-1.c2s.ic.gov',
                     'signRegion' => 'us-iso-east-1',
                     'signService' => 'sns',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
         }
 
@@ -280,16 +260,22 @@ class SnsClient extends AbstractApi
 
     protected function getServiceCode(): string
     {
+        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
+
         return 'sns';
     }
 
     protected function getSignatureScopeName(): string
     {
+        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
+
         return 'sns';
     }
 
     protected function getSignatureVersion(): string
     {
+        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
+
         return 'v4';
     }
 }

@@ -147,95 +147,75 @@ class LambdaClient extends AbstractApi
             case 'us-west-1':
             case 'us-west-2':
                 return [
-                    'endpoint' => 'https://lambda.%region%.amazonaws.com',
+                    'endpoint' => "https://lambda.$region.amazonaws.com",
                     'signRegion' => $region,
                     'signService' => 'lambda',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'cn-north-1':
             case 'cn-northwest-1':
                 return [
-                    'endpoint' => 'https://lambda.%region%.amazonaws.com.cn',
+                    'endpoint' => "https://lambda.$region.amazonaws.com.cn",
                     'signRegion' => $region,
                     'signService' => 'lambda',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-gov-east-1':
             case 'us-gov-west-1':
                 return [
-                    'endpoint' => 'https://lambda.%region%.amazonaws.com',
+                    'endpoint' => "https://lambda.$region.amazonaws.com",
                     'signRegion' => $region,
                     'signService' => 'lambda',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-iso-east-1':
                 return [
-                    'endpoint' => 'https://lambda.%region%.c2s.ic.gov',
+                    'endpoint' => "https://lambda.$region.c2s.ic.gov",
                     'signRegion' => $region,
                     'signService' => 'lambda',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://lambda-fips.us-east-1.amazonaws.com',
                     'signRegion' => 'us-east-1',
                     'signService' => 'lambda',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-east-2':
                 return [
                     'endpoint' => 'https://lambda-fips.us-east-2.amazonaws.com',
                     'signRegion' => 'us-east-2',
                     'signService' => 'lambda',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-gov-east-1':
                 return [
                     'endpoint' => 'https://lambda-fips.us-gov-east-1.amazonaws.com',
                     'signRegion' => 'us-gov-east-1',
                     'signService' => 'lambda',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-gov-west-1':
                 return [
                     'endpoint' => 'https://lambda-fips.us-gov-west-1.amazonaws.com',
                     'signRegion' => 'us-gov-west-1',
                     'signService' => 'lambda',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-west-1':
                 return [
                     'endpoint' => 'https://lambda-fips.us-west-1.amazonaws.com',
                     'signRegion' => 'us-west-1',
                     'signService' => 'lambda',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-west-2':
                 return [
                     'endpoint' => 'https://lambda-fips.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',
                     'signService' => 'lambda',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
         }
 
@@ -244,16 +224,22 @@ class LambdaClient extends AbstractApi
 
     protected function getServiceCode(): string
     {
+        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
+
         return 'lambda';
     }
 
     protected function getSignatureScopeName(): string
     {
+        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
+
         return 'lambda';
     }
 
     protected function getSignatureVersion(): string
     {
+        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
+
         return 'v4';
     }
 }
