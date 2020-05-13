@@ -257,25 +257,4 @@ class SnsClient extends AbstractApi
 
         throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Sns".', $region));
     }
-
-    protected function getServiceCode(): string
-    {
-        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
-
-        return 'sns';
-    }
-
-    protected function getSignatureScopeName(): string
-    {
-        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
-
-        return 'sns';
-    }
-
-    protected function getSignatureVersion(): string
-    {
-        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
-
-        return 'v4';
-    }
 }

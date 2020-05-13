@@ -155,25 +155,4 @@ class CloudFormationClient extends AbstractApi
 
         throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "CloudFormation".', $region));
     }
-
-    protected function getServiceCode(): string
-    {
-        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
-
-        return 'cloudformation';
-    }
-
-    protected function getSignatureScopeName(): string
-    {
-        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
-
-        return 'cloudformation';
-    }
-
-    protected function getSignatureVersion(): string
-    {
-        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
-
-        return 'v4';
-    }
 }

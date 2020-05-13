@@ -221,25 +221,4 @@ class LambdaClient extends AbstractApi
 
         throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Lambda".', $region));
     }
-
-    protected function getServiceCode(): string
-    {
-        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
-
-        return 'lambda';
-    }
-
-    protected function getSignatureScopeName(): string
-    {
-        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
-
-        return 'lambda';
-    }
-
-    protected function getSignatureVersion(): string
-    {
-        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
-
-        return 'v4';
-    }
 }
