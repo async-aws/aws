@@ -13,6 +13,8 @@ class ServiceDefinition
 {
     private $name;
 
+    private $endpoints;
+
     private $definition;
 
     private $documentation;
@@ -23,9 +25,10 @@ class ServiceDefinition
 
     private $example;
 
-    public function __construct(string $name, array $definition, array $documentation, array $pagination, array $waiter, array $example)
+    public function __construct(string $name, array $endpoints, array $definition, array $documentation, array $pagination, array $waiter, array $example)
     {
         $this->name = $name;
+        $this->endpoints = $endpoints;
         $this->definition = $definition;
         $this->documentation = $documentation;
         $this->pagination = $pagination;
@@ -36,6 +39,11 @@ class ServiceDefinition
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getEndpoints(): array
+    {
+        return $this->endpoints;
     }
 
     public function getOperation(string $name): ?Operation
@@ -83,11 +91,6 @@ class ServiceDefinition
     public function getEndpointPrefix(): string
     {
         return $this->definition['metadata']['endpointPrefix'];
-    }
-
-    public function getGlobalEndpoint(): ?string
-    {
-        return $this->definition['metadata']['globalEndpoint'] ?? null;
     }
 
     public function getTargetPrefix(): string

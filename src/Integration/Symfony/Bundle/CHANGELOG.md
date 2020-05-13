@@ -1,8 +1,11 @@
 # Change Log
 
-## NOT RELEASED
+## 0.2.5
 
-- Added support for EventBridge.
+### Added
+- Support for EventBridge.
+- Support for IAM.
+- Caching of SSM parameters.
 
 ## 0.2.4
 

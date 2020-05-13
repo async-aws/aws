@@ -52,6 +52,8 @@ class AsyncAwsDynamoDbLock extends Lock
         if ($this->isOwnedByCurrentProcess()) {
             $this->dynamoDb->forget($this->name);
         }
+
+        return true;
     }
 
     /**
