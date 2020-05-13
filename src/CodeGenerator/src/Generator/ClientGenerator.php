@@ -9,6 +9,8 @@ use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
+use AsyncAws\Core\Configuration;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use Nette\PhpGenerator\ClassType;
 
 /**
@@ -52,16 +54,89 @@ class ClientGenerator
                 ->setVisibility(ClassType::VISIBILITY_PROTECTED)
                 ->setBody("return '$prefix';");
         }
-        if (null !== $endpoint = $definition->getGlobalEndpoint()) {
-            $class->addMethod('getEndpointPattern')
-                ->setReturnType('string')
-                ->setVisibility(ClassType::VISIBILITY_PROTECTED)
-                ->setBody("return \$region ? parent::getEndpointPattern(\$region) : 'https://$endpoint';")
-                ->addParameter('region')
-                    ->setType('string')
-                    ->setNullable(true)
-            ;
+
+        $supportedVersions = eval(sprintf('class A%s extends %s {
+            public function __construct() {}
+            public function getVersion() {
+                return array_keys($this->getSignerFactories());
+            }
+        } return (new A%1$s)->getVersion();', sha1(\uniqid('', true)), $className->getFqdn()));
+
+        $endpoints = $definition->getEndpoints();
+        $dumpConfig = static function ($config) use ($supportedVersions) {
+            $signatureVersions = \array_intersect($supportedVersions, $config['signVersions']);
+            rsort($signatureVersions);
+
+            return strtr(sprintf("        return %s;\n", \var_export([
+                'endpoint' => $config['endpoint'],
+                'signRegion' => $config['signRegion'] ?? '%region%',
+                'signService' => $config['signService'],
+                'signVersions' => \array_values($signatureVersions),
+            ], true)), ['\'%region%\'' => '$region']);
+        };
+
+        $body = '';
+        if (!isset($endpoints['_global']['aws'])) {
+            $namespace->addUse(Configuration::class);
+            $body .= 'if ($region === null) {
+                $region = Configuration::DEFAULT_REGION;
+            }
+
+            ';
+        } else {
+            if (empty($endpoints['_global']['aws']['signRegion'])) {
+                throw new \RuntimeException('Global endpoint without signRegion is not yet supported');
+            }
+            $body .= 'if ($region === null) {
+                ' . $dumpConfig($endpoints['_global']['aws']) . '
+            }
+
+            ';
         }
+        $body .= "switch (\$region) {\n";
+
+        foreach ($endpoints['_global'] ?? [] as $partitionName => $config) {
+            if (empty($config['regions'])) {
+                continue;
+            }
+            sort($config['regions']);
+            foreach ($config['regions'] as $region) {
+                $body .= sprintf("    case %s:\n", \var_export($region, true));
+            }
+            $body .= $dumpConfig($config);
+        }
+        foreach ($endpoints['_default'] ?? [] as $config) {
+            if (empty($config['regions'])) {
+                continue;
+            }
+            sort($config['regions']);
+            foreach ($config['regions'] as $region) {
+                $body .= sprintf("    case %s:\n", \var_export($region, true));
+            }
+            $body .= $dumpConfig($config);
+        }
+        ksort($endpoints);
+        foreach ($endpoints as $region => $config) {
+            if ('_' === $region[0]) {
+                continue; // skip `_default` and `_global`
+            }
+            $body .= sprintf("    case %s:\n", \var_export($region, true));
+            $body .= $dumpConfig($config);
+        }
+        $body .= '}
+            throw new UnsupportedRegion(sprintf(\'The region "%s" is not supported by "' . $definition->getName() . '".\', $region));
+        ';
+        $namespace->addUse(UnsupportedRegion::class);
+
+        $class->addMethod('getEndpointMetadata')
+            ->setReturnType('array')
+            ->setVisibility(ClassType::VISIBILITY_PROTECTED)
+            ->setBody($body)
+            ->addParameter('region')
+                ->setType('string')
+                ->setNullable(true)
+        ;
+
         if (null !== $signatureVersion = $definition->getSignatureVersion()) {
             $class->addMethod('getSignatureVersion')
                 ->setReturnType('string')

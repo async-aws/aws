@@ -3,6 +3,8 @@
 namespace AsyncAws\Ses;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Configuration;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Ses\Input\SendEmailRequest;
 use AsyncAws\Ses\Result\SendEmailResponse;
@@ -31,6 +33,50 @@ class SesClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SendEmail', 'region' => $input->getRegion()]));
 
         return new SendEmailResponse($response);
+    }
+
+    protected function getEndpointMetadata(?string $region): array
+    {
+        if (null === $region) {
+            $region = Configuration::DEFAULT_REGION;
+        }
+
+        switch ($region) {
+            case 'ap-south-1':
+            case 'ap-southeast-2':
+            case 'eu-central-1':
+            case 'eu-west-1':
+            case 'us-east-1':
+            case 'us-west-2':
+                return [
+                    'endpoint' => 'https://email.%region%.amazonaws.com',
+                    'signRegion' => $region,
+                    'signService' => 'email',
+                    'signVersions' => [
+                        0 => 'v4',
+                    ],
+                ];
+            case 'us-gov-west-1':
+                return [
+                    'endpoint' => 'https://email.%region%.amazonaws.com',
+                    'signRegion' => $region,
+                    'signService' => 'email',
+                    'signVersions' => [
+                        0 => 'v4',
+                    ],
+                ];
+            case 'fips-us-gov-west-1':
+                return [
+                    'endpoint' => 'https://email-fips.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'email',
+                    'signVersions' => [
+                        0 => 'v4',
+                    ],
+                ];
+        }
+
+        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Ses".', $region));
     }
 
     protected function getServiceCode(): string

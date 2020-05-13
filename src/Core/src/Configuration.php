@@ -14,6 +14,8 @@ use AsyncAws\Core\Exception\InvalidArgument;
  */
 final class Configuration
 {
+    public const DEFAULT_REGION = 'us-east-1';
+
     public const OPTION_REGION = 'region';
     public const OPTION_PROFILE = 'profile';
     public const OPTION_ACCESS_KEY_ID = 'accessKeyId';
@@ -62,7 +64,7 @@ final class Configuration
     ];
 
     private const DEFAULT_OPTIONS = [
-        self::OPTION_REGION => 'us-east-1',
+        self::OPTION_REGION => self::DEFAULT_REGION,
         self::OPTION_PROFILE => 'default',
         self::OPTION_SHARED_CREDENTIALS_FILE => '~/.aws/credentials',
         self::OPTION_SHARED_CONFIG_FILE => '~/.aws/config',
@@ -71,6 +73,8 @@ final class Configuration
     ];
 
     private $data = [];
+
+    private $userData = [];
 
     public static function create(array $options)
     {
@@ -98,6 +102,9 @@ final class Configuration
             }
         }
 
+        $configuration = new Configuration();
+        $configuration->userData = \array_fill_keys(\array_keys($options), true);
+
         foreach (self::DEFAULT_OPTIONS as $optionTrigger => $defaultValue) {
             if (isset($options[$optionTrigger])) {
                 continue;
@@ -106,7 +113,6 @@ final class Configuration
             $options[$optionTrigger] = $defaultValue;
         }
 
-        $configuration = new Configuration();
         $configuration->data = $options;
 
         return $configuration;
@@ -136,6 +142,6 @@ final class Configuration
             throw new InvalidArgument(\sprintf('Invalid option "%s" passed to "%s::%s". ', $name, __CLASS__, __METHOD__));
         }
 
-        return isset($this->data[$name], self::DEFAULT_OPTIONS[$name]) && $this->data[$name] === self::DEFAULT_OPTIONS[$name];
+        return empty($this->userData[$name]);
     }
 }

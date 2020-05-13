@@ -67,15 +67,16 @@ class GenerateCommand extends Command
 
         /** @var ConsoleOutputInterface $output */
         $manifest = $this->loadManifest();
+        $endpoints = $this->loadFile($manifest['endpoints'], 'endpoints');
         $serviceNames = $this->getServiceNames($input->getArgument('service'), $input->getOption('all'), $io, $manifest['services']);
         if (\is_int($serviceNames)) {
             return $serviceNames;
         }
 
         if (\count($serviceNames) > 1 && $input->getOption('all') && \extension_loaded('pcntl')) {
-            $manifest = $this->generateServicesParallel($io, $input, $output, $manifest, $serviceNames);
+            $manifest = $this->generateServicesParallel($io, $input, $output, $manifest, $endpoints, $serviceNames);
         } else {
-            $manifest = $this->generateServicesSequential($io, $input, $output, $manifest, $serviceNames);
+            $manifest = $this->generateServicesSequential($io, $input, $output, $manifest, $endpoints, $serviceNames);
         }
 
         if (\is_int($manifest)) {
@@ -88,7 +89,7 @@ class GenerateCommand extends Command
         return 0;
     }
 
-    private function generateServicesParallel(SymfonyStyle $io, InputInterface $input, ConsoleOutputInterface $output, array $manifest, array $serviceNames)
+    private function generateServicesParallel(SymfonyStyle $io, InputInterface $input, ConsoleOutputInterface $output, array $manifest, array $endpoints, array $serviceNames)
     {
         $progress = (new SymfonyStyle($input, $output->section()))->createProgressBar();
         $progress->setFormat(' [%bar%] %message%');
@@ -102,7 +103,7 @@ class GenerateCommand extends Command
                 throw new \RuntimeException('Failed to fork');
             }
             if (!$pid) {
-                $code = $this->generateService($io, $input, $manifest, $serviceName);
+                $code = $this->generateService($io, $input, $manifest, $endpoints, $serviceName);
                 if (\is_int($code)) {
                     die($code);
                 }
@@ -128,7 +129,7 @@ class GenerateCommand extends Command
         return $manifest;
     }
 
-    private function generateServicesSequential(SymfonyStyle $io, InputInterface $input, ConsoleOutputInterface $output, array $manifest, array $serviceNames)
+    private function generateServicesSequential(SymfonyStyle $io, InputInterface $input, ConsoleOutputInterface $output, array $manifest, array $endpoints, array $serviceNames)
     {
         if (\count($serviceNames) > 1) {
             $progress = (new SymfonyStyle($input, $output->section()))->createProgressBar();
@@ -138,7 +139,7 @@ class GenerateCommand extends Command
         }
 
         foreach ($serviceNames as $serviceName) {
-            $manifest = $this->generateService($io, $input, $manifest, $serviceName);
+            $manifest = $this->generateService($io, $input, $manifest, $endpoints, $serviceName);
             if (\is_int($manifest)) {
                 return $manifest;
             }
@@ -157,9 +158,80 @@ class GenerateCommand extends Command
         return $manifest;
     }
 
-    private function generateService(SymfonyStyle $io, InputInterface $input, array $manifest, string $serviceName)
+    private function extractEndpointsForService(array $endpoints, string $prefix): array
+    {
+        $serviceEndpoints = [];
+        foreach ($endpoints['partitions'] as $partition) {
+            $suffix = $partition['dnsSuffix'];
+            $service = $partition['services'][$prefix] ?? [];
+            foreach ($service['endpoints'] ?? [] as $region => $config) {
+                $hostname = $config['hostname'] ?? $service['defaults']['hostname'] ?? $partition['defaults']['hostname'];
+                $protocols = $config['protocols'] ?? $service['defaults']['protocols'] ?? $partition['defaults']['protocols'] ?? [];
+                $signRegion = $config['credentialScope']['region'] ?? $service['defaults']['credentialScope']['region'] ?? $partition['defaults']['credentialScope']['region'] ?? $region;
+                $signService = $config['credentialScope']['service'] ?? $service['defaults']['credentialScope']['service'] ?? $partition['defaults']['credentialScope']['service'] ?? $prefix;
+                $signVersions = \array_unique($config['signatureVersions'] ?? $service['defaults']['signatureVersions'] ?? $partition['defaults']['signatureVersions'] ?? []);
+
+                if (empty($config)) {
+                    if (!isset($serviceEndpoints['_default'][$partition['partition']])) {
+                        $endpoint = strtr(sprintf('http%s://%s', \in_array('https', $protocols) ? 's' : '', $hostname), [
+                            '{service}' => $prefix,
+                            '{region}' => '%region%',
+                            '{dnsSuffix}' => $suffix,
+                        ]);
+                        $serviceEndpoints['_default'][$partition['partition']] = [
+                            'endpoint' => $endpoint,
+                            'regions' => [$region],
+                            'signService' => $signService,
+                            'signVersions' => $signVersions,
+                        ];
+                    } else {
+                        $serviceEndpoints['_default'][$partition['partition']]['regions'][] = $region;
+                    }
+                } else {
+                    $endpoint = strtr(sprintf('http%s://%s', \in_array('https', $protocols) ? 's' : '', $hostname), [
+                        '{service}' => $prefix,
+                        '{region}' => $region,
+                        '{dnsSuffix}' => $suffix,
+                    ]);
+
+                    $serviceEndpoints[$region] = [
+                        'endpoint' => $endpoint,
+                        'signRegion' => $signRegion,
+                        'signService' => $signService,
+                        'signVersions' => $signVersions,
+                    ];
+                }
+            }
+            if (isset($service['partitionEndpoint'])) {
+                if (!isset($serviceEndpoints[$service['partitionEndpoint']])) {
+                    throw new \RuntimeException('Missing global region config');
+                }
+                $serviceEndpoints['_global'][$partition['partition']] = $serviceEndpoints[$service['partitionEndpoint']];
+                unset($serviceEndpoints[$service['partitionEndpoint']]);
+                unset($serviceEndpoints['_global'][$partition['partition']]['region']);
+                $serviceEndpoints['_global'][$partition['partition']]['regions'] = [];
+                if (!($service['isRegionalized'] ?? true)) {
+                    foreach ($partition['regions'] as $region => $_) {
+                        if (isset($serviceEndpoints[$region])) {
+                            continue;
+                        }
+                        if (\in_array($region, $serviceEndpoints['_default'][$partition['partition']]['regions'] ?? [])) {
+                            continue;
+                        }
+                        $serviceEndpoints['_global'][$partition['partition']]['regions'][] = $region;
+                    }
+                }
+            }
+        }
+
+        return $serviceEndpoints;
+    }
+
+    private function generateService(SymfonyStyle $io, InputInterface $input, array $manifest, array $endpoints, string $serviceName)
     {
         $definitionArray = $this->loadFile($manifest['services'][$serviceName]['source'], "$serviceName-source");
+        $endpoints = $this->extractEndpointsForService($endpoints, $definitionArray['metadata']['endpointPrefix']);
+
         $documentationArray = $this->loadFile($manifest['services'][$serviceName]['documentation'], "$serviceName-documentation");
         $paginationArray = $this->loadFile($manifest['services'][$serviceName]['pagination'], "$serviceName-pagination");
         $waiterArray = isset($manifest['services'][$serviceName]['waiter']) ? $this->loadFile($manifest['services'][$serviceName]['waiter'], "$serviceName-waiter") : ['waiters' => []];
@@ -171,7 +243,7 @@ class GenerateCommand extends Command
         }
 
         $managedOperations = \array_unique(\array_merge($manifest['services'][$serviceName]['methods'], $operationNames));
-        $definition = new ServiceDefinition($serviceName, $definitionArray, $documentationArray, $paginationArray, $waiterArray, $exampleArray);
+        $definition = new ServiceDefinition($serviceName, $endpoints, $definitionArray, $documentationArray, $paginationArray, $waiterArray, $exampleArray);
         $serviceGenerator = $this->generator->service($manifest['services'][$serviceName]['namespace'] ?? \sprintf('AsyncAws\\%s', $serviceName), $managedOperations);
 
         $clientClass = $serviceGenerator->client()->generate($definition);

@@ -3,6 +3,7 @@
 namespace AsyncAws\S3;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\S3\Input\AbortMultipartUploadRequest;
 use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
@@ -651,9 +652,192 @@ class S3Client extends AbstractApi
         return new UploadPartOutput($response);
     }
 
-    protected function getEndpointPattern(?string $region): string
+    protected function getEndpointMetadata(?string $region): array
     {
-        return $region ? parent::getEndpointPattern($region) : 'https://s3.amazonaws.com';
+        if (null === $region) {
+            return [
+                'endpoint' => 'https://s3.amazonaws.com',
+                'signRegion' => 'us-east-1',
+                'signService' => 's3',
+                'signVersions' => [
+                    0 => 's3v4',
+                    1 => 's3',
+                ],
+            ];
+        }
+
+        switch ($region) {
+            case 'af-south-1':
+            case 'ap-east-1':
+            case 'ap-northeast-2':
+            case 'ap-south-1':
+            case 'ca-central-1':
+            case 'eu-central-1':
+            case 'eu-north-1':
+            case 'eu-south-1':
+            case 'eu-west-2':
+            case 'eu-west-3':
+            case 'me-south-1':
+            case 'us-east-2':
+                return [
+                    'endpoint' => 'https://s3.%region%.amazonaws.com',
+                    'signRegion' => $region,
+                    'signService' => 's3',
+                    'signVersions' => [
+                        0 => 's3v4',
+                    ],
+                ];
+            case 'cn-north-1':
+            case 'cn-northwest-1':
+                return [
+                    'endpoint' => 'https://s3.%region%.amazonaws.com.cn',
+                    'signRegion' => $region,
+                    'signService' => 's3',
+                    'signVersions' => [
+                        0 => 's3v4',
+                    ],
+                ];
+            case 'us-isob-east-1':
+                return [
+                    'endpoint' => 'https://s3.%region%.sc2s.sgov.gov',
+                    'signRegion' => $region,
+                    'signService' => 's3',
+                    'signVersions' => [
+                        0 => 's3v4',
+                    ],
+                ];
+            case 'ap-northeast-1':
+                return [
+                    'endpoint' => 'https://s3.ap-northeast-1.amazonaws.com',
+                    'signRegion' => 'ap-northeast-1',
+                    'signService' => 's3',
+                    'signVersions' => [
+                        0 => 's3v4',
+                        1 => 's3',
+                    ],
+                ];
+            case 'ap-southeast-1':
+                return [
+                    'endpoint' => 'https://s3.ap-southeast-1.amazonaws.com',
+                    'signRegion' => 'ap-southeast-1',
+                    'signService' => 's3',
+                    'signVersions' => [
+                        0 => 's3v4',
+                        1 => 's3',
+                    ],
+                ];
+            case 'ap-southeast-2':
+                return [
+                    'endpoint' => 'https://s3.ap-southeast-2.amazonaws.com',
+                    'signRegion' => 'ap-southeast-2',
+                    'signService' => 's3',
+                    'signVersions' => [
+                        0 => 's3v4',
+                        1 => 's3',
+                    ],
+                ];
+            case 'eu-west-1':
+                return [
+                    'endpoint' => 'https://s3.eu-west-1.amazonaws.com',
+                    'signRegion' => 'eu-west-1',
+                    'signService' => 's3',
+                    'signVersions' => [
+                        0 => 's3v4',
+                        1 => 's3',
+                    ],
+                ];
+            case 'fips-us-gov-west-1':
+                return [
+                    'endpoint' => 'https://s3-fips-us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 's3',
+                    'signVersions' => [
+                        0 => 's3v4',
+                        1 => 's3',
+                    ],
+                ];
+            case 's3-external-1':
+                return [
+                    'endpoint' => 'https://s3-external-1.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 's3',
+                    'signVersions' => [
+                        0 => 's3v4',
+                        1 => 's3',
+                    ],
+                ];
+            case 'sa-east-1':
+                return [
+                    'endpoint' => 'https://s3.sa-east-1.amazonaws.com',
+                    'signRegion' => 'sa-east-1',
+                    'signService' => 's3',
+                    'signVersions' => [
+                        0 => 's3v4',
+                        1 => 's3',
+                    ],
+                ];
+            case 'us-east-1':
+                return [
+                    'endpoint' => 'https://s3.us-east-1.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 's3',
+                    'signVersions' => [
+                        0 => 's3v4',
+                        1 => 's3',
+                    ],
+                ];
+            case 'us-gov-east-1':
+                return [
+                    'endpoint' => 'https://s3.us-gov-east-1.amazonaws.com',
+                    'signRegion' => 'us-gov-east-1',
+                    'signService' => 's3',
+                    'signVersions' => [
+                        0 => 's3v4',
+                        1 => 's3',
+                    ],
+                ];
+            case 'us-gov-west-1':
+                return [
+                    'endpoint' => 'https://s3.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 's3',
+                    'signVersions' => [
+                        0 => 's3v4',
+                        1 => 's3',
+                    ],
+                ];
+            case 'us-iso-east-1':
+                return [
+                    'endpoint' => 'https://s3.us-iso-east-1.c2s.ic.gov',
+                    'signRegion' => 'us-iso-east-1',
+                    'signService' => 's3',
+                    'signVersions' => [
+                        0 => 's3v4',
+                    ],
+                ];
+            case 'us-west-1':
+                return [
+                    'endpoint' => 'https://s3.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 's3',
+                    'signVersions' => [
+                        0 => 's3v4',
+                        1 => 's3',
+                    ],
+                ];
+            case 'us-west-2':
+                return [
+                    'endpoint' => 'https://s3.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
+                    'signService' => 's3',
+                    'signVersions' => [
+                        0 => 's3v4',
+                        1 => 's3',
+                    ],
+                ];
+        }
+
+        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "S3".', $region));
     }
 
     protected function getServiceCode(): string
@@ -678,6 +862,9 @@ class S3Client extends AbstractApi
     {
         return [
             's3' => static function (string $service, string $region) {
+                return new SignerV4ForS3($service, $region);
+            },
+            's3v4' => static function (string $service, string $region) {
                 return new SignerV4ForS3($service, $region);
             },
         ] + parent::getSignerFactories();
