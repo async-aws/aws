@@ -153,7 +153,7 @@ final class InvocationRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "FunctionName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['FunctionName'] = $v;
-        $uriString = "/2015-03-31/functions/{$uri['FunctionName']}/invocations";
+        $uriString = '/2015-03-31/functions/' . rawurlencode($uri['FunctionName']) . '/invocations';
 
         // Prepare Body
         $body = $this->Payload ?? '';

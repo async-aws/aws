@@ -327,7 +327,7 @@ class SignerV4 implements Signer
         return implode('&', $encodedQuery);
     }
 
-    private function buildCanonicalPath(Request $request): string
+    protected function buildCanonicalPath(Request $request): string
     {
         $doubleEncoded = rawurlencode(ltrim($request->getUri(), '/'));
 

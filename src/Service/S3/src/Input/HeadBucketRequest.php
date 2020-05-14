@@ -59,7 +59,7 @@ final class HeadBucketRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Bucket'] = $v;
-        $uriString = "/{$uri['Bucket']}";
+        $uriString = '/' . rawurlencode($uri['Bucket']);
 
         // Prepare Body
         $body = '';

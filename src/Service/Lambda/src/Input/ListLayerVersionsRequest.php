@@ -115,7 +115,7 @@ final class ListLayerVersionsRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "LayerName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['LayerName'] = $v;
-        $uriString = "/2018-10-31/layers/{$uri['LayerName']}/versions";
+        $uriString = '/2018-10-31/layers/' . rawurlencode($uri['LayerName']) . '/versions';
 
         // Prepare Body
         $body = '';

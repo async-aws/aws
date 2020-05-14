@@ -212,7 +212,7 @@ final class ListObjectsV2Request extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Bucket'] = $v;
-        $uriString = "/{$uri['Bucket']}?list-type=2";
+        $uriString = '/' . rawurlencode($uri['Bucket']) . '?list-type=2';
 
         // Prepare Body
         $body = '';
