@@ -51,6 +51,7 @@ class SessionHandler implements \SessionHandlerInterface
         $this->client = $client;
         $this->config = $config;
         $this->config['data_attribute'] = $this->config['data_attribute'] ?? 'data';
+        $this->config['hash_key'] = $this->config['hash_key'] ?? 'id';
         $this->config['session_lifetime_attribute'] = $this->config['session_lifetime_attribute'] ?? 'expires';
     }
 
@@ -158,6 +159,6 @@ class SessionHandler implements \SessionHandlerInterface
 
     private function formatKey(string $key): array
     {
-        return [$this->config['hash_key'] ?? 'id' => ['S' => $key]];
+        return [$this->config['hash_key'] => ['S' => $key]];
     }
 }
