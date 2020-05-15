@@ -59,6 +59,39 @@ class SessionHandler implements \SessionHandlerInterface
         $this->config['session_lifetime_attribute'] = $this->config['session_lifetime_attribute'] ?? 'expires';
     }
 
+    public function setUp(int $wait = 1): void
+    {
+        $this->client->createTable([
+            'TableName' => $this->config['table_name'],
+            'BillingMode' => BillingMode::PAY_PER_REQUEST,
+            'AttributeDefinitions' => [
+                [
+                    'AttributeName' => $this->config['hash_key'],
+                    'AttributeType' => ScalarAttributeType::S,
+                ],
+            ],
+            'KeySchema' => [
+                [
+                    'AttributeName' => $this->config['hash_key'],
+                    'KeyType' => KeyType::HASH,
+                ],
+            ],
+        ]);
+
+        do {
+            sleep($wait);
+            $table = $this->client->describeTable(['TableName' => $this->config['table_name']])->getTable();
+        } while (TableStatus::ACTIVE !== $table->getTableStatus());
+
+        $this->client->updateTimeToLive([
+            'TableName' => $this->config['table_name'],
+            'TimeToLiveSpecification' => [
+                'Enabled' => true,
+                'AttributeName' => $this->config['session_lifetime_attribute'],
+            ],
+        ]);
+    }
+
     public function close()
     {
         $id = \session_id();
@@ -127,39 +160,6 @@ class SessionHandler implements \SessionHandlerInterface
         $this->sessionId = $session_id;
 
         return $this->sessionWritten = $this->doWrite($session_id, $changed, $session_data);
-    }
-
-    public function setUp(int $wait = 1): void
-    {
-        $this->client->createTable([
-            'TableName' => $this->config['table_name'],
-            'BillingMode' => BillingMode::PAY_PER_REQUEST,
-            'AttributeDefinitions' => [
-                [
-                    'AttributeName' => $this->config['hash_key'],
-                    'AttributeType' => ScalarAttributeType::S,
-                ]
-            ],
-            'KeySchema' => [
-                [
-                    'AttributeName' => $this->config['hash_key'],
-                    'KeyType' => KeyType::HASH,
-                ],
-            ],
-        ]);
-
-        do {
-            sleep($wait);
-            $table = $this->client->describeTable(['TableName' => $this->config['table_name']])->getTable();
-        } while ($table->getTableStatus() !== TableStatus::ACTIVE);
-
-        $this->client->updateTimeToLive([
-            'TableName' => $this->config['table_name'],
-            'TimeToLiveSpecification' => [
-                'Enabled' => true,
-                'AttributeName' => $this->config['session_lifetime_attribute'],
-            ],
-        ]);
     }
 
     private function doWrite(string $id, bool $updateData, string $data = ''): bool

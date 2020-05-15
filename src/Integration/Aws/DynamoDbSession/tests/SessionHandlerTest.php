@@ -225,7 +225,7 @@ class SessionHandlerTest extends TestCase
                     [
                         'AttributeName' => 'id',
                         'AttributeType' => 'S',
-                    ]
+                    ],
                 ],
                 'KeySchema' => [
                     [
