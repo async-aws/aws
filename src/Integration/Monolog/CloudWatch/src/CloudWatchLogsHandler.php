@@ -39,14 +39,9 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     private $client;
 
     /**
-     * @var string
+     * @var array
      */
-    private $group;
-
-    /**
-     * @var string
-     */
-    private $stream;
+    private $options;
 
     /**
      * @var bool
@@ -57,11 +52,6 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      * @var string|null
      */
     private $sequenceToken;
-
-    /**
-     * @var int
-     */
-    private $batchSize;
 
     /**
      * @var array
@@ -90,34 +80,33 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      *  Log group names can be between 1 and 512 characters long.
      *  Log group names consist of the following characters: a-z, A-Z, 0-9, '_' (underscore), '-' (hyphen),
      * '/' (forward slash), and '.' (period).
-     * @param string $group
-     *
      *  Log stream names must be unique within the log group.
      *  Log stream names can be between 1 and 512 characters long.
      *  The ':' (colon) and '*' (asterisk) characters are not allowed.
-     * @param string $stream
-     * @param int    $batchSize
-     * @param int    $level
-     * @param bool   $bubble
+     * @param array{
+     *   batchSize?: int,
+     *   group: string,
+     *   stream: string,
+     * } $options
+     * @param int  $level
+     * @param bool $bubble
      *
      * @throws \InvalidArgumentException
      */
     public function __construct(
         CloudWatchLogsClient $client,
-        $group,
-        $stream,
-        $batchSize = 10000,
+        $options,
         $level = Logger::DEBUG,
         $bubble = true
     ) {
-        if ($batchSize > 10000) {
+        $options['batchSize'] = $options['batchSize'] ?? 10000;
+
+        if ($options['batchSize'] > 10000) {
             throw new \InvalidArgumentException('Batch size can not be greater than 10000');
         }
 
         $this->client = $client;
-        $this->group = $group;
-        $this->stream = $stream;
-        $this->batchSize = $batchSize;
+        $this->options = $options;
 
         parent::__construct($level, $bubble);
     }
@@ -154,7 +143,7 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
 
             $this->buffer[] = $record;
 
-            if (\count($this->buffer) >= $this->batchSize) {
+            if (\count($this->buffer) >= $this->options['batchSize']) {
                 $this->flushBuffer();
             }
         }
@@ -240,15 +229,15 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
         $existingStreams = $this->client
             ->describeLogStreams(
                 [
-                    'logGroupName' => $this->group,
-                    'logStreamNamePrefix' => $this->stream,
+                    'logGroupName' => $this->options['group'],
+                    'logStreamNamePrefix' => $this->options['stream'],
                 ]
             )
             ->getLogStreams(true);
 
         /** @var LogStream $stream */
         foreach ($existingStreams as $stream) {
-            if ($stream->getLogStreamName() === $this->stream && $stream->getUploadSequenceToken()) {
+            if ($stream->getLogStreamName() === $this->options['stream'] && $stream->getUploadSequenceToken()) {
                 $this->sequenceToken = $stream->getUploadSequenceToken();
             }
         }
@@ -281,8 +270,8 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
         });
 
         $data = [
-            'logGroupName' => $this->group,
-            'logStreamName' => $this->stream,
+            'logGroupName' => $this->options['group'],
+            'logStreamName' => $this->options['stream'],
             'logEvents' => $entries,
             'sequenceToken' => $this->sequenceToken,
         ];

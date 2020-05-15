@@ -20,10 +20,11 @@ use AsyncAws\Monolog\CloudWatch\CloudWatchLogsHandler;
 use Monolog\Logger;
 
 $client = new CloudWatchLogsClient();
-$groupName = 'company-website';
-$streamName = 'frontend-api';
 
-$handler = new CloudWatchLogsHandler($client, $groupName, $streamName);
+$handler = new CloudWatchLogsHandler($client, [
+    'group' => 'company-website',
+    'stream' => 'frontend-api',
+]);
 
 $logger = new Logger('logger');
 $logger->pushHandler($handler);
@@ -35,11 +36,15 @@ $logger->error('an error occurred');
 The CloudWatchLogsHandler accepts the following parameters:
 
 - `$client`: the CloudWatchLogsClient instance
-- `$group`: name of the CloudWatch Log Group which was created previously
-- `$stream`: name of the CloudWatch Log Stream which was created previously
-- `$batchSize`: number of log records that are pushed to CloudWatch in a single call. This number cannot exceed 10,000.
-- `$level`: minimum logging level at which this handler will be triggered (see https://github.com/Seldaek/monolog/blob/master/doc/01-usage.md#log-levels)
-- `$bubble`: whether the messages that are handled can bubble up the stack or not (see https://github.com/Seldaek/monolog/blob/master/doc/01-usage.md#core-concepts)
+- `$options`: handler configuration (see below)
+- `$level` (default `Logger::DEBUG`): minimum logging level at which this handler will be triggered (see https://github.com/Seldaek/monolog/blob/master/doc/01-usage.md#log-levels)
+- `$bubble`(default `true`): whether the messages that are handled can bubble up the stack or not (see https://github.com/Seldaek/monolog/blob/master/doc/01-usage.md#core-concepts)
+
+For the `$options` parameter, the allowed values are:
+
+- `batchSize` (default `10000`): number of log records that are pushed to CloudWatch in a single call. This number cannot exceed 10,000.
+- `group`: name of the CloudWatch Log Group which was created previously
+- `stream`: name of the CloudWatch Log Stream which was created previously
 
 ## Symfony usage
 
@@ -55,9 +60,9 @@ services:
         class: AsyncAws\Monolog\CloudWatch\CloudWatchLogsHandler
         arguments:
             - '@async_aws.client.cloud_watch_logs'
-            - company-website
-            - frontend-api
-            # more arguments, see Configuration
+            - group: company-website
+              stream: frontend-api
+              # more parameters, see Configuration
 ```
 
 ```yaml
