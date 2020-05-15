@@ -61,7 +61,7 @@ class SignerV4ForS3 extends SignerV4
     }
 
     /**
-     * Amazon S3 does not double-encode the path component in the canonical request
+     * Amazon S3 does not double-encode the path component in the canonical request.
      */
     protected function buildCanonicalPath(Request $request): string
     {

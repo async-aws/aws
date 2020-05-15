@@ -636,16 +636,16 @@ class S3ClientTest extends TestCase
 
         $result = $client->listObjectsV2([
             'Bucket' => 'foo#pound',
-            'Delimiter' => '/'
+            'Delimiter' => '/',
         ]);
-        $this->assertEquals(['bar#pound/'], array_map(function(CommonPrefix $prefix) {return $prefix->getPrefix();}, \iterator_to_array($result->getCommonPrefixes())));
+        self::assertEquals(['bar#pound/'], array_map(function (CommonPrefix $prefix) {return $prefix->getPrefix(); }, \iterator_to_array($result->getCommonPrefixes())));
 
         $result = $client->listObjectsV2([
             'Bucket' => 'foo#pound',
-            'Prefix' => 'bar#pound/'
+            'Prefix' => 'bar#pound/',
         ]);
 
-        $this->assertEquals(['bar#pound/baz#pound'], array_map(function(AwsObject $prefix) {return $prefix->getKey();}, \iterator_to_array($result->getContents())));
+        self::assertEquals(['bar#pound/baz#pound'], array_map(function (AwsObject $prefix) {return $prefix->getKey(); }, \iterator_to_array($result->getContents())));
     }
 
     private function getClient(): S3Client
