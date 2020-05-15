@@ -80,7 +80,12 @@ class SessionHandler implements \SessionHandlerInterface
 
         do {
             sleep($wait);
+
             $table = $this->client->describeTable(['TableName' => $this->config['table_name']])->getTable();
+
+            if (!$table) {
+                throw new \RuntimeException(sprintf('Could not create table %s', $this->config['table_name']));
+            }
         } while (TableStatus::ACTIVE !== $table->getTableStatus());
 
         $this->client->updateTimeToLive([
