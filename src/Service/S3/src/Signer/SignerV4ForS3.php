@@ -60,6 +60,14 @@ class SignerV4ForS3 extends SignerV4
         return parent::buildBodyDigest($request, $isPresign);
     }
 
+    /**
+     * Amazon S3 does not double-encode the path component in the canonical request.
+     */
+    protected function buildCanonicalPath(Request $request): string
+    {
+        return '/' . ltrim($request->getUri(), '/');
+    }
+
     protected function convertBodyToStream(SigningContext $context): void
     {
         $request = $context->getRequest();

@@ -265,7 +265,7 @@ final class PutObjectAclRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Key'] = $v;
-        $uriString = "/{$uri['Bucket']}/{$uri['Key']}?acl";
+        $uriString = '/' . rawurlencode($uri['Bucket']) . '/' . str_replace('%2F', '/', rawurlencode($uri['Key'])) . '?acl';
 
         // Prepare Body
 

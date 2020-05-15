@@ -1,5 +1,11 @@
 # Change Log
 
+## NOT RELEASED
+
+### Fixed
+
+- Fixed issue when Layer, Function or Version contained a special char `#`
+
 ## 0.4.2
 
 ### Fixed

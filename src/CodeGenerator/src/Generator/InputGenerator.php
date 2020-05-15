@@ -320,7 +320,11 @@ class InputGenerator
 
         $requestUri = null;
         $body['uri'] = $body['uri'] ?? '';
-        $body['uri'] .= '$uriString = "' . str_replace(['{', '+}', '}'], ['{$uri[\'', '}', '\']}'], $operation->getHttpRequestUri()) . '";';
+        $uriStringCode = '"' . $operation->getHttpRequestUri() . '"';
+        $uriStringCode = \preg_replace('/\{([^\}\+]+)\+\}/', '".str_replace(\'%2F\', \'/\', rawurlencode($uri[\'$1\']))."', $uriStringCode);
+        $uriStringCode = \preg_replace('/\{([^\}]+)\}/', '".rawurlencode($uri[\'$1\'])."', $uriStringCode);
+        $uriStringCode = \preg_replace('/(^""\.|\.""$|\.""\.)/', '', $uriStringCode);
+        $body['uri'] .= '$uriString = ' . $uriStringCode . ';';
 
         $method = \var_export($operation->getHttpMethod(), true);
 
