@@ -17,6 +17,7 @@ use AsyncAws\DynamoDb\Input\QueryInput;
 use AsyncAws\DynamoDb\Input\ScanInput;
 use AsyncAws\DynamoDb\Input\UpdateItemInput;
 use AsyncAws\DynamoDb\Input\UpdateTableInput;
+use AsyncAws\DynamoDb\Input\UpdateTimeToLiveInput;
 use AsyncAws\DynamoDb\Result\CreateTableOutput;
 use AsyncAws\DynamoDb\Result\DeleteItemOutput;
 use AsyncAws\DynamoDb\Result\DeleteTableOutput;
@@ -30,6 +31,7 @@ use AsyncAws\DynamoDb\Result\TableExistsWaiter;
 use AsyncAws\DynamoDb\Result\TableNotExistsWaiter;
 use AsyncAws\DynamoDb\Result\UpdateItemOutput;
 use AsyncAws\DynamoDb\Result\UpdateTableOutput;
+use AsyncAws\DynamoDb\Result\UpdateTimeToLiveOutput;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 
 class DynamoDbClient extends AbstractApi
@@ -374,6 +376,28 @@ class DynamoDbClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateTable', 'region' => $input->getRegion()]));
 
         return new UpdateTableOutput($response);
+    }
+
+    /**
+     * The `UpdateTimeToLive` method enables or disables Time to Live (TTL) for the specified table. A successful
+     * `UpdateTimeToLive` call returns the current `TimeToLiveSpecification`. It can take up to one hour for the change to
+     * fully process. Any additional `UpdateTimeToLive` calls for the same table during this one hour duration result in a
+     * `ValidationException`.
+     *
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#updatetimetolive
+     *
+     * @param array{
+     *   TableName: string,
+     *   TimeToLiveSpecification: \AsyncAws\DynamoDb\ValueObject\TimeToLiveSpecification|array,
+     *   @region?: string,
+     * }|UpdateTimeToLiveInput $input
+     */
+    public function updateTimeToLive($input): UpdateTimeToLiveOutput
+    {
+        $input = UpdateTimeToLiveInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateTimeToLive', 'region' => $input->getRegion()]));
+
+        return new UpdateTimeToLiveOutput($response);
     }
 
     protected function getEndpointMetadata(?string $region): array
