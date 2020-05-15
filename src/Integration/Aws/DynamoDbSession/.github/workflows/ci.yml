@@ -20,15 +20,12 @@ jobs:
         uses: shivammathur/setup-php@2.1.2
         with:
           php-version: ${{ matrix.php }}
-          coverage: xdebug
+          coverage: none
           ini-values: xdebug.overload_var_dump=1
-          tools: prestissimo
+          tools: flex
 
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Initialize tests
-        run: make initialize
 
       - name: Download dependencies
         run: |
