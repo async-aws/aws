@@ -25,4 +25,36 @@ class GetObjectRequestTest extends TestCase
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
+
+    public function testRequestWithSpecialChar(): void
+    {
+        $input = new GetObjectRequest([
+            'Bucket' => 'my-bucket',
+            'Key' => 'foo-with#pound.jpg',
+            'VersionId' => 'abc123',
+        ]);
+
+        $expected = '
+            GET /my-bucket/foo-with%23pound.jpg?versionId=abc123 HTTP/1.0
+            Content-Type: application/xml
+        ';
+
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
+    }
+
+    public function testRequestDoesNotEscapeSlash(): void
+    {
+        $input = new GetObjectRequest([
+            'Bucket' => 'my-bucket',
+            'Key' => 'foo/bar.jpg',
+            'VersionId' => 'abc123',
+        ]);
+
+        $expected = '
+            GET /my-bucket/foo/bar.jpg?versionId=abc123 HTTP/1.0
+            Content-Type: application/xml
+        ';
+
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
+    }
 }

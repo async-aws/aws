@@ -17,12 +17,14 @@ use AsyncAws\DynamoDb\Input\QueryInput;
 use AsyncAws\DynamoDb\Input\ScanInput;
 use AsyncAws\DynamoDb\Input\UpdateItemInput;
 use AsyncAws\DynamoDb\Input\UpdateTableInput;
+use AsyncAws\DynamoDb\Input\UpdateTimeToLiveInput;
 use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use AsyncAws\DynamoDb\ValueObject\LocalSecondaryIndex;
 use AsyncAws\DynamoDb\ValueObject\Projection;
 use AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput;
 use AsyncAws\DynamoDb\ValueObject\Tag;
+use AsyncAws\DynamoDb\ValueObject\TimeToLiveSpecification;
 
 class DynamoDbClientTest extends TestCase
 {
@@ -299,6 +301,25 @@ class DynamoDbClientTest extends TestCase
 
         self::assertFalse($client->tableNotExists($input)->isSuccess());
         self::assertTrue($client->tableNotExists(['TableName' => 'does-not-exists'])->isSuccess());
+    }
+
+    public function testUpdateTimeToLive(): void
+    {
+        $client = $this->getClient();
+
+        $input = new UpdateTimeToLiveInput([
+            'TableName' => $this->tableName,
+            'TimeToLiveSpecification' => new TimeToLiveSpecification([
+                'Enabled' => true,
+                'AttributeName' => 'attribute',
+            ]),
+        ]);
+        $result = $client->updateTimeToLive($input);
+
+        $result->resolve();
+
+        self::assertTrue($result->getTimeToLiveSpecification()->getEnabled());
+        self::assertSame('attribute', $result->getTimeToLiveSpecification()->getAttributeName());
     }
 
     private function getClient(): DynamoDbClient

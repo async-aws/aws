@@ -17,6 +17,7 @@ use AsyncAws\DynamoDb\Input\QueryInput;
 use AsyncAws\DynamoDb\Input\ScanInput;
 use AsyncAws\DynamoDb\Input\UpdateItemInput;
 use AsyncAws\DynamoDb\Input\UpdateTableInput;
+use AsyncAws\DynamoDb\Input\UpdateTimeToLiveInput;
 use AsyncAws\DynamoDb\Result\CreateTableOutput;
 use AsyncAws\DynamoDb\Result\DeleteItemOutput;
 use AsyncAws\DynamoDb\Result\DeleteTableOutput;
@@ -30,7 +31,9 @@ use AsyncAws\DynamoDb\Result\TableExistsWaiter;
 use AsyncAws\DynamoDb\Result\TableNotExistsWaiter;
 use AsyncAws\DynamoDb\Result\UpdateItemOutput;
 use AsyncAws\DynamoDb\Result\UpdateTableOutput;
+use AsyncAws\DynamoDb\Result\UpdateTimeToLiveOutput;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
+use AsyncAws\DynamoDb\ValueObject\TimeToLiveSpecification;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class DynamoDbClientTest extends TestCase
@@ -214,6 +217,23 @@ class DynamoDbClientTest extends TestCase
         $result = $client->UpdateTable($input);
 
         self::assertInstanceOf(UpdateTableOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testUpdateTimeToLive(): void
+    {
+        $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new UpdateTimeToLiveInput([
+            'TableName' => 'Foobar',
+            'TimeToLiveSpecification' => new TimeToLiveSpecification([
+                'Enabled' => false,
+                'AttributeName' => 'attribute',
+            ]),
+        ]);
+        $result = $client->updateTimeToLive($input);
+
+        self::assertInstanceOf(UpdateTimeToLiveOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 }

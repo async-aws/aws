@@ -102,6 +102,13 @@ class SignerV4 implements Signer
         $request->setBody(StringStream::create($request->getBody()));
     }
 
+    protected function buildCanonicalPath(Request $request): string
+    {
+        $doubleEncoded = rawurlencode(ltrim($request->getUri(), '/'));
+
+        return '/' . str_replace('%2F', '/', $doubleEncoded);
+    }
+
     private function handleSignature(Request $request, Credentials $credentials, \DateTimeImmutable $now, \DateTimeImmutable $expires, bool $isPresign): void
     {
         $this->removePresign($request);
@@ -325,13 +332,6 @@ class SignerV4 implements Signer
         }
 
         return implode('&', $encodedQuery);
-    }
-
-    private function buildCanonicalPath(Request $request): string
-    {
-        $doubleEncoded = rawurlencode(ltrim($request->getUri(), '/'));
-
-        return '/' . str_replace('%2F', '/', $doubleEncoded);
     }
 
     private function buildStringToSign(\DateTimeImmutable $now, string $credentialString, string $canonicalRequest): string

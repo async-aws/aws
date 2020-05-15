@@ -78,16 +78,6 @@ class ServiceDefinition
         return $this->definition['metadata']['apiVersion'];
     }
 
-    public function getSignatureVersion(): string
-    {
-        return $this->definition['metadata']['signatureVersion'];
-    }
-
-    public function getSigningName(): string
-    {
-        return $this->definition['metadata']['signingName'] ?? $this->getEndpointPrefix();
-    }
-
     public function getEndpointPrefix(): string
     {
         return $this->definition['metadata']['endpointPrefix'];

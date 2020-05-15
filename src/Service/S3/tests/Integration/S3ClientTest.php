@@ -614,6 +614,40 @@ class S3ClientTest extends TestCase
         self::assertEquals(200, $result->info()['status']);
     }
 
+    public function testKeyWithSpecialChars(): void
+    {
+        $client = $this->getClient();
+
+        $client->CreateBucket(['Bucket' => 'foo#pound'])->resolve();
+
+        $result = $client->PutObject([
+            'Body' => 'content',
+            'Bucket' => 'foo#pound',
+            'Key' => 'bar#pound/baz#pound',
+        ]);
+
+        self::assertEquals('"9a0364b9e99bb480dd25e1f0284c8555"', $result->getETag());
+
+        $result = $client->GetObject([
+            'Bucket' => 'foo#pound',
+            'Key' => 'bar#pound/baz#pound',
+        ]);
+        self::assertEquals('content', $result->getBody()->getContentAsString());
+
+        $result = $client->listObjectsV2([
+            'Bucket' => 'foo#pound',
+            'Delimiter' => '/',
+        ]);
+        self::assertEquals(['bar#pound/'], array_map(function (CommonPrefix $prefix) {return $prefix->getPrefix(); }, \iterator_to_array($result->getCommonPrefixes())));
+
+        $result = $client->listObjectsV2([
+            'Bucket' => 'foo#pound',
+            'Prefix' => 'bar#pound/',
+        ]);
+
+        self::assertEquals(['bar#pound/baz#pound'], array_map(function (AwsObject $prefix) {return $prefix->getKey(); }, \iterator_to_array($result->getContents())));
+    }
+
     private function getClient(): S3Client
     {
         return new S3Client([

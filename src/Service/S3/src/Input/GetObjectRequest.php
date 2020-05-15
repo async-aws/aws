@@ -383,7 +383,7 @@ final class GetObjectRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Key'] = $v;
-        $uriString = "/{$uri['Bucket']}/{$uri['Key']}";
+        $uriString = '/' . rawurlencode($uri['Bucket']) . '/' . str_replace('%2F', '/', rawurlencode($uri['Key']));
 
         // Prepare Body
         $body = '';

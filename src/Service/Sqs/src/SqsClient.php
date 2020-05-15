@@ -286,103 +286,81 @@ class SqsClient extends AbstractApi
             case 'us-west-1':
             case 'us-west-2':
                 return [
-                    'endpoint' => 'https://sqs.%region%.amazonaws.com',
+                    'endpoint' => "https://sqs.$region.amazonaws.com",
                     'signRegion' => $region,
                     'signService' => 'sqs',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'cn-north-1':
             case 'cn-northwest-1':
                 return [
-                    'endpoint' => 'https://sqs.%region%.amazonaws.com.cn',
+                    'endpoint' => "https://sqs.$region.amazonaws.com.cn",
                     'signRegion' => $region,
                     'signService' => 'sqs',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-gov-east-1':
                 return [
-                    'endpoint' => 'https://sqs.%region%.amazonaws.com',
+                    'endpoint' => "https://sqs.$region.amazonaws.com",
                     'signRegion' => $region,
                     'signService' => 'sqs',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-isob-east-1':
                 return [
-                    'endpoint' => 'https://sqs.%region%.sc2s.sgov.gov',
+                    'endpoint' => "https://sqs.$region.sc2s.sgov.gov",
                     'signRegion' => $region,
                     'signService' => 'sqs',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://sqs-fips.us-east-1.amazonaws.com',
                     'signRegion' => 'us-east-1',
                     'signService' => 'sqs',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-east-2':
                 return [
                     'endpoint' => 'https://sqs-fips.us-east-2.amazonaws.com',
                     'signRegion' => 'us-east-2',
                     'signService' => 'sqs',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-west-1':
                 return [
                     'endpoint' => 'https://sqs-fips.us-west-1.amazonaws.com',
                     'signRegion' => 'us-west-1',
                     'signService' => 'sqs',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-west-2':
                 return [
                     'endpoint' => 'https://sqs-fips.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',
                     'signService' => 'sqs',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-east-1':
                 return [
                     'endpoint' => 'https://sqs.us-east-1.amazonaws.com',
                     'signRegion' => 'us-east-1',
                     'signService' => 'sqs',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-gov-west-1':
                 return [
                     'endpoint' => 'https://sqs.us-gov-west-1.amazonaws.com',
                     'signRegion' => 'us-gov-west-1',
                     'signService' => 'sqs',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-iso-east-1':
                 return [
                     'endpoint' => 'https://sqs.us-iso-east-1.c2s.ic.gov',
                     'signRegion' => 'us-iso-east-1',
                     'signService' => 'sqs',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
         }
 
@@ -391,16 +369,22 @@ class SqsClient extends AbstractApi
 
     protected function getServiceCode(): string
     {
+        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
+
         return 'sqs';
     }
 
     protected function getSignatureScopeName(): string
     {
+        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
+
         return 'sqs';
     }
 
     protected function getSignatureVersion(): string
     {
+        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
+
         return 'v4';
     }
 }

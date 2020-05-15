@@ -1,5 +1,11 @@
 # Change Log
 
+## NOT RELEASED
+
+### Fixed
+
+- Fixed issue when Bucket or Object's Key contained a special char `#`
+
 ## 1.1.0
 
 ### Added

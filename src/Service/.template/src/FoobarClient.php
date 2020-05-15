@@ -3,22 +3,12 @@
 namespace AsyncAws\Foobar;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 
 class FoobarClient extends AbstractApi
 {
-
-    protected function getServiceCode(): string
+    protected function getEndpointMetadata(?string $region): array
     {
-        return '';
-    }
-
-    protected function getSignatureScopeName(): string
-    {
-        return '';
-    }
-
-    protected function getSignatureVersion(): string
-    {
-        return '';
+        throw new UnsupportedRegion('The region is not supported.');
     }
 }

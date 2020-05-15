@@ -17,6 +17,7 @@ use AsyncAws\DynamoDb\Input\QueryInput;
 use AsyncAws\DynamoDb\Input\ScanInput;
 use AsyncAws\DynamoDb\Input\UpdateItemInput;
 use AsyncAws\DynamoDb\Input\UpdateTableInput;
+use AsyncAws\DynamoDb\Input\UpdateTimeToLiveInput;
 use AsyncAws\DynamoDb\Result\CreateTableOutput;
 use AsyncAws\DynamoDb\Result\DeleteItemOutput;
 use AsyncAws\DynamoDb\Result\DeleteTableOutput;
@@ -30,6 +31,7 @@ use AsyncAws\DynamoDb\Result\TableExistsWaiter;
 use AsyncAws\DynamoDb\Result\TableNotExistsWaiter;
 use AsyncAws\DynamoDb\Result\UpdateItemOutput;
 use AsyncAws\DynamoDb\Result\UpdateTableOutput;
+use AsyncAws\DynamoDb\Result\UpdateTimeToLiveOutput;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 
 class DynamoDbClient extends AbstractApi
@@ -376,6 +378,28 @@ class DynamoDbClient extends AbstractApi
         return new UpdateTableOutput($response);
     }
 
+    /**
+     * The `UpdateTimeToLive` method enables or disables Time to Live (TTL) for the specified table. A successful
+     * `UpdateTimeToLive` call returns the current `TimeToLiveSpecification`. It can take up to one hour for the change to
+     * fully process. Any additional `UpdateTimeToLive` calls for the same table during this one hour duration result in a
+     * `ValidationException`.
+     *
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#updatetimetolive
+     *
+     * @param array{
+     *   TableName: string,
+     *   TimeToLiveSpecification: \AsyncAws\DynamoDb\ValueObject\TimeToLiveSpecification|array,
+     *   @region?: string,
+     * }|UpdateTimeToLiveInput $input
+     */
+    public function updateTimeToLive($input): UpdateTimeToLiveOutput
+    {
+        $input = UpdateTimeToLiveInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateTimeToLive', 'region' => $input->getRegion()]));
+
+        return new UpdateTimeToLiveOutput($response);
+    }
+
     protected function getEndpointMetadata(?string $region): array
     {
         if (null === $region) {
@@ -404,140 +428,99 @@ class DynamoDbClient extends AbstractApi
             case 'us-west-1':
             case 'us-west-2':
                 return [
-                    'endpoint' => 'https://dynamodb.%region%.amazonaws.com',
+                    'endpoint' => "https://dynamodb.$region.amazonaws.com",
                     'signRegion' => $region,
                     'signService' => 'dynamodb',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'cn-north-1':
             case 'cn-northwest-1':
                 return [
-                    'endpoint' => 'https://dynamodb.%region%.amazonaws.com.cn',
+                    'endpoint' => "https://dynamodb.$region.amazonaws.com.cn",
                     'signRegion' => $region,
                     'signService' => 'dynamodb',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-gov-east-1':
             case 'us-gov-west-1':
                 return [
-                    'endpoint' => 'https://dynamodb.%region%.amazonaws.com',
+                    'endpoint' => "https://dynamodb.$region.amazonaws.com",
                     'signRegion' => $region,
                     'signService' => 'dynamodb',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-isob-east-1':
                 return [
-                    'endpoint' => 'https://dynamodb.%region%.sc2s.sgov.gov',
+                    'endpoint' => "https://dynamodb.$region.sc2s.sgov.gov",
                     'signRegion' => $region,
                     'signService' => 'dynamodb',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'ca-central-1-fips':
                 return [
                     'endpoint' => 'https://dynamodb-fips.ca-central-1.amazonaws.com',
                     'signRegion' => 'ca-central-1',
                     'signService' => 'dynamodb',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'local':
                 return [
                     'endpoint' => 'http://localhost:8000',
                     'signRegion' => 'us-east-1',
                     'signService' => 'dynamodb',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-east-1-fips':
                 return [
                     'endpoint' => 'https://dynamodb-fips.us-east-1.amazonaws.com',
                     'signRegion' => 'us-east-1',
                     'signService' => 'dynamodb',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-east-2-fips':
                 return [
                     'endpoint' => 'https://dynamodb-fips.us-east-2.amazonaws.com',
                     'signRegion' => 'us-east-2',
                     'signService' => 'dynamodb',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-gov-east-1-fips':
                 return [
                     'endpoint' => 'https://dynamodb.us-gov-east-1.amazonaws.com',
                     'signRegion' => 'us-gov-east-1',
                     'signService' => 'dynamodb',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-gov-west-1-fips':
                 return [
                     'endpoint' => 'https://dynamodb.us-gov-west-1.amazonaws.com',
                     'signRegion' => 'us-gov-west-1',
                     'signService' => 'dynamodb',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-iso-east-1':
                 return [
                     'endpoint' => 'https://dynamodb.us-iso-east-1.c2s.ic.gov',
                     'signRegion' => 'us-iso-east-1',
                     'signService' => 'dynamodb',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-west-1-fips':
                 return [
                     'endpoint' => 'https://dynamodb-fips.us-west-1.amazonaws.com',
                     'signRegion' => 'us-west-1',
                     'signService' => 'dynamodb',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-west-2-fips':
                 return [
                     'endpoint' => 'https://dynamodb-fips.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',
                     'signService' => 'dynamodb',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
         }
 
         throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "DynamoDb".', $region));
-    }
-
-    protected function getServiceCode(): string
-    {
-        return 'dynamodb';
-    }
-
-    protected function getSignatureScopeName(): string
-    {
-        return 'dynamodb';
-    }
-
-    protected function getSignatureVersion(): string
-    {
-        return 'v4';
     }
 }
