@@ -19,7 +19,7 @@ class SessionHandler implements \SessionHandlerInterface
     /**
      * @var string
      */
-    private $dataRead;
+    private $dataRead = '';
 
     /**
      * @var string
@@ -107,7 +107,7 @@ class SessionHandler implements \SessionHandlerInterface
 
         // Return the data if it is not expired. If it is expired, remove it
         if (isset($attributes[$lifetimeAttribute]) && isset($attributes[$dataAttribute])) {
-            $this->dataRead = $attributes[$dataAttribute]->getS();
+            $this->dataRead = $attributes[$dataAttribute]->getS() ?? '';
             if ($attributes[$lifetimeAttribute]->getN() <= time()) {
                 $this->dataRead = '';
                 $this->destroy($session_id);
