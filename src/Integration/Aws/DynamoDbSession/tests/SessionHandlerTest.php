@@ -35,9 +35,9 @@ class SessionHandlerTest extends TestCase
     public function testClose()
     {
         $this->client
-            ->expects($invocation = $this->once())
+            ->expects(self::once())
             ->method('updateItem')
-            ->with($this->equalTo([
+            ->with(self::equalTo([
                 'TableName' => 'testTable',
                 'Key' => [
                     'id' => ['S' => 'PHPSESSID'],
@@ -53,9 +53,9 @@ class SessionHandlerTest extends TestCase
     public function testDestroy()
     {
         $this->client
-            ->expects($invocation = $this->once())
+            ->expects(self::once())
             ->method('deleteItem')
-            ->with($this->equalTo([
+            ->with(self::equalTo([
                 'TableName' => 'testTable',
                 'Key' => [
                     'id' => [
@@ -70,9 +70,9 @@ class SessionHandlerTest extends TestCase
     public function testRead()
     {
         $this->client
-            ->expects($invocation = $this->once())
+            ->expects(self::once())
             ->method('getItem')
-            ->with($this->equalTo([
+            ->with(self::equalTo([
                 'TableName' => 'testTable',
                 'Key' => [
                     'id' => [
@@ -94,9 +94,9 @@ class SessionHandlerTest extends TestCase
     public function testWrite()
     {
         $this->client
-            ->expects($invocation = $this->once())
+            ->expects(self::once())
             ->method('updateItem')
-            ->with($this->equalTo([
+            ->with(self::equalTo([
                 'TableName' => 'testTable',
                 'Key' => [
                     'id' => ['S' => 'PHPSESSID_123456789'],
@@ -122,9 +122,9 @@ class SessionHandlerTest extends TestCase
             ]));
 
         $this->client
-            ->expects($invocation = $this->once())
+            ->expects(self::once())
             ->method('updateItem')
-            ->with($this->equalTo([
+            ->with(self::equalTo([
                 'TableName' => 'testTable',
                 'Key' => [
                     'id' => ['S' => 'PHPSESSID_123456789'],
@@ -151,9 +151,9 @@ class SessionHandlerTest extends TestCase
             ]));
 
         $this->client
-            ->expects($invocation = $this->once())
+            ->expects(self::once())
             ->method('updateItem')
-            ->with($this->equalTo([
+            ->with(self::equalTo([
                 'TableName' => 'testTable',
                 'Key' => [
                     'id' => ['S' => 'PHPSESSID_123456789'],

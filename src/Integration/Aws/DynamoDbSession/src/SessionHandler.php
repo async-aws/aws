@@ -37,7 +37,6 @@ class SessionHandler implements \SessionHandlerInterface
     private $sessionWritten;
 
     /**
-     * @param DynamoDbClient $client
      * @param array{
      *   consistent_read?: bool,
      *   data_attribute?: string,
@@ -128,14 +127,14 @@ class SessionHandler implements \SessionHandlerInterface
 
     private function doWrite($id, $data, $isChanged): bool
     {
-        $expires = time() + ($this->config['session_lifetime'] ?? (int)ini_get('session.gc_maxlifetime'));
+        $expires = time() + ($this->config['session_lifetime'] ?? (int) ini_get('session.gc_maxlifetime'));
 
         $attributes = [
-            $this->getSessionLifetimeAttribute() => ['Value' => ['N' => (string)$expires]],
+            $this->getSessionLifetimeAttribute() => ['Value' => ['N' => (string) $expires]],
         ];
 
         if ($isChanged) {
-            $attributes[$this->getDataAttribute()] = $data != ''
+            $attributes[$this->getDataAttribute()] = '' != $data
                 ? ['Value' => ['S' => $data]]
                 : ['Action' => 'DELETE'];
         }
