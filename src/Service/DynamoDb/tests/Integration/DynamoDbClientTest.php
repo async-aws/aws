@@ -314,7 +314,7 @@ class DynamoDbClientTest extends TestCase
                 'AttributeName' => 'attribute',
             ]),
         ]);
-        $result = $client->UpdateTimeToLive($input);
+        $result = $client->updateTimeToLive($input);
 
         $result->resolve();
 

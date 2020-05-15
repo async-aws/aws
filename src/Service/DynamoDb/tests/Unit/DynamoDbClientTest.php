@@ -231,7 +231,7 @@ class DynamoDbClientTest extends TestCase
                 'AttributeName' => 'attribute',
             ]),
         ]);
-        $result = $client->UpdateTimeToLive($input);
+        $result = $client->updateTimeToLive($input);
 
         self::assertInstanceOf(UpdateTimeToLiveOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
