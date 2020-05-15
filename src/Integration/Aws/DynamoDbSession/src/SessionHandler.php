@@ -50,6 +50,8 @@ class SessionHandler implements \SessionHandlerInterface
     {
         $this->client = $client;
         $this->config = $config;
+        $this->config['data_attribute'] = $this->config['data_attribute'] ?? 'data';
+        $this->config['session_lifetime_attribute'] = $this->config['session_lifetime_attribute'] ?? 'expires';
     }
 
     public function close()
@@ -58,7 +60,7 @@ class SessionHandler implements \SessionHandlerInterface
 
         // Make sure the session is unlocked and the expiration time is updated, even if the write did not occur
         if ($this->sessionId !== $id || !$this->sessionWritten) {
-            $this->sessionWritten = $this->doWrite($this->formatId($id), '', false);
+            $this->sessionWritten = $this->doWrite($id, '', false);
         }
 
         return $this->sessionWritten;
@@ -101,13 +103,10 @@ class SessionHandler implements \SessionHandlerInterface
             'ConsistentRead' => $this->config['consistent_read'] ?? true,
         ])->getItem();
 
-        $dataAttribute = $this->getDataAttribute();
-        $lifetimeAttribute = $this->getSessionLifetimeAttribute();
-
         // Return the data if it is not expired. If it is expired, remove it
-        if (isset($attributes[$lifetimeAttribute]) && isset($attributes[$dataAttribute])) {
-            $this->dataRead = $attributes[$dataAttribute]->getS() ?? '';
-            if ($attributes[$lifetimeAttribute]->getN() <= time()) {
+        if (isset($attributes[$this->config['session_lifetime_attribute']]) && isset($attributes[$this->config['data_attribute']])) {
+            $this->dataRead = $attributes[$this->config['data_attribute']]->getS() ?? '';
+            if ($attributes[$this->config['session_lifetime_attribute']]->getN() <= time()) {
                 $this->dataRead = '';
                 $this->destroy($session_id);
             }
@@ -122,7 +121,7 @@ class SessionHandler implements \SessionHandlerInterface
             || $session_data !== $this->dataRead;
         $this->sessionId = $session_id;
 
-        return $this->sessionWritten = $this->doWrite($this->formatId($session_id), $session_data, $changed);
+        return $this->sessionWritten = $this->doWrite($session_id, $session_data, $changed);
     }
 
     private function doWrite($id, $data, $isChanged): bool
@@ -130,18 +129,18 @@ class SessionHandler implements \SessionHandlerInterface
         $expires = time() + ($this->config['session_lifetime'] ?? (int) ini_get('session.gc_maxlifetime'));
 
         $attributes = [
-            $this->getSessionLifetimeAttribute() => ['Value' => ['N' => (string) $expires]],
+            $this->config['session_lifetime_attribute'] => ['Value' => ['N' => (string) $expires]],
         ];
 
         if ($isChanged) {
-            $attributes[$this->getDataAttribute()] = '' != $data
+            $attributes[$this->config['data_attribute']] = '' != $data
                 ? ['Value' => ['S' => $data]]
                 : ['Action' => 'DELETE'];
         }
 
         $this->client->updateItem([
             'TableName' => $this->config['table_name'],
-            'Key' => $this->formatKey($id),
+            'Key' => $this->formatKey($this->formatId($id)),
             'AttributeUpdates' => $attributes,
         ]);
 
@@ -156,15 +155,5 @@ class SessionHandler implements \SessionHandlerInterface
     private function formatKey($key): array
     {
         return [$this->config['hash_key'] ?? 'id' => ['S' => $key]];
-    }
-
-    private function getDataAttribute(): string
-    {
-        return $this->config['data_attribute'] ?? 'data';
-    }
-
-    private function getSessionLifetimeAttribute(): string
-    {
-        return $this->config['session_lifetime_attribute'] ?? 'expires';
     }
 }
