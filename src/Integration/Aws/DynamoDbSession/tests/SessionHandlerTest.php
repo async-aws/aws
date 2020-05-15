@@ -168,4 +168,46 @@ class SessionHandlerTest extends TestCase
 
         self::assertTrue($this->handler->write('123456789', 'new data'));
     }
+
+    public function testWriteTwice()
+    {
+        $this->client
+            ->method('getItem')
+            ->willReturn(ResultMockFactory::create(GetItemOutput::class, [
+                'Item' => [
+                    'data' => new AttributeValue(['S' => 'previous data']),
+                    'expires' => new AttributeValue(['N' => time() + 86400]),
+                ],
+            ]));
+
+        $this->client
+            ->expects(self::exactly(2))
+            ->method('updateItem')
+            ->withConsecutive(
+                [self::equalTo([
+                    'TableName' => 'testTable',
+                    'Key' => [
+                        'id' => ['S' => 'PHPSESSID_123456789'],
+                    ],
+                    'AttributeUpdates' => [
+                        'expires' => ['Value' => ['N' => time() + 86400]],
+                        'data' => ['Value' => ['S' => 'new data']],
+                    ],
+                ], 10)],
+                [self::equalTo([
+                    'TableName' => 'testTable',
+                    'Key' => [
+                        'id' => ['S' => 'PHPSESSID_123456789'],
+                    ],
+                    'AttributeUpdates' => [
+                        'expires' => ['Value' => ['N' => time() + 86400]],
+                        'data' => ['Value' => ['S' => 'previous data']],
+                    ],
+                ], 10)]
+            );
+
+        $this->handler->read('123456789');
+        $this->handler->write('123456789', 'new data');
+        $this->handler->write('123456789', 'previous data');
+    }
 }

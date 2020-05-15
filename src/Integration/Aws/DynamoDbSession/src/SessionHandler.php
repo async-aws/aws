@@ -144,6 +144,10 @@ class SessionHandler implements \SessionHandlerInterface
             'AttributeUpdates' => $attributes,
         ]);
 
+        if ($isChanged) {
+            $this->dataRead = $data;
+        }
+
         return true;
     }
 
