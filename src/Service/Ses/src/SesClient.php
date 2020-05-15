@@ -49,30 +49,24 @@ class SesClient extends AbstractApi
             case 'us-east-1':
             case 'us-west-2':
                 return [
-                    'endpoint' => 'https://email.%region%.amazonaws.com',
+                    'endpoint' => "https://email.$region.amazonaws.com",
                     'signRegion' => $region,
                     'signService' => 'email',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-gov-west-1':
                 return [
-                    'endpoint' => 'https://email.%region%.amazonaws.com',
+                    'endpoint' => "https://email.$region.amazonaws.com",
                     'signRegion' => $region,
                     'signService' => 'email',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-gov-west-1':
                 return [
                     'endpoint' => 'https://email-fips.us-gov-west-1.amazonaws.com',
                     'signRegion' => 'us-gov-west-1',
                     'signService' => 'email',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
         }
 
@@ -81,16 +75,22 @@ class SesClient extends AbstractApi
 
     protected function getServiceCode(): string
     {
+        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
+
         return 'email';
     }
 
     protected function getSignatureScopeName(): string
     {
+        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
+
         return 'ses';
     }
 
     protected function getSignatureVersion(): string
     {
+        @trigger_error('Using the client with an old version of Core is deprecated. Run "composer update async-aws/core".', \E_USER_DEPRECATED);
+
         return 'v4';
     }
 }

@@ -8,6 +8,7 @@ use AsyncAws\Core\Credentials\CacheProvider;
 use AsyncAws\Core\Credentials\ChainProvider;
 use AsyncAws\Core\Credentials\CredentialProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\Core\Signer\Signer;
 use AsyncAws\Core\Signer\SignerV4;
 use AsyncAws\Core\Stream\StringStream;
@@ -83,11 +84,29 @@ abstract class AbstractApi
         return $request->getEndpoint();
     }
 
-    abstract protected function getServiceCode(): string;
+    /**
+     * @deprecated
+     */
+    protected function getServiceCode(): string
+    {
+        throw new LogicException(\sprintf('The method "%s" should not be called. The Client "%s" must implement the "%s" method.', __FUNCTION__, \get_class($this), 'getEndpointMetadata'));
+    }
 
-    abstract protected function getSignatureVersion(): string;
+    /**
+     * @deprecated
+     */
+    protected function getSignatureVersion(): string
+    {
+        throw new LogicException(\sprintf('The method "%s" should not be called. The Client "%s" must implement the "%s" method.', __FUNCTION__, \get_class($this), 'getEndpointMetadata'));
+    }
 
-    abstract protected function getSignatureScopeName(): string;
+    /**
+     * @deprecated
+     */
+    protected function getSignatureScopeName(): string
+    {
+        throw new LogicException(\sprintf('The method "%s" should not be called. The Client "%s" must implement the "%s" method.', __FUNCTION__, \get_class($this), 'getEndpointMetadata'));
+    }
 
     final protected function getResponse(Request $request, ?RequestContext $context = null): Response
     {
@@ -145,13 +164,18 @@ abstract class AbstractApi
      */
     protected function getEndpointMetadata(?string $region): array
     {
+        \trigger_deprecation('async-aws/core', '1.2', 'Extending "%s"" without overriding "%s" is deprecated. This method will be abstract in version 2.0.', __CLASS__, __FUNCTION__);
+
         /** @var string $endpoint */
         $endpoint = $this->configuration->get('endpoint');
         /** @var string $region */
         $region = $region ?? $this->configuration->get('region');
 
         return [
-            'endpoint' => $endpoint,
+            'endpoint' => strtr($endpoint, [
+                '%region%' => $region,
+                '%service%' => $this->getServiceCode(),
+            ]),
             'signRegion' => $region,
             'signService' => $this->getSignatureScopeName(),
             'signVersions' => [$this->getSignatureVersion()],
@@ -171,16 +195,21 @@ abstract class AbstractApi
         $region = $region ?? $this->configuration->isDefault('region') ? null : $this->configuration->get('region');
         $metadata = $this->getEndpointMetadata($region);
         if (!$this->configuration->isDefault('endpoint')) {
+            /** @var string $endpoint */
             $endpoint = $this->configuration->get('endpoint');
         } else {
             $endpoint = $metadata['endpoint'];
         }
 
-        /** @psalm-suppress PossiblyNullArgument */
-        $endpoint = strtr($endpoint, [
-            '%region%' => $region ?? $this->configuration->get('region'),
-            '%service%' => $this->getServiceCode(), // if people provides a custom endpoint 'http://%service%.localhost/
-        ]);
+        if (false !== \strpos($endpoint, '%region%') || false !== \strpos($endpoint, '%service%')) {
+            \trigger_deprecation('async-aws/core', '1.2', 'providing an endpoint with placeholder is deprecated and will be ignored in version 2.0. Provide full endpoint instead.');
+
+            /** @psalm-suppress PossiblyNullArgument */
+            $endpoint = strtr($endpoint, [
+                '%region%' => $region ?? $this->configuration->get('region'),
+                '%service%' => $this->getServiceCode(), // if people provides a custom endpoint 'http://%service%.localhost/
+            ]);
+        }
 
         $endpoint .= $uri;
         if (empty($query)) {

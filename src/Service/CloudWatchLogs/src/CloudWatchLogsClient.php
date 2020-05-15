@@ -89,68 +89,43 @@ class CloudWatchLogsClient extends AbstractApi
             case 'us-west-1':
             case 'us-west-2':
                 return [
-                    'endpoint' => 'https://logs.%region%.amazonaws.com',
+                    'endpoint' => "https://logs.$region.amazonaws.com",
                     'signRegion' => $region,
                     'signService' => 'logs',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'cn-north-1':
             case 'cn-northwest-1':
                 return [
-                    'endpoint' => 'https://logs.%region%.amazonaws.com.cn',
+                    'endpoint' => "https://logs.$region.amazonaws.com.cn",
                     'signRegion' => $region,
                     'signService' => 'logs',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-gov-east-1':
             case 'us-gov-west-1':
                 return [
-                    'endpoint' => 'https://logs.%region%.amazonaws.com',
+                    'endpoint' => "https://logs.$region.amazonaws.com",
                     'signRegion' => $region,
                     'signService' => 'logs',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-iso-east-1':
                 return [
-                    'endpoint' => 'https://logs.%region%.c2s.ic.gov',
+                    'endpoint' => "https://logs.$region.c2s.ic.gov",
                     'signRegion' => $region,
                     'signService' => 'logs',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-isob-east-1':
                 return [
-                    'endpoint' => 'https://logs.%region%.sc2s.sgov.gov',
+                    'endpoint' => "https://logs.$region.sc2s.sgov.gov",
                     'signRegion' => $region,
                     'signService' => 'logs',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
         }
 
         throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "CloudWatchLogs".', $region));
-    }
-
-    protected function getServiceCode(): string
-    {
-        return 'logs';
-    }
-
-    protected function getSignatureScopeName(): string
-    {
-        return 'logs';
-    }
-
-    protected function getSignatureVersion(): string
-    {
-        return 'v4';
     }
 }

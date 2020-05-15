@@ -158,131 +158,92 @@ class SsmClient extends AbstractApi
             case 'us-west-1':
             case 'us-west-2':
                 return [
-                    'endpoint' => 'https://ssm.%region%.amazonaws.com',
+                    'endpoint' => "https://ssm.$region.amazonaws.com",
                     'signRegion' => $region,
                     'signService' => 'ssm',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'cn-north-1':
             case 'cn-northwest-1':
                 return [
-                    'endpoint' => 'https://ssm.%region%.amazonaws.com.cn',
+                    'endpoint' => "https://ssm.$region.amazonaws.com.cn",
                     'signRegion' => $region,
                     'signService' => 'ssm',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-gov-east-1':
             case 'us-gov-west-1':
                 return [
-                    'endpoint' => 'https://ssm.%region%.amazonaws.com',
+                    'endpoint' => "https://ssm.$region.amazonaws.com",
                     'signRegion' => $region,
                     'signService' => 'ssm',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'us-isob-east-1':
                 return [
-                    'endpoint' => 'https://ssm.%region%.sc2s.sgov.gov',
+                    'endpoint' => "https://ssm.$region.sc2s.sgov.gov",
                     'signRegion' => $region,
                     'signService' => 'ssm',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://ssm-fips.us-east-1.amazonaws.com',
                     'signRegion' => 'us-east-1',
                     'signService' => 'ssm',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-east-2':
                 return [
                     'endpoint' => 'https://ssm-fips.us-east-2.amazonaws.com',
                     'signRegion' => 'us-east-2',
                     'signService' => 'ssm',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-west-1':
                 return [
                     'endpoint' => 'https://ssm-fips.us-west-1.amazonaws.com',
                     'signRegion' => 'us-west-1',
                     'signService' => 'ssm',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'fips-us-west-2':
                 return [
                     'endpoint' => 'https://ssm-fips.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',
                     'signService' => 'ssm',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'ssm-facade-fips-us-east-1':
                 return [
                     'endpoint' => 'https://ssm-facade-fips.us-east-1.amazonaws.com',
                     'signRegion' => 'us-east-1',
                     'signService' => 'ssm',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'ssm-facade-fips-us-east-2':
                 return [
                     'endpoint' => 'https://ssm-facade-fips.us-east-2.amazonaws.com',
                     'signRegion' => 'us-east-2',
                     'signService' => 'ssm',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'ssm-facade-fips-us-west-1':
                 return [
                     'endpoint' => 'https://ssm-facade-fips.us-west-1.amazonaws.com',
                     'signRegion' => 'us-west-1',
                     'signService' => 'ssm',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
             case 'ssm-facade-fips-us-west-2':
                 return [
                     'endpoint' => 'https://ssm-facade-fips.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',
                     'signService' => 'ssm',
-                    'signVersions' => [
-                        0 => 'v4',
-                    ],
+                    'signVersions' => ['v4'],
                 ];
         }
 
         throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Ssm".', $region));
-    }
-
-    protected function getServiceCode(): string
-    {
-        return 'ssm';
-    }
-
-    protected function getSignatureScopeName(): string
-    {
-        return 'ssm';
-    }
-
-    protected function getSignatureVersion(): string
-    {
-        return 'v4';
     }
 }
