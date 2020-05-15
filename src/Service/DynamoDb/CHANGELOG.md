@@ -1,5 +1,11 @@
 # Change Log
 
+## NOT RELEASED
+
+### Added
+
+- Added operation `UpdateTimeToLiveInput`
+
 ## 0.2.1
 
 ### Fixed

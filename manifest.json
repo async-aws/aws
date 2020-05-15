@@ -54,7 +54,8 @@
                 "TableExists",
                 "TableNotExists",
                 "UpdateItem",
-                "UpdateTable"
+                "UpdateTable",
+                "UpdateTimeToLive"
             ]
         },
         "EventBridge": {
