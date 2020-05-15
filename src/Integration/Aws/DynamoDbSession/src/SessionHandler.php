@@ -124,7 +124,7 @@ class SessionHandler implements \SessionHandlerInterface
         return $this->sessionWritten = $this->doWrite($session_id, $session_data, $changed);
     }
 
-    private function doWrite($id, $data, $isChanged): bool
+    private function doWrite(string $id, string $data, bool $isChanged): bool
     {
         $expires = time() + ($this->config['session_lifetime'] ?? (int) ini_get('session.gc_maxlifetime'));
 
@@ -147,12 +147,12 @@ class SessionHandler implements \SessionHandlerInterface
         return true;
     }
 
-    private function formatId($id): string
+    private function formatId(string $id): string
     {
         return trim($this->sessionName . '_' . $id, '_');
     }
 
-    private function formatKey($key): array
+    private function formatKey(string $key): array
     {
         return [$this->config['hash_key'] ?? 'id' => ['S' => $key]];
     }
