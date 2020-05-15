@@ -18,16 +18,32 @@ composer require async-aws/dynamo-db-session
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDbSession\SessionHandler;
 
-\session_set_save_handler(new SessionHandler(new DynamoDbClient(), [
-  'table_name' => 'php-sessions',
-]), true);
+$handler = new SessionHandler(new DynamoDbClient(), [
+    'table_name' => 'php-sessions',
+]);
+
+\session_set_save_handler($handler, true);
 ```
+
+---
 
 A DynamoDb table needs to exist in the configured region with the given `table_name` config.
 
 The primary key of the table must be a String with key "id". This can be changed with the `hash_key` config.
 
 The Time to live attribute of the table must be set on the "expires" attribute. This can be changed with the `session_lifetime_attribute` config.
+
+---
+
+Alternatively, the table can be created programmatically with the setUp method:
+
+```php
+$handler->setUp();
+```
+
+Creating the table with the method ensures the settings meet the requirements.
+
+The table is created with On-Demand billing, which you can change to provisioned through the AWS console.
 
 ## Configuration
 

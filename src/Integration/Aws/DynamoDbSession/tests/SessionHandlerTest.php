@@ -4,8 +4,10 @@ namespace AsyncAws\DynamoDbSession\Tests;
 
 use AsyncAws\Core\Test\ResultMockFactory;
 use AsyncAws\DynamoDb\DynamoDbClient;
+use AsyncAws\DynamoDb\Result\DescribeTableOutput;
 use AsyncAws\DynamoDb\Result\GetItemOutput;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
+use AsyncAws\DynamoDb\ValueObject\TableDescription;
 use AsyncAws\DynamoDbSession\SessionHandler;
 use PHPUnit\Framework\TestCase;
 
@@ -209,5 +211,58 @@ class SessionHandlerTest extends TestCase
         $this->handler->read('123456789');
         $this->handler->write('123456789', 'new data');
         $this->handler->write('123456789', 'previous data');
+    }
+
+    public function testSetUp()
+    {
+        $this->client
+            ->expects(self::once())
+            ->method('createTable')
+            ->with(self::equalTo([
+                'TableName' => 'testTable',
+                'BillingMode' => 'PAY_PER_REQUEST',
+                'AttributeDefinitions' => [
+                    [
+                        'AttributeName' => 'id',
+                        'AttributeType' => 'S',
+                    ]
+                ],
+                'KeySchema' => [
+                    [
+                        'AttributeName' => 'id',
+                        'KeyType' => 'HASH',
+                    ],
+                ],
+            ]));
+
+        $this->client
+            ->expects(self::exactly(2))
+            ->method('describeTable')
+            ->with(self::equalTo(['TableName' => 'testTable']))
+            ->willReturnOnConsecutiveCalls(
+                ResultMockFactory::create(DescribeTableOutput::class, [
+                    'Table' => new TableDescription([
+                        'TableStatus' => 'CREATING',
+                    ]),
+                ]),
+                ResultMockFactory::create(DescribeTableOutput::class, [
+                    'Table' => new TableDescription([
+                        'TableStatus' => 'ACTIVE',
+                    ]),
+                ])
+            );
+
+        $this->client
+            ->expects(self::once())
+            ->method('updateTimeToLive')
+            ->with(self::equalTo([
+                'TableName' => 'testTable',
+                'TimeToLiveSpecification' => [
+                    'Enabled' => true,
+                    'AttributeName' => 'expires',
+                ],
+            ]));
+
+        $this->handler->setUp(0);
     }
 }
