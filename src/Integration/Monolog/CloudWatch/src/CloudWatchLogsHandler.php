@@ -39,14 +39,9 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     private $client;
 
     /**
-     * @var string
+     * @var array
      */
-    private $group;
-
-    /**
-     * @var string
-     */
-    private $stream;
+    private $config;
 
     /**
      * @var bool
@@ -57,11 +52,6 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      * @var string|null
      */
     private $sequenceToken;
-
-    /**
-     * @var int
-     */
-    private $batchSize;
 
     /**
      * @var array
@@ -90,36 +80,49 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      *  Log group names can be between 1 and 512 characters long.
      *  Log group names consist of the following characters: a-z, A-Z, 0-9, '_' (underscore), '-' (hyphen),
      * '/' (forward slash), and '.' (period).
-     * @param string $group
-     *
      *  Log stream names must be unique within the log group.
      *  Log stream names can be between 1 and 512 characters long.
      *  The ':' (colon) and '*' (asterisk) characters are not allowed.
-     * @param string $stream
-     * @param int    $batchSize
-     * @param int    $level
-     * @param bool   $bubble
+     * @param array{
+     *   batchSize?: int,
+     *   bubble?: bool,
+     *   group: string,
+     *   level?: int,
+     *   stream: string,
+     * } $config
      *
      * @throws \InvalidArgumentException
      */
     public function __construct(
         CloudWatchLogsClient $client,
-        $group,
+        $config /*,
         $stream,
         $batchSize = 10000,
         $level = Logger::DEBUG,
-        $bubble = true
+        $bubble = true*/
     ) {
-        if ($batchSize > 10000) {
+        if (!\is_array($config)) {
+            @\trigger_error('Creating CloudWatchLogsHandler with inline config arguments is deprecated', \E_USER_WARNING);
+            $arguments = \func_get_args();
+            $config = [
+                'group' => $arguments[1],
+                'stream' => $arguments[2],
+                'batchSize' => $arguments[3] ?? null,
+                'level' => $arguments[4] ?? null,
+                'bubble' => $arguments[5] ?? null,
+            ];
+        }
+
+        $config['batchSize'] = $config['batchSize'] ?? 10000;
+
+        if ($config['batchSize'] > 10000) {
             throw new \InvalidArgumentException('Batch size can not be greater than 10000');
         }
 
         $this->client = $client;
-        $this->group = $group;
-        $this->stream = $stream;
-        $this->batchSize = $batchSize;
+        $this->config = $config;
 
-        parent::__construct($level, $bubble);
+        parent::__construct($config['level'] ?? Logger::DEBUG, $config['bubble'] ?? true);
     }
 
     /**
@@ -154,7 +157,7 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
 
             $this->buffer[] = $record;
 
-            if (\count($this->buffer) >= $this->batchSize) {
+            if (\count($this->buffer) >= $this->config['batchSize']) {
                 $this->flushBuffer();
             }
         }
@@ -240,15 +243,15 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
         $existingStreams = $this->client
             ->describeLogStreams(
                 [
-                    'logGroupName' => $this->group,
-                    'logStreamNamePrefix' => $this->stream,
+                    'logGroupName' => $this->config['group'],
+                    'logStreamNamePrefix' => $this->config['stream'],
                 ]
             )
             ->getLogStreams(true);
 
         /** @var LogStream $stream */
         foreach ($existingStreams as $stream) {
-            if ($stream->getLogStreamName() === $this->stream && $stream->getUploadSequenceToken()) {
+            if ($stream->getLogStreamName() === $this->config['stream'] && $stream->getUploadSequenceToken()) {
                 $this->sequenceToken = $stream->getUploadSequenceToken();
             }
         }
@@ -281,8 +284,8 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
         });
 
         $data = [
-            'logGroupName' => $this->group,
-            'logStreamName' => $this->stream,
+            'logGroupName' => $this->config['group'],
+            'logStreamName' => $this->config['stream'],
             'logEvents' => $entries,
             'sequenceToken' => $this->sequenceToken,
         ];
