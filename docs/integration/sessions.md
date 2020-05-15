@@ -64,5 +64,5 @@ services:
 
 framework:
     session:
-        handler_id: App\DynamoDbSession\SessionHandler
+        handler_id: AsyncAws\DynamoDbSession\SessionHandler
 ```
