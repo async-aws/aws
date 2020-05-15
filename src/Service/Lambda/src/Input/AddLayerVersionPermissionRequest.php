@@ -157,7 +157,7 @@ final class AddLayerVersionPermissionRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "VersionNumber" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['VersionNumber'] = $v;
-        $uriString = "/2018-10-31/layers/{$uri['LayerName']}/versions/{$uri['VersionNumber']}/policy";
+        $uriString = '/2018-10-31/layers/' . rawurlencode($uri['LayerName']) . '/versions/' . rawurlencode($uri['VersionNumber']) . '/policy';
 
         // Prepare Body
         $bodyPayload = $this->requestBody();
