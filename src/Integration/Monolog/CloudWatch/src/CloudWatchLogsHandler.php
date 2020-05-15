@@ -85,9 +85,7 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      *  The ':' (colon) and '*' (asterisk) characters are not allowed.
      * @param array{
      *   batchSize?: int,
-     *   bubble?: bool,
      *   group: string,
-     *   level?: int,
      *   stream: string,
      * } $options
      * @param int  $level
