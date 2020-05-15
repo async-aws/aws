@@ -58,9 +58,9 @@ class SessionHandler implements \SessionHandlerInterface
     {
         $id = \session_id();
 
-        // Make sure the session is unlocked and the expiration time is updated, even if the write did not occur
+        // Make sure the expiration time is updated, even if the write did not occur
         if ($this->sessionId !== $id || !$this->sessionWritten) {
-            $this->sessionWritten = $this->doWrite($id, '', false);
+            $this->sessionWritten = $this->doWrite($id, false);
         }
 
         return $this->sessionWritten;
@@ -121,10 +121,10 @@ class SessionHandler implements \SessionHandlerInterface
             || $session_data !== $this->dataRead;
         $this->sessionId = $session_id;
 
-        return $this->sessionWritten = $this->doWrite($session_id, $session_data, $changed);
+        return $this->sessionWritten = $this->doWrite($session_id, $changed, $session_data);
     }
 
-    private function doWrite(string $id, string $data, bool $isChanged): bool
+    private function doWrite(string $id, bool $updateData, string $data = ''): bool
     {
         $expires = time() + ($this->config['session_lifetime'] ?? (int) ini_get('session.gc_maxlifetime'));
 
@@ -132,7 +132,7 @@ class SessionHandler implements \SessionHandlerInterface
             $this->config['session_lifetime_attribute'] => ['Value' => ['N' => (string) $expires]],
         ];
 
-        if ($isChanged) {
+        if ($updateData) {
             $attributes[$this->config['data_attribute']] = '' != $data
                 ? ['Value' => ['S' => $data]]
                 : ['Action' => 'DELETE'];
@@ -144,7 +144,7 @@ class SessionHandler implements \SessionHandlerInterface
             'AttributeUpdates' => $attributes,
         ]);
 
-        if ($isChanged) {
+        if ($updateData) {
             $this->dataRead = $data;
         }
 
