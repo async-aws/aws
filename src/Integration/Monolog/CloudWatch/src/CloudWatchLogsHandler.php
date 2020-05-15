@@ -41,7 +41,7 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
     /**
      * @var array
      */
-    private $config;
+    private $options;
 
     /**
      * @var bool
@@ -89,7 +89,7 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      *   group: string,
      *   level?: int,
      *   stream: string,
-     * } $config
+     * } $options
      * @param int  $level
      * @param bool $bubble
      *
@@ -97,18 +97,18 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      */
     public function __construct(
         CloudWatchLogsClient $client,
-        $config,
+        $options,
         $level = Logger::DEBUG,
         $bubble = true
     ) {
-        $config['batchSize'] = $config['batchSize'] ?? 10000;
+        $options['batchSize'] = $options['batchSize'] ?? 10000;
 
-        if ($config['batchSize'] > 10000) {
+        if ($options['batchSize'] > 10000) {
             throw new \InvalidArgumentException('Batch size can not be greater than 10000');
         }
 
         $this->client = $client;
-        $this->config = $config;
+        $this->options = $options;
 
         parent::__construct($level, $bubble);
     }
@@ -145,7 +145,7 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
 
             $this->buffer[] = $record;
 
-            if (\count($this->buffer) >= $this->config['batchSize']) {
+            if (\count($this->buffer) >= $this->options['batchSize']) {
                 $this->flushBuffer();
             }
         }
@@ -231,15 +231,15 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
         $existingStreams = $this->client
             ->describeLogStreams(
                 [
-                    'logGroupName' => $this->config['group'],
-                    'logStreamNamePrefix' => $this->config['stream'],
+                    'logGroupName' => $this->options['group'],
+                    'logStreamNamePrefix' => $this->options['stream'],
                 ]
             )
             ->getLogStreams(true);
 
         /** @var LogStream $stream */
         foreach ($existingStreams as $stream) {
-            if ($stream->getLogStreamName() === $this->config['stream'] && $stream->getUploadSequenceToken()) {
+            if ($stream->getLogStreamName() === $this->options['stream'] && $stream->getUploadSequenceToken()) {
                 $this->sequenceToken = $stream->getUploadSequenceToken();
             }
         }
@@ -272,8 +272,8 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
         });
 
         $data = [
-            'logGroupName' => $this->config['group'],
-            'logStreamName' => $this->config['stream'],
+            'logGroupName' => $this->options['group'],
+            'logStreamName' => $this->options['stream'],
             'logEvents' => $entries,
             'sequenceToken' => $this->sequenceToken,
         ];
