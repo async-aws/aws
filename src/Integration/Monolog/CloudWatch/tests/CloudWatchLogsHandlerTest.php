@@ -54,7 +54,10 @@ class CloudWatchLogsHandlerTest extends TestCase
     {
         $this->mockDescribeLogStreams();
 
-        $handler = new CloudWatchLogsHandler($this->clientMock, $this->groupName, $this->streamName, 10000, Logger::DEBUG, true);
+        $handler = new CloudWatchLogsHandler($this->clientMock, [
+            'group' => $this->groupName,
+            'stream' => $this->streamName,
+        ]);
 
         $reflection = new \ReflectionClass($handler);
         $reflectionMethod = $reflection->getMethod('initialize');
@@ -65,7 +68,7 @@ class CloudWatchLogsHandlerTest extends TestCase
     public function testLimitExceeded()
     {
         $this->expectException(\InvalidArgumentException::class);
-        (new CloudWatchLogsHandler($this->clientMock, 'a', 'b', 10001));
+        $this->getHandler(10001);
     }
 
     public function testSendsOnClose()
@@ -170,7 +173,11 @@ class CloudWatchLogsHandlerTest extends TestCase
 
     private function getHandler($batchSize = 1000): CloudWatchLogsHandler
     {
-        return new CloudWatchLogsHandler($this->clientMock, $this->groupName, $this->streamName, $batchSize);
+        return new CloudWatchLogsHandler($this->clientMock, [
+            'batchSize' => $batchSize,
+            'group' => $this->groupName,
+            'stream' => $this->streamName,
+        ]);
     }
 
     private function getRecord(int $level = Logger::WARNING, string $message = 'test', array $context = []): array

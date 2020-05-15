@@ -1,10 +1,10 @@
 # Change Log
 
-## 0.2.0
+## NOT RELEASED
 
 ### Changed
 
-- `CloudWatchLogsHandler` inline arguments deprecated in favor of a `$config` array
+- BC: `CloudWatchLogsHandler` constructor arguments changed
 
 ## 0.1.0
 
