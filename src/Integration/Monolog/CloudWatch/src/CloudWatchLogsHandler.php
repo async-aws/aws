@@ -90,16 +90,18 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      *   level?: int,
      *   stream: string,
      * } $config
+     * @param int  $level
+     * @param bool $bubble
      *
      * @throws \InvalidArgumentException
      */
     public function __construct(
         CloudWatchLogsClient $client,
-        $config /*,
-        $stream,
-        $batchSize = 10000,
+        $config,
+        /*$stream,
+        $batchSize = 10000,*/
         $level = Logger::DEBUG,
-        $bubble = true*/
+        $bubble = true
     ) {
         if (!\is_array($config)) {
             @\trigger_error('Creating CloudWatchLogsHandler with inline config arguments is deprecated', \E_USER_WARNING);
@@ -108,9 +110,9 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
                 'group' => $arguments[1],
                 'stream' => $arguments[2],
                 'batchSize' => $arguments[3] ?? null,
-                'level' => $arguments[4] ?? null,
-                'bubble' => $arguments[5] ?? null,
             ];
+            $level = $arguments[4] ?? Logger::DEBUG;
+            $bubble = $arguments[5] ?? true;
         }
 
         $config['batchSize'] = $config['batchSize'] ?? 10000;
@@ -122,7 +124,7 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
         $this->client = $client;
         $this->config = $config;
 
-        parent::__construct($config['level'] ?? Logger::DEBUG, $config['bubble'] ?? true);
+        parent::__construct($level, $bubble);
     }
 
     /**

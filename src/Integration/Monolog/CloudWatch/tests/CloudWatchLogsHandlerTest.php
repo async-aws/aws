@@ -42,11 +42,9 @@ class CloudWatchLogsHandlerTest extends TestCase
     {
         $handler = new CloudWatchLogsHandler($this->clientMock, [
             'batchSize' => 1337,
-            'bubble' => false,
             'group' => $this->groupName,
-            'level' => Logger::CRITICAL,
             'stream' => $this->streamName,
-        ]);
+        ], Logger::CRITICAL, false);
 
         self::assertEquals(Logger::CRITICAL, $handler->getLevel());
         self::assertFalse($handler->getBubble());

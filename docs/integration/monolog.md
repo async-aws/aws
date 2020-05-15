@@ -33,12 +33,17 @@ $logger->error('an error occurred');
 
 ## Configuration
 
-The CloudWatchLogsHandler accepts the following configuration:
+The CloudWatchLogsHandler accepts the following parameters:
+
+- `$client`: the CloudWatchLogsClient instance
+- `$config`: handler configuration (see below)
+- `$level` (default `Logger::DEBUG`): minimum logging level at which this handler will be triggered (see https://github.com/Seldaek/monolog/blob/master/doc/01-usage.md#log-levels)
+- `$bubble`(default `true`): whether the messages that are handled can bubble up the stack or not (see https://github.com/Seldaek/monolog/blob/master/doc/01-usage.md#core-concepts)
+
+For the `$config` parameter, the allowed values are:
 
 - `batchSize` (default `10000`): number of log records that are pushed to CloudWatch in a single call. This number cannot exceed 10,000.
-- `bubble` (default `true`): whether the messages that are handled can bubble up the stack or not (see https://github.com/Seldaek/monolog/blob/master/doc/01-usage.md#core-concepts).
 - `group`: name of the CloudWatch Log Group which was created previously
-- `level` (default `Logger::DEBUG`): minimum logging level at which this handler will be triggered (see https://github.com/Seldaek/monolog/blob/master/doc/01-usage.md#log-levels)
 - `stream`: name of the CloudWatch Log Stream which was created previously
 
 ## Symfony usage
