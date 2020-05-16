@@ -3,6 +3,8 @@
 ![](https://github.com/async-aws/simple-s3/workflows/Tests/badge.svg?branch=master)
 ![](https://github.com/async-aws/simple-s3/workflows/BC%20Check/badge.svg?branch=master)
 
+A thin layer on top of the S3 client to make it easier to work with.
+
 ## Install
 
 ```cli
