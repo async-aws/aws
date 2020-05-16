@@ -16,7 +16,7 @@ composer require async-aws/dynamo-db-session
 
 ## Documentation
 
-See https://async-aws.com/ for documentation.
+See https://async-aws.com/integration/sessions.html for documentation.
 
 ## Contribute
 
