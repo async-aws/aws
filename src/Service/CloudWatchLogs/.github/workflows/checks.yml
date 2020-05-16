@@ -14,5 +14,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Modify composer.json
+        run: |
+          sed -i -re 's/"require": \{/"minimum-stability": "dev","prefer-stable": true,"require": \{/' composer.json
+          cat composer.json
+          git commit -am "Allow unstable dependencies"
+
       - name: Roave BC Check
         uses: docker://nyholm/roave-bc-check-ga
