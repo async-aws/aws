@@ -155,11 +155,13 @@ class SessionHandler implements \SessionHandlerInterface
 
     public function write($sessionId, $sessionData)
     {
-        $changed = $sessionId !== $this->sessionId
-            || $sessionData !== $this->dataRead;
         $this->sessionId = $sessionId;
 
-        return $this->sessionWritten = $this->doWrite($sessionId, $changed, $sessionData);
+        $sessionIdChanged = $sessionId !== $this->sessionId;
+        $sessionDataChanged = $sessionData !== $this->dataRead;
+        $updateData = $sessionIdChanged || $sessionDataChanged;
+
+        return $this->sessionWritten = $this->doWrite($sessionId, $updateData, $sessionData);
     }
 
     private function doWrite(string $id, bool $updateData, string $data = ''): bool
