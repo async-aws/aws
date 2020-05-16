@@ -26,7 +26,7 @@ STATED_BREAKS=`echo "$OUTPUT" | tail -n 1 | awk -F' ' '{ print $1 }'`
 # THEN
 #   exit 1
 
-if [ $BC_BREAKS -gt 0 ] || [ $STATED_BREAKS -gt 7 ]; then
+if [ $BC_BREAKS -gt 0 ] || [ $STATED_BREAKS -gt 8 ]; then
     echo "EXIT 1"
     exit 1
 fi
