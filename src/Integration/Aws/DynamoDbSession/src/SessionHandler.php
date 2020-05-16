@@ -104,40 +104,40 @@ class SessionHandler implements \SessionHandlerInterface
         return $this->sessionWritten;
     }
 
-    public function destroy($session_id)
+    public function destroy($sessionId)
     {
-        $this->sessionId = $session_id;
+        $this->sessionId = $sessionId;
 
         $this->client->deleteItem([
             'TableName' => $this->config['table_name'],
-            'Key' => $this->formatKey($this->formatId($session_id)),
+            'Key' => $this->formatKey($this->formatId($sessionId)),
         ]);
 
         return $this->sessionWritten = true;
     }
 
-    public function gc($maxlifetime)
+    public function gc($maxLifetime)
     {
         // DynamoDB takes care of garbage collection
         return true;
     }
 
-    public function open($save_path, $name)
+    public function open($savePath, $name)
     {
         $this->sessionName = $name;
 
         return true;
     }
 
-    public function read($session_id)
+    public function read($sessionId)
     {
-        $this->sessionId = $session_id;
+        $this->sessionId = $sessionId;
 
         $this->dataRead = '';
 
         $attributes = $this->client->getItem([
             'TableName' => $this->config['table_name'],
-            'Key' => $this->formatKey($this->formatId($session_id)),
+            'Key' => $this->formatKey($this->formatId($sessionId)),
             'ConsistentRead' => $this->config['consistent_read'] ?? true,
         ])->getItem();
 
@@ -146,20 +146,20 @@ class SessionHandler implements \SessionHandlerInterface
             $this->dataRead = $attributes[$this->config['data_attribute']]->getS() ?? '';
             if ($attributes[$this->config['session_lifetime_attribute']]->getN() <= time()) {
                 $this->dataRead = '';
-                $this->destroy($session_id);
+                $this->destroy($sessionId);
             }
         }
 
         return $this->dataRead;
     }
 
-    public function write($session_id, $session_data)
+    public function write($sessionId, $sessionData)
     {
-        $changed = $session_id !== $this->sessionId
-            || $session_data !== $this->dataRead;
-        $this->sessionId = $session_id;
+        $changed = $sessionId !== $this->sessionId
+            || $sessionData !== $this->dataRead;
+        $this->sessionId = $sessionId;
 
-        return $this->sessionWritten = $this->doWrite($session_id, $changed, $session_data);
+        return $this->sessionWritten = $this->doWrite($sessionId, $changed, $sessionData);
     }
 
     private function doWrite(string $id, bool $updateData, string $data = ''): bool
