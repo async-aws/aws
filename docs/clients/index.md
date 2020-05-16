@@ -139,7 +139,7 @@ for more information.
 | [CloudWatchLogs](./cloud-watch-logs.md)     | [async-aws/cloud-watch-logs](https://packagist.org/packages/async-aws/cloud-watch-logs)
 | CodeDeploy                                  | [async-aws/code-deploy](https://packagist.org/packages/async-aws/code-deploy)
 | [CognitoIdentityProvider](./cognito-idp.md) | [async-aws/cognito-identity-provider](https://packagist.org/packages/async-aws/cognito-identity-provider)
-| [DynamoDb]('./dynamodb.md)                  | [async-aws/dynamo-db](https://packagist.org/packages/async-aws/dynamo-db)
+| [DynamoDb](./dynamodb.md)                   | [async-aws/dynamo-db](https://packagist.org/packages/async-aws/dynamo-db)
 | EventBridge                                 | [async-aws/event-bridge](https://packagist.org/packages/async-aws/event-bridge)
 | [Iam](./iam.md)                             | [async-aws/iam](https://packagist.org/packages/async-aws/iam)
 | [Lambda](./lambda.md)                       | [async-aws/lambda](https://packagist.org/packages/async-aws/lambda)
