@@ -6,7 +6,6 @@ use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Enum\BillingMode;
 use AsyncAws\DynamoDb\Enum\KeyType;
 use AsyncAws\DynamoDb\Enum\ScalarAttributeType;
-use AsyncAws\DynamoDb\Enum\TableStatus;
 
 class SessionHandler implements \SessionHandlerInterface
 {
@@ -59,7 +58,7 @@ class SessionHandler implements \SessionHandlerInterface
         $this->config['session_lifetime_attribute'] = $this->config['session_lifetime_attribute'] ?? 'expires';
     }
 
-    public function setUp(int $wait = 1): void
+    public function setUp(): void
     {
         $this->client->createTable([
             'TableName' => $this->config['table_name'],
@@ -78,15 +77,11 @@ class SessionHandler implements \SessionHandlerInterface
             ],
         ]);
 
-        do {
-            sleep($wait);
-
-            $table = $this->client->describeTable(['TableName' => $this->config['table_name']])->getTable();
-
-            if (!$table) {
-                throw new \RuntimeException(sprintf('Could not create table %s', $this->config['table_name']));
-            }
-        } while (TableStatus::ACTIVE !== $table->getTableStatus());
+        $response = $this->client->tableExists(['TableName' => $this->config['table_name']]);
+        $response->wait(100, 3);
+        if (!$response->isSuccess()) {
+            throw new \RuntimeException(sprintf('Could not create table %s', $this->config['table_name']));
+        }
 
         $this->client->updateTimeToLive([
             'TableName' => $this->config['table_name'],

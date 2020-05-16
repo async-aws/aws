@@ -2,14 +2,17 @@
 
 namespace AsyncAws\DynamoDbSession\Tests;
 
+use AsyncAws\Core\Response;
+use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\ResultMockFactory;
 use AsyncAws\DynamoDb\DynamoDbClient;
-use AsyncAws\DynamoDb\Result\DescribeTableOutput;
 use AsyncAws\DynamoDb\Result\GetItemOutput;
+use AsyncAws\DynamoDb\Result\TableExistsWaiter;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
-use AsyncAws\DynamoDb\ValueObject\TableDescription;
 use AsyncAws\DynamoDbSession\SessionHandler;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
+use Symfony\Component\HttpClient\MockHttpClient;
 
 class SessionHandlerTest extends TestCase
 {
@@ -27,6 +30,7 @@ class SessionHandlerTest extends TestCase
     {
         $this->client = $this->getMockBuilder(DynamoDbClient::class)
             ->disableOriginalConstructor()
+            //->onlyMethods(['createTable', 'deleteItem', 'describeTable', 'getItem', 'updateItem', 'updateTimeToLive'])
             ->getMock();
 
         $this->handler = new SessionHandler($this->client, ['table_name' => 'testTable', 'session_lifetime' => 86400]);
@@ -235,22 +239,21 @@ class SessionHandlerTest extends TestCase
                 ],
             ]));
 
+        $client = new MockHttpClient(new SimpleMockedResponse('{
+            "Table": {
+                "TableStatus": "ACTIVE"
+            }
+        }'));
+
         $this->client
-            ->expects(self::exactly(2))
-            ->method('describeTable')
+            ->expects(self::once())
+            ->method('tableExists')
             ->with(self::equalTo(['TableName' => 'testTable']))
-            ->willReturnOnConsecutiveCalls(
-                ResultMockFactory::create(DescribeTableOutput::class, [
-                    'Table' => new TableDescription([
-                        'TableStatus' => 'CREATING',
-                    ]),
-                ]),
-                ResultMockFactory::create(DescribeTableOutput::class, [
-                    'Table' => new TableDescription([
-                        'TableStatus' => 'ACTIVE',
-                    ]),
-                ])
-            );
+            ->willReturn(new TableExistsWaiter(
+                new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()),
+                $this->client,
+                null
+            ));
 
         $this->client
             ->expects(self::once())
@@ -263,6 +266,6 @@ class SessionHandlerTest extends TestCase
                 ],
             ]));
 
-        $this->handler->setUp(0);
+        $this->handler->setUp();
     }
 }
