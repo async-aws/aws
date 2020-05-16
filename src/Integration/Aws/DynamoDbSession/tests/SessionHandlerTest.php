@@ -30,7 +30,6 @@ class SessionHandlerTest extends TestCase
     {
         $this->client = $this->getMockBuilder(DynamoDbClient::class)
             ->disableOriginalConstructor()
-            //->onlyMethods(['createTable', 'deleteItem', 'describeTable', 'getItem', 'updateItem', 'updateTimeToLive'])
             ->getMock();
 
         $this->handler = new SessionHandler($this->client, ['table_name' => 'testTable', 'session_lifetime' => 86400]);
