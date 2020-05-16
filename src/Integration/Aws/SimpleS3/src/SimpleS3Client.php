@@ -26,7 +26,8 @@ class SimpleS3Client extends S3Client
 
         // remove all query parameters.
         if (false === $pos = strpos($url, '?')) {
-            throw new \RuntimeException('Expected presigned URL to include a query string');
+            // If the client didn't have any credentials, there will not be any query string
+            return $url;
         }
 
         return substr($url, 0, $pos);
