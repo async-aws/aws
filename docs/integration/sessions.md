@@ -27,11 +27,11 @@ $handler = new SessionHandler(new DynamoDbClient(), [
 
 ---
 
-A DynamoDb table needs to exist in the configured region with the given `table_name` config.
+A DynamoDb table needs to exist in the configured region with the given `table_name` option.
 
-The primary key of the table must be a String with key "id". This can be changed with the `hash_key` config.
+The primary key of the table must be a String with key "id". This can be changed with the `hash_key` option.
 
-The Time to live attribute of the table must be set on the "expires" attribute. This can be changed with the `session_lifetime_attribute` config.
+The Time to live attribute of the table must be set on the "expires" attribute. This can be changed with the `session_lifetime_attribute` option.
 
 ---
 
@@ -47,7 +47,7 @@ The table is created with On-Demand billing, which you can change to provisioned
 
 ## Configuration
 
-The SessionHandler accepts the following configuration parameters:
+The SessionHandler accepts the following options:
 
 | Parameter                  | Description                                      | Default                           |
 |----------------------------|--------------------------------------------------|-----------------------------------|
@@ -72,7 +72,7 @@ services:
         arguments:
             - '@async_aws.client.dynamo_db'
             - table_name: php-sessions
-              # for more parameters, see Configuration
+              # for more options, see Configuration
 ```
 
 ```yaml

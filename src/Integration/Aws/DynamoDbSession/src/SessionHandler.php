@@ -17,7 +17,7 @@ class SessionHandler implements \SessionHandlerInterface
     /**
      * @var array
      */
-    private $config;
+    private $options;
 
     /**
      * @var string
@@ -47,47 +47,47 @@ class SessionHandler implements \SessionHandlerInterface
      *   session_lifetime?: int,
      *   session_lifetime_attribute?: string,
      *   table_name: string
-     * } $config
+     * } $options
      */
-    public function __construct(DynamoDbClient $client, array $config)
+    public function __construct(DynamoDbClient $client, array $options)
     {
         $this->client = $client;
-        $this->config = $config;
-        $this->config['data_attribute'] = $this->config['data_attribute'] ?? 'data';
-        $this->config['hash_key'] = $this->config['hash_key'] ?? 'id';
-        $this->config['session_lifetime_attribute'] = $this->config['session_lifetime_attribute'] ?? 'expires';
+        $this->options = $options;
+        $this->options['data_attribute'] = $this->options['data_attribute'] ?? 'data';
+        $this->options['hash_key'] = $this->options['hash_key'] ?? 'id';
+        $this->options['session_lifetime_attribute'] = $this->options['session_lifetime_attribute'] ?? 'expires';
     }
 
     public function setUp(): void
     {
         $this->client->createTable([
-            'TableName' => $this->config['table_name'],
+            'TableName' => $this->options['table_name'],
             'BillingMode' => BillingMode::PAY_PER_REQUEST,
             'AttributeDefinitions' => [
                 [
-                    'AttributeName' => $this->config['hash_key'],
+                    'AttributeName' => $this->options['hash_key'],
                     'AttributeType' => ScalarAttributeType::S,
                 ],
             ],
             'KeySchema' => [
                 [
-                    'AttributeName' => $this->config['hash_key'],
+                    'AttributeName' => $this->options['hash_key'],
                     'KeyType' => KeyType::HASH,
                 ],
             ],
         ]);
 
-        $response = $this->client->tableExists(['TableName' => $this->config['table_name']]);
+        $response = $this->client->tableExists(['TableName' => $this->options['table_name']]);
         $response->wait(100, 3);
         if (!$response->isSuccess()) {
-            throw new \RuntimeException(sprintf('Could not create table %s', $this->config['table_name']));
+            throw new \RuntimeException(sprintf('Could not create table %s', $this->options['table_name']));
         }
 
         $this->client->updateTimeToLive([
-            'TableName' => $this->config['table_name'],
+            'TableName' => $this->options['table_name'],
             'TimeToLiveSpecification' => [
                 'Enabled' => true,
-                'AttributeName' => $this->config['session_lifetime_attribute'],
+                'AttributeName' => $this->options['session_lifetime_attribute'],
             ],
         ]);
     }
@@ -109,7 +109,7 @@ class SessionHandler implements \SessionHandlerInterface
         $this->sessionId = $sessionId;
 
         $this->client->deleteItem([
-            'TableName' => $this->config['table_name'],
+            'TableName' => $this->options['table_name'],
             'Key' => $this->formatKey($this->formatId($sessionId)),
         ]);
 
@@ -136,15 +136,15 @@ class SessionHandler implements \SessionHandlerInterface
         $this->dataRead = '';
 
         $attributes = $this->client->getItem([
-            'TableName' => $this->config['table_name'],
+            'TableName' => $this->options['table_name'],
             'Key' => $this->formatKey($this->formatId($sessionId)),
-            'ConsistentRead' => $this->config['consistent_read'] ?? true,
+            'ConsistentRead' => $this->options['consistent_read'] ?? true,
         ])->getItem();
 
         // Return the data if it is not expired. If it is expired, remove it
-        if (isset($attributes[$this->config['session_lifetime_attribute']]) && isset($attributes[$this->config['data_attribute']])) {
-            $this->dataRead = $attributes[$this->config['data_attribute']]->getS() ?? '';
-            if ($attributes[$this->config['session_lifetime_attribute']]->getN() <= time()) {
+        if (isset($attributes[$this->options['session_lifetime_attribute']]) && isset($attributes[$this->options['data_attribute']])) {
+            $this->dataRead = $attributes[$this->options['data_attribute']]->getS() ?? '';
+            if ($attributes[$this->options['session_lifetime_attribute']]->getN() <= time()) {
                 $this->dataRead = '';
                 $this->destroy($sessionId);
             }
@@ -166,20 +166,20 @@ class SessionHandler implements \SessionHandlerInterface
 
     private function doWrite(string $id, bool $updateData, string $data = ''): bool
     {
-        $expires = time() + ($this->config['session_lifetime'] ?? (int) ini_get('session.gc_maxlifetime'));
+        $expires = time() + ($this->options['session_lifetime'] ?? (int) ini_get('session.gc_maxlifetime'));
 
         $attributes = [
-            $this->config['session_lifetime_attribute'] => ['Value' => ['N' => (string) $expires]],
+            $this->options['session_lifetime_attribute'] => ['Value' => ['N' => (string) $expires]],
         ];
 
         if ($updateData) {
-            $attributes[$this->config['data_attribute']] = '' != $data
+            $attributes[$this->options['data_attribute']] = '' != $data
                 ? ['Value' => ['S' => $data]]
                 : ['Action' => 'DELETE'];
         }
 
         $this->client->updateItem([
-            'TableName' => $this->config['table_name'],
+            'TableName' => $this->options['table_name'],
             'Key' => $this->formatKey($this->formatId($id)),
             'AttributeUpdates' => $attributes,
         ]);
@@ -198,6 +198,6 @@ class SessionHandler implements \SessionHandlerInterface
 
     private function formatKey(string $key): array
     {
-        return [$this->config['hash_key'] => ['S' => $key]];
+        return [$this->options['hash_key'] => ['S' => $key]];
     }
 }
