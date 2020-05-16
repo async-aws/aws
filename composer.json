@@ -66,6 +66,7 @@
             "AsyncAws\\Illuminate\\Filesystem\\": "src/Integration/Laravel/Filesystem/src",
             "AsyncAws\\Illuminate\\Mail\\": "src/Integration/Laravel/Mail/src",
             "AsyncAws\\Illuminate\\Queue\\": "src/Integration/Laravel/Queue/src",
+            "AsyncAws\\SimpleS3\\": "src/Integration/Aws/SimpleS3/src",
             "AsyncAws\\Symfony\\Bundle\\": "src/Integration/Symfony/Bundle/src"
         }
     },
@@ -94,6 +95,7 @@
             "AsyncAws\\Illuminate\\Filesystem\\Tests\\": "src/Integration/Laravel/Filesystem/tests",
             "AsyncAws\\Illuminate\\Mail\\Tests\\": "src/Integration/Laravel/Mail/tests",
             "AsyncAws\\Illuminate\\Queue\\Tests\\": "src/Integration/Laravel/Queue/tests",
+            "AsyncAws\\SimpleS3\\Tests\\": "src/Integration/Aws/SimpleS3/tests",
             "AsyncAws\\Symfony\\Bundle\\Tests\\": "src/Integration/Symfony/Bundle/tests"
         }
     }
