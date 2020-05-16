@@ -101,14 +101,6 @@ class CloudFormationClient extends AbstractApi
                     'signService' => 'cloudformation',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-gov-east-1':
-            case 'us-gov-west-1':
-                return [
-                    'endpoint' => "https://cloudformation.$region.amazonaws.com",
-                    'signRegion' => $region,
-                    'signService' => 'cloudformation',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-iso-east-1':
                 return [
                     'endpoint' => "https://cloudformation.$region.c2s.ic.gov",
@@ -134,6 +126,20 @@ class CloudFormationClient extends AbstractApi
                 return [
                     'endpoint' => 'https://cloudformation-fips.us-east-2.amazonaws.com',
                     'signRegion' => 'us-east-2',
+                    'signService' => 'cloudformation',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-gov-east-1':
+                return [
+                    'endpoint' => 'https://cloudformation.us-gov-east-1.amazonaws.com',
+                    'signRegion' => 'us-gov-east-1',
+                    'signService' => 'cloudformation',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-gov-west-1':
+                return [
+                    'endpoint' => 'https://cloudformation.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
                     'signService' => 'cloudformation',
                     'signVersions' => ['v4'],
                 ];

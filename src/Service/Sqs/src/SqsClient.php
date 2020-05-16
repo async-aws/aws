@@ -299,13 +299,6 @@ class SqsClient extends AbstractApi
                     'signService' => 'sqs',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-gov-east-1':
-                return [
-                    'endpoint' => "https://sqs.$region.amazonaws.com",
-                    'signRegion' => $region,
-                    'signService' => 'sqs',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-isob-east-1':
                 return [
                     'endpoint' => "https://sqs.$region.sc2s.sgov.gov",
@@ -345,6 +338,13 @@ class SqsClient extends AbstractApi
                 return [
                     'endpoint' => 'https://sqs.us-east-1.amazonaws.com',
                     'signRegion' => 'us-east-1',
+                    'signService' => 'sqs',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-gov-east-1':
+                return [
+                    'endpoint' => 'https://sqs.us-gov-east-1.amazonaws.com',
+                    'signRegion' => 'us-gov-east-1',
                     'signService' => 'sqs',
                     'signVersions' => ['v4'],
                 ];
