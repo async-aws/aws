@@ -4,6 +4,8 @@
     "description": "AsyncAws DynamoDB integration for PHP Sessions.",
     "keywords": [
         "aws",
+        "amazon",
+        "sdk",
         "async-aws",
         "dynamo-db",
         "session"
