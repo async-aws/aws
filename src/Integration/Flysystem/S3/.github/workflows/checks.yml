@@ -18,6 +18,9 @@ jobs:
         run: |
           sed -i -re 's/"require": \{/"minimum-stability": "dev","prefer-stable": true,"require": \{/' composer.json
           cat composer.json
+
+          git config --local user.email "github@async-aws.com"
+          git config --local user.name "AsyncAWS Bot"
           git commit -am "Allow unstable dependencies"
 
       - name: Roave BC Check
