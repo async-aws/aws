@@ -134,6 +134,11 @@ final class Configuration
         return $configuration;
     }
 
+    public static function optionExists(string $optionName): bool
+    {
+        return isset(self::AVAILABLE_OPTIONS[$optionName]);
+    }
+
     public function get(string $name): ?string
     {
         if (!isset(self::AVAILABLE_OPTIONS[$name])) {
