@@ -3,8 +3,6 @@
 namespace AsyncAws\S3;
 
 use AsyncAws\Core\AbstractApi;
-use AsyncAws\Core\Configuration;
-use AsyncAws\Core\Credentials\CredentialProvider;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\S3\Input\AbortMultipartUploadRequest;
@@ -49,27 +47,9 @@ use AsyncAws\S3\ValueObject\AwsObject;
 use AsyncAws\S3\ValueObject\CommonPrefix;
 use AsyncAws\S3\ValueObject\MultipartUpload;
 use AsyncAws\S3\ValueObject\Part;
-use Psr\Log\LoggerInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class S3Client extends AbstractApi
 {
-    /**
-     * @param S3Configuration|Configuration|array $configuration
-     */
-    public function __construct(
-        $configuration = [],
-        ?CredentialProvider $credentialProvider = null,
-        ?HttpClientInterface $httpClient = null,
-        ?LoggerInterface $logger = null
-    ) {
-        if (\is_array($configuration)) {
-            $configuration = S3Configuration::create($configuration);
-        }
-
-        parent::__construct($configuration, $credentialProvider, $httpClient, $logger);
-    }
-
     /**
      * This operation aborts a multipart upload. After a multipart upload is aborted, no additional parts can be uploaded
      * using that upload ID. The storage consumed by any previously uploaded parts will be freed. However, if any part
@@ -820,12 +800,13 @@ class S3Client extends AbstractApi
         $bucketLen = \strlen($bucket);
         $configuration = $this->getConfiguration();
 
+        /** @psalm-suppress PossiblyNullArgument */
         if (
             $bucketLen < 3 || $bucketLen > 63
             || filter_var($bucket, \FILTER_VALIDATE_IP) // Cannot look like an IP address
             || !preg_match('/^[a-z0-9]([a-z0-9\-]*[a-z0-9])?$/', $bucket) // Bucket cannot have dot (because of TLS)
-            || filter_var(\parse_url($configuration->get('endpoint'), \PHP_URL_HOST), \FILTER_VALIDATE_IP) // Custom endpoint cannot look like an IP address
-            || ($configuration instanceof S3Configuration && \filter_var($configuration->get('pathStyleEndpoint'), \FILTER_VALIDATE_BOOLEAN))
+            || filter_var(\parse_url($configuration->get('endpoint'), \PHP_URL_HOST), \FILTER_VALIDATE_IP) // Custom endpoint cannot look like an IP address @phpstan-ignore-line
+            || \filter_var($configuration->get('s3PathStyleEndpoint'), \FILTER_VALIDATE_BOOLEAN)
         ) {
             return parent::getEndpoint($uri, $query, $region);
         }
