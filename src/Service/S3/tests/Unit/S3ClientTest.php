@@ -279,4 +279,23 @@ class S3ClientTest extends TestCase
         self::assertInstanceOf(UploadPartOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
+
+    public function testBucketToHost(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+        self::assertSame('https://foo.s3.amazonaws.com/', $client->presign(new CreateBucketRequest(['Bucket' => 'foo'])));
+        // invalid bucket names
+        self::assertSame('https://s3.amazonaws.com/foo.bar', $client->presign(new CreateBucketRequest(['Bucket' => 'foo.bar'])));
+        self::assertSame('https://s3.amazonaws.com/foo%20bar', $client->presign(new CreateBucketRequest(['Bucket' => 'foo bar'])));
+        self::assertSame('https://s3.amazonaws.com/127.0.0.1', $client->presign(new CreateBucketRequest(['Bucket' => '127.0.0.1'])));
+
+        $client = new S3Client(['endpoint' => 'http://127.0.0.1'], new NullProvider(), new MockHttpClient());
+        self::assertSame('http://127.0.0.1/foo', $client->presign(new CreateBucketRequest(['Bucket' => 'foo'])));
+
+        $client = new S3Client(['endpoint' => 'http://custom.com', 'pathStyleEndpoint' => true], new NullProvider(), new MockHttpClient());
+        self::assertSame('http://custom.com/foo', $client->presign(new CreateBucketRequest(['Bucket' => 'foo'])));
+
+        $client = new S3Client(['endpoint' => 'http://custom.com'], new NullProvider(), new MockHttpClient());
+        self::assertSame('http://foo.custom.com/', $client->presign(new CreateBucketRequest(['Bucket' => 'foo'])));
+    }
 }

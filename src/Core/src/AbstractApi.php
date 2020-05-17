@@ -189,7 +189,7 @@ abstract class AbstractApi
      * @param array   $query  parameters that should go in the query string
      * @param ?string $region region provided by the user in the `@region` parameter of the Input
      */
-    private function getEndpoint(string $uri, array $query, ?string $region): string
+    protected function getEndpoint(string $uri, array $query, ?string $region): string
     {
         /** @var string $region */
         $region = $region ?? $this->configuration->isDefault('region') ? null : $this->configuration->get('region');

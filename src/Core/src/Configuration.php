@@ -12,7 +12,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-final class Configuration
+class Configuration
 {
     public const DEFAULT_REGION = 'us-east-1';
 
@@ -29,7 +29,7 @@ final class Configuration
     public const OPTION_ROLE_SESSION_NAME = 'roleSessionName';
     public const OPTION_CONTAINER_CREDENTIALS_RELATIVE_URI = 'containerCredentialsRelativeUri';
 
-    private const AVAILABLE_OPTIONS = [
+    protected const AVAILABLE_OPTIONS = [
         self::OPTION_REGION => true,
         self::OPTION_PROFILE => true,
         self::OPTION_ACCESS_KEY_ID => true,
@@ -45,7 +45,7 @@ final class Configuration
     ];
 
     // Put fallback options into groups to avoid mixing of provided config and environment variables
-    private const FALLBACK_OPTIONS = [
+    protected const FALLBACK_OPTIONS = [
         [self::OPTION_REGION => ['AWS_REGION', 'AWS_DEFAULT_REGION']],
         [self::OPTION_PROFILE => ['AWS_PROFILE', 'AWS_DEFAULT_PROFILE']],
         [
@@ -63,7 +63,7 @@ final class Configuration
         [self::OPTION_CONTAINER_CREDENTIALS_RELATIVE_URI => 'AWS_CONTAINER_CREDENTIALS_RELATIVE_URI'],
     ];
 
-    private const DEFAULT_OPTIONS = [
+    protected const DEFAULT_OPTIONS = [
         self::OPTION_REGION => self::DEFAULT_REGION,
         self::OPTION_PROFILE => 'default',
         self::OPTION_SHARED_CREDENTIALS_FILE => '~/.aws/credentials',
@@ -76,13 +76,24 @@ final class Configuration
 
     private $userData = [];
 
+    private function __construct()
+    {
+    }
+
     public static function create(array $options)
     {
-        if (0 < \count($invalidOptions = \array_diff_key($options, self::AVAILABLE_OPTIONS))) {
+        if (0 < \count($invalidOptions = \array_diff_key($options, static::AVAILABLE_OPTIONS))) {
             throw new InvalidArgument(\sprintf('Invalid option(s) "%s" passed to "%s::%s". ', \implode('", "', \array_keys($invalidOptions)), __CLASS__, __METHOD__));
         }
 
-        foreach (self::FALLBACK_OPTIONS as $fallbackGroup) {
+        foreach ($options as &$value) {
+            if (null !== $value) {
+                $value = (string) $value;
+            }
+        }
+        unset($value);
+
+        foreach (static::FALLBACK_OPTIONS as $fallbackGroup) {
             // prevent mixing env variables with config keys
             foreach ($fallbackGroup as $option => $envVariableNames) {
                 if (isset($options[$option])) {
@@ -102,7 +113,8 @@ final class Configuration
             }
         }
 
-        $configuration = new Configuration();
+        /** @phpstan-ignore-next-line */
+        $configuration = new static();
         $configuration->userData = [];
         foreach ($options as $key => $value) {
             if (null !== $value) {
@@ -110,7 +122,7 @@ final class Configuration
             }
         }
 
-        foreach (self::DEFAULT_OPTIONS as $optionTrigger => $defaultValue) {
+        foreach (static::DEFAULT_OPTIONS as $optionTrigger => $defaultValue) {
             if (isset($options[$optionTrigger])) {
                 continue;
             }
@@ -125,7 +137,7 @@ final class Configuration
 
     public function get(string $name): ?string
     {
-        if (!isset(self::AVAILABLE_OPTIONS[$name])) {
+        if (!isset(static::AVAILABLE_OPTIONS[$name])) {
             throw new InvalidArgument(\sprintf('Invalid option "%s" passed to "%s::%s". ', $name, __CLASS__, __METHOD__));
         }
 
@@ -134,7 +146,7 @@ final class Configuration
 
     public function has(string $name): bool
     {
-        if (!isset(self::AVAILABLE_OPTIONS[$name])) {
+        if (!isset(static::AVAILABLE_OPTIONS[$name])) {
             throw new InvalidArgument(\sprintf('Invalid option "%s" passed to "%s::%s". ', $name, __CLASS__, __METHOD__));
         }
 
@@ -143,7 +155,7 @@ final class Configuration
 
     public function isDefault(string $name): bool
     {
-        if (!isset(self::AVAILABLE_OPTIONS[$name])) {
+        if (!isset(static::AVAILABLE_OPTIONS[$name])) {
             throw new InvalidArgument(\sprintf('Invalid option "%s" passed to "%s::%s". ', $name, __CLASS__, __METHOD__));
         }
 

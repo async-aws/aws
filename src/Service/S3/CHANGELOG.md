@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Uses Virtual Hosting of Buckets when calling AWS API
+
 ### Fixed
 
 - Fixed issue when Bucket or Object's Key contained a special char `#`

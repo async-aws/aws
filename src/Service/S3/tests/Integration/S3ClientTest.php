@@ -652,6 +652,7 @@ class S3ClientTest extends TestCase
     {
         return new S3Client([
             'endpoint' => 'http://localhost:4569',
+            'pathStyleEndpoint' => true,
         ], new NullProvider());
     }
 }
