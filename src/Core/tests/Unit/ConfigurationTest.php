@@ -38,6 +38,29 @@ class ConfigurationTest extends TestCase
         self::assertFalse($config->isDefault('region'));
     }
 
+    /**
+     * Make sure passing "null" is the same as no passing anything.
+     */
+    public function testIsDefaultWhenPassingNull()
+    {
+        $config = Configuration::create([
+            'region' => null,
+            'accessKeyId' => null,
+            'accessKeySecret' => null,
+        ]);
+
+        self::assertFalse($config->has('accessKeyId'));
+        self::assertFalse($config->has('accessKeySecret'));
+
+        self::assertTrue($config->isDefault('region'));
+        self::assertTrue($config->isDefault('accessKeyId'));
+        self::assertTrue($config->isDefault('accessKeySecret'));
+
+        self::assertEquals(Configuration::DEFAULT_REGION, $config->get('region'));
+        self::assertNull($config->get('accessKeyId'));
+        self::assertNull($config->get('accessKeySecret'));
+    }
+
     public function provideConfiguration(): iterable
     {
         yield 'simple config' => [['endpoint' => 'foo'], [], ['endpoint' => 'foo']];

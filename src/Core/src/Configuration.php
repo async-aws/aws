@@ -103,7 +103,12 @@ final class Configuration
         }
 
         $configuration = new Configuration();
-        $configuration->userData = \array_fill_keys(\array_keys($options), true);
+        $configuration->userData = [];
+        foreach ($options as $key => $value) {
+            if (null !== $value) {
+                $configuration->userData[$key] = true;
+            }
+        }
 
         foreach (self::DEFAULT_OPTIONS as $optionTrigger => $defaultValue) {
             if (isset($options[$optionTrigger])) {
