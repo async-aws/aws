@@ -95,8 +95,8 @@ class S3FilesystemV1Test extends TestCase
 
     protected function createFilesystemAdapter(): AdapterInterface
     {
-        $bucket = getenv('FLYSYSTEM_AWS_S3_BUCKET') ?: 'flysystem-bucket-v1';
-        $prefix = getenv('FLYSYSTEM_AWS_S3_PREFIX') ?: static::$adapterPrefix;
+        $bucket = isset($_SERVER['FLYSYSTEM_AWS_S3_BUCKET']) ? $_SERVER['FLYSYSTEM_AWS_S3_BUCKET'] : 'flysystem-bucket-v1';
+        $prefix = isset($_SERVER['FLYSYSTEM_AWS_S3_PREFIX']) ? $_SERVER['FLYSYSTEM_AWS_S3_PREFIX'] : static::$adapterPrefix;
 
         return new S3FilesystemV1($this->s3Client(), $bucket, $prefix);
     }
@@ -107,10 +107,10 @@ class S3FilesystemV1Test extends TestCase
             return $this->s3Client;
         }
 
-        $key = getenv('FLYSYSTEM_AWS_S3_KEY');
-        $secret = getenv('FLYSYSTEM_AWS_S3_SECRET');
-        $bucket = getenv('FLYSYSTEM_AWS_S3_BUCKET');
-        $region = getenv('FLYSYSTEM_AWS_S3_REGION') ?: 'eu-central-1';
+        $key = $_SERVER['FLYSYSTEM_AWS_S3_KEY'] ?? null;
+        $secret = $_SERVER['FLYSYSTEM_AWS_S3_SECRET'] ?? null;
+        $bucket = $_SERVER['FLYSYSTEM_AWS_S3_BUCKET'] ?? null;
+        $region = isset($_SERVER['FLYSYSTEM_AWS_S3_REGION']) ? $_SERVER['FLYSYSTEM_AWS_S3_REGION'] : 'eu-central-1';
 
         if (!$key || !$secret || !$bucket) {
             self::$docker = true;

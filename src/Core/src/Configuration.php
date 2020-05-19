@@ -93,8 +93,8 @@ final class Configuration
             foreach ($fallbackGroup as $option => $envVariableNames) {
                 $envVariableNames = (array) $envVariableNames;
                 foreach ($envVariableNames as $envVariableName) {
-                    if (false !== $value = \getenv($envVariableName)) {
-                        $options[$option] = $value;
+                    if (isset($_SERVER[$envVariableName])) {
+                        $options[$option] = $_SERVER[$envVariableName];
 
                         break;
                     }

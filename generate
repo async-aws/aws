@@ -1,27 +1,27 @@
 #!/usr/bin/env php
 <?php
 
-$generatorDir = __DIR__.'/src/CodeGenerator';
-if (!file_exists($generatorDir.'/generate.php')) {
+$generatorDir = __DIR__ . '/src/CodeGenerator';
+if (!file_exists($generatorDir . '/generate.php')) {
     echo "Unable to find the `generate.php` script in `/src/CodeGenerator/`.\n";
     exit(1);
 }
 
-if (!file_exists(__DIR__.'/vendor/autoload.php')) {
+if (!file_exists(__DIR__ . '/vendor/autoload.php')) {
     echo "Run `composer install` before you run the `generate` script.\n";
     exit(1);
 }
 
-require __DIR__.'/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
-if (!getenv('ASYNC_AWS_GENERATE_MANIFEST')) {
-    putenv('ASYNC_AWS_GENERATE_MANIFEST='.__DIR__.'/manifest.json');
+if (!isset($_SERVER['ASYNC_AWS_GENERATE_MANIFEST'])) {
+    $_SERVER['ASYNC_AWS_GENERATE_MANIFEST'] = __DIR__ . '/manifest.json';
 }
-if (!getenv('ASYNC_AWS_GENERATE_SRC')) {
-    putenv('ASYNC_AWS_GENERATE_SRC='.__DIR__.'/src');
+if (!isset($_SERVER['ASYNC_AWS_GENERATE_SRC'])) {
+    $_SERVER['ASYNC_AWS_GENERATE_SRC'] = __DIR__ . '/src';
 }
-if (!getenv('SYMFONY_PATCH_TYPE_DECLARATIONS')) {
-    putenv('SYMFONY_PATCH_TYPE_DECLARATIONS=deprecations=1');
+if (!isset($_SERVER['SYMFONY_PATCH_TYPE_DECLARATIONS'])) {
+    $_SERVER['SYMFONY_PATCH_TYPE_DECLARATIONS'] = 'deprecations=1';
 }
 
-require $generatorDir.'/generate.php';
+require $generatorDir . '/generate.php';

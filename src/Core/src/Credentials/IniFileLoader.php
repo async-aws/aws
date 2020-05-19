@@ -65,13 +65,13 @@ final class IniFileLoader
     private function getHomeDir(): string
     {
         // On Linux/Unix-like systems, use the HOME environment variable
-        if (false !== $homeDir = \getenv('HOME')) {
+        if (\is_string($homeDir = $_SERVER['HOME'] ?? null)) {
             return $homeDir;
         }
 
         // Get the HOMEDRIVE and HOMEPATH values for Windows hosts
-        $homeDrive = \getenv('HOMEDRIVE');
-        $homePath = \getenv('HOMEPATH');
+        $homeDrive = $_SERVER['HOMEDRIVE'] ?? null;
+        $homePath = $_SERVER['HOMEPATH'] ?? null;
 
         return ($homeDrive && $homePath) ? $homeDrive . $homePath : '/';
     }
