@@ -24,6 +24,7 @@ class SignerV4 implements Signer
         'content-type' => true,
         'content-length' => true,
         'expect' => true,
+        'expires' => true,
         'max-forwards' => true,
         'pragma' => true,
         'range' => true,
