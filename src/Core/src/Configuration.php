@@ -29,7 +29,8 @@ final class Configuration
     public const OPTION_ROLE_SESSION_NAME = 'roleSessionName';
     public const OPTION_CONTAINER_CREDENTIALS_RELATIVE_URI = 'containerCredentialsRelativeUri';
 
-    public const OPTION_S3_PATH_STYLE_ENDPOINT = 's3PathStyleEndpoint';
+    // S3 specific option
+    public const OPTION_PATH_STYLE_ENDPOINT = 'pathStyleEndpoint';
 
     private const AVAILABLE_OPTIONS = [
         self::OPTION_REGION => true,
@@ -44,7 +45,7 @@ final class Configuration
         self::OPTION_WEB_IDENTITY_TOKEN_FILE => true,
         self::OPTION_ROLE_SESSION_NAME => true,
         self::OPTION_CONTAINER_CREDENTIALS_RELATIVE_URI => true,
-        self::OPTION_S3_PATH_STYLE_ENDPOINT => true,
+        self::OPTION_PATH_STYLE_ENDPOINT => true,
     ];
 
     // Put fallback options into groups to avoid mixing of provided config and environment variables
@@ -73,7 +74,7 @@ final class Configuration
         self::OPTION_SHARED_CONFIG_FILE => '~/.aws/config',
         // https://docs.aws.amazon.com/general/latest/gr/rande.html
         self::OPTION_ENDPOINT => 'https://%service%.%region%.amazonaws.com',
-        self::OPTION_S3_PATH_STYLE_ENDPOINT => 'false',
+        self::OPTION_PATH_STYLE_ENDPOINT => 'false',
     ];
 
     private $data = [];
@@ -86,12 +87,9 @@ final class Configuration
             throw new InvalidArgument(\sprintf('Invalid option(s) "%s" passed to "%s::%s". ', \implode('", "', \array_keys($invalidOptions)), __CLASS__, __METHOD__));
         }
 
-        foreach ($options as &$value) {
-            if (null !== $value) {
-                $value = (string) $value;
-            }
-        }
-        unset($value);
+        $options = \array_map(static function ($value) {
+            return null !== $value ? (string) $value : $value;
+        }, $options);
 
         foreach (self::FALLBACK_OPTIONS as $fallbackGroup) {
             // prevent mixing env variables with config keys

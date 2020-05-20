@@ -77,6 +77,6 @@ class ConfigurationTest extends TestCase
         yield 'mix config and env' => [['accessKeyId' => 'key'], ['AWS_SESSION_TOKEN' => 'token'], ['accessKeyId' => 'key', 'sessionToken' => null]];
         yield 'null config with env group' => [['accessKeyId' => null], ['AWS_SESSION_TOKEN' => 'token'], ['accessKeyId' => null, 'sessionToken' => 'token']];
 
-        yield 'boolean value' => [['s3PathStyleEndpoint' => true], [], ['s3PathStyleEndpoint' => '1']];
+        yield 'boolean value' => [['pathStyleEndpoint' => true], [], ['pathStyleEndpoint' => '1']];
     }
 }

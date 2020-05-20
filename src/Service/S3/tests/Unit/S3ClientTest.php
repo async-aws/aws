@@ -292,7 +292,7 @@ class S3ClientTest extends TestCase
         $client = new S3Client(['endpoint' => 'http://127.0.0.1'], new NullProvider(), new MockHttpClient());
         self::assertSame('http://127.0.0.1/foo', $client->presign(new CreateBucketRequest(['Bucket' => 'foo'])));
 
-        $client = new S3Client(['endpoint' => 'http://custom.com', 's3PathStyleEndpoint' => true], new NullProvider(), new MockHttpClient());
+        $client = new S3Client(['endpoint' => 'http://custom.com', 'pathStyleEndpoint' => true], new NullProvider(), new MockHttpClient());
         self::assertSame('http://custom.com/foo', $client->presign(new CreateBucketRequest(['Bucket' => 'foo'])));
 
         $client = new S3Client(['endpoint' => 'http://custom.com'], new NullProvider(), new MockHttpClient());

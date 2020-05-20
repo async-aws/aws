@@ -16,8 +16,8 @@ class SimpleS3ClientTest extends TestCase
     public function testGetUrl()
     {
         $options = ['region' => 'eu-central-1'];
-        if (\is_callable([Configuration::class, 'optionExists']) && Configuration::optionExists('s3PathStyleEndpoint')) {
-            $options += ['s3PathStyleEndpoint' => true];
+        if (\is_callable([Configuration::class, 'optionExists']) && Configuration::optionExists('pathStyleEndpoint')) {
+            $options += ['pathStyleEndpoint' => true];
         }
         $client = new SimpleS3Client($options, new Credentials('id', 'secret'), new MockHttpClient());
         $url = $client->getUrl('bucket', 'images/file.jpg');
@@ -27,8 +27,8 @@ class SimpleS3ClientTest extends TestCase
     public function testGetUrlWithNoCredentials()
     {
         $options = ['region' => 'eu-central-1'];
-        if (\is_callable([Configuration::class, 'optionExists']) && Configuration::optionExists('s3PathStyleEndpoint')) {
-            $options += ['s3PathStyleEndpoint' => true];
+        if (\is_callable([Configuration::class, 'optionExists']) && Configuration::optionExists('pathStyleEndpoint')) {
+            $options += ['pathStyleEndpoint' => true];
         }
         $client = new SimpleS3Client($options, new NullProvider(), new MockHttpClient());
         $url = $client->getUrl('bucket', 'images/file.jpg');
