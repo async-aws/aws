@@ -4,7 +4,7 @@
 
 ## 0.2.0
 
-### BC Break
+### Deprecation
 
 - `CloudWatchLogsHandler` constructor arguments changed
 

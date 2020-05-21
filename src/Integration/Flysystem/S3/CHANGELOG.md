@@ -1,5 +1,7 @@
 # Change Log
 
+## NOT RELEASED
+
 ## 0.4.0
 
 ### Added

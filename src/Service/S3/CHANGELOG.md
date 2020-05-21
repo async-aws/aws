@@ -2,13 +2,19 @@
 
 ## NOT RELEASED
 
+## 1.2.0
+
 ### Added
 
 - Changed from "path  style" endpoints (https://amazon.com/bucket) to "host style" endpoints (https://bucket.amazon.com). To keep the old behavior, use `s3PathStyleEndpoint: true` configuration option.
 
 ### Fixed
 
-- Fixed issue when Bucket or Object's Key contained a special char `#`
+- Fixed issue when Bucket or Object's Key contained a special char like `#`
+
+### Deprecation
+
+- Protected methods `getServiceCode`, `getSignatureVersion` and `getSignatureScopeName` of `S3Client` are deprecated and will be removed in 2.0
 
 ## 1.1.0
 

@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.2.0
+
 ### Added
 
 - Support for EventBridge in `AwsClientFactory`
@@ -20,6 +22,7 @@
 ### Fixed
 
 - Fix signing of requests with a header containing a date (like `expires` in `S3`).
+- Fix thread safety regarding env vars by using `$_SERVER` instead of `getenv()`.
 
 ## 1.1.0
 

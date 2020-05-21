@@ -6,7 +6,7 @@
 
 ### Fixed
 
-- Fixed methods `Storage::url` and `Storage::temporaryUrl`
+- Fixed methods `Storage::url()` and `Storage::temporaryUrl()`
 
 ## 0.1.0
 

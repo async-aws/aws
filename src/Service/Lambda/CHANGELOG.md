@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 0.5.0
+
 ### Deprecation
 
 - Removes methods `getServiceCode`, `getSignatureVersion` and `getSignatureScopeName` from Client.
@@ -9,11 +11,6 @@
 ### Fixed
 
 - Fixed issue when Layer, Function or Version contained a special char `#`
-
-## 0.4.2
-
-### Fixed
-
 - Add return typehint for `listLayerVersions`
 
 ## 0.4.1

@@ -1,5 +1,13 @@
 # Change Log
 
+## NOT RELEASED
+
+## 1.1.0
+
+### Deprecation
+
+- Protected methods `getServiceCode`, `getSignatureVersion` and `getSignatureScopeName` of `SesClient` are deprecated and will be removed in 2.0
+
 ## 1.0.0
 
 ### Added

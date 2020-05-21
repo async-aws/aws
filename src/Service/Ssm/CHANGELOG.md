@@ -1,6 +1,12 @@
 # Change Log
 
+## NOT RELEASED
+
 ## 0.2.0
+
+### Changed
+
+- parameter `type` of `putParameter` is optional.
 
 ### Deprecation
 
