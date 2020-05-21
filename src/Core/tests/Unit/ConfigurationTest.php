@@ -15,7 +15,7 @@ class ConfigurationTest extends TestCase
     public function testCreate($config, $env, $expected)
     {
         foreach ($env as $key => $value) {
-            putenv("$key=$value");
+            $_SERVER[$key] = $value;
         }
 
         try {
@@ -25,7 +25,7 @@ class ConfigurationTest extends TestCase
             }
         } finally {
             foreach ($env as $key => $value) {
-                putenv($key);
+                unset($_SERVER[$key]);
             }
         }
     }
