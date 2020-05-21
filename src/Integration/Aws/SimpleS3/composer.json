@@ -13,7 +13,7 @@
     "require": {
         "php": "^7.2.5",
         "ext-json": "*",
-        "async-aws/s3": "^1.0"
+        "async-aws/s3": "^1.2"
     },
     "extra": {
         "branch-alias": {
