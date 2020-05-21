@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\Flysystem\S3\Tests\Integration;
 
+use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Flysystem\S3\S3FilesystemV1;
 use AsyncAws\S3\S3Client;
@@ -118,11 +119,18 @@ class S3FilesystemV1Test extends TestCase
 
         if (!$key || !$secret || !$bucket) {
             self::$docker = true;
+            $options = ['endpoint' => 'http://localhost:4569'];
+            if (\is_callable([Configuration::class, 'optionExists']) && Configuration::optionExists('pathStyleEndpoint')) {
+                $options += ['pathStyleEndpoint' => true];
+            }
 
-            return $this->s3Client = new S3Client(['endpoint' => 'http://localhost:4569'], new NullProvider());
+            return $this->s3Client = new S3Client($options, new NullProvider());
         }
 
         $options = ['accessKeyId' => $key, 'accessKeySecret' => $secret, 'region' => $region];
+        if (\is_callable([Configuration::class, 'optionExists']) && Configuration::optionExists('pathStyleEndpoint')) {
+            $options += ['pathStyleEndpoint' => true];
+        }
 
         return $this->s3Client = new S3Client($options);
     }
