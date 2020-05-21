@@ -76,5 +76,7 @@ class ConfigurationTest extends TestCase
         yield 'config with env group 2' => [['accessKeySecret' => 'secret'], [], ['accessKeySecret' => 'secret', 'accessKeyId' => null, 'sessionToken' => null]];
         yield 'mix config and env' => [['accessKeyId' => 'key'], ['AWS_SESSION_TOKEN' => 'token'], ['accessKeyId' => 'key', 'sessionToken' => null]];
         yield 'null config with env group' => [['accessKeyId' => null], ['AWS_SESSION_TOKEN' => 'token'], ['accessKeyId' => null, 'sessionToken' => 'token']];
+
+        yield 'boolean value' => [['pathStyleEndpoint' => true], [], ['pathStyleEndpoint' => '1']];
     }
 }

@@ -94,3 +94,12 @@ An identifier for the assumed role session
 The relative path that is used to fetch credentials inside and ECS instance.
 See [IAM Roles for Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html) for more information.
 
+## S3 specific Configuration reference
+
+### pathStyleEndpoint
+
+**Default:** 'false'
+
+Set to true to send requests to an S3 path style endpoint by default.
+See [Virtual Hosting of Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html) about path style vs virtual host style.
+

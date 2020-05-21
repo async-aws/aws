@@ -9,6 +9,7 @@
 - Add a `PsrCacheProvider` and `SymfonyCacheProvider` to persists crendentials in a cache pool
 - Add a `Credential::adjustExpireDate` method for adjusting the time according to the time difference with AWS clock
 - Support for global and regional endpoints
+- Add a `Configuration::optionExists` to allow third parties to check if an option is available (needed by libraries supporting several versions of core)
 
 ### Deprecation
 

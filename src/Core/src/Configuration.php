@@ -29,6 +29,9 @@ final class Configuration
     public const OPTION_ROLE_SESSION_NAME = 'roleSessionName';
     public const OPTION_CONTAINER_CREDENTIALS_RELATIVE_URI = 'containerCredentialsRelativeUri';
 
+    // S3 specific option
+    public const OPTION_PATH_STYLE_ENDPOINT = 'pathStyleEndpoint';
+
     private const AVAILABLE_OPTIONS = [
         self::OPTION_REGION => true,
         self::OPTION_PROFILE => true,
@@ -42,6 +45,7 @@ final class Configuration
         self::OPTION_WEB_IDENTITY_TOKEN_FILE => true,
         self::OPTION_ROLE_SESSION_NAME => true,
         self::OPTION_CONTAINER_CREDENTIALS_RELATIVE_URI => true,
+        self::OPTION_PATH_STYLE_ENDPOINT => true,
     ];
 
     // Put fallback options into groups to avoid mixing of provided config and environment variables
@@ -70,6 +74,7 @@ final class Configuration
         self::OPTION_SHARED_CONFIG_FILE => '~/.aws/config',
         // https://docs.aws.amazon.com/general/latest/gr/rande.html
         self::OPTION_ENDPOINT => 'https://%service%.%region%.amazonaws.com',
+        self::OPTION_PATH_STYLE_ENDPOINT => 'false',
     ];
 
     private $data = [];
@@ -81,6 +86,10 @@ final class Configuration
         if (0 < \count($invalidOptions = \array_diff_key($options, self::AVAILABLE_OPTIONS))) {
             throw new InvalidArgument(\sprintf('Invalid option(s) "%s" passed to "%s::%s". ', \implode('", "', \array_keys($invalidOptions)), __CLASS__, __METHOD__));
         }
+
+        $options = \array_map(static function ($value) {
+            return null !== $value ? (string) $value : $value;
+        }, $options);
 
         foreach (self::FALLBACK_OPTIONS as $fallbackGroup) {
             // prevent mixing env variables with config keys
@@ -121,6 +130,11 @@ final class Configuration
         $configuration->data = $options;
 
         return $configuration;
+    }
+
+    public static function optionExists(string $optionName): bool
+    {
+        return isset(self::AVAILABLE_OPTIONS[$optionName]);
     }
 
     public function get(string $name): ?string
