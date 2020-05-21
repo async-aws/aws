@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@2.1.2
+        uses: shivammathur/setup-php@2.2.1
         with:
           php-version: ${{ matrix.php }}
           coverage: none
@@ -114,7 +114,7 @@ jobs:
 
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@2.1.2
+        uses: shivammathur/setup-php@2.2.1
         with:
           php-version: 7.3
           coverage: none
@@ -214,7 +214,7 @@ jobs:
       max-parallel: 10
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@2.1.2
+        uses: shivammathur/setup-php@2.2.1
         with:
           php-version: 7.4
           coverage: none
