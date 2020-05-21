@@ -17,6 +17,10 @@
 - Custom endpoints should not contain `%region%` and `%service` placeholder. They won't be replaced anymore in 2.0
 - Protected methods `getServiceCode`, `getSignatureVersion` and `getSignatureScopeName` of AbstractApi are deprecated and will be removed in 2.0
 
+### Fixed
+
+- Fix signing of requests with a header containing a date (like `expires` in `S3`).
+
 ## 1.1.0
 
 ### Added
