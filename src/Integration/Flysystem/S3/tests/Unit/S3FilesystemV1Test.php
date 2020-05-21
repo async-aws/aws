@@ -134,6 +134,10 @@ class S3FilesystemV1Test extends TestCase
 
     public function testDelete()
     {
+        if (\PHP_VERSION_ID === 70406) {
+            self::markTestSkipped('Skipped because of https://bugs.php.net/bug.php?id=79616');
+        }
+
         $path = 'foo/bar.txt';
 
         $s3Client = $this->getMockBuilder(S3Client::class)
@@ -171,6 +175,10 @@ class S3FilesystemV1Test extends TestCase
 
     public function testDeleteDir()
     {
+        if (\PHP_VERSION_ID === 70406) {
+            self::markTestSkipped('Skipped because of https://bugs.php.net/bug.php?id=79616');
+        }
+
         $path = 'foo';
         $objects = [new AwsObject(['Key' => 'my_key', 'LastModified' => null, 'ETag' => null, 'Size' => null, 'StorageClass' => null, 'Owner' => null])];
 

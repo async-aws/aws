@@ -50,6 +50,10 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
 
     public function testListing_contents_recursive(): void
     {
+        if (\PHP_VERSION_ID === 70406) {
+            self::markTestSkipped('Skipped because of https://bugs.php.net/bug.php?id=79616');
+        }
+
         $adapter = $this->adapter();
         $adapter->write('something/0/here.txt', 'contents', new Config());
         $adapter->write('something/1/also/here.txt', 'contents', new Config());
@@ -64,6 +68,30 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
         /** @var FileAttributes $file */
         $file = $contents[1];
         self::assertEquals('something/1/also/here.txt', $file->path());
+    }
+
+    /**
+     * @test
+     */
+    public function listing_contents_shallow(): void
+    {
+        if (\PHP_VERSION_ID === 70406) {
+            self::markTestSkipped('Skipped because of https://bugs.php.net/bug.php?id=79616');
+        }
+
+        parent::listing_contents_shallow();
+    }
+
+    /**
+     * @test
+     */
+    public function listing_contents_recursive(): void
+    {
+        if (\PHP_VERSION_ID === 70406) {
+            self::markTestSkipped('Skipped because of https://bugs.php.net/bug.php?id=79616');
+        }
+
+        parent::listing_contents_recursive();
     }
 
     /**
