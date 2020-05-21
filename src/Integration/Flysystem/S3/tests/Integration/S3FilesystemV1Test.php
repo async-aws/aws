@@ -73,6 +73,10 @@ class S3FilesystemV1Test extends TestCase
 
     public function testListContents(): void
     {
+        if (\PHP_VERSION_ID === 70406) {
+            self::markTestSkipped('Skipped because of https://bugs.php.net/bug.php?id=79616');
+        }
+
         $adapter = $this->adapter();
         $adapter->write('file.txt', 'my contents', new Config());
         $adapter->write('foo/file2.txt', '22', new Config());

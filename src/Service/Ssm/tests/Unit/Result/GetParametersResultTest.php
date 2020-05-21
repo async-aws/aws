@@ -42,7 +42,7 @@ class GetParametersResultTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new GetParametersResult(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertCount(3, $result->getParameters());
+        self::assertCount(3, $result->getParameters(true));
         self::assertInstanceOf(Parameter::class, $result->getParameters()[0]);
         self::assertSame('EC2DevServerType', $result->getParameters()[0]->getName());
         self::assertEmpty($result->getInvalidParameters());
