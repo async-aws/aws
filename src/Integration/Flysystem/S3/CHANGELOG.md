@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.4.0
+
+### Added
+
+- Support for `pathStyleEndpoint` option
+- Added `S3FilesystemV1::getBucket` and `S3FilesystemV1::getClient` to expose private properties.
+
 ## 0.3.3
 
 ### Changed

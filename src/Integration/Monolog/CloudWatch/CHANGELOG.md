@@ -2,9 +2,11 @@
 
 ## NOT RELEASED
 
-### Changed
+## 0.2.0
 
-- BC: `CloudWatchLogsHandler` constructor arguments changed
+### BC Break
+
+- `CloudWatchLogsHandler` constructor arguments changed
 
 ## 0.1.0
 
