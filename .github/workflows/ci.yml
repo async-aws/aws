@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Initialize tests
-        run: make initialize
+        run: make initialize -j 4
 
       - name: Download phpunit
         run: |
@@ -123,7 +123,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Initialize tests
-        run: make initialize
+        run: make initialize -j 4
 
       - name: Download phpunit
         run: |
@@ -224,7 +224,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Initialize tests
-        run: make initialize
+        run: make initialize -j 4
 
       - name: Download dependencies
         run: |
