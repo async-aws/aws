@@ -52,13 +52,13 @@ The filesystem tree should look like.
 │   ├── src
 │   └── vendor
 │       ├── async-aws
-│       │   ├── core -> path-to-async-aws/src/Core
-│       │   └── sqs -> path-to-async-aws/src/Services/Sqs
+│       │   ├── core -> path-to-async-aws/src/Core
+│       │   └── sqs -> path-to-async-aws/src/Services/Sqs
 │       ├── autoload.php
 │       └── composer
 └── aws
-    ├── link
-    └── src
+    ├── link
+    └── src
 ```
 
 

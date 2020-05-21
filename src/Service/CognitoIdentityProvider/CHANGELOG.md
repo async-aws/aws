@@ -8,7 +8,7 @@
 
 - Removes methods `getServiceCode`, `getSignatureVersion` and `getSignatureScopeName` from Client.
 
-### Added
+### Added
 
 - Add return typehint for `listUsers`
 
