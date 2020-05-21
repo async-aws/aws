@@ -13,8 +13,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
-        "async-aws/core": "^1.2-dev",
-        "async-aws/dynamo-db": "^0.3-dev"
+        "async-aws/dynamo-db": "^0.3"
     },
     "extra": {
         "branch-alias": {
