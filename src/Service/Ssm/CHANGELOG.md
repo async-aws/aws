@@ -1,8 +1,14 @@
 # Change Log
 
+## NOT RELEASED
+
 ## 0.2.0
 
-### Deprecation
+### Changed
+
+- parameter `type` of `putParameter` is optional.
+
+### Removed
 
 - Removes methods `getServiceCode`, `getSignatureVersion` and `getSignatureScopeName` from Client.
 

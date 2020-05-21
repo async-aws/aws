@@ -2,15 +2,15 @@
 
 ## NOT RELEASED
 
+## 0.3.0
+
 ### Added
 
 - Added operation `UpdateTimeToLiveInput`
 
-### Deprecation
+### Removed
 
 - Removes methods `getServiceCode`, `getSignatureVersion` and `getSignatureScopeName` from Client.
-
-## 0.2.1
 
 ### Fixed
 

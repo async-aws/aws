@@ -1,5 +1,13 @@
 # Change Log
 
+## NOT RELEASED
+
+## 1.2.0
+
+### Deprecation
+
+- Protected methods `getServiceCode`, `getSignatureVersion` and `getSignatureScopeName` of `SqsClient` are deprecated and will be removed in 2.0
+
 ## 1.1.0
 
 ### Added

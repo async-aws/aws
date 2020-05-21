@@ -1,5 +1,11 @@
 # Change Log
 
+## NOT RELEASED
+
+### Added
+
+- Caching of credentials fetched by Clients
+
 ## 0.2.5
 
 ### Added
