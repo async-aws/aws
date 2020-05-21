@@ -14,6 +14,7 @@
         "ext-json": "*",
         "async-aws/core": "^1.0",
         "async-aws/flysystem-s3": "^0.3.3",
+        "async-aws/simple-s3": "^0.1",
         "illuminate/filesystem": "^6.18.13 || ^7.10",
         "illuminate/support": "^6.18.13 || ^7.10"
     },
