@@ -3,7 +3,7 @@
 namespace AsyncAws\Illuminate\Filesystem;
 
 use AsyncAws\Flysystem\S3\S3FilesystemV1;
-use AsyncAws\S3\S3Client;
+use AsyncAws\SimpleS3\SimpleS3Client;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Filesystem\FilesystemManager;
 use League\Flysystem\Adapter\AbstractAdapter;
@@ -31,7 +31,7 @@ class AsyncAwsFilesystemManager extends FilesystemManager
         $root = $config['root'] ?? '';
         $options = $config['options'] ?? [];
 
-        $s3Client = new S3Client($s3Config);
+        $s3Client = new SimpleS3Client($s3Config);
         if (class_exists(AbstractAdapter::class)) {
             $flysystemAdapter = new S3FilesystemV1($s3Client, $config['bucket'], $root, $options);
         } else {

@@ -6,6 +6,7 @@ namespace AsyncAws\Illuminate\Filesystem;
 
 use AsyncAws\Flysystem\S3\S3FilesystemV1;
 use AsyncAws\S3\Input\GetObjectRequest;
+use AsyncAws\SimpleS3\SimpleS3Client;
 use Illuminate\Filesystem\FilesystemAdapter;
 
 /**
@@ -55,9 +56,15 @@ class AsyncAwsFilesystemAdapter extends FilesystemAdapter
      */
     public function url($path)
     {
-        $url = $this->temporaryUrl($path, new \DateTimeImmutable('+10minutes'));
+        $adapter = $this->getFlysystemAdapter();
+        $s3Client = $adapter->getClient();
 
-        // remove all query parameters.
+        if ($s3Client instanceof SimpleS3Client) {
+            return $s3Client->getUrl($adapter->getBucket(), $adapter->applyPathPrefix($path));
+        }
+
+        // Fallback to get a presigned URL and remove query parameters.
+        $url = $this->temporaryUrl($path, new \DateTimeImmutable('+10minutes'));
         if (false === $pos = strpos($url, '?')) {
             throw new \RuntimeException('Expected presigned URL to include a query string');
         }
