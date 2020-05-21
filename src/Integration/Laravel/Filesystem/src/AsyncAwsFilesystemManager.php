@@ -3,7 +3,6 @@
 namespace AsyncAws\Illuminate\Filesystem;
 
 use AsyncAws\Flysystem\S3\S3FilesystemV1;
-use AsyncAws\S3\S3Client;
 use AsyncAws\SimpleS3\SimpleS3Client;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Filesystem\FilesystemManager;
