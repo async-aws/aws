@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AsyncAws\SimpleS3;
 
-use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\S3Client;
 
 /**
@@ -17,20 +16,9 @@ class SimpleS3Client extends S3Client
 {
     public function getUrl(string $bucket, string $key): string
     {
-        $input = new GetObjectRequest([
-            'Bucket' => $bucket,
-            'Key' => $key,
-        ]);
+        $uri = sprintf('/%s/%s', urlencode($bucket), str_replace('%2F', '/', rawurlencode($key)));
 
-        $url = $this->presign($input, new \DateTimeImmutable('+10minutes'));
-
-        // remove all query parameters.
-        if (false === $pos = strpos($url, '?')) {
-            // If the client didn't have any credentials, there will not be any query string
-            return $url;
-        }
-
-        return substr($url, 0, $pos);
+        return $this->getEndpoint($uri, [], null);
     }
 
     /*
