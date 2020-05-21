@@ -17,20 +17,7 @@ class SimpleS3Client extends S3Client
 {
     public function getUrl(string $bucket, string $key): string
     {
-        $input = new GetObjectRequest([
-            'Bucket' => $bucket,
-            'Key' => $key,
-        ]);
-
-        $url = $this->presign($input, new \DateTimeImmutable('+10minutes'));
-
-        // remove all query parameters.
-        if (false === $pos = strpos($url, '?')) {
-            // If the client didn't have any credentials, there will not be any query string
-            return $url;
-        }
-
-        return substr($url, 0, $pos);
+        return $this->getEndpoint(sprintf('/%s/%s', $bucket, $key), [], null);
     }
 
     /*
