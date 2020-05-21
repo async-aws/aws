@@ -4,7 +4,7 @@
 
 ### Added
 
-- Uses Virtual Hosting of Buckets when calling AWS API
+- Changed from "path  style" endpoints (https://amazon.com/bucket) to "host style" endpoints (https://bucket.amazon.com). To keep the old behavior, use `s3PathStyleEndpoint: true` configuration option.
 
 ### Fixed
 

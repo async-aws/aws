@@ -94,6 +94,8 @@ An identifier for the assumed role session
 The relative path that is used to fetch credentials inside and ECS instance.
 See [IAM Roles for Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html) for more information.
 
+## S3 specific Configuration reference
+
 ### pathStyleEndpoint
 
 **Default:** 'false'
