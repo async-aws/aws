@@ -12,7 +12,6 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 10
       matrix:
         php: ['7.2', '7.3', '7.4']
 
@@ -210,8 +209,6 @@ jobs:
   root:
     name: Root tests
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 10
     steps:
       - name: Set up PHP
         uses: shivammathur/setup-php@2.2.1
