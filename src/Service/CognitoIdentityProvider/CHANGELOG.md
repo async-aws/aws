@@ -4,7 +4,7 @@
 
 ## 0.2.0
 
-### Deprecation
+### Removed
 
 - Removes methods `getServiceCode`, `getSignatureVersion` and `getSignatureScopeName` from Client.
 

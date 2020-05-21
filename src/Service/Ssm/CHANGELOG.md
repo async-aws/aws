@@ -8,7 +8,7 @@
 
 - parameter `type` of `putParameter` is optional.
 
-### Deprecation
+### Removed
 
 - Removes methods `getServiceCode`, `getSignatureVersion` and `getSignatureScopeName` from Client.
 
