@@ -2,8 +2,6 @@
 
 ## NOT RELEASED
 
-## 0.1.1
-
 ### Fixed
 
 - Fixed methods `Storage::url()` and `Storage::temporaryUrl()`

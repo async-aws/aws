@@ -2,8 +2,6 @@
 
 ## NOT RELEASED
 
-## 0.2.6
-
 ### Added
 
 - Caching of credentials fetched by Clients
