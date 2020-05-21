@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AsyncAws\SimpleS3;
 
-use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\S3Client;
 
 /**
@@ -17,7 +16,9 @@ class SimpleS3Client extends S3Client
 {
     public function getUrl(string $bucket, string $key): string
     {
-        return $this->getEndpoint(sprintf('/%s/%s', $bucket, $key), [], null);
+        $uri = sprintf('/%s/%s', urlencode($bucket), str_replace('%2F', '/', rawurlencode($key)));
+
+        return $this->getEndpoint($uri, [], null);
     }
 
     /*

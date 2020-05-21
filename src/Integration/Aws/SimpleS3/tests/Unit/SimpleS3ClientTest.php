@@ -20,7 +20,7 @@ class SimpleS3ClientTest extends TestCase
 
     public function testGetUrlPathStyle()
     {
-        $client = new SimpleS3Client(['region' => 'eu-central-1', 'pathStyleEndpoint'=>true], new NullProvider(), new MockHttpClient());
+        $client = new SimpleS3Client(['region' => 'eu-central-1', 'pathStyleEndpoint' => true], new NullProvider(), new MockHttpClient());
         $url = $client->getUrl('bucket', 'images/file.jpg');
         self::assertSame('https://s3.eu-central-1.amazonaws.com/bucket/images/file.jpg', $url);
     }
