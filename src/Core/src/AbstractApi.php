@@ -204,7 +204,6 @@ abstract class AbstractApi
         if (false !== \strpos($endpoint, '%region%') || false !== \strpos($endpoint, '%service%')) {
             \trigger_deprecation('async-aws/core', '1.2', 'providing an endpoint with placeholder is deprecated and will be ignored in version 2.0. Provide full endpoint instead.');
 
-            /** @psalm-suppress PossiblyNullArgument */
             $endpoint = strtr($endpoint, [
                 '%region%' => $region ?? $this->configuration->get('region'),
                 '%service%' => $this->getServiceCode(), // if people provides a custom endpoint 'http://%service%.localhost/

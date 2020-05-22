@@ -659,7 +659,6 @@ class S3Client extends AbstractApi
         $bucketLen = \strlen($bucket);
         $configuration = $this->getConfiguration();
 
-        /** @psalm-suppress PossiblyNullArgument */
         if (
         $bucketLen < 3 || $bucketLen > 63
         || filter_var($bucket, \FILTER_VALIDATE_IP) // Cannot look like an IP address

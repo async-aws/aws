@@ -137,6 +137,19 @@ final class Configuration
         return isset(self::AVAILABLE_OPTIONS[$optionName]);
     }
 
+    /**
+     * @psalm-return (
+     *     $name is
+     *       self::OPTION_REGION
+     *       |self::OPTION_PROFILE
+     *       |self::OPTION_SHARED_CREDENTIALS_FILE
+     *       |self::OPTION_SHARED_CONFIG_FILE
+     *       |self::OPTION_ENDPOINT
+     *       |self::OPTION_PATH_STYLE_ENDPOINT
+     *     ? string
+     *     : ?string
+     * )
+     */
     public function get(string $name): ?string
     {
         if (!isset(self::AVAILABLE_OPTIONS[$name])) {
