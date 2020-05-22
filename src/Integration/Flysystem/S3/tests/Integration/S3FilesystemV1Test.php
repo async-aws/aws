@@ -119,7 +119,7 @@ class S3FilesystemV1Test extends TestCase
 
         if (!$key || !$secret || !$bucket) {
             self::$docker = true;
-            $options = ['endpoint' => 'http://localhost:4569'];
+            $options = ['endpoint' => 'http://localhost:4570'];
             if (\is_callable([Configuration::class, 'optionExists']) && Configuration::optionExists('pathStyleEndpoint')) {
                 $options += ['pathStyleEndpoint' => true];
             }

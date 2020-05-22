@@ -12,7 +12,6 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 10
       matrix:
         php: ['7.2', '7.3', '7.4']
 
@@ -28,7 +27,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Initialize tests
-        run: make initialize
+        run: make initialize -j 4
 
       - name: Download phpunit
         run: |
@@ -123,7 +122,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Initialize tests
-        run: make initialize
+        run: make initialize -j 4
 
       - name: Download phpunit
         run: |
@@ -210,8 +209,6 @@ jobs:
   root:
     name: Root tests
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 10
     steps:
       - name: Set up PHP
         uses: shivammathur/setup-php@2.2.1
@@ -224,7 +221,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Initialize tests
-        run: make initialize
+        run: make initialize -j 4
 
       - name: Download dependencies
         run: |
