@@ -1,15 +1,21 @@
 SHELL := /bin/bash
 COMPONENTS := $(shell find src -maxdepth 4 -type f -name Makefile  | sed  -e 's/\/Makefile//g' | sort)
-TOPTARGETS := start-docker stop-docker
+SUBCLEAN = $(addsuffix .clean,$(COMPONENTS))
+SUBINITIALIZE = $(addsuffix .initialize,$(COMPONENTS))
 
-$(TOPTARGETS): $(COMPONENTS)
-$(COMPONENTS):
-	$(MAKE) -C $@ $(MAKECMDGOALS)
+.PHONY: clean $(SUBCLEAN)
+clean: $(SUBCLEAN)
+$(SUBCLEAN): %.clean:
+	$(MAKE) -C $* clean
 
-.PHONY: $(TOPTARGETS) $(COMPONENTS)
 
-initialize: start-docker
-clean: stop-docker
+.PHONY: initialize $(SUBINITIALIZE)
+initialize: $(SUBINITIALIZE)
+$(SUBINITIALIZE): %.initialize:
+	$(MAKE) -C $* initialize
+
+start-docker: initialize
+stop-docker: clean
 
 test: initialize
 	./vendor/bin/simple-phpunit
