@@ -97,7 +97,10 @@ class AsyncAwsExtension extends Extension
             $httpClient = new Reference('http_client', ContainerInterface::NULL_ON_INVALID_REFERENCE);
         }
 
-        if ((null === $credentialServiceId = $config['credential_provider']) && \class_exists(SymfonyCacheProvider::class) && \interface_exists(CacheInterface::class)) {
+        // If no credential provider is specified, lets configured a credentials provider with cache.
+        $hasCacheClasses = \class_exists(SymfonyCacheProvider::class) && \interface_exists(CacheInterface::class);
+        $credentialServiceId = $config['credential_provider'];
+        if (null === $credentialServiceId && null !== $config['credential_provider_cache'] && $hasCacheClasses) {
             $credentialServiceId = 'async_aws.credential';
             if (!$container->hasDefinition($credentialServiceId)) {
                 $container->register($credentialServiceId, CredentialProvider::class)
@@ -108,14 +111,13 @@ class AsyncAwsExtension extends Extension
                     ->setDecoratedService($credentialServiceId)
                     ->setArguments([
                         new Reference('async_aws.credential.cache.inner'),
-                        new Reference('cache.app'),
+                        new Reference($config['credential_provider_cache']),
                     ]);
 
                 $container->register('async_aws.credential.memory', CacheProvider::class)
                     ->setDecoratedService($credentialServiceId)
                     ->setArguments([
                         new Reference('async_aws.credential.memory.inner'),
-                        new Reference('cache.app'),
                     ]);
             }
         }
