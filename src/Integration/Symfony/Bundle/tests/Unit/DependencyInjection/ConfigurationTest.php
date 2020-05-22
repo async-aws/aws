@@ -26,6 +26,7 @@ class ConfigurationTest extends TestCase
         ], [
             'register_service' => true,
             'credential_provider' => null,
+            'credential_provider_cache' => 'cache.app',
             'config' => [],
             'clients' => [],
             'secrets' => [
