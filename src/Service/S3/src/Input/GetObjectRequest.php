@@ -61,9 +61,9 @@ final class GetObjectRequest extends Input
 
     /**
      * Downloads the specified range bytes of an object. For more information about the HTTP Range header, see
-     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35.
+     * https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35.
      *
-     * @see
+     * @see https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35
      *
      * @var string|null
      */

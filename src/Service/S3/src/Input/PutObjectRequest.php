@@ -172,7 +172,7 @@ final class PutObjectRequest extends Input
     private $ServerSideEncryption;
 
     /**
-     * If you don't specify, Standard is the default storage class. Amazon S3 supports other storage classes.
+     * If you don't specify, S3 Standard is the default storage class. Amazon S3 supports other storage classes.
      *
      * @var null|StorageClass::*
      */

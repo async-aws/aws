@@ -163,8 +163,13 @@ final class PutObjectAclRequest extends Input
         return $this->Bucket;
     }
 
+    /**
+     * @deprecated
+     */
     public function getContentMD5(): ?string
     {
+        @trigger_error(\sprintf('The property "ContentMD5" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
+
         return $this->ContentMD5;
     }
 
@@ -302,8 +307,12 @@ final class PutObjectAclRequest extends Input
         return $this;
     }
 
+    /**
+     * @deprecated
+     */
     public function setContentMD5(?string $value): self
     {
+        @trigger_error(\sprintf('The property "ContentMD5" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
         $this->ContentMD5 = $value;
 
         return $this;

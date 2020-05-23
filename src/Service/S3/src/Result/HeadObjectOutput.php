@@ -132,8 +132,8 @@ class HeadObjectOutput extends Result
     private $SSEKMSKeyId;
 
     /**
-     * Provides storage class information of the object. Amazon S3 returns this header for all objects except for Standard
-     * storage class objects.
+     * Provides storage class information of the object. Amazon S3 returns this header for all objects except for S3
+     * Standard storage class objects.
      */
     private $StorageClass;
 
