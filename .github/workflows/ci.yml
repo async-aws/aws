@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: ['7.2', '7.3', '7.4']
+        php: ['7.2', '7.3', '7.4', '8.0']
 
     steps:
       - name: Set up PHP
@@ -73,6 +73,8 @@ jobs:
           done
 
       - name: Download dependencies
+        env:
+          PHP_VERSION: ${{ matrix.php }}
         run: |
           CURRENT_DIR=$(pwd)
           for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
@@ -82,7 +84,10 @@ jobs:
             cd "$CURRENT_DIR/$COMPONENT"
 
             localExit=0
-            composer update --no-interaction --prefer-dist --optimize-autoloader || localExit=1
+            if [ $PHP_VERSION = '8.0' ]; then
+              COMPOSER_OPTIONS=' --ignore-platform-reqs'
+            fi
+            composer update --no-interaction --prefer-dist --optimize-autoloader $COMPOSER_OPTIONS || localExit=1
             echo ::endgroup::
             if [ $localExit -ne 0 ]; then
               echo "::error::$COMPONENT error"
@@ -169,6 +174,7 @@ jobs:
         env:
           # Make sure we dont download awfully old Symfony versions.
           SYMFONY_REQUIRE: 4.4.*
+          PHP_VERSION: ${{ matrix.php }}
         run: |
           composer global require --no-progress --no-scripts --no-plugins symfony/flex
           CURRENT_DIR=$(pwd)
@@ -179,7 +185,10 @@ jobs:
             cd "$CURRENT_DIR/$COMPONENT"
 
             localExit=0
-            composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-lowest || localExit=1
+            if [ $PHP_VERSION = '8.0' ]; then
+              COMPOSER_OPTIONS=' --ignore-platform-reqs'
+            fi
+            composer update --no-interaction --prefer-dist --optimize-autoloader $COMPOSER_OPTIONS --prefer-lowest || localExit=1
             echo ::endgroup::
             if [ $localExit -ne 0 ]; then
               echo "::error::$COMPONENT error"
