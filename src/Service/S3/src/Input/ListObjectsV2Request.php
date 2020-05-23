@@ -35,8 +35,8 @@ final class ListObjectsV2Request extends Input
     private $EncodingType;
 
     /**
-     * Sets the maximum number of keys returned in the response. The response might contain fewer keys but will never
-     * contain more.
+     * Sets the maximum number of keys returned in the response. By default the API returns up to 1,000 key names. The
+     * response might contain fewer keys but will never contain more.
      *
      * @var int|null
      */
