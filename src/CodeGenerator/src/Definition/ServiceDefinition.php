@@ -25,7 +25,9 @@ class ServiceDefinition
 
     private $example;
 
-    public function __construct(string $name, array $endpoints, array $definition, array $documentation, array $pagination, array $waiter, array $example)
+    private $arrays;
+
+    public function __construct(string $name, array $endpoints, array $definition, array $documentation, array $pagination, array $waiter, array $example, array $arrays)
     {
         $this->name = $name;
         $this->endpoints = $endpoints;
@@ -34,6 +36,7 @@ class ServiceDefinition
         $this->pagination = $pagination;
         $this->waiter = $waiter;
         $this->example = $example;
+        $this->arrays = $arrays;
     }
 
     public function getName(): string
@@ -99,6 +102,16 @@ class ServiceDefinition
         return $this->definition['metadata']['protocol'];
     }
 
+    public function getSignatureVersion(): string
+    {
+        return $this->definition['metadata']['signatureVersion'];
+    }
+
+    public function getSigningName(): string
+    {
+        return $this->definition['metadata']['signingName'];
+    }
+
     private function getPagination(string $name): ?Pagination
     {
         if (isset($this->pagination['pagination'][$name])) {
@@ -121,7 +134,12 @@ class ServiceDefinition
                 $documentation = $this->documentation['shapes'][$name]['refs'][$member->getOwnerShape()->getName() . '$' . $member->getName()] ?? null;
             }
 
-            return Shape::create($name, $this->definition['shapes'][$name] + ['_documentation' => $documentation] + $extra, $this->createClosureToFindShape(), $this->createClosureToService());
+            $data = $this->definition['shapes'][$name] + ['_documentation' => $documentation] + $extra;
+            if (\in_array($name, $this->arrays)) {
+                $data['type'] = 'array';
+            }
+
+            return Shape::create($name, $data, $this->createClosureToFindShape(), $this->createClosureToService());
         }
 
         return null;

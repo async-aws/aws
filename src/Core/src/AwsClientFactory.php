@@ -19,6 +19,7 @@ use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\EventBridge\EventBridgeClient;
 use AsyncAws\Iam\IamClient;
 use AsyncAws\Lambda\LambdaClient;
+use AsyncAws\RDSDataService\RDSDataServiceClient;
 use AsyncAws\S3\S3Client;
 use AsyncAws\Ses\SesClient;
 use AsyncAws\Sns\SnsClient;
@@ -177,6 +178,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new LambdaClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function rdsDataService(): RDSDataServiceClient
+    {
+        if (!class_exists(RDSDataServiceClient::class)) {
+            throw MissingDependency::create('async-aws/rds-data-service', 'RDSDataService');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new RDSDataServiceClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];

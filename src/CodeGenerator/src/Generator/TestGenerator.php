@@ -315,6 +315,8 @@ class TestGenerator
                 return 'new \DateTimeImmutable()';
             case 'boolean':
                 return 'false';
+            case 'array':
+                return \var_export(['a' => 'b'], true);
         }
 
         throw new \RuntimeException(sprintf('Type %s is not yet implemented', $shape->getType()));

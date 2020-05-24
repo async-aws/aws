@@ -115,9 +115,28 @@ class InputGenerator
 
                 if ($listMemberShape instanceof StructureShape) {
                     $memberClassName = $this->objectGenerator->generate($listMemberShape);
-                    $constructorBody .= strtr('$this->NAME = array_map([CLASS::class, "create"], $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
-                } elseif ($listMemberShape instanceof ListShape || $listMemberShape instanceof MapShape) {
-                    throw new \RuntimeException('Recursive ListShape are not yet implemented');
+                    $constructorBody .= strtr('$this->NAME = array_map([CLASS::class, "create"], $input["NAME"] ?? []);' . "\n", [
+                        'NAME' => $member->getName(),
+                        'CLASS' => $memberClassName->getName(),
+                    ]);
+                } elseif ($listMemberShape instanceof ListShape) {
+                    $memberShape = $listMemberShape->getMember()->getShape();
+                    if (!$memberShape instanceof StructureShape) {
+                        throw new \RuntimeException("Deep list shapes that don't end in a structure are not implemented.");
+                    }
+
+                    $memberClassName = $this->objectGenerator->generate($memberShape);
+                    $namespace->addUse($memberClassName->getFqdn());
+                    $constructorBody .= strtr(
+                        '$this->NAME = [];
+                        foreach ($input["NAME"] ?? [] as $key => $item) {
+                            $this->NAME[$key] = array_map([CLASS::class, "create"], $item);
+                        }' . "\n", [
+                            'NAME' => $member->getName(),
+                            'CLASS' => $memberClassName->getName(),
+                        ]);
+                } elseif ($listMemberShape instanceof MapShape) {
+                    throw new \RuntimeException('Recursive ListShape/MapShape are not yet implemented');
                 } else {
                     $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
                 }

@@ -186,6 +186,7 @@ class TypeGenerator
             case 'list':
             case 'structure':
             case 'map':
+            case 'array':
                 return 'array';
             case 'long':
             case 'string':

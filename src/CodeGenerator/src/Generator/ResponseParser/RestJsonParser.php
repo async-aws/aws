@@ -115,6 +115,8 @@ class RestJsonParser implements Parser
                 return $this->parseResponseBlob($input, $required);
             case 'timestamp':
                 return $this->parseResponseTimestamp($shape, $input, $required);
+            case 'array':
+                return $this->parseResponseArray($input, $required);
         }
 
         throw new \RuntimeException(sprintf('Type %s is not yet implemented', $shape->getType()));
@@ -144,6 +146,15 @@ class RestJsonParser implements Parser
                 'CLASS_NAME' => $this->namespaceRegistry->getObject($shape)->getName(),
                 'PROPERTIES' => implode("\n", $properties),
             ]);
+    }
+
+    private function parseResponseArray(string $input, bool $required): string
+    {
+        if ($required) {
+            return strtr('(array) INPUT', ['INPUT' => $input]);
+        }
+
+        return strtr('isset(INPUT) ? (array) INPUT : null', ['INPUT' => $input]);
     }
 
     private function parseResponseString(string $input, bool $required): string

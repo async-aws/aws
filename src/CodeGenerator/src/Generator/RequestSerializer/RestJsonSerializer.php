@@ -131,13 +131,13 @@ class RestJsonSerializer implements Serializer
         return $name;
     }
 
-    private function dumpArrayElement(string $output, string $input, string $contextProperty, Shape $shape, bool $isRequired = false)
+    private function dumpArrayElement(string $output, string $input, string $contextProperty, Shape $shape, bool $isRequired = false, int $depth = 0)
     {
         switch (true) {
             case $shape instanceof StructureShape:
                 return $this->dumpArrayStructure($output, $input, $shape);
             case $shape instanceof ListShape:
-                return $this->dumpArrayList($output, $input, $contextProperty, $shape);
+                return $this->dumpArrayList($output, $input, $contextProperty, $shape, $depth);
             case $shape instanceof MapShape:
                 return $this->dumpArrayMap($output, $input, $contextProperty, $shape);
         }
@@ -146,6 +146,8 @@ class RestJsonSerializer implements Serializer
             case 'string':
             case 'integer':
             case 'long':
+            case 'double':
+            case 'array':
                 return $this->dumpArrayScalar($output, $input, $contextProperty, $shape);
             case 'boolean':
                 return $this->dumpArrayBoolean($output, $input, $shape);
@@ -166,20 +168,22 @@ class RestJsonSerializer implements Serializer
         ]);
     }
 
-    private function dumpArrayList(string $output, string $input, string $contextProperty, ListShape $shape): string
+    private function dumpArrayList(string $output, string $input, string $contextProperty, ListShape $shape, int $depth = 0): string
     {
         $memberShape = $shape->getMember()->getShape();
+        $indexVar = $depth > 0 ? "\$index$depth" : '$index';
 
         return strtr('
-            $index = -1;
+            INDEX_VAR = -1;
             foreach (INPUT as $listValue) {
-                $index++;
+                INDEX_VAR++;
                 MEMBER_CODE
             }
         ',
             [
+                'INDEX_VAR' => $indexVar,
                 'INPUT' => $input,
-                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s[$index]', $output), '$listValue', $contextProperty, $memberShape, true),
+                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s[%s]', $output, $indexVar), '$listValue', $contextProperty, $memberShape, true, $depth + 1),
             ]);
     }
 
