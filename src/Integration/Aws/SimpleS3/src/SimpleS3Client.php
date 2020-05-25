@@ -49,7 +49,7 @@ class SimpleS3Client extends S3Client
      */
     public function upload(string $bucket, string $key, $object, array $options = []): void
     {
-        // Send upload requests with size 32 MB
+        // Send upload requests with size 32MB
         $megabyte = 1024 * 1024;
         $stream = $this->getStream($object, 1 * $megabyte); // split the stream in 1MB chunk
 
@@ -59,11 +59,16 @@ class SimpleS3Client extends S3Client
             $contentLength = $stream->length();
         }
 
-        // The maximum number of parts is 10.000. Use 64Mb sized parts unless the content length is really large.
-        $partSize = $options['PartSize'] ?? max(64, null === $contentLength ? 0 : ceil($contentLength / (10000 * 1024 * 1024)));
+        /*
+         * The maximum number of parts is 10.000. The partSize must be a power of 2.
+         * We default this to 64MB per part. That means that we only support to upload
+         * files smaller than 64 * 10 000 = 640GB. If you are uploading larger files,
+         * please set PartSize to a higher number, like 128, 256 or 512. (Max 4096).
+         */
+        $partSize = $options['PartSize'] ?? 64;
         unset($options['PartSize']);
 
-        // If file is less than 64Mb, use normal upload
+        // If file is less than 64MB, use normal upload
         if (null !== $contentLength && $contentLength < 64 * $megabyte) {
             $this->doSmallFileUpload($options, $bucket, $key, $object);
 
