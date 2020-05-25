@@ -49,9 +49,9 @@ class SimpleS3Client extends S3Client
      */
     public function upload(string $bucket, string $key, $object, array $options = []): void
     {
-        // Send upload requests with size 32MB
         $megabyte = 1024 * 1024;
-        $stream = $this->getStream($object, 1 * $megabyte); // split the stream in 1MB chunk
+        // Split the stream in 1MB chunk
+        $stream = $this->getStream($object, 1 * $megabyte);
 
         if (!empty($options['ContentLength'])) {
             $contentLength = (int) $options['ContentLength'];
@@ -88,13 +88,13 @@ class SimpleS3Client extends S3Client
                 continue;
             }
 
-            // Verify first part
+            // We have a good chunk of data to upload. If this is the first part, then get uploadId.
             if (1 === $partNumber) {
                 /** @var string $uploadId */
                 $uploadId = $this->createMultipartUpload(array_merge($options, ['Bucket' => $bucket, 'Key' => $key]))->getUploadId();
             }
 
-            // Start upload
+            // Start uploading the part.
             $parts[] = $this->doMultipartUpload($bucket, $key, $uploadId, $partNumber, $buffer);
             ++$partNumber;
             $buffer = \fopen('php://temp', 'rw+');
@@ -119,7 +119,7 @@ class SimpleS3Client extends S3Client
         }
 
         if (empty($parts)) {
-            // The upload did not contain any data.
+            // The upload did not contain any data. Let's create an empty file
             $this->doSmallFileUpload($options, $bucket, $key, '');
 
             return;
