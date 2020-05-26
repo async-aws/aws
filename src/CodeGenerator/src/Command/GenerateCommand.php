@@ -158,7 +158,7 @@ class GenerateCommand extends Command
         return $manifest;
     }
 
-    private function extractEndpointsForService(array $endpoints, string $prefix): array
+    private function extractEndpointsForService(array $endpoints, string $prefix, string $signingServiceFallback, string $signingVersionFallback): array
     {
         $serviceEndpoints = [];
         foreach ($endpoints['partitions'] as $partition) {
@@ -168,8 +168,8 @@ class GenerateCommand extends Command
                 $hostname = $config['hostname'] ?? $service['defaults']['hostname'] ?? $partition['defaults']['hostname'];
                 $protocols = $config['protocols'] ?? $service['defaults']['protocols'] ?? $partition['defaults']['protocols'] ?? [];
                 $signRegion = $config['credentialScope']['region'] ?? $service['defaults']['credentialScope']['region'] ?? $partition['defaults']['credentialScope']['region'] ?? $region;
-                $signService = $config['credentialScope']['service'] ?? $service['defaults']['credentialScope']['service'] ?? $partition['defaults']['credentialScope']['service'] ?? $prefix;
-                $signVersions = \array_unique($config['signatureVersions'] ?? $service['defaults']['signatureVersions'] ?? $partition['defaults']['signatureVersions'] ?? []);
+                $signService = $config['credentialScope']['service'] ?? $service['defaults']['credentialScope']['service'] ?? $partition['defaults']['credentialScope']['service'] ?? $signingServiceFallback;
+                $signVersions = \array_unique($config['signatureVersions'] ?? $service['defaults']['signatureVersions'] ?? $partition['defaults']['signatureVersions'] ?? [$signingVersionFallback]);
 
                 if (empty($config)) {
                     if (!isset($serviceEndpoints['_default'][$partition['partition']])) {
@@ -230,7 +230,7 @@ class GenerateCommand extends Command
     private function generateService(SymfonyStyle $io, InputInterface $input, array $manifest, array $endpoints, string $serviceName)
     {
         $definitionArray = $this->loadFile($manifest['services'][$serviceName]['source'], "$serviceName-source");
-        $endpoints = $this->extractEndpointsForService($endpoints, $definitionArray['metadata']['endpointPrefix']);
+        $endpoints = $this->extractEndpointsForService($endpoints, $definitionArray['metadata']['endpointPrefix'], $definitionArray['metadata']['signingName'] ?? $definitionArray['metadata']['endpointPrefix'], $definitionArray['metadata']['signatureVersion']);
 
         $documentationArray = $this->loadFile($manifest['services'][$serviceName]['documentation'], "$serviceName-documentation");
         $paginationArray = $this->loadFile($manifest['services'][$serviceName]['pagination'], "$serviceName-pagination");
