@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.1.1
+
+### Fixed
+
+- Fix invalid signature in SES client because of wrong Scoped Service.
+
 ## 1.1.0
 
 ### Deprecation
