@@ -357,20 +357,22 @@ class Response
             $this->resolveResult = new $class(...$args);
         }
 
+        $message = null;
+        $context = ['exception' => $this->resolveResult];
         if ($this->resolveResult instanceof HttpException) {
             /** @var int $code */
             $code = $this->httpResponse->getInfo('http_code');
             /** @var string $url */
             $url = $this->httpResponse->getInfo('url');
-            $this->logger->error(sprintf('HTTP %d returned for "%s".', $code, $url), [
-                'aws_code' => $this->resolveResult->getAwsCode(),
-                'aws_message' => $this->resolveResult->getAwsMessage(),
-                'aws_type' => $this->resolveResult->getAwsType(),
-                'aws_detail' => $this->resolveResult->getAwsDetail(),
-            ]);
+            $context['aws_code'] = $this->resolveResult->getAwsCode();
+            $context['aws_message'] = $this->resolveResult->getAwsMessage();
+            $context['aws_type'] = $this->resolveResult->getAwsType();
+            $context['aws_detail'] = $this->resolveResult->getAwsDetail();
+            $message = sprintf('HTTP %d returned for "%s".', $code, $url);
         }
 
         if ($this->resolveResult instanceof Exception) {
+            $this->logger->error($message ?? $this->resolveResult->getMessage(), $context);
             $this->didThrow = true;
 
             throw $this->resolveResult;
