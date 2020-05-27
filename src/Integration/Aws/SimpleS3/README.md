@@ -13,7 +13,7 @@ composer require async-aws/simple-s3
 
 ## Documentation
 
-See https://async-aws.com for documentation.
+See https://async-aws.com/integration/simple-s3.html for documentation.
 
 ## Contribute
 
