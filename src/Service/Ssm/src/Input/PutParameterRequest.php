@@ -97,7 +97,7 @@ final class PutParameterRequest extends Input
     private $Policies;
 
     /**
-     * The data type for a String parameter. Supported data types include plain text and Amazon Machine Image IDs.
+     * The data type for a `String` parameter. Supported data types include plain text and Amazon Machine Image IDs.
      *
      * @var string|null
      */
