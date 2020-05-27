@@ -26,14 +26,14 @@ final class SqlParameter
      * @param array{
      *   name?: null|string,
      *   typeHint?: null|\AsyncAws\RDSDataService\Enum\TypeHint::*,
-     *   value?: null|array,
+     *   value?: null|\AsyncAws\RDSDataService\ValueObject\Field|array,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->name = $input['name'] ?? null;
         $this->typeHint = $input['typeHint'] ?? null;
-        $this->value = $input['value'] ?? null;
+        $this->value = isset($input['value']) ? Field::create($input['value']) : null;
     }
 
     public static function create($input): self
@@ -54,7 +54,7 @@ final class SqlParameter
         return $this->typeHint;
     }
 
-    public function getValue(): ?array
+    public function getValue(): ?Field
     {
         return $this->value;
     }
@@ -75,7 +75,7 @@ final class SqlParameter
             $payload['typeHint'] = $v;
         }
         if (null !== $v = $this->value) {
-            $payload['value'] = $v;
+            $payload['value'] = $v->requestBody();
         }
 
         return $payload;

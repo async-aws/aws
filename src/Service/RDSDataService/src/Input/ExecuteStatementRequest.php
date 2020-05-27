@@ -276,13 +276,13 @@ final class ExecuteStatementRequest extends Input
     {
         $payload = [];
         if (null !== $v = $this->continueAfterTimeout) {
-            $payload['continueAfterTimeout'] = $v ? 'true' : 'false';
+            $payload['continueAfterTimeout'] = (bool) $v;
         }
         if (null !== $v = $this->database) {
             $payload['database'] = $v;
         }
         if (null !== $v = $this->includeResultMetadata) {
-            $payload['includeResultMetadata'] = $v ? 'true' : 'false';
+            $payload['includeResultMetadata'] = (bool) $v;
         }
 
         $index = -1;

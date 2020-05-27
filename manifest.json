@@ -115,10 +115,6 @@
                 "CommitTransaction",
                 "ExecuteStatement",
                 "RollbackTransaction"
-            ],
-            "arrays": [
-                "Field",
-                "FieldList"
             ]
         },
         "S3": {

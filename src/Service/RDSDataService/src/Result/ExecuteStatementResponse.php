@@ -4,7 +4,9 @@ namespace AsyncAws\RDSDataService\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\RDSDataService\ValueObject\ArrayValue;
 use AsyncAws\RDSDataService\ValueObject\ColumnMetadata;
+use AsyncAws\RDSDataService\ValueObject\Field;
 
 class ExecuteStatementResponse extends Result
 {
@@ -16,7 +18,7 @@ class ExecuteStatementResponse extends Result
     /**
      * Values for fields generated during the request.
      */
-    private $generatedFields;
+    private $generatedFields = [];
 
     /**
      * The number of records updated by the request.
@@ -38,7 +40,10 @@ class ExecuteStatementResponse extends Result
         return $this->columnMetadata;
     }
 
-    public function getGeneratedFields(): ?array
+    /**
+     * @return Field[]
+     */
+    public function getGeneratedFields(): array
     {
         $this->initialize();
 
@@ -53,7 +58,7 @@ class ExecuteStatementResponse extends Result
     }
 
     /**
-     * @return array[]
+     * @return Field[][]
      */
     public function getRecords(): array
     {
@@ -65,8 +70,8 @@ class ExecuteStatementResponse extends Result
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-
-        $this->columnMetadata = empty($data['columnMetadata']) ? [] : (function (array $json): array {
+        $fn = [];
+        $fn['list-Metadata'] = function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new ColumnMetadata([
@@ -88,19 +93,101 @@ class ExecuteStatementResponse extends Result
             }
 
             return $items;
-        })($data['columnMetadata']);
-        $this->generatedFields = isset($data['generatedFields']) ? (array) $data['generatedFields'] : null;
-        $this->numberOfRecordsUpdated = isset($data['numberOfRecordsUpdated']) ? (string) $data['numberOfRecordsUpdated'] : null;
-        $this->records = empty($data['records']) ? [] : (function (array $json): array {
+        };
+        $fn['list-FieldList'] = function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
-                $a = isset($item) ? (array) $item : null;
+                $items[] = new Field([
+                    'arrayValue' => empty($item['arrayValue']) ? null : new ArrayValue([
+                        'arrayValues' => empty($item['arrayValue']['arrayValues']) ? [] : $fn['list-ArrayOfArray']($item['arrayValue']['arrayValues']),
+                        'booleanValues' => empty($item['arrayValue']['booleanValues']) ? [] : $fn['list-BooleanArray']($item['arrayValue']['booleanValues']),
+                        'doubleValues' => empty($item['arrayValue']['doubleValues']) ? [] : $fn['list-DoubleArray']($item['arrayValue']['doubleValues']),
+                        'longValues' => empty($item['arrayValue']['longValues']) ? [] : $fn['list-LongArray']($item['arrayValue']['longValues']),
+                        'stringValues' => empty($item['arrayValue']['stringValues']) ? [] : $fn['list-StringArray']($item['arrayValue']['stringValues']),
+                    ]),
+                    'blobValue' => isset($item['blobValue']) ? base64_decode((string) $item['blobValue']) : null,
+                    'booleanValue' => isset($item['booleanValue']) ? filter_var($item['booleanValue'], \FILTER_VALIDATE_BOOLEAN) : null,
+                    'doubleValue' => isset($item['doubleValue']) ? (float) $item['doubleValue'] : null,
+                    'isNull' => isset($item['isNull']) ? filter_var($item['isNull'], \FILTER_VALIDATE_BOOLEAN) : null,
+                    'longValue' => isset($item['longValue']) ? (string) $item['longValue'] : null,
+                    'stringValue' => isset($item['stringValue']) ? (string) $item['stringValue'] : null,
+                ]);
+            }
+
+            return $items;
+        };
+        $fn['list-ArrayOfArray'] = function (array $json) use (&$fn): array {
+            $items = [];
+            foreach ($json as $item) {
+                $items[] = new ArrayValue([
+                    'arrayValues' => empty($item['arrayValues']) ? [] : $fn['list-ArrayOfArray']($item['arrayValues']),
+                    'booleanValues' => empty($item['booleanValues']) ? [] : $fn['list-BooleanArray']($item['booleanValues']),
+                    'doubleValues' => empty($item['doubleValues']) ? [] : $fn['list-DoubleArray']($item['doubleValues']),
+                    'longValues' => empty($item['longValues']) ? [] : $fn['list-LongArray']($item['longValues']),
+                    'stringValues' => empty($item['stringValues']) ? [] : $fn['list-StringArray']($item['stringValues']),
+                ]);
+            }
+
+            return $items;
+        };
+        $fn['list-BooleanArray'] = function (array $json) use (&$fn): array {
+            $items = [];
+            foreach ($json as $item) {
+                $a = isset($item) ? filter_var($item, \FILTER_VALIDATE_BOOLEAN) : null;
                 if (null !== $a) {
                     $items[] = $a;
                 }
             }
 
             return $items;
-        })($data['records']);
+        };
+        $fn['list-DoubleArray'] = function (array $json) use (&$fn): array {
+            $items = [];
+            foreach ($json as $item) {
+                $a = isset($item) ? (float) $item : null;
+                if (null !== $a) {
+                    $items[] = $a;
+                }
+            }
+
+            return $items;
+        };
+        $fn['list-LongArray'] = function (array $json) use (&$fn): array {
+            $items = [];
+            foreach ($json as $item) {
+                $a = isset($item) ? (string) $item : null;
+                if (null !== $a) {
+                    $items[] = $a;
+                }
+            }
+
+            return $items;
+        };
+        $fn['list-StringArray'] = function (array $json) use (&$fn): array {
+            $items = [];
+            foreach ($json as $item) {
+                $a = isset($item) ? (string) $item : null;
+                if (null !== $a) {
+                    $items[] = $a;
+                }
+            }
+
+            return $items;
+        };
+        $fn['list-SqlRecords'] = function (array $json) use (&$fn): array {
+            $items = [];
+            foreach ($json as $item) {
+                $a = empty($item) ? [] : $fn['list-FieldList']($item);
+                if (null !== $a) {
+                    $items[] = $a;
+                }
+            }
+
+            return $items;
+        };
+        $this->columnMetadata = empty($data['columnMetadata']) ? [] : $fn['list-Metadata']($data['columnMetadata']);
+        $this->generatedFields = empty($data['generatedFields']) ? [] : $fn['list-FieldList']($data['generatedFields']);
+        $this->numberOfRecordsUpdated = isset($data['numberOfRecordsUpdated']) ? (string) $data['numberOfRecordsUpdated'] : null;
+        $this->records = empty($data['records']) ? [] : $fn['list-SqlRecords']($data['records']);
     }
 }

@@ -18,7 +18,9 @@ final class BatchExecuteStatementRequest extends Input
     private $database;
 
     /**
-     * @var array[]
+     * The parameter set for the batch operation.
+     *
+     * @var SqlParameter[][]
      */
     private $parameterSets;
 
@@ -79,10 +81,9 @@ final class BatchExecuteStatementRequest extends Input
     public function __construct(array $input = [])
     {
         $this->database = $input['database'] ?? null;
-        $this->parameterSets = [];
-        foreach ($input['parameterSets'] ?? [] as $key => $item) {
-            $this->parameterSets[$key] = array_map([SqlParameter::class, 'create'], $item);
-        }
+        $this->parameterSets = array_map(static function (array $array) {
+            return array_map([SqlParameter::class, 'create'], $array);
+        }, $input['parameterSets'] ?? []);
         $this->resourceArn = $input['resourceArn'] ?? null;
         $this->schema = $input['schema'] ?? null;
         $this->secretArn = $input['secretArn'] ?? null;
@@ -102,7 +103,7 @@ final class BatchExecuteStatementRequest extends Input
     }
 
     /**
-     * @return array[]
+     * @return SqlParameter[][]
      */
     public function getParameterSets(): array
     {
@@ -164,7 +165,7 @@ final class BatchExecuteStatementRequest extends Input
     }
 
     /**
-     * @param array[] $value
+     * @param SqlParameter[][] $value
      */
     public function setParameterSets(array $value): self
     {
@@ -220,9 +221,9 @@ final class BatchExecuteStatementRequest extends Input
             ++$index;
 
             $index1 = -1;
-            foreach ($listValue as $listValue) {
+            foreach ($listValue as $listValue1) {
                 ++$index1;
-                $payload['parameterSets'][$index][$index1] = $listValue->requestBody();
+                $payload['parameterSets'][$index][$index1] = $listValue1->requestBody();
             }
         }
 

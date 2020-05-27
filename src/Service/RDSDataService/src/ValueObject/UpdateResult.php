@@ -11,12 +11,12 @@ final class UpdateResult
 
     /**
      * @param array{
-     *   generatedFields?: null|array,
+     *   generatedFields?: null|\AsyncAws\RDSDataService\ValueObject\Field[],
      * } $input
      */
     public function __construct(array $input)
     {
-        $this->generatedFields = $input['generatedFields'] ?? null;
+        $this->generatedFields = array_map([Field::class, 'create'], $input['generatedFields'] ?? []);
     }
 
     public static function create($input): self
@@ -24,7 +24,10 @@ final class UpdateResult
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getGeneratedFields(): ?array
+    /**
+     * @return Field[]
+     */
+    public function getGeneratedFields(): array
     {
         return $this->generatedFields;
     }

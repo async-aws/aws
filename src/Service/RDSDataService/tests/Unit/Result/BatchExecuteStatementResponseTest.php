@@ -32,6 +32,7 @@ class BatchExecuteStatementResponseTest extends TestCase
 
         self::assertCount(1, $result->getUpdateResults());
         self::assertInstanceOf(UpdateResult::class, $result->getUpdateResults()[0]);
-        self::assertSame([['stringValue' => 'string']], $result->getUpdateResults()[0]->getGeneratedFields());
+        self::assertCount(1, $result->getUpdateResults()[0]->getGeneratedFields());
+        self::assertSame('string', $result->getUpdateResults()[0]->getGeneratedFields()[0]->getStringValue());
     }
 }

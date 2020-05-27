@@ -4,6 +4,7 @@ namespace AsyncAws\RDSDataService;
 
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Configuration;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\RDSDataService\Input\BatchExecuteStatementRequest;
 use AsyncAws\RDSDataService\Input\BeginTransactionRequest;
@@ -136,11 +137,9 @@ class RDSDataServiceClient extends AbstractApi
             $region = Configuration::DEFAULT_REGION;
         }
 
-        return [
-            'endpoint' => "https://rds-data.$region.amazonaws.com",
-            'signRegion' => $region,
-            'signService' => 'rds-data',
-            'signVersions' => ['v4'],
-        ];
+        switch ($region) {
+        }
+
+        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "RDSDataService".', $region));
     }
 }

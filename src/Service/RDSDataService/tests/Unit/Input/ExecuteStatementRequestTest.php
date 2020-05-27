@@ -41,12 +41,12 @@ class ExecuteStatementRequestTest extends TestCase
             Content-Type: application/json
 
             {
-               "continueAfterTimeout": "false",
+               "continueAfterTimeout": false,
                "database": "my_database",
-               "includeResultMetadata": "true",
+               "includeResultMetadata": true,
                "parameters": [
                   {"name": "array", "value": {"arrayValue": {"stringValues": ["1", "2"]}}},
-                  {"name": "blob", "value": {"blobValue": "0123456789"}},
+                  {"name": "blob", "value": {"blobValue": "MDEyMzQ1Njc4OQ=="}},
                   {"name": "boolean", "value": {"booleanValue": true}},
                   {"name": "double", "value": {"doubleValue": 0.5}},
                   {"name": "null", "value": {"isNull": true}},
