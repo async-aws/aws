@@ -107,6 +107,9 @@ menu:
             sessions:
                 text: PHP Sessions
                 url: /integration/sessions.html
+            simple-s3:
+                text: Simple S3
+                url: /integration/simple-s3.html
 
     authentication:
         # Authentication providers are in alphabetical order
