@@ -30,12 +30,4 @@ PHP
             'TARGET' => sprintf('%s.%s', $operation->getService()->getTargetPrefix(), $operation->getName()),
         ]);
     }
-
-    protected function dumpArrayBoolean(string $output, string $input, Shape $shape): string
-    {
-        return strtr('$payloadOUTPUT = (bool) INPUT;', [
-            'OUTPUT' => $output,
-            'INPUT' => $input,
-        ]);
-    }
 }

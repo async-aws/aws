@@ -109,7 +109,6 @@ class ResultGenerator
 
         $namespace->addUse(Result::class);
         $class->addExtend(Result::class);
-
         $namespace->addUse(ResponseInterface::class);
         $namespace->addUse(HttpClientInterface::class);
         $this->populateResult($shape, $namespace, $class);

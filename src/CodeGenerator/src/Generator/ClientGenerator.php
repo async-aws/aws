@@ -92,49 +92,39 @@ class ClientGenerator
 
             ';
         }
+        $body .= "switch (\$region) {\n";
 
-        // if there is no endpoint specification just assume the defaults (rds data had not endpoint specification)
-        if (empty($endpoints)) {
-            $body .= $dumpConfig([
-                'endpoint' => strtr('https://SERVICE.%region%.amazonaws.com', ['SERVICE' => $definition->getEndpointPrefix()]),
-                'signService' => $definition->getSigningName(),
-                'signVersions' => [$definition->getSignatureVersion()],
-            ]);
-        } else {
-            $body .= "switch (\$region) {\n";
-
-            foreach ($endpoints['_global'] ?? [] as $partitionName => $config) {
-                if (empty($config['regions'])) {
-                    continue;
-                }
-                sort($config['regions']);
-                foreach ($config['regions'] as $region) {
-                    $body .= sprintf("    case %s:\n", \var_export($region, true));
-                }
-                $body .= $dumpConfig($config);
+        foreach ($endpoints['_global'] ?? [] as $partitionName => $config) {
+            if (empty($config['regions'])) {
+                continue;
             }
-            foreach ($endpoints['_default'] ?? [] as $config) {
-                if (empty($config['regions'])) {
-                    continue;
-                }
-                sort($config['regions']);
-                foreach ($config['regions'] as $region) {
-                    $body .= sprintf("    case %s:\n", \var_export($region, true));
-                }
-                $body .= $dumpConfig($config);
-            }
-            ksort($endpoints);
-            foreach ($endpoints as $region => $config) {
-                if ('_' === $region[0]) {
-                    continue; // skip `_default` and `_global`
-                }
+            sort($config['regions']);
+            foreach ($config['regions'] as $region) {
                 $body .= sprintf("    case %s:\n", \var_export($region, true));
-                $body .= $dumpConfig($config);
             }
-            $body .= '}
-                throw new UnsupportedRegion(sprintf(\'The region "%s" is not supported by "' . $definition->getName() . '".\', $region));
-            ';
+            $body .= $dumpConfig($config);
         }
+        foreach ($endpoints['_default'] ?? [] as $config) {
+            if (empty($config['regions'])) {
+                continue;
+            }
+            sort($config['regions']);
+            foreach ($config['regions'] as $region) {
+                $body .= sprintf("    case %s:\n", \var_export($region, true));
+            }
+            $body .= $dumpConfig($config);
+        }
+        ksort($endpoints);
+        foreach ($endpoints as $region => $config) {
+            if ('_' === $region[0]) {
+                continue; // skip `_default` and `_global`
+            }
+            $body .= sprintf("    case %s:\n", \var_export($region, true));
+            $body .= $dumpConfig($config);
+        }
+        $body .= '}
+            throw new UnsupportedRegion(sprintf(\'The region "%s" is not supported by "' . $definition->getName() . '".\', $region));
+        ';
         $namespace->addUse(UnsupportedRegion::class);
 
         $class->addMethod('getEndpointMetadata')

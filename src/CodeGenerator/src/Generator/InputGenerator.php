@@ -115,28 +115,21 @@ class InputGenerator
 
                 if ($listMemberShape instanceof StructureShape) {
                     $memberClassName = $this->objectGenerator->generate($listMemberShape);
-                    $constructorBody .= strtr('$this->NAME = array_map([CLASS::class, "create"], $input["NAME"] ?? []);' . "\n", [
-                        'NAME' => $member->getName(),
-                        'CLASS' => $memberClassName->getName(),
-                    ]);
+                    $constructorBody .= strtr('$this->NAME = array_map([CLASS::class, "create"], $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
                 } elseif ($listMemberShape instanceof ListShape) {
-                    $memberShape = $listMemberShape->getMember()->getShape();
-                    if (!$memberShape instanceof StructureShape) {
-                        throw new \RuntimeException("Deep list shapes that don't end in a structure are not implemented.");
+                    $listMemberShapelevel2 = $listMemberShape->getMember()->getShape();
+                    if ($listMemberShapelevel2 instanceof StructureShape) {
+                        $memberClassName = $this->objectGenerator->generate($listMemberShapelevel2);
+                        $constructorBody .= strtr('$this->NAME = array_map(static function(array $array) {
+                            return array_map([CLASS::class, "create"], $array);
+                        }, $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
+                    } elseif ($listMemberShapelevel2 instanceof ListShape || $listMemberShapelevel2 instanceof MapShape) {
+                        throw new \RuntimeException('Recursive ListShape are not yet implemented');
+                    } else {
+                        $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
                     }
-
-                    $memberClassName = $this->objectGenerator->generate($memberShape);
-                    $namespace->addUse($memberClassName->getFqdn());
-                    $constructorBody .= strtr(
-                        '$this->NAME = [];
-                        foreach ($input["NAME"] ?? [] as $key => $item) {
-                            $this->NAME[$key] = array_map([CLASS::class, "create"], $item);
-                        }' . "\n", [
-                            'NAME' => $member->getName(),
-                            'CLASS' => $memberClassName->getName(),
-                        ]);
                 } elseif ($listMemberShape instanceof MapShape) {
-                    throw new \RuntimeException('Recursive ListShape/MapShape are not yet implemented');
+                    throw new \RuntimeException('Recursive ListShape are not yet implemented');
                 } else {
                     $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
                 }

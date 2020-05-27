@@ -98,7 +98,7 @@ class RestJsonSerializer implements Serializer
 
     protected function dumpArrayBoolean(string $output, string $input, Shape $shape): string
     {
-        return strtr('$payloadOUTPUT = INPUT ? "true" : "false";', [
+        return strtr('$payloadOUTPUT = (bool) INPUT;', [
             'OUTPUT' => $output,
             'INPUT' => $input,
         ]);
@@ -131,13 +131,13 @@ class RestJsonSerializer implements Serializer
         return $name;
     }
 
-    private function dumpArrayElement(string $output, string $input, string $contextProperty, Shape $shape, bool $isRequired = false, int $depth = 0)
+    private function dumpArrayElement(string $output, string $input, string $contextProperty, Shape $shape, bool $isRequired = false)
     {
         switch (true) {
             case $shape instanceof StructureShape:
                 return $this->dumpArrayStructure($output, $input, $shape);
             case $shape instanceof ListShape:
-                return $this->dumpArrayList($output, $input, $contextProperty, $shape, $depth);
+                return $this->dumpArrayList($output, $input, $contextProperty, $shape);
             case $shape instanceof MapShape:
                 return $this->dumpArrayMap($output, $input, $contextProperty, $shape);
         }
@@ -147,7 +147,6 @@ class RestJsonSerializer implements Serializer
             case 'integer':
             case 'long':
             case 'double':
-            case 'array':
                 return $this->dumpArrayScalar($output, $input, $contextProperty, $shape);
             case 'boolean':
                 return $this->dumpArrayBoolean($output, $input, $shape);
@@ -168,23 +167,29 @@ class RestJsonSerializer implements Serializer
         ]);
     }
 
-    private function dumpArrayList(string $output, string $input, string $contextProperty, ListShape $shape, int $depth = 0): string
+    private function dumpArrayList(string $output, string $input, string $contextProperty, ListShape $shape): string
     {
         $memberShape = $shape->getMember()->getShape();
-        $indexVar = $depth > 0 ? "\$index$depth" : '$index';
+        static $counter = -1;
 
-        return strtr('
-            INDEX_VAR = -1;
-            foreach (INPUT as $listValue) {
-                INDEX_VAR++;
-                MEMBER_CODE
-            }
-        ',
-            [
-                'INDEX_VAR' => $indexVar,
-                'INPUT' => $input,
-                'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s[%s]', $output, $indexVar), '$listValue', $contextProperty, $memberShape, true, $depth + 1),
-            ]);
+        try {
+            $counter ++;
+            $cleanCounter = $counter ?: '';
+            return strtr('
+                $indexCOUNTER = -1;
+                foreach (INPUT as $listValueCOUNTER) {
+                    $indexCOUNTER++;
+                    MEMBER_CODE
+                }
+            ',
+                [
+                    'INPUT' => $input,
+                    'COUNTER' => $cleanCounter ?: '',
+                    'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s[$index'.$cleanCounter.']', $output), '$listValue'.$cleanCounter, $contextProperty, $memberShape, true),
+                ]);
+        } finally {
+            $counter --;
+        }
     }
 
     private function dumpArrayMap(string $output, string $input, $contextProperty, MapShape $shape): string

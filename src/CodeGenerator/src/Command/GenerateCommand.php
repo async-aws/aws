@@ -243,7 +243,7 @@ class GenerateCommand extends Command
         }
 
         $managedOperations = \array_unique(\array_merge($manifest['services'][$serviceName]['methods'], $operationNames));
-        $definition = new ServiceDefinition($serviceName, $endpoints, $definitionArray, $documentationArray, $paginationArray, $waiterArray, $exampleArray, $manifest['services'][$serviceName]['arrays'] ?? []);
+        $definition = new ServiceDefinition($serviceName, $endpoints, $definitionArray, $documentationArray, $paginationArray, $waiterArray, $exampleArray);
         $serviceGenerator = $this->generator->service($manifest['services'][$serviceName]['namespace'] ?? \sprintf('AsyncAws\\%s', $serviceName), $managedOperations);
 
         $clientClass = $serviceGenerator->client()->generate($definition);
