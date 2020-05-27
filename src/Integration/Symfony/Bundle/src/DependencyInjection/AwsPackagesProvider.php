@@ -45,6 +45,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\S3\S3Client::class,
                 'package' => 'async-aws/s3',
             ],
+            'simple_s3' => [
+                'class' => \AsyncAws\SimpleS3\SimpleS3Client::class,
+                'package' => 'async-aws/simple-s3',
+            ],
             'ses' => [
                 'class' => \AsyncAws\Ses\SesClient::class,
                 'package' => 'async-aws/ses',
