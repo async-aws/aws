@@ -71,7 +71,7 @@ class ExecuteStatementResponse extends Result
     {
         $data = $response->toArray();
         $fn = [];
-        $fn['list-Metadata'] = function (array $json) use (&$fn): array {
+        $fn['list-Metadata'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new ColumnMetadata([
@@ -94,7 +94,7 @@ class ExecuteStatementResponse extends Result
 
             return $items;
         };
-        $fn['list-FieldList'] = function (array $json) use (&$fn): array {
+        $fn['list-FieldList'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new Field([
@@ -116,7 +116,7 @@ class ExecuteStatementResponse extends Result
 
             return $items;
         };
-        $fn['list-ArrayOfArray'] = function (array $json) use (&$fn): array {
+        $fn['list-ArrayOfArray'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new ArrayValue([
@@ -130,7 +130,7 @@ class ExecuteStatementResponse extends Result
 
             return $items;
         };
-        $fn['list-BooleanArray'] = function (array $json) use (&$fn): array {
+        $fn['list-BooleanArray'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? filter_var($item, \FILTER_VALIDATE_BOOLEAN) : null;
@@ -141,7 +141,7 @@ class ExecuteStatementResponse extends Result
 
             return $items;
         };
-        $fn['list-DoubleArray'] = function (array $json) use (&$fn): array {
+        $fn['list-DoubleArray'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? (float) $item : null;
@@ -152,7 +152,7 @@ class ExecuteStatementResponse extends Result
 
             return $items;
         };
-        $fn['list-LongArray'] = function (array $json) use (&$fn): array {
+        $fn['list-LongArray'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? (string) $item : null;
@@ -163,7 +163,7 @@ class ExecuteStatementResponse extends Result
 
             return $items;
         };
-        $fn['list-StringArray'] = function (array $json) use (&$fn): array {
+        $fn['list-StringArray'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? (string) $item : null;
@@ -174,7 +174,7 @@ class ExecuteStatementResponse extends Result
 
             return $items;
         };
-        $fn['list-SqlRecords'] = function (array $json) use (&$fn): array {
+        $fn['list-SqlRecords'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $a = empty($item) ? [] : $fn['list-FieldList']($item);

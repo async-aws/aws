@@ -46,7 +46,7 @@ class GetItemOutput extends Result
     {
         $data = $response->toArray();
         $fn = [];
-        $fn['map-AttributeMap'] = function (array $json) use (&$fn): array {
+        $fn['map-AttributeMap'] = static function (array $json): array {
             $items = [];
             foreach ($json as $name => $value) {
                 $items[(string) $name] = AttributeValue::create($value);
@@ -54,7 +54,7 @@ class GetItemOutput extends Result
 
             return $items;
         };
-        $fn['map-SecondaryIndexesCapacityMap'] = function (array $json) use (&$fn): array {
+        $fn['map-SecondaryIndexesCapacityMap'] = static function (array $json): array {
             $items = [];
             foreach ($json as $name => $value) {
                 $items[(string) $name] = Capacity::create($value);

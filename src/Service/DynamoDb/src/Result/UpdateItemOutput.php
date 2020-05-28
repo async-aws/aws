@@ -62,7 +62,7 @@ class UpdateItemOutput extends Result
     {
         $data = $response->toArray();
         $fn = [];
-        $fn['map-AttributeMap'] = function (array $json) use (&$fn): array {
+        $fn['map-AttributeMap'] = static function (array $json): array {
             $items = [];
             foreach ($json as $name => $value) {
                 $items[(string) $name] = AttributeValue::create($value);
@@ -70,7 +70,7 @@ class UpdateItemOutput extends Result
 
             return $items;
         };
-        $fn['map-SecondaryIndexesCapacityMap'] = function (array $json) use (&$fn): array {
+        $fn['map-SecondaryIndexesCapacityMap'] = static function (array $json): array {
             $items = [];
             foreach ($json as $name => $value) {
                 $items[(string) $name] = Capacity::create($value);
@@ -78,7 +78,7 @@ class UpdateItemOutput extends Result
 
             return $items;
         };
-        $fn['map-ItemCollectionKeyAttributeMap'] = function (array $json) use (&$fn): array {
+        $fn['map-ItemCollectionKeyAttributeMap'] = static function (array $json): array {
             $items = [];
             foreach ($json as $name => $value) {
                 $items[(string) $name] = AttributeValue::create($value);
@@ -86,7 +86,7 @@ class UpdateItemOutput extends Result
 
             return $items;
         };
-        $fn['list-ItemCollectionSizeEstimateRange'] = function (array $json) use (&$fn): array {
+        $fn['list-ItemCollectionSizeEstimateRange'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? (float) $item : null;

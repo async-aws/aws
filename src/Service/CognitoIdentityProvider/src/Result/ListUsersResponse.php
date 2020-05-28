@@ -116,7 +116,7 @@ class ListUsersResponse extends Result implements \IteratorAggregate
     {
         $data = $response->toArray();
         $fn = [];
-        $fn['list-UsersListType'] = function (array $json) use (&$fn): array {
+        $fn['list-UsersListType'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new UserType([
@@ -132,7 +132,7 @@ class ListUsersResponse extends Result implements \IteratorAggregate
 
             return $items;
         };
-        $fn['list-AttributeListType'] = function (array $json) use (&$fn): array {
+        $fn['list-AttributeListType'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new AttributeType([
@@ -143,7 +143,7 @@ class ListUsersResponse extends Result implements \IteratorAggregate
 
             return $items;
         };
-        $fn['list-MFAOptionListType'] = function (array $json) use (&$fn): array {
+        $fn['list-MFAOptionListType'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new MFAOptionType([

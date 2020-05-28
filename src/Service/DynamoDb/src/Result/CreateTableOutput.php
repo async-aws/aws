@@ -38,7 +38,7 @@ class CreateTableOutput extends Result
     {
         $data = $response->toArray();
         $fn = [];
-        $fn['list-AttributeDefinitions'] = function (array $json) use (&$fn): array {
+        $fn['list-AttributeDefinitions'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new AttributeDefinition([
@@ -49,7 +49,7 @@ class CreateTableOutput extends Result
 
             return $items;
         };
-        $fn['list-KeySchema'] = function (array $json) use (&$fn): array {
+        $fn['list-KeySchema'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new KeySchemaElement([
@@ -60,7 +60,7 @@ class CreateTableOutput extends Result
 
             return $items;
         };
-        $fn['list-LocalSecondaryIndexDescriptionList'] = function (array $json) use (&$fn): array {
+        $fn['list-LocalSecondaryIndexDescriptionList'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new LocalSecondaryIndexDescription([
@@ -78,7 +78,7 @@ class CreateTableOutput extends Result
 
             return $items;
         };
-        $fn['list-NonKeyAttributeNameList'] = function (array $json) use (&$fn): array {
+        $fn['list-NonKeyAttributeNameList'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? (string) $item : null;
@@ -89,7 +89,7 @@ class CreateTableOutput extends Result
 
             return $items;
         };
-        $fn['list-GlobalSecondaryIndexDescriptionList'] = function (array $json) use (&$fn): array {
+        $fn['list-GlobalSecondaryIndexDescriptionList'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new GlobalSecondaryIndexDescription([
@@ -116,7 +116,7 @@ class CreateTableOutput extends Result
 
             return $items;
         };
-        $fn['list-ReplicaDescriptionList'] = function (array $json) use (&$fn): array {
+        $fn['list-ReplicaDescriptionList'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new ReplicaDescription([
@@ -134,7 +134,7 @@ class CreateTableOutput extends Result
 
             return $items;
         };
-        $fn['list-ReplicaGlobalSecondaryIndexDescriptionList'] = function (array $json) use (&$fn): array {
+        $fn['list-ReplicaGlobalSecondaryIndexDescriptionList'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new ReplicaGlobalSecondaryIndexDescription([

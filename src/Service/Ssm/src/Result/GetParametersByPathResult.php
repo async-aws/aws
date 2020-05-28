@@ -113,7 +113,7 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
     {
         $data = $response->toArray();
         $fn = [];
-        $fn['list-ParameterList'] = function (array $json) use (&$fn): array {
+        $fn['list-ParameterList'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new Parameter([

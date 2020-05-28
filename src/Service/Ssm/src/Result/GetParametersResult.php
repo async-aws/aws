@@ -42,7 +42,7 @@ class GetParametersResult extends Result
     {
         $data = $response->toArray();
         $fn = [];
-        $fn['list-ParameterList'] = function (array $json) use (&$fn): array {
+        $fn['list-ParameterList'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new Parameter([
@@ -60,7 +60,7 @@ class GetParametersResult extends Result
 
             return $items;
         };
-        $fn['list-ParameterNameList'] = function (array $json) use (&$fn): array {
+        $fn['list-ParameterNameList'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? (string) $item : null;

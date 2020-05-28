@@ -110,7 +110,7 @@ class DescribeLogStreamsResponse extends Result implements \IteratorAggregate
     {
         $data = $response->toArray();
         $fn = [];
-        $fn['list-LogStreams'] = function (array $json) use (&$fn): array {
+        $fn['list-LogStreams'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new LogStream([

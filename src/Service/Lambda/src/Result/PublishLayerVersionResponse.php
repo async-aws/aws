@@ -114,7 +114,7 @@ class PublishLayerVersionResponse extends Result
     {
         $data = $response->toArray();
         $fn = [];
-        $fn['list-CompatibleRuntimes'] = function (array $json) use (&$fn): array {
+        $fn['list-CompatibleRuntimes'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? (string) $item : null;

@@ -114,7 +114,7 @@ class ListTablesOutput extends Result implements \IteratorAggregate
     {
         $data = $response->toArray();
         $fn = [];
-        $fn['list-TableNameList'] = function (array $json) use (&$fn): array {
+        $fn['list-TableNameList'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? (string) $item : null;

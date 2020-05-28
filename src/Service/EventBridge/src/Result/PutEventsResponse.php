@@ -40,7 +40,7 @@ class PutEventsResponse extends Result
     {
         $data = $response->toArray();
         $fn = [];
-        $fn['list-PutEventsResultEntryList'] = function (array $json) use (&$fn): array {
+        $fn['list-PutEventsResultEntryList'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new PutEventsResultEntry([

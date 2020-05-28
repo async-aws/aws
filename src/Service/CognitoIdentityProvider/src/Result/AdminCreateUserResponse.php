@@ -26,7 +26,7 @@ class AdminCreateUserResponse extends Result
     {
         $data = $response->toArray();
         $fn = [];
-        $fn['list-AttributeListType'] = function (array $json) use (&$fn): array {
+        $fn['list-AttributeListType'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new AttributeType([
@@ -37,7 +37,7 @@ class AdminCreateUserResponse extends Result
 
             return $items;
         };
-        $fn['list-MFAOptionListType'] = function (array $json) use (&$fn): array {
+        $fn['list-MFAOptionListType'] = static function (array $json): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new MFAOptionType([
