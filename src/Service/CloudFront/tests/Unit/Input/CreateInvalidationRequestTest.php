@@ -11,7 +11,6 @@ class CreateInvalidationRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-
         $input = new CreateInvalidationRequest([
             'DistributionId' => 'DistributionId',
             'InvalidationBatch' => new InvalidationBatch([
@@ -23,7 +22,6 @@ class CreateInvalidationRequestTest extends TestCase
             ]),
         ]);
 
-        // see https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateInvalidation2019_03_26.html
         $expected = '
 POST /2019-03-26/distribution/DistributionId/invalidation HTTP/1.1
 Content-Type: application/xml

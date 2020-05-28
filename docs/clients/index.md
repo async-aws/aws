@@ -136,6 +136,7 @@ for more information.
 | Api Client                                  | Package name
 |---------------------------------------------|-------------
 | [CloudFormation](./cf.md)                   | [async-aws/cloud-formation](https://packagist.org/packages/async-aws/cloud-formation)
+| CloudFront                                  | [async-aws/cloud-front](https://packagist.org/packages/async-aws/cloud-front)
 | [CloudWatchLogs](./cloud-watch-logs.md)     | [async-aws/cloud-watch-logs](https://packagist.org/packages/async-aws/cloud-watch-logs)
 | CodeDeploy                                  | [async-aws/code-deploy](https://packagist.org/packages/async-aws/code-deploy)
 | [CognitoIdentityProvider](./cognito-idp.md) | [async-aws/cognito-identity-provider](https://packagist.org/packages/async-aws/cognito-identity-provider)
