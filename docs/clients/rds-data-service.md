@@ -24,7 +24,7 @@ $response = $client->executeStatement([
 ]);
 
 foreach ($response->getRecords() as $record) {
-    echo "name: " . reset($record[0]) . PHP_EOL;
+    echo "name: " . $record[0]->getStringValue() . PHP_EOL;
 }
 ```
 
@@ -58,7 +58,7 @@ try {
         throw new \RuntimeException("User 5 not found.");
     }
 
-    $newAge = $user[0]['longValue'] + 1;
+    $newAge = $user[0]->getLongValue() + 1;
     $client->executeStatement($database + [
         'transaction' => $transaction->getTransactionId(),
         'sql' => 'UPDATE users SET age = :new_age WHERE id = :id',
