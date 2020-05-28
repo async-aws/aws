@@ -15,6 +15,16 @@
                 "DescribeStacks"
             ]
         },
+        "CloudFront": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cloudfront/2019-03-26/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cloudfront/2019-03-26/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cloudfront/2019-03-26/paginators-1.json",
+            "waiter": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cloudfront/2019-03-26/waiters-2.json",
+            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cloudfront/2019-03-26/examples-1.json",
+            "methods": [
+                "CreateInvalidation"
+            ]
+        },
         "CloudWatchLogs": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/logs/2014-03-28/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/logs/2014-03-28/docs-2.json",
