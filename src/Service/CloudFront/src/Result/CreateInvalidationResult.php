@@ -53,7 +53,7 @@ class CreateInvalidationResult extends Result
                         foreach ($xml->Path as $item) {
                             $a = ($v = $item) ? (string) $v : null;
                             if (null !== $a) {
-                                $items[] = $a;
+                        $items[] = $a;
                             }
                         }
 
