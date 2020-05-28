@@ -176,7 +176,7 @@ class ScanOutput extends Result implements \IteratorAggregate
 
             return $items;
         };
-        $fn[FUNCTION_KEY] = function (array $json) use (&$fn): array {
+        $fn['map-AttributeMap'] = function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $name => $value) {
                 $items[(string) $name] = AttributeValue::create($value);
@@ -184,7 +184,7 @@ class ScanOutput extends Result implements \IteratorAggregate
 
             return $items;
         };
-        $fn[FUNCTION_KEY] = function (array $json) use (&$fn): array {
+        $fn['map-Key'] = function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $name => $value) {
                 $items[(string) $name] = AttributeValue::create($value);
@@ -192,7 +192,7 @@ class ScanOutput extends Result implements \IteratorAggregate
 
             return $items;
         };
-        $fn[FUNCTION_KEY] = function (array $json) use (&$fn): array {
+        $fn['map-SecondaryIndexesCapacityMap'] = function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $name => $value) {
                 $items[(string) $name] = Capacity::create($value);

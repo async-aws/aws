@@ -264,6 +264,7 @@ class RestJsonParser implements Parser
                     };';
 
                     $this->functions[$keyName] = strtr($body, [
+                        'FUNCTION_KEY' => \var_export($keyName, true),
                         'CLASS' => $shape->getValue()->getShape()->getName(),
                     ]);
                 } else {
@@ -310,6 +311,7 @@ class RestJsonParser implements Parser
                 }
 
                 $this->functions[$keyName] = strtr($body, [
+                    'FUNCTION_KEY' => \var_export($keyName, true),
                     'MAP_KEY' => var_export($locationName, true),
                     'MAP_ACCESSOR' => $this->parseElement(sprintf('$item[\'%s\']', $inputAccessorName), $shapeValue->getShape(), false),
                 ]);
