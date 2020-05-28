@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Generator\RequestSerializer;
 
 use AsyncAws\CodeGenerator\Definition\Operation;
-use AsyncAws\CodeGenerator\Definition\Shape;
 
 /**
  * Serialize to AWS json.

@@ -59,7 +59,7 @@ class RestJsonParser implements Parser
             $body .= strtr('$data = $data[WRAPPER];' . "\n", ['WRAPPER' => var_export($wrapper, true)]);
         }
         if (!empty($this->functions)) {
-            $body .= '$fn = [];'.\implode("\n", $this->functions);
+            $body .= '$fn = [];' . \implode("\n", $this->functions);
         }
         $body .= "\n" . implode("\n", $properties);
 
@@ -200,7 +200,7 @@ class RestJsonParser implements Parser
     private function parseResponseList(ListShape $shape, string $input, bool $required): string
     {
         $shapeMember = $shape->getMember();
-        $keyName = 'list-'.$shape->getName();
+        $keyName = 'list-' . $shape->getName();
         if (!isset($this->functions[$keyName])) {
             // prevent recursion
             $this->functions[$keyName] = true;
@@ -246,7 +246,7 @@ class RestJsonParser implements Parser
     private function parseResponseMap(MapShape $shape, string $input, bool $required): string
     {
         $shapeValue = $shape->getValue();
-        $keyName = 'map-'.$shape->getName();
+        $keyName = 'map-' . $shape->getName();
         if (!isset($this->functions[$keyName])) {
             // prevent recursion
             $this->functions[$keyName] = true;

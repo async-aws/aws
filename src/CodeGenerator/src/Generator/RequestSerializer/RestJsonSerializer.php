@@ -173,8 +173,9 @@ class RestJsonSerializer implements Serializer
         static $counter = -1;
 
         try {
-            $counter ++;
+            ++$counter;
             $cleanCounter = $counter ?: '';
+
             return strtr('
                 $indexCOUNTER = -1;
                 foreach (INPUT as $listValueCOUNTER) {
@@ -185,10 +186,10 @@ class RestJsonSerializer implements Serializer
                 [
                     'INPUT' => $input,
                     'COUNTER' => $cleanCounter ?: '',
-                    'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s[$index'.$cleanCounter.']', $output), '$listValue'.$cleanCounter, $contextProperty, $memberShape, true),
+                    'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s[$index' . $cleanCounter . ']', $output), '$listValue' . $cleanCounter, $contextProperty, $memberShape, true),
                 ]);
         } finally {
-            $counter --;
+            --$counter;
         }
     }
 
