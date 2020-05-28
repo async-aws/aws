@@ -28,6 +28,7 @@ class BatchExecuteStatementResponse extends Result
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
+        /** @var callable[] */
         $fn = [];
         $fn['list-UpdateResults'] = static function (array $json) use (&$fn): array {
             $items = [];

@@ -164,6 +164,7 @@ class QueryOutput extends Result implements \IteratorAggregate
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
+        /** @var callable[] */
         $fn = [];
         $fn['list-ItemList'] = static function (array $json) use (&$fn): array {
             $items = [];

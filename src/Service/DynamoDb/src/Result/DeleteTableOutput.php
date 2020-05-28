@@ -37,6 +37,7 @@ class DeleteTableOutput extends Result
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
+        /** @var callable[] */
         $fn = [];
         $fn['list-AttributeDefinitions'] = static function (array $json): array {
             $items = [];

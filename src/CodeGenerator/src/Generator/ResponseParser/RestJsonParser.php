@@ -59,6 +59,7 @@ class RestJsonParser implements Parser
             $body .= strtr('$data = $data[WRAPPER];' . "\n", ['WRAPPER' => var_export($wrapper, true)]);
         }
         if (!empty($this->functions)) {
+            $body .= '/** @var callable[] */' . "\n";
             $body .= '$fn = [];' . \implode("\n", $this->functions);
         }
         $body .= "\n" . implode("\n", $properties);
