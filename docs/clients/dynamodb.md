@@ -15,6 +15,7 @@ use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Input\CreateTableInput;
 use AsyncAws\DynamoDb\Input\DescribeTableInput;
 use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
+use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput;
 
 $dynamoDb = new DynamoDbClient();
@@ -26,8 +27,8 @@ $dynamoDb->createTable(new CreateTableInput([
             new AttributeDefinition(['AttributeName' => 'time', 'AttributeType' => 'N']),
         ],
         'KeySchema' => [
-            new AttributeDefinition(['AttributeName' => 'id', 'KeyType' => 'HASH']),
-            new AttributeDefinition(['AttributeName' => 'time', 'KeyType' => 'RANGE']),
+            new KeySchemaElement(['AttributeName' => 'id', 'KeyType' => 'HASH']),
+            new KeySchemaElement(['AttributeName' => 'time', 'KeyType' => 'RANGE']),
         ],
         'ProvisionedThroughput' => new ProvisionedThroughput([
             'ReadCapacityUnits' => 10,
