@@ -17,19 +17,19 @@ class CloudFrontClientTest extends TestCase
     {
         $client = new CloudFrontClient([], new NullProvider(), new MockHttpClient());
 
-                        $input = new CreateInvalidationRequest([
-                            'DistributionId' => 'change me',
-        'InvalidationBatch' => new InvalidationBatch([
-                            'Paths' => new Paths([
-                            'Quantity' => 1337,
+        $input = new CreateInvalidationRequest([
+            'DistributionId' => 'change me',
+            'InvalidationBatch' => new InvalidationBatch([
+                'Paths' => new Paths([
+                    'Quantity' => 1337,
 
-                        ]),
-        'CallerReference' => 'change me',
-                        ]),
-                        ]);
-                        $result = $client->CreateInvalidation2019_03_26($input);
+                ]),
+                'CallerReference' => 'change me',
+            ]),
+        ]);
+        $result = $client->CreateInvalidation2019_03_26($input);
 
-                        self::assertInstanceOf(CreateInvalidationResult::class, $result);
-                        self::assertFalse($result->info()['resolved']);
+        self::assertInstanceOf(CreateInvalidationResult::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 }

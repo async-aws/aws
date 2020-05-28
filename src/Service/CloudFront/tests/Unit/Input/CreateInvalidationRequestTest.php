@@ -11,27 +11,35 @@ class CreateInvalidationRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
 
-                $input = new CreateInvalidationRequest([
-                            'DistributionId' => 'change me',
-        'InvalidationBatch' => new InvalidationBatch([
-                            'Paths' => new Paths([
-                            'Quantity' => 1337,
-        'Items' => ['change me'],
-                        ]),
-        'CallerReference' => 'change me',
-                        ]),
-                        ]);
+        $input = new CreateInvalidationRequest([
+            'DistributionId' => 'DistributionId',
+            'InvalidationBatch' => new InvalidationBatch([
+                'Paths' => new Paths([
+                    'Quantity' => 1337,
+                    'Items' => ['all/images'],
+                ]),
+                'CallerReference' => 'abc',
+            ]),
+        ]);
 
-                // see https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateInvalidation2019_03_26.html
-                $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/xml
+        // see https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateInvalidation2019_03_26.html
+        $expected = '
+POST /2019-03-26/distribution/DistributionId/invalidation HTTP/1.1
+Content-Type: application/xml
 
-            <change>it</change>
+<?xml version="1.0" encoding="UTF-8"?>
+<InvalidationBatch xmlns="http://cloudfront.amazonaws.com/doc/2019-03-26/">
+   <Paths>
+      <Quantity>1337</Quantity>
+      <Items>
+         <Path>all/images</Path>
+      </Items>
+   </Paths>
+   <CallerReference>abc</CallerReference>
+</InvalidationBatch>
                 ';
 
-                self::assertRequestEqualsHttpRequest($expected, $input->request());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

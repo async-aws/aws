@@ -11,34 +11,34 @@ use AsyncAws\Core\Test\TestCase;
 
 class CloudFrontClientTest extends TestCase
 {
-    private function getClient(): CloudFrontClient
-    {
-        self::fail('Not implemented');
-
-            return new CloudFrontClient([
-                'endpoint' => 'http://localhost',
-            ], new NullProvider());
-    }
-
     public function testCreateInvalidation2019_03_26(): void
     {
         $client = $this->getClient();
 
-                        $input = new CreateInvalidationRequest([
-                            'DistributionId' => 'change me',
-        'InvalidationBatch' => new InvalidationBatch([
-                            'Paths' => new Paths([
-                            'Quantity' => 1337,
-        'Items' => ['change me'],
-                        ]),
-        'CallerReference' => 'change me',
-                        ]),
-                        ]);
-                        $result = $client->CreateInvalidation2019_03_26($input);
+        $input = new CreateInvalidationRequest([
+            'DistributionId' => 'change me',
+            'InvalidationBatch' => new InvalidationBatch([
+                'Paths' => new Paths([
+                    'Quantity' => 1337,
+                    'Items' => ['change me'],
+                ]),
+                'CallerReference' => 'change me',
+            ]),
+        ]);
+        $result = $client->CreateInvalidation2019_03_26($input);
 
-                        $result->resolve();
+        $result->resolve();
 
-                        self::assertSame("changeIt", $result->getLocation());
+        self::assertSame('changeIt', $result->getLocation());
         // self::assertTODO(expected, $result->getInvalidation());
+    }
+
+    private function getClient(): CloudFrontClient
+    {
+        self::fail('Not implemented');
+
+        return new CloudFrontClient([
+            'endpoint' => 'http://localhost',
+        ], new NullProvider());
     }
 }
