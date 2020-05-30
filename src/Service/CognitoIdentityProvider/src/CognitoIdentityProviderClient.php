@@ -5,6 +5,7 @@ namespace AsyncAws\CognitoIdentityProvider;
 use AsyncAws\CognitoIdentityProvider\Input\AdminCreateUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminDeleteUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminGetUserRequest;
+use AsyncAws\CognitoIdentityProvider\Input\AdminInitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminUpdateUserAttributesRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
@@ -13,6 +14,7 @@ use AsyncAws\CognitoIdentityProvider\Input\SetUserMFAPreferenceRequest;
 use AsyncAws\CognitoIdentityProvider\Input\VerifySoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Result\AdminCreateUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminGetUserResponse;
+use AsyncAws\CognitoIdentityProvider\Result\AdminInitiateAuthResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminUpdateUserAttributesResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AssociateSoftwareTokenResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ChangePasswordResponse;
@@ -90,6 +92,30 @@ class CognitoIdentityProviderClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminGetUser', 'region' => $input->getRegion()]));
 
         return new AdminGetUserResponse($response);
+    }
+
+    /**
+     * Initiates the authentication flow, as an administrator.
+     *
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#admininitiateauth
+     *
+     * @param array{
+     *   UserPoolId: string,
+     *   ClientId: string,
+     *   AuthFlow: \AsyncAws\CognitoIdentityProvider\Enum\AuthFlowType::*,
+     *   AuthParameters?: array<string, string>,
+     *   ClientMetadata?: array<string, string>,
+     *   AnalyticsMetadata?: \AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType|array,
+     *   ContextData?: \AsyncAws\CognitoIdentityProvider\ValueObject\ContextDataType|array,
+     *   @region?: string,
+     * }|AdminInitiateAuthRequest $input
+     */
+    public function adminInitiateAuth($input): AdminInitiateAuthResponse
+    {
+        $input = AdminInitiateAuthRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminInitiateAuth', 'region' => $input->getRegion()]));
+
+        return new AdminInitiateAuthResponse($response);
     }
 
     /**

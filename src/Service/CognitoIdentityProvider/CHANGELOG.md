@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Add operation `adminInitiateAuth`
+
 ## 0.2.0
 
 ### Removed

@@ -3,9 +3,11 @@
 namespace AsyncAws\CognitoIdentityProvider\Tests\Unit;
 
 use AsyncAws\CognitoIdentityProvider\CognitoIdentityProviderClient;
+use AsyncAws\CognitoIdentityProvider\Enum\AuthFlowType;
 use AsyncAws\CognitoIdentityProvider\Input\AdminCreateUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminDeleteUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminGetUserRequest;
+use AsyncAws\CognitoIdentityProvider\Input\AdminInitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminUpdateUserAttributesRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
@@ -14,6 +16,7 @@ use AsyncAws\CognitoIdentityProvider\Input\SetUserMFAPreferenceRequest;
 use AsyncAws\CognitoIdentityProvider\Input\VerifySoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Result\AdminCreateUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminGetUserResponse;
+use AsyncAws\CognitoIdentityProvider\Result\AdminInitiateAuthResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminUpdateUserAttributesResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AssociateSoftwareTokenResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ChangePasswordResponse;
@@ -68,6 +71,22 @@ class CognitoIdentityProviderClientTest extends TestCase
         $result = $client->AdminGetUser($input);
 
         self::assertInstanceOf(AdminGetUserResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testAdminInitiateAuth(): void
+    {
+        $client = new CognitoIdentityProviderClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new AdminInitiateAuthRequest([
+            'UserPoolId' => 'change me',
+            'ClientId' => 'change me',
+            'AuthFlow' => AuthFlowType::CUSTOM_AUTH,
+
+        ]);
+        $result = $client->AdminInitiateAuth($input);
+
+        self::assertInstanceOf(AdminInitiateAuthResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 

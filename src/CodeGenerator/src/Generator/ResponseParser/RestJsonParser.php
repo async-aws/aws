@@ -255,6 +255,25 @@ class RestJsonParser implements Parser
                     'INPUT' => $input,
                 ]);
             }
+            switch ($shapeValue->getShape()->getType()) {
+                case 'string':
+                    $body = '(function(array $json): array {
+                        $items = [];
+                        foreach ($json as $name => $value) {
+                           $items[(string) $name] = (string) $value;
+                        }
+
+                        return $items;
+                    })(INPUT)';
+
+                    if (!$required) {
+                        $body = 'empty(INPUT) ? [] : ' . $body;
+                    }
+
+                    return strtr($body, [
+                        'INPUT' => $input,
+                    ]);
+            }
 
             // Allow recursive calls
             throw new \RuntimeException('Not supported yet');

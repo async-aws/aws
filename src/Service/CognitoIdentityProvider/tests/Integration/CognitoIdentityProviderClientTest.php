@@ -6,13 +6,17 @@ use AsyncAws\CognitoIdentityProvider\CognitoIdentityProviderClient;
 use AsyncAws\CognitoIdentityProvider\Input\AdminCreateUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminDeleteUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminGetUserRequest;
+use AsyncAws\CognitoIdentityProvider\Input\AdminInitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminUpdateUserAttributesRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ListUsersRequest;
 use AsyncAws\CognitoIdentityProvider\Input\SetUserMFAPreferenceRequest;
 use AsyncAws\CognitoIdentityProvider\Input\VerifySoftwareTokenRequest;
+use AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType;
+use AsyncAws\CognitoIdentityProvider\ValueObject\ContextDataType;
+use AsyncAws\CognitoIdentityProvider\ValueObject\HttpHeader;
 use AsyncAws\CognitoIdentityProvider\ValueObject\SMSMfaSettingsType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\SoftwareTokenMfaSettingsType;
 use AsyncAws\Core\Credentials\NullProvider;
@@ -82,6 +86,40 @@ class CognitoIdentityProviderClientTest extends TestCase
         // self::assertTODO(expected, $result->getMFAOptions());
         self::assertSame('changeIt', $result->getPreferredMfaSetting());
         // self::assertTODO(expected, $result->getUserMFASettingList());
+    }
+
+    public function testAdminInitiateAuth(): void
+    {
+        $client = $this->getClient();
+
+        $input = new AdminInitiateAuthRequest([
+            'UserPoolId' => 'change me',
+            'ClientId' => 'change me',
+            'AuthFlow' => 'change me',
+            'AuthParameters' => ['change me' => 'change me'],
+            'ClientMetadata' => ['change me' => 'change me'],
+            'AnalyticsMetadata' => new AnalyticsMetadataType([
+                'AnalyticsEndpointId' => 'change me',
+            ]),
+            'ContextData' => new ContextDataType([
+                'IpAddress' => 'change me',
+                'ServerName' => 'change me',
+                'ServerPath' => 'change me',
+                'HttpHeaders' => [new HttpHeader([
+                    'headerName' => 'change me',
+                    'headerValue' => 'change me',
+                ])],
+                'EncodedData' => 'change me',
+            ]),
+        ]);
+        $result = $client->AdminInitiateAuth($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getChallengeName());
+        self::assertSame('changeIt', $result->getSession());
+        // self::assertTODO(expected, $result->getChallengeParameters());
+        // self::assertTODO(expected, $result->getAuthenticationResult());
     }
 
     public function testAdminUpdateUserAttributes(): void

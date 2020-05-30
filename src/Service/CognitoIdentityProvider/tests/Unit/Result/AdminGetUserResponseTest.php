@@ -14,7 +14,7 @@ class AdminGetUserResponseTest extends TestCase
 {
     public function testAdminGetUserResponse(): void
     {
-        // see https://docs.aws.amazon.com/cognitoidentityprovider/latest/APIReference/API_AdminGetUser.html
+        // see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminGetUser.html
         $response = new SimpleMockedResponse('{
             "Enabled": false,
             "MFAOptions": [
