@@ -59,7 +59,6 @@ class RestJsonParser implements Parser
             $body .= strtr('$data = $data[WRAPPER];' . "\n", ['WRAPPER' => var_export($wrapper, true)]);
         }
         if (!empty($this->functions)) {
-            $body .= '/** @var callable[] */' . "\n";
             $body .= '$fn = [];' . \implode("\n", $this->functions);
         }
         $body .= "\n" . implode("\n", $properties);
@@ -208,7 +207,7 @@ class RestJsonParser implements Parser
 
             if ($shapeMember->getShape() instanceof StructureShape) {
                 $listAccessorRequired = true;
-                $body = '$fn[FUNCTION_KEY] = static function(array $json)USE_STATEMENT: array {
+                $body = '$fn[FUNCTION_KEY] = static function(array $json) use (&$fn): array {
                     $items = [];
                     foreach (INPUT_PROPERTY as $item) {
                        $items[] = LIST_ACCESSOR;
@@ -218,7 +217,7 @@ class RestJsonParser implements Parser
                 };';
             } else {
                 $listAccessorRequired = false;
-                $body = '$fn[FUNCTION_KEY] = static function(array $json)USE_STATEMENT: array {
+                $body = '$fn[FUNCTION_KEY] = static function(array $json) use (&$fn): array {
                     $items = [];
                     foreach (INPUT_PROPERTY as $item) {
                         $a = LIST_ACCESSOR;
@@ -231,12 +230,9 @@ class RestJsonParser implements Parser
                 };';
             }
 
-            $accessor = $this->parseElement('$item', $shapeMember->getShape(), $listAccessorRequired);
-            $useStatement = preg_match('#\W\$fn\W#', $accessor) ? ' use (&$fn)' : '';
             $this->functions[$keyName] = strtr($body, [
                 'FUNCTION_KEY' => \var_export($keyName, true),
-                'LIST_ACCESSOR' => $accessor,
-                'USE_STATEMENT' => $useStatement,
+                'LIST_ACCESSOR' => $this->parseElement('$item', $shapeMember->getShape(), $listAccessorRequired),
                 'INPUT_PROPERTY' => $shape->isFlattened() ? '$json' : '$json' . ($shapeMember->getLocationName() ? '->' . $shapeMember->getLocationName() : ''),
             ]);
         }
@@ -292,7 +288,7 @@ class RestJsonParser implements Parser
             } else {
                 $inputAccessorName = $this->getInputAccessorName($shapeValue);
                 if ($shapeValue->getShape() instanceof StructureShape) {
-                    $body = '$fn[FUNCTION_KEY] = static function(array $json)USE_STATEMENT: array {
+                    $body = '$fn[FUNCTION_KEY] = static function(array $json) use (&$fn): array {
                         $items = [];
                         foreach ($json as $item) {
                             $items[$item[MAP_KEY]] = MAP_ACCESSOR;
@@ -301,7 +297,7 @@ class RestJsonParser implements Parser
                         return $items;
                     };';
                 } else {
-                    $body = '$fn[FUNCTION_KEY] = function(array $json)USE_STATEMENT: array {
+                    $body = '$fn[FUNCTION_KEY] = function(array $json) use (&$fn): array {
                         $items = [];
                         foreach ($json as $item) {
                             $a = MAP_ACCESSOR;
@@ -314,13 +310,10 @@ class RestJsonParser implements Parser
                     };';
                 }
 
-                $accessor = $this->parseElement(sprintf('$item[\'%s\']', $inputAccessorName), $shapeValue->getShape(), false);
-                $useStatement = preg_match('#\W\$fn\W#', $accessor) ? ' use (&$fn)' : '';
                 $this->functions[$keyName] = strtr($body, [
                     'FUNCTION_KEY' => \var_export($keyName, true),
                     'MAP_KEY' => var_export($locationName, true),
-                    'MAP_ACCESSOR' => $accessor,
-                    'USE_STATEMENT' => $useStatement,
+                    'MAP_ACCESSOR' => $this->parseElement(sprintf('$item[\'%s\']', $inputAccessorName), $shapeValue->getShape(), false),
                 ]);
             }
         }

@@ -41,9 +41,8 @@ class GetParametersResult extends Result
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        /** @var callable[] */
         $fn = [];
-        $fn['list-ParameterList'] = static function (array $json): array {
+        $fn['list-ParameterList'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new Parameter([
@@ -61,7 +60,7 @@ class GetParametersResult extends Result
 
             return $items;
         };
-        $fn['list-ParameterNameList'] = static function (array $json): array {
+        $fn['list-ParameterNameList'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? (string) $item : null;

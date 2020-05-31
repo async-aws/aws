@@ -37,9 +37,8 @@ class DeleteTableOutput extends Result
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        /** @var callable[] */
         $fn = [];
-        $fn['list-AttributeDefinitions'] = static function (array $json): array {
+        $fn['list-AttributeDefinitions'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new AttributeDefinition([
@@ -50,7 +49,7 @@ class DeleteTableOutput extends Result
 
             return $items;
         };
-        $fn['list-KeySchema'] = static function (array $json): array {
+        $fn['list-KeySchema'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new KeySchemaElement([
@@ -79,7 +78,7 @@ class DeleteTableOutput extends Result
 
             return $items;
         };
-        $fn['list-NonKeyAttributeNameList'] = static function (array $json): array {
+        $fn['list-NonKeyAttributeNameList'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? (string) $item : null;
@@ -135,7 +134,7 @@ class DeleteTableOutput extends Result
 
             return $items;
         };
-        $fn['list-ReplicaGlobalSecondaryIndexDescriptionList'] = static function (array $json): array {
+        $fn['list-ReplicaGlobalSecondaryIndexDescriptionList'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new ReplicaGlobalSecondaryIndexDescription([

@@ -112,7 +112,6 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        /** @var callable[] */
         $fn = [];
         $fn['list-LayerVersionsList'] = static function (array $json) use (&$fn): array {
             $items = [];
@@ -129,7 +128,7 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
 
             return $items;
         };
-        $fn['list-CompatibleRuntimes'] = static function (array $json): array {
+        $fn['list-CompatibleRuntimes'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? (string) $item : null;

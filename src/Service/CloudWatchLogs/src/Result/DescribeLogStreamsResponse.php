@@ -109,9 +109,8 @@ class DescribeLogStreamsResponse extends Result implements \IteratorAggregate
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        /** @var callable[] */
         $fn = [];
-        $fn['list-LogStreams'] = static function (array $json): array {
+        $fn['list-LogStreams'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new LogStream([

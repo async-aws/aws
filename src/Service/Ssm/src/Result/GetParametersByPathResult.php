@@ -112,9 +112,8 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        /** @var callable[] */
         $fn = [];
-        $fn['list-ParameterList'] = static function (array $json): array {
+        $fn['list-ParameterList'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new Parameter([

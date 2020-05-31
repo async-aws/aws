@@ -70,9 +70,8 @@ class ExecuteStatementResponse extends Result
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        /** @var callable[] */
         $fn = [];
-        $fn['list-Metadata'] = static function (array $json): array {
+        $fn['list-Metadata'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new ColumnMetadata([
@@ -131,7 +130,7 @@ class ExecuteStatementResponse extends Result
 
             return $items;
         };
-        $fn['list-BooleanArray'] = static function (array $json): array {
+        $fn['list-BooleanArray'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? filter_var($item, \FILTER_VALIDATE_BOOLEAN) : null;
@@ -142,7 +141,7 @@ class ExecuteStatementResponse extends Result
 
             return $items;
         };
-        $fn['list-DoubleArray'] = static function (array $json): array {
+        $fn['list-DoubleArray'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? (float) $item : null;
@@ -153,7 +152,7 @@ class ExecuteStatementResponse extends Result
 
             return $items;
         };
-        $fn['list-LongArray'] = static function (array $json): array {
+        $fn['list-LongArray'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? (string) $item : null;
@@ -164,7 +163,7 @@ class ExecuteStatementResponse extends Result
 
             return $items;
         };
-        $fn['list-StringArray'] = static function (array $json): array {
+        $fn['list-StringArray'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? (string) $item : null;

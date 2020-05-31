@@ -61,7 +61,6 @@ class PutItemOutput extends Result
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        /** @var callable[] */
         $fn = [];
         $fn['map-AttributeMap'] = static function (array $json): array {
             $items = [];
@@ -87,7 +86,7 @@ class PutItemOutput extends Result
 
             return $items;
         };
-        $fn['list-ItemCollectionSizeEstimateRange'] = static function (array $json): array {
+        $fn['list-ItemCollectionSizeEstimateRange'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? (float) $item : null;

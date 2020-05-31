@@ -45,7 +45,6 @@ class GetItemOutput extends Result
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        /** @var callable[] */
         $fn = [];
         $fn['map-AttributeMap'] = static function (array $json): array {
             $items = [];
