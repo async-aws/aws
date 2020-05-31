@@ -1,7 +1,7 @@
 ---
 layout: client
 category: clients
-name: RDSDataService
+name: RdsDataService
 package: async-aws/rds-data-service
 ---
 
@@ -10,9 +10,9 @@ package: async-aws/rds-data-service
 ### Execute an sql statement
 
 ```php
-use AsyncAws\RDSDataService\RDSDataServiceClient;
+use AsyncAws\RdsDataService\RdsDataServiceClient;
 
-$client = new RDSDataServiceClient();
+$client = new RdsDataServiceClient();
 $response = $client->executeStatement([
     'database' => 'my_database',
     'resourceArn' => 'arn:resource',
@@ -33,7 +33,7 @@ foreach ($response->getRecords() as $record) {
 
 ```php
 
-use AsyncAws\RDSDataService\RDSDataServiceClient;
+use AsyncAws\RdsDataService\RdsDataServiceClient;
 
 $database = [
     'database' => 'my_database',
@@ -41,7 +41,7 @@ $database = [
     'secretArt' => 'arn:secret',
 ];
 
-$client = new RDSDataServiceClient();
+$client = new RdsDataServiceClient();
 $transaction = $client->beginTransaction($database);
 
 try {

@@ -46,7 +46,7 @@ class AwsPackagesProvider
                 'package' => 'async-aws/lambda',
             ],
             'rds_data_service' => [
-                'class' => \AsyncAws\RDSDataService\RDSDataServiceClient::class,
+                'class' => \AsyncAws\RdsDataService\RdsDataServiceClient::class,
                 'package' => 'async-aws/rds-data-service',
             ],
             's3' => [
