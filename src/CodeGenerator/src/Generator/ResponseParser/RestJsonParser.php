@@ -255,28 +255,24 @@ class RestJsonParser implements Parser
                     'INPUT' => $input,
                 ]);
             }
-            switch ($shapeValue->getShape()->getType()) {
-                case 'string':
-                    $body = '(function(array $json): array {
-                        $items = [];
-                        foreach ($json as $name => $value) {
-                           $items[(string) $name] = (string) $value;
-                        }
 
-                        return $items;
-                    })(INPUT)';
+            $body = '(function(array $json): array {
+                $items = [];
+                foreach ($json as $name => $value) {
+                   $items[(string) $name] = CODE;
+                }
 
-                    if (!$required) {
-                        $body = 'empty(INPUT) ? [] : ' . $body;
-                    }
+                return $items;
+            })(INPUT)';
 
-                    return strtr($body, [
-                        'INPUT' => $input,
-                    ]);
+            if (!$required) {
+                $body = 'empty(INPUT) ? [] : ' . $body;
             }
 
-            // Allow recursive calls
-            throw new \RuntimeException('Not supported yet');
+            return strtr($body, [
+                'INPUT' => $input,
+                'CODE' => $this->parseElement('$value', $shapeValue->getShape(), true),
+            ]);
         }
         $inputAccessorName = $this->getInputAccessorName($shapeValue);
 

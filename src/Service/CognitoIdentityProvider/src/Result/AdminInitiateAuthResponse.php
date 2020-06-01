@@ -81,7 +81,7 @@ class AdminInitiateAuthResponse extends Result
         $this->ChallengeParameters = empty($data['ChallengeParameters']) ? [] : (function (array $json): array {
             $items = [];
             foreach ($json as $name => $value) {
-                $items[(string) $name] = $value;
+                $items[(string) $name] = (string) $value;
             }
 
             return $items;
