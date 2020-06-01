@@ -256,8 +256,23 @@ class RestJsonParser implements Parser
                 ]);
             }
 
-            // Allow recursive calls
-            throw new \RuntimeException('Not supported yet');
+            $body = '(function(array $json): array {
+                $items = [];
+                foreach ($json as $name => $value) {
+                   $items[(string) $name] = CODE;
+                }
+
+                return $items;
+            })(INPUT)';
+
+            if (!$required) {
+                $body = 'empty(INPUT) ? [] : ' . $body;
+            }
+
+            return strtr($body, [
+                'INPUT' => $input,
+                'CODE' => $this->parseElement('$value', $shapeValue->getShape(), true),
+            ]);
         }
         $inputAccessorName = $this->getInputAccessorName($shapeValue);
 

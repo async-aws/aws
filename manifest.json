@@ -199,6 +199,7 @@
                 "AdminCreateUser",
                 "AdminDeleteUser",
                 "AdminGetUser",
+                "AdminInitiateAuth",
                 "AdminUpdateUserAttributes",
                 "AssociateSoftwareToken",
                 "ChangePassword",
