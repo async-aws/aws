@@ -1,1 +1,4 @@
+framework:
+    router:
+        utf8: true
 async_aws: ~
