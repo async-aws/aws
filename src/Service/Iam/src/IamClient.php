@@ -196,6 +196,13 @@ class IamClient extends AbstractApi
                     'signService' => 'iam',
                     'signVersions' => ['v4'],
                 ];
+            case 'iam-govcloud-fips':
+                return [
+                    'endpoint' => 'https://iam.us-gov.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'iam',
+                    'signVersions' => ['v4'],
+                ];
         }
 
         throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Iam".', $region));
