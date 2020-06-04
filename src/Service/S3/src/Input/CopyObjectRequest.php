@@ -732,6 +732,9 @@ final class CopyObjectRequest extends Input
             }
             $headers['x-amz-object-lock-legal-hold'] = $this->ObjectLockLegalHoldStatus;
         }
+        foreach ($this->Metadata as $key => $value) {
+            $headers["x-amz-meta-$key"] = $value;
+        }
 
         // Prepare query
         $query = [];
