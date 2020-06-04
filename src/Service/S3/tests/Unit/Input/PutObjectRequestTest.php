@@ -14,8 +14,8 @@ class PutObjectRequestTest extends TestCase
             'Key' => 'bar/baz/biz',
             'Body' => 'contents',
             'Metadata' => [
-                'filename' => 'biz'
-            ]
+                'filename' => 'biz',
+            ],
         ]);
 
         $expected = '

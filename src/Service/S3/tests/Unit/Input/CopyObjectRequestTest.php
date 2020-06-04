@@ -18,8 +18,8 @@ class CopyObjectRequestTest extends TestCase
             'ContentType' => 'image/jpg',
             'CopySource' => '/bucket/my-image.jpg',
             'Metadata' => [
-                'filename' => 'biz'
-            ]
+                'filename' => 'biz',
+            ],
         ]);
 
         $expected = '

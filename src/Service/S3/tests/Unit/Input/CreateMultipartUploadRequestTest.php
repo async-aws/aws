@@ -16,8 +16,8 @@ class CreateMultipartUploadRequestTest extends TestCase
             'Bucket' => 'example-bucket',
             'Key' => 'example-object',
             'Metadata' => [
-                'filename' => 'biz'
-            ]
+                'filename' => 'biz',
+            ],
         ]);
 
         // see example-1.json from SDK
