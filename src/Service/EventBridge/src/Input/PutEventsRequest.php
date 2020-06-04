@@ -2,6 +2,7 @@
 
 namespace AsyncAws\EventBridge\Input;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
@@ -15,7 +16,7 @@ final class PutEventsRequest extends Input
      *
      * @required
      *
-     * @var PutEventsRequestEntry[]
+     * @var PutEventsRequestEntry[]|null
      */
     private $Entries;
 
@@ -27,7 +28,7 @@ final class PutEventsRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->Entries = array_map([PutEventsRequestEntry::class, 'create'], $input['Entries'] ?? []);
+        $this->Entries = isset($input['Entries']) ? array_map([PutEventsRequestEntry::class, 'create'], $input['Entries']) : null;
         parent::__construct($input);
     }
 
@@ -41,7 +42,7 @@ final class PutEventsRequest extends Input
      */
     public function getEntries(): array
     {
-        return $this->Entries;
+        return $this->Entries ?? [];
     }
 
     /**
@@ -82,9 +83,13 @@ final class PutEventsRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
+        if (null === $v = $this->Entries) {
+            throw new InvalidArgument(sprintf('Missing parameter "Entries" for "%s". The value cannot be null.', __CLASS__));
+        }
 
         $index = -1;
-        foreach ($this->Entries as $listValue) {
+        $payload['Entries'] = [];
+        foreach ($v as $listValue) {
             ++$index;
             $payload['Entries'][$index] = $listValue->requestBody();
         }

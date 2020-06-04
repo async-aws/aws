@@ -53,7 +53,7 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      * The Amazon Resource Names (ARNs) of the IAM managed policies that you want to use as managed session policies. The
      * policies must exist in the same account as the role.
      *
-     * @var PolicyDescriptorType[]
+     * @var PolicyDescriptorType[]|null
      */
     private $PolicyArns;
 
@@ -95,7 +95,7 @@ final class AssumeRoleWithWebIdentityRequest extends Input
         $this->RoleSessionName = $input['RoleSessionName'] ?? null;
         $this->WebIdentityToken = $input['WebIdentityToken'] ?? null;
         $this->ProviderId = $input['ProviderId'] ?? null;
-        $this->PolicyArns = array_map([PolicyDescriptorType::class, 'create'], $input['PolicyArns'] ?? []);
+        $this->PolicyArns = isset($input['PolicyArns']) ? array_map([PolicyDescriptorType::class, 'create'], $input['PolicyArns']) : null;
         $this->Policy = $input['Policy'] ?? null;
         $this->DurationSeconds = $input['DurationSeconds'] ?? null;
         parent::__construct($input);
@@ -121,7 +121,7 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      */
     public function getPolicyArns(): array
     {
-        return $this->PolicyArns;
+        return $this->PolicyArns ?? [];
     }
 
     public function getProviderId(): ?string
@@ -235,15 +235,15 @@ final class AssumeRoleWithWebIdentityRequest extends Input
         if (null !== $v = $this->ProviderId) {
             $payload['ProviderId'] = $v;
         }
-
-        $index = 0;
-        foreach ($this->PolicyArns as $mapValue) {
-            ++$index;
-            foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["PolicyArns.member.$index.$bodyKey"] = $bodyValue;
+        if (null !== $v = $this->PolicyArns) {
+            $index = 0;
+            foreach ($v as $mapValue) {
+                ++$index;
+                foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
+                    $payload["PolicyArns.member.$index.$bodyKey"] = $bodyValue;
+                }
             }
         }
-
         if (null !== $v = $this->Policy) {
             $payload['Policy'] = $v;
         }

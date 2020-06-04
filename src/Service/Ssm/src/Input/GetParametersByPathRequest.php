@@ -31,7 +31,7 @@ final class GetParametersByPathRequest extends Input
     /**
      * Filters to limit the request results.
      *
-     * @var ParameterStringFilter[]
+     * @var ParameterStringFilter[]|null
      */
     private $ParameterFilters;
 
@@ -72,7 +72,7 @@ final class GetParametersByPathRequest extends Input
     {
         $this->Path = $input['Path'] ?? null;
         $this->Recursive = $input['Recursive'] ?? null;
-        $this->ParameterFilters = array_map([ParameterStringFilter::class, 'create'], $input['ParameterFilters'] ?? []);
+        $this->ParameterFilters = isset($input['ParameterFilters']) ? array_map([ParameterStringFilter::class, 'create'], $input['ParameterFilters']) : null;
         $this->WithDecryption = $input['WithDecryption'] ?? null;
         $this->MaxResults = $input['MaxResults'] ?? null;
         $this->NextToken = $input['NextToken'] ?? null;
@@ -99,7 +99,7 @@ final class GetParametersByPathRequest extends Input
      */
     public function getParameterFilters(): array
     {
-        return $this->ParameterFilters;
+        return $this->ParameterFilters ?? [];
     }
 
     public function getPath(): ?string
@@ -197,13 +197,14 @@ final class GetParametersByPathRequest extends Input
         if (null !== $v = $this->Recursive) {
             $payload['Recursive'] = (bool) $v;
         }
-
-        $index = -1;
-        foreach ($this->ParameterFilters as $listValue) {
-            ++$index;
-            $payload['ParameterFilters'][$index] = $listValue->requestBody();
+        if (null !== $v = $this->ParameterFilters) {
+            $index = -1;
+            $payload['ParameterFilters'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['ParameterFilters'][$index] = $listValue->requestBody();
+            }
         }
-
         if (null !== $v = $this->WithDecryption) {
             $payload['WithDecryption'] = (bool) $v;
         }

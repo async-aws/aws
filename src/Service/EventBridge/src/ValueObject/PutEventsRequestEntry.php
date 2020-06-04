@@ -52,7 +52,7 @@ final class PutEventsRequestEntry
     {
         $this->Time = $input['Time'] ?? null;
         $this->Source = $input['Source'] ?? null;
-        $this->Resources = $input['Resources'] ?? [];
+        $this->Resources = $input['Resources'] ?? null;
         $this->DetailType = $input['DetailType'] ?? null;
         $this->Detail = $input['Detail'] ?? null;
         $this->EventBusName = $input['EventBusName'] ?? null;
@@ -83,7 +83,7 @@ final class PutEventsRequestEntry
      */
     public function getResources(): array
     {
-        return $this->Resources;
+        return $this->Resources ?? [];
     }
 
     public function getSource(): ?string
@@ -108,13 +108,14 @@ final class PutEventsRequestEntry
         if (null !== $v = $this->Source) {
             $payload['Source'] = $v;
         }
-
-        $index = -1;
-        foreach ($this->Resources as $listValue) {
-            ++$index;
-            $payload['Resources'][$index] = $listValue;
+        if (null !== $v = $this->Resources) {
+            $index = -1;
+            $payload['Resources'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['Resources'][$index] = $listValue;
+            }
         }
-
         if (null !== $v = $this->DetailType) {
             $payload['DetailType'] = $v;
         }

@@ -17,7 +17,7 @@ final class BatchGetItemInput extends Input
      *
      * @required
      *
-     * @var array<string, KeysAndAttributes>
+     * @var array<string, KeysAndAttributes>|null
      */
     private $RequestItems;
 
@@ -53,7 +53,7 @@ final class BatchGetItemInput extends Input
      */
     public function getRequestItems(): array
     {
-        return $this->RequestItems;
+        return $this->RequestItems ?? [];
     }
 
     /**
@@ -112,8 +112,11 @@ final class BatchGetItemInput extends Input
     private function requestBody(): array
     {
         $payload = [];
+        if (null === $v = $this->RequestItems) {
+            throw new InvalidArgument(sprintf('Missing parameter "RequestItems" for "%s". The value cannot be null.', __CLASS__));
+        }
 
-        foreach ($this->RequestItems as $name => $v) {
+        foreach ($v as $name => $v) {
             $payload['RequestItems'][$name] = $v->requestBody();
         }
         if (null !== $v = $this->ReturnConsumedCapacity) {

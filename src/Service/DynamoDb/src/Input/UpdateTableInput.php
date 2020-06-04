@@ -20,7 +20,7 @@ final class UpdateTableInput extends Input
      * An array of attributes that describe the key schema for the table and indexes. If you are adding a new global
      * secondary index to the table, `AttributeDefinitions` must include the key element(s) of the new index.
      *
-     * @var AttributeDefinition[]
+     * @var AttributeDefinition[]|null
      */
     private $AttributeDefinitions;
 
@@ -54,7 +54,7 @@ final class UpdateTableInput extends Input
      * An array of one or more global secondary indexes for the table. For each index in the array, you can request one
      * action:.
      *
-     * @var GlobalSecondaryIndexUpdate[]
+     * @var GlobalSecondaryIndexUpdate[]|null
      */
     private $GlobalSecondaryIndexUpdates;
 
@@ -75,7 +75,7 @@ final class UpdateTableInput extends Input
     /**
      * A list of replica update actions (create, delete, or update) for the table.
      *
-     * @var ReplicationGroupUpdate[]
+     * @var ReplicationGroupUpdate[]|null
      */
     private $ReplicaUpdates;
 
@@ -94,14 +94,14 @@ final class UpdateTableInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->AttributeDefinitions = array_map([AttributeDefinition::class, 'create'], $input['AttributeDefinitions'] ?? []);
+        $this->AttributeDefinitions = isset($input['AttributeDefinitions']) ? array_map([AttributeDefinition::class, 'create'], $input['AttributeDefinitions']) : null;
         $this->TableName = $input['TableName'] ?? null;
         $this->BillingMode = $input['BillingMode'] ?? null;
         $this->ProvisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
-        $this->GlobalSecondaryIndexUpdates = array_map([GlobalSecondaryIndexUpdate::class, 'create'], $input['GlobalSecondaryIndexUpdates'] ?? []);
+        $this->GlobalSecondaryIndexUpdates = isset($input['GlobalSecondaryIndexUpdates']) ? array_map([GlobalSecondaryIndexUpdate::class, 'create'], $input['GlobalSecondaryIndexUpdates']) : null;
         $this->StreamSpecification = isset($input['StreamSpecification']) ? StreamSpecification::create($input['StreamSpecification']) : null;
         $this->SSESpecification = isset($input['SSESpecification']) ? SSESpecification::create($input['SSESpecification']) : null;
-        $this->ReplicaUpdates = array_map([ReplicationGroupUpdate::class, 'create'], $input['ReplicaUpdates'] ?? []);
+        $this->ReplicaUpdates = isset($input['ReplicaUpdates']) ? array_map([ReplicationGroupUpdate::class, 'create'], $input['ReplicaUpdates']) : null;
         parent::__construct($input);
     }
 
@@ -115,7 +115,7 @@ final class UpdateTableInput extends Input
      */
     public function getAttributeDefinitions(): array
     {
-        return $this->AttributeDefinitions;
+        return $this->AttributeDefinitions ?? [];
     }
 
     /**
@@ -131,7 +131,7 @@ final class UpdateTableInput extends Input
      */
     public function getGlobalSecondaryIndexUpdates(): array
     {
-        return $this->GlobalSecondaryIndexUpdates;
+        return $this->GlobalSecondaryIndexUpdates ?? [];
     }
 
     public function getProvisionedThroughput(): ?ProvisionedThroughput
@@ -144,7 +144,7 @@ final class UpdateTableInput extends Input
      */
     public function getReplicaUpdates(): array
     {
-        return $this->ReplicaUpdates;
+        return $this->ReplicaUpdates ?? [];
     }
 
     public function getSSESpecification(): ?SSESpecification
@@ -258,13 +258,14 @@ final class UpdateTableInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-
-        $index = -1;
-        foreach ($this->AttributeDefinitions as $listValue) {
-            ++$index;
-            $payload['AttributeDefinitions'][$index] = $listValue->requestBody();
+        if (null !== $v = $this->AttributeDefinitions) {
+            $index = -1;
+            $payload['AttributeDefinitions'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['AttributeDefinitions'][$index] = $listValue->requestBody();
+            }
         }
-
         if (null === $v = $this->TableName) {
             throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
@@ -278,24 +279,27 @@ final class UpdateTableInput extends Input
         if (null !== $v = $this->ProvisionedThroughput) {
             $payload['ProvisionedThroughput'] = $v->requestBody();
         }
-
-        $index = -1;
-        foreach ($this->GlobalSecondaryIndexUpdates as $listValue) {
-            ++$index;
-            $payload['GlobalSecondaryIndexUpdates'][$index] = $listValue->requestBody();
+        if (null !== $v = $this->GlobalSecondaryIndexUpdates) {
+            $index = -1;
+            $payload['GlobalSecondaryIndexUpdates'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['GlobalSecondaryIndexUpdates'][$index] = $listValue->requestBody();
+            }
         }
-
         if (null !== $v = $this->StreamSpecification) {
             $payload['StreamSpecification'] = $v->requestBody();
         }
         if (null !== $v = $this->SSESpecification) {
             $payload['SSESpecification'] = $v->requestBody();
         }
-
-        $index = -1;
-        foreach ($this->ReplicaUpdates as $listValue) {
-            ++$index;
-            $payload['ReplicaUpdates'][$index] = $listValue->requestBody();
+        if (null !== $v = $this->ReplicaUpdates) {
+            $index = -1;
+            $payload['ReplicaUpdates'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['ReplicaUpdates'][$index] = $listValue->requestBody();
+            }
         }
 
         return $payload;

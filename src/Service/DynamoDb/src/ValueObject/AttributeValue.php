@@ -73,11 +73,11 @@ final class AttributeValue
         $this->S = $input['S'] ?? null;
         $this->N = $input['N'] ?? null;
         $this->B = $input['B'] ?? null;
-        $this->SS = $input['SS'] ?? [];
-        $this->NS = $input['NS'] ?? [];
-        $this->BS = $input['BS'] ?? [];
-        $this->M = array_map([AttributeValue::class, 'create'], $input['M'] ?? []);
-        $this->L = array_map([AttributeValue::class, 'create'], $input['L'] ?? []);
+        $this->SS = $input['SS'] ?? null;
+        $this->NS = $input['NS'] ?? null;
+        $this->BS = $input['BS'] ?? null;
+        $this->M = isset($input['M']) ? array_map([AttributeValue::class, 'create'], $input['M']) : null;
+        $this->L = isset($input['L']) ? array_map([AttributeValue::class, 'create'], $input['L']) : null;
         $this->NULL = $input['NULL'] ?? null;
         $this->BOOL = $input['BOOL'] ?? null;
     }
@@ -102,7 +102,7 @@ final class AttributeValue
      */
     public function getBS(): array
     {
-        return $this->BS;
+        return $this->BS ?? [];
     }
 
     /**
@@ -110,7 +110,7 @@ final class AttributeValue
      */
     public function getL(): array
     {
-        return $this->L;
+        return $this->L ?? [];
     }
 
     /**
@@ -118,7 +118,7 @@ final class AttributeValue
      */
     public function getM(): array
     {
-        return $this->M;
+        return $this->M ?? [];
     }
 
     public function getN(): ?string
@@ -131,7 +131,7 @@ final class AttributeValue
      */
     public function getNS(): array
     {
-        return $this->NS;
+        return $this->NS ?? [];
     }
 
     public function getNULL(): ?bool
@@ -149,7 +149,7 @@ final class AttributeValue
      */
     public function getSS(): array
     {
-        return $this->SS;
+        return $this->SS ?? [];
     }
 
     /**
@@ -167,35 +167,43 @@ final class AttributeValue
         if (null !== $v = $this->B) {
             $payload['B'] = base64_encode($v);
         }
-
-        $index = -1;
-        foreach ($this->SS as $listValue) {
-            ++$index;
-            $payload['SS'][$index] = $listValue;
+        if (null !== $v = $this->SS) {
+            $index = -1;
+            $payload['SS'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['SS'][$index] = $listValue;
+            }
         }
-
-        $index = -1;
-        foreach ($this->NS as $listValue) {
-            ++$index;
-            $payload['NS'][$index] = $listValue;
+        if (null !== $v = $this->NS) {
+            $index = -1;
+            $payload['NS'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['NS'][$index] = $listValue;
+            }
         }
-
-        $index = -1;
-        foreach ($this->BS as $listValue) {
-            ++$index;
-            $payload['BS'][$index] = base64_encode($listValue);
+        if (null !== $v = $this->BS) {
+            $index = -1;
+            $payload['BS'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['BS'][$index] = base64_encode($listValue);
+            }
         }
-
-        foreach ($this->M as $name => $v) {
-            $payload['M'][$name] = $v->requestBody();
+        if (null !== $v = $this->M) {
+            foreach ($v as $name => $v) {
+                $payload['M'][$name] = $v->requestBody();
+            }
         }
-
-        $index = -1;
-        foreach ($this->L as $listValue) {
-            ++$index;
-            $payload['L'][$index] = $listValue->requestBody();
+        if (null !== $v = $this->L) {
+            $index = -1;
+            $payload['L'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['L'][$index] = $listValue->requestBody();
+            }
         }
-
         if (null !== $v = $this->NULL) {
             $payload['NULL'] = (bool) $v;
         }

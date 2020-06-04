@@ -105,33 +105,36 @@ class InputGenerator
             foreach ($memberClassNames as $memberClassName) {
                 $namespace->addUse($memberClassName->getFqdn());
             }
-            $nullable = true;
+            $getterSetterNullable = true;
+
             if ($memberShape instanceof StructureShape) {
                 $memberClassName = $this->objectGenerator->generate($memberShape);
                 $constructorBody .= strtr('$this->NAME = isset($input["NAME"]) ? CLASS::create($input["NAME"]) : null;' . "\n", ['NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
             } elseif ($memberShape instanceof ListShape) {
                 $listMemberShape = $memberShape->getMember()->getShape();
-                $nullable = false;
+                $getterSetterNullable = false;
 
                 if ($listMemberShape instanceof StructureShape) {
+                    $getterSetterNullable = false;
                     $memberClassName = $this->objectGenerator->generate($listMemberShape);
-                    $constructorBody .= strtr('$this->NAME = array_map([CLASS::class, "create"], $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
+                    $constructorBody .= strtr('$this->NAME = isset($input["NAME"]) ? array_map([CLASS::class, "create"], $input["NAME"]) : null;' . "\n", ['NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
                 } elseif ($listMemberShape instanceof ListShape) {
+                    $getterSetterNullable = false;
                     $listMemberShapelevel2 = $listMemberShape->getMember()->getShape();
                     if ($listMemberShapelevel2 instanceof StructureShape) {
                         $memberClassName = $this->objectGenerator->generate($listMemberShapelevel2);
-                        $constructorBody .= strtr('$this->NAME = array_map(static function(array $array) {
+                        $constructorBody .= strtr('$this->NAME = isset($input["NAME"]) ? array_map(static function(array $array) {
                             return array_map([CLASS::class, "create"], $array);
-                        }, $input["NAME"] ?? []);' . "\n", ['NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
+                        }, $input["NAME"]) : null;' . "\n", ['NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
                     } elseif ($listMemberShapelevel2 instanceof ListShape || $listMemberShapelevel2 instanceof MapShape) {
                         throw new \RuntimeException('Recursive ListShape are not yet implemented');
                     } else {
-                        $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
+                        $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $member->getName()]);
                     }
                 } elseif ($listMemberShape instanceof MapShape) {
                     throw new \RuntimeException('Recursive ListShape are not yet implemented');
                 } else {
-                    $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
+                    $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $member->getName()]);
                 }
             } elseif ($memberShape instanceof MapShape) {
                 $mapKeyShape = $memberShape->getKey()->getShape();
@@ -139,8 +142,7 @@ class InputGenerator
                     $this->enumGenerator->generate($mapKeyShape);
                 }
                 $mapValueShape = $memberShape->getValue()->getShape();
-                $nullable = false;
-
+                $getterSetterNullable = false;
                 // Is this a list of objects?
                 if ($mapValueShape instanceof StructureShape) {
                     $memberClassName = $this->objectGenerator->generate($mapValueShape);
@@ -175,7 +177,7 @@ class InputGenerator
                     throw new \RuntimeException('Recursive MapShape are not yet implemented');
                 } else {
                     // It is a scalar, like a string
-                    $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);
+                    $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $member->getName()]);
                 }
             } elseif ($member->isStreaming()) {
                 $parameterType = 'string|resource|callable|iterable';
@@ -199,12 +201,13 @@ class InputGenerator
             if ($member->isRequired()) {
                 $property->addComment('@required');
             }
+
             // the "\n" helps php-cs-fixer to with potential wildcard in parameterType
-            $property->addComment("\n@var " . ($nullable ? 'null|' : '') . $parameterType);
+            $property->addComment("\n@var null|$parameterType");
 
             $getter = $class->addMethod('get' . \ucfirst($member->getName()))
                 ->setReturnType($returnType)
-                ->setReturnNullable($nullable);
+                ->setReturnNullable($getterSetterNullable);
             $setter = $class->addMethod('set' . \ucfirst($member->getName()))
                 ->setReturnType('self');
 
@@ -214,7 +217,11 @@ class InputGenerator
                 $setter->addComment('@deprecated');
                 $deprecation = strtr('@trigger_error(\sprintf(\'The property "NAME" of "%s" is deprecated by AWS.\', __CLASS__), E_USER_DEPRECATED);', ['NAME' => $member->getName()]);
             }
-            $getter->setBody($deprecation . strtr('return $this->NAME;', ['NAME' => $member->getName()]));
+            if ($getterSetterNullable) {
+                $getter->setBody($deprecation . strtr('return $this->NAME;', ['NAME' => $member->getName()]));
+            } else {
+                $getter->setBody($deprecation . strtr('return $this->NAME ?? [];', ['NAME' => $member->getName()]));
+            }
             $setter->setBody($deprecation . strtr('
                     $this->NAME = $value;
                     return $this;
@@ -222,12 +229,12 @@ class InputGenerator
                 'NAME' => $member->getName(),
             ]));
             $setter
-                ->addParameter('value')->setType($returnType)->setNullable($nullable)
+                ->addParameter('value')->setType($returnType)->setNullable($getterSetterNullable)
             ;
 
             if ($returnType !== $parameterType) {
-                $setter->addComment('@param ' . $parameterType . ($nullable ? '|null' : '') . ' $value');
-                $getter->addComment('@return ' . $parameterType . ($nullable ? '|null' : ''));
+                $setter->addComment('@param ' . $parameterType . ($getterSetterNullable ? '|null' : '') . ' $value');
+                $getter->addComment('@return ' . $parameterType . ($getterSetterNullable ? '|null' : ''));
             }
         }
 
@@ -344,8 +351,10 @@ class InputGenerator
                 throw new \InvalidArgumentException('Headers does not yet support Enum in value');
             }
 
-            $bodyCode = strtr('foreach (VALUE as $key => $value) {
-                $headers["LOCATION$key"] = $value;
+            $bodyCode = strtr('if (null !== VALUE) {
+                foreach (VALUE as $key => $value) {
+                    $headers["LOCATION$key"] = $value;
+                }
             }', [
                 'PROPERTY' => $member->getName(),
                 'LOCATION' => $member->getLocationName() ?? $member->getName(),

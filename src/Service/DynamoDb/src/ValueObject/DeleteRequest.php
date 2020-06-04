@@ -2,6 +2,8 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 final class DeleteRequest
 {
     /**
@@ -17,7 +19,7 @@ final class DeleteRequest
      */
     public function __construct(array $input)
     {
-        $this->Key = array_map([AttributeValue::class, 'create'], $input['Key'] ?? []);
+        $this->Key = isset($input['Key']) ? array_map([AttributeValue::class, 'create'], $input['Key']) : null;
     }
 
     public static function create($input): self
@@ -30,7 +32,7 @@ final class DeleteRequest
      */
     public function getKey(): array
     {
-        return $this->Key;
+        return $this->Key ?? [];
     }
 
     /**
@@ -39,8 +41,11 @@ final class DeleteRequest
     public function requestBody(): array
     {
         $payload = [];
+        if (null === $v = $this->Key) {
+            throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
+        }
 
-        foreach ($this->Key as $name => $v) {
+        foreach ($v as $name => $v) {
             $payload['Key'][$name] = $v->requestBody();
         }
 

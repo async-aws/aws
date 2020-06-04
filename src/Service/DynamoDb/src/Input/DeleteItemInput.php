@@ -29,7 +29,7 @@ final class DeleteItemInput extends Input
      *
      * @required
      *
-     * @var array<string, AttributeValue>
+     * @var array<string, AttributeValue>|null
      */
     private $Key;
 
@@ -39,7 +39,7 @@ final class DeleteItemInput extends Input
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.Expected.html
      *
-     * @var array<string, ExpectedAttributeValue>
+     * @var array<string, ExpectedAttributeValue>|null
      */
     private $Expected;
 
@@ -86,14 +86,14 @@ final class DeleteItemInput extends Input
      * One or more substitution tokens for attribute names in an expression. The following are some use cases for using
      * `ExpressionAttributeNames`:.
      *
-     * @var array<string, string>
+     * @var array<string, string>|null
      */
     private $ExpressionAttributeNames;
 
     /**
      * One or more values that can be substituted in an expression.
      *
-     * @var array<string, AttributeValue>
+     * @var array<string, AttributeValue>|null
      */
     private $ExpressionAttributeValues;
 
@@ -130,7 +130,7 @@ final class DeleteItemInput extends Input
         $this->ReturnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
         $this->ReturnItemCollectionMetrics = $input['ReturnItemCollectionMetrics'] ?? null;
         $this->ConditionExpression = $input['ConditionExpression'] ?? null;
-        $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? [];
+        $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
 
         $this->ExpressionAttributeValues = [];
         foreach ($input['ExpressionAttributeValues'] ?? [] as $key => $item) {
@@ -162,7 +162,7 @@ final class DeleteItemInput extends Input
      */
     public function getExpected(): array
     {
-        return $this->Expected;
+        return $this->Expected ?? [];
     }
 
     /**
@@ -170,7 +170,7 @@ final class DeleteItemInput extends Input
      */
     public function getExpressionAttributeNames(): array
     {
-        return $this->ExpressionAttributeNames;
+        return $this->ExpressionAttributeNames ?? [];
     }
 
     /**
@@ -178,7 +178,7 @@ final class DeleteItemInput extends Input
      */
     public function getExpressionAttributeValues(): array
     {
-        return $this->ExpressionAttributeValues;
+        return $this->ExpressionAttributeValues ?? [];
     }
 
     /**
@@ -186,7 +186,7 @@ final class DeleteItemInput extends Input
      */
     public function getKey(): array
     {
-        return $this->Key;
+        return $this->Key ?? [];
     }
 
     /**
@@ -344,13 +344,17 @@ final class DeleteItemInput extends Input
             throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TableName'] = $v;
-
-        foreach ($this->Key as $name => $v) {
-            $payload['Key'][$name] = $v->requestBody();
+        if (null === $v = $this->Key) {
+            throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
         }
 
-        foreach ($this->Expected as $name => $v) {
-            $payload['Expected'][$name] = $v->requestBody();
+        foreach ($v as $name => $v) {
+            $payload['Key'][$name] = $v->requestBody();
+        }
+        if (null !== $v = $this->Expected) {
+            foreach ($v as $name => $v) {
+                $payload['Expected'][$name] = $v->requestBody();
+            }
         }
         if (null !== $v = $this->ConditionalOperator) {
             if (!ConditionalOperator::exists($v)) {
@@ -379,13 +383,15 @@ final class DeleteItemInput extends Input
         if (null !== $v = $this->ConditionExpression) {
             $payload['ConditionExpression'] = $v;
         }
-
-        foreach ($this->ExpressionAttributeNames as $name => $v) {
-            $payload['ExpressionAttributeNames'][$name] = $v;
+        if (null !== $v = $this->ExpressionAttributeNames) {
+            foreach ($v as $name => $v) {
+                $payload['ExpressionAttributeNames'][$name] = $v;
+            }
         }
-
-        foreach ($this->ExpressionAttributeValues as $name => $v) {
-            $payload['ExpressionAttributeValues'][$name] = $v->requestBody();
+        if (null !== $v = $this->ExpressionAttributeValues) {
+            foreach ($v as $name => $v) {
+                $payload['ExpressionAttributeValues'][$name] = $v->requestBody();
+            }
         }
 
         return $payload;

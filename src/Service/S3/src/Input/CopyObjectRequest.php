@@ -153,7 +153,7 @@ final class CopyObjectRequest extends Input
     /**
      * A map of metadata to store with the object in S3.
      *
-     * @var array<string, string>
+     * @var array<string, string>|null
      */
     private $Metadata;
 
@@ -359,7 +359,7 @@ final class CopyObjectRequest extends Input
         $this->GrantReadACP = $input['GrantReadACP'] ?? null;
         $this->GrantWriteACP = $input['GrantWriteACP'] ?? null;
         $this->Key = $input['Key'] ?? null;
-        $this->Metadata = $input['Metadata'] ?? [];
+        $this->Metadata = $input['Metadata'] ?? null;
         $this->MetadataDirective = $input['MetadataDirective'] ?? null;
         $this->TaggingDirective = $input['TaggingDirective'] ?? null;
         $this->ServerSideEncryption = $input['ServerSideEncryption'] ?? null;
@@ -499,7 +499,7 @@ final class CopyObjectRequest extends Input
      */
     public function getMetadata(): array
     {
-        return $this->Metadata;
+        return $this->Metadata ?? [];
     }
 
     /**
@@ -732,8 +732,10 @@ final class CopyObjectRequest extends Input
             }
             $headers['x-amz-object-lock-legal-hold'] = $this->ObjectLockLegalHoldStatus;
         }
-        foreach ($this->Metadata as $key => $value) {
-            $headers["x-amz-meta-$key"] = $value;
+        if (null !== $this->Metadata) {
+            foreach ($this->Metadata as $key => $value) {
+                $headers["x-amz-meta-$key"] = $value;
+            }
         }
 
         // Prepare query

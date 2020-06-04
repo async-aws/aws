@@ -28,9 +28,9 @@ final class Destination
      */
     public function __construct(array $input)
     {
-        $this->ToAddresses = $input['ToAddresses'] ?? [];
-        $this->CcAddresses = $input['CcAddresses'] ?? [];
-        $this->BccAddresses = $input['BccAddresses'] ?? [];
+        $this->ToAddresses = $input['ToAddresses'] ?? null;
+        $this->CcAddresses = $input['CcAddresses'] ?? null;
+        $this->BccAddresses = $input['BccAddresses'] ?? null;
     }
 
     public static function create($input): self
@@ -43,7 +43,7 @@ final class Destination
      */
     public function getBccAddresses(): array
     {
-        return $this->BccAddresses;
+        return $this->BccAddresses ?? [];
     }
 
     /**
@@ -51,7 +51,7 @@ final class Destination
      */
     public function getCcAddresses(): array
     {
-        return $this->CcAddresses;
+        return $this->CcAddresses ?? [];
     }
 
     /**
@@ -59,7 +59,7 @@ final class Destination
      */
     public function getToAddresses(): array
     {
-        return $this->ToAddresses;
+        return $this->ToAddresses ?? [];
     }
 
     /**
@@ -68,23 +68,29 @@ final class Destination
     public function requestBody(): array
     {
         $payload = [];
-
-        $index = -1;
-        foreach ($this->ToAddresses as $listValue) {
-            ++$index;
-            $payload['ToAddresses'][$index] = $listValue;
+        if (null !== $v = $this->ToAddresses) {
+            $index = -1;
+            $payload['ToAddresses'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['ToAddresses'][$index] = $listValue;
+            }
         }
-
-        $index = -1;
-        foreach ($this->CcAddresses as $listValue) {
-            ++$index;
-            $payload['CcAddresses'][$index] = $listValue;
+        if (null !== $v = $this->CcAddresses) {
+            $index = -1;
+            $payload['CcAddresses'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['CcAddresses'][$index] = $listValue;
+            }
         }
-
-        $index = -1;
-        foreach ($this->BccAddresses as $listValue) {
-            ++$index;
-            $payload['BccAddresses'][$index] = $listValue;
+        if (null !== $v = $this->BccAddresses) {
+            $index = -1;
+            $payload['BccAddresses'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['BccAddresses'][$index] = $listValue;
+            }
         }
 
         return $payload;

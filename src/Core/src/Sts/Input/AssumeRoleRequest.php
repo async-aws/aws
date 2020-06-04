@@ -33,7 +33,7 @@ final class AssumeRoleRequest extends Input
      * The Amazon Resource Names (ARNs) of the IAM managed policies that you want to use as managed session policies. The
      * policies must exist in the same account as the role.
      *
-     * @var PolicyDescriptorType[]
+     * @var PolicyDescriptorType[]|null
      */
     private $PolicyArns;
 
@@ -63,7 +63,7 @@ final class AssumeRoleRequest extends Input
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html
      *
-     * @var Tag[]
+     * @var Tag[]|null
      */
     private $Tags;
 
@@ -74,7 +74,7 @@ final class AssumeRoleRequest extends Input
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html#id_session-tags_role-chaining
      *
-     * @var string[]
+     * @var string[]|null
      */
     private $TransitiveTagKeys;
 
@@ -131,11 +131,11 @@ final class AssumeRoleRequest extends Input
     {
         $this->RoleArn = $input['RoleArn'] ?? null;
         $this->RoleSessionName = $input['RoleSessionName'] ?? null;
-        $this->PolicyArns = array_map([PolicyDescriptorType::class, 'create'], $input['PolicyArns'] ?? []);
+        $this->PolicyArns = isset($input['PolicyArns']) ? array_map([PolicyDescriptorType::class, 'create'], $input['PolicyArns']) : null;
         $this->Policy = $input['Policy'] ?? null;
         $this->DurationSeconds = $input['DurationSeconds'] ?? null;
-        $this->Tags = array_map([Tag::class, 'create'], $input['Tags'] ?? []);
-        $this->TransitiveTagKeys = $input['TransitiveTagKeys'] ?? [];
+        $this->Tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
+        $this->TransitiveTagKeys = $input['TransitiveTagKeys'] ?? null;
         $this->ExternalId = $input['ExternalId'] ?? null;
         $this->SerialNumber = $input['SerialNumber'] ?? null;
         $this->TokenCode = $input['TokenCode'] ?? null;
@@ -167,7 +167,7 @@ final class AssumeRoleRequest extends Input
      */
     public function getPolicyArns(): array
     {
-        return $this->PolicyArns;
+        return $this->PolicyArns ?? [];
     }
 
     public function getRoleArn(): ?string
@@ -190,7 +190,7 @@ final class AssumeRoleRequest extends Input
      */
     public function getTags(): array
     {
-        return $this->Tags;
+        return $this->Tags ?? [];
     }
 
     public function getTokenCode(): ?string
@@ -203,7 +203,7 @@ final class AssumeRoleRequest extends Input
      */
     public function getTransitiveTagKeys(): array
     {
-        return $this->TransitiveTagKeys;
+        return $this->TransitiveTagKeys ?? [];
     }
 
     /**
@@ -317,36 +317,37 @@ final class AssumeRoleRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "RoleSessionName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['RoleSessionName'] = $v;
-
-        $index = 0;
-        foreach ($this->PolicyArns as $mapValue) {
-            ++$index;
-            foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["PolicyArns.member.$index.$bodyKey"] = $bodyValue;
+        if (null !== $v = $this->PolicyArns) {
+            $index = 0;
+            foreach ($v as $mapValue) {
+                ++$index;
+                foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
+                    $payload["PolicyArns.member.$index.$bodyKey"] = $bodyValue;
+                }
             }
         }
-
         if (null !== $v = $this->Policy) {
             $payload['Policy'] = $v;
         }
         if (null !== $v = $this->DurationSeconds) {
             $payload['DurationSeconds'] = $v;
         }
-
-        $index = 0;
-        foreach ($this->Tags as $mapValue) {
-            ++$index;
-            foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["Tags.member.$index.$bodyKey"] = $bodyValue;
+        if (null !== $v = $this->Tags) {
+            $index = 0;
+            foreach ($v as $mapValue) {
+                ++$index;
+                foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
+                    $payload["Tags.member.$index.$bodyKey"] = $bodyValue;
+                }
             }
         }
-
-        $index = 0;
-        foreach ($this->TransitiveTagKeys as $mapValue) {
-            ++$index;
-            $payload["TransitiveTagKeys.member.$index"] = $mapValue;
+        if (null !== $v = $this->TransitiveTagKeys) {
+            $index = 0;
+            foreach ($v as $mapValue) {
+                ++$index;
+                $payload["TransitiveTagKeys.member.$index"] = $mapValue;
+            }
         }
-
         if (null !== $v = $this->ExternalId) {
             $payload['ExternalId'] = $v;
         }

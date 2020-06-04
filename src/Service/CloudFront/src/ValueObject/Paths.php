@@ -25,7 +25,7 @@ final class Paths
     public function __construct(array $input)
     {
         $this->Quantity = $input['Quantity'] ?? null;
-        $this->Items = $input['Items'] ?? [];
+        $this->Items = $input['Items'] ?? null;
     }
 
     public static function create($input): self
@@ -38,7 +38,7 @@ final class Paths
      */
     public function getItems(): array
     {
-        return $this->Items;
+        return $this->Items ?? [];
     }
 
     public function getQuantity(): int
@@ -55,10 +55,11 @@ final class Paths
             throw new InvalidArgument(sprintf('Missing parameter "Quantity" for "%s". The value cannot be null.', __CLASS__));
         }
         $node->appendChild($document->createElement('Quantity', $v));
-
-        $node->appendChild($nodeList = $document->createElement('Items'));
-        foreach ($this->Items as $item) {
-            $nodeList->appendChild($document->createElement('Path', $item));
+        if (null !== $v = $this->Items) {
+            $node->appendChild($nodeList = $document->createElement('Items'));
+            foreach ($v as $item) {
+                $nodeList->appendChild($document->createElement('Path', $item));
+            }
         }
     }
 }

@@ -2,6 +2,8 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 final class PutRequest
 {
     /**
@@ -19,7 +21,7 @@ final class PutRequest
      */
     public function __construct(array $input)
     {
-        $this->Item = array_map([AttributeValue::class, 'create'], $input['Item'] ?? []);
+        $this->Item = isset($input['Item']) ? array_map([AttributeValue::class, 'create'], $input['Item']) : null;
     }
 
     public static function create($input): self
@@ -32,7 +34,7 @@ final class PutRequest
      */
     public function getItem(): array
     {
-        return $this->Item;
+        return $this->Item ?? [];
     }
 
     /**
@@ -41,8 +43,11 @@ final class PutRequest
     public function requestBody(): array
     {
         $payload = [];
+        if (null === $v = $this->Item) {
+            throw new InvalidArgument(sprintf('Missing parameter "Item" for "%s". The value cannot be null.', __CLASS__));
+        }
 
-        foreach ($this->Item as $name => $v) {
+        foreach ($v as $name => $v) {
             $payload['Item'][$name] = $v->requestBody();
         }
 

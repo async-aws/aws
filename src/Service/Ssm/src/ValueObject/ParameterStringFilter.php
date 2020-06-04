@@ -34,7 +34,7 @@ final class ParameterStringFilter
     {
         $this->Key = $input['Key'] ?? null;
         $this->Option = $input['Option'] ?? null;
-        $this->Values = $input['Values'] ?? [];
+        $this->Values = $input['Values'] ?? null;
     }
 
     public static function create($input): self
@@ -57,7 +57,7 @@ final class ParameterStringFilter
      */
     public function getValues(): array
     {
-        return $this->Values;
+        return $this->Values ?? [];
     }
 
     /**
@@ -73,11 +73,13 @@ final class ParameterStringFilter
         if (null !== $v = $this->Option) {
             $payload['Option'] = $v;
         }
-
-        $index = -1;
-        foreach ($this->Values as $listValue) {
-            ++$index;
-            $payload['Values'][$index] = $listValue;
+        if (null !== $v = $this->Values) {
+            $index = -1;
+            $payload['Values'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['Values'][$index] = $listValue;
+            }
         }
 
         return $payload;

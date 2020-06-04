@@ -61,7 +61,7 @@ final class PublishInput extends Input
     /**
      * Message attributes for Publish action.
      *
-     * @var array<string, MessageAttributeValue>
+     * @var array<string, MessageAttributeValue>|null
      */
     private $MessageAttributes;
 
@@ -108,7 +108,7 @@ final class PublishInput extends Input
      */
     public function getMessageAttributes(): array
     {
-        return $this->MessageAttributes;
+        return $this->MessageAttributes ?? [];
     }
 
     public function getMessageStructure(): ?string
@@ -231,13 +231,14 @@ final class PublishInput extends Input
         if (null !== $v = $this->MessageStructure) {
             $payload['MessageStructure'] = $v;
         }
-
-        $index = 0;
-        foreach ($this->MessageAttributes as $mapKey => $mapValue) {
-            ++$index;
-            $payload["MessageAttributes.entry.$index.Name"] = $mapKey;
-            foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["MessageAttributes.entry.$index.Value.$bodyKey"] = $bodyValue;
+        if (null !== $v = $this->MessageAttributes) {
+            $index = 0;
+            foreach ($v as $mapKey => $mapValue) {
+                ++$index;
+                $payload["MessageAttributes.entry.$index.Name"] = $mapKey;
+                foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
+                    $payload["MessageAttributes.entry.$index.Value.$bodyKey"] = $bodyValue;
+                }
             }
         }
 

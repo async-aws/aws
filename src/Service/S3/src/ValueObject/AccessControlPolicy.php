@@ -22,7 +22,7 @@ final class AccessControlPolicy
      */
     public function __construct(array $input)
     {
-        $this->Grants = array_map([Grant::class, 'create'], $input['Grants'] ?? []);
+        $this->Grants = isset($input['Grants']) ? array_map([Grant::class, 'create'], $input['Grants']) : null;
         $this->Owner = isset($input['Owner']) ? Owner::create($input['Owner']) : null;
     }
 
@@ -36,7 +36,7 @@ final class AccessControlPolicy
      */
     public function getGrants(): array
     {
-        return $this->Grants;
+        return $this->Grants ?? [];
     }
 
     public function getOwner(): ?Owner
@@ -49,13 +49,14 @@ final class AccessControlPolicy
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        $node->appendChild($nodeList = $document->createElement('AccessControlList'));
-        foreach ($this->Grants as $item) {
-            $nodeList->appendChild($child = $document->createElement('Grant'));
+        if (null !== $v = $this->Grants) {
+            $node->appendChild($nodeList = $document->createElement('AccessControlList'));
+            foreach ($v as $item) {
+                $nodeList->appendChild($child = $document->createElement('Grant'));
 
-            $item->requestBody($child, $document);
+                $item->requestBody($child, $document);
+            }
         }
-
         if (null !== $v = $this->Owner) {
             $node->appendChild($child = $document->createElement('Owner'));
 

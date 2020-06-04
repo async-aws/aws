@@ -33,14 +33,14 @@ final class AdminUpdateUserAttributesRequest extends Input
      *
      * @required
      *
-     * @var AttributeType[]
+     * @var AttributeType[]|null
      */
     private $UserAttributes;
 
     /**
      * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
      *
-     * @var array<string, string>
+     * @var array<string, string>|null
      */
     private $ClientMetadata;
 
@@ -57,8 +57,8 @@ final class AdminUpdateUserAttributesRequest extends Input
     {
         $this->UserPoolId = $input['UserPoolId'] ?? null;
         $this->Username = $input['Username'] ?? null;
-        $this->UserAttributes = array_map([AttributeType::class, 'create'], $input['UserAttributes'] ?? []);
-        $this->ClientMetadata = $input['ClientMetadata'] ?? [];
+        $this->UserAttributes = isset($input['UserAttributes']) ? array_map([AttributeType::class, 'create'], $input['UserAttributes']) : null;
+        $this->ClientMetadata = $input['ClientMetadata'] ?? null;
         parent::__construct($input);
     }
 
@@ -72,7 +72,7 @@ final class AdminUpdateUserAttributesRequest extends Input
      */
     public function getClientMetadata(): array
     {
-        return $this->ClientMetadata;
+        return $this->ClientMetadata ?? [];
     }
 
     /**
@@ -80,7 +80,7 @@ final class AdminUpdateUserAttributesRequest extends Input
      */
     public function getUserAttributes(): array
     {
-        return $this->UserAttributes;
+        return $this->UserAttributes ?? [];
     }
 
     public function getUserPoolId(): ?string
@@ -163,15 +163,21 @@ final class AdminUpdateUserAttributesRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Username" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Username'] = $v;
+        if (null === $v = $this->UserAttributes) {
+            throw new InvalidArgument(sprintf('Missing parameter "UserAttributes" for "%s". The value cannot be null.', __CLASS__));
+        }
 
         $index = -1;
-        foreach ($this->UserAttributes as $listValue) {
+        $payload['UserAttributes'] = [];
+        foreach ($v as $listValue) {
             ++$index;
             $payload['UserAttributes'][$index] = $listValue->requestBody();
         }
 
-        foreach ($this->ClientMetadata as $name => $v) {
-            $payload['ClientMetadata'][$name] = $v;
+        if (null !== $v = $this->ClientMetadata) {
+            foreach ($v as $name => $v) {
+                $payload['ClientMetadata'][$name] = $v;
+            }
         }
 
         return $payload;

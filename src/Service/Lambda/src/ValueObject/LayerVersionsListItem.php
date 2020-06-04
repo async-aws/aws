@@ -52,7 +52,7 @@ final class LayerVersionsListItem
         $this->Version = $input['Version'] ?? null;
         $this->Description = $input['Description'] ?? null;
         $this->CreatedDate = $input['CreatedDate'] ?? null;
-        $this->CompatibleRuntimes = $input['CompatibleRuntimes'] ?? [];
+        $this->CompatibleRuntimes = $input['CompatibleRuntimes'] ?? null;
         $this->LicenseInfo = $input['LicenseInfo'] ?? null;
     }
 
@@ -66,7 +66,7 @@ final class LayerVersionsListItem
      */
     public function getCompatibleRuntimes(): array
     {
-        return $this->CompatibleRuntimes;
+        return $this->CompatibleRuntimes ?? [];
     }
 
     public function getCreatedDate(): ?string

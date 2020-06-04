@@ -22,7 +22,7 @@ final class GetQueueAttributesRequest extends Input
     /**
      * A list of attributes for which to retrieve information.
      *
-     * @var list<QueueAttributeName::*>
+     * @var null|list<QueueAttributeName::*>
      */
     private $AttributeNames;
 
@@ -36,7 +36,7 @@ final class GetQueueAttributesRequest extends Input
     public function __construct(array $input = [])
     {
         $this->QueueUrl = $input['QueueUrl'] ?? null;
-        $this->AttributeNames = $input['AttributeNames'] ?? [];
+        $this->AttributeNames = $input['AttributeNames'] ?? null;
         parent::__construct($input);
     }
 
@@ -50,7 +50,7 @@ final class GetQueueAttributesRequest extends Input
      */
     public function getAttributeNames(): array
     {
-        return $this->AttributeNames;
+        return $this->AttributeNames ?? [];
     }
 
     public function getQueueUrl(): ?string
@@ -103,14 +103,15 @@ final class GetQueueAttributesRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueueUrl'] = $v;
-
-        $index = 0;
-        foreach ($this->AttributeNames as $mapValue) {
-            ++$index;
-            if (!QueueAttributeName::exists($mapValue)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "AttributeName" for "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $mapValue));
+        if (null !== $v = $this->AttributeNames) {
+            $index = 0;
+            foreach ($v as $mapValue) {
+                ++$index;
+                if (!QueueAttributeName::exists($mapValue)) {
+                    throw new InvalidArgument(sprintf('Invalid parameter "AttributeName" for "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $mapValue));
+                }
+                $payload["AttributeName.$index"] = $mapValue;
             }
-            $payload["AttributeName.$index"] = $mapValue;
         }
 
         return $payload;

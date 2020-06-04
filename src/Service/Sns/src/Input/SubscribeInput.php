@@ -37,7 +37,7 @@ final class SubscribeInput extends Input
     /**
      * A map of attributes with their corresponding values.
      *
-     * @var array<string, string>
+     * @var array<string, string>|null
      */
     private $Attributes;
 
@@ -64,7 +64,7 @@ final class SubscribeInput extends Input
         $this->TopicArn = $input['TopicArn'] ?? null;
         $this->Protocol = $input['Protocol'] ?? null;
         $this->Endpoint = $input['Endpoint'] ?? null;
-        $this->Attributes = $input['Attributes'] ?? [];
+        $this->Attributes = $input['Attributes'] ?? null;
         $this->ReturnSubscriptionArn = $input['ReturnSubscriptionArn'] ?? null;
         parent::__construct($input);
     }
@@ -79,7 +79,7 @@ final class SubscribeInput extends Input
      */
     public function getAttributes(): array
     {
-        return $this->Attributes;
+        return $this->Attributes ?? [];
     }
 
     public function getEndpoint(): ?string
@@ -175,14 +175,14 @@ final class SubscribeInput extends Input
         if (null !== $v = $this->Endpoint) {
             $payload['Endpoint'] = $v;
         }
-
-        $index = 0;
-        foreach ($this->Attributes as $mapKey => $mapValue) {
-            ++$index;
-            $payload["Attributes.entry.$index.key"] = $mapKey;
-            $payload["Attributes.entry.$index.value"] = $mapValue;
+        if (null !== $v = $this->Attributes) {
+            $index = 0;
+            foreach ($v as $mapKey => $mapValue) {
+                ++$index;
+                $payload["Attributes.entry.$index.key"] = $mapKey;
+                $payload["Attributes.entry.$index.value"] = $mapValue;
+            }
         }
-
         if (null !== $v = $this->ReturnSubscriptionArn) {
             $payload['ReturnSubscriptionArn'] = $v ? 'true' : 'false';
         }

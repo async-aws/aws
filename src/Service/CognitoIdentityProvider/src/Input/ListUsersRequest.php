@@ -22,7 +22,7 @@ final class ListUsersRequest extends Input
      * An array of strings, where each string is the name of a user attribute to be returned for each user in the search
      * results. If the array is null, all attributes are returned.
      *
-     * @var string[]
+     * @var string[]|null
      */
     private $AttributesToGet;
 
@@ -62,7 +62,7 @@ final class ListUsersRequest extends Input
     public function __construct(array $input = [])
     {
         $this->UserPoolId = $input['UserPoolId'] ?? null;
-        $this->AttributesToGet = $input['AttributesToGet'] ?? [];
+        $this->AttributesToGet = $input['AttributesToGet'] ?? null;
         $this->Limit = $input['Limit'] ?? null;
         $this->PaginationToken = $input['PaginationToken'] ?? null;
         $this->Filter = $input['Filter'] ?? null;
@@ -79,7 +79,7 @@ final class ListUsersRequest extends Input
      */
     public function getAttributesToGet(): array
     {
-        return $this->AttributesToGet;
+        return $this->AttributesToGet ?? [];
     }
 
     public function getFilter(): ?string
@@ -172,13 +172,14 @@ final class ListUsersRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "UserPoolId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserPoolId'] = $v;
-
-        $index = -1;
-        foreach ($this->AttributesToGet as $listValue) {
-            ++$index;
-            $payload['AttributesToGet'][$index] = $listValue;
+        if (null !== $v = $this->AttributesToGet) {
+            $index = -1;
+            $payload['AttributesToGet'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['AttributesToGet'][$index] = $listValue;
+            }
         }
-
         if (null !== $v = $this->Limit) {
             $payload['Limit'] = $v;
         }

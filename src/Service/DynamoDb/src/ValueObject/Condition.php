@@ -26,7 +26,7 @@ final class Condition
      */
     public function __construct(array $input)
     {
-        $this->AttributeValueList = array_map([AttributeValue::class, 'create'], $input['AttributeValueList'] ?? []);
+        $this->AttributeValueList = isset($input['AttributeValueList']) ? array_map([AttributeValue::class, 'create'], $input['AttributeValueList']) : null;
         $this->ComparisonOperator = $input['ComparisonOperator'] ?? null;
     }
 
@@ -40,7 +40,7 @@ final class Condition
      */
     public function getAttributeValueList(): array
     {
-        return $this->AttributeValueList;
+        return $this->AttributeValueList ?? [];
     }
 
     /**
@@ -57,13 +57,14 @@ final class Condition
     public function requestBody(): array
     {
         $payload = [];
-
-        $index = -1;
-        foreach ($this->AttributeValueList as $listValue) {
-            ++$index;
-            $payload['AttributeValueList'][$index] = $listValue->requestBody();
+        if (null !== $v = $this->AttributeValueList) {
+            $index = -1;
+            $payload['AttributeValueList'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['AttributeValueList'][$index] = $listValue->requestBody();
+            }
         }
-
         if (null === $v = $this->ComparisonOperator) {
             throw new InvalidArgument(sprintf('Missing parameter "ComparisonOperator" for "%s". The value cannot be null.', __CLASS__));
         }

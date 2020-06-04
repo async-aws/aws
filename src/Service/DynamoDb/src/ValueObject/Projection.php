@@ -26,7 +26,7 @@ final class Projection
     public function __construct(array $input)
     {
         $this->ProjectionType = $input['ProjectionType'] ?? null;
-        $this->NonKeyAttributes = $input['NonKeyAttributes'] ?? [];
+        $this->NonKeyAttributes = $input['NonKeyAttributes'] ?? null;
     }
 
     public static function create($input): self
@@ -39,7 +39,7 @@ final class Projection
      */
     public function getNonKeyAttributes(): array
     {
-        return $this->NonKeyAttributes;
+        return $this->NonKeyAttributes ?? [];
     }
 
     /**
@@ -62,11 +62,13 @@ final class Projection
             }
             $payload['ProjectionType'] = $v;
         }
-
-        $index = -1;
-        foreach ($this->NonKeyAttributes as $listValue) {
-            ++$index;
-            $payload['NonKeyAttributes'][$index] = $listValue;
+        if (null !== $v = $this->NonKeyAttributes) {
+            $index = -1;
+            $payload['NonKeyAttributes'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['NonKeyAttributes'][$index] = $listValue;
+            }
         }
 
         return $payload;

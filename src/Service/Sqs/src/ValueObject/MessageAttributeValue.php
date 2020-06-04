@@ -47,8 +47,8 @@ final class MessageAttributeValue
     {
         $this->StringValue = $input['StringValue'] ?? null;
         $this->BinaryValue = $input['BinaryValue'] ?? null;
-        $this->StringListValues = $input['StringListValues'] ?? [];
-        $this->BinaryListValues = $input['BinaryListValues'] ?? [];
+        $this->StringListValues = $input['StringListValues'] ?? null;
+        $this->BinaryListValues = $input['BinaryListValues'] ?? null;
         $this->DataType = $input['DataType'] ?? null;
     }
 
@@ -62,7 +62,7 @@ final class MessageAttributeValue
      */
     public function getBinaryListValues(): array
     {
-        return $this->BinaryListValues;
+        return $this->BinaryListValues ?? [];
     }
 
     public function getBinaryValue(): ?string
@@ -80,7 +80,7 @@ final class MessageAttributeValue
      */
     public function getStringListValues(): array
     {
-        return $this->StringListValues;
+        return $this->StringListValues ?? [];
     }
 
     public function getStringValue(): ?string
@@ -100,19 +100,20 @@ final class MessageAttributeValue
         if (null !== $v = $this->BinaryValue) {
             $payload['BinaryValue'] = base64_encode($v);
         }
-
-        $index = 0;
-        foreach ($this->StringListValues as $mapValue) {
-            ++$index;
-            $payload["StringListValue.$index"] = $mapValue;
+        if (null !== $v = $this->StringListValues) {
+            $index = 0;
+            foreach ($v as $mapValue) {
+                ++$index;
+                $payload["StringListValue.$index"] = $mapValue;
+            }
         }
-
-        $index = 0;
-        foreach ($this->BinaryListValues as $mapValue) {
-            ++$index;
-            $payload["BinaryListValue.$index"] = base64_encode($mapValue);
+        if (null !== $v = $this->BinaryListValues) {
+            $index = 0;
+            foreach ($v as $mapValue) {
+                ++$index;
+                $payload["BinaryListValue.$index"] = base64_encode($mapValue);
+            }
         }
-
         if (null === $v = $this->DataType) {
             throw new InvalidArgument(sprintf('Missing parameter "DataType" for "%s". The value cannot be null.', __CLASS__));
         }

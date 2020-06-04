@@ -23,7 +23,7 @@ final class CreateTableInput extends Input
      *
      * @required
      *
-     * @var AttributeDefinition[]
+     * @var AttributeDefinition[]|null
      */
     private $AttributeDefinitions;
 
@@ -44,7 +44,7 @@ final class CreateTableInput extends Input
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html
      * @required
      *
-     * @var KeySchemaElement[]
+     * @var KeySchemaElement[]|null
      */
     private $KeySchema;
 
@@ -53,7 +53,7 @@ final class CreateTableInput extends Input
      * partition key value. There is a 10 GB size limit per partition key value; otherwise, the size of a local secondary
      * index is unconstrained.
      *
-     * @var LocalSecondaryIndex[]
+     * @var LocalSecondaryIndex[]|null
      */
     private $LocalSecondaryIndexes;
 
@@ -61,7 +61,7 @@ final class CreateTableInput extends Input
      * One or more global secondary indexes (the maximum is 20) to be created on the table. Each global secondary index in
      * the array includes the following:.
      *
-     * @var GlobalSecondaryIndex[]
+     * @var GlobalSecondaryIndex[]|null
      */
     private $GlobalSecondaryIndexes;
 
@@ -100,7 +100,7 @@ final class CreateTableInput extends Input
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html
      *
-     * @var Tag[]
+     * @var Tag[]|null
      */
     private $Tags;
 
@@ -121,16 +121,16 @@ final class CreateTableInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->AttributeDefinitions = array_map([AttributeDefinition::class, 'create'], $input['AttributeDefinitions'] ?? []);
+        $this->AttributeDefinitions = isset($input['AttributeDefinitions']) ? array_map([AttributeDefinition::class, 'create'], $input['AttributeDefinitions']) : null;
         $this->TableName = $input['TableName'] ?? null;
-        $this->KeySchema = array_map([KeySchemaElement::class, 'create'], $input['KeySchema'] ?? []);
-        $this->LocalSecondaryIndexes = array_map([LocalSecondaryIndex::class, 'create'], $input['LocalSecondaryIndexes'] ?? []);
-        $this->GlobalSecondaryIndexes = array_map([GlobalSecondaryIndex::class, 'create'], $input['GlobalSecondaryIndexes'] ?? []);
+        $this->KeySchema = isset($input['KeySchema']) ? array_map([KeySchemaElement::class, 'create'], $input['KeySchema']) : null;
+        $this->LocalSecondaryIndexes = isset($input['LocalSecondaryIndexes']) ? array_map([LocalSecondaryIndex::class, 'create'], $input['LocalSecondaryIndexes']) : null;
+        $this->GlobalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([GlobalSecondaryIndex::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
         $this->BillingMode = $input['BillingMode'] ?? null;
         $this->ProvisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
         $this->StreamSpecification = isset($input['StreamSpecification']) ? StreamSpecification::create($input['StreamSpecification']) : null;
         $this->SSESpecification = isset($input['SSESpecification']) ? SSESpecification::create($input['SSESpecification']) : null;
-        $this->Tags = array_map([Tag::class, 'create'], $input['Tags'] ?? []);
+        $this->Tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
         parent::__construct($input);
     }
 
@@ -144,7 +144,7 @@ final class CreateTableInput extends Input
      */
     public function getAttributeDefinitions(): array
     {
-        return $this->AttributeDefinitions;
+        return $this->AttributeDefinitions ?? [];
     }
 
     /**
@@ -160,7 +160,7 @@ final class CreateTableInput extends Input
      */
     public function getGlobalSecondaryIndexes(): array
     {
-        return $this->GlobalSecondaryIndexes;
+        return $this->GlobalSecondaryIndexes ?? [];
     }
 
     /**
@@ -168,7 +168,7 @@ final class CreateTableInput extends Input
      */
     public function getKeySchema(): array
     {
-        return $this->KeySchema;
+        return $this->KeySchema ?? [];
     }
 
     /**
@@ -176,7 +176,7 @@ final class CreateTableInput extends Input
      */
     public function getLocalSecondaryIndexes(): array
     {
-        return $this->LocalSecondaryIndexes;
+        return $this->LocalSecondaryIndexes ?? [];
     }
 
     public function getProvisionedThroughput(): ?ProvisionedThroughput
@@ -204,7 +204,7 @@ final class CreateTableInput extends Input
      */
     public function getTags(): array
     {
-        return $this->Tags;
+        return $this->Tags ?? [];
     }
 
     /**
@@ -323,9 +323,13 @@ final class CreateTableInput extends Input
     private function requestBody(): array
     {
         $payload = [];
+        if (null === $v = $this->AttributeDefinitions) {
+            throw new InvalidArgument(sprintf('Missing parameter "AttributeDefinitions" for "%s". The value cannot be null.', __CLASS__));
+        }
 
         $index = -1;
-        foreach ($this->AttributeDefinitions as $listValue) {
+        $payload['AttributeDefinitions'] = [];
+        foreach ($v as $listValue) {
             ++$index;
             $payload['AttributeDefinitions'][$index] = $listValue->requestBody();
         }
@@ -334,25 +338,33 @@ final class CreateTableInput extends Input
             throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TableName'] = $v;
+        if (null === $v = $this->KeySchema) {
+            throw new InvalidArgument(sprintf('Missing parameter "KeySchema" for "%s". The value cannot be null.', __CLASS__));
+        }
 
         $index = -1;
-        foreach ($this->KeySchema as $listValue) {
+        $payload['KeySchema'] = [];
+        foreach ($v as $listValue) {
             ++$index;
             $payload['KeySchema'][$index] = $listValue->requestBody();
         }
 
-        $index = -1;
-        foreach ($this->LocalSecondaryIndexes as $listValue) {
-            ++$index;
-            $payload['LocalSecondaryIndexes'][$index] = $listValue->requestBody();
+        if (null !== $v = $this->LocalSecondaryIndexes) {
+            $index = -1;
+            $payload['LocalSecondaryIndexes'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['LocalSecondaryIndexes'][$index] = $listValue->requestBody();
+            }
         }
-
-        $index = -1;
-        foreach ($this->GlobalSecondaryIndexes as $listValue) {
-            ++$index;
-            $payload['GlobalSecondaryIndexes'][$index] = $listValue->requestBody();
+        if (null !== $v = $this->GlobalSecondaryIndexes) {
+            $index = -1;
+            $payload['GlobalSecondaryIndexes'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['GlobalSecondaryIndexes'][$index] = $listValue->requestBody();
+            }
         }
-
         if (null !== $v = $this->BillingMode) {
             if (!BillingMode::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "BillingMode" for "%s". The value "%s" is not a valid "BillingMode".', __CLASS__, $v));
@@ -368,11 +380,13 @@ final class CreateTableInput extends Input
         if (null !== $v = $this->SSESpecification) {
             $payload['SSESpecification'] = $v->requestBody();
         }
-
-        $index = -1;
-        foreach ($this->Tags as $listValue) {
-            ++$index;
-            $payload['Tags'][$index] = $listValue->requestBody();
+        if (null !== $v = $this->Tags) {
+            $index = -1;
+            $payload['Tags'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['Tags'][$index] = $listValue->requestBody();
+            }
         }
 
         return $payload;

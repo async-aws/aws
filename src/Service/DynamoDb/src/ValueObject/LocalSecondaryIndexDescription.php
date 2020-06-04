@@ -51,7 +51,7 @@ final class LocalSecondaryIndexDescription
     public function __construct(array $input)
     {
         $this->IndexName = $input['IndexName'] ?? null;
-        $this->KeySchema = array_map([KeySchemaElement::class, 'create'], $input['KeySchema'] ?? []);
+        $this->KeySchema = isset($input['KeySchema']) ? array_map([KeySchemaElement::class, 'create'], $input['KeySchema']) : null;
         $this->Projection = isset($input['Projection']) ? Projection::create($input['Projection']) : null;
         $this->IndexSizeBytes = $input['IndexSizeBytes'] ?? null;
         $this->ItemCount = $input['ItemCount'] ?? null;
@@ -88,7 +88,7 @@ final class LocalSecondaryIndexDescription
      */
     public function getKeySchema(): array
     {
-        return $this->KeySchema;
+        return $this->KeySchema ?? [];
     }
 
     public function getProjection(): ?Projection

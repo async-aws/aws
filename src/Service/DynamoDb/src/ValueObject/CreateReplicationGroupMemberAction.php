@@ -41,7 +41,7 @@ final class CreateReplicationGroupMemberAction
         $this->RegionName = $input['RegionName'] ?? null;
         $this->KMSMasterKeyId = $input['KMSMasterKeyId'] ?? null;
         $this->ProvisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
-        $this->GlobalSecondaryIndexes = array_map([ReplicaGlobalSecondaryIndex::class, 'create'], $input['GlobalSecondaryIndexes'] ?? []);
+        $this->GlobalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([ReplicaGlobalSecondaryIndex::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
     }
 
     public static function create($input): self
@@ -54,7 +54,7 @@ final class CreateReplicationGroupMemberAction
      */
     public function getGlobalSecondaryIndexes(): array
     {
-        return $this->GlobalSecondaryIndexes;
+        return $this->GlobalSecondaryIndexes ?? [];
     }
 
     public function getKMSMasterKeyId(): ?string
@@ -88,11 +88,13 @@ final class CreateReplicationGroupMemberAction
         if (null !== $v = $this->ProvisionedThroughputOverride) {
             $payload['ProvisionedThroughputOverride'] = $v->requestBody();
         }
-
-        $index = -1;
-        foreach ($this->GlobalSecondaryIndexes as $listValue) {
-            ++$index;
-            $payload['GlobalSecondaryIndexes'][$index] = $listValue->requestBody();
+        if (null !== $v = $this->GlobalSecondaryIndexes) {
+            $index = -1;
+            $payload['GlobalSecondaryIndexes'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['GlobalSecondaryIndexes'][$index] = $listValue->requestBody();
+            }
         }
 
         return $payload;
