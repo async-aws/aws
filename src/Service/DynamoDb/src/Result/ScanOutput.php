@@ -10,6 +10,9 @@ use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\Capacity;
 use AsyncAws\DynamoDb\ValueObject\ConsumedCapacity;
 
+/**
+ * @implements \IteratorAggregate<array<string, AttributeValue>>
+ */
 class ScanOutput extends Result implements \IteratorAggregate
 {
     /**

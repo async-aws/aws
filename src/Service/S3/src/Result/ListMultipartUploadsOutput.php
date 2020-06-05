@@ -12,6 +12,9 @@ use AsyncAws\S3\ValueObject\Initiator;
 use AsyncAws\S3\ValueObject\MultipartUpload;
 use AsyncAws\S3\ValueObject\Owner;
 
+/**
+ * @implements \IteratorAggregate<MultipartUpload|CommonPrefix>
+ */
 class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
 {
     /**

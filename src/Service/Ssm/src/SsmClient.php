@@ -91,8 +91,6 @@ class SsmClient extends AbstractApi
      *   NextToken?: string,
      *   @region?: string,
      * }|GetParametersByPathRequest $input
-     *
-     * @return \Traversable<Parameter> & GetParametersByPathResult
      */
     public function getParametersByPath($input): GetParametersByPathResult
     {

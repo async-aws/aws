@@ -8,6 +8,9 @@ use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\Lambda\ValueObject\LayerVersionsListItem;
 
+/**
+ * @implements \IteratorAggregate<LayerVersionsListItem>
+ */
 class ListLayerVersionsResponse extends Result implements \IteratorAggregate
 {
     /**

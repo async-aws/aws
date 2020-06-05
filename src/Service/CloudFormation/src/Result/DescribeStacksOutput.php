@@ -14,6 +14,9 @@ use AsyncAws\CloudFormation\ValueObject\Tag;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
+/**
+ * @implements \IteratorAggregate<Stack>
+ */
 class DescribeStacksOutput extends Result implements \IteratorAggregate
 {
     /**

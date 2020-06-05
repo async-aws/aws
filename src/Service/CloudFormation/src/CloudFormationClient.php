@@ -7,7 +7,6 @@ use AsyncAws\CloudFormation\Input\DescribeStacksInput;
 use AsyncAws\CloudFormation\Result\DescribeStackEventsOutput;
 use AsyncAws\CloudFormation\Result\DescribeStacksOutput;
 use AsyncAws\CloudFormation\ValueObject\Stack;
-use AsyncAws\CloudFormation\ValueObject\StackEvent;
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
@@ -27,8 +26,6 @@ class CloudFormationClient extends AbstractApi
      *   NextToken?: string,
      *   @region?: string,
      * }|DescribeStackEventsInput $input
-     *
-     * @return \Traversable<StackEvent> & DescribeStackEventsOutput
      */
     public function describeStackEvents($input = []): DescribeStackEventsOutput
     {
@@ -49,8 +46,6 @@ class CloudFormationClient extends AbstractApi
      *   NextToken?: string,
      *   @region?: string,
      * }|DescribeStacksInput $input
-     *
-     * @return \Traversable<Stack> & DescribeStacksOutput
      */
     public function describeStacks($input = []): DescribeStacksOutput
     {

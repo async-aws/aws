@@ -7,6 +7,9 @@ use AsyncAws\Core\Result;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Input\ListTablesInput;
 
+/**
+ * @implements \IteratorAggregate<string>
+ */
 class ListTablesOutput extends Result implements \IteratorAggregate
 {
     /**

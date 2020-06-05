@@ -12,6 +12,9 @@ use AsyncAws\S3\ValueObject\Initiator;
 use AsyncAws\S3\ValueObject\Owner;
 use AsyncAws\S3\ValueObject\Part;
 
+/**
+ * @implements \IteratorAggregate<Part>
+ */
 class ListPartsOutput extends Result implements \IteratorAggregate
 {
     /**

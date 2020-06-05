@@ -10,6 +10,9 @@ use AsyncAws\Iam\ValueObject\AttachedPermissionsBoundary;
 use AsyncAws\Iam\ValueObject\Tag;
 use AsyncAws\Iam\ValueObject\User;
 
+/**
+ * @implements \IteratorAggregate<User>
+ */
 class ListUsersResponse extends Result implements \IteratorAggregate
 {
     /**
