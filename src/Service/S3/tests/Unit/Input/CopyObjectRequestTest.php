@@ -17,12 +17,16 @@ class CopyObjectRequestTest extends TestCase
             'Bucket' => 'my-bucket',
             'ContentType' => 'image/jpg',
             'CopySource' => '/bucket/my-image.jpg',
+            'Metadata' => [
+                'filename' => 'biz',
+            ],
         ]);
 
         $expected = '
             PUT /my-bucket/my-second-image.jpg HTTP/1.0
             Content-Type: image/jpg
             x-amz-copy-source: /bucket/my-image.jpg
+            x-amz-meta-filename: biz
         ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

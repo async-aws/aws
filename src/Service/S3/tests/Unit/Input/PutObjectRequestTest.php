@@ -13,10 +13,14 @@ class PutObjectRequestTest extends TestCase
             'Bucket' => 'foo',
             'Key' => 'bar/baz/biz',
             'Body' => 'contents',
+            'Metadata' => [
+                'filename' => 'biz',
+            ],
         ]);
 
         $expected = '
             PUT /foo/bar/baz/biz HTTP/1.0
+            x-amz-meta-filename: biz
 
             contents
         ';

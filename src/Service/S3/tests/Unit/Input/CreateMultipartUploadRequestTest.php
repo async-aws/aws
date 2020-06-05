@@ -15,12 +15,16 @@ class CreateMultipartUploadRequestTest extends TestCase
         $input = new CreateMultipartUploadRequest([
             'Bucket' => 'example-bucket',
             'Key' => 'example-object',
+            'Metadata' => [
+                'filename' => 'biz',
+            ],
         ]);
 
         // see example-1.json from SDK
         $expected = '
 POST /example-bucket/example-object?uploads HTTP/1.1
 Content-Type: application/xml
+x-amz-meta-filename: biz
 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

@@ -425,7 +425,7 @@ class HeadObjectOutput extends Result
         $this->Metadata = [];
         foreach ($headers as $name => $value) {
             if ('x-amz-meta-' === substr($name, 0, 11)) {
-                $this->Metadata[$name] = $value[0];
+                $this->Metadata[substr($name, 11)] = $value[0];
             }
         }
     }

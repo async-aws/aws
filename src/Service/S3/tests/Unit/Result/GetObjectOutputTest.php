@@ -57,7 +57,8 @@ class GetObjectOutputTest extends TestCase
 
         $metadata = $result->getMetadata();
         self::assertCount(1, $metadata);
-        self::assertArrayHasKey('x-amz-meta-tobias', $metadata);
-        self::assertEquals('nyholm', $metadata['x-amz-meta-tobias']);
+        self::assertArrayNotHasKey('x-amz-meta-tobias', $metadata);
+        self::assertArrayHasKey('tobias', $metadata);
+        self::assertEquals('nyholm', $metadata['tobias']);
     }
 }

@@ -255,7 +255,7 @@ class ResultGenerator
                 $this->NAME = [];
                 foreach ($headers as $name => $value) {
                     if (substr($name, 0, LENGTH) === "LOCATION_NAME") {
-                        $this->NAME[$name] = $value[0];
+                        $this->NAME[substr($name, LENGTH)] = $value[0];
                     }
                 }
             ', [

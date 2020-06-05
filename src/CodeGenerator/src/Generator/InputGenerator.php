@@ -272,10 +272,10 @@ class InputGenerator
                 $validateEnum = '';
                 if (!empty($memberShape->getEnum())) {
                     $enumClassName = $this->namespaceRegistry->getEnum($memberShape);
-                    $validateEnum = strtr('if (!ENUM_CLASS::exists(INPUT)) {
+                    $validateEnum = strtr('if (!ENUM_CLASS::exists(VALUE)) {
                         throw new InvalidArgument(sprintf(\'Invalid parameter "PROPERTY" for "%s". The value "%s" is not a valid "ENUM_CLASS".\', __CLASS__, $this->PROPERTY));
                     }', [
-                        'INPUT' => $inputElement,
+                        'VALUE' => $this->stringify($inputElement, $member, $requestPart),
                         'ENUM_CLASS' => $enumClassName->getName(),
                         'PROPERTY' => $member->getName(),
                     ]);
@@ -286,7 +286,6 @@ class InputGenerator
                     'VAR_NAME' => $varName,
                     'LOCATION' => $member->getLocationName() ?? $member->getName(),
                     'VALIDATE_ENUM' => $validateEnum,
-                    'INPUT' => $inputElement,
                     'VALUE' => $this->stringify($inputElement, $member, $requestPart),
                 ]);
                 if (!isset($body[$requestPart])) {
@@ -294,6 +293,36 @@ class InputGenerator
                 }
                 $body[$requestPart] .= implode("\n", \array_filter(array_map('trim', explode("\n", $bodyCode))));
             }
+        }
+
+        // "headers" are not "header"
+        foreach ($inputShape->getMembers() as $member) {
+            if ('headers' !== $member->getLocation()) {
+                continue;
+            }
+
+            $memberShape = $member->getShape();
+            $inputElement = '$this->' . $member->getName();
+            if (!$memberShape instanceof MapShape) {
+                throw new \InvalidArgumentException(sprintf('Headers only supports MapShae. "%s" give', $memberShape->getType()));
+            }
+            $mapValueShape = $memberShape->getValue()->getShape();
+            $keyValueShape = $memberShape->getKey()->getShape();
+            if (!empty($mapValueShape->getEnum())) {
+                throw new \InvalidArgumentException('Headers does not yet support Enum in value');
+            }
+            if (!empty($keyValueShape->getEnum())) {
+                throw new \InvalidArgumentException('Headers does not yet support Enum in value');
+            }
+
+            $bodyCode = strtr('foreach (VALUE as $key => $value) {
+                $headers["LOCATION$key"] = $value;
+            }', [
+                'PROPERTY' => $member->getName(),
+                'LOCATION' => $member->getLocationName() ?? $member->getName(),
+                'VALUE' => $inputElement,
+            ]);
+            $body['header'] .= implode("\n", \array_filter(array_map('trim', explode("\n", $bodyCode))));
         }
 
         if ($operation->hasBody()) {
