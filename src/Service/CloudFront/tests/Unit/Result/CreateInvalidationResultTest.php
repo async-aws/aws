@@ -16,7 +16,7 @@ class CreateInvalidationResultTest extends TestCase
         // see https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateInvalidation.html#API_CreateInvalidation_ResponseSyntax
         $response = new SimpleMockedResponse('
 <Invalidation>
-   <CreateTime>20120301090000</CreateTime>
+   <CreateTime>2020-06-06T08:54:13.427Z</CreateTime>
    <Id>IDFDVBD632BHDS5</Id>
    <InvalidationBatch>
       <CallerReference>20120301090000</CallerReference>
@@ -27,7 +27,7 @@ class CreateInvalidationResultTest extends TestCase
          <Quantity>1</Quantity>
       </Paths>
    </InvalidationBatch>
-   <Status>Completed</Status>
+   <Status>InProgress</Status>
 </Invalidation>');
 
         $client = new MockHttpClient($response);
@@ -36,7 +36,7 @@ class CreateInvalidationResultTest extends TestCase
         $invalidation = $result->getInvalidation();
         self::assertNotNull($invalidation);
         self::assertEquals('IDFDVBD632BHDS5', $invalidation->getId());
-        self::assertEquals('2012-03-01 09:00:00', $invalidation->getCreateTime()->format('Y-m-d H:i:s'));
-        // self::assertTODO(expected, $result->getInvalidation());
+        self::assertEquals('2020-06-06 08:54:13', $invalidation->getCreateTime()->format('Y-m-d H:i:s'));
+        self::assertEquals('InProgress', $invalidation->getStatus());
     }
 }
