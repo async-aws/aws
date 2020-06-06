@@ -226,7 +226,7 @@ class TestGenerator
     {
         $className = $this->namespaceRegistry->getIntegrationTest($operation->getService());
         $inputClassName = $this->namespaceRegistry->getInput($operation->getInput());
-        $methodName = 'test' . $operation->getName();
+        $methodName = 'test' . $operation->getMethodName();
 
         if (\class_exists($className->getFqdn())) {
             $namespace = ClassFactory::fromExistingClass($className->getFqdn());
@@ -256,7 +256,7 @@ class TestGenerator
                 RESULT_ASSERT
             ', [
                 'INPUT_CONSTRUCTOR' => $this->getInputCode($namespace, $operation->getInput()),
-                'METHOD' => $operation->getName(),
+                'METHOD' => $operation->getMethodName(),
                 'RESULT_ASSERT' => $operation->getOutput() ? $this->getResultAssert($operation->getOutput()) : '',
             ]));
 
@@ -327,7 +327,7 @@ class TestGenerator
     {
         $clientName = $this->namespaceRegistry->getClient($operation->getService());
         $clientTestName = $this->namespaceRegistry->getClientTest($operation->getService());
-        $methodName = 'test' . $operation->getName();
+        $methodName = 'test' . $operation->getMethodName();
 
         try {
             $namespace = ClassFactory::fromExistingClass($clientTestName->getFqdn());
@@ -367,7 +367,7 @@ class TestGenerator
                 'CLASS_NAME' => $clientName->getName(),
                 'INPUT_CONSTRUCTOR' => $this->getInputCode($namespace, $operation->getInput(), false),
                 'RESULT' => $output->getName(),
-                'METHOD' => $operation->getName(),
+                'METHOD' => $operation->getMethodName(),
             ]));
 
         $this->fileWriter->write($namespace);

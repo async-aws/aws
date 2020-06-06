@@ -53,6 +53,7 @@ class ServiceDefinition
                 $this->definition['operations'][$name] + [
                     '_documentation' => $this->documentation['operations'][$name] ?? null,
                     '_apiVersion' => $this->definition['metadata']['apiVersion'],
+                    '_method_name' => ucfirst($name),
                 ],
                 $this,
                 $this->getPagination($name),

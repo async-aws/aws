@@ -11,7 +11,7 @@ use AsyncAws\Core\Test\TestCase;
 
 class CloudFrontClientTest extends TestCase
 {
-    public function testCreateInvalidation2019_03_26(): void
+    public function testCreateInvalidation(): void
     {
         $client = $this->getClient();
 
@@ -25,7 +25,7 @@ class CloudFrontClientTest extends TestCase
                 'CallerReference' => 'change me',
             ]),
         ]);
-        $result = $client->CreateInvalidation2019_03_26($input);
+        $result = $client->createInvalidation($input);
 
         $result->resolve();
 

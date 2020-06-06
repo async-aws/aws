@@ -21,7 +21,7 @@ class CloudFrontClient extends AbstractApi
      *   @region?: string,
      * }|CreateInvalidationRequest $input
      */
-    public function createInvalidation2019_03_26($input): CreateInvalidationResult
+    public function createInvalidation($input): CreateInvalidationResult
     {
         $input = CreateInvalidationRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateInvalidation2019_03_26', 'region' => $input->getRegion()]));

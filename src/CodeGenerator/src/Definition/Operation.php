@@ -47,9 +47,17 @@ class Operation
         return $operation;
     }
 
+    /**
+     * This is the operation name.
+     */
     public function getName(): string
     {
         return $this->data['name'];
+    }
+
+    public function getMethodName(): string
+    {
+        return $this->data['_method_name'];
     }
 
     public function getService(): ServiceDefinition
