@@ -36,7 +36,7 @@ class RestXmlParser implements Parser
             $member = $shape->getMember($payload);
             $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
                 'PROPERTY_NAME' => $member->getName(),
-                'PROPERTY_ACCESSOR' => $this->parseXmlElement('$data', $member->getShape(), null === $shape->getResultWrapper() ? true : $member->isRequired()),
+                'PROPERTY_ACCESSOR' => $this->parseXmlElement('$data', $member->getShape(), null === $shape->getResultWrapper() || $member->isRequired()),
             ]);
         } else {
             foreach ($shape->getMembers() as $member) {
