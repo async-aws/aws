@@ -58,8 +58,9 @@ class RestJsonParser implements Parser
         if (null !== $wrapper = $shape->getResultWrapper()) {
             $body .= strtr('$data = $data[WRAPPER];' . "\n", ['WRAPPER' => var_export($wrapper, true)]);
         }
-        if (!empty($this->functions)) {
-            $body .= '$fn = [];' . \implode("\n", $this->functions);
+        $functions = array_filter($this->functions, 'is_string');
+        if (!empty($functions)) {
+            $body .= '$fn = [];' . \implode("\n", $functions);
         }
         $body .= "\n" . implode("\n", $properties);
 
@@ -277,13 +278,13 @@ class RestJsonParser implements Parser
                 return $items;
             })(INPUT)';
                     if (!$required) {
-                $body = 'empty(INPUT) ? [] : ' . $body;
-            }
+                        $body = 'empty(INPUT) ? [] : ' . $body;
+                    }
 
-            return strtr($body, [
-                'INPUT' => $input,
-                'CODE' => $this->parseElement('$value', $shapeValue->getShape(), true),
-            ]);
+                    return strtr($body, [
+                        'INPUT' => $input,
+                        'CODE' => $this->parseElement('$value', $shapeValue->getShape(), true),
+                    ]);
                 }
             } else {
                 $inputAccessorName = $this->getInputAccessorName($shapeValue);
