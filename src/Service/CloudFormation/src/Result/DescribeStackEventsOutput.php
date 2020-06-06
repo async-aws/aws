@@ -8,6 +8,9 @@ use AsyncAws\CloudFormation\ValueObject\StackEvent;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
+/**
+ * @implements \IteratorAggregate<StackEvent>
+ */
 class DescribeStackEventsOutput extends Result implements \IteratorAggregate
 {
     /**

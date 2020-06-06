@@ -10,6 +10,9 @@ use AsyncAws\CognitoIdentityProvider\ValueObject\UserType;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
+/**
+ * @implements \IteratorAggregate<UserType>
+ */
 class ListUsersResponse extends Result implements \IteratorAggregate
 {
     /**

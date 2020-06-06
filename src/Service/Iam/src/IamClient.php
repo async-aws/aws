@@ -90,8 +90,6 @@ class IamClient extends AbstractApi
      *   MaxItems?: int,
      *   @region?: string,
      * }|ListUsersRequest $input
-     *
-     * @return \Traversable<User> & ListUsersResponse
      */
     public function listUsers($input = []): ListUsersResponse
     {

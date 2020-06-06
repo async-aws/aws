@@ -8,6 +8,9 @@ use AsyncAws\CloudWatchLogs\ValueObject\LogStream;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
+/**
+ * @implements \IteratorAggregate<LogStream>
+ */
 class DescribeLogStreamsResponse extends Result implements \IteratorAggregate
 {
     /**

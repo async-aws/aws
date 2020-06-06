@@ -8,6 +8,9 @@ use AsyncAws\Sns\Input\ListSubscriptionsByTopicInput;
 use AsyncAws\Sns\SnsClient;
 use AsyncAws\Sns\ValueObject\Subscription;
 
+/**
+ * @implements \IteratorAggregate<Subscription>
+ */
 class ListSubscriptionsByTopicResponse extends Result implements \IteratorAggregate
 {
     /**

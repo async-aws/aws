@@ -14,7 +14,6 @@ use AsyncAws\Lambda\Result\AddLayerVersionPermissionResponse;
 use AsyncAws\Lambda\Result\InvocationResponse;
 use AsyncAws\Lambda\Result\ListLayerVersionsResponse;
 use AsyncAws\Lambda\Result\PublishLayerVersionResponse;
-use AsyncAws\Lambda\ValueObject\LayerVersionsListItem;
 
 class LambdaClient extends AbstractApi
 {
@@ -84,8 +83,6 @@ class LambdaClient extends AbstractApi
      *   MaxItems?: int,
      *   @region?: string,
      * }|ListLayerVersionsRequest $input
-     *
-     * @return \Traversable<LayerVersionsListItem> & ListLayerVersionsResponse
      */
     public function listLayerVersions($input): ListLayerVersionsResponse
     {

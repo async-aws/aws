@@ -5,6 +5,9 @@ namespace AsyncAws\Sqs\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
+/**
+ * @implements \IteratorAggregate<string>
+ */
 class ListQueuesResult extends Result implements \IteratorAggregate
 {
     /**

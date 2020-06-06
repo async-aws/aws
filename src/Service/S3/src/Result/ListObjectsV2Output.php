@@ -11,6 +11,9 @@ use AsyncAws\S3\ValueObject\AwsObject;
 use AsyncAws\S3\ValueObject\CommonPrefix;
 use AsyncAws\S3\ValueObject\Owner;
 
+/**
+ * @implements \IteratorAggregate<AwsObject|CommonPrefix>
+ */
 class ListObjectsV2Output extends Result implements \IteratorAggregate
 {
     /**

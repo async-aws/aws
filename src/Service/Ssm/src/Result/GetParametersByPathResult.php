@@ -8,6 +8,9 @@ use AsyncAws\Ssm\Input\GetParametersByPathRequest;
 use AsyncAws\Ssm\SsmClient;
 use AsyncAws\Ssm\ValueObject\Parameter;
 
+/**
+ * @implements \IteratorAggregate<Parameter>
+ */
 class GetParametersByPathResult extends Result implements \IteratorAggregate
 {
     /**
