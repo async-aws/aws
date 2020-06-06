@@ -147,7 +147,7 @@ class SesClientTest extends TestCase
         $refl = new \ReflectionClass($ses);
         $method = $refl->getMethod('getEndpointMetadata');
         $method->setAccessible(true);
-        $data = $method->invokeArgs($ses, [null]);
+        $data = $method->invokeArgs($ses, ['eu-central-1']);
 
         self::assertEquals('ses', $data['signService']);
     }
