@@ -34,6 +34,9 @@ menu:
             cf:
                 text: Cloud Formation
                 url: /clients/cf.html
+            cloud-front:
+                text: CloudFront
+                url: /clients/cloud-front.html
             cloud-watch-logs:
                 text: Cloud Watch Log
                 url: /clients/cloud-watch-logs.html
