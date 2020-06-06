@@ -83,7 +83,7 @@ class OperationGenerator
         $classes = $namespace->getClasses();
         $class = $classes[\array_key_first($classes)];
 
-        $method = $class->addMethod(\lcfirst($operation->getName()));
+        $method = $class->addMethod(\lcfirst($operation->getMethodName()));
         if (null !== $documentation = $operation->getDocumentation()) {
             $method->addComment(GeneratorHelper::parseDocumentation($documentation));
         }

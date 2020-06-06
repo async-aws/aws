@@ -13,7 +13,7 @@ use Symfony\Component\HttpClient\MockHttpClient;
 
 class CloudFrontClientTest extends TestCase
 {
-    public function testCreateInvalidation2019_03_26(): void
+    public function testCreateInvalidation(): void
     {
         $client = new CloudFrontClient([], new NullProvider(), new MockHttpClient());
 
@@ -27,7 +27,7 @@ class CloudFrontClientTest extends TestCase
                 'CallerReference' => 'change me',
             ]),
         ]);
-        $result = $client->CreateInvalidation2019_03_26($input);
+        $result = $client->createInvalidation($input);
 
         self::assertInstanceOf(CreateInvalidationResult::class, $result);
         self::assertFalse($result->info()['resolved']);
