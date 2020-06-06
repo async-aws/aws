@@ -4,7 +4,7 @@
     "description": "Root repository cannot be installed with composer. Use subpackages like async-aws/s3",
     "license": "MIT",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.2.5 || ^8.0",
         "ext-SimpleXML": "*",
         "ext-dom": "*",
         "ext-filter": "*",

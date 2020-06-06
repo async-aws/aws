@@ -19,7 +19,7 @@
         }
     ],
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.2.5 || ^8.0",
         "async-aws/core": "^1.0",
         "async-aws/s3": "^1.0",
         "league/flysystem": "^1.0.65 || ^2.0.0-alpha.2",
