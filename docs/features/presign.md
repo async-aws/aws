@@ -25,3 +25,5 @@ $url = $s3->presign($input, new \DateTimeImmutable('+60 min'));
 
 echo $url;
 ```
+
+> **Note**: AWS has limitations on the expiration length. Read more in [the docs](https://aws.amazon.com/premiumsupport/knowledge-center/presigned-url-s3-bucket-expiration/).
