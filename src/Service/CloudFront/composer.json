@@ -1,0 +1,33 @@
+{
+    "name": "async-aws/cloud-front",
+    "type": "library",
+    "description": "CloudFront client, part of the AWS SDK provided by AsyncAws.",
+    "keywords": [
+        "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
+        "cloud-front"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.2.5 || ^8.0",
+        "ext-SimpleXML": "*",
+        "async-aws/core": "^1.2"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "AsyncAws\\CloudFront\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\CloudFront\\Tests\\": "tests/"
+        }
+    }
+}

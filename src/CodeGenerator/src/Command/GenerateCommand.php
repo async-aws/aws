@@ -357,6 +357,7 @@ class GenerateCommand extends Command
     {
         $srcPath = \dirname((new \ReflectionClass($clientClass->getFqdn()))->getFileName());
         $testPath = \substr($srcPath, 0, \strrpos($srcPath, '/src/')) . '/tests';
+
         if (!\is_dir($srcPath)) {
             throw new \InvalidArgumentException(sprintf('The src dir "%s" does not exists', $srcPath));
         }
@@ -380,7 +381,7 @@ class GenerateCommand extends Command
                 'dry-run' => false,
                 'path' => [$srcPath, $testPath],
                 'path-mode' => 'override',
-                'using-cache' => true,
+                'using-cache' => false,
                 'cache-file' => $baseDir . '/.php_cs.cache',
                 'diff' => false,
                 'stop-on-violation' => false,
@@ -405,6 +406,9 @@ class GenerateCommand extends Command
         $runner->fix();
         foreach ($e->getInvalidErrors() as $error) {
             $io->error(sprintf('The generated file "%s" is invalid: %s', $error->getFilePath(), $error->getSource() ? $error->getSource()->getMessage() : 'unknown'));
+        }
+        if (empty($e->getInvalidErrors())) {
+            $runner->fix();
         }
     }
 
