@@ -41,7 +41,7 @@ class CreateInvalidationResult extends Result
         $this->Location = $headers['location'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
-        $this->Invalidation = !$data ? null : new Invalidation([
+        $this->Invalidation = new Invalidation([
             'Id' => (string) $data->Id,
             'Status' => (string) $data->Status,
             'CreateTime' => new \DateTimeImmutable((string) $data->CreateTime),
