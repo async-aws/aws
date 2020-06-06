@@ -11,7 +11,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.2.5 || ^8.0",
         "async-aws/ses": "^1.0",
         "illuminate/mail": "^6.18.13 || ^7.10",
         "illuminate/support": "^6.18.13 || ^7.10"
