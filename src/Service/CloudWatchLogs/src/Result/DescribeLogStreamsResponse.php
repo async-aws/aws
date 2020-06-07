@@ -109,25 +109,30 @@ class DescribeLogStreamsResponse extends Result implements \IteratorAggregate
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        $fn = [];
-        $fn['list-LogStreams'] = static function (array $json) use (&$fn): array {
-            $items = [];
-            foreach ($json as $item) {
-                $items[] = new LogStream([
-                    'logStreamName' => isset($item['logStreamName']) ? (string) $item['logStreamName'] : null,
-                    'creationTime' => isset($item['creationTime']) ? (string) $item['creationTime'] : null,
-                    'firstEventTimestamp' => isset($item['firstEventTimestamp']) ? (string) $item['firstEventTimestamp'] : null,
-                    'lastEventTimestamp' => isset($item['lastEventTimestamp']) ? (string) $item['lastEventTimestamp'] : null,
-                    'lastIngestionTime' => isset($item['lastIngestionTime']) ? (string) $item['lastIngestionTime'] : null,
-                    'uploadSequenceToken' => isset($item['uploadSequenceToken']) ? (string) $item['uploadSequenceToken'] : null,
-                    'arn' => isset($item['arn']) ? (string) $item['arn'] : null,
-                    'storedBytes' => isset($item['storedBytes']) ? (string) $item['storedBytes'] : null,
-                ]);
-            }
 
-            return $items;
-        };
-        $this->logStreams = empty($data['logStreams']) ? [] : $fn['list-LogStreams']($data['logStreams']);
+        $this->logStreams = empty($data['logStreams']) ? [] : $this->populateResultLogStreams($data['logStreams']);
         $this->nextToken = isset($data['nextToken']) ? (string) $data['nextToken'] : null;
+    }
+
+    /**
+     * @return LogStream[]
+     */
+    private function populateResultLogStreams(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = new LogStream([
+                'logStreamName' => isset($item['logStreamName']) ? (string) $item['logStreamName'] : null,
+                'creationTime' => isset($item['creationTime']) ? (string) $item['creationTime'] : null,
+                'firstEventTimestamp' => isset($item['firstEventTimestamp']) ? (string) $item['firstEventTimestamp'] : null,
+                'lastEventTimestamp' => isset($item['lastEventTimestamp']) ? (string) $item['lastEventTimestamp'] : null,
+                'lastIngestionTime' => isset($item['lastIngestionTime']) ? (string) $item['lastIngestionTime'] : null,
+                'uploadSequenceToken' => isset($item['uploadSequenceToken']) ? (string) $item['uploadSequenceToken'] : null,
+                'arn' => isset($item['arn']) ? (string) $item['arn'] : null,
+                'storedBytes' => isset($item['storedBytes']) ? (string) $item['storedBytes'] : null,
+            ]);
+        }
+
+        return $items;
     }
 }

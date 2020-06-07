@@ -115,26 +115,32 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->DescribeStackEventsResult;
 
-        $this->StackEvents = !$data->StackEvents ? [] : (function (\SimpleXMLElement $xml): array {
-            $items = [];
-            foreach ($xml->member as $item) {
-                $items[] = new StackEvent([
-                    'StackId' => (string) $item->StackId,
-                    'EventId' => (string) $item->EventId,
-                    'StackName' => (string) $item->StackName,
-                    'LogicalResourceId' => ($v = $item->LogicalResourceId) ? (string) $v : null,
-                    'PhysicalResourceId' => ($v = $item->PhysicalResourceId) ? (string) $v : null,
-                    'ResourceType' => ($v = $item->ResourceType) ? (string) $v : null,
-                    'Timestamp' => new \DateTimeImmutable((string) $item->Timestamp),
-                    'ResourceStatus' => ($v = $item->ResourceStatus) ? (string) $v : null,
-                    'ResourceStatusReason' => ($v = $item->ResourceStatusReason) ? (string) $v : null,
-                    'ResourceProperties' => ($v = $item->ResourceProperties) ? (string) $v : null,
-                    'ClientRequestToken' => ($v = $item->ClientRequestToken) ? (string) $v : null,
-                ]);
-            }
-
-            return $items;
-        })($data->StackEvents);
+        $this->StackEvents = !$data->StackEvents ? [] : $this->populateResultStackEvents($data->StackEvents);
         $this->NextToken = ($v = $data->NextToken) ? (string) $v : null;
+    }
+
+    /**
+     * @return StackEvent[]
+     */
+    private function populateResultStackEvents(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml->member as $item) {
+            $items[] = new StackEvent([
+                'StackId' => (string) $item->StackId,
+                'EventId' => (string) $item->EventId,
+                'StackName' => (string) $item->StackName,
+                'LogicalResourceId' => ($v = $item->LogicalResourceId) ? (string) $v : null,
+                'PhysicalResourceId' => ($v = $item->PhysicalResourceId) ? (string) $v : null,
+                'ResourceType' => ($v = $item->ResourceType) ? (string) $v : null,
+                'Timestamp' => new \DateTimeImmutable((string) $item->Timestamp),
+                'ResourceStatus' => ($v = $item->ResourceStatus) ? (string) $v : null,
+                'ResourceStatusReason' => ($v = $item->ResourceStatusReason) ? (string) $v : null,
+                'ResourceProperties' => ($v = $item->ResourceProperties) ? (string) $v : null,
+                'ClientRequestToken' => ($v = $item->ClientRequestToken) ? (string) $v : null,
+            ]);
+        }
+
+        return $items;
     }
 }

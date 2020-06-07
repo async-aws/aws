@@ -113,19 +113,24 @@ class ListTablesOutput extends Result implements \IteratorAggregate
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        $fn = [];
-        $fn['list-TableNameList'] = static function (array $json) use (&$fn): array {
-            $items = [];
-            foreach ($json as $item) {
-                $a = isset($item) ? (string) $item : null;
-                if (null !== $a) {
-                    $items[] = $a;
-                }
-            }
 
-            return $items;
-        };
-        $this->TableNames = empty($data['TableNames']) ? [] : $fn['list-TableNameList']($data['TableNames']);
+        $this->TableNames = empty($data['TableNames']) ? [] : $this->populateResultTableNameList($data['TableNames']);
         $this->LastEvaluatedTableName = isset($data['LastEvaluatedTableName']) ? (string) $data['LastEvaluatedTableName'] : null;
+    }
+
+    /**
+     * @return string[]
+     */
+    private function populateResultTableNameList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
     }
 }

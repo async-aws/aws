@@ -136,77 +136,102 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        $fn = [];
-        $fn['list-ItemList'] = static function (array $json) use (&$fn): array {
-            $items = [];
-            foreach ($json as $item) {
-                $a = empty($item) ? [] : $fn['map-AttributeMap']($item);
-                if (null !== $a) {
-                    $items[] = $a;
-                }
+
+        $this->Responses = empty($data['Responses']) ? [] : $this->populateResultBatchGetResponseMap($data['Responses']);
+        $this->UnprocessedKeys = empty($data['UnprocessedKeys']) ? [] : $this->populateResultBatchGetRequestMap($data['UnprocessedKeys']);
+        $this->ConsumedCapacity = empty($data['ConsumedCapacity']) ? [] : $this->populateResultConsumedCapacityMultiple($data['ConsumedCapacity']);
+    }
+
+    /**
+     * @return array<string, AttributeValue>
+     */
+    private function populateResultAttributeMap(array $json): array
+    {
+        $items = [];
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = AttributeValue::create($value);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return array<string, KeysAndAttributes>
+     */
+    private function populateResultBatchGetRequestMap(array $json): array
+    {
+        $items = [];
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = KeysAndAttributes::create($value);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return array<string, array>
+     */
+    private function populateResultBatchGetResponseMap(array $json): array
+    {
+        $items = [];
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = $this->populateResultItemList($value);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return ConsumedCapacity[]
+     */
+    private function populateResultConsumedCapacityMultiple(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = new ConsumedCapacity([
+                'TableName' => isset($item['TableName']) ? (string) $item['TableName'] : null,
+                'CapacityUnits' => isset($item['CapacityUnits']) ? (float) $item['CapacityUnits'] : null,
+                'ReadCapacityUnits' => isset($item['ReadCapacityUnits']) ? (float) $item['ReadCapacityUnits'] : null,
+                'WriteCapacityUnits' => isset($item['WriteCapacityUnits']) ? (float) $item['WriteCapacityUnits'] : null,
+                'Table' => empty($item['Table']) ? null : new Capacity([
+                    'ReadCapacityUnits' => isset($item['Table']['ReadCapacityUnits']) ? (float) $item['Table']['ReadCapacityUnits'] : null,
+                    'WriteCapacityUnits' => isset($item['Table']['WriteCapacityUnits']) ? (float) $item['Table']['WriteCapacityUnits'] : null,
+                    'CapacityUnits' => isset($item['Table']['CapacityUnits']) ? (float) $item['Table']['CapacityUnits'] : null,
+                ]),
+                'LocalSecondaryIndexes' => empty($item['LocalSecondaryIndexes']) ? [] : $this->populateResultSecondaryIndexesCapacityMap($item['LocalSecondaryIndexes']),
+                'GlobalSecondaryIndexes' => empty($item['GlobalSecondaryIndexes']) ? [] : $this->populateResultSecondaryIndexesCapacityMap($item['GlobalSecondaryIndexes']),
+            ]);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return array[]
+     */
+    private function populateResultItemList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = empty($item) ? [] : $this->populateResultAttributeMap($item);
+            if (null !== $a) {
+                $items[] = $a;
             }
+        }
 
-            return $items;
-        };
+        return $items;
+    }
 
-        /** @return array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue> */
-        $fn['map-AttributeMap'] = static function (array $json): array {
-            $items = [];
-            foreach ($json as $name => $value) {
-                $items[(string) $name] = AttributeValue::create($value);
-            }
+    /**
+     * @return array<string, Capacity>
+     */
+    private function populateResultSecondaryIndexesCapacityMap(array $json): array
+    {
+        $items = [];
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = Capacity::create($value);
+        }
 
-            return $items;
-        };
-
-        /** @return array<string, \AsyncAws\DynamoDb\ValueObject\KeysAndAttributes> */
-        $fn['map-BatchGetRequestMap'] = static function (array $json): array {
-            $items = [];
-            foreach ($json as $name => $value) {
-                $items[(string) $name] = KeysAndAttributes::create($value);
-            }
-
-            return $items;
-        };
-        $fn['list-ConsumedCapacityMultiple'] = static function (array $json) use (&$fn): array {
-            $items = [];
-            foreach ($json as $item) {
-                $items[] = new ConsumedCapacity([
-                    'TableName' => isset($item['TableName']) ? (string) $item['TableName'] : null,
-                    'CapacityUnits' => isset($item['CapacityUnits']) ? (float) $item['CapacityUnits'] : null,
-                    'ReadCapacityUnits' => isset($item['ReadCapacityUnits']) ? (float) $item['ReadCapacityUnits'] : null,
-                    'WriteCapacityUnits' => isset($item['WriteCapacityUnits']) ? (float) $item['WriteCapacityUnits'] : null,
-                    'Table' => empty($item['Table']) ? null : new Capacity([
-                        'ReadCapacityUnits' => isset($item['Table']['ReadCapacityUnits']) ? (float) $item['Table']['ReadCapacityUnits'] : null,
-                        'WriteCapacityUnits' => isset($item['Table']['WriteCapacityUnits']) ? (float) $item['Table']['WriteCapacityUnits'] : null,
-                        'CapacityUnits' => isset($item['Table']['CapacityUnits']) ? (float) $item['Table']['CapacityUnits'] : null,
-                    ]),
-                    'LocalSecondaryIndexes' => empty($item['LocalSecondaryIndexes']) ? [] : $fn['map-SecondaryIndexesCapacityMap']($item['LocalSecondaryIndexes']),
-                    'GlobalSecondaryIndexes' => empty($item['GlobalSecondaryIndexes']) ? [] : $fn['map-SecondaryIndexesCapacityMap']($item['GlobalSecondaryIndexes']),
-                ]);
-            }
-
-            return $items;
-        };
-
-        /** @return array<string, \AsyncAws\DynamoDb\ValueObject\Capacity> */
-        $fn['map-SecondaryIndexesCapacityMap'] = static function (array $json): array {
-            $items = [];
-            foreach ($json as $name => $value) {
-                $items[(string) $name] = Capacity::create($value);
-            }
-
-            return $items;
-        };
-        $this->Responses = empty($data['Responses']) ? [] : (function (array $json) use (&$fn): array {
-            $items = [];
-            foreach ($json as $name => $value) {
-                $items[(string) $name] = $fn['list-ItemList']($value);
-            }
-
-            return $items;
-        })($data['Responses']);
-        $this->UnprocessedKeys = empty($data['UnprocessedKeys']) ? [] : $fn['map-BatchGetRequestMap']($data['UnprocessedKeys']);
-        $this->ConsumedCapacity = empty($data['ConsumedCapacity']) ? [] : $fn['list-ConsumedCapacityMultiple']($data['ConsumedCapacity']);
+        return $items;
     }
 }

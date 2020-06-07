@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator\ResponseParser;
 
+use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
+use Nette\PhpGenerator\Method;
+
 /**
  * @internal
  */
@@ -14,14 +17,20 @@ class ParserResult
     /**
      * Classes to import.
      *
-     * @var array<string>
+     * @var ClassName[]
      */
     private $usedClasses;
 
-    public function __construct(string $body, array $usedClasses)
+    /**
+     * @var Method[]
+     */
+    private $extraMethods;
+
+    public function __construct(string $body, array $usedClasses = [], array $extraMethods = [])
     {
         $this->body = $body;
         $this->usedClasses = $usedClasses;
+        $this->extraMethods = $extraMethods;
     }
 
     public function getBody(): string
@@ -32,5 +41,10 @@ class ParserResult
     public function getUsedClasses(): array
     {
         return $this->usedClasses;
+    }
+
+    public function getExtraMethods(): array
+    {
+        return $this->extraMethods;
     }
 }

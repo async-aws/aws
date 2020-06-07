@@ -299,37 +299,49 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
         $this->NextUploadIdMarker = ($v = $data->NextUploadIdMarker) ? (string) $v : null;
         $this->MaxUploads = ($v = $data->MaxUploads) ? (int) (string) $v : null;
         $this->IsTruncated = ($v = $data->IsTruncated) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->Uploads = !$data->Upload ? [] : (function (\SimpleXMLElement $xml): array {
-            $items = [];
-            foreach ($xml as $item) {
-                $items[] = new MultipartUpload([
-                    'UploadId' => ($v = $item->UploadId) ? (string) $v : null,
-                    'Key' => ($v = $item->Key) ? (string) $v : null,
-                    'Initiated' => ($v = $item->Initiated) ? new \DateTimeImmutable((string) $v) : null,
-                    'StorageClass' => ($v = $item->StorageClass) ? (string) $v : null,
-                    'Owner' => !$item->Owner ? null : new Owner([
-                        'DisplayName' => ($v = $item->Owner->DisplayName) ? (string) $v : null,
-                        'ID' => ($v = $item->Owner->ID) ? (string) $v : null,
-                    ]),
-                    'Initiator' => !$item->Initiator ? null : new Initiator([
-                        'ID' => ($v = $item->Initiator->ID) ? (string) $v : null,
-                        'DisplayName' => ($v = $item->Initiator->DisplayName) ? (string) $v : null,
-                    ]),
-                ]);
-            }
-
-            return $items;
-        })($data->Upload);
-        $this->CommonPrefixes = !$data->CommonPrefixes ? [] : (function (\SimpleXMLElement $xml): array {
-            $items = [];
-            foreach ($xml as $item) {
-                $items[] = new CommonPrefix([
-                    'Prefix' => ($v = $item->Prefix) ? (string) $v : null,
-                ]);
-            }
-
-            return $items;
-        })($data->CommonPrefixes);
+        $this->Uploads = !$data->Upload ? [] : $this->populateResultMultipartUploadList($data->Upload);
+        $this->CommonPrefixes = !$data->CommonPrefixes ? [] : $this->populateResultCommonPrefixList($data->CommonPrefixes);
         $this->EncodingType = ($v = $data->EncodingType) ? (string) $v : null;
+    }
+
+    /**
+     * @return CommonPrefix[]
+     */
+    private function populateResultCommonPrefixList(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml as $item) {
+            $items[] = new CommonPrefix([
+                'Prefix' => ($v = $item->Prefix) ? (string) $v : null,
+            ]);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return MultipartUpload[]
+     */
+    private function populateResultMultipartUploadList(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml as $item) {
+            $items[] = new MultipartUpload([
+                'UploadId' => ($v = $item->UploadId) ? (string) $v : null,
+                'Key' => ($v = $item->Key) ? (string) $v : null,
+                'Initiated' => ($v = $item->Initiated) ? new \DateTimeImmutable((string) $v) : null,
+                'StorageClass' => ($v = $item->StorageClass) ? (string) $v : null,
+                'Owner' => !$item->Owner ? null : new Owner([
+                    'DisplayName' => ($v = $item->Owner->DisplayName) ? (string) $v : null,
+                    'ID' => ($v = $item->Owner->ID) ? (string) $v : null,
+                ]),
+                'Initiator' => !$item->Initiator ? null : new Initiator([
+                    'ID' => ($v = $item->Initiator->ID) ? (string) $v : null,
+                    'DisplayName' => ($v = $item->Initiator->DisplayName) ? (string) $v : null,
+                ]),
+            ]);
+        }
+
+        return $items;
     }
 }

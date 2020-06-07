@@ -79,7 +79,7 @@ class ResultGenerator
         $this->fileWriter = $fileWriter;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
         $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->namespaceRegistry, $fileWriter);
-        $this->parserProvider = new ParserProvider($this->namespaceRegistry);
+        $this->parserProvider = new ParserProvider($this->namespaceRegistry, $this->typeGenerator);
         $this->objectGenerator = $objectGenerator;
     }
 
@@ -285,9 +285,10 @@ class ResultGenerator
         } else {
             $parserResult = $this->parserProvider->get($this->operation->getService())->generate($shape);
             $body .= $parserResult->getBody();
-            foreach ($parserResult->getUsedClasses() as $import) {
-                $namespace->addUse($import);
+            foreach ($parserResult->getUsedClasses() as $className) {
+                $namespace->addUse($className->getFqdn());
             }
+            $class->setMethods($parserResult->getExtraMethods());
         }
 
         $namespace->addUse(Response::class);

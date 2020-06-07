@@ -48,20 +48,26 @@ class CreateInvalidationResult extends Result
             'InvalidationBatch' => new InvalidationBatch([
                 'Paths' => new Paths([
                     'Quantity' => (int) (string) $data->InvalidationBatch->Paths->Quantity,
-                    'Items' => !$data->InvalidationBatch->Paths->Items ? [] : (function (\SimpleXMLElement $xml): array {
-                        $items = [];
-                        foreach ($xml->Path as $item) {
-                            $a = ($v = $item) ? (string) $v : null;
-                            if (null !== $a) {
-                                $items[] = $a;
-                            }
-                        }
-
-                        return $items;
-                    })($data->InvalidationBatch->Paths->Items),
+                    'Items' => !$data->InvalidationBatch->Paths->Items ? [] : $this->populateResultPathList($data->InvalidationBatch->Paths->Items),
                 ]),
                 'CallerReference' => (string) $data->InvalidationBatch->CallerReference,
             ]),
         ]);
+    }
+
+    /**
+     * @return string[]
+     */
+    private function populateResultPathList(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml->Path as $item) {
+            $a = ($v = $item) ? (string) $v : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
     }
 }

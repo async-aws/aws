@@ -164,52 +164,11 @@ class QueryOutput extends Result implements \IteratorAggregate
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        $fn = [];
-        $fn['list-ItemList'] = static function (array $json) use (&$fn): array {
-            $items = [];
-            foreach ($json as $item) {
-                $a = empty($item) ? [] : $fn['map-AttributeMap']($item);
-                if (null !== $a) {
-                    $items[] = $a;
-                }
-            }
 
-            return $items;
-        };
-
-        /** @return array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue> */
-        $fn['map-AttributeMap'] = static function (array $json): array {
-            $items = [];
-            foreach ($json as $name => $value) {
-                $items[(string) $name] = AttributeValue::create($value);
-            }
-
-            return $items;
-        };
-
-        /** @return array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue> */
-        $fn['map-Key'] = static function (array $json): array {
-            $items = [];
-            foreach ($json as $name => $value) {
-                $items[(string) $name] = AttributeValue::create($value);
-            }
-
-            return $items;
-        };
-
-        /** @return array<string, \AsyncAws\DynamoDb\ValueObject\Capacity> */
-        $fn['map-SecondaryIndexesCapacityMap'] = static function (array $json): array {
-            $items = [];
-            foreach ($json as $name => $value) {
-                $items[(string) $name] = Capacity::create($value);
-            }
-
-            return $items;
-        };
-        $this->Items = empty($data['Items']) ? [] : $fn['list-ItemList']($data['Items']);
+        $this->Items = empty($data['Items']) ? [] : $this->populateResultItemList($data['Items']);
         $this->Count = isset($data['Count']) ? (int) $data['Count'] : null;
         $this->ScannedCount = isset($data['ScannedCount']) ? (int) $data['ScannedCount'] : null;
-        $this->LastEvaluatedKey = empty($data['LastEvaluatedKey']) ? [] : $fn['map-Key']($data['LastEvaluatedKey']);
+        $this->LastEvaluatedKey = empty($data['LastEvaluatedKey']) ? [] : $this->populateResultKey($data['LastEvaluatedKey']);
         $this->ConsumedCapacity = empty($data['ConsumedCapacity']) ? null : new ConsumedCapacity([
             'TableName' => isset($data['ConsumedCapacity']['TableName']) ? (string) $data['ConsumedCapacity']['TableName'] : null,
             'CapacityUnits' => isset($data['ConsumedCapacity']['CapacityUnits']) ? (float) $data['ConsumedCapacity']['CapacityUnits'] : null,
@@ -220,8 +179,63 @@ class QueryOutput extends Result implements \IteratorAggregate
                 'WriteCapacityUnits' => isset($data['ConsumedCapacity']['Table']['WriteCapacityUnits']) ? (float) $data['ConsumedCapacity']['Table']['WriteCapacityUnits'] : null,
                 'CapacityUnits' => isset($data['ConsumedCapacity']['Table']['CapacityUnits']) ? (float) $data['ConsumedCapacity']['Table']['CapacityUnits'] : null,
             ]),
-            'LocalSecondaryIndexes' => empty($data['ConsumedCapacity']['LocalSecondaryIndexes']) ? [] : $fn['map-SecondaryIndexesCapacityMap']($data['ConsumedCapacity']['LocalSecondaryIndexes']),
-            'GlobalSecondaryIndexes' => empty($data['ConsumedCapacity']['GlobalSecondaryIndexes']) ? [] : $fn['map-SecondaryIndexesCapacityMap']($data['ConsumedCapacity']['GlobalSecondaryIndexes']),
+            'LocalSecondaryIndexes' => empty($data['ConsumedCapacity']['LocalSecondaryIndexes']) ? [] : $this->populateResultSecondaryIndexesCapacityMap($data['ConsumedCapacity']['LocalSecondaryIndexes']),
+            'GlobalSecondaryIndexes' => empty($data['ConsumedCapacity']['GlobalSecondaryIndexes']) ? [] : $this->populateResultSecondaryIndexesCapacityMap($data['ConsumedCapacity']['GlobalSecondaryIndexes']),
         ]);
+    }
+
+    /**
+     * @return array<string, AttributeValue>
+     */
+    private function populateResultAttributeMap(array $json): array
+    {
+        $items = [];
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = AttributeValue::create($value);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return array[]
+     */
+    private function populateResultItemList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = empty($item) ? [] : $this->populateResultAttributeMap($item);
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return array<string, AttributeValue>
+     */
+    private function populateResultKey(array $json): array
+    {
+        $items = [];
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = AttributeValue::create($value);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return array<string, Capacity>
+     */
+    private function populateResultSecondaryIndexesCapacityMap(array $json): array
+    {
+        $items = [];
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = Capacity::create($value);
+        }
+
+        return $items;
     }
 }

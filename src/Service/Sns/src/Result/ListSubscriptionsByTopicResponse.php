@@ -115,20 +115,26 @@ class ListSubscriptionsByTopicResponse extends Result implements \IteratorAggreg
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->ListSubscriptionsByTopicResult;
 
-        $this->Subscriptions = !$data->Subscriptions ? [] : (function (\SimpleXMLElement $xml): array {
-            $items = [];
-            foreach ($xml->member as $item) {
-                $items[] = new Subscription([
-                    'SubscriptionArn' => ($v = $item->SubscriptionArn) ? (string) $v : null,
-                    'Owner' => ($v = $item->Owner) ? (string) $v : null,
-                    'Protocol' => ($v = $item->Protocol) ? (string) $v : null,
-                    'Endpoint' => ($v = $item->Endpoint) ? (string) $v : null,
-                    'TopicArn' => ($v = $item->TopicArn) ? (string) $v : null,
-                ]);
-            }
-
-            return $items;
-        })($data->Subscriptions);
+        $this->Subscriptions = !$data->Subscriptions ? [] : $this->populateResultSubscriptionsList($data->Subscriptions);
         $this->NextToken = ($v = $data->NextToken) ? (string) $v : null;
+    }
+
+    /**
+     * @return Subscription[]
+     */
+    private function populateResultSubscriptionsList(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml->member as $item) {
+            $items[] = new Subscription([
+                'SubscriptionArn' => ($v = $item->SubscriptionArn) ? (string) $v : null,
+                'Owner' => ($v = $item->Owner) ? (string) $v : null,
+                'Protocol' => ($v = $item->Protocol) ? (string) $v : null,
+                'Endpoint' => ($v = $item->Endpoint) ? (string) $v : null,
+                'TopicArn' => ($v = $item->TopicArn) ? (string) $v : null,
+            ]);
+        }
+
+        return $items;
     }
 }

@@ -115,46 +115,61 @@ class ListUsersResponse extends Result implements \IteratorAggregate
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        $fn = [];
-        $fn['list-UsersListType'] = static function (array $json) use (&$fn): array {
-            $items = [];
-            foreach ($json as $item) {
-                $items[] = new UserType([
-                    'Username' => isset($item['Username']) ? (string) $item['Username'] : null,
-                    'Attributes' => empty($item['Attributes']) ? [] : $fn['list-AttributeListType']($item['Attributes']),
-                    'UserCreateDate' => (isset($item['UserCreateDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['UserCreateDate'])))) ? $d : null,
-                    'UserLastModifiedDate' => (isset($item['UserLastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['UserLastModifiedDate'])))) ? $d : null,
-                    'Enabled' => isset($item['Enabled']) ? filter_var($item['Enabled'], \FILTER_VALIDATE_BOOLEAN) : null,
-                    'UserStatus' => isset($item['UserStatus']) ? (string) $item['UserStatus'] : null,
-                    'MFAOptions' => empty($item['MFAOptions']) ? [] : $fn['list-MFAOptionListType']($item['MFAOptions']),
-                ]);
-            }
 
-            return $items;
-        };
-        $fn['list-AttributeListType'] = static function (array $json) use (&$fn): array {
-            $items = [];
-            foreach ($json as $item) {
-                $items[] = new AttributeType([
-                    'Name' => (string) $item['Name'],
-                    'Value' => isset($item['Value']) ? (string) $item['Value'] : null,
-                ]);
-            }
-
-            return $items;
-        };
-        $fn['list-MFAOptionListType'] = static function (array $json) use (&$fn): array {
-            $items = [];
-            foreach ($json as $item) {
-                $items[] = new MFAOptionType([
-                    'DeliveryMedium' => isset($item['DeliveryMedium']) ? (string) $item['DeliveryMedium'] : null,
-                    'AttributeName' => isset($item['AttributeName']) ? (string) $item['AttributeName'] : null,
-                ]);
-            }
-
-            return $items;
-        };
-        $this->Users = empty($data['Users']) ? [] : $fn['list-UsersListType']($data['Users']);
+        $this->Users = empty($data['Users']) ? [] : $this->populateResultUsersListType($data['Users']);
         $this->PaginationToken = isset($data['PaginationToken']) ? (string) $data['PaginationToken'] : null;
+    }
+
+    /**
+     * @return AttributeType[]
+     */
+    private function populateResultAttributeListType(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = new AttributeType([
+                'Name' => (string) $item['Name'],
+                'Value' => isset($item['Value']) ? (string) $item['Value'] : null,
+            ]);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return MFAOptionType[]
+     */
+    private function populateResultMFAOptionListType(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = new MFAOptionType([
+                'DeliveryMedium' => isset($item['DeliveryMedium']) ? (string) $item['DeliveryMedium'] : null,
+                'AttributeName' => isset($item['AttributeName']) ? (string) $item['AttributeName'] : null,
+            ]);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return UserType[]
+     */
+    private function populateResultUsersListType(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = new UserType([
+                'Username' => isset($item['Username']) ? (string) $item['Username'] : null,
+                'Attributes' => empty($item['Attributes']) ? [] : $this->populateResultAttributeListType($item['Attributes']),
+                'UserCreateDate' => (isset($item['UserCreateDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['UserCreateDate'])))) ? $d : null,
+                'UserLastModifiedDate' => (isset($item['UserLastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['UserLastModifiedDate'])))) ? $d : null,
+                'Enabled' => isset($item['Enabled']) ? filter_var($item['Enabled'], \FILTER_VALIDATE_BOOLEAN) : null,
+                'UserStatus' => isset($item['UserStatus']) ? (string) $item['UserStatus'] : null,
+                'MFAOptions' => empty($item['MFAOptions']) ? [] : $this->populateResultMFAOptionListType($item['MFAOptions']),
+            ]);
+        }
+
+        return $items;
     }
 }

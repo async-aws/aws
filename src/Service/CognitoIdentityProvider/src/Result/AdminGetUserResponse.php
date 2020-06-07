@@ -136,48 +136,63 @@ class AdminGetUserResponse extends Result
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        $fn = [];
-        $fn['list-AttributeListType'] = static function (array $json) use (&$fn): array {
-            $items = [];
-            foreach ($json as $item) {
-                $items[] = new AttributeType([
-                    'Name' => (string) $item['Name'],
-                    'Value' => isset($item['Value']) ? (string) $item['Value'] : null,
-                ]);
-            }
 
-            return $items;
-        };
-        $fn['list-MFAOptionListType'] = static function (array $json) use (&$fn): array {
-            $items = [];
-            foreach ($json as $item) {
-                $items[] = new MFAOptionType([
-                    'DeliveryMedium' => isset($item['DeliveryMedium']) ? (string) $item['DeliveryMedium'] : null,
-                    'AttributeName' => isset($item['AttributeName']) ? (string) $item['AttributeName'] : null,
-                ]);
-            }
-
-            return $items;
-        };
-        $fn['list-UserMFASettingListType'] = static function (array $json) use (&$fn): array {
-            $items = [];
-            foreach ($json as $item) {
-                $a = isset($item) ? (string) $item : null;
-                if (null !== $a) {
-                    $items[] = $a;
-                }
-            }
-
-            return $items;
-        };
         $this->Username = (string) $data['Username'];
-        $this->UserAttributes = empty($data['UserAttributes']) ? [] : $fn['list-AttributeListType']($data['UserAttributes']);
+        $this->UserAttributes = empty($data['UserAttributes']) ? [] : $this->populateResultAttributeListType($data['UserAttributes']);
         $this->UserCreateDate = (isset($data['UserCreateDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['UserCreateDate'])))) ? $d : null;
         $this->UserLastModifiedDate = (isset($data['UserLastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['UserLastModifiedDate'])))) ? $d : null;
         $this->Enabled = isset($data['Enabled']) ? filter_var($data['Enabled'], \FILTER_VALIDATE_BOOLEAN) : null;
         $this->UserStatus = isset($data['UserStatus']) ? (string) $data['UserStatus'] : null;
-        $this->MFAOptions = empty($data['MFAOptions']) ? [] : $fn['list-MFAOptionListType']($data['MFAOptions']);
+        $this->MFAOptions = empty($data['MFAOptions']) ? [] : $this->populateResultMFAOptionListType($data['MFAOptions']);
         $this->PreferredMfaSetting = isset($data['PreferredMfaSetting']) ? (string) $data['PreferredMfaSetting'] : null;
-        $this->UserMFASettingList = empty($data['UserMFASettingList']) ? [] : $fn['list-UserMFASettingListType']($data['UserMFASettingList']);
+        $this->UserMFASettingList = empty($data['UserMFASettingList']) ? [] : $this->populateResultUserMFASettingListType($data['UserMFASettingList']);
+    }
+
+    /**
+     * @return AttributeType[]
+     */
+    private function populateResultAttributeListType(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = new AttributeType([
+                'Name' => (string) $item['Name'],
+                'Value' => isset($item['Value']) ? (string) $item['Value'] : null,
+            ]);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return MFAOptionType[]
+     */
+    private function populateResultMFAOptionListType(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = new MFAOptionType([
+                'DeliveryMedium' => isset($item['DeliveryMedium']) ? (string) $item['DeliveryMedium'] : null,
+                'AttributeName' => isset($item['AttributeName']) ? (string) $item['AttributeName'] : null,
+            ]);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return string[]
+     */
+    private function populateResultUserMFASettingListType(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
     }
 }

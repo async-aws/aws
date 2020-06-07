@@ -288,19 +288,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
         $this->NextPartNumberMarker = ($v = $data->NextPartNumberMarker) ? (int) (string) $v : null;
         $this->MaxParts = ($v = $data->MaxParts) ? (int) (string) $v : null;
         $this->IsTruncated = ($v = $data->IsTruncated) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->Parts = !$data->Part ? [] : (function (\SimpleXMLElement $xml): array {
-            $items = [];
-            foreach ($xml as $item) {
-                $items[] = new Part([
-                    'PartNumber' => ($v = $item->PartNumber) ? (int) (string) $v : null,
-                    'LastModified' => ($v = $item->LastModified) ? new \DateTimeImmutable((string) $v) : null,
-                    'ETag' => ($v = $item->ETag) ? (string) $v : null,
-                    'Size' => ($v = $item->Size) ? (string) $v : null,
-                ]);
-            }
-
-            return $items;
-        })($data->Part);
+        $this->Parts = !$data->Part ? [] : $this->populateResultParts($data->Part);
         $this->Initiator = !$data->Initiator ? null : new Initiator([
             'ID' => ($v = $data->Initiator->ID) ? (string) $v : null,
             'DisplayName' => ($v = $data->Initiator->DisplayName) ? (string) $v : null,
@@ -310,5 +298,23 @@ class ListPartsOutput extends Result implements \IteratorAggregate
             'ID' => ($v = $data->Owner->ID) ? (string) $v : null,
         ]);
         $this->StorageClass = ($v = $data->StorageClass) ? (string) $v : null;
+    }
+
+    /**
+     * @return Part[]
+     */
+    private function populateResultParts(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml as $item) {
+            $items[] = new Part([
+                'PartNumber' => ($v = $item->PartNumber) ? (int) (string) $v : null,
+                'LastModified' => ($v = $item->LastModified) ? new \DateTimeImmutable((string) $v) : null,
+                'ETag' => ($v = $item->ETag) ? (string) $v : null,
+                'Size' => ($v = $item->Size) ? (string) $v : null,
+            ]);
+        }
+
+        return $items;
     }
 }

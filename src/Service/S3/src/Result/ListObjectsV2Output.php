@@ -283,42 +283,54 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     {
         $data = new \SimpleXMLElement($response->getContent());
         $this->IsTruncated = ($v = $data->IsTruncated) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->Contents = !$data->Contents ? [] : (function (\SimpleXMLElement $xml): array {
-            $items = [];
-            foreach ($xml as $item) {
-                $items[] = new AwsObject([
-                    'Key' => ($v = $item->Key) ? (string) $v : null,
-                    'LastModified' => ($v = $item->LastModified) ? new \DateTimeImmutable((string) $v) : null,
-                    'ETag' => ($v = $item->ETag) ? (string) $v : null,
-                    'Size' => ($v = $item->Size) ? (string) $v : null,
-                    'StorageClass' => ($v = $item->StorageClass) ? (string) $v : null,
-                    'Owner' => !$item->Owner ? null : new Owner([
-                        'DisplayName' => ($v = $item->Owner->DisplayName) ? (string) $v : null,
-                        'ID' => ($v = $item->Owner->ID) ? (string) $v : null,
-                    ]),
-                ]);
-            }
-
-            return $items;
-        })($data->Contents);
+        $this->Contents = !$data->Contents ? [] : $this->populateResultObjectList($data->Contents);
         $this->Name = ($v = $data->Name) ? (string) $v : null;
         $this->Prefix = ($v = $data->Prefix) ? (string) $v : null;
         $this->Delimiter = ($v = $data->Delimiter) ? (string) $v : null;
         $this->MaxKeys = ($v = $data->MaxKeys) ? (int) (string) $v : null;
-        $this->CommonPrefixes = !$data->CommonPrefixes ? [] : (function (\SimpleXMLElement $xml): array {
-            $items = [];
-            foreach ($xml as $item) {
-                $items[] = new CommonPrefix([
-                    'Prefix' => ($v = $item->Prefix) ? (string) $v : null,
-                ]);
-            }
-
-            return $items;
-        })($data->CommonPrefixes);
+        $this->CommonPrefixes = !$data->CommonPrefixes ? [] : $this->populateResultCommonPrefixList($data->CommonPrefixes);
         $this->EncodingType = ($v = $data->EncodingType) ? (string) $v : null;
         $this->KeyCount = ($v = $data->KeyCount) ? (int) (string) $v : null;
         $this->ContinuationToken = ($v = $data->ContinuationToken) ? (string) $v : null;
         $this->NextContinuationToken = ($v = $data->NextContinuationToken) ? (string) $v : null;
         $this->StartAfter = ($v = $data->StartAfter) ? (string) $v : null;
+    }
+
+    /**
+     * @return CommonPrefix[]
+     */
+    private function populateResultCommonPrefixList(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml as $item) {
+            $items[] = new CommonPrefix([
+                'Prefix' => ($v = $item->Prefix) ? (string) $v : null,
+            ]);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return AwsObject[]
+     */
+    private function populateResultObjectList(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml as $item) {
+            $items[] = new AwsObject([
+                'Key' => ($v = $item->Key) ? (string) $v : null,
+                'LastModified' => ($v = $item->LastModified) ? new \DateTimeImmutable((string) $v) : null,
+                'ETag' => ($v = $item->ETag) ? (string) $v : null,
+                'Size' => ($v = $item->Size) ? (string) $v : null,
+                'StorageClass' => ($v = $item->StorageClass) ? (string) $v : null,
+                'Owner' => !$item->Owner ? null : new Owner([
+                    'DisplayName' => ($v = $item->Owner->DisplayName) ? (string) $v : null,
+                    'ID' => ($v = $item->Owner->ID) ? (string) $v : null,
+                ]),
+            ]);
+        }
+
+        return $items;
     }
 }

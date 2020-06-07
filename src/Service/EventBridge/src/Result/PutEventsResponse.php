@@ -39,20 +39,25 @@ class PutEventsResponse extends Result
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        $fn = [];
-        $fn['list-PutEventsResultEntryList'] = static function (array $json) use (&$fn): array {
-            $items = [];
-            foreach ($json as $item) {
-                $items[] = new PutEventsResultEntry([
-                    'EventId' => isset($item['EventId']) ? (string) $item['EventId'] : null,
-                    'ErrorCode' => isset($item['ErrorCode']) ? (string) $item['ErrorCode'] : null,
-                    'ErrorMessage' => isset($item['ErrorMessage']) ? (string) $item['ErrorMessage'] : null,
-                ]);
-            }
 
-            return $items;
-        };
         $this->FailedEntryCount = isset($data['FailedEntryCount']) ? (int) $data['FailedEntryCount'] : null;
-        $this->Entries = empty($data['Entries']) ? [] : $fn['list-PutEventsResultEntryList']($data['Entries']);
+        $this->Entries = empty($data['Entries']) ? [] : $this->populateResultPutEventsResultEntryList($data['Entries']);
+    }
+
+    /**
+     * @return PutEventsResultEntry[]
+     */
+    private function populateResultPutEventsResultEntryList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = new PutEventsResultEntry([
+                'EventId' => isset($item['EventId']) ? (string) $item['EventId'] : null,
+                'ErrorCode' => isset($item['ErrorCode']) ? (string) $item['ErrorCode'] : null,
+                'ErrorMessage' => isset($item['ErrorMessage']) ? (string) $item['ErrorMessage'] : null,
+            ]);
+        }
+
+        return $items;
     }
 }

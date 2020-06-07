@@ -60,31 +60,43 @@ class DeleteObjectsOutput extends Result
         $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
-        $this->Deleted = !$data->Deleted ? [] : (function (\SimpleXMLElement $xml): array {
-            $items = [];
-            foreach ($xml as $item) {
-                $items[] = new DeletedObject([
-                    'Key' => ($v = $item->Key) ? (string) $v : null,
-                    'VersionId' => ($v = $item->VersionId) ? (string) $v : null,
-                    'DeleteMarker' => ($v = $item->DeleteMarker) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                    'DeleteMarkerVersionId' => ($v = $item->DeleteMarkerVersionId) ? (string) $v : null,
-                ]);
-            }
+        $this->Deleted = !$data->Deleted ? [] : $this->populateResultDeletedObjects($data->Deleted);
+        $this->Errors = !$data->Error ? [] : $this->populateResultErrors($data->Error);
+    }
 
-            return $items;
-        })($data->Deleted);
-        $this->Errors = !$data->Error ? [] : (function (\SimpleXMLElement $xml): array {
-            $items = [];
-            foreach ($xml as $item) {
-                $items[] = new Error([
-                    'Key' => ($v = $item->Key) ? (string) $v : null,
-                    'VersionId' => ($v = $item->VersionId) ? (string) $v : null,
-                    'Code' => ($v = $item->Code) ? (string) $v : null,
-                    'Message' => ($v = $item->Message) ? (string) $v : null,
-                ]);
-            }
+    /**
+     * @return DeletedObject[]
+     */
+    private function populateResultDeletedObjects(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml as $item) {
+            $items[] = new DeletedObject([
+                'Key' => ($v = $item->Key) ? (string) $v : null,
+                'VersionId' => ($v = $item->VersionId) ? (string) $v : null,
+                'DeleteMarker' => ($v = $item->DeleteMarker) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
+                'DeleteMarkerVersionId' => ($v = $item->DeleteMarkerVersionId) ? (string) $v : null,
+            ]);
+        }
 
-            return $items;
-        })($data->Error);
+        return $items;
+    }
+
+    /**
+     * @return Error[]
+     */
+    private function populateResultErrors(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml as $item) {
+            $items[] = new Error([
+                'Key' => ($v = $item->Key) ? (string) $v : null,
+                'VersionId' => ($v = $item->VersionId) ? (string) $v : null,
+                'Code' => ($v = $item->Code) ? (string) $v : null,
+                'Message' => ($v = $item->Message) ? (string) $v : null,
+            ]);
+        }
+
+        return $items;
     }
 }

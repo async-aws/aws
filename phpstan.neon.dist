@@ -20,5 +20,4 @@ parameters:
         - '#Negated boolean expression is always false\.#'
         - '#^PHPDoc tag @param has invalid value#'
         - '#^Parameter \#1 \$input of class AsyncAws\\[^\\]+\\ValueObject\\[^ ]+ constructor expects (array\(\)\|)?array\([^\)]+\), array\([^\)]+\) given\.#'
-        - '#^Offset ''(list|map)[^'']+'' does not exist on array#'
-        - '#^Anonymous function has an unused use \$fn.#'
+        - '#Method AsyncAws\\[^:]+::[^(]+\(\) should return array<[^>]+> but returns array<int(\|string)?, string>\.$#'

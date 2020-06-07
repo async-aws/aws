@@ -78,14 +78,7 @@ class AdminInitiateAuthResponse extends Result
 
         $this->ChallengeName = isset($data['ChallengeName']) ? (string) $data['ChallengeName'] : null;
         $this->Session = isset($data['Session']) ? (string) $data['Session'] : null;
-        $this->ChallengeParameters = empty($data['ChallengeParameters']) ? [] : (function (array $json) use (&$fn): array {
-            $items = [];
-            foreach ($json as $name => $value) {
-                $items[(string) $name] = (string) $value;
-            }
-
-            return $items;
-        })($data['ChallengeParameters']);
+        $this->ChallengeParameters = empty($data['ChallengeParameters']) ? [] : $this->populateResultChallengeParametersType($data['ChallengeParameters']);
         $this->AuthenticationResult = empty($data['AuthenticationResult']) ? null : new AuthenticationResultType([
             'AccessToken' => isset($data['AuthenticationResult']['AccessToken']) ? (string) $data['AuthenticationResult']['AccessToken'] : null,
             'ExpiresIn' => isset($data['AuthenticationResult']['ExpiresIn']) ? (int) $data['AuthenticationResult']['ExpiresIn'] : null,
@@ -97,5 +90,18 @@ class AdminInitiateAuthResponse extends Result
                 'DeviceGroupKey' => isset($data['AuthenticationResult']['NewDeviceMetadata']['DeviceGroupKey']) ? (string) $data['AuthenticationResult']['NewDeviceMetadata']['DeviceGroupKey'] : null,
             ]),
         ]);
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    private function populateResultChallengeParametersType(array $json): array
+    {
+        $items = [];
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = (string) $value;
+        }
+
+        return $items;
     }
 }

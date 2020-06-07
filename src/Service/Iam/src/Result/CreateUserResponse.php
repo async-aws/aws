@@ -38,17 +38,23 @@ class CreateUserResponse extends Result
                 'PermissionsBoundaryType' => ($v = $data->User->PermissionsBoundary->PermissionsBoundaryType) ? (string) $v : null,
                 'PermissionsBoundaryArn' => ($v = $data->User->PermissionsBoundary->PermissionsBoundaryArn) ? (string) $v : null,
             ]),
-            'Tags' => !$data->User->Tags ? [] : (function (\SimpleXMLElement $xml): array {
-                $items = [];
-                foreach ($xml->member as $item) {
-                    $items[] = new Tag([
-                        'Key' => (string) $item->Key,
-                        'Value' => (string) $item->Value,
-                    ]);
-                }
-
-                return $items;
-            })($data->User->Tags),
+            'Tags' => !$data->User->Tags ? [] : $this->populateResultTagListType($data->User->Tags),
         ]);
+    }
+
+    /**
+     * @return Tag[]
+     */
+    private function populateResultTagListType(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml->member as $item) {
+            $items[] = new Tag([
+                'Key' => (string) $item->Key,
+                'Value' => (string) $item->Value,
+            ]);
+        }
+
+        return $items;
     }
 }

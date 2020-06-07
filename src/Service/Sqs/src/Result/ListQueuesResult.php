@@ -40,16 +40,22 @@ class ListQueuesResult extends Result implements \IteratorAggregate
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->ListQueuesResult;
 
-        $this->QueueUrls = !$data->QueueUrl ? [] : (function (\SimpleXMLElement $xml): array {
-            $items = [];
-            foreach ($xml as $item) {
-                $a = ($v = $item) ? (string) $v : null;
-                if (null !== $a) {
-                    $items[] = $a;
-                }
-            }
+        $this->QueueUrls = !$data->QueueUrl ? [] : $this->populateResultQueueUrlList($data->QueueUrl);
+    }
 
-            return $items;
-        })($data->QueueUrl);
+    /**
+     * @return string[]
+     */
+    private function populateResultQueueUrlList(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml as $item) {
+            $a = ($v = $item) ? (string) $v : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
     }
 }

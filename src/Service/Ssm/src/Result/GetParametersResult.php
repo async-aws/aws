@@ -41,37 +41,47 @@ class GetParametersResult extends Result
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        $fn = [];
-        $fn['list-ParameterList'] = static function (array $json) use (&$fn): array {
-            $items = [];
-            foreach ($json as $item) {
-                $items[] = new Parameter([
-                    'Name' => isset($item['Name']) ? (string) $item['Name'] : null,
-                    'Type' => isset($item['Type']) ? (string) $item['Type'] : null,
-                    'Value' => isset($item['Value']) ? (string) $item['Value'] : null,
-                    'Version' => isset($item['Version']) ? (string) $item['Version'] : null,
-                    'Selector' => isset($item['Selector']) ? (string) $item['Selector'] : null,
-                    'SourceResult' => isset($item['SourceResult']) ? (string) $item['SourceResult'] : null,
-                    'LastModifiedDate' => (isset($item['LastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['LastModifiedDate'])))) ? $d : null,
-                    'ARN' => isset($item['ARN']) ? (string) $item['ARN'] : null,
-                    'DataType' => isset($item['DataType']) ? (string) $item['DataType'] : null,
-                ]);
-            }
 
-            return $items;
-        };
-        $fn['list-ParameterNameList'] = static function (array $json) use (&$fn): array {
-            $items = [];
-            foreach ($json as $item) {
-                $a = isset($item) ? (string) $item : null;
-                if (null !== $a) {
-                    $items[] = $a;
-                }
-            }
+        $this->Parameters = empty($data['Parameters']) ? [] : $this->populateResultParameterList($data['Parameters']);
+        $this->InvalidParameters = empty($data['InvalidParameters']) ? [] : $this->populateResultParameterNameList($data['InvalidParameters']);
+    }
 
-            return $items;
-        };
-        $this->Parameters = empty($data['Parameters']) ? [] : $fn['list-ParameterList']($data['Parameters']);
-        $this->InvalidParameters = empty($data['InvalidParameters']) ? [] : $fn['list-ParameterNameList']($data['InvalidParameters']);
+    /**
+     * @return Parameter[]
+     */
+    private function populateResultParameterList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = new Parameter([
+                'Name' => isset($item['Name']) ? (string) $item['Name'] : null,
+                'Type' => isset($item['Type']) ? (string) $item['Type'] : null,
+                'Value' => isset($item['Value']) ? (string) $item['Value'] : null,
+                'Version' => isset($item['Version']) ? (string) $item['Version'] : null,
+                'Selector' => isset($item['Selector']) ? (string) $item['Selector'] : null,
+                'SourceResult' => isset($item['SourceResult']) ? (string) $item['SourceResult'] : null,
+                'LastModifiedDate' => (isset($item['LastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['LastModifiedDate'])))) ? $d : null,
+                'ARN' => isset($item['ARN']) ? (string) $item['ARN'] : null,
+                'DataType' => isset($item['DataType']) ? (string) $item['DataType'] : null,
+            ]);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return string[]
+     */
+    private function populateResultParameterNameList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
     }
 }
