@@ -28,16 +28,19 @@ class GetQueueAttributesResult extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->GetQueueAttributesResult;
 
-        $this->Attributes = !$data->Attribute ? [] : (function (\SimpleXMLElement $xml): array {
-            $items = [];
-            foreach ($xml as $item) {
-                $a = ($v = $item->Value) ? (string) $v : null;
-                if (null !== $a) {
-                    $items[$item->Name->__toString()] = $a;
-                }
-            }
+        $this->Attributes = !$data->Attribute ? [] : $this->populateResultQueueAttributeMap($data->Attribute);
+    }
 
-            return $items;
-        })($data->Attribute);
+    private function populateResultQueueAttributeMap(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml as $item) {
+            $a = ($v = $item->Value) ? (string) $v : null;
+            if (null !== $a) {
+                $items[$item->Name->__toString()] = $a;
+            }
+        }
+
+        return $items;
     }
 }

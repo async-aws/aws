@@ -11,6 +11,8 @@ use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use Nette\PhpGenerator\ClassType;
+use Nette\PhpGenerator\Method;
 
 /**
  * @author Jérémy Derussé <jeremy@derusse.com>
@@ -24,6 +26,8 @@ class RestXmlParser implements Parser
      */
     private $namespaceRegistry;
 
+    private $functions = [];
+
     public function __construct(NamespaceRegistry $namespaceRegistry)
     {
         $this->namespaceRegistry = $namespaceRegistry;
@@ -32,6 +36,7 @@ class RestXmlParser implements Parser
     public function generate(StructureShape $shape): ParserResult
     {
         $properties = [];
+        $this->functions = [];
         if (null !== $payload = $shape->getPayload()) {
             $member = $shape->getMember($payload);
             $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
@@ -61,7 +66,7 @@ class RestXmlParser implements Parser
         }
         $body .= "\n" . implode("\n", $properties);
 
-        return new ParserResult($body);
+        return new ParserResult($body, [], $this->functions);
     }
 
     private function getInputAccessor(string $currentInput, Member $member)
@@ -212,37 +217,38 @@ class RestXmlParser implements Parser
         $shapeMember = $shape->getMember();
         if ($shapeMember->getShape() instanceof StructureShape) {
             $listAccessorRequired = true;
-            $body = '(function(\SimpleXMLElement $xml): array {
-            $items = [];
-            foreach (INPUT_PROPERTY as $item) {
-               $items[] = LIST_ACCESSOR;
-            }
+            $body = '
+                $items = [];
+                foreach (INPUT_PROPERTY as $item) {
+                   $items[] = LIST_ACCESSOR;
+                }
 
-            return $items;
-        })(INPUT)';
+                return $items;
+            ';
         } else {
             $listAccessorRequired = false;
-            $body = '(function(\SimpleXMLElement $xml): array {
-            $items = [];
-            foreach (INPUT_PROPERTY as $item) {
-                $a = LIST_ACCESSOR;
-                if (null !== $a) {
-                    $items[] = $a;
+            $body = '
+                $items = [];
+                foreach (INPUT_PROPERTY as $item) {
+                    $a = LIST_ACCESSOR;
+                    if (null !== $a) {
+                        $items[] = $a;
+                    }
                 }
-            }
 
-            return $items;
-        })(INPUT)';
+                return $items;
+            ';
         }
 
-        if (!$required) {
-            $body = '!INPUT ? [] : ' . $body;
-        }
-
-        return strtr($body, [
+        $functionName = 'populateResult' . \ucfirst($shape->getName());
+        $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
             'LIST_ACCESSOR' => $this->parseXmlElement('$item', $shapeMember->getShape(), $listAccessorRequired),
-            'INPUT' => $input,
             'INPUT_PROPERTY' => $shape->isFlattened() ? '$xml' : ('$xml->' . ($shapeMember->getLocationName() ? $shapeMember->getLocationName() : 'member')),
+        ]));
+
+        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : '!INPUT ? [] : $this->FUNCTION_NAME(INPUT)', [
+            'INPUT' => $input,
+            'FUNCTION_NAME' => $functionName,
         ]);
     }
 
@@ -254,16 +260,16 @@ class RestXmlParser implements Parser
 
         $shapeValue = $shape->getValue();
         if ($shapeValue->getShape() instanceof StructureShape) {
-            $body = '(function(\SimpleXMLElement $xml): array {
+            $body = '
                 $items = [];
                 foreach ($xml as $item) {
                     $items[$item->MAP_KEY->__toString()] = MAP_ACCESSOR;
                 }
 
                 return $items;
-            })(INPUT)';
+            ';
         } else {
-            $body = '(function(\SimpleXMLElement $xml): array {
+            $body = '
                 $items = [];
                 foreach ($xml as $item) {
                     $a = MAP_ACCESSOR;
@@ -273,17 +279,31 @@ class RestXmlParser implements Parser
                 }
 
                 return $items;
-            })(INPUT)';
+            ';
         }
 
-        if (!$required) {
-            $body = '!INPUT ? [] : ' . $body;
-        }
-
-        return strtr($body, [
+        $functionName = 'populateResult' . \ucfirst($shape->getName());
+        $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
             'MAP_KEY' => $locationName,
             'MAP_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$item', $shapeValue), $shapeValue->getShape(), false),
+        ]));
+
+        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : '!INPUT ? [] : $this->FUNCTION_NAME(INPUT)', [
             'INPUT' => $input,
+            'FUNCTION_NAME' => $functionName,
         ]);
+    }
+
+    private function createPopulateMethod(string $functionName, string $body): Method
+    {
+        $method = new Method($functionName);
+        $method->setVisibility(ClassType::VISIBILITY_PRIVATE)
+            ->setReturnType('array')
+            ->setBody($body)
+            ->addParameter('xml')
+                ->setType(\SimpleXMLElement::class)
+        ;
+
+        return $method;
     }
 }
