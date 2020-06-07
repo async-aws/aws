@@ -92,6 +92,9 @@ class AdminInitiateAuthResponse extends Result
         ]);
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function populateResultChallengeParametersType(array $json): array
     {
         $items = [];

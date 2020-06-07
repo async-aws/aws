@@ -118,6 +118,9 @@ class ListTablesOutput extends Result implements \IteratorAggregate
         $this->LastEvaluatedTableName = isset($data['LastEvaluatedTableName']) ? (string) $data['LastEvaluatedTableName'] : null;
     }
 
+    /**
+     * @return string[]
+     */
     private function populateResultTableNameList(array $json): array
     {
         $items = [];

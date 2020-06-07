@@ -31,11 +31,14 @@ class GetQueueAttributesResult extends Result
         $this->Attributes = !$data->Attribute ? [] : $this->populateResultQueueAttributeMap($data->Attribute);
     }
 
+    /**
+     * @return array<QueueAttributeName::*, string>
+     */
     private function populateResultQueueAttributeMap(\SimpleXMLElement $xml): array
     {
         $items = [];
         foreach ($xml as $item) {
-            $a = ($v = $item->Value) ? (string) $v : null;
+            $a = (string) $item->Value;
             if (null !== $a) {
                 $items[$item->Name->__toString()] = $a;
             }

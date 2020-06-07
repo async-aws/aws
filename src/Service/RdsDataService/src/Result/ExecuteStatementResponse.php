@@ -77,6 +77,9 @@ class ExecuteStatementResponse extends Result
         $this->records = empty($data['records']) ? [] : $this->populateResultSqlRecords($data['records']);
     }
 
+    /**
+     * @return ArrayValue[]
+     */
     private function populateResultArrayOfArray(array $json): array
     {
         $items = [];
@@ -93,6 +96,9 @@ class ExecuteStatementResponse extends Result
         return $items;
     }
 
+    /**
+     * @return bool[]
+     */
     private function populateResultBooleanArray(array $json): array
     {
         $items = [];
@@ -106,6 +112,9 @@ class ExecuteStatementResponse extends Result
         return $items;
     }
 
+    /**
+     * @return float[]
+     */
     private function populateResultDoubleArray(array $json): array
     {
         $items = [];
@@ -119,6 +128,9 @@ class ExecuteStatementResponse extends Result
         return $items;
     }
 
+    /**
+     * @return Field[]
+     */
     private function populateResultFieldList(array $json): array
     {
         $items = [];
@@ -143,6 +155,9 @@ class ExecuteStatementResponse extends Result
         return $items;
     }
 
+    /**
+     * @return string[]
+     */
     private function populateResultLongArray(array $json): array
     {
         $items = [];
@@ -156,6 +171,9 @@ class ExecuteStatementResponse extends Result
         return $items;
     }
 
+    /**
+     * @return ColumnMetadata[]
+     */
     private function populateResultMetadata(array $json): array
     {
         $items = [];
@@ -181,6 +199,9 @@ class ExecuteStatementResponse extends Result
         return $items;
     }
 
+    /**
+     * @return Field[][]
+     */
     private function populateResultSqlRecords(array $json): array
     {
         $items = [];
@@ -194,6 +215,9 @@ class ExecuteStatementResponse extends Result
         return $items;
     }
 
+    /**
+     * @return string[]
+     */
     private function populateResultStringArray(array $json): array
     {
         $items = [];

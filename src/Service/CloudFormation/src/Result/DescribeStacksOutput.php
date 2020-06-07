@@ -3,6 +3,7 @@
 namespace AsyncAws\CloudFormation\Result;
 
 use AsyncAws\CloudFormation\CloudFormationClient;
+use AsyncAws\CloudFormation\Enum\Capability;
 use AsyncAws\CloudFormation\Input\DescribeStacksInput;
 use AsyncAws\CloudFormation\ValueObject\Output;
 use AsyncAws\CloudFormation\ValueObject\Parameter;
@@ -125,6 +126,9 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
         $this->NextToken = ($v = $data->NextToken) ? (string) $v : null;
     }
 
+    /**
+     * @return list<Capability::*>
+     */
     private function populateResultCapabilities(\SimpleXMLElement $xml): array
     {
         $items = [];
@@ -138,6 +142,9 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return string[]
+     */
     private function populateResultNotificationARNs(\SimpleXMLElement $xml): array
     {
         $items = [];
@@ -151,6 +158,9 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return Output[]
+     */
     private function populateResultOutputs(\SimpleXMLElement $xml): array
     {
         $items = [];
@@ -166,6 +176,9 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return Parameter[]
+     */
     private function populateResultParameters(\SimpleXMLElement $xml): array
     {
         $items = [];
@@ -181,6 +194,9 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return RollbackTrigger[]
+     */
     private function populateResultRollbackTriggers(\SimpleXMLElement $xml): array
     {
         $items = [];
@@ -194,6 +210,9 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return Stack[]
+     */
     private function populateResultStacks(\SimpleXMLElement $xml): array
     {
         $items = [];
@@ -233,6 +252,9 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return Tag[]
+     */
     private function populateResultTags(\SimpleXMLElement $xml): array
     {
         $items = [];

@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Input\BatchGetItemInput;
+use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\Capacity;
 use AsyncAws\DynamoDb\ValueObject\ConsumedCapacity;
 use AsyncAws\DynamoDb\ValueObject\KeysAndAttributes;
@@ -141,6 +142,9 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
         $this->ConsumedCapacity = empty($data['ConsumedCapacity']) ? [] : $this->populateResultConsumedCapacityMultiple($data['ConsumedCapacity']);
     }
 
+    /**
+     * @return array<string, AttributeValue>
+     */
     private function populateResultAttributeMap(array $json): array
     {
         $items = [];
@@ -151,6 +155,9 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return array<string, KeysAndAttributes>
+     */
     private function populateResultBatchGetRequestMap(array $json): array
     {
         $items = [];
@@ -161,6 +168,9 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return array<string, array>
+     */
     private function populateResultBatchGetResponseMap(array $json): array
     {
         $items = [];
@@ -171,6 +181,9 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return ConsumedCapacity[]
+     */
     private function populateResultConsumedCapacityMultiple(array $json): array
     {
         $items = [];
@@ -193,6 +206,9 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return array[]
+     */
     private function populateResultItemList(array $json): array
     {
         $items = [];
@@ -206,6 +222,9 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return array<string, Capacity>
+     */
     private function populateResultSecondaryIndexesCapacityMap(array $json): array
     {
         $items = [];

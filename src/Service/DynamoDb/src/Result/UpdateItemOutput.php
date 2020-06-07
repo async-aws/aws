@@ -82,6 +82,9 @@ class UpdateItemOutput extends Result
         ]);
     }
 
+    /**
+     * @return array<string, AttributeValue>
+     */
     private function populateResultAttributeMap(array $json): array
     {
         $items = [];
@@ -92,6 +95,9 @@ class UpdateItemOutput extends Result
         return $items;
     }
 
+    /**
+     * @return array<string, AttributeValue>
+     */
     private function populateResultItemCollectionKeyAttributeMap(array $json): array
     {
         $items = [];
@@ -102,6 +108,9 @@ class UpdateItemOutput extends Result
         return $items;
     }
 
+    /**
+     * @return float[]
+     */
     private function populateResultItemCollectionSizeEstimateRange(array $json): array
     {
         $items = [];
@@ -115,6 +124,9 @@ class UpdateItemOutput extends Result
         return $items;
     }
 
+    /**
+     * @return array<string, Capacity>
+     */
     private function populateResultSecondaryIndexesCapacityMap(array $json): array
     {
         $items = [];

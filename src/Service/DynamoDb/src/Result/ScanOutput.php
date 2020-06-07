@@ -184,6 +184,9 @@ class ScanOutput extends Result implements \IteratorAggregate
         ]);
     }
 
+    /**
+     * @return array<string, AttributeValue>
+     */
     private function populateResultAttributeMap(array $json): array
     {
         $items = [];
@@ -194,6 +197,9 @@ class ScanOutput extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return array[]
+     */
     private function populateResultItemList(array $json): array
     {
         $items = [];
@@ -207,6 +213,9 @@ class ScanOutput extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return array<string, AttributeValue>
+     */
     private function populateResultKey(array $json): array
     {
         $items = [];
@@ -217,6 +226,9 @@ class ScanOutput extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return array<string, Capacity>
+     */
     private function populateResultSecondaryIndexesCapacityMap(array $json): array
     {
         $items = [];

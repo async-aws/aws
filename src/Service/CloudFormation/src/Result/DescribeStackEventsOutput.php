@@ -119,6 +119,9 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
         $this->NextToken = ($v = $data->NextToken) ? (string) $v : null;
     }
 
+    /**
+     * @return StackEvent[]
+     */
     private function populateResultStackEvents(\SimpleXMLElement $xml): array
     {
         $items = [];

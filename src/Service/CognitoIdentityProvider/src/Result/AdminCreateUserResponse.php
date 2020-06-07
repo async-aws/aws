@@ -37,6 +37,9 @@ class AdminCreateUserResponse extends Result
         ]);
     }
 
+    /**
+     * @return AttributeType[]
+     */
     private function populateResultAttributeListType(array $json): array
     {
         $items = [];
@@ -50,6 +53,9 @@ class AdminCreateUserResponse extends Result
         return $items;
     }
 
+    /**
+     * @return MFAOptionType[]
+     */
     private function populateResultMFAOptionListType(array $json): array
     {
         $items = [];

@@ -120,6 +120,9 @@ class ListUsersResponse extends Result implements \IteratorAggregate
         $this->PaginationToken = isset($data['PaginationToken']) ? (string) $data['PaginationToken'] : null;
     }
 
+    /**
+     * @return AttributeType[]
+     */
     private function populateResultAttributeListType(array $json): array
     {
         $items = [];
@@ -133,6 +136,9 @@ class ListUsersResponse extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return MFAOptionType[]
+     */
     private function populateResultMFAOptionListType(array $json): array
     {
         $items = [];
@@ -146,6 +152,9 @@ class ListUsersResponse extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return UserType[]
+     */
     private function populateResultUsersListType(array $json): array
     {
         $items = [];

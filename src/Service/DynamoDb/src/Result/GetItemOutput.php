@@ -62,6 +62,9 @@ class GetItemOutput extends Result
         ]);
     }
 
+    /**
+     * @return array<string, AttributeValue>
+     */
     private function populateResultAttributeMap(array $json): array
     {
         $items = [];
@@ -72,6 +75,9 @@ class GetItemOutput extends Result
         return $items;
     }
 
+    /**
+     * @return array<string, Capacity>
+     */
     private function populateResultSecondaryIndexesCapacityMap(array $json): array
     {
         $items = [];

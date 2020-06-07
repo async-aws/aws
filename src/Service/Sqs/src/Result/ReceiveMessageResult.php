@@ -4,6 +4,7 @@ namespace AsyncAws\Sqs\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Sqs\Enum\MessageSystemAttributeName;
 use AsyncAws\Sqs\ValueObject\Message;
 use AsyncAws\Sqs\ValueObject\MessageAttributeValue;
 
@@ -32,6 +33,9 @@ class ReceiveMessageResult extends Result
         $this->Messages = !$data->Message ? [] : $this->populateResultMessageList($data->Message);
     }
 
+    /**
+     * @return string[]
+     */
     private function populateResultBinaryList(\SimpleXMLElement $xml): array
     {
         $items = [];
@@ -45,11 +49,14 @@ class ReceiveMessageResult extends Result
         return $items;
     }
 
+    /**
+     * @return array<string, MessageAttributeValue>
+     */
     private function populateResultMessageBodyAttributeMap(\SimpleXMLElement $xml): array
     {
         $items = [];
         foreach ($xml as $item) {
-            $items[$item->Name->__toString()] = !$item->Value ? null : new MessageAttributeValue([
+            $items[$item->Name->__toString()] = new MessageAttributeValue([
                 'StringValue' => ($v = $item->Value->StringValue) ? (string) $v : null,
                 'BinaryValue' => ($v = $item->Value->BinaryValue) ? base64_decode((string) $v) : null,
                 'StringListValues' => !$item->Value->StringListValue ? [] : $this->populateResultStringList($item->Value->StringListValue),
@@ -61,6 +68,9 @@ class ReceiveMessageResult extends Result
         return $items;
     }
 
+    /**
+     * @return Message[]
+     */
     private function populateResultMessageList(\SimpleXMLElement $xml): array
     {
         $items = [];
@@ -79,11 +89,14 @@ class ReceiveMessageResult extends Result
         return $items;
     }
 
+    /**
+     * @return array<MessageSystemAttributeName::*, string>
+     */
     private function populateResultMessageSystemAttributeMap(\SimpleXMLElement $xml): array
     {
         $items = [];
         foreach ($xml as $item) {
-            $a = ($v = $item->Value) ? (string) $v : null;
+            $a = (string) $item->Value;
             if (null !== $a) {
                 $items[$item->Name->__toString()] = $a;
             }
@@ -92,6 +105,9 @@ class ReceiveMessageResult extends Result
         return $items;
     }
 
+    /**
+     * @return string[]
+     */
     private function populateResultStringList(\SimpleXMLElement $xml): array
     {
         $items = [];

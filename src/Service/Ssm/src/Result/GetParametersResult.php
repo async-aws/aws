@@ -46,6 +46,9 @@ class GetParametersResult extends Result
         $this->InvalidParameters = empty($data['InvalidParameters']) ? [] : $this->populateResultParameterNameList($data['InvalidParameters']);
     }
 
+    /**
+     * @return Parameter[]
+     */
     private function populateResultParameterList(array $json): array
     {
         $items = [];
@@ -66,6 +69,9 @@ class GetParametersResult extends Result
         return $items;
     }
 
+    /**
+     * @return string[]
+     */
     private function populateResultParameterNameList(array $json): array
     {
         $items = [];

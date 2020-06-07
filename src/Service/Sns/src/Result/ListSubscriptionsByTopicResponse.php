@@ -119,6 +119,9 @@ class ListSubscriptionsByTopicResponse extends Result implements \IteratorAggreg
         $this->NextToken = ($v = $data->NextToken) ? (string) $v : null;
     }
 
+    /**
+     * @return Subscription[]
+     */
     private function populateResultSubscriptionsList(\SimpleXMLElement $xml): array
     {
         $items = [];

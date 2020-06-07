@@ -114,6 +114,9 @@ class DescribeLogStreamsResponse extends Result implements \IteratorAggregate
         $this->nextToken = isset($data['nextToken']) ? (string) $data['nextToken'] : null;
     }
 
+    /**
+     * @return LogStream[]
+     */
     private function populateResultLogStreams(array $json): array
     {
         $items = [];

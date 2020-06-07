@@ -4,6 +4,7 @@ namespace AsyncAws\Lambda\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Lambda\Enum\Runtime;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\Lambda\ValueObject\LayerVersionsListItem;
@@ -117,6 +118,9 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
         $this->LayerVersions = empty($data['LayerVersions']) ? [] : $this->populateResultLayerVersionsList($data['LayerVersions']);
     }
 
+    /**
+     * @return list<Runtime::*>
+     */
     private function populateResultCompatibleRuntimes(array $json): array
     {
         $items = [];
@@ -130,6 +134,9 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return LayerVersionsListItem[]
+     */
     private function populateResultLayerVersionsList(array $json): array
     {
         $items = [];

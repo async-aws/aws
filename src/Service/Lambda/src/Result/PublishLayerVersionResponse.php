@@ -128,6 +128,9 @@ class PublishLayerVersionResponse extends Result
         $this->LicenseInfo = isset($data['LicenseInfo']) ? (string) $data['LicenseInfo'] : null;
     }
 
+    /**
+     * @return list<Runtime::*>
+     */
     private function populateResultCompatibleRuntimes(array $json): array
     {
         $items = [];

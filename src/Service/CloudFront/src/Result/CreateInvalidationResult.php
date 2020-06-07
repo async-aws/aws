@@ -55,6 +55,9 @@ class CreateInvalidationResult extends Result
         ]);
     }
 
+    /**
+     * @return string[]
+     */
     private function populateResultPathList(\SimpleXMLElement $xml): array
     {
         $items = [];

@@ -300,6 +300,9 @@ class ListPartsOutput extends Result implements \IteratorAggregate
         $this->StorageClass = ($v = $data->StorageClass) ? (string) $v : null;
     }
 
+    /**
+     * @return Part[]
+     */
     private function populateResultParts(\SimpleXMLElement $xml): array
     {
         $items = [];

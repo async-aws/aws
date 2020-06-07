@@ -117,6 +117,9 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
         $this->NextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
     }
 
+    /**
+     * @return Parameter[]
+     */
     private function populateResultParameterList(array $json): array
     {
         $items = [];

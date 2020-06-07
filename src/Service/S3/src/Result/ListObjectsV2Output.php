@@ -296,6 +296,9 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         $this->StartAfter = ($v = $data->StartAfter) ? (string) $v : null;
     }
 
+    /**
+     * @return CommonPrefix[]
+     */
     private function populateResultCommonPrefixList(\SimpleXMLElement $xml): array
     {
         $items = [];
@@ -308,6 +311,9 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return AwsObject[]
+     */
     private function populateResultObjectList(\SimpleXMLElement $xml): array
     {
         $items = [];

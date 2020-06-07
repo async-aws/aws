@@ -137,6 +137,9 @@ class ListUsersResponse extends Result implements \IteratorAggregate
         $this->Marker = ($v = $data->Marker) ? (string) $v : null;
     }
 
+    /**
+     * @return Tag[]
+     */
     private function populateResultTagListType(\SimpleXMLElement $xml): array
     {
         $items = [];
@@ -150,6 +153,9 @@ class ListUsersResponse extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return User[]
+     */
     private function populateResultUserListType(\SimpleXMLElement $xml): array
     {
         $items = [];

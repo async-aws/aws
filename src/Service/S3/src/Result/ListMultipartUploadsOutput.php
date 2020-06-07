@@ -304,6 +304,9 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
         $this->EncodingType = ($v = $data->EncodingType) ? (string) $v : null;
     }
 
+    /**
+     * @return CommonPrefix[]
+     */
     private function populateResultCommonPrefixList(\SimpleXMLElement $xml): array
     {
         $items = [];
@@ -316,6 +319,9 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
         return $items;
     }
 
+    /**
+     * @return MultipartUpload[]
+     */
     private function populateResultMultipartUploadList(\SimpleXMLElement $xml): array
     {
         $items = [];

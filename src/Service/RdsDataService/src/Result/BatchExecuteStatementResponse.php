@@ -32,6 +32,9 @@ class BatchExecuteStatementResponse extends Result
         $this->updateResults = empty($data['updateResults']) ? [] : $this->populateResultUpdateResults($data['updateResults']);
     }
 
+    /**
+     * @return ArrayValue[]
+     */
     private function populateResultArrayOfArray(array $json): array
     {
         $items = [];
@@ -48,6 +51,9 @@ class BatchExecuteStatementResponse extends Result
         return $items;
     }
 
+    /**
+     * @return bool[]
+     */
     private function populateResultBooleanArray(array $json): array
     {
         $items = [];
@@ -61,6 +67,9 @@ class BatchExecuteStatementResponse extends Result
         return $items;
     }
 
+    /**
+     * @return float[]
+     */
     private function populateResultDoubleArray(array $json): array
     {
         $items = [];
@@ -74,6 +83,9 @@ class BatchExecuteStatementResponse extends Result
         return $items;
     }
 
+    /**
+     * @return Field[]
+     */
     private function populateResultFieldList(array $json): array
     {
         $items = [];
@@ -98,6 +110,9 @@ class BatchExecuteStatementResponse extends Result
         return $items;
     }
 
+    /**
+     * @return string[]
+     */
     private function populateResultLongArray(array $json): array
     {
         $items = [];
@@ -111,6 +126,9 @@ class BatchExecuteStatementResponse extends Result
         return $items;
     }
 
+    /**
+     * @return string[]
+     */
     private function populateResultStringArray(array $json): array
     {
         $items = [];
@@ -124,6 +142,9 @@ class BatchExecuteStatementResponse extends Result
         return $items;
     }
 
+    /**
+     * @return UpdateResult[]
+     */
     private function populateResultUpdateResults(array $json): array
     {
         $items = [];

@@ -42,6 +42,9 @@ class GetUserResponse extends Result
         ]);
     }
 
+    /**
+     * @return Tag[]
+     */
     private function populateResultTagListType(\SimpleXMLElement $xml): array
     {
         $items = [];

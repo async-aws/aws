@@ -64,6 +64,9 @@ class GetObjectAclOutput extends Result
         $this->Grants = !$data->AccessControlList ? [] : $this->populateResultGrants($data->AccessControlList);
     }
 
+    /**
+     * @return Grant[]
+     */
     private function populateResultGrants(\SimpleXMLElement $xml): array
     {
         $items = [];

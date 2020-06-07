@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator\ResponseParser;
 
+use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use Nette\PhpGenerator\Method;
 
 /**
@@ -16,7 +17,7 @@ class ParserResult
     /**
      * Classes to import.
      *
-     * @var array<string>
+     * @var ClassName[]
      */
     private $usedClasses;
 

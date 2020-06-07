@@ -89,6 +89,9 @@ class UpdateTableOutput extends Result
         ]);
     }
 
+    /**
+     * @return AttributeDefinition[]
+     */
     private function populateResultAttributeDefinitions(array $json): array
     {
         $items = [];
@@ -102,6 +105,9 @@ class UpdateTableOutput extends Result
         return $items;
     }
 
+    /**
+     * @return GlobalSecondaryIndexDescription[]
+     */
     private function populateResultGlobalSecondaryIndexDescriptionList(array $json): array
     {
         $items = [];
@@ -131,6 +137,9 @@ class UpdateTableOutput extends Result
         return $items;
     }
 
+    /**
+     * @return KeySchemaElement[]
+     */
     private function populateResultKeySchema(array $json): array
     {
         $items = [];
@@ -144,6 +153,9 @@ class UpdateTableOutput extends Result
         return $items;
     }
 
+    /**
+     * @return LocalSecondaryIndexDescription[]
+     */
     private function populateResultLocalSecondaryIndexDescriptionList(array $json): array
     {
         $items = [];
@@ -164,6 +176,9 @@ class UpdateTableOutput extends Result
         return $items;
     }
 
+    /**
+     * @return string[]
+     */
     private function populateResultNonKeyAttributeNameList(array $json): array
     {
         $items = [];
@@ -177,6 +192,9 @@ class UpdateTableOutput extends Result
         return $items;
     }
 
+    /**
+     * @return ReplicaDescription[]
+     */
     private function populateResultReplicaDescriptionList(array $json): array
     {
         $items = [];
@@ -197,6 +215,9 @@ class UpdateTableOutput extends Result
         return $items;
     }
 
+    /**
+     * @return ReplicaGlobalSecondaryIndexDescription[]
+     */
     private function populateResultReplicaGlobalSecondaryIndexDescriptionList(array $json): array
     {
         $items = [];

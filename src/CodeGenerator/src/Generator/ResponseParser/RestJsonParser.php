@@ -10,6 +10,7 @@ use AsyncAws\CodeGenerator\Definition\Member;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Method;
@@ -21,18 +22,18 @@ use Nette\PhpGenerator\Method;
  */
 class RestJsonParser implements Parser
 {
-    /**
-     * @var NamespaceRegistry
-     */
     private $namespaceRegistry;
+
+    private $typeGenerator;
 
     private $functions = [];
 
     private $imports = [];
 
-    public function __construct(NamespaceRegistry $namespaceRegistry)
+    public function __construct(NamespaceRegistry $namespaceRegistry, TypeGenerator $typeGenerator)
     {
         $this->namespaceRegistry = $namespaceRegistry;
+        $this->typeGenerator = $typeGenerator;
     }
 
     public function generate(StructureShape $shape): ParserResult
@@ -233,7 +234,7 @@ class RestJsonParser implements Parser
             $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
                 'LIST_ACCESSOR' => $this->parseElement('$item', $shapeMember->getShape(), $listAccessorRequired),
                 'INPUT_PROPERTY' => $shape->isFlattened() ? '$json' : '$json' . ($shapeMember->getLocationName() ? '->' . $shapeMember->getLocationName() : ''),
-            ]));
+            ]), $shape);
         }
 
         return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : 'empty(INPUT) ? [] : $this->FUNCTION_NAME(INPUT)', [
@@ -264,7 +265,7 @@ class RestJsonParser implements Parser
 
                     $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
                         'CLASS' => $shape->getValue()->getShape()->getName(),
-                    ]));
+                    ]), $shape);
                 } else {
                     $body = '
                         $items = [];
@@ -277,7 +278,7 @@ class RestJsonParser implements Parser
 
                     $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
                         'CODE' => $this->parseElement('$value', $shapeValue->getShape(), true),
-                    ]));
+                    ]), $shape);
                 }
             } else {
                 $inputAccessorName = $this->getInputAccessorName($shapeValue);
@@ -307,7 +308,7 @@ class RestJsonParser implements Parser
                 $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
                     'MAP_KEY' => var_export($locationName, true),
                     'MAP_ACCESSOR' => $this->parseElement(sprintf('$item[\'%s\']', $inputAccessorName), $shapeValue->getShape(), false),
-                ]));
+                ]), $shape);
             }
         }
 
@@ -317,15 +318,22 @@ class RestJsonParser implements Parser
         ]);
     }
 
-    private function createPopulateMethod(string $functionName, string $body): Method
+    private function createPopulateMethod(string $functionName, string $body, Shape $shape): Method
     {
         $method = new Method($functionName);
         $method->setVisibility(ClassType::VISIBILITY_PRIVATE)
             ->setReturnType('array')
             ->setBody($body)
             ->addParameter('json')
-            ->setType('array')
+                ->setType('array')
         ;
+
+        if (null !== $shape) {
+            [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($shape);
+            $method
+                ->setComment('@return ' . $parameterType);
+            $this->imports = \array_merge($this->imports, $memberClassNames);
+        }
 
         return $method;
     }

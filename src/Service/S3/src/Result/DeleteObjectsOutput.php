@@ -64,6 +64,9 @@ class DeleteObjectsOutput extends Result
         $this->Errors = !$data->Error ? [] : $this->populateResultErrors($data->Error);
     }
 
+    /**
+     * @return DeletedObject[]
+     */
     private function populateResultDeletedObjects(\SimpleXMLElement $xml): array
     {
         $items = [];
@@ -79,6 +82,9 @@ class DeleteObjectsOutput extends Result
         return $items;
     }
 
+    /**
+     * @return Error[]
+     */
     private function populateResultErrors(\SimpleXMLElement $xml): array
     {
         $items = [];

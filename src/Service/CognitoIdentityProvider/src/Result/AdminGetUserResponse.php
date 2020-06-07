@@ -148,6 +148,9 @@ class AdminGetUserResponse extends Result
         $this->UserMFASettingList = empty($data['UserMFASettingList']) ? [] : $this->populateResultUserMFASettingListType($data['UserMFASettingList']);
     }
 
+    /**
+     * @return AttributeType[]
+     */
     private function populateResultAttributeListType(array $json): array
     {
         $items = [];
@@ -161,6 +164,9 @@ class AdminGetUserResponse extends Result
         return $items;
     }
 
+    /**
+     * @return MFAOptionType[]
+     */
     private function populateResultMFAOptionListType(array $json): array
     {
         $items = [];
@@ -174,6 +180,9 @@ class AdminGetUserResponse extends Result
         return $items;
     }
 
+    /**
+     * @return string[]
+     */
     private function populateResultUserMFASettingListType(array $json): array
     {
         $items = [];

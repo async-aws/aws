@@ -44,6 +44,9 @@ class PutEventsResponse extends Result
         $this->Entries = empty($data['Entries']) ? [] : $this->populateResultPutEventsResultEntryList($data['Entries']);
     }
 
+    /**
+     * @return PutEventsResultEntry[]
+     */
     private function populateResultPutEventsResultEntryList(array $json): array
     {
         $items = [];
