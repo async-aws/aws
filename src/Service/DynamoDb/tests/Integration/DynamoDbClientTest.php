@@ -8,6 +8,7 @@ use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Enum\KeyType;
 use AsyncAws\DynamoDb\Enum\ProjectionType;
 use AsyncAws\DynamoDb\Input\BatchGetItemInput;
+use AsyncAws\DynamoDb\Input\BatchWriteItemInput;
 use AsyncAws\DynamoDb\Input\CreateTableInput;
 use AsyncAws\DynamoDb\Input\DeleteItemInput;
 use AsyncAws\DynamoDb\Input\DeleteTableInput;
@@ -26,8 +27,10 @@ use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use AsyncAws\DynamoDb\ValueObject\LocalSecondaryIndex;
 use AsyncAws\DynamoDb\ValueObject\Projection;
 use AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput;
+use AsyncAws\DynamoDb\ValueObject\PutRequest;
 use AsyncAws\DynamoDb\ValueObject\Tag;
 use AsyncAws\DynamoDb\ValueObject\TimeToLiveSpecification;
+use AsyncAws\DynamoDb\ValueObject\WriteRequest;
 
 class DynamoDbClientTest extends TestCase
 {
@@ -128,6 +131,33 @@ class DynamoDbClientTest extends TestCase
         $result = $client->DeleteTable($input);
 
         $result->resolve();
+    }
+
+    public function testBatchWriteItem(): void
+    {
+        $client = $this->getClient();
+
+        $input = new BatchWriteItemInput([
+            'RequestItems' => [$this->tableName => [new WriteRequest([
+                'PutRequest' => new PutRequest([
+                    'Item' => [
+                        'LastPostDateTime' => ['S' => '201303190422'],
+                        'Tags' => ['SS' => ['Update', 'Multiple Items', 'HelpMe']],
+                        'ForumName' => ['S' => 'Amazon DynamoDB'],
+                        'Message' => ['S' => 'What is the maximum number of items?'],
+                        'Subject' => ['S' => 'Maximum number of items?'],
+                        'LastPostedBy' => ['S' => 'fred@example.com'],
+                    ],
+                ]),
+            ])]],
+            'ReturnConsumedCapacity' => 'TOTAL',
+        ]);
+        $result = $client->BatchWriteItem($input);
+
+        $result->resolve();
+
+        $capacity = $result->getConsumedCapacity()[0];
+        self::assertEquals($this->tableName, $capacity->getTableName());
     }
 
     public function testBatchGetItem(): void
