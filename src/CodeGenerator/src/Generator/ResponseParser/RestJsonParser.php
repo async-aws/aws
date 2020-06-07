@@ -148,7 +148,7 @@ class RestJsonParser implements Parser
         }
 
         $className = $this->namespaceRegistry->getObject($shape);
-        $this->imports[] = $className->getFqdn();
+        $this->imports[] = $className;
 
         return strtr(
             $body, [
