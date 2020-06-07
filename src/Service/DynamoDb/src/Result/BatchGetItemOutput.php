@@ -191,7 +191,7 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
 
             return $items;
         };
-        $this->Responses = empty($data['Responses']) ? [] : (function (array $json): array {
+        $this->Responses = empty($data['Responses']) ? [] : (function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $name => $value) {
                 $items[(string) $name] = $fn['list-ItemList']($value);

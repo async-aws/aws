@@ -267,9 +267,9 @@ class RestJsonParser implements Parser
                     $this->functions[$keyName] = strtr($body, [
                         'FUNCTION_KEY' => \var_export($keyName, true),
                         'CLASS' => $shape->getValue()->getShape()->getName(),
-                    ]);
+                    ]);// TODO add CLASS to imports
                 } else {
-                    $body = '(function(array $json): array {
+                    $body = '(function(array $json) use(&$fn): array {
                 $items = [];
                 foreach ($json as $name => $value) {
                    $items[(string) $name] = CODE;
