@@ -20,6 +20,4 @@ parameters:
         - '#Negated boolean expression is always false\.#'
         - '#^PHPDoc tag @param has invalid value#'
         - '#^Parameter \#1 \$input of class AsyncAws\\[^\\]+\\ValueObject\\[^ ]+ constructor expects (array\(\)\|)?array\([^\)]+\), array\([^\)]+\) given\.#'
-        - '#should return iterable<array[^>]+>> but empty return statement found\.$#'
-        - '#should return iterable<[^>]+> but empty return statement found\.$#'
         - '#Method AsyncAws\\[^:]+::[^(]+\(\) should return array<[^>]+> but returns array<int(\|string)?, string>\.$#'
