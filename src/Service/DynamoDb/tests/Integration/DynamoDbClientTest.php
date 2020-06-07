@@ -136,19 +136,11 @@ class DynamoDbClientTest extends TestCase
 
         $input = new BatchGetItemInput([
             'RequestItems' => [
-                'Forum' => new KeysAndAttributes([
-                    'Keys' => [
-                        ['Name' => new AttributeValue(['S' => 'Amazon DynamoDB'])],
-                        ['Name' => new AttributeValue(['S' => 'Amazon RDS'])],
-                        ['Name' => new AttributeValue(['S' => 'Amazon Redshift'])],
-                    ],
-                    'ProjectionExpression' => 'Name, Threads, Messages, Views',
-                ]),
-                'Thread' => new KeysAndAttributes([
+                $this->tableName => new KeysAndAttributes([
                     'Keys' => [
                         [
                             'ForumName' => new AttributeValue(['S' => 'Amazon DynamoDB']),
-                            'Subject' => new AttributeValue(['S' => 'Concurrent reads']),
+                            'Subject' => new AttributeValue(['S' => 'Maximum number of items?']),
                         ],
                     ],
                     'ProjectionExpression' => 'Tags, Message',
@@ -161,8 +153,10 @@ class DynamoDbClientTest extends TestCase
         $result->resolve();
 
         self::assertEmpty($result->getUnprocessedKeys());
-        // self::assertTODO(expected, $result->getUnprocessedKeys());
-        // self::assertTODO(expected, $result->getConsumedCapacity());
+        $threadResult = $result->getResponses()[$this->tableName];
+        self::assertArrayHasKey(0, $threadResult);
+        self::assertArrayHasKey('Message', $threadResult[0]);
+        self::assertEquals('What is the maximum number of items?', $threadResult[0]['Message']->getS());
     }
 
     public function testCreateTable(): void
