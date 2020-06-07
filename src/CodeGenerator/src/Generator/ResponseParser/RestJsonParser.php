@@ -11,6 +11,8 @@ use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use Nette\PhpGenerator\ClassType;
+use Nette\PhpGenerator\Method;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -36,7 +38,7 @@ class RestJsonParser implements Parser
     public function generate(StructureShape $shape): ParserResult
     {
         if (null !== $payloadProperty = $shape->getPayload()) {
-            return new ParserResult(strtr('$this->PROPERTY_NAME = $response->getContent();', ['PROPERTY_NAME' => $payloadProperty]), []);
+            return new ParserResult(strtr('$this->PROPERTY_NAME = $response->getContent();', ['PROPERTY_NAME' => $payloadProperty]));
         }
 
         $properties = [];
@@ -54,20 +56,16 @@ class RestJsonParser implements Parser
         }
 
         if (empty($properties)) {
-            return new ParserResult('', $this->imports);
+            return new ParserResult('');
         }
 
         $body = '$data = $response->toArray();' . "\n";
         if (null !== $wrapper = $shape->getResultWrapper()) {
             $body .= strtr('$data = $data[WRAPPER];' . "\n", ['WRAPPER' => var_export($wrapper, true)]);
         }
-        $functions = array_filter($this->functions, 'is_string');
-        if (!empty($functions)) {
-            $body .= '$fn = [];' . \implode("\n", $functions);
-        }
         $body .= "\n" . implode("\n", $properties);
 
-        return new ParserResult($body, $this->imports);
+        return new ParserResult($body, $this->imports, $this->functions);
     }
 
     protected function parseResponseTimestamp(Shape $shape, string $input, bool $required): string
@@ -204,24 +202,23 @@ class RestJsonParser implements Parser
     private function parseResponseList(ListShape $shape, string $input, bool $required): string
     {
         $shapeMember = $shape->getMember();
-        $keyName = 'list-' . $shape->getName();
-        if (!isset($this->functions[$keyName])) {
+        $functionName = 'populateResult' . \ucfirst($shape->getName());
+        if (!isset($this->functions[$functionName])) {
             // prevent recursion
-            $this->functions[$keyName] = true;
+            $this->functions[$functionName] = true;
 
             if ($shapeMember->getShape() instanceof StructureShape) {
                 $listAccessorRequired = true;
-                $body = '$fn[FUNCTION_KEY] = static function(array $json) use (&$fn): array {
+                $body = '
                     $items = [];
                     foreach (INPUT_PROPERTY as $item) {
                        $items[] = LIST_ACCESSOR;
                     }
 
-                    return $items;
-                };';
+                    return $items;';
             } else {
                 $listAccessorRequired = false;
-                $body = '$fn[FUNCTION_KEY] = static function(array $json) use (&$fn): array {
+                $body = '
                     $items = [];
                     foreach (INPUT_PROPERTY as $item) {
                         $a = LIST_ACCESSOR;
@@ -230,84 +227,71 @@ class RestJsonParser implements Parser
                         }
                     }
 
-                    return $items;
-                };';
+                    return $items;';
             }
 
-            $this->functions[$keyName] = strtr($body, [
-                'FUNCTION_KEY' => \var_export($keyName, true),
+            $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
                 'LIST_ACCESSOR' => $this->parseElement('$item', $shapeMember->getShape(), $listAccessorRequired),
                 'INPUT_PROPERTY' => $shape->isFlattened() ? '$json' : '$json' . ($shapeMember->getLocationName() ? '->' . $shapeMember->getLocationName() : ''),
-            ]);
+            ]));
         }
 
-        return strtr($required ? '$fn[FUNCTION_KEY](INPUT)' : 'empty(INPUT) ? [] : $fn[FUNCTION_KEY](INPUT)', [
+        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : 'empty(INPUT) ? [] : $this->FUNCTION_NAME(INPUT)', [
             'INPUT' => $input,
-            'FUNCTION_KEY' => \var_export($keyName, true),
+            'FUNCTION_NAME' => $functionName,
         ]);
     }
 
     private function parseResponseMap(MapShape $shape, string $input, bool $required): string
     {
         $shapeValue = $shape->getValue();
-        $keyName = 'map-' . $shape->getName();
-        if (!isset($this->functions[$keyName])) {
+        $functionName = 'populateResult' . \ucfirst($shape->getName());
+        if (!isset($this->functions[$functionName])) {
             // prevent recursion
-            $this->functions[$keyName] = true;
+            $this->functions[$functionName] = true;
 
             if (null === $locationName = $shape->getKey()->getLocationName()) {
                 // We need to use array keys
                 if ($shapeValue->getShape() instanceof StructureShape) {
                     $body = '
-                    /** @return array<string, \FQDN> */
-                    $fn[FUNCTION_KEY] = static function(array $json): array {
                         $items = [];
                         foreach ($json as $name => $value) {
                            $items[(string) $name] = CLASS::create($value);
                         }
 
                         return $items;
-                    };';
+                    ';
 
-                    $classFqdn = $this->namespaceRegistry->getObject($shape->getValue()->getShape())->getFqdn();
-                    $this->functions[$keyName] = strtr($body, [
-                        'FUNCTION_KEY' => \var_export($keyName, true),
+                    $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
                         'CLASS' => $shape->getValue()->getShape()->getName(),
-                        'FQDN' => $classFqdn,
-                    ]);
-                    // add CLASS to imports
-                    $this->imports[] = $classFqdn;
+                    ]));
                 } else {
-                    $body = '(function(array $json) use (&$fn): array {
-                $items = [];
-                foreach ($json as $name => $value) {
-                   $items[(string) $name] = CODE;
-                }
+                    $body = '
+                        $items = [];
+                        foreach ($json as $name => $value) {
+                           $items[(string) $name] = CODE;
+                        }
 
-                return $items;
-            })(INPUT)';
-                    if (!$required) {
-                        $body = 'empty(INPUT) ? [] : ' . $body;
-                    }
+                        return $items;
+                    ';
 
-                    return strtr($body, [
-                        'INPUT' => $input,
+                    $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
                         'CODE' => $this->parseElement('$value', $shapeValue->getShape(), true),
-                    ]);
+                    ]));
                 }
             } else {
                 $inputAccessorName = $this->getInputAccessorName($shapeValue);
                 if ($shapeValue->getShape() instanceof StructureShape) {
-                    $body = '$fn[FUNCTION_KEY] = static function(array $json) use (&$fn): array {
+                    $body = '
                         $items = [];
                         foreach ($json as $item) {
                             $items[$item[MAP_KEY]] = MAP_ACCESSOR;
                         }
 
                         return $items;
-                    };';
+                    ';
                 } else {
-                    $body = '$fn[FUNCTION_KEY] = function(array $json) use (&$fn): array {
+                    $body = '
                         $items = [];
                         foreach ($json as $item) {
                             $a = MAP_ACCESSOR;
@@ -317,20 +301,32 @@ class RestJsonParser implements Parser
                         }
 
                         return $items;
-                    };';
+                    ';
                 }
 
-                $this->functions[$keyName] = strtr($body, [
-                    'FUNCTION_KEY' => \var_export($keyName, true),
+                $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
                     'MAP_KEY' => var_export($locationName, true),
                     'MAP_ACCESSOR' => $this->parseElement(sprintf('$item[\'%s\']', $inputAccessorName), $shapeValue->getShape(), false),
-                ]);
+                ]));
             }
         }
 
-        return strtr($required ? '$fn[FUNCTION_KEY](INPUT)' : 'empty(INPUT) ? [] : $fn[FUNCTION_KEY](INPUT)', [
+        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : 'empty(INPUT) ? [] : $this->FUNCTION_NAME(INPUT)', [
             'INPUT' => $input,
-            'FUNCTION_KEY' => \var_export($keyName, true),
+            'FUNCTION_NAME' => $functionName,
         ]);
+    }
+
+    private function createPopulateMethod(string $functionName, string $body): Method
+    {
+        $method = new Method($functionName);
+        $method->setVisibility(ClassType::VISIBILITY_PRIVATE)
+            ->setReturnType('array')
+            ->setBody($body)
+            ->addParameter('json')
+            ->setType('array')
+        ;
+
+        return $method;
     }
 }

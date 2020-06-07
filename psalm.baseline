@@ -56,6 +56,9 @@
   <file src="src/Service/DynamoDb/src/Result/DescribeTableOutput.php">
     <InvalidArgument occurrences="6"/>
   </file>
+  <file src="src/Service/DynamoDb/src/Result/GetItemOutput.php">
+    <InvalidArgument occurrences="1"/>
+  </file>
   <file src="src/Service/DynamoDb/src/Result/PutItemOutput.php">
     <InvalidArgument occurrences="2"/>
   </file>

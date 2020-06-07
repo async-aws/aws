@@ -112,34 +112,38 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-        $fn = [];
-        $fn['list-LayerVersionsList'] = static function (array $json) use (&$fn): array {
-            $items = [];
-            foreach ($json as $item) {
-                $items[] = new LayerVersionsListItem([
-                    'LayerVersionArn' => isset($item['LayerVersionArn']) ? (string) $item['LayerVersionArn'] : null,
-                    'Version' => isset($item['Version']) ? (string) $item['Version'] : null,
-                    'Description' => isset($item['Description']) ? (string) $item['Description'] : null,
-                    'CreatedDate' => isset($item['CreatedDate']) ? (string) $item['CreatedDate'] : null,
-                    'CompatibleRuntimes' => empty($item['CompatibleRuntimes']) ? [] : $fn['list-CompatibleRuntimes']($item['CompatibleRuntimes']),
-                    'LicenseInfo' => isset($item['LicenseInfo']) ? (string) $item['LicenseInfo'] : null,
-                ]);
-            }
 
-            return $items;
-        };
-        $fn['list-CompatibleRuntimes'] = static function (array $json) use (&$fn): array {
-            $items = [];
-            foreach ($json as $item) {
-                $a = isset($item) ? (string) $item : null;
-                if (null !== $a) {
-                    $items[] = $a;
-                }
-            }
-
-            return $items;
-        };
         $this->NextMarker = isset($data['NextMarker']) ? (string) $data['NextMarker'] : null;
-        $this->LayerVersions = empty($data['LayerVersions']) ? [] : $fn['list-LayerVersionsList']($data['LayerVersions']);
+        $this->LayerVersions = empty($data['LayerVersions']) ? [] : $this->populateResultLayerVersionsList($data['LayerVersions']);
+    }
+
+    private function populateResultCompatibleRuntimes(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
+    }
+
+    private function populateResultLayerVersionsList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = new LayerVersionsListItem([
+                'LayerVersionArn' => isset($item['LayerVersionArn']) ? (string) $item['LayerVersionArn'] : null,
+                'Version' => isset($item['Version']) ? (string) $item['Version'] : null,
+                'Description' => isset($item['Description']) ? (string) $item['Description'] : null,
+                'CreatedDate' => isset($item['CreatedDate']) ? (string) $item['CreatedDate'] : null,
+                'CompatibleRuntimes' => empty($item['CompatibleRuntimes']) ? [] : $this->populateResultCompatibleRuntimes($item['CompatibleRuntimes']),
+                'LicenseInfo' => isset($item['LicenseInfo']) ? (string) $item['LicenseInfo'] : null,
+            ]);
+        }
+
+        return $items;
     }
 }

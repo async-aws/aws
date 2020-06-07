@@ -288,6 +288,7 @@ class ResultGenerator
             foreach ($parserResult->getUsedClasses() as $import) {
                 $namespace->addUse($import);
             }
+            $class->setMethods($parserResult->getExtraMethods());
         }
 
         $namespace->addUse(Response::class);

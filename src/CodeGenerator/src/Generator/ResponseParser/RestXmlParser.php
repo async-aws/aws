@@ -52,7 +52,7 @@ class RestXmlParser implements Parser
         }
 
         if (empty($properties)) {
-            return new ParserResult('', []);
+            return new ParserResult('');
         }
 
         $body = '$data = new \SimpleXMLElement($response->getContent());';
@@ -61,7 +61,7 @@ class RestXmlParser implements Parser
         }
         $body .= "\n" . implode("\n", $properties);
 
-        return new ParserResult($body, []);
+        return new ParserResult($body);
     }
 
     private function getInputAccessor(string $currentInput, Member $member)
