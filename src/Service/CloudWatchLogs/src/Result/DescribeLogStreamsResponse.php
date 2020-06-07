@@ -109,8 +109,8 @@ class DescribeLogStreamsResponse extends Result implements \IteratorAggregate
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-
-        $this->logStreams = empty($data['logStreams']) ? [] : (function (array $json): array {
+        $fn = [];
+        $fn['list-LogStreams'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new LogStream([
@@ -126,7 +126,8 @@ class DescribeLogStreamsResponse extends Result implements \IteratorAggregate
             }
 
             return $items;
-        })($data['logStreams']);
+        };
+        $this->logStreams = empty($data['logStreams']) ? [] : $fn['list-LogStreams']($data['logStreams']);
         $this->nextToken = isset($data['nextToken']) ? (string) $data['nextToken'] : null;
     }
 }

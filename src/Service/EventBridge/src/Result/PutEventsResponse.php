@@ -39,9 +39,8 @@ class PutEventsResponse extends Result
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-
-        $this->FailedEntryCount = isset($data['FailedEntryCount']) ? (int) $data['FailedEntryCount'] : null;
-        $this->Entries = empty($data['Entries']) ? [] : (function (array $json): array {
+        $fn = [];
+        $fn['list-PutEventsResultEntryList'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new PutEventsResultEntry([
@@ -52,6 +51,8 @@ class PutEventsResponse extends Result
             }
 
             return $items;
-        })($data['Entries']);
+        };
+        $this->FailedEntryCount = isset($data['FailedEntryCount']) ? (int) $data['FailedEntryCount'] : null;
+        $this->Entries = empty($data['Entries']) ? [] : $fn['list-PutEventsResultEntryList']($data['Entries']);
     }
 }

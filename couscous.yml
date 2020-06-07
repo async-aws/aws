@@ -52,6 +52,9 @@ menu:
             lambda:
                 text: Lambda
                 url: /clients/lambda.html
+            rds-data-service:
+                text: RdsDataService
+                url: /clients/rds-data-service.html
             s3:
                 text: S3
                 url: /clients/s3.html

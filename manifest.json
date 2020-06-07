@@ -104,6 +104,19 @@
                 "PublishLayerVersion"
             ]
         },
+        "RdsDataService": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/rds-data/2018-08-01/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/rds-data/2018-08-01/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/rds-data/2018-08-01/paginators-1.json",
+            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/rds-data/2018-08-01/examples-1.json",
+            "methods": [
+                "BatchExecuteStatement",
+                "BeginTransaction",
+                "CommitTransaction",
+                "ExecuteStatement",
+                "RollbackTransaction"
+            ]
+        },
         "S3": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/s3/2006-03-01/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/s3/2006-03-01/docs-2.json",

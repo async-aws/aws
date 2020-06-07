@@ -41,8 +41,8 @@ class GetParametersResult extends Result
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-
-        $this->Parameters = empty($data['Parameters']) ? [] : (function (array $json): array {
+        $fn = [];
+        $fn['list-ParameterList'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new Parameter([
@@ -59,8 +59,8 @@ class GetParametersResult extends Result
             }
 
             return $items;
-        })($data['Parameters']);
-        $this->InvalidParameters = empty($data['InvalidParameters']) ? [] : (function (array $json): array {
+        };
+        $fn['list-ParameterNameList'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? (string) $item : null;
@@ -70,6 +70,8 @@ class GetParametersResult extends Result
             }
 
             return $items;
-        })($data['InvalidParameters']);
+        };
+        $this->Parameters = empty($data['Parameters']) ? [] : $fn['list-ParameterList']($data['Parameters']);
+        $this->InvalidParameters = empty($data['InvalidParameters']) ? [] : $fn['list-ParameterNameList']($data['InvalidParameters']);
     }
 }

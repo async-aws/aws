@@ -164,35 +164,46 @@ class ScanOutput extends Result implements \IteratorAggregate
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-
-        $this->Items = empty($data['Items']) ? [] : (function (array $json): array {
+        $fn = [];
+        $fn['list-ItemList'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
-                $a = empty($item) ? [] : (function (array $json): array {
-                    $items = [];
-                    foreach ($json as $name => $value) {
-                        $items[(string) $name] = AttributeValue::create($value);
-                    }
-
-                    return $items;
-                })($item);
+                $a = empty($item) ? [] : $fn['map-AttributeMap']($item);
                 if (null !== $a) {
                     $items[] = $a;
                 }
             }
 
             return $items;
-        })($data['Items']);
-        $this->Count = isset($data['Count']) ? (int) $data['Count'] : null;
-        $this->ScannedCount = isset($data['ScannedCount']) ? (int) $data['ScannedCount'] : null;
-        $this->LastEvaluatedKey = empty($data['LastEvaluatedKey']) ? [] : (function (array $json): array {
+        };
+        $fn['map-AttributeMap'] = static function (array $json): array {
             $items = [];
             foreach ($json as $name => $value) {
                 $items[(string) $name] = AttributeValue::create($value);
             }
 
             return $items;
-        })($data['LastEvaluatedKey']);
+        };
+        $fn['map-Key'] = static function (array $json): array {
+            $items = [];
+            foreach ($json as $name => $value) {
+                $items[(string) $name] = AttributeValue::create($value);
+            }
+
+            return $items;
+        };
+        $fn['map-SecondaryIndexesCapacityMap'] = static function (array $json): array {
+            $items = [];
+            foreach ($json as $name => $value) {
+                $items[(string) $name] = Capacity::create($value);
+            }
+
+            return $items;
+        };
+        $this->Items = empty($data['Items']) ? [] : $fn['list-ItemList']($data['Items']);
+        $this->Count = isset($data['Count']) ? (int) $data['Count'] : null;
+        $this->ScannedCount = isset($data['ScannedCount']) ? (int) $data['ScannedCount'] : null;
+        $this->LastEvaluatedKey = empty($data['LastEvaluatedKey']) ? [] : $fn['map-Key']($data['LastEvaluatedKey']);
         $this->ConsumedCapacity = empty($data['ConsumedCapacity']) ? null : new ConsumedCapacity([
             'TableName' => isset($data['ConsumedCapacity']['TableName']) ? (string) $data['ConsumedCapacity']['TableName'] : null,
             'CapacityUnits' => isset($data['ConsumedCapacity']['CapacityUnits']) ? (float) $data['ConsumedCapacity']['CapacityUnits'] : null,
@@ -203,22 +214,8 @@ class ScanOutput extends Result implements \IteratorAggregate
                 'WriteCapacityUnits' => isset($data['ConsumedCapacity']['Table']['WriteCapacityUnits']) ? (float) $data['ConsumedCapacity']['Table']['WriteCapacityUnits'] : null,
                 'CapacityUnits' => isset($data['ConsumedCapacity']['Table']['CapacityUnits']) ? (float) $data['ConsumedCapacity']['Table']['CapacityUnits'] : null,
             ]),
-            'LocalSecondaryIndexes' => empty($data['ConsumedCapacity']['LocalSecondaryIndexes']) ? [] : (function (array $json): array {
-                $items = [];
-                foreach ($json as $name => $value) {
-                    $items[(string) $name] = Capacity::create($value);
-                }
-
-                return $items;
-            })($data['ConsumedCapacity']['LocalSecondaryIndexes']),
-            'GlobalSecondaryIndexes' => empty($data['ConsumedCapacity']['GlobalSecondaryIndexes']) ? [] : (function (array $json): array {
-                $items = [];
-                foreach ($json as $name => $value) {
-                    $items[(string) $name] = Capacity::create($value);
-                }
-
-                return $items;
-            })($data['ConsumedCapacity']['GlobalSecondaryIndexes']),
+            'LocalSecondaryIndexes' => empty($data['ConsumedCapacity']['LocalSecondaryIndexes']) ? [] : $fn['map-SecondaryIndexesCapacityMap']($data['ConsumedCapacity']['LocalSecondaryIndexes']),
+            'GlobalSecondaryIndexes' => empty($data['ConsumedCapacity']['GlobalSecondaryIndexes']) ? [] : $fn['map-SecondaryIndexesCapacityMap']($data['ConsumedCapacity']['GlobalSecondaryIndexes']),
         ]);
     }
 }

@@ -99,7 +99,6 @@ class OperationGenerator
         if (empty($inputShape->getRequired())) {
             $operationMethodParameter->setDefaultValue([]);
         }
-
         if (null !== $output = $operation->getOutput()) {
             $resultClass = $this->resultGenerator->generate($operation);
             if (null !== $operation->getPagination()) {

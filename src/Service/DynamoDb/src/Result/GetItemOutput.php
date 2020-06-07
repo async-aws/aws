@@ -45,15 +45,24 @@ class GetItemOutput extends Result
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-
-        $this->Item = empty($data['Item']) ? [] : (function (array $json): array {
+        $fn = [];
+        $fn['map-AttributeMap'] = static function (array $json): array {
             $items = [];
             foreach ($json as $name => $value) {
                 $items[(string) $name] = AttributeValue::create($value);
             }
 
             return $items;
-        })($data['Item']);
+        };
+        $fn['map-SecondaryIndexesCapacityMap'] = static function (array $json): array {
+            $items = [];
+            foreach ($json as $name => $value) {
+                $items[(string) $name] = Capacity::create($value);
+            }
+
+            return $items;
+        };
+        $this->Item = empty($data['Item']) ? [] : $fn['map-AttributeMap']($data['Item']);
         $this->ConsumedCapacity = empty($data['ConsumedCapacity']) ? null : new ConsumedCapacity([
             'TableName' => isset($data['ConsumedCapacity']['TableName']) ? (string) $data['ConsumedCapacity']['TableName'] : null,
             'CapacityUnits' => isset($data['ConsumedCapacity']['CapacityUnits']) ? (float) $data['ConsumedCapacity']['CapacityUnits'] : null,
@@ -64,22 +73,8 @@ class GetItemOutput extends Result
                 'WriteCapacityUnits' => isset($data['ConsumedCapacity']['Table']['WriteCapacityUnits']) ? (float) $data['ConsumedCapacity']['Table']['WriteCapacityUnits'] : null,
                 'CapacityUnits' => isset($data['ConsumedCapacity']['Table']['CapacityUnits']) ? (float) $data['ConsumedCapacity']['Table']['CapacityUnits'] : null,
             ]),
-            'LocalSecondaryIndexes' => empty($data['ConsumedCapacity']['LocalSecondaryIndexes']) ? [] : (function (array $json): array {
-                $items = [];
-                foreach ($json as $name => $value) {
-                    $items[(string) $name] = Capacity::create($value);
-                }
-
-                return $items;
-            })($data['ConsumedCapacity']['LocalSecondaryIndexes']),
-            'GlobalSecondaryIndexes' => empty($data['ConsumedCapacity']['GlobalSecondaryIndexes']) ? [] : (function (array $json): array {
-                $items = [];
-                foreach ($json as $name => $value) {
-                    $items[(string) $name] = Capacity::create($value);
-                }
-
-                return $items;
-            })($data['ConsumedCapacity']['GlobalSecondaryIndexes']),
+            'LocalSecondaryIndexes' => empty($data['ConsumedCapacity']['LocalSecondaryIndexes']) ? [] : $fn['map-SecondaryIndexesCapacityMap']($data['ConsumedCapacity']['LocalSecondaryIndexes']),
+            'GlobalSecondaryIndexes' => empty($data['ConsumedCapacity']['GlobalSecondaryIndexes']) ? [] : $fn['map-SecondaryIndexesCapacityMap']($data['ConsumedCapacity']['GlobalSecondaryIndexes']),
         ]);
     }
 }

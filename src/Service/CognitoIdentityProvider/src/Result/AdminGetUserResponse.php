@@ -136,9 +136,8 @@ class AdminGetUserResponse extends Result
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-
-        $this->Username = (string) $data['Username'];
-        $this->UserAttributes = empty($data['UserAttributes']) ? [] : (function (array $json): array {
+        $fn = [];
+        $fn['list-AttributeListType'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new AttributeType([
@@ -148,12 +147,8 @@ class AdminGetUserResponse extends Result
             }
 
             return $items;
-        })($data['UserAttributes']);
-        $this->UserCreateDate = (isset($data['UserCreateDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['UserCreateDate'])))) ? $d : null;
-        $this->UserLastModifiedDate = (isset($data['UserLastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['UserLastModifiedDate'])))) ? $d : null;
-        $this->Enabled = isset($data['Enabled']) ? filter_var($data['Enabled'], \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->UserStatus = isset($data['UserStatus']) ? (string) $data['UserStatus'] : null;
-        $this->MFAOptions = empty($data['MFAOptions']) ? [] : (function (array $json): array {
+        };
+        $fn['list-MFAOptionListType'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new MFAOptionType([
@@ -163,9 +158,8 @@ class AdminGetUserResponse extends Result
             }
 
             return $items;
-        })($data['MFAOptions']);
-        $this->PreferredMfaSetting = isset($data['PreferredMfaSetting']) ? (string) $data['PreferredMfaSetting'] : null;
-        $this->UserMFASettingList = empty($data['UserMFASettingList']) ? [] : (function (array $json): array {
+        };
+        $fn['list-UserMFASettingListType'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $a = isset($item) ? (string) $item : null;
@@ -175,6 +169,15 @@ class AdminGetUserResponse extends Result
             }
 
             return $items;
-        })($data['UserMFASettingList']);
+        };
+        $this->Username = (string) $data['Username'];
+        $this->UserAttributes = empty($data['UserAttributes']) ? [] : $fn['list-AttributeListType']($data['UserAttributes']);
+        $this->UserCreateDate = (isset($data['UserCreateDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['UserCreateDate'])))) ? $d : null;
+        $this->UserLastModifiedDate = (isset($data['UserLastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['UserLastModifiedDate'])))) ? $d : null;
+        $this->Enabled = isset($data['Enabled']) ? filter_var($data['Enabled'], \FILTER_VALIDATE_BOOLEAN) : null;
+        $this->UserStatus = isset($data['UserStatus']) ? (string) $data['UserStatus'] : null;
+        $this->MFAOptions = empty($data['MFAOptions']) ? [] : $fn['list-MFAOptionListType']($data['MFAOptions']);
+        $this->PreferredMfaSetting = isset($data['PreferredMfaSetting']) ? (string) $data['PreferredMfaSetting'] : null;
+        $this->UserMFASettingList = empty($data['UserMFASettingList']) ? [] : $fn['list-UserMFASettingListType']($data['UserMFASettingList']);
     }
 }

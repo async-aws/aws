@@ -112,8 +112,8 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-
-        $this->Parameters = empty($data['Parameters']) ? [] : (function (array $json): array {
+        $fn = [];
+        $fn['list-ParameterList'] = static function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $item) {
                 $items[] = new Parameter([
@@ -130,7 +130,8 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
             }
 
             return $items;
-        })($data['Parameters']);
+        };
+        $this->Parameters = empty($data['Parameters']) ? [] : $fn['list-ParameterList']($data['Parameters']);
         $this->NextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
     }
 }

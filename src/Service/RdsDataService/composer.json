@@ -1,0 +1,34 @@
+{
+    "name": "async-aws/rds-data-service",
+    "type": "library",
+    "description": "RdsDataService client, part of the AWS SDK provided by AsyncAws.",
+    "keywords": [
+        "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
+        "rds-data",
+        "rds"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.2.5",
+        "ext-json": "*",
+        "async-aws/core": "^1.2"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "AsyncAws\\RdsDataService\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\RdsDataService\\Tests\\": "tests/"
+        }
+    }
+}

@@ -61,15 +61,43 @@ class PutItemOutput extends Result
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
-
-        $this->Attributes = empty($data['Attributes']) ? [] : (function (array $json): array {
+        $fn = [];
+        $fn['map-AttributeMap'] = static function (array $json): array {
             $items = [];
             foreach ($json as $name => $value) {
                 $items[(string) $name] = AttributeValue::create($value);
             }
 
             return $items;
-        })($data['Attributes']);
+        };
+        $fn['map-SecondaryIndexesCapacityMap'] = static function (array $json): array {
+            $items = [];
+            foreach ($json as $name => $value) {
+                $items[(string) $name] = Capacity::create($value);
+            }
+
+            return $items;
+        };
+        $fn['map-ItemCollectionKeyAttributeMap'] = static function (array $json): array {
+            $items = [];
+            foreach ($json as $name => $value) {
+                $items[(string) $name] = AttributeValue::create($value);
+            }
+
+            return $items;
+        };
+        $fn['list-ItemCollectionSizeEstimateRange'] = static function (array $json) use (&$fn): array {
+            $items = [];
+            foreach ($json as $item) {
+                $a = isset($item) ? (float) $item : null;
+                if (null !== $a) {
+                    $items[] = $a;
+                }
+            }
+
+            return $items;
+        };
+        $this->Attributes = empty($data['Attributes']) ? [] : $fn['map-AttributeMap']($data['Attributes']);
         $this->ConsumedCapacity = empty($data['ConsumedCapacity']) ? null : new ConsumedCapacity([
             'TableName' => isset($data['ConsumedCapacity']['TableName']) ? (string) $data['ConsumedCapacity']['TableName'] : null,
             'CapacityUnits' => isset($data['ConsumedCapacity']['CapacityUnits']) ? (float) $data['ConsumedCapacity']['CapacityUnits'] : null,
@@ -80,43 +108,12 @@ class PutItemOutput extends Result
                 'WriteCapacityUnits' => isset($data['ConsumedCapacity']['Table']['WriteCapacityUnits']) ? (float) $data['ConsumedCapacity']['Table']['WriteCapacityUnits'] : null,
                 'CapacityUnits' => isset($data['ConsumedCapacity']['Table']['CapacityUnits']) ? (float) $data['ConsumedCapacity']['Table']['CapacityUnits'] : null,
             ]),
-            'LocalSecondaryIndexes' => empty($data['ConsumedCapacity']['LocalSecondaryIndexes']) ? [] : (function (array $json): array {
-                $items = [];
-                foreach ($json as $name => $value) {
-                    $items[(string) $name] = Capacity::create($value);
-                }
-
-                return $items;
-            })($data['ConsumedCapacity']['LocalSecondaryIndexes']),
-            'GlobalSecondaryIndexes' => empty($data['ConsumedCapacity']['GlobalSecondaryIndexes']) ? [] : (function (array $json): array {
-                $items = [];
-                foreach ($json as $name => $value) {
-                    $items[(string) $name] = Capacity::create($value);
-                }
-
-                return $items;
-            })($data['ConsumedCapacity']['GlobalSecondaryIndexes']),
+            'LocalSecondaryIndexes' => empty($data['ConsumedCapacity']['LocalSecondaryIndexes']) ? [] : $fn['map-SecondaryIndexesCapacityMap']($data['ConsumedCapacity']['LocalSecondaryIndexes']),
+            'GlobalSecondaryIndexes' => empty($data['ConsumedCapacity']['GlobalSecondaryIndexes']) ? [] : $fn['map-SecondaryIndexesCapacityMap']($data['ConsumedCapacity']['GlobalSecondaryIndexes']),
         ]);
         $this->ItemCollectionMetrics = empty($data['ItemCollectionMetrics']) ? null : new ItemCollectionMetrics([
-            'ItemCollectionKey' => empty($data['ItemCollectionMetrics']['ItemCollectionKey']) ? [] : (function (array $json): array {
-                $items = [];
-                foreach ($json as $name => $value) {
-                    $items[(string) $name] = AttributeValue::create($value);
-                }
-
-                return $items;
-            })($data['ItemCollectionMetrics']['ItemCollectionKey']),
-            'SizeEstimateRangeGB' => empty($data['ItemCollectionMetrics']['SizeEstimateRangeGB']) ? [] : (function (array $json): array {
-                $items = [];
-                foreach ($json as $item) {
-                    $a = isset($item) ? (float) $item : null;
-                    if (null !== $a) {
-                        $items[] = $a;
-                    }
-                }
-
-                return $items;
-            })($data['ItemCollectionMetrics']['SizeEstimateRangeGB']),
+            'ItemCollectionKey' => empty($data['ItemCollectionMetrics']['ItemCollectionKey']) ? [] : $fn['map-ItemCollectionKeyAttributeMap']($data['ItemCollectionMetrics']['ItemCollectionKey']),
+            'SizeEstimateRangeGB' => empty($data['ItemCollectionMetrics']['SizeEstimateRangeGB']) ? [] : $fn['list-ItemCollectionSizeEstimateRange']($data['ItemCollectionMetrics']['SizeEstimateRangeGB']),
         ]);
     }
 }

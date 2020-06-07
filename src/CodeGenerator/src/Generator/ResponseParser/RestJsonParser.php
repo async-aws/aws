@@ -24,6 +24,8 @@ class RestJsonParser implements Parser
      */
     private $namespaceRegistry;
 
+    private $functions = [];
+
     public function __construct(NamespaceRegistry $namespaceRegistry)
     {
         $this->namespaceRegistry = $namespaceRegistry;
@@ -36,6 +38,7 @@ class RestJsonParser implements Parser
         }
 
         $properties = [];
+        $this->functions = [];
         foreach ($shape->getMembers() as $member) {
             if (\in_array($member->getLocation(), ['header', 'headers'])) {
                 continue;
@@ -54,6 +57,10 @@ class RestJsonParser implements Parser
         $body = '$data = $response->toArray();' . "\n";
         if (null !== $wrapper = $shape->getResultWrapper()) {
             $body .= strtr('$data = $data[WRAPPER];' . "\n", ['WRAPPER' => var_export($wrapper, true)]);
+        }
+        $functions = array_filter($this->functions, 'is_string');
+        if (!empty($functions)) {
+            $body .= '$fn = [];' . \implode("\n", $functions);
         }
         $body .= "\n" . implode("\n", $properties);
 
@@ -194,69 +201,75 @@ class RestJsonParser implements Parser
     private function parseResponseList(ListShape $shape, string $input, bool $required): string
     {
         $shapeMember = $shape->getMember();
-        if ($shapeMember->getShape() instanceof StructureShape) {
-            $listAccessorRequired = true;
-            $body = '(function(array $json): array {
-            $items = [];
-            foreach (INPUT_PROPERTY as $item) {
-               $items[] = LIST_ACCESSOR;
+        $keyName = 'list-' . $shape->getName();
+        if (!isset($this->functions[$keyName])) {
+            // prevent recursion
+            $this->functions[$keyName] = true;
+
+            if ($shapeMember->getShape() instanceof StructureShape) {
+                $listAccessorRequired = true;
+                $body = '$fn[FUNCTION_KEY] = static function(array $json) use (&$fn): array {
+                    $items = [];
+                    foreach (INPUT_PROPERTY as $item) {
+                       $items[] = LIST_ACCESSOR;
+                    }
+
+                    return $items;
+                };';
+            } else {
+                $listAccessorRequired = false;
+                $body = '$fn[FUNCTION_KEY] = static function(array $json) use (&$fn): array {
+                    $items = [];
+                    foreach (INPUT_PROPERTY as $item) {
+                        $a = LIST_ACCESSOR;
+                        if (null !== $a) {
+                            $items[] = $a;
+                        }
+                    }
+
+                    return $items;
+                };';
             }
 
-            return $items;
-        })(INPUT)';
-        } else {
-            $listAccessorRequired = false;
-            $body = '(function(array $json): array {
-            $items = [];
-            foreach (INPUT_PROPERTY as $item) {
-                $a = LIST_ACCESSOR;
-                if (null !== $a) {
-                    $items[] = $a;
-                }
-            }
-
-            return $items;
-        })(INPUT)';
+            $this->functions[$keyName] = strtr($body, [
+                'FUNCTION_KEY' => \var_export($keyName, true),
+                'LIST_ACCESSOR' => $this->parseElement('$item', $shapeMember->getShape(), $listAccessorRequired),
+                'INPUT_PROPERTY' => $shape->isFlattened() ? '$json' : '$json' . ($shapeMember->getLocationName() ? '->' . $shapeMember->getLocationName() : ''),
+            ]);
         }
 
-        if (!$required) {
-            $body = 'empty(INPUT) ? [] : ' . $body;
-        }
-
-        return strtr($body, [
-            'LIST_ACCESSOR' => $this->parseElement('$item', $shapeMember->getShape(), $listAccessorRequired),
+        return strtr($required ? '$fn[FUNCTION_KEY](INPUT)' : 'empty(INPUT) ? [] : $fn[FUNCTION_KEY](INPUT)', [
             'INPUT' => $input,
-            'INPUT_PROPERTY' => $shape->isFlattened() ? '$json' : '$json' . ($shapeMember->getLocationName() ? '->' . $shapeMember->getLocationName() : ''),
+            'FUNCTION_KEY' => \var_export($keyName, true),
         ]);
     }
 
     private function parseResponseMap(MapShape $shape, string $input, bool $required): string
     {
         $shapeValue = $shape->getValue();
+        $keyName = 'map-' . $shape->getName();
+        if (!isset($this->functions[$keyName])) {
+            // prevent recursion
+            $this->functions[$keyName] = true;
 
-        if (null === $locationName = $shape->getKey()->getLocationName()) {
-            // We need to use array keys
-            if ($shapeValue->getShape() instanceof StructureShape) {
-                $body = '(function(array $json): array {
-                $items = [];
-                foreach ($json as $name => $value) {
-                   $items[(string) $name] = CLASS::create($value);
-                }
+            if (null === $locationName = $shape->getKey()->getLocationName()) {
+                // We need to use array keys
+                if ($shapeValue->getShape() instanceof StructureShape) {
+                    $body = '$fn[FUNCTION_KEY] = static function(array $json): array {
+                        $items = [];
+                        foreach ($json as $name => $value) {
+                           $items[(string) $name] = CLASS::create($value);
+                        }
 
-                return $items;
-            })(INPUT)';
+                        return $items;
+                    };';
 
-                if (!$required) {
-                    $body = 'empty(INPUT) ? [] : ' . $body;
-                }
-
-                return strtr($body, [
-                    'CLASS' => $shape->getValue()->getShape()->getName(),
-                    'INPUT' => $input,
-                ]);
-            }
-
-            $body = '(function(array $json): array {
+                    $this->functions[$keyName] = strtr($body, [
+                        'FUNCTION_KEY' => \var_export($keyName, true),
+                        'CLASS' => $shape->getValue()->getShape()->getName(),
+                    ]);
+                } else {
+                    $body = '(function(array $json): array {
                 $items = [];
                 foreach ($json as $name => $value) {
                    $items[(string) $name] = CODE;
@@ -264,49 +277,51 @@ class RestJsonParser implements Parser
 
                 return $items;
             })(INPUT)';
-
-            if (!$required) {
-                $body = 'empty(INPUT) ? [] : ' . $body;
-            }
-
-            return strtr($body, [
-                'INPUT' => $input,
-                'CODE' => $this->parseElement('$value', $shapeValue->getShape(), true),
-            ]);
-        }
-        $inputAccessorName = $this->getInputAccessorName($shapeValue);
-
-        if ($shapeValue->getShape() instanceof StructureShape) {
-            $body = '(function(array $json): array {
-                $items = [];
-                foreach ($json as $item) {
-                    $items[$item[MAP_KEY]] = MAP_ACCESSOR;
-                }
-
-                return $items;
-            })(INPUT)';
-        } else {
-            $body = '(function(array $json): array {
-                $items = [];
-                foreach ($json as $item) {
-                    $a = MAP_ACCESSOR;
-                    if (null !== $a) {
-                        $items[$item[MAP_KEY]] = $a;
+                    if (!$required) {
+                        $body = 'empty(INPUT) ? [] : ' . $body;
                     }
+
+                    return strtr($body, [
+                        'INPUT' => $input,
+                        'CODE' => $this->parseElement('$value', $shapeValue->getShape(), true),
+                    ]);
+                }
+            } else {
+                $inputAccessorName = $this->getInputAccessorName($shapeValue);
+                if ($shapeValue->getShape() instanceof StructureShape) {
+                    $body = '$fn[FUNCTION_KEY] = static function(array $json) use (&$fn): array {
+                        $items = [];
+                        foreach ($json as $item) {
+                            $items[$item[MAP_KEY]] = MAP_ACCESSOR;
+                        }
+
+                        return $items;
+                    };';
+                } else {
+                    $body = '$fn[FUNCTION_KEY] = function(array $json) use (&$fn): array {
+                        $items = [];
+                        foreach ($json as $item) {
+                            $a = MAP_ACCESSOR;
+                            if (null !== $a) {
+                                $items[$item[MAP_KEY]] = $a;
+                            }
+                        }
+
+                        return $items;
+                    };';
                 }
 
-                return $items;
-            })(INPUT)';
+                $this->functions[$keyName] = strtr($body, [
+                    'FUNCTION_KEY' => \var_export($keyName, true),
+                    'MAP_KEY' => var_export($locationName, true),
+                    'MAP_ACCESSOR' => $this->parseElement(sprintf('$item[\'%s\']', $inputAccessorName), $shapeValue->getShape(), false),
+                ]);
+            }
         }
 
-        if (!$required) {
-            $body = 'empty(INPUT) ? [] : ' . $body;
-        }
-
-        return strtr($body, [
-            'MAP_KEY' => var_export($locationName, true),
-            'MAP_ACCESSOR' => $this->parseElement(sprintf('$item[\'%s\']', $inputAccessorName), $shapeValue->getShape(), false),
+        return strtr($required ? '$fn[FUNCTION_KEY](INPUT)' : 'empty(INPUT) ? [] : $fn[FUNCTION_KEY](INPUT)', [
             'INPUT' => $input,
+            'FUNCTION_KEY' => \var_export($keyName, true),
         ]);
     }
 }

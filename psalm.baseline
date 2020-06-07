@@ -35,6 +35,53 @@
       <code>scalarNode</code>
     </PossiblyUndefinedMethod>
   </file>
+  <file src="src/Service/CognitoIdentityProvider/src/Result/AdminCreateUserResponse.php">
+    <InvalidArgument occurrences="1"/>
+  </file>
+  <file src="src/Service/CognitoIdentityProvider/src/Result/ListUsersResponse.php">
+    <InvalidArgument occurrences="1"/>
+  </file>
+  <file src="src/Service/DynamoDb/src/Result/CreateTableOutput.php">
+    <InvalidArgument occurrences="6"/>
+  </file>
+  <file src="src/Service/DynamoDb/src/Result/DeleteItemOutput.php">
+    <InvalidArgument occurrences="2"/>
+  </file>
+  <file src="src/Service/DynamoDb/src/Result/DeleteTableOutput.php">
+    <InvalidArgument occurrences="6"/>
+  </file>
+  <file src="src/Service/DynamoDb/src/Result/DescribeTableOutput.php">
+    <InvalidArgument occurrences="6"/>
+  </file>
+  <file src="src/Service/DynamoDb/src/Result/PutItemOutput.php">
+    <InvalidArgument occurrences="2"/>
+  </file>
+  <file src="src/Service/DynamoDb/src/Result/QueryOutput.php">
+    <InvalidArgument occurrences="1"/>
+  </file>
+  <file src="src/Service/DynamoDb/src/Result/ScanOutput.php">
+    <InvalidArgument occurrences="1"/>
+  </file>
+  <file src="src/Service/DynamoDb/src/Result/UpdateItemOutput.php">
+    <InvalidArgument occurrences="2"/>
+  </file>
+  <file src="src/Service/DynamoDb/src/Result/UpdateTableOutput.php">
+    <InvalidArgument occurrences="6"/>
+  </file>
+  <file src="src/Service/Lambda/src/Result/ListLayerVersionsResponse.php">
+    <InvalidArgument occurrences="1"/>
+  </file>
+  <file src="src/Service/RdsDataService/src/Result/BatchExecuteStatementResponse.php">
+    <InvalidArgument occurrences="3"/>
+  </file>
+  <file src="src/Service/RdsDataService/src/Result/ExecuteStatementResponse.php">
+    <InvalidArgument occurrences="2"/>
+  </file>
+  <file src="src/Service/S3/src/Result/CopyObjectOutput.php">
+    <TypeDoesNotContainType occurrences="1">
+      <code>!$data</code>
+    </TypeDoesNotContainType>
+  </file>
   <file src="src/Service/Sqs/src/Result/ReceiveMessageResult.php">
     <InvalidArgument occurrences="1"/>
   </file>

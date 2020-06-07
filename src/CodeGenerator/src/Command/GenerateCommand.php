@@ -224,6 +224,17 @@ class GenerateCommand extends Command
             }
         }
 
+        if (empty($serviceEndpoints)) {
+            foreach ($endpoints['partitions'] as $partition) {
+                $serviceEndpoints['_default'][$partition['partition']] = [
+                    'endpoint' => "https://$prefix.%region%.amazonaws.com",
+                    'regions' => \array_keys($partition['regions']),
+                    'signService' => $partition['defaults']['credentialScope']['service'] ?? $signingServiceFallback,
+                    'signVersions' => $partition['defaults']['signatureVersions'] ?? [$signingVersionFallback],
+                ];
+            }
+        }
+
         return $serviceEndpoints;
     }
 

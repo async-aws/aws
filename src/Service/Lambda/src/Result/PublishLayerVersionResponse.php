@@ -113,7 +113,18 @@ class PublishLayerVersionResponse extends Result
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
+        $fn = [];
+        $fn['list-CompatibleRuntimes'] = static function (array $json) use (&$fn): array {
+            $items = [];
+            foreach ($json as $item) {
+                $a = isset($item) ? (string) $item : null;
+                if (null !== $a) {
+                    $items[] = $a;
+                }
+            }
 
+            return $items;
+        };
         $this->Content = empty($data['Content']) ? null : new LayerVersionContentOutput([
             'Location' => isset($data['Content']['Location']) ? (string) $data['Content']['Location'] : null,
             'CodeSha256' => isset($data['Content']['CodeSha256']) ? (string) $data['Content']['CodeSha256'] : null,
@@ -124,17 +135,7 @@ class PublishLayerVersionResponse extends Result
         $this->Description = isset($data['Description']) ? (string) $data['Description'] : null;
         $this->CreatedDate = isset($data['CreatedDate']) ? (string) $data['CreatedDate'] : null;
         $this->Version = isset($data['Version']) ? (string) $data['Version'] : null;
-        $this->CompatibleRuntimes = empty($data['CompatibleRuntimes']) ? [] : (function (array $json): array {
-            $items = [];
-            foreach ($json as $item) {
-                $a = isset($item) ? (string) $item : null;
-                if (null !== $a) {
-                    $items[] = $a;
-                }
-            }
-
-            return $items;
-        })($data['CompatibleRuntimes']);
+        $this->CompatibleRuntimes = empty($data['CompatibleRuntimes']) ? [] : $fn['list-CompatibleRuntimes']($data['CompatibleRuntimes']);
         $this->LicenseInfo = isset($data['LicenseInfo']) ? (string) $data['LicenseInfo'] : null;
     }
 }

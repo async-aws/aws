@@ -122,6 +122,23 @@ class TypeGenerator
 
                 return ['array', $className->getName() . '[]', $memberClassNames];
             }
+            if ($listMemberShape instanceof ListShape) {
+                $listMemberShapeLevel2 = $listMemberShape->getMember()->getShape();
+                if ($listMemberShapeLevel2 instanceof StructureShape) {
+                    $memberClassNames[] = $className = $this->namespaceRegistry->getObject($listMemberShapeLevel2);
+
+                    return ['array', $className->getName() . '[][]', $memberClassNames];
+                }
+
+                if (!empty($listMemberShapeLevel2->getEnum())) {
+                    $memberClassNames[] = $memberClassName = $this->namespaceRegistry->getEnum($listMemberShapeLevel2);
+                    $doc = 'list<list<' . $memberClassName->getName() . '::*>>';
+                } else {
+                    $doc = $this->getNativePhpType($listMemberShapeLevel2->getType()) . '[][]';
+                }
+
+                return ['array', $doc, $memberClassNames];
+            }
 
             if (!empty($listMemberShape->getEnum())) {
                 $memberClassNames[] = $memberClassName = $this->namespaceRegistry->getEnum($listMemberShape);
