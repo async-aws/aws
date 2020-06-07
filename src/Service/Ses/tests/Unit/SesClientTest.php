@@ -137,4 +137,18 @@ class SesClientTest extends TestCase
         $this->expectExceptionMessage('HTTP 400 returned');
         $result->resolve();
     }
+
+    /**
+     * Make sure that SignService is "ses".
+     */
+    public function testSignService()
+    {
+        $ses = new SesClient([], new NullProvider());
+        $refl = new \ReflectionClass($ses);
+        $method = $refl->getMethod('getEndpointMetadata');
+        $method->setAccessible(true);
+        $data = $method->invokeArgs($ses, ['eu-central-1']);
+
+        self::assertEquals('ses', $data['signService']);
+    }
 }
