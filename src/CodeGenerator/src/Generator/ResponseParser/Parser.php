@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Generator\ResponseParser;
 
 use AsyncAws\CodeGenerator\Definition\StructureShape;
-use Nette\PhpGenerator\PhpNamespace;
 
 /**
  * This will generate code to parse a HTTP response body into a Result.

@@ -11,7 +11,6 @@ use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
-use Nette\PhpGenerator\PhpNamespace;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -26,6 +25,7 @@ class RestJsonParser implements Parser
     private $namespaceRegistry;
 
     private $functions = [];
+
     private $imports = [];
 
     public function __construct(NamespaceRegistry $namespaceRegistry)
