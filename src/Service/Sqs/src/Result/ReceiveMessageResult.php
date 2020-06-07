@@ -56,12 +56,15 @@ class ReceiveMessageResult extends Result
     {
         $items = [];
         foreach ($xml as $item) {
+            if (null === $a = $item->Value) {
+                continue;
+            }
             $items[$item->Name->__toString()] = new MessageAttributeValue([
-                'StringValue' => ($v = $item->Value->StringValue) ? (string) $v : null,
-                'BinaryValue' => ($v = $item->Value->BinaryValue) ? base64_decode((string) $v) : null,
-                'StringListValues' => !$item->Value->StringListValue ? [] : $this->populateResultStringList($item->Value->StringListValue),
-                'BinaryListValues' => !$item->Value->BinaryListValue ? [] : $this->populateResultBinaryList($item->Value->BinaryListValue),
-                'DataType' => (string) $item->Value->DataType,
+                'StringValue' => ($v = $a->StringValue) ? (string) $v : null,
+                'BinaryValue' => ($v = $a->BinaryValue) ? base64_decode((string) $v) : null,
+                'StringListValues' => !$a->StringListValue ? [] : $this->populateResultStringList($a->StringListValue),
+                'BinaryListValues' => !$a->BinaryListValue ? [] : $this->populateResultBinaryList($a->BinaryListValue),
+                'DataType' => (string) $a->DataType,
             ]);
         }
 
@@ -96,10 +99,10 @@ class ReceiveMessageResult extends Result
     {
         $items = [];
         foreach ($xml as $item) {
-            $a = (string) $item->Value;
-            if (null !== $a) {
-                $items[$item->Name->__toString()] = $a;
+            if (null === $a = $item->Value) {
+                continue;
             }
+            $items[$item->Name->__toString()] = (string) $a;
         }
 
         return $items;

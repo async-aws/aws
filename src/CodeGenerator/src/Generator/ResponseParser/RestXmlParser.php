@@ -263,33 +263,23 @@ class RestXmlParser implements Parser
         }
 
         $shapeValue = $shape->getValue();
-        if ($shapeValue->getShape() instanceof StructureShape) {
-            $body = '
-                $items = [];
-                foreach ($xml as $item) {
-                    $items[$item->MAP_KEY->__toString()] = MAP_ACCESSOR;
+        $body = '
+            $items = [];
+            foreach ($xml as $item) {
+                if (null === $a = VALUE) {
+                    continue;
                 }
+                $items[$item->MAP_KEY->__toString()] = MAP_ACCESSOR;
+            }
 
-                return $items;
-            ';
-        } else {
-            $body = '
-                $items = [];
-                foreach ($xml as $item) {
-                    $a = MAP_ACCESSOR;
-                    if (null !== $a) {
-                        $items[$item->MAP_KEY->__toString()] = $a;
-                    }
-                }
-
-                return $items;
-            ';
-        }
+            return $items;
+        ';
 
         $functionName = 'populateResult' . \ucfirst($shape->getName());
         $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
             'MAP_KEY' => $locationName,
-            'MAP_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$item', $shapeValue), $shapeValue->getShape(), true),
+            'VALUE' => $this->getInputAccessor('$item', $shapeValue),
+            'MAP_ACCESSOR' => $this->parseXmlElement('$a', $shapeValue->getShape(), true),
         ]), $shape);
 
         return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : '!INPUT ? [] : $this->FUNCTION_NAME(INPUT)', [
