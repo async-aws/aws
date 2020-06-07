@@ -135,31 +135,32 @@ class DynamoDbClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new BatchGetItemInput([
-            'RequestItems' => ['change me' => new KeysAndAttributes([
-                'Keys' => [['change me' => new AttributeValue([
-                    'S' => 'change me',
-                    'N' => 'change me',
-                    'B' => 'change me',
-                    'SS' => ['change me'],
-                    'NS' => ['change me'],
-                    'BS' => ['change me'],
-                    'M' => ['change me' => ''],
-                    'L' => [''],
-                    'NULL' => false,
-                    'BOOL' => false,
-                ])]],
-                'AttributesToGet' => ['change me'],
-                'ConsistentRead' => false,
-                'ProjectionExpression' => 'change me',
-                'ExpressionAttributeNames' => ['change me' => 'change me'],
-            ])],
-            'ReturnConsumedCapacity' => 'change me',
+            'RequestItems' => [
+                'Forum' => new KeysAndAttributes([
+                    'Keys' => [
+                        ['Name' => new AttributeValue(['S' => 'Amazon DynamoDB',])],
+                        ['Name' => new AttributeValue(['S' => 'Amazon RDS',])],
+                        ['Name' => new AttributeValue(['S' => 'Amazon Redshift',])],
+                    ],
+                    'ProjectionExpression' => 'Name, Threads, Messages, Views',
+                ]),
+                'Thread' => new KeysAndAttributes([
+                    'Keys' => [
+                        [
+                            'ForumName' => new AttributeValue(['S' => 'Amazon DynamoDB']),
+                            'Subject' => new AttributeValue(['S' => 'Concurrent reads'])
+                        ],
+                    ],
+                    'ProjectionExpression' => 'Tags, Message',
+                ]),
+            ],
+            'ReturnConsumedCapacity' => 'TOTAL',
         ]);
         $result = $client->BatchGetItem($input);
 
         $result->resolve();
 
-        // self::assertTODO(expected, $result->getResponses());
+        self::assertEmpty($result->getUnprocessedKeys());
         // self::assertTODO(expected, $result->getUnprocessedKeys());
         // self::assertTODO(expected, $result->getConsumedCapacity());
     }

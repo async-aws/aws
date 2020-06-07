@@ -6,6 +6,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Input\BatchGetItemInput;
+use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\Capacity;
 use AsyncAws\DynamoDb\ValueObject\ConsumedCapacity;
 use AsyncAws\DynamoDb\ValueObject\KeysAndAttributes;
