@@ -35,8 +35,8 @@ use AsyncAws\DynamoDb\Result\UpdateItemOutput;
 use AsyncAws\DynamoDb\Result\UpdateTableOutput;
 use AsyncAws\DynamoDb\Result\UpdateTimeToLiveOutput;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
-use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use AsyncAws\DynamoDb\ValueObject\KeysAndAttributes;
+use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use AsyncAws\DynamoDb\ValueObject\TimeToLiveSpecification;
 use Symfony\Component\HttpClient\MockHttpClient;
 
@@ -47,8 +47,8 @@ class DynamoDbClientTest extends TestCase
         $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
 
         $input = new BatchGetItemInput([
-                'RequestItems' => ["change me" => new KeysAndAttributes([
-                'Keys' => [["change me" => new AttributeValue([ ])]],
+            'RequestItems' => ['change me' => new KeysAndAttributes([
+                'Keys' => [['change me' => new AttributeValue([])]],
             ])],
         ]);
         $result = $client->BatchGetItem($input);
@@ -62,11 +62,11 @@ class DynamoDbClientTest extends TestCase
         $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
 
         $input = new CreateTableInput([
-        'TableName' => 'Foobar',
-        'KeySchema' => [
-        new KeySchemaElement(['AttributeName' => 'ForumName', 'KeyType' => KeyType::HASH]),
-        new KeySchemaElement(['AttributeName' => 'Subject', 'KeyType' => KeyType::RANGE]),
-        ],
+            'TableName' => 'Foobar',
+            'KeySchema' => [
+                new KeySchemaElement(['AttributeName' => 'ForumName', 'KeyType' => KeyType::HASH]),
+                new KeySchemaElement(['AttributeName' => 'Subject', 'KeyType' => KeyType::RANGE]),
+            ],
 
         ]);
         $result = $client->CreateTable($input);
@@ -80,7 +80,7 @@ class DynamoDbClientTest extends TestCase
         $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DeleteItemInput([
-        'TableName' => 'Foobar',
+            'TableName' => 'Foobar',
 
         ]);
         $result = $client->DeleteItem($input);
@@ -94,7 +94,7 @@ class DynamoDbClientTest extends TestCase
         $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DeleteTableInput([
-        'TableName' => 'Foobar',
+            'TableName' => 'Foobar',
         ]);
         $result = $client->DeleteTable($input);
 
@@ -107,7 +107,7 @@ class DynamoDbClientTest extends TestCase
         $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DescribeTableInput([
-        'TableName' => 'Foobar',
+            'TableName' => 'Foobar',
         ]);
         $result = $client->DescribeTable($input);
 
@@ -120,7 +120,7 @@ class DynamoDbClientTest extends TestCase
         $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
 
         $input = new GetItemInput([
-        'TableName' => 'Foobar',
+            'TableName' => 'Foobar',
 
         ]);
         $result = $client->GetItem($input);
@@ -147,7 +147,7 @@ class DynamoDbClientTest extends TestCase
         $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
 
         $input = new PutItemInput([
-        'TableName' => 'Foobar',
+            'TableName' => 'Foobar',
 
         ]);
         $result = $client->PutItem($input);
@@ -161,7 +161,7 @@ class DynamoDbClientTest extends TestCase
         $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
 
         $input = new QueryInput([
-        'TableName' => 'Foobar',
+            'TableName' => 'Foobar',
 
         ]);
         $result = $client->Query($input);
@@ -175,7 +175,7 @@ class DynamoDbClientTest extends TestCase
         $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ScanInput([
-        'TableName' => 'Foobar',
+            'TableName' => 'Foobar',
 
         ]);
         $result = $client->Scan($input);
@@ -189,7 +189,7 @@ class DynamoDbClientTest extends TestCase
         $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DescribeTableInput([
-        'TableName' => 'Foobar',
+            'TableName' => 'Foobar',
 
         ]);
         $result = $client->tableExists($input);
@@ -203,7 +203,7 @@ class DynamoDbClientTest extends TestCase
         $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DescribeTableInput([
-        'TableName' => 'Foobar',
+            'TableName' => 'Foobar',
 
         ]);
         $result = $client->tableNotExists($input);
@@ -217,7 +217,7 @@ class DynamoDbClientTest extends TestCase
         $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
 
         $input = new UpdateItemInput([
-        'TableName' => 'Foobar',
+            'TableName' => 'Foobar',
 
         ]);
         $result = $client->UpdateItem($input);
@@ -231,7 +231,7 @@ class DynamoDbClientTest extends TestCase
         $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
 
         $input = new UpdateTableInput([
-        'TableName' => 'Foobar',
+            'TableName' => 'Foobar',
         ]);
         $result = $client->UpdateTable($input);
 
@@ -244,11 +244,11 @@ class DynamoDbClientTest extends TestCase
         $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
 
         $input = new UpdateTimeToLiveInput([
-        'TableName' => 'Foobar',
-        'TimeToLiveSpecification' => new TimeToLiveSpecification([
-        'Enabled' => false,
-        'AttributeName' => 'attribute',
-        ]),
+            'TableName' => 'Foobar',
+            'TimeToLiveSpecification' => new TimeToLiveSpecification([
+                'Enabled' => false,
+                'AttributeName' => 'attribute',
+            ]),
         ]);
         $result = $client->updateTimeToLive($input);
 

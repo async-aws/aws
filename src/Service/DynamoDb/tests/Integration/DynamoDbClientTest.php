@@ -138,9 +138,9 @@ class DynamoDbClientTest extends TestCase
             'RequestItems' => [
                 'Forum' => new KeysAndAttributes([
                     'Keys' => [
-                        ['Name' => new AttributeValue(['S' => 'Amazon DynamoDB',])],
-                        ['Name' => new AttributeValue(['S' => 'Amazon RDS',])],
-                        ['Name' => new AttributeValue(['S' => 'Amazon Redshift',])],
+                        ['Name' => new AttributeValue(['S' => 'Amazon DynamoDB'])],
+                        ['Name' => new AttributeValue(['S' => 'Amazon RDS'])],
+                        ['Name' => new AttributeValue(['S' => 'Amazon Redshift'])],
                     ],
                     'ProjectionExpression' => 'Name, Threads, Messages, Views',
                 ]),
@@ -148,7 +148,7 @@ class DynamoDbClientTest extends TestCase
                     'Keys' => [
                         [
                             'ForumName' => new AttributeValue(['S' => 'Amazon DynamoDB']),
-                            'Subject' => new AttributeValue(['S' => 'Concurrent reads'])
+                            'Subject' => new AttributeValue(['S' => 'Concurrent reads']),
                         ],
                     ],
                     'ProjectionExpression' => 'Tags, Message',

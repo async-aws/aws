@@ -92,11 +92,10 @@ class BatchGetItemOutputTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new BatchGetItemOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new DynamoDbClient(), new BatchGetItemInput([]));
 
-
         self::assertEmpty($result->getUnprocessedKeys());
         $responses = $result->getResponses();
-        $this->assertArrayHasKey('Forum', $responses);
-        $this->assertArrayHasKey('Thread', $responses);
-        $this->assertEquals('Amazon DynamoDB', $responses['Forum'][0]['Name']->getS());
+        self::assertArrayHasKey('Forum', $responses);
+        self::assertArrayHasKey('Thread', $responses);
+        self::assertEquals('Amazon DynamoDB', $responses['Forum'][0]['Name']->getS());
     }
 }
