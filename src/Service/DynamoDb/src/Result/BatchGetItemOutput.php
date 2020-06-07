@@ -148,6 +148,8 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
 
             return $items;
         };
+
+        /** @return array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue> */
         $fn['map-AttributeMap'] = static function (array $json): array {
             $items = [];
             foreach ($json as $name => $value) {
@@ -156,6 +158,8 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
 
             return $items;
         };
+
+        /** @return array<string, \AsyncAws\DynamoDb\ValueObject\KeysAndAttributes> */
         $fn['map-BatchGetRequestMap'] = static function (array $json): array {
             $items = [];
             foreach ($json as $name => $value) {
@@ -184,6 +188,8 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
 
             return $items;
         };
+
+        /** @return array<string, \AsyncAws\DynamoDb\ValueObject\Capacity> */
         $fn['map-SecondaryIndexesCapacityMap'] = static function (array $json): array {
             $items = [];
             foreach ($json as $name => $value) {

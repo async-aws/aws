@@ -9,9 +9,6 @@ namespace AsyncAws\CodeGenerator\Generator\ResponseParser;
  */
 class ParserResult
 {
-    /**
-     * @var string
-     */
     private $body;
 
     /**
@@ -19,12 +16,12 @@ class ParserResult
      *
      * @var array<string>
      */
-    private $imports;
+    private $usedClasses;
 
-    public function __construct(string $body, array $imports)
+    public function __construct(string $body, array $usedClasses)
     {
         $this->body = $body;
-        $this->imports = $imports;
+        $this->usedClasses = $usedClasses;
     }
 
     public function getBody(): string
@@ -32,8 +29,8 @@ class ParserResult
         return $this->body;
     }
 
-    public function getImports(): array
+    public function getUsedClasses(): array
     {
-        return $this->imports;
+        return $this->usedClasses;
     }
 }

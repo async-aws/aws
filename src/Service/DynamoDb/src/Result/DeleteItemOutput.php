@@ -62,6 +62,7 @@ class DeleteItemOutput extends Result
     {
         $data = $response->toArray();
         $fn = [];
+        /** @return array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue> */
         $fn['map-AttributeMap'] = static function (array $json): array {
             $items = [];
             foreach ($json as $name => $value) {
@@ -70,6 +71,8 @@ class DeleteItemOutput extends Result
 
             return $items;
         };
+
+        /** @return array<string, \AsyncAws\DynamoDb\ValueObject\Capacity> */
         $fn['map-SecondaryIndexesCapacityMap'] = static function (array $json): array {
             $items = [];
             foreach ($json as $name => $value) {
@@ -78,6 +81,8 @@ class DeleteItemOutput extends Result
 
             return $items;
         };
+
+        /** @return array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue> */
         $fn['map-ItemCollectionKeyAttributeMap'] = static function (array $json): array {
             $items = [];
             foreach ($json as $name => $value) {

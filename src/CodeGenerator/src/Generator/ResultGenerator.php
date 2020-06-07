@@ -285,7 +285,7 @@ class ResultGenerator
         } else {
             $parserResult = $this->parserProvider->get($this->operation->getService())->generate($shape);
             $body .= $parserResult->getBody();
-            foreach ($parserResult->getImports() as $import) {
+            foreach ($parserResult->getUsedClasses() as $import) {
                 $namespace->addUse($import);
             }
         }
