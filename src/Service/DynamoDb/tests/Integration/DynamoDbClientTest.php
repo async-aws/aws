@@ -7,6 +7,7 @@ use AsyncAws\Core\Test\TestCase;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Enum\KeyType;
 use AsyncAws\DynamoDb\Enum\ProjectionType;
+use AsyncAws\DynamoDb\Input\BatchGetItemInput;
 use AsyncAws\DynamoDb\Input\CreateTableInput;
 use AsyncAws\DynamoDb\Input\DeleteItemInput;
 use AsyncAws\DynamoDb\Input\DeleteTableInput;
@@ -19,6 +20,8 @@ use AsyncAws\DynamoDb\Input\UpdateItemInput;
 use AsyncAws\DynamoDb\Input\UpdateTableInput;
 use AsyncAws\DynamoDb\Input\UpdateTimeToLiveInput;
 use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
+use AsyncAws\DynamoDb\ValueObject\AttributeValue;
+use AsyncAws\DynamoDb\ValueObject\KeysAndAttributes;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use AsyncAws\DynamoDb\ValueObject\LocalSecondaryIndex;
 use AsyncAws\DynamoDb\ValueObject\Projection;
@@ -125,6 +128,40 @@ class DynamoDbClientTest extends TestCase
         $result = $client->DeleteTable($input);
 
         $result->resolve();
+    }
+
+    public function testBatchGetItem(): void
+    {
+        $client = $this->getClient();
+
+        $input = new BatchGetItemInput([
+            'RequestItems' => ['change me' => new KeysAndAttributes([
+                'Keys' => [['change me' => new AttributeValue([
+                    'S' => 'change me',
+                    'N' => 'change me',
+                    'B' => 'change me',
+                    'SS' => ['change me'],
+                    'NS' => ['change me'],
+                    'BS' => ['change me'],
+                    'M' => ['change me' => ''],
+                    'L' => [''],
+                    'NULL' => false,
+                    'BOOL' => false,
+                ])]],
+                'AttributesToGet' => ['change me'],
+                'ConsistentRead' => false,
+                'ProjectionExpression' => 'change me',
+                'ExpressionAttributeNames' => ['change me' => 'change me'],
+            ])],
+            'ReturnConsumedCapacity' => 'change me',
+        ]);
+        $result = $client->BatchGetItem($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getResponses());
+        // self::assertTODO(expected, $result->getUnprocessedKeys());
+        // self::assertTODO(expected, $result->getConsumedCapacity());
     }
 
     public function testCreateTable(): void

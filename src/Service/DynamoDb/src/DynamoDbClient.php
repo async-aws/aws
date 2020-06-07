@@ -6,6 +6,7 @@ use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\DynamoDb\Input\BatchGetItemInput;
 use AsyncAws\DynamoDb\Input\CreateTableInput;
 use AsyncAws\DynamoDb\Input\DeleteItemInput;
 use AsyncAws\DynamoDb\Input\DeleteTableInput;
@@ -18,6 +19,7 @@ use AsyncAws\DynamoDb\Input\ScanInput;
 use AsyncAws\DynamoDb\Input\UpdateItemInput;
 use AsyncAws\DynamoDb\Input\UpdateTableInput;
 use AsyncAws\DynamoDb\Input\UpdateTimeToLiveInput;
+use AsyncAws\DynamoDb\Result\BatchGetItemOutput;
 use AsyncAws\DynamoDb\Result\CreateTableOutput;
 use AsyncAws\DynamoDb\Result\DeleteItemOutput;
 use AsyncAws\DynamoDb\Result\DeleteTableOutput;
@@ -35,6 +37,26 @@ use AsyncAws\DynamoDb\Result\UpdateTimeToLiveOutput;
 
 class DynamoDbClient extends AbstractApi
 {
+    /**
+     * The `BatchGetItem` operation returns the attributes of one or more items from one or more tables. You identify
+     * requested items by primary key.
+     *
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#batchgetitem
+     *
+     * @param array{
+     *   RequestItems: array<string, \AsyncAws\DynamoDb\ValueObject\KeysAndAttributes>,
+     *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
+     *   @region?: string,
+     * }|BatchGetItemInput $input
+     */
+    public function batchGetItem($input): BatchGetItemOutput
+    {
+        $input = BatchGetItemInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'BatchGetItem', 'region' => $input->getRegion()]));
+
+        return new BatchGetItemOutput($response, $this, $input);
+    }
+
     /**
      * The `CreateTable` operation adds a new table to your account. In an AWS account, table names must be unique within
      * each Region. That is, you can have two tables with same name if you create the tables in different Regions.
