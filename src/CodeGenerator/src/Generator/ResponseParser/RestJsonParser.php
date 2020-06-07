@@ -11,6 +11,7 @@ use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use Nette\PhpGenerator\PhpNamespace;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -25,20 +26,22 @@ class RestJsonParser implements Parser
     private $namespaceRegistry;
 
     private $functions = [];
+    private $imports = [];
 
     public function __construct(NamespaceRegistry $namespaceRegistry)
     {
         $this->namespaceRegistry = $namespaceRegistry;
     }
 
-    public function generate(StructureShape $shape): string
+    public function generate(StructureShape $shape): ParserResult
     {
         if (null !== $payloadProperty = $shape->getPayload()) {
-            return strtr('$this->PROPERTY_NAME = $response->getContent();', ['PROPERTY_NAME' => $payloadProperty]);
+            return new ParserResult(strtr('$this->PROPERTY_NAME = $response->getContent();', ['PROPERTY_NAME' => $payloadProperty]), []);
         }
 
         $properties = [];
         $this->functions = [];
+        $this->imports = [];
         foreach ($shape->getMembers() as $member) {
             if (\in_array($member->getLocation(), ['header', 'headers'])) {
                 continue;
@@ -51,7 +54,7 @@ class RestJsonParser implements Parser
         }
 
         if (empty($properties)) {
-            return '';
+            return new ParserResult('', $this->imports);
         }
 
         $body = '$data = $response->toArray();' . "\n";
@@ -64,7 +67,7 @@ class RestJsonParser implements Parser
         }
         $body .= "\n" . implode("\n", $properties);
 
-        return $body;
+        return new ParserResult($body, $this->imports);
     }
 
     protected function parseResponseTimestamp(Shape $shape, string $input, bool $required): string
@@ -267,7 +270,9 @@ class RestJsonParser implements Parser
                     $this->functions[$keyName] = strtr($body, [
                         'FUNCTION_KEY' => \var_export($keyName, true),
                         'CLASS' => $shape->getValue()->getShape()->getName(),
-                    ]); // TODO add CLASS to imports
+                    ]);
+                    // add CLASS to imports
+                    $this->imports[] = $this->namespaceRegistry->getObject($shape->getValue()->getShape())->getFqdn();
                 } else {
                     $body = '(function(array $json) use(&$fn): array {
                 $items = [];
