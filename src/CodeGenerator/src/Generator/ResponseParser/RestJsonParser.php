@@ -278,7 +278,7 @@ class RestJsonParser implements Parser
                     // add CLASS to imports
                     $this->imports[] = $classFqdn;
                 } else {
-                    $body = '(function(array $json) use(&$fn): array {
+                    $body = '(function(array $json) use (&$fn): array {
                 $items = [];
                 foreach ($json as $name => $value) {
                    $items[(string) $name] = CODE;
