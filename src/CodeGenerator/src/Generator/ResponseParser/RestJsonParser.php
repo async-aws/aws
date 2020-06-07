@@ -26,19 +26,22 @@ class RestJsonParser implements Parser
 
     private $functions = [];
 
+    private $imports = [];
+
     public function __construct(NamespaceRegistry $namespaceRegistry)
     {
         $this->namespaceRegistry = $namespaceRegistry;
     }
 
-    public function generate(StructureShape $shape): string
+    public function generate(StructureShape $shape): ParserResult
     {
         if (null !== $payloadProperty = $shape->getPayload()) {
-            return strtr('$this->PROPERTY_NAME = $response->getContent();', ['PROPERTY_NAME' => $payloadProperty]);
+            return new ParserResult(strtr('$this->PROPERTY_NAME = $response->getContent();', ['PROPERTY_NAME' => $payloadProperty]), []);
         }
 
         $properties = [];
         $this->functions = [];
+        $this->imports = [];
         foreach ($shape->getMembers() as $member) {
             if (\in_array($member->getLocation(), ['header', 'headers'])) {
                 continue;
@@ -51,7 +54,7 @@ class RestJsonParser implements Parser
         }
 
         if (empty($properties)) {
-            return '';
+            return new ParserResult('', $this->imports);
         }
 
         $body = '$data = $response->toArray();' . "\n";
@@ -64,7 +67,7 @@ class RestJsonParser implements Parser
         }
         $body .= "\n" . implode("\n", $properties);
 
-        return $body;
+        return new ParserResult($body, $this->imports);
     }
 
     protected function parseResponseTimestamp(Shape $shape, string $input, bool $required): string
@@ -255,7 +258,9 @@ class RestJsonParser implements Parser
             if (null === $locationName = $shape->getKey()->getLocationName()) {
                 // We need to use array keys
                 if ($shapeValue->getShape() instanceof StructureShape) {
-                    $body = '$fn[FUNCTION_KEY] = static function(array $json): array {
+                    $body = '
+                    /** @return array<string, \FQDN> */
+                    $fn[FUNCTION_KEY] = static function(array $json): array {
                         $items = [];
                         foreach ($json as $name => $value) {
                            $items[(string) $name] = CLASS::create($value);
@@ -264,12 +269,16 @@ class RestJsonParser implements Parser
                         return $items;
                     };';
 
+                    $classFqdn = $this->namespaceRegistry->getObject($shape->getValue()->getShape())->getFqdn();
                     $this->functions[$keyName] = strtr($body, [
                         'FUNCTION_KEY' => \var_export($keyName, true),
                         'CLASS' => $shape->getValue()->getShape()->getName(),
+                        'FQDN' => $classFqdn,
                     ]);
+                    // add CLASS to imports
+                    $this->imports[] = $classFqdn;
                 } else {
-                    $body = '(function(array $json): array {
+                    $body = '(function(array $json) use (&$fn): array {
                 $items = [];
                 foreach ($json as $name => $value) {
                    $items[(string) $name] = CODE;

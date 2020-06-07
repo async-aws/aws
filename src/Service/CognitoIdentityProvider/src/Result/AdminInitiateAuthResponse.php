@@ -78,7 +78,7 @@ class AdminInitiateAuthResponse extends Result
 
         $this->ChallengeName = isset($data['ChallengeName']) ? (string) $data['ChallengeName'] : null;
         $this->Session = isset($data['Session']) ? (string) $data['Session'] : null;
-        $this->ChallengeParameters = empty($data['ChallengeParameters']) ? [] : (function (array $json): array {
+        $this->ChallengeParameters = empty($data['ChallengeParameters']) ? [] : (function (array $json) use (&$fn): array {
             $items = [];
             foreach ($json as $name => $value) {
                 $items[(string) $name] = (string) $value;

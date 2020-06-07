@@ -6,6 +6,7 @@ use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Enum\KeyType;
+use AsyncAws\DynamoDb\Input\BatchGetItemInput;
 use AsyncAws\DynamoDb\Input\CreateTableInput;
 use AsyncAws\DynamoDb\Input\DeleteItemInput;
 use AsyncAws\DynamoDb\Input\DeleteTableInput;
@@ -18,6 +19,7 @@ use AsyncAws\DynamoDb\Input\ScanInput;
 use AsyncAws\DynamoDb\Input\UpdateItemInput;
 use AsyncAws\DynamoDb\Input\UpdateTableInput;
 use AsyncAws\DynamoDb\Input\UpdateTimeToLiveInput;
+use AsyncAws\DynamoDb\Result\BatchGetItemOutput;
 use AsyncAws\DynamoDb\Result\CreateTableOutput;
 use AsyncAws\DynamoDb\Result\DeleteItemOutput;
 use AsyncAws\DynamoDb\Result\DeleteTableOutput;
@@ -32,12 +34,29 @@ use AsyncAws\DynamoDb\Result\TableNotExistsWaiter;
 use AsyncAws\DynamoDb\Result\UpdateItemOutput;
 use AsyncAws\DynamoDb\Result\UpdateTableOutput;
 use AsyncAws\DynamoDb\Result\UpdateTimeToLiveOutput;
+use AsyncAws\DynamoDb\ValueObject\AttributeValue;
+use AsyncAws\DynamoDb\ValueObject\KeysAndAttributes;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use AsyncAws\DynamoDb\ValueObject\TimeToLiveSpecification;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class DynamoDbClientTest extends TestCase
 {
+    public function testBatchGetItem(): void
+    {
+        $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new BatchGetItemInput([
+            'RequestItems' => ['change me' => new KeysAndAttributes([
+                'Keys' => [['change me' => new AttributeValue([])]],
+            ])],
+        ]);
+        $result = $client->BatchGetItem($input);
+
+        self::assertInstanceOf(BatchGetItemOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testCreateTable(): void
     {
         $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());

@@ -7,6 +7,7 @@ use AsyncAws\Core\Test\TestCase;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Enum\KeyType;
 use AsyncAws\DynamoDb\Enum\ProjectionType;
+use AsyncAws\DynamoDb\Input\BatchGetItemInput;
 use AsyncAws\DynamoDb\Input\CreateTableInput;
 use AsyncAws\DynamoDb\Input\DeleteItemInput;
 use AsyncAws\DynamoDb\Input\DeleteTableInput;
@@ -19,6 +20,8 @@ use AsyncAws\DynamoDb\Input\UpdateItemInput;
 use AsyncAws\DynamoDb\Input\UpdateTableInput;
 use AsyncAws\DynamoDb\Input\UpdateTimeToLiveInput;
 use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
+use AsyncAws\DynamoDb\ValueObject\AttributeValue;
+use AsyncAws\DynamoDb\ValueObject\KeysAndAttributes;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use AsyncAws\DynamoDb\ValueObject\LocalSecondaryIndex;
 use AsyncAws\DynamoDb\ValueObject\Projection;
@@ -125,6 +128,35 @@ class DynamoDbClientTest extends TestCase
         $result = $client->DeleteTable($input);
 
         $result->resolve();
+    }
+
+    public function testBatchGetItem(): void
+    {
+        $client = $this->getClient();
+
+        $input = new BatchGetItemInput([
+            'RequestItems' => [
+                $this->tableName => new KeysAndAttributes([
+                    'Keys' => [
+                        [
+                            'ForumName' => new AttributeValue(['S' => 'Amazon DynamoDB']),
+                            'Subject' => new AttributeValue(['S' => 'Maximum number of items?']),
+                        ],
+                    ],
+                    'ProjectionExpression' => 'Tags, Message',
+                ]),
+            ],
+            'ReturnConsumedCapacity' => 'TOTAL',
+        ]);
+        $result = $client->BatchGetItem($input);
+
+        $result->resolve();
+
+        self::assertEmpty($result->getUnprocessedKeys());
+        $threadResult = $result->getResponses()[$this->tableName];
+        self::assertArrayHasKey(0, $threadResult);
+        self::assertArrayHasKey('Message', $threadResult[0]);
+        self::assertEquals('What is the maximum number of items?', $threadResult[0]['Message']->getS());
     }
 
     public function testCreateTable(): void

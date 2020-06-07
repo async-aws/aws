@@ -283,7 +283,11 @@ class ResultGenerator
             $namespace->addUse(ResponseBodyStream::class);
             $body .= strtr('$this->PROPERTY_NAME = $response->toStream();', ['PROPERTY_NAME' => $payloadProperty]);
         } else {
-            $body .= $this->parserProvider->get($this->operation->getService())->generate($shape);
+            $parserResult = $this->parserProvider->get($this->operation->getService())->generate($shape);
+            $body .= $parserResult->getBody();
+            foreach ($parserResult->getUsedClasses() as $import) {
+                $namespace->addUse($import);
+            }
         }
 
         $namespace->addUse(Response::class);

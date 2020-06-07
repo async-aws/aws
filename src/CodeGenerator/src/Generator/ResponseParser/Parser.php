@@ -13,5 +13,5 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
  */
 interface Parser
 {
-    public function generate(StructureShape $shape): string;
+    public function generate(StructureShape $shape): ParserResult;
 }

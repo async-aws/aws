@@ -52,6 +52,7 @@
             "waiter": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/dynamodb/2012-08-10/waiters-2.json",
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/dynamodb/2012-08-10/examples-1.json",
             "methods": [
+                "BatchGetItem",
                 "CreateTable",
                 "DeleteItem",
                 "DeleteTable",
