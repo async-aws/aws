@@ -316,7 +316,7 @@ class InputGenerator
             $memberShape = $member->getShape();
             $inputElement = '$this->' . $member->getName();
             if (!$memberShape instanceof MapShape) {
-                throw new \InvalidArgumentException(sprintf('Headers only supports MapShae. "%s" give', $memberShape->getType()));
+                throw new \InvalidArgumentException(sprintf('Headers only supports MapShape. "%s" given', $memberShape->getType()));
             }
             $mapValueShape = $memberShape->getValue()->getShape();
             $keyValueShape = $memberShape->getKey()->getShape();
