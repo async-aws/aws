@@ -114,7 +114,7 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return array<string, array>
+     * @return array<string, array<string, AttributeValue>[]>
      */
     public function getResponses(): array
     {
@@ -169,7 +169,7 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return array<string, array>
+     * @return array<string, array<string, AttributeValue>[]>
      */
     private function populateResultBatchGetResponseMap(array $json): array
     {
@@ -207,7 +207,7 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return array[]
+     * @return array<string, AttributeValue>[]
      */
     private function populateResultItemList(array $json): array
     {
