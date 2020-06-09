@@ -21,7 +21,7 @@ jobs:
           composer req --no-update --dev league/flysystem:^1.0
           composer update --no-interaction --prefer-dist --optimize-autoloader
 
-      - name:  Modify config
+      - name: Modify config
         run: |
           sed -i -re 's/S3FilesystemV1/S3FilesystemV2/' phpstan.neon.dist
           sed -i -re 's/S3FilesystemV1/S3FilesystemV2/' psalm.xml
@@ -29,7 +29,7 @@ jobs:
           sed -i -re '/Integration\/Laravel\/Filesystem/d' psalm.xml
 
       - name: PHPStan
-        uses: OskarStark/phpstan-ga@0.12.23
+        uses: docker://oskarstark/phpstan-ga:0.12.23
         with:
           entrypoint: /composer/vendor/bin/phpstan
           args: analyze --no-progress
@@ -52,7 +52,6 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v2
-
 
       - name: Initialize tests
         run: |
