@@ -83,7 +83,7 @@ class AsyncAwsSqsJob extends Job implements JobContract
      */
     public function attempts()
     {
-        return (int) $this->job->getAttributes()['ApproximateReceiveCount'];
+        return (int) ($this->job->getAttributes()['ApproximateReceiveCount'] ?? 0);
     }
 
     /**

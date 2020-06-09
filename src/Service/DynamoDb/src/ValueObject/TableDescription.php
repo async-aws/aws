@@ -149,9 +149,9 @@ final class TableDescription
      */
     public function __construct(array $input)
     {
-        $this->AttributeDefinitions = array_map([AttributeDefinition::class, 'create'], $input['AttributeDefinitions'] ?? []);
+        $this->AttributeDefinitions = isset($input['AttributeDefinitions']) ? array_map([AttributeDefinition::class, 'create'], $input['AttributeDefinitions']) : null;
         $this->TableName = $input['TableName'] ?? null;
-        $this->KeySchema = array_map([KeySchemaElement::class, 'create'], $input['KeySchema'] ?? []);
+        $this->KeySchema = isset($input['KeySchema']) ? array_map([KeySchemaElement::class, 'create'], $input['KeySchema']) : null;
         $this->TableStatus = $input['TableStatus'] ?? null;
         $this->CreationDateTime = $input['CreationDateTime'] ?? null;
         $this->ProvisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughputDescription::create($input['ProvisionedThroughput']) : null;
@@ -160,13 +160,13 @@ final class TableDescription
         $this->TableArn = $input['TableArn'] ?? null;
         $this->TableId = $input['TableId'] ?? null;
         $this->BillingModeSummary = isset($input['BillingModeSummary']) ? BillingModeSummary::create($input['BillingModeSummary']) : null;
-        $this->LocalSecondaryIndexes = array_map([LocalSecondaryIndexDescription::class, 'create'], $input['LocalSecondaryIndexes'] ?? []);
-        $this->GlobalSecondaryIndexes = array_map([GlobalSecondaryIndexDescription::class, 'create'], $input['GlobalSecondaryIndexes'] ?? []);
+        $this->LocalSecondaryIndexes = isset($input['LocalSecondaryIndexes']) ? array_map([LocalSecondaryIndexDescription::class, 'create'], $input['LocalSecondaryIndexes']) : null;
+        $this->GlobalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([GlobalSecondaryIndexDescription::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
         $this->StreamSpecification = isset($input['StreamSpecification']) ? StreamSpecification::create($input['StreamSpecification']) : null;
         $this->LatestStreamLabel = $input['LatestStreamLabel'] ?? null;
         $this->LatestStreamArn = $input['LatestStreamArn'] ?? null;
         $this->GlobalTableVersion = $input['GlobalTableVersion'] ?? null;
-        $this->Replicas = array_map([ReplicaDescription::class, 'create'], $input['Replicas'] ?? []);
+        $this->Replicas = isset($input['Replicas']) ? array_map([ReplicaDescription::class, 'create'], $input['Replicas']) : null;
         $this->RestoreSummary = isset($input['RestoreSummary']) ? RestoreSummary::create($input['RestoreSummary']) : null;
         $this->SSEDescription = isset($input['SSEDescription']) ? SSEDescription::create($input['SSEDescription']) : null;
         $this->ArchivalSummary = isset($input['ArchivalSummary']) ? ArchivalSummary::create($input['ArchivalSummary']) : null;
@@ -187,7 +187,7 @@ final class TableDescription
      */
     public function getAttributeDefinitions(): array
     {
-        return $this->AttributeDefinitions;
+        return $this->AttributeDefinitions ?? [];
     }
 
     public function getBillingModeSummary(): ?BillingModeSummary
@@ -205,7 +205,7 @@ final class TableDescription
      */
     public function getGlobalSecondaryIndexes(): array
     {
-        return $this->GlobalSecondaryIndexes;
+        return $this->GlobalSecondaryIndexes ?? [];
     }
 
     public function getGlobalTableVersion(): ?string
@@ -223,7 +223,7 @@ final class TableDescription
      */
     public function getKeySchema(): array
     {
-        return $this->KeySchema;
+        return $this->KeySchema ?? [];
     }
 
     public function getLatestStreamArn(): ?string
@@ -241,7 +241,7 @@ final class TableDescription
      */
     public function getLocalSecondaryIndexes(): array
     {
-        return $this->LocalSecondaryIndexes;
+        return $this->LocalSecondaryIndexes ?? [];
     }
 
     public function getProvisionedThroughput(): ?ProvisionedThroughputDescription
@@ -254,7 +254,7 @@ final class TableDescription
      */
     public function getReplicas(): array
     {
-        return $this->Replicas;
+        return $this->Replicas ?? [];
     }
 
     public function getRestoreSummary(): ?RestoreSummary

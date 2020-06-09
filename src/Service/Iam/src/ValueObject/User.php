@@ -84,7 +84,7 @@ final class User
         $this->CreateDate = $input['CreateDate'] ?? null;
         $this->PasswordLastUsed = $input['PasswordLastUsed'] ?? null;
         $this->PermissionsBoundary = isset($input['PermissionsBoundary']) ? AttachedPermissionsBoundary::create($input['PermissionsBoundary']) : null;
-        $this->Tags = array_map([Tag::class, 'create'], $input['Tags'] ?? []);
+        $this->Tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
     }
 
     public static function create($input): self
@@ -122,7 +122,7 @@ final class User
      */
     public function getTags(): array
     {
-        return $this->Tags;
+        return $this->Tags ?? [];
     }
 
     public function getUserId(): string

@@ -36,7 +36,7 @@ final class SendEmailRequest extends Input
      * The "Reply-to" email addresses for the message. When the recipient replies to the message, each Reply-to address
      * receives the reply.
      *
-     * @var string[]
+     * @var string[]|null
      */
     private $ReplyToAddresses;
 
@@ -60,7 +60,7 @@ final class SendEmailRequest extends Input
      * A list of tags, in the form of name/value pairs, to apply to an email that you send using the `SendEmail` operation.
      * Tags correspond to characteristics of the email that you define, so that you can publish email sending events.
      *
-     * @var MessageTag[]
+     * @var MessageTag[]|null
      */
     private $EmailTags;
 
@@ -87,10 +87,10 @@ final class SendEmailRequest extends Input
     {
         $this->FromEmailAddress = $input['FromEmailAddress'] ?? null;
         $this->Destination = isset($input['Destination']) ? Destination::create($input['Destination']) : null;
-        $this->ReplyToAddresses = $input['ReplyToAddresses'] ?? [];
+        $this->ReplyToAddresses = $input['ReplyToAddresses'] ?? null;
         $this->FeedbackForwardingEmailAddress = $input['FeedbackForwardingEmailAddress'] ?? null;
         $this->Content = isset($input['Content']) ? EmailContent::create($input['Content']) : null;
-        $this->EmailTags = array_map([MessageTag::class, 'create'], $input['EmailTags'] ?? []);
+        $this->EmailTags = isset($input['EmailTags']) ? array_map([MessageTag::class, 'create'], $input['EmailTags']) : null;
         $this->ConfigurationSetName = $input['ConfigurationSetName'] ?? null;
         parent::__construct($input);
     }
@@ -120,7 +120,7 @@ final class SendEmailRequest extends Input
      */
     public function getEmailTags(): array
     {
-        return $this->EmailTags;
+        return $this->EmailTags ?? [];
     }
 
     public function getFeedbackForwardingEmailAddress(): ?string
@@ -138,7 +138,7 @@ final class SendEmailRequest extends Input
      */
     public function getReplyToAddresses(): array
     {
-        return $this->ReplyToAddresses;
+        return $this->ReplyToAddresses ?? [];
     }
 
     /**
@@ -228,13 +228,14 @@ final class SendEmailRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Destination" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Destination'] = $v->requestBody();
-
-        $index = -1;
-        foreach ($this->ReplyToAddresses as $listValue) {
-            ++$index;
-            $payload['ReplyToAddresses'][$index] = $listValue;
+        if (null !== $v = $this->ReplyToAddresses) {
+            $index = -1;
+            $payload['ReplyToAddresses'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['ReplyToAddresses'][$index] = $listValue;
+            }
         }
-
         if (null !== $v = $this->FeedbackForwardingEmailAddress) {
             $payload['FeedbackForwardingEmailAddress'] = $v;
         }
@@ -242,13 +243,14 @@ final class SendEmailRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Content" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Content'] = $v->requestBody();
-
-        $index = -1;
-        foreach ($this->EmailTags as $listValue) {
-            ++$index;
-            $payload['EmailTags'][$index] = $listValue->requestBody();
+        if (null !== $v = $this->EmailTags) {
+            $index = -1;
+            $payload['EmailTags'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['EmailTags'][$index] = $listValue->requestBody();
+            }
         }
-
         if (null !== $v = $this->ConfigurationSetName) {
             $payload['ConfigurationSetName'] = $v;
         }

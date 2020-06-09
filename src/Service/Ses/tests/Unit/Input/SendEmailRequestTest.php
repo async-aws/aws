@@ -56,8 +56,10 @@ class SendEmailRequestTest extends TestCase
                     ],
                     "CcAddresses": [
                         "recipient3@example.com"
-                    ]
+                    ],
+                    "BccAddresses": []
                 },
+                "ReplyToAddresses": [],
                 "Content": {
                     "Simple": {
                         "Subject": {

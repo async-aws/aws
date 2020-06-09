@@ -60,7 +60,7 @@ final class ReplicaDescription
         $this->ReplicaStatusPercentProgress = $input['ReplicaStatusPercentProgress'] ?? null;
         $this->KMSMasterKeyId = $input['KMSMasterKeyId'] ?? null;
         $this->ProvisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
-        $this->GlobalSecondaryIndexes = array_map([ReplicaGlobalSecondaryIndexDescription::class, 'create'], $input['GlobalSecondaryIndexes'] ?? []);
+        $this->GlobalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([ReplicaGlobalSecondaryIndexDescription::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
     }
 
     public static function create($input): self
@@ -73,7 +73,7 @@ final class ReplicaDescription
      */
     public function getGlobalSecondaryIndexes(): array
     {
-        return $this->GlobalSecondaryIndexes;
+        return $this->GlobalSecondaryIndexes ?? [];
     }
 
     public function getKMSMasterKeyId(): ?string

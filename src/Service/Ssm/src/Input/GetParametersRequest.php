@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Ssm\Input;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
@@ -13,7 +14,7 @@ final class GetParametersRequest extends Input
      *
      * @required
      *
-     * @var string[]
+     * @var string[]|null
      */
     private $Names;
 
@@ -34,7 +35,7 @@ final class GetParametersRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->Names = $input['Names'] ?? [];
+        $this->Names = $input['Names'] ?? null;
         $this->WithDecryption = $input['WithDecryption'] ?? null;
         parent::__construct($input);
     }
@@ -49,7 +50,7 @@ final class GetParametersRequest extends Input
      */
     public function getNames(): array
     {
-        return $this->Names;
+        return $this->Names ?? [];
     }
 
     public function getWithDecryption(): ?bool
@@ -102,9 +103,13 @@ final class GetParametersRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
+        if (null === $v = $this->Names) {
+            throw new InvalidArgument(sprintf('Missing parameter "Names" for "%s". The value cannot be null.', __CLASS__));
+        }
 
         $index = -1;
-        foreach ($this->Names as $listValue) {
+        $payload['Names'] = [];
+        foreach ($v as $listValue) {
             ++$index;
             $payload['Names'][$index] = $listValue;
         }

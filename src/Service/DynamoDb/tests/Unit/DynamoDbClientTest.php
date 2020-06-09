@@ -36,6 +36,7 @@ use AsyncAws\DynamoDb\Result\TableNotExistsWaiter;
 use AsyncAws\DynamoDb\Result\UpdateItemOutput;
 use AsyncAws\DynamoDb\Result\UpdateTableOutput;
 use AsyncAws\DynamoDb\Result\UpdateTimeToLiveOutput;
+use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\KeysAndAttributes;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
@@ -81,6 +82,9 @@ class DynamoDbClientTest extends TestCase
         $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
 
         $input = new CreateTableInput([
+            'AttributeDefinitions' => [
+                new AttributeDefinition(['AttributeName' => 'ForumName', 'AttributeType' => 'S']),
+            ],
             'TableName' => 'Foobar',
             'KeySchema' => [
                 new KeySchemaElement(['AttributeName' => 'ForumName', 'KeyType' => KeyType::HASH]),

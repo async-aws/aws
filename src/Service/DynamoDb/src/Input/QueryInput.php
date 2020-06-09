@@ -45,7 +45,7 @@ final class QueryInput extends Input
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html
      *
-     * @var string[]
+     * @var string[]|null
      */
     private $AttributesToGet;
 
@@ -78,7 +78,7 @@ final class QueryInput extends Input
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.KeyConditions.html
      *
-     * @var array<string, Condition>
+     * @var array<string, Condition>|null
      */
     private $KeyConditions;
 
@@ -88,7 +88,7 @@ final class QueryInput extends Input
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.QueryFilter.html
      *
-     * @var array<string, Condition>
+     * @var array<string, Condition>|null
      */
     private $QueryFilter;
 
@@ -114,7 +114,7 @@ final class QueryInput extends Input
      * The primary key of the first item that this operation will evaluate. Use the value that was returned for
      * `LastEvaluatedKey` in the previous operation.
      *
-     * @var array<string, AttributeValue>
+     * @var array<string, AttributeValue>|null
      */
     private $ExclusiveStartKey;
 
@@ -150,14 +150,14 @@ final class QueryInput extends Input
      * One or more substitution tokens for attribute names in an expression. The following are some use cases for using
      * `ExpressionAttributeNames`:.
      *
-     * @var array<string, string>
+     * @var array<string, string>|null
      */
     private $ExpressionAttributeNames;
 
     /**
      * One or more values that can be substituted in an expression.
      *
-     * @var array<string, AttributeValue>
+     * @var array<string, AttributeValue>|null
      */
     private $ExpressionAttributeValues;
 
@@ -188,7 +188,7 @@ final class QueryInput extends Input
         $this->TableName = $input['TableName'] ?? null;
         $this->IndexName = $input['IndexName'] ?? null;
         $this->Select = $input['Select'] ?? null;
-        $this->AttributesToGet = $input['AttributesToGet'] ?? [];
+        $this->AttributesToGet = $input['AttributesToGet'] ?? null;
         $this->Limit = $input['Limit'] ?? null;
         $this->ConsistentRead = $input['ConsistentRead'] ?? null;
 
@@ -212,7 +212,7 @@ final class QueryInput extends Input
         $this->ProjectionExpression = $input['ProjectionExpression'] ?? null;
         $this->FilterExpression = $input['FilterExpression'] ?? null;
         $this->KeyConditionExpression = $input['KeyConditionExpression'] ?? null;
-        $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? [];
+        $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
 
         $this->ExpressionAttributeValues = [];
         foreach ($input['ExpressionAttributeValues'] ?? [] as $key => $item) {
@@ -231,7 +231,7 @@ final class QueryInput extends Input
      */
     public function getAttributesToGet(): array
     {
-        return $this->AttributesToGet;
+        return $this->AttributesToGet ?? [];
     }
 
     /**
@@ -252,7 +252,7 @@ final class QueryInput extends Input
      */
     public function getExclusiveStartKey(): array
     {
-        return $this->ExclusiveStartKey;
+        return $this->ExclusiveStartKey ?? [];
     }
 
     /**
@@ -260,7 +260,7 @@ final class QueryInput extends Input
      */
     public function getExpressionAttributeNames(): array
     {
-        return $this->ExpressionAttributeNames;
+        return $this->ExpressionAttributeNames ?? [];
     }
 
     /**
@@ -268,7 +268,7 @@ final class QueryInput extends Input
      */
     public function getExpressionAttributeValues(): array
     {
-        return $this->ExpressionAttributeValues;
+        return $this->ExpressionAttributeValues ?? [];
     }
 
     public function getFilterExpression(): ?string
@@ -291,7 +291,7 @@ final class QueryInput extends Input
      */
     public function getKeyConditions(): array
     {
-        return $this->KeyConditions;
+        return $this->KeyConditions ?? [];
     }
 
     public function getLimit(): ?int
@@ -309,7 +309,7 @@ final class QueryInput extends Input
      */
     public function getQueryFilter(): array
     {
-        return $this->QueryFilter;
+        return $this->QueryFilter ?? [];
     }
 
     /**
@@ -525,26 +525,29 @@ final class QueryInput extends Input
             }
             $payload['Select'] = $v;
         }
-
-        $index = -1;
-        foreach ($this->AttributesToGet as $listValue) {
-            ++$index;
-            $payload['AttributesToGet'][$index] = $listValue;
+        if (null !== $v = $this->AttributesToGet) {
+            $index = -1;
+            $payload['AttributesToGet'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['AttributesToGet'][$index] = $listValue;
+            }
         }
-
         if (null !== $v = $this->Limit) {
             $payload['Limit'] = $v;
         }
         if (null !== $v = $this->ConsistentRead) {
             $payload['ConsistentRead'] = (bool) $v;
         }
-
-        foreach ($this->KeyConditions as $name => $v) {
-            $payload['KeyConditions'][$name] = $v->requestBody();
+        if (null !== $v = $this->KeyConditions) {
+            foreach ($v as $name => $v) {
+                $payload['KeyConditions'][$name] = $v->requestBody();
+            }
         }
-
-        foreach ($this->QueryFilter as $name => $v) {
-            $payload['QueryFilter'][$name] = $v->requestBody();
+        if (null !== $v = $this->QueryFilter) {
+            foreach ($v as $name => $v) {
+                $payload['QueryFilter'][$name] = $v->requestBody();
+            }
         }
         if (null !== $v = $this->ConditionalOperator) {
             if (!ConditionalOperator::exists($v)) {
@@ -555,9 +558,10 @@ final class QueryInput extends Input
         if (null !== $v = $this->ScanIndexForward) {
             $payload['ScanIndexForward'] = (bool) $v;
         }
-
-        foreach ($this->ExclusiveStartKey as $name => $v) {
-            $payload['ExclusiveStartKey'][$name] = $v->requestBody();
+        if (null !== $v = $this->ExclusiveStartKey) {
+            foreach ($v as $name => $v) {
+                $payload['ExclusiveStartKey'][$name] = $v->requestBody();
+            }
         }
         if (null !== $v = $this->ReturnConsumedCapacity) {
             if (!ReturnConsumedCapacity::exists($v)) {
@@ -574,13 +578,15 @@ final class QueryInput extends Input
         if (null !== $v = $this->KeyConditionExpression) {
             $payload['KeyConditionExpression'] = $v;
         }
-
-        foreach ($this->ExpressionAttributeNames as $name => $v) {
-            $payload['ExpressionAttributeNames'][$name] = $v;
+        if (null !== $v = $this->ExpressionAttributeNames) {
+            foreach ($v as $name => $v) {
+                $payload['ExpressionAttributeNames'][$name] = $v;
+            }
         }
-
-        foreach ($this->ExpressionAttributeValues as $name => $v) {
-            $payload['ExpressionAttributeValues'][$name] = $v->requestBody();
+        if (null !== $v = $this->ExpressionAttributeValues) {
+            foreach ($v as $name => $v) {
+                $payload['ExpressionAttributeValues'][$name] = $v->requestBody();
+            }
         }
 
         return $payload;

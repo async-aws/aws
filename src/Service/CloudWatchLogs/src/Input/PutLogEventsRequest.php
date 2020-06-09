@@ -33,7 +33,7 @@ final class PutLogEventsRequest extends Input
      *
      * @required
      *
-     * @var InputLogEvent[]
+     * @var InputLogEvent[]|null
      */
     private $logEvents;
 
@@ -62,7 +62,7 @@ final class PutLogEventsRequest extends Input
     {
         $this->logGroupName = $input['logGroupName'] ?? null;
         $this->logStreamName = $input['logStreamName'] ?? null;
-        $this->logEvents = array_map([InputLogEvent::class, 'create'], $input['logEvents'] ?? []);
+        $this->logEvents = isset($input['logEvents']) ? array_map([InputLogEvent::class, 'create'], $input['logEvents']) : null;
         $this->sequenceToken = $input['sequenceToken'] ?? null;
         parent::__construct($input);
     }
@@ -77,7 +77,7 @@ final class PutLogEventsRequest extends Input
      */
     public function getLogEvents(): array
     {
-        return $this->logEvents;
+        return $this->logEvents ?? [];
     }
 
     public function getLogGroupName(): ?string
@@ -162,9 +162,13 @@ final class PutLogEventsRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "logStreamName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['logStreamName'] = $v;
+        if (null === $v = $this->logEvents) {
+            throw new InvalidArgument(sprintf('Missing parameter "logEvents" for "%s". The value cannot be null.', __CLASS__));
+        }
 
         $index = -1;
-        foreach ($this->logEvents as $listValue) {
+        $payload['logEvents'] = [];
+        foreach ($v as $listValue) {
             ++$index;
             $payload['logEvents'][$index] = $listValue->requestBody();
         }

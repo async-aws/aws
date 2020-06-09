@@ -324,6 +324,28 @@ class DynamoDbClientTest extends TestCase
         self::assertEquals(200, $result->info()['status']);
     }
 
+    public function testUpdateItemWithList(): void
+    {
+        $client = $this->getClient();
+        $input = new UpdateItemInput([
+            'TableName' => $this->tableName,
+            'Key' => [
+                'ForumName' => ['S' => 'Amazon DynamoDB'],
+                'Subject' => ['S' => 'Maximum number of items?'],
+            ],
+            'UpdateExpression' => 'SET Answers = list_append(if_not_exists(Answers, :emptyList), :newAnswer)',
+            'ExpressionAttributeValues' => [
+                ':newAnswer' => ['L' => [['S' => 'My answer']]],
+                ':emptyList' => ['L' => []],
+            ],
+            'ReturnValues' => 'ALL_NEW',
+        ]);
+        $result = $client->UpdateItem($input);
+
+        $result->resolve();
+        self::assertEquals(200, $result->info()['status']);
+    }
+
     public function testUpdateTable(): void
     {
         $client = $this->getClient();

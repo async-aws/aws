@@ -74,7 +74,7 @@ final class GlobalSecondaryIndexDescription
     public function __construct(array $input)
     {
         $this->IndexName = $input['IndexName'] ?? null;
-        $this->KeySchema = array_map([KeySchemaElement::class, 'create'], $input['KeySchema'] ?? []);
+        $this->KeySchema = isset($input['KeySchema']) ? array_map([KeySchemaElement::class, 'create'], $input['KeySchema']) : null;
         $this->Projection = isset($input['Projection']) ? Projection::create($input['Projection']) : null;
         $this->IndexStatus = $input['IndexStatus'] ?? null;
         $this->Backfilling = $input['Backfilling'] ?? null;
@@ -127,7 +127,7 @@ final class GlobalSecondaryIndexDescription
      */
     public function getKeySchema(): array
     {
-        return $this->KeySchema;
+        return $this->KeySchema ?? [];
     }
 
     public function getProjection(): ?Projection

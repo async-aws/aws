@@ -68,9 +68,6 @@ class QuerySerializer implements Serializer
                 }
                 MEMBER_CODE';
                 $inputElement = '$v';
-            } elseif ($shape instanceof ListShape || $shape instanceof MapShape) {
-                $body = 'MEMBER_CODE';
-                $inputElement = '$this->' . $member->getName();
             } else {
                 $body = 'if (null !== $v = $this->PROPERTY) {
                     MEMBER_CODE

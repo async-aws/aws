@@ -43,14 +43,14 @@ final class AdminInitiateAuthRequest extends Input
      * The authentication parameters. These are inputs corresponding to the `AuthFlow` that you are invoking. The required
      * values depend on the value of `AuthFlow`:.
      *
-     * @var array<string, string>
+     * @var array<string, string>|null
      */
     private $AuthParameters;
 
     /**
      * A map of custom key-value pairs that you can provide as input for certain custom workflows that this action triggers.
      *
-     * @var array<string, string>
+     * @var array<string, string>|null
      */
     private $ClientMetadata;
 
@@ -86,8 +86,8 @@ final class AdminInitiateAuthRequest extends Input
         $this->UserPoolId = $input['UserPoolId'] ?? null;
         $this->ClientId = $input['ClientId'] ?? null;
         $this->AuthFlow = $input['AuthFlow'] ?? null;
-        $this->AuthParameters = $input['AuthParameters'] ?? [];
-        $this->ClientMetadata = $input['ClientMetadata'] ?? [];
+        $this->AuthParameters = $input['AuthParameters'] ?? null;
+        $this->ClientMetadata = $input['ClientMetadata'] ?? null;
         $this->AnalyticsMetadata = isset($input['AnalyticsMetadata']) ? AnalyticsMetadataType::create($input['AnalyticsMetadata']) : null;
         $this->ContextData = isset($input['ContextData']) ? ContextDataType::create($input['ContextData']) : null;
         parent::__construct($input);
@@ -116,7 +116,7 @@ final class AdminInitiateAuthRequest extends Input
      */
     public function getAuthParameters(): array
     {
-        return $this->AuthParameters;
+        return $this->AuthParameters ?? [];
     }
 
     public function getClientId(): ?string
@@ -129,7 +129,7 @@ final class AdminInitiateAuthRequest extends Input
      */
     public function getClientMetadata(): array
     {
-        return $this->ClientMetadata;
+        return $this->ClientMetadata ?? [];
     }
 
     public function getContextData(): ?ContextDataType
@@ -243,13 +243,15 @@ final class AdminInitiateAuthRequest extends Input
             throw new InvalidArgument(sprintf('Invalid parameter "AuthFlow" for "%s". The value "%s" is not a valid "AuthFlowType".', __CLASS__, $v));
         }
         $payload['AuthFlow'] = $v;
-
-        foreach ($this->AuthParameters as $name => $v) {
-            $payload['AuthParameters'][$name] = $v;
+        if (null !== $v = $this->AuthParameters) {
+            foreach ($v as $name => $v) {
+                $payload['AuthParameters'][$name] = $v;
+            }
         }
-
-        foreach ($this->ClientMetadata as $name => $v) {
-            $payload['ClientMetadata'][$name] = $v;
+        if (null !== $v = $this->ClientMetadata) {
+            foreach ($v as $name => $v) {
+                $payload['ClientMetadata'][$name] = $v;
+            }
         }
         if (null !== $v = $this->AnalyticsMetadata) {
             $payload['AnalyticsMetadata'] = $v->requestBody();

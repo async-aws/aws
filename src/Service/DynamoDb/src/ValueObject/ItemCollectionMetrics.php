@@ -25,8 +25,8 @@ final class ItemCollectionMetrics
      */
     public function __construct(array $input)
     {
-        $this->ItemCollectionKey = array_map([AttributeValue::class, 'create'], $input['ItemCollectionKey'] ?? []);
-        $this->SizeEstimateRangeGB = $input['SizeEstimateRangeGB'] ?? [];
+        $this->ItemCollectionKey = isset($input['ItemCollectionKey']) ? array_map([AttributeValue::class, 'create'], $input['ItemCollectionKey']) : null;
+        $this->SizeEstimateRangeGB = $input['SizeEstimateRangeGB'] ?? null;
     }
 
     public static function create($input): self
@@ -39,7 +39,7 @@ final class ItemCollectionMetrics
      */
     public function getItemCollectionKey(): array
     {
-        return $this->ItemCollectionKey;
+        return $this->ItemCollectionKey ?? [];
     }
 
     /**
@@ -47,6 +47,6 @@ final class ItemCollectionMetrics
      */
     public function getSizeEstimateRangeGB(): array
     {
-        return $this->SizeEstimateRangeGB;
+        return $this->SizeEstimateRangeGB ?? [];
     }
 }

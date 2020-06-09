@@ -18,7 +18,7 @@ final class BatchWriteItemInput extends Input
      *
      * @required
      *
-     * @var array<string, array>
+     * @var array<string, array>|null
      */
     private $RequestItems;
 
@@ -65,7 +65,7 @@ final class BatchWriteItemInput extends Input
      */
     public function getRequestItems(): array
     {
-        return $this->RequestItems;
+        return $this->RequestItems ?? [];
     }
 
     /**
@@ -142,9 +142,13 @@ final class BatchWriteItemInput extends Input
     private function requestBody(): array
     {
         $payload = [];
+        if (null === $v = $this->RequestItems) {
+            throw new InvalidArgument(sprintf('Missing parameter "RequestItems" for "%s". The value cannot be null.', __CLASS__));
+        }
 
-        foreach ($this->RequestItems as $name => $v) {
+        foreach ($v as $name => $v) {
             $index = -1;
+            $payload['RequestItems'][$name] = [];
             foreach ($v as $listValue) {
                 ++$index;
                 $payload['RequestItems'][$name][$index] = $listValue->requestBody();

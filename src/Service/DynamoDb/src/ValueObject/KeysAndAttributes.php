@@ -2,6 +2,8 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 final class KeysAndAttributes
 {
     /**
@@ -46,11 +48,11 @@ final class KeysAndAttributes
      */
     public function __construct(array $input)
     {
-        $this->Keys = $input['Keys'] ?? [];
-        $this->AttributesToGet = $input['AttributesToGet'] ?? [];
+        $this->Keys = $input['Keys'] ?? null;
+        $this->AttributesToGet = $input['AttributesToGet'] ?? null;
         $this->ConsistentRead = $input['ConsistentRead'] ?? null;
         $this->ProjectionExpression = $input['ProjectionExpression'] ?? null;
-        $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? [];
+        $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
     }
 
     public static function create($input): self
@@ -63,7 +65,7 @@ final class KeysAndAttributes
      */
     public function getAttributesToGet(): array
     {
-        return $this->AttributesToGet;
+        return $this->AttributesToGet ?? [];
     }
 
     public function getConsistentRead(): ?bool
@@ -76,7 +78,7 @@ final class KeysAndAttributes
      */
     public function getExpressionAttributeNames(): array
     {
-        return $this->ExpressionAttributeNames;
+        return $this->ExpressionAttributeNames ?? [];
     }
 
     /**
@@ -84,7 +86,7 @@ final class KeysAndAttributes
      */
     public function getKeys(): array
     {
-        return $this->Keys;
+        return $this->Keys ?? [];
     }
 
     public function getProjectionExpression(): ?string
@@ -98,9 +100,13 @@ final class KeysAndAttributes
     public function requestBody(): array
     {
         $payload = [];
+        if (null === $v = $this->Keys) {
+            throw new InvalidArgument(sprintf('Missing parameter "Keys" for "%s". The value cannot be null.', __CLASS__));
+        }
 
         $index = -1;
-        foreach ($this->Keys as $listValue) {
+        $payload['Keys'] = [];
+        foreach ($v as $listValue) {
             ++$index;
 
             foreach ($listValue as $name => $v) {
@@ -108,21 +114,24 @@ final class KeysAndAttributes
             }
         }
 
-        $index = -1;
-        foreach ($this->AttributesToGet as $listValue) {
-            ++$index;
-            $payload['AttributesToGet'][$index] = $listValue;
+        if (null !== $v = $this->AttributesToGet) {
+            $index = -1;
+            $payload['AttributesToGet'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['AttributesToGet'][$index] = $listValue;
+            }
         }
-
         if (null !== $v = $this->ConsistentRead) {
             $payload['ConsistentRead'] = (bool) $v;
         }
         if (null !== $v = $this->ProjectionExpression) {
             $payload['ProjectionExpression'] = $v;
         }
-
-        foreach ($this->ExpressionAttributeNames as $name => $v) {
-            $payload['ExpressionAttributeNames'][$name] = $v;
+        if (null !== $v = $this->ExpressionAttributeNames) {
+            foreach ($v as $name => $v) {
+                $payload['ExpressionAttributeNames'][$name] = $v;
+            }
         }
 
         return $payload;

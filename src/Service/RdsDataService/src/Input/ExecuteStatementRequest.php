@@ -36,7 +36,7 @@ final class ExecuteStatementRequest extends Input
     /**
      * The parameters for the SQL statement.
      *
-     * @var SqlParameter[]
+     * @var SqlParameter[]|null
      */
     private $parameters;
 
@@ -109,7 +109,7 @@ final class ExecuteStatementRequest extends Input
         $this->continueAfterTimeout = $input['continueAfterTimeout'] ?? null;
         $this->database = $input['database'] ?? null;
         $this->includeResultMetadata = $input['includeResultMetadata'] ?? null;
-        $this->parameters = array_map([SqlParameter::class, 'create'], $input['parameters'] ?? []);
+        $this->parameters = isset($input['parameters']) ? array_map([SqlParameter::class, 'create'], $input['parameters']) : null;
         $this->resourceArn = $input['resourceArn'] ?? null;
         $this->resultSetOptions = isset($input['resultSetOptions']) ? ResultSetOptions::create($input['resultSetOptions']) : null;
         $this->schema = $input['schema'] ?? null;
@@ -144,7 +144,7 @@ final class ExecuteStatementRequest extends Input
      */
     public function getParameters(): array
     {
-        return $this->parameters;
+        return $this->parameters ?? [];
     }
 
     public function getResourceArn(): ?string
@@ -284,13 +284,14 @@ final class ExecuteStatementRequest extends Input
         if (null !== $v = $this->includeResultMetadata) {
             $payload['includeResultMetadata'] = (bool) $v;
         }
-
-        $index = -1;
-        foreach ($this->parameters as $listValue) {
-            ++$index;
-            $payload['parameters'][$index] = $listValue->requestBody();
+        if (null !== $v = $this->parameters) {
+            $index = -1;
+            $payload['parameters'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['parameters'][$index] = $listValue->requestBody();
+            }
         }
-
         if (null === $v = $this->resourceArn) {
             throw new InvalidArgument(sprintf('Missing parameter "resourceArn" for "%s". The value cannot be null.', __CLASS__));
         }

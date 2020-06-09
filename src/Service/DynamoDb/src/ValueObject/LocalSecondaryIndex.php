@@ -33,7 +33,7 @@ final class LocalSecondaryIndex
     public function __construct(array $input)
     {
         $this->IndexName = $input['IndexName'] ?? null;
-        $this->KeySchema = array_map([KeySchemaElement::class, 'create'], $input['KeySchema'] ?? []);
+        $this->KeySchema = isset($input['KeySchema']) ? array_map([KeySchemaElement::class, 'create'], $input['KeySchema']) : null;
         $this->Projection = isset($input['Projection']) ? Projection::create($input['Projection']) : null;
     }
 
@@ -52,7 +52,7 @@ final class LocalSecondaryIndex
      */
     public function getKeySchema(): array
     {
-        return $this->KeySchema;
+        return $this->KeySchema ?? [];
     }
 
     public function getProjection(): Projection
@@ -70,9 +70,13 @@ final class LocalSecondaryIndex
             throw new InvalidArgument(sprintf('Missing parameter "IndexName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['IndexName'] = $v;
+        if (null === $v = $this->KeySchema) {
+            throw new InvalidArgument(sprintf('Missing parameter "KeySchema" for "%s". The value cannot be null.', __CLASS__));
+        }
 
         $index = -1;
-        foreach ($this->KeySchema as $listValue) {
+        $payload['KeySchema'] = [];
+        foreach ($v as $listValue) {
             ++$index;
             $payload['KeySchema'][$index] = $listValue->requestBody();
         }

@@ -22,14 +22,14 @@ final class CreateTopicInput extends Input
     /**
      * A map of attributes with their corresponding values.
      *
-     * @var array<string, string>
+     * @var array<string, string>|null
      */
     private $Attributes;
 
     /**
      * The list of tags to add to a new topic.
      *
-     * @var Tag[]
+     * @var Tag[]|null
      */
     private $Tags;
 
@@ -44,8 +44,8 @@ final class CreateTopicInput extends Input
     public function __construct(array $input = [])
     {
         $this->Name = $input['Name'] ?? null;
-        $this->Attributes = $input['Attributes'] ?? [];
-        $this->Tags = array_map([Tag::class, 'create'], $input['Tags'] ?? []);
+        $this->Attributes = $input['Attributes'] ?? null;
+        $this->Tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
         parent::__construct($input);
     }
 
@@ -59,7 +59,7 @@ final class CreateTopicInput extends Input
      */
     public function getAttributes(): array
     {
-        return $this->Attributes;
+        return $this->Attributes ?? [];
     }
 
     public function getName(): ?string
@@ -72,7 +72,7 @@ final class CreateTopicInput extends Input
      */
     public function getTags(): array
     {
-        return $this->Tags;
+        return $this->Tags ?? [];
     }
 
     /**
@@ -130,19 +130,21 @@ final class CreateTopicInput extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Name'] = $v;
-
-        $index = 0;
-        foreach ($this->Attributes as $mapKey => $mapValue) {
-            ++$index;
-            $payload["Attributes.entry.$index.key"] = $mapKey;
-            $payload["Attributes.entry.$index.value"] = $mapValue;
+        if (null !== $v = $this->Attributes) {
+            $index = 0;
+            foreach ($v as $mapKey => $mapValue) {
+                ++$index;
+                $payload["Attributes.entry.$index.key"] = $mapKey;
+                $payload["Attributes.entry.$index.value"] = $mapValue;
+            }
         }
-
-        $index = 0;
-        foreach ($this->Tags as $mapValue) {
-            ++$index;
-            foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["Tags.member.$index.$bodyKey"] = $bodyValue;
+        if (null !== $v = $this->Tags) {
+            $index = 0;
+            foreach ($v as $mapValue) {
+                ++$index;
+                foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
+                    $payload["Tags.member.$index.$bodyKey"] = $bodyValue;
+                }
             }
         }
 

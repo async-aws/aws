@@ -25,7 +25,7 @@ final class GetItemInput extends Input
      *
      * @required
      *
-     * @var array<string, AttributeValue>
+     * @var array<string, AttributeValue>|null
      */
     private $Key;
 
@@ -35,7 +35,7 @@ final class GetItemInput extends Input
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html
      *
-     * @var string[]
+     * @var string[]|null
      */
     private $AttributesToGet;
 
@@ -64,7 +64,7 @@ final class GetItemInput extends Input
      * One or more substitution tokens for attribute names in an expression. The following are some use cases for using
      * `ExpressionAttributeNames`:.
      *
-     * @var array<string, string>
+     * @var array<string, string>|null
      */
     private $ExpressionAttributeNames;
 
@@ -88,11 +88,11 @@ final class GetItemInput extends Input
         foreach ($input['Key'] ?? [] as $key => $item) {
             $this->Key[$key] = AttributeValue::create($item);
         }
-        $this->AttributesToGet = $input['AttributesToGet'] ?? [];
+        $this->AttributesToGet = $input['AttributesToGet'] ?? null;
         $this->ConsistentRead = $input['ConsistentRead'] ?? null;
         $this->ReturnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
         $this->ProjectionExpression = $input['ProjectionExpression'] ?? null;
-        $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? [];
+        $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
         parent::__construct($input);
     }
 
@@ -106,7 +106,7 @@ final class GetItemInput extends Input
      */
     public function getAttributesToGet(): array
     {
-        return $this->AttributesToGet;
+        return $this->AttributesToGet ?? [];
     }
 
     public function getConsistentRead(): ?bool
@@ -119,7 +119,7 @@ final class GetItemInput extends Input
      */
     public function getExpressionAttributeNames(): array
     {
-        return $this->ExpressionAttributeNames;
+        return $this->ExpressionAttributeNames ?? [];
     }
 
     /**
@@ -127,7 +127,7 @@ final class GetItemInput extends Input
      */
     public function getKey(): array
     {
-        return $this->Key;
+        return $this->Key ?? [];
     }
 
     public function getProjectionExpression(): ?string
@@ -241,17 +241,21 @@ final class GetItemInput extends Input
             throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TableName'] = $v;
+        if (null === $v = $this->Key) {
+            throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
+        }
 
-        foreach ($this->Key as $name => $v) {
+        foreach ($v as $name => $v) {
             $payload['Key'][$name] = $v->requestBody();
         }
-
-        $index = -1;
-        foreach ($this->AttributesToGet as $listValue) {
-            ++$index;
-            $payload['AttributesToGet'][$index] = $listValue;
+        if (null !== $v = $this->AttributesToGet) {
+            $index = -1;
+            $payload['AttributesToGet'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['AttributesToGet'][$index] = $listValue;
+            }
         }
-
         if (null !== $v = $this->ConsistentRead) {
             $payload['ConsistentRead'] = (bool) $v;
         }
@@ -264,9 +268,10 @@ final class GetItemInput extends Input
         if (null !== $v = $this->ProjectionExpression) {
             $payload['ProjectionExpression'] = $v;
         }
-
-        foreach ($this->ExpressionAttributeNames as $name => $v) {
-            $payload['ExpressionAttributeNames'][$name] = $v;
+        if (null !== $v = $this->ExpressionAttributeNames) {
+            foreach ($v as $name => $v) {
+                $payload['ExpressionAttributeNames'][$name] = $v;
+            }
         }
 
         return $payload;

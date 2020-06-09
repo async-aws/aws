@@ -37,7 +37,7 @@ final class AdminCreateUserRequest extends Input
      * specify as required (in or in the **Attributes** tab of the console) must be supplied either by you (in your call to
      * `AdminCreateUser`) or by the user (when he or she signs up in response to your welcome message).
      *
-     * @var AttributeType[]
+     * @var AttributeType[]|null
      */
     private $UserAttributes;
 
@@ -46,7 +46,7 @@ final class AdminCreateUserRequest extends Input
      * that you can use for custom validation, such as restricting the types of user accounts that can be registered. For
      * example, you might choose to allow or disallow user sign-up based on the user's domain.
      *
-     * @var AttributeType[]
+     * @var AttributeType[]|null
      */
     private $ValidationData;
 
@@ -78,14 +78,14 @@ final class AdminCreateUserRequest extends Input
      * Specify `"EMAIL"` if email will be used to send the welcome message. Specify `"SMS"` if the phone number will be
      * used. The default value is `"SMS"`. More than one value can be specified.
      *
-     * @var list<DeliveryMediumType::*>
+     * @var null|list<DeliveryMediumType::*>
      */
     private $DesiredDeliveryMediums;
 
     /**
      * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
      *
-     * @var array<string, string>
+     * @var array<string, string>|null
      */
     private $ClientMetadata;
 
@@ -107,13 +107,13 @@ final class AdminCreateUserRequest extends Input
     {
         $this->UserPoolId = $input['UserPoolId'] ?? null;
         $this->Username = $input['Username'] ?? null;
-        $this->UserAttributes = array_map([AttributeType::class, 'create'], $input['UserAttributes'] ?? []);
-        $this->ValidationData = array_map([AttributeType::class, 'create'], $input['ValidationData'] ?? []);
+        $this->UserAttributes = isset($input['UserAttributes']) ? array_map([AttributeType::class, 'create'], $input['UserAttributes']) : null;
+        $this->ValidationData = isset($input['ValidationData']) ? array_map([AttributeType::class, 'create'], $input['ValidationData']) : null;
         $this->TemporaryPassword = $input['TemporaryPassword'] ?? null;
         $this->ForceAliasCreation = $input['ForceAliasCreation'] ?? null;
         $this->MessageAction = $input['MessageAction'] ?? null;
-        $this->DesiredDeliveryMediums = $input['DesiredDeliveryMediums'] ?? [];
-        $this->ClientMetadata = $input['ClientMetadata'] ?? [];
+        $this->DesiredDeliveryMediums = $input['DesiredDeliveryMediums'] ?? null;
+        $this->ClientMetadata = $input['ClientMetadata'] ?? null;
         parent::__construct($input);
     }
 
@@ -127,7 +127,7 @@ final class AdminCreateUserRequest extends Input
      */
     public function getClientMetadata(): array
     {
-        return $this->ClientMetadata;
+        return $this->ClientMetadata ?? [];
     }
 
     /**
@@ -135,7 +135,7 @@ final class AdminCreateUserRequest extends Input
      */
     public function getDesiredDeliveryMediums(): array
     {
-        return $this->DesiredDeliveryMediums;
+        return $this->DesiredDeliveryMediums ?? [];
     }
 
     public function getForceAliasCreation(): ?bool
@@ -161,7 +161,7 @@ final class AdminCreateUserRequest extends Input
      */
     public function getUserAttributes(): array
     {
-        return $this->UserAttributes;
+        return $this->UserAttributes ?? [];
     }
 
     public function getUserPoolId(): ?string
@@ -179,7 +179,7 @@ final class AdminCreateUserRequest extends Input
      */
     public function getValidationData(): array
     {
-        return $this->ValidationData;
+        return $this->ValidationData ?? [];
     }
 
     /**
@@ -296,19 +296,22 @@ final class AdminCreateUserRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Username" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Username'] = $v;
-
-        $index = -1;
-        foreach ($this->UserAttributes as $listValue) {
-            ++$index;
-            $payload['UserAttributes'][$index] = $listValue->requestBody();
+        if (null !== $v = $this->UserAttributes) {
+            $index = -1;
+            $payload['UserAttributes'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['UserAttributes'][$index] = $listValue->requestBody();
+            }
         }
-
-        $index = -1;
-        foreach ($this->ValidationData as $listValue) {
-            ++$index;
-            $payload['ValidationData'][$index] = $listValue->requestBody();
+        if (null !== $v = $this->ValidationData) {
+            $index = -1;
+            $payload['ValidationData'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['ValidationData'][$index] = $listValue->requestBody();
+            }
         }
-
         if (null !== $v = $this->TemporaryPassword) {
             $payload['TemporaryPassword'] = $v;
         }
@@ -321,18 +324,21 @@ final class AdminCreateUserRequest extends Input
             }
             $payload['MessageAction'] = $v;
         }
-
-        $index = -1;
-        foreach ($this->DesiredDeliveryMediums as $listValue) {
-            ++$index;
-            if (!DeliveryMediumType::exists($listValue)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "DesiredDeliveryMediums" for "%s". The value "%s" is not a valid "DeliveryMediumType".', __CLASS__, $listValue));
+        if (null !== $v = $this->DesiredDeliveryMediums) {
+            $index = -1;
+            $payload['DesiredDeliveryMediums'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                if (!DeliveryMediumType::exists($listValue)) {
+                    throw new InvalidArgument(sprintf('Invalid parameter "DesiredDeliveryMediums" for "%s". The value "%s" is not a valid "DeliveryMediumType".', __CLASS__, $listValue));
+                }
+                $payload['DesiredDeliveryMediums'][$index] = $listValue;
             }
-            $payload['DesiredDeliveryMediums'][$index] = $listValue;
         }
-
-        foreach ($this->ClientMetadata as $name => $v) {
-            $payload['ClientMetadata'][$name] = $v;
+        if (null !== $v = $this->ClientMetadata) {
+            foreach ($v as $name => $v) {
+                $payload['ClientMetadata'][$name] = $v;
+            }
         }
 
         return $payload;

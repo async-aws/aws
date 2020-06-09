@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Generator\RequestSerializer;
 
 use AsyncAws\CodeGenerator\Definition\ListShape;
-use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Member;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
@@ -74,9 +73,6 @@ class RestXmlSerializer implements Serializer
                 }
                 MEMBER_CODE';
                 $inputElement = '$v';
-            } elseif ($shape instanceof ListShape || $shape instanceof MapShape) {
-                $body = 'MEMBER_CODE';
-                $inputElement = '$this->' . $member->getName();
             } else {
                 $body = 'if (null !== $v = $this->PROPERTY) {
                     MEMBER_CODE

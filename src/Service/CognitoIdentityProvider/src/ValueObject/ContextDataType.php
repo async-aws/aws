@@ -46,7 +46,7 @@ final class ContextDataType
         $this->IpAddress = $input['IpAddress'] ?? null;
         $this->ServerName = $input['ServerName'] ?? null;
         $this->ServerPath = $input['ServerPath'] ?? null;
-        $this->HttpHeaders = array_map([HttpHeader::class, 'create'], $input['HttpHeaders'] ?? []);
+        $this->HttpHeaders = isset($input['HttpHeaders']) ? array_map([HttpHeader::class, 'create'], $input['HttpHeaders']) : null;
         $this->EncodedData = $input['EncodedData'] ?? null;
     }
 
@@ -65,7 +65,7 @@ final class ContextDataType
      */
     public function getHttpHeaders(): array
     {
-        return $this->HttpHeaders;
+        return $this->HttpHeaders ?? [];
     }
 
     public function getIpAddress(): string
@@ -101,9 +101,13 @@ final class ContextDataType
             throw new InvalidArgument(sprintf('Missing parameter "ServerPath" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ServerPath'] = $v;
+        if (null === $v = $this->HttpHeaders) {
+            throw new InvalidArgument(sprintf('Missing parameter "HttpHeaders" for "%s". The value cannot be null.', __CLASS__));
+        }
 
         $index = -1;
-        foreach ($this->HttpHeaders as $listValue) {
+        $payload['HttpHeaders'] = [];
+        foreach ($v as $listValue) {
             ++$index;
             $payload['HttpHeaders'][$index] = $listValue->requestBody();
         }

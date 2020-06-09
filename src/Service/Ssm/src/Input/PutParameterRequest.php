@@ -77,7 +77,7 @@ final class PutParameterRequest extends Input
      * type of resource to which it applies, the environment, or the type of configuration data referenced by the parameter.
      * In this case, you could specify the following key name/value pairs:.
      *
-     * @var Tag[]
+     * @var Tag[]|null
      */
     private $Tags;
 
@@ -128,7 +128,7 @@ final class PutParameterRequest extends Input
         $this->KeyId = $input['KeyId'] ?? null;
         $this->Overwrite = $input['Overwrite'] ?? null;
         $this->AllowedPattern = $input['AllowedPattern'] ?? null;
-        $this->Tags = array_map([Tag::class, 'create'], $input['Tags'] ?? []);
+        $this->Tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
         $this->Tier = $input['Tier'] ?? null;
         $this->Policies = $input['Policies'] ?? null;
         $this->DataType = $input['DataType'] ?? null;
@@ -180,7 +180,7 @@ final class PutParameterRequest extends Input
      */
     public function getTags(): array
     {
-        return $this->Tags;
+        return $this->Tags ?? [];
     }
 
     /**
@@ -344,13 +344,14 @@ final class PutParameterRequest extends Input
         if (null !== $v = $this->AllowedPattern) {
             $payload['AllowedPattern'] = $v;
         }
-
-        $index = -1;
-        foreach ($this->Tags as $listValue) {
-            ++$index;
-            $payload['Tags'][$index] = $listValue->requestBody();
+        if (null !== $v = $this->Tags) {
+            $index = -1;
+            $payload['Tags'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['Tags'][$index] = $listValue->requestBody();
+            }
         }
-
         if (null !== $v = $this->Tier) {
             if (!ParameterTier::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "Tier" for "%s". The value "%s" is not a valid "ParameterTier".', __CLASS__, $v));

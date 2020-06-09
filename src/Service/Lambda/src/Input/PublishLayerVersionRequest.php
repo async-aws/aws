@@ -41,7 +41,7 @@ final class PublishLayerVersionRequest extends Input
      *
      * @see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
      *
-     * @var list<Runtime::*>
+     * @var null|list<Runtime::*>
      */
     private $CompatibleRuntimes;
 
@@ -67,7 +67,7 @@ final class PublishLayerVersionRequest extends Input
         $this->LayerName = $input['LayerName'] ?? null;
         $this->Description = $input['Description'] ?? null;
         $this->Content = isset($input['Content']) ? LayerVersionContentInput::create($input['Content']) : null;
-        $this->CompatibleRuntimes = $input['CompatibleRuntimes'] ?? [];
+        $this->CompatibleRuntimes = $input['CompatibleRuntimes'] ?? null;
         $this->LicenseInfo = $input['LicenseInfo'] ?? null;
         parent::__construct($input);
     }
@@ -82,7 +82,7 @@ final class PublishLayerVersionRequest extends Input
      */
     public function getCompatibleRuntimes(): array
     {
-        return $this->CompatibleRuntimes;
+        return $this->CompatibleRuntimes ?? [];
     }
 
     public function getContent(): ?LayerVersionContentInput
@@ -181,16 +181,17 @@ final class PublishLayerVersionRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Content" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Content'] = $v->requestBody();
-
-        $index = -1;
-        foreach ($this->CompatibleRuntimes as $listValue) {
-            ++$index;
-            if (!Runtime::exists($listValue)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "CompatibleRuntimes" for "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $listValue));
+        if (null !== $v = $this->CompatibleRuntimes) {
+            $index = -1;
+            $payload['CompatibleRuntimes'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                if (!Runtime::exists($listValue)) {
+                    throw new InvalidArgument(sprintf('Invalid parameter "CompatibleRuntimes" for "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $listValue));
+                }
+                $payload['CompatibleRuntimes'][$index] = $listValue;
             }
-            $payload['CompatibleRuntimes'][$index] = $listValue;
         }
-
         if (null !== $v = $this->LicenseInfo) {
             $payload['LicenseInfo'] = $v;
         }

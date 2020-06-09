@@ -20,7 +20,7 @@ final class BatchExecuteStatementRequest extends Input
     /**
      * The parameter set for the batch operation.
      *
-     * @var SqlParameter[][]
+     * @var SqlParameter[][]|null
      */
     private $parameterSets;
 
@@ -81,9 +81,9 @@ final class BatchExecuteStatementRequest extends Input
     public function __construct(array $input = [])
     {
         $this->database = $input['database'] ?? null;
-        $this->parameterSets = array_map(static function (array $array) {
+        $this->parameterSets = isset($input['parameterSets']) ? array_map(static function (array $array) {
             return array_map([SqlParameter::class, 'create'], $array);
-        }, $input['parameterSets'] ?? []);
+        }, $input['parameterSets']) : null;
         $this->resourceArn = $input['resourceArn'] ?? null;
         $this->schema = $input['schema'] ?? null;
         $this->secretArn = $input['secretArn'] ?? null;
@@ -107,7 +107,7 @@ final class BatchExecuteStatementRequest extends Input
      */
     public function getParameterSets(): array
     {
-        return $this->parameterSets;
+        return $this->parameterSets ?? [];
     }
 
     public function getResourceArn(): ?string
@@ -215,18 +215,20 @@ final class BatchExecuteStatementRequest extends Input
         if (null !== $v = $this->database) {
             $payload['database'] = $v;
         }
+        if (null !== $v = $this->parameterSets) {
+            $index = -1;
+            $payload['parameterSets'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
 
-        $index = -1;
-        foreach ($this->parameterSets as $listValue) {
-            ++$index;
-
-            $index1 = -1;
-            foreach ($listValue as $listValue1) {
-                ++$index1;
-                $payload['parameterSets'][$index][$index1] = $listValue1->requestBody();
+                $index1 = -1;
+                $payload['parameterSets'][$index] = [];
+                foreach ($listValue as $listValue1) {
+                    ++$index1;
+                    $payload['parameterSets'][$index][$index1] = $listValue1->requestBody();
+                }
             }
         }
-
         if (null === $v = $this->resourceArn) {
             throw new InvalidArgument(sprintf('Missing parameter "resourceArn" for "%s". The value cannot be null.', __CLASS__));
         }

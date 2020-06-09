@@ -59,10 +59,7 @@ class RestJsonSerializer implements Serializer
                 return '';
             }
             $shape = $member->getShape();
-            if ($shape instanceof ListShape || $shape instanceof MapShape) {
-                $body = 'MEMBER_CODE';
-                $inputElement = '$this->' . $member->getName();
-            } elseif ($member->isRequired()) {
+            if ($member->isRequired()) {
                 $body = 'if (null === $v = $this->PROPERTY) {
                     throw new InvalidArgument(sprintf(\'Missing parameter "PROPERTY" for "%s". The value cannot be null.\', __CLASS__));
                 }
@@ -178,6 +175,7 @@ class RestJsonSerializer implements Serializer
 
             return strtr('
                 $indexCOUNTER = -1;
+                $payloadOUTPUT = [];
                 foreach (INPUT as $listValueCOUNTER) {
                     $indexCOUNTER++;
                     MEMBER_CODE
@@ -185,6 +183,7 @@ class RestJsonSerializer implements Serializer
             ',
                 [
                     'INPUT' => $input,
+                    'OUTPUT' => $output,
                     'COUNTER' => $cleanCounter ?: '',
                     'MEMBER_CODE' => $memberCode = $this->dumpArrayElement(sprintf('%s[$index' . $cleanCounter . ']', $output), '$listValue' . $cleanCounter, $contextProperty, $memberShape, true),
                 ]);

@@ -41,7 +41,7 @@ final class CreateUserRequest extends Input
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html
      *
-     * @var Tag[]
+     * @var Tag[]|null
      */
     private $Tags;
 
@@ -59,7 +59,7 @@ final class CreateUserRequest extends Input
         $this->Path = $input['Path'] ?? null;
         $this->UserName = $input['UserName'] ?? null;
         $this->PermissionsBoundary = $input['PermissionsBoundary'] ?? null;
-        $this->Tags = array_map([Tag::class, 'create'], $input['Tags'] ?? []);
+        $this->Tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
         parent::__construct($input);
     }
 
@@ -83,7 +83,7 @@ final class CreateUserRequest extends Input
      */
     public function getTags(): array
     {
-        return $this->Tags;
+        return $this->Tags ?? [];
     }
 
     public function getUserName(): ?string
@@ -156,12 +156,13 @@ final class CreateUserRequest extends Input
         if (null !== $v = $this->PermissionsBoundary) {
             $payload['PermissionsBoundary'] = $v;
         }
-
-        $index = 0;
-        foreach ($this->Tags as $mapValue) {
-            ++$index;
-            foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["Tags.member.$index.$bodyKey"] = $bodyValue;
+        if (null !== $v = $this->Tags) {
+            $index = 0;
+            foreach ($v as $mapValue) {
+                ++$index;
+                foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
+                    $payload["Tags.member.$index.$bodyKey"] = $bodyValue;
+                }
             }
         }
 
