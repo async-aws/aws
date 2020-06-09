@@ -2,6 +2,13 @@
 
 ## NOT RELEASED
 
+## 0.5.1
+
+### Added
+
+- `SnsClient::createPlatformEndpoint()`
+- `SnsClient::deleteEndpoint()`
+
 ## 0.5.0
 
 ### Removed
