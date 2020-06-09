@@ -18,7 +18,7 @@ final class BatchWriteItemInput extends Input
      *
      * @required
      *
-     * @var array<string, array>|null
+     * @var array<string, WriteRequest[]>|null
      */
     private $RequestItems;
 
@@ -61,7 +61,7 @@ final class BatchWriteItemInput extends Input
     }
 
     /**
-     * @return array<string, array>
+     * @return array<string, WriteRequest[]>
      */
     public function getRequestItems(): array
     {
@@ -110,7 +110,7 @@ final class BatchWriteItemInput extends Input
     }
 
     /**
-     * @param array<string, array> $value
+     * @param array<string, WriteRequest[]> $value
      */
     public function setRequestItems(array $value): self
     {

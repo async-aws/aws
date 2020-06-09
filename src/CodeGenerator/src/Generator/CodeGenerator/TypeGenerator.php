@@ -118,7 +118,7 @@ class TypeGenerator
         if ($shape instanceof ListShape) {
             $listMemberShape = $shape->getMember()->getShape();
             [$type, $doc, $memberClassNames] = $this->getPhpType($listMemberShape);
-            if (\substr($doc, -3) === '::*') {
+            if ('::*' === \substr($doc, -3)) {
                 $doc = "list<$doc>";
             } else {
                 $doc .= '[]';

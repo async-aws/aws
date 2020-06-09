@@ -43,7 +43,7 @@ class BatchWriteItemOutput extends Result
     }
 
     /**
-     * @return array<string, array>
+     * @return array<string, ItemCollectionMetrics[]>
      */
     public function getItemCollectionMetrics(): array
     {
@@ -53,7 +53,7 @@ class BatchWriteItemOutput extends Result
     }
 
     /**
-     * @return array<string, array>
+     * @return array<string, WriteRequest[]>
      */
     public function getUnprocessedItems(): array
     {
@@ -72,7 +72,7 @@ class BatchWriteItemOutput extends Result
     }
 
     /**
-     * @return array<string, array>
+     * @return array<string, WriteRequest[]>
      */
     private function populateResultBatchWriteItemRequestMap(array $json): array
     {
@@ -139,7 +139,7 @@ class BatchWriteItemOutput extends Result
     }
 
     /**
-     * @return array<string, array>
+     * @return array<string, ItemCollectionMetrics[]>
      */
     private function populateResultItemCollectionMetricsPerTable(array $json): array
     {
