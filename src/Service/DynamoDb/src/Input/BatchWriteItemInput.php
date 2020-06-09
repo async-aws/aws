@@ -48,7 +48,7 @@ final class BatchWriteItemInput extends Input
     {
         $this->RequestItems = [];
         foreach ($input['RequestItems'] ?? [] as $key => $item) {
-            $this->RequestItems[$key] = array_map(function ($v) {return WriteRequest::create($v); }, $item);
+            $this->RequestItems[$key] = array_map([WriteRequest::class, 'create'], $item);
         }
         $this->ReturnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
         $this->ReturnItemCollectionMetrics = $input['ReturnItemCollectionMetrics'] ?? null;

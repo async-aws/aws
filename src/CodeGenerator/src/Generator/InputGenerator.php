@@ -166,7 +166,7 @@ class InputGenerator
                     $constructorBody .= strtr('
                         $this->NAME = [];
                         foreach ($input["NAME"] ?? [] as $key => $item) {
-                            $this->NAME[$key] = array_map(function($v) {return CLASS::create($v);}, $item);
+                            $this->NAME[$key] = array_map([CLASS::class, "create"], $item);
                         }
                     ', [
                         'NAME' => $member->getName(),
