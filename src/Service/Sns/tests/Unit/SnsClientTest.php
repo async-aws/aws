@@ -5,12 +5,15 @@ namespace AsyncAws\Sns\Tests\Unit;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Sns\Input\CreatePlatformEndpointInput;
 use AsyncAws\Sns\Input\CreateTopicInput;
+use AsyncAws\Sns\Input\DeleteEndpointInput;
 use AsyncAws\Sns\Input\DeleteTopicInput;
 use AsyncAws\Sns\Input\ListSubscriptionsByTopicInput;
 use AsyncAws\Sns\Input\PublishInput;
 use AsyncAws\Sns\Input\SubscribeInput;
 use AsyncAws\Sns\Input\UnsubscribeInput;
+use AsyncAws\Sns\Result\CreateEndpointResponse;
 use AsyncAws\Sns\Result\CreateTopicResponse;
 use AsyncAws\Sns\Result\ListSubscriptionsByTopicResponse;
 use AsyncAws\Sns\Result\PublishResponse;
@@ -20,6 +23,21 @@ use Symfony\Component\HttpClient\MockHttpClient;
 
 class SnsClientTest extends TestCase
 {
+    public function testCreatePlatformEndpoint(): void
+    {
+        $client = new SnsClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new CreatePlatformEndpointInput([
+            'PlatformApplicationArn' => 'change me',
+            'Token' => 'change me',
+
+        ]);
+        $result = $client->CreatePlatformEndpoint($input);
+
+        self::assertInstanceOf(CreateEndpointResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testCreateTopic(): void
     {
         $client = new SnsClient([], new NullProvider(), new MockHttpClient());
@@ -31,6 +49,19 @@ class SnsClientTest extends TestCase
         $result = $client->CreateTopic($input);
 
         self::assertInstanceOf(CreateTopicResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testDeleteEndpoint(): void
+    {
+        $client = new SnsClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new DeleteEndpointInput([
+            'EndpointArn' => 'change me',
+        ]);
+        $result = $client->DeleteEndpoint($input);
+
+        self::assertInstanceOf(Result::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
