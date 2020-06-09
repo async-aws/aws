@@ -82,7 +82,7 @@ final class KeysAndAttributes
     }
 
     /**
-     * @return array[]
+     * @return array<string, AttributeValue>[]
      */
     public function getKeys(): array
     {

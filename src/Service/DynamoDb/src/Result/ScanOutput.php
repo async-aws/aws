@@ -198,7 +198,7 @@ class ScanOutput extends Result implements \IteratorAggregate
     }
 
     /**
-     * @return array[]
+     * @return array<string, AttributeValue>[]
      */
     private function populateResultItemList(array $json): array
     {

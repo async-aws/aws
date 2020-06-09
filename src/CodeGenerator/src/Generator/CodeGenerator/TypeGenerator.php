@@ -117,58 +117,25 @@ class TypeGenerator
 
         if ($shape instanceof ListShape) {
             $listMemberShape = $shape->getMember()->getShape();
-            if ($listMemberShape instanceof StructureShape) {
-                $memberClassNames[] = $className = $this->namespaceRegistry->getObject($listMemberShape);
-
-                return ['array', $className->getName() . '[]', $memberClassNames];
-            }
-            if ($listMemberShape instanceof ListShape) {
-                $listMemberShapeLevel2 = $listMemberShape->getMember()->getShape();
-                if ($listMemberShapeLevel2 instanceof StructureShape) {
-                    $memberClassNames[] = $className = $this->namespaceRegistry->getObject($listMemberShapeLevel2);
-
-                    return ['array', $className->getName() . '[][]', $memberClassNames];
-                }
-
-                if (!empty($listMemberShapeLevel2->getEnum())) {
-                    $memberClassNames[] = $memberClassName = $this->namespaceRegistry->getEnum($listMemberShapeLevel2);
-                    $doc = 'list<list<' . $memberClassName->getName() . '::*>>';
-                } else {
-                    $doc = $this->getNativePhpType($listMemberShapeLevel2->getType()) . '[][]';
-                }
-
-                return ['array', $doc, $memberClassNames];
-            }
-
-            if (!empty($listMemberShape->getEnum())) {
-                $memberClassNames[] = $memberClassName = $this->namespaceRegistry->getEnum($listMemberShape);
-                $doc = 'list<' . $memberClassName->getName() . '::*>';
+            [$type, $doc, $memberClassNames] = $this->getPhpType($listMemberShape);
+            if ('::*' === \substr($doc, -3)) {
+                $doc = "list<$doc>";
             } else {
-                $doc = $this->getNativePhpType($listMemberShape->getType()) . '[]';
+                $doc .= '[]';
             }
 
             return ['array', $doc, $memberClassNames];
         }
 
         if ($shape instanceof MapShape) {
-            $mapValueShape = $shape->getValue()->getShape();
-            if ($mapValueShape instanceof StructureShape) {
-                $memberClassNames[] = $className = $this->namespaceRegistry->getObject($mapValueShape);
-                $doc = $className->getName();
-            } elseif (!empty($mapValueShape->getEnum())) {
-                $memberClassNames[] = $memberClassName = $this->namespaceRegistry->getEnum($mapValueShape);
-                $doc = $memberClassName->getName() . '::*';
-            } else {
-                $doc = $this->getNativePhpType($mapValueShape->getType());
-            }
-
             $mapKeyShape = $shape->getKey()->getShape();
-            $keyType = null;
+            $mapValueShape = $shape->getValue()->getShape();
+            [$type, $doc, $memberClassNames] = $this->getPhpType($mapValueShape);
             if (!empty($mapKeyShape->getEnum())) {
                 $memberClassNames[] = $memberClassName = $this->namespaceRegistry->getEnum($mapKeyShape);
-                $doc = 'array<' . $memberClassName->getName() . '::*, ' . $doc . '>';
+                $doc = "array<{$memberClassName->getName()}::*, $doc>";
             } else {
-                $doc = 'array<string, ' . $doc . '>';
+                $doc = "array<string, $doc>";
             }
 
             return ['array', $doc, $memberClassNames];
