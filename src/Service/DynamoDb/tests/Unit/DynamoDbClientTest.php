@@ -7,6 +7,7 @@ use AsyncAws\Core\Test\TestCase;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Enum\KeyType;
 use AsyncAws\DynamoDb\Input\BatchGetItemInput;
+use AsyncAws\DynamoDb\Input\BatchWriteItemInput;
 use AsyncAws\DynamoDb\Input\CreateTableInput;
 use AsyncAws\DynamoDb\Input\DeleteItemInput;
 use AsyncAws\DynamoDb\Input\DeleteTableInput;
@@ -20,6 +21,7 @@ use AsyncAws\DynamoDb\Input\UpdateItemInput;
 use AsyncAws\DynamoDb\Input\UpdateTableInput;
 use AsyncAws\DynamoDb\Input\UpdateTimeToLiveInput;
 use AsyncAws\DynamoDb\Result\BatchGetItemOutput;
+use AsyncAws\DynamoDb\Result\BatchWriteItemOutput;
 use AsyncAws\DynamoDb\Result\CreateTableOutput;
 use AsyncAws\DynamoDb\Result\DeleteItemOutput;
 use AsyncAws\DynamoDb\Result\DeleteTableOutput;
@@ -38,6 +40,7 @@ use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\KeysAndAttributes;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use AsyncAws\DynamoDb\ValueObject\TimeToLiveSpecification;
+use AsyncAws\DynamoDb\ValueObject\WriteRequest;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class DynamoDbClientTest extends TestCase
@@ -54,6 +57,22 @@ class DynamoDbClientTest extends TestCase
         $result = $client->BatchGetItem($input);
 
         self::assertInstanceOf(BatchGetItemOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testBatchWriteItem(): void
+    {
+        $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new BatchWriteItemInput([
+            'RequestItems' => ['change me' => [new WriteRequest([
+
+            ])]],
+
+        ]);
+        $result = $client->BatchWriteItem($input);
+
+        self::assertInstanceOf(BatchWriteItemOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 

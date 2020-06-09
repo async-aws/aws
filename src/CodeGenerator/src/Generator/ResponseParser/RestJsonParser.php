@@ -147,10 +147,13 @@ class RestJsonParser implements Parser
             $body = 'empty(INPUT) ? null : ' . $body;
         }
 
+        $className = $this->namespaceRegistry->getObject($shape);
+        $this->imports[] = $className;
+
         return strtr(
             $body, [
                 'INPUT' => $input,
-                'CLASS_NAME' => $this->namespaceRegistry->getObject($shape)->getName(),
+                'CLASS_NAME' => $className->getName(),
                 'PROPERTIES' => implode("\n", $properties),
             ]);
     }

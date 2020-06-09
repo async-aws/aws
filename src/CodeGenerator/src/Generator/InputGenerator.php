@@ -154,8 +154,25 @@ class InputGenerator
                         'NAME' => $member->getName(),
                         'CLASS' => $memberClassName->getName(),
                     ]);
-                } elseif ($mapValueShape instanceof ListShape || $mapValueShape instanceof MapShape) {
-                    throw new \RuntimeException('Recursive ListShape are not yet implemented');
+                } elseif ($mapValueShape instanceof ListShape) {
+                    $listMember = $mapValueShape->getMember();
+                    $listMemberShape = $listMember->getShape();
+                    if (!$listMemberShape instanceof StructureShape) {
+                        throw new \RuntimeException('Recursive ListShape with non StructureShape member is not implemented.');
+                    }
+                    $memberClassName = $this->objectGenerator->generate($listMemberShape);
+                    $constructorBody .= strtr('
+                        $this->NAME = [];
+                        foreach ($input["NAME"] ?? [] as $key => $item) {
+                            $this->NAME[$key] = array_map(function($v) {return CLASS::create($v);}, $item);
+                        }
+                    ', [
+                        'NAME' => $member->getName(),
+                        'CLASS' => $memberClassName->getName(),
+                    ]);
+                    $namespace->addUse($memberClassName->getFqdn());
+                } elseif ($mapValueShape instanceof MapShape) {
+                    throw new \RuntimeException('Recursive MapShape are not yet implemented');
                 } else {
                     // It is a scalar, like a string
                     $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? [];' . "\n", ['NAME' => $member->getName()]);

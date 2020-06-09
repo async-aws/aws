@@ -7,6 +7,7 @@ use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\DynamoDb\Input\BatchGetItemInput;
+use AsyncAws\DynamoDb\Input\BatchWriteItemInput;
 use AsyncAws\DynamoDb\Input\CreateTableInput;
 use AsyncAws\DynamoDb\Input\DeleteItemInput;
 use AsyncAws\DynamoDb\Input\DeleteTableInput;
@@ -20,6 +21,7 @@ use AsyncAws\DynamoDb\Input\UpdateItemInput;
 use AsyncAws\DynamoDb\Input\UpdateTableInput;
 use AsyncAws\DynamoDb\Input\UpdateTimeToLiveInput;
 use AsyncAws\DynamoDb\Result\BatchGetItemOutput;
+use AsyncAws\DynamoDb\Result\BatchWriteItemOutput;
 use AsyncAws\DynamoDb\Result\CreateTableOutput;
 use AsyncAws\DynamoDb\Result\DeleteItemOutput;
 use AsyncAws\DynamoDb\Result\DeleteTableOutput;
@@ -55,6 +57,28 @@ class DynamoDbClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'BatchGetItem', 'region' => $input->getRegion()]));
 
         return new BatchGetItemOutput($response, $this, $input);
+    }
+
+    /**
+     * The `BatchWriteItem` operation puts or deletes multiple items in one or more tables. A single call to
+     * `BatchWriteItem` can write up to 16 MB of data, which can comprise as many as 25 put or delete requests. Individual
+     * items to be written can be as large as 400 KB.
+     *
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#batchwriteitem
+     *
+     * @param array{
+     *   RequestItems: array<string, array>,
+     *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: \AsyncAws\DynamoDb\Enum\ReturnItemCollectionMetrics::*,
+     *   @region?: string,
+     * }|BatchWriteItemInput $input
+     */
+    public function batchWriteItem($input): BatchWriteItemOutput
+    {
+        $input = BatchWriteItemInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'BatchWriteItem', 'region' => $input->getRegion()]));
+
+        return new BatchWriteItemOutput($response);
     }
 
     /**
