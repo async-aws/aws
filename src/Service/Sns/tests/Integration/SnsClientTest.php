@@ -4,7 +4,9 @@ namespace AsyncAws\Sns\Tests\Integration;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Sns\Input\CreatePlatformEndpointInput;
 use AsyncAws\Sns\Input\CreateTopicInput;
+use AsyncAws\Sns\Input\DeleteEndpointInput;
 use AsyncAws\Sns\Input\DeleteTopicInput;
 use AsyncAws\Sns\Input\ListSubscriptionsByTopicInput;
 use AsyncAws\Sns\Input\MessageAttributeValue;
@@ -16,6 +18,23 @@ use AsyncAws\Sns\ValueObject\Tag;
 
 class SnsClientTest extends TestCase
 {
+    public function testCreatePlatformEndpoint(): void
+    {
+        $client = $this->getClient();
+
+        $input = new CreatePlatformEndpointInput([
+            'PlatformApplicationArn' => 'change me',
+            'Token' => 'change me',
+            'CustomUserData' => 'change me',
+            'Attributes' => ['change me' => 'change me'],
+        ]);
+        $result = $client->CreatePlatformEndpoint($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getEndpointArn());
+    }
+
     public function testCreateTopic(): void
     {
         $client = $this->getClient();
@@ -33,6 +52,18 @@ class SnsClientTest extends TestCase
         $result->resolve();
 
         self::assertSame('changeIt', $result->getTopicArn());
+    }
+
+    public function testDeleteEndpoint(): void
+    {
+        $client = $this->getClient();
+
+        $input = new DeleteEndpointInput([
+            'EndpointArn' => 'change me',
+        ]);
+        $result = $client->DeleteEndpoint($input);
+
+        $result->resolve();
     }
 
     public function testDeleteTopic(): void

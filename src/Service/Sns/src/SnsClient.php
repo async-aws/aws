@@ -7,12 +7,15 @@ use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
+use AsyncAws\Sns\Input\CreatePlatformEndpointInput;
 use AsyncAws\Sns\Input\CreateTopicInput;
+use AsyncAws\Sns\Input\DeleteEndpointInput;
 use AsyncAws\Sns\Input\DeleteTopicInput;
 use AsyncAws\Sns\Input\ListSubscriptionsByTopicInput;
 use AsyncAws\Sns\Input\PublishInput;
 use AsyncAws\Sns\Input\SubscribeInput;
 use AsyncAws\Sns\Input\UnsubscribeInput;
+use AsyncAws\Sns\Result\CreateEndpointResponse;
 use AsyncAws\Sns\Result\CreateTopicResponse;
 use AsyncAws\Sns\Result\ListSubscriptionsByTopicResponse;
 use AsyncAws\Sns\Result\PublishResponse;
@@ -21,6 +24,34 @@ use AsyncAws\Sns\ValueObject\Subscription;
 
 class SnsClient extends AbstractApi
 {
+    /**
+     * Creates an endpoint for a device and mobile app on one of the supported push notification services, such as FCM and
+     * APNS. `CreatePlatformEndpoint` requires the PlatformApplicationArn that is returned from `CreatePlatformApplication`.
+     * The EndpointArn that is returned when using `CreatePlatformEndpoint` can then be used by the `Publish` action to send
+     * a message to a mobile app or by the `Subscribe` action for subscription to a topic. The `CreatePlatformEndpoint`
+     * action is idempotent, so if the requester already owns an endpoint with the same device token and attributes, that
+     * endpoint's ARN is returned without creating a new endpoint. For more information, see Using Amazon SNS Mobile Push
+     * Notifications.
+     *
+     * @see https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#createplatformendpoint
+     *
+     * @param array{
+     *   PlatformApplicationArn: string,
+     *   Token: string,
+     *   CustomUserData?: string,
+     *   Attributes?: array<string, string>,
+     *   @region?: string,
+     * }|CreatePlatformEndpointInput $input
+     */
+    public function createPlatformEndpoint($input): CreateEndpointResponse
+    {
+        $input = CreatePlatformEndpointInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreatePlatformEndpoint', 'region' => $input->getRegion()]));
+
+        return new CreateEndpointResponse($response);
+    }
+
     /**
      * Creates a topic to which notifications can be published. Users can create at most 100,000 topics. For more
      * information, see https://aws.amazon.com/sns. This action is idempotent, so if the requester already owns a topic with
@@ -42,6 +73,26 @@ class SnsClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateTopic', 'region' => $input->getRegion()]));
 
         return new CreateTopicResponse($response);
+    }
+
+    /**
+     * Deletes the endpoint for a device and mobile app from Amazon SNS. This action is idempotent. For more information,
+     * see Using Amazon SNS Mobile Push Notifications.
+     *
+     * @see https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#deleteendpoint
+     *
+     * @param array{
+     *   EndpointArn: string,
+     *   @region?: string,
+     * }|DeleteEndpointInput $input
+     */
+    public function deleteEndpoint($input): Result
+    {
+        $input = DeleteEndpointInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteEndpoint', 'region' => $input->getRegion()]));
+
+        return new Result($response);
     }
 
     /**
