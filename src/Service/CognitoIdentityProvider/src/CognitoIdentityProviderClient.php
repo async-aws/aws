@@ -11,6 +11,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ListUsersRequest;
 use AsyncAws\CognitoIdentityProvider\Input\SetUserMFAPreferenceRequest;
+use AsyncAws\CognitoIdentityProvider\Input\SignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\VerifySoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Result\AdminCreateUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminGetUserResponse;
@@ -20,6 +21,7 @@ use AsyncAws\CognitoIdentityProvider\Result\AssociateSoftwareTokenResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ChangePasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ListUsersResponse;
 use AsyncAws\CognitoIdentityProvider\Result\SetUserMFAPreferenceResponse;
+use AsyncAws\CognitoIdentityProvider\Result\SignUpResponse;
 use AsyncAws\CognitoIdentityProvider\Result\VerifySoftwareTokenResponse;
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Configuration;
@@ -221,6 +223,32 @@ class CognitoIdentityProviderClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SetUserMFAPreference', 'region' => $input->getRegion()]));
 
         return new SetUserMFAPreferenceResponse($response);
+    }
+
+    /**
+     * Registers the user in the specified user pool and creates a user name, password, and user attributes.
+     *
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#signup
+     *
+     * @param array{
+     *   ClientId: string,
+     *   SecretHash?: string,
+     *   Username: string,
+     *   Password: string,
+     *   UserAttributes?: \AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType[],
+     *   ValidationData?: \AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType[],
+     *   AnalyticsMetadata?: \AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType|array,
+     *   UserContextData?: \AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType|array,
+     *   ClientMetadata?: array<string, string>,
+     *   @region?: string,
+     * }|SignUpRequest $input
+     */
+    public function signUp($input): SignUpResponse
+    {
+        $input = SignUpRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SignUp', 'region' => $input->getRegion()]));
+
+        return new SignUpResponse($response);
     }
 
     /**
