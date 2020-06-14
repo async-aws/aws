@@ -15,6 +15,7 @@ use AsyncAws\CognitoIdentityProvider\Input\ConfirmForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\InitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ListUsersRequest;
+use AsyncAws\CognitoIdentityProvider\Input\ResendConfirmationCodeRequest;
 use AsyncAws\CognitoIdentityProvider\Input\RespondToAuthChallengeRequest;
 use AsyncAws\CognitoIdentityProvider\Input\SetUserMFAPreferenceRequest;
 use AsyncAws\CognitoIdentityProvider\Input\SignUpRequest;
@@ -29,6 +30,7 @@ use AsyncAws\CognitoIdentityProvider\Result\ConfirmForgotPasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ForgotPasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\InitiateAuthResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ListUsersResponse;
+use AsyncAws\CognitoIdentityProvider\Result\ResendConfirmationCodeResponse;
 use AsyncAws\CognitoIdentityProvider\Result\RespondToAuthChallengeResponse;
 use AsyncAws\CognitoIdentityProvider\Result\SetUserMFAPreferenceResponse;
 use AsyncAws\CognitoIdentityProvider\Result\SignUpResponse;
@@ -202,6 +204,20 @@ class CognitoIdentityProviderClientTest extends TestCase
         $result = $client->ListUsers($input);
 
         self::assertInstanceOf(ListUsersResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testResendConfirmationCode(): void
+    {
+        $client = new CognitoIdentityProviderClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new ResendConfirmationCodeRequest([
+            'ClientId' => 'id123',
+            'Username' => 'stickman',
+        ]);
+        $result = $client->ResendConfirmationCode($input);
+
+        self::assertInstanceOf(ResendConfirmationCodeResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
