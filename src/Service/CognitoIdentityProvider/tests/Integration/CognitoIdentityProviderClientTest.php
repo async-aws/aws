@@ -12,6 +12,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ListUsersRequest;
 use AsyncAws\CognitoIdentityProvider\Input\SetUserMFAPreferenceRequest;
+use AsyncAws\CognitoIdentityProvider\Input\SignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\VerifySoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType;
@@ -19,6 +20,7 @@ use AsyncAws\CognitoIdentityProvider\ValueObject\ContextDataType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\HttpHeader;
 use AsyncAws\CognitoIdentityProvider\ValueObject\SMSMfaSettingsType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\SoftwareTokenMfaSettingsType;
+use AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
 
@@ -207,6 +209,30 @@ class CognitoIdentityProviderClientTest extends TestCase
         $result = $client->SetUserMFAPreference($input);
 
         $result->resolve();
+    }
+
+    public function testSignUp(): void
+    {
+        $client = $this->getClient();
+
+        $input = new SignUpRequest([
+            'ClientId' => 'change me',
+            'SecretHash' => 'change me',
+            'Username' => 'change me',
+            'Password' => 'change me',
+            'UserAttributes' => [new AttributeType(['Name' => 'change me', 'Value' => 'change me'])],
+            'ValidationData' => [new AttributeType(['Name' => 'change me', 'Value' => 'change me'])],
+            'AnalyticsMetadata' => new AnalyticsMetadataType(['AnalyticsEndpointId' => 'change me']),
+            'UserContextData' => new UserContextDataType(['EncodedData' => 'change me']),
+            'ClientMetadata' => ['change me' => 'change me'],
+        ]);
+        $result = $client->SignUp($input);
+
+        $result->resolve();
+
+        self::assertFalse($result->getUserConfirmed());
+        // self::assertTODO(expected, $result->getCodeDeliveryDetails());
+        self::assertSame('changeIt', $result->getUserSub());
     }
 
     public function testVerifySoftwareToken(): void

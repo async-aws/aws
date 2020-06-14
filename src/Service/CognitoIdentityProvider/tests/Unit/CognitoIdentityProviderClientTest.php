@@ -13,6 +13,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ListUsersRequest;
 use AsyncAws\CognitoIdentityProvider\Input\SetUserMFAPreferenceRequest;
+use AsyncAws\CognitoIdentityProvider\Input\SignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\VerifySoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Result\AdminCreateUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminGetUserResponse;
@@ -22,6 +23,7 @@ use AsyncAws\CognitoIdentityProvider\Result\AssociateSoftwareTokenResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ChangePasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ListUsersResponse;
 use AsyncAws\CognitoIdentityProvider\Result\SetUserMFAPreferenceResponse;
+use AsyncAws\CognitoIdentityProvider\Result\SignUpResponse;
 use AsyncAws\CognitoIdentityProvider\Result\VerifySoftwareTokenResponse;
 use AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType;
 use AsyncAws\Core\Credentials\NullProvider;
@@ -162,6 +164,21 @@ class CognitoIdentityProviderClientTest extends TestCase
         $result = $client->SetUserMFAPreference($input);
 
         self::assertInstanceOf(SetUserMFAPreferenceResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testSignUp(): void
+    {
+        $client = new CognitoIdentityProviderClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new SignUpRequest([
+            'ClientId' => 'secret client id',
+            'Username' => 'stickman',
+            'Password' => 'Passw0rd!',
+        ]);
+        $result = $client->SignUp($input);
+
+        self::assertInstanceOf(SignUpResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
