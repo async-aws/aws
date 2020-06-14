@@ -11,6 +11,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AdminUpdateUserAttributesRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ConfirmForgotPasswordRequest;
+use AsyncAws\CognitoIdentityProvider\Input\ForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\InitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ListUsersRequest;
 use AsyncAws\CognitoIdentityProvider\Input\RespondToAuthChallengeRequest;
@@ -192,6 +193,25 @@ class CognitoIdentityProviderClientTest extends TestCase
         $result = $client->ConfirmForgotPassword($input);
 
         $result->resolve();
+    }
+
+    public function testForgotPassword(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ForgotPasswordRequest([
+            'ClientId' => 'change me',
+            'SecretHash' => 'change me',
+            'UserContextData' => new UserContextDataType(['EncodedData' => 'change me']),
+            'Username' => 'change me',
+            'AnalyticsMetadata' => new AnalyticsMetadataType(['AnalyticsEndpointId' => 'change me']),
+            'ClientMetadata' => ['change me' => 'change me'],
+        ]);
+        $result = $client->ForgotPassword($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getCodeDeliveryDetails());
     }
 
     public function testInitiateAuth(): void

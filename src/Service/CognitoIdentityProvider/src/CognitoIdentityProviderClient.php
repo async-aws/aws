@@ -10,6 +10,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AdminUpdateUserAttributesRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ConfirmForgotPasswordRequest;
+use AsyncAws\CognitoIdentityProvider\Input\ForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\InitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ListUsersRequest;
 use AsyncAws\CognitoIdentityProvider\Input\RespondToAuthChallengeRequest;
@@ -23,6 +24,7 @@ use AsyncAws\CognitoIdentityProvider\Result\AdminUpdateUserAttributesResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AssociateSoftwareTokenResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ChangePasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ConfirmForgotPasswordResponse;
+use AsyncAws\CognitoIdentityProvider\Result\ForgotPasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\InitiateAuthResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ListUsersResponse;
 use AsyncAws\CognitoIdentityProvider\Result\RespondToAuthChallengeResponse;
@@ -209,6 +211,34 @@ class CognitoIdentityProviderClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ConfirmForgotPassword', 'region' => $input->getRegion()]));
 
         return new ConfirmForgotPasswordResponse($response);
+    }
+
+    /**
+     * Calling this API causes a message to be sent to the end user with a confirmation code that is required to change the
+     * user's password. For the `Username` parameter, you can use the username or user alias. The method used to send the
+     * confirmation code is sent according to the specified AccountRecoverySetting. For more information, see Recovering
+     * User Accounts in the *Amazon Cognito Developer Guide*. If neither a verified phone number nor a verified email
+     * exists, an `InvalidParameterException` is thrown. To use the confirmation code for resetting the password, call .
+     *
+     * @see
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#forgotpassword
+     *
+     * @param array{
+     *   ClientId: string,
+     *   SecretHash?: string,
+     *   UserContextData?: \AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType|array,
+     *   Username: string,
+     *   AnalyticsMetadata?: \AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType|array,
+     *   ClientMetadata?: array<string, string>,
+     *   @region?: string,
+     * }|ForgotPasswordRequest $input
+     */
+    public function forgotPassword($input): ForgotPasswordResponse
+    {
+        $input = ForgotPasswordRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ForgotPassword', 'region' => $input->getRegion()]));
+
+        return new ForgotPasswordResponse($response);
     }
 
     /**
