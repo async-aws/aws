@@ -9,6 +9,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AdminInitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminUpdateUserAttributesRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
+use AsyncAws\CognitoIdentityProvider\Input\ConfirmForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\InitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ListUsersRequest;
 use AsyncAws\CognitoIdentityProvider\Input\RespondToAuthChallengeRequest;
@@ -21,6 +22,7 @@ use AsyncAws\CognitoIdentityProvider\Result\AdminInitiateAuthResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminUpdateUserAttributesResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AssociateSoftwareTokenResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ChangePasswordResponse;
+use AsyncAws\CognitoIdentityProvider\Result\ConfirmForgotPasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\InitiateAuthResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ListUsersResponse;
 use AsyncAws\CognitoIdentityProvider\Result\RespondToAuthChallengeResponse;
@@ -182,6 +184,31 @@ class CognitoIdentityProviderClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ChangePassword', 'region' => $input->getRegion()]));
 
         return new ChangePasswordResponse($response);
+    }
+
+    /**
+     * Allows a user to enter a confirmation code to reset a forgotten password.
+     *
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#confirmforgotpassword
+     *
+     * @param array{
+     *   ClientId: string,
+     *   SecretHash?: string,
+     *   Username: string,
+     *   ConfirmationCode: string,
+     *   Password: string,
+     *   AnalyticsMetadata?: \AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType|array,
+     *   UserContextData?: \AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType|array,
+     *   ClientMetadata?: array<string, string>,
+     *   @region?: string,
+     * }|ConfirmForgotPasswordRequest $input
+     */
+    public function confirmForgotPassword($input): ConfirmForgotPasswordResponse
+    {
+        $input = ConfirmForgotPasswordRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ConfirmForgotPassword', 'region' => $input->getRegion()]));
+
+        return new ConfirmForgotPasswordResponse($response);
     }
 
     /**
