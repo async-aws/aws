@@ -231,6 +231,7 @@
                 "AssociateSoftwareToken",
                 "ChangePassword",
                 "ListUsers",
+                "RespondToAuthChallenge",
                 "SetUserMFAPreference",
                 "VerifySoftwareToken"
             ]

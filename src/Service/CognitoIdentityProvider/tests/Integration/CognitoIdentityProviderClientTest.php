@@ -11,6 +11,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AdminUpdateUserAttributesRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ListUsersRequest;
+use AsyncAws\CognitoIdentityProvider\Input\RespondToAuthChallengeRequest;
 use AsyncAws\CognitoIdentityProvider\Input\SetUserMFAPreferenceRequest;
 use AsyncAws\CognitoIdentityProvider\Input\VerifySoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType;
@@ -19,6 +20,7 @@ use AsyncAws\CognitoIdentityProvider\ValueObject\ContextDataType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\HttpHeader;
 use AsyncAws\CognitoIdentityProvider\ValueObject\SMSMfaSettingsType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\SoftwareTokenMfaSettingsType;
+use AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
 
@@ -187,6 +189,29 @@ class CognitoIdentityProviderClientTest extends TestCase
 
         // self::assertTODO(expected, $result->getUsers());
         self::assertSame('changeIt', $result->getPaginationToken());
+    }
+
+    public function testRespondToAuthChallenge(): void
+    {
+        $client = $this->getClient();
+
+        $input = new RespondToAuthChallengeRequest([
+            'ClientId' => 'change me',
+            'ChallengeName' => 'change me',
+            'Session' => 'change me',
+            'ChallengeResponses' => ['change me' => 'change me'],
+            'AnalyticsMetadata' => new AnalyticsMetadataType(['AnalyticsEndpointId' => 'change me']),
+            'UserContextData' => new UserContextDataType(['EncodedData' => 'change me']),
+            'ClientMetadata' => ['change me' => 'change me'],
+        ]);
+        $result = $client->RespondToAuthChallenge($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getChallengeName());
+        self::assertSame('changeIt', $result->getSession());
+        // self::assertTODO(expected, $result->getChallengeParameters());
+        // self::assertTODO(expected, $result->getAuthenticationResult());
     }
 
     public function testSetUserMFAPreference(): void
