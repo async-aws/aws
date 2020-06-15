@@ -6,8 +6,8 @@
 
 ### Added
 
-- BatchWriteItem
-- BatchGetItem
+- Added operation `BatchWriteItem`
+- Added operation `BatchGetItem`
 
 ### Fixed
 
