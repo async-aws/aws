@@ -11,6 +11,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\InitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ListUsersRequest;
+use AsyncAws\CognitoIdentityProvider\Input\RespondToAuthChallengeRequest;
 use AsyncAws\CognitoIdentityProvider\Input\SetUserMFAPreferenceRequest;
 use AsyncAws\CognitoIdentityProvider\Input\SignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\VerifySoftwareTokenRequest;
@@ -22,6 +23,7 @@ use AsyncAws\CognitoIdentityProvider\Result\AssociateSoftwareTokenResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ChangePasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\InitiateAuthResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ListUsersResponse;
+use AsyncAws\CognitoIdentityProvider\Result\RespondToAuthChallengeResponse;
 use AsyncAws\CognitoIdentityProvider\Result\SetUserMFAPreferenceResponse;
 use AsyncAws\CognitoIdentityProvider\Result\SignUpResponse;
 use AsyncAws\CognitoIdentityProvider\Result\VerifySoftwareTokenResponse;
@@ -225,6 +227,30 @@ class CognitoIdentityProviderClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListUsers', 'region' => $input->getRegion()]));
 
         return new ListUsersResponse($response, $this, $input);
+    }
+
+    /**
+     * Responds to the authentication challenge.
+     *
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#respondtoauthchallenge
+     *
+     * @param array{
+     *   ClientId: string,
+     *   ChallengeName: \AsyncAws\CognitoIdentityProvider\Enum\ChallengeNameType::*,
+     *   Session?: string,
+     *   ChallengeResponses?: array<string, string>,
+     *   AnalyticsMetadata?: \AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType|array,
+     *   UserContextData?: \AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType|array,
+     *   ClientMetadata?: array<string, string>,
+     *   @region?: string,
+     * }|RespondToAuthChallengeRequest $input
+     */
+    public function respondToAuthChallenge($input): RespondToAuthChallengeResponse
+    {
+        $input = RespondToAuthChallengeRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'RespondToAuthChallenge', 'region' => $input->getRegion()]));
+
+        return new RespondToAuthChallengeResponse($response);
     }
 
     /**
