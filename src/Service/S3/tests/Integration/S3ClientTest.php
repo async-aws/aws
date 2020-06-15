@@ -4,6 +4,7 @@ namespace AsyncAws\S3\Tests\Integration;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Exception\Http\ClientException;
+use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Enum\Permission;
 use AsyncAws\S3\Enum\Type;
@@ -33,6 +34,7 @@ use AsyncAws\S3\ValueObject\CompletedPart;
 use AsyncAws\S3\ValueObject\Grant;
 use AsyncAws\S3\ValueObject\Grantee;
 use AsyncAws\S3\ValueObject\Owner;
+use Symfony\Component\HttpClient\MockHttpClient;
 
 class S3ClientTest extends TestCase
 {
@@ -186,6 +188,30 @@ class S3ClientTest extends TestCase
     public function testCreateDirectory()
     {
         $s3 = $this->getClient();
+
+        $result = $s3->putObject([
+            'Bucket' => 'foo',
+            'Key' => 'bar/',
+        ]);
+
+        $result->resolve();
+        $info = $result->info();
+        self::assertEquals(200, $info['status']);
+    }
+
+    public function testCustomEndpoint()
+    {
+        $callback = function ($method, $url, $options) {
+            $this->assertEquals('PUT', $method);
+            $this->assertEquals('https://fra1.digitaloceanspaces.com/foo/bar/', $url);
+
+            return new SimpleMockedResponse();
+        };
+
+        $s3 = new S3Client([
+            'endpoint' => 'https://fra1.digitaloceanspaces.com',
+            'pathStyleEndpoint' => true,
+        ], new NullProvider(), new MockHttpClient($callback));
 
         $result = $s3->putObject([
             'Bucket' => 'foo',
