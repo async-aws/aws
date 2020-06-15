@@ -11,6 +11,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AdminInitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminUpdateUserAttributesRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
+use AsyncAws\CognitoIdentityProvider\Input\ConfirmForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\InitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ListUsersRequest;
 use AsyncAws\CognitoIdentityProvider\Input\RespondToAuthChallengeRequest;
@@ -23,6 +24,7 @@ use AsyncAws\CognitoIdentityProvider\Result\AdminInitiateAuthResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminUpdateUserAttributesResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AssociateSoftwareTokenResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ChangePasswordResponse;
+use AsyncAws\CognitoIdentityProvider\Result\ConfirmForgotPasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\InitiateAuthResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ListUsersResponse;
 use AsyncAws\CognitoIdentityProvider\Result\RespondToAuthChallengeResponse;
@@ -140,6 +142,22 @@ class CognitoIdentityProviderClientTest extends TestCase
         $result = $client->ChangePassword($input);
 
         self::assertInstanceOf(ChangePasswordResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testConfirmForgotPassword(): void
+    {
+        $client = new CognitoIdentityProviderClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new ConfirmForgotPasswordRequest([
+            'ClientId' => 'change me',
+            'Username' => 'change me',
+            'ConfirmationCode' => 'change me',
+            'Password' => 'change me',
+        ]);
+        $result = $client->ConfirmForgotPassword($input);
+
+        self::assertInstanceOf(ConfirmForgotPasswordResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
