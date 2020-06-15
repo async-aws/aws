@@ -1,0 +1,41 @@
+<?php
+
+namespace AsyncAws\CognitoIdentityProvider\Tests\Unit\Result;
+
+use AsyncAws\CognitoIdentityProvider\Enum\DeliveryMediumType;
+use AsyncAws\CognitoIdentityProvider\Result\ForgotPasswordResponse;
+use AsyncAws\CognitoIdentityProvider\ValueObject\CodeDeliveryDetailsType;
+use AsyncAws\Core\Response;
+use AsyncAws\Core\Test\Http\SimpleMockedResponse;
+use AsyncAws\Core\Test\TestCase;
+use Psr\Log\NullLogger;
+use Symfony\Component\HttpClient\MockHttpClient;
+
+class ForgotPasswordResponseTest extends TestCase
+{
+    public function testForgotPasswordResponse(): void
+    {
+        // see https://docs.aws.amazon.com/cognitoidentityprovider/latest/APIReference/API_ForgotPassword.html
+        $response = new SimpleMockedResponse(\json_encode([
+            'CodeDeliveryDetails' => [
+                'AttributeName' => 'my-name',
+                'DeliveryMedium' => DeliveryMediumType::EMAIL,
+                'Destination' => 'my-destination',
+            ],
+        ]));
+
+        $client = new MockHttpClient($response);
+        $result = new ForgotPasswordResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
+
+        self::assertEquals(
+            CodeDeliveryDetailsType::create(
+                [
+                    'AttributeName' => 'my-name',
+                    'DeliveryMedium' => DeliveryMediumType::EMAIL,
+                    'Destination' => 'my-destination',
+                ]
+            ),
+            $result->getCodeDeliveryDetails()
+        );
+    }
+}

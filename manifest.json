@@ -231,6 +231,7 @@
                 "AssociateSoftwareToken",
                 "ChangePassword",
                 "ConfirmForgotPassword",
+                "ForgotPassword",
                 "InitiateAuth",
                 "ListUsers",
                 "RespondToAuthChallenge",
