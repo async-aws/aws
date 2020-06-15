@@ -14,6 +14,7 @@ use AsyncAws\CognitoIdentityProvider\Input\ConfirmForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\InitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ListUsersRequest;
+use AsyncAws\CognitoIdentityProvider\Input\ResendConfirmationCodeRequest;
 use AsyncAws\CognitoIdentityProvider\Input\RespondToAuthChallengeRequest;
 use AsyncAws\CognitoIdentityProvider\Input\SetUserMFAPreferenceRequest;
 use AsyncAws\CognitoIdentityProvider\Input\SignUpRequest;
@@ -253,6 +254,25 @@ class CognitoIdentityProviderClientTest extends TestCase
 
         // self::assertTODO(expected, $result->getUsers());
         self::assertSame('changeIt', $result->getPaginationToken());
+    }
+
+    public function testResendConfirmationCode(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ResendConfirmationCodeRequest([
+            'ClientId' => 'change me',
+            'SecretHash' => 'change me',
+            'UserContextData' => new UserContextDataType(['EncodedData' => 'change me']),
+            'Username' => 'change me',
+            'AnalyticsMetadata' => new AnalyticsMetadataType(['AnalyticsEndpointId' => 'change me']),
+            'ClientMetadata' => ['change me' => 'change me'],
+        ]);
+        $result = $client->ResendConfirmationCode($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getCodeDeliveryDetails());
     }
 
     public function testRespondToAuthChallenge(): void

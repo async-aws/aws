@@ -234,6 +234,7 @@
                 "ForgotPassword",
                 "InitiateAuth",
                 "ListUsers",
+                "ResendConfirmationCode",
                 "RespondToAuthChallenge",
                 "SetUserMFAPreference",
                 "SignUp",
