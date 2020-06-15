@@ -2,6 +2,17 @@
 
 ## NOT RELEASED
 
+## 0.3.1
+
+### Added
+
+- BatchWriteItem
+- BatchGetItem
+
+### Fixed
+
+- Internally we make a difference between null and an empty array
+
 ## 0.3.0
 
 ### Added
