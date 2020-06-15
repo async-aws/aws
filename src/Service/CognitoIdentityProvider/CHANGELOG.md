@@ -5,6 +5,12 @@
 ### Added
 
 - Add operation `adminInitiateAuth`
+- Add operation `signUp`
+- Add operation `initiateAuth`
+- Add operation `respondToAuthChallenge`
+- Add operation `forgotPassword`
+- Add operation `confirmForgotPassword`
+- Add operation `resendConfirmationCode`
 
 ## 0.2.0
 
