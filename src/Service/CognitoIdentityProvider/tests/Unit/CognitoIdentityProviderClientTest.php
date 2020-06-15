@@ -11,6 +11,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AdminInitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminUpdateUserAttributesRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
+use AsyncAws\CognitoIdentityProvider\Input\InitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ListUsersRequest;
 use AsyncAws\CognitoIdentityProvider\Input\SetUserMFAPreferenceRequest;
 use AsyncAws\CognitoIdentityProvider\Input\SignUpRequest;
@@ -21,6 +22,7 @@ use AsyncAws\CognitoIdentityProvider\Result\AdminInitiateAuthResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminUpdateUserAttributesResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AssociateSoftwareTokenResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ChangePasswordResponse;
+use AsyncAws\CognitoIdentityProvider\Result\InitiateAuthResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ListUsersResponse;
 use AsyncAws\CognitoIdentityProvider\Result\SetUserMFAPreferenceResponse;
 use AsyncAws\CognitoIdentityProvider\Result\SignUpResponse;
@@ -136,6 +138,20 @@ class CognitoIdentityProviderClientTest extends TestCase
         $result = $client->ChangePassword($input);
 
         self::assertInstanceOf(ChangePasswordResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testInitiateAuth(): void
+    {
+        $client = new CognitoIdentityProviderClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new InitiateAuthRequest([
+            'AuthFlow' => 'USER_PASSWORD_AUTH',
+            'ClientId' => 'abc123',
+        ]);
+        $result = $client->InitiateAuth($input);
+
+        self::assertInstanceOf(InitiateAuthResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 

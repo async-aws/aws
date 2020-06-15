@@ -10,6 +10,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AdminInitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminUpdateUserAttributesRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
+use AsyncAws\CognitoIdentityProvider\Input\InitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ListUsersRequest;
 use AsyncAws\CognitoIdentityProvider\Input\SetUserMFAPreferenceRequest;
 use AsyncAws\CognitoIdentityProvider\Input\SignUpRequest;
@@ -170,6 +171,28 @@ class CognitoIdentityProviderClientTest extends TestCase
         $result = $client->ChangePassword($input);
 
         $result->resolve();
+    }
+
+    public function testInitiateAuth(): void
+    {
+        $client = $this->getClient();
+
+        $input = new InitiateAuthRequest([
+            'AuthFlow' => 'change me',
+            'AuthParameters' => ['change me' => 'change me'],
+            'ClientMetadata' => ['change me' => 'change me'],
+            'ClientId' => 'change me',
+            'AnalyticsMetadata' => new AnalyticsMetadataType(['AnalyticsEndpointId' => 'change me']),
+            'UserContextData' => new UserContextDataType(['EncodedData' => 'change me']),
+        ]);
+        $result = $client->InitiateAuth($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getChallengeName());
+        self::assertSame('changeIt', $result->getSession());
+        // self::assertTODO(expected, $result->getChallengeParameters());
+        // self::assertTODO(expected, $result->getAuthenticationResult());
     }
 
     public function testListUsers(): void
