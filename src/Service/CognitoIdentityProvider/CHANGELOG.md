@@ -2,15 +2,17 @@
 
 ## NOT RELEASED
 
+## 0.2.1
+
 ### Added
 
-- Add operation `adminInitiateAuth`
-- Add operation `signUp`
-- Add operation `initiateAuth`
-- Add operation `respondToAuthChallenge`
-- Add operation `forgotPassword`
-- Add operation `confirmForgotPassword`
-- Add operation `resendConfirmationCode`
+- Added operation `adminInitiateAuth`
+- Added operation `signUp`
+- Added operation `initiateAuth`
+- Added operation `respondToAuthChallenge`
+- Added operation `forgotPassword`
+- Added operation `confirmForgotPassword`
+- Added operation `resendConfirmationCode`
 
 ## 0.2.0
 
