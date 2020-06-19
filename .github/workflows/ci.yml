@@ -21,7 +21,6 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           coverage: none
-          tools: prestissimo
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -31,11 +30,12 @@ jobs:
 
       - name: Download phpunit
         run: |
+          composer self-update --snapshot
           rm composer.*
           composer init --no-interaction
 
           echo ::group::Download
-          composer req symfony/phpunit-bridge
+          composer req symfony/phpunit-bridge -vvv
           echo ::endgroup::
 
           echo ::group::Install
