@@ -3,6 +3,7 @@
 namespace AsyncAws\S3\Tests\Unit;
 
 use AsyncAws\Core\Credentials\NullProvider;
+use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Input\AbortMultipartUploadRequest;
 use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
@@ -278,6 +279,33 @@ class S3ClientTest extends TestCase
 
         self::assertInstanceOf(UploadPartOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
+    }
+
+    /**
+     * Make sure we can use custom endpoints.
+     */
+    public function testCustomEndpoint()
+    {
+        $callback = function ($method, $url, $options) {
+            $this->assertEquals('PUT', $method);
+            $this->assertEquals('https://fra1.digitaloceanspaces.com/my_bucket/image/cat.jpg', $url);
+
+            return new SimpleMockedResponse();
+        };
+
+        $s3 = new S3Client([
+            'endpoint' => 'https://fra1.digitaloceanspaces.com',
+            'pathStyleEndpoint' => true,
+        ], new NullProvider(), new MockHttpClient($callback));
+
+        $result = $s3->putObject([
+            'Bucket' => 'my_bucket',
+            'Key' => 'image/cat.jpg',
+        ]);
+
+        $result->resolve();
+        $info = $result->info();
+        self::assertEquals(200, $info['status']);
     }
 
     public function testBucketToHost(): void
