@@ -172,6 +172,13 @@ class LambdaClient extends AbstractApi
                     'signService' => 'lambda',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-isob-east-1':
+                return [
+                    'endpoint' => "https://lambda.$region.sc2s.sgov.gov",
+                    'signRegion' => $region,
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://lambda-fips.us-east-1.amazonaws.com',
