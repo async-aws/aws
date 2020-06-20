@@ -12,6 +12,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php: ['7.2', '7.3', '7.4', '8.0']
 
@@ -21,7 +22,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           coverage: none
-          tools: prestissimo
+          tools: flex
 
       - name: Checkout code
         uses: actions/checkout@v2
