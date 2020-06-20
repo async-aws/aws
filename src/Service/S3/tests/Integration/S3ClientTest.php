@@ -199,30 +199,6 @@ class S3ClientTest extends TestCase
         self::assertEquals(200, $info['status']);
     }
 
-    public function testCustomEndpoint()
-    {
-        $callback = function ($method, $url, $options) {
-            $this->assertEquals('PUT', $method);
-            $this->assertEquals('https://fra1.digitaloceanspaces.com/foo/bar/', $url);
-
-            return new SimpleMockedResponse();
-        };
-
-        $s3 = new S3Client([
-            'endpoint' => 'https://fra1.digitaloceanspaces.com',
-            'pathStyleEndpoint' => true,
-        ], new NullProvider(), new MockHttpClient($callback));
-
-        $result = $s3->putObject([
-            'Bucket' => 'foo',
-            'Key' => 'bar/',
-        ]);
-
-        $result->resolve();
-        $info = $result->info();
-        self::assertEquals(200, $info['status']);
-    }
-
     public function testCreateMultipartUpload(): void
     {
         $client = $this->getClient();
