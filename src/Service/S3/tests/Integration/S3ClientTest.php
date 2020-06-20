@@ -4,7 +4,6 @@ namespace AsyncAws\S3\Tests\Integration;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Exception\Http\ClientException;
-use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Enum\Permission;
 use AsyncAws\S3\Enum\Type;
@@ -34,7 +33,6 @@ use AsyncAws\S3\ValueObject\CompletedPart;
 use AsyncAws\S3\ValueObject\Grant;
 use AsyncAws\S3\ValueObject\Grantee;
 use AsyncAws\S3\ValueObject\Owner;
-use Symfony\Component\HttpClient\MockHttpClient;
 
 class S3ClientTest extends TestCase
 {
