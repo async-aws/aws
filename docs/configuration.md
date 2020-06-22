@@ -103,3 +103,7 @@ See [IAM Roles for Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developer
 Set to true to send requests to an S3 path style endpoint by default.
 See [Virtual Hosting of Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html) about path style vs virtual host style.
 
+## Using [Localstack](https://github.com/localstack/localstack)
+
+See See [How to configure Async-AWS with Localstack](/configuration/localstack.md)
+
