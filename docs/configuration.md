@@ -105,5 +105,5 @@ See [Virtual Hosting of Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev
 
 ## Using [Localstack](https://github.com/localstack/localstack)
 
-See See [How to configure Async-AWS with Localstack](/configuration/localstack.md)
+See [How to use Async AWS with Localstack](/configuration/localstack.md)
 
