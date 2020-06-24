@@ -51,8 +51,7 @@ class SqsClient extends AbstractApi
     }
 
     /**
-     * Creates a new standard or FIFO queue. You can pass one or more attributes in the request. Keep the following caveats
-     * in mind:.
+     * Creates a new standard or FIFO queue. You can pass one or more attributes in the request. Keep the following in mind:.
      *
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#createqueue
      *
@@ -94,8 +93,7 @@ class SqsClient extends AbstractApi
     }
 
     /**
-     * Deletes the queue specified by the `QueueUrl`, regardless of the queue's contents. If the specified queue doesn't
-     * exist, Amazon SQS returns a successful response.
+     * Deletes the queue specified by the `QueueUrl`, regardless of the queue's contents.
      *
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#deletequeue
      *
@@ -158,6 +156,8 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueNamePrefix?: string,
+     *   NextToken?: string,
+     *   MaxResults?: int,
      *   @region?: string,
      * }|ListQueuesRequest $input
      */
@@ -166,7 +166,7 @@ class SqsClient extends AbstractApi
         $input = ListQueuesRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListQueues', 'region' => $input->getRegion()]));
 
-        return new ListQueuesResult($response);
+        return new ListQueuesResult($response, $this, $input);
     }
 
     /**
