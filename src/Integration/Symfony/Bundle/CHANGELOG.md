@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+## 1.0.0
+
+No changes since 0.2.6
+
 ## 0.2.6
 
 ### Added
