@@ -3,6 +3,7 @@
 namespace AsyncAws\Core\Tests\Integration;
 
 use AsyncAws\Core\Credentials\NullProvider;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\Sts\Input\AssumeRoleRequest;
 use AsyncAws\Core\Sts\Input\AssumeRoleWithWebIdentityRequest;
 use AsyncAws\Core\Sts\Input\GetCallerIdentityRequest;
@@ -84,6 +85,25 @@ class StsClientTest extends TestCase
         self::assertStringContainsString('change it', $result->getUserId());
         self::assertStringContainsString('change it', $result->getAccount());
         self::assertStringContainsString('change it', $result->getArn());
+    }
+
+    public function testNonAwsRegionWithCustomEndpoint(): void
+    {
+        $client = new StsClient([
+            'endpoint' => 'http://localhost',
+            'region' => 'test',
+        ], new NullProvider());
+        self::assertNotEmpty($client->presign(new AssumeRoleRequest(['RoleArn' => 'demo', 'RoleSessionName' => 'demo'])));
+    }
+
+    public function testNonAwsRegion(): void
+    {
+        $client = new StsClient([
+            'region' => 'test',
+        ], new NullProvider());
+
+        $this->expectException(UnsupportedRegion::class);
+        $client->presign(new AssumeRoleRequest(['RoleArn' => 'demo', 'RoleSessionName' => 'demo']));
     }
 
     private function getClient(): StsClient
