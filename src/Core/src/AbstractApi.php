@@ -193,11 +193,11 @@ abstract class AbstractApi
     {
         /** @var string $region */
         $region = $region ?? $this->configuration->isDefault('region') ? null : $this->configuration->get('region');
-        $metadata = $this->getEndpointMetadata($region);
         if (!$this->configuration->isDefault('endpoint')) {
             /** @var string $endpoint */
             $endpoint = $this->configuration->get('endpoint');
         } else {
+            $metadata = $this->getEndpointMetadata($region);
             $endpoint = $metadata['endpoint'];
         }
 
