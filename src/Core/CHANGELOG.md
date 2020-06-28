@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Allows non-AWS regions when using custom endpoints
+
 ## 1.2.0
 
 ### Added
