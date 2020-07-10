@@ -25,13 +25,12 @@ use AsyncAws\Sns\ValueObject\Subscription;
 class SnsClient extends AbstractApi
 {
     /**
-     * Creates an endpoint for a device and mobile app on one of the supported push notification services, such as FCM and
-     * APNS. `CreatePlatformEndpoint` requires the PlatformApplicationArn that is returned from `CreatePlatformApplication`.
-     * The EndpointArn that is returned when using `CreatePlatformEndpoint` can then be used by the `Publish` action to send
-     * a message to a mobile app or by the `Subscribe` action for subscription to a topic. The `CreatePlatformEndpoint`
-     * action is idempotent, so if the requester already owns an endpoint with the same device token and attributes, that
-     * endpoint's ARN is returned without creating a new endpoint. For more information, see Using Amazon SNS Mobile Push
-     * Notifications.
+     * Creates an endpoint for a device and mobile app on one of the supported push notification services, such as GCM
+     * (Firebase Cloud Messaging) and APNS. `CreatePlatformEndpoint` requires the `PlatformApplicationArn` that is returned
+     * from `CreatePlatformApplication`. You can use the returned `EndpointArn` to send a message to a mobile app or by the
+     * `Subscribe` action for subscription to a topic. The `CreatePlatformEndpoint` action is idempotent, so if the
+     * requester already owns an endpoint with the same device token and attributes, that endpoint's ARN is returned without
+     * creating a new endpoint. For more information, see Using Amazon SNS Mobile Push Notifications.
      *
      * @see https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#createplatformendpoint
@@ -53,9 +52,9 @@ class SnsClient extends AbstractApi
     }
 
     /**
-     * Creates a topic to which notifications can be published. Users can create at most 100,000 topics. For more
-     * information, see https://aws.amazon.com/sns. This action is idempotent, so if the requester already owns a topic with
-     * the specified name, that topic's ARN is returned without creating a new topic.
+     * Creates a topic to which notifications can be published. Users can create at most 100,000 standard topics (at most
+     * 1,000 FIFO topics). For more information, see https://aws.amazon.com/sns. This action is idempotent, so if the
+     * requester already owns a topic with the specified name, that topic's ARN is returned without creating a new topic.
      *
      * @see http://aws.amazon.com/sns/
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#createtopic
@@ -137,7 +136,8 @@ class SnsClient extends AbstractApi
     }
 
     /**
-     * Sends a message to an Amazon SNS topic or sends a text message (SMS message) directly to a phone number.
+     * Sends a message to an Amazon SNS topic, a text message (SMS message) directly to a phone number, or a message to a
+     * mobile platform endpoint (when you specify the `TargetArn`).
      *
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#publish
      *
@@ -161,9 +161,9 @@ class SnsClient extends AbstractApi
     }
 
     /**
-     * Prepares to subscribe an endpoint by sending the endpoint a confirmation message. To actually create a subscription,
-     * the endpoint owner must call the `ConfirmSubscription` action with the token from the confirmation message.
-     * Confirmation tokens are valid for three days.
+     * Subscribes an endpoint to an Amazon SNS topic. If the endpoint type is HTTP/S or email, or if the endpoint and the
+     * topic are not in the same AWS account, the endpoint owner must the `ConfirmSubscription` action to confirm the
+     * subscription.
      *
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#subscribe
      *
