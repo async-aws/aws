@@ -5,11 +5,13 @@ namespace AsyncAws\S3;
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\Core\Result;
 use AsyncAws\S3\Input\AbortMultipartUploadRequest;
 use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
 use AsyncAws\S3\Input\CopyObjectRequest;
 use AsyncAws\S3\Input\CreateBucketRequest;
 use AsyncAws\S3\Input\CreateMultipartUploadRequest;
+use AsyncAws\S3\Input\DeleteBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\DeleteObjectsRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
@@ -257,6 +259,25 @@ class S3Client extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateMultipartUpload', 'region' => $input->getRegion()]));
 
         return new CreateMultipartUploadOutput($response);
+    }
+
+    /**
+     * Deletes the bucket. All objects (including all object versions and delete markers) in the bucket must be deleted
+     * before the bucket itself can be deleted.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketDELETE.html
+     *
+     * @param array{
+     *   Bucket: string,
+     *   @region?: string,
+     * }|DeleteBucketRequest $input
+     */
+    public function deleteBucket($input): Result
+    {
+        $input = DeleteBucketRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteBucket', 'region' => $input->getRegion()]));
+
+        return new Result($response);
     }
 
     /**
