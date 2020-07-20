@@ -357,6 +357,7 @@ class Response
             $this->resolveResult = new $class(...$args);
         }
 
+        $code = null;
         $message = null;
         $context = ['exception' => $this->resolveResult];
         if ($this->resolveResult instanceof HttpException) {
@@ -372,7 +373,12 @@ class Response
         }
 
         if ($this->resolveResult instanceof Exception) {
-            $this->logger->error($message ?? $this->resolveResult->getMessage(), $context);
+            if (404 === $code) {
+                $this->logger->info($message ?? $this->resolveResult->getMessage(), $context);
+            } else {
+                $this->logger->error($message ?? $this->resolveResult->getMessage(), $context);
+            }
+
             $this->didThrow = true;
 
             throw $this->resolveResult;
