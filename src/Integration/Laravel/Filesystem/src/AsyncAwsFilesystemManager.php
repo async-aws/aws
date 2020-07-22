@@ -28,6 +28,10 @@ class AsyncAwsFilesystemManager extends FilesystemManager
             $s3Config['endpoint'] = $config['endpoint'];
         }
 
+        if (!empty($config['region'])) {
+            $s3Config['region'] = $config['region'];
+        }
+
         $root = $config['root'] ?? '';
         $options = $config['options'] ?? [];
 
