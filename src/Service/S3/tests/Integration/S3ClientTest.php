@@ -217,13 +217,19 @@ class S3ClientTest extends TestCase
     public function testDeleteBucket(): void
     {
         $client = $this->getClient();
+        $client->CreateBucket(['Bucket' => 'foo-exist']);
 
-        $input = new DeleteBucketRequest([
-            'Bucket' => 'my_bucket',
-        ]);
-        $result = $client->DeleteBucket($input);
+        self::assertTrue($client->bucketExists(new HeadBucketRequest([
+            'Bucket' => 'foo-exist',
+        ]))->isSuccess());
 
-        $result->resolve();
+        $client->DeleteBucket(new DeleteBucketRequest([
+            'Bucket' => 'foo-exist',
+        ]));
+
+        self::assertFalse($client->bucketExists(new HeadBucketRequest([
+            'Bucket' => 'foo-exist',
+        ]))->isSuccess());
     }
 
     public function testDeleteObject(): void
