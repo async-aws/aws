@@ -133,6 +133,7 @@
                 "CopyObject",
                 "CreateBucket",
                 "CreateMultipartUpload",
+                "DeleteBucket",
                 "DeleteObject",
                 "DeleteObjects",
                 "GetObject",

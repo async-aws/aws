@@ -12,6 +12,7 @@ use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
 use AsyncAws\S3\Input\CopyObjectRequest;
 use AsyncAws\S3\Input\CreateBucketRequest;
 use AsyncAws\S3\Input\CreateMultipartUploadRequest;
+use AsyncAws\S3\Input\DeleteBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
@@ -213,6 +214,24 @@ class S3ClientTest extends TestCase
         self::assertNotNull($result->getUploadId());
     }
 
+    public function testDeleteBucket(): void
+    {
+        $client = $this->getClient();
+        $client->CreateBucket(['Bucket' => 'foo-exist']);
+
+        self::assertTrue($client->bucketExists(new HeadBucketRequest([
+            'Bucket' => 'foo-exist',
+        ]))->isSuccess());
+
+        $client->DeleteBucket(new DeleteBucketRequest([
+            'Bucket' => 'foo-exist',
+        ]));
+
+        self::assertFalse($client->bucketExists(new HeadBucketRequest([
+            'Bucket' => 'foo-exist',
+        ]))->isSuccess());
+    }
+
     public function testDeleteObject(): void
     {
         $client = $this->getClient();
@@ -290,27 +309,6 @@ class S3ClientTest extends TestCase
         self::assertEquals('image/jpg', $result->getContentType());
     }
 
-    public function testGetObjectConsistent(): void
-    {
-        $client = $this->getClient();
-        $client->putObject([
-            'Bucket' => 'foo',
-            'Key' => 'bar',
-            'Body' => 'content',
-            'ContentType' => 'image/jpg',
-        ])->resolve();
-
-        $result = $client->getObject([
-            'Bucket' => 'foo',
-            'Key' => 'bar',
-        ]);
-        self::assertEquals('content', $result->getBody()->getContentAsString());
-        // calling it twice to ensure consitency
-        self::assertEquals('content', $result->getBody()->getContentAsString());
-        self::assertEquals('content', \stream_get_contents($result->getBody()->getContentAsResource()));
-        self::assertEquals('content', \implode('', \iterator_to_array($result->getBody()->getChunks())));
-    }
-
     public function testGetObjectAcl(): void
     {
         $client = $this->getClient();
@@ -333,6 +331,27 @@ class S3ClientTest extends TestCase
         self::assertSame('FULL_CONTROL', $result->getGrants()[0]->getPermission());
         self::assertSame('You', $result->getGrants()[0]->getGrantee()->getDisplayName());
         self::assertSame('CanonicalUser', $result->getGrants()[0]->getGrantee()->getType());
+    }
+
+    public function testGetObjectConsistent(): void
+    {
+        $client = $this->getClient();
+        $client->putObject([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+            'Body' => 'content',
+            'ContentType' => 'image/jpg',
+        ])->resolve();
+
+        $result = $client->getObject([
+            'Bucket' => 'foo',
+            'Key' => 'bar',
+        ]);
+        self::assertEquals('content', $result->getBody()->getContentAsString());
+        // calling it twice to ensure consitency
+        self::assertEquals('content', $result->getBody()->getContentAsString());
+        self::assertEquals('content', \stream_get_contents($result->getBody()->getContentAsResource()));
+        self::assertEquals('content', \implode('', \iterator_to_array($result->getBody()->getChunks())));
     }
 
     public function testHeadObject(): void
@@ -392,6 +411,40 @@ class S3ClientTest extends TestCase
 
         self::assertFalse($client->objectNotExists($input)->isSuccess());
         self::assertTrue($client->objectNotExists(['Bucket' => 'foo', 'Key' => 'does-not-exists'])->isSuccess());
+    }
+
+    public function testKeyWithSpecialChars(): void
+    {
+        $client = $this->getClient();
+
+        $client->CreateBucket(['Bucket' => 'foo#pound'])->resolve();
+
+        $result = $client->PutObject([
+            'Body' => 'content',
+            'Bucket' => 'foo#pound',
+            'Key' => 'bar#pound/baz#pound',
+        ]);
+
+        self::assertEquals('"9a0364b9e99bb480dd25e1f0284c8555"', $result->getETag());
+
+        $result = $client->GetObject([
+            'Bucket' => 'foo#pound',
+            'Key' => 'bar#pound/baz#pound',
+        ]);
+        self::assertEquals('content', $result->getBody()->getContentAsString());
+
+        $result = $client->listObjectsV2([
+            'Bucket' => 'foo#pound',
+            'Delimiter' => '/',
+        ]);
+        self::assertEquals(['bar#pound/'], array_map(function (CommonPrefix $prefix) {return $prefix->getPrefix(); }, \iterator_to_array($result->getCommonPrefixes())));
+
+        $result = $client->listObjectsV2([
+            'Bucket' => 'foo#pound',
+            'Prefix' => 'bar#pound/',
+        ]);
+
+        self::assertEquals(['bar#pound/baz#pound'], array_map(function (AwsObject $prefix) {return $prefix->getKey(); }, \iterator_to_array($result->getContents())));
     }
 
     public function testListMultipartUploads(): void
@@ -612,40 +665,6 @@ class S3ClientTest extends TestCase
         $result->resolve();
 
         self::assertEquals(200, $result->info()['status']);
-    }
-
-    public function testKeyWithSpecialChars(): void
-    {
-        $client = $this->getClient();
-
-        $client->CreateBucket(['Bucket' => 'foo#pound'])->resolve();
-
-        $result = $client->PutObject([
-            'Body' => 'content',
-            'Bucket' => 'foo#pound',
-            'Key' => 'bar#pound/baz#pound',
-        ]);
-
-        self::assertEquals('"9a0364b9e99bb480dd25e1f0284c8555"', $result->getETag());
-
-        $result = $client->GetObject([
-            'Bucket' => 'foo#pound',
-            'Key' => 'bar#pound/baz#pound',
-        ]);
-        self::assertEquals('content', $result->getBody()->getContentAsString());
-
-        $result = $client->listObjectsV2([
-            'Bucket' => 'foo#pound',
-            'Delimiter' => '/',
-        ]);
-        self::assertEquals(['bar#pound/'], array_map(function (CommonPrefix $prefix) {return $prefix->getPrefix(); }, \iterator_to_array($result->getCommonPrefixes())));
-
-        $result = $client->listObjectsV2([
-            'Bucket' => 'foo#pound',
-            'Prefix' => 'bar#pound/',
-        ]);
-
-        self::assertEquals(['bar#pound/baz#pound'], array_map(function (AwsObject $prefix) {return $prefix->getKey(); }, \iterator_to_array($result->getContents())));
     }
 
     private function getClient(): S3Client

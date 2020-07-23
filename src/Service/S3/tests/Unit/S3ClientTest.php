@@ -3,6 +3,7 @@
 namespace AsyncAws\S3\Tests\Unit;
 
 use AsyncAws\Core\Credentials\NullProvider;
+use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\S3\Input\AbortMultipartUploadRequest;
@@ -10,6 +11,7 @@ use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
 use AsyncAws\S3\Input\CopyObjectRequest;
 use AsyncAws\S3\Input\CreateBucketRequest;
 use AsyncAws\S3\Input\CreateMultipartUploadRequest;
+use AsyncAws\S3\Input\DeleteBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\DeleteObjectsRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
@@ -58,6 +60,25 @@ class S3ClientTest extends TestCase
 
         self::assertInstanceOf(AbortMultipartUploadOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testBucketToHost(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+        self::assertSame('https://foo.s3.amazonaws.com/', $client->presign(new CreateBucketRequest(['Bucket' => 'foo'])));
+        // invalid bucket names
+        self::assertSame('https://s3.amazonaws.com/foo.bar', $client->presign(new CreateBucketRequest(['Bucket' => 'foo.bar'])));
+        self::assertSame('https://s3.amazonaws.com/foo%20bar', $client->presign(new CreateBucketRequest(['Bucket' => 'foo bar'])));
+        self::assertSame('https://s3.amazonaws.com/127.0.0.1', $client->presign(new CreateBucketRequest(['Bucket' => '127.0.0.1'])));
+
+        $client = new S3Client(['endpoint' => 'http://127.0.0.1'], new NullProvider(), new MockHttpClient());
+        self::assertSame('http://127.0.0.1/foo', $client->presign(new CreateBucketRequest(['Bucket' => 'foo'])));
+
+        $client = new S3Client(['endpoint' => 'http://custom.com', 'pathStyleEndpoint' => true], new NullProvider(), new MockHttpClient());
+        self::assertSame('http://custom.com/foo', $client->presign(new CreateBucketRequest(['Bucket' => 'foo'])));
+
+        $client = new S3Client(['endpoint' => 'http://custom.com'], new NullProvider(), new MockHttpClient());
+        self::assertSame('http://foo.custom.com/', $client->presign(new CreateBucketRequest(['Bucket' => 'foo'])));
     }
 
     public function testCompleteMultipartUpload(): void
@@ -114,6 +135,46 @@ class S3ClientTest extends TestCase
         $result = $client->CreateMultipartUpload($input);
 
         self::assertInstanceOf(CreateMultipartUploadOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    /**
+     * Make sure we can use custom endpoints.
+     */
+    public function testCustomEndpoint()
+    {
+        $callback = function ($method, $url, $options) {
+            $this->assertEquals('PUT', $method);
+            $this->assertEquals('https://fra1.digitaloceanspaces.com/my_bucket/image/cat.jpg', $url);
+
+            return new SimpleMockedResponse();
+        };
+
+        $s3 = new S3Client([
+            'endpoint' => 'https://fra1.digitaloceanspaces.com',
+            'pathStyleEndpoint' => true,
+        ], new NullProvider(), new MockHttpClient($callback));
+
+        $result = $s3->putObject([
+            'Bucket' => 'my_bucket',
+            'Key' => 'image/cat.jpg',
+        ]);
+
+        $result->resolve();
+        $info = $result->info();
+        self::assertEquals(200, $info['status']);
+    }
+
+    public function testDeleteBucket(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new DeleteBucketRequest([
+            'Bucket' => 'my_bucket',
+        ]);
+        $result = $client->DeleteBucket($input);
+
+        self::assertInstanceOf(Result::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
@@ -279,51 +340,5 @@ class S3ClientTest extends TestCase
 
         self::assertInstanceOf(UploadPartOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
-    }
-
-    /**
-     * Make sure we can use custom endpoints.
-     */
-    public function testCustomEndpoint()
-    {
-        $callback = function ($method, $url, $options) {
-            $this->assertEquals('PUT', $method);
-            $this->assertEquals('https://fra1.digitaloceanspaces.com/my_bucket/image/cat.jpg', $url);
-
-            return new SimpleMockedResponse();
-        };
-
-        $s3 = new S3Client([
-            'endpoint' => 'https://fra1.digitaloceanspaces.com',
-            'pathStyleEndpoint' => true,
-        ], new NullProvider(), new MockHttpClient($callback));
-
-        $result = $s3->putObject([
-            'Bucket' => 'my_bucket',
-            'Key' => 'image/cat.jpg',
-        ]);
-
-        $result->resolve();
-        $info = $result->info();
-        self::assertEquals(200, $info['status']);
-    }
-
-    public function testBucketToHost(): void
-    {
-        $client = new S3Client([], new NullProvider(), new MockHttpClient());
-        self::assertSame('https://foo.s3.amazonaws.com/', $client->presign(new CreateBucketRequest(['Bucket' => 'foo'])));
-        // invalid bucket names
-        self::assertSame('https://s3.amazonaws.com/foo.bar', $client->presign(new CreateBucketRequest(['Bucket' => 'foo.bar'])));
-        self::assertSame('https://s3.amazonaws.com/foo%20bar', $client->presign(new CreateBucketRequest(['Bucket' => 'foo bar'])));
-        self::assertSame('https://s3.amazonaws.com/127.0.0.1', $client->presign(new CreateBucketRequest(['Bucket' => '127.0.0.1'])));
-
-        $client = new S3Client(['endpoint' => 'http://127.0.0.1'], new NullProvider(), new MockHttpClient());
-        self::assertSame('http://127.0.0.1/foo', $client->presign(new CreateBucketRequest(['Bucket' => 'foo'])));
-
-        $client = new S3Client(['endpoint' => 'http://custom.com', 'pathStyleEndpoint' => true], new NullProvider(), new MockHttpClient());
-        self::assertSame('http://custom.com/foo', $client->presign(new CreateBucketRequest(['Bucket' => 'foo'])));
-
-        $client = new S3Client(['endpoint' => 'http://custom.com'], new NullProvider(), new MockHttpClient());
-        self::assertSame('http://foo.custom.com/', $client->presign(new CreateBucketRequest(['Bucket' => 'foo'])));
     }
 }
