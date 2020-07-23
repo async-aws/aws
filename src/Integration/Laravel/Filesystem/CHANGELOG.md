@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 0.1.2
+
+### Added
+
+- Support for "region" config.
+
 ## 0.1.1
 
 ### Added
