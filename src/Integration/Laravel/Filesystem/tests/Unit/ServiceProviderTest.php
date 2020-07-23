@@ -27,6 +27,7 @@ class ServiceProviderTest extends TestCase
             'key' => 'my_key',
             'secret' => 'my_secret',
             'bucket' => 'my_bucket',
+            'region' => 'ap-southeast-1',
         ]);
 
         self::assertInstanceOf(FilesystemAdapter::class, $illuminateFilesystemAdapter);
@@ -49,5 +50,6 @@ class ServiceProviderTest extends TestCase
         $config = $client->getConfiguration();
         self::assertEquals('my_key', $config->get('accessKeyId'));
         self::assertEquals('my_secret', $config->get('accessKeySecret'));
+        self::assertEquals('ap-southeast-1', $config->get('region'));
     }
 }
