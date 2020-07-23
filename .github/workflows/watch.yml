@@ -20,14 +20,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: master
-          token: ${{ secrets.BOT_GITHUB_TOKEN }}
-
-      - name: Switch remote to fork via SSH
-        run: |
-          git config user.password ${{ secrets.BOT_GITHUB_TOKEN }}
-          git remote set-url origin https://github.com/async-aws-bot/aws
-          git fetch --unshallow -p origin
-          git push origin master
 
       - name: Download dependencies
         run: |
@@ -56,9 +48,10 @@ jobs:
           fi
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v2
+        uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          push-to-fork: async-aws-bot/aws
           author: AsyncAws Bot <github@async-aws.com>
           committer: AsyncAws Bot <github@async-aws.com>
           commit-message: update generated code
@@ -68,4 +61,3 @@ jobs:
 
             This PR contains the new definition for Services.
           branch: bot-code-update
-          request-to-parent: true
