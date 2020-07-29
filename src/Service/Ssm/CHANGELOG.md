@@ -4,7 +4,9 @@
 
 ## 1.0.0
 
-### Added support for PHP 8
+### Added
+
+- Support for PHP 8
 
 ## 0.2.0
 
