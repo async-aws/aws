@@ -12,6 +12,7 @@ use AsyncAws\Ses\ValueObject\Destination;
 use AsyncAws\Ses\ValueObject\EmailContent;
 use AsyncAws\Ses\ValueObject\Message;
 use AsyncAws\Ses\ValueObject\MessageTag;
+use AsyncAws\Ses\ValueObject\Template;
 
 final class SendEmailRequest extends Input
 {
@@ -24,9 +25,15 @@ final class SendEmailRequest extends Input
     private $FromEmailAddress;
 
     /**
-     * An object that contains the recipients of the email message.
+     * This parameter is used only for sending authorization. It is the ARN of the identity that is associated with the
+     * sending authorization policy that permits you to use the email address specified in the `FromEmailAddress` parameter.
      *
-     * @required
+     * @var string|null
+     */
+    private $FromEmailAddressIdentityArn;
+
+    /**
+     * An object that contains the recipients of the email message.
      *
      * @var Destination|null
      */
@@ -48,7 +55,17 @@ final class SendEmailRequest extends Input
     private $FeedbackForwardingEmailAddress;
 
     /**
-     * An object that contains the body of the message. You can send either a Simple message or a Raw message.
+     * This parameter is used only for sending authorization. It is the ARN of the identity that is associated with the
+     * sending authorization policy that permits you to use the email address specified in the
+     * `FeedbackForwardingEmailAddress` parameter.
+     *
+     * @var string|null
+     */
+    private $FeedbackForwardingEmailAddressIdentityArn;
+
+    /**
+     * An object that contains the body of the message. You can send either a Simple message Raw message or a template
+     * Message.
      *
      * @required
      *
@@ -74,9 +91,11 @@ final class SendEmailRequest extends Input
     /**
      * @param array{
      *   FromEmailAddress?: string,
+     *   FromEmailAddressIdentityArn?: string,
      *   Destination?: \AsyncAws\Ses\ValueObject\Destination|array,
      *   ReplyToAddresses?: string[],
      *   FeedbackForwardingEmailAddress?: string,
+     *   FeedbackForwardingEmailAddressIdentityArn?: string,
      *   Content?: \AsyncAws\Ses\ValueObject\EmailContent|array,
      *   EmailTags?: \AsyncAws\Ses\ValueObject\MessageTag[],
      *   ConfigurationSetName?: string,
@@ -86,9 +105,11 @@ final class SendEmailRequest extends Input
     public function __construct(array $input = [])
     {
         $this->FromEmailAddress = $input['FromEmailAddress'] ?? null;
+        $this->FromEmailAddressIdentityArn = $input['FromEmailAddressIdentityArn'] ?? null;
         $this->Destination = isset($input['Destination']) ? Destination::create($input['Destination']) : null;
         $this->ReplyToAddresses = $input['ReplyToAddresses'] ?? null;
         $this->FeedbackForwardingEmailAddress = $input['FeedbackForwardingEmailAddress'] ?? null;
+        $this->FeedbackForwardingEmailAddressIdentityArn = $input['FeedbackForwardingEmailAddressIdentityArn'] ?? null;
         $this->Content = isset($input['Content']) ? EmailContent::create($input['Content']) : null;
         $this->EmailTags = isset($input['EmailTags']) ? array_map([MessageTag::class, 'create'], $input['EmailTags']) : null;
         $this->ConfigurationSetName = $input['ConfigurationSetName'] ?? null;
@@ -128,9 +149,19 @@ final class SendEmailRequest extends Input
         return $this->FeedbackForwardingEmailAddress;
     }
 
+    public function getFeedbackForwardingEmailAddressIdentityArn(): ?string
+    {
+        return $this->FeedbackForwardingEmailAddressIdentityArn;
+    }
+
     public function getFromEmailAddress(): ?string
     {
         return $this->FromEmailAddress;
+    }
+
+    public function getFromEmailAddressIdentityArn(): ?string
+    {
+        return $this->FromEmailAddressIdentityArn;
     }
 
     /**
@@ -201,9 +232,23 @@ final class SendEmailRequest extends Input
         return $this;
     }
 
+    public function setFeedbackForwardingEmailAddressIdentityArn(?string $value): self
+    {
+        $this->FeedbackForwardingEmailAddressIdentityArn = $value;
+
+        return $this;
+    }
+
     public function setFromEmailAddress(?string $value): self
     {
         $this->FromEmailAddress = $value;
+
+        return $this;
+    }
+
+    public function setFromEmailAddressIdentityArn(?string $value): self
+    {
+        $this->FromEmailAddressIdentityArn = $value;
 
         return $this;
     }
@@ -224,10 +269,12 @@ final class SendEmailRequest extends Input
         if (null !== $v = $this->FromEmailAddress) {
             $payload['FromEmailAddress'] = $v;
         }
-        if (null === $v = $this->Destination) {
-            throw new InvalidArgument(sprintf('Missing parameter "Destination" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->FromEmailAddressIdentityArn) {
+            $payload['FromEmailAddressIdentityArn'] = $v;
         }
-        $payload['Destination'] = $v->requestBody();
+        if (null !== $v = $this->Destination) {
+            $payload['Destination'] = $v->requestBody();
+        }
         if (null !== $v = $this->ReplyToAddresses) {
             $index = -1;
             $payload['ReplyToAddresses'] = [];
@@ -238,6 +285,9 @@ final class SendEmailRequest extends Input
         }
         if (null !== $v = $this->FeedbackForwardingEmailAddress) {
             $payload['FeedbackForwardingEmailAddress'] = $v;
+        }
+        if (null !== $v = $this->FeedbackForwardingEmailAddressIdentityArn) {
+            $payload['FeedbackForwardingEmailAddressIdentityArn'] = $v;
         }
         if (null === $v = $this->Content) {
             throw new InvalidArgument(sprintf('Missing parameter "Content" for "%s". The value cannot be null.', __CLASS__));
