@@ -18,9 +18,11 @@ class SesClient extends AbstractApi
      *
      * @param array{
      *   FromEmailAddress?: string,
-     *   Destination: \AsyncAws\Ses\ValueObject\Destination|array,
+     *   FromEmailAddressIdentityArn?: string,
+     *   Destination?: \AsyncAws\Ses\ValueObject\Destination|array,
      *   ReplyToAddresses?: string[],
      *   FeedbackForwardingEmailAddress?: string,
+     *   FeedbackForwardingEmailAddressIdentityArn?: string,
      *   Content: \AsyncAws\Ses\ValueObject\EmailContent|array,
      *   EmailTags?: \AsyncAws\Ses\ValueObject\MessageTag[],
      *   ConfigurationSetName?: string,
