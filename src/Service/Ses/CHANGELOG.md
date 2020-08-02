@@ -2,6 +2,13 @@
 
 ## NOT RELEASED
 
+## 1.2.0
+
+### Added
+
+- Support for PHP 8.
+- Support for `FromEmailAddressIdentityArn` and `FeedbackForwardingEmailAddressIdentityArn` in `SendEmailRequest`.
+
 ## 1.1.1
 
 ### Fixed
