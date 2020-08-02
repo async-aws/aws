@@ -2,9 +2,23 @@
 
 ## NOT RELEASED
 
+## 1.3.0
+
+### Added
+
+- Support for PHP 8
+- Added second parameter `$preferredChunkSize` to `StreamFactory::create()`
+- Support for CloudFront in `AwsClientFactory`
+- Support for RdsDataService in `AwsClientFactory`
+
 ### Fixed
 
 - Allows non-AWS regions when using custom endpoints
+
+### Changed
+
+- Add more context to error logs
+- Log level for 404 responses changed to "info".
 
 ## 1.2.0
 
