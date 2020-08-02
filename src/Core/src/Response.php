@@ -373,12 +373,8 @@ class Response
         }
 
         if ($this->resolveResult instanceof Exception) {
-            if (404 === $code) {
-                $this->logger->info($message ?? $this->resolveResult->getMessage(), $context);
-            } else {
-                $this->logger->error($message ?? $this->resolveResult->getMessage(), $context);
-            }
-
+            $level = 404 === $code ? 'info' : 'error';
+            $this->logger->log($level, $message ?? $this->resolveResult->getMessage(), $context);
             $this->didThrow = true;
 
             throw $this->resolveResult;
