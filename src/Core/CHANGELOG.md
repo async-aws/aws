@@ -8,6 +8,8 @@
 
 - Support for PHP 8
 - Added second parameter `$preferredChunkSize` to `StreamFactory::create()`
+- Support for CloudFront in `AwsClientFactory`
+- Support for RdsDataService in `AwsClientFactory`
 
 ### Fixed
 
