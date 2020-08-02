@@ -4,7 +4,9 @@
 
 ## 1.0.0
 
-No changes since 0.2.6
+### Added
+
+- Support for PHP 8
 
 ## 0.2.6
 
