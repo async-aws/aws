@@ -352,6 +352,7 @@ class S3ClientTest extends TestCase
         self::assertEquals('content', $result->getBody()->getContentAsString());
         self::assertEquals('content', \stream_get_contents($result->getBody()->getContentAsResource()));
         self::assertEquals('content', \implode('', \iterator_to_array($result->getBody()->getChunks())));
+        self::assertEquals('content', \implode('', \iterator_to_array($result->getBody()->getChunks())));
     }
 
     public function testHeadObject(): void

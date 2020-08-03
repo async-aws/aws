@@ -9,6 +9,7 @@ use AsyncAws\Core\Credentials\ChainProvider;
 use AsyncAws\Core\Credentials\CredentialProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\LogicException;
+use AsyncAws\Core\HttpClient\RetryHttpClient;
 use AsyncAws\Core\Signer\Signer;
 use AsyncAws\Core\Signer\SignerV4;
 use AsyncAws\Core\Stream\StringStream;
@@ -61,8 +62,8 @@ abstract class AbstractApi
             throw new InvalidArgument(sprintf('Second argument to "%s::__construct()" must be an array or an instance of "%s"', __CLASS__, Configuration::class));
         }
 
-        $this->httpClient = $httpClient ?? HttpClient::create();
         $this->logger = $logger ?? new NullLogger();
+        $this->httpClient = $httpClient ?? new RetryHttpClient(HttpClient::create(), $this->logger);
         $this->configuration = $configuration;
         $this->credentialProvider = $credentialProvider ?? new CacheProvider(ChainProvider::createDefaultChain($this->httpClient, $this->logger));
     }

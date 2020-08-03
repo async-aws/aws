@@ -46,7 +46,9 @@ class ResponseBodyStream implements ResultStream
     public function getChunks(): iterable
     {
         if (null !== $this->fallback) {
-            return $this->fallback->getChunks();
+            yield from $this->fallback->getChunks();
+
+            return;
         }
         if ($this->partialRead) {
             throw new LogicException(\sprintf('You can not call "%s". Another process doesn\'t reading "getChunks" till the end.', __METHOD__));
