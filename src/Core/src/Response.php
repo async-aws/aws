@@ -17,6 +17,7 @@ use AsyncAws\Core\Stream\ResponseBodyResourceStream;
 use AsyncAws\Core\Stream\ResponseBodyStream;
 use AsyncAws\Core\Stream\ResultStream;
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -373,8 +374,11 @@ class Response
         }
 
         if ($this->resolveResult instanceof Exception) {
-            $level = 404 === $code ? 'info' : 'error';
-            $this->logger->log($level, $message ?? $this->resolveResult->getMessage(), $context);
+            $this->logger->log(
+                404 === $code ? LogLevel::INFO : LogLevel::ERROR,
+                $message ?? $this->resolveResult->getMessage(),
+                $context
+            );
             $this->didThrow = true;
 
             throw $this->resolveResult;
