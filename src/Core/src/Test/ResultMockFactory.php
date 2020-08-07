@@ -30,8 +30,12 @@ class ResultMockFactory
      *
      * @return Result|T
      */
-    public static function createFailing(string $class, int $code, ?string $message = null)
-    {
+    public static function createFailing(
+        string $class,
+        int $code,
+        ?string $message = null,
+        array $additionalContent = []
+    ) {
         if (Result::class !== $class) {
             $parent = get_parent_class($class);
             if (false === $parent || Result::class !== $parent) {
@@ -39,7 +43,7 @@ class ResultMockFactory
             }
         }
 
-        $httpResponse = new SimpleMockedResponse(\json_encode(['message' => $message]), ['content-type' => 'application/json'], $code);
+        $httpResponse = new SimpleMockedResponse(\json_encode(\array_merge(['message' => $message], $additionalContent)), ['content-type' => 'application/json'], $code);
         $client = new MockHttpClient($httpResponse);
         $response = new Response($client->request('POST', 'http://localhost'), $client, new NullLogger());
 
