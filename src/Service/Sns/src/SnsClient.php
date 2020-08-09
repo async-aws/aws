@@ -52,9 +52,9 @@ class SnsClient extends AbstractApi
     }
 
     /**
-     * Creates a topic to which notifications can be published. Users can create at most 100,000 standard topics (at most
-     * 1,000 FIFO topics). For more information, see https://aws.amazon.com/sns. This action is idempotent, so if the
-     * requester already owns a topic with the specified name, that topic's ARN is returned without creating a new topic.
+     * Creates a topic to which notifications can be published. Users can create at most 100,000 topics. For more
+     * information, see https://aws.amazon.com/sns. This action is idempotent, so if the requester already owns a topic with
+     * the specified name, that topic's ARN is returned without creating a new topic.
      *
      * @see http://aws.amazon.com/sns/
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#createtopic

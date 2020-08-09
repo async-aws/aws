@@ -34,6 +34,8 @@ class HeadObjectOutput extends Result
     /**
      * If the object is an archived object (an object whose storage class is GLACIER), the response includes this header if
      * either the archive restoration is in progress (see RestoreObject or an archive copy is already restored.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_RestoreObject.html
      */
     private $Restore;
 
