@@ -142,6 +142,7 @@ class RestJsonSerializer implements Serializer
         switch ($shape->getType()) {
             case 'string':
             case 'integer':
+            case 'float':
             case 'long':
             case 'double':
                 return $this->dumpArrayScalar($output, $input, $contextProperty, $shape);
