@@ -13,6 +13,7 @@ use AsyncAws\Rekognition\Input\DeleteProjectRequest;
 use AsyncAws\Rekognition\Input\DetectFacesRequest;
 use AsyncAws\Rekognition\Input\IndexFacesRequest;
 use AsyncAws\Rekognition\Input\ListCollectionsRequest;
+use AsyncAws\Rekognition\Input\SearchFacesByImageRequest;
 use AsyncAws\Rekognition\Result\CreateCollectionResponse;
 use AsyncAws\Rekognition\Result\CreateProjectResponse;
 use AsyncAws\Rekognition\Result\DeleteCollectionResponse;
@@ -20,6 +21,7 @@ use AsyncAws\Rekognition\Result\DeleteProjectResponse;
 use AsyncAws\Rekognition\Result\DetectFacesResponse;
 use AsyncAws\Rekognition\Result\IndexFacesResponse;
 use AsyncAws\Rekognition\Result\ListCollectionsResponse;
+use AsyncAws\Rekognition\Result\SearchFacesByImageResponse;
 
 class RekognitionClient extends AbstractApi
 {
@@ -160,6 +162,29 @@ class RekognitionClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListCollections', 'region' => $input->getRegion()]));
 
         return new ListCollectionsResponse($response, $this, $input);
+    }
+
+    /**
+     * For a given input image, first detects the largest face in the image, and then searches the specified collection for
+     * matching faces. The operation compares the features of the input face with faces in the specified collection.
+     *
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#searchfacesbyimage
+     *
+     * @param array{
+     *   CollectionId: string,
+     *   Image: \AsyncAws\Rekognition\ValueObject\Image|array,
+     *   MaxFaces?: int,
+     *   FaceMatchThreshold?: float,
+     *   QualityFilter?: \AsyncAws\Rekognition\Enum\QualityFilter::*,
+     *   @region?: string,
+     * }|SearchFacesByImageRequest $input
+     */
+    public function searchFacesByImage($input): SearchFacesByImageResponse
+    {
+        $input = SearchFacesByImageRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SearchFacesByImage', 'region' => $input->getRegion()]));
+
+        return new SearchFacesByImageResponse($response);
     }
 
     protected function getEndpointMetadata(?string $region): array

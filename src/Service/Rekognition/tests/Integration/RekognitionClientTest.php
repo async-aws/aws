@@ -11,6 +11,7 @@ use AsyncAws\Rekognition\Input\DeleteProjectRequest;
 use AsyncAws\Rekognition\Input\DetectFacesRequest;
 use AsyncAws\Rekognition\Input\IndexFacesRequest;
 use AsyncAws\Rekognition\Input\ListCollectionsRequest;
+use AsyncAws\Rekognition\Input\SearchFacesByImageRequest;
 use AsyncAws\Rekognition\RekognitionClient;
 use AsyncAws\Rekognition\ValueObject\Image;
 use AsyncAws\Rekognition\ValueObject\S3Object;
@@ -74,14 +75,14 @@ class RekognitionClientTest extends TestCase
     {
         $client = $this->getClient();
 
-                        $input = new DeleteProjectRequest([
-                            'ProjectArn' => 'change me',
-                        ]);
-                        $result = $client->DeleteProject($input);
+        $input = new DeleteProjectRequest([
+        'ProjectArn' => 'change me',
+        ]);
+        $result = $client->DeleteProject($input);
 
-                        $result->resolve();
+        $result->resolve();
 
-                        self::assertSame("changeIt", $result->getStatus());
+        self::assertSame("changeIt", $result->getStatus());
     }
 
     public function testDetectFaces(): void
@@ -151,5 +152,33 @@ class RekognitionClientTest extends TestCase
         // self::assertTODO(expected, $result->getCollectionIds());
         self::assertSame("changeIt", $result->getNextToken());
         // self::assertTODO(expected, $result->getFaceModelVersions());
+    }
+
+    public function testSearchFacesByImage(): void
+    {
+        $client = $this->getClient();
+
+                        $input = new SearchFacesByImageRequest([
+                            'CollectionId' => 'change me',
+        'Image' => new Image([
+                            'Bytes' => 'change me',
+        'S3Object' => new S3Object([
+                            'Bucket' => 'change me',
+        'Name' => 'change me',
+        'Version' => 'change me',
+                        ]),
+                        ]),
+        'MaxFaces' => 1337,
+        'FaceMatchThreshold' => 1337,
+        'QualityFilter' => 'change me',
+                        ]);
+                        $result = $client->SearchFacesByImage($input);
+
+                        $result->resolve();
+
+                        // self::assertTODO(expected, $result->getSearchedFaceBoundingBox());
+        // self::assertTODO(expected, $result->getSearchedFaceConfidence());
+        // self::assertTODO(expected, $result->getFaceMatches());
+        self::assertSame("changeIt", $result->getFaceModelVersion());
     }
 }

@@ -154,7 +154,8 @@
                 "DeleteProject",
                 "DetectFaces",
                 "IndexFaces",
-                "ListCollections"
+                "ListCollections",
+                "SearchFacesByImage"
             ]
         },
         "RdsDataService": {
