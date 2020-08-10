@@ -220,6 +220,7 @@ class S3Client extends AbstractApi
      * (see UploadPart). You also include this upload ID in the final request to either complete or abort the multipart
      * upload request.
      *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadInitiate.html
      *
      * @param array{
@@ -480,6 +481,7 @@ class S3Client extends AbstractApi
      * subsequent `ListParts` requests you can include the part-number-marker query string parameter and set its value to
      * the `NextPartNumberMarker` field value from the previous response.
      *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadListParts.html
      *
      * @param array{
