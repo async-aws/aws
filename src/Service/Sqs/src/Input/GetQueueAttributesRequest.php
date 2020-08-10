@@ -15,28 +15,27 @@ final class GetQueueAttributesRequest extends Input
      *
      * @required
      *
-     * @var string|null
+     * @var null|string
      */
     private $QueueUrl;
-
     /**
      * A list of attributes for which to retrieve information.
      *
-     * @var null|list<QueueAttributeName::*>
+     *
+     * @var list<QueueAttributeName::*>
      */
     private $AttributeNames;
-
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   AttributeNames?: list<QueueAttributeName::*>,
+     *   AttributeNames?: list<\AsyncAws\Sqs\Enum\QueueAttributeName::*>,
      *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
-        $this->QueueUrl = $input['QueueUrl'] ?? null;
-        $this->AttributeNames = $input['AttributeNames'] ?? null;
+        $this->QueueUrl = $input["QueueUrl"] ?? null;
+        $this->AttributeNames = $input["AttributeNames"] ?? [];
         parent::__construct($input);
     }
 
@@ -50,7 +49,7 @@ final class GetQueueAttributesRequest extends Input
      */
     public function getAttributeNames(): array
     {
-        return $this->AttributeNames ?? [];
+        return $this->AttributeNames;
     }
 
     public function getQueueUrl(): ?string
@@ -64,13 +63,15 @@ final class GetQueueAttributesRequest extends Input
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
+        $headers = ["content-type" => "application/x-www-form-urlencoded"];
+
 
         // Prepare query
         $query = [];
 
+
         // Prepare URI
-        $uriString = '/';
+        $uriString = "/";
 
         // Prepare Body
         $body = http_build_query(['Action' => 'GetQueueAttributes', 'Version' => '2012-11-05'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
@@ -79,41 +80,39 @@ final class GetQueueAttributesRequest extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
+    private function requestBody(): array
+    {
+        $payload = [];
+                        if (null === $v = $this->QueueUrl) {
+                            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
+                        }
+                        $payload["QueueUrl"] = $v;
+
+                    $index = 0;
+                    foreach ($this->AttributeNames as $mapValue) {
+                        $index++;
+                        if (!QueueAttributeName::exists($mapValue)) {
+                            throw new InvalidArgument(sprintf('Invalid parameter "AttributeName" for "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $mapValue));
+                        }
+                    $payload["AttributeName.$index"] = $mapValue;
+                    }
+
+
+                        return $payload;
+    }
+
     /**
      * @param list<QueueAttributeName::*> $value
      */
     public function setAttributeNames(array $value): self
     {
         $this->AttributeNames = $value;
-
-        return $this;
+                            return $this;
     }
 
     public function setQueueUrl(?string $value): self
     {
         $this->QueueUrl = $value;
-
-        return $this;
-    }
-
-    private function requestBody(): array
-    {
-        $payload = [];
-        if (null === $v = $this->QueueUrl) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
-        }
-        $payload['QueueUrl'] = $v;
-        if (null !== $v = $this->AttributeNames) {
-            $index = 0;
-            foreach ($v as $mapValue) {
-                ++$index;
-                if (!QueueAttributeName::exists($mapValue)) {
-                    throw new InvalidArgument(sprintf('Invalid parameter "AttributeName" for "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $mapValue));
-                }
-                $payload["AttributeName.$index"] = $mapValue;
-            }
-        }
-
-        return $payload;
+                            return $this;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Core\Sts\Input;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
@@ -29,13 +30,15 @@ final class GetCallerIdentityRequest extends Input
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
+        $headers = ["content-type" => "application/x-www-form-urlencoded"];
+
 
         // Prepare query
         $query = [];
 
+
         // Prepare URI
-        $uriString = '/';
+        $uriString = "/";
 
         // Prepare Body
         $body = http_build_query(['Action' => 'GetCallerIdentity', 'Version' => '2011-06-15'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
@@ -48,6 +51,7 @@ final class GetCallerIdentityRequest extends Input
     {
         $payload = [];
 
-        return $payload;
+
+                        return $payload;
     }
 }

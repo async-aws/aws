@@ -27,7 +27,6 @@ class StsClient extends AbstractApi
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison
      * @see https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sts-2011-06-15.html#assumerole
-     *
      * @param array{
      *   RoleArn: string,
      *   RoleSessionName: string,
@@ -45,9 +44,9 @@ class StsClient extends AbstractApi
     public function assumeRole($input): AssumeRoleResponse
     {
         $input = AssumeRoleRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AssumeRole', 'region' => $input->getRegion()]));
+                        $response = $this->getResponse($input->request(), new RequestContext(["operation" => 'AssumeRole', "region" => $input->getRegion()]));
 
-        return new AssumeRoleResponse($response);
+                        return new AssumeRoleResponse($response);
     }
 
     /**
@@ -57,7 +56,6 @@ class StsClient extends AbstractApi
      *
      * @see https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sts-2011-06-15.html#assumerolewithwebidentity
-     *
      * @param array{
      *   RoleArn: string,
      *   RoleSessionName: string,
@@ -72,9 +70,9 @@ class StsClient extends AbstractApi
     public function assumeRoleWithWebIdentity($input): AssumeRoleWithWebIdentityResponse
     {
         $input = AssumeRoleWithWebIdentityRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AssumeRoleWithWebIdentity', 'region' => $input->getRegion()]));
+                        $response = $this->getResponse($input->request(), new RequestContext(["operation" => 'AssumeRoleWithWebIdentity', "region" => $input->getRegion()]));
 
-        return new AssumeRoleWithWebIdentityResponse($response);
+                        return new AssumeRoleWithWebIdentityResponse($response);
     }
 
     /**
@@ -82,7 +80,6 @@ class StsClient extends AbstractApi
      *
      * @see https://docs.aws.amazon.com/STS/latest/APIReference/API_GetCallerIdentity.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sts-2011-06-15.html#getcalleridentity
-     *
      * @param array{
      *   @region?: string,
      * }|GetCallerIdentityRequest $input
@@ -90,23 +87,24 @@ class StsClient extends AbstractApi
     public function getCallerIdentity($input = []): GetCallerIdentityResponse
     {
         $input = GetCallerIdentityRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetCallerIdentity', 'region' => $input->getRegion()]));
+                        $response = $this->getResponse($input->request(), new RequestContext(["operation" => 'GetCallerIdentity', "region" => $input->getRegion()]));
 
-        return new GetCallerIdentityResponse($response);
+                        return new GetCallerIdentityResponse($response);
     }
 
     protected function getEndpointMetadata(?string $region): array
     {
-        if (null === $region) {
-            return [
-                'endpoint' => 'https://sts.amazonaws.com',
-                'signRegion' => 'us-east-1',
-                'signService' => 'sts',
-                'signVersions' => ['v4'],
-            ];
-        }
+        if ($region === null) {
+                                return [
+                        "endpoint" => "https://sts.amazonaws.com",
+                        "signRegion" => 'us-east-1',
+                        "signService" => 'sts',
+                        "signVersions" => ["v4"],
+                    ];
 
-        switch ($region) {
+                    }
+
+                    switch ($region) {
             case 'af-south-1':
             case 'ap-east-1':
             case 'ap-northeast-1':
@@ -128,86 +126,85 @@ class StsClient extends AbstractApi
             case 'us-west-1':
             case 'us-west-2':
                 return [
-                    'endpoint' => "https://sts.$region.amazonaws.com",
-                    'signRegion' => $region,
-                    'signService' => 'sts',
-                    'signVersions' => ['v4'],
-                ];
+                        "endpoint" => "https://sts.$region.amazonaws.com",
+                        "signRegion" => $region,
+                        "signService" => 'sts',
+                        "signVersions" => ["v4"],
+                    ];
             case 'cn-north-1':
             case 'cn-northwest-1':
                 return [
-                    'endpoint' => "https://sts.$region.amazonaws.com.cn",
-                    'signRegion' => $region,
-                    'signService' => 'sts',
-                    'signVersions' => ['v4'],
-                ];
+                        "endpoint" => "https://sts.$region.amazonaws.com.cn",
+                        "signRegion" => $region,
+                        "signService" => 'sts',
+                        "signVersions" => ["v4"],
+                    ];
             case 'us-gov-east-1':
             case 'us-gov-west-1':
                 return [
-                    'endpoint' => "https://sts.$region.amazonaws.com",
-                    'signRegion' => $region,
-                    'signService' => 'sts',
-                    'signVersions' => ['v4'],
-                ];
+                        "endpoint" => "https://sts.$region.amazonaws.com",
+                        "signRegion" => $region,
+                        "signService" => 'sts',
+                        "signVersions" => ["v4"],
+                    ];
             case 'us-iso-east-1':
                 return [
-                    'endpoint' => "https://sts.$region.c2s.ic.gov",
-                    'signRegion' => $region,
-                    'signService' => 'sts',
-                    'signVersions' => ['v4'],
-                ];
+                        "endpoint" => "https://sts.$region.c2s.ic.gov",
+                        "signRegion" => $region,
+                        "signService" => 'sts',
+                        "signVersions" => ["v4"],
+                    ];
             case 'us-isob-east-1':
                 return [
-                    'endpoint' => "https://sts.$region.sc2s.sgov.gov",
-                    'signRegion' => $region,
-                    'signService' => 'sts',
-                    'signVersions' => ['v4'],
-                ];
+                        "endpoint" => "https://sts.$region.sc2s.sgov.gov",
+                        "signRegion" => $region,
+                        "signService" => 'sts',
+                        "signVersions" => ["v4"],
+                    ];
             case 'us-east-1-fips':
                 return [
-                    'endpoint' => 'https://sts-fips.us-east-1.amazonaws.com',
-                    'signRegion' => 'us-east-1',
-                    'signService' => 'sts',
-                    'signVersions' => ['v4'],
-                ];
+                        "endpoint" => "https://sts-fips.us-east-1.amazonaws.com",
+                        "signRegion" => 'us-east-1',
+                        "signService" => 'sts',
+                        "signVersions" => ["v4"],
+                    ];
             case 'us-east-2-fips':
                 return [
-                    'endpoint' => 'https://sts-fips.us-east-2.amazonaws.com',
-                    'signRegion' => 'us-east-2',
-                    'signService' => 'sts',
-                    'signVersions' => ['v4'],
-                ];
+                        "endpoint" => "https://sts-fips.us-east-2.amazonaws.com",
+                        "signRegion" => 'us-east-2',
+                        "signService" => 'sts',
+                        "signVersions" => ["v4"],
+                    ];
             case 'us-gov-east-1-fips':
                 return [
-                    'endpoint' => 'https://sts.us-gov-east-1.amazonaws.com',
-                    'signRegion' => 'us-gov-east-1',
-                    'signService' => 'sts',
-                    'signVersions' => ['v4'],
-                ];
+                        "endpoint" => "https://sts.us-gov-east-1.amazonaws.com",
+                        "signRegion" => 'us-gov-east-1',
+                        "signService" => 'sts',
+                        "signVersions" => ["v4"],
+                    ];
             case 'us-gov-west-1-fips':
                 return [
-                    'endpoint' => 'https://sts.us-gov-west-1.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
-                    'signService' => 'sts',
-                    'signVersions' => ['v4'],
-                ];
+                        "endpoint" => "https://sts.us-gov-west-1.amazonaws.com",
+                        "signRegion" => 'us-gov-west-1',
+                        "signService" => 'sts',
+                        "signVersions" => ["v4"],
+                    ];
             case 'us-west-1-fips':
                 return [
-                    'endpoint' => 'https://sts-fips.us-west-1.amazonaws.com',
-                    'signRegion' => 'us-west-1',
-                    'signService' => 'sts',
-                    'signVersions' => ['v4'],
-                ];
+                        "endpoint" => "https://sts-fips.us-west-1.amazonaws.com",
+                        "signRegion" => 'us-west-1',
+                        "signService" => 'sts',
+                        "signVersions" => ["v4"],
+                    ];
             case 'us-west-2-fips':
                 return [
-                    'endpoint' => 'https://sts-fips.us-west-2.amazonaws.com',
-                    'signRegion' => 'us-west-2',
-                    'signService' => 'sts',
-                    'signVersions' => ['v4'],
-                ];
+                        "endpoint" => "https://sts-fips.us-west-2.amazonaws.com",
+                        "signRegion" => 'us-west-2',
+                        "signService" => 'sts',
+                        "signVersions" => ["v4"],
+                    ];
         }
-
-        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Sts".', $region));
+                    throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Sts".', $region));
     }
 
     protected function getServiceCode(): string

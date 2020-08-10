@@ -14,19 +14,17 @@ final class DeleteMessageRequest extends Input
      *
      * @required
      *
-     * @var string|null
+     * @var null|string
      */
     private $QueueUrl;
-
     /**
      * The receipt handle associated with the message to delete.
      *
      * @required
      *
-     * @var string|null
+     * @var null|string
      */
     private $ReceiptHandle;
-
     /**
      * @param array{
      *   QueueUrl?: string,
@@ -36,8 +34,8 @@ final class DeleteMessageRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->QueueUrl = $input['QueueUrl'] ?? null;
-        $this->ReceiptHandle = $input['ReceiptHandle'] ?? null;
+        $this->QueueUrl = $input["QueueUrl"] ?? null;
+        $this->ReceiptHandle = $input["ReceiptHandle"] ?? null;
         parent::__construct($input);
     }
 
@@ -62,13 +60,15 @@ final class DeleteMessageRequest extends Input
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
+        $headers = ["content-type" => "application/x-www-form-urlencoded"];
+
 
         // Prepare query
         $query = [];
 
+
         // Prepare URI
-        $uriString = '/';
+        $uriString = "/";
 
         // Prepare Body
         $body = http_build_query(['Action' => 'DeleteMessage', 'Version' => '2012-11-05'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
@@ -77,32 +77,30 @@ final class DeleteMessageRequest extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
+    private function requestBody(): array
+    {
+        $payload = [];
+                        if (null === $v = $this->QueueUrl) {
+                            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
+                        }
+                        $payload["QueueUrl"] = $v;
+        if (null === $v = $this->ReceiptHandle) {
+                            throw new InvalidArgument(sprintf('Missing parameter "ReceiptHandle" for "%s". The value cannot be null.', __CLASS__));
+                        }
+                        $payload["ReceiptHandle"] = $v;
+
+                        return $payload;
+    }
+
     public function setQueueUrl(?string $value): self
     {
         $this->QueueUrl = $value;
-
-        return $this;
+                            return $this;
     }
 
     public function setReceiptHandle(?string $value): self
     {
         $this->ReceiptHandle = $value;
-
-        return $this;
-    }
-
-    private function requestBody(): array
-    {
-        $payload = [];
-        if (null === $v = $this->QueueUrl) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
-        }
-        $payload['QueueUrl'] = $v;
-        if (null === $v = $this->ReceiptHandle) {
-            throw new InvalidArgument(sprintf('Missing parameter "ReceiptHandle" for "%s". The value cannot be null.', __CLASS__));
-        }
-        $payload['ReceiptHandle'] = $v;
-
-        return $payload;
+                            return $this;
     }
 }

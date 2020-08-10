@@ -4,6 +4,8 @@ namespace AsyncAws\Core\Sts\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class GetCallerIdentityResponse extends Result
 {
@@ -15,42 +17,38 @@ class GetCallerIdentityResponse extends Result
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html#principaltable
      */
     private $UserId;
-
     /**
      * The AWS account ID number of the account that owns or contains the calling entity.
      */
     private $Account;
-
     /**
      * The AWS ARN associated with the calling entity.
      */
     private $Arn;
-
     public function getAccount(): ?string
     {
         $this->initialize();
 
-        return $this->Account;
+                            return $this->Account;
     }
 
     public function getArn(): ?string
     {
         $this->initialize();
 
-        return $this->Arn;
+                            return $this->Arn;
     }
 
     public function getUserId(): ?string
     {
         $this->initialize();
 
-        return $this->UserId;
+                            return $this->UserId;
     }
 
     protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent());
-        $data = $data->GetCallerIdentityResult;
+        $data = new \SimpleXMLElement($response->getContent());$data = $data->GetCallerIdentityResult;
 
         $this->UserId = ($v = $data->UserId) ? (string) $v : null;
         $this->Account = ($v = $data->Account) ? (string) $v : null;

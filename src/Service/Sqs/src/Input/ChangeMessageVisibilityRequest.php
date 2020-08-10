@@ -14,29 +14,26 @@ final class ChangeMessageVisibilityRequest extends Input
      *
      * @required
      *
-     * @var string|null
+     * @var null|string
      */
     private $QueueUrl;
-
     /**
      * The receipt handle associated with the message whose visibility timeout is changed. This parameter is returned by the
      * `ReceiveMessage` action.
      *
      * @required
      *
-     * @var string|null
+     * @var null|string
      */
     private $ReceiptHandle;
-
     /**
      * The new value for the message's visibility timeout (in seconds). Values range: `0` to `43200`. Maximum: 12 hours.
      *
      * @required
      *
-     * @var int|null
+     * @var null|int
      */
     private $VisibilityTimeout;
-
     /**
      * @param array{
      *   QueueUrl?: string,
@@ -47,9 +44,9 @@ final class ChangeMessageVisibilityRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->QueueUrl = $input['QueueUrl'] ?? null;
-        $this->ReceiptHandle = $input['ReceiptHandle'] ?? null;
-        $this->VisibilityTimeout = $input['VisibilityTimeout'] ?? null;
+        $this->QueueUrl = $input["QueueUrl"] ?? null;
+        $this->ReceiptHandle = $input["ReceiptHandle"] ?? null;
+        $this->VisibilityTimeout = $input["VisibilityTimeout"] ?? null;
         parent::__construct($input);
     }
 
@@ -79,13 +76,15 @@ final class ChangeMessageVisibilityRequest extends Input
     public function request(): Request
     {
         // Prepare headers
-        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
+        $headers = ["content-type" => "application/x-www-form-urlencoded"];
+
 
         // Prepare query
         $query = [];
 
+
         // Prepare URI
-        $uriString = '/';
+        $uriString = "/";
 
         // Prepare Body
         $body = http_build_query(['Action' => 'ChangeMessageVisibility', 'Version' => '2012-11-05'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
@@ -94,43 +93,40 @@ final class ChangeMessageVisibilityRequest extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
+    private function requestBody(): array
+    {
+        $payload = [];
+                        if (null === $v = $this->QueueUrl) {
+                            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
+                        }
+                        $payload["QueueUrl"] = $v;
+        if (null === $v = $this->ReceiptHandle) {
+                            throw new InvalidArgument(sprintf('Missing parameter "ReceiptHandle" for "%s". The value cannot be null.', __CLASS__));
+                        }
+                        $payload["ReceiptHandle"] = $v;
+        if (null === $v = $this->VisibilityTimeout) {
+                            throw new InvalidArgument(sprintf('Missing parameter "VisibilityTimeout" for "%s". The value cannot be null.', __CLASS__));
+                        }
+                        $payload["VisibilityTimeout"] = $v;
+
+                        return $payload;
+    }
+
     public function setQueueUrl(?string $value): self
     {
         $this->QueueUrl = $value;
-
-        return $this;
+                            return $this;
     }
 
     public function setReceiptHandle(?string $value): self
     {
         $this->ReceiptHandle = $value;
-
-        return $this;
+                            return $this;
     }
 
     public function setVisibilityTimeout(?int $value): self
     {
         $this->VisibilityTimeout = $value;
-
-        return $this;
-    }
-
-    private function requestBody(): array
-    {
-        $payload = [];
-        if (null === $v = $this->QueueUrl) {
-            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
-        }
-        $payload['QueueUrl'] = $v;
-        if (null === $v = $this->ReceiptHandle) {
-            throw new InvalidArgument(sprintf('Missing parameter "ReceiptHandle" for "%s". The value cannot be null.', __CLASS__));
-        }
-        $payload['ReceiptHandle'] = $v;
-        if (null === $v = $this->VisibilityTimeout) {
-            throw new InvalidArgument(sprintf('Missing parameter "VisibilityTimeout" for "%s". The value cannot be null.', __CLASS__));
-        }
-        $payload['VisibilityTimeout'] = $v;
-
-        return $payload;
+                            return $this;
     }
 }
