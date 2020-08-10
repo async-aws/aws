@@ -9,12 +9,14 @@ use AsyncAws\Core\RequestContext;
 use AsyncAws\Rekognition\Input\CreateCollectionRequest;
 use AsyncAws\Rekognition\Input\CreateProjectRequest;
 use AsyncAws\Rekognition\Input\DeleteCollectionRequest;
+use AsyncAws\Rekognition\Input\DeleteProjectRequest;
 use AsyncAws\Rekognition\Input\DetectFacesRequest;
 use AsyncAws\Rekognition\Input\IndexFacesRequest;
 use AsyncAws\Rekognition\Input\ListCollectionsRequest;
 use AsyncAws\Rekognition\Result\CreateCollectionResponse;
 use AsyncAws\Rekognition\Result\CreateProjectResponse;
 use AsyncAws\Rekognition\Result\DeleteCollectionResponse;
+use AsyncAws\Rekognition\Result\DeleteProjectResponse;
 use AsyncAws\Rekognition\Result\DetectFacesResponse;
 use AsyncAws\Rekognition\Result\IndexFacesResponse;
 use AsyncAws\Rekognition\Result\ListCollectionsResponse;
@@ -78,6 +80,25 @@ class RekognitionClient extends AbstractApi
     }
 
     /**
+     * Deletes an Amazon Rekognition Custom Labels project. To delete a project you must first delete all versions of the
+     * model associated with the project. To delete a version of a model, see DeleteProjectVersion.
+     *
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#deleteproject
+     *
+     * @param array{
+     *   ProjectArn: string,
+     *   @region?: string,
+     * }|DeleteProjectRequest $input
+     */
+    public function deleteProject($input): DeleteProjectResponse
+    {
+        $input = DeleteProjectRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteProject', 'region' => $input->getRegion()]));
+
+        return new DeleteProjectResponse($response);
+    }
+
+    /**
      * Detects faces within an image that is provided as input.
      *
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#detectfaces
@@ -94,42 +115,6 @@ class RekognitionClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DetectFaces', 'region' => $input->getRegion()]));
 
         return new DetectFacesResponse($response);
-    }
-
-    protected function getEndpointMetadata(?string $region): array
-    {
-        if ($region === null) {
-                        $region = Configuration::DEFAULT_REGION;
-                    }
-
-                    switch ($region) {
-            case 'ap-northeast-1':
-            case 'ap-northeast-2':
-            case 'ap-south-1':
-            case 'ap-southeast-1':
-            case 'ap-southeast-2':
-            case 'eu-central-1':
-            case 'eu-west-1':
-            case 'eu-west-2':
-            case 'us-east-1':
-            case 'us-east-2':
-            case 'us-west-1':
-            case 'us-west-2':
-                return [
-                        "endpoint" => "https://rekognition.$region.amazonaws.com",
-                        "signRegion" => $region,
-                        "signService" => 'rekognition',
-                        "signVersions" => ["v4"],
-                    ];
-            case 'us-gov-west-1':
-                return [
-                        "endpoint" => "https://rekognition.$region.amazonaws.com",
-                        "signRegion" => $region,
-                        "signService" => 'rekognition',
-                        "signVersions" => ["v4"],
-                    ];
-        }
-                    throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Rekognition".', $region));
     }
 
     /**
@@ -175,5 +160,42 @@ class RekognitionClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListCollections', 'region' => $input->getRegion()]));
 
         return new ListCollectionsResponse($response, $this, $input);
+    }
+
+    protected function getEndpointMetadata(?string $region): array
+    {
+        if (null === $region) {
+            $region = Configuration::DEFAULT_REGION;
+        }
+
+        switch ($region) {
+            case 'ap-northeast-1':
+            case 'ap-northeast-2':
+            case 'ap-south-1':
+            case 'ap-southeast-1':
+            case 'ap-southeast-2':
+            case 'eu-central-1':
+            case 'eu-west-1':
+            case 'eu-west-2':
+            case 'us-east-1':
+            case 'us-east-2':
+            case 'us-west-1':
+            case 'us-west-2':
+                return [
+                    'endpoint' => "https://rekognition.$region.amazonaws.com",
+                    'signRegion' => $region,
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-gov-west-1':
+                return [
+                    'endpoint' => "https://rekognition.$region.amazonaws.com",
+                    'signRegion' => $region,
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+        }
+
+        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Rekognition".', $region));
     }
 }

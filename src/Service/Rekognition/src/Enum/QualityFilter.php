@@ -13,11 +13,11 @@ final class QualityFilter
     public static function exists(string $value): bool
     {
         return isset([
-                            self::AUTO => true,
-        self::HIGH => true,
-        self::LOW => true,
-        self::MEDIUM => true,
-        self::NONE => true
-                        ][$value]);
+            self::AUTO => true,
+            self::HIGH => true,
+            self::LOW => true,
+            self::MEDIUM => true,
+            self::NONE => true,
+        ][$value]);
     }
 }

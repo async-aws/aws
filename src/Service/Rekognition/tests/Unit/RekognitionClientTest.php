@@ -7,6 +7,7 @@ use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Rekognition\Input\CreateCollectionRequest;
 use AsyncAws\Rekognition\Input\CreateProjectRequest;
 use AsyncAws\Rekognition\Input\DeleteCollectionRequest;
+use AsyncAws\Rekognition\Input\DeleteProjectRequest;
 use AsyncAws\Rekognition\Input\DetectFacesRequest;
 use AsyncAws\Rekognition\Input\IndexFacesRequest;
 use AsyncAws\Rekognition\Input\ListCollectionsRequest;
@@ -14,6 +15,7 @@ use AsyncAws\Rekognition\RekognitionClient;
 use AsyncAws\Rekognition\Result\CreateCollectionResponse;
 use AsyncAws\Rekognition\Result\CreateProjectResponse;
 use AsyncAws\Rekognition\Result\DeleteCollectionResponse;
+use AsyncAws\Rekognition\Result\DeleteProjectResponse;
 use AsyncAws\Rekognition\Result\DetectFacesResponse;
 use AsyncAws\Rekognition\Result\IndexFacesResponse;
 use AsyncAws\Rekognition\Result\ListCollectionsResponse;
@@ -61,6 +63,19 @@ class RekognitionClientTest extends TestCase
         self::assertFalse($result->info()['resolved']);
     }
 
+    public function testDeleteProject(): void
+    {
+        $client = new RekognitionClient([], new NullProvider(), new MockHttpClient());
+
+                        $input = new DeleteProjectRequest([
+                            'ProjectArn' => 'change me',
+                        ]);
+                        $result = $client->DeleteProject($input);
+
+                        self::assertInstanceOf(DeleteProjectResponse::class, $result);
+                        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testDetectFaces(): void
     {
         $client = new RekognitionClient([], new NullProvider(), new MockHttpClient());
@@ -103,13 +118,13 @@ class RekognitionClientTest extends TestCase
     {
         $client = new RekognitionClient([], new NullProvider(), new MockHttpClient());
 
-                        $input = new ListCollectionsRequest([
+        $input = new ListCollectionsRequest([
 
 
-                        ]);
-                        $result = $client->ListCollections($input);
+        ]);
+        $result = $client->ListCollections($input);
 
-                        self::assertInstanceOf(ListCollectionsResponse::class, $result);
-                        self::assertFalse($result->info()['resolved']);
+        self::assertInstanceOf(ListCollectionsResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 }

@@ -2,18 +2,18 @@
 
 namespace AsyncAws\Rekognition\ValueObject;
 
-use AsyncAws\Core\Exception\InvalidArgument;
-
 final class Image
 {
     /**
      * Blob of image bytes up to 5 MBs.
      */
     private $Bytes;
+
     /**
      * Identifies an S3 object as the image source.
      */
     private $S3Object;
+
     /**
      * @param array{
      *   Bytes?: null|string,
@@ -22,8 +22,8 @@ final class Image
      */
     public function __construct(array $input)
     {
-        $this->Bytes = $input["Bytes"] ?? null;
-        $this->S3Object = isset($input["S3Object"]) ? S3Object::create($input["S3Object"]) : null;
+        $this->Bytes = $input['Bytes'] ?? null;
+        $this->S3Object = isset($input['S3Object']) ? S3Object::create($input['S3Object']) : null;
     }
 
     public static function create($input): self
@@ -47,13 +47,13 @@ final class Image
     public function requestBody(): array
     {
         $payload = [];
-                        if (null !== $v = $this->Bytes) {
-                            $payload["Bytes"] = base64_encode($v);
-                        }
+        if (null !== $v = $this->Bytes) {
+            $payload['Bytes'] = base64_encode($v);
+        }
         if (null !== $v = $this->S3Object) {
-                            $payload["S3Object"] = $v->requestBody();
-                        }
+            $payload['S3Object'] = $v->requestBody();
+        }
 
-                        return $payload;
+        return $payload;
     }
 }

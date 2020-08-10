@@ -7,6 +7,7 @@ use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Rekognition\Input\CreateCollectionRequest;
 use AsyncAws\Rekognition\Input\CreateProjectRequest;
 use AsyncAws\Rekognition\Input\DeleteCollectionRequest;
+use AsyncAws\Rekognition\Input\DeleteProjectRequest;
 use AsyncAws\Rekognition\Input\DetectFacesRequest;
 use AsyncAws\Rekognition\Input\IndexFacesRequest;
 use AsyncAws\Rekognition\Input\ListCollectionsRequest;
@@ -69,6 +70,20 @@ class RekognitionClientTest extends TestCase
         self::assertSame(1337, $result->getStatusCode());
     }
 
+    public function testDeleteProject(): void
+    {
+        $client = $this->getClient();
+
+                        $input = new DeleteProjectRequest([
+                            'ProjectArn' => 'change me',
+                        ]);
+                        $result = $client->DeleteProject($input);
+
+                        $result->resolve();
+
+                        self::assertSame("changeIt", $result->getStatus());
+    }
+
     public function testDetectFaces(): void
     {
         $client = $this->getClient();
@@ -125,15 +140,15 @@ class RekognitionClientTest extends TestCase
     {
         $client = $this->getClient();
 
-                        $input = new ListCollectionsRequest([
-                            'NextToken' => 'change me',
+        $input = new ListCollectionsRequest([
+        'NextToken' => 'change me',
         'MaxResults' => 1337,
-                        ]);
-                        $result = $client->ListCollections($input);
+        ]);
+        $result = $client->ListCollections($input);
 
-                        $result->resolve();
+        $result->resolve();
 
-                        // self::assertTODO(expected, $result->getCollectionIds());
+        // self::assertTODO(expected, $result->getCollectionIds());
         self::assertSame("changeIt", $result->getNextToken());
         // self::assertTODO(expected, $result->getFaceModelVersions());
     }

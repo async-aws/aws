@@ -2,22 +2,23 @@
 
 namespace AsyncAws\Rekognition\ValueObject;
 
-use AsyncAws\Core\Exception\InvalidArgument;
-
 final class S3Object
 {
     /**
      * Name of the S3 bucket.
      */
     private $Bucket;
+
     /**
      * S3 object key name.
      */
     private $Name;
+
     /**
      * If the bucket is versioning enabled, you can specify the object version.
      */
     private $Version;
+
     /**
      * @param array{
      *   Bucket?: null|string,
@@ -27,9 +28,9 @@ final class S3Object
      */
     public function __construct(array $input)
     {
-        $this->Bucket = $input["Bucket"] ?? null;
-        $this->Name = $input["Name"] ?? null;
-        $this->Version = $input["Version"] ?? null;
+        $this->Bucket = $input['Bucket'] ?? null;
+        $this->Name = $input['Name'] ?? null;
+        $this->Version = $input['Version'] ?? null;
     }
 
     public static function create($input): self
@@ -58,16 +59,16 @@ final class S3Object
     public function requestBody(): array
     {
         $payload = [];
-                        if (null !== $v = $this->Bucket) {
-                            $payload["Bucket"] = $v;
-                        }
+        if (null !== $v = $this->Bucket) {
+            $payload['Bucket'] = $v;
+        }
         if (null !== $v = $this->Name) {
-                            $payload["Name"] = $v;
-                        }
+            $payload['Name'] = $v;
+        }
         if (null !== $v = $this->Version) {
-                            $payload["Version"] = $v;
-                        }
+            $payload['Version'] = $v;
+        }
 
-                        return $payload;
+        return $payload;
     }
 }
