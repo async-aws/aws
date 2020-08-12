@@ -13,8 +13,6 @@ class PutObjectOutput extends Result
      * If the expiration is configured for the object (see PutBucketLifecycleConfiguration), the response includes this
      * header. It includes the expiry-date and rule-id key-value pairs that provide information about object expiration. The
      * value of the rule-id is URL encoded.
-     *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html
      */
     private $Expiration;
 
