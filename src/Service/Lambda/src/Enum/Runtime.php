@@ -11,6 +11,7 @@ final class Runtime
     public const GO_1_X = 'go1.x';
     public const JAVA_11 = 'java11';
     public const JAVA_8 = 'java8';
+    public const JAVA_8_AL_2 = 'java8.al2';
     public const NODEJS = 'nodejs';
     public const NODEJS_10_X = 'nodejs10.x';
     public const NODEJS_12_X = 'nodejs12.x';
@@ -19,6 +20,7 @@ final class Runtime
     public const NODEJS_6_10 = 'nodejs6.10';
     public const NODEJS_8_10 = 'nodejs8.10';
     public const PROVIDED = 'provided';
+    public const PROVIDED_AL_2 = 'provided.al2';
     public const PYTHON_2_7 = 'python2.7';
     public const PYTHON_3_6 = 'python3.6';
     public const PYTHON_3_7 = 'python3.7';
@@ -36,6 +38,7 @@ final class Runtime
             self::GO_1_X => true,
             self::JAVA_11 => true,
             self::JAVA_8 => true,
+            self::JAVA_8_AL_2 => true,
             self::NODEJS => true,
             self::NODEJS_10_X => true,
             self::NODEJS_12_X => true,
@@ -44,6 +47,7 @@ final class Runtime
             self::NODEJS_6_10 => true,
             self::NODEJS_8_10 => true,
             self::PROVIDED => true,
+            self::PROVIDED_AL_2 => true,
             self::PYTHON_2_7 => true,
             self::PYTHON_3_6 => true,
             self::PYTHON_3_7 => true,
