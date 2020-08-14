@@ -220,9 +220,11 @@ class CognitoIdentityProviderClient extends AbstractApi
      * user's password. For the `Username` parameter, you can use the username or user alias. The method used to send the
      * confirmation code is sent according to the specified AccountRecoverySetting. For more information, see Recovering
      * User Accounts in the *Amazon Cognito Developer Guide*. If neither a verified phone number nor a verified email
-     * exists, an `InvalidParameterException` is thrown. To use the confirmation code for resetting the password, call .
+     * exists, an `InvalidParameterException` is thrown. To use the confirmation code for resetting the password, call
+     * ConfirmForgotPassword.
      *
-     * @see
+     * @see https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-recover-a-user-account.html
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmForgotPassword.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#forgotpassword
      *
      * @param array{
