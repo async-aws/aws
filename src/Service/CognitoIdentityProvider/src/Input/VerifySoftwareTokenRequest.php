@@ -24,8 +24,9 @@ final class VerifySoftwareTokenRequest extends Input
     private $Session;
 
     /**
-     * The one time password computed using the secret code returned by.
+     * The one time password computed using the secret code returned by AssociateSoftwareToken".
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AssociateSoftwareToken.html
      * @required
      *
      * @var string|null

@@ -38,8 +38,10 @@ final class ConfirmForgotPasswordRequest extends Input
     private $Username;
 
     /**
-     * The confirmation code sent by a user's request to retrieve a forgotten password. For more information, see.
+     * The confirmation code sent by a user's request to retrieve a forgotten password. For more information, see
+     * ForgotPassword.
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html
      * @required
      *
      * @var string|null

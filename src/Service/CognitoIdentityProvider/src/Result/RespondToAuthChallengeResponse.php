@@ -11,19 +11,23 @@ use AsyncAws\Core\Result;
 class RespondToAuthChallengeResponse extends Result
 {
     /**
-     * The challenge name. For more information, see .
+     * The challenge name. For more information, see InitiateAuth.
+     *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
      */
     private $ChallengeName;
 
     /**
-     * The session which should be passed both ways in challenge-response calls to the service. If the or API call
-     * determines that the caller needs to go through another challenge, they return a session with other challenge
-     * parameters. This session should be passed as it is to the next `RespondToAuthChallenge` API call.
+     * The session which should be passed both ways in challenge-response calls to the service. If the caller needs to go
+     * through another challenge, they return a session with other challenge parameters. This session should be passed as it
+     * is to the next `RespondToAuthChallenge` API call.
      */
     private $Session;
 
     /**
-     * The challenge parameters. For more information, see .
+     * The challenge parameters. For more information, see InitiateAuth.
+     *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
      */
     private $ChallengeParameters = [];
 

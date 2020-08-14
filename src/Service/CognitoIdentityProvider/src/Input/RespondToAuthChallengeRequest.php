@@ -22,8 +22,9 @@ final class RespondToAuthChallengeRequest extends Input
     private $ClientId;
 
     /**
-     * The challenge name. For more information, see .
+     * The challenge name. For more information, see InitiateAuth.
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
      * @required
      *
      * @var null|ChallengeNameType::*

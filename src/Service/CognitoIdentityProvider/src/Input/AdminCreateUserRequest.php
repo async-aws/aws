@@ -34,8 +34,9 @@ final class AdminCreateUserRequest extends Input
     /**
      * An array of name-value pairs that contain user attributes and attribute values to be set for the user to be created.
      * You can create a user without specifying any attributes other than `Username`. However, any attributes that you
-     * specify as required (in or in the **Attributes** tab of the console) must be supplied either by you (in your call to
-     * `AdminCreateUser`) or by the user (when he or she signs up in response to your welcome message).
+     * specify as required (when creating a user pool or in the **Attributes** tab of the console) must be supplied either
+     * by you (in your call to `AdminCreateUser`) or by the user (when he or she signs up in response to your welcome
+     * message).
      *
      * @var AttributeType[]|null
      */
