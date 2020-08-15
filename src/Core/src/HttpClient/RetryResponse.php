@@ -50,28 +50,36 @@ class RetryResponse implements ResponseInterface
 
     public function getStatusCode(): int
     {
-        $this->initialized or $this->initialize();
+        if (!$this->initialized) {
+            $this->initialize();
+        }
 
         return $this->inner->getStatusCode();
     }
 
     public function getHeaders(bool $throw = true): array
     {
-        $this->initialized or $this->initialize();
+        if (!$this->initialized) {
+            $this->initialize();
+        }
 
         return $this->inner->getHeaders($throw);
     }
 
     public function getContent(bool $throw = true): string
     {
-        $this->initialized or $this->initialize();
+        if (!$this->initialized) {
+            $this->initialize();
+        }
 
         return $this->inner->getContent($throw);
     }
 
     public function toArray(bool $throw = true): array
     {
-        $this->initialized or $this->initialize();
+        if (!$this->initialized) {
+            $this->initialize();
+        }
 
         return $this->inner->toArray($throw);
     }
@@ -84,7 +92,9 @@ class RetryResponse implements ResponseInterface
 
     public function getInfo(string $type = null)
     {
-        $this->initialized or $this->initialize();
+        if (!$this->initialized) {
+            $this->initialize();
+        }
 
         return $this->inner->getInfo($type);
     }
@@ -97,13 +107,13 @@ class RetryResponse implements ResponseInterface
 
         foreach ($responses as $r) {
             if (!$r instanceof self) {
-                throw new \TypeError(sprintf('"%s::stream()" expects parameter 1 to be an iterable of AsyncResponse objects, "%s" given.', static::class, get_debug_type($r)));
+                throw new \TypeError(sprintf('"%s::stream()" expects parameter 1 to be an iterable of "%s" objects, "%s" given.', static::class, self::class, get_debug_type($r)));
             }
 
             if (null === $client) {
                 $client = $r->client;
             } elseif ($r->client !== $client) {
-                throw new TransportException('Cannot stream AsyncResponse objects with many clients.');
+                throw new TransportException(sprintf('Cannot stream "%s" objects with many clients.', self::class));
             }
         }
 
@@ -163,31 +173,9 @@ class RetryResponse implements ResponseInterface
             return false;
         }
 
-        try {
-            if (($status = $this->inner->getStatusCode()) >= 500) {
-                if (++$this->tryCount <= $this->maxTryCount) {
-                    $this->logger->info('HTTP request failed with status code {statusCode}. Retry the request {attempt}/{maxAttempts}.', [
-                        'statusCode' => $status,
-                        'attempt' => $this->tryCount,
-                        'maxAttempts' => $this->maxTryCount,
-                    ]);
-                    $this->inner = $this->client->request($this->method, $this->url, $this->options);
-
-                    return true;
-                }
-
-                $this->logger->info('HTTP request failed with status code {statusCode}. Stop after {maxAttempts} attempts.', [
-                    'statusCode' => $status,
-                    'maxAttempts' => $this->maxTryCount,
-                ]);
-            }
-            $this->initialized = true;
-
-            return false;
-        } catch (TransportExceptionInterface $e) {
+        $handle = function (string $message, array $context): bool {
             if (++$this->tryCount <= $this->maxTryCount) {
-                $this->logger->info('HTTP request failed with exception {exception}. Retry the request {attempt}/{maxAttempts}.', [
-                    'exception' => $e,
+                $this->logger->info($message . ' Retry the request {attempt}/{maxAttempts}.', $context + [
                     'attempt' => $this->tryCount,
                     'maxAttempts' => $this->maxTryCount,
                 ]);
@@ -196,10 +184,27 @@ class RetryResponse implements ResponseInterface
                 return true;
             }
 
-            $this->logger->info('HTTP request failed with status code {exception}. Stop after {maxAttempts} attempts.', [
-                'exception' => $e,
+            $this->logger->error($message . ' Stop after {maxAttempts} attempts.', [
                 'maxAttempts' => $this->maxTryCount,
             ]);
+
+            return false;
+        };
+
+        try {
+            if (($status = $this->inner->getStatusCode()) >= 500) {
+                if ($handle('HTTP request failed with status code {statusCode}.', ['statusCode' => $status])) {
+                    return true;
+                }
+            }
+            $this->initialized = true;
+
+            return false;
+        } catch (TransportExceptionInterface $e) {
+            if ($handle('HTTP request failed with exception {exception}.', ['exception' => $e])) {
+                return true;
+            }
+
             $this->initialized = true;
 
             throw $e;
