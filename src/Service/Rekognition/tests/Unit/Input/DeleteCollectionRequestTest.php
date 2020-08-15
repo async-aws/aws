@@ -9,20 +9,20 @@ class DeleteCollectionRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
 
-                $input = new DeleteCollectionRequest([
-                            'CollectionId' => 'change me',
-                        ]);
+        $input = new DeleteCollectionRequest([
+                'CollectionId' => 'test-collection',
+            ]);
 
-                // see example-1.json from SDK
-                $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+        // see https://docs.aws.amazon.com/rekognition/latest/dg/API_DeleteCollection.html from SDK
+        $expected = '
+                POST / HTTP/1.0
+                Content-Type: application/x-amz-json-1.1
+                X-Amz-Target: RekognitionService.DeleteCollection
 
-            {
-            "CollectionId": "myphotos"
-        }
+                {
+                    "CollectionId": "test-collection"
+                }
                 ';
 
                 self::assertRequestEqualsHttpRequest($expected, $input->request());

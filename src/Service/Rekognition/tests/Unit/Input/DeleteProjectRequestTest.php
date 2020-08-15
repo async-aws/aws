@@ -9,20 +9,20 @@ class DeleteProjectRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
 
-                $input = new DeleteProjectRequest([
-                            'ProjectArn' => 'change me',
-                        ]);
+        $input = new DeleteProjectRequest([
+                    'ProjectArn' => 'arn:aws:rekognition:*:*:project/MyProject/version/MyVersion/*',
+                ]);
 
-                // see https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DeleteProject.html
-                $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+        // see https://docs.aws.amazon.com/rekognition/latest/dg/API_DeleteProject.html
+        $expected = '
+                POST / HTTP/1.0
+                Content-Type: application/x-amz-json-1.1
+                X-Amz-Target: RekognitionService.DeleteProject
 
-            {
-            "change": "it"
-        }
+                {
+                    "ProjectArn": "arn:aws:rekognition:*:*:project/MyProject/version/MyVersion/*"
+                }
                 ';
 
                 self::assertRequestEqualsHttpRequest($expected, $input->request());

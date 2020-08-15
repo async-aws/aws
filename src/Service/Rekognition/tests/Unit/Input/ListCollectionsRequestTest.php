@@ -9,21 +9,24 @@ class ListCollectionsRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
 
-                $input = new ListCollectionsRequest([
-                            'NextToken' => 'change me',
-        'MaxResults' => 1337,
-                        ]);
+        $input = new ListCollectionsRequest([
+                'NextToken' => 'NEXT',
+                'MaxResults' => 1337,
+            ]);
 
-                // see https://docs.aws.amazon.com/rekognition/latest/APIReference/API_ListCollections.html
-                $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+        // see https://docs.aws.amazon.com/rekognition/latest/dg/API_ListCollections.html
+        $expected = '
+                POST / HTTP/1.0
+                Content-Type: application/x-amz-json-1.1
+                X-Amz-Target: RekognitionService.ListCollections
 
-            []
+                {
+                   "MaxResults": 1337,
+                   "NextToken": "NEXT"
+                }
                 ';
 
-                self::assertRequestEqualsHttpRequest($expected, $input->request());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

@@ -9,22 +9,24 @@ class CreateCollectionRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
 
-                $input = new CreateCollectionRequest([
-                            'CollectionId' => 'change me',
-                        ]);
+        $input = new CreateCollectionRequest([
+                'CollectionId' => 'myphotos',
+            ]);
 
-                // see example-1.json from SDK
-                $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+        // see https://docs.aws.amazon.com/rekognition/latest/dg/API_CreateCollection.html from SDK
 
-            {
-            "CollectionId": "myphotos"
-        }
+        $expected = '
+                POST / HTTP/1.0
+                Content-Type: application/x-amz-json-1.1
+                X-Amz-Target: RekognitionService.CreateCollection
+
+                {
+                    "CollectionId": "myphotos"
+                }
                 ';
 
-                self::assertRequestEqualsHttpRequest($expected, $input->request());
+
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

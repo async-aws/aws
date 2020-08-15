@@ -13,39 +13,33 @@ class SearchFacesByImageRequestTest extends TestCase
     {
         self::fail('Not implemented');
 
-                $input = new SearchFacesByImageRequest([
-                            'CollectionId' => 'change me',
-        'Image' => new Image([
-                            'Bytes' => 'change me',
-        'S3Object' => new S3Object([
-                            'Bucket' => 'change me',
-        'Name' => 'change me',
-        'Version' => 'change me',
-                        ]),
-                        ]),
-        'MaxFaces' => 1337,
-        'FaceMatchThreshold' => 1337,
-        'QualityFilter' => 'change me',
-                        ]);
+        $input = new SearchFacesByImageRequest([
+            'CollectionId' => 'myCollectionId',
+            'Image' => new Image([
+                                'Bytes' => 'base64'
+                            ]),
+            'MaxFaces' => 2,
+            'FaceMatchThreshold' => 80.5,
+            'QualityFilter' => 'MEDIUM',
+        ]);
 
-                // see example-1.json from SDK
-                $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+        // see https://docs.aws.amazon.com/rekognition/latest/dg/API_SearchFacesByImage.html
+        $expected = '
+                POST / HTTP/1.0
+                Content-Type: application/x-amz-json-1.1
+                X-Amz-Target: RekognitionService.IndexFaces
 
-            {
-            "CollectionId": "myphotos",
-            "FaceMatchThreshold": 95,
-            "Image": {
-                "S3Object": {
-                    "Bucket": "mybucket",
-                    "Name": "myphoto"
+                {
+                    "Image": {
+                        "Bytes": "YmFzZTY0"
+                    },
+                    "CollectionId": "myCollectionId",
+                    "FaceMatchThreshold": 80.5,
+                    "QualityFilter": "MEDIUM",
+                    "MaxFaces": 2
                 }
-            },
-            "MaxFaces": 5
-        }
                 ';
 
-                self::assertRequestEqualsHttpRequest($expected, $input->request());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

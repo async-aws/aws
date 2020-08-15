@@ -11,35 +11,28 @@ class DetectFacesRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
 
-                $input = new DetectFacesRequest([
-                            'Image' => new Image([
-                            'Bytes' => 'change me',
-        'S3Object' => new S3Object([
-                            'Bucket' => 'change me',
-        'Name' => 'change me',
-        'Version' => 'change me',
-                        ]),
-                        ]),
-        'Attributes' => ['change me'],
-                        ]);
+        $input = new DetectFacesRequest([
+                'Image' => [
+                'Bytes' => 'base64'
+            ],
+                'Attributes' => ["DEFAULT"],
+            ]);
+        // see https://docs.aws.amazon.com/rekognition/latest/dg/API_DetectFaces.html
 
-                // see example-1.json from SDK
-                $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+        $expected = '
+                POST / HTTP/1.0
+                Content-Type: application/x-amz-json-1.1
+                X-Amz-Target: RekognitionService.DetectFaces
 
-            {
-            "Image": {
-                "S3Object": {
-                    "Bucket": "mybucket",
-                    "Name": "myphoto"
+                {
+                    "Image": {
+                        "Bytes": "YmFzZTY0"
+                    },
+                    "Attributes": ["DEFAULT"]
                 }
-            }
-        }
                 ';
 
-                self::assertRequestEqualsHttpRequest($expected, $input->request());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }
