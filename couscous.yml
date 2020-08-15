@@ -79,6 +79,10 @@ menu:
             sts:
                 text: STS
                 url: /clients/sts.html
+            rekognition:
+                text: Rekognition
+                url: /clients/rekognition.html
+
 
     features:
         # Feature are in alphabetical order after "why async?"

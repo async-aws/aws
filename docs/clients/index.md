@@ -150,3 +150,4 @@ for more information.
 | [SQS](./sqs.md)                             | [async-aws/sqs](https://packagist.org/packages/async-aws/sqs)
 | [SSM](./ssm.md)                             | [async-aws/ssm](https://packagist.org/packages/async-aws/ssm)
 | [STS](./sts.md)                             | [async-aws/core](https://packagist.org/packages/async-aws/core)
+| [Rekognition](./rekognition.md)             | [async-aws/rekognition](https://packagist.org/packages/async-aws/rekognition)

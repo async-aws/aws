@@ -58,6 +58,7 @@
             "AsyncAws\\Lambda\\": "src/Service/Lambda/src",
             "AsyncAws\\Monolog\\CloudWatch\\": "src/Integration/Monolog/CloudWatch/src",
             "AsyncAws\\RdsDataService\\": "src/Service/RdsDataService/src",
+            "AsyncAws\\Rekognition\\": "src/Service/Rekognition/src",
             "AsyncAws\\S3\\": "src/Service/S3/src",
             "AsyncAws\\Ses\\": "src/Service/Ses/src",
             "AsyncAws\\Sns\\": "src/Service/Sns/src",
@@ -70,8 +71,7 @@
             "AsyncAws\\Illuminate\\Mail\\": "src/Integration/Laravel/Mail/src",
             "AsyncAws\\Illuminate\\Queue\\": "src/Integration/Laravel/Queue/src",
             "AsyncAws\\SimpleS3\\": "src/Integration/Aws/SimpleS3/src",
-            "AsyncAws\\Symfony\\Bundle\\": "src/Integration/Symfony/Bundle/src",
-            "AsyncAws\\Rekognition\\": "src/Service/Rekognition/src"
+            "AsyncAws\\Symfony\\Bundle\\": "src/Integration/Symfony/Bundle/src"
         }
     },
     "autoload-dev": {
@@ -90,6 +90,7 @@
             "AsyncAws\\Lambda\\Tests\\": "src/Service/Lambda/tests",
             "AsyncAws\\Monolog\\CloudWatch\\Tests\\": "src/Integration/Monolog/CloudWatch/tests",
             "AsyncAws\\RdsDataService\\Tests\\": "src/Service/RdsDataService/tests",
+            "AsyncAws\\Rekognition\\Tests\\": "src/Service/Rekognition/tests",
             "AsyncAws\\S3\\Tests\\": "src/Service/S3/tests",
             "AsyncAws\\Ses\\Tests\\": "src/Service/Ses/tests",
             "AsyncAws\\Sns\\Tests\\": "src/Service/Sns/tests",
@@ -102,8 +103,7 @@
             "AsyncAws\\Illuminate\\Mail\\Tests\\": "src/Integration/Laravel/Mail/tests",
             "AsyncAws\\Illuminate\\Queue\\Tests\\": "src/Integration/Laravel/Queue/tests",
             "AsyncAws\\SimpleS3\\Tests\\": "src/Integration/Aws/SimpleS3/tests",
-            "AsyncAws\\Symfony\\Bundle\\Tests\\": "src/Integration/Symfony/Bundle/tests",
-            "AsyncAws\\Rekognition\\Tests\\": "src/Service/Rekognition/tests"
+            "AsyncAws\\Symfony\\Bundle\\Tests\\": "src/Integration/Symfony/Bundle/tests"
         }
     }
 }

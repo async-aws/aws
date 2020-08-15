@@ -77,6 +77,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\Core\Sts\StsClient::class,
                 'package' => 'async-aws/core',
             ],
+            'rekognition' => [
+                'class' => \AsyncAws\Rekognition\RekognitionClient::class,
+                'package' => 'async-aws/Rekognition',
+            ],
         ];
     }
 
