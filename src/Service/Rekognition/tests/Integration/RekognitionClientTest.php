@@ -20,7 +20,8 @@ class RekognitionClientTest extends TestCase
 {
     private function getClient(): RekognitionClient
     {
-        self::fail('Not implemented');
+
+        self::markTestSkipped('There is no docker image available for Rekognition.');
 
         return new RekognitionClient([
         'endpoint' => 'http://localhost',
