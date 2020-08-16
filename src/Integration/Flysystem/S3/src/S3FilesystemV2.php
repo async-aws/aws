@@ -231,12 +231,12 @@ class S3FilesystemV2 implements FilesystemAdapter
         return $this->fetchFileMetadata($path, FileAttributes::ATTRIBUTE_FILE_SIZE);
     }
 
-    public function listContents(string $path, bool $recursive): iterable
+    public function listContents(string $path, bool $deep): iterable
     {
         $prefix = $this->prefixer->prefixPath($path);
         $options = ['Bucket' => $this->bucket, 'Prefix' => trim($prefix, '/') . '/'];
 
-        if (false === $recursive) {
+        if (false === $deep) {
             $options['Delimiter'] = '/';
         }
 
