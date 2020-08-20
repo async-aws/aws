@@ -4,6 +4,7 @@ namespace AsyncAws\CognitoIdentityProvider\Tests\Unit;
 
 use AsyncAws\CognitoIdentityProvider\CognitoIdentityProviderClient;
 use AsyncAws\CognitoIdentityProvider\Enum\AuthFlowType;
+use AsyncAws\CognitoIdentityProvider\Input\AdminConfirmSignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminCreateUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminDeleteUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminGetUserRequest;
@@ -20,6 +21,7 @@ use AsyncAws\CognitoIdentityProvider\Input\RespondToAuthChallengeRequest;
 use AsyncAws\CognitoIdentityProvider\Input\SetUserMFAPreferenceRequest;
 use AsyncAws\CognitoIdentityProvider\Input\SignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\VerifySoftwareTokenRequest;
+use AsyncAws\CognitoIdentityProvider\Result\AdminConfirmSignUpResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminCreateUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminGetUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminInitiateAuthResponse;
@@ -43,6 +45,20 @@ use Symfony\Component\HttpClient\MockHttpClient;
 
 class CognitoIdentityProviderClientTest extends TestCase
 {
+    public function testAdminConfirmSignUp(): void
+    {
+        $client = new CognitoIdentityProviderClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new AdminConfirmSignUpRequest([
+            'UserPoolId' => 'change me',
+            'Username' => 'change me',
+        ]);
+        $result = $client->AdminConfirmSignUp($input);
+
+        self::assertInstanceOf(AdminConfirmSignUpResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testAdminCreateUser(): void
     {
         $client = new CognitoIdentityProviderClient([], new NullProvider(), new MockHttpClient());
