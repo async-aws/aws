@@ -14,5 +14,5 @@ trim_trailing_whitespace = true
 [Makefile]
 indent_style = tab
 
-[src/**/Makefile]
-indent_style = tab
+[phpunit.xml.dist]
+indent_size = 2
