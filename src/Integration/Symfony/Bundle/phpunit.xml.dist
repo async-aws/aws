@@ -10,7 +10,7 @@
 >
     <php>
         <ini name="error_reporting" value="-1" />
-        <server name="SYMFONY_DEPRECATIONS_HELPER" value="0" />
+        <server name="SYMFONY_DEPRECATIONS_HELPER" value="max[direct]=0" />
     </php>
 
     <testsuites>
