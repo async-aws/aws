@@ -19,7 +19,6 @@
 - `PutObjectAclRequest::getContentMD5()`
 - `PutObjectAclRequest::setContentMD5()`
 
-
 ## 1.2.0
 
 ### Added
