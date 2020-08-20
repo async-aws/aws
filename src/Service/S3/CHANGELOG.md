@@ -2,10 +2,22 @@
 
 ## NOT RELEASED
 
+## 1.3.0
+
+### Added
+
+- Support for PHP 8
+- Added `S3Client::deleteBucket()`
+
 ### Fixed
 
 - Fixed an issue in Metadata not beeing sent to AWS in `PutObject`, `CopyObject` and `CreateMultipartUpload`
 - Internal AWS prefix were added to Metadata's name in `GetObject` and `HeadObject`.
+
+### Deprecated by AWS
+
+- `PutObjectAclRequest::getContentMD5()`
+- `PutObjectAclRequest::setContentMD5()`
 
 ## 1.2.0
 
