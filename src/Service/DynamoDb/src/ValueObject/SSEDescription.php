@@ -32,8 +32,8 @@ final class SSEDescription
 
     /**
      * @param array{
-     *   Status?: null|\AsyncAws\DynamoDb\Enum\SSEStatus::*,
-     *   SSEType?: null|\AsyncAws\DynamoDb\Enum\SSEType::*,
+     *   Status?: null|SSEStatus::*,
+     *   SSEType?: null|SSEType::*,
      *   KMSMasterKeyArn?: null|string,
      *   InaccessibleEncryptionDateTime?: null|\DateTimeImmutable,
      * } $input

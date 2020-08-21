@@ -22,9 +22,9 @@ final class GlobalSecondaryIndexUpdate
 
     /**
      * @param array{
-     *   Update?: null|\AsyncAws\DynamoDb\ValueObject\UpdateGlobalSecondaryIndexAction|array,
-     *   Create?: null|\AsyncAws\DynamoDb\ValueObject\CreateGlobalSecondaryIndexAction|array,
-     *   Delete?: null|\AsyncAws\DynamoDb\ValueObject\DeleteGlobalSecondaryIndexAction|array,
+     *   Update?: null|UpdateGlobalSecondaryIndexAction|array,
+     *   Create?: null|CreateGlobalSecondaryIndexAction|array,
+     *   Delete?: null|DeleteGlobalSecondaryIndexAction|array,
      * } $input
      */
     public function __construct(array $input)

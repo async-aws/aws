@@ -31,9 +31,9 @@ final class GlobalSecondaryIndex
     /**
      * @param array{
      *   IndexName: string,
-     *   KeySchema: \AsyncAws\DynamoDb\ValueObject\KeySchemaElement[],
-     *   Projection: \AsyncAws\DynamoDb\ValueObject\Projection|array,
-     *   ProvisionedThroughput?: null|\AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput|array,
+     *   KeySchema: KeySchemaElement[],
+     *   Projection: Projection|array,
+     *   ProvisionedThroughput?: null|ProvisionedThroughput|array,
      * } $input
      */
     public function __construct(array $input)

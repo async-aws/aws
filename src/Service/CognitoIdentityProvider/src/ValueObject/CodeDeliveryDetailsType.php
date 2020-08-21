@@ -24,7 +24,7 @@ final class CodeDeliveryDetailsType
     /**
      * @param array{
      *   Destination?: null|string,
-     *   DeliveryMedium?: null|\AsyncAws\CognitoIdentityProvider\Enum\DeliveryMediumType::*,
+     *   DeliveryMedium?: null|DeliveryMediumType::*,
      *   AttributeName?: null|string,
      * } $input
      */

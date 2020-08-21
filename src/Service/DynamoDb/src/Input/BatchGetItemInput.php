@@ -28,8 +28,8 @@ final class BatchGetItemInput extends Input
 
     /**
      * @param array{
-     *   RequestItems?: array<string, \AsyncAws\DynamoDb\ValueObject\KeysAndAttributes>,
-     *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
+     *   RequestItems?: array<string, KeysAndAttributes>,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   @region?: string,
      * } $input
      */

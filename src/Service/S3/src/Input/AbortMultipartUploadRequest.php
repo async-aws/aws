@@ -49,7 +49,7 @@ final class AbortMultipartUploadRequest extends Input
      *   Bucket?: string,
      *   Key?: string,
      *   UploadId?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   @region?: string,
      * } $input
      */

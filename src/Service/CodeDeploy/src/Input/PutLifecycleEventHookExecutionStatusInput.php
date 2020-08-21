@@ -36,7 +36,7 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
      * @param array{
      *   deploymentId?: string,
      *   lifecycleEventHookExecutionId?: string,
-     *   status?: \AsyncAws\CodeDeploy\Enum\LifecycleEventStatus::*,
+     *   status?: LifecycleEventStatus::*,
      *   @region?: string,
      * } $input
      */

@@ -36,8 +36,8 @@ final class SetUserMFAPreferenceRequest extends Input
 
     /**
      * @param array{
-     *   SMSMfaSettings?: \AsyncAws\CognitoIdentityProvider\ValueObject\SMSMfaSettingsType|array,
-     *   SoftwareTokenMfaSettings?: \AsyncAws\CognitoIdentityProvider\ValueObject\SoftwareTokenMfaSettingsType|array,
+     *   SMSMfaSettings?: SMSMfaSettingsType|array,
+     *   SoftwareTokenMfaSettings?: SoftwareTokenMfaSettingsType|array,
      *   AccessToken?: string,
      *   @region?: string,
      * } $input

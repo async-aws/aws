@@ -41,9 +41,9 @@ final class MultipartUpload
      *   UploadId?: null|string,
      *   Key?: null|string,
      *   Initiated?: null|\DateTimeImmutable,
-     *   StorageClass?: null|\AsyncAws\S3\Enum\StorageClass::*,
-     *   Owner?: null|\AsyncAws\S3\ValueObject\Owner|array,
-     *   Initiator?: null|\AsyncAws\S3\ValueObject\Initiator|array,
+     *   StorageClass?: null|StorageClass::*,
+     *   Owner?: null|Owner|array,
+     *   Initiator?: null|Initiator|array,
      * } $input
      */
     public function __construct(array $input)

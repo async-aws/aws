@@ -22,7 +22,7 @@ final class PutEventsRequest extends Input
 
     /**
      * @param array{
-     *   Entries?: \AsyncAws\EventBridge\ValueObject\PutEventsRequestEntry[],
+     *   Entries?: PutEventsRequestEntry[],
      *   @region?: string,
      * } $input
      */

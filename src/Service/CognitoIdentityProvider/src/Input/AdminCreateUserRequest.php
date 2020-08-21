@@ -94,12 +94,12 @@ final class AdminCreateUserRequest extends Input
      * @param array{
      *   UserPoolId?: string,
      *   Username?: string,
-     *   UserAttributes?: \AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType[],
-     *   ValidationData?: \AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType[],
+     *   UserAttributes?: AttributeType[],
+     *   ValidationData?: AttributeType[],
      *   TemporaryPassword?: string,
      *   ForceAliasCreation?: bool,
-     *   MessageAction?: \AsyncAws\CognitoIdentityProvider\Enum\MessageActionType::*,
-     *   DesiredDeliveryMediums?: list<\AsyncAws\CognitoIdentityProvider\Enum\DeliveryMediumType::*>,
+     *   MessageAction?: MessageActionType::*,
+     *   DesiredDeliveryMediums?: list<DeliveryMediumType::*>,
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * } $input

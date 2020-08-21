@@ -60,7 +60,7 @@ final class DescribeLogStreamsRequest extends Input
      * @param array{
      *   logGroupName?: string,
      *   logStreamNamePrefix?: string,
-     *   orderBy?: \AsyncAws\CloudWatchLogs\Enum\OrderBy::*,
+     *   orderBy?: OrderBy::*,
      *   descending?: bool,
      *   nextToken?: string,
      *   limit?: int,

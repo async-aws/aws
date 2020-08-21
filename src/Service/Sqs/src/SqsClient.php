@@ -7,6 +7,8 @@ use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
+use AsyncAws\Sqs\Enum\MessageSystemAttributeNameForSends;
+use AsyncAws\Sqs\Enum\QueueAttributeName;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
 use AsyncAws\Sqs\Input\CreateQueueRequest;
 use AsyncAws\Sqs\Input\DeleteMessageRequest;
@@ -24,6 +26,8 @@ use AsyncAws\Sqs\Result\ListQueuesResult;
 use AsyncAws\Sqs\Result\QueueExistsWaiter;
 use AsyncAws\Sqs\Result\ReceiveMessageResult;
 use AsyncAws\Sqs\Result\SendMessageResult;
+use AsyncAws\Sqs\ValueObject\MessageAttributeValue;
+use AsyncAws\Sqs\ValueObject\MessageSystemAttributeValue;
 
 class SqsClient extends AbstractApi
 {
@@ -57,7 +61,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueName: string,
-     *   Attributes?: array<\AsyncAws\Sqs\Enum\QueueAttributeName::*, string>,
+     *   Attributes?: array<QueueAttributeName::*, string>,
      *   tags?: array<string, string>,
      *   @region?: string,
      * }|CreateQueueRequest $input
@@ -117,7 +121,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
-     *   AttributeNames?: list<\AsyncAws\Sqs\Enum\QueueAttributeName::*>,
+     *   AttributeNames?: list<QueueAttributeName::*>,
      *   @region?: string,
      * }|GetQueueAttributesRequest $input
      */
@@ -216,7 +220,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
-     *   AttributeNames?: list<\AsyncAws\Sqs\Enum\QueueAttributeName::*>,
+     *   AttributeNames?: list<QueueAttributeName::*>,
      *   MessageAttributeNames?: string[],
      *   MaxNumberOfMessages?: int,
      *   VisibilityTimeout?: int,
@@ -242,8 +246,8 @@ class SqsClient extends AbstractApi
      *   QueueUrl: string,
      *   MessageBody: string,
      *   DelaySeconds?: int,
-     *   MessageAttributes?: array<string, \AsyncAws\Sqs\ValueObject\MessageAttributeValue>,
-     *   MessageSystemAttributes?: array<\AsyncAws\Sqs\Enum\MessageSystemAttributeNameForSends::*, \AsyncAws\Sqs\ValueObject\MessageSystemAttributeValue>,
+     *   MessageAttributes?: array<string, MessageAttributeValue>,
+     *   MessageSystemAttributes?: array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue>,
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
      *   @region?: string,

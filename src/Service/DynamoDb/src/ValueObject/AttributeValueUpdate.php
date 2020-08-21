@@ -20,8 +20,8 @@ final class AttributeValueUpdate
 
     /**
      * @param array{
-     *   Value?: null|\AsyncAws\DynamoDb\ValueObject\AttributeValue|array,
-     *   Action?: null|\AsyncAws\DynamoDb\Enum\AttributeAction::*,
+     *   Value?: null|AttributeValue|array,
+     *   Action?: null|AttributeAction::*,
      * } $input
      */
     public function __construct(array $input)

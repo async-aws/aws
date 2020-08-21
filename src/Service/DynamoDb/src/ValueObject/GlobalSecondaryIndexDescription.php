@@ -61,11 +61,11 @@ final class GlobalSecondaryIndexDescription
     /**
      * @param array{
      *   IndexName?: null|string,
-     *   KeySchema?: null|\AsyncAws\DynamoDb\ValueObject\KeySchemaElement[],
-     *   Projection?: null|\AsyncAws\DynamoDb\ValueObject\Projection|array,
-     *   IndexStatus?: null|\AsyncAws\DynamoDb\Enum\IndexStatus::*,
+     *   KeySchema?: null|KeySchemaElement[],
+     *   Projection?: null|Projection|array,
+     *   IndexStatus?: null|IndexStatus::*,
      *   Backfilling?: null|bool,
-     *   ProvisionedThroughput?: null|\AsyncAws\DynamoDb\ValueObject\ProvisionedThroughputDescription|array,
+     *   ProvisionedThroughput?: null|ProvisionedThroughputDescription|array,
      *   IndexSizeBytes?: null|string,
      *   ItemCount?: null|string,
      *   IndexArn?: null|string,

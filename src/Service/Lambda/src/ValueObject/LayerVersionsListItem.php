@@ -42,7 +42,7 @@ final class LayerVersionsListItem
      *   Version?: null|string,
      *   Description?: null|string,
      *   CreatedDate?: null|string,
-     *   CompatibleRuntimes?: null|list<\AsyncAws\Lambda\Enum\Runtime::*>,
+     *   CompatibleRuntimes?: null|list<Runtime::*>,
      *   LicenseInfo?: null|string,
      * } $input
      */

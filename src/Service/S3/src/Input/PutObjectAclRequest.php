@@ -108,8 +108,8 @@ final class PutObjectAclRequest extends Input
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUTacl.html
      *
      * @param array{
-     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::*,
-     *   AccessControlPolicy?: \AsyncAws\S3\ValueObject\AccessControlPolicy|array,
+     *   ACL?: ObjectCannedACL::*,
+     *   AccessControlPolicy?: AccessControlPolicy|array,
      *   Bucket?: string,
      *   ContentMD5?: string,
      *   GrantFullControl?: string,
@@ -118,7 +118,7 @@ final class PutObjectAclRequest extends Input
      *   GrantWrite?: string,
      *   GrantWriteACP?: string,
      *   Key?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   VersionId?: string,
      *   @region?: string,
      * } $input

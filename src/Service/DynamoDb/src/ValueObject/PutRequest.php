@@ -16,7 +16,7 @@ final class PutRequest
 
     /**
      * @param array{
-     *   Item: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
+     *   Item: array<string, AttributeValue>,
      * } $input
      */
     public function __construct(array $input)

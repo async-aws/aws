@@ -44,12 +44,12 @@ final class UserType
     /**
      * @param array{
      *   Username?: null|string,
-     *   Attributes?: null|\AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType[],
+     *   Attributes?: null|AttributeType[],
      *   UserCreateDate?: null|\DateTimeImmutable,
      *   UserLastModifiedDate?: null|\DateTimeImmutable,
      *   Enabled?: null|bool,
-     *   UserStatus?: null|\AsyncAws\CognitoIdentityProvider\Enum\UserStatusType::*,
-     *   MFAOptions?: null|\AsyncAws\CognitoIdentityProvider\ValueObject\MFAOptionType[],
+     *   UserStatus?: null|UserStatusType::*,
+     *   MFAOptions?: null|MFAOptionType[],
      * } $input
      */
     public function __construct(array $input)

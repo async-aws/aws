@@ -252,7 +252,11 @@ class InputGenerator
         if (null !== $documentationUrl = $operation->getDocumentationUrl()) {
             $constructor->addComment('@see ' . $documentationUrl);
         }
-        $constructor->addComment($this->typeGenerator->generateDocblock($shape, $className, false, true, false, ['  @region?: string,']));
+        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $className, false, true, false, ['  @region?: string,']);
+        $constructor->addComment($doc);
+        foreach ($memberClassNames as $memberClassName) {
+            $namespace->addUse($memberClassName->getFqdn());
+        }
         $constructor->addParameter('input')->setType('array')->setDefaultValue([]);
         $constructor->setBody($constructorBody);
 

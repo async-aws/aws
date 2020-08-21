@@ -2,6 +2,7 @@
 
 namespace AsyncAws\CodeDeploy;
 
+use AsyncAws\CodeDeploy\Enum\LifecycleEventStatus;
 use AsyncAws\CodeDeploy\Input\PutLifecycleEventHookExecutionStatusInput;
 use AsyncAws\CodeDeploy\Result\PutLifecycleEventHookExecutionStatusOutput;
 use AsyncAws\Core\AbstractApi;
@@ -26,7 +27,7 @@ class CodeDeployClient extends AbstractApi
      * @param array{
      *   deploymentId?: string,
      *   lifecycleEventHookExecutionId?: string,
-     *   status?: \AsyncAws\CodeDeploy\Enum\LifecycleEventStatus::*,
+     *   status?: LifecycleEventStatus::*,
      *   @region?: string,
      * }|PutLifecycleEventHookExecutionStatusInput $input
      */

@@ -68,7 +68,7 @@ final class ReceiveMessageRequest extends Input
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   AttributeNames?: list<\AsyncAws\Sqs\Enum\QueueAttributeName::*>,
+     *   AttributeNames?: list<QueueAttributeName::*>,
      *   MessageAttributeNames?: string[],
      *   MaxNumberOfMessages?: int,
      *   VisibilityTimeout?: int,

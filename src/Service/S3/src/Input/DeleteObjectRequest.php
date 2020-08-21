@@ -64,7 +64,7 @@ final class DeleteObjectRequest extends Input
      *   Key?: string,
      *   MFA?: string,
      *   VersionId?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   BypassGovernanceRetention?: bool,
      *   @region?: string,
      * } $input

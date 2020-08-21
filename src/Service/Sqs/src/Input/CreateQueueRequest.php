@@ -39,7 +39,7 @@ final class CreateQueueRequest extends Input
     /**
      * @param array{
      *   QueueName?: string,
-     *   Attributes?: array<\AsyncAws\Sqs\Enum\QueueAttributeName::*, string>,
+     *   Attributes?: array<QueueAttributeName::*, string>,
      *   tags?: array<string, string>,
      *   @region?: string,
      * } $input

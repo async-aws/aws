@@ -29,7 +29,7 @@ final class GetQueueAttributesRequest extends Input
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   AttributeNames?: list<\AsyncAws\Sqs\Enum\QueueAttributeName::*>,
+     *   AttributeNames?: list<QueueAttributeName::*>,
      *   @region?: string,
      * } $input
      */

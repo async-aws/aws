@@ -73,11 +73,11 @@ final class AdminInitiateAuthRequest extends Input
      * @param array{
      *   UserPoolId?: string,
      *   ClientId?: string,
-     *   AuthFlow?: \AsyncAws\CognitoIdentityProvider\Enum\AuthFlowType::*,
+     *   AuthFlow?: AuthFlowType::*,
      *   AuthParameters?: array<string, string>,
      *   ClientMetadata?: array<string, string>,
-     *   AnalyticsMetadata?: \AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType|array,
-     *   ContextData?: \AsyncAws\CognitoIdentityProvider\ValueObject\ContextDataType|array,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
+     *   ContextData?: ContextDataType|array,
      *   @region?: string,
      * } $input
      */

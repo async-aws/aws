@@ -44,12 +44,12 @@ final class ReplicaDescription
     /**
      * @param array{
      *   RegionName?: null|string,
-     *   ReplicaStatus?: null|\AsyncAws\DynamoDb\Enum\ReplicaStatus::*,
+     *   ReplicaStatus?: null|ReplicaStatus::*,
      *   ReplicaStatusDescription?: null|string,
      *   ReplicaStatusPercentProgress?: null|string,
      *   KMSMasterKeyId?: null|string,
-     *   ProvisionedThroughputOverride?: null|\AsyncAws\DynamoDb\ValueObject\ProvisionedThroughputOverride|array,
-     *   GlobalSecondaryIndexes?: null|\AsyncAws\DynamoDb\ValueObject\ReplicaGlobalSecondaryIndexDescription[],
+     *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
+     *   GlobalSecondaryIndexes?: null|ReplicaGlobalSecondaryIndexDescription[],
      * } $input
      */
     public function __construct(array $input)

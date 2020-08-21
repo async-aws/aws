@@ -85,7 +85,7 @@ class ObjectGenerator
         $class->setFinal();
 
         // Named constructor
-        $this->namedConstructor($shape, $class);
+        $this->namedConstructor($shape, $class, $namespace);
         $this->addProperties($shape, $class, $namespace);
 
         $serializer = $this->serializer->get($shape->getService());
@@ -138,7 +138,7 @@ class ObjectGenerator
         return $this->usedShapedInput[$shape->getName()] ?? false;
     }
 
-    private function namedConstructor(StructureShape $shape, ClassType $class): void
+    private function namedConstructor(StructureShape $shape, ClassType $class, PhpNamespace $namespace): void
     {
         $class->addMethod('create')
             ->setStatic(true)
@@ -148,7 +148,12 @@ class ObjectGenerator
 
         // We need a constructor
         $constructor = $class->addMethod('__construct');
-        $constructor->addComment($this->typeGenerator->generateDocblock($shape, $this->generated[$shape->getName()], false, false, true));
+        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $this->generated[$shape->getName()], false, false, true);
+        $constructor->addComment($doc);
+        foreach ($memberClassNames as $memberClassName) {
+            $namespace->addUse($memberClassName->getFqdn());
+        }
+
         $constructor->addParameter('input')->setType('array');
 
         $constructorBody = '';

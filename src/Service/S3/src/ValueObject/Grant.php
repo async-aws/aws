@@ -19,8 +19,8 @@ final class Grant
 
     /**
      * @param array{
-     *   Grantee?: null|\AsyncAws\S3\ValueObject\Grantee|array,
-     *   Permission?: null|\AsyncAws\S3\Enum\Permission::*,
+     *   Grantee?: null|Grantee|array,
+     *   Permission?: null|Permission::*,
      * } $input
      */
     public function __construct(array $input)

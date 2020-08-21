@@ -20,7 +20,7 @@ final class AttributeDefinition
     /**
      * @param array{
      *   AttributeName: string,
-     *   AttributeType: \AsyncAws\DynamoDb\Enum\ScalarAttributeType::*,
+     *   AttributeType: ScalarAttributeType::*,
      * } $input
      */
     public function __construct(array $input)

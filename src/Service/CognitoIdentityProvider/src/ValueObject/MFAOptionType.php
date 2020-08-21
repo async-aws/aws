@@ -18,7 +18,7 @@ final class MFAOptionType
 
     /**
      * @param array{
-     *   DeliveryMedium?: null|\AsyncAws\CognitoIdentityProvider\Enum\DeliveryMediumType::*,
+     *   DeliveryMedium?: null|DeliveryMediumType::*,
      *   AttributeName?: null|string,
      * } $input
      */

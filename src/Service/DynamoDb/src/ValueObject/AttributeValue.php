@@ -62,8 +62,8 @@ final class AttributeValue
      *   SS?: null|string[],
      *   NS?: null|string[],
      *   BS?: null|string[],
-     *   M?: null|array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
-     *   L?: null|\AsyncAws\DynamoDb\ValueObject\AttributeValue[],
+     *   M?: null|array<string, AttributeValue>,
+     *   L?: null|AttributeValue[],
      *   NULL?: null|bool,
      *   BOOL?: null|bool,
      * } $input

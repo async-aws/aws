@@ -71,8 +71,8 @@ final class User
      *   Arn: string,
      *   CreateDate: \DateTimeImmutable,
      *   PasswordLastUsed?: null|\DateTimeImmutable,
-     *   PermissionsBoundary?: null|\AsyncAws\Iam\ValueObject\AttachedPermissionsBoundary|array,
-     *   Tags?: null|\AsyncAws\Iam\ValueObject\Tag[],
+     *   PermissionsBoundary?: null|AttachedPermissionsBoundary|array,
+     *   Tags?: null|Tag[],
      * } $input
      */
     public function __construct(array $input)

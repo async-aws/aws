@@ -116,10 +116,10 @@ final class AssumeRoleRequest extends Input
      * @param array{
      *   RoleArn?: string,
      *   RoleSessionName?: string,
-     *   PolicyArns?: \AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType[],
+     *   PolicyArns?: PolicyDescriptorType[],
      *   Policy?: string,
      *   DurationSeconds?: int,
-     *   Tags?: \AsyncAws\Core\Sts\ValueObject\Tag[],
+     *   Tags?: Tag[],
      *   TransitiveTagKeys?: string[],
      *   ExternalId?: string,
      *   SerialNumber?: string,

@@ -119,17 +119,17 @@ final class UpdateItemInput extends Input
     /**
      * @param array{
      *   TableName?: string,
-     *   Key?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
-     *   AttributeUpdates?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValueUpdate>,
-     *   Expected?: array<string, \AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue>,
-     *   ConditionalOperator?: \AsyncAws\DynamoDb\Enum\ConditionalOperator::*,
-     *   ReturnValues?: \AsyncAws\DynamoDb\Enum\ReturnValue::*,
-     *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: \AsyncAws\DynamoDb\Enum\ReturnItemCollectionMetrics::*,
+     *   Key?: array<string, AttributeValue>,
+     *   AttributeUpdates?: array<string, AttributeValueUpdate>,
+     *   Expected?: array<string, ExpectedAttributeValue>,
+     *   ConditionalOperator?: ConditionalOperator::*,
+     *   ReturnValues?: ReturnValue::*,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
      *   UpdateExpression?: string,
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue>,
      *   @region?: string,
      * } $input
      */

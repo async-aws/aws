@@ -11,7 +11,7 @@ final class CompletedMultipartUpload
 
     /**
      * @param array{
-     *   Parts?: null|\AsyncAws\S3\ValueObject\CompletedPart[],
+     *   Parts?: null|CompletedPart[],
      * } $input
      */
     public function __construct(array $input)

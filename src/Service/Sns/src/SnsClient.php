@@ -20,7 +20,9 @@ use AsyncAws\Sns\Result\CreateTopicResponse;
 use AsyncAws\Sns\Result\ListSubscriptionsByTopicResponse;
 use AsyncAws\Sns\Result\PublishResponse;
 use AsyncAws\Sns\Result\SubscribeResponse;
+use AsyncAws\Sns\ValueObject\MessageAttributeValue;
 use AsyncAws\Sns\ValueObject\Subscription;
+use AsyncAws\Sns\ValueObject\Tag;
 
 class SnsClient extends AbstractApi
 {
@@ -62,7 +64,7 @@ class SnsClient extends AbstractApi
      * @param array{
      *   Name: string,
      *   Attributes?: array<string, string>,
-     *   Tags?: \AsyncAws\Sns\ValueObject\Tag[],
+     *   Tags?: Tag[],
      *   @region?: string,
      * }|CreateTopicInput $input
      */
@@ -148,7 +150,7 @@ class SnsClient extends AbstractApi
      *   Message: string,
      *   Subject?: string,
      *   MessageStructure?: string,
-     *   MessageAttributes?: array<string, \AsyncAws\Sns\ValueObject\MessageAttributeValue>,
+     *   MessageAttributes?: array<string, MessageAttributeValue>,
      *   @region?: string,
      * }|PublishInput $input
      */

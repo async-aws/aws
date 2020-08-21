@@ -90,10 +90,11 @@ class WaiterGenerator
         $resultClass = $this->generateWaiterResult($waiter);
         $namespace->addUse($resultClass->getFqdn());
 
+        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($inputShape, $inputClass, true, false, false, ['  @region?: string,']);
         $method = $class->addMethod(\lcfirst($waiter->getName()))
             ->setComment('Check status of operation ' . \lcfirst($operation->getName()))
             ->addComment('@see ' . \lcfirst($operation->getName()))
-            ->addComment($this->typeGenerator->generateDocblock($inputShape, $inputClass, true, false, false, ['  @region?: string,']))
+            ->addComment($doc)
             ->setReturnType($resultClass->getFqdn())
             ->setBody(strtr('
                 $input = INPUT_CLASS::create($input);
@@ -105,6 +106,9 @@ class WaiterGenerator
                 'OPERATION_NAME' => \var_export($operation->getName(), true),
                 'RESULT_CLASS' => $resultClass->getName(),
             ]));
+        foreach ($memberClassNames as $memberClassName) {
+            $namespace->addUse($memberClassName->getFqdn());
+        }
 
         $operationMethodParameter = $method->addParameter('input');
         if (empty($inputShape->getRequired())) {

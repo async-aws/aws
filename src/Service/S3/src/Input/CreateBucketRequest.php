@@ -80,9 +80,9 @@ final class CreateBucketRequest extends Input
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
      *
      * @param array{
-     *   ACL?: \AsyncAws\S3\Enum\BucketCannedACL::*,
+     *   ACL?: BucketCannedACL::*,
      *   Bucket?: string,
-     *   CreateBucketConfiguration?: \AsyncAws\S3\ValueObject\CreateBucketConfiguration|array,
+     *   CreateBucketConfiguration?: CreateBucketConfiguration|array,
      *   GrantFullControl?: string,
      *   GrantRead?: string,
      *   GrantReadACP?: string,

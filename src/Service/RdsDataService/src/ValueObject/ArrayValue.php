@@ -31,7 +31,7 @@ final class ArrayValue
 
     /**
      * @param array{
-     *   arrayValues?: null|\AsyncAws\RdsDataService\ValueObject\ArrayValue[],
+     *   arrayValues?: null|ArrayValue[],
      *   booleanValues?: null|bool[],
      *   doubleValues?: null|float[],
      *   longValues?: null|string[],

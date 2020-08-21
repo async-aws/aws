@@ -19,7 +19,7 @@ final class UpdateGlobalSecondaryIndexAction
     /**
      * @param array{
      *   IndexName: string,
-     *   ProvisionedThroughput: \AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput|array,
+     *   ProvisionedThroughput: ProvisionedThroughput|array,
      * } $input
      */
     public function __construct(array $input)

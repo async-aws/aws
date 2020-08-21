@@ -16,8 +16,8 @@ final class AccessControlPolicy
 
     /**
      * @param array{
-     *   Grants?: null|\AsyncAws\S3\ValueObject\Grant[],
-     *   Owner?: null|\AsyncAws\S3\ValueObject\Owner|array,
+     *   Grants?: null|Grant[],
+     *   Owner?: null|Owner|array,
      * } $input
      */
     public function __construct(array $input)

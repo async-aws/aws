@@ -32,8 +32,8 @@ final class UpdateReplicationGroupMemberAction
      * @param array{
      *   RegionName: string,
      *   KMSMasterKeyId?: null|string,
-     *   ProvisionedThroughputOverride?: null|\AsyncAws\DynamoDb\ValueObject\ProvisionedThroughputOverride|array,
-     *   GlobalSecondaryIndexes?: null|\AsyncAws\DynamoDb\ValueObject\ReplicaGlobalSecondaryIndex[],
+     *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
+     *   GlobalSecondaryIndexes?: null|ReplicaGlobalSecondaryIndex[],
      * } $input
      */
     public function __construct(array $input)

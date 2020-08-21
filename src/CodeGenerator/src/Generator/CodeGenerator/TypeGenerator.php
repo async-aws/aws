@@ -31,11 +31,20 @@ class TypeGenerator
         $this->namespaceRegistry = $namespaceRegistry;
     }
 
-    public function generateDocblock(StructureShape $shape, ClassName $className, bool $alternateClass = true, bool $allNullable = false, bool $isObject = false, array $extra = []): string
+    /**
+     * Return docblock information for the given shape.
+     *
+     * @return array{string, ClassName[]} [docblock representation, ClassName related]
+     */
+    public function generateDocblock(StructureShape $shape, ClassName $shapeClassName, bool $alternateClass = true, bool $allNullable = false, bool $isObject = false, array $extra = []): array
     {
+        $classNames = [];
+        if ($alternateClass) {
+            $classNames[] = $shapeClassName;
+        }
         if (empty($shape->getMembers()) && empty($extra)) {
             // No input array
-            return '@param array' . ($alternateClass ? '|' . $className->getName() : '') . ' $input';
+            return ['@param array' . ($alternateClass ? '|' . $shapeClassName->getName() : '') . ' $input', $classNames];
         }
 
         $body = ['@param array{'];
@@ -44,15 +53,18 @@ class TypeGenerator
             $memberShape = $member->getShape();
 
             if ($memberShape instanceof StructureShape) {
-                $param = '\\' . $this->namespaceRegistry->getObject($memberShape)->getFqdn() . '|array';
+                $classNames[] = $className = $this->namespaceRegistry->getObject($memberShape);
+                $param = $className->getName() . '|array';
             } elseif ($memberShape instanceof ListShape) {
                 $listMemberShape = $memberShape->getMember()->getShape();
 
                 // is the list item an object?
                 if ($listMemberShape instanceof StructureShape) {
-                    $param = '\\' . $this->namespaceRegistry->getObject($listMemberShape)->getFqdn() . '[]';
+                    $classNames[] = $className = $this->namespaceRegistry->getObject($listMemberShape);
+                    $param = $className->getName() . '[]';
                 } elseif (!empty($listMemberShape->getEnum())) {
-                    $param = 'list<\\' . $this->namespaceRegistry->getEnum($listMemberShape)->getFqdn() . '::*>';
+                    $classNames[] = $className = $this->namespaceRegistry->getEnum($listMemberShape);
+                    $param = 'list<' . $className->getName() . '::*>';
                 } else {
                     $param = $this->getNativePhpType($listMemberShape->getType()) . '[]';
                 }
@@ -61,15 +73,18 @@ class TypeGenerator
 
                 // is the map item an object?
                 if ($mapValueShape instanceof StructureShape) {
-                    $param = '\\' . $this->namespaceRegistry->getObject($mapValueShape)->getFqdn();
+                    $classNames[] = $className = $this->namespaceRegistry->getObject($mapValueShape);
+                    $param = $className->getName();
                 } elseif (!empty($mapValueShape->getEnum())) {
-                    $param = '\\' . $this->namespaceRegistry->getEnum($mapValueShape)->getFqdn() . '::*';
+                    $classNames[] = $className = $this->namespaceRegistry->getEnum($mapValueShape);
+                    $param = $className->getName() . '::*';
                 } else {
                     $param = $this->getNativePhpType($mapValueShape->getType());
                 }
                 $mapKeyShape = $memberShape->getKey()->getShape();
                 if (!empty($mapKeyShape->getEnum())) {
-                    $param = 'array<\\' . $this->namespaceRegistry->getEnum($mapKeyShape)->getFqdn() . '::*, ' . $param . '>';
+                    $classNames[] = $className = $this->namespaceRegistry->getEnum($mapKeyShape);
+                    $param = 'array<' . $className->getName() . '::*, ' . $param . '>';
                 } else {
                     $param = 'array<string, ' . $param . '>';
                 }
@@ -79,7 +94,8 @@ class TypeGenerator
                 $param = $isObject ? '\DateTimeImmutable' : '\DateTimeImmutable|string';
             } else {
                 if (!empty($memberShape->getEnum())) {
-                    $param = '\\' . $this->namespaceRegistry->getEnum($memberShape)->getFqdn() . '::*';
+                    $classNames[] = $className = $this->namespaceRegistry->getEnum($memberShape);
+                    $param = $className->getName() . '::*';
                 } else {
                     $param = $this->getNativePhpType($param);
                 }
@@ -96,9 +112,9 @@ class TypeGenerator
             }
         }
         $body = \array_merge($body, $extra);
-        $body[] = '}' . ($alternateClass ? '|' . $className->getName() : '') . ' $input';
+        $body[] = '}' . ($alternateClass ? '|' . $shapeClassName->getName() : '') . ' $input';
 
-        return \implode("\n", $body);
+        return [\implode("\n", $body), $classNames];
     }
 
     /**

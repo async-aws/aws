@@ -31,7 +31,7 @@ final class CreateInvalidationRequest extends Input
     /**
      * @param array{
      *   DistributionId?: string,
-     *   InvalidationBatch?: \AsyncAws\CloudFront\ValueObject\InvalidationBatch|array,
+     *   InvalidationBatch?: InvalidationBatch|array,
      *   @region?: string,
      * } $input
      */

@@ -16,8 +16,8 @@ final class WriteRequest
 
     /**
      * @param array{
-     *   PutRequest?: null|\AsyncAws\DynamoDb\ValueObject\PutRequest|array,
-     *   DeleteRequest?: null|\AsyncAws\DynamoDb\ValueObject\DeleteRequest|array,
+     *   PutRequest?: null|PutRequest|array,
+     *   DeleteRequest?: null|DeleteRequest|array,
      * } $input
      */
     public function __construct(array $input)

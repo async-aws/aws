@@ -62,12 +62,12 @@ final class InitiateAuthRequest extends Input
 
     /**
      * @param array{
-     *   AuthFlow?: \AsyncAws\CognitoIdentityProvider\Enum\AuthFlowType::*,
+     *   AuthFlow?: AuthFlowType::*,
      *   AuthParameters?: array<string, string>,
      *   ClientMetadata?: array<string, string>,
      *   ClientId?: string,
-     *   AnalyticsMetadata?: \AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType|array,
-     *   UserContextData?: \AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType|array,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
+     *   UserContextData?: UserContextDataType|array,
      *   @region?: string,
      * } $input
      */

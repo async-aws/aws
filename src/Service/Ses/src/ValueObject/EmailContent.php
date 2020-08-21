@@ -21,9 +21,9 @@ final class EmailContent
 
     /**
      * @param array{
-     *   Simple?: null|\AsyncAws\Ses\ValueObject\Message|array,
-     *   Raw?: null|\AsyncAws\Ses\ValueObject\RawMessage|array,
-     *   Template?: null|\AsyncAws\Ses\ValueObject\Template|array,
+     *   Simple?: null|Message|array,
+     *   Raw?: null|RawMessage|array,
+     *   Template?: null|Template|array,
      * } $input
      */
     public function __construct(array $input)

@@ -25,8 +25,8 @@ final class SqlParameter
     /**
      * @param array{
      *   name?: null|string,
-     *   typeHint?: null|\AsyncAws\RdsDataService\Enum\TypeHint::*,
-     *   value?: null|\AsyncAws\RdsDataService\ValueObject\Field|array,
+     *   typeHint?: null|TypeHint::*,
+     *   value?: null|Field|array,
      * } $input
      */
     public function __construct(array $input)

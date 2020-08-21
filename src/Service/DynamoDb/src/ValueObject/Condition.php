@@ -20,8 +20,8 @@ final class Condition
 
     /**
      * @param array{
-     *   AttributeValueList?: null|\AsyncAws\DynamoDb\ValueObject\AttributeValue[],
-     *   ComparisonOperator: \AsyncAws\DynamoDb\Enum\ComparisonOperator::*,
+     *   AttributeValueList?: null|AttributeValue[],
+     *   ComparisonOperator: ComparisonOperator::*,
      * } $input
      */
     public function __construct(array $input)

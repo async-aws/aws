@@ -56,9 +56,9 @@ final class Message
      *   ReceiptHandle?: null|string,
      *   MD5OfBody?: null|string,
      *   Body?: null|string,
-     *   Attributes?: null|array<\AsyncAws\Sqs\Enum\MessageSystemAttributeName::*, string>,
+     *   Attributes?: null|array<MessageSystemAttributeName::*, string>,
      *   MD5OfMessageAttributes?: null|string,
-     *   MessageAttributes?: null|array<string, \AsyncAws\Sqs\ValueObject\MessageAttributeValue>,
+     *   MessageAttributes?: null|array<string, MessageAttributeValue>,
      * } $input
      */
     public function __construct(array $input)

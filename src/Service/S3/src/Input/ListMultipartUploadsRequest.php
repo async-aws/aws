@@ -71,7 +71,7 @@ final class ListMultipartUploadsRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   Delimiter?: string,
-     *   EncodingType?: \AsyncAws\S3\Enum\EncodingType::*,
+     *   EncodingType?: EncodingType::*,
      *   KeyMarker?: string,
      *   MaxUploads?: int,
      *   Prefix?: string,

@@ -41,7 +41,7 @@ final class Field
 
     /**
      * @param array{
-     *   arrayValue?: null|\AsyncAws\RdsDataService\ValueObject\ArrayValue|array,
+     *   arrayValue?: null|ArrayValue|array,
      *   blobValue?: null|string,
      *   booleanValue?: null|bool,
      *   doubleValue?: null|float,

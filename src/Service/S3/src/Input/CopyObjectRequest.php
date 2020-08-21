@@ -299,7 +299,7 @@ final class CopyObjectRequest extends Input
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectCOPY.html
      *
      * @param array{
-     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::*,
+     *   ACL?: ObjectCannedACL::*,
      *   Bucket?: string,
      *   CacheControl?: string,
      *   ContentDisposition?: string,
@@ -318,10 +318,10 @@ final class CopyObjectRequest extends Input
      *   GrantWriteACP?: string,
      *   Key?: string,
      *   Metadata?: array<string, string>,
-     *   MetadataDirective?: \AsyncAws\S3\Enum\MetadataDirective::*,
-     *   TaggingDirective?: \AsyncAws\S3\Enum\TaggingDirective::*,
-     *   ServerSideEncryption?: \AsyncAws\S3\Enum\ServerSideEncryption::*,
-     *   StorageClass?: \AsyncAws\S3\Enum\StorageClass::*,
+     *   MetadataDirective?: MetadataDirective::*,
+     *   TaggingDirective?: TaggingDirective::*,
+     *   ServerSideEncryption?: ServerSideEncryption::*,
+     *   StorageClass?: StorageClass::*,
      *   WebsiteRedirectLocation?: string,
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
@@ -331,11 +331,11 @@ final class CopyObjectRequest extends Input
      *   CopySourceSSECustomerAlgorithm?: string,
      *   CopySourceSSECustomerKey?: string,
      *   CopySourceSSECustomerKeyMD5?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   Tagging?: string,
-     *   ObjectLockMode?: \AsyncAws\S3\Enum\ObjectLockMode::*,
+     *   ObjectLockMode?: ObjectLockMode::*,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
-     *   ObjectLockLegalHoldStatus?: \AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::*,
+     *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
      *   @region?: string,
      * } $input
      */

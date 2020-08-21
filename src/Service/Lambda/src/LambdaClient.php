@@ -6,6 +6,9 @@ use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\Lambda\Enum\InvocationType;
+use AsyncAws\Lambda\Enum\LogType;
+use AsyncAws\Lambda\Enum\Runtime;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
@@ -14,6 +17,7 @@ use AsyncAws\Lambda\Result\AddLayerVersionPermissionResponse;
 use AsyncAws\Lambda\Result\InvocationResponse;
 use AsyncAws\Lambda\Result\ListLayerVersionsResponse;
 use AsyncAws\Lambda\Result\PublishLayerVersionResponse;
+use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
 
 class LambdaClient extends AbstractApi
 {
@@ -52,8 +56,8 @@ class LambdaClient extends AbstractApi
      *
      * @param array{
      *   FunctionName: string,
-     *   InvocationType?: \AsyncAws\Lambda\Enum\InvocationType::*,
-     *   LogType?: \AsyncAws\Lambda\Enum\LogType::*,
+     *   InvocationType?: InvocationType::*,
+     *   LogType?: LogType::*,
      *   ClientContext?: string,
      *   Payload?: string,
      *   Qualifier?: string,
@@ -77,7 +81,7 @@ class LambdaClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#listlayerversions
      *
      * @param array{
-     *   CompatibleRuntime?: \AsyncAws\Lambda\Enum\Runtime::*,
+     *   CompatibleRuntime?: Runtime::*,
      *   LayerName: string,
      *   Marker?: string,
      *   MaxItems?: int,
@@ -102,8 +106,8 @@ class LambdaClient extends AbstractApi
      * @param array{
      *   LayerName: string,
      *   Description?: string,
-     *   Content: \AsyncAws\Lambda\ValueObject\LayerVersionContentInput|array,
-     *   CompatibleRuntimes?: list<\AsyncAws\Lambda\Enum\Runtime::*>,
+     *   Content: LayerVersionContentInput|array,
+     *   CompatibleRuntimes?: list<Runtime::*>,
      *   LicenseInfo?: string,
      *   @region?: string,
      * }|PublishLayerVersionRequest $input

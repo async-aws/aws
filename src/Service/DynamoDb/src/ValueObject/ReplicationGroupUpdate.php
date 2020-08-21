@@ -21,9 +21,9 @@ final class ReplicationGroupUpdate
 
     /**
      * @param array{
-     *   Create?: null|\AsyncAws\DynamoDb\ValueObject\CreateReplicationGroupMemberAction|array,
-     *   Update?: null|\AsyncAws\DynamoDb\ValueObject\UpdateReplicationGroupMemberAction|array,
-     *   Delete?: null|\AsyncAws\DynamoDb\ValueObject\DeleteReplicationGroupMemberAction|array,
+     *   Create?: null|CreateReplicationGroupMemberAction|array,
+     *   Update?: null|UpdateReplicationGroupMemberAction|array,
+     *   Delete?: null|DeleteReplicationGroupMemberAction|array,
      * } $input
      */
     public function __construct(array $input)

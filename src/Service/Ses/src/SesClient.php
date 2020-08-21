@@ -8,6 +8,9 @@ use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Ses\Input\SendEmailRequest;
 use AsyncAws\Ses\Result\SendEmailResponse;
+use AsyncAws\Ses\ValueObject\Destination;
+use AsyncAws\Ses\ValueObject\EmailContent;
+use AsyncAws\Ses\ValueObject\MessageTag;
 
 class SesClient extends AbstractApi
 {
@@ -19,12 +22,12 @@ class SesClient extends AbstractApi
      * @param array{
      *   FromEmailAddress?: string,
      *   FromEmailAddressIdentityArn?: string,
-     *   Destination?: \AsyncAws\Ses\ValueObject\Destination|array,
+     *   Destination?: Destination|array,
      *   ReplyToAddresses?: string[],
      *   FeedbackForwardingEmailAddress?: string,
      *   FeedbackForwardingEmailAddressIdentityArn?: string,
-     *   Content: \AsyncAws\Ses\ValueObject\EmailContent|array,
-     *   EmailTags?: \AsyncAws\Ses\ValueObject\MessageTag[],
+     *   Content: EmailContent|array,
+     *   EmailTags?: MessageTag[],
      *   ConfigurationSetName?: string,
      *   @region?: string,
      * }|SendEmailRequest $input

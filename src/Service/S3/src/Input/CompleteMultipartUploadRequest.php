@@ -56,9 +56,9 @@ final class CompleteMultipartUploadRequest extends Input
      * @param array{
      *   Bucket?: string,
      *   Key?: string,
-     *   MultipartUpload?: \AsyncAws\S3\ValueObject\CompletedMultipartUpload|array,
+     *   MultipartUpload?: CompletedMultipartUpload|array,
      *   UploadId?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   @region?: string,
      * } $input
      */

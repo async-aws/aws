@@ -31,7 +31,7 @@ final class UpdateTimeToLiveInput extends Input
     /**
      * @param array{
      *   TableName?: string,
-     *   TimeToLiveSpecification?: \AsyncAws\DynamoDb\ValueObject\TimeToLiveSpecification|array,
+     *   TimeToLiveSpecification?: TimeToLiveSpecification|array,
      *   @region?: string,
      * } $input
      */
