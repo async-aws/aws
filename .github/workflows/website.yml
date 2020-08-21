@@ -23,7 +23,7 @@ jobs:
 
       - name: Checkout Website repo
         run: |
-          git clone --branch master http://${{ secrets.BOT_GITHUB_TOKEN }}:x-oauth-basic@github.com/async-aws/website output
+          git clone --branch master https://${{ secrets.BOT_GITHUB_TOKEN }}:x-oauth-basic@github.com/async-aws/website output
 
       - name: Download Couscous Phar
         run: |
