@@ -93,7 +93,11 @@ class OperationGenerator
         } elseif (null !== $prefix = $operation->getService()->getEndpointPrefix()) {
             $method->addComment('@see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-' . $prefix . '-' . $operation->getService()->getApiVersion() . '.html#' . \strtolower($operation->getName()));
         }
-        $method->addComment($this->typeGenerator->generateDocblock($inputShape, $inputClass, true, false, false, ['  @region?: string,']));
+        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($inputShape, $inputClass, true, false, false, ['  @region?: string,']);
+        $method->addComment($doc);
+        foreach ($memberClassNames as $memberClassName) {
+            $namespace->addUse($memberClassName->getFqdn());
+        }
 
         $operationMethodParameter = $method->addParameter('input');
         if (empty($inputShape->getRequired())) {
