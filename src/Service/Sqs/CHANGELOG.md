@@ -7,6 +7,7 @@
 ### Added
 
 - Support for PHP 8
+- Pagination support for `ListQueue`
 - `ListQueueRequest::$NextToken`
 - `ListQueueRequest::$MaxResults`
 
