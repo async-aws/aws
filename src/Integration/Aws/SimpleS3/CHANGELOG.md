@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 0.1.2
+
+### Added
+
+- Support for PHP 8
+
 ## 0.1.1
 
 ### Added

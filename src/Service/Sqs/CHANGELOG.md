@@ -2,6 +2,15 @@
 
 ## NOT RELEASED
 
+## 1.3.0
+
+### Added
+
+- Support for PHP 8
+- Pagination support for `ListQueue`
+- `ListQueueRequest::$NextToken`
+- `ListQueueRequest::$MaxResults`
+
 ## 1.2.0
 
 ### Deprecation

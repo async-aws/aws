@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.4.0
+
+### Added
+
+- Allow to pass additional content to `ResultMockFactory::createFailing()`
+
 ## 1.3.0
 
 ### Added
