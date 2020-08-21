@@ -7,6 +7,7 @@
 ### Added
 
 - Added operation `adminConfirmSignUp`
+- Added operation `adminSetUserPassword`
 
 ## 0.2.1
 
