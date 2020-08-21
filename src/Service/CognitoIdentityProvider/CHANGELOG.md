@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 0.2.2
+
 ### Added
 
 - Added operation `adminConfirmSignUp`

@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 0.2.1
+
+### Added
+
+- Support for PHP 8
+
 ## 0.2.0
 
 ### Deprecation
