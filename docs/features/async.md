@@ -4,10 +4,7 @@ category: features
 
 # How to work asynchronous
 
-Asynchronous stuff can be confusing and because of that it is normal to try to stay
-away from it. But hopefully, using this library will straight forward. The goal is
-to always be "async first" but developers don't have to care about async if they
-don't want to.
+Asynchronous stuff can be confusing, and because of that, it is reasonable to try to stay away from it. But hopefully, using this library will be straightforward. The goal is always to be "async first," but developers don't have to care about async if they don't want to.
 
 ## Normal use cases
 
@@ -126,12 +123,11 @@ for more information.
 
 ## Advanced use cases
 
-The normal use cases covers 90% of all code. Let's dig in to the advanced stuff.
+The common use cases covers 90% of all code. Let's dig in to the advanced stuff.
 
 ### Using resolve-function
 
-The `$result->resolve()` function is making sure the request is executed. There is
-normally no point in using this function, but in some scenarios it may be handy.
+The `$result->resolve()` function is making sure the request is executed. There is normally no point in using this function, but it may be handy in some scenarios.
 
 Calling this function with no arguments will either return `true` or throw an exception.
 If the function is called again, it will give you the same output without contacting
