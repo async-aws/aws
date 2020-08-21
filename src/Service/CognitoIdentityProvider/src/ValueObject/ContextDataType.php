@@ -37,7 +37,7 @@ final class ContextDataType
      *   IpAddress: string,
      *   ServerName: string,
      *   ServerPath: string,
-     *   HttpHeaders: \AsyncAws\CognitoIdentityProvider\ValueObject\HttpHeader[],
+     *   HttpHeaders: HttpHeader[],
      *   EncodedData?: null|string,
      * } $input
      */

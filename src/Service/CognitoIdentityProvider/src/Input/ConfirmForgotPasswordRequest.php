@@ -86,8 +86,8 @@ final class ConfirmForgotPasswordRequest extends Input
      *   Username?: string,
      *   ConfirmationCode?: string,
      *   Password?: string,
-     *   AnalyticsMetadata?: \AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType|array,
-     *   UserContextData?: \AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType|array,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
+     *   UserContextData?: UserContextDataType|array,
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * } $input

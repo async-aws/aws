@@ -42,7 +42,7 @@ final class ListLayerVersionsRequest extends Input
 
     /**
      * @param array{
-     *   CompatibleRuntime?: \AsyncAws\Lambda\Enum\Runtime::*,
+     *   CompatibleRuntime?: Runtime::*,
      *   LayerName?: string,
      *   Marker?: string,
      *   MaxItems?: int,

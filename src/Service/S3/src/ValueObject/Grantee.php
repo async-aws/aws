@@ -37,7 +37,7 @@ final class Grantee
      *   DisplayName?: null|string,
      *   EmailAddress?: null|string,
      *   ID?: null|string,
-     *   Type: \AsyncAws\S3\Enum\Type::*,
+     *   Type: Type::*,
      *   URI?: null|string,
      * } $input
      */

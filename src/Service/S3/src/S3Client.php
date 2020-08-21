@@ -6,6 +6,16 @@ use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
+use AsyncAws\S3\Enum\BucketCannedACL;
+use AsyncAws\S3\Enum\EncodingType;
+use AsyncAws\S3\Enum\MetadataDirective;
+use AsyncAws\S3\Enum\ObjectCannedACL;
+use AsyncAws\S3\Enum\ObjectLockLegalHoldStatus;
+use AsyncAws\S3\Enum\ObjectLockMode;
+use AsyncAws\S3\Enum\RequestPayer;
+use AsyncAws\S3\Enum\ServerSideEncryption;
+use AsyncAws\S3\Enum\StorageClass;
+use AsyncAws\S3\Enum\TaggingDirective;
 use AsyncAws\S3\Input\AbortMultipartUploadRequest;
 use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
 use AsyncAws\S3\Input\CopyObjectRequest;
@@ -45,6 +55,10 @@ use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\Result\UploadPartOutput;
 use AsyncAws\S3\Signer\SignerV4ForS3;
+use AsyncAws\S3\ValueObject\AccessControlPolicy;
+use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
+use AsyncAws\S3\ValueObject\CreateBucketConfiguration;
+use AsyncAws\S3\ValueObject\Delete;
 use AsyncAws\S3\ValueObject\MultipartUpload;
 use AsyncAws\S3\ValueObject\Part;
 
@@ -62,7 +76,7 @@ class S3Client extends AbstractApi
      *   Bucket: string,
      *   Key: string,
      *   UploadId: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   @region?: string,
      * }|AbortMultipartUploadRequest $input
      */
@@ -118,9 +132,9 @@ class S3Client extends AbstractApi
      * @param array{
      *   Bucket: string,
      *   Key: string,
-     *   MultipartUpload?: \AsyncAws\S3\ValueObject\CompletedMultipartUpload|array,
+     *   MultipartUpload?: CompletedMultipartUpload|array,
      *   UploadId: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   @region?: string,
      * }|CompleteMultipartUploadRequest $input
      */
@@ -138,7 +152,7 @@ class S3Client extends AbstractApi
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectCOPY.html
      *
      * @param array{
-     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::*,
+     *   ACL?: ObjectCannedACL::*,
      *   Bucket: string,
      *   CacheControl?: string,
      *   ContentDisposition?: string,
@@ -157,10 +171,10 @@ class S3Client extends AbstractApi
      *   GrantWriteACP?: string,
      *   Key: string,
      *   Metadata?: array<string, string>,
-     *   MetadataDirective?: \AsyncAws\S3\Enum\MetadataDirective::*,
-     *   TaggingDirective?: \AsyncAws\S3\Enum\TaggingDirective::*,
-     *   ServerSideEncryption?: \AsyncAws\S3\Enum\ServerSideEncryption::*,
-     *   StorageClass?: \AsyncAws\S3\Enum\StorageClass::*,
+     *   MetadataDirective?: MetadataDirective::*,
+     *   TaggingDirective?: TaggingDirective::*,
+     *   ServerSideEncryption?: ServerSideEncryption::*,
+     *   StorageClass?: StorageClass::*,
      *   WebsiteRedirectLocation?: string,
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
@@ -170,11 +184,11 @@ class S3Client extends AbstractApi
      *   CopySourceSSECustomerAlgorithm?: string,
      *   CopySourceSSECustomerKey?: string,
      *   CopySourceSSECustomerKeyMD5?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   Tagging?: string,
-     *   ObjectLockMode?: \AsyncAws\S3\Enum\ObjectLockMode::*,
+     *   ObjectLockMode?: ObjectLockMode::*,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
-     *   ObjectLockLegalHoldStatus?: \AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::*,
+     *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
      *   @region?: string,
      * }|CopyObjectRequest $input
      */
@@ -194,9 +208,9 @@ class S3Client extends AbstractApi
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
      *
      * @param array{
-     *   ACL?: \AsyncAws\S3\Enum\BucketCannedACL::*,
+     *   ACL?: BucketCannedACL::*,
      *   Bucket: string,
-     *   CreateBucketConfiguration?: \AsyncAws\S3\ValueObject\CreateBucketConfiguration|array,
+     *   CreateBucketConfiguration?: CreateBucketConfiguration|array,
      *   GrantFullControl?: string,
      *   GrantRead?: string,
      *   GrantReadACP?: string,
@@ -223,7 +237,7 @@ class S3Client extends AbstractApi
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadInitiate.html
      *
      * @param array{
-     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::*,
+     *   ACL?: ObjectCannedACL::*,
      *   Bucket: string,
      *   CacheControl?: string,
      *   ContentDisposition?: string,
@@ -237,19 +251,19 @@ class S3Client extends AbstractApi
      *   GrantWriteACP?: string,
      *   Key: string,
      *   Metadata?: array<string, string>,
-     *   ServerSideEncryption?: \AsyncAws\S3\Enum\ServerSideEncryption::*,
-     *   StorageClass?: \AsyncAws\S3\Enum\StorageClass::*,
+     *   ServerSideEncryption?: ServerSideEncryption::*,
+     *   StorageClass?: StorageClass::*,
      *   WebsiteRedirectLocation?: string,
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
      *   SSEKMSKeyId?: string,
      *   SSEKMSEncryptionContext?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   Tagging?: string,
-     *   ObjectLockMode?: \AsyncAws\S3\Enum\ObjectLockMode::*,
+     *   ObjectLockMode?: ObjectLockMode::*,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
-     *   ObjectLockLegalHoldStatus?: \AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::*,
+     *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
      *   @region?: string,
      * }|CreateMultipartUploadRequest $input
      */
@@ -291,7 +305,7 @@ class S3Client extends AbstractApi
      *   Key: string,
      *   MFA?: string,
      *   VersionId?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   BypassGovernanceRetention?: bool,
      *   @region?: string,
      * }|DeleteObjectRequest $input
@@ -313,9 +327,9 @@ class S3Client extends AbstractApi
      *
      * @param array{
      *   Bucket: string,
-     *   Delete: \AsyncAws\S3\ValueObject\Delete|array,
+     *   Delete: Delete|array,
      *   MFA?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   BypassGovernanceRetention?: bool,
      *   @region?: string,
      * }|DeleteObjectsRequest $input
@@ -352,7 +366,7 @@ class S3Client extends AbstractApi
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   PartNumber?: int,
      *   @region?: string,
      * }|GetObjectRequest $input
@@ -375,7 +389,7 @@ class S3Client extends AbstractApi
      *   Bucket: string,
      *   Key: string,
      *   VersionId?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   @region?: string,
      * }|GetObjectAclRequest $input
      */
@@ -405,7 +419,7 @@ class S3Client extends AbstractApi
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   PartNumber?: int,
      *   @region?: string,
      * }|HeadObjectRequest $input
@@ -427,7 +441,7 @@ class S3Client extends AbstractApi
      * @param array{
      *   Bucket: string,
      *   Delimiter?: string,
-     *   EncodingType?: \AsyncAws\S3\Enum\EncodingType::*,
+     *   EncodingType?: EncodingType::*,
      *   KeyMarker?: string,
      *   MaxUploads?: int,
      *   Prefix?: string,
@@ -453,13 +467,13 @@ class S3Client extends AbstractApi
      * @param array{
      *   Bucket: string,
      *   Delimiter?: string,
-     *   EncodingType?: \AsyncAws\S3\Enum\EncodingType::*,
+     *   EncodingType?: EncodingType::*,
      *   MaxKeys?: int,
      *   Prefix?: string,
      *   ContinuationToken?: string,
      *   FetchOwner?: bool,
      *   StartAfter?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   @region?: string,
      * }|ListObjectsV2Request $input
      */
@@ -488,7 +502,7 @@ class S3Client extends AbstractApi
      *   MaxParts?: int,
      *   PartNumberMarker?: int,
      *   UploadId: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   @region?: string,
      * }|ListPartsRequest $input
      */
@@ -517,7 +531,7 @@ class S3Client extends AbstractApi
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   PartNumber?: int,
      *   @region?: string,
      * }|HeadObjectRequest $input
@@ -547,7 +561,7 @@ class S3Client extends AbstractApi
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   PartNumber?: int,
      *   @region?: string,
      * }|HeadObjectRequest $input
@@ -566,7 +580,7 @@ class S3Client extends AbstractApi
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
      *
      * @param array{
-     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::*,
+     *   ACL?: ObjectCannedACL::*,
      *   Body?: string|resource|callable|iterable,
      *   Bucket: string,
      *   CacheControl?: string,
@@ -583,19 +597,19 @@ class S3Client extends AbstractApi
      *   GrantWriteACP?: string,
      *   Key: string,
      *   Metadata?: array<string, string>,
-     *   ServerSideEncryption?: \AsyncAws\S3\Enum\ServerSideEncryption::*,
-     *   StorageClass?: \AsyncAws\S3\Enum\StorageClass::*,
+     *   ServerSideEncryption?: ServerSideEncryption::*,
+     *   StorageClass?: StorageClass::*,
      *   WebsiteRedirectLocation?: string,
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
      *   SSEKMSKeyId?: string,
      *   SSEKMSEncryptionContext?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   Tagging?: string,
-     *   ObjectLockMode?: \AsyncAws\S3\Enum\ObjectLockMode::*,
+     *   ObjectLockMode?: ObjectLockMode::*,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
-     *   ObjectLockLegalHoldStatus?: \AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::*,
+     *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
      *   @region?: string,
      * }|PutObjectRequest $input
      */
@@ -614,8 +628,8 @@ class S3Client extends AbstractApi
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUTacl.html
      *
      * @param array{
-     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::*,
-     *   AccessControlPolicy?: \AsyncAws\S3\ValueObject\AccessControlPolicy|array,
+     *   ACL?: ObjectCannedACL::*,
+     *   AccessControlPolicy?: AccessControlPolicy|array,
      *   Bucket: string,
      *   ContentMD5?: string,
      *   GrantFullControl?: string,
@@ -624,7 +638,7 @@ class S3Client extends AbstractApi
      *   GrantWrite?: string,
      *   GrantWriteACP?: string,
      *   Key: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   VersionId?: string,
      *   @region?: string,
      * }|PutObjectAclRequest $input
@@ -653,7 +667,7 @@ class S3Client extends AbstractApi
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   @region?: string,
      * }|UploadPartRequest $input
      */

@@ -16,6 +16,8 @@ use AsyncAws\RdsDataService\Result\BeginTransactionResponse;
 use AsyncAws\RdsDataService\Result\CommitTransactionResponse;
 use AsyncAws\RdsDataService\Result\ExecuteStatementResponse;
 use AsyncAws\RdsDataService\Result\RollbackTransactionResponse;
+use AsyncAws\RdsDataService\ValueObject\ResultSetOptions;
+use AsyncAws\RdsDataService\ValueObject\SqlParameter;
 
 class RdsDataServiceClient extends AbstractApi
 {
@@ -93,9 +95,9 @@ class RdsDataServiceClient extends AbstractApi
      *   continueAfterTimeout?: bool,
      *   database?: string,
      *   includeResultMetadata?: bool,
-     *   parameters?: \AsyncAws\RdsDataService\ValueObject\SqlParameter[],
+     *   parameters?: SqlParameter[],
      *   resourceArn: string,
-     *   resultSetOptions?: \AsyncAws\RdsDataService\ValueObject\ResultSetOptions|array,
+     *   resultSetOptions?: ResultSetOptions|array,
      *   schema?: string,
      *   secretArn: string,
      *   sql: string,

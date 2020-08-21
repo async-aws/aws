@@ -2,10 +2,12 @@
 
 namespace AsyncAws\CloudWatchLogs;
 
+use AsyncAws\CloudWatchLogs\Enum\OrderBy;
 use AsyncAws\CloudWatchLogs\Input\DescribeLogStreamsRequest;
 use AsyncAws\CloudWatchLogs\Input\PutLogEventsRequest;
 use AsyncAws\CloudWatchLogs\Result\DescribeLogStreamsResponse;
 use AsyncAws\CloudWatchLogs\Result\PutLogEventsResponse;
+use AsyncAws\CloudWatchLogs\ValueObject\InputLogEvent;
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
@@ -22,7 +24,7 @@ class CloudWatchLogsClient extends AbstractApi
      * @param array{
      *   logGroupName: string,
      *   logStreamNamePrefix?: string,
-     *   orderBy?: \AsyncAws\CloudWatchLogs\Enum\OrderBy::*,
+     *   orderBy?: OrderBy::*,
      *   descending?: bool,
      *   nextToken?: string,
      *   limit?: int,
@@ -45,7 +47,7 @@ class CloudWatchLogsClient extends AbstractApi
      * @param array{
      *   logGroupName: string,
      *   logStreamName: string,
-     *   logEvents: \AsyncAws\CloudWatchLogs\ValueObject\InputLogEvent[],
+     *   logEvents: InputLogEvent[],
      *   sequenceToken?: string,
      *   @region?: string,
      * }|PutLogEventsRequest $input

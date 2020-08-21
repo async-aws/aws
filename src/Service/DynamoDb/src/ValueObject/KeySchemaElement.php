@@ -20,7 +20,7 @@ final class KeySchemaElement
     /**
      * @param array{
      *   AttributeName: string,
-     *   KeyType: \AsyncAws\DynamoDb\Enum\KeyType::*,
+     *   KeyType: KeyType::*,
      * } $input
      */
     public function __construct(array $input)

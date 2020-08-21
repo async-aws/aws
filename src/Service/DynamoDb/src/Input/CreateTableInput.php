@@ -106,16 +106,16 @@ final class CreateTableInput extends Input
 
     /**
      * @param array{
-     *   AttributeDefinitions?: \AsyncAws\DynamoDb\ValueObject\AttributeDefinition[],
+     *   AttributeDefinitions?: AttributeDefinition[],
      *   TableName?: string,
-     *   KeySchema?: \AsyncAws\DynamoDb\ValueObject\KeySchemaElement[],
-     *   LocalSecondaryIndexes?: \AsyncAws\DynamoDb\ValueObject\LocalSecondaryIndex[],
-     *   GlobalSecondaryIndexes?: \AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndex[],
-     *   BillingMode?: \AsyncAws\DynamoDb\Enum\BillingMode::*,
-     *   ProvisionedThroughput?: \AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput|array,
-     *   StreamSpecification?: \AsyncAws\DynamoDb\ValueObject\StreamSpecification|array,
-     *   SSESpecification?: \AsyncAws\DynamoDb\ValueObject\SSESpecification|array,
-     *   Tags?: \AsyncAws\DynamoDb\ValueObject\Tag[],
+     *   KeySchema?: KeySchemaElement[],
+     *   LocalSecondaryIndexes?: LocalSecondaryIndex[],
+     *   GlobalSecondaryIndexes?: GlobalSecondaryIndex[],
+     *   BillingMode?: BillingMode::*,
+     *   ProvisionedThroughput?: ProvisionedThroughput|array,
+     *   StreamSpecification?: StreamSpecification|array,
+     *   SSESpecification?: SSESpecification|array,
+     *   Tags?: Tag[],
      *   @region?: string,
      * } $input
      */

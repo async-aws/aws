@@ -41,8 +41,8 @@ final class LocalSecondaryIndexDescription
     /**
      * @param array{
      *   IndexName?: null|string,
-     *   KeySchema?: null|\AsyncAws\DynamoDb\ValueObject\KeySchemaElement[],
-     *   Projection?: null|\AsyncAws\DynamoDb\ValueObject\Projection|array,
+     *   KeySchema?: null|KeySchemaElement[],
+     *   Projection?: null|Projection|array,
      *   IndexSizeBytes?: null|string,
      *   ItemCount?: null|string,
      *   IndexArn?: null|string,

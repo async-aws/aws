@@ -14,7 +14,7 @@ final class DeleteRequest
 
     /**
      * @param array{
-     *   Key: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
+     *   Key: array<string, AttributeValue>,
      * } $input
      */
     public function __construct(array $input)

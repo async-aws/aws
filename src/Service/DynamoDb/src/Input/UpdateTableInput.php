@@ -81,14 +81,14 @@ final class UpdateTableInput extends Input
 
     /**
      * @param array{
-     *   AttributeDefinitions?: \AsyncAws\DynamoDb\ValueObject\AttributeDefinition[],
+     *   AttributeDefinitions?: AttributeDefinition[],
      *   TableName?: string,
-     *   BillingMode?: \AsyncAws\DynamoDb\Enum\BillingMode::*,
-     *   ProvisionedThroughput?: \AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput|array,
-     *   GlobalSecondaryIndexUpdates?: \AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndexUpdate[],
-     *   StreamSpecification?: \AsyncAws\DynamoDb\ValueObject\StreamSpecification|array,
-     *   SSESpecification?: \AsyncAws\DynamoDb\ValueObject\SSESpecification|array,
-     *   ReplicaUpdates?: \AsyncAws\DynamoDb\ValueObject\ReplicationGroupUpdate[],
+     *   BillingMode?: BillingMode::*,
+     *   ProvisionedThroughput?: ProvisionedThroughput|array,
+     *   GlobalSecondaryIndexUpdates?: GlobalSecondaryIndexUpdate[],
+     *   StreamSpecification?: StreamSpecification|array,
+     *   SSESpecification?: SSESpecification|array,
+     *   ReplicaUpdates?: ReplicationGroupUpdate[],
      *   @region?: string,
      * } $input
      */

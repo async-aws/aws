@@ -18,7 +18,7 @@ final class Delete
 
     /**
      * @param array{
-     *   Objects: \AsyncAws\S3\ValueObject\ObjectIdentifier[],
+     *   Objects: ObjectIdentifier[],
      *   Quiet?: null|bool,
      * } $input
      */

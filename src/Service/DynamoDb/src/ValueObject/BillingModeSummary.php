@@ -19,7 +19,7 @@ final class BillingModeSummary
 
     /**
      * @param array{
-     *   BillingMode?: null|\AsyncAws\DynamoDb\Enum\BillingMode::*,
+     *   BillingMode?: null|BillingMode::*,
      *   LastUpdateToPayPerRequestDateTime?: null|\DateTimeImmutable,
      * } $input
      */

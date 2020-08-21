@@ -8,6 +8,7 @@ use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\EventBridge\Input\PutEventsRequest;
 use AsyncAws\EventBridge\Result\PutEventsResponse;
+use AsyncAws\EventBridge\ValueObject\PutEventsRequestEntry;
 
 class EventBridgeClient extends AbstractApi
 {
@@ -17,7 +18,7 @@ class EventBridgeClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-events-2015-10-07.html#putevents
      *
      * @param array{
-     *   Entries: \AsyncAws\EventBridge\ValueObject\PutEventsRequestEntry[],
+     *   Entries: PutEventsRequestEntry[],
      *   @region?: string,
      * }|PutEventsRequest $input
      */

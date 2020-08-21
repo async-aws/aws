@@ -11,6 +11,8 @@ use AsyncAws\Core\Sts\Input\GetCallerIdentityRequest;
 use AsyncAws\Core\Sts\Result\AssumeRoleResponse;
 use AsyncAws\Core\Sts\Result\AssumeRoleWithWebIdentityResponse;
 use AsyncAws\Core\Sts\Result\GetCallerIdentityResponse;
+use AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType;
+use AsyncAws\Core\Sts\ValueObject\Tag;
 
 class StsClient extends AbstractApi
 {
@@ -28,10 +30,10 @@ class StsClient extends AbstractApi
      * @param array{
      *   RoleArn: string,
      *   RoleSessionName: string,
-     *   PolicyArns?: \AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType[],
+     *   PolicyArns?: PolicyDescriptorType[],
      *   Policy?: string,
      *   DurationSeconds?: int,
-     *   Tags?: \AsyncAws\Core\Sts\ValueObject\Tag[],
+     *   Tags?: Tag[],
      *   TransitiveTagKeys?: string[],
      *   ExternalId?: string,
      *   SerialNumber?: string,
@@ -59,7 +61,7 @@ class StsClient extends AbstractApi
      *   RoleSessionName: string,
      *   WebIdentityToken: string,
      *   ProviderId?: string,
-     *   PolicyArns?: \AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType[],
+     *   PolicyArns?: PolicyDescriptorType[],
      *   Policy?: string,
      *   DurationSeconds?: int,
      *   @region?: string,

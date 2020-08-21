@@ -29,7 +29,7 @@ final class Invalidation
      *   Id: string,
      *   Status: string,
      *   CreateTime: \DateTimeImmutable,
-     *   InvalidationBatch: \AsyncAws\CloudFront\ValueObject\InvalidationBatch|array,
+     *   InvalidationBatch: InvalidationBatch|array,
      * } $input
      */
     public function __construct(array $input)

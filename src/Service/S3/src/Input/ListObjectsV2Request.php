@@ -85,13 +85,13 @@ final class ListObjectsV2Request extends Input
      * @param array{
      *   Bucket?: string,
      *   Delimiter?: string,
-     *   EncodingType?: \AsyncAws\S3\Enum\EncodingType::*,
+     *   EncodingType?: EncodingType::*,
      *   MaxKeys?: int,
      *   Prefix?: string,
      *   ContinuationToken?: string,
      *   FetchOwner?: bool,
      *   StartAfter?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   @region?: string,
      * } $input
      */

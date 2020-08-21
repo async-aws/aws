@@ -19,7 +19,7 @@ final class StackDriftInformation
 
     /**
      * @param array{
-     *   StackDriftStatus: \AsyncAws\CloudFormation\Enum\StackDriftStatus::*,
+     *   StackDriftStatus: StackDriftStatus::*,
      *   LastCheckTimestamp?: null|\DateTimeImmutable,
      * } $input
      */

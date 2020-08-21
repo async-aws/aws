@@ -4,6 +4,7 @@ namespace AsyncAws\CloudFront;
 
 use AsyncAws\CloudFront\Input\CreateInvalidationRequest;
 use AsyncAws\CloudFront\Result\CreateInvalidationResult;
+use AsyncAws\CloudFront\ValueObject\InvalidationBatch;
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
@@ -17,7 +18,7 @@ class CloudFrontClient extends AbstractApi
      *
      * @param array{
      *   DistributionId: string,
-     *   InvalidationBatch: \AsyncAws\CloudFront\ValueObject\InvalidationBatch|array,
+     *   InvalidationBatch: InvalidationBatch|array,
      *   @region?: string,
      * }|CreateInvalidationRequest $input
      */

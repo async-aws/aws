@@ -73,11 +73,11 @@ final class RespondToAuthChallengeRequest extends Input
     /**
      * @param array{
      *   ClientId?: string,
-     *   ChallengeName?: \AsyncAws\CognitoIdentityProvider\Enum\ChallengeNameType::*,
+     *   ChallengeName?: ChallengeNameType::*,
      *   Session?: string,
      *   ChallengeResponses?: array<string, string>,
-     *   AnalyticsMetadata?: \AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType|array,
-     *   UserContextData?: \AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType|array,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
+     *   UserContextData?: UserContextDataType|array,
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * } $input

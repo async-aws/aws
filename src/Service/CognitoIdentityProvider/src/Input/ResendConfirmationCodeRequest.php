@@ -63,9 +63,9 @@ final class ResendConfirmationCodeRequest extends Input
      * @param array{
      *   ClientId?: string,
      *   SecretHash?: string,
-     *   UserContextData?: \AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType|array,
+     *   UserContextData?: UserContextDataType|array,
      *   Username?: string,
-     *   AnalyticsMetadata?: \AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType|array,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * } $input

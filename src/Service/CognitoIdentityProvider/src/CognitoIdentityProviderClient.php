@@ -2,6 +2,10 @@
 
 namespace AsyncAws\CognitoIdentityProvider;
 
+use AsyncAws\CognitoIdentityProvider\Enum\AuthFlowType;
+use AsyncAws\CognitoIdentityProvider\Enum\ChallengeNameType;
+use AsyncAws\CognitoIdentityProvider\Enum\DeliveryMediumType;
+use AsyncAws\CognitoIdentityProvider\Enum\MessageActionType;
 use AsyncAws\CognitoIdentityProvider\Input\AdminConfirmSignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminCreateUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminDeleteUserRequest;
@@ -35,6 +39,12 @@ use AsyncAws\CognitoIdentityProvider\Result\RespondToAuthChallengeResponse;
 use AsyncAws\CognitoIdentityProvider\Result\SetUserMFAPreferenceResponse;
 use AsyncAws\CognitoIdentityProvider\Result\SignUpResponse;
 use AsyncAws\CognitoIdentityProvider\Result\VerifySoftwareTokenResponse;
+use AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType;
+use AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType;
+use AsyncAws\CognitoIdentityProvider\ValueObject\ContextDataType;
+use AsyncAws\CognitoIdentityProvider\ValueObject\SMSMfaSettingsType;
+use AsyncAws\CognitoIdentityProvider\ValueObject\SoftwareTokenMfaSettingsType;
+use AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType;
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
@@ -71,12 +81,12 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   UserPoolId: string,
      *   Username: string,
-     *   UserAttributes?: \AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType[],
-     *   ValidationData?: \AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType[],
+     *   UserAttributes?: AttributeType[],
+     *   ValidationData?: AttributeType[],
      *   TemporaryPassword?: string,
      *   ForceAliasCreation?: bool,
-     *   MessageAction?: \AsyncAws\CognitoIdentityProvider\Enum\MessageActionType::*,
-     *   DesiredDeliveryMediums?: list<\AsyncAws\CognitoIdentityProvider\Enum\DeliveryMediumType::*>,
+     *   MessageAction?: MessageActionType::*,
+     *   DesiredDeliveryMediums?: list<DeliveryMediumType::*>,
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * }|AdminCreateUserRequest $input
@@ -135,11 +145,11 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   UserPoolId: string,
      *   ClientId: string,
-     *   AuthFlow: \AsyncAws\CognitoIdentityProvider\Enum\AuthFlowType::*,
+     *   AuthFlow: AuthFlowType::*,
      *   AuthParameters?: array<string, string>,
      *   ClientMetadata?: array<string, string>,
-     *   AnalyticsMetadata?: \AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType|array,
-     *   ContextData?: \AsyncAws\CognitoIdentityProvider\ValueObject\ContextDataType|array,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
+     *   ContextData?: ContextDataType|array,
      *   @region?: string,
      * }|AdminInitiateAuthRequest $input
      */
@@ -159,7 +169,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   UserPoolId: string,
      *   Username: string,
-     *   UserAttributes: \AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType[],
+     *   UserAttributes: AttributeType[],
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * }|AdminUpdateUserAttributesRequest $input
@@ -223,8 +233,8 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Username: string,
      *   ConfirmationCode: string,
      *   Password: string,
-     *   AnalyticsMetadata?: \AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType|array,
-     *   UserContextData?: \AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType|array,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
+     *   UserContextData?: UserContextDataType|array,
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * }|ConfirmForgotPasswordRequest $input
@@ -252,9 +262,9 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   ClientId: string,
      *   SecretHash?: string,
-     *   UserContextData?: \AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType|array,
+     *   UserContextData?: UserContextDataType|array,
      *   Username: string,
-     *   AnalyticsMetadata?: \AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType|array,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * }|ForgotPasswordRequest $input
@@ -273,12 +283,12 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#initiateauth
      *
      * @param array{
-     *   AuthFlow: \AsyncAws\CognitoIdentityProvider\Enum\AuthFlowType::*,
+     *   AuthFlow: AuthFlowType::*,
      *   AuthParameters?: array<string, string>,
      *   ClientMetadata?: array<string, string>,
      *   ClientId: string,
-     *   AnalyticsMetadata?: \AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType|array,
-     *   UserContextData?: \AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType|array,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
+     *   UserContextData?: UserContextDataType|array,
      *   @region?: string,
      * }|InitiateAuthRequest $input
      */
@@ -320,9 +330,9 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @param array{
      *   ClientId: string,
      *   SecretHash?: string,
-     *   UserContextData?: \AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType|array,
+     *   UserContextData?: UserContextDataType|array,
      *   Username: string,
-     *   AnalyticsMetadata?: \AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType|array,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * }|ResendConfirmationCodeRequest $input
@@ -342,11 +352,11 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * @param array{
      *   ClientId: string,
-     *   ChallengeName: \AsyncAws\CognitoIdentityProvider\Enum\ChallengeNameType::*,
+     *   ChallengeName: ChallengeNameType::*,
      *   Session?: string,
      *   ChallengeResponses?: array<string, string>,
-     *   AnalyticsMetadata?: \AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType|array,
-     *   UserContextData?: \AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType|array,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
+     *   UserContextData?: UserContextDataType|array,
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * }|RespondToAuthChallengeRequest $input
@@ -368,8 +378,8 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#setusermfapreference
      *
      * @param array{
-     *   SMSMfaSettings?: \AsyncAws\CognitoIdentityProvider\ValueObject\SMSMfaSettingsType|array,
-     *   SoftwareTokenMfaSettings?: \AsyncAws\CognitoIdentityProvider\ValueObject\SoftwareTokenMfaSettingsType|array,
+     *   SMSMfaSettings?: SMSMfaSettingsType|array,
+     *   SoftwareTokenMfaSettings?: SoftwareTokenMfaSettingsType|array,
      *   AccessToken: string,
      *   @region?: string,
      * }|SetUserMFAPreferenceRequest $input
@@ -392,10 +402,10 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   SecretHash?: string,
      *   Username: string,
      *   Password: string,
-     *   UserAttributes?: \AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType[],
-     *   ValidationData?: \AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType[],
-     *   AnalyticsMetadata?: \AsyncAws\CognitoIdentityProvider\ValueObject\AnalyticsMetadataType|array,
-     *   UserContextData?: \AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType|array,
+     *   UserAttributes?: AttributeType[],
+     *   ValidationData?: AttributeType[],
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
+     *   UserContextData?: UserContextDataType|array,
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * }|SignUpRequest $input

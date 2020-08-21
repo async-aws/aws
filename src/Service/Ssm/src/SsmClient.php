@@ -6,6 +6,8 @@ use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\Ssm\Enum\ParameterTier;
+use AsyncAws\Ssm\Enum\ParameterType;
 use AsyncAws\Ssm\Input\DeleteParameterRequest;
 use AsyncAws\Ssm\Input\GetParameterRequest;
 use AsyncAws\Ssm\Input\GetParametersByPathRequest;
@@ -17,6 +19,8 @@ use AsyncAws\Ssm\Result\GetParametersByPathResult;
 use AsyncAws\Ssm\Result\GetParametersResult;
 use AsyncAws\Ssm\Result\PutParameterResult;
 use AsyncAws\Ssm\ValueObject\Parameter;
+use AsyncAws\Ssm\ValueObject\ParameterStringFilter;
+use AsyncAws\Ssm\ValueObject\Tag;
 
 class SsmClient extends AbstractApi
 {
@@ -85,7 +89,7 @@ class SsmClient extends AbstractApi
      * @param array{
      *   Path: string,
      *   Recursive?: bool,
-     *   ParameterFilters?: \AsyncAws\Ssm\ValueObject\ParameterStringFilter[],
+     *   ParameterFilters?: ParameterStringFilter[],
      *   WithDecryption?: bool,
      *   MaxResults?: int,
      *   NextToken?: string,
@@ -109,12 +113,12 @@ class SsmClient extends AbstractApi
      *   Name: string,
      *   Description?: string,
      *   Value: string,
-     *   Type?: \AsyncAws\Ssm\Enum\ParameterType::*,
+     *   Type?: ParameterType::*,
      *   KeyId?: string,
      *   Overwrite?: bool,
      *   AllowedPattern?: string,
-     *   Tags?: \AsyncAws\Ssm\ValueObject\Tag[],
-     *   Tier?: \AsyncAws\Ssm\Enum\ParameterTier::*,
+     *   Tags?: Tag[],
+     *   Tier?: ParameterTier::*,
      *   Policies?: string,
      *   DataType?: string,
      *   @region?: string,

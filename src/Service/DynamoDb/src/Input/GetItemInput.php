@@ -71,10 +71,10 @@ final class GetItemInput extends Input
     /**
      * @param array{
      *   TableName?: string,
-     *   Key?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
+     *   Key?: array<string, AttributeValue>,
      *   AttributesToGet?: string[],
      *   ConsistentRead?: bool,
-     *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ProjectionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
      *   @region?: string,

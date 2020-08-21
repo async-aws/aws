@@ -56,9 +56,9 @@ final class DeleteObjectsRequest extends Input
      *
      * @param array{
      *   Bucket?: string,
-     *   Delete?: \AsyncAws\S3\ValueObject\Delete|array,
+     *   Delete?: Delete|array,
      *   MFA?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   BypassGovernanceRetention?: bool,
      *   @region?: string,
      * } $input

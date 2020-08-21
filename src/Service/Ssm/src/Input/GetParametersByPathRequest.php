@@ -61,7 +61,7 @@ final class GetParametersByPathRequest extends Input
      * @param array{
      *   Path?: string,
      *   Recursive?: bool,
-     *   ParameterFilters?: \AsyncAws\Ssm\ValueObject\ParameterStringFilter[],
+     *   ParameterFilters?: ParameterStringFilter[],
      *   WithDecryption?: bool,
      *   MaxResults?: int,
      *   NextToken?: string,

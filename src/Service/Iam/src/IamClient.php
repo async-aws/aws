@@ -14,6 +14,7 @@ use AsyncAws\Iam\Input\UpdateUserRequest;
 use AsyncAws\Iam\Result\CreateUserResponse;
 use AsyncAws\Iam\Result\GetUserResponse;
 use AsyncAws\Iam\Result\ListUsersResponse;
+use AsyncAws\Iam\ValueObject\Tag;
 use AsyncAws\Iam\ValueObject\User;
 
 class IamClient extends AbstractApi
@@ -27,7 +28,7 @@ class IamClient extends AbstractApi
      *   Path?: string,
      *   UserName: string,
      *   PermissionsBoundary?: string,
-     *   Tags?: \AsyncAws\Iam\ValueObject\Tag[],
+     *   Tags?: Tag[],
      *   @region?: string,
      * }|CreateUserRequest $input
      */

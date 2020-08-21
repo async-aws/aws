@@ -6,6 +6,12 @@ use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\DynamoDb\Enum\BillingMode;
+use AsyncAws\DynamoDb\Enum\ConditionalOperator;
+use AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity;
+use AsyncAws\DynamoDb\Enum\ReturnItemCollectionMetrics;
+use AsyncAws\DynamoDb\Enum\ReturnValue;
+use AsyncAws\DynamoDb\Enum\Select;
 use AsyncAws\DynamoDb\Input\BatchGetItemInput;
 use AsyncAws\DynamoDb\Input\BatchWriteItemInput;
 use AsyncAws\DynamoDb\Input\CreateTableInput;
@@ -36,6 +42,22 @@ use AsyncAws\DynamoDb\Result\TableNotExistsWaiter;
 use AsyncAws\DynamoDb\Result\UpdateItemOutput;
 use AsyncAws\DynamoDb\Result\UpdateTableOutput;
 use AsyncAws\DynamoDb\Result\UpdateTimeToLiveOutput;
+use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
+use AsyncAws\DynamoDb\ValueObject\AttributeValue;
+use AsyncAws\DynamoDb\ValueObject\AttributeValueUpdate;
+use AsyncAws\DynamoDb\ValueObject\Condition;
+use AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue;
+use AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndex;
+use AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndexUpdate;
+use AsyncAws\DynamoDb\ValueObject\KeysAndAttributes;
+use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
+use AsyncAws\DynamoDb\ValueObject\LocalSecondaryIndex;
+use AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput;
+use AsyncAws\DynamoDb\ValueObject\ReplicationGroupUpdate;
+use AsyncAws\DynamoDb\ValueObject\SSESpecification;
+use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
+use AsyncAws\DynamoDb\ValueObject\Tag;
+use AsyncAws\DynamoDb\ValueObject\TimeToLiveSpecification;
 
 class DynamoDbClient extends AbstractApi
 {
@@ -46,8 +68,8 @@ class DynamoDbClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#batchgetitem
      *
      * @param array{
-     *   RequestItems: array<string, \AsyncAws\DynamoDb\ValueObject\KeysAndAttributes>,
-     *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
+     *   RequestItems: array<string, KeysAndAttributes>,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   @region?: string,
      * }|BatchGetItemInput $input
      */
@@ -68,8 +90,8 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   RequestItems: array<string, array>,
-     *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: \AsyncAws\DynamoDb\Enum\ReturnItemCollectionMetrics::*,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
      *   @region?: string,
      * }|BatchWriteItemInput $input
      */
@@ -88,16 +110,16 @@ class DynamoDbClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#createtable
      *
      * @param array{
-     *   AttributeDefinitions: \AsyncAws\DynamoDb\ValueObject\AttributeDefinition[],
+     *   AttributeDefinitions: AttributeDefinition[],
      *   TableName: string,
-     *   KeySchema: \AsyncAws\DynamoDb\ValueObject\KeySchemaElement[],
-     *   LocalSecondaryIndexes?: \AsyncAws\DynamoDb\ValueObject\LocalSecondaryIndex[],
-     *   GlobalSecondaryIndexes?: \AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndex[],
-     *   BillingMode?: \AsyncAws\DynamoDb\Enum\BillingMode::*,
-     *   ProvisionedThroughput?: \AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput|array,
-     *   StreamSpecification?: \AsyncAws\DynamoDb\ValueObject\StreamSpecification|array,
-     *   SSESpecification?: \AsyncAws\DynamoDb\ValueObject\SSESpecification|array,
-     *   Tags?: \AsyncAws\DynamoDb\ValueObject\Tag[],
+     *   KeySchema: KeySchemaElement[],
+     *   LocalSecondaryIndexes?: LocalSecondaryIndex[],
+     *   GlobalSecondaryIndexes?: GlobalSecondaryIndex[],
+     *   BillingMode?: BillingMode::*,
+     *   ProvisionedThroughput?: ProvisionedThroughput|array,
+     *   StreamSpecification?: StreamSpecification|array,
+     *   SSESpecification?: SSESpecification|array,
+     *   Tags?: Tag[],
      *   @region?: string,
      * }|CreateTableInput $input
      */
@@ -117,15 +139,15 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
-     *   Key: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
-     *   Expected?: array<string, \AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue>,
-     *   ConditionalOperator?: \AsyncAws\DynamoDb\Enum\ConditionalOperator::*,
-     *   ReturnValues?: \AsyncAws\DynamoDb\Enum\ReturnValue::*,
-     *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: \AsyncAws\DynamoDb\Enum\ReturnItemCollectionMetrics::*,
+     *   Key: array<string, AttributeValue>,
+     *   Expected?: array<string, ExpectedAttributeValue>,
+     *   ConditionalOperator?: ConditionalOperator::*,
+     *   ReturnValues?: ReturnValue::*,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue>,
      *   @region?: string,
      * }|DeleteItemInput $input
      */
@@ -186,10 +208,10 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
-     *   Key: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
+     *   Key: array<string, AttributeValue>,
      *   AttributesToGet?: string[],
      *   ConsistentRead?: bool,
-     *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ProjectionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
      *   @region?: string,
@@ -234,15 +256,15 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
-     *   Item: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
-     *   Expected?: array<string, \AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue>,
-     *   ReturnValues?: \AsyncAws\DynamoDb\Enum\ReturnValue::*,
-     *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: \AsyncAws\DynamoDb\Enum\ReturnItemCollectionMetrics::*,
-     *   ConditionalOperator?: \AsyncAws\DynamoDb\Enum\ConditionalOperator::*,
+     *   Item: array<string, AttributeValue>,
+     *   Expected?: array<string, ExpectedAttributeValue>,
+     *   ReturnValues?: ReturnValue::*,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
+     *   ConditionalOperator?: ConditionalOperator::*,
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue>,
      *   @region?: string,
      * }|PutItemInput $input
      */
@@ -263,21 +285,21 @@ class DynamoDbClient extends AbstractApi
      * @param array{
      *   TableName: string,
      *   IndexName?: string,
-     *   Select?: \AsyncAws\DynamoDb\Enum\Select::*,
+     *   Select?: Select::*,
      *   AttributesToGet?: string[],
      *   Limit?: int,
      *   ConsistentRead?: bool,
-     *   KeyConditions?: array<string, \AsyncAws\DynamoDb\ValueObject\Condition>,
-     *   QueryFilter?: array<string, \AsyncAws\DynamoDb\ValueObject\Condition>,
-     *   ConditionalOperator?: \AsyncAws\DynamoDb\Enum\ConditionalOperator::*,
+     *   KeyConditions?: array<string, Condition>,
+     *   QueryFilter?: array<string, Condition>,
+     *   ConditionalOperator?: ConditionalOperator::*,
      *   ScanIndexForward?: bool,
-     *   ExclusiveStartKey?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
-     *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
+     *   ExclusiveStartKey?: array<string, AttributeValue>,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   ProjectionExpression?: string,
      *   FilterExpression?: string,
      *   KeyConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue>,
      *   @region?: string,
      * }|QueryInput $input
      */
@@ -300,17 +322,17 @@ class DynamoDbClient extends AbstractApi
      *   IndexName?: string,
      *   AttributesToGet?: string[],
      *   Limit?: int,
-     *   Select?: \AsyncAws\DynamoDb\Enum\Select::*,
-     *   ScanFilter?: array<string, \AsyncAws\DynamoDb\ValueObject\Condition>,
-     *   ConditionalOperator?: \AsyncAws\DynamoDb\Enum\ConditionalOperator::*,
-     *   ExclusiveStartKey?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
-     *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
+     *   Select?: Select::*,
+     *   ScanFilter?: array<string, Condition>,
+     *   ConditionalOperator?: ConditionalOperator::*,
+     *   ExclusiveStartKey?: array<string, AttributeValue>,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
      *   TotalSegments?: int,
      *   Segment?: int,
      *   ProjectionExpression?: string,
      *   FilterExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue>,
      *   ConsistentRead?: bool,
      *   @region?: string,
      * }|ScanInput $input
@@ -369,17 +391,17 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
-     *   Key: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
-     *   AttributeUpdates?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValueUpdate>,
-     *   Expected?: array<string, \AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue>,
-     *   ConditionalOperator?: \AsyncAws\DynamoDb\Enum\ConditionalOperator::*,
-     *   ReturnValues?: \AsyncAws\DynamoDb\Enum\ReturnValue::*,
-     *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: \AsyncAws\DynamoDb\Enum\ReturnItemCollectionMetrics::*,
+     *   Key: array<string, AttributeValue>,
+     *   AttributeUpdates?: array<string, AttributeValueUpdate>,
+     *   Expected?: array<string, ExpectedAttributeValue>,
+     *   ConditionalOperator?: ConditionalOperator::*,
+     *   ReturnValues?: ReturnValue::*,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
      *   UpdateExpression?: string,
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue>,
      *   @region?: string,
      * }|UpdateItemInput $input
      */
@@ -398,14 +420,14 @@ class DynamoDbClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#updatetable
      *
      * @param array{
-     *   AttributeDefinitions?: \AsyncAws\DynamoDb\ValueObject\AttributeDefinition[],
+     *   AttributeDefinitions?: AttributeDefinition[],
      *   TableName: string,
-     *   BillingMode?: \AsyncAws\DynamoDb\Enum\BillingMode::*,
-     *   ProvisionedThroughput?: \AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput|array,
-     *   GlobalSecondaryIndexUpdates?: \AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndexUpdate[],
-     *   StreamSpecification?: \AsyncAws\DynamoDb\ValueObject\StreamSpecification|array,
-     *   SSESpecification?: \AsyncAws\DynamoDb\ValueObject\SSESpecification|array,
-     *   ReplicaUpdates?: \AsyncAws\DynamoDb\ValueObject\ReplicationGroupUpdate[],
+     *   BillingMode?: BillingMode::*,
+     *   ProvisionedThroughput?: ProvisionedThroughput|array,
+     *   GlobalSecondaryIndexUpdates?: GlobalSecondaryIndexUpdate[],
+     *   StreamSpecification?: StreamSpecification|array,
+     *   SSESpecification?: SSESpecification|array,
+     *   ReplicaUpdates?: ReplicationGroupUpdate[],
      *   @region?: string,
      * }|UpdateTableInput $input
      */
@@ -427,7 +449,7 @@ class DynamoDbClient extends AbstractApi
      *
      * @param array{
      *   TableName: string,
-     *   TimeToLiveSpecification: \AsyncAws\DynamoDb\ValueObject\TimeToLiveSpecification|array,
+     *   TimeToLiveSpecification: TimeToLiveSpecification|array,
      *   @region?: string,
      * }|UpdateTimeToLiveInput $input
      */

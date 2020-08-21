@@ -129,7 +129,7 @@ final class HeadObjectRequest extends Input
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   PartNumber?: int,
      *   @region?: string,
      * } $input

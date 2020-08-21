@@ -29,7 +29,7 @@ final class SSESpecification
     /**
      * @param array{
      *   Enabled?: null|bool,
-     *   SSEType?: null|\AsyncAws\DynamoDb\Enum\SSEType::*,
+     *   SSEType?: null|SSEType::*,
      *   KMSMasterKeyId?: null|string,
      * } $input
      */

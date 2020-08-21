@@ -31,10 +31,10 @@ final class ExpectedAttributeValue
 
     /**
      * @param array{
-     *   Value?: null|\AsyncAws\DynamoDb\ValueObject\AttributeValue|array,
+     *   Value?: null|AttributeValue|array,
      *   Exists?: null|bool,
-     *   ComparisonOperator?: null|\AsyncAws\DynamoDb\Enum\ComparisonOperator::*,
-     *   AttributeValueList?: null|\AsyncAws\DynamoDb\ValueObject\AttributeValue[],
+     *   ComparisonOperator?: null|ComparisonOperator::*,
+     *   AttributeValueList?: null|AttributeValue[],
      * } $input
      */
     public function __construct(array $input)

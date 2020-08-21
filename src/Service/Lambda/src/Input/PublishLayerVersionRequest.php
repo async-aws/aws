@@ -56,8 +56,8 @@ final class PublishLayerVersionRequest extends Input
      * @param array{
      *   LayerName?: string,
      *   Description?: string,
-     *   Content?: \AsyncAws\Lambda\ValueObject\LayerVersionContentInput|array,
-     *   CompatibleRuntimes?: list<\AsyncAws\Lambda\Enum\Runtime::*>,
+     *   Content?: LayerVersionContentInput|array,
+     *   CompatibleRuntimes?: list<Runtime::*>,
      *   LicenseInfo?: string,
      *   @region?: string,
      * } $input

@@ -41,7 +41,7 @@ final class AuthenticationResultType
      *   TokenType?: null|string,
      *   RefreshToken?: null|string,
      *   IdToken?: null|string,
-     *   NewDeviceMetadata?: null|\AsyncAws\CognitoIdentityProvider\ValueObject\NewDeviceMetadataType|array,
+     *   NewDeviceMetadata?: null|NewDeviceMetadataType|array,
      * } $input
      */
     public function __construct(array $input)

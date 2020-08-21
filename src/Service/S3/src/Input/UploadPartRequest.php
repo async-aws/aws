@@ -112,7 +112,7 @@ final class UploadPartRequest extends Input
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   @region?: string,
      * } $input
      */

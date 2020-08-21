@@ -73,7 +73,7 @@ final class PublishInput extends Input
      *   Message?: string,
      *   Subject?: string,
      *   MessageStructure?: string,
-     *   MessageAttributes?: array<string, \AsyncAws\Sns\ValueObject\MessageAttributeValue>,
+     *   MessageAttributes?: array<string, MessageAttributeValue>,
      *   @region?: string,
      * } $input
      */

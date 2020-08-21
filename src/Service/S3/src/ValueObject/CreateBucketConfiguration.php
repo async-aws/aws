@@ -15,7 +15,7 @@ final class CreateBucketConfiguration
 
     /**
      * @param array{
-     *   LocationConstraint?: null|\AsyncAws\S3\Enum\BucketLocationConstraint::*,
+     *   LocationConstraint?: null|BucketLocationConstraint::*,
      * } $input
      */
     public function __construct(array $input)

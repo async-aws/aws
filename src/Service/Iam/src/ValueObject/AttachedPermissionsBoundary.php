@@ -19,7 +19,7 @@ final class AttachedPermissionsBoundary
 
     /**
      * @param array{
-     *   PermissionsBoundaryType?: null|\AsyncAws\Iam\Enum\PermissionsBoundaryAttachmentType::*,
+     *   PermissionsBoundaryType?: null|PermissionsBoundaryAttachmentType::*,
      *   PermissionsBoundaryArn?: null|string,
      * } $input
      */

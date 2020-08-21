@@ -56,7 +56,7 @@ final class Parameter
     /**
      * @param array{
      *   Name?: null|string,
-     *   Type?: null|\AsyncAws\Ssm\Enum\ParameterType::*,
+     *   Type?: null|ParameterType::*,
      *   Value?: null|string,
      *   Version?: null|string,
      *   Selector?: null|string,

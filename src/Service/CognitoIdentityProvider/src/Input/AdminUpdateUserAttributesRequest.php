@@ -48,7 +48,7 @@ final class AdminUpdateUserAttributesRequest extends Input
      * @param array{
      *   UserPoolId?: string,
      *   Username?: string,
-     *   UserAttributes?: \AsyncAws\CognitoIdentityProvider\ValueObject\AttributeType[],
+     *   UserAttributes?: AttributeType[],
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * } $input

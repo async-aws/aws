@@ -21,8 +21,8 @@ final class Message
 
     /**
      * @param array{
-     *   Subject: \AsyncAws\Ses\ValueObject\Content|array,
-     *   Body: \AsyncAws\Ses\ValueObject\Body|array,
+     *   Subject: Content|array,
+     *   Body: Body|array,
      * } $input
      */
     public function __construct(array $input)

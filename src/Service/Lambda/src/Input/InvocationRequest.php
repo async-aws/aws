@@ -58,8 +58,8 @@ final class InvocationRequest extends Input
     /**
      * @param array{
      *   FunctionName?: string,
-     *   InvocationType?: \AsyncAws\Lambda\Enum\InvocationType::*,
-     *   LogType?: \AsyncAws\Lambda\Enum\LogType::*,
+     *   InvocationType?: InvocationType::*,
+     *   LogType?: LogType::*,
      *   ClientContext?: string,
      *   Payload?: string,
      *   Qualifier?: string,

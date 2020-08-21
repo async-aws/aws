@@ -101,15 +101,15 @@ final class PutItemInput extends Input
     /**
      * @param array{
      *   TableName?: string,
-     *   Item?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
-     *   Expected?: array<string, \AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue>,
-     *   ReturnValues?: \AsyncAws\DynamoDb\Enum\ReturnValue::*,
-     *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: \AsyncAws\DynamoDb\Enum\ReturnItemCollectionMetrics::*,
-     *   ConditionalOperator?: \AsyncAws\DynamoDb\Enum\ConditionalOperator::*,
+     *   Item?: array<string, AttributeValue>,
+     *   Expected?: array<string, ExpectedAttributeValue>,
+     *   ReturnValues?: ReturnValue::*,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
+     *   ConditionalOperator?: ConditionalOperator::*,
      *   ConditionExpression?: string,
      *   ExpressionAttributeNames?: array<string, string>,
-     *   ExpressionAttributeValues?: array<string, \AsyncAws\DynamoDb\ValueObject\AttributeValue>,
+     *   ExpressionAttributeValues?: array<string, AttributeValue>,
      *   @region?: string,
      * } $input
      */

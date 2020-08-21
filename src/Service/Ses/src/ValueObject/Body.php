@@ -18,8 +18,8 @@ final class Body
 
     /**
      * @param array{
-     *   Text?: null|\AsyncAws\Ses\ValueObject\Content|array,
-     *   Html?: null|\AsyncAws\Ses\ValueObject\Content|array,
+     *   Text?: null|Content|array,
+     *   Html?: null|Content|array,
      * } $input
      */
     public function __construct(array $input)

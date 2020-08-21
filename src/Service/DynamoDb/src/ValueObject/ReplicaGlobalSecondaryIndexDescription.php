@@ -17,7 +17,7 @@ final class ReplicaGlobalSecondaryIndexDescription
     /**
      * @param array{
      *   IndexName?: null|string,
-     *   ProvisionedThroughputOverride?: null|\AsyncAws\DynamoDb\ValueObject\ProvisionedThroughputOverride|array,
+     *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
      * } $input
      */
     public function __construct(array $input)

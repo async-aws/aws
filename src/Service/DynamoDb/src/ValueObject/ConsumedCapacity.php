@@ -45,9 +45,9 @@ final class ConsumedCapacity
      *   CapacityUnits?: null|float,
      *   ReadCapacityUnits?: null|float,
      *   WriteCapacityUnits?: null|float,
-     *   Table?: null|\AsyncAws\DynamoDb\ValueObject\Capacity|array,
-     *   LocalSecondaryIndexes?: null|array<string, \AsyncAws\DynamoDb\ValueObject\Capacity>,
-     *   GlobalSecondaryIndexes?: null|array<string, \AsyncAws\DynamoDb\ValueObject\Capacity>,
+     *   Table?: null|Capacity|array,
+     *   LocalSecondaryIndexes?: null|array<string, Capacity>,
+     *   GlobalSecondaryIndexes?: null|array<string, Capacity>,
      * } $input
      */
     public function __construct(array $input)

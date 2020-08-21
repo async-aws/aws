@@ -92,12 +92,12 @@ final class SendEmailRequest extends Input
      * @param array{
      *   FromEmailAddress?: string,
      *   FromEmailAddressIdentityArn?: string,
-     *   Destination?: \AsyncAws\Ses\ValueObject\Destination|array,
+     *   Destination?: Destination|array,
      *   ReplyToAddresses?: string[],
      *   FeedbackForwardingEmailAddress?: string,
      *   FeedbackForwardingEmailAddressIdentityArn?: string,
-     *   Content?: \AsyncAws\Ses\ValueObject\EmailContent|array,
-     *   EmailTags?: \AsyncAws\Ses\ValueObject\MessageTag[],
+     *   Content?: EmailContent|array,
+     *   EmailTags?: MessageTag[],
      *   ConfigurationSetName?: string,
      *   @region?: string,
      * } $input

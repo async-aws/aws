@@ -72,7 +72,7 @@ final class StackEvent
      *   PhysicalResourceId?: null|string,
      *   ResourceType?: null|string,
      *   Timestamp: \DateTimeImmutable,
-     *   ResourceStatus?: null|\AsyncAws\CloudFormation\Enum\ResourceStatus::*,
+     *   ResourceStatus?: null|ResourceStatus::*,
      *   ResourceStatusReason?: null|string,
      *   ResourceProperties?: null|string,
      *   ClientRequestToken?: null|string,

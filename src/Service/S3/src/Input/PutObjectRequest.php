@@ -269,7 +269,7 @@ final class PutObjectRequest extends Input
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
      *
      * @param array{
-     *   ACL?: \AsyncAws\S3\Enum\ObjectCannedACL::*,
+     *   ACL?: ObjectCannedACL::*,
      *   Body?: string|resource|callable|iterable,
      *   Bucket?: string,
      *   CacheControl?: string,
@@ -286,19 +286,19 @@ final class PutObjectRequest extends Input
      *   GrantWriteACP?: string,
      *   Key?: string,
      *   Metadata?: array<string, string>,
-     *   ServerSideEncryption?: \AsyncAws\S3\Enum\ServerSideEncryption::*,
-     *   StorageClass?: \AsyncAws\S3\Enum\StorageClass::*,
+     *   ServerSideEncryption?: ServerSideEncryption::*,
+     *   StorageClass?: StorageClass::*,
      *   WebsiteRedirectLocation?: string,
      *   SSECustomerAlgorithm?: string,
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
      *   SSEKMSKeyId?: string,
      *   SSEKMSEncryptionContext?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   Tagging?: string,
-     *   ObjectLockMode?: \AsyncAws\S3\Enum\ObjectLockMode::*,
+     *   ObjectLockMode?: ObjectLockMode::*,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
-     *   ObjectLockLegalHoldStatus?: \AsyncAws\S3\Enum\ObjectLockLegalHoldStatus::*,
+     *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
      *   @region?: string,
      * } $input
      */

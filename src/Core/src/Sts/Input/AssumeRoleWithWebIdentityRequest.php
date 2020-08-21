@@ -83,7 +83,7 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      *   RoleSessionName?: string,
      *   WebIdentityToken?: string,
      *   ProviderId?: string,
-     *   PolicyArns?: \AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType[],
+     *   PolicyArns?: PolicyDescriptorType[],
      *   Policy?: string,
      *   DurationSeconds?: int,
      *   @region?: string,

@@ -47,7 +47,7 @@ final class GetObjectAclRequest extends Input
      *   Bucket?: string,
      *   Key?: string,
      *   VersionId?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   @region?: string,
      * } $input
      */

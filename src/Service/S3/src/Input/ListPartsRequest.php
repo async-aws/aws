@@ -65,7 +65,7 @@ final class ListPartsRequest extends Input
      *   MaxParts?: int,
      *   PartNumberMarker?: int,
      *   UploadId?: string,
-     *   RequestPayer?: \AsyncAws\S3\Enum\RequestPayer::*,
+     *   RequestPayer?: RequestPayer::*,
      *   @region?: string,
      * } $input
      */

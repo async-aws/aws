@@ -16,7 +16,7 @@ final class ResultSetOptions
 
     /**
      * @param array{
-     *   decimalReturnType?: null|\AsyncAws\RdsDataService\Enum\DecimalReturnType::*,
+     *   decimalReturnType?: null|DecimalReturnType::*,
      * } $input
      */
     public function __construct(array $input)

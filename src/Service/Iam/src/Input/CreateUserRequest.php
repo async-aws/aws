@@ -50,7 +50,7 @@ final class CreateUserRequest extends Input
      *   Path?: string,
      *   UserName?: string,
      *   PermissionsBoundary?: string,
-     *   Tags?: \AsyncAws\Iam\ValueObject\Tag[],
+     *   Tags?: Tag[],
      *   @region?: string,
      * } $input
      */

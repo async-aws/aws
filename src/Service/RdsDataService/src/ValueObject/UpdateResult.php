@@ -11,7 +11,7 @@ final class UpdateResult
 
     /**
      * @param array{
-     *   generatedFields?: null|\AsyncAws\RdsDataService\ValueObject\Field[],
+     *   generatedFields?: null|Field[],
      * } $input
      */
     public function __construct(array $input)

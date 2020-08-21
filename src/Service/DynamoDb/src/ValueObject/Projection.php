@@ -19,7 +19,7 @@ final class Projection
 
     /**
      * @param array{
-     *   ProjectionType?: null|\AsyncAws\DynamoDb\Enum\ProjectionType::*,
+     *   ProjectionType?: null|ProjectionType::*,
      *   NonKeyAttributes?: null|string[],
      * } $input
      */

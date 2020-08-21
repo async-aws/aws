@@ -53,7 +53,7 @@ final class PutLogEventsRequest extends Input
      * @param array{
      *   logGroupName?: string,
      *   logStreamName?: string,
-     *   logEvents?: \AsyncAws\CloudWatchLogs\ValueObject\InputLogEvent[],
+     *   logEvents?: InputLogEvent[],
      *   sequenceToken?: string,
      *   @region?: string,
      * } $input

@@ -24,7 +24,7 @@ final class InvalidationBatch
 
     /**
      * @param array{
-     *   Paths: \AsyncAws\CloudFront\ValueObject\Paths|array,
+     *   Paths: Paths|array,
      *   CallerReference: string,
      * } $input
      */

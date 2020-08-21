@@ -26,8 +26,8 @@ final class LocalSecondaryIndex
     /**
      * @param array{
      *   IndexName: string,
-     *   KeySchema: \AsyncAws\DynamoDb\ValueObject\KeySchemaElement[],
-     *   Projection: \AsyncAws\DynamoDb\ValueObject\Projection|array,
+     *   KeySchema: KeySchemaElement[],
+     *   Projection: Projection|array,
      * } $input
      */
     public function __construct(array $input)

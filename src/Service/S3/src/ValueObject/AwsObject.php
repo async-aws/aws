@@ -44,8 +44,8 @@ final class AwsObject
      *   LastModified?: null|\DateTimeImmutable,
      *   ETag?: null|string,
      *   Size?: null|string,
-     *   StorageClass?: null|\AsyncAws\S3\Enum\ObjectStorageClass::*,
-     *   Owner?: null|\AsyncAws\S3\ValueObject\Owner|array,
+     *   StorageClass?: null|ObjectStorageClass::*,
+     *   Owner?: null|Owner|array,
      * } $input
      */
     public function __construct(array $input)

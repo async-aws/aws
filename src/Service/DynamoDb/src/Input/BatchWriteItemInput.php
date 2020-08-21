@@ -39,8 +39,8 @@ final class BatchWriteItemInput extends Input
     /**
      * @param array{
      *   RequestItems?: array<string, array>,
-     *   ReturnConsumedCapacity?: \AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity::*,
-     *   ReturnItemCollectionMetrics?: \AsyncAws\DynamoDb\Enum\ReturnItemCollectionMetrics::*,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
      *   @region?: string,
      * } $input
      */

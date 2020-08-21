@@ -37,7 +37,7 @@ final class CreateTopicInput extends Input
      * @param array{
      *   Name?: string,
      *   Attributes?: array<string, string>,
-     *   Tags?: \AsyncAws\Sns\ValueObject\Tag[],
+     *   Tags?: Tag[],
      *   @region?: string,
      * } $input
      */

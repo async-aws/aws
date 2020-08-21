@@ -21,7 +21,7 @@ final class StreamSpecification
     /**
      * @param array{
      *   StreamEnabled: bool,
-     *   StreamViewType?: null|\AsyncAws\DynamoDb\Enum\StreamViewType::*,
+     *   StreamViewType?: null|StreamViewType::*,
      * } $input
      */
     public function __construct(array $input)

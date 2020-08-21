@@ -17,7 +17,7 @@ final class RollbackConfiguration
 
     /**
      * @param array{
-     *   RollbackTriggers?: null|\AsyncAws\CloudFormation\ValueObject\RollbackTrigger[],
+     *   RollbackTriggers?: null|RollbackTrigger[],
      *   MonitoringTimeInMinutes?: null|int,
      * } $input
      */
