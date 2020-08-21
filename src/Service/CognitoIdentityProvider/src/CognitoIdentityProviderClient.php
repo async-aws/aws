@@ -11,6 +11,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AdminCreateUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminDeleteUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminGetUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminInitiateAuthRequest;
+use AsyncAws\CognitoIdentityProvider\Input\AdminSetUserPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminUpdateUserAttributesRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
@@ -27,6 +28,7 @@ use AsyncAws\CognitoIdentityProvider\Result\AdminConfirmSignUpResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminCreateUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminGetUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminInitiateAuthResponse;
+use AsyncAws\CognitoIdentityProvider\Result\AdminSetUserPasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminUpdateUserAttributesResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AssociateSoftwareTokenResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ChangePasswordResponse;
@@ -159,6 +161,27 @@ class CognitoIdentityProviderClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminInitiateAuth', 'region' => $input->getRegion()]));
 
         return new AdminInitiateAuthResponse($response);
+    }
+
+    /**
+     * Sets the specified user's password in a user pool as an administrator. Works on any user.
+     *
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#adminsetuserpassword
+     *
+     * @param array{
+     *   UserPoolId: string,
+     *   Username: string,
+     *   Password: string,
+     *   Permanent?: bool,
+     *   @region?: string,
+     * }|AdminSetUserPasswordRequest $input
+     */
+    public function adminSetUserPassword($input): AdminSetUserPasswordResponse
+    {
+        $input = AdminSetUserPasswordRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminSetUserPassword', 'region' => $input->getRegion()]));
+
+        return new AdminSetUserPasswordResponse($response);
     }
 
     /**
