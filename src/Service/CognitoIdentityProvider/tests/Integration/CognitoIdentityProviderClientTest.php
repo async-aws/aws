@@ -3,6 +3,7 @@
 namespace AsyncAws\CognitoIdentityProvider\Tests\Integration;
 
 use AsyncAws\CognitoIdentityProvider\CognitoIdentityProviderClient;
+use AsyncAws\CognitoIdentityProvider\Input\AdminConfirmSignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminCreateUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminDeleteUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminGetUserRequest;
@@ -31,6 +32,20 @@ use AsyncAws\Core\Test\TestCase;
 
 class CognitoIdentityProviderClientTest extends TestCase
 {
+    public function testAdminConfirmSignUp(): void
+    {
+        $client = $this->getClient();
+
+        $input = new AdminConfirmSignUpRequest([
+            'UserPoolId' => 'change me',
+            'Username' => 'change me',
+            'ClientMetadata' => ['change me' => 'change me'],
+        ]);
+        $result = $client->AdminConfirmSignUp($input);
+
+        $result->resolve();
+    }
+
     public function testAdminCreateUser(): void
     {
         $client = $this->getClient();

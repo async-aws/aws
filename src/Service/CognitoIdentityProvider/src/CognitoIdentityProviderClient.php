@@ -2,6 +2,7 @@
 
 namespace AsyncAws\CognitoIdentityProvider;
 
+use AsyncAws\CognitoIdentityProvider\Input\AdminConfirmSignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminCreateUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminDeleteUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminGetUserRequest;
@@ -18,6 +19,7 @@ use AsyncAws\CognitoIdentityProvider\Input\RespondToAuthChallengeRequest;
 use AsyncAws\CognitoIdentityProvider\Input\SetUserMFAPreferenceRequest;
 use AsyncAws\CognitoIdentityProvider\Input\SignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\VerifySoftwareTokenRequest;
+use AsyncAws\CognitoIdentityProvider\Result\AdminConfirmSignUpResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminCreateUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminGetUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminInitiateAuthResponse;
@@ -41,6 +43,26 @@ use AsyncAws\Core\Result;
 
 class CognitoIdentityProviderClient extends AbstractApi
 {
+    /**
+     * Confirms user registration as an admin without using a confirmation code. Works on any user.
+     *
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#adminconfirmsignup
+     *
+     * @param array{
+     *   UserPoolId: string,
+     *   Username: string,
+     *   ClientMetadata?: array<string, string>,
+     *   @region?: string,
+     * }|AdminConfirmSignUpRequest $input
+     */
+    public function adminConfirmSignUp($input): AdminConfirmSignUpResponse
+    {
+        $input = AdminConfirmSignUpRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminConfirmSignUp', 'region' => $input->getRegion()]));
+
+        return new AdminConfirmSignUpResponse($response);
+    }
+
     /**
      * Creates a new user in the specified user pool.
      *

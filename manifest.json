@@ -224,6 +224,7 @@
             "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cognito-idp/2016-04-18/paginators-1.json",
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cognito-idp/2016-04-18/examples-1.json",
             "methods": [
+                "AdminConfirmSignUp",
                 "AdminCreateUser",
                 "AdminDeleteUser",
                 "AdminGetUser",
