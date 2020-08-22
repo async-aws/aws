@@ -12,6 +12,7 @@ use PhpCsFixer\Console\ConfigurationResolver;
 use PhpCsFixer\Error\ErrorsManager;
 use PhpCsFixer\Runner\Runner;
 use PhpCsFixer\ToolInfo;
+use Swaggest\JsonDiff\JsonPatch;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -240,13 +241,13 @@ class GenerateCommand extends Command
 
     private function generateService(SymfonyStyle $io, InputInterface $input, array $manifest, array $endpoints, string $serviceName)
     {
-        $definitionArray = $this->loadFile($manifest['services'][$serviceName]['source'], "$serviceName-source");
+        $definitionArray = $this->loadFile($manifest['services'][$serviceName]['source'], "$serviceName-source", $manifest['services'][$serviceName]['patches']['source'] ?? []);
         $endpoints = $this->extractEndpointsForService($endpoints, $definitionArray['metadata']['endpointPrefix'], $definitionArray['metadata']['signingName'] ?? $definitionArray['metadata']['endpointPrefix'], $definitionArray['metadata']['signatureVersion']);
 
-        $documentationArray = $this->loadFile($manifest['services'][$serviceName]['documentation'], "$serviceName-documentation");
-        $paginationArray = $this->loadFile($manifest['services'][$serviceName]['pagination'], "$serviceName-pagination");
-        $waiterArray = isset($manifest['services'][$serviceName]['waiter']) ? $this->loadFile($manifest['services'][$serviceName]['waiter'], "$serviceName-waiter") : ['waiters' => []];
-        $exampleArray = isset($manifest['services'][$serviceName]['example']) ? $this->loadFile($manifest['services'][$serviceName]['example'], "$serviceName-example") : ['examples' => []];
+        $documentationArray = $this->loadFile($manifest['services'][$serviceName]['documentation'], "$serviceName-documentation", $manifest['services'][$serviceName]['patches']['documentation'] ?? []);
+        $paginationArray = $this->loadFile($manifest['services'][$serviceName]['pagination'], "$serviceName-pagination", $manifest['services'][$serviceName]['patches']['pagination'] ?? []);
+        $waiterArray = isset($manifest['services'][$serviceName]['waiter']) ? $this->loadFile($manifest['services'][$serviceName]['waiter'], "$serviceName-waiter", $manifest['services'][$serviceName]['patches']['waiter'] ?? []) : ['waiters' => []];
+        $exampleArray = isset($manifest['services'][$serviceName]['example']) ? $this->loadFile($manifest['services'][$serviceName]['example'], "$serviceName-example", $manifest['services'][$serviceName]['patches']['example'] ?? []) : ['examples' => []];
 
         $operationNames = $this->getOperationNames($input->getArgument('operation'), $input->getOption('all'), $io, $definitionArray, $waiterArray, $manifest['services'][$serviceName]);
         if (\is_int($operationNames)) {
@@ -423,7 +424,7 @@ class GenerateCommand extends Command
         }
     }
 
-    private function loadFile(string $path, string $cacheKey): array
+    private function loadFile(string $path, string $cacheKey, array $patch = []): array
     {
         $path = \strtr($path, $this->loadManifest()['variables'] ?? [[]]);
 
@@ -438,9 +439,20 @@ class GenerateCommand extends Command
         }
 
         if (!isset($this->cache[$cacheKey])) {
+            if (empty($patch)) {
+                $content = \json_decode(\file_get_contents($path), true);
+            } else {
+                // use a non associative object to apply patch
+                $content = \json_decode(\file_get_contents($path), false);
+                $jsonPatch = JsonPatch::import($patch);
+                $jsonPatch->apply($content);
+                // convert to associative array
+                $content = \json_decode(\json_encode($content), true);
+            }
+
             $this->cache[$cacheKey] = [
                 'path' => $path,
-                'content' => \json_decode(\file_get_contents($path), true),
+                'content' => $content,
             ];
 
             \file_put_contents($this->cacheFile, '<?php return ' . \var_export($this->cache, true) . ';');
