@@ -14,7 +14,7 @@ class ListTablesInputTest extends TestCase
             'Limit' => 3,
         ]);
 
-        // see https://docs.aws.amazon.com/dynamodb/latest/APIReference/API_POST.html
+        // see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_POST.html
         $expected = '
 POST / HTTP/1.0
 Content-Type: application/x-amz-json-1.0

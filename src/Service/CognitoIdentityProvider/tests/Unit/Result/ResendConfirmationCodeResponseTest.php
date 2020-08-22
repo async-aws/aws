@@ -15,7 +15,7 @@ class ResendConfirmationCodeResponseTest extends TestCase
 {
     public function testResendConfirmationCodeResponse(): void
     {
-        // see https://docs.aws.amazon.com/cognitoidentityprovider/latest/APIReference/API_ResendConfirmationCode.html
+        // see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ResendConfirmationCode.html
         $response = new SimpleMockedResponse(\json_encode([
             'CodeDeliveryDetails' => [
                 'AttributeName' => 'my-attribute',

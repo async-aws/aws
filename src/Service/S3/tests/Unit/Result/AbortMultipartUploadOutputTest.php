@@ -14,7 +14,7 @@ class AbortMultipartUploadOutputTest extends TestCase
 {
     public function testAbortMultipartUploadOutput(): void
     {
-        // see https://docs.aws.amazon.com/s3/latest/APIReference/API_AbortMultipartUpload.html
+        // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html
         $response = new SimpleMockedResponse('', ['x-amz-request-charged' => 'requester']);
 
         $client = new MockHttpClient($response);
@@ -25,7 +25,7 @@ class AbortMultipartUploadOutputTest extends TestCase
 
     public function testAbortMultipartUploadOutputNoCharge(): void
     {
-        // see https://docs.aws.amazon.com/s3/latest/APIReference/API_AbortMultipartUpload.html
+        // see https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html
         $response = new SimpleMockedResponse('', []);
 
         $client = new MockHttpClient($response);

@@ -13,7 +13,7 @@ class AdminConfirmSignUpResponseTest extends TestCase
 {
     public function testAdminConfirmSignUpResponse(): void
     {
-        // see https://docs.aws.amazon.com/cognitoidentityprovider/latest/APIReference/API_AdminConfirmSignUp.html
+        // see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminConfirmSignUp.html
         $response = new SimpleMockedResponse('{
         }');
 

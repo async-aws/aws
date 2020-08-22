@@ -14,7 +14,7 @@ class GetParametersByPathRequestTest extends TestCase
             'Recursive' => true,
         ]);
 
-        // see https://docs.aws.amazon.com/ssm/latest/APIReference/API_GetParametersByPath.html
+        // see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParametersByPath.html
         $expected = '
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1

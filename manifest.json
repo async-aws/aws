@@ -10,6 +10,7 @@
             "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cloudformation/2010-05-15/paginators-1.json",
             "waiter": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cloudformation/2010-05-15/waiters-2.json",
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cloudformation/2010-05-15/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference",
             "methods": [
                 "DescribeStackEvents",
                 "DescribeStacks"
@@ -21,6 +22,7 @@
             "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cloudfront/2019-03-26/paginators-1.json",
             "waiter": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cloudfront/2019-03-26/waiters-2.json",
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cloudfront/2019-03-26/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/cloudfront/latest/APIReference",
             "methods": [
                 "CreateInvalidation"
             ]
@@ -30,6 +32,7 @@
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/logs/2014-03-28/docs-2.json",
             "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/logs/2014-03-28/paginators-1.json",
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/logs/2014-03-28/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference",
             "methods": [
                 "DescribeLogStreams",
                 "PutLogEvents"
@@ -41,8 +44,36 @@
             "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/codedeploy/2014-10-06/paginators-1.json",
             "waiter": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/codedeploy/2014-10-06/waiters-2.json",
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/codedeploy/2014-10-06/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/codedeploy/latest/APIReference",
             "methods": [
                 "PutLifecycleEventHookExecutionStatus"
+            ]
+        },
+        "CognitoIdentityProvider": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cognito-idp/2016-04-18/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cognito-idp/2016-04-18/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cognito-idp/2016-04-18/paginators-1.json",
+            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cognito-idp/2016-04-18/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference",
+            "methods": [
+                "AdminConfirmSignUp",
+                "AdminCreateUser",
+                "AdminDeleteUser",
+                "AdminGetUser",
+                "AdminInitiateAuth",
+                "AdminSetUserPassword",
+                "AdminUpdateUserAttributes",
+                "AssociateSoftwareToken",
+                "ChangePassword",
+                "ConfirmForgotPassword",
+                "ForgotPassword",
+                "InitiateAuth",
+                "ListUsers",
+                "ResendConfirmationCode",
+                "RespondToAuthChallenge",
+                "SetUserMFAPreference",
+                "SignUp",
+                "VerifySoftwareToken"
             ]
         },
         "DynamoDb": {
@@ -51,6 +82,7 @@
             "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/dynamodb/2012-08-10/paginators-1.json",
             "waiter": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/dynamodb/2012-08-10/waiters-2.json",
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/dynamodb/2012-08-10/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/amazondynamodb/latest/APIReference",
             "methods": [
                 "BatchGetItem",
                 "BatchWriteItem",
@@ -75,6 +107,7 @@
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/eventbridge/2015-10-07/docs-2.json",
             "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/eventbridge/2015-10-07/paginators-1.json",
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/eventbridge/2015-10-07/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/eventbridge/latest/APIReference",
             "methods": [
                 "PutEvents"
             ]
@@ -85,6 +118,7 @@
             "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/iam/2010-05-08/paginators-1.json",
             "waiter": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/iam/2010-05-08/waiters-2.json",
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/iam/2010-05-08/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/IAM/latest/APIReference",
             "methods": [
                 "CreateUser",
                 "DeleteUser",
@@ -99,6 +133,7 @@
             "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/lambda/2015-03-31/paginators-1.json",
             "waiter": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/lambda/2015-03-31/waiters-2.json",
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/lambda/2015-03-31/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/lambda/latest/APIReference",
             "methods": [
                 "AddLayerVersionPermission",
                 "Invoke",
@@ -111,6 +146,7 @@
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/rds-data/2018-08-01/docs-2.json",
             "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/rds-data/2018-08-01/paginators-1.json",
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/rds-data/2018-08-01/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/rdsdataservice/latest/APIReference",
             "methods": [
                 "BatchExecuteStatement",
                 "BeginTransaction",
@@ -125,6 +161,7 @@
             "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/s3/2006-03-01/paginators-1.json",
             "waiter": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/s3/2006-03-01/waiters-2.json",
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/s3/2006-03-01/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/AmazonS3/latest/API",
             "methods": [
                 "AbortMultipartUpload",
                 "BucketExists",
@@ -154,6 +191,7 @@
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sesv2/2019-09-27/docs-2.json",
             "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sesv2/2019-09-27/paginators-1.json",
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/email/2010-12-01/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/ses/latest/APIReference",
             "methods": [
                 "SendEmail"
             ]
@@ -163,6 +201,7 @@
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sns/2010-03-31/docs-2.json",
             "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sns/2010-03-31/paginators-1.json",
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sns/2010-03-31/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/sns/latest/api",
             "methods": [
                 "CreatePlatformEndpoint",
                 "CreateTopic",
@@ -180,6 +219,7 @@
             "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sqs/2012-11-05/paginators-1.json",
             "waiter": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sqs/2012-11-05/waiters-2.json",
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sqs/2012-11-05/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference",
             "methods": [
                 "ChangeMessageVisibility",
                 "CreateQueue",
@@ -199,6 +239,7 @@
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/ssm/2014-11-06/docs-2.json",
             "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/ssm/2014-11-06/paginators-1.json",
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/ssm/2014-11-06/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/systems-manager/latest/APIReference",
             "methods": [
                 "DeleteParameter",
                 "GetParameter",
@@ -212,36 +253,11 @@
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sts/2011-06-15/docs-2.json",
             "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/sts/2011-06-15/paginators-1.json",
             "namespace": "AsyncAws\\Core\\Sts",
+            "api-reference": "https://docs.aws.amazon.com/STS/latest/APIReference",
             "methods": [
                 "AssumeRole",
                 "AssumeRoleWithWebIdentity",
                 "GetCallerIdentity"
-            ]
-        },
-        "CognitoIdentityProvider": {
-            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cognito-idp/2016-04-18/api-2.json",
-            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cognito-idp/2016-04-18/docs-2.json",
-            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cognito-idp/2016-04-18/paginators-1.json",
-            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cognito-idp/2016-04-18/examples-1.json",
-            "methods": [
-                "AdminConfirmSignUp",
-                "AdminCreateUser",
-                "AdminDeleteUser",
-                "AdminGetUser",
-                "AdminInitiateAuth",
-                "AdminSetUserPassword",
-                "AdminUpdateUserAttributes",
-                "AssociateSoftwareToken",
-                "ChangePassword",
-                "ConfirmForgotPassword",
-                "ForgotPassword",
-                "InitiateAuth",
-                "ListUsers",
-                "ResendConfirmationCode",
-                "RespondToAuthChallenge",
-                "SetUserMFAPreference",
-                "SignUp",
-                "VerifySoftwareToken"
             ]
         }
     }

@@ -13,7 +13,7 @@ class ListUsersRequestTest extends TestCase
             'PathPrefix' => '/division_abc/subdivision_xyz',
         ]);
 
-        // see https://docs.aws.amazon.com/iam/latest/APIReference/API_ListUsers.html
+        // see https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListUsers.html
         $expected = '
             POST / HTTP/1.0
             Content-Type: application/x-www-form-urlencoded

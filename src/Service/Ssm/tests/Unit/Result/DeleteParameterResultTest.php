@@ -15,7 +15,7 @@ class DeleteParameterResultTest extends TestCase
     {
         self::markTestSkipped('Nothing to test');
 
-        // see https://docs.aws.amazon.com/ssm/latest/APIReference/API_DeleteParameter.html
+        // see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_DeleteParameter.html
         $response = new SimpleMockedResponse('{}');
 
         $client = new MockHttpClient($response);

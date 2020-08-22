@@ -20,7 +20,7 @@ class ResendConfirmationCodeRequestTest extends TestCase
             'ClientMetadata' => ['lastName' => 'Lennon'],
         ]);
 
-        // see https://docs.aws.amazon.com/cognitoidentityprovider/latest/APIReference/API_ResendConfirmationCode.html
+        // see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ResendConfirmationCode.html
         $expected = '
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1

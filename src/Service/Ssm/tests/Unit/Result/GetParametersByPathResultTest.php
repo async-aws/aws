@@ -16,7 +16,7 @@ class GetParametersByPathResultTest extends TestCase
 {
     public function testGetParametersByPathResult(): void
     {
-        // see https://docs.aws.amazon.com/ssm/latest/APIReference/API_GetParametersByPath.html
+        // see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParametersByPath.html
         $response = new SimpleMockedResponse('{
             "Parameters": [
                 {

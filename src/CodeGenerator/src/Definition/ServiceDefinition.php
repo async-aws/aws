@@ -25,7 +25,9 @@ class ServiceDefinition
 
     private $example;
 
-    public function __construct(string $name, array $endpoints, array $definition, array $documentation, array $pagination, array $waiter, array $example)
+    private $apiReferenceUrl;
+
+    public function __construct(string $name, array $endpoints, array $definition, array $documentation, array $pagination, array $waiter, array $example, ?string $apiReferenceUrl)
     {
         $this->name = $name;
         $this->endpoints = $endpoints;
@@ -34,6 +36,7 @@ class ServiceDefinition
         $this->pagination = $pagination;
         $this->waiter = $waiter;
         $this->example = $example;
+        $this->apiReferenceUrl = $apiReferenceUrl;
     }
 
     public function getName(): string
@@ -97,6 +100,11 @@ class ServiceDefinition
     public function getProtocol(): string
     {
         return $this->definition['metadata']['protocol'];
+    }
+
+    public function getApiReferenceUrl(): ?string
+    {
+        return $this->apiReferenceUrl;
     }
 
     private function getPagination(string $name): ?Pagination
