@@ -3,6 +3,7 @@
 namespace AsyncAws\Sqs\Tests\Unit\Input;
 
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Sqs\Enum\MessageSystemAttributeName;
 use AsyncAws\Sqs\Input\ReceiveMessageRequest;
 
 class ReceiveMessageRequestTest extends TestCase
@@ -11,7 +12,7 @@ class ReceiveMessageRequestTest extends TestCase
     {
         $input = new ReceiveMessageRequest([
             'QueueUrl' => 'queueUrl',
-            'AttributeNames' => ['VisibilityTimeout', 'DelaySeconds', 'ReceiveMessageWaitTimeSeconds'],
+            'AttributeNames' => [MessageSystemAttributeName::MESSAGE_GROUP_ID, MessageSystemAttributeName::MESSAGE_DEDUPLICATION_ID],
             'MessageAttributeNames' => ['Attribute1'],
             'MaxNumberOfMessages' => 5,
             'VisibilityTimeout' => 15,
@@ -27,9 +28,8 @@ class ReceiveMessageRequestTest extends TestCase
             Action=ReceiveMessage
             &Version=2012-11-05
             &QueueUrl=queueUrl
-            &AttributeName.1=VisibilityTimeout
-            &AttributeName.2=DelaySeconds
-            &AttributeName.3=ReceiveMessageWaitTimeSeconds
+            &AttributeName.1=MessageGroupId
+            &AttributeName.2=MessageDeduplicationId
             &MessageAttributeName.1=Attribute1
             &MaxNumberOfMessages=5
             &VisibilityTimeout=15

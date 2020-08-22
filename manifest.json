@@ -232,7 +232,38 @@
                 "QueueExists",
                 "ReceiveMessage",
                 "SendMessage"
-            ]
+            ],
+            "patches": {
+                "source": [
+                    {
+                        "value": "All",
+                        "op": "add",
+                        "path": "/shapes/MessageSystemAttributeName/enum/8"
+                    },
+                    {
+                        "value": "AttributeNameList",
+                        "op": "test",
+                        "path": "/shapes/ReceiveMessageRequest/members/AttributeNames/shape"
+                    },
+                    {
+                        "value": "MessageSystemAttributeNameList",
+                        "op": "replace",
+                        "path": "/shapes/ReceiveMessageRequest/members/AttributeNames/shape"
+                    },
+                    {
+                        "value": {
+                            "type": "list",
+                            "member": {
+                                "shape": "MessageSystemAttributeName",
+                                "locationName": "AttributeName"
+                            },
+                            "flattened": true
+                        },
+                        "op": "add",
+                        "path": "/shapes/MessageSystemAttributeNameList"
+                    }
+                ]
+            }
         },
         "Ssm": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/ssm/2014-11-06/api-2.json",

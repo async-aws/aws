@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
-use AsyncAws\Sqs\Enum\QueueAttributeName;
+use AsyncAws\Sqs\Enum\MessageSystemAttributeName;
 
 final class ReceiveMessageRequest extends Input
 {
@@ -20,9 +20,7 @@ final class ReceiveMessageRequest extends Input
     private $QueueUrl;
 
     /**
-     * A list of attributes that need to be returned along with each message. These attributes include:.
-     *
-     * @var null|list<QueueAttributeName::*>
+     * @var null|list<MessageSystemAttributeName::*>
      */
     private $AttributeNames;
 
@@ -68,7 +66,7 @@ final class ReceiveMessageRequest extends Input
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   AttributeNames?: list<QueueAttributeName::*>,
+     *   AttributeNames?: list<MessageSystemAttributeName::*>,
      *   MessageAttributeNames?: string[],
      *   MaxNumberOfMessages?: int,
      *   VisibilityTimeout?: int,
@@ -95,7 +93,7 @@ final class ReceiveMessageRequest extends Input
     }
 
     /**
-     * @return list<QueueAttributeName::*>
+     * @return list<MessageSystemAttributeName::*>
      */
     public function getAttributeNames(): array
     {
@@ -157,7 +155,7 @@ final class ReceiveMessageRequest extends Input
     }
 
     /**
-     * @param list<QueueAttributeName::*> $value
+     * @param list<MessageSystemAttributeName::*> $value
      */
     public function setAttributeNames(array $value): self
     {
@@ -222,8 +220,8 @@ final class ReceiveMessageRequest extends Input
             $index = 0;
             foreach ($v as $mapValue) {
                 ++$index;
-                if (!QueueAttributeName::exists($mapValue)) {
-                    throw new InvalidArgument(sprintf('Invalid parameter "AttributeName" for "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $mapValue));
+                if (!MessageSystemAttributeName::exists($mapValue)) {
+                    throw new InvalidArgument(sprintf('Invalid parameter "AttributeName" for "%s". The value "%s" is not a valid "MessageSystemAttributeName".', __CLASS__, $mapValue));
                 }
                 $payload["AttributeName.$index"] = $mapValue;
             }

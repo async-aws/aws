@@ -7,6 +7,7 @@ use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
+use AsyncAws\Sqs\Enum\MessageSystemAttributeName;
 use AsyncAws\Sqs\Enum\MessageSystemAttributeNameForSends;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
@@ -220,7 +221,7 @@ class SqsClient extends AbstractApi
      *
      * @param array{
      *   QueueUrl: string,
-     *   AttributeNames?: list<QueueAttributeName::*>,
+     *   AttributeNames?: list<MessageSystemAttributeName::*>,
      *   MessageAttributeNames?: string[],
      *   MaxNumberOfMessages?: int,
      *   VisibilityTimeout?: int,

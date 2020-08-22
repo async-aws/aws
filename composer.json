@@ -32,6 +32,7 @@
         "nette/utils": "^3.0",
         "nyholm/symfony-bundle-test": "^1.6.1",
         "psr/cache": "^1.0",
+        "swaggest/json-diff": "^3.7",
         "symfony/cache": "^4.4 || ^5.0",
         "symfony/config": "^4.4 || ^5.0",
         "symfony/console": "^4.4 || ^5.0",
