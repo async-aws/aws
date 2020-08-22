@@ -77,8 +77,6 @@ final class CreateBucketRequest extends Input
     private $ObjectLockEnabledForBucket;
 
     /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
-     *
      * @param array{
      *   ACL?: BucketCannedACL::*,
      *   Bucket?: string,

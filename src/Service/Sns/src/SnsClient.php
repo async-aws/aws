@@ -35,6 +35,7 @@ class SnsClient extends AbstractApi
      * creating a new endpoint. For more information, see Using Amazon SNS Mobile Push Notifications.
      *
      * @see https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html
+     * @see https://docs.aws.amazon.com/sns/latest/api/API_CreatePlatformEndpoint.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#createplatformendpoint
      *
      * @param array{
@@ -59,6 +60,7 @@ class SnsClient extends AbstractApi
      * the specified name, that topic's ARN is returned without creating a new topic.
      *
      * @see http://aws.amazon.com/sns/
+     * @see https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#createtopic
      *
      * @param array{
@@ -81,6 +83,7 @@ class SnsClient extends AbstractApi
      * see Using Amazon SNS Mobile Push Notifications.
      *
      * @see https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html
+     * @see https://docs.aws.amazon.com/sns/latest/api/API_DeleteEndpoint.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#deleteendpoint
      *
      * @param array{
@@ -101,6 +104,7 @@ class SnsClient extends AbstractApi
      * from being delivered to subscribers. This action is idempotent, so deleting a topic that does not exist does not
      * result in an error.
      *
+     * @see https://docs.aws.amazon.com/sns/latest/api/API_DeleteTopic.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#deletetopic
      *
      * @param array{
@@ -121,6 +125,7 @@ class SnsClient extends AbstractApi
      * 100. If there are more subscriptions, a `NextToken` is also returned. Use the `NextToken` parameter in a new
      * `ListSubscriptionsByTopic` call to get further results.
      *
+     * @see https://docs.aws.amazon.com/sns/latest/api/API_ListSubscriptionsByTopic.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#listsubscriptionsbytopic
      *
      * @param array{
@@ -141,6 +146,7 @@ class SnsClient extends AbstractApi
      * Sends a message to an Amazon SNS topic, a text message (SMS message) directly to a phone number, or a message to a
      * mobile platform endpoint (when you specify the `TargetArn`).
      *
+     * @see https://docs.aws.amazon.com/sns/latest/api/API_Publish.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#publish
      *
      * @param array{
@@ -167,6 +173,7 @@ class SnsClient extends AbstractApi
      * topic are not in the same AWS account, the endpoint owner must the `ConfirmSubscription` action to confirm the
      * subscription.
      *
+     * @see https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#subscribe
      *
      * @param array{
@@ -192,6 +199,7 @@ class SnsClient extends AbstractApi
      * authentication and the requester is not the subscription owner, a final cancellation message is delivered to the
      * endpoint, so that the endpoint owner can easily resubscribe to the topic if the `Unsubscribe` request was unintended.
      *
+     * @see https://docs.aws.amazon.com/sns/latest/api/API_Unsubscribe.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#unsubscribe
      *
      * @param array{

@@ -15,6 +15,7 @@ class EventBridgeClient extends AbstractApi
     /**
      * Sends custom events to Amazon EventBridge so that they can be matched to rules.
      *
+     * @see https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutEvents.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-events-2015-10-07.html#putevents
      *
      * @param array{

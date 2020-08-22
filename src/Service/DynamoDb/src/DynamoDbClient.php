@@ -65,6 +65,7 @@ class DynamoDbClient extends AbstractApi
      * The `BatchGetItem` operation returns the attributes of one or more items from one or more tables. You identify
      * requested items by primary key.
      *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchGetItem.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#batchgetitem
      *
      * @param array{
@@ -86,6 +87,7 @@ class DynamoDbClient extends AbstractApi
      * `BatchWriteItem` can write up to 16 MB of data, which can comprise as many as 25 put or delete requests. Individual
      * items to be written can be as large as 400 KB.
      *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#batchwriteitem
      *
      * @param array{
@@ -107,6 +109,7 @@ class DynamoDbClient extends AbstractApi
      * The `CreateTable` operation adds a new table to your account. In an AWS account, table names must be unique within
      * each Region. That is, you can have two tables with same name if you create the tables in different Regions.
      *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#createtable
      *
      * @param array{
@@ -135,6 +138,7 @@ class DynamoDbClient extends AbstractApi
      * Deletes a single item in a table by primary key. You can perform a conditional delete operation that deletes the item
      * if it exists, or if it has an expected attribute value.
      *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#deleteitem
      *
      * @param array{
@@ -166,6 +170,7 @@ class DynamoDbClient extends AbstractApi
      * specified table does not exist, DynamoDB returns a `ResourceNotFoundException`. If table is already in the `DELETING`
      * state, no error is returned.
      *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteTable.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#deletetable
      *
      * @param array{
@@ -185,6 +190,7 @@ class DynamoDbClient extends AbstractApi
      * Returns information about the table, including the current status of the table, when it was created, the primary key
      * schema, and any indexes on the table.
      *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTable.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#describetable
      *
      * @param array{
@@ -204,6 +210,7 @@ class DynamoDbClient extends AbstractApi
      * The `GetItem` operation returns a set of attributes for the item with the given primary key. If there is no matching
      * item, `GetItem` does not return any data and there will be no `Item` element in the response.
      *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#getitem
      *
      * @param array{
@@ -229,6 +236,7 @@ class DynamoDbClient extends AbstractApi
      * Returns an array of table names associated with the current account and endpoint. The output from `ListTables` is
      * paginated, with each page returning a maximum of 100 table names.
      *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ListTables.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#listtables
      *
      * @param array{
@@ -252,6 +260,7 @@ class DynamoDbClient extends AbstractApi
      * existing item if it has certain attribute values. You can return the item's attribute values in the same operation,
      * using the `ReturnValues` parameter.
      *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#putitem
      *
      * @param array{
@@ -280,6 +289,7 @@ class DynamoDbClient extends AbstractApi
      * The `Query` operation finds items based on primary key values. You can query any table or secondary index that has a
      * composite primary key (a partition key and a sort key).
      *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#query
      *
      * @param array{
@@ -315,6 +325,7 @@ class DynamoDbClient extends AbstractApi
      * The `Scan` operation returns one or more items and item attributes by accessing every item in a table or a secondary
      * index. To have DynamoDB return fewer items, you can provide a `FilterExpression` operation.
      *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Scan.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#scan
      *
      * @param array{
@@ -387,6 +398,7 @@ class DynamoDbClient extends AbstractApi
      * attribute name-value pair if it doesn't exist, or replace an existing name-value pair if it has certain expected
      * attribute values).
      *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#updateitem
      *
      * @param array{
@@ -417,6 +429,7 @@ class DynamoDbClient extends AbstractApi
      * Modifies the provisioned throughput settings, global secondary indexes, or DynamoDB Streams settings for a given
      * table.
      *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#updatetable
      *
      * @param array{
@@ -445,6 +458,7 @@ class DynamoDbClient extends AbstractApi
      * fully process. Any additional `UpdateTimeToLive` calls for the same table during this one hour duration result in a
      * `ValidationException`.
      *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTimeToLive.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#updatetimetolive
      *
      * @param array{

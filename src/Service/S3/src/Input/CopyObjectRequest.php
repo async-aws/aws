@@ -296,8 +296,6 @@ final class CopyObjectRequest extends Input
     private $ObjectLockLegalHoldStatus;
 
     /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectCOPY.html
-     *
      * @param array{
      *   ACL?: ObjectCannedACL::*,
      *   Bucket?: string,

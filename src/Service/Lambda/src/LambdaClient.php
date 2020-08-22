@@ -27,6 +27,7 @@ class LambdaClient extends AbstractApi
      * in an organization.
      *
      * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
+     * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_AddLayerVersionPermission.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#addlayerversionpermission
      *
      * @param array{
@@ -52,6 +53,7 @@ class LambdaClient extends AbstractApi
      * Invokes a Lambda function. You can invoke a function synchronously (and wait for the response), or asynchronously. To
      * invoke a function asynchronously, set `InvocationType` to `Event`.
      *
+     * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_Invoke.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#invoke
      *
      * @param array{
@@ -78,6 +80,7 @@ class LambdaClient extends AbstractApi
      *
      * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
      * @see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
+     * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_ListLayerVersions.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#listlayerversions
      *
      * @param array{
@@ -101,6 +104,7 @@ class LambdaClient extends AbstractApi
      * new version is created.
      *
      * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
+     * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_PublishLayerVersion.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#publishlayerversion
      *
      * @param array{

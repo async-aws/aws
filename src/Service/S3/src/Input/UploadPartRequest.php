@@ -99,8 +99,6 @@ final class UploadPartRequest extends Input
     private $RequestPayer;
 
     /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadUploadPart.html
-     *
      * @param array{
      *   Body?: string|resource|callable|iterable,
      *   Bucket?: string,

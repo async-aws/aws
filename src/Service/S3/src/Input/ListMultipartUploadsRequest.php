@@ -66,8 +66,6 @@ final class ListMultipartUploadsRequest extends Input
     private $UploadIdMarker;
 
     /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadListMPUpload.html
-     *
      * @param array{
      *   Bucket?: string,
      *   Delimiter?: string,

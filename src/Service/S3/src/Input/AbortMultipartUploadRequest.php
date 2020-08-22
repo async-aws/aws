@@ -43,8 +43,6 @@ final class AbortMultipartUploadRequest extends Input
     private $RequestPayer;
 
     /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadAbort.html
-     *
      * @param array{
      *   Bucket?: string,
      *   Key?: string,

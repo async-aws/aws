@@ -19,6 +19,7 @@ class CloudFormationClient extends AbstractApi
      * stack's event history, go to Stacks in the AWS CloudFormation User Guide.
      *
      * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/concept-stack.html
+     * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeStackEvents.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cloudformation-2010-05-15.html#describestackevents
      *
      * @param array{
@@ -39,6 +40,7 @@ class CloudFormationClient extends AbstractApi
      * Returns the description for the specified stack; if no stack name was specified, then it returns the description for
      * all the stacks created.
      *
+     * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeStacks.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cloudformation-2010-05-15.html#describestacks
      *
      * @param array{

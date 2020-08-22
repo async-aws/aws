@@ -51,8 +51,6 @@ final class CompleteMultipartUploadRequest extends Input
     private $RequestPayer;
 
     /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadComplete.html
-     *
      * @param array{
      *   Bucket?: string,
      *   Key?: string,

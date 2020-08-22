@@ -266,8 +266,6 @@ final class PutObjectRequest extends Input
     private $ObjectLockLegalHoldStatus;
 
     /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
-     *
      * @param array{
      *   ACL?: ObjectCannedACL::*,
      *   Body?: string|resource|callable|iterable,

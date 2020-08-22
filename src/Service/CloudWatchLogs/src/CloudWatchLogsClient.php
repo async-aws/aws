@@ -19,6 +19,7 @@ class CloudWatchLogsClient extends AbstractApi
      * Lists the log streams for the specified log group. You can list all the log streams or filter the results by prefix.
      * You can also control how the results are ordered.
      *
+     * @see https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeLogStreams.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-logs-2014-03-28.html#describelogstreams
      *
      * @param array{
@@ -42,6 +43,7 @@ class CloudWatchLogsClient extends AbstractApi
     /**
      * Uploads a batch of log events to the specified log stream.
      *
+     * @see https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutLogEvents.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-logs-2014-03-28.html#putlogevents
      *
      * @param array{

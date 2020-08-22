@@ -25,6 +25,7 @@ class StsClient extends AbstractApi
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison
+     * @see https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sts-2011-06-15.html#assumerole
      *
      * @param array{
@@ -54,6 +55,7 @@ class StsClient extends AbstractApi
      * with a web identity provider. Example providers include Amazon Cognito, Login with Amazon, Facebook, Google, or any
      * OpenID Connect-compatible identity provider.
      *
+     * @see https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sts-2011-06-15.html#assumerolewithwebidentity
      *
      * @param array{
@@ -78,6 +80,7 @@ class StsClient extends AbstractApi
     /**
      * Returns details about the IAM user or role whose credentials are used to call the operation.
      *
+     * @see https://docs.aws.amazon.com/STS/latest/APIReference/API_GetCallerIdentity.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sts-2011-06-15.html#getcalleridentity
      *
      * @param array{

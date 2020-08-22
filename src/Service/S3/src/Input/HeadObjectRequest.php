@@ -115,8 +115,6 @@ final class HeadObjectRequest extends Input
     private $PartNumber;
 
     /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectHEAD.html
-     *
      * @param array{
      *   Bucket?: string,
      *   IfMatch?: string,
