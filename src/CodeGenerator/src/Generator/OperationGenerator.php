@@ -88,9 +88,8 @@ class OperationGenerator
             $method->addComment(GeneratorHelper::parseDocumentation($documentation));
         }
 
-        if (null !== $documentationUrl = $operation->getDocumentationUrl()) {
-            $method->addComment('@see ' . $documentationUrl);
-        } elseif (null !== $prefix = $operation->getService()->getEndpointPrefix()) {
+        $method->addComment('@see ' . $operation->getDocumentationUrl());
+        if (null !== $prefix = $operation->getService()->getEndpointPrefix()) {
             $method->addComment('@see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-' . $prefix . '-' . $operation->getService()->getApiVersion() . '.html#' . \strtolower($operation->getName()));
         }
         [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($inputShape, $inputClass, true, false, false, ['  @region?: string,']);

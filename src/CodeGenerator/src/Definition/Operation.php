@@ -111,7 +111,7 @@ class Operation
 
     public function getDocumentationUrl(): ?string
     {
-        return $this->data['documentationUrl'] ?? null;
+        return $this->data['documentationUrl'] ?? $this->service->getApiReferenceUrl() . '/API_'.$this->data['name'].'.html';
     }
 
     public function getHttpRequestUri(): ?string
