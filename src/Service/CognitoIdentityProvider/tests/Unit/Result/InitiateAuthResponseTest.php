@@ -14,7 +14,7 @@ class InitiateAuthResponseTest extends TestCase
 {
     public function testInitiateAuthResponse(): void
     {
-        // see https://docs.aws.amazon.com/cognitoidentityprovider/latest/APIReference/API_InitiateAuth.html
+        // see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
         $response = new SimpleMockedResponse(\json_encode([
             'AuthenticationResult' => [
                 'AccessToken' => 'access-09',

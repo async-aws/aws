@@ -14,7 +14,7 @@ class GetParameterResultTest extends TestCase
 {
     public function testGetParameterResult(): void
     {
-        // see https://docs.aws.amazon.com/ssm/latest/APIReference/API_GetParameter.html
+        // see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameter.html
         $response = new SimpleMockedResponse('{
             "Parameter": {
                 "ARN": "arn:aws:ssm:us-east-2:111122223333:parameter/MyGitHubPassword",

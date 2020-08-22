@@ -13,7 +13,7 @@ class ConfirmForgotPasswordResponseTest extends TestCase
 {
     public function testConfirmForgotPasswordResponse(): void
     {
-        // see https://docs.aws.amazon.com/cognitoidentityprovider/latest/APIReference/API_ConfirmForgotPassword.html
+        // see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmForgotPassword.html
         $response = new SimpleMockedResponse('', [], 200);
 
         $client = new MockHttpClient($response);

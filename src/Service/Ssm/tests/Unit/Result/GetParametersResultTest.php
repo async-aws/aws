@@ -14,7 +14,7 @@ class GetParametersResultTest extends TestCase
 {
     public function testGetParametersResult(): void
     {
-        // see https://docs.aws.amazon.com/ssm/latest/APIReference/API_GetParameters.html
+        // see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameters.html
         $response = new SimpleMockedResponse('{
             "InvalidParameters": [],
             "Parameters": [

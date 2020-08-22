@@ -13,7 +13,7 @@ class PutParameterResultTest extends TestCase
 {
     public function testPutParameterResult(): void
     {
-        // see https://docs.aws.amazon.com/ssm/latest/APIReference/API_PutParameter.html
+        // see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_PutParameter.html
         $response = new SimpleMockedResponse('{
             "Version": 2
         }');

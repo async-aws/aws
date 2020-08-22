@@ -14,7 +14,7 @@ class SignUpResponseTest extends TestCase
 {
     public function testSignUpResponse(): void
     {
-        // see https://docs.aws.amazon.com/cognitoidentityprovider/latest/APIReference/API_SignUp.html
+        // see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SignUp.html
         $response = new SimpleMockedResponse(\json_encode([
             'CodeDeliveryDetails' => [
                 'AttributeName' => 'a',

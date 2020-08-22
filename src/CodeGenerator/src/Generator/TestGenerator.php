@@ -85,7 +85,7 @@ class TestGenerator
         $namespace->addUse(TestCase::class);
 
         $exampleInput = $operation->getExample()->getInput();
-        $comment = $exampleInput ? '// see example-1.json from SDK' : '// see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_OPERATION.html';
+        $comment = $exampleInput ? '// see example-1.json from SDK' : '// see ' . $operation->getService()->getApiReferenceUrl() . '/API_OPERATION.html';
 
         switch ($operation->getService()->getProtocol()) {
             case 'rest-xml':

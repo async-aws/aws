@@ -14,7 +14,7 @@ class DescribeStacksInputTest extends TestCase
             'NextToken' => 'bar',
         ]);
 
-        // see https://docs.aws.amazon.com/CloudFormation/latest/APIReference/API_DescribeStacks.html
+        // see https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeStacks.html
         $expected = '
             POST / HTTP/1.0
             Content-Type: application/x-www-form-urlencoded

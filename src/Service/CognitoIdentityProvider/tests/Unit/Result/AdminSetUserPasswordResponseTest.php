@@ -14,7 +14,7 @@ class AdminSetUserPasswordResponseTest extends TestCase
     public function testAdminSetUserPasswordResponse(): void
     {
 
-        // see https://docs.aws.amazon.com/cognitoidentityprovider/latest/APIReference/API_AdminSetUserPassword.html
+        // see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminSetUserPassword.html
         $response = new SimpleMockedResponse('{}');
 
         $client = new MockHttpClient($response);
