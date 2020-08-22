@@ -71,6 +71,7 @@ class S3Client extends AbstractApi
      * to abort a given multipart upload multiple times in order to completely free all storage consumed by all parts.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadAbort.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#abortmultipartupload
      *
      * @param array{
@@ -129,6 +130,7 @@ class S3Client extends AbstractApi
      * Completes a multipart upload by assembling previously uploaded parts.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadComplete.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_CompleteMultipartUpload.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#completemultipartupload
      *
      * @param array{
@@ -152,6 +154,7 @@ class S3Client extends AbstractApi
      * Creates a copy of an object that is already stored in Amazon S3.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectCOPY.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#copyobject
      *
      * @param array{
@@ -209,6 +212,7 @@ class S3Client extends AbstractApi
      * bucket owner.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#createbucket
      *
      * @param array{
@@ -239,6 +243,7 @@ class S3Client extends AbstractApi
      * upload request.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadInitiate.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#createmultipartupload
      *
      * @param array{
@@ -285,6 +290,7 @@ class S3Client extends AbstractApi
      * before the bucket itself can be deleted.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketDELETE.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucket.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#deletebucket
      *
      * @param array{
@@ -305,6 +311,7 @@ class S3Client extends AbstractApi
      * of the object. If there isn't a null version, Amazon S3 does not remove any objects.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectDELETE.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#deleteobject
      *
      * @param array{
@@ -331,6 +338,7 @@ class S3Client extends AbstractApi
      * requests, reducing per-request overhead.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/multiobjectdeleteapi.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjects.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#deleteobjects
      *
      * @param array{
@@ -355,6 +363,7 @@ class S3Client extends AbstractApi
      * to the anonymous user, you can return the object without using an authorization header.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGET.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#getobject
      *
      * @param array{
@@ -393,6 +402,7 @@ class S3Client extends AbstractApi
      * object.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGETacl.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAcl.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#getobjectacl
      *
      * @param array{
@@ -416,6 +426,7 @@ class S3Client extends AbstractApi
      * you're only interested in an object's metadata. To use HEAD, you must have READ access to the object.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectHEAD.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadObject.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#headobject
      *
      * @param array{
@@ -448,6 +459,7 @@ class S3Client extends AbstractApi
      * been initiated using the Initiate Multipart Upload request, but has not yet been completed or aborted.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadListMPUpload.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#listmultipartuploads
      *
      * @param array{
@@ -508,6 +520,7 @@ class S3Client extends AbstractApi
      * the `NextPartNumberMarker` field value from the previous response.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadListParts.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#listparts
      *
      * @param array{
@@ -592,6 +605,7 @@ class S3Client extends AbstractApi
      * Adds an object to a bucket. You must have WRITE permissions on a bucket to add an object to it.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUT.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#putobject
      *
      * @param array{
@@ -641,6 +655,7 @@ class S3Client extends AbstractApi
      * bucket. You must have `WRITE_ACP` permission to set the ACL of an object.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUTacl.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectAcl.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#putobjectacl
      *
      * @param array{
@@ -671,6 +686,7 @@ class S3Client extends AbstractApi
      * Uploads a part in a multipart upload.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadUploadPart.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#uploadpart
      *
      * @param array{

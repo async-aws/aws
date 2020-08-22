@@ -85,7 +85,7 @@ class TestGenerator
         $namespace->addUse(TestCase::class);
 
         $exampleInput = $operation->getExample()->getInput();
-        $comment = $exampleInput ? '// see example-1.json from SDK' : '// see ' . $operation->getDocumentationUrl();
+        $comment = $exampleInput ? '// see example-1.json from SDK' : '// see ' . $operation->getApiReferenceDocumentationUrl();
 
         switch ($operation->getService()->getProtocol()) {
             case 'rest-xml':
