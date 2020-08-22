@@ -13,7 +13,7 @@ composer require async-aws/ssm
 
 ## Documentation
 
-See https://async-aws.com for documentation.
+See https://async-aws.com/clients/ssm.html for documentation.
 
 ## Contribute
 

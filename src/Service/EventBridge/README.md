@@ -13,7 +13,7 @@ composer require async-aws/event-bridge
 
 ## Documentation
 
-See https://async-aws.com for documentation.
+See https://async-aws.com/clients/event-bridge.html for documentation.
 
 ## Contribute
 
