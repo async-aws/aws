@@ -156,8 +156,6 @@ final class GetObjectRequest extends Input
     private $PartNumber;
 
     /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGET.html
-     *
      * @param array{
      *   Bucket?: string,
      *   IfMatch?: string,

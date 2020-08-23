@@ -218,8 +218,6 @@ final class CreateMultipartUploadRequest extends Input
     private $ObjectLockLegalHoldStatus;
 
     /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadInitiate.html
-     *
      * @param array{
      *   ACL?: ObjectCannedACL::*,
      *   Bucket?: string,

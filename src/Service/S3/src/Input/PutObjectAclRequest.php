@@ -105,8 +105,6 @@ final class PutObjectAclRequest extends Input
     private $VersionId;
 
     /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUTacl.html
-     *
      * @param array{
      *   ACL?: ObjectCannedACL::*,
      *   AccessControlPolicy?: AccessControlPolicy|array,

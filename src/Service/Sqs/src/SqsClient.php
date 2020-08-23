@@ -38,6 +38,7 @@ class SqsClient extends AbstractApi
      * Timeout in the *Amazon Simple Queue Service Developer Guide*.
      *
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ChangeMessageVisibility.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#changemessagevisibility
      *
      * @param array{
@@ -58,6 +59,7 @@ class SqsClient extends AbstractApi
     /**
      * Creates a new standard or FIFO queue. You can pass one or more attributes in the request. Keep the following in mind:.
      *
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_CreateQueue.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#createqueue
      *
      * @param array{
@@ -81,6 +83,7 @@ class SqsClient extends AbstractApi
      * a queue even if a visibility timeout setting causes the message to be locked by another consumer. Amazon SQS
      * automatically deletes messages left in a queue longer than the retention period configured for the queue.
      *
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_DeleteMessage.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#deletemessage
      *
      * @param array{
@@ -100,6 +103,7 @@ class SqsClient extends AbstractApi
     /**
      * Deletes the queue specified by the `QueueUrl`, regardless of the queue's contents.
      *
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_DeleteQueue.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#deletequeue
      *
      * @param array{
@@ -118,6 +122,7 @@ class SqsClient extends AbstractApi
     /**
      * Gets attributes for the specified queue.
      *
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_GetQueueAttributes.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#getqueueattributes
      *
      * @param array{
@@ -137,6 +142,7 @@ class SqsClient extends AbstractApi
     /**
      * Returns the URL of an existing Amazon SQS queue.
      *
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_GetQueueUrl.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#getqueueurl
      *
      * @param array{
@@ -157,6 +163,7 @@ class SqsClient extends AbstractApi
      * Returns a list of your queues. The maximum number of queues that can be returned is 1,000. If you specify a value for
      * the optional `QueueNamePrefix` parameter, only queues with a name that begins with the specified value are returned.
      *
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ListQueues.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#listqueues
      *
      * @param array{
@@ -177,6 +184,7 @@ class SqsClient extends AbstractApi
     /**
      * Deletes the messages in a queue specified by the `QueueURL` parameter.
      *
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_PurgeQueue.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#purgequeue
      *
      * @param array{
@@ -217,6 +225,7 @@ class SqsClient extends AbstractApi
      * Guide*.
      *
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-long-polling.html
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ReceiveMessage.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#receivemessage
      *
      * @param array{
@@ -241,6 +250,7 @@ class SqsClient extends AbstractApi
     /**
      * Delivers a message to the specified queue.
      *
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_SendMessage.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#sendmessage
      *
      * @param array{

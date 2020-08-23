@@ -249,9 +249,6 @@ class InputGenerator
 
         $constructorBody .= 'parent::__construct($input);';
         $constructor = $class->addMethod('__construct');
-        if (null !== $documentationUrl = $operation->getDocumentationUrl()) {
-            $constructor->addComment('@see ' . $documentationUrl);
-        }
         [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $className, false, true, false, ['  @region?: string,']);
         $constructor->addComment($doc);
         foreach ($memberClassNames as $memberClassName) {

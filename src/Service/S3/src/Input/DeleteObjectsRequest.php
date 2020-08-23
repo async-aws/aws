@@ -52,8 +52,6 @@ final class DeleteObjectsRequest extends Input
     private $BypassGovernanceRetention;
 
     /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/multiobjectdeleteapi.html
-     *
      * @param array{
      *   Bucket?: string,
      *   Delete?: Delete|array,

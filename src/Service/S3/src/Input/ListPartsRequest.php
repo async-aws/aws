@@ -57,8 +57,6 @@ final class ListPartsRequest extends Input
     private $RequestPayer;
 
     /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadListParts.html
-     *
      * @param array{
      *   Bucket?: string,
      *   Key?: string,

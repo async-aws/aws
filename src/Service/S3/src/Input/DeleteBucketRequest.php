@@ -19,8 +19,6 @@ final class DeleteBucketRequest extends Input
     private $Bucket;
 
     /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketDELETE.html
-     *
      * @param array{
      *   Bucket?: string,
      *   @region?: string,

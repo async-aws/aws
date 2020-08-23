@@ -109,9 +109,14 @@ class Operation
         throw new \InvalidArgumentException(sprintf('The operation "%s" does not have Input.', $this->getName()));
     }
 
-    public function getDocumentationUrl(): ?string
+    public function getUserGuideDocumentationUrl(): ?string
     {
         return $this->data['documentationUrl'] ?? null;
+    }
+
+    public function getApiReferenceDocumentationUrl(): string
+    {
+        return $this->service->getApiReferenceUrl() . '/API_' . $this->data['name'] . '.html';
     }
 
     public function getHttpRequestUri(): ?string

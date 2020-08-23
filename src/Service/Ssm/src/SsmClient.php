@@ -27,6 +27,7 @@ class SsmClient extends AbstractApi
     /**
      * Delete a parameter from the system.
      *
+     * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_DeleteParameter.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#deleteparameter
      *
      * @param array{
@@ -46,6 +47,7 @@ class SsmClient extends AbstractApi
      * Get information about a parameter by using the parameter name. Don't confuse this API action with the GetParameters
      * API action.
      *
+     * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameter.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#getparameter
      *
      * @param array{
@@ -65,6 +67,7 @@ class SsmClient extends AbstractApi
     /**
      * Get details of a parameter. Don't confuse this API action with the GetParameter API action.
      *
+     * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameters.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#getparameters
      *
      * @param array{
@@ -84,6 +87,7 @@ class SsmClient extends AbstractApi
     /**
      * Retrieve information about one or more parameters in a specific hierarchy.
      *
+     * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParametersByPath.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#getparametersbypath
      *
      * @param array{
@@ -107,6 +111,7 @@ class SsmClient extends AbstractApi
     /**
      * Add a parameter to the system.
      *
+     * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_PutParameter.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#putparameter
      *
      * @param array{

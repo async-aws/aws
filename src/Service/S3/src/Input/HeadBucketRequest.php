@@ -19,8 +19,6 @@ final class HeadBucketRequest extends Input
     private $Bucket;
 
     /**
-     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketHEAD.html
-     *
      * @param array{
      *   Bucket?: string,
      *   @region?: string,

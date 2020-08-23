@@ -58,6 +58,7 @@ class CognitoIdentityProviderClient extends AbstractApi
     /**
      * Confirms user registration as an admin without using a confirmation code. Works on any user.
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminConfirmSignUp.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#adminconfirmsignup
      *
      * @param array{
@@ -78,6 +79,7 @@ class CognitoIdentityProviderClient extends AbstractApi
     /**
      * Creates a new user in the specified user pool.
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminCreateUser.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#admincreateuser
      *
      * @param array{
@@ -104,6 +106,7 @@ class CognitoIdentityProviderClient extends AbstractApi
     /**
      * Deletes a user as an administrator. Works on any user.
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminDeleteUser.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#admindeleteuser
      *
      * @param array{
@@ -123,6 +126,7 @@ class CognitoIdentityProviderClient extends AbstractApi
     /**
      * Gets the specified user by user name in a user pool as an administrator. Works on any user.
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminGetUser.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#admingetuser
      *
      * @param array{
@@ -142,6 +146,7 @@ class CognitoIdentityProviderClient extends AbstractApi
     /**
      * Initiates the authentication flow, as an administrator.
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#admininitiateauth
      *
      * @param array{
@@ -166,6 +171,7 @@ class CognitoIdentityProviderClient extends AbstractApi
     /**
      * Sets the specified user's password in a user pool as an administrator. Works on any user.
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminSetUserPassword.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#adminsetuserpassword
      *
      * @param array{
@@ -187,6 +193,7 @@ class CognitoIdentityProviderClient extends AbstractApi
     /**
      * Updates the specified user's attributes, including developer attributes, as an administrator. Works on any user.
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminUpdateUserAttributes.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#adminupdateuserattributes
      *
      * @param array{
@@ -209,6 +216,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * Returns a unique generated shared secret key code for the user account. The request takes an access token or a
      * session string, but not both.
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AssociateSoftwareToken.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#associatesoftwaretoken
      *
      * @param array{
@@ -228,6 +236,7 @@ class CognitoIdentityProviderClient extends AbstractApi
     /**
      * Changes the password for a specified user in a user pool.
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ChangePassword.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#changepassword
      *
      * @param array{
@@ -248,6 +257,7 @@ class CognitoIdentityProviderClient extends AbstractApi
     /**
      * Allows a user to enter a confirmation code to reset a forgotten password.
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmForgotPassword.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#confirmforgotpassword
      *
      * @param array{
@@ -280,6 +290,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *
      * @see https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-recover-a-user-account.html
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmForgotPassword.html
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#forgotpassword
      *
      * @param array{
@@ -303,6 +314,7 @@ class CognitoIdentityProviderClient extends AbstractApi
     /**
      * Initiates the authentication flow.
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#initiateauth
      *
      * @param array{
@@ -326,6 +338,7 @@ class CognitoIdentityProviderClient extends AbstractApi
     /**
      * Lists the users in the Amazon Cognito user pool.
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ListUsers.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#listusers
      *
      * @param array{
@@ -348,6 +361,7 @@ class CognitoIdentityProviderClient extends AbstractApi
     /**
      * Resends the confirmation (for confirmation of registration) to a specific user in the user pool.
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ResendConfirmationCode.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#resendconfirmationcode
      *
      * @param array{
@@ -371,6 +385,7 @@ class CognitoIdentityProviderClient extends AbstractApi
     /**
      * Responds to the authentication challenge.
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#respondtoauthchallenge
      *
      * @param array{
@@ -398,6 +413,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * user if multiple factors are enabled. If multiple options are enabled and no preference is set, a challenge to choose
      * an MFA option will be returned during sign in.
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserMFAPreference.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#setusermfapreference
      *
      * @param array{
@@ -418,6 +434,7 @@ class CognitoIdentityProviderClient extends AbstractApi
     /**
      * Registers the user in the specified user pool and creates a user name, password, and user attributes.
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SignUp.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#signup
      *
      * @param array{
@@ -445,6 +462,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * Use this API to register a user's entered TOTP code and mark the user's software token MFA status as "verified" if
      * successful. The request takes an access token or a session string, but not both.
      *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerifySoftwareToken.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#verifysoftwaretoken
      *
      * @param array{

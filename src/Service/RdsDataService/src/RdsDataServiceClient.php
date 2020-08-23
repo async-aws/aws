@@ -24,6 +24,7 @@ class RdsDataServiceClient extends AbstractApi
     /**
      * Runs a batch SQL statement over an array of data.
      *
+     * @see https://docs.aws.amazon.com/rdsdataservice/latest/APIReference/API_BatchExecuteStatement.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rds-data-2018-08-01.html#batchexecutestatement
      *
      * @param array{
@@ -48,6 +49,7 @@ class RdsDataServiceClient extends AbstractApi
     /**
      * Starts a SQL transaction.
      *
+     * @see https://docs.aws.amazon.com/rdsdataservice/latest/APIReference/API_BeginTransaction.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rds-data-2018-08-01.html#begintransaction
      *
      * @param array{
@@ -69,6 +71,7 @@ class RdsDataServiceClient extends AbstractApi
     /**
      * Ends a SQL transaction started with the `BeginTransaction` operation and commits the changes.
      *
+     * @see https://docs.aws.amazon.com/rdsdataservice/latest/APIReference/API_CommitTransaction.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rds-data-2018-08-01.html#committransaction
      *
      * @param array{
@@ -89,6 +92,7 @@ class RdsDataServiceClient extends AbstractApi
     /**
      * Runs a SQL statement against a database.
      *
+     * @see https://docs.aws.amazon.com/rdsdataservice/latest/APIReference/API_ExecuteStatement.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rds-data-2018-08-01.html#executestatement
      *
      * @param array{
@@ -116,6 +120,7 @@ class RdsDataServiceClient extends AbstractApi
     /**
      * Performs a rollback of a transaction. Rolling back a transaction cancels its changes.
      *
+     * @see https://docs.aws.amazon.com/rdsdataservice/latest/APIReference/API_RollbackTransaction.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rds-data-2018-08-01.html#rollbacktransaction
      *
      * @param array{

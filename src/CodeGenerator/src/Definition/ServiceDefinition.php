@@ -27,7 +27,7 @@ class ServiceDefinition
 
     private $apiReferenceUrl;
 
-    public function __construct(string $name, array $endpoints, array $definition, array $documentation, array $pagination, array $waiter, array $example, ?string $apiReferenceUrl)
+    public function __construct(string $name, array $endpoints, array $definition, array $documentation, array $pagination, array $waiter, array $example, string $apiReferenceUrl)
     {
         $this->name = $name;
         $this->endpoints = $endpoints;
@@ -102,7 +102,7 @@ class ServiceDefinition
         return $this->definition['metadata']['protocol'];
     }
 
-    public function getApiReferenceUrl(): ?string
+    public function getApiReferenceUrl(): string
     {
         return $this->apiReferenceUrl;
     }
