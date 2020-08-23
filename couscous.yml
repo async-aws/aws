@@ -38,7 +38,7 @@ menu:
                 text: CloudFront
                 url: /clients/cloud-front.html
             cloud-watch-logs:
-                text: CloudWatch Log
+                text: CloudWatch Logs
                 url: /clients/cloud-watch-logs.html
             code-deploy:
                 text: CodeDeploy
