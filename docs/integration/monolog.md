@@ -43,8 +43,8 @@ The CloudWatchLogsHandler accepts the following parameters:
 For the `$options` parameter, the allowed values are:
 
 - `batchSize` (default `10000`): number of log records that are pushed to CloudWatch in a single call. This number cannot exceed 10,000.
-- `group`: name of the CloudWatch Log Group which was created previously
-- `stream`: name of the CloudWatch Log Stream which was created previously
+- `group`: name of the CloudWatch Logs Group which was created previously
+- `stream`: name of the CloudWatch Logs Stream which was created previously
 
 ## Symfony usage
 

@@ -54,7 +54,7 @@
 
 - Support for ECS Credentials Provider
 - Support for Cognito Identity Provider client in `AwsClientFactory`
-- Support for Cloud Watch Log client in `AwsClientFactory`
+- Support for CloudWatch Logs client in `AwsClientFactory`
 
 ### Fixed
 

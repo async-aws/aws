@@ -38,11 +38,17 @@ menu:
                 text: CloudFront
                 url: /clients/cloud-front.html
             cloud-watch-logs:
-                text: Cloud Watch Log
+                text: CloudWatch Logs
                 url: /clients/cloud-watch-logs.html
+            code-deploy:
+                text: CodeDeploy
+                url: /clients/code-deploy.html
             cognito-idp:
                 text: Cognito Identity provider
                 url: /clients/cognito-idp.html
+            event-bridge:
+                text: EventBridge
+                url: /clients/event-bridge.html
             dynamodb:
                 text: DynamoDB
                 url: /clients/dynamodb.html

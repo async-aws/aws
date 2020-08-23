@@ -4,9 +4,8 @@ category: clients
 
 # Clients overview
 
-AsyncAws has implemented the most popular API clients, but not all of them are promoted
-with their own page in the documentation. On this page you find some installation
-instructions and a complete list of clients.
+AsyncAws has implemented the most popular API clients. On this page you find
+some installation instructions and a complete list of clients.
 
 ## Install and configure
 
@@ -138,10 +137,10 @@ for more information.
 | [CloudFormation](./cf.md)                   | [async-aws/cloud-formation](https://packagist.org/packages/async-aws/cloud-formation)
 | [CloudFront](./cloud-front.md)              | [async-aws/cloud-front](https://packagist.org/packages/async-aws/cloud-front)
 | [CloudWatchLogs](./cloud-watch-logs.md)     | [async-aws/cloud-watch-logs](https://packagist.org/packages/async-aws/cloud-watch-logs)
-| CodeDeploy                                  | [async-aws/code-deploy](https://packagist.org/packages/async-aws/code-deploy)
+| [CodeDeploy](./code-deploy.md)              | [async-aws/code-deploy](https://packagist.org/packages/async-aws/code-deploy)
 | [CognitoIdentityProvider](./cognito-idp.md) | [async-aws/cognito-identity-provider](https://packagist.org/packages/async-aws/cognito-identity-provider)
 | [DynamoDb](./dynamodb.md)                   | [async-aws/dynamo-db](https://packagist.org/packages/async-aws/dynamo-db)
-| EventBridge                                 | [async-aws/event-bridge](https://packagist.org/packages/async-aws/event-bridge)
+| [EventBridge](./event-bridge.md)            | [async-aws/event-bridge](https://packagist.org/packages/async-aws/event-bridge)
 | [Iam](./iam.md)                             | [async-aws/iam](https://packagist.org/packages/async-aws/iam)
 | [Lambda](./lambda.md)                       | [async-aws/lambda](https://packagist.org/packages/async-aws/lambda)
 | [RdsDataService](./rds-data-service.md)     | [async-aws/rds-data-service](https://packagist.org/packages/async-aws/rds-data-service)
