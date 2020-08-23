@@ -4,9 +4,8 @@ category: clients
 
 # Clients overview
 
-AsyncAws has implemented the most popular API clients, but not all of them are promoted
-with their own page in the documentation. On this page you find some installation
-instructions and a complete list of clients.
+AsyncAws has implemented the most popular API clients. On this page you find
+some installation instructions and a complete list of clients.
 
 ## Install and configure
 
