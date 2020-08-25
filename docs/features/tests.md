@@ -14,7 +14,7 @@ use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\Core\Test\ResultMockFactory;
 use App\FileUploader;
 
-class S3UploadTest extends TestCase
+class FileUploaderTest extends TestCase
 {
     public function testWrite()
     {
