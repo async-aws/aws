@@ -22,7 +22,7 @@ final class LogStream
     /**
      * The time of the most recent log event in the log stream in CloudWatch Logs. This number is expressed as the number of
      * milliseconds after Jan 1, 1970 00:00:00 UTC. The `lastEventTime` value updates on an eventual consistency basis. It
-     * typically updates in less than an hour from ingestion, but may take longer in some rare situations.
+     * typically updates in less than an hour from ingestion, but in rare situations might take longer.
      */
     private $lastEventTimestamp;
 
