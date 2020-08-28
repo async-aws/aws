@@ -64,7 +64,7 @@ final class IniFileProvider implements CredentialProvider
         }
 
         $profileData = $profilesData[$profile];
-        if (isset($profileData[IniFileLoader::KEY_ACCESS_KEY_ID], $profileData[IniFileLoader::KEY_ACCESS_KEY_ID])) {
+        if (isset($profileData[IniFileLoader::KEY_ACCESS_KEY_ID], $profileData[IniFileLoader::KEY_SECRET_ACCESS_KEY])) {
             return new Credentials(
                 $profileData[IniFileLoader::KEY_ACCESS_KEY_ID],
                 $profileData[IniFileLoader::KEY_SECRET_ACCESS_KEY],
