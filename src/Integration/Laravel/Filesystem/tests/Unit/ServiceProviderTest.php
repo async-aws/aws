@@ -43,9 +43,7 @@ class ServiceProviderTest extends TestCase
         self::assertEquals('my_bucket', $bucket);
 
         // Verify config
-        $property = $refl->getProperty('client');
-        $property->setAccessible(true);
-        $client = $property->getValue($s3FilesystemAdapter);
+        $client = $s3FilesystemAdapter->getClient();
 
         $config = $client->getConfiguration();
         self::assertEquals('my_key', $config->get('accessKeyId'));
