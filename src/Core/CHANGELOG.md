@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.4.2
+
+### Fixed
+
+- Fixed logic in `AbstractApi::getSigner()` when passing `@region` to an API operation
+
 ## 1.4.1
 
 ### Fixed
