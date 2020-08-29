@@ -224,7 +224,7 @@ abstract class AbstractApi
     private function getSigner(?string $region)
     {
         /** @var string $region */
-        $region = $region ?? $this->configuration->isDefault('region') ? null : $this->configuration->get('region');
+        $region = $region ?? ($this->configuration->isDefault('region') ? null : $this->configuration->get('region'));
         if (!isset($this->signers[$region])) {
             $metadata = $this->getEndpointMetadata($region);
             $factories = $this->getSignerFactories();
