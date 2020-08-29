@@ -2,6 +2,13 @@
 
 ## NOT RELEASED
 
+## 1.4.1
+
+### Fixed
+
+- Make sure passing `@region` to an API operation has effect.
+- Check that both AWS access id and secret exists before using them.
+
 ## 1.4.0
 
 ### Added
