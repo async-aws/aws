@@ -192,7 +192,7 @@ abstract class AbstractApi
     protected function getEndpoint(string $uri, array $query, ?string $region): string
     {
         /** @var string $region */
-        $region = $region ?? $this->configuration->isDefault('region') ? null : $this->configuration->get('region');
+        $region = $region ?? ($this->configuration->isDefault('region') ? null : $this->configuration->get('region'));
         if (!$this->configuration->isDefault('endpoint')) {
             /** @var string $endpoint */
             $endpoint = $this->configuration->get('endpoint');
