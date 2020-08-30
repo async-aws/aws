@@ -91,7 +91,7 @@ class S3ClientTest extends TestCase
         ]);
 
         $url = $client->presign(new CreateBucketRequest(['Bucket' => 'foo']));
-        \parse_str(\parse_url($url, PHP_URL_QUERY), $query);
+        \parse_str(\parse_url($url, \PHP_URL_QUERY), $query);
 
         self::assertStringContainsString('/fr-par/', $query['X-Amz-Credential']);
     }
