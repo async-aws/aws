@@ -81,21 +81,6 @@ class S3ClientTest extends TestCase
         self::assertSame('http://foo.custom.com/', $client->presign(new CreateBucketRequest(['Bucket' => 'foo'])));
     }
 
-    public function testCustomEndpointSignature(): void
-    {
-        $client = new S3Client([
-            'endpoint' => 'https://s3.fr-par.scw.cloud',
-            'region' => 'fr-par',
-            'accessKeyId' => '123',
-            'accessKeySecret' => '123',
-        ]);
-
-        $url = $client->presign(new CreateBucketRequest(['Bucket' => 'foo']));
-        \parse_str(\parse_url($url, \PHP_URL_QUERY), $query);
-
-        self::assertStringContainsString('/fr-par/', $query['X-Amz-Credential']);
-    }
-
     public function testCompleteMultipartUpload(): void
     {
         $client = new S3Client([], new NullProvider(), new MockHttpClient());

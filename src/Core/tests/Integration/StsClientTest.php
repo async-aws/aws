@@ -11,6 +11,7 @@ use AsyncAws\Core\Sts\Input\PolicyDescriptorType;
 use AsyncAws\Core\Sts\Input\Tag;
 use AsyncAws\Core\Sts\StsClient;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\S3\Input\CreateBucketRequest;
 
 class StsClientTest extends TestCase
 {
@@ -104,6 +105,21 @@ class StsClientTest extends TestCase
 
         $this->expectException(UnsupportedRegion::class);
         $client->presign(new AssumeRoleRequest(['RoleArn' => 'demo', 'RoleSessionName' => 'demo']));
+    }
+
+    public function testCustomEndpointSignature(): void
+    {
+        $client = new StsClient([
+            'endpoint' => 'https://custom.acme.com',
+            'region' => 'demo',
+            'accessKeyId' => '123',
+            'accessKeySecret' => '123',
+        ]);
+
+        $url = $client->presign(new CreateBucketRequest(['Bucket' => 'foo']));
+        \parse_str(\parse_url($url, \PHP_URL_QUERY), $query);
+
+        self::assertStringContainsString('/demo/', $query['X-Amz-Credential']);
     }
 
     private function getClient(): StsClient
