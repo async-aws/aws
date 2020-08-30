@@ -226,9 +226,15 @@ abstract class AbstractApi
         /** @var string $region */
         $region = $region ?? ($this->configuration->isDefault('region') ? null : $this->configuration->get('region'));
         if (!isset($this->signers[$region])) {
-            $metadata = $this->getEndpointMetadata($region);
             $factories = $this->getSignerFactories();
             $factory = null;
+            if (!$this->configuration->isDefault('endpoint') && !$this->configuration->isDefault('region')) {
+                $metadata = $this->getEndpointMetadata(Configuration::DEFAULT_REGION);
+                $metadata['signRegion'] = $region;
+            } else {
+                $metadata = $this->getEndpointMetadata($region);
+            }
+
             foreach ($metadata['signVersions'] as $signatureVersion) {
                 if (isset($factories[$signatureVersion])) {
                     $factory = $factories[$signatureVersion];
