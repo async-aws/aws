@@ -106,6 +106,24 @@ class StsClientTest extends TestCase
         $client->presign(new AssumeRoleRequest(['RoleArn' => 'demo', 'RoleSessionName' => 'demo']));
     }
 
+    public function testCustomEndpointSignature(): void
+    {
+        $client = new StsClient([
+            'endpoint' => 'https://custom.acme.com',
+            'region' => 'demo',
+            'accessKeyId' => '123',
+            'accessKeySecret' => '123',
+        ]);
+
+        $url = $client->presign(new AssumeRoleRequest([
+            'RoleArn' => 'test',
+            'RoleSessionName' => 'test',
+        ]));
+        \parse_str(\parse_url($url, \PHP_URL_QUERY), $query);
+
+        self::assertStringContainsString('/demo/', $query['X-Amz-Credential']);
+    }
+
     private function getClient(): StsClient
     {
         self::markTestSkipped('No Docker image for STS');

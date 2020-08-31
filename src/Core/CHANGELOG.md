@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Allow signing request with non-standard region when using custom endpoint?
+
 ## 1.4.2
 
 ### Fixed
