@@ -11,7 +11,6 @@ use AsyncAws\Core\Sts\Input\PolicyDescriptorType;
 use AsyncAws\Core\Sts\Input\Tag;
 use AsyncAws\Core\Sts\StsClient;
 use AsyncAws\Core\Test\TestCase;
-use AsyncAws\S3\Input\CreateBucketRequest;
 
 class StsClientTest extends TestCase
 {
