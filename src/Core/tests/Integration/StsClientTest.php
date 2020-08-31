@@ -116,7 +116,10 @@ class StsClientTest extends TestCase
             'accessKeySecret' => '123',
         ]);
 
-        $url = $client->presign(new CreateBucketRequest(['Bucket' => 'foo']));
+        $url = $client->presign(new AssumeRoleRequest([
+            'RoleArn' => 'test',
+            'RoleSessionName' => 'test',
+        ]));
         \parse_str(\parse_url($url, \PHP_URL_QUERY), $query);
 
         self::assertStringContainsString('/demo/', $query['X-Amz-Credential']);
