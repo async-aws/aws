@@ -228,11 +228,12 @@ abstract class AbstractApi
         if (!isset($this->signers[$region])) {
             $factories = $this->getSignerFactories();
             $factory = null;
-            if (!$this->configuration->isDefault('endpoint') && !$this->configuration->isDefault('region')) {
+            if ($this->configuration->isDefault('endpoint') || $this->configuration->isDefault('region')) {
+                $metadata = $this->getEndpointMetadata($region);
+            } else {
+                // Allow non-aws region with custom endpoint
                 $metadata = $this->getEndpointMetadata(Configuration::DEFAULT_REGION);
                 $metadata['signRegion'] = $region;
-            } else {
-                $metadata = $this->getEndpointMetadata($region);
             }
 
             foreach ($metadata['signVersions'] as $signatureVersion) {
