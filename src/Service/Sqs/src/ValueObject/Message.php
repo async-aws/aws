@@ -46,7 +46,7 @@ final class Message
      * Each message attribute consists of a `Name`, `Type`, and `Value`. For more information, see Amazon SQS Message
      * Attributes in the *Amazon Simple Queue Service Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-attributes.html
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes
      */
     private $MessageAttributes;
 

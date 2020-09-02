@@ -22,7 +22,7 @@ final class SendMessageRequest extends Input
     private $QueueUrl;
 
     /**
-     * The message to send. The maximum string size is 256 KB.
+     * The message to send. The minimum size is one character. The maximum size is 256 KB.
      *
      * @required
      *
@@ -43,7 +43,7 @@ final class SendMessageRequest extends Input
      * Each message attribute consists of a `Name`, `Type`, and `Value`. For more information, see Amazon SQS Message
      * Attributes in the *Amazon Simple Queue Service Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-attributes.html
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes
      *
      * @var array<string, MessageAttributeValue>|null
      */

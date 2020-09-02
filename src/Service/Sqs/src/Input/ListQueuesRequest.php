@@ -24,7 +24,8 @@ final class ListQueuesRequest extends Input
     private $NextToken;
 
     /**
-     * Maximum number of results to include in the response.
+     * Maximum number of results to include in the response. Value range is 1 to 1000. You must set `MaxResults` to receive
+     * a value for `NextToken` in the response.
      *
      * @var int|null
      */
