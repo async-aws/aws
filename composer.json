@@ -40,7 +40,7 @@
         "symfony/deprecation-contracts": "^2.1",
         "symfony/filesystem": "^5.0",
         "symfony/finder": "^4.4 || ^5.0",
-        "symfony/http-kernel": "^4.4 || ^5.0",
+        "symfony/http-kernel": "^4.4 || ^5.1.5",
         "symfony/phpunit-bridge": "^5.0"
     },
     "autoload": {
