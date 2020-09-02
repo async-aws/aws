@@ -160,8 +160,9 @@ class SqsClient extends AbstractApi
     }
 
     /**
-     * Returns a list of your queues. The maximum number of queues that can be returned is 1,000. If you specify a value for
-     * the optional `QueueNamePrefix` parameter, only queues with a name that begins with the specified value are returned.
+     * Returns a list of your queues in the current region. The response includes a maximum of 1,000 results. If you specify
+     * a value for the optional `QueueNamePrefix` parameter, only queues with a name that begins with the specified value
+     * are returned.
      *
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ListQueues.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#listqueues

@@ -18,7 +18,8 @@ class ListQueuesResult extends Result implements \IteratorAggregate
     private $QueueUrls = [];
 
     /**
-     * Pagination token to include in the next request.
+     * Pagination token to include in the next request. Token value is `null` if there are no additional results to request,
+     * or if you did not set `MaxResults` in the request.
      */
     private $NextToken;
 
