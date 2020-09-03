@@ -1,0 +1,149 @@
+#!/usr/bin/env php
+<?php
+
+$rootDir = __DIR__ . '/../../..';
+if (!file_exists($rootDir . '/manifest.json')) {
+    echo "Unable to find the `manifest.json` script in `../../..`.\n";
+    exit(1);
+}
+
+function console_log(string $message): void
+{
+    echo $message.PHP_EOL;
+}
+
+/**
+ * FETCH last SDK version
+ */
+console_log('Fetching last SDK version');
+$package = json_decode(file_get_contents('https://repo.packagist.org/p2/aws/aws-sdk-php.json'), true);
+$versions = $package['packages']['aws/aws-sdk-php'];
+usort($versions, static function(array $a, array $b) {
+    return version_compare($b['version_normalized'], $a['version_normalized']);
+});
+$lastVersion = $versions[0]['version'];
+console_log('Last AWS version is '.$lastVersion);
+
+/**
+ * FETCH current generated version
+ */
+$manifest = json_decode(file_get_contents($rootDir . '/manifest.json'), true);
+$currentVersion = $manifest['variables']['${LATEST}'];
+
+console_log('Current version is '.$currentVersion);
+if (version_compare($currentVersion, $lastVersion, '>=')) {
+    console_log('Nothing to do.');
+    exec('git reset --hard');
+    exit;
+}
+
+/**
+ * Regenerate code
+ */
+console_log('Regenerate code with version '.$lastVersion);
+$manifest['variables']['${LATEST}'] = $lastVersion;
+\file_put_contents($rootDir . '/manifest.json', \json_encode($manifest, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES));
+passthru($rootDir.'/generate --all', $return);
+if ($return !== 0) {
+    console_log('Code generation failed.');
+    exit(1);
+}
+
+/**
+ * Check if something changed
+ */
+$output = [];
+exec('git diff --numstat  src/Service/', $output, $return);
+if ($return !== 0) {
+    console_log('git diff failed.');
+    exit(1);
+}
+
+if (empty($output)) {
+    console_log('Nothing changed.');
+    exec('git reset --hard');
+    exit;
+}
+console_log('Code changed');
+$services = array_unique(array_map(function(string $line) {
+    return explode('/', explode("\t", $line)[2])[2];
+}, $output));
+
+/**
+ * Fetching AWS Changes
+ */
+$changes = [];
+foreach ($versions as $version) {
+    if ($version['version'] === $currentVersion) {
+        break;
+    }
+    console_log('Fetching CHANGELOG for '. $version['version']);
+    $versionChanges = json_decode(file_get_contents('https://raw.githubusercontent.com/aws/aws-sdk-php/'.$lastVersion.'/.changes/'.$version['version']), true);
+    $changes = array_merge($changes, $versionChanges);
+}
+$changesByService = [];
+foreach ($changes as $change) {
+    $sanitizedService = preg_replace('[^a-z0-9]', '', strtolower($change['category']));
+    $changesByService[$sanitizedService][] = $change;
+}
+
+/**
+ * Generating ChangeLog
+ */
+foreach ($services as $service) {
+    $sanitizedService = preg_replace('[^a-z0-9]', '', strtolower($service));
+    if (!isset($changesByService[$sanitizedService])) {
+        console_log('/!\ No entry in changelog for service '.$service);
+        continue;
+    }
+    console_log('Generating CHANGELOG for '. $service);
+    $newLines = [];
+    foreach ($changesByService[$sanitizedService] as $change) {
+        $newLines[] = sprintf('- AWS %s: %s', $change['type'], $change['description']);
+    }
+    $changeLog = explode("\n", file_get_contents($rootDir.'/src/Service/'.$service.'/CHANGELOG.md'));
+    $nrSection = false;
+    $fixSection = false;
+    foreach ($changeLog as $index => $line) {
+        if ($line === '## NOT RELEASED') {
+            $nrSection = true;
+            continue;
+        }
+        if (!$nrSection) {
+            continue;
+        }
+        if (strpos($line, '## ') === 0) {
+            break;
+        }
+        if ($line === '### Fixed') {
+            $fixSection = true;
+            continue;
+        }
+        if (!$fixSection) {
+            continue;
+        }
+        if (strpos($line, '### ') === 0) {
+            break;
+        }
+    }
+    if (!$nrSection) {
+        array_splice($changeLog, 2, 0, array_merge([
+            '## NOT RELEASED',
+            '',
+            '### Fixed',
+            '',
+        ], $newLines, ['']));
+    } elseif (!$fixSection) {
+        array_splice($changeLog, $index, 0, array_merge([
+            '### Fixed',
+            '',
+        ], $newLines, ['']));
+    } else {
+        array_splice($changeLog, $index - 1, 0, $newLines);
+    }
+
+    file_put_contents($rootDir.'/src/Service/'.$service.'/CHANGELOG.md', implode("\n", $changeLog));
+}
+
+// forward version to .github action
+echo PHP_EOL, '::set-output name=last::'.$lastVersion, PHP_EOL;
