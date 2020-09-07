@@ -52,6 +52,7 @@ class SesClient extends AbstractApi
             case 'ap-southeast-2':
             case 'eu-central-1':
             case 'eu-west-1':
+            case 'eu-west-2':
             case 'us-east-1':
             case 'us-west-2':
                 return [
