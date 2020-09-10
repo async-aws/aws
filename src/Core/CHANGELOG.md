@@ -5,6 +5,7 @@
 ### Fixed
 
 - Allow signing request with non-standard region when using custom endpoint?
+- Fix unresolved Env Variable in some php configuration
 
 ## 1.4.2
 

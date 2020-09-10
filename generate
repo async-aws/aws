@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+use AsyncAws\Core\EnvVar;
+
 $generatorDir = __DIR__ . '/src/CodeGenerator';
 if (!file_exists($generatorDir . '/generate.php')) {
     echo "Unable to find the `generate.php` script in `/src/CodeGenerator/`.\n";
@@ -14,13 +16,13 @@ if (!file_exists(__DIR__ . '/vendor/autoload.php')) {
 
 require __DIR__ . '/vendor/autoload.php';
 
-if (!isset($_SERVER['ASYNC_AWS_GENERATE_MANIFEST'])) {
+if (null === EnvVar::get('ASYNC_AWS_GENERATE_MANIFEST')) {
     $_SERVER['ASYNC_AWS_GENERATE_MANIFEST'] = __DIR__ . '/manifest.json';
 }
-if (!isset($_SERVER['ASYNC_AWS_GENERATE_SRC'])) {
+if (null === EnvVar::get('ASYNC_AWS_GENERATE_SRC')) {
     $_SERVER['ASYNC_AWS_GENERATE_SRC'] = __DIR__ . '/src';
 }
-if (!isset($_SERVER['SYMFONY_PATCH_TYPE_DECLARATIONS'])) {
+if (null === EnvVar::get('SYMFONY_PATCH_TYPE_DECLARATIONS')) {
     $_SERVER['SYMFONY_PATCH_TYPE_DECLARATIONS'] = 'deprecations=1';
 }
 
