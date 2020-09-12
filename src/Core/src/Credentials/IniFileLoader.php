@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core\Credentials;
 
+use AsyncAws\Core\EnvVar;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -65,13 +66,13 @@ final class IniFileLoader
     private function getHomeDir(): string
     {
         // On Linux/Unix-like systems, use the HOME environment variable
-        if (\is_string($homeDir = $_SERVER['HOME'] ?? null)) {
+        if (null !== $homeDir = EnvVar::get('HOME')) {
             return $homeDir;
         }
 
         // Get the HOMEDRIVE and HOMEPATH values for Windows hosts
-        $homeDrive = $_SERVER['HOMEDRIVE'] ?? null;
-        $homePath = $_SERVER['HOMEPATH'] ?? null;
+        $homeDrive = EnvVar::get('HOMEDRIVE');
+        $homePath = EnvVar::get('HOMEPATH');
 
         return ($homeDrive && $homePath) ? $homeDrive . $homePath : '/';
     }
