@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AsyncAws\Core;
 
 /**
- * Helper to safely read environment variables
+ * Helper to safely read environment variables.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
-
+ *
  * @internal
  */
 final class EnvVar
