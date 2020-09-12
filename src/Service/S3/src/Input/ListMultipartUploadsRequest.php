@@ -66,6 +66,14 @@ final class ListMultipartUploadsRequest extends Input
     private $UploadIdMarker;
 
     /**
+     * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
+     * with an HTTP `403 (Access Denied)` error.
+     *
+     * @var string|null
+     */
+    private $ExpectedBucketOwner;
+
+    /**
      * @param array{
      *   Bucket?: string,
      *   Delimiter?: string,
@@ -74,6 +82,7 @@ final class ListMultipartUploadsRequest extends Input
      *   MaxUploads?: int,
      *   Prefix?: string,
      *   UploadIdMarker?: string,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * } $input
      */
@@ -86,6 +95,7 @@ final class ListMultipartUploadsRequest extends Input
         $this->MaxUploads = $input['MaxUploads'] ?? null;
         $this->Prefix = $input['Prefix'] ?? null;
         $this->UploadIdMarker = $input['UploadIdMarker'] ?? null;
+        $this->ExpectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         parent::__construct($input);
     }
 
@@ -110,6 +120,11 @@ final class ListMultipartUploadsRequest extends Input
     public function getEncodingType(): ?string
     {
         return $this->EncodingType;
+    }
+
+    public function getExpectedBucketOwner(): ?string
+    {
+        return $this->ExpectedBucketOwner;
     }
 
     public function getKeyMarker(): ?string
@@ -139,6 +154,9 @@ final class ListMultipartUploadsRequest extends Input
     {
         // Prepare headers
         $headers = ['content-type' => 'application/xml'];
+        if (null !== $this->ExpectedBucketOwner) {
+            $headers['x-amz-expected-bucket-owner'] = $this->ExpectedBucketOwner;
+        }
 
         // Prepare query
         $query = [];
@@ -199,6 +217,13 @@ final class ListMultipartUploadsRequest extends Input
     public function setEncodingType(?string $value): self
     {
         $this->EncodingType = $value;
+
+        return $this;
+    }
+
+    public function setExpectedBucketOwner(?string $value): self
+    {
+        $this->ExpectedBucketOwner = $value;
 
         return $this;
     }

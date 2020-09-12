@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- AWS api-change: Bucket owner verification feature added. This feature introduces the x-amz-expected-bucket-owner and x-amz-source-expected-bucket-owner headers.
+- AWS bugfix: Fixes an issue where a stream would be created that uploaded a file name instead of the file for a multipart upload
+
 ## 1.3.0
 
 ### Added

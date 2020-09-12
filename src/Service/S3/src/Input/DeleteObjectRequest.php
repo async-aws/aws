@@ -57,6 +57,14 @@ final class DeleteObjectRequest extends Input
     private $BypassGovernanceRetention;
 
     /**
+     * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
+     * with an HTTP `403 (Access Denied)` error.
+     *
+     * @var string|null
+     */
+    private $ExpectedBucketOwner;
+
+    /**
      * @param array{
      *   Bucket?: string,
      *   Key?: string,
@@ -64,6 +72,7 @@ final class DeleteObjectRequest extends Input
      *   VersionId?: string,
      *   RequestPayer?: RequestPayer::*,
      *   BypassGovernanceRetention?: bool,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * } $input
      */
@@ -75,6 +84,7 @@ final class DeleteObjectRequest extends Input
         $this->VersionId = $input['VersionId'] ?? null;
         $this->RequestPayer = $input['RequestPayer'] ?? null;
         $this->BypassGovernanceRetention = $input['BypassGovernanceRetention'] ?? null;
+        $this->ExpectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         parent::__construct($input);
     }
 
@@ -91,6 +101,11 @@ final class DeleteObjectRequest extends Input
     public function getBypassGovernanceRetention(): ?bool
     {
         return $this->BypassGovernanceRetention;
+    }
+
+    public function getExpectedBucketOwner(): ?string
+    {
+        return $this->ExpectedBucketOwner;
     }
 
     public function getKey(): ?string
@@ -135,6 +150,9 @@ final class DeleteObjectRequest extends Input
         if (null !== $this->BypassGovernanceRetention) {
             $headers['x-amz-bypass-governance-retention'] = $this->BypassGovernanceRetention ? 'true' : 'false';
         }
+        if (null !== $this->ExpectedBucketOwner) {
+            $headers['x-amz-expected-bucket-owner'] = $this->ExpectedBucketOwner;
+        }
 
         // Prepare query
         $query = [];
@@ -171,6 +189,13 @@ final class DeleteObjectRequest extends Input
     public function setBypassGovernanceRetention(?bool $value): self
     {
         $this->BypassGovernanceRetention = $value;
+
+        return $this;
+    }
+
+    public function setExpectedBucketOwner(?string $value): self
+    {
+        $this->ExpectedBucketOwner = $value;
 
         return $this;
     }

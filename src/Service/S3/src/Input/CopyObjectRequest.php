@@ -70,8 +70,10 @@ final class CopyObjectRequest extends Input
     private $ContentType;
 
     /**
-     * The name of the source bucket and key name of the source object, separated by a slash (/). Must be URL-encoded.
+     * Specifies the source object for the copy operation. You specify the value in one of two formats, depending on whether
+     * you want to access the source object through an access point:.
      *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/access-points.html
      * @required
      *
      * @var string|null
@@ -204,7 +206,7 @@ final class CopyObjectRequest extends Input
     /**
      * Specifies the customer-provided encryption key for Amazon S3 to use in encrypting data. This value is used to store
      * the object and then it is discarded; Amazon S3 does not store the encryption key. The key must be appropriate for use
-     * with the algorithm specified in the `x-amz-server-side​-encryption​-customer-algorithm` header.
+     * with the algorithm specified in the `x-amz-server-side-encryption-customer-algorithm` header.
      *
      * @var string|null
      */
@@ -296,6 +298,22 @@ final class CopyObjectRequest extends Input
     private $ObjectLockLegalHoldStatus;
 
     /**
+     * The account id of the expected destination bucket owner. If the destination bucket is owned by a different account,
+     * the request will fail with an HTTP `403 (Access Denied)` error.
+     *
+     * @var string|null
+     */
+    private $ExpectedBucketOwner;
+
+    /**
+     * The account id of the expected source bucket owner. If the source bucket is owned by a different account, the request
+     * will fail with an HTTP `403 (Access Denied)` error.
+     *
+     * @var string|null
+     */
+    private $ExpectedSourceBucketOwner;
+
+    /**
      * @param array{
      *   ACL?: ObjectCannedACL::*,
      *   Bucket?: string,
@@ -334,6 +352,8 @@ final class CopyObjectRequest extends Input
      *   ObjectLockMode?: ObjectLockMode::*,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
+     *   ExpectedBucketOwner?: string,
+     *   ExpectedSourceBucketOwner?: string,
      *   @region?: string,
      * } $input
      */
@@ -376,6 +396,8 @@ final class CopyObjectRequest extends Input
         $this->ObjectLockMode = $input['ObjectLockMode'] ?? null;
         $this->ObjectLockRetainUntilDate = !isset($input['ObjectLockRetainUntilDate']) ? null : ($input['ObjectLockRetainUntilDate'] instanceof \DateTimeImmutable ? $input['ObjectLockRetainUntilDate'] : new \DateTimeImmutable($input['ObjectLockRetainUntilDate']));
         $this->ObjectLockLegalHoldStatus = $input['ObjectLockLegalHoldStatus'] ?? null;
+        $this->ExpectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
+        $this->ExpectedSourceBucketOwner = $input['ExpectedSourceBucketOwner'] ?? null;
         parent::__construct($input);
     }
 
@@ -460,6 +482,16 @@ final class CopyObjectRequest extends Input
     public function getCopySourceSSECustomerKeyMD5(): ?string
     {
         return $this->CopySourceSSECustomerKeyMD5;
+    }
+
+    public function getExpectedBucketOwner(): ?string
+    {
+        return $this->ExpectedBucketOwner;
+    }
+
+    public function getExpectedSourceBucketOwner(): ?string
+    {
+        return $this->ExpectedSourceBucketOwner;
     }
 
     public function getExpires(): ?\DateTimeImmutable
@@ -730,6 +762,12 @@ final class CopyObjectRequest extends Input
             }
             $headers['x-amz-object-lock-legal-hold'] = $this->ObjectLockLegalHoldStatus;
         }
+        if (null !== $this->ExpectedBucketOwner) {
+            $headers['x-amz-expected-bucket-owner'] = $this->ExpectedBucketOwner;
+        }
+        if (null !== $this->ExpectedSourceBucketOwner) {
+            $headers['x-amz-source-expected-bucket-owner'] = $this->ExpectedSourceBucketOwner;
+        }
         if (null !== $this->Metadata) {
             foreach ($this->Metadata as $key => $value) {
                 $headers["x-amz-meta-$key"] = $value;
@@ -862,6 +900,20 @@ final class CopyObjectRequest extends Input
     public function setCopySourceSSECustomerKeyMD5(?string $value): self
     {
         $this->CopySourceSSECustomerKeyMD5 = $value;
+
+        return $this;
+    }
+
+    public function setExpectedBucketOwner(?string $value): self
+    {
+        $this->ExpectedBucketOwner = $value;
+
+        return $this;
+    }
+
+    public function setExpectedSourceBucketOwner(?string $value): self
+    {
+        $this->ExpectedSourceBucketOwner = $value;
 
         return $this;
     }

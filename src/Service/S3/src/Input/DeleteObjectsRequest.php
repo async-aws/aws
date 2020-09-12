@@ -52,12 +52,21 @@ final class DeleteObjectsRequest extends Input
     private $BypassGovernanceRetention;
 
     /**
+     * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
+     * with an HTTP `403 (Access Denied)` error.
+     *
+     * @var string|null
+     */
+    private $ExpectedBucketOwner;
+
+    /**
      * @param array{
      *   Bucket?: string,
      *   Delete?: Delete|array,
      *   MFA?: string,
      *   RequestPayer?: RequestPayer::*,
      *   BypassGovernanceRetention?: bool,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * } $input
      */
@@ -68,6 +77,7 @@ final class DeleteObjectsRequest extends Input
         $this->MFA = $input['MFA'] ?? null;
         $this->RequestPayer = $input['RequestPayer'] ?? null;
         $this->BypassGovernanceRetention = $input['BypassGovernanceRetention'] ?? null;
+        $this->ExpectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         parent::__construct($input);
     }
 
@@ -89,6 +99,11 @@ final class DeleteObjectsRequest extends Input
     public function getDelete(): ?Delete
     {
         return $this->Delete;
+    }
+
+    public function getExpectedBucketOwner(): ?string
+    {
+        return $this->ExpectedBucketOwner;
     }
 
     public function getMFA(): ?string
@@ -122,6 +137,9 @@ final class DeleteObjectsRequest extends Input
         }
         if (null !== $this->BypassGovernanceRetention) {
             $headers['x-amz-bypass-governance-retention'] = $this->BypassGovernanceRetention ? 'true' : 'false';
+        }
+        if (null !== $this->ExpectedBucketOwner) {
+            $headers['x-amz-expected-bucket-owner'] = $this->ExpectedBucketOwner;
         }
 
         // Prepare query
@@ -163,6 +181,13 @@ final class DeleteObjectsRequest extends Input
     public function setDelete(?Delete $value): self
     {
         $this->Delete = $value;
+
+        return $this;
+    }
+
+    public function setExpectedBucketOwner(?string $value): self
+    {
+        $this->ExpectedBucketOwner = $value;
 
         return $this;
     }

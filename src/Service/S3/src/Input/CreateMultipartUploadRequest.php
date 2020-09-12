@@ -150,7 +150,7 @@ final class CreateMultipartUploadRequest extends Input
     /**
      * Specifies the customer-provided encryption key for Amazon S3 to use in encrypting data. This value is used to store
      * the object and then it is discarded; Amazon S3 does not store the encryption key. The key must be appropriate for use
-     * with the algorithm specified in the `x-amz-server-side​-encryption​-customer-algorithm` header.
+     * with the algorithm specified in the `x-amz-server-side-encryption-customer-algorithm` header.
      *
      * @var string|null
      */
@@ -218,6 +218,14 @@ final class CreateMultipartUploadRequest extends Input
     private $ObjectLockLegalHoldStatus;
 
     /**
+     * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
+     * with an HTTP `403 (Access Denied)` error.
+     *
+     * @var string|null
+     */
+    private $ExpectedBucketOwner;
+
+    /**
      * @param array{
      *   ACL?: ObjectCannedACL::*,
      *   Bucket?: string,
@@ -246,6 +254,7 @@ final class CreateMultipartUploadRequest extends Input
      *   ObjectLockMode?: ObjectLockMode::*,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * } $input
      */
@@ -278,6 +287,7 @@ final class CreateMultipartUploadRequest extends Input
         $this->ObjectLockMode = $input['ObjectLockMode'] ?? null;
         $this->ObjectLockRetainUntilDate = !isset($input['ObjectLockRetainUntilDate']) ? null : ($input['ObjectLockRetainUntilDate'] instanceof \DateTimeImmutable ? $input['ObjectLockRetainUntilDate'] : new \DateTimeImmutable($input['ObjectLockRetainUntilDate']));
         $this->ObjectLockLegalHoldStatus = $input['ObjectLockLegalHoldStatus'] ?? null;
+        $this->ExpectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         parent::__construct($input);
     }
 
@@ -322,6 +332,11 @@ final class CreateMultipartUploadRequest extends Input
     public function getContentType(): ?string
     {
         return $this->ContentType;
+    }
+
+    public function getExpectedBucketOwner(): ?string
+    {
+        return $this->ExpectedBucketOwner;
     }
 
     public function getExpires(): ?\DateTimeImmutable
@@ -539,6 +554,9 @@ final class CreateMultipartUploadRequest extends Input
             }
             $headers['x-amz-object-lock-legal-hold'] = $this->ObjectLockLegalHoldStatus;
         }
+        if (null !== $this->ExpectedBucketOwner) {
+            $headers['x-amz-expected-bucket-owner'] = $this->ExpectedBucketOwner;
+        }
         if (null !== $this->Metadata) {
             foreach ($this->Metadata as $key => $value) {
                 $headers["x-amz-meta-$key"] = $value;
@@ -615,6 +633,13 @@ final class CreateMultipartUploadRequest extends Input
     public function setContentType(?string $value): self
     {
         $this->ContentType = $value;
+
+        return $this;
+    }
+
+    public function setExpectedBucketOwner(?string $value): self
+    {
+        $this->ExpectedBucketOwner = $value;
 
         return $this;
     }

@@ -10,6 +10,7 @@ use AsyncAws\S3\Enum\ObjectCannedACL;
 use AsyncAws\S3\Enum\RequestPayer;
 use AsyncAws\S3\ValueObject\AccessControlPolicy;
 use AsyncAws\S3\ValueObject\Grantee;
+use AsyncAws\S3\ValueObject\Owner;
 
 final class PutObjectAclRequest extends Input
 {
@@ -105,6 +106,14 @@ final class PutObjectAclRequest extends Input
     private $VersionId;
 
     /**
+     * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
+     * with an HTTP `403 (Access Denied)` error.
+     *
+     * @var string|null
+     */
+    private $ExpectedBucketOwner;
+
+    /**
      * @param array{
      *   ACL?: ObjectCannedACL::*,
      *   AccessControlPolicy?: AccessControlPolicy|array,
@@ -118,6 +127,7 @@ final class PutObjectAclRequest extends Input
      *   Key?: string,
      *   RequestPayer?: RequestPayer::*,
      *   VersionId?: string,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * } $input
      */
@@ -135,6 +145,7 @@ final class PutObjectAclRequest extends Input
         $this->Key = $input['Key'] ?? null;
         $this->RequestPayer = $input['RequestPayer'] ?? null;
         $this->VersionId = $input['VersionId'] ?? null;
+        $this->ExpectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         parent::__construct($input);
     }
 
@@ -169,6 +180,11 @@ final class PutObjectAclRequest extends Input
         @trigger_error(\sprintf('The property "ContentMD5" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
 
         return $this->ContentMD5;
+    }
+
+    public function getExpectedBucketOwner(): ?string
+    {
+        return $this->ExpectedBucketOwner;
     }
 
     public function getGrantFullControl(): ?string
@@ -251,6 +267,9 @@ final class PutObjectAclRequest extends Input
             }
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
+        if (null !== $this->ExpectedBucketOwner) {
+            $headers['x-amz-expected-bucket-owner'] = $this->ExpectedBucketOwner;
+        }
 
         // Prepare query
         $query = [];
@@ -312,6 +331,13 @@ final class PutObjectAclRequest extends Input
     {
         @trigger_error(\sprintf('The property "ContentMD5" of "%s" is deprecated by AWS.', __CLASS__), \E_USER_DEPRECATED);
         $this->ContentMD5 = $value;
+
+        return $this;
+    }
+
+    public function setExpectedBucketOwner(?string $value): self
+    {
+        $this->ExpectedBucketOwner = $value;
 
         return $this;
     }

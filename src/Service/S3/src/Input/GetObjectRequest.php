@@ -128,7 +128,7 @@ final class GetObjectRequest extends Input
     /**
      * Specifies the customer-provided encryption key for Amazon S3 to use in encrypting data. This value is used to store
      * the object and then it is discarded; Amazon S3 does not store the encryption key. The key must be appropriate for use
-     * with the algorithm specified in the `x-amz-server-side​-encryption​-customer-algorithm` header.
+     * with the algorithm specified in the `x-amz-server-side-encryption-customer-algorithm` header.
      *
      * @var string|null
      */
@@ -156,6 +156,14 @@ final class GetObjectRequest extends Input
     private $PartNumber;
 
     /**
+     * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
+     * with an HTTP `403 (Access Denied)` error.
+     *
+     * @var string|null
+     */
+    private $ExpectedBucketOwner;
+
+    /**
      * @param array{
      *   Bucket?: string,
      *   IfMatch?: string,
@@ -176,6 +184,7 @@ final class GetObjectRequest extends Input
      *   SSECustomerKeyMD5?: string,
      *   RequestPayer?: RequestPayer::*,
      *   PartNumber?: int,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * } $input
      */
@@ -200,6 +209,7 @@ final class GetObjectRequest extends Input
         $this->SSECustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
         $this->RequestPayer = $input['RequestPayer'] ?? null;
         $this->PartNumber = $input['PartNumber'] ?? null;
+        $this->ExpectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         parent::__construct($input);
     }
 
@@ -211,6 +221,11 @@ final class GetObjectRequest extends Input
     public function getBucket(): ?string
     {
         return $this->Bucket;
+    }
+
+    public function getExpectedBucketOwner(): ?string
+    {
+        return $this->ExpectedBucketOwner;
     }
 
     public function getIfMatch(): ?string
@@ -343,6 +358,9 @@ final class GetObjectRequest extends Input
             }
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
+        if (null !== $this->ExpectedBucketOwner) {
+            $headers['x-amz-expected-bucket-owner'] = $this->ExpectedBucketOwner;
+        }
 
         // Prepare query
         $query = [];
@@ -393,6 +411,13 @@ final class GetObjectRequest extends Input
     public function setBucket(?string $value): self
     {
         $this->Bucket = $value;
+
+        return $this;
+    }
+
+    public function setExpectedBucketOwner(?string $value): self
+    {
+        $this->ExpectedBucketOwner = $value;
 
         return $this;
     }
