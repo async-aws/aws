@@ -19,14 +19,24 @@ final class HeadBucketRequest extends Input
     private $Bucket;
 
     /**
+     * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
+     * with an HTTP `403 (Access Denied)` error.
+     *
+     * @var string|null
+     */
+    private $ExpectedBucketOwner;
+
+    /**
      * @param array{
      *   Bucket?: string,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->Bucket = $input['Bucket'] ?? null;
+        $this->ExpectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         parent::__construct($input);
     }
 
@@ -40,6 +50,11 @@ final class HeadBucketRequest extends Input
         return $this->Bucket;
     }
 
+    public function getExpectedBucketOwner(): ?string
+    {
+        return $this->ExpectedBucketOwner;
+    }
+
     /**
      * @internal
      */
@@ -47,6 +62,9 @@ final class HeadBucketRequest extends Input
     {
         // Prepare headers
         $headers = ['content-type' => 'application/xml'];
+        if (null !== $this->ExpectedBucketOwner) {
+            $headers['x-amz-expected-bucket-owner'] = $this->ExpectedBucketOwner;
+        }
 
         // Prepare query
         $query = [];
@@ -69,6 +87,13 @@ final class HeadBucketRequest extends Input
     public function setBucket(?string $value): self
     {
         $this->Bucket = $value;
+
+        return $this;
+    }
+
+    public function setExpectedBucketOwner(?string $value): self
+    {
+        $this->ExpectedBucketOwner = $value;
 
         return $this;
     }

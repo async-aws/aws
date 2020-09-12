@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- AWS api-change: Bucket owner verification feature added. This feature introduces the x-amz-expected-bucket-owner and x-amz-source-expected-bucket-owner headers.
+
 ## 1.3.0
 
 ### Added

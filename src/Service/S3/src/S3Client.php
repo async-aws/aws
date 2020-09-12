@@ -79,6 +79,7 @@ class S3Client extends AbstractApi
      *   Key: string,
      *   UploadId: string,
      *   RequestPayer?: RequestPayer::*,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|AbortMultipartUploadRequest $input
      */
@@ -97,6 +98,7 @@ class S3Client extends AbstractApi
      *
      * @param array{
      *   Bucket: string,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|HeadBucketRequest $input
      */
@@ -115,6 +117,7 @@ class S3Client extends AbstractApi
      *
      * @param array{
      *   Bucket: string,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|HeadBucketRequest $input
      */
@@ -139,6 +142,7 @@ class S3Client extends AbstractApi
      *   MultipartUpload?: CompletedMultipartUpload|array,
      *   UploadId: string,
      *   RequestPayer?: RequestPayer::*,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|CompleteMultipartUploadRequest $input
      */
@@ -195,6 +199,8 @@ class S3Client extends AbstractApi
      *   ObjectLockMode?: ObjectLockMode::*,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
+     *   ExpectedBucketOwner?: string,
+     *   ExpectedSourceBucketOwner?: string,
      *   @region?: string,
      * }|CopyObjectRequest $input
      */
@@ -242,6 +248,7 @@ class S3Client extends AbstractApi
      * (see UploadPart). You also include this upload ID in the final request to either complete or abort the multipart
      * upload request.
      *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadInitiate.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#createmultipartupload
@@ -274,6 +281,7 @@ class S3Client extends AbstractApi
      *   ObjectLockMode?: ObjectLockMode::*,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|CreateMultipartUploadRequest $input
      */
@@ -295,6 +303,7 @@ class S3Client extends AbstractApi
      *
      * @param array{
      *   Bucket: string,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|DeleteBucketRequest $input
      */
@@ -321,6 +330,7 @@ class S3Client extends AbstractApi
      *   VersionId?: string,
      *   RequestPayer?: RequestPayer::*,
      *   BypassGovernanceRetention?: bool,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|DeleteObjectRequest $input
      */
@@ -347,6 +357,7 @@ class S3Client extends AbstractApi
      *   MFA?: string,
      *   RequestPayer?: RequestPayer::*,
      *   BypassGovernanceRetention?: bool,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|DeleteObjectsRequest $input
      */
@@ -386,6 +397,7 @@ class S3Client extends AbstractApi
      *   SSECustomerKeyMD5?: string,
      *   RequestPayer?: RequestPayer::*,
      *   PartNumber?: int,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|GetObjectRequest $input
      */
@@ -410,6 +422,7 @@ class S3Client extends AbstractApi
      *   Key: string,
      *   VersionId?: string,
      *   RequestPayer?: RequestPayer::*,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|GetObjectAclRequest $input
      */
@@ -443,6 +456,7 @@ class S3Client extends AbstractApi
      *   SSECustomerKeyMD5?: string,
      *   RequestPayer?: RequestPayer::*,
      *   PartNumber?: int,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|HeadObjectRequest $input
      */
@@ -470,6 +484,7 @@ class S3Client extends AbstractApi
      *   MaxUploads?: int,
      *   Prefix?: string,
      *   UploadIdMarker?: string,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|ListMultipartUploadsRequest $input
      */
@@ -499,6 +514,7 @@ class S3Client extends AbstractApi
      *   FetchOwner?: bool,
      *   StartAfter?: string,
      *   RequestPayer?: RequestPayer::*,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|ListObjectsV2Request $input
      */
@@ -519,6 +535,7 @@ class S3Client extends AbstractApi
      * subsequent `ListParts` requests you can include the part-number-marker query string parameter and set its value to
      * the `NextPartNumberMarker` field value from the previous response.
      *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadListParts.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#listparts
@@ -530,6 +547,7 @@ class S3Client extends AbstractApi
      *   PartNumberMarker?: int,
      *   UploadId: string,
      *   RequestPayer?: RequestPayer::*,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|ListPartsRequest $input
      */
@@ -560,6 +578,7 @@ class S3Client extends AbstractApi
      *   SSECustomerKeyMD5?: string,
      *   RequestPayer?: RequestPayer::*,
      *   PartNumber?: int,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|HeadObjectRequest $input
      */
@@ -590,6 +609,7 @@ class S3Client extends AbstractApi
      *   SSECustomerKeyMD5?: string,
      *   RequestPayer?: RequestPayer::*,
      *   PartNumber?: int,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|HeadObjectRequest $input
      */
@@ -639,6 +659,7 @@ class S3Client extends AbstractApi
      *   ObjectLockMode?: ObjectLockMode::*,
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|PutObjectRequest $input
      */
@@ -651,9 +672,11 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * Uses the `acl` subresource to set the access control list (ACL) permissions for an object that already exists in a
-     * bucket. You must have `WRITE_ACP` permission to set the ACL of an object.
+     * Uses the `acl` subresource to set the access control list (ACL) permissions for an object that already exists in an
+     * S3 bucket. You must have `WRITE_ACP` permission to set the ACL of an object. For more information, see What
+     * permissions can I grant? in the *Amazon Simple Storage Service Developer Guide*.
      *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#permissions
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUTacl.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectAcl.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#putobjectacl
@@ -671,6 +694,7 @@ class S3Client extends AbstractApi
      *   Key: string,
      *   RequestPayer?: RequestPayer::*,
      *   VersionId?: string,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|PutObjectAclRequest $input
      */
@@ -701,6 +725,7 @@ class S3Client extends AbstractApi
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
      *   RequestPayer?: RequestPayer::*,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|UploadPartRequest $input
      */

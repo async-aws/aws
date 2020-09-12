@@ -78,8 +78,8 @@ final class UploadPartRequest extends Input
     /**
      * Specifies the customer-provided encryption key for Amazon S3 to use in encrypting data. This value is used to store
      * the object and then it is discarded; Amazon S3 does not store the encryption key. The key must be appropriate for use
-     * with the algorithm specified in the `x-amz-server-side​-encryption​-customer-algorithm header`. This must be the
-     * same encryption key specified in the initiate multipart upload request.
+     * with the algorithm specified in the `x-amz-server-side-encryption-customer-algorithm header`. This must be the same
+     * encryption key specified in the initiate multipart upload request.
      *
      * @var string|null
      */
@@ -99,6 +99,14 @@ final class UploadPartRequest extends Input
     private $RequestPayer;
 
     /**
+     * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
+     * with an HTTP `403 (Access Denied)` error.
+     *
+     * @var string|null
+     */
+    private $ExpectedBucketOwner;
+
+    /**
      * @param array{
      *   Body?: string|resource|callable|iterable,
      *   Bucket?: string,
@@ -111,6 +119,7 @@ final class UploadPartRequest extends Input
      *   SSECustomerKey?: string,
      *   SSECustomerKeyMD5?: string,
      *   RequestPayer?: RequestPayer::*,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * } $input
      */
@@ -127,6 +136,7 @@ final class UploadPartRequest extends Input
         $this->SSECustomerKey = $input['SSECustomerKey'] ?? null;
         $this->SSECustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
         $this->RequestPayer = $input['RequestPayer'] ?? null;
+        $this->ExpectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         parent::__construct($input);
     }
 
@@ -156,6 +166,11 @@ final class UploadPartRequest extends Input
     public function getContentMD5(): ?string
     {
         return $this->ContentMD5;
+    }
+
+    public function getExpectedBucketOwner(): ?string
+    {
+        return $this->ExpectedBucketOwner;
     }
 
     public function getKey(): ?string
@@ -224,6 +239,9 @@ final class UploadPartRequest extends Input
             }
             $headers['x-amz-request-payer'] = $this->RequestPayer;
         }
+        if (null !== $this->ExpectedBucketOwner) {
+            $headers['x-amz-expected-bucket-owner'] = $this->ExpectedBucketOwner;
+        }
 
         // Prepare query
         $query = [];
@@ -282,6 +300,13 @@ final class UploadPartRequest extends Input
     public function setContentMD5(?string $value): self
     {
         $this->ContentMD5 = $value;
+
+        return $this;
+    }
+
+    public function setExpectedBucketOwner(?string $value): self
+    {
+        $this->ExpectedBucketOwner = $value;
 
         return $this;
     }

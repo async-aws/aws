@@ -82,6 +82,14 @@ final class ListObjectsV2Request extends Input
     private $RequestPayer;
 
     /**
+     * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
+     * with an HTTP `403 (Access Denied)` error.
+     *
+     * @var string|null
+     */
+    private $ExpectedBucketOwner;
+
+    /**
      * @param array{
      *   Bucket?: string,
      *   Delimiter?: string,
@@ -92,6 +100,7 @@ final class ListObjectsV2Request extends Input
      *   FetchOwner?: bool,
      *   StartAfter?: string,
      *   RequestPayer?: RequestPayer::*,
+     *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * } $input
      */
@@ -106,6 +115,7 @@ final class ListObjectsV2Request extends Input
         $this->FetchOwner = $input['FetchOwner'] ?? null;
         $this->StartAfter = $input['StartAfter'] ?? null;
         $this->RequestPayer = $input['RequestPayer'] ?? null;
+        $this->ExpectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         parent::__construct($input);
     }
 
@@ -135,6 +145,11 @@ final class ListObjectsV2Request extends Input
     public function getEncodingType(): ?string
     {
         return $this->EncodingType;
+    }
+
+    public function getExpectedBucketOwner(): ?string
+    {
+        return $this->ExpectedBucketOwner;
     }
 
     public function getFetchOwner(): ?bool
@@ -177,6 +192,9 @@ final class ListObjectsV2Request extends Input
                 throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
             }
             $headers['x-amz-request-payer'] = $this->RequestPayer;
+        }
+        if (null !== $this->ExpectedBucketOwner) {
+            $headers['x-amz-expected-bucket-owner'] = $this->ExpectedBucketOwner;
         }
 
         // Prepare query
@@ -248,6 +266,13 @@ final class ListObjectsV2Request extends Input
     public function setEncodingType(?string $value): self
     {
         $this->EncodingType = $value;
+
+        return $this;
+    }
+
+    public function setExpectedBucketOwner(?string $value): self
+    {
+        $this->ExpectedBucketOwner = $value;
 
         return $this;
     }
