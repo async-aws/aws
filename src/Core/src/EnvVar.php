@@ -21,7 +21,7 @@ final class EnvVar
         } elseif (isset($_SERVER[$name]) && 0 !== strpos($name, 'HTTP_')) {
             // fastcgi_param, env var, ...
             return $_SERVER[$name];
-        } elseif (false === ($env = getenv($name)) || null === $env) {
+        } elseif (false === $env = getenv($name)) {
             // getenv not thread safe
             return null;
         }
