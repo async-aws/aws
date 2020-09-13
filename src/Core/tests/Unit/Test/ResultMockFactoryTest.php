@@ -70,13 +70,13 @@ class ResultMockFactoryTest extends TestCase
         self::assertTrue($result->resolve());
     }
 
-    public function testCreateFailling()
+    public function testCreateFailing()
     {
         $result = ResultMockFactory::createFailing(Result::class, 400, 'Boom');
 
         $this->expectException(ClientException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp('@HTTP 400 returned for "http://localhost/".*Boom@sm');
+        $this->expectExceptionMessageMatches('@HTTP 400 returned for "http://localhost/".*Boom@sm');
 
         $result->resolve();
     }
