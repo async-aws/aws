@@ -4,7 +4,13 @@ category: integration
 
 # Flysystem integration
 
-The Flysystem integration supports both Flysystem version 1 and version 2.
+[Flysystem](https://flysystem.thephpleague.com/v2/docs/) is a great abstraction over
+different types of filesystems. Flysystem uses "adapters" internally to communicate
+with the actual filesystem implementation. They have adapters for local disk, FTP,
+in-memory etc.
+
+This package is a Flysystem adapter for S3 using AsyncAws. The integration supports
+both Flysystem version 1 and version 2.
 
 ## Install
 
@@ -35,3 +41,11 @@ $lastModified = $filesystem->lastModified('path.txt');
 $mimeType = $filesystem->mimeType('path.txt');
 $fileSize = $filesystem->fileSize('path.txt');
 ```
+
+## Large file uploads
+
+AWS S3 has a limit of how large files you can upload. No files can be larger than
+5GB. If you need to upload larger files you must use the much more complex "MultipartUpload".
+
+Using Flysystem V2 with [Simple S3](./simple-s3.md) will practically increase this
+limit to 640GB.

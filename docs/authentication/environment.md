@@ -4,7 +4,7 @@ category: authentication
 
 # Using Credentials from Environment Variables
 
-AsyncAWS recognize Env variables that are used by most official AWS tools and SDK.
+AsyncAws recognize Env variables that are used by most official AWS tools and SDK.
 
 ```shell
 # The access key for your AWS account.
