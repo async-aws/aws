@@ -9,7 +9,7 @@ different types of filesystems. Flysystem uses "adapters" internally to communic
 with the actual filesystem implementation. They have adapters for local disk, FTP,
 in-memory etc.
 
-This package is a Flysystem adapter for S3 using AsyncAWS. The integration supports
+This package is a Flysystem adapter for S3 using AsyncAws. The integration supports
 both Flysystem version 1 and version 2.
 
 ## Install
