@@ -29,7 +29,7 @@ $client = new AwsClientFactory([
 ]);
 ```
 
-> **Note**: When not defined, AsyncAWS will use the profile named `default`.
+> **Note**: When not defined, AsyncAws will use the profile named `default`.
 
 The profile can refer to a [Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) and specify the
 source of another profile that contains the IAM user credentials with permission to use the role.

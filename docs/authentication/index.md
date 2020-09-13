@@ -14,7 +14,7 @@ Each API client needs an Authentication provider. The provider will use some log
 to return a `Credentials` object. It is a value object to store username and
 password (in simple terms).
 
-By default AsyncAWS uses a ChainProvider that iterates over all providers and uses
+By default AsyncAws uses a ChainProvider that iterates over all providers and uses
 the first provider in the chain that returns credentials without an error.
 
 The providers are currently chained in the following order:

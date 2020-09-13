@@ -143,7 +143,7 @@ Read more about [pagination](/features/pagination.md).
 
 AWS allow pre-generating sign url that let user access to a resource
 without exposing the key. For instance, provide a link to download an S3 Object.
-AsyncAWS provides a fancy way to generate such url by reusing the same objects
+AsyncAws provides a fancy way to generate such url by reusing the same objects
 used in the standard way.
 
 ### AsyncAws
