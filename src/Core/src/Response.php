@@ -121,16 +121,17 @@ class Response
         }
 
         if (true === $this->debug) {
-            $httpStatusCode = $info = $this->info()['status'];
+            $httpStatusCode = $this->httpResponse->getInfo('http_code');
             if (0 === $httpStatusCode) {
                 // Network exception
                 $this->logger->debug('AsyncAws HTTP request could not be sent due network issues');
             } else {
-                $this->logger->debug('AsyncAws HTTP response received', [
+                $this->logger->debug('AsyncAws HTTP response received with status code {status_code}', [
                     'status_code' => $httpStatusCode,
-                    'headers' => json_encode($this->getHeaders()),
-                    'body' => $this->getContent(),
+                    'headers' => json_encode($this->httpResponse->getHeaders(false)),
+                    'body' => $this->httpResponse->getContent(false),
                 ]);
+                $this->bodyDownloaded = true;
             }
         }
 

@@ -136,8 +136,8 @@ abstract class AbstractApi
             ]
         );
 
-        if (\filter_var($this->configuration->get('debug'), \FILTER_VALIDATE_BOOLEAN)) {
-            $this->logger->debug('AsyncAws HTTP request sent', [
+        if ($debug = \filter_var($this->configuration->get('debug'), \FILTER_VALIDATE_BOOLEAN)) {
+            $this->logger->debug('AsyncAws HTTP request sent: {method} {endpoint}', [
                 'method' => $request->getMethod(),
                 'endpoint' => $request->getEndpoint(),
                 'headers' => json_encode($request->getHeaders()),
@@ -145,7 +145,7 @@ abstract class AbstractApi
             ]);
         }
 
-        return new Response($response, $this->httpClient, $this->logger);
+        return new Response($response, $this->httpClient, $this->logger, $debug);
     }
 
     /**
