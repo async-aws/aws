@@ -81,7 +81,7 @@ class ResultMockFactoryTest extends TestCase
         $result->resolve();
     }
 
-    public function testCreateFaillingWithAdditionalTypeContent()
+    public function testCreateFailingWithAdditionalTypeContent()
     {
         $result = ResultMockFactory::createFailing(
             Result::class,
