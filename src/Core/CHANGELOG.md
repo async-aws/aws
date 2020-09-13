@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.5.0
+
+### Added
+
+- Support for `debug` configuration option to log HTTP requests and responses
+
 ### Fixed
 
 - Allow signing request with non-standard region when using custom endpoint?
