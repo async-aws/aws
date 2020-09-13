@@ -136,7 +136,7 @@ abstract class AbstractApi
             ]
         );
 
-        if (\filter_var($configuration->get('debug'), \FILTER_VALIDATE_BOOLEAN)) {
+        if (\filter_var($this->configuration->get('debug'), \FILTER_VALIDATE_BOOLEAN)) {
             $this->logger->debug('AsyncAws HTTP request sent', [
                 'method' => $request->getMethod(),
                 'endpoint' => $request->getEndpoint(),
