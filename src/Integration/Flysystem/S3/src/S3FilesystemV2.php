@@ -298,7 +298,7 @@ class S3FilesystemV2 implements FilesystemAdapter
 
         if ($this->client instanceof SimpleS3Client) {
             // Support upload of large files
-            $this->client->upload($this->bucket, $key, $body, array_merge($options,['ACL'=>$acl]));
+            $this->client->upload($this->bucket, $key, $body, array_merge($options, ['ACL' => $acl]));
         } else {
             $this->client->putObject(array_merge($options, [
                 'Bucket' => $this->bucket,
