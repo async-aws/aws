@@ -33,6 +33,15 @@ The AWS region the client should be targeting.
 > **Note**: Region can also be defined by providing a `@region` parameter in
 > operation's input
 
+### debug
+
+**Default:** 'false'
+
+When this is set to `true` we will write the full HTTP request and response as
+an `debug` log entry. Make sure you pass a logger to the `Client`.
+
+> **Note**: This will have an negative impact on performance.
+
 ### profile
 
 **Default:** 'default'

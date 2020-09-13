@@ -17,6 +17,7 @@ final class Configuration
     public const DEFAULT_REGION = 'us-east-1';
 
     public const OPTION_REGION = 'region';
+    public const OPTION_DEBUG = 'debug';
     public const OPTION_PROFILE = 'profile';
     public const OPTION_ACCESS_KEY_ID = 'accessKeyId';
     public const OPTION_SECRET_ACCESS_KEY = 'accessKeySecret';
@@ -34,6 +35,7 @@ final class Configuration
 
     private const AVAILABLE_OPTIONS = [
         self::OPTION_REGION => true,
+        self::OPTION_DEBUG => true,
         self::OPTION_PROFILE => true,
         self::OPTION_ACCESS_KEY_ID => true,
         self::OPTION_SECRET_ACCESS_KEY => true,
@@ -69,6 +71,7 @@ final class Configuration
 
     private const DEFAULT_OPTIONS = [
         self::OPTION_REGION => self::DEFAULT_REGION,
+        self::OPTION_DEBUG => 'false',
         self::OPTION_PROFILE => 'default',
         self::OPTION_SHARED_CREDENTIALS_FILE => '~/.aws/credentials',
         self::OPTION_SHARED_CONFIG_FILE => '~/.aws/config',

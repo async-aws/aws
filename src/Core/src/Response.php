@@ -68,11 +68,17 @@ class Response
      */
     private $logger;
 
-    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, LoggerInterface $logger)
+    /**
+     * @var bool
+     */
+    private $debug;
+
+    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, LoggerInterface $logger, bool $debug = false)
     {
         $this->httpResponse = $response;
         $this->httpClient = $httpClient;
         $this->logger = $logger;
+        $this->debug = $debug;
     }
 
     public function __destruct()
@@ -112,6 +118,21 @@ class Response
             $this->defineResolveStatus();
         } catch (TransportExceptionInterface $e) {
             $this->resolveResult = new NetworkException('Could not contact remote server.', 0, $e);
+        }
+
+        if (true === $this->debug) {
+            $httpStatusCode = $this->httpResponse->getInfo('http_code');
+            if (0 === $httpStatusCode) {
+                // Network exception
+                $this->logger->debug('AsyncAws HTTP request could not be sent due network issues');
+            } else {
+                $this->logger->debug('AsyncAws HTTP response received with status code {status_code}', [
+                    'status_code' => $httpStatusCode,
+                    'headers' => json_encode($this->httpResponse->getHeaders(false)),
+                    'body' => $this->httpResponse->getContent(false),
+                ]);
+                $this->bodyDownloaded = true;
+            }
         }
 
         return $this->getResolveStatus();
