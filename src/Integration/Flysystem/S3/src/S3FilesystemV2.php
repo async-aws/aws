@@ -13,6 +13,7 @@ use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\AwsObject;
 use AsyncAws\S3\ValueObject\CommonPrefix;
 use AsyncAws\S3\ValueObject\ObjectIdentifier;
+use AsyncAws\SimpleS3\SimpleS3Client;
 use Generator;
 use League\Flysystem\Config;
 use League\Flysystem\DirectoryAttributes;
@@ -295,12 +296,17 @@ class S3FilesystemV2 implements FilesystemAdapter
             $options['ContentType'] = $mimeType;
         }
 
-        $this->client->putObject(array_merge($options, [
-            'Bucket' => $this->bucket,
-            'Key' => $key,
-            'Body' => $body,
-            'ACL' => $acl,
-        ]))->resolve();
+        if ($this->client instanceof SimpleS3Client) {
+            // Support upload of large files
+            $this->client->upload($this->bucket, $key, $body, array_merge($options, ['ACL' => $acl]));
+        } else {
+            $this->client->putObject(array_merge($options, [
+                'Bucket' => $this->bucket,
+                'Key' => $key,
+                'Body' => $body,
+                'ACL' => $acl,
+            ]))->resolve();
+        }
     }
 
     private function determineAcl(Config $config): string
