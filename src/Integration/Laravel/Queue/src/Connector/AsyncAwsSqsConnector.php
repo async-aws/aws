@@ -29,7 +29,7 @@ class AsyncAwsSqsConnector implements ConnectorInterface
         }
 
         return new AsyncAwsSqsQueue(
-            new SqsClient($clientConfig, null, HttpClient::create(['timeout' => 30])),
+            new SqsClient($clientConfig),
             $config['queue'],
             $config['prefix'] ?? '',
             $config['suffix'] ?? ''

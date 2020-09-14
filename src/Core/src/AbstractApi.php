@@ -63,7 +63,7 @@ abstract class AbstractApi
         }
 
         $this->logger = $logger ?? new NullLogger();
-        $this->httpClient = $httpClient ?? new RetryHttpClient(HttpClient::create(), $this->logger);
+        $this->httpClient = $httpClient ?? new RetryHttpClient(HttpClient::create(['timeout' => 10]), $this->logger);
         $this->configuration = $configuration;
         $this->credentialProvider = $credentialProvider ?? new CacheProvider(ChainProvider::createDefaultChain($this->httpClient, $this->logger));
     }
