@@ -175,7 +175,7 @@ class RetryResponse implements ResponseInterface
 
         $handle = function (string $message, array $context): bool {
             if (++$this->tryCount <= $this->maxTryCount) {
-                $this->logger->info($message . ' Retry the request {attempt}/{maxAttempts}.', $context + [
+                $this->logger->info($message . ' Retry the request {attempt} of {maxAttempts}.', $context + [
                     'attempt' => $this->tryCount,
                     'maxAttempts' => $this->maxTryCount,
                 ]);
