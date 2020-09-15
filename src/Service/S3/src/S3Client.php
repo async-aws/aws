@@ -832,7 +832,7 @@ class S3Client extends AbstractApi
                 ];
             case 'fips-us-gov-west-1':
                 return [
-                    'endpoint' => 'https://s3-fips-us-gov-west-1.amazonaws.com',
+                    'endpoint' => 'https://s3-fips.us-gov-west-1.amazonaws.com',
                     'signRegion' => 'us-gov-west-1',
                     'signService' => 's3',
                     'signVersions' => ['s3v4'],
