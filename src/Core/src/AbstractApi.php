@@ -9,13 +9,13 @@ use AsyncAws\Core\Credentials\ChainProvider;
 use AsyncAws\Core\Credentials\CredentialProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\LogicException;
-use AsyncAws\Core\HttpClient\RetryHttpClient;
 use AsyncAws\Core\Signer\Signer;
 use AsyncAws\Core\Signer\SignerV4;
 use AsyncAws\Core\Stream\StringStream;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpClient\RetryableHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
@@ -63,7 +63,13 @@ abstract class AbstractApi
         }
 
         $this->logger = $logger ?? new NullLogger();
-        $this->httpClient = $httpClient ?? new RetryHttpClient(HttpClient::create(['timeout' => 10]), $this->logger);
+        if (!isset($httpClient)) {
+            $httpClient = HttpClient::create(['timeout' => 10]);
+            if (\class_exists(RetryableHttpClient::class)) {
+                $httpClient = new RetryableHttpClient($httpClient, null, null, 3, $this->logger);
+            }
+        }
+        $this->httpClient = $httpClient;
         $this->configuration = $configuration;
         $this->credentialProvider = $credentialProvider ?? new CacheProvider(ChainProvider::createDefaultChain($this->httpClient, $this->logger));
     }

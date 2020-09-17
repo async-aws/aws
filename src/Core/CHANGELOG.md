@@ -4,7 +4,7 @@
 
 ### Added
 
-- Added a RetryHttpClient that handle and retries failed requests
+- Use Symfony `RetryableHttpClient` when available.
 
 ### Fixed
 
