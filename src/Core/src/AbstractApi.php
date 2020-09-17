@@ -64,7 +64,7 @@ abstract class AbstractApi
 
         $this->logger = $logger ?? new NullLogger();
         if (!isset($httpClient)) {
-            $httpClient = HttpClient::create(['timeout' => 10]);
+            $httpClient = HttpClient::create();
             if (\class_exists(RetryableHttpClient::class)) {
                 $httpClient = new RetryableHttpClient($httpClient, null, null, 3, $this->logger);
             }
