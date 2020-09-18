@@ -1,9 +1,7 @@
 name: Build website
 
 on:
-  push:
-    branches:
-      - master
+  pull_request: ~
 
 jobs:
   build:
@@ -16,41 +14,14 @@ jobs:
         with:
           php-version: 7.4
 
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          path: 'source'
-
       - name: Checkout Website repo
         run: |
           git clone --branch master https://${{ secrets.BOT_GITHUB_TOKEN }}:x-oauth-basic@github.com/async-aws/website output
 
-      - name: Download Couscous Phar
-        run: |
-          curl -OSL https://raw.githubusercontent.com/Nyholm/Couscous/twig-production/couscous.phar
-          chmod +x couscous.phar
-
-      - name: Generate website
-        run: |
-          echo "::group::Couscous"
-          ./couscous.phar generate --target output source
-          echo "::endgroup::"
-          echo "::group::Post process"
-          cd source/website && npm run post-process `pwd`/../../output
-          echo "::endgroup::"
-
       - name: Commit & push the new files
         run: |
-          echo "::group::git status"
           cd output
-          git status
-          echo "::endgroup::"
-
-          git add -N .
-          if [[ $(git diff --numstat | wc -l) -eq 0 ]]; then
-            echo "No changes found. Exiting."
-            exit 0;
-          fi
+          echo "foobar" > Foo.txt
 
           git config --local user.email "github@async-aws.com"
           git config --local user.name "AsyncAWS Bot"
