@@ -23,7 +23,7 @@ jobs:
           echo "Last tag was $TAG"
           ARR=(${TAG//./ })
           ARR[1]=$((${ARR[1]}+1))
-          echo ::set-output name=alias::${ARR[0]}.${ARR[1]}-dev
+          echo ::set-output name=alias::${ARR[0]}.${ARR[1]}
 
       - name: Checkout main repo
         run: |
@@ -32,7 +32,26 @@ jobs:
       - name: Update branch alias
         run: |
           cd aws/src/Core
-          composer config extra.branch-alias.dev-master ${{ steps.find_alias.outputs.alias }}
+          CURRENT_ALIAS=$(composer config extra.branch-alias.dev-master | cut -d'-' -f 1)
+
+          # If there is a current value on the branch alias
+          if [ ! -z $CURRENT_ALIAS ]; then
+            NEW_ALIAS=${{ steps.find_alias.outputs.alias }}
+            CURRENT_ARR=(${CURRENT_ALIAS//./ })
+            NEW_ARR=(${NEW_ALIAS//./ })
+
+            if [ ${CURRENT_ARR[0]} -gt ${NEW_ARR[0]} ]; then
+                echo "The current value for major version is larger"
+                exit 1;
+            fi
+
+            if [ ${CURRENT_ARR[1]} -gt ${NEW_ARR[1]} ]; then
+                echo "The current value for minor version is larger"
+                exit 1;
+            fi
+          fi
+
+          composer config extra.branch-alias.dev-master ${{ steps.find_alias.outputs.alias }}-dev
 
       - name: Commit & push the new files
         run: |
