@@ -53,10 +53,10 @@ jobs:
           fi
 
           git config --local user.email "github@async-aws.com"
-          git config --local user.name "AsyncAWS Bot"
+          git config --local user.name "AsyncAws Bot"
 
           echo "::group::git push"
           git add .
-          git commit -m "Update website from commit async-aws/aws@${{ github.sha }}" -a
+          git commit -m "Update website from commit async-aws/aws@${{ github.sha }}"
           git push
           echo "::endgroup::"
