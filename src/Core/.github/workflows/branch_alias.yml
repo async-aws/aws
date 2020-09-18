@@ -1,0 +1,57 @@
+name: Update branch alias
+
+on:
+  push:
+    tags: ['*']
+
+jobs:
+  branch-alias:
+    name: Update branch alias
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@2.5.0
+        with:
+          php-version: 7.4
+          coverage: none
+
+      - name: Find branch alias
+        id: find_alias
+        run: |
+          TAG=$(echo $GITHUB_REF | cut -d'/' -f 3)
+          echo "Last tag was $TAG"
+          ARR=(${TAG//./ })
+          ARR[1]=$((${ARR[1]}+1))
+          echo ::set-output name=alias::${ARR[0]}.${ARR[1]}-dev
+
+      - name: Checkout main repo
+        run: |
+          git clone --branch master https://${{ secrets.BOT_GITHUB_TOKEN }}:x-oauth-basic@github.com/async-aws/aws aws
+
+      - name: Update branch alias
+        run: |
+          cd aws/src/Core
+          composer config extra.branch-alias.dev-master ${{ steps.find_alias.outputs.alias }}
+
+      - name: Commit & push the new files
+        run: |
+          echo "::group::git status"
+          cd aws
+          git status
+          echo "::endgroup::"
+
+          git add -N .
+          if [[ $(git diff --numstat | wc -l) -eq 0 ]]; then
+            echo "No changes found. Exiting."
+            exit 0;
+          fi
+
+          git config --local user.email "github@async-aws.com"
+          git config --local user.name "AsyncAWS Bot"
+
+          echo "::group::git push"
+          git add .
+          git commit -m "Update branch alias" -a
+          git push
+          echo "::endgroup::"
