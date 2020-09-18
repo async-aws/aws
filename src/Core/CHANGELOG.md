@@ -229,7 +229,7 @@
 
 ### Added
 
-- Class `AsuncAws\Core\Credentials\NullProvider`
+- Class `AsyncAws\Core\Credentials\NullProvider`
 - Methods `AwsClient::cloudFormation()`, `AwsClient::lambda()`, `AwsClient::sns()`
 - Protected methods `Result::registerPrefetch()` and `Result::unregisterPrefetch()`
 - Timeout parameter to `InstanceProvider::__construct()`

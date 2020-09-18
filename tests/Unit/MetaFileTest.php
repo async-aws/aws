@@ -6,6 +6,7 @@ namespace AsyncAws\Test\Unit;
 
 use AsyncAws\Test\ServiceProvider;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Finder\Finder;
 
 /**
  * Verify our metadata files.
@@ -37,6 +38,28 @@ class MetaFileTest extends TestCase
             }
 
             self::assertTrue(false !== strpos($readme, $serviceData['package_name']), sprintf('There is no mention of "%s" in the README.md', $serviceData['package_name']));
+        }
+    }
+
+    public function testBranchAlias()
+    {
+        $finder = new Finder();
+        $root = \dirname(__DIR__, 2);
+        $finder
+            ->files()
+            ->ignoreDotFiles(false)
+            ->ignoreVCS(true)
+            ->in($root . '/src/*/.github/workflows')
+            ->in($root . '/src/*/*/.github/workflows')
+            ->in($root . '/src/*/*/*/.github/workflows')
+            ->name('branch_alias.yml');
+
+        foreach ($finder as $file) {
+            $contents = $file->getContents();
+            $path = $file->getRealPath();
+            $relativePath = substr($path, \strlen($root) + 1);
+            $packagePath = substr($relativePath, 0, -35);
+            self::assertStringContainsString($packagePath, $contents, sprintf('File "%s" must include "%s"', $relativePath, $packagePath));
         }
     }
 }
