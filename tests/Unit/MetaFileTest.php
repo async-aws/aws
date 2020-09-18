@@ -47,8 +47,6 @@ class MetaFileTest extends TestCase
         $root = \dirname(__DIR__, 2);
         $finder
             ->files()
-            ->ignoreDotFiles(false)
-            ->ignoreVCS(true)
             ->in($root . '/src/*/.github/workflows')
             ->in($root . '/src/*/*/.github/workflows')
             ->in($root . '/src/*/*/*/.github/workflows')
