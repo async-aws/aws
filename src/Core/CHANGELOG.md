@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Use Symfony `RetryableHttpClient` when available.
+
 ### Fixed
 
 - Allow signing request with non-standard region when using custom endpoint?
@@ -72,7 +76,7 @@
 
 - Support for ECS Credentials Provider
 - Support for Cognito Identity Provider client in `AwsClientFactory`
-- Support for CloudWatch Logs client in `AwsClientFactory`
+- Support for Cloud Watch Log client in `AwsClientFactory`
 
 ### Fixed
 
