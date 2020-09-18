@@ -2,8 +2,11 @@
 
 ## NOT RELEASED
 
+## 1.5.0
+
 ### Added
 
+- Support for `debug` configuration option to log HTTP requests and responses
 - Use Symfony `RetryableHttpClient` when available.
 
 ### Fixed
