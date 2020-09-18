@@ -15,6 +15,7 @@ use AsyncAws\Core\Stream\StringStream;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpClient\RetryableHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
@@ -61,8 +62,14 @@ abstract class AbstractApi
             throw new InvalidArgument(sprintf('Second argument to "%s::__construct()" must be an array or an instance of "%s"', __CLASS__, Configuration::class));
         }
 
-        $this->httpClient = $httpClient ?? HttpClient::create();
         $this->logger = $logger ?? new NullLogger();
+        if (!isset($httpClient)) {
+            $httpClient = HttpClient::create();
+            if (\class_exists(RetryableHttpClient::class)) {
+                $httpClient = new RetryableHttpClient($httpClient, null, null, 3, $this->logger);
+            }
+        }
+        $this->httpClient = $httpClient;
         $this->configuration = $configuration;
         $this->credentialProvider = $credentialProvider ?? new CacheProvider(ChainProvider::createDefaultChain($this->httpClient, $this->logger));
     }

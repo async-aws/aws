@@ -6,7 +6,6 @@ use AsyncAws\Illuminate\Queue\AsyncAwsSqsQueue;
 use AsyncAws\Sqs\SqsClient;
 use Illuminate\Contracts\Queue\Queue;
 use Illuminate\Queue\Connectors\ConnectorInterface;
-use Symfony\Component\HttpClient\HttpClient;
 
 class AsyncAwsSqsConnector implements ConnectorInterface
 {
@@ -29,7 +28,7 @@ class AsyncAwsSqsConnector implements ConnectorInterface
         }
 
         return new AsyncAwsSqsQueue(
-            new SqsClient($clientConfig, null, HttpClient::create(['timeout' => 30])),
+            new SqsClient($clientConfig),
             $config['queue'],
             $config['prefix'] ?? '',
             $config['suffix'] ?? ''

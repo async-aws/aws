@@ -7,6 +7,7 @@
 ### Added
 
 - Support for `debug` configuration option to log HTTP requests and responses
+- Use Symfony `RetryableHttpClient` when available.
 
 ### Fixed
 
@@ -78,7 +79,7 @@
 
 - Support for ECS Credentials Provider
 - Support for Cognito Identity Provider client in `AwsClientFactory`
-- Support for CloudWatch Logs client in `AwsClientFactory`
+- Support for Cloud Watch Log client in `AwsClientFactory`
 
 ### Fixed
 
