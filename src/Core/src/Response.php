@@ -18,7 +18,6 @@ use AsyncAws\Core\Stream\ResponseBodyStream;
 use AsyncAws\Core\Stream\ResultStream;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
-use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
@@ -200,7 +199,7 @@ class Response
                     // Receiving a timeout mean all responses are inactive.
                     break;
                 }
-            } catch (TransportException $e) {
+            } catch (TransportExceptionInterface $e) {
                 // Exception is stored as an array, because storing an instance of \Exception will create a circular
                 // reference and prevent `__destruct` being called.
                 $response->resolveResult = [NetworkException::class, ['Could not contact remote server.', 0, $e]];
