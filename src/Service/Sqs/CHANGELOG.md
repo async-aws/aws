@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.3.1
+
+### Fixed
+
+- Updated the values allowed in `ReceiveMessageRequest::$AttributeNames`. The SQS specification did not match the documentation and the expected values from the server.
+
 ## 1.3.0
 
 ### Added
