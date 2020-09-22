@@ -9,7 +9,7 @@ final class MessageSystemAttributeNameForSends
     public static function exists(string $value): bool
     {
         return isset([
-                            self::AWSTRACE_HEADER => true
-                        ][$value]);
+            self::AWSTRACE_HEADER => true,
+        ][$value]);
     }
 }

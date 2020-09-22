@@ -10,10 +10,12 @@ final class Tag
      * The key for a session tag.
      */
     private $Key;
+
     /**
      * The value for a session tag.
      */
     private $Value;
+
     /**
      * @param array{
      *   Key: string,
@@ -22,8 +24,8 @@ final class Tag
      */
     public function __construct(array $input)
     {
-        $this->Key = $input["Key"] ?? null;
-        $this->Value = $input["Value"] ?? null;
+        $this->Key = $input['Key'] ?? null;
+        $this->Value = $input['Value'] ?? null;
     }
 
     public static function create($input): self
@@ -47,15 +49,15 @@ final class Tag
     public function requestBody(): array
     {
         $payload = [];
-                        if (null === $v = $this->Key) {
-                            throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
-                        }
-                        $payload["Key"] = $v;
+        if (null === $v = $this->Key) {
+            throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['Key'] = $v;
         if (null === $v = $this->Value) {
-                            throw new InvalidArgument(sprintf('Missing parameter "Value" for "%s". The value cannot be null.', __CLASS__));
-                        }
-                        $payload["Value"] = $v;
+            throw new InvalidArgument(sprintf('Missing parameter "Value" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['Value'] = $v;
 
-                        return $payload;
+        return $payload;
     }
 }

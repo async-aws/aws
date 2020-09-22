@@ -2,8 +2,6 @@
 
 namespace AsyncAws\Core\Sts\ValueObject;
 
-use AsyncAws\Core\Exception\InvalidArgument;
-
 final class PolicyDescriptorType
 {
     /**
@@ -13,6 +11,7 @@ final class PolicyDescriptorType
      * @see https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html
      */
     private $arn;
+
     /**
      * @param array{
      *   arn?: null|string,
@@ -20,7 +19,7 @@ final class PolicyDescriptorType
      */
     public function __construct(array $input)
     {
-        $this->arn = $input["arn"] ?? null;
+        $this->arn = $input['arn'] ?? null;
     }
 
     public static function create($input): self
@@ -39,10 +38,10 @@ final class PolicyDescriptorType
     public function requestBody(): array
     {
         $payload = [];
-                        if (null !== $v = $this->arn) {
-                            $payload["arn"] = $v;
-                        }
+        if (null !== $v = $this->arn) {
+            $payload['arn'] = $v;
+        }
 
-                        return $payload;
+        return $payload;
     }
 }

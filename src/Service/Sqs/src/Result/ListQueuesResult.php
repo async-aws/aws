@@ -4,15 +4,17 @@ namespace AsyncAws\Sqs\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class ListQueuesResult extends Result implements \IteratorAggregate
 {
-    /** A list of queue URLs, up to 1,000 entries. */
-    private $QueueUrls = [];
     /**
-     * Iterates over QueueUrls
+     * A list of queue URLs, up to 1,000 entries.
+     */
+    private $QueueUrls = [];
+
+    /**
+     * Iterates over QueueUrls.
+     *
      * @return \Traversable<string>
      */
     public function getIterator(): \Traversable
@@ -26,23 +28,25 @@ class ListQueuesResult extends Result implements \IteratorAggregate
     public function getQueueUrls(): iterable
     {
         $this->initialize();
-                                return $this->QueueUrls;
+
+        return $this->QueueUrls;
     }
 
     protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent());$data = $data->ListQueuesResult;
+        $data = new \SimpleXMLElement($response->getContent());
+        $data = $data->ListQueuesResult;
 
-        $this->QueueUrls = !$data->QueueUrl ? [] : (function(\SimpleXMLElement $xml): array {
-        $items = [];
-        foreach ($xml as $item) {
-        $a = ($v = $item) ? (string) $v : null;
-        if (null !== $a) {
-        $items[] = $a;
-        }
-        }
+        $this->QueueUrls = !$data->QueueUrl ? [] : (function (\SimpleXMLElement $xml): array {
+            $items = [];
+            foreach ($xml as $item) {
+                $a = ($v = $item) ? (string) $v : null;
+                if (null !== $a) {
+                    $items[] = $a;
+                }
+            }
 
-        return $items;
+            return $items;
         })($data->QueueUrl);
     }
 }

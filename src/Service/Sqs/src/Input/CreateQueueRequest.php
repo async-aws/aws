@@ -11,20 +11,21 @@ use AsyncAws\Sqs\Enum\QueueAttributeName;
 final class CreateQueueRequest extends Input
 {
     /**
-     * The name of the new queue. The following limits apply to this name:
+     * The name of the new queue. The following limits apply to this name:.
      *
      * @required
      *
-     * @var null|string
+     * @var string|null
      */
     private $QueueName;
+
     /**
      * A map of attributes with their corresponding values.
-     *
      *
      * @var array<QueueAttributeName::*, string>
      */
     private $Attributes;
+
     /**
      * Add cost allocation tags to the specified Amazon SQS queue. For an overview, see Tagging Your Amazon SQS Queues in
      * the *Amazon Simple Queue Service Developer Guide*.
@@ -34,6 +35,7 @@ final class CreateQueueRequest extends Input
      * @var array<string, string>
      */
     private $tags;
+
     /**
      * @param array{
      *   QueueName?: string,
@@ -44,9 +46,9 @@ final class CreateQueueRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->QueueName = $input["QueueName"] ?? null;
-        $this->Attributes = $input["Attributes"] ?? [];
-        $this->tags = $input["tags"] ?? [];
+        $this->QueueName = $input['QueueName'] ?? null;
+        $this->Attributes = $input['Attributes'] ?? [];
+        $this->tags = $input['tags'] ?? [];
         parent::__construct($input);
     }
 
@@ -82,15 +84,13 @@ final class CreateQueueRequest extends Input
     public function request(): Request
     {
         // Prepare headers
-        $headers = ["content-type" => "application/x-www-form-urlencoded"];
-
+        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
         // Prepare query
         $query = [];
 
-
         // Prepare URI
-        $uriString = "/";
+        $uriString = '/';
 
         // Prepare Body
         $body = http_build_query(['Action' => 'CreateQueue', 'Version' => '2012-11-05'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
@@ -99,50 +99,21 @@ final class CreateQueueRequest extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
-    private function requestBody(): array
-    {
-        $payload = [];
-                        if (null === $v = $this->QueueName) {
-                            throw new InvalidArgument(sprintf('Missing parameter "QueueName" for "%s". The value cannot be null.', __CLASS__));
-                        }
-                        $payload["QueueName"] = $v;
-
-                    $index = 0;
-                    foreach ($this->Attributes as $mapKey => $mapValue) {
-                        if (!QueueAttributeName::exists($mapKey)) {
-                            throw new InvalidArgument(sprintf('Invalid key for "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $mapKey));
-                        }
-                        $index++;
-                        $payload["Attribute.$index.Name"] = $mapKey;
-                        $payload["Attribute.$index.Value"] = $mapValue;
-                    }
-
-
-                    $index = 0;
-                    foreach ($this->tags as $mapKey => $mapValue) {
-
-                        $index++;
-                        $payload["Tag.$index.Key"] = $mapKey;
-                        $payload["Tag.$index.Value"] = $mapValue;
-                    }
-
-
-                        return $payload;
-    }
-
     /**
      * @param array<QueueAttributeName::*, string> $value
      */
     public function setAttributes(array $value): self
     {
         $this->Attributes = $value;
-                            return $this;
+
+        return $this;
     }
 
     public function setQueueName(?string $value): self
     {
         $this->QueueName = $value;
-                            return $this;
+
+        return $this;
     }
 
     /**
@@ -151,6 +122,35 @@ final class CreateQueueRequest extends Input
     public function setTags(array $value): self
     {
         $this->tags = $value;
-                            return $this;
+
+        return $this;
+    }
+
+    private function requestBody(): array
+    {
+        $payload = [];
+        if (null === $v = $this->QueueName) {
+            throw new InvalidArgument(sprintf('Missing parameter "QueueName" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['QueueName'] = $v;
+
+        $index = 0;
+        foreach ($this->Attributes as $mapKey => $mapValue) {
+            if (!QueueAttributeName::exists($mapKey)) {
+                throw new InvalidArgument(sprintf('Invalid key for "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $mapKey));
+            }
+            ++$index;
+            $payload["Attribute.$index.Name"] = $mapKey;
+            $payload["Attribute.$index.Value"] = $mapValue;
+        }
+
+        $index = 0;
+        foreach ($this->tags as $mapKey => $mapValue) {
+            ++$index;
+            $payload["Tag.$index.Key"] = $mapKey;
+            $payload["Tag.$index.Value"] = $mapValue;
+        }
+
+        return $payload;
     }
 }

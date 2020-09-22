@@ -16,32 +16,34 @@ final class AssumeRoleRequest extends Input
      *
      * @required
      *
-     * @var null|string
+     * @var string|null
      */
     private $RoleArn;
+
     /**
      * An identifier for the assumed role session.
      *
      * @required
      *
-     * @var null|string
+     * @var string|null
      */
     private $RoleSessionName;
+
     /**
      * The Amazon Resource Names (ARNs) of the IAM managed policies that you want to use as managed session policies. The
      * policies must exist in the same account as the role.
      *
-     *
      * @var PolicyDescriptorType[]
      */
     private $PolicyArns;
+
     /**
      * An IAM policy in JSON format that you want to use as an inline session policy.
      *
-     *
-     * @var null|string
+     * @var string|null
      */
     private $Policy;
+
     /**
      * The duration, in seconds, of the role session. The value can range from 900 seconds (15 minutes) up to the maximum
      * session duration setting for the role. This setting can have a value from 1 hour to 12 hours. If you specify a value
@@ -51,9 +53,10 @@ final class AssumeRoleRequest extends Input
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html#id_roles_use_view-role-max-session
      *
-     * @var null|int
+     * @var int|null
      */
     private $DurationSeconds;
+
     /**
      * A list of session tags that you want to pass. Each session tag consists of a key name and an associated value. For
      * more information about session tags, see Tagging AWS STS Sessions in the *IAM User Guide*.
@@ -63,6 +66,7 @@ final class AssumeRoleRequest extends Input
      * @var Tag[]
      */
     private $Tags;
+
     /**
      * A list of keys for session tags that you want to set as transitive. If you set a tag key as transitive, the
      * corresponding key and value passes to subsequent sessions in a role chain. For more information, see Chaining Roles
@@ -73,6 +77,7 @@ final class AssumeRoleRequest extends Input
      * @var string[]
      */
     private $TransitiveTagKeys;
+
     /**
      * A unique identifier that might be required when you assume a role in another account. If the administrator of the
      * account to which the role belongs provided you with an external ID, then provide that value in the `ExternalId`
@@ -84,28 +89,29 @@ final class AssumeRoleRequest extends Input
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html
      *
-     * @var null|string
+     * @var string|null
      */
     private $ExternalId;
+
     /**
      * The identification number of the MFA device that is associated with the user who is making the `AssumeRole` call.
      * Specify this value if the trust policy of the role being assumed includes a condition that requires MFA
      * authentication. The value is either the serial number for a hardware device (such as `GAHT12345678`) or an Amazon
      * Resource Name (ARN) for a virtual device (such as `arn:aws:iam::123456789012:mfa/user`).
      *
-     *
-     * @var null|string
+     * @var string|null
      */
     private $SerialNumber;
+
     /**
      * The value provided by the MFA device, if the trust policy of the role being assumed requires MFA (that is, if the
      * policy includes a condition that tests for MFA). If the role being assumed requires MFA and if the `TokenCode` value
      * is missing or expired, the `AssumeRole` call returns an "access denied" error.
      *
-     *
-     * @var null|string
+     * @var string|null
      */
     private $TokenCode;
+
     /**
      * @param array{
      *   RoleArn?: string,
@@ -123,16 +129,16 @@ final class AssumeRoleRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->RoleArn = $input["RoleArn"] ?? null;
-        $this->RoleSessionName = $input["RoleSessionName"] ?? null;
-        $this->PolicyArns = array_map([PolicyDescriptorType::class, "create"], $input["PolicyArns"] ?? []);
-        $this->Policy = $input["Policy"] ?? null;
-        $this->DurationSeconds = $input["DurationSeconds"] ?? null;
-        $this->Tags = array_map([Tag::class, "create"], $input["Tags"] ?? []);
-        $this->TransitiveTagKeys = $input["TransitiveTagKeys"] ?? [];
-        $this->ExternalId = $input["ExternalId"] ?? null;
-        $this->SerialNumber = $input["SerialNumber"] ?? null;
-        $this->TokenCode = $input["TokenCode"] ?? null;
+        $this->RoleArn = $input['RoleArn'] ?? null;
+        $this->RoleSessionName = $input['RoleSessionName'] ?? null;
+        $this->PolicyArns = array_map([PolicyDescriptorType::class, 'create'], $input['PolicyArns'] ?? []);
+        $this->Policy = $input['Policy'] ?? null;
+        $this->DurationSeconds = $input['DurationSeconds'] ?? null;
+        $this->Tags = array_map([Tag::class, 'create'], $input['Tags'] ?? []);
+        $this->TransitiveTagKeys = $input['TransitiveTagKeys'] ?? [];
+        $this->ExternalId = $input['ExternalId'] ?? null;
+        $this->SerialNumber = $input['SerialNumber'] ?? null;
+        $this->TokenCode = $input['TokenCode'] ?? null;
         parent::__construct($input);
     }
 
@@ -206,15 +212,13 @@ final class AssumeRoleRequest extends Input
     public function request(): Request
     {
         // Prepare headers
-        $headers = ["content-type" => "application/x-www-form-urlencoded"];
-
+        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
         // Prepare query
         $query = [];
 
-
         // Prepare URI
-        $uriString = "/";
+        $uriString = '/';
 
         // Prepare Body
         $body = http_build_query(['Action' => 'AssumeRole', 'Version' => '2011-06-15'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
@@ -223,79 +227,25 @@ final class AssumeRoleRequest extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
-    private function requestBody(): array
-    {
-        $payload = [];
-                        if (null === $v = $this->RoleArn) {
-                            throw new InvalidArgument(sprintf('Missing parameter "RoleArn" for "%s". The value cannot be null.', __CLASS__));
-                        }
-                        $payload["RoleArn"] = $v;
-        if (null === $v = $this->RoleSessionName) {
-                            throw new InvalidArgument(sprintf('Missing parameter "RoleSessionName" for "%s". The value cannot be null.', __CLASS__));
-                        }
-                        $payload["RoleSessionName"] = $v;
-
-                    $index = 0;
-                    foreach ($this->PolicyArns as $mapValue) {
-                        $index++;
-                        foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                        $payload["PolicyArns.member.$index.$bodyKey"] = $bodyValue;
-                    }
-
-                    }
-
-        if (null !== $v = $this->Policy) {
-                            $payload["Policy"] = $v;
-                        }
-        if (null !== $v = $this->DurationSeconds) {
-                            $payload["DurationSeconds"] = $v;
-                        }
-
-                    $index = 0;
-                    foreach ($this->Tags as $mapValue) {
-                        $index++;
-                        foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                        $payload["Tags.member.$index.$bodyKey"] = $bodyValue;
-                    }
-
-                    }
-
-
-                    $index = 0;
-                    foreach ($this->TransitiveTagKeys as $mapValue) {
-                        $index++;
-                        $payload["TransitiveTagKeys.member.$index"] = $mapValue;
-                    }
-
-        if (null !== $v = $this->ExternalId) {
-                            $payload["ExternalId"] = $v;
-                        }
-        if (null !== $v = $this->SerialNumber) {
-                            $payload["SerialNumber"] = $v;
-                        }
-        if (null !== $v = $this->TokenCode) {
-                            $payload["TokenCode"] = $v;
-                        }
-
-                        return $payload;
-    }
-
     public function setDurationSeconds(?int $value): self
     {
         $this->DurationSeconds = $value;
-                            return $this;
+
+        return $this;
     }
 
     public function setExternalId(?string $value): self
     {
         $this->ExternalId = $value;
-                            return $this;
+
+        return $this;
     }
 
     public function setPolicy(?string $value): self
     {
         $this->Policy = $value;
-                            return $this;
+
+        return $this;
     }
 
     /**
@@ -304,25 +254,29 @@ final class AssumeRoleRequest extends Input
     public function setPolicyArns(array $value): self
     {
         $this->PolicyArns = $value;
-                            return $this;
+
+        return $this;
     }
 
     public function setRoleArn(?string $value): self
     {
         $this->RoleArn = $value;
-                            return $this;
+
+        return $this;
     }
 
     public function setRoleSessionName(?string $value): self
     {
         $this->RoleSessionName = $value;
-                            return $this;
+
+        return $this;
     }
 
     public function setSerialNumber(?string $value): self
     {
         $this->SerialNumber = $value;
-                            return $this;
+
+        return $this;
     }
 
     /**
@@ -331,13 +285,15 @@ final class AssumeRoleRequest extends Input
     public function setTags(array $value): self
     {
         $this->Tags = $value;
-                            return $this;
+
+        return $this;
     }
 
     public function setTokenCode(?string $value): self
     {
         $this->TokenCode = $value;
-                            return $this;
+
+        return $this;
     }
 
     /**
@@ -346,6 +302,61 @@ final class AssumeRoleRequest extends Input
     public function setTransitiveTagKeys(array $value): self
     {
         $this->TransitiveTagKeys = $value;
-                            return $this;
+
+        return $this;
+    }
+
+    private function requestBody(): array
+    {
+        $payload = [];
+        if (null === $v = $this->RoleArn) {
+            throw new InvalidArgument(sprintf('Missing parameter "RoleArn" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['RoleArn'] = $v;
+        if (null === $v = $this->RoleSessionName) {
+            throw new InvalidArgument(sprintf('Missing parameter "RoleSessionName" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['RoleSessionName'] = $v;
+
+        $index = 0;
+        foreach ($this->PolicyArns as $mapValue) {
+            ++$index;
+            foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
+                $payload["PolicyArns.member.$index.$bodyKey"] = $bodyValue;
+            }
+        }
+
+        if (null !== $v = $this->Policy) {
+            $payload['Policy'] = $v;
+        }
+        if (null !== $v = $this->DurationSeconds) {
+            $payload['DurationSeconds'] = $v;
+        }
+
+        $index = 0;
+        foreach ($this->Tags as $mapValue) {
+            ++$index;
+            foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
+                $payload["Tags.member.$index.$bodyKey"] = $bodyValue;
+            }
+        }
+
+        $index = 0;
+        foreach ($this->TransitiveTagKeys as $mapValue) {
+            ++$index;
+            $payload["TransitiveTagKeys.member.$index"] = $mapValue;
+        }
+
+        if (null !== $v = $this->ExternalId) {
+            $payload['ExternalId'] = $v;
+        }
+        if (null !== $v = $this->SerialNumber) {
+            $payload['SerialNumber'] = $v;
+        }
+        if (null !== $v = $this->TokenCode) {
+            $payload['TokenCode'] = $v;
+        }
+
+        return $payload;
     }
 }

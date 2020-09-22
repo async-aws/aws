@@ -16,14 +16,14 @@ final class MessageSystemAttributeName
     public static function exists(string $value): bool
     {
         return isset([
-                            self::APPROXIMATE_FIRST_RECEIVE_TIMESTAMP => true,
-        self::APPROXIMATE_RECEIVE_COUNT => true,
-        self::AWSTRACE_HEADER => true,
-        self::MESSAGE_DEDUPLICATION_ID => true,
-        self::MESSAGE_GROUP_ID => true,
-        self::SENDER_ID => true,
-        self::SENT_TIMESTAMP => true,
-        self::SEQUENCE_NUMBER => true
-                        ][$value]);
+            self::APPROXIMATE_FIRST_RECEIVE_TIMESTAMP => true,
+            self::APPROXIMATE_RECEIVE_COUNT => true,
+            self::AWSTRACE_HEADER => true,
+            self::MESSAGE_DEDUPLICATION_ID => true,
+            self::MESSAGE_GROUP_ID => true,
+            self::SENDER_ID => true,
+            self::SENT_TIMESTAMP => true,
+            self::SEQUENCE_NUMBER => true,
+        ][$value]);
     }
 }

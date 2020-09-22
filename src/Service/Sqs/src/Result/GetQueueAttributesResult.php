@@ -5,8 +5,6 @@ namespace AsyncAws\Sqs\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class GetQueueAttributesResult extends Result
 {
@@ -14,6 +12,7 @@ class GetQueueAttributesResult extends Result
      * A map of attributes to their respective values.
      */
     private $Attributes = [];
+
     /**
      * @return array<QueueAttributeName::*, string>
      */
@@ -21,23 +20,24 @@ class GetQueueAttributesResult extends Result
     {
         $this->initialize();
 
-                            return $this->Attributes;
+        return $this->Attributes;
     }
 
     protected function populateResult(Response $response): void
     {
-        $data = new \SimpleXMLElement($response->getContent());$data = $data->GetQueueAttributesResult;
+        $data = new \SimpleXMLElement($response->getContent());
+        $data = $data->GetQueueAttributesResult;
 
-        $this->Attributes = !$data->Attribute ? [] : (function(\SimpleXMLElement $xml): array {
-                        $items = [];
-                        foreach ($xml as $item) {
-                            $a = ($v = $item->Value) ? (string) $v : null;
-                            if (null !== $a) {
-                                $items[$item->Name->__toString()] = $a;
-                            }
-                        }
+        $this->Attributes = !$data->Attribute ? [] : (function (\SimpleXMLElement $xml): array {
+            $items = [];
+            foreach ($xml as $item) {
+                $a = ($v = $item->Value) ? (string) $v : null;
+                if (null !== $a) {
+                    $items[$item->Name->__toString()] = $a;
+                }
+            }
 
-                        return $items;
-                    })($data->Attribute);
+            return $items;
+        })($data->Attribute);
     }
 }

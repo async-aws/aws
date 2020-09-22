@@ -15,16 +15,17 @@ final class GetQueueUrlRequest extends Input
      *
      * @required
      *
-     * @var null|string
+     * @var string|null
      */
     private $QueueName;
+
     /**
      * The AWS account ID of the account that created the queue.
      *
-     *
-     * @var null|string
+     * @var string|null
      */
     private $QueueOwnerAWSAccountId;
+
     /**
      * @param array{
      *   QueueName?: string,
@@ -34,8 +35,8 @@ final class GetQueueUrlRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->QueueName = $input["QueueName"] ?? null;
-        $this->QueueOwnerAWSAccountId = $input["QueueOwnerAWSAccountId"] ?? null;
+        $this->QueueName = $input['QueueName'] ?? null;
+        $this->QueueOwnerAWSAccountId = $input['QueueOwnerAWSAccountId'] ?? null;
         parent::__construct($input);
     }
 
@@ -60,15 +61,13 @@ final class GetQueueUrlRequest extends Input
     public function request(): Request
     {
         // Prepare headers
-        $headers = ["content-type" => "application/x-www-form-urlencoded"];
-
+        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
         // Prepare query
         $query = [];
 
-
         // Prepare URI
-        $uriString = "/";
+        $uriString = '/';
 
         // Prepare Body
         $body = http_build_query(['Action' => 'GetQueueUrl', 'Version' => '2012-11-05'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
@@ -77,29 +76,31 @@ final class GetQueueUrlRequest extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
-    private function requestBody(): array
-    {
-        $payload = [];
-                        if (null === $v = $this->QueueName) {
-                            throw new InvalidArgument(sprintf('Missing parameter "QueueName" for "%s". The value cannot be null.', __CLASS__));
-                        }
-                        $payload["QueueName"] = $v;
-        if (null !== $v = $this->QueueOwnerAWSAccountId) {
-                            $payload["QueueOwnerAWSAccountId"] = $v;
-                        }
-
-                        return $payload;
-    }
-
     public function setQueueName(?string $value): self
     {
         $this->QueueName = $value;
-                            return $this;
+
+        return $this;
     }
 
     public function setQueueOwnerAWSAccountId(?string $value): self
     {
         $this->QueueOwnerAWSAccountId = $value;
-                            return $this;
+
+        return $this;
+    }
+
+    private function requestBody(): array
+    {
+        $payload = [];
+        if (null === $v = $this->QueueName) {
+            throw new InvalidArgument(sprintf('Missing parameter "QueueName" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['QueueName'] = $v;
+        if (null !== $v = $this->QueueOwnerAWSAccountId) {
+            $payload['QueueOwnerAWSAccountId'] = $v;
+        }
+
+        return $payload;
     }
 }

@@ -26,24 +26,24 @@ final class QueueAttributeName
     public static function exists(string $value): bool
     {
         return isset([
-                            self::ALL => true,
-        self::APPROXIMATE_NUMBER_OF_MESSAGES => true,
-        self::APPROXIMATE_NUMBER_OF_MESSAGES_DELAYED => true,
-        self::APPROXIMATE_NUMBER_OF_MESSAGES_NOT_VISIBLE => true,
-        self::CONTENT_BASED_DEDUPLICATION => true,
-        self::CREATED_TIMESTAMP => true,
-        self::DELAY_SECONDS => true,
-        self::FIFO_QUEUE => true,
-        self::KMS_DATA_KEY_REUSE_PERIOD_SECONDS => true,
-        self::KMS_MASTER_KEY_ID => true,
-        self::LAST_MODIFIED_TIMESTAMP => true,
-        self::MAXIMUM_MESSAGE_SIZE => true,
-        self::MESSAGE_RETENTION_PERIOD => true,
-        self::POLICY => true,
-        self::QUEUE_ARN => true,
-        self::RECEIVE_MESSAGE_WAIT_TIME_SECONDS => true,
-        self::REDRIVE_POLICY => true,
-        self::VISIBILITY_TIMEOUT => true
-                        ][$value]);
+            self::ALL => true,
+            self::APPROXIMATE_NUMBER_OF_MESSAGES => true,
+            self::APPROXIMATE_NUMBER_OF_MESSAGES_DELAYED => true,
+            self::APPROXIMATE_NUMBER_OF_MESSAGES_NOT_VISIBLE => true,
+            self::CONTENT_BASED_DEDUPLICATION => true,
+            self::CREATED_TIMESTAMP => true,
+            self::DELAY_SECONDS => true,
+            self::FIFO_QUEUE => true,
+            self::KMS_DATA_KEY_REUSE_PERIOD_SECONDS => true,
+            self::KMS_MASTER_KEY_ID => true,
+            self::LAST_MODIFIED_TIMESTAMP => true,
+            self::MAXIMUM_MESSAGE_SIZE => true,
+            self::MESSAGE_RETENTION_PERIOD => true,
+            self::POLICY => true,
+            self::QUEUE_ARN => true,
+            self::RECEIVE_MESSAGE_WAIT_TIME_SECONDS => true,
+            self::REDRIVE_POLICY => true,
+            self::VISIBILITY_TIMEOUT => true,
+        ][$value]);
     }
 }

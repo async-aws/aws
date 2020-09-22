@@ -14,9 +14,10 @@ final class PurgeQueueRequest extends Input
      *
      * @required
      *
-     * @var null|string
+     * @var string|null
      */
     private $QueueUrl;
+
     /**
      * @param array{
      *   QueueUrl?: string,
@@ -25,7 +26,7 @@ final class PurgeQueueRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->QueueUrl = $input["QueueUrl"] ?? null;
+        $this->QueueUrl = $input['QueueUrl'] ?? null;
         parent::__construct($input);
     }
 
@@ -45,15 +46,13 @@ final class PurgeQueueRequest extends Input
     public function request(): Request
     {
         // Prepare headers
-        $headers = ["content-type" => "application/x-www-form-urlencoded"];
-
+        $headers = ['content-type' => 'application/x-www-form-urlencoded'];
 
         // Prepare query
         $query = [];
 
-
         // Prepare URI
-        $uriString = "/";
+        $uriString = '/';
 
         // Prepare Body
         $body = http_build_query(['Action' => 'PurgeQueue', 'Version' => '2012-11-05'] + $this->requestBody(), '', '&', \PHP_QUERY_RFC1738);
@@ -62,20 +61,21 @@ final class PurgeQueueRequest extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
-    private function requestBody(): array
-    {
-        $payload = [];
-                        if (null === $v = $this->QueueUrl) {
-                            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
-                        }
-                        $payload["QueueUrl"] = $v;
-
-                        return $payload;
-    }
-
     public function setQueueUrl(?string $value): self
     {
         $this->QueueUrl = $value;
-                            return $this;
+
+        return $this;
+    }
+
+    private function requestBody(): array
+    {
+        $payload = [];
+        if (null === $v = $this->QueueUrl) {
+            throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['QueueUrl'] = $v;
+
+        return $payload;
     }
 }

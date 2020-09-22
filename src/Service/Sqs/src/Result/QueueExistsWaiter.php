@@ -4,11 +4,9 @@ namespace AsyncAws\Sqs\Result;
 
 use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Response;
-use AsyncAws\Core\Result;
 use AsyncAws\Core\Waiter;
 use AsyncAws\Sqs\Input\GetQueueUrlRequest;
 use AsyncAws\Sqs\SqsClient;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class QueueExistsWaiter extends Waiter
 {
@@ -18,28 +16,26 @@ class QueueExistsWaiter extends Waiter
     protected function extractState(Response $response, ?HttpException $exception): string
     {
         if (200 === $response->getStatusCode()) {
-                        return self::STATE_SUCCESS;
-                    }
+            return self::STATE_SUCCESS;
+        }
 
+        if (null !== $exception && 'AWS.SimpleQueueService.NonExistentQueue' === $exception->getAwsCode() && 400 === $exception->getCode()) {
+            return self::STATE_PENDING;
+        }
 
-                    if ($exception !== null && 'AWS.SimpleQueueService.NonExistentQueue' === $exception->getAwsCode()&&400 === $exception->getCode()) {
-                        return self::STATE_PENDING;
-                    }
-
-
-                        /** @psalm-suppress TypeDoesNotContainType */
-                        return $exception === null ? self::STATE_PENDING :  self::STATE_FAILURE;
+        /** @psalm-suppress TypeDoesNotContainType */
+        return null === $exception ? self::STATE_PENDING : self::STATE_FAILURE;
     }
 
     protected function refreshState(): Waiter
     {
-        if (!$this->awsClient instanceOf SqsClient) {
-                            throw new \InvalidArgumentException('missing client injected in waiter result');
-                        }
-                        if (!$this->input instanceOf GetQueueUrlRequest) {
-                            throw new \InvalidArgumentException('missing last request injected in waiter result');
-                        }
+        if (!$this->awsClient instanceof SqsClient) {
+            throw new \InvalidArgumentException('missing client injected in waiter result');
+        }
+        if (!$this->input instanceof GetQueueUrlRequest) {
+            throw new \InvalidArgumentException('missing last request injected in waiter result');
+        }
 
-                        return $this->awsClient->QueueExists($this->input);
+        return $this->awsClient->QueueExists($this->input);
     }
 }
