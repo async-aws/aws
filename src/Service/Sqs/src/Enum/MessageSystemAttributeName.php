@@ -4,6 +4,7 @@ namespace AsyncAws\Sqs\Enum;
 
 final class MessageSystemAttributeName
 {
+    public const ALL = 'All';
     public const APPROXIMATE_FIRST_RECEIVE_TIMESTAMP = 'ApproximateFirstReceiveTimestamp';
     public const APPROXIMATE_RECEIVE_COUNT = 'ApproximateReceiveCount';
     public const AWSTRACE_HEADER = 'AWSTraceHeader';
@@ -16,6 +17,7 @@ final class MessageSystemAttributeName
     public static function exists(string $value): bool
     {
         return isset([
+            self::ALL => true,
             self::APPROXIMATE_FIRST_RECEIVE_TIMESTAMP => true,
             self::APPROXIMATE_RECEIVE_COUNT => true,
             self::AWSTRACE_HEADER => true,

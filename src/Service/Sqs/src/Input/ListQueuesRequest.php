@@ -17,20 +17,49 @@ final class ListQueuesRequest extends Input
     private $QueueNamePrefix;
 
     /**
+     * Pagination token to request the next set of results.
+     *
+     * @var string|null
+     */
+    private $NextToken;
+
+    /**
+     * Maximum number of results to include in the response. Value range is 1 to 1000. You must set `MaxResults` to receive
+     * a value for `NextToken` in the response.
+     *
+     * @var int|null
+     */
+    private $MaxResults;
+
+    /**
      * @param array{
      *   QueueNamePrefix?: string,
+     *   NextToken?: string,
+     *   MaxResults?: int,
      *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->QueueNamePrefix = $input['QueueNamePrefix'] ?? null;
+        $this->NextToken = $input['NextToken'] ?? null;
+        $this->MaxResults = $input['MaxResults'] ?? null;
         parent::__construct($input);
     }
 
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getMaxResults(): ?int
+    {
+        return $this->MaxResults;
+    }
+
+    public function getNextToken(): ?string
+    {
+        return $this->NextToken;
     }
 
     public function getQueueNamePrefix(): ?string
@@ -59,6 +88,20 @@ final class ListQueuesRequest extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
+    public function setMaxResults(?int $value): self
+    {
+        $this->MaxResults = $value;
+
+        return $this;
+    }
+
+    public function setNextToken(?string $value): self
+    {
+        $this->NextToken = $value;
+
+        return $this;
+    }
+
     public function setQueueNamePrefix(?string $value): self
     {
         $this->QueueNamePrefix = $value;
@@ -71,6 +114,12 @@ final class ListQueuesRequest extends Input
         $payload = [];
         if (null !== $v = $this->QueueNamePrefix) {
             $payload['QueueNamePrefix'] = $v;
+        }
+        if (null !== $v = $this->NextToken) {
+            $payload['NextToken'] = $v;
+        }
+        if (null !== $v = $this->MaxResults) {
+            $payload['MaxResults'] = $v;
         }
 
         return $payload;

@@ -22,7 +22,7 @@ final class SendMessageRequest extends Input
     private $QueueUrl;
 
     /**
-     * The message to send. The maximum string size is 256 KB.
+     * The message to send. The minimum size is one character. The maximum size is 256 KB.
      *
      * @required
      *
@@ -43,16 +43,16 @@ final class SendMessageRequest extends Input
      * Each message attribute consists of a `Name`, `Type`, and `Value`. For more information, see Amazon SQS Message
      * Attributes in the *Amazon Simple Queue Service Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-attributes.html
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes
      *
-     * @var array<string, MessageAttributeValue>
+     * @var array<string, MessageAttributeValue>|null
      */
     private $MessageAttributes;
 
     /**
      * The message system attribute to send. Each message system attribute consists of a `Name`, `Type`, and `Value`.
      *
-     * @var array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue>
+     * @var null|array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue>
      */
     private $MessageSystemAttributes;
 
@@ -75,8 +75,8 @@ final class SendMessageRequest extends Input
      *   QueueUrl?: string,
      *   MessageBody?: string,
      *   DelaySeconds?: int,
-     *   MessageAttributes?: array<string, \AsyncAws\Sqs\ValueObject\MessageAttributeValue>,
-     *   MessageSystemAttributes?: array<\AsyncAws\Sqs\Enum\MessageSystemAttributeNameForSends::*, \AsyncAws\Sqs\ValueObject\MessageSystemAttributeValue>,
+     *   MessageAttributes?: array<string, MessageAttributeValue>,
+     *   MessageSystemAttributes?: array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue>,
      *   MessageDeduplicationId?: string,
      *   MessageGroupId?: string,
      *   @region?: string,
@@ -117,7 +117,7 @@ final class SendMessageRequest extends Input
      */
     public function getMessageAttributes(): array
     {
-        return $this->MessageAttributes;
+        return $this->MessageAttributes ?? [];
     }
 
     public function getMessageBody(): ?string
@@ -140,7 +140,7 @@ final class SendMessageRequest extends Input
      */
     public function getMessageSystemAttributes(): array
     {
-        return $this->MessageSystemAttributes;
+        return $this->MessageSystemAttributes ?? [];
     }
 
     public function getQueueUrl(): ?string
@@ -238,28 +238,29 @@ final class SendMessageRequest extends Input
         if (null !== $v = $this->DelaySeconds) {
             $payload['DelaySeconds'] = $v;
         }
-
-        $index = 0;
-        foreach ($this->MessageAttributes as $mapKey => $mapValue) {
-            ++$index;
-            $payload["MessageAttribute.$index.Name"] = $mapKey;
-            foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["MessageAttribute.$index.Value.$bodyKey"] = $bodyValue;
+        if (null !== $v = $this->MessageAttributes) {
+            $index = 0;
+            foreach ($v as $mapKey => $mapValue) {
+                ++$index;
+                $payload["MessageAttribute.$index.Name"] = $mapKey;
+                foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
+                    $payload["MessageAttribute.$index.Value.$bodyKey"] = $bodyValue;
+                }
             }
         }
-
-        $index = 0;
-        foreach ($this->MessageSystemAttributes as $mapKey => $mapValue) {
-            if (!MessageSystemAttributeNameForSends::exists($mapKey)) {
-                throw new InvalidArgument(sprintf('Invalid key for "%s". The value "%s" is not a valid "MessageSystemAttributeNameForSends".', __CLASS__, $mapKey));
-            }
-            ++$index;
-            $payload["MessageSystemAttribute.$index.Name"] = $mapKey;
-            foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
-                $payload["MessageSystemAttribute.$index.Value.$bodyKey"] = $bodyValue;
+        if (null !== $v = $this->MessageSystemAttributes) {
+            $index = 0;
+            foreach ($v as $mapKey => $mapValue) {
+                if (!MessageSystemAttributeNameForSends::exists($mapKey)) {
+                    throw new InvalidArgument(sprintf('Invalid key for "%s". The value "%s" is not a valid "MessageSystemAttributeNameForSends".', __CLASS__, $mapKey));
+                }
+                ++$index;
+                $payload["MessageSystemAttribute.$index.Name"] = $mapKey;
+                foreach ($mapValue->requestBody() as $bodyKey => $bodyValue) {
+                    $payload["MessageSystemAttribute.$index.Value.$bodyKey"] = $bodyValue;
+                }
             }
         }
-
         if (null !== $v = $this->MessageDeduplicationId) {
             $payload['MessageDeduplicationId'] = $v;
         }

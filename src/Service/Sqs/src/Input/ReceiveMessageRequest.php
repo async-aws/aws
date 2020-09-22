@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
-use AsyncAws\Sqs\Enum\QueueAttributeName;
+use AsyncAws\Sqs\Enum\MessageSystemAttributeName;
 
 final class ReceiveMessageRequest extends Input
 {
@@ -20,16 +20,14 @@ final class ReceiveMessageRequest extends Input
     private $QueueUrl;
 
     /**
-     * A list of attributes that need to be returned along with each message. These attributes include:.
-     *
-     * @var list<QueueAttributeName::*>
+     * @var null|list<MessageSystemAttributeName::*>
      */
     private $AttributeNames;
 
     /**
      * The name of the message attribute, where *N* is the index.
      *
-     * @var string[]
+     * @var string[]|null
      */
     private $MessageAttributeNames;
 
@@ -68,7 +66,7 @@ final class ReceiveMessageRequest extends Input
     /**
      * @param array{
      *   QueueUrl?: string,
-     *   AttributeNames?: list<\AsyncAws\Sqs\Enum\QueueAttributeName::*>,
+     *   AttributeNames?: list<MessageSystemAttributeName::*>,
      *   MessageAttributeNames?: string[],
      *   MaxNumberOfMessages?: int,
      *   VisibilityTimeout?: int,
@@ -80,8 +78,8 @@ final class ReceiveMessageRequest extends Input
     public function __construct(array $input = [])
     {
         $this->QueueUrl = $input['QueueUrl'] ?? null;
-        $this->AttributeNames = $input['AttributeNames'] ?? [];
-        $this->MessageAttributeNames = $input['MessageAttributeNames'] ?? [];
+        $this->AttributeNames = $input['AttributeNames'] ?? null;
+        $this->MessageAttributeNames = $input['MessageAttributeNames'] ?? null;
         $this->MaxNumberOfMessages = $input['MaxNumberOfMessages'] ?? null;
         $this->VisibilityTimeout = $input['VisibilityTimeout'] ?? null;
         $this->WaitTimeSeconds = $input['WaitTimeSeconds'] ?? null;
@@ -95,11 +93,11 @@ final class ReceiveMessageRequest extends Input
     }
 
     /**
-     * @return list<QueueAttributeName::*>
+     * @return list<MessageSystemAttributeName::*>
      */
     public function getAttributeNames(): array
     {
-        return $this->AttributeNames;
+        return $this->AttributeNames ?? [];
     }
 
     public function getMaxNumberOfMessages(): ?int
@@ -112,7 +110,7 @@ final class ReceiveMessageRequest extends Input
      */
     public function getMessageAttributeNames(): array
     {
-        return $this->MessageAttributeNames;
+        return $this->MessageAttributeNames ?? [];
     }
 
     public function getQueueUrl(): ?string
@@ -157,7 +155,7 @@ final class ReceiveMessageRequest extends Input
     }
 
     /**
-     * @param list<QueueAttributeName::*> $value
+     * @param list<MessageSystemAttributeName::*> $value
      */
     public function setAttributeNames(array $value): self
     {
@@ -218,22 +216,23 @@ final class ReceiveMessageRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueueUrl'] = $v;
-
-        $index = 0;
-        foreach ($this->AttributeNames as $mapValue) {
-            ++$index;
-            if (!QueueAttributeName::exists($mapValue)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "AttributeName" for "%s". The value "%s" is not a valid "QueueAttributeName".', __CLASS__, $mapValue));
+        if (null !== $v = $this->AttributeNames) {
+            $index = 0;
+            foreach ($v as $mapValue) {
+                ++$index;
+                if (!MessageSystemAttributeName::exists($mapValue)) {
+                    throw new InvalidArgument(sprintf('Invalid parameter "AttributeName" for "%s". The value "%s" is not a valid "MessageSystemAttributeName".', __CLASS__, $mapValue));
+                }
+                $payload["AttributeName.$index"] = $mapValue;
             }
-            $payload["AttributeName.$index"] = $mapValue;
         }
-
-        $index = 0;
-        foreach ($this->MessageAttributeNames as $mapValue) {
-            ++$index;
-            $payload["MessageAttributeName.$index"] = $mapValue;
+        if (null !== $v = $this->MessageAttributeNames) {
+            $index = 0;
+            foreach ($v as $mapValue) {
+                ++$index;
+                $payload["MessageAttributeName.$index"] = $mapValue;
+            }
         }
-
         if (null !== $v = $this->MaxNumberOfMessages) {
             $payload['MaxNumberOfMessages'] = $v;
         }

@@ -83,7 +83,6 @@ menu:
                 text: STS
                 url: /clients/sts.html
 
-
     features:
         # Feature are in alphabetical order after "why async?"
         section: Features

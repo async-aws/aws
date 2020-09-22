@@ -46,7 +46,7 @@ final class Message
      * Each message attribute consists of a `Name`, `Type`, and `Value`. For more information, see Amazon SQS Message
      * Attributes in the *Amazon Simple Queue Service Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-attributes.html
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes
      */
     private $MessageAttributes;
 
@@ -56,9 +56,9 @@ final class Message
      *   ReceiptHandle?: null|string,
      *   MD5OfBody?: null|string,
      *   Body?: null|string,
-     *   Attributes?: null|array<\AsyncAws\Sqs\Enum\MessageSystemAttributeName::*, string>,
+     *   Attributes?: null|array<MessageSystemAttributeName::*, string>,
      *   MD5OfMessageAttributes?: null|string,
-     *   MessageAttributes?: null|array<string, \AsyncAws\Sqs\ValueObject\MessageAttributeValue>,
+     *   MessageAttributes?: null|array<string, MessageAttributeValue>,
      * } $input
      */
     public function __construct(array $input)
@@ -67,9 +67,9 @@ final class Message
         $this->ReceiptHandle = $input['ReceiptHandle'] ?? null;
         $this->MD5OfBody = $input['MD5OfBody'] ?? null;
         $this->Body = $input['Body'] ?? null;
-        $this->Attributes = $input['Attributes'] ?? [];
+        $this->Attributes = $input['Attributes'] ?? null;
         $this->MD5OfMessageAttributes = $input['MD5OfMessageAttributes'] ?? null;
-        $this->MessageAttributes = array_map([MessageAttributeValue::class, 'create'], $input['MessageAttributes'] ?? []);
+        $this->MessageAttributes = isset($input['MessageAttributes']) ? array_map([MessageAttributeValue::class, 'create'], $input['MessageAttributes']) : null;
     }
 
     public static function create($input): self
@@ -82,7 +82,7 @@ final class Message
      */
     public function getAttributes(): array
     {
-        return $this->Attributes;
+        return $this->Attributes ?? [];
     }
 
     public function getBody(): ?string
@@ -105,7 +105,7 @@ final class Message
      */
     public function getMessageAttributes(): array
     {
-        return $this->MessageAttributes;
+        return $this->MessageAttributes ?? [];
     }
 
     public function getMessageId(): ?string
