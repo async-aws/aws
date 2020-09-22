@@ -33,7 +33,6 @@ class PublishLayerVersionResponseTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new PublishLayerVersionResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        // self::assertTODO(expected, $result->getContent());
         self::assertSame('arn:::fn:arn', $result->getLayerArn());
         self::assertSame('arn:::version:arn', $result->getLayerVersionArn());
         self::assertSame('demo', $result->getDescription());
