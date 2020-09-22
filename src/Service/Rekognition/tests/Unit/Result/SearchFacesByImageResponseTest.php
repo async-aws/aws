@@ -5,8 +5,6 @@ namespace AsyncAws\Rekognition\Tests\Unit\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
-use AsyncAws\Rekognition\Input\SearchFacesByImageRequest;
-use AsyncAws\Rekognition\RekognitionClient;
 use AsyncAws\Rekognition\Result\SearchFacesByImageResponse;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -17,8 +15,8 @@ class SearchFacesByImageResponseTest extends TestCase
     {
         self::fail('Not implemented');
 
-                        // see example-1.json from SDK
-                        $response = new SimpleMockedResponse('{
+        // see example-1.json from SDK
+        $response = new SimpleMockedResponse('{
             "FaceMatches": [
                 {
                     "Face": {
@@ -44,12 +42,12 @@ class SearchFacesByImageResponseTest extends TestCase
             "SearchedFaceConfidence": 99.9991226196289
         }');
 
-                        $client = new MockHttpClient($response);
-                        $result = new SearchFacesByImageResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
+        $client = new MockHttpClient($response);
+        $result = new SearchFacesByImageResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-                        // self::assertTODO(expected, $result->getSearchedFaceBoundingBox());
+        // self::assertTODO(expected, $result->getSearchedFaceBoundingBox());
         // self::assertTODO(expected, $result->getSearchedFaceConfidence());
         // self::assertTODO(expected, $result->getFaceMatches());
-        self::assertSame("changeIt", $result->getFaceModelVersion());
+        self::assertSame('changeIt', $result->getFaceModelVersion());
     }
 }

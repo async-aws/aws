@@ -9,10 +9,9 @@ class DeleteCollectionRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-
         $input = new DeleteCollectionRequest([
-                'CollectionId' => 'test-collection',
-            ]);
+            'CollectionId' => 'test-collection',
+        ]);
 
         // see https://docs.aws.amazon.com/rekognition/latest/dg/API_DeleteCollection.html from SDK
         $expected = '
@@ -25,6 +24,6 @@ class DeleteCollectionRequestTest extends TestCase
                 }
                 ';
 
-                self::assertRequestEqualsHttpRequest($expected, $input->request());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

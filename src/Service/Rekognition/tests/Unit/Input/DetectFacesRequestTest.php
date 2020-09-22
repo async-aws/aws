@@ -4,20 +4,17 @@ namespace AsyncAws\Rekognition\Tests\Unit\Input;
 
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Rekognition\Input\DetectFacesRequest;
-use AsyncAws\Rekognition\ValueObject\Image;
-use AsyncAws\Rekognition\ValueObject\S3Object;
 
 class DetectFacesRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-
         $input = new DetectFacesRequest([
-                'Image' => [
-                'Bytes' => 'base64'
+            'Image' => [
+                'Bytes' => 'base64',
             ],
-                'Attributes' => ["DEFAULT"],
-            ]);
+            'Attributes' => ['DEFAULT'],
+        ]);
         // see https://docs.aws.amazon.com/rekognition/latest/dg/API_DetectFaces.html
 
         $expected = '

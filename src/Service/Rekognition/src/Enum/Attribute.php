@@ -1,8 +1,6 @@
 <?php
 
-
 namespace AsyncAws\Rekognition\Enum;
-
 
 final class Attribute
 {
@@ -12,8 +10,8 @@ final class Attribute
     public static function exists(string $value): bool
     {
         return isset([
-                self::DEFAULT => true,
-                self::ALL => true,
-            ][$value]);
+            self::DEFAULT => true,
+            self::ALL => true,
+        ][$value]);
     }
 }

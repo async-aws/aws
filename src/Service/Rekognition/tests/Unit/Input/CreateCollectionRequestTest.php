@@ -9,10 +9,9 @@ class CreateCollectionRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-
         $input = new CreateCollectionRequest([
-                'CollectionId' => 'myphotos',
-            ]);
+            'CollectionId' => 'myphotos',
+        ]);
 
         // see https://docs.aws.amazon.com/rekognition/latest/dg/API_CreateCollection.html from SDK
 
@@ -25,7 +24,6 @@ class CreateCollectionRequestTest extends TestCase
                     "CollectionId": "myphotos"
                 }
                 ';
-
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

@@ -9,10 +9,9 @@ class DeleteProjectRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-
         $input = new DeleteProjectRequest([
-                    'ProjectArn' => 'arn:aws:rekognition:*:*:project/MyProject/version/MyVersion/*',
-                ]);
+            'ProjectArn' => 'arn:aws:rekognition:*:*:project/MyProject/version/MyVersion/*',
+        ]);
 
         // see https://docs.aws.amazon.com/rekognition/latest/dg/API_DeleteProject.html
         $expected = '
@@ -25,6 +24,6 @@ class DeleteProjectRequestTest extends TestCase
                 }
                 ';
 
-                self::assertRequestEqualsHttpRequest($expected, $input->request());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }

@@ -5,8 +5,6 @@ namespace AsyncAws\Rekognition\Tests\Unit\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
-use AsyncAws\Rekognition\Input\IndexFacesRequest;
-use AsyncAws\Rekognition\RekognitionClient;
 use AsyncAws\Rekognition\Result\IndexFacesResponse;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -17,8 +15,8 @@ class IndexFacesResponseTest extends TestCase
     {
         self::fail('Not implemented');
 
-                        // see example-1.json from SDK
-                        $response = new SimpleMockedResponse('{
+        // see example-1.json from SDK
+        $response = new SimpleMockedResponse('{
             "FaceRecords": [
                 {
                     "Face": {
@@ -140,12 +138,12 @@ class IndexFacesResponseTest extends TestCase
             "OrientationCorrection": "ROTATE_0"
         }');
 
-                        $client = new MockHttpClient($response);
-                        $result = new IndexFacesResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
+        $client = new MockHttpClient($response);
+        $result = new IndexFacesResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-                        // self::assertTODO(expected, $result->getFaceRecords());
-        self::assertSame("changeIt", $result->getOrientationCorrection());
-        self::assertSame("changeIt", $result->getFaceModelVersion());
+        // self::assertTODO(expected, $result->getFaceRecords());
+        self::assertSame('changeIt', $result->getOrientationCorrection());
+        self::assertSame('changeIt', $result->getFaceModelVersion());
         // self::assertTODO(expected, $result->getUnindexedFaces());
     }
 }

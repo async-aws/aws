@@ -9,10 +9,9 @@ class CreateProjectRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-
         $input = new CreateProjectRequest([
-                    'ProjectName' => 'new-project',
-                ]);
+            'ProjectName' => 'new-project',
+        ]);
 
         // see https://docs.aws.amazon.com/rekognition/latest/dg/API_CreateProject.html
         $expected = '

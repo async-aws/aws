@@ -31,7 +31,7 @@ class RekognitionClientTest extends TestCase
         $client = new RekognitionClient([], new NullProvider(), new MockHttpClient());
 
         $input = new CreateCollectionRequest([
-        'CollectionId' => 'change me',
+            'CollectionId' => 'change me',
         ]);
         $result = $client->CreateCollection($input);
 
@@ -44,7 +44,7 @@ class RekognitionClientTest extends TestCase
         $client = new RekognitionClient([], new NullProvider(), new MockHttpClient());
 
         $input = new CreateProjectRequest([
-        'ProjectName' => 'change me',
+            'ProjectName' => 'change me',
         ]);
         $result = $client->CreateProject($input);
 
@@ -57,7 +57,7 @@ class RekognitionClientTest extends TestCase
         $client = new RekognitionClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DeleteCollectionRequest([
-        'CollectionId' => 'change me',
+            'CollectionId' => 'change me',
         ]);
         $result = $client->DeleteCollection($input);
 
@@ -70,7 +70,7 @@ class RekognitionClientTest extends TestCase
         $client = new RekognitionClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DeleteProjectRequest([
-        'ProjectArn' => 'change me',
+            'ProjectArn' => 'change me',
         ]);
         $result = $client->DeleteProject($input);
 
@@ -83,10 +83,9 @@ class RekognitionClientTest extends TestCase
         $client = new RekognitionClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DetectFacesRequest([
-        'Image' => new Image([
+            'Image' => new Image([
 
-
-        ]),
+            ]),
 
         ]);
         $result = $client->DetectFaces($input);
@@ -100,14 +99,10 @@ class RekognitionClientTest extends TestCase
         $client = new RekognitionClient([], new NullProvider(), new MockHttpClient());
 
         $input = new IndexFacesRequest([
-        'CollectionId' => 'change me',
-        'Image' => new Image([
+            'CollectionId' => 'change me',
+            'Image' => new Image([
 
-
-        ]),
-
-
-
+            ]),
 
         ]);
         $result = $client->IndexFaces($input);
@@ -122,7 +117,6 @@ class RekognitionClientTest extends TestCase
 
         $input = new ListCollectionsRequest([
 
-
         ]);
         $result = $client->ListCollections($input);
 
@@ -134,19 +128,16 @@ class RekognitionClientTest extends TestCase
     {
         $client = new RekognitionClient([], new NullProvider(), new MockHttpClient());
 
-                        $input = new SearchFacesByImageRequest([
-                            'CollectionId' => 'change me',
-        'Image' => new Image([
+        $input = new SearchFacesByImageRequest([
+            'CollectionId' => 'change me',
+            'Image' => new Image([
 
+            ]),
 
-                        ]),
+        ]);
+        $result = $client->SearchFacesByImage($input);
 
-
-
-                        ]);
-                        $result = $client->SearchFacesByImage($input);
-
-                        self::assertInstanceOf(SearchFacesByImageResponse::class, $result);
-                        self::assertFalse($result->info()['resolved']);
+        self::assertInstanceOf(SearchFacesByImageResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
     }
 }

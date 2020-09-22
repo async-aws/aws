@@ -5,7 +5,6 @@ namespace AsyncAws\Rekognition\Tests\Unit\Input;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Rekognition\Input\SearchFacesByImageRequest;
 use AsyncAws\Rekognition\ValueObject\Image;
-use AsyncAws\Rekognition\ValueObject\S3Object;
 
 class SearchFacesByImageRequestTest extends TestCase
 {
@@ -16,8 +15,8 @@ class SearchFacesByImageRequestTest extends TestCase
         $input = new SearchFacesByImageRequest([
             'CollectionId' => 'myCollectionId',
             'Image' => new Image([
-                                'Bytes' => 'base64'
-                            ]),
+                'Bytes' => 'base64',
+            ]),
             'MaxFaces' => 2,
             'FaceMatchThreshold' => 80.5,
             'QualityFilter' => 'MEDIUM',

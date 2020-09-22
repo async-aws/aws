@@ -9,11 +9,10 @@ class ListCollectionsRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-
         $input = new ListCollectionsRequest([
-                'NextToken' => 'NEXT',
-                'MaxResults' => 1337,
-            ]);
+            'NextToken' => 'NEXT',
+            'MaxResults' => 1337,
+        ]);
 
         // see https://docs.aws.amazon.com/rekognition/latest/dg/API_ListCollections.html
         $expected = '

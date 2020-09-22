@@ -4,21 +4,18 @@ namespace AsyncAws\Rekognition\Tests\Unit\Input;
 
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Rekognition\Input\IndexFacesRequest;
-use AsyncAws\Rekognition\ValueObject\Image;
-use AsyncAws\Rekognition\ValueObject\S3Object;
 
 class IndexFacesRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-
         $input = new IndexFacesRequest([
             'CollectionId' => 'myCollectionId',
             'Image' => [
                 'Bytes' => 'base64',
             ],
             'ExternalImageId' => 'myphotoid',
-            'MaxFaces' => 1
+            'MaxFaces' => 1,
         ]);
 
         // see https://docs.aws.amazon.com/rekognition/latest/dg/API_IndexFaces.html
@@ -37,6 +34,6 @@ class IndexFacesRequestTest extends TestCase
                 }
                 ';
 
-            self::assertRequestEqualsHttpRequest($expected, $input->request());
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
 }
