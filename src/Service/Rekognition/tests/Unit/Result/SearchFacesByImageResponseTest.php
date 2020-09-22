@@ -13,8 +13,6 @@ class SearchFacesByImageResponseTest extends TestCase
 {
     public function testSearchFacesByImageResponse(): void
     {
-        self::fail('Not implemented');
-
         // see example-1.json from SDK
         $response = new SimpleMockedResponse('{
             "FaceMatches": [
@@ -45,9 +43,8 @@ class SearchFacesByImageResponseTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new SearchFacesByImageResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        // self::assertTODO(expected, $result->getSearchedFaceBoundingBox());
-        // self::assertTODO(expected, $result->getSearchedFaceConfidence());
-        // self::assertTODO(expected, $result->getFaceMatches());
-        self::assertSame('changeIt', $result->getFaceModelVersion());
+         self::assertSame(99.9991226196289, $result->getSearchedFaceConfidence());
+        self::assertCount(1, $result->getFaceMatches());
+        self::assertSame('38271d79-7bc2-5efb-b752-398a8d575b85', $result->getFaceMatches()[0]->getFace()->getFaceId());
     }
 }

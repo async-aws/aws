@@ -13,8 +13,6 @@ class DeleteCollectionResponseTest extends TestCase
 {
     public function testDeleteCollectionResponse(): void
     {
-        self::fail('Not implemented');
-
         // see example-1.json from SDK
         $response = new SimpleMockedResponse('{
             "StatusCode": 200
@@ -23,6 +21,6 @@ class DeleteCollectionResponseTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new DeleteCollectionResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertSame(1337, $result->getStatusCode());
+        self::assertSame(200, $result->getStatusCode());
     }
 }

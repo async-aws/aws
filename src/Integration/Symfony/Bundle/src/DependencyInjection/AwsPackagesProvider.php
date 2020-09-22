@@ -51,7 +51,7 @@ class AwsPackagesProvider
             ],
             'rekognition' => [
                 'class' => \AsyncAws\Rekognition\RekognitionClient::class,
-                'package' => 'async-aws/Rekognition',
+                'package' => 'async-aws/rekognition',
             ],
             's3' => [
                 'class' => \AsyncAws\S3\S3Client::class,

@@ -13,16 +13,14 @@ class CreateProjectResponseTest extends TestCase
 {
     public function testCreateProjectResponse(): void
     {
-        self::fail('Not implemented');
-
-        // see https://docs.aws.amazon.com/rekognition/latest/APIReference/API_CreateProject.html
+        // see https://docs.aws.amazon.com/rekognition/latest/dg/API_CreateProject.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
+            "ProjectArn": "aws:rekognition:us-west-2:123456789012:project\\/demo"
         }');
 
         $client = new MockHttpClient($response);
         $result = new CreateProjectResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertSame('changeIt', $result->getProjectArn());
+        self::assertSame('aws:rekognition:us-west-2:123456789012:project/demo', $result->getProjectArn());
     }
 }

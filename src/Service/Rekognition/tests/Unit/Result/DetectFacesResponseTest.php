@@ -5,6 +5,7 @@ namespace AsyncAws\Rekognition\Tests\Unit\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Rekognition\Enum\OrientationCorrection;
 use AsyncAws\Rekognition\Result\DetectFacesResponse;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -13,8 +14,6 @@ class DetectFacesResponseTest extends TestCase
 {
     public function testDetectFacesResponse(): void
     {
-        self::fail('Not implemented');
-
         // see example-1.json from SDK
         $response = new SimpleMockedResponse('{
             "FaceDetails": [
@@ -71,6 +70,10 @@ class DetectFacesResponseTest extends TestCase
         $result = new DetectFacesResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         // self::assertTODO(expected, $result->getFaceDetails());
-        self::assertSame('changeIt', $result->getOrientationCorrection());
+        self::assertSame(OrientationCorrection::ROTATE_0, $result->getOrientationCorrection());
+        self::assertCount(1, $result->getFaceDetails());
+        self::assertSame(100.0, $result->getFaceDetails()[0]->getConfidence());
+        self::assertSame(37.60169982910156, $result->getFaceDetails()[0]->getQuality()->getBrightness());
+        self::assertSame(0.18000000715255737, $result->getFaceDetails()[0]->getBoundingBox()->getHeight());
     }
 }

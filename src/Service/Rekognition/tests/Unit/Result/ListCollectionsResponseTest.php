@@ -15,8 +15,6 @@ class ListCollectionsResponseTest extends TestCase
 {
     public function testListCollectionsResponse(): void
     {
-        self::fail('Not implemented');
-
         // see example-1.json from SDK
         $response = new SimpleMockedResponse('{
             "CollectionIds": [
@@ -27,8 +25,6 @@ class ListCollectionsResponseTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new ListCollectionsResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new RekognitionClient(), new ListCollectionsRequest([]));
 
-        // self::assertTODO(expected, $result->getCollectionIds());
-        self::assertSame('changeIt', $result->getNextToken());
-        // self::assertTODO(expected, $result->getFaceModelVersions());
+        self::assertSame(['myphotos'], \iterator_to_array($result->getCollectionIds()));
     }
 }

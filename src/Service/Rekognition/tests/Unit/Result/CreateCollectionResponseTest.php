@@ -13,8 +13,6 @@ class CreateCollectionResponseTest extends TestCase
 {
     public function testCreateCollectionResponse(): void
     {
-        self::fail('Not implemented');
-
         // see example-1.json from SDK
         $response = new SimpleMockedResponse('{
             "CollectionArn": "aws:rekognition:us-west-2:123456789012:collection\\/myphotos",
@@ -24,8 +22,8 @@ class CreateCollectionResponseTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new CreateCollectionResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertSame(1337, $result->getStatusCode());
-        self::assertSame('changeIt', $result->getCollectionArn());
-        self::assertSame('changeIt', $result->getFaceModelVersion());
+        self::assertSame(200, $result->getStatusCode());
+        self::assertSame('aws:rekognition:us-west-2:123456789012:collection/myphotos', $result->getCollectionArn());
+        self::assertNull($result->getFaceModelVersion());
     }
 }
