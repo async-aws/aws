@@ -17,8 +17,8 @@ final class FaceRecord
 
     /**
      * @param array{
-     *   Face?: null|\AsyncAws\Rekognition\ValueObject\Face|array,
-     *   FaceDetail?: null|\AsyncAws\Rekognition\ValueObject\FaceDetail|array,
+     *   Face?: null|Face|array,
+     *   FaceDetail?: null|FaceDetail|array,
      * } $input
      */
     public function __construct(array $input)

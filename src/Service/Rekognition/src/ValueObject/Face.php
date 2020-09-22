@@ -32,7 +32,7 @@ final class Face
     /**
      * @param array{
      *   FaceId?: null|string,
-     *   BoundingBox?: null|\AsyncAws\Rekognition\ValueObject\BoundingBox|array,
+     *   BoundingBox?: null|BoundingBox|array,
      *   ImageId?: null|string,
      *   ExternalImageId?: null|string,
      *   Confidence?: null|float,

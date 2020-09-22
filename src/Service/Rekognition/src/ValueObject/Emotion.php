@@ -18,7 +18,7 @@ final class Emotion
 
     /**
      * @param array{
-     *   Type?: null|\AsyncAws\Rekognition\Enum\EmotionName::*,
+     *   Type?: null|EmotionName::*,
      *   Confidence?: null|float,
      * } $input
      */

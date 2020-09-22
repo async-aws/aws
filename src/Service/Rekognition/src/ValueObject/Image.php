@@ -17,7 +17,7 @@ final class Image
     /**
      * @param array{
      *   Bytes?: null|string,
-     *   S3Object?: null|\AsyncAws\Rekognition\ValueObject\S3Object|array,
+     *   S3Object?: null|S3Object|array,
      * } $input
      */
     public function __construct(array $input)

@@ -18,13 +18,13 @@ final class UnindexedFace
 
     /**
      * @param array{
-     *   Reasons?: null|list<\AsyncAws\Rekognition\Enum\Reason::*>,
-     *   FaceDetail?: null|\AsyncAws\Rekognition\ValueObject\FaceDetail|array,
+     *   Reasons?: null|list<Reason::*>,
+     *   FaceDetail?: null|FaceDetail|array,
      * } $input
      */
     public function __construct(array $input)
     {
-        $this->Reasons = $input['Reasons'] ?? [];
+        $this->Reasons = $input['Reasons'] ?? null;
         $this->FaceDetail = isset($input['FaceDetail']) ? FaceDetail::create($input['FaceDetail']) : null;
     }
 
@@ -43,6 +43,6 @@ final class UnindexedFace
      */
     public function getReasons(): array
     {
-        return $this->Reasons;
+        return $this->Reasons ?? [];
     }
 }

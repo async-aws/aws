@@ -18,7 +18,7 @@ final class Gender
 
     /**
      * @param array{
-     *   Value?: null|\AsyncAws\Rekognition\Enum\GenderType::*,
+     *   Value?: null|GenderType::*,
      *   Confidence?: null|float,
      * } $input
      */

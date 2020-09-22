@@ -7,6 +7,9 @@ use AsyncAws\Core\Result;
 use AsyncAws\Rekognition\Input\ListCollectionsRequest;
 use AsyncAws\Rekognition\RekognitionClient;
 
+/**
+ * @implements \IteratorAggregate<string>
+ */
 class ListCollectionsResponse extends Result implements \IteratorAggregate
 {
     /**
@@ -127,28 +130,40 @@ class ListCollectionsResponse extends Result implements \IteratorAggregate
     {
         $data = $response->toArray();
 
-        $this->CollectionIds = empty($data['CollectionIds']) ? [] : (function (array $json): array {
-            $items = [];
-            foreach ($json as $item) {
-                $a = isset($item) ? (string) $item : null;
-                if (null !== $a) {
-                    $items[] = $a;
-                }
-            }
-
-            return $items;
-        })($data['CollectionIds']);
+        $this->CollectionIds = empty($data['CollectionIds']) ? [] : $this->populateResultCollectionIdList($data['CollectionIds']);
         $this->NextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
-        $this->FaceModelVersions = empty($data['FaceModelVersions']) ? [] : (function (array $json): array {
-            $items = [];
-            foreach ($json as $item) {
-                $a = isset($item) ? (string) $item : null;
-                if (null !== $a) {
-                    $items[] = $a;
-                }
-            }
+        $this->FaceModelVersions = empty($data['FaceModelVersions']) ? [] : $this->populateResultFaceModelVersionList($data['FaceModelVersions']);
+    }
 
-            return $items;
-        })($data['FaceModelVersions']);
+    /**
+     * @return string[]
+     */
+    private function populateResultCollectionIdList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return string[]
+     */
+    private function populateResultFaceModelVersionList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
     }
 }

@@ -27,21 +27,21 @@ final class DetectFacesRequest extends Input
      * of facial attributes: `BoundingBox`, `Confidence`, `Pose`, `Quality`, and `Landmarks`. If you provide `["ALL"]`, all
      * facial attributes are returned, but the operation takes longer to complete.
      *
-     * @var list<Attribute::*>
+     * @var null|list<Attribute::*>
      */
     private $Attributes;
 
     /**
      * @param array{
-     *   Image?: \AsyncAws\Rekognition\ValueObject\Image|array,
-     *   Attributes?: list<\AsyncAws\Rekognition\Enum\Attribute::*>,
+     *   Image?: Image|array,
+     *   Attributes?: list<Attribute::*>,
      *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->Image = isset($input['Image']) ? Image::create($input['Image']) : null;
-        $this->Attributes = $input['Attributes'] ?? [];
+        $this->Attributes = $input['Attributes'] ?? null;
         parent::__construct($input);
     }
 
@@ -55,7 +55,7 @@ final class DetectFacesRequest extends Input
      */
     public function getAttributes(): array
     {
-        return $this->Attributes;
+        return $this->Attributes ?? [];
     }
 
     public function getImage(): ?Image
@@ -112,14 +112,16 @@ final class DetectFacesRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Image" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Image'] = $v->requestBody();
-
-        $index = -1;
-        foreach ($this->Attributes as $listValue) {
-            ++$index;
-            if (!Attribute::exists($listValue)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "Attributes" for "%s". The value "%s" is not a valid "Attribute".', __CLASS__, $listValue));
+        if (null !== $v = $this->Attributes) {
+            $index = -1;
+            $payload['Attributes'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                if (!Attribute::exists($listValue)) {
+                    throw new InvalidArgument(sprintf('Invalid parameter "Attributes" for "%s". The value "%s" is not a valid "Attribute".', __CLASS__, $listValue));
+                }
+                $payload['Attributes'][$index] = $listValue;
             }
-            $payload['Attributes'][$index] = $listValue;
         }
 
         return $payload;

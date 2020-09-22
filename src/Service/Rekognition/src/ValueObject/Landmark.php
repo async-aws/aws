@@ -25,7 +25,7 @@ final class Landmark
 
     /**
      * @param array{
-     *   Type?: null|\AsyncAws\Rekognition\Enum\LandmarkType::*,
+     *   Type?: null|LandmarkType::*,
      *   X?: null|float,
      *   Y?: null|float,
      * } $input

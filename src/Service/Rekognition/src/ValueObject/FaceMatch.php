@@ -18,7 +18,7 @@ final class FaceMatch
     /**
      * @param array{
      *   Similarity?: null|float,
-     *   Face?: null|\AsyncAws\Rekognition\ValueObject\Face|array,
+     *   Face?: null|Face|array,
      * } $input
      */
     public function __construct(array $input)

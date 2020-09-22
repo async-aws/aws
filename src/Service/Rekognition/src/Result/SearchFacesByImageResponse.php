@@ -72,28 +72,34 @@ class SearchFacesByImageResponse extends Result
             'Top' => isset($data['SearchedFaceBoundingBox']['Top']) ? (float) $data['SearchedFaceBoundingBox']['Top'] : null,
         ]);
         $this->SearchedFaceConfidence = isset($data['SearchedFaceConfidence']) ? (float) $data['SearchedFaceConfidence'] : null;
-        $this->FaceMatches = empty($data['FaceMatches']) ? [] : (function (array $json): array {
-            $items = [];
-            foreach ($json as $item) {
-                $items[] = new FaceMatch([
-                    'Similarity' => isset($item['Similarity']) ? (float) $item['Similarity'] : null,
-                    'Face' => empty($item['Face']) ? null : new Face([
-                        'FaceId' => isset($item['Face']['FaceId']) ? (string) $item['Face']['FaceId'] : null,
-                        'BoundingBox' => empty($item['Face']['BoundingBox']) ? null : new BoundingBox([
-                            'Width' => isset($item['Face']['BoundingBox']['Width']) ? (float) $item['Face']['BoundingBox']['Width'] : null,
-                            'Height' => isset($item['Face']['BoundingBox']['Height']) ? (float) $item['Face']['BoundingBox']['Height'] : null,
-                            'Left' => isset($item['Face']['BoundingBox']['Left']) ? (float) $item['Face']['BoundingBox']['Left'] : null,
-                            'Top' => isset($item['Face']['BoundingBox']['Top']) ? (float) $item['Face']['BoundingBox']['Top'] : null,
-                        ]),
-                        'ImageId' => isset($item['Face']['ImageId']) ? (string) $item['Face']['ImageId'] : null,
-                        'ExternalImageId' => isset($item['Face']['ExternalImageId']) ? (string) $item['Face']['ExternalImageId'] : null,
-                        'Confidence' => isset($item['Face']['Confidence']) ? (float) $item['Face']['Confidence'] : null,
-                    ]),
-                ]);
-            }
-
-            return $items;
-        })($data['FaceMatches']);
+        $this->FaceMatches = empty($data['FaceMatches']) ? [] : $this->populateResultFaceMatchList($data['FaceMatches']);
         $this->FaceModelVersion = isset($data['FaceModelVersion']) ? (string) $data['FaceModelVersion'] : null;
+    }
+
+    /**
+     * @return FaceMatch[]
+     */
+    private function populateResultFaceMatchList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = new FaceMatch([
+                'Similarity' => isset($item['Similarity']) ? (float) $item['Similarity'] : null,
+                'Face' => empty($item['Face']) ? null : new Face([
+                    'FaceId' => isset($item['Face']['FaceId']) ? (string) $item['Face']['FaceId'] : null,
+                    'BoundingBox' => empty($item['Face']['BoundingBox']) ? null : new BoundingBox([
+                        'Width' => isset($item['Face']['BoundingBox']['Width']) ? (float) $item['Face']['BoundingBox']['Width'] : null,
+                        'Height' => isset($item['Face']['BoundingBox']['Height']) ? (float) $item['Face']['BoundingBox']['Height'] : null,
+                        'Left' => isset($item['Face']['BoundingBox']['Left']) ? (float) $item['Face']['BoundingBox']['Left'] : null,
+                        'Top' => isset($item['Face']['BoundingBox']['Top']) ? (float) $item['Face']['BoundingBox']['Top'] : null,
+                    ]),
+                    'ImageId' => isset($item['Face']['ImageId']) ? (string) $item['Face']['ImageId'] : null,
+                    'ExternalImageId' => isset($item['Face']['ExternalImageId']) ? (string) $item['Face']['ExternalImageId'] : null,
+                    'Confidence' => isset($item['Face']['Confidence']) ? (float) $item['Face']['Confidence'] : null,
+                ]),
+            ]);
+        }
+
+        return $items;
     }
 }

@@ -6,6 +6,8 @@ use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\Rekognition\Enum\Attribute;
+use AsyncAws\Rekognition\Enum\QualityFilter;
 use AsyncAws\Rekognition\Input\CreateCollectionRequest;
 use AsyncAws\Rekognition\Input\CreateProjectRequest;
 use AsyncAws\Rekognition\Input\DeleteCollectionRequest;
@@ -22,12 +24,14 @@ use AsyncAws\Rekognition\Result\DetectFacesResponse;
 use AsyncAws\Rekognition\Result\IndexFacesResponse;
 use AsyncAws\Rekognition\Result\ListCollectionsResponse;
 use AsyncAws\Rekognition\Result\SearchFacesByImageResponse;
+use AsyncAws\Rekognition\ValueObject\Image;
 
 class RekognitionClient extends AbstractApi
 {
     /**
      * Creates a collection in an AWS Region. You can add faces to the collection using the IndexFaces operation.
      *
+     * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_CreateCollection.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#createcollection
      *
      * @param array{
@@ -47,6 +51,7 @@ class RekognitionClient extends AbstractApi
      * Creates a new Amazon Rekognition Custom Labels project. A project is a logical grouping of resources (images, Labels,
      * models) and operations (training, evaluation and detection).
      *
+     * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_CreateProject.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#createproject
      *
      * @param array{
@@ -66,6 +71,7 @@ class RekognitionClient extends AbstractApi
      * Deletes the specified collection. Note that this operation removes all faces in the collection. For an example, see
      * delete-collection-procedure.
      *
+     * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_DeleteCollection.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#deletecollection
      *
      * @param array{
@@ -82,9 +88,10 @@ class RekognitionClient extends AbstractApi
     }
 
     /**
-     * Deletes an Amazon Rekognition Custom Labels project. To delete a project you must first delete all versions of the
-     * model associated with the project. To delete a version of a model, see DeleteProjectVersion.
+     * Deletes an Amazon Rekognition Custom Labels project. To delete a project you must first delete all models associated
+     * with the project. To delete a model, see DeleteProjectVersion.
      *
+     * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_DeleteProject.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#deleteproject
      *
      * @param array{
@@ -103,11 +110,12 @@ class RekognitionClient extends AbstractApi
     /**
      * Detects faces within an image that is provided as input.
      *
+     * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_DetectFaces.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#detectfaces
      *
      * @param array{
-     *   Image: \AsyncAws\Rekognition\ValueObject\Image|array,
-     *   Attributes?: list<\AsyncAws\Rekognition\Enum\Attribute::*>,
+     *   Image: Image|array,
+     *   Attributes?: list<Attribute::*>,
      *   @region?: string,
      * }|DetectFacesRequest $input
      */
@@ -122,15 +130,16 @@ class RekognitionClient extends AbstractApi
     /**
      * Detects faces in the input image and adds them to the specified collection.
      *
+     * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_IndexFaces.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#indexfaces
      *
      * @param array{
      *   CollectionId: string,
-     *   Image: \AsyncAws\Rekognition\ValueObject\Image|array,
+     *   Image: Image|array,
      *   ExternalImageId?: string,
-     *   DetectionAttributes?: list<\AsyncAws\Rekognition\Enum\Attribute::*>,
+     *   DetectionAttributes?: list<Attribute::*>,
      *   MaxFaces?: int,
-     *   QualityFilter?: \AsyncAws\Rekognition\Enum\QualityFilter::*,
+     *   QualityFilter?: QualityFilter::*,
      *   @region?: string,
      * }|IndexFacesRequest $input
      */
@@ -146,6 +155,7 @@ class RekognitionClient extends AbstractApi
      * Returns list of collection IDs in your account. If the result is truncated, the response also provides a `NextToken`
      * that you can use in the subsequent request to fetch the next set of collection IDs.
      *
+     * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_ListCollections.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#listcollections
      *
      * @param array{
@@ -153,8 +163,6 @@ class RekognitionClient extends AbstractApi
      *   MaxResults?: int,
      *   @region?: string,
      * }|ListCollectionsRequest $input
-     *
-     * @return \Traversable<string> & ListCollectionsResponse
      */
     public function listCollections($input = []): ListCollectionsResponse
     {
@@ -168,14 +176,15 @@ class RekognitionClient extends AbstractApi
      * For a given input image, first detects the largest face in the image, and then searches the specified collection for
      * matching faces. The operation compares the features of the input face with faces in the specified collection.
      *
+     * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_SearchFacesByImage.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#searchfacesbyimage
      *
      * @param array{
      *   CollectionId: string,
-     *   Image: \AsyncAws\Rekognition\ValueObject\Image|array,
+     *   Image: Image|array,
      *   MaxFaces?: int,
      *   FaceMatchThreshold?: float,
-     *   QualityFilter?: \AsyncAws\Rekognition\Enum\QualityFilter::*,
+     *   QualityFilter?: QualityFilter::*,
      *   @region?: string,
      * }|SearchFacesByImageRequest $input
      */
@@ -216,6 +225,41 @@ class RekognitionClient extends AbstractApi
                 return [
                     'endpoint' => "https://rekognition.$region.amazonaws.com",
                     'signRegion' => $region,
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'rekognition-fips.us-east-1':
+                return [
+                    'endpoint' => 'https://rekognition-fips.us-east-1.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'rekognition-fips.us-east-2':
+                return [
+                    'endpoint' => 'https://rekognition-fips.us-east-2.amazonaws.com',
+                    'signRegion' => 'us-east-2',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'rekognition-fips.us-gov-west-1':
+                return [
+                    'endpoint' => 'https://rekognition-fips.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'rekognition-fips.us-west-1':
+                return [
+                    'endpoint' => 'https://rekognition-fips.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'rekognition-fips.us-west-2':
+                return [
+                    'endpoint' => 'https://rekognition-fips.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
                     'signService' => 'rekognition',
                     'signVersions' => ['v4'],
                 ];

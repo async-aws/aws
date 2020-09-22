@@ -86,20 +86,20 @@ final class FaceDetail
 
     /**
      * @param array{
-     *   BoundingBox?: null|\AsyncAws\Rekognition\ValueObject\BoundingBox|array,
-     *   AgeRange?: null|\AsyncAws\Rekognition\ValueObject\AgeRange|array,
-     *   Smile?: null|\AsyncAws\Rekognition\ValueObject\Smile|array,
-     *   Eyeglasses?: null|\AsyncAws\Rekognition\ValueObject\Eyeglasses|array,
-     *   Sunglasses?: null|\AsyncAws\Rekognition\ValueObject\Sunglasses|array,
-     *   Gender?: null|\AsyncAws\Rekognition\ValueObject\Gender|array,
-     *   Beard?: null|\AsyncAws\Rekognition\ValueObject\Beard|array,
-     *   Mustache?: null|\AsyncAws\Rekognition\ValueObject\Mustache|array,
-     *   EyesOpen?: null|\AsyncAws\Rekognition\ValueObject\EyeOpen|array,
-     *   MouthOpen?: null|\AsyncAws\Rekognition\ValueObject\MouthOpen|array,
-     *   Emotions?: null|\AsyncAws\Rekognition\ValueObject\Emotion[],
-     *   Landmarks?: null|\AsyncAws\Rekognition\ValueObject\Landmark[],
-     *   Pose?: null|\AsyncAws\Rekognition\ValueObject\Pose|array,
-     *   Quality?: null|\AsyncAws\Rekognition\ValueObject\ImageQuality|array,
+     *   BoundingBox?: null|BoundingBox|array,
+     *   AgeRange?: null|AgeRange|array,
+     *   Smile?: null|Smile|array,
+     *   Eyeglasses?: null|Eyeglasses|array,
+     *   Sunglasses?: null|Sunglasses|array,
+     *   Gender?: null|Gender|array,
+     *   Beard?: null|Beard|array,
+     *   Mustache?: null|Mustache|array,
+     *   EyesOpen?: null|EyeOpen|array,
+     *   MouthOpen?: null|MouthOpen|array,
+     *   Emotions?: null|Emotion[],
+     *   Landmarks?: null|Landmark[],
+     *   Pose?: null|Pose|array,
+     *   Quality?: null|ImageQuality|array,
      *   Confidence?: null|float,
      * } $input
      */
@@ -115,8 +115,8 @@ final class FaceDetail
         $this->Mustache = isset($input['Mustache']) ? Mustache::create($input['Mustache']) : null;
         $this->EyesOpen = isset($input['EyesOpen']) ? EyeOpen::create($input['EyesOpen']) : null;
         $this->MouthOpen = isset($input['MouthOpen']) ? MouthOpen::create($input['MouthOpen']) : null;
-        $this->Emotions = array_map([Emotion::class, 'create'], $input['Emotions'] ?? []);
-        $this->Landmarks = array_map([Landmark::class, 'create'], $input['Landmarks'] ?? []);
+        $this->Emotions = isset($input['Emotions']) ? array_map([Emotion::class, 'create'], $input['Emotions']) : null;
+        $this->Landmarks = isset($input['Landmarks']) ? array_map([Landmark::class, 'create'], $input['Landmarks']) : null;
         $this->Pose = isset($input['Pose']) ? Pose::create($input['Pose']) : null;
         $this->Quality = isset($input['Quality']) ? ImageQuality::create($input['Quality']) : null;
         $this->Confidence = $input['Confidence'] ?? null;
@@ -152,7 +152,7 @@ final class FaceDetail
      */
     public function getEmotions(): array
     {
-        return $this->Emotions;
+        return $this->Emotions ?? [];
     }
 
     public function getEyeglasses(): ?Eyeglasses
@@ -175,7 +175,7 @@ final class FaceDetail
      */
     public function getLandmarks(): array
     {
-        return $this->Landmarks;
+        return $this->Landmarks ?? [];
     }
 
     public function getMouthOpen(): ?MouthOpen

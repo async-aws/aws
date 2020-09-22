@@ -44,7 +44,7 @@ final class IndexFacesRequest extends Input
      * following subset of facial attributes: `BoundingBox`, `Confidence`, `Pose`, `Quality`, and `Landmarks`. If you
      * provide `["ALL"]`, all facial attributes are returned, but the operation takes longer to complete.
      *
-     * @var list<Attribute::*>
+     * @var null|list<Attribute::*>
      */
     private $DetectionAttributes;
 
@@ -71,11 +71,11 @@ final class IndexFacesRequest extends Input
     /**
      * @param array{
      *   CollectionId?: string,
-     *   Image?: \AsyncAws\Rekognition\ValueObject\Image|array,
+     *   Image?: Image|array,
      *   ExternalImageId?: string,
-     *   DetectionAttributes?: list<\AsyncAws\Rekognition\Enum\Attribute::*>,
+     *   DetectionAttributes?: list<Attribute::*>,
      *   MaxFaces?: int,
-     *   QualityFilter?: \AsyncAws\Rekognition\Enum\QualityFilter::*,
+     *   QualityFilter?: QualityFilter::*,
      *   @region?: string,
      * } $input
      */
@@ -84,7 +84,7 @@ final class IndexFacesRequest extends Input
         $this->CollectionId = $input['CollectionId'] ?? null;
         $this->Image = isset($input['Image']) ? Image::create($input['Image']) : null;
         $this->ExternalImageId = $input['ExternalImageId'] ?? null;
-        $this->DetectionAttributes = $input['DetectionAttributes'] ?? [];
+        $this->DetectionAttributes = $input['DetectionAttributes'] ?? null;
         $this->MaxFaces = $input['MaxFaces'] ?? null;
         $this->QualityFilter = $input['QualityFilter'] ?? null;
         parent::__construct($input);
@@ -105,7 +105,7 @@ final class IndexFacesRequest extends Input
      */
     public function getDetectionAttributes(): array
     {
-        return $this->DetectionAttributes;
+        return $this->DetectionAttributes ?? [];
     }
 
     public function getExternalImageId(): ?string
@@ -218,16 +218,17 @@ final class IndexFacesRequest extends Input
         if (null !== $v = $this->ExternalImageId) {
             $payload['ExternalImageId'] = $v;
         }
-
-        $index = -1;
-        foreach ($this->DetectionAttributes as $listValue) {
-            ++$index;
-            if (!Attribute::exists($listValue)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "DetectionAttributes" for "%s". The value "%s" is not a valid "Attribute".', __CLASS__, $listValue));
+        if (null !== $v = $this->DetectionAttributes) {
+            $index = -1;
+            $payload['DetectionAttributes'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                if (!Attribute::exists($listValue)) {
+                    throw new InvalidArgument(sprintf('Invalid parameter "DetectionAttributes" for "%s". The value "%s" is not a valid "Attribute".', __CLASS__, $listValue));
+                }
+                $payload['DetectionAttributes'][$index] = $listValue;
             }
-            $payload['DetectionAttributes'][$index] = $listValue;
         }
-
         if (null !== $v = $this->MaxFaces) {
             $payload['MaxFaces'] = $v;
         }

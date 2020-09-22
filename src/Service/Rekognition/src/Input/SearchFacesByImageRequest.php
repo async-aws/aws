@@ -61,10 +61,10 @@ final class SearchFacesByImageRequest extends Input
     /**
      * @param array{
      *   CollectionId?: string,
-     *   Image?: \AsyncAws\Rekognition\ValueObject\Image|array,
+     *   Image?: Image|array,
      *   MaxFaces?: int,
      *   FaceMatchThreshold?: float,
-     *   QualityFilter?: \AsyncAws\Rekognition\Enum\QualityFilter::*,
+     *   QualityFilter?: QualityFilter::*,
      *   @region?: string,
      * } $input
      */
