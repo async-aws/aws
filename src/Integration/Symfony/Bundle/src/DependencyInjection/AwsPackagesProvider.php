@@ -49,6 +49,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\RdsDataService\RdsDataServiceClient::class,
                 'package' => 'async-aws/rds-data-service',
             ],
+            'rekognition' => [
+                'class' => \AsyncAws\Rekognition\RekognitionClient::class,
+                'package' => 'async-aws/rekognition',
+            ],
             's3' => [
                 'class' => \AsyncAws\S3\S3Client::class,
                 'package' => 'async-aws/s3',

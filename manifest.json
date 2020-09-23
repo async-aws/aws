@@ -155,6 +155,23 @@
                 "RollbackTransaction"
             ]
         },
+        "Rekognition": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/rekognition/2016-06-27/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/rekognition/2016-06-27/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/rekognition/2016-06-27/paginators-1.json",
+            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/rekognition/2016-06-27/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/rekognition/latest/dg",
+            "methods": [
+                "CreateCollection",
+                "CreateProject",
+                "DeleteCollection",
+                "DeleteProject",
+                "DetectFaces",
+                "IndexFaces",
+                "ListCollections",
+                "SearchFacesByImage"
+            ]
+        },
         "S3": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/s3/2006-03-01/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/s3/2006-03-01/docs-2.json",

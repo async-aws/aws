@@ -20,6 +20,7 @@ use AsyncAws\EventBridge\EventBridgeClient;
 use AsyncAws\Iam\IamClient;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\RdsDataService\RdsDataServiceClient;
+use AsyncAws\Rekognition\RekognitionClient;
 use AsyncAws\S3\S3Client;
 use AsyncAws\Ses\SesClient;
 use AsyncAws\Sns\SnsClient;
@@ -191,6 +192,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new RdsDataServiceClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function rekognition(): RekognitionClient
+    {
+        if (!class_exists(RekognitionClient::class)) {
+            throw MissingDependency::create('aws/rekognition', 'Rekognition');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new RekognitionClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];
