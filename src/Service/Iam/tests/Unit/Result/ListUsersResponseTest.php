@@ -46,7 +46,6 @@ class ListUsersResponseTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new ListUsersResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new IamClient(), new ListUsersRequest());
 
-        // self::assertTODO(expected, $result->getUsers());
         self::assertFalse($result->getIsTruncated());
         self::assertCount(2, $result->getUsers(true));
         self::assertSame('Juan', \iterator_to_array($result->getUsers())[0]->getUserName());

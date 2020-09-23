@@ -38,7 +38,6 @@ class AssumeRoleWithWebIdentityResponseTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new AssumeRoleWithWebIdentityResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        // self::assertTODO(expected, $result->getCredentials());
         self::assertSame('amzn1.account.AF6RHO7KZU5XRVQJGXK6HB56KR2A', $result->getSubjectFromWebIdentityToken());
         self::assertSame('arn:aws:sts::123456789012:assumed-role/FederatedWebIdentityRole/app1', $result->getAssumedRoleUser()->getArn());
         self::assertSame('AROACLKWSDQRAOEXAMPLE:app1', $result->getAssumedRoleUser()->getAssumedRoleId());
