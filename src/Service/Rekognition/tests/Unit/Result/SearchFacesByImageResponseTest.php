@@ -43,7 +43,7 @@ class SearchFacesByImageResponseTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new SearchFacesByImageResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-         self::assertSame(99.9991226196289, $result->getSearchedFaceConfidence());
+        self::assertSame(99.9991226196289, $result->getSearchedFaceConfidence());
         self::assertCount(1, $result->getFaceMatches());
         self::assertSame('38271d79-7bc2-5efb-b752-398a8d575b85', $result->getFaceMatches()[0]->getFace()->getFaceId());
     }
