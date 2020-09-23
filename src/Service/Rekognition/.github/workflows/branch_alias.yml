@@ -31,7 +31,7 @@ jobs:
 
       - name: Update branch alias
         run: |
-          cd aws/src/Service/Foobar
+          cd aws/src/Service/Rekognition
           CURRENT_ALIAS=$(composer config extra.branch-alias.dev-master | cut -d'-' -f 1)
 
           # If there is a current value on the branch alias
