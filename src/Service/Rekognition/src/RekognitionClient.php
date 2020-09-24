@@ -208,6 +208,7 @@ class RekognitionClient extends AbstractApi
             case 'ap-south-1':
             case 'ap-southeast-1':
             case 'ap-southeast-2':
+            case 'ca-central-1':
             case 'eu-central-1':
             case 'eu-west-1':
             case 'eu-west-2':
@@ -225,6 +226,13 @@ class RekognitionClient extends AbstractApi
                 return [
                     'endpoint' => "https://rekognition.$region.amazonaws.com",
                     'signRegion' => $region,
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'rekognition-fips.ca-central-1':
+                return [
+                    'endpoint' => 'https://rekognition-fips.ca-central-1.amazonaws.com',
+                    'signRegion' => 'ca-central-1',
                     'signService' => 'rekognition',
                     'signVersions' => ['v4'],
                 ];
