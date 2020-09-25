@@ -3,7 +3,7 @@ parameters:
     paths:
         - src
 
-    autoload_files:
+    bootstrapFiles:
         - src/Integration/Flysystem/S3/tests/version-bridge.php
 
     excludes_analyse:
