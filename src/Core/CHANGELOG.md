@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.6.0
+
+### Added
+
+- Support for Rekognition in `AwsClientFactory`
+
 ## 1.5.0
 
 ### Added

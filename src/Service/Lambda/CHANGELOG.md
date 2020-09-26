@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.1.0
+
+### Added
+
+- Added constants `JAVA_8_AL_2` and `PROVIDED_AL_2` for `Runtime` enum.
+
 ## 1.0.0
 
 ### Added
