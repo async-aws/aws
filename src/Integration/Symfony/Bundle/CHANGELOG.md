@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.1.0
+
+### Added
+
+- Support for Rekognition.
+
 ## 1.0.0
 
 ### Added
@@ -17,16 +23,17 @@
 ## 0.2.5
 
 ### Added
+
 - Support for EventBridge.
 - Support for IAM.
 - Caching of SSM parameters.
 
 ## 0.2.4
 
-### Changed
+### Added
 
-- Added support for Cognito Identity Provider.
-- Added support for CloudWatch Logs.
+- Support for Cognito Identity Provider.
+- Support for CloudWatch Logs.
 
 ## 0.2.3
 
@@ -49,7 +56,7 @@
 ### Added
 
 - Support for async-aws/core: ^0.4 and ^0.5
-- Added support for DynamoDb
+- Support for DynamoDb
 
 ## 0.2.0
 

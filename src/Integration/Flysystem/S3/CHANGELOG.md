@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 0.4.2
+
+### Added
+
+- Use `SimpleS3Client`, when available, to upload big files.
+
 ## 0.4.1
 
 ### Added

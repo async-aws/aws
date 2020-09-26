@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 0.1.2
+
+### Changed
+
+- Let `SqsClient` choose the right HttpClient.
+
 ## 0.1.1
 
 ### Added
