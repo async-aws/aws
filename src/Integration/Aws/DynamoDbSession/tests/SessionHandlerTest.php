@@ -273,7 +273,6 @@ class SessionHandlerTest extends TestCase
         $handler = new SessionHandler($this->client, ['table_name' => 'testTable', 'session_lifetime' => 86400, 'id_separator' => '#']);
         $handler->open(null, 'PHPSESSID');
 
-
         $this->client
             ->expects(self::once())
             ->method('updateItem')
