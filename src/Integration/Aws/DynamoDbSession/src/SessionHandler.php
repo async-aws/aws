@@ -46,7 +46,8 @@ class SessionHandler implements \SessionHandlerInterface
      *   hash_key?: string,
      *   session_lifetime?: int,
      *   session_lifetime_attribute?: string,
-     *   table_name: string
+     *   table_name: string,
+     *   id_separator?: string
      * } $options
      */
     public function __construct(DynamoDbClient $client, array $options)
@@ -56,6 +57,7 @@ class SessionHandler implements \SessionHandlerInterface
         $this->options['data_attribute'] = $this->options['data_attribute'] ?? 'data';
         $this->options['hash_key'] = $this->options['hash_key'] ?? 'id';
         $this->options['session_lifetime_attribute'] = $this->options['session_lifetime_attribute'] ?? 'expires';
+        $this->options['id_separator'] = $this->options['id_separator'] ?? '_';
     }
 
     public function setUp(): void
@@ -193,7 +195,7 @@ class SessionHandler implements \SessionHandlerInterface
 
     private function formatId(string $id): string
     {
-        return trim($this->sessionName . '_' . $id, '_');
+        return trim($this->sessionName . $this->options['id_separator'] . $id, $this->options['id_separator']);
     }
 
     private function formatKey(string $key): array
