@@ -34,7 +34,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
     private $AbortRuleId;
 
     /**
-     * Name of the bucket to which the multipart upload was initiated.
+     * The name of the bucket to which the multipart upload was initiated.
      */
     private $Bucket;
 

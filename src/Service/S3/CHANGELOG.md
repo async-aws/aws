@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- AWS api-change: Amazon S3 on Outposts expands object storage to on-premises AWS Outposts environments, enabling you to store and retrieve objects using S3 APIs and features.
+- AWS bugfix: Corrected urlencoding of CopySource key for MultipartCopy
+
 ## 1.4.0
 
 ### Added

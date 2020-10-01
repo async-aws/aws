@@ -28,7 +28,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     private $Contents = [];
 
     /**
-     * Bucket name.
+     * The bucket name.
      */
     private $Name;
 
