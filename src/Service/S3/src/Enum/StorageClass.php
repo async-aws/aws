@@ -8,6 +8,7 @@ final class StorageClass
     public const GLACIER = 'GLACIER';
     public const INTELLIGENT_TIERING = 'INTELLIGENT_TIERING';
     public const ONEZONE_IA = 'ONEZONE_IA';
+    public const OUTPOSTS = 'OUTPOSTS';
     public const REDUCED_REDUNDANCY = 'REDUCED_REDUNDANCY';
     public const STANDARD = 'STANDARD';
     public const STANDARD_IA = 'STANDARD_IA';
@@ -19,6 +20,7 @@ final class StorageClass
             self::GLACIER => true,
             self::INTELLIGENT_TIERING => true,
             self::ONEZONE_IA => true,
+            self::OUTPOSTS => true,
             self::REDUCED_REDUNDANCY => true,
             self::STANDARD => true,
             self::STANDARD_IA => true,

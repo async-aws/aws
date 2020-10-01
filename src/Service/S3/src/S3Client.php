@@ -213,7 +213,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * Creates a new bucket. To create a bucket, you must register with Amazon S3 and have a valid AWS Access Key ID to
+     * Creates a new S3 bucket. To create a bucket, you must register with Amazon S3 and have a valid AWS Access Key ID to
      * authenticate requests. Anonymous requests are never allowed to create buckets. By creating the bucket, you become the
      * bucket owner.
      *
@@ -294,7 +294,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * Deletes the bucket. All objects (including all object versions and delete markers) in the bucket must be deleted
+     * Deletes the S3 bucket. All objects (including all object versions and delete markers) in the bucket must be deleted
      * before the bucket itself can be deleted.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketDELETE.html
@@ -410,7 +410,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * Returns the access control list (ACL) of an object. To use this operation, you must have READ_ACP access to the
+     * Returns the access control list (ACL) of an object. To use this operation, you must have `READ_ACP` access to the
      * object.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGETacl.html
@@ -672,9 +672,9 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * Uses the `acl` subresource to set the access control list (ACL) permissions for an object that already exists in an
-     * S3 bucket. You must have `WRITE_ACP` permission to set the ACL of an object. For more information, see What
-     * permissions can I grant? in the *Amazon Simple Storage Service Developer Guide*.
+     * Uses the `acl` subresource to set the access control list (ACL) permissions for a new or existing object in an S3
+     * bucket. You must have `WRITE_ACP` permission to set the ACL of an object. For more information, see What permissions
+     * can I grant? in the *Amazon Simple Storage Service Developer Guide*.
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#permissions
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUTacl.html

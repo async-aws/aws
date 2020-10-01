@@ -18,7 +18,7 @@ use AsyncAws\S3\ValueObject\Owner;
 class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
 {
     /**
-     * Name of the bucket to which the multipart upload was initiated.
+     * The name of the bucket to which the multipart upload was initiated.
      */
     private $Bucket;
 

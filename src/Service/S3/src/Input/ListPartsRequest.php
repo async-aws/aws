@@ -11,7 +11,7 @@ use AsyncAws\S3\Enum\RequestPayer;
 final class ListPartsRequest extends Input
 {
     /**
-     * Name of the bucket to which the parts are being uploaded.
+     * The name of the bucket to which the parts are being uploaded.
      *
      * @required
      *

@@ -32,7 +32,7 @@ final class PutObjectRequest extends Input
     private $Body;
 
     /**
-     * Bucket name to which the PUT operation was initiated.
+     * The bucket name to which the PUT operation was initiated.
      *
      * @required
      *

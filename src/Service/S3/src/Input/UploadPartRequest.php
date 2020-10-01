@@ -18,7 +18,7 @@ final class UploadPartRequest extends Input
     private $Body;
 
     /**
-     * Name of the bucket to which the multipart upload was initiated.
+     * The name of the bucket to which the multipart upload was initiated.
      *
      * @required
      *

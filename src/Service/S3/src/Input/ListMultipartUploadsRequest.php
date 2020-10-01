@@ -11,7 +11,7 @@ use AsyncAws\S3\Enum\EncodingType;
 final class ListMultipartUploadsRequest extends Input
 {
     /**
-     * Name of the bucket to which the multipart upload was initiated.
+     * The name of the bucket to which the multipart upload was initiated.
      *
      * @required
      *
