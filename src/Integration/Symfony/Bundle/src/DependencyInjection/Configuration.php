@@ -25,7 +25,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('credential_provider_cache')->info('A service implementing Symfony\Contracts\Cache\CacheInterface to efficiently cache credentials.')->defaultValue('cache.app')->end()
                 ->scalarNode('http_client')->info('A service name for Symfony\Contracts\HttpClient\HttpClientInterface.')->end()
                 ->scalarNode('logger')->info('A service name for Psr\Log\LoggerInterface.')->end()
-                ->arrayNode('config')->info('Default config that will be merged will all services.')->normalizeKeys(false)->prototype('variable')->end()->end()
+                ->arrayNode('config')->info('Default config that will be merged will all services.')->useAttributeAsKey('name')->normalizeKeys(false)->prototype('variable')->end()->end()
 
                 ->arrayNode('clients')
                     ->beforeNormalization()->always()->then(\Closure::fromCallable([$this, 'validateType']))->end()
@@ -33,7 +33,7 @@ class Configuration implements ConfigurationInterface
                     ->arrayPrototype()
                         ->children()
                             ->booleanNode('register_service')->info('If set to false, no service will be created for this AWS type.')->defaultTrue()->end()
-                            ->arrayNode('config')->info('Configuration specific to this service.')->normalizeKeys(false)->prototype('variable')->end()->end()
+                            ->arrayNode('config')->info('Configuration specific to this service.')->useAttributeAsKey('name')->normalizeKeys(false)->prototype('variable')->end()->end()
                             ->enumNode('type')->info('A valid AWS type. The service name will be used as default.')->values(AwsPackagesProvider::getServiceNames())->end()
                             ->scalarNode('credential_provider')->info('A service name for AsyncAws\Core\Credentials\CredentialProvider.')->end()
                             ->scalarNode('http_client')->info('A service name for Symfony\Contracts\HttpClient\HttpClientInterface.')->end()

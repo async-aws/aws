@@ -146,6 +146,18 @@ class BundleInitializationTest extends BaseBundleTestCase
         $this->bootKernel();
     }
 
+    public function testIssue793()
+    {
+        $kernel = $this->createKernel();
+        $kernel->addConfigFile(__DIR__ . '/Resources/config/issue-793/default.yaml');
+        $kernel->addConfigFile(__DIR__ . '/Resources/config/issue-793/dev.yaml');
+
+        $this->bootKernel();
+        $container = $this->getContainer();
+        $x = $container->get(S3Client::class);
+        self::assertSame('./docker/dynamodb/credentials', $x->getConfiguration()->get('sharedCredentialsFile'));
+    }
+
     protected function getBundleClass()
     {
         return AsyncAwsBundle::class;
