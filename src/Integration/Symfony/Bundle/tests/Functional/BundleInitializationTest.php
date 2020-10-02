@@ -155,7 +155,7 @@ class BundleInitializationTest extends BaseBundleTestCase
         $this->bootKernel();
         $container = $this->getContainer();
         $x = $container->get(S3Client::class);
-        $this->assertSame('./docker/dynamodb/credentials', $x->getConfiguration()->get('sharedCredentialsFile'));
+        self::assertSame('./docker/dynamodb/credentials', $x->getConfiguration()->get('sharedCredentialsFile'));
     }
 
     protected function getBundleClass()
