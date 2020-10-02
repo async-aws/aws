@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.1.1
+
+### Fixed
+
+- Make sure you can override config in different environments.
+
 ## 1.1.0
 
 ### Added
