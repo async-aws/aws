@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- AWS api-change: Amazon S3 Object Ownership is a new S3 feature that enables bucket owners to automatically assume ownership of objects that are uploaded to their buckets by other AWS Accounts.
+- AWS feature: Adds support to S3 and S3 Control clients for managing resources stored on S3 Outposts via Outposts-specific ARNs and endpoints.
+
 ## 1.5.0
 
 ### Added
