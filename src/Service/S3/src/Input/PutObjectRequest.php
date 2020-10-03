@@ -172,7 +172,12 @@ final class PutObjectRequest extends Input
     private $ServerSideEncryption;
 
     /**
-     * If you don't specify, S3 Standard is the default storage class. Amazon S3 supports other storage classes.
+     * By default, Amazon S3 uses the STANDARD Storage Class to store newly created objects. The STANDARD storage class
+     * provides high durability and high availability. Depending on performance needs, you can specify a different Storage
+     * Class. Amazon S3 on Outposts only uses the OUTPOSTS Storage Class. For more information, see Storage Classes in the
+     * *Amazon S3 Service Developer Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
      *
      * @var null|StorageClass::*
      */

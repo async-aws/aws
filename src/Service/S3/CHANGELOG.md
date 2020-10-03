@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Improve StorageClass documentation.
+
 ## 1.5.0
 
 ### Added

@@ -182,7 +182,12 @@ final class CopyObjectRequest extends Input
     private $ServerSideEncryption;
 
     /**
-     * The type of storage to use for the object. Defaults to 'STANDARD'.
+     * By default, Amazon S3 uses the STANDARD Storage Class to store newly created objects. The STANDARD storage class
+     * provides high durability and high availability. Depending on performance needs, you can specify a different Storage
+     * Class. Amazon S3 on Outposts only uses the OUTPOSTS Storage Class. For more information, see Storage Classes in the
+     * *Amazon S3 Service Developer Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
      *
      * @var null|StorageClass::*
      */
