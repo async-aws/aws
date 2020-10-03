@@ -94,7 +94,7 @@ class ResultMockFactoryTest extends TestCase
             $result->resolve();
         } catch (ClientException $e) {
             self::assertSame('ResourceNotFoundException', $e->getAwsCode());
-            self::assertSame('com.amazonaws.dynamodb.v20120810#ResourceNotFoundException', $e->getAwsType());
+            self::assertSame('com.amazonaws.dynamodb.v20120810', $e->getAwsType());
 
             return;
         }

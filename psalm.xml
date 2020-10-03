@@ -15,6 +15,7 @@
             <directory name="src/Core/tests" />
             <directory name="src/Service/*/tests" />
             <directory name="src/Integration/*/*/tests" />
+            <file name="src/Core/src/HttpClient/AwsRetryDecider.php" /><!-- # requires symfony/http-client: 5.2-->
             <file name="src/Integration/Flysystem/S3/src/S3FilesystemV1.php" />
             <file name="src/Integration/Laravel/Filesystem/src/AsyncAwsFilesystemManager.php" />
             <file name="src/Integration/Laravel/Filesystem/src/AsyncAwsFilesystemAdapter.php" />

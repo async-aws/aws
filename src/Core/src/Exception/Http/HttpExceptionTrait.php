@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Core\Exception\Http;
 
+use AsyncAws\Core\AwsError\AwsError;
+use AsyncAws\Core\AwsError\AwsErrorFactory;
+use AsyncAws\Core\Exception\ParseResponse;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
@@ -19,24 +22,9 @@ trait HttpExceptionTrait
     private $response;
 
     /**
-     * @var ?string
+     * @var ?AwsError
      */
-    private $awsCode;
-
-    /**
-     * @var ?string
-     */
-    private $awsType;
-
-    /**
-     * @var ?string
-     */
-    private $awsMessage;
-
-    /**
-     * @var ?string
-     */
-    private $awsDetail;
+    private $awsError;
 
     public function __construct(ResponseInterface $response)
     {
@@ -45,40 +33,25 @@ trait HttpExceptionTrait
         $code = $response->getInfo('http_code');
         /** @var string $url */
         $url = $response->getInfo('url');
-        $content = $response->getContent(false);
-        $message = sprintf('HTTP %d returned for "%s".', $code, $url);
 
-        $this->awsType = $response->getHeaders(false)['x-amzn-errortype'][0] ?? null;
-
-        // Try json_decode it first, fallback to XML
-        if ($body = json_decode($content, true)) {
-            $this->parseJson($body);
-        } else {
-            try {
-                set_error_handler(static function ($errno, $errstr, $errfile, $errline) {
-                    throw new \RuntimeException($errstr, $errno);
-                });
-
-                try {
-                    $xml = new \SimpleXMLElement($content);
-                } finally {
-                    restore_error_handler();
-                }
-                $this->parseXml($xml);
-            } catch (\Throwable $e) {
-                // Not XML ¯\_(ツ)_/¯
-            }
+        try {
+            $this->awsError = AwsErrorFactory::createFromResponse($response);
+        } catch (ParseResponse $e) {
+            // Ignore parsing error
         }
 
-        $message .= <<<TEXT
+        $message = sprintf('HTTP %d returned for "%s".', $code, $url);
+        if (null !== $this->awsError) {
+            $message .= <<<TEXT
 
 
-Code:    $this->awsCode
-Message: $this->awsMessage
-Type:    $this->awsType
-Detail:  $this->awsDetail
+Code:    {$this->awsError->getCode()}
+Message: {$this->awsError->getMessage()}
+Type:    {$this->awsError->getType()}
+Detail:  {$this->awsError->getDetail()}
 
 TEXT;
+        }
 
         parent::__construct($message, $code);
     }
@@ -90,52 +63,21 @@ TEXT;
 
     public function getAwsCode(): ?string
     {
-        return $this->awsCode;
+        return $this->awsError ? $this->awsError->getCode() : null;
     }
 
     public function getAwsType(): ?string
     {
-        return $this->awsType;
+        return $this->awsError ? $this->awsError->getType() : null;
     }
 
     public function getAwsMessage(): ?string
     {
-        return $this->awsMessage;
+        return $this->awsError ? $this->awsError->getMessage() : null;
     }
 
     public function getAwsDetail(): ?string
     {
-        return $this->awsDetail;
-    }
-
-    private function parseXml(\SimpleXMLElement $xml): void
-    {
-        if (0 < $xml->Error->count()) {
-            $this->awsType = $xml->Error->Type->__toString();
-            $this->awsCode = $xml->Error->Code->__toString();
-            $this->awsMessage = $xml->Error->Message->__toString();
-            $this->awsDetail = $xml->Error->Detail->__toString();
-        } elseif (1 === $xml->Code->count() && 1 === $xml->Message->count()) {
-            $this->awsType = $this->awsDetail = '';
-            $this->awsCode = $xml->Code->__toString();
-            $this->awsMessage = $xml->Message->__toString();
-        }
-    }
-
-    private function parseJson($body): void
-    {
-        if (isset($body['message'])) {
-            $this->awsMessage = $body['message'];
-        } elseif (isset($body['Message'])) {
-            $this->awsMessage = $body['Message'];
-        }
-
-        if (isset($body['Type'])) {
-            $this->awsType = $body['Type'];
-        } elseif (isset($body['__type'])) {
-            $parts = explode('#', $body['__type'], 2);
-            $this->awsCode = $parts[1] ?? $parts[0];
-            $this->awsType = $body['__type'];
-        }
+        return $this->awsError ? $this->awsError->getDetail() : null;
     }
 }
