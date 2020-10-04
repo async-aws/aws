@@ -2,7 +2,10 @@
 
 namespace AsyncAws\Core\AwsError;
 
-class AwsError
+/**
+ * @internal
+ */
+final class AwsError
 {
     private $code;
 

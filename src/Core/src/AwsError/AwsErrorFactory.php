@@ -5,6 +5,9 @@ namespace AsyncAws\Core\AwsError;
 use AsyncAws\Core\Exception\ParseResponse;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
+/**
+ * @internal
+ */
 class AwsErrorFactory
 {
     public static function createFromResponse(ResponseInterface $response): AwsError
