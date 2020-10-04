@@ -24,7 +24,7 @@ class AwsRetryDecider implements RetryDeciderInterface
         }
         if (
             400 !== $responseStatusCode
-            || (int) ($responseHeaders['content-length'][0] ?? '0') > 1024
+            || (int) ($responseHeaders['content-length'][0] ?? '0') > 1048576 // prevent downloading payload > 1MiB
         ) {
             return false;
         }
@@ -39,7 +39,7 @@ class AwsRetryDecider implements RetryDeciderInterface
             return false;
         }
 
-        if (\in_array($error->getCode(), [
+        return (\in_array($error->getCode(), [
             'RequestLimitExceeded',
             'Throttling',
             'ThrottlingException',
@@ -56,10 +56,6 @@ class AwsRetryDecider implements RetryDeciderInterface
             'IDPCommunicationError',
             'EC2ThrottledException',
             'TransactionInProgressException',
-        ], true)) {
-            return true;
-        }
-
-        return false;
+        ], true));
     }
 }

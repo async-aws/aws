@@ -17,8 +17,6 @@ class AwsErrorFactory
 
     public static function createFromContent(string $content, array $headers): AwsError
     {
-        $e = null;
-
         try {
             // Try json_decode it first, fallback to XML
             if ($body = json_decode($content, true)) {
@@ -39,9 +37,8 @@ class AwsErrorFactory
 
             return self::parseXml($xml);
         } catch (\Throwable $e) {
+            throw new ParseResponse('Failed to parse AWS error: ' . $content, 0, $e);
         }
-
-        throw new ParseResponse('Failed to parse AWS error: ' . $content, 0, $e);
     }
 
     private static function parseXml(\SimpleXMLElement $xml): AwsError
