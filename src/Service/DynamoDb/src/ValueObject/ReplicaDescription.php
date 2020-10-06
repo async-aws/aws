@@ -42,6 +42,12 @@ final class ReplicaDescription
     private $GlobalSecondaryIndexes;
 
     /**
+     * The time at which the replica was first detected as inaccessible. To determine cause of inaccessibility check the
+     * `ReplicaStatus` property.
+     */
+    private $ReplicaInaccessibleDateTime;
+
+    /**
      * @param array{
      *   RegionName?: null|string,
      *   ReplicaStatus?: null|ReplicaStatus::*,
@@ -50,6 +56,7 @@ final class ReplicaDescription
      *   KMSMasterKeyId?: null|string,
      *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
      *   GlobalSecondaryIndexes?: null|ReplicaGlobalSecondaryIndexDescription[],
+     *   ReplicaInaccessibleDateTime?: null|\DateTimeImmutable,
      * } $input
      */
     public function __construct(array $input)
@@ -61,6 +68,7 @@ final class ReplicaDescription
         $this->KMSMasterKeyId = $input['KMSMasterKeyId'] ?? null;
         $this->ProvisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
         $this->GlobalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([ReplicaGlobalSecondaryIndexDescription::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
+        $this->ReplicaInaccessibleDateTime = $input['ReplicaInaccessibleDateTime'] ?? null;
     }
 
     public static function create($input): self
@@ -89,6 +97,11 @@ final class ReplicaDescription
     public function getRegionName(): ?string
     {
         return $this->RegionName;
+    }
+
+    public function getReplicaInaccessibleDateTime(): ?\DateTimeImmutable
+    {
+        return $this->ReplicaInaccessibleDateTime;
     }
 
     /**

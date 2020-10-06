@@ -16,7 +16,7 @@ final class ProvisionedThroughputDescription
 
     /**
      * The number of provisioned throughput decreases for this table during this UTC calendar day. For current maximums on
-     * provisioned throughput decreases, see Limits in the *Amazon DynamoDB Developer Guide*.
+     * provisioned throughput decreases, see Service, Account, and Table Quotas in the *Amazon DynamoDB Developer Guide*.
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html
      */
