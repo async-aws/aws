@@ -8,6 +8,7 @@ final class ReplicaStatus
     public const CREATING = 'CREATING';
     public const CREATION_FAILED = 'CREATION_FAILED';
     public const DELETING = 'DELETING';
+    public const REGION_DISABLED = 'REGION_DISABLED';
     public const UPDATING = 'UPDATING';
 
     public static function exists(string $value): bool
@@ -17,6 +18,7 @@ final class ReplicaStatus
             self::CREATING => true,
             self::CREATION_FAILED => true,
             self::DELETING => true,
+            self::REGION_DISABLED => true,
             self::UPDATING => true,
         ][$value]);
     }
