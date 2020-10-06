@@ -2,7 +2,7 @@
 
 ## NOT RELEASED
 
-### Fixed
+### Added
 
 - AWS api-change: This release adds a new ReplicaStatus REGION DISABLED for the Table description. This state indicates that the AWS Region for the replica is inaccessible because the AWS Region is disabled.
 
