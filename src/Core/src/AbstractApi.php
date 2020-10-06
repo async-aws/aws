@@ -9,7 +9,7 @@ use AsyncAws\Core\Credentials\ChainProvider;
 use AsyncAws\Core\Credentials\CredentialProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\LogicException;
-use AsyncAws\Core\HttpClient\AwsRetryDecider;
+use AsyncAws\Core\HttpClient\AwsRetryStrategy;
 use AsyncAws\Core\Signer\Signer;
 use AsyncAws\Core\Signer\SignerV4;
 use AsyncAws\Core\Stream\StringStream;
@@ -68,7 +68,7 @@ abstract class AbstractApi
             $httpClient = HttpClient::create();
             if (\class_exists(RetryableHttpClient::class)) {
                 /** @psalm-suppress MissingDependency */
-                $httpClient = new RetryableHttpClient($httpClient, new AwsRetryDecider(), null, 3, $this->logger);
+                $httpClient = new RetryableHttpClient($httpClient, new AwsRetryStrategy(), 3, $this->logger);
             }
         }
         $this->httpClient = $httpClient;
