@@ -6,7 +6,6 @@ namespace AsyncAws\Core\Credentials;
 
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Sts\StsClient;
-use http\Exception;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -15,11 +14,11 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  * Provides Credentials from Configuration data.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
- * @author Jérémy Leherpeur <amenophis@leherpeur.net>
  */
 final class ConfigurationProvider implements CredentialProvider
 {
     private $logger;
+
     private $httpClient;
 
     public function __construct(?LoggerInterface $logger = null, ?HttpClientInterface $httpClient = null)
@@ -57,7 +56,7 @@ final class ConfigurationProvider implements CredentialProvider
     {
         $roleSessionName = $roleSessionName ?? \uniqid('async-aws-', true);
         $credentials = new Credentials($accessKeyId, $secretAccessKeyId);
-        $stsClient = new StsClient(['region' => $region],$credentials, $this->httpClient);
+        $stsClient = new StsClient(['region' => $region], $credentials, $this->httpClient);
         $result = $stsClient->assumeRole([
             'RoleArn' => $roleArn,
             'RoleSessionName' => $roleSessionName,
