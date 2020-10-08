@@ -34,6 +34,7 @@ final class ConfigurationProvider implements CredentialProvider
             && $configuration->has(Configuration::OPTION_SECRET_ACCESS_KEY)
         ) {
             if ($configuration->has(Configuration::OPTION_ROLE_ARN)) {
+                /** @psalm-suppress PossiblyNullArgument */
                 return $this->getCredentialsFromRole(
                     $configuration->get(Configuration::OPTION_ROLE_ARN),
                     $configuration->get(Configuration::OPTION_ROLE_SESSION_NAME),
