@@ -42,22 +42,12 @@ final class InstanceProvider implements CredentialProvider
 
     public function getCredentials(Configuration $configuration): ?Credentials
     {
-        // Fetch current Profile
         try {
+            // Fetch current Profile
             $response = $this->httpClient->request('GET', self::ENDPOINT, ['timeout' => $this->timeout]);
             $profile = $response->getContent();
-        } catch (TransportExceptionInterface $e) {
-            $this->logger->info('Failed to fetch Profile from Instance Metadata.', ['exception' => $e]);
 
-            return null;
-        } catch (HttpExceptionInterface $e) {
-            $this->logger->info('Failed to fetch Profile from Instance Metadata.', ['exception' => $e]);
-
-            return null;
-        }
-
-        // Fetch credentials from profile
-        try {
+            // Fetch credentials from profile
             $response = $this->httpClient->request('GET', self::ENDPOINT . '/' . $profile, ['timeout' => $this->timeout]);
             $result = $this->toArray($response);
 
@@ -70,11 +60,7 @@ final class InstanceProvider implements CredentialProvider
             $this->logger->info('Failed to decode Credentials.', ['exception' => $e]);
 
             return null;
-        } catch (TransportExceptionInterface $e) {
-            $this->logger->info('Failed to fetch Profile from Instance Metadata.', ['exception' => $e]);
-
-            return null;
-        } catch (HttpExceptionInterface $e) {
+        } catch (TransportExceptionInterface | HttpExceptionInterface $e) {
             $this->logger->info('Failed to fetch Profile from Instance Metadata.', ['exception' => $e]);
 
             return null;
