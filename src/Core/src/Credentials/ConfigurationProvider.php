@@ -6,6 +6,7 @@ namespace AsyncAws\Core\Credentials;
 
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Sts\StsClient;
+use http\Exception;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -14,11 +15,11 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  * Provides Credentials from Configuration data.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
+ * @author Jérémy Leherpeur <amenophis@leherpeur.net>
  */
 final class ConfigurationProvider implements CredentialProvider
 {
     private $logger;
-
     private $httpClient;
 
     public function __construct(?LoggerInterface $logger = null, ?HttpClientInterface $httpClient = null)
@@ -29,38 +30,37 @@ final class ConfigurationProvider implements CredentialProvider
 
     public function getCredentials(Configuration $configuration): ?Credentials
     {
-        if (
-            $configuration->has(Configuration::OPTION_ACCESS_KEY_ID)
-            && $configuration->has(Configuration::OPTION_SECRET_ACCESS_KEY)
-        ) {
-            if ($configuration->has(Configuration::OPTION_ROLE_ARN)) {
-                /** @psalm-suppress PossiblyNullArgument */
-                return $this->getCredentialsFromRole(
-                    $configuration->get(Configuration::OPTION_ROLE_ARN),
-                    $configuration->get(Configuration::OPTION_ROLE_SESSION_NAME),
-                    $configuration->get(Configuration::OPTION_REGION)
-                );
-            }
+        $accessKeyId = $configuration->get(Configuration::OPTION_ACCESS_KEY_ID);
+        $secretAccessKeyId = $configuration->get(Configuration::OPTION_SECRET_ACCESS_KEY);
 
-            /** @psalm-suppress PossiblyNullArgument */
-            return new Credentials(
-                $configuration->get(Configuration::OPTION_ACCESS_KEY_ID),
-                $configuration->get(Configuration::OPTION_SECRET_ACCESS_KEY),
-                $configuration->get(Configuration::OPTION_SESSION_TOKEN)
-            );
+        if (null === $accessKeyId || null === $secretAccessKeyId) {
+            return null;
         }
 
-        return null;
+        $roleArn = $configuration->get(Configuration::OPTION_ROLE_ARN);
+        if (null !== $roleArn) {
+            $region = $configuration->get(Configuration::OPTION_REGION);
+            $roleSessionName = $configuration->get(Configuration::OPTION_ROLE_SESSION_NAME);
+
+            return $this->getCredentialsFromRole($accessKeyId, $secretAccessKeyId, $region, $roleArn, $roleSessionName);
+        }
+
+        /** @psalm-suppress PossiblyNullArgument */
+        return new Credentials(
+            $configuration->get(Configuration::OPTION_ACCESS_KEY_ID),
+            $configuration->get(Configuration::OPTION_SECRET_ACCESS_KEY),
+            $configuration->get(Configuration::OPTION_SESSION_TOKEN)
+        );
     }
 
-    private function getCredentialsFromRole(string $roleArn, ?string $sessionName, ?string $region): ?Credentials
+    private function getCredentialsFromRole(string $accessKeyId, string $secretAccessKeyId, string $region, string $roleArn, string $roleSessionName = null): ?Credentials
     {
-        $sessionName = $sessionName ?? \uniqid('async-aws-', true);
-
-        $stsClient = new StsClient(['region' => $region], new NullProvider(), $this->httpClient);
+        $roleSessionName = $roleSessionName ?? \uniqid('async-aws-', true);
+        $credentials = new Credentials($accessKeyId, $secretAccessKeyId);
+        $stsClient = new StsClient(['region' => $region],$credentials, $this->httpClient);
         $result = $stsClient->assumeRole([
             'RoleArn' => $roleArn,
-            'RoleSessionName' => $sessionName,
+            'RoleSessionName' => $roleSessionName,
         ]);
 
         try {
