@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- AWS api-change: This release provides location information for the manifest validation files.
+
 ## 0.1.1
 
 ### Added
