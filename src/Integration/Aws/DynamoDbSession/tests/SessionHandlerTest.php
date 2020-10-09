@@ -267,4 +267,26 @@ class SessionHandlerTest extends TestCase
 
         $this->handler->setUp();
     }
+
+    public function testCustomKeySeparator()
+    {
+        $handler = new SessionHandler($this->client, ['table_name' => 'testTable', 'session_lifetime' => 86400, 'id_separator' => '#']);
+        $handler->open(null, 'PHPSESSID');
+
+        $this->client
+            ->expects(self::once())
+            ->method('updateItem')
+            ->with(self::equalTo([
+                'TableName' => 'testTable',
+                'Key' => [
+                    'id' => ['S' => 'PHPSESSID#123456789'],
+                ],
+                'AttributeUpdates' => [
+                    'expires' => ['Value' => ['N' => time() + 86400]],
+                    'data' => ['Value' => ['S' => 'test data']],
+                ],
+            ], 10));
+
+        self::assertTrue($handler->write('123456789', 'test data'));
+    }
 }
