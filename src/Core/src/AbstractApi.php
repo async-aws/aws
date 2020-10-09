@@ -68,7 +68,7 @@ abstract class AbstractApi
             $httpClient = HttpClient::create();
             if (\class_exists(RetryableHttpClient::class)) {
                 /** @psalm-suppress MissingDependency */
-                $httpClient = new RetryableHttpClient($httpClient, new AwsRetryDecider(), null, 3, $this->logger);
+                $httpClient = new RetryableHttpClient($httpClient, new AwsRetryDecider(), null, 3, null, $this->logger);
             }
         }
         $this->httpClient = $httpClient;
