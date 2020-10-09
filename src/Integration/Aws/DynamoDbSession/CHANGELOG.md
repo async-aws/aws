@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 0.1.2
+
+### Added
+
+- Support for customizing the separator with `id_separator` option.
+
 ## 0.1.1
 
 ### Added
