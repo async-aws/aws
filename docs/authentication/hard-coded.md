@@ -7,6 +7,7 @@ category: authentication
 When developing, and debugging, the simplest way to configure the client, is to set the credentials in the
 client configuration parameters.
 
+## Connect with accessKey / accessKeySecret
 ```php
 use AsyncAws\Core\AwsClientFactory;
 
@@ -15,6 +16,20 @@ $client = new AwsClientFactory([
     'accessKeySecret' => 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
 ]);
 ```
+
+## Connect with accessKey / accessKeySecret + assumeRole
+You can use a specific role (assumeRole) by specify a roleArn.
+You can also specify a roleSessionName.
+
+```php
+use AsyncAws\Core\AwsClientFactory;
+
+$client = new AwsClientFactory([
+    'accessKeyId' => 'AKIAIOSFODNN7EXAMPLE',
+    'accessKeySecret' => 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+    'roleArn' => 'arn:aws:iam::1234567891011:role/name-of-my-role',
+    'roleSessionName' => 'my-session-name', // Optionnal
+]);
 
 > **Warning**: Hard-coding your credentials can be dangerous because it’s easy to commit your credentials into an SCM
 > repository accidentally
