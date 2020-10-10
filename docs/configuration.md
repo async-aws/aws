@@ -85,7 +85,7 @@ for authentication.
 
 ### roleArn
 
-The Amazon Resource Name (ARN) of the role that the caller is assuming.
+The Amazon Resource Name (ARN) of the role that the client should be "assuming" after authentication. 
 
 ### webIdentityTokenFile
 
