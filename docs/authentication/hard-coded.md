@@ -7,7 +7,8 @@ category: authentication
 When developing, and debugging, the simplest way to configure the client, is to set the credentials in the
 client configuration parameters.
 
-## Connect with accessKey / accessKeySecret
+## Connect with access key and secret
+
 ```php
 use AsyncAws\Core\AwsClientFactory;
 
