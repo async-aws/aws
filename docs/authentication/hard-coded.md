@@ -18,9 +18,10 @@ $client = new AwsClientFactory([
 ]);
 ```
 
-## Connect with accessKey / accessKeySecret + assumeRole
-You can use a specific role (assumeRole) by specify a roleArn.
-You can also specify a roleSessionName.
+## Assume role ARN with access key and secret
+
+You can tell the API client to use specific role by providing a ARN to 
+the `roleArn` key. You can also specify a `roleSessionName`.
 
 ```php
 use AsyncAws\Core\AwsClientFactory;
