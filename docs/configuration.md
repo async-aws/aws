@@ -85,8 +85,7 @@ for authentication.
 
 ### roleArn
 
-The Amazon Resource Name (ARN) of the role that the caller is assuming when using
-the [WebIdentity Provider](/authentication/web-identity.md)
+The Amazon Resource Name (ARN) of the role that the client should be "assuming" after authentication. 
 
 ### webIdentityTokenFile
 
@@ -111,4 +110,3 @@ See [IAM Roles for Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developer
 
 Set to true to send requests to an S3 path style endpoint by default.
 See [Virtual Hosting of Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html) about path style vs virtual host style.
-
