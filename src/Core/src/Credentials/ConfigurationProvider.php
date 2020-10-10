@@ -21,7 +21,7 @@ final class ConfigurationProvider implements CredentialProvider
 
     private $httpClient;
 
-    public function __construct(?LoggerInterface $logger = null, ?HttpClientInterface $httpClient = null)
+    public function __construct(?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null)
     {
         $this->logger = $logger ?? new NullLogger();
         $this->httpClient = $httpClient;
