@@ -7,7 +7,7 @@ category: authentication
 When developing, and debugging, the simplest way to configure the client, is to set the credentials in the
 client configuration parameters.
 
-## Connect with access key and secret
+## Authenticate with access key and secret
 
 ```php
 use AsyncAws\Core\AwsClientFactory;
@@ -18,7 +18,7 @@ $client = new AwsClientFactory([
 ]);
 ```
 
-## Assume role ARN with access key and secret
+## Assuming a role
 
 You can tell the API client to use specific role by providing a ARN to 
 the `roleArn` key. You can also specify a `roleSessionName`.
