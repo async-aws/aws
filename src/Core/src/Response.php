@@ -105,12 +105,16 @@ class Response
         }
 
         try {
-            foreach ($this->httpClient->stream($this->httpResponse, $timeout) as $chunk) {
-                if ($chunk->isTimeout()) {
-                    return false;
-                }
-                if ($chunk->isFirst()) {
-                    break;
+            if (null === $timeout) {
+                $this->httpResponse->getStatusCode();
+            } else {
+                foreach ($this->httpClient->stream($this->httpResponse, $timeout) as $chunk) {
+                    if ($chunk->isTimeout()) {
+                        return false;
+                    }
+                    if ($chunk->isFirst()) {
+                        break;
+                    }
                 }
             }
 
