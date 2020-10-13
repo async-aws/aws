@@ -105,7 +105,8 @@ class AsyncAwsExtension extends Extension
             if (!$container->hasDefinition($credentialServiceId)) {
                 $container->register($credentialServiceId, CredentialProvider::class)
                     ->setFactory([ChainProvider::class, 'createDefaultChain'])
-                    ->setArguments([$httpClient, $logger]);
+                    ->setArguments([$httpClient, $logger])
+                    ->addTag('monolog.logger', ['channel' => 'async_aws']);
 
                 $container->register('async_aws.credential.cache', SymfonyCacheProvider::class)
                     ->setDecoratedService($credentialServiceId)
@@ -127,6 +128,7 @@ class AsyncAwsExtension extends Extension
         $definition->addArgument($credentialServiceId ? new Reference($credentialServiceId) : null);
         $definition->addArgument($httpClient);
         $definition->addArgument($logger);
+        $definition->addTag('monolog.logger', ['channel' => 'async_aws']);
         $container->setDefinition(sprintf('async_aws.client.%s', $name), $definition);
     }
 
