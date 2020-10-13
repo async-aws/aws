@@ -19,7 +19,7 @@ class AddUserToGroupRequestTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-www-form-urlencoded
 
-            GroupName=Admins&UserName=Bob
+            Action=AddUserToGroup&GroupName=Admins&UserName=Bob&Version=2010-05-08
         ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
