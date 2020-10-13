@@ -6,6 +6,7 @@ use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Iam\IamClient;
 use AsyncAws\Iam\Input\AddUserToGroupRequest;
+use AsyncAws\Iam\Input\CreateAccessKeyRequest;
 use AsyncAws\Iam\Input\CreateUserRequest;
 use AsyncAws\Iam\Input\DeleteUserRequest;
 use AsyncAws\Iam\Input\GetUserRequest;
@@ -26,6 +27,20 @@ class IamClientTest extends TestCase
         $result = $client->AddUserToGroup($input);
 
         $result->resolve();
+    }
+
+    public function testCreateAccessKey(): void
+    {
+        $client = $this->getClient();
+
+        $input = new CreateAccessKeyRequest([
+            'UserName' => 'change me',
+        ]);
+        $result = $client->CreateAccessKey($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getAccessKey());
     }
 
     public function testCreateUser(): void

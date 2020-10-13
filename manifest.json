@@ -121,6 +121,7 @@
             "api-reference": "https://docs.aws.amazon.com/IAM/latest/APIReference",
             "methods": [
                 "AddUserToGroup",
+                "CreateAccessKey",
                 "CreateUser",
                 "DeleteUser",
                 "GetUser",
