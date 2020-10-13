@@ -38,6 +38,7 @@ class IamClientTest extends TestCase
         $client = new IamClient([], new NullProvider(), new MockHttpClient());
 
         $input = new CreateUserRequest([
+
             'UserName' => 'change me',
 
         ]);
@@ -52,7 +53,7 @@ class IamClientTest extends TestCase
         $client = new IamClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DeleteUserRequest([
-        'UserName' => 'change me',
+            'UserName' => 'change me',
         ]);
         $result = $client->DeleteUser($input);
 
@@ -91,7 +92,7 @@ class IamClientTest extends TestCase
         $client = new IamClient([], new NullProvider(), new MockHttpClient());
 
         $input = new UpdateUserRequest([
-        'UserName' => 'change me',
+            'UserName' => 'change me',
 
         ]);
         $result = $client->UpdateUser($input);
