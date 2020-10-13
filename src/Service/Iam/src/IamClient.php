@@ -6,6 +6,7 @@ use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
+use AsyncAws\Iam\Input\AddUserToGroupRequest;
 use AsyncAws\Iam\Input\CreateUserRequest;
 use AsyncAws\Iam\Input\DeleteUserRequest;
 use AsyncAws\Iam\Input\GetUserRequest;
@@ -19,6 +20,26 @@ use AsyncAws\Iam\ValueObject\User;
 
 class IamClient extends AbstractApi
 {
+    /**
+     * Adds the specified user to the specified group.
+     *
+     * @see https://docs.aws.amazon.com/IAM/latest/APIReference/API_AddUserToGroup.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#addusertogroup
+     *
+     * @param array{
+     *   GroupName: string,
+     *   UserName: string,
+     *   @region?: string,
+     * }|AddUserToGroupRequest $input
+     */
+    public function addUserToGroup($input): Result
+    {
+        $input = AddUserToGroupRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AddUserToGroup', 'region' => $input->getRegion()]));
+
+        return new Result($response);
+    }
+
     /**
      * Creates a new IAM user for your AWS account.
      *
