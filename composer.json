@@ -24,7 +24,7 @@
         "illuminate/queue": "^6.18.13 || ^7.10",
         "illuminate/support": "^6.18.13 || ^7.10",
         "league/flysystem": "^1.0.65 || ^2.0.0-alpha.2",
-        "league/flysystem-adapter-test-utilities": "2.0.0-beta.2",
+        "league/flysystem-adapter-test-utilities": "2.0.0-beta.3",
         "league/mime-type-detection": "^1.0",
         "matthiasnoback/symfony-config-test": "^4.1",
         "monolog/monolog": "^1.1 || ^2.0",

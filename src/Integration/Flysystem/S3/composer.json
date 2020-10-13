@@ -26,7 +26,7 @@
         "league/mime-type-detection": "^1.0"
     },
     "require-dev": {
-        "league/flysystem-adapter-test-utilities": "2.0.0-beta.2"
+        "league/flysystem-adapter-test-utilities": "2.0.0-beta.3"
     },
     "extra": {
         "branch-alias": {

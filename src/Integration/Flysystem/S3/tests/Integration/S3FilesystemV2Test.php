@@ -30,7 +30,7 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
     /**
      * @var S3Client
      */
-    private $s3Client;
+    private static $s3Client;
 
     public static function setUpBeforeClass(): void
     {
@@ -213,18 +213,18 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
         self::markTestSkipped(sprintf('Test "%s" will always fail because test resources are not available.', __FUNCTION__));
     }
 
-    protected function createFilesystemAdapter(): FilesystemAdapter
+    protected static function createFilesystemAdapter(): FilesystemAdapter
     {
         $bucket = isset($_SERVER['FLYSYSTEM_AWS_S3_BUCKET']) ? $_SERVER['FLYSYSTEM_AWS_S3_BUCKET'] : 'flysystem-test-bucket';
         $prefix = isset($_SERVER['FLYSYSTEM_AWS_S3_PREFIX']) ? $_SERVER['FLYSYSTEM_AWS_S3_PREFIX'] : static::$adapterPrefix;
 
-        return new S3FilesystemV2($this->s3Client(), $bucket, $prefix);
+        return new S3FilesystemV2(self::s3Client(), $bucket, $prefix);
     }
 
-    private function s3Client(): S3Client
+    private static function s3Client(): S3Client
     {
-        if ($this->s3Client instanceof S3Client) {
-            return $this->s3Client;
+        if (self::$s3Client instanceof S3Client) {
+            return self::$s3Client;
         }
 
         $key = $_SERVER['FLYSYSTEM_AWS_S3_KEY'] ?? null;
@@ -239,7 +239,7 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
                 $options += ['pathStyleEndpoint' => true];
             }
 
-            return $this->s3Client = new S3Client($options, new NullProvider());
+            return self::$s3Client = new S3Client($options, new NullProvider());
         }
 
         $options = ['accessKeyId' => $key, 'accessKeySecret' => $secret, 'region' => $region];
@@ -247,6 +247,6 @@ class S3FilesystemV2Test extends FilesystemAdapterTestCase
             $options += ['pathStyleEndpoint' => true];
         }
 
-        return $this->s3Client = new S3Client($options);
+        return self::$s3Client = new S3Client($options);
     }
 }
