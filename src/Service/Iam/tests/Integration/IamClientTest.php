@@ -5,6 +5,7 @@ namespace AsyncAws\Iam\Tests\Integration;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Iam\IamClient;
+use AsyncAws\Iam\Input\AddUserToGroupRequest;
 use AsyncAws\Iam\Input\CreateUserRequest;
 use AsyncAws\Iam\Input\DeleteUserRequest;
 use AsyncAws\Iam\Input\GetUserRequest;
@@ -14,6 +15,19 @@ use AsyncAws\Iam\ValueObject\Tag;
 
 class IamClientTest extends TestCase
 {
+    public function testAddUserToGroup(): void
+    {
+        $client = $this->getClient();
+
+        $input = new AddUserToGroupRequest([
+            'GroupName' => 'change me',
+            'UserName' => 'change me',
+        ]);
+        $result = $client->AddUserToGroup($input);
+
+        $result->resolve();
+    }
+
     public function testCreateUser(): void
     {
         $client = $this->getClient();

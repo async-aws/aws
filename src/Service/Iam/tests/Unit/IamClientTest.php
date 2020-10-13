@@ -6,6 +6,7 @@ use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Iam\IamClient;
+use AsyncAws\Iam\Input\AddUserToGroupRequest;
 use AsyncAws\Iam\Input\CreateUserRequest;
 use AsyncAws\Iam\Input\DeleteUserRequest;
 use AsyncAws\Iam\Input\GetUserRequest;
@@ -18,12 +19,25 @@ use Symfony\Component\HttpClient\MockHttpClient;
 
 class IamClientTest extends TestCase
 {
+    public function testAddUserToGroup(): void
+    {
+        $client = new IamClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new AddUserToGroupRequest([
+            'GroupName' => 'change me',
+            'UserName' => 'change me',
+        ]);
+        $result = $client->AddUserToGroup($input);
+
+        self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testCreateUser(): void
     {
         $client = new IamClient([], new NullProvider(), new MockHttpClient());
 
         $input = new CreateUserRequest([
-
             'UserName' => 'change me',
 
         ]);
@@ -38,7 +52,7 @@ class IamClientTest extends TestCase
         $client = new IamClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DeleteUserRequest([
-            'UserName' => 'change me',
+        'UserName' => 'change me',
         ]);
         $result = $client->DeleteUser($input);
 
@@ -77,7 +91,7 @@ class IamClientTest extends TestCase
         $client = new IamClient([], new NullProvider(), new MockHttpClient());
 
         $input = new UpdateUserRequest([
-            'UserName' => 'change me',
+        'UserName' => 'change me',
 
         ]);
         $result = $client->UpdateUser($input);

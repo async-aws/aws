@@ -120,6 +120,7 @@
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/iam/2010-05-08/examples-1.json",
             "api-reference": "https://docs.aws.amazon.com/IAM/latest/APIReference",
             "methods": [
+                "AddUserToGroup",
                 "CreateUser",
                 "DeleteUser",
                 "GetUser",
