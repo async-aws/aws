@@ -19,7 +19,6 @@ class AwsRetryStrategy extends GenericRetryStrategy
             return true;
         }
 
-        $headers = $context->getHeaders();
         if (400 !== $context->getStatusCode()) {
             return false;
         }
@@ -29,7 +28,7 @@ class AwsRetryStrategy extends GenericRetryStrategy
         }
 
         try {
-            $error = AwsErrorFactory::createFromContent($responseContent, $headers);
+            $error = AwsErrorFactory::createFromContent($responseContent, $context->getHeaders());
         } catch (ParseResponse $e) {
             return false;
         }
