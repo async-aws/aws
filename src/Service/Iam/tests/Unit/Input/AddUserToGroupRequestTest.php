@@ -10,8 +10,8 @@ class AddUserToGroupRequestTest extends TestCase
     public function testRequest(): void
     {
         $input = new AddUserToGroupRequest([
-            'GroupName' => 'change me',
-            'UserName' => 'change me',
+            'GroupName' => 'Admins',
+            'UserName' => 'Bob',
         ]);
 
         // see example-1.json from SDK
