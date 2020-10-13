@@ -9,8 +9,6 @@ class AddUserToGroupRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new AddUserToGroupRequest([
             'GroupName' => 'change me',
             'UserName' => 'change me',
