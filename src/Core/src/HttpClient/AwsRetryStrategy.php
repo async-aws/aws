@@ -4,28 +4,22 @@ namespace AsyncAws\Core\HttpClient;
 
 use AsyncAws\Core\AwsError\AwsErrorFactory;
 use AsyncAws\Core\Exception\ParseResponse;
-use Symfony\Component\HttpClient\Retry\RetryDeciderInterface;
+use Symfony\Component\HttpClient\Response\AsyncContext;
+use Symfony\Component\HttpClient\Retry\GenericRetryStrategy;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-class AwsRetryDecider implements RetryDeciderInterface
+class AwsRetryStrategy extends GenericRetryStrategy
 {
-    public function shouldRetry(
-        string $requestMethod,
-        string $requestUrl,
-        array $requestOptions,
-        int $responseStatusCode,
-        array $responseHeaders,
-        ?string $responseContent
-    ): ?bool {
-        if (\in_array($responseStatusCode, [423, 425, 429, 500, 502, 503, 504, 507, 510], true)) {
+    public function shouldRetry(AsyncContext $context, ?string $responseContent, ?TransportExceptionInterface $exception): ?bool
+    {
+        if (parent::shouldRetry($context, $responseContent, $exception)) {
             return true;
         }
-        if (
-            400 !== $responseStatusCode
-            || (int) ($responseHeaders['content-length'][0] ?? '0') > 16384 // prevent downloading payload > 16KiB
-        ) {
+
+        if (400 !== $context->getStatusCode()) {
             return false;
         }
 
@@ -34,7 +28,7 @@ class AwsRetryDecider implements RetryDeciderInterface
         }
 
         try {
-            $error = AwsErrorFactory::createFromContent($responseContent, $responseHeaders);
+            $error = AwsErrorFactory::createFromContent($responseContent, $context->getHeaders());
         } catch (ParseResponse $e) {
             return false;
         }
