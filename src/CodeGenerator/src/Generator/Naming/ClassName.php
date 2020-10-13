@@ -22,7 +22,7 @@ final class ClassName
     private function __construct(string $namespace, string $name)
     {
         $this->namespace = $namespace;
-        $this->name = $name;
+        $this->name = ucfirst($name);
     }
 
     public static function create(string $namespace, string $name): self
