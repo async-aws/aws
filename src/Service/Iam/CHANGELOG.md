@@ -8,6 +8,7 @@
 
 - `IamClient::addUserToGroup()`
 - `IamClient::createAccessKey()`
+- `IamClient::deleteAccessKey()`
 
 ## 0.2.1
 
