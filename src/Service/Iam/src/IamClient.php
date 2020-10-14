@@ -7,11 +7,13 @@ use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
 use AsyncAws\Iam\Input\AddUserToGroupRequest;
+use AsyncAws\Iam\Input\CreateAccessKeyRequest;
 use AsyncAws\Iam\Input\CreateUserRequest;
 use AsyncAws\Iam\Input\DeleteUserRequest;
 use AsyncAws\Iam\Input\GetUserRequest;
 use AsyncAws\Iam\Input\ListUsersRequest;
 use AsyncAws\Iam\Input\UpdateUserRequest;
+use AsyncAws\Iam\Result\CreateAccessKeyResponse;
 use AsyncAws\Iam\Result\CreateUserResponse;
 use AsyncAws\Iam\Result\GetUserResponse;
 use AsyncAws\Iam\Result\ListUsersResponse;
@@ -38,6 +40,26 @@ class IamClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AddUserToGroup', 'region' => $input->getRegion()]));
 
         return new Result($response);
+    }
+
+    /**
+     * Creates a new AWS secret access key and corresponding AWS access key ID for the specified user. The default status
+     * for new keys is `Active`.
+     *
+     * @see https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateAccessKey.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#createaccesskey
+     *
+     * @param array{
+     *   UserName?: string,
+     *   @region?: string,
+     * }|CreateAccessKeyRequest $input
+     */
+    public function createAccessKey($input = []): CreateAccessKeyResponse
+    {
+        $input = CreateAccessKeyRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateAccessKey', 'region' => $input->getRegion()]));
+
+        return new CreateAccessKeyResponse($response);
     }
 
     /**

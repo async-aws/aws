@@ -7,11 +7,13 @@ use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Iam\IamClient;
 use AsyncAws\Iam\Input\AddUserToGroupRequest;
+use AsyncAws\Iam\Input\CreateAccessKeyRequest;
 use AsyncAws\Iam\Input\CreateUserRequest;
 use AsyncAws\Iam\Input\DeleteUserRequest;
 use AsyncAws\Iam\Input\GetUserRequest;
 use AsyncAws\Iam\Input\ListUsersRequest;
 use AsyncAws\Iam\Input\UpdateUserRequest;
+use AsyncAws\Iam\Result\CreateAccessKeyResponse;
 use AsyncAws\Iam\Result\CreateUserResponse;
 use AsyncAws\Iam\Result\GetUserResponse;
 use AsyncAws\Iam\Result\ListUsersResponse;
@@ -30,6 +32,19 @@ class IamClientTest extends TestCase
         $result = $client->AddUserToGroup($input);
 
         self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testCreateAccessKey(): void
+    {
+        $client = new IamClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new CreateAccessKeyRequest([
+
+        ]);
+        $result = $client->CreateAccessKey($input);
+
+        self::assertInstanceOf(CreateAccessKeyResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
