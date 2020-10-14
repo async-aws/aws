@@ -2,6 +2,14 @@
 
 ## NOT RELEASED
 
+## 0.2.2
+
+### Added
+
+- `IamClient::addUserToGroup()`
+- `IamClient::createAccessKey()`
+- `IamClient::deleteAccessKey()`
+
 ## 0.2.1
 
 ### Added
