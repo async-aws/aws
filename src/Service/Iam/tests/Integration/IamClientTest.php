@@ -8,6 +8,7 @@ use AsyncAws\Iam\IamClient;
 use AsyncAws\Iam\Input\AddUserToGroupRequest;
 use AsyncAws\Iam\Input\CreateAccessKeyRequest;
 use AsyncAws\Iam\Input\CreateUserRequest;
+use AsyncAws\Iam\Input\DeleteAccessKeyRequest;
 use AsyncAws\Iam\Input\DeleteUserRequest;
 use AsyncAws\Iam\Input\GetUserRequest;
 use AsyncAws\Iam\Input\ListUsersRequest;
@@ -61,6 +62,19 @@ class IamClientTest extends TestCase
         $result->resolve();
 
         // self::assertTODO(expected, $result->getUser());
+    }
+
+    public function testDeleteAccessKey(): void
+    {
+        $client = $this->getClient();
+
+        $input = new DeleteAccessKeyRequest([
+            'UserName' => 'change me',
+            'AccessKeyId' => 'change me',
+        ]);
+        $result = $client->DeleteAccessKey($input);
+
+        $result->resolve();
     }
 
     public function testDeleteUser(): void

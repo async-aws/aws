@@ -123,6 +123,7 @@
                 "AddUserToGroup",
                 "CreateAccessKey",
                 "CreateUser",
+                "DeleteAccessKey",
                 "DeleteUser",
                 "GetUser",
                 "ListUsers",
