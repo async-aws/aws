@@ -9,6 +9,7 @@ use AsyncAws\Core\Result;
 use AsyncAws\Iam\Input\AddUserToGroupRequest;
 use AsyncAws\Iam\Input\CreateAccessKeyRequest;
 use AsyncAws\Iam\Input\CreateUserRequest;
+use AsyncAws\Iam\Input\DeleteAccessKeyRequest;
 use AsyncAws\Iam\Input\DeleteUserRequest;
 use AsyncAws\Iam\Input\GetUserRequest;
 use AsyncAws\Iam\Input\ListUsersRequest;
@@ -82,6 +83,26 @@ class IamClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateUser', 'region' => $input->getRegion()]));
 
         return new CreateUserResponse($response);
+    }
+
+    /**
+     * Deletes the access key pair associated with the specified IAM user.
+     *
+     * @see https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteAccessKey.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#deleteaccesskey
+     *
+     * @param array{
+     *   UserName?: string,
+     *   AccessKeyId: string,
+     *   @region?: string,
+     * }|DeleteAccessKeyRequest $input
+     */
+    public function deleteAccessKey($input): Result
+    {
+        $input = DeleteAccessKeyRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteAccessKey', 'region' => $input->getRegion()]));
+
+        return new Result($response);
     }
 
     /**

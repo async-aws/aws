@@ -9,6 +9,7 @@ use AsyncAws\Iam\IamClient;
 use AsyncAws\Iam\Input\AddUserToGroupRequest;
 use AsyncAws\Iam\Input\CreateAccessKeyRequest;
 use AsyncAws\Iam\Input\CreateUserRequest;
+use AsyncAws\Iam\Input\DeleteAccessKeyRequest;
 use AsyncAws\Iam\Input\DeleteUserRequest;
 use AsyncAws\Iam\Input\GetUserRequest;
 use AsyncAws\Iam\Input\ListUsersRequest;
@@ -60,6 +61,20 @@ class IamClientTest extends TestCase
         $result = $client->CreateUser($input);
 
         self::assertInstanceOf(CreateUserResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testDeleteAccessKey(): void
+    {
+        $client = new IamClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new DeleteAccessKeyRequest([
+
+            'AccessKeyId' => 'change me',
+        ]);
+        $result = $client->DeleteAccessKey($input);
+
+        self::assertInstanceOf(Result::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
