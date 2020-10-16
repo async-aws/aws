@@ -29,13 +29,13 @@ jobs:
           sed -i -re '/Integration\/Laravel\/Filesystem/d' psalm.xml
 
       - name: PHPStan
-        uses: docker://oskarstark/phpstan-ga:0.12.23
+        uses: docker://oskarstark/phpstan-ga:0.12.48
         with:
           entrypoint: /composer/vendor/bin/phpstan
           args: analyze --no-progress
 
       - name: Psalm
-        uses: psalm/psalm-github-actions@master
+        uses: docker://vimeo/psalm-github-actions:3.17.2
         with:
           args: --no-progress --show-info=false --stats
 
