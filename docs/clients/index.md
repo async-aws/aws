@@ -140,6 +140,7 @@ for more information.
 | [CodeDeploy](./code-deploy.md)              | [async-aws/code-deploy](https://packagist.org/packages/async-aws/code-deploy)
 | [CognitoIdentityProvider](./cognito-idp.md) | [async-aws/cognito-identity-provider](https://packagist.org/packages/async-aws/cognito-identity-provider)
 | [DynamoDb](./dynamodb.md)                   | [async-aws/dynamo-db](https://packagist.org/packages/async-aws/dynamo-db)
+| [ECR](./ecr.md)                             | [async-aws/ecr](https://packagist.org/packages/async-aws/ecr)
 | [EventBridge](./event-bridge.md)            | [async-aws/event-bridge](https://packagist.org/packages/async-aws/event-bridge)
 | [Iam](./iam.md)                             | [async-aws/iam](https://packagist.org/packages/async-aws/iam)
 | [Lambda](./lambda.md)                       | [async-aws/lambda](https://packagist.org/packages/async-aws/lambda)

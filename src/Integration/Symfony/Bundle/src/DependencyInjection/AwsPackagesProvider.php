@@ -33,6 +33,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\DynamoDb\DynamoDbClient::class,
                 'package' => 'async-aws/dynamo-db',
             ],
+            'ecr' => [
+                'class' => \AsyncAws\Ecr\EcrClient::class,
+                'package' => 'async-aws/ecr',
+            ],
             'event_bridge' => [
                 'class' => \AsyncAws\EventBridge\EventBridgeClient::class,
                 'package' => 'async-aws/event-bridge',
