@@ -66,6 +66,7 @@ class S3ClientTest extends TestCase
     {
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
         self::assertSame('https://foo.s3.amazonaws.com/', $client->presign(new CreateBucketRequest(['Bucket' => 'foo'])));
+        self::assertSame('https://61515-bar.s3.amazonaws.com/', $client->presign(new CreateBucketRequest(['Bucket' => '61515-bar'])));
         // invalid bucket names
         self::assertSame('https://s3.amazonaws.com/foo.bar', $client->presign(new CreateBucketRequest(['Bucket' => 'foo.bar'])));
         self::assertSame('https://s3.amazonaws.com/foo%20bar', $client->presign(new CreateBucketRequest(['Bucket' => 'foo bar'])));
