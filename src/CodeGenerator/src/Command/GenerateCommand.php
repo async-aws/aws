@@ -368,7 +368,7 @@ class GenerateCommand extends Command
     private function fixCs(ClassName $clientClass, SymfonyStyle $io): void
     {
         $srcPath = \dirname((new \ReflectionClass($clientClass->getFqdn()))->getFileName());
-        $testPath = \substr($srcPath, 0, \strrpos($srcPath, '/src/')) . '/tests';
+        $testPath = \substr($srcPath, 0, \strrpos($srcPath, '/src')) . '/tests';
 
         if (!\is_dir($srcPath)) {
             throw new \InvalidArgumentException(sprintf('The src dir "%s" does not exists', $srcPath));
