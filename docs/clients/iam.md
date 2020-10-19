@@ -7,7 +7,7 @@ package: async-aws/iam
 
 ## Usage
 
-### Invoke a function
+### List Users
 
 ```php
 use AsyncAws\Iam\IamClient;

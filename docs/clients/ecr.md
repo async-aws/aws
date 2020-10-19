@@ -7,7 +7,7 @@ package: async-aws/ecr
 
 ## Usage
 
-### Invoke a function
+### Get an Authorization Token
 
 ```php
 use AsyncAws\Ecr\EcrClient;
