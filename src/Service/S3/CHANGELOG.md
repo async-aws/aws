@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Fixed endpoint issue when a bucket name started with a number.
 - Improve StorageClass documentation.
 
 ## 1.5.0
