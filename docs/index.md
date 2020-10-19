@@ -77,7 +77,7 @@ take advantage of.
 
 #### So what is this library really doing?
 
-Except for being a wrapper around Symfony's HTTP client and make sure the asynchronous
+Except for being a wrapper around Symfony's HTTP client and making sure the asynchronous
 features are properly used, AsyncAws also [handles authentication](./authentication/index.md),
 exceptions and provide input and result objects.
 
