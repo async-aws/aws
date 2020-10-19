@@ -175,7 +175,7 @@ class AwsClientFactory
     public function iam(): IamClient
     {
         if (!class_exists(IamClient::class)) {
-            throw MissingDependency::create('async-aws/iam', 'DynamoDb');
+            throw MissingDependency::create('async-aws/iam', 'IAM');
         }
 
         if (!isset($this->serviceCache[__METHOD__])) {
