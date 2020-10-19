@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.5.1
+
 ### Fixed
 
 - Fixed endpoint issue when a bucket name started with a number.
