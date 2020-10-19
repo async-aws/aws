@@ -16,6 +16,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\MissingDependency;
 use AsyncAws\Core\Sts\StsClient;
 use AsyncAws\DynamoDb\DynamoDbClient;
+use AsyncAws\Ecr\EcrClient;
 use AsyncAws\EventBridge\EventBridgeClient;
 use AsyncAws\Iam\IamClient;
 use AsyncAws\Lambda\LambdaClient;
@@ -145,6 +146,19 @@ class AwsClientFactory
         return $this->serviceCache[__METHOD__];
     }
 
+    public function ecr(): EcrClient
+    {
+        if (!class_exists(EcrClient::class)) {
+            throw MissingDependency::create('async-aws/ecr', 'ECR');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new EcrClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
     public function eventBridge(): EventBridgeClient
     {
         if (!class_exists(EventBridgeClient::class)) {
@@ -161,7 +175,7 @@ class AwsClientFactory
     public function iam(): IamClient
     {
         if (!class_exists(IamClient::class)) {
-            throw MissingDependency::create('async-aws/iam', 'DynamoDb');
+            throw MissingDependency::create('async-aws/iam', 'IAM');
         }
 
         if (!isset($this->serviceCache[__METHOD__])) {

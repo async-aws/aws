@@ -102,6 +102,17 @@
                 "UpdateTimeToLive"
             ]
         },
+        "Ecr": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/ecr/2015-09-21/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/ecr/2015-09-21/docs-2.json",
+            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/ecr/2015-09-21/examples-1.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/ecr/2015-09-21/paginators-1.json",
+            "waiter": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/ecr/2015-09-21/waiters-2.json",
+            "api-reference": "https://docs.aws.amazon.com/AmazonECR/latest/APIReference",
+            "methods": [
+                "GetAuthorizationToken"
+            ]
+        },
         "EventBridge": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/eventbridge/2015-10-07/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/eventbridge/2015-10-07/docs-2.json",

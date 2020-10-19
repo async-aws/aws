@@ -46,6 +46,9 @@ menu:
             cognito-idp:
                 text: Cognito Identity provider
                 url: /clients/cognito-idp.html
+            ecr:
+                text: ECR
+                url: /clients/ecr.html
             event-bridge:
                 text: EventBridge
                 url: /clients/event-bridge.html
