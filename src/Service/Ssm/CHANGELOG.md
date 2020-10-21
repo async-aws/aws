@@ -2,10 +2,9 @@
 
 ## NOT RELEASED
 
-### Fixed
+### Added
 
-- AWS api-change: This Patch Manager release now supports Common Vulnerabilities and Exposure (CVE) Ids for missing packages via the DescribeInstancePatches API.
-- AWS api-change: This Patch Manager release now supports searching for available packages from Amazon Linux and Amazon Linux 2 via the DescribeAvailablePatches API.
+- AWS api-change: Added region `fips-ca-central-1`
 
 ## 1.0.0
 
