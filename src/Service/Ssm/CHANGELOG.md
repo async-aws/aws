@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added region `fips-ca-central-1`
+
 ## 1.0.0
 
 ### Added
