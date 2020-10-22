@@ -17,12 +17,12 @@ jobs:
 
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@2.1.2
+        uses: shivammathur/setup-php@2.7.0
         with:
           php-version: ${{ matrix.php }}
           coverage: none
           ini-values: xdebug.overload_var_dump=1
-          tools: flex
+          tools: composer:v2
 
       - name: Checkout code
         uses: actions/checkout@v2

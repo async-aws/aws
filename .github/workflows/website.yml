@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@2.1.2
+        uses: shivammathur/setup-php@2.7.0
         with:
           php-version: 7.4
 
