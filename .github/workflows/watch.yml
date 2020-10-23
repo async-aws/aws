@@ -6,6 +6,7 @@ on:
 
 jobs:
   generated-code:
+    if: github.repository == 'async-aws/aws'
     name: Assert Generated Code is uptodate with last version
     runs-on: ubuntu-latest
 
