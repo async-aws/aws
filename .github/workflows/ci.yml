@@ -18,11 +18,11 @@ jobs:
 
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@2.2.1
+        uses: shivammathur/setup-php@2.7.0
         with:
           php-version: ${{ matrix.php }}
           coverage: none
-          tools: flex
+          tools: composer:v2
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -86,7 +86,7 @@ jobs:
 
             localExit=0
             if [ $PHP_VERSION = '8.0' ]; then
-              COMPOSER_OPTIONS=' --ignore-platform-reqs'
+              COMPOSER_OPTIONS=' --ignore-platform-req=php'
             fi
             composer update --no-interaction --prefer-dist --optimize-autoloader $COMPOSER_OPTIONS || localExit=1
             echo ::endgroup::
@@ -119,10 +119,11 @@ jobs:
 
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@2.2.1
+        uses: shivammathur/setup-php@2.7.0
         with:
           php-version: 7.3
           coverage: none
+          tools: composer:v2, flex
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -177,7 +178,6 @@ jobs:
           SYMFONY_REQUIRE: 4.4.*
           PHP_VERSION: ${{ matrix.php }}
         run: |
-          composer global require --no-progress --no-scripts --no-plugins symfony/flex
           CURRENT_DIR=$(pwd)
           for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
           do
@@ -187,7 +187,7 @@ jobs:
 
             localExit=0
             if [ $PHP_VERSION = '8.0' ]; then
-              COMPOSER_OPTIONS=' --ignore-platform-reqs'
+              COMPOSER_OPTIONS=' --ignore-platform-req=php'
             fi
             composer update --no-interaction --prefer-dist --optimize-autoloader $COMPOSER_OPTIONS --prefer-lowest || localExit=1
             echo ::endgroup::
@@ -221,11 +221,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@2.2.1
+        uses: shivammathur/setup-php@2.7.0
         with:
           php-version: 7.4
           coverage: none
-          tools: prestissimo
+          tools: composer:v2
 
       - name: Checkout code
         uses: actions/checkout@v2

@@ -9,30 +9,26 @@ jobs:
 
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@2.1.2
+        uses: shivammathur/setup-php@2.7.0
         with:
           php-version: 7.4
           coverage: none
+          tools: composer:v2, composer-normalize
 
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Download
-        run: |
-          curl -L https://github.com/ergebnis/composer-normalize/releases/latest/download/composer-normalize.phar --output normalize.phar
-          chmod +x normalize.phar
 
       - name: Normalize
         run: |
           ok=0
           echo ::group::Root
-          ./normalize.phar --dry-run
+          composer-normalize --dry-run
           echo ::endgroup::
           for COMPONENT in $(find src -maxdepth 4 -type f -name composer.json | sort)
           do
             echo ::group::$COMPONENT
             localExit=0
-            ./normalize.phar $COMPONENT --dry-run || localExit=1
+            composer-normalize $COMPONENT --dry-run || localExit=1
             ok=$(( $localExit || $ok ))
             echo ::endgroup::
             if [ $localExit -ne 0 ]; then
@@ -48,10 +44,11 @@ jobs:
 
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@2.1.2
+        uses: shivammathur/setup-php@2.7.0
         with:
           php-version: 7.4
           coverage: none
+          tools: composer:v2
 
       - name: Checkout code
         uses: actions/checkout@v2

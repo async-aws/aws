@@ -11,10 +11,11 @@ jobs:
 
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@2.1.2
+        uses: shivammathur/setup-php@2.7.0
         with:
           php-version: 7.4
           coverage: none
+          tools: composer:v2
 
       - name: Checkout code
         uses: actions/checkout@v2
