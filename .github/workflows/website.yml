@@ -7,6 +7,7 @@ on:
 
 jobs:
   build:
+    if: github.repository == 'async-aws/aws'
     name: Generate
     runs-on: ubuntu-latest
 
