@@ -2,7 +2,7 @@
 
 ## NOT RELEASED
 
-### Fixed
+### Added
 
 - AWS api-change: SNS now supports a new class of topics: FIFO (First-In-First-Out). FIFO topics provide strictly-ordered, deduplicated, filterable, encryptable, many-to-many messaging at scale.
 
