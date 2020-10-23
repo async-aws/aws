@@ -12,11 +12,23 @@ class PublishResponse extends Result
      */
     private $MessageId;
 
+    /**
+     * This response element applies only to FIFO (first-in-first-out) topics.
+     */
+    private $SequenceNumber;
+
     public function getMessageId(): ?string
     {
         $this->initialize();
 
         return $this->MessageId;
+    }
+
+    public function getSequenceNumber(): ?string
+    {
+        $this->initialize();
+
+        return $this->SequenceNumber;
     }
 
     protected function populateResult(Response $response): void
@@ -25,5 +37,6 @@ class PublishResponse extends Result
         $data = $data->PublishResult;
 
         $this->MessageId = ($v = $data->MessageId) ? (string) $v : null;
+        $this->SequenceNumber = ($v = $data->SequenceNumber) ? (string) $v : null;
     }
 }

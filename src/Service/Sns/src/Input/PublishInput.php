@@ -66,6 +66,22 @@ final class PublishInput extends Input
     private $MessageAttributes;
 
     /**
+     * This parameter applies only to FIFO (first-in-first-out) topics. The `MessageDeduplicationId` can contain up to 128
+     * alphanumeric characters (a-z, A-Z, 0-9) and punctuation `(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)`.
+     *
+     * @var string|null
+     */
+    private $MessageDeduplicationId;
+
+    /**
+     * This parameter applies only to FIFO (first-in-first-out) topics. The `MessageGroupId` can contain up to 128
+     * alphanumeric characters (a-z, A-Z, 0-9) and punctuation `(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)`.
+     *
+     * @var string|null
+     */
+    private $MessageGroupId;
+
+    /**
      * @param array{
      *   TopicArn?: string,
      *   TargetArn?: string,
@@ -74,6 +90,8 @@ final class PublishInput extends Input
      *   Subject?: string,
      *   MessageStructure?: string,
      *   MessageAttributes?: array<string, MessageAttributeValue>,
+     *   MessageDeduplicationId?: string,
+     *   MessageGroupId?: string,
      *   @region?: string,
      * } $input
      */
@@ -90,6 +108,8 @@ final class PublishInput extends Input
         foreach ($input['MessageAttributes'] ?? [] as $key => $item) {
             $this->MessageAttributes[$key] = MessageAttributeValue::create($item);
         }
+        $this->MessageDeduplicationId = $input['MessageDeduplicationId'] ?? null;
+        $this->MessageGroupId = $input['MessageGroupId'] ?? null;
         parent::__construct($input);
     }
 
@@ -109,6 +129,16 @@ final class PublishInput extends Input
     public function getMessageAttributes(): array
     {
         return $this->MessageAttributes ?? [];
+    }
+
+    public function getMessageDeduplicationId(): ?string
+    {
+        return $this->MessageDeduplicationId;
+    }
+
+    public function getMessageGroupId(): ?string
+    {
+        return $this->MessageGroupId;
     }
 
     public function getMessageStructure(): ?string
@@ -170,6 +200,20 @@ final class PublishInput extends Input
     public function setMessageAttributes(array $value): self
     {
         $this->MessageAttributes = $value;
+
+        return $this;
+    }
+
+    public function setMessageDeduplicationId(?string $value): self
+    {
+        $this->MessageDeduplicationId = $value;
+
+        return $this;
+    }
+
+    public function setMessageGroupId(?string $value): self
+    {
+        $this->MessageGroupId = $value;
 
         return $this;
     }
@@ -240,6 +284,12 @@ final class PublishInput extends Input
                     $payload["MessageAttributes.entry.$index.Value.$bodyKey"] = $bodyValue;
                 }
             }
+        }
+        if (null !== $v = $this->MessageDeduplicationId) {
+            $payload['MessageDeduplicationId'] = $v;
+        }
+        if (null !== $v = $this->MessageGroupId) {
+            $payload['MessageGroupId'] = $v;
         }
 
         return $payload;
