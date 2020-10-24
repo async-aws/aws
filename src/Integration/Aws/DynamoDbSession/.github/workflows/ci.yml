@@ -21,7 +21,6 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           coverage: none
-          ini-values: xdebug.overload_var_dump=1
           tools: composer:v2
 
       - name: Checkout code
