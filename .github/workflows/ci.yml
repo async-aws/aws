@@ -22,7 +22,6 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           coverage: none
-          tools: composer:v2
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -123,7 +122,7 @@ jobs:
         with:
           php-version: 7.3
           coverage: none
-          tools: composer:v2, flex
+          tools: flex
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -225,7 +224,6 @@ jobs:
         with:
           php-version: 7.4
           coverage: none
-          tools: composer:v2
 
       - name: Checkout code
         uses: actions/checkout@v2

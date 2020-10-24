@@ -21,7 +21,6 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           coverage: none
-          tools: composer:v2
 
       - name: Checkout code
         uses: actions/checkout@v2
