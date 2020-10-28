@@ -1,0 +1,3 @@
+parameters:
+    ignoreErrors:
+        - '#ReflectionClass "League\\Flysystem\\Adapter\\AbstractAdapter" could not be found in the located source#'
