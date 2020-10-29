@@ -17,6 +17,8 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  */
 final class ConfigurationProvider implements CredentialProvider
 {
+    use DateFromResult;
+
     private $logger;
 
     private $httpClient;
@@ -73,16 +75,11 @@ final class ConfigurationProvider implements CredentialProvider
             return null;
         }
 
-        $date = null;
-        if ((null !== $response = $result->info()['response'] ?? null) && null !== $date = $response->getHeaders(false)['date'][0] ?? null) {
-            $date = new \DateTimeImmutable($date);
-        }
-
         return new Credentials(
             $credentials->getAccessKeyId(),
             $credentials->getSecretAccessKey(),
             $credentials->getSessionToken(),
-            Credentials::adjustExpireDate($credentials->getExpiration(), $date)
+            Credentials::adjustExpireDate($credentials->getExpiration(), $this->getDateFromResult($result))
         );
     }
 }

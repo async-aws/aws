@@ -19,6 +19,8 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  */
 final class WebIdentityProvider implements CredentialProvider
 {
+    use DateFromResult;
+
     private $iniFileLoader;
 
     private $logger;
@@ -104,7 +106,7 @@ final class WebIdentityProvider implements CredentialProvider
 
         try {
             if (null === $credentials = $result->getCredentials()) {
-                throw new \RuntimeException('The AsumeRole response does not contains credentials');
+                throw new \RuntimeException('The AssumeRoleWithWebIdentity response does not contains credentials');
             }
         } catch (\Exception $e) {
             $this->logger->warning('Failed to get credentials from assumed role: {exception}".', ['exception' => $e]);
@@ -112,16 +114,11 @@ final class WebIdentityProvider implements CredentialProvider
             return null;
         }
 
-        $date = null;
-        if ((null !== $response = $result->info()['response'] ?? null) && null !== $date = $response->getHeaders(false)['date'][0] ?? null) {
-            $date = new \DateTimeImmutable($date);
-        }
-
         return new Credentials(
             $credentials->getAccessKeyId(),
             $credentials->getSecretAccessKey(),
             $credentials->getSessionToken(),
-            Credentials::adjustExpireDate($credentials->getExpiration(), $date)
+            Credentials::adjustExpireDate($credentials->getExpiration(), $this->getDateFromResult($result))
         );
     }
 }
