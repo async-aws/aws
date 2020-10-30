@@ -10,6 +10,7 @@ use AsyncAws\Ses\ValueObject\Body;
 use AsyncAws\Ses\ValueObject\Content;
 use AsyncAws\Ses\ValueObject\Destination;
 use AsyncAws\Ses\ValueObject\EmailContent;
+use AsyncAws\Ses\ValueObject\ListManagementOptions;
 use AsyncAws\Ses\ValueObject\Message;
 use AsyncAws\Ses\ValueObject\MessageTag;
 use AsyncAws\Ses\ValueObject\Template;
@@ -89,6 +90,14 @@ final class SendEmailRequest extends Input
     private $ConfigurationSetName;
 
     /**
+     * An object used to specify a list or topic to which an email belongs, which will be used when a contact chooses to
+     * unsubscribe.
+     *
+     * @var ListManagementOptions|null
+     */
+    private $ListManagementOptions;
+
+    /**
      * @param array{
      *   FromEmailAddress?: string,
      *   FromEmailAddressIdentityArn?: string,
@@ -99,6 +108,7 @@ final class SendEmailRequest extends Input
      *   Content?: EmailContent|array,
      *   EmailTags?: MessageTag[],
      *   ConfigurationSetName?: string,
+     *   ListManagementOptions?: ListManagementOptions|array,
      *   @region?: string,
      * } $input
      */
@@ -113,6 +123,7 @@ final class SendEmailRequest extends Input
         $this->Content = isset($input['Content']) ? EmailContent::create($input['Content']) : null;
         $this->EmailTags = isset($input['EmailTags']) ? array_map([MessageTag::class, 'create'], $input['EmailTags']) : null;
         $this->ConfigurationSetName = $input['ConfigurationSetName'] ?? null;
+        $this->ListManagementOptions = isset($input['ListManagementOptions']) ? ListManagementOptions::create($input['ListManagementOptions']) : null;
         parent::__construct($input);
     }
 
@@ -162,6 +173,11 @@ final class SendEmailRequest extends Input
     public function getFromEmailAddressIdentityArn(): ?string
     {
         return $this->FromEmailAddressIdentityArn;
+    }
+
+    public function getListManagementOptions(): ?ListManagementOptions
+    {
+        return $this->ListManagementOptions;
     }
 
     /**
@@ -253,6 +269,13 @@ final class SendEmailRequest extends Input
         return $this;
     }
 
+    public function setListManagementOptions(?ListManagementOptions $value): self
+    {
+        $this->ListManagementOptions = $value;
+
+        return $this;
+    }
+
     /**
      * @param string[] $value
      */
@@ -303,6 +326,9 @@ final class SendEmailRequest extends Input
         }
         if (null !== $v = $this->ConfigurationSetName) {
             $payload['ConfigurationSetName'] = $v;
+        }
+        if (null !== $v = $this->ListManagementOptions) {
+            $payload['ListManagementOptions'] = $v->requestBody();
         }
 
         return $payload;

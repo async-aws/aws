@@ -10,6 +10,7 @@ use AsyncAws\Ses\Input\SendEmailRequest;
 use AsyncAws\Ses\Result\SendEmailResponse;
 use AsyncAws\Ses\ValueObject\Destination;
 use AsyncAws\Ses\ValueObject\EmailContent;
+use AsyncAws\Ses\ValueObject\ListManagementOptions;
 use AsyncAws\Ses\ValueObject\MessageTag;
 
 class SesClient extends AbstractApi
@@ -30,6 +31,7 @@ class SesClient extends AbstractApi
      *   Content: EmailContent|array,
      *   EmailTags?: MessageTag[],
      *   ConfigurationSetName?: string,
+     *   ListManagementOptions?: ListManagementOptions|array,
      *   @region?: string,
      * }|SendEmailRequest $input
      */
