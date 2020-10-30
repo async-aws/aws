@@ -187,7 +187,7 @@ class S3FilesystemV2 implements FilesystemAdapter
 
     public function createDirectory(string $path, Config $config): void
     {
-        $config = $config->withDefaults(['visibility' => $this->visibility->defaultForDirectories(),]);
+        $config = $config->withDefaults(['visibility' => $this->visibility->defaultForDirectories()]);
         $this->upload(rtrim($path, '/') . '/', '', $config);
     }
 
@@ -227,7 +227,7 @@ class S3FilesystemV2 implements FilesystemAdapter
     {
         $attributes = $this->fetchFileMetadata($path, FileAttributes::ATTRIBUTE_MIME_TYPE);
 
-        if ($attributes->mimeType() === null) {
+        if (null === $attributes->mimeType()) {
             throw UnableToRetrieveMetadata::mimeType($path);
         }
 
@@ -238,7 +238,7 @@ class S3FilesystemV2 implements FilesystemAdapter
     {
         $attributes = $this->fetchFileMetadata($path, FileAttributes::ATTRIBUTE_LAST_MODIFIED);
 
-        if ($attributes->lastModified() === null) {
+        if (null === $attributes->lastModified()) {
             throw UnableToRetrieveMetadata::lastModified($path);
         }
 
@@ -249,7 +249,7 @@ class S3FilesystemV2 implements FilesystemAdapter
     {
         $attributes = $this->fetchFileMetadata($path, FileAttributes::ATTRIBUTE_FILE_SIZE);
 
-        if ($attributes->fileSize() === null) {
+        if (null === $attributes->fileSize()) {
             throw UnableToRetrieveMetadata::fileSize($path);
         }
 
