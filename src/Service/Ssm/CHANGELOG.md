@@ -2,9 +2,17 @@
 
 ## NOT RELEASED
 
+## 1.1.0
+
 ### Added
 
 - AWS api-change: Added region `fips-ca-central-1`
+
+### Removed
+
+The following regions are no longer supported by AWS and has been remove from
+the client: `ssm-facade-fips-us-east-1`, `ssm-facade-fips-us-east-2`, `ssm-facade-fips-us-gov-east-1`,
+`ssm-facade-fips-us-gov-west-1`, `ssm-facade-fips-us-west-1`, `ssm-facade-fips-us-west-2`.
 
 ## 1.0.0
 
