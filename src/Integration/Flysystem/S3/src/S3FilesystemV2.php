@@ -98,6 +98,9 @@ class S3FilesystemV2 implements FilesystemAdapter
      */
     private $mimeTypeDetector;
 
+    /**
+     * @param S3Client|SimpleS3Client $client Uploading of files larger than 5GB is only supported with SimpleS3Client
+     */
     public function __construct(
         S3Client $client,
         string $bucket,
@@ -322,7 +325,7 @@ class S3FilesystemV2 implements FilesystemAdapter
         }
 
         if ($this->client instanceof SimpleS3Client) {
-            // Support upload of large files
+            // Support upload of files larger than 5GB
             $this->client->upload($this->bucket, $key, $body, array_merge($options, ['ACL' => $acl]));
         } else {
             $this->client->putObject(array_merge($options, [
