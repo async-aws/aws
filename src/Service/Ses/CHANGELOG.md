@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Enables customers to manage their own contact lists and end-user subscription preferences
+
 ## 1.2.0
 
 ### Added
