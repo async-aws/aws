@@ -475,6 +475,6 @@ class GenerateCommand extends Command
     private function dumpManifest(array $manifest): void
     {
         $this->manifest = $manifest;
-        \file_put_contents($this->manifestFile, \json_encode($this->manifest, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES));
+        \file_put_contents($this->manifestFile, \json_encode($this->manifest, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES) . \PHP_EOL);
     }
 }
