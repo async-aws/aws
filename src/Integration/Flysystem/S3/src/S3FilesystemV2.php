@@ -22,6 +22,7 @@ use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\FilesystemOperationFailed;
 use League\Flysystem\PathPrefixer;
 use League\Flysystem\StorageAttributes;
+use League\Flysystem\UnableToCheckFileExistence;
 use League\Flysystem\UnableToCopyFile;
 use League\Flysystem\UnableToDeleteFile;
 use League\Flysystem\UnableToMoveFile;
@@ -30,6 +31,7 @@ use League\Flysystem\UnableToRetrieveMetadata;
 use League\Flysystem\UnableToSetVisibility;
 use League\Flysystem\Visibility;
 use League\MimeTypeDetection\FinfoMimeTypeDetector;
+use League\MimeTypeDetection\MimeTypeDetector;
 use Throwable;
 
 if (!interface_exists(FilesystemAdapter::class)) {
@@ -91,31 +93,39 @@ class S3FilesystemV2 implements FilesystemAdapter
      */
     private $visibility;
 
+    /**
+     * @var MimeTypeDetector
+     */
+    private $mimeTypeDetector;
+
+    /**
+     * @param S3Client|SimpleS3Client $client Uploading of files larger than 5GB is only supported with SimpleS3Client
+     */
     public function __construct(
         S3Client $client,
         string $bucket,
         string $prefix = '',
-        VisibilityConverter $visibility = null
+        VisibilityConverter $visibility = null,
+        MimeTypeDetector $mimeTypeDetector = null
     ) {
         $this->client = $client;
         $this->prefixer = new PathPrefixer($prefix);
         $this->bucket = $bucket;
         $this->visibility = $visibility ?: new PortableVisibilityConverter();
+        $this->mimeTypeDetector = $mimeTypeDetector ?: new FinfoMimeTypeDetector();
     }
 
     public function fileExists(string $path): bool
     {
         try {
-            $this->client->getObject(
+            return $this->client->objectExists(
                 [
                     'Bucket' => $this->bucket,
                     'Key' => $this->prefixer->prefixPath($path),
                 ]
-            )->resolve();
-
-            return true;
+            )->isSuccess();
         } catch (ClientException $e) {
-            return false;
+            throw UnableToCheckFileExistence::forLocation($path, $e);
         }
     }
 
@@ -180,9 +190,8 @@ class S3FilesystemV2 implements FilesystemAdapter
 
     public function createDirectory(string $path, Config $config): void
     {
-        $this->upload(rtrim($path, '/') . '/', '', $config->withDefaults([
-            'visibility' => $this->visibility->defaultForDirectories(),
-        ]));
+        $config = $config->withDefaults(['visibility' => $this->visibility->defaultForDirectories()]);
+        $this->upload(rtrim($path, '/') . '/', '', $config);
     }
 
     public function setVisibility(string $path, $visibility): void
@@ -219,23 +228,42 @@ class S3FilesystemV2 implements FilesystemAdapter
 
     public function mimeType(string $path): FileAttributes
     {
-        return $this->fetchFileMetadata($path, FileAttributes::ATTRIBUTE_MIME_TYPE);
+        $attributes = $this->fetchFileMetadata($path, FileAttributes::ATTRIBUTE_MIME_TYPE);
+
+        if (null === $attributes->mimeType()) {
+            throw UnableToRetrieveMetadata::mimeType($path);
+        }
+
+        return $attributes;
     }
 
     public function lastModified(string $path): FileAttributes
     {
-        return $this->fetchFileMetadata($path, FileAttributes::ATTRIBUTE_LAST_MODIFIED);
+        $attributes = $this->fetchFileMetadata($path, FileAttributes::ATTRIBUTE_LAST_MODIFIED);
+
+        if (null === $attributes->lastModified()) {
+            throw UnableToRetrieveMetadata::lastModified($path);
+        }
+
+        return $attributes;
     }
 
     public function fileSize(string $path): FileAttributes
     {
-        return $this->fetchFileMetadata($path, FileAttributes::ATTRIBUTE_FILE_SIZE);
+        $attributes = $this->fetchFileMetadata($path, FileAttributes::ATTRIBUTE_FILE_SIZE);
+
+        if (null === $attributes->fileSize()) {
+            throw UnableToRetrieveMetadata::fileSize($path);
+        }
+
+        return $attributes;
     }
 
     public function listContents(string $path, bool $deep): iterable
     {
-        $prefix = $this->prefixer->prefixPath($path);
-        $options = ['Bucket' => $this->bucket, 'Prefix' => trim($prefix, '/') . '/'];
+        $prefix = trim($this->prefixer->prefixPath($path), '/');
+        $prefix = empty($prefix) ? '' : $prefix . '/';
+        $options = ['Bucket' => $this->bucket, 'Prefix' => $prefix];
 
         if (false === $deep) {
             $options['Delimiter'] = '/';
@@ -266,6 +294,7 @@ class S3FilesystemV2 implements FilesystemAdapter
         } catch (Throwable $exception) {
             throw UnableToCopyFile::fromLocationTo($source, $destination, $exception);
         }
+
         $arguments = [
             'ACL' => $this->visibility->visibilityToAcl($visibility),
             'Bucket' => $this->bucket,
@@ -291,13 +320,12 @@ class S3FilesystemV2 implements FilesystemAdapter
         $options = $this->createOptionsFromConfig($config);
         $shouldDetermineMimetype = '' !== $body && !\array_key_exists('ContentType', $options);
 
-        if ($shouldDetermineMimetype) {
-            $mimeType = (new FinfoMimeTypeDetector())->detectMimeType($path, $body);
+        if ($shouldDetermineMimetype && $mimeType = $this->mimeTypeDetector->detectMimeType($key, $body)) {
             $options['ContentType'] = $mimeType;
         }
 
         if ($this->client instanceof SimpleS3Client) {
-            // Support upload of large files
+            // Support upload of files larger than 5GB
             $this->client->upload($this->bucket, $key, $body, array_merge($options, ['ACL' => $acl]));
         } else {
             $this->client->putObject(array_merge($options, [
