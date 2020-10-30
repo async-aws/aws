@@ -91,16 +91,23 @@ foreach ($changes as $change) {
  * Generating ChangeLog
  */
 foreach ($services as $service) {
-    $sanitizedService = preg_replace('[^a-z0-9]', '', strtolower($service));
-    if (!isset($changesByService[$sanitizedService])) {
+    $awsServiceNames = array_merge([$service], $manifest['services'][$service]['alternative-names'] ?? []);
+    $newLines = [];
+    foreach ($awsServiceNames as $awsServiceName) {
+        $sanitizedService = preg_replace('[^a-z0-9]', '', strtolower($awsServiceName));
+        if (!isset($changesByService[$sanitizedService])) {
+            continue;
+        }
+        foreach ($changesByService[$sanitizedService] as $change) {
+            $newLines[] = sprintf('- AWS %s: %s', $change['type'], $change['description']);
+        }
+    }
+    if (empty($newLines)) {
         console_log('/!\ No entry in changelog for service '.$service);
         continue;
     }
+
     console_log('Generating CHANGELOG for '. $service);
-    $newLines = [];
-    foreach ($changesByService[$sanitizedService] as $change) {
-        $newLines[] = sprintf('- AWS %s: %s', $change['type'], $change['description']);
-    }
     $changeLog = explode("\n", file_get_contents($rootDir.'/src/Service/'.$service.'/CHANGELOG.md'));
     $nrSection = false;
     $fixSection = false;

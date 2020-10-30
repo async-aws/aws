@@ -225,6 +225,9 @@
             "api-reference": "https://docs.aws.amazon.com/ses/latest/APIReference",
             "methods": [
                 "SendEmail"
+            ],
+            "alternative-names": [
+                "SesV2"
             ]
         },
         "Sns": {
