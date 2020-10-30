@@ -2,9 +2,9 @@
 
 ## NOT RELEASED
 
-### Fixed
+### Added
 
-- AWS api-change: This release enables customers to manage their own contact lists and end-user subscription preferences.
+- Enables customers to manage their own contact lists and end-user subscription preferences
 
 ## 1.2.0
 
