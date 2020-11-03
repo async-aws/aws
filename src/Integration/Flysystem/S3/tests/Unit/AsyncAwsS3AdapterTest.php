@@ -7,7 +7,7 @@ namespace AsyncAws\Flysystem\S3\Tests\Unit;
 use AsyncAws\Core\Test\ResultMockFactory;
 use AsyncAws\Core\Test\SimpleResultStream;
 use AsyncAws\Core\Waiter;
-use AsyncAws\Flysystem\S3\S3FilesystemV1;
+use AsyncAws\Flysystem\S3\AsyncAwsS3Adapter;
 use AsyncAws\S3\Enum\StorageClass;
 use AsyncAws\S3\Result\CopyObjectOutput;
 use AsyncAws\S3\Result\DeleteObjectOutput;
@@ -25,7 +25,7 @@ use League\Flysystem\AdapterInterface;
 use League\Flysystem\Config;
 use PHPUnit\Framework\TestCase;
 
-class S3FilesystemV1Test extends TestCase
+class AsyncAwsS3AdapterTest extends TestCase
 {
     private const BUCKCET = 'my_bucket';
     private const PREFIX = 'all-files';
@@ -62,7 +62,7 @@ class S3FilesystemV1Test extends TestCase
                 return true;
             }))->willReturn(ResultMockFactory::create(PutObjectOutput::class));
 
-        $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
+        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKCET, self::PREFIX);
         $filesystem->write($file, 'contents', new Config());
     }
 
@@ -73,7 +73,7 @@ class S3FilesystemV1Test extends TestCase
         $config = new Config();
         $return = ['foobar'];
 
-        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+        $filesystem = $this->getMockBuilder(AsyncAwsS3Adapter::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['upload'])
             ->getMock();
@@ -92,7 +92,7 @@ class S3FilesystemV1Test extends TestCase
         $path = 'foo/bar.txt';
         $newPath = 'foo/new.txt';
 
-        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+        $filesystem = $this->getMockBuilder(AsyncAwsS3Adapter::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['copy', 'delete'])
             ->getMock();
@@ -115,7 +115,7 @@ class S3FilesystemV1Test extends TestCase
         $path = 'foo/bar.txt';
         $newPath = 'foo/new.txt';
 
-        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+        $filesystem = $this->getMockBuilder(AsyncAwsS3Adapter::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['copy', 'delete'])
             ->getMock();
@@ -159,7 +159,7 @@ class S3FilesystemV1Test extends TestCase
                 return true;
             }))->willReturn(ResultMockFactory::create(DeleteObjectOutput::class));
 
-        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+        $filesystem = $this->getMockBuilder(AsyncAwsS3Adapter::class)
             ->setConstructorArgs([$s3Client,  self::BUCKCET, self::PREFIX])
             ->onlyMethods(['has'])
             ->getMock();
@@ -223,7 +223,7 @@ class S3FilesystemV1Test extends TestCase
                 return true;
             }))->willReturn(ResultMockFactory::create(DeleteObjectsOutput::class));
 
-        $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
+        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKCET, self::PREFIX);
 
         $output = $filesystem->deleteDir($path);
         self::assertTrue($output);
@@ -235,7 +235,7 @@ class S3FilesystemV1Test extends TestCase
         $config = new Config();
         $return = ['foobar'];
 
-        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+        $filesystem = $this->getMockBuilder(AsyncAwsS3Adapter::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['upload'])
             ->getMock();
@@ -271,7 +271,7 @@ class S3FilesystemV1Test extends TestCase
                 return true;
             }))->willReturn(ResultMockFactory::waiter(ObjectExistsWaiter::class, Waiter::STATE_SUCCESS));
 
-        $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
+        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKCET, self::PREFIX);
 
         $output = $filesystem->has($path);
         self::assertTrue($output);
@@ -281,7 +281,7 @@ class S3FilesystemV1Test extends TestCase
     {
         $path = 'foo/bar.txt';
 
-        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+        $filesystem = $this->getMockBuilder(AsyncAwsS3Adapter::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['readObject'])
             ->getMock();
@@ -324,7 +324,7 @@ class S3FilesystemV1Test extends TestCase
                 return true;
             }))->willReturn($result);
 
-        $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
+        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKCET, self::PREFIX);
 
         $output = $filesystem->read($path);
         self::assertArrayHasKey('type', $output);
@@ -412,7 +412,7 @@ class S3FilesystemV1Test extends TestCase
                 return true;
             }))->willReturn($result);
 
-        $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
+        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKCET, self::PREFIX);
 
         $outputs = $filesystem->listContents($path);
         $output = $outputs[0];
@@ -451,7 +451,7 @@ class S3FilesystemV1Test extends TestCase
                 return true;
             }))->willReturn($result);
 
-        $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
+        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKCET, self::PREFIX);
 
         $output = $filesystem->getMetadata($path);
         self::assertArrayHasKey('type', $output);
@@ -473,7 +473,7 @@ class S3FilesystemV1Test extends TestCase
             'size' => '123',
         ];
 
-        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+        $filesystem = $this->getMockBuilder(AsyncAwsS3Adapter::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['getMetadata'])
             ->getMock();
@@ -493,7 +493,7 @@ class S3FilesystemV1Test extends TestCase
             'mimetype' => 'text/plain',
         ];
 
-        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+        $filesystem = $this->getMockBuilder(AsyncAwsS3Adapter::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['getMetadata'])
             ->getMock();
@@ -513,7 +513,7 @@ class S3FilesystemV1Test extends TestCase
             'timestamp' => 1584187200,
         ];
 
-        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+        $filesystem = $this->getMockBuilder(AsyncAwsS3Adapter::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['getMetadata'])
             ->getMock();
@@ -533,7 +533,7 @@ class S3FilesystemV1Test extends TestCase
         $config = new Config();
         $return = ['foobar'];
 
-        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+        $filesystem = $this->getMockBuilder(AsyncAwsS3Adapter::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['upload'])
             ->getMock();
@@ -554,7 +554,7 @@ class S3FilesystemV1Test extends TestCase
         $config = new Config();
         $return = ['foobar'];
 
-        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+        $filesystem = $this->getMockBuilder(AsyncAwsS3Adapter::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['upload'])
             ->getMock();
@@ -600,7 +600,7 @@ class S3FilesystemV1Test extends TestCase
                 return true;
             }))->willReturn($result);
 
-        $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
+        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKCET, self::PREFIX);
 
         $output = $filesystem->readStream($path);
         self::assertArrayHasKey('type', $output);
@@ -642,7 +642,7 @@ class S3FilesystemV1Test extends TestCase
                 return isset($input['ACL']);
             }))->willReturn(ResultMockFactory::create(CopyObjectOutput::class));
 
-        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+        $filesystem = $this->getMockBuilder(AsyncAwsS3Adapter::class)
             ->setConstructorArgs([$s3Client,  self::BUCKCET, self::PREFIX])
             ->onlyMethods(['getRawVisibility'])
             ->getMock();
@@ -686,7 +686,7 @@ class S3FilesystemV1Test extends TestCase
                 return true;
             }))->willReturn($result);
 
-        $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
+        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKCET, self::PREFIX);
 
         $output = $filesystem->setVisibility($path, $acl);
         self::assertArrayHasKey('path', $output);
@@ -697,7 +697,7 @@ class S3FilesystemV1Test extends TestCase
     {
         $path = 'foo/bar.txt';
 
-        $filesystem = $this->getMockBuilder(S3FilesystemV1::class)
+        $filesystem = $this->getMockBuilder(AsyncAwsS3Adapter::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['getRawVisibility'])
             ->getMock();
@@ -719,7 +719,7 @@ class S3FilesystemV1Test extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $filesystem = new S3FilesystemV1($s3Client, self::BUCKCET, self::PREFIX);
+        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKCET, self::PREFIX);
 
         $filesystem->setPathPrefix('prefix');
         self::assertEquals('prefix/', $filesystem->getPathPrefix());

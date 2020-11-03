@@ -2,6 +2,16 @@
 
 ## NOT RELEASED
 
+## 1.0.0
+
+### Removed
+
+- Support for Flysystem 2 as it is released under the Flysystem namespace.
+
+### Changed
+
+- Renamed `S3Flysystem` to `AsyncAwsS3Adapter`
+
 ## 0.4.2
 
 ### Added
