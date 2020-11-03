@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace AsyncAws\Flysystem\S3;
 
 use AsyncAws\Core\Exception\Http\ClientException;
+use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
@@ -19,7 +21,7 @@ use League\Flysystem\Config;
 use League\Flysystem\Util;
 
 if (!class_exists(AbstractAdapter::class)) {
-    throw new \LogicException('You cannot use "AsyncAws\Flysystem\S3\S3FilesystemV1" as the "league/flysystem:1.x" package is not installed. Try running "composer require league/flysystem:^1.0".');
+    throw new LogicException('You cannot use "AsyncAws\Flysystem\S3\S3FilesystemV1" as the "league/flysystem:1.x" package is not installed. Try running "composer require league/flysystem:^1.0".');
 }
 
 class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
@@ -523,7 +525,7 @@ class S3FilesystemV1 extends AbstractAdapter implements CanOverwriteFiles
                 $path = $output->getPrefix();
             }
             if (empty($path)) {
-                throw new \InvalidArgumentException('The provided path should not be null');
+                throw new InvalidArgument('The provided path should not be null');
             }
 
             $path = $this->removePathPrefix($path);

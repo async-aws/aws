@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace AsyncAws\Flysystem\S3;
 
 use AsyncAws\Core\Exception\Http\ClientException;
+use AsyncAws\Core\Exception\LogicException;
+use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Stream\ResultStream;
 use AsyncAws\Flysystem\S3\Visibility\PortableVisibilityConverter;
 use AsyncAws\Flysystem\S3\Visibility\VisibilityConverter;
@@ -35,7 +37,7 @@ use League\MimeTypeDetection\MimeTypeDetector;
 use Throwable;
 
 if (!interface_exists(FilesystemAdapter::class)) {
-    throw new \LogicException('You cannot use "AsyncAws\Flysystem\S3\S3FilesystemV2" as the "league/flysystem:2.x" package is not installed. Try running "composer require league/flysystem:^2.0".');
+    throw new LogicException('You cannot use "AsyncAws\Flysystem\S3\S3FilesystemV2" as the "league/flysystem:2.x" package is not installed. Try running "composer require league/flysystem:^2.0".');
 }
 
 class S3FilesystemV2 implements FilesystemAdapter
@@ -390,7 +392,7 @@ class S3FilesystemV2 implements FilesystemAdapter
             } elseif ($item instanceof CommonPrefix) {
                 $path = $this->prefixer->stripPrefix($item->getPrefix() ?? '');
             } else {
-                throw new \RuntimeException(sprintf('Argument 2 of "%s" cannot be null when $item is not instance of "%s" or %s', __METHOD__, AwsObject::class, CommonPrefix::class));
+                throw new RuntimeException(sprintf('Argument 2 of "%s" cannot be null when $item is not instance of "%s" or %s', __METHOD__, AwsObject::class, CommonPrefix::class));
             }
         }
 
@@ -415,7 +417,7 @@ class S3FilesystemV2 implements FilesystemAdapter
             $dateTime = $item->getLastModified();
             $metadata = $this->extractExtraMetadata($item);
         } else {
-            throw new \RuntimeException(sprintf('Object of class "%s" is not supported in %s()', \get_class($item), __METHOD__));
+            throw new RuntimeException(sprintf('Object of class "%s" is not supported in %s()', \get_class($item), __METHOD__));
         }
 
         if ($dateTime instanceof \DateTimeInterface) {

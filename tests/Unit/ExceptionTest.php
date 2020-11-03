@@ -13,13 +13,14 @@ use Symfony\Component\Finder\Finder;
  */
 class ExceptionTest extends TestCase
 {
-    public function testBranchAlias()
+    public function testNamespacedExceptions()
     {
         $finder = new Finder();
         $root = \dirname(__DIR__, 2);
         $finder
             ->files()
             ->in($root . '/src/Core/src')
+            ->in($root . '/src/Integration/*/*/src')
             ->in($root . '/src/Service/*/src')
             ->name('*.php');
 
