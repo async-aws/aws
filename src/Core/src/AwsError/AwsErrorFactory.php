@@ -4,7 +4,7 @@ namespace AsyncAws\Core\AwsError;
 
 use AsyncAws\Core\Exception\ParseResponse;
 use AsyncAws\Core\Exception\RuntimeException;
-use AsyncAws\Core\Exception\UnexpectedValueException;
+use AsyncAws\Core\Exception\UnexpectedValue;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
@@ -66,7 +66,7 @@ class AwsErrorFactory
             );
         }
 
-        throw new UnexpectedValueException('XML does not contains AWS Error');
+        throw new UnexpectedValue('XML does not contains AWS Error');
     }
 
     private static function parseJson(array $body, array $headers): AwsError
@@ -89,6 +89,6 @@ class AwsErrorFactory
             return new AwsError($code, $message, $type, null);
         }
 
-        throw new UnexpectedValueException('JSON does not contains AWS Error');
+        throw new UnexpectedValue('JSON does not contains AWS Error');
     }
 }
