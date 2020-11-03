@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Ssm\Result;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Ssm\Input\GetParametersByPathRequest;
@@ -32,10 +33,10 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
     {
         $client = $this->awsClient;
         if (!$client instanceof SsmClient) {
-            throw new \InvalidArgumentException('missing client injected in paginated result');
+            throw new InvalidArgument('missing client injected in paginated result');
         }
         if (!$this->input instanceof GetParametersByPathRequest) {
-            throw new \InvalidArgumentException('missing last request injected in paginated result');
+            throw new InvalidArgument('missing last request injected in paginated result');
         }
         $input = clone $this->input;
         $page = $this;
@@ -82,10 +83,10 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
 
         $client = $this->awsClient;
         if (!$client instanceof SsmClient) {
-            throw new \InvalidArgumentException('missing client injected in paginated result');
+            throw new InvalidArgument('missing client injected in paginated result');
         }
         if (!$this->input instanceof GetParametersByPathRequest) {
-            throw new \InvalidArgumentException('missing last request injected in paginated result');
+            throw new InvalidArgument('missing last request injected in paginated result');
         }
         $input = clone $this->input;
         $page = $this;

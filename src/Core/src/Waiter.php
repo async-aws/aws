@@ -6,6 +6,7 @@ namespace AsyncAws\Core;
 
 use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Exception\Http\NetworkException;
+use AsyncAws\Core\Exception\LogicException;
 
 /**
  * The waiter promise is always returned from every API call to a waiter.
@@ -104,7 +105,7 @@ class Waiter
             case self::STATE_PENDING:
                 break;
             default:
-                throw new \LogicException(sprintf('Unexpected state "%s" from Waiter "%s".', $state, __CLASS__));
+                throw new LogicException(sprintf('Unexpected state "%s" from Waiter "%s".', $state, __CLASS__));
         }
 
         return $state;

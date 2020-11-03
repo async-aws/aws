@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\Core\Credentials;
 
 use AsyncAws\Core\Configuration;
+use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Sts\StsClient;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -113,7 +114,7 @@ final class IniFileProvider implements CredentialProvider
 
         try {
             if (null === $credentials = $result->getCredentials()) {
-                throw new \RuntimeException('The AsumeRole response does not contains credentials');
+                throw new RuntimeException('The AsumeRole response does not contains credentials');
             }
         } catch (\Exception $e) {
             $this->logger->warning('Failed to get credentials from assumed role in profile "{profile}: {exception}".', ['profile' => $profile, 'exception' => $e]);

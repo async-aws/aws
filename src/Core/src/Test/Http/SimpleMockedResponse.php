@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core\Test\Http;
 
+use AsyncAws\Core\Exception\LogicException;
 use Symfony\Component\HttpClient\Response\MockResponse;
 
 class SimpleMockedResponse extends MockResponse
@@ -54,7 +55,7 @@ class SimpleMockedResponse extends MockResponse
 
     public function cancel(): void
     {
-        throw new \LogicException('Not implemented');
+        throw new LogicException('Not implemented');
     }
 
     public function getInfo(string $type = null)

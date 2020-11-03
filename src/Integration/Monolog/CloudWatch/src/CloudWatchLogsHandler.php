@@ -7,6 +7,7 @@ namespace AsyncAws\Monolog\CloudWatch;
 use AsyncAws\CloudWatchLogs\CloudWatchLogsClient;
 use AsyncAws\CloudWatchLogs\ValueObject\LogStream;
 use AsyncAws\Core\Exception\Http\ClientException;
+use AsyncAws\Core\Exception\InvalidArgument;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
@@ -102,7 +103,7 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
         $options['batchSize'] = $options['batchSize'] ?? 10000;
 
         if ($options['batchSize'] > 10000) {
-            throw new \InvalidArgumentException('Batch size can not be greater than 10000');
+            throw new InvalidArgument('Batch size can not be greater than 10000');
         }
 
         $this->client = $client;

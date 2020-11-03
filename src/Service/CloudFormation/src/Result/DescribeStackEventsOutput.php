@@ -5,6 +5,7 @@ namespace AsyncAws\CloudFormation\Result;
 use AsyncAws\CloudFormation\CloudFormationClient;
 use AsyncAws\CloudFormation\Input\DescribeStackEventsInput;
 use AsyncAws\CloudFormation\ValueObject\StackEvent;
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
@@ -33,10 +34,10 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
     {
         $client = $this->awsClient;
         if (!$client instanceof CloudFormationClient) {
-            throw new \InvalidArgumentException('missing client injected in paginated result');
+            throw new InvalidArgument('missing client injected in paginated result');
         }
         if (!$this->input instanceof DescribeStackEventsInput) {
-            throw new \InvalidArgumentException('missing last request injected in paginated result');
+            throw new InvalidArgument('missing last request injected in paginated result');
         }
         $input = clone $this->input;
         $page = $this;
@@ -83,10 +84,10 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
 
         $client = $this->awsClient;
         if (!$client instanceof CloudFormationClient) {
-            throw new \InvalidArgumentException('missing client injected in paginated result');
+            throw new InvalidArgument('missing client injected in paginated result');
         }
         if (!$this->input instanceof DescribeStackEventsInput) {
-            throw new \InvalidArgumentException('missing last request injected in paginated result');
+            throw new InvalidArgument('missing last request injected in paginated result');
         }
         $input = clone $this->input;
         $page = $this;

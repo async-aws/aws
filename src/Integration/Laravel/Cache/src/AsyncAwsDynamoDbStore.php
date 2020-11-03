@@ -3,6 +3,7 @@
 namespace AsyncAws\Illuminate\Cache;
 
 use AsyncAws\Core\Exception\Http\HttpException;
+use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Enum\KeyType;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
@@ -413,7 +414,7 @@ class AsyncAwsDynamoDbStore implements LockProvider, Store
             $code = (int) $e->getCode();
             if (404 !== $code) {
                 // Any error but "table not found"
-                throw new \RuntimeException('Could not flush DynamoDb cache. Table could not be deleted.', $code, $e);
+                throw new RuntimeException('Could not flush DynamoDb cache. Table could not be deleted.', $code, $e);
             }
         }
 
@@ -421,7 +422,7 @@ class AsyncAwsDynamoDbStore implements LockProvider, Store
         $response = $this->dynamoDb->tableNotExists(['TableName' => $this->table]);
         $response->wait(100, 3);
         if (!$response->isSuccess()) {
-            throw new \RuntimeException('Could not flush DynamoDb cache. Table could not be deleted.');
+            throw new RuntimeException('Could not flush DynamoDb cache. Table could not be deleted.');
         }
 
         // Create a new table
@@ -436,7 +437,7 @@ class AsyncAwsDynamoDbStore implements LockProvider, Store
         $response = $this->dynamoDb->tableExists(['TableName' => $this->table]);
         $response->wait(100, 3);
         if (!$response->isSuccess()) {
-            throw new \RuntimeException('Could not flush DynamoDb cache. Table could not be created.');
+            throw new RuntimeException('Could not flush DynamoDb cache. Table could not be created.');
         }
 
         return true;

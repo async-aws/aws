@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AsyncAws\Core\Credentials;
 
 use AsyncAws\Core\Configuration;
+use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Sts\StsClient;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -89,7 +90,7 @@ final class WebIdentityProvider implements CredentialProvider
 
         try {
             if (false === $token = file_get_contents($tokenFile)) {
-                throw new \RuntimeException('failed to read data');
+                throw new RuntimeException('failed to read data');
             }
         } catch (\Exception $e) {
             $this->logger->warning('"Error reading WebIdentityTokenFile "{tokenFile}.', ['tokenFile' => $tokenFile, 'exception' => $e]);
@@ -106,7 +107,7 @@ final class WebIdentityProvider implements CredentialProvider
 
         try {
             if (null === $credentials = $result->getCredentials()) {
-                throw new \RuntimeException('The AssumeRoleWithWebIdentity response does not contains credentials');
+                throw new RuntimeException('The AssumeRoleWithWebIdentity response does not contains credentials');
             }
         } catch (\Exception $e) {
             $this->logger->warning('Failed to get credentials from assumed role: {exception}".', ['exception' => $e]);

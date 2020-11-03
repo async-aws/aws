@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Illuminate\Filesystem;
 
+use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Flysystem\S3\S3FilesystemV1;
 use AsyncAws\SimpleS3\SimpleS3Client;
 use Illuminate\Filesystem\FilesystemAdapter;
@@ -39,7 +40,7 @@ class AsyncAwsFilesystemManager extends FilesystemManager
         if (class_exists(AbstractAdapter::class)) {
             $flysystemAdapter = new S3FilesystemV1($s3Client, $config['bucket'], $root, $options);
         } else {
-            throw new \RuntimeException('Could not use AsyncAwsS3 since Flysystem v1 is not installed. Run "composer require league/flysystem:^1.0"');
+            throw new RuntimeException('Could not use AsyncAwsS3 since Flysystem v1 is not installed. Run "composer require league/flysystem:^1.0"');
         }
 
         return new AsyncAwsFilesystemAdapter($this->createFlysystem($flysystemAdapter, $config));
