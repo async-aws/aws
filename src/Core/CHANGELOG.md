@@ -7,6 +7,7 @@
 ### Added
 
 - Support for Rekognition in `AwsClientFactory`
+- Added exception `AsyncAws\Core\Exception\UnexpectedValue`
 
 ## 1.5.0
 
