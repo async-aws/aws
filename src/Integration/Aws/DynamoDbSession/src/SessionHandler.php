@@ -2,6 +2,7 @@
 
 namespace AsyncAws\DynamoDbSession;
 
+use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Enum\BillingMode;
 use AsyncAws\DynamoDb\Enum\KeyType;
@@ -82,7 +83,7 @@ class SessionHandler implements \SessionHandlerInterface
         $response = $this->client->tableExists(['TableName' => $this->options['table_name']]);
         $response->wait(100, 3);
         if (!$response->isSuccess()) {
-            throw new \RuntimeException(sprintf('Could not create table %s', $this->options['table_name']));
+            throw new RuntimeException(sprintf('Could not create table %s', $this->options['table_name']));
         }
 
         $this->client->updateTimeToLive([

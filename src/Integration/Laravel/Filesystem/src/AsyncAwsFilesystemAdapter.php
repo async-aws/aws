@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AsyncAws\Illuminate\Filesystem;
 
+use AsyncAws\Core\Exception\LogicException;
+use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Flysystem\S3\S3FilesystemV1;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\SimpleS3\SimpleS3Client;
@@ -33,7 +35,7 @@ class AsyncAwsFilesystemAdapter extends FilesystemAdapter
         }
 
         if (!$expiration instanceof \DateTimeImmutable) {
-            throw new \LogicException('Second argument to AsyncAwsFilesystemAdapter::temporaryUrl() must be a \DateTimeInterface');
+            throw new LogicException('Second argument to AsyncAwsFilesystemAdapter::temporaryUrl() must be a \DateTimeInterface');
         }
 
         $adapter = $this->getFlysystemAdapter();
@@ -66,7 +68,7 @@ class AsyncAwsFilesystemAdapter extends FilesystemAdapter
         // Fallback to get a presigned URL and remove query parameters.
         $url = $this->temporaryUrl($path, new \DateTimeImmutable('+10minutes'));
         if (false === $pos = strpos($url, '?')) {
-            throw new \RuntimeException('Expected presigned URL to include a query string');
+            throw new RuntimeException('Expected presigned URL to include a query string');
         }
 
         return substr($url, 0, $pos);
@@ -75,7 +77,7 @@ class AsyncAwsFilesystemAdapter extends FilesystemAdapter
     private function getFlysystemAdapter(): S3FilesystemV1
     {
         if (!method_exists($this->driver, 'getAdapter')) {
-            throw new \RuntimeException(sprintf('Could not call "getAdapter" of class "%s"', \get_class($this->driver)));
+            throw new RuntimeException(sprintf('Could not call "getAdapter" of class "%s"', \get_class($this->driver)));
         }
 
         $adapter = $this->driver->getAdapter();
@@ -86,7 +88,7 @@ class AsyncAwsFilesystemAdapter extends FilesystemAdapter
         }
 
         if (!$adapter instanceof S3FilesystemV1) {
-            throw new \LogicException('Expected $adapter to be a S3FilesystemV1');
+            throw new LogicException('Expected $adapter to be a S3FilesystemV1');
         }
 
         return $adapter;
