@@ -2,6 +2,7 @@
 
 namespace AsyncAws\S3\Result;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\S3\Enum\EncodingType;
@@ -99,10 +100,10 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
 
         $client = $this->awsClient;
         if (!$client instanceof S3Client) {
-            throw new \InvalidArgumentException('missing client injected in paginated result');
+            throw new InvalidArgument('missing client injected in paginated result');
         }
         if (!$this->input instanceof ListObjectsV2Request) {
-            throw new \InvalidArgumentException('missing last request injected in paginated result');
+            throw new InvalidArgument('missing last request injected in paginated result');
         }
         $input = clone $this->input;
         $page = $this;
@@ -142,10 +143,10 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
 
         $client = $this->awsClient;
         if (!$client instanceof S3Client) {
-            throw new \InvalidArgumentException('missing client injected in paginated result');
+            throw new InvalidArgument('missing client injected in paginated result');
         }
         if (!$this->input instanceof ListObjectsV2Request) {
-            throw new \InvalidArgumentException('missing last request injected in paginated result');
+            throw new InvalidArgument('missing last request injected in paginated result');
         }
         $input = clone $this->input;
         $page = $this;
@@ -209,10 +210,10 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     {
         $client = $this->awsClient;
         if (!$client instanceof S3Client) {
-            throw new \InvalidArgumentException('missing client injected in paginated result');
+            throw new InvalidArgument('missing client injected in paginated result');
         }
         if (!$this->input instanceof ListObjectsV2Request) {
-            throw new \InvalidArgumentException('missing last request injected in paginated result');
+            throw new InvalidArgument('missing last request injected in paginated result');
         }
         $input = clone $this->input;
         $page = $this;

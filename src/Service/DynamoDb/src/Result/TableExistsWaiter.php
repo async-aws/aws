@@ -3,6 +3,7 @@
 namespace AsyncAws\DynamoDb\Result;
 
 use AsyncAws\Core\Exception\Http\HttpException;
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Waiter;
 use AsyncAws\DynamoDb\DynamoDbClient;
@@ -30,10 +31,10 @@ class TableExistsWaiter extends Waiter
     protected function refreshState(): Waiter
     {
         if (!$this->awsClient instanceof DynamoDbClient) {
-            throw new \InvalidArgumentException('missing client injected in waiter result');
+            throw new InvalidArgument('missing client injected in waiter result');
         }
         if (!$this->input instanceof DescribeTableInput) {
-            throw new \InvalidArgumentException('missing last request injected in waiter result');
+            throw new InvalidArgument('missing last request injected in waiter result');
         }
 
         return $this->awsClient->TableExists($this->input);

@@ -3,6 +3,7 @@
 namespace AsyncAws\Sqs\Result;
 
 use AsyncAws\Core\Exception\Http\HttpException;
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Waiter;
 use AsyncAws\Sqs\Input\GetQueueUrlRequest;
@@ -30,10 +31,10 @@ class QueueExistsWaiter extends Waiter
     protected function refreshState(): Waiter
     {
         if (!$this->awsClient instanceof SqsClient) {
-            throw new \InvalidArgumentException('missing client injected in waiter result');
+            throw new InvalidArgument('missing client injected in waiter result');
         }
         if (!$this->input instanceof GetQueueUrlRequest) {
-            throw new \InvalidArgumentException('missing last request injected in waiter result');
+            throw new InvalidArgument('missing last request injected in waiter result');
         }
 
         return $this->awsClient->QueueExists($this->input);

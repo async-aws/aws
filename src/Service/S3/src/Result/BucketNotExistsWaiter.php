@@ -3,6 +3,7 @@
 namespace AsyncAws\S3\Result;
 
 use AsyncAws\Core\Exception\Http\HttpException;
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Waiter;
 use AsyncAws\S3\Input\HeadBucketRequest;
@@ -26,10 +27,10 @@ class BucketNotExistsWaiter extends Waiter
     protected function refreshState(): Waiter
     {
         if (!$this->awsClient instanceof S3Client) {
-            throw new \InvalidArgumentException('missing client injected in waiter result');
+            throw new InvalidArgument('missing client injected in waiter result');
         }
         if (!$this->input instanceof HeadBucketRequest) {
-            throw new \InvalidArgumentException('missing last request injected in waiter result');
+            throw new InvalidArgument('missing last request injected in waiter result');
         }
 
         return $this->awsClient->BucketNotExists($this->input);

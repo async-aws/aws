@@ -5,6 +5,7 @@ namespace AsyncAws\CloudWatchLogs\Result;
 use AsyncAws\CloudWatchLogs\CloudWatchLogsClient;
 use AsyncAws\CloudWatchLogs\Input\DescribeLogStreamsRequest;
 use AsyncAws\CloudWatchLogs\ValueObject\LogStream;
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
@@ -29,10 +30,10 @@ class DescribeLogStreamsResponse extends Result implements \IteratorAggregate
     {
         $client = $this->awsClient;
         if (!$client instanceof CloudWatchLogsClient) {
-            throw new \InvalidArgumentException('missing client injected in paginated result');
+            throw new InvalidArgument('missing client injected in paginated result');
         }
         if (!$this->input instanceof DescribeLogStreamsRequest) {
-            throw new \InvalidArgumentException('missing last request injected in paginated result');
+            throw new InvalidArgument('missing last request injected in paginated result');
         }
         $input = clone $this->input;
         $page = $this;
@@ -72,10 +73,10 @@ class DescribeLogStreamsResponse extends Result implements \IteratorAggregate
 
         $client = $this->awsClient;
         if (!$client instanceof CloudWatchLogsClient) {
-            throw new \InvalidArgumentException('missing client injected in paginated result');
+            throw new InvalidArgument('missing client injected in paginated result');
         }
         if (!$this->input instanceof DescribeLogStreamsRequest) {
-            throw new \InvalidArgumentException('missing last request injected in paginated result');
+            throw new InvalidArgument('missing last request injected in paginated result');
         }
         $input = clone $this->input;
         $page = $this;

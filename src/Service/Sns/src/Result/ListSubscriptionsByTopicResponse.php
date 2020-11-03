@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Sns\Result;
 
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Sns\Input\ListSubscriptionsByTopicInput;
@@ -33,10 +34,10 @@ class ListSubscriptionsByTopicResponse extends Result implements \IteratorAggreg
     {
         $client = $this->awsClient;
         if (!$client instanceof SnsClient) {
-            throw new \InvalidArgumentException('missing client injected in paginated result');
+            throw new InvalidArgument('missing client injected in paginated result');
         }
         if (!$this->input instanceof ListSubscriptionsByTopicInput) {
-            throw new \InvalidArgumentException('missing last request injected in paginated result');
+            throw new InvalidArgument('missing last request injected in paginated result');
         }
         $input = clone $this->input;
         $page = $this;
@@ -83,10 +84,10 @@ class ListSubscriptionsByTopicResponse extends Result implements \IteratorAggreg
 
         $client = $this->awsClient;
         if (!$client instanceof SnsClient) {
-            throw new \InvalidArgumentException('missing client injected in paginated result');
+            throw new InvalidArgument('missing client injected in paginated result');
         }
         if (!$this->input instanceof ListSubscriptionsByTopicInput) {
-            throw new \InvalidArgumentException('missing last request injected in paginated result');
+            throw new InvalidArgument('missing last request injected in paginated result');
         }
         $input = clone $this->input;
         $page = $this;
