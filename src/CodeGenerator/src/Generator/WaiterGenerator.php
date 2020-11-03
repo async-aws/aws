@@ -15,6 +15,7 @@ use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
 use AsyncAws\Core\Exception\Http\HttpException;
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Response;
@@ -137,6 +138,7 @@ class WaiterGenerator
         $namespace->addUse($inputClass->getFqdn());
         $clientClass = $this->namespaceRegistry->getClient($waiter->getOperation()->getService());
         $namespace->addUse($clientClass->getFqdn());
+        $namespace->addUse(InvalidArgument::class);
 
         $class->addExtend(WaiterResult::class);
 
@@ -145,10 +147,10 @@ class WaiterGenerator
             ->setVisibility(ClassType::VISIBILITY_PROTECTED)
             ->setBody(strtr('
                 if (!$this->awsClient instanceOf CLIENT_CLASSNAME) {
-                    throw new \InvalidArgumentException(\'missing client injected in waiter result\');
+                    throw new InvalidArgument(\'missing client injected in waiter result\');
                 }
                 if (!$this->input instanceOf INPUT_CLASSNAME) {
-                    throw new \InvalidArgumentException(\'missing last request injected in waiter result\');
+                    throw new InvalidArgument(\'missing last request injected in waiter result\');
                 }
 
                 return $this->awsClient->WAITER_NAME($this->input);

@@ -12,6 +12,7 @@ use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\LogicException;
 use Nette\PhpGenerator\Parameter;
 use Nette\PhpGenerator\PhpNamespace;
@@ -208,14 +209,15 @@ class PaginationGenerator
         $namespace->addUse($inputClass->getFqdn());
         $clientClass = $this->namespaceRegistry->getClient($operation->getService());
         $namespace->addUse($clientClass->getFqdn());
+        $namespace->addUse(InvalidArgument::class);
 
         return strtr('
             $client = $this->awsClient;
             if (!$client instanceOf CLIENT_CLASSNAME) {
-                throw new \InvalidArgumentException(\'missing client injected in paginated result\');
+                throw new InvalidArgument(\'missing client injected in paginated result\');
             }
             if (!$this->input instanceOf INPUT_CLASSNAME) {
-                throw new \InvalidArgumentException(\'missing last request injected in paginated result\');
+                throw new InvalidArgument(\'missing last request injected in paginated result\');
             }
             $input = clone $this->input;
             $page = $this;
