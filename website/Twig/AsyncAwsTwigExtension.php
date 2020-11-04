@@ -37,6 +37,7 @@ class AsyncAwsTwigExtension extends AbstractExtension
     {
         return [
             new TwigFilter('asset', [$this, 'parseAssetUrls']),
+            new TwigFilter('lcfirst', function($str) { return lcfirst($str);}),
         ];
     }
 

@@ -4,14 +4,48 @@
 
     <h1>{{ name }} client</h1>
 
-    <p>This page contains some example usage for {{ name }}. There are other
-        resources that explain <a href="/authentication/">authentication</a> and
-        <a href="/clients/">configuration</a>.</p>
-
-    <p>The {{ name }} package could be installed with Composer.</p>
+    <p>
+        This page contains examples with the {{ name }} client. See the
+        <a href="/clients/">client introduction</a> for a more detailed description
+        how to use a client. You may also want to consider the
+        <a href="/authentication/">authentication</a> documentation to understand
+        the many ways you can authenticate with AWS.
+    </p>
+    <p>
+        The {{ name }} package could be installed with Composer.
+    </p>
 
     <pre><code class="language-shell hljs">composer require {{ package }}</code></pre>
 
+    {% set clientFqcn = fqcn|default('AsyncAws\\'~name~'\\'~name~'Client') %}
+
+    <p>
+        A new client object may be instantiated by:
+    </p>
+
+    <pre><code class="language-shell php">${{ name|lcfirst }} = new \{{ clientFqcn }}();</code></pre>
+
+    <p>
+        The authentication parameters is read from the environment by default.
+        You can also specify a AWS access id and secret:
+    </p>
+
+    <pre><code class="language-shell php">${{ name|lcfirst }} = new \{{ clientFqcn }}([
+    'accessKeyId'=>'my_access_key',
+    'accessKeySecret'=>'my_access_secret',
+    'region'=>'eu-central-1',
+]);</code></pre>
+
+    <p>
+        For all available options, see the <a href="/configuration.html">configuration reference</a>.
+    </p>
+
     {{ content|asset|raw }}
 
+    <hr>
+
+    <p>
+        The source code to this page is found on
+        <a href="https://github.com/async-aws/aws/tree/master/docs/clients">GitHub</a>.
+    </p>
 {% endblock %}

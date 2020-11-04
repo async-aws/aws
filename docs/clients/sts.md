@@ -3,6 +3,7 @@ layout: client
 category: clients
 name: STS
 package: async-aws/core
+fqcn: AsyncAws\Core\Sts\StsClient
 ---
 
 ## Usage
