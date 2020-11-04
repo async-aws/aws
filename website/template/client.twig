@@ -23,17 +23,22 @@
         A new client object may be instantiated by:
     </p>
 
-    <pre><code class="language-shell php">${{ name|lcfirst }} = new \{{ clientFqcn }}();</code></pre>
+    <pre><code class="language-php hljs">{{ clientFqcn|printHLJSUseStatement }}
+
+${{ name|lcfirst }} = <span class="hljs-keyword">new</span> {{ name }}Client();
+</code></pre>
 
     <p>
         The authentication parameters is read from the environment by default.
         You can also specify a AWS access id and secret:
     </p>
 
-    <pre><code class="language-shell php">${{ name|lcfirst }} = new \{{ clientFqcn }}([
-    'accessKeyId'=>'my_access_key',
-    'accessKeySecret'=>'my_access_secret',
-    'region'=>'eu-central-1',
+    <pre><code class="language-php hljs">{{ clientFqcn|printHLJSUseStatement }}
+
+${{ name|lcfirst }} = <span class="hljs-keyword">new</span> {{ name }}Client([
+    <span class="hljs-string">'accessKeyId'</span> => <span class="hljs-string">'my_access_key'</span>,
+    <span class="hljs-string">'accessKeySecret'</span> => <span class="hljs-string">'my_access_secret'</span>,
+    <span class="hljs-string">'region'</span> => <span class="hljs-string">'central'</span>,
 ]);</code></pre>
 
     <p>
@@ -42,7 +47,7 @@
 
     {{ content|asset|raw }}
 
-    <hr>
+    <hr style="margin-top:6rem; margin-bottom:3rem;">
 
     <p>
         The source code to this page is found on
