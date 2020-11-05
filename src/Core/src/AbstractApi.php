@@ -60,7 +60,7 @@ abstract class AbstractApi
         if (\is_array($configuration)) {
             $configuration = Configuration::create($configuration);
         } elseif (!$configuration instanceof Configuration) {
-            throw new InvalidArgument(sprintf('Second argument to "%s::__construct()" must be an array or an instance of "%s"', __CLASS__, Configuration::class));
+            throw new InvalidArgument(sprintf('First argument to "%s::__construct()" must be an array or an instance of "%s"', static::class, Configuration::class));
         }
 
         $this->logger = $logger ?? new NullLogger();
