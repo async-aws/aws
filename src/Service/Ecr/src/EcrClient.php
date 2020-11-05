@@ -284,6 +284,13 @@ class EcrClient extends AbstractApi
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-isob-east-1':
+                return [
+                    'endpoint' => 'https://api.ecr.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
+                    'signService' => 'ecr',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-west-1':
                 return [
                     'endpoint' => 'https://api.ecr.us-west-1.amazonaws.com',
