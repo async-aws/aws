@@ -4,14 +4,53 @@
 
     <h1>{{ name }} client</h1>
 
-    <p>This page contains some example usage for {{ name }}. There are other
-        resources that explain <a href="/authentication/">authentication</a> and
-        <a href="/clients/">configuration</a>.</p>
-
-    <p>The {{ name }} package could be installed with Composer.</p>
+    <p>
+        This page contains examples with the {{ name }} client. See the
+        <a href="/clients/">client introduction</a> for a more detailed description
+        how to use a client. You may also want to consider the
+        <a href="/authentication/">authentication</a> documentation to understand
+        the many ways you can authenticate with AWS.
+    </p>
+    <p>
+        The {{ name }} package could be installed with Composer.
+    </p>
 
     <pre><code class="language-shell hljs">composer require {{ package }}</code></pre>
 
+    {% set clientFqcn = fqcn|default('AsyncAws\\'~name~'\\'~name~'Client') %}
+
+    <p>
+        A new client object may be instantiated by:
+    </p>
+
+    <pre><code class="language-php hljs">{{ clientFqcn|printHLJSUseStatement }}
+
+${{ name|lcfirst }} = <span class="hljs-keyword">new</span> {{ name }}Client();
+</code></pre>
+
+    <p>
+        The authentication parameters is read from the environment by default.
+        You can also specify a AWS access id and secret:
+    </p>
+
+    <pre><code class="language-php hljs">{{ clientFqcn|printHLJSUseStatement }}
+
+${{ name|lcfirst }} = <span class="hljs-keyword">new</span> {{ name }}Client([
+    <span class="hljs-string">'accessKeyId'</span> => <span class="hljs-string">'my_access_key'</span>,
+    <span class="hljs-string">'accessKeySecret'</span> => <span class="hljs-string">'my_access_secret'</span>,
+    <span class="hljs-string">'region'</span> => <span class="hljs-string">'eu-central-1'</span>,
+]);</code></pre>
+
+    <p>
+        For all available options, see the <a href="/configuration.html">configuration reference</a>.
+    </p>
+
     {{ content|asset|raw }}
 
+    <hr style="margin-top:6rem; margin-bottom:3rem;">
+
+    <p>
+        The source code to this page is found on
+        <a href="https://github.com/async-aws/aws/tree/master/docs/clients">GitHub</a>.
+    </p>
 {% endblock %}
