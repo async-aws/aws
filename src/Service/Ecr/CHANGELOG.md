@@ -4,7 +4,7 @@
 
 ### Fixed
 
-- AWS api-change: TODO
+- AWS api-change: Added us-isob-east-1 region
 
 ## 0.1.0
 
