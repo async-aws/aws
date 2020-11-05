@@ -104,7 +104,7 @@ foreach ($services as $service) {
     }
     if (empty($newLines)) {
         console_log('/!\ No entry in changelog for service '.$service);
-        continue;
+        $newLines[] = '- AWS api-change: TODO';
     }
 
     console_log('Generating CHANGELOG for '. $service);
