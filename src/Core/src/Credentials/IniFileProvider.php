@@ -71,7 +71,9 @@ final class IniFileProvider implements CredentialProvider
             return new Credentials(
                 $profileData[IniFileLoader::KEY_ACCESS_KEY_ID],
                 $profileData[IniFileLoader::KEY_SECRET_ACCESS_KEY],
-                $profileData[IniFileLoader::KEY_SESSION_TOKEN] ?? null
+                $profileData[IniFileLoader::KEY_SESSION_TOKEN] ?? null,
+                null,
+                $profileData['region'] ?? null
             );
         }
 
@@ -102,8 +104,9 @@ final class IniFileProvider implements CredentialProvider
             return null;
         }
 
+        $region = null;
         $stsClient = new StsClient(
-            isset($profilesData[$sourceProfileName][IniFileLoader::KEY_REGION]) ? ['region' => $profilesData[$sourceProfileName][IniFileLoader::KEY_REGION]] : [],
+            isset($profilesData[$sourceProfileName][IniFileLoader::KEY_REGION]) ? ['region' => $region = $profilesData[$sourceProfileName][IniFileLoader::KEY_REGION]] : [],
             $sourceCredentials,
             $this->httpClient
         );
@@ -126,7 +129,8 @@ final class IniFileProvider implements CredentialProvider
             $credentials->getAccessKeyId(),
             $credentials->getSecretAccessKey(),
             $credentials->getSessionToken(),
-            Credentials::adjustExpireDate($credentials->getExpiration(), $this->getDateFromResult($result))
+            Credentials::adjustExpireDate($credentials->getExpiration(), $this->getDateFromResult($result)),
+            $region
         );
     }
 }

@@ -23,16 +23,20 @@ final class Credentials implements CredentialProvider
 
     private $expireDate;
 
+    private $region;
+
     public function __construct(
         string $accessKeyId,
         string $secretKey,
         ?string $sessionToken = null,
-        ?\DateTimeImmutable $expireDate = null
+        ?\DateTimeImmutable $expireDate = null,
+        ?string $region = null
     ) {
         $this->accessKeyId = $accessKeyId;
         $this->secretKey = $secretKey;
         $this->sessionToken = $sessionToken;
         $this->expireDate = $expireDate;
+        $this->region = $region;
     }
 
     public function getAccessKeyId(): string
@@ -53,6 +57,11 @@ final class Credentials implements CredentialProvider
     public function getExpireDate(): ?\DateTimeImmutable
     {
         return $this->expireDate;
+    }
+
+    public function getRegion(): ?string
+    {
+        return $this->region;
     }
 
     public function isExpired(): bool
