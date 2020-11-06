@@ -7,6 +7,7 @@ namespace AsyncAws\Core;
 use AsyncAws\Core\Credentials\CacheProvider;
 use AsyncAws\Core\Credentials\ChainProvider;
 use AsyncAws\Core\Credentials\CredentialProvider;
+use AsyncAws\Core\Credentials\Credentials;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\Core\HttpClient\AwsRetryStrategy;
@@ -83,10 +84,11 @@ abstract class AbstractApi
 
     final public function presign(Input $input, ?\DateTimeImmutable $expires = null): string
     {
+        $credentials = $this->getCredentials(); // TODO make sure to add a test that this line is before $request->setEndpoint()
         $request = $input->request();
         $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery(), $input->getRegion()));
 
-        if (null !== $credentials = $this->credentialProvider->getCredentials($this->configuration)) {
+        if (null !== $credentials) {
             $this->getSigner($input->getRegion())->presign($request, $credentials, new RequestContext(['expirationDate' => $expires]));
         }
 
@@ -119,9 +121,10 @@ abstract class AbstractApi
 
     final protected function getResponse(Request $request, ?RequestContext $context = null): Response
     {
+        $credentials = $this->getCredentials(); // TODO make sure to add a test that this line is before $request->setEndpoint()
         $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery(), $context ? $context->getRegion() : null));
 
-        if (null !== $credentials = $this->credentialProvider->getCredentials($this->configuration)) {
+        if (null !== $credentials) {
             $this->getSigner($context ? $context->getRegion() : null)->sign($request, $credentials, $context ?? new RequestContext());
         }
 
@@ -234,6 +237,22 @@ abstract class AbstractApi
         }
 
         return $endpoint . (false === \strpos($endpoint, '?') ? '?' : '&') . http_build_query($query);
+    }
+
+    /**
+     * Get the credentials and maybe update the configuration.
+     */
+    private function getCredentials(): ?Credentials
+    {
+        if (null === $credentials = $this->credentialProvider->getCredentials($this->configuration)) {
+            return null;
+        }
+
+        if (null !== $credentials->getRegion() && $this->configuration->isDefault(Configuration::OPTION_REGION)) {
+            // TODO add the $credentials->getRegion() to $this->configuration
+        }
+
+        return $credentials;
     }
 
     /**
