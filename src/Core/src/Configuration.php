@@ -179,4 +179,18 @@ final class Configuration
 
         return empty($this->userData[$name]);
     }
+
+    /**
+     * Add region in an immutable way.
+     *
+     * @internal This is for internal use only
+     */
+    public function withAddedRegion(string $region): self
+    {
+        $new = clone $this;
+        $new->userData[self::OPTION_REGION] = true;
+        $new->data[self::OPTION_REGION] = $region;
+
+        return $new;
+    }
 }

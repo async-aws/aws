@@ -249,7 +249,7 @@ abstract class AbstractApi
         }
 
         if (null !== $credentials->getRegion() && $this->configuration->isDefault(Configuration::OPTION_REGION)) {
-            // TODO add the $credentials->getRegion() to $this->configuration
+            $this->configuration = $this->configuration->withAddedRegion($credentials->getRegion());
         }
 
         return $credentials;
