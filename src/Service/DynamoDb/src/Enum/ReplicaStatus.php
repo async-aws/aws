@@ -8,6 +8,7 @@ final class ReplicaStatus
     public const CREATING = 'CREATING';
     public const CREATION_FAILED = 'CREATION_FAILED';
     public const DELETING = 'DELETING';
+    public const INACCESSIBLE_ENCRYPTION_CREDENTIALS = 'INACCESSIBLE_ENCRYPTION_CREDENTIALS';
     public const REGION_DISABLED = 'REGION_DISABLED';
     public const UPDATING = 'UPDATING';
 
@@ -18,6 +19,7 @@ final class ReplicaStatus
             self::CREATING => true,
             self::CREATION_FAILED => true,
             self::DELETING => true,
+            self::INACCESSIBLE_ENCRYPTION_CREDENTIALS => true,
             self::REGION_DISABLED => true,
             self::UPDATING => true,
         ][$value]);
