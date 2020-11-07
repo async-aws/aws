@@ -56,6 +56,12 @@ final class IniFileLoader
                 $name = \preg_replace('/^profile /', '', $name);
                 if (!isset($profilesData[$name])) {
                     $profilesData[$name] = \array_map('trim', $profile);
+                } else {
+                    foreach ($profile as $k => $v) {
+                        if (!isset($profilesData[$name][$k])) {
+                            $profilesData[$name][$k] = trim($v);
+                        }
+                    }
                 }
             }
         }
