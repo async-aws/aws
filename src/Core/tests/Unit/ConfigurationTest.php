@@ -79,4 +79,18 @@ class ConfigurationTest extends TestCase
 
         yield 'boolean value' => [['pathStyleEndpoint' => true], [], ['pathStyleEndpoint' => '1']];
     }
+
+    public function testRegionFromIniFiles()
+    {
+        $file = sys_get_temp_dir() . \DIRECTORY_SEPARATOR . '/config.ini';
+        file_put_contents($file, "[profile Other]\nregion=eu-north-1\n[profile MyCompany]\nregion=eu-central-1\n");
+
+        $config = Configuration::create([
+            'profile' => 'MyCompany',
+            'sharedConfigFile' => $file,
+        ]);
+
+        self::assertFalse($config->isDefault('region'));
+        self::assertEquals('eu-central-1', $config->get('region'));
+    }
 }
