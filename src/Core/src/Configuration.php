@@ -184,6 +184,9 @@ final class Configuration
         return $options;
     }
 
+    /**
+     * Look for "region" in the configured ini files.
+     */
     private static function parseIniFiles(Configuration $configuration): array
     {
         $options = [];
@@ -209,6 +212,9 @@ final class Configuration
         return $options;
     }
 
+    /**
+     * Add array options to the configuration object.
+     */
     private static function populateConfiguration(Configuration $configuration, array $options): void
     {
         foreach ($options as $key => $value) {
