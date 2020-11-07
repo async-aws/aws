@@ -110,6 +110,54 @@ final class Configuration
         return isset(self::AVAILABLE_OPTIONS[$optionName]);
     }
 
+    /**
+     * @psalm-return (
+     *     $name is
+     *       self::OPTION_REGION
+     *       |self::OPTION_DEBUG
+     *       |self::OPTION_PROFILE
+     *       |self::OPTION_ACCESS_KEY_ID
+     *       |self::OPTION_SECRET_ACCESS_KEY
+     *       |self::OPTION_SESSION_TOKEN
+     *       |self::OPTION_SHARED_CREDENTIALS_FILE
+     *       |self::OPTION_SHARED_CONFIG_FILE
+     *       |self::OPTION_ENDPOINT
+     *       |self::OPTION_ROLE_ARN
+     *       |self::OPTION_WEB_IDENTITY_TOKEN_FILE
+     *       |self::OPTION_ROLE_SESSION_NAME
+     *       |self::OPTION_CONTAINER_CREDENTIALS_RELATIVE_URI
+     *       |self::OPTION_PATH_STYLE_ENDPOINT
+     *     ? string
+     *     : ?string
+     * )
+     */
+    public function get(string $name): ?string
+    {
+        if (!isset(self::AVAILABLE_OPTIONS[$name])) {
+            throw new InvalidArgument(\sprintf('Invalid option "%s" passed to "%s::%s". ', $name, __CLASS__, __METHOD__));
+        }
+
+        return $this->data[$name] ?? null;
+    }
+
+    public function has(string $name): bool
+    {
+        if (!isset(self::AVAILABLE_OPTIONS[$name])) {
+            throw new InvalidArgument(\sprintf('Invalid option "%s" passed to "%s::%s". ', $name, __CLASS__, __METHOD__));
+        }
+
+        return isset($this->data[$name]);
+    }
+
+    public function isDefault(string $name): bool
+    {
+        if (!isset(self::AVAILABLE_OPTIONS[$name])) {
+            throw new InvalidArgument(\sprintf('Invalid option "%s" passed to "%s::%s". ', $name, __CLASS__, __METHOD__));
+        }
+
+        return empty($this->userData[$name]);
+    }
+
     private static function parseEnvironmentVariables(array $options): array
     {
         foreach (self::FALLBACK_OPTIONS as $fallbackGroup) {
@@ -181,45 +229,5 @@ final class Configuration
         }
 
         $configuration->data = array_merge($configuration->data, $options);
-    }
-
-    /**
-     * @psalm-return (
-     *     $name is
-     *       self::OPTION_REGION
-     *       |self::OPTION_PROFILE
-     *       |self::OPTION_SHARED_CREDENTIALS_FILE
-     *       |self::OPTION_SHARED_CONFIG_FILE
-     *       |self::OPTION_ENDPOINT
-     *       |self::OPTION_PATH_STYLE_ENDPOINT
-     *     ? string
-     *     : ?string
-     * )
-     */
-    public function get(string $name): ?string
-    {
-        if (!isset(self::AVAILABLE_OPTIONS[$name])) {
-            throw new InvalidArgument(\sprintf('Invalid option "%s" passed to "%s::%s". ', $name, __CLASS__, __METHOD__));
-        }
-
-        return $this->data[$name] ?? null;
-    }
-
-    public function has(string $name): bool
-    {
-        if (!isset(self::AVAILABLE_OPTIONS[$name])) {
-            throw new InvalidArgument(\sprintf('Invalid option "%s" passed to "%s::%s". ', $name, __CLASS__, __METHOD__));
-        }
-
-        return isset($this->data[$name]);
-    }
-
-    public function isDefault(string $name): bool
-    {
-        if (!isset(self::AVAILABLE_OPTIONS[$name])) {
-            throw new InvalidArgument(\sprintf('Invalid option "%s" passed to "%s::%s". ', $name, __CLASS__, __METHOD__));
-        }
-
-        return empty($this->userData[$name]);
     }
 }
