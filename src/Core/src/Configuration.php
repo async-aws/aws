@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core;
 
+use AsyncAws\Core\Credentials\IniFileLoader;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
@@ -90,10 +91,27 @@ final class Configuration
             throw new InvalidArgument(\sprintf('Invalid option(s) "%s" passed to "%s::%s". ', \implode('", "', \array_keys($invalidOptions)), __CLASS__, __METHOD__));
         }
 
+        // Force each option to be string or null
         $options = \array_map(static function ($value) {
             return null !== $value ? (string) $value : $value;
         }, $options);
 
+        $configuration = new self();
+        $options = self::parseEnvironmentVariables($options);
+        self::populateConfiguration($configuration, $options);
+        $iniOptions = self::parseIniFiles($configuration);
+        self::populateConfiguration($configuration, $iniOptions);
+
+        return $configuration;
+    }
+
+    public static function optionExists(string $optionName): bool
+    {
+        return isset(self::AVAILABLE_OPTIONS[$optionName]);
+    }
+
+    private static function parseEnvironmentVariables(array $options): array
+    {
         foreach (self::FALLBACK_OPTIONS as $fallbackGroup) {
             // prevent mixing env variables with config keys
             foreach ($fallbackGroup as $option => $envVariableNames) {
@@ -103,6 +121,7 @@ final class Configuration
             }
 
             foreach ($fallbackGroup as $option => $envVariableNames) {
+                // Read environment files
                 $envVariableNames = (array) $envVariableNames;
                 foreach ($envVariableNames as $envVariableName) {
                     if (null !== $envVariableValue = EnvVar::get($envVariableName)) {
@@ -114,30 +133,54 @@ final class Configuration
             }
         }
 
-        $configuration = new Configuration();
-        $configuration->userData = [];
+        return $options;
+    }
+
+    private static function parseIniFiles(Configuration $configuration): array
+    {
+        $options = [];
+        if (!$configuration->isDefault(self::OPTION_REGION)) {
+            return $options;
+        }
+
+        $profilesData = (new IniFileLoader())->loadProfiles([
+            $configuration->get(self::OPTION_SHARED_CREDENTIALS_FILE),
+            $configuration->get(self::OPTION_SHARED_CONFIG_FILE),
+        ]);
+
+        if (empty($profilesData)) {
+            return $options;
+        }
+
+        /** @var string $profile */
+        $profile = $configuration->get(Configuration::OPTION_PROFILE);
+        if (isset($profilesData[$profile]['region'])) {
+            $options[self::OPTION_REGION] = $profilesData[$profile]['region'];
+        }
+
+        return $options;
+    }
+
+    private static function populateConfiguration(Configuration $configuration, array $options): void
+    {
         foreach ($options as $key => $value) {
             if (null !== $value) {
                 $configuration->userData[$key] = true;
             }
         }
 
-        foreach (self::DEFAULT_OPTIONS as $optionTrigger => $defaultValue) {
-            if (isset($options[$optionTrigger])) {
-                continue;
-            }
+        // If we have not applied default before
+        if (empty($configuration->data)) {
+            foreach (self::DEFAULT_OPTIONS as $optionTrigger => $defaultValue) {
+                if (isset($options[$optionTrigger])) {
+                    continue;
+                }
 
-            $options[$optionTrigger] = $defaultValue;
+                $options[$optionTrigger] = $defaultValue;
+            }
         }
 
-        $configuration->data = $options;
-
-        return $configuration;
-    }
-
-    public static function optionExists(string $optionName): bool
-    {
-        return isset(self::AVAILABLE_OPTIONS[$optionName]);
+        $configuration->data = array_merge($configuration->data, $options);
     }
 
     /**
