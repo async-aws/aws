@@ -7,7 +7,6 @@ use AsyncAws\SimpleS3\SimpleS3Client;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Filesystem\FilesystemManager;
 
-
 class AsyncAwsFilesystemManager extends FilesystemManager
 {
     /**

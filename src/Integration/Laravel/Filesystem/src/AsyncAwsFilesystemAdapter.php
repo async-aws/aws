@@ -88,7 +88,7 @@ class AsyncAwsFilesystemAdapter extends FilesystemAdapter
         }
 
         if (!$adapter instanceof AsyncAwsS3Adapter) {
-            throw new LogicException('Expected $adapter to be a '.AsyncAwsS3Adapter::class);
+            throw new LogicException('Expected $adapter to be a ' . AsyncAwsS3Adapter::class);
         }
 
         return $adapter;
