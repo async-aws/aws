@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- Support for async-aws/flysystem-s3 1.0
+
 ## 0.1.2
 
 ### Added

@@ -4,21 +4,13 @@ declare(strict_types=1);
 
 namespace AsyncAws\Illuminate\Filesystem\Tests\Unit;
 
-use AsyncAws\Flysystem\S3\S3FilesystemV1;
+use AsyncAws\Flysystem\S3\AsyncAwsS3Adapter;
 use AsyncAws\Illuminate\Filesystem\ServiceProvider;
 use Illuminate\Filesystem\FilesystemAdapter;
-use League\Flysystem\Adapter\AbstractAdapter;
 use PHPUnit\Framework\TestCase;
 
 class ServiceProviderTest extends TestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        if (!class_exists(AbstractAdapter::class)) {
-            self::markTestSkipped('Flysystem v1 is not installed');
-        }
-    }
-
     public function testCreateFilesystem()
     {
         $app = 'app';
@@ -32,7 +24,7 @@ class ServiceProviderTest extends TestCase
 
         self::assertInstanceOf(FilesystemAdapter::class, $illuminateFilesystemAdapter);
         $flysystemFilesystem = $illuminateFilesystemAdapter->getDriver();
-        /** @var S3FilesystemV1 $s3FilesystemAdapter */
+        /** @var AsyncAwsS3Adapter $s3FilesystemAdapter */
         $s3FilesystemAdapter = $flysystemFilesystem->getAdapter();
         $refl = new \ReflectionClass($s3FilesystemAdapter);
 

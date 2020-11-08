@@ -10,7 +10,7 @@
 
 ### Changed
 
-- Renamed `S3Flysystem` to `AsyncAwsS3Adapter`
+- Renamed `S3FilesystemV1` to `AsyncAwsS3Adapter`
 
 ## 0.4.2
 

@@ -16,8 +16,6 @@
       <directory>./src/*/tests</directory>
       <directory>./src/*/*/tests</directory>
       <directory>./src/*/*/*/tests</directory>
-      <file>./src/Integration/Flysystem/S3/src/S3FilesystemV1.php</file>
-      <file>./src/Integration/Laravel/Filesystem/src/AsyncAwsFilesystemManager.php</file>
       <directory>./vendor</directory>
     </exclude>
   </coverage>
