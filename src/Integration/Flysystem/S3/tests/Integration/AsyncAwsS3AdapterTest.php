@@ -6,13 +6,13 @@ namespace AsyncAws\Flysystem\S3\Tests\Integration;
 
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Credentials\NullProvider;
-use AsyncAws\Flysystem\S3\S3FilesystemV1;
+use AsyncAws\Flysystem\S3\AsyncAwsS3Adapter;
 use AsyncAws\S3\S3Client;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\Config;
 use PHPUnit\Framework\TestCase;
 
-class S3FilesystemV1Test extends TestCase
+class AsyncAwsS3AdapterTest extends TestCase
 {
     /**
      * @var AdapterInterface
@@ -103,7 +103,7 @@ class S3FilesystemV1Test extends TestCase
         $bucket = isset($_SERVER['FLYSYSTEM_AWS_S3_BUCKET']) ? $_SERVER['FLYSYSTEM_AWS_S3_BUCKET'] : 'flysystem-bucket-v1';
         $prefix = isset($_SERVER['FLYSYSTEM_AWS_S3_PREFIX']) ? $_SERVER['FLYSYSTEM_AWS_S3_PREFIX'] : static::$adapterPrefix;
 
-        return new S3FilesystemV1($this->s3Client(), $bucket, $prefix);
+        return new AsyncAwsS3Adapter($this->s3Client(), $bucket, $prefix);
     }
 
     private function s3Client(): S3Client

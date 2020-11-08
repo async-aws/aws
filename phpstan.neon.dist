@@ -3,9 +3,6 @@ parameters:
     paths:
         - src
 
-    bootstrapFiles:
-        - src/Integration/Flysystem/S3/tests/version-bridge.php
-
     excludes_analyse:
         - src/*/tests/*
         - src/**/tests/*
@@ -13,7 +10,6 @@ parameters:
         - src/Core/src/AbstractApi.php # requires symfony/http-client: 5.2
         - src/Core/src/HttpClient/AwsRetryStrategy.php # requires symfony/http-client: 5.2
         - src/Core/src/Test/TestCase.php
-        - src/Integration/Flysystem/S3/src/S3FilesystemV1.php
         - src/Integration/Laravel/Filesystem/src/AsyncAwsFilesystemManager.php
         - src/Integration/Laravel/Filesystem/src/AsyncAwsFilesystemAdapter.php
 
