@@ -13,8 +13,8 @@
         "php": "^7.2.5 || ^8.0",
         "ext-json": "*",
         "async-aws/core": "^1.0",
-        "async-aws/flysystem-s3": "^0.4.0",
-        "async-aws/simple-s3": "^0.1",
+        "async-aws/flysystem-s3": "^1.0.0-RC1",
+        "async-aws/simple-s3": "^1.0",
         "illuminate/filesystem": "^6.18.13 || ^7.10",
         "illuminate/support": "^6.18.13 || ^7.10"
     },

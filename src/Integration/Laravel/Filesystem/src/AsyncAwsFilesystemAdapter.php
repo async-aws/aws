@@ -6,7 +6,7 @@ namespace AsyncAws\Illuminate\Filesystem;
 
 use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\Core\Exception\RuntimeException;
-use AsyncAws\Flysystem\S3\S3FilesystemV1;
+use AsyncAws\Flysystem\S3\AsyncAwsS3Adapter;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\SimpleS3\SimpleS3Client;
 use Illuminate\Filesystem\FilesystemAdapter;
@@ -74,7 +74,7 @@ class AsyncAwsFilesystemAdapter extends FilesystemAdapter
         return substr($url, 0, $pos);
     }
 
-    private function getFlysystemAdapter(): S3FilesystemV1
+    private function getFlysystemAdapter(): AsyncAwsS3Adapter
     {
         if (!method_exists($this->driver, 'getAdapter')) {
             throw new RuntimeException(sprintf('Could not call "getAdapter" of class "%s"', \get_class($this->driver)));
@@ -83,12 +83,12 @@ class AsyncAwsFilesystemAdapter extends FilesystemAdapter
         $adapter = $this->driver->getAdapter();
 
         // Try to unwrap CacheAdapter etc.
-        while (!$adapter instanceof S3FilesystemV1 && method_exists($adapter, 'getAdapter')) {
+        while (!$adapter instanceof AsyncAwsS3Adapter && method_exists($adapter, 'getAdapter')) {
             $adapter = $adapter->getAdapter();
         }
 
-        if (!$adapter instanceof S3FilesystemV1) {
-            throw new LogicException('Expected $adapter to be a S3FilesystemV1');
+        if (!$adapter instanceof AsyncAwsS3Adapter) {
+            throw new LogicException('Expected $adapter to be a ' . AsyncAwsS3Adapter::class);
         }
 
         return $adapter;
