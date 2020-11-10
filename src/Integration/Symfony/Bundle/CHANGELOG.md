@@ -2,6 +2,16 @@
 
 ## NOT RELEASED
 
+## 1.2.0
+
+### Added
+
+- Support for ECR client.
+
+### Changed
+
+- Added channel "async_aws" to Monolog logger.
+
 ## 1.1.1
 
 ### Fixed
