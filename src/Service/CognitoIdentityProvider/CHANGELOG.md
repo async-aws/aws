@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.0.0
+
+### Fixed
+
+- Make sure we throw exception from async-aws/core
+
 ## 0.2.2
 
 ### Added

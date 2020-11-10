@@ -2,10 +2,16 @@
 
 ## NOT RELEASED
 
+## 1.0.0
+
 ### Added
 
 - AWS api-change: This release adds a new ReplicaStatus REGION DISABLED for the Table description. This state indicates that the AWS Region for the replica is inaccessible because the AWS Region is disabled.
 - AWS api-change: This release adds a new ReplicaStatus INACCESSIBLE_ENCRYPTION_CREDENTIALS for the Table description, indicating when a key used to encrypt a regional replica table is not accessible.
+
+### Fixed
+
+- Make sure we throw exception from async-aws/core
 
 ## 0.3.1
 
