@@ -4,6 +4,7 @@ namespace AsyncAws\S3\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\S3\Enum\ArchiveStatus;
 use AsyncAws\S3\Enum\ObjectLockLegalHoldStatus;
 use AsyncAws\S3\Enum\ObjectLockMode;
 use AsyncAws\S3\Enum\ReplicationStatus;
@@ -38,6 +39,11 @@ class HeadObjectOutput extends Result
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_RestoreObject.html
      */
     private $Restore;
+
+    /**
+     * The archive state of the head object.
+     */
+    private $ArchiveStatus;
 
     /**
      * Last modified date of the object.
@@ -180,6 +186,16 @@ class HeadObjectOutput extends Result
         $this->initialize();
 
         return $this->AcceptRanges;
+    }
+
+    /**
+     * @return ArchiveStatus::*|null
+     */
+    public function getArchiveStatus(): ?string
+    {
+        $this->initialize();
+
+        return $this->ArchiveStatus;
     }
 
     public function getCacheControl(): ?string
@@ -400,6 +416,7 @@ class HeadObjectOutput extends Result
         $this->AcceptRanges = $headers['accept-ranges'][0] ?? null;
         $this->Expiration = $headers['x-amz-expiration'][0] ?? null;
         $this->Restore = $headers['x-amz-restore'][0] ?? null;
+        $this->ArchiveStatus = $headers['x-amz-archive-status'][0] ?? null;
         $this->LastModified = isset($headers['last-modified'][0]) ? new \DateTimeImmutable($headers['last-modified'][0]) : null;
         $this->ContentLength = $headers['content-length'][0] ?? null;
         $this->ETag = $headers['etag'][0] ?? null;
