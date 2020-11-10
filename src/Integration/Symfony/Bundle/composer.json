@@ -22,7 +22,7 @@
         "async-aws/s3": "^1.0",
         "async-aws/ses": "^1.0",
         "async-aws/sqs": "^1.0",
-        "async-aws/ssm": "^0.2",
+        "async-aws/ssm": "^1.0",
         "matthiasnoback/symfony-config-test": "^4.1",
         "nyholm/symfony-bundle-test": "^1.6.1",
         "symfony/cache": "^4.4 || ^5.0"
