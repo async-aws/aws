@@ -122,7 +122,7 @@ foreach ($services as $service) {
         if (strpos($line, '## ') === 0) {
             break;
         }
-        if ($line === '### Fixed') {
+        if ($line === '### Added') {
             $fixSection = true;
             continue;
         }
@@ -137,12 +137,12 @@ foreach ($services as $service) {
         array_splice($changeLog, 2, 0, array_merge([
             '## NOT RELEASED',
             '',
-            '### Fixed',
+            '### Added',
             '',
         ], $newLines, ['']));
     } elseif (!$fixSection) {
         array_splice($changeLog, $index, 0, array_merge([
-            '### Fixed',
+            '### Added',
             '',
         ], $newLines, ['']));
     } else {
