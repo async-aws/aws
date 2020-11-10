@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: S3 Intelligent-Tiering adds support for Archive and Deep Archive Access tiers
+
 ## 1.5.1
 
 ### Fixed
