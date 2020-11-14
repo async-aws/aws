@@ -32,10 +32,10 @@ jobs:
       - name: Download phpunit
         run: |
           rm composer.*
-          composer init --no-interaction
+          composer init --no-interaction --name "async-aws/aws"
 
           echo ::group::Download
-          composer req symfony/phpunit-bridge
+          composer require symfony/phpunit-bridge
           echo ::endgroup::
 
           echo ::group::Install
@@ -133,10 +133,10 @@ jobs:
       - name: Download phpunit
         run: |
           rm composer.*
-          composer init --no-interaction
+          composer init --no-interaction --name "async-aws/aws"
 
           echo ::group::Download
-          composer req symfony/phpunit-bridge
+          composer require symfony/phpunit-bridge
           echo ::endgroup::
 
           echo ::group::Install
