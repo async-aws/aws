@@ -32,7 +32,7 @@ jobs:
       - name: Download phpunit
         run: |
           rm composer.*
-          composer init --no-interaction
+          composer init --no-interaction --name "async-aws/aws"
 
           echo ::group::Download
           composer require symfony/phpunit-bridge
@@ -133,7 +133,7 @@ jobs:
       - name: Download phpunit
         run: |
           rm composer.*
-          composer init --no-interaction
+          composer init --no-interaction --name "async-aws/aws"
 
           echo ::group::Download
           composer require symfony/phpunit-bridge
