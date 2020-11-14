@@ -35,7 +35,7 @@ jobs:
           composer init --no-interaction
 
           echo ::group::Download
-          composer req symfony/phpunit-bridge
+          composer require symfony/phpunit-bridge
           echo ::endgroup::
 
           echo ::group::Install
@@ -136,7 +136,7 @@ jobs:
           composer init --no-interaction
 
           echo ::group::Download
-          composer req symfony/phpunit-bridge
+          composer require symfony/phpunit-bridge
           echo ::endgroup::
 
           echo ::group::Install
