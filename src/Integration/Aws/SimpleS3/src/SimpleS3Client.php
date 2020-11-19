@@ -7,9 +7,11 @@ namespace AsyncAws\SimpleS3;
 use AsyncAws\Core\Stream\FixedSizeStream;
 use AsyncAws\Core\Stream\ResultStream;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
 use AsyncAws\S3\ValueObject\CompletedPart;
+use DateTimeImmutable;
 
 /**
  * A simplified S3 client that hides some of the complexity of working with S3.
@@ -24,6 +26,16 @@ class SimpleS3Client extends S3Client
         $uri = sprintf('/%s/%s', urlencode($bucket), str_replace('%2F', '/', rawurlencode($key)));
 
         return $this->getEndpoint($uri, [], null);
+    }
+
+    public function getPresignedUrl(string $bucket, string $key, ?DateTimeImmutable $expires = null): string
+    {
+        $request = new GetObjectRequest([
+            'Bucket' => $bucket,
+            'Key' => $key,
+        ]);
+
+        return $this->presign($request, $expires);
     }
 
     public function download(string $bucket, string $key): ResultStream
