@@ -3,6 +3,8 @@
 namespace AsyncAws\S3\Tests\Unit\Input;
 
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\S3\Enum\Event;
+use AsyncAws\S3\Enum\FilterRuleName;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\ValueObject\FilterRule;
 use AsyncAws\S3\ValueObject\LambdaFunctionConfiguration;
@@ -21,15 +23,15 @@ class PutBucketNotificationConfigurationRequestTest extends TestCase
             'NotificationConfiguration' => new NotificationConfiguration([
                 'TopicConfigurations' => [
                     new TopicConfiguration([
-                        'Id' => 'change me',
-                        'TopicArn' => 'change me',
-                        'Events' => ['s3:ObjectCreated:*'],
+                        'Id' => 'TopicId',
+                        'TopicArn' => 'arn:topic',
+                        'Events' => [Event::S_3_OBJECT_CREATED_],
                         'Filter' => new NotificationConfigurationFilter([
                             'Key' => new S3KeyFilter([
                                 'FilterRules' => [
                                     new FilterRule([
-                                        'Name' => 'prefix',
-                                        'Value' => 'change me',
+                                        'Name' => FilterRuleName::PREFIX,
+                                        'Value' => 'images/',
                                     ]),
                                 ],
                             ]),
@@ -38,14 +40,14 @@ class PutBucketNotificationConfigurationRequestTest extends TestCase
                 ],
                 'QueueConfigurations' => [
                     new QueueConfiguration([
-                        'Id' => 'change me',
-                        'QueueArn' => 'change me',
-                        'Events' => ['s3:ObjectCreated:*'],
+                        'Id' => 'QueueId',
+                        'QueueArn' => 'arn:queue',
+                        'Events' => [Event::S_3_OBJECT_CREATED_],
                         'Filter' => new NotificationConfigurationFilter([
                             'Key' => new S3KeyFilter([
                                 'FilterRules' => [new FilterRule([
-                                    'Name' => 'prefix',
-                                    'Value' => 'change me',
+                                    'Name' => FilterRuleName::PREFIX,
+                                    'Value' => 'pdf/',
                                 ])],
                             ]),
                         ]),
@@ -53,15 +55,15 @@ class PutBucketNotificationConfigurationRequestTest extends TestCase
                 ],
                 'LambdaFunctionConfigurations' => [
                     new LambdaFunctionConfiguration([
-                        'Id' => 'change me',
-                        'LambdaFunctionArn' => 'change me',
-                        'Events' => ['s3:ObjectCreated:*'],
+                        'Id' => 'LambdaId',
+                        'LambdaFunctionArn' => 'arn:lambda',
+                        'Events' => [Event::S_3_OBJECT_CREATED_],
                         'Filter' => new NotificationConfigurationFilter([
                             'Key' => new S3KeyFilter([
                                 'FilterRules' => [
                                     new FilterRule([
-                                        'Name' => 'suffix',
-                                        'Value' => 'change me',
+                                        'Name' => FilterRuleName::SUFFIX,
+                                        'Value' => '.jpg',
                                     ]),
                                 ],
                             ]),
@@ -81,27 +83,27 @@ x-amz-expected-bucket-owner: bucket-name
 <?xml version="1.0" encoding="UTF-8"?>
 <NotificationConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
     <TopicConfiguration>
-        <Id>change me</Id>
-        <Topic>change me</Topic>
+        <Id>TopicId</Id>
+        <Topic>arn:topic</Topic>
         <Event>s3:ObjectCreated:*</Event>
         <Filter>
-            <S3Key><FilterRule><Name>prefix</Name><Value>change me</Value></FilterRule></S3Key>
+            <S3Key><FilterRule><Name>prefix</Name><Value>images/</Value></FilterRule></S3Key>
         </Filter>
     </TopicConfiguration>
     <QueueConfiguration>
-        <Id>change me</Id>
-        <Queue>change me</Queue>
+        <Id>QueueId</Id>
+        <Queue>arn:queue</Queue>
         <Event>s3:ObjectCreated:*</Event>
         <Filter>
-            <S3Key><FilterRule><Name>prefix</Name><Value>change me</Value></FilterRule></S3Key>
+            <S3Key><FilterRule><Name>prefix</Name><Value>pdf/</Value></FilterRule></S3Key>
         </Filter>
     </QueueConfiguration>
     <CloudFunctionConfiguration>
-        <Id>change me</Id>
-        <CloudFunction>change me</CloudFunction>
+        <Id>LambdaId</Id>
+        <CloudFunction>arn:lambda</CloudFunction>
         <Event>s3:ObjectCreated:*</Event>
         <Filter>
-            <S3Key><FilterRule><Name>suffix</Name><Value>change me</Value></FilterRule></S3Key>
+            <S3Key><FilterRule><Name>suffix</Name><Value>.jpg</Value></FilterRule></S3Key>
         </Filter>
     </CloudFunctionConfiguration>
 </NotificationConfiguration>

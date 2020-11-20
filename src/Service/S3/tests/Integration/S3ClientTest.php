@@ -5,6 +5,8 @@ namespace AsyncAws\S3\Tests\Integration;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\S3\Enum\Event;
+use AsyncAws\S3\Enum\FilterRuleName;
 use AsyncAws\S3\Enum\Permission;
 use AsyncAws\S3\Enum\Type;
 use AsyncAws\S3\Input\AbortMultipartUploadRequest;
@@ -562,53 +564,66 @@ class S3ClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new PutBucketNotificationConfigurationRequest([
-            'Bucket' => 'change me',
+            'Bucket' => 'bucket-name',
             'NotificationConfiguration' => new NotificationConfiguration([
-                'TopicConfigurations' => [new TopicConfiguration([
-                    'Id' => 'change me',
-                    'TopicArn' => 'change me',
-                    'Events' => ['s3:ObjectCreated:*'],
-                    'Filter' => new NotificationConfigurationFilter([
-                        'Key' => new S3KeyFilter([
-                            'FilterRules' => [new FilterRule([
-                                'Name' => 'prefix',
-                                'Value' => 'change me',
-                            ])],
+                'TopicConfigurations' => [
+                    new TopicConfiguration([
+                        'Id' => 'TopicId',
+                        'TopicArn' => 'arn:topic',
+                        'Events' => [Event::S_3_OBJECT_CREATED_],
+                        'Filter' => new NotificationConfigurationFilter([
+                            'Key' => new S3KeyFilter([
+                                'FilterRules' => [
+                                    new FilterRule([
+                                        'Name' => FilterRuleName::PREFIX,
+                                        'Value' => 'images/',
+                                    ]),
+                                ],
+                            ]),
                         ]),
                     ]),
-                ])],
-                'QueueConfigurations' => [new QueueConfiguration([
-                    'Id' => 'change me',
-                    'QueueArn' => 'change me',
-                    'Events' => ['s3:ObjectCreated:*'],
-                    'Filter' => new NotificationConfigurationFilter([
-                        'Key' => new S3KeyFilter([
-                            'FilterRules' => [new FilterRule([
-                                'Name' => 'suffix',
-                                'Value' => 'change me',
-                            ])],
+                ],
+                'QueueConfigurations' => [
+                    new QueueConfiguration([
+                        'Id' => 'QueueId',
+                        'QueueArn' => 'arn:queue',
+                        'Events' => [Event::S_3_OBJECT_CREATED_],
+                        'Filter' => new NotificationConfigurationFilter([
+                            'Key' => new S3KeyFilter([
+                                'FilterRules' => [new FilterRule([
+                                    'Name' => FilterRuleName::PREFIX,
+                                    'Value' => 'pdf/',
+                                ])],
+                            ]),
                         ]),
                     ]),
-                ])],
-                'LambdaFunctionConfigurations' => [new LambdaFunctionConfiguration([
-                    'Id' => 'change me',
-                    'LambdaFunctionArn' => 'change me',
-                    'Events' => ['s3:ObjectCreated:*'],
-                    'Filter' => new NotificationConfigurationFilter([
-                        'Key' => new S3KeyFilter([
-                            'FilterRules' => [new FilterRule([
-                                'Name' => 'suffix',
-                                'Value' => 'change me',
-                            ])],
+                ],
+                'LambdaFunctionConfigurations' => [
+                    new LambdaFunctionConfiguration([
+                        'Id' => 'LambdaId',
+                        'LambdaFunctionArn' => 'arn:lambda',
+                        'Events' => [Event::S_3_OBJECT_CREATED_],
+                        'Filter' => new NotificationConfigurationFilter([
+                            'Key' => new S3KeyFilter([
+                                'FilterRules' => [
+                                    new FilterRule([
+                                        'Name' => FilterRuleName::SUFFIX,
+                                        'Value' => '.jpg',
+                                    ]),
+                                ],
+                            ]),
                         ]),
                     ]),
-                ])],
+                ],
             ]),
-            'ExpectedBucketOwner' => 'change me',
+            'ExpectedBucketOwner' => 'bucket-name',
         ]);
         $result = $client->PutBucketNotificationConfiguration($input);
 
         self::assertTrue($result->resolve());
+
+        $info = $result->info();
+        self::assertEquals(200, $info['status']);
     }
 
     public function testPutObject(): void
