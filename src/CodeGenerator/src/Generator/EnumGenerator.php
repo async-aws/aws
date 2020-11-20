@@ -83,6 +83,23 @@ class EnumGenerator
 
     public static function canonicalizeName(string $name): string
     {
-        return  preg_replace('/[^A-Z\d ]+/', '_', strtoupper(\preg_replace('/([a-z])([A-Z\d])/', '\\1_\\2', $name)));
+        // java10 => JAVA_10
+        // go1.x => GO_1_X
+        // s3:ObjectCreated:* => S3_OBJECT_CREATED_ALL
+        $name = \strtr($name, ['*' => '_ALL']);
+        $name = strtoupper(\preg_replace('/([a-z])([A-Z\d])/', '\\1_\\2', $name));
+        $name = preg_replace('/[^A-Z\d ]+/', '_', $name);
+
+        $replacements = [
+            'S_3' => 'S3',
+            'EC_2' => 'EC2',
+            'CLOUD_9' => 'CLOUD9',
+            'ROUTE_53' => 'ROUTE53',
+        ];
+        foreach ($replacements as $old => $new) {
+            $name = preg_replace('/(^|_)' . $old . '(_|$)/', '\\1' . $new . '\\2', $name);
+        }
+
+        return $name;
     }
 }
