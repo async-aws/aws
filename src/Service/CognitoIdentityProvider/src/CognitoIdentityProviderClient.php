@@ -495,8 +495,10 @@ class CognitoIdentityProviderClient extends AbstractApi
             case 'ap-southeast-2':
             case 'ca-central-1':
             case 'eu-central-1':
+            case 'eu-north-1':
             case 'eu-west-1':
             case 'eu-west-2':
+            case 'eu-west-3':
             case 'us-east-1':
             case 'us-east-2':
             case 'us-west-2':
