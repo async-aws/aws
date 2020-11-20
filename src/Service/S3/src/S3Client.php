@@ -31,6 +31,7 @@ use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
+use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
 use AsyncAws\S3\Input\UploadPartRequest;
@@ -60,6 +61,7 @@ use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
 use AsyncAws\S3\ValueObject\CreateBucketConfiguration;
 use AsyncAws\S3\ValueObject\Delete;
 use AsyncAws\S3\ValueObject\MultipartUpload;
+use AsyncAws\S3\ValueObject\NotificationConfiguration;
 use AsyncAws\S3\ValueObject\Part;
 
 class S3Client extends AbstractApi
@@ -619,6 +621,29 @@ class S3Client extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadObject', 'region' => $input->getRegion()]));
 
         return new ObjectNotExistsWaiter($response, $this, $input);
+    }
+
+    /**
+     * Enables notifications of specified events for a bucket. For more information about event notifications, see
+     * Configuring Event Notifications.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketNotificationConfiguration.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#putbucketnotificationconfiguration
+     *
+     * @param array{
+     *   Bucket: string,
+     *   NotificationConfiguration: NotificationConfiguration|array,
+     *   ExpectedBucketOwner?: string,
+     *   @region?: string,
+     * }|PutBucketNotificationConfigurationRequest $input
+     */
+    public function putBucketNotificationConfiguration($input): Result
+    {
+        $input = PutBucketNotificationConfigurationRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutBucketNotificationConfiguration', 'region' => $input->getRegion()]));
+
+        return new Result($response);
     }
 
     /**

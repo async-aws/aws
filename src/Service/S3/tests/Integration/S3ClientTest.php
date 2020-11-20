@@ -21,6 +21,7 @@ use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
+use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
 use AsyncAws\S3\Input\UploadPartRequest;
@@ -31,9 +32,16 @@ use AsyncAws\S3\ValueObject\AwsObject;
 use AsyncAws\S3\ValueObject\CommonPrefix;
 use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
 use AsyncAws\S3\ValueObject\CompletedPart;
+use AsyncAws\S3\ValueObject\FilterRule;
 use AsyncAws\S3\ValueObject\Grant;
 use AsyncAws\S3\ValueObject\Grantee;
+use AsyncAws\S3\ValueObject\LambdaFunctionConfiguration;
+use AsyncAws\S3\ValueObject\NotificationConfiguration;
+use AsyncAws\S3\ValueObject\NotificationConfigurationFilter;
 use AsyncAws\S3\ValueObject\Owner;
+use AsyncAws\S3\ValueObject\QueueConfiguration;
+use AsyncAws\S3\ValueObject\S3KeyFilter;
+use AsyncAws\S3\ValueObject\TopicConfiguration;
 
 class S3ClientTest extends TestCase
 {
@@ -70,7 +78,7 @@ class S3ClientTest extends TestCase
         // Test get object
         $input = new GetObjectRequest();
         $input->setBucket('foo')
-        ->setKey('bar');
+            ->setKey('bar');
         $result = $s3->getObject($input);
         $body = $result->getBody()->getContentAsString();
 
@@ -547,6 +555,60 @@ class S3ClientTest extends TestCase
         // self::assertTODO(expected, $result->getOwner());
         self::assertSame('changeIt', $result->getStorageClass());
         self::assertSame('changeIt', $result->getRequestCharged());
+    }
+
+    public function testPutBucketNotificationConfiguration(): void
+    {
+        $client = $this->getClient();
+
+        $input = new PutBucketNotificationConfigurationRequest([
+            'Bucket' => 'change me',
+            'NotificationConfiguration' => new NotificationConfiguration([
+                'TopicConfigurations' => [new TopicConfiguration([
+                    'Id' => 'change me',
+                    'TopicArn' => 'change me',
+                    'Events' => ['s3:ObjectCreated:*'],
+                    'Filter' => new NotificationConfigurationFilter([
+                        'Key' => new S3KeyFilter([
+                            'FilterRules' => [new FilterRule([
+                                'Name' => 'prefix',
+                                'Value' => 'change me',
+                            ])],
+                        ]),
+                    ]),
+                ])],
+                'QueueConfigurations' => [new QueueConfiguration([
+                    'Id' => 'change me',
+                    'QueueArn' => 'change me',
+                    'Events' => ['s3:ObjectCreated:*'],
+                    'Filter' => new NotificationConfigurationFilter([
+                        'Key' => new S3KeyFilter([
+                            'FilterRules' => [new FilterRule([
+                                'Name' => 'suffix',
+                                'Value' => 'change me',
+                            ])],
+                        ]),
+                    ]),
+                ])],
+                'LambdaFunctionConfigurations' => [new LambdaFunctionConfiguration([
+                    'Id' => 'change me',
+                    'LambdaFunctionArn' => 'change me',
+                    'Events' => ['s3:ObjectCreated:*'],
+                    'Filter' => new NotificationConfigurationFilter([
+                        'Key' => new S3KeyFilter([
+                            'FilterRules' => [new FilterRule([
+                                'Name' => 'suffix',
+                                'Value' => 'change me',
+                            ])],
+                        ]),
+                    ]),
+                ])],
+            ]),
+            'ExpectedBucketOwner' => 'change me',
+        ]);
+        $result = $client->PutBucketNotificationConfiguration($input);
+
+        self::assertTrue($result->resolve());
     }
 
     public function testPutObject(): void
