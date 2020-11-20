@@ -20,6 +20,7 @@ use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
+use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
 use AsyncAws\S3\Input\UploadPartRequest;
@@ -41,7 +42,12 @@ use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\Result\UploadPartOutput;
 use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\Delete;
+use AsyncAws\S3\ValueObject\FilterRule;
+use AsyncAws\S3\ValueObject\NotificationConfiguration;
+use AsyncAws\S3\ValueObject\NotificationConfigurationFilter;
 use AsyncAws\S3\ValueObject\ObjectIdentifier;
+use AsyncAws\S3\ValueObject\S3KeyFilter;
+use AsyncAws\S3\ValueObject\TopicConfiguration;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class S3ClientTest extends TestCase
@@ -295,6 +301,38 @@ class S3ClientTest extends TestCase
         $result = $client->ListParts($input);
 
         self::assertInstanceOf(ListPartsOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testPutBucketNotificationConfiguration(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new PutBucketNotificationConfigurationRequest([
+            'Bucket' => 'change me',
+            'NotificationConfiguration' => new NotificationConfiguration([
+                'TopicConfigurations' => [
+                    new TopicConfiguration([
+                        'Id' => 'change me',
+                        'TopicArn' => 'change me',
+                        'Events' => ['s3:ObjectCreated:*'],
+                        'Filter' => new NotificationConfigurationFilter([
+                            'Key' => new S3KeyFilter([
+                                'FilterRules' => [
+                                    new FilterRule([
+                                        'Name' => 'prefix',
+                                        'Value' => 'change me',
+                                    ]),
+                                ],
+                            ]),
+                        ]),
+                    ]),
+                ],
+            ]),
+        ]);
+        $result = $client->PutBucketNotificationConfiguration($input);
+
+        self::assertInstanceOf(Result::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 

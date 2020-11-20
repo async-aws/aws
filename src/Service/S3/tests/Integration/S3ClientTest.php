@@ -5,6 +5,8 @@ namespace AsyncAws\S3\Tests\Integration;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\S3\Enum\Event;
+use AsyncAws\S3\Enum\FilterRuleName;
 use AsyncAws\S3\Enum\Permission;
 use AsyncAws\S3\Enum\Type;
 use AsyncAws\S3\Input\AbortMultipartUploadRequest;
@@ -21,6 +23,7 @@ use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
+use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
 use AsyncAws\S3\Input\UploadPartRequest;
@@ -31,9 +34,16 @@ use AsyncAws\S3\ValueObject\AwsObject;
 use AsyncAws\S3\ValueObject\CommonPrefix;
 use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
 use AsyncAws\S3\ValueObject\CompletedPart;
+use AsyncAws\S3\ValueObject\FilterRule;
 use AsyncAws\S3\ValueObject\Grant;
 use AsyncAws\S3\ValueObject\Grantee;
+use AsyncAws\S3\ValueObject\LambdaFunctionConfiguration;
+use AsyncAws\S3\ValueObject\NotificationConfiguration;
+use AsyncAws\S3\ValueObject\NotificationConfigurationFilter;
 use AsyncAws\S3\ValueObject\Owner;
+use AsyncAws\S3\ValueObject\QueueConfiguration;
+use AsyncAws\S3\ValueObject\S3KeyFilter;
+use AsyncAws\S3\ValueObject\TopicConfiguration;
 
 class S3ClientTest extends TestCase
 {
@@ -70,7 +80,7 @@ class S3ClientTest extends TestCase
         // Test get object
         $input = new GetObjectRequest();
         $input->setBucket('foo')
-        ->setKey('bar');
+            ->setKey('bar');
         $result = $s3->getObject($input);
         $body = $result->getBody()->getContentAsString();
 
@@ -547,6 +557,73 @@ class S3ClientTest extends TestCase
         // self::assertTODO(expected, $result->getOwner());
         self::assertSame('changeIt', $result->getStorageClass());
         self::assertSame('changeIt', $result->getRequestCharged());
+    }
+
+    public function testPutBucketNotificationConfiguration(): void
+    {
+        $client = $this->getClient();
+
+        $input = new PutBucketNotificationConfigurationRequest([
+            'Bucket' => 'bucket-name',
+            'NotificationConfiguration' => new NotificationConfiguration([
+                'TopicConfigurations' => [
+                    new TopicConfiguration([
+                        'Id' => 'TopicId',
+                        'TopicArn' => 'arn:topic',
+                        'Events' => [Event::S3_OBJECT_CREATED_ALL],
+                        'Filter' => new NotificationConfigurationFilter([
+                            'Key' => new S3KeyFilter([
+                                'FilterRules' => [
+                                    new FilterRule([
+                                        'Name' => FilterRuleName::PREFIX,
+                                        'Value' => 'images/',
+                                    ]),
+                                ],
+                            ]),
+                        ]),
+                    ]),
+                ],
+                'QueueConfigurations' => [
+                    new QueueConfiguration([
+                        'Id' => 'QueueId',
+                        'QueueArn' => 'arn:queue',
+                        'Events' => [Event::S3_OBJECT_CREATED_ALL],
+                        'Filter' => new NotificationConfigurationFilter([
+                            'Key' => new S3KeyFilter([
+                                'FilterRules' => [new FilterRule([
+                                    'Name' => FilterRuleName::PREFIX,
+                                    'Value' => 'pdf/',
+                                ])],
+                            ]),
+                        ]),
+                    ]),
+                ],
+                'LambdaFunctionConfigurations' => [
+                    new LambdaFunctionConfiguration([
+                        'Id' => 'LambdaId',
+                        'LambdaFunctionArn' => 'arn:lambda',
+                        'Events' => [Event::S3_OBJECT_CREATED_ALL],
+                        'Filter' => new NotificationConfigurationFilter([
+                            'Key' => new S3KeyFilter([
+                                'FilterRules' => [
+                                    new FilterRule([
+                                        'Name' => FilterRuleName::SUFFIX,
+                                        'Value' => '.jpg',
+                                    ]),
+                                ],
+                            ]),
+                        ]),
+                    ]),
+                ],
+            ]),
+            'ExpectedBucketOwner' => 'bucket-name',
+        ]);
+        $result = $client->PutBucketNotificationConfiguration($input);
+
+        self::assertTrue($result->resolve());
+
+        $info = $result->info();
+        self::assertEquals(200, $info['status']);
     }
 
     public function testPutObject(): void
