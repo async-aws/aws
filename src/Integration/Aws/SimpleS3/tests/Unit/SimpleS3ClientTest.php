@@ -27,6 +27,13 @@ class SimpleS3ClientTest extends TestCase
         self::assertSame('https://s3.eu-central-1.amazonaws.com/bucket/images/file.jpg', $url);
     }
 
+    public function testGetPresignedUrl()
+    {
+        $client = new SimpleS3Client(['region' => 'eu-central-1'], new NullProvider(), new MockHttpClient());
+        $url = $client->getPresignedUrl('bucket', 'images/file.jpg');
+        self::assertSame('https://bucket.s3.eu-central-1.amazonaws.com/images/file.jpg', $url);
+    }
+
     public function testUploadSmallFileString()
     {
         $object = 'User-agent: *\nDisallow:';
