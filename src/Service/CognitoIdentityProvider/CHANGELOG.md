@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Added regions eu-north-1and eu-west-3.
 
 ## 1.0.0
 
