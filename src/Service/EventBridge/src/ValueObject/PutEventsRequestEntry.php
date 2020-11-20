@@ -33,8 +33,8 @@ final class PutEventsRequestEntry
     private $Detail;
 
     /**
-     * The event bus that will receive the event. Only the rules that are associated with this event bus will be able to
-     * match the event.
+     * The name or ARN of the event bus to receive the event. Only the rules that are associated with this event bus are
+     * used to match the event. If you omit this, the default event bus is used.
      */
     private $EventBusName;
 
