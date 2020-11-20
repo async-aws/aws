@@ -25,7 +25,7 @@ class PutBucketNotificationConfigurationRequestTest extends TestCase
                     new TopicConfiguration([
                         'Id' => 'TopicId',
                         'TopicArn' => 'arn:topic',
-                        'Events' => [Event::S_3_OBJECT_CREATED_],
+                        'Events' => [Event::S3_OBJECT_CREATED_ALL],
                         'Filter' => new NotificationConfigurationFilter([
                             'Key' => new S3KeyFilter([
                                 'FilterRules' => [
@@ -42,7 +42,7 @@ class PutBucketNotificationConfigurationRequestTest extends TestCase
                     new QueueConfiguration([
                         'Id' => 'QueueId',
                         'QueueArn' => 'arn:queue',
-                        'Events' => [Event::S_3_OBJECT_CREATED_],
+                        'Events' => [Event::S3_OBJECT_CREATED_ALL],
                         'Filter' => new NotificationConfigurationFilter([
                             'Key' => new S3KeyFilter([
                                 'FilterRules' => [new FilterRule([
@@ -57,7 +57,7 @@ class PutBucketNotificationConfigurationRequestTest extends TestCase
                     new LambdaFunctionConfiguration([
                         'Id' => 'LambdaId',
                         'LambdaFunctionArn' => 'arn:lambda',
-                        'Events' => [Event::S_3_OBJECT_CREATED_],
+                        'Events' => [Event::S3_OBJECT_CREATED_ALL],
                         'Filter' => new NotificationConfigurationFilter([
                             'Key' => new S3KeyFilter([
                                 'FilterRules' => [

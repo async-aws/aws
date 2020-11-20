@@ -570,7 +570,7 @@ class S3ClientTest extends TestCase
                     new TopicConfiguration([
                         'Id' => 'TopicId',
                         'TopicArn' => 'arn:topic',
-                        'Events' => [Event::S_3_OBJECT_CREATED_],
+                        'Events' => [Event::S3_OBJECT_CREATED_ALL],
                         'Filter' => new NotificationConfigurationFilter([
                             'Key' => new S3KeyFilter([
                                 'FilterRules' => [
@@ -587,7 +587,7 @@ class S3ClientTest extends TestCase
                     new QueueConfiguration([
                         'Id' => 'QueueId',
                         'QueueArn' => 'arn:queue',
-                        'Events' => [Event::S_3_OBJECT_CREATED_],
+                        'Events' => [Event::S3_OBJECT_CREATED_ALL],
                         'Filter' => new NotificationConfigurationFilter([
                             'Key' => new S3KeyFilter([
                                 'FilterRules' => [new FilterRule([
@@ -602,7 +602,7 @@ class S3ClientTest extends TestCase
                     new LambdaFunctionConfiguration([
                         'Id' => 'LambdaId',
                         'LambdaFunctionArn' => 'arn:lambda',
-                        'Events' => [Event::S_3_OBJECT_CREATED_],
+                        'Events' => [Event::S3_OBJECT_CREATED_ALL],
                         'Filter' => new NotificationConfigurationFilter([
                             'Key' => new S3KeyFilter([
                                 'FilterRules' => [
