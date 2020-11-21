@@ -6,6 +6,10 @@
 
 - AWS api-change: S3 Intelligent-Tiering adds support for Archive and Deep Archive Access tiers
 
+### Changed
+
+- Removed deprecation warning on Content-MD5 headers.
+
 ## 1.5.1
 
 ### Fixed

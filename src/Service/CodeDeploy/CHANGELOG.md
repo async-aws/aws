@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added region us-isob-east-1
+
 ## 1.0.0
 
 ### Added
