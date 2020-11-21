@@ -1,14 +1,19 @@
 # Change Log
 
-## NOT RELEASED
+## 1.6.0
 
 ### Added
 
+- Added `S#Client::putBucketNotificationConfiguration()`
 - AWS api-change: S3 Intelligent-Tiering adds support for Archive and Deep Archive Access tiers
 
 ### Changed
 
 - Removed deprecation warning on Content-MD5 headers.
+
+### Fixed
+
+- Make sure we throw exception from async-aws/core
 
 ## 1.5.1
 
