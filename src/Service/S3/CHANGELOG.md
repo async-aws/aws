@@ -4,7 +4,7 @@
 
 ### Added
 
-- Added `S#Client::putBucketNotificationConfiguration()`
+- Added `S3Client::putBucketNotificationConfiguration()`
 - AWS api-change: S3 Intelligent-Tiering adds support for Archive and Deep Archive Access tiers
 
 ### Changed
