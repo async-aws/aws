@@ -6,7 +6,7 @@
 
 - A `AwsRetryStrategy` to define what HTTP request we retry
 - Support for Elastic Container Registry (ECR) in `AwsClientFactory`
-- Read "region" form ini files.
+- Read "region" from ini files.
 - Support for hard coded `roleArn` in `ConfigurationProvider`
 - Added exception `AsyncAws\Core\Exception\UnexpectedValue` and `AsyncAws\Core\Exception\ParseResponse`
 
