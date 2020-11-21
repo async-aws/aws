@@ -2,9 +2,9 @@
 
 namespace AsyncAws\Core\AwsError;
 
-use AsyncAws\Core\Exception\ParseResponse;
 use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Exception\UnexpectedValue;
+use AsyncAws\Core\Exception\UnparsableResponse;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
@@ -42,7 +42,7 @@ class AwsErrorFactory
 
             return self::parseXml($xml);
         } catch (\Throwable $e) {
-            throw new ParseResponse('Failed to parse AWS error: ' . $content, 0, $e);
+            throw new UnparsableResponse('Failed to parse AWS error: ' . $content, 0, $e);
         }
     }
 

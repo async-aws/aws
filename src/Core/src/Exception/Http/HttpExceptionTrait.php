@@ -4,7 +4,7 @@ namespace AsyncAws\Core\Exception\Http;
 
 use AsyncAws\Core\AwsError\AwsError;
 use AsyncAws\Core\AwsError\AwsErrorFactory;
-use AsyncAws\Core\Exception\ParseResponse;
+use AsyncAws\Core\Exception\UnparsableResponse;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
@@ -36,7 +36,7 @@ trait HttpExceptionTrait
 
         try {
             $this->awsError = AwsErrorFactory::createFromResponse($response);
-        } catch (ParseResponse $e) {
+        } catch (UnparsableResponse $e) {
             // Ignore parsing error
         }
 

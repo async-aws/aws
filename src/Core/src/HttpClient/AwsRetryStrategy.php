@@ -3,7 +3,7 @@
 namespace AsyncAws\Core\HttpClient;
 
 use AsyncAws\Core\AwsError\AwsErrorFactory;
-use AsyncAws\Core\Exception\ParseResponse;
+use AsyncAws\Core\Exception\UnparsableResponse;
 use Symfony\Component\HttpClient\Response\AsyncContext;
 use Symfony\Component\HttpClient\Retry\GenericRetryStrategy;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
@@ -37,7 +37,7 @@ class AwsRetryStrategy extends GenericRetryStrategy
 
         try {
             $error = AwsErrorFactory::createFromContent($responseContent, $context->getHeaders());
-        } catch (ParseResponse $e) {
+        } catch (UnparsableResponse $e) {
             return false;
         }
 

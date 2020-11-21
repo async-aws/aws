@@ -8,7 +8,7 @@
 - Support for Elastic Container Registry (ECR) in `AwsClientFactory`
 - Read "region" from ini files.
 - Support for hard coded `roleArn` in `ConfigurationProvider`
-- Added exception `AsyncAws\Core\Exception\UnexpectedValue` and `AsyncAws\Core\Exception\ParseResponse`
+- Added exception `AsyncAws\Core\Exception\UnexpectedValue` and `AsyncAws\Core\Exception\UnparsableResponse`
 
 ### Fixed
 
