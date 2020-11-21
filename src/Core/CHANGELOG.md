@@ -2,12 +2,24 @@
 
 ## NOT RELEASED
 
+### Added
+
+- A `AwsRetryStrategy` to define what HTTP request we retry
+- Support for Elastic Container Registry (ECR) in `AwsClientFactory`
+- Read "region" from ini files.
+- Support for hard coded `roleArn` in `ConfigurationProvider`
+- Added exception `AsyncAws\Core\Exception\UnexpectedValue` and `AsyncAws\Core\Exception\ParseResponse`
+
+### Fixed
+
+- Merge configuration if a profile is spread out over multiple files. Ie if `[profile company]` is defined in both `~/.aws/config` and `~/.aws/credentials`.
+- All exceptions thrown must extend `AsyncAws\Core\Exception\Exception`
+
 ## 1.6.0
 
 ### Added
 
 - Support for Rekognition in `AwsClientFactory`
-- Added exception `AsyncAws\Core\Exception\UnexpectedValue`
 
 ## 1.5.0
 
