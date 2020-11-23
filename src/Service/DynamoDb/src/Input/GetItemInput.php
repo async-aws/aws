@@ -245,8 +245,12 @@ final class GetItemInput extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
         }
 
-        foreach ($v as $name => $v) {
-            $payload['Key'][$name] = $v->requestBody();
+        if (empty($v)) {
+            $payload['Key'] = new \stdClass();
+        } else {
+            foreach ($v as $name => $mv) {
+                $payload['Key'][$name] = $mv->requestBody();
+            }
         }
         if (null !== $v = $this->AttributesToGet) {
             $index = -1;
@@ -269,8 +273,12 @@ final class GetItemInput extends Input
             $payload['ProjectionExpression'] = $v;
         }
         if (null !== $v = $this->ExpressionAttributeNames) {
-            foreach ($v as $name => $v) {
-                $payload['ExpressionAttributeNames'][$name] = $v;
+            if (empty($v)) {
+                $payload['ExpressionAttributeNames'] = new \stdClass();
+            } else {
+                foreach ($v as $name => $mv) {
+                    $payload['ExpressionAttributeNames'][$name] = $mv;
+                }
             }
         }
 

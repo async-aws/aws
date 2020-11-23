@@ -210,8 +210,12 @@ final class ResendConfirmationCodeRequest extends Input
             $payload['AnalyticsMetadata'] = $v->requestBody();
         }
         if (null !== $v = $this->ClientMetadata) {
-            foreach ($v as $name => $v) {
-                $payload['ClientMetadata'][$name] = $v;
+            if (empty($v)) {
+                $payload['ClientMetadata'] = new \stdClass();
+            } else {
+                foreach ($v as $name => $mv) {
+                    $payload['ClientMetadata'][$name] = $mv;
+                }
             }
         }
 

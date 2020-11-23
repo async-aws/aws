@@ -405,17 +405,29 @@ final class UpdateItemInput extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
         }
 
-        foreach ($v as $name => $v) {
-            $payload['Key'][$name] = $v->requestBody();
+        if (empty($v)) {
+            $payload['Key'] = new \stdClass();
+        } else {
+            foreach ($v as $name => $mv) {
+                $payload['Key'][$name] = $mv->requestBody();
+            }
         }
         if (null !== $v = $this->AttributeUpdates) {
-            foreach ($v as $name => $v) {
-                $payload['AttributeUpdates'][$name] = $v->requestBody();
+            if (empty($v)) {
+                $payload['AttributeUpdates'] = new \stdClass();
+            } else {
+                foreach ($v as $name => $mv) {
+                    $payload['AttributeUpdates'][$name] = $mv->requestBody();
+                }
             }
         }
         if (null !== $v = $this->Expected) {
-            foreach ($v as $name => $v) {
-                $payload['Expected'][$name] = $v->requestBody();
+            if (empty($v)) {
+                $payload['Expected'] = new \stdClass();
+            } else {
+                foreach ($v as $name => $mv) {
+                    $payload['Expected'][$name] = $mv->requestBody();
+                }
             }
         }
         if (null !== $v = $this->ConditionalOperator) {
@@ -449,13 +461,21 @@ final class UpdateItemInput extends Input
             $payload['ConditionExpression'] = $v;
         }
         if (null !== $v = $this->ExpressionAttributeNames) {
-            foreach ($v as $name => $v) {
-                $payload['ExpressionAttributeNames'][$name] = $v;
+            if (empty($v)) {
+                $payload['ExpressionAttributeNames'] = new \stdClass();
+            } else {
+                foreach ($v as $name => $mv) {
+                    $payload['ExpressionAttributeNames'][$name] = $mv;
+                }
             }
         }
         if (null !== $v = $this->ExpressionAttributeValues) {
-            foreach ($v as $name => $v) {
-                $payload['ExpressionAttributeValues'][$name] = $v->requestBody();
+            if (empty($v)) {
+                $payload['ExpressionAttributeValues'] = new \stdClass();
+            } else {
+                foreach ($v as $name => $mv) {
+                    $payload['ExpressionAttributeValues'][$name] = $mv->requestBody();
+                }
             }
         }
 

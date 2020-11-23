@@ -109,8 +109,12 @@ final class KeysAndAttributes
         foreach ($v as $listValue) {
             ++$index;
 
-            foreach ($listValue as $name => $v) {
-                $payload['Keys'][$index][$name] = $v->requestBody();
+            if (empty($listValue)) {
+                $payload['Keys'][$index] = new \stdClass();
+            } else {
+                foreach ($listValue as $name => $mv) {
+                    $payload['Keys'][$index][$name] = $mv->requestBody();
+                }
             }
         }
 
@@ -129,8 +133,12 @@ final class KeysAndAttributes
             $payload['ProjectionExpression'] = $v;
         }
         if (null !== $v = $this->ExpressionAttributeNames) {
-            foreach ($v as $name => $v) {
-                $payload['ExpressionAttributeNames'][$name] = $v;
+            if (empty($v)) {
+                $payload['ExpressionAttributeNames'] = new \stdClass();
+            } else {
+                foreach ($v as $name => $mv) {
+                    $payload['ExpressionAttributeNames'][$name] = $mv;
+                }
             }
         }
 

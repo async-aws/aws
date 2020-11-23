@@ -244,8 +244,12 @@ final class RespondToAuthChallengeRequest extends Input
             $payload['Session'] = $v;
         }
         if (null !== $v = $this->ChallengeResponses) {
-            foreach ($v as $name => $v) {
-                $payload['ChallengeResponses'][$name] = $v;
+            if (empty($v)) {
+                $payload['ChallengeResponses'] = new \stdClass();
+            } else {
+                foreach ($v as $name => $mv) {
+                    $payload['ChallengeResponses'][$name] = $mv;
+                }
             }
         }
         if (null !== $v = $this->AnalyticsMetadata) {
@@ -255,8 +259,12 @@ final class RespondToAuthChallengeRequest extends Input
             $payload['UserContextData'] = $v->requestBody();
         }
         if (null !== $v = $this->ClientMetadata) {
-            foreach ($v as $name => $v) {
-                $payload['ClientMetadata'][$name] = $v;
+            if (empty($v)) {
+                $payload['ClientMetadata'] = new \stdClass();
+            } else {
+                foreach ($v as $name => $mv) {
+                    $payload['ClientMetadata'][$name] = $mv;
+                }
             }
         }
 

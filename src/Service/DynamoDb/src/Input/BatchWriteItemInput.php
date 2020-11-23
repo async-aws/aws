@@ -146,12 +146,16 @@ final class BatchWriteItemInput extends Input
             throw new InvalidArgument(sprintf('Missing parameter "RequestItems" for "%s". The value cannot be null.', __CLASS__));
         }
 
-        foreach ($v as $name => $v) {
-            $index = -1;
-            $payload['RequestItems'][$name] = [];
-            foreach ($v as $listValue) {
-                ++$index;
-                $payload['RequestItems'][$name][$index] = $listValue->requestBody();
+        if (empty($v)) {
+            $payload['RequestItems'] = new \stdClass();
+        } else {
+            foreach ($v as $name => $mv) {
+                $index = -1;
+                $payload['RequestItems'][$name] = [];
+                foreach ($mv as $listValue) {
+                    ++$index;
+                    $payload['RequestItems'][$name][$index] = $listValue->requestBody();
+                }
             }
         }
         if (null !== $v = $this->ReturnConsumedCapacity) {

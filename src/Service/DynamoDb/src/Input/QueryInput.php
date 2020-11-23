@@ -540,13 +540,21 @@ final class QueryInput extends Input
             $payload['ConsistentRead'] = (bool) $v;
         }
         if (null !== $v = $this->KeyConditions) {
-            foreach ($v as $name => $v) {
-                $payload['KeyConditions'][$name] = $v->requestBody();
+            if (empty($v)) {
+                $payload['KeyConditions'] = new \stdClass();
+            } else {
+                foreach ($v as $name => $mv) {
+                    $payload['KeyConditions'][$name] = $mv->requestBody();
+                }
             }
         }
         if (null !== $v = $this->QueryFilter) {
-            foreach ($v as $name => $v) {
-                $payload['QueryFilter'][$name] = $v->requestBody();
+            if (empty($v)) {
+                $payload['QueryFilter'] = new \stdClass();
+            } else {
+                foreach ($v as $name => $mv) {
+                    $payload['QueryFilter'][$name] = $mv->requestBody();
+                }
             }
         }
         if (null !== $v = $this->ConditionalOperator) {
@@ -559,8 +567,12 @@ final class QueryInput extends Input
             $payload['ScanIndexForward'] = (bool) $v;
         }
         if (null !== $v = $this->ExclusiveStartKey) {
-            foreach ($v as $name => $v) {
-                $payload['ExclusiveStartKey'][$name] = $v->requestBody();
+            if (empty($v)) {
+                $payload['ExclusiveStartKey'] = new \stdClass();
+            } else {
+                foreach ($v as $name => $mv) {
+                    $payload['ExclusiveStartKey'][$name] = $mv->requestBody();
+                }
             }
         }
         if (null !== $v = $this->ReturnConsumedCapacity) {
@@ -579,13 +591,21 @@ final class QueryInput extends Input
             $payload['KeyConditionExpression'] = $v;
         }
         if (null !== $v = $this->ExpressionAttributeNames) {
-            foreach ($v as $name => $v) {
-                $payload['ExpressionAttributeNames'][$name] = $v;
+            if (empty($v)) {
+                $payload['ExpressionAttributeNames'] = new \stdClass();
+            } else {
+                foreach ($v as $name => $mv) {
+                    $payload['ExpressionAttributeNames'][$name] = $mv;
+                }
             }
         }
         if (null !== $v = $this->ExpressionAttributeValues) {
-            foreach ($v as $name => $v) {
-                $payload['ExpressionAttributeValues'][$name] = $v->requestBody();
+            if (empty($v)) {
+                $payload['ExpressionAttributeValues'] = new \stdClass();
+            } else {
+                foreach ($v as $name => $mv) {
+                    $payload['ExpressionAttributeValues'][$name] = $mv->requestBody();
+                }
             }
         }
 

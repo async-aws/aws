@@ -349,12 +349,20 @@ final class PutItemInput extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Item" for "%s". The value cannot be null.', __CLASS__));
         }
 
-        foreach ($v as $name => $v) {
-            $payload['Item'][$name] = $v->requestBody();
+        if (empty($v)) {
+            $payload['Item'] = new \stdClass();
+        } else {
+            foreach ($v as $name => $mv) {
+                $payload['Item'][$name] = $mv->requestBody();
+            }
         }
         if (null !== $v = $this->Expected) {
-            foreach ($v as $name => $v) {
-                $payload['Expected'][$name] = $v->requestBody();
+            if (empty($v)) {
+                $payload['Expected'] = new \stdClass();
+            } else {
+                foreach ($v as $name => $mv) {
+                    $payload['Expected'][$name] = $mv->requestBody();
+                }
             }
         }
         if (null !== $v = $this->ReturnValues) {
@@ -385,13 +393,21 @@ final class PutItemInput extends Input
             $payload['ConditionExpression'] = $v;
         }
         if (null !== $v = $this->ExpressionAttributeNames) {
-            foreach ($v as $name => $v) {
-                $payload['ExpressionAttributeNames'][$name] = $v;
+            if (empty($v)) {
+                $payload['ExpressionAttributeNames'] = new \stdClass();
+            } else {
+                foreach ($v as $name => $mv) {
+                    $payload['ExpressionAttributeNames'][$name] = $mv;
+                }
             }
         }
         if (null !== $v = $this->ExpressionAttributeValues) {
-            foreach ($v as $name => $v) {
-                $payload['ExpressionAttributeValues'][$name] = $v->requestBody();
+            if (empty($v)) {
+                $payload['ExpressionAttributeValues'] = new \stdClass();
+            } else {
+                foreach ($v as $name => $mv) {
+                    $payload['ExpressionAttributeValues'][$name] = $mv->requestBody();
+                }
             }
         }
 

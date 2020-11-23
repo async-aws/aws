@@ -337,8 +337,12 @@ final class AdminCreateUserRequest extends Input
             }
         }
         if (null !== $v = $this->ClientMetadata) {
-            foreach ($v as $name => $v) {
-                $payload['ClientMetadata'][$name] = $v;
+            if (empty($v)) {
+                $payload['ClientMetadata'] = new \stdClass();
+            } else {
+                foreach ($v as $name => $mv) {
+                    $payload['ClientMetadata'][$name] = $mv;
+                }
             }
         }
 

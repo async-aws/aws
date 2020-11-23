@@ -116,8 +116,12 @@ final class BatchGetItemInput extends Input
             throw new InvalidArgument(sprintf('Missing parameter "RequestItems" for "%s". The value cannot be null.', __CLASS__));
         }
 
-        foreach ($v as $name => $v) {
-            $payload['RequestItems'][$name] = $v->requestBody();
+        if (empty($v)) {
+            $payload['RequestItems'] = new \stdClass();
+        } else {
+            foreach ($v as $name => $mv) {
+                $payload['RequestItems'][$name] = $mv->requestBody();
+            }
         }
         if (null !== $v = $this->ReturnConsumedCapacity) {
             if (!ReturnConsumedCapacity::exists($v)) {
