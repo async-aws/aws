@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Make sure required Map properties are validated before sending the request
+- Make sure empty Map properties are converted to `{}` in Json request.
+
 ## 1.0.0
 
 ### Added
