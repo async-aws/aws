@@ -250,6 +250,7 @@ final class GetItemInput extends Input
         if (empty($v)) {
             $payload['Key'] = new \stdClass();
         } else {
+            $payload['Key'] = [];
             foreach ($v as $name => $mv) {
                 $payload['Key'][$name] = $mv->requestBody();
             }
@@ -278,6 +279,7 @@ final class GetItemInput extends Input
             if (empty($v)) {
                 $payload['ExpressionAttributeNames'] = new \stdClass();
             } else {
+                $payload['ExpressionAttributeNames'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['ExpressionAttributeNames'][$name] = $mv;
                 }

@@ -112,6 +112,7 @@ final class KeysAndAttributes
             if (empty($listValue)) {
                 $payload['Keys'][$index] = new \stdClass();
             } else {
+                $payload['Keys'][$index] = [];
                 foreach ($listValue as $name => $mv) {
                     $payload['Keys'][$index][$name] = $mv->requestBody();
                 }
@@ -136,6 +137,7 @@ final class KeysAndAttributes
             if (empty($v)) {
                 $payload['ExpressionAttributeNames'] = new \stdClass();
             } else {
+                $payload['ExpressionAttributeNames'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['ExpressionAttributeNames'][$name] = $mv;
                 }

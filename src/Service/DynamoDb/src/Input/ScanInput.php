@@ -514,6 +514,7 @@ final class ScanInput extends Input
             if (empty($v)) {
                 $payload['ScanFilter'] = new \stdClass();
             } else {
+                $payload['ScanFilter'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['ScanFilter'][$name] = $mv->requestBody();
                 }
@@ -529,6 +530,7 @@ final class ScanInput extends Input
             if (empty($v)) {
                 $payload['ExclusiveStartKey'] = new \stdClass();
             } else {
+                $payload['ExclusiveStartKey'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['ExclusiveStartKey'][$name] = $mv->requestBody();
                 }
@@ -556,6 +558,7 @@ final class ScanInput extends Input
             if (empty($v)) {
                 $payload['ExpressionAttributeNames'] = new \stdClass();
             } else {
+                $payload['ExpressionAttributeNames'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['ExpressionAttributeNames'][$name] = $mv;
                 }
@@ -565,6 +568,7 @@ final class ScanInput extends Input
             if (empty($v)) {
                 $payload['ExpressionAttributeValues'] = new \stdClass();
             } else {
+                $payload['ExpressionAttributeValues'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['ExpressionAttributeValues'][$name] = $mv->requestBody();
                 }

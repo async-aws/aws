@@ -551,6 +551,7 @@ final class QueryInput extends Input
             if (empty($v)) {
                 $payload['KeyConditions'] = new \stdClass();
             } else {
+                $payload['KeyConditions'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['KeyConditions'][$name] = $mv->requestBody();
                 }
@@ -560,6 +561,7 @@ final class QueryInput extends Input
             if (empty($v)) {
                 $payload['QueryFilter'] = new \stdClass();
             } else {
+                $payload['QueryFilter'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['QueryFilter'][$name] = $mv->requestBody();
                 }
@@ -578,6 +580,7 @@ final class QueryInput extends Input
             if (empty($v)) {
                 $payload['ExclusiveStartKey'] = new \stdClass();
             } else {
+                $payload['ExclusiveStartKey'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['ExclusiveStartKey'][$name] = $mv->requestBody();
                 }
@@ -602,6 +605,7 @@ final class QueryInput extends Input
             if (empty($v)) {
                 $payload['ExpressionAttributeNames'] = new \stdClass();
             } else {
+                $payload['ExpressionAttributeNames'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['ExpressionAttributeNames'][$name] = $mv;
                 }
@@ -611,6 +615,7 @@ final class QueryInput extends Input
             if (empty($v)) {
                 $payload['ExpressionAttributeValues'] = new \stdClass();
             } else {
+                $payload['ExpressionAttributeValues'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['ExpressionAttributeValues'][$name] = $mv->requestBody();
                 }

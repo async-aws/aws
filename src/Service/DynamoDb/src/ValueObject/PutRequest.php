@@ -50,6 +50,7 @@ final class PutRequest
         if (empty($v)) {
             $payload['Item'] = new \stdClass();
         } else {
+            $payload['Item'] = [];
             foreach ($v as $name => $mv) {
                 $payload['Item'][$name] = $mv->requestBody();
             }

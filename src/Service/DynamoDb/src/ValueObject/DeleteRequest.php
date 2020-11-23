@@ -48,6 +48,7 @@ final class DeleteRequest
         if (empty($v)) {
             $payload['Key'] = new \stdClass();
         } else {
+            $payload['Key'] = [];
             foreach ($v as $name => $mv) {
                 $payload['Key'][$name] = $mv->requestBody();
             }

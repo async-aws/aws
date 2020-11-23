@@ -121,6 +121,7 @@ final class BatchGetItemInput extends Input
         if (empty($v)) {
             $payload['RequestItems'] = new \stdClass();
         } else {
+            $payload['RequestItems'] = [];
             foreach ($v as $name => $mv) {
                 $payload['RequestItems'][$name] = $mv->requestBody();
             }

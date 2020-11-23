@@ -216,6 +216,7 @@ final class InitiateAuthRequest extends Input
             if (empty($v)) {
                 $payload['AuthParameters'] = new \stdClass();
             } else {
+                $payload['AuthParameters'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['AuthParameters'][$name] = $mv;
                 }
@@ -225,6 +226,7 @@ final class InitiateAuthRequest extends Input
             if (empty($v)) {
                 $payload['ClientMetadata'] = new \stdClass();
             } else {
+                $payload['ClientMetadata'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['ClientMetadata'][$name] = $mv;
                 }

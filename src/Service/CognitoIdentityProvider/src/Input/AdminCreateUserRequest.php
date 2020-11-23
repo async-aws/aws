@@ -340,6 +340,7 @@ final class AdminCreateUserRequest extends Input
             if (empty($v)) {
                 $payload['ClientMetadata'] = new \stdClass();
             } else {
+                $payload['ClientMetadata'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['ClientMetadata'][$name] = $mv;
                 }

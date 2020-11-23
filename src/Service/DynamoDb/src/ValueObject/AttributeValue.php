@@ -195,6 +195,7 @@ final class AttributeValue
             if (empty($v)) {
                 $payload['M'] = new \stdClass();
             } else {
+                $payload['M'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['M'][$name] = $mv->requestBody();
                 }

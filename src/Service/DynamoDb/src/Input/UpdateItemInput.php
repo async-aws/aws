@@ -416,6 +416,7 @@ final class UpdateItemInput extends Input
         if (empty($v)) {
             $payload['Key'] = new \stdClass();
         } else {
+            $payload['Key'] = [];
             foreach ($v as $name => $mv) {
                 $payload['Key'][$name] = $mv->requestBody();
             }
@@ -424,6 +425,7 @@ final class UpdateItemInput extends Input
             if (empty($v)) {
                 $payload['AttributeUpdates'] = new \stdClass();
             } else {
+                $payload['AttributeUpdates'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['AttributeUpdates'][$name] = $mv->requestBody();
                 }
@@ -433,6 +435,7 @@ final class UpdateItemInput extends Input
             if (empty($v)) {
                 $payload['Expected'] = new \stdClass();
             } else {
+                $payload['Expected'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['Expected'][$name] = $mv->requestBody();
                 }
@@ -472,6 +475,7 @@ final class UpdateItemInput extends Input
             if (empty($v)) {
                 $payload['ExpressionAttributeNames'] = new \stdClass();
             } else {
+                $payload['ExpressionAttributeNames'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['ExpressionAttributeNames'][$name] = $mv;
                 }
@@ -481,6 +485,7 @@ final class UpdateItemInput extends Input
             if (empty($v)) {
                 $payload['ExpressionAttributeValues'] = new \stdClass();
             } else {
+                $payload['ExpressionAttributeValues'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['ExpressionAttributeValues'][$name] = $mv->requestBody();
                 }

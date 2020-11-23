@@ -247,6 +247,7 @@ final class RespondToAuthChallengeRequest extends Input
             if (empty($v)) {
                 $payload['ChallengeResponses'] = new \stdClass();
             } else {
+                $payload['ChallengeResponses'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['ChallengeResponses'][$name] = $mv;
                 }
@@ -262,6 +263,7 @@ final class RespondToAuthChallengeRequest extends Input
             if (empty($v)) {
                 $payload['ClientMetadata'] = new \stdClass();
             } else {
+                $payload['ClientMetadata'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['ClientMetadata'][$name] = $mv;
                 }

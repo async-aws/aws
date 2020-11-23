@@ -213,6 +213,7 @@ class RestJsonSerializer implements Serializer
 if (empty(INPUT)) {
     $payloadOUTPUT = new \stdClass();
 } else {
+    $payloadOUTPUT = [];
     foreach (INPUT as $name => $mv) {
         VALIDATE_ENUM
         MEMBER_CODE

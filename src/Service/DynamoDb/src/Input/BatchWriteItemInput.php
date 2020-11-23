@@ -149,6 +149,7 @@ final class BatchWriteItemInput extends Input
         if (empty($v)) {
             $payload['RequestItems'] = new \stdClass();
         } else {
+            $payload['RequestItems'] = [];
             foreach ($v as $name => $mv) {
                 $index = -1;
                 $payload['RequestItems'][$name] = [];

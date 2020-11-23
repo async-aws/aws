@@ -357,6 +357,7 @@ final class DeleteItemInput extends Input
         if (empty($v)) {
             $payload['Key'] = new \stdClass();
         } else {
+            $payload['Key'] = [];
             foreach ($v as $name => $mv) {
                 $payload['Key'][$name] = $mv->requestBody();
             }
@@ -365,6 +366,7 @@ final class DeleteItemInput extends Input
             if (empty($v)) {
                 $payload['Expected'] = new \stdClass();
             } else {
+                $payload['Expected'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['Expected'][$name] = $mv->requestBody();
                 }
@@ -401,6 +403,7 @@ final class DeleteItemInput extends Input
             if (empty($v)) {
                 $payload['ExpressionAttributeNames'] = new \stdClass();
             } else {
+                $payload['ExpressionAttributeNames'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['ExpressionAttributeNames'][$name] = $mv;
                 }
@@ -410,6 +413,7 @@ final class DeleteItemInput extends Input
             if (empty($v)) {
                 $payload['ExpressionAttributeValues'] = new \stdClass();
             } else {
+                $payload['ExpressionAttributeValues'] = [];
                 foreach ($v as $name => $mv) {
                     $payload['ExpressionAttributeValues'][$name] = $mv->requestBody();
                 }
