@@ -84,9 +84,11 @@ final class GetItemInput extends Input
     {
         $this->TableName = $input['TableName'] ?? null;
 
-        $this->Key = [];
-        foreach ($input['Key'] ?? [] as $key => $item) {
-            $this->Key[$key] = AttributeValue::create($item);
+        if (isset($input['Key'])) {
+            $this->Key = [];
+            foreach ($input['Key'] as $key => $item) {
+                $this->Key[$key] = AttributeValue::create($item);
+            }
         }
         $this->AttributesToGet = $input['AttributesToGet'] ?? null;
         $this->ConsistentRead = $input['ConsistentRead'] ?? null;

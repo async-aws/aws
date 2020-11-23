@@ -104,9 +104,11 @@ final class PublishInput extends Input
         $this->Subject = $input['Subject'] ?? null;
         $this->MessageStructure = $input['MessageStructure'] ?? null;
 
-        $this->MessageAttributes = [];
-        foreach ($input['MessageAttributes'] ?? [] as $key => $item) {
-            $this->MessageAttributes[$key] = MessageAttributeValue::create($item);
+        if (isset($input['MessageAttributes'])) {
+            $this->MessageAttributes = [];
+            foreach ($input['MessageAttributes'] as $key => $item) {
+                $this->MessageAttributes[$key] = MessageAttributeValue::create($item);
+            }
         }
         $this->MessageDeduplicationId = $input['MessageDeduplicationId'] ?? null;
         $this->MessageGroupId = $input['MessageGroupId'] ?? null;

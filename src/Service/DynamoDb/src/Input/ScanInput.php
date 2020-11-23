@@ -182,15 +182,19 @@ final class ScanInput extends Input
         $this->Limit = $input['Limit'] ?? null;
         $this->Select = $input['Select'] ?? null;
 
-        $this->ScanFilter = [];
-        foreach ($input['ScanFilter'] ?? [] as $key => $item) {
-            $this->ScanFilter[$key] = Condition::create($item);
+        if (isset($input['ScanFilter'])) {
+            $this->ScanFilter = [];
+            foreach ($input['ScanFilter'] as $key => $item) {
+                $this->ScanFilter[$key] = Condition::create($item);
+            }
         }
         $this->ConditionalOperator = $input['ConditionalOperator'] ?? null;
 
-        $this->ExclusiveStartKey = [];
-        foreach ($input['ExclusiveStartKey'] ?? [] as $key => $item) {
-            $this->ExclusiveStartKey[$key] = AttributeValue::create($item);
+        if (isset($input['ExclusiveStartKey'])) {
+            $this->ExclusiveStartKey = [];
+            foreach ($input['ExclusiveStartKey'] as $key => $item) {
+                $this->ExclusiveStartKey[$key] = AttributeValue::create($item);
+            }
         }
         $this->ReturnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
         $this->TotalSegments = $input['TotalSegments'] ?? null;
@@ -199,9 +203,11 @@ final class ScanInput extends Input
         $this->FilterExpression = $input['FilterExpression'] ?? null;
         $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
 
-        $this->ExpressionAttributeValues = [];
-        foreach ($input['ExpressionAttributeValues'] ?? [] as $key => $item) {
-            $this->ExpressionAttributeValues[$key] = AttributeValue::create($item);
+        if (isset($input['ExpressionAttributeValues'])) {
+            $this->ExpressionAttributeValues = [];
+            foreach ($input['ExpressionAttributeValues'] as $key => $item) {
+                $this->ExpressionAttributeValues[$key] = AttributeValue::create($item);
+            }
         }
         $this->ConsistentRead = $input['ConsistentRead'] ?? null;
         parent::__construct($input);

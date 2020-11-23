@@ -88,14 +88,18 @@ final class SendMessageRequest extends Input
         $this->MessageBody = $input['MessageBody'] ?? null;
         $this->DelaySeconds = $input['DelaySeconds'] ?? null;
 
-        $this->MessageAttributes = [];
-        foreach ($input['MessageAttributes'] ?? [] as $key => $item) {
-            $this->MessageAttributes[$key] = MessageAttributeValue::create($item);
+        if (isset($input['MessageAttributes'])) {
+            $this->MessageAttributes = [];
+            foreach ($input['MessageAttributes'] as $key => $item) {
+                $this->MessageAttributes[$key] = MessageAttributeValue::create($item);
+            }
         }
 
-        $this->MessageSystemAttributes = [];
-        foreach ($input['MessageSystemAttributes'] ?? [] as $key => $item) {
-            $this->MessageSystemAttributes[$key] = MessageSystemAttributeValue::create($item);
+        if (isset($input['MessageSystemAttributes'])) {
+            $this->MessageSystemAttributes = [];
+            foreach ($input['MessageSystemAttributes'] as $key => $item) {
+                $this->MessageSystemAttributes[$key] = MessageSystemAttributeValue::create($item);
+            }
         }
         $this->MessageDeduplicationId = $input['MessageDeduplicationId'] ?? null;
         $this->MessageGroupId = $input['MessageGroupId'] ?? null;

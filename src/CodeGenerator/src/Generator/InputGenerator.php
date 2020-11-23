@@ -148,9 +148,11 @@ class InputGenerator
                     $memberClassName = $this->objectGenerator->generate($mapValueShape);
 
                     $constructorBody .= strtr('
-                        $this->NAME = [];
-                        foreach ($input["NAME"] ?? [] as $key => $item) {
-                            $this->NAME[$key] = CLASS::create($item);
+                        if (isset($input["NAME"])) {
+                            $this->NAME = [];
+                            foreach ($input["NAME"] as $key => $item) {
+                                $this->NAME[$key] = CLASS::create($item);
+                            }
                         }
                     ', [
                         'NAME' => $member->getName(),

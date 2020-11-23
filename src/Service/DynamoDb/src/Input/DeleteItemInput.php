@@ -116,14 +116,18 @@ final class DeleteItemInput extends Input
     {
         $this->TableName = $input['TableName'] ?? null;
 
-        $this->Key = [];
-        foreach ($input['Key'] ?? [] as $key => $item) {
-            $this->Key[$key] = AttributeValue::create($item);
+        if (isset($input['Key'])) {
+            $this->Key = [];
+            foreach ($input['Key'] as $key => $item) {
+                $this->Key[$key] = AttributeValue::create($item);
+            }
         }
 
-        $this->Expected = [];
-        foreach ($input['Expected'] ?? [] as $key => $item) {
-            $this->Expected[$key] = ExpectedAttributeValue::create($item);
+        if (isset($input['Expected'])) {
+            $this->Expected = [];
+            foreach ($input['Expected'] as $key => $item) {
+                $this->Expected[$key] = ExpectedAttributeValue::create($item);
+            }
         }
         $this->ConditionalOperator = $input['ConditionalOperator'] ?? null;
         $this->ReturnValues = $input['ReturnValues'] ?? null;
@@ -132,9 +136,11 @@ final class DeleteItemInput extends Input
         $this->ConditionExpression = $input['ConditionExpression'] ?? null;
         $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
 
-        $this->ExpressionAttributeValues = [];
-        foreach ($input['ExpressionAttributeValues'] ?? [] as $key => $item) {
-            $this->ExpressionAttributeValues[$key] = AttributeValue::create($item);
+        if (isset($input['ExpressionAttributeValues'])) {
+            $this->ExpressionAttributeValues = [];
+            foreach ($input['ExpressionAttributeValues'] as $key => $item) {
+                $this->ExpressionAttributeValues[$key] = AttributeValue::create($item);
+            }
         }
         parent::__construct($input);
     }

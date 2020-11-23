@@ -192,21 +192,27 @@ final class QueryInput extends Input
         $this->Limit = $input['Limit'] ?? null;
         $this->ConsistentRead = $input['ConsistentRead'] ?? null;
 
-        $this->KeyConditions = [];
-        foreach ($input['KeyConditions'] ?? [] as $key => $item) {
-            $this->KeyConditions[$key] = Condition::create($item);
+        if (isset($input['KeyConditions'])) {
+            $this->KeyConditions = [];
+            foreach ($input['KeyConditions'] as $key => $item) {
+                $this->KeyConditions[$key] = Condition::create($item);
+            }
         }
 
-        $this->QueryFilter = [];
-        foreach ($input['QueryFilter'] ?? [] as $key => $item) {
-            $this->QueryFilter[$key] = Condition::create($item);
+        if (isset($input['QueryFilter'])) {
+            $this->QueryFilter = [];
+            foreach ($input['QueryFilter'] as $key => $item) {
+                $this->QueryFilter[$key] = Condition::create($item);
+            }
         }
         $this->ConditionalOperator = $input['ConditionalOperator'] ?? null;
         $this->ScanIndexForward = $input['ScanIndexForward'] ?? null;
 
-        $this->ExclusiveStartKey = [];
-        foreach ($input['ExclusiveStartKey'] ?? [] as $key => $item) {
-            $this->ExclusiveStartKey[$key] = AttributeValue::create($item);
+        if (isset($input['ExclusiveStartKey'])) {
+            $this->ExclusiveStartKey = [];
+            foreach ($input['ExclusiveStartKey'] as $key => $item) {
+                $this->ExclusiveStartKey[$key] = AttributeValue::create($item);
+            }
         }
         $this->ReturnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
         $this->ProjectionExpression = $input['ProjectionExpression'] ?? null;
@@ -214,9 +220,11 @@ final class QueryInput extends Input
         $this->KeyConditionExpression = $input['KeyConditionExpression'] ?? null;
         $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
 
-        $this->ExpressionAttributeValues = [];
-        foreach ($input['ExpressionAttributeValues'] ?? [] as $key => $item) {
-            $this->ExpressionAttributeValues[$key] = AttributeValue::create($item);
+        if (isset($input['ExpressionAttributeValues'])) {
+            $this->ExpressionAttributeValues = [];
+            foreach ($input['ExpressionAttributeValues'] as $key => $item) {
+                $this->ExpressionAttributeValues[$key] = AttributeValue::create($item);
+            }
         }
         parent::__construct($input);
     }
