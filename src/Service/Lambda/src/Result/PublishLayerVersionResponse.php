@@ -118,6 +118,8 @@ class PublishLayerVersionResponse extends Result
             'Location' => isset($data['Content']['Location']) ? (string) $data['Content']['Location'] : null,
             'CodeSha256' => isset($data['Content']['CodeSha256']) ? (string) $data['Content']['CodeSha256'] : null,
             'CodeSize' => isset($data['Content']['CodeSize']) ? (string) $data['Content']['CodeSize'] : null,
+            'SigningProfileVersionArn' => isset($data['Content']['SigningProfileVersionArn']) ? (string) $data['Content']['SigningProfileVersionArn'] : null,
+            'SigningJobArn' => isset($data['Content']['SigningJobArn']) ? (string) $data['Content']['SigningJobArn'] : null,
         ]);
         $this->LayerArn = isset($data['LayerArn']) ? (string) $data['LayerArn'] : null;
         $this->LayerVersionArn = isset($data['LayerVersionArn']) ? (string) $data['LayerVersionArn'] : null;
