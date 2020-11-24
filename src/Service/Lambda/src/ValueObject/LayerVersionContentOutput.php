@@ -20,10 +20,22 @@ final class LayerVersionContentOutput
     private $CodeSize;
 
     /**
+     * The Amazon Resource Name (ARN) for a signing profile version.
+     */
+    private $SigningProfileVersionArn;
+
+    /**
+     * The Amazon Resource Name (ARN) of a signing job.
+     */
+    private $SigningJobArn;
+
+    /**
      * @param array{
      *   Location?: null|string,
      *   CodeSha256?: null|string,
      *   CodeSize?: null|string,
+     *   SigningProfileVersionArn?: null|string,
+     *   SigningJobArn?: null|string,
      * } $input
      */
     public function __construct(array $input)
@@ -31,6 +43,8 @@ final class LayerVersionContentOutput
         $this->Location = $input['Location'] ?? null;
         $this->CodeSha256 = $input['CodeSha256'] ?? null;
         $this->CodeSize = $input['CodeSize'] ?? null;
+        $this->SigningProfileVersionArn = $input['SigningProfileVersionArn'] ?? null;
+        $this->SigningJobArn = $input['SigningJobArn'] ?? null;
     }
 
     public static function create($input): self
@@ -51,5 +65,15 @@ final class LayerVersionContentOutput
     public function getLocation(): ?string
     {
         return $this->Location;
+    }
+
+    public function getSigningJobArn(): ?string
+    {
+        return $this->SigningJobArn;
+    }
+
+    public function getSigningProfileVersionArn(): ?string
+    {
+        return $this->SigningProfileVersionArn;
     }
 }
