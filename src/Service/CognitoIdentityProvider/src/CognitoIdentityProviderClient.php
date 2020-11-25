@@ -411,7 +411,10 @@ class CognitoIdentityProviderClient extends AbstractApi
      * Set the user's multi-factor authentication (MFA) method preference, including which MFA factors are enabled and if
      * any are preferred. Only one factor can be set as preferred. The preferred MFA factor will be used to authenticate a
      * user if multiple factors are enabled. If multiple options are enabled and no preference is set, a challenge to choose
-     * an MFA option will be returned during sign in.
+     * an MFA option will be returned during sign in. If an MFA type is enabled for a user, the user will be prompted for
+     * MFA during all sign in attempts, unless device tracking is turned on and the device has been trusted. If you would
+     * like MFA to be applied selectively based on the assessed risk level of sign in attempts, disable MFA for users and
+     * turn on Adaptive Authentication for the user pool.
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserMFAPreference.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#setusermfapreference

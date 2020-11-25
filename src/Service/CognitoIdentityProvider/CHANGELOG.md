@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added regions eu-north-1and eu-west-3.
+- AWS api-change: This release adds ability to configure Cognito User Pools with third party sms and email providers for sending notifications to users.
 
 ## 1.0.0
 
