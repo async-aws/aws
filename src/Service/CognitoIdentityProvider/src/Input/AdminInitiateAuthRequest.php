@@ -244,13 +244,23 @@ final class AdminInitiateAuthRequest extends Input
         }
         $payload['AuthFlow'] = $v;
         if (null !== $v = $this->AuthParameters) {
-            foreach ($v as $name => $v) {
-                $payload['AuthParameters'][$name] = $v;
+            if (empty($v)) {
+                $payload['AuthParameters'] = new \stdClass();
+            } else {
+                $payload['AuthParameters'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['AuthParameters'][$name] = $mv;
+                }
             }
         }
         if (null !== $v = $this->ClientMetadata) {
-            foreach ($v as $name => $v) {
-                $payload['ClientMetadata'][$name] = $v;
+            if (empty($v)) {
+                $payload['ClientMetadata'] = new \stdClass();
+            } else {
+                $payload['ClientMetadata'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['ClientMetadata'][$name] = $mv;
+                }
             }
         }
         if (null !== $v = $this->AnalyticsMetadata) {

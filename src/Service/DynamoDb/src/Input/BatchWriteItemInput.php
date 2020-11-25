@@ -46,9 +46,11 @@ final class BatchWriteItemInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->RequestItems = [];
-        foreach ($input['RequestItems'] ?? [] as $key => $item) {
-            $this->RequestItems[$key] = array_map([WriteRequest::class, 'create'], $item);
+        if (isset($input['RequestItems'])) {
+            $this->RequestItems = [];
+            foreach ($input['RequestItems'] ?? [] as $key => $item) {
+                $this->RequestItems[$key] = array_map([WriteRequest::class, 'create'], $item);
+            }
         }
         $this->ReturnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
         $this->ReturnItemCollectionMetrics = $input['ReturnItemCollectionMetrics'] ?? null;
@@ -146,12 +148,17 @@ final class BatchWriteItemInput extends Input
             throw new InvalidArgument(sprintf('Missing parameter "RequestItems" for "%s". The value cannot be null.', __CLASS__));
         }
 
-        foreach ($v as $name => $v) {
-            $index = -1;
-            $payload['RequestItems'][$name] = [];
-            foreach ($v as $listValue) {
-                ++$index;
-                $payload['RequestItems'][$name][$index] = $listValue->requestBody();
+        if (empty($v)) {
+            $payload['RequestItems'] = new \stdClass();
+        } else {
+            $payload['RequestItems'] = [];
+            foreach ($v as $name => $mv) {
+                $index = -1;
+                $payload['RequestItems'][$name] = [];
+                foreach ($mv as $listValue) {
+                    ++$index;
+                    $payload['RequestItems'][$name][$index] = $listValue->requestBody();
+                }
             }
         }
         if (null !== $v = $this->ReturnConsumedCapacity) {

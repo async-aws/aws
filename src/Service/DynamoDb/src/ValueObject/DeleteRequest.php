@@ -45,8 +45,13 @@ final class DeleteRequest
             throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
         }
 
-        foreach ($v as $name => $v) {
-            $payload['Key'][$name] = $v->requestBody();
+        if (empty($v)) {
+            $payload['Key'] = new \stdClass();
+        } else {
+            $payload['Key'] = [];
+            foreach ($v as $name => $mv) {
+                $payload['Key'][$name] = $mv->requestBody();
+            }
         }
 
         return $payload;

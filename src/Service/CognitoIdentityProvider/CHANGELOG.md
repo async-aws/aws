@@ -7,6 +7,11 @@
 - AWS api-change: Added regions eu-north-1and eu-west-3.
 - AWS api-change: Improve documentation about configuring Cognito User Pools with third party sms and email providers.
 
+### Fixed
+
+- Make sure required Map properties are validated before sending the request
+- Make sure empty Map properties are converted to `{}` in Json request.
+
 ## 1.0.0
 
 ### Fixed

@@ -182,15 +182,19 @@ final class ScanInput extends Input
         $this->Limit = $input['Limit'] ?? null;
         $this->Select = $input['Select'] ?? null;
 
-        $this->ScanFilter = [];
-        foreach ($input['ScanFilter'] ?? [] as $key => $item) {
-            $this->ScanFilter[$key] = Condition::create($item);
+        if (isset($input['ScanFilter'])) {
+            $this->ScanFilter = [];
+            foreach ($input['ScanFilter'] as $key => $item) {
+                $this->ScanFilter[$key] = Condition::create($item);
+            }
         }
         $this->ConditionalOperator = $input['ConditionalOperator'] ?? null;
 
-        $this->ExclusiveStartKey = [];
-        foreach ($input['ExclusiveStartKey'] ?? [] as $key => $item) {
-            $this->ExclusiveStartKey[$key] = AttributeValue::create($item);
+        if (isset($input['ExclusiveStartKey'])) {
+            $this->ExclusiveStartKey = [];
+            foreach ($input['ExclusiveStartKey'] as $key => $item) {
+                $this->ExclusiveStartKey[$key] = AttributeValue::create($item);
+            }
         }
         $this->ReturnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
         $this->TotalSegments = $input['TotalSegments'] ?? null;
@@ -199,9 +203,11 @@ final class ScanInput extends Input
         $this->FilterExpression = $input['FilterExpression'] ?? null;
         $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
 
-        $this->ExpressionAttributeValues = [];
-        foreach ($input['ExpressionAttributeValues'] ?? [] as $key => $item) {
-            $this->ExpressionAttributeValues[$key] = AttributeValue::create($item);
+        if (isset($input['ExpressionAttributeValues'])) {
+            $this->ExpressionAttributeValues = [];
+            foreach ($input['ExpressionAttributeValues'] as $key => $item) {
+                $this->ExpressionAttributeValues[$key] = AttributeValue::create($item);
+            }
         }
         $this->ConsistentRead = $input['ConsistentRead'] ?? null;
         parent::__construct($input);
@@ -505,8 +511,13 @@ final class ScanInput extends Input
             $payload['Select'] = $v;
         }
         if (null !== $v = $this->ScanFilter) {
-            foreach ($v as $name => $v) {
-                $payload['ScanFilter'][$name] = $v->requestBody();
+            if (empty($v)) {
+                $payload['ScanFilter'] = new \stdClass();
+            } else {
+                $payload['ScanFilter'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['ScanFilter'][$name] = $mv->requestBody();
+                }
             }
         }
         if (null !== $v = $this->ConditionalOperator) {
@@ -516,8 +527,13 @@ final class ScanInput extends Input
             $payload['ConditionalOperator'] = $v;
         }
         if (null !== $v = $this->ExclusiveStartKey) {
-            foreach ($v as $name => $v) {
-                $payload['ExclusiveStartKey'][$name] = $v->requestBody();
+            if (empty($v)) {
+                $payload['ExclusiveStartKey'] = new \stdClass();
+            } else {
+                $payload['ExclusiveStartKey'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['ExclusiveStartKey'][$name] = $mv->requestBody();
+                }
             }
         }
         if (null !== $v = $this->ReturnConsumedCapacity) {
@@ -539,13 +555,23 @@ final class ScanInput extends Input
             $payload['FilterExpression'] = $v;
         }
         if (null !== $v = $this->ExpressionAttributeNames) {
-            foreach ($v as $name => $v) {
-                $payload['ExpressionAttributeNames'][$name] = $v;
+            if (empty($v)) {
+                $payload['ExpressionAttributeNames'] = new \stdClass();
+            } else {
+                $payload['ExpressionAttributeNames'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['ExpressionAttributeNames'][$name] = $mv;
+                }
             }
         }
         if (null !== $v = $this->ExpressionAttributeValues) {
-            foreach ($v as $name => $v) {
-                $payload['ExpressionAttributeValues'][$name] = $v->requestBody();
+            if (empty($v)) {
+                $payload['ExpressionAttributeValues'] = new \stdClass();
+            } else {
+                $payload['ExpressionAttributeValues'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['ExpressionAttributeValues'][$name] = $mv->requestBody();
+                }
             }
         }
         if (null !== $v = $this->ConsistentRead) {

@@ -192,21 +192,27 @@ final class QueryInput extends Input
         $this->Limit = $input['Limit'] ?? null;
         $this->ConsistentRead = $input['ConsistentRead'] ?? null;
 
-        $this->KeyConditions = [];
-        foreach ($input['KeyConditions'] ?? [] as $key => $item) {
-            $this->KeyConditions[$key] = Condition::create($item);
+        if (isset($input['KeyConditions'])) {
+            $this->KeyConditions = [];
+            foreach ($input['KeyConditions'] as $key => $item) {
+                $this->KeyConditions[$key] = Condition::create($item);
+            }
         }
 
-        $this->QueryFilter = [];
-        foreach ($input['QueryFilter'] ?? [] as $key => $item) {
-            $this->QueryFilter[$key] = Condition::create($item);
+        if (isset($input['QueryFilter'])) {
+            $this->QueryFilter = [];
+            foreach ($input['QueryFilter'] as $key => $item) {
+                $this->QueryFilter[$key] = Condition::create($item);
+            }
         }
         $this->ConditionalOperator = $input['ConditionalOperator'] ?? null;
         $this->ScanIndexForward = $input['ScanIndexForward'] ?? null;
 
-        $this->ExclusiveStartKey = [];
-        foreach ($input['ExclusiveStartKey'] ?? [] as $key => $item) {
-            $this->ExclusiveStartKey[$key] = AttributeValue::create($item);
+        if (isset($input['ExclusiveStartKey'])) {
+            $this->ExclusiveStartKey = [];
+            foreach ($input['ExclusiveStartKey'] as $key => $item) {
+                $this->ExclusiveStartKey[$key] = AttributeValue::create($item);
+            }
         }
         $this->ReturnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
         $this->ProjectionExpression = $input['ProjectionExpression'] ?? null;
@@ -214,9 +220,11 @@ final class QueryInput extends Input
         $this->KeyConditionExpression = $input['KeyConditionExpression'] ?? null;
         $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
 
-        $this->ExpressionAttributeValues = [];
-        foreach ($input['ExpressionAttributeValues'] ?? [] as $key => $item) {
-            $this->ExpressionAttributeValues[$key] = AttributeValue::create($item);
+        if (isset($input['ExpressionAttributeValues'])) {
+            $this->ExpressionAttributeValues = [];
+            foreach ($input['ExpressionAttributeValues'] as $key => $item) {
+                $this->ExpressionAttributeValues[$key] = AttributeValue::create($item);
+            }
         }
         parent::__construct($input);
     }
@@ -540,13 +548,23 @@ final class QueryInput extends Input
             $payload['ConsistentRead'] = (bool) $v;
         }
         if (null !== $v = $this->KeyConditions) {
-            foreach ($v as $name => $v) {
-                $payload['KeyConditions'][$name] = $v->requestBody();
+            if (empty($v)) {
+                $payload['KeyConditions'] = new \stdClass();
+            } else {
+                $payload['KeyConditions'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['KeyConditions'][$name] = $mv->requestBody();
+                }
             }
         }
         if (null !== $v = $this->QueryFilter) {
-            foreach ($v as $name => $v) {
-                $payload['QueryFilter'][$name] = $v->requestBody();
+            if (empty($v)) {
+                $payload['QueryFilter'] = new \stdClass();
+            } else {
+                $payload['QueryFilter'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['QueryFilter'][$name] = $mv->requestBody();
+                }
             }
         }
         if (null !== $v = $this->ConditionalOperator) {
@@ -559,8 +577,13 @@ final class QueryInput extends Input
             $payload['ScanIndexForward'] = (bool) $v;
         }
         if (null !== $v = $this->ExclusiveStartKey) {
-            foreach ($v as $name => $v) {
-                $payload['ExclusiveStartKey'][$name] = $v->requestBody();
+            if (empty($v)) {
+                $payload['ExclusiveStartKey'] = new \stdClass();
+            } else {
+                $payload['ExclusiveStartKey'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['ExclusiveStartKey'][$name] = $mv->requestBody();
+                }
             }
         }
         if (null !== $v = $this->ReturnConsumedCapacity) {
@@ -579,13 +602,23 @@ final class QueryInput extends Input
             $payload['KeyConditionExpression'] = $v;
         }
         if (null !== $v = $this->ExpressionAttributeNames) {
-            foreach ($v as $name => $v) {
-                $payload['ExpressionAttributeNames'][$name] = $v;
+            if (empty($v)) {
+                $payload['ExpressionAttributeNames'] = new \stdClass();
+            } else {
+                $payload['ExpressionAttributeNames'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['ExpressionAttributeNames'][$name] = $mv;
+                }
             }
         }
         if (null !== $v = $this->ExpressionAttributeValues) {
-            foreach ($v as $name => $v) {
-                $payload['ExpressionAttributeValues'][$name] = $v->requestBody();
+            if (empty($v)) {
+                $payload['ExpressionAttributeValues'] = new \stdClass();
+            } else {
+                $payload['ExpressionAttributeValues'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['ExpressionAttributeValues'][$name] = $mv->requestBody();
+                }
             }
         }
 

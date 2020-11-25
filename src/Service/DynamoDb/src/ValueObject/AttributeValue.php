@@ -192,8 +192,13 @@ final class AttributeValue
             }
         }
         if (null !== $v = $this->M) {
-            foreach ($v as $name => $v) {
-                $payload['M'][$name] = $v->requestBody();
+            if (empty($v)) {
+                $payload['M'] = new \stdClass();
+            } else {
+                $payload['M'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['M'][$name] = $mv->requestBody();
+                }
             }
         }
         if (null !== $v = $this->L) {

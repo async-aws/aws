@@ -207,15 +207,21 @@ class RestJsonSerializer implements Serializer
             $validateEnum = '';
         }
 
-        $memberCode = $this->dumpArrayElement($output . '[$name]', '$v', $contextProperty, $shape->getValue()->getShape());
+        $memberCode = $this->dumpArrayElement($output . '[$name]', '$mv', $contextProperty, $shape->getValue()->getShape());
 
         return strtr('
-foreach (INPUT as $name => $v) {
-    VALIDATE_ENUM
-    MEMBER_CODE
+if (empty(INPUT)) {
+    $payloadOUTPUT = new \stdClass();
+} else {
+    $payloadOUTPUT = [];
+    foreach (INPUT as $name => $mv) {
+        VALIDATE_ENUM
+        MEMBER_CODE
+    }
 }',
             [
                 'VALIDATE_ENUM' => $validateEnum,
+                'OUTPUT' => $output,
                 'INPUT' => $input,
                 'MEMBER_CODE' => $memberCode,
             ]);

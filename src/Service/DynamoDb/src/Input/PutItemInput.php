@@ -117,14 +117,18 @@ final class PutItemInput extends Input
     {
         $this->TableName = $input['TableName'] ?? null;
 
-        $this->Item = [];
-        foreach ($input['Item'] ?? [] as $key => $item) {
-            $this->Item[$key] = AttributeValue::create($item);
+        if (isset($input['Item'])) {
+            $this->Item = [];
+            foreach ($input['Item'] as $key => $item) {
+                $this->Item[$key] = AttributeValue::create($item);
+            }
         }
 
-        $this->Expected = [];
-        foreach ($input['Expected'] ?? [] as $key => $item) {
-            $this->Expected[$key] = ExpectedAttributeValue::create($item);
+        if (isset($input['Expected'])) {
+            $this->Expected = [];
+            foreach ($input['Expected'] as $key => $item) {
+                $this->Expected[$key] = ExpectedAttributeValue::create($item);
+            }
         }
         $this->ReturnValues = $input['ReturnValues'] ?? null;
         $this->ReturnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
@@ -133,9 +137,11 @@ final class PutItemInput extends Input
         $this->ConditionExpression = $input['ConditionExpression'] ?? null;
         $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
 
-        $this->ExpressionAttributeValues = [];
-        foreach ($input['ExpressionAttributeValues'] ?? [] as $key => $item) {
-            $this->ExpressionAttributeValues[$key] = AttributeValue::create($item);
+        if (isset($input['ExpressionAttributeValues'])) {
+            $this->ExpressionAttributeValues = [];
+            foreach ($input['ExpressionAttributeValues'] as $key => $item) {
+                $this->ExpressionAttributeValues[$key] = AttributeValue::create($item);
+            }
         }
         parent::__construct($input);
     }
@@ -349,12 +355,22 @@ final class PutItemInput extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Item" for "%s". The value cannot be null.', __CLASS__));
         }
 
-        foreach ($v as $name => $v) {
-            $payload['Item'][$name] = $v->requestBody();
+        if (empty($v)) {
+            $payload['Item'] = new \stdClass();
+        } else {
+            $payload['Item'] = [];
+            foreach ($v as $name => $mv) {
+                $payload['Item'][$name] = $mv->requestBody();
+            }
         }
         if (null !== $v = $this->Expected) {
-            foreach ($v as $name => $v) {
-                $payload['Expected'][$name] = $v->requestBody();
+            if (empty($v)) {
+                $payload['Expected'] = new \stdClass();
+            } else {
+                $payload['Expected'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['Expected'][$name] = $mv->requestBody();
+                }
             }
         }
         if (null !== $v = $this->ReturnValues) {
@@ -385,13 +401,23 @@ final class PutItemInput extends Input
             $payload['ConditionExpression'] = $v;
         }
         if (null !== $v = $this->ExpressionAttributeNames) {
-            foreach ($v as $name => $v) {
-                $payload['ExpressionAttributeNames'][$name] = $v;
+            if (empty($v)) {
+                $payload['ExpressionAttributeNames'] = new \stdClass();
+            } else {
+                $payload['ExpressionAttributeNames'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['ExpressionAttributeNames'][$name] = $mv;
+                }
             }
         }
         if (null !== $v = $this->ExpressionAttributeValues) {
-            foreach ($v as $name => $v) {
-                $payload['ExpressionAttributeValues'][$name] = $v->requestBody();
+            if (empty($v)) {
+                $payload['ExpressionAttributeValues'] = new \stdClass();
+            } else {
+                $payload['ExpressionAttributeValues'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['ExpressionAttributeValues'][$name] = $mv->requestBody();
+                }
             }
         }
 

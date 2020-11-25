@@ -47,8 +47,13 @@ final class PutRequest
             throw new InvalidArgument(sprintf('Missing parameter "Item" for "%s". The value cannot be null.', __CLASS__));
         }
 
-        foreach ($v as $name => $v) {
-            $payload['Item'][$name] = $v->requestBody();
+        if (empty($v)) {
+            $payload['Item'] = new \stdClass();
+        } else {
+            $payload['Item'] = [];
+            foreach ($v as $name => $mv) {
+                $payload['Item'][$name] = $mv->requestBody();
+            }
         }
 
         return $payload;

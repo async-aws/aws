@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Make sure required Map properties are validated before sending the request
+
 ## 1.3.2
 
 ### Fixed

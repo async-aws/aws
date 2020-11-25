@@ -6,6 +6,10 @@
 
 - AWS enhancement: Documentation updates for Amazon SNS.
 
+### Fixed
+
+- Make sure required Map properties are validated before sending the request
+
 ## 1.1.0
 
 ### Added

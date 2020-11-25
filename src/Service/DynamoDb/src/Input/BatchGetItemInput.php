@@ -35,9 +35,11 @@ final class BatchGetItemInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->RequestItems = [];
-        foreach ($input['RequestItems'] ?? [] as $key => $item) {
-            $this->RequestItems[$key] = KeysAndAttributes::create($item);
+        if (isset($input['RequestItems'])) {
+            $this->RequestItems = [];
+            foreach ($input['RequestItems'] as $key => $item) {
+                $this->RequestItems[$key] = KeysAndAttributes::create($item);
+            }
         }
         $this->ReturnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
         parent::__construct($input);
@@ -116,8 +118,13 @@ final class BatchGetItemInput extends Input
             throw new InvalidArgument(sprintf('Missing parameter "RequestItems" for "%s". The value cannot be null.', __CLASS__));
         }
 
-        foreach ($v as $name => $v) {
-            $payload['RequestItems'][$name] = $v->requestBody();
+        if (empty($v)) {
+            $payload['RequestItems'] = new \stdClass();
+        } else {
+            $payload['RequestItems'] = [];
+            foreach ($v as $name => $mv) {
+                $payload['RequestItems'][$name] = $mv->requestBody();
+            }
         }
         if (null !== $v = $this->ReturnConsumedCapacity) {
             if (!ReturnConsumedCapacity::exists($v)) {

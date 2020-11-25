@@ -15,6 +15,7 @@ class PutItemInputTest extends TestCase
                 'ForumName' => ['S' => 'Amazon DynamoDB'],
                 'Subject' => ['S' => 'How do I update multiple items?'],
                 'Tags' => ['SS' => ['Update', 'Multiple Items', 'HelpMe']],
+                'EmptyM' => ['M' => []],
             ],
             'ReturnConsumedCapacity' => 'TOTAL',
             'ConditionExpression' => 'ForumName <> :f and Subject <> :s',
@@ -41,6 +42,9 @@ X-AMZ-Target: DynamoDB_20120810.PutItem
         },
         "Tags": {
             "SS": ["Update","Multiple Items","HelpMe"]
+        },
+        "EmptyM": {
+            "M": {}
         }
     },
     "ReturnConsumedCapacity": "TOTAL",

@@ -104,7 +104,7 @@ class DynamoDbClientTest extends TestCase
 
         $input = new DeleteItemInput([
             'TableName' => 'Foobar',
-
+            'Key' => ['ID' => ['S' => 'foobar']],
         ]);
         $result = $client->DeleteItem($input);
 
@@ -144,7 +144,7 @@ class DynamoDbClientTest extends TestCase
 
         $input = new GetItemInput([
             'TableName' => 'Foobar',
-
+            'Key' => ['ID' => ['S' => 'foobar']],
         ]);
         $result = $client->GetItem($input);
 
@@ -171,7 +171,10 @@ class DynamoDbClientTest extends TestCase
 
         $input = new PutItemInput([
             'TableName' => 'Foobar',
-
+            'Key' => ['ID' => ['S' => 'foobar']],
+            'Item' => [
+                'Name' => ['S' => 'Amazon DynamoDB'],
+            ],
         ]);
         $result = $client->PutItem($input);
 
@@ -241,7 +244,7 @@ class DynamoDbClientTest extends TestCase
 
         $input = new UpdateItemInput([
             'TableName' => 'Foobar',
-
+            'Key' => ['ID' => ['S' => 'foobar']],
         ]);
         $result = $client->UpdateItem($input);
 
