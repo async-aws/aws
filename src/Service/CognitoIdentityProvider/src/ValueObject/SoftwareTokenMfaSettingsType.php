@@ -5,7 +5,8 @@ namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 final class SoftwareTokenMfaSettingsType
 {
     /**
-     * Specifies whether software token MFA is enabled.
+     * Specifies whether software token MFA is enabled. If an MFA type is enabled for a user, the user will be prompted for
+     * MFA during all sign in attempts, unless device tracking is turned on and the device has been trusted.
      */
     private $Enabled;
 
