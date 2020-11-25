@@ -4,7 +4,6 @@ namespace AsyncAws\Ses;
 
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Configuration;
-use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Ses\Input\SendEmailRequest;
 use AsyncAws\Ses\Result\SendEmailResponse;
@@ -50,18 +49,6 @@ class SesClient extends AbstractApi
         }
 
         switch ($region) {
-            case 'ap-south-1':
-            case 'ap-southeast-2':
-            case 'eu-central-1':
-            case 'eu-west-1':
-            case 'us-east-1':
-            case 'us-west-2':
-                return [
-                    'endpoint' => "https://email.$region.amazonaws.com",
-                    'signRegion' => $region,
-                    'signService' => 'ses',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-gov-west-1':
                 return [
                     'endpoint' => "https://email.$region.amazonaws.com",
@@ -78,7 +65,12 @@ class SesClient extends AbstractApi
                 ];
         }
 
-        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Ses".', $region));
+        return [
+            'endpoint' => "https://email.$region.amazonaws.com",
+            'signRegion' => $region,
+            'signService' => 'ses',
+            'signVersions' => ['v4'],
+        ];
     }
 
     protected function getServiceCode(): string
