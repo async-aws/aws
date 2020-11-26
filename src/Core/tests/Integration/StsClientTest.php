@@ -3,7 +3,6 @@
 namespace AsyncAws\Core\Tests\Integration;
 
 use AsyncAws\Core\Credentials\NullProvider;
-use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\Sts\Input\AssumeRoleRequest;
 use AsyncAws\Core\Sts\Input\AssumeRoleWithWebIdentityRequest;
 use AsyncAws\Core\Sts\Input\GetCallerIdentityRequest;
