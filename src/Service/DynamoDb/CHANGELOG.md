@@ -2,10 +2,13 @@
 
 ## NOT RELEASED
 
+## 1.0.1
+
 ### Fixed
 
 - Make sure required Map properties are validated before sending the request
 - Make sure empty Map properties are converted to `{}` in Json request.
+- If provided an unrecognized region, then fallback to default region config
 
 ## 1.0.0
 
