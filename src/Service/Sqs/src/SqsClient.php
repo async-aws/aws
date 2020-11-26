@@ -4,7 +4,6 @@ namespace AsyncAws\Sqs;
 
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Configuration;
-use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
 use AsyncAws\Sqs\Enum\MessageSystemAttributeName;
@@ -280,31 +279,6 @@ class SqsClient extends AbstractApi
         }
 
         switch ($region) {
-            case 'af-south-1':
-            case 'ap-east-1':
-            case 'ap-northeast-1':
-            case 'ap-northeast-2':
-            case 'ap-south-1':
-            case 'ap-southeast-1':
-            case 'ap-southeast-2':
-            case 'ca-central-1':
-            case 'eu-central-1':
-            case 'eu-north-1':
-            case 'eu-south-1':
-            case 'eu-west-1':
-            case 'eu-west-2':
-            case 'eu-west-3':
-            case 'me-south-1':
-            case 'sa-east-1':
-            case 'us-east-2':
-            case 'us-west-1':
-            case 'us-west-2':
-                return [
-                    'endpoint' => "https://sqs.$region.amazonaws.com",
-                    'signRegion' => $region,
-                    'signService' => 'sqs',
-                    'signVersions' => ['v4'],
-                ];
             case 'cn-north-1':
             case 'cn-northwest-1':
                 return [
@@ -378,7 +352,12 @@ class SqsClient extends AbstractApi
                 ];
         }
 
-        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Sqs".', $region));
+        return [
+            'endpoint' => "https://sqs.$region.amazonaws.com",
+            'signRegion' => $region,
+            'signService' => 'sqs',
+            'signVersions' => ['v4'],
+        ];
     }
 
     protected function getServiceCode(): string

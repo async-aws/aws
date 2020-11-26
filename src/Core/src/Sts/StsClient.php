@@ -3,7 +3,6 @@
 namespace AsyncAws\Core\Sts;
 
 use AsyncAws\Core\AbstractApi;
-use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Sts\Input\AssumeRoleRequest;
 use AsyncAws\Core\Sts\Input\AssumeRoleWithWebIdentityRequest;
@@ -107,32 +106,6 @@ class StsClient extends AbstractApi
         }
 
         switch ($region) {
-            case 'af-south-1':
-            case 'ap-east-1':
-            case 'ap-northeast-1':
-            case 'ap-northeast-2':
-            case 'ap-south-1':
-            case 'ap-southeast-1':
-            case 'ap-southeast-2':
-            case 'ca-central-1':
-            case 'eu-central-1':
-            case 'eu-north-1':
-            case 'eu-south-1':
-            case 'eu-west-1':
-            case 'eu-west-2':
-            case 'eu-west-3':
-            case 'me-south-1':
-            case 'sa-east-1':
-            case 'us-east-1':
-            case 'us-east-2':
-            case 'us-west-1':
-            case 'us-west-2':
-                return [
-                    'endpoint' => "https://sts.$region.amazonaws.com",
-                    'signRegion' => $region,
-                    'signService' => 'sts',
-                    'signVersions' => ['v4'],
-                ];
             case 'cn-north-1':
             case 'cn-northwest-1':
                 return [
@@ -207,7 +180,12 @@ class StsClient extends AbstractApi
                 ];
         }
 
-        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Sts".', $region));
+        return [
+            'endpoint' => "https://sts.$region.amazonaws.com",
+            'signRegion' => $region,
+            'signService' => 'sts',
+            'signVersions' => ['v4'],
+        ];
     }
 
     protected function getServiceCode(): string

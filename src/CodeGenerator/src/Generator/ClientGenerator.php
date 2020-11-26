@@ -95,6 +95,9 @@ class ClientGenerator
         $body .= "switch (\$region) {\n";
 
         foreach ($endpoints['_global'] ?? [] as $partitionName => $config) {
+            if ('aws' === $partitionName && !isset($endpoints['_default']['aws'])) {
+                continue;
+            }
             if (empty($config['regions'])) {
                 continue;
             }
@@ -104,7 +107,10 @@ class ClientGenerator
             }
             $body .= $dumpConfig($config);
         }
-        foreach ($endpoints['_default'] ?? [] as $config) {
+        foreach ($endpoints['_default'] ?? [] as $partitionName => $config) {
+            if ('aws' === $partitionName) {
+                continue;
+            }
             if (empty($config['regions'])) {
                 continue;
             }
@@ -122,9 +128,14 @@ class ClientGenerator
             $body .= sprintf("    case %s:\n", \var_export($region, true));
             $body .= $dumpConfig($config);
         }
-        $body .= '}
-            throw new UnsupportedRegion(sprintf(\'The region "%s" is not supported by "' . $definition->getName() . '".\', $region));
-        ';
+        $body .= '}';
+        if (isset($endpoints['_default']['aws'])) {
+            $body .= $dumpConfig($endpoints['_default']['aws']);
+        } elseif (isset($endpoints['_global']['aws'])) {
+            $body .= $dumpConfig($endpoints['_global']['aws']);
+        } else {
+            $body .= 'throw new UnsupportedRegion(sprintf(\'The region "%s" is not supported by "' . $definition->getName() . '".\', $region));';
+        }
         $namespace->addUse(UnsupportedRegion::class);
 
         $class->addMethod('getEndpointMetadata')

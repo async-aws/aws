@@ -3,7 +3,6 @@
 namespace AsyncAws\Core\Tests\Integration;
 
 use AsyncAws\Core\Credentials\NullProvider;
-use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\Sts\Input\AssumeRoleRequest;
 use AsyncAws\Core\Sts\Input\AssumeRoleWithWebIdentityRequest;
 use AsyncAws\Core\Sts\Input\GetCallerIdentityRequest;
@@ -96,14 +95,16 @@ class StsClientTest extends TestCase
         self::assertNotEmpty($client->presign(new AssumeRoleRequest(['RoleArn' => 'demo', 'RoleSessionName' => 'demo'])));
     }
 
+    /**
+     * A region that is not recognized should be treated as "default" region.
+     */
     public function testNonAwsRegion(): void
     {
         $client = new StsClient([
             'region' => 'test',
         ], new NullProvider());
 
-        $this->expectException(UnsupportedRegion::class);
-        $client->presign(new AssumeRoleRequest(['RoleArn' => 'demo', 'RoleSessionName' => 'demo']));
+        self::assertNotEmpty($client->presign(new AssumeRoleRequest(['RoleArn' => 'demo', 'RoleSessionName' => 'demo'])));
     }
 
     public function testCustomEndpointSignature(): void

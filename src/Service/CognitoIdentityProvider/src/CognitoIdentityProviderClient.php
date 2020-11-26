@@ -49,7 +49,6 @@ use AsyncAws\CognitoIdentityProvider\ValueObject\SoftwareTokenMfaSettingsType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType;
 use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\Configuration;
-use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
 
@@ -491,26 +490,6 @@ class CognitoIdentityProviderClient extends AbstractApi
         }
 
         switch ($region) {
-            case 'ap-northeast-1':
-            case 'ap-northeast-2':
-            case 'ap-south-1':
-            case 'ap-southeast-1':
-            case 'ap-southeast-2':
-            case 'ca-central-1':
-            case 'eu-central-1':
-            case 'eu-north-1':
-            case 'eu-west-1':
-            case 'eu-west-2':
-            case 'eu-west-3':
-            case 'us-east-1':
-            case 'us-east-2':
-            case 'us-west-2':
-                return [
-                    'endpoint' => "https://cognito-idp.$region.amazonaws.com",
-                    'signRegion' => $region,
-                    'signService' => 'cognito-idp',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-gov-west-1':
                 return [
                     'endpoint' => "https://cognito-idp.$region.amazonaws.com",
@@ -548,6 +527,11 @@ class CognitoIdentityProviderClient extends AbstractApi
                 ];
         }
 
-        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "CognitoIdentityProvider".', $region));
+        return [
+            'endpoint' => "https://cognito-idp.$region.amazonaws.com",
+            'signRegion' => $region,
+            'signService' => 'cognito-idp',
+            'signVersions' => ['v4'],
+        ];
     }
 }
