@@ -116,16 +116,9 @@ final class Configuration
      *       self::OPTION_REGION
      *       |self::OPTION_DEBUG
      *       |self::OPTION_PROFILE
-     *       |self::OPTION_ACCESS_KEY_ID
-     *       |self::OPTION_SECRET_ACCESS_KEY
-     *       |self::OPTION_SESSION_TOKEN
      *       |self::OPTION_SHARED_CREDENTIALS_FILE
      *       |self::OPTION_SHARED_CONFIG_FILE
      *       |self::OPTION_ENDPOINT
-     *       |self::OPTION_ROLE_ARN
-     *       |self::OPTION_WEB_IDENTITY_TOKEN_FILE
-     *       |self::OPTION_ROLE_SESSION_NAME
-     *       |self::OPTION_CONTAINER_CREDENTIALS_RELATIVE_URI
      *       |self::OPTION_PATH_STYLE_ENDPOINT
      *     ? string
      *     : ?string
