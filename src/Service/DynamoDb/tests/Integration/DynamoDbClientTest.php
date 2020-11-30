@@ -415,6 +415,6 @@ class DynamoDbClientTest extends TestCase
 
         return $this->client = new DynamoDbClient([
             'endpoint' => 'http://localhost:8000',
-        ], new Credentials('aws_id', 'aws_secret'), $httpClient = HttpClient::create());
+        ], new Credentials('aws_id', 'aws_secret'));
     }
 }
