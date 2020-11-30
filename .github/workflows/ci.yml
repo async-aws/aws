@@ -241,3 +241,31 @@ jobs:
           ./vendor/bin/simple-phpunit install
           echo ::endgroup::
           ./vendor/bin/simple-phpunit
+
+  dev:
+    name: dev-master
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@2.7.0
+        with:
+          php-version: 7.4
+          coverage: none
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Initialize tests
+        run: make initialize -j 4
+
+      - name: Download dependencies
+        run: |
+          composer config minimum-stability dev
+          composer update --no-interaction --optimize-autoloader
+
+      - name: Run tests
+        run: |
+          echo ::group::Install
+          ./vendor/bin/simple-phpunit install
+          echo ::endgroup::
+          ./vendor/bin/simple-phpunit

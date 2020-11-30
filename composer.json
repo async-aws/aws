@@ -106,5 +106,6 @@
             "AsyncAws\\SimpleS3\\Tests\\": "src/Integration/Aws/SimpleS3/tests",
             "AsyncAws\\Symfony\\Bundle\\Tests\\": "src/Integration/Symfony/Bundle/tests"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
