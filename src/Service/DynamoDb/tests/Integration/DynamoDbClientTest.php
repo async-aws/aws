@@ -31,6 +31,7 @@ use AsyncAws\DynamoDb\ValueObject\PutRequest;
 use AsyncAws\DynamoDb\ValueObject\Tag;
 use AsyncAws\DynamoDb\ValueObject\TimeToLiveSpecification;
 use AsyncAws\DynamoDb\ValueObject\WriteRequest;
+use Symfony\Component\HttpClient\HttpClient;
 
 class DynamoDbClientTest extends TestCase
 {
@@ -414,6 +415,6 @@ class DynamoDbClientTest extends TestCase
 
         return $this->client = new DynamoDbClient([
             'endpoint' => 'http://localhost:8000',
-        ], new Credentials('aws_id', 'aws_secret'));
+        ], new Credentials('aws_id', 'aws_secret'), $httpClient = HttpClient::create());
     }
 }
