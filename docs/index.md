@@ -81,7 +81,7 @@ Except for being a wrapper around Symfony's HTTP client and making sure the asyn
 features are properly used, AsyncAws also [handles authentication](./authentication/index.md),
 exceptions and provide input and result objects.
 
-Read more about [how do use asynchronous features](./features/async.md).
+Read more about [how to use asynchronous features](./features/async.md).
 
 ## Backwards compatibility promise
 
