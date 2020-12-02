@@ -56,6 +56,11 @@ class CompleteMultipartUploadOutput extends Result
      */
     private $SSEKMSKeyId;
 
+    /**
+     * Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).
+     */
+    private $BucketKeyEnabled;
+
     private $RequestCharged;
 
     public function getBucket(): ?string
@@ -63,6 +68,13 @@ class CompleteMultipartUploadOutput extends Result
         $this->initialize();
 
         return $this->Bucket;
+    }
+
+    public function getBucketKeyEnabled(): ?bool
+    {
+        $this->initialize();
+
+        return $this->BucketKeyEnabled;
     }
 
     public function getETag(): ?string
@@ -135,6 +147,7 @@ class CompleteMultipartUploadOutput extends Result
         $this->ServerSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;
         $this->VersionId = $headers['x-amz-version-id'][0] ?? null;
         $this->SSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
+        $this->BucketKeyEnabled = isset($headers['x-amz-server-side-encryption-bucket-key-enabled'][0]) ? filter_var($headers['x-amz-server-side-encryption-bucket-key-enabled'][0], \FILTER_VALIDATE_BOOLEAN) : null;
         $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
