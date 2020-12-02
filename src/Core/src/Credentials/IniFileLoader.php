@@ -48,7 +48,7 @@ final class IniFileLoader
                 $homeDir = $homeDir ?? $this->getHomeDir();
                 $filepath = $homeDir . \substr($filepath, 1);
             }
-            if (!\is_readable($filepath)) {
+            if (!\is_readable($filepath) || !\is_file($filepath)) {
                 continue;
             }
 
