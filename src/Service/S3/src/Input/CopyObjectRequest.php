@@ -246,6 +246,15 @@ final class CopyObjectRequest extends Input
     private $SSEKMSEncryptionContext;
 
     /**
+     * Specifies whether Amazon S3 should use an S3 Bucket Key for object encryption with server-side encryption using AWS
+     * KMS (SSE-KMS). Setting this header to `true` causes Amazon S3 to use an S3 Bucket Key for object encryption with
+     * SSE-KMS.
+     *
+     * @var bool|null
+     */
+    private $BucketKeyEnabled;
+
+    /**
      * Specifies the algorithm to use when decrypting the source object (for example, AES256).
      *
      * @var string|null
@@ -349,6 +358,7 @@ final class CopyObjectRequest extends Input
      *   SSECustomerKeyMD5?: string,
      *   SSEKMSKeyId?: string,
      *   SSEKMSEncryptionContext?: string,
+     *   BucketKeyEnabled?: bool,
      *   CopySourceSSECustomerAlgorithm?: string,
      *   CopySourceSSECustomerKey?: string,
      *   CopySourceSSECustomerKeyMD5?: string,
@@ -393,6 +403,7 @@ final class CopyObjectRequest extends Input
         $this->SSECustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
         $this->SSEKMSKeyId = $input['SSEKMSKeyId'] ?? null;
         $this->SSEKMSEncryptionContext = $input['SSEKMSEncryptionContext'] ?? null;
+        $this->BucketKeyEnabled = $input['BucketKeyEnabled'] ?? null;
         $this->CopySourceSSECustomerAlgorithm = $input['CopySourceSSECustomerAlgorithm'] ?? null;
         $this->CopySourceSSECustomerKey = $input['CopySourceSSECustomerKey'] ?? null;
         $this->CopySourceSSECustomerKeyMD5 = $input['CopySourceSSECustomerKeyMD5'] ?? null;
@@ -422,6 +433,11 @@ final class CopyObjectRequest extends Input
     public function getBucket(): ?string
     {
         return $this->Bucket;
+    }
+
+    public function getBucketKeyEnabled(): ?bool
+    {
+        return $this->BucketKeyEnabled;
     }
 
     public function getCacheControl(): ?string
@@ -734,6 +750,9 @@ final class CopyObjectRequest extends Input
         if (null !== $this->SSEKMSEncryptionContext) {
             $headers['x-amz-server-side-encryption-context'] = $this->SSEKMSEncryptionContext;
         }
+        if (null !== $this->BucketKeyEnabled) {
+            $headers['x-amz-server-side-encryption-bucket-key-enabled'] = $this->BucketKeyEnabled ? 'true' : 'false';
+        }
         if (null !== $this->CopySourceSSECustomerAlgorithm) {
             $headers['x-amz-copy-source-server-side-encryption-customer-algorithm'] = $this->CopySourceSSECustomerAlgorithm;
         }
@@ -814,6 +833,13 @@ final class CopyObjectRequest extends Input
     public function setBucket(?string $value): self
     {
         $this->Bucket = $value;
+
+        return $this;
+    }
+
+    public function setBucketKeyEnabled(?bool $value): self
+    {
+        $this->BucketKeyEnabled = $value;
 
         return $this;
     }

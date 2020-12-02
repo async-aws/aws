@@ -235,6 +235,15 @@ final class PutObjectRequest extends Input
     private $SSEKMSEncryptionContext;
 
     /**
+     * Specifies whether Amazon S3 should use an S3 Bucket Key for object encryption with server-side encryption using AWS
+     * KMS (SSE-KMS). Setting this header to `true` causes Amazon S3 to use an S3 Bucket Key for object encryption with
+     * SSE-KMS.
+     *
+     * @var bool|null
+     */
+    private $BucketKeyEnabled;
+
+    /**
      * @var null|RequestPayer::*
      */
     private $RequestPayer;
@@ -305,6 +314,7 @@ final class PutObjectRequest extends Input
      *   SSECustomerKeyMD5?: string,
      *   SSEKMSKeyId?: string,
      *   SSEKMSEncryptionContext?: string,
+     *   BucketKeyEnabled?: bool,
      *   RequestPayer?: RequestPayer::*,
      *   Tagging?: string,
      *   ObjectLockMode?: ObjectLockMode::*,
@@ -341,6 +351,7 @@ final class PutObjectRequest extends Input
         $this->SSECustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
         $this->SSEKMSKeyId = $input['SSEKMSKeyId'] ?? null;
         $this->SSEKMSEncryptionContext = $input['SSEKMSEncryptionContext'] ?? null;
+        $this->BucketKeyEnabled = $input['BucketKeyEnabled'] ?? null;
         $this->RequestPayer = $input['RequestPayer'] ?? null;
         $this->Tagging = $input['Tagging'] ?? null;
         $this->ObjectLockMode = $input['ObjectLockMode'] ?? null;
@@ -374,6 +385,11 @@ final class PutObjectRequest extends Input
     public function getBucket(): ?string
     {
         return $this->Bucket;
+    }
+
+    public function getBucketKeyEnabled(): ?bool
+    {
+        return $this->BucketKeyEnabled;
     }
 
     public function getCacheControl(): ?string
@@ -613,6 +629,9 @@ final class PutObjectRequest extends Input
         if (null !== $this->SSEKMSEncryptionContext) {
             $headers['x-amz-server-side-encryption-context'] = $this->SSEKMSEncryptionContext;
         }
+        if (null !== $this->BucketKeyEnabled) {
+            $headers['x-amz-server-side-encryption-bucket-key-enabled'] = $this->BucketKeyEnabled ? 'true' : 'false';
+        }
         if (null !== $this->RequestPayer) {
             if (!RequestPayer::exists($this->RequestPayer)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
@@ -691,6 +710,13 @@ final class PutObjectRequest extends Input
     public function setBucket(?string $value): self
     {
         $this->Bucket = $value;
+
+        return $this;
+    }
+
+    public function setBucketKeyEnabled(?bool $value): self
+    {
+        $this->BucketKeyEnabled = $value;
 
         return $this;
     }

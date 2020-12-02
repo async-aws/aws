@@ -140,6 +140,11 @@ class GetObjectOutput extends Result
     private $SSEKMSKeyId;
 
     /**
+     * Indicates whether the object uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).
+     */
+    private $BucketKeyEnabled;
+
+    /**
      * Provides storage class information of the object. Amazon S3 returns this header for all objects except for S3
      * Standard storage class objects.
      */
@@ -191,6 +196,13 @@ class GetObjectOutput extends Result
         $this->initialize();
 
         return $this->Body;
+    }
+
+    public function getBucketKeyEnabled(): ?bool
+    {
+        $this->initialize();
+
+        return $this->BucketKeyEnabled;
     }
 
     public function getCacheControl(): ?string
@@ -442,6 +454,7 @@ class GetObjectOutput extends Result
         $this->SSECustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'][0] ?? null;
         $this->SSECustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-md5'][0] ?? null;
         $this->SSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
+        $this->BucketKeyEnabled = isset($headers['x-amz-server-side-encryption-bucket-key-enabled'][0]) ? filter_var($headers['x-amz-server-side-encryption-bucket-key-enabled'][0], \FILTER_VALIDATE_BOOLEAN) : null;
         $this->StorageClass = $headers['x-amz-storage-class'][0] ?? null;
         $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
         $this->ReplicationStatus = $headers['x-amz-replication-status'][0] ?? null;
