@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="dev-master@83ca918824c0cf50eaa54e72a2d4a950c3810da9">
-  <file src="src/Core/src/Response.php">
-    <InvalidReturnType occurrences="1">
-      <code>ResultStream</code>
-    </InvalidReturnType>
+<files psalm-version="3.16@d03e5ef057d6adc656c0ff7e166c50b73b4f48f3">
+  <file src="src/Core/src/Credentials/PsrCacheProvider.php">
+    <InvalidCatch occurrences="1"/>
+    <InvalidThrow occurrences="1">
+      <code>\Psr\Cache\CacheException</code>
+    </InvalidThrow>
+  </file>
+  <file src="src/Core/src/Credentials/SymfonyCacheProvider.php">
+    <InvalidCatch occurrences="1"/>
   </file>
   <file src="src/Integration/Laravel/Cache/src/ServiceProvider.php">
     <UndefinedInterfaceMethod occurrences="1">
