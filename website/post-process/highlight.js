@@ -1,4 +1,4 @@
-const highlight = require('highlight.js/lib/highlight');
+const highlight = require('highlight.js/lib/core');
 
 highlight.registerLanguage('php', require('highlight.js/lib/languages/php'));
 highlight.registerLanguage('ini', require('highlight.js/lib/languages/ini'));
