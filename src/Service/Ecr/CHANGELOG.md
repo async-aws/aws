@@ -6,9 +6,9 @@
 
 - AWS api-change: Added us-isob-east-1 region
 
-### Added
+### Deprecated
 
-- AWS api-change: This release adds support for configuring cross-region and cross-account replication of your Amazon ECR images.
+- AWS api-change: `GetAuthorizationTokenRequest::$registryIds` has been deprecated
 
 ## 0.1.0
 
