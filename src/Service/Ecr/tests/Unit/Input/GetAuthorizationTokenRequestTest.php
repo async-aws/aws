@@ -7,6 +7,9 @@ use AsyncAws\Ecr\Input\GetAuthorizationTokenRequest;
 
 class GetAuthorizationTokenRequestTest extends TestCase
 {
+    /**
+     * @group legacy The registryIds is deprecated
+     */
     public function testRequest(): void
     {
         $input = new GetAuthorizationTokenRequest([
