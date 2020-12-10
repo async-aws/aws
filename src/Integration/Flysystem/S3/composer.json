@@ -25,7 +25,7 @@
         "league/mime-type-detection": "^1.0"
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "^5.1"
+        "symfony/phpunit-bridge": "^5.2"
     },
     "extra": {
         "branch-alias": {
