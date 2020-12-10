@@ -7,14 +7,9 @@ use AsyncAws\Ecr\Input\GetAuthorizationTokenRequest;
 
 class GetAuthorizationTokenRequestTest extends TestCase
 {
-    /**
-     * @group legacy The registryIds is deprecated
-     */
     public function testRequest(): void
     {
-        $input = new GetAuthorizationTokenRequest([
-            'registryIds' => ['000000000000'],
-        ]);
+        $input = new GetAuthorizationTokenRequest();
 
         // see https://docs.aws.amazon.com/AmazonECR/latest/APIReference/API_GetAuthorizationToken.html
         $expected = '
@@ -22,7 +17,7 @@ class GetAuthorizationTokenRequestTest extends TestCase
             Content-Type: application/x-amz-json-1.1
             x-amz-target: AmazonEC2ContainerRegistry_V20150921.GetAuthorizationToken
 
-            {"registryIds":["000000000000"]}
+            {}
                 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

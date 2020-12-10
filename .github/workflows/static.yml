@@ -9,7 +9,7 @@ on:
 jobs:
   phpstan:
     name: PHPStan
-    runs-on: ubuntu-latest
+    runs-on: Ubuntu-20.04
 
     steps:
       - name: Set up PHP
@@ -33,7 +33,7 @@ jobs:
 
   php-cs-fixer:
     name: PHP-CS-Fixer
-    runs-on: ubuntu-latest
+    runs-on: Ubuntu-20.04
 
     steps:
       - name: Checkout code
@@ -46,7 +46,7 @@ jobs:
 
   psalm:
     name: Psalm
-    runs-on: ubuntu-latest
+    runs-on: Ubuntu-20.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v2

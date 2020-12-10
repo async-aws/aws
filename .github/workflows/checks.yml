@@ -5,7 +5,7 @@ on: pull_request
 jobs:
   composer-normalize:
     name: Composer Normalize
-    runs-on: ubuntu-latest
+    runs-on: Ubuntu-20.04
 
     steps:
       - name: Set up PHP
@@ -40,7 +40,7 @@ jobs:
 
   output-generated:
     name: Generated output not changed
-    runs-on: ubuntu-latest
+    runs-on: Ubuntu-20.04
 
     steps:
       - name: Set up PHP
