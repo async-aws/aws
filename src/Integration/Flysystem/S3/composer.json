@@ -22,7 +22,7 @@
         "php": "^7.2.5 || ^8.0",
         "async-aws/s3": "^1.5",
         "league/flysystem": "^1.0.65",
-        "league/mime-type-detection": "^1.0"
+        "league/mime-type-detection": "^1.5.1"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^5.2"
