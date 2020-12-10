@@ -427,7 +427,7 @@ class AsyncAwsS3AdapterTest extends TestCase
         $path = 'foo/bar.txt';
 
         $result = ResultMockFactory::create(HeadObjectOutput::class, [
-            'LastModified' => new \DateTimeImmutable('2020-03-14 12:00:00'),
+            'LastModified' => new \DateTimeImmutable('2020-03-14 12:00:00', new \DateTimeZone('UTC')),
             'ContentLength' => '123',
             'ContentType' => 'text/plain',
         ]);
