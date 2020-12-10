@@ -9,7 +9,7 @@ jobs:
   build:
     if: github.repository == 'async-aws/aws'
     name: Generate
-    runs-on: ubuntu-latest
+    runs-on: Ubuntu-20.04
 
     steps:
       - name: Set up PHP

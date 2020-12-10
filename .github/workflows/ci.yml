@@ -10,7 +10,7 @@ jobs:
 
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: Ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
@@ -114,7 +114,7 @@ jobs:
 
   lowest:
     name: Lowest dependencies
-    runs-on: ubuntu-latest
+    runs-on: Ubuntu-20.04
 
     steps:
       - name: Set up PHP
@@ -217,7 +217,7 @@ jobs:
 
   root:
     name: Root tests
-    runs-on: ubuntu-latest
+    runs-on: Ubuntu-20.04
     steps:
       - name: Set up PHP
         uses: shivammathur/setup-php@2.7.0
@@ -244,7 +244,7 @@ jobs:
 
   dev:
     name: dev-master
-    runs-on: ubuntu-latest
+    runs-on: Ubuntu-20.04
     steps:
       - name: Set up PHP
         uses: shivammathur/setup-php@2.7.0
