@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.3.1
+
+### Fixed
+
+- Fallback to default region config if provided region is not defined
+
 ## 1.3.0
 
 ### Added
