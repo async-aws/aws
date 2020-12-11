@@ -128,9 +128,9 @@ final class WebIdentityProvider implements CredentialProvider
      */
     private function getTokenFileContent(string $tokenFile): string
     {
-        if (! file_exists($tokenFile)) {
-            clearstatcache(true, dirname($tokenFile) . DIRECTORY_SEPARATOR . readlink($tokenFile));
-            clearstatcache(true, dirname($tokenFile) . DIRECTORY_SEPARATOR . dirname(readlink($tokenFile)));
+        if (!file_exists($tokenFile)) {
+            clearstatcache(true, \dirname($tokenFile) . \DIRECTORY_SEPARATOR . readlink($tokenFile));
+            clearstatcache(true, \dirname($tokenFile) . \DIRECTORY_SEPARATOR . \dirname(readlink($tokenFile)));
             clearstatcache(true, $tokenFile);
         }
 
