@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.7.1
+
+### Fixed
+
+- Fix for an edge case where aws config file could be a directory
+- Fix when AWS profile name is only digits
+
 ## 1.7.0
 
 ### Added
