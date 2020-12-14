@@ -106,9 +106,9 @@ class GenerateCommand extends Command
             if (!$pid) {
                 $code = $this->generateService($io, $input, $manifest, $endpoints, $serviceName);
                 if (\is_int($code)) {
-                    die($code);
+                    exit($code);
                 }
-                die(0);
+                exit(0);
             }
 
             $pids[$pid] = $serviceName;
@@ -429,7 +429,7 @@ class GenerateCommand extends Command
         $path = \strtr($path, $this->loadManifest()['variables'] ?? [[]]);
 
         if (null === $this->cache) {
-            $this->cache = \file_exists($this->cacheFile) ? require($this->cacheFile) : [];
+            $this->cache = \file_exists($this->cacheFile) ? require ($this->cacheFile) : [];
         }
 
         if (isset($this->cache[$cacheKey])) {

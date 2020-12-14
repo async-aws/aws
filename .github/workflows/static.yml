@@ -26,7 +26,7 @@ jobs:
           composer update --no-interaction --prefer-dist --optimize-autoloader
 
       - name: PHPStan
-        uses: docker://oskarstark/phpstan-ga:0.12.48
+        uses: docker://oskarstark/phpstan-ga:0.12.62
         with:
           entrypoint: /composer/vendor/bin/phpstan
           args: analyze --no-progress
@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: PHP-CS-Fixer
-        uses: docker://oskarstark/php-cs-fixer-ga:2.16.4
+        uses: docker://oskarstark/php-cs-fixer-ga:2.17.1
         with:
           args: --dry-run --diff-format udiff
 

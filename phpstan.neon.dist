@@ -14,8 +14,6 @@ parameters:
         - src/Integration/Laravel/Filesystem/src/AsyncAwsFilesystemAdapter.php
 
     ignoreErrors:
-        - '#Ternary operator condition is always true\.#'
-        - '#Negated boolean expression is always false\.#'
         - '#^PHPDoc tag @param has invalid value#'
         - '#^Parameter \#1 \$input of class AsyncAws\\[^\\]+\\ValueObject\\[^ ]+ constructor expects (array\(\)\|)?array\([^\)]+\), array\([^\)]+\) given\.#'
         - '#Method AsyncAws\\[^:]+::[^(]+\(\) should return array<[^>]+> but returns array<int(\|string)?, string>\.$#'
