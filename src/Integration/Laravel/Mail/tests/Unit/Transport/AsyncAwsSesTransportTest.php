@@ -22,7 +22,7 @@ class AsyncAwsSesTransportTest extends TestCase
         $message->setSubject('Important message');
         $message->setBody('This is my secret: 123');
 
-        $validateInput = function (array $input) use ($message) {
+        $validateInput = function (array $input) {
             if (!isset($input['Content']) || !$input['Content'] instanceof EmailContent) {
                 return false;
             }

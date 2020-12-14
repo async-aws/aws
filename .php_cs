@@ -70,7 +70,7 @@ return PhpCsFixer\Config::create()
         'blank_line_before_statement' => true,
         'single_quote' => true,
         'phpdoc_to_comment' => false,
-        'ordered_class_elements' => ['sortAlgorithm'=>'none'],
+        'ordered_class_elements' => ['sort_algorithm'=>'none'],
         'class_attributes_separation' => ['elements'=>['property', 'method']],
         'array_indentation' => true,
     ])
