@@ -137,7 +137,7 @@ final class WebIdentityProvider implements CredentialProvider
         }
 
         if (false === $token = file_get_contents($tokenFile)) {
-            throw new RuntimeException('failed to read data');
+            throw new RuntimeException('Failed to read data');
         }
 
         return $token;
