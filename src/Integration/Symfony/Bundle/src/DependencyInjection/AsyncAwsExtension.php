@@ -113,7 +113,9 @@ class AsyncAwsExtension extends Extension
                     ->setArguments([
                         new Reference('async_aws.credential.cache.inner'),
                         new Reference($config['credential_provider_cache']),
-                    ]);
+                        $logger,
+                    ])
+                    ->addTag('monolog.logger', ['channel' => 'async_aws']);
 
                 $container->register('async_aws.credential.memory', CacheProvider::class)
                     ->setDecoratedService($credentialServiceId)

@@ -1,5 +1,6 @@
 parameters:
     level: 5
+    reportUnmatchedIgnoredErrors: false
     paths:
         - src
 
@@ -17,3 +18,4 @@ parameters:
         - '#^PHPDoc tag @param has invalid value#'
         - '#^Parameter \#1 \$input of class AsyncAws\\[^\\]+\\ValueObject\\[^ ]+ constructor expects (array\(\)\|)?array\([^\)]+\), array\([^\)]+\) given\.#'
         - '#Method AsyncAws\\[^:]+::[^(]+\(\) should return array<[^>]+> but returns array<int(\|string)?, string>\.$#'
+        - '#PHPDoc tag @throws with type Psr\\Cache\\CacheException is not subtype of Throwable$#'
