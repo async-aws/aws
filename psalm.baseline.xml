@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.16@d03e5ef057d6adc656c0ff7e166c50b73b4f48f3">
+<files psalm-version="3.18.0@a463c894c4323e84121b5978867923efc6f8554a">
+  <file src="src/Core/src/AwsError/AwsErrorFactory.php">
+    <InvalidScalarArgument occurrences="1">
+      <code>$xml</code>
+    </InvalidScalarArgument>
+    <PossiblyUndefinedVariable occurrences="1">
+      <code>$xml</code>
+    </PossiblyUndefinedVariable>
+  </file>
   <file src="src/Core/src/Credentials/PsrCacheProvider.php">
     <InvalidCatch occurrences="1"/>
     <InvalidThrow occurrences="1">
