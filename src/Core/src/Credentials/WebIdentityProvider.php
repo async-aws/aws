@@ -128,13 +128,17 @@ final class WebIdentityProvider implements CredentialProvider
      */
     private function getTokenFileContent(string $tokenFile): string
     {
-        if (!file_exists($tokenFile)) {
-            $tokenDir = \dirname($tokenFile);
-            $tokenLink = readlink($tokenFile);
-            clearstatcache(true, $tokenDir . \DIRECTORY_SEPARATOR . $tokenLink);
-            clearstatcache(true, $tokenDir . \DIRECTORY_SEPARATOR . \dirname($tokenLink));
-            clearstatcache(true, $tokenFile);
+        $token = @file_get_contents($tokenFile);
+
+        if (false !== $token) {
+            return $token;
         }
+
+        $tokenDir = \dirname($tokenFile);
+        $tokenLink = readlink($tokenFile);
+        clearstatcache(true, $tokenDir . \DIRECTORY_SEPARATOR . $tokenLink);
+        clearstatcache(true, $tokenDir . \DIRECTORY_SEPARATOR . \dirname($tokenLink));
+        clearstatcache(true, $tokenFile);
 
         if (false === $token = file_get_contents($tokenFile)) {
             throw new RuntimeException('Failed to read data');
