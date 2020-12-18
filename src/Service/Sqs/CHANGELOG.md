@@ -6,6 +6,10 @@
 
 - Make sure required Map properties are validated before sending the request
 
+### Added
+
+- AWS api-change: Amazon SQS adds queue attributes to enable high throughput FIFO.
+
 ## 1.3.2
 
 ### Fixed
