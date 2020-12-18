@@ -10,8 +10,10 @@ final class QueueAttributeName
     public const APPROXIMATE_NUMBER_OF_MESSAGES_NOT_VISIBLE = 'ApproximateNumberOfMessagesNotVisible';
     public const CONTENT_BASED_DEDUPLICATION = 'ContentBasedDeduplication';
     public const CREATED_TIMESTAMP = 'CreatedTimestamp';
+    public const DEDUPLICATION_SCOPE = 'DeduplicationScope';
     public const DELAY_SECONDS = 'DelaySeconds';
     public const FIFO_QUEUE = 'FifoQueue';
+    public const FIFO_THROUGHPUT_LIMIT = 'FifoThroughputLimit';
     public const KMS_DATA_KEY_REUSE_PERIOD_SECONDS = 'KmsDataKeyReusePeriodSeconds';
     public const KMS_MASTER_KEY_ID = 'KmsMasterKeyId';
     public const LAST_MODIFIED_TIMESTAMP = 'LastModifiedTimestamp';
@@ -32,8 +34,10 @@ final class QueueAttributeName
             self::APPROXIMATE_NUMBER_OF_MESSAGES_NOT_VISIBLE => true,
             self::CONTENT_BASED_DEDUPLICATION => true,
             self::CREATED_TIMESTAMP => true,
+            self::DEDUPLICATION_SCOPE => true,
             self::DELAY_SECONDS => true,
             self::FIFO_QUEUE => true,
+            self::FIFO_THROUGHPUT_LIMIT => true,
             self::KMS_DATA_KEY_REUSE_PERIOD_SECONDS => true,
             self::KMS_MASTER_KEY_ID => true,
             self::LAST_MODIFIED_TIMESTAMP => true,
