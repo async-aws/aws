@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.7.2
+
+- Make sure we can get credentials even if the cache storage fails
+- Clear `realpath` cache to make sure we get the latest credentials token
+
 ## 1.7.1
 
 ### Fixed
