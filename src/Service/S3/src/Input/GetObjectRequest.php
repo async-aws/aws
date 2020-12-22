@@ -380,7 +380,7 @@ final class GetObjectRequest extends Input
             $query['response-content-type'] = $this->ResponseContentType;
         }
         if (null !== $this->ResponseExpires) {
-            $query['response-expires'] = $this->ResponseExpires->format(\DateTimeInterface::ISO8601);
+            $query['response-expires'] = $this->ResponseExpires->format(\DateTimeInterface::RFC822);
         }
         if (null !== $this->VersionId) {
             $query['versionId'] = $this->VersionId;

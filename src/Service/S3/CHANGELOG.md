@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: S3 adds support for multiple-destination replication, option to sync replica modifications; S3 Bucket Keys to reduce cost of S3 SSE with AWS KMS
+- AWS api-change: Format GetObject's Expires header to be an http-date instead of iso8601
 
 ## 1.6.0
 
