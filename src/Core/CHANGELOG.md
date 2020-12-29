@@ -1,5 +1,11 @@
 # Change Log
 
+## NOT RELEASED
+
+### Added
+
+- Added option `sendChunkedBody` dedicated to S3.
+
 ## 1.7.2
 
 - Make sure we can get credentials even if the cache storage fails

@@ -9,9 +9,9 @@ use AsyncAws\Core\Signer\SignerV4;
 use AsyncAws\Core\Signer\SigningContext;
 use AsyncAws\Core\Stream\FixedSizeStream;
 use AsyncAws\Core\Stream\IterableStream;
+use AsyncAws\Core\Stream\ReadOnceResultStream;
 use AsyncAws\Core\Stream\RequestStream;
 use AsyncAws\Core\Stream\RewindableStream;
-use AsyncAws\Core\Stream\StringStream;
 
 /**
  * Version4 of signer dedicated for service S3.
@@ -35,6 +35,15 @@ class SignerV4ForS3 extends SignerV4
         'PutObjectRetention' => true,
         'PutObjectLockConfiguration' => true,
     ];
+
+    private $sendChunkedBody;
+
+    public function __construct(string $scopeName, string $region, bool $sendChunkedBody = true)
+    {
+        parent::__construct($scopeName, $region);
+
+        $this->sendChunkedBody = $sendChunkedBody;
+    }
 
     public function sign(Request $request, Credentials $credentials, RequestContext $context): void
     {
@@ -86,8 +95,10 @@ class SignerV4ForS3 extends SignerV4
         }
 
         // no need to stream small body. It's simple to convert it to string directly
-        if ($contentLength < self::CHUNK_SIZE) {
-            $request->setBody(StringStream::create($body));
+        if ($contentLength < self::CHUNK_SIZE || !$this->sendChunkedBody) {
+            if ($body instanceof ReadOnceResultStream) {
+                $request->setBody(RewindableStream::create($body));
+            }
 
             return;
         }

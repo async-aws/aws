@@ -85,7 +85,7 @@ for authentication.
 
 ### roleArn
 
-The Amazon Resource Name (ARN) of the role that the client should be "assuming" after authentication. 
+The Amazon Resource Name (ARN) of the role that the client should be "assuming" after authentication.
 
 ### webIdentityTokenFile
 
@@ -110,3 +110,11 @@ See [IAM Roles for Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developer
 
 Set to true to send requests to an S3 path style endpoint by default.
 See [Virtual Hosting of Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html) about path style vs virtual host style.
+
+### sendChunkedBody
+
+**Default:** 'true'
+
+Set to true to send requests in multiple chunks. This prevents reading the file
+twice to calculate the signature, but is not always allowed by Non-AWS S3
+endpoints.

@@ -33,6 +33,7 @@ final class Configuration
 
     // S3 specific option
     public const OPTION_PATH_STYLE_ENDPOINT = 'pathStyleEndpoint';
+    public const OPTION_SEND_CHUNKED_BODY = 'sendChunkedBody';
 
     private const AVAILABLE_OPTIONS = [
         self::OPTION_REGION => true,
@@ -49,6 +50,7 @@ final class Configuration
         self::OPTION_ROLE_SESSION_NAME => true,
         self::OPTION_CONTAINER_CREDENTIALS_RELATIVE_URI => true,
         self::OPTION_PATH_STYLE_ENDPOINT => true,
+        self::OPTION_SEND_CHUNKED_BODY => true,
     ];
 
     // Put fallback options into groups to avoid mixing of provided config and environment variables
@@ -79,6 +81,7 @@ final class Configuration
         // https://docs.aws.amazon.com/general/latest/gr/rande.html
         self::OPTION_ENDPOINT => 'https://%service%.%region%.amazonaws.com',
         self::OPTION_PATH_STYLE_ENDPOINT => 'false',
+        self::OPTION_SEND_CHUNKED_BODY => 'true',
     ];
 
     private $data = [];
@@ -120,6 +123,7 @@ final class Configuration
      *       |self::OPTION_SHARED_CONFIG_FILE
      *       |self::OPTION_ENDPOINT
      *       |self::OPTION_PATH_STYLE_ENDPOINT
+     *       |self::OPTION_SEND_CHUNKED_BODY
      *     ? string
      *     : ?string
      * )
