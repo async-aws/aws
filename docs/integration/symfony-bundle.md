@@ -52,6 +52,10 @@ For a complete reference of the configuration please run:
 php bin/console config:dump-reference async_aws
 ```
 
+> **Note**: Multiple clients with different configuration for the same service
+> can be created by providing a unique name and defining the service in the
+> `type` sub-property. See client `delayed` in above example.
+
 ## Using SSM to store secrets
 
 Since version 4.4, Symfony provides [secrets management](https://symfony.com/doc/current/configuration/secrets.html).
