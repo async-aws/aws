@@ -2,7 +2,9 @@
 
 namespace AsyncAws\S3\Signer;
 
+use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Credentials\Credentials;
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Signer\SignerV4;
@@ -38,11 +40,21 @@ class SignerV4ForS3 extends SignerV4
 
     private $sendChunkedBody;
 
-    public function __construct(string $scopeName, string $region, bool $sendChunkedBody = true)
+    /**
+     * @param array{
+     *   sendChunkedBody?: bool,
+     * } $s3SignerOptions
+     */
+    public function __construct(string $scopeName, string $region, array $s3SignerOptions = [])
     {
         parent::__construct($scopeName, $region);
 
-        $this->sendChunkedBody = $sendChunkedBody;
+        $this->sendChunkedBody = $s3SignerOptions[Configuration::OPTION_SEND_CHUNKED_BODY] ?? true;
+        unset($s3SignerOptions[Configuration::OPTION_SEND_CHUNKED_BODY]);
+
+        if (0 < \count($s3SignerOptions)) {
+            throw new InvalidArgument(\sprintf('Invalid option(s) "%s" passed to "%s::%s". ', \implode('", "', \array_keys($s3SignerOptions)), __CLASS__, __METHOD__));
+        }
     }
 
     public function sign(Request $request, Credentials $credentials, RequestContext $context): void
