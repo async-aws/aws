@@ -52,7 +52,7 @@ class SignerV4ForS3 extends SignerV4
         $this->sendChunkedBody = $s3SignerOptions[Configuration::OPTION_SEND_CHUNKED_BODY] ?? true;
         unset($s3SignerOptions[Configuration::OPTION_SEND_CHUNKED_BODY]);
 
-        if (0 < \count($s3SignerOptions)) {
+        if (!empty($s3SignerOptions)) {
             throw new InvalidArgument(\sprintf('Invalid option(s) "%s" passed to "%s::%s". ', \implode('", "', \array_keys($s3SignerOptions)), __CLASS__, __METHOD__));
         }
     }
