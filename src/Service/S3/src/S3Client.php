@@ -3,6 +3,7 @@
 namespace AsyncAws\S3;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
 use AsyncAws\S3\Enum\BucketCannedACL;
@@ -939,8 +940,14 @@ class S3Client extends AbstractApi
     protected function getSignerFactories(): array
     {
         return [
-            's3v4' => static function (string $service, string $region) {
-                return new SignerV4ForS3($service, $region);
+            's3v4' => function (string $service, string $region) {
+                $configuration = $this->getConfiguration();
+                $options = [];
+                if (Configuration::optionExists('sendChunkedBody')) {
+                    $options['sendChunkedBody'] = \filter_var($configuration->get('sendChunkedBody'), \FILTER_VALIDATE_BOOLEAN);
+                }
+
+                return new SignerV4ForS3($service, $region, $options);
             },
         ] + parent::getSignerFactories();
     }
