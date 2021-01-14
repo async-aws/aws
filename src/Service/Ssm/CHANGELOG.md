@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Improve documentation for `GetParametersByPathRequest::$Path`.
+
 ## 1.1.0
 
 ### Added
