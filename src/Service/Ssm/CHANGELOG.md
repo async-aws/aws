@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: AWS Systems Manager adds pagination support for DescribeDocumentPermission API
+- AWS api-change: SSM Maintenance Window support for registering/updating maintenance window tasks without targets.
+- AWS api-change: SSM Maintenance Window support for registering/updating maintenance window tasks without targets.
+
 ## 1.1.0
 
 ### Added
