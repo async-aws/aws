@@ -943,6 +943,8 @@ class S3Client extends AbstractApi
             's3v4' => function (string $service, string $region) {
                 $configuration = $this->getConfiguration();
                 $options = [];
+
+                // We need async-aws/core: 1.8 or above to use sendChunkedBody.
                 if (Configuration::optionExists('sendChunkedBody')) {
                     $options['sendChunkedBody'] = \filter_var($configuration->get('sendChunkedBody'), \FILTER_VALIDATE_BOOLEAN);
                 }
