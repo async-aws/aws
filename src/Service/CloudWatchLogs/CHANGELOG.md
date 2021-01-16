@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.0.2
+
+### Fixed
+
+- If provided an unrecognized region, then fallback to default region config
+
 ## 1.0.1
 
 ### Fixed

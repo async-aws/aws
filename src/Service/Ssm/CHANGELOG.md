@@ -2,8 +2,10 @@
 
 ## NOT RELEASED
 
-### Added
+### Fixed
 
+- Make sure we throw exception from async-aws/core
+- If provided an unrecognized region, then fallback to default region config
 - AWS api-change: Improve documentation for `GetParametersByPathRequest::$Path`.
 
 ## 1.1.0

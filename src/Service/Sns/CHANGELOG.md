@@ -2,13 +2,14 @@
 
 ## NOT RELEASED
 
-### Added
-
-- AWS enhancement: Documentation updates for Amazon SNS.
+## 1.1.1
 
 ### Fixed
 
+- AWS enhancement: Documentation updates for Amazon SNS.
 - Make sure required Map properties are validated before sending the request
+- Make sure we throw exception from async-aws/core
+- If provided an unrecognized region, then fallback to default region config
 
 ## 1.1.0
 
