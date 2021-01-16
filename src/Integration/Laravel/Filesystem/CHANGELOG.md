@@ -2,9 +2,15 @@
 
 ## NOT RELEASED
 
+## 0.2.0
+
 ### Changed
 
 - Support for async-aws/flysystem-s3 1.0
+
+### Fixed
+
+- Make sure we throw exception from async-aws/core
 
 ## 0.1.2
 

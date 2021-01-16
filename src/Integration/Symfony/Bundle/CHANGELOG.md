@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.3.0
+
+### Added
+
+- The `async_aws.credential.cache` service will log cache failures.
+
 ## 1.2.0
 
 ### Added
