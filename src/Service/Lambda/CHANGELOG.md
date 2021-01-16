@@ -2,9 +2,15 @@
 
 ## NOT RELEASED
 
+## 1.2.0
+
 ### Added
 
 - AWS api-change: This release includes support for new feature: Code Signing for AWS Lambda. This adds new resources and APIs to configure Lambda functions to accept and verify signed code artifacts at deployment.
+
+### Fixed
+
+- If provided an unrecognized region, then fallback to default region config
 
 ## 1.1.1
 
