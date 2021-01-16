@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 0.1.2
+
+### Fixed
+
+- Removed unused variable.
+
 ## 0.1.1
 
 ### Added
