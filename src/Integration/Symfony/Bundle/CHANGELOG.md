@@ -6,7 +6,7 @@
 
 ### Added
 
-- The `async_aws.credential.cache` will log cache failures.
+- The `async_aws.credential.cache` service will log cache failures.
 
 ## 1.2.0
 
