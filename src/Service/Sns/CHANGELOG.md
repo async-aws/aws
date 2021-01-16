@@ -5,7 +5,6 @@
 ### Added
 
 - AWS enhancement: Documentation updates for Amazon SNS.
-- AWS enhancement: Documentation updates for Amazon SNS.
 
 ### Fixed
 
