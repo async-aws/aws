@@ -19,7 +19,7 @@ final class SubscribeInput extends Input
     private $TopicArn;
 
     /**
-     * The protocol you want to use. Supported protocols include:.
+     * The protocol that you want to use. Supported protocols include:.
      *
      * @required
      *
