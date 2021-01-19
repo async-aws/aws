@@ -58,7 +58,12 @@ class OperationGenerator
      */
     private $typeGenerator;
 
-    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator, PaginationGenerator $paginationGenerator, TestGenerator $testGenerator, ?TypeGenerator $typeGenerator = null)
+    /**
+     * @var ExceptionGenerator
+     */
+    private $exceptionGenerator;
+
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator, PaginationGenerator $paginationGenerator, TestGenerator $testGenerator, ExceptionGenerator $exceptionGenerator, ?TypeGenerator $typeGenerator = null)
     {
         $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
@@ -66,6 +71,7 @@ class OperationGenerator
         $this->resultGenerator = $resultGenerator;
         $this->paginationGenerator = $paginationGenerator;
         $this->testGenerator = $testGenerator;
+        $this->exceptionGenerator = $exceptionGenerator;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
     }
 
@@ -81,7 +87,7 @@ class OperationGenerator
         $classBuilder = $this->classRegistry->register($className->getFqdn(), true);
         $classBuilder->addUse($inputClass->getFqdn());
 
-        $method = $classBuilder->addMethod(\lcfirst($operation->getMethodName()));
+        $method = $classBuilder->addMethod(\lcfirst(GeneratorHelper::normalizeName($operation->getMethodName())));
         if (null !== $documentation = $operation->getDocumentation()) {
             $method->addComment(GeneratorHelper::parseDocumentation($documentation));
         }
@@ -99,11 +105,17 @@ class OperationGenerator
             $classBuilder->addUse($memberClassName->getFqdn());
         }
 
+        foreach ($operation->getErrors() as $error) {
+            $errorClass = $this->namespaceRegistry->getException($error);
+            $method->addComment('@throws ' . $errorClass->getName());
+            $classBuilder->addUse($errorClass->getFqdn());
+        }
+
         $operationMethodParameter = $method->addParameter('input');
         if (empty($inputShape->getRequired())) {
             $operationMethodParameter->setDefaultValue([]);
         }
-        if (null !== $output = $operation->getOutput()) {
+        if (null !== $operation->getOutput()) {
             $resultClass = $this->resultGenerator->generate($operation);
             if (null !== $operation->getPagination()) {
                 $this->paginationGenerator->generate($operation);
@@ -135,23 +147,31 @@ class OperationGenerator
         if ((null !== $pagination = $operation->getPagination()) && !empty($pagination->getOutputToken())) {
             $body .= '
                 $input = INPUT_CLASS::create($input);
-                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion()]));
+                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion(), "exceptionMapping" => ERRORS]));
 
                 return new RESULT_CLASS($response, $this, $input);
             ';
         } else {
             $body .= '
                 $input = INPUT_CLASS::create($input);
-                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion()]));
+                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion(), "exceptionMapping" => ERRORS]));
 
                 return new RESULT_CLASS($response);
             ';
+        }
+
+        $exception = [];
+        foreach ($operation->getErrors() as $error) {
+            $errorClass = $this->exceptionGenerator->generate($operation, $error);
+
+            $exception[$error->getCode() ?? $error->getName()] = $errorClass->getFqdn();
         }
 
         $method->setBody(strtr($body, [
             'INPUT_CLASS' => $inputClass->getName(),
             'OPERATION_NAME' => \var_export($operation->getName(), true),
             'RESULT_CLASS' => $resultClass ? $resultClass->getName() : 'Result',
+            'ERRORS' => \var_export($exception, true),
         ]));
     }
 }

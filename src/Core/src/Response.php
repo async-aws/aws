@@ -83,13 +83,20 @@ class Response
      */
     private $debug;
 
-    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, LoggerInterface $logger, AwsErrorFactoryInterface $awsErrorFactory = null, bool $debug = false)
+    /**
+     * @var array<string, string>
+     */
+    private $exceptionMapping;
+
+
+    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, LoggerInterface $logger, AwsErrorFactoryInterface $awsErrorFactory = null, bool $debug = false, array $exceptionMapping = [])
     {
         $this->httpResponse = $response;
         $this->httpClient = $httpClient;
         $this->logger = $logger;
         $this->awsErrorFactory = $awsErrorFactory ?? new ChainAwsErrorFactory();
         $this->debug = $debug;
+        $this->exceptionMapping = $exceptionMapping;
     }
 
     public function __destruct()
@@ -408,6 +415,10 @@ class Response
         if (\is_callable($this->resolveResult)) {
             /** @psalm-suppress PropertyTypeCoercion */
             $this->resolveResult = ($this->resolveResult)();
+            if ($this->resolveResult instanceof HttpException && isset($this->exceptionMapping[$this->resolveResult->getAwsCode()])) {
+                $class = $this->exceptionMapping[$this->resolveResult->getAwsCode()];
+                $this->resolveResult = new $class($this->httpResponse);
+            }
         }
 
         $code = null;

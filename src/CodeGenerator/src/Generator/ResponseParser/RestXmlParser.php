@@ -13,6 +13,7 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use AsyncAws\Core\AwsError\AwsError;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Method;
 
@@ -37,7 +38,7 @@ class RestXmlParser implements Parser
         $this->typeGenerator = $typeGenerator;
     }
 
-    public function generate(StructureShape $shape): ParserResult
+    public function generate(StructureShape $shape, bool $throwOnError = true): ParserResult
     {
         $properties = [];
         $this->functions = [];
@@ -65,7 +66,12 @@ class RestXmlParser implements Parser
             return new ParserResult('');
         }
 
-        $body = '$data = new \SimpleXMLElement($response->getContent());';
+        $body = '$data = new \SimpleXMLElement($response->getContent(' . ($throwOnError ? '' : 'false') . '));';
+        if (!$throwOnError) {
+            $body .= 'if (0 < $data->Error->count()) {
+                $data = $data->Error;
+            }';
+        }
         if (null !== $wrapper = $shape->getResultWrapper()) {
             $body .= strtr('$data = $data->WRAPPER;' . "\n", ['WRAPPER' => $wrapper]);
         }

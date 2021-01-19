@@ -87,9 +87,10 @@ class WaiterGenerator
         $classBuilder->addUse($resultClass->getFqdn());
 
         [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($inputShape, $inputClass, true, false, false, ['  @region?: string,']);
-        $method = $classBuilder->addMethod(\lcfirst($waiter->getName()))
-            ->setComment('Check status of operation ' . \lcfirst($operation->getName()))
-            ->addComment('@see ' . \lcfirst($operation->getName()))
+        $method = $classBuilder->addMethod(\lcfirst(GeneratorHelper::normalizeName($waiter->getName())))
+            ->setComment('Check status of operation ' . \lcfirst(GeneratorHelper::normalizeName($operation->getName())))
+            ->setComment('')
+            ->addComment('@see ' . \lcfirst(GeneratorHelper::normalizeName($operation->getName())))
             ->addComment($doc)
             ->setReturnType($resultClass->getFqdn())
             ->setBody(strtr('

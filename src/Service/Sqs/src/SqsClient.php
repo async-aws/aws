@@ -11,6 +11,8 @@ use AsyncAws\Core\Result;
 use AsyncAws\Sqs\Enum\MessageSystemAttributeName;
 use AsyncAws\Sqs\Enum\MessageSystemAttributeNameForSends;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
+use AsyncAws\Sqs\Exception\PurgeQueueInProgressException;
+use AsyncAws\Sqs\Exception\QueueDoesNotExistException;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
 use AsyncAws\Sqs\Input\CreateQueueRequest;
 use AsyncAws\Sqs\Input\DeleteMessageRequest;
@@ -193,11 +195,17 @@ class SqsClient extends AbstractApi
      *   QueueUrl: string,
      *   @region?: string,
      * }|PurgeQueueRequest $input
+     *
+     * @throws QueueDoesNotExistException
+     * @throws PurgeQueueInProgressException
      */
     public function purgeQueue($input): Result
     {
         $input = PurgeQueueRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PurgeQueue', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PurgeQueue', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AWS.SimpleQueueService.NonExistentQueue' => 'AsyncAws\\Sqs\\Exception\\QueueDoesNotExistException',
+            'AWS.SimpleQueueService.PurgeQueueInProgress' => 'AsyncAws\\Sqs\\Exception\\PurgeQueueInProgressException',
+        ]]));
 
         return new Result($response);
     }

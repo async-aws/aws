@@ -3,6 +3,12 @@
 namespace AsyncAws\CloudWatchLogs;
 
 use AsyncAws\CloudWatchLogs\Enum\OrderBy;
+use AsyncAws\CloudWatchLogs\Exception\DataAlreadyAcceptedException;
+use AsyncAws\CloudWatchLogs\Exception\InvalidParameterException;
+use AsyncAws\CloudWatchLogs\Exception\InvalidSequenceTokenException;
+use AsyncAws\CloudWatchLogs\Exception\ResourceNotFoundException;
+use AsyncAws\CloudWatchLogs\Exception\ServiceUnavailableException;
+use AsyncAws\CloudWatchLogs\Exception\UnrecognizedClientException;
 use AsyncAws\CloudWatchLogs\Input\DescribeLogStreamsRequest;
 use AsyncAws\CloudWatchLogs\Input\PutLogEventsRequest;
 use AsyncAws\CloudWatchLogs\Result\DescribeLogStreamsResponse;
@@ -54,11 +60,25 @@ class CloudWatchLogsClient extends AbstractApi
      *   sequenceToken?: string,
      *   @region?: string,
      * }|PutLogEventsRequest $input
+     *
+     * @throws InvalidParameterException
+     * @throws InvalidSequenceTokenException
+     * @throws DataAlreadyAcceptedException
+     * @throws ResourceNotFoundException
+     * @throws ServiceUnavailableException
+     * @throws UnrecognizedClientException
      */
     public function putLogEvents($input): PutLogEventsResponse
     {
         $input = PutLogEventsRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutLogEvents', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutLogEvents', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterException' => 'AsyncAws\\CloudWatchLogs\\Exception\\InvalidParameterException',
+            'InvalidSequenceTokenException' => 'AsyncAws\\CloudWatchLogs\\Exception\\InvalidSequenceTokenException',
+            'DataAlreadyAcceptedException' => 'AsyncAws\\CloudWatchLogs\\Exception\\DataAlreadyAcceptedException',
+            'ResourceNotFoundException' => 'AsyncAws\\CloudWatchLogs\\Exception\\ResourceNotFoundException',
+            'ServiceUnavailableException' => 'AsyncAws\\CloudWatchLogs\\Exception\\ServiceUnavailableException',
+            'UnrecognizedClientException' => 'AsyncAws\\CloudWatchLogs\\Exception\\UnrecognizedClientException',
+        ]]));
 
         return new PutLogEventsResponse($response);
     }

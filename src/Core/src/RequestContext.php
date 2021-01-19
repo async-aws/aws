@@ -18,6 +18,7 @@ class RequestContext
         'operation' => true,
         'expirationDate' => true,
         'currentDate' => true,
+        'exceptionMapping' => true,
     ];
 
     /**
@@ -41,11 +42,17 @@ class RequestContext
     private $currentDate;
 
     /**
+     * @var array<string, string>
+     */
+    private $exceptionMapping = [];
+
+    /**
      * @param array{
      *  operation?: null|string
      *  region?: null|string
      *  expirationDate?: null|\DateTimeImmutable
      *  currentDate?: null|\DateTimeImmutable
+     *  exceptionMapping?: string[]
      * }
      */
     public function __construct(array $options = [])
@@ -77,5 +84,10 @@ class RequestContext
     public function getCurrentDate(): ?\DateTimeImmutable
     {
         return $this->currentDate;
+    }
+
+    public function getExceptionMapping(): array
+    {
+        return $this->exceptionMapping;
     }
 }
