@@ -64,6 +64,10 @@ class ExceptionGenerator
 
         $classBuilder = $this->classRegistry->register($className->getFqdn());
         $classBuilder->setFinal();
+        if (null !== $documentation = $shape->getDocumentation()) {
+            $classBuilder->addComment(GeneratorHelper::parseDocumentation($documentation, false));
+        }
+
         if ($shape->isSenderFault()) {
             $classBuilder->addExtend(ClientException::class);
             $classBuilder->addUse(ClientException::class);

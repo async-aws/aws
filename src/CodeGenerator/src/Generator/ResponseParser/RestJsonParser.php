@@ -51,10 +51,19 @@ class RestJsonParser implements Parser
                 continue;
             }
 
-            $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
-                'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
-                'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('$data[\'%s\']', $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired()),
-            ]);
+            if (!$member->isNullable() && !$member->isRequired()) {
+                $properties[] = strtr('if (null !== $v = (PROPERTY_ACCESSOR)) {
+                        $this->PROPERTY_NAME = $v;
+                    }', [
+                    'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
+                    'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('$data[\'%s\']', $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired()),
+                ]);
+            } else {
+                $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
+                    'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
+                    'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('$data[\'%s\']', $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired()),
+                ]);
+            }
         }
 
         if (empty($properties)) {

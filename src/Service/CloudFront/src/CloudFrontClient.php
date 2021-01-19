@@ -43,13 +43,13 @@ class CloudFrontClient extends AbstractApi
     {
         $input = CreateInvalidationRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateInvalidation2019_03_26', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'AccessDenied' => 'AsyncAws\\CloudFront\\Exception\\AccessDeniedException',
-            'MissingBody' => 'AsyncAws\\CloudFront\\Exception\\MissingBodyException',
-            'InvalidArgument' => 'AsyncAws\\CloudFront\\Exception\\InvalidArgumentException',
-            'NoSuchDistribution' => 'AsyncAws\\CloudFront\\Exception\\NoSuchDistributionException',
-            'BatchTooLarge' => 'AsyncAws\\CloudFront\\Exception\\BatchTooLargeException',
-            'TooManyInvalidationsInProgress' => 'AsyncAws\\CloudFront\\Exception\\TooManyInvalidationsInProgressException',
-            'InconsistentQuantities' => 'AsyncAws\\CloudFront\\Exception\\InconsistentQuantitiesException',
+            'AccessDenied' => AccessDeniedException::class,
+            'MissingBody' => MissingBodyException::class,
+            'InvalidArgument' => InvalidArgumentException::class,
+            'NoSuchDistribution' => NoSuchDistributionException::class,
+            'BatchTooLarge' => BatchTooLargeException::class,
+            'TooManyInvalidationsInProgress' => TooManyInvalidationsInProgressException::class,
+            'InconsistentQuantities' => InconsistentQuantitiesException::class,
         ]]));
 
         return new CreateInvalidationResult($response);

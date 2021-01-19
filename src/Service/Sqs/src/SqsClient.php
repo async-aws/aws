@@ -203,8 +203,8 @@ class SqsClient extends AbstractApi
     {
         $input = PurgeQueueRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PurgeQueue', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'AWS.SimpleQueueService.NonExistentQueue' => 'AsyncAws\\Sqs\\Exception\\QueueDoesNotExistException',
-            'AWS.SimpleQueueService.PurgeQueueInProgress' => 'AsyncAws\\Sqs\\Exception\\PurgeQueueInProgressException',
+            'AWS.SimpleQueueService.NonExistentQueue' => QueueDoesNotExistException::class,
+            'AWS.SimpleQueueService.PurgeQueueInProgress' => PurgeQueueInProgressException::class,
         ]]));
 
         return new Result($response);

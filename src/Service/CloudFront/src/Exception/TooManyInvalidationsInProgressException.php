@@ -5,6 +5,9 @@ namespace AsyncAws\CloudFront\Exception;
 use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
+/**
+ * You have exceeded the maximum number of allowable InProgress invalidation batch requests, or invalidation objects.
+ */
 final class TooManyInvalidationsInProgressException extends ClientException
 {
     public function __construct(ResponseInterface $response)
@@ -19,6 +22,8 @@ final class TooManyInvalidationsInProgressException extends ClientException
         if (0 < $data->Error->count()) {
             $data = $data->Error;
         }
-        $this->message = ($v = $data->Message) ? (string) $v : null;
+        if (null !== $v = (($v = $data->message) ? (string) $v : null)) {
+            $this->message = $v;
+        }
     }
 }

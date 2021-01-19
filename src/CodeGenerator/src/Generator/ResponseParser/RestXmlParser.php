@@ -13,7 +13,6 @@ use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
-use AsyncAws\Core\AwsError\AwsError;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Method;
 
@@ -55,10 +54,19 @@ class RestXmlParser implements Parser
                     continue;
                 }
 
-                $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
-                    'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
-                    'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$data', $member), $member->getShape(), $member->isRequired()),
-                ]);
+                if (!$member->isNullable() && !$member->isRequired()) {
+                    $properties[] = strtr('if (null !== $v = (PROPERTY_ACCESSOR)) {
+                        $this->PROPERTY_NAME = $v;
+                    }', [
+                        'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
+                        'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$data', $member), $member->getShape(), $member->isRequired()),
+                    ]);
+                } else {
+                    $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
+                        'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
+                        'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$data', $member), $member->getShape(), $member->isRequired()),
+                    ]);
+                }
             }
         }
 

@@ -44,6 +44,11 @@ final class NamespaceRegistry
      */
     private $objectNamespace;
 
+    /**
+     * @var string
+     */
+    private $exceptionNamespace;
+
     public function __construct(string $baseNamespace, ?string $inputNamespace = '\\Input', ?string $resultNamespace = '\\Result', ?string $testNamespace = '\\Tests', ?string $enumNamespace = '\\Enum', ?string $objectNamespace = '\\ValueObject', ?string $exceptionNamespace = '\\Exception')
     {
         $this->baseNamespace = $baseNamespace;
@@ -82,7 +87,7 @@ final class NamespaceRegistry
 
     public function getException(Shape $shape): ClassName
     {
-        return ClassName::create($this->exceptionNamespace, $shape->getName() . (\substr($shape->getName(), -9) === 'Exception' ? '' : 'Exception'));
+        return ClassName::create($this->exceptionNamespace, $shape->getName() . ('Exception' === \substr($shape->getName(), -9) ? '' : 'Exception'));
     }
 
     public function getObject(Shape $shape): ClassName

@@ -5,6 +5,10 @@ namespace AsyncAws\CloudWatchLogs\Exception;
 use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
+/**
+ * The sequence token is not valid. You can get the correct sequence token in the `expectedSequenceToken` field in the
+ * `InvalidSequenceTokenException` message.
+ */
 final class InvalidSequenceTokenException extends ClientException
 {
     private $expectedSequenceToken;

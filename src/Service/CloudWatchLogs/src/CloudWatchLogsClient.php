@@ -72,12 +72,12 @@ class CloudWatchLogsClient extends AbstractApi
     {
         $input = PutLogEventsRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutLogEvents', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidParameterException' => 'AsyncAws\\CloudWatchLogs\\Exception\\InvalidParameterException',
-            'InvalidSequenceTokenException' => 'AsyncAws\\CloudWatchLogs\\Exception\\InvalidSequenceTokenException',
-            'DataAlreadyAcceptedException' => 'AsyncAws\\CloudWatchLogs\\Exception\\DataAlreadyAcceptedException',
-            'ResourceNotFoundException' => 'AsyncAws\\CloudWatchLogs\\Exception\\ResourceNotFoundException',
-            'ServiceUnavailableException' => 'AsyncAws\\CloudWatchLogs\\Exception\\ServiceUnavailableException',
-            'UnrecognizedClientException' => 'AsyncAws\\CloudWatchLogs\\Exception\\UnrecognizedClientException',
+            'InvalidParameterException' => InvalidParameterException::class,
+            'InvalidSequenceTokenException' => InvalidSequenceTokenException::class,
+            'DataAlreadyAcceptedException' => DataAlreadyAcceptedException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceUnavailableException' => ServiceUnavailableException::class,
+            'UnrecognizedClientException' => UnrecognizedClientException::class,
         ]]));
 
         return new PutLogEventsResponse($response);

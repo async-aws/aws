@@ -8,6 +8,10 @@ class StructureMember extends Member
 {
     public function getName(): string
     {
+        if ($this->getOwnerShape() instanceof ExceptionShape && \in_array(\strtolower($this->data['_name']), ['code', 'message'], true)) {
+            return \strtolower($this->data['_name']);
+        }
+
         return $this->data['_name'];
     }
 
@@ -19,6 +23,15 @@ class StructureMember extends Member
     public function isRequired(): bool
     {
         return $this->data['_required'];
+    }
+
+    public function isNullable(): bool
+    {
+        if ($this->getOwnerShape() instanceof ExceptionShape && \in_array(\strtolower($this->data['_name']), ['code', 'message'], true)) {
+            return false;
+        }
+
+        return true;
     }
 
     public function isStreaming(): bool

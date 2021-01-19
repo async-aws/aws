@@ -111,7 +111,7 @@ class ServiceGenerator
 
     public function waiter(): WaiterGenerator
     {
-        return $this->waiter ?? $this->waiter = new WaiterGenerator($this->classRegistry, $this->namespaceRegistry, $this->input(), $this->type());
+        return $this->waiter ?? $this->waiter = new WaiterGenerator($this->classRegistry, $this->namespaceRegistry, $this->input(), $this->exception(), $this->type());
     }
 
     public function pagination(): PaginationGenerator

@@ -8,6 +8,7 @@ use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
@@ -131,12 +132,12 @@ class OperationGenerator
 
         $classBuilder->addUse(RequestContext::class);
         // Generate method body
-        $this->setMethodBody($method, $operation, $inputClass, $resultClass);
+        $this->setMethodBody($method, $operation, $inputClass, $resultClass, $classBuilder);
 
         $this->testGenerator->generate($operation);
     }
 
-    private function setMethodBody(Method $method, Operation $operation, ClassName $inputClass, ?ClassName $resultClass): void
+    private function setMethodBody(Method $method, Operation $operation, ClassName $inputClass, ?ClassName $resultClass, ClassBuilder $classBuilder): void
     {
         $body = '';
         if ($operation->isDeprecated()) {
@@ -160,18 +161,19 @@ class OperationGenerator
             ';
         }
 
-        $exception = [];
+        $mapping = [];
         foreach ($operation->getErrors() as $error) {
             $errorClass = $this->exceptionGenerator->generate($operation, $error);
+            $classBuilder->addUse($errorClass->getFqdn());
 
-            $exception[$error->getCode() ?? $error->getName()] = $errorClass->getFqdn();
+            $mapping[] = sprintf('%s => %s::class,', var_export($error->getCode() ?? $error->getName(), true), $errorClass->getName());
         }
 
         $method->setBody(strtr($body, [
             'INPUT_CLASS' => $inputClass->getName(),
             'OPERATION_NAME' => \var_export($operation->getName(), true),
             'RESULT_CLASS' => $resultClass ? $resultClass->getName() : 'Result',
-            'ERRORS' => \var_export($exception, true),
+            'ERRORS' => $mapping ? "[\n" . implode("\n", $mapping) . "\n]" : '[]',
         ]));
     }
 }

@@ -5,6 +5,9 @@ namespace AsyncAws\CloudWatchLogs\Exception;
 use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
+/**
+ * The event was already logged.
+ */
 final class DataAlreadyAcceptedException extends ClientException
 {
     private $expectedSequenceToken;

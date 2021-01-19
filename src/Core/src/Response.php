@@ -415,9 +415,13 @@ class Response
         if (\is_callable($this->resolveResult)) {
             /** @psalm-suppress PropertyTypeCoercion */
             $this->resolveResult = ($this->resolveResult)();
-            if ($this->resolveResult instanceof HttpException && isset($this->exceptionMapping[$this->resolveResult->getAwsCode()])) {
-                $class = $this->exceptionMapping[$this->resolveResult->getAwsCode()];
-                $this->resolveResult = new $class($this->httpResponse);
+            if ($this->resolveResult instanceof HttpException) {
+                $awsCode = $this->resolveResult->getAwsCode();
+                if (isset($this->exceptionMapping[$awsCode])) {
+                    $class = $this->exceptionMapping[$awsCode];
+                    /** @psalm-suppress PropertyTypeCoercion */
+                    $this->resolveResult = new $class($this->httpResponse);
+                }
             }
         }
 
