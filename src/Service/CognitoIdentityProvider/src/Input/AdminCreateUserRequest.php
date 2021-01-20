@@ -22,7 +22,7 @@ final class AdminCreateUserRequest extends Input
      *
      * @var string|null
      */
-    private $UserPoolId;
+    private $userPoolId;
 
     /**
      * The username for the user. Must be unique within the user pool. Must be a UTF-8 string between 1 and 128 characters.
@@ -32,7 +32,7 @@ final class AdminCreateUserRequest extends Input
      *
      * @var string|null
      */
-    private $Username;
+    private $username;
 
     /**
      * An array of name-value pairs that contain user attributes and attribute values to be set for the user to be created.
@@ -43,7 +43,7 @@ final class AdminCreateUserRequest extends Input
      *
      * @var AttributeType[]|null
      */
-    private $UserAttributes;
+    private $userAttributes;
 
     /**
      * The user's validation data. This is an array of name-value pairs that contain user attributes and attribute values
@@ -52,7 +52,7 @@ final class AdminCreateUserRequest extends Input
      *
      * @var AttributeType[]|null
      */
-    private $ValidationData;
+    private $validationData;
 
     /**
      * The user's temporary password. This password must conform to the password policy that you specified when you created
@@ -60,7 +60,7 @@ final class AdminCreateUserRequest extends Input
      *
      * @var string|null
      */
-    private $TemporaryPassword;
+    private $temporaryPassword;
 
     /**
      * This parameter is only used if the `phone_number_verified` or `email_verified` attribute is set to `True`. Otherwise,
@@ -68,7 +68,7 @@ final class AdminCreateUserRequest extends Input
      *
      * @var bool|null
      */
-    private $ForceAliasCreation;
+    private $forceAliasCreation;
 
     /**
      * Set to `"RESEND"` to resend the invitation message to a user that already exists and reset the expiration limit on
@@ -76,7 +76,7 @@ final class AdminCreateUserRequest extends Input
      *
      * @var null|MessageActionType::*
      */
-    private $MessageAction;
+    private $messageAction;
 
     /**
      * Specify `"EMAIL"` if email will be used to send the welcome message. Specify `"SMS"` if the phone number will be
@@ -84,14 +84,14 @@ final class AdminCreateUserRequest extends Input
      *
      * @var null|list<DeliveryMediumType::*>
      */
-    private $DesiredDeliveryMediums;
+    private $desiredDeliveryMediums;
 
     /**
      * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
      *
      * @var array<string, string>|null
      */
-    private $ClientMetadata;
+    private $clientMetadata;
 
     /**
      * @param array{
@@ -109,15 +109,15 @@ final class AdminCreateUserRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->UserPoolId = $input['UserPoolId'] ?? null;
-        $this->Username = $input['Username'] ?? null;
-        $this->UserAttributes = isset($input['UserAttributes']) ? array_map([AttributeType::class, 'create'], $input['UserAttributes']) : null;
-        $this->ValidationData = isset($input['ValidationData']) ? array_map([AttributeType::class, 'create'], $input['ValidationData']) : null;
-        $this->TemporaryPassword = $input['TemporaryPassword'] ?? null;
-        $this->ForceAliasCreation = $input['ForceAliasCreation'] ?? null;
-        $this->MessageAction = $input['MessageAction'] ?? null;
-        $this->DesiredDeliveryMediums = $input['DesiredDeliveryMediums'] ?? null;
-        $this->ClientMetadata = $input['ClientMetadata'] ?? null;
+        $this->userPoolId = $input['UserPoolId'] ?? null;
+        $this->username = $input['Username'] ?? null;
+        $this->userAttributes = isset($input['UserAttributes']) ? array_map([AttributeType::class, 'create'], $input['UserAttributes']) : null;
+        $this->validationData = isset($input['ValidationData']) ? array_map([AttributeType::class, 'create'], $input['ValidationData']) : null;
+        $this->temporaryPassword = $input['TemporaryPassword'] ?? null;
+        $this->forceAliasCreation = $input['ForceAliasCreation'] ?? null;
+        $this->messageAction = $input['MessageAction'] ?? null;
+        $this->desiredDeliveryMediums = $input['DesiredDeliveryMediums'] ?? null;
+        $this->clientMetadata = $input['ClientMetadata'] ?? null;
         parent::__construct($input);
     }
 
@@ -131,7 +131,7 @@ final class AdminCreateUserRequest extends Input
      */
     public function getClientMetadata(): array
     {
-        return $this->ClientMetadata ?? [];
+        return $this->clientMetadata ?? [];
     }
 
     /**
@@ -139,12 +139,12 @@ final class AdminCreateUserRequest extends Input
      */
     public function getDesiredDeliveryMediums(): array
     {
-        return $this->DesiredDeliveryMediums ?? [];
+        return $this->desiredDeliveryMediums ?? [];
     }
 
     public function getForceAliasCreation(): ?bool
     {
-        return $this->ForceAliasCreation;
+        return $this->forceAliasCreation;
     }
 
     /**
@@ -152,12 +152,12 @@ final class AdminCreateUserRequest extends Input
      */
     public function getMessageAction(): ?string
     {
-        return $this->MessageAction;
+        return $this->messageAction;
     }
 
     public function getTemporaryPassword(): ?string
     {
-        return $this->TemporaryPassword;
+        return $this->temporaryPassword;
     }
 
     /**
@@ -165,17 +165,17 @@ final class AdminCreateUserRequest extends Input
      */
     public function getUserAttributes(): array
     {
-        return $this->UserAttributes ?? [];
+        return $this->userAttributes ?? [];
     }
 
     public function getUserPoolId(): ?string
     {
-        return $this->UserPoolId;
+        return $this->userPoolId;
     }
 
     public function getUsername(): ?string
     {
-        return $this->Username;
+        return $this->username;
     }
 
     /**
@@ -183,7 +183,7 @@ final class AdminCreateUserRequest extends Input
      */
     public function getValidationData(): array
     {
-        return $this->ValidationData ?? [];
+        return $this->validationData ?? [];
     }
 
     /**
@@ -216,7 +216,7 @@ final class AdminCreateUserRequest extends Input
      */
     public function setClientMetadata(array $value): self
     {
-        $this->ClientMetadata = $value;
+        $this->clientMetadata = $value;
 
         return $this;
     }
@@ -226,14 +226,14 @@ final class AdminCreateUserRequest extends Input
      */
     public function setDesiredDeliveryMediums(array $value): self
     {
-        $this->DesiredDeliveryMediums = $value;
+        $this->desiredDeliveryMediums = $value;
 
         return $this;
     }
 
     public function setForceAliasCreation(?bool $value): self
     {
-        $this->ForceAliasCreation = $value;
+        $this->forceAliasCreation = $value;
 
         return $this;
     }
@@ -243,14 +243,14 @@ final class AdminCreateUserRequest extends Input
      */
     public function setMessageAction(?string $value): self
     {
-        $this->MessageAction = $value;
+        $this->messageAction = $value;
 
         return $this;
     }
 
     public function setTemporaryPassword(?string $value): self
     {
-        $this->TemporaryPassword = $value;
+        $this->temporaryPassword = $value;
 
         return $this;
     }
@@ -260,21 +260,21 @@ final class AdminCreateUserRequest extends Input
      */
     public function setUserAttributes(array $value): self
     {
-        $this->UserAttributes = $value;
+        $this->userAttributes = $value;
 
         return $this;
     }
 
     public function setUserPoolId(?string $value): self
     {
-        $this->UserPoolId = $value;
+        $this->userPoolId = $value;
 
         return $this;
     }
 
     public function setUsername(?string $value): self
     {
-        $this->Username = $value;
+        $this->username = $value;
 
         return $this;
     }
@@ -284,7 +284,7 @@ final class AdminCreateUserRequest extends Input
      */
     public function setValidationData(array $value): self
     {
-        $this->ValidationData = $value;
+        $this->validationData = $value;
 
         return $this;
     }
@@ -292,15 +292,15 @@ final class AdminCreateUserRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->UserPoolId) {
+        if (null === $v = $this->userPoolId) {
             throw new InvalidArgument(sprintf('Missing parameter "UserPoolId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserPoolId'] = $v;
-        if (null === $v = $this->Username) {
+        if (null === $v = $this->username) {
             throw new InvalidArgument(sprintf('Missing parameter "Username" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Username'] = $v;
-        if (null !== $v = $this->UserAttributes) {
+        if (null !== $v = $this->userAttributes) {
             $index = -1;
             $payload['UserAttributes'] = [];
             foreach ($v as $listValue) {
@@ -308,7 +308,7 @@ final class AdminCreateUserRequest extends Input
                 $payload['UserAttributes'][$index] = $listValue->requestBody();
             }
         }
-        if (null !== $v = $this->ValidationData) {
+        if (null !== $v = $this->validationData) {
             $index = -1;
             $payload['ValidationData'] = [];
             foreach ($v as $listValue) {
@@ -316,19 +316,19 @@ final class AdminCreateUserRequest extends Input
                 $payload['ValidationData'][$index] = $listValue->requestBody();
             }
         }
-        if (null !== $v = $this->TemporaryPassword) {
+        if (null !== $v = $this->temporaryPassword) {
             $payload['TemporaryPassword'] = $v;
         }
-        if (null !== $v = $this->ForceAliasCreation) {
+        if (null !== $v = $this->forceAliasCreation) {
             $payload['ForceAliasCreation'] = (bool) $v;
         }
-        if (null !== $v = $this->MessageAction) {
+        if (null !== $v = $this->messageAction) {
             if (!MessageActionType::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "MessageAction" for "%s". The value "%s" is not a valid "MessageActionType".', __CLASS__, $v));
             }
             $payload['MessageAction'] = $v;
         }
-        if (null !== $v = $this->DesiredDeliveryMediums) {
+        if (null !== $v = $this->desiredDeliveryMediums) {
             $index = -1;
             $payload['DesiredDeliveryMediums'] = [];
             foreach ($v as $listValue) {
@@ -339,7 +339,7 @@ final class AdminCreateUserRequest extends Input
                 $payload['DesiredDeliveryMediums'][$index] = $listValue;
             }
         }
-        if (null !== $v = $this->ClientMetadata) {
+        if (null !== $v = $this->clientMetadata) {
             if (empty($v)) {
                 $payload['ClientMetadata'] = new \stdClass();
             } else {

@@ -10,18 +10,18 @@ final class ArchivalSummary
     /**
      * The date and time when table archival was initiated by DynamoDB, in UNIX epoch time format.
      */
-    private $ArchivalDateTime;
+    private $archivalDateTime;
 
     /**
      * The reason DynamoDB archived the table. Currently, the only possible value is:.
      */
-    private $ArchivalReason;
+    private $archivalReason;
 
     /**
      * The Amazon Resource Name (ARN) of the backup the table was archived to, when applicable in the archival reason. If
      * you wish to restore this backup to the same table name, you will need to delete the original table.
      */
-    private $ArchivalBackupArn;
+    private $archivalBackupArn;
 
     /**
      * @param array{
@@ -32,9 +32,9 @@ final class ArchivalSummary
      */
     public function __construct(array $input)
     {
-        $this->ArchivalDateTime = $input['ArchivalDateTime'] ?? null;
-        $this->ArchivalReason = $input['ArchivalReason'] ?? null;
-        $this->ArchivalBackupArn = $input['ArchivalBackupArn'] ?? null;
+        $this->archivalDateTime = $input['ArchivalDateTime'] ?? null;
+        $this->archivalReason = $input['ArchivalReason'] ?? null;
+        $this->archivalBackupArn = $input['ArchivalBackupArn'] ?? null;
     }
 
     public static function create($input): self
@@ -44,16 +44,16 @@ final class ArchivalSummary
 
     public function getArchivalBackupArn(): ?string
     {
-        return $this->ArchivalBackupArn;
+        return $this->archivalBackupArn;
     }
 
     public function getArchivalDateTime(): ?\DateTimeImmutable
     {
-        return $this->ArchivalDateTime;
+        return $this->archivalDateTime;
     }
 
     public function getArchivalReason(): ?string
     {
-        return $this->ArchivalReason;
+        return $this->archivalReason;
     }
 }

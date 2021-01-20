@@ -12,12 +12,12 @@ final class TimeToLiveSpecification
     /**
      * Indicates whether TTL is to be enabled (true) or disabled (false) on the table.
      */
-    private $Enabled;
+    private $enabled;
 
     /**
      * The name of the TTL attribute used to store the expiration time for items in the table.
      */
-    private $AttributeName;
+    private $attributeName;
 
     /**
      * @param array{
@@ -27,8 +27,8 @@ final class TimeToLiveSpecification
      */
     public function __construct(array $input)
     {
-        $this->Enabled = $input['Enabled'] ?? null;
-        $this->AttributeName = $input['AttributeName'] ?? null;
+        $this->enabled = $input['Enabled'] ?? null;
+        $this->attributeName = $input['AttributeName'] ?? null;
     }
 
     public static function create($input): self
@@ -38,12 +38,12 @@ final class TimeToLiveSpecification
 
     public function getAttributeName(): string
     {
-        return $this->AttributeName;
+        return $this->attributeName;
     }
 
     public function getEnabled(): bool
     {
-        return $this->Enabled;
+        return $this->enabled;
     }
 
     /**
@@ -52,11 +52,11 @@ final class TimeToLiveSpecification
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->Enabled) {
+        if (null === $v = $this->enabled) {
             throw new InvalidArgument(sprintf('Missing parameter "Enabled" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Enabled'] = (bool) $v;
-        if (null === $v = $this->AttributeName) {
+        if (null === $v = $this->attributeName) {
             throw new InvalidArgument(sprintf('Missing parameter "AttributeName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['AttributeName'] = $v;

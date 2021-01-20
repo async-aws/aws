@@ -14,14 +14,14 @@ class GetObjectAclOutput extends Result
     /**
      * Container for the bucket owner's display name and ID.
      */
-    private $Owner;
+    private $owner;
 
     /**
      * A list of grants.
      */
-    private $Grants = [];
+    private $grants = [];
 
-    private $RequestCharged;
+    private $requestCharged;
 
     /**
      * @return Grant[]
@@ -30,14 +30,14 @@ class GetObjectAclOutput extends Result
     {
         $this->initialize();
 
-        return $this->Grants;
+        return $this->grants;
     }
 
     public function getOwner(): ?Owner
     {
         $this->initialize();
 
-        return $this->Owner;
+        return $this->owner;
     }
 
     /**
@@ -47,21 +47,21 @@ class GetObjectAclOutput extends Result
     {
         $this->initialize();
 
-        return $this->RequestCharged;
+        return $this->requestCharged;
     }
 
     protected function populateResult(Response $response): void
     {
         $headers = $response->getHeaders();
 
-        $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
+        $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
-        $this->Owner = !$data->Owner ? null : new Owner([
+        $this->owner = !$data->Owner ? null : new Owner([
             'DisplayName' => ($v = $data->Owner->DisplayName) ? (string) $v : null,
             'ID' => ($v = $data->Owner->ID) ? (string) $v : null,
         ]);
-        $this->Grants = !$data->AccessControlList ? [] : $this->populateResultGrants($data->AccessControlList);
+        $this->grants = !$data->AccessControlList ? [] : $this->populateResultGrants($data->AccessControlList);
     }
 
     /**

@@ -131,7 +131,7 @@ class PaginationGenerator
                         $this->initialize();
                         return $this->PROPERTY_NAME;
                     ', [
-                        'PROPERTY_NAME' => $resultKey,
+                        'PROPERTY_NAME' => lcfirst($resultKey),
                     ]));
             } else {
                 $method
@@ -147,7 +147,7 @@ class PaginationGenerator
 
                         PAGE_LOADER_CODE
                     ', [
-                        'PROPERTY_NAME' => $resultKey,
+                        'PROPERTY_NAME' => lcfirst($resultKey),
                         'PAGE_LOADER_CODE' => $this->generateOutputPaginationLoader(
                             strtr('yield from $page->PROPERTY_ACCESSOR(true);', ['PROPERTY_ACCESSOR' => 'get' . \ucfirst($resultKey)]),
                             $pagination, $classBuilder, $operation

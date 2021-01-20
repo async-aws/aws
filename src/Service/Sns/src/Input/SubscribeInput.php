@@ -19,7 +19,7 @@ final class SubscribeInput extends Input
      *
      * @var string|null
      */
-    private $TopicArn;
+    private $topicArn;
 
     /**
      * The protocol that you want to use. Supported protocols include:.
@@ -28,21 +28,21 @@ final class SubscribeInput extends Input
      *
      * @var string|null
      */
-    private $Protocol;
+    private $protocol;
 
     /**
      * The endpoint that you want to receive notifications. Endpoints vary by protocol:.
      *
      * @var string|null
      */
-    private $Endpoint;
+    private $endpoint;
 
     /**
      * A map of attributes with their corresponding values.
      *
      * @var array<string, string>|null
      */
-    private $Attributes;
+    private $attributes;
 
     /**
      * Sets whether the response from the `Subscribe` request includes the subscription ARN, even if the subscription is not
@@ -50,7 +50,7 @@ final class SubscribeInput extends Input
      *
      * @var bool|null
      */
-    private $ReturnSubscriptionArn;
+    private $returnSubscriptionArn;
 
     /**
      * @param array{
@@ -64,11 +64,11 @@ final class SubscribeInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->TopicArn = $input['TopicArn'] ?? null;
-        $this->Protocol = $input['Protocol'] ?? null;
-        $this->Endpoint = $input['Endpoint'] ?? null;
-        $this->Attributes = $input['Attributes'] ?? null;
-        $this->ReturnSubscriptionArn = $input['ReturnSubscriptionArn'] ?? null;
+        $this->topicArn = $input['TopicArn'] ?? null;
+        $this->protocol = $input['Protocol'] ?? null;
+        $this->endpoint = $input['Endpoint'] ?? null;
+        $this->attributes = $input['Attributes'] ?? null;
+        $this->returnSubscriptionArn = $input['ReturnSubscriptionArn'] ?? null;
         parent::__construct($input);
     }
 
@@ -82,27 +82,27 @@ final class SubscribeInput extends Input
      */
     public function getAttributes(): array
     {
-        return $this->Attributes ?? [];
+        return $this->attributes ?? [];
     }
 
     public function getEndpoint(): ?string
     {
-        return $this->Endpoint;
+        return $this->endpoint;
     }
 
     public function getProtocol(): ?string
     {
-        return $this->Protocol;
+        return $this->protocol;
     }
 
     public function getReturnSubscriptionArn(): ?bool
     {
-        return $this->ReturnSubscriptionArn;
+        return $this->returnSubscriptionArn;
     }
 
     public function getTopicArn(): ?string
     {
-        return $this->TopicArn;
+        return $this->topicArn;
     }
 
     /**
@@ -131,35 +131,35 @@ final class SubscribeInput extends Input
      */
     public function setAttributes(array $value): self
     {
-        $this->Attributes = $value;
+        $this->attributes = $value;
 
         return $this;
     }
 
     public function setEndpoint(?string $value): self
     {
-        $this->Endpoint = $value;
+        $this->endpoint = $value;
 
         return $this;
     }
 
     public function setProtocol(?string $value): self
     {
-        $this->Protocol = $value;
+        $this->protocol = $value;
 
         return $this;
     }
 
     public function setReturnSubscriptionArn(?bool $value): self
     {
-        $this->ReturnSubscriptionArn = $value;
+        $this->returnSubscriptionArn = $value;
 
         return $this;
     }
 
     public function setTopicArn(?string $value): self
     {
-        $this->TopicArn = $value;
+        $this->topicArn = $value;
 
         return $this;
     }
@@ -167,18 +167,18 @@ final class SubscribeInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->TopicArn) {
+        if (null === $v = $this->topicArn) {
             throw new InvalidArgument(sprintf('Missing parameter "TopicArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TopicArn'] = $v;
-        if (null === $v = $this->Protocol) {
+        if (null === $v = $this->protocol) {
             throw new InvalidArgument(sprintf('Missing parameter "Protocol" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Protocol'] = $v;
-        if (null !== $v = $this->Endpoint) {
+        if (null !== $v = $this->endpoint) {
             $payload['Endpoint'] = $v;
         }
-        if (null !== $v = $this->Attributes) {
+        if (null !== $v = $this->attributes) {
             $index = 0;
             foreach ($v as $mapKey => $mapValue) {
                 ++$index;
@@ -186,7 +186,7 @@ final class SubscribeInput extends Input
                 $payload["Attributes.entry.$index.value"] = $mapValue;
             }
         }
-        if (null !== $v = $this->ReturnSubscriptionArn) {
+        if (null !== $v = $this->returnSubscriptionArn) {
             $payload['ReturnSubscriptionArn'] = $v ? 'true' : 'false';
         }
 

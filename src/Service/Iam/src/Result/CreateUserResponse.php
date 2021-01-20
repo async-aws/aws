@@ -16,13 +16,13 @@ class CreateUserResponse extends Result
     /**
      * A structure with details about the new IAM user.
      */
-    private $User;
+    private $user;
 
     public function getUser(): ?User
     {
         $this->initialize();
 
-        return $this->User;
+        return $this->user;
     }
 
     protected function populateResult(Response $response): void
@@ -30,7 +30,7 @@ class CreateUserResponse extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->CreateUserResult;
 
-        $this->User = !$data->User ? null : new User([
+        $this->user = !$data->User ? null : new User([
             'Path' => (string) $data->User->Path,
             'UserName' => (string) $data->User->UserName,
             'UserId' => (string) $data->User->UserId,

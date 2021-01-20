@@ -13,13 +13,13 @@ class CreateQueueResult extends Result
     /**
      * The URL of the created Amazon SQS queue.
      */
-    private $QueueUrl;
+    private $queueUrl;
 
     public function getQueueUrl(): ?string
     {
         $this->initialize();
 
-        return $this->QueueUrl;
+        return $this->queueUrl;
     }
 
     protected function populateResult(Response $response): void
@@ -27,6 +27,6 @@ class CreateQueueResult extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->CreateQueueResult;
 
-        $this->QueueUrl = ($v = $data->QueueUrl) ? (string) $v : null;
+        $this->queueUrl = ($v = $data->QueueUrl) ? (string) $v : null;
     }
 }

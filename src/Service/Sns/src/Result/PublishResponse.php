@@ -13,25 +13,25 @@ class PublishResponse extends Result
     /**
      * Unique identifier assigned to the published message.
      */
-    private $MessageId;
+    private $messageId;
 
     /**
      * This response element applies only to FIFO (first-in-first-out) topics.
      */
-    private $SequenceNumber;
+    private $sequenceNumber;
 
     public function getMessageId(): ?string
     {
         $this->initialize();
 
-        return $this->MessageId;
+        return $this->messageId;
     }
 
     public function getSequenceNumber(): ?string
     {
         $this->initialize();
 
-        return $this->SequenceNumber;
+        return $this->sequenceNumber;
     }
 
     protected function populateResult(Response $response): void
@@ -39,7 +39,7 @@ class PublishResponse extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->PublishResult;
 
-        $this->MessageId = ($v = $data->MessageId) ? (string) $v : null;
-        $this->SequenceNumber = ($v = $data->SequenceNumber) ? (string) $v : null;
+        $this->messageId = ($v = $data->MessageId) ? (string) $v : null;
+        $this->sequenceNumber = ($v = $data->SequenceNumber) ? (string) $v : null;
     }
 }

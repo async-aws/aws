@@ -18,32 +18,32 @@ class RespondToAuthChallengeResponse extends Result
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
      */
-    private $ChallengeName;
+    private $challengeName;
 
     /**
      * The session which should be passed both ways in challenge-response calls to the service. If the caller needs to go
      * through another challenge, they return a session with other challenge parameters. This session should be passed as it
      * is to the next `RespondToAuthChallenge` API call.
      */
-    private $Session;
+    private $session;
 
     /**
      * The challenge parameters. For more information, see InitiateAuth.
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
      */
-    private $ChallengeParameters = [];
+    private $challengeParameters = [];
 
     /**
      * The result returned by the server in response to the request to respond to the authentication challenge.
      */
-    private $AuthenticationResult;
+    private $authenticationResult;
 
     public function getAuthenticationResult(): ?AuthenticationResultType
     {
         $this->initialize();
 
-        return $this->AuthenticationResult;
+        return $this->authenticationResult;
     }
 
     /**
@@ -53,7 +53,7 @@ class RespondToAuthChallengeResponse extends Result
     {
         $this->initialize();
 
-        return $this->ChallengeName;
+        return $this->challengeName;
     }
 
     /**
@@ -63,24 +63,24 @@ class RespondToAuthChallengeResponse extends Result
     {
         $this->initialize();
 
-        return $this->ChallengeParameters;
+        return $this->challengeParameters;
     }
 
     public function getSession(): ?string
     {
         $this->initialize();
 
-        return $this->Session;
+        return $this->session;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->ChallengeName = isset($data['ChallengeName']) ? (string) $data['ChallengeName'] : null;
-        $this->Session = isset($data['Session']) ? (string) $data['Session'] : null;
-        $this->ChallengeParameters = empty($data['ChallengeParameters']) ? [] : $this->populateResultChallengeParametersType($data['ChallengeParameters']);
-        $this->AuthenticationResult = empty($data['AuthenticationResult']) ? null : new AuthenticationResultType([
+        $this->challengeName = isset($data['ChallengeName']) ? (string) $data['ChallengeName'] : null;
+        $this->session = isset($data['Session']) ? (string) $data['Session'] : null;
+        $this->challengeParameters = empty($data['ChallengeParameters']) ? [] : $this->populateResultChallengeParametersType($data['ChallengeParameters']);
+        $this->authenticationResult = empty($data['AuthenticationResult']) ? null : new AuthenticationResultType([
             'AccessToken' => isset($data['AuthenticationResult']['AccessToken']) ? (string) $data['AuthenticationResult']['AccessToken'] : null,
             'ExpiresIn' => isset($data['AuthenticationResult']['ExpiresIn']) ? (int) $data['AuthenticationResult']['ExpiresIn'] : null,
             'TokenType' => isset($data['AuthenticationResult']['TokenType']) ? (string) $data['AuthenticationResult']['TokenType'] : null,

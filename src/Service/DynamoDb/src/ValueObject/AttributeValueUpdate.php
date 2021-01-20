@@ -20,13 +20,13 @@ final class AttributeValueUpdate
     /**
      * Represents the data for an attribute.
      */
-    private $Value;
+    private $value;
 
     /**
      * Specifies how to perform the update. Valid values are `PUT` (default), `DELETE`, and `ADD`. The behavior depends on
      * whether the specified primary key already exists in the table.
      */
-    private $Action;
+    private $action;
 
     /**
      * @param array{
@@ -36,8 +36,8 @@ final class AttributeValueUpdate
      */
     public function __construct(array $input)
     {
-        $this->Value = isset($input['Value']) ? AttributeValue::create($input['Value']) : null;
-        $this->Action = $input['Action'] ?? null;
+        $this->value = isset($input['Value']) ? AttributeValue::create($input['Value']) : null;
+        $this->action = $input['Action'] ?? null;
     }
 
     public static function create($input): self
@@ -50,12 +50,12 @@ final class AttributeValueUpdate
      */
     public function getAction(): ?string
     {
-        return $this->Action;
+        return $this->action;
     }
 
     public function getValue(): ?AttributeValue
     {
-        return $this->Value;
+        return $this->value;
     }
 
     /**
@@ -64,10 +64,10 @@ final class AttributeValueUpdate
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->Value) {
+        if (null !== $v = $this->value) {
             $payload['Value'] = $v->requestBody();
         }
-        if (null !== $v = $this->Action) {
+        if (null !== $v = $this->action) {
             if (!AttributeAction::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "Action" for "%s". The value "%s" is not a valid "AttributeAction".', __CLASS__, $v));
             }

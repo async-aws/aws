@@ -16,7 +16,7 @@ final class DeleteUserRequest extends Input
      *
      * @var string|null
      */
-    private $UserName;
+    private $userName;
 
     /**
      * @param array{
@@ -26,7 +26,7 @@ final class DeleteUserRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->UserName = $input['UserName'] ?? null;
+        $this->userName = $input['UserName'] ?? null;
         parent::__construct($input);
     }
 
@@ -37,7 +37,7 @@ final class DeleteUserRequest extends Input
 
     public function getUserName(): ?string
     {
-        return $this->UserName;
+        return $this->userName;
     }
 
     /**
@@ -63,7 +63,7 @@ final class DeleteUserRequest extends Input
 
     public function setUserName(?string $value): self
     {
-        $this->UserName = $value;
+        $this->userName = $value;
 
         return $this;
     }
@@ -71,7 +71,7 @@ final class DeleteUserRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->UserName) {
+        if (null === $v = $this->userName) {
             throw new InvalidArgument(sprintf('Missing parameter "UserName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserName'] = $v;

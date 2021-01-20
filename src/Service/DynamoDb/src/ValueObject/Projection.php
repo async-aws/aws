@@ -14,12 +14,12 @@ final class Projection
     /**
      * The set of attributes that are projected into the index:.
      */
-    private $ProjectionType;
+    private $projectionType;
 
     /**
      * Represents the non-key attribute names which will be projected into the index.
      */
-    private $NonKeyAttributes;
+    private $nonKeyAttributes;
 
     /**
      * @param array{
@@ -29,8 +29,8 @@ final class Projection
      */
     public function __construct(array $input)
     {
-        $this->ProjectionType = $input['ProjectionType'] ?? null;
-        $this->NonKeyAttributes = $input['NonKeyAttributes'] ?? null;
+        $this->projectionType = $input['ProjectionType'] ?? null;
+        $this->nonKeyAttributes = $input['NonKeyAttributes'] ?? null;
     }
 
     public static function create($input): self
@@ -43,7 +43,7 @@ final class Projection
      */
     public function getNonKeyAttributes(): array
     {
-        return $this->NonKeyAttributes ?? [];
+        return $this->nonKeyAttributes ?? [];
     }
 
     /**
@@ -51,7 +51,7 @@ final class Projection
      */
     public function getProjectionType(): ?string
     {
-        return $this->ProjectionType;
+        return $this->projectionType;
     }
 
     /**
@@ -60,13 +60,13 @@ final class Projection
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->ProjectionType) {
+        if (null !== $v = $this->projectionType) {
             if (!ProjectionType::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ProjectionType" for "%s". The value "%s" is not a valid "ProjectionType".', __CLASS__, $v));
             }
             $payload['ProjectionType'] = $v;
         }
-        if (null !== $v = $this->NonKeyAttributes) {
+        if (null !== $v = $this->nonKeyAttributes) {
             $index = -1;
             $payload['NonKeyAttributes'] = [];
             foreach ($v as $listValue) {

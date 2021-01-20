@@ -11,12 +11,12 @@ class GetParametersResult extends Result
     /**
      * A list of details for a parameter.
      */
-    private $Parameters = [];
+    private $parameters = [];
 
     /**
      * A list of parameters that are not formatted correctly or do not run during an execution.
      */
-    private $InvalidParameters = [];
+    private $invalidParameters = [];
 
     /**
      * @return string[]
@@ -25,7 +25,7 @@ class GetParametersResult extends Result
     {
         $this->initialize();
 
-        return $this->InvalidParameters;
+        return $this->invalidParameters;
     }
 
     /**
@@ -35,15 +35,15 @@ class GetParametersResult extends Result
     {
         $this->initialize();
 
-        return $this->Parameters;
+        return $this->parameters;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->Parameters = empty($data['Parameters']) ? [] : $this->populateResultParameterList($data['Parameters']);
-        $this->InvalidParameters = empty($data['InvalidParameters']) ? [] : $this->populateResultParameterNameList($data['InvalidParameters']);
+        $this->parameters = empty($data['Parameters']) ? [] : $this->populateResultParameterList($data['Parameters']);
+        $this->invalidParameters = empty($data['InvalidParameters']) ? [] : $this->populateResultParameterNameList($data['InvalidParameters']);
     }
 
     /**

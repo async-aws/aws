@@ -20,7 +20,7 @@ final class CreateInvalidationRequest extends Input
      *
      * @var string|null
      */
-    private $DistributionId;
+    private $distributionId;
 
     /**
      * The batch information for the invalidation.
@@ -29,7 +29,7 @@ final class CreateInvalidationRequest extends Input
      *
      * @var InvalidationBatch|null
      */
-    private $InvalidationBatch;
+    private $invalidationBatch;
 
     /**
      * @param array{
@@ -40,8 +40,8 @@ final class CreateInvalidationRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->DistributionId = $input['DistributionId'] ?? null;
-        $this->InvalidationBatch = isset($input['InvalidationBatch']) ? InvalidationBatch::create($input['InvalidationBatch']) : null;
+        $this->distributionId = $input['DistributionId'] ?? null;
+        $this->invalidationBatch = isset($input['InvalidationBatch']) ? InvalidationBatch::create($input['InvalidationBatch']) : null;
         parent::__construct($input);
     }
 
@@ -52,12 +52,12 @@ final class CreateInvalidationRequest extends Input
 
     public function getDistributionId(): ?string
     {
-        return $this->DistributionId;
+        return $this->distributionId;
     }
 
     public function getInvalidationBatch(): ?InvalidationBatch
     {
-        return $this->InvalidationBatch;
+        return $this->invalidationBatch;
     }
 
     /**
@@ -73,7 +73,7 @@ final class CreateInvalidationRequest extends Input
 
         // Prepare URI
         $uri = [];
-        if (null === $v = $this->DistributionId) {
+        if (null === $v = $this->distributionId) {
             throw new InvalidArgument(sprintf('Missing parameter "DistributionId" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['DistributionId'] = $v;
@@ -92,21 +92,21 @@ final class CreateInvalidationRequest extends Input
 
     public function setDistributionId(?string $value): self
     {
-        $this->DistributionId = $value;
+        $this->distributionId = $value;
 
         return $this;
     }
 
     public function setInvalidationBatch(?InvalidationBatch $value): self
     {
-        $this->InvalidationBatch = $value;
+        $this->invalidationBatch = $value;
 
         return $this;
     }
 
     private function requestBody(\DomNode $node, \DomDocument $document): void
     {
-        if (null === $v = $this->InvalidationBatch) {
+        if (null === $v = $this->invalidationBatch) {
             throw new InvalidArgument(sprintf('Missing parameter "InvalidationBatch" for "%s". The value cannot be null.', __CLASS__));
         }
 

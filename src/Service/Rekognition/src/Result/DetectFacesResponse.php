@@ -26,12 +26,12 @@ class DetectFacesResponse extends Result
     /**
      * Details of each face found in the image.
      */
-    private $FaceDetails = [];
+    private $faceDetails = [];
 
     /**
      * The value of `OrientationCorrection` is always null.
      */
-    private $OrientationCorrection;
+    private $orientationCorrection;
 
     /**
      * @return FaceDetail[]
@@ -40,7 +40,7 @@ class DetectFacesResponse extends Result
     {
         $this->initialize();
 
-        return $this->FaceDetails;
+        return $this->faceDetails;
     }
 
     /**
@@ -50,15 +50,15 @@ class DetectFacesResponse extends Result
     {
         $this->initialize();
 
-        return $this->OrientationCorrection;
+        return $this->orientationCorrection;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->FaceDetails = empty($data['FaceDetails']) ? [] : $this->populateResultFaceDetailList($data['FaceDetails']);
-        $this->OrientationCorrection = isset($data['OrientationCorrection']) ? (string) $data['OrientationCorrection'] : null;
+        $this->faceDetails = empty($data['FaceDetails']) ? [] : $this->populateResultFaceDetailList($data['FaceDetails']);
+        $this->orientationCorrection = isset($data['OrientationCorrection']) ? (string) $data['OrientationCorrection'] : null;
     }
 
     /**

@@ -31,31 +31,31 @@ class IndexFacesResponse extends Result
      * An array of faces detected and added to the collection. For more information, see Searching Faces in a Collection in
      * the Amazon Rekognition Developer Guide.
      */
-    private $FaceRecords = [];
+    private $faceRecords = [];
 
     /**
      * If your collection is associated with a face detection model that's later than version 3.0, the value of
      * `OrientationCorrection` is always null and no orientation information is returned.
      */
-    private $OrientationCorrection;
+    private $orientationCorrection;
 
     /**
      * The version number of the face detection model that's associated with the input collection (`CollectionId`).
      */
-    private $FaceModelVersion;
+    private $faceModelVersion;
 
     /**
      * An array of faces that were detected in the image but weren't indexed. They weren't indexed because the quality
      * filter identified them as low quality, or the `MaxFaces` request parameter filtered them out. To use the quality
      * filter, you specify the `QualityFilter` request parameter.
      */
-    private $UnindexedFaces = [];
+    private $unindexedFaces = [];
 
     public function getFaceModelVersion(): ?string
     {
         $this->initialize();
 
-        return $this->FaceModelVersion;
+        return $this->faceModelVersion;
     }
 
     /**
@@ -65,7 +65,7 @@ class IndexFacesResponse extends Result
     {
         $this->initialize();
 
-        return $this->FaceRecords;
+        return $this->faceRecords;
     }
 
     /**
@@ -75,7 +75,7 @@ class IndexFacesResponse extends Result
     {
         $this->initialize();
 
-        return $this->OrientationCorrection;
+        return $this->orientationCorrection;
     }
 
     /**
@@ -85,17 +85,17 @@ class IndexFacesResponse extends Result
     {
         $this->initialize();
 
-        return $this->UnindexedFaces;
+        return $this->unindexedFaces;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->FaceRecords = empty($data['FaceRecords']) ? [] : $this->populateResultFaceRecordList($data['FaceRecords']);
-        $this->OrientationCorrection = isset($data['OrientationCorrection']) ? (string) $data['OrientationCorrection'] : null;
-        $this->FaceModelVersion = isset($data['FaceModelVersion']) ? (string) $data['FaceModelVersion'] : null;
-        $this->UnindexedFaces = empty($data['UnindexedFaces']) ? [] : $this->populateResultUnindexedFaces($data['UnindexedFaces']);
+        $this->faceRecords = empty($data['FaceRecords']) ? [] : $this->populateResultFaceRecordList($data['FaceRecords']);
+        $this->orientationCorrection = isset($data['OrientationCorrection']) ? (string) $data['OrientationCorrection'] : null;
+        $this->faceModelVersion = isset($data['FaceModelVersion']) ? (string) $data['FaceModelVersion'] : null;
+        $this->unindexedFaces = empty($data['UnindexedFaces']) ? [] : $this->populateResultUnindexedFaces($data['UnindexedFaces']);
     }
 
     /**

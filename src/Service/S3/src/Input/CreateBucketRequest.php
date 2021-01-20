@@ -16,7 +16,7 @@ final class CreateBucketRequest extends Input
      *
      * @var null|BucketCannedACL::*
      */
-    private $ACL;
+    private $aCL;
 
     /**
      * The name of the bucket to create.
@@ -25,56 +25,56 @@ final class CreateBucketRequest extends Input
      *
      * @var string|null
      */
-    private $Bucket;
+    private $bucket;
 
     /**
      * The configuration information for the bucket.
      *
      * @var CreateBucketConfiguration|null
      */
-    private $CreateBucketConfiguration;
+    private $createBucketConfiguration;
 
     /**
      * Allows grantee the read, write, read ACP, and write ACP permissions on the bucket.
      *
      * @var string|null
      */
-    private $GrantFullControl;
+    private $grantFullControl;
 
     /**
      * Allows grantee to list the objects in the bucket.
      *
      * @var string|null
      */
-    private $GrantRead;
+    private $grantRead;
 
     /**
      * Allows grantee to read the bucket ACL.
      *
      * @var string|null
      */
-    private $GrantReadACP;
+    private $grantReadACP;
 
     /**
      * Allows grantee to create, overwrite, and delete any object in the bucket.
      *
      * @var string|null
      */
-    private $GrantWrite;
+    private $grantWrite;
 
     /**
      * Allows grantee to write the ACL for the applicable bucket.
      *
      * @var string|null
      */
-    private $GrantWriteACP;
+    private $grantWriteACP;
 
     /**
      * Specifies whether you want S3 Object Lock to be enabled for the new bucket.
      *
      * @var bool|null
      */
-    private $ObjectLockEnabledForBucket;
+    private $objectLockEnabledForBucket;
 
     /**
      * @param array{
@@ -92,15 +92,15 @@ final class CreateBucketRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->ACL = $input['ACL'] ?? null;
-        $this->Bucket = $input['Bucket'] ?? null;
-        $this->CreateBucketConfiguration = isset($input['CreateBucketConfiguration']) ? CreateBucketConfiguration::create($input['CreateBucketConfiguration']) : null;
-        $this->GrantFullControl = $input['GrantFullControl'] ?? null;
-        $this->GrantRead = $input['GrantRead'] ?? null;
-        $this->GrantReadACP = $input['GrantReadACP'] ?? null;
-        $this->GrantWrite = $input['GrantWrite'] ?? null;
-        $this->GrantWriteACP = $input['GrantWriteACP'] ?? null;
-        $this->ObjectLockEnabledForBucket = $input['ObjectLockEnabledForBucket'] ?? null;
+        $this->aCL = $input['ACL'] ?? null;
+        $this->bucket = $input['Bucket'] ?? null;
+        $this->createBucketConfiguration = isset($input['CreateBucketConfiguration']) ? CreateBucketConfiguration::create($input['CreateBucketConfiguration']) : null;
+        $this->grantFullControl = $input['GrantFullControl'] ?? null;
+        $this->grantRead = $input['GrantRead'] ?? null;
+        $this->grantReadACP = $input['GrantReadACP'] ?? null;
+        $this->grantWrite = $input['GrantWrite'] ?? null;
+        $this->grantWriteACP = $input['GrantWriteACP'] ?? null;
+        $this->objectLockEnabledForBucket = $input['ObjectLockEnabledForBucket'] ?? null;
         parent::__construct($input);
     }
 
@@ -114,47 +114,47 @@ final class CreateBucketRequest extends Input
      */
     public function getACL(): ?string
     {
-        return $this->ACL;
+        return $this->aCL;
     }
 
     public function getBucket(): ?string
     {
-        return $this->Bucket;
+        return $this->bucket;
     }
 
     public function getCreateBucketConfiguration(): ?CreateBucketConfiguration
     {
-        return $this->CreateBucketConfiguration;
+        return $this->createBucketConfiguration;
     }
 
     public function getGrantFullControl(): ?string
     {
-        return $this->GrantFullControl;
+        return $this->grantFullControl;
     }
 
     public function getGrantRead(): ?string
     {
-        return $this->GrantRead;
+        return $this->grantRead;
     }
 
     public function getGrantReadACP(): ?string
     {
-        return $this->GrantReadACP;
+        return $this->grantReadACP;
     }
 
     public function getGrantWrite(): ?string
     {
-        return $this->GrantWrite;
+        return $this->grantWrite;
     }
 
     public function getGrantWriteACP(): ?string
     {
-        return $this->GrantWriteACP;
+        return $this->grantWriteACP;
     }
 
     public function getObjectLockEnabledForBucket(): ?bool
     {
-        return $this->ObjectLockEnabledForBucket;
+        return $this->objectLockEnabledForBucket;
     }
 
     /**
@@ -164,29 +164,29 @@ final class CreateBucketRequest extends Input
     {
         // Prepare headers
         $headers = ['content-type' => 'application/xml'];
-        if (null !== $this->ACL) {
-            if (!BucketCannedACL::exists($this->ACL)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "BucketCannedACL".', __CLASS__, $this->ACL));
+        if (null !== $this->aCL) {
+            if (!BucketCannedACL::exists($this->aCL)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "BucketCannedACL".', __CLASS__, $this->aCL));
             }
-            $headers['x-amz-acl'] = $this->ACL;
+            $headers['x-amz-acl'] = $this->aCL;
         }
-        if (null !== $this->GrantFullControl) {
-            $headers['x-amz-grant-full-control'] = $this->GrantFullControl;
+        if (null !== $this->grantFullControl) {
+            $headers['x-amz-grant-full-control'] = $this->grantFullControl;
         }
-        if (null !== $this->GrantRead) {
-            $headers['x-amz-grant-read'] = $this->GrantRead;
+        if (null !== $this->grantRead) {
+            $headers['x-amz-grant-read'] = $this->grantRead;
         }
-        if (null !== $this->GrantReadACP) {
-            $headers['x-amz-grant-read-acp'] = $this->GrantReadACP;
+        if (null !== $this->grantReadACP) {
+            $headers['x-amz-grant-read-acp'] = $this->grantReadACP;
         }
-        if (null !== $this->GrantWrite) {
-            $headers['x-amz-grant-write'] = $this->GrantWrite;
+        if (null !== $this->grantWrite) {
+            $headers['x-amz-grant-write'] = $this->grantWrite;
         }
-        if (null !== $this->GrantWriteACP) {
-            $headers['x-amz-grant-write-acp'] = $this->GrantWriteACP;
+        if (null !== $this->grantWriteACP) {
+            $headers['x-amz-grant-write-acp'] = $this->grantWriteACP;
         }
-        if (null !== $this->ObjectLockEnabledForBucket) {
-            $headers['x-amz-bucket-object-lock-enabled'] = $this->ObjectLockEnabledForBucket ? 'true' : 'false';
+        if (null !== $this->objectLockEnabledForBucket) {
+            $headers['x-amz-bucket-object-lock-enabled'] = $this->objectLockEnabledForBucket ? 'true' : 'false';
         }
 
         // Prepare query
@@ -194,7 +194,7 @@ final class CreateBucketRequest extends Input
 
         // Prepare URI
         $uri = [];
-        if (null === $v = $this->Bucket) {
+        if (null === $v = $this->bucket) {
             throw new InvalidArgument(sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Bucket'] = $v;
@@ -216,70 +216,70 @@ final class CreateBucketRequest extends Input
      */
     public function setACL(?string $value): self
     {
-        $this->ACL = $value;
+        $this->aCL = $value;
 
         return $this;
     }
 
     public function setBucket(?string $value): self
     {
-        $this->Bucket = $value;
+        $this->bucket = $value;
 
         return $this;
     }
 
     public function setCreateBucketConfiguration(?CreateBucketConfiguration $value): self
     {
-        $this->CreateBucketConfiguration = $value;
+        $this->createBucketConfiguration = $value;
 
         return $this;
     }
 
     public function setGrantFullControl(?string $value): self
     {
-        $this->GrantFullControl = $value;
+        $this->grantFullControl = $value;
 
         return $this;
     }
 
     public function setGrantRead(?string $value): self
     {
-        $this->GrantRead = $value;
+        $this->grantRead = $value;
 
         return $this;
     }
 
     public function setGrantReadACP(?string $value): self
     {
-        $this->GrantReadACP = $value;
+        $this->grantReadACP = $value;
 
         return $this;
     }
 
     public function setGrantWrite(?string $value): self
     {
-        $this->GrantWrite = $value;
+        $this->grantWrite = $value;
 
         return $this;
     }
 
     public function setGrantWriteACP(?string $value): self
     {
-        $this->GrantWriteACP = $value;
+        $this->grantWriteACP = $value;
 
         return $this;
     }
 
     public function setObjectLockEnabledForBucket(?bool $value): self
     {
-        $this->ObjectLockEnabledForBucket = $value;
+        $this->objectLockEnabledForBucket = $value;
 
         return $this;
     }
 
     private function requestBody(\DomNode $node, \DomDocument $document): void
     {
-        if (null !== $v = $this->CreateBucketConfiguration) {
+        if (null !== $v = $this->createBucketConfiguration) {
             $node->appendChild($child = $document->createElement('CreateBucketConfiguration'));
             $child->setAttribute('xmlns', 'http://s3.amazonaws.com/doc/2006-03-01/');
             $v->requestBody($child, $document);

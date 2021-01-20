@@ -20,7 +20,7 @@ final class UpdateTimeToLiveInput extends Input
      *
      * @var string|null
      */
-    private $TableName;
+    private $tableName;
 
     /**
      * Represents the settings used to enable or disable Time to Live for the specified table.
@@ -29,7 +29,7 @@ final class UpdateTimeToLiveInput extends Input
      *
      * @var TimeToLiveSpecification|null
      */
-    private $TimeToLiveSpecification;
+    private $timeToLiveSpecification;
 
     /**
      * @param array{
@@ -40,8 +40,8 @@ final class UpdateTimeToLiveInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->TableName = $input['TableName'] ?? null;
-        $this->TimeToLiveSpecification = isset($input['TimeToLiveSpecification']) ? TimeToLiveSpecification::create($input['TimeToLiveSpecification']) : null;
+        $this->tableName = $input['TableName'] ?? null;
+        $this->timeToLiveSpecification = isset($input['TimeToLiveSpecification']) ? TimeToLiveSpecification::create($input['TimeToLiveSpecification']) : null;
         parent::__construct($input);
     }
 
@@ -52,12 +52,12 @@ final class UpdateTimeToLiveInput extends Input
 
     public function getTableName(): ?string
     {
-        return $this->TableName;
+        return $this->tableName;
     }
 
     public function getTimeToLiveSpecification(): ?TimeToLiveSpecification
     {
-        return $this->TimeToLiveSpecification;
+        return $this->timeToLiveSpecification;
     }
 
     /**
@@ -87,14 +87,14 @@ final class UpdateTimeToLiveInput extends Input
 
     public function setTableName(?string $value): self
     {
-        $this->TableName = $value;
+        $this->tableName = $value;
 
         return $this;
     }
 
     public function setTimeToLiveSpecification(?TimeToLiveSpecification $value): self
     {
-        $this->TimeToLiveSpecification = $value;
+        $this->timeToLiveSpecification = $value;
 
         return $this;
     }
@@ -102,11 +102,11 @@ final class UpdateTimeToLiveInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->TableName) {
+        if (null === $v = $this->tableName) {
             throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TableName'] = $v;
-        if (null === $v = $this->TimeToLiveSpecification) {
+        if (null === $v = $this->timeToLiveSpecification) {
             throw new InvalidArgument(sprintf('Missing parameter "TimeToLiveSpecification" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TimeToLiveSpecification'] = $v->requestBody();

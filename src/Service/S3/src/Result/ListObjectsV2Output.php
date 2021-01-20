@@ -21,68 +21,68 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
      * Set to false if all of the results were returned. Set to true if more keys are available to return. If the number of
      * results exceeds that specified by MaxKeys, all of the results might not be returned.
      */
-    private $IsTruncated;
+    private $isTruncated;
 
     /**
      * Metadata about each object returned.
      */
-    private $Contents = [];
+    private $contents = [];
 
     /**
      * The bucket name.
      */
-    private $Name;
+    private $name;
 
     /**
      * Keys that begin with the indicated prefix.
      */
-    private $Prefix;
+    private $prefix;
 
     /**
      * Causes keys that contain the same string between the prefix and the first occurrence of the delimiter to be rolled up
      * into a single result element in the CommonPrefixes collection. These rolled-up keys are not returned elsewhere in the
      * response. Each rolled-up result counts as only one return against the `MaxKeys` value.
      */
-    private $Delimiter;
+    private $delimiter;
 
     /**
      * Sets the maximum number of keys returned in the response. By default the API returns up to 1,000 key names. The
      * response might contain fewer keys but will never contain more.
      */
-    private $MaxKeys;
+    private $maxKeys;
 
     /**
      * All of the keys rolled up into a common prefix count as a single return when calculating the number of returns.
      */
-    private $CommonPrefixes = [];
+    private $commonPrefixes = [];
 
     /**
      * Encoding type used by Amazon S3 to encode object key names in the XML response.
      */
-    private $EncodingType;
+    private $encodingType;
 
     /**
      * KeyCount is the number of keys returned with this request. KeyCount will always be less than equals to MaxKeys field.
      * Say you ask for 50 keys, your result will include less than equals 50 keys.
      */
-    private $KeyCount;
+    private $keyCount;
 
     /**
      * If ContinuationToken was sent with the request, it is included in the response.
      */
-    private $ContinuationToken;
+    private $continuationToken;
 
     /**
      * `NextContinuationToken` is sent when `isTruncated` is true, which means there are more keys in the bucket that can be
      * listed. The next list requests to Amazon S3 can be continued with this `NextContinuationToken`.
      * `NextContinuationToken` is obfuscated and is not a real key.
      */
-    private $NextContinuationToken;
+    private $nextContinuationToken;
 
     /**
      * If StartAfter was sent with the request, it is included in the response.
      */
-    private $StartAfter;
+    private $startAfter;
 
     /**
      * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.
@@ -93,7 +93,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     {
         if ($currentPageOnly) {
             $this->initialize();
-            yield from $this->CommonPrefixes;
+            yield from $this->commonPrefixes;
 
             return;
         }
@@ -136,7 +136,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     {
         if ($currentPageOnly) {
             $this->initialize();
-            yield from $this->Contents;
+            yield from $this->contents;
 
             return;
         }
@@ -174,14 +174,14 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->ContinuationToken;
+        return $this->continuationToken;
     }
 
     public function getDelimiter(): ?string
     {
         $this->initialize();
 
-        return $this->Delimiter;
+        return $this->delimiter;
     }
 
     /**
@@ -191,14 +191,14 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->EncodingType;
+        return $this->encodingType;
     }
 
     public function getIsTruncated(): ?bool
     {
         $this->initialize();
 
-        return $this->IsTruncated;
+        return $this->isTruncated;
     }
 
     /**
@@ -242,59 +242,59 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->KeyCount;
+        return $this->keyCount;
     }
 
     public function getMaxKeys(): ?int
     {
         $this->initialize();
 
-        return $this->MaxKeys;
+        return $this->maxKeys;
     }
 
     public function getName(): ?string
     {
         $this->initialize();
 
-        return $this->Name;
+        return $this->name;
     }
 
     public function getNextContinuationToken(): ?string
     {
         $this->initialize();
 
-        return $this->NextContinuationToken;
+        return $this->nextContinuationToken;
     }
 
     public function getPrefix(): ?string
     {
         $this->initialize();
 
-        return $this->Prefix;
+        return $this->prefix;
     }
 
     public function getStartAfter(): ?string
     {
         $this->initialize();
 
-        return $this->StartAfter;
+        return $this->startAfter;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = new \SimpleXMLElement($response->getContent());
-        $this->IsTruncated = ($v = $data->IsTruncated) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->Contents = !$data->Contents ? [] : $this->populateResultObjectList($data->Contents);
-        $this->Name = ($v = $data->Name) ? (string) $v : null;
-        $this->Prefix = ($v = $data->Prefix) ? (string) $v : null;
-        $this->Delimiter = ($v = $data->Delimiter) ? (string) $v : null;
-        $this->MaxKeys = ($v = $data->MaxKeys) ? (int) (string) $v : null;
-        $this->CommonPrefixes = !$data->CommonPrefixes ? [] : $this->populateResultCommonPrefixList($data->CommonPrefixes);
-        $this->EncodingType = ($v = $data->EncodingType) ? (string) $v : null;
-        $this->KeyCount = ($v = $data->KeyCount) ? (int) (string) $v : null;
-        $this->ContinuationToken = ($v = $data->ContinuationToken) ? (string) $v : null;
-        $this->NextContinuationToken = ($v = $data->NextContinuationToken) ? (string) $v : null;
-        $this->StartAfter = ($v = $data->StartAfter) ? (string) $v : null;
+        $this->isTruncated = ($v = $data->IsTruncated) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
+        $this->contents = !$data->Contents ? [] : $this->populateResultObjectList($data->Contents);
+        $this->name = ($v = $data->Name) ? (string) $v : null;
+        $this->prefix = ($v = $data->Prefix) ? (string) $v : null;
+        $this->delimiter = ($v = $data->Delimiter) ? (string) $v : null;
+        $this->maxKeys = ($v = $data->MaxKeys) ? (int) (string) $v : null;
+        $this->commonPrefixes = !$data->CommonPrefixes ? [] : $this->populateResultCommonPrefixList($data->CommonPrefixes);
+        $this->encodingType = ($v = $data->EncodingType) ? (string) $v : null;
+        $this->keyCount = ($v = $data->KeyCount) ? (int) (string) $v : null;
+        $this->continuationToken = ($v = $data->ContinuationToken) ? (string) $v : null;
+        $this->nextContinuationToken = ($v = $data->NextContinuationToken) ? (string) $v : null;
+        $this->startAfter = ($v = $data->StartAfter) ? (string) $v : null;
     }
 
     /**

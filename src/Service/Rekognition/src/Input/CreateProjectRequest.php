@@ -16,7 +16,7 @@ final class CreateProjectRequest extends Input
      *
      * @var string|null
      */
-    private $ProjectName;
+    private $projectName;
 
     /**
      * @param array{
@@ -26,7 +26,7 @@ final class CreateProjectRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->ProjectName = $input['ProjectName'] ?? null;
+        $this->projectName = $input['ProjectName'] ?? null;
         parent::__construct($input);
     }
 
@@ -37,7 +37,7 @@ final class CreateProjectRequest extends Input
 
     public function getProjectName(): ?string
     {
-        return $this->ProjectName;
+        return $this->projectName;
     }
 
     /**
@@ -67,7 +67,7 @@ final class CreateProjectRequest extends Input
 
     public function setProjectName(?string $value): self
     {
-        $this->ProjectName = $value;
+        $this->projectName = $value;
 
         return $this;
     }
@@ -75,7 +75,7 @@ final class CreateProjectRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->ProjectName) {
+        if (null === $v = $this->projectName) {
             throw new InvalidArgument(sprintf('Missing parameter "ProjectName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ProjectName'] = $v;

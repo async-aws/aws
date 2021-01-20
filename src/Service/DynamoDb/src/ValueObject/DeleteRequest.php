@@ -13,7 +13,7 @@ final class DeleteRequest
      * A map of attribute name to attribute values, representing the primary key of the item to delete. All of the table's
      * primary key attributes must be specified, and their data types must match those of the table's key schema.
      */
-    private $Key;
+    private $key;
 
     /**
      * @param array{
@@ -22,7 +22,7 @@ final class DeleteRequest
      */
     public function __construct(array $input)
     {
-        $this->Key = isset($input['Key']) ? array_map([AttributeValue::class, 'create'], $input['Key']) : null;
+        $this->key = isset($input['Key']) ? array_map([AttributeValue::class, 'create'], $input['Key']) : null;
     }
 
     public static function create($input): self
@@ -35,7 +35,7 @@ final class DeleteRequest
      */
     public function getKey(): array
     {
-        return $this->Key ?? [];
+        return $this->key ?? [];
     }
 
     /**
@@ -44,7 +44,7 @@ final class DeleteRequest
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->Key) {
+        if (null === $v = $this->key) {
             throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
         }
 

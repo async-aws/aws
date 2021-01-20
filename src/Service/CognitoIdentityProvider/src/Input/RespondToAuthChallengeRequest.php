@@ -22,7 +22,7 @@ final class RespondToAuthChallengeRequest extends Input
      *
      * @var string|null
      */
-    private $ClientId;
+    private $clientId;
 
     /**
      * The challenge name. For more information, see InitiateAuth.
@@ -32,7 +32,7 @@ final class RespondToAuthChallengeRequest extends Input
      *
      * @var null|ChallengeNameType::*
      */
-    private $ChallengeName;
+    private $challengeName;
 
     /**
      * The session which should be passed both ways in challenge-response calls to the service. If `InitiateAuth` or
@@ -42,21 +42,21 @@ final class RespondToAuthChallengeRequest extends Input
      *
      * @var string|null
      */
-    private $Session;
+    private $session;
 
     /**
      * The challenge responses. These are inputs corresponding to the value of `ChallengeName`, for example:.
      *
      * @var array<string, string>|null
      */
-    private $ChallengeResponses;
+    private $challengeResponses;
 
     /**
      * The Amazon Pinpoint analytics metadata for collecting metrics for `RespondToAuthChallenge` calls.
      *
      * @var AnalyticsMetadataType|null
      */
-    private $AnalyticsMetadata;
+    private $analyticsMetadata;
 
     /**
      * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
@@ -64,14 +64,14 @@ final class RespondToAuthChallengeRequest extends Input
      *
      * @var UserContextDataType|null
      */
-    private $UserContextData;
+    private $userContextData;
 
     /**
      * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
      *
      * @var array<string, string>|null
      */
-    private $ClientMetadata;
+    private $clientMetadata;
 
     /**
      * @param array{
@@ -87,13 +87,13 @@ final class RespondToAuthChallengeRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->ClientId = $input['ClientId'] ?? null;
-        $this->ChallengeName = $input['ChallengeName'] ?? null;
-        $this->Session = $input['Session'] ?? null;
-        $this->ChallengeResponses = $input['ChallengeResponses'] ?? null;
-        $this->AnalyticsMetadata = isset($input['AnalyticsMetadata']) ? AnalyticsMetadataType::create($input['AnalyticsMetadata']) : null;
-        $this->UserContextData = isset($input['UserContextData']) ? UserContextDataType::create($input['UserContextData']) : null;
-        $this->ClientMetadata = $input['ClientMetadata'] ?? null;
+        $this->clientId = $input['ClientId'] ?? null;
+        $this->challengeName = $input['ChallengeName'] ?? null;
+        $this->session = $input['Session'] ?? null;
+        $this->challengeResponses = $input['ChallengeResponses'] ?? null;
+        $this->analyticsMetadata = isset($input['AnalyticsMetadata']) ? AnalyticsMetadataType::create($input['AnalyticsMetadata']) : null;
+        $this->userContextData = isset($input['UserContextData']) ? UserContextDataType::create($input['UserContextData']) : null;
+        $this->clientMetadata = $input['ClientMetadata'] ?? null;
         parent::__construct($input);
     }
 
@@ -104,7 +104,7 @@ final class RespondToAuthChallengeRequest extends Input
 
     public function getAnalyticsMetadata(): ?AnalyticsMetadataType
     {
-        return $this->AnalyticsMetadata;
+        return $this->analyticsMetadata;
     }
 
     /**
@@ -112,7 +112,7 @@ final class RespondToAuthChallengeRequest extends Input
      */
     public function getChallengeName(): ?string
     {
-        return $this->ChallengeName;
+        return $this->challengeName;
     }
 
     /**
@@ -120,12 +120,12 @@ final class RespondToAuthChallengeRequest extends Input
      */
     public function getChallengeResponses(): array
     {
-        return $this->ChallengeResponses ?? [];
+        return $this->challengeResponses ?? [];
     }
 
     public function getClientId(): ?string
     {
-        return $this->ClientId;
+        return $this->clientId;
     }
 
     /**
@@ -133,17 +133,17 @@ final class RespondToAuthChallengeRequest extends Input
      */
     public function getClientMetadata(): array
     {
-        return $this->ClientMetadata ?? [];
+        return $this->clientMetadata ?? [];
     }
 
     public function getSession(): ?string
     {
-        return $this->Session;
+        return $this->session;
     }
 
     public function getUserContextData(): ?UserContextDataType
     {
-        return $this->UserContextData;
+        return $this->userContextData;
     }
 
     /**
@@ -173,7 +173,7 @@ final class RespondToAuthChallengeRequest extends Input
 
     public function setAnalyticsMetadata(?AnalyticsMetadataType $value): self
     {
-        $this->AnalyticsMetadata = $value;
+        $this->analyticsMetadata = $value;
 
         return $this;
     }
@@ -183,7 +183,7 @@ final class RespondToAuthChallengeRequest extends Input
      */
     public function setChallengeName(?string $value): self
     {
-        $this->ChallengeName = $value;
+        $this->challengeName = $value;
 
         return $this;
     }
@@ -193,14 +193,14 @@ final class RespondToAuthChallengeRequest extends Input
      */
     public function setChallengeResponses(array $value): self
     {
-        $this->ChallengeResponses = $value;
+        $this->challengeResponses = $value;
 
         return $this;
     }
 
     public function setClientId(?string $value): self
     {
-        $this->ClientId = $value;
+        $this->clientId = $value;
 
         return $this;
     }
@@ -210,21 +210,21 @@ final class RespondToAuthChallengeRequest extends Input
      */
     public function setClientMetadata(array $value): self
     {
-        $this->ClientMetadata = $value;
+        $this->clientMetadata = $value;
 
         return $this;
     }
 
     public function setSession(?string $value): self
     {
-        $this->Session = $value;
+        $this->session = $value;
 
         return $this;
     }
 
     public function setUserContextData(?UserContextDataType $value): self
     {
-        $this->UserContextData = $value;
+        $this->userContextData = $value;
 
         return $this;
     }
@@ -232,21 +232,21 @@ final class RespondToAuthChallengeRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->ClientId) {
+        if (null === $v = $this->clientId) {
             throw new InvalidArgument(sprintf('Missing parameter "ClientId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ClientId'] = $v;
-        if (null === $v = $this->ChallengeName) {
+        if (null === $v = $this->challengeName) {
             throw new InvalidArgument(sprintf('Missing parameter "ChallengeName" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!ChallengeNameType::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "ChallengeName" for "%s". The value "%s" is not a valid "ChallengeNameType".', __CLASS__, $v));
         }
         $payload['ChallengeName'] = $v;
-        if (null !== $v = $this->Session) {
+        if (null !== $v = $this->session) {
             $payload['Session'] = $v;
         }
-        if (null !== $v = $this->ChallengeResponses) {
+        if (null !== $v = $this->challengeResponses) {
             if (empty($v)) {
                 $payload['ChallengeResponses'] = new \stdClass();
             } else {
@@ -256,13 +256,13 @@ final class RespondToAuthChallengeRequest extends Input
                 }
             }
         }
-        if (null !== $v = $this->AnalyticsMetadata) {
+        if (null !== $v = $this->analyticsMetadata) {
             $payload['AnalyticsMetadata'] = $v->requestBody();
         }
-        if (null !== $v = $this->UserContextData) {
+        if (null !== $v = $this->userContextData) {
             $payload['UserContextData'] = $v->requestBody();
         }
-        if (null !== $v = $this->ClientMetadata) {
+        if (null !== $v = $this->clientMetadata) {
             if (empty($v)) {
                 $payload['ClientMetadata'] = new \stdClass();
             } else {

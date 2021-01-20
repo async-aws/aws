@@ -22,12 +22,12 @@ final class BatchGetItemInput extends Input
      *
      * @var array<string, KeysAndAttributes>|null
      */
-    private $RequestItems;
+    private $requestItems;
 
     /**
      * @var null|ReturnConsumedCapacity::*
      */
-    private $ReturnConsumedCapacity;
+    private $returnConsumedCapacity;
 
     /**
      * @param array{
@@ -39,12 +39,12 @@ final class BatchGetItemInput extends Input
     public function __construct(array $input = [])
     {
         if (isset($input['RequestItems'])) {
-            $this->RequestItems = [];
+            $this->requestItems = [];
             foreach ($input['RequestItems'] as $key => $item) {
-                $this->RequestItems[$key] = KeysAndAttributes::create($item);
+                $this->requestItems[$key] = KeysAndAttributes::create($item);
             }
         }
-        $this->ReturnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
+        $this->returnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
         parent::__construct($input);
     }
 
@@ -58,7 +58,7 @@ final class BatchGetItemInput extends Input
      */
     public function getRequestItems(): array
     {
-        return $this->RequestItems ?? [];
+        return $this->requestItems ?? [];
     }
 
     /**
@@ -66,7 +66,7 @@ final class BatchGetItemInput extends Input
      */
     public function getReturnConsumedCapacity(): ?string
     {
-        return $this->ReturnConsumedCapacity;
+        return $this->returnConsumedCapacity;
     }
 
     /**
@@ -99,7 +99,7 @@ final class BatchGetItemInput extends Input
      */
     public function setRequestItems(array $value): self
     {
-        $this->RequestItems = $value;
+        $this->requestItems = $value;
 
         return $this;
     }
@@ -109,7 +109,7 @@ final class BatchGetItemInput extends Input
      */
     public function setReturnConsumedCapacity(?string $value): self
     {
-        $this->ReturnConsumedCapacity = $value;
+        $this->returnConsumedCapacity = $value;
 
         return $this;
     }
@@ -117,7 +117,7 @@ final class BatchGetItemInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->RequestItems) {
+        if (null === $v = $this->requestItems) {
             throw new InvalidArgument(sprintf('Missing parameter "RequestItems" for "%s". The value cannot be null.', __CLASS__));
         }
 
@@ -129,7 +129,7 @@ final class BatchGetItemInput extends Input
                 $payload['RequestItems'][$name] = $mv->requestBody();
             }
         }
-        if (null !== $v = $this->ReturnConsumedCapacity) {
+        if (null !== $v = $this->returnConsumedCapacity) {
             if (!ReturnConsumedCapacity::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ReturnConsumedCapacity" for "%s". The value "%s" is not a valid "ReturnConsumedCapacity".', __CLASS__, $v));
             }

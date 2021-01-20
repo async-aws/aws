@@ -16,7 +16,7 @@ final class AdminSetUserPasswordRequest extends Input
      *
      * @var string|null
      */
-    private $UserPoolId;
+    private $userPoolId;
 
     /**
      * The user name of the user whose password you wish to set.
@@ -25,7 +25,7 @@ final class AdminSetUserPasswordRequest extends Input
      *
      * @var string|null
      */
-    private $Username;
+    private $username;
 
     /**
      * The password for the user.
@@ -34,14 +34,14 @@ final class AdminSetUserPasswordRequest extends Input
      *
      * @var string|null
      */
-    private $Password;
+    private $password;
 
     /**
      * `True` if the password is permanent, `False` if it is temporary.
      *
      * @var bool|null
      */
-    private $Permanent;
+    private $permanent;
 
     /**
      * @param array{
@@ -54,10 +54,10 @@ final class AdminSetUserPasswordRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->UserPoolId = $input['UserPoolId'] ?? null;
-        $this->Username = $input['Username'] ?? null;
-        $this->Password = $input['Password'] ?? null;
-        $this->Permanent = $input['Permanent'] ?? null;
+        $this->userPoolId = $input['UserPoolId'] ?? null;
+        $this->username = $input['Username'] ?? null;
+        $this->password = $input['Password'] ?? null;
+        $this->permanent = $input['Permanent'] ?? null;
         parent::__construct($input);
     }
 
@@ -68,22 +68,22 @@ final class AdminSetUserPasswordRequest extends Input
 
     public function getPassword(): ?string
     {
-        return $this->Password;
+        return $this->password;
     }
 
     public function getPermanent(): ?bool
     {
-        return $this->Permanent;
+        return $this->permanent;
     }
 
     public function getUserPoolId(): ?string
     {
-        return $this->UserPoolId;
+        return $this->userPoolId;
     }
 
     public function getUsername(): ?string
     {
-        return $this->Username;
+        return $this->username;
     }
 
     /**
@@ -113,28 +113,28 @@ final class AdminSetUserPasswordRequest extends Input
 
     public function setPassword(?string $value): self
     {
-        $this->Password = $value;
+        $this->password = $value;
 
         return $this;
     }
 
     public function setPermanent(?bool $value): self
     {
-        $this->Permanent = $value;
+        $this->permanent = $value;
 
         return $this;
     }
 
     public function setUserPoolId(?string $value): self
     {
-        $this->UserPoolId = $value;
+        $this->userPoolId = $value;
 
         return $this;
     }
 
     public function setUsername(?string $value): self
     {
-        $this->Username = $value;
+        $this->username = $value;
 
         return $this;
     }
@@ -142,19 +142,19 @@ final class AdminSetUserPasswordRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->UserPoolId) {
+        if (null === $v = $this->userPoolId) {
             throw new InvalidArgument(sprintf('Missing parameter "UserPoolId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserPoolId'] = $v;
-        if (null === $v = $this->Username) {
+        if (null === $v = $this->username) {
             throw new InvalidArgument(sprintf('Missing parameter "Username" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Username'] = $v;
-        if (null === $v = $this->Password) {
+        if (null === $v = $this->password) {
             throw new InvalidArgument(sprintf('Missing parameter "Password" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Password'] = $v;
-        if (null !== $v = $this->Permanent) {
+        if (null !== $v = $this->permanent) {
             $payload['Permanent'] = (bool) $v;
         }
 

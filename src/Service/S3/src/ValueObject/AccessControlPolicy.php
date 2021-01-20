@@ -10,12 +10,12 @@ final class AccessControlPolicy
     /**
      * A list of grants.
      */
-    private $Grants;
+    private $grants;
 
     /**
      * Container for the bucket owner's display name and ID.
      */
-    private $Owner;
+    private $owner;
 
     /**
      * @param array{
@@ -25,8 +25,8 @@ final class AccessControlPolicy
      */
     public function __construct(array $input)
     {
-        $this->Grants = isset($input['Grants']) ? array_map([Grant::class, 'create'], $input['Grants']) : null;
-        $this->Owner = isset($input['Owner']) ? Owner::create($input['Owner']) : null;
+        $this->grants = isset($input['Grants']) ? array_map([Grant::class, 'create'], $input['Grants']) : null;
+        $this->owner = isset($input['Owner']) ? Owner::create($input['Owner']) : null;
     }
 
     public static function create($input): self
@@ -39,12 +39,12 @@ final class AccessControlPolicy
      */
     public function getGrants(): array
     {
-        return $this->Grants ?? [];
+        return $this->grants ?? [];
     }
 
     public function getOwner(): ?Owner
     {
-        return $this->Owner;
+        return $this->owner;
     }
 
     /**
@@ -52,7 +52,7 @@ final class AccessControlPolicy
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        if (null !== $v = $this->Grants) {
+        if (null !== $v = $this->grants) {
             $node->appendChild($nodeList = $document->createElement('AccessControlList'));
             foreach ($v as $item) {
                 $nodeList->appendChild($child = $document->createElement('Grant'));
@@ -60,7 +60,7 @@ final class AccessControlPolicy
                 $item->requestBody($child, $document);
             }
         }
-        if (null !== $v = $this->Owner) {
+        if (null !== $v = $this->owner) {
             $node->appendChild($child = $document->createElement('Owner'));
 
             $v->requestBody($child, $document);

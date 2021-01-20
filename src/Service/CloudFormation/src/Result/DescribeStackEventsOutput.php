@@ -19,13 +19,13 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
     /**
      * A list of `StackEvents` structures.
      */
-    private $StackEvents = [];
+    private $stackEvents = [];
 
     /**
      * If the output exceeds 1 MB in size, a string that identifies the next page of events. If no additional page exists,
      * this value is null.
      */
-    private $NextToken;
+    private $nextToken;
 
     /**
      * Iterates over StackEvents.
@@ -67,7 +67,7 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->NextToken;
+        return $this->nextToken;
     }
 
     /**
@@ -79,7 +79,7 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
     {
         if ($currentPageOnly) {
             $this->initialize();
-            yield from $this->StackEvents;
+            yield from $this->stackEvents;
 
             return;
         }
@@ -118,8 +118,8 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->DescribeStackEventsResult;
 
-        $this->StackEvents = !$data->StackEvents ? [] : $this->populateResultStackEvents($data->StackEvents);
-        $this->NextToken = ($v = $data->NextToken) ? (string) $v : null;
+        $this->stackEvents = !$data->StackEvents ? [] : $this->populateResultStackEvents($data->StackEvents);
+        $this->nextToken = ($v = $data->NextToken) ? (string) $v : null;
     }
 
     /**

@@ -12,44 +12,44 @@ class PublishLayerVersionResponse extends Result
     /**
      * Details about the layer version.
      */
-    private $Content;
+    private $content;
 
     /**
      * The ARN of the layer.
      */
-    private $LayerArn;
+    private $layerArn;
 
     /**
      * The ARN of the layer version.
      */
-    private $LayerVersionArn;
+    private $layerVersionArn;
 
     /**
      * The description of the version.
      */
-    private $Description;
+    private $description;
 
     /**
      * The date that the layer version was created, in ISO-8601 format (YYYY-MM-DDThh:mm:ss.sTZD).
      *
      * @see https://www.w3.org/TR/NOTE-datetime
      */
-    private $CreatedDate;
+    private $createdDate;
 
     /**
      * The version number.
      */
-    private $Version;
+    private $version;
 
     /**
      * The layer's compatible runtimes.
      */
-    private $CompatibleRuntimes = [];
+    private $compatibleRuntimes = [];
 
     /**
      * The layer's software license.
      */
-    private $LicenseInfo;
+    private $licenseInfo;
 
     /**
      * @return list<Runtime::*>
@@ -58,76 +58,76 @@ class PublishLayerVersionResponse extends Result
     {
         $this->initialize();
 
-        return $this->CompatibleRuntimes;
+        return $this->compatibleRuntimes;
     }
 
     public function getContent(): ?LayerVersionContentOutput
     {
         $this->initialize();
 
-        return $this->Content;
+        return $this->content;
     }
 
     public function getCreatedDate(): ?string
     {
         $this->initialize();
 
-        return $this->CreatedDate;
+        return $this->createdDate;
     }
 
     public function getDescription(): ?string
     {
         $this->initialize();
 
-        return $this->Description;
+        return $this->description;
     }
 
     public function getLayerArn(): ?string
     {
         $this->initialize();
 
-        return $this->LayerArn;
+        return $this->layerArn;
     }
 
     public function getLayerVersionArn(): ?string
     {
         $this->initialize();
 
-        return $this->LayerVersionArn;
+        return $this->layerVersionArn;
     }
 
     public function getLicenseInfo(): ?string
     {
         $this->initialize();
 
-        return $this->LicenseInfo;
+        return $this->licenseInfo;
     }
 
     public function getVersion(): ?string
     {
         $this->initialize();
 
-        return $this->Version;
+        return $this->version;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->Content = empty($data['Content']) ? null : new LayerVersionContentOutput([
+        $this->content = empty($data['Content']) ? null : new LayerVersionContentOutput([
             'Location' => isset($data['Content']['Location']) ? (string) $data['Content']['Location'] : null,
             'CodeSha256' => isset($data['Content']['CodeSha256']) ? (string) $data['Content']['CodeSha256'] : null,
             'CodeSize' => isset($data['Content']['CodeSize']) ? (string) $data['Content']['CodeSize'] : null,
             'SigningProfileVersionArn' => isset($data['Content']['SigningProfileVersionArn']) ? (string) $data['Content']['SigningProfileVersionArn'] : null,
             'SigningJobArn' => isset($data['Content']['SigningJobArn']) ? (string) $data['Content']['SigningJobArn'] : null,
         ]);
-        $this->LayerArn = isset($data['LayerArn']) ? (string) $data['LayerArn'] : null;
-        $this->LayerVersionArn = isset($data['LayerVersionArn']) ? (string) $data['LayerVersionArn'] : null;
-        $this->Description = isset($data['Description']) ? (string) $data['Description'] : null;
-        $this->CreatedDate = isset($data['CreatedDate']) ? (string) $data['CreatedDate'] : null;
-        $this->Version = isset($data['Version']) ? (string) $data['Version'] : null;
-        $this->CompatibleRuntimes = empty($data['CompatibleRuntimes']) ? [] : $this->populateResultCompatibleRuntimes($data['CompatibleRuntimes']);
-        $this->LicenseInfo = isset($data['LicenseInfo']) ? (string) $data['LicenseInfo'] : null;
+        $this->layerArn = isset($data['LayerArn']) ? (string) $data['LayerArn'] : null;
+        $this->layerVersionArn = isset($data['LayerVersionArn']) ? (string) $data['LayerVersionArn'] : null;
+        $this->description = isset($data['Description']) ? (string) $data['Description'] : null;
+        $this->createdDate = isset($data['CreatedDate']) ? (string) $data['CreatedDate'] : null;
+        $this->version = isset($data['Version']) ? (string) $data['Version'] : null;
+        $this->compatibleRuntimes = empty($data['CompatibleRuntimes']) ? [] : $this->populateResultCompatibleRuntimes($data['CompatibleRuntimes']);
+        $this->licenseInfo = isset($data['LicenseInfo']) ? (string) $data['LicenseInfo'] : null;
     }
 
     /**

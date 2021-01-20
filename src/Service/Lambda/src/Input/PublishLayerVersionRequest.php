@@ -18,14 +18,14 @@ final class PublishLayerVersionRequest extends Input
      *
      * @var string|null
      */
-    private $LayerName;
+    private $layerName;
 
     /**
      * The description of the version.
      *
      * @var string|null
      */
-    private $Description;
+    private $description;
 
     /**
      * The function layer archive.
@@ -34,7 +34,7 @@ final class PublishLayerVersionRequest extends Input
      *
      * @var LayerVersionContentInput|null
      */
-    private $Content;
+    private $content;
 
     /**
      * A list of compatible function runtimes. Used for filtering with ListLayers and ListLayerVersions.
@@ -43,14 +43,14 @@ final class PublishLayerVersionRequest extends Input
      *
      * @var null|list<Runtime::*>
      */
-    private $CompatibleRuntimes;
+    private $compatibleRuntimes;
 
     /**
      * The layer's software license. It can be any of the following:.
      *
      * @var string|null
      */
-    private $LicenseInfo;
+    private $licenseInfo;
 
     /**
      * @param array{
@@ -64,11 +64,11 @@ final class PublishLayerVersionRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->LayerName = $input['LayerName'] ?? null;
-        $this->Description = $input['Description'] ?? null;
-        $this->Content = isset($input['Content']) ? LayerVersionContentInput::create($input['Content']) : null;
-        $this->CompatibleRuntimes = $input['CompatibleRuntimes'] ?? null;
-        $this->LicenseInfo = $input['LicenseInfo'] ?? null;
+        $this->layerName = $input['LayerName'] ?? null;
+        $this->description = $input['Description'] ?? null;
+        $this->content = isset($input['Content']) ? LayerVersionContentInput::create($input['Content']) : null;
+        $this->compatibleRuntimes = $input['CompatibleRuntimes'] ?? null;
+        $this->licenseInfo = $input['LicenseInfo'] ?? null;
         parent::__construct($input);
     }
 
@@ -82,27 +82,27 @@ final class PublishLayerVersionRequest extends Input
      */
     public function getCompatibleRuntimes(): array
     {
-        return $this->CompatibleRuntimes ?? [];
+        return $this->compatibleRuntimes ?? [];
     }
 
     public function getContent(): ?LayerVersionContentInput
     {
-        return $this->Content;
+        return $this->content;
     }
 
     public function getDescription(): ?string
     {
-        return $this->Description;
+        return $this->description;
     }
 
     public function getLayerName(): ?string
     {
-        return $this->LayerName;
+        return $this->layerName;
     }
 
     public function getLicenseInfo(): ?string
     {
-        return $this->LicenseInfo;
+        return $this->licenseInfo;
     }
 
     /**
@@ -118,7 +118,7 @@ final class PublishLayerVersionRequest extends Input
 
         // Prepare URI
         $uri = [];
-        if (null === $v = $this->LayerName) {
+        if (null === $v = $this->layerName) {
             throw new InvalidArgument(sprintf('Missing parameter "LayerName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['LayerName'] = $v;
@@ -137,35 +137,35 @@ final class PublishLayerVersionRequest extends Input
      */
     public function setCompatibleRuntimes(array $value): self
     {
-        $this->CompatibleRuntimes = $value;
+        $this->compatibleRuntimes = $value;
 
         return $this;
     }
 
     public function setContent(?LayerVersionContentInput $value): self
     {
-        $this->Content = $value;
+        $this->content = $value;
 
         return $this;
     }
 
     public function setDescription(?string $value): self
     {
-        $this->Description = $value;
+        $this->description = $value;
 
         return $this;
     }
 
     public function setLayerName(?string $value): self
     {
-        $this->LayerName = $value;
+        $this->layerName = $value;
 
         return $this;
     }
 
     public function setLicenseInfo(?string $value): self
     {
-        $this->LicenseInfo = $value;
+        $this->licenseInfo = $value;
 
         return $this;
     }
@@ -174,14 +174,14 @@ final class PublishLayerVersionRequest extends Input
     {
         $payload = [];
 
-        if (null !== $v = $this->Description) {
+        if (null !== $v = $this->description) {
             $payload['Description'] = $v;
         }
-        if (null === $v = $this->Content) {
+        if (null === $v = $this->content) {
             throw new InvalidArgument(sprintf('Missing parameter "Content" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Content'] = $v->requestBody();
-        if (null !== $v = $this->CompatibleRuntimes) {
+        if (null !== $v = $this->compatibleRuntimes) {
             $index = -1;
             $payload['CompatibleRuntimes'] = [];
             foreach ($v as $listValue) {
@@ -192,7 +192,7 @@ final class PublishLayerVersionRequest extends Input
                 $payload['CompatibleRuntimes'][$index] = $listValue;
             }
         }
-        if (null !== $v = $this->LicenseInfo) {
+        if (null !== $v = $this->licenseInfo) {
             $payload['LicenseInfo'] = $v;
         }
 

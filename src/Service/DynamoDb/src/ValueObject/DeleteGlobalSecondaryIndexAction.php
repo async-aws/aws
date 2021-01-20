@@ -12,7 +12,7 @@ final class DeleteGlobalSecondaryIndexAction
     /**
      * The name of the global secondary index to be deleted.
      */
-    private $IndexName;
+    private $indexName;
 
     /**
      * @param array{
@@ -21,7 +21,7 @@ final class DeleteGlobalSecondaryIndexAction
      */
     public function __construct(array $input)
     {
-        $this->IndexName = $input['IndexName'] ?? null;
+        $this->indexName = $input['IndexName'] ?? null;
     }
 
     public static function create($input): self
@@ -31,7 +31,7 @@ final class DeleteGlobalSecondaryIndexAction
 
     public function getIndexName(): string
     {
-        return $this->IndexName;
+        return $this->indexName;
     }
 
     /**
@@ -40,7 +40,7 @@ final class DeleteGlobalSecondaryIndexAction
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->IndexName) {
+        if (null === $v = $this->indexName) {
             throw new InvalidArgument(sprintf('Missing parameter "IndexName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['IndexName'] = $v;

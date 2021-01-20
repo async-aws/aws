@@ -19,7 +19,7 @@ final class ProvisionedThroughput
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput
      */
-    private $ReadCapacityUnits;
+    private $readCapacityUnits;
 
     /**
      * The maximum number of writes consumed per second before DynamoDB returns a `ThrottlingException`. For more
@@ -27,7 +27,7 @@ final class ProvisionedThroughput
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput
      */
-    private $WriteCapacityUnits;
+    private $writeCapacityUnits;
 
     /**
      * @param array{
@@ -37,8 +37,8 @@ final class ProvisionedThroughput
      */
     public function __construct(array $input)
     {
-        $this->ReadCapacityUnits = $input['ReadCapacityUnits'] ?? null;
-        $this->WriteCapacityUnits = $input['WriteCapacityUnits'] ?? null;
+        $this->readCapacityUnits = $input['ReadCapacityUnits'] ?? null;
+        $this->writeCapacityUnits = $input['WriteCapacityUnits'] ?? null;
     }
 
     public static function create($input): self
@@ -48,12 +48,12 @@ final class ProvisionedThroughput
 
     public function getReadCapacityUnits(): string
     {
-        return $this->ReadCapacityUnits;
+        return $this->readCapacityUnits;
     }
 
     public function getWriteCapacityUnits(): string
     {
-        return $this->WriteCapacityUnits;
+        return $this->writeCapacityUnits;
     }
 
     /**
@@ -62,11 +62,11 @@ final class ProvisionedThroughput
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->ReadCapacityUnits) {
+        if (null === $v = $this->readCapacityUnits) {
             throw new InvalidArgument(sprintf('Missing parameter "ReadCapacityUnits" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ReadCapacityUnits'] = $v;
-        if (null === $v = $this->WriteCapacityUnits) {
+        if (null === $v = $this->writeCapacityUnits) {
             throw new InvalidArgument(sprintf('Missing parameter "WriteCapacityUnits" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['WriteCapacityUnits'] = $v;

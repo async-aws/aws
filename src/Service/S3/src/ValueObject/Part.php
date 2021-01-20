@@ -10,22 +10,22 @@ final class Part
     /**
      * Part number identifying the part. This is a positive integer between 1 and 10,000.
      */
-    private $PartNumber;
+    private $partNumber;
 
     /**
      * Date and time at which the part was uploaded.
      */
-    private $LastModified;
+    private $lastModified;
 
     /**
      * Entity tag returned when the part was uploaded.
      */
-    private $ETag;
+    private $eTag;
 
     /**
      * Size in bytes of the uploaded part data.
      */
-    private $Size;
+    private $size;
 
     /**
      * @param array{
@@ -37,10 +37,10 @@ final class Part
      */
     public function __construct(array $input)
     {
-        $this->PartNumber = $input['PartNumber'] ?? null;
-        $this->LastModified = $input['LastModified'] ?? null;
-        $this->ETag = $input['ETag'] ?? null;
-        $this->Size = $input['Size'] ?? null;
+        $this->partNumber = $input['PartNumber'] ?? null;
+        $this->lastModified = $input['LastModified'] ?? null;
+        $this->eTag = $input['ETag'] ?? null;
+        $this->size = $input['Size'] ?? null;
     }
 
     public static function create($input): self
@@ -50,21 +50,21 @@ final class Part
 
     public function getETag(): ?string
     {
-        return $this->ETag;
+        return $this->eTag;
     }
 
     public function getLastModified(): ?\DateTimeImmutable
     {
-        return $this->LastModified;
+        return $this->lastModified;
     }
 
     public function getPartNumber(): ?int
     {
-        return $this->PartNumber;
+        return $this->partNumber;
     }
 
     public function getSize(): ?string
     {
-        return $this->Size;
+        return $this->size;
     }
 }

@@ -14,13 +14,13 @@ class CreateAccessKeyResponse extends Result
     /**
      * A structure with details about the access key.
      */
-    private $AccessKey;
+    private $accessKey;
 
     public function getAccessKey(): AccessKey
     {
         $this->initialize();
 
-        return $this->AccessKey;
+        return $this->accessKey;
     }
 
     protected function populateResult(Response $response): void
@@ -28,7 +28,7 @@ class CreateAccessKeyResponse extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->CreateAccessKeyResult;
 
-        $this->AccessKey = new AccessKey([
+        $this->accessKey = new AccessKey([
             'UserName' => (string) $data->AccessKey->UserName,
             'AccessKeyId' => (string) $data->AccessKey->AccessKeyId,
             'Status' => (string) $data->AccessKey->Status,

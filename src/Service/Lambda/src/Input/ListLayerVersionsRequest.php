@@ -15,7 +15,7 @@ final class ListLayerVersionsRequest extends Input
      *
      * @var null|Runtime::*
      */
-    private $CompatibleRuntime;
+    private $compatibleRuntime;
 
     /**
      * The name or Amazon Resource Name (ARN) of the layer.
@@ -24,21 +24,21 @@ final class ListLayerVersionsRequest extends Input
      *
      * @var string|null
      */
-    private $LayerName;
+    private $layerName;
 
     /**
      * A pagination token returned by a previous call.
      *
      * @var string|null
      */
-    private $Marker;
+    private $marker;
 
     /**
      * The maximum number of versions to return.
      *
      * @var int|null
      */
-    private $MaxItems;
+    private $maxItems;
 
     /**
      * @param array{
@@ -51,10 +51,10 @@ final class ListLayerVersionsRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->CompatibleRuntime = $input['CompatibleRuntime'] ?? null;
-        $this->LayerName = $input['LayerName'] ?? null;
-        $this->Marker = $input['Marker'] ?? null;
-        $this->MaxItems = $input['MaxItems'] ?? null;
+        $this->compatibleRuntime = $input['CompatibleRuntime'] ?? null;
+        $this->layerName = $input['LayerName'] ?? null;
+        $this->marker = $input['Marker'] ?? null;
+        $this->maxItems = $input['MaxItems'] ?? null;
         parent::__construct($input);
     }
 
@@ -68,22 +68,22 @@ final class ListLayerVersionsRequest extends Input
      */
     public function getCompatibleRuntime(): ?string
     {
-        return $this->CompatibleRuntime;
+        return $this->compatibleRuntime;
     }
 
     public function getLayerName(): ?string
     {
-        return $this->LayerName;
+        return $this->layerName;
     }
 
     public function getMarker(): ?string
     {
-        return $this->Marker;
+        return $this->marker;
     }
 
     public function getMaxItems(): ?int
     {
-        return $this->MaxItems;
+        return $this->maxItems;
     }
 
     /**
@@ -96,22 +96,22 @@ final class ListLayerVersionsRequest extends Input
 
         // Prepare query
         $query = [];
-        if (null !== $this->CompatibleRuntime) {
-            if (!Runtime::exists($this->CompatibleRuntime)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "CompatibleRuntime" for "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $this->CompatibleRuntime));
+        if (null !== $this->compatibleRuntime) {
+            if (!Runtime::exists($this->compatibleRuntime)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "CompatibleRuntime" for "%s". The value "%s" is not a valid "Runtime".', __CLASS__, $this->compatibleRuntime));
             }
-            $query['CompatibleRuntime'] = $this->CompatibleRuntime;
+            $query['CompatibleRuntime'] = $this->compatibleRuntime;
         }
-        if (null !== $this->Marker) {
-            $query['Marker'] = $this->Marker;
+        if (null !== $this->marker) {
+            $query['Marker'] = $this->marker;
         }
-        if (null !== $this->MaxItems) {
-            $query['MaxItems'] = (string) $this->MaxItems;
+        if (null !== $this->maxItems) {
+            $query['MaxItems'] = (string) $this->maxItems;
         }
 
         // Prepare URI
         $uri = [];
-        if (null === $v = $this->LayerName) {
+        if (null === $v = $this->layerName) {
             throw new InvalidArgument(sprintf('Missing parameter "LayerName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['LayerName'] = $v;
@@ -129,28 +129,28 @@ final class ListLayerVersionsRequest extends Input
      */
     public function setCompatibleRuntime(?string $value): self
     {
-        $this->CompatibleRuntime = $value;
+        $this->compatibleRuntime = $value;
 
         return $this;
     }
 
     public function setLayerName(?string $value): self
     {
-        $this->LayerName = $value;
+        $this->layerName = $value;
 
         return $this;
     }
 
     public function setMarker(?string $value): self
     {
-        $this->Marker = $value;
+        $this->marker = $value;
 
         return $this;
     }
 
     public function setMaxItems(?int $value): self
     {
-        $this->MaxItems = $value;
+        $this->maxItems = $value;
 
         return $this;
     }

@@ -17,12 +17,12 @@ final class FilterRule
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
      */
-    private $Name;
+    private $name;
 
     /**
      * The value that the filter searches for in object key names.
      */
-    private $Value;
+    private $value;
 
     /**
      * @param array{
@@ -32,8 +32,8 @@ final class FilterRule
      */
     public function __construct(array $input)
     {
-        $this->Name = $input['Name'] ?? null;
-        $this->Value = $input['Value'] ?? null;
+        $this->name = $input['Name'] ?? null;
+        $this->value = $input['Value'] ?? null;
     }
 
     public static function create($input): self
@@ -46,12 +46,12 @@ final class FilterRule
      */
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
     public function getValue(): ?string
     {
-        return $this->Value;
+        return $this->value;
     }
 
     /**
@@ -59,13 +59,13 @@ final class FilterRule
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        if (null !== $v = $this->Name) {
+        if (null !== $v = $this->name) {
             if (!FilterRuleName::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "Name" for "%s". The value "%s" is not a valid "FilterRuleName".', __CLASS__, $v));
             }
             $node->appendChild($document->createElement('Name', $v));
         }
-        if (null !== $v = $this->Value) {
+        if (null !== $v = $this->value) {
             $node->appendChild($document->createElement('Value', $v));
         }
     }

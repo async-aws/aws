@@ -12,27 +12,27 @@ final class AccessKey
     /**
      * The name of the IAM user that the access key is associated with.
      */
-    private $UserName;
+    private $userName;
 
     /**
      * The ID for this access key.
      */
-    private $AccessKeyId;
+    private $accessKeyId;
 
     /**
      * The status of the access key. `Active` means that the key is valid for API calls, while `Inactive` means it is not.
      */
-    private $Status;
+    private $status;
 
     /**
      * The secret key used to sign requests.
      */
-    private $SecretAccessKey;
+    private $secretAccessKey;
 
     /**
      * The date when the access key was created.
      */
-    private $CreateDate;
+    private $createDate;
 
     /**
      * @param array{
@@ -45,11 +45,11 @@ final class AccessKey
      */
     public function __construct(array $input)
     {
-        $this->UserName = $input['UserName'] ?? null;
-        $this->AccessKeyId = $input['AccessKeyId'] ?? null;
-        $this->Status = $input['Status'] ?? null;
-        $this->SecretAccessKey = $input['SecretAccessKey'] ?? null;
-        $this->CreateDate = $input['CreateDate'] ?? null;
+        $this->userName = $input['UserName'] ?? null;
+        $this->accessKeyId = $input['AccessKeyId'] ?? null;
+        $this->status = $input['Status'] ?? null;
+        $this->secretAccessKey = $input['SecretAccessKey'] ?? null;
+        $this->createDate = $input['CreateDate'] ?? null;
     }
 
     public static function create($input): self
@@ -59,17 +59,17 @@ final class AccessKey
 
     public function getAccessKeyId(): string
     {
-        return $this->AccessKeyId;
+        return $this->accessKeyId;
     }
 
     public function getCreateDate(): ?\DateTimeImmutable
     {
-        return $this->CreateDate;
+        return $this->createDate;
     }
 
     public function getSecretAccessKey(): string
     {
-        return $this->SecretAccessKey;
+        return $this->secretAccessKey;
     }
 
     /**
@@ -77,11 +77,11 @@ final class AccessKey
      */
     public function getStatus(): string
     {
-        return $this->Status;
+        return $this->status;
     }
 
     public function getUserName(): string
     {
-        return $this->UserName;
+        return $this->userName;
     }
 }

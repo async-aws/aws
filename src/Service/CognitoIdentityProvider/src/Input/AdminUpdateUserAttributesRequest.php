@@ -20,7 +20,7 @@ final class AdminUpdateUserAttributesRequest extends Input
      *
      * @var string|null
      */
-    private $UserPoolId;
+    private $userPoolId;
 
     /**
      * The user name of the user for whom you want to update user attributes.
@@ -29,7 +29,7 @@ final class AdminUpdateUserAttributesRequest extends Input
      *
      * @var string|null
      */
-    private $Username;
+    private $username;
 
     /**
      * An array of name-value pairs representing user attributes.
@@ -38,14 +38,14 @@ final class AdminUpdateUserAttributesRequest extends Input
      *
      * @var AttributeType[]|null
      */
-    private $UserAttributes;
+    private $userAttributes;
 
     /**
      * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
      *
      * @var array<string, string>|null
      */
-    private $ClientMetadata;
+    private $clientMetadata;
 
     /**
      * @param array{
@@ -58,10 +58,10 @@ final class AdminUpdateUserAttributesRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->UserPoolId = $input['UserPoolId'] ?? null;
-        $this->Username = $input['Username'] ?? null;
-        $this->UserAttributes = isset($input['UserAttributes']) ? array_map([AttributeType::class, 'create'], $input['UserAttributes']) : null;
-        $this->ClientMetadata = $input['ClientMetadata'] ?? null;
+        $this->userPoolId = $input['UserPoolId'] ?? null;
+        $this->username = $input['Username'] ?? null;
+        $this->userAttributes = isset($input['UserAttributes']) ? array_map([AttributeType::class, 'create'], $input['UserAttributes']) : null;
+        $this->clientMetadata = $input['ClientMetadata'] ?? null;
         parent::__construct($input);
     }
 
@@ -75,7 +75,7 @@ final class AdminUpdateUserAttributesRequest extends Input
      */
     public function getClientMetadata(): array
     {
-        return $this->ClientMetadata ?? [];
+        return $this->clientMetadata ?? [];
     }
 
     /**
@@ -83,17 +83,17 @@ final class AdminUpdateUserAttributesRequest extends Input
      */
     public function getUserAttributes(): array
     {
-        return $this->UserAttributes ?? [];
+        return $this->userAttributes ?? [];
     }
 
     public function getUserPoolId(): ?string
     {
-        return $this->UserPoolId;
+        return $this->userPoolId;
     }
 
     public function getUsername(): ?string
     {
-        return $this->Username;
+        return $this->username;
     }
 
     /**
@@ -126,7 +126,7 @@ final class AdminUpdateUserAttributesRequest extends Input
      */
     public function setClientMetadata(array $value): self
     {
-        $this->ClientMetadata = $value;
+        $this->clientMetadata = $value;
 
         return $this;
     }
@@ -136,21 +136,21 @@ final class AdminUpdateUserAttributesRequest extends Input
      */
     public function setUserAttributes(array $value): self
     {
-        $this->UserAttributes = $value;
+        $this->userAttributes = $value;
 
         return $this;
     }
 
     public function setUserPoolId(?string $value): self
     {
-        $this->UserPoolId = $value;
+        $this->userPoolId = $value;
 
         return $this;
     }
 
     public function setUsername(?string $value): self
     {
-        $this->Username = $value;
+        $this->username = $value;
 
         return $this;
     }
@@ -158,15 +158,15 @@ final class AdminUpdateUserAttributesRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->UserPoolId) {
+        if (null === $v = $this->userPoolId) {
             throw new InvalidArgument(sprintf('Missing parameter "UserPoolId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserPoolId'] = $v;
-        if (null === $v = $this->Username) {
+        if (null === $v = $this->username) {
             throw new InvalidArgument(sprintf('Missing parameter "Username" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Username'] = $v;
-        if (null === $v = $this->UserAttributes) {
+        if (null === $v = $this->userAttributes) {
             throw new InvalidArgument(sprintf('Missing parameter "UserAttributes" for "%s". The value cannot be null.', __CLASS__));
         }
 
@@ -177,7 +177,7 @@ final class AdminUpdateUserAttributesRequest extends Input
             $payload['UserAttributes'][$index] = $listValue->requestBody();
         }
 
-        if (null !== $v = $this->ClientMetadata) {
+        if (null !== $v = $this->clientMetadata) {
             if (empty($v)) {
                 $payload['ClientMetadata'] = new \stdClass();
             } else {

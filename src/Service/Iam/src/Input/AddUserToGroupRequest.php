@@ -16,7 +16,7 @@ final class AddUserToGroupRequest extends Input
      *
      * @var string|null
      */
-    private $GroupName;
+    private $groupName;
 
     /**
      * The name of the user to add.
@@ -25,7 +25,7 @@ final class AddUserToGroupRequest extends Input
      *
      * @var string|null
      */
-    private $UserName;
+    private $userName;
 
     /**
      * @param array{
@@ -36,8 +36,8 @@ final class AddUserToGroupRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->GroupName = $input['GroupName'] ?? null;
-        $this->UserName = $input['UserName'] ?? null;
+        $this->groupName = $input['GroupName'] ?? null;
+        $this->userName = $input['UserName'] ?? null;
         parent::__construct($input);
     }
 
@@ -48,12 +48,12 @@ final class AddUserToGroupRequest extends Input
 
     public function getGroupName(): ?string
     {
-        return $this->GroupName;
+        return $this->groupName;
     }
 
     public function getUserName(): ?string
     {
-        return $this->UserName;
+        return $this->userName;
     }
 
     /**
@@ -79,14 +79,14 @@ final class AddUserToGroupRequest extends Input
 
     public function setGroupName(?string $value): self
     {
-        $this->GroupName = $value;
+        $this->groupName = $value;
 
         return $this;
     }
 
     public function setUserName(?string $value): self
     {
-        $this->UserName = $value;
+        $this->userName = $value;
 
         return $this;
     }
@@ -94,11 +94,11 @@ final class AddUserToGroupRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->GroupName) {
+        if (null === $v = $this->groupName) {
             throw new InvalidArgument(sprintf('Missing parameter "GroupName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['GroupName'] = $v;
-        if (null === $v = $this->UserName) {
+        if (null === $v = $this->userName) {
             throw new InvalidArgument(sprintf('Missing parameter "UserName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserName'] = $v;

@@ -19,7 +19,7 @@ final class AdminConfirmSignUpRequest extends Input
      *
      * @var string|null
      */
-    private $UserPoolId;
+    private $userPoolId;
 
     /**
      * The user name for which you want to confirm user registration.
@@ -28,14 +28,14 @@ final class AdminConfirmSignUpRequest extends Input
      *
      * @var string|null
      */
-    private $Username;
+    private $username;
 
     /**
      * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
      *
      * @var array<string, string>|null
      */
-    private $ClientMetadata;
+    private $clientMetadata;
 
     /**
      * @param array{
@@ -47,9 +47,9 @@ final class AdminConfirmSignUpRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->UserPoolId = $input['UserPoolId'] ?? null;
-        $this->Username = $input['Username'] ?? null;
-        $this->ClientMetadata = $input['ClientMetadata'] ?? null;
+        $this->userPoolId = $input['UserPoolId'] ?? null;
+        $this->username = $input['Username'] ?? null;
+        $this->clientMetadata = $input['ClientMetadata'] ?? null;
         parent::__construct($input);
     }
 
@@ -63,17 +63,17 @@ final class AdminConfirmSignUpRequest extends Input
      */
     public function getClientMetadata(): array
     {
-        return $this->ClientMetadata ?? [];
+        return $this->clientMetadata ?? [];
     }
 
     public function getUserPoolId(): ?string
     {
-        return $this->UserPoolId;
+        return $this->userPoolId;
     }
 
     public function getUsername(): ?string
     {
-        return $this->Username;
+        return $this->username;
     }
 
     /**
@@ -106,21 +106,21 @@ final class AdminConfirmSignUpRequest extends Input
      */
     public function setClientMetadata(array $value): self
     {
-        $this->ClientMetadata = $value;
+        $this->clientMetadata = $value;
 
         return $this;
     }
 
     public function setUserPoolId(?string $value): self
     {
-        $this->UserPoolId = $value;
+        $this->userPoolId = $value;
 
         return $this;
     }
 
     public function setUsername(?string $value): self
     {
-        $this->Username = $value;
+        $this->username = $value;
 
         return $this;
     }
@@ -128,15 +128,15 @@ final class AdminConfirmSignUpRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->UserPoolId) {
+        if (null === $v = $this->userPoolId) {
             throw new InvalidArgument(sprintf('Missing parameter "UserPoolId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserPoolId'] = $v;
-        if (null === $v = $this->Username) {
+        if (null === $v = $this->username) {
             throw new InvalidArgument(sprintf('Missing parameter "Username" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Username'] = $v;
-        if (null !== $v = $this->ClientMetadata) {
+        if (null !== $v = $this->clientMetadata) {
             if (empty($v)) {
                 $payload['ClientMetadata'] = new \stdClass();
             } else {

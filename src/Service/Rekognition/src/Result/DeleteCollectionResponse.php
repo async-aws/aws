@@ -10,19 +10,19 @@ class DeleteCollectionResponse extends Result
     /**
      * HTTP status code that indicates the result of the operation.
      */
-    private $StatusCode;
+    private $statusCode;
 
     public function getStatusCode(): ?int
     {
         $this->initialize();
 
-        return $this->StatusCode;
+        return $this->statusCode;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->StatusCode = isset($data['StatusCode']) ? (int) $data['StatusCode'] : null;
+        $this->statusCode = isset($data['StatusCode']) ? (int) $data['StatusCode'] : null;
     }
 }

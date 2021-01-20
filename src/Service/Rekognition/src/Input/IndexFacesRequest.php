@@ -19,7 +19,7 @@ final class IndexFacesRequest extends Input
      *
      * @var string|null
      */
-    private $CollectionId;
+    private $collectionId;
 
     /**
      * The input image as base64-encoded bytes or an S3 object. If you use the AWS CLI to call Amazon Rekognition
@@ -29,14 +29,14 @@ final class IndexFacesRequest extends Input
      *
      * @var Image|null
      */
-    private $Image;
+    private $image;
 
     /**
      * The ID you want to assign to all the faces detected in the image.
      *
      * @var string|null
      */
-    private $ExternalImageId;
+    private $externalImageId;
 
     /**
      * An array of facial attributes that you want to be returned. This can be the default list of attributes or all
@@ -46,7 +46,7 @@ final class IndexFacesRequest extends Input
      *
      * @var null|list<Attribute::*>
      */
-    private $DetectionAttributes;
+    private $detectionAttributes;
 
     /**
      * The maximum number of faces to index. The value of `MaxFaces` must be greater than or equal to 1. `IndexFaces`
@@ -54,7 +54,7 @@ final class IndexFacesRequest extends Input
      *
      * @var int|null
      */
-    private $MaxFaces;
+    private $maxFaces;
 
     /**
      * A filter that specifies a quality bar for how much filtering is done to identify faces. Filtered faces aren't
@@ -66,7 +66,7 @@ final class IndexFacesRequest extends Input
      *
      * @var null|QualityFilter::*
      */
-    private $QualityFilter;
+    private $qualityFilter;
 
     /**
      * @param array{
@@ -81,12 +81,12 @@ final class IndexFacesRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->CollectionId = $input['CollectionId'] ?? null;
-        $this->Image = isset($input['Image']) ? Image::create($input['Image']) : null;
-        $this->ExternalImageId = $input['ExternalImageId'] ?? null;
-        $this->DetectionAttributes = $input['DetectionAttributes'] ?? null;
-        $this->MaxFaces = $input['MaxFaces'] ?? null;
-        $this->QualityFilter = $input['QualityFilter'] ?? null;
+        $this->collectionId = $input['CollectionId'] ?? null;
+        $this->image = isset($input['Image']) ? Image::create($input['Image']) : null;
+        $this->externalImageId = $input['ExternalImageId'] ?? null;
+        $this->detectionAttributes = $input['DetectionAttributes'] ?? null;
+        $this->maxFaces = $input['MaxFaces'] ?? null;
+        $this->qualityFilter = $input['QualityFilter'] ?? null;
         parent::__construct($input);
     }
 
@@ -97,7 +97,7 @@ final class IndexFacesRequest extends Input
 
     public function getCollectionId(): ?string
     {
-        return $this->CollectionId;
+        return $this->collectionId;
     }
 
     /**
@@ -105,22 +105,22 @@ final class IndexFacesRequest extends Input
      */
     public function getDetectionAttributes(): array
     {
-        return $this->DetectionAttributes ?? [];
+        return $this->detectionAttributes ?? [];
     }
 
     public function getExternalImageId(): ?string
     {
-        return $this->ExternalImageId;
+        return $this->externalImageId;
     }
 
     public function getImage(): ?Image
     {
-        return $this->Image;
+        return $this->image;
     }
 
     public function getMaxFaces(): ?int
     {
-        return $this->MaxFaces;
+        return $this->maxFaces;
     }
 
     /**
@@ -128,7 +128,7 @@ final class IndexFacesRequest extends Input
      */
     public function getQualityFilter(): ?string
     {
-        return $this->QualityFilter;
+        return $this->qualityFilter;
     }
 
     /**
@@ -158,7 +158,7 @@ final class IndexFacesRequest extends Input
 
     public function setCollectionId(?string $value): self
     {
-        $this->CollectionId = $value;
+        $this->collectionId = $value;
 
         return $this;
     }
@@ -168,28 +168,28 @@ final class IndexFacesRequest extends Input
      */
     public function setDetectionAttributes(array $value): self
     {
-        $this->DetectionAttributes = $value;
+        $this->detectionAttributes = $value;
 
         return $this;
     }
 
     public function setExternalImageId(?string $value): self
     {
-        $this->ExternalImageId = $value;
+        $this->externalImageId = $value;
 
         return $this;
     }
 
     public function setImage(?Image $value): self
     {
-        $this->Image = $value;
+        $this->image = $value;
 
         return $this;
     }
 
     public function setMaxFaces(?int $value): self
     {
-        $this->MaxFaces = $value;
+        $this->maxFaces = $value;
 
         return $this;
     }
@@ -199,7 +199,7 @@ final class IndexFacesRequest extends Input
      */
     public function setQualityFilter(?string $value): self
     {
-        $this->QualityFilter = $value;
+        $this->qualityFilter = $value;
 
         return $this;
     }
@@ -207,18 +207,18 @@ final class IndexFacesRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->CollectionId) {
+        if (null === $v = $this->collectionId) {
             throw new InvalidArgument(sprintf('Missing parameter "CollectionId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['CollectionId'] = $v;
-        if (null === $v = $this->Image) {
+        if (null === $v = $this->image) {
             throw new InvalidArgument(sprintf('Missing parameter "Image" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Image'] = $v->requestBody();
-        if (null !== $v = $this->ExternalImageId) {
+        if (null !== $v = $this->externalImageId) {
             $payload['ExternalImageId'] = $v;
         }
-        if (null !== $v = $this->DetectionAttributes) {
+        if (null !== $v = $this->detectionAttributes) {
             $index = -1;
             $payload['DetectionAttributes'] = [];
             foreach ($v as $listValue) {
@@ -229,10 +229,10 @@ final class IndexFacesRequest extends Input
                 $payload['DetectionAttributes'][$index] = $listValue;
             }
         }
-        if (null !== $v = $this->MaxFaces) {
+        if (null !== $v = $this->maxFaces) {
             $payload['MaxFaces'] = $v;
         }
-        if (null !== $v = $this->QualityFilter) {
+        if (null !== $v = $this->qualityFilter) {
             if (!QualityFilter::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "QualityFilter" for "%s". The value "%s" is not a valid "QualityFilter".', __CLASS__, $v));
             }

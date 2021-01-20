@@ -18,7 +18,7 @@ class UpdateItemOutput extends Result
      * A map of attribute values as they appear before or after the `UpdateItem` operation, as determined by the
      * `ReturnValues` parameter.
      */
-    private $Attributes = [];
+    private $attributes = [];
 
     /**
      * The capacity units consumed by the `UpdateItem` operation. The data returned includes the total provisioned
@@ -28,14 +28,14 @@ class UpdateItemOutput extends Result
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html
      */
-    private $ConsumedCapacity;
+    private $consumedCapacity;
 
     /**
      * Information about item collections, if any, that were affected by the `UpdateItem` operation. `ItemCollectionMetrics`
      * is only returned if the `ReturnItemCollectionMetrics` parameter was specified. If the table does not have any local
      * secondary indexes, this information is not returned in the response.
      */
-    private $ItemCollectionMetrics;
+    private $itemCollectionMetrics;
 
     /**
      * @return array<string, AttributeValue>
@@ -44,29 +44,29 @@ class UpdateItemOutput extends Result
     {
         $this->initialize();
 
-        return $this->Attributes;
+        return $this->attributes;
     }
 
     public function getConsumedCapacity(): ?ConsumedCapacity
     {
         $this->initialize();
 
-        return $this->ConsumedCapacity;
+        return $this->consumedCapacity;
     }
 
     public function getItemCollectionMetrics(): ?ItemCollectionMetrics
     {
         $this->initialize();
 
-        return $this->ItemCollectionMetrics;
+        return $this->itemCollectionMetrics;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->Attributes = empty($data['Attributes']) ? [] : $this->populateResultAttributeMap($data['Attributes']);
-        $this->ConsumedCapacity = empty($data['ConsumedCapacity']) ? null : new ConsumedCapacity([
+        $this->attributes = empty($data['Attributes']) ? [] : $this->populateResultAttributeMap($data['Attributes']);
+        $this->consumedCapacity = empty($data['ConsumedCapacity']) ? null : new ConsumedCapacity([
             'TableName' => isset($data['ConsumedCapacity']['TableName']) ? (string) $data['ConsumedCapacity']['TableName'] : null,
             'CapacityUnits' => isset($data['ConsumedCapacity']['CapacityUnits']) ? (float) $data['ConsumedCapacity']['CapacityUnits'] : null,
             'ReadCapacityUnits' => isset($data['ConsumedCapacity']['ReadCapacityUnits']) ? (float) $data['ConsumedCapacity']['ReadCapacityUnits'] : null,
@@ -79,7 +79,7 @@ class UpdateItemOutput extends Result
             'LocalSecondaryIndexes' => empty($data['ConsumedCapacity']['LocalSecondaryIndexes']) ? [] : $this->populateResultSecondaryIndexesCapacityMap($data['ConsumedCapacity']['LocalSecondaryIndexes']),
             'GlobalSecondaryIndexes' => empty($data['ConsumedCapacity']['GlobalSecondaryIndexes']) ? [] : $this->populateResultSecondaryIndexesCapacityMap($data['ConsumedCapacity']['GlobalSecondaryIndexes']),
         ]);
-        $this->ItemCollectionMetrics = empty($data['ItemCollectionMetrics']) ? null : new ItemCollectionMetrics([
+        $this->itemCollectionMetrics = empty($data['ItemCollectionMetrics']) ? null : new ItemCollectionMetrics([
             'ItemCollectionKey' => empty($data['ItemCollectionMetrics']['ItemCollectionKey']) ? [] : $this->populateResultItemCollectionKeyAttributeMap($data['ItemCollectionMetrics']['ItemCollectionKey']),
             'SizeEstimateRangeGB' => empty($data['ItemCollectionMetrics']['SizeEstimateRangeGB']) ? [] : $this->populateResultItemCollectionSizeEstimateRange($data['ItemCollectionMetrics']['SizeEstimateRangeGB']),
         ]);

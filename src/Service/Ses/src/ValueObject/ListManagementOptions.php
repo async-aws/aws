@@ -13,12 +13,12 @@ final class ListManagementOptions
     /**
      * The name of the contact list.
      */
-    private $ContactListName;
+    private $contactListName;
 
     /**
      * The name of the topic.
      */
-    private $TopicName;
+    private $topicName;
 
     /**
      * @param array{
@@ -28,8 +28,8 @@ final class ListManagementOptions
      */
     public function __construct(array $input)
     {
-        $this->ContactListName = $input['ContactListName'] ?? null;
-        $this->TopicName = $input['TopicName'] ?? null;
+        $this->contactListName = $input['ContactListName'] ?? null;
+        $this->topicName = $input['TopicName'] ?? null;
     }
 
     public static function create($input): self
@@ -39,12 +39,12 @@ final class ListManagementOptions
 
     public function getContactListName(): string
     {
-        return $this->ContactListName;
+        return $this->contactListName;
     }
 
     public function getTopicName(): ?string
     {
-        return $this->TopicName;
+        return $this->topicName;
     }
 
     /**
@@ -53,11 +53,11 @@ final class ListManagementOptions
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->ContactListName) {
+        if (null === $v = $this->contactListName) {
             throw new InvalidArgument(sprintf('Missing parameter "ContactListName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ContactListName'] = $v;
-        if (null !== $v = $this->TopicName) {
+        if (null !== $v = $this->topicName) {
             $payload['TopicName'] = $v;
         }
 

@@ -12,12 +12,12 @@ final class Gender
     /**
      * The predicted gender of the face.
      */
-    private $Value;
+    private $value;
 
     /**
      * Level of confidence in the prediction.
      */
-    private $Confidence;
+    private $confidence;
 
     /**
      * @param array{
@@ -27,8 +27,8 @@ final class Gender
      */
     public function __construct(array $input)
     {
-        $this->Value = $input['Value'] ?? null;
-        $this->Confidence = $input['Confidence'] ?? null;
+        $this->value = $input['Value'] ?? null;
+        $this->confidence = $input['Confidence'] ?? null;
     }
 
     public static function create($input): self
@@ -38,7 +38,7 @@ final class Gender
 
     public function getConfidence(): ?float
     {
-        return $this->Confidence;
+        return $this->confidence;
     }
 
     /**
@@ -46,6 +46,6 @@ final class Gender
      */
     public function getValue(): ?string
     {
-        return $this->Value;
+        return $this->value;
     }
 }

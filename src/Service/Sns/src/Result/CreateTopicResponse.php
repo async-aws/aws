@@ -13,13 +13,13 @@ class CreateTopicResponse extends Result
     /**
      * The Amazon Resource Name (ARN) assigned to the created topic.
      */
-    private $TopicArn;
+    private $topicArn;
 
     public function getTopicArn(): ?string
     {
         $this->initialize();
 
-        return $this->TopicArn;
+        return $this->topicArn;
     }
 
     protected function populateResult(Response $response): void
@@ -27,6 +27,6 @@ class CreateTopicResponse extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->CreateTopicResult;
 
-        $this->TopicArn = ($v = $data->TopicArn) ? (string) $v : null;
+        $this->topicArn = ($v = $data->TopicArn) ? (string) $v : null;
     }
 }

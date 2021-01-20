@@ -10,17 +10,17 @@ final class PutEventsResultEntry
     /**
      * The ID of the event.
      */
-    private $EventId;
+    private $eventId;
 
     /**
      * The error code that indicates why the event submission failed.
      */
-    private $ErrorCode;
+    private $errorCode;
 
     /**
      * The error message that explains why the event submission failed.
      */
-    private $ErrorMessage;
+    private $errorMessage;
 
     /**
      * @param array{
@@ -31,9 +31,9 @@ final class PutEventsResultEntry
      */
     public function __construct(array $input)
     {
-        $this->EventId = $input['EventId'] ?? null;
-        $this->ErrorCode = $input['ErrorCode'] ?? null;
-        $this->ErrorMessage = $input['ErrorMessage'] ?? null;
+        $this->eventId = $input['EventId'] ?? null;
+        $this->errorCode = $input['ErrorCode'] ?? null;
+        $this->errorMessage = $input['ErrorMessage'] ?? null;
     }
 
     public static function create($input): self
@@ -43,16 +43,16 @@ final class PutEventsResultEntry
 
     public function getErrorCode(): ?string
     {
-        return $this->ErrorCode;
+        return $this->errorCode;
     }
 
     public function getErrorMessage(): ?string
     {
-        return $this->ErrorMessage;
+        return $this->errorMessage;
     }
 
     public function getEventId(): ?string
     {
-        return $this->EventId;
+        return $this->eventId;
     }
 }

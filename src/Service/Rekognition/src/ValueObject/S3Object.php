@@ -10,17 +10,17 @@ final class S3Object
     /**
      * Name of the S3 bucket.
      */
-    private $Bucket;
+    private $bucket;
 
     /**
      * S3 object key name.
      */
-    private $Name;
+    private $name;
 
     /**
      * If the bucket is versioning enabled, you can specify the object version.
      */
-    private $Version;
+    private $version;
 
     /**
      * @param array{
@@ -31,9 +31,9 @@ final class S3Object
      */
     public function __construct(array $input)
     {
-        $this->Bucket = $input['Bucket'] ?? null;
-        $this->Name = $input['Name'] ?? null;
-        $this->Version = $input['Version'] ?? null;
+        $this->bucket = $input['Bucket'] ?? null;
+        $this->name = $input['Name'] ?? null;
+        $this->version = $input['Version'] ?? null;
     }
 
     public static function create($input): self
@@ -43,17 +43,17 @@ final class S3Object
 
     public function getBucket(): ?string
     {
-        return $this->Bucket;
+        return $this->bucket;
     }
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
     public function getVersion(): ?string
     {
-        return $this->Version;
+        return $this->version;
     }
 
     /**
@@ -62,13 +62,13 @@ final class S3Object
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->Bucket) {
+        if (null !== $v = $this->bucket) {
             $payload['Bucket'] = $v;
         }
-        if (null !== $v = $this->Name) {
+        if (null !== $v = $this->name) {
             $payload['Name'] = $v;
         }
-        if (null !== $v = $this->Version) {
+        if (null !== $v = $this->version) {
             $payload['Version'] = $v;
         }
 

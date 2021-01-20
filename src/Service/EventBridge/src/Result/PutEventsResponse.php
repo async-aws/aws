@@ -11,13 +11,13 @@ class PutEventsResponse extends Result
     /**
      * The number of failed entries.
      */
-    private $FailedEntryCount;
+    private $failedEntryCount;
 
     /**
      * The successfully and unsuccessfully ingested events results. If the ingestion was successful, the entry has the event
      * ID in it. Otherwise, you can use the error code and error message to identify the problem with the entry.
      */
-    private $Entries = [];
+    private $entries = [];
 
     /**
      * @return PutEventsResultEntry[]
@@ -26,22 +26,22 @@ class PutEventsResponse extends Result
     {
         $this->initialize();
 
-        return $this->Entries;
+        return $this->entries;
     }
 
     public function getFailedEntryCount(): ?int
     {
         $this->initialize();
 
-        return $this->FailedEntryCount;
+        return $this->failedEntryCount;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->FailedEntryCount = isset($data['FailedEntryCount']) ? (int) $data['FailedEntryCount'] : null;
-        $this->Entries = empty($data['Entries']) ? [] : $this->populateResultPutEventsResultEntryList($data['Entries']);
+        $this->failedEntryCount = isset($data['FailedEntryCount']) ? (int) $data['FailedEntryCount'] : null;
+        $this->entries = empty($data['Entries']) ? [] : $this->populateResultPutEventsResultEntryList($data['Entries']);
     }
 
     /**

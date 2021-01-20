@@ -13,12 +13,12 @@ final class MessageTag
     /**
      * The name of the message tag. The message tag name has to meet the following criteria:.
      */
-    private $Name;
+    private $name;
 
     /**
      * The value of the message tag. The message tag value has to meet the following criteria:.
      */
-    private $Value;
+    private $value;
 
     /**
      * @param array{
@@ -28,8 +28,8 @@ final class MessageTag
      */
     public function __construct(array $input)
     {
-        $this->Name = $input['Name'] ?? null;
-        $this->Value = $input['Value'] ?? null;
+        $this->name = $input['Name'] ?? null;
+        $this->value = $input['Value'] ?? null;
     }
 
     public static function create($input): self
@@ -39,12 +39,12 @@ final class MessageTag
 
     public function getName(): string
     {
-        return $this->Name;
+        return $this->name;
     }
 
     public function getValue(): string
     {
-        return $this->Value;
+        return $this->value;
     }
 
     /**
@@ -53,11 +53,11 @@ final class MessageTag
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->Name) {
+        if (null === $v = $this->name) {
             throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Name'] = $v;
-        if (null === $v = $this->Value) {
+        if (null === $v = $this->value) {
             throw new InvalidArgument(sprintf('Missing parameter "Value" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Value'] = $v;

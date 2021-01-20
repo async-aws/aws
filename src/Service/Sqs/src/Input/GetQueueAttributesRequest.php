@@ -17,14 +17,14 @@ final class GetQueueAttributesRequest extends Input
      *
      * @var string|null
      */
-    private $QueueUrl;
+    private $queueUrl;
 
     /**
      * A list of attributes for which to retrieve information.
      *
      * @var null|list<QueueAttributeName::*>
      */
-    private $AttributeNames;
+    private $attributeNames;
 
     /**
      * @param array{
@@ -35,8 +35,8 @@ final class GetQueueAttributesRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->QueueUrl = $input['QueueUrl'] ?? null;
-        $this->AttributeNames = $input['AttributeNames'] ?? null;
+        $this->queueUrl = $input['QueueUrl'] ?? null;
+        $this->attributeNames = $input['AttributeNames'] ?? null;
         parent::__construct($input);
     }
 
@@ -50,12 +50,12 @@ final class GetQueueAttributesRequest extends Input
      */
     public function getAttributeNames(): array
     {
-        return $this->AttributeNames ?? [];
+        return $this->attributeNames ?? [];
     }
 
     public function getQueueUrl(): ?string
     {
-        return $this->QueueUrl;
+        return $this->queueUrl;
     }
 
     /**
@@ -84,14 +84,14 @@ final class GetQueueAttributesRequest extends Input
      */
     public function setAttributeNames(array $value): self
     {
-        $this->AttributeNames = $value;
+        $this->attributeNames = $value;
 
         return $this;
     }
 
     public function setQueueUrl(?string $value): self
     {
-        $this->QueueUrl = $value;
+        $this->queueUrl = $value;
 
         return $this;
     }
@@ -99,11 +99,11 @@ final class GetQueueAttributesRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->QueueUrl) {
+        if (null === $v = $this->queueUrl) {
             throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueueUrl'] = $v;
-        if (null !== $v = $this->AttributeNames) {
+        if (null !== $v = $this->attributeNames) {
             $index = 0;
             foreach ($v as $mapValue) {
                 ++$index;

@@ -12,34 +12,34 @@ final class PutEventsRequestEntry
      *
      * @see https://www.rfc-editor.org/rfc/rfc3339.txt
      */
-    private $Time;
+    private $time;
 
     /**
      * The source of the event.
      */
-    private $Source;
+    private $source;
 
     /**
      * AWS resources, identified by Amazon Resource Name (ARN), which the event primarily concerns. Any number, including
      * zero, may be present.
      */
-    private $Resources;
+    private $resources;
 
     /**
      * Free-form string used to decide what fields to expect in the event detail.
      */
-    private $DetailType;
+    private $detailType;
 
     /**
      * A valid JSON string. There is no other schema imposed. The JSON string may contain fields and nested subobjects.
      */
-    private $Detail;
+    private $detail;
 
     /**
      * The name or ARN of the event bus to receive the event. Only the rules that are associated with this event bus are
      * used to match the event. If you omit this, the default event bus is used.
      */
-    private $EventBusName;
+    private $eventBusName;
 
     /**
      * @param array{
@@ -53,12 +53,12 @@ final class PutEventsRequestEntry
      */
     public function __construct(array $input)
     {
-        $this->Time = $input['Time'] ?? null;
-        $this->Source = $input['Source'] ?? null;
-        $this->Resources = $input['Resources'] ?? null;
-        $this->DetailType = $input['DetailType'] ?? null;
-        $this->Detail = $input['Detail'] ?? null;
-        $this->EventBusName = $input['EventBusName'] ?? null;
+        $this->time = $input['Time'] ?? null;
+        $this->source = $input['Source'] ?? null;
+        $this->resources = $input['Resources'] ?? null;
+        $this->detailType = $input['DetailType'] ?? null;
+        $this->detail = $input['Detail'] ?? null;
+        $this->eventBusName = $input['EventBusName'] ?? null;
     }
 
     public static function create($input): self
@@ -68,17 +68,17 @@ final class PutEventsRequestEntry
 
     public function getDetail(): ?string
     {
-        return $this->Detail;
+        return $this->detail;
     }
 
     public function getDetailType(): ?string
     {
-        return $this->DetailType;
+        return $this->detailType;
     }
 
     public function getEventBusName(): ?string
     {
-        return $this->EventBusName;
+        return $this->eventBusName;
     }
 
     /**
@@ -86,17 +86,17 @@ final class PutEventsRequestEntry
      */
     public function getResources(): array
     {
-        return $this->Resources ?? [];
+        return $this->resources ?? [];
     }
 
     public function getSource(): ?string
     {
-        return $this->Source;
+        return $this->source;
     }
 
     public function getTime(): ?\DateTimeImmutable
     {
-        return $this->Time;
+        return $this->time;
     }
 
     /**
@@ -105,13 +105,13 @@ final class PutEventsRequestEntry
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->Time) {
+        if (null !== $v = $this->time) {
             $payload['Time'] = $v->format(\DateTimeInterface::ATOM);
         }
-        if (null !== $v = $this->Source) {
+        if (null !== $v = $this->source) {
             $payload['Source'] = $v;
         }
-        if (null !== $v = $this->Resources) {
+        if (null !== $v = $this->resources) {
             $index = -1;
             $payload['Resources'] = [];
             foreach ($v as $listValue) {
@@ -119,13 +119,13 @@ final class PutEventsRequestEntry
                 $payload['Resources'][$index] = $listValue;
             }
         }
-        if (null !== $v = $this->DetailType) {
+        if (null !== $v = $this->detailType) {
             $payload['DetailType'] = $v;
         }
-        if (null !== $v = $this->Detail) {
+        if (null !== $v = $this->detail) {
             $payload['Detail'] = $v;
         }
-        if (null !== $v = $this->EventBusName) {
+        if (null !== $v = $this->eventBusName) {
             $payload['EventBusName'] = $v;
         }
 

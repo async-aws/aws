@@ -16,7 +16,7 @@ final class DeleteParameterRequest extends Input
      *
      * @var string|null
      */
-    private $Name;
+    private $name;
 
     /**
      * @param array{
@@ -26,7 +26,7 @@ final class DeleteParameterRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->Name = $input['Name'] ?? null;
+        $this->name = $input['Name'] ?? null;
         parent::__construct($input);
     }
 
@@ -37,7 +37,7 @@ final class DeleteParameterRequest extends Input
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
     /**
@@ -67,7 +67,7 @@ final class DeleteParameterRequest extends Input
 
     public function setName(?string $value): self
     {
-        $this->Name = $value;
+        $this->name = $value;
 
         return $this;
     }
@@ -75,7 +75,7 @@ final class DeleteParameterRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->Name) {
+        if (null === $v = $this->name) {
             throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Name'] = $v;

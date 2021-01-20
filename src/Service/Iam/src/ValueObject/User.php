@@ -12,12 +12,12 @@ final class User
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html
      */
-    private $Path;
+    private $path;
 
     /**
      * The friendly name identifying the user.
      */
-    private $UserName;
+    private $userName;
 
     /**
      * The stable and unique string identifying the user. For more information about IDs, see IAM Identifiers in the *IAM
@@ -25,7 +25,7 @@ final class User
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html
      */
-    private $UserId;
+    private $userId;
 
     /**
      * The Amazon Resource Name (ARN) that identifies the user. For more information about ARNs and how to use ARNs in
@@ -33,14 +33,14 @@ final class User
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html
      */
-    private $Arn;
+    private $arn;
 
     /**
      * The date and time, in ISO 8601 date-time format, when the user was created.
      *
      * @see http://www.iso.org/iso/iso8601
      */
-    private $CreateDate;
+    private $createDate;
 
     /**
      * The date and time, in ISO 8601 date-time format, when the user's password was last used to sign in to an AWS website.
@@ -51,12 +51,12 @@ final class User
      * @see http://www.iso.org/iso/iso8601
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html
      */
-    private $PasswordLastUsed;
+    private $passwordLastUsed;
 
     /**
      * The ARN of the policy used to set the permissions boundary for the user.
      */
-    private $PermissionsBoundary;
+    private $permissionsBoundary;
 
     /**
      * A list of tags that are associated with the specified user. For more information about tagging, see Tagging IAM
@@ -64,7 +64,7 @@ final class User
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html
      */
-    private $Tags;
+    private $tags;
 
     /**
      * @param array{
@@ -80,14 +80,14 @@ final class User
      */
     public function __construct(array $input)
     {
-        $this->Path = $input['Path'] ?? null;
-        $this->UserName = $input['UserName'] ?? null;
-        $this->UserId = $input['UserId'] ?? null;
-        $this->Arn = $input['Arn'] ?? null;
-        $this->CreateDate = $input['CreateDate'] ?? null;
-        $this->PasswordLastUsed = $input['PasswordLastUsed'] ?? null;
-        $this->PermissionsBoundary = isset($input['PermissionsBoundary']) ? AttachedPermissionsBoundary::create($input['PermissionsBoundary']) : null;
-        $this->Tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
+        $this->path = $input['Path'] ?? null;
+        $this->userName = $input['UserName'] ?? null;
+        $this->userId = $input['UserId'] ?? null;
+        $this->arn = $input['Arn'] ?? null;
+        $this->createDate = $input['CreateDate'] ?? null;
+        $this->passwordLastUsed = $input['PasswordLastUsed'] ?? null;
+        $this->permissionsBoundary = isset($input['PermissionsBoundary']) ? AttachedPermissionsBoundary::create($input['PermissionsBoundary']) : null;
+        $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
     }
 
     public static function create($input): self
@@ -97,27 +97,27 @@ final class User
 
     public function getArn(): string
     {
-        return $this->Arn;
+        return $this->arn;
     }
 
     public function getCreateDate(): \DateTimeImmutable
     {
-        return $this->CreateDate;
+        return $this->createDate;
     }
 
     public function getPasswordLastUsed(): ?\DateTimeImmutable
     {
-        return $this->PasswordLastUsed;
+        return $this->passwordLastUsed;
     }
 
     public function getPath(): string
     {
-        return $this->Path;
+        return $this->path;
     }
 
     public function getPermissionsBoundary(): ?AttachedPermissionsBoundary
     {
-        return $this->PermissionsBoundary;
+        return $this->permissionsBoundary;
     }
 
     /**
@@ -125,16 +125,16 @@ final class User
      */
     public function getTags(): array
     {
-        return $this->Tags ?? [];
+        return $this->tags ?? [];
     }
 
     public function getUserId(): string
     {
-        return $this->UserId;
+        return $this->userId;
     }
 
     public function getUserName(): string
     {
-        return $this->UserName;
+        return $this->userName;
     }
 }

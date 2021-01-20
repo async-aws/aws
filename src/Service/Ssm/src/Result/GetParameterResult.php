@@ -11,20 +11,20 @@ class GetParameterResult extends Result
     /**
      * Information about a parameter.
      */
-    private $Parameter;
+    private $parameter;
 
     public function getParameter(): ?Parameter
     {
         $this->initialize();
 
-        return $this->Parameter;
+        return $this->parameter;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->Parameter = empty($data['Parameter']) ? null : new Parameter([
+        $this->parameter = empty($data['Parameter']) ? null : new Parameter([
             'Name' => isset($data['Parameter']['Name']) ? (string) $data['Parameter']['Name'] : null,
             'Type' => isset($data['Parameter']['Type']) ? (string) $data['Parameter']['Type'] : null,
             'Value' => isset($data['Parameter']['Value']) ? (string) $data['Parameter']['Value'] : null,

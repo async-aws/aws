@@ -11,13 +11,13 @@ final class ImageQuality
      * Value representing brightness of the face. The service returns a value between 0 and 100 (inclusive). A higher value
      * indicates a brighter face image.
      */
-    private $Brightness;
+    private $brightness;
 
     /**
      * Value representing sharpness of the face. The service returns a value between 0 and 100 (inclusive). A higher value
      * indicates a sharper face image.
      */
-    private $Sharpness;
+    private $sharpness;
 
     /**
      * @param array{
@@ -27,8 +27,8 @@ final class ImageQuality
      */
     public function __construct(array $input)
     {
-        $this->Brightness = $input['Brightness'] ?? null;
-        $this->Sharpness = $input['Sharpness'] ?? null;
+        $this->brightness = $input['Brightness'] ?? null;
+        $this->sharpness = $input['Sharpness'] ?? null;
     }
 
     public static function create($input): self
@@ -38,11 +38,11 @@ final class ImageQuality
 
     public function getBrightness(): ?float
     {
-        return $this->Brightness;
+        return $this->brightness;
     }
 
     public function getSharpness(): ?float
     {
-        return $this->Sharpness;
+        return $this->sharpness;
     }
 }

@@ -21,12 +21,12 @@ final class Condition
      * One or more values to evaluate against the supplied attribute. The number of values in the list depends on the
      * `ComparisonOperator` being used.
      */
-    private $AttributeValueList;
+    private $attributeValueList;
 
     /**
      * A comparator for evaluating attributes. For example, equals, greater than, less than, etc.
      */
-    private $ComparisonOperator;
+    private $comparisonOperator;
 
     /**
      * @param array{
@@ -36,8 +36,8 @@ final class Condition
      */
     public function __construct(array $input)
     {
-        $this->AttributeValueList = isset($input['AttributeValueList']) ? array_map([AttributeValue::class, 'create'], $input['AttributeValueList']) : null;
-        $this->ComparisonOperator = $input['ComparisonOperator'] ?? null;
+        $this->attributeValueList = isset($input['AttributeValueList']) ? array_map([AttributeValue::class, 'create'], $input['AttributeValueList']) : null;
+        $this->comparisonOperator = $input['ComparisonOperator'] ?? null;
     }
 
     public static function create($input): self
@@ -50,7 +50,7 @@ final class Condition
      */
     public function getAttributeValueList(): array
     {
-        return $this->AttributeValueList ?? [];
+        return $this->attributeValueList ?? [];
     }
 
     /**
@@ -58,7 +58,7 @@ final class Condition
      */
     public function getComparisonOperator(): string
     {
-        return $this->ComparisonOperator;
+        return $this->comparisonOperator;
     }
 
     /**
@@ -67,7 +67,7 @@ final class Condition
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->AttributeValueList) {
+        if (null !== $v = $this->attributeValueList) {
             $index = -1;
             $payload['AttributeValueList'] = [];
             foreach ($v as $listValue) {
@@ -75,7 +75,7 @@ final class Condition
                 $payload['AttributeValueList'][$index] = $listValue->requestBody();
             }
         }
-        if (null === $v = $this->ComparisonOperator) {
+        if (null === $v = $this->comparisonOperator) {
             throw new InvalidArgument(sprintf('Missing parameter "ComparisonOperator" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!ComparisonOperator::exists($v)) {

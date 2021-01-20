@@ -11,12 +11,12 @@ final class SMSMfaSettingsType
      * Specifies whether SMS text message MFA is enabled. If an MFA type is enabled for a user, the user will be prompted
      * for MFA during all sign in attempts, unless device tracking is turned on and the device has been trusted.
      */
-    private $Enabled;
+    private $enabled;
 
     /**
      * Specifies whether SMS is the preferred MFA method.
      */
-    private $PreferredMfa;
+    private $preferredMfa;
 
     /**
      * @param array{
@@ -26,8 +26,8 @@ final class SMSMfaSettingsType
      */
     public function __construct(array $input)
     {
-        $this->Enabled = $input['Enabled'] ?? null;
-        $this->PreferredMfa = $input['PreferredMfa'] ?? null;
+        $this->enabled = $input['Enabled'] ?? null;
+        $this->preferredMfa = $input['PreferredMfa'] ?? null;
     }
 
     public static function create($input): self
@@ -37,12 +37,12 @@ final class SMSMfaSettingsType
 
     public function getEnabled(): ?bool
     {
-        return $this->Enabled;
+        return $this->enabled;
     }
 
     public function getPreferredMfa(): ?bool
     {
-        return $this->PreferredMfa;
+        return $this->preferredMfa;
     }
 
     /**
@@ -51,10 +51,10 @@ final class SMSMfaSettingsType
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->Enabled) {
+        if (null !== $v = $this->enabled) {
             $payload['Enabled'] = (bool) $v;
         }
-        if (null !== $v = $this->PreferredMfa) {
+        if (null !== $v = $this->preferredMfa) {
             $payload['PreferredMfa'] = (bool) $v;
         }
 

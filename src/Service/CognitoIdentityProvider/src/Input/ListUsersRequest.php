@@ -19,7 +19,7 @@ final class ListUsersRequest extends Input
      *
      * @var string|null
      */
-    private $UserPoolId;
+    private $userPoolId;
 
     /**
      * An array of strings, where each string is the name of a user attribute to be returned for each user in the search
@@ -27,14 +27,14 @@ final class ListUsersRequest extends Input
      *
      * @var string[]|null
      */
-    private $AttributesToGet;
+    private $attributesToGet;
 
     /**
      * Maximum number of users to be returned.
      *
      * @var int|null
      */
-    private $Limit;
+    private $limit;
 
     /**
      * An identifier that was returned from the previous call to this operation, which can be used to return the next set of
@@ -42,7 +42,7 @@ final class ListUsersRequest extends Input
      *
      * @var string|null
      */
-    private $PaginationToken;
+    private $paginationToken;
 
     /**
      * A filter string of the form "*AttributeName**Filter-Type* "*AttributeValue*"". Quotation marks within the filter
@@ -50,7 +50,7 @@ final class ListUsersRequest extends Input
      *
      * @var string|null
      */
-    private $Filter;
+    private $filter;
 
     /**
      * @param array{
@@ -64,11 +64,11 @@ final class ListUsersRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->UserPoolId = $input['UserPoolId'] ?? null;
-        $this->AttributesToGet = $input['AttributesToGet'] ?? null;
-        $this->Limit = $input['Limit'] ?? null;
-        $this->PaginationToken = $input['PaginationToken'] ?? null;
-        $this->Filter = $input['Filter'] ?? null;
+        $this->userPoolId = $input['UserPoolId'] ?? null;
+        $this->attributesToGet = $input['AttributesToGet'] ?? null;
+        $this->limit = $input['Limit'] ?? null;
+        $this->paginationToken = $input['PaginationToken'] ?? null;
+        $this->filter = $input['Filter'] ?? null;
         parent::__construct($input);
     }
 
@@ -82,27 +82,27 @@ final class ListUsersRequest extends Input
      */
     public function getAttributesToGet(): array
     {
-        return $this->AttributesToGet ?? [];
+        return $this->attributesToGet ?? [];
     }
 
     public function getFilter(): ?string
     {
-        return $this->Filter;
+        return $this->filter;
     }
 
     public function getLimit(): ?int
     {
-        return $this->Limit;
+        return $this->limit;
     }
 
     public function getPaginationToken(): ?string
     {
-        return $this->PaginationToken;
+        return $this->paginationToken;
     }
 
     public function getUserPoolId(): ?string
     {
-        return $this->UserPoolId;
+        return $this->userPoolId;
     }
 
     /**
@@ -135,35 +135,35 @@ final class ListUsersRequest extends Input
      */
     public function setAttributesToGet(array $value): self
     {
-        $this->AttributesToGet = $value;
+        $this->attributesToGet = $value;
 
         return $this;
     }
 
     public function setFilter(?string $value): self
     {
-        $this->Filter = $value;
+        $this->filter = $value;
 
         return $this;
     }
 
     public function setLimit(?int $value): self
     {
-        $this->Limit = $value;
+        $this->limit = $value;
 
         return $this;
     }
 
     public function setPaginationToken(?string $value): self
     {
-        $this->PaginationToken = $value;
+        $this->paginationToken = $value;
 
         return $this;
     }
 
     public function setUserPoolId(?string $value): self
     {
-        $this->UserPoolId = $value;
+        $this->userPoolId = $value;
 
         return $this;
     }
@@ -171,11 +171,11 @@ final class ListUsersRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->UserPoolId) {
+        if (null === $v = $this->userPoolId) {
             throw new InvalidArgument(sprintf('Missing parameter "UserPoolId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserPoolId'] = $v;
-        if (null !== $v = $this->AttributesToGet) {
+        if (null !== $v = $this->attributesToGet) {
             $index = -1;
             $payload['AttributesToGet'] = [];
             foreach ($v as $listValue) {
@@ -183,13 +183,13 @@ final class ListUsersRequest extends Input
                 $payload['AttributesToGet'][$index] = $listValue;
             }
         }
-        if (null !== $v = $this->Limit) {
+        if (null !== $v = $this->limit) {
             $payload['Limit'] = $v;
         }
-        if (null !== $v = $this->PaginationToken) {
+        if (null !== $v = $this->paginationToken) {
             $payload['PaginationToken'] = $v;
         }
-        if (null !== $v = $this->Filter) {
+        if (null !== $v = $this->filter) {
             $payload['Filter'] = $v;
         }
 

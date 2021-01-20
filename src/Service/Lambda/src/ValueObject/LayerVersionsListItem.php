@@ -14,32 +14,32 @@ final class LayerVersionsListItem
     /**
      * The ARN of the layer version.
      */
-    private $LayerVersionArn;
+    private $layerVersionArn;
 
     /**
      * The version number.
      */
-    private $Version;
+    private $version;
 
     /**
      * The description of the version.
      */
-    private $Description;
+    private $description;
 
     /**
      * The date that the version was created, in ISO 8601 format. For example, `2018-11-27T15:10:45.123+0000`.
      */
-    private $CreatedDate;
+    private $createdDate;
 
     /**
      * The layer's compatible runtimes.
      */
-    private $CompatibleRuntimes;
+    private $compatibleRuntimes;
 
     /**
      * The layer's open-source license.
      */
-    private $LicenseInfo;
+    private $licenseInfo;
 
     /**
      * @param array{
@@ -53,12 +53,12 @@ final class LayerVersionsListItem
      */
     public function __construct(array $input)
     {
-        $this->LayerVersionArn = $input['LayerVersionArn'] ?? null;
-        $this->Version = $input['Version'] ?? null;
-        $this->Description = $input['Description'] ?? null;
-        $this->CreatedDate = $input['CreatedDate'] ?? null;
-        $this->CompatibleRuntimes = $input['CompatibleRuntimes'] ?? null;
-        $this->LicenseInfo = $input['LicenseInfo'] ?? null;
+        $this->layerVersionArn = $input['LayerVersionArn'] ?? null;
+        $this->version = $input['Version'] ?? null;
+        $this->description = $input['Description'] ?? null;
+        $this->createdDate = $input['CreatedDate'] ?? null;
+        $this->compatibleRuntimes = $input['CompatibleRuntimes'] ?? null;
+        $this->licenseInfo = $input['LicenseInfo'] ?? null;
     }
 
     public static function create($input): self
@@ -71,31 +71,31 @@ final class LayerVersionsListItem
      */
     public function getCompatibleRuntimes(): array
     {
-        return $this->CompatibleRuntimes ?? [];
+        return $this->compatibleRuntimes ?? [];
     }
 
     public function getCreatedDate(): ?string
     {
-        return $this->CreatedDate;
+        return $this->createdDate;
     }
 
     public function getDescription(): ?string
     {
-        return $this->Description;
+        return $this->description;
     }
 
     public function getLayerVersionArn(): ?string
     {
-        return $this->LayerVersionArn;
+        return $this->layerVersionArn;
     }
 
     public function getLicenseInfo(): ?string
     {
-        return $this->LicenseInfo;
+        return $this->licenseInfo;
     }
 
     public function getVersion(): ?string
     {
-        return $this->Version;
+        return $this->version;
     }
 }

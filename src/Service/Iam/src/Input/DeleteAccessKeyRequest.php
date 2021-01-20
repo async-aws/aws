@@ -14,7 +14,7 @@ final class DeleteAccessKeyRequest extends Input
      *
      * @var string|null
      */
-    private $UserName;
+    private $userName;
 
     /**
      * The access key ID for the access key ID and secret access key you want to delete.
@@ -23,7 +23,7 @@ final class DeleteAccessKeyRequest extends Input
      *
      * @var string|null
      */
-    private $AccessKeyId;
+    private $accessKeyId;
 
     /**
      * @param array{
@@ -34,8 +34,8 @@ final class DeleteAccessKeyRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->UserName = $input['UserName'] ?? null;
-        $this->AccessKeyId = $input['AccessKeyId'] ?? null;
+        $this->userName = $input['UserName'] ?? null;
+        $this->accessKeyId = $input['AccessKeyId'] ?? null;
         parent::__construct($input);
     }
 
@@ -46,12 +46,12 @@ final class DeleteAccessKeyRequest extends Input
 
     public function getAccessKeyId(): ?string
     {
-        return $this->AccessKeyId;
+        return $this->accessKeyId;
     }
 
     public function getUserName(): ?string
     {
-        return $this->UserName;
+        return $this->userName;
     }
 
     /**
@@ -77,14 +77,14 @@ final class DeleteAccessKeyRequest extends Input
 
     public function setAccessKeyId(?string $value): self
     {
-        $this->AccessKeyId = $value;
+        $this->accessKeyId = $value;
 
         return $this;
     }
 
     public function setUserName(?string $value): self
     {
-        $this->UserName = $value;
+        $this->userName = $value;
 
         return $this;
     }
@@ -92,10 +92,10 @@ final class DeleteAccessKeyRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->UserName) {
+        if (null !== $v = $this->userName) {
             $payload['UserName'] = $v;
         }
-        if (null === $v = $this->AccessKeyId) {
+        if (null === $v = $this->accessKeyId) {
             throw new InvalidArgument(sprintf('Missing parameter "AccessKeyId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['AccessKeyId'] = $v;

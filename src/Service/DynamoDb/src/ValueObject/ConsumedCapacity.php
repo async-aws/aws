@@ -14,37 +14,37 @@ final class ConsumedCapacity
     /**
      * The name of the table that was affected by the operation.
      */
-    private $TableName;
+    private $tableName;
 
     /**
      * The total number of capacity units consumed by the operation.
      */
-    private $CapacityUnits;
+    private $capacityUnits;
 
     /**
      * The total number of read capacity units consumed by the operation.
      */
-    private $ReadCapacityUnits;
+    private $readCapacityUnits;
 
     /**
      * The total number of write capacity units consumed by the operation.
      */
-    private $WriteCapacityUnits;
+    private $writeCapacityUnits;
 
     /**
      * The amount of throughput consumed on the table affected by the operation.
      */
-    private $Table;
+    private $table;
 
     /**
      * The amount of throughput consumed on each local index affected by the operation.
      */
-    private $LocalSecondaryIndexes;
+    private $localSecondaryIndexes;
 
     /**
      * The amount of throughput consumed on each global index affected by the operation.
      */
-    private $GlobalSecondaryIndexes;
+    private $globalSecondaryIndexes;
 
     /**
      * @param array{
@@ -59,13 +59,13 @@ final class ConsumedCapacity
      */
     public function __construct(array $input)
     {
-        $this->TableName = $input['TableName'] ?? null;
-        $this->CapacityUnits = $input['CapacityUnits'] ?? null;
-        $this->ReadCapacityUnits = $input['ReadCapacityUnits'] ?? null;
-        $this->WriteCapacityUnits = $input['WriteCapacityUnits'] ?? null;
-        $this->Table = isset($input['Table']) ? Capacity::create($input['Table']) : null;
-        $this->LocalSecondaryIndexes = isset($input['LocalSecondaryIndexes']) ? array_map([Capacity::class, 'create'], $input['LocalSecondaryIndexes']) : null;
-        $this->GlobalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([Capacity::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
+        $this->tableName = $input['TableName'] ?? null;
+        $this->capacityUnits = $input['CapacityUnits'] ?? null;
+        $this->readCapacityUnits = $input['ReadCapacityUnits'] ?? null;
+        $this->writeCapacityUnits = $input['WriteCapacityUnits'] ?? null;
+        $this->table = isset($input['Table']) ? Capacity::create($input['Table']) : null;
+        $this->localSecondaryIndexes = isset($input['LocalSecondaryIndexes']) ? array_map([Capacity::class, 'create'], $input['LocalSecondaryIndexes']) : null;
+        $this->globalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([Capacity::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
     }
 
     public static function create($input): self
@@ -75,7 +75,7 @@ final class ConsumedCapacity
 
     public function getCapacityUnits(): ?float
     {
-        return $this->CapacityUnits;
+        return $this->capacityUnits;
     }
 
     /**
@@ -83,7 +83,7 @@ final class ConsumedCapacity
      */
     public function getGlobalSecondaryIndexes(): array
     {
-        return $this->GlobalSecondaryIndexes ?? [];
+        return $this->globalSecondaryIndexes ?? [];
     }
 
     /**
@@ -91,26 +91,26 @@ final class ConsumedCapacity
      */
     public function getLocalSecondaryIndexes(): array
     {
-        return $this->LocalSecondaryIndexes ?? [];
+        return $this->localSecondaryIndexes ?? [];
     }
 
     public function getReadCapacityUnits(): ?float
     {
-        return $this->ReadCapacityUnits;
+        return $this->readCapacityUnits;
     }
 
     public function getTable(): ?Capacity
     {
-        return $this->Table;
+        return $this->table;
     }
 
     public function getTableName(): ?string
     {
-        return $this->TableName;
+        return $this->tableName;
     }
 
     public function getWriteCapacityUnits(): ?float
     {
-        return $this->WriteCapacityUnits;
+        return $this->writeCapacityUnits;
     }
 }

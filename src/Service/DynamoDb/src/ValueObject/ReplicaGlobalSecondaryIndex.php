@@ -12,13 +12,13 @@ final class ReplicaGlobalSecondaryIndex
     /**
      * The name of the global secondary index.
      */
-    private $IndexName;
+    private $indexName;
 
     /**
      * Replica table GSI-specific provisioned throughput. If not specified, uses the source table GSI's read capacity
      * settings.
      */
-    private $ProvisionedThroughputOverride;
+    private $provisionedThroughputOverride;
 
     /**
      * @param array{
@@ -28,8 +28,8 @@ final class ReplicaGlobalSecondaryIndex
      */
     public function __construct(array $input)
     {
-        $this->IndexName = $input['IndexName'] ?? null;
-        $this->ProvisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
+        $this->indexName = $input['IndexName'] ?? null;
+        $this->provisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
     }
 
     public static function create($input): self
@@ -39,12 +39,12 @@ final class ReplicaGlobalSecondaryIndex
 
     public function getIndexName(): string
     {
-        return $this->IndexName;
+        return $this->indexName;
     }
 
     public function getProvisionedThroughputOverride(): ?ProvisionedThroughputOverride
     {
-        return $this->ProvisionedThroughputOverride;
+        return $this->provisionedThroughputOverride;
     }
 
     /**
@@ -53,11 +53,11 @@ final class ReplicaGlobalSecondaryIndex
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->IndexName) {
+        if (null === $v = $this->indexName) {
             throw new InvalidArgument(sprintf('Missing parameter "IndexName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['IndexName'] = $v;
-        if (null !== $v = $this->ProvisionedThroughputOverride) {
+        if (null !== $v = $this->provisionedThroughputOverride) {
             $payload['ProvisionedThroughputOverride'] = $v->requestBody();
         }
 

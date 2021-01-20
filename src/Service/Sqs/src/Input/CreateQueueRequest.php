@@ -17,14 +17,14 @@ final class CreateQueueRequest extends Input
      *
      * @var string|null
      */
-    private $QueueName;
+    private $queueName;
 
     /**
      * A map of attributes with their corresponding values.
      *
      * @var null|array<QueueAttributeName::*, string>
      */
-    private $Attributes;
+    private $attributes;
 
     /**
      * Add cost allocation tags to the specified Amazon SQS queue. For an overview, see Tagging Your Amazon SQS Queues in
@@ -46,8 +46,8 @@ final class CreateQueueRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->QueueName = $input['QueueName'] ?? null;
-        $this->Attributes = $input['Attributes'] ?? null;
+        $this->queueName = $input['QueueName'] ?? null;
+        $this->attributes = $input['Attributes'] ?? null;
         $this->tags = $input['tags'] ?? null;
         parent::__construct($input);
     }
@@ -62,12 +62,12 @@ final class CreateQueueRequest extends Input
      */
     public function getAttributes(): array
     {
-        return $this->Attributes ?? [];
+        return $this->attributes ?? [];
     }
 
     public function getQueueName(): ?string
     {
-        return $this->QueueName;
+        return $this->queueName;
     }
 
     /**
@@ -104,14 +104,14 @@ final class CreateQueueRequest extends Input
      */
     public function setAttributes(array $value): self
     {
-        $this->Attributes = $value;
+        $this->attributes = $value;
 
         return $this;
     }
 
     public function setQueueName(?string $value): self
     {
-        $this->QueueName = $value;
+        $this->queueName = $value;
 
         return $this;
     }
@@ -129,11 +129,11 @@ final class CreateQueueRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->QueueName) {
+        if (null === $v = $this->queueName) {
             throw new InvalidArgument(sprintf('Missing parameter "QueueName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueueName'] = $v;
-        if (null !== $v = $this->Attributes) {
+        if (null !== $v = $this->attributes) {
             $index = 0;
             foreach ($v as $mapKey => $mapValue) {
                 if (!QueueAttributeName::exists($mapKey)) {

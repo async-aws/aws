@@ -21,14 +21,14 @@ final class PutParameterRequest extends Input
      *
      * @var string|null
      */
-    private $Name;
+    private $name;
 
     /**
      * Information about the parameter that you want to add to the system. Optional but recommended.
      *
      * @var string|null
      */
-    private $Description;
+    private $description;
 
     /**
      * The parameter value that you want to add to the system. Standard parameters have a value limit of 4 KB. Advanced
@@ -38,14 +38,14 @@ final class PutParameterRequest extends Input
      *
      * @var string|null
      */
-    private $Value;
+    private $value;
 
     /**
      * The type of parameter that you want to add to the system.
      *
      * @var null|ParameterType::*
      */
-    private $Type;
+    private $type;
 
     /**
      * The KMS Key ID that you want to use to encrypt a parameter. Either the default AWS Key Management Service (AWS KMS)
@@ -54,14 +54,14 @@ final class PutParameterRequest extends Input
      *
      * @var string|null
      */
-    private $KeyId;
+    private $keyId;
 
     /**
      * Overwrite an existing parameter. If not specified, will default to "false".
      *
      * @var bool|null
      */
-    private $Overwrite;
+    private $overwrite;
 
     /**
      * A regular expression used to validate the parameter value. For example, for String types with values restricted to
@@ -69,7 +69,7 @@ final class PutParameterRequest extends Input
      *
      * @var string|null
      */
-    private $AllowedPattern;
+    private $allowedPattern;
 
     /**
      * Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such as
@@ -79,14 +79,14 @@ final class PutParameterRequest extends Input
      *
      * @var Tag[]|null
      */
-    private $Tags;
+    private $tags;
 
     /**
      * The parameter tier to assign to a parameter.
      *
      * @var null|ParameterTier::*
      */
-    private $Tier;
+    private $tier;
 
     /**
      * One or more policies to apply to a parameter. This action takes a JSON array. Parameter Store supports the following
@@ -94,14 +94,14 @@ final class PutParameterRequest extends Input
      *
      * @var string|null
      */
-    private $Policies;
+    private $policies;
 
     /**
      * The data type for a `String` parameter. Supported data types include plain text and Amazon Machine Image IDs.
      *
      * @var string|null
      */
-    private $DataType;
+    private $dataType;
 
     /**
      * @param array{
@@ -121,17 +121,17 @@ final class PutParameterRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->Name = $input['Name'] ?? null;
-        $this->Description = $input['Description'] ?? null;
-        $this->Value = $input['Value'] ?? null;
-        $this->Type = $input['Type'] ?? null;
-        $this->KeyId = $input['KeyId'] ?? null;
-        $this->Overwrite = $input['Overwrite'] ?? null;
-        $this->AllowedPattern = $input['AllowedPattern'] ?? null;
-        $this->Tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
-        $this->Tier = $input['Tier'] ?? null;
-        $this->Policies = $input['Policies'] ?? null;
-        $this->DataType = $input['DataType'] ?? null;
+        $this->name = $input['Name'] ?? null;
+        $this->description = $input['Description'] ?? null;
+        $this->value = $input['Value'] ?? null;
+        $this->type = $input['Type'] ?? null;
+        $this->keyId = $input['KeyId'] ?? null;
+        $this->overwrite = $input['Overwrite'] ?? null;
+        $this->allowedPattern = $input['AllowedPattern'] ?? null;
+        $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
+        $this->tier = $input['Tier'] ?? null;
+        $this->policies = $input['Policies'] ?? null;
+        $this->dataType = $input['DataType'] ?? null;
         parent::__construct($input);
     }
 
@@ -142,37 +142,37 @@ final class PutParameterRequest extends Input
 
     public function getAllowedPattern(): ?string
     {
-        return $this->AllowedPattern;
+        return $this->allowedPattern;
     }
 
     public function getDataType(): ?string
     {
-        return $this->DataType;
+        return $this->dataType;
     }
 
     public function getDescription(): ?string
     {
-        return $this->Description;
+        return $this->description;
     }
 
     public function getKeyId(): ?string
     {
-        return $this->KeyId;
+        return $this->keyId;
     }
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
     public function getOverwrite(): ?bool
     {
-        return $this->Overwrite;
+        return $this->overwrite;
     }
 
     public function getPolicies(): ?string
     {
-        return $this->Policies;
+        return $this->policies;
     }
 
     /**
@@ -180,7 +180,7 @@ final class PutParameterRequest extends Input
      */
     public function getTags(): array
     {
-        return $this->Tags ?? [];
+        return $this->tags ?? [];
     }
 
     /**
@@ -188,7 +188,7 @@ final class PutParameterRequest extends Input
      */
     public function getTier(): ?string
     {
-        return $this->Tier;
+        return $this->tier;
     }
 
     /**
@@ -196,12 +196,12 @@ final class PutParameterRequest extends Input
      */
     public function getType(): ?string
     {
-        return $this->Type;
+        return $this->type;
     }
 
     public function getValue(): ?string
     {
-        return $this->Value;
+        return $this->value;
     }
 
     /**
@@ -231,49 +231,49 @@ final class PutParameterRequest extends Input
 
     public function setAllowedPattern(?string $value): self
     {
-        $this->AllowedPattern = $value;
+        $this->allowedPattern = $value;
 
         return $this;
     }
 
     public function setDataType(?string $value): self
     {
-        $this->DataType = $value;
+        $this->dataType = $value;
 
         return $this;
     }
 
     public function setDescription(?string $value): self
     {
-        $this->Description = $value;
+        $this->description = $value;
 
         return $this;
     }
 
     public function setKeyId(?string $value): self
     {
-        $this->KeyId = $value;
+        $this->keyId = $value;
 
         return $this;
     }
 
     public function setName(?string $value): self
     {
-        $this->Name = $value;
+        $this->name = $value;
 
         return $this;
     }
 
     public function setOverwrite(?bool $value): self
     {
-        $this->Overwrite = $value;
+        $this->overwrite = $value;
 
         return $this;
     }
 
     public function setPolicies(?string $value): self
     {
-        $this->Policies = $value;
+        $this->policies = $value;
 
         return $this;
     }
@@ -283,7 +283,7 @@ final class PutParameterRequest extends Input
      */
     public function setTags(array $value): self
     {
-        $this->Tags = $value;
+        $this->tags = $value;
 
         return $this;
     }
@@ -293,7 +293,7 @@ final class PutParameterRequest extends Input
      */
     public function setTier(?string $value): self
     {
-        $this->Tier = $value;
+        $this->tier = $value;
 
         return $this;
     }
@@ -303,14 +303,14 @@ final class PutParameterRequest extends Input
      */
     public function setType(?string $value): self
     {
-        $this->Type = $value;
+        $this->type = $value;
 
         return $this;
     }
 
     public function setValue(?string $value): self
     {
-        $this->Value = $value;
+        $this->value = $value;
 
         return $this;
     }
@@ -318,33 +318,33 @@ final class PutParameterRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->Name) {
+        if (null === $v = $this->name) {
             throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Name'] = $v;
-        if (null !== $v = $this->Description) {
+        if (null !== $v = $this->description) {
             $payload['Description'] = $v;
         }
-        if (null === $v = $this->Value) {
+        if (null === $v = $this->value) {
             throw new InvalidArgument(sprintf('Missing parameter "Value" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Value'] = $v;
-        if (null !== $v = $this->Type) {
+        if (null !== $v = $this->type) {
             if (!ParameterType::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "Type" for "%s". The value "%s" is not a valid "ParameterType".', __CLASS__, $v));
             }
             $payload['Type'] = $v;
         }
-        if (null !== $v = $this->KeyId) {
+        if (null !== $v = $this->keyId) {
             $payload['KeyId'] = $v;
         }
-        if (null !== $v = $this->Overwrite) {
+        if (null !== $v = $this->overwrite) {
             $payload['Overwrite'] = (bool) $v;
         }
-        if (null !== $v = $this->AllowedPattern) {
+        if (null !== $v = $this->allowedPattern) {
             $payload['AllowedPattern'] = $v;
         }
-        if (null !== $v = $this->Tags) {
+        if (null !== $v = $this->tags) {
             $index = -1;
             $payload['Tags'] = [];
             foreach ($v as $listValue) {
@@ -352,16 +352,16 @@ final class PutParameterRequest extends Input
                 $payload['Tags'][$index] = $listValue->requestBody();
             }
         }
-        if (null !== $v = $this->Tier) {
+        if (null !== $v = $this->tier) {
             if (!ParameterTier::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "Tier" for "%s". The value "%s" is not a valid "ParameterTier".', __CLASS__, $v));
             }
             $payload['Tier'] = $v;
         }
-        if (null !== $v = $this->Policies) {
+        if (null !== $v = $this->policies) {
             $payload['Policies'] = $v;
         }
-        if (null !== $v = $this->DataType) {
+        if (null !== $v = $this->dataType) {
             $payload['DataType'] = $v;
         }
 

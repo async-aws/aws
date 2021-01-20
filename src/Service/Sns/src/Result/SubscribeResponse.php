@@ -15,13 +15,13 @@ class SubscribeResponse extends Result
      * confirmation. However, if the API request parameter `ReturnSubscriptionArn` is true, then the value is always the
      * subscription ARN, even if the subscription requires confirmation.
      */
-    private $SubscriptionArn;
+    private $subscriptionArn;
 
     public function getSubscriptionArn(): ?string
     {
         $this->initialize();
 
-        return $this->SubscriptionArn;
+        return $this->subscriptionArn;
     }
 
     protected function populateResult(Response $response): void
@@ -29,6 +29,6 @@ class SubscribeResponse extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->SubscribeResult;
 
-        $this->SubscriptionArn = ($v = $data->SubscriptionArn) ? (string) $v : null;
+        $this->subscriptionArn = ($v = $data->SubscriptionArn) ? (string) $v : null;
     }
 }

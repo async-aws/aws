@@ -17,14 +17,14 @@ final class PutBucketNotificationConfigurationRequest extends Input
      *
      * @var string|null
      */
-    private $Bucket;
+    private $bucket;
 
     /**
      * @required
      *
      * @var NotificationConfiguration|null
      */
-    private $NotificationConfiguration;
+    private $notificationConfiguration;
 
     /**
      * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
@@ -32,7 +32,7 @@ final class PutBucketNotificationConfigurationRequest extends Input
      *
      * @var string|null
      */
-    private $ExpectedBucketOwner;
+    private $expectedBucketOwner;
 
     /**
      * @param array{
@@ -44,9 +44,9 @@ final class PutBucketNotificationConfigurationRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->Bucket = $input['Bucket'] ?? null;
-        $this->NotificationConfiguration = isset($input['NotificationConfiguration']) ? NotificationConfiguration::create($input['NotificationConfiguration']) : null;
-        $this->ExpectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
+        $this->bucket = $input['Bucket'] ?? null;
+        $this->notificationConfiguration = isset($input['NotificationConfiguration']) ? NotificationConfiguration::create($input['NotificationConfiguration']) : null;
+        $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         parent::__construct($input);
     }
 
@@ -57,17 +57,17 @@ final class PutBucketNotificationConfigurationRequest extends Input
 
     public function getBucket(): ?string
     {
-        return $this->Bucket;
+        return $this->bucket;
     }
 
     public function getExpectedBucketOwner(): ?string
     {
-        return $this->ExpectedBucketOwner;
+        return $this->expectedBucketOwner;
     }
 
     public function getNotificationConfiguration(): ?NotificationConfiguration
     {
-        return $this->NotificationConfiguration;
+        return $this->notificationConfiguration;
     }
 
     /**
@@ -77,8 +77,8 @@ final class PutBucketNotificationConfigurationRequest extends Input
     {
         // Prepare headers
         $headers = ['content-type' => 'application/xml'];
-        if (null !== $this->ExpectedBucketOwner) {
-            $headers['x-amz-expected-bucket-owner'] = $this->ExpectedBucketOwner;
+        if (null !== $this->expectedBucketOwner) {
+            $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
         }
 
         // Prepare query
@@ -86,7 +86,7 @@ final class PutBucketNotificationConfigurationRequest extends Input
 
         // Prepare URI
         $uri = [];
-        if (null === $v = $this->Bucket) {
+        if (null === $v = $this->bucket) {
             throw new InvalidArgument(sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Bucket'] = $v;
@@ -105,28 +105,28 @@ final class PutBucketNotificationConfigurationRequest extends Input
 
     public function setBucket(?string $value): self
     {
-        $this->Bucket = $value;
+        $this->bucket = $value;
 
         return $this;
     }
 
     public function setExpectedBucketOwner(?string $value): self
     {
-        $this->ExpectedBucketOwner = $value;
+        $this->expectedBucketOwner = $value;
 
         return $this;
     }
 
     public function setNotificationConfiguration(?NotificationConfiguration $value): self
     {
-        $this->NotificationConfiguration = $value;
+        $this->notificationConfiguration = $value;
 
         return $this;
     }
 
     private function requestBody(\DomNode $node, \DomDocument $document): void
     {
-        if (null === $v = $this->NotificationConfiguration) {
+        if (null === $v = $this->notificationConfiguration) {
             throw new InvalidArgument(sprintf('Missing parameter "NotificationConfiguration" for "%s". The value cannot be null.', __CLASS__));
         }
 

@@ -24,7 +24,7 @@ final class RawMessage
     /**
      * The raw email message. The message has to meet the following criteria:.
      */
-    private $Data;
+    private $data;
 
     /**
      * @param array{
@@ -33,7 +33,7 @@ final class RawMessage
      */
     public function __construct(array $input)
     {
-        $this->Data = $input['Data'] ?? null;
+        $this->data = $input['Data'] ?? null;
     }
 
     public static function create($input): self
@@ -43,7 +43,7 @@ final class RawMessage
 
     public function getData(): string
     {
-        return $this->Data;
+        return $this->data;
     }
 
     /**
@@ -52,7 +52,7 @@ final class RawMessage
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->Data) {
+        if (null === $v = $this->data) {
             throw new InvalidArgument(sprintf('Missing parameter "Data" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Data'] = base64_encode($v);

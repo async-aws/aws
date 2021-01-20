@@ -13,19 +13,19 @@ class SendEmailResponse extends Result
     /**
      * A unique identifier for the message that is generated when the message is accepted.
      */
-    private $MessageId;
+    private $messageId;
 
     public function getMessageId(): ?string
     {
         $this->initialize();
 
-        return $this->MessageId;
+        return $this->messageId;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->MessageId = isset($data['MessageId']) ? (string) $data['MessageId'] : null;
+        $this->messageId = isset($data['MessageId']) ? (string) $data['MessageId'] : null;
     }
 }

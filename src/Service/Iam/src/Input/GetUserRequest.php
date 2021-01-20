@@ -13,7 +13,7 @@ final class GetUserRequest extends Input
      *
      * @var string|null
      */
-    private $UserName;
+    private $userName;
 
     /**
      * @param array{
@@ -23,7 +23,7 @@ final class GetUserRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->UserName = $input['UserName'] ?? null;
+        $this->userName = $input['UserName'] ?? null;
         parent::__construct($input);
     }
 
@@ -34,7 +34,7 @@ final class GetUserRequest extends Input
 
     public function getUserName(): ?string
     {
-        return $this->UserName;
+        return $this->userName;
     }
 
     /**
@@ -60,7 +60,7 @@ final class GetUserRequest extends Input
 
     public function setUserName(?string $value): self
     {
-        $this->UserName = $value;
+        $this->userName = $value;
 
         return $this;
     }
@@ -68,7 +68,7 @@ final class GetUserRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->UserName) {
+        if (null !== $v = $this->userName) {
             $payload['UserName'] = $v;
         }
 

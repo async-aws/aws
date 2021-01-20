@@ -21,7 +21,7 @@ final class ItemCollectionMetrics
     /**
      * The partition key value of the item collection. This value is the same as the partition key value of the item.
      */
-    private $ItemCollectionKey;
+    private $itemCollectionKey;
 
     /**
      * An estimate of item collection size, in gigabytes. This value is a two-element array containing a lower bound and an
@@ -29,7 +29,7 @@ final class ItemCollectionMetrics
      * attributes projected into all of the local secondary indexes on that table. Use this estimate to measure whether a
      * local secondary index is approaching its size limit.
      */
-    private $SizeEstimateRangeGB;
+    private $sizeEstimateRangeGB;
 
     /**
      * @param array{
@@ -39,8 +39,8 @@ final class ItemCollectionMetrics
      */
     public function __construct(array $input)
     {
-        $this->ItemCollectionKey = isset($input['ItemCollectionKey']) ? array_map([AttributeValue::class, 'create'], $input['ItemCollectionKey']) : null;
-        $this->SizeEstimateRangeGB = $input['SizeEstimateRangeGB'] ?? null;
+        $this->itemCollectionKey = isset($input['ItemCollectionKey']) ? array_map([AttributeValue::class, 'create'], $input['ItemCollectionKey']) : null;
+        $this->sizeEstimateRangeGB = $input['SizeEstimateRangeGB'] ?? null;
     }
 
     public static function create($input): self
@@ -53,7 +53,7 @@ final class ItemCollectionMetrics
      */
     public function getItemCollectionKey(): array
     {
-        return $this->ItemCollectionKey ?? [];
+        return $this->itemCollectionKey ?? [];
     }
 
     /**
@@ -61,6 +61,6 @@ final class ItemCollectionMetrics
      */
     public function getSizeEstimateRangeGB(): array
     {
-        return $this->SizeEstimateRangeGB ?? [];
+        return $this->sizeEstimateRangeGB ?? [];
     }
 }

@@ -15,7 +15,7 @@ final class PutRequest
      * schema. If any attributes are present in the item that are part of an index key schema for the table, their types
      * must match the index key schema.
      */
-    private $Item;
+    private $item;
 
     /**
      * @param array{
@@ -24,7 +24,7 @@ final class PutRequest
      */
     public function __construct(array $input)
     {
-        $this->Item = isset($input['Item']) ? array_map([AttributeValue::class, 'create'], $input['Item']) : null;
+        $this->item = isset($input['Item']) ? array_map([AttributeValue::class, 'create'], $input['Item']) : null;
     }
 
     public static function create($input): self
@@ -37,7 +37,7 @@ final class PutRequest
      */
     public function getItem(): array
     {
-        return $this->Item ?? [];
+        return $this->item ?? [];
     }
 
     /**
@@ -46,7 +46,7 @@ final class PutRequest
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->Item) {
+        if (null === $v = $this->item) {
             throw new InvalidArgument(sprintf('Missing parameter "Item" for "%s". The value cannot be null.', __CLASS__));
         }
 

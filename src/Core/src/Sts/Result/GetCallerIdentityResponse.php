@@ -18,37 +18,37 @@ class GetCallerIdentityResponse extends Result
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html#principaltable
      */
-    private $UserId;
+    private $userId;
 
     /**
      * The AWS account ID number of the account that owns or contains the calling entity.
      */
-    private $Account;
+    private $account;
 
     /**
      * The AWS ARN associated with the calling entity.
      */
-    private $Arn;
+    private $arn;
 
     public function getAccount(): ?string
     {
         $this->initialize();
 
-        return $this->Account;
+        return $this->account;
     }
 
     public function getArn(): ?string
     {
         $this->initialize();
 
-        return $this->Arn;
+        return $this->arn;
     }
 
     public function getUserId(): ?string
     {
         $this->initialize();
 
-        return $this->UserId;
+        return $this->userId;
     }
 
     protected function populateResult(Response $response): void
@@ -56,8 +56,8 @@ class GetCallerIdentityResponse extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->GetCallerIdentityResult;
 
-        $this->UserId = ($v = $data->UserId) ? (string) $v : null;
-        $this->Account = ($v = $data->Account) ? (string) $v : null;
-        $this->Arn = ($v = $data->Arn) ? (string) $v : null;
+        $this->userId = ($v = $data->UserId) ? (string) $v : null;
+        $this->account = ($v = $data->Account) ? (string) $v : null;
+        $this->arn = ($v = $data->Arn) ? (string) $v : null;
     }
 }

@@ -10,12 +10,12 @@ final class NewDeviceMetadataType
     /**
      * The device key.
      */
-    private $DeviceKey;
+    private $deviceKey;
 
     /**
      * The device group key.
      */
-    private $DeviceGroupKey;
+    private $deviceGroupKey;
 
     /**
      * @param array{
@@ -25,8 +25,8 @@ final class NewDeviceMetadataType
      */
     public function __construct(array $input)
     {
-        $this->DeviceKey = $input['DeviceKey'] ?? null;
-        $this->DeviceGroupKey = $input['DeviceGroupKey'] ?? null;
+        $this->deviceKey = $input['DeviceKey'] ?? null;
+        $this->deviceGroupKey = $input['DeviceGroupKey'] ?? null;
     }
 
     public static function create($input): self
@@ -36,11 +36,11 @@ final class NewDeviceMetadataType
 
     public function getDeviceGroupKey(): ?string
     {
-        return $this->DeviceGroupKey;
+        return $this->deviceGroupKey;
     }
 
     public function getDeviceKey(): ?string
     {
-        return $this->DeviceKey;
+        return $this->deviceKey;
     }
 }

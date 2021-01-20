@@ -10,12 +10,12 @@ final class CompletedPart
     /**
      * Entity tag returned when the part was uploaded.
      */
-    private $ETag;
+    private $eTag;
 
     /**
      * Part number that identifies the part. This is a positive integer between 1 and 10,000.
      */
-    private $PartNumber;
+    private $partNumber;
 
     /**
      * @param array{
@@ -25,8 +25,8 @@ final class CompletedPart
      */
     public function __construct(array $input)
     {
-        $this->ETag = $input['ETag'] ?? null;
-        $this->PartNumber = $input['PartNumber'] ?? null;
+        $this->eTag = $input['ETag'] ?? null;
+        $this->partNumber = $input['PartNumber'] ?? null;
     }
 
     public static function create($input): self
@@ -36,12 +36,12 @@ final class CompletedPart
 
     public function getETag(): ?string
     {
-        return $this->ETag;
+        return $this->eTag;
     }
 
     public function getPartNumber(): ?int
     {
-        return $this->PartNumber;
+        return $this->partNumber;
     }
 
     /**
@@ -49,10 +49,10 @@ final class CompletedPart
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        if (null !== $v = $this->ETag) {
+        if (null !== $v = $this->eTag) {
             $node->appendChild($document->createElement('ETag', $v));
         }
-        if (null !== $v = $this->PartNumber) {
+        if (null !== $v = $this->partNumber) {
             $node->appendChild($document->createElement('PartNumber', $v));
         }
     }

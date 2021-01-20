@@ -10,27 +10,27 @@ final class Subscription
     /**
      * The subscription's ARN.
      */
-    private $SubscriptionArn;
+    private $subscriptionArn;
 
     /**
      * The subscription's owner.
      */
-    private $Owner;
+    private $owner;
 
     /**
      * The subscription's protocol.
      */
-    private $Protocol;
+    private $protocol;
 
     /**
      * The subscription's endpoint (format depends on the protocol).
      */
-    private $Endpoint;
+    private $endpoint;
 
     /**
      * The ARN of the subscription's topic.
      */
-    private $TopicArn;
+    private $topicArn;
 
     /**
      * @param array{
@@ -43,11 +43,11 @@ final class Subscription
      */
     public function __construct(array $input)
     {
-        $this->SubscriptionArn = $input['SubscriptionArn'] ?? null;
-        $this->Owner = $input['Owner'] ?? null;
-        $this->Protocol = $input['Protocol'] ?? null;
-        $this->Endpoint = $input['Endpoint'] ?? null;
-        $this->TopicArn = $input['TopicArn'] ?? null;
+        $this->subscriptionArn = $input['SubscriptionArn'] ?? null;
+        $this->owner = $input['Owner'] ?? null;
+        $this->protocol = $input['Protocol'] ?? null;
+        $this->endpoint = $input['Endpoint'] ?? null;
+        $this->topicArn = $input['TopicArn'] ?? null;
     }
 
     public static function create($input): self
@@ -57,26 +57,26 @@ final class Subscription
 
     public function getEndpoint(): ?string
     {
-        return $this->Endpoint;
+        return $this->endpoint;
     }
 
     public function getOwner(): ?string
     {
-        return $this->Owner;
+        return $this->owner;
     }
 
     public function getProtocol(): ?string
     {
-        return $this->Protocol;
+        return $this->protocol;
     }
 
     public function getSubscriptionArn(): ?string
     {
-        return $this->SubscriptionArn;
+        return $this->subscriptionArn;
     }
 
     public function getTopicArn(): ?string
     {
-        return $this->TopicArn;
+        return $this->topicArn;
     }
 }

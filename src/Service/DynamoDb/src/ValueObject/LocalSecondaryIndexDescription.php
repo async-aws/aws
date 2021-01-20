@@ -10,36 +10,36 @@ final class LocalSecondaryIndexDescription
     /**
      * Represents the name of the local secondary index.
      */
-    private $IndexName;
+    private $indexName;
 
     /**
      * The complete key schema for the local secondary index, consisting of one or more pairs of attribute names and key
      * types:.
      */
-    private $KeySchema;
+    private $keySchema;
 
     /**
      * Represents attributes that are copied (projected) from the table into the global secondary index. These are in
      * addition to the primary key attributes and index key attributes, which are automatically projected.
      */
-    private $Projection;
+    private $projection;
 
     /**
      * The total size of the specified index, in bytes. DynamoDB updates this value approximately every six hours. Recent
      * changes might not be reflected in this value.
      */
-    private $IndexSizeBytes;
+    private $indexSizeBytes;
 
     /**
      * The number of items in the specified index. DynamoDB updates this value approximately every six hours. Recent changes
      * might not be reflected in this value.
      */
-    private $ItemCount;
+    private $itemCount;
 
     /**
      * The Amazon Resource Name (ARN) that uniquely identifies the index.
      */
-    private $IndexArn;
+    private $indexArn;
 
     /**
      * @param array{
@@ -53,12 +53,12 @@ final class LocalSecondaryIndexDescription
      */
     public function __construct(array $input)
     {
-        $this->IndexName = $input['IndexName'] ?? null;
-        $this->KeySchema = isset($input['KeySchema']) ? array_map([KeySchemaElement::class, 'create'], $input['KeySchema']) : null;
-        $this->Projection = isset($input['Projection']) ? Projection::create($input['Projection']) : null;
-        $this->IndexSizeBytes = $input['IndexSizeBytes'] ?? null;
-        $this->ItemCount = $input['ItemCount'] ?? null;
-        $this->IndexArn = $input['IndexArn'] ?? null;
+        $this->indexName = $input['IndexName'] ?? null;
+        $this->keySchema = isset($input['KeySchema']) ? array_map([KeySchemaElement::class, 'create'], $input['KeySchema']) : null;
+        $this->projection = isset($input['Projection']) ? Projection::create($input['Projection']) : null;
+        $this->indexSizeBytes = $input['IndexSizeBytes'] ?? null;
+        $this->itemCount = $input['ItemCount'] ?? null;
+        $this->indexArn = $input['IndexArn'] ?? null;
     }
 
     public static function create($input): self
@@ -68,22 +68,22 @@ final class LocalSecondaryIndexDescription
 
     public function getIndexArn(): ?string
     {
-        return $this->IndexArn;
+        return $this->indexArn;
     }
 
     public function getIndexName(): ?string
     {
-        return $this->IndexName;
+        return $this->indexName;
     }
 
     public function getIndexSizeBytes(): ?string
     {
-        return $this->IndexSizeBytes;
+        return $this->indexSizeBytes;
     }
 
     public function getItemCount(): ?string
     {
-        return $this->ItemCount;
+        return $this->itemCount;
     }
 
     /**
@@ -91,11 +91,11 @@ final class LocalSecondaryIndexDescription
      */
     public function getKeySchema(): array
     {
-        return $this->KeySchema ?? [];
+        return $this->keySchema ?? [];
     }
 
     public function getProjection(): ?Projection
     {
-        return $this->Projection;
+        return $this->projection;
     }
 }

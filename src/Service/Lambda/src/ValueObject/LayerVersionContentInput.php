@@ -10,22 +10,22 @@ final class LayerVersionContentInput
     /**
      * The Amazon S3 bucket of the layer archive.
      */
-    private $S3Bucket;
+    private $s3Bucket;
 
     /**
      * The Amazon S3 key of the layer archive.
      */
-    private $S3Key;
+    private $s3Key;
 
     /**
      * For versioned objects, the version of the layer archive object to use.
      */
-    private $S3ObjectVersion;
+    private $s3ObjectVersion;
 
     /**
      * The base64-encoded contents of the layer archive. AWS SDK and AWS CLI clients handle the encoding for you.
      */
-    private $ZipFile;
+    private $zipFile;
 
     /**
      * @param array{
@@ -37,10 +37,10 @@ final class LayerVersionContentInput
      */
     public function __construct(array $input)
     {
-        $this->S3Bucket = $input['S3Bucket'] ?? null;
-        $this->S3Key = $input['S3Key'] ?? null;
-        $this->S3ObjectVersion = $input['S3ObjectVersion'] ?? null;
-        $this->ZipFile = $input['ZipFile'] ?? null;
+        $this->s3Bucket = $input['S3Bucket'] ?? null;
+        $this->s3Key = $input['S3Key'] ?? null;
+        $this->s3ObjectVersion = $input['S3ObjectVersion'] ?? null;
+        $this->zipFile = $input['ZipFile'] ?? null;
     }
 
     public static function create($input): self
@@ -50,22 +50,22 @@ final class LayerVersionContentInput
 
     public function getS3Bucket(): ?string
     {
-        return $this->S3Bucket;
+        return $this->s3Bucket;
     }
 
     public function getS3Key(): ?string
     {
-        return $this->S3Key;
+        return $this->s3Key;
     }
 
     public function getS3ObjectVersion(): ?string
     {
-        return $this->S3ObjectVersion;
+        return $this->s3ObjectVersion;
     }
 
     public function getZipFile(): ?string
     {
-        return $this->ZipFile;
+        return $this->zipFile;
     }
 
     /**
@@ -74,16 +74,16 @@ final class LayerVersionContentInput
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->S3Bucket) {
+        if (null !== $v = $this->s3Bucket) {
             $payload['S3Bucket'] = $v;
         }
-        if (null !== $v = $this->S3Key) {
+        if (null !== $v = $this->s3Key) {
             $payload['S3Key'] = $v;
         }
-        if (null !== $v = $this->S3ObjectVersion) {
+        if (null !== $v = $this->s3ObjectVersion) {
             $payload['S3ObjectVersion'] = $v;
         }
-        if (null !== $v = $this->ZipFile) {
+        if (null !== $v = $this->zipFile) {
             $payload['ZipFile'] = base64_encode($v);
         }
 

@@ -19,7 +19,7 @@ final class DetectFacesRequest extends Input
      *
      * @var Image|null
      */
-    private $Image;
+    private $image;
 
     /**
      * An array of facial attributes you want to be returned. This can be the default list of attributes or all attributes.
@@ -29,7 +29,7 @@ final class DetectFacesRequest extends Input
      *
      * @var null|list<Attribute::*>
      */
-    private $Attributes;
+    private $attributes;
 
     /**
      * @param array{
@@ -40,8 +40,8 @@ final class DetectFacesRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->Image = isset($input['Image']) ? Image::create($input['Image']) : null;
-        $this->Attributes = $input['Attributes'] ?? null;
+        $this->image = isset($input['Image']) ? Image::create($input['Image']) : null;
+        $this->attributes = $input['Attributes'] ?? null;
         parent::__construct($input);
     }
 
@@ -55,12 +55,12 @@ final class DetectFacesRequest extends Input
      */
     public function getAttributes(): array
     {
-        return $this->Attributes ?? [];
+        return $this->attributes ?? [];
     }
 
     public function getImage(): ?Image
     {
-        return $this->Image;
+        return $this->image;
     }
 
     /**
@@ -93,14 +93,14 @@ final class DetectFacesRequest extends Input
      */
     public function setAttributes(array $value): self
     {
-        $this->Attributes = $value;
+        $this->attributes = $value;
 
         return $this;
     }
 
     public function setImage(?Image $value): self
     {
-        $this->Image = $value;
+        $this->image = $value;
 
         return $this;
     }
@@ -108,11 +108,11 @@ final class DetectFacesRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->Image) {
+        if (null === $v = $this->image) {
             throw new InvalidArgument(sprintf('Missing parameter "Image" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Image'] = $v->requestBody();
-        if (null !== $v = $this->Attributes) {
+        if (null !== $v = $this->attributes) {
             $index = -1;
             $payload['Attributes'] = [];
             foreach ($v as $listValue) {

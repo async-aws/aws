@@ -26,13 +26,13 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
     /**
      * A list of stack structures.
      */
-    private $Stacks = [];
+    private $stacks = [];
 
     /**
      * If the output exceeds 1 MB in size, a string that identifies the next page of stacks. If no additional page exists,
      * this value is null.
      */
-    private $NextToken;
+    private $nextToken;
 
     /**
      * Iterates over Stacks.
@@ -74,7 +74,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->NextToken;
+        return $this->nextToken;
     }
 
     /**
@@ -86,7 +86,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
     {
         if ($currentPageOnly) {
             $this->initialize();
-            yield from $this->Stacks;
+            yield from $this->stacks;
 
             return;
         }
@@ -125,8 +125,8 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->DescribeStacksResult;
 
-        $this->Stacks = !$data->Stacks ? [] : $this->populateResultStacks($data->Stacks);
-        $this->NextToken = ($v = $data->NextToken) ? (string) $v : null;
+        $this->stacks = !$data->Stacks ? [] : $this->populateResultStacks($data->Stacks);
+        $this->nextToken = ($v = $data->NextToken) ? (string) $v : null;
     }
 
     /**

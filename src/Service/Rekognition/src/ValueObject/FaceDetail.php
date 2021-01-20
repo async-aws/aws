@@ -24,53 +24,53 @@ final class FaceDetail
     /**
      * Bounding box of the face. Default attribute.
      */
-    private $BoundingBox;
+    private $boundingBox;
 
     /**
      * The estimated age range, in years, for the face. Low represents the lowest estimated age and High represents the
      * highest estimated age.
      */
-    private $AgeRange;
+    private $ageRange;
 
     /**
      * Indicates whether or not the face is smiling, and the confidence level in the determination.
      */
-    private $Smile;
+    private $smile;
 
     /**
      * Indicates whether or not the face is wearing eye glasses, and the confidence level in the determination.
      */
-    private $Eyeglasses;
+    private $eyeglasses;
 
     /**
      * Indicates whether or not the face is wearing sunglasses, and the confidence level in the determination.
      */
-    private $Sunglasses;
+    private $sunglasses;
 
     /**
      * The predicted gender of a detected face.
      */
-    private $Gender;
+    private $gender;
 
     /**
      * Indicates whether or not the face has a beard, and the confidence level in the determination.
      */
-    private $Beard;
+    private $beard;
 
     /**
      * Indicates whether or not the face has a mustache, and the confidence level in the determination.
      */
-    private $Mustache;
+    private $mustache;
 
     /**
      * Indicates whether or not the eyes on the face are open, and the confidence level in the determination.
      */
-    private $EyesOpen;
+    private $eyesOpen;
 
     /**
      * Indicates whether or not the mouth on the face is open, and the confidence level in the determination.
      */
-    private $MouthOpen;
+    private $mouthOpen;
 
     /**
      * The emotions that appear to be expressed on the face, and the confidence level in the determination. The API is only
@@ -78,28 +78,28 @@ final class FaceDetail
      * internal emotional state and should not be used in such a way. For example, a person pretending to have a sad face
      * might not be sad emotionally.
      */
-    private $Emotions;
+    private $emotions;
 
     /**
      * Indicates the location of landmarks on the face. Default attribute.
      */
-    private $Landmarks;
+    private $landmarks;
 
     /**
      * Indicates the pose of the face as determined by its pitch, roll, and yaw. Default attribute.
      */
-    private $Pose;
+    private $pose;
 
     /**
      * Identifies image brightness and sharpness. Default attribute.
      */
-    private $Quality;
+    private $quality;
 
     /**
      * Confidence level that the bounding box contains a face (and not a different object such as a tree). Default
      * attribute.
      */
-    private $Confidence;
+    private $confidence;
 
     /**
      * @param array{
@@ -122,21 +122,21 @@ final class FaceDetail
      */
     public function __construct(array $input)
     {
-        $this->BoundingBox = isset($input['BoundingBox']) ? BoundingBox::create($input['BoundingBox']) : null;
-        $this->AgeRange = isset($input['AgeRange']) ? AgeRange::create($input['AgeRange']) : null;
-        $this->Smile = isset($input['Smile']) ? Smile::create($input['Smile']) : null;
-        $this->Eyeglasses = isset($input['Eyeglasses']) ? Eyeglasses::create($input['Eyeglasses']) : null;
-        $this->Sunglasses = isset($input['Sunglasses']) ? Sunglasses::create($input['Sunglasses']) : null;
-        $this->Gender = isset($input['Gender']) ? Gender::create($input['Gender']) : null;
-        $this->Beard = isset($input['Beard']) ? Beard::create($input['Beard']) : null;
-        $this->Mustache = isset($input['Mustache']) ? Mustache::create($input['Mustache']) : null;
-        $this->EyesOpen = isset($input['EyesOpen']) ? EyeOpen::create($input['EyesOpen']) : null;
-        $this->MouthOpen = isset($input['MouthOpen']) ? MouthOpen::create($input['MouthOpen']) : null;
-        $this->Emotions = isset($input['Emotions']) ? array_map([Emotion::class, 'create'], $input['Emotions']) : null;
-        $this->Landmarks = isset($input['Landmarks']) ? array_map([Landmark::class, 'create'], $input['Landmarks']) : null;
-        $this->Pose = isset($input['Pose']) ? Pose::create($input['Pose']) : null;
-        $this->Quality = isset($input['Quality']) ? ImageQuality::create($input['Quality']) : null;
-        $this->Confidence = $input['Confidence'] ?? null;
+        $this->boundingBox = isset($input['BoundingBox']) ? BoundingBox::create($input['BoundingBox']) : null;
+        $this->ageRange = isset($input['AgeRange']) ? AgeRange::create($input['AgeRange']) : null;
+        $this->smile = isset($input['Smile']) ? Smile::create($input['Smile']) : null;
+        $this->eyeglasses = isset($input['Eyeglasses']) ? Eyeglasses::create($input['Eyeglasses']) : null;
+        $this->sunglasses = isset($input['Sunglasses']) ? Sunglasses::create($input['Sunglasses']) : null;
+        $this->gender = isset($input['Gender']) ? Gender::create($input['Gender']) : null;
+        $this->beard = isset($input['Beard']) ? Beard::create($input['Beard']) : null;
+        $this->mustache = isset($input['Mustache']) ? Mustache::create($input['Mustache']) : null;
+        $this->eyesOpen = isset($input['EyesOpen']) ? EyeOpen::create($input['EyesOpen']) : null;
+        $this->mouthOpen = isset($input['MouthOpen']) ? MouthOpen::create($input['MouthOpen']) : null;
+        $this->emotions = isset($input['Emotions']) ? array_map([Emotion::class, 'create'], $input['Emotions']) : null;
+        $this->landmarks = isset($input['Landmarks']) ? array_map([Landmark::class, 'create'], $input['Landmarks']) : null;
+        $this->pose = isset($input['Pose']) ? Pose::create($input['Pose']) : null;
+        $this->quality = isset($input['Quality']) ? ImageQuality::create($input['Quality']) : null;
+        $this->confidence = $input['Confidence'] ?? null;
     }
 
     public static function create($input): self
@@ -146,22 +146,22 @@ final class FaceDetail
 
     public function getAgeRange(): ?AgeRange
     {
-        return $this->AgeRange;
+        return $this->ageRange;
     }
 
     public function getBeard(): ?Beard
     {
-        return $this->Beard;
+        return $this->beard;
     }
 
     public function getBoundingBox(): ?BoundingBox
     {
-        return $this->BoundingBox;
+        return $this->boundingBox;
     }
 
     public function getConfidence(): ?float
     {
-        return $this->Confidence;
+        return $this->confidence;
     }
 
     /**
@@ -169,22 +169,22 @@ final class FaceDetail
      */
     public function getEmotions(): array
     {
-        return $this->Emotions ?? [];
+        return $this->emotions ?? [];
     }
 
     public function getEyeglasses(): ?Eyeglasses
     {
-        return $this->Eyeglasses;
+        return $this->eyeglasses;
     }
 
     public function getEyesOpen(): ?EyeOpen
     {
-        return $this->EyesOpen;
+        return $this->eyesOpen;
     }
 
     public function getGender(): ?Gender
     {
-        return $this->Gender;
+        return $this->gender;
     }
 
     /**
@@ -192,36 +192,36 @@ final class FaceDetail
      */
     public function getLandmarks(): array
     {
-        return $this->Landmarks ?? [];
+        return $this->landmarks ?? [];
     }
 
     public function getMouthOpen(): ?MouthOpen
     {
-        return $this->MouthOpen;
+        return $this->mouthOpen;
     }
 
     public function getMustache(): ?Mustache
     {
-        return $this->Mustache;
+        return $this->mustache;
     }
 
     public function getPose(): ?Pose
     {
-        return $this->Pose;
+        return $this->pose;
     }
 
     public function getQuality(): ?ImageQuality
     {
-        return $this->Quality;
+        return $this->quality;
     }
 
     public function getSmile(): ?Smile
     {
-        return $this->Smile;
+        return $this->smile;
     }
 
     public function getSunglasses(): ?Sunglasses
     {
-        return $this->Sunglasses;
+        return $this->sunglasses;
     }
 }

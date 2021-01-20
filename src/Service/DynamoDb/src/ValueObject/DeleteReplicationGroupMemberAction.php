@@ -12,7 +12,7 @@ final class DeleteReplicationGroupMemberAction
     /**
      * The Region where the replica exists.
      */
-    private $RegionName;
+    private $regionName;
 
     /**
      * @param array{
@@ -21,7 +21,7 @@ final class DeleteReplicationGroupMemberAction
      */
     public function __construct(array $input)
     {
-        $this->RegionName = $input['RegionName'] ?? null;
+        $this->regionName = $input['RegionName'] ?? null;
     }
 
     public static function create($input): self
@@ -31,7 +31,7 @@ final class DeleteReplicationGroupMemberAction
 
     public function getRegionName(): string
     {
-        return $this->RegionName;
+        return $this->regionName;
     }
 
     /**
@@ -40,7 +40,7 @@ final class DeleteReplicationGroupMemberAction
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->RegionName) {
+        if (null === $v = $this->regionName) {
             throw new InvalidArgument(sprintf('Missing parameter "RegionName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['RegionName'] = $v;

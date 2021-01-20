@@ -16,21 +16,21 @@ final class UpdateUserRequest extends Input
      *
      * @var string|null
      */
-    private $UserName;
+    private $userName;
 
     /**
      * New path for the IAM user. Include this parameter only if you're changing the user's path.
      *
      * @var string|null
      */
-    private $NewPath;
+    private $newPath;
 
     /**
      * New name for the user. Include this parameter only if you're changing the user's name.
      *
      * @var string|null
      */
-    private $NewUserName;
+    private $newUserName;
 
     /**
      * @param array{
@@ -42,9 +42,9 @@ final class UpdateUserRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->UserName = $input['UserName'] ?? null;
-        $this->NewPath = $input['NewPath'] ?? null;
-        $this->NewUserName = $input['NewUserName'] ?? null;
+        $this->userName = $input['UserName'] ?? null;
+        $this->newPath = $input['NewPath'] ?? null;
+        $this->newUserName = $input['NewUserName'] ?? null;
         parent::__construct($input);
     }
 
@@ -55,17 +55,17 @@ final class UpdateUserRequest extends Input
 
     public function getNewPath(): ?string
     {
-        return $this->NewPath;
+        return $this->newPath;
     }
 
     public function getNewUserName(): ?string
     {
-        return $this->NewUserName;
+        return $this->newUserName;
     }
 
     public function getUserName(): ?string
     {
-        return $this->UserName;
+        return $this->userName;
     }
 
     /**
@@ -91,21 +91,21 @@ final class UpdateUserRequest extends Input
 
     public function setNewPath(?string $value): self
     {
-        $this->NewPath = $value;
+        $this->newPath = $value;
 
         return $this;
     }
 
     public function setNewUserName(?string $value): self
     {
-        $this->NewUserName = $value;
+        $this->newUserName = $value;
 
         return $this;
     }
 
     public function setUserName(?string $value): self
     {
-        $this->UserName = $value;
+        $this->userName = $value;
 
         return $this;
     }
@@ -113,14 +113,14 @@ final class UpdateUserRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->UserName) {
+        if (null === $v = $this->userName) {
             throw new InvalidArgument(sprintf('Missing parameter "UserName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserName'] = $v;
-        if (null !== $v = $this->NewPath) {
+        if (null !== $v = $this->newPath) {
             $payload['NewPath'] = $v;
         }
-        if (null !== $v = $this->NewUserName) {
+        if (null !== $v = $this->newUserName) {
             $payload['NewUserName'] = $v;
         }
 

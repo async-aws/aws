@@ -17,26 +17,26 @@ final class ListMultipartUploadsRequest extends Input
      *
      * @var string|null
      */
-    private $Bucket;
+    private $bucket;
 
     /**
      * Character you use to group keys.
      *
      * @var string|null
      */
-    private $Delimiter;
+    private $delimiter;
 
     /**
      * @var null|EncodingType::*
      */
-    private $EncodingType;
+    private $encodingType;
 
     /**
      * Together with upload-id-marker, this parameter specifies the multipart upload after which listing should begin.
      *
      * @var string|null
      */
-    private $KeyMarker;
+    private $keyMarker;
 
     /**
      * Sets the maximum number of multipart uploads, from 1 to 1,000, to return in the response body. 1,000 is the maximum
@@ -44,7 +44,7 @@ final class ListMultipartUploadsRequest extends Input
      *
      * @var int|null
      */
-    private $MaxUploads;
+    private $maxUploads;
 
     /**
      * Lists in-progress uploads only for those keys that begin with the specified prefix. You can use prefixes to separate
@@ -53,7 +53,7 @@ final class ListMultipartUploadsRequest extends Input
      *
      * @var string|null
      */
-    private $Prefix;
+    private $prefix;
 
     /**
      * Together with key-marker, specifies the multipart upload after which listing should begin. If key-marker is not
@@ -63,7 +63,7 @@ final class ListMultipartUploadsRequest extends Input
      *
      * @var string|null
      */
-    private $UploadIdMarker;
+    private $uploadIdMarker;
 
     /**
      * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
@@ -71,7 +71,7 @@ final class ListMultipartUploadsRequest extends Input
      *
      * @var string|null
      */
-    private $ExpectedBucketOwner;
+    private $expectedBucketOwner;
 
     /**
      * @param array{
@@ -88,14 +88,14 @@ final class ListMultipartUploadsRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->Bucket = $input['Bucket'] ?? null;
-        $this->Delimiter = $input['Delimiter'] ?? null;
-        $this->EncodingType = $input['EncodingType'] ?? null;
-        $this->KeyMarker = $input['KeyMarker'] ?? null;
-        $this->MaxUploads = $input['MaxUploads'] ?? null;
-        $this->Prefix = $input['Prefix'] ?? null;
-        $this->UploadIdMarker = $input['UploadIdMarker'] ?? null;
-        $this->ExpectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
+        $this->bucket = $input['Bucket'] ?? null;
+        $this->delimiter = $input['Delimiter'] ?? null;
+        $this->encodingType = $input['EncodingType'] ?? null;
+        $this->keyMarker = $input['KeyMarker'] ?? null;
+        $this->maxUploads = $input['MaxUploads'] ?? null;
+        $this->prefix = $input['Prefix'] ?? null;
+        $this->uploadIdMarker = $input['UploadIdMarker'] ?? null;
+        $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         parent::__construct($input);
     }
 
@@ -106,12 +106,12 @@ final class ListMultipartUploadsRequest extends Input
 
     public function getBucket(): ?string
     {
-        return $this->Bucket;
+        return $this->bucket;
     }
 
     public function getDelimiter(): ?string
     {
-        return $this->Delimiter;
+        return $this->delimiter;
     }
 
     /**
@@ -119,32 +119,32 @@ final class ListMultipartUploadsRequest extends Input
      */
     public function getEncodingType(): ?string
     {
-        return $this->EncodingType;
+        return $this->encodingType;
     }
 
     public function getExpectedBucketOwner(): ?string
     {
-        return $this->ExpectedBucketOwner;
+        return $this->expectedBucketOwner;
     }
 
     public function getKeyMarker(): ?string
     {
-        return $this->KeyMarker;
+        return $this->keyMarker;
     }
 
     public function getMaxUploads(): ?int
     {
-        return $this->MaxUploads;
+        return $this->maxUploads;
     }
 
     public function getPrefix(): ?string
     {
-        return $this->Prefix;
+        return $this->prefix;
     }
 
     public function getUploadIdMarker(): ?string
     {
-        return $this->UploadIdMarker;
+        return $this->uploadIdMarker;
     }
 
     /**
@@ -154,37 +154,37 @@ final class ListMultipartUploadsRequest extends Input
     {
         // Prepare headers
         $headers = ['content-type' => 'application/xml'];
-        if (null !== $this->ExpectedBucketOwner) {
-            $headers['x-amz-expected-bucket-owner'] = $this->ExpectedBucketOwner;
+        if (null !== $this->expectedBucketOwner) {
+            $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
         }
 
         // Prepare query
         $query = [];
-        if (null !== $this->Delimiter) {
-            $query['delimiter'] = $this->Delimiter;
+        if (null !== $this->delimiter) {
+            $query['delimiter'] = $this->delimiter;
         }
-        if (null !== $this->EncodingType) {
-            if (!EncodingType::exists($this->EncodingType)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "EncodingType" for "%s". The value "%s" is not a valid "EncodingType".', __CLASS__, $this->EncodingType));
+        if (null !== $this->encodingType) {
+            if (!EncodingType::exists($this->encodingType)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "EncodingType" for "%s". The value "%s" is not a valid "EncodingType".', __CLASS__, $this->encodingType));
             }
-            $query['encoding-type'] = $this->EncodingType;
+            $query['encoding-type'] = $this->encodingType;
         }
-        if (null !== $this->KeyMarker) {
-            $query['key-marker'] = $this->KeyMarker;
+        if (null !== $this->keyMarker) {
+            $query['key-marker'] = $this->keyMarker;
         }
-        if (null !== $this->MaxUploads) {
-            $query['max-uploads'] = (string) $this->MaxUploads;
+        if (null !== $this->maxUploads) {
+            $query['max-uploads'] = (string) $this->maxUploads;
         }
-        if (null !== $this->Prefix) {
-            $query['prefix'] = $this->Prefix;
+        if (null !== $this->prefix) {
+            $query['prefix'] = $this->prefix;
         }
-        if (null !== $this->UploadIdMarker) {
-            $query['upload-id-marker'] = $this->UploadIdMarker;
+        if (null !== $this->uploadIdMarker) {
+            $query['upload-id-marker'] = $this->uploadIdMarker;
         }
 
         // Prepare URI
         $uri = [];
-        if (null === $v = $this->Bucket) {
+        if (null === $v = $this->bucket) {
             throw new InvalidArgument(sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Bucket'] = $v;
@@ -199,14 +199,14 @@ final class ListMultipartUploadsRequest extends Input
 
     public function setBucket(?string $value): self
     {
-        $this->Bucket = $value;
+        $this->bucket = $value;
 
         return $this;
     }
 
     public function setDelimiter(?string $value): self
     {
-        $this->Delimiter = $value;
+        $this->delimiter = $value;
 
         return $this;
     }
@@ -216,42 +216,42 @@ final class ListMultipartUploadsRequest extends Input
      */
     public function setEncodingType(?string $value): self
     {
-        $this->EncodingType = $value;
+        $this->encodingType = $value;
 
         return $this;
     }
 
     public function setExpectedBucketOwner(?string $value): self
     {
-        $this->ExpectedBucketOwner = $value;
+        $this->expectedBucketOwner = $value;
 
         return $this;
     }
 
     public function setKeyMarker(?string $value): self
     {
-        $this->KeyMarker = $value;
+        $this->keyMarker = $value;
 
         return $this;
     }
 
     public function setMaxUploads(?int $value): self
     {
-        $this->MaxUploads = $value;
+        $this->maxUploads = $value;
 
         return $this;
     }
 
     public function setPrefix(?string $value): self
     {
-        $this->Prefix = $value;
+        $this->prefix = $value;
 
         return $this;
     }
 
     public function setUploadIdMarker(?string $value): self
     {
-        $this->UploadIdMarker = $value;
+        $this->uploadIdMarker = $value;
 
         return $this;
     }

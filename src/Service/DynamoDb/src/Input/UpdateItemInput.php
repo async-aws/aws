@@ -26,7 +26,7 @@ final class UpdateItemInput extends Input
      *
      * @var string|null
      */
-    private $TableName;
+    private $tableName;
 
     /**
      * The primary key of the item to be updated. Each element consists of an attribute name and a value for that attribute.
@@ -35,7 +35,7 @@ final class UpdateItemInput extends Input
      *
      * @var array<string, AttributeValue>|null
      */
-    private $Key;
+    private $key;
 
     /**
      * This is a legacy parameter. Use `UpdateExpression` instead. For more information, see AttributeUpdates in the *Amazon
@@ -45,7 +45,7 @@ final class UpdateItemInput extends Input
      *
      * @var array<string, AttributeValueUpdate>|null
      */
-    private $AttributeUpdates;
+    private $attributeUpdates;
 
     /**
      * This is a legacy parameter. Use `ConditionExpression` instead. For more information, see Expected in the *Amazon
@@ -55,7 +55,7 @@ final class UpdateItemInput extends Input
      *
      * @var array<string, ExpectedAttributeValue>|null
      */
-    private $Expected;
+    private $expected;
 
     /**
      * This is a legacy parameter. Use `ConditionExpression` instead. For more information, see ConditionalOperator in the
@@ -65,7 +65,7 @@ final class UpdateItemInput extends Input
      *
      * @var null|ConditionalOperator::*
      */
-    private $ConditionalOperator;
+    private $conditionalOperator;
 
     /**
      * Use `ReturnValues` if you want to get the item attributes as they appear before or after they are updated. For
@@ -73,12 +73,12 @@ final class UpdateItemInput extends Input
      *
      * @var null|ReturnValue::*
      */
-    private $ReturnValues;
+    private $returnValues;
 
     /**
      * @var null|ReturnConsumedCapacity::*
      */
-    private $ReturnConsumedCapacity;
+    private $returnConsumedCapacity;
 
     /**
      * Determines whether item collection metrics are returned. If set to `SIZE`, the response includes statistics about
@@ -87,7 +87,7 @@ final class UpdateItemInput extends Input
      *
      * @var null|ReturnItemCollectionMetrics::*
      */
-    private $ReturnItemCollectionMetrics;
+    private $returnItemCollectionMetrics;
 
     /**
      * An expression that defines one or more attributes to be updated, the action to be performed on them, and new values
@@ -95,14 +95,14 @@ final class UpdateItemInput extends Input
      *
      * @var string|null
      */
-    private $UpdateExpression;
+    private $updateExpression;
 
     /**
      * A condition that must be satisfied in order for a conditional update to succeed.
      *
      * @var string|null
      */
-    private $ConditionExpression;
+    private $conditionExpression;
 
     /**
      * One or more substitution tokens for attribute names in an expression. The following are some use cases for using
@@ -110,14 +110,14 @@ final class UpdateItemInput extends Input
      *
      * @var array<string, string>|null
      */
-    private $ExpressionAttributeNames;
+    private $expressionAttributeNames;
 
     /**
      * One or more values that can be substituted in an expression.
      *
      * @var array<string, AttributeValue>|null
      */
-    private $ExpressionAttributeValues;
+    private $expressionAttributeValues;
 
     /**
      * @param array{
@@ -138,40 +138,40 @@ final class UpdateItemInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->TableName = $input['TableName'] ?? null;
+        $this->tableName = $input['TableName'] ?? null;
 
         if (isset($input['Key'])) {
-            $this->Key = [];
+            $this->key = [];
             foreach ($input['Key'] as $key => $item) {
-                $this->Key[$key] = AttributeValue::create($item);
+                $this->key[$key] = AttributeValue::create($item);
             }
         }
 
         if (isset($input['AttributeUpdates'])) {
-            $this->AttributeUpdates = [];
+            $this->attributeUpdates = [];
             foreach ($input['AttributeUpdates'] as $key => $item) {
-                $this->AttributeUpdates[$key] = AttributeValueUpdate::create($item);
+                $this->attributeUpdates[$key] = AttributeValueUpdate::create($item);
             }
         }
 
         if (isset($input['Expected'])) {
-            $this->Expected = [];
+            $this->expected = [];
             foreach ($input['Expected'] as $key => $item) {
-                $this->Expected[$key] = ExpectedAttributeValue::create($item);
+                $this->expected[$key] = ExpectedAttributeValue::create($item);
             }
         }
-        $this->ConditionalOperator = $input['ConditionalOperator'] ?? null;
-        $this->ReturnValues = $input['ReturnValues'] ?? null;
-        $this->ReturnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
-        $this->ReturnItemCollectionMetrics = $input['ReturnItemCollectionMetrics'] ?? null;
-        $this->UpdateExpression = $input['UpdateExpression'] ?? null;
-        $this->ConditionExpression = $input['ConditionExpression'] ?? null;
-        $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
+        $this->conditionalOperator = $input['ConditionalOperator'] ?? null;
+        $this->returnValues = $input['ReturnValues'] ?? null;
+        $this->returnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
+        $this->returnItemCollectionMetrics = $input['ReturnItemCollectionMetrics'] ?? null;
+        $this->updateExpression = $input['UpdateExpression'] ?? null;
+        $this->conditionExpression = $input['ConditionExpression'] ?? null;
+        $this->expressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
 
         if (isset($input['ExpressionAttributeValues'])) {
-            $this->ExpressionAttributeValues = [];
+            $this->expressionAttributeValues = [];
             foreach ($input['ExpressionAttributeValues'] as $key => $item) {
-                $this->ExpressionAttributeValues[$key] = AttributeValue::create($item);
+                $this->expressionAttributeValues[$key] = AttributeValue::create($item);
             }
         }
         parent::__construct($input);
@@ -187,12 +187,12 @@ final class UpdateItemInput extends Input
      */
     public function getAttributeUpdates(): array
     {
-        return $this->AttributeUpdates ?? [];
+        return $this->attributeUpdates ?? [];
     }
 
     public function getConditionExpression(): ?string
     {
-        return $this->ConditionExpression;
+        return $this->conditionExpression;
     }
 
     /**
@@ -200,7 +200,7 @@ final class UpdateItemInput extends Input
      */
     public function getConditionalOperator(): ?string
     {
-        return $this->ConditionalOperator;
+        return $this->conditionalOperator;
     }
 
     /**
@@ -208,7 +208,7 @@ final class UpdateItemInput extends Input
      */
     public function getExpected(): array
     {
-        return $this->Expected ?? [];
+        return $this->expected ?? [];
     }
 
     /**
@@ -216,7 +216,7 @@ final class UpdateItemInput extends Input
      */
     public function getExpressionAttributeNames(): array
     {
-        return $this->ExpressionAttributeNames ?? [];
+        return $this->expressionAttributeNames ?? [];
     }
 
     /**
@@ -224,7 +224,7 @@ final class UpdateItemInput extends Input
      */
     public function getExpressionAttributeValues(): array
     {
-        return $this->ExpressionAttributeValues ?? [];
+        return $this->expressionAttributeValues ?? [];
     }
 
     /**
@@ -232,7 +232,7 @@ final class UpdateItemInput extends Input
      */
     public function getKey(): array
     {
-        return $this->Key ?? [];
+        return $this->key ?? [];
     }
 
     /**
@@ -240,7 +240,7 @@ final class UpdateItemInput extends Input
      */
     public function getReturnConsumedCapacity(): ?string
     {
-        return $this->ReturnConsumedCapacity;
+        return $this->returnConsumedCapacity;
     }
 
     /**
@@ -248,7 +248,7 @@ final class UpdateItemInput extends Input
      */
     public function getReturnItemCollectionMetrics(): ?string
     {
-        return $this->ReturnItemCollectionMetrics;
+        return $this->returnItemCollectionMetrics;
     }
 
     /**
@@ -256,17 +256,17 @@ final class UpdateItemInput extends Input
      */
     public function getReturnValues(): ?string
     {
-        return $this->ReturnValues;
+        return $this->returnValues;
     }
 
     public function getTableName(): ?string
     {
-        return $this->TableName;
+        return $this->tableName;
     }
 
     public function getUpdateExpression(): ?string
     {
-        return $this->UpdateExpression;
+        return $this->updateExpression;
     }
 
     /**
@@ -299,14 +299,14 @@ final class UpdateItemInput extends Input
      */
     public function setAttributeUpdates(array $value): self
     {
-        $this->AttributeUpdates = $value;
+        $this->attributeUpdates = $value;
 
         return $this;
     }
 
     public function setConditionExpression(?string $value): self
     {
-        $this->ConditionExpression = $value;
+        $this->conditionExpression = $value;
 
         return $this;
     }
@@ -316,7 +316,7 @@ final class UpdateItemInput extends Input
      */
     public function setConditionalOperator(?string $value): self
     {
-        $this->ConditionalOperator = $value;
+        $this->conditionalOperator = $value;
 
         return $this;
     }
@@ -326,7 +326,7 @@ final class UpdateItemInput extends Input
      */
     public function setExpected(array $value): self
     {
-        $this->Expected = $value;
+        $this->expected = $value;
 
         return $this;
     }
@@ -336,7 +336,7 @@ final class UpdateItemInput extends Input
      */
     public function setExpressionAttributeNames(array $value): self
     {
-        $this->ExpressionAttributeNames = $value;
+        $this->expressionAttributeNames = $value;
 
         return $this;
     }
@@ -346,7 +346,7 @@ final class UpdateItemInput extends Input
      */
     public function setExpressionAttributeValues(array $value): self
     {
-        $this->ExpressionAttributeValues = $value;
+        $this->expressionAttributeValues = $value;
 
         return $this;
     }
@@ -356,7 +356,7 @@ final class UpdateItemInput extends Input
      */
     public function setKey(array $value): self
     {
-        $this->Key = $value;
+        $this->key = $value;
 
         return $this;
     }
@@ -366,7 +366,7 @@ final class UpdateItemInput extends Input
      */
     public function setReturnConsumedCapacity(?string $value): self
     {
-        $this->ReturnConsumedCapacity = $value;
+        $this->returnConsumedCapacity = $value;
 
         return $this;
     }
@@ -376,7 +376,7 @@ final class UpdateItemInput extends Input
      */
     public function setReturnItemCollectionMetrics(?string $value): self
     {
-        $this->ReturnItemCollectionMetrics = $value;
+        $this->returnItemCollectionMetrics = $value;
 
         return $this;
     }
@@ -386,21 +386,21 @@ final class UpdateItemInput extends Input
      */
     public function setReturnValues(?string $value): self
     {
-        $this->ReturnValues = $value;
+        $this->returnValues = $value;
 
         return $this;
     }
 
     public function setTableName(?string $value): self
     {
-        $this->TableName = $value;
+        $this->tableName = $value;
 
         return $this;
     }
 
     public function setUpdateExpression(?string $value): self
     {
-        $this->UpdateExpression = $value;
+        $this->updateExpression = $value;
 
         return $this;
     }
@@ -408,11 +408,11 @@ final class UpdateItemInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->TableName) {
+        if (null === $v = $this->tableName) {
             throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TableName'] = $v;
-        if (null === $v = $this->Key) {
+        if (null === $v = $this->key) {
             throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
         }
 
@@ -424,7 +424,7 @@ final class UpdateItemInput extends Input
                 $payload['Key'][$name] = $mv->requestBody();
             }
         }
-        if (null !== $v = $this->AttributeUpdates) {
+        if (null !== $v = $this->attributeUpdates) {
             if (empty($v)) {
                 $payload['AttributeUpdates'] = new \stdClass();
             } else {
@@ -434,7 +434,7 @@ final class UpdateItemInput extends Input
                 }
             }
         }
-        if (null !== $v = $this->Expected) {
+        if (null !== $v = $this->expected) {
             if (empty($v)) {
                 $payload['Expected'] = new \stdClass();
             } else {
@@ -444,37 +444,37 @@ final class UpdateItemInput extends Input
                 }
             }
         }
-        if (null !== $v = $this->ConditionalOperator) {
+        if (null !== $v = $this->conditionalOperator) {
             if (!ConditionalOperator::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ConditionalOperator" for "%s". The value "%s" is not a valid "ConditionalOperator".', __CLASS__, $v));
             }
             $payload['ConditionalOperator'] = $v;
         }
-        if (null !== $v = $this->ReturnValues) {
+        if (null !== $v = $this->returnValues) {
             if (!ReturnValue::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ReturnValues" for "%s". The value "%s" is not a valid "ReturnValue".', __CLASS__, $v));
             }
             $payload['ReturnValues'] = $v;
         }
-        if (null !== $v = $this->ReturnConsumedCapacity) {
+        if (null !== $v = $this->returnConsumedCapacity) {
             if (!ReturnConsumedCapacity::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ReturnConsumedCapacity" for "%s". The value "%s" is not a valid "ReturnConsumedCapacity".', __CLASS__, $v));
             }
             $payload['ReturnConsumedCapacity'] = $v;
         }
-        if (null !== $v = $this->ReturnItemCollectionMetrics) {
+        if (null !== $v = $this->returnItemCollectionMetrics) {
             if (!ReturnItemCollectionMetrics::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ReturnItemCollectionMetrics" for "%s". The value "%s" is not a valid "ReturnItemCollectionMetrics".', __CLASS__, $v));
             }
             $payload['ReturnItemCollectionMetrics'] = $v;
         }
-        if (null !== $v = $this->UpdateExpression) {
+        if (null !== $v = $this->updateExpression) {
             $payload['UpdateExpression'] = $v;
         }
-        if (null !== $v = $this->ConditionExpression) {
+        if (null !== $v = $this->conditionExpression) {
             $payload['ConditionExpression'] = $v;
         }
-        if (null !== $v = $this->ExpressionAttributeNames) {
+        if (null !== $v = $this->expressionAttributeNames) {
             if (empty($v)) {
                 $payload['ExpressionAttributeNames'] = new \stdClass();
             } else {
@@ -484,7 +484,7 @@ final class UpdateItemInput extends Input
                 }
             }
         }
-        if (null !== $v = $this->ExpressionAttributeValues) {
+        if (null !== $v = $this->expressionAttributeValues) {
             if (empty($v)) {
                 $payload['ExpressionAttributeValues'] = new \stdClass();
             } else {

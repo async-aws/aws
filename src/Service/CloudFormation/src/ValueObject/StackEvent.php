@@ -12,59 +12,59 @@ final class StackEvent
     /**
      * The unique ID name of the instance of the stack.
      */
-    private $StackId;
+    private $stackId;
 
     /**
      * The unique ID of this event.
      */
-    private $EventId;
+    private $eventId;
 
     /**
      * The name associated with a stack.
      */
-    private $StackName;
+    private $stackName;
 
     /**
      * The logical name of the resource specified in the template.
      */
-    private $LogicalResourceId;
+    private $logicalResourceId;
 
     /**
      * The name or unique identifier associated with the physical instance of the resource.
      */
-    private $PhysicalResourceId;
+    private $physicalResourceId;
 
     /**
      * Type of resource. (For more information, go to  AWS Resource Types Reference in the AWS CloudFormation User Guide.).
      *
      * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html
      */
-    private $ResourceType;
+    private $resourceType;
 
     /**
      * Time the status was updated.
      */
-    private $Timestamp;
+    private $timestamp;
 
     /**
      * Current status of the resource.
      */
-    private $ResourceStatus;
+    private $resourceStatus;
 
     /**
      * Success/failure message associated with the resource.
      */
-    private $ResourceStatusReason;
+    private $resourceStatusReason;
 
     /**
      * BLOB of the properties used to create the resource.
      */
-    private $ResourceProperties;
+    private $resourceProperties;
 
     /**
      * The token passed to the operation that generated this event.
      */
-    private $ClientRequestToken;
+    private $clientRequestToken;
 
     /**
      * @param array{
@@ -83,17 +83,17 @@ final class StackEvent
      */
     public function __construct(array $input)
     {
-        $this->StackId = $input['StackId'] ?? null;
-        $this->EventId = $input['EventId'] ?? null;
-        $this->StackName = $input['StackName'] ?? null;
-        $this->LogicalResourceId = $input['LogicalResourceId'] ?? null;
-        $this->PhysicalResourceId = $input['PhysicalResourceId'] ?? null;
-        $this->ResourceType = $input['ResourceType'] ?? null;
-        $this->Timestamp = $input['Timestamp'] ?? null;
-        $this->ResourceStatus = $input['ResourceStatus'] ?? null;
-        $this->ResourceStatusReason = $input['ResourceStatusReason'] ?? null;
-        $this->ResourceProperties = $input['ResourceProperties'] ?? null;
-        $this->ClientRequestToken = $input['ClientRequestToken'] ?? null;
+        $this->stackId = $input['StackId'] ?? null;
+        $this->eventId = $input['EventId'] ?? null;
+        $this->stackName = $input['StackName'] ?? null;
+        $this->logicalResourceId = $input['LogicalResourceId'] ?? null;
+        $this->physicalResourceId = $input['PhysicalResourceId'] ?? null;
+        $this->resourceType = $input['ResourceType'] ?? null;
+        $this->timestamp = $input['Timestamp'] ?? null;
+        $this->resourceStatus = $input['ResourceStatus'] ?? null;
+        $this->resourceStatusReason = $input['ResourceStatusReason'] ?? null;
+        $this->resourceProperties = $input['ResourceProperties'] ?? null;
+        $this->clientRequestToken = $input['ClientRequestToken'] ?? null;
     }
 
     public static function create($input): self
@@ -103,27 +103,27 @@ final class StackEvent
 
     public function getClientRequestToken(): ?string
     {
-        return $this->ClientRequestToken;
+        return $this->clientRequestToken;
     }
 
     public function getEventId(): string
     {
-        return $this->EventId;
+        return $this->eventId;
     }
 
     public function getLogicalResourceId(): ?string
     {
-        return $this->LogicalResourceId;
+        return $this->logicalResourceId;
     }
 
     public function getPhysicalResourceId(): ?string
     {
-        return $this->PhysicalResourceId;
+        return $this->physicalResourceId;
     }
 
     public function getResourceProperties(): ?string
     {
-        return $this->ResourceProperties;
+        return $this->resourceProperties;
     }
 
     /**
@@ -131,31 +131,31 @@ final class StackEvent
      */
     public function getResourceStatus(): ?string
     {
-        return $this->ResourceStatus;
+        return $this->resourceStatus;
     }
 
     public function getResourceStatusReason(): ?string
     {
-        return $this->ResourceStatusReason;
+        return $this->resourceStatusReason;
     }
 
     public function getResourceType(): ?string
     {
-        return $this->ResourceType;
+        return $this->resourceType;
     }
 
     public function getStackId(): string
     {
-        return $this->StackId;
+        return $this->stackId;
     }
 
     public function getStackName(): string
     {
-        return $this->StackName;
+        return $this->stackName;
     }
 
     public function getTimestamp(): \DateTimeImmutable
     {
-        return $this->Timestamp;
+        return $this->timestamp;
     }
 }

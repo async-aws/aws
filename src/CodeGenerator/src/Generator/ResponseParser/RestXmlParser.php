@@ -44,7 +44,7 @@ class RestXmlParser implements Parser
         if (null !== $payload = $shape->getPayload()) {
             $member = $shape->getMember($payload);
             $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
-                'PROPERTY_NAME' => $member->getName(),
+                'PROPERTY_NAME' => lcfirst($member->getName()),
                 'PROPERTY_ACCESSOR' => $this->parseXmlElement('$data', $member->getShape(), $member->isRequired() || null === $shape->getResultWrapper()),
             ]);
         } else {
@@ -54,7 +54,7 @@ class RestXmlParser implements Parser
                 }
 
                 $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
-                    'PROPERTY_NAME' => $member->getName(),
+                    'PROPERTY_NAME' => lcfirst($member->getName()),
                     'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$data', $member), $member->getShape(), $member->isRequired()),
                 ]);
             }

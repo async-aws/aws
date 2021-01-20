@@ -14,22 +14,22 @@ final class Credentials
     /**
      * The access key ID that identifies the temporary security credentials.
      */
-    private $AccessKeyId;
+    private $accessKeyId;
 
     /**
      * The secret access key that can be used to sign requests.
      */
-    private $SecretAccessKey;
+    private $secretAccessKey;
 
     /**
      * The token that users must pass to the service API to use the temporary credentials.
      */
-    private $SessionToken;
+    private $sessionToken;
 
     /**
      * The date on which the current credentials expire.
      */
-    private $Expiration;
+    private $expiration;
 
     /**
      * @param array{
@@ -41,10 +41,10 @@ final class Credentials
      */
     public function __construct(array $input)
     {
-        $this->AccessKeyId = $input['AccessKeyId'] ?? null;
-        $this->SecretAccessKey = $input['SecretAccessKey'] ?? null;
-        $this->SessionToken = $input['SessionToken'] ?? null;
-        $this->Expiration = $input['Expiration'] ?? null;
+        $this->accessKeyId = $input['AccessKeyId'] ?? null;
+        $this->secretAccessKey = $input['SecretAccessKey'] ?? null;
+        $this->sessionToken = $input['SessionToken'] ?? null;
+        $this->expiration = $input['Expiration'] ?? null;
     }
 
     public static function create($input): self
@@ -54,21 +54,21 @@ final class Credentials
 
     public function getAccessKeyId(): string
     {
-        return $this->AccessKeyId;
+        return $this->accessKeyId;
     }
 
     public function getExpiration(): \DateTimeImmutable
     {
-        return $this->Expiration;
+        return $this->expiration;
     }
 
     public function getSecretAccessKey(): string
     {
-        return $this->SecretAccessKey;
+        return $this->secretAccessKey;
     }
 
     public function getSessionToken(): string
     {
-        return $this->SessionToken;
+        return $this->sessionToken;
     }
 }

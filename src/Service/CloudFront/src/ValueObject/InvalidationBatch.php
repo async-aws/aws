@@ -15,7 +15,7 @@ final class InvalidationBatch
      *
      * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html#invalidation-specifying-objects
      */
-    private $Paths;
+    private $paths;
 
     /**
      * A value that you specify to uniquely identify an invalidation request. CloudFront uses the value to prevent you from
@@ -23,7 +23,7 @@ final class InvalidationBatch
      * new value for `CallerReference` and change other values in the request as applicable. One way to ensure that the
      * value of `CallerReference` is unique is to use a `timestamp`, for example, `20120301090000`.
      */
-    private $CallerReference;
+    private $callerReference;
 
     /**
      * @param array{
@@ -33,8 +33,8 @@ final class InvalidationBatch
      */
     public function __construct(array $input)
     {
-        $this->Paths = isset($input['Paths']) ? Paths::create($input['Paths']) : null;
-        $this->CallerReference = $input['CallerReference'] ?? null;
+        $this->paths = isset($input['Paths']) ? Paths::create($input['Paths']) : null;
+        $this->callerReference = $input['CallerReference'] ?? null;
     }
 
     public static function create($input): self
@@ -44,12 +44,12 @@ final class InvalidationBatch
 
     public function getCallerReference(): string
     {
-        return $this->CallerReference;
+        return $this->callerReference;
     }
 
     public function getPaths(): Paths
     {
-        return $this->Paths;
+        return $this->paths;
     }
 
     /**
@@ -57,7 +57,7 @@ final class InvalidationBatch
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        if (null === $v = $this->Paths) {
+        if (null === $v = $this->paths) {
             throw new InvalidArgument(sprintf('Missing parameter "Paths" for "%s". The value cannot be null.', __CLASS__));
         }
 
@@ -65,7 +65,7 @@ final class InvalidationBatch
 
         $v->requestBody($child, $document);
 
-        if (null === $v = $this->CallerReference) {
+        if (null === $v = $this->callerReference) {
             throw new InvalidArgument(sprintf('Missing parameter "CallerReference" for "%s". The value cannot be null.', __CLASS__));
         }
         $node->appendChild($document->createElement('CallerReference', $v));

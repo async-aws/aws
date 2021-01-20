@@ -13,12 +13,12 @@ final class UpdateGlobalSecondaryIndexAction
     /**
      * The name of the global secondary index to be updated.
      */
-    private $IndexName;
+    private $indexName;
 
     /**
      * Represents the provisioned throughput settings for the specified global secondary index.
      */
-    private $ProvisionedThroughput;
+    private $provisionedThroughput;
 
     /**
      * @param array{
@@ -28,8 +28,8 @@ final class UpdateGlobalSecondaryIndexAction
      */
     public function __construct(array $input)
     {
-        $this->IndexName = $input['IndexName'] ?? null;
-        $this->ProvisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
+        $this->indexName = $input['IndexName'] ?? null;
+        $this->provisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
     }
 
     public static function create($input): self
@@ -39,12 +39,12 @@ final class UpdateGlobalSecondaryIndexAction
 
     public function getIndexName(): string
     {
-        return $this->IndexName;
+        return $this->indexName;
     }
 
     public function getProvisionedThroughput(): ProvisionedThroughput
     {
-        return $this->ProvisionedThroughput;
+        return $this->provisionedThroughput;
     }
 
     /**
@@ -53,11 +53,11 @@ final class UpdateGlobalSecondaryIndexAction
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->IndexName) {
+        if (null === $v = $this->indexName) {
             throw new InvalidArgument(sprintf('Missing parameter "IndexName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['IndexName'] = $v;
-        if (null === $v = $this->ProvisionedThroughput) {
+        if (null === $v = $this->provisionedThroughput) {
             throw new InvalidArgument(sprintf('Missing parameter "ProvisionedThroughput" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ProvisionedThroughput'] = $v->requestBody();

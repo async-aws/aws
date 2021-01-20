@@ -15,7 +15,7 @@ final class KeysAndAttributes
     /**
      * The primary key attribute values that define the items and the attributes associated with the items.
      */
-    private $Keys;
+    private $keys;
 
     /**
      * This is a legacy parameter. Use `ProjectionExpression` instead. For more information, see Legacy Conditional
@@ -23,25 +23,25 @@ final class KeysAndAttributes
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.html
      */
-    private $AttributesToGet;
+    private $attributesToGet;
 
     /**
      * The consistency of a read operation. If set to `true`, then a strongly consistent read is used; otherwise, an
      * eventually consistent read is used.
      */
-    private $ConsistentRead;
+    private $consistentRead;
 
     /**
      * A string that identifies one or more attributes to retrieve from the table. These attributes can include scalars,
      * sets, or elements of a JSON document. The attributes in the `ProjectionExpression` must be separated by commas.
      */
-    private $ProjectionExpression;
+    private $projectionExpression;
 
     /**
      * One or more substitution tokens for attribute names in an expression. The following are some use cases for using
      * `ExpressionAttributeNames`:.
      */
-    private $ExpressionAttributeNames;
+    private $expressionAttributeNames;
 
     /**
      * @param array{
@@ -54,11 +54,11 @@ final class KeysAndAttributes
      */
     public function __construct(array $input)
     {
-        $this->Keys = $input['Keys'] ?? null;
-        $this->AttributesToGet = $input['AttributesToGet'] ?? null;
-        $this->ConsistentRead = $input['ConsistentRead'] ?? null;
-        $this->ProjectionExpression = $input['ProjectionExpression'] ?? null;
-        $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
+        $this->keys = $input['Keys'] ?? null;
+        $this->attributesToGet = $input['AttributesToGet'] ?? null;
+        $this->consistentRead = $input['ConsistentRead'] ?? null;
+        $this->projectionExpression = $input['ProjectionExpression'] ?? null;
+        $this->expressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
     }
 
     public static function create($input): self
@@ -71,12 +71,12 @@ final class KeysAndAttributes
      */
     public function getAttributesToGet(): array
     {
-        return $this->AttributesToGet ?? [];
+        return $this->attributesToGet ?? [];
     }
 
     public function getConsistentRead(): ?bool
     {
-        return $this->ConsistentRead;
+        return $this->consistentRead;
     }
 
     /**
@@ -84,7 +84,7 @@ final class KeysAndAttributes
      */
     public function getExpressionAttributeNames(): array
     {
-        return $this->ExpressionAttributeNames ?? [];
+        return $this->expressionAttributeNames ?? [];
     }
 
     /**
@@ -92,12 +92,12 @@ final class KeysAndAttributes
      */
     public function getKeys(): array
     {
-        return $this->Keys ?? [];
+        return $this->keys ?? [];
     }
 
     public function getProjectionExpression(): ?string
     {
-        return $this->ProjectionExpression;
+        return $this->projectionExpression;
     }
 
     /**
@@ -106,7 +106,7 @@ final class KeysAndAttributes
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->Keys) {
+        if (null === $v = $this->keys) {
             throw new InvalidArgument(sprintf('Missing parameter "Keys" for "%s". The value cannot be null.', __CLASS__));
         }
 
@@ -125,7 +125,7 @@ final class KeysAndAttributes
             }
         }
 
-        if (null !== $v = $this->AttributesToGet) {
+        if (null !== $v = $this->attributesToGet) {
             $index = -1;
             $payload['AttributesToGet'] = [];
             foreach ($v as $listValue) {
@@ -133,13 +133,13 @@ final class KeysAndAttributes
                 $payload['AttributesToGet'][$index] = $listValue;
             }
         }
-        if (null !== $v = $this->ConsistentRead) {
+        if (null !== $v = $this->consistentRead) {
             $payload['ConsistentRead'] = (bool) $v;
         }
-        if (null !== $v = $this->ProjectionExpression) {
+        if (null !== $v = $this->projectionExpression) {
             $payload['ProjectionExpression'] = $v;
         }
-        if (null !== $v = $this->ExpressionAttributeNames) {
+        if (null !== $v = $this->expressionAttributeNames) {
             if (empty($v)) {
                 $payload['ExpressionAttributeNames'] = new \stdClass();
             } else {

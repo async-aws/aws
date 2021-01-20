@@ -10,12 +10,12 @@ final class Owner
     /**
      * Container for the display name of the owner.
      */
-    private $DisplayName;
+    private $displayName;
 
     /**
      * Container for the ID of the owner.
      */
-    private $ID;
+    private $iD;
 
     /**
      * @param array{
@@ -25,8 +25,8 @@ final class Owner
      */
     public function __construct(array $input)
     {
-        $this->DisplayName = $input['DisplayName'] ?? null;
-        $this->ID = $input['ID'] ?? null;
+        $this->displayName = $input['DisplayName'] ?? null;
+        $this->iD = $input['ID'] ?? null;
     }
 
     public static function create($input): self
@@ -36,12 +36,12 @@ final class Owner
 
     public function getDisplayName(): ?string
     {
-        return $this->DisplayName;
+        return $this->displayName;
     }
 
     public function getID(): ?string
     {
-        return $this->ID;
+        return $this->iD;
     }
 
     /**
@@ -49,10 +49,10 @@ final class Owner
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        if (null !== $v = $this->DisplayName) {
+        if (null !== $v = $this->displayName) {
             $node->appendChild($document->createElement('DisplayName', $v));
         }
-        if (null !== $v = $this->ID) {
+        if (null !== $v = $this->iD) {
             $node->appendChild($document->createElement('ID', $v));
         }
     }

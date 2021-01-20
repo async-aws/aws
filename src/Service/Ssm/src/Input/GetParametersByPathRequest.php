@@ -20,28 +20,28 @@ final class GetParametersByPathRequest extends Input
      *
      * @var string|null
      */
-    private $Path;
+    private $path;
 
     /**
      * Retrieve all parameters within a hierarchy.
      *
      * @var bool|null
      */
-    private $Recursive;
+    private $recursive;
 
     /**
      * Filters to limit the request results.
      *
      * @var ParameterStringFilter[]|null
      */
-    private $ParameterFilters;
+    private $parameterFilters;
 
     /**
      * Retrieve all parameters in a hierarchy with their value decrypted.
      *
      * @var bool|null
      */
-    private $WithDecryption;
+    private $withDecryption;
 
     /**
      * The maximum number of items to return for this call. The call also returns a token that you can specify in a
@@ -49,14 +49,14 @@ final class GetParametersByPathRequest extends Input
      *
      * @var int|null
      */
-    private $MaxResults;
+    private $maxResults;
 
     /**
      * A token to start the list. Use this token to get the next set of results.
      *
      * @var string|null
      */
-    private $NextToken;
+    private $nextToken;
 
     /**
      * @param array{
@@ -71,12 +71,12 @@ final class GetParametersByPathRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->Path = $input['Path'] ?? null;
-        $this->Recursive = $input['Recursive'] ?? null;
-        $this->ParameterFilters = isset($input['ParameterFilters']) ? array_map([ParameterStringFilter::class, 'create'], $input['ParameterFilters']) : null;
-        $this->WithDecryption = $input['WithDecryption'] ?? null;
-        $this->MaxResults = $input['MaxResults'] ?? null;
-        $this->NextToken = $input['NextToken'] ?? null;
+        $this->path = $input['Path'] ?? null;
+        $this->recursive = $input['Recursive'] ?? null;
+        $this->parameterFilters = isset($input['ParameterFilters']) ? array_map([ParameterStringFilter::class, 'create'], $input['ParameterFilters']) : null;
+        $this->withDecryption = $input['WithDecryption'] ?? null;
+        $this->maxResults = $input['MaxResults'] ?? null;
+        $this->nextToken = $input['NextToken'] ?? null;
         parent::__construct($input);
     }
 
@@ -87,12 +87,12 @@ final class GetParametersByPathRequest extends Input
 
     public function getMaxResults(): ?int
     {
-        return $this->MaxResults;
+        return $this->maxResults;
     }
 
     public function getNextToken(): ?string
     {
-        return $this->NextToken;
+        return $this->nextToken;
     }
 
     /**
@@ -100,22 +100,22 @@ final class GetParametersByPathRequest extends Input
      */
     public function getParameterFilters(): array
     {
-        return $this->ParameterFilters ?? [];
+        return $this->parameterFilters ?? [];
     }
 
     public function getPath(): ?string
     {
-        return $this->Path;
+        return $this->path;
     }
 
     public function getRecursive(): ?bool
     {
-        return $this->Recursive;
+        return $this->recursive;
     }
 
     public function getWithDecryption(): ?bool
     {
-        return $this->WithDecryption;
+        return $this->withDecryption;
     }
 
     /**
@@ -145,14 +145,14 @@ final class GetParametersByPathRequest extends Input
 
     public function setMaxResults(?int $value): self
     {
-        $this->MaxResults = $value;
+        $this->maxResults = $value;
 
         return $this;
     }
 
     public function setNextToken(?string $value): self
     {
-        $this->NextToken = $value;
+        $this->nextToken = $value;
 
         return $this;
     }
@@ -162,28 +162,28 @@ final class GetParametersByPathRequest extends Input
      */
     public function setParameterFilters(array $value): self
     {
-        $this->ParameterFilters = $value;
+        $this->parameterFilters = $value;
 
         return $this;
     }
 
     public function setPath(?string $value): self
     {
-        $this->Path = $value;
+        $this->path = $value;
 
         return $this;
     }
 
     public function setRecursive(?bool $value): self
     {
-        $this->Recursive = $value;
+        $this->recursive = $value;
 
         return $this;
     }
 
     public function setWithDecryption(?bool $value): self
     {
-        $this->WithDecryption = $value;
+        $this->withDecryption = $value;
 
         return $this;
     }
@@ -191,14 +191,14 @@ final class GetParametersByPathRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->Path) {
+        if (null === $v = $this->path) {
             throw new InvalidArgument(sprintf('Missing parameter "Path" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Path'] = $v;
-        if (null !== $v = $this->Recursive) {
+        if (null !== $v = $this->recursive) {
             $payload['Recursive'] = (bool) $v;
         }
-        if (null !== $v = $this->ParameterFilters) {
+        if (null !== $v = $this->parameterFilters) {
             $index = -1;
             $payload['ParameterFilters'] = [];
             foreach ($v as $listValue) {
@@ -206,13 +206,13 @@ final class GetParametersByPathRequest extends Input
                 $payload['ParameterFilters'][$index] = $listValue->requestBody();
             }
         }
-        if (null !== $v = $this->WithDecryption) {
+        if (null !== $v = $this->withDecryption) {
             $payload['WithDecryption'] = (bool) $v;
         }
-        if (null !== $v = $this->MaxResults) {
+        if (null !== $v = $this->maxResults) {
             $payload['MaxResults'] = $v;
         }
-        if (null !== $v = $this->NextToken) {
+        if (null !== $v = $this->nextToken) {
             $payload['NextToken'] = $v;
         }
 

@@ -22,7 +22,7 @@ final class AdminInitiateAuthRequest extends Input
      *
      * @var string|null
      */
-    private $UserPoolId;
+    private $userPoolId;
 
     /**
      * The app client ID.
@@ -31,7 +31,7 @@ final class AdminInitiateAuthRequest extends Input
      *
      * @var string|null
      */
-    private $ClientId;
+    private $clientId;
 
     /**
      * The authentication flow for this call to execute. The API action will depend on this value. For example:.
@@ -40,7 +40,7 @@ final class AdminInitiateAuthRequest extends Input
      *
      * @var null|AuthFlowType::*
      */
-    private $AuthFlow;
+    private $authFlow;
 
     /**
      * The authentication parameters. These are inputs corresponding to the `AuthFlow` that you are invoking. The required
@@ -48,21 +48,21 @@ final class AdminInitiateAuthRequest extends Input
      *
      * @var array<string, string>|null
      */
-    private $AuthParameters;
+    private $authParameters;
 
     /**
      * A map of custom key-value pairs that you can provide as input for certain custom workflows that this action triggers.
      *
      * @var array<string, string>|null
      */
-    private $ClientMetadata;
+    private $clientMetadata;
 
     /**
      * The analytics metadata for collecting Amazon Pinpoint metrics for `AdminInitiateAuth` calls.
      *
      * @var AnalyticsMetadataType|null
      */
-    private $AnalyticsMetadata;
+    private $analyticsMetadata;
 
     /**
      * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
@@ -70,7 +70,7 @@ final class AdminInitiateAuthRequest extends Input
      *
      * @var ContextDataType|null
      */
-    private $ContextData;
+    private $contextData;
 
     /**
      * @param array{
@@ -86,13 +86,13 @@ final class AdminInitiateAuthRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->UserPoolId = $input['UserPoolId'] ?? null;
-        $this->ClientId = $input['ClientId'] ?? null;
-        $this->AuthFlow = $input['AuthFlow'] ?? null;
-        $this->AuthParameters = $input['AuthParameters'] ?? null;
-        $this->ClientMetadata = $input['ClientMetadata'] ?? null;
-        $this->AnalyticsMetadata = isset($input['AnalyticsMetadata']) ? AnalyticsMetadataType::create($input['AnalyticsMetadata']) : null;
-        $this->ContextData = isset($input['ContextData']) ? ContextDataType::create($input['ContextData']) : null;
+        $this->userPoolId = $input['UserPoolId'] ?? null;
+        $this->clientId = $input['ClientId'] ?? null;
+        $this->authFlow = $input['AuthFlow'] ?? null;
+        $this->authParameters = $input['AuthParameters'] ?? null;
+        $this->clientMetadata = $input['ClientMetadata'] ?? null;
+        $this->analyticsMetadata = isset($input['AnalyticsMetadata']) ? AnalyticsMetadataType::create($input['AnalyticsMetadata']) : null;
+        $this->contextData = isset($input['ContextData']) ? ContextDataType::create($input['ContextData']) : null;
         parent::__construct($input);
     }
 
@@ -103,7 +103,7 @@ final class AdminInitiateAuthRequest extends Input
 
     public function getAnalyticsMetadata(): ?AnalyticsMetadataType
     {
-        return $this->AnalyticsMetadata;
+        return $this->analyticsMetadata;
     }
 
     /**
@@ -111,7 +111,7 @@ final class AdminInitiateAuthRequest extends Input
      */
     public function getAuthFlow(): ?string
     {
-        return $this->AuthFlow;
+        return $this->authFlow;
     }
 
     /**
@@ -119,12 +119,12 @@ final class AdminInitiateAuthRequest extends Input
      */
     public function getAuthParameters(): array
     {
-        return $this->AuthParameters ?? [];
+        return $this->authParameters ?? [];
     }
 
     public function getClientId(): ?string
     {
-        return $this->ClientId;
+        return $this->clientId;
     }
 
     /**
@@ -132,17 +132,17 @@ final class AdminInitiateAuthRequest extends Input
      */
     public function getClientMetadata(): array
     {
-        return $this->ClientMetadata ?? [];
+        return $this->clientMetadata ?? [];
     }
 
     public function getContextData(): ?ContextDataType
     {
-        return $this->ContextData;
+        return $this->contextData;
     }
 
     public function getUserPoolId(): ?string
     {
-        return $this->UserPoolId;
+        return $this->userPoolId;
     }
 
     /**
@@ -172,7 +172,7 @@ final class AdminInitiateAuthRequest extends Input
 
     public function setAnalyticsMetadata(?AnalyticsMetadataType $value): self
     {
-        $this->AnalyticsMetadata = $value;
+        $this->analyticsMetadata = $value;
 
         return $this;
     }
@@ -182,7 +182,7 @@ final class AdminInitiateAuthRequest extends Input
      */
     public function setAuthFlow(?string $value): self
     {
-        $this->AuthFlow = $value;
+        $this->authFlow = $value;
 
         return $this;
     }
@@ -192,14 +192,14 @@ final class AdminInitiateAuthRequest extends Input
      */
     public function setAuthParameters(array $value): self
     {
-        $this->AuthParameters = $value;
+        $this->authParameters = $value;
 
         return $this;
     }
 
     public function setClientId(?string $value): self
     {
-        $this->ClientId = $value;
+        $this->clientId = $value;
 
         return $this;
     }
@@ -209,21 +209,21 @@ final class AdminInitiateAuthRequest extends Input
      */
     public function setClientMetadata(array $value): self
     {
-        $this->ClientMetadata = $value;
+        $this->clientMetadata = $value;
 
         return $this;
     }
 
     public function setContextData(?ContextDataType $value): self
     {
-        $this->ContextData = $value;
+        $this->contextData = $value;
 
         return $this;
     }
 
     public function setUserPoolId(?string $value): self
     {
-        $this->UserPoolId = $value;
+        $this->userPoolId = $value;
 
         return $this;
     }
@@ -231,22 +231,22 @@ final class AdminInitiateAuthRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->UserPoolId) {
+        if (null === $v = $this->userPoolId) {
             throw new InvalidArgument(sprintf('Missing parameter "UserPoolId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserPoolId'] = $v;
-        if (null === $v = $this->ClientId) {
+        if (null === $v = $this->clientId) {
             throw new InvalidArgument(sprintf('Missing parameter "ClientId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ClientId'] = $v;
-        if (null === $v = $this->AuthFlow) {
+        if (null === $v = $this->authFlow) {
             throw new InvalidArgument(sprintf('Missing parameter "AuthFlow" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!AuthFlowType::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "AuthFlow" for "%s". The value "%s" is not a valid "AuthFlowType".', __CLASS__, $v));
         }
         $payload['AuthFlow'] = $v;
-        if (null !== $v = $this->AuthParameters) {
+        if (null !== $v = $this->authParameters) {
             if (empty($v)) {
                 $payload['AuthParameters'] = new \stdClass();
             } else {
@@ -256,7 +256,7 @@ final class AdminInitiateAuthRequest extends Input
                 }
             }
         }
-        if (null !== $v = $this->ClientMetadata) {
+        if (null !== $v = $this->clientMetadata) {
             if (empty($v)) {
                 $payload['ClientMetadata'] = new \stdClass();
             } else {
@@ -266,10 +266,10 @@ final class AdminInitiateAuthRequest extends Input
                 }
             }
         }
-        if (null !== $v = $this->AnalyticsMetadata) {
+        if (null !== $v = $this->analyticsMetadata) {
             $payload['AnalyticsMetadata'] = $v->requestBody();
         }
-        if (null !== $v = $this->ContextData) {
+        if (null !== $v = $this->contextData) {
             $payload['ContextData'] = $v->requestBody();
         }
 

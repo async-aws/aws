@@ -11,7 +11,7 @@ class DeleteProjectResponse extends Result
     /**
      * The current status of the delete project operation.
      */
-    private $Status;
+    private $status;
 
     /**
      * @return ProjectStatus::*|null
@@ -20,13 +20,13 @@ class DeleteProjectResponse extends Result
     {
         $this->initialize();
 
-        return $this->Status;
+        return $this->status;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->Status = isset($data['Status']) ? (string) $data['Status'] : null;
+        $this->status = isset($data['Status']) ? (string) $data['Status'] : null;
     }
 }

@@ -12,24 +12,24 @@ final class GlobalSecondaryIndexDescription
     /**
      * The name of the global secondary index.
      */
-    private $IndexName;
+    private $indexName;
 
     /**
      * The complete key schema for a global secondary index, which consists of one or more pairs of attribute names and key
      * types:.
      */
-    private $KeySchema;
+    private $keySchema;
 
     /**
      * Represents attributes that are copied (projected) from the table into the global secondary index. These are in
      * addition to the primary key attributes and index key attributes, which are automatically projected.
      */
-    private $Projection;
+    private $projection;
 
     /**
      * The current state of the global secondary index:.
      */
-    private $IndexStatus;
+    private $indexStatus;
 
     /**
      * Indicates whether the index is currently backfilling. *Backfilling* is the process of reading items from the table
@@ -37,29 +37,29 @@ final class GlobalSecondaryIndexDescription
      * cannot have any duplicate values.) If an item can be added to the index, DynamoDB will do so. After all items have
      * been processed, the backfilling operation is complete and `Backfilling` is false.
      */
-    private $Backfilling;
+    private $backfilling;
 
     /**
      * Represents the provisioned throughput settings for the specified global secondary index.
      */
-    private $ProvisionedThroughput;
+    private $provisionedThroughput;
 
     /**
      * The total size of the specified index, in bytes. DynamoDB updates this value approximately every six hours. Recent
      * changes might not be reflected in this value.
      */
-    private $IndexSizeBytes;
+    private $indexSizeBytes;
 
     /**
      * The number of items in the specified index. DynamoDB updates this value approximately every six hours. Recent changes
      * might not be reflected in this value.
      */
-    private $ItemCount;
+    private $itemCount;
 
     /**
      * The Amazon Resource Name (ARN) that uniquely identifies the index.
      */
-    private $IndexArn;
+    private $indexArn;
 
     /**
      * @param array{
@@ -76,15 +76,15 @@ final class GlobalSecondaryIndexDescription
      */
     public function __construct(array $input)
     {
-        $this->IndexName = $input['IndexName'] ?? null;
-        $this->KeySchema = isset($input['KeySchema']) ? array_map([KeySchemaElement::class, 'create'], $input['KeySchema']) : null;
-        $this->Projection = isset($input['Projection']) ? Projection::create($input['Projection']) : null;
-        $this->IndexStatus = $input['IndexStatus'] ?? null;
-        $this->Backfilling = $input['Backfilling'] ?? null;
-        $this->ProvisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughputDescription::create($input['ProvisionedThroughput']) : null;
-        $this->IndexSizeBytes = $input['IndexSizeBytes'] ?? null;
-        $this->ItemCount = $input['ItemCount'] ?? null;
-        $this->IndexArn = $input['IndexArn'] ?? null;
+        $this->indexName = $input['IndexName'] ?? null;
+        $this->keySchema = isset($input['KeySchema']) ? array_map([KeySchemaElement::class, 'create'], $input['KeySchema']) : null;
+        $this->projection = isset($input['Projection']) ? Projection::create($input['Projection']) : null;
+        $this->indexStatus = $input['IndexStatus'] ?? null;
+        $this->backfilling = $input['Backfilling'] ?? null;
+        $this->provisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughputDescription::create($input['ProvisionedThroughput']) : null;
+        $this->indexSizeBytes = $input['IndexSizeBytes'] ?? null;
+        $this->itemCount = $input['ItemCount'] ?? null;
+        $this->indexArn = $input['IndexArn'] ?? null;
     }
 
     public static function create($input): self
@@ -94,22 +94,22 @@ final class GlobalSecondaryIndexDescription
 
     public function getBackfilling(): ?bool
     {
-        return $this->Backfilling;
+        return $this->backfilling;
     }
 
     public function getIndexArn(): ?string
     {
-        return $this->IndexArn;
+        return $this->indexArn;
     }
 
     public function getIndexName(): ?string
     {
-        return $this->IndexName;
+        return $this->indexName;
     }
 
     public function getIndexSizeBytes(): ?string
     {
-        return $this->IndexSizeBytes;
+        return $this->indexSizeBytes;
     }
 
     /**
@@ -117,12 +117,12 @@ final class GlobalSecondaryIndexDescription
      */
     public function getIndexStatus(): ?string
     {
-        return $this->IndexStatus;
+        return $this->indexStatus;
     }
 
     public function getItemCount(): ?string
     {
-        return $this->ItemCount;
+        return $this->itemCount;
     }
 
     /**
@@ -130,16 +130,16 @@ final class GlobalSecondaryIndexDescription
      */
     public function getKeySchema(): array
     {
-        return $this->KeySchema ?? [];
+        return $this->keySchema ?? [];
     }
 
     public function getProjection(): ?Projection
     {
-        return $this->Projection;
+        return $this->projection;
     }
 
     public function getProvisionedThroughput(): ?ProvisionedThroughputDescription
     {
-        return $this->ProvisionedThroughput;
+        return $this->provisionedThroughput;
     }
 }

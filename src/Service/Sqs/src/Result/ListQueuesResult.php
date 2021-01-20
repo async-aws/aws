@@ -18,13 +18,13 @@ class ListQueuesResult extends Result implements \IteratorAggregate
     /**
      * A list of queue URLs, up to 1,000 entries, or the value of MaxResults that you sent in the request.
      */
-    private $QueueUrls = [];
+    private $queueUrls = [];
 
     /**
      * Pagination token to include in the next request. Token value is `null` if there are no additional results to request,
      * or if you did not set `MaxResults` in the request.
      */
-    private $NextToken;
+    private $nextToken;
 
     /**
      * Iterates over QueueUrls.
@@ -66,7 +66,7 @@ class ListQueuesResult extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->NextToken;
+        return $this->nextToken;
     }
 
     /**
@@ -78,7 +78,7 @@ class ListQueuesResult extends Result implements \IteratorAggregate
     {
         if ($currentPageOnly) {
             $this->initialize();
-            yield from $this->QueueUrls;
+            yield from $this->queueUrls;
 
             return;
         }
@@ -117,8 +117,8 @@ class ListQueuesResult extends Result implements \IteratorAggregate
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->ListQueuesResult;
 
-        $this->QueueUrls = !$data->QueueUrl ? [] : $this->populateResultQueueUrlList($data->QueueUrl);
-        $this->NextToken = ($v = $data->NextToken) ? (string) $v : null;
+        $this->queueUrls = !$data->QueueUrl ? [] : $this->populateResultQueueUrlList($data->QueueUrl);
+        $this->nextToken = ($v = $data->NextToken) ? (string) $v : null;
     }
 
     /**

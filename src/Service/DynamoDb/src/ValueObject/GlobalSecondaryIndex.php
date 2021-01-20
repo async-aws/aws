@@ -12,24 +12,24 @@ final class GlobalSecondaryIndex
     /**
      * The name of the global secondary index. The name must be unique among all other indexes on this table.
      */
-    private $IndexName;
+    private $indexName;
 
     /**
      * The complete key schema for a global secondary index, which consists of one or more pairs of attribute names and key
      * types:.
      */
-    private $KeySchema;
+    private $keySchema;
 
     /**
      * Represents attributes that are copied (projected) from the table into the global secondary index. These are in
      * addition to the primary key attributes and index key attributes, which are automatically projected.
      */
-    private $Projection;
+    private $projection;
 
     /**
      * Represents the provisioned throughput settings for the specified global secondary index.
      */
-    private $ProvisionedThroughput;
+    private $provisionedThroughput;
 
     /**
      * @param array{
@@ -41,10 +41,10 @@ final class GlobalSecondaryIndex
      */
     public function __construct(array $input)
     {
-        $this->IndexName = $input['IndexName'] ?? null;
-        $this->KeySchema = isset($input['KeySchema']) ? array_map([KeySchemaElement::class, 'create'], $input['KeySchema']) : null;
-        $this->Projection = isset($input['Projection']) ? Projection::create($input['Projection']) : null;
-        $this->ProvisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
+        $this->indexName = $input['IndexName'] ?? null;
+        $this->keySchema = isset($input['KeySchema']) ? array_map([KeySchemaElement::class, 'create'], $input['KeySchema']) : null;
+        $this->projection = isset($input['Projection']) ? Projection::create($input['Projection']) : null;
+        $this->provisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
     }
 
     public static function create($input): self
@@ -54,7 +54,7 @@ final class GlobalSecondaryIndex
 
     public function getIndexName(): string
     {
-        return $this->IndexName;
+        return $this->indexName;
     }
 
     /**
@@ -62,17 +62,17 @@ final class GlobalSecondaryIndex
      */
     public function getKeySchema(): array
     {
-        return $this->KeySchema ?? [];
+        return $this->keySchema ?? [];
     }
 
     public function getProjection(): Projection
     {
-        return $this->Projection;
+        return $this->projection;
     }
 
     public function getProvisionedThroughput(): ?ProvisionedThroughput
     {
-        return $this->ProvisionedThroughput;
+        return $this->provisionedThroughput;
     }
 
     /**
@@ -81,11 +81,11 @@ final class GlobalSecondaryIndex
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->IndexName) {
+        if (null === $v = $this->indexName) {
             throw new InvalidArgument(sprintf('Missing parameter "IndexName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['IndexName'] = $v;
-        if (null === $v = $this->KeySchema) {
+        if (null === $v = $this->keySchema) {
             throw new InvalidArgument(sprintf('Missing parameter "KeySchema" for "%s". The value cannot be null.', __CLASS__));
         }
 
@@ -96,11 +96,11 @@ final class GlobalSecondaryIndex
             $payload['KeySchema'][$index] = $listValue->requestBody();
         }
 
-        if (null === $v = $this->Projection) {
+        if (null === $v = $this->projection) {
             throw new InvalidArgument(sprintf('Missing parameter "Projection" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Projection'] = $v->requestBody();
-        if (null !== $v = $this->ProvisionedThroughput) {
+        if (null !== $v = $this->provisionedThroughput) {
             $payload['ProvisionedThroughput'] = $v->requestBody();
         }
 

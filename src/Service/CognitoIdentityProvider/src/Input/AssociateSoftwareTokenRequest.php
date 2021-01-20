@@ -13,7 +13,7 @@ final class AssociateSoftwareTokenRequest extends Input
      *
      * @var string|null
      */
-    private $AccessToken;
+    private $accessToken;
 
     /**
      * The session which should be passed both ways in challenge-response calls to the service. This allows authentication
@@ -21,7 +21,7 @@ final class AssociateSoftwareTokenRequest extends Input
      *
      * @var string|null
      */
-    private $Session;
+    private $session;
 
     /**
      * @param array{
@@ -32,8 +32,8 @@ final class AssociateSoftwareTokenRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->AccessToken = $input['AccessToken'] ?? null;
-        $this->Session = $input['Session'] ?? null;
+        $this->accessToken = $input['AccessToken'] ?? null;
+        $this->session = $input['Session'] ?? null;
         parent::__construct($input);
     }
 
@@ -44,12 +44,12 @@ final class AssociateSoftwareTokenRequest extends Input
 
     public function getAccessToken(): ?string
     {
-        return $this->AccessToken;
+        return $this->accessToken;
     }
 
     public function getSession(): ?string
     {
-        return $this->Session;
+        return $this->session;
     }
 
     /**
@@ -79,14 +79,14 @@ final class AssociateSoftwareTokenRequest extends Input
 
     public function setAccessToken(?string $value): self
     {
-        $this->AccessToken = $value;
+        $this->accessToken = $value;
 
         return $this;
     }
 
     public function setSession(?string $value): self
     {
-        $this->Session = $value;
+        $this->session = $value;
 
         return $this;
     }
@@ -94,10 +94,10 @@ final class AssociateSoftwareTokenRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->AccessToken) {
+        if (null !== $v = $this->accessToken) {
             $payload['AccessToken'] = $v;
         }
-        if (null !== $v = $this->Session) {
+        if (null !== $v = $this->session) {
             $payload['Session'] = $v;
         }
 

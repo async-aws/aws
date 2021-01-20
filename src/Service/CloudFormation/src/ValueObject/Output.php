@@ -10,22 +10,22 @@ final class Output
     /**
      * The key associated with the output.
      */
-    private $OutputKey;
+    private $outputKey;
 
     /**
      * The value associated with the output.
      */
-    private $OutputValue;
+    private $outputValue;
 
     /**
      * User defined description associated with the output.
      */
-    private $Description;
+    private $description;
 
     /**
      * The name of the export associated with the output.
      */
-    private $ExportName;
+    private $exportName;
 
     /**
      * @param array{
@@ -37,10 +37,10 @@ final class Output
      */
     public function __construct(array $input)
     {
-        $this->OutputKey = $input['OutputKey'] ?? null;
-        $this->OutputValue = $input['OutputValue'] ?? null;
-        $this->Description = $input['Description'] ?? null;
-        $this->ExportName = $input['ExportName'] ?? null;
+        $this->outputKey = $input['OutputKey'] ?? null;
+        $this->outputValue = $input['OutputValue'] ?? null;
+        $this->description = $input['Description'] ?? null;
+        $this->exportName = $input['ExportName'] ?? null;
     }
 
     public static function create($input): self
@@ -50,21 +50,21 @@ final class Output
 
     public function getDescription(): ?string
     {
-        return $this->Description;
+        return $this->description;
     }
 
     public function getExportName(): ?string
     {
-        return $this->ExportName;
+        return $this->exportName;
     }
 
     public function getOutputKey(): ?string
     {
-        return $this->OutputKey;
+        return $this->outputKey;
     }
 
     public function getOutputValue(): ?string
     {
-        return $this->OutputValue;
+        return $this->outputValue;
     }
 }

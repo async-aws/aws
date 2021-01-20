@@ -10,13 +10,13 @@ final class FaceMatch
     /**
      * Confidence in the match of this face with the input face.
      */
-    private $Similarity;
+    private $similarity;
 
     /**
      * Describes the face properties such as the bounding box, face ID, image ID of the source image, and external image ID
      * that you assigned.
      */
-    private $Face;
+    private $face;
 
     /**
      * @param array{
@@ -26,8 +26,8 @@ final class FaceMatch
      */
     public function __construct(array $input)
     {
-        $this->Similarity = $input['Similarity'] ?? null;
-        $this->Face = isset($input['Face']) ? Face::create($input['Face']) : null;
+        $this->similarity = $input['Similarity'] ?? null;
+        $this->face = isset($input['Face']) ? Face::create($input['Face']) : null;
     }
 
     public static function create($input): self
@@ -37,11 +37,11 @@ final class FaceMatch
 
     public function getFace(): ?Face
     {
-        return $this->Face;
+        return $this->face;
     }
 
     public function getSimilarity(): ?float
     {
-        return $this->Similarity;
+        return $this->similarity;
     }
 }

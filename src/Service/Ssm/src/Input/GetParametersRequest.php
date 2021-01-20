@@ -16,7 +16,7 @@ final class GetParametersRequest extends Input
      *
      * @var string[]|null
      */
-    private $Names;
+    private $names;
 
     /**
      * Return decrypted secure string value. Return decrypted values for secure string parameters. This flag is ignored for
@@ -24,7 +24,7 @@ final class GetParametersRequest extends Input
      *
      * @var bool|null
      */
-    private $WithDecryption;
+    private $withDecryption;
 
     /**
      * @param array{
@@ -35,8 +35,8 @@ final class GetParametersRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->Names = $input['Names'] ?? null;
-        $this->WithDecryption = $input['WithDecryption'] ?? null;
+        $this->names = $input['Names'] ?? null;
+        $this->withDecryption = $input['WithDecryption'] ?? null;
         parent::__construct($input);
     }
 
@@ -50,12 +50,12 @@ final class GetParametersRequest extends Input
      */
     public function getNames(): array
     {
-        return $this->Names ?? [];
+        return $this->names ?? [];
     }
 
     public function getWithDecryption(): ?bool
     {
-        return $this->WithDecryption;
+        return $this->withDecryption;
     }
 
     /**
@@ -88,14 +88,14 @@ final class GetParametersRequest extends Input
      */
     public function setNames(array $value): self
     {
-        $this->Names = $value;
+        $this->names = $value;
 
         return $this;
     }
 
     public function setWithDecryption(?bool $value): self
     {
-        $this->WithDecryption = $value;
+        $this->withDecryption = $value;
 
         return $this;
     }
@@ -103,7 +103,7 @@ final class GetParametersRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->Names) {
+        if (null === $v = $this->names) {
             throw new InvalidArgument(sprintf('Missing parameter "Names" for "%s". The value cannot be null.', __CLASS__));
         }
 
@@ -114,7 +114,7 @@ final class GetParametersRequest extends Input
             $payload['Names'][$index] = $listValue;
         }
 
-        if (null !== $v = $this->WithDecryption) {
+        if (null !== $v = $this->withDecryption) {
             $payload['WithDecryption'] = (bool) $v;
         }
 

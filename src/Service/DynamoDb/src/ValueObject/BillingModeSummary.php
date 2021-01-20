@@ -13,12 +13,12 @@ final class BillingModeSummary
      * Controls how you are charged for read and write throughput and how you manage capacity. This setting can be changed
      * later.
      */
-    private $BillingMode;
+    private $billingMode;
 
     /**
      * Represents the time when `PAY_PER_REQUEST` was last set as the read/write capacity mode.
      */
-    private $LastUpdateToPayPerRequestDateTime;
+    private $lastUpdateToPayPerRequestDateTime;
 
     /**
      * @param array{
@@ -28,8 +28,8 @@ final class BillingModeSummary
      */
     public function __construct(array $input)
     {
-        $this->BillingMode = $input['BillingMode'] ?? null;
-        $this->LastUpdateToPayPerRequestDateTime = $input['LastUpdateToPayPerRequestDateTime'] ?? null;
+        $this->billingMode = $input['BillingMode'] ?? null;
+        $this->lastUpdateToPayPerRequestDateTime = $input['LastUpdateToPayPerRequestDateTime'] ?? null;
     }
 
     public static function create($input): self
@@ -42,11 +42,11 @@ final class BillingModeSummary
      */
     public function getBillingMode(): ?string
     {
-        return $this->BillingMode;
+        return $this->billingMode;
     }
 
     public function getLastUpdateToPayPerRequestDateTime(): ?\DateTimeImmutable
     {
-        return $this->LastUpdateToPayPerRequestDateTime;
+        return $this->lastUpdateToPayPerRequestDateTime;
     }
 }

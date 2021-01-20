@@ -11,17 +11,17 @@ final class EmailContent
     /**
      * The simple email message. The message consists of a subject and a message body.
      */
-    private $Simple;
+    private $simple;
 
     /**
      * The raw email message. The message has to meet the following criteria:.
      */
-    private $Raw;
+    private $raw;
 
     /**
      * The template to use for the email message.
      */
-    private $Template;
+    private $template;
 
     /**
      * @param array{
@@ -32,9 +32,9 @@ final class EmailContent
      */
     public function __construct(array $input)
     {
-        $this->Simple = isset($input['Simple']) ? Message::create($input['Simple']) : null;
-        $this->Raw = isset($input['Raw']) ? RawMessage::create($input['Raw']) : null;
-        $this->Template = isset($input['Template']) ? Template::create($input['Template']) : null;
+        $this->simple = isset($input['Simple']) ? Message::create($input['Simple']) : null;
+        $this->raw = isset($input['Raw']) ? RawMessage::create($input['Raw']) : null;
+        $this->template = isset($input['Template']) ? Template::create($input['Template']) : null;
     }
 
     public static function create($input): self
@@ -44,17 +44,17 @@ final class EmailContent
 
     public function getRaw(): ?RawMessage
     {
-        return $this->Raw;
+        return $this->raw;
     }
 
     public function getSimple(): ?Message
     {
-        return $this->Simple;
+        return $this->simple;
     }
 
     public function getTemplate(): ?Template
     {
-        return $this->Template;
+        return $this->template;
     }
 
     /**
@@ -63,13 +63,13 @@ final class EmailContent
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->Simple) {
+        if (null !== $v = $this->simple) {
             $payload['Simple'] = $v->requestBody();
         }
-        if (null !== $v = $this->Raw) {
+        if (null !== $v = $this->raw) {
             $payload['Raw'] = $v->requestBody();
         }
-        if (null !== $v = $this->Template) {
+        if (null !== $v = $this->template) {
             $payload['Template'] = $v->requestBody();
         }
 

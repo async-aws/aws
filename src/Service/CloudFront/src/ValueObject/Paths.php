@@ -15,12 +15,12 @@ final class Paths
     /**
      * The number of invalidation paths specified for the objects that you want to invalidate.
      */
-    private $Quantity;
+    private $quantity;
 
     /**
      * A complex type that contains a list of the paths that you want to invalidate.
      */
-    private $Items;
+    private $items;
 
     /**
      * @param array{
@@ -30,8 +30,8 @@ final class Paths
      */
     public function __construct(array $input)
     {
-        $this->Quantity = $input['Quantity'] ?? null;
-        $this->Items = $input['Items'] ?? null;
+        $this->quantity = $input['Quantity'] ?? null;
+        $this->items = $input['Items'] ?? null;
     }
 
     public static function create($input): self
@@ -44,12 +44,12 @@ final class Paths
      */
     public function getItems(): array
     {
-        return $this->Items ?? [];
+        return $this->items ?? [];
     }
 
     public function getQuantity(): int
     {
-        return $this->Quantity;
+        return $this->quantity;
     }
 
     /**
@@ -57,11 +57,11 @@ final class Paths
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        if (null === $v = $this->Quantity) {
+        if (null === $v = $this->quantity) {
             throw new InvalidArgument(sprintf('Missing parameter "Quantity" for "%s". The value cannot be null.', __CLASS__));
         }
         $node->appendChild($document->createElement('Quantity', $v));
-        if (null !== $v = $this->Items) {
+        if (null !== $v = $this->items) {
             $node->appendChild($nodeList = $document->createElement('Items'));
             foreach ($v as $item) {
                 $nodeList->appendChild($document->createElement('Path', $item));

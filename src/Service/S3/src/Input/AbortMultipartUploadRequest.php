@@ -17,7 +17,7 @@ final class AbortMultipartUploadRequest extends Input
      *
      * @var string|null
      */
-    private $Bucket;
+    private $bucket;
 
     /**
      * Key of the object for which the multipart upload was initiated.
@@ -26,7 +26,7 @@ final class AbortMultipartUploadRequest extends Input
      *
      * @var string|null
      */
-    private $Key;
+    private $key;
 
     /**
      * Upload ID that identifies the multipart upload.
@@ -35,12 +35,12 @@ final class AbortMultipartUploadRequest extends Input
      *
      * @var string|null
      */
-    private $UploadId;
+    private $uploadId;
 
     /**
      * @var null|RequestPayer::*
      */
-    private $RequestPayer;
+    private $requestPayer;
 
     /**
      * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
@@ -48,7 +48,7 @@ final class AbortMultipartUploadRequest extends Input
      *
      * @var string|null
      */
-    private $ExpectedBucketOwner;
+    private $expectedBucketOwner;
 
     /**
      * @param array{
@@ -62,11 +62,11 @@ final class AbortMultipartUploadRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->Bucket = $input['Bucket'] ?? null;
-        $this->Key = $input['Key'] ?? null;
-        $this->UploadId = $input['UploadId'] ?? null;
-        $this->RequestPayer = $input['RequestPayer'] ?? null;
-        $this->ExpectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
+        $this->bucket = $input['Bucket'] ?? null;
+        $this->key = $input['Key'] ?? null;
+        $this->uploadId = $input['UploadId'] ?? null;
+        $this->requestPayer = $input['RequestPayer'] ?? null;
+        $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         parent::__construct($input);
     }
 
@@ -77,17 +77,17 @@ final class AbortMultipartUploadRequest extends Input
 
     public function getBucket(): ?string
     {
-        return $this->Bucket;
+        return $this->bucket;
     }
 
     public function getExpectedBucketOwner(): ?string
     {
-        return $this->ExpectedBucketOwner;
+        return $this->expectedBucketOwner;
     }
 
     public function getKey(): ?string
     {
-        return $this->Key;
+        return $this->key;
     }
 
     /**
@@ -95,12 +95,12 @@ final class AbortMultipartUploadRequest extends Input
      */
     public function getRequestPayer(): ?string
     {
-        return $this->RequestPayer;
+        return $this->requestPayer;
     }
 
     public function getUploadId(): ?string
     {
-        return $this->UploadId;
+        return $this->uploadId;
     }
 
     /**
@@ -110,30 +110,30 @@ final class AbortMultipartUploadRequest extends Input
     {
         // Prepare headers
         $headers = ['content-type' => 'application/xml'];
-        if (null !== $this->RequestPayer) {
-            if (!RequestPayer::exists($this->RequestPayer)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
+        if (null !== $this->requestPayer) {
+            if (!RequestPayer::exists($this->requestPayer)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->requestPayer));
             }
-            $headers['x-amz-request-payer'] = $this->RequestPayer;
+            $headers['x-amz-request-payer'] = $this->requestPayer;
         }
-        if (null !== $this->ExpectedBucketOwner) {
-            $headers['x-amz-expected-bucket-owner'] = $this->ExpectedBucketOwner;
+        if (null !== $this->expectedBucketOwner) {
+            $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
         }
 
         // Prepare query
         $query = [];
-        if (null === $v = $this->UploadId) {
+        if (null === $v = $this->uploadId) {
             throw new InvalidArgument(sprintf('Missing parameter "UploadId" for "%s". The value cannot be null.', __CLASS__));
         }
         $query['uploadId'] = $v;
 
         // Prepare URI
         $uri = [];
-        if (null === $v = $this->Bucket) {
+        if (null === $v = $this->bucket) {
             throw new InvalidArgument(sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Bucket'] = $v;
-        if (null === $v = $this->Key) {
+        if (null === $v = $this->key) {
             throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Key'] = $v;
@@ -148,21 +148,21 @@ final class AbortMultipartUploadRequest extends Input
 
     public function setBucket(?string $value): self
     {
-        $this->Bucket = $value;
+        $this->bucket = $value;
 
         return $this;
     }
 
     public function setExpectedBucketOwner(?string $value): self
     {
-        $this->ExpectedBucketOwner = $value;
+        $this->expectedBucketOwner = $value;
 
         return $this;
     }
 
     public function setKey(?string $value): self
     {
-        $this->Key = $value;
+        $this->key = $value;
 
         return $this;
     }
@@ -172,14 +172,14 @@ final class AbortMultipartUploadRequest extends Input
      */
     public function setRequestPayer(?string $value): self
     {
-        $this->RequestPayer = $value;
+        $this->requestPayer = $value;
 
         return $this;
     }
 
     public function setUploadId(?string $value): self
     {
-        $this->UploadId = $value;
+        $this->uploadId = $value;
 
         return $this;
     }

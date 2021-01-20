@@ -13,14 +13,14 @@ final class ListCollectionsRequest extends Input
      *
      * @var string|null
      */
-    private $NextToken;
+    private $nextToken;
 
     /**
      * Maximum number of collection IDs to return.
      *
      * @var int|null
      */
-    private $MaxResults;
+    private $maxResults;
 
     /**
      * @param array{
@@ -31,8 +31,8 @@ final class ListCollectionsRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->NextToken = $input['NextToken'] ?? null;
-        $this->MaxResults = $input['MaxResults'] ?? null;
+        $this->nextToken = $input['NextToken'] ?? null;
+        $this->maxResults = $input['MaxResults'] ?? null;
         parent::__construct($input);
     }
 
@@ -43,12 +43,12 @@ final class ListCollectionsRequest extends Input
 
     public function getMaxResults(): ?int
     {
-        return $this->MaxResults;
+        return $this->maxResults;
     }
 
     public function getNextToken(): ?string
     {
-        return $this->NextToken;
+        return $this->nextToken;
     }
 
     /**
@@ -78,14 +78,14 @@ final class ListCollectionsRequest extends Input
 
     public function setMaxResults(?int $value): self
     {
-        $this->MaxResults = $value;
+        $this->maxResults = $value;
 
         return $this;
     }
 
     public function setNextToken(?string $value): self
     {
-        $this->NextToken = $value;
+        $this->nextToken = $value;
 
         return $this;
     }
@@ -93,10 +93,10 @@ final class ListCollectionsRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->NextToken) {
+        if (null !== $v = $this->nextToken) {
             $payload['NextToken'] = $v;
         }
-        if (null !== $v = $this->MaxResults) {
+        if (null !== $v = $this->maxResults) {
             $payload['MaxResults'] = $v;
         }
 

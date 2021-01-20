@@ -13,85 +13,85 @@ class CopyObjectOutput extends Result
     /**
      * Container for all response elements.
      */
-    private $CopyObjectResult;
+    private $copyObjectResult;
 
     /**
      * If the object expiration is configured, the response includes this header.
      */
-    private $Expiration;
+    private $expiration;
 
     /**
      * Version of the copied object in the destination bucket.
      */
-    private $CopySourceVersionId;
+    private $copySourceVersionId;
 
     /**
      * Version ID of the newly created copy.
      */
-    private $VersionId;
+    private $versionId;
 
     /**
      * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
      */
-    private $ServerSideEncryption;
+    private $serverSideEncryption;
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
      * header confirming the encryption algorithm used.
      */
-    private $SSECustomerAlgorithm;
+    private $sSECustomerAlgorithm;
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
      * header to provide round-trip message integrity verification of the customer-provided encryption key.
      */
-    private $SSECustomerKeyMD5;
+    private $sSECustomerKeyMD5;
 
     /**
      * If present, specifies the ID of the AWS Key Management Service (AWS KMS) symmetric customer managed customer master
      * key (CMK) that was used for the object.
      */
-    private $SSEKMSKeyId;
+    private $sSEKMSKeyId;
 
     /**
      * If present, specifies the AWS KMS Encryption Context to use for object encryption. The value of this header is a
      * base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
      */
-    private $SSEKMSEncryptionContext;
+    private $sSEKMSEncryptionContext;
 
     /**
      * Indicates whether the copied object uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).
      */
-    private $BucketKeyEnabled;
+    private $bucketKeyEnabled;
 
-    private $RequestCharged;
+    private $requestCharged;
 
     public function getBucketKeyEnabled(): ?bool
     {
         $this->initialize();
 
-        return $this->BucketKeyEnabled;
+        return $this->bucketKeyEnabled;
     }
 
     public function getCopyObjectResult(): ?CopyObjectResult
     {
         $this->initialize();
 
-        return $this->CopyObjectResult;
+        return $this->copyObjectResult;
     }
 
     public function getCopySourceVersionId(): ?string
     {
         $this->initialize();
 
-        return $this->CopySourceVersionId;
+        return $this->copySourceVersionId;
     }
 
     public function getExpiration(): ?string
     {
         $this->initialize();
 
-        return $this->Expiration;
+        return $this->expiration;
     }
 
     /**
@@ -101,35 +101,35 @@ class CopyObjectOutput extends Result
     {
         $this->initialize();
 
-        return $this->RequestCharged;
+        return $this->requestCharged;
     }
 
     public function getSSECustomerAlgorithm(): ?string
     {
         $this->initialize();
 
-        return $this->SSECustomerAlgorithm;
+        return $this->sSECustomerAlgorithm;
     }
 
     public function getSSECustomerKeyMD5(): ?string
     {
         $this->initialize();
 
-        return $this->SSECustomerKeyMD5;
+        return $this->sSECustomerKeyMD5;
     }
 
     public function getSSEKMSEncryptionContext(): ?string
     {
         $this->initialize();
 
-        return $this->SSEKMSEncryptionContext;
+        return $this->sSEKMSEncryptionContext;
     }
 
     public function getSSEKMSKeyId(): ?string
     {
         $this->initialize();
 
-        return $this->SSEKMSKeyId;
+        return $this->sSEKMSKeyId;
     }
 
     /**
@@ -139,33 +139,33 @@ class CopyObjectOutput extends Result
     {
         $this->initialize();
 
-        return $this->ServerSideEncryption;
+        return $this->serverSideEncryption;
     }
 
     public function getVersionId(): ?string
     {
         $this->initialize();
 
-        return $this->VersionId;
+        return $this->versionId;
     }
 
     protected function populateResult(Response $response): void
     {
         $headers = $response->getHeaders();
 
-        $this->Expiration = $headers['x-amz-expiration'][0] ?? null;
-        $this->CopySourceVersionId = $headers['x-amz-copy-source-version-id'][0] ?? null;
-        $this->VersionId = $headers['x-amz-version-id'][0] ?? null;
-        $this->ServerSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;
-        $this->SSECustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'][0] ?? null;
-        $this->SSECustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-md5'][0] ?? null;
-        $this->SSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
-        $this->SSEKMSEncryptionContext = $headers['x-amz-server-side-encryption-context'][0] ?? null;
-        $this->BucketKeyEnabled = isset($headers['x-amz-server-side-encryption-bucket-key-enabled'][0]) ? filter_var($headers['x-amz-server-side-encryption-bucket-key-enabled'][0], \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
+        $this->expiration = $headers['x-amz-expiration'][0] ?? null;
+        $this->copySourceVersionId = $headers['x-amz-copy-source-version-id'][0] ?? null;
+        $this->versionId = $headers['x-amz-version-id'][0] ?? null;
+        $this->serverSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;
+        $this->sSECustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'][0] ?? null;
+        $this->sSECustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-md5'][0] ?? null;
+        $this->sSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
+        $this->sSEKMSEncryptionContext = $headers['x-amz-server-side-encryption-context'][0] ?? null;
+        $this->bucketKeyEnabled = isset($headers['x-amz-server-side-encryption-bucket-key-enabled'][0]) ? filter_var($headers['x-amz-server-side-encryption-bucket-key-enabled'][0], \FILTER_VALIDATE_BOOLEAN) : null;
+        $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
-        $this->CopyObjectResult = new CopyObjectResult([
+        $this->copyObjectResult = new CopyObjectResult([
             'ETag' => ($v = $data->ETag) ? (string) $v : null,
             'LastModified' => ($v = $data->LastModified) ? new \DateTimeImmutable((string) $v) : null,
         ]);

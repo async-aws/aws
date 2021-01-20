@@ -13,13 +13,13 @@ class CreateEndpointResponse extends Result
     /**
      * EndpointArn returned from CreateEndpoint action.
      */
-    private $EndpointArn;
+    private $endpointArn;
 
     public function getEndpointArn(): ?string
     {
         $this->initialize();
 
-        return $this->EndpointArn;
+        return $this->endpointArn;
     }
 
     protected function populateResult(Response $response): void
@@ -27,6 +27,6 @@ class CreateEndpointResponse extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->CreatePlatformEndpointResult;
 
-        $this->EndpointArn = ($v = $data->EndpointArn) ? (string) $v : null;
+        $this->endpointArn = ($v = $data->EndpointArn) ? (string) $v : null;
     }
 }

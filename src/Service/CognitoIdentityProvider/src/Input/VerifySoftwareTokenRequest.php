@@ -14,14 +14,14 @@ final class VerifySoftwareTokenRequest extends Input
      *
      * @var string|null
      */
-    private $AccessToken;
+    private $accessToken;
 
     /**
      * The session which should be passed both ways in challenge-response calls to the service.
      *
      * @var string|null
      */
-    private $Session;
+    private $session;
 
     /**
      * The one time password computed using the secret code returned by AssociateSoftwareToken".
@@ -31,14 +31,14 @@ final class VerifySoftwareTokenRequest extends Input
      *
      * @var string|null
      */
-    private $UserCode;
+    private $userCode;
 
     /**
      * The friendly device name.
      *
      * @var string|null
      */
-    private $FriendlyDeviceName;
+    private $friendlyDeviceName;
 
     /**
      * @param array{
@@ -51,10 +51,10 @@ final class VerifySoftwareTokenRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->AccessToken = $input['AccessToken'] ?? null;
-        $this->Session = $input['Session'] ?? null;
-        $this->UserCode = $input['UserCode'] ?? null;
-        $this->FriendlyDeviceName = $input['FriendlyDeviceName'] ?? null;
+        $this->accessToken = $input['AccessToken'] ?? null;
+        $this->session = $input['Session'] ?? null;
+        $this->userCode = $input['UserCode'] ?? null;
+        $this->friendlyDeviceName = $input['FriendlyDeviceName'] ?? null;
         parent::__construct($input);
     }
 
@@ -65,22 +65,22 @@ final class VerifySoftwareTokenRequest extends Input
 
     public function getAccessToken(): ?string
     {
-        return $this->AccessToken;
+        return $this->accessToken;
     }
 
     public function getFriendlyDeviceName(): ?string
     {
-        return $this->FriendlyDeviceName;
+        return $this->friendlyDeviceName;
     }
 
     public function getSession(): ?string
     {
-        return $this->Session;
+        return $this->session;
     }
 
     public function getUserCode(): ?string
     {
-        return $this->UserCode;
+        return $this->userCode;
     }
 
     /**
@@ -110,28 +110,28 @@ final class VerifySoftwareTokenRequest extends Input
 
     public function setAccessToken(?string $value): self
     {
-        $this->AccessToken = $value;
+        $this->accessToken = $value;
 
         return $this;
     }
 
     public function setFriendlyDeviceName(?string $value): self
     {
-        $this->FriendlyDeviceName = $value;
+        $this->friendlyDeviceName = $value;
 
         return $this;
     }
 
     public function setSession(?string $value): self
     {
-        $this->Session = $value;
+        $this->session = $value;
 
         return $this;
     }
 
     public function setUserCode(?string $value): self
     {
-        $this->UserCode = $value;
+        $this->userCode = $value;
 
         return $this;
     }
@@ -139,17 +139,17 @@ final class VerifySoftwareTokenRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->AccessToken) {
+        if (null !== $v = $this->accessToken) {
             $payload['AccessToken'] = $v;
         }
-        if (null !== $v = $this->Session) {
+        if (null !== $v = $this->session) {
             $payload['Session'] = $v;
         }
-        if (null === $v = $this->UserCode) {
+        if (null === $v = $this->userCode) {
             throw new InvalidArgument(sprintf('Missing parameter "UserCode" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserCode'] = $v;
-        if (null !== $v = $this->FriendlyDeviceName) {
+        if (null !== $v = $this->friendlyDeviceName) {
             $payload['FriendlyDeviceName'] = $v;
         }
 

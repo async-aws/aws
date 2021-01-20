@@ -11,27 +11,27 @@ final class Face
     /**
      * Unique identifier that Amazon Rekognition assigns to the face.
      */
-    private $FaceId;
+    private $faceId;
 
     /**
      * Bounding box of the face.
      */
-    private $BoundingBox;
+    private $boundingBox;
 
     /**
      * Unique identifier that Amazon Rekognition assigns to the input image.
      */
-    private $ImageId;
+    private $imageId;
 
     /**
      * Identifier that you assign to all the faces in the input image.
      */
-    private $ExternalImageId;
+    private $externalImageId;
 
     /**
      * Confidence level that the bounding box contains a face (and not a different object such as a tree).
      */
-    private $Confidence;
+    private $confidence;
 
     /**
      * @param array{
@@ -44,11 +44,11 @@ final class Face
      */
     public function __construct(array $input)
     {
-        $this->FaceId = $input['FaceId'] ?? null;
-        $this->BoundingBox = isset($input['BoundingBox']) ? BoundingBox::create($input['BoundingBox']) : null;
-        $this->ImageId = $input['ImageId'] ?? null;
-        $this->ExternalImageId = $input['ExternalImageId'] ?? null;
-        $this->Confidence = $input['Confidence'] ?? null;
+        $this->faceId = $input['FaceId'] ?? null;
+        $this->boundingBox = isset($input['BoundingBox']) ? BoundingBox::create($input['BoundingBox']) : null;
+        $this->imageId = $input['ImageId'] ?? null;
+        $this->externalImageId = $input['ExternalImageId'] ?? null;
+        $this->confidence = $input['Confidence'] ?? null;
     }
 
     public static function create($input): self
@@ -58,26 +58,26 @@ final class Face
 
     public function getBoundingBox(): ?BoundingBox
     {
-        return $this->BoundingBox;
+        return $this->boundingBox;
     }
 
     public function getConfidence(): ?float
     {
-        return $this->Confidence;
+        return $this->confidence;
     }
 
     public function getExternalImageId(): ?string
     {
-        return $this->ExternalImageId;
+        return $this->externalImageId;
     }
 
     public function getFaceId(): ?string
     {
-        return $this->FaceId;
+        return $this->faceId;
     }
 
     public function getImageId(): ?string
     {
-        return $this->ImageId;
+        return $this->imageId;
     }
 }

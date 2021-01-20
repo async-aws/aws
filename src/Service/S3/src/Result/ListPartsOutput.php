@@ -26,110 +26,110 @@ class ListPartsOutput extends Result implements \IteratorAggregate
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config
      */
-    private $AbortDate;
+    private $abortDate;
 
     /**
      * This header is returned along with the `x-amz-abort-date` header. It identifies applicable lifecycle configuration
      * rule that defines the action to abort incomplete multipart uploads.
      */
-    private $AbortRuleId;
+    private $abortRuleId;
 
     /**
      * The name of the bucket to which the multipart upload was initiated.
      */
-    private $Bucket;
+    private $bucket;
 
     /**
      * Object key for which the multipart upload was initiated.
      */
-    private $Key;
+    private $key;
 
     /**
      * Upload ID identifying the multipart upload whose parts are being listed.
      */
-    private $UploadId;
+    private $uploadId;
 
     /**
      * When a list is truncated, this element specifies the last part in the list, as well as the value to use for the
      * part-number-marker request parameter in a subsequent request.
      */
-    private $PartNumberMarker;
+    private $partNumberMarker;
 
     /**
      * When a list is truncated, this element specifies the last part in the list, as well as the value to use for the
      * part-number-marker request parameter in a subsequent request.
      */
-    private $NextPartNumberMarker;
+    private $nextPartNumberMarker;
 
     /**
      * Maximum number of parts that were allowed in the response.
      */
-    private $MaxParts;
+    private $maxParts;
 
     /**
      * Indicates whether the returned list of parts is truncated. A true value indicates that the list was truncated. A list
      * can be truncated if the number of parts exceeds the limit returned in the MaxParts element.
      */
-    private $IsTruncated;
+    private $isTruncated;
 
     /**
      * Container for elements related to a particular part. A response can contain zero or more `Part` elements.
      */
-    private $Parts = [];
+    private $parts = [];
 
     /**
      * Container element that identifies who initiated the multipart upload. If the initiator is an AWS account, this
      * element provides the same information as the `Owner` element. If the initiator is an IAM User, this element provides
      * the user ARN and display name.
      */
-    private $Initiator;
+    private $initiator;
 
     /**
      * Container element that identifies the object owner, after the object is created. If multipart upload is initiated by
      * an IAM user, this element provides the parent account ID and display name.
      */
-    private $Owner;
+    private $owner;
 
     /**
      * Class of storage (STANDARD or REDUCED_REDUNDANCY) used to store the uploaded object.
      */
-    private $StorageClass;
+    private $storageClass;
 
-    private $RequestCharged;
+    private $requestCharged;
 
     public function getAbortDate(): ?\DateTimeImmutable
     {
         $this->initialize();
 
-        return $this->AbortDate;
+        return $this->abortDate;
     }
 
     public function getAbortRuleId(): ?string
     {
         $this->initialize();
 
-        return $this->AbortRuleId;
+        return $this->abortRuleId;
     }
 
     public function getBucket(): ?string
     {
         $this->initialize();
 
-        return $this->Bucket;
+        return $this->bucket;
     }
 
     public function getInitiator(): ?Initiator
     {
         $this->initialize();
 
-        return $this->Initiator;
+        return $this->initiator;
     }
 
     public function getIsTruncated(): ?bool
     {
         $this->initialize();
 
-        return $this->IsTruncated;
+        return $this->isTruncated;
     }
 
     /**
@@ -172,35 +172,35 @@ class ListPartsOutput extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->Key;
+        return $this->key;
     }
 
     public function getMaxParts(): ?int
     {
         $this->initialize();
 
-        return $this->MaxParts;
+        return $this->maxParts;
     }
 
     public function getNextPartNumberMarker(): ?int
     {
         $this->initialize();
 
-        return $this->NextPartNumberMarker;
+        return $this->nextPartNumberMarker;
     }
 
     public function getOwner(): ?Owner
     {
         $this->initialize();
 
-        return $this->Owner;
+        return $this->owner;
     }
 
     public function getPartNumberMarker(): ?int
     {
         $this->initialize();
 
-        return $this->PartNumberMarker;
+        return $this->partNumberMarker;
     }
 
     /**
@@ -212,7 +212,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
     {
         if ($currentPageOnly) {
             $this->initialize();
-            yield from $this->Parts;
+            yield from $this->parts;
 
             return;
         }
@@ -253,7 +253,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->RequestCharged;
+        return $this->requestCharged;
     }
 
     /**
@@ -263,42 +263,42 @@ class ListPartsOutput extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->StorageClass;
+        return $this->storageClass;
     }
 
     public function getUploadId(): ?string
     {
         $this->initialize();
 
-        return $this->UploadId;
+        return $this->uploadId;
     }
 
     protected function populateResult(Response $response): void
     {
         $headers = $response->getHeaders();
 
-        $this->AbortDate = isset($headers['x-amz-abort-date'][0]) ? new \DateTimeImmutable($headers['x-amz-abort-date'][0]) : null;
-        $this->AbortRuleId = $headers['x-amz-abort-rule-id'][0] ?? null;
-        $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
+        $this->abortDate = isset($headers['x-amz-abort-date'][0]) ? new \DateTimeImmutable($headers['x-amz-abort-date'][0]) : null;
+        $this->abortRuleId = $headers['x-amz-abort-rule-id'][0] ?? null;
+        $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
-        $this->Bucket = ($v = $data->Bucket) ? (string) $v : null;
-        $this->Key = ($v = $data->Key) ? (string) $v : null;
-        $this->UploadId = ($v = $data->UploadId) ? (string) $v : null;
-        $this->PartNumberMarker = ($v = $data->PartNumberMarker) ? (int) (string) $v : null;
-        $this->NextPartNumberMarker = ($v = $data->NextPartNumberMarker) ? (int) (string) $v : null;
-        $this->MaxParts = ($v = $data->MaxParts) ? (int) (string) $v : null;
-        $this->IsTruncated = ($v = $data->IsTruncated) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->Parts = !$data->Part ? [] : $this->populateResultParts($data->Part);
-        $this->Initiator = !$data->Initiator ? null : new Initiator([
+        $this->bucket = ($v = $data->Bucket) ? (string) $v : null;
+        $this->key = ($v = $data->Key) ? (string) $v : null;
+        $this->uploadId = ($v = $data->UploadId) ? (string) $v : null;
+        $this->partNumberMarker = ($v = $data->PartNumberMarker) ? (int) (string) $v : null;
+        $this->nextPartNumberMarker = ($v = $data->NextPartNumberMarker) ? (int) (string) $v : null;
+        $this->maxParts = ($v = $data->MaxParts) ? (int) (string) $v : null;
+        $this->isTruncated = ($v = $data->IsTruncated) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
+        $this->parts = !$data->Part ? [] : $this->populateResultParts($data->Part);
+        $this->initiator = !$data->Initiator ? null : new Initiator([
             'ID' => ($v = $data->Initiator->ID) ? (string) $v : null,
             'DisplayName' => ($v = $data->Initiator->DisplayName) ? (string) $v : null,
         ]);
-        $this->Owner = !$data->Owner ? null : new Owner([
+        $this->owner = !$data->Owner ? null : new Owner([
             'DisplayName' => ($v = $data->Owner->DisplayName) ? (string) $v : null,
             'ID' => ($v = $data->Owner->ID) ? (string) $v : null,
         ]);
-        $this->StorageClass = ($v = $data->StorageClass) ? (string) $v : null;
+        $this->storageClass = ($v = $data->StorageClass) ? (string) $v : null;
     }
 
     /**

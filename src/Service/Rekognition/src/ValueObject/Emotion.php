@@ -15,12 +15,12 @@ final class Emotion
     /**
      * Type of emotion detected.
      */
-    private $Type;
+    private $type;
 
     /**
      * Level of confidence in the determination.
      */
-    private $Confidence;
+    private $confidence;
 
     /**
      * @param array{
@@ -30,8 +30,8 @@ final class Emotion
      */
     public function __construct(array $input)
     {
-        $this->Type = $input['Type'] ?? null;
-        $this->Confidence = $input['Confidence'] ?? null;
+        $this->type = $input['Type'] ?? null;
+        $this->confidence = $input['Confidence'] ?? null;
     }
 
     public static function create($input): self
@@ -41,7 +41,7 @@ final class Emotion
 
     public function getConfidence(): ?float
     {
-        return $this->Confidence;
+        return $this->confidence;
     }
 
     /**
@@ -49,6 +49,6 @@ final class Emotion
      */
     public function getType(): ?string
     {
-        return $this->Type;
+        return $this->type;
     }
 }

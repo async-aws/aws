@@ -8,7 +8,7 @@ use AsyncAws\S3\Enum\RequestCharged;
 
 class PutObjectAclOutput extends Result
 {
-    private $RequestCharged;
+    private $requestCharged;
 
     /**
      * @return RequestCharged::*|null
@@ -17,13 +17,13 @@ class PutObjectAclOutput extends Result
     {
         $this->initialize();
 
-        return $this->RequestCharged;
+        return $this->requestCharged;
     }
 
     protected function populateResult(Response $response): void
     {
         $headers = $response->getHeaders();
 
-        $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
+        $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
     }
 }

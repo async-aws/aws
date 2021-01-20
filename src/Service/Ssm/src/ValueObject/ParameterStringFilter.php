@@ -12,19 +12,19 @@ final class ParameterStringFilter
     /**
      * The name of the filter.
      */
-    private $Key;
+    private $key;
 
     /**
      * For all filters used with DescribeParameters, valid options include `Equals` and `BeginsWith`. The `Name` filter
      * additionally supports the `Contains` option. (Exception: For filters using the key `Path`, valid options include
      * `Recursive` and `OneLevel`.).
      */
-    private $Option;
+    private $option;
 
     /**
      * The value you want to search for.
      */
-    private $Values;
+    private $values;
 
     /**
      * @param array{
@@ -35,9 +35,9 @@ final class ParameterStringFilter
      */
     public function __construct(array $input)
     {
-        $this->Key = $input['Key'] ?? null;
-        $this->Option = $input['Option'] ?? null;
-        $this->Values = $input['Values'] ?? null;
+        $this->key = $input['Key'] ?? null;
+        $this->option = $input['Option'] ?? null;
+        $this->values = $input['Values'] ?? null;
     }
 
     public static function create($input): self
@@ -47,12 +47,12 @@ final class ParameterStringFilter
 
     public function getKey(): string
     {
-        return $this->Key;
+        return $this->key;
     }
 
     public function getOption(): ?string
     {
-        return $this->Option;
+        return $this->option;
     }
 
     /**
@@ -60,7 +60,7 @@ final class ParameterStringFilter
      */
     public function getValues(): array
     {
-        return $this->Values ?? [];
+        return $this->values ?? [];
     }
 
     /**
@@ -69,14 +69,14 @@ final class ParameterStringFilter
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->Key) {
+        if (null === $v = $this->key) {
             throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Key'] = $v;
-        if (null !== $v = $this->Option) {
+        if (null !== $v = $this->option) {
             $payload['Option'] = $v;
         }
-        if (null !== $v = $this->Values) {
+        if (null !== $v = $this->values) {
             $index = -1;
             $payload['Values'] = [];
             foreach ($v as $listValue) {
