@@ -4,6 +4,10 @@ namespace AsyncAws\CloudWatchLogs\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * Represents a log event, which is a record of activity that was recorded by the application or resource being
+ * monitored.
+ */
 final class InputLogEvent
 {
     /**

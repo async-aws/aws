@@ -2,6 +2,13 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
+/**
+ * Represents the data for an attribute.
+ * Each attribute value is described as a name-value pair. The name is the data type, and the value is the data itself.
+ * For more information, see Data Types in the *Amazon DynamoDB Developer Guide*.
+ *
+ * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes
+ */
 final class AttributeValue
 {
     /**

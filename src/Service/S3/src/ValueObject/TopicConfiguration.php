@@ -5,6 +5,10 @@ namespace AsyncAws\S3\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\S3\Enum\Event;
 
+/**
+ * A container for specifying the configuration for publication of messages to an Amazon Simple Notification Service
+ * (Amazon SNS) topic when Amazon S3 detects specified events.
+ */
 final class TopicConfiguration
 {
     private $Id;

@@ -4,6 +4,9 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * A request to perform a `DeleteItem` operation.
+ */
 final class DeleteRequest
 {
     /**

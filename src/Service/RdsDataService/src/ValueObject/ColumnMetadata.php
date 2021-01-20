@@ -2,6 +2,9 @@
 
 namespace AsyncAws\RdsDataService\ValueObject;
 
+/**
+ * Contains the metadata for a column.
+ */
 final class ColumnMetadata
 {
     /**

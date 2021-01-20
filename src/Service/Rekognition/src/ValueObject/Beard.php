@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Rekognition\ValueObject;
 
+/**
+ * Indicates whether or not the face has a beard, and the confidence level in the determination.
+ */
 final class Beard
 {
     /**

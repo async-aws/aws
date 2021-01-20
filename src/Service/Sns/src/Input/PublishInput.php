@@ -8,6 +8,9 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Sns\ValueObject\MessageAttributeValue;
 
+/**
+ * Input for Publish action.
+ */
 final class PublishInput extends Input
 {
     /**

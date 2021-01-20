@@ -2,6 +2,10 @@
 
 namespace AsyncAws\S3\Enum;
 
+/**
+ * The canned ACL to apply to the object.
+ * This action is not supported by Amazon S3 on Outposts.
+ */
 final class ObjectCannedACL
 {
     public const AUTHENTICATED_READ = 'authenticated-read';

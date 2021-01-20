@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Ssm\Enum;
 
+/**
+ * The type of parameter. Valid values include the following: `String`, `StringList`, and `SecureString`.
+ */
 final class ParameterType
 {
     public const SECURE_STRING = 'SecureString';

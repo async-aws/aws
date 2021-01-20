@@ -10,6 +10,9 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
+/**
+ * The request to respond to an authentication challenge.
+ */
 final class RespondToAuthChallengeRequest extends Input
 {
     /**

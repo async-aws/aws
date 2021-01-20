@@ -5,6 +5,9 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\DynamoDb\Enum\SSEStatus;
 use AsyncAws\DynamoDb\Enum\SSEType;
 
+/**
+ * The description of the server-side encryption status on the specified table.
+ */
 final class SSEDescription
 {
     /**

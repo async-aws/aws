@@ -7,6 +7,9 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
+/**
+ * Input for Unsubscribe action.
+ */
 final class UnsubscribeInput extends Input
 {
     /**

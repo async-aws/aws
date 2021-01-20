@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Rekognition\ValueObject;
 
+/**
+ * Indicates whether or not the face is wearing eye glasses, and the confidence level in the determination.
+ */
 final class Eyeglasses
 {
     /**

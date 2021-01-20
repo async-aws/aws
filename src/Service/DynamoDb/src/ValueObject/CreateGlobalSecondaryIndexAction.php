@@ -4,6 +4,15 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * The parameters required for creating a global secondary index on an existing table:.
+ *
+ * - `IndexName `
+ * - `KeySchema `
+ * - `AttributeDefinitions `
+ * - `Projection `
+ * - `ProvisionedThroughput `
+ */
 final class CreateGlobalSecondaryIndexAction
 {
     /**

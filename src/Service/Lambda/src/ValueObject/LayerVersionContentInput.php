@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Lambda\ValueObject;
 
+/**
+ * The function layer archive.
+ */
 final class LayerVersionContentInput
 {
     /**

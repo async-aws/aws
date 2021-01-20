@@ -4,6 +4,9 @@ namespace AsyncAws\S3\ValueObject;
 
 use AsyncAws\S3\Enum\ObjectStorageClass;
 
+/**
+ * An object consists of data and its descriptive metadata.
+ */
 final class AwsObject
 {
     /**

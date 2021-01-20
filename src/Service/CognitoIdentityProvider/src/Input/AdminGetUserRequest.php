@@ -7,6 +7,9 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
+/**
+ * Represents the request to get the specified user as an administrator.
+ */
 final class AdminGetUserRequest extends Input
 {
     /**

@@ -4,6 +4,9 @@ namespace AsyncAws\Rekognition\ValueObject;
 
 use AsyncAws\Rekognition\Enum\GenderType;
 
+/**
+ * The predicted gender of a detected face.
+ */
 final class Gender
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace AsyncAws\RdsDataService\ValueObject;
 
+/**
+ * The response elements represent the results of an update.
+ */
 final class UpdateResult
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
+/**
+ * Contains information about the table archive.
+ */
 final class ArchivalSummary
 {
     /**

@@ -17,6 +17,8 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
 /**
+ * The output for a DescribeStacks action.
+ *
  * @implements \IteratorAggregate<Stack>
  */
 class DescribeStacksOutput extends Result implements \IteratorAggregate

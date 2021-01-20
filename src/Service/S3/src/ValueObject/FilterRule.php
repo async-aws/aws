@@ -5,6 +5,9 @@ namespace AsyncAws\S3\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\S3\Enum\FilterRuleName;
 
+/**
+ * Specifies the Amazon S3 object key name to filter on and whether to filter on the suffix or prefix of the key name.
+ */
 final class FilterRule
 {
     /**

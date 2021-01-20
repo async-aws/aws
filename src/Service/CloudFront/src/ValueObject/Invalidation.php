@@ -2,6 +2,9 @@
 
 namespace AsyncAws\CloudFront\ValueObject;
 
+/**
+ * The invalidation's information.
+ */
 final class Invalidation
 {
     /**

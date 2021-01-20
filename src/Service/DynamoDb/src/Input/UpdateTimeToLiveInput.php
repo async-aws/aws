@@ -8,6 +8,9 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\DynamoDb\ValueObject\TimeToLiveSpecification;
 
+/**
+ * Represents the input of an `UpdateTimeToLive` operation.
+ */
 final class UpdateTimeToLiveInput extends Input
 {
     /**

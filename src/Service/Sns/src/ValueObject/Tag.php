@@ -4,6 +4,9 @@ namespace AsyncAws\Sns\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * The list of tags to be added to the specified topic.
+ */
 final class Tag
 {
     /**

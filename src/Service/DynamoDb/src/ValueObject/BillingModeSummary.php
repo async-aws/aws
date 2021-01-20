@@ -4,6 +4,9 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\DynamoDb\Enum\BillingMode;
 
+/**
+ * Contains the details for the read/write capacity mode.
+ */
 final class BillingModeSummary
 {
     /**

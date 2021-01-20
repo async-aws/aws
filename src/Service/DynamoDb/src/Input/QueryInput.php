@@ -12,6 +12,9 @@ use AsyncAws\DynamoDb\Enum\Select;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\Condition;
 
+/**
+ * Represents the input of a `Query` operation.
+ */
 final class QueryInput extends Input
 {
     /**

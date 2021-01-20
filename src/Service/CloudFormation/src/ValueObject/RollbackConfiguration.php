@@ -2,6 +2,10 @@
 
 namespace AsyncAws\CloudFormation\ValueObject;
 
+/**
+ * The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the
+ * specified monitoring period afterwards.
+ */
 final class RollbackConfiguration
 {
     /**

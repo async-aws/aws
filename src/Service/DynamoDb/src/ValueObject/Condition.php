@@ -5,6 +5,16 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\DynamoDb\Enum\ComparisonOperator;
 
+/**
+ * Represents the selection criteria for a `Query` or `Scan` operation:.
+ *
+ * - For a `Query` operation, `Condition` is used for specifying the `KeyConditions` to use when querying a table or an
+ *   index. For `KeyConditions`, only the following comparison operators are supported:
+ *   `EQ | LE | LT | GE | GT | BEGINS_WITH | BETWEEN`
+ *   `Condition` is also used in a `QueryFilter`, which evaluates the query results and returns only the desired values.
+ * - For a `Scan` operation, `Condition` is used in a `ScanFilter`, which evaluates the scan results and returns only
+ *   the desired values.
+ */
 final class Condition
 {
     /**

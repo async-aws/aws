@@ -5,6 +5,10 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\DynamoDb\Enum\ProjectionType;
 
+/**
+ * Represents attributes that are copied (projected) from the table into the local secondary index. These are in
+ * addition to the primary key attributes and index key attributes, which are automatically projected.
+ */
 final class Projection
 {
     /**

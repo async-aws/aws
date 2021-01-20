@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Ses\ValueObject;
 
+/**
+ * An object that contains the recipients of the email message.
+ */
 final class Destination
 {
     /**

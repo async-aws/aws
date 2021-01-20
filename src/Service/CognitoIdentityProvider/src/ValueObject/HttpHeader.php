@@ -2,6 +2,9 @@
 
 namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 
+/**
+ * The HTTP header.
+ */
 final class HttpHeader
 {
     /**

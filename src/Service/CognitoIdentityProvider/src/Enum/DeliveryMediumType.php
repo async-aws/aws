@@ -2,6 +2,9 @@
 
 namespace AsyncAws\CognitoIdentityProvider\Enum;
 
+/**
+ * The delivery medium to send the MFA code. You can use this parameter to set only the `SMS` delivery medium value.
+ */
 final class DeliveryMediumType
 {
     public const EMAIL = 'EMAIL';

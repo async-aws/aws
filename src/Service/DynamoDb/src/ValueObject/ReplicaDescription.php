@@ -4,6 +4,9 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\DynamoDb\Enum\ReplicaStatus;
 
+/**
+ * Contains the details of the replica.
+ */
 final class ReplicaDescription
 {
     /**

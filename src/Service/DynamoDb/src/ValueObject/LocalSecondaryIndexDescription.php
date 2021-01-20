@@ -2,6 +2,9 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
+/**
+ * Represents the properties of a local secondary index.
+ */
 final class LocalSecondaryIndexDescription
 {
     /**

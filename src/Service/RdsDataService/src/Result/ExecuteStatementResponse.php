@@ -8,6 +8,9 @@ use AsyncAws\RdsDataService\ValueObject\ArrayValue;
 use AsyncAws\RdsDataService\ValueObject\ColumnMetadata;
 use AsyncAws\RdsDataService\ValueObject\Field;
 
+/**
+ * The response elements represent the output of a request to run a SQL statement against a database.
+ */
 class ExecuteStatementResponse extends Result
 {
     /**

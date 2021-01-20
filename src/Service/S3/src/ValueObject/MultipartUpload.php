@@ -4,6 +4,9 @@ namespace AsyncAws\S3\ValueObject;
 
 use AsyncAws\S3\Enum\StorageClass;
 
+/**
+ * Container for the `MultipartUpload` for the Amazon S3 object.
+ */
 final class MultipartUpload
 {
     /**

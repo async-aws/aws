@@ -2,6 +2,9 @@
 
 namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 
+/**
+ * The new device metadata from an authentication result.
+ */
 final class NewDeviceMetadataType
 {
     /**

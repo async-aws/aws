@@ -9,6 +9,9 @@ use AsyncAws\DynamoDb\ValueObject\Capacity;
 use AsyncAws\DynamoDb\ValueObject\ConsumedCapacity;
 use AsyncAws\DynamoDb\ValueObject\ItemCollectionMetrics;
 
+/**
+ * Represents the output of a `DeleteItem` operation.
+ */
 class DeleteItemOutput extends Result
 {
     /**

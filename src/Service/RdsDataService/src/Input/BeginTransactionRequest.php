@@ -7,6 +7,9 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
+/**
+ * The request parameters represent the input of a request to start a SQL transaction.
+ */
 final class BeginTransactionRequest extends Input
 {
     /**

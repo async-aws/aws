@@ -4,6 +4,9 @@ namespace AsyncAws\Iam\ValueObject;
 
 use AsyncAws\Iam\Enum\StatusType;
 
+/**
+ * A structure with details about the access key.
+ */
 final class AccessKey
 {
     /**

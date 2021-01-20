@@ -2,6 +2,9 @@
 
 namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 
+/**
+ * The SMS text message multi-factor authentication (MFA) settings.
+ */
 final class SMSMfaSettingsType
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Ecr\ValueObject;
 
+/**
+ * An object representing authorization data for an Amazon ECR registry.
+ */
 final class AuthorizationData
 {
     /**

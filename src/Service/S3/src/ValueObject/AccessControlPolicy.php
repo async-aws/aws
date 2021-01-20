@@ -2,6 +2,9 @@
 
 namespace AsyncAws\S3\ValueObject;
 
+/**
+ * Contains the elements that set the ACL permissions for an object per grantee.
+ */
 final class AccessControlPolicy
 {
     /**

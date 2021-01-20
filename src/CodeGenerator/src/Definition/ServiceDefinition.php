@@ -127,6 +127,8 @@ class ServiceDefinition
             $documentation = null;
             if ($member instanceof StructureMember) {
                 $documentation = $this->documentation['shapes'][$name]['refs'][$member->getOwnerShape()->getName() . '$' . $member->getName()] ?? null;
+            } else {
+                $documentation = $this->documentation['shapes'][$name]['base'] ?? null;
             }
 
             return Shape::create($name, $this->definition['shapes'][$name] + ['_documentation' => $documentation] + $extra, $this->createClosureToFindShape(), $this->createClosureToService());

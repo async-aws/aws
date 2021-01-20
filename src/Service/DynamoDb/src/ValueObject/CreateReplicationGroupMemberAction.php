@@ -4,6 +4,9 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * The parameters required for creating a replica for the table.
+ */
 final class CreateReplicationGroupMemberAction
 {
     /**

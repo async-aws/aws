@@ -14,6 +14,9 @@ use AsyncAws\DynamoDb\ValueObject\ReplicationGroupUpdate;
 use AsyncAws\DynamoDb\ValueObject\SSESpecification;
 use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
 
+/**
+ * Represents the input of an `UpdateTable` operation.
+ */
 final class UpdateTableInput extends Input
 {
     /**

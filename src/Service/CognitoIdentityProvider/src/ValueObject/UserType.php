@@ -4,6 +4,9 @@ namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 
 use AsyncAws\CognitoIdentityProvider\Enum\UserStatusType;
 
+/**
+ * The newly created user.
+ */
 final class UserType
 {
     /**

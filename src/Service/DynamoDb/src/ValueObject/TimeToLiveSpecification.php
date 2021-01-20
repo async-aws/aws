@@ -4,6 +4,9 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * Represents the settings used to enable or disable Time to Live for the specified table.
+ */
 final class TimeToLiveSpecification
 {
     /**

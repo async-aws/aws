@@ -8,6 +8,9 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\Sns\ValueObject\Tag;
 
+/**
+ * Input for CreateTopic action.
+ */
 final class CreateTopicInput extends Input
 {
     /**

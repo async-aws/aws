@@ -9,6 +9,9 @@ use AsyncAws\DynamoDb\ValueObject\Capacity;
 use AsyncAws\DynamoDb\ValueObject\ConsumedCapacity;
 use AsyncAws\DynamoDb\ValueObject\ItemCollectionMetrics;
 
+/**
+ * Represents the output of a `PutItem` operation.
+ */
 class PutItemOutput extends Result
 {
     /**

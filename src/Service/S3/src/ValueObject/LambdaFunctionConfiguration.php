@@ -5,6 +5,9 @@ namespace AsyncAws\S3\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\S3\Enum\Event;
 
+/**
+ * A container for specifying the configuration for AWS Lambda notifications.
+ */
 final class LambdaFunctionConfiguration
 {
     private $Id;

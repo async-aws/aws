@@ -8,6 +8,9 @@ use AsyncAws\CognitoIdentityProvider\ValueObject\NewDeviceMetadataType;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
+/**
+ * The response to respond to the authentication challenge.
+ */
 class RespondToAuthChallengeResponse extends Result
 {
     /**

@@ -8,6 +8,9 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\RdsDataService\ValueObject\SqlParameter;
 
+/**
+ * The request parameters represent the input of a SQL statement over an array of data.
+ */
 final class BatchExecuteStatementRequest extends Input
 {
     /**

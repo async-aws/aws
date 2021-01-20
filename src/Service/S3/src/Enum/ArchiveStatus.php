@@ -2,6 +2,9 @@
 
 namespace AsyncAws\S3\Enum;
 
+/**
+ * The archive state of the head object.
+ */
 final class ArchiveStatus
 {
     public const ARCHIVE_ACCESS = 'ARCHIVE_ACCESS';

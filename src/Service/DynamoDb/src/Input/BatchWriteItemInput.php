@@ -10,6 +10,9 @@ use AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity;
 use AsyncAws\DynamoDb\Enum\ReturnItemCollectionMetrics;
 use AsyncAws\DynamoDb\ValueObject\WriteRequest;
 
+/**
+ * Represents the input of a `BatchWriteItem` operation.
+ */
 final class BatchWriteItemInput extends Input
 {
     /**

@@ -7,6 +7,9 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
+/**
+ * The request parameters represent the input of a request to perform a rollback of a transaction.
+ */
 final class RollbackTransactionRequest extends Input
 {
     /**

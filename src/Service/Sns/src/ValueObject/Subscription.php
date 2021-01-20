@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Sns\ValueObject;
 
+/**
+ * A wrapper type for the attributes of an Amazon SNS subscription.
+ */
 final class Subscription
 {
     /**

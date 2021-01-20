@@ -2,6 +2,9 @@
 
 namespace AsyncAws\EventBridge\ValueObject;
 
+/**
+ * Represents an event that failed to be submitted.
+ */
 final class PutEventsResultEntry
 {
     /**

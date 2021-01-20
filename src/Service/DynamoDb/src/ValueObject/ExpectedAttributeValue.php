@@ -5,6 +5,22 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\DynamoDb\Enum\ComparisonOperator;
 
+/**
+ * Represents a condition to be compared with an attribute value. This condition can be used with `DeleteItem`,
+ * `PutItem`, or `UpdateItem` operations; if the comparison evaluates to true, the operation succeeds; if not, the
+ * operation fails. You can use `ExpectedAttributeValue` in one of two different ways:.
+ *
+ * - Use `AttributeValueList` to specify one or more values to compare against an attribute. Use `ComparisonOperator` to
+ *   specify how you want to perform the comparison. If the comparison evaluates to true, then the conditional operation
+ *   succeeds.
+ * - Use `Value` to specify a value that DynamoDB will compare against an attribute. If the values match, then
+ *   `ExpectedAttributeValue` evaluates to true and the conditional operation succeeds. Optionally, you can also set
+ *   `Exists` to false, indicating that you *do not* expect to find the attribute value in the table. In this case, the
+ *   conditional operation succeeds only if the comparison evaluates to false.
+ *
+ * `Value` and `Exists` are incompatible with `AttributeValueList` and `ComparisonOperator`. Note that if you use both
+ * sets of parameters at once, DynamoDB will return a `ValidationException` exception.
+ */
 final class ExpectedAttributeValue
 {
     /**

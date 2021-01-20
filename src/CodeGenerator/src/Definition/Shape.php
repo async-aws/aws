@@ -26,11 +26,6 @@ class Shape
      */
     private $name;
 
-    /**
-     * @var ?string
-     */
-    private $documentation;
-
     private function __construct()
     {
     }

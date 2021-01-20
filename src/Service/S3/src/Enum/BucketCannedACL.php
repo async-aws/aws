@@ -2,6 +2,9 @@
 
 namespace AsyncAws\S3\Enum;
 
+/**
+ * The canned ACL to apply to the bucket.
+ */
 final class BucketCannedACL
 {
     public const AUTHENTICATED_READ = 'authenticated-read';

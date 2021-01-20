@@ -4,6 +4,11 @@ namespace AsyncAws\Ssm\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * Metadata that you assign to your AWS resources. Tags enable you to categorize your resources in different ways, for
+ * example, by purpose, owner, or environment. In Systems Manager, you can apply tags to documents, managed instances,
+ * maintenance windows, Parameter Store parameters, and patch baselines.
+ */
 final class Tag
 {
     /**

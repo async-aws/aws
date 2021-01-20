@@ -10,6 +10,8 @@ use AsyncAws\Sns\SnsClient;
 use AsyncAws\Sns\ValueObject\Subscription;
 
 /**
+ * Response for ListSubscriptionsByTopic action.
+ *
  * @implements \IteratorAggregate<Subscription>
  */
 class ListSubscriptionsByTopicResponse extends Result implements \IteratorAggregate

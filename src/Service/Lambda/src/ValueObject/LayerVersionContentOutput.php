@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Lambda\ValueObject;
 
+/**
+ * Details about the layer version.
+ */
 final class LayerVersionContentOutput
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
+/**
+ * Contains details for the restore.
+ */
 final class RestoreSummary
 {
     /**

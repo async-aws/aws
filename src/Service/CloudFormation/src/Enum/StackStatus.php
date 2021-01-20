@@ -2,6 +2,9 @@
 
 namespace AsyncAws\CloudFormation\Enum;
 
+/**
+ * Current status of the stack.
+ */
 final class StackStatus
 {
     public const CREATE_COMPLETE = 'CREATE_COMPLETE';

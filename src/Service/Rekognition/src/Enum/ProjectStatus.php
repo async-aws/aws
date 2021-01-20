@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Rekognition\Enum;
 
+/**
+ * The current status of the delete project operation.
+ */
 final class ProjectStatus
 {
     public const CREATED = 'CREATED';

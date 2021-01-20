@@ -4,6 +4,9 @@ namespace AsyncAws\Ses\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * The simple email message. The message consists of a subject and a message body.
+ */
 final class Message
 {
     /**

@@ -12,6 +12,8 @@ use AsyncAws\DynamoDb\ValueObject\Capacity;
 use AsyncAws\DynamoDb\ValueObject\ConsumedCapacity;
 
 /**
+ * Represents the output of a `Scan` operation.
+ *
  * @implements \IteratorAggregate<array<string, AttributeValue>>
  */
 class ScanOutput extends Result implements \IteratorAggregate

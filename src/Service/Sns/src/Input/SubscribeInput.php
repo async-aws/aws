@@ -7,6 +7,9 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
+/**
+ * Input for Subscribe action.
+ */
 final class SubscribeInput extends Input
 {
     /**

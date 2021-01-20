@@ -6,6 +6,9 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Iam\ValueObject\AccessKey;
 
+/**
+ * Contains the response to a successful CreateAccessKey request.
+ */
 class CreateAccessKeyResponse extends Result
 {
     /**

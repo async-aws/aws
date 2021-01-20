@@ -2,6 +2,9 @@
 
 namespace AsyncAws\S3\Enum;
 
+/**
+ * The Object Lock mode that you want to apply to the copied object.
+ */
 final class ObjectLockMode
 {
     public const COMPLIANCE = 'COMPLIANCE';

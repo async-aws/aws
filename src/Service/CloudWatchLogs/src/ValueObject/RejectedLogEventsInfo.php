@@ -2,6 +2,9 @@
 
 namespace AsyncAws\CloudWatchLogs\ValueObject;
 
+/**
+ * The rejected events.
+ */
 final class RejectedLogEventsInfo
 {
     /**

@@ -13,6 +13,8 @@ use AsyncAws\DynamoDb\ValueObject\ConsumedCapacity;
 use AsyncAws\DynamoDb\ValueObject\KeysAndAttributes;
 
 /**
+ * Represents the output of a `BatchGetItem` operation.
+ *
  * @implements \IteratorAggregate<ConsumedCapacity>
  */
 class BatchGetItemOutput extends Result implements \IteratorAggregate

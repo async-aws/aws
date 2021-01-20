@@ -2,6 +2,10 @@
 
 namespace AsyncAws\Ses\ValueObject;
 
+/**
+ * An object that contains the body of the message. You can send either a Simple message Raw message or a template
+ * Message.
+ */
 final class EmailContent
 {
     /**

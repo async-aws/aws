@@ -8,6 +8,9 @@ use AsyncAws\Iam\ValueObject\AttachedPermissionsBoundary;
 use AsyncAws\Iam\ValueObject\Tag;
 use AsyncAws\Iam\ValueObject\User;
 
+/**
+ * Contains the response to a successful GetUser request.
+ */
 class GetUserResponse extends Result
 {
     /**

@@ -5,6 +5,9 @@ namespace AsyncAws\CloudFormation\ValueObject;
 use AsyncAws\CloudFormation\Enum\Capability;
 use AsyncAws\CloudFormation\Enum\StackStatus;
 
+/**
+ * The Stack data type.
+ */
 final class Stack
 {
     /**

@@ -4,6 +4,9 @@ namespace AsyncAws\Ssm\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * One or more filters. Use a filter to return a more specific list of results.
+ */
 final class ParameterStringFilter
 {
     /**

@@ -9,6 +9,9 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
+/**
+ * The request representing the confirmation for a password reset.
+ */
 final class ConfirmForgotPasswordRequest extends Input
 {
     /**

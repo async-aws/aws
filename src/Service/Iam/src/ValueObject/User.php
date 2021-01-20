@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Iam\ValueObject;
 
+/**
+ * A structure with details about the new IAM user.
+ */
 final class User
 {
     /**

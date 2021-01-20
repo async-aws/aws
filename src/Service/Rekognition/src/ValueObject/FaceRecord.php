@@ -2,6 +2,10 @@
 
 namespace AsyncAws\Rekognition\ValueObject;
 
+/**
+ * Object containing both the face metadata (stored in the backend database), and facial attributes that are detected
+ * but aren't stored in the database.
+ */
 final class FaceRecord
 {
     /**

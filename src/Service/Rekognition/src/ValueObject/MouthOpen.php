@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Rekognition\ValueObject;
 
+/**
+ * Indicates whether or not the mouth on the face is open, and the confidence level in the determination.
+ */
 final class MouthOpen
 {
     /**

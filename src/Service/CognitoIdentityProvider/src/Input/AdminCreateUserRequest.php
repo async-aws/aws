@@ -10,6 +10,9 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
+/**
+ * Represents the request to create a user in the specified user pool.
+ */
 final class AdminCreateUserRequest extends Input
 {
     /**
