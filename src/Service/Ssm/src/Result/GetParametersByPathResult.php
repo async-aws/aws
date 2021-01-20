@@ -22,7 +22,7 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
     /**
      * The token for the next set of items to return. Use this token to get the next set of results.
      */
-    private $NextToken;
+    private $NextToken = null;
 
     /**
      * Iterates over Parameters.

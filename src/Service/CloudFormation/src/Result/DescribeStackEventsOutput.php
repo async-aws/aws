@@ -23,7 +23,7 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
      * If the output exceeds 1 MB in size, a string that identifies the next page of events. If no additional page exists,
      * this value is null.
      */
-    private $NextToken;
+    private $NextToken = null;
 
     /**
      * Iterates over StackEvents.
