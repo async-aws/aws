@@ -124,7 +124,7 @@ class SignerV4ForS3 extends SignerV4
         $chunkCount = (int) ceil($contentLength / self::CHUNK_SIZE);
         $fullChunkCount = $chunkCount * self::CHUNK_SIZE === $contentLength ? $chunkCount : ($chunkCount - 1);
         $metaLength = \strlen(";chunk-signature=\r\n\r\n") + 64;
-        $request->setHeader('content-length', (string) ($contentLength + $fullChunkCount * ($metaLength + \strlen((string) dechex(self::CHUNK_SIZE))) + ($chunkCount - $fullChunkCount) * ($metaLength + \strlen((string) dechex($contentLength % self::CHUNK_SIZE))) + $metaLength + 1));
+        $request->setHeader('content-length', (string) ($contentLength + $fullChunkCount * ($metaLength + \strlen(dechex(self::CHUNK_SIZE))) + ($chunkCount - $fullChunkCount) * ($metaLength + \strlen(dechex($contentLength % self::CHUNK_SIZE))) + $metaLength + 1));
         $body = IterableStream::create((function (RequestStream $body) use ($context): iterable {
             $now = $context->getNow();
             $credentialString = $context->getCredentialString();

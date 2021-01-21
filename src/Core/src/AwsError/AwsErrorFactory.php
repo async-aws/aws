@@ -28,11 +28,10 @@ class AwsErrorFactory
                 return self::parseJson($body, $headers);
             }
 
-            set_error_handler(
-                static function ($errno, $errstr, $errfile, $errline) {
-                    throw new RuntimeException($errstr, $errno);
-                }
-            );
+            /** @phpstan-ignore-next-line */
+            set_error_handler(static function ($errno, $errstr) {
+                throw new RuntimeException($errstr, $errno);
+            });
 
             try {
                 $xml = new \SimpleXMLElement($content);
