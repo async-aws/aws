@@ -26,51 +26,51 @@ class ListPartsOutput extends Result implements \IteratorAggregate
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config
      */
-    private $AbortDate;
+    private $AbortDate = null;
 
     /**
      * This header is returned along with the `x-amz-abort-date` header. It identifies applicable lifecycle configuration
      * rule that defines the action to abort incomplete multipart uploads.
      */
-    private $AbortRuleId;
+    private $AbortRuleId = null;
 
     /**
      * The name of the bucket to which the multipart upload was initiated.
      */
-    private $Bucket;
+    private $Bucket = null;
 
     /**
      * Object key for which the multipart upload was initiated.
      */
-    private $Key;
+    private $Key = null;
 
     /**
      * Upload ID identifying the multipart upload whose parts are being listed.
      */
-    private $UploadId;
+    private $UploadId = null;
 
     /**
      * When a list is truncated, this element specifies the last part in the list, as well as the value to use for the
      * part-number-marker request parameter in a subsequent request.
      */
-    private $PartNumberMarker;
+    private $PartNumberMarker = null;
 
     /**
      * When a list is truncated, this element specifies the last part in the list, as well as the value to use for the
      * part-number-marker request parameter in a subsequent request.
      */
-    private $NextPartNumberMarker;
+    private $NextPartNumberMarker = null;
 
     /**
      * Maximum number of parts that were allowed in the response.
      */
-    private $MaxParts;
+    private $MaxParts = null;
 
     /**
      * Indicates whether the returned list of parts is truncated. A true value indicates that the list was truncated. A list
      * can be truncated if the number of parts exceeds the limit returned in the MaxParts element.
      */
-    private $IsTruncated;
+    private $IsTruncated = null;
 
     /**
      * Container for elements related to a particular part. A response can contain zero or more `Part` elements.
@@ -82,20 +82,20 @@ class ListPartsOutput extends Result implements \IteratorAggregate
      * element provides the same information as the `Owner` element. If the initiator is an IAM User, this element provides
      * the user ARN and display name.
      */
-    private $Initiator;
+    private $Initiator = null;
 
     /**
      * Container element that identifies the object owner, after the object is created. If multipart upload is initiated by
      * an IAM user, this element provides the parent account ID and display name.
      */
-    private $Owner;
+    private $Owner = null;
 
     /**
      * Class of storage (STANDARD or REDUCED_REDUNDANCY) used to store the uploaded object.
      */
-    private $StorageClass;
+    private $StorageClass = null;
 
-    private $RequestCharged;
+    private $RequestCharged = null;
 
     public function getAbortDate(): ?\DateTimeImmutable
     {

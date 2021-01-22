@@ -21,53 +21,53 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
     /**
      * The name of the bucket to which the multipart upload was initiated.
      */
-    private $Bucket;
+    private $Bucket = null;
 
     /**
      * The key at or after which the listing began.
      */
-    private $KeyMarker;
+    private $KeyMarker = null;
 
     /**
      * Upload ID after which listing began.
      */
-    private $UploadIdMarker;
+    private $UploadIdMarker = null;
 
     /**
      * When a list is truncated, this element specifies the value that should be used for the key-marker request parameter
      * in a subsequent request.
      */
-    private $NextKeyMarker;
+    private $NextKeyMarker = null;
 
     /**
      * When a prefix is provided in the request, this field contains the specified prefix. The result contains only keys
      * starting with the specified prefix.
      */
-    private $Prefix;
+    private $Prefix = null;
 
     /**
      * Contains the delimiter you specified in the request. If you don't specify a delimiter in your request, this element
      * is absent from the response.
      */
-    private $Delimiter;
+    private $Delimiter = null;
 
     /**
      * When a list is truncated, this element specifies the value that should be used for the `upload-id-marker` request
      * parameter in a subsequent request.
      */
-    private $NextUploadIdMarker;
+    private $NextUploadIdMarker = null;
 
     /**
      * Maximum number of multipart uploads that could have been included in the response.
      */
-    private $MaxUploads;
+    private $MaxUploads = null;
 
     /**
      * Indicates whether the returned list of multipart uploads is truncated. A value of true indicates that the list was
      * truncated. The list can be truncated if the number of multipart uploads exceeds the limit allowed or specified by max
      * uploads.
      */
-    private $IsTruncated;
+    private $IsTruncated = null;
 
     /**
      * Container for elements related to a particular multipart upload. A response can contain zero or more `Upload`
@@ -84,7 +84,7 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
     /**
      * Encoding type used by Amazon S3 to encode object keys in the response.
      */
-    private $EncodingType;
+    private $EncodingType = null;
 
     public function getBucket(): ?string
     {
