@@ -30,8 +30,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}
-          restore-keys: ${{ runner.os }}-composer-
+          key: composer-${{ github.sha }}
+          restore-keys: composer-
 
       - name: Download dependencies
         run: |

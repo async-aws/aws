@@ -57,18 +57,15 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}
-          restore-keys: ${{ runner.os }}-composer-
+          key: composer-${{ github.sha }}
+          restore-keys: composer-
 
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Download
         run: |
-          ls -al ~/.composer/
           composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
-          ls -al ~/.composer/
-          # /home/runner/.composer
 
       - name: Regenerate
         run: |
