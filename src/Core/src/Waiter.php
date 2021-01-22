@@ -49,6 +49,11 @@ class Waiter
      */
     private $finalState;
 
+    /**
+     * @var bool
+     */
+    private $resolved = false;
+
     public function __construct(Response $response, AbstractApi $awsClient, $request)
     {
         $this->response = $response;
@@ -58,7 +63,9 @@ class Waiter
 
     public function __destruct()
     {
-        $this->resolve();
+        if (!$this->resolved) {
+            $this->resolve();
+        }
     }
 
     final public function isSuccess(): bool
@@ -91,10 +98,12 @@ class Waiter
             $exception = null;
         } catch (HttpException $exception) {
             // use $exception later
+        } finally {
+            $this->resolved = true;
+            $this->needRefresh = true;
         }
 
         $state = $this->extractState($this->response, $exception);
-        $this->needRefresh = true;
 
         switch ($state) {
             case self::STATE_SUCCESS:
@@ -126,6 +135,8 @@ class Waiter
             return $this->response->resolve($timeout);
         } catch (HttpException $exception) {
             return true;
+        } finally {
+            $this->resolved = true;
         }
     }
 
@@ -148,6 +159,7 @@ class Waiter
     {
         $this->response->cancel();
         $this->needRefresh = true;
+        $this->resolved = true;
     }
 
     /**
@@ -161,18 +173,27 @@ class Waiter
      */
     final public function wait(float $timeout = null, float $delay = null): bool
     {
+        if (null !== $this->finalState) {
+            return true;
+        }
+
         $timeout = $timeout ?? static::WAIT_TIMEOUT;
         $delay = $delay ?? static::WAIT_DELAY;
 
         $start = \microtime(true);
         while (true) {
+            if ($this->needRefresh) {
+                $this->stealResponse($this->refreshState());
+            }
+
             // If request times out
             if (!$this->resolve($timeout - (\microtime(true) - $start))) {
                 break;
             }
 
+            $this->getState();
             // If we reached a final state
-            if (\in_array($this->getState(), [self::STATE_SUCCESS, self::STATE_FAILURE])) {
+            if ($this->finalState) {
                 return true;
             }
 
@@ -182,7 +203,6 @@ class Waiter
             }
 
             \usleep((int) ceil($delay * 1000000));
-            $this->stealResponse($this->refreshState());
         }
 
         return false;
@@ -201,6 +221,8 @@ class Waiter
     private function stealResponse(self $waiter): void
     {
         $this->response = $waiter->response;
+        $this->resolved = $waiter->resolved;
+        $waiter->resolved = true;
         $this->needRefresh = false;
     }
 }
