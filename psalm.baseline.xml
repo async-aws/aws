@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.18.0@a463c894c4323e84121b5978867923efc6f8554a">
+<files psalm-version="4.4.1@9fd7a7d885b3a216cff8dec9d8c21a132f275224">
   <file src="src/Core/src/AwsError/AwsErrorFactory.php">
-    <InvalidScalarArgument occurrences="1">
-      <code>$xml</code>
-    </InvalidScalarArgument>
-    <PossiblyUndefinedVariable occurrences="1">
-      <code>$xml</code>
-    </PossiblyUndefinedVariable>
+    <InvalidArgument occurrences="1"/>
   </file>
   <file src="src/Core/src/Credentials/PsrCacheProvider.php">
     <InvalidCatch occurrences="1"/>
     <InvalidThrow occurrences="1">
-      <code>\Psr\Cache\CacheException</code>
+      <code>CacheException</code>
     </InvalidThrow>
   </file>
   <file src="src/Core/src/Credentials/SymfonyCacheProvider.php">
     <InvalidCatch occurrences="1"/>
+  </file>
+  <file src="src/Core/src/Request.php">
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(string) $value</code>
+    </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Core/src/Waiter.php">
+    <PossiblyUndefinedVariable occurrences="1">
+      <code>$exception</code>
+    </PossiblyUndefinedVariable>
   </file>
   <file src="src/Integration/Laravel/Cache/src/ServiceProvider.php">
     <UndefinedInterfaceMethod occurrences="1">
@@ -60,6 +65,37 @@
       <code>list&lt;Capability::*&gt;</code>
     </MoreSpecificReturnType>
   </file>
+  <file src="src/Service/CloudWatchLogs/src/Input/DescribeLogStreamsRequest.php">
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Service/CognitoIdentityProvider/src/Input/AdminCreateUserRequest.php">
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Service/CognitoIdentityProvider/src/Input/AdminSetUserPasswordRequest.php">
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Service/DynamoDb/src/Input/GetItemInput.php">
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Service/DynamoDb/src/Input/QueryInput.php">
+    <RedundantCastGivenDocblockType occurrences="2">
+      <code>(bool) $v</code>
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Service/DynamoDb/src/Input/ScanInput.php">
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
   <file src="src/Service/Lambda/src/Result/ListLayerVersionsResponse.php">
     <LessSpecificReturnStatement occurrences="1">
       <code>$items</code>
@@ -76,6 +112,12 @@
       <code>list&lt;Runtime::*&gt;</code>
     </MoreSpecificReturnType>
   </file>
+  <file src="src/Service/RdsDataService/src/Input/ExecuteStatementRequest.php">
+    <RedundantCastGivenDocblockType occurrences="2">
+      <code>(bool) $v</code>
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
   <file src="src/Service/Rekognition/src/Result/IndexFacesResponse.php">
     <LessSpecificReturnStatement occurrences="1">
       <code>$items</code>
@@ -83,5 +125,26 @@
     <MoreSpecificReturnType occurrences="1">
       <code>list&lt;Reason::*&gt;</code>
     </MoreSpecificReturnType>
+  </file>
+  <file src="src/Service/Ssm/src/Input/GetParameterRequest.php">
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Service/Ssm/src/Input/GetParametersByPathRequest.php">
+    <RedundantCastGivenDocblockType occurrences="2">
+      <code>(bool) $v</code>
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Service/Ssm/src/Input/GetParametersRequest.php">
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Service/Ssm/src/Input/PutParameterRequest.php">
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
   </file>
 </files>

@@ -45,7 +45,7 @@ final class PsrCacheProvider implements CredentialProvider
     }
 
     /**
-     * @throws \Psr\Cache\CacheException
+     * @throws CacheException
      */
     private function getFromCache(Configuration $configuration): ?Credentials
     {
