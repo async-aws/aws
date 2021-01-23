@@ -3,6 +3,7 @@ parameters:
     reportUnmatchedIgnoredErrors: false
     paths:
         - src
+    tmpDir: .cache/phpstan/
 
     excludes_analyse:
         - src/*/tests/*

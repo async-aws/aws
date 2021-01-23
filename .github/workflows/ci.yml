@@ -29,6 +29,17 @@ jobs:
       - name: Initialize tests
         run: make initialize -j 4
 
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache Composer
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-${{ github.sha }}
+          restore-keys: composer-
+
       - name: Download phpunit
         run: |
           rm composer.*
@@ -129,6 +140,17 @@ jobs:
 
       - name: Initialize tests
         run: make initialize -j 4
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache Composer
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-${{ github.sha }}
+          restore-keys: composer-
 
       - name: Download phpunit
         run: |
@@ -231,6 +253,17 @@ jobs:
       - name: Initialize tests
         run: make initialize -j 4
 
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache Composer
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-${{ github.sha }}
+          restore-keys: composer-
+
       - name: Download dependencies
         run: |
           composer update --no-interaction --prefer-dist --optimize-autoloader
@@ -257,6 +290,17 @@ jobs:
 
       - name: Initialize tests
         run: make initialize -j 4
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache Composer
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-${{ github.sha }}
+          restore-keys: composer-
 
       - name: Download dependencies
         run: |
