@@ -49,6 +49,9 @@ jobs:
           php-version: 7.4
           coverage: none
 
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Get composer cache directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
@@ -59,9 +62,6 @@ jobs:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ github.sha }}
           restore-keys: composer-
-
-      - name: Checkout code
-        uses: actions/checkout@v2
 
       - name: Download
         run: |
