@@ -27,7 +27,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           coverage: none
-          tools: ${{ matrix.strategy == 'lowest' && 'flex' || '' }}
+          tools: flex
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -123,7 +123,7 @@ jobs:
         env:
           PHP_VERSION: ${{ matrix.php }}
           # Make sure we dont download awfully old Symfony versions.
-          SYMFONY_REQUIRE: '^4.4 || ^5.1'
+          SYMFONY_REQUIRE: '>=4.4'
         run: |
           CURRENT_DIR=$(pwd)
           for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
