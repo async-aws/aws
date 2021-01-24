@@ -394,7 +394,6 @@ class GenerateCommand extends Command
                 'path' => [$srcPath, $testPath],
                 'path-mode' => 'override',
                 'using-cache' => false,
-                'cache-file' => $baseDir . '/.php_cs.cache',
                 'diff' => false,
                 'stop-on-violation' => false,
             ],
