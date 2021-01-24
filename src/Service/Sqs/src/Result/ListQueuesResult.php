@@ -9,6 +9,8 @@ use AsyncAws\Sqs\Input\ListQueuesRequest;
 use AsyncAws\Sqs\SqsClient;
 
 /**
+ * A list of your queues.
+ *
  * @implements \IteratorAggregate<string>
  */
 class ListQueuesResult extends Result implements \IteratorAggregate

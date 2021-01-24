@@ -2,6 +2,9 @@
 
 namespace AsyncAws\S3\ValueObject;
 
+/**
+ * The container for the multipart upload request information.
+ */
 final class CompletedMultipartUpload
 {
     /**

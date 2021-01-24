@@ -2,6 +2,9 @@
 
 namespace AsyncAws\EventBridge\ValueObject;
 
+/**
+ * Represents an event to be submitted.
+ */
 final class PutEventsRequestEntry
 {
     /**

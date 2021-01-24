@@ -4,6 +4,9 @@ namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * Specifies whether the attribute is standard or custom.
+ */
 final class AttributeType
 {
     /**

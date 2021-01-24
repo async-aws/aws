@@ -4,6 +4,9 @@ namespace AsyncAws\S3\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * Object Identifier is unique value to identify objects.
+ */
 final class ObjectIdentifier
 {
     /**

@@ -55,6 +55,9 @@ class EnumGenerator
         $namespace = new PhpNamespace($className->getNamespace());
         $class = $namespace->addClass($className->getName());
         $class->setFinal();
+        if (null !== $documentation = $shape->getDocumentation()) {
+            $class->addComment(GeneratorHelper::parseDocumentation($documentation, false));
+        }
 
         $consts = [];
         foreach ($shape->getEnum() as $value) {

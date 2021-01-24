@@ -5,6 +5,9 @@ namespace AsyncAws\S3\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\S3\Enum\Permission;
 
+/**
+ * Container for grant information.
+ */
 final class Grant
 {
     /**

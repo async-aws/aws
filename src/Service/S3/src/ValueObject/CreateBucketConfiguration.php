@@ -5,6 +5,9 @@ namespace AsyncAws\S3\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\S3\Enum\BucketLocationConstraint;
 
+/**
+ * The configuration information for the bucket.
+ */
 final class CreateBucketConfiguration
 {
     /**

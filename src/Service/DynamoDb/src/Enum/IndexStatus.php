@@ -2,6 +2,14 @@
 
 namespace AsyncAws\DynamoDb\Enum;
 
+/**
+ * The current state of the global secondary index:.
+ *
+ * - `CREATING` - The index is being created.
+ * - `UPDATING` - The index is being updated.
+ * - `DELETING` - The index is being deleted.
+ * - `ACTIVE` - The index is ready for use.
+ */
 final class IndexStatus
 {
     public const ACTIVE = 'ACTIVE';

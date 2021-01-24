@@ -2,6 +2,12 @@
 
 namespace AsyncAws\DynamoDb\Enum;
 
+/**
+ * Represents the current state of server-side encryption. The only supported values are:.
+ *
+ * - `ENABLED` - Server-side encryption is enabled.
+ * - `UPDATING` - Server-side encryption is being updated.
+ */
 final class SSEStatus
 {
     public const DISABLED = 'DISABLED';

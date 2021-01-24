@@ -2,6 +2,9 @@
 
 namespace AsyncAws\CloudFormation\Enum;
 
+/**
+ * Current status of the resource.
+ */
 final class ResourceStatus
 {
     public const CREATE_COMPLETE = 'CREATE_COMPLETE';

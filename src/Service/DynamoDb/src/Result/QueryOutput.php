@@ -12,6 +12,8 @@ use AsyncAws\DynamoDb\ValueObject\Capacity;
 use AsyncAws\DynamoDb\ValueObject\ConsumedCapacity;
 
 /**
+ * Represents the output of a `Query` operation.
+ *
  * @implements \IteratorAggregate<array<string, AttributeValue>>
  */
 class QueryOutput extends Result implements \IteratorAggregate

@@ -8,6 +8,9 @@ use AsyncAws\RdsDataService\ValueObject\ArrayValue;
 use AsyncAws\RdsDataService\ValueObject\Field;
 use AsyncAws\RdsDataService\ValueObject\UpdateResult;
 
+/**
+ * The response elements represent the output of a SQL statement over an array of data.
+ */
 class BatchExecuteStatementResponse extends Result
 {
     /**

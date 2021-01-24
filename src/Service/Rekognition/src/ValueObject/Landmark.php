@@ -4,6 +4,9 @@ namespace AsyncAws\Rekognition\ValueObject;
 
 use AsyncAws\Rekognition\Enum\LandmarkType;
 
+/**
+ * Indicates the location of the landmark on the face.
+ */
 final class Landmark
 {
     /**

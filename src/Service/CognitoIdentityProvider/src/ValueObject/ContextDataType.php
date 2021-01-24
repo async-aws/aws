@@ -4,6 +4,10 @@ namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
+ * unexpected event by Amazon Cognito advanced security.
+ */
 final class ContextDataType
 {
     /**

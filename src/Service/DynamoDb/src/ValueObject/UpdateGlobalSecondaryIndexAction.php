@@ -4,6 +4,10 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * The name of an existing global secondary index, along with new provisioned throughput settings to be applied to that
+ * index.
+ */
 final class UpdateGlobalSecondaryIndexAction
 {
     /**

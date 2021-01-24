@@ -4,6 +4,12 @@ namespace AsyncAws\CloudFront\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * A complex type that contains information about the objects that you want to invalidate. For more information, see
+ * Specifying the Objects to Invalidate in the *Amazon CloudFront Developer Guide*.
+ *
+ * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html#invalidation-specifying-objects
+ */
 final class Paths
 {
     /**

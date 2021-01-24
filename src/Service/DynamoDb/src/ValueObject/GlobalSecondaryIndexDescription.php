@@ -4,6 +4,9 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\DynamoDb\Enum\IndexStatus;
 
+/**
+ * Represents the properties of a global secondary index.
+ */
 final class GlobalSecondaryIndexDescription
 {
     /**

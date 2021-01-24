@@ -2,6 +2,9 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
+/**
+ * The amount of throughput consumed on the table affected by the operation.
+ */
 final class Capacity
 {
     /**

@@ -5,6 +5,9 @@ namespace AsyncAws\Sqs\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
+/**
+ * The `MD5OfMessageBody` and `MessageId` elements.
+ */
 class SendMessageResult extends Result
 {
     /**

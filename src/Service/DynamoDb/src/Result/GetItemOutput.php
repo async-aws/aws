@@ -8,6 +8,9 @@ use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\Capacity;
 use AsyncAws\DynamoDb\ValueObject\ConsumedCapacity;
 
+/**
+ * Represents the output of a `GetItem` operation.
+ */
 class GetItemOutput extends Result
 {
     /**

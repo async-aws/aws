@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Lambda\Enum;
 
+/**
+ * A runtime identifier. For example, `go1.x`.
+ */
 final class Runtime
 {
     public const DOTNETCORE_1_0 = 'dotnetcore1.0';

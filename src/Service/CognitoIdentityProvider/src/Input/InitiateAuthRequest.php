@@ -10,6 +10,9 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
+/**
+ * Initiates the authentication request.
+ */
 final class InitiateAuthRequest extends Input
 {
     /**

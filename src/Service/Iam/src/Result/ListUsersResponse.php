@@ -12,6 +12,8 @@ use AsyncAws\Iam\ValueObject\Tag;
 use AsyncAws\Iam\ValueObject\User;
 
 /**
+ * Contains the response to a successful ListUsers request.
+ *
  * @implements \IteratorAggregate<User>
  */
 class ListUsersResponse extends Result implements \IteratorAggregate

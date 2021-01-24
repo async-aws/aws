@@ -9,6 +9,8 @@ use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Input\ListTablesInput;
 
 /**
+ * Represents the output of a `ListTables` operation.
+ *
  * @implements \IteratorAggregate<string>
  */
 class ListTablesOutput extends Result implements \IteratorAggregate

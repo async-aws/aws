@@ -8,6 +8,9 @@ use AsyncAws\CognitoIdentityProvider\ValueObject\UserType;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
+/**
+ * Represents the response from the server to the request to create the user.
+ */
 class AdminCreateUserResponse extends Result
 {
     /**

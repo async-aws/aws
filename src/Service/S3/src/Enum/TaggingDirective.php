@@ -2,6 +2,10 @@
 
 namespace AsyncAws\S3\Enum;
 
+/**
+ * Specifies whether the object tag-set are copied from the source object or replaced with tag-set provided in the
+ * request.
+ */
 final class TaggingDirective
 {
     public const COPY = 'COPY';

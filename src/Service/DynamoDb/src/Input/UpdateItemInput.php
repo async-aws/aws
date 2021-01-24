@@ -14,6 +14,9 @@ use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\AttributeValueUpdate;
 use AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue;
 
+/**
+ * Represents the input of an `UpdateItem` operation.
+ */
 final class UpdateItemInput extends Input
 {
     /**

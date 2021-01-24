@@ -14,13 +14,17 @@ namespace AsyncAws\CodeGenerator\Generator;
  */
 class GeneratorHelper
 {
-    public static function parseDocumentation(string $documentation): string
+    public static function parseDocumentation(string $documentation, bool $short = true): string
     {
-        $s = \strtr($documentation, ['> <' => '><']);
-        $s = explode("\n", trim(\strtr($s, [
+        $s = preg_replace('/>\s*</', '><', $documentation);
+        $s = trim(\strtr($s, [
             '<p>' => '',
+            '<p/>' => '',
             '</p>' => "\n",
-        ])))[0];
+        ]));
+        if ($short) {
+            $s = explode("\n", $s)[0];
+        }
 
         $s = \strtr($s, [
             '<code>' => '`',
@@ -30,6 +34,8 @@ class GeneratorHelper
             '<b>' => '**',
             '</b>' => '**',
         ]);
+        $s = preg_replace('/\n*<(\/?(note|important|ul|li))>\n*/', "\n<\$1>\n", $s);
+        $s = preg_replace('/\n+/', "\n", $s);
 
         \preg_match_all('/<a href="([^"]*)">/', $s, $matches);
         $s = \preg_replace('/<a href="[^"]*">([^<]*)<\/a>/', '$1', $s);
@@ -39,11 +45,89 @@ class GeneratorHelper
             '</a>' => '',
         ]);
 
+        $prefix = '';
+        $lines = [];
+        $empty = false;
+        $spaceNext = false;
+
+        // converts <li> into `- ` AND handle multi-level list
+        foreach (\explode("\n", $s) as $line) {
+            $line = trim($line);
+            if ('' === $line) {
+                $empty = true;
+                $lines[] = $prefix;
+
+                continue;
+            }
+
+            if ('<li>' === $line) {
+                $prefix .= '- ';
+                $spaceNext = true;
+
+                continue;
+            }
+            if ('</li>' === $line) {
+                $prefix = \substr($prefix, 0, -2);
+                $spaceNext = false;
+
+                continue;
+            }
+            if ('<ul>' === $line) {
+                if (!$empty) {
+                    $lines[] = $prefix;
+                }
+                $empty = true;
+
+                continue;
+            }
+            if ('</ul>' === $line) {
+                $lines[] = $prefix;
+                $empty = true;
+
+                continue;
+            }
+            if ('<note>' === $line) {
+                if (!$empty) {
+                    $lines[] = $prefix;
+                }
+                $empty = true;
+                $prefix .= '> ';
+
+                continue;
+            }
+            if ('<important>' === $line) {
+                if (!$empty) {
+                    $lines[] = $prefix;
+                }
+                $empty = true;
+                $prefix .= '! ';
+
+                continue;
+            }
+            if ('</note>' === $line || '</important>' === $line) {
+                $prefix = \substr($prefix, 0, -2);
+                $lines[] = $prefix;
+                $empty = true;
+
+                continue;
+            }
+
+            $empty = false;
+            foreach (explode("\n", wordwrap(trim($line), 117 - \strlen($prefix))) as $l) {
+                $lines[] = $prefix . $l;
+                if ($spaceNext) {
+                    $prefix = \substr($prefix, 0, -2) . '  ';
+                    $spaceNext = false;
+                }
+            }
+        }
+        $s = \implode("\n", $lines);
+
         if (false !== \strpos($s, '<')) {
             throw new \InvalidArgumentException('remaining HTML code in documentation: ' . $s);
         }
 
-        $s = wordwrap($s, 117);
+        $s = \implode("\n", $lines);
         $s .= "\n";
         foreach ($matches[1] as $link) {
             $s .= "\n@see $link";

@@ -6,6 +6,9 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
 
+/**
+ * A list of returned queue attributes.
+ */
 class GetQueueAttributesResult extends Result
 {
     /**

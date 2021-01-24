@@ -4,6 +4,9 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * Represents the properties of a global secondary index.
+ */
 final class GlobalSecondaryIndex
 {
     /**

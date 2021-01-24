@@ -4,6 +4,10 @@ namespace AsyncAws\Rekognition\ValueObject;
 
 use AsyncAws\Rekognition\Enum\Reason;
 
+/**
+ * A face that IndexFaces detected, but didn't index. Use the `Reasons` response attribute to determine why a face
+ * wasn't indexed.
+ */
 final class UnindexedFace
 {
     /**

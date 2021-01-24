@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Rekognition\ValueObject;
 
+/**
+ * Provides face metadata. In addition, it also provides the confidence in the match of this face with the input face.
+ */
 final class FaceMatch
 {
     /**

@@ -2,6 +2,9 @@
 
 namespace AsyncAws\S3\Enum;
 
+/**
+ * Specifies whether the metadata is copied from the source object or replaced with metadata provided in the request.
+ */
 final class MetadataDirective
 {
     public const COPY = 'COPY';

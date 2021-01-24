@@ -4,6 +4,12 @@ namespace AsyncAws\Iam\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * A structure that represents user-provided metadata that can be associated with a resource such as an IAM user or
+ * role. For more information about tagging, see Tagging IAM Identities in the *IAM User Guide*.
+ *
+ * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html
+ */
 final class Tag
 {
     /**

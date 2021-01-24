@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added documentation in class's headers.
+
 ## 1.4.0
 
 ### Added

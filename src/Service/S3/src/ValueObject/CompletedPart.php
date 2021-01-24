@@ -2,6 +2,9 @@
 
 namespace AsyncAws\S3\ValueObject;
 
+/**
+ * Details of the parts that were uploaded.
+ */
 final class CompletedPart
 {
     /**

@@ -2,6 +2,10 @@
 
 namespace AsyncAws\Rekognition\ValueObject;
 
+/**
+ * The estimated age range, in years, for the face. Low represents the lowest estimated age and High represents the
+ * highest estimated age.
+ */
 final class AgeRange
 {
     /**

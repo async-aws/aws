@@ -2,6 +2,9 @@
 
 namespace AsyncAws\S3\ValueObject;
 
+/**
+ * Container for the bucket owner's display name and ID.
+ */
 final class Owner
 {
     /**

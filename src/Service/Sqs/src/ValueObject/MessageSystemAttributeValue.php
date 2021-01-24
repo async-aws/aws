@@ -4,6 +4,11 @@ namespace AsyncAws\Sqs\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * The user-specified message system attribute value. For string data types, the `Value` attribute has the same
+ * restrictions on the content as the message body. For more information, see `SendMessage.`
+ * `Name`, `type`, `value` and the message body must not be empty or null.
+ */
 final class MessageSystemAttributeValue
 {
     /**

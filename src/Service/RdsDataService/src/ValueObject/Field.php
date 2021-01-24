@@ -2,6 +2,9 @@
 
 namespace AsyncAws\RdsDataService\ValueObject;
 
+/**
+ * The value of the parameter.
+ */
 final class Field
 {
     /**

@@ -106,6 +106,9 @@ class ResultGenerator
 
         $namespace = new PhpNamespace($className->getNamespace());
         $class = $namespace->addClass($className->getName());
+        if (null !== $documentation = $shape->getDocumentation()) {
+            $class->addComment(GeneratorHelper::parseDocumentation($documentation, false));
+        }
 
         $namespace->addUse(Result::class);
         $class->addExtend(Result::class);

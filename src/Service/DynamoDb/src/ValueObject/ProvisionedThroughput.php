@@ -4,6 +4,13 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * Represents the provisioned throughput settings for the specified global secondary index.
+ * For current minimum and maximum provisioned throughput values, see Service, Account, and Table Quotas in the *Amazon
+ * DynamoDB Developer Guide*.
+ *
+ * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html
+ */
 final class ProvisionedThroughput
 {
     /**

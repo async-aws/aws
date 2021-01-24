@@ -5,6 +5,9 @@ namespace AsyncAws\RdsDataService\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\RdsDataService\Enum\TypeHint;
 
+/**
+ * A parameter used in a SQL statement.
+ */
 final class SqlParameter
 {
     /**

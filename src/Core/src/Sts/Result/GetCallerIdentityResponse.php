@@ -5,6 +5,10 @@ namespace AsyncAws\Core\Sts\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
+/**
+ * Contains the response to a successful GetCallerIdentity request, including information about the entity making the
+ * request.
+ */
 class GetCallerIdentityResponse extends Result
 {
     /**

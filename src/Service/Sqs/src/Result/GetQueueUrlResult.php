@@ -5,6 +5,11 @@ namespace AsyncAws\Sqs\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
+/**
+ * For more information, see Interpreting Responses in the *Amazon Simple Queue Service Developer Guide*.
+ *
+ * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-api-responses.html
+ */
 class GetQueueUrlResult extends Result
 {
     /**

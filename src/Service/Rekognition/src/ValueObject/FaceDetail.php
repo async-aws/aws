@@ -2,6 +2,23 @@
 
 namespace AsyncAws\Rekognition\ValueObject;
 
+/**
+ * Structure containing attributes of the face that the algorithm detected.
+ * A `FaceDetail` object contains either the default facial attributes or all facial attributes. The default attributes
+ * are `BoundingBox`, `Confidence`, `Landmarks`, `Pose`, and `Quality`.
+ * GetFaceDetection is the only Amazon Rekognition Video stored video operation that can return a `FaceDetail` object
+ * with all attributes. To specify which attributes to return, use the `FaceAttributes` input parameter for
+ * StartFaceDetection. The following Amazon Rekognition Video operations return only the default attributes. The
+ * corresponding Start operations don't have a `FaceAttributes` input parameter.
+ *
+ * - GetCelebrityRecognition
+ * - GetPersonTracking
+ * - GetFaceSearch
+ *
+ * The Amazon Rekognition Image DetectFaces and IndexFaces operations can return all facial attributes. To specify which
+ * attributes to return, use the `Attributes` input parameter for `DetectFaces`. For `IndexFaces`, use the
+ * `DetectAttributes` input parameter.
+ */
 final class FaceDetail
 {
     /**

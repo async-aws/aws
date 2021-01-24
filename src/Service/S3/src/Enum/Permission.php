@@ -2,6 +2,9 @@
 
 namespace AsyncAws\S3\Enum;
 
+/**
+ * Specifies the permission given to the grantee.
+ */
 final class Permission
 {
     public const FULL_CONTROL = 'FULL_CONTROL';

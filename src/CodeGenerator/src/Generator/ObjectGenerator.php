@@ -83,6 +83,9 @@ class ObjectGenerator
         $namespace = new PhpNamespace($className->getNamespace());
         $class = $namespace->addClass($className->getName());
         $class->setFinal();
+        if (null !== $documentation = $shape->getDocumentation()) {
+            $class->addComment(GeneratorHelper::parseDocumentation($documentation, false));
+        }
 
         // Named constructor
         $this->namedConstructor($shape, $class, $namespace);

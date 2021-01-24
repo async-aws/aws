@@ -2,6 +2,10 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
+/**
+ * The provisioned throughput settings for the table, consisting of read and write capacity units, along with data about
+ * increases and decreases.
+ */
 final class ProvisionedThroughputDescription
 {
     /**

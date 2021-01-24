@@ -7,6 +7,9 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
+/**
+ * Represents the input of a `DescribeTable` operation.
+ */
 final class DescribeTableInput extends Input
 {
     /**

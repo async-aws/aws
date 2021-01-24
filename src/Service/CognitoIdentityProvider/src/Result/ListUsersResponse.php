@@ -12,6 +12,8 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
 /**
+ * The response from the request to list users.
+ *
  * @implements \IteratorAggregate<UserType>
  */
 class ListUsersResponse extends Result implements \IteratorAggregate

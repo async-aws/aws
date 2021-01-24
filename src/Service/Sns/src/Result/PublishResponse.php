@@ -5,6 +5,9 @@ namespace AsyncAws\Sns\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
+/**
+ * Response for Publish action.
+ */
 class PublishResponse extends Result
 {
     /**

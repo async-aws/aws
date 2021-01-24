@@ -5,6 +5,10 @@ namespace AsyncAws\S3\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\S3\Enum\Event;
 
+/**
+ * Specifies the configuration for publishing messages to an Amazon Simple Queue Service (Amazon SQS) queue when Amazon
+ * S3 detects specified events.
+ */
 final class QueueConfiguration
 {
     private $Id;

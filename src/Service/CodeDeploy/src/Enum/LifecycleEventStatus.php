@@ -2,6 +2,9 @@
 
 namespace AsyncAws\CodeDeploy\Enum;
 
+/**
+ * The result of a Lambda function that validates a deployment lifecycle event (`Succeeded` or `Failed`).
+ */
 final class LifecycleEventStatus
 {
     public const FAILED = 'Failed';

@@ -12,6 +12,9 @@ use AsyncAws\DynamoDb\ValueObject\ItemCollectionMetrics;
 use AsyncAws\DynamoDb\ValueObject\PutRequest;
 use AsyncAws\DynamoDb\ValueObject\WriteRequest;
 
+/**
+ * Represents the output of a `BatchWriteItem` operation.
+ */
 class BatchWriteItemOutput extends Result
 {
     /**

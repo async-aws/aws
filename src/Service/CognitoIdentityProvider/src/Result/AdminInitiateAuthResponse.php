@@ -8,6 +8,9 @@ use AsyncAws\CognitoIdentityProvider\ValueObject\NewDeviceMetadataType;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
+/**
+ * Initiates the authentication response, as an administrator.
+ */
 class AdminInitiateAuthResponse extends Result
 {
     /**

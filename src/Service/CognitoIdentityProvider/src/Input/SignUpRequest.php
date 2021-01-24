@@ -10,6 +10,9 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
+/**
+ * Represents the request to register a user.
+ */
 final class SignUpRequest extends Input
 {
     /**

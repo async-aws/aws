@@ -6,6 +6,9 @@ use AsyncAws\CognitoIdentityProvider\ValueObject\CodeDeliveryDetailsType;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
+/**
+ * The response from the server for a registration request.
+ */
 class SignUpResponse extends Result
 {
     /**

@@ -8,6 +8,9 @@ use AsyncAws\Sqs\Enum\MessageSystemAttributeName;
 use AsyncAws\Sqs\ValueObject\Message;
 use AsyncAws\Sqs\ValueObject\MessageAttributeValue;
 
+/**
+ * A list of received messages.
+ */
 class ReceiveMessageResult extends Result
 {
     /**

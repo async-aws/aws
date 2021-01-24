@@ -4,6 +4,9 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\DynamoDb\Enum\TableStatus;
 
+/**
+ * Represents the properties of the table.
+ */
 final class TableDescription
 {
     /**

@@ -4,6 +4,9 @@ namespace AsyncAws\Ssm\ValueObject;
 
 use AsyncAws\Ssm\Enum\ParameterType;
 
+/**
+ * Information about a parameter.
+ */
 final class Parameter
 {
     /**

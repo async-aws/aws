@@ -2,6 +2,9 @@
 
 namespace AsyncAws\S3\ValueObject;
 
+/**
+ * Container for all error elements.
+ */
 final class Error
 {
     /**

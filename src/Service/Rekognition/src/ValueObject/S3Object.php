@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Rekognition\ValueObject;
 
+/**
+ * Identifies an S3 object as the image source.
+ */
 final class S3Object
 {
     /**

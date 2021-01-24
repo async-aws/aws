@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Ses\ValueObject;
 
+/**
+ * The template to use for the email message.
+ */
 final class Template
 {
     /**

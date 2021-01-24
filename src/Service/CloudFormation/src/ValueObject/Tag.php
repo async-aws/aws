@@ -2,6 +2,10 @@
 
 namespace AsyncAws\CloudFormation\ValueObject;
 
+/**
+ * The Tag type enables you to specify a key-value pair that can be used to store information about an AWS
+ * CloudFormation stack.
+ */
 final class Tag
 {
     /**

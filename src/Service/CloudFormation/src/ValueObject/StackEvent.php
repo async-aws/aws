@@ -4,6 +4,9 @@ namespace AsyncAws\CloudFormation\ValueObject;
 
 use AsyncAws\CloudFormation\Enum\ResourceStatus;
 
+/**
+ * The StackEvent data type.
+ */
 final class StackEvent
 {
     /**

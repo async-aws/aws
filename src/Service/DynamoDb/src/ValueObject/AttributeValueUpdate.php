@@ -5,6 +5,16 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\DynamoDb\Enum\AttributeAction;
 
+/**
+ * For the `UpdateItem` operation, represents the attributes to be modified, the action to perform on each, and the new
+ * value for each.
+ *
+ * > You cannot use `UpdateItem` to update any primary key attributes. Instead, you will need to delete the item, and
+ * > then use `PutItem` to create a new item with new attributes.
+ *
+ * Attribute values cannot be null; string and binary type attributes must have lengths greater than zero; and set type
+ * attributes must not be empty. Requests with empty values will be rejected with a `ValidationException` exception.
+ */
 final class AttributeValueUpdate
 {
     /**

@@ -4,6 +4,12 @@ namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * Represents a set of primary keys and, for each key, the attributes to retrieve from the table.
+ * For each primary key, you must provide *all* of the key attributes. For example, with a simple primary key, you only
+ * need to provide the partition key. For a composite primary key, you must provide *both* the partition key and the
+ * sort key.
+ */
 final class KeysAndAttributes
 {
     /**

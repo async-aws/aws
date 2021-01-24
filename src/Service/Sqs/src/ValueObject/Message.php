@@ -4,6 +4,9 @@ namespace AsyncAws\Sqs\ValueObject;
 
 use AsyncAws\Sqs\Enum\MessageSystemAttributeName;
 
+/**
+ * An Amazon SQS message.
+ */
 final class Message
 {
     /**

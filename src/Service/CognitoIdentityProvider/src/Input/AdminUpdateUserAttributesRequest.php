@@ -8,6 +8,9 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
+/**
+ * Represents the request to update the user's attributes as an administrator.
+ */
 final class AdminUpdateUserAttributesRequest extends Input
 {
     /**

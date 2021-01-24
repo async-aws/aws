@@ -2,6 +2,9 @@
 
 namespace AsyncAws\RdsDataService\ValueObject;
 
+/**
+ * An array of values.
+ */
 final class ArrayValue
 {
     /**

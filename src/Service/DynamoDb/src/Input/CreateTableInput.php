@@ -16,6 +16,9 @@ use AsyncAws\DynamoDb\ValueObject\SSESpecification;
 use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
 use AsyncAws\DynamoDb\ValueObject\Tag;
 
+/**
+ * Represents the input of a `CreateTable` operation.
+ */
 final class CreateTableInput extends Input
 {
     /**

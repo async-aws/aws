@@ -6,6 +6,9 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
+/**
+ * The input for DescribeStackEvents action.
+ */
 final class DescribeStackEventsInput extends Input
 {
     /**

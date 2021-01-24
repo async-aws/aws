@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Rekognition\ValueObject;
 
+/**
+ * Indicates whether or not the eyes on the face are open, and the confidence level in the determination.
+ */
 final class EyeOpen
 {
     /**

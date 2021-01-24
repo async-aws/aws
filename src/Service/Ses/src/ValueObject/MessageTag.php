@@ -4,6 +4,10 @@ namespace AsyncAws\Ses\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * Contains the name and value of a tag that you apply to an email. You can use message tags when you publish email
+ * sending events.
+ */
 final class MessageTag
 {
     /**

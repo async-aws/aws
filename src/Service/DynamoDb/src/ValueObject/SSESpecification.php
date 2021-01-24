@@ -5,6 +5,9 @@ namespace AsyncAws\DynamoDb\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\DynamoDb\Enum\SSEType;
 
+/**
+ * Represents the settings used to enable server-side encryption.
+ */
 final class SSESpecification
 {
     /**

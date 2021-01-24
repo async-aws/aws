@@ -7,6 +7,9 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
+/**
+ * The request parameters represent the input of a commit transaction request.
+ */
 final class CommitTransactionRequest extends Input
 {
     /**

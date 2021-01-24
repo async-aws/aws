@@ -8,6 +8,9 @@ use AsyncAws\CognitoIdentityProvider\ValueObject\MFAOptionType;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
+/**
+ * Represents the response from the server from the request to get the specified user as an administrator.
+ */
 class AdminGetUserResponse extends Result
 {
     /**

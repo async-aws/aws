@@ -13,6 +13,9 @@ use AsyncAws\DynamoDb\Enum\ReturnValue;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\ExpectedAttributeValue;
 
+/**
+ * Represents the input of a `PutItem` operation.
+ */
 final class PutItemInput extends Input
 {
     /**

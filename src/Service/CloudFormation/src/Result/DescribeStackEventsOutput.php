@@ -10,6 +10,8 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
 /**
+ * The output for a DescribeStackEvents action.
+ *
  * @implements \IteratorAggregate<StackEvent>
  */
 class DescribeStackEventsOutput extends Result implements \IteratorAggregate

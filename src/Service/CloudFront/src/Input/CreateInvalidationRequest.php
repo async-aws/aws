@@ -8,6 +8,9 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
+/**
+ * The request to create an invalidation.
+ */
 final class CreateInvalidationRequest extends Input
 {
     /**

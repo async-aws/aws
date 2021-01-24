@@ -2,6 +2,9 @@
 
 namespace AsyncAws\Lambda\Enum;
 
+/**
+ * Set to `Tail` to include the execution log in the response.
+ */
 final class LogType
 {
     public const NONE = 'None';

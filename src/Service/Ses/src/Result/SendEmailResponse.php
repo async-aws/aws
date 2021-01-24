@@ -5,6 +5,9 @@ namespace AsyncAws\Ses\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
+/**
+ * A unique message ID that you receive when an email is accepted for sending.
+ */
 class SendEmailResponse extends Result
 {
     /**

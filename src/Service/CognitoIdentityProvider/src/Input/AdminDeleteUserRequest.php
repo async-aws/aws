@@ -7,6 +7,9 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
+/**
+ * Represents the request to delete a user as an administrator.
+ */
 final class AdminDeleteUserRequest extends Input
 {
     /**

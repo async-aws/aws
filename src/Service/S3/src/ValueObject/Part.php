@@ -2,6 +2,9 @@
 
 namespace AsyncAws\S3\ValueObject;
 
+/**
+ * Container for elements related to a part.
+ */
 final class Part
 {
     /**

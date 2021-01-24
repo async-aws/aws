@@ -8,6 +8,9 @@ use AsyncAws\CloudFront\ValueObject\Paths;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
+/**
+ * The returned result of the corresponding request.
+ */
 class CreateInvalidationResult extends Result
 {
     /**

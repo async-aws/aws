@@ -5,6 +5,9 @@ namespace AsyncAws\RdsDataService\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\RdsDataService\Enum\DecimalReturnType;
 
+/**
+ * Options that control how the result set is returned.
+ */
 final class ResultSetOptions
 {
     /**

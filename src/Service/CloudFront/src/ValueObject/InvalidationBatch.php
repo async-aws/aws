@@ -4,6 +4,9 @@ namespace AsyncAws\CloudFront\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * The batch information for the invalidation.
+ */
 final class InvalidationBatch
 {
     /**

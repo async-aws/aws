@@ -9,6 +9,9 @@ use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\RdsDataService\ValueObject\ResultSetOptions;
 use AsyncAws\RdsDataService\ValueObject\SqlParameter;
 
+/**
+ * The request parameters represent the input of a request to run a SQL statement against a database.
+ */
 final class ExecuteStatementRequest extends Input
 {
     /**

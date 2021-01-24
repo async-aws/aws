@@ -6,6 +6,9 @@ use AsyncAws\CognitoIdentityProvider\ValueObject\CodeDeliveryDetailsType;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
+/**
+ * Respresents the response from the server regarding the request to reset a password.
+ */
 class ForgotPasswordResponse extends Result
 {
     /**

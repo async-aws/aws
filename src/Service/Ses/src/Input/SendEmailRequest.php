@@ -15,6 +15,12 @@ use AsyncAws\Ses\ValueObject\Message;
 use AsyncAws\Ses\ValueObject\MessageTag;
 use AsyncAws\Ses\ValueObject\Template;
 
+/**
+ * Represents a request to send a single formatted email using Amazon SES. For more information, see the Amazon SES
+ * Developer Guide.
+ *
+ * @see https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-formatted.html
+ */
 final class SendEmailRequest extends Input
 {
     /**

@@ -20,6 +20,9 @@ use AsyncAws\DynamoDb\ValueObject\SSEDescription;
 use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
 use AsyncAws\DynamoDb\ValueObject\TableDescription;
 
+/**
+ * Represents the output of a `CreateTable` operation.
+ */
 class CreateTableOutput extends Result
 {
     /**

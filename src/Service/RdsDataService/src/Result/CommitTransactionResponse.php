@@ -5,6 +5,9 @@ namespace AsyncAws\RdsDataService\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
+/**
+ * The response elements represent the output of a commit transaction request.
+ */
 class CommitTransactionResponse extends Result
 {
     /**

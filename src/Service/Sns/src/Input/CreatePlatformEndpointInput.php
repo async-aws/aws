@@ -7,6 +7,9 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
+/**
+ * Input for CreatePlatformEndpoint action.
+ */
 final class CreatePlatformEndpointInput extends Input
 {
     /**

@@ -4,6 +4,12 @@ namespace AsyncAws\Sqs\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * The user-specified message attribute value. For string data types, the `Value` attribute has the same restrictions on
+ * the content as the message body. For more information, see `SendMessage.`
+ * `Name`, `type`, `value` and the message body must not be empty or null. All parts of the message attribute, including
+ * `Name`, `Type`, and `Value`, are part of the message size restriction (256 KB or 262,144 bytes).
+ */
 final class MessageAttributeValue
 {
     /**

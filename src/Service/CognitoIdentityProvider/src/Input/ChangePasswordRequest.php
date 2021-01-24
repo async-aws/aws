@@ -7,6 +7,9 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
+/**
+ * Represents the request to change a user password.
+ */
 final class ChangePasswordRequest extends Input
 {
     /**

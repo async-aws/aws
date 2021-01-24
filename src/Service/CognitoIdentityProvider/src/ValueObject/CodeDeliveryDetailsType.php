@@ -4,6 +4,9 @@ namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 
 use AsyncAws\CognitoIdentityProvider\Enum\DeliveryMediumType;
 
+/**
+ * The code delivery details returned by the server in response to the request to reset a password.
+ */
 final class CodeDeliveryDetailsType
 {
     /**

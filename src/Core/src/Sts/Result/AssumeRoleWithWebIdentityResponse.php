@@ -7,6 +7,10 @@ use AsyncAws\Core\Result;
 use AsyncAws\Core\Sts\ValueObject\AssumedRoleUser;
 use AsyncAws\Core\Sts\ValueObject\Credentials;
 
+/**
+ * Contains the response to a successful AssumeRoleWithWebIdentity request, including temporary AWS credentials that can
+ * be used to make AWS requests.
+ */
 class AssumeRoleWithWebIdentityResponse extends Result
 {
     /**
