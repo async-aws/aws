@@ -42,7 +42,7 @@ final class UserType
     /**
      * The MFA options for the user.
      */
-    private $mFAOptions;
+    private $mfaOptions;
 
     /**
      * @param array{
@@ -63,7 +63,7 @@ final class UserType
         $this->userLastModifiedDate = $input['UserLastModifiedDate'] ?? null;
         $this->enabled = $input['Enabled'] ?? null;
         $this->userStatus = $input['UserStatus'] ?? null;
-        $this->mFAOptions = isset($input['MFAOptions']) ? array_map([MFAOptionType::class, 'create'], $input['MFAOptions']) : null;
+        $this->mfaOptions = isset($input['MFAOptions']) ? array_map([MFAOptionType::class, 'create'], $input['MFAOptions']) : null;
     }
 
     public static function create($input): self
@@ -89,7 +89,7 @@ final class UserType
      */
     public function getMFAOptions(): array
     {
-        return $this->mFAOptions ?? [];
+        return $this->mfaOptions ?? [];
     }
 
     public function getUserCreateDate(): ?\DateTimeImmutable

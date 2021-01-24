@@ -21,7 +21,7 @@ final class PutObjectAclRequest extends Input
      *
      * @var null|ObjectCannedACL::*
      */
-    private $aCL;
+    private $acl;
 
     /**
      * Contains the elements that set the ACL permissions for an object per grantee.
@@ -133,7 +133,7 @@ final class PutObjectAclRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->aCL = $input['ACL'] ?? null;
+        $this->acl = $input['ACL'] ?? null;
         $this->accessControlPolicy = isset($input['AccessControlPolicy']) ? AccessControlPolicy::create($input['AccessControlPolicy']) : null;
         $this->bucket = $input['Bucket'] ?? null;
         $this->contentMD5 = $input['ContentMD5'] ?? null;
@@ -159,7 +159,7 @@ final class PutObjectAclRequest extends Input
      */
     public function getACL(): ?string
     {
-        return $this->aCL;
+        return $this->acl;
     }
 
     public function getAccessControlPolicy(): ?AccessControlPolicy
@@ -232,11 +232,11 @@ final class PutObjectAclRequest extends Input
     {
         // Prepare headers
         $headers = ['content-type' => 'application/xml'];
-        if (null !== $this->aCL) {
-            if (!ObjectCannedACL::exists($this->aCL)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "ObjectCannedACL".', __CLASS__, $this->aCL));
+        if (null !== $this->acl) {
+            if (!ObjectCannedACL::exists($this->acl)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "ObjectCannedACL".', __CLASS__, $this->acl));
             }
-            $headers['x-amz-acl'] = $this->aCL;
+            $headers['x-amz-acl'] = $this->acl;
         }
         if (null !== $this->contentMD5) {
             $headers['Content-MD5'] = $this->contentMD5;
@@ -300,7 +300,7 @@ final class PutObjectAclRequest extends Input
      */
     public function setACL(?string $value): self
     {
-        $this->aCL = $value;
+        $this->acl = $value;
 
         return $this;
     }

@@ -11,7 +11,7 @@ final class Initiator
      * If the principal is an AWS account, it provides the Canonical User ID. If the principal is an IAM User, it provides a
      * user ARN value.
      */
-    private $iD;
+    private $id;
 
     /**
      * Name of the Principal.
@@ -26,7 +26,7 @@ final class Initiator
      */
     public function __construct(array $input)
     {
-        $this->iD = $input['ID'] ?? null;
+        $this->id = $input['ID'] ?? null;
         $this->displayName = $input['DisplayName'] ?? null;
     }
 
@@ -42,6 +42,6 @@ final class Initiator
 
     public function getID(): ?string
     {
-        return $this->iD;
+        return $this->id;
     }
 }

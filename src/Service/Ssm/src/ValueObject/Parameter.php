@@ -49,7 +49,7 @@ final class Parameter
     /**
      * The Amazon Resource Name (ARN) of the parameter.
      */
-    private $aRN;
+    private $arn;
 
     /**
      * The data type of the parameter, such as `text` or `aws:ec2:image`. The default is `text`.
@@ -78,7 +78,7 @@ final class Parameter
         $this->selector = $input['Selector'] ?? null;
         $this->sourceResult = $input['SourceResult'] ?? null;
         $this->lastModifiedDate = $input['LastModifiedDate'] ?? null;
-        $this->aRN = $input['ARN'] ?? null;
+        $this->arn = $input['ARN'] ?? null;
         $this->dataType = $input['DataType'] ?? null;
     }
 
@@ -89,7 +89,7 @@ final class Parameter
 
     public function getARN(): ?string
     {
-        return $this->aRN;
+        return $this->arn;
     }
 
     public function getDataType(): ?string

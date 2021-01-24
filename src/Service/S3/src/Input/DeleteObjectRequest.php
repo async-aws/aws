@@ -35,7 +35,7 @@ final class DeleteObjectRequest extends Input
      *
      * @var string|null
      */
-    private $mFA;
+    private $mfa;
 
     /**
      * VersionId used to reference a specific version of the object.
@@ -80,7 +80,7 @@ final class DeleteObjectRequest extends Input
     {
         $this->bucket = $input['Bucket'] ?? null;
         $this->key = $input['Key'] ?? null;
-        $this->mFA = $input['MFA'] ?? null;
+        $this->mfa = $input['MFA'] ?? null;
         $this->versionId = $input['VersionId'] ?? null;
         $this->requestPayer = $input['RequestPayer'] ?? null;
         $this->bypassGovernanceRetention = $input['BypassGovernanceRetention'] ?? null;
@@ -115,7 +115,7 @@ final class DeleteObjectRequest extends Input
 
     public function getMFA(): ?string
     {
-        return $this->mFA;
+        return $this->mfa;
     }
 
     /**
@@ -138,8 +138,8 @@ final class DeleteObjectRequest extends Input
     {
         // Prepare headers
         $headers = ['content-type' => 'application/xml'];
-        if (null !== $this->mFA) {
-            $headers['x-amz-mfa'] = $this->mFA;
+        if (null !== $this->mfa) {
+            $headers['x-amz-mfa'] = $this->mfa;
         }
         if (null !== $this->requestPayer) {
             if (!RequestPayer::exists($this->requestPayer)) {
@@ -209,7 +209,7 @@ final class DeleteObjectRequest extends Input
 
     public function setMFA(?string $value): self
     {
-        $this->mFA = $value;
+        $this->mfa = $value;
 
         return $this;
     }

@@ -24,7 +24,7 @@ final class Message
     /**
      * An MD5 digest of the non-URL-encoded message body string.
      */
-    private $mD5OfBody;
+    private $md5OfBody;
 
     /**
      * The message's contents (not URL-encoded).
@@ -43,7 +43,7 @@ final class Message
      *
      * @see https://www.ietf.org/rfc/rfc1321.txt
      */
-    private $mD5OfMessageAttributes;
+    private $md5OfMessageAttributes;
 
     /**
      * Each message attribute consists of a `Name`, `Type`, and `Value`. For more information, see Amazon SQS Message
@@ -68,10 +68,10 @@ final class Message
     {
         $this->messageId = $input['MessageId'] ?? null;
         $this->receiptHandle = $input['ReceiptHandle'] ?? null;
-        $this->mD5OfBody = $input['MD5OfBody'] ?? null;
+        $this->md5OfBody = $input['MD5OfBody'] ?? null;
         $this->body = $input['Body'] ?? null;
         $this->attributes = $input['Attributes'] ?? null;
-        $this->mD5OfMessageAttributes = $input['MD5OfMessageAttributes'] ?? null;
+        $this->md5OfMessageAttributes = $input['MD5OfMessageAttributes'] ?? null;
         $this->messageAttributes = isset($input['MessageAttributes']) ? array_map([MessageAttributeValue::class, 'create'], $input['MessageAttributes']) : null;
     }
 
@@ -95,12 +95,12 @@ final class Message
 
     public function getMD5OfBody(): ?string
     {
-        return $this->mD5OfBody;
+        return $this->md5OfBody;
     }
 
     public function getMD5OfMessageAttributes(): ?string
     {
-        return $this->mD5OfMessageAttributes;
+        return $this->md5OfMessageAttributes;
     }
 
     /**

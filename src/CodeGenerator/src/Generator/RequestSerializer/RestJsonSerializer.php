@@ -11,6 +11,7 @@ use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 
 /**
@@ -47,7 +48,7 @@ class RestJsonSerializer implements Serializer
             }
 
             return [strtr($body, [
-                'PROPERTY' => \lcfirst($payloadProperty),
+                'PROPERTY' => GeneratorHelper::sanitizePropertyName($payloadProperty),
                 'NAME' => $payloadProperty,
             ]), false];
         }
@@ -81,7 +82,7 @@ class RestJsonSerializer implements Serializer
             }
 
             return strtr($body, [
-                'PROPERTY' => \lcfirst($member->getName()),
+                'PROPERTY' => GeneratorHelper::sanitizePropertyName($member->getName()),
                 'NAME' => $member->getName(),
                 'MEMBER_CODE' => $deprecation . $this->dumpArrayElement(sprintf('["%s"]', $name = $this->getName($member)), $inputElement, $name, $shape, $member->isRequired()),
             ]);

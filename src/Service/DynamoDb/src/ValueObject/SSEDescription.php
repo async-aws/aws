@@ -18,12 +18,12 @@ final class SSEDescription
     /**
      * Server-side encryption type. The only supported value is:.
      */
-    private $sSEType;
+    private $sseType;
 
     /**
      * The AWS KMS customer master key (CMK) ARN used for the AWS KMS encryption.
      */
-    private $kMSMasterKeyArn;
+    private $kmsMasterKeyArn;
 
     /**
      * Indicates the time, in UNIX epoch date format, when DynamoDB detected that the table's AWS KMS key was inaccessible.
@@ -44,8 +44,8 @@ final class SSEDescription
     public function __construct(array $input)
     {
         $this->status = $input['Status'] ?? null;
-        $this->sSEType = $input['SSEType'] ?? null;
-        $this->kMSMasterKeyArn = $input['KMSMasterKeyArn'] ?? null;
+        $this->sseType = $input['SSEType'] ?? null;
+        $this->kmsMasterKeyArn = $input['KMSMasterKeyArn'] ?? null;
         $this->inaccessibleEncryptionDateTime = $input['InaccessibleEncryptionDateTime'] ?? null;
     }
 
@@ -61,7 +61,7 @@ final class SSEDescription
 
     public function getKMSMasterKeyArn(): ?string
     {
-        return $this->kMSMasterKeyArn;
+        return $this->kmsMasterKeyArn;
     }
 
     /**
@@ -69,7 +69,7 @@ final class SSEDescription
      */
     public function getSSEType(): ?string
     {
-        return $this->sSEType;
+        return $this->sseType;
     }
 
     /**

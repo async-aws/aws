@@ -20,7 +20,7 @@ final class Part
     /**
      * Entity tag returned when the part was uploaded.
      */
-    private $eTag;
+    private $etag;
 
     /**
      * Size in bytes of the uploaded part data.
@@ -39,7 +39,7 @@ final class Part
     {
         $this->partNumber = $input['PartNumber'] ?? null;
         $this->lastModified = $input['LastModified'] ?? null;
-        $this->eTag = $input['ETag'] ?? null;
+        $this->etag = $input['ETag'] ?? null;
         $this->size = $input['Size'] ?? null;
     }
 
@@ -50,7 +50,7 @@ final class Part
 
     public function getETag(): ?string
     {
-        return $this->eTag;
+        return $this->etag;
     }
 
     public function getLastModified(): ?\DateTimeImmutable

@@ -73,7 +73,7 @@ final class UpdateTableInput extends Input
      *
      * @var SSESpecification|null
      */
-    private $sSESpecification;
+    private $sseSpecification;
 
     /**
      * A list of replica update actions (create, delete, or update) for the table.
@@ -103,7 +103,7 @@ final class UpdateTableInput extends Input
         $this->provisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
         $this->globalSecondaryIndexUpdates = isset($input['GlobalSecondaryIndexUpdates']) ? array_map([GlobalSecondaryIndexUpdate::class, 'create'], $input['GlobalSecondaryIndexUpdates']) : null;
         $this->streamSpecification = isset($input['StreamSpecification']) ? StreamSpecification::create($input['StreamSpecification']) : null;
-        $this->sSESpecification = isset($input['SSESpecification']) ? SSESpecification::create($input['SSESpecification']) : null;
+        $this->sseSpecification = isset($input['SSESpecification']) ? SSESpecification::create($input['SSESpecification']) : null;
         $this->replicaUpdates = isset($input['ReplicaUpdates']) ? array_map([ReplicationGroupUpdate::class, 'create'], $input['ReplicaUpdates']) : null;
         parent::__construct($input);
     }
@@ -152,7 +152,7 @@ final class UpdateTableInput extends Input
 
     public function getSSESpecification(): ?SSESpecification
     {
-        return $this->sSESpecification;
+        return $this->sseSpecification;
     }
 
     public function getStreamSpecification(): ?StreamSpecification
@@ -239,7 +239,7 @@ final class UpdateTableInput extends Input
 
     public function setSSESpecification(?SSESpecification $value): self
     {
-        $this->sSESpecification = $value;
+        $this->sseSpecification = $value;
 
         return $this;
     }
@@ -293,7 +293,7 @@ final class UpdateTableInput extends Input
         if (null !== $v = $this->streamSpecification) {
             $payload['StreamSpecification'] = $v->requestBody();
         }
-        if (null !== $v = $this->sSESpecification) {
+        if (null !== $v = $this->sseSpecification) {
             $payload['SSESpecification'] = $v->requestBody();
         }
         if (null !== $v = $this->replicaUpdates) {

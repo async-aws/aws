@@ -20,7 +20,7 @@ final class CreateMultipartUploadRequest extends Input
      *
      * @var null|ObjectCannedACL::*
      */
-    private $aCL;
+    private $acl;
 
     /**
      * The name of the bucket to which to initiate the upload.
@@ -150,7 +150,7 @@ final class CreateMultipartUploadRequest extends Input
      *
      * @var string|null
      */
-    private $sSECustomerAlgorithm;
+    private $sseCustomerAlgorithm;
 
     /**
      * Specifies the customer-provided encryption key for Amazon S3 to use in encrypting data. This value is used to store
@@ -159,7 +159,7 @@ final class CreateMultipartUploadRequest extends Input
      *
      * @var string|null
      */
-    private $sSECustomerKey;
+    private $sseCustomerKey;
 
     /**
      * Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a
@@ -167,7 +167,7 @@ final class CreateMultipartUploadRequest extends Input
      *
      * @var string|null
      */
-    private $sSECustomerKeyMD5;
+    private $sseCustomerKeyMD5;
 
     /**
      * Specifies the ID of the symmetric customer managed AWS KMS CMK to use for object encryption. All GET and PUT requests
@@ -179,7 +179,7 @@ final class CreateMultipartUploadRequest extends Input
      *
      * @var string|null
      */
-    private $sSEKMSKeyId;
+    private $sseKmsKeyId;
 
     /**
      * Specifies the AWS KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded
@@ -187,7 +187,7 @@ final class CreateMultipartUploadRequest extends Input
      *
      * @var string|null
      */
-    private $sSEKMSEncryptionContext;
+    private $sseKmsEncryptionContext;
 
     /**
      * Specifies whether Amazon S3 should use an S3 Bucket Key for object encryption with server-side encryption using AWS
@@ -275,7 +275,7 @@ final class CreateMultipartUploadRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->aCL = $input['ACL'] ?? null;
+        $this->acl = $input['ACL'] ?? null;
         $this->bucket = $input['Bucket'] ?? null;
         $this->cacheControl = $input['CacheControl'] ?? null;
         $this->contentDisposition = $input['ContentDisposition'] ?? null;
@@ -292,11 +292,11 @@ final class CreateMultipartUploadRequest extends Input
         $this->serverSideEncryption = $input['ServerSideEncryption'] ?? null;
         $this->storageClass = $input['StorageClass'] ?? null;
         $this->websiteRedirectLocation = $input['WebsiteRedirectLocation'] ?? null;
-        $this->sSECustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
-        $this->sSECustomerKey = $input['SSECustomerKey'] ?? null;
-        $this->sSECustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
-        $this->sSEKMSKeyId = $input['SSEKMSKeyId'] ?? null;
-        $this->sSEKMSEncryptionContext = $input['SSEKMSEncryptionContext'] ?? null;
+        $this->sseCustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
+        $this->sseCustomerKey = $input['SSECustomerKey'] ?? null;
+        $this->sseCustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
+        $this->sseKmsKeyId = $input['SSEKMSKeyId'] ?? null;
+        $this->sseKmsEncryptionContext = $input['SSEKMSEncryptionContext'] ?? null;
         $this->bucketKeyEnabled = $input['BucketKeyEnabled'] ?? null;
         $this->requestPayer = $input['RequestPayer'] ?? null;
         $this->tagging = $input['Tagging'] ?? null;
@@ -317,7 +317,7 @@ final class CreateMultipartUploadRequest extends Input
      */
     public function getACL(): ?string
     {
-        return $this->aCL;
+        return $this->acl;
     }
 
     public function getBucket(): ?string
@@ -429,27 +429,27 @@ final class CreateMultipartUploadRequest extends Input
 
     public function getSSECustomerAlgorithm(): ?string
     {
-        return $this->sSECustomerAlgorithm;
+        return $this->sseCustomerAlgorithm;
     }
 
     public function getSSECustomerKey(): ?string
     {
-        return $this->sSECustomerKey;
+        return $this->sseCustomerKey;
     }
 
     public function getSSECustomerKeyMD5(): ?string
     {
-        return $this->sSECustomerKeyMD5;
+        return $this->sseCustomerKeyMD5;
     }
 
     public function getSSEKMSEncryptionContext(): ?string
     {
-        return $this->sSEKMSEncryptionContext;
+        return $this->sseKmsEncryptionContext;
     }
 
     public function getSSEKMSKeyId(): ?string
     {
-        return $this->sSEKMSKeyId;
+        return $this->sseKmsKeyId;
     }
 
     /**
@@ -485,11 +485,11 @@ final class CreateMultipartUploadRequest extends Input
     {
         // Prepare headers
         $headers = ['content-type' => 'application/xml'];
-        if (null !== $this->aCL) {
-            if (!ObjectCannedACL::exists($this->aCL)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "ObjectCannedACL".', __CLASS__, $this->aCL));
+        if (null !== $this->acl) {
+            if (!ObjectCannedACL::exists($this->acl)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "ObjectCannedACL".', __CLASS__, $this->acl));
             }
-            $headers['x-amz-acl'] = $this->aCL;
+            $headers['x-amz-acl'] = $this->acl;
         }
         if (null !== $this->cacheControl) {
             $headers['Cache-Control'] = $this->cacheControl;
@@ -536,20 +536,20 @@ final class CreateMultipartUploadRequest extends Input
         if (null !== $this->websiteRedirectLocation) {
             $headers['x-amz-website-redirect-location'] = $this->websiteRedirectLocation;
         }
-        if (null !== $this->sSECustomerAlgorithm) {
-            $headers['x-amz-server-side-encryption-customer-algorithm'] = $this->sSECustomerAlgorithm;
+        if (null !== $this->sseCustomerAlgorithm) {
+            $headers['x-amz-server-side-encryption-customer-algorithm'] = $this->sseCustomerAlgorithm;
         }
-        if (null !== $this->sSECustomerKey) {
-            $headers['x-amz-server-side-encryption-customer-key'] = $this->sSECustomerKey;
+        if (null !== $this->sseCustomerKey) {
+            $headers['x-amz-server-side-encryption-customer-key'] = $this->sseCustomerKey;
         }
-        if (null !== $this->sSECustomerKeyMD5) {
-            $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->sSECustomerKeyMD5;
+        if (null !== $this->sseCustomerKeyMD5) {
+            $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->sseCustomerKeyMD5;
         }
-        if (null !== $this->sSEKMSKeyId) {
-            $headers['x-amz-server-side-encryption-aws-kms-key-id'] = $this->sSEKMSKeyId;
+        if (null !== $this->sseKmsKeyId) {
+            $headers['x-amz-server-side-encryption-aws-kms-key-id'] = $this->sseKmsKeyId;
         }
-        if (null !== $this->sSEKMSEncryptionContext) {
-            $headers['x-amz-server-side-encryption-context'] = $this->sSEKMSEncryptionContext;
+        if (null !== $this->sseKmsEncryptionContext) {
+            $headers['x-amz-server-side-encryption-context'] = $this->sseKmsEncryptionContext;
         }
         if (null !== $this->bucketKeyEnabled) {
             $headers['x-amz-server-side-encryption-bucket-key-enabled'] = $this->bucketKeyEnabled ? 'true' : 'false';
@@ -614,7 +614,7 @@ final class CreateMultipartUploadRequest extends Input
      */
     public function setACL(?string $value): self
     {
-        $this->aCL = $value;
+        $this->acl = $value;
 
         return $this;
     }
@@ -766,35 +766,35 @@ final class CreateMultipartUploadRequest extends Input
 
     public function setSSECustomerAlgorithm(?string $value): self
     {
-        $this->sSECustomerAlgorithm = $value;
+        $this->sseCustomerAlgorithm = $value;
 
         return $this;
     }
 
     public function setSSECustomerKey(?string $value): self
     {
-        $this->sSECustomerKey = $value;
+        $this->sseCustomerKey = $value;
 
         return $this;
     }
 
     public function setSSECustomerKeyMD5(?string $value): self
     {
-        $this->sSECustomerKeyMD5 = $value;
+        $this->sseCustomerKeyMD5 = $value;
 
         return $this;
     }
 
     public function setSSEKMSEncryptionContext(?string $value): self
     {
-        $this->sSEKMSEncryptionContext = $value;
+        $this->sseKmsEncryptionContext = $value;
 
         return $this;
     }
 
     public function setSSEKMSKeyId(?string $value): self
     {
-        $this->sSEKMSKeyId = $value;
+        $this->sseKmsKeyId = $value;
 
         return $this;
     }

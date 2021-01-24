@@ -118,7 +118,7 @@ final class TableDescription
     /**
      * The description of the server-side encryption status on the specified table.
      */
-    private $sSEDescription;
+    private $sseDescription;
 
     /**
      * Contains information about the table archive.
@@ -171,7 +171,7 @@ final class TableDescription
         $this->globalTableVersion = $input['GlobalTableVersion'] ?? null;
         $this->replicas = isset($input['Replicas']) ? array_map([ReplicaDescription::class, 'create'], $input['Replicas']) : null;
         $this->restoreSummary = isset($input['RestoreSummary']) ? RestoreSummary::create($input['RestoreSummary']) : null;
-        $this->sSEDescription = isset($input['SSEDescription']) ? SSEDescription::create($input['SSEDescription']) : null;
+        $this->sseDescription = isset($input['SSEDescription']) ? SSEDescription::create($input['SSEDescription']) : null;
         $this->archivalSummary = isset($input['ArchivalSummary']) ? ArchivalSummary::create($input['ArchivalSummary']) : null;
     }
 
@@ -267,7 +267,7 @@ final class TableDescription
 
     public function getSSEDescription(): ?SSEDescription
     {
-        return $this->sSEDescription;
+        return $this->sseDescription;
     }
 
     public function getStreamSpecification(): ?StreamSpecification

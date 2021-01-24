@@ -16,7 +16,7 @@ final class CreateBucketRequest extends Input
      *
      * @var null|BucketCannedACL::*
      */
-    private $aCL;
+    private $acl;
 
     /**
      * The name of the bucket to create.
@@ -92,7 +92,7 @@ final class CreateBucketRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->aCL = $input['ACL'] ?? null;
+        $this->acl = $input['ACL'] ?? null;
         $this->bucket = $input['Bucket'] ?? null;
         $this->createBucketConfiguration = isset($input['CreateBucketConfiguration']) ? CreateBucketConfiguration::create($input['CreateBucketConfiguration']) : null;
         $this->grantFullControl = $input['GrantFullControl'] ?? null;
@@ -114,7 +114,7 @@ final class CreateBucketRequest extends Input
      */
     public function getACL(): ?string
     {
-        return $this->aCL;
+        return $this->acl;
     }
 
     public function getBucket(): ?string
@@ -164,11 +164,11 @@ final class CreateBucketRequest extends Input
     {
         // Prepare headers
         $headers = ['content-type' => 'application/xml'];
-        if (null !== $this->aCL) {
-            if (!BucketCannedACL::exists($this->aCL)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "BucketCannedACL".', __CLASS__, $this->aCL));
+        if (null !== $this->acl) {
+            if (!BucketCannedACL::exists($this->acl)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "BucketCannedACL".', __CLASS__, $this->acl));
             }
-            $headers['x-amz-acl'] = $this->aCL;
+            $headers['x-amz-acl'] = $this->acl;
         }
         if (null !== $this->grantFullControl) {
             $headers['x-amz-grant-full-control'] = $this->grantFullControl;
@@ -216,7 +216,7 @@ final class CreateBucketRequest extends Input
      */
     public function setACL(?string $value): self
     {
-        $this->aCL = $value;
+        $this->acl = $value;
 
         return $this;
     }

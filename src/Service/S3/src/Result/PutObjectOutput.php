@@ -21,7 +21,7 @@ class PutObjectOutput extends Result
     /**
      * Entity tag for the uploaded object.
      */
-    private $eTag;
+    private $etag;
 
     /**
      * If you specified server-side encryption either with an AWS KMS customer master key (CMK) or Amazon S3-managed
@@ -39,25 +39,25 @@ class PutObjectOutput extends Result
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
      * header confirming the encryption algorithm used.
      */
-    private $sSECustomerAlgorithm;
+    private $sseCustomerAlgorithm;
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
      * header to provide round-trip message integrity verification of the customer-provided encryption key.
      */
-    private $sSECustomerKeyMD5;
+    private $sseCustomerKeyMD5;
 
     /**
      * If `x-amz-server-side-encryption` is present and has the value of `aws:kms`, this header specifies the ID of the AWS
      * Key Management Service (AWS KMS) symmetric customer managed customer master key (CMK) that was used for the object.
      */
-    private $sSEKMSKeyId;
+    private $sseKmsKeyId;
 
     /**
      * If present, specifies the AWS KMS Encryption Context to use for object encryption. The value of this header is a
      * base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
      */
-    private $sSEKMSEncryptionContext;
+    private $sseKmsEncryptionContext;
 
     /**
      * Indicates whether the uploaded object uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).
@@ -77,7 +77,7 @@ class PutObjectOutput extends Result
     {
         $this->initialize();
 
-        return $this->eTag;
+        return $this->etag;
     }
 
     public function getExpiration(): ?string
@@ -101,28 +101,28 @@ class PutObjectOutput extends Result
     {
         $this->initialize();
 
-        return $this->sSECustomerAlgorithm;
+        return $this->sseCustomerAlgorithm;
     }
 
     public function getSSECustomerKeyMD5(): ?string
     {
         $this->initialize();
 
-        return $this->sSECustomerKeyMD5;
+        return $this->sseCustomerKeyMD5;
     }
 
     public function getSSEKMSEncryptionContext(): ?string
     {
         $this->initialize();
 
-        return $this->sSEKMSEncryptionContext;
+        return $this->sseKmsEncryptionContext;
     }
 
     public function getSSEKMSKeyId(): ?string
     {
         $this->initialize();
 
-        return $this->sSEKMSKeyId;
+        return $this->sseKmsKeyId;
     }
 
     /**
@@ -147,13 +147,13 @@ class PutObjectOutput extends Result
         $headers = $response->getHeaders();
 
         $this->expiration = $headers['x-amz-expiration'][0] ?? null;
-        $this->eTag = $headers['etag'][0] ?? null;
+        $this->etag = $headers['etag'][0] ?? null;
         $this->serverSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;
         $this->versionId = $headers['x-amz-version-id'][0] ?? null;
-        $this->sSECustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'][0] ?? null;
-        $this->sSECustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-md5'][0] ?? null;
-        $this->sSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
-        $this->sSEKMSEncryptionContext = $headers['x-amz-server-side-encryption-context'][0] ?? null;
+        $this->sseCustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'][0] ?? null;
+        $this->sseCustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-md5'][0] ?? null;
+        $this->sseKmsKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
+        $this->sseKmsEncryptionContext = $headers['x-amz-server-side-encryption-context'][0] ?? null;
         $this->bucketKeyEnabled = isset($headers['x-amz-server-side-encryption-bucket-key-enabled'][0]) ? filter_var($headers['x-amz-server-side-encryption-bucket-key-enabled'][0], \FILTER_VALIDATE_BOOLEAN) : null;
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
     }

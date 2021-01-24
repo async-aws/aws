@@ -96,7 +96,7 @@ final class CreateTableInput extends Input
      *
      * @var SSESpecification|null
      */
-    private $sSESpecification;
+    private $sseSpecification;
 
     /**
      * A list of key-value pairs to label the table. For more information, see Tagging for DynamoDB.
@@ -132,7 +132,7 @@ final class CreateTableInput extends Input
         $this->billingMode = $input['BillingMode'] ?? null;
         $this->provisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
         $this->streamSpecification = isset($input['StreamSpecification']) ? StreamSpecification::create($input['StreamSpecification']) : null;
-        $this->sSESpecification = isset($input['SSESpecification']) ? SSESpecification::create($input['SSESpecification']) : null;
+        $this->sseSpecification = isset($input['SSESpecification']) ? SSESpecification::create($input['SSESpecification']) : null;
         $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
         parent::__construct($input);
     }
@@ -189,7 +189,7 @@ final class CreateTableInput extends Input
 
     public function getSSESpecification(): ?SSESpecification
     {
-        return $this->sSESpecification;
+        return $this->sseSpecification;
     }
 
     public function getStreamSpecification(): ?StreamSpecification
@@ -294,7 +294,7 @@ final class CreateTableInput extends Input
 
     public function setSSESpecification(?SSESpecification $value): self
     {
-        $this->sSESpecification = $value;
+        $this->sseSpecification = $value;
 
         return $this;
     }
@@ -380,7 +380,7 @@ final class CreateTableInput extends Input
         if (null !== $v = $this->streamSpecification) {
             $payload['StreamSpecification'] = $v->requestBody();
         }
-        if (null !== $v = $this->sSESpecification) {
+        if (null !== $v = $this->sseSpecification) {
             $payload['SSESpecification'] = $v->requestBody();
         }
         if (null !== $v = $this->tags) {

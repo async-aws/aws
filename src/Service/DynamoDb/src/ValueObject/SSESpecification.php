@@ -20,14 +20,14 @@ final class SSESpecification
     /**
      * Server-side encryption type. The only supported value is:.
      */
-    private $sSEType;
+    private $sseType;
 
     /**
      * The AWS KMS customer master key (CMK) that should be used for the AWS KMS encryption. To specify a CMK, use its key
      * ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key
      * is different from the default DynamoDB customer master key alias/aws/dynamodb.
      */
-    private $kMSMasterKeyId;
+    private $kmsMasterKeyId;
 
     /**
      * @param array{
@@ -39,8 +39,8 @@ final class SSESpecification
     public function __construct(array $input)
     {
         $this->enabled = $input['Enabled'] ?? null;
-        $this->sSEType = $input['SSEType'] ?? null;
-        $this->kMSMasterKeyId = $input['KMSMasterKeyId'] ?? null;
+        $this->sseType = $input['SSEType'] ?? null;
+        $this->kmsMasterKeyId = $input['KMSMasterKeyId'] ?? null;
     }
 
     public static function create($input): self
@@ -55,7 +55,7 @@ final class SSESpecification
 
     public function getKMSMasterKeyId(): ?string
     {
-        return $this->kMSMasterKeyId;
+        return $this->kmsMasterKeyId;
     }
 
     /**
@@ -63,7 +63,7 @@ final class SSESpecification
      */
     public function getSSEType(): ?string
     {
-        return $this->sSEType;
+        return $this->sseType;
     }
 
     /**
@@ -75,13 +75,13 @@ final class SSESpecification
         if (null !== $v = $this->enabled) {
             $payload['Enabled'] = (bool) $v;
         }
-        if (null !== $v = $this->sSEType) {
+        if (null !== $v = $this->sseType) {
             if (!SSEType::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "SSEType" for "%s". The value "%s" is not a valid "SSEType".', __CLASS__, $v));
             }
             $payload['SSEType'] = $v;
         }
-        if (null !== $v = $this->kMSMasterKeyId) {
+        if (null !== $v = $this->kmsMasterKeyId) {
             $payload['KMSMasterKeyId'] = $v;
         }
 

@@ -48,7 +48,7 @@ class AdminGetUserResponse extends Result
      * doesn't provide information about TOTP software token MFA configurations. To look up information about either type of
      * MFA configuration, use UserMFASettingList instead.
      */
-    private $mFAOptions = [];
+    private $mfaOptions = [];
 
     /**
      * The user's preferred MFA setting.
@@ -75,7 +75,7 @@ class AdminGetUserResponse extends Result
     {
         $this->initialize();
 
-        return $this->mFAOptions;
+        return $this->mfaOptions;
     }
 
     public function getPreferredMfaSetting(): ?string
@@ -146,7 +146,7 @@ class AdminGetUserResponse extends Result
         $this->userLastModifiedDate = (isset($data['UserLastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['UserLastModifiedDate'])))) ? $d : null;
         $this->enabled = isset($data['Enabled']) ? filter_var($data['Enabled'], \FILTER_VALIDATE_BOOLEAN) : null;
         $this->userStatus = isset($data['UserStatus']) ? (string) $data['UserStatus'] : null;
-        $this->mFAOptions = empty($data['MFAOptions']) ? [] : $this->populateResultMFAOptionListType($data['MFAOptions']);
+        $this->mfaOptions = empty($data['MFAOptions']) ? [] : $this->populateResultMFAOptionListType($data['MFAOptions']);
         $this->preferredMfaSetting = isset($data['PreferredMfaSetting']) ? (string) $data['PreferredMfaSetting'] : null;
         $this->userMFASettingList = empty($data['UserMFASettingList']) ? [] : $this->populateResultUserMFASettingListType($data['UserMFASettingList']);
     }

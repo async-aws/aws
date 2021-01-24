@@ -23,7 +23,7 @@ final class Grantee
     /**
      * The canonical user ID of the grantee.
      */
-    private $iD;
+    private $id;
 
     /**
      * Type of grantee.
@@ -33,7 +33,7 @@ final class Grantee
     /**
      * URI of the grantee group.
      */
-    private $uRI;
+    private $uri;
 
     /**
      * @param array{
@@ -48,9 +48,9 @@ final class Grantee
     {
         $this->displayName = $input['DisplayName'] ?? null;
         $this->emailAddress = $input['EmailAddress'] ?? null;
-        $this->iD = $input['ID'] ?? null;
+        $this->id = $input['ID'] ?? null;
         $this->type = $input['Type'] ?? null;
-        $this->uRI = $input['URI'] ?? null;
+        $this->uri = $input['URI'] ?? null;
     }
 
     public static function create($input): self
@@ -70,7 +70,7 @@ final class Grantee
 
     public function getID(): ?string
     {
-        return $this->iD;
+        return $this->id;
     }
 
     /**
@@ -83,7 +83,7 @@ final class Grantee
 
     public function getURI(): ?string
     {
-        return $this->uRI;
+        return $this->uri;
     }
 
     /**
@@ -97,7 +97,7 @@ final class Grantee
         if (null !== $v = $this->emailAddress) {
             $node->appendChild($document->createElement('EmailAddress', $v));
         }
-        if (null !== $v = $this->iD) {
+        if (null !== $v = $this->id) {
             $node->appendChild($document->createElement('ID', $v));
         }
         if (null === $v = $this->type) {
@@ -107,7 +107,7 @@ final class Grantee
             throw new InvalidArgument(sprintf('Invalid parameter "xsi:type" for "%s". The value "%s" is not a valid "Type".', __CLASS__, $v));
         }
         $node->setAttribute('xsi:type', $v);
-        if (null !== $v = $this->uRI) {
+        if (null !== $v = $this->uri) {
             $node->appendChild($document->createElement('URI', $v));
         }
     }

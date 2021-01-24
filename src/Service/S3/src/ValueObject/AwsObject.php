@@ -24,7 +24,7 @@ final class AwsObject
      * metadata. The ETag may or may not be an MD5 digest of the object data. Whether or not it is depends on how the object
      * was created and how it is encrypted as described below:.
      */
-    private $eTag;
+    private $etag;
 
     /**
      * Size in bytes of the object.
@@ -55,7 +55,7 @@ final class AwsObject
     {
         $this->key = $input['Key'] ?? null;
         $this->lastModified = $input['LastModified'] ?? null;
-        $this->eTag = $input['ETag'] ?? null;
+        $this->etag = $input['ETag'] ?? null;
         $this->size = $input['Size'] ?? null;
         $this->storageClass = $input['StorageClass'] ?? null;
         $this->owner = isset($input['Owner']) ? Owner::create($input['Owner']) : null;
@@ -68,7 +68,7 @@ final class AwsObject
 
     public function getETag(): ?string
     {
-        return $this->eTag;
+        return $this->etag;
     }
 
     public function getKey(): ?string

@@ -81,7 +81,7 @@ final class HeadObjectRequest extends Input
      *
      * @var string|null
      */
-    private $sSECustomerAlgorithm;
+    private $sseCustomerAlgorithm;
 
     /**
      * Specifies the customer-provided encryption key for Amazon S3 to use in encrypting data. This value is used to store
@@ -90,7 +90,7 @@ final class HeadObjectRequest extends Input
      *
      * @var string|null
      */
-    private $sSECustomerKey;
+    private $sseCustomerKey;
 
     /**
      * Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a
@@ -98,7 +98,7 @@ final class HeadObjectRequest extends Input
      *
      * @var string|null
      */
-    private $sSECustomerKeyMD5;
+    private $sseCustomerKeyMD5;
 
     /**
      * @var null|RequestPayer::*
@@ -151,9 +151,9 @@ final class HeadObjectRequest extends Input
         $this->key = $input['Key'] ?? null;
         $this->range = $input['Range'] ?? null;
         $this->versionId = $input['VersionId'] ?? null;
-        $this->sSECustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
-        $this->sSECustomerKey = $input['SSECustomerKey'] ?? null;
-        $this->sSECustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
+        $this->sseCustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
+        $this->sseCustomerKey = $input['SSECustomerKey'] ?? null;
+        $this->sseCustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
         $this->requestPayer = $input['RequestPayer'] ?? null;
         $this->partNumber = $input['PartNumber'] ?? null;
         $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
@@ -220,17 +220,17 @@ final class HeadObjectRequest extends Input
 
     public function getSSECustomerAlgorithm(): ?string
     {
-        return $this->sSECustomerAlgorithm;
+        return $this->sseCustomerAlgorithm;
     }
 
     public function getSSECustomerKey(): ?string
     {
-        return $this->sSECustomerKey;
+        return $this->sseCustomerKey;
     }
 
     public function getSSECustomerKeyMD5(): ?string
     {
-        return $this->sSECustomerKeyMD5;
+        return $this->sseCustomerKeyMD5;
     }
 
     public function getVersionId(): ?string
@@ -260,14 +260,14 @@ final class HeadObjectRequest extends Input
         if (null !== $this->range) {
             $headers['Range'] = $this->range;
         }
-        if (null !== $this->sSECustomerAlgorithm) {
-            $headers['x-amz-server-side-encryption-customer-algorithm'] = $this->sSECustomerAlgorithm;
+        if (null !== $this->sseCustomerAlgorithm) {
+            $headers['x-amz-server-side-encryption-customer-algorithm'] = $this->sseCustomerAlgorithm;
         }
-        if (null !== $this->sSECustomerKey) {
-            $headers['x-amz-server-side-encryption-customer-key'] = $this->sSECustomerKey;
+        if (null !== $this->sseCustomerKey) {
+            $headers['x-amz-server-side-encryption-customer-key'] = $this->sseCustomerKey;
         }
-        if (null !== $this->sSECustomerKeyMD5) {
-            $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->sSECustomerKeyMD5;
+        if (null !== $this->sseCustomerKeyMD5) {
+            $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->sseCustomerKeyMD5;
         }
         if (null !== $this->requestPayer) {
             if (!RequestPayer::exists($this->requestPayer)) {
@@ -382,21 +382,21 @@ final class HeadObjectRequest extends Input
 
     public function setSSECustomerAlgorithm(?string $value): self
     {
-        $this->sSECustomerAlgorithm = $value;
+        $this->sseCustomerAlgorithm = $value;
 
         return $this;
     }
 
     public function setSSECustomerKey(?string $value): self
     {
-        $this->sSECustomerKey = $value;
+        $this->sseCustomerKey = $value;
 
         return $this;
     }
 
     public function setSSECustomerKeyMD5(?string $value): self
     {
-        $this->sSECustomerKeyMD5 = $value;
+        $this->sseCustomerKeyMD5 = $value;
 
         return $this;
     }

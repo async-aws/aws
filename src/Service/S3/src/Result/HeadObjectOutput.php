@@ -58,7 +58,7 @@ class HeadObjectOutput extends Result
     /**
      * An ETag is an opaque identifier assigned by a web server to a specific version of a resource found at a URL.
      */
-    private $eTag;
+    private $etag;
 
     /**
      * This is set to the number of metadata entries not returned in `x-amz-meta` headers. This can happen if you create
@@ -125,19 +125,19 @@ class HeadObjectOutput extends Result
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
      * header confirming the encryption algorithm used.
      */
-    private $sSECustomerAlgorithm;
+    private $sseCustomerAlgorithm;
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
      * header to provide round-trip message integrity verification of the customer-provided encryption key.
      */
-    private $sSECustomerKeyMD5;
+    private $sseCustomerKeyMD5;
 
     /**
      * If present, specifies the ID of the AWS Key Management Service (AWS KMS) symmetric customer managed customer master
      * key (CMK) that was used for the object.
      */
-    private $sSEKMSKeyId;
+    private $sseKmsKeyId;
 
     /**
      * Indicates whether the object uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).
@@ -263,7 +263,7 @@ class HeadObjectOutput extends Result
     {
         $this->initialize();
 
-        return $this->eTag;
+        return $this->etag;
     }
 
     public function getExpiration(): ?string
@@ -369,21 +369,21 @@ class HeadObjectOutput extends Result
     {
         $this->initialize();
 
-        return $this->sSECustomerAlgorithm;
+        return $this->sseCustomerAlgorithm;
     }
 
     public function getSSECustomerKeyMD5(): ?string
     {
         $this->initialize();
 
-        return $this->sSECustomerKeyMD5;
+        return $this->sseCustomerKeyMD5;
     }
 
     public function getSSEKMSKeyId(): ?string
     {
         $this->initialize();
 
-        return $this->sSEKMSKeyId;
+        return $this->sseKmsKeyId;
     }
 
     /**
@@ -431,7 +431,7 @@ class HeadObjectOutput extends Result
         $this->archiveStatus = $headers['x-amz-archive-status'][0] ?? null;
         $this->lastModified = isset($headers['last-modified'][0]) ? new \DateTimeImmutable($headers['last-modified'][0]) : null;
         $this->contentLength = $headers['content-length'][0] ?? null;
-        $this->eTag = $headers['etag'][0] ?? null;
+        $this->etag = $headers['etag'][0] ?? null;
         $this->missingMeta = isset($headers['x-amz-missing-meta'][0]) ? filter_var($headers['x-amz-missing-meta'][0], \FILTER_VALIDATE_INT) : null;
         $this->versionId = $headers['x-amz-version-id'][0] ?? null;
         $this->cacheControl = $headers['cache-control'][0] ?? null;
@@ -442,9 +442,9 @@ class HeadObjectOutput extends Result
         $this->expires = isset($headers['expires'][0]) ? new \DateTimeImmutable($headers['expires'][0]) : null;
         $this->websiteRedirectLocation = $headers['x-amz-website-redirect-location'][0] ?? null;
         $this->serverSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;
-        $this->sSECustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'][0] ?? null;
-        $this->sSECustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-md5'][0] ?? null;
-        $this->sSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
+        $this->sseCustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'][0] ?? null;
+        $this->sseCustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-md5'][0] ?? null;
+        $this->sseKmsKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
         $this->bucketKeyEnabled = isset($headers['x-amz-server-side-encryption-bucket-key-enabled'][0]) ? filter_var($headers['x-amz-server-side-encryption-bucket-key-enabled'][0], \FILTER_VALIDATE_BOOLEAN) : null;
         $this->storageClass = $headers['x-amz-storage-class'][0] ?? null;
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;

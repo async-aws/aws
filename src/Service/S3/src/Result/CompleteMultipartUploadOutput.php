@@ -36,7 +36,7 @@ class CompleteMultipartUploadOutput extends Result
      * If the entity tag is not an MD5 digest of the object data, it will contain one or more nonhexadecimal characters
      * and/or will consist of less than 32 or more than 32 hexadecimal digits.
      */
-    private $eTag;
+    private $etag;
 
     /**
      * If you specified server-side encryption either with an Amazon S3-managed encryption key or an AWS KMS customer master
@@ -54,7 +54,7 @@ class CompleteMultipartUploadOutput extends Result
      * If present, specifies the ID of the AWS Key Management Service (AWS KMS) symmetric customer managed customer master
      * key (CMK) that was used for the object.
      */
-    private $sSEKMSKeyId;
+    private $sseKmsKeyId;
 
     /**
      * Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).
@@ -81,7 +81,7 @@ class CompleteMultipartUploadOutput extends Result
     {
         $this->initialize();
 
-        return $this->eTag;
+        return $this->etag;
     }
 
     public function getExpiration(): ?string
@@ -119,7 +119,7 @@ class CompleteMultipartUploadOutput extends Result
     {
         $this->initialize();
 
-        return $this->sSEKMSKeyId;
+        return $this->sseKmsKeyId;
     }
 
     /**
@@ -146,7 +146,7 @@ class CompleteMultipartUploadOutput extends Result
         $this->expiration = $headers['x-amz-expiration'][0] ?? null;
         $this->serverSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;
         $this->versionId = $headers['x-amz-version-id'][0] ?? null;
-        $this->sSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
+        $this->sseKmsKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
         $this->bucketKeyEnabled = isset($headers['x-amz-server-side-encryption-bucket-key-enabled'][0]) ? filter_var($headers['x-amz-server-side-encryption-bucket-key-enabled'][0], \FILTER_VALIDATE_BOOLEAN) : null;
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
@@ -154,6 +154,6 @@ class CompleteMultipartUploadOutput extends Result
         $this->location = ($v = $data->Location) ? (string) $v : null;
         $this->bucket = ($v = $data->Bucket) ? (string) $v : null;
         $this->key = ($v = $data->Key) ? (string) $v : null;
-        $this->eTag = ($v = $data->ETag) ? (string) $v : null;
+        $this->etag = ($v = $data->ETag) ? (string) $v : null;
     }
 }

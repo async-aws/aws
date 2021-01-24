@@ -15,7 +15,7 @@ final class Owner
     /**
      * Container for the ID of the owner.
      */
-    private $iD;
+    private $id;
 
     /**
      * @param array{
@@ -26,7 +26,7 @@ final class Owner
     public function __construct(array $input)
     {
         $this->displayName = $input['DisplayName'] ?? null;
-        $this->iD = $input['ID'] ?? null;
+        $this->id = $input['ID'] ?? null;
     }
 
     public static function create($input): self
@@ -41,7 +41,7 @@ final class Owner
 
     public function getID(): ?string
     {
-        return $this->iD;
+        return $this->id;
     }
 
     /**
@@ -52,7 +52,7 @@ final class Owner
         if (null !== $v = $this->displayName) {
             $node->appendChild($document->createElement('DisplayName', $v));
         }
-        if (null !== $v = $this->iD) {
+        if (null !== $v = $this->id) {
             $node->appendChild($document->createElement('ID', $v));
         }
     }

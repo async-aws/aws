@@ -16,7 +16,7 @@ final class SetUserMFAPreferenceRequest extends Input
      *
      * @var SMSMfaSettingsType|null
      */
-    private $sMSMfaSettings;
+    private $smsMfaSettings;
 
     /**
      * The time-based one-time password software token MFA settings.
@@ -44,7 +44,7 @@ final class SetUserMFAPreferenceRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->sMSMfaSettings = isset($input['SMSMfaSettings']) ? SMSMfaSettingsType::create($input['SMSMfaSettings']) : null;
+        $this->smsMfaSettings = isset($input['SMSMfaSettings']) ? SMSMfaSettingsType::create($input['SMSMfaSettings']) : null;
         $this->softwareTokenMfaSettings = isset($input['SoftwareTokenMfaSettings']) ? SoftwareTokenMfaSettingsType::create($input['SoftwareTokenMfaSettings']) : null;
         $this->accessToken = $input['AccessToken'] ?? null;
         parent::__construct($input);
@@ -62,7 +62,7 @@ final class SetUserMFAPreferenceRequest extends Input
 
     public function getSMSMfaSettings(): ?SMSMfaSettingsType
     {
-        return $this->sMSMfaSettings;
+        return $this->smsMfaSettings;
     }
 
     public function getSoftwareTokenMfaSettings(): ?SoftwareTokenMfaSettingsType
@@ -104,7 +104,7 @@ final class SetUserMFAPreferenceRequest extends Input
 
     public function setSMSMfaSettings(?SMSMfaSettingsType $value): self
     {
-        $this->sMSMfaSettings = $value;
+        $this->smsMfaSettings = $value;
 
         return $this;
     }
@@ -119,7 +119,7 @@ final class SetUserMFAPreferenceRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->sMSMfaSettings) {
+        if (null !== $v = $this->smsMfaSettings) {
             $payload['SMSMfaSettings'] = $v->requestBody();
         }
         if (null !== $v = $this->softwareTokenMfaSettings) {

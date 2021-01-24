@@ -19,7 +19,7 @@ final class UpdateReplicationGroupMemberAction
      * use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this
      * parameter if the key is different from the default DynamoDB KMS master key alias/aws/dynamodb.
      */
-    private $kMSMasterKeyId;
+    private $kmsMasterKeyId;
 
     /**
      * Replica-specific provisioned throughput. If not specified, uses the source table's provisioned throughput settings.
@@ -42,7 +42,7 @@ final class UpdateReplicationGroupMemberAction
     public function __construct(array $input)
     {
         $this->regionName = $input['RegionName'] ?? null;
-        $this->kMSMasterKeyId = $input['KMSMasterKeyId'] ?? null;
+        $this->kmsMasterKeyId = $input['KMSMasterKeyId'] ?? null;
         $this->provisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
         $this->globalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([ReplicaGlobalSecondaryIndex::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
     }
@@ -62,7 +62,7 @@ final class UpdateReplicationGroupMemberAction
 
     public function getKMSMasterKeyId(): ?string
     {
-        return $this->kMSMasterKeyId;
+        return $this->kmsMasterKeyId;
     }
 
     public function getProvisionedThroughputOverride(): ?ProvisionedThroughputOverride
@@ -85,7 +85,7 @@ final class UpdateReplicationGroupMemberAction
             throw new InvalidArgument(sprintf('Missing parameter "RegionName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['RegionName'] = $v;
-        if (null !== $v = $this->kMSMasterKeyId) {
+        if (null !== $v = $this->kmsMasterKeyId) {
             $payload['KMSMasterKeyId'] = $v;
         }
         if (null !== $v = $this->provisionedThroughputOverride) {

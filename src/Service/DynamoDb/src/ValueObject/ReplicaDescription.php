@@ -32,7 +32,7 @@ final class ReplicaDescription
     /**
      * The AWS KMS customer master key (CMK) of the replica that will be used for AWS KMS encryption.
      */
-    private $kMSMasterKeyId;
+    private $kmsMasterKeyId;
 
     /**
      * Replica-specific provisioned throughput. If not described, uses the source table's provisioned throughput settings.
@@ -68,7 +68,7 @@ final class ReplicaDescription
         $this->replicaStatus = $input['ReplicaStatus'] ?? null;
         $this->replicaStatusDescription = $input['ReplicaStatusDescription'] ?? null;
         $this->replicaStatusPercentProgress = $input['ReplicaStatusPercentProgress'] ?? null;
-        $this->kMSMasterKeyId = $input['KMSMasterKeyId'] ?? null;
+        $this->kmsMasterKeyId = $input['KMSMasterKeyId'] ?? null;
         $this->provisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
         $this->globalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([ReplicaGlobalSecondaryIndexDescription::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
         $this->replicaInaccessibleDateTime = $input['ReplicaInaccessibleDateTime'] ?? null;
@@ -89,7 +89,7 @@ final class ReplicaDescription
 
     public function getKMSMasterKeyId(): ?string
     {
-        return $this->kMSMasterKeyId;
+        return $this->kmsMasterKeyId;
     }
 
     public function getProvisionedThroughputOverride(): ?ProvisionedThroughputOverride

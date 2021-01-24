@@ -126,7 +126,7 @@ class ResultGenerator
     private function addProperties(StructureShape $shape, ClassBuilder $classBuilder): void
     {
         foreach ($shape->getMembers() as $member) {
-            $propertyName = \lcfirst($member->getName());
+            $propertyName = GeneratorHelper::sanitizePropertyName($member->getName());
             $nullable = $returnType = null;
             $memberShape = $member->getShape();
             $property = $classBuilder->addProperty($propertyName)->setPrivate();
@@ -220,7 +220,7 @@ class ResultGenerator
 
             $locationName = strtolower($member->getLocationName() ?? $member->getName());
             $memberShape = $member->getShape();
-            $propertyName = \lcfirst($member->getName());
+            $propertyName = GeneratorHelper::sanitizePropertyName($member->getName());
             if ('timestamp' === $memberShape->getType()) {
                 $body .= strtr('$this->PROPERTY = isset($headers["LOCATION_NAME"][0]) ? new \DateTimeImmutable($headers["LOCATION_NAME"][0]) : null;' . "\n", [
                     'PROPERTY' => $propertyName,
@@ -251,7 +251,7 @@ class ResultGenerator
             unset($nonHeaders[$name]);
 
             $locationName = strtolower($member->getLocationName() ?? $member->getName());
-            $propertyName = \lcfirst($member->getName());
+            $propertyName = GeneratorHelper::sanitizePropertyName($member->getName());
             $body .= strtr('
                 $this->PROPERTY = [];
                 foreach ($headers as $name => $value) {
@@ -274,7 +274,7 @@ class ResultGenerator
         // Find status code
         foreach ($nonHeaders as $name => $member) {
             if ('statusCode' === $member->getLocation()) {
-                $body = '$this->' . \lcfirst($member->getName()) . ' = $response->getStatusCode();' . "\n" . $body;
+                $body = '$this->' . GeneratorHelper::sanitizePropertyName($member->getName()) . ' = $response->getStatusCode();' . "\n" . $body;
             }
         }
 
@@ -283,7 +283,7 @@ class ResultGenerator
         if (null !== $payloadProperty && $shape->getMember($payloadProperty)->isStreaming()) {
             // Make sure we can stream this.
             $classBuilder->addUse(ResponseBodyStream::class);
-            $body .= strtr('$this->PROPERTY = $response->toStream();', ['PROPERTY' => lcfirst($payloadProperty)]);
+            $body .= strtr('$this->PROPERTY = $response->toStream();', ['PROPERTY' => GeneratorHelper::sanitizePropertyName($payloadProperty)]);
         } else {
             $parserResult = $this->parserProvider->get($this->operation->getService())->generate($shape);
             $body .= $parserResult->getBody();
