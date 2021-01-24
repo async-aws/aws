@@ -36,8 +36,6 @@ class GeneratorHelper
         ]);
         $s = preg_replace('/\n*<(\/?(note|important|ul|li))>\n*/', "\n<\$1>\n", $s);
         $s = preg_replace('/\n+/', "\n", $s);
-//        $s = preg_replace('/\n?<(note|important|ul|li)>/', "\n<\$1>", $s);
-//        $s = preg_replace('/\n*<\/li>\n/', "</li>\n", $s);
 
         \preg_match_all('/<a href="([^"]*)">/', $s, $matches);
         $s = \preg_replace('/<a href="[^"]*">([^<]*)<\/a>/', '$1', $s);
