@@ -352,7 +352,13 @@ class Response
     }
 
     /**
-     * This method does not instantiate exception, in order to not polute the stackTrace.
+     * In PHP < 7.4, a reference to the arguments is present in the stackTrace of the exception.
+     * This creates a Circular reference: Response -> resolveResult -> Exception -> stackTrace -> Response.
+     * This mean, that calling `unset($response)` does not call the `__destruct` method and does not throw the
+     * remaining exception present in `resolveResult`. The `__destruct` method will be called once the garbage collector
+     * will detect the loop.
+     * That's why this method does not creates exception here, but creates closure instead that will be resolved right
+     * before throwing the exception.
      */
     private function defineResolveStatus(): void
     {
