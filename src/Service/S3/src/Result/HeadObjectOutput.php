@@ -137,7 +137,7 @@ class HeadObjectOutput extends Result
      * If present, specifies the ID of the AWS Key Management Service (AWS KMS) symmetric customer managed customer master
      * key (CMK) that was used for the object.
      */
-    private $sseKmsKeyId;
+    private $sseKMSKeyId;
 
     /**
      * Indicates whether the object uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).
@@ -383,7 +383,7 @@ class HeadObjectOutput extends Result
     {
         $this->initialize();
 
-        return $this->sseKmsKeyId;
+        return $this->sseKMSKeyId;
     }
 
     /**
@@ -444,7 +444,7 @@ class HeadObjectOutput extends Result
         $this->serverSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;
         $this->sseCustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'][0] ?? null;
         $this->sseCustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-md5'][0] ?? null;
-        $this->sseKmsKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
+        $this->sseKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
         $this->bucketKeyEnabled = isset($headers['x-amz-server-side-encryption-bucket-key-enabled'][0]) ? filter_var($headers['x-amz-server-side-encryption-bucket-key-enabled'][0], \FILTER_VALIDATE_BOOLEAN) : null;
         $this->storageClass = $headers['x-amz-storage-class'][0] ?? null;
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;

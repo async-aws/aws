@@ -45,9 +45,7 @@ class GeneratorHelper
             return $cache[$propertyName] = $replacements[$propertyName];
         }
         if (isset($replacements3[$sub3 = substr($propertyName, 0, 3)])) {
-            $sanitized = \preg_replace('/^SSEKMS/', 'sseKms', $propertyName);
-
-            return $cache[$propertyName] = $replacements3[$sub3] . substr($sanitized, 3);
+            return $cache[$propertyName] = $replacements3[$sub3] . substr($propertyName, 3);
         }
         if (\preg_match('/^[A-Z]{2,}/', $propertyName)) {
             throw new \RuntimeException(sprintf('No camel case property "%s" is not yet implemented', $propertyName));

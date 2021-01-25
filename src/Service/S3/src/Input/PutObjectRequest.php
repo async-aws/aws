@@ -224,7 +224,7 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $sseKmsKeyId;
+    private $sseKMSKeyId;
 
     /**
      * Specifies the AWS KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded
@@ -232,7 +232,7 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $sseKmsEncryptionContext;
+    private $sseKMSEncryptionContext;
 
     /**
      * Specifies whether Amazon S3 should use an S3 Bucket Key for object encryption with server-side encryption using AWS
@@ -349,8 +349,8 @@ final class PutObjectRequest extends Input
         $this->sseCustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
         $this->sseCustomerKey = $input['SSECustomerKey'] ?? null;
         $this->sseCustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
-        $this->sseKmsKeyId = $input['SSEKMSKeyId'] ?? null;
-        $this->sseKmsEncryptionContext = $input['SSEKMSEncryptionContext'] ?? null;
+        $this->sseKMSKeyId = $input['SSEKMSKeyId'] ?? null;
+        $this->sseKMSEncryptionContext = $input['SSEKMSEncryptionContext'] ?? null;
         $this->bucketKeyEnabled = $input['BucketKeyEnabled'] ?? null;
         $this->requestPayer = $input['RequestPayer'] ?? null;
         $this->tagging = $input['Tagging'] ?? null;
@@ -516,12 +516,12 @@ final class PutObjectRequest extends Input
 
     public function getSSEKMSEncryptionContext(): ?string
     {
-        return $this->sseKmsEncryptionContext;
+        return $this->sseKMSEncryptionContext;
     }
 
     public function getSSEKMSKeyId(): ?string
     {
-        return $this->sseKmsKeyId;
+        return $this->sseKMSKeyId;
     }
 
     /**
@@ -623,11 +623,11 @@ final class PutObjectRequest extends Input
         if (null !== $this->sseCustomerKeyMD5) {
             $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->sseCustomerKeyMD5;
         }
-        if (null !== $this->sseKmsKeyId) {
-            $headers['x-amz-server-side-encryption-aws-kms-key-id'] = $this->sseKmsKeyId;
+        if (null !== $this->sseKMSKeyId) {
+            $headers['x-amz-server-side-encryption-aws-kms-key-id'] = $this->sseKMSKeyId;
         }
-        if (null !== $this->sseKmsEncryptionContext) {
-            $headers['x-amz-server-side-encryption-context'] = $this->sseKmsEncryptionContext;
+        if (null !== $this->sseKMSEncryptionContext) {
+            $headers['x-amz-server-side-encryption-context'] = $this->sseKMSEncryptionContext;
         }
         if (null !== $this->bucketKeyEnabled) {
             $headers['x-amz-server-side-encryption-bucket-key-enabled'] = $this->bucketKeyEnabled ? 'true' : 'false';
@@ -889,14 +889,14 @@ final class PutObjectRequest extends Input
 
     public function setSSEKMSEncryptionContext(?string $value): self
     {
-        $this->sseKmsEncryptionContext = $value;
+        $this->sseKMSEncryptionContext = $value;
 
         return $this;
     }
 
     public function setSSEKMSKeyId(?string $value): self
     {
-        $this->sseKmsKeyId = $value;
+        $this->sseKMSKeyId = $value;
 
         return $this;
     }
