@@ -3,6 +3,8 @@
 namespace AsyncAws\RdsDataService;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
+use AsyncAws\Core\AwsError\JsonRestAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\RdsDataService\Input\BatchExecuteStatementRequest;
@@ -135,6 +137,11 @@ class RdsDataServiceClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'RollbackTransaction', 'region' => $input->getRegion()]));
 
         return new RollbackTransactionResponse($response);
+    }
+
+    protected function getAwsErrorFactory(): AwsErrorFactoryInterface
+    {
+        return new JsonRestAwsErrorFactory();
     }
 
     protected function getEndpointMetadata(?string $region): array

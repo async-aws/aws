@@ -6,6 +6,8 @@ use AsyncAws\CloudFront\Input\CreateInvalidationRequest;
 use AsyncAws\CloudFront\Result\CreateInvalidationResult;
 use AsyncAws\CloudFront\ValueObject\InvalidationBatch;
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
+use AsyncAws\Core\AwsError\XmlAwsErrorFactory;
 use AsyncAws\Core\RequestContext;
 
 class CloudFrontClient extends AbstractApi
@@ -28,6 +30,11 @@ class CloudFrontClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateInvalidation2019_03_26', 'region' => $input->getRegion()]));
 
         return new CreateInvalidationResult($response);
+    }
+
+    protected function getAwsErrorFactory(): AwsErrorFactoryInterface
+    {
+        return new XmlAwsErrorFactory();
     }
 
     protected function getEndpointMetadata(?string $region): array

@@ -8,6 +8,8 @@ use AsyncAws\CloudFormation\Result\DescribeStackEventsOutput;
 use AsyncAws\CloudFormation\Result\DescribeStacksOutput;
 use AsyncAws\CloudFormation\ValueObject\Stack;
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
+use AsyncAws\Core\AwsError\XmlAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 
@@ -54,6 +56,11 @@ class CloudFormationClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStacks', 'region' => $input->getRegion()]));
 
         return new DescribeStacksOutput($response, $this, $input);
+    }
+
+    protected function getAwsErrorFactory(): AwsErrorFactoryInterface
+    {
+        return new XmlAwsErrorFactory();
     }
 
     protected function getEndpointMetadata(?string $region): array

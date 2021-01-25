@@ -5,30 +5,21 @@ namespace AsyncAws\Core\AwsError;
 use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\Core\Exception\UnexpectedValue;
 use AsyncAws\Core\Exception\UnparsableResponse;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * @internal
  */
-class AwsErrorFactory
+class XmlAwsErrorFactory implements AwsErrorFactoryInterface
 {
-    public static function createFromResponse(ResponseInterface $response): AwsError
-    {
-        $content = $response->getContent(false);
-        $headers = $response->getHeaders(false);
+    use AwsErrorFactoryFromResponseTrait;
 
-        return self::createFromContent($content, $headers);
-    }
-
-    public static function createFromContent(string $content, array $headers): AwsError
+    public function createFromContent(string $content, array $headers): AwsError
     {
         try {
-            // Try json_decode it first, fallback to XML
-            if ($body = json_decode($content, true)) {
-                return self::parseJson($body, $headers);
-            }
-
-            /** @phpstan-ignore-next-line */
+            /**
+             * @phpstan-ignore-next-line
+             * @psalm-suppress InvalidArgument
+             */
             set_error_handler(static function ($errno, $errstr) {
                 throw new RuntimeException($errstr, $errno);
             });
@@ -66,28 +57,5 @@ class AwsErrorFactory
         }
 
         throw new UnexpectedValue('XML does not contains AWS Error');
-    }
-
-    private static function parseJson(array $body, array $headers): AwsError
-    {
-        $code = null;
-
-        $message = $body['message'] ?? $body['Message'] ?? null;
-        if (isset($headers['x-amzn-errortype'][0])) {
-            $code = explode(':', $headers['x-amzn-errortype'][0], 2)[0];
-        }
-
-        $type = $body['type'] ?? $body['Type'] ?? null;
-        if (isset($body['__type'])) {
-            $parts = explode('#', $body['__type'], 2);
-            $code = $parts[1] ?? $parts[0];
-            $type = $parts[0];
-        }
-
-        if (null !== $code || null !== $message) {
-            return new AwsError($code, $message, $type, null);
-        }
-
-        throw new UnexpectedValue('JSON does not contains AWS Error');
     }
 }
