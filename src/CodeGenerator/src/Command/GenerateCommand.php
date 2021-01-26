@@ -454,7 +454,8 @@ class GenerateCommand extends Command
                 'content' => $content,
             ];
 
-            \file_put_contents($this->cacheFile, '<?php return ' . \var_export($this->cache, true) . ';');
+            \file_put_contents($tmp = $this->cacheFile . \uniqid('', true), '<?php return ' . \var_export($this->cache, true) . ';');
+            \rename($tmp, $this->cacheFile);
         }
 
         return $this->cache[$cacheKey]['content'];
