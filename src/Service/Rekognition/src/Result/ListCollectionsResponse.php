@@ -22,7 +22,7 @@ class ListCollectionsResponse extends Result implements \IteratorAggregate
      * If the result is truncated, the response provides a `NextToken` that you can use in the subsequent request to fetch
      * the next set of collection IDs.
      */
-    private $NextToken = null;
+    private $NextToken;
 
     /**
      * Version numbers of the face detection models associated with the collections in the array `CollectionIds`. For

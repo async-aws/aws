@@ -27,7 +27,7 @@ class ScanOutput extends Result implements \IteratorAggregate
     /**
      * The number of items in the response.
      */
-    private $Count = null;
+    private $Count;
 
     /**
      * The number of items evaluated, before any `ScanFilter` is applied. A high `ScannedCount` value with few, or no,
@@ -36,7 +36,7 @@ class ScanOutput extends Result implements \IteratorAggregate
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Count
      */
-    private $ScannedCount = null;
+    private $ScannedCount;
 
     /**
      * The primary key of the item where the operation stopped, inclusive of the previous result set. Use this value to
@@ -52,7 +52,7 @@ class ScanOutput extends Result implements \IteratorAggregate
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html
      */
-    private $ConsumedCapacity = null;
+    private $ConsumedCapacity;
 
     public function getConsumedCapacity(): ?ConsumedCapacity
     {

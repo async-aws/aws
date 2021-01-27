@@ -25,7 +25,7 @@ class ListTablesOutput extends Result implements \IteratorAggregate
      * The name of the last table in the current page of results. Use this value as the `ExclusiveStartTableName` in a new
      * request to obtain the next page of results, until all the table names are returned.
      */
-    private $LastEvaluatedTableName = null;
+    private $LastEvaluatedTableName;
 
     /**
      * Iterates over TableNames.
