@@ -37,6 +37,15 @@ jobs:
         run: |
           composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
 
+      - name: Cache PhpCsFixer
+        uses: actions/cache@v2
+        with:
+          path: |
+            .cache/php-cs-fixer/
+            .cache/generate/
+          key: generate-${{ github.sha }}
+          restore-keys: generate-
+
       - name: Regenerate code against last version
         id: fetch_version
         run: |

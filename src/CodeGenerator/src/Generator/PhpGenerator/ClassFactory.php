@@ -23,18 +23,6 @@ use Nette\PhpGenerator\Property;
  */
 class ClassFactory
 {
-    private static $cache = [];
-
-    public static function fromExistingClass(string $class): PhpNamespace
-    {
-        if (isset(self::$cache[$class])) {
-            return self::$cache[$class];
-        }
-        $factory = new self();
-
-        return self::$cache[$class] = $factory->fromClassReflection(new \ReflectionClass($class));
-    }
-
     public function fromClassReflection(\ReflectionClass $from): PhpNamespace
     {
         $namespace = new PhpNamespace($from->getNamespaceName());
@@ -168,7 +156,7 @@ class ClassFactory
         $defaults = $from->getDeclaringClass()->getDefaultProperties();
         $prop = new Property($from->getName());
         if (isset($defaults[$prop->getName()])) {
-            $prop->setValue($defaults[$prop->getName()] ?? null);
+            $prop->setValue($defaults[$prop->getName()]);
         }
         $prop->setStatic($from->isStatic());
         $prop->setVisibility(

@@ -63,6 +63,15 @@ jobs:
           key: composer-${{ github.sha }}
           restore-keys: composer-
 
+      - name: Cache PhpCsFixer
+        uses: actions/cache@v2
+        with:
+          path: |
+            .cache/php-cs-fixer/
+            .cache/generate/
+          key: generate-${{ github.sha }}
+          restore-keys: generate-
+
       - name: Download
         run: |
           composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable

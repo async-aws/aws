@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Definition\Shape;
-use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
 use Nette\PhpGenerator\ClassType;
-use Nette\PhpGenerator\PhpNamespace;
 
 /**
  * Generate Enum shapeused by Input and Result classes.
@@ -21,24 +20,24 @@ use Nette\PhpGenerator\PhpNamespace;
 class EnumGenerator
 {
     /**
+     * @var ClassRegistry
+     */
+    private $classRegistry;
+
+    /**
      * @var NamespaceRegistry
      */
     private $namespaceRegistry;
-
-    /**
-     * @var FileWriter
-     */
-    private $fileWriter;
 
     /**
      * @var ClassName[]
      */
     private $generated = [];
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter)
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry)
     {
+        $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
-        $this->fileWriter = $fileWriter;
     }
 
     /**
@@ -52,11 +51,10 @@ class EnumGenerator
 
         $this->generated[$shape->getName()] = $className = $this->namespaceRegistry->getEnum($shape);
 
-        $namespace = new PhpNamespace($className->getNamespace());
-        $class = $namespace->addClass($className->getName());
-        $class->setFinal();
+        $classBuilder = $this->classRegistry->register($className->getFqdn());
+        $classBuilder->setFinal();
         if (null !== $documentation = $shape->getDocumentation()) {
-            $class->addComment(GeneratorHelper::parseDocumentation($documentation, false));
+            $classBuilder->addComment(GeneratorHelper::parseDocumentation($documentation, false));
         }
 
         $consts = [];
@@ -66,10 +64,10 @@ class EnumGenerator
         \ksort($consts);
         $availableConsts = [];
         foreach ($consts as $constName => $constValue) {
-            $class->addConstant($constName, $constValue)->setVisibility(ClassType::VISIBILITY_PUBLIC);
+            $classBuilder->addConstant($constName, $constValue)->setVisibility(ClassType::VISIBILITY_PUBLIC);
             $availableConsts[] = 'self::' . $constName . ' => true';
         }
-        $class->addMethod('exists')
+        $classBuilder->addMethod('exists')
             ->setStatic(true)
             ->setReturnType('bool')
             ->setBody('
@@ -78,8 +76,6 @@ class EnumGenerator
                 ][$value]);
             ')
             ->addParameter('value')->setType('string');
-
-        $this->fileWriter->write($namespace);
 
         return $className;
     }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator;
 
-use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
 
 /**
  * Generate API client methods and result classes.
@@ -16,11 +16,6 @@ use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
  */
 class ServiceGenerator
 {
-    /**
-     * @var FileWriter
-     */
-    private $fileWriter;
-
     /**
      * @var NamespaceRegistry
      */
@@ -81,46 +76,48 @@ class ServiceGenerator
      */
     private $type;
 
-    public function __construct(FileWriter $fileWriter, string $baseNamespace, array $managedOperations)
+    private $classRegistry;
+
+    public function __construct(ClassRegistry $classRegistry, string $baseNamespace, array $managedOperations)
     {
-        $this->fileWriter = $fileWriter;
+        $this->classRegistry = $classRegistry;
         $this->managedOperations = $managedOperations;
         $this->namespaceRegistry = new NamespaceRegistry($baseNamespace);
     }
 
     public function client(): ClientGenerator
     {
-        return $this->client ?? $this->client = new ClientGenerator($this->namespaceRegistry, $this->fileWriter);
+        return $this->client ?? $this->client = new ClientGenerator($this->classRegistry, $this->namespaceRegistry);
     }
 
     public function operation(): OperationGenerator
     {
-        return $this->operation ?? $this->operation = new OperationGenerator($this->namespaceRegistry, $this->input(), $this->result(), $this->pagination(), $this->test(), $this->fileWriter, $this->type());
+        return $this->operation ?? $this->operation = new OperationGenerator($this->classRegistry, $this->namespaceRegistry, $this->input(), $this->result(), $this->pagination(), $this->test(), $this->type());
     }
 
     public function waiter(): WaiterGenerator
     {
-        return $this->waiter ?? $this->waiter = new WaiterGenerator($this->namespaceRegistry, $this->input(), $this->fileWriter, $this->type());
+        return $this->waiter ?? $this->waiter = new WaiterGenerator($this->classRegistry, $this->namespaceRegistry, $this->input(), $this->type());
     }
 
     public function pagination(): PaginationGenerator
     {
-        return $this->pagination ?? $this->pagination = new PaginationGenerator($this->namespaceRegistry, $this->input(), $this->result(), $this->fileWriter, $this->type());
+        return $this->pagination ?? $this->pagination = new PaginationGenerator($this->classRegistry, $this->namespaceRegistry, $this->input(), $this->result(), $this->type());
     }
 
     public function test(): TestGenerator
     {
-        return $this->test ?? $this->test = new TestGenerator($this->namespaceRegistry, $this->fileWriter);
+        return $this->test ?? $this->test = new TestGenerator($this->classRegistry, $this->namespaceRegistry);
     }
 
     public function result(): ResultGenerator
     {
-        return $this->result ?? $this->result = new ResultGenerator($this->namespaceRegistry, $this->fileWriter, $this->object(), $this->type(), $this->enum());
+        return $this->result ?? $this->result = new ResultGenerator($this->classRegistry, $this->namespaceRegistry, $this->object(), $this->type(), $this->enum());
     }
 
     public function input(): InputGenerator
     {
-        return $this->input ?? $this->input = new InputGenerator($this->namespaceRegistry, $this->fileWriter, $this->object(), $this->type(), $this->enum());
+        return $this->input ?? $this->input = new InputGenerator($this->classRegistry, $this->namespaceRegistry, $this->object(), $this->type(), $this->enum());
     }
 
     public function type(): TypeGenerator
@@ -130,11 +127,11 @@ class ServiceGenerator
 
     public function enum(): EnumGenerator
     {
-        return $this->enum ?? $this->enum = new EnumGenerator($this->namespaceRegistry, $this->fileWriter);
+        return $this->enum ?? $this->enum = new EnumGenerator($this->classRegistry, $this->namespaceRegistry);
     }
 
     public function object(): ObjectGenerator
     {
-        return $this->object ?? $this->object = new ObjectGenerator($this->namespaceRegistry, $this->fileWriter, $this->managedOperations, $this->type(), $this->enum());
+        return $this->object ?? $this->object = new ObjectGenerator($this->classRegistry, $this->namespaceRegistry, $this->managedOperations, $this->type(), $this->enum());
     }
 }

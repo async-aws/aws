@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Command;
 
 use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
+use AsyncAws\CodeGenerator\File\Cache;
+use AsyncAws\CodeGenerator\File\ClassWriter;
 use AsyncAws\CodeGenerator\Generator\ApiGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use PhpCsFixer\Config;
@@ -35,17 +37,19 @@ class GenerateCommand extends Command
 
     private $manifestFile;
 
-    private $cacheFile;
+    private $cache;
 
     private $generator;
 
-    private $cache;
+    private $classWriter;
 
-    public function __construct(string $manifestFile, string $cacheFile, ApiGenerator $generator)
+    public function __construct(string $manifestFile, Cache $cache, ClassWriter $classWriter, ApiGenerator $generator)
     {
         $this->manifestFile = $manifestFile;
-        $this->cacheFile = $cacheFile;
+        $this->cache = $cache;
         $this->generator = $generator;
+        $this->classWriter = $classWriter;
+
         parent::__construct();
     }
 
@@ -278,6 +282,10 @@ class GenerateCommand extends Command
             }
         }
 
+        foreach ($this->generator->getUpdatedClasses() as $class) {
+            $this->classWriter->write($class);
+        }
+
         if (!$input->getOption('raw')) {
             $this->fixCS($clientClass, $io);
         }
@@ -393,7 +401,8 @@ class GenerateCommand extends Command
                 'dry-run' => false,
                 'path' => [$srcPath, $testPath],
                 'path-mode' => 'override',
-                'using-cache' => false,
+                'using-cache' => true,
+                'cache-file' => $baseDir . '/.cache/php-cs-fixer/.generate-' . $clientClass->getName() . '.cache',
                 'diff' => false,
                 'stop-on-violation' => false,
             ],
@@ -427,17 +436,8 @@ class GenerateCommand extends Command
     {
         $path = \strtr($path, $this->loadManifest()['variables'] ?? [[]]);
 
-        if (null === $this->cache) {
-            $this->cache = \file_exists($this->cacheFile) ? require ($this->cacheFile) : [];
-        }
-
-        if (isset($this->cache[$cacheKey])) {
-            if ($path !== ($this->cache[$cacheKey]['path'] ?? null)) {
-                unset($this->cache[$cacheKey]);
-            }
-        }
-
-        if (!isset($this->cache[$cacheKey])) {
+        $data = $this->cache->get(__CLASS__ . ':' . $cacheKey);
+        if (null === $data || $path !== ($data['path'] ?? null)) {
             if (empty($patch)) {
                 $content = \json_decode(\file_get_contents($path), true);
             } else {
@@ -449,15 +449,14 @@ class GenerateCommand extends Command
                 $content = \json_decode(\json_encode($content), true);
             }
 
-            $this->cache[$cacheKey] = [
+            $data = [
                 'path' => $path,
                 'content' => $content,
             ];
-
-            \file_put_contents($this->cacheFile, '<?php return ' . \var_export($this->cache, true) . ';');
+            $this->cache->set(__CLASS__ . ':' . $cacheKey, $data);
         }
 
-        return $this->cache[$cacheKey]['content'];
+        return $data['content'];
     }
 
     private function loadManifest(): array

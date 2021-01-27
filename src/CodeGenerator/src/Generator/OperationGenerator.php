@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Definition\Operation;
-use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
-use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
 use Nette\PhpGenerator\Method;
@@ -24,6 +23,11 @@ use Nette\PhpGenerator\Method;
  */
 class OperationGenerator
 {
+    /**
+     * @var ClassRegistry
+     */
+    private $classRegistry;
+
     /**
      * @var NamespaceRegistry
      */
@@ -50,23 +54,18 @@ class OperationGenerator
     private $testGenerator;
 
     /**
-     * @var FileWriter
-     */
-    private $fileWriter;
-
-    /**
      * @var TypeGenerator
      */
     private $typeGenerator;
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator, PaginationGenerator $paginationGenerator, TestGenerator $testGenerator, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null)
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator, PaginationGenerator $paginationGenerator, TestGenerator $testGenerator, ?TypeGenerator $typeGenerator = null)
     {
+        $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
         $this->inputGenerator = $inputGenerator;
         $this->resultGenerator = $resultGenerator;
         $this->paginationGenerator = $paginationGenerator;
         $this->testGenerator = $testGenerator;
-        $this->fileWriter = $fileWriter;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
     }
 
@@ -78,12 +77,11 @@ class OperationGenerator
         $inputShape = $operation->getInput();
         $inputClass = $this->inputGenerator->generate($operation);
 
-        $namespace = ClassFactory::fromExistingClass($this->namespaceRegistry->getClient($operation->getService())->getFqdn());
-        $namespace->addUse($inputClass->getFqdn());
-        $classes = $namespace->getClasses();
-        $class = $classes[\array_key_first($classes)];
+        $className = $this->namespaceRegistry->getClient($operation->getService());
+        $classBuilder = $this->classRegistry->register($className->getFqdn(), true);
+        $classBuilder->addUse($inputClass->getFqdn());
 
-        $method = $class->addMethod(\lcfirst($operation->getMethodName()));
+        $method = $classBuilder->addMethod(\lcfirst($operation->getMethodName()));
         if (null !== $documentation = $operation->getDocumentation()) {
             $method->addComment(GeneratorHelper::parseDocumentation($documentation));
         }
@@ -98,7 +96,7 @@ class OperationGenerator
         [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($inputShape, $inputClass, true, false, false, ['  @region?: string,']);
         $method->addComment($doc);
         foreach ($memberClassNames as $memberClassName) {
-            $namespace->addUse($memberClassName->getFqdn());
+            $classBuilder->addUse($memberClassName->getFqdn());
         }
 
         $operationMethodParameter = $method->addParameter('input');
@@ -112,18 +110,16 @@ class OperationGenerator
             }
 
             $method->setReturnType($resultClass->getFqdn());
-            $namespace->addUse($resultClass->getFqdn());
+            $classBuilder->addUse($resultClass->getFqdn());
         } else {
             $resultClass = null;
             $method->setReturnType(Result::class);
-            $namespace->addUse(Result::class);
+            $classBuilder->addUse(Result::class);
         }
 
-        $namespace->addUse(RequestContext::class);
+        $classBuilder->addUse(RequestContext::class);
         // Generate method body
         $this->setMethodBody($method, $operation, $inputClass, $resultClass);
-
-        $this->fileWriter->write($namespace);
 
         $this->testGenerator->generate($operation);
     }
