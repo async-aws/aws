@@ -17,7 +17,7 @@ class FileDumper
 {
     private $phpBin;
 
-    public function dump(string $filename, string $content)
+    public function dump(string $filename, string $content): void
     {
         \file_put_contents($filename . '.errored', "<?php\n\n" . $content);
 

@@ -36,10 +36,14 @@ class CachedFileDumper extends FileDumper
     public function __destruct()
     {
         $this->cache->update(__CLASS__, function ($status) {
-            $status = $this->status + ($status ?? []);
-            foreach ($this->added as $filename => $flags) {
+            $status = $status ?? [];
+            foreach ($this->added as $filename => $md5) {
                 if (\is_file($filename)) {
+                    $status[$filename][0] = $md5;
                     $status[$filename][1] = \md5_file($filename);
+                    if ($status[$filename][1] === $status[$filename][0]) {
+                        unset($status[$filename]);
+                    }
                 } else {
                     unset($status[$filename]);
                 }
@@ -49,7 +53,7 @@ class CachedFileDumper extends FileDumper
         });
     }
 
-    public function dump(string $filename, string $content)
+    public function dump(string $filename, string $content): void
     {
         if ($this->isFresh($filename, $content)) {
             return;
@@ -57,8 +61,7 @@ class CachedFileDumper extends FileDumper
 
         parent::dump($filename, $content);
 
-        $this->status[$filename] = [\md5($content)];
-        $this->added[$filename] = true;
+        $this->added[$filename] = \md5($content);
     }
 
     private function isFresh(string $filename, string $originalContent): bool
@@ -77,11 +80,5 @@ class CachedFileDumper extends FileDumper
         }
 
         return true;
-    }
-
-    private function register(string $filename, string $originContent): void
-    {
-        $this->status[$filename] = [\md5($originContent)];
-        $this->added[$filename] = true;
     }
 }
