@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core;
 
+use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
+use AsyncAws\Core\AwsError\ChainAwsErrorFactory;
 use AsyncAws\Core\Exception\Exception;
 use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Exception\Http\HttpException;
@@ -13,6 +15,7 @@ use AsyncAws\Core\Exception\Http\ServerException;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\Core\Exception\RuntimeException;
+use AsyncAws\Core\Exception\UnparsableResponse;
 use AsyncAws\Core\Stream\ResponseBodyResourceStream;
 use AsyncAws\Core\Stream\ResponseBodyStream;
 use AsyncAws\Core\Stream\ResultStream;
@@ -31,6 +34,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 class Response
 {
+    /**
+     * @var ResponseInterface
+     */
     private $httpResponse;
 
     private $httpClient;
@@ -39,7 +45,7 @@ class Response
      * A Result can be resolved many times. This variable contains the last resolve result.
      * Null means that the result has never been resolved. Array contains material to create an exception.
      *
-     * @var bool|HttpException|NetworkException|array|null
+     * @var bool|HttpException|NetworkException|callable|null
      */
     private $resolveResult;
 
@@ -68,15 +74,21 @@ class Response
     private $logger;
 
     /**
+     * @var AwsErrorFactoryInterface
+     */
+    private $awsErrorFactory;
+
+    /**
      * @var bool
      */
     private $debug;
 
-    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, LoggerInterface $logger, bool $debug = false)
+    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, LoggerInterface $logger, AwsErrorFactoryInterface $awsErrorFactory = null, bool $debug = false)
     {
         $this->httpResponse = $response;
         $this->httpClient = $httpClient;
         $this->logger = $logger;
+        $this->awsErrorFactory = $awsErrorFactory ?? new ChainAwsErrorFactory();
         $this->debug = $debug;
     }
 
@@ -206,7 +218,7 @@ class Response
             } catch (TransportExceptionInterface $e) {
                 // Exception is stored as an array, because storing an instance of \Exception will create a circular
                 // reference and prevent `__destruct` being called.
-                $response->resolveResult = [NetworkException::class, ['Could not contact remote server.', 0, $e]];
+                $response->resolveResult = new NetworkException('Could not contact remote server.', 0, $e);
 
                 if (null !== $index) {
                     unset($indexMap[$hash]);
@@ -339,30 +351,47 @@ class Response
         }
     }
 
+    /**
+     * In PHP < 7.4, a reference to the arguments is present in the stackTrace of the exception.
+     * This creates a Circular reference: Response -> resolveResult -> Exception -> stackTrace -> Response.
+     * This mean, that calling `unset($response)` does not call the `__destruct` method and does not throw the
+     * remaining exception present in `resolveResult`. The `__destruct` method will be called once the garbage collector
+     * will detect the loop.
+     * That's why this method does not creates exception here, but creates closure instead that will be resolved right
+     * before throwing the exception.
+     */
     private function defineResolveStatus(): void
     {
         try {
             $statusCode = $this->httpResponse->getStatusCode();
         } catch (TransportExceptionInterface $e) {
-            $this->resolveResult = [NetworkException::class, ['Could not contact remote server.', 0, $e]];
-
-            return;
-        }
-
-        if (500 <= $statusCode) {
-            $this->resolveResult = [ServerException::class, [$this->httpResponse]];
-
-            return;
-        }
-
-        if (400 <= $statusCode) {
-            $this->resolveResult = [ClientException::class, [$this->httpResponse]];
+            $this->resolveResult = static function () use ($e): NetworkException {
+                return new NetworkException('Could not contact remote server.', 0, $e);
+            };
 
             return;
         }
 
         if (300 <= $statusCode) {
-            $this->resolveResult = [RedirectionException::class, [$this->httpResponse]];
+            $awsErrorFactory = $this->awsErrorFactory;
+            $httpResponse = $this->httpResponse;
+            $this->resolveResult = static function () use ($awsErrorFactory, $httpResponse): HttpException {
+                try {
+                    $awsError = $awsErrorFactory->createFromResponse($httpResponse);
+                } catch (UnparsableResponse $e) {
+                    $awsError = null;
+                }
+                $statusCode = $httpResponse->getStatusCode();
+                if (500 <= $statusCode) {
+                    return new ServerException($httpResponse, $awsError);
+                }
+
+                if (400 <= $statusCode) {
+                    return new ClientException($httpResponse, $awsError);
+                }
+
+                return new RedirectionException($httpResponse, $awsError);
+            };
 
             return;
         }
@@ -376,10 +405,9 @@ class Response
             return $this->resolveResult;
         }
 
-        if (\is_array($this->resolveResult)) {
-            [$class, $args] = $this->resolveResult;
+        if (\is_callable($this->resolveResult)) {
             /** @psalm-suppress PropertyTypeCoercion */
-            $this->resolveResult = new $class(...$args);
+            $this->resolveResult = ($this->resolveResult)();
         }
 
         $code = null;

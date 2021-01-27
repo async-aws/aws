@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core;
 
+use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
+use AsyncAws\Core\AwsError\ChainAwsErrorFactory;
 use AsyncAws\Core\Credentials\CacheProvider;
 use AsyncAws\Core\Credentials\ChainProvider;
 use AsyncAws\Core\Credentials\CredentialProvider;
@@ -53,6 +55,11 @@ abstract class AbstractApi
     private $logger;
 
     /**
+     * @var AwsErrorFactoryInterface
+     */
+    private $awsErrorFactory;
+
+    /**
      * @param Configuration|array $configuration
      */
     public function __construct($configuration = [], ?CredentialProvider $credentialProvider = null, ?HttpClientInterface $httpClient = null, ?LoggerInterface $logger = null)
@@ -64,11 +71,17 @@ abstract class AbstractApi
         }
 
         $this->logger = $logger ?? new NullLogger();
+        $this->awsErrorFactory = $this->getAwsErrorFactory();
         if (!isset($httpClient)) {
             $httpClient = HttpClient::create();
             if (\class_exists(RetryableHttpClient::class)) {
                 /** @psalm-suppress MissingDependency */
-                $httpClient = new RetryableHttpClient($httpClient, new AwsRetryStrategy(), 3, $this->logger);
+                $httpClient = new RetryableHttpClient(
+                    $httpClient,
+                    new AwsRetryStrategy(AwsRetryStrategy::DEFAULT_RETRY_STATUS_CODES, 1000, 2.0, 0, 0.1, $this->awsErrorFactory),
+                    3,
+                    $this->logger
+                );
             }
         }
         $this->httpClient = $httpClient;
@@ -154,7 +167,7 @@ abstract class AbstractApi
             ]);
         }
 
-        return new Response($response, $this->httpClient, $this->logger, $debug);
+        return new Response($response, $this->httpClient, $this->logger, $this->awsErrorFactory, $debug);
     }
 
     /**
@@ -167,6 +180,11 @@ abstract class AbstractApi
                 return new SignerV4($service, $region);
             },
         ];
+    }
+
+    protected function getAwsErrorFactory(): AwsErrorFactoryInterface
+    {
+        return new ChainAwsErrorFactory();
     }
 
     /**

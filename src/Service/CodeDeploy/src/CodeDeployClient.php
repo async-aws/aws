@@ -6,6 +6,8 @@ use AsyncAws\CodeDeploy\Enum\LifecycleEventStatus;
 use AsyncAws\CodeDeploy\Input\PutLifecycleEventHookExecutionStatusInput;
 use AsyncAws\CodeDeploy\Result\PutLifecycleEventHookExecutionStatusOutput;
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
+use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 
@@ -37,6 +39,11 @@ class CodeDeployClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutLifecycleEventHookExecutionStatus', 'region' => $input->getRegion()]));
 
         return new PutLifecycleEventHookExecutionStatusOutput($response);
+    }
+
+    protected function getAwsErrorFactory(): AwsErrorFactoryInterface
+    {
+        return new JsonRpcAwsErrorFactory();
     }
 
     protected function getEndpointMetadata(?string $region): array

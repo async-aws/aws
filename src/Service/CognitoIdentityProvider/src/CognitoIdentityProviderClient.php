@@ -48,6 +48,8 @@ use AsyncAws\CognitoIdentityProvider\ValueObject\SMSMfaSettingsType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\SoftwareTokenMfaSettingsType;
 use AsyncAws\CognitoIdentityProvider\ValueObject\UserContextDataType;
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
+use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
@@ -481,6 +483,11 @@ class CognitoIdentityProviderClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'VerifySoftwareToken', 'region' => $input->getRegion()]));
 
         return new VerifySoftwareTokenResponse($response);
+    }
+
+    protected function getAwsErrorFactory(): AwsErrorFactoryInterface
+    {
+        return new JsonRpcAwsErrorFactory();
     }
 
     protected function getEndpointMetadata(?string $region): array

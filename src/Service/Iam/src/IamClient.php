@@ -3,6 +3,8 @@
 namespace AsyncAws\Iam;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
+use AsyncAws\Core\AwsError\XmlAwsErrorFactory;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
 use AsyncAws\Iam\Input\AddUserToGroupRequest;
@@ -186,6 +188,11 @@ class IamClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateUser', 'region' => $input->getRegion()]));
 
         return new Result($response);
+    }
+
+    protected function getAwsErrorFactory(): AwsErrorFactoryInterface
+    {
+        return new XmlAwsErrorFactory();
     }
 
     protected function getEndpointMetadata(?string $region): array

@@ -8,6 +8,10 @@ use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
+use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
+use AsyncAws\Core\AwsError\JsonRestAwsErrorFactory;
+use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
+use AsyncAws\Core\AwsError\XmlAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use Nette\PhpGenerator\ClassType;
@@ -141,6 +145,34 @@ class ClientGenerator
             ->addParameter('region')
                 ->setType('string')
                 ->setNullable(true)
+        ;
+
+        switch ($definition->getProtocol()) {
+            case 'query':
+            case 'rest-xml':
+                $errorFactory = XmlAwsErrorFactory::class;
+
+                break;
+            case 'rest-json':
+                $errorFactory = JsonRestAwsErrorFactory::class;
+
+                break;
+            case 'json':
+                $errorFactory = JsonRpcAwsErrorFactory::class;
+
+                break;
+            default:
+                throw new \LogicException(sprintf('Parser for "%s" is not implemented yet', $definition->getProtocol()));
+        }
+
+        $classBuilder->addUse(AwsErrorFactoryInterface::class);
+        $classBuilder->addUse($errorFactory);
+
+        $errorFactoryBase = \basename(\str_replace('\\', '/', $errorFactory));
+        $classBuilder->addMethod('getAwsErrorFactory')
+            ->setReturnType(AwsErrorFactoryInterface::class)
+            ->setVisibility(ClassType::VISIBILITY_PROTECTED)
+            ->setBody("return new $errorFactoryBase();")
         ;
 
         return $className;

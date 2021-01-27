@@ -3,8 +3,6 @@
 namespace AsyncAws\Core\Exception\Http;
 
 use AsyncAws\Core\AwsError\AwsError;
-use AsyncAws\Core\AwsError\AwsErrorFactory;
-use AsyncAws\Core\Exception\UnparsableResponse;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
@@ -26,7 +24,7 @@ trait HttpExceptionTrait
      */
     private $awsError;
 
-    public function __construct(ResponseInterface $response)
+    public function __construct(ResponseInterface $response, ?AwsError $awsError)
     {
         $this->response = $response;
         /** @var int $code */
@@ -34,14 +32,8 @@ trait HttpExceptionTrait
         /** @var string $url */
         $url = $response->getInfo('url');
 
-        try {
-            $this->awsError = AwsErrorFactory::createFromResponse($response);
-        } catch (UnparsableResponse $e) {
-            // Ignore parsing error
-        }
-
         $message = sprintf('HTTP %d returned for "%s".', $code, $url);
-        if (null !== $this->awsError) {
+        if (null !== $this->awsError = $awsError) {
             $message .= <<<TEXT
 
 

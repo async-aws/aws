@@ -3,6 +3,8 @@
 namespace AsyncAws\Core\Sts;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
+use AsyncAws\Core\AwsError\XmlAwsErrorFactory;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Sts\Input\AssumeRoleRequest;
 use AsyncAws\Core\Sts\Input\AssumeRoleWithWebIdentityRequest;
@@ -92,6 +94,11 @@ class StsClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetCallerIdentity', 'region' => $input->getRegion()]));
 
         return new GetCallerIdentityResponse($response);
+    }
+
+    protected function getAwsErrorFactory(): AwsErrorFactoryInterface
+    {
+        return new XmlAwsErrorFactory();
     }
 
     protected function getEndpointMetadata(?string $region): array

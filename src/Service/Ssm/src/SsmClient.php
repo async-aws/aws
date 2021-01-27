@@ -3,6 +3,8 @@
 namespace AsyncAws\Ssm;
 
 use AsyncAws\Core\AbstractApi;
+use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
+use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Ssm\Enum\ParameterTier;
@@ -134,6 +136,11 @@ class SsmClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutParameter', 'region' => $input->getRegion()]));
 
         return new PutParameterResult($response);
+    }
+
+    protected function getAwsErrorFactory(): AwsErrorFactoryInterface
+    {
+        return new JsonRpcAwsErrorFactory();
     }
 
     protected function getEndpointMetadata(?string $region): array
