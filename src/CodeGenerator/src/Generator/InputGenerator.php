@@ -115,6 +115,9 @@ class InputGenerator
                 $constructorBody .= strtr('$this->NAME = isset($input["NAME"]) ? CLASS::create($input["NAME"]) : null;' . "\n", ['NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
             } elseif ($memberShape instanceof ListShape) {
                 $listMemberShape = $memberShape->getMember()->getShape();
+                if (!empty($listMemberShape->getEnum())) {
+                    $this->enumGenerator->generate($listMemberShape);
+                }
                 $getterSetterNullable = false;
 
                 if ($listMemberShape instanceof StructureShape) {
@@ -124,6 +127,10 @@ class InputGenerator
                 } elseif ($listMemberShape instanceof ListShape) {
                     $getterSetterNullable = false;
                     $listMemberShapelevel2 = $listMemberShape->getMember()->getShape();
+                    if (!empty($listMemberShapelevel2->getEnum())) {
+                        $this->enumGenerator->generate($listMemberShapelevel2);
+                    }
+
                     if ($listMemberShapelevel2 instanceof StructureShape) {
                         $memberClassName = $this->objectGenerator->generate($listMemberShapelevel2);
                         $constructorBody .= strtr('$this->NAME = isset($input["NAME"]) ? array_map(static function(array $array) {
@@ -145,6 +152,10 @@ class InputGenerator
                     $this->enumGenerator->generate($mapKeyShape);
                 }
                 $mapValueShape = $memberShape->getValue()->getShape();
+                if (!empty($mapValueShape->getEnum())) {
+                    $this->enumGenerator->generate($mapValueShape);
+                }
+
                 $getterSetterNullable = false;
                 // Is this a list of objects?
                 if ($mapValueShape instanceof StructureShape) {
