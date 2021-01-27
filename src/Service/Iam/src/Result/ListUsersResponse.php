@@ -29,13 +29,13 @@ class ListUsersResponse extends Result implements \IteratorAggregate
      * fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check
      * `IsTruncated` after every call to ensure that you receive all your results.
      */
-    private $IsTruncated = null;
+    private $IsTruncated;
 
     /**
      * When `IsTruncated` is `true`, this element is present and contains the value to use for the `Marker` parameter in a
      * subsequent pagination request.
      */
-    private $Marker = null;
+    private $Marker;
 
     public function getIsTruncated(): ?bool
     {

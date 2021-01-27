@@ -167,7 +167,9 @@ class ClassFactory
     {
         $defaults = $from->getDeclaringClass()->getDefaultProperties();
         $prop = new Property($from->getName());
-        $prop->setValue($defaults[$prop->getName()] ?? null);
+        if (isset($defaults[$prop->getName()])) {
+            $prop->setValue($defaults[$prop->getName()] ?? null);
+        }
         $prop->setStatic($from->isStatic());
         $prop->setVisibility(
             $from->isPrivate()

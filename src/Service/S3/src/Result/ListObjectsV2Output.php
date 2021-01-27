@@ -21,7 +21,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
      * Set to false if all of the results were returned. Set to true if more keys are available to return. If the number of
      * results exceeds that specified by MaxKeys, all of the results might not be returned.
      */
-    private $IsTruncated = null;
+    private $IsTruncated;
 
     /**
      * Metadata about each object returned.
@@ -31,25 +31,25 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     /**
      * The bucket name.
      */
-    private $Name = null;
+    private $Name;
 
     /**
      * Keys that begin with the indicated prefix.
      */
-    private $Prefix = null;
+    private $Prefix;
 
     /**
      * Causes keys that contain the same string between the prefix and the first occurrence of the delimiter to be rolled up
      * into a single result element in the CommonPrefixes collection. These rolled-up keys are not returned elsewhere in the
      * response. Each rolled-up result counts as only one return against the `MaxKeys` value.
      */
-    private $Delimiter = null;
+    private $Delimiter;
 
     /**
      * Sets the maximum number of keys returned in the response. By default the API returns up to 1,000 key names. The
      * response might contain fewer keys but will never contain more.
      */
-    private $MaxKeys = null;
+    private $MaxKeys;
 
     /**
      * All of the keys rolled up into a common prefix count as a single return when calculating the number of returns.
@@ -59,30 +59,30 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     /**
      * Encoding type used by Amazon S3 to encode object key names in the XML response.
      */
-    private $EncodingType = null;
+    private $EncodingType;
 
     /**
      * KeyCount is the number of keys returned with this request. KeyCount will always be less than equals to MaxKeys field.
      * Say you ask for 50 keys, your result will include less than equals 50 keys.
      */
-    private $KeyCount = null;
+    private $KeyCount;
 
     /**
      * If ContinuationToken was sent with the request, it is included in the response.
      */
-    private $ContinuationToken = null;
+    private $ContinuationToken;
 
     /**
      * `NextContinuationToken` is sent when `isTruncated` is true, which means there are more keys in the bucket that can be
      * listed. The next list requests to Amazon S3 can be continued with this `NextContinuationToken`.
      * `NextContinuationToken` is obfuscated and is not a real key.
      */
-    private $NextContinuationToken = null;
+    private $NextContinuationToken;
 
     /**
      * If StartAfter was sent with the request, it is included in the response.
      */
-    private $StartAfter = null;
+    private $StartAfter;
 
     /**
      * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.
