@@ -385,18 +385,20 @@ class Response
                 $awsError = null;
             }
 
-            $exceptionClass = ($this->exceptionMapping[$awsError ? $awsError->getCode() : null] ?? null);
-            if (null === $exceptionClass) {
-                if (500 <= $statusCode) {
-                    $exceptionClass = ServerException::class;
-                } elseif (400 <= $statusCode) {
-                    $exceptionClass = ClientException::class;
-                } else {
-                    $exceptionClass = RedirectionException::class;
-                }
+            if ((null !== $awsCode = ($awsError ? $awsError->getCode() : null)) && isset($this->exceptionMapping[$awsCode])) {
+                $exceptionClass = $this->exceptionMapping[$awsCode];
+            } elseif (500 <= $statusCode) {
+                $exceptionClass = ServerException::class;
+            } elseif (400 <= $statusCode) {
+                $exceptionClass = ClientException::class;
+            } else {
+                $exceptionClass = RedirectionException::class;
             }
+
             $httpResponse = $this->httpResponse;
+            /** @psalm-suppress MoreSpecificReturnType */
             $this->resolveResult = static function () use ($exceptionClass, $httpResponse, $awsError): HttpException {
+                /** @psalm-suppress LessSpecificReturnStatement */
                 return new $exceptionClass($httpResponse, $awsError);
             };
 

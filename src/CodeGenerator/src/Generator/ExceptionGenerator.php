@@ -11,6 +11,7 @@ use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
+use AsyncAws\Core\AwsError\AwsError;
 use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Exception\Http\ServerException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
@@ -85,13 +86,15 @@ class ExceptionGenerator
     private function generateConstructor(ClassBuilder $classBuilder): void
     {
         $body = '
-            parent::__construct($response);
+            parent::__construct($response, $awsError);
             $this->populateResult($response);
         ';
 
         $method = $classBuilder->addMethod('__construct')
             ->setBody($body);
         $method->addParameter('response')->setType(ResponseInterface::class);
+        $method->addParameter('awsError')->setType(AwsError::class)->setNullable(true);
         $classBuilder->addUse(ResponseInterface::class);
+        $classBuilder->addUse(AwsError::class);
     }
 }

@@ -97,7 +97,7 @@ class WaiterGenerator
         $mapping = [];
         foreach ($operation->getErrors() as $error) {
             $errorClass = $this->exceptionGenerator->generate($operation, $error);
-            $namespace->addUse($errorClass->getFqdn());
+            $classBuilder->addUse($errorClass->getFqdn());
 
             $mapping[] = sprintf('%s => %s::class,', var_export($error->getCode() ?? $error->getName(), true), $errorClass->getName());
         }

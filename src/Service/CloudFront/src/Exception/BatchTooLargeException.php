@@ -2,6 +2,7 @@
 
 namespace AsyncAws\CloudFront\Exception;
 
+use AsyncAws\Core\AwsError\AwsError;
 use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -10,9 +11,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class BatchTooLargeException extends ClientException
 {
-    public function __construct(ResponseInterface $response)
+    public function __construct(ResponseInterface $response, ?AwsError $awsError)
     {
-        parent::__construct($response);
+        parent::__construct($response, $awsError);
         $this->populateResult($response);
     }
 
