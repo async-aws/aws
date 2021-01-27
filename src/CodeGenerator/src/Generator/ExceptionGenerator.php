@@ -13,8 +13,6 @@ use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
 use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Exception\Http\ServerException;
-use Nette\PhpGenerator\ClassType;
-use Nette\PhpGenerator\PhpNamespace;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**

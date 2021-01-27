@@ -88,7 +88,6 @@ class Response
      */
     private $exceptionMapping;
 
-
     public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, LoggerInterface $logger, AwsErrorFactoryInterface $awsErrorFactory = null, bool $debug = false, array $exceptionMapping = [])
     {
         $this->httpResponse = $response;
@@ -380,24 +379,25 @@ class Response
         }
 
         if (300 <= $statusCode) {
-            $awsErrorFactory = $this->awsErrorFactory;
-            $httpResponse = $this->httpResponse;
-            $this->resolveResult = static function () use ($awsErrorFactory, $httpResponse): HttpException {
-                try {
-                    $awsError = $awsErrorFactory->createFromResponse($httpResponse);
-                } catch (UnparsableResponse $e) {
-                    $awsError = null;
-                }
-                $statusCode = $httpResponse->getStatusCode();
+            try {
+                $awsError = $this->awsErrorFactory->createFromResponse($this->httpResponse);
+            } catch (UnparsableResponse $e) {
+                $awsError = null;
+            }
+
+            $exceptionClass = ($this->exceptionMapping[$awsError ? $awsError->getCode() : null] ?? null);
+            if (null === $exceptionClass) {
                 if (500 <= $statusCode) {
-                    return new ServerException($httpResponse, $awsError);
+                    $exceptionClass = ServerException::class;
+                } elseif (400 <= $statusCode) {
+                    $exceptionClass = ClientException::class;
+                } else {
+                    $exceptionClass = RedirectionException::class;
                 }
-
-                if (400 <= $statusCode) {
-                    return new ClientException($httpResponse, $awsError);
-                }
-
-                return new RedirectionException($httpResponse, $awsError);
+            }
+            $httpResponse = $this->httpResponse;
+            $this->resolveResult = static function () use ($exceptionClass, $httpResponse, $awsError): HttpException {
+                return new $exceptionClass($httpResponse, $awsError);
             };
 
             return;
@@ -415,14 +415,6 @@ class Response
         if (\is_callable($this->resolveResult)) {
             /** @psalm-suppress PropertyTypeCoercion */
             $this->resolveResult = ($this->resolveResult)();
-            if ($this->resolveResult instanceof HttpException) {
-                $awsCode = $this->resolveResult->getAwsCode();
-                if (isset($this->exceptionMapping[$awsCode])) {
-                    $class = $this->exceptionMapping[$awsCode];
-                    /** @psalm-suppress PropertyTypeCoercion */
-                    $this->resolveResult = new $class($this->httpResponse);
-                }
-            }
         }
 
         $code = null;
