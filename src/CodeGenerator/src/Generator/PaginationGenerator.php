@@ -8,14 +8,13 @@ use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Pagination;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
-use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
-use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\LogicException;
 use Nette\PhpGenerator\Parameter;
-use Nette\PhpGenerator\PhpNamespace;
 
 /**
  * Generate API pagination methods.
@@ -26,6 +25,11 @@ use Nette\PhpGenerator\PhpNamespace;
  */
 class PaginationGenerator
 {
+    /**
+     * @var ClassRegistry
+     */
+    private $classRegistry;
+
     /**
      * @var NamespaceRegistry
      */
@@ -42,21 +46,16 @@ class PaginationGenerator
     private $resultGenerator;
 
     /**
-     * @var FileWriter
-     */
-    private $fileWriter;
-
-    /**
      * @var TypeGenerator|null
      */
     private $typeGenerator;
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null)
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator, ?TypeGenerator $typeGenerator = null)
     {
+        $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
         $this->inputGenerator = $inputGenerator;
         $this->resultGenerator = $resultGenerator;
-        $this->fileWriter = $fileWriter;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
     }
 
@@ -79,11 +78,9 @@ class PaginationGenerator
     {
         $outputClass = $this->resultGenerator->generate($operation);
 
-        $namespace = ClassFactory::fromExistingClass($outputClass->getFqdn());
-        $classes = $namespace->getClasses();
-        $class = $classes[\array_key_first($classes)];
+        $classBuilder = $this->classRegistry->register($outputClass->getFqdn(), true);
 
-        $class->addImplement(\IteratorAggregate::class);
+        $classBuilder->addImplement(\IteratorAggregate::class);
         $resultKeys = $pagination->getResultkey();
         if (empty($resultKeys)) {
             foreach ($operation->getOutput()->getMembers() as $member) {
@@ -114,16 +111,16 @@ class PaginationGenerator
             $listShape = $resultShape->getMember()->getShape();
             [$returnType, $iteratorType, $memberClassNames] = $this->typeGenerator->getPhpType($listShape);
             foreach ($memberClassNames as $memberClassName) {
-                $namespace->addUse($memberClassName->getFqdn());
+                $classBuilder->addUse($memberClassName->getFqdn());
             }
 
             $iteratorTypes[] = $iteratorType;
 
-            if (!$class->hasMethod($getter)) {
+            if (!$classBuilder->hasMethod($getter)) {
                 throw new \RuntimeException(sprintf('Unable to find the method "%s" in "%s"', $getter, $shape->getName()));
             }
 
-            $method = $class->getMethod($getter);
+            $method = $classBuilder->getMethod($getter);
             $method
                 ->setReturnType('iterable')
                 ->setComment('')
@@ -153,7 +150,7 @@ class PaginationGenerator
                         'PROPERTY_NAME' => $resultKey,
                         'PAGE_LOADER_CODE' => $this->generateOutputPaginationLoader(
                             strtr('yield from $page->PROPERTY_ACCESSOR(true);', ['PROPERTY_ACCESSOR' => 'get' . \ucfirst($resultKey)]),
-                            $pagination, $namespace, $operation
+                            $pagination, $classBuilder, $operation
                         ),
                     ]));
             }
@@ -164,18 +161,16 @@ class PaginationGenerator
 
         $iteratorType = implode('|', $iteratorTypes);
 
-        $class->addMethod('getIterator')
+        $classBuilder->addMethod('getIterator')
             ->setReturnType(\Traversable::class)
             ->addComment('Iterates over ' . implode(' then ', $resultKeys))
             ->addComment("@return \Traversable<$iteratorType>")
-            ->setBody($this->generateOutputPaginationLoader($iteratorBody, $pagination, $namespace, $operation))
+            ->setBody($this->generateOutputPaginationLoader($iteratorBody, $pagination, $classBuilder, $operation))
         ;
-        $class->addComment("@implements \IteratorAggregate<$iteratorType>");
-
-        $this->fileWriter->write($namespace);
+        $classBuilder->addComment("@implements \IteratorAggregate<$iteratorType>");
     }
 
-    private function generateOutputPaginationLoader(string $iterator, Pagination $pagination, PhpNamespace $namespace, Operation $operation): string
+    private function generateOutputPaginationLoader(string $iterator, Pagination $pagination, ClassBuilder $classBuilder, Operation $operation): string
     {
         if (empty($pagination->getOutputToken())) {
             return \strtr($iterator, ['$page->' => '$this->']);
@@ -206,10 +201,10 @@ class PaginationGenerator
         }
 
         $inputClass = $this->inputGenerator->generate($operation);
-        $namespace->addUse($inputClass->getFqdn());
+        $classBuilder->addUse($inputClass->getFqdn());
         $clientClass = $this->namespaceRegistry->getClient($operation->getService());
-        $namespace->addUse($clientClass->getFqdn());
-        $namespace->addUse(InvalidArgument::class);
+        $classBuilder->addUse($clientClass->getFqdn());
+        $classBuilder->addUse(InvalidArgument::class);
 
         return strtr('
             $client = $this->awsClient;

@@ -9,11 +9,11 @@ use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Definition\Waiter;
 use AsyncAws\CodeGenerator\Definition\WaiterAcceptor;
-use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
-use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
 use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\RuntimeException;
@@ -22,7 +22,6 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Waiter as WaiterResult;
 use Nette\PhpGenerator\ClassType;
-use Nette\PhpGenerator\PhpNamespace;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
@@ -35,6 +34,11 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 class WaiterGenerator
 {
     /**
+     * @var ClassRegistry
+     */
+    private $classRegistry;
+
+    /**
      * @var NamespaceRegistry
      */
     private $namespaceRegistry;
@@ -45,20 +49,15 @@ class WaiterGenerator
     private $inputGenerator;
 
     /**
-     * @var FileWriter
-     */
-    private $fileWriter;
-
-    /**
      * @var TypeGenerator
      */
     private $typeGenerator;
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, FileWriter $fileWriter, ?TypeGenerator $typeGenerator = null)
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ?TypeGenerator $typeGenerator = null)
     {
+        $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
         $this->inputGenerator = $inputGenerator;
-        $this->fileWriter = $fileWriter;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
     }
 
@@ -70,29 +69,25 @@ class WaiterGenerator
         $operation = $waiter->getOperation();
         $inputShape = $operation->getInput();
 
-        $namespace = ClassFactory::fromExistingClass($this->namespaceRegistry->getClient($operation->getService())->getFqdn());
-        $namespace->addUse(HttpException::class);
-        $namespace->addUse(RuntimeException::class);
-        $namespace->addUse(RequestContext::class);
+        $className = $this->namespaceRegistry->getClient($operation->getService());
+        $classBuilder = $this->classRegistry->register($className->getFqdn(), true);
+        $classBuilder->addUse(HttpException::class);
+        $classBuilder->addUse(RuntimeException::class);
+        $classBuilder->addUse(RequestContext::class);
 
-        $classes = $namespace->getClasses();
-        $class = $classes[\array_key_first($classes)];
-
-        $this->generateMethod($namespace, $class, $waiter, $operation, $inputShape);
-
-        $this->fileWriter->write($namespace);
+        $this->generateMethod($classBuilder, $waiter, $operation, $inputShape);
     }
 
-    private function generateMethod(PhpNamespace $namespace, ClassType $class, Waiter $waiter, Operation $operation, StructureShape $inputShape): void
+    private function generateMethod(ClassBuilder $classBuilder, Waiter $waiter, Operation $operation, StructureShape $inputShape): void
     {
         $inputClass = $this->inputGenerator->generate($operation);
-        $namespace->addUse($inputClass->getFqdn());
+        $classBuilder->addUse($inputClass->getFqdn());
 
         $resultClass = $this->generateWaiterResult($waiter);
-        $namespace->addUse($resultClass->getFqdn());
+        $classBuilder->addUse($resultClass->getFqdn());
 
         [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($inputShape, $inputClass, true, false, false, ['  @region?: string,']);
-        $method = $class->addMethod(\lcfirst($waiter->getName()))
+        $method = $classBuilder->addMethod(\lcfirst($waiter->getName()))
             ->setComment('Check status of operation ' . \lcfirst($operation->getName()))
             ->addComment('@see ' . \lcfirst($operation->getName()))
             ->addComment($doc)
@@ -108,7 +103,7 @@ class WaiterGenerator
                 'RESULT_CLASS' => $resultClass->getName(),
             ]));
         foreach ($memberClassNames as $memberClassName) {
-            $namespace->addUse($memberClassName->getFqdn());
+            $classBuilder->addUse($memberClassName->getFqdn());
         }
 
         $operationMethodParameter = $method->addParameter('input');
@@ -121,28 +116,27 @@ class WaiterGenerator
     {
         $className = $this->namespaceRegistry->getWaiter($waiter);
 
-        $namespace = new PhpNamespace($className->getNamespace());
-        $class = $namespace->addClass($className->getName());
+        $classBuilder = $this->classRegistry->register($className->getFqdn());
 
-        $class->addConstant('WAIT_TIMEOUT', (float) ($waiter->getMaxAttempts() * $waiter->getDelay()))
+        $classBuilder->addConstant('WAIT_TIMEOUT', (float) ($waiter->getMaxAttempts() * $waiter->getDelay()))
             ->setVisibility(ClassType::VISIBILITY_PROTECTED);
-        $class->addConstant('WAIT_DELAY', (float) $waiter->getDelay())
+        $classBuilder->addConstant('WAIT_DELAY', (float) $waiter->getDelay())
             ->setVisibility(ClassType::VISIBILITY_PROTECTED);
 
-        $namespace->addUse(WaiterResult::class);
-        $namespace->addUse(Result::class);
-        $namespace->addUse(ResponseInterface::class);
-        $namespace->addUse(HttpException::class);
+        $classBuilder->addUse(WaiterResult::class);
+        $classBuilder->addUse(Result::class);
+        $classBuilder->addUse(ResponseInterface::class);
+        $classBuilder->addUse(HttpException::class);
 
         $inputClass = $this->inputGenerator->generate($waiter->getOperation());
-        $namespace->addUse($inputClass->getFqdn());
+        $classBuilder->addUse($inputClass->getFqdn());
         $clientClass = $this->namespaceRegistry->getClient($waiter->getOperation()->getService());
-        $namespace->addUse($clientClass->getFqdn());
-        $namespace->addUse(InvalidArgument::class);
+        $classBuilder->addUse($clientClass->getFqdn());
+        $classBuilder->addUse(InvalidArgument::class);
 
-        $class->addExtend(WaiterResult::class);
+        $classBuilder->addExtend(WaiterResult::class);
 
-        $class->addMethod('refreshState')
+        $classBuilder->addMethod('refreshState')
             ->setReturnType(WaiterResult::class)
             ->setVisibility(ClassType::VISIBILITY_PROTECTED)
             ->setBody(strtr('
@@ -161,7 +155,7 @@ class WaiterGenerator
             ]))
         ;
 
-        $method = $class->addMethod('extractState')
+        $method = $classBuilder->addMethod('extractState')
             ->setReturnType('string')
             ->setProtected()
             ->setBody(strtr('
@@ -173,9 +167,7 @@ class WaiterGenerator
         $method->addParameter('response')->setType(Response::class);
         $method->addParameter('exception')->setType(HttpException::class)->setNullable(true);
 
-        $namespace->addUse(Response::class);
-
-        $this->fileWriter->write($namespace);
+        $classBuilder->addUse(Response::class);
 
         return $className;
     }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator;
 
-use AsyncAws\CodeGenerator\File\FileWriter;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
 
 /**
  * Generate API client methods and result classes.
@@ -14,18 +14,20 @@ use AsyncAws\CodeGenerator\File\FileWriter;
  */
 class ApiGenerator
 {
-    /**
-     * @var FileWriter
-     */
-    private $fileWriter;
+    private $classRegistry;
 
-    public function __construct(string $srcDirectory)
+    public function __construct(ClassRegistry $classRegistry = null)
     {
-        $this->fileWriter = new FileWriter($srcDirectory);
+        $this->classRegistry = $classRegistry ?? new ClassRegistry();
     }
 
     public function service(string $baseNamespace, array $managedOperations): ServiceGenerator
     {
-        return new ServiceGenerator($this->fileWriter, $baseNamespace, $managedOperations);
+        return new ServiceGenerator($this->classRegistry, $baseNamespace, $managedOperations);
+    }
+
+    public function getUpdatedClasses(): iterable
+    {
+        return $this->classRegistry->getRegisteredClasses();
     }
 }

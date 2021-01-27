@@ -8,18 +8,17 @@ use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
-use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
 use AsyncAws\CodeGenerator\Generator\ResponseParser\ParserProvider;
 use AsyncAws\Core\Exception\LogicException;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Core\Stream\ResponseBodyStream;
 use AsyncAws\Core\Stream\ResultStream;
-use Nette\PhpGenerator\ClassType;
-use Nette\PhpGenerator\PhpNamespace;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -34,6 +33,11 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 class ResultGenerator
 {
     /**
+     * @var ClassRegistry
+     */
+    private $classRegistry;
+
+    /**
      * @var ClassName[]
      */
     private $generated = [];
@@ -42,11 +46,6 @@ class ResultGenerator
      * @var NamespaceRegistry
      */
     private $namespaceRegistry;
-
-    /**
-     * @var FileWriter
-     */
-    private $fileWriter;
 
     /**
      * @var TypeGenerator
@@ -73,12 +72,12 @@ class ResultGenerator
      */
     private $operation;
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, ObjectGenerator $objectGenerator, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, ObjectGenerator $objectGenerator, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
     {
+        $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
-        $this->fileWriter = $fileWriter;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
-        $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->namespaceRegistry, $fileWriter);
+        $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->classRegistry, $this->namespaceRegistry);
         $this->parserProvider = new ParserProvider($this->namespaceRegistry, $this->typeGenerator);
         $this->objectGenerator = $objectGenerator;
     }
@@ -104,22 +103,19 @@ class ResultGenerator
 
         $this->generated[$shape->getName()] = $className = $this->namespaceRegistry->getResult($shape);
 
-        $namespace = new PhpNamespace($className->getNamespace());
-        $class = $namespace->addClass($className->getName());
+        $classBuilder = $this->classRegistry->register($className->getFqdn());
         if (null !== $documentation = $shape->getDocumentation()) {
-            $class->addComment(GeneratorHelper::parseDocumentation($documentation, false));
+            $classBuilder->addComment(GeneratorHelper::parseDocumentation($documentation, false));
         }
 
-        $namespace->addUse(Result::class);
-        $class->addExtend(Result::class);
-        $namespace->addUse(ResponseInterface::class);
-        $namespace->addUse(HttpClientInterface::class);
-        $this->populateResult($shape, $namespace, $class);
+        $classBuilder->addUse(Result::class);
+        $classBuilder->addExtend(Result::class);
+        $classBuilder->addUse(ResponseInterface::class);
+        $classBuilder->addUse(HttpClientInterface::class);
+        $this->populateResult($shape, $classBuilder);
 
-        $this->addProperties($shape, $class, $namespace);
-        $this->addUse($shape, $namespace);
-
-        $this->fileWriter->write($namespace);
+        $this->addProperties($shape, $classBuilder);
+        $this->addUse($shape, $classBuilder);
 
         return $className;
     }
@@ -127,18 +123,18 @@ class ResultGenerator
     /**
      * Add properties and getters.
      */
-    private function addProperties(StructureShape $shape, ClassType $class, PhpNamespace $namespace): void
+    private function addProperties(StructureShape $shape, ClassBuilder $classBuilder): void
     {
         foreach ($shape->getMembers() as $member) {
             $nullable = $returnType = null;
             $memberShape = $member->getShape();
-            $property = $class->addProperty($member->getName())->setPrivate();
+            $property = $classBuilder->addProperty($member->getName())->setPrivate();
             if (null !== $propertyDocumentation = $memberShape->getDocumentation()) {
                 $property->setComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
             [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($memberShape);
             foreach ($memberClassNames as $memberClassName) {
-                $namespace->addUse($memberClassName->getFqdn());
+                $classBuilder->addUse($memberClassName->getFqdn());
             }
 
             if (!empty($memberShape->getEnum())) {
@@ -184,7 +180,7 @@ class ResultGenerator
                 $nullable = false;
             }
 
-            $method = $class->addMethod('get' . \ucfirst($member->getName()))
+            $method = $classBuilder->addMethod('get' . \ucfirst($member->getName()))
                 ->setReturnType($returnType);
 
             $deprecation = '';
@@ -209,7 +205,7 @@ class ResultGenerator
         }
     }
 
-    private function populateResult(StructureShape $shape, PhpNamespace $namespace, ClassType $class): void
+    private function populateResult(StructureShape $shape, ClassBuilder $classBuilder): void
     {
         // Parse headers
         $nonHeaders = [];
@@ -283,66 +279,66 @@ class ResultGenerator
         $payloadProperty = $shape->getPayload();
         if (null !== $payloadProperty && $shape->getMember($payloadProperty)->isStreaming()) {
             // Make sure we can stream this.
-            $namespace->addUse(ResponseBodyStream::class);
+            $classBuilder->addUse(ResponseBodyStream::class);
             $body .= strtr('$this->PROPERTY_NAME = $response->toStream();', ['PROPERTY_NAME' => $payloadProperty]);
         } else {
             $parserResult = $this->parserProvider->get($this->operation->getService())->generate($shape);
             $body .= $parserResult->getBody();
             foreach ($parserResult->getUsedClasses() as $className) {
-                $namespace->addUse($className->getFqdn());
+                $classBuilder->addUse($className->getFqdn());
             }
-            $class->setMethods($parserResult->getExtraMethods());
+            $classBuilder->setMethods($parserResult->getExtraMethods());
         }
 
-        $namespace->addUse(Response::class);
-        $method = $class->addMethod('populateResult')
+        $classBuilder->addUse(Response::class);
+        $method = $classBuilder->addMethod('populateResult')
             ->setReturnType('void')
             ->setProtected()
             ->setBody($body);
         $method->addParameter('response')->setType(Response::class);
     }
 
-    private function addUse(StructureShape $shape, PhpNamespace $namespace, array $addedFqdn = [])
+    private function addUse(StructureShape $shape, ClassBuilder $classBuilder, array $addedFqdn = [])
     {
         foreach ($shape->getMembers() as $member) {
             $memberShape = $member->getShape();
             if (!empty($memberShape->getEnum())) {
-                $namespace->addUse($this->namespaceRegistry->getEnum($memberShape)->getFqdn());
+                $classBuilder->addUse($this->namespaceRegistry->getEnum($memberShape)->getFqdn());
             }
 
             if ($memberShape instanceof StructureShape) {
                 $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
                 if (!\in_array($fqdn, $addedFqdn)) {
                     $addedFqdn[] = $fqdn;
-                    $this->addUse($memberShape, $namespace, $addedFqdn);
-                    $namespace->addUse($fqdn);
+                    $this->addUse($memberShape, $classBuilder, $addedFqdn);
+                    $classBuilder->addUse($fqdn);
                 }
             } elseif ($memberShape instanceof MapShape) {
                 if (($valueShape = $memberShape->getValue()->getShape()) instanceof StructureShape) {
                     $fqdn = $this->namespaceRegistry->getObject($valueShape)->getFqdn();
                     if (!\in_array($fqdn, $addedFqdn)) {
                         $addedFqdn[] = $fqdn;
-                        $this->addUse($valueShape, $namespace, $addedFqdn);
-                        $namespace->addUse($fqdn);
+                        $this->addUse($valueShape, $classBuilder, $addedFqdn);
+                        $classBuilder->addUse($fqdn);
                     }
                 }
                 if (!empty($valueShape->getEnum())) {
-                    $namespace->addUse($this->namespaceRegistry->getEnum($valueShape)->getFqdn());
+                    $classBuilder->addUse($this->namespaceRegistry->getEnum($valueShape)->getFqdn());
                 }
             } elseif ($memberShape instanceof ListShape) {
                 if (($memberShape = $memberShape->getMember()->getShape()) instanceof StructureShape) {
                     $fqdn = $this->namespaceRegistry->getObject($memberShape)->getFqdn();
                     if (!\in_array($fqdn, $addedFqdn)) {
                         $addedFqdn[] = $fqdn;
-                        $this->addUse($memberShape, $namespace, $addedFqdn);
-                        $namespace->addUse($fqdn);
+                        $this->addUse($memberShape, $classBuilder, $addedFqdn);
+                        $classBuilder->addUse($fqdn);
                     }
                 }
                 if (!empty($memberShape->getEnum())) {
-                    $namespace->addUse($this->namespaceRegistry->getEnum($memberShape)->getFqdn());
+                    $classBuilder->addUse($this->namespaceRegistry->getEnum($memberShape)->getFqdn());
                 }
             } elseif ($member->isStreaming()) {
-                $namespace->addUse(ResultStream::class);
+                $classBuilder->addUse(ResultStream::class);
             }
         }
     }

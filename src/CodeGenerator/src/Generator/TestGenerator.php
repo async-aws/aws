@@ -10,16 +10,15 @@ use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
-use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
-use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use Nette\PhpGenerator\ClassType;
-use Nette\PhpGenerator\PhpNamespace;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -36,23 +35,25 @@ class TestGenerator
     private const MARKER = 'self::fail(\'Not implemented\');';
 
     /**
+     * @var ClassRegistry
+     */
+    private $classRegistry;
+
+    /**
      * @var NamespaceRegistry
      */
     private $namespaceRegistry;
 
-    /**
-     * @var FileWriter
-     */
-    private $fileWriter;
-
-    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter)
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry)
     {
+        $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
-        $this->fileWriter = $fileWriter;
     }
 
     /**
      * Update the API test client.
+     *
+     * @return ClassBuilder[]
      */
     public function generate(Operation $operation): void
     {
@@ -64,25 +65,24 @@ class TestGenerator
         }
     }
 
-    private function generateInput(Operation $operation, StructureShape $shape)
+    private function generateInput(Operation $operation, StructureShape $shape): void
     {
         $className = $this->namespaceRegistry->getInputUnitTest($shape);
         $methodName = 'testRequest';
 
         if (\class_exists($className->getFqdn())) {
-            $namespace = ClassFactory::fromExistingClass($className->getFqdn());
-            $classes = $namespace->getClasses();
-            $class = $classes[\array_key_first($classes)];
+            $classBuilder = $this->classRegistry->register($className->getFqdn(), true);
+            if ($classBuilder->hasMethod($methodName) || !$operation->hasBody()) {
+                $this->classRegistry->unregister($className->getFqdn());
 
-            if ($class->hasMethod($methodName) || !$operation->hasBody()) {
                 return;
             }
         } else {
-            [$namespace, $class] = $this->createTestClass($className, $this->namespaceRegistry->getInput($shape));
+            $classBuilder = $this->createTestClass($className, $this->namespaceRegistry->getInput($shape));
         }
 
-        $class->setExtends([TestCase::class]);
-        $namespace->addUse(TestCase::class);
+        $classBuilder->setExtends(TestCase::class);
+        $classBuilder->addUse(TestCase::class);
 
         $exampleInput = $operation->getExample()->getInput();
         $comment = $exampleInput ? '// see example-1.json from SDK' : '// see ' . $operation->getApiReferenceDocumentationUrl();
@@ -115,7 +115,7 @@ class TestGenerator
                 throw new \InvalidArgumentException(sprintf('unexpected protocol "%s".', $operation->getService()->getProtocol()));
         }
 
-        $class->addMethod($methodName)
+        $classBuilder->addMethod($methodName)
             ->setReturnType('void')
             ->setBody(strtr('
         MARKER
@@ -133,18 +133,16 @@ class TestGenerator
         self::assertRequestEqualsHttpRequest($expected, $input->request());
             ', [
                 'MARKER' => self::MARKER,
-                'INPUT_CONSTRUCTOR' => $this->getInputCode($namespace, $operation->getInput()),
+                'INPUT_CONSTRUCTOR' => $this->getInputCode($classBuilder, $operation->getInput()),
                 'SERVICE' => \strtolower($operation->getService()->getName()),
                 'METHOD' => $operation->getHttpMethod(),
                 'OPERATION' => $operation->getName(),
                 'CONTENT_TYPE' => $contenType,
                 'STUB' => trim($stub),
             ]));
-
-        $this->fileWriter->write($namespace);
     }
 
-    private function generateResult(Operation $operation, StructureShape $shape)
+    private function generateResult(Operation $operation, StructureShape $shape): void
     {
         $className = $this->namespaceRegistry->getResultUnitTest($shape);
         $clientClass = $this->namespaceRegistry->getClient($operation->getService());
@@ -153,24 +151,23 @@ class TestGenerator
         $methodName = 'test' . $shape->getName();
 
         if (\class_exists($className->getFqdn())) {
-            $namespace = ClassFactory::fromExistingClass($className->getFqdn());
-            $classes = $namespace->getClasses();
-            $class = $classes[\array_key_first($classes)];
+            $classBuilder = $this->classRegistry->register($className->getFqdn(), true);
+            if ($classBuilder->hasMethod($methodName)) {
+                $this->classRegistry->unregister($className->getFqdn());
 
-            if ($class->hasMethod($methodName)) {
                 return;
             }
         } else {
-            [$namespace, $class] = $this->createTestClass($className, $this->namespaceRegistry->getResult($shape));
+            $classBuilder = $this->createTestClass($className, $this->namespaceRegistry->getResult($shape));
         }
 
-        $class->setExtends([TestCase::class]);
-        $namespace->addUse(TestCase::class);
-        $namespace->addUse($clientClass->getFqdn());
-        $namespace->addUse($inputClass->getFqdn());
-        $namespace->addUse($resultClass->getFqdn());
-        $namespace->addUse(SimpleMockedResponse::class);
-        $namespace->addUse(MockHttpClient::class);
+        $classBuilder->setExtends(TestCase::class);
+        $classBuilder->addUse(TestCase::class);
+        $classBuilder->addUse($clientClass->getFqdn());
+        $classBuilder->addUse($inputClass->getFqdn());
+        $classBuilder->addUse($resultClass->getFqdn());
+        $classBuilder->addUse(SimpleMockedResponse::class);
+        $classBuilder->addUse(MockHttpClient::class);
 
         $exampleOutput = $operation->getExample()->getOutput();
         $comment = $exampleOutput ? '// see example-1.json from SDK' : '// see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_OPERATION.html';
@@ -194,7 +191,7 @@ class TestGenerator
         } else {
             $resultConstruct = '$result = new RESULT_CLASS(new Response($client->request(\'POST\', \'http://localhost\'), $client, new NullLogger()));';
         }
-        $class->addMethod($methodName)
+        $classBuilder->addMethod($methodName)
             ->setReturnType('void')
             ->setBody(strtr('
                 MARKER
@@ -216,34 +213,32 @@ class TestGenerator
                 'STUB' => $stub,
                 'ASSERT' => $this->getResultAssert($operation->getOutput()),
             ]));
-        $namespace->addUse(Response::class);
-        $namespace->addUse(NullLogger::class);
-
-        $this->fileWriter->write($namespace);
+        $classBuilder->addUse(Response::class);
+        $classBuilder->addUse(NullLogger::class);
     }
 
-    private function generateIntegration(Operation $operation)
+    private function generateIntegration(Operation $operation): void
     {
         $className = $this->namespaceRegistry->getIntegrationTest($operation->getService());
         $inputClassName = $this->namespaceRegistry->getInput($operation->getInput());
         $methodName = 'test' . $operation->getMethodName();
 
         if (\class_exists($className->getFqdn())) {
-            $namespace = ClassFactory::fromExistingClass($className->getFqdn());
-            $classes = $namespace->getClasses();
-            $class = $classes[\array_key_first($classes)];
-            if ($class->hasMethod($methodName)) {
+            $classBuilder = $this->classRegistry->register($className->getFqdn(), true);
+            if ($classBuilder->hasMethod($methodName)) {
+                $this->classRegistry->unregister($className->getFqdn());
+
                 return;
             }
         } else {
-            [$namespace, $class] = $this->createClientTestClass($className, $operation);
+            $classBuilder = $this->createClientTestClass($className, $operation);
         }
 
-        $class->setExtends([TestCase::class]);
-        $namespace->addUse(TestCase::class);
-        $namespace->addUse($inputClassName->getFqdn());
+        $classBuilder->setExtends(TestCase::class);
+        $classBuilder->addUse(TestCase::class);
+        $classBuilder->addUse($inputClassName->getFqdn());
 
-        $class->addMethod($methodName)
+        $classBuilder->addMethod($methodName)
             ->setReturnType('void')
             ->setBody(strtr('
                 $client = $this->getClient();
@@ -255,15 +250,13 @@ class TestGenerator
 
                 RESULT_ASSERT
             ', [
-                'INPUT_CONSTRUCTOR' => $this->getInputCode($namespace, $operation->getInput()),
+                'INPUT_CONSTRUCTOR' => $this->getInputCode($classBuilder, $operation->getInput()),
                 'METHOD' => $operation->getMethodName(),
                 'RESULT_ASSERT' => $operation->getOutput() ? $this->getResultAssert($operation->getOutput()) : '',
             ]));
-
-        $this->fileWriter->write($namespace);
     }
 
-    private function getInputCode(PhpNamespace $namespace, Shape $shape, bool $includeOptionalParameters = true, array $recursion = []): string
+    private function getInputCode(ClassBuilder $classBuilder, Shape $shape, bool $includeOptionalParameters = true, array $recursion = []): string
     {
         if (isset($recursion[$shape->getName()])) {
             return '""';
@@ -277,29 +270,29 @@ class TestGenerator
                 } else {
                     $className = $this->namespaceRegistry->getObject($shape);
                 }
-                $namespace->addUse($className->getFqdn());
+                $classBuilder->addUse($className->getFqdn());
 
                 return strtr('new INPUT_CLASS([
                     INPUT_ARGUMENTS
                 ])', [
                     'INPUT_CLASS' => $className->getName(),
-                    'INPUT_ARGUMENTS' => \implode("\n", \array_map(function (StructureMember $member) use ($namespace, $includeOptionalParameters, $recursion) {
+                    'INPUT_ARGUMENTS' => \implode("\n", \array_map(function (StructureMember $member) use ($classBuilder, $includeOptionalParameters, $recursion) {
                         if ($member->isRequired() || $includeOptionalParameters) {
                             return sprintf(
                                 '%s => %s,',
                                 \var_export($member->getName(), true),
-                                $this->getInputCode($namespace, $member->getShape(), $includeOptionalParameters, $recursion)
+                                $this->getInputCode($classBuilder, $member->getShape(), $includeOptionalParameters, $recursion)
                             );
                         }
                     }, $shape->getMembers())),
                 ]);
             case $shape instanceof ListShape:
                 return strtr('[INPUT_ARGUMENTS]', [
-                    'INPUT_ARGUMENTS' => $this->getInputCode($namespace, $shape->getMember()->getShape(), $includeOptionalParameters, $recursion),
+                    'INPUT_ARGUMENTS' => $this->getInputCode($classBuilder, $shape->getMember()->getShape(), $includeOptionalParameters, $recursion),
                 ]);
             case $shape instanceof MapShape:
                 return strtr('["change me" => INPUT_ARGUMENTS]', [
-                    'INPUT_ARGUMENTS' => $this->getInputCode($namespace, $shape->getValue()->getShape(), $includeOptionalParameters, $recursion),
+                    'INPUT_ARGUMENTS' => $this->getInputCode($classBuilder, $shape->getValue()->getShape(), $includeOptionalParameters, $recursion),
                 ]);
         }
 
@@ -320,9 +313,6 @@ class TestGenerator
         throw new \RuntimeException(sprintf('Type %s is not yet implemented', $shape->getType()));
     }
 
-    /**
-     * Generate client unit tests.
-     */
     private function generateClient(Operation $operation): void
     {
         $clientName = $this->namespaceRegistry->getClient($operation->getService());
@@ -330,15 +320,14 @@ class TestGenerator
         $methodName = 'test' . $operation->getMethodName();
 
         try {
-            $namespace = ClassFactory::fromExistingClass($clientTestName->getFqdn());
-            $classes = $namespace->getClasses();
-            $class = $classes[\array_key_first($classes)];
+            $classBuilder = $this->classRegistry->register($clientTestName->getFqdn(), true);
+            if ($classBuilder->hasMethod($methodName)) {
+                $this->classRegistry->unregister($clientTestName->getFqdn());
 
-            if ($class->hasMethod($methodName)) {
                 return;
             }
         } catch (\ReflectionException $e) {
-            [$namespace, $class] = $this->createTestClass($clientTestName, $clientName);
+            $classBuilder = $this->createTestClass($clientTestName, $clientName);
         }
 
         if (null === $operation->getOutput()) {
@@ -346,13 +335,13 @@ class TestGenerator
         } else {
             $output = $this->namespaceRegistry->getResult($operation->getOutput());
         }
-        $class->setExtends([TestCase::class]);
-        $namespace->addUse(TestCase::class);
-        $namespace->addUse(MockHttpClient::class);
-        $namespace->addUse(NullProvider::class);
-        $namespace->addUse($output->getFqdn());
+        $classBuilder->setExtends(TestCase::class);
+        $classBuilder->addUse(TestCase::class);
+        $classBuilder->addUse(MockHttpClient::class);
+        $classBuilder->addUse(NullProvider::class);
+        $classBuilder->addUse($output->getFqdn());
 
-        $class->addMethod($methodName)
+        $classBuilder->addMethod($methodName)
             ->setReturnType('void')
             ->setBody(strtr('
                 $client = new CLASS_NAME([], new NullProvider(), new MockHttpClient());
@@ -365,12 +354,10 @@ class TestGenerator
 
             ', [
                 'CLASS_NAME' => $clientName->getName(),
-                'INPUT_CONSTRUCTOR' => $this->getInputCode($namespace, $operation->getInput(), false),
+                'INPUT_CONSTRUCTOR' => $this->getInputCode($classBuilder, $operation->getInput(), false),
                 'RESULT' => $output->getName(),
                 'METHOD' => $operation->getMethodName(),
             ]));
-
-        $this->fileWriter->write($namespace);
     }
 
     private function getResultAssert(StructureShape $shape): string
@@ -390,31 +377,28 @@ class TestGenerator
         }, $shape->getMembers()));
     }
 
-    private function createTestClass(ClassName $testClassName, ClassName $sourceClassName): array
+    private function createTestClass(ClassName $testClassName, ClassName $sourceClassName): ClassBuilder
     {
-        $namespace = new PhpNamespace($testClassName->getNamespace());
-        $namespace->addUse($sourceClassName->getFqdn());
+        $classBuilder = $this->classRegistry->register($testClassName->getFqdn());
+        $classBuilder->addUse($sourceClassName->getFqdn());
+        $classBuilder->addUse(TestCase::class);
 
-        $namespace->addUse(TestCase::class);
+        $classBuilder->addExtend(TestCase::class);
 
-        $class = $namespace->addClass($testClassName->getName());
-        $class->addExtend(TestCase::class);
-
-        return [$namespace, $class];
+        return $classBuilder;
     }
 
-    private function createClientTestClass(ClassName $testClassName, Operation $operation): array
+    private function createClientTestClass(ClassName $testClassName, Operation $operation): ClassBuilder
     {
         $clientClassName = $this->namespaceRegistry->getClient($operation->getService());
 
-        $namespace = new PhpNamespace($testClassName->getNamespace());
-        $namespace->addUse(TestCase::class);
-        $namespace->addUse($clientClassName->getFqdn());
-        $namespace->addUse(NullProvider::class);
+        $classBuilder = $this->classRegistry->register($testClassName->getFqdn());
+        $classBuilder->addUse(TestCase::class);
+        $classBuilder->addUse($clientClassName->getFqdn());
+        $classBuilder->addUse(NullProvider::class);
 
-        $class = $namespace->addClass($testClassName->getName());
-        $class->addExtend(TestCase::class);
-        $class->addMethod('getClient')
+        $classBuilder->addExtend(TestCase::class);
+        $classBuilder->addMethod('getClient')
             ->setVisibility(ClassType::VISIBILITY_PRIVATE)
             ->setReturnType($clientClassName->getFqdn())
             ->setBody(strtr('
@@ -428,9 +412,7 @@ class TestGenerator
                 'CLASS_NAME' => $clientClassName->getName(),
             ]));
 
-        $this->fileWriter->write($namespace);
-
-        return [$namespace, $class];
+        return $classBuilder;
     }
 
     private function arrayToXml(array $data): string
@@ -466,8 +448,5 @@ class TestGenerator
 
 // Because AsyncAws use symfony/phpunit-bridge and don't requires phpunit/phpunit, this class may not exits but is required by the generator
 if (!\class_exists(PHPUnitTestCase::class)) {
-    class DummyTestCase
-    {
-    }
-    \class_alias(DummyTestCase::class, PHPUnitTestCase::class);
+    eval('namespace PHPUnit\\Framework; class TestCase {}');
 }

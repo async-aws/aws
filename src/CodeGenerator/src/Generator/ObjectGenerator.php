@@ -8,15 +8,14 @@ use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
-use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
 use AsyncAws\CodeGenerator\Generator\RequestSerializer\SerializerProvider;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Stream\ResultStream;
-use Nette\PhpGenerator\ClassType;
-use Nette\PhpGenerator\PhpNamespace;
 
 /**
  * Generate API client methods and result classes.
@@ -29,6 +28,11 @@ use Nette\PhpGenerator\PhpNamespace;
 class ObjectGenerator
 {
     /**
+     * @var ClassRegistry
+     */
+    private $classRegistry;
+
+    /**
      * @var ClassName[]
      */
     private $generated = [];
@@ -37,11 +41,6 @@ class ObjectGenerator
      * @var NamespaceRegistry
      */
     private $namespaceRegistry;
-
-    /**
-     * @var FileWriter
-     */
-    private $fileWriter;
 
     /**
      * @var TypeGenerator
@@ -62,12 +61,12 @@ class ObjectGenerator
 
     private $usedShapedInput;
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter, array $managedMethods, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, array $managedMethods, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
     {
+        $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
-        $this->fileWriter = $fileWriter;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
-        $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->namespaceRegistry, $fileWriter);
+        $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->classRegistry, $this->namespaceRegistry);
         $this->serializer = new SerializerProvider($this->namespaceRegistry);
         $this->managedMethods = $managedMethods;
     }
@@ -77,31 +76,28 @@ class ObjectGenerator
         if (isset($this->generated[$shape->getName()])) {
             return $this->generated[$shape->getName()];
         }
-
         $this->generated[$shape->getName()] = $className = $this->namespaceRegistry->getObject($shape);
 
-        $namespace = new PhpNamespace($className->getNamespace());
-        $class = $namespace->addClass($className->getName());
-        $class->setFinal();
+        $classBuilder = $this->classRegistry->register($className->getFqdn());
+        $classBuilder->setFinal();
         if (null !== $documentation = $shape->getDocumentation()) {
-            $class->addComment(GeneratorHelper::parseDocumentation($documentation, false));
+            $classBuilder->addComment(GeneratorHelper::parseDocumentation($documentation, false));
         }
 
         // Named constructor
-        $this->namedConstructor($shape, $class, $namespace);
-        $this->addProperties($shape, $class, $namespace);
+        $this->namedConstructor($shape, $classBuilder);
+        $this->addProperties($shape, $classBuilder);
 
         $serializer = $this->serializer->get($shape->getService());
         if ($this->isShapeUsedInput($shape)) {
             [$returnType, $requestBody, $args] = $serializer->generateRequestBuilder($shape) + [null, null, []];
-            $method = $class->addMethod('requestBody')->setReturnType($returnType)->setBody($requestBody)->setPublic()->setComment('@internal');
+            $method = $classBuilder->addMethod('requestBody')->setReturnType($returnType)->setBody($requestBody)->setPublic()->setComment('@internal');
             foreach ($args as $arg => $type) {
                 $method->addParameter($arg)->setType($type);
             }
         }
 
-        $namespace->addUse(InvalidArgument::class);
-        $this->fileWriter->write($namespace);
+        $classBuilder->addUse(InvalidArgument::class);
 
         return $className;
     }
@@ -141,20 +137,20 @@ class ObjectGenerator
         return $this->usedShapedInput[$shape->getName()] ?? false;
     }
 
-    private function namedConstructor(StructureShape $shape, ClassType $class, PhpNamespace $namespace): void
+    private function namedConstructor(StructureShape $shape, ClassBuilder $classBuilder): void
     {
-        $class->addMethod('create')
+        $classBuilder->addMethod('create')
             ->setStatic(true)
             ->setReturnType('self')
             ->setBody('return $input instanceof self ? $input : new self($input);')
             ->addParameter('input');
 
         // We need a constructor
-        $constructor = $class->addMethod('__construct');
+        $constructor = $classBuilder->addMethod('__construct');
         [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $this->generated[$shape->getName()], false, false, true);
         $constructor->addComment($doc);
         foreach ($memberClassNames as $memberClassName) {
-            $namespace->addUse($memberClassName->getFqdn());
+            $classBuilder->addUse($memberClassName->getFqdn());
         }
 
         $constructor->addParameter('input')->setType('array');
@@ -194,24 +190,24 @@ class ObjectGenerator
     /**
      * Add properties and getters.
      */
-    private function addProperties(StructureShape $shape, ClassType $class, PhpNamespace $namespace): void
+    private function addProperties(StructureShape $shape, ClassBuilder $classBuilder): void
     {
         foreach ($shape->getMembers() as $member) {
             $nullable = $returnType = null;
             $memberShape = $member->getShape();
-            $property = $class->addProperty($member->getName())->setPrivate();
+            $property = $classBuilder->addProperty($member->getName())->setPrivate();
             if (null !== $propertyDocumentation = $memberShape->getDocumentation()) {
                 $property->setComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
 
             [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($memberShape);
             foreach ($memberClassNames as $memberClassName) {
-                $namespace->addUse($memberClassName->getFqdn());
+                $classBuilder->addUse($memberClassName->getFqdn());
             }
 
             if (!empty($memberShape->getEnum())) {
                 $enumClassName = $this->enumGenerator->generate($memberShape);
-                $namespace->addUse($enumClassName->getFqdn());
+                $classBuilder->addUse($enumClassName->getFqdn());
             }
             $getterSetterNullable = true;
 
@@ -232,7 +228,7 @@ class ObjectGenerator
                 }
                 if (!empty($valueShape->getEnum())) {
                     $enumClassName = $this->enumGenerator->generate($valueShape);
-                    $namespace->addUse($enumClassName->getFqdn());
+                    $classBuilder->addUse($enumClassName->getFqdn());
                 }
             } elseif ($memberShape instanceof ListShape) {
                 $nullable = $getterSetterNullable = false;
@@ -243,16 +239,16 @@ class ObjectGenerator
                 }
                 if (!empty($memberShape->getEnum())) {
                     $enumClassName = $this->enumGenerator->generate($memberShape);
-                    $namespace->addUse($enumClassName->getFqdn());
+                    $classBuilder->addUse($enumClassName->getFqdn());
                 }
             } elseif ($member->isStreaming()) {
                 $returnType = ResultStream::class;
                 $parameterType = ResultStream::class;
-                $namespace->addUse(ResultStream::class);
+                $classBuilder->addUse(ResultStream::class);
                 $nullable = false;
             }
 
-            $method = $class->addMethod('get' . \ucfirst($member->getName()))
+            $method = $classBuilder->addMethod('get' . \ucfirst($member->getName()))
                 ->setReturnType($returnType);
 
             $deprecation = '';

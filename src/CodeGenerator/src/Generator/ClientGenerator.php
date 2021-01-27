@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
-use AsyncAws\CodeGenerator\File\FileWriter;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
-use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassFactory;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use Nette\PhpGenerator\ClassType;
@@ -23,19 +22,19 @@ use Nette\PhpGenerator\ClassType;
 class ClientGenerator
 {
     /**
+     * @var ClassRegistry
+     */
+    private $classRegistry;
+
+    /**
      * @var NamespaceRegistry
      */
     private $namespaceRegistry;
 
-    /**
-     * @var FileWriter
-     */
-    private $fileWriter;
-
-    public function __construct(NamespaceRegistry $namespaceRegistry, FileWriter $fileWriter)
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry)
     {
+        $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
-        $this->fileWriter = $fileWriter;
     }
 
     /**
@@ -44,10 +43,7 @@ class ClientGenerator
     public function generate(ServiceDefinition $definition): ClassName
     {
         $className = $this->namespaceRegistry->getClient($definition);
-        $namespace = ClassFactory::fromExistingClass($className->getFqdn());
-
-        $classes = $namespace->getClasses();
-        $class = $classes[\array_key_first($classes)];
+        $classBuilder = $this->classRegistry->register($className->getFqdn(), true);
 
         $supportedVersions = eval(sprintf('class A%s extends %s {
             public function __construct() {}
@@ -76,7 +72,7 @@ class ClientGenerator
 
         $body = '';
         if (!isset($endpoints['_global']['aws'])) {
-            $namespace->addUse(Configuration::class);
+            $classBuilder->addUse(Configuration::class);
             $body .= 'if ($region === null) {
                 $region = Configuration::DEFAULT_REGION;
             }
@@ -136,9 +132,9 @@ class ClientGenerator
         } else {
             $body .= 'throw new UnsupportedRegion(sprintf(\'The region "%s" is not supported by "' . $definition->getName() . '".\', $region));';
         }
-        $namespace->addUse(UnsupportedRegion::class);
+        $classBuilder->addUse(UnsupportedRegion::class);
 
-        $class->addMethod('getEndpointMetadata')
+        $classBuilder->addMethod('getEndpointMetadata')
             ->setReturnType('array')
             ->setVisibility(ClassType::VISIBILITY_PROTECTED)
             ->setBody($body)
@@ -146,8 +142,6 @@ class ClientGenerator
                 ->setType('string')
                 ->setNullable(true)
         ;
-
-        $this->fileWriter->write($namespace);
 
         return $className;
     }

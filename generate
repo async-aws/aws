@@ -19,6 +19,9 @@ require __DIR__ . '/vendor/autoload.php';
 if (null === EnvVar::get('ASYNC_AWS_GENERATE_MANIFEST')) {
     $_SERVER['ASYNC_AWS_GENERATE_MANIFEST'] = __DIR__ . '/manifest.json';
 }
+if (null === EnvVar::get('ASYNC_AWS_GENERATE_CACHE')) {
+    $_SERVER['ASYNC_AWS_GENERATE_CACHE'] = __DIR__ . '/.cache/generate';
+}
 if (null === EnvVar::get('ASYNC_AWS_GENERATE_SRC')) {
     $_SERVER['ASYNC_AWS_GENERATE_SRC'] = __DIR__ . '/src';
 }
