@@ -134,14 +134,14 @@ final class CopyObjectRequest extends Input
      *
      * @var string|null
      */
-    private $grantReadACP;
+    private $grantReadAcp;
 
     /**
      * Allows grantee to write the ACL for the applicable object.
      *
      * @var string|null
      */
-    private $grantWriteACP;
+    private $grantWriteAcp;
 
     /**
      * The key of the destination object.
@@ -223,7 +223,7 @@ final class CopyObjectRequest extends Input
      *
      * @var string|null
      */
-    private $sseCustomerKeyMD5;
+    private $sseCustomerKeyMd5;
 
     /**
      * Specifies the AWS KMS key ID to use for object encryption. All GET and PUT requests for an object protected by AWS
@@ -235,7 +235,7 @@ final class CopyObjectRequest extends Input
      *
      * @var string|null
      */
-    private $sseKMSKeyId;
+    private $sseKmsKeyId;
 
     /**
      * Specifies the AWS KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded
@@ -243,7 +243,7 @@ final class CopyObjectRequest extends Input
      *
      * @var string|null
      */
-    private $sseKMSEncryptionContext;
+    private $sseKmsEncryptionContext;
 
     /**
      * Specifies whether Amazon S3 should use an S3 Bucket Key for object encryption with server-side encryption using AWS
@@ -259,7 +259,7 @@ final class CopyObjectRequest extends Input
      *
      * @var string|null
      */
-    private $copySourceSSECustomerAlgorithm;
+    private $copySourceSseCustomerAlgorithm;
 
     /**
      * Specifies the customer-provided encryption key for Amazon S3 to use to decrypt the source object. The encryption key
@@ -267,7 +267,7 @@ final class CopyObjectRequest extends Input
      *
      * @var string|null
      */
-    private $copySourceSSECustomerKey;
+    private $copySourceSseCustomerKey;
 
     /**
      * Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a
@@ -275,7 +275,7 @@ final class CopyObjectRequest extends Input
      *
      * @var string|null
      */
-    private $copySourceSSECustomerKeyMD5;
+    private $copySourceSseCustomerKeyMd5;
 
     /**
      * @var null|RequestPayer::*
@@ -389,8 +389,8 @@ final class CopyObjectRequest extends Input
         $this->expires = !isset($input['Expires']) ? null : ($input['Expires'] instanceof \DateTimeImmutable ? $input['Expires'] : new \DateTimeImmutable($input['Expires']));
         $this->grantFullControl = $input['GrantFullControl'] ?? null;
         $this->grantRead = $input['GrantRead'] ?? null;
-        $this->grantReadACP = $input['GrantReadACP'] ?? null;
-        $this->grantWriteACP = $input['GrantWriteACP'] ?? null;
+        $this->grantReadAcp = $input['GrantReadACP'] ?? null;
+        $this->grantWriteAcp = $input['GrantWriteACP'] ?? null;
         $this->key = $input['Key'] ?? null;
         $this->metadata = $input['Metadata'] ?? null;
         $this->metadataDirective = $input['MetadataDirective'] ?? null;
@@ -400,13 +400,13 @@ final class CopyObjectRequest extends Input
         $this->websiteRedirectLocation = $input['WebsiteRedirectLocation'] ?? null;
         $this->sseCustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
         $this->sseCustomerKey = $input['SSECustomerKey'] ?? null;
-        $this->sseCustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
-        $this->sseKMSKeyId = $input['SSEKMSKeyId'] ?? null;
-        $this->sseKMSEncryptionContext = $input['SSEKMSEncryptionContext'] ?? null;
+        $this->sseCustomerKeyMd5 = $input['SSECustomerKeyMD5'] ?? null;
+        $this->sseKmsKeyId = $input['SSEKMSKeyId'] ?? null;
+        $this->sseKmsEncryptionContext = $input['SSEKMSEncryptionContext'] ?? null;
         $this->bucketKeyEnabled = $input['BucketKeyEnabled'] ?? null;
-        $this->copySourceSSECustomerAlgorithm = $input['CopySourceSSECustomerAlgorithm'] ?? null;
-        $this->copySourceSSECustomerKey = $input['CopySourceSSECustomerKey'] ?? null;
-        $this->copySourceSSECustomerKeyMD5 = $input['CopySourceSSECustomerKeyMD5'] ?? null;
+        $this->copySourceSseCustomerAlgorithm = $input['CopySourceSSECustomerAlgorithm'] ?? null;
+        $this->copySourceSseCustomerKey = $input['CopySourceSSECustomerKey'] ?? null;
+        $this->copySourceSseCustomerKeyMd5 = $input['CopySourceSSECustomerKeyMD5'] ?? null;
         $this->requestPayer = $input['RequestPayer'] ?? null;
         $this->tagging = $input['Tagging'] ?? null;
         $this->objectLockMode = $input['ObjectLockMode'] ?? null;
@@ -425,7 +425,7 @@ final class CopyObjectRequest extends Input
     /**
      * @return ObjectCannedACL::*|null
      */
-    public function getACL(): ?string
+    public function getAcl(): ?string
     {
         return $this->acl;
     }
@@ -490,19 +490,19 @@ final class CopyObjectRequest extends Input
         return $this->copySourceIfUnmodifiedSince;
     }
 
-    public function getCopySourceSSECustomerAlgorithm(): ?string
+    public function getCopySourceSseCustomerAlgorithm(): ?string
     {
-        return $this->copySourceSSECustomerAlgorithm;
+        return $this->copySourceSseCustomerAlgorithm;
     }
 
-    public function getCopySourceSSECustomerKey(): ?string
+    public function getCopySourceSseCustomerKey(): ?string
     {
-        return $this->copySourceSSECustomerKey;
+        return $this->copySourceSseCustomerKey;
     }
 
-    public function getCopySourceSSECustomerKeyMD5(): ?string
+    public function getCopySourceSseCustomerKeyMd5(): ?string
     {
-        return $this->copySourceSSECustomerKeyMD5;
+        return $this->copySourceSseCustomerKeyMd5;
     }
 
     public function getExpectedBucketOwner(): ?string
@@ -530,14 +530,14 @@ final class CopyObjectRequest extends Input
         return $this->grantRead;
     }
 
-    public function getGrantReadACP(): ?string
+    public function getGrantReadAcp(): ?string
     {
-        return $this->grantReadACP;
+        return $this->grantReadAcp;
     }
 
-    public function getGrantWriteACP(): ?string
+    public function getGrantWriteAcp(): ?string
     {
-        return $this->grantWriteACP;
+        return $this->grantWriteAcp;
     }
 
     public function getKey(): ?string
@@ -590,37 +590,37 @@ final class CopyObjectRequest extends Input
         return $this->requestPayer;
     }
 
-    public function getSSECustomerAlgorithm(): ?string
-    {
-        return $this->sseCustomerAlgorithm;
-    }
-
-    public function getSSECustomerKey(): ?string
-    {
-        return $this->sseCustomerKey;
-    }
-
-    public function getSSECustomerKeyMD5(): ?string
-    {
-        return $this->sseCustomerKeyMD5;
-    }
-
-    public function getSSEKMSEncryptionContext(): ?string
-    {
-        return $this->sseKMSEncryptionContext;
-    }
-
-    public function getSSEKMSKeyId(): ?string
-    {
-        return $this->sseKMSKeyId;
-    }
-
     /**
      * @return ServerSideEncryption::*|null
      */
     public function getServerSideEncryption(): ?string
     {
         return $this->serverSideEncryption;
+    }
+
+    public function getSseCustomerAlgorithm(): ?string
+    {
+        return $this->sseCustomerAlgorithm;
+    }
+
+    public function getSseCustomerKey(): ?string
+    {
+        return $this->sseCustomerKey;
+    }
+
+    public function getSseCustomerKeyMd5(): ?string
+    {
+        return $this->sseCustomerKeyMd5;
+    }
+
+    public function getSseKmsEncryptionContext(): ?string
+    {
+        return $this->sseKmsEncryptionContext;
+    }
+
+    public function getSseKmsKeyId(): ?string
+    {
+        return $this->sseKmsKeyId;
     }
 
     /**
@@ -702,11 +702,11 @@ final class CopyObjectRequest extends Input
         if (null !== $this->grantRead) {
             $headers['x-amz-grant-read'] = $this->grantRead;
         }
-        if (null !== $this->grantReadACP) {
-            $headers['x-amz-grant-read-acp'] = $this->grantReadACP;
+        if (null !== $this->grantReadAcp) {
+            $headers['x-amz-grant-read-acp'] = $this->grantReadAcp;
         }
-        if (null !== $this->grantWriteACP) {
-            $headers['x-amz-grant-write-acp'] = $this->grantWriteACP;
+        if (null !== $this->grantWriteAcp) {
+            $headers['x-amz-grant-write-acp'] = $this->grantWriteAcp;
         }
         if (null !== $this->metadataDirective) {
             if (!MetadataDirective::exists($this->metadataDirective)) {
@@ -741,26 +741,26 @@ final class CopyObjectRequest extends Input
         if (null !== $this->sseCustomerKey) {
             $headers['x-amz-server-side-encryption-customer-key'] = $this->sseCustomerKey;
         }
-        if (null !== $this->sseCustomerKeyMD5) {
-            $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->sseCustomerKeyMD5;
+        if (null !== $this->sseCustomerKeyMd5) {
+            $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->sseCustomerKeyMd5;
         }
-        if (null !== $this->sseKMSKeyId) {
-            $headers['x-amz-server-side-encryption-aws-kms-key-id'] = $this->sseKMSKeyId;
+        if (null !== $this->sseKmsKeyId) {
+            $headers['x-amz-server-side-encryption-aws-kms-key-id'] = $this->sseKmsKeyId;
         }
-        if (null !== $this->sseKMSEncryptionContext) {
-            $headers['x-amz-server-side-encryption-context'] = $this->sseKMSEncryptionContext;
+        if (null !== $this->sseKmsEncryptionContext) {
+            $headers['x-amz-server-side-encryption-context'] = $this->sseKmsEncryptionContext;
         }
         if (null !== $this->bucketKeyEnabled) {
             $headers['x-amz-server-side-encryption-bucket-key-enabled'] = $this->bucketKeyEnabled ? 'true' : 'false';
         }
-        if (null !== $this->copySourceSSECustomerAlgorithm) {
-            $headers['x-amz-copy-source-server-side-encryption-customer-algorithm'] = $this->copySourceSSECustomerAlgorithm;
+        if (null !== $this->copySourceSseCustomerAlgorithm) {
+            $headers['x-amz-copy-source-server-side-encryption-customer-algorithm'] = $this->copySourceSseCustomerAlgorithm;
         }
-        if (null !== $this->copySourceSSECustomerKey) {
-            $headers['x-amz-copy-source-server-side-encryption-customer-key'] = $this->copySourceSSECustomerKey;
+        if (null !== $this->copySourceSseCustomerKey) {
+            $headers['x-amz-copy-source-server-side-encryption-customer-key'] = $this->copySourceSseCustomerKey;
         }
-        if (null !== $this->copySourceSSECustomerKeyMD5) {
-            $headers['x-amz-copy-source-server-side-encryption-customer-key-MD5'] = $this->copySourceSSECustomerKeyMD5;
+        if (null !== $this->copySourceSseCustomerKeyMd5) {
+            $headers['x-amz-copy-source-server-side-encryption-customer-key-MD5'] = $this->copySourceSseCustomerKeyMd5;
         }
         if (null !== $this->requestPayer) {
             if (!RequestPayer::exists($this->requestPayer)) {
@@ -823,7 +823,7 @@ final class CopyObjectRequest extends Input
     /**
      * @param ObjectCannedACL::*|null $value
      */
-    public function setACL(?string $value): self
+    public function setAcl(?string $value): self
     {
         $this->acl = $value;
 
@@ -914,23 +914,23 @@ final class CopyObjectRequest extends Input
         return $this;
     }
 
-    public function setCopySourceSSECustomerAlgorithm(?string $value): self
+    public function setCopySourceSseCustomerAlgorithm(?string $value): self
     {
-        $this->copySourceSSECustomerAlgorithm = $value;
+        $this->copySourceSseCustomerAlgorithm = $value;
 
         return $this;
     }
 
-    public function setCopySourceSSECustomerKey(?string $value): self
+    public function setCopySourceSseCustomerKey(?string $value): self
     {
-        $this->copySourceSSECustomerKey = $value;
+        $this->copySourceSseCustomerKey = $value;
 
         return $this;
     }
 
-    public function setCopySourceSSECustomerKeyMD5(?string $value): self
+    public function setCopySourceSseCustomerKeyMd5(?string $value): self
     {
-        $this->copySourceSSECustomerKeyMD5 = $value;
+        $this->copySourceSseCustomerKeyMd5 = $value;
 
         return $this;
     }
@@ -970,16 +970,16 @@ final class CopyObjectRequest extends Input
         return $this;
     }
 
-    public function setGrantReadACP(?string $value): self
+    public function setGrantReadAcp(?string $value): self
     {
-        $this->grantReadACP = $value;
+        $this->grantReadAcp = $value;
 
         return $this;
     }
 
-    public function setGrantWriteACP(?string $value): self
+    public function setGrantWriteAcp(?string $value): self
     {
-        $this->grantWriteACP = $value;
+        $this->grantWriteAcp = $value;
 
         return $this;
     }
@@ -1048,47 +1048,47 @@ final class CopyObjectRequest extends Input
         return $this;
     }
 
-    public function setSSECustomerAlgorithm(?string $value): self
-    {
-        $this->sseCustomerAlgorithm = $value;
-
-        return $this;
-    }
-
-    public function setSSECustomerKey(?string $value): self
-    {
-        $this->sseCustomerKey = $value;
-
-        return $this;
-    }
-
-    public function setSSECustomerKeyMD5(?string $value): self
-    {
-        $this->sseCustomerKeyMD5 = $value;
-
-        return $this;
-    }
-
-    public function setSSEKMSEncryptionContext(?string $value): self
-    {
-        $this->sseKMSEncryptionContext = $value;
-
-        return $this;
-    }
-
-    public function setSSEKMSKeyId(?string $value): self
-    {
-        $this->sseKMSKeyId = $value;
-
-        return $this;
-    }
-
     /**
      * @param ServerSideEncryption::*|null $value
      */
     public function setServerSideEncryption(?string $value): self
     {
         $this->serverSideEncryption = $value;
+
+        return $this;
+    }
+
+    public function setSseCustomerAlgorithm(?string $value): self
+    {
+        $this->sseCustomerAlgorithm = $value;
+
+        return $this;
+    }
+
+    public function setSseCustomerKey(?string $value): self
+    {
+        $this->sseCustomerKey = $value;
+
+        return $this;
+    }
+
+    public function setSseCustomerKeyMd5(?string $value): self
+    {
+        $this->sseCustomerKeyMd5 = $value;
+
+        return $this;
+    }
+
+    public function setSseKmsEncryptionContext(?string $value): self
+    {
+        $this->sseKmsEncryptionContext = $value;
+
+        return $this;
+    }
+
+    public function setSseKmsKeyId(?string $value): self
+    {
+        $this->sseKmsKeyId = $value;
 
         return $this;
     }

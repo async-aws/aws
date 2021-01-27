@@ -265,7 +265,7 @@ final class TableDescription
         return $this->restoreSummary;
     }
 
-    public function getSSEDescription(): ?SSEDescription
+    public function getSseDescription(): ?SSEDescription
     {
         return $this->sseDescription;
     }

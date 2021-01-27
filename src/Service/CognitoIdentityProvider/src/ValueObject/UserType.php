@@ -87,7 +87,7 @@ final class UserType
     /**
      * @return MFAOptionType[]
      */
-    public function getMFAOptions(): array
+    public function getMfaOptions(): array
     {
         return $this->mfaOptions ?? [];
     }

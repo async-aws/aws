@@ -54,7 +54,7 @@ class CompleteMultipartUploadOutput extends Result
      * If present, specifies the ID of the AWS Key Management Service (AWS KMS) symmetric customer managed customer master
      * key (CMK) that was used for the object.
      */
-    private $sseKMSKeyId;
+    private $sseKmsKeyId;
 
     /**
      * Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).
@@ -77,7 +77,7 @@ class CompleteMultipartUploadOutput extends Result
         return $this->bucketKeyEnabled;
     }
 
-    public function getETag(): ?string
+    public function getEtag(): ?string
     {
         $this->initialize();
 
@@ -115,13 +115,6 @@ class CompleteMultipartUploadOutput extends Result
         return $this->requestCharged;
     }
 
-    public function getSSEKMSKeyId(): ?string
-    {
-        $this->initialize();
-
-        return $this->sseKMSKeyId;
-    }
-
     /**
      * @return ServerSideEncryption::*|null
      */
@@ -130,6 +123,13 @@ class CompleteMultipartUploadOutput extends Result
         $this->initialize();
 
         return $this->serverSideEncryption;
+    }
+
+    public function getSseKmsKeyId(): ?string
+    {
+        $this->initialize();
+
+        return $this->sseKmsKeyId;
     }
 
     public function getVersionId(): ?string
@@ -146,7 +146,7 @@ class CompleteMultipartUploadOutput extends Result
         $this->expiration = $headers['x-amz-expiration'][0] ?? null;
         $this->serverSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;
         $this->versionId = $headers['x-amz-version-id'][0] ?? null;
-        $this->sseKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
+        $this->sseKmsKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
         $this->bucketKeyEnabled = isset($headers['x-amz-server-side-encryption-bucket-key-enabled'][0]) ? filter_var($headers['x-amz-server-side-encryption-bucket-key-enabled'][0], \FILTER_VALIDATE_BOOLEAN) : null;
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
 

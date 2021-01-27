@@ -14,41 +14,45 @@ namespace AsyncAws\CodeGenerator\Generator;
  */
 class GeneratorHelper
 {
-    public static function sanitizePropertyName(string $propertyName): string
+    public static function normalizeName(string $propertyName): string
     {
         static $cache;
         if (isset($cache[$propertyName])) {
             return $cache[$propertyName];
         }
 
+        // Ordered by search length to avoid collision and wrong substitution
         static $replacements = [
-            'ACL' => 'acl',
-            'ARN' => 'arn',
-            'BOOL' => 'bool',
-            'BS' => 'bs',
-            'ID' => 'id',
-            'MFA' => 'mfa',
-            'SS' => 'ss',
-            'NULL' => 'null',
-            'NS' => 'ns',
-            'URI' => 'uri',
-            'ETag' => 'etag',
+            'BOOL' => 'Bool',
+            'ETag' => 'Etag',
+            'NULL' => 'Null',
+            'AWS' => 'Aws',
+            'ACL' => 'Acl',
+            'ACP' => 'Acp',
+            'KMS' => 'Kms',
+            'ARN' => 'Arn',
+            'MFA' => 'Mfa',
+            'SSE' => 'Sse',
+            'SMS' => 'Sms',
+            'URI' => 'Uri',
+            'MD5' => 'Md5',
+            'BS' => 'Bs',
+            'ID' => 'Id',
+            'NS' => 'Ns',
+            'SS' => 'Ss',
         ];
-        static $replacements3 = [
-            'MD5' => 'md5',
-            'MFA' => 'mfa',
-            'KMS' => 'kms',
-            'SMS' => 'sms',
-            'SSE' => 'sse',
+        static $ignored = [
+            'GB' => 'Gb',
         ];
-        if (isset($replacements[$propertyName])) {
-            return $cache[$propertyName] = $replacements[$propertyName];
-        }
-        if (isset($replacements3[$sub3 = substr($propertyName, 0, 3)])) {
-            return $cache[$propertyName] = $replacements3[$sub3] . substr($propertyName, 3);
-        }
-        if (\preg_match('/^[A-Z]{2,}/', $propertyName)) {
-            throw new \RuntimeException(sprintf('No camel case property "%s" is not yet implemented', $propertyName));
+
+        $originalPropertyName = $propertyName;
+        $propertyName = \strtr($propertyName, $replacements);
+
+        if (\preg_match('/[A-Z]{2,}/', $propertyName)) {
+            $propertyName = \strtr($propertyName, $ignored);
+            if (\preg_match('/[A-Z]{2,}/', $propertyName)) {
+                throw new \RuntimeException(sprintf('No camel case property "%s" is not yet implemented', $originalPropertyName));
+            }
         }
 
         return $cache[$propertyName] = \lcfirst($propertyName);

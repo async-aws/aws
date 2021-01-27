@@ -59,7 +59,7 @@ class AdminGetUserResponse extends Result
      * The MFA options that are enabled for the user. The possible values in this list are `SMS_MFA` and
      * `SOFTWARE_TOKEN_MFA`.
      */
-    private $userMFASettingList = [];
+    private $userMfaSettingList = [];
 
     public function getEnabled(): ?bool
     {
@@ -71,7 +71,7 @@ class AdminGetUserResponse extends Result
     /**
      * @return MFAOptionType[]
      */
-    public function getMFAOptions(): array
+    public function getMfaOptions(): array
     {
         $this->initialize();
 
@@ -112,11 +112,11 @@ class AdminGetUserResponse extends Result
     /**
      * @return string[]
      */
-    public function getUserMFASettingList(): array
+    public function getUserMfaSettingList(): array
     {
         $this->initialize();
 
-        return $this->userMFASettingList;
+        return $this->userMfaSettingList;
     }
 
     /**
@@ -148,7 +148,7 @@ class AdminGetUserResponse extends Result
         $this->userStatus = isset($data['UserStatus']) ? (string) $data['UserStatus'] : null;
         $this->mfaOptions = empty($data['MFAOptions']) ? [] : $this->populateResultMFAOptionListType($data['MFAOptions']);
         $this->preferredMfaSetting = isset($data['PreferredMfaSetting']) ? (string) $data['PreferredMfaSetting'] : null;
-        $this->userMFASettingList = empty($data['UserMFASettingList']) ? [] : $this->populateResultUserMFASettingListType($data['UserMFASettingList']);
+        $this->userMfaSettingList = empty($data['UserMFASettingList']) ? [] : $this->populateResultUserMFASettingListType($data['UserMFASettingList']);
     }
 
     /**

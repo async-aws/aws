@@ -39,7 +39,7 @@ final class UploadPartRequest extends Input
      *
      * @var string|null
      */
-    private $contentMD5;
+    private $contentMd5;
 
     /**
      * Object key for which the multipart upload was initiated.
@@ -91,7 +91,7 @@ final class UploadPartRequest extends Input
      *
      * @var string|null
      */
-    private $sseCustomerKeyMD5;
+    private $sseCustomerKeyMd5;
 
     /**
      * @var null|RequestPayer::*
@@ -128,13 +128,13 @@ final class UploadPartRequest extends Input
         $this->body = $input['Body'] ?? null;
         $this->bucket = $input['Bucket'] ?? null;
         $this->contentLength = $input['ContentLength'] ?? null;
-        $this->contentMD5 = $input['ContentMD5'] ?? null;
+        $this->contentMd5 = $input['ContentMD5'] ?? null;
         $this->key = $input['Key'] ?? null;
         $this->partNumber = $input['PartNumber'] ?? null;
         $this->uploadId = $input['UploadId'] ?? null;
         $this->sseCustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
         $this->sseCustomerKey = $input['SSECustomerKey'] ?? null;
-        $this->sseCustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
+        $this->sseCustomerKeyMd5 = $input['SSECustomerKeyMD5'] ?? null;
         $this->requestPayer = $input['RequestPayer'] ?? null;
         $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         parent::__construct($input);
@@ -163,9 +163,9 @@ final class UploadPartRequest extends Input
         return $this->contentLength;
     }
 
-    public function getContentMD5(): ?string
+    public function getContentMd5(): ?string
     {
-        return $this->contentMD5;
+        return $this->contentMd5;
     }
 
     public function getExpectedBucketOwner(): ?string
@@ -191,19 +191,19 @@ final class UploadPartRequest extends Input
         return $this->requestPayer;
     }
 
-    public function getSSECustomerAlgorithm(): ?string
+    public function getSseCustomerAlgorithm(): ?string
     {
         return $this->sseCustomerAlgorithm;
     }
 
-    public function getSSECustomerKey(): ?string
+    public function getSseCustomerKey(): ?string
     {
         return $this->sseCustomerKey;
     }
 
-    public function getSSECustomerKeyMD5(): ?string
+    public function getSseCustomerKeyMd5(): ?string
     {
-        return $this->sseCustomerKeyMD5;
+        return $this->sseCustomerKeyMd5;
     }
 
     public function getUploadId(): ?string
@@ -221,8 +221,8 @@ final class UploadPartRequest extends Input
         if (null !== $this->contentLength) {
             $headers['Content-Length'] = $this->contentLength;
         }
-        if (null !== $this->contentMD5) {
-            $headers['Content-MD5'] = $this->contentMD5;
+        if (null !== $this->contentMd5) {
+            $headers['Content-MD5'] = $this->contentMd5;
         }
         if (null !== $this->sseCustomerAlgorithm) {
             $headers['x-amz-server-side-encryption-customer-algorithm'] = $this->sseCustomerAlgorithm;
@@ -230,8 +230,8 @@ final class UploadPartRequest extends Input
         if (null !== $this->sseCustomerKey) {
             $headers['x-amz-server-side-encryption-customer-key'] = $this->sseCustomerKey;
         }
-        if (null !== $this->sseCustomerKeyMD5) {
-            $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->sseCustomerKeyMD5;
+        if (null !== $this->sseCustomerKeyMd5) {
+            $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->sseCustomerKeyMd5;
         }
         if (null !== $this->requestPayer) {
             if (!RequestPayer::exists($this->requestPayer)) {
@@ -297,9 +297,9 @@ final class UploadPartRequest extends Input
         return $this;
     }
 
-    public function setContentMD5(?string $value): self
+    public function setContentMd5(?string $value): self
     {
-        $this->contentMD5 = $value;
+        $this->contentMd5 = $value;
 
         return $this;
     }
@@ -335,23 +335,23 @@ final class UploadPartRequest extends Input
         return $this;
     }
 
-    public function setSSECustomerAlgorithm(?string $value): self
+    public function setSseCustomerAlgorithm(?string $value): self
     {
         $this->sseCustomerAlgorithm = $value;
 
         return $this;
     }
 
-    public function setSSECustomerKey(?string $value): self
+    public function setSseCustomerKey(?string $value): self
     {
         $this->sseCustomerKey = $value;
 
         return $this;
     }
 
-    public function setSSECustomerKeyMD5(?string $value): self
+    public function setSseCustomerKeyMd5(?string $value): self
     {
-        $this->sseCustomerKeyMD5 = $value;
+        $this->sseCustomerKeyMd5 = $value;
 
         return $this;
     }

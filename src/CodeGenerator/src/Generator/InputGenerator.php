@@ -110,7 +110,7 @@ class InputGenerator
 
             if ($memberShape instanceof StructureShape) {
                 $memberClassName = $this->objectGenerator->generate($memberShape);
-                $constructorBody .= strtr('$this->PROPERTY = isset($input["NAME"]) ? CLASS::create($input["NAME"]) : null;' . "\n", ['PROPERTY' => GeneratorHelper::sanitizePropertyName($member->getName()), 'NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
+                $constructorBody .= strtr('$this->PROPERTY = isset($input["NAME"]) ? CLASS::create($input["NAME"]) : null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
             } elseif ($memberShape instanceof ListShape) {
                 $listMemberShape = $memberShape->getMember()->getShape();
                 if (!empty($listMemberShape->getEnum())) {
@@ -121,7 +121,7 @@ class InputGenerator
                 if ($listMemberShape instanceof StructureShape) {
                     $getterSetterNullable = false;
                     $memberClassName = $this->objectGenerator->generate($listMemberShape);
-                    $constructorBody .= strtr('$this->PROPERTY = isset($input["NAME"]) ? array_map([CLASS::class, "create"], $input["NAME"]) : null;' . "\n", ['PROPERTY' => GeneratorHelper::sanitizePropertyName($member->getName()), 'NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
+                    $constructorBody .= strtr('$this->PROPERTY = isset($input["NAME"]) ? array_map([CLASS::class, "create"], $input["NAME"]) : null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
                 } elseif ($listMemberShape instanceof ListShape) {
                     $getterSetterNullable = false;
                     $listMemberShapelevel2 = $listMemberShape->getMember()->getShape();
@@ -133,16 +133,16 @@ class InputGenerator
                         $memberClassName = $this->objectGenerator->generate($listMemberShapelevel2);
                         $constructorBody .= strtr('$this->PROPERTY = isset($input["NAME"]) ? array_map(static function(array $array) {
                             return array_map([CLASS::class, "create"], $array);
-                        }, $input["NAME"]) : null;' . "\n", ['PROPERTY' => GeneratorHelper::sanitizePropertyName($member->getName()), 'NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
+                        }, $input["NAME"]) : null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName(), 'CLASS' => $memberClassName->getName()]);
                     } elseif ($listMemberShapelevel2 instanceof ListShape || $listMemberShapelevel2 instanceof MapShape) {
                         throw new \RuntimeException('Recursive ListShape are not yet implemented');
                     } else {
-                        $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::sanitizePropertyName($member->getName()), 'NAME' => $member->getName()]);
+                        $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]);
                     }
                 } elseif ($listMemberShape instanceof MapShape) {
                     throw new \RuntimeException('Recursive ListShape are not yet implemented');
                 } else {
-                    $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::sanitizePropertyName($member->getName()), 'NAME' => $member->getName()]);
+                    $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]);
                 }
             } elseif ($memberShape instanceof MapShape) {
                 $mapKeyShape = $memberShape->getKey()->getShape();
@@ -167,7 +167,7 @@ class InputGenerator
                             }
                         }
                     ', [
-                        'PROPERTY' => GeneratorHelper::sanitizePropertyName($member->getName()),
+                        'PROPERTY' => GeneratorHelper::normalizeName($member->getName()),
                         'NAME' => $member->getName(),
                         'CLASS' => $memberClassName->getName(),
                     ]);
@@ -186,7 +186,7 @@ class InputGenerator
                             }
                         }
                     ', [
-                        'PROPERTY' => GeneratorHelper::sanitizePropertyName($member->getName()),
+                        'PROPERTY' => GeneratorHelper::normalizeName($member->getName()),
                         'NAME' => $member->getName(),
                         'CLASS' => $memberClassName->getName(),
                     ]);
@@ -195,19 +195,19 @@ class InputGenerator
                     throw new \RuntimeException('Recursive MapShape are not yet implemented');
                 } else {
                     // It is a scalar, like a string
-                    $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::sanitizePropertyName($member->getName()), 'NAME' => $member->getName()]);
+                    $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]);
                 }
             } elseif ($member->isStreaming()) {
                 $parameterType = 'string|resource|callable|iterable';
                 $returnType = null;
-                $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::sanitizePropertyName($member->getName()), 'NAME' => $member->getName()]);
+                $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]);
             } elseif ('timestamp' === $memberShape->getType()) {
-                $constructorBody .= strtr('$this->PROPERTY = !isset($input["NAME"]) ? null : ($input["NAME"] instanceof \DateTimeImmutable ? $input["NAME"] : new \DateTimeImmutable($input["NAME"]));' . "\n", ['PROPERTY' => GeneratorHelper::sanitizePropertyName($member->getName()), 'NAME' => $member->getName()]);
+                $constructorBody .= strtr('$this->PROPERTY = !isset($input["NAME"]) ? null : ($input["NAME"] instanceof \DateTimeImmutable ? $input["NAME"] : new \DateTimeImmutable($input["NAME"]));' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]);
             } else {
-                $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::sanitizePropertyName($member->getName()), 'NAME' => $member->getName()]);
+                $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]);
             }
 
-            $property = $classBuilder->addProperty(GeneratorHelper::sanitizePropertyName($member->getName()))->setPrivate();
+            $property = $classBuilder->addProperty(GeneratorHelper::normalizeName($member->getName()))->setPrivate();
             if (null !== $propertyDocumentation = $memberShape->getDocumentation()) {
                 $property->addComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
@@ -223,10 +223,10 @@ class InputGenerator
             // the "\n" helps php-cs-fixer to with potential wildcard in parameterType
             $property->addComment("\n@var null|$parameterType");
 
-            $getter = $classBuilder->addMethod('get' . \ucfirst($member->getName()))
+            $getter = $classBuilder->addMethod('get' . \ucfirst(GeneratorHelper::normalizeName($member->getName())))
                 ->setReturnType($returnType)
                 ->setReturnNullable($getterSetterNullable);
-            $setter = $classBuilder->addMethod('set' . \ucfirst($member->getName()))
+            $setter = $classBuilder->addMethod('set' . \ucfirst(GeneratorHelper::normalizeName($member->getName())))
                 ->setReturnType('self');
 
             $deprecation = '';
@@ -236,15 +236,15 @@ class InputGenerator
                 $deprecation = strtr('@trigger_error(\sprintf(\'The property "NAME" of "%s" is deprecated by AWS.\', __CLASS__), E_USER_DEPRECATED);', ['NAME' => $member->getName()]);
             }
             if ($getterSetterNullable) {
-                $getter->setBody($deprecation . strtr('return $this->PROPERTY;', ['PROPERTY' => GeneratorHelper::sanitizePropertyName($member->getName()), 'NAME' => $member->getName()]));
+                $getter->setBody($deprecation . strtr('return $this->PROPERTY;', ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]));
             } else {
-                $getter->setBody($deprecation . strtr('return $this->PROPERTY ?? [];', ['PROPERTY' => GeneratorHelper::sanitizePropertyName($member->getName()), 'NAME' => $member->getName()]));
+                $getter->setBody($deprecation . strtr('return $this->PROPERTY ?? [];', ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]));
             }
             $setter->setBody($deprecation . strtr('
                     $this->PROPERTY = $value;
                     return $this;
                 ', [
-                'PROPERTY' => GeneratorHelper::sanitizePropertyName($member->getName()),
+                'PROPERTY' => GeneratorHelper::normalizeName($member->getName()),
                 'NAME' => $member->getName(),
             ]));
             $setter
@@ -321,7 +321,7 @@ class InputGenerator
                         VALIDATE_ENUM
                         VAR_NAME["LOCATION"] = VALUE;
                     }';
-                    $inputElement = '$this->' . GeneratorHelper::sanitizePropertyName($member->getName());
+                    $inputElement = '$this->' . GeneratorHelper::normalizeName($member->getName());
                 }
                 $validateEnum = '';
                 if (!empty($memberShape->getEnum())) {
@@ -331,13 +331,13 @@ class InputGenerator
                     }', [
                         'VALUE' => $this->stringify($inputElement, $member, $requestPart),
                         'ENUM_CLASS' => $enumClassName->getName(),
-                        'PROPERTY' => GeneratorHelper::sanitizePropertyName($member->getName()),
+                        'PROPERTY' => GeneratorHelper::normalizeName($member->getName()),
                         'NAME' => $member->getName(),
                     ]);
                 }
 
                 $bodyCode = strtr($bodyCode, [
-                    'PROPERTY' => GeneratorHelper::sanitizePropertyName($member->getName()),
+                    'PROPERTY' => GeneratorHelper::normalizeName($member->getName()),
                     'NAME' => $member->getName(),
                     'VAR_NAME' => $varName,
                     'LOCATION' => $member->getLocationName() ?? $member->getName(),
@@ -358,7 +358,7 @@ class InputGenerator
             }
 
             $memberShape = $member->getShape();
-            $inputElement = '$this->' . GeneratorHelper::sanitizePropertyName($member->getName());
+            $inputElement = '$this->' . GeneratorHelper::normalizeName($member->getName());
             if (!$memberShape instanceof MapShape) {
                 throw new \InvalidArgumentException(sprintf('Headers only supports MapShape. "%s" given', $memberShape->getType()));
             }

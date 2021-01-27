@@ -187,7 +187,7 @@ final class CreateTableInput extends Input
         return $this->provisionedThroughput;
     }
 
-    public function getSSESpecification(): ?SSESpecification
+    public function getSseSpecification(): ?SSESpecification
     {
         return $this->sseSpecification;
     }
@@ -292,7 +292,7 @@ final class CreateTableInput extends Input
         return $this;
     }
 
-    public function setSSESpecification(?SSESpecification $value): self
+    public function setSseSpecification(?SSESpecification $value): self
     {
         $this->sseSpecification = $value;
 

@@ -53,7 +53,7 @@ final class CreateBucketRequest extends Input
      *
      * @var string|null
      */
-    private $grantReadACP;
+    private $grantReadAcp;
 
     /**
      * Allows grantee to create, overwrite, and delete any object in the bucket.
@@ -67,7 +67,7 @@ final class CreateBucketRequest extends Input
      *
      * @var string|null
      */
-    private $grantWriteACP;
+    private $grantWriteAcp;
 
     /**
      * Specifies whether you want S3 Object Lock to be enabled for the new bucket.
@@ -97,9 +97,9 @@ final class CreateBucketRequest extends Input
         $this->createBucketConfiguration = isset($input['CreateBucketConfiguration']) ? CreateBucketConfiguration::create($input['CreateBucketConfiguration']) : null;
         $this->grantFullControl = $input['GrantFullControl'] ?? null;
         $this->grantRead = $input['GrantRead'] ?? null;
-        $this->grantReadACP = $input['GrantReadACP'] ?? null;
+        $this->grantReadAcp = $input['GrantReadACP'] ?? null;
         $this->grantWrite = $input['GrantWrite'] ?? null;
-        $this->grantWriteACP = $input['GrantWriteACP'] ?? null;
+        $this->grantWriteAcp = $input['GrantWriteACP'] ?? null;
         $this->objectLockEnabledForBucket = $input['ObjectLockEnabledForBucket'] ?? null;
         parent::__construct($input);
     }
@@ -112,7 +112,7 @@ final class CreateBucketRequest extends Input
     /**
      * @return BucketCannedACL::*|null
      */
-    public function getACL(): ?string
+    public function getAcl(): ?string
     {
         return $this->acl;
     }
@@ -137,9 +137,9 @@ final class CreateBucketRequest extends Input
         return $this->grantRead;
     }
 
-    public function getGrantReadACP(): ?string
+    public function getGrantReadAcp(): ?string
     {
-        return $this->grantReadACP;
+        return $this->grantReadAcp;
     }
 
     public function getGrantWrite(): ?string
@@ -147,9 +147,9 @@ final class CreateBucketRequest extends Input
         return $this->grantWrite;
     }
 
-    public function getGrantWriteACP(): ?string
+    public function getGrantWriteAcp(): ?string
     {
-        return $this->grantWriteACP;
+        return $this->grantWriteAcp;
     }
 
     public function getObjectLockEnabledForBucket(): ?bool
@@ -176,14 +176,14 @@ final class CreateBucketRequest extends Input
         if (null !== $this->grantRead) {
             $headers['x-amz-grant-read'] = $this->grantRead;
         }
-        if (null !== $this->grantReadACP) {
-            $headers['x-amz-grant-read-acp'] = $this->grantReadACP;
+        if (null !== $this->grantReadAcp) {
+            $headers['x-amz-grant-read-acp'] = $this->grantReadAcp;
         }
         if (null !== $this->grantWrite) {
             $headers['x-amz-grant-write'] = $this->grantWrite;
         }
-        if (null !== $this->grantWriteACP) {
-            $headers['x-amz-grant-write-acp'] = $this->grantWriteACP;
+        if (null !== $this->grantWriteAcp) {
+            $headers['x-amz-grant-write-acp'] = $this->grantWriteAcp;
         }
         if (null !== $this->objectLockEnabledForBucket) {
             $headers['x-amz-bucket-object-lock-enabled'] = $this->objectLockEnabledForBucket ? 'true' : 'false';
@@ -214,7 +214,7 @@ final class CreateBucketRequest extends Input
     /**
      * @param BucketCannedACL::*|null $value
      */
-    public function setACL(?string $value): self
+    public function setAcl(?string $value): self
     {
         $this->acl = $value;
 
@@ -249,9 +249,9 @@ final class CreateBucketRequest extends Input
         return $this;
     }
 
-    public function setGrantReadACP(?string $value): self
+    public function setGrantReadAcp(?string $value): self
     {
-        $this->grantReadACP = $value;
+        $this->grantReadAcp = $value;
 
         return $this;
     }
@@ -263,9 +263,9 @@ final class CreateBucketRequest extends Input
         return $this;
     }
 
-    public function setGrantWriteACP(?string $value): self
+    public function setGrantWriteAcp(?string $value): self
     {
-        $this->grantWriteACP = $value;
+        $this->grantWriteAcp = $value;
 
         return $this;
     }

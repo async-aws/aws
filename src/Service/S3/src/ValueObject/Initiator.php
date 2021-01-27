@@ -40,7 +40,7 @@ final class Initiator
         return $this->displayName;
     }
 
-    public function getID(): ?string
+    public function getId(): ?string
     {
         return $this->id;
     }

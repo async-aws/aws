@@ -60,7 +60,7 @@ final class CreateReplicationGroupMemberAction
         return $this->globalSecondaryIndexes ?? [];
     }
 
-    public function getKMSMasterKeyId(): ?string
+    public function getKmsMasterKeyId(): ?string
     {
         return $this->kmsMasterKeyId;
     }

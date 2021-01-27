@@ -99,7 +99,7 @@ final class AttributeValue
         return $this->b;
     }
 
-    public function getBOOL(): ?bool
+    public function getBool(): ?bool
     {
         return $this->bool;
     }
@@ -107,7 +107,7 @@ final class AttributeValue
     /**
      * @return string[]
      */
-    public function getBS(): array
+    public function getBs(): array
     {
         return $this->bs ?? [];
     }
@@ -136,12 +136,12 @@ final class AttributeValue
     /**
      * @return string[]
      */
-    public function getNS(): array
+    public function getNs(): array
     {
         return $this->ns ?? [];
     }
 
-    public function getNULL(): ?bool
+    public function getNull(): ?bool
     {
         return $this->null;
     }
@@ -154,7 +154,7 @@ final class AttributeValue
     /**
      * @return string[]
      */
-    public function getSS(): array
+    public function getSs(): array
     {
         return $this->ss ?? [];
     }

@@ -53,7 +53,7 @@ final class SSESpecification
         return $this->enabled;
     }
 
-    public function getKMSMasterKeyId(): ?string
+    public function getKmsMasterKeyId(): ?string
     {
         return $this->kmsMasterKeyId;
     }
@@ -61,7 +61,7 @@ final class SSESpecification
     /**
      * @return SSEType::*|null
      */
-    public function getSSEType(): ?string
+    public function getSseType(): ?string
     {
         return $this->sseType;
     }

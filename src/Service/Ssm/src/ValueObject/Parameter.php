@@ -87,7 +87,7 @@ final class Parameter
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getARN(): ?string
+    public function getArn(): ?string
     {
         return $this->arn;
     }

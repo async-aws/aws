@@ -68,7 +68,7 @@ final class Grantee
         return $this->emailAddress;
     }
 
-    public function getID(): ?string
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -81,7 +81,7 @@ final class Grantee
         return $this->type;
     }
 
-    public function getURI(): ?string
+    public function getUri(): ?string
     {
         return $this->uri;
     }

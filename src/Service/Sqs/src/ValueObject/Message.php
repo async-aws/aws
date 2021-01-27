@@ -93,12 +93,12 @@ final class Message
         return $this->body;
     }
 
-    public function getMD5OfBody(): ?string
+    public function getMd5OfBody(): ?string
     {
         return $this->md5OfBody;
     }
 
-    public function getMD5OfMessageAttributes(): ?string
+    public function getMd5OfMessageAttributes(): ?string
     {
         return $this->md5OfMessageAttributes;
     }

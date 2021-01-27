@@ -74,7 +74,7 @@ final class Stack
     /**
      * SNS topic ARNs to which stack related events are published.
      */
-    private $notificationARNs;
+    private $notificationArns;
 
     /**
      * The amount of time within which stack creation should complete.
@@ -95,7 +95,7 @@ final class Stack
      * The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that is associated with the stack.
      * During a stack operation, AWS CloudFormation uses this role's credentials to make calls on your behalf.
      */
-    private $roleARN;
+    private $roleArn;
 
     /**
      * A list of `Tag`s that specify information about the stack.
@@ -168,11 +168,11 @@ final class Stack
         $this->stackStatus = $input['StackStatus'] ?? null;
         $this->stackStatusReason = $input['StackStatusReason'] ?? null;
         $this->disableRollback = $input['DisableRollback'] ?? null;
-        $this->notificationARNs = $input['NotificationARNs'] ?? null;
+        $this->notificationArns = $input['NotificationARNs'] ?? null;
         $this->timeoutInMinutes = $input['TimeoutInMinutes'] ?? null;
         $this->capabilities = $input['Capabilities'] ?? null;
         $this->outputs = isset($input['Outputs']) ? array_map([Output::class, 'create'], $input['Outputs']) : null;
-        $this->roleARN = $input['RoleARN'] ?? null;
+        $this->roleArn = $input['RoleARN'] ?? null;
         $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
         $this->enableTerminationProtection = $input['EnableTerminationProtection'] ?? null;
         $this->parentId = $input['ParentId'] ?? null;
@@ -236,9 +236,9 @@ final class Stack
     /**
      * @return string[]
      */
-    public function getNotificationARNs(): array
+    public function getNotificationArns(): array
     {
-        return $this->notificationARNs ?? [];
+        return $this->notificationArns ?? [];
     }
 
     /**
@@ -262,9 +262,9 @@ final class Stack
         return $this->parentId;
     }
 
-    public function getRoleARN(): ?string
+    public function getRoleArn(): ?string
     {
-        return $this->roleARN;
+        return $this->roleArn;
     }
 
     public function getRollbackConfiguration(): ?RollbackConfiguration

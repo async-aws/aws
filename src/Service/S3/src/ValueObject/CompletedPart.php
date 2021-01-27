@@ -34,7 +34,7 @@ final class CompletedPart
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getETag(): ?string
+    public function getEtag(): ?string
     {
         return $this->etag;
     }

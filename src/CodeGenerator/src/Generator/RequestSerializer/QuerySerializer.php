@@ -48,7 +48,7 @@ class QuerySerializer implements Serializer
             }
 
             return [strtr($body, [
-                'PROPERTY' => GeneratorHelper::sanitizePropertyName($payloadProperty),
+                'PROPERTY' => GeneratorHelper::normalizeName($payloadProperty),
                 'NAME' => $payloadProperty,
             ]), false];
         }
@@ -85,7 +85,7 @@ class QuerySerializer implements Serializer
             }
 
             return strtr($body, [
-                'PROPERTY' => GeneratorHelper::sanitizePropertyName($member->getName()),
+                'PROPERTY' => GeneratorHelper::normalizeName($member->getName()),
                 'NAME' => $member->getName(),
                 'MEMBER_CODE' => $deprecation . $this->dumpArrayElement($name = $this->getName($member), $inputElement, $name, $shape),
             ]);

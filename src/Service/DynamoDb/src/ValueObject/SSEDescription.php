@@ -59,7 +59,7 @@ final class SSEDescription
         return $this->inaccessibleEncryptionDateTime;
     }
 
-    public function getKMSMasterKeyArn(): ?string
+    public function getKmsMasterKeyArn(): ?string
     {
         return $this->kmsMasterKeyArn;
     }
@@ -67,7 +67,7 @@ final class SSEDescription
     /**
      * @return SSEType::*|null
      */
-    public function getSSEType(): ?string
+    public function getSseType(): ?string
     {
         return $this->sseType;
     }

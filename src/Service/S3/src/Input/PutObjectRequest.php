@@ -98,7 +98,7 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $contentMD5;
+    private $contentMd5;
 
     /**
      * A standard MIME type describing the format of the contents. For more information, see
@@ -139,14 +139,14 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $grantReadACP;
+    private $grantReadAcp;
 
     /**
      * Allows grantee to write the ACL for the applicable object.
      *
      * @var string|null
      */
-    private $grantWriteACP;
+    private $grantWriteAcp;
 
     /**
      * Object key for which the PUT operation was initiated.
@@ -216,7 +216,7 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $sseCustomerKeyMD5;
+    private $sseCustomerKeyMd5;
 
     /**
      * If `x-amz-server-side-encryption` is present and has the value of `aws:kms`, this header specifies the ID of the AWS
@@ -224,7 +224,7 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $sseKMSKeyId;
+    private $sseKmsKeyId;
 
     /**
      * Specifies the AWS KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded
@@ -232,7 +232,7 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $sseKMSEncryptionContext;
+    private $sseKmsEncryptionContext;
 
     /**
      * Specifies whether Amazon S3 should use an S3 Bucket Key for object encryption with server-side encryption using AWS
@@ -334,13 +334,13 @@ final class PutObjectRequest extends Input
         $this->contentEncoding = $input['ContentEncoding'] ?? null;
         $this->contentLanguage = $input['ContentLanguage'] ?? null;
         $this->contentLength = $input['ContentLength'] ?? null;
-        $this->contentMD5 = $input['ContentMD5'] ?? null;
+        $this->contentMd5 = $input['ContentMD5'] ?? null;
         $this->contentType = $input['ContentType'] ?? null;
         $this->expires = !isset($input['Expires']) ? null : ($input['Expires'] instanceof \DateTimeImmutable ? $input['Expires'] : new \DateTimeImmutable($input['Expires']));
         $this->grantFullControl = $input['GrantFullControl'] ?? null;
         $this->grantRead = $input['GrantRead'] ?? null;
-        $this->grantReadACP = $input['GrantReadACP'] ?? null;
-        $this->grantWriteACP = $input['GrantWriteACP'] ?? null;
+        $this->grantReadAcp = $input['GrantReadACP'] ?? null;
+        $this->grantWriteAcp = $input['GrantWriteACP'] ?? null;
         $this->key = $input['Key'] ?? null;
         $this->metadata = $input['Metadata'] ?? null;
         $this->serverSideEncryption = $input['ServerSideEncryption'] ?? null;
@@ -348,9 +348,9 @@ final class PutObjectRequest extends Input
         $this->websiteRedirectLocation = $input['WebsiteRedirectLocation'] ?? null;
         $this->sseCustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
         $this->sseCustomerKey = $input['SSECustomerKey'] ?? null;
-        $this->sseCustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
-        $this->sseKMSKeyId = $input['SSEKMSKeyId'] ?? null;
-        $this->sseKMSEncryptionContext = $input['SSEKMSEncryptionContext'] ?? null;
+        $this->sseCustomerKeyMd5 = $input['SSECustomerKeyMD5'] ?? null;
+        $this->sseKmsKeyId = $input['SSEKMSKeyId'] ?? null;
+        $this->sseKmsEncryptionContext = $input['SSEKMSEncryptionContext'] ?? null;
         $this->bucketKeyEnabled = $input['BucketKeyEnabled'] ?? null;
         $this->requestPayer = $input['RequestPayer'] ?? null;
         $this->tagging = $input['Tagging'] ?? null;
@@ -369,7 +369,7 @@ final class PutObjectRequest extends Input
     /**
      * @return ObjectCannedACL::*|null
      */
-    public function getACL(): ?string
+    public function getAcl(): ?string
     {
         return $this->acl;
     }
@@ -417,9 +417,9 @@ final class PutObjectRequest extends Input
         return $this->contentLength;
     }
 
-    public function getContentMD5(): ?string
+    public function getContentMd5(): ?string
     {
-        return $this->contentMD5;
+        return $this->contentMd5;
     }
 
     public function getContentType(): ?string
@@ -447,14 +447,14 @@ final class PutObjectRequest extends Input
         return $this->grantRead;
     }
 
-    public function getGrantReadACP(): ?string
+    public function getGrantReadAcp(): ?string
     {
-        return $this->grantReadACP;
+        return $this->grantReadAcp;
     }
 
-    public function getGrantWriteACP(): ?string
+    public function getGrantWriteAcp(): ?string
     {
-        return $this->grantWriteACP;
+        return $this->grantWriteAcp;
     }
 
     public function getKey(): ?string
@@ -499,37 +499,37 @@ final class PutObjectRequest extends Input
         return $this->requestPayer;
     }
 
-    public function getSSECustomerAlgorithm(): ?string
-    {
-        return $this->sseCustomerAlgorithm;
-    }
-
-    public function getSSECustomerKey(): ?string
-    {
-        return $this->sseCustomerKey;
-    }
-
-    public function getSSECustomerKeyMD5(): ?string
-    {
-        return $this->sseCustomerKeyMD5;
-    }
-
-    public function getSSEKMSEncryptionContext(): ?string
-    {
-        return $this->sseKMSEncryptionContext;
-    }
-
-    public function getSSEKMSKeyId(): ?string
-    {
-        return $this->sseKMSKeyId;
-    }
-
     /**
      * @return ServerSideEncryption::*|null
      */
     public function getServerSideEncryption(): ?string
     {
         return $this->serverSideEncryption;
+    }
+
+    public function getSseCustomerAlgorithm(): ?string
+    {
+        return $this->sseCustomerAlgorithm;
+    }
+
+    public function getSseCustomerKey(): ?string
+    {
+        return $this->sseCustomerKey;
+    }
+
+    public function getSseCustomerKeyMd5(): ?string
+    {
+        return $this->sseCustomerKeyMd5;
+    }
+
+    public function getSseKmsEncryptionContext(): ?string
+    {
+        return $this->sseKmsEncryptionContext;
+    }
+
+    public function getSseKmsKeyId(): ?string
+    {
+        return $this->sseKmsKeyId;
     }
 
     /**
@@ -578,8 +578,8 @@ final class PutObjectRequest extends Input
         if (null !== $this->contentLength) {
             $headers['Content-Length'] = $this->contentLength;
         }
-        if (null !== $this->contentMD5) {
-            $headers['Content-MD5'] = $this->contentMD5;
+        if (null !== $this->contentMd5) {
+            $headers['Content-MD5'] = $this->contentMd5;
         }
         if (null !== $this->contentType) {
             $headers['Content-Type'] = $this->contentType;
@@ -593,11 +593,11 @@ final class PutObjectRequest extends Input
         if (null !== $this->grantRead) {
             $headers['x-amz-grant-read'] = $this->grantRead;
         }
-        if (null !== $this->grantReadACP) {
-            $headers['x-amz-grant-read-acp'] = $this->grantReadACP;
+        if (null !== $this->grantReadAcp) {
+            $headers['x-amz-grant-read-acp'] = $this->grantReadAcp;
         }
-        if (null !== $this->grantWriteACP) {
-            $headers['x-amz-grant-write-acp'] = $this->grantWriteACP;
+        if (null !== $this->grantWriteAcp) {
+            $headers['x-amz-grant-write-acp'] = $this->grantWriteAcp;
         }
         if (null !== $this->serverSideEncryption) {
             if (!ServerSideEncryption::exists($this->serverSideEncryption)) {
@@ -620,14 +620,14 @@ final class PutObjectRequest extends Input
         if (null !== $this->sseCustomerKey) {
             $headers['x-amz-server-side-encryption-customer-key'] = $this->sseCustomerKey;
         }
-        if (null !== $this->sseCustomerKeyMD5) {
-            $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->sseCustomerKeyMD5;
+        if (null !== $this->sseCustomerKeyMd5) {
+            $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->sseCustomerKeyMd5;
         }
-        if (null !== $this->sseKMSKeyId) {
-            $headers['x-amz-server-side-encryption-aws-kms-key-id'] = $this->sseKMSKeyId;
+        if (null !== $this->sseKmsKeyId) {
+            $headers['x-amz-server-side-encryption-aws-kms-key-id'] = $this->sseKmsKeyId;
         }
-        if (null !== $this->sseKMSEncryptionContext) {
-            $headers['x-amz-server-side-encryption-context'] = $this->sseKMSEncryptionContext;
+        if (null !== $this->sseKmsEncryptionContext) {
+            $headers['x-amz-server-side-encryption-context'] = $this->sseKmsEncryptionContext;
         }
         if (null !== $this->bucketKeyEnabled) {
             $headers['x-amz-server-side-encryption-bucket-key-enabled'] = $this->bucketKeyEnabled ? 'true' : 'false';
@@ -690,7 +690,7 @@ final class PutObjectRequest extends Input
     /**
      * @param ObjectCannedACL::*|null $value
      */
-    public function setACL(?string $value): self
+    public function setAcl(?string $value): self
     {
         $this->acl = $value;
 
@@ -756,9 +756,9 @@ final class PutObjectRequest extends Input
         return $this;
     }
 
-    public function setContentMD5(?string $value): self
+    public function setContentMd5(?string $value): self
     {
-        $this->contentMD5 = $value;
+        $this->contentMd5 = $value;
 
         return $this;
     }
@@ -798,16 +798,16 @@ final class PutObjectRequest extends Input
         return $this;
     }
 
-    public function setGrantReadACP(?string $value): self
+    public function setGrantReadAcp(?string $value): self
     {
-        $this->grantReadACP = $value;
+        $this->grantReadAcp = $value;
 
         return $this;
     }
 
-    public function setGrantWriteACP(?string $value): self
+    public function setGrantWriteAcp(?string $value): self
     {
-        $this->grantWriteACP = $value;
+        $this->grantWriteAcp = $value;
 
         return $this;
     }
@@ -866,47 +866,47 @@ final class PutObjectRequest extends Input
         return $this;
     }
 
-    public function setSSECustomerAlgorithm(?string $value): self
-    {
-        $this->sseCustomerAlgorithm = $value;
-
-        return $this;
-    }
-
-    public function setSSECustomerKey(?string $value): self
-    {
-        $this->sseCustomerKey = $value;
-
-        return $this;
-    }
-
-    public function setSSECustomerKeyMD5(?string $value): self
-    {
-        $this->sseCustomerKeyMD5 = $value;
-
-        return $this;
-    }
-
-    public function setSSEKMSEncryptionContext(?string $value): self
-    {
-        $this->sseKMSEncryptionContext = $value;
-
-        return $this;
-    }
-
-    public function setSSEKMSKeyId(?string $value): self
-    {
-        $this->sseKMSKeyId = $value;
-
-        return $this;
-    }
-
     /**
      * @param ServerSideEncryption::*|null $value
      */
     public function setServerSideEncryption(?string $value): self
     {
         $this->serverSideEncryption = $value;
+
+        return $this;
+    }
+
+    public function setSseCustomerAlgorithm(?string $value): self
+    {
+        $this->sseCustomerAlgorithm = $value;
+
+        return $this;
+    }
+
+    public function setSseCustomerKey(?string $value): self
+    {
+        $this->sseCustomerKey = $value;
+
+        return $this;
+    }
+
+    public function setSseCustomerKeyMd5(?string $value): self
+    {
+        $this->sseCustomerKeyMd5 = $value;
+
+        return $this;
+    }
+
+    public function setSseKmsEncryptionContext(?string $value): self
+    {
+        $this->sseKmsEncryptionContext = $value;
+
+        return $this;
+    }
+
+    public function setSseKmsKeyId(?string $value): self
+    {
+        $this->sseKmsKeyId = $value;
 
         return $this;
     }

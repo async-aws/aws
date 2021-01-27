@@ -47,7 +47,7 @@ final class PutObjectAclRequest extends Input
      *
      * @var string|null
      */
-    private $contentMD5;
+    private $contentMd5;
 
     /**
      * Allows grantee the read, write, read ACP, and write ACP permissions on the bucket.
@@ -68,7 +68,7 @@ final class PutObjectAclRequest extends Input
      *
      * @var string|null
      */
-    private $grantReadACP;
+    private $grantReadAcp;
 
     /**
      * Allows grantee to create, overwrite, and delete any object in the bucket.
@@ -82,7 +82,7 @@ final class PutObjectAclRequest extends Input
      *
      * @var string|null
      */
-    private $grantWriteACP;
+    private $grantWriteAcp;
 
     /**
      * Key for which the PUT operation was initiated.
@@ -136,12 +136,12 @@ final class PutObjectAclRequest extends Input
         $this->acl = $input['ACL'] ?? null;
         $this->accessControlPolicy = isset($input['AccessControlPolicy']) ? AccessControlPolicy::create($input['AccessControlPolicy']) : null;
         $this->bucket = $input['Bucket'] ?? null;
-        $this->contentMD5 = $input['ContentMD5'] ?? null;
+        $this->contentMd5 = $input['ContentMD5'] ?? null;
         $this->grantFullControl = $input['GrantFullControl'] ?? null;
         $this->grantRead = $input['GrantRead'] ?? null;
-        $this->grantReadACP = $input['GrantReadACP'] ?? null;
+        $this->grantReadAcp = $input['GrantReadACP'] ?? null;
         $this->grantWrite = $input['GrantWrite'] ?? null;
-        $this->grantWriteACP = $input['GrantWriteACP'] ?? null;
+        $this->grantWriteAcp = $input['GrantWriteACP'] ?? null;
         $this->key = $input['Key'] ?? null;
         $this->requestPayer = $input['RequestPayer'] ?? null;
         $this->versionId = $input['VersionId'] ?? null;
@@ -154,17 +154,17 @@ final class PutObjectAclRequest extends Input
         return $input instanceof self ? $input : new self($input);
     }
 
-    /**
-     * @return ObjectCannedACL::*|null
-     */
-    public function getACL(): ?string
-    {
-        return $this->acl;
-    }
-
     public function getAccessControlPolicy(): ?AccessControlPolicy
     {
         return $this->accessControlPolicy;
+    }
+
+    /**
+     * @return ObjectCannedACL::*|null
+     */
+    public function getAcl(): ?string
+    {
+        return $this->acl;
     }
 
     public function getBucket(): ?string
@@ -172,9 +172,9 @@ final class PutObjectAclRequest extends Input
         return $this->bucket;
     }
 
-    public function getContentMD5(): ?string
+    public function getContentMd5(): ?string
     {
-        return $this->contentMD5;
+        return $this->contentMd5;
     }
 
     public function getExpectedBucketOwner(): ?string
@@ -192,9 +192,9 @@ final class PutObjectAclRequest extends Input
         return $this->grantRead;
     }
 
-    public function getGrantReadACP(): ?string
+    public function getGrantReadAcp(): ?string
     {
-        return $this->grantReadACP;
+        return $this->grantReadAcp;
     }
 
     public function getGrantWrite(): ?string
@@ -202,9 +202,9 @@ final class PutObjectAclRequest extends Input
         return $this->grantWrite;
     }
 
-    public function getGrantWriteACP(): ?string
+    public function getGrantWriteAcp(): ?string
     {
-        return $this->grantWriteACP;
+        return $this->grantWriteAcp;
     }
 
     public function getKey(): ?string
@@ -238,8 +238,8 @@ final class PutObjectAclRequest extends Input
             }
             $headers['x-amz-acl'] = $this->acl;
         }
-        if (null !== $this->contentMD5) {
-            $headers['Content-MD5'] = $this->contentMD5;
+        if (null !== $this->contentMd5) {
+            $headers['Content-MD5'] = $this->contentMd5;
         }
         if (null !== $this->grantFullControl) {
             $headers['x-amz-grant-full-control'] = $this->grantFullControl;
@@ -247,14 +247,14 @@ final class PutObjectAclRequest extends Input
         if (null !== $this->grantRead) {
             $headers['x-amz-grant-read'] = $this->grantRead;
         }
-        if (null !== $this->grantReadACP) {
-            $headers['x-amz-grant-read-acp'] = $this->grantReadACP;
+        if (null !== $this->grantReadAcp) {
+            $headers['x-amz-grant-read-acp'] = $this->grantReadAcp;
         }
         if (null !== $this->grantWrite) {
             $headers['x-amz-grant-write'] = $this->grantWrite;
         }
-        if (null !== $this->grantWriteACP) {
-            $headers['x-amz-grant-write-acp'] = $this->grantWriteACP;
+        if (null !== $this->grantWriteAcp) {
+            $headers['x-amz-grant-write-acp'] = $this->grantWriteAcp;
         }
         if (null !== $this->requestPayer) {
             if (!RequestPayer::exists($this->requestPayer)) {
@@ -295,19 +295,19 @@ final class PutObjectAclRequest extends Input
         return new Request('PUT', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
-    /**
-     * @param ObjectCannedACL::*|null $value
-     */
-    public function setACL(?string $value): self
+    public function setAccessControlPolicy(?AccessControlPolicy $value): self
     {
-        $this->acl = $value;
+        $this->accessControlPolicy = $value;
 
         return $this;
     }
 
-    public function setAccessControlPolicy(?AccessControlPolicy $value): self
+    /**
+     * @param ObjectCannedACL::*|null $value
+     */
+    public function setAcl(?string $value): self
     {
-        $this->accessControlPolicy = $value;
+        $this->acl = $value;
 
         return $this;
     }
@@ -319,9 +319,9 @@ final class PutObjectAclRequest extends Input
         return $this;
     }
 
-    public function setContentMD5(?string $value): self
+    public function setContentMd5(?string $value): self
     {
-        $this->contentMD5 = $value;
+        $this->contentMd5 = $value;
 
         return $this;
     }
@@ -347,9 +347,9 @@ final class PutObjectAclRequest extends Input
         return $this;
     }
 
-    public function setGrantReadACP(?string $value): self
+    public function setGrantReadAcp(?string $value): self
     {
-        $this->grantReadACP = $value;
+        $this->grantReadAcp = $value;
 
         return $this;
     }
@@ -361,9 +361,9 @@ final class PutObjectAclRequest extends Input
         return $this;
     }
 
-    public function setGrantWriteACP(?string $value): self
+    public function setGrantWriteAcp(?string $value): self
     {
-        $this->grantWriteACP = $value;
+        $this->grantWriteAcp = $value;
 
         return $this;
     }

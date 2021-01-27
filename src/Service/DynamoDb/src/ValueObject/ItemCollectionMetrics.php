@@ -29,7 +29,7 @@ final class ItemCollectionMetrics
      * attributes projected into all of the local secondary indexes on that table. Use this estimate to measure whether a
      * local secondary index is approaching its size limit.
      */
-    private $sizeEstimateRangeGB;
+    private $sizeEstimateRangeGb;
 
     /**
      * @param array{
@@ -40,7 +40,7 @@ final class ItemCollectionMetrics
     public function __construct(array $input)
     {
         $this->itemCollectionKey = isset($input['ItemCollectionKey']) ? array_map([AttributeValue::class, 'create'], $input['ItemCollectionKey']) : null;
-        $this->sizeEstimateRangeGB = $input['SizeEstimateRangeGB'] ?? null;
+        $this->sizeEstimateRangeGb = $input['SizeEstimateRangeGB'] ?? null;
     }
 
     public static function create($input): self
@@ -59,8 +59,8 @@ final class ItemCollectionMetrics
     /**
      * @return float[]
      */
-    public function getSizeEstimateRangeGB(): array
+    public function getSizeEstimateRangeGb(): array
     {
-        return $this->sizeEstimateRangeGB ?? [];
+        return $this->sizeEstimateRangeGb ?? [];
     }
 }

@@ -90,12 +90,12 @@ class ResultMockFactory
         $initializedProperty->setValue($object, true);
         foreach ($data as $propertyName => $propertyValue) {
             if ($reflectionClass->hasProperty($propertyName)) {
-                // backward compatibility with `UpperCamelCase` naming
                 $property = $reflectionClass->getProperty($propertyName);
             } elseif ($reflectionClass->hasProperty(\lcfirst($propertyName))) {
-                // backward compatibility with `UpperCamelCase` naming
+                // backward compatibility with `UpperCamelCase` naming (fast)
                 $property = $reflectionClass->getProperty(\lcfirst($propertyName));
             } else {
+                // compatibility with new `wordWithABREV` naming (slow)
                 $lowerPropertyName = \strtolower($propertyName);
                 $property = null;
                 foreach ($reflectionClass->getProperties() as $prop) {

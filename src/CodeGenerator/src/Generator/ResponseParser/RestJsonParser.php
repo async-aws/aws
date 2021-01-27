@@ -40,7 +40,7 @@ class RestJsonParser implements Parser
     public function generate(StructureShape $shape): ParserResult
     {
         if (null !== $payloadProperty = $shape->getPayload()) {
-            return new ParserResult(strtr('$this->PROPERTY_NAME = $response->getContent();', ['PROPERTY_NAME' => GeneratorHelper::sanitizePropertyName($payloadProperty)]));
+            return new ParserResult(strtr('$this->PROPERTY_NAME = $response->getContent();', ['PROPERTY_NAME' => GeneratorHelper::normalizeName($payloadProperty)]));
         }
 
         $properties = [];
@@ -52,7 +52,7 @@ class RestJsonParser implements Parser
             }
 
             $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
-                'PROPERTY_NAME' => GeneratorHelper::sanitizePropertyName($member->getName()),
+                'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
                 'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('$data[\'%s\']', $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired()),
             ]);
         }

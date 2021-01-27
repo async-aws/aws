@@ -60,7 +60,7 @@ final class SetUserMFAPreferenceRequest extends Input
         return $this->accessToken;
     }
 
-    public function getSMSMfaSettings(): ?SMSMfaSettingsType
+    public function getSmsMfaSettings(): ?SMSMfaSettingsType
     {
         return $this->smsMfaSettings;
     }
@@ -102,7 +102,7 @@ final class SetUserMFAPreferenceRequest extends Input
         return $this;
     }
 
-    public function setSMSMfaSettings(?SMSMfaSettingsType $value): self
+    public function setSmsMfaSettings(?SMSMfaSettingsType $value): self
     {
         $this->smsMfaSettings = $value;
 

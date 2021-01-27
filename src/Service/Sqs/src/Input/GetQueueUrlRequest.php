@@ -24,7 +24,7 @@ final class GetQueueUrlRequest extends Input
      *
      * @var string|null
      */
-    private $queueOwnerAWSAccountId;
+    private $queueOwnerAwsAccountId;
 
     /**
      * @param array{
@@ -36,7 +36,7 @@ final class GetQueueUrlRequest extends Input
     public function __construct(array $input = [])
     {
         $this->queueName = $input['QueueName'] ?? null;
-        $this->queueOwnerAWSAccountId = $input['QueueOwnerAWSAccountId'] ?? null;
+        $this->queueOwnerAwsAccountId = $input['QueueOwnerAWSAccountId'] ?? null;
         parent::__construct($input);
     }
 
@@ -50,9 +50,9 @@ final class GetQueueUrlRequest extends Input
         return $this->queueName;
     }
 
-    public function getQueueOwnerAWSAccountId(): ?string
+    public function getQueueOwnerAwsAccountId(): ?string
     {
-        return $this->queueOwnerAWSAccountId;
+        return $this->queueOwnerAwsAccountId;
     }
 
     /**
@@ -83,9 +83,9 @@ final class GetQueueUrlRequest extends Input
         return $this;
     }
 
-    public function setQueueOwnerAWSAccountId(?string $value): self
+    public function setQueueOwnerAwsAccountId(?string $value): self
     {
-        $this->queueOwnerAWSAccountId = $value;
+        $this->queueOwnerAwsAccountId = $value;
 
         return $this;
     }
@@ -97,7 +97,7 @@ final class GetQueueUrlRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "QueueName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueueName'] = $v;
-        if (null !== $v = $this->queueOwnerAWSAccountId) {
+        if (null !== $v = $this->queueOwnerAwsAccountId) {
             $payload['QueueOwnerAWSAccountId'] = $v;
         }
 

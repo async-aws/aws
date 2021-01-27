@@ -106,7 +106,7 @@ final class DeleteObjectsRequest extends Input
         return $this->expectedBucketOwner;
     }
 
-    public function getMFA(): ?string
+    public function getMfa(): ?string
     {
         return $this->mfa;
     }
@@ -192,7 +192,7 @@ final class DeleteObjectsRequest extends Input
         return $this;
     }
 
-    public function setMFA(?string $value): self
+    public function setMfa(?string $value): self
     {
         $this->mfa = $value;
 

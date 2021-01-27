@@ -47,21 +47,21 @@ class SendMessageResult extends Result
      */
     private $sequenceNumber;
 
-    public function getMD5OfMessageAttributes(): ?string
+    public function getMd5OfMessageAttributes(): ?string
     {
         $this->initialize();
 
         return $this->md5OfMessageAttributes;
     }
 
-    public function getMD5OfMessageBody(): ?string
+    public function getMd5OfMessageBody(): ?string
     {
         $this->initialize();
 
         return $this->md5OfMessageBody;
     }
 
-    public function getMD5OfMessageSystemAttributes(): ?string
+    public function getMd5OfMessageSystemAttributes(): ?string
     {
         $this->initialize();
 
