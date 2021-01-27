@@ -13,7 +13,6 @@ use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\Parameter;
 use Nette\PhpGenerator\PhpNamespace;
 use Nette\PhpGenerator\Property;
-use Nette\SmartObject;
 
 /**
  * Generate Nette PhpNamespace from existing source class.
@@ -24,8 +23,6 @@ use Nette\SmartObject;
  */
 class ClassFactory
 {
-    use SmartObject;
-
     private static $cache = [];
 
     public static function fromExistingClass(string $class): PhpNamespace
