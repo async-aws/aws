@@ -2,7 +2,7 @@
 
 namespace AsyncAws\EventBridge\Tests\Integration;
 
-use AsyncAws\Core\Credentials\NullProvider;
+use AsyncAws\Core\Credentials\Credentials;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\EventBridge\EventBridgeClient;
 use AsyncAws\EventBridge\Input\PutEventsRequest;
@@ -17,27 +17,24 @@ class EventBridgeClientTest extends TestCase
         $input = new PutEventsRequest([
             'Entries' => [new PutEventsRequestEntry([
                 'Time' => new \DateTimeImmutable(),
-                'Source' => 'change me',
-                'Resources' => ['change me'],
-                'DetailType' => 'change me',
-                'Detail' => 'change me',
-                'EventBusName' => 'change me',
+                'Source' => 'com.mycompany.myapp',
+                'Detail' => '{"key1": "value1","key2": "value2"}',
+                'Resources' => [
+                    'resource1',
+                    'resource2',
+                ],
+                'DetailType' => 'myDetailType',
             ])],
         ]);
         $result = $client->PutEvents($input);
 
-        $result->resolve();
-
-        self::assertSame(1337, $result->getFailedEntryCount());
-        // self::assertTODO(expected, $result->getEntries());
+        self::assertCount(1, $result->getEntries());
     }
 
     private function getClient(): EventBridgeClient
     {
-        self::markTestSkipped('No docker image found..');
-
         return new EventBridgeClient([
-            'endpoint' => 'http://localhost',
-        ], new NullProvider());
+            'endpoint' => 'http://localhost:4571',
+        ], new Credentials('aws_id', 'aws_secret'));
     }
 }

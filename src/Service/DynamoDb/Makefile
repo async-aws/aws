@@ -2,12 +2,15 @@
 
 initialize: start-docker
 start-docker:
-	docker pull amazon/dynamodb-local
-	docker start async_aws_dynamodb || docker run -d -p 8000:8000 --name async_aws_dynamodb amazon/dynamodb-local
+	docker start async_aws_localstack && exit 0 || \
+	docker start async_aws_localstack-dynamodb && exit 0 || \
+	docker pull localstack/localstack && \
+	docker run -d -p 4575:4566 -e SERVICES=dynamodb -v /var/run/docker.sock:/var/run/docker.sock --name async_aws_localstack-dynamodb localstack/localstack && \
+	docker run --rm --link async_aws_localstack-dynamodb:localstack martin/wait -c localstack:4566
 
 test: initialize
 	./vendor/bin/simple-phpunit
 
 clean: stop-docker
 stop-docker:
-	docker stop async_aws_dynamodb || true
+	docker stop async_aws_localstack-dynamodb || true

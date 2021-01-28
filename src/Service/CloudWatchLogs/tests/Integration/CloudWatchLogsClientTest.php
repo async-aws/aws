@@ -3,10 +3,12 @@
 namespace AsyncAws\CloudWatchLogs\Tests\Integration;
 
 use AsyncAws\CloudWatchLogs\CloudWatchLogsClient;
+use AsyncAws\CloudWatchLogs\Enum\OrderBy;
 use AsyncAws\CloudWatchLogs\Input\DescribeLogStreamsRequest;
 use AsyncAws\CloudWatchLogs\Input\PutLogEventsRequest;
 use AsyncAws\CloudWatchLogs\ValueObject\InputLogEvent;
-use AsyncAws\Core\Credentials\NullProvider;
+use AsyncAws\Core\Credentials\Credentials;
+use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Test\TestCase;
 
 class CloudWatchLogsClientTest extends TestCase
@@ -16,18 +18,17 @@ class CloudWatchLogsClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new DescribeLogStreamsRequest([
-            'logGroupName' => 'change me',
-            'logStreamNamePrefix' => 'change me',
-            'orderBy' => 'change me',
+            'logGroupName' => 'app-logs',
+            'orderBy' => OrderBy::LAST_EVENT_TIME,
             'descending' => false,
-            'nextToken' => 'change me',
-            'limit' => 1337,
+            'limit' => 10,
         ]);
         $result = $client->DescribeLogStreams($input);
 
-        $result->resolve();
+        self::expectException(ClientException::class);
+        self::expectExceptionMessageMatches('/The specified log group does not exist/');
 
-        self::assertSame('changeIt', $result->getnextToken());
+        $result->resolve();
     }
 
     public function testPutLogEvents(): void
@@ -35,27 +36,25 @@ class CloudWatchLogsClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new PutLogEventsRequest([
-            'logGroupName' => 'change me',
-            'logStreamName' => 'change me',
+            'logGroupName' => 'app-logs',
+            'logStreamName' => 'front-stream',
             'logEvents' => [new InputLogEvent([
-                'timestamp' => 1337,
-                'message' => 'change me',
+                'timestamp' => time(),
+                'message' => 'something goes wrong',
             ])],
-            'sequenceToken' => 'change me',
         ]);
         $result = $client->PutLogEvents($input);
 
-        $result->resolve();
+        self::expectException(ClientException::class);
+        self::expectExceptionMessageMatches('/The specified log group does not exist/');
 
-        self::assertSame('changeIt', $result->getnextSequenceToken());
+        $result->resolve();
     }
 
     private function getClient(): CloudWatchLogsClient
     {
-        self::markTestSkipped('There is no docker image available for CloudWatchLogs.');
-
         return new CloudWatchLogsClient([
-            'endpoint' => 'http://localhost',
-        ], new NullProvider());
+            'endpoint' => 'http://localhost:4568',
+        ], new Credentials('aws_id', 'aws_secret'));
     }
 }

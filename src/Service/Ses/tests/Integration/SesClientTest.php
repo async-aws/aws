@@ -3,16 +3,16 @@
 namespace AsyncAws\Ses\Tests\Integration;
 
 use AsyncAws\Core\Credentials\NullProvider;
-use AsyncAws\Ses\Input\Body;
-use AsyncAws\Ses\Input\Content;
-use AsyncAws\Ses\Input\Destination;
-use AsyncAws\Ses\Input\EmailContent;
-use AsyncAws\Ses\Input\Message;
-use AsyncAws\Ses\Input\MessageTag;
-use AsyncAws\Ses\Input\RawMessage;
 use AsyncAws\Ses\Input\SendEmailRequest;
-use AsyncAws\Ses\Input\Template;
 use AsyncAws\Ses\SesClient;
+use AsyncAws\Ses\ValueObject\Body;
+use AsyncAws\Ses\ValueObject\Content;
+use AsyncAws\Ses\ValueObject\Destination;
+use AsyncAws\Ses\ValueObject\EmailContent;
+use AsyncAws\Ses\ValueObject\Message;
+use AsyncAws\Ses\ValueObject\MessageTag;
+use AsyncAws\Ses\ValueObject\RawMessage;
+use AsyncAws\Ses\ValueObject\Template;
 use PHPUnit\Framework\TestCase;
 
 class SesClientTest extends TestCase

@@ -2,8 +2,10 @@
 
 namespace AsyncAws\Iam\Tests\Integration;
 
-use AsyncAws\Core\Credentials\NullProvider;
+use AsyncAws\Core\Credentials\Credentials;
+use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Iam\Enum\StatusType;
 use AsyncAws\Iam\IamClient;
 use AsyncAws\Iam\Input\AddUserToGroupRequest;
 use AsyncAws\Iam\Input\CreateAccessKeyRequest;
@@ -17,8 +19,35 @@ use AsyncAws\Iam\ValueObject\Tag;
 
 class IamClientTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        try {
+            $this->getClient()->createUser(['UserName' => 'jderusse', 'Path' => '/async-aws/']);
+        } catch (ClientException $e) {
+            if (409 !== $e->getCode()) {
+                throw $e;
+            }
+        }
+    }
+
+    public function tearDown(): void
+    {
+        parent::tearDown();
+
+        try {
+            $this->getClient()->deleteUser(['UserName' => 'jderusse']);
+        } catch (ClientException $e) {
+            if (404 !== $e->getCode()) {
+                throw $e;
+            }
+        }
+    }
+
     public function testAddUserToGroup(): void
     {
+        self::markTestIncomplete('Needs to create a group in order to add a user into it');
         $client = $this->getClient();
 
         $input = new AddUserToGroupRequest([
@@ -35,13 +64,13 @@ class IamClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new CreateAccessKeyRequest([
-            'UserName' => 'change me',
+            'UserName' => 'jderusse',
         ]);
         $result = $client->CreateAccessKey($input);
 
-        $result->resolve();
-
-        // self::assertTODO(expected, $result->getAccessKey());
+        self::assertNotNull($result->getAccessKey());
+        self::assertSame('jderusse', $result->getAccessKey()->getUserName());
+        self::assertSame(StatusType::ACTIVE, $result->getAccessKey()->getStatus());
     }
 
     public function testCreateUser(): void
@@ -49,32 +78,34 @@ class IamClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new CreateUserRequest([
-            'Path' => 'change me',
-            'UserName' => 'change me',
-            'PermissionsBoundary' => 'change me',
+            'Path' => '/engineering/root/',
+            'UserName' => $username = \uniqid('jderusse.', false),
+            'PermissionsBoundary' => 'root',
             'Tags' => [new Tag([
-                'Key' => 'change me',
-                'Value' => 'change me',
+                'Key' => 'demo',
+                'Value' => 'yes',
             ])],
         ]);
         $result = $client->CreateUser($input);
 
-        $result->resolve();
-
-        // self::assertTODO(expected, $result->getUser());
+        self::assertNotNull($result->getUser());
+        self::assertSame('/engineering/root/', $result->getUser()->getPath());
+        self::assertCount(1, $result->getUser()->getTags());
+        self::assertSame('arn:aws:iam::000000000000:user/engineering/root/' . $username, $result->getUser()->getArn());
     }
 
     public function testDeleteAccessKey(): void
     {
         $client = $this->getClient();
 
-        $input = new DeleteAccessKeyRequest([
-            'UserName' => 'change me',
-            'AccessKeyId' => 'change me',
-        ]);
-        $result = $client->DeleteAccessKey($input);
+        $result = $client->CreateAccessKey(['UserName' => 'jderusse']);
 
-        $result->resolve();
+        $input = new DeleteAccessKeyRequest([
+            'UserName' => 'jderusse',
+            'AccessKeyId' => $result->getAccessKey()->getAccessKeyId(),
+        ]);
+        $client->DeleteAccessKey($input);
+        self::expectNotToPerformAssertions();
     }
 
     public function testDeleteUser(): void
@@ -82,11 +113,13 @@ class IamClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new DeleteUserRequest([
-            'UserName' => 'change me',
+            'UserName' => 'jderusse',
         ]);
         $result = $client->DeleteUser($input);
-
         $result->resolve();
+
+        self::expectExceptionCode(404);
+        $client->getUser(['UserName' => 'jderusse']);
     }
 
     public function testGetUser(): void
@@ -94,13 +127,12 @@ class IamClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new GetUserRequest([
-            'UserName' => 'change me',
+            'UserName' => 'jderusse',
         ]);
         $result = $client->GetUser($input);
 
-        $result->resolve();
-
-        // self::assertTODO(expected, $result->getUser());
+        self::assertSame('jderusse', $result->getUser()->getUserName());
+        self::assertSame('arn:aws:iam::000000000000:user/async-aws/jderusse', $result->getUser()->getArn());
     }
 
     public function testListUsers(): void
@@ -108,17 +140,13 @@ class IamClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new ListUsersRequest([
-            'PathPrefix' => 'change me',
-            'Marker' => 'change me',
-            'MaxItems' => 1337,
+            'PathPrefix' => '/async-aws/',
         ]);
         $result = $client->ListUsers($input);
 
-        $result->resolve();
-
-        // self::assertTODO(expected, $result->getUsers());
-        self::assertFalse($result->getIsTruncated());
-        self::assertSame('changeIt', $result->getMarker());
+        self::assertCount(1, $users = \iterator_to_array($result->getUsers()));
+        self::assertSame('jderusse', $users[0]->getUserName());
+        self::assertSame('arn:aws:iam::000000000000:user/async-aws/jderusse', $users[0]->getArn());
     }
 
     public function testUpdateUser(): void
@@ -126,21 +154,18 @@ class IamClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new UpdateUserRequest([
-            'UserName' => 'change me',
-            'NewPath' => 'change me',
-            'NewUserName' => 'change me',
+            'UserName' => 'jderusse',
+            'NewPath' => '/engineering/',
         ]);
-        $result = $client->UpdateUser($input);
+        $client->UpdateUser($input);
 
-        $result->resolve();
+        self::assertSame('/engineering/', $client->getUser(['UserName' => 'jderusse'])->getUser()->getPath());
     }
 
     private function getClient(): IamClient
     {
-        self::markTestSkipped('No Docker image for IAM');
-
         return new IamClient([
-            'endpoint' => 'http://localhost',
-        ], new NullProvider());
+            'endpoint' => 'http://localhost:4572',
+        ], new Credentials('aws_id', 'aws_secret'));
     }
 }

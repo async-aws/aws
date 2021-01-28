@@ -15,6 +15,7 @@ use AsyncAws\DynamoDb\Input\DeleteTableInput;
 use AsyncAws\DynamoDb\Input\DescribeTableInput;
 use AsyncAws\DynamoDb\Input\GetItemInput;
 use AsyncAws\DynamoDb\Input\ListTablesInput;
+use AsyncAws\DynamoDb\Input\PutItemInput;
 use AsyncAws\DynamoDb\Input\QueryInput;
 use AsyncAws\DynamoDb\Input\ScanInput;
 use AsyncAws\DynamoDb\Input\UpdateItemInput;
@@ -191,7 +192,32 @@ class DynamoDbClientTest extends TestCase
 
     public function testCreateTable(): void
     {
-        self::markTestSkipped('This is tested in setUp()');
+        $client = $this->getClient();
+
+        $input = new CreateTableInput([
+            'TableName' => 'demo',
+            'AttributeDefinitions' => [
+                new AttributeDefinition(['AttributeName' => 'ForumName', 'AttributeType' => 'S']),
+            ],
+            'KeySchema' => [
+                new KeySchemaElement(['AttributeName' => 'ForumName', 'KeyType' => KeyType::HASH]),
+            ],
+            'ProvisionedThroughput' => new ProvisionedThroughput([
+                'ReadCapacityUnits' => 5,
+                'WriteCapacityUnits' => 5,
+            ]),
+        ]);
+
+        $result = $client->createTable($input);
+        $result->resolve();
+
+        try {
+            self::assertSame('arn:aws:dynamodb:us-east-1:000000000000:table/demo', $result->getTableDescription()->getTableArn());
+            self::assertSame('0', $result->getTableDescription()->getItemCount());
+            self::assertTrue($client->tableExists(['TableName' => 'demo'])->isSuccess());
+        } finally {
+            $this->getClient()->deleteTable(['TableName' => 'demo']);
+        }
     }
 
     public function testDeleteItem(): void
@@ -216,7 +242,28 @@ class DynamoDbClientTest extends TestCase
 
     public function testDeleteTable(): void
     {
-        self::markTestSkipped('This is tested in tearDown()');
+        $client = $this->getClient();
+
+        $input = new CreateTableInput([
+            'TableName' => 'demo',
+            'AttributeDefinitions' => [
+                new AttributeDefinition(['AttributeName' => 'ForumName', 'AttributeType' => 'S']),
+            ],
+            'KeySchema' => [
+                new KeySchemaElement(['AttributeName' => 'ForumName', 'KeyType' => KeyType::HASH]),
+            ],
+            'ProvisionedThroughput' => new ProvisionedThroughput([
+                'ReadCapacityUnits' => 5,
+                'WriteCapacityUnits' => 5,
+            ]),
+        ]);
+
+        $client->createTable($input);
+
+        $result = $client->deleteTable(['TableName' => 'demo']);
+        $result->resolve();
+
+        self::assertFalse($client->tableExists(['TableName' => 'demo'])->isSuccess());
     }
 
     public function testDescribeTable(): void
@@ -267,7 +314,22 @@ class DynamoDbClientTest extends TestCase
 
     public function testPutItem(): void
     {
-        self::markTestSkipped('This is tested in setUp()');
+        $client = $this->getClient();
+
+        $input = new PutItemInput([
+            'TableName' => $this->tableName,
+            'Item' => [
+                'LastPostDateTime' => ['S' => '201303190422'],
+                'Tags' => ['SS' => ['Update', 'Multiple Items', 'HelpMe']],
+                'ForumName' => ['S' => 'Amazon DynamoDB'],
+                'Message' => ['S' => 'I want to update multiple items in a single call. What\'s the best way to do that?'],
+                'Subject' => ['S' => 'How do I update multiple items?'],
+                'LastPostedBy' => ['S' => 'fred@example.com'],
+            ],
+        ]);
+
+        $result = $client->putItem($input);
+        self::assertSame(1.0, $result->getConsumedCapacity()->getCapacityUnits());
     }
 
     public function testQuery(): void
@@ -413,7 +475,7 @@ class DynamoDbClientTest extends TestCase
         }
 
         return $this->client = new DynamoDbClient([
-            'endpoint' => 'http://localhost:8000',
+            'endpoint' => 'http://localhost:4575',
         ], new Credentials('aws_id', 'aws_secret'));
     }
 }

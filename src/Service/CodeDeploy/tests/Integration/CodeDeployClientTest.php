@@ -27,7 +27,7 @@ class CodeDeployClientTest extends TestCase
 
     private function getClient(): CodeDeployClient
     {
-        self::markTestSkipped('There is not docker image available for CodeDeploy.');
+        self::markTestSkipped('There is no docker image available for CodeDeploy.');
 
         return new CodeDeployClient([
             'endpoint' => 'http://localhost',

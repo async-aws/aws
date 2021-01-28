@@ -5,7 +5,8 @@ namespace AsyncAws\CloudFormation\Tests\Integration;
 use AsyncAws\CloudFormation\CloudFormationClient;
 use AsyncAws\CloudFormation\Input\DescribeStackEventsInput;
 use AsyncAws\CloudFormation\Input\DescribeStacksInput;
-use AsyncAws\Core\Credentials\NullProvider;
+use AsyncAws\Core\Credentials\Credentials;
+use AsyncAws\Core\Exception\Http\ClientException;
 use PHPUnit\Framework\TestCase;
 
 class CloudFormationClientTest extends TestCase
@@ -15,15 +16,12 @@ class CloudFormationClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new DescribeStackEventsInput([
-            'StackName' => 'change me',
-            'NextToken' => 'change me',
+            'StackName' => 'demo',
         ]);
         $result = $client->DescribeStackEvents($input);
 
-        $result->resolve();
-
-        // self::assertTODO(expected, $result->getStackEvents());
-        self::assertStringContainsString('change it', $result->getNextToken());
+        self::assertCount(0, $result->getStackEvents());
+        self::assertNull($result->getNextToken());
     }
 
     public function testDescribeStacks(): void
@@ -31,23 +29,20 @@ class CloudFormationClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new DescribeStacksInput([
-            'StackName' => 'change me',
-            'NextToken' => 'change me',
+            'StackName' => 'demo',
         ]);
         $result = $client->DescribeStacks($input);
 
-        $result->resolve();
+        self::expectException(ClientException::class);
+        self::expectExceptionMessageMatches('/Stack with id demo does not exist/');
 
-        // self::assertTODO(expected, $result->getStacks());
-        self::assertStringContainsString('change it', $result->getNextToken());
+        $result->resolve();
     }
 
     private function getClient(): CloudFormationClient
     {
-        self::markTestSkipped('No Docker image for CloudFormation');
-
         return new CloudFormationClient([
-            'endpoint' => 'http://localhost',
-        ], new NullProvider());
+            'endpoint' => 'http://localhost:4567',
+        ], new Credentials('aws_id', 'aws_secret'));
     }
 }

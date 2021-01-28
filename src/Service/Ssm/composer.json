@@ -15,6 +15,9 @@
         "ext-json": "*",
         "async-aws/core": "^1.2"
     },
+    "conflict": {
+        "symfony/http-client": "<4.4.16,<5.1.7"
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.2-dev"
