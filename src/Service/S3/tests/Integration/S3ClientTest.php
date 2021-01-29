@@ -17,6 +17,7 @@ use AsyncAws\S3\Input\CreateMultipartUploadRequest;
 use AsyncAws\S3\Input\DeleteBucketCorsRequest;
 use AsyncAws\S3\Input\DeleteBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
+use AsyncAws\S3\Input\GetBucketCorsRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\HeadBucketRequest;
@@ -301,6 +302,22 @@ class S3ClientTest extends TestCase
         $result->resolve();
         $info = $result->info();
         self::assertEquals(204, $info['status']);
+    }
+
+    public function testGetBucketCors(): void
+    {
+        self::markTestSkipped('The S3 Docker image does not implement GetBucketCors.');
+        $client = $this->getClient();
+        $bucket = 'foo';
+
+        $input = new GetBucketCorsRequest([
+            'Bucket' => $bucket,
+        ]);
+        $result = $client->GetBucketCors($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getCORSRules());
     }
 
     public function testGetFileNotExist()

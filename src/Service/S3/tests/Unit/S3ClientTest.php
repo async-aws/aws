@@ -15,6 +15,7 @@ use AsyncAws\S3\Input\DeleteBucketCorsRequest;
 use AsyncAws\S3\Input\DeleteBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\DeleteObjectsRequest;
+use AsyncAws\S3\Input\GetBucketCorsRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
@@ -33,6 +34,7 @@ use AsyncAws\S3\Result\CreateBucketOutput;
 use AsyncAws\S3\Result\CreateMultipartUploadOutput;
 use AsyncAws\S3\Result\DeleteObjectOutput;
 use AsyncAws\S3\Result\DeleteObjectsOutput;
+use AsyncAws\S3\Result\GetBucketCorsOutput;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
@@ -236,6 +238,20 @@ class S3ClientTest extends TestCase
         $result = $client->DeleteObjects($input);
 
         self::assertInstanceOf(DeleteObjectsOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testGetBucketCors(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new GetBucketCorsRequest([
+            'Bucket' => 'example-bucket',
+
+        ]);
+        $result = $client->GetBucketCors($input);
+
+        self::assertInstanceOf(GetBucketCorsOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
