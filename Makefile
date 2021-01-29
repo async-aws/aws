@@ -10,12 +10,25 @@ $(SUBCLEAN): %.clean:
 
 
 .PHONY: initialize $(SUBINITIALIZE)
-initialize: $(SUBINITIALIZE)
+initialize: start-docker
+	$(MAKE) $(SUBINITIALIZE)
 $(SUBINITIALIZE): %.initialize:
 	$(MAKE) -C $* initialize
 
-start-docker: initialize
+start-docker: start-docker-s3 start-docker-localstack
+start-docker: start-docker-s3 start-docker-localstack
+start-docker-localstack:
+	docker start async_aws_localstack && exit 0 || \
+	docker pull localstack/localstack && \
+	docker run -d -p 4566:4566 -p 4567:4566 -p 4568:4566 -p 4571:4566 -p 4572:4566 -p 4573:4566 -p 4574:4566 -p 4575:4566 -e SERVICES=sts,cloudformation,logs,events,iam,sns,ssm,dynamodb -v /var/run/docker.sock:/var/run/docker.sock --name async_aws_localstack localstack/localstack && \
+	docker run --rm --link async_aws_localstack:localstack martin/wait -c localstack:4566
+start-docker-s3:
+	docker start async_aws_s3 && exit 0 || \
+	docker pull asyncaws/testing-s3 && \
+	docker run -d -p 4569:4569 -p 4570:4569 --name async_aws_s3 asyncaws/testing-s3
+
 stop-docker: clean
+	docker stop async_aws_localstack || true
 
 test: initialize
 	./vendor/bin/simple-phpunit

@@ -13,7 +13,7 @@ class AssumeRoleWithWebIdentityRequestTest extends TestCase
         $input = new AssumeRoleWithWebIdentityRequest([
             'RoleArn' => 'arn:aws:iam::123456789012:role/FederatedWebIdentityRole',
             'RoleSessionName' => 'app1',
-            'WebIdentityToken' => 'FooBarBz',
+            'WebIdentityToken' => 'FooBarBaz',
             'ProviderId' => 'www.amazon.com',
             'PolicyArns' => [new PolicyDescriptorType([
                 'arn' => 'arn:aws:iam::123456789012:policy/q=webidentitydemopolicy1',
@@ -36,7 +36,7 @@ class AssumeRoleWithWebIdentityRequestTest extends TestCase
             &ProviderId=www.amazon.com
             &RoleSessionName=app1
             &RoleArn=arn%3Aaws%3Aiam%3A%3A123456789012%3Arole%2FFederatedWebIdentityRole
-            &WebIdentityToken=FooBarBz
+            &WebIdentityToken=FooBarBaz
         ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

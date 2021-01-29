@@ -2,28 +2,75 @@
 
 namespace AsyncAws\Ssm\Tests\Integration;
 
-use AsyncAws\Core\Credentials\NullProvider;
+use AsyncAws\Core\Credentials\Credentials;
+use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Ssm\Enum\ParameterTier;
+use AsyncAws\Ssm\Enum\ParameterType;
 use AsyncAws\Ssm\Input\DeleteParameterRequest;
 use AsyncAws\Ssm\Input\GetParameterRequest;
 use AsyncAws\Ssm\Input\GetParametersByPathRequest;
 use AsyncAws\Ssm\Input\GetParametersRequest;
 use AsyncAws\Ssm\Input\PutParameterRequest;
 use AsyncAws\Ssm\SsmClient;
-use AsyncAws\Ssm\ValueObject\ParameterStringFilter;
 use AsyncAws\Ssm\ValueObject\Tag;
 
 class SsmClientTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->getClient()->putParameter(['Name' => '/app/database/host', 'Value' => 'localhost', 'Overwrite' => true]);
+        while (true) {
+            try {
+                $this->getClient()->getParameter(['Name' => '/app/database/host']);
+
+                break;
+            } catch (ClientException $e) {
+                if ('ParameterNotFound' !== $e->getAwsCode()) {
+                    throw $e;
+                }
+                \usleep(10000);
+            }
+        }
+    }
+
+    public function tearDown(): void
+    {
+        parent::tearDown();
+
+        try {
+            $this->getClient()->deleteParameter(['Name' => '/app/database/host']);
+            while (true) {
+                try {
+                    $this->getClient()->getParameter(['Name' => '/app/database/host']);
+                    \usleep(10000);
+                } catch (ClientException $e) {
+                    if ('ParameterNotFound' !== $e->getAwsCode()) {
+                        throw $e;
+                    }
+
+                    break;
+                }
+            }
+        } catch (ClientException $e) {
+            if ('ParameterNotFound' !== $e->getAwsCode()) {
+                throw $e;
+            }
+        }
+    }
+
     public function testDeleteParameter(): void
     {
         $client = $this->getClient();
 
         $input = new DeleteParameterRequest([
-            'Name' => 'change me',
+            'Name' => '/app/database/host',
         ]);
-        $result = $client->DeleteParameter($input);
+        $result = $client->deleteParameter($input);
 
+        self::expectNotToPerformAssertions();
         $result->resolve();
     }
 
@@ -32,14 +79,13 @@ class SsmClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new GetParameterRequest([
-            'Name' => 'change me',
+            'Name' => '/app/database/host',
             'WithDecryption' => false,
         ]);
-        $result = $client->GetParameter($input);
+        $result = $client->getParameter($input);
 
-        $result->resolve();
-
-        // self::assertTODO(expected, $result->getParameter());
+        self::assertNotNull($result->getParameter());
+        self::assertSame('localhost', $result->getParameter()->getValue());
     }
 
     public function testGetParameters(): void
@@ -47,15 +93,14 @@ class SsmClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new GetParametersRequest([
-            'Names' => ['change me'],
+            'Names' => ['/app/database/host'],
             'WithDecryption' => false,
         ]);
         $result = $client->GetParameters($input);
 
-        $result->resolve();
-
-        // self::assertTODO(expected, $result->getParameters());
-        // self::assertTODO(expected, $result->getInvalidParameters());
+        self::assertCount(1, $result->getParameters());
+        self::assertCount(0, $result->getInvalidParameters());
+        self::assertSame('/app/database/host', $result->getParameters()[0]->getName());
     }
 
     public function testGetParametersByPath(): void
@@ -63,58 +108,71 @@ class SsmClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new GetParametersByPathRequest([
-            'Path' => 'change me',
-            'Recursive' => false,
-            'ParameterFilters' => [new ParameterStringFilter([
-                'Key' => 'change me',
-                'Option' => 'change me',
-                'Values' => ['change me'],
-            ])],
-            'WithDecryption' => false,
-            'MaxResults' => 1337,
-            'NextToken' => 'change me',
+            'Path' => '/app/database',
+            'Recursive' => true,
         ]);
         $result = $client->GetParametersByPath($input);
-
-        $result->resolve();
-
-        // self::assertTODO(expected, $result->getParameters());
-        self::assertSame('changeIt', $result->getNextToken());
+        $parameters = \iterator_to_array($result->getParameters());
+        self::assertCount(1, $parameters);
+        self::assertSame('/app/database/host', $parameters[0]->getName());
     }
 
     public function testPutParameter(): void
     {
         $client = $this->getClient();
 
+        try {
+            $this->getClient()->deleteParameter(['Name' => '/app/smtp/user']);
+            while (true) {
+                try {
+                    $this->getClient()->getParameter(['Name' => '/app/smtp/user']);
+                    \usleep(10000);
+                } catch (ClientException $e) {
+                    if ('ParameterNotFound' !== $e->getAwsCode()) {
+                        throw $e;
+                    }
+
+                    break;
+                }
+            }
+        } catch (ClientException $e) {
+            if ('ParameterNotFound' !== $e->getAwsCode()) {
+                throw $e;
+            }
+        }
+
         $input = new PutParameterRequest([
-            'Name' => 'change me',
-            'Description' => 'change me',
-            'Value' => 'change me',
-            'Type' => 'change me',
-            'KeyId' => 'change me',
-            'Overwrite' => false,
-            'AllowedPattern' => 'change me',
+            'Name' => '/app/smtp/user',
+            'Description' => 'The username of SMTP',
+            'Value' => 'root',
+            'Type' => ParameterType::STRING,
+            'Overwrite' => true,
             'Tags' => [new Tag([
-                'Key' => 'change me',
-                'Value' => 'change me',
+                'Key' => 'group',
+                'Value' => 'demo',
             ])],
-            'Tier' => 'change me',
-            'Policies' => 'change me',
+            'Tier' => ParameterTier::STANDARD,
         ]);
         $result = $client->PutParameter($input);
 
-        $result->resolve();
+        self::assertSame('1', $result->getVersion());
 
-        self::assertSame(1337, $result->getVersion());
-        self::assertSame('changeIt', $result->getTier());
+        $input = new PutParameterRequest([
+            'Name' => '/app/smtp/user',
+            'Value' => 'admin',
+            'Overwrite' => true,
+        ]);
+        $result = $client->PutParameter($input);
+        $result->resolve();
+        self::assertSame('2', $result->getVersion());
+        $parameter = $client->getParameter(['Name' => '/app/smtp/user'])->getParameter();
+        self::assertSame('admin', $parameter->getValue());
     }
 
     private function getClient(): SsmClient
     {
-        self::markTestSkipped('No Docker image for SSM');
-
         return new SsmClient([
-            'endpoint' => 'http://localhost',
-        ], new NullProvider());
+            'endpoint' => 'http://localhost:4574',
+        ], new Credentials('aws_id', 'aws_secret'));
     }
 }

@@ -393,7 +393,7 @@ class CognitoIdentityProviderClientTest extends TestCase
 
     private function getClient(): CognitoIdentityProviderClient
     {
-        self::markTestSkipped('No Docker image for Cognito Identity Provider');
+        self::markTestSkipped('There is no docker image available for CognitoIdentityProvider.');
 
         return new CognitoIdentityProviderClient([
             'endpoint' => 'http://localhost',

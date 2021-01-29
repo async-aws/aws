@@ -31,22 +31,22 @@ class BundleInitializationTest extends BaseBundleTestCase
         $kernel->addConfigFile(__DIR__ . '/Resources/config/default.yaml');
         $this->bootKernel();
 
-        $this->assertServiceExists('async_aws.client.s3', S3Client::class);
-        $this->assertServiceExists('async_aws.client.sqs', SqsClient::class);
-        $this->assertServiceExists('async_aws.client.ses', SesClient::class);
-        $this->assertServiceExists('async_aws.client.foobar', SqsClient::class);
-        $this->assertServiceExists('async_aws.client.secret', SsmClient::class);
+        self::assertServiceExists('async_aws.client.s3', S3Client::class);
+        self::assertServiceExists('async_aws.client.sqs', SqsClient::class);
+        self::assertServiceExists('async_aws.client.ses', SesClient::class);
+        self::assertServiceExists('async_aws.client.foobar', SqsClient::class);
+        self::assertServiceExists('async_aws.client.secret', SsmClient::class);
 
         // Test autowired clients
-        $this->assertServiceExists(S3Client::class, S3Client::class);
-        $this->assertServiceExists(SqsClient::class, SqsClient::class);
-        $this->assertServiceExists(SesClient::class, SesClient::class);
+        self::assertServiceExists(S3Client::class, S3Client::class);
+        self::assertServiceExists(SqsClient::class, SqsClient::class);
+        self::assertServiceExists(SesClient::class, SesClient::class);
 
         // Test autowire by name
-        $this->assertServiceExists(SqsClient::class . ' $foobar', SqsClient::class);
+        self::assertServiceExists(SqsClient::class . ' $foobar', SqsClient::class);
 
         // Test secret
-        $this->assertServiceExists(SsmVault::class, SsmVault::class);
+        self::assertServiceExists(SsmVault::class, SsmVault::class);
 
         $container = $this->getContainer();
         self::assertFalse($container->has(SqsClient::class . ' $notFound'));
@@ -59,14 +59,14 @@ class BundleInitializationTest extends BaseBundleTestCase
         $kernel->addConfigFile(__DIR__ . '/Resources/config/empty.yaml');
         $this->bootKernel();
 
-        $this->assertServiceExists('async_aws.client.s3', S3Client::class);
-        $this->assertServiceExists('async_aws.client.sqs', SqsClient::class);
-        $this->assertServiceExists('async_aws.client.ses', SesClient::class);
+        self::assertServiceExists('async_aws.client.s3', S3Client::class);
+        self::assertServiceExists('async_aws.client.sqs', SqsClient::class);
+        self::assertServiceExists('async_aws.client.ses', SesClient::class);
 
         // Test autowired clients
-        $this->assertServiceExists(S3Client::class, S3Client::class);
-        $this->assertServiceExists(SqsClient::class, SqsClient::class);
-        $this->assertServiceExists(SesClient::class, SesClient::class);
+        self::assertServiceExists(S3Client::class, S3Client::class);
+        self::assertServiceExists(SqsClient::class, SqsClient::class);
+        self::assertServiceExists(SesClient::class, SesClient::class);
     }
 
     public function testNotRegisterServices()

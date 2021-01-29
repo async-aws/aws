@@ -14,14 +14,14 @@ class ConfigurationTest extends TestCase
 
     public function testNoConfigIsValid(): void
     {
-        $this->assertConfigurationIsValid([
+        self::assertConfigurationIsValid([
             [], // no values at all
         ]);
     }
 
     public function testDefaultValues(): void
     {
-        $this->assertProcessedConfigurationEquals([
+        self::assertProcessedConfigurationEquals([
             [],
         ], [
             'register_service' => true,
@@ -45,7 +45,7 @@ class ConfigurationTest extends TestCase
 
     public function testServiceWithAwsName(): void
     {
-        $this->assertProcessedConfigurationEquals([
+        self::assertProcessedConfigurationEquals([
             ['clients' => [
                 'sqs' => ['config' => ['foo' => 'bar']],
             ]],
@@ -62,7 +62,7 @@ class ConfigurationTest extends TestCase
 
     public function testServiceWithCustomName(): void
     {
-        $this->assertProcessedConfigurationEquals([
+        self::assertProcessedConfigurationEquals([
             ['clients' => [
                 'foobar' => [
                     'type' => 'sqs',
@@ -81,7 +81,7 @@ class ConfigurationTest extends TestCase
 
     public function testServiceWithCustomNameWithoutType(): void
     {
-        $this->assertConfigurationIsInvalid([
+        self::assertConfigurationIsInvalid([
             ['clients' => [
                 'foobar' => [
                 ],
@@ -91,7 +91,7 @@ class ConfigurationTest extends TestCase
 
     public function testServiceWithCustomNameWithWrongType(): void
     {
-        $this->assertConfigurationIsInvalid([
+        self::assertConfigurationIsInvalid([
             ['clients' => [
                 'foobar' => [
                     'type' => 'blabla',
@@ -102,7 +102,7 @@ class ConfigurationTest extends TestCase
 
     public function testServiceWithAwsNameWithWrongType(): void
     {
-        $this->assertConfigurationIsInvalid([
+        self::assertConfigurationIsInvalid([
             ['clients' => [
                 'sqs' => [
                     'type' => 's3',

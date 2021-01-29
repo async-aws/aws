@@ -2,8 +2,9 @@
 
 initialize: start-docker
 start-docker:
-	docker pull asyncaws/testing-sqs
-	docker start async_aws_sqs || docker run -d -p 9494:9494 --name async_aws_sqs asyncaws/testing-sqs
+	docker start async_aws_sqs && exit 0 || \
+	docker pull asyncaws/testing-sqs && \
+	docker run -d -p 9494:9494 --name async_aws_sqs asyncaws/testing-sqs
 
 test: initialize
 	./vendor/bin/simple-phpunit

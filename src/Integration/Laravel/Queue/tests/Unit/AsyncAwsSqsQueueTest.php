@@ -79,9 +79,9 @@ class AsyncAwsSqsQueueTest extends TestCase
 
                 // verify that body is serialized.
                 $body = json_decode($input['MessageBody'], true);
-                $this->assertArrayHasKey('displayName', $body);
-                $this->assertArrayHasKey('job', $body);
-                $this->assertArrayHasKey('data', $body);
+                self::assertArrayHasKey('displayName', $body);
+                self::assertArrayHasKey('job', $body);
+                self::assertArrayHasKey('data', $body);
 
                 if (CreateUser::class !== $body['displayName']) {
                     return false;

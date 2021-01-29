@@ -40,14 +40,14 @@ class SimpleS3ClientTest extends TestCase
         $bucket = 'bucket';
         $file = 'robots.txt';
         $callback = function (array $input) use ($bucket, $file, $object) {
-            $this->assertEquals($bucket, $input['Bucket']);
-            $this->assertEquals($file, $input['Key']);
-            $this->assertEquals($object, $input['Body']);
+            self::assertEquals($bucket, $input['Bucket']);
+            self::assertEquals($file, $input['Key']);
+            self::assertEquals($object, $input['Body']);
 
             return true;
         };
 
-        $this->assertSmallFileUpload($callback, $bucket, $file, $object);
+        self::assertSmallFileUpload($callback, $bucket, $file, $object);
     }
 
     public function testUploadSmallFileResource()
@@ -59,14 +59,14 @@ class SimpleS3ClientTest extends TestCase
         // do not rewind
 
         $callback = function (array $input) use ($bucket, $file, $object) {
-            $this->assertEquals($bucket, $input['Bucket']);
-            $this->assertEquals($file, $input['Key']);
-            $this->assertEquals($object, $input['Body']);
+            self::assertEquals($bucket, $input['Bucket']);
+            self::assertEquals($file, $input['Key']);
+            self::assertEquals($object, $input['Body']);
 
             return true;
         };
 
-        $this->assertSmallFileUpload($callback, $bucket, $file, $object);
+        self::assertSmallFileUpload($callback, $bucket, $file, $object);
     }
 
     public function testUploadSmallFileClosure()
@@ -79,17 +79,17 @@ class SimpleS3ClientTest extends TestCase
         \fseek($resource, 0, \SEEK_SET);
 
         $callback = function (array $input) use ($bucket, $file, $contents) {
-            $this->assertEquals($bucket, $input['Bucket']);
-            $this->assertEquals($file, $input['Key']);
-            $this->assertIsResource($input['Body']);
+            self::assertEquals($bucket, $input['Bucket']);
+            self::assertEquals($file, $input['Key']);
+            self::assertIsResource($input['Body']);
 
             \fseek($input['Body'], 0, \SEEK_SET);
-            $this->assertEquals($contents, stream_get_contents($input['Body']));
+            self::assertEquals($contents, stream_get_contents($input['Body']));
 
             return true;
         };
 
-        $this->assertSmallFileUpload($callback, $bucket, $file, static function (int $length) use ($resource): string {
+        self::assertSmallFileUpload($callback, $bucket, $file, static function (int $length) use ($resource): string {
             return fread($resource, $length);
         });
     }
@@ -105,15 +105,15 @@ class SimpleS3ClientTest extends TestCase
         $file = 'robots.txt';
 
         $callback = function (array $input) use ($bucket, $file, $contents) {
-            $this->assertEquals($bucket, $input['Bucket']);
-            $this->assertEquals($file, $input['Key']);
+            self::assertEquals($bucket, $input['Bucket']);
+            self::assertEquals($file, $input['Key']);
             \fseek($input['Body'], 0, \SEEK_SET);
-            $this->assertEquals(implode('', $contents), stream_get_contents($input['Body']));
+            self::assertEquals(implode('', $contents), stream_get_contents($input['Body']));
 
             return true;
         };
 
-        $this->assertSmallFileUpload($callback, $bucket, $file, (static function () use ($contents): iterable {
+        self::assertSmallFileUpload($callback, $bucket, $file, (static function () use ($contents): iterable {
             foreach ($contents as $data) {
                 yield $data;
             }

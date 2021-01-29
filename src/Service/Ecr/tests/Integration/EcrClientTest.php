@@ -25,7 +25,7 @@ class EcrClientTest extends TestCase
 
     private function getClient(): EcrClient
     {
-        self::markTestSkipped('No docker image found..');
+        self::markTestSkipped('There is no docker image available for Ecr.');
 
         return new EcrClient([
             'endpoint' => 'http://localhost',

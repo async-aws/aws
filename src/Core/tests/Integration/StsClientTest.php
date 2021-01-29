@@ -2,13 +2,14 @@
 
 namespace AsyncAws\Core\Tests\Integration;
 
+use AsyncAws\Core\Credentials\Credentials;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Sts\Input\AssumeRoleRequest;
 use AsyncAws\Core\Sts\Input\AssumeRoleWithWebIdentityRequest;
 use AsyncAws\Core\Sts\Input\GetCallerIdentityRequest;
-use AsyncAws\Core\Sts\Input\PolicyDescriptorType;
-use AsyncAws\Core\Sts\Input\Tag;
 use AsyncAws\Core\Sts\StsClient;
+use AsyncAws\Core\Sts\ValueObject\PolicyDescriptorType;
+use AsyncAws\Core\Sts\ValueObject\Tag;
 use AsyncAws\Core\Test\TestCase;
 
 class StsClientTest extends TestCase
@@ -18,29 +19,29 @@ class StsClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new AssumeRoleRequest([
-            'RoleArn' => 'change me',
-            'RoleSessionName' => 'change me',
+            'RoleArn' => 'arn:aws::iam::123456789012:role/demo',
+            'RoleSessionName' => 'John-session',
             'PolicyArns' => [new PolicyDescriptorType([
-                'arn' => 'change me',
+                'arn' => 'arn:aws::iam::123456789012:policy/demo',
             ])],
-            'Policy' => 'change me',
-            'DurationSeconds' => 1337,
+            'Policy' => '{"Version":"2012-10-17","Statement":[{"Sid": "Stmt1","Effect": "Allow","Action": "s3:*","Resource": "*"}]}',
+            'DurationSeconds' => 300,
             'Tags' => [new Tag([
-                'Key' => 'change me',
-                'Value' => 'change me',
+                'Key' => 'Project',
+                'Value' => 'Pegasus',
             ])],
-            'TransitiveTagKeys' => ['change me'],
-            'ExternalId' => 'change me',
-            'SerialNumber' => 'change me',
+            'TransitiveTagKeys' => ['Project', 'Cost-Center'],
+            'ExternalId' => '123ABC',
+            'SerialNumber' => '12345678',
             'TokenCode' => 'change me',
         ]);
         $result = $client->AssumeRole($input);
 
-        $result->resolve();
-
-        // self::assertTODO(expected, $result->getCredentials());
-        // self::assertTODO(expected, $result->getAssumedRoleUser());
-        self::assertSame(1337, $result->getPackedPolicySize());
+        self::assertNotNull($result->getCredentials());
+        self::assertLessThanOrEqual(new \DateTime('+5min'), $result->getCredentials()->getExpiration());
+        self::assertNotNull($result->getAssumedRoleUser());
+        self::assertSame('arn:aws:sts::000000000000:assumed-role/demo/John-session', $result->getAssumedRoleUser()->getArn());
+        self::assertSame(6, $result->getPackedPolicySize());
     }
 
     public function testAssumeRoleWithWebIdentity(): void
@@ -48,42 +49,36 @@ class StsClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new AssumeRoleWithWebIdentityRequest([
-            'RoleArn' => 'change me',
-            'RoleSessionName' => 'change me',
-            'WebIdentityToken' => 'change me',
-            'ProviderId' => 'change me',
+            'RoleArn' => 'arn:aws:iam::123456789012:role/FederatedWebIdentityRole',
+            'RoleSessionName' => 'app1',
+            'WebIdentityToken' => 'FooBarBaz',
+            'ProviderId' => 'www.amazon.com',
             'PolicyArns' => [new PolicyDescriptorType([
-                'arn' => 'change me',
+                'arn' => 'arn:aws:iam::123456789012:policy/q=webidentitydemopolicy1',
+            ]), new PolicyDescriptorType([
+                'arn' => 'arn:aws:iam::123456789012:policy/webidentitydemopolicy2',
             ])],
-            'Policy' => 'change me',
-            'DurationSeconds' => 1337,
+            'DurationSeconds' => 300,
         ]);
         $result = $client->AssumeRoleWithWebIdentity($input);
 
-        $result->resolve();
-
-        // self::assertTODO(expected, $result->getCredentials());
-        self::assertSame('changeIt', $result->getSubjectFromWebIdentityToken());
-        // self::assertTODO(expected, $result->getAssumedRoleUser());
-        self::assertSame(1337, $result->getPackedPolicySize());
-        self::assertSame('changeIt', $result->getProvider());
-        self::assertSame('changeIt', $result->getAudience());
+        self::assertNotNull($result->getCredentials());
+        self::assertLessThanOrEqual(new \DateTime('+5min'), $result->getCredentials()->getExpiration());
+        self::assertNotNull($result->getAssumedRoleUser());
+        self::assertSame('arn:aws:sts::000000000000:assumed-role/FederatedWebIdentityRole/app1', $result->getAssumedRoleUser()->getArn());
+        self::assertSame(6, $result->getPackedPolicySize());
     }
 
     public function testGetCallerIdentity(): void
     {
         $client = $this->getClient();
 
-        $input = new GetCallerIdentityRequest([
-
-        ]);
+        $input = new GetCallerIdentityRequest();
         $result = $client->GetCallerIdentity($input);
 
-        $result->resolve();
-
-        self::assertStringContainsString('change it', $result->getUserId());
-        self::assertStringContainsString('change it', $result->getAccount());
-        self::assertStringContainsString('change it', $result->getArn());
+        self::assertNotNull($result->getUserId());
+        self::assertStringContainsString('000000000000', $result->getAccount());
+        self::assertStringContainsString('arn:aws:sts::000000000000:user/moto', $result->getArn());
     }
 
     public function testNonAwsRegionWithCustomEndpoint(): void
@@ -127,10 +122,8 @@ class StsClientTest extends TestCase
 
     private function getClient(): StsClient
     {
-        self::markTestSkipped('No Docker image for STS');
-
         return new StsClient([
-            'endpoint' => 'http://localhost',
-        ], new NullProvider());
+            'endpoint' => 'http://localhost:4566',
+        ], new Credentials('aws_id', 'aws_secret'));
     }
 }

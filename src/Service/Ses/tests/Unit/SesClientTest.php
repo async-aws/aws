@@ -70,15 +70,15 @@ class SesClientTest extends TestCase
     public function testSendMessage()
     {
         $httpClient = new MockHttpClient(function (string $method, string $url, array $options): ResponseInterface {
-            $this->assertSame('POST', $method);
-            $this->assertStringStartsWith('https://email.eu-west-1.amazonaws.com:8984/', $url);
+            self::assertSame('POST', $method);
+            self::assertStringStartsWith('https://email.eu-west-1.amazonaws.com:8984/', $url);
 
             $content = json_decode(StreamFactory::create($options['body'])->stringify(), true);
 
-            $this->assertSame('Hello!', $content['Content']['Simple']['Subject']['Data']);
-            $this->assertSame('tobias.nyholm@gmail.com', $content['Destination']['ToAddresses'][0]);
-            $this->assertSame('foo@test.se', $content['FromEmailAddress']);
-            $this->assertSame('Hello There!', $content['Content']['Simple']['Body']['Text']['Data']);
+            self::assertSame('Hello!', $content['Content']['Simple']['Subject']['Data']);
+            self::assertSame('tobias.nyholm@gmail.com', $content['Destination']['ToAddresses'][0]);
+            self::assertSame('foo@test.se', $content['FromEmailAddress']);
+            self::assertSame('Hello There!', $content['Content']['Simple']['Body']['Text']['Data']);
 
             $json = '{"MessageId":"foobar"}';
 

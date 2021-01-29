@@ -122,7 +122,7 @@ class RdsDataServiceClientTest extends TestCase
 
     private function getClient(): RdsDataServiceClient
     {
-        self::markTestSkipped('Not implemented');
+        self::markTestSkipped('There is no docker image available for RdsDataService.');
 
         return new RdsDataServiceClient([
             'endpoint' => 'http://localhost',

@@ -35,7 +35,7 @@ class CloudFrontClientTest extends TestCase
 
     private function getClient(): CloudFrontClient
     {
-        self::markTestSkipped('Not implemented');
+        self::markTestSkipped('There is no docker image available for CloudFront.');
 
         return new CloudFrontClient([
             'endpoint' => 'http://localhost',

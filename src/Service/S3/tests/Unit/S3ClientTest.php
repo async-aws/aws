@@ -151,8 +151,8 @@ class S3ClientTest extends TestCase
     public function testCustomEndpoint()
     {
         $callback = function ($method, $url, $options) {
-            $this->assertEquals('PUT', $method);
-            $this->assertEquals('https://fra1.digitaloceanspaces.com/my_bucket/image/cat.jpg', $url);
+            self::assertEquals('PUT', $method);
+            self::assertEquals('https://fra1.digitaloceanspaces.com/my_bucket/image/cat.jpg', $url);
 
             return new SimpleMockedResponse();
         };
