@@ -101,12 +101,15 @@ class Operation
     {
         $errors = [];
         foreach ($this->data['errors'] ?? [] as $error) {
+            if (isset($errors[$error['shape']])) {
+                continue;
+            }
             /** @var ExceptionShape $shape */
             $shape = ($this->shapeLocator)($error['shape']);
-            $errors[] = $shape;
+            $errors[$error['shape']] = $shape;
         }
 
-        return $errors;
+        return array_values($errors);
     }
 
     public function getInput(): StructureShape

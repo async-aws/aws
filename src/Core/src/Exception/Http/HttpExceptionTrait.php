@@ -3,7 +3,6 @@
 namespace AsyncAws\Core\Exception\Http;
 
 use AsyncAws\Core\AwsError\AwsError;
-use AsyncAws\Core\Response;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
@@ -48,12 +47,7 @@ TEXT;
 
         parent::__construct($message, $code);
 
-
         $this->populateResult($response);
-    }
-
-    protected function populateResult(ResponseInterface $response): void
-    {
     }
 
     public function getResponse(): ResponseInterface
@@ -79,5 +73,9 @@ TEXT;
     public function getAwsDetail(): ?string
     {
         return $this->awsError ? $this->awsError->getDetail() : null;
+    }
+
+    protected function populateResult(ResponseInterface $response): void
+    {
     }
 }

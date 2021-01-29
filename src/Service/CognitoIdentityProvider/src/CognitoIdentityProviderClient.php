@@ -938,7 +938,6 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws UserNotConfirmedException
      * @throws InternalErrorException
      * @throws EnableSoftwareTokenMFAException
-     * @throws NotAuthorizedException
      * @throws SoftwareTokenMFANotFoundException
      * @throws CodeMismatchException
      */
@@ -956,7 +955,6 @@ class CognitoIdentityProviderClient extends AbstractApi
             'UserNotConfirmedException' => UserNotConfirmedException::class,
             'InternalErrorException' => InternalErrorException::class,
             'EnableSoftwareTokenMFAException' => EnableSoftwareTokenMFAException::class,
-            'NotAuthorizedException' => NotAuthorizedException::class,
             'SoftwareTokenMFANotFoundException' => SoftwareTokenMFANotFoundException::class,
             'CodeMismatchException' => CodeMismatchException::class,
         ]]));

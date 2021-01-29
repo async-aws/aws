@@ -9,12 +9,9 @@ use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\PopulatorGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
-use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
-use AsyncAws\Core\AwsError\AwsError;
 use AsyncAws\Core\Exception\Http\ClientException;
 use AsyncAws\Core\Exception\Http\ServerException;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * Generate API client methods and result classes.

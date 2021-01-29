@@ -232,7 +232,7 @@ class PopulatorGenerator
         if (null !== $payloadProperty && $shape->getMember($payloadProperty)->isStreaming()) {
             // Make sure we can stream this.
             $classBuilder->addUse(ResponseBodyStream::class);
-            $body .= strtr('$this->PROPERTY_NAME = $response->toStream();', ['PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName())]);
+            $body .= strtr('$this->PROPERTY_NAME = $response->toStream();', ['PROPERTY_NAME' => GeneratorHelper::normalizeName($payloadProperty)]);
         } else {
             $parserResult = $this->parserProvider->get($operation->getService())->generate($shape, !$forException);
             $body .= $parserResult->getBody();

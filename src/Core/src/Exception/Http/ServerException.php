@@ -11,7 +11,7 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-final class ServerException extends \RuntimeException implements HttpException, ServerExceptionInterface
+class ServerException extends \RuntimeException implements HttpException, ServerExceptionInterface
 {
     use HttpExceptionTrait;
 }
