@@ -25,14 +25,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Initialize tests
+        run: make initialize
+
       - name: Download dependencies
         run: |
           composer config minimum-stability dev
           composer req symfony/phpunit-bridge --no-update
           composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
-
-      - name: Initialize tests
-        run: make initialize
 
       - name: Run tests
         run: ./vendor/bin/simple-phpunit

@@ -25,6 +25,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Initialize tests
+        run: make initialize
+
       - name: Download dependencies
         run: |
           composer config minimum-stability dev
