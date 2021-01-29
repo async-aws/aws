@@ -30,6 +30,7 @@ class GeneratorHelper
             'AWS' => 'Aws',
             'ACL' => 'Acl',
             'ACP' => 'Acp',
+            'EC2' => 'Ec2',
             'KMS' => 'Kms',
             'ARN' => 'Arn',
             'MFA' => 'Mfa',

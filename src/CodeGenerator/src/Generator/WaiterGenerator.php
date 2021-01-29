@@ -110,14 +110,14 @@ class WaiterGenerator
             ->setReturnType($resultClass->getFqdn())
             ->setBody(strtr('
                 $input = INPUT_CLASS::create($input);
-                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion(), "exceptionMapping" => ERRORS]));
+                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion()EXCEPTION_MAPPING]));
 
                 return new RESULT_CLASS($response, $this, $input);
             ', [
                 'INPUT_CLASS' => $inputClass->getName(),
                 'OPERATION_NAME' => \var_export($operation->getName(), true),
                 'RESULT_CLASS' => $resultClass->getName(),
-                'ERRORS' => $mapping ? "[\n" . implode("\n", $mapping) . "\n]" : '[]',
+                'EXCEPTION_MAPPING' => $mapping ? ", 'exceptionMapping' => [\n" . implode("\n", $mapping) . "\n]" : '',
             ]));
         foreach ($memberClassNames as $memberClassName) {
             $classBuilder->addUse($memberClassName->getFqdn());

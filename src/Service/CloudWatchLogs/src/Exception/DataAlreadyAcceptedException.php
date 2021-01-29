@@ -2,7 +2,6 @@
 
 namespace AsyncAws\CloudWatchLogs\Exception;
 
-use AsyncAws\Core\AwsError\AwsError;
 use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -13,18 +12,12 @@ final class DataAlreadyAcceptedException extends ClientException
 {
     private $expectedSequenceToken;
 
-    public function __construct(ResponseInterface $response, ?AwsError $awsError)
-    {
-        parent::__construct($response, $awsError);
-        $this->populateResult($response);
-    }
-
     public function getExpectedSequenceToken(): ?string
     {
         return $this->expectedSequenceToken;
     }
 
-    private function populateResult(ResponseInterface $response): void
+    protected function populateResult(ResponseInterface $response): void
     {
         $data = $response->toArray(false);
 

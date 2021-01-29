@@ -145,18 +145,16 @@ class OperationGenerator
             $body .= '@trigger_error(\sprintf(\'The operation "%s" is deprecated by AWS.\', __FUNCTION__), E_USER_DEPRECATED);';
         }
 
+        $body .= '
+                $input = INPUT_CLASS::create($input);
+                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion()EXCEPTION_MAPPING]));
+        ';
         if ((null !== $pagination = $operation->getPagination()) && !empty($pagination->getOutputToken())) {
             $body .= '
-                $input = INPUT_CLASS::create($input);
-                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion(), "exceptionMapping" => ERRORS]));
-
                 return new RESULT_CLASS($response, $this, $input);
             ';
         } else {
             $body .= '
-                $input = INPUT_CLASS::create($input);
-                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion(), "exceptionMapping" => ERRORS]));
-
                 return new RESULT_CLASS($response);
             ';
         }
@@ -173,7 +171,7 @@ class OperationGenerator
             'INPUT_CLASS' => $inputClass->getName(),
             'OPERATION_NAME' => \var_export($operation->getName(), true),
             'RESULT_CLASS' => $resultClass ? $resultClass->getName() : 'Result',
-            'ERRORS' => $mapping ? "[\n" . implode("\n", $mapping) . "\n]" : '[]',
+            'EXCEPTION_MAPPING' => $mapping ? ", 'exceptionMapping' => [\n" . implode("\n", $mapping) . "\n]" : '',
         ]));
     }
 }

@@ -38,11 +38,19 @@ class CloudWatchLogsClient extends AbstractApi
      *   limit?: int,
      *   @region?: string,
      * }|DescribeLogStreamsRequest $input
+     *
+     * @throws InvalidParameterException
+     * @throws ResourceNotFoundException
+     * @throws ServiceUnavailableException
      */
     public function describeLogStreams($input): DescribeLogStreamsResponse
     {
         $input = DescribeLogStreamsRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeLogStreams', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeLogStreams', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterException' => InvalidParameterException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceUnavailableException' => ServiceUnavailableException::class,
+        ]]));
 
         return new DescribeLogStreamsResponse($response, $this, $input);
     }

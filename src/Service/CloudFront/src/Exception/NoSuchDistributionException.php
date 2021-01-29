@@ -2,7 +2,6 @@
 
 namespace AsyncAws\CloudFront\Exception;
 
-use AsyncAws\Core\AwsError\AwsError;
 use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -11,13 +10,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class NoSuchDistributionException extends ClientException
 {
-    public function __construct(ResponseInterface $response, ?AwsError $awsError)
-    {
-        parent::__construct($response, $awsError);
-        $this->populateResult($response);
-    }
-
-    private function populateResult(ResponseInterface $response): void
+    protected function populateResult(ResponseInterface $response): void
     {
         $data = new \SimpleXMLElement($response->getContent(false));
         if (0 < $data->Error->count()) {

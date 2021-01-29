@@ -3,6 +3,13 @@
 namespace AsyncAws\CodeDeploy;
 
 use AsyncAws\CodeDeploy\Enum\LifecycleEventStatus;
+use AsyncAws\CodeDeploy\Exception\DeploymentDoesNotExistException;
+use AsyncAws\CodeDeploy\Exception\DeploymentIdRequiredException;
+use AsyncAws\CodeDeploy\Exception\InvalidDeploymentIdException;
+use AsyncAws\CodeDeploy\Exception\InvalidLifecycleEventHookExecutionIdException;
+use AsyncAws\CodeDeploy\Exception\InvalidLifecycleEventHookExecutionStatusException;
+use AsyncAws\CodeDeploy\Exception\LifecycleEventAlreadyCompletedException;
+use AsyncAws\CodeDeploy\Exception\UnsupportedActionForDeploymentTypeException;
 use AsyncAws\CodeDeploy\Input\PutLifecycleEventHookExecutionStatusInput;
 use AsyncAws\CodeDeploy\Result\PutLifecycleEventHookExecutionStatusOutput;
 use AsyncAws\Core\AbstractApi;
@@ -32,11 +39,27 @@ class CodeDeployClient extends AbstractApi
      *   status?: LifecycleEventStatus::*,
      *   @region?: string,
      * }|PutLifecycleEventHookExecutionStatusInput $input
+     *
+     * @throws InvalidLifecycleEventHookExecutionStatusException
+     * @throws InvalidLifecycleEventHookExecutionIdException
+     * @throws LifecycleEventAlreadyCompletedException
+     * @throws DeploymentIdRequiredException
+     * @throws DeploymentDoesNotExistException
+     * @throws InvalidDeploymentIdException
+     * @throws UnsupportedActionForDeploymentTypeException
      */
     public function putLifecycleEventHookExecutionStatus($input = []): PutLifecycleEventHookExecutionStatusOutput
     {
         $input = PutLifecycleEventHookExecutionStatusInput::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutLifecycleEventHookExecutionStatus', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutLifecycleEventHookExecutionStatus', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidLifecycleEventHookExecutionStatusException' => InvalidLifecycleEventHookExecutionStatusException::class,
+            'InvalidLifecycleEventHookExecutionIdException' => InvalidLifecycleEventHookExecutionIdException::class,
+            'LifecycleEventAlreadyCompletedException' => LifecycleEventAlreadyCompletedException::class,
+            'DeploymentIdRequiredException' => DeploymentIdRequiredException::class,
+            'DeploymentDoesNotExistException' => DeploymentDoesNotExistException::class,
+            'InvalidDeploymentIdException' => InvalidDeploymentIdException::class,
+            'UnsupportedActionForDeploymentTypeException' => UnsupportedActionForDeploymentTypeException::class,
+        ]]));
 
         return new PutLifecycleEventHookExecutionStatusOutput($response);
     }

@@ -77,24 +77,8 @@ class ExceptionGenerator
 
         if (0 < \count($members = $shape->getMembers())) {
             $this->populatorGenerator->generate($operation, $shape, $classBuilder, true);
-            $this->generateConstructor($classBuilder);
         }
 
         return $className;
-    }
-
-    private function generateConstructor(ClassBuilder $classBuilder): void
-    {
-        $body = '
-            parent::__construct($response, $awsError);
-            $this->populateResult($response);
-        ';
-
-        $method = $classBuilder->addMethod('__construct')
-            ->setBody($body);
-        $method->addParameter('response')->setType(ResponseInterface::class);
-        $method->addParameter('awsError')->setType(AwsError::class)->setNullable(true);
-        $classBuilder->addUse(ResponseInterface::class);
-        $classBuilder->addUse(AwsError::class);
     }
 }

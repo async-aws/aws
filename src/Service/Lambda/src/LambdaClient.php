@@ -10,6 +10,35 @@ use AsyncAws\Core\RequestContext;
 use AsyncAws\Lambda\Enum\InvocationType;
 use AsyncAws\Lambda\Enum\LogType;
 use AsyncAws\Lambda\Enum\Runtime;
+use AsyncAws\Lambda\Exception\CodeStorageExceededException;
+use AsyncAws\Lambda\Exception\EC2AccessDeniedException;
+use AsyncAws\Lambda\Exception\EC2ThrottledException;
+use AsyncAws\Lambda\Exception\EC2UnexpectedException;
+use AsyncAws\Lambda\Exception\EFSIOException;
+use AsyncAws\Lambda\Exception\EFSMountConnectivityException;
+use AsyncAws\Lambda\Exception\EFSMountFailureException;
+use AsyncAws\Lambda\Exception\EFSMountTimeoutException;
+use AsyncAws\Lambda\Exception\ENILimitReachedException;
+use AsyncAws\Lambda\Exception\InvalidParameterValueException;
+use AsyncAws\Lambda\Exception\InvalidRequestContentException;
+use AsyncAws\Lambda\Exception\InvalidRuntimeException;
+use AsyncAws\Lambda\Exception\InvalidSecurityGroupIDException;
+use AsyncAws\Lambda\Exception\InvalidSubnetIDException;
+use AsyncAws\Lambda\Exception\InvalidZipFileException;
+use AsyncAws\Lambda\Exception\KMSAccessDeniedException;
+use AsyncAws\Lambda\Exception\KMSDisabledException;
+use AsyncAws\Lambda\Exception\KMSInvalidStateException;
+use AsyncAws\Lambda\Exception\KMSNotFoundException;
+use AsyncAws\Lambda\Exception\PolicyLengthExceededException;
+use AsyncAws\Lambda\Exception\PreconditionFailedException;
+use AsyncAws\Lambda\Exception\RequestTooLargeException;
+use AsyncAws\Lambda\Exception\ResourceConflictException;
+use AsyncAws\Lambda\Exception\ResourceNotFoundException;
+use AsyncAws\Lambda\Exception\ResourceNotReadyException;
+use AsyncAws\Lambda\Exception\ServiceException;
+use AsyncAws\Lambda\Exception\SubnetIPAddressLimitReachedException;
+use AsyncAws\Lambda\Exception\TooManyRequestsException;
+use AsyncAws\Lambda\Exception\UnsupportedMediaTypeException;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
@@ -41,11 +70,27 @@ class LambdaClient extends AbstractApi
      *   RevisionId?: string,
      *   @region?: string,
      * }|AddLayerVersionPermissionRequest $input
+     *
+     * @throws ServiceException
+     * @throws ResourceNotFoundException
+     * @throws ResourceConflictException
+     * @throws TooManyRequestsException
+     * @throws InvalidParameterValueException
+     * @throws PolicyLengthExceededException
+     * @throws PreconditionFailedException
      */
     public function addLayerVersionPermission($input): AddLayerVersionPermissionResponse
     {
         $input = AddLayerVersionPermissionRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AddLayerVersionPermission', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AddLayerVersionPermission', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ServiceException' => ServiceException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ResourceConflictException' => ResourceConflictException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'InvalidParameterValueException' => InvalidParameterValueException::class,
+            'PolicyLengthExceededException' => PolicyLengthExceededException::class,
+            'PreconditionFailedException' => PreconditionFailedException::class,
+        ]]));
 
         return new AddLayerVersionPermissionResponse($response);
     }
@@ -66,11 +111,65 @@ class LambdaClient extends AbstractApi
      *   Qualifier?: string,
      *   @region?: string,
      * }|InvocationRequest $input
+     *
+     * @throws ServiceException
+     * @throws ResourceNotFoundException
+     * @throws InvalidRequestContentException
+     * @throws RequestTooLargeException
+     * @throws UnsupportedMediaTypeException
+     * @throws TooManyRequestsException
+     * @throws InvalidParameterValueException
+     * @throws EC2UnexpectedException
+     * @throws SubnetIPAddressLimitReachedException
+     * @throws ENILimitReachedException
+     * @throws EFSMountConnectivityException
+     * @throws EFSMountFailureException
+     * @throws EFSMountTimeoutException
+     * @throws EFSIOException
+     * @throws EC2ThrottledException
+     * @throws EC2AccessDeniedException
+     * @throws InvalidSubnetIDException
+     * @throws InvalidSecurityGroupIDException
+     * @throws InvalidZipFileException
+     * @throws KMSDisabledException
+     * @throws KMSInvalidStateException
+     * @throws KMSAccessDeniedException
+     * @throws KMSNotFoundException
+     * @throws InvalidRuntimeException
+     * @throws ResourceConflictException
+     * @throws ResourceNotReadyException
      */
     public function invoke($input): InvocationResponse
     {
         $input = InvocationRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Invoke', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Invoke', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ServiceException' => ServiceException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidRequestContentException' => InvalidRequestContentException::class,
+            'RequestTooLargeException' => RequestTooLargeException::class,
+            'UnsupportedMediaTypeException' => UnsupportedMediaTypeException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'InvalidParameterValueException' => InvalidParameterValueException::class,
+            'EC2UnexpectedException' => EC2UnexpectedException::class,
+            'SubnetIPAddressLimitReachedException' => SubnetIPAddressLimitReachedException::class,
+            'ENILimitReachedException' => ENILimitReachedException::class,
+            'EFSMountConnectivityException' => EFSMountConnectivityException::class,
+            'EFSMountFailureException' => EFSMountFailureException::class,
+            'EFSMountTimeoutException' => EFSMountTimeoutException::class,
+            'EFSIOException' => EFSIOException::class,
+            'EC2ThrottledException' => EC2ThrottledException::class,
+            'EC2AccessDeniedException' => EC2AccessDeniedException::class,
+            'InvalidSubnetIDException' => InvalidSubnetIDException::class,
+            'InvalidSecurityGroupIDException' => InvalidSecurityGroupIDException::class,
+            'InvalidZipFileException' => InvalidZipFileException::class,
+            'KMSDisabledException' => KMSDisabledException::class,
+            'KMSInvalidStateException' => KMSInvalidStateException::class,
+            'KMSAccessDeniedException' => KMSAccessDeniedException::class,
+            'KMSNotFoundException' => KMSNotFoundException::class,
+            'InvalidRuntimeException' => InvalidRuntimeException::class,
+            'ResourceConflictException' => ResourceConflictException::class,
+            'ResourceNotReadyException' => ResourceNotReadyException::class,
+        ]]));
 
         return new InvocationResponse($response);
     }
@@ -91,11 +190,21 @@ class LambdaClient extends AbstractApi
      *   MaxItems?: int,
      *   @region?: string,
      * }|ListLayerVersionsRequest $input
+     *
+     * @throws ServiceException
+     * @throws InvalidParameterValueException
+     * @throws ResourceNotFoundException
+     * @throws TooManyRequestsException
      */
     public function listLayerVersions($input): ListLayerVersionsResponse
     {
         $input = ListLayerVersionsRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListLayerVersions', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListLayerVersions', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ServiceException' => ServiceException::class,
+            'InvalidParameterValueException' => InvalidParameterValueException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+        ]]));
 
         return new ListLayerVersionsResponse($response, $this, $input);
     }
@@ -116,11 +225,23 @@ class LambdaClient extends AbstractApi
      *   LicenseInfo?: string,
      *   @region?: string,
      * }|PublishLayerVersionRequest $input
+     *
+     * @throws ServiceException
+     * @throws ResourceNotFoundException
+     * @throws TooManyRequestsException
+     * @throws InvalidParameterValueException
+     * @throws CodeStorageExceededException
      */
     public function publishLayerVersion($input): PublishLayerVersionResponse
     {
         $input = PublishLayerVersionRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PublishLayerVersion', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PublishLayerVersion', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ServiceException' => ServiceException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'InvalidParameterValueException' => InvalidParameterValueException::class,
+            'CodeStorageExceededException' => CodeStorageExceededException::class,
+        ]]));
 
         return new PublishLayerVersionResponse($response);
     }

@@ -18,6 +18,13 @@ use AsyncAws\S3\Enum\RequestPayer;
 use AsyncAws\S3\Enum\ServerSideEncryption;
 use AsyncAws\S3\Enum\StorageClass;
 use AsyncAws\S3\Enum\TaggingDirective;
+use AsyncAws\S3\Exception\BucketAlreadyExistsException;
+use AsyncAws\S3\Exception\BucketAlreadyOwnedByYouException;
+use AsyncAws\S3\Exception\InvalidObjectStateException;
+use AsyncAws\S3\Exception\NoSuchBucketException;
+use AsyncAws\S3\Exception\NoSuchKeyException;
+use AsyncAws\S3\Exception\NoSuchUploadException;
+use AsyncAws\S3\Exception\ObjectNotInActiveTierErrorException;
 use AsyncAws\S3\Input\AbortMultipartUploadRequest;
 use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
 use AsyncAws\S3\Input\CopyObjectRequest;
@@ -91,18 +98,20 @@ class S3Client extends AbstractApi
      *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|AbortMultipartUploadRequest $input
+     *
+     * @throws NoSuchUploadException
      */
     public function abortMultipartUpload($input): AbortMultipartUploadOutput
     {
         $input = AbortMultipartUploadRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AbortMultipartUpload', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AbortMultipartUpload', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'NoSuchUpload' => NoSuchUploadException::class,
+        ]]));
 
         return new AbortMultipartUploadOutput($response);
     }
 
     /**
-     * Check status of operation headBucket.
-     *
      * @see headBucket
      *
      * @param array{
@@ -114,14 +123,14 @@ class S3Client extends AbstractApi
     public function bucketExists($input): BucketExistsWaiter
     {
         $input = HeadBucketRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadBucket', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadBucket', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'NoSuchBucket' => NoSuchBucketException::class,
+        ]]));
 
         return new BucketExistsWaiter($response, $this, $input);
     }
 
     /**
-     * Check status of operation headBucket.
-     *
      * @see headBucket
      *
      * @param array{
@@ -133,7 +142,9 @@ class S3Client extends AbstractApi
     public function bucketNotExists($input): BucketNotExistsWaiter
     {
         $input = HeadBucketRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadBucket', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadBucket', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'NoSuchBucket' => NoSuchBucketException::class,
+        ]]));
 
         return new BucketNotExistsWaiter($response, $this, $input);
     }
@@ -213,11 +224,15 @@ class S3Client extends AbstractApi
      *   ExpectedSourceBucketOwner?: string,
      *   @region?: string,
      * }|CopyObjectRequest $input
+     *
+     * @throws ObjectNotInActiveTierErrorException
      */
     public function copyObject($input): CopyObjectOutput
     {
         $input = CopyObjectRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CopyObject', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CopyObject', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ObjectNotInActiveTierError' => ObjectNotInActiveTierErrorException::class,
+        ]]));
 
         return new CopyObjectOutput($response);
     }
@@ -243,11 +258,17 @@ class S3Client extends AbstractApi
      *   ObjectLockEnabledForBucket?: bool,
      *   @region?: string,
      * }|CreateBucketRequest $input
+     *
+     * @throws BucketAlreadyExistsException
+     * @throws BucketAlreadyOwnedByYouException
      */
     public function createBucket($input): CreateBucketOutput
     {
         $input = CreateBucketRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateBucket', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateBucket', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'BucketAlreadyExists' => BucketAlreadyExistsException::class,
+            'BucketAlreadyOwnedByYou' => BucketAlreadyOwnedByYouException::class,
+        ]]));
 
         return new CreateBucketOutput($response);
     }
@@ -453,11 +474,17 @@ class S3Client extends AbstractApi
      *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|GetObjectRequest $input
+     *
+     * @throws NoSuchKeyException
+     * @throws InvalidObjectStateException
      */
     public function getObject($input): GetObjectOutput
     {
         $input = GetObjectRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetObject', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetObject', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'NoSuchKey' => NoSuchKeyException::class,
+            'InvalidObjectState' => InvalidObjectStateException::class,
+        ]]));
 
         return new GetObjectOutput($response);
     }
@@ -478,11 +505,15 @@ class S3Client extends AbstractApi
      *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|GetObjectAclRequest $input
+     *
+     * @throws NoSuchKeyException
      */
     public function getObjectAcl($input): GetObjectAclOutput
     {
         $input = GetObjectAclRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetObjectAcl', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetObjectAcl', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'NoSuchKey' => NoSuchKeyException::class,
+        ]]));
 
         return new GetObjectAclOutput($response);
     }
@@ -512,11 +543,15 @@ class S3Client extends AbstractApi
      *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|HeadObjectRequest $input
+     *
+     * @throws NoSuchKeyException
      */
     public function headObject($input): HeadObjectOutput
     {
         $input = HeadObjectRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadObject', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadObject', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'NoSuchKey' => NoSuchKeyException::class,
+        ]]));
 
         return new HeadObjectOutput($response);
     }
@@ -570,11 +605,15 @@ class S3Client extends AbstractApi
      *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|ListObjectsV2Request $input
+     *
+     * @throws NoSuchBucketException
      */
     public function listObjectsV2($input): ListObjectsV2Output
     {
         $input = ListObjectsV2Request::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListObjectsV2', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListObjectsV2', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'NoSuchBucket' => NoSuchBucketException::class,
+        ]]));
 
         return new ListObjectsV2Output($response, $this, $input);
     }
@@ -613,8 +652,6 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * Check status of operation headObject.
-     *
      * @see headObject
      *
      * @param array{
@@ -638,14 +675,14 @@ class S3Client extends AbstractApi
     public function objectExists($input): ObjectExistsWaiter
     {
         $input = HeadObjectRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadObject', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadObject', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'NoSuchKey' => NoSuchKeyException::class,
+        ]]));
 
         return new ObjectExistsWaiter($response, $this, $input);
     }
 
     /**
-     * Check status of operation headObject.
-     *
      * @see headObject
      *
      * @param array{
@@ -669,7 +706,9 @@ class S3Client extends AbstractApi
     public function objectNotExists($input): ObjectNotExistsWaiter
     {
         $input = HeadObjectRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadObject', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadObject', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'NoSuchKey' => NoSuchKeyException::class,
+        ]]));
 
         return new ObjectNotExistsWaiter($response, $this, $input);
     }
@@ -797,11 +836,15 @@ class S3Client extends AbstractApi
      *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|PutObjectAclRequest $input
+     *
+     * @throws NoSuchKeyException
      */
     public function putObjectAcl($input): PutObjectAclOutput
     {
         $input = PutObjectAclRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutObjectAcl', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutObjectAcl', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'NoSuchKey' => NoSuchKeyException::class,
+        ]]));
 
         return new PutObjectAclOutput($response);
     }

@@ -9,6 +9,27 @@ use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Ssm\Enum\ParameterTier;
 use AsyncAws\Ssm\Enum\ParameterType;
+use AsyncAws\Ssm\Exception\HierarchyLevelLimitExceededException;
+use AsyncAws\Ssm\Exception\HierarchyTypeMismatchException;
+use AsyncAws\Ssm\Exception\IncompatiblePolicyException;
+use AsyncAws\Ssm\Exception\InternalServerErrorException;
+use AsyncAws\Ssm\Exception\InvalidAllowedPatternException;
+use AsyncAws\Ssm\Exception\InvalidFilterKeyException;
+use AsyncAws\Ssm\Exception\InvalidFilterOptionException;
+use AsyncAws\Ssm\Exception\InvalidFilterValueException;
+use AsyncAws\Ssm\Exception\InvalidKeyIdException;
+use AsyncAws\Ssm\Exception\InvalidNextTokenException;
+use AsyncAws\Ssm\Exception\InvalidPolicyAttributeException;
+use AsyncAws\Ssm\Exception\InvalidPolicyTypeException;
+use AsyncAws\Ssm\Exception\ParameterAlreadyExistsException;
+use AsyncAws\Ssm\Exception\ParameterLimitExceededException;
+use AsyncAws\Ssm\Exception\ParameterMaxVersionLimitExceededException;
+use AsyncAws\Ssm\Exception\ParameterNotFoundException;
+use AsyncAws\Ssm\Exception\ParameterPatternMismatchException;
+use AsyncAws\Ssm\Exception\ParameterVersionNotFoundException;
+use AsyncAws\Ssm\Exception\PoliciesLimitExceededException;
+use AsyncAws\Ssm\Exception\TooManyUpdatesException;
+use AsyncAws\Ssm\Exception\UnsupportedParameterTypeException;
 use AsyncAws\Ssm\Input\DeleteParameterRequest;
 use AsyncAws\Ssm\Input\GetParameterRequest;
 use AsyncAws\Ssm\Input\GetParametersByPathRequest;
@@ -35,11 +56,17 @@ class SsmClient extends AbstractApi
      *   Name: string,
      *   @region?: string,
      * }|DeleteParameterRequest $input
+     *
+     * @throws InternalServerErrorException
+     * @throws ParameterNotFoundException
      */
     public function deleteParameter($input): DeleteParameterResult
     {
         $input = DeleteParameterRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteParameter', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteParameter', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalServerError' => InternalServerErrorException::class,
+            'ParameterNotFound' => ParameterNotFoundException::class,
+        ]]));
 
         return new DeleteParameterResult($response);
     }
@@ -56,11 +83,21 @@ class SsmClient extends AbstractApi
      *   WithDecryption?: bool,
      *   @region?: string,
      * }|GetParameterRequest $input
+     *
+     * @throws InternalServerErrorException
+     * @throws InvalidKeyIdException
+     * @throws ParameterNotFoundException
+     * @throws ParameterVersionNotFoundException
      */
     public function getParameter($input): GetParameterResult
     {
         $input = GetParameterRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetParameter', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetParameter', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalServerError' => InternalServerErrorException::class,
+            'InvalidKeyId' => InvalidKeyIdException::class,
+            'ParameterNotFound' => ParameterNotFoundException::class,
+            'ParameterVersionNotFound' => ParameterVersionNotFoundException::class,
+        ]]));
 
         return new GetParameterResult($response);
     }
@@ -76,11 +113,17 @@ class SsmClient extends AbstractApi
      *   WithDecryption?: bool,
      *   @region?: string,
      * }|GetParametersRequest $input
+     *
+     * @throws InvalidKeyIdException
+     * @throws InternalServerErrorException
      */
     public function getParameters($input): GetParametersResult
     {
         $input = GetParametersRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetParameters', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetParameters', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidKeyId' => InvalidKeyIdException::class,
+            'InternalServerError' => InternalServerErrorException::class,
+        ]]));
 
         return new GetParametersResult($response);
     }
@@ -100,11 +143,25 @@ class SsmClient extends AbstractApi
      *   NextToken?: string,
      *   @region?: string,
      * }|GetParametersByPathRequest $input
+     *
+     * @throws InternalServerErrorException
+     * @throws InvalidFilterKeyException
+     * @throws InvalidFilterOptionException
+     * @throws InvalidFilterValueException
+     * @throws InvalidKeyIdException
+     * @throws InvalidNextTokenException
      */
     public function getParametersByPath($input): GetParametersByPathResult
     {
         $input = GetParametersByPathRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetParametersByPath', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetParametersByPath', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalServerError' => InternalServerErrorException::class,
+            'InvalidFilterKey' => InvalidFilterKeyException::class,
+            'InvalidFilterOption' => InvalidFilterOptionException::class,
+            'InvalidFilterValue' => InvalidFilterValueException::class,
+            'InvalidKeyId' => InvalidKeyIdException::class,
+            'InvalidNextToken' => InvalidNextTokenException::class,
+        ]]));
 
         return new GetParametersByPathResult($response, $this, $input);
     }
@@ -129,11 +186,43 @@ class SsmClient extends AbstractApi
      *   DataType?: string,
      *   @region?: string,
      * }|PutParameterRequest $input
+     *
+     * @throws InternalServerErrorException
+     * @throws InvalidKeyIdException
+     * @throws ParameterLimitExceededException
+     * @throws TooManyUpdatesException
+     * @throws ParameterAlreadyExistsException
+     * @throws HierarchyLevelLimitExceededException
+     * @throws HierarchyTypeMismatchException
+     * @throws InvalidAllowedPatternException
+     * @throws ParameterMaxVersionLimitExceededException
+     * @throws ParameterPatternMismatchException
+     * @throws UnsupportedParameterTypeException
+     * @throws PoliciesLimitExceededException
+     * @throws InvalidPolicyTypeException
+     * @throws InvalidPolicyAttributeException
+     * @throws IncompatiblePolicyException
      */
     public function putParameter($input): PutParameterResult
     {
         $input = PutParameterRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutParameter', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutParameter', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalServerError' => InternalServerErrorException::class,
+            'InvalidKeyId' => InvalidKeyIdException::class,
+            'ParameterLimitExceeded' => ParameterLimitExceededException::class,
+            'TooManyUpdates' => TooManyUpdatesException::class,
+            'ParameterAlreadyExists' => ParameterAlreadyExistsException::class,
+            'HierarchyLevelLimitExceededException' => HierarchyLevelLimitExceededException::class,
+            'HierarchyTypeMismatchException' => HierarchyTypeMismatchException::class,
+            'InvalidAllowedPatternException' => InvalidAllowedPatternException::class,
+            'ParameterMaxVersionLimitExceeded' => ParameterMaxVersionLimitExceededException::class,
+            'ParameterPatternMismatchException' => ParameterPatternMismatchException::class,
+            'UnsupportedParameterType' => UnsupportedParameterTypeException::class,
+            'PoliciesLimitExceededException' => PoliciesLimitExceededException::class,
+            'InvalidPolicyTypeException' => InvalidPolicyTypeException::class,
+            'InvalidPolicyAttributeException' => InvalidPolicyAttributeException::class,
+            'IncompatiblePolicyException' => IncompatiblePolicyException::class,
+        ]]));
 
         return new PutParameterResult($response);
     }

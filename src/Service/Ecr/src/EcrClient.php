@@ -8,6 +8,8 @@ use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\Ecr\Exception\InvalidParameterException;
+use AsyncAws\Ecr\Exception\ServerException;
 use AsyncAws\Ecr\Input\GetAuthorizationTokenRequest;
 use AsyncAws\Ecr\Result\GetAuthorizationTokenResponse;
 
@@ -25,11 +27,17 @@ class EcrClient extends AbstractApi
      *   registryIds?: string[],
      *   @region?: string,
      * }|GetAuthorizationTokenRequest $input
+     *
+     * @throws ServerException
+     * @throws InvalidParameterException
      */
     public function getAuthorizationToken($input = []): GetAuthorizationTokenResponse
     {
         $input = GetAuthorizationTokenRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetAuthorizationToken', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetAuthorizationToken', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ServerException' => ServerException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+        ]]));
 
         return new GetAuthorizationTokenResponse($response);
     }
