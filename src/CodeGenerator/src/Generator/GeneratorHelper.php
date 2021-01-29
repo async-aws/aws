@@ -24,6 +24,7 @@ class GeneratorHelper
         // Ordered by search length to avoid collision and wrong substitution
         static $replacements = [
             'BOOL' => 'Bool',
+            'CORS' => 'Cors',
             'ETag' => 'Etag',
             'NULL' => 'Null',
             'AWS' => 'Aws',

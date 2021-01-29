@@ -14,8 +14,10 @@ use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
 use AsyncAws\S3\Input\CopyObjectRequest;
 use AsyncAws\S3\Input\CreateBucketRequest;
 use AsyncAws\S3\Input\CreateMultipartUploadRequest;
+use AsyncAws\S3\Input\DeleteBucketCorsRequest;
 use AsyncAws\S3\Input\DeleteBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
+use AsyncAws\S3\Input\GetBucketCorsRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\HeadBucketRequest;
@@ -23,6 +25,7 @@ use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
+use AsyncAws\S3\Input\PutBucketCorsRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
@@ -34,6 +37,8 @@ use AsyncAws\S3\ValueObject\AwsObject;
 use AsyncAws\S3\ValueObject\CommonPrefix;
 use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
 use AsyncAws\S3\ValueObject\CompletedPart;
+use AsyncAws\S3\ValueObject\CORSConfiguration;
+use AsyncAws\S3\ValueObject\CORSRule;
 use AsyncAws\S3\ValueObject\FilterRule;
 use AsyncAws\S3\ValueObject\Grant;
 use AsyncAws\S3\ValueObject\Grantee;
@@ -242,6 +247,20 @@ class S3ClientTest extends TestCase
         ]))->isSuccess());
     }
 
+    public function testDeleteBucketCors(): void
+    {
+        self::markTestSkipped('The S3 Docker image does not implement DeleteBucketCors.');
+        $client = $this->getClient();
+        $bucket = 'foo';
+
+        $input = new DeleteBucketCorsRequest([
+            'Bucket' => $bucket,
+        ]);
+        $result = $client->DeleteBucketCors($input);
+
+        $result->resolve();
+    }
+
     public function testDeleteObject(): void
     {
         $client = $this->getClient();
@@ -283,6 +302,22 @@ class S3ClientTest extends TestCase
         $result->resolve();
         $info = $result->info();
         self::assertEquals(204, $info['status']);
+    }
+
+    public function testGetBucketCors(): void
+    {
+        self::markTestSkipped('The S3 Docker image does not implement GetBucketCors.');
+        $client = $this->getClient();
+        $bucket = 'foo';
+
+        $input = new GetBucketCorsRequest([
+            'Bucket' => $bucket,
+        ]);
+        $result = $client->GetBucketCors($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getCORSRules());
     }
 
     public function testGetFileNotExist()
@@ -557,6 +592,32 @@ class S3ClientTest extends TestCase
         // self::assertTODO(expected, $result->getOwner());
         self::assertSame('changeIt', $result->getStorageClass());
         self::assertSame('changeIt', $result->getRequestCharged());
+    }
+
+    public function testPutBucketCors(): void
+    {
+        $client = $this->getClient();
+
+        $input = new PutBucketCorsRequest([
+            'Bucket' => 'bucket-name',
+            'CORSConfiguration' => new CORSConfiguration([
+                'CORSRules' => [new CORSRule([
+                    'AllowedHeaders' => ['*'],
+                    'AllowedMethods' => ['GET', 'PUT'],
+                    'AllowedOrigins' => ['test.example.com'],
+                    'ExposeHeaders' => [],
+                    'MaxAgeSeconds' => 1337,
+                ])],
+            ]),
+            'ContentMD5' => 'change me',
+            'ExpectedBucketOwner' => 'change me',
+        ]);
+        $result = $client->PutBucketCors($input);
+
+        self::assertTrue($result->resolve());
+
+        $info = $result->info();
+        self::assertEquals(200, $info['status']);
     }
 
     public function testPutBucketNotificationConfiguration(): void

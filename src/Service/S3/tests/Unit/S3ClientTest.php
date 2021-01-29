@@ -11,15 +11,18 @@ use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
 use AsyncAws\S3\Input\CopyObjectRequest;
 use AsyncAws\S3\Input\CreateBucketRequest;
 use AsyncAws\S3\Input\CreateMultipartUploadRequest;
+use AsyncAws\S3\Input\DeleteBucketCorsRequest;
 use AsyncAws\S3\Input\DeleteBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\DeleteObjectsRequest;
+use AsyncAws\S3\Input\GetBucketCorsRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
+use AsyncAws\S3\Input\PutBucketCorsRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
@@ -31,6 +34,7 @@ use AsyncAws\S3\Result\CreateBucketOutput;
 use AsyncAws\S3\Result\CreateMultipartUploadOutput;
 use AsyncAws\S3\Result\DeleteObjectOutput;
 use AsyncAws\S3\Result\DeleteObjectsOutput;
+use AsyncAws\S3\Result\GetBucketCorsOutput;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
@@ -41,6 +45,8 @@ use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\Result\UploadPartOutput;
 use AsyncAws\S3\S3Client;
+use AsyncAws\S3\ValueObject\CORSConfiguration;
+use AsyncAws\S3\ValueObject\CORSRule;
 use AsyncAws\S3\ValueObject\Delete;
 use AsyncAws\S3\ValueObject\FilterRule;
 use AsyncAws\S3\ValueObject\NotificationConfiguration;
@@ -185,6 +191,20 @@ class S3ClientTest extends TestCase
         self::assertFalse($result->info()['resolved']);
     }
 
+    public function testDeleteBucketCors(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new DeleteBucketCorsRequest([
+            'Bucket' => 'example-bucket',
+
+        ]);
+        $result = $client->DeleteBucketCors($input);
+
+        self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testDeleteObject(): void
     {
         $client = new S3Client([], new NullProvider(), new MockHttpClient());
@@ -218,6 +238,20 @@ class S3ClientTest extends TestCase
         $result = $client->DeleteObjects($input);
 
         self::assertInstanceOf(DeleteObjectsOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testGetBucketCors(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new GetBucketCorsRequest([
+            'Bucket' => 'example-bucket',
+
+        ]);
+        $result = $client->GetBucketCors($input);
+
+        self::assertInstanceOf(GetBucketCorsOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
@@ -301,6 +335,27 @@ class S3ClientTest extends TestCase
         $result = $client->ListParts($input);
 
         self::assertInstanceOf(ListPartsOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testPutBucketCors(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new PutBucketCorsRequest([
+            'Bucket' => 'bucket-name',
+            'CORSConfiguration' => new CORSConfiguration([
+                'CORSRules' => [new CORSRule([
+                    'AllowedHeaders' => ['*'],
+                    'AllowedMethods' => ['GET', 'PUT'],
+                    'AllowedOrigins' => ['test.example.com'],
+                ])],
+            ]),
+
+        ]);
+        $result = $client->PutBucketCors($input);
+
+        self::assertInstanceOf(Result::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 

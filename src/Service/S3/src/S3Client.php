@@ -23,9 +23,11 @@ use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
 use AsyncAws\S3\Input\CopyObjectRequest;
 use AsyncAws\S3\Input\CreateBucketRequest;
 use AsyncAws\S3\Input\CreateMultipartUploadRequest;
+use AsyncAws\S3\Input\DeleteBucketCorsRequest;
 use AsyncAws\S3\Input\DeleteBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\DeleteObjectsRequest;
+use AsyncAws\S3\Input\GetBucketCorsRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\HeadBucketRequest;
@@ -33,6 +35,7 @@ use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
+use AsyncAws\S3\Input\PutBucketCorsRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
@@ -46,6 +49,7 @@ use AsyncAws\S3\Result\CreateBucketOutput;
 use AsyncAws\S3\Result\CreateMultipartUploadOutput;
 use AsyncAws\S3\Result\DeleteObjectOutput;
 use AsyncAws\S3\Result\DeleteObjectsOutput;
+use AsyncAws\S3\Result\GetBucketCorsOutput;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
@@ -60,6 +64,7 @@ use AsyncAws\S3\Result\UploadPartOutput;
 use AsyncAws\S3\Signer\SignerV4ForS3;
 use AsyncAws\S3\ValueObject\AccessControlPolicy;
 use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
+use AsyncAws\S3\ValueObject\CORSConfiguration;
 use AsyncAws\S3\ValueObject\CreateBucketConfiguration;
 use AsyncAws\S3\ValueObject\Delete;
 use AsyncAws\S3\ValueObject\MultipartUpload;
@@ -322,6 +327,27 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * Deletes the `cors` configuration information set for the bucket.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketDELETEcors.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketCors.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#deletebucketcors
+     *
+     * @param array{
+     *   Bucket: string,
+     *   ExpectedBucketOwner?: string,
+     *   @region?: string,
+     * }|DeleteBucketCorsRequest $input
+     */
+    public function deleteBucketCors($input): Result
+    {
+        $input = DeleteBucketCorsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteBucketCors', 'region' => $input->getRegion()]));
+
+        return new Result($response);
+    }
+
+    /**
      * Removes the null version (if there is one) of an object and inserts a delete marker, which becomes the latest version
      * of the object. If there isn't a null version, Amazon S3 does not remove any objects.
      *
@@ -373,6 +399,27 @@ class S3Client extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteObjects', 'region' => $input->getRegion()]));
 
         return new DeleteObjectsOutput($response);
+    }
+
+    /**
+     * Returns the cors configuration information set for the bucket.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGETcors.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketCors.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#getbucketcors
+     *
+     * @param array{
+     *   Bucket: string,
+     *   ExpectedBucketOwner?: string,
+     *   @region?: string,
+     * }|GetBucketCorsRequest $input
+     */
+    public function getBucketCors($input): GetBucketCorsOutput
+    {
+        $input = GetBucketCorsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetBucketCors', 'region' => $input->getRegion()]));
+
+        return new GetBucketCorsOutput($response);
     }
 
     /**
@@ -625,6 +672,29 @@ class S3Client extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'HeadObject', 'region' => $input->getRegion()]));
 
         return new ObjectNotExistsWaiter($response, $this, $input);
+    }
+
+    /**
+     * Sets the `cors` configuration for your bucket. If the configuration exists, Amazon S3 replaces it.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUTcors.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketCors.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#putbucketcors
+     *
+     * @param array{
+     *   Bucket: string,
+     *   CORSConfiguration: CORSConfiguration|array,
+     *   ContentMD5?: string,
+     *   ExpectedBucketOwner?: string,
+     *   @region?: string,
+     * }|PutBucketCorsRequest $input
+     */
+    public function putBucketCors($input): Result
+    {
+        $input = PutBucketCorsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutBucketCors', 'region' => $input->getRegion()]));
+
+        return new Result($response);
     }
 
     /**
