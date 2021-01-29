@@ -13,7 +13,7 @@
     "require": {
         "php": "^7.2.5 || ^8.0",
         "ext-json": "*",
-        "async-aws/core": "^1.2"
+        "async-aws/core": "^1.9"
     },
     "conflict": {
         "symfony/http-client": "<4.4.16,<5.1.7"
