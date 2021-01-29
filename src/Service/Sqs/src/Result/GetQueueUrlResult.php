@@ -15,13 +15,13 @@ class GetQueueUrlResult extends Result
     /**
      * The URL of the queue.
      */
-    private $QueueUrl;
+    private $queueUrl;
 
     public function getQueueUrl(): ?string
     {
         $this->initialize();
 
-        return $this->QueueUrl;
+        return $this->queueUrl;
     }
 
     protected function populateResult(Response $response): void
@@ -29,6 +29,6 @@ class GetQueueUrlResult extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->GetQueueUrlResult;
 
-        $this->QueueUrl = ($v = $data->QueueUrl) ? (string) $v : null;
+        $this->queueUrl = ($v = $data->QueueUrl) ? (string) $v : null;
     }
 }

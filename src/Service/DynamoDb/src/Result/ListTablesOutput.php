@@ -19,13 +19,13 @@ class ListTablesOutput extends Result implements \IteratorAggregate
      * The names of the tables associated with the current account at the current endpoint. The maximum size of this array
      * is 100.
      */
-    private $TableNames = [];
+    private $tableNames = [];
 
     /**
      * The name of the last table in the current page of results. Use this value as the `ExclusiveStartTableName` in a new
      * request to obtain the next page of results, until all the table names are returned.
      */
-    private $LastEvaluatedTableName;
+    private $lastEvaluatedTableName;
 
     /**
      * Iterates over TableNames.
@@ -67,7 +67,7 @@ class ListTablesOutput extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->LastEvaluatedTableName;
+        return $this->lastEvaluatedTableName;
     }
 
     /**
@@ -79,7 +79,7 @@ class ListTablesOutput extends Result implements \IteratorAggregate
     {
         if ($currentPageOnly) {
             $this->initialize();
-            yield from $this->TableNames;
+            yield from $this->tableNames;
 
             return;
         }
@@ -117,8 +117,8 @@ class ListTablesOutput extends Result implements \IteratorAggregate
     {
         $data = $response->toArray();
 
-        $this->TableNames = empty($data['TableNames']) ? [] : $this->populateResultTableNameList($data['TableNames']);
-        $this->LastEvaluatedTableName = isset($data['LastEvaluatedTableName']) ? (string) $data['LastEvaluatedTableName'] : null;
+        $this->tableNames = empty($data['TableNames']) ? [] : $this->populateResultTableNameList($data['TableNames']);
+        $this->lastEvaluatedTableName = isset($data['LastEvaluatedTableName']) ? (string) $data['LastEvaluatedTableName'] : null;
     }
 
     /**

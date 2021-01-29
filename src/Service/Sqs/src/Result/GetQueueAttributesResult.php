@@ -14,7 +14,7 @@ class GetQueueAttributesResult extends Result
     /**
      * A map of attributes to their respective values.
      */
-    private $Attributes = [];
+    private $attributes = [];
 
     /**
      * @return array<QueueAttributeName::*, string>
@@ -23,7 +23,7 @@ class GetQueueAttributesResult extends Result
     {
         $this->initialize();
 
-        return $this->Attributes;
+        return $this->attributes;
     }
 
     protected function populateResult(Response $response): void
@@ -31,7 +31,7 @@ class GetQueueAttributesResult extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->GetQueueAttributesResult;
 
-        $this->Attributes = !$data->Attribute ? [] : $this->populateResultQueueAttributeMap($data->Attribute);
+        $this->attributes = !$data->Attribute ? [] : $this->populateResultQueueAttributeMap($data->Attribute);
     }
 
     /**

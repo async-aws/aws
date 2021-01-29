@@ -10,18 +10,18 @@ final class Error
     /**
      * The error key.
      */
-    private $Key;
+    private $key;
 
     /**
      * The version ID of the error.
      */
-    private $VersionId;
+    private $versionId;
 
     /**
      * The error code is a string that uniquely identifies an error condition. It is meant to be read and understood by
      * programs that detect and handle errors by type.
      */
-    private $Code;
+    private $code;
 
     /**
      * The error message contains a generic description of the error condition in English. It is intended for a human
@@ -29,7 +29,7 @@ final class Error
      * don't know how or don't care to handle. Sophisticated programs with more exhaustive error handling and proper
      * internationalization are more likely to ignore the error message.
      */
-    private $Message;
+    private $message;
 
     /**
      * @param array{
@@ -41,10 +41,10 @@ final class Error
      */
     public function __construct(array $input)
     {
-        $this->Key = $input['Key'] ?? null;
-        $this->VersionId = $input['VersionId'] ?? null;
-        $this->Code = $input['Code'] ?? null;
-        $this->Message = $input['Message'] ?? null;
+        $this->key = $input['Key'] ?? null;
+        $this->versionId = $input['VersionId'] ?? null;
+        $this->code = $input['Code'] ?? null;
+        $this->message = $input['Message'] ?? null;
     }
 
     public static function create($input): self
@@ -54,21 +54,21 @@ final class Error
 
     public function getCode(): ?string
     {
-        return $this->Code;
+        return $this->code;
     }
 
     public function getKey(): ?string
     {
-        return $this->Key;
+        return $this->key;
     }
 
     public function getMessage(): ?string
     {
-        return $this->Message;
+        return $this->message;
     }
 
     public function getVersionId(): ?string
     {
-        return $this->VersionId;
+        return $this->versionId;
     }
 }

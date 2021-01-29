@@ -12,21 +12,21 @@ final class Landmark
     /**
      * Type of landmark.
      */
-    private $Type;
+    private $type;
 
     /**
      * The x-coordinate of the landmark expressed as a ratio of the width of the image. The x-coordinate is measured from
      * the left-side of the image. For example, if the image is 700 pixels wide and the x-coordinate of the landmark is at
      * 350 pixels, this value is 0.5.
      */
-    private $X;
+    private $x;
 
     /**
      * The y-coordinate of the landmark expressed as a ratio of the height of the image. The y-coordinate is measured from
      * the top of the image. For example, if the image height is 200 pixels and the y-coordinate of the landmark is at 50
      * pixels, this value is 0.25.
      */
-    private $Y;
+    private $y;
 
     /**
      * @param array{
@@ -37,9 +37,9 @@ final class Landmark
      */
     public function __construct(array $input)
     {
-        $this->Type = $input['Type'] ?? null;
-        $this->X = $input['X'] ?? null;
-        $this->Y = $input['Y'] ?? null;
+        $this->type = $input['Type'] ?? null;
+        $this->x = $input['X'] ?? null;
+        $this->y = $input['Y'] ?? null;
     }
 
     public static function create($input): self
@@ -52,16 +52,16 @@ final class Landmark
      */
     public function getType(): ?string
     {
-        return $this->Type;
+        return $this->type;
     }
 
     public function getX(): ?float
     {
-        return $this->X;
+        return $this->x;
     }
 
     public function getY(): ?float
     {
-        return $this->Y;
+        return $this->y;
     }
 }

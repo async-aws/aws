@@ -13,12 +13,12 @@ final class Grant
     /**
      * The person being granted permissions.
      */
-    private $Grantee;
+    private $grantee;
 
     /**
      * Specifies the permission given to the grantee.
      */
-    private $Permission;
+    private $permission;
 
     /**
      * @param array{
@@ -28,8 +28,8 @@ final class Grant
      */
     public function __construct(array $input)
     {
-        $this->Grantee = isset($input['Grantee']) ? Grantee::create($input['Grantee']) : null;
-        $this->Permission = $input['Permission'] ?? null;
+        $this->grantee = isset($input['Grantee']) ? Grantee::create($input['Grantee']) : null;
+        $this->permission = $input['Permission'] ?? null;
     }
 
     public static function create($input): self
@@ -39,7 +39,7 @@ final class Grant
 
     public function getGrantee(): ?Grantee
     {
-        return $this->Grantee;
+        return $this->grantee;
     }
 
     /**
@@ -47,7 +47,7 @@ final class Grant
      */
     public function getPermission(): ?string
     {
-        return $this->Permission;
+        return $this->permission;
     }
 
     /**
@@ -55,12 +55,12 @@ final class Grant
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        if (null !== $v = $this->Grantee) {
+        if (null !== $v = $this->grantee) {
             $node->appendChild($child = $document->createElement('Grantee'));
             $child->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
             $v->requestBody($child, $document);
         }
-        if (null !== $v = $this->Permission) {
+        if (null !== $v = $this->permission) {
             if (!Permission::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "Permission" for "%s". The value "%s" is not a valid "Permission".', __CLASS__, $v));
             }

@@ -19,12 +19,12 @@ final class KeySchemaElement
     /**
      * The name of a key attribute.
      */
-    private $AttributeName;
+    private $attributeName;
 
     /**
      * The role that this key attribute will assume:.
      */
-    private $KeyType;
+    private $keyType;
 
     /**
      * @param array{
@@ -34,8 +34,8 @@ final class KeySchemaElement
      */
     public function __construct(array $input)
     {
-        $this->AttributeName = $input['AttributeName'] ?? null;
-        $this->KeyType = $input['KeyType'] ?? null;
+        $this->attributeName = $input['AttributeName'] ?? null;
+        $this->keyType = $input['KeyType'] ?? null;
     }
 
     public static function create($input): self
@@ -45,7 +45,7 @@ final class KeySchemaElement
 
     public function getAttributeName(): string
     {
-        return $this->AttributeName;
+        return $this->attributeName;
     }
 
     /**
@@ -53,7 +53,7 @@ final class KeySchemaElement
      */
     public function getKeyType(): string
     {
-        return $this->KeyType;
+        return $this->keyType;
     }
 
     /**
@@ -62,11 +62,11 @@ final class KeySchemaElement
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->AttributeName) {
+        if (null === $v = $this->attributeName) {
             throw new InvalidArgument(sprintf('Missing parameter "AttributeName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['AttributeName'] = $v;
-        if (null === $v = $this->KeyType) {
+        if (null === $v = $this->keyType) {
             throw new InvalidArgument(sprintf('Missing parameter "KeyType" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!KeyType::exists($v)) {

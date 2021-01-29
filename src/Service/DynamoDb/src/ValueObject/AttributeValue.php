@@ -14,52 +14,52 @@ final class AttributeValue
     /**
      * An attribute of type String. For example:.
      */
-    private $S;
+    private $s;
 
     /**
      * An attribute of type Number. For example:.
      */
-    private $N;
+    private $n;
 
     /**
      * An attribute of type Binary. For example:.
      */
-    private $B;
+    private $b;
 
     /**
      * An attribute of type String Set. For example:.
      */
-    private $SS;
+    private $ss;
 
     /**
      * An attribute of type Number Set. For example:.
      */
-    private $NS;
+    private $ns;
 
     /**
      * An attribute of type Binary Set. For example:.
      */
-    private $BS;
+    private $bs;
 
     /**
      * An attribute of type Map. For example:.
      */
-    private $M;
+    private $m;
 
     /**
      * An attribute of type List. For example:.
      */
-    private $L;
+    private $l;
 
     /**
      * An attribute of type Null. For example:.
      */
-    private $NULL;
+    private $null;
 
     /**
      * An attribute of type Boolean. For example:.
      */
-    private $BOOL;
+    private $bool;
 
     /**
      * @param array{
@@ -77,16 +77,16 @@ final class AttributeValue
      */
     public function __construct(array $input)
     {
-        $this->S = $input['S'] ?? null;
-        $this->N = $input['N'] ?? null;
-        $this->B = $input['B'] ?? null;
-        $this->SS = $input['SS'] ?? null;
-        $this->NS = $input['NS'] ?? null;
-        $this->BS = $input['BS'] ?? null;
-        $this->M = isset($input['M']) ? array_map([AttributeValue::class, 'create'], $input['M']) : null;
-        $this->L = isset($input['L']) ? array_map([AttributeValue::class, 'create'], $input['L']) : null;
-        $this->NULL = $input['NULL'] ?? null;
-        $this->BOOL = $input['BOOL'] ?? null;
+        $this->s = $input['S'] ?? null;
+        $this->n = $input['N'] ?? null;
+        $this->b = $input['B'] ?? null;
+        $this->ss = $input['SS'] ?? null;
+        $this->ns = $input['NS'] ?? null;
+        $this->bs = $input['BS'] ?? null;
+        $this->m = isset($input['M']) ? array_map([AttributeValue::class, 'create'], $input['M']) : null;
+        $this->l = isset($input['L']) ? array_map([AttributeValue::class, 'create'], $input['L']) : null;
+        $this->null = $input['NULL'] ?? null;
+        $this->bool = $input['BOOL'] ?? null;
     }
 
     public static function create($input): self
@@ -96,20 +96,20 @@ final class AttributeValue
 
     public function getB(): ?string
     {
-        return $this->B;
+        return $this->b;
     }
 
-    public function getBOOL(): ?bool
+    public function getBool(): ?bool
     {
-        return $this->BOOL;
+        return $this->bool;
     }
 
     /**
      * @return string[]
      */
-    public function getBS(): array
+    public function getBs(): array
     {
-        return $this->BS ?? [];
+        return $this->bs ?? [];
     }
 
     /**
@@ -117,7 +117,7 @@ final class AttributeValue
      */
     public function getL(): array
     {
-        return $this->L ?? [];
+        return $this->l ?? [];
     }
 
     /**
@@ -125,38 +125,38 @@ final class AttributeValue
      */
     public function getM(): array
     {
-        return $this->M ?? [];
+        return $this->m ?? [];
     }
 
     public function getN(): ?string
     {
-        return $this->N;
+        return $this->n;
     }
 
     /**
      * @return string[]
      */
-    public function getNS(): array
+    public function getNs(): array
     {
-        return $this->NS ?? [];
+        return $this->ns ?? [];
     }
 
-    public function getNULL(): ?bool
+    public function getNull(): ?bool
     {
-        return $this->NULL;
+        return $this->null;
     }
 
     public function getS(): ?string
     {
-        return $this->S;
+        return $this->s;
     }
 
     /**
      * @return string[]
      */
-    public function getSS(): array
+    public function getSs(): array
     {
-        return $this->SS ?? [];
+        return $this->ss ?? [];
     }
 
     /**
@@ -165,16 +165,16 @@ final class AttributeValue
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->S) {
+        if (null !== $v = $this->s) {
             $payload['S'] = $v;
         }
-        if (null !== $v = $this->N) {
+        if (null !== $v = $this->n) {
             $payload['N'] = $v;
         }
-        if (null !== $v = $this->B) {
+        if (null !== $v = $this->b) {
             $payload['B'] = base64_encode($v);
         }
-        if (null !== $v = $this->SS) {
+        if (null !== $v = $this->ss) {
             $index = -1;
             $payload['SS'] = [];
             foreach ($v as $listValue) {
@@ -182,7 +182,7 @@ final class AttributeValue
                 $payload['SS'][$index] = $listValue;
             }
         }
-        if (null !== $v = $this->NS) {
+        if (null !== $v = $this->ns) {
             $index = -1;
             $payload['NS'] = [];
             foreach ($v as $listValue) {
@@ -190,7 +190,7 @@ final class AttributeValue
                 $payload['NS'][$index] = $listValue;
             }
         }
-        if (null !== $v = $this->BS) {
+        if (null !== $v = $this->bs) {
             $index = -1;
             $payload['BS'] = [];
             foreach ($v as $listValue) {
@@ -198,7 +198,7 @@ final class AttributeValue
                 $payload['BS'][$index] = base64_encode($listValue);
             }
         }
-        if (null !== $v = $this->M) {
+        if (null !== $v = $this->m) {
             if (empty($v)) {
                 $payload['M'] = new \stdClass();
             } else {
@@ -208,7 +208,7 @@ final class AttributeValue
                 }
             }
         }
-        if (null !== $v = $this->L) {
+        if (null !== $v = $this->l) {
             $index = -1;
             $payload['L'] = [];
             foreach ($v as $listValue) {
@@ -216,10 +216,10 @@ final class AttributeValue
                 $payload['L'][$index] = $listValue->requestBody();
             }
         }
-        if (null !== $v = $this->NULL) {
+        if (null !== $v = $this->null) {
             $payload['NULL'] = (bool) $v;
         }
-        if (null !== $v = $this->BOOL) {
+        if (null !== $v = $this->bool) {
             $payload['BOOL'] = (bool) $v;
         }
 

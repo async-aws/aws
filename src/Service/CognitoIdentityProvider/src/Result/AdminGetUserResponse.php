@@ -16,73 +16,73 @@ class AdminGetUserResponse extends Result
     /**
      * The user name of the user about whom you are receiving information.
      */
-    private $Username;
+    private $username;
 
     /**
      * An array of name-value pairs representing user attributes.
      */
-    private $UserAttributes = [];
+    private $userAttributes = [];
 
     /**
      * The date the user was created.
      */
-    private $UserCreateDate;
+    private $userCreateDate;
 
     /**
      * The date the user was last modified.
      */
-    private $UserLastModifiedDate;
+    private $userLastModifiedDate;
 
     /**
      * Indicates that the status is enabled.
      */
-    private $Enabled;
+    private $enabled;
 
     /**
      * The user status. Can be one of the following:.
      */
-    private $UserStatus;
+    private $userStatus;
 
     /**
      * *This response parameter is no longer supported.* It provides information only about SMS MFA configurations. It
      * doesn't provide information about TOTP software token MFA configurations. To look up information about either type of
      * MFA configuration, use UserMFASettingList instead.
      */
-    private $MFAOptions = [];
+    private $mfaOptions = [];
 
     /**
      * The user's preferred MFA setting.
      */
-    private $PreferredMfaSetting;
+    private $preferredMfaSetting;
 
     /**
      * The MFA options that are enabled for the user. The possible values in this list are `SMS_MFA` and
      * `SOFTWARE_TOKEN_MFA`.
      */
-    private $UserMFASettingList = [];
+    private $userMfaSettingList = [];
 
     public function getEnabled(): ?bool
     {
         $this->initialize();
 
-        return $this->Enabled;
+        return $this->enabled;
     }
 
     /**
      * @return MFAOptionType[]
      */
-    public function getMFAOptions(): array
+    public function getMfaOptions(): array
     {
         $this->initialize();
 
-        return $this->MFAOptions;
+        return $this->mfaOptions;
     }
 
     public function getPreferredMfaSetting(): ?string
     {
         $this->initialize();
 
-        return $this->PreferredMfaSetting;
+        return $this->preferredMfaSetting;
     }
 
     /**
@@ -92,31 +92,31 @@ class AdminGetUserResponse extends Result
     {
         $this->initialize();
 
-        return $this->UserAttributes;
+        return $this->userAttributes;
     }
 
     public function getUserCreateDate(): ?\DateTimeImmutable
     {
         $this->initialize();
 
-        return $this->UserCreateDate;
+        return $this->userCreateDate;
     }
 
     public function getUserLastModifiedDate(): ?\DateTimeImmutable
     {
         $this->initialize();
 
-        return $this->UserLastModifiedDate;
+        return $this->userLastModifiedDate;
     }
 
     /**
      * @return string[]
      */
-    public function getUserMFASettingList(): array
+    public function getUserMfaSettingList(): array
     {
         $this->initialize();
 
-        return $this->UserMFASettingList;
+        return $this->userMfaSettingList;
     }
 
     /**
@@ -126,29 +126,29 @@ class AdminGetUserResponse extends Result
     {
         $this->initialize();
 
-        return $this->UserStatus;
+        return $this->userStatus;
     }
 
     public function getUsername(): string
     {
         $this->initialize();
 
-        return $this->Username;
+        return $this->username;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->Username = (string) $data['Username'];
-        $this->UserAttributes = empty($data['UserAttributes']) ? [] : $this->populateResultAttributeListType($data['UserAttributes']);
-        $this->UserCreateDate = (isset($data['UserCreateDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['UserCreateDate'])))) ? $d : null;
-        $this->UserLastModifiedDate = (isset($data['UserLastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['UserLastModifiedDate'])))) ? $d : null;
-        $this->Enabled = isset($data['Enabled']) ? filter_var($data['Enabled'], \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->UserStatus = isset($data['UserStatus']) ? (string) $data['UserStatus'] : null;
-        $this->MFAOptions = empty($data['MFAOptions']) ? [] : $this->populateResultMFAOptionListType($data['MFAOptions']);
-        $this->PreferredMfaSetting = isset($data['PreferredMfaSetting']) ? (string) $data['PreferredMfaSetting'] : null;
-        $this->UserMFASettingList = empty($data['UserMFASettingList']) ? [] : $this->populateResultUserMFASettingListType($data['UserMFASettingList']);
+        $this->username = (string) $data['Username'];
+        $this->userAttributes = empty($data['UserAttributes']) ? [] : $this->populateResultAttributeListType($data['UserAttributes']);
+        $this->userCreateDate = (isset($data['UserCreateDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['UserCreateDate'])))) ? $d : null;
+        $this->userLastModifiedDate = (isset($data['UserLastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['UserLastModifiedDate'])))) ? $d : null;
+        $this->enabled = isset($data['Enabled']) ? filter_var($data['Enabled'], \FILTER_VALIDATE_BOOLEAN) : null;
+        $this->userStatus = isset($data['UserStatus']) ? (string) $data['UserStatus'] : null;
+        $this->mfaOptions = empty($data['MFAOptions']) ? [] : $this->populateResultMFAOptionListType($data['MFAOptions']);
+        $this->preferredMfaSetting = isset($data['PreferredMfaSetting']) ? (string) $data['PreferredMfaSetting'] : null;
+        $this->userMfaSettingList = empty($data['UserMFASettingList']) ? [] : $this->populateResultUserMFASettingListType($data['UserMFASettingList']);
     }
 
     /**

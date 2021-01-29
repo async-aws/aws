@@ -24,19 +24,19 @@ final class MessageAttributeValue
      *
      * @see https://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html#SNSMessageAttributes.DataTypes
      */
-    private $DataType;
+    private $dataType;
 
     /**
      * Strings are Unicode with UTF8 binary encoding. For a list of code values, see ASCII Printable Characters.
      *
      * @see https://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
      */
-    private $StringValue;
+    private $stringValue;
 
     /**
      * Binary type attributes can store any binary data, for example, compressed data, encrypted data, or images.
      */
-    private $BinaryValue;
+    private $binaryValue;
 
     /**
      * @param array{
@@ -47,9 +47,9 @@ final class MessageAttributeValue
      */
     public function __construct(array $input)
     {
-        $this->DataType = $input['DataType'] ?? null;
-        $this->StringValue = $input['StringValue'] ?? null;
-        $this->BinaryValue = $input['BinaryValue'] ?? null;
+        $this->dataType = $input['DataType'] ?? null;
+        $this->stringValue = $input['StringValue'] ?? null;
+        $this->binaryValue = $input['BinaryValue'] ?? null;
     }
 
     public static function create($input): self
@@ -59,17 +59,17 @@ final class MessageAttributeValue
 
     public function getBinaryValue(): ?string
     {
-        return $this->BinaryValue;
+        return $this->binaryValue;
     }
 
     public function getDataType(): string
     {
-        return $this->DataType;
+        return $this->dataType;
     }
 
     public function getStringValue(): ?string
     {
-        return $this->StringValue;
+        return $this->stringValue;
     }
 
     /**
@@ -78,14 +78,14 @@ final class MessageAttributeValue
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->DataType) {
+        if (null === $v = $this->dataType) {
             throw new InvalidArgument(sprintf('Missing parameter "DataType" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['DataType'] = $v;
-        if (null !== $v = $this->StringValue) {
+        if (null !== $v = $this->stringValue) {
             $payload['StringValue'] = $v;
         }
-        if (null !== $v = $this->BinaryValue) {
+        if (null !== $v = $this->binaryValue) {
             $payload['BinaryValue'] = base64_encode($v);
         }
 

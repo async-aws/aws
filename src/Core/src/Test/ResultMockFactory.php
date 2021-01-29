@@ -89,7 +89,27 @@ class ResultMockFactory
 
         $initializedProperty->setValue($object, true);
         foreach ($data as $propertyName => $propertyValue) {
-            $property = $reflectionClass->getProperty($propertyName);
+            if ($reflectionClass->hasProperty($propertyName)) {
+                $property = $reflectionClass->getProperty($propertyName);
+            } elseif ($reflectionClass->hasProperty(\lcfirst($propertyName))) {
+                // backward compatibility with `UpperCamelCase` naming (fast)
+                $property = $reflectionClass->getProperty(\lcfirst($propertyName));
+            } else {
+                // compatibility with new `wordWithABREV` naming (slow)
+                $lowerPropertyName = \strtolower($propertyName);
+                $property = null;
+                foreach ($reflectionClass->getProperties() as $prop) {
+                    if (\strtolower($prop->getName()) === $lowerPropertyName) {
+                        $property = $prop;
+
+                        break;
+                    }
+                }
+                if (null === $property) {
+                    // let bubble the original exception
+                    $property = $reflectionClass->getProperty($propertyName);
+                }
+            }
             $property->setAccessible(true);
             $property->setValue($object, $propertyValue);
         }
@@ -145,7 +165,7 @@ class ResultMockFactory
     private static function addUndefinedProperties(\ReflectionClass $reflectionClass, $object, array $data): void
     {
         foreach ($reflectionClass->getProperties(\ReflectionProperty::IS_PRIVATE) as $property) {
-            if (\array_key_exists($property->getName(), $data)) {
+            if (\array_key_exists($property->getName(), $data) || \array_key_exists(\ucfirst($property->getName()), $data)) {
                 continue;
             }
 

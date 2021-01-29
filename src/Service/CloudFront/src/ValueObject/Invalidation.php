@@ -10,22 +10,22 @@ final class Invalidation
     /**
      * The identifier for the invalidation request. For example: `IDFDVBD632BHDS5`.
      */
-    private $Id;
+    private $id;
 
     /**
      * The status of the invalidation request. When the invalidation batch is finished, the status is `Completed`.
      */
-    private $Status;
+    private $status;
 
     /**
      * The date and time the invalidation request was first made.
      */
-    private $CreateTime;
+    private $createTime;
 
     /**
      * The current invalidation information for the batch request.
      */
-    private $InvalidationBatch;
+    private $invalidationBatch;
 
     /**
      * @param array{
@@ -37,10 +37,10 @@ final class Invalidation
      */
     public function __construct(array $input)
     {
-        $this->Id = $input['Id'] ?? null;
-        $this->Status = $input['Status'] ?? null;
-        $this->CreateTime = $input['CreateTime'] ?? null;
-        $this->InvalidationBatch = isset($input['InvalidationBatch']) ? InvalidationBatch::create($input['InvalidationBatch']) : null;
+        $this->id = $input['Id'] ?? null;
+        $this->status = $input['Status'] ?? null;
+        $this->createTime = $input['CreateTime'] ?? null;
+        $this->invalidationBatch = isset($input['InvalidationBatch']) ? InvalidationBatch::create($input['InvalidationBatch']) : null;
     }
 
     public static function create($input): self
@@ -50,21 +50,21 @@ final class Invalidation
 
     public function getCreateTime(): \DateTimeImmutable
     {
-        return $this->CreateTime;
+        return $this->createTime;
     }
 
     public function getId(): string
     {
-        return $this->Id;
+        return $this->id;
     }
 
     public function getInvalidationBatch(): InvalidationBatch
     {
-        return $this->InvalidationBatch;
+        return $this->invalidationBatch;
     }
 
     public function getStatus(): string
     {
-        return $this->Status;
+        return $this->status;
     }
 }

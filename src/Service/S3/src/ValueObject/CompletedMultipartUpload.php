@@ -10,7 +10,7 @@ final class CompletedMultipartUpload
     /**
      * Array of CompletedPart data types.
      */
-    private $Parts;
+    private $parts;
 
     /**
      * @param array{
@@ -19,7 +19,7 @@ final class CompletedMultipartUpload
      */
     public function __construct(array $input)
     {
-        $this->Parts = isset($input['Parts']) ? array_map([CompletedPart::class, 'create'], $input['Parts']) : null;
+        $this->parts = isset($input['Parts']) ? array_map([CompletedPart::class, 'create'], $input['Parts']) : null;
     }
 
     public static function create($input): self
@@ -32,7 +32,7 @@ final class CompletedMultipartUpload
      */
     public function getParts(): array
     {
-        return $this->Parts ?? [];
+        return $this->parts ?? [];
     }
 
     /**
@@ -40,7 +40,7 @@ final class CompletedMultipartUpload
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        if (null !== $v = $this->Parts) {
+        if (null !== $v = $this->parts) {
             foreach ($v as $item) {
                 $node->appendChild($child = $document->createElement('Part'));
 

@@ -18,12 +18,12 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
     /**
      * A pagination token returned when the response doesn't contain all versions.
      */
-    private $NextMarker;
+    private $nextMarker;
 
     /**
      * A list of versions.
      */
-    private $LayerVersions = [];
+    private $layerVersions = [];
 
     /**
      * Iterates over LayerVersions.
@@ -70,7 +70,7 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
     {
         if ($currentPageOnly) {
             $this->initialize();
-            yield from $this->LayerVersions;
+            yield from $this->layerVersions;
 
             return;
         }
@@ -108,15 +108,15 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->NextMarker;
+        return $this->nextMarker;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->NextMarker = isset($data['NextMarker']) ? (string) $data['NextMarker'] : null;
-        $this->LayerVersions = empty($data['LayerVersions']) ? [] : $this->populateResultLayerVersionsList($data['LayerVersions']);
+        $this->nextMarker = isset($data['NextMarker']) ? (string) $data['NextMarker'] : null;
+        $this->layerVersions = empty($data['LayerVersions']) ? [] : $this->populateResultLayerVersionsList($data['LayerVersions']);
     }
 
     /**

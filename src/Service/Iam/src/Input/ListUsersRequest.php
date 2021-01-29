@@ -14,7 +14,7 @@ final class ListUsersRequest extends Input
      *
      * @var string|null
      */
-    private $PathPrefix;
+    private $pathPrefix;
 
     /**
      * Use this parameter only when paginating results and only after you receive a response indicating that the results are
@@ -23,7 +23,7 @@ final class ListUsersRequest extends Input
      *
      * @var string|null
      */
-    private $Marker;
+    private $marker;
 
     /**
      * Use this only when paginating results to indicate the maximum number of items you want in the response. If additional
@@ -31,7 +31,7 @@ final class ListUsersRequest extends Input
      *
      * @var int|null
      */
-    private $MaxItems;
+    private $maxItems;
 
     /**
      * @param array{
@@ -43,9 +43,9 @@ final class ListUsersRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->PathPrefix = $input['PathPrefix'] ?? null;
-        $this->Marker = $input['Marker'] ?? null;
-        $this->MaxItems = $input['MaxItems'] ?? null;
+        $this->pathPrefix = $input['PathPrefix'] ?? null;
+        $this->marker = $input['Marker'] ?? null;
+        $this->maxItems = $input['MaxItems'] ?? null;
         parent::__construct($input);
     }
 
@@ -56,17 +56,17 @@ final class ListUsersRequest extends Input
 
     public function getMarker(): ?string
     {
-        return $this->Marker;
+        return $this->marker;
     }
 
     public function getMaxItems(): ?int
     {
-        return $this->MaxItems;
+        return $this->maxItems;
     }
 
     public function getPathPrefix(): ?string
     {
-        return $this->PathPrefix;
+        return $this->pathPrefix;
     }
 
     /**
@@ -92,21 +92,21 @@ final class ListUsersRequest extends Input
 
     public function setMarker(?string $value): self
     {
-        $this->Marker = $value;
+        $this->marker = $value;
 
         return $this;
     }
 
     public function setMaxItems(?int $value): self
     {
-        $this->MaxItems = $value;
+        $this->maxItems = $value;
 
         return $this;
     }
 
     public function setPathPrefix(?string $value): self
     {
-        $this->PathPrefix = $value;
+        $this->pathPrefix = $value;
 
         return $this;
     }
@@ -114,13 +114,13 @@ final class ListUsersRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->PathPrefix) {
+        if (null !== $v = $this->pathPrefix) {
             $payload['PathPrefix'] = $v;
         }
-        if (null !== $v = $this->Marker) {
+        if (null !== $v = $this->marker) {
             $payload['Marker'] = $v;
         }
-        if (null !== $v = $this->MaxItems) {
+        if (null !== $v = $this->maxItems) {
             $payload['MaxItems'] = $v;
         }
 

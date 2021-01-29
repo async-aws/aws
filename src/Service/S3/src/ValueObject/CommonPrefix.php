@@ -12,7 +12,7 @@ final class CommonPrefix
     /**
      * Container for the specified common prefix.
      */
-    private $Prefix;
+    private $prefix;
 
     /**
      * @param array{
@@ -21,7 +21,7 @@ final class CommonPrefix
      */
     public function __construct(array $input)
     {
-        $this->Prefix = $input['Prefix'] ?? null;
+        $this->prefix = $input['Prefix'] ?? null;
     }
 
     public static function create($input): self
@@ -31,6 +31,6 @@ final class CommonPrefix
 
     public function getPrefix(): ?string
     {
-        return $this->Prefix;
+        return $this->prefix;
     }
 }

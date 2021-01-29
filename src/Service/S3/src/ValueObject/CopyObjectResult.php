@@ -11,12 +11,12 @@ final class CopyObjectResult
      * Returns the ETag of the new object. The ETag reflects only changes to the contents of an object, not its metadata.
      * The source and destination ETag is identical for a successfully copied object.
      */
-    private $ETag;
+    private $etag;
 
     /**
      * Returns the date that the object was last modified.
      */
-    private $LastModified;
+    private $lastModified;
 
     /**
      * @param array{
@@ -26,8 +26,8 @@ final class CopyObjectResult
      */
     public function __construct(array $input)
     {
-        $this->ETag = $input['ETag'] ?? null;
-        $this->LastModified = $input['LastModified'] ?? null;
+        $this->etag = $input['ETag'] ?? null;
+        $this->lastModified = $input['LastModified'] ?? null;
     }
 
     public static function create($input): self
@@ -35,13 +35,13 @@ final class CopyObjectResult
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getETag(): ?string
+    public function getEtag(): ?string
     {
-        return $this->ETag;
+        return $this->etag;
     }
 
     public function getLastModified(): ?\DateTimeImmutable
     {
-        return $this->LastModified;
+        return $this->lastModified;
     }
 }

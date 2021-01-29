@@ -16,14 +16,14 @@ final class SetUserMFAPreferenceRequest extends Input
      *
      * @var SMSMfaSettingsType|null
      */
-    private $SMSMfaSettings;
+    private $smsMfaSettings;
 
     /**
      * The time-based one-time password software token MFA settings.
      *
      * @var SoftwareTokenMfaSettingsType|null
      */
-    private $SoftwareTokenMfaSettings;
+    private $softwareTokenMfaSettings;
 
     /**
      * The access token for the user.
@@ -32,7 +32,7 @@ final class SetUserMFAPreferenceRequest extends Input
      *
      * @var string|null
      */
-    private $AccessToken;
+    private $accessToken;
 
     /**
      * @param array{
@@ -44,9 +44,9 @@ final class SetUserMFAPreferenceRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->SMSMfaSettings = isset($input['SMSMfaSettings']) ? SMSMfaSettingsType::create($input['SMSMfaSettings']) : null;
-        $this->SoftwareTokenMfaSettings = isset($input['SoftwareTokenMfaSettings']) ? SoftwareTokenMfaSettingsType::create($input['SoftwareTokenMfaSettings']) : null;
-        $this->AccessToken = $input['AccessToken'] ?? null;
+        $this->smsMfaSettings = isset($input['SMSMfaSettings']) ? SMSMfaSettingsType::create($input['SMSMfaSettings']) : null;
+        $this->softwareTokenMfaSettings = isset($input['SoftwareTokenMfaSettings']) ? SoftwareTokenMfaSettingsType::create($input['SoftwareTokenMfaSettings']) : null;
+        $this->accessToken = $input['AccessToken'] ?? null;
         parent::__construct($input);
     }
 
@@ -57,17 +57,17 @@ final class SetUserMFAPreferenceRequest extends Input
 
     public function getAccessToken(): ?string
     {
-        return $this->AccessToken;
+        return $this->accessToken;
     }
 
-    public function getSMSMfaSettings(): ?SMSMfaSettingsType
+    public function getSmsMfaSettings(): ?SMSMfaSettingsType
     {
-        return $this->SMSMfaSettings;
+        return $this->smsMfaSettings;
     }
 
     public function getSoftwareTokenMfaSettings(): ?SoftwareTokenMfaSettingsType
     {
-        return $this->SoftwareTokenMfaSettings;
+        return $this->softwareTokenMfaSettings;
     }
 
     /**
@@ -97,21 +97,21 @@ final class SetUserMFAPreferenceRequest extends Input
 
     public function setAccessToken(?string $value): self
     {
-        $this->AccessToken = $value;
+        $this->accessToken = $value;
 
         return $this;
     }
 
-    public function setSMSMfaSettings(?SMSMfaSettingsType $value): self
+    public function setSmsMfaSettings(?SMSMfaSettingsType $value): self
     {
-        $this->SMSMfaSettings = $value;
+        $this->smsMfaSettings = $value;
 
         return $this;
     }
 
     public function setSoftwareTokenMfaSettings(?SoftwareTokenMfaSettingsType $value): self
     {
-        $this->SoftwareTokenMfaSettings = $value;
+        $this->softwareTokenMfaSettings = $value;
 
         return $this;
     }
@@ -119,13 +119,13 @@ final class SetUserMFAPreferenceRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->SMSMfaSettings) {
+        if (null !== $v = $this->smsMfaSettings) {
             $payload['SMSMfaSettings'] = $v->requestBody();
         }
-        if (null !== $v = $this->SoftwareTokenMfaSettings) {
+        if (null !== $v = $this->softwareTokenMfaSettings) {
             $payload['SoftwareTokenMfaSettings'] = $v->requestBody();
         }
-        if (null === $v = $this->AccessToken) {
+        if (null === $v = $this->accessToken) {
             throw new InvalidArgument(sprintf('Missing parameter "AccessToken" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['AccessToken'] = $v;

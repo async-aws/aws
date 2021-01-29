@@ -17,14 +17,14 @@ final class GetQueueUrlRequest extends Input
      *
      * @var string|null
      */
-    private $QueueName;
+    private $queueName;
 
     /**
      * The AWS account ID of the account that created the queue.
      *
      * @var string|null
      */
-    private $QueueOwnerAWSAccountId;
+    private $queueOwnerAwsAccountId;
 
     /**
      * @param array{
@@ -35,8 +35,8 @@ final class GetQueueUrlRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->QueueName = $input['QueueName'] ?? null;
-        $this->QueueOwnerAWSAccountId = $input['QueueOwnerAWSAccountId'] ?? null;
+        $this->queueName = $input['QueueName'] ?? null;
+        $this->queueOwnerAwsAccountId = $input['QueueOwnerAWSAccountId'] ?? null;
         parent::__construct($input);
     }
 
@@ -47,12 +47,12 @@ final class GetQueueUrlRequest extends Input
 
     public function getQueueName(): ?string
     {
-        return $this->QueueName;
+        return $this->queueName;
     }
 
-    public function getQueueOwnerAWSAccountId(): ?string
+    public function getQueueOwnerAwsAccountId(): ?string
     {
-        return $this->QueueOwnerAWSAccountId;
+        return $this->queueOwnerAwsAccountId;
     }
 
     /**
@@ -78,14 +78,14 @@ final class GetQueueUrlRequest extends Input
 
     public function setQueueName(?string $value): self
     {
-        $this->QueueName = $value;
+        $this->queueName = $value;
 
         return $this;
     }
 
-    public function setQueueOwnerAWSAccountId(?string $value): self
+    public function setQueueOwnerAwsAccountId(?string $value): self
     {
-        $this->QueueOwnerAWSAccountId = $value;
+        $this->queueOwnerAwsAccountId = $value;
 
         return $this;
     }
@@ -93,11 +93,11 @@ final class GetQueueUrlRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->QueueName) {
+        if (null === $v = $this->queueName) {
             throw new InvalidArgument(sprintf('Missing parameter "QueueName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueueName'] = $v;
-        if (null !== $v = $this->QueueOwnerAWSAccountId) {
+        if (null !== $v = $this->queueOwnerAwsAccountId) {
             $payload['QueueOwnerAWSAccountId'] = $v;
         }
 

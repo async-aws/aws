@@ -18,19 +18,19 @@ class HeadObjectOutput extends Result
      * Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If false, this response header
      * does not appear in the response.
      */
-    private $DeleteMarker;
+    private $deleteMarker;
 
     /**
      * Indicates that a range of bytes was specified.
      */
-    private $AcceptRanges;
+    private $acceptRanges;
 
     /**
      * If the object expiration is configured (see PUT Bucket lifecycle), the response includes this header. It includes the
      * expiry-date and rule-id key-value pairs providing object expiration information. The value of the rule-id is URL
      * encoded.
      */
-    private $Expiration;
+    private $expiration;
 
     /**
      * If the object is an archived object (an object whose storage class is GLACIER), the response includes this header if
@@ -38,130 +38,130 @@ class HeadObjectOutput extends Result
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_RestoreObject.html
      */
-    private $Restore;
+    private $restore;
 
     /**
      * The archive state of the head object.
      */
-    private $ArchiveStatus;
+    private $archiveStatus;
 
     /**
      * Last modified date of the object.
      */
-    private $LastModified;
+    private $lastModified;
 
     /**
      * Size of the body in bytes.
      */
-    private $ContentLength;
+    private $contentLength;
 
     /**
      * An ETag is an opaque identifier assigned by a web server to a specific version of a resource found at a URL.
      */
-    private $ETag;
+    private $etag;
 
     /**
      * This is set to the number of metadata entries not returned in `x-amz-meta` headers. This can happen if you create
      * metadata using an API like SOAP that supports more flexible metadata than the REST API. For example, using SOAP, you
      * can create metadata whose values are not legal HTTP headers.
      */
-    private $MissingMeta;
+    private $missingMeta;
 
     /**
      * Version of the object.
      */
-    private $VersionId;
+    private $versionId;
 
     /**
      * Specifies caching behavior along the request/reply chain.
      */
-    private $CacheControl;
+    private $cacheControl;
 
     /**
      * Specifies presentational information for the object.
      */
-    private $ContentDisposition;
+    private $contentDisposition;
 
     /**
      * Specifies what content encodings have been applied to the object and thus what decoding mechanisms must be applied to
      * obtain the media-type referenced by the Content-Type header field.
      */
-    private $ContentEncoding;
+    private $contentEncoding;
 
     /**
      * The language the content is in.
      */
-    private $ContentLanguage;
+    private $contentLanguage;
 
     /**
      * A standard MIME type describing the format of the object data.
      */
-    private $ContentType;
+    private $contentType;
 
     /**
      * The date and time at which the object is no longer cacheable.
      */
-    private $Expires;
+    private $expires;
 
     /**
      * If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or
      * to an external URL. Amazon S3 stores the value of this header in the object metadata.
      */
-    private $WebsiteRedirectLocation;
+    private $websiteRedirectLocation;
 
     /**
      * If the object is stored using server-side encryption either with an AWS KMS customer master key (CMK) or an Amazon
      * S3-managed encryption key, the response includes this header with the value of the server-side encryption algorithm
      * used when storing this object in Amazon S3 (for example, AES256, aws:kms).
      */
-    private $ServerSideEncryption;
+    private $serverSideEncryption;
 
     /**
      * A map of metadata to store with the object in S3.
      */
-    private $Metadata = [];
+    private $metadata = [];
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
      * header confirming the encryption algorithm used.
      */
-    private $SSECustomerAlgorithm;
+    private $sseCustomerAlgorithm;
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
      * header to provide round-trip message integrity verification of the customer-provided encryption key.
      */
-    private $SSECustomerKeyMD5;
+    private $sseCustomerKeyMd5;
 
     /**
      * If present, specifies the ID of the AWS Key Management Service (AWS KMS) symmetric customer managed customer master
      * key (CMK) that was used for the object.
      */
-    private $SSEKMSKeyId;
+    private $sseKmsKeyId;
 
     /**
      * Indicates whether the object uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).
      */
-    private $BucketKeyEnabled;
+    private $bucketKeyEnabled;
 
     /**
      * Provides storage class information of the object. Amazon S3 returns this header for all objects except for S3
      * Standard storage class objects.
      */
-    private $StorageClass;
+    private $storageClass;
 
-    private $RequestCharged;
+    private $requestCharged;
 
     /**
      * Amazon S3 can return this header if your request involves a bucket that is either a source or a destination in a
      * replication rule.
      */
-    private $ReplicationStatus;
+    private $replicationStatus;
 
     /**
      * The count of parts this object has.
      */
-    private $PartsCount;
+    private $partsCount;
 
     /**
      * The Object Lock mode, if any, that's in effect for this object. This header is only returned if the requester has the
@@ -169,13 +169,13 @@ class HeadObjectOutput extends Result
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html
      */
-    private $ObjectLockMode;
+    private $objectLockMode;
 
     /**
      * The date and time when the Object Lock retention period expires. This header is only returned if the requester has
      * the `s3:GetObjectRetention` permission.
      */
-    private $ObjectLockRetainUntilDate;
+    private $objectLockRetainUntilDate;
 
     /**
      * Specifies whether a legal hold is in effect for this object. This header is only returned if the requester has the
@@ -184,13 +184,13 @@ class HeadObjectOutput extends Result
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html
      */
-    private $ObjectLockLegalHoldStatus;
+    private $objectLockLegalHoldStatus;
 
     public function getAcceptRanges(): ?string
     {
         $this->initialize();
 
-        return $this->AcceptRanges;
+        return $this->acceptRanges;
     }
 
     /**
@@ -200,91 +200,91 @@ class HeadObjectOutput extends Result
     {
         $this->initialize();
 
-        return $this->ArchiveStatus;
+        return $this->archiveStatus;
     }
 
     public function getBucketKeyEnabled(): ?bool
     {
         $this->initialize();
 
-        return $this->BucketKeyEnabled;
+        return $this->bucketKeyEnabled;
     }
 
     public function getCacheControl(): ?string
     {
         $this->initialize();
 
-        return $this->CacheControl;
+        return $this->cacheControl;
     }
 
     public function getContentDisposition(): ?string
     {
         $this->initialize();
 
-        return $this->ContentDisposition;
+        return $this->contentDisposition;
     }
 
     public function getContentEncoding(): ?string
     {
         $this->initialize();
 
-        return $this->ContentEncoding;
+        return $this->contentEncoding;
     }
 
     public function getContentLanguage(): ?string
     {
         $this->initialize();
 
-        return $this->ContentLanguage;
+        return $this->contentLanguage;
     }
 
     public function getContentLength(): ?string
     {
         $this->initialize();
 
-        return $this->ContentLength;
+        return $this->contentLength;
     }
 
     public function getContentType(): ?string
     {
         $this->initialize();
 
-        return $this->ContentType;
+        return $this->contentType;
     }
 
     public function getDeleteMarker(): ?bool
     {
         $this->initialize();
 
-        return $this->DeleteMarker;
+        return $this->deleteMarker;
     }
 
-    public function getETag(): ?string
+    public function getEtag(): ?string
     {
         $this->initialize();
 
-        return $this->ETag;
+        return $this->etag;
     }
 
     public function getExpiration(): ?string
     {
         $this->initialize();
 
-        return $this->Expiration;
+        return $this->expiration;
     }
 
     public function getExpires(): ?\DateTimeImmutable
     {
         $this->initialize();
 
-        return $this->Expires;
+        return $this->expires;
     }
 
     public function getLastModified(): ?\DateTimeImmutable
     {
         $this->initialize();
 
-        return $this->LastModified;
+        return $this->lastModified;
     }
 
     /**
@@ -294,14 +294,14 @@ class HeadObjectOutput extends Result
     {
         $this->initialize();
 
-        return $this->Metadata;
+        return $this->metadata;
     }
 
     public function getMissingMeta(): ?int
     {
         $this->initialize();
 
-        return $this->MissingMeta;
+        return $this->missingMeta;
     }
 
     /**
@@ -311,7 +311,7 @@ class HeadObjectOutput extends Result
     {
         $this->initialize();
 
-        return $this->ObjectLockLegalHoldStatus;
+        return $this->objectLockLegalHoldStatus;
     }
 
     /**
@@ -321,21 +321,21 @@ class HeadObjectOutput extends Result
     {
         $this->initialize();
 
-        return $this->ObjectLockMode;
+        return $this->objectLockMode;
     }
 
     public function getObjectLockRetainUntilDate(): ?\DateTimeImmutable
     {
         $this->initialize();
 
-        return $this->ObjectLockRetainUntilDate;
+        return $this->objectLockRetainUntilDate;
     }
 
     public function getPartsCount(): ?int
     {
         $this->initialize();
 
-        return $this->PartsCount;
+        return $this->partsCount;
     }
 
     /**
@@ -345,7 +345,7 @@ class HeadObjectOutput extends Result
     {
         $this->initialize();
 
-        return $this->ReplicationStatus;
+        return $this->replicationStatus;
     }
 
     /**
@@ -355,35 +355,14 @@ class HeadObjectOutput extends Result
     {
         $this->initialize();
 
-        return $this->RequestCharged;
+        return $this->requestCharged;
     }
 
     public function getRestore(): ?string
     {
         $this->initialize();
 
-        return $this->Restore;
-    }
-
-    public function getSSECustomerAlgorithm(): ?string
-    {
-        $this->initialize();
-
-        return $this->SSECustomerAlgorithm;
-    }
-
-    public function getSSECustomerKeyMD5(): ?string
-    {
-        $this->initialize();
-
-        return $this->SSECustomerKeyMD5;
-    }
-
-    public function getSSEKMSKeyId(): ?string
-    {
-        $this->initialize();
-
-        return $this->SSEKMSKeyId;
+        return $this->restore;
     }
 
     /**
@@ -393,7 +372,28 @@ class HeadObjectOutput extends Result
     {
         $this->initialize();
 
-        return $this->ServerSideEncryption;
+        return $this->serverSideEncryption;
+    }
+
+    public function getSseCustomerAlgorithm(): ?string
+    {
+        $this->initialize();
+
+        return $this->sseCustomerAlgorithm;
+    }
+
+    public function getSseCustomerKeyMd5(): ?string
+    {
+        $this->initialize();
+
+        return $this->sseCustomerKeyMd5;
+    }
+
+    public function getSseKmsKeyId(): ?string
+    {
+        $this->initialize();
+
+        return $this->sseKmsKeyId;
     }
 
     /**
@@ -403,61 +403,61 @@ class HeadObjectOutput extends Result
     {
         $this->initialize();
 
-        return $this->StorageClass;
+        return $this->storageClass;
     }
 
     public function getVersionId(): ?string
     {
         $this->initialize();
 
-        return $this->VersionId;
+        return $this->versionId;
     }
 
     public function getWebsiteRedirectLocation(): ?string
     {
         $this->initialize();
 
-        return $this->WebsiteRedirectLocation;
+        return $this->websiteRedirectLocation;
     }
 
     protected function populateResult(Response $response): void
     {
         $headers = $response->getHeaders();
 
-        $this->DeleteMarker = isset($headers['x-amz-delete-marker'][0]) ? filter_var($headers['x-amz-delete-marker'][0], \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->AcceptRanges = $headers['accept-ranges'][0] ?? null;
-        $this->Expiration = $headers['x-amz-expiration'][0] ?? null;
-        $this->Restore = $headers['x-amz-restore'][0] ?? null;
-        $this->ArchiveStatus = $headers['x-amz-archive-status'][0] ?? null;
-        $this->LastModified = isset($headers['last-modified'][0]) ? new \DateTimeImmutable($headers['last-modified'][0]) : null;
-        $this->ContentLength = $headers['content-length'][0] ?? null;
-        $this->ETag = $headers['etag'][0] ?? null;
-        $this->MissingMeta = isset($headers['x-amz-missing-meta'][0]) ? filter_var($headers['x-amz-missing-meta'][0], \FILTER_VALIDATE_INT) : null;
-        $this->VersionId = $headers['x-amz-version-id'][0] ?? null;
-        $this->CacheControl = $headers['cache-control'][0] ?? null;
-        $this->ContentDisposition = $headers['content-disposition'][0] ?? null;
-        $this->ContentEncoding = $headers['content-encoding'][0] ?? null;
-        $this->ContentLanguage = $headers['content-language'][0] ?? null;
-        $this->ContentType = $headers['content-type'][0] ?? null;
-        $this->Expires = isset($headers['expires'][0]) ? new \DateTimeImmutable($headers['expires'][0]) : null;
-        $this->WebsiteRedirectLocation = $headers['x-amz-website-redirect-location'][0] ?? null;
-        $this->ServerSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;
-        $this->SSECustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'][0] ?? null;
-        $this->SSECustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-md5'][0] ?? null;
-        $this->SSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
-        $this->BucketKeyEnabled = isset($headers['x-amz-server-side-encryption-bucket-key-enabled'][0]) ? filter_var($headers['x-amz-server-side-encryption-bucket-key-enabled'][0], \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->StorageClass = $headers['x-amz-storage-class'][0] ?? null;
-        $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
-        $this->ReplicationStatus = $headers['x-amz-replication-status'][0] ?? null;
-        $this->PartsCount = isset($headers['x-amz-mp-parts-count'][0]) ? filter_var($headers['x-amz-mp-parts-count'][0], \FILTER_VALIDATE_INT) : null;
-        $this->ObjectLockMode = $headers['x-amz-object-lock-mode'][0] ?? null;
-        $this->ObjectLockRetainUntilDate = isset($headers['x-amz-object-lock-retain-until-date'][0]) ? new \DateTimeImmutable($headers['x-amz-object-lock-retain-until-date'][0]) : null;
-        $this->ObjectLockLegalHoldStatus = $headers['x-amz-object-lock-legal-hold'][0] ?? null;
+        $this->deleteMarker = isset($headers['x-amz-delete-marker'][0]) ? filter_var($headers['x-amz-delete-marker'][0], \FILTER_VALIDATE_BOOLEAN) : null;
+        $this->acceptRanges = $headers['accept-ranges'][0] ?? null;
+        $this->expiration = $headers['x-amz-expiration'][0] ?? null;
+        $this->restore = $headers['x-amz-restore'][0] ?? null;
+        $this->archiveStatus = $headers['x-amz-archive-status'][0] ?? null;
+        $this->lastModified = isset($headers['last-modified'][0]) ? new \DateTimeImmutable($headers['last-modified'][0]) : null;
+        $this->contentLength = $headers['content-length'][0] ?? null;
+        $this->etag = $headers['etag'][0] ?? null;
+        $this->missingMeta = isset($headers['x-amz-missing-meta'][0]) ? filter_var($headers['x-amz-missing-meta'][0], \FILTER_VALIDATE_INT) : null;
+        $this->versionId = $headers['x-amz-version-id'][0] ?? null;
+        $this->cacheControl = $headers['cache-control'][0] ?? null;
+        $this->contentDisposition = $headers['content-disposition'][0] ?? null;
+        $this->contentEncoding = $headers['content-encoding'][0] ?? null;
+        $this->contentLanguage = $headers['content-language'][0] ?? null;
+        $this->contentType = $headers['content-type'][0] ?? null;
+        $this->expires = isset($headers['expires'][0]) ? new \DateTimeImmutable($headers['expires'][0]) : null;
+        $this->websiteRedirectLocation = $headers['x-amz-website-redirect-location'][0] ?? null;
+        $this->serverSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;
+        $this->sseCustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'][0] ?? null;
+        $this->sseCustomerKeyMd5 = $headers['x-amz-server-side-encryption-customer-key-md5'][0] ?? null;
+        $this->sseKmsKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
+        $this->bucketKeyEnabled = isset($headers['x-amz-server-side-encryption-bucket-key-enabled'][0]) ? filter_var($headers['x-amz-server-side-encryption-bucket-key-enabled'][0], \FILTER_VALIDATE_BOOLEAN) : null;
+        $this->storageClass = $headers['x-amz-storage-class'][0] ?? null;
+        $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
+        $this->replicationStatus = $headers['x-amz-replication-status'][0] ?? null;
+        $this->partsCount = isset($headers['x-amz-mp-parts-count'][0]) ? filter_var($headers['x-amz-mp-parts-count'][0], \FILTER_VALIDATE_INT) : null;
+        $this->objectLockMode = $headers['x-amz-object-lock-mode'][0] ?? null;
+        $this->objectLockRetainUntilDate = isset($headers['x-amz-object-lock-retain-until-date'][0]) ? new \DateTimeImmutable($headers['x-amz-object-lock-retain-until-date'][0]) : null;
+        $this->objectLockLegalHoldStatus = $headers['x-amz-object-lock-legal-hold'][0] ?? null;
 
-        $this->Metadata = [];
+        $this->metadata = [];
         foreach ($headers as $name => $value) {
             if ('x-amz-meta-' === substr($name, 0, 11)) {
-                $this->Metadata[substr($name, 11)] = $value[0];
+                $this->metadata[substr($name, 11)] = $value[0];
             }
         }
     }

@@ -12,23 +12,23 @@ class CompleteMultipartUploadOutput extends Result
     /**
      * The URI that identifies the newly created object.
      */
-    private $Location;
+    private $location;
 
     /**
      * The name of the bucket that contains the newly created object.
      */
-    private $Bucket;
+    private $bucket;
 
     /**
      * The object key of the newly created object.
      */
-    private $Key;
+    private $key;
 
     /**
      * If the object expiration is configured, this will contain the expiration date (expiry-date) and rule ID (rule-id).
      * The value of rule-id is URL encoded.
      */
-    private $Expiration;
+    private $expiration;
 
     /**
      * Entity tag that identifies the newly created object's data. Objects with different object data will have different
@@ -36,73 +36,73 @@ class CompleteMultipartUploadOutput extends Result
      * If the entity tag is not an MD5 digest of the object data, it will contain one or more nonhexadecimal characters
      * and/or will consist of less than 32 or more than 32 hexadecimal digits.
      */
-    private $ETag;
+    private $etag;
 
     /**
      * If you specified server-side encryption either with an Amazon S3-managed encryption key or an AWS KMS customer master
      * key (CMK) in your initiate multipart upload request, the response includes this header. It confirms the encryption
      * algorithm that Amazon S3 used to encrypt the object.
      */
-    private $ServerSideEncryption;
+    private $serverSideEncryption;
 
     /**
      * Version ID of the newly created object, in case the bucket has versioning turned on.
      */
-    private $VersionId;
+    private $versionId;
 
     /**
      * If present, specifies the ID of the AWS Key Management Service (AWS KMS) symmetric customer managed customer master
      * key (CMK) that was used for the object.
      */
-    private $SSEKMSKeyId;
+    private $sseKmsKeyId;
 
     /**
      * Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).
      */
-    private $BucketKeyEnabled;
+    private $bucketKeyEnabled;
 
-    private $RequestCharged;
+    private $requestCharged;
 
     public function getBucket(): ?string
     {
         $this->initialize();
 
-        return $this->Bucket;
+        return $this->bucket;
     }
 
     public function getBucketKeyEnabled(): ?bool
     {
         $this->initialize();
 
-        return $this->BucketKeyEnabled;
+        return $this->bucketKeyEnabled;
     }
 
-    public function getETag(): ?string
+    public function getEtag(): ?string
     {
         $this->initialize();
 
-        return $this->ETag;
+        return $this->etag;
     }
 
     public function getExpiration(): ?string
     {
         $this->initialize();
 
-        return $this->Expiration;
+        return $this->expiration;
     }
 
     public function getKey(): ?string
     {
         $this->initialize();
 
-        return $this->Key;
+        return $this->key;
     }
 
     public function getLocation(): ?string
     {
         $this->initialize();
 
-        return $this->Location;
+        return $this->location;
     }
 
     /**
@@ -112,14 +112,7 @@ class CompleteMultipartUploadOutput extends Result
     {
         $this->initialize();
 
-        return $this->RequestCharged;
-    }
-
-    public function getSSEKMSKeyId(): ?string
-    {
-        $this->initialize();
-
-        return $this->SSEKMSKeyId;
+        return $this->requestCharged;
     }
 
     /**
@@ -129,31 +122,38 @@ class CompleteMultipartUploadOutput extends Result
     {
         $this->initialize();
 
-        return $this->ServerSideEncryption;
+        return $this->serverSideEncryption;
+    }
+
+    public function getSseKmsKeyId(): ?string
+    {
+        $this->initialize();
+
+        return $this->sseKmsKeyId;
     }
 
     public function getVersionId(): ?string
     {
         $this->initialize();
 
-        return $this->VersionId;
+        return $this->versionId;
     }
 
     protected function populateResult(Response $response): void
     {
         $headers = $response->getHeaders();
 
-        $this->Expiration = $headers['x-amz-expiration'][0] ?? null;
-        $this->ServerSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;
-        $this->VersionId = $headers['x-amz-version-id'][0] ?? null;
-        $this->SSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
-        $this->BucketKeyEnabled = isset($headers['x-amz-server-side-encryption-bucket-key-enabled'][0]) ? filter_var($headers['x-amz-server-side-encryption-bucket-key-enabled'][0], \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
+        $this->expiration = $headers['x-amz-expiration'][0] ?? null;
+        $this->serverSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;
+        $this->versionId = $headers['x-amz-version-id'][0] ?? null;
+        $this->sseKmsKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
+        $this->bucketKeyEnabled = isset($headers['x-amz-server-side-encryption-bucket-key-enabled'][0]) ? filter_var($headers['x-amz-server-side-encryption-bucket-key-enabled'][0], \FILTER_VALIDATE_BOOLEAN) : null;
+        $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
-        $this->Location = ($v = $data->Location) ? (string) $v : null;
-        $this->Bucket = ($v = $data->Bucket) ? (string) $v : null;
-        $this->Key = ($v = $data->Key) ? (string) $v : null;
-        $this->ETag = ($v = $data->ETag) ? (string) $v : null;
+        $this->location = ($v = $data->Location) ? (string) $v : null;
+        $this->bucket = ($v = $data->Bucket) ? (string) $v : null;
+        $this->key = ($v = $data->Key) ? (string) $v : null;
+        $this->etag = ($v = $data->ETag) ? (string) $v : null;
     }
 }

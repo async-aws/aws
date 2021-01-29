@@ -21,7 +21,7 @@ final class ForgotPasswordRequest extends Input
      *
      * @var string|null
      */
-    private $ClientId;
+    private $clientId;
 
     /**
      * A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username
@@ -29,7 +29,7 @@ final class ForgotPasswordRequest extends Input
      *
      * @var string|null
      */
-    private $SecretHash;
+    private $secretHash;
 
     /**
      * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
@@ -37,7 +37,7 @@ final class ForgotPasswordRequest extends Input
      *
      * @var UserContextDataType|null
      */
-    private $UserContextData;
+    private $userContextData;
 
     /**
      * The user name of the user for whom you want to enter a code to reset a forgotten password.
@@ -46,21 +46,21 @@ final class ForgotPasswordRequest extends Input
      *
      * @var string|null
      */
-    private $Username;
+    private $username;
 
     /**
      * The Amazon Pinpoint analytics metadata for collecting metrics for `ForgotPassword` calls.
      *
      * @var AnalyticsMetadataType|null
      */
-    private $AnalyticsMetadata;
+    private $analyticsMetadata;
 
     /**
      * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
      *
      * @var array<string, string>|null
      */
-    private $ClientMetadata;
+    private $clientMetadata;
 
     /**
      * @param array{
@@ -75,12 +75,12 @@ final class ForgotPasswordRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->ClientId = $input['ClientId'] ?? null;
-        $this->SecretHash = $input['SecretHash'] ?? null;
-        $this->UserContextData = isset($input['UserContextData']) ? UserContextDataType::create($input['UserContextData']) : null;
-        $this->Username = $input['Username'] ?? null;
-        $this->AnalyticsMetadata = isset($input['AnalyticsMetadata']) ? AnalyticsMetadataType::create($input['AnalyticsMetadata']) : null;
-        $this->ClientMetadata = $input['ClientMetadata'] ?? null;
+        $this->clientId = $input['ClientId'] ?? null;
+        $this->secretHash = $input['SecretHash'] ?? null;
+        $this->userContextData = isset($input['UserContextData']) ? UserContextDataType::create($input['UserContextData']) : null;
+        $this->username = $input['Username'] ?? null;
+        $this->analyticsMetadata = isset($input['AnalyticsMetadata']) ? AnalyticsMetadataType::create($input['AnalyticsMetadata']) : null;
+        $this->clientMetadata = $input['ClientMetadata'] ?? null;
         parent::__construct($input);
     }
 
@@ -91,12 +91,12 @@ final class ForgotPasswordRequest extends Input
 
     public function getAnalyticsMetadata(): ?AnalyticsMetadataType
     {
-        return $this->AnalyticsMetadata;
+        return $this->analyticsMetadata;
     }
 
     public function getClientId(): ?string
     {
-        return $this->ClientId;
+        return $this->clientId;
     }
 
     /**
@@ -104,22 +104,22 @@ final class ForgotPasswordRequest extends Input
      */
     public function getClientMetadata(): array
     {
-        return $this->ClientMetadata ?? [];
+        return $this->clientMetadata ?? [];
     }
 
     public function getSecretHash(): ?string
     {
-        return $this->SecretHash;
+        return $this->secretHash;
     }
 
     public function getUserContextData(): ?UserContextDataType
     {
-        return $this->UserContextData;
+        return $this->userContextData;
     }
 
     public function getUsername(): ?string
     {
-        return $this->Username;
+        return $this->username;
     }
 
     /**
@@ -149,14 +149,14 @@ final class ForgotPasswordRequest extends Input
 
     public function setAnalyticsMetadata(?AnalyticsMetadataType $value): self
     {
-        $this->AnalyticsMetadata = $value;
+        $this->analyticsMetadata = $value;
 
         return $this;
     }
 
     public function setClientId(?string $value): self
     {
-        $this->ClientId = $value;
+        $this->clientId = $value;
 
         return $this;
     }
@@ -166,28 +166,28 @@ final class ForgotPasswordRequest extends Input
      */
     public function setClientMetadata(array $value): self
     {
-        $this->ClientMetadata = $value;
+        $this->clientMetadata = $value;
 
         return $this;
     }
 
     public function setSecretHash(?string $value): self
     {
-        $this->SecretHash = $value;
+        $this->secretHash = $value;
 
         return $this;
     }
 
     public function setUserContextData(?UserContextDataType $value): self
     {
-        $this->UserContextData = $value;
+        $this->userContextData = $value;
 
         return $this;
     }
 
     public function setUsername(?string $value): self
     {
-        $this->Username = $value;
+        $this->username = $value;
 
         return $this;
     }
@@ -195,24 +195,24 @@ final class ForgotPasswordRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->ClientId) {
+        if (null === $v = $this->clientId) {
             throw new InvalidArgument(sprintf('Missing parameter "ClientId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ClientId'] = $v;
-        if (null !== $v = $this->SecretHash) {
+        if (null !== $v = $this->secretHash) {
             $payload['SecretHash'] = $v;
         }
-        if (null !== $v = $this->UserContextData) {
+        if (null !== $v = $this->userContextData) {
             $payload['UserContextData'] = $v->requestBody();
         }
-        if (null === $v = $this->Username) {
+        if (null === $v = $this->username) {
             throw new InvalidArgument(sprintf('Missing parameter "Username" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Username'] = $v;
-        if (null !== $v = $this->AnalyticsMetadata) {
+        if (null !== $v = $this->analyticsMetadata) {
             $payload['AnalyticsMetadata'] = $v->requestBody();
         }
-        if (null !== $v = $this->ClientMetadata) {
+        if (null !== $v = $this->clientMetadata) {
             if (empty($v)) {
                 $payload['ClientMetadata'] = new \stdClass();
             } else {

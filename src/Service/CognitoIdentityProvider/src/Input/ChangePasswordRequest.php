@@ -19,7 +19,7 @@ final class ChangePasswordRequest extends Input
      *
      * @var string|null
      */
-    private $PreviousPassword;
+    private $previousPassword;
 
     /**
      * The new password.
@@ -28,7 +28,7 @@ final class ChangePasswordRequest extends Input
      *
      * @var string|null
      */
-    private $ProposedPassword;
+    private $proposedPassword;
 
     /**
      * The access token.
@@ -37,7 +37,7 @@ final class ChangePasswordRequest extends Input
      *
      * @var string|null
      */
-    private $AccessToken;
+    private $accessToken;
 
     /**
      * @param array{
@@ -49,9 +49,9 @@ final class ChangePasswordRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->PreviousPassword = $input['PreviousPassword'] ?? null;
-        $this->ProposedPassword = $input['ProposedPassword'] ?? null;
-        $this->AccessToken = $input['AccessToken'] ?? null;
+        $this->previousPassword = $input['PreviousPassword'] ?? null;
+        $this->proposedPassword = $input['ProposedPassword'] ?? null;
+        $this->accessToken = $input['AccessToken'] ?? null;
         parent::__construct($input);
     }
 
@@ -62,17 +62,17 @@ final class ChangePasswordRequest extends Input
 
     public function getAccessToken(): ?string
     {
-        return $this->AccessToken;
+        return $this->accessToken;
     }
 
     public function getPreviousPassword(): ?string
     {
-        return $this->PreviousPassword;
+        return $this->previousPassword;
     }
 
     public function getProposedPassword(): ?string
     {
-        return $this->ProposedPassword;
+        return $this->proposedPassword;
     }
 
     /**
@@ -102,21 +102,21 @@ final class ChangePasswordRequest extends Input
 
     public function setAccessToken(?string $value): self
     {
-        $this->AccessToken = $value;
+        $this->accessToken = $value;
 
         return $this;
     }
 
     public function setPreviousPassword(?string $value): self
     {
-        $this->PreviousPassword = $value;
+        $this->previousPassword = $value;
 
         return $this;
     }
 
     public function setProposedPassword(?string $value): self
     {
-        $this->ProposedPassword = $value;
+        $this->proposedPassword = $value;
 
         return $this;
     }
@@ -124,15 +124,15 @@ final class ChangePasswordRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->PreviousPassword) {
+        if (null === $v = $this->previousPassword) {
             throw new InvalidArgument(sprintf('Missing parameter "PreviousPassword" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['PreviousPassword'] = $v;
-        if (null === $v = $this->ProposedPassword) {
+        if (null === $v = $this->proposedPassword) {
             throw new InvalidArgument(sprintf('Missing parameter "ProposedPassword" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ProposedPassword'] = $v;
-        if (null === $v = $this->AccessToken) {
+        if (null === $v = $this->accessToken) {
             throw new InvalidArgument(sprintf('Missing parameter "AccessToken" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['AccessToken'] = $v;

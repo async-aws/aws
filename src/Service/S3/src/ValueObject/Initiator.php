@@ -11,12 +11,12 @@ final class Initiator
      * If the principal is an AWS account, it provides the Canonical User ID. If the principal is an IAM User, it provides a
      * user ARN value.
      */
-    private $ID;
+    private $id;
 
     /**
      * Name of the Principal.
      */
-    private $DisplayName;
+    private $displayName;
 
     /**
      * @param array{
@@ -26,8 +26,8 @@ final class Initiator
      */
     public function __construct(array $input)
     {
-        $this->ID = $input['ID'] ?? null;
-        $this->DisplayName = $input['DisplayName'] ?? null;
+        $this->id = $input['ID'] ?? null;
+        $this->displayName = $input['DisplayName'] ?? null;
     }
 
     public static function create($input): self
@@ -37,11 +37,11 @@ final class Initiator
 
     public function getDisplayName(): ?string
     {
-        return $this->DisplayName;
+        return $this->displayName;
     }
 
-    public function getID(): ?string
+    public function getId(): ?string
     {
-        return $this->ID;
+        return $this->id;
     }
 }

@@ -16,7 +16,7 @@ final class DeleteMessageRequest extends Input
      *
      * @var string|null
      */
-    private $QueueUrl;
+    private $queueUrl;
 
     /**
      * The receipt handle associated with the message to delete.
@@ -25,7 +25,7 @@ final class DeleteMessageRequest extends Input
      *
      * @var string|null
      */
-    private $ReceiptHandle;
+    private $receiptHandle;
 
     /**
      * @param array{
@@ -36,8 +36,8 @@ final class DeleteMessageRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->QueueUrl = $input['QueueUrl'] ?? null;
-        $this->ReceiptHandle = $input['ReceiptHandle'] ?? null;
+        $this->queueUrl = $input['QueueUrl'] ?? null;
+        $this->receiptHandle = $input['ReceiptHandle'] ?? null;
         parent::__construct($input);
     }
 
@@ -48,12 +48,12 @@ final class DeleteMessageRequest extends Input
 
     public function getQueueUrl(): ?string
     {
-        return $this->QueueUrl;
+        return $this->queueUrl;
     }
 
     public function getReceiptHandle(): ?string
     {
-        return $this->ReceiptHandle;
+        return $this->receiptHandle;
     }
 
     /**
@@ -79,14 +79,14 @@ final class DeleteMessageRequest extends Input
 
     public function setQueueUrl(?string $value): self
     {
-        $this->QueueUrl = $value;
+        $this->queueUrl = $value;
 
         return $this;
     }
 
     public function setReceiptHandle(?string $value): self
     {
-        $this->ReceiptHandle = $value;
+        $this->receiptHandle = $value;
 
         return $this;
     }
@@ -94,11 +94,11 @@ final class DeleteMessageRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->QueueUrl) {
+        if (null === $v = $this->queueUrl) {
             throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueueUrl'] = $v;
-        if (null === $v = $this->ReceiptHandle) {
+        if (null === $v = $this->receiptHandle) {
             throw new InvalidArgument(sprintf('Missing parameter "ReceiptHandle" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ReceiptHandle'] = $v;

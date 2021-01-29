@@ -22,14 +22,14 @@ final class PutObjectRequest extends Input
      *
      * @var null|ObjectCannedACL::*
      */
-    private $ACL;
+    private $acl;
 
     /**
      * Object data.
      *
      * @var string|resource|callable|iterable|null
      */
-    private $Body;
+    private $body;
 
     /**
      * The bucket name to which the PUT operation was initiated.
@@ -38,7 +38,7 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $Bucket;
+    private $bucket;
 
     /**
      * Can be used to specify caching behavior along the request/reply chain. For more information, see
@@ -48,7 +48,7 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $CacheControl;
+    private $cacheControl;
 
     /**
      * Specifies presentational information for the object. For more information, see
@@ -58,7 +58,7 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $ContentDisposition;
+    private $contentDisposition;
 
     /**
      * Specifies what content encodings have been applied to the object and thus what decoding mechanisms must be applied to
@@ -69,14 +69,14 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $ContentEncoding;
+    private $contentEncoding;
 
     /**
      * The language the content is in.
      *
      * @var string|null
      */
-    private $ContentLanguage;
+    private $contentLanguage;
 
     /**
      * Size of the body in bytes. This parameter is useful when the size of the body cannot be determined automatically. For
@@ -86,7 +86,7 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $ContentLength;
+    private $contentLength;
 
     /**
      * The base64-encoded 128-bit MD5 digest of the message (without the headers) according to RFC 1864. This header can be
@@ -98,7 +98,7 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $ContentMD5;
+    private $contentMd5;
 
     /**
      * A standard MIME type describing the format of the contents. For more information, see
@@ -108,7 +108,7 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $ContentType;
+    private $contentType;
 
     /**
      * The date and time at which the object is no longer cacheable. For more information, see
@@ -118,35 +118,35 @@ final class PutObjectRequest extends Input
      *
      * @var \DateTimeImmutable|null
      */
-    private $Expires;
+    private $expires;
 
     /**
      * Gives the grantee READ, READ_ACP, and WRITE_ACP permissions on the object.
      *
      * @var string|null
      */
-    private $GrantFullControl;
+    private $grantFullControl;
 
     /**
      * Allows grantee to read the object data and its metadata.
      *
      * @var string|null
      */
-    private $GrantRead;
+    private $grantRead;
 
     /**
      * Allows grantee to read the object ACL.
      *
      * @var string|null
      */
-    private $GrantReadACP;
+    private $grantReadAcp;
 
     /**
      * Allows grantee to write the ACL for the applicable object.
      *
      * @var string|null
      */
-    private $GrantWriteACP;
+    private $grantWriteAcp;
 
     /**
      * Object key for which the PUT operation was initiated.
@@ -155,21 +155,21 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $Key;
+    private $key;
 
     /**
      * A map of metadata to store with the object in S3.
      *
      * @var array<string, string>|null
      */
-    private $Metadata;
+    private $metadata;
 
     /**
      * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
      *
      * @var null|ServerSideEncryption::*
      */
-    private $ServerSideEncryption;
+    private $serverSideEncryption;
 
     /**
      * By default, Amazon S3 uses the STANDARD Storage Class to store newly created objects. The STANDARD storage class
@@ -181,7 +181,7 @@ final class PutObjectRequest extends Input
      *
      * @var null|StorageClass::*
      */
-    private $StorageClass;
+    private $storageClass;
 
     /**
      * If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or
@@ -192,14 +192,14 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $WebsiteRedirectLocation;
+    private $websiteRedirectLocation;
 
     /**
      * Specifies the algorithm to use to when encrypting the object (for example, AES256).
      *
      * @var string|null
      */
-    private $SSECustomerAlgorithm;
+    private $sseCustomerAlgorithm;
 
     /**
      * Specifies the customer-provided encryption key for Amazon S3 to use in encrypting data. This value is used to store
@@ -208,7 +208,7 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $SSECustomerKey;
+    private $sseCustomerKey;
 
     /**
      * Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a
@@ -216,7 +216,7 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $SSECustomerKeyMD5;
+    private $sseCustomerKeyMd5;
 
     /**
      * If `x-amz-server-side-encryption` is present and has the value of `aws:kms`, this header specifies the ID of the AWS
@@ -224,7 +224,7 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $SSEKMSKeyId;
+    private $sseKmsKeyId;
 
     /**
      * Specifies the AWS KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded
@@ -232,7 +232,7 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $SSEKMSEncryptionContext;
+    private $sseKmsEncryptionContext;
 
     /**
      * Specifies whether Amazon S3 should use an S3 Bucket Key for object encryption with server-side encryption using AWS
@@ -241,33 +241,33 @@ final class PutObjectRequest extends Input
      *
      * @var bool|null
      */
-    private $BucketKeyEnabled;
+    private $bucketKeyEnabled;
 
     /**
      * @var null|RequestPayer::*
      */
-    private $RequestPayer;
+    private $requestPayer;
 
     /**
      * The tag-set for the object. The tag-set must be encoded as URL Query parameters. (For example, "Key1=Value1").
      *
      * @var string|null
      */
-    private $Tagging;
+    private $tagging;
 
     /**
      * The Object Lock mode that you want to apply to this object.
      *
      * @var null|ObjectLockMode::*
      */
-    private $ObjectLockMode;
+    private $objectLockMode;
 
     /**
      * The date and time when you want this object's Object Lock to expire.
      *
      * @var \DateTimeImmutable|null
      */
-    private $ObjectLockRetainUntilDate;
+    private $objectLockRetainUntilDate;
 
     /**
      * Specifies whether a legal hold will be applied to this object. For more information about S3 Object Lock, see Object
@@ -277,7 +277,7 @@ final class PutObjectRequest extends Input
      *
      * @var null|ObjectLockLegalHoldStatus::*
      */
-    private $ObjectLockLegalHoldStatus;
+    private $objectLockLegalHoldStatus;
 
     /**
      * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
@@ -285,7 +285,7 @@ final class PutObjectRequest extends Input
      *
      * @var string|null
      */
-    private $ExpectedBucketOwner;
+    private $expectedBucketOwner;
 
     /**
      * @param array{
@@ -326,38 +326,38 @@ final class PutObjectRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->ACL = $input['ACL'] ?? null;
-        $this->Body = $input['Body'] ?? null;
-        $this->Bucket = $input['Bucket'] ?? null;
-        $this->CacheControl = $input['CacheControl'] ?? null;
-        $this->ContentDisposition = $input['ContentDisposition'] ?? null;
-        $this->ContentEncoding = $input['ContentEncoding'] ?? null;
-        $this->ContentLanguage = $input['ContentLanguage'] ?? null;
-        $this->ContentLength = $input['ContentLength'] ?? null;
-        $this->ContentMD5 = $input['ContentMD5'] ?? null;
-        $this->ContentType = $input['ContentType'] ?? null;
-        $this->Expires = !isset($input['Expires']) ? null : ($input['Expires'] instanceof \DateTimeImmutable ? $input['Expires'] : new \DateTimeImmutable($input['Expires']));
-        $this->GrantFullControl = $input['GrantFullControl'] ?? null;
-        $this->GrantRead = $input['GrantRead'] ?? null;
-        $this->GrantReadACP = $input['GrantReadACP'] ?? null;
-        $this->GrantWriteACP = $input['GrantWriteACP'] ?? null;
-        $this->Key = $input['Key'] ?? null;
-        $this->Metadata = $input['Metadata'] ?? null;
-        $this->ServerSideEncryption = $input['ServerSideEncryption'] ?? null;
-        $this->StorageClass = $input['StorageClass'] ?? null;
-        $this->WebsiteRedirectLocation = $input['WebsiteRedirectLocation'] ?? null;
-        $this->SSECustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
-        $this->SSECustomerKey = $input['SSECustomerKey'] ?? null;
-        $this->SSECustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
-        $this->SSEKMSKeyId = $input['SSEKMSKeyId'] ?? null;
-        $this->SSEKMSEncryptionContext = $input['SSEKMSEncryptionContext'] ?? null;
-        $this->BucketKeyEnabled = $input['BucketKeyEnabled'] ?? null;
-        $this->RequestPayer = $input['RequestPayer'] ?? null;
-        $this->Tagging = $input['Tagging'] ?? null;
-        $this->ObjectLockMode = $input['ObjectLockMode'] ?? null;
-        $this->ObjectLockRetainUntilDate = !isset($input['ObjectLockRetainUntilDate']) ? null : ($input['ObjectLockRetainUntilDate'] instanceof \DateTimeImmutable ? $input['ObjectLockRetainUntilDate'] : new \DateTimeImmutable($input['ObjectLockRetainUntilDate']));
-        $this->ObjectLockLegalHoldStatus = $input['ObjectLockLegalHoldStatus'] ?? null;
-        $this->ExpectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
+        $this->acl = $input['ACL'] ?? null;
+        $this->body = $input['Body'] ?? null;
+        $this->bucket = $input['Bucket'] ?? null;
+        $this->cacheControl = $input['CacheControl'] ?? null;
+        $this->contentDisposition = $input['ContentDisposition'] ?? null;
+        $this->contentEncoding = $input['ContentEncoding'] ?? null;
+        $this->contentLanguage = $input['ContentLanguage'] ?? null;
+        $this->contentLength = $input['ContentLength'] ?? null;
+        $this->contentMd5 = $input['ContentMD5'] ?? null;
+        $this->contentType = $input['ContentType'] ?? null;
+        $this->expires = !isset($input['Expires']) ? null : ($input['Expires'] instanceof \DateTimeImmutable ? $input['Expires'] : new \DateTimeImmutable($input['Expires']));
+        $this->grantFullControl = $input['GrantFullControl'] ?? null;
+        $this->grantRead = $input['GrantRead'] ?? null;
+        $this->grantReadAcp = $input['GrantReadACP'] ?? null;
+        $this->grantWriteAcp = $input['GrantWriteACP'] ?? null;
+        $this->key = $input['Key'] ?? null;
+        $this->metadata = $input['Metadata'] ?? null;
+        $this->serverSideEncryption = $input['ServerSideEncryption'] ?? null;
+        $this->storageClass = $input['StorageClass'] ?? null;
+        $this->websiteRedirectLocation = $input['WebsiteRedirectLocation'] ?? null;
+        $this->sseCustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
+        $this->sseCustomerKey = $input['SSECustomerKey'] ?? null;
+        $this->sseCustomerKeyMd5 = $input['SSECustomerKeyMD5'] ?? null;
+        $this->sseKmsKeyId = $input['SSEKMSKeyId'] ?? null;
+        $this->sseKmsEncryptionContext = $input['SSEKMSEncryptionContext'] ?? null;
+        $this->bucketKeyEnabled = $input['BucketKeyEnabled'] ?? null;
+        $this->requestPayer = $input['RequestPayer'] ?? null;
+        $this->tagging = $input['Tagging'] ?? null;
+        $this->objectLockMode = $input['ObjectLockMode'] ?? null;
+        $this->objectLockRetainUntilDate = !isset($input['ObjectLockRetainUntilDate']) ? null : ($input['ObjectLockRetainUntilDate'] instanceof \DateTimeImmutable ? $input['ObjectLockRetainUntilDate'] : new \DateTimeImmutable($input['ObjectLockRetainUntilDate']));
+        $this->objectLockLegalHoldStatus = $input['ObjectLockLegalHoldStatus'] ?? null;
+        $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         parent::__construct($input);
     }
 
@@ -369,9 +369,9 @@ final class PutObjectRequest extends Input
     /**
      * @return ObjectCannedACL::*|null
      */
-    public function getACL(): ?string
+    public function getAcl(): ?string
     {
-        return $this->ACL;
+        return $this->acl;
     }
 
     /**
@@ -379,87 +379,87 @@ final class PutObjectRequest extends Input
      */
     public function getBody()
     {
-        return $this->Body;
+        return $this->body;
     }
 
     public function getBucket(): ?string
     {
-        return $this->Bucket;
+        return $this->bucket;
     }
 
     public function getBucketKeyEnabled(): ?bool
     {
-        return $this->BucketKeyEnabled;
+        return $this->bucketKeyEnabled;
     }
 
     public function getCacheControl(): ?string
     {
-        return $this->CacheControl;
+        return $this->cacheControl;
     }
 
     public function getContentDisposition(): ?string
     {
-        return $this->ContentDisposition;
+        return $this->contentDisposition;
     }
 
     public function getContentEncoding(): ?string
     {
-        return $this->ContentEncoding;
+        return $this->contentEncoding;
     }
 
     public function getContentLanguage(): ?string
     {
-        return $this->ContentLanguage;
+        return $this->contentLanguage;
     }
 
     public function getContentLength(): ?string
     {
-        return $this->ContentLength;
+        return $this->contentLength;
     }
 
-    public function getContentMD5(): ?string
+    public function getContentMd5(): ?string
     {
-        return $this->ContentMD5;
+        return $this->contentMd5;
     }
 
     public function getContentType(): ?string
     {
-        return $this->ContentType;
+        return $this->contentType;
     }
 
     public function getExpectedBucketOwner(): ?string
     {
-        return $this->ExpectedBucketOwner;
+        return $this->expectedBucketOwner;
     }
 
     public function getExpires(): ?\DateTimeImmutable
     {
-        return $this->Expires;
+        return $this->expires;
     }
 
     public function getGrantFullControl(): ?string
     {
-        return $this->GrantFullControl;
+        return $this->grantFullControl;
     }
 
     public function getGrantRead(): ?string
     {
-        return $this->GrantRead;
+        return $this->grantRead;
     }
 
-    public function getGrantReadACP(): ?string
+    public function getGrantReadAcp(): ?string
     {
-        return $this->GrantReadACP;
+        return $this->grantReadAcp;
     }
 
-    public function getGrantWriteACP(): ?string
+    public function getGrantWriteAcp(): ?string
     {
-        return $this->GrantWriteACP;
+        return $this->grantWriteAcp;
     }
 
     public function getKey(): ?string
     {
-        return $this->Key;
+        return $this->key;
     }
 
     /**
@@ -467,7 +467,7 @@ final class PutObjectRequest extends Input
      */
     public function getMetadata(): array
     {
-        return $this->Metadata ?? [];
+        return $this->metadata ?? [];
     }
 
     /**
@@ -475,7 +475,7 @@ final class PutObjectRequest extends Input
      */
     public function getObjectLockLegalHoldStatus(): ?string
     {
-        return $this->ObjectLockLegalHoldStatus;
+        return $this->objectLockLegalHoldStatus;
     }
 
     /**
@@ -483,12 +483,12 @@ final class PutObjectRequest extends Input
      */
     public function getObjectLockMode(): ?string
     {
-        return $this->ObjectLockMode;
+        return $this->objectLockMode;
     }
 
     public function getObjectLockRetainUntilDate(): ?\DateTimeImmutable
     {
-        return $this->ObjectLockRetainUntilDate;
+        return $this->objectLockRetainUntilDate;
     }
 
     /**
@@ -496,32 +496,7 @@ final class PutObjectRequest extends Input
      */
     public function getRequestPayer(): ?string
     {
-        return $this->RequestPayer;
-    }
-
-    public function getSSECustomerAlgorithm(): ?string
-    {
-        return $this->SSECustomerAlgorithm;
-    }
-
-    public function getSSECustomerKey(): ?string
-    {
-        return $this->SSECustomerKey;
-    }
-
-    public function getSSECustomerKeyMD5(): ?string
-    {
-        return $this->SSECustomerKeyMD5;
-    }
-
-    public function getSSEKMSEncryptionContext(): ?string
-    {
-        return $this->SSEKMSEncryptionContext;
-    }
-
-    public function getSSEKMSKeyId(): ?string
-    {
-        return $this->SSEKMSKeyId;
+        return $this->requestPayer;
     }
 
     /**
@@ -529,7 +504,32 @@ final class PutObjectRequest extends Input
      */
     public function getServerSideEncryption(): ?string
     {
-        return $this->ServerSideEncryption;
+        return $this->serverSideEncryption;
+    }
+
+    public function getSseCustomerAlgorithm(): ?string
+    {
+        return $this->sseCustomerAlgorithm;
+    }
+
+    public function getSseCustomerKey(): ?string
+    {
+        return $this->sseCustomerKey;
+    }
+
+    public function getSseCustomerKeyMd5(): ?string
+    {
+        return $this->sseCustomerKeyMd5;
+    }
+
+    public function getSseKmsEncryptionContext(): ?string
+    {
+        return $this->sseKmsEncryptionContext;
+    }
+
+    public function getSseKmsKeyId(): ?string
+    {
+        return $this->sseKmsKeyId;
     }
 
     /**
@@ -537,17 +537,17 @@ final class PutObjectRequest extends Input
      */
     public function getStorageClass(): ?string
     {
-        return $this->StorageClass;
+        return $this->storageClass;
     }
 
     public function getTagging(): ?string
     {
-        return $this->Tagging;
+        return $this->tagging;
     }
 
     public function getWebsiteRedirectLocation(): ?string
     {
-        return $this->WebsiteRedirectLocation;
+        return $this->websiteRedirectLocation;
     }
 
     /**
@@ -557,110 +557,110 @@ final class PutObjectRequest extends Input
     {
         // Prepare headers
         $headers = [];
-        if (null !== $this->ACL) {
-            if (!ObjectCannedACL::exists($this->ACL)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "ObjectCannedACL".', __CLASS__, $this->ACL));
+        if (null !== $this->acl) {
+            if (!ObjectCannedACL::exists($this->acl)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "ObjectCannedACL".', __CLASS__, $this->acl));
             }
-            $headers['x-amz-acl'] = $this->ACL;
+            $headers['x-amz-acl'] = $this->acl;
         }
-        if (null !== $this->CacheControl) {
-            $headers['Cache-Control'] = $this->CacheControl;
+        if (null !== $this->cacheControl) {
+            $headers['Cache-Control'] = $this->cacheControl;
         }
-        if (null !== $this->ContentDisposition) {
-            $headers['Content-Disposition'] = $this->ContentDisposition;
+        if (null !== $this->contentDisposition) {
+            $headers['Content-Disposition'] = $this->contentDisposition;
         }
-        if (null !== $this->ContentEncoding) {
-            $headers['Content-Encoding'] = $this->ContentEncoding;
+        if (null !== $this->contentEncoding) {
+            $headers['Content-Encoding'] = $this->contentEncoding;
         }
-        if (null !== $this->ContentLanguage) {
-            $headers['Content-Language'] = $this->ContentLanguage;
+        if (null !== $this->contentLanguage) {
+            $headers['Content-Language'] = $this->contentLanguage;
         }
-        if (null !== $this->ContentLength) {
-            $headers['Content-Length'] = $this->ContentLength;
+        if (null !== $this->contentLength) {
+            $headers['Content-Length'] = $this->contentLength;
         }
-        if (null !== $this->ContentMD5) {
-            $headers['Content-MD5'] = $this->ContentMD5;
+        if (null !== $this->contentMd5) {
+            $headers['Content-MD5'] = $this->contentMd5;
         }
-        if (null !== $this->ContentType) {
-            $headers['Content-Type'] = $this->ContentType;
+        if (null !== $this->contentType) {
+            $headers['Content-Type'] = $this->contentType;
         }
-        if (null !== $this->Expires) {
-            $headers['Expires'] = $this->Expires->format(\DateTimeInterface::RFC822);
+        if (null !== $this->expires) {
+            $headers['Expires'] = $this->expires->format(\DateTimeInterface::RFC822);
         }
-        if (null !== $this->GrantFullControl) {
-            $headers['x-amz-grant-full-control'] = $this->GrantFullControl;
+        if (null !== $this->grantFullControl) {
+            $headers['x-amz-grant-full-control'] = $this->grantFullControl;
         }
-        if (null !== $this->GrantRead) {
-            $headers['x-amz-grant-read'] = $this->GrantRead;
+        if (null !== $this->grantRead) {
+            $headers['x-amz-grant-read'] = $this->grantRead;
         }
-        if (null !== $this->GrantReadACP) {
-            $headers['x-amz-grant-read-acp'] = $this->GrantReadACP;
+        if (null !== $this->grantReadAcp) {
+            $headers['x-amz-grant-read-acp'] = $this->grantReadAcp;
         }
-        if (null !== $this->GrantWriteACP) {
-            $headers['x-amz-grant-write-acp'] = $this->GrantWriteACP;
+        if (null !== $this->grantWriteAcp) {
+            $headers['x-amz-grant-write-acp'] = $this->grantWriteAcp;
         }
-        if (null !== $this->ServerSideEncryption) {
-            if (!ServerSideEncryption::exists($this->ServerSideEncryption)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ServerSideEncryption" for "%s". The value "%s" is not a valid "ServerSideEncryption".', __CLASS__, $this->ServerSideEncryption));
+        if (null !== $this->serverSideEncryption) {
+            if (!ServerSideEncryption::exists($this->serverSideEncryption)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ServerSideEncryption" for "%s". The value "%s" is not a valid "ServerSideEncryption".', __CLASS__, $this->serverSideEncryption));
             }
-            $headers['x-amz-server-side-encryption'] = $this->ServerSideEncryption;
+            $headers['x-amz-server-side-encryption'] = $this->serverSideEncryption;
         }
-        if (null !== $this->StorageClass) {
-            if (!StorageClass::exists($this->StorageClass)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "StorageClass" for "%s". The value "%s" is not a valid "StorageClass".', __CLASS__, $this->StorageClass));
+        if (null !== $this->storageClass) {
+            if (!StorageClass::exists($this->storageClass)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "StorageClass" for "%s". The value "%s" is not a valid "StorageClass".', __CLASS__, $this->storageClass));
             }
-            $headers['x-amz-storage-class'] = $this->StorageClass;
+            $headers['x-amz-storage-class'] = $this->storageClass;
         }
-        if (null !== $this->WebsiteRedirectLocation) {
-            $headers['x-amz-website-redirect-location'] = $this->WebsiteRedirectLocation;
+        if (null !== $this->websiteRedirectLocation) {
+            $headers['x-amz-website-redirect-location'] = $this->websiteRedirectLocation;
         }
-        if (null !== $this->SSECustomerAlgorithm) {
-            $headers['x-amz-server-side-encryption-customer-algorithm'] = $this->SSECustomerAlgorithm;
+        if (null !== $this->sseCustomerAlgorithm) {
+            $headers['x-amz-server-side-encryption-customer-algorithm'] = $this->sseCustomerAlgorithm;
         }
-        if (null !== $this->SSECustomerKey) {
-            $headers['x-amz-server-side-encryption-customer-key'] = $this->SSECustomerKey;
+        if (null !== $this->sseCustomerKey) {
+            $headers['x-amz-server-side-encryption-customer-key'] = $this->sseCustomerKey;
         }
-        if (null !== $this->SSECustomerKeyMD5) {
-            $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->SSECustomerKeyMD5;
+        if (null !== $this->sseCustomerKeyMd5) {
+            $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->sseCustomerKeyMd5;
         }
-        if (null !== $this->SSEKMSKeyId) {
-            $headers['x-amz-server-side-encryption-aws-kms-key-id'] = $this->SSEKMSKeyId;
+        if (null !== $this->sseKmsKeyId) {
+            $headers['x-amz-server-side-encryption-aws-kms-key-id'] = $this->sseKmsKeyId;
         }
-        if (null !== $this->SSEKMSEncryptionContext) {
-            $headers['x-amz-server-side-encryption-context'] = $this->SSEKMSEncryptionContext;
+        if (null !== $this->sseKmsEncryptionContext) {
+            $headers['x-amz-server-side-encryption-context'] = $this->sseKmsEncryptionContext;
         }
-        if (null !== $this->BucketKeyEnabled) {
-            $headers['x-amz-server-side-encryption-bucket-key-enabled'] = $this->BucketKeyEnabled ? 'true' : 'false';
+        if (null !== $this->bucketKeyEnabled) {
+            $headers['x-amz-server-side-encryption-bucket-key-enabled'] = $this->bucketKeyEnabled ? 'true' : 'false';
         }
-        if (null !== $this->RequestPayer) {
-            if (!RequestPayer::exists($this->RequestPayer)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
+        if (null !== $this->requestPayer) {
+            if (!RequestPayer::exists($this->requestPayer)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->requestPayer));
             }
-            $headers['x-amz-request-payer'] = $this->RequestPayer;
+            $headers['x-amz-request-payer'] = $this->requestPayer;
         }
-        if (null !== $this->Tagging) {
-            $headers['x-amz-tagging'] = $this->Tagging;
+        if (null !== $this->tagging) {
+            $headers['x-amz-tagging'] = $this->tagging;
         }
-        if (null !== $this->ObjectLockMode) {
-            if (!ObjectLockMode::exists($this->ObjectLockMode)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockMode" for "%s". The value "%s" is not a valid "ObjectLockMode".', __CLASS__, $this->ObjectLockMode));
+        if (null !== $this->objectLockMode) {
+            if (!ObjectLockMode::exists($this->objectLockMode)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockMode" for "%s". The value "%s" is not a valid "ObjectLockMode".', __CLASS__, $this->objectLockMode));
             }
-            $headers['x-amz-object-lock-mode'] = $this->ObjectLockMode;
+            $headers['x-amz-object-lock-mode'] = $this->objectLockMode;
         }
-        if (null !== $this->ObjectLockRetainUntilDate) {
-            $headers['x-amz-object-lock-retain-until-date'] = $this->ObjectLockRetainUntilDate->format(\DateTimeInterface::ISO8601);
+        if (null !== $this->objectLockRetainUntilDate) {
+            $headers['x-amz-object-lock-retain-until-date'] = $this->objectLockRetainUntilDate->format(\DateTimeInterface::ISO8601);
         }
-        if (null !== $this->ObjectLockLegalHoldStatus) {
-            if (!ObjectLockLegalHoldStatus::exists($this->ObjectLockLegalHoldStatus)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockLegalHoldStatus" for "%s". The value "%s" is not a valid "ObjectLockLegalHoldStatus".', __CLASS__, $this->ObjectLockLegalHoldStatus));
+        if (null !== $this->objectLockLegalHoldStatus) {
+            if (!ObjectLockLegalHoldStatus::exists($this->objectLockLegalHoldStatus)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ObjectLockLegalHoldStatus" for "%s". The value "%s" is not a valid "ObjectLockLegalHoldStatus".', __CLASS__, $this->objectLockLegalHoldStatus));
             }
-            $headers['x-amz-object-lock-legal-hold'] = $this->ObjectLockLegalHoldStatus;
+            $headers['x-amz-object-lock-legal-hold'] = $this->objectLockLegalHoldStatus;
         }
-        if (null !== $this->ExpectedBucketOwner) {
-            $headers['x-amz-expected-bucket-owner'] = $this->ExpectedBucketOwner;
+        if (null !== $this->expectedBucketOwner) {
+            $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
         }
-        if (null !== $this->Metadata) {
-            foreach ($this->Metadata as $key => $value) {
+        if (null !== $this->metadata) {
+            foreach ($this->metadata as $key => $value) {
                 $headers["x-amz-meta-$key"] = $value;
             }
         }
@@ -670,18 +670,18 @@ final class PutObjectRequest extends Input
 
         // Prepare URI
         $uri = [];
-        if (null === $v = $this->Bucket) {
+        if (null === $v = $this->bucket) {
             throw new InvalidArgument(sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Bucket'] = $v;
-        if (null === $v = $this->Key) {
+        if (null === $v = $this->key) {
             throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Key'] = $v;
         $uriString = '/' . rawurlencode($uri['Bucket']) . '/' . str_replace('%2F', '/', rawurlencode($uri['Key']));
 
         // Prepare Body
-        $body = $this->Body ?? '';
+        $body = $this->body ?? '';
 
         // Return the Request
         return new Request('PUT', $uriString, $query, $headers, StreamFactory::create($body));
@@ -690,9 +690,9 @@ final class PutObjectRequest extends Input
     /**
      * @param ObjectCannedACL::*|null $value
      */
-    public function setACL(?string $value): self
+    public function setAcl(?string $value): self
     {
-        $this->ACL = $value;
+        $this->acl = $value;
 
         return $this;
     }
@@ -702,119 +702,119 @@ final class PutObjectRequest extends Input
      */
     public function setBody($value): self
     {
-        $this->Body = $value;
+        $this->body = $value;
 
         return $this;
     }
 
     public function setBucket(?string $value): self
     {
-        $this->Bucket = $value;
+        $this->bucket = $value;
 
         return $this;
     }
 
     public function setBucketKeyEnabled(?bool $value): self
     {
-        $this->BucketKeyEnabled = $value;
+        $this->bucketKeyEnabled = $value;
 
         return $this;
     }
 
     public function setCacheControl(?string $value): self
     {
-        $this->CacheControl = $value;
+        $this->cacheControl = $value;
 
         return $this;
     }
 
     public function setContentDisposition(?string $value): self
     {
-        $this->ContentDisposition = $value;
+        $this->contentDisposition = $value;
 
         return $this;
     }
 
     public function setContentEncoding(?string $value): self
     {
-        $this->ContentEncoding = $value;
+        $this->contentEncoding = $value;
 
         return $this;
     }
 
     public function setContentLanguage(?string $value): self
     {
-        $this->ContentLanguage = $value;
+        $this->contentLanguage = $value;
 
         return $this;
     }
 
     public function setContentLength(?string $value): self
     {
-        $this->ContentLength = $value;
+        $this->contentLength = $value;
 
         return $this;
     }
 
-    public function setContentMD5(?string $value): self
+    public function setContentMd5(?string $value): self
     {
-        $this->ContentMD5 = $value;
+        $this->contentMd5 = $value;
 
         return $this;
     }
 
     public function setContentType(?string $value): self
     {
-        $this->ContentType = $value;
+        $this->contentType = $value;
 
         return $this;
     }
 
     public function setExpectedBucketOwner(?string $value): self
     {
-        $this->ExpectedBucketOwner = $value;
+        $this->expectedBucketOwner = $value;
 
         return $this;
     }
 
     public function setExpires(?\DateTimeImmutable $value): self
     {
-        $this->Expires = $value;
+        $this->expires = $value;
 
         return $this;
     }
 
     public function setGrantFullControl(?string $value): self
     {
-        $this->GrantFullControl = $value;
+        $this->grantFullControl = $value;
 
         return $this;
     }
 
     public function setGrantRead(?string $value): self
     {
-        $this->GrantRead = $value;
+        $this->grantRead = $value;
 
         return $this;
     }
 
-    public function setGrantReadACP(?string $value): self
+    public function setGrantReadAcp(?string $value): self
     {
-        $this->GrantReadACP = $value;
+        $this->grantReadAcp = $value;
 
         return $this;
     }
 
-    public function setGrantWriteACP(?string $value): self
+    public function setGrantWriteAcp(?string $value): self
     {
-        $this->GrantWriteACP = $value;
+        $this->grantWriteAcp = $value;
 
         return $this;
     }
 
     public function setKey(?string $value): self
     {
-        $this->Key = $value;
+        $this->key = $value;
 
         return $this;
     }
@@ -824,7 +824,7 @@ final class PutObjectRequest extends Input
      */
     public function setMetadata(array $value): self
     {
-        $this->Metadata = $value;
+        $this->metadata = $value;
 
         return $this;
     }
@@ -834,7 +834,7 @@ final class PutObjectRequest extends Input
      */
     public function setObjectLockLegalHoldStatus(?string $value): self
     {
-        $this->ObjectLockLegalHoldStatus = $value;
+        $this->objectLockLegalHoldStatus = $value;
 
         return $this;
     }
@@ -844,14 +844,14 @@ final class PutObjectRequest extends Input
      */
     public function setObjectLockMode(?string $value): self
     {
-        $this->ObjectLockMode = $value;
+        $this->objectLockMode = $value;
 
         return $this;
     }
 
     public function setObjectLockRetainUntilDate(?\DateTimeImmutable $value): self
     {
-        $this->ObjectLockRetainUntilDate = $value;
+        $this->objectLockRetainUntilDate = $value;
 
         return $this;
     }
@@ -861,42 +861,7 @@ final class PutObjectRequest extends Input
      */
     public function setRequestPayer(?string $value): self
     {
-        $this->RequestPayer = $value;
-
-        return $this;
-    }
-
-    public function setSSECustomerAlgorithm(?string $value): self
-    {
-        $this->SSECustomerAlgorithm = $value;
-
-        return $this;
-    }
-
-    public function setSSECustomerKey(?string $value): self
-    {
-        $this->SSECustomerKey = $value;
-
-        return $this;
-    }
-
-    public function setSSECustomerKeyMD5(?string $value): self
-    {
-        $this->SSECustomerKeyMD5 = $value;
-
-        return $this;
-    }
-
-    public function setSSEKMSEncryptionContext(?string $value): self
-    {
-        $this->SSEKMSEncryptionContext = $value;
-
-        return $this;
-    }
-
-    public function setSSEKMSKeyId(?string $value): self
-    {
-        $this->SSEKMSKeyId = $value;
+        $this->requestPayer = $value;
 
         return $this;
     }
@@ -906,7 +871,42 @@ final class PutObjectRequest extends Input
      */
     public function setServerSideEncryption(?string $value): self
     {
-        $this->ServerSideEncryption = $value;
+        $this->serverSideEncryption = $value;
+
+        return $this;
+    }
+
+    public function setSseCustomerAlgorithm(?string $value): self
+    {
+        $this->sseCustomerAlgorithm = $value;
+
+        return $this;
+    }
+
+    public function setSseCustomerKey(?string $value): self
+    {
+        $this->sseCustomerKey = $value;
+
+        return $this;
+    }
+
+    public function setSseCustomerKeyMd5(?string $value): self
+    {
+        $this->sseCustomerKeyMd5 = $value;
+
+        return $this;
+    }
+
+    public function setSseKmsEncryptionContext(?string $value): self
+    {
+        $this->sseKmsEncryptionContext = $value;
+
+        return $this;
+    }
+
+    public function setSseKmsKeyId(?string $value): self
+    {
+        $this->sseKmsKeyId = $value;
 
         return $this;
     }
@@ -916,21 +916,21 @@ final class PutObjectRequest extends Input
      */
     public function setStorageClass(?string $value): self
     {
-        $this->StorageClass = $value;
+        $this->storageClass = $value;
 
         return $this;
     }
 
     public function setTagging(?string $value): self
     {
-        $this->Tagging = $value;
+        $this->tagging = $value;
 
         return $this;
     }
 
     public function setWebsiteRedirectLocation(?string $value): self
     {
-        $this->WebsiteRedirectLocation = $value;
+        $this->websiteRedirectLocation = $value;
 
         return $this;
     }

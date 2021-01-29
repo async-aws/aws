@@ -15,12 +15,12 @@ final class Message
      *
      * @see https://tools.ietf.org/html/rfc2047
      */
-    private $Subject;
+    private $subject;
 
     /**
      * The body of the message. You can specify an HTML version of the message, a text-only version of the message, or both.
      */
-    private $Body;
+    private $body;
 
     /**
      * @param array{
@@ -30,8 +30,8 @@ final class Message
      */
     public function __construct(array $input)
     {
-        $this->Subject = isset($input['Subject']) ? Content::create($input['Subject']) : null;
-        $this->Body = isset($input['Body']) ? Body::create($input['Body']) : null;
+        $this->subject = isset($input['Subject']) ? Content::create($input['Subject']) : null;
+        $this->body = isset($input['Body']) ? Body::create($input['Body']) : null;
     }
 
     public static function create($input): self
@@ -41,12 +41,12 @@ final class Message
 
     public function getBody(): Body
     {
-        return $this->Body;
+        return $this->body;
     }
 
     public function getSubject(): Content
     {
-        return $this->Subject;
+        return $this->subject;
     }
 
     /**
@@ -55,11 +55,11 @@ final class Message
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->Subject) {
+        if (null === $v = $this->subject) {
             throw new InvalidArgument(sprintf('Missing parameter "Subject" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Subject'] = $v->requestBody();
-        if (null === $v = $this->Body) {
+        if (null === $v = $this->body) {
             throw new InvalidArgument(sprintf('Missing parameter "Body" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Body'] = $v->requestBody();

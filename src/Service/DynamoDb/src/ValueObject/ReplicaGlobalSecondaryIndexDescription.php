@@ -10,12 +10,12 @@ final class ReplicaGlobalSecondaryIndexDescription
     /**
      * The name of the global secondary index.
      */
-    private $IndexName;
+    private $indexName;
 
     /**
      * If not described, uses the source table GSI's read capacity settings.
      */
-    private $ProvisionedThroughputOverride;
+    private $provisionedThroughputOverride;
 
     /**
      * @param array{
@@ -25,8 +25,8 @@ final class ReplicaGlobalSecondaryIndexDescription
      */
     public function __construct(array $input)
     {
-        $this->IndexName = $input['IndexName'] ?? null;
-        $this->ProvisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
+        $this->indexName = $input['IndexName'] ?? null;
+        $this->provisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
     }
 
     public static function create($input): self
@@ -36,11 +36,11 @@ final class ReplicaGlobalSecondaryIndexDescription
 
     public function getIndexName(): ?string
     {
-        return $this->IndexName;
+        return $this->indexName;
     }
 
     public function getProvisionedThroughputOverride(): ?ProvisionedThroughputOverride
     {
-        return $this->ProvisionedThroughputOverride;
+        return $this->provisionedThroughputOverride;
     }
 }

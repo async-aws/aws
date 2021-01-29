@@ -17,14 +17,14 @@ final class ListTablesInput extends Input
      *
      * @var string|null
      */
-    private $ExclusiveStartTableName;
+    private $exclusiveStartTableName;
 
     /**
      * A maximum number of table names to return. If this parameter is not specified, the limit is 100.
      *
      * @var int|null
      */
-    private $Limit;
+    private $limit;
 
     /**
      * @param array{
@@ -35,8 +35,8 @@ final class ListTablesInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->ExclusiveStartTableName = $input['ExclusiveStartTableName'] ?? null;
-        $this->Limit = $input['Limit'] ?? null;
+        $this->exclusiveStartTableName = $input['ExclusiveStartTableName'] ?? null;
+        $this->limit = $input['Limit'] ?? null;
         parent::__construct($input);
     }
 
@@ -47,12 +47,12 @@ final class ListTablesInput extends Input
 
     public function getExclusiveStartTableName(): ?string
     {
-        return $this->ExclusiveStartTableName;
+        return $this->exclusiveStartTableName;
     }
 
     public function getLimit(): ?int
     {
-        return $this->Limit;
+        return $this->limit;
     }
 
     /**
@@ -82,14 +82,14 @@ final class ListTablesInput extends Input
 
     public function setExclusiveStartTableName(?string $value): self
     {
-        $this->ExclusiveStartTableName = $value;
+        $this->exclusiveStartTableName = $value;
 
         return $this;
     }
 
     public function setLimit(?int $value): self
     {
-        $this->Limit = $value;
+        $this->limit = $value;
 
         return $this;
     }
@@ -97,10 +97,10 @@ final class ListTablesInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->ExclusiveStartTableName) {
+        if (null !== $v = $this->exclusiveStartTableName) {
             $payload['ExclusiveStartTableName'] = $v;
         }
-        if (null !== $v = $this->Limit) {
+        if (null !== $v = $this->limit) {
             $payload['Limit'] = $v;
         }
 

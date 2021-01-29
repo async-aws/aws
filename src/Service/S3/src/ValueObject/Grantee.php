@@ -13,27 +13,27 @@ final class Grantee
     /**
      * Screen name of the grantee.
      */
-    private $DisplayName;
+    private $displayName;
 
     /**
      * Email address of the grantee.
      */
-    private $EmailAddress;
+    private $emailAddress;
 
     /**
      * The canonical user ID of the grantee.
      */
-    private $ID;
+    private $id;
 
     /**
      * Type of grantee.
      */
-    private $Type;
+    private $type;
 
     /**
      * URI of the grantee group.
      */
-    private $URI;
+    private $uri;
 
     /**
      * @param array{
@@ -46,11 +46,11 @@ final class Grantee
      */
     public function __construct(array $input)
     {
-        $this->DisplayName = $input['DisplayName'] ?? null;
-        $this->EmailAddress = $input['EmailAddress'] ?? null;
-        $this->ID = $input['ID'] ?? null;
-        $this->Type = $input['Type'] ?? null;
-        $this->URI = $input['URI'] ?? null;
+        $this->displayName = $input['DisplayName'] ?? null;
+        $this->emailAddress = $input['EmailAddress'] ?? null;
+        $this->id = $input['ID'] ?? null;
+        $this->type = $input['Type'] ?? null;
+        $this->uri = $input['URI'] ?? null;
     }
 
     public static function create($input): self
@@ -60,17 +60,17 @@ final class Grantee
 
     public function getDisplayName(): ?string
     {
-        return $this->DisplayName;
+        return $this->displayName;
     }
 
     public function getEmailAddress(): ?string
     {
-        return $this->EmailAddress;
+        return $this->emailAddress;
     }
 
-    public function getID(): ?string
+    public function getId(): ?string
     {
-        return $this->ID;
+        return $this->id;
     }
 
     /**
@@ -78,12 +78,12 @@ final class Grantee
      */
     public function getType(): string
     {
-        return $this->Type;
+        return $this->type;
     }
 
-    public function getURI(): ?string
+    public function getUri(): ?string
     {
-        return $this->URI;
+        return $this->uri;
     }
 
     /**
@@ -91,23 +91,23 @@ final class Grantee
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        if (null !== $v = $this->DisplayName) {
+        if (null !== $v = $this->displayName) {
             $node->appendChild($document->createElement('DisplayName', $v));
         }
-        if (null !== $v = $this->EmailAddress) {
+        if (null !== $v = $this->emailAddress) {
             $node->appendChild($document->createElement('EmailAddress', $v));
         }
-        if (null !== $v = $this->ID) {
+        if (null !== $v = $this->id) {
             $node->appendChild($document->createElement('ID', $v));
         }
-        if (null === $v = $this->Type) {
+        if (null === $v = $this->type) {
             throw new InvalidArgument(sprintf('Missing parameter "Type" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!Type::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "xsi:type" for "%s". The value "%s" is not a valid "Type".', __CLASS__, $v));
         }
         $node->setAttribute('xsi:type', $v);
-        if (null !== $v = $this->URI) {
+        if (null !== $v = $this->uri) {
             $node->appendChild($document->createElement('URI', $v));
         }
     }

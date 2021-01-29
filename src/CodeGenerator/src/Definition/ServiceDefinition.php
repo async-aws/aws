@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Definition;
 
+use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
+
 /**
  * A wrapper for the service definition array.
  *
@@ -56,7 +58,7 @@ class ServiceDefinition
                 $this->definition['operations'][$name] + [
                     '_documentation' => $this->documentation['operations'][$name] ?? null,
                     '_apiVersion' => $this->definition['metadata']['apiVersion'],
-                    '_method_name' => ucfirst($name),
+                    '_method_name' => ucfirst(GeneratorHelper::normalizeName($name)),
                 ],
                 $this,
                 $this->getPagination($name),

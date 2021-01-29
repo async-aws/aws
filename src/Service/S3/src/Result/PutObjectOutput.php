@@ -16,75 +16,75 @@ class PutObjectOutput extends Result
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html
      */
-    private $Expiration;
+    private $expiration;
 
     /**
      * Entity tag for the uploaded object.
      */
-    private $ETag;
+    private $etag;
 
     /**
      * If you specified server-side encryption either with an AWS KMS customer master key (CMK) or Amazon S3-managed
      * encryption key in your PUT request, the response includes this header. It confirms the encryption algorithm that
      * Amazon S3 used to encrypt the object.
      */
-    private $ServerSideEncryption;
+    private $serverSideEncryption;
 
     /**
      * Version of the object.
      */
-    private $VersionId;
+    private $versionId;
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
      * header confirming the encryption algorithm used.
      */
-    private $SSECustomerAlgorithm;
+    private $sseCustomerAlgorithm;
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this
      * header to provide round-trip message integrity verification of the customer-provided encryption key.
      */
-    private $SSECustomerKeyMD5;
+    private $sseCustomerKeyMd5;
 
     /**
      * If `x-amz-server-side-encryption` is present and has the value of `aws:kms`, this header specifies the ID of the AWS
      * Key Management Service (AWS KMS) symmetric customer managed customer master key (CMK) that was used for the object.
      */
-    private $SSEKMSKeyId;
+    private $sseKmsKeyId;
 
     /**
      * If present, specifies the AWS KMS Encryption Context to use for object encryption. The value of this header is a
      * base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
      */
-    private $SSEKMSEncryptionContext;
+    private $sseKmsEncryptionContext;
 
     /**
      * Indicates whether the uploaded object uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).
      */
-    private $BucketKeyEnabled;
+    private $bucketKeyEnabled;
 
-    private $RequestCharged;
+    private $requestCharged;
 
     public function getBucketKeyEnabled(): ?bool
     {
         $this->initialize();
 
-        return $this->BucketKeyEnabled;
+        return $this->bucketKeyEnabled;
     }
 
-    public function getETag(): ?string
+    public function getEtag(): ?string
     {
         $this->initialize();
 
-        return $this->ETag;
+        return $this->etag;
     }
 
     public function getExpiration(): ?string
     {
         $this->initialize();
 
-        return $this->Expiration;
+        return $this->expiration;
     }
 
     /**
@@ -94,35 +94,7 @@ class PutObjectOutput extends Result
     {
         $this->initialize();
 
-        return $this->RequestCharged;
-    }
-
-    public function getSSECustomerAlgorithm(): ?string
-    {
-        $this->initialize();
-
-        return $this->SSECustomerAlgorithm;
-    }
-
-    public function getSSECustomerKeyMD5(): ?string
-    {
-        $this->initialize();
-
-        return $this->SSECustomerKeyMD5;
-    }
-
-    public function getSSEKMSEncryptionContext(): ?string
-    {
-        $this->initialize();
-
-        return $this->SSEKMSEncryptionContext;
-    }
-
-    public function getSSEKMSKeyId(): ?string
-    {
-        $this->initialize();
-
-        return $this->SSEKMSKeyId;
+        return $this->requestCharged;
     }
 
     /**
@@ -132,29 +104,57 @@ class PutObjectOutput extends Result
     {
         $this->initialize();
 
-        return $this->ServerSideEncryption;
+        return $this->serverSideEncryption;
+    }
+
+    public function getSseCustomerAlgorithm(): ?string
+    {
+        $this->initialize();
+
+        return $this->sseCustomerAlgorithm;
+    }
+
+    public function getSseCustomerKeyMd5(): ?string
+    {
+        $this->initialize();
+
+        return $this->sseCustomerKeyMd5;
+    }
+
+    public function getSseKmsEncryptionContext(): ?string
+    {
+        $this->initialize();
+
+        return $this->sseKmsEncryptionContext;
+    }
+
+    public function getSseKmsKeyId(): ?string
+    {
+        $this->initialize();
+
+        return $this->sseKmsKeyId;
     }
 
     public function getVersionId(): ?string
     {
         $this->initialize();
 
-        return $this->VersionId;
+        return $this->versionId;
     }
 
     protected function populateResult(Response $response): void
     {
         $headers = $response->getHeaders();
 
-        $this->Expiration = $headers['x-amz-expiration'][0] ?? null;
-        $this->ETag = $headers['etag'][0] ?? null;
-        $this->ServerSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;
-        $this->VersionId = $headers['x-amz-version-id'][0] ?? null;
-        $this->SSECustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'][0] ?? null;
-        $this->SSECustomerKeyMD5 = $headers['x-amz-server-side-encryption-customer-key-md5'][0] ?? null;
-        $this->SSEKMSKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
-        $this->SSEKMSEncryptionContext = $headers['x-amz-server-side-encryption-context'][0] ?? null;
-        $this->BucketKeyEnabled = isset($headers['x-amz-server-side-encryption-bucket-key-enabled'][0]) ? filter_var($headers['x-amz-server-side-encryption-bucket-key-enabled'][0], \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
+        $this->expiration = $headers['x-amz-expiration'][0] ?? null;
+        $this->etag = $headers['etag'][0] ?? null;
+        $this->serverSideEncryption = $headers['x-amz-server-side-encryption'][0] ?? null;
+        $this->versionId = $headers['x-amz-version-id'][0] ?? null;
+        $this->sseCustomerAlgorithm = $headers['x-amz-server-side-encryption-customer-algorithm'][0] ?? null;
+        $this->sseCustomerKeyMd5 = $headers['x-amz-server-side-encryption-customer-key-md5'][0] ?? null;
+        $this->sseKmsKeyId = $headers['x-amz-server-side-encryption-aws-kms-key-id'][0] ?? null;
+        $this->sseKmsEncryptionContext = $headers['x-amz-server-side-encryption-context'][0] ?? null;
+        $this->bucketKeyEnabled = isset($headers['x-amz-server-side-encryption-bucket-key-enabled'][0]) ? filter_var($headers['x-amz-server-side-encryption-bucket-key-enabled'][0], \FILTER_VALIDATE_BOOLEAN) : null;
+        $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
     }
 }

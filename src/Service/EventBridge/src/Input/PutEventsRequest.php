@@ -18,7 +18,7 @@ final class PutEventsRequest extends Input
      *
      * @var PutEventsRequestEntry[]|null
      */
-    private $Entries;
+    private $entries;
 
     /**
      * @param array{
@@ -28,7 +28,7 @@ final class PutEventsRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->Entries = isset($input['Entries']) ? array_map([PutEventsRequestEntry::class, 'create'], $input['Entries']) : null;
+        $this->entries = isset($input['Entries']) ? array_map([PutEventsRequestEntry::class, 'create'], $input['Entries']) : null;
         parent::__construct($input);
     }
 
@@ -42,7 +42,7 @@ final class PutEventsRequest extends Input
      */
     public function getEntries(): array
     {
-        return $this->Entries ?? [];
+        return $this->entries ?? [];
     }
 
     /**
@@ -75,7 +75,7 @@ final class PutEventsRequest extends Input
      */
     public function setEntries(array $value): self
     {
-        $this->Entries = $value;
+        $this->entries = $value;
 
         return $this;
     }
@@ -83,7 +83,7 @@ final class PutEventsRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->Entries) {
+        if (null === $v = $this->entries) {
             throw new InvalidArgument(sprintf('Missing parameter "Entries" for "%s". The value cannot be null.', __CLASS__));
         }
 

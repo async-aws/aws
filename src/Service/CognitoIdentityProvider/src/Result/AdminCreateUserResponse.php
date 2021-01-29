@@ -16,20 +16,20 @@ class AdminCreateUserResponse extends Result
     /**
      * The newly created user.
      */
-    private $User;
+    private $user;
 
     public function getUser(): ?UserType
     {
         $this->initialize();
 
-        return $this->User;
+        return $this->user;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->User = empty($data['User']) ? null : new UserType([
+        $this->user = empty($data['User']) ? null : new UserType([
             'Username' => isset($data['User']['Username']) ? (string) $data['User']['Username'] : null,
             'Attributes' => empty($data['User']['Attributes']) ? [] : $this->populateResultAttributeListType($data['User']['Attributes']),
             'UserCreateDate' => (isset($data['User']['UserCreateDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['User']['UserCreateDate'])))) ? $d : null,

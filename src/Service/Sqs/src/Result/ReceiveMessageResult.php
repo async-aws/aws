@@ -16,7 +16,7 @@ class ReceiveMessageResult extends Result
     /**
      * A list of messages.
      */
-    private $Messages = [];
+    private $messages = [];
 
     /**
      * @return Message[]
@@ -25,7 +25,7 @@ class ReceiveMessageResult extends Result
     {
         $this->initialize();
 
-        return $this->Messages;
+        return $this->messages;
     }
 
     protected function populateResult(Response $response): void
@@ -33,7 +33,7 @@ class ReceiveMessageResult extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->ReceiveMessageResult;
 
-        $this->Messages = !$data->Message ? [] : $this->populateResultMessageList($data->Message);
+        $this->messages = !$data->Message ? [] : $this->populateResultMessageList($data->Message);
     }
 
     /**

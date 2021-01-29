@@ -21,13 +21,13 @@ class ListUsersResponse extends Result implements \IteratorAggregate
     /**
      * The users returned in the request to list users.
      */
-    private $Users = [];
+    private $users = [];
 
     /**
      * An identifier that was returned from the previous call to this operation, which can be used to return the next set of
      * items in the list.
      */
-    private $PaginationToken;
+    private $paginationToken;
 
     /**
      * Iterates over Users.
@@ -69,7 +69,7 @@ class ListUsersResponse extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->PaginationToken;
+        return $this->paginationToken;
     }
 
     /**
@@ -81,7 +81,7 @@ class ListUsersResponse extends Result implements \IteratorAggregate
     {
         if ($currentPageOnly) {
             $this->initialize();
-            yield from $this->Users;
+            yield from $this->users;
 
             return;
         }
@@ -119,8 +119,8 @@ class ListUsersResponse extends Result implements \IteratorAggregate
     {
         $data = $response->toArray();
 
-        $this->Users = empty($data['Users']) ? [] : $this->populateResultUsersListType($data['Users']);
-        $this->PaginationToken = isset($data['PaginationToken']) ? (string) $data['PaginationToken'] : null;
+        $this->users = empty($data['Users']) ? [] : $this->populateResultUsersListType($data['Users']);
+        $this->paginationToken = isset($data['PaginationToken']) ? (string) $data['PaginationToken'] : null;
     }
 
     /**

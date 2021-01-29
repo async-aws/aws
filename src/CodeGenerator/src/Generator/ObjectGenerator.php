@@ -160,28 +160,28 @@ class ObjectGenerator
             $memberShape = $member->getShape();
             if ($memberShape instanceof StructureShape) {
                 $objectClass = $this->generate($memberShape);
-                $constructorBody .= strtr('$this->NAME = isset($input["NAME"]) ? CLASS::create($input["NAME"]) : null;' . "\n", ['NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
+                $constructorBody .= strtr('$this->PROPERTY = isset($input["NAME"]) ? CLASS::create($input["NAME"]) : null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
             } elseif ($memberShape instanceof ListShape) {
                 $listMemberShape = $memberShape->getMember()->getShape();
 
                 // Check if this is a list of objects
                 if ($listMemberShape instanceof StructureShape) {
                     $objectClass = $this->generate($listMemberShape);
-                    $constructorBody .= strtr('$this->NAME = isset($input["NAME"]) ? array_map([CLASS::class, "create"], $input["NAME"]) : null;' . "\n", ['NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
+                    $constructorBody .= strtr('$this->PROPERTY = isset($input["NAME"]) ? array_map([CLASS::class, "create"], $input["NAME"]) : null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
                 } else {
-                    $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $member->getName()]);
+                    $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]);
                 }
             } elseif ($memberShape instanceof MapShape) {
                 $mapValueShape = $memberShape->getValue()->getShape();
 
                 if ($mapValueShape instanceof StructureShape) {
                     $objectClass = $this->generate($mapValueShape);
-                    $constructorBody .= strtr('$this->NAME = isset($input["NAME"]) ? array_map([CLASS::class, "create"], $input["NAME"]) : null;' . "\n", ['NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
+                    $constructorBody .= strtr('$this->PROPERTY = isset($input["NAME"]) ? array_map([CLASS::class, "create"], $input["NAME"]) : null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName(), 'CLASS' => $objectClass->getName()]);
                 } else {
-                    $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $member->getName()]);
+                    $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]);
                 }
             } else {
-                $constructorBody .= strtr('$this->NAME = $input["NAME"] ?? null;' . "\n", ['NAME' => $member->getName()]);
+                $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => GeneratorHelper::normalizeName($member->getName()), 'NAME' => $member->getName()]);
             }
         }
         $constructor->setBody($constructorBody);
@@ -195,7 +195,7 @@ class ObjectGenerator
         foreach ($shape->getMembers() as $member) {
             $nullable = $returnType = null;
             $memberShape = $member->getShape();
-            $property = $classBuilder->addProperty($member->getName())->setPrivate();
+            $property = $classBuilder->addProperty(GeneratorHelper::normalizeName($member->getName()))->setPrivate();
             if (null !== $propertyDocumentation = $memberShape->getDocumentation()) {
                 $property->setComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
@@ -248,7 +248,7 @@ class ObjectGenerator
                 $nullable = false;
             }
 
-            $method = $classBuilder->addMethod('get' . \ucfirst($member->getName()))
+            $method = $classBuilder->addMethod('get' . \ucfirst(GeneratorHelper::normalizeName($member->getName())))
                 ->setReturnType($returnType);
 
             $deprecation = '';
@@ -259,15 +259,15 @@ class ObjectGenerator
 
             if ($getterSetterNullable) {
                 $method->setBody($deprecation . strtr('
-                        return $this->NAME;
+                        return $this->PROPERTY;
                     ', [
-                    'NAME' => $member->getName(),
+                    'PROPERTY' => GeneratorHelper::normalizeName($member->getName()),
                 ]));
             } else {
                 $method->setBody($deprecation . strtr('
-                        return $this->NAME ?? [];
+                        return $this->PROPERTY ?? [];
                     ', [
-                    'NAME' => $member->getName(),
+                    'PROPERTY' => GeneratorHelper::normalizeName($member->getName()),
                 ]));
             }
 

@@ -16,7 +16,7 @@ class GetItemOutput extends Result
     /**
      * A map of attribute names to `AttributeValue` objects, as specified by `ProjectionExpression`.
      */
-    private $Item = [];
+    private $item = [];
 
     /**
      * The capacity units consumed by the `GetItem` operation. The data returned includes the total provisioned throughput
@@ -26,13 +26,13 @@ class GetItemOutput extends Result
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html
      */
-    private $ConsumedCapacity;
+    private $consumedCapacity;
 
     public function getConsumedCapacity(): ?ConsumedCapacity
     {
         $this->initialize();
 
-        return $this->ConsumedCapacity;
+        return $this->consumedCapacity;
     }
 
     /**
@@ -42,15 +42,15 @@ class GetItemOutput extends Result
     {
         $this->initialize();
 
-        return $this->Item;
+        return $this->item;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->Item = empty($data['Item']) ? [] : $this->populateResultAttributeMap($data['Item']);
-        $this->ConsumedCapacity = empty($data['ConsumedCapacity']) ? null : new ConsumedCapacity([
+        $this->item = empty($data['Item']) ? [] : $this->populateResultAttributeMap($data['Item']);
+        $this->consumedCapacity = empty($data['ConsumedCapacity']) ? null : new ConsumedCapacity([
             'TableName' => isset($data['ConsumedCapacity']['TableName']) ? (string) $data['ConsumedCapacity']['TableName'] : null,
             'CapacityUnits' => isset($data['ConsumedCapacity']['CapacityUnits']) ? (float) $data['ConsumedCapacity']['CapacityUnits'] : null,
             'ReadCapacityUnits' => isset($data['ConsumedCapacity']['ReadCapacityUnits']) ? (float) $data['ConsumedCapacity']['ReadCapacityUnits'] : null,

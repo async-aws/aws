@@ -14,12 +14,12 @@ class PutParameterResult extends Result
      * Systems Manager documents (SSM documents). By default, if you don't specify a specific version, the system returns
      * the latest parameter value when a parameter is called.
      */
-    private $Version;
+    private $version;
 
     /**
      * The tier assigned to the parameter.
      */
-    private $Tier;
+    private $tier;
 
     /**
      * @return ParameterTier::*|null
@@ -28,21 +28,21 @@ class PutParameterResult extends Result
     {
         $this->initialize();
 
-        return $this->Tier;
+        return $this->tier;
     }
 
     public function getVersion(): ?string
     {
         $this->initialize();
 
-        return $this->Version;
+        return $this->version;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->Version = isset($data['Version']) ? (string) $data['Version'] : null;
-        $this->Tier = isset($data['Tier']) ? (string) $data['Tier'] : null;
+        $this->version = isset($data['Version']) ? (string) $data['Version'] : null;
+        $this->tier = isset($data['Tier']) ? (string) $data['Tier'] : null;
     }
 }

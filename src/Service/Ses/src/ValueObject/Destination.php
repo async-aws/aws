@@ -10,17 +10,17 @@ final class Destination
     /**
      * An array that contains the email addresses of the "To" recipients for the email.
      */
-    private $ToAddresses;
+    private $toAddresses;
 
     /**
      * An array that contains the email addresses of the "CC" (carbon copy) recipients for the email.
      */
-    private $CcAddresses;
+    private $ccAddresses;
 
     /**
      * An array that contains the email addresses of the "BCC" (blind carbon copy) recipients for the email.
      */
-    private $BccAddresses;
+    private $bccAddresses;
 
     /**
      * @param array{
@@ -31,9 +31,9 @@ final class Destination
      */
     public function __construct(array $input)
     {
-        $this->ToAddresses = $input['ToAddresses'] ?? null;
-        $this->CcAddresses = $input['CcAddresses'] ?? null;
-        $this->BccAddresses = $input['BccAddresses'] ?? null;
+        $this->toAddresses = $input['ToAddresses'] ?? null;
+        $this->ccAddresses = $input['CcAddresses'] ?? null;
+        $this->bccAddresses = $input['BccAddresses'] ?? null;
     }
 
     public static function create($input): self
@@ -46,7 +46,7 @@ final class Destination
      */
     public function getBccAddresses(): array
     {
-        return $this->BccAddresses ?? [];
+        return $this->bccAddresses ?? [];
     }
 
     /**
@@ -54,7 +54,7 @@ final class Destination
      */
     public function getCcAddresses(): array
     {
-        return $this->CcAddresses ?? [];
+        return $this->ccAddresses ?? [];
     }
 
     /**
@@ -62,7 +62,7 @@ final class Destination
      */
     public function getToAddresses(): array
     {
-        return $this->ToAddresses ?? [];
+        return $this->toAddresses ?? [];
     }
 
     /**
@@ -71,7 +71,7 @@ final class Destination
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->ToAddresses) {
+        if (null !== $v = $this->toAddresses) {
             $index = -1;
             $payload['ToAddresses'] = [];
             foreach ($v as $listValue) {
@@ -79,7 +79,7 @@ final class Destination
                 $payload['ToAddresses'][$index] = $listValue;
             }
         }
-        if (null !== $v = $this->CcAddresses) {
+        if (null !== $v = $this->ccAddresses) {
             $index = -1;
             $payload['CcAddresses'] = [];
             foreach ($v as $listValue) {
@@ -87,7 +87,7 @@ final class Destination
                 $payload['CcAddresses'][$index] = $listValue;
             }
         }
-        if (null !== $v = $this->BccAddresses) {
+        if (null !== $v = $this->bccAddresses) {
             $index = -1;
             $payload['BccAddresses'] = [];
             foreach ($v as $listValue) {

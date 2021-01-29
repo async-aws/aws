@@ -16,7 +16,7 @@ final class DeleteTopicInput extends Input
      *
      * @var string|null
      */
-    private $TopicArn;
+    private $topicArn;
 
     /**
      * @param array{
@@ -26,7 +26,7 @@ final class DeleteTopicInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->TopicArn = $input['TopicArn'] ?? null;
+        $this->topicArn = $input['TopicArn'] ?? null;
         parent::__construct($input);
     }
 
@@ -37,7 +37,7 @@ final class DeleteTopicInput extends Input
 
     public function getTopicArn(): ?string
     {
-        return $this->TopicArn;
+        return $this->topicArn;
     }
 
     /**
@@ -63,7 +63,7 @@ final class DeleteTopicInput extends Input
 
     public function setTopicArn(?string $value): self
     {
-        $this->TopicArn = $value;
+        $this->topicArn = $value;
 
         return $this;
     }
@@ -71,7 +71,7 @@ final class DeleteTopicInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->TopicArn) {
+        if (null === $v = $this->topicArn) {
             throw new InvalidArgument(sprintf('Missing parameter "TopicArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TopicArn'] = $v;

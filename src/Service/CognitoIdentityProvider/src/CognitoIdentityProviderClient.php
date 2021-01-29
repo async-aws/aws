@@ -427,7 +427,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   @region?: string,
      * }|SetUserMFAPreferenceRequest $input
      */
-    public function setUserMFAPreference($input): SetUserMFAPreferenceResponse
+    public function setUserMfaPreference($input): SetUserMFAPreferenceResponse
     {
         $input = SetUserMFAPreferenceRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SetUserMFAPreference', 'region' => $input->getRegion()]));

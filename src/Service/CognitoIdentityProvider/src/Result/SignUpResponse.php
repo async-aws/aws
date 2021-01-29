@@ -14,49 +14,49 @@ class SignUpResponse extends Result
     /**
      * A response from the server indicating that a user registration has been confirmed.
      */
-    private $UserConfirmed;
+    private $userConfirmed;
 
     /**
      * The code delivery details returned by the server response to the user registration request.
      */
-    private $CodeDeliveryDetails;
+    private $codeDeliveryDetails;
 
     /**
      * The UUID of the authenticated user. This is not the same as `username`.
      */
-    private $UserSub;
+    private $userSub;
 
     public function getCodeDeliveryDetails(): ?CodeDeliveryDetailsType
     {
         $this->initialize();
 
-        return $this->CodeDeliveryDetails;
+        return $this->codeDeliveryDetails;
     }
 
     public function getUserConfirmed(): bool
     {
         $this->initialize();
 
-        return $this->UserConfirmed;
+        return $this->userConfirmed;
     }
 
     public function getUserSub(): string
     {
         $this->initialize();
 
-        return $this->UserSub;
+        return $this->userSub;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->UserConfirmed = filter_var($data['UserConfirmed'], \FILTER_VALIDATE_BOOLEAN);
-        $this->CodeDeliveryDetails = empty($data['CodeDeliveryDetails']) ? null : new CodeDeliveryDetailsType([
+        $this->userConfirmed = filter_var($data['UserConfirmed'], \FILTER_VALIDATE_BOOLEAN);
+        $this->codeDeliveryDetails = empty($data['CodeDeliveryDetails']) ? null : new CodeDeliveryDetailsType([
             'Destination' => isset($data['CodeDeliveryDetails']['Destination']) ? (string) $data['CodeDeliveryDetails']['Destination'] : null,
             'DeliveryMedium' => isset($data['CodeDeliveryDetails']['DeliveryMedium']) ? (string) $data['CodeDeliveryDetails']['DeliveryMedium'] : null,
             'AttributeName' => isset($data['CodeDeliveryDetails']['AttributeName']) ? (string) $data['CodeDeliveryDetails']['AttributeName'] : null,
         ]);
-        $this->UserSub = (string) $data['UserSub'];
+        $this->userSub = (string) $data['UserSub'];
     }
 }

@@ -22,7 +22,7 @@ final class InitiateAuthRequest extends Input
      *
      * @var null|AuthFlowType::*
      */
-    private $AuthFlow;
+    private $authFlow;
 
     /**
      * The authentication parameters. These are inputs corresponding to the `AuthFlow` that you are invoking. The required
@@ -30,14 +30,14 @@ final class InitiateAuthRequest extends Input
      *
      * @var array<string, string>|null
      */
-    private $AuthParameters;
+    private $authParameters;
 
     /**
      * A map of custom key-value pairs that you can provide as input for certain custom workflows that this action triggers.
      *
      * @var array<string, string>|null
      */
-    private $ClientMetadata;
+    private $clientMetadata;
 
     /**
      * The app client ID.
@@ -46,14 +46,14 @@ final class InitiateAuthRequest extends Input
      *
      * @var string|null
      */
-    private $ClientId;
+    private $clientId;
 
     /**
      * The Amazon Pinpoint analytics metadata for collecting metrics for `InitiateAuth` calls.
      *
      * @var AnalyticsMetadataType|null
      */
-    private $AnalyticsMetadata;
+    private $analyticsMetadata;
 
     /**
      * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
@@ -61,7 +61,7 @@ final class InitiateAuthRequest extends Input
      *
      * @var UserContextDataType|null
      */
-    private $UserContextData;
+    private $userContextData;
 
     /**
      * @param array{
@@ -76,12 +76,12 @@ final class InitiateAuthRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->AuthFlow = $input['AuthFlow'] ?? null;
-        $this->AuthParameters = $input['AuthParameters'] ?? null;
-        $this->ClientMetadata = $input['ClientMetadata'] ?? null;
-        $this->ClientId = $input['ClientId'] ?? null;
-        $this->AnalyticsMetadata = isset($input['AnalyticsMetadata']) ? AnalyticsMetadataType::create($input['AnalyticsMetadata']) : null;
-        $this->UserContextData = isset($input['UserContextData']) ? UserContextDataType::create($input['UserContextData']) : null;
+        $this->authFlow = $input['AuthFlow'] ?? null;
+        $this->authParameters = $input['AuthParameters'] ?? null;
+        $this->clientMetadata = $input['ClientMetadata'] ?? null;
+        $this->clientId = $input['ClientId'] ?? null;
+        $this->analyticsMetadata = isset($input['AnalyticsMetadata']) ? AnalyticsMetadataType::create($input['AnalyticsMetadata']) : null;
+        $this->userContextData = isset($input['UserContextData']) ? UserContextDataType::create($input['UserContextData']) : null;
         parent::__construct($input);
     }
 
@@ -92,7 +92,7 @@ final class InitiateAuthRequest extends Input
 
     public function getAnalyticsMetadata(): ?AnalyticsMetadataType
     {
-        return $this->AnalyticsMetadata;
+        return $this->analyticsMetadata;
     }
 
     /**
@@ -100,7 +100,7 @@ final class InitiateAuthRequest extends Input
      */
     public function getAuthFlow(): ?string
     {
-        return $this->AuthFlow;
+        return $this->authFlow;
     }
 
     /**
@@ -108,12 +108,12 @@ final class InitiateAuthRequest extends Input
      */
     public function getAuthParameters(): array
     {
-        return $this->AuthParameters ?? [];
+        return $this->authParameters ?? [];
     }
 
     public function getClientId(): ?string
     {
-        return $this->ClientId;
+        return $this->clientId;
     }
 
     /**
@@ -121,12 +121,12 @@ final class InitiateAuthRequest extends Input
      */
     public function getClientMetadata(): array
     {
-        return $this->ClientMetadata ?? [];
+        return $this->clientMetadata ?? [];
     }
 
     public function getUserContextData(): ?UserContextDataType
     {
-        return $this->UserContextData;
+        return $this->userContextData;
     }
 
     /**
@@ -156,7 +156,7 @@ final class InitiateAuthRequest extends Input
 
     public function setAnalyticsMetadata(?AnalyticsMetadataType $value): self
     {
-        $this->AnalyticsMetadata = $value;
+        $this->analyticsMetadata = $value;
 
         return $this;
     }
@@ -166,7 +166,7 @@ final class InitiateAuthRequest extends Input
      */
     public function setAuthFlow(?string $value): self
     {
-        $this->AuthFlow = $value;
+        $this->authFlow = $value;
 
         return $this;
     }
@@ -176,14 +176,14 @@ final class InitiateAuthRequest extends Input
      */
     public function setAuthParameters(array $value): self
     {
-        $this->AuthParameters = $value;
+        $this->authParameters = $value;
 
         return $this;
     }
 
     public function setClientId(?string $value): self
     {
-        $this->ClientId = $value;
+        $this->clientId = $value;
 
         return $this;
     }
@@ -193,14 +193,14 @@ final class InitiateAuthRequest extends Input
      */
     public function setClientMetadata(array $value): self
     {
-        $this->ClientMetadata = $value;
+        $this->clientMetadata = $value;
 
         return $this;
     }
 
     public function setUserContextData(?UserContextDataType $value): self
     {
-        $this->UserContextData = $value;
+        $this->userContextData = $value;
 
         return $this;
     }
@@ -208,14 +208,14 @@ final class InitiateAuthRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->AuthFlow) {
+        if (null === $v = $this->authFlow) {
             throw new InvalidArgument(sprintf('Missing parameter "AuthFlow" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!AuthFlowType::exists($v)) {
             throw new InvalidArgument(sprintf('Invalid parameter "AuthFlow" for "%s". The value "%s" is not a valid "AuthFlowType".', __CLASS__, $v));
         }
         $payload['AuthFlow'] = $v;
-        if (null !== $v = $this->AuthParameters) {
+        if (null !== $v = $this->authParameters) {
             if (empty($v)) {
                 $payload['AuthParameters'] = new \stdClass();
             } else {
@@ -225,7 +225,7 @@ final class InitiateAuthRequest extends Input
                 }
             }
         }
-        if (null !== $v = $this->ClientMetadata) {
+        if (null !== $v = $this->clientMetadata) {
             if (empty($v)) {
                 $payload['ClientMetadata'] = new \stdClass();
             } else {
@@ -235,14 +235,14 @@ final class InitiateAuthRequest extends Input
                 }
             }
         }
-        if (null === $v = $this->ClientId) {
+        if (null === $v = $this->clientId) {
             throw new InvalidArgument(sprintf('Missing parameter "ClientId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ClientId'] = $v;
-        if (null !== $v = $this->AnalyticsMetadata) {
+        if (null !== $v = $this->analyticsMetadata) {
             $payload['AnalyticsMetadata'] = $v->requestBody();
         }
-        if (null !== $v = $this->UserContextData) {
+        if (null !== $v = $this->userContextData) {
             $payload['UserContextData'] = $v->requestBody();
         }
 

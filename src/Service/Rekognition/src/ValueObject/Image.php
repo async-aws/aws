@@ -13,12 +13,12 @@ final class Image
     /**
      * Blob of image bytes up to 5 MBs.
      */
-    private $Bytes;
+    private $bytes;
 
     /**
      * Identifies an S3 object as the image source.
      */
-    private $S3Object;
+    private $s3Object;
 
     /**
      * @param array{
@@ -28,8 +28,8 @@ final class Image
      */
     public function __construct(array $input)
     {
-        $this->Bytes = $input['Bytes'] ?? null;
-        $this->S3Object = isset($input['S3Object']) ? S3Object::create($input['S3Object']) : null;
+        $this->bytes = $input['Bytes'] ?? null;
+        $this->s3Object = isset($input['S3Object']) ? S3Object::create($input['S3Object']) : null;
     }
 
     public static function create($input): self
@@ -39,12 +39,12 @@ final class Image
 
     public function getBytes(): ?string
     {
-        return $this->Bytes;
+        return $this->bytes;
     }
 
     public function getS3Object(): ?S3Object
     {
-        return $this->S3Object;
+        return $this->s3Object;
     }
 
     /**
@@ -53,10 +53,10 @@ final class Image
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->Bytes) {
+        if (null !== $v = $this->bytes) {
             $payload['Bytes'] = base64_encode($v);
         }
-        if (null !== $v = $this->S3Object) {
+        if (null !== $v = $this->s3Object) {
             $payload['S3Object'] = $v->requestBody();
         }
 

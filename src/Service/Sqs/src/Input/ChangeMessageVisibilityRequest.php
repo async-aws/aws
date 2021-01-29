@@ -16,7 +16,7 @@ final class ChangeMessageVisibilityRequest extends Input
      *
      * @var string|null
      */
-    private $QueueUrl;
+    private $queueUrl;
 
     /**
      * The receipt handle associated with the message whose visibility timeout is changed. This parameter is returned by the
@@ -26,7 +26,7 @@ final class ChangeMessageVisibilityRequest extends Input
      *
      * @var string|null
      */
-    private $ReceiptHandle;
+    private $receiptHandle;
 
     /**
      * The new value for the message's visibility timeout (in seconds). Values range: `0` to `43200`. Maximum: 12 hours.
@@ -35,7 +35,7 @@ final class ChangeMessageVisibilityRequest extends Input
      *
      * @var int|null
      */
-    private $VisibilityTimeout;
+    private $visibilityTimeout;
 
     /**
      * @param array{
@@ -47,9 +47,9 @@ final class ChangeMessageVisibilityRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->QueueUrl = $input['QueueUrl'] ?? null;
-        $this->ReceiptHandle = $input['ReceiptHandle'] ?? null;
-        $this->VisibilityTimeout = $input['VisibilityTimeout'] ?? null;
+        $this->queueUrl = $input['QueueUrl'] ?? null;
+        $this->receiptHandle = $input['ReceiptHandle'] ?? null;
+        $this->visibilityTimeout = $input['VisibilityTimeout'] ?? null;
         parent::__construct($input);
     }
 
@@ -60,17 +60,17 @@ final class ChangeMessageVisibilityRequest extends Input
 
     public function getQueueUrl(): ?string
     {
-        return $this->QueueUrl;
+        return $this->queueUrl;
     }
 
     public function getReceiptHandle(): ?string
     {
-        return $this->ReceiptHandle;
+        return $this->receiptHandle;
     }
 
     public function getVisibilityTimeout(): ?int
     {
-        return $this->VisibilityTimeout;
+        return $this->visibilityTimeout;
     }
 
     /**
@@ -96,21 +96,21 @@ final class ChangeMessageVisibilityRequest extends Input
 
     public function setQueueUrl(?string $value): self
     {
-        $this->QueueUrl = $value;
+        $this->queueUrl = $value;
 
         return $this;
     }
 
     public function setReceiptHandle(?string $value): self
     {
-        $this->ReceiptHandle = $value;
+        $this->receiptHandle = $value;
 
         return $this;
     }
 
     public function setVisibilityTimeout(?int $value): self
     {
-        $this->VisibilityTimeout = $value;
+        $this->visibilityTimeout = $value;
 
         return $this;
     }
@@ -118,15 +118,15 @@ final class ChangeMessageVisibilityRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->QueueUrl) {
+        if (null === $v = $this->queueUrl) {
             throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueueUrl'] = $v;
-        if (null === $v = $this->ReceiptHandle) {
+        if (null === $v = $this->receiptHandle) {
             throw new InvalidArgument(sprintf('Missing parameter "ReceiptHandle" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ReceiptHandle'] = $v;
-        if (null === $v = $this->VisibilityTimeout) {
+        if (null === $v = $this->visibilityTimeout) {
             throw new InvalidArgument(sprintf('Missing parameter "VisibilityTimeout" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['VisibilityTimeout'] = $v;

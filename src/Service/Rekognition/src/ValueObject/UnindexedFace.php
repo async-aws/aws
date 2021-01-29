@@ -13,12 +13,12 @@ final class UnindexedFace
     /**
      * An array of reasons that specify why a face wasn't indexed.
      */
-    private $Reasons;
+    private $reasons;
 
     /**
      * The structure that contains attributes of a face that `IndexFaces`detected, but didn't index.
      */
-    private $FaceDetail;
+    private $faceDetail;
 
     /**
      * @param array{
@@ -28,8 +28,8 @@ final class UnindexedFace
      */
     public function __construct(array $input)
     {
-        $this->Reasons = $input['Reasons'] ?? null;
-        $this->FaceDetail = isset($input['FaceDetail']) ? FaceDetail::create($input['FaceDetail']) : null;
+        $this->reasons = $input['Reasons'] ?? null;
+        $this->faceDetail = isset($input['FaceDetail']) ? FaceDetail::create($input['FaceDetail']) : null;
     }
 
     public static function create($input): self
@@ -39,7 +39,7 @@ final class UnindexedFace
 
     public function getFaceDetail(): ?FaceDetail
     {
-        return $this->FaceDetail;
+        return $this->faceDetail;
     }
 
     /**
@@ -47,6 +47,6 @@ final class UnindexedFace
      */
     public function getReasons(): array
     {
-        return $this->Reasons ?? [];
+        return $this->reasons ?? [];
     }
 }

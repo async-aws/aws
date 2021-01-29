@@ -12,12 +12,12 @@ final class Delete
     /**
      * The objects to delete.
      */
-    private $Objects;
+    private $objects;
 
     /**
      * Element to enable quiet mode for the request. When you add this element, you must set its value to true.
      */
-    private $Quiet;
+    private $quiet;
 
     /**
      * @param array{
@@ -27,8 +27,8 @@ final class Delete
      */
     public function __construct(array $input)
     {
-        $this->Objects = isset($input['Objects']) ? array_map([ObjectIdentifier::class, 'create'], $input['Objects']) : null;
-        $this->Quiet = $input['Quiet'] ?? null;
+        $this->objects = isset($input['Objects']) ? array_map([ObjectIdentifier::class, 'create'], $input['Objects']) : null;
+        $this->quiet = $input['Quiet'] ?? null;
     }
 
     public static function create($input): self
@@ -41,12 +41,12 @@ final class Delete
      */
     public function getObjects(): array
     {
-        return $this->Objects ?? [];
+        return $this->objects ?? [];
     }
 
     public function getQuiet(): ?bool
     {
-        return $this->Quiet;
+        return $this->quiet;
     }
 
     /**
@@ -54,7 +54,7 @@ final class Delete
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        if (null === $v = $this->Objects) {
+        if (null === $v = $this->objects) {
             throw new InvalidArgument(sprintf('Missing parameter "Objects" for "%s". The value cannot be null.', __CLASS__));
         }
         foreach ($v as $item) {
@@ -63,7 +63,7 @@ final class Delete
             $item->requestBody($child, $document);
         }
 
-        if (null !== $v = $this->Quiet) {
+        if (null !== $v = $this->quiet) {
             $node->appendChild($document->createElement('Quiet', $v ? 'true' : 'false'));
         }
     }

@@ -11,19 +11,19 @@ final class Template
      * The name of the template. You will refer to this name when you send email using the `SendTemplatedEmail` or
      * `SendBulkTemplatedEmail` operations.
      */
-    private $TemplateName;
+    private $templateName;
 
     /**
      * The Amazon Resource Name (ARN) of the template.
      */
-    private $TemplateArn;
+    private $templateArn;
 
     /**
      * An object that defines the values to use for message variables in the template. This object is a set of key-value
      * pairs. Each key defines a message variable in the template. The corresponding value defines the value to use for that
      * variable.
      */
-    private $TemplateData;
+    private $templateData;
 
     /**
      * @param array{
@@ -34,9 +34,9 @@ final class Template
      */
     public function __construct(array $input)
     {
-        $this->TemplateName = $input['TemplateName'] ?? null;
-        $this->TemplateArn = $input['TemplateArn'] ?? null;
-        $this->TemplateData = $input['TemplateData'] ?? null;
+        $this->templateName = $input['TemplateName'] ?? null;
+        $this->templateArn = $input['TemplateArn'] ?? null;
+        $this->templateData = $input['TemplateData'] ?? null;
     }
 
     public static function create($input): self
@@ -46,17 +46,17 @@ final class Template
 
     public function getTemplateArn(): ?string
     {
-        return $this->TemplateArn;
+        return $this->templateArn;
     }
 
     public function getTemplateData(): ?string
     {
-        return $this->TemplateData;
+        return $this->templateData;
     }
 
     public function getTemplateName(): ?string
     {
-        return $this->TemplateName;
+        return $this->templateName;
     }
 
     /**
@@ -65,13 +65,13 @@ final class Template
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->TemplateName) {
+        if (null !== $v = $this->templateName) {
             $payload['TemplateName'] = $v;
         }
-        if (null !== $v = $this->TemplateArn) {
+        if (null !== $v = $this->templateArn) {
             $payload['TemplateArn'] = $v;
         }
-        if (null !== $v = $this->TemplateData) {
+        if (null !== $v = $this->templateData) {
             $payload['TemplateData'] = $v;
         }
 

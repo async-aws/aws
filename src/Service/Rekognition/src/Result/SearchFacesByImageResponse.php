@@ -13,22 +13,22 @@ class SearchFacesByImageResponse extends Result
     /**
      * The bounding box around the face in the input image that Amazon Rekognition used for the search.
      */
-    private $SearchedFaceBoundingBox;
+    private $searchedFaceBoundingBox;
 
     /**
      * The level of confidence that the `searchedFaceBoundingBox`, contains a face.
      */
-    private $SearchedFaceConfidence;
+    private $searchedFaceConfidence;
 
     /**
      * An array of faces that match the input face, along with the confidence in the match.
      */
-    private $FaceMatches = [];
+    private $faceMatches = [];
 
     /**
      * Version number of the face detection model associated with the input collection (`CollectionId`).
      */
-    private $FaceModelVersion;
+    private $faceModelVersion;
 
     /**
      * @return FaceMatch[]
@@ -37,43 +37,43 @@ class SearchFacesByImageResponse extends Result
     {
         $this->initialize();
 
-        return $this->FaceMatches;
+        return $this->faceMatches;
     }
 
     public function getFaceModelVersion(): ?string
     {
         $this->initialize();
 
-        return $this->FaceModelVersion;
+        return $this->faceModelVersion;
     }
 
     public function getSearchedFaceBoundingBox(): ?BoundingBox
     {
         $this->initialize();
 
-        return $this->SearchedFaceBoundingBox;
+        return $this->searchedFaceBoundingBox;
     }
 
     public function getSearchedFaceConfidence(): ?float
     {
         $this->initialize();
 
-        return $this->SearchedFaceConfidence;
+        return $this->searchedFaceConfidence;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->SearchedFaceBoundingBox = empty($data['SearchedFaceBoundingBox']) ? null : new BoundingBox([
+        $this->searchedFaceBoundingBox = empty($data['SearchedFaceBoundingBox']) ? null : new BoundingBox([
             'Width' => isset($data['SearchedFaceBoundingBox']['Width']) ? (float) $data['SearchedFaceBoundingBox']['Width'] : null,
             'Height' => isset($data['SearchedFaceBoundingBox']['Height']) ? (float) $data['SearchedFaceBoundingBox']['Height'] : null,
             'Left' => isset($data['SearchedFaceBoundingBox']['Left']) ? (float) $data['SearchedFaceBoundingBox']['Left'] : null,
             'Top' => isset($data['SearchedFaceBoundingBox']['Top']) ? (float) $data['SearchedFaceBoundingBox']['Top'] : null,
         ]);
-        $this->SearchedFaceConfidence = isset($data['SearchedFaceConfidence']) ? (float) $data['SearchedFaceConfidence'] : null;
-        $this->FaceMatches = empty($data['FaceMatches']) ? [] : $this->populateResultFaceMatchList($data['FaceMatches']);
-        $this->FaceModelVersion = isset($data['FaceModelVersion']) ? (string) $data['FaceModelVersion'] : null;
+        $this->searchedFaceConfidence = isset($data['SearchedFaceConfidence']) ? (float) $data['SearchedFaceConfidence'] : null;
+        $this->faceMatches = empty($data['FaceMatches']) ? [] : $this->populateResultFaceMatchList($data['FaceMatches']);
+        $this->faceModelVersion = isset($data['FaceModelVersion']) ? (string) $data['FaceModelVersion'] : null;
     }
 
     /**

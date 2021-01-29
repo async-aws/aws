@@ -17,7 +17,7 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      *
      * @var string|null
      */
-    private $RoleArn;
+    private $roleArn;
 
     /**
      * An identifier for the assumed role session. Typically, you pass the name or identifier that is associated with the
@@ -29,7 +29,7 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      *
      * @var string|null
      */
-    private $RoleSessionName;
+    private $roleSessionName;
 
     /**
      * The OAuth 2.0 access token or OpenID Connect ID token that is provided by the identity provider. Your application
@@ -40,14 +40,14 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      *
      * @var string|null
      */
-    private $WebIdentityToken;
+    private $webIdentityToken;
 
     /**
      * The fully qualified host component of the domain name of the identity provider.
      *
      * @var string|null
      */
-    private $ProviderId;
+    private $providerId;
 
     /**
      * The Amazon Resource Names (ARNs) of the IAM managed policies that you want to use as managed session policies. The
@@ -55,14 +55,14 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      *
      * @var PolicyDescriptorType[]|null
      */
-    private $PolicyArns;
+    private $policyArns;
 
     /**
      * An IAM policy in JSON format that you want to use as an inline session policy.
      *
      * @var string|null
      */
-    private $Policy;
+    private $policy;
 
     /**
      * The duration, in seconds, of the role session. The value can range from 900 seconds (15 minutes) up to the maximum
@@ -75,7 +75,7 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      *
      * @var int|null
      */
-    private $DurationSeconds;
+    private $durationSeconds;
 
     /**
      * @param array{
@@ -91,13 +91,13 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->RoleArn = $input['RoleArn'] ?? null;
-        $this->RoleSessionName = $input['RoleSessionName'] ?? null;
-        $this->WebIdentityToken = $input['WebIdentityToken'] ?? null;
-        $this->ProviderId = $input['ProviderId'] ?? null;
-        $this->PolicyArns = isset($input['PolicyArns']) ? array_map([PolicyDescriptorType::class, 'create'], $input['PolicyArns']) : null;
-        $this->Policy = $input['Policy'] ?? null;
-        $this->DurationSeconds = $input['DurationSeconds'] ?? null;
+        $this->roleArn = $input['RoleArn'] ?? null;
+        $this->roleSessionName = $input['RoleSessionName'] ?? null;
+        $this->webIdentityToken = $input['WebIdentityToken'] ?? null;
+        $this->providerId = $input['ProviderId'] ?? null;
+        $this->policyArns = isset($input['PolicyArns']) ? array_map([PolicyDescriptorType::class, 'create'], $input['PolicyArns']) : null;
+        $this->policy = $input['Policy'] ?? null;
+        $this->durationSeconds = $input['DurationSeconds'] ?? null;
         parent::__construct($input);
     }
 
@@ -108,12 +108,12 @@ final class AssumeRoleWithWebIdentityRequest extends Input
 
     public function getDurationSeconds(): ?int
     {
-        return $this->DurationSeconds;
+        return $this->durationSeconds;
     }
 
     public function getPolicy(): ?string
     {
-        return $this->Policy;
+        return $this->policy;
     }
 
     /**
@@ -121,27 +121,27 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      */
     public function getPolicyArns(): array
     {
-        return $this->PolicyArns ?? [];
+        return $this->policyArns ?? [];
     }
 
     public function getProviderId(): ?string
     {
-        return $this->ProviderId;
+        return $this->providerId;
     }
 
     public function getRoleArn(): ?string
     {
-        return $this->RoleArn;
+        return $this->roleArn;
     }
 
     public function getRoleSessionName(): ?string
     {
-        return $this->RoleSessionName;
+        return $this->roleSessionName;
     }
 
     public function getWebIdentityToken(): ?string
     {
-        return $this->WebIdentityToken;
+        return $this->webIdentityToken;
     }
 
     /**
@@ -167,14 +167,14 @@ final class AssumeRoleWithWebIdentityRequest extends Input
 
     public function setDurationSeconds(?int $value): self
     {
-        $this->DurationSeconds = $value;
+        $this->durationSeconds = $value;
 
         return $this;
     }
 
     public function setPolicy(?string $value): self
     {
-        $this->Policy = $value;
+        $this->policy = $value;
 
         return $this;
     }
@@ -184,35 +184,35 @@ final class AssumeRoleWithWebIdentityRequest extends Input
      */
     public function setPolicyArns(array $value): self
     {
-        $this->PolicyArns = $value;
+        $this->policyArns = $value;
 
         return $this;
     }
 
     public function setProviderId(?string $value): self
     {
-        $this->ProviderId = $value;
+        $this->providerId = $value;
 
         return $this;
     }
 
     public function setRoleArn(?string $value): self
     {
-        $this->RoleArn = $value;
+        $this->roleArn = $value;
 
         return $this;
     }
 
     public function setRoleSessionName(?string $value): self
     {
-        $this->RoleSessionName = $value;
+        $this->roleSessionName = $value;
 
         return $this;
     }
 
     public function setWebIdentityToken(?string $value): self
     {
-        $this->WebIdentityToken = $value;
+        $this->webIdentityToken = $value;
 
         return $this;
     }
@@ -220,22 +220,22 @@ final class AssumeRoleWithWebIdentityRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->RoleArn) {
+        if (null === $v = $this->roleArn) {
             throw new InvalidArgument(sprintf('Missing parameter "RoleArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['RoleArn'] = $v;
-        if (null === $v = $this->RoleSessionName) {
+        if (null === $v = $this->roleSessionName) {
             throw new InvalidArgument(sprintf('Missing parameter "RoleSessionName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['RoleSessionName'] = $v;
-        if (null === $v = $this->WebIdentityToken) {
+        if (null === $v = $this->webIdentityToken) {
             throw new InvalidArgument(sprintf('Missing parameter "WebIdentityToken" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['WebIdentityToken'] = $v;
-        if (null !== $v = $this->ProviderId) {
+        if (null !== $v = $this->providerId) {
             $payload['ProviderId'] = $v;
         }
-        if (null !== $v = $this->PolicyArns) {
+        if (null !== $v = $this->policyArns) {
             $index = 0;
             foreach ($v as $mapValue) {
                 ++$index;
@@ -244,10 +244,10 @@ final class AssumeRoleWithWebIdentityRequest extends Input
                 }
             }
         }
-        if (null !== $v = $this->Policy) {
+        if (null !== $v = $this->policy) {
             $payload['Policy'] = $v;
         }
-        if (null !== $v = $this->DurationSeconds) {
+        if (null !== $v = $this->durationSeconds) {
             $payload['DurationSeconds'] = $v;
         }
 

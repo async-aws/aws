@@ -13,12 +13,12 @@ final class MFAOptionType
     /**
      * The delivery medium to send the MFA code. You can use this parameter to set only the `SMS` delivery medium value.
      */
-    private $DeliveryMedium;
+    private $deliveryMedium;
 
     /**
      * The attribute name of the MFA option type. The only valid value is `phone_number`.
      */
-    private $AttributeName;
+    private $attributeName;
 
     /**
      * @param array{
@@ -28,8 +28,8 @@ final class MFAOptionType
      */
     public function __construct(array $input)
     {
-        $this->DeliveryMedium = $input['DeliveryMedium'] ?? null;
-        $this->AttributeName = $input['AttributeName'] ?? null;
+        $this->deliveryMedium = $input['DeliveryMedium'] ?? null;
+        $this->attributeName = $input['AttributeName'] ?? null;
     }
 
     public static function create($input): self
@@ -39,7 +39,7 @@ final class MFAOptionType
 
     public function getAttributeName(): ?string
     {
-        return $this->AttributeName;
+        return $this->attributeName;
     }
 
     /**
@@ -47,6 +47,6 @@ final class MFAOptionType
      */
     public function getDeliveryMedium(): ?string
     {
-        return $this->DeliveryMedium;
+        return $this->deliveryMedium;
     }
 }

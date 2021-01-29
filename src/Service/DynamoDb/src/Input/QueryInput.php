@@ -24,7 +24,7 @@ final class QueryInput extends Input
      *
      * @var string|null
      */
-    private $TableName;
+    private $tableName;
 
     /**
      * The name of an index to query. This index can be any local secondary index or global secondary index on the table.
@@ -32,7 +32,7 @@ final class QueryInput extends Input
      *
      * @var string|null
      */
-    private $IndexName;
+    private $indexName;
 
     /**
      * The attributes to be returned in the result. You can retrieve all item attributes, specific item attributes, the
@@ -40,7 +40,7 @@ final class QueryInput extends Input
      *
      * @var null|Select::*
      */
-    private $Select;
+    private $select;
 
     /**
      * This is a legacy parameter. Use `ProjectionExpression` instead. For more information, see AttributesToGet in the
@@ -50,7 +50,7 @@ final class QueryInput extends Input
      *
      * @var string[]|null
      */
-    private $AttributesToGet;
+    private $attributesToGet;
 
     /**
      * The maximum number of items to evaluate (not necessarily the number of matching items). If DynamoDB processes the
@@ -65,7 +65,7 @@ final class QueryInput extends Input
      *
      * @var int|null
      */
-    private $Limit;
+    private $limit;
 
     /**
      * Determines the read consistency model: If set to `true`, then the operation uses strongly consistent reads;
@@ -73,7 +73,7 @@ final class QueryInput extends Input
      *
      * @var bool|null
      */
-    private $ConsistentRead;
+    private $consistentRead;
 
     /**
      * This is a legacy parameter. Use `KeyConditionExpression` instead. For more information, see KeyConditions in the
@@ -83,7 +83,7 @@ final class QueryInput extends Input
      *
      * @var array<string, Condition>|null
      */
-    private $KeyConditions;
+    private $keyConditions;
 
     /**
      * This is a legacy parameter. Use `FilterExpression` instead. For more information, see QueryFilter in the *Amazon
@@ -93,7 +93,7 @@ final class QueryInput extends Input
      *
      * @var array<string, Condition>|null
      */
-    private $QueryFilter;
+    private $queryFilter;
 
     /**
      * This is a legacy parameter. Use `FilterExpression` instead. For more information, see ConditionalOperator in the
@@ -103,7 +103,7 @@ final class QueryInput extends Input
      *
      * @var null|ConditionalOperator::*
      */
-    private $ConditionalOperator;
+    private $conditionalOperator;
 
     /**
      * Specifies the order for index traversal: If `true` (default), the traversal is performed in ascending order; if
@@ -111,7 +111,7 @@ final class QueryInput extends Input
      *
      * @var bool|null
      */
-    private $ScanIndexForward;
+    private $scanIndexForward;
 
     /**
      * The primary key of the first item that this operation will evaluate. Use the value that was returned for
@@ -119,12 +119,12 @@ final class QueryInput extends Input
      *
      * @var array<string, AttributeValue>|null
      */
-    private $ExclusiveStartKey;
+    private $exclusiveStartKey;
 
     /**
      * @var null|ReturnConsumedCapacity::*
      */
-    private $ReturnConsumedCapacity;
+    private $returnConsumedCapacity;
 
     /**
      * A string that identifies one or more attributes to retrieve from the table. These attributes can include scalars,
@@ -132,7 +132,7 @@ final class QueryInput extends Input
      *
      * @var string|null
      */
-    private $ProjectionExpression;
+    private $projectionExpression;
 
     /**
      * A string that contains conditions that DynamoDB applies after the `Query` operation, but before the data is returned
@@ -140,14 +140,14 @@ final class QueryInput extends Input
      *
      * @var string|null
      */
-    private $FilterExpression;
+    private $filterExpression;
 
     /**
      * The condition that specifies the key values for items to be retrieved by the `Query` action.
      *
      * @var string|null
      */
-    private $KeyConditionExpression;
+    private $keyConditionExpression;
 
     /**
      * One or more substitution tokens for attribute names in an expression. The following are some use cases for using
@@ -155,14 +155,14 @@ final class QueryInput extends Input
      *
      * @var array<string, string>|null
      */
-    private $ExpressionAttributeNames;
+    private $expressionAttributeNames;
 
     /**
      * One or more values that can be substituted in an expression.
      *
      * @var array<string, AttributeValue>|null
      */
-    private $ExpressionAttributeValues;
+    private $expressionAttributeValues;
 
     /**
      * @param array{
@@ -188,45 +188,45 @@ final class QueryInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->TableName = $input['TableName'] ?? null;
-        $this->IndexName = $input['IndexName'] ?? null;
-        $this->Select = $input['Select'] ?? null;
-        $this->AttributesToGet = $input['AttributesToGet'] ?? null;
-        $this->Limit = $input['Limit'] ?? null;
-        $this->ConsistentRead = $input['ConsistentRead'] ?? null;
+        $this->tableName = $input['TableName'] ?? null;
+        $this->indexName = $input['IndexName'] ?? null;
+        $this->select = $input['Select'] ?? null;
+        $this->attributesToGet = $input['AttributesToGet'] ?? null;
+        $this->limit = $input['Limit'] ?? null;
+        $this->consistentRead = $input['ConsistentRead'] ?? null;
 
         if (isset($input['KeyConditions'])) {
-            $this->KeyConditions = [];
+            $this->keyConditions = [];
             foreach ($input['KeyConditions'] as $key => $item) {
-                $this->KeyConditions[$key] = Condition::create($item);
+                $this->keyConditions[$key] = Condition::create($item);
             }
         }
 
         if (isset($input['QueryFilter'])) {
-            $this->QueryFilter = [];
+            $this->queryFilter = [];
             foreach ($input['QueryFilter'] as $key => $item) {
-                $this->QueryFilter[$key] = Condition::create($item);
+                $this->queryFilter[$key] = Condition::create($item);
             }
         }
-        $this->ConditionalOperator = $input['ConditionalOperator'] ?? null;
-        $this->ScanIndexForward = $input['ScanIndexForward'] ?? null;
+        $this->conditionalOperator = $input['ConditionalOperator'] ?? null;
+        $this->scanIndexForward = $input['ScanIndexForward'] ?? null;
 
         if (isset($input['ExclusiveStartKey'])) {
-            $this->ExclusiveStartKey = [];
+            $this->exclusiveStartKey = [];
             foreach ($input['ExclusiveStartKey'] as $key => $item) {
-                $this->ExclusiveStartKey[$key] = AttributeValue::create($item);
+                $this->exclusiveStartKey[$key] = AttributeValue::create($item);
             }
         }
-        $this->ReturnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
-        $this->ProjectionExpression = $input['ProjectionExpression'] ?? null;
-        $this->FilterExpression = $input['FilterExpression'] ?? null;
-        $this->KeyConditionExpression = $input['KeyConditionExpression'] ?? null;
-        $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
+        $this->returnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
+        $this->projectionExpression = $input['ProjectionExpression'] ?? null;
+        $this->filterExpression = $input['FilterExpression'] ?? null;
+        $this->keyConditionExpression = $input['KeyConditionExpression'] ?? null;
+        $this->expressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
 
         if (isset($input['ExpressionAttributeValues'])) {
-            $this->ExpressionAttributeValues = [];
+            $this->expressionAttributeValues = [];
             foreach ($input['ExpressionAttributeValues'] as $key => $item) {
-                $this->ExpressionAttributeValues[$key] = AttributeValue::create($item);
+                $this->expressionAttributeValues[$key] = AttributeValue::create($item);
             }
         }
         parent::__construct($input);
@@ -242,7 +242,7 @@ final class QueryInput extends Input
      */
     public function getAttributesToGet(): array
     {
-        return $this->AttributesToGet ?? [];
+        return $this->attributesToGet ?? [];
     }
 
     /**
@@ -250,12 +250,12 @@ final class QueryInput extends Input
      */
     public function getConditionalOperator(): ?string
     {
-        return $this->ConditionalOperator;
+        return $this->conditionalOperator;
     }
 
     public function getConsistentRead(): ?bool
     {
-        return $this->ConsistentRead;
+        return $this->consistentRead;
     }
 
     /**
@@ -263,7 +263,7 @@ final class QueryInput extends Input
      */
     public function getExclusiveStartKey(): array
     {
-        return $this->ExclusiveStartKey ?? [];
+        return $this->exclusiveStartKey ?? [];
     }
 
     /**
@@ -271,7 +271,7 @@ final class QueryInput extends Input
      */
     public function getExpressionAttributeNames(): array
     {
-        return $this->ExpressionAttributeNames ?? [];
+        return $this->expressionAttributeNames ?? [];
     }
 
     /**
@@ -279,22 +279,22 @@ final class QueryInput extends Input
      */
     public function getExpressionAttributeValues(): array
     {
-        return $this->ExpressionAttributeValues ?? [];
+        return $this->expressionAttributeValues ?? [];
     }
 
     public function getFilterExpression(): ?string
     {
-        return $this->FilterExpression;
+        return $this->filterExpression;
     }
 
     public function getIndexName(): ?string
     {
-        return $this->IndexName;
+        return $this->indexName;
     }
 
     public function getKeyConditionExpression(): ?string
     {
-        return $this->KeyConditionExpression;
+        return $this->keyConditionExpression;
     }
 
     /**
@@ -302,17 +302,17 @@ final class QueryInput extends Input
      */
     public function getKeyConditions(): array
     {
-        return $this->KeyConditions ?? [];
+        return $this->keyConditions ?? [];
     }
 
     public function getLimit(): ?int
     {
-        return $this->Limit;
+        return $this->limit;
     }
 
     public function getProjectionExpression(): ?string
     {
-        return $this->ProjectionExpression;
+        return $this->projectionExpression;
     }
 
     /**
@@ -320,7 +320,7 @@ final class QueryInput extends Input
      */
     public function getQueryFilter(): array
     {
-        return $this->QueryFilter ?? [];
+        return $this->queryFilter ?? [];
     }
 
     /**
@@ -328,12 +328,12 @@ final class QueryInput extends Input
      */
     public function getReturnConsumedCapacity(): ?string
     {
-        return $this->ReturnConsumedCapacity;
+        return $this->returnConsumedCapacity;
     }
 
     public function getScanIndexForward(): ?bool
     {
-        return $this->ScanIndexForward;
+        return $this->scanIndexForward;
     }
 
     /**
@@ -341,12 +341,12 @@ final class QueryInput extends Input
      */
     public function getSelect(): ?string
     {
-        return $this->Select;
+        return $this->select;
     }
 
     public function getTableName(): ?string
     {
-        return $this->TableName;
+        return $this->tableName;
     }
 
     /**
@@ -379,7 +379,7 @@ final class QueryInput extends Input
      */
     public function setAttributesToGet(array $value): self
     {
-        $this->AttributesToGet = $value;
+        $this->attributesToGet = $value;
 
         return $this;
     }
@@ -389,14 +389,14 @@ final class QueryInput extends Input
      */
     public function setConditionalOperator(?string $value): self
     {
-        $this->ConditionalOperator = $value;
+        $this->conditionalOperator = $value;
 
         return $this;
     }
 
     public function setConsistentRead(?bool $value): self
     {
-        $this->ConsistentRead = $value;
+        $this->consistentRead = $value;
 
         return $this;
     }
@@ -406,7 +406,7 @@ final class QueryInput extends Input
      */
     public function setExclusiveStartKey(array $value): self
     {
-        $this->ExclusiveStartKey = $value;
+        $this->exclusiveStartKey = $value;
 
         return $this;
     }
@@ -416,7 +416,7 @@ final class QueryInput extends Input
      */
     public function setExpressionAttributeNames(array $value): self
     {
-        $this->ExpressionAttributeNames = $value;
+        $this->expressionAttributeNames = $value;
 
         return $this;
     }
@@ -426,28 +426,28 @@ final class QueryInput extends Input
      */
     public function setExpressionAttributeValues(array $value): self
     {
-        $this->ExpressionAttributeValues = $value;
+        $this->expressionAttributeValues = $value;
 
         return $this;
     }
 
     public function setFilterExpression(?string $value): self
     {
-        $this->FilterExpression = $value;
+        $this->filterExpression = $value;
 
         return $this;
     }
 
     public function setIndexName(?string $value): self
     {
-        $this->IndexName = $value;
+        $this->indexName = $value;
 
         return $this;
     }
 
     public function setKeyConditionExpression(?string $value): self
     {
-        $this->KeyConditionExpression = $value;
+        $this->keyConditionExpression = $value;
 
         return $this;
     }
@@ -457,21 +457,21 @@ final class QueryInput extends Input
      */
     public function setKeyConditions(array $value): self
     {
-        $this->KeyConditions = $value;
+        $this->keyConditions = $value;
 
         return $this;
     }
 
     public function setLimit(?int $value): self
     {
-        $this->Limit = $value;
+        $this->limit = $value;
 
         return $this;
     }
 
     public function setProjectionExpression(?string $value): self
     {
-        $this->ProjectionExpression = $value;
+        $this->projectionExpression = $value;
 
         return $this;
     }
@@ -481,7 +481,7 @@ final class QueryInput extends Input
      */
     public function setQueryFilter(array $value): self
     {
-        $this->QueryFilter = $value;
+        $this->queryFilter = $value;
 
         return $this;
     }
@@ -491,14 +491,14 @@ final class QueryInput extends Input
      */
     public function setReturnConsumedCapacity(?string $value): self
     {
-        $this->ReturnConsumedCapacity = $value;
+        $this->returnConsumedCapacity = $value;
 
         return $this;
     }
 
     public function setScanIndexForward(?bool $value): self
     {
-        $this->ScanIndexForward = $value;
+        $this->scanIndexForward = $value;
 
         return $this;
     }
@@ -508,14 +508,14 @@ final class QueryInput extends Input
      */
     public function setSelect(?string $value): self
     {
-        $this->Select = $value;
+        $this->select = $value;
 
         return $this;
     }
 
     public function setTableName(?string $value): self
     {
-        $this->TableName = $value;
+        $this->tableName = $value;
 
         return $this;
     }
@@ -523,20 +523,20 @@ final class QueryInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->TableName) {
+        if (null === $v = $this->tableName) {
             throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TableName'] = $v;
-        if (null !== $v = $this->IndexName) {
+        if (null !== $v = $this->indexName) {
             $payload['IndexName'] = $v;
         }
-        if (null !== $v = $this->Select) {
+        if (null !== $v = $this->select) {
             if (!Select::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "Select" for "%s". The value "%s" is not a valid "Select".', __CLASS__, $v));
             }
             $payload['Select'] = $v;
         }
-        if (null !== $v = $this->AttributesToGet) {
+        if (null !== $v = $this->attributesToGet) {
             $index = -1;
             $payload['AttributesToGet'] = [];
             foreach ($v as $listValue) {
@@ -544,13 +544,13 @@ final class QueryInput extends Input
                 $payload['AttributesToGet'][$index] = $listValue;
             }
         }
-        if (null !== $v = $this->Limit) {
+        if (null !== $v = $this->limit) {
             $payload['Limit'] = $v;
         }
-        if (null !== $v = $this->ConsistentRead) {
+        if (null !== $v = $this->consistentRead) {
             $payload['ConsistentRead'] = (bool) $v;
         }
-        if (null !== $v = $this->KeyConditions) {
+        if (null !== $v = $this->keyConditions) {
             if (empty($v)) {
                 $payload['KeyConditions'] = new \stdClass();
             } else {
@@ -560,7 +560,7 @@ final class QueryInput extends Input
                 }
             }
         }
-        if (null !== $v = $this->QueryFilter) {
+        if (null !== $v = $this->queryFilter) {
             if (empty($v)) {
                 $payload['QueryFilter'] = new \stdClass();
             } else {
@@ -570,16 +570,16 @@ final class QueryInput extends Input
                 }
             }
         }
-        if (null !== $v = $this->ConditionalOperator) {
+        if (null !== $v = $this->conditionalOperator) {
             if (!ConditionalOperator::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ConditionalOperator" for "%s". The value "%s" is not a valid "ConditionalOperator".', __CLASS__, $v));
             }
             $payload['ConditionalOperator'] = $v;
         }
-        if (null !== $v = $this->ScanIndexForward) {
+        if (null !== $v = $this->scanIndexForward) {
             $payload['ScanIndexForward'] = (bool) $v;
         }
-        if (null !== $v = $this->ExclusiveStartKey) {
+        if (null !== $v = $this->exclusiveStartKey) {
             if (empty($v)) {
                 $payload['ExclusiveStartKey'] = new \stdClass();
             } else {
@@ -589,22 +589,22 @@ final class QueryInput extends Input
                 }
             }
         }
-        if (null !== $v = $this->ReturnConsumedCapacity) {
+        if (null !== $v = $this->returnConsumedCapacity) {
             if (!ReturnConsumedCapacity::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ReturnConsumedCapacity" for "%s". The value "%s" is not a valid "ReturnConsumedCapacity".', __CLASS__, $v));
             }
             $payload['ReturnConsumedCapacity'] = $v;
         }
-        if (null !== $v = $this->ProjectionExpression) {
+        if (null !== $v = $this->projectionExpression) {
             $payload['ProjectionExpression'] = $v;
         }
-        if (null !== $v = $this->FilterExpression) {
+        if (null !== $v = $this->filterExpression) {
             $payload['FilterExpression'] = $v;
         }
-        if (null !== $v = $this->KeyConditionExpression) {
+        if (null !== $v = $this->keyConditionExpression) {
             $payload['KeyConditionExpression'] = $v;
         }
-        if (null !== $v = $this->ExpressionAttributeNames) {
+        if (null !== $v = $this->expressionAttributeNames) {
             if (empty($v)) {
                 $payload['ExpressionAttributeNames'] = new \stdClass();
             } else {
@@ -614,7 +614,7 @@ final class QueryInput extends Input
                 }
             }
         }
-        if (null !== $v = $this->ExpressionAttributeValues) {
+        if (null !== $v = $this->expressionAttributeValues) {
             if (empty($v)) {
                 $payload['ExpressionAttributeValues'] = new \stdClass();
             } else {

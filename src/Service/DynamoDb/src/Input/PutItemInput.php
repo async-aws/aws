@@ -25,7 +25,7 @@ final class PutItemInput extends Input
      *
      * @var string|null
      */
-    private $TableName;
+    private $tableName;
 
     /**
      * A map of attribute name/value pairs, one for each attribute. Only the primary key attributes are required; you can
@@ -35,7 +35,7 @@ final class PutItemInput extends Input
      *
      * @var array<string, AttributeValue>|null
      */
-    private $Item;
+    private $item;
 
     /**
      * This is a legacy parameter. Use `ConditionExpression` instead. For more information, see Expected in the *Amazon
@@ -45,7 +45,7 @@ final class PutItemInput extends Input
      *
      * @var array<string, ExpectedAttributeValue>|null
      */
-    private $Expected;
+    private $expected;
 
     /**
      * Use `ReturnValues` if you want to get the item attributes as they appeared before they were updated with the
@@ -53,12 +53,12 @@ final class PutItemInput extends Input
      *
      * @var null|ReturnValue::*
      */
-    private $ReturnValues;
+    private $returnValues;
 
     /**
      * @var null|ReturnConsumedCapacity::*
      */
-    private $ReturnConsumedCapacity;
+    private $returnConsumedCapacity;
 
     /**
      * Determines whether item collection metrics are returned. If set to `SIZE`, the response includes statistics about
@@ -67,7 +67,7 @@ final class PutItemInput extends Input
      *
      * @var null|ReturnItemCollectionMetrics::*
      */
-    private $ReturnItemCollectionMetrics;
+    private $returnItemCollectionMetrics;
 
     /**
      * This is a legacy parameter. Use `ConditionExpression` instead. For more information, see ConditionalOperator in the
@@ -77,14 +77,14 @@ final class PutItemInput extends Input
      *
      * @var null|ConditionalOperator::*
      */
-    private $ConditionalOperator;
+    private $conditionalOperator;
 
     /**
      * A condition that must be satisfied in order for a conditional `PutItem` operation to succeed.
      *
      * @var string|null
      */
-    private $ConditionExpression;
+    private $conditionExpression;
 
     /**
      * One or more substitution tokens for attribute names in an expression. The following are some use cases for using
@@ -92,14 +92,14 @@ final class PutItemInput extends Input
      *
      * @var array<string, string>|null
      */
-    private $ExpressionAttributeNames;
+    private $expressionAttributeNames;
 
     /**
      * One or more values that can be substituted in an expression.
      *
      * @var array<string, AttributeValue>|null
      */
-    private $ExpressionAttributeValues;
+    private $expressionAttributeValues;
 
     /**
      * @param array{
@@ -118,32 +118,32 @@ final class PutItemInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->TableName = $input['TableName'] ?? null;
+        $this->tableName = $input['TableName'] ?? null;
 
         if (isset($input['Item'])) {
-            $this->Item = [];
+            $this->item = [];
             foreach ($input['Item'] as $key => $item) {
-                $this->Item[$key] = AttributeValue::create($item);
+                $this->item[$key] = AttributeValue::create($item);
             }
         }
 
         if (isset($input['Expected'])) {
-            $this->Expected = [];
+            $this->expected = [];
             foreach ($input['Expected'] as $key => $item) {
-                $this->Expected[$key] = ExpectedAttributeValue::create($item);
+                $this->expected[$key] = ExpectedAttributeValue::create($item);
             }
         }
-        $this->ReturnValues = $input['ReturnValues'] ?? null;
-        $this->ReturnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
-        $this->ReturnItemCollectionMetrics = $input['ReturnItemCollectionMetrics'] ?? null;
-        $this->ConditionalOperator = $input['ConditionalOperator'] ?? null;
-        $this->ConditionExpression = $input['ConditionExpression'] ?? null;
-        $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
+        $this->returnValues = $input['ReturnValues'] ?? null;
+        $this->returnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
+        $this->returnItemCollectionMetrics = $input['ReturnItemCollectionMetrics'] ?? null;
+        $this->conditionalOperator = $input['ConditionalOperator'] ?? null;
+        $this->conditionExpression = $input['ConditionExpression'] ?? null;
+        $this->expressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
 
         if (isset($input['ExpressionAttributeValues'])) {
-            $this->ExpressionAttributeValues = [];
+            $this->expressionAttributeValues = [];
             foreach ($input['ExpressionAttributeValues'] as $key => $item) {
-                $this->ExpressionAttributeValues[$key] = AttributeValue::create($item);
+                $this->expressionAttributeValues[$key] = AttributeValue::create($item);
             }
         }
         parent::__construct($input);
@@ -156,7 +156,7 @@ final class PutItemInput extends Input
 
     public function getConditionExpression(): ?string
     {
-        return $this->ConditionExpression;
+        return $this->conditionExpression;
     }
 
     /**
@@ -164,7 +164,7 @@ final class PutItemInput extends Input
      */
     public function getConditionalOperator(): ?string
     {
-        return $this->ConditionalOperator;
+        return $this->conditionalOperator;
     }
 
     /**
@@ -172,7 +172,7 @@ final class PutItemInput extends Input
      */
     public function getExpected(): array
     {
-        return $this->Expected ?? [];
+        return $this->expected ?? [];
     }
 
     /**
@@ -180,7 +180,7 @@ final class PutItemInput extends Input
      */
     public function getExpressionAttributeNames(): array
     {
-        return $this->ExpressionAttributeNames ?? [];
+        return $this->expressionAttributeNames ?? [];
     }
 
     /**
@@ -188,7 +188,7 @@ final class PutItemInput extends Input
      */
     public function getExpressionAttributeValues(): array
     {
-        return $this->ExpressionAttributeValues ?? [];
+        return $this->expressionAttributeValues ?? [];
     }
 
     /**
@@ -196,7 +196,7 @@ final class PutItemInput extends Input
      */
     public function getItem(): array
     {
-        return $this->Item ?? [];
+        return $this->item ?? [];
     }
 
     /**
@@ -204,7 +204,7 @@ final class PutItemInput extends Input
      */
     public function getReturnConsumedCapacity(): ?string
     {
-        return $this->ReturnConsumedCapacity;
+        return $this->returnConsumedCapacity;
     }
 
     /**
@@ -212,7 +212,7 @@ final class PutItemInput extends Input
      */
     public function getReturnItemCollectionMetrics(): ?string
     {
-        return $this->ReturnItemCollectionMetrics;
+        return $this->returnItemCollectionMetrics;
     }
 
     /**
@@ -220,12 +220,12 @@ final class PutItemInput extends Input
      */
     public function getReturnValues(): ?string
     {
-        return $this->ReturnValues;
+        return $this->returnValues;
     }
 
     public function getTableName(): ?string
     {
-        return $this->TableName;
+        return $this->tableName;
     }
 
     /**
@@ -255,7 +255,7 @@ final class PutItemInput extends Input
 
     public function setConditionExpression(?string $value): self
     {
-        $this->ConditionExpression = $value;
+        $this->conditionExpression = $value;
 
         return $this;
     }
@@ -265,7 +265,7 @@ final class PutItemInput extends Input
      */
     public function setConditionalOperator(?string $value): self
     {
-        $this->ConditionalOperator = $value;
+        $this->conditionalOperator = $value;
 
         return $this;
     }
@@ -275,7 +275,7 @@ final class PutItemInput extends Input
      */
     public function setExpected(array $value): self
     {
-        $this->Expected = $value;
+        $this->expected = $value;
 
         return $this;
     }
@@ -285,7 +285,7 @@ final class PutItemInput extends Input
      */
     public function setExpressionAttributeNames(array $value): self
     {
-        $this->ExpressionAttributeNames = $value;
+        $this->expressionAttributeNames = $value;
 
         return $this;
     }
@@ -295,7 +295,7 @@ final class PutItemInput extends Input
      */
     public function setExpressionAttributeValues(array $value): self
     {
-        $this->ExpressionAttributeValues = $value;
+        $this->expressionAttributeValues = $value;
 
         return $this;
     }
@@ -305,7 +305,7 @@ final class PutItemInput extends Input
      */
     public function setItem(array $value): self
     {
-        $this->Item = $value;
+        $this->item = $value;
 
         return $this;
     }
@@ -315,7 +315,7 @@ final class PutItemInput extends Input
      */
     public function setReturnConsumedCapacity(?string $value): self
     {
-        $this->ReturnConsumedCapacity = $value;
+        $this->returnConsumedCapacity = $value;
 
         return $this;
     }
@@ -325,7 +325,7 @@ final class PutItemInput extends Input
      */
     public function setReturnItemCollectionMetrics(?string $value): self
     {
-        $this->ReturnItemCollectionMetrics = $value;
+        $this->returnItemCollectionMetrics = $value;
 
         return $this;
     }
@@ -335,14 +335,14 @@ final class PutItemInput extends Input
      */
     public function setReturnValues(?string $value): self
     {
-        $this->ReturnValues = $value;
+        $this->returnValues = $value;
 
         return $this;
     }
 
     public function setTableName(?string $value): self
     {
-        $this->TableName = $value;
+        $this->tableName = $value;
 
         return $this;
     }
@@ -350,11 +350,11 @@ final class PutItemInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->TableName) {
+        if (null === $v = $this->tableName) {
             throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TableName'] = $v;
-        if (null === $v = $this->Item) {
+        if (null === $v = $this->item) {
             throw new InvalidArgument(sprintf('Missing parameter "Item" for "%s". The value cannot be null.', __CLASS__));
         }
 
@@ -366,7 +366,7 @@ final class PutItemInput extends Input
                 $payload['Item'][$name] = $mv->requestBody();
             }
         }
-        if (null !== $v = $this->Expected) {
+        if (null !== $v = $this->expected) {
             if (empty($v)) {
                 $payload['Expected'] = new \stdClass();
             } else {
@@ -376,34 +376,34 @@ final class PutItemInput extends Input
                 }
             }
         }
-        if (null !== $v = $this->ReturnValues) {
+        if (null !== $v = $this->returnValues) {
             if (!ReturnValue::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ReturnValues" for "%s". The value "%s" is not a valid "ReturnValue".', __CLASS__, $v));
             }
             $payload['ReturnValues'] = $v;
         }
-        if (null !== $v = $this->ReturnConsumedCapacity) {
+        if (null !== $v = $this->returnConsumedCapacity) {
             if (!ReturnConsumedCapacity::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ReturnConsumedCapacity" for "%s". The value "%s" is not a valid "ReturnConsumedCapacity".', __CLASS__, $v));
             }
             $payload['ReturnConsumedCapacity'] = $v;
         }
-        if (null !== $v = $this->ReturnItemCollectionMetrics) {
+        if (null !== $v = $this->returnItemCollectionMetrics) {
             if (!ReturnItemCollectionMetrics::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ReturnItemCollectionMetrics" for "%s". The value "%s" is not a valid "ReturnItemCollectionMetrics".', __CLASS__, $v));
             }
             $payload['ReturnItemCollectionMetrics'] = $v;
         }
-        if (null !== $v = $this->ConditionalOperator) {
+        if (null !== $v = $this->conditionalOperator) {
             if (!ConditionalOperator::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ConditionalOperator" for "%s". The value "%s" is not a valid "ConditionalOperator".', __CLASS__, $v));
             }
             $payload['ConditionalOperator'] = $v;
         }
-        if (null !== $v = $this->ConditionExpression) {
+        if (null !== $v = $this->conditionExpression) {
             $payload['ConditionExpression'] = $v;
         }
-        if (null !== $v = $this->ExpressionAttributeNames) {
+        if (null !== $v = $this->expressionAttributeNames) {
             if (empty($v)) {
                 $payload['ExpressionAttributeNames'] = new \stdClass();
             } else {
@@ -413,7 +413,7 @@ final class PutItemInput extends Input
                 }
             }
         }
-        if (null !== $v = $this->ExpressionAttributeValues) {
+        if (null !== $v = $this->expressionAttributeValues) {
             if (empty($v)) {
                 $payload['ExpressionAttributeValues'] = new \stdClass();
             } else {

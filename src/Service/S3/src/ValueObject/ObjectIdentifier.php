@@ -12,12 +12,12 @@ final class ObjectIdentifier
     /**
      * Key name of the object to delete.
      */
-    private $Key;
+    private $key;
 
     /**
      * VersionId for the specific version of the object to delete.
      */
-    private $VersionId;
+    private $versionId;
 
     /**
      * @param array{
@@ -27,8 +27,8 @@ final class ObjectIdentifier
      */
     public function __construct(array $input)
     {
-        $this->Key = $input['Key'] ?? null;
-        $this->VersionId = $input['VersionId'] ?? null;
+        $this->key = $input['Key'] ?? null;
+        $this->versionId = $input['VersionId'] ?? null;
     }
 
     public static function create($input): self
@@ -38,12 +38,12 @@ final class ObjectIdentifier
 
     public function getKey(): string
     {
-        return $this->Key;
+        return $this->key;
     }
 
     public function getVersionId(): ?string
     {
-        return $this->VersionId;
+        return $this->versionId;
     }
 
     /**
@@ -51,11 +51,11 @@ final class ObjectIdentifier
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        if (null === $v = $this->Key) {
+        if (null === $v = $this->key) {
             throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
         }
         $node->appendChild($document->createElement('Key', $v));
-        if (null !== $v = $this->VersionId) {
+        if (null !== $v = $this->versionId) {
             $node->appendChild($document->createElement('VersionId', $v));
         }
     }

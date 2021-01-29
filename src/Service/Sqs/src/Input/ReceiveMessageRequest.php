@@ -17,19 +17,19 @@ final class ReceiveMessageRequest extends Input
      *
      * @var string|null
      */
-    private $QueueUrl;
+    private $queueUrl;
 
     /**
      * @var null|list<MessageSystemAttributeName::*>
      */
-    private $AttributeNames;
+    private $attributeNames;
 
     /**
      * The name of the message attribute, where *N* is the index.
      *
      * @var string[]|null
      */
-    private $MessageAttributeNames;
+    private $messageAttributeNames;
 
     /**
      * The maximum number of messages to return. Amazon SQS never returns more messages than this value (however, fewer
@@ -37,7 +37,7 @@ final class ReceiveMessageRequest extends Input
      *
      * @var int|null
      */
-    private $MaxNumberOfMessages;
+    private $maxNumberOfMessages;
 
     /**
      * The duration (in seconds) that the received messages are hidden from subsequent retrieve requests after being
@@ -45,7 +45,7 @@ final class ReceiveMessageRequest extends Input
      *
      * @var int|null
      */
-    private $VisibilityTimeout;
+    private $visibilityTimeout;
 
     /**
      * The duration (in seconds) for which the call waits for a message to arrive in the queue before returning. If a
@@ -54,14 +54,14 @@ final class ReceiveMessageRequest extends Input
      *
      * @var int|null
      */
-    private $WaitTimeSeconds;
+    private $waitTimeSeconds;
 
     /**
      * This parameter applies only to FIFO (first-in-first-out) queues.
      *
      * @var string|null
      */
-    private $ReceiveRequestAttemptId;
+    private $receiveRequestAttemptId;
 
     /**
      * @param array{
@@ -77,13 +77,13 @@ final class ReceiveMessageRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->QueueUrl = $input['QueueUrl'] ?? null;
-        $this->AttributeNames = $input['AttributeNames'] ?? null;
-        $this->MessageAttributeNames = $input['MessageAttributeNames'] ?? null;
-        $this->MaxNumberOfMessages = $input['MaxNumberOfMessages'] ?? null;
-        $this->VisibilityTimeout = $input['VisibilityTimeout'] ?? null;
-        $this->WaitTimeSeconds = $input['WaitTimeSeconds'] ?? null;
-        $this->ReceiveRequestAttemptId = $input['ReceiveRequestAttemptId'] ?? null;
+        $this->queueUrl = $input['QueueUrl'] ?? null;
+        $this->attributeNames = $input['AttributeNames'] ?? null;
+        $this->messageAttributeNames = $input['MessageAttributeNames'] ?? null;
+        $this->maxNumberOfMessages = $input['MaxNumberOfMessages'] ?? null;
+        $this->visibilityTimeout = $input['VisibilityTimeout'] ?? null;
+        $this->waitTimeSeconds = $input['WaitTimeSeconds'] ?? null;
+        $this->receiveRequestAttemptId = $input['ReceiveRequestAttemptId'] ?? null;
         parent::__construct($input);
     }
 
@@ -97,12 +97,12 @@ final class ReceiveMessageRequest extends Input
      */
     public function getAttributeNames(): array
     {
-        return $this->AttributeNames ?? [];
+        return $this->attributeNames ?? [];
     }
 
     public function getMaxNumberOfMessages(): ?int
     {
-        return $this->MaxNumberOfMessages;
+        return $this->maxNumberOfMessages;
     }
 
     /**
@@ -110,27 +110,27 @@ final class ReceiveMessageRequest extends Input
      */
     public function getMessageAttributeNames(): array
     {
-        return $this->MessageAttributeNames ?? [];
+        return $this->messageAttributeNames ?? [];
     }
 
     public function getQueueUrl(): ?string
     {
-        return $this->QueueUrl;
+        return $this->queueUrl;
     }
 
     public function getReceiveRequestAttemptId(): ?string
     {
-        return $this->ReceiveRequestAttemptId;
+        return $this->receiveRequestAttemptId;
     }
 
     public function getVisibilityTimeout(): ?int
     {
-        return $this->VisibilityTimeout;
+        return $this->visibilityTimeout;
     }
 
     public function getWaitTimeSeconds(): ?int
     {
-        return $this->WaitTimeSeconds;
+        return $this->waitTimeSeconds;
     }
 
     /**
@@ -159,14 +159,14 @@ final class ReceiveMessageRequest extends Input
      */
     public function setAttributeNames(array $value): self
     {
-        $this->AttributeNames = $value;
+        $this->attributeNames = $value;
 
         return $this;
     }
 
     public function setMaxNumberOfMessages(?int $value): self
     {
-        $this->MaxNumberOfMessages = $value;
+        $this->maxNumberOfMessages = $value;
 
         return $this;
     }
@@ -176,35 +176,35 @@ final class ReceiveMessageRequest extends Input
      */
     public function setMessageAttributeNames(array $value): self
     {
-        $this->MessageAttributeNames = $value;
+        $this->messageAttributeNames = $value;
 
         return $this;
     }
 
     public function setQueueUrl(?string $value): self
     {
-        $this->QueueUrl = $value;
+        $this->queueUrl = $value;
 
         return $this;
     }
 
     public function setReceiveRequestAttemptId(?string $value): self
     {
-        $this->ReceiveRequestAttemptId = $value;
+        $this->receiveRequestAttemptId = $value;
 
         return $this;
     }
 
     public function setVisibilityTimeout(?int $value): self
     {
-        $this->VisibilityTimeout = $value;
+        $this->visibilityTimeout = $value;
 
         return $this;
     }
 
     public function setWaitTimeSeconds(?int $value): self
     {
-        $this->WaitTimeSeconds = $value;
+        $this->waitTimeSeconds = $value;
 
         return $this;
     }
@@ -212,11 +212,11 @@ final class ReceiveMessageRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->QueueUrl) {
+        if (null === $v = $this->queueUrl) {
             throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueueUrl'] = $v;
-        if (null !== $v = $this->AttributeNames) {
+        if (null !== $v = $this->attributeNames) {
             $index = 0;
             foreach ($v as $mapValue) {
                 ++$index;
@@ -226,23 +226,23 @@ final class ReceiveMessageRequest extends Input
                 $payload["AttributeName.$index"] = $mapValue;
             }
         }
-        if (null !== $v = $this->MessageAttributeNames) {
+        if (null !== $v = $this->messageAttributeNames) {
             $index = 0;
             foreach ($v as $mapValue) {
                 ++$index;
                 $payload["MessageAttributeName.$index"] = $mapValue;
             }
         }
-        if (null !== $v = $this->MaxNumberOfMessages) {
+        if (null !== $v = $this->maxNumberOfMessages) {
             $payload['MaxNumberOfMessages'] = $v;
         }
-        if (null !== $v = $this->VisibilityTimeout) {
+        if (null !== $v = $this->visibilityTimeout) {
             $payload['VisibilityTimeout'] = $v;
         }
-        if (null !== $v = $this->WaitTimeSeconds) {
+        if (null !== $v = $this->waitTimeSeconds) {
             $payload['WaitTimeSeconds'] = $v;
         }
-        if (null !== $v = $this->ReceiveRequestAttemptId) {
+        if (null !== $v = $this->receiveRequestAttemptId) {
             $payload['ReceiveRequestAttemptId'] = $v;
         }
 

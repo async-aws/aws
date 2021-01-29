@@ -10,17 +10,17 @@ final class Capacity
     /**
      * The total number of read capacity units consumed on a table or an index.
      */
-    private $ReadCapacityUnits;
+    private $readCapacityUnits;
 
     /**
      * The total number of write capacity units consumed on a table or an index.
      */
-    private $WriteCapacityUnits;
+    private $writeCapacityUnits;
 
     /**
      * The total number of capacity units consumed on a table or an index.
      */
-    private $CapacityUnits;
+    private $capacityUnits;
 
     /**
      * @param array{
@@ -31,9 +31,9 @@ final class Capacity
      */
     public function __construct(array $input)
     {
-        $this->ReadCapacityUnits = $input['ReadCapacityUnits'] ?? null;
-        $this->WriteCapacityUnits = $input['WriteCapacityUnits'] ?? null;
-        $this->CapacityUnits = $input['CapacityUnits'] ?? null;
+        $this->readCapacityUnits = $input['ReadCapacityUnits'] ?? null;
+        $this->writeCapacityUnits = $input['WriteCapacityUnits'] ?? null;
+        $this->capacityUnits = $input['CapacityUnits'] ?? null;
     }
 
     public static function create($input): self
@@ -43,16 +43,16 @@ final class Capacity
 
     public function getCapacityUnits(): ?float
     {
-        return $this->CapacityUnits;
+        return $this->capacityUnits;
     }
 
     public function getReadCapacityUnits(): ?float
     {
-        return $this->ReadCapacityUnits;
+        return $this->readCapacityUnits;
     }
 
     public function getWriteCapacityUnits(): ?float
     {
-        return $this->WriteCapacityUnits;
+        return $this->writeCapacityUnits;
     }
 }

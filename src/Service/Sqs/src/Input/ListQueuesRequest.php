@@ -14,14 +14,14 @@ final class ListQueuesRequest extends Input
      *
      * @var string|null
      */
-    private $QueueNamePrefix;
+    private $queueNamePrefix;
 
     /**
      * Pagination token to request the next set of results.
      *
      * @var string|null
      */
-    private $NextToken;
+    private $nextToken;
 
     /**
      * Maximum number of results to include in the response. Value range is 1 to 1000. You must set `MaxResults` to receive
@@ -29,7 +29,7 @@ final class ListQueuesRequest extends Input
      *
      * @var int|null
      */
-    private $MaxResults;
+    private $maxResults;
 
     /**
      * @param array{
@@ -41,9 +41,9 @@ final class ListQueuesRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->QueueNamePrefix = $input['QueueNamePrefix'] ?? null;
-        $this->NextToken = $input['NextToken'] ?? null;
-        $this->MaxResults = $input['MaxResults'] ?? null;
+        $this->queueNamePrefix = $input['QueueNamePrefix'] ?? null;
+        $this->nextToken = $input['NextToken'] ?? null;
+        $this->maxResults = $input['MaxResults'] ?? null;
         parent::__construct($input);
     }
 
@@ -54,17 +54,17 @@ final class ListQueuesRequest extends Input
 
     public function getMaxResults(): ?int
     {
-        return $this->MaxResults;
+        return $this->maxResults;
     }
 
     public function getNextToken(): ?string
     {
-        return $this->NextToken;
+        return $this->nextToken;
     }
 
     public function getQueueNamePrefix(): ?string
     {
-        return $this->QueueNamePrefix;
+        return $this->queueNamePrefix;
     }
 
     /**
@@ -90,21 +90,21 @@ final class ListQueuesRequest extends Input
 
     public function setMaxResults(?int $value): self
     {
-        $this->MaxResults = $value;
+        $this->maxResults = $value;
 
         return $this;
     }
 
     public function setNextToken(?string $value): self
     {
-        $this->NextToken = $value;
+        $this->nextToken = $value;
 
         return $this;
     }
 
     public function setQueueNamePrefix(?string $value): self
     {
-        $this->QueueNamePrefix = $value;
+        $this->queueNamePrefix = $value;
 
         return $this;
     }
@@ -112,13 +112,13 @@ final class ListQueuesRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->QueueNamePrefix) {
+        if (null !== $v = $this->queueNamePrefix) {
             $payload['QueueNamePrefix'] = $v;
         }
-        if (null !== $v = $this->NextToken) {
+        if (null !== $v = $this->nextToken) {
             $payload['NextToken'] = $v;
         }
-        if (null !== $v = $this->MaxResults) {
+        if (null !== $v = $this->maxResults) {
             $payload['MaxResults'] = $v;
         }
 

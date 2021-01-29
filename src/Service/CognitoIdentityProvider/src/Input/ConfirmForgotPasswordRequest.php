@@ -21,7 +21,7 @@ final class ConfirmForgotPasswordRequest extends Input
      *
      * @var string|null
      */
-    private $ClientId;
+    private $clientId;
 
     /**
      * A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username
@@ -29,7 +29,7 @@ final class ConfirmForgotPasswordRequest extends Input
      *
      * @var string|null
      */
-    private $SecretHash;
+    private $secretHash;
 
     /**
      * The user name of the user for whom you want to enter a code to retrieve a forgotten password.
@@ -38,7 +38,7 @@ final class ConfirmForgotPasswordRequest extends Input
      *
      * @var string|null
      */
-    private $Username;
+    private $username;
 
     /**
      * The confirmation code sent by a user's request to retrieve a forgotten password. For more information, see
@@ -49,7 +49,7 @@ final class ConfirmForgotPasswordRequest extends Input
      *
      * @var string|null
      */
-    private $ConfirmationCode;
+    private $confirmationCode;
 
     /**
      * The password sent by a user's request to retrieve a forgotten password.
@@ -58,14 +58,14 @@ final class ConfirmForgotPasswordRequest extends Input
      *
      * @var string|null
      */
-    private $Password;
+    private $password;
 
     /**
      * The Amazon Pinpoint analytics metadata for collecting metrics for `ConfirmForgotPassword` calls.
      *
      * @var AnalyticsMetadataType|null
      */
-    private $AnalyticsMetadata;
+    private $analyticsMetadata;
 
     /**
      * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
@@ -73,14 +73,14 @@ final class ConfirmForgotPasswordRequest extends Input
      *
      * @var UserContextDataType|null
      */
-    private $UserContextData;
+    private $userContextData;
 
     /**
      * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
      *
      * @var array<string, string>|null
      */
-    private $ClientMetadata;
+    private $clientMetadata;
 
     /**
      * @param array{
@@ -97,14 +97,14 @@ final class ConfirmForgotPasswordRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->ClientId = $input['ClientId'] ?? null;
-        $this->SecretHash = $input['SecretHash'] ?? null;
-        $this->Username = $input['Username'] ?? null;
-        $this->ConfirmationCode = $input['ConfirmationCode'] ?? null;
-        $this->Password = $input['Password'] ?? null;
-        $this->AnalyticsMetadata = isset($input['AnalyticsMetadata']) ? AnalyticsMetadataType::create($input['AnalyticsMetadata']) : null;
-        $this->UserContextData = isset($input['UserContextData']) ? UserContextDataType::create($input['UserContextData']) : null;
-        $this->ClientMetadata = $input['ClientMetadata'] ?? null;
+        $this->clientId = $input['ClientId'] ?? null;
+        $this->secretHash = $input['SecretHash'] ?? null;
+        $this->username = $input['Username'] ?? null;
+        $this->confirmationCode = $input['ConfirmationCode'] ?? null;
+        $this->password = $input['Password'] ?? null;
+        $this->analyticsMetadata = isset($input['AnalyticsMetadata']) ? AnalyticsMetadataType::create($input['AnalyticsMetadata']) : null;
+        $this->userContextData = isset($input['UserContextData']) ? UserContextDataType::create($input['UserContextData']) : null;
+        $this->clientMetadata = $input['ClientMetadata'] ?? null;
         parent::__construct($input);
     }
 
@@ -115,12 +115,12 @@ final class ConfirmForgotPasswordRequest extends Input
 
     public function getAnalyticsMetadata(): ?AnalyticsMetadataType
     {
-        return $this->AnalyticsMetadata;
+        return $this->analyticsMetadata;
     }
 
     public function getClientId(): ?string
     {
-        return $this->ClientId;
+        return $this->clientId;
     }
 
     /**
@@ -128,32 +128,32 @@ final class ConfirmForgotPasswordRequest extends Input
      */
     public function getClientMetadata(): array
     {
-        return $this->ClientMetadata ?? [];
+        return $this->clientMetadata ?? [];
     }
 
     public function getConfirmationCode(): ?string
     {
-        return $this->ConfirmationCode;
+        return $this->confirmationCode;
     }
 
     public function getPassword(): ?string
     {
-        return $this->Password;
+        return $this->password;
     }
 
     public function getSecretHash(): ?string
     {
-        return $this->SecretHash;
+        return $this->secretHash;
     }
 
     public function getUserContextData(): ?UserContextDataType
     {
-        return $this->UserContextData;
+        return $this->userContextData;
     }
 
     public function getUsername(): ?string
     {
-        return $this->Username;
+        return $this->username;
     }
 
     /**
@@ -183,14 +183,14 @@ final class ConfirmForgotPasswordRequest extends Input
 
     public function setAnalyticsMetadata(?AnalyticsMetadataType $value): self
     {
-        $this->AnalyticsMetadata = $value;
+        $this->analyticsMetadata = $value;
 
         return $this;
     }
 
     public function setClientId(?string $value): self
     {
-        $this->ClientId = $value;
+        $this->clientId = $value;
 
         return $this;
     }
@@ -200,42 +200,42 @@ final class ConfirmForgotPasswordRequest extends Input
      */
     public function setClientMetadata(array $value): self
     {
-        $this->ClientMetadata = $value;
+        $this->clientMetadata = $value;
 
         return $this;
     }
 
     public function setConfirmationCode(?string $value): self
     {
-        $this->ConfirmationCode = $value;
+        $this->confirmationCode = $value;
 
         return $this;
     }
 
     public function setPassword(?string $value): self
     {
-        $this->Password = $value;
+        $this->password = $value;
 
         return $this;
     }
 
     public function setSecretHash(?string $value): self
     {
-        $this->SecretHash = $value;
+        $this->secretHash = $value;
 
         return $this;
     }
 
     public function setUserContextData(?UserContextDataType $value): self
     {
-        $this->UserContextData = $value;
+        $this->userContextData = $value;
 
         return $this;
     }
 
     public function setUsername(?string $value): self
     {
-        $this->Username = $value;
+        $this->username = $value;
 
         return $this;
     }
@@ -243,32 +243,32 @@ final class ConfirmForgotPasswordRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->ClientId) {
+        if (null === $v = $this->clientId) {
             throw new InvalidArgument(sprintf('Missing parameter "ClientId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ClientId'] = $v;
-        if (null !== $v = $this->SecretHash) {
+        if (null !== $v = $this->secretHash) {
             $payload['SecretHash'] = $v;
         }
-        if (null === $v = $this->Username) {
+        if (null === $v = $this->username) {
             throw new InvalidArgument(sprintf('Missing parameter "Username" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Username'] = $v;
-        if (null === $v = $this->ConfirmationCode) {
+        if (null === $v = $this->confirmationCode) {
             throw new InvalidArgument(sprintf('Missing parameter "ConfirmationCode" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ConfirmationCode'] = $v;
-        if (null === $v = $this->Password) {
+        if (null === $v = $this->password) {
             throw new InvalidArgument(sprintf('Missing parameter "Password" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Password'] = $v;
-        if (null !== $v = $this->AnalyticsMetadata) {
+        if (null !== $v = $this->analyticsMetadata) {
             $payload['AnalyticsMetadata'] = $v->requestBody();
         }
-        if (null !== $v = $this->UserContextData) {
+        if (null !== $v = $this->userContextData) {
             $payload['UserContextData'] = $v->requestBody();
         }
-        if (null !== $v = $this->ClientMetadata) {
+        if (null !== $v = $this->clientMetadata) {
             if (empty($v)) {
                 $payload['ClientMetadata'] = new \stdClass();
             } else {

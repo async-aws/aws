@@ -18,7 +18,7 @@ final class SearchFacesByImageRequest extends Input
      *
      * @var string|null
      */
-    private $CollectionId;
+    private $collectionId;
 
     /**
      * The input image as base64-encoded bytes or an S3 object. If you use the AWS CLI to call Amazon Rekognition
@@ -28,7 +28,7 @@ final class SearchFacesByImageRequest extends Input
      *
      * @var Image|null
      */
-    private $Image;
+    private $image;
 
     /**
      * Maximum number of faces to return. The operation returns the maximum number of faces with the highest confidence in
@@ -36,7 +36,7 @@ final class SearchFacesByImageRequest extends Input
      *
      * @var int|null
      */
-    private $MaxFaces;
+    private $maxFaces;
 
     /**
      * (Optional) Specifies the minimum confidence in the face match to return. For example, don't return any matches where
@@ -44,7 +44,7 @@ final class SearchFacesByImageRequest extends Input
      *
      * @var float|null
      */
-    private $FaceMatchThreshold;
+    private $faceMatchThreshold;
 
     /**
      * A filter that specifies a quality bar for how much filtering is done to identify faces. Filtered faces aren't
@@ -56,7 +56,7 @@ final class SearchFacesByImageRequest extends Input
      *
      * @var null|QualityFilter::*
      */
-    private $QualityFilter;
+    private $qualityFilter;
 
     /**
      * @param array{
@@ -70,11 +70,11 @@ final class SearchFacesByImageRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->CollectionId = $input['CollectionId'] ?? null;
-        $this->Image = isset($input['Image']) ? Image::create($input['Image']) : null;
-        $this->MaxFaces = $input['MaxFaces'] ?? null;
-        $this->FaceMatchThreshold = $input['FaceMatchThreshold'] ?? null;
-        $this->QualityFilter = $input['QualityFilter'] ?? null;
+        $this->collectionId = $input['CollectionId'] ?? null;
+        $this->image = isset($input['Image']) ? Image::create($input['Image']) : null;
+        $this->maxFaces = $input['MaxFaces'] ?? null;
+        $this->faceMatchThreshold = $input['FaceMatchThreshold'] ?? null;
+        $this->qualityFilter = $input['QualityFilter'] ?? null;
         parent::__construct($input);
     }
 
@@ -85,22 +85,22 @@ final class SearchFacesByImageRequest extends Input
 
     public function getCollectionId(): ?string
     {
-        return $this->CollectionId;
+        return $this->collectionId;
     }
 
     public function getFaceMatchThreshold(): ?float
     {
-        return $this->FaceMatchThreshold;
+        return $this->faceMatchThreshold;
     }
 
     public function getImage(): ?Image
     {
-        return $this->Image;
+        return $this->image;
     }
 
     public function getMaxFaces(): ?int
     {
-        return $this->MaxFaces;
+        return $this->maxFaces;
     }
 
     /**
@@ -108,7 +108,7 @@ final class SearchFacesByImageRequest extends Input
      */
     public function getQualityFilter(): ?string
     {
-        return $this->QualityFilter;
+        return $this->qualityFilter;
     }
 
     /**
@@ -138,28 +138,28 @@ final class SearchFacesByImageRequest extends Input
 
     public function setCollectionId(?string $value): self
     {
-        $this->CollectionId = $value;
+        $this->collectionId = $value;
 
         return $this;
     }
 
     public function setFaceMatchThreshold(?float $value): self
     {
-        $this->FaceMatchThreshold = $value;
+        $this->faceMatchThreshold = $value;
 
         return $this;
     }
 
     public function setImage(?Image $value): self
     {
-        $this->Image = $value;
+        $this->image = $value;
 
         return $this;
     }
 
     public function setMaxFaces(?int $value): self
     {
-        $this->MaxFaces = $value;
+        $this->maxFaces = $value;
 
         return $this;
     }
@@ -169,7 +169,7 @@ final class SearchFacesByImageRequest extends Input
      */
     public function setQualityFilter(?string $value): self
     {
-        $this->QualityFilter = $value;
+        $this->qualityFilter = $value;
 
         return $this;
     }
@@ -177,21 +177,21 @@ final class SearchFacesByImageRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->CollectionId) {
+        if (null === $v = $this->collectionId) {
             throw new InvalidArgument(sprintf('Missing parameter "CollectionId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['CollectionId'] = $v;
-        if (null === $v = $this->Image) {
+        if (null === $v = $this->image) {
             throw new InvalidArgument(sprintf('Missing parameter "Image" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Image'] = $v->requestBody();
-        if (null !== $v = $this->MaxFaces) {
+        if (null !== $v = $this->maxFaces) {
             $payload['MaxFaces'] = $v;
         }
-        if (null !== $v = $this->FaceMatchThreshold) {
+        if (null !== $v = $this->faceMatchThreshold) {
             $payload['FaceMatchThreshold'] = $v;
         }
-        if (null !== $v = $this->QualityFilter) {
+        if (null !== $v = $this->qualityFilter) {
             if (!QualityFilter::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "QualityFilter" for "%s". The value "%s" is not a valid "QualityFilter".', __CLASS__, $v));
             }

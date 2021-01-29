@@ -28,7 +28,7 @@ final class CreateTableInput extends Input
      *
      * @var AttributeDefinition[]|null
      */
-    private $AttributeDefinitions;
+    private $attributeDefinitions;
 
     /**
      * The name of the table to create.
@@ -37,7 +37,7 @@ final class CreateTableInput extends Input
      *
      * @var string|null
      */
-    private $TableName;
+    private $tableName;
 
     /**
      * Specifies the attributes that make up the primary key for a table or an index. The attributes in `KeySchema` must
@@ -49,7 +49,7 @@ final class CreateTableInput extends Input
      *
      * @var KeySchemaElement[]|null
      */
-    private $KeySchema;
+    private $keySchema;
 
     /**
      * One or more local secondary indexes (the maximum is 5) to be created on the table. Each index is scoped to a given
@@ -58,7 +58,7 @@ final class CreateTableInput extends Input
      *
      * @var LocalSecondaryIndex[]|null
      */
-    private $LocalSecondaryIndexes;
+    private $localSecondaryIndexes;
 
     /**
      * One or more global secondary indexes (the maximum is 20) to be created on the table. Each global secondary index in
@@ -66,7 +66,7 @@ final class CreateTableInput extends Input
      *
      * @var GlobalSecondaryIndex[]|null
      */
-    private $GlobalSecondaryIndexes;
+    private $globalSecondaryIndexes;
 
     /**
      * Controls how you are charged for read and write throughput and how you manage capacity. This setting can be changed
@@ -74,7 +74,7 @@ final class CreateTableInput extends Input
      *
      * @var null|BillingMode::*
      */
-    private $BillingMode;
+    private $billingMode;
 
     /**
      * Represents the provisioned throughput settings for a specified table or index. The settings can be modified using the
@@ -82,21 +82,21 @@ final class CreateTableInput extends Input
      *
      * @var ProvisionedThroughput|null
      */
-    private $ProvisionedThroughput;
+    private $provisionedThroughput;
 
     /**
      * The settings for DynamoDB Streams on the table. These settings consist of:.
      *
      * @var StreamSpecification|null
      */
-    private $StreamSpecification;
+    private $streamSpecification;
 
     /**
      * Represents the settings used to enable server-side encryption.
      *
      * @var SSESpecification|null
      */
-    private $SSESpecification;
+    private $sseSpecification;
 
     /**
      * A list of key-value pairs to label the table. For more information, see Tagging for DynamoDB.
@@ -105,7 +105,7 @@ final class CreateTableInput extends Input
      *
      * @var Tag[]|null
      */
-    private $Tags;
+    private $tags;
 
     /**
      * @param array{
@@ -124,16 +124,16 @@ final class CreateTableInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->AttributeDefinitions = isset($input['AttributeDefinitions']) ? array_map([AttributeDefinition::class, 'create'], $input['AttributeDefinitions']) : null;
-        $this->TableName = $input['TableName'] ?? null;
-        $this->KeySchema = isset($input['KeySchema']) ? array_map([KeySchemaElement::class, 'create'], $input['KeySchema']) : null;
-        $this->LocalSecondaryIndexes = isset($input['LocalSecondaryIndexes']) ? array_map([LocalSecondaryIndex::class, 'create'], $input['LocalSecondaryIndexes']) : null;
-        $this->GlobalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([GlobalSecondaryIndex::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
-        $this->BillingMode = $input['BillingMode'] ?? null;
-        $this->ProvisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
-        $this->StreamSpecification = isset($input['StreamSpecification']) ? StreamSpecification::create($input['StreamSpecification']) : null;
-        $this->SSESpecification = isset($input['SSESpecification']) ? SSESpecification::create($input['SSESpecification']) : null;
-        $this->Tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
+        $this->attributeDefinitions = isset($input['AttributeDefinitions']) ? array_map([AttributeDefinition::class, 'create'], $input['AttributeDefinitions']) : null;
+        $this->tableName = $input['TableName'] ?? null;
+        $this->keySchema = isset($input['KeySchema']) ? array_map([KeySchemaElement::class, 'create'], $input['KeySchema']) : null;
+        $this->localSecondaryIndexes = isset($input['LocalSecondaryIndexes']) ? array_map([LocalSecondaryIndex::class, 'create'], $input['LocalSecondaryIndexes']) : null;
+        $this->globalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([GlobalSecondaryIndex::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
+        $this->billingMode = $input['BillingMode'] ?? null;
+        $this->provisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
+        $this->streamSpecification = isset($input['StreamSpecification']) ? StreamSpecification::create($input['StreamSpecification']) : null;
+        $this->sseSpecification = isset($input['SSESpecification']) ? SSESpecification::create($input['SSESpecification']) : null;
+        $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
         parent::__construct($input);
     }
 
@@ -147,7 +147,7 @@ final class CreateTableInput extends Input
      */
     public function getAttributeDefinitions(): array
     {
-        return $this->AttributeDefinitions ?? [];
+        return $this->attributeDefinitions ?? [];
     }
 
     /**
@@ -155,7 +155,7 @@ final class CreateTableInput extends Input
      */
     public function getBillingMode(): ?string
     {
-        return $this->BillingMode;
+        return $this->billingMode;
     }
 
     /**
@@ -163,7 +163,7 @@ final class CreateTableInput extends Input
      */
     public function getGlobalSecondaryIndexes(): array
     {
-        return $this->GlobalSecondaryIndexes ?? [];
+        return $this->globalSecondaryIndexes ?? [];
     }
 
     /**
@@ -171,7 +171,7 @@ final class CreateTableInput extends Input
      */
     public function getKeySchema(): array
     {
-        return $this->KeySchema ?? [];
+        return $this->keySchema ?? [];
     }
 
     /**
@@ -179,27 +179,27 @@ final class CreateTableInput extends Input
      */
     public function getLocalSecondaryIndexes(): array
     {
-        return $this->LocalSecondaryIndexes ?? [];
+        return $this->localSecondaryIndexes ?? [];
     }
 
     public function getProvisionedThroughput(): ?ProvisionedThroughput
     {
-        return $this->ProvisionedThroughput;
+        return $this->provisionedThroughput;
     }
 
-    public function getSSESpecification(): ?SSESpecification
+    public function getSseSpecification(): ?SSESpecification
     {
-        return $this->SSESpecification;
+        return $this->sseSpecification;
     }
 
     public function getStreamSpecification(): ?StreamSpecification
     {
-        return $this->StreamSpecification;
+        return $this->streamSpecification;
     }
 
     public function getTableName(): ?string
     {
-        return $this->TableName;
+        return $this->tableName;
     }
 
     /**
@@ -207,7 +207,7 @@ final class CreateTableInput extends Input
      */
     public function getTags(): array
     {
-        return $this->Tags ?? [];
+        return $this->tags ?? [];
     }
 
     /**
@@ -240,7 +240,7 @@ final class CreateTableInput extends Input
      */
     public function setAttributeDefinitions(array $value): self
     {
-        $this->AttributeDefinitions = $value;
+        $this->attributeDefinitions = $value;
 
         return $this;
     }
@@ -250,7 +250,7 @@ final class CreateTableInput extends Input
      */
     public function setBillingMode(?string $value): self
     {
-        $this->BillingMode = $value;
+        $this->billingMode = $value;
 
         return $this;
     }
@@ -260,7 +260,7 @@ final class CreateTableInput extends Input
      */
     public function setGlobalSecondaryIndexes(array $value): self
     {
-        $this->GlobalSecondaryIndexes = $value;
+        $this->globalSecondaryIndexes = $value;
 
         return $this;
     }
@@ -270,7 +270,7 @@ final class CreateTableInput extends Input
      */
     public function setKeySchema(array $value): self
     {
-        $this->KeySchema = $value;
+        $this->keySchema = $value;
 
         return $this;
     }
@@ -280,35 +280,35 @@ final class CreateTableInput extends Input
      */
     public function setLocalSecondaryIndexes(array $value): self
     {
-        $this->LocalSecondaryIndexes = $value;
+        $this->localSecondaryIndexes = $value;
 
         return $this;
     }
 
     public function setProvisionedThroughput(?ProvisionedThroughput $value): self
     {
-        $this->ProvisionedThroughput = $value;
+        $this->provisionedThroughput = $value;
 
         return $this;
     }
 
-    public function setSSESpecification(?SSESpecification $value): self
+    public function setSseSpecification(?SSESpecification $value): self
     {
-        $this->SSESpecification = $value;
+        $this->sseSpecification = $value;
 
         return $this;
     }
 
     public function setStreamSpecification(?StreamSpecification $value): self
     {
-        $this->StreamSpecification = $value;
+        $this->streamSpecification = $value;
 
         return $this;
     }
 
     public function setTableName(?string $value): self
     {
-        $this->TableName = $value;
+        $this->tableName = $value;
 
         return $this;
     }
@@ -318,7 +318,7 @@ final class CreateTableInput extends Input
      */
     public function setTags(array $value): self
     {
-        $this->Tags = $value;
+        $this->tags = $value;
 
         return $this;
     }
@@ -326,7 +326,7 @@ final class CreateTableInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->AttributeDefinitions) {
+        if (null === $v = $this->attributeDefinitions) {
             throw new InvalidArgument(sprintf('Missing parameter "AttributeDefinitions" for "%s". The value cannot be null.', __CLASS__));
         }
 
@@ -337,11 +337,11 @@ final class CreateTableInput extends Input
             $payload['AttributeDefinitions'][$index] = $listValue->requestBody();
         }
 
-        if (null === $v = $this->TableName) {
+        if (null === $v = $this->tableName) {
             throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TableName'] = $v;
-        if (null === $v = $this->KeySchema) {
+        if (null === $v = $this->keySchema) {
             throw new InvalidArgument(sprintf('Missing parameter "KeySchema" for "%s". The value cannot be null.', __CLASS__));
         }
 
@@ -352,7 +352,7 @@ final class CreateTableInput extends Input
             $payload['KeySchema'][$index] = $listValue->requestBody();
         }
 
-        if (null !== $v = $this->LocalSecondaryIndexes) {
+        if (null !== $v = $this->localSecondaryIndexes) {
             $index = -1;
             $payload['LocalSecondaryIndexes'] = [];
             foreach ($v as $listValue) {
@@ -360,7 +360,7 @@ final class CreateTableInput extends Input
                 $payload['LocalSecondaryIndexes'][$index] = $listValue->requestBody();
             }
         }
-        if (null !== $v = $this->GlobalSecondaryIndexes) {
+        if (null !== $v = $this->globalSecondaryIndexes) {
             $index = -1;
             $payload['GlobalSecondaryIndexes'] = [];
             foreach ($v as $listValue) {
@@ -368,22 +368,22 @@ final class CreateTableInput extends Input
                 $payload['GlobalSecondaryIndexes'][$index] = $listValue->requestBody();
             }
         }
-        if (null !== $v = $this->BillingMode) {
+        if (null !== $v = $this->billingMode) {
             if (!BillingMode::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "BillingMode" for "%s". The value "%s" is not a valid "BillingMode".', __CLASS__, $v));
             }
             $payload['BillingMode'] = $v;
         }
-        if (null !== $v = $this->ProvisionedThroughput) {
+        if (null !== $v = $this->provisionedThroughput) {
             $payload['ProvisionedThroughput'] = $v->requestBody();
         }
-        if (null !== $v = $this->StreamSpecification) {
+        if (null !== $v = $this->streamSpecification) {
             $payload['StreamSpecification'] = $v->requestBody();
         }
-        if (null !== $v = $this->SSESpecification) {
+        if (null !== $v = $this->sseSpecification) {
             $payload['SSESpecification'] = $v->requestBody();
         }
-        if (null !== $v = $this->Tags) {
+        if (null !== $v = $this->tags) {
             $index = -1;
             $payload['Tags'] = [];
             foreach ($v as $listValue) {

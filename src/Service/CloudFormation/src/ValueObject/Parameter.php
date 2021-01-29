@@ -11,18 +11,18 @@ final class Parameter
      * The key associated with the parameter. If you don't specify a key and value for a particular parameter, AWS
      * CloudFormation uses the default value that is specified in your template.
      */
-    private $ParameterKey;
+    private $parameterKey;
 
     /**
      * The input value associated with the parameter.
      */
-    private $ParameterValue;
+    private $parameterValue;
 
     /**
      * During a stack update, use the existing parameter value that the stack is using for a given parameter key. If you
      * specify `true`, do not specify a parameter value.
      */
-    private $UsePreviousValue;
+    private $usePreviousValue;
 
     /**
      * Read-only. The value that corresponds to a Systems Manager parameter key. This field is returned only for `SSM`
@@ -30,7 +30,7 @@ final class Parameter
      *
      * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-ssm-parameter-types
      */
-    private $ResolvedValue;
+    private $resolvedValue;
 
     /**
      * @param array{
@@ -42,10 +42,10 @@ final class Parameter
      */
     public function __construct(array $input)
     {
-        $this->ParameterKey = $input['ParameterKey'] ?? null;
-        $this->ParameterValue = $input['ParameterValue'] ?? null;
-        $this->UsePreviousValue = $input['UsePreviousValue'] ?? null;
-        $this->ResolvedValue = $input['ResolvedValue'] ?? null;
+        $this->parameterKey = $input['ParameterKey'] ?? null;
+        $this->parameterValue = $input['ParameterValue'] ?? null;
+        $this->usePreviousValue = $input['UsePreviousValue'] ?? null;
+        $this->resolvedValue = $input['ResolvedValue'] ?? null;
     }
 
     public static function create($input): self
@@ -55,21 +55,21 @@ final class Parameter
 
     public function getParameterKey(): ?string
     {
-        return $this->ParameterKey;
+        return $this->parameterKey;
     }
 
     public function getParameterValue(): ?string
     {
-        return $this->ParameterValue;
+        return $this->parameterValue;
     }
 
     public function getResolvedValue(): ?string
     {
-        return $this->ResolvedValue;
+        return $this->resolvedValue;
     }
 
     public function getUsePreviousValue(): ?bool
     {
-        return $this->UsePreviousValue;
+        return $this->usePreviousValue;
     }
 }

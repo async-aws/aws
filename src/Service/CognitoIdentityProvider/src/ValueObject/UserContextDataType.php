@@ -12,7 +12,7 @@ final class UserContextDataType
      * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
      * unexpected event by Amazon Cognito advanced security.
      */
-    private $EncodedData;
+    private $encodedData;
 
     /**
      * @param array{
@@ -21,7 +21,7 @@ final class UserContextDataType
      */
     public function __construct(array $input)
     {
-        $this->EncodedData = $input['EncodedData'] ?? null;
+        $this->encodedData = $input['EncodedData'] ?? null;
     }
 
     public static function create($input): self
@@ -31,7 +31,7 @@ final class UserContextDataType
 
     public function getEncodedData(): ?string
     {
-        return $this->EncodedData;
+        return $this->encodedData;
     }
 
     /**
@@ -40,7 +40,7 @@ final class UserContextDataType
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->EncodedData) {
+        if (null !== $v = $this->encodedData) {
             $payload['EncodedData'] = $v;
         }
 

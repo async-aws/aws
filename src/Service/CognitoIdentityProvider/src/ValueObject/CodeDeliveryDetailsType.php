@@ -12,17 +12,17 @@ final class CodeDeliveryDetailsType
     /**
      * The destination for the code delivery details.
      */
-    private $Destination;
+    private $destination;
 
     /**
      * The delivery medium (email message or phone number).
      */
-    private $DeliveryMedium;
+    private $deliveryMedium;
 
     /**
      * The attribute name.
      */
-    private $AttributeName;
+    private $attributeName;
 
     /**
      * @param array{
@@ -33,9 +33,9 @@ final class CodeDeliveryDetailsType
      */
     public function __construct(array $input)
     {
-        $this->Destination = $input['Destination'] ?? null;
-        $this->DeliveryMedium = $input['DeliveryMedium'] ?? null;
-        $this->AttributeName = $input['AttributeName'] ?? null;
+        $this->destination = $input['Destination'] ?? null;
+        $this->deliveryMedium = $input['DeliveryMedium'] ?? null;
+        $this->attributeName = $input['AttributeName'] ?? null;
     }
 
     public static function create($input): self
@@ -45,7 +45,7 @@ final class CodeDeliveryDetailsType
 
     public function getAttributeName(): ?string
     {
-        return $this->AttributeName;
+        return $this->attributeName;
     }
 
     /**
@@ -53,11 +53,11 @@ final class CodeDeliveryDetailsType
      */
     public function getDeliveryMedium(): ?string
     {
-        return $this->DeliveryMedium;
+        return $this->deliveryMedium;
     }
 
     public function getDestination(): ?string
     {
-        return $this->Destination;
+        return $this->destination;
     }
 }

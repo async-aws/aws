@@ -21,76 +21,76 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
     /**
      * The name of the bucket to which the multipart upload was initiated.
      */
-    private $Bucket;
+    private $bucket;
 
     /**
      * The key at or after which the listing began.
      */
-    private $KeyMarker;
+    private $keyMarker;
 
     /**
      * Upload ID after which listing began.
      */
-    private $UploadIdMarker;
+    private $uploadIdMarker;
 
     /**
      * When a list is truncated, this element specifies the value that should be used for the key-marker request parameter
      * in a subsequent request.
      */
-    private $NextKeyMarker;
+    private $nextKeyMarker;
 
     /**
      * When a prefix is provided in the request, this field contains the specified prefix. The result contains only keys
      * starting with the specified prefix.
      */
-    private $Prefix;
+    private $prefix;
 
     /**
      * Contains the delimiter you specified in the request. If you don't specify a delimiter in your request, this element
      * is absent from the response.
      */
-    private $Delimiter;
+    private $delimiter;
 
     /**
      * When a list is truncated, this element specifies the value that should be used for the `upload-id-marker` request
      * parameter in a subsequent request.
      */
-    private $NextUploadIdMarker;
+    private $nextUploadIdMarker;
 
     /**
      * Maximum number of multipart uploads that could have been included in the response.
      */
-    private $MaxUploads;
+    private $maxUploads;
 
     /**
      * Indicates whether the returned list of multipart uploads is truncated. A value of true indicates that the list was
      * truncated. The list can be truncated if the number of multipart uploads exceeds the limit allowed or specified by max
      * uploads.
      */
-    private $IsTruncated;
+    private $isTruncated;
 
     /**
      * Container for elements related to a particular multipart upload. A response can contain zero or more `Upload`
      * elements.
      */
-    private $Uploads = [];
+    private $uploads = [];
 
     /**
      * If you specify a delimiter in the request, then the result returns each distinct key prefix containing the delimiter
      * in a `CommonPrefixes` element. The distinct key prefixes are returned in the `Prefix` child element.
      */
-    private $CommonPrefixes = [];
+    private $commonPrefixes = [];
 
     /**
      * Encoding type used by Amazon S3 to encode object keys in the response.
      */
-    private $EncodingType;
+    private $encodingType;
 
     public function getBucket(): ?string
     {
         $this->initialize();
 
-        return $this->Bucket;
+        return $this->bucket;
     }
 
     /**
@@ -102,7 +102,7 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
     {
         if ($currentPageOnly) {
             $this->initialize();
-            yield from $this->CommonPrefixes;
+            yield from $this->commonPrefixes;
 
             return;
         }
@@ -142,7 +142,7 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->Delimiter;
+        return $this->delimiter;
     }
 
     /**
@@ -152,14 +152,14 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->EncodingType;
+        return $this->encodingType;
     }
 
     public function getIsTruncated(): ?bool
     {
         $this->initialize();
 
-        return $this->IsTruncated;
+        return $this->isTruncated;
     }
 
     /**
@@ -205,42 +205,42 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->KeyMarker;
+        return $this->keyMarker;
     }
 
     public function getMaxUploads(): ?int
     {
         $this->initialize();
 
-        return $this->MaxUploads;
+        return $this->maxUploads;
     }
 
     public function getNextKeyMarker(): ?string
     {
         $this->initialize();
 
-        return $this->NextKeyMarker;
+        return $this->nextKeyMarker;
     }
 
     public function getNextUploadIdMarker(): ?string
     {
         $this->initialize();
 
-        return $this->NextUploadIdMarker;
+        return $this->nextUploadIdMarker;
     }
 
     public function getPrefix(): ?string
     {
         $this->initialize();
 
-        return $this->Prefix;
+        return $this->prefix;
     }
 
     public function getUploadIdMarker(): ?string
     {
         $this->initialize();
 
-        return $this->UploadIdMarker;
+        return $this->uploadIdMarker;
     }
 
     /**
@@ -252,7 +252,7 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
     {
         if ($currentPageOnly) {
             $this->initialize();
-            yield from $this->Uploads;
+            yield from $this->uploads;
 
             return;
         }
@@ -291,18 +291,18 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
     protected function populateResult(Response $response): void
     {
         $data = new \SimpleXMLElement($response->getContent());
-        $this->Bucket = ($v = $data->Bucket) ? (string) $v : null;
-        $this->KeyMarker = ($v = $data->KeyMarker) ? (string) $v : null;
-        $this->UploadIdMarker = ($v = $data->UploadIdMarker) ? (string) $v : null;
-        $this->NextKeyMarker = ($v = $data->NextKeyMarker) ? (string) $v : null;
-        $this->Prefix = ($v = $data->Prefix) ? (string) $v : null;
-        $this->Delimiter = ($v = $data->Delimiter) ? (string) $v : null;
-        $this->NextUploadIdMarker = ($v = $data->NextUploadIdMarker) ? (string) $v : null;
-        $this->MaxUploads = ($v = $data->MaxUploads) ? (int) (string) $v : null;
-        $this->IsTruncated = ($v = $data->IsTruncated) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->Uploads = !$data->Upload ? [] : $this->populateResultMultipartUploadList($data->Upload);
-        $this->CommonPrefixes = !$data->CommonPrefixes ? [] : $this->populateResultCommonPrefixList($data->CommonPrefixes);
-        $this->EncodingType = ($v = $data->EncodingType) ? (string) $v : null;
+        $this->bucket = ($v = $data->Bucket) ? (string) $v : null;
+        $this->keyMarker = ($v = $data->KeyMarker) ? (string) $v : null;
+        $this->uploadIdMarker = ($v = $data->UploadIdMarker) ? (string) $v : null;
+        $this->nextKeyMarker = ($v = $data->NextKeyMarker) ? (string) $v : null;
+        $this->prefix = ($v = $data->Prefix) ? (string) $v : null;
+        $this->delimiter = ($v = $data->Delimiter) ? (string) $v : null;
+        $this->nextUploadIdMarker = ($v = $data->NextUploadIdMarker) ? (string) $v : null;
+        $this->maxUploads = ($v = $data->MaxUploads) ? (int) (string) $v : null;
+        $this->isTruncated = ($v = $data->IsTruncated) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
+        $this->uploads = !$data->Upload ? [] : $this->populateResultMultipartUploadList($data->Upload);
+        $this->commonPrefixes = !$data->CommonPrefixes ? [] : $this->populateResultCommonPrefixList($data->CommonPrefixes);
+        $this->encodingType = ($v = $data->EncodingType) ? (string) $v : null;
     }
 
     /**

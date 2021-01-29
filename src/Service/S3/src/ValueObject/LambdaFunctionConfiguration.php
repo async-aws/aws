@@ -10,13 +10,13 @@ use AsyncAws\S3\Enum\Event;
  */
 final class LambdaFunctionConfiguration
 {
-    private $Id;
+    private $id;
 
     /**
      * The Amazon Resource Name (ARN) of the AWS Lambda function that Amazon S3 invokes when the specified event type
      * occurs.
      */
-    private $LambdaFunctionArn;
+    private $lambdaFunctionArn;
 
     /**
      * The Amazon S3 bucket event for which to invoke the AWS Lambda function. For more information, see Supported Event
@@ -24,9 +24,9 @@ final class LambdaFunctionConfiguration
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
      */
-    private $Events;
+    private $events;
 
-    private $Filter;
+    private $filter;
 
     /**
      * @param array{
@@ -38,10 +38,10 @@ final class LambdaFunctionConfiguration
      */
     public function __construct(array $input)
     {
-        $this->Id = $input['Id'] ?? null;
-        $this->LambdaFunctionArn = $input['LambdaFunctionArn'] ?? null;
-        $this->Events = $input['Events'] ?? null;
-        $this->Filter = isset($input['Filter']) ? NotificationConfigurationFilter::create($input['Filter']) : null;
+        $this->id = $input['Id'] ?? null;
+        $this->lambdaFunctionArn = $input['LambdaFunctionArn'] ?? null;
+        $this->events = $input['Events'] ?? null;
+        $this->filter = isset($input['Filter']) ? NotificationConfigurationFilter::create($input['Filter']) : null;
     }
 
     public static function create($input): self
@@ -54,22 +54,22 @@ final class LambdaFunctionConfiguration
      */
     public function getEvents(): array
     {
-        return $this->Events ?? [];
+        return $this->events ?? [];
     }
 
     public function getFilter(): ?NotificationConfigurationFilter
     {
-        return $this->Filter;
+        return $this->filter;
     }
 
     public function getId(): ?string
     {
-        return $this->Id;
+        return $this->id;
     }
 
     public function getLambdaFunctionArn(): string
     {
-        return $this->LambdaFunctionArn;
+        return $this->lambdaFunctionArn;
     }
 
     /**
@@ -77,14 +77,14 @@ final class LambdaFunctionConfiguration
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        if (null !== $v = $this->Id) {
+        if (null !== $v = $this->id) {
             $node->appendChild($document->createElement('Id', $v));
         }
-        if (null === $v = $this->LambdaFunctionArn) {
+        if (null === $v = $this->lambdaFunctionArn) {
             throw new InvalidArgument(sprintf('Missing parameter "LambdaFunctionArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $node->appendChild($document->createElement('CloudFunction', $v));
-        if (null === $v = $this->Events) {
+        if (null === $v = $this->events) {
             throw new InvalidArgument(sprintf('Missing parameter "Events" for "%s". The value cannot be null.', __CLASS__));
         }
         foreach ($v as $item) {
@@ -94,7 +94,7 @@ final class LambdaFunctionConfiguration
             $node->appendChild($document->createElement('Event', $item));
         }
 
-        if (null !== $v = $this->Filter) {
+        if (null !== $v = $this->filter) {
             $node->appendChild($child = $document->createElement('Filter'));
 
             $v->requestBody($child, $document);

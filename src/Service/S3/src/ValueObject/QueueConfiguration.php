@@ -11,20 +11,20 @@ use AsyncAws\S3\Enum\Event;
  */
 final class QueueConfiguration
 {
-    private $Id;
+    private $id;
 
     /**
      * The Amazon Resource Name (ARN) of the Amazon SQS queue to which Amazon S3 publishes a message when it detects events
      * of the specified type.
      */
-    private $QueueArn;
+    private $queueArn;
 
     /**
      * A collection of bucket events for which to send notifications.
      */
-    private $Events;
+    private $events;
 
-    private $Filter;
+    private $filter;
 
     /**
      * @param array{
@@ -36,10 +36,10 @@ final class QueueConfiguration
      */
     public function __construct(array $input)
     {
-        $this->Id = $input['Id'] ?? null;
-        $this->QueueArn = $input['QueueArn'] ?? null;
-        $this->Events = $input['Events'] ?? null;
-        $this->Filter = isset($input['Filter']) ? NotificationConfigurationFilter::create($input['Filter']) : null;
+        $this->id = $input['Id'] ?? null;
+        $this->queueArn = $input['QueueArn'] ?? null;
+        $this->events = $input['Events'] ?? null;
+        $this->filter = isset($input['Filter']) ? NotificationConfigurationFilter::create($input['Filter']) : null;
     }
 
     public static function create($input): self
@@ -52,22 +52,22 @@ final class QueueConfiguration
      */
     public function getEvents(): array
     {
-        return $this->Events ?? [];
+        return $this->events ?? [];
     }
 
     public function getFilter(): ?NotificationConfigurationFilter
     {
-        return $this->Filter;
+        return $this->filter;
     }
 
     public function getId(): ?string
     {
-        return $this->Id;
+        return $this->id;
     }
 
     public function getQueueArn(): string
     {
-        return $this->QueueArn;
+        return $this->queueArn;
     }
 
     /**
@@ -75,14 +75,14 @@ final class QueueConfiguration
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        if (null !== $v = $this->Id) {
+        if (null !== $v = $this->id) {
             $node->appendChild($document->createElement('Id', $v));
         }
-        if (null === $v = $this->QueueArn) {
+        if (null === $v = $this->queueArn) {
             throw new InvalidArgument(sprintf('Missing parameter "QueueArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $node->appendChild($document->createElement('Queue', $v));
-        if (null === $v = $this->Events) {
+        if (null === $v = $this->events) {
             throw new InvalidArgument(sprintf('Missing parameter "Events" for "%s". The value cannot be null.', __CLASS__));
         }
         foreach ($v as $item) {
@@ -92,7 +92,7 @@ final class QueueConfiguration
             $node->appendChild($document->createElement('Event', $item));
         }
 
-        if (null !== $v = $this->Filter) {
+        if (null !== $v = $this->filter) {
             $node->appendChild($child = $document->createElement('Filter'));
 
             $v->requestBody($child, $document);

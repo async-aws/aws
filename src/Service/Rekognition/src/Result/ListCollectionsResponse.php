@@ -16,20 +16,20 @@ class ListCollectionsResponse extends Result implements \IteratorAggregate
     /**
      * An array of collection IDs.
      */
-    private $CollectionIds = [];
+    private $collectionIds = [];
 
     /**
      * If the result is truncated, the response provides a `NextToken` that you can use in the subsequent request to fetch
      * the next set of collection IDs.
      */
-    private $NextToken;
+    private $nextToken;
 
     /**
      * Version numbers of the face detection models associated with the collections in the array `CollectionIds`. For
      * example, the value of `FaceModelVersions[2]` is the version number for the face detection model used by the
      * collection in `CollectionId[2]`.
      */
-    private $FaceModelVersions = [];
+    private $faceModelVersions = [];
 
     /**
      * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.
@@ -40,7 +40,7 @@ class ListCollectionsResponse extends Result implements \IteratorAggregate
     {
         if ($currentPageOnly) {
             $this->initialize();
-            yield from $this->CollectionIds;
+            yield from $this->collectionIds;
 
             return;
         }
@@ -81,7 +81,7 @@ class ListCollectionsResponse extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->FaceModelVersions;
+        return $this->faceModelVersions;
     }
 
     /**
@@ -124,16 +124,16 @@ class ListCollectionsResponse extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->NextToken;
+        return $this->nextToken;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->CollectionIds = empty($data['CollectionIds']) ? [] : $this->populateResultCollectionIdList($data['CollectionIds']);
-        $this->NextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
-        $this->FaceModelVersions = empty($data['FaceModelVersions']) ? [] : $this->populateResultFaceModelVersionList($data['FaceModelVersions']);
+        $this->collectionIds = empty($data['CollectionIds']) ? [] : $this->populateResultCollectionIdList($data['CollectionIds']);
+        $this->nextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
+        $this->faceModelVersions = empty($data['FaceModelVersions']) ? [] : $this->populateResultFaceModelVersionList($data['FaceModelVersions']);
     }
 
     /**

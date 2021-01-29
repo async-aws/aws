@@ -18,7 +18,7 @@ final class PublishInput extends Input
      *
      * @var string|null
      */
-    private $TopicArn;
+    private $topicArn;
 
     /**
      * If you don't specify a value for the `TargetArn` parameter, you must specify a value for the `PhoneNumber` or
@@ -26,14 +26,14 @@ final class PublishInput extends Input
      *
      * @var string|null
      */
-    private $TargetArn;
+    private $targetArn;
 
     /**
      * The phone number to which you want to deliver an SMS message. Use E.164 format.
      *
      * @var string|null
      */
-    private $PhoneNumber;
+    private $phoneNumber;
 
     /**
      * The message you want to send.
@@ -42,7 +42,7 @@ final class PublishInput extends Input
      *
      * @var string|null
      */
-    private $Message;
+    private $message;
 
     /**
      * Optional parameter to be used as the "Subject" line when the message is delivered to email endpoints. This field will
@@ -50,7 +50,7 @@ final class PublishInput extends Input
      *
      * @var string|null
      */
-    private $Subject;
+    private $subject;
 
     /**
      * Set `MessageStructure` to `json` if you want to send a different message for each protocol. For example, using one
@@ -59,14 +59,14 @@ final class PublishInput extends Input
      *
      * @var string|null
      */
-    private $MessageStructure;
+    private $messageStructure;
 
     /**
      * Message attributes for Publish action.
      *
      * @var array<string, MessageAttributeValue>|null
      */
-    private $MessageAttributes;
+    private $messageAttributes;
 
     /**
      * This parameter applies only to FIFO (first-in-first-out) topics. The `MessageDeduplicationId` can contain up to 128
@@ -74,7 +74,7 @@ final class PublishInput extends Input
      *
      * @var string|null
      */
-    private $MessageDeduplicationId;
+    private $messageDeduplicationId;
 
     /**
      * This parameter applies only to FIFO (first-in-first-out) topics. The `MessageGroupId` can contain up to 128
@@ -82,7 +82,7 @@ final class PublishInput extends Input
      *
      * @var string|null
      */
-    private $MessageGroupId;
+    private $messageGroupId;
 
     /**
      * @param array{
@@ -100,21 +100,21 @@ final class PublishInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->TopicArn = $input['TopicArn'] ?? null;
-        $this->TargetArn = $input['TargetArn'] ?? null;
-        $this->PhoneNumber = $input['PhoneNumber'] ?? null;
-        $this->Message = $input['Message'] ?? null;
-        $this->Subject = $input['Subject'] ?? null;
-        $this->MessageStructure = $input['MessageStructure'] ?? null;
+        $this->topicArn = $input['TopicArn'] ?? null;
+        $this->targetArn = $input['TargetArn'] ?? null;
+        $this->phoneNumber = $input['PhoneNumber'] ?? null;
+        $this->message = $input['Message'] ?? null;
+        $this->subject = $input['Subject'] ?? null;
+        $this->messageStructure = $input['MessageStructure'] ?? null;
 
         if (isset($input['MessageAttributes'])) {
-            $this->MessageAttributes = [];
+            $this->messageAttributes = [];
             foreach ($input['MessageAttributes'] as $key => $item) {
-                $this->MessageAttributes[$key] = MessageAttributeValue::create($item);
+                $this->messageAttributes[$key] = MessageAttributeValue::create($item);
             }
         }
-        $this->MessageDeduplicationId = $input['MessageDeduplicationId'] ?? null;
-        $this->MessageGroupId = $input['MessageGroupId'] ?? null;
+        $this->messageDeduplicationId = $input['MessageDeduplicationId'] ?? null;
+        $this->messageGroupId = $input['MessageGroupId'] ?? null;
         parent::__construct($input);
     }
 
@@ -125,7 +125,7 @@ final class PublishInput extends Input
 
     public function getMessage(): ?string
     {
-        return $this->Message;
+        return $this->message;
     }
 
     /**
@@ -133,42 +133,42 @@ final class PublishInput extends Input
      */
     public function getMessageAttributes(): array
     {
-        return $this->MessageAttributes ?? [];
+        return $this->messageAttributes ?? [];
     }
 
     public function getMessageDeduplicationId(): ?string
     {
-        return $this->MessageDeduplicationId;
+        return $this->messageDeduplicationId;
     }
 
     public function getMessageGroupId(): ?string
     {
-        return $this->MessageGroupId;
+        return $this->messageGroupId;
     }
 
     public function getMessageStructure(): ?string
     {
-        return $this->MessageStructure;
+        return $this->messageStructure;
     }
 
     public function getPhoneNumber(): ?string
     {
-        return $this->PhoneNumber;
+        return $this->phoneNumber;
     }
 
     public function getSubject(): ?string
     {
-        return $this->Subject;
+        return $this->subject;
     }
 
     public function getTargetArn(): ?string
     {
-        return $this->TargetArn;
+        return $this->targetArn;
     }
 
     public function getTopicArn(): ?string
     {
-        return $this->TopicArn;
+        return $this->topicArn;
     }
 
     /**
@@ -194,7 +194,7 @@ final class PublishInput extends Input
 
     public function setMessage(?string $value): self
     {
-        $this->Message = $value;
+        $this->message = $value;
 
         return $this;
     }
@@ -204,56 +204,56 @@ final class PublishInput extends Input
      */
     public function setMessageAttributes(array $value): self
     {
-        $this->MessageAttributes = $value;
+        $this->messageAttributes = $value;
 
         return $this;
     }
 
     public function setMessageDeduplicationId(?string $value): self
     {
-        $this->MessageDeduplicationId = $value;
+        $this->messageDeduplicationId = $value;
 
         return $this;
     }
 
     public function setMessageGroupId(?string $value): self
     {
-        $this->MessageGroupId = $value;
+        $this->messageGroupId = $value;
 
         return $this;
     }
 
     public function setMessageStructure(?string $value): self
     {
-        $this->MessageStructure = $value;
+        $this->messageStructure = $value;
 
         return $this;
     }
 
     public function setPhoneNumber(?string $value): self
     {
-        $this->PhoneNumber = $value;
+        $this->phoneNumber = $value;
 
         return $this;
     }
 
     public function setSubject(?string $value): self
     {
-        $this->Subject = $value;
+        $this->subject = $value;
 
         return $this;
     }
 
     public function setTargetArn(?string $value): self
     {
-        $this->TargetArn = $value;
+        $this->targetArn = $value;
 
         return $this;
     }
 
     public function setTopicArn(?string $value): self
     {
-        $this->TopicArn = $value;
+        $this->topicArn = $value;
 
         return $this;
     }
@@ -261,26 +261,26 @@ final class PublishInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->TopicArn) {
+        if (null !== $v = $this->topicArn) {
             $payload['TopicArn'] = $v;
         }
-        if (null !== $v = $this->TargetArn) {
+        if (null !== $v = $this->targetArn) {
             $payload['TargetArn'] = $v;
         }
-        if (null !== $v = $this->PhoneNumber) {
+        if (null !== $v = $this->phoneNumber) {
             $payload['PhoneNumber'] = $v;
         }
-        if (null === $v = $this->Message) {
+        if (null === $v = $this->message) {
             throw new InvalidArgument(sprintf('Missing parameter "Message" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Message'] = $v;
-        if (null !== $v = $this->Subject) {
+        if (null !== $v = $this->subject) {
             $payload['Subject'] = $v;
         }
-        if (null !== $v = $this->MessageStructure) {
+        if (null !== $v = $this->messageStructure) {
             $payload['MessageStructure'] = $v;
         }
-        if (null !== $v = $this->MessageAttributes) {
+        if (null !== $v = $this->messageAttributes) {
             $index = 0;
             foreach ($v as $mapKey => $mapValue) {
                 ++$index;
@@ -290,10 +290,10 @@ final class PublishInput extends Input
                 }
             }
         }
-        if (null !== $v = $this->MessageDeduplicationId) {
+        if (null !== $v = $this->messageDeduplicationId) {
             $payload['MessageDeduplicationId'] = $v;
         }
-        if (null !== $v = $this->MessageGroupId) {
+        if (null !== $v = $this->messageGroupId) {
             $payload['MessageGroupId'] = $v;
         }
 

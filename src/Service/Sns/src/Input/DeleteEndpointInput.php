@@ -19,7 +19,7 @@ final class DeleteEndpointInput extends Input
      *
      * @var string|null
      */
-    private $EndpointArn;
+    private $endpointArn;
 
     /**
      * @param array{
@@ -29,7 +29,7 @@ final class DeleteEndpointInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->EndpointArn = $input['EndpointArn'] ?? null;
+        $this->endpointArn = $input['EndpointArn'] ?? null;
         parent::__construct($input);
     }
 
@@ -40,7 +40,7 @@ final class DeleteEndpointInput extends Input
 
     public function getEndpointArn(): ?string
     {
-        return $this->EndpointArn;
+        return $this->endpointArn;
     }
 
     /**
@@ -66,7 +66,7 @@ final class DeleteEndpointInput extends Input
 
     public function setEndpointArn(?string $value): self
     {
-        $this->EndpointArn = $value;
+        $this->endpointArn = $value;
 
         return $this;
     }
@@ -74,7 +74,7 @@ final class DeleteEndpointInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->EndpointArn) {
+        if (null === $v = $this->endpointArn) {
             throw new InvalidArgument(sprintf('Missing parameter "EndpointArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['EndpointArn'] = $v;

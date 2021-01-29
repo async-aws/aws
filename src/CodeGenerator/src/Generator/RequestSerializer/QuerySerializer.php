@@ -11,6 +11,7 @@ use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 
 /**
@@ -39,14 +40,17 @@ class QuerySerializer implements Serializer
         if (null !== $payloadProperty = $shape->getPayload()) {
             if ($shape->getMember($payloadProperty)->isRequired()) {
                 $body = 'if (null === $v = $this->PROPERTY) {
-                    throw new InvalidArgument(sprintf(\'Missing parameter "PROPERTY" for "%s". The value cannot be null.\', __CLASS__));
+                    throw new InvalidArgument(sprintf(\'Missing parameter "NAME" for "%s". The value cannot be null.\', __CLASS__));
                 }
                 $body = $v;';
             } else {
                 $body = '$body = $this->PROPERTY ?? "";';
             }
 
-            return [strtr($body, ['PROPERTY' => $payloadProperty]), false];
+            return [strtr($body, [
+                'PROPERTY' => GeneratorHelper::normalizeName($payloadProperty),
+                'NAME' => $payloadProperty,
+            ]), false];
         }
 
         return [strtr('$body = http_build_query([\'Action\' => OPERATION_NAME, \'Version\' => API_VERSION] + $this->requestBody(), \'\', \'&\', \PHP_QUERY_RFC1738);', [
@@ -64,7 +68,7 @@ class QuerySerializer implements Serializer
             $shape = $member->getShape();
             if ($member->isRequired()) {
                 $body = 'if (null === $v = $this->PROPERTY) {
-                    throw new InvalidArgument(sprintf(\'Missing parameter "PROPERTY" for "%s". The value cannot be null.\', __CLASS__));
+                    throw new InvalidArgument(sprintf(\'Missing parameter "NAME" for "%s". The value cannot be null.\', __CLASS__));
                 }
                 MEMBER_CODE';
                 $inputElement = '$v';
@@ -81,7 +85,8 @@ class QuerySerializer implements Serializer
             }
 
             return strtr($body, [
-                'PROPERTY' => $member->getName(),
+                'PROPERTY' => GeneratorHelper::normalizeName($member->getName()),
+                'NAME' => $member->getName(),
                 'MEMBER_CODE' => $deprecation . $this->dumpArrayElement($name = $this->getName($member), $inputElement, $name, $shape),
             ]);
         }, $shape->getMembers()));

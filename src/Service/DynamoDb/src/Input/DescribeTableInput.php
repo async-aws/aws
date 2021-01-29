@@ -19,7 +19,7 @@ final class DescribeTableInput extends Input
      *
      * @var string|null
      */
-    private $TableName;
+    private $tableName;
 
     /**
      * @param array{
@@ -29,7 +29,7 @@ final class DescribeTableInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->TableName = $input['TableName'] ?? null;
+        $this->tableName = $input['TableName'] ?? null;
         parent::__construct($input);
     }
 
@@ -40,7 +40,7 @@ final class DescribeTableInput extends Input
 
     public function getTableName(): ?string
     {
-        return $this->TableName;
+        return $this->tableName;
     }
 
     /**
@@ -70,7 +70,7 @@ final class DescribeTableInput extends Input
 
     public function setTableName(?string $value): self
     {
-        $this->TableName = $value;
+        $this->tableName = $value;
 
         return $this;
     }
@@ -78,7 +78,7 @@ final class DescribeTableInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->TableName) {
+        if (null === $v = $this->tableName) {
             throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TableName'] = $v;

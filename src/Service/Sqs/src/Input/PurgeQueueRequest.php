@@ -16,7 +16,7 @@ final class PurgeQueueRequest extends Input
      *
      * @var string|null
      */
-    private $QueueUrl;
+    private $queueUrl;
 
     /**
      * @param array{
@@ -26,7 +26,7 @@ final class PurgeQueueRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->QueueUrl = $input['QueueUrl'] ?? null;
+        $this->queueUrl = $input['QueueUrl'] ?? null;
         parent::__construct($input);
     }
 
@@ -37,7 +37,7 @@ final class PurgeQueueRequest extends Input
 
     public function getQueueUrl(): ?string
     {
-        return $this->QueueUrl;
+        return $this->queueUrl;
     }
 
     /**
@@ -63,7 +63,7 @@ final class PurgeQueueRequest extends Input
 
     public function setQueueUrl(?string $value): self
     {
-        $this->QueueUrl = $value;
+        $this->queueUrl = $value;
 
         return $this;
     }
@@ -71,7 +71,7 @@ final class PurgeQueueRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->QueueUrl) {
+        if (null === $v = $this->queueUrl) {
             throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueueUrl'] = $v;

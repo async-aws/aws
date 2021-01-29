@@ -20,21 +20,21 @@ final class CreateTopicInput extends Input
      *
      * @var string|null
      */
-    private $Name;
+    private $name;
 
     /**
      * A map of attributes with their corresponding values.
      *
      * @var array<string, string>|null
      */
-    private $Attributes;
+    private $attributes;
 
     /**
      * The list of tags to add to a new topic.
      *
      * @var Tag[]|null
      */
-    private $Tags;
+    private $tags;
 
     /**
      * @param array{
@@ -46,9 +46,9 @@ final class CreateTopicInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->Name = $input['Name'] ?? null;
-        $this->Attributes = $input['Attributes'] ?? null;
-        $this->Tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
+        $this->name = $input['Name'] ?? null;
+        $this->attributes = $input['Attributes'] ?? null;
+        $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
         parent::__construct($input);
     }
 
@@ -62,12 +62,12 @@ final class CreateTopicInput extends Input
      */
     public function getAttributes(): array
     {
-        return $this->Attributes ?? [];
+        return $this->attributes ?? [];
     }
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
     /**
@@ -75,7 +75,7 @@ final class CreateTopicInput extends Input
      */
     public function getTags(): array
     {
-        return $this->Tags ?? [];
+        return $this->tags ?? [];
     }
 
     /**
@@ -104,14 +104,14 @@ final class CreateTopicInput extends Input
      */
     public function setAttributes(array $value): self
     {
-        $this->Attributes = $value;
+        $this->attributes = $value;
 
         return $this;
     }
 
     public function setName(?string $value): self
     {
-        $this->Name = $value;
+        $this->name = $value;
 
         return $this;
     }
@@ -121,7 +121,7 @@ final class CreateTopicInput extends Input
      */
     public function setTags(array $value): self
     {
-        $this->Tags = $value;
+        $this->tags = $value;
 
         return $this;
     }
@@ -129,11 +129,11 @@ final class CreateTopicInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->Name) {
+        if (null === $v = $this->name) {
             throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Name'] = $v;
-        if (null !== $v = $this->Attributes) {
+        if (null !== $v = $this->attributes) {
             $index = 0;
             foreach ($v as $mapKey => $mapValue) {
                 ++$index;
@@ -141,7 +141,7 @@ final class CreateTopicInput extends Input
                 $payload["Attributes.entry.$index.value"] = $mapValue;
             }
         }
-        if (null !== $v = $this->Tags) {
+        if (null !== $v = $this->tags) {
             $index = 0;
             foreach ($v as $mapValue) {
                 ++$index;

@@ -22,13 +22,13 @@ final class StreamSpecification
     /**
      * Indicates whether DynamoDB Streams is enabled (true) or disabled (false) on the table.
      */
-    private $StreamEnabled;
+    private $streamEnabled;
 
     /**
      * When an item in the table is modified, `StreamViewType` determines what information is written to the stream for this
      * table. Valid values for `StreamViewType` are:.
      */
-    private $StreamViewType;
+    private $streamViewType;
 
     /**
      * @param array{
@@ -38,8 +38,8 @@ final class StreamSpecification
      */
     public function __construct(array $input)
     {
-        $this->StreamEnabled = $input['StreamEnabled'] ?? null;
-        $this->StreamViewType = $input['StreamViewType'] ?? null;
+        $this->streamEnabled = $input['StreamEnabled'] ?? null;
+        $this->streamViewType = $input['StreamViewType'] ?? null;
     }
 
     public static function create($input): self
@@ -49,7 +49,7 @@ final class StreamSpecification
 
     public function getStreamEnabled(): bool
     {
-        return $this->StreamEnabled;
+        return $this->streamEnabled;
     }
 
     /**
@@ -57,7 +57,7 @@ final class StreamSpecification
      */
     public function getStreamViewType(): ?string
     {
-        return $this->StreamViewType;
+        return $this->streamViewType;
     }
 
     /**
@@ -66,11 +66,11 @@ final class StreamSpecification
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->StreamEnabled) {
+        if (null === $v = $this->streamEnabled) {
             throw new InvalidArgument(sprintf('Missing parameter "StreamEnabled" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['StreamEnabled'] = (bool) $v;
-        if (null !== $v = $this->StreamViewType) {
+        if (null !== $v = $this->streamViewType) {
             if (!StreamViewType::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "StreamViewType" for "%s". The value "%s" is not a valid "StreamViewType".', __CLASS__, $v));
             }

@@ -12,12 +12,12 @@ final class FaceRecord
      * Describes the face properties such as the bounding box, face ID, image ID of the input image, and external image ID
      * that you assigned.
      */
-    private $Face;
+    private $face;
 
     /**
      * Structure containing attributes of the face that the algorithm detected.
      */
-    private $FaceDetail;
+    private $faceDetail;
 
     /**
      * @param array{
@@ -27,8 +27,8 @@ final class FaceRecord
      */
     public function __construct(array $input)
     {
-        $this->Face = isset($input['Face']) ? Face::create($input['Face']) : null;
-        $this->FaceDetail = isset($input['FaceDetail']) ? FaceDetail::create($input['FaceDetail']) : null;
+        $this->face = isset($input['Face']) ? Face::create($input['Face']) : null;
+        $this->faceDetail = isset($input['FaceDetail']) ? FaceDetail::create($input['FaceDetail']) : null;
     }
 
     public static function create($input): self
@@ -38,11 +38,11 @@ final class FaceRecord
 
     public function getFace(): ?Face
     {
-        return $this->Face;
+        return $this->face;
     }
 
     public function getFaceDetail(): ?FaceDetail
     {
-        return $this->FaceDetail;
+        return $this->faceDetail;
     }
 }

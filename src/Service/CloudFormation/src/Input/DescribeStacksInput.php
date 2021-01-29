@@ -16,14 +16,14 @@ final class DescribeStacksInput extends Input
      *
      * @var string|null
      */
-    private $StackName;
+    private $stackName;
 
     /**
      * A string that identifies the next page of stacks that you want to retrieve.
      *
      * @var string|null
      */
-    private $NextToken;
+    private $nextToken;
 
     /**
      * @param array{
@@ -34,8 +34,8 @@ final class DescribeStacksInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->StackName = $input['StackName'] ?? null;
-        $this->NextToken = $input['NextToken'] ?? null;
+        $this->stackName = $input['StackName'] ?? null;
+        $this->nextToken = $input['NextToken'] ?? null;
         parent::__construct($input);
     }
 
@@ -46,12 +46,12 @@ final class DescribeStacksInput extends Input
 
     public function getNextToken(): ?string
     {
-        return $this->NextToken;
+        return $this->nextToken;
     }
 
     public function getStackName(): ?string
     {
-        return $this->StackName;
+        return $this->stackName;
     }
 
     /**
@@ -77,14 +77,14 @@ final class DescribeStacksInput extends Input
 
     public function setNextToken(?string $value): self
     {
-        $this->NextToken = $value;
+        $this->nextToken = $value;
 
         return $this;
     }
 
     public function setStackName(?string $value): self
     {
-        $this->StackName = $value;
+        $this->stackName = $value;
 
         return $this;
     }
@@ -92,10 +92,10 @@ final class DescribeStacksInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->StackName) {
+        if (null !== $v = $this->stackName) {
             $payload['StackName'] = $v;
         }
-        if (null !== $v = $this->NextToken) {
+        if (null !== $v = $this->nextToken) {
             $payload['NextToken'] = $v;
         }
 

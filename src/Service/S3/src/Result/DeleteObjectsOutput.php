@@ -13,15 +13,15 @@ class DeleteObjectsOutput extends Result
     /**
      * Container element for a successful delete. It identifies the object that was successfully deleted.
      */
-    private $Deleted = [];
+    private $deleted = [];
 
-    private $RequestCharged;
+    private $requestCharged;
 
     /**
      * Container for a failed delete operation that describes the object that Amazon S3 attempted to delete and the error it
      * encountered.
      */
-    private $Errors = [];
+    private $errors = [];
 
     /**
      * @return DeletedObject[]
@@ -30,7 +30,7 @@ class DeleteObjectsOutput extends Result
     {
         $this->initialize();
 
-        return $this->Deleted;
+        return $this->deleted;
     }
 
     /**
@@ -40,7 +40,7 @@ class DeleteObjectsOutput extends Result
     {
         $this->initialize();
 
-        return $this->Errors;
+        return $this->errors;
     }
 
     /**
@@ -50,18 +50,18 @@ class DeleteObjectsOutput extends Result
     {
         $this->initialize();
 
-        return $this->RequestCharged;
+        return $this->requestCharged;
     }
 
     protected function populateResult(Response $response): void
     {
         $headers = $response->getHeaders();
 
-        $this->RequestCharged = $headers['x-amz-request-charged'][0] ?? null;
+        $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
-        $this->Deleted = !$data->Deleted ? [] : $this->populateResultDeletedObjects($data->Deleted);
-        $this->Errors = !$data->Error ? [] : $this->populateResultErrors($data->Error);
+        $this->deleted = !$data->Deleted ? [] : $this->populateResultDeletedObjects($data->Deleted);
+        $this->errors = !$data->Error ? [] : $this->populateResultErrors($data->Error);
     }
 
     /**

@@ -22,18 +22,18 @@ class BatchWriteItemOutput extends Result
      * same form as `RequestItems`, so you can provide this value directly to a subsequent `BatchGetItem` operation. For
      * more information, see `RequestItems` in the Request Parameters section.
      */
-    private $UnprocessedItems = [];
+    private $unprocessedItems = [];
 
     /**
      * A list of tables that were processed by `BatchWriteItem` and, for each table, information about any item collections
      * that were affected by individual `DeleteItem` or `PutItem` operations.
      */
-    private $ItemCollectionMetrics = [];
+    private $itemCollectionMetrics = [];
 
     /**
      * The capacity units consumed by the entire `BatchWriteItem` operation.
      */
-    private $ConsumedCapacity = [];
+    private $consumedCapacity = [];
 
     /**
      * @return ConsumedCapacity[]
@@ -42,7 +42,7 @@ class BatchWriteItemOutput extends Result
     {
         $this->initialize();
 
-        return $this->ConsumedCapacity;
+        return $this->consumedCapacity;
     }
 
     /**
@@ -52,7 +52,7 @@ class BatchWriteItemOutput extends Result
     {
         $this->initialize();
 
-        return $this->ItemCollectionMetrics;
+        return $this->itemCollectionMetrics;
     }
 
     /**
@@ -62,16 +62,16 @@ class BatchWriteItemOutput extends Result
     {
         $this->initialize();
 
-        return $this->UnprocessedItems;
+        return $this->unprocessedItems;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->UnprocessedItems = empty($data['UnprocessedItems']) ? [] : $this->populateResultBatchWriteItemRequestMap($data['UnprocessedItems']);
-        $this->ItemCollectionMetrics = empty($data['ItemCollectionMetrics']) ? [] : $this->populateResultItemCollectionMetricsPerTable($data['ItemCollectionMetrics']);
-        $this->ConsumedCapacity = empty($data['ConsumedCapacity']) ? [] : $this->populateResultConsumedCapacityMultiple($data['ConsumedCapacity']);
+        $this->unprocessedItems = empty($data['UnprocessedItems']) ? [] : $this->populateResultBatchWriteItemRequestMap($data['UnprocessedItems']);
+        $this->itemCollectionMetrics = empty($data['ItemCollectionMetrics']) ? [] : $this->populateResultItemCollectionMetricsPerTable($data['ItemCollectionMetrics']);
+        $this->consumedCapacity = empty($data['ConsumedCapacity']) ? [] : $this->populateResultConsumedCapacityMultiple($data['ConsumedCapacity']);
     }
 
     /**

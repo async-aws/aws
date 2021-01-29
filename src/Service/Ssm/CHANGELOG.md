@@ -4,6 +4,7 @@
 
 ### Added
 
+- Changed case of object's properties to camelCase.
 - Added documentation in class's headers.
 - AWS enhancement: Added region "us-iso-east-1".
 

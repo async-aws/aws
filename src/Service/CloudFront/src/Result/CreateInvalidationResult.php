@@ -16,35 +16,35 @@ class CreateInvalidationResult extends Result
     /**
      * The fully qualified URI of the distribution and invalidation batch request, including the `Invalidation ID`.
      */
-    private $Location;
+    private $location;
 
     /**
      * The invalidation's information.
      */
-    private $Invalidation;
+    private $invalidation;
 
     public function getInvalidation(): ?Invalidation
     {
         $this->initialize();
 
-        return $this->Invalidation;
+        return $this->invalidation;
     }
 
     public function getLocation(): ?string
     {
         $this->initialize();
 
-        return $this->Location;
+        return $this->location;
     }
 
     protected function populateResult(Response $response): void
     {
         $headers = $response->getHeaders();
 
-        $this->Location = $headers['location'][0] ?? null;
+        $this->location = $headers['location'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
-        $this->Invalidation = new Invalidation([
+        $this->invalidation = new Invalidation([
             'Id' => (string) $data->Id,
             'Status' => (string) $data->Status,
             'CreateTime' => new \DateTimeImmutable((string) $data->CreateTime),

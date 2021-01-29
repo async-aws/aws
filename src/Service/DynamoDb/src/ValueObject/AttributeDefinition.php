@@ -13,12 +13,12 @@ final class AttributeDefinition
     /**
      * A name for the attribute.
      */
-    private $AttributeName;
+    private $attributeName;
 
     /**
      * The data type for the attribute, where:.
      */
-    private $AttributeType;
+    private $attributeType;
 
     /**
      * @param array{
@@ -28,8 +28,8 @@ final class AttributeDefinition
      */
     public function __construct(array $input)
     {
-        $this->AttributeName = $input['AttributeName'] ?? null;
-        $this->AttributeType = $input['AttributeType'] ?? null;
+        $this->attributeName = $input['AttributeName'] ?? null;
+        $this->attributeType = $input['AttributeType'] ?? null;
     }
 
     public static function create($input): self
@@ -39,7 +39,7 @@ final class AttributeDefinition
 
     public function getAttributeName(): string
     {
-        return $this->AttributeName;
+        return $this->attributeName;
     }
 
     /**
@@ -47,7 +47,7 @@ final class AttributeDefinition
      */
     public function getAttributeType(): string
     {
-        return $this->AttributeType;
+        return $this->attributeType;
     }
 
     /**
@@ -56,11 +56,11 @@ final class AttributeDefinition
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->AttributeName) {
+        if (null === $v = $this->attributeName) {
             throw new InvalidArgument(sprintf('Missing parameter "AttributeName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['AttributeName'] = $v;
-        if (null === $v = $this->AttributeType) {
+        if (null === $v = $this->attributeType) {
             throw new InvalidArgument(sprintf('Missing parameter "AttributeType" for "%s". The value cannot be null.', __CLASS__));
         }
         if (!ScalarAttributeType::exists($v)) {

@@ -13,17 +13,17 @@ final class SSEDescription
     /**
      * Represents the current state of server-side encryption. The only supported values are:.
      */
-    private $Status;
+    private $status;
 
     /**
      * Server-side encryption type. The only supported value is:.
      */
-    private $SSEType;
+    private $sseType;
 
     /**
      * The AWS KMS customer master key (CMK) ARN used for the AWS KMS encryption.
      */
-    private $KMSMasterKeyArn;
+    private $kmsMasterKeyArn;
 
     /**
      * Indicates the time, in UNIX epoch date format, when DynamoDB detected that the table's AWS KMS key was inaccessible.
@@ -31,7 +31,7 @@ final class SSEDescription
      * DynamoDB will initiate the table archival process when table's AWS KMS key remains inaccessible for more than seven
      * days from this date.
      */
-    private $InaccessibleEncryptionDateTime;
+    private $inaccessibleEncryptionDateTime;
 
     /**
      * @param array{
@@ -43,10 +43,10 @@ final class SSEDescription
      */
     public function __construct(array $input)
     {
-        $this->Status = $input['Status'] ?? null;
-        $this->SSEType = $input['SSEType'] ?? null;
-        $this->KMSMasterKeyArn = $input['KMSMasterKeyArn'] ?? null;
-        $this->InaccessibleEncryptionDateTime = $input['InaccessibleEncryptionDateTime'] ?? null;
+        $this->status = $input['Status'] ?? null;
+        $this->sseType = $input['SSEType'] ?? null;
+        $this->kmsMasterKeyArn = $input['KMSMasterKeyArn'] ?? null;
+        $this->inaccessibleEncryptionDateTime = $input['InaccessibleEncryptionDateTime'] ?? null;
     }
 
     public static function create($input): self
@@ -56,20 +56,20 @@ final class SSEDescription
 
     public function getInaccessibleEncryptionDateTime(): ?\DateTimeImmutable
     {
-        return $this->InaccessibleEncryptionDateTime;
+        return $this->inaccessibleEncryptionDateTime;
     }
 
-    public function getKMSMasterKeyArn(): ?string
+    public function getKmsMasterKeyArn(): ?string
     {
-        return $this->KMSMasterKeyArn;
+        return $this->kmsMasterKeyArn;
     }
 
     /**
      * @return SSEType::*|null
      */
-    public function getSSEType(): ?string
+    public function getSseType(): ?string
     {
-        return $this->SSEType;
+        return $this->sseType;
     }
 
     /**
@@ -77,6 +77,6 @@ final class SSEDescription
      */
     public function getStatus(): ?string
     {
-        return $this->Status;
+        return $this->status;
     }
 }

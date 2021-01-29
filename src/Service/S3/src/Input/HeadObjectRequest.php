@@ -17,7 +17,7 @@ final class HeadObjectRequest extends Input
      *
      * @var string|null
      */
-    private $Bucket;
+    private $bucket;
 
     /**
      * Return the object only if its entity tag (ETag) is the same as the one specified, otherwise return a 412
@@ -25,14 +25,14 @@ final class HeadObjectRequest extends Input
      *
      * @var string|null
      */
-    private $IfMatch;
+    private $ifMatch;
 
     /**
      * Return the object only if it has been modified since the specified time, otherwise return a 304 (not modified).
      *
      * @var \DateTimeImmutable|null
      */
-    private $IfModifiedSince;
+    private $ifModifiedSince;
 
     /**
      * Return the object only if its entity tag (ETag) is different from the one specified, otherwise return a 304 (not
@@ -40,7 +40,7 @@ final class HeadObjectRequest extends Input
      *
      * @var string|null
      */
-    private $IfNoneMatch;
+    private $ifNoneMatch;
 
     /**
      * Return the object only if it has not been modified since the specified time, otherwise return a 412 (precondition
@@ -48,7 +48,7 @@ final class HeadObjectRequest extends Input
      *
      * @var \DateTimeImmutable|null
      */
-    private $IfUnmodifiedSince;
+    private $ifUnmodifiedSince;
 
     /**
      * The object key.
@@ -57,7 +57,7 @@ final class HeadObjectRequest extends Input
      *
      * @var string|null
      */
-    private $Key;
+    private $key;
 
     /**
      * Downloads the specified range bytes of an object. For more information about the HTTP Range header, see
@@ -67,21 +67,21 @@ final class HeadObjectRequest extends Input
      *
      * @var string|null
      */
-    private $Range;
+    private $range;
 
     /**
      * VersionId used to reference a specific version of the object.
      *
      * @var string|null
      */
-    private $VersionId;
+    private $versionId;
 
     /**
      * Specifies the algorithm to use to when encrypting the object (for example, AES256).
      *
      * @var string|null
      */
-    private $SSECustomerAlgorithm;
+    private $sseCustomerAlgorithm;
 
     /**
      * Specifies the customer-provided encryption key for Amazon S3 to use in encrypting data. This value is used to store
@@ -90,7 +90,7 @@ final class HeadObjectRequest extends Input
      *
      * @var string|null
      */
-    private $SSECustomerKey;
+    private $sseCustomerKey;
 
     /**
      * Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a
@@ -98,12 +98,12 @@ final class HeadObjectRequest extends Input
      *
      * @var string|null
      */
-    private $SSECustomerKeyMD5;
+    private $sseCustomerKeyMd5;
 
     /**
      * @var null|RequestPayer::*
      */
-    private $RequestPayer;
+    private $requestPayer;
 
     /**
      * Part number of the object being read. This is a positive integer between 1 and 10,000. Effectively performs a
@@ -112,7 +112,7 @@ final class HeadObjectRequest extends Input
      *
      * @var int|null
      */
-    private $PartNumber;
+    private $partNumber;
 
     /**
      * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
@@ -120,7 +120,7 @@ final class HeadObjectRequest extends Input
      *
      * @var string|null
      */
-    private $ExpectedBucketOwner;
+    private $expectedBucketOwner;
 
     /**
      * @param array{
@@ -143,20 +143,20 @@ final class HeadObjectRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->Bucket = $input['Bucket'] ?? null;
-        $this->IfMatch = $input['IfMatch'] ?? null;
-        $this->IfModifiedSince = !isset($input['IfModifiedSince']) ? null : ($input['IfModifiedSince'] instanceof \DateTimeImmutable ? $input['IfModifiedSince'] : new \DateTimeImmutable($input['IfModifiedSince']));
-        $this->IfNoneMatch = $input['IfNoneMatch'] ?? null;
-        $this->IfUnmodifiedSince = !isset($input['IfUnmodifiedSince']) ? null : ($input['IfUnmodifiedSince'] instanceof \DateTimeImmutable ? $input['IfUnmodifiedSince'] : new \DateTimeImmutable($input['IfUnmodifiedSince']));
-        $this->Key = $input['Key'] ?? null;
-        $this->Range = $input['Range'] ?? null;
-        $this->VersionId = $input['VersionId'] ?? null;
-        $this->SSECustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
-        $this->SSECustomerKey = $input['SSECustomerKey'] ?? null;
-        $this->SSECustomerKeyMD5 = $input['SSECustomerKeyMD5'] ?? null;
-        $this->RequestPayer = $input['RequestPayer'] ?? null;
-        $this->PartNumber = $input['PartNumber'] ?? null;
-        $this->ExpectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
+        $this->bucket = $input['Bucket'] ?? null;
+        $this->ifMatch = $input['IfMatch'] ?? null;
+        $this->ifModifiedSince = !isset($input['IfModifiedSince']) ? null : ($input['IfModifiedSince'] instanceof \DateTimeImmutable ? $input['IfModifiedSince'] : new \DateTimeImmutable($input['IfModifiedSince']));
+        $this->ifNoneMatch = $input['IfNoneMatch'] ?? null;
+        $this->ifUnmodifiedSince = !isset($input['IfUnmodifiedSince']) ? null : ($input['IfUnmodifiedSince'] instanceof \DateTimeImmutable ? $input['IfUnmodifiedSince'] : new \DateTimeImmutable($input['IfUnmodifiedSince']));
+        $this->key = $input['Key'] ?? null;
+        $this->range = $input['Range'] ?? null;
+        $this->versionId = $input['VersionId'] ?? null;
+        $this->sseCustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
+        $this->sseCustomerKey = $input['SSECustomerKey'] ?? null;
+        $this->sseCustomerKeyMd5 = $input['SSECustomerKeyMD5'] ?? null;
+        $this->requestPayer = $input['RequestPayer'] ?? null;
+        $this->partNumber = $input['PartNumber'] ?? null;
+        $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         parent::__construct($input);
     }
 
@@ -167,47 +167,47 @@ final class HeadObjectRequest extends Input
 
     public function getBucket(): ?string
     {
-        return $this->Bucket;
+        return $this->bucket;
     }
 
     public function getExpectedBucketOwner(): ?string
     {
-        return $this->ExpectedBucketOwner;
+        return $this->expectedBucketOwner;
     }
 
     public function getIfMatch(): ?string
     {
-        return $this->IfMatch;
+        return $this->ifMatch;
     }
 
     public function getIfModifiedSince(): ?\DateTimeImmutable
     {
-        return $this->IfModifiedSince;
+        return $this->ifModifiedSince;
     }
 
     public function getIfNoneMatch(): ?string
     {
-        return $this->IfNoneMatch;
+        return $this->ifNoneMatch;
     }
 
     public function getIfUnmodifiedSince(): ?\DateTimeImmutable
     {
-        return $this->IfUnmodifiedSince;
+        return $this->ifUnmodifiedSince;
     }
 
     public function getKey(): ?string
     {
-        return $this->Key;
+        return $this->key;
     }
 
     public function getPartNumber(): ?int
     {
-        return $this->PartNumber;
+        return $this->partNumber;
     }
 
     public function getRange(): ?string
     {
-        return $this->Range;
+        return $this->range;
     }
 
     /**
@@ -215,27 +215,27 @@ final class HeadObjectRequest extends Input
      */
     public function getRequestPayer(): ?string
     {
-        return $this->RequestPayer;
+        return $this->requestPayer;
     }
 
-    public function getSSECustomerAlgorithm(): ?string
+    public function getSseCustomerAlgorithm(): ?string
     {
-        return $this->SSECustomerAlgorithm;
+        return $this->sseCustomerAlgorithm;
     }
 
-    public function getSSECustomerKey(): ?string
+    public function getSseCustomerKey(): ?string
     {
-        return $this->SSECustomerKey;
+        return $this->sseCustomerKey;
     }
 
-    public function getSSECustomerKeyMD5(): ?string
+    public function getSseCustomerKeyMd5(): ?string
     {
-        return $this->SSECustomerKeyMD5;
+        return $this->sseCustomerKeyMd5;
     }
 
     public function getVersionId(): ?string
     {
-        return $this->VersionId;
+        return $this->versionId;
     }
 
     /**
@@ -245,56 +245,56 @@ final class HeadObjectRequest extends Input
     {
         // Prepare headers
         $headers = ['content-type' => 'application/xml'];
-        if (null !== $this->IfMatch) {
-            $headers['If-Match'] = $this->IfMatch;
+        if (null !== $this->ifMatch) {
+            $headers['If-Match'] = $this->ifMatch;
         }
-        if (null !== $this->IfModifiedSince) {
-            $headers['If-Modified-Since'] = $this->IfModifiedSince->format(\DateTimeInterface::RFC822);
+        if (null !== $this->ifModifiedSince) {
+            $headers['If-Modified-Since'] = $this->ifModifiedSince->format(\DateTimeInterface::RFC822);
         }
-        if (null !== $this->IfNoneMatch) {
-            $headers['If-None-Match'] = $this->IfNoneMatch;
+        if (null !== $this->ifNoneMatch) {
+            $headers['If-None-Match'] = $this->ifNoneMatch;
         }
-        if (null !== $this->IfUnmodifiedSince) {
-            $headers['If-Unmodified-Since'] = $this->IfUnmodifiedSince->format(\DateTimeInterface::RFC822);
+        if (null !== $this->ifUnmodifiedSince) {
+            $headers['If-Unmodified-Since'] = $this->ifUnmodifiedSince->format(\DateTimeInterface::RFC822);
         }
-        if (null !== $this->Range) {
-            $headers['Range'] = $this->Range;
+        if (null !== $this->range) {
+            $headers['Range'] = $this->range;
         }
-        if (null !== $this->SSECustomerAlgorithm) {
-            $headers['x-amz-server-side-encryption-customer-algorithm'] = $this->SSECustomerAlgorithm;
+        if (null !== $this->sseCustomerAlgorithm) {
+            $headers['x-amz-server-side-encryption-customer-algorithm'] = $this->sseCustomerAlgorithm;
         }
-        if (null !== $this->SSECustomerKey) {
-            $headers['x-amz-server-side-encryption-customer-key'] = $this->SSECustomerKey;
+        if (null !== $this->sseCustomerKey) {
+            $headers['x-amz-server-side-encryption-customer-key'] = $this->sseCustomerKey;
         }
-        if (null !== $this->SSECustomerKeyMD5) {
-            $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->SSECustomerKeyMD5;
+        if (null !== $this->sseCustomerKeyMd5) {
+            $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->sseCustomerKeyMd5;
         }
-        if (null !== $this->RequestPayer) {
-            if (!RequestPayer::exists($this->RequestPayer)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
+        if (null !== $this->requestPayer) {
+            if (!RequestPayer::exists($this->requestPayer)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->requestPayer));
             }
-            $headers['x-amz-request-payer'] = $this->RequestPayer;
+            $headers['x-amz-request-payer'] = $this->requestPayer;
         }
-        if (null !== $this->ExpectedBucketOwner) {
-            $headers['x-amz-expected-bucket-owner'] = $this->ExpectedBucketOwner;
+        if (null !== $this->expectedBucketOwner) {
+            $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
         }
 
         // Prepare query
         $query = [];
-        if (null !== $this->VersionId) {
-            $query['versionId'] = $this->VersionId;
+        if (null !== $this->versionId) {
+            $query['versionId'] = $this->versionId;
         }
-        if (null !== $this->PartNumber) {
-            $query['partNumber'] = (string) $this->PartNumber;
+        if (null !== $this->partNumber) {
+            $query['partNumber'] = (string) $this->partNumber;
         }
 
         // Prepare URI
         $uri = [];
-        if (null === $v = $this->Bucket) {
+        if (null === $v = $this->bucket) {
             throw new InvalidArgument(sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Bucket'] = $v;
-        if (null === $v = $this->Key) {
+        if (null === $v = $this->key) {
             throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Key'] = $v;
@@ -309,63 +309,63 @@ final class HeadObjectRequest extends Input
 
     public function setBucket(?string $value): self
     {
-        $this->Bucket = $value;
+        $this->bucket = $value;
 
         return $this;
     }
 
     public function setExpectedBucketOwner(?string $value): self
     {
-        $this->ExpectedBucketOwner = $value;
+        $this->expectedBucketOwner = $value;
 
         return $this;
     }
 
     public function setIfMatch(?string $value): self
     {
-        $this->IfMatch = $value;
+        $this->ifMatch = $value;
 
         return $this;
     }
 
     public function setIfModifiedSince(?\DateTimeImmutable $value): self
     {
-        $this->IfModifiedSince = $value;
+        $this->ifModifiedSince = $value;
 
         return $this;
     }
 
     public function setIfNoneMatch(?string $value): self
     {
-        $this->IfNoneMatch = $value;
+        $this->ifNoneMatch = $value;
 
         return $this;
     }
 
     public function setIfUnmodifiedSince(?\DateTimeImmutable $value): self
     {
-        $this->IfUnmodifiedSince = $value;
+        $this->ifUnmodifiedSince = $value;
 
         return $this;
     }
 
     public function setKey(?string $value): self
     {
-        $this->Key = $value;
+        $this->key = $value;
 
         return $this;
     }
 
     public function setPartNumber(?int $value): self
     {
-        $this->PartNumber = $value;
+        $this->partNumber = $value;
 
         return $this;
     }
 
     public function setRange(?string $value): self
     {
-        $this->Range = $value;
+        $this->range = $value;
 
         return $this;
     }
@@ -375,35 +375,35 @@ final class HeadObjectRequest extends Input
      */
     public function setRequestPayer(?string $value): self
     {
-        $this->RequestPayer = $value;
+        $this->requestPayer = $value;
 
         return $this;
     }
 
-    public function setSSECustomerAlgorithm(?string $value): self
+    public function setSseCustomerAlgorithm(?string $value): self
     {
-        $this->SSECustomerAlgorithm = $value;
+        $this->sseCustomerAlgorithm = $value;
 
         return $this;
     }
 
-    public function setSSECustomerKey(?string $value): self
+    public function setSseCustomerKey(?string $value): self
     {
-        $this->SSECustomerKey = $value;
+        $this->sseCustomerKey = $value;
 
         return $this;
     }
 
-    public function setSSECustomerKeyMD5(?string $value): self
+    public function setSseCustomerKeyMd5(?string $value): self
     {
-        $this->SSECustomerKeyMD5 = $value;
+        $this->sseCustomerKeyMd5 = $value;
 
         return $this;
     }
 
     public function setVersionId(?string $value): self
     {
-        $this->VersionId = $value;
+        $this->versionId = $value;
 
         return $this;
     }

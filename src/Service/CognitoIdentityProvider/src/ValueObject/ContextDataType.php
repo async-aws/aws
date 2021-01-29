@@ -13,28 +13,28 @@ final class ContextDataType
     /**
      * Source IP address of your user.
      */
-    private $IpAddress;
+    private $ipAddress;
 
     /**
      * Your server endpoint where this API is invoked.
      */
-    private $ServerName;
+    private $serverName;
 
     /**
      * Your server path where this API is invoked.
      */
-    private $ServerPath;
+    private $serverPath;
 
     /**
      * HttpHeaders received on your server in same order.
      */
-    private $HttpHeaders;
+    private $httpHeaders;
 
     /**
      * Encoded data containing device fingerprinting details, collected using the Amazon Cognito context data collection
      * library.
      */
-    private $EncodedData;
+    private $encodedData;
 
     /**
      * @param array{
@@ -47,11 +47,11 @@ final class ContextDataType
      */
     public function __construct(array $input)
     {
-        $this->IpAddress = $input['IpAddress'] ?? null;
-        $this->ServerName = $input['ServerName'] ?? null;
-        $this->ServerPath = $input['ServerPath'] ?? null;
-        $this->HttpHeaders = isset($input['HttpHeaders']) ? array_map([HttpHeader::class, 'create'], $input['HttpHeaders']) : null;
-        $this->EncodedData = $input['EncodedData'] ?? null;
+        $this->ipAddress = $input['IpAddress'] ?? null;
+        $this->serverName = $input['ServerName'] ?? null;
+        $this->serverPath = $input['ServerPath'] ?? null;
+        $this->httpHeaders = isset($input['HttpHeaders']) ? array_map([HttpHeader::class, 'create'], $input['HttpHeaders']) : null;
+        $this->encodedData = $input['EncodedData'] ?? null;
     }
 
     public static function create($input): self
@@ -61,7 +61,7 @@ final class ContextDataType
 
     public function getEncodedData(): ?string
     {
-        return $this->EncodedData;
+        return $this->encodedData;
     }
 
     /**
@@ -69,22 +69,22 @@ final class ContextDataType
      */
     public function getHttpHeaders(): array
     {
-        return $this->HttpHeaders ?? [];
+        return $this->httpHeaders ?? [];
     }
 
     public function getIpAddress(): string
     {
-        return $this->IpAddress;
+        return $this->ipAddress;
     }
 
     public function getServerName(): string
     {
-        return $this->ServerName;
+        return $this->serverName;
     }
 
     public function getServerPath(): string
     {
-        return $this->ServerPath;
+        return $this->serverPath;
     }
 
     /**
@@ -93,19 +93,19 @@ final class ContextDataType
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->IpAddress) {
+        if (null === $v = $this->ipAddress) {
             throw new InvalidArgument(sprintf('Missing parameter "IpAddress" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['IpAddress'] = $v;
-        if (null === $v = $this->ServerName) {
+        if (null === $v = $this->serverName) {
             throw new InvalidArgument(sprintf('Missing parameter "ServerName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ServerName'] = $v;
-        if (null === $v = $this->ServerPath) {
+        if (null === $v = $this->serverPath) {
             throw new InvalidArgument(sprintf('Missing parameter "ServerPath" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ServerPath'] = $v;
-        if (null === $v = $this->HttpHeaders) {
+        if (null === $v = $this->httpHeaders) {
             throw new InvalidArgument(sprintf('Missing parameter "HttpHeaders" for "%s". The value cannot be null.', __CLASS__));
         }
 
@@ -116,7 +116,7 @@ final class ContextDataType
             $payload['HttpHeaders'][$index] = $listValue->requestBody();
         }
 
-        if (null !== $v = $this->EncodedData) {
+        if (null !== $v = $this->encodedData) {
             $payload['EncodedData'] = $v;
         }
 

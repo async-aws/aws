@@ -19,13 +19,13 @@ class ListSubscriptionsByTopicResponse extends Result implements \IteratorAggreg
     /**
      * A list of subscriptions.
      */
-    private $Subscriptions = [];
+    private $subscriptions = [];
 
     /**
      * Token to pass along to the next `ListSubscriptionsByTopic` request. This element is returned if there are more
      * subscriptions to retrieve.
      */
-    private $NextToken;
+    private $nextToken;
 
     /**
      * Iterates over Subscriptions.
@@ -67,7 +67,7 @@ class ListSubscriptionsByTopicResponse extends Result implements \IteratorAggreg
     {
         $this->initialize();
 
-        return $this->NextToken;
+        return $this->nextToken;
     }
 
     /**
@@ -79,7 +79,7 @@ class ListSubscriptionsByTopicResponse extends Result implements \IteratorAggreg
     {
         if ($currentPageOnly) {
             $this->initialize();
-            yield from $this->Subscriptions;
+            yield from $this->subscriptions;
 
             return;
         }
@@ -118,8 +118,8 @@ class ListSubscriptionsByTopicResponse extends Result implements \IteratorAggreg
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->ListSubscriptionsByTopicResult;
 
-        $this->Subscriptions = !$data->Subscriptions ? [] : $this->populateResultSubscriptionsList($data->Subscriptions);
-        $this->NextToken = ($v = $data->NextToken) ? (string) $v : null;
+        $this->subscriptions = !$data->Subscriptions ? [] : $this->populateResultSubscriptionsList($data->Subscriptions);
+        $this->nextToken = ($v = $data->NextToken) ? (string) $v : null;
     }
 
     /**

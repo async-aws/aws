@@ -19,7 +19,7 @@ final class AdminGetUserRequest extends Input
      *
      * @var string|null
      */
-    private $UserPoolId;
+    private $userPoolId;
 
     /**
      * The user name of the user you wish to retrieve.
@@ -28,7 +28,7 @@ final class AdminGetUserRequest extends Input
      *
      * @var string|null
      */
-    private $Username;
+    private $username;
 
     /**
      * @param array{
@@ -39,8 +39,8 @@ final class AdminGetUserRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->UserPoolId = $input['UserPoolId'] ?? null;
-        $this->Username = $input['Username'] ?? null;
+        $this->userPoolId = $input['UserPoolId'] ?? null;
+        $this->username = $input['Username'] ?? null;
         parent::__construct($input);
     }
 
@@ -51,12 +51,12 @@ final class AdminGetUserRequest extends Input
 
     public function getUserPoolId(): ?string
     {
-        return $this->UserPoolId;
+        return $this->userPoolId;
     }
 
     public function getUsername(): ?string
     {
-        return $this->Username;
+        return $this->username;
     }
 
     /**
@@ -86,14 +86,14 @@ final class AdminGetUserRequest extends Input
 
     public function setUserPoolId(?string $value): self
     {
-        $this->UserPoolId = $value;
+        $this->userPoolId = $value;
 
         return $this;
     }
 
     public function setUsername(?string $value): self
     {
-        $this->Username = $value;
+        $this->username = $value;
 
         return $this;
     }
@@ -101,11 +101,11 @@ final class AdminGetUserRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->UserPoolId) {
+        if (null === $v = $this->userPoolId) {
             throw new InvalidArgument(sprintf('Missing parameter "UserPoolId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['UserPoolId'] = $v;
-        if (null === $v = $this->Username) {
+        if (null === $v = $this->username) {
             throw new InvalidArgument(sprintf('Missing parameter "Username" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Username'] = $v;

@@ -10,7 +10,7 @@ final class ProvisionedThroughputOverride
     /**
      * Replica-specific read capacity units. If not specified, uses the source table's read capacity settings.
      */
-    private $ReadCapacityUnits;
+    private $readCapacityUnits;
 
     /**
      * @param array{
@@ -19,7 +19,7 @@ final class ProvisionedThroughputOverride
      */
     public function __construct(array $input)
     {
-        $this->ReadCapacityUnits = $input['ReadCapacityUnits'] ?? null;
+        $this->readCapacityUnits = $input['ReadCapacityUnits'] ?? null;
     }
 
     public static function create($input): self
@@ -29,7 +29,7 @@ final class ProvisionedThroughputOverride
 
     public function getReadCapacityUnits(): ?string
     {
-        return $this->ReadCapacityUnits;
+        return $this->readCapacityUnits;
     }
 
     /**
@@ -38,7 +38,7 @@ final class ProvisionedThroughputOverride
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->ReadCapacityUnits) {
+        if (null !== $v = $this->readCapacityUnits) {
             $payload['ReadCapacityUnits'] = $v;
         }
 

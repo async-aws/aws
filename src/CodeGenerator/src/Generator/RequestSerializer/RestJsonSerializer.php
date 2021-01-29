@@ -11,6 +11,7 @@ use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 
 /**
@@ -39,14 +40,17 @@ class RestJsonSerializer implements Serializer
         if (null !== $payloadProperty = $shape->getPayload()) {
             if ($shape->getMember($payloadProperty)->isRequired()) {
                 $body = 'if (null === $v = $this->PROPERTY) {
-                    throw new InvalidArgument(sprintf(\'Missing parameter "PROPERTY" for "%s". The value cannot be null.\', __CLASS__));
+                    throw new InvalidArgument(sprintf(\'Missing parameter "NAME" for "%s". The value cannot be null.\', __CLASS__));
                 }
                 $body = $v;';
             } else {
                 $body = '$body = $this->PROPERTY ?? "";';
             }
 
-            return [strtr($body, ['PROPERTY' => $payloadProperty]), false];
+            return [strtr($body, [
+                'PROPERTY' => GeneratorHelper::normalizeName($payloadProperty),
+                'NAME' => $payloadProperty,
+            ]), false];
         }
 
         return ['$bodyPayload = $this->requestBody(); $body = empty($bodyPayload) ? "{}" : json_encode($bodyPayload);', true];
@@ -61,7 +65,7 @@ class RestJsonSerializer implements Serializer
             $shape = $member->getShape();
             if ($member->isRequired()) {
                 $body = 'if (null === $v = $this->PROPERTY) {
-                    throw new InvalidArgument(sprintf(\'Missing parameter "PROPERTY" for "%s". The value cannot be null.\', __CLASS__));
+                    throw new InvalidArgument(sprintf(\'Missing parameter "NAME" for "%s". The value cannot be null.\', __CLASS__));
                 }
                 MEMBER_CODE';
                 $inputElement = '$v';
@@ -78,7 +82,8 @@ class RestJsonSerializer implements Serializer
             }
 
             return strtr($body, [
-                'PROPERTY' => $member->getName(),
+                'PROPERTY' => GeneratorHelper::normalizeName($member->getName()),
+                'NAME' => $member->getName(),
                 'MEMBER_CODE' => $deprecation . $this->dumpArrayElement(sprintf('["%s"]', $name = $this->getName($member)), $inputElement, $name, $shape, $member->isRequired()),
             ]);
         }, $shape->getMembers()));

@@ -16,7 +16,7 @@ final class AddLayerVersionPermissionRequest extends Input
      *
      * @var string|null
      */
-    private $LayerName;
+    private $layerName;
 
     /**
      * The version number.
@@ -25,7 +25,7 @@ final class AddLayerVersionPermissionRequest extends Input
      *
      * @var string|null
      */
-    private $VersionNumber;
+    private $versionNumber;
 
     /**
      * An identifier that distinguishes the policy from others on the same layer version.
@@ -34,7 +34,7 @@ final class AddLayerVersionPermissionRequest extends Input
      *
      * @var string|null
      */
-    private $StatementId;
+    private $statementId;
 
     /**
      * The API action that grants access to the layer. For example, `lambda:GetLayerVersion`.
@@ -43,7 +43,7 @@ final class AddLayerVersionPermissionRequest extends Input
      *
      * @var string|null
      */
-    private $Action;
+    private $action;
 
     /**
      * An account ID, or `*` to grant permission to all AWS accounts.
@@ -52,14 +52,14 @@ final class AddLayerVersionPermissionRequest extends Input
      *
      * @var string|null
      */
-    private $Principal;
+    private $principal;
 
     /**
      * With the principal set to `*`, grant permission to all accounts in the specified organization.
      *
      * @var string|null
      */
-    private $OrganizationId;
+    private $organizationId;
 
     /**
      * Only update the policy if the revision ID matches the ID specified. Use this option to avoid modifying a policy that
@@ -67,7 +67,7 @@ final class AddLayerVersionPermissionRequest extends Input
      *
      * @var string|null
      */
-    private $RevisionId;
+    private $revisionId;
 
     /**
      * @param array{
@@ -83,13 +83,13 @@ final class AddLayerVersionPermissionRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->LayerName = $input['LayerName'] ?? null;
-        $this->VersionNumber = $input['VersionNumber'] ?? null;
-        $this->StatementId = $input['StatementId'] ?? null;
-        $this->Action = $input['Action'] ?? null;
-        $this->Principal = $input['Principal'] ?? null;
-        $this->OrganizationId = $input['OrganizationId'] ?? null;
-        $this->RevisionId = $input['RevisionId'] ?? null;
+        $this->layerName = $input['LayerName'] ?? null;
+        $this->versionNumber = $input['VersionNumber'] ?? null;
+        $this->statementId = $input['StatementId'] ?? null;
+        $this->action = $input['Action'] ?? null;
+        $this->principal = $input['Principal'] ?? null;
+        $this->organizationId = $input['OrganizationId'] ?? null;
+        $this->revisionId = $input['RevisionId'] ?? null;
         parent::__construct($input);
     }
 
@@ -100,37 +100,37 @@ final class AddLayerVersionPermissionRequest extends Input
 
     public function getAction(): ?string
     {
-        return $this->Action;
+        return $this->action;
     }
 
     public function getLayerName(): ?string
     {
-        return $this->LayerName;
+        return $this->layerName;
     }
 
     public function getOrganizationId(): ?string
     {
-        return $this->OrganizationId;
+        return $this->organizationId;
     }
 
     public function getPrincipal(): ?string
     {
-        return $this->Principal;
+        return $this->principal;
     }
 
     public function getRevisionId(): ?string
     {
-        return $this->RevisionId;
+        return $this->revisionId;
     }
 
     public function getStatementId(): ?string
     {
-        return $this->StatementId;
+        return $this->statementId;
     }
 
     public function getVersionNumber(): ?string
     {
-        return $this->VersionNumber;
+        return $this->versionNumber;
     }
 
     /**
@@ -143,17 +143,17 @@ final class AddLayerVersionPermissionRequest extends Input
 
         // Prepare query
         $query = [];
-        if (null !== $this->RevisionId) {
-            $query['RevisionId'] = $this->RevisionId;
+        if (null !== $this->revisionId) {
+            $query['RevisionId'] = $this->revisionId;
         }
 
         // Prepare URI
         $uri = [];
-        if (null === $v = $this->LayerName) {
+        if (null === $v = $this->layerName) {
             throw new InvalidArgument(sprintf('Missing parameter "LayerName" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['LayerName'] = $v;
-        if (null === $v = $this->VersionNumber) {
+        if (null === $v = $this->versionNumber) {
             throw new InvalidArgument(sprintf('Missing parameter "VersionNumber" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['VersionNumber'] = $v;
@@ -169,49 +169,49 @@ final class AddLayerVersionPermissionRequest extends Input
 
     public function setAction(?string $value): self
     {
-        $this->Action = $value;
+        $this->action = $value;
 
         return $this;
     }
 
     public function setLayerName(?string $value): self
     {
-        $this->LayerName = $value;
+        $this->layerName = $value;
 
         return $this;
     }
 
     public function setOrganizationId(?string $value): self
     {
-        $this->OrganizationId = $value;
+        $this->organizationId = $value;
 
         return $this;
     }
 
     public function setPrincipal(?string $value): self
     {
-        $this->Principal = $value;
+        $this->principal = $value;
 
         return $this;
     }
 
     public function setRevisionId(?string $value): self
     {
-        $this->RevisionId = $value;
+        $this->revisionId = $value;
 
         return $this;
     }
 
     public function setStatementId(?string $value): self
     {
-        $this->StatementId = $value;
+        $this->statementId = $value;
 
         return $this;
     }
 
     public function setVersionNumber(?string $value): self
     {
-        $this->VersionNumber = $value;
+        $this->versionNumber = $value;
 
         return $this;
     }
@@ -220,19 +220,19 @@ final class AddLayerVersionPermissionRequest extends Input
     {
         $payload = [];
 
-        if (null === $v = $this->StatementId) {
+        if (null === $v = $this->statementId) {
             throw new InvalidArgument(sprintf('Missing parameter "StatementId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['StatementId'] = $v;
-        if (null === $v = $this->Action) {
+        if (null === $v = $this->action) {
             throw new InvalidArgument(sprintf('Missing parameter "Action" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Action'] = $v;
-        if (null === $v = $this->Principal) {
+        if (null === $v = $this->principal) {
             throw new InvalidArgument(sprintf('Missing parameter "Principal" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Principal'] = $v;
-        if (null !== $v = $this->OrganizationId) {
+        if (null !== $v = $this->organizationId) {
             $payload['OrganizationId'] = $v;
         }
 

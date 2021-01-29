@@ -16,28 +16,28 @@ final class MessageSystemAttributeValue
      *
      * @see http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
      */
-    private $StringValue;
+    private $stringValue;
 
     /**
      * Binary type attributes can store any binary data, such as compressed data, encrypted data, or images.
      */
-    private $BinaryValue;
+    private $binaryValue;
 
     /**
      * Not implemented. Reserved for future use.
      */
-    private $StringListValues;
+    private $stringListValues;
 
     /**
      * Not implemented. Reserved for future use.
      */
-    private $BinaryListValues;
+    private $binaryListValues;
 
     /**
      * Amazon SQS supports the following logical data types: `String`, `Number`, and `Binary`. For the `Number` data type,
      * you must use `StringValue`.
      */
-    private $DataType;
+    private $dataType;
 
     /**
      * @param array{
@@ -50,11 +50,11 @@ final class MessageSystemAttributeValue
      */
     public function __construct(array $input)
     {
-        $this->StringValue = $input['StringValue'] ?? null;
-        $this->BinaryValue = $input['BinaryValue'] ?? null;
-        $this->StringListValues = $input['StringListValues'] ?? null;
-        $this->BinaryListValues = $input['BinaryListValues'] ?? null;
-        $this->DataType = $input['DataType'] ?? null;
+        $this->stringValue = $input['StringValue'] ?? null;
+        $this->binaryValue = $input['BinaryValue'] ?? null;
+        $this->stringListValues = $input['StringListValues'] ?? null;
+        $this->binaryListValues = $input['BinaryListValues'] ?? null;
+        $this->dataType = $input['DataType'] ?? null;
     }
 
     public static function create($input): self
@@ -67,17 +67,17 @@ final class MessageSystemAttributeValue
      */
     public function getBinaryListValues(): array
     {
-        return $this->BinaryListValues ?? [];
+        return $this->binaryListValues ?? [];
     }
 
     public function getBinaryValue(): ?string
     {
-        return $this->BinaryValue;
+        return $this->binaryValue;
     }
 
     public function getDataType(): string
     {
-        return $this->DataType;
+        return $this->dataType;
     }
 
     /**
@@ -85,12 +85,12 @@ final class MessageSystemAttributeValue
      */
     public function getStringListValues(): array
     {
-        return $this->StringListValues ?? [];
+        return $this->stringListValues ?? [];
     }
 
     public function getStringValue(): ?string
     {
-        return $this->StringValue;
+        return $this->stringValue;
     }
 
     /**
@@ -99,27 +99,27 @@ final class MessageSystemAttributeValue
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->StringValue) {
+        if (null !== $v = $this->stringValue) {
             $payload['StringValue'] = $v;
         }
-        if (null !== $v = $this->BinaryValue) {
+        if (null !== $v = $this->binaryValue) {
             $payload['BinaryValue'] = base64_encode($v);
         }
-        if (null !== $v = $this->StringListValues) {
+        if (null !== $v = $this->stringListValues) {
             $index = 0;
             foreach ($v as $mapValue) {
                 ++$index;
                 $payload["StringListValue.$index"] = $mapValue;
             }
         }
-        if (null !== $v = $this->BinaryListValues) {
+        if (null !== $v = $this->binaryListValues) {
             $index = 0;
             foreach ($v as $mapValue) {
                 ++$index;
                 $payload["BinaryListValue.$index"] = base64_encode($mapValue);
             }
         }
-        if (null === $v = $this->DataType) {
+        if (null === $v = $this->dataType) {
             throw new InvalidArgument(sprintf('Missing parameter "DataType" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['DataType'] = $v;

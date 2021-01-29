@@ -14,7 +14,7 @@ final class CreateBucketConfiguration
      * Specifies the Region where the bucket will be created. If you don't specify a Region, the bucket is created in the US
      * East (N. Virginia) Region (us-east-1).
      */
-    private $LocationConstraint;
+    private $locationConstraint;
 
     /**
      * @param array{
@@ -23,7 +23,7 @@ final class CreateBucketConfiguration
      */
     public function __construct(array $input)
     {
-        $this->LocationConstraint = $input['LocationConstraint'] ?? null;
+        $this->locationConstraint = $input['LocationConstraint'] ?? null;
     }
 
     public static function create($input): self
@@ -36,7 +36,7 @@ final class CreateBucketConfiguration
      */
     public function getLocationConstraint(): ?string
     {
-        return $this->LocationConstraint;
+        return $this->locationConstraint;
     }
 
     /**
@@ -44,7 +44,7 @@ final class CreateBucketConfiguration
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        if (null !== $v = $this->LocationConstraint) {
+        if (null !== $v = $this->locationConstraint) {
             if (!BucketLocationConstraint::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "LocationConstraint" for "%s". The value "%s" is not a valid "BucketLocationConstraint".', __CLASS__, $v));
             }

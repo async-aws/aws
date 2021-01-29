@@ -11,18 +11,18 @@ class VerifySoftwareTokenResponse extends Result
     /**
      * The status of the verify software token.
      */
-    private $Status;
+    private $status;
 
     /**
      * The session which should be passed both ways in challenge-response calls to the service.
      */
-    private $Session;
+    private $session;
 
     public function getSession(): ?string
     {
         $this->initialize();
 
-        return $this->Session;
+        return $this->session;
     }
 
     /**
@@ -32,14 +32,14 @@ class VerifySoftwareTokenResponse extends Result
     {
         $this->initialize();
 
-        return $this->Status;
+        return $this->status;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->Status = isset($data['Status']) ? (string) $data['Status'] : null;
-        $this->Session = isset($data['Session']) ? (string) $data['Session'] : null;
+        $this->status = isset($data['Status']) ? (string) $data['Status'] : null;
+        $this->session = isset($data['Session']) ? (string) $data['Session'] : null;
     }
 }

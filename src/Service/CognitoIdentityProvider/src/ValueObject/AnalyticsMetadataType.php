@@ -10,7 +10,7 @@ final class AnalyticsMetadataType
     /**
      * The endpoint ID.
      */
-    private $AnalyticsEndpointId;
+    private $analyticsEndpointId;
 
     /**
      * @param array{
@@ -19,7 +19,7 @@ final class AnalyticsMetadataType
      */
     public function __construct(array $input)
     {
-        $this->AnalyticsEndpointId = $input['AnalyticsEndpointId'] ?? null;
+        $this->analyticsEndpointId = $input['AnalyticsEndpointId'] ?? null;
     }
 
     public static function create($input): self
@@ -29,7 +29,7 @@ final class AnalyticsMetadataType
 
     public function getAnalyticsEndpointId(): ?string
     {
-        return $this->AnalyticsEndpointId;
+        return $this->analyticsEndpointId;
     }
 
     /**
@@ -38,7 +38,7 @@ final class AnalyticsMetadataType
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->AnalyticsEndpointId) {
+        if (null !== $v = $this->analyticsEndpointId) {
             $payload['AnalyticsEndpointId'] = $v;
         }
 

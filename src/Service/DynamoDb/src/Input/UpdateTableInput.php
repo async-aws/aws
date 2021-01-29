@@ -25,7 +25,7 @@ final class UpdateTableInput extends Input
      *
      * @var AttributeDefinition[]|null
      */
-    private $AttributeDefinitions;
+    private $attributeDefinitions;
 
     /**
      * The name of the table to be updated.
@@ -34,7 +34,7 @@ final class UpdateTableInput extends Input
      *
      * @var string|null
      */
-    private $TableName;
+    private $tableName;
 
     /**
      * Controls how you are charged for read and write throughput and how you manage capacity. When switching from
@@ -44,14 +44,14 @@ final class UpdateTableInput extends Input
      *
      * @var null|BillingMode::*
      */
-    private $BillingMode;
+    private $billingMode;
 
     /**
      * The new provisioned throughput settings for the specified table or index.
      *
      * @var ProvisionedThroughput|null
      */
-    private $ProvisionedThroughput;
+    private $provisionedThroughput;
 
     /**
      * An array of one or more global secondary indexes for the table. For each index in the array, you can request one
@@ -59,28 +59,28 @@ final class UpdateTableInput extends Input
      *
      * @var GlobalSecondaryIndexUpdate[]|null
      */
-    private $GlobalSecondaryIndexUpdates;
+    private $globalSecondaryIndexUpdates;
 
     /**
      * Represents the DynamoDB Streams configuration for the table.
      *
      * @var StreamSpecification|null
      */
-    private $StreamSpecification;
+    private $streamSpecification;
 
     /**
      * The new server-side encryption settings for the specified table.
      *
      * @var SSESpecification|null
      */
-    private $SSESpecification;
+    private $sseSpecification;
 
     /**
      * A list of replica update actions (create, delete, or update) for the table.
      *
      * @var ReplicationGroupUpdate[]|null
      */
-    private $ReplicaUpdates;
+    private $replicaUpdates;
 
     /**
      * @param array{
@@ -97,14 +97,14 @@ final class UpdateTableInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->AttributeDefinitions = isset($input['AttributeDefinitions']) ? array_map([AttributeDefinition::class, 'create'], $input['AttributeDefinitions']) : null;
-        $this->TableName = $input['TableName'] ?? null;
-        $this->BillingMode = $input['BillingMode'] ?? null;
-        $this->ProvisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
-        $this->GlobalSecondaryIndexUpdates = isset($input['GlobalSecondaryIndexUpdates']) ? array_map([GlobalSecondaryIndexUpdate::class, 'create'], $input['GlobalSecondaryIndexUpdates']) : null;
-        $this->StreamSpecification = isset($input['StreamSpecification']) ? StreamSpecification::create($input['StreamSpecification']) : null;
-        $this->SSESpecification = isset($input['SSESpecification']) ? SSESpecification::create($input['SSESpecification']) : null;
-        $this->ReplicaUpdates = isset($input['ReplicaUpdates']) ? array_map([ReplicationGroupUpdate::class, 'create'], $input['ReplicaUpdates']) : null;
+        $this->attributeDefinitions = isset($input['AttributeDefinitions']) ? array_map([AttributeDefinition::class, 'create'], $input['AttributeDefinitions']) : null;
+        $this->tableName = $input['TableName'] ?? null;
+        $this->billingMode = $input['BillingMode'] ?? null;
+        $this->provisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
+        $this->globalSecondaryIndexUpdates = isset($input['GlobalSecondaryIndexUpdates']) ? array_map([GlobalSecondaryIndexUpdate::class, 'create'], $input['GlobalSecondaryIndexUpdates']) : null;
+        $this->streamSpecification = isset($input['StreamSpecification']) ? StreamSpecification::create($input['StreamSpecification']) : null;
+        $this->sseSpecification = isset($input['SSESpecification']) ? SSESpecification::create($input['SSESpecification']) : null;
+        $this->replicaUpdates = isset($input['ReplicaUpdates']) ? array_map([ReplicationGroupUpdate::class, 'create'], $input['ReplicaUpdates']) : null;
         parent::__construct($input);
     }
 
@@ -118,7 +118,7 @@ final class UpdateTableInput extends Input
      */
     public function getAttributeDefinitions(): array
     {
-        return $this->AttributeDefinitions ?? [];
+        return $this->attributeDefinitions ?? [];
     }
 
     /**
@@ -126,7 +126,7 @@ final class UpdateTableInput extends Input
      */
     public function getBillingMode(): ?string
     {
-        return $this->BillingMode;
+        return $this->billingMode;
     }
 
     /**
@@ -134,12 +134,12 @@ final class UpdateTableInput extends Input
      */
     public function getGlobalSecondaryIndexUpdates(): array
     {
-        return $this->GlobalSecondaryIndexUpdates ?? [];
+        return $this->globalSecondaryIndexUpdates ?? [];
     }
 
     public function getProvisionedThroughput(): ?ProvisionedThroughput
     {
-        return $this->ProvisionedThroughput;
+        return $this->provisionedThroughput;
     }
 
     /**
@@ -147,22 +147,22 @@ final class UpdateTableInput extends Input
      */
     public function getReplicaUpdates(): array
     {
-        return $this->ReplicaUpdates ?? [];
+        return $this->replicaUpdates ?? [];
     }
 
-    public function getSSESpecification(): ?SSESpecification
+    public function getSseSpecification(): ?SSESpecification
     {
-        return $this->SSESpecification;
+        return $this->sseSpecification;
     }
 
     public function getStreamSpecification(): ?StreamSpecification
     {
-        return $this->StreamSpecification;
+        return $this->streamSpecification;
     }
 
     public function getTableName(): ?string
     {
-        return $this->TableName;
+        return $this->tableName;
     }
 
     /**
@@ -195,7 +195,7 @@ final class UpdateTableInput extends Input
      */
     public function setAttributeDefinitions(array $value): self
     {
-        $this->AttributeDefinitions = $value;
+        $this->attributeDefinitions = $value;
 
         return $this;
     }
@@ -205,7 +205,7 @@ final class UpdateTableInput extends Input
      */
     public function setBillingMode(?string $value): self
     {
-        $this->BillingMode = $value;
+        $this->billingMode = $value;
 
         return $this;
     }
@@ -215,14 +215,14 @@ final class UpdateTableInput extends Input
      */
     public function setGlobalSecondaryIndexUpdates(array $value): self
     {
-        $this->GlobalSecondaryIndexUpdates = $value;
+        $this->globalSecondaryIndexUpdates = $value;
 
         return $this;
     }
 
     public function setProvisionedThroughput(?ProvisionedThroughput $value): self
     {
-        $this->ProvisionedThroughput = $value;
+        $this->provisionedThroughput = $value;
 
         return $this;
     }
@@ -232,28 +232,28 @@ final class UpdateTableInput extends Input
      */
     public function setReplicaUpdates(array $value): self
     {
-        $this->ReplicaUpdates = $value;
+        $this->replicaUpdates = $value;
 
         return $this;
     }
 
-    public function setSSESpecification(?SSESpecification $value): self
+    public function setSseSpecification(?SSESpecification $value): self
     {
-        $this->SSESpecification = $value;
+        $this->sseSpecification = $value;
 
         return $this;
     }
 
     public function setStreamSpecification(?StreamSpecification $value): self
     {
-        $this->StreamSpecification = $value;
+        $this->streamSpecification = $value;
 
         return $this;
     }
 
     public function setTableName(?string $value): self
     {
-        $this->TableName = $value;
+        $this->tableName = $value;
 
         return $this;
     }
@@ -261,7 +261,7 @@ final class UpdateTableInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->AttributeDefinitions) {
+        if (null !== $v = $this->attributeDefinitions) {
             $index = -1;
             $payload['AttributeDefinitions'] = [];
             foreach ($v as $listValue) {
@@ -269,20 +269,20 @@ final class UpdateTableInput extends Input
                 $payload['AttributeDefinitions'][$index] = $listValue->requestBody();
             }
         }
-        if (null === $v = $this->TableName) {
+        if (null === $v = $this->tableName) {
             throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TableName'] = $v;
-        if (null !== $v = $this->BillingMode) {
+        if (null !== $v = $this->billingMode) {
             if (!BillingMode::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "BillingMode" for "%s". The value "%s" is not a valid "BillingMode".', __CLASS__, $v));
             }
             $payload['BillingMode'] = $v;
         }
-        if (null !== $v = $this->ProvisionedThroughput) {
+        if (null !== $v = $this->provisionedThroughput) {
             $payload['ProvisionedThroughput'] = $v->requestBody();
         }
-        if (null !== $v = $this->GlobalSecondaryIndexUpdates) {
+        if (null !== $v = $this->globalSecondaryIndexUpdates) {
             $index = -1;
             $payload['GlobalSecondaryIndexUpdates'] = [];
             foreach ($v as $listValue) {
@@ -290,13 +290,13 @@ final class UpdateTableInput extends Input
                 $payload['GlobalSecondaryIndexUpdates'][$index] = $listValue->requestBody();
             }
         }
-        if (null !== $v = $this->StreamSpecification) {
+        if (null !== $v = $this->streamSpecification) {
             $payload['StreamSpecification'] = $v->requestBody();
         }
-        if (null !== $v = $this->SSESpecification) {
+        if (null !== $v = $this->sseSpecification) {
             $payload['SSESpecification'] = $v->requestBody();
         }
-        if (null !== $v = $this->ReplicaUpdates) {
+        if (null !== $v = $this->replicaUpdates) {
             $index = -1;
             $payload['ReplicaUpdates'] = [];
             foreach ($v as $listValue) {

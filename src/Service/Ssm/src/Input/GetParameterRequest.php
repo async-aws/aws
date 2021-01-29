@@ -16,14 +16,14 @@ final class GetParameterRequest extends Input
      *
      * @var string|null
      */
-    private $Name;
+    private $name;
 
     /**
      * Return decrypted values for secure string parameters. This flag is ignored for String and StringList parameter types.
      *
      * @var bool|null
      */
-    private $WithDecryption;
+    private $withDecryption;
 
     /**
      * @param array{
@@ -34,8 +34,8 @@ final class GetParameterRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->Name = $input['Name'] ?? null;
-        $this->WithDecryption = $input['WithDecryption'] ?? null;
+        $this->name = $input['Name'] ?? null;
+        $this->withDecryption = $input['WithDecryption'] ?? null;
         parent::__construct($input);
     }
 
@@ -46,12 +46,12 @@ final class GetParameterRequest extends Input
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
     public function getWithDecryption(): ?bool
     {
-        return $this->WithDecryption;
+        return $this->withDecryption;
     }
 
     /**
@@ -81,14 +81,14 @@ final class GetParameterRequest extends Input
 
     public function setName(?string $value): self
     {
-        $this->Name = $value;
+        $this->name = $value;
 
         return $this;
     }
 
     public function setWithDecryption(?bool $value): self
     {
-        $this->WithDecryption = $value;
+        $this->withDecryption = $value;
 
         return $this;
     }
@@ -96,11 +96,11 @@ final class GetParameterRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->Name) {
+        if (null === $v = $this->name) {
             throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Name'] = $v;
-        if (null !== $v = $this->WithDecryption) {
+        if (null !== $v = $this->withDecryption) {
             $payload['WithDecryption'] = (bool) $v;
         }
 

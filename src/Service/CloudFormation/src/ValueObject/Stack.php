@@ -13,111 +13,111 @@ final class Stack
     /**
      * Unique identifier of the stack.
      */
-    private $StackId;
+    private $stackId;
 
     /**
      * The name associated with the stack.
      */
-    private $StackName;
+    private $stackName;
 
     /**
      * The unique ID of the change set.
      */
-    private $ChangeSetId;
+    private $changeSetId;
 
     /**
      * A user-defined description associated with the stack.
      */
-    private $Description;
+    private $description;
 
     /**
      * A list of `Parameter` structures.
      */
-    private $Parameters;
+    private $parameters;
 
     /**
      * The time at which the stack was created.
      */
-    private $CreationTime;
+    private $creationTime;
 
     /**
      * The time the stack was deleted.
      */
-    private $DeletionTime;
+    private $deletionTime;
 
     /**
      * The time the stack was last updated. This field will only be returned if the stack has been updated at least once.
      */
-    private $LastUpdatedTime;
+    private $lastUpdatedTime;
 
     /**
      * The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the
      * specified monitoring period afterwards.
      */
-    private $RollbackConfiguration;
+    private $rollbackConfiguration;
 
     /**
      * Current status of the stack.
      */
-    private $StackStatus;
+    private $stackStatus;
 
     /**
      * Success/failure message associated with the stack status.
      */
-    private $StackStatusReason;
+    private $stackStatusReason;
 
     /**
      * Boolean to enable or disable rollback on stack creation failures:.
      */
-    private $DisableRollback;
+    private $disableRollback;
 
     /**
      * SNS topic ARNs to which stack related events are published.
      */
-    private $NotificationARNs;
+    private $notificationArns;
 
     /**
      * The amount of time within which stack creation should complete.
      */
-    private $TimeoutInMinutes;
+    private $timeoutInMinutes;
 
     /**
      * The capabilities allowed in the stack.
      */
-    private $Capabilities;
+    private $capabilities;
 
     /**
      * A list of output structures.
      */
-    private $Outputs;
+    private $outputs;
 
     /**
      * The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that is associated with the stack.
      * During a stack operation, AWS CloudFormation uses this role's credentials to make calls on your behalf.
      */
-    private $RoleARN;
+    private $roleArn;
 
     /**
      * A list of `Tag`s that specify information about the stack.
      */
-    private $Tags;
+    private $tags;
 
     /**
      * Whether termination protection is enabled for the stack.
      */
-    private $EnableTerminationProtection;
+    private $enableTerminationProtection;
 
     /**
      * For nested stacks--stacks created as resources for another stack--the stack ID of the direct parent of this stack.
      * For the first level of nested stacks, the root stack is also the parent stack.
      */
-    private $ParentId;
+    private $parentId;
 
     /**
      * For nested stacks--stacks created as resources for another stack--the stack ID of the top-level stack to which the
      * nested stack ultimately belongs.
      */
-    private $RootId;
+    private $rootId;
 
     /**
      * Information on whether a stack's actual configuration differs, or has *drifted*, from it's expected configuration, as
@@ -126,7 +126,7 @@ final class Stack
      *
      * @see http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html
      */
-    private $DriftInformation;
+    private $driftInformation;
 
     /**
      * @param array{
@@ -156,28 +156,28 @@ final class Stack
      */
     public function __construct(array $input)
     {
-        $this->StackId = $input['StackId'] ?? null;
-        $this->StackName = $input['StackName'] ?? null;
-        $this->ChangeSetId = $input['ChangeSetId'] ?? null;
-        $this->Description = $input['Description'] ?? null;
-        $this->Parameters = isset($input['Parameters']) ? array_map([Parameter::class, 'create'], $input['Parameters']) : null;
-        $this->CreationTime = $input['CreationTime'] ?? null;
-        $this->DeletionTime = $input['DeletionTime'] ?? null;
-        $this->LastUpdatedTime = $input['LastUpdatedTime'] ?? null;
-        $this->RollbackConfiguration = isset($input['RollbackConfiguration']) ? RollbackConfiguration::create($input['RollbackConfiguration']) : null;
-        $this->StackStatus = $input['StackStatus'] ?? null;
-        $this->StackStatusReason = $input['StackStatusReason'] ?? null;
-        $this->DisableRollback = $input['DisableRollback'] ?? null;
-        $this->NotificationARNs = $input['NotificationARNs'] ?? null;
-        $this->TimeoutInMinutes = $input['TimeoutInMinutes'] ?? null;
-        $this->Capabilities = $input['Capabilities'] ?? null;
-        $this->Outputs = isset($input['Outputs']) ? array_map([Output::class, 'create'], $input['Outputs']) : null;
-        $this->RoleARN = $input['RoleARN'] ?? null;
-        $this->Tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
-        $this->EnableTerminationProtection = $input['EnableTerminationProtection'] ?? null;
-        $this->ParentId = $input['ParentId'] ?? null;
-        $this->RootId = $input['RootId'] ?? null;
-        $this->DriftInformation = isset($input['DriftInformation']) ? StackDriftInformation::create($input['DriftInformation']) : null;
+        $this->stackId = $input['StackId'] ?? null;
+        $this->stackName = $input['StackName'] ?? null;
+        $this->changeSetId = $input['ChangeSetId'] ?? null;
+        $this->description = $input['Description'] ?? null;
+        $this->parameters = isset($input['Parameters']) ? array_map([Parameter::class, 'create'], $input['Parameters']) : null;
+        $this->creationTime = $input['CreationTime'] ?? null;
+        $this->deletionTime = $input['DeletionTime'] ?? null;
+        $this->lastUpdatedTime = $input['LastUpdatedTime'] ?? null;
+        $this->rollbackConfiguration = isset($input['RollbackConfiguration']) ? RollbackConfiguration::create($input['RollbackConfiguration']) : null;
+        $this->stackStatus = $input['StackStatus'] ?? null;
+        $this->stackStatusReason = $input['StackStatusReason'] ?? null;
+        $this->disableRollback = $input['DisableRollback'] ?? null;
+        $this->notificationArns = $input['NotificationARNs'] ?? null;
+        $this->timeoutInMinutes = $input['TimeoutInMinutes'] ?? null;
+        $this->capabilities = $input['Capabilities'] ?? null;
+        $this->outputs = isset($input['Outputs']) ? array_map([Output::class, 'create'], $input['Outputs']) : null;
+        $this->roleArn = $input['RoleARN'] ?? null;
+        $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
+        $this->enableTerminationProtection = $input['EnableTerminationProtection'] ?? null;
+        $this->parentId = $input['ParentId'] ?? null;
+        $this->rootId = $input['RootId'] ?? null;
+        $this->driftInformation = isset($input['DriftInformation']) ? StackDriftInformation::create($input['DriftInformation']) : null;
     }
 
     public static function create($input): self
@@ -190,55 +190,55 @@ final class Stack
      */
     public function getCapabilities(): array
     {
-        return $this->Capabilities ?? [];
+        return $this->capabilities ?? [];
     }
 
     public function getChangeSetId(): ?string
     {
-        return $this->ChangeSetId;
+        return $this->changeSetId;
     }
 
     public function getCreationTime(): \DateTimeImmutable
     {
-        return $this->CreationTime;
+        return $this->creationTime;
     }
 
     public function getDeletionTime(): ?\DateTimeImmutable
     {
-        return $this->DeletionTime;
+        return $this->deletionTime;
     }
 
     public function getDescription(): ?string
     {
-        return $this->Description;
+        return $this->description;
     }
 
     public function getDisableRollback(): ?bool
     {
-        return $this->DisableRollback;
+        return $this->disableRollback;
     }
 
     public function getDriftInformation(): ?StackDriftInformation
     {
-        return $this->DriftInformation;
+        return $this->driftInformation;
     }
 
     public function getEnableTerminationProtection(): ?bool
     {
-        return $this->EnableTerminationProtection;
+        return $this->enableTerminationProtection;
     }
 
     public function getLastUpdatedTime(): ?\DateTimeImmutable
     {
-        return $this->LastUpdatedTime;
+        return $this->lastUpdatedTime;
     }
 
     /**
      * @return string[]
      */
-    public function getNotificationARNs(): array
+    public function getNotificationArns(): array
     {
-        return $this->NotificationARNs ?? [];
+        return $this->notificationArns ?? [];
     }
 
     /**
@@ -246,7 +246,7 @@ final class Stack
      */
     public function getOutputs(): array
     {
-        return $this->Outputs ?? [];
+        return $this->outputs ?? [];
     }
 
     /**
@@ -254,37 +254,37 @@ final class Stack
      */
     public function getParameters(): array
     {
-        return $this->Parameters ?? [];
+        return $this->parameters ?? [];
     }
 
     public function getParentId(): ?string
     {
-        return $this->ParentId;
+        return $this->parentId;
     }
 
-    public function getRoleARN(): ?string
+    public function getRoleArn(): ?string
     {
-        return $this->RoleARN;
+        return $this->roleArn;
     }
 
     public function getRollbackConfiguration(): ?RollbackConfiguration
     {
-        return $this->RollbackConfiguration;
+        return $this->rollbackConfiguration;
     }
 
     public function getRootId(): ?string
     {
-        return $this->RootId;
+        return $this->rootId;
     }
 
     public function getStackId(): ?string
     {
-        return $this->StackId;
+        return $this->stackId;
     }
 
     public function getStackName(): string
     {
-        return $this->StackName;
+        return $this->stackName;
     }
 
     /**
@@ -292,12 +292,12 @@ final class Stack
      */
     public function getStackStatus(): string
     {
-        return $this->StackStatus;
+        return $this->stackStatus;
     }
 
     public function getStackStatusReason(): ?string
     {
-        return $this->StackStatusReason;
+        return $this->stackStatusReason;
     }
 
     /**
@@ -305,11 +305,11 @@ final class Stack
      */
     public function getTags(): array
     {
-        return $this->Tags ?? [];
+        return $this->tags ?? [];
     }
 
     public function getTimeoutInMinutes(): ?int
     {
-        return $this->TimeoutInMinutes;
+        return $this->timeoutInMinutes;
     }
 }

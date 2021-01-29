@@ -11,12 +11,12 @@ final class AgeRange
     /**
      * The lowest estimated age.
      */
-    private $Low;
+    private $low;
 
     /**
      * The highest estimated age.
      */
-    private $High;
+    private $high;
 
     /**
      * @param array{
@@ -26,8 +26,8 @@ final class AgeRange
      */
     public function __construct(array $input)
     {
-        $this->Low = $input['Low'] ?? null;
-        $this->High = $input['High'] ?? null;
+        $this->low = $input['Low'] ?? null;
+        $this->high = $input['High'] ?? null;
     }
 
     public static function create($input): self
@@ -37,11 +37,11 @@ final class AgeRange
 
     public function getHigh(): ?int
     {
-        return $this->High;
+        return $this->high;
     }
 
     public function getLow(): ?int
     {
-        return $this->Low;
+        return $this->low;
     }
 }

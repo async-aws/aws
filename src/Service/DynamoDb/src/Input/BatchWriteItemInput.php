@@ -23,12 +23,12 @@ final class BatchWriteItemInput extends Input
      *
      * @var array<string, WriteRequest[]>|null
      */
-    private $RequestItems;
+    private $requestItems;
 
     /**
      * @var null|ReturnConsumedCapacity::*
      */
-    private $ReturnConsumedCapacity;
+    private $returnConsumedCapacity;
 
     /**
      * Determines whether item collection metrics are returned. If set to `SIZE`, the response includes statistics about
@@ -37,7 +37,7 @@ final class BatchWriteItemInput extends Input
      *
      * @var null|ReturnItemCollectionMetrics::*
      */
-    private $ReturnItemCollectionMetrics;
+    private $returnItemCollectionMetrics;
 
     /**
      * @param array{
@@ -50,13 +50,13 @@ final class BatchWriteItemInput extends Input
     public function __construct(array $input = [])
     {
         if (isset($input['RequestItems'])) {
-            $this->RequestItems = [];
+            $this->requestItems = [];
             foreach ($input['RequestItems'] ?? [] as $key => $item) {
-                $this->RequestItems[$key] = array_map([WriteRequest::class, 'create'], $item);
+                $this->requestItems[$key] = array_map([WriteRequest::class, 'create'], $item);
             }
         }
-        $this->ReturnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
-        $this->ReturnItemCollectionMetrics = $input['ReturnItemCollectionMetrics'] ?? null;
+        $this->returnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
+        $this->returnItemCollectionMetrics = $input['ReturnItemCollectionMetrics'] ?? null;
         parent::__construct($input);
     }
 
@@ -70,7 +70,7 @@ final class BatchWriteItemInput extends Input
      */
     public function getRequestItems(): array
     {
-        return $this->RequestItems ?? [];
+        return $this->requestItems ?? [];
     }
 
     /**
@@ -78,7 +78,7 @@ final class BatchWriteItemInput extends Input
      */
     public function getReturnConsumedCapacity(): ?string
     {
-        return $this->ReturnConsumedCapacity;
+        return $this->returnConsumedCapacity;
     }
 
     /**
@@ -86,7 +86,7 @@ final class BatchWriteItemInput extends Input
      */
     public function getReturnItemCollectionMetrics(): ?string
     {
-        return $this->ReturnItemCollectionMetrics;
+        return $this->returnItemCollectionMetrics;
     }
 
     /**
@@ -119,7 +119,7 @@ final class BatchWriteItemInput extends Input
      */
     public function setRequestItems(array $value): self
     {
-        $this->RequestItems = $value;
+        $this->requestItems = $value;
 
         return $this;
     }
@@ -129,7 +129,7 @@ final class BatchWriteItemInput extends Input
      */
     public function setReturnConsumedCapacity(?string $value): self
     {
-        $this->ReturnConsumedCapacity = $value;
+        $this->returnConsumedCapacity = $value;
 
         return $this;
     }
@@ -139,7 +139,7 @@ final class BatchWriteItemInput extends Input
      */
     public function setReturnItemCollectionMetrics(?string $value): self
     {
-        $this->ReturnItemCollectionMetrics = $value;
+        $this->returnItemCollectionMetrics = $value;
 
         return $this;
     }
@@ -147,7 +147,7 @@ final class BatchWriteItemInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->RequestItems) {
+        if (null === $v = $this->requestItems) {
             throw new InvalidArgument(sprintf('Missing parameter "RequestItems" for "%s". The value cannot be null.', __CLASS__));
         }
 
@@ -164,13 +164,13 @@ final class BatchWriteItemInput extends Input
                 }
             }
         }
-        if (null !== $v = $this->ReturnConsumedCapacity) {
+        if (null !== $v = $this->returnConsumedCapacity) {
             if (!ReturnConsumedCapacity::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ReturnConsumedCapacity" for "%s". The value "%s" is not a valid "ReturnConsumedCapacity".', __CLASS__, $v));
             }
             $payload['ReturnConsumedCapacity'] = $v;
         }
-        if (null !== $v = $this->ReturnItemCollectionMetrics) {
+        if (null !== $v = $this->returnItemCollectionMetrics) {
             if (!ReturnItemCollectionMetrics::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ReturnItemCollectionMetrics" for "%s". The value "%s" is not a valid "ReturnItemCollectionMetrics".', __CLASS__, $v));
             }

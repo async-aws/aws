@@ -10,19 +10,19 @@ class CreateProjectResponse extends Result
     /**
      * The Amazon Resource Name (ARN) of the new project. You can use the ARN to configure IAM access to the project.
      */
-    private $ProjectArn;
+    private $projectArn;
 
     public function getProjectArn(): ?string
     {
         $this->initialize();
 
-        return $this->ProjectArn;
+        return $this->projectArn;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->ProjectArn = isset($data['ProjectArn']) ? (string) $data['ProjectArn'] : null;
+        $this->projectArn = isset($data['ProjectArn']) ? (string) $data['ProjectArn'] : null;
     }
 }

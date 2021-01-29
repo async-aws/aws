@@ -7,17 +7,17 @@ final class NotificationConfiguration
     /**
      * The topic to which notifications are sent and the events for which notifications are generated.
      */
-    private $TopicConfigurations;
+    private $topicConfigurations;
 
     /**
      * The Amazon Simple Queue Service queues to publish messages to and the events for which to publish messages.
      */
-    private $QueueConfigurations;
+    private $queueConfigurations;
 
     /**
      * Describes the AWS Lambda functions to invoke and the events for which to invoke them.
      */
-    private $LambdaFunctionConfigurations;
+    private $lambdaFunctionConfigurations;
 
     /**
      * @param array{
@@ -28,9 +28,9 @@ final class NotificationConfiguration
      */
     public function __construct(array $input)
     {
-        $this->TopicConfigurations = isset($input['TopicConfigurations']) ? array_map([TopicConfiguration::class, 'create'], $input['TopicConfigurations']) : null;
-        $this->QueueConfigurations = isset($input['QueueConfigurations']) ? array_map([QueueConfiguration::class, 'create'], $input['QueueConfigurations']) : null;
-        $this->LambdaFunctionConfigurations = isset($input['LambdaFunctionConfigurations']) ? array_map([LambdaFunctionConfiguration::class, 'create'], $input['LambdaFunctionConfigurations']) : null;
+        $this->topicConfigurations = isset($input['TopicConfigurations']) ? array_map([TopicConfiguration::class, 'create'], $input['TopicConfigurations']) : null;
+        $this->queueConfigurations = isset($input['QueueConfigurations']) ? array_map([QueueConfiguration::class, 'create'], $input['QueueConfigurations']) : null;
+        $this->lambdaFunctionConfigurations = isset($input['LambdaFunctionConfigurations']) ? array_map([LambdaFunctionConfiguration::class, 'create'], $input['LambdaFunctionConfigurations']) : null;
     }
 
     public static function create($input): self
@@ -43,7 +43,7 @@ final class NotificationConfiguration
      */
     public function getLambdaFunctionConfigurations(): array
     {
-        return $this->LambdaFunctionConfigurations ?? [];
+        return $this->lambdaFunctionConfigurations ?? [];
     }
 
     /**
@@ -51,7 +51,7 @@ final class NotificationConfiguration
      */
     public function getQueueConfigurations(): array
     {
-        return $this->QueueConfigurations ?? [];
+        return $this->queueConfigurations ?? [];
     }
 
     /**
@@ -59,7 +59,7 @@ final class NotificationConfiguration
      */
     public function getTopicConfigurations(): array
     {
-        return $this->TopicConfigurations ?? [];
+        return $this->topicConfigurations ?? [];
     }
 
     /**
@@ -67,21 +67,21 @@ final class NotificationConfiguration
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        if (null !== $v = $this->TopicConfigurations) {
+        if (null !== $v = $this->topicConfigurations) {
             foreach ($v as $item) {
                 $node->appendChild($child = $document->createElement('TopicConfiguration'));
 
                 $item->requestBody($child, $document);
             }
         }
-        if (null !== $v = $this->QueueConfigurations) {
+        if (null !== $v = $this->queueConfigurations) {
             foreach ($v as $item) {
                 $node->appendChild($child = $document->createElement('QueueConfiguration'));
 
                 $item->requestBody($child, $document);
             }
         }
-        if (null !== $v = $this->LambdaFunctionConfigurations) {
+        if (null !== $v = $this->lambdaFunctionConfigurations) {
             foreach ($v as $item) {
                 $node->appendChild($child = $document->createElement('CloudFunctionConfiguration'));
 

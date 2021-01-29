@@ -21,7 +21,7 @@ class ListUsersResponse extends Result implements \IteratorAggregate
     /**
      * A list of users.
      */
-    private $Users = [];
+    private $users = [];
 
     /**
      * A flag that indicates whether there are more items to return. If your results were truncated, you can make a
@@ -29,19 +29,19 @@ class ListUsersResponse extends Result implements \IteratorAggregate
      * fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check
      * `IsTruncated` after every call to ensure that you receive all your results.
      */
-    private $IsTruncated;
+    private $isTruncated;
 
     /**
      * When `IsTruncated` is `true`, this element is present and contains the value to use for the `Marker` parameter in a
      * subsequent pagination request.
      */
-    private $Marker;
+    private $marker;
 
     public function getIsTruncated(): ?bool
     {
         $this->initialize();
 
-        return $this->IsTruncated;
+        return $this->isTruncated;
     }
 
     /**
@@ -84,7 +84,7 @@ class ListUsersResponse extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->Marker;
+        return $this->marker;
     }
 
     /**
@@ -96,7 +96,7 @@ class ListUsersResponse extends Result implements \IteratorAggregate
     {
         if ($currentPageOnly) {
             $this->initialize();
-            yield from $this->Users;
+            yield from $this->users;
 
             return;
         }
@@ -135,9 +135,9 @@ class ListUsersResponse extends Result implements \IteratorAggregate
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->ListUsersResult;
 
-        $this->Users = $this->populateResultUserListType($data->Users);
-        $this->IsTruncated = ($v = $data->IsTruncated) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
-        $this->Marker = ($v = $data->Marker) ? (string) $v : null;
+        $this->users = $this->populateResultUserListType($data->Users);
+        $this->isTruncated = ($v = $data->IsTruncated) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null;
+        $this->marker = ($v = $data->Marker) ? (string) $v : null;
     }
 
     /**

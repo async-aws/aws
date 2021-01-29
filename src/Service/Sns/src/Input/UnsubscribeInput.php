@@ -19,7 +19,7 @@ final class UnsubscribeInput extends Input
      *
      * @var string|null
      */
-    private $SubscriptionArn;
+    private $subscriptionArn;
 
     /**
      * @param array{
@@ -29,7 +29,7 @@ final class UnsubscribeInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->SubscriptionArn = $input['SubscriptionArn'] ?? null;
+        $this->subscriptionArn = $input['SubscriptionArn'] ?? null;
         parent::__construct($input);
     }
 
@@ -40,7 +40,7 @@ final class UnsubscribeInput extends Input
 
     public function getSubscriptionArn(): ?string
     {
-        return $this->SubscriptionArn;
+        return $this->subscriptionArn;
     }
 
     /**
@@ -66,7 +66,7 @@ final class UnsubscribeInput extends Input
 
     public function setSubscriptionArn(?string $value): self
     {
-        $this->SubscriptionArn = $value;
+        $this->subscriptionArn = $value;
 
         return $this;
     }
@@ -74,7 +74,7 @@ final class UnsubscribeInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->SubscriptionArn) {
+        if (null === $v = $this->subscriptionArn) {
             throw new InvalidArgument(sprintf('Missing parameter "SubscriptionArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['SubscriptionArn'] = $v;

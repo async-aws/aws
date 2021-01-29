@@ -26,24 +26,24 @@ final class ExpectedAttributeValue
     /**
      * Represents the data for the expected attribute.
      */
-    private $Value;
+    private $value;
 
     /**
      * Causes DynamoDB to evaluate the value before attempting a conditional operation:.
      */
-    private $Exists;
+    private $exists;
 
     /**
      * A comparator for evaluating attributes in the `AttributeValueList`. For example, equals, greater than, less than,
      * etc.
      */
-    private $ComparisonOperator;
+    private $comparisonOperator;
 
     /**
      * One or more values to evaluate against the supplied attribute. The number of values in the list depends on the
      * `ComparisonOperator` being used.
      */
-    private $AttributeValueList;
+    private $attributeValueList;
 
     /**
      * @param array{
@@ -55,10 +55,10 @@ final class ExpectedAttributeValue
      */
     public function __construct(array $input)
     {
-        $this->Value = isset($input['Value']) ? AttributeValue::create($input['Value']) : null;
-        $this->Exists = $input['Exists'] ?? null;
-        $this->ComparisonOperator = $input['ComparisonOperator'] ?? null;
-        $this->AttributeValueList = isset($input['AttributeValueList']) ? array_map([AttributeValue::class, 'create'], $input['AttributeValueList']) : null;
+        $this->value = isset($input['Value']) ? AttributeValue::create($input['Value']) : null;
+        $this->exists = $input['Exists'] ?? null;
+        $this->comparisonOperator = $input['ComparisonOperator'] ?? null;
+        $this->attributeValueList = isset($input['AttributeValueList']) ? array_map([AttributeValue::class, 'create'], $input['AttributeValueList']) : null;
     }
 
     public static function create($input): self
@@ -71,7 +71,7 @@ final class ExpectedAttributeValue
      */
     public function getAttributeValueList(): array
     {
-        return $this->AttributeValueList ?? [];
+        return $this->attributeValueList ?? [];
     }
 
     /**
@@ -79,17 +79,17 @@ final class ExpectedAttributeValue
      */
     public function getComparisonOperator(): ?string
     {
-        return $this->ComparisonOperator;
+        return $this->comparisonOperator;
     }
 
     public function getExists(): ?bool
     {
-        return $this->Exists;
+        return $this->exists;
     }
 
     public function getValue(): ?AttributeValue
     {
-        return $this->Value;
+        return $this->value;
     }
 
     /**
@@ -98,19 +98,19 @@ final class ExpectedAttributeValue
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->Value) {
+        if (null !== $v = $this->value) {
             $payload['Value'] = $v->requestBody();
         }
-        if (null !== $v = $this->Exists) {
+        if (null !== $v = $this->exists) {
             $payload['Exists'] = (bool) $v;
         }
-        if (null !== $v = $this->ComparisonOperator) {
+        if (null !== $v = $this->comparisonOperator) {
             if (!ComparisonOperator::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ComparisonOperator" for "%s". The value "%s" is not a valid "ComparisonOperator".', __CLASS__, $v));
             }
             $payload['ComparisonOperator'] = $v;
         }
-        if (null !== $v = $this->AttributeValueList) {
+        if (null !== $v = $this->attributeValueList) {
             $index = -1;
             $payload['AttributeValueList'] = [];
             foreach ($v as $listValue) {

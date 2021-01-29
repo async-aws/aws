@@ -16,17 +16,17 @@ final class ReplicationGroupUpdate
     /**
      * The parameters required for creating a replica for the table.
      */
-    private $Create;
+    private $create;
 
     /**
      * The parameters required for updating a replica for the table.
      */
-    private $Update;
+    private $update;
 
     /**
      * The parameters required for deleting a replica for the table.
      */
-    private $Delete;
+    private $delete;
 
     /**
      * @param array{
@@ -37,9 +37,9 @@ final class ReplicationGroupUpdate
      */
     public function __construct(array $input)
     {
-        $this->Create = isset($input['Create']) ? CreateReplicationGroupMemberAction::create($input['Create']) : null;
-        $this->Update = isset($input['Update']) ? UpdateReplicationGroupMemberAction::create($input['Update']) : null;
-        $this->Delete = isset($input['Delete']) ? DeleteReplicationGroupMemberAction::create($input['Delete']) : null;
+        $this->create = isset($input['Create']) ? CreateReplicationGroupMemberAction::create($input['Create']) : null;
+        $this->update = isset($input['Update']) ? UpdateReplicationGroupMemberAction::create($input['Update']) : null;
+        $this->delete = isset($input['Delete']) ? DeleteReplicationGroupMemberAction::create($input['Delete']) : null;
     }
 
     public static function create($input): self
@@ -49,17 +49,17 @@ final class ReplicationGroupUpdate
 
     public function getCreate(): ?CreateReplicationGroupMemberAction
     {
-        return $this->Create;
+        return $this->create;
     }
 
     public function getDelete(): ?DeleteReplicationGroupMemberAction
     {
-        return $this->Delete;
+        return $this->delete;
     }
 
     public function getUpdate(): ?UpdateReplicationGroupMemberAction
     {
-        return $this->Update;
+        return $this->update;
     }
 
     /**
@@ -68,13 +68,13 @@ final class ReplicationGroupUpdate
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->Create) {
+        if (null !== $v = $this->create) {
             $payload['Create'] = $v->requestBody();
         }
-        if (null !== $v = $this->Update) {
+        if (null !== $v = $this->update) {
             $payload['Update'] = $v->requestBody();
         }
-        if (null !== $v = $this->Delete) {
+        if (null !== $v = $this->delete) {
             $payload['Delete'] = $v->requestBody();
         }
 

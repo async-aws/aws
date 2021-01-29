@@ -22,12 +22,12 @@ class ScanOutput extends Result implements \IteratorAggregate
      * An array of item attributes that match the scan criteria. Each element in this array consists of an attribute name
      * and the value for that attribute.
      */
-    private $Items = [];
+    private $items = [];
 
     /**
      * The number of items in the response.
      */
-    private $Count;
+    private $count;
 
     /**
      * The number of items evaluated, before any `ScanFilter` is applied. A high `ScannedCount` value with few, or no,
@@ -36,13 +36,13 @@ class ScanOutput extends Result implements \IteratorAggregate
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Count
      */
-    private $ScannedCount;
+    private $scannedCount;
 
     /**
      * The primary key of the item where the operation stopped, inclusive of the previous result set. Use this value to
      * start a new operation, excluding this value in the new request.
      */
-    private $LastEvaluatedKey = [];
+    private $lastEvaluatedKey = [];
 
     /**
      * The capacity units consumed by the `Scan` operation. The data returned includes the total provisioned throughput
@@ -52,20 +52,20 @@ class ScanOutput extends Result implements \IteratorAggregate
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html
      */
-    private $ConsumedCapacity;
+    private $consumedCapacity;
 
     public function getConsumedCapacity(): ?ConsumedCapacity
     {
         $this->initialize();
 
-        return $this->ConsumedCapacity;
+        return $this->consumedCapacity;
     }
 
     public function getCount(): ?int
     {
         $this->initialize();
 
-        return $this->Count;
+        return $this->count;
     }
 
     /**
@@ -77,7 +77,7 @@ class ScanOutput extends Result implements \IteratorAggregate
     {
         if ($currentPageOnly) {
             $this->initialize();
-            yield from $this->Items;
+            yield from $this->items;
 
             return;
         }
@@ -154,25 +154,25 @@ class ScanOutput extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->LastEvaluatedKey;
+        return $this->lastEvaluatedKey;
     }
 
     public function getScannedCount(): ?int
     {
         $this->initialize();
 
-        return $this->ScannedCount;
+        return $this->scannedCount;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->Items = empty($data['Items']) ? [] : $this->populateResultItemList($data['Items']);
-        $this->Count = isset($data['Count']) ? (int) $data['Count'] : null;
-        $this->ScannedCount = isset($data['ScannedCount']) ? (int) $data['ScannedCount'] : null;
-        $this->LastEvaluatedKey = empty($data['LastEvaluatedKey']) ? [] : $this->populateResultKey($data['LastEvaluatedKey']);
-        $this->ConsumedCapacity = empty($data['ConsumedCapacity']) ? null : new ConsumedCapacity([
+        $this->items = empty($data['Items']) ? [] : $this->populateResultItemList($data['Items']);
+        $this->count = isset($data['Count']) ? (int) $data['Count'] : null;
+        $this->scannedCount = isset($data['ScannedCount']) ? (int) $data['ScannedCount'] : null;
+        $this->lastEvaluatedKey = empty($data['LastEvaluatedKey']) ? [] : $this->populateResultKey($data['LastEvaluatedKey']);
+        $this->consumedCapacity = empty($data['ConsumedCapacity']) ? null : new ConsumedCapacity([
             'TableName' => isset($data['ConsumedCapacity']['TableName']) ? (string) $data['ConsumedCapacity']['TableName'] : null,
             'CapacityUnits' => isset($data['ConsumedCapacity']['CapacityUnits']) ? (float) $data['ConsumedCapacity']['CapacityUnits'] : null,
             'ReadCapacityUnits' => isset($data['ConsumedCapacity']['ReadCapacityUnits']) ? (float) $data['ConsumedCapacity']['ReadCapacityUnits'] : null,

@@ -4,7 +4,7 @@ namespace AsyncAws\S3\ValueObject;
 
 final class S3KeyFilter
 {
-    private $FilterRules;
+    private $filterRules;
 
     /**
      * @param array{
@@ -13,7 +13,7 @@ final class S3KeyFilter
      */
     public function __construct(array $input)
     {
-        $this->FilterRules = isset($input['FilterRules']) ? array_map([FilterRule::class, 'create'], $input['FilterRules']) : null;
+        $this->filterRules = isset($input['FilterRules']) ? array_map([FilterRule::class, 'create'], $input['FilterRules']) : null;
     }
 
     public static function create($input): self
@@ -26,7 +26,7 @@ final class S3KeyFilter
      */
     public function getFilterRules(): array
     {
-        return $this->FilterRules ?? [];
+        return $this->filterRules ?? [];
     }
 
     /**
@@ -34,7 +34,7 @@ final class S3KeyFilter
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        if (null !== $v = $this->FilterRules) {
+        if (null !== $v = $this->filterRules) {
             foreach ($v as $item) {
                 $node->appendChild($child = $document->createElement('FilterRule'));
 

@@ -12,12 +12,12 @@ final class Tag
      * *Required*. A string used to identify this tag. You can specify a maximum of 128 characters for a tag key. Tags owned
      * by Amazon Web Services (AWS) have the reserved prefix: `aws:`.
      */
-    private $Key;
+    private $key;
 
     /**
      * *Required*. A string containing the value for this tag. You can specify a maximum of 256 characters for a tag value.
      */
-    private $Value;
+    private $value;
 
     /**
      * @param array{
@@ -27,8 +27,8 @@ final class Tag
      */
     public function __construct(array $input)
     {
-        $this->Key = $input['Key'] ?? null;
-        $this->Value = $input['Value'] ?? null;
+        $this->key = $input['Key'] ?? null;
+        $this->value = $input['Value'] ?? null;
     }
 
     public static function create($input): self
@@ -38,11 +38,11 @@ final class Tag
 
     public function getKey(): string
     {
-        return $this->Key;
+        return $this->key;
     }
 
     public function getValue(): string
     {
-        return $this->Value;
+        return $this->value;
     }
 }

@@ -4,6 +4,7 @@
 
 ### Added
 
+- Changed case of object's properties to camelCase.
 - Added documentation in class's headers.
 
 ## 0.1.1

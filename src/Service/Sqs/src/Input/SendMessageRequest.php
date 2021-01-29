@@ -19,7 +19,7 @@ final class SendMessageRequest extends Input
      *
      * @var string|null
      */
-    private $QueueUrl;
+    private $queueUrl;
 
     /**
      * The message to send. The minimum size is one character. The maximum size is 256 KB.
@@ -28,7 +28,7 @@ final class SendMessageRequest extends Input
      *
      * @var string|null
      */
-    private $MessageBody;
+    private $messageBody;
 
     /**
      * The length of time, in seconds, for which to delay a specific message. Valid values: 0 to 900. Maximum: 15 minutes.
@@ -37,7 +37,7 @@ final class SendMessageRequest extends Input
      *
      * @var int|null
      */
-    private $DelaySeconds;
+    private $delaySeconds;
 
     /**
      * Each message attribute consists of a `Name`, `Type`, and `Value`. For more information, see Amazon SQS Message
@@ -47,28 +47,28 @@ final class SendMessageRequest extends Input
      *
      * @var array<string, MessageAttributeValue>|null
      */
-    private $MessageAttributes;
+    private $messageAttributes;
 
     /**
      * The message system attribute to send. Each message system attribute consists of a `Name`, `Type`, and `Value`.
      *
      * @var null|array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue>
      */
-    private $MessageSystemAttributes;
+    private $messageSystemAttributes;
 
     /**
      * This parameter applies only to FIFO (first-in-first-out) queues.
      *
      * @var string|null
      */
-    private $MessageDeduplicationId;
+    private $messageDeduplicationId;
 
     /**
      * This parameter applies only to FIFO (first-in-first-out) queues.
      *
      * @var string|null
      */
-    private $MessageGroupId;
+    private $messageGroupId;
 
     /**
      * @param array{
@@ -84,25 +84,25 @@ final class SendMessageRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->QueueUrl = $input['QueueUrl'] ?? null;
-        $this->MessageBody = $input['MessageBody'] ?? null;
-        $this->DelaySeconds = $input['DelaySeconds'] ?? null;
+        $this->queueUrl = $input['QueueUrl'] ?? null;
+        $this->messageBody = $input['MessageBody'] ?? null;
+        $this->delaySeconds = $input['DelaySeconds'] ?? null;
 
         if (isset($input['MessageAttributes'])) {
-            $this->MessageAttributes = [];
+            $this->messageAttributes = [];
             foreach ($input['MessageAttributes'] as $key => $item) {
-                $this->MessageAttributes[$key] = MessageAttributeValue::create($item);
+                $this->messageAttributes[$key] = MessageAttributeValue::create($item);
             }
         }
 
         if (isset($input['MessageSystemAttributes'])) {
-            $this->MessageSystemAttributes = [];
+            $this->messageSystemAttributes = [];
             foreach ($input['MessageSystemAttributes'] as $key => $item) {
-                $this->MessageSystemAttributes[$key] = MessageSystemAttributeValue::create($item);
+                $this->messageSystemAttributes[$key] = MessageSystemAttributeValue::create($item);
             }
         }
-        $this->MessageDeduplicationId = $input['MessageDeduplicationId'] ?? null;
-        $this->MessageGroupId = $input['MessageGroupId'] ?? null;
+        $this->messageDeduplicationId = $input['MessageDeduplicationId'] ?? null;
+        $this->messageGroupId = $input['MessageGroupId'] ?? null;
         parent::__construct($input);
     }
 
@@ -113,7 +113,7 @@ final class SendMessageRequest extends Input
 
     public function getDelaySeconds(): ?int
     {
-        return $this->DelaySeconds;
+        return $this->delaySeconds;
     }
 
     /**
@@ -121,22 +121,22 @@ final class SendMessageRequest extends Input
      */
     public function getMessageAttributes(): array
     {
-        return $this->MessageAttributes ?? [];
+        return $this->messageAttributes ?? [];
     }
 
     public function getMessageBody(): ?string
     {
-        return $this->MessageBody;
+        return $this->messageBody;
     }
 
     public function getMessageDeduplicationId(): ?string
     {
-        return $this->MessageDeduplicationId;
+        return $this->messageDeduplicationId;
     }
 
     public function getMessageGroupId(): ?string
     {
-        return $this->MessageGroupId;
+        return $this->messageGroupId;
     }
 
     /**
@@ -144,12 +144,12 @@ final class SendMessageRequest extends Input
      */
     public function getMessageSystemAttributes(): array
     {
-        return $this->MessageSystemAttributes ?? [];
+        return $this->messageSystemAttributes ?? [];
     }
 
     public function getQueueUrl(): ?string
     {
-        return $this->QueueUrl;
+        return $this->queueUrl;
     }
 
     /**
@@ -175,7 +175,7 @@ final class SendMessageRequest extends Input
 
     public function setDelaySeconds(?int $value): self
     {
-        $this->DelaySeconds = $value;
+        $this->delaySeconds = $value;
 
         return $this;
     }
@@ -185,28 +185,28 @@ final class SendMessageRequest extends Input
      */
     public function setMessageAttributes(array $value): self
     {
-        $this->MessageAttributes = $value;
+        $this->messageAttributes = $value;
 
         return $this;
     }
 
     public function setMessageBody(?string $value): self
     {
-        $this->MessageBody = $value;
+        $this->messageBody = $value;
 
         return $this;
     }
 
     public function setMessageDeduplicationId(?string $value): self
     {
-        $this->MessageDeduplicationId = $value;
+        $this->messageDeduplicationId = $value;
 
         return $this;
     }
 
     public function setMessageGroupId(?string $value): self
     {
-        $this->MessageGroupId = $value;
+        $this->messageGroupId = $value;
 
         return $this;
     }
@@ -216,14 +216,14 @@ final class SendMessageRequest extends Input
      */
     public function setMessageSystemAttributes(array $value): self
     {
-        $this->MessageSystemAttributes = $value;
+        $this->messageSystemAttributes = $value;
 
         return $this;
     }
 
     public function setQueueUrl(?string $value): self
     {
-        $this->QueueUrl = $value;
+        $this->queueUrl = $value;
 
         return $this;
     }
@@ -231,18 +231,18 @@ final class SendMessageRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->QueueUrl) {
+        if (null === $v = $this->queueUrl) {
             throw new InvalidArgument(sprintf('Missing parameter "QueueUrl" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['QueueUrl'] = $v;
-        if (null === $v = $this->MessageBody) {
+        if (null === $v = $this->messageBody) {
             throw new InvalidArgument(sprintf('Missing parameter "MessageBody" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['MessageBody'] = $v;
-        if (null !== $v = $this->DelaySeconds) {
+        if (null !== $v = $this->delaySeconds) {
             $payload['DelaySeconds'] = $v;
         }
-        if (null !== $v = $this->MessageAttributes) {
+        if (null !== $v = $this->messageAttributes) {
             $index = 0;
             foreach ($v as $mapKey => $mapValue) {
                 ++$index;
@@ -252,7 +252,7 @@ final class SendMessageRequest extends Input
                 }
             }
         }
-        if (null !== $v = $this->MessageSystemAttributes) {
+        if (null !== $v = $this->messageSystemAttributes) {
             $index = 0;
             foreach ($v as $mapKey => $mapValue) {
                 if (!MessageSystemAttributeNameForSends::exists($mapKey)) {
@@ -265,10 +265,10 @@ final class SendMessageRequest extends Input
                 }
             }
         }
-        if (null !== $v = $this->MessageDeduplicationId) {
+        if (null !== $v = $this->messageDeduplicationId) {
             $payload['MessageDeduplicationId'] = $v;
         }
-        if (null !== $v = $this->MessageGroupId) {
+        if (null !== $v = $this->messageGroupId) {
             $payload['MessageGroupId'] = $v;
         }
 

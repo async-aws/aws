@@ -12,32 +12,32 @@ final class MultipartUpload
     /**
      * Upload ID that identifies the multipart upload.
      */
-    private $UploadId;
+    private $uploadId;
 
     /**
      * Key of the object for which the multipart upload was initiated.
      */
-    private $Key;
+    private $key;
 
     /**
      * Date and time at which the multipart upload was initiated.
      */
-    private $Initiated;
+    private $initiated;
 
     /**
      * The class of storage used to store the object.
      */
-    private $StorageClass;
+    private $storageClass;
 
     /**
      * Specifies the owner of the object that is part of the multipart upload.
      */
-    private $Owner;
+    private $owner;
 
     /**
      * Identifies who initiated the multipart upload.
      */
-    private $Initiator;
+    private $initiator;
 
     /**
      * @param array{
@@ -51,12 +51,12 @@ final class MultipartUpload
      */
     public function __construct(array $input)
     {
-        $this->UploadId = $input['UploadId'] ?? null;
-        $this->Key = $input['Key'] ?? null;
-        $this->Initiated = $input['Initiated'] ?? null;
-        $this->StorageClass = $input['StorageClass'] ?? null;
-        $this->Owner = isset($input['Owner']) ? Owner::create($input['Owner']) : null;
-        $this->Initiator = isset($input['Initiator']) ? Initiator::create($input['Initiator']) : null;
+        $this->uploadId = $input['UploadId'] ?? null;
+        $this->key = $input['Key'] ?? null;
+        $this->initiated = $input['Initiated'] ?? null;
+        $this->storageClass = $input['StorageClass'] ?? null;
+        $this->owner = isset($input['Owner']) ? Owner::create($input['Owner']) : null;
+        $this->initiator = isset($input['Initiator']) ? Initiator::create($input['Initiator']) : null;
     }
 
     public static function create($input): self
@@ -66,22 +66,22 @@ final class MultipartUpload
 
     public function getInitiated(): ?\DateTimeImmutable
     {
-        return $this->Initiated;
+        return $this->initiated;
     }
 
     public function getInitiator(): ?Initiator
     {
-        return $this->Initiator;
+        return $this->initiator;
     }
 
     public function getKey(): ?string
     {
-        return $this->Key;
+        return $this->key;
     }
 
     public function getOwner(): ?Owner
     {
-        return $this->Owner;
+        return $this->owner;
     }
 
     /**
@@ -89,11 +89,11 @@ final class MultipartUpload
      */
     public function getStorageClass(): ?string
     {
-        return $this->StorageClass;
+        return $this->storageClass;
     }
 
     public function getUploadId(): ?string
     {
-        return $this->UploadId;
+        return $this->uploadId;
     }
 }

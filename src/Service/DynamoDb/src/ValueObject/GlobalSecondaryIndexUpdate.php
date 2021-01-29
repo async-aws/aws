@@ -15,17 +15,17 @@ final class GlobalSecondaryIndexUpdate
      * The name of an existing global secondary index, along with new provisioned throughput settings to be applied to that
      * index.
      */
-    private $Update;
+    private $update;
 
     /**
      * The parameters required for creating a global secondary index on an existing table:.
      */
-    private $Create;
+    private $create;
 
     /**
      * The name of an existing global secondary index to be removed.
      */
-    private $Delete;
+    private $delete;
 
     /**
      * @param array{
@@ -36,9 +36,9 @@ final class GlobalSecondaryIndexUpdate
      */
     public function __construct(array $input)
     {
-        $this->Update = isset($input['Update']) ? UpdateGlobalSecondaryIndexAction::create($input['Update']) : null;
-        $this->Create = isset($input['Create']) ? CreateGlobalSecondaryIndexAction::create($input['Create']) : null;
-        $this->Delete = isset($input['Delete']) ? DeleteGlobalSecondaryIndexAction::create($input['Delete']) : null;
+        $this->update = isset($input['Update']) ? UpdateGlobalSecondaryIndexAction::create($input['Update']) : null;
+        $this->create = isset($input['Create']) ? CreateGlobalSecondaryIndexAction::create($input['Create']) : null;
+        $this->delete = isset($input['Delete']) ? DeleteGlobalSecondaryIndexAction::create($input['Delete']) : null;
     }
 
     public static function create($input): self
@@ -48,17 +48,17 @@ final class GlobalSecondaryIndexUpdate
 
     public function getCreate(): ?CreateGlobalSecondaryIndexAction
     {
-        return $this->Create;
+        return $this->create;
     }
 
     public function getDelete(): ?DeleteGlobalSecondaryIndexAction
     {
-        return $this->Delete;
+        return $this->delete;
     }
 
     public function getUpdate(): ?UpdateGlobalSecondaryIndexAction
     {
-        return $this->Update;
+        return $this->update;
     }
 
     /**
@@ -67,13 +67,13 @@ final class GlobalSecondaryIndexUpdate
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->Update) {
+        if (null !== $v = $this->update) {
             $payload['Update'] = $v->requestBody();
         }
-        if (null !== $v = $this->Create) {
+        if (null !== $v = $this->create) {
             $payload['Create'] = $v->requestBody();
         }
-        if (null !== $v = $this->Delete) {
+        if (null !== $v = $this->delete) {
             $payload['Delete'] = $v->requestBody();
         }
 

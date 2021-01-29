@@ -12,12 +12,12 @@ final class AttributeType
     /**
      * The name of the attribute.
      */
-    private $Name;
+    private $name;
 
     /**
      * The value of the attribute.
      */
-    private $Value;
+    private $value;
 
     /**
      * @param array{
@@ -27,8 +27,8 @@ final class AttributeType
      */
     public function __construct(array $input)
     {
-        $this->Name = $input['Name'] ?? null;
-        $this->Value = $input['Value'] ?? null;
+        $this->name = $input['Name'] ?? null;
+        $this->value = $input['Value'] ?? null;
     }
 
     public static function create($input): self
@@ -38,12 +38,12 @@ final class AttributeType
 
     public function getName(): string
     {
-        return $this->Name;
+        return $this->name;
     }
 
     public function getValue(): ?string
     {
-        return $this->Value;
+        return $this->value;
     }
 
     /**
@@ -52,11 +52,11 @@ final class AttributeType
     public function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->Name) {
+        if (null === $v = $this->name) {
             throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Name'] = $v;
-        if (null !== $v = $this->Value) {
+        if (null !== $v = $this->value) {
             $payload['Value'] = $v;
         }
 

@@ -13,28 +13,28 @@ final class Message
      * A unique identifier for the message. A `MessageId`is considered unique across all AWS accounts for an extended period
      * of time.
      */
-    private $MessageId;
+    private $messageId;
 
     /**
      * An identifier associated with the act of receiving the message. A new receipt handle is returned every time you
      * receive a message. When deleting a message, you provide the last received receipt handle to delete the message.
      */
-    private $ReceiptHandle;
+    private $receiptHandle;
 
     /**
      * An MD5 digest of the non-URL-encoded message body string.
      */
-    private $MD5OfBody;
+    private $md5OfBody;
 
     /**
      * The message's contents (not URL-encoded).
      */
-    private $Body;
+    private $body;
 
     /**
      * A map of the attributes requested in `ReceiveMessage` to their respective values. Supported attributes:.
      */
-    private $Attributes;
+    private $attributes;
 
     /**
      * An MD5 digest of the non-URL-encoded message attribute string. You can use this attribute to verify that Amazon SQS
@@ -43,7 +43,7 @@ final class Message
      *
      * @see https://www.ietf.org/rfc/rfc1321.txt
      */
-    private $MD5OfMessageAttributes;
+    private $md5OfMessageAttributes;
 
     /**
      * Each message attribute consists of a `Name`, `Type`, and `Value`. For more information, see Amazon SQS Message
@@ -51,7 +51,7 @@ final class Message
      *
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes
      */
-    private $MessageAttributes;
+    private $messageAttributes;
 
     /**
      * @param array{
@@ -66,13 +66,13 @@ final class Message
      */
     public function __construct(array $input)
     {
-        $this->MessageId = $input['MessageId'] ?? null;
-        $this->ReceiptHandle = $input['ReceiptHandle'] ?? null;
-        $this->MD5OfBody = $input['MD5OfBody'] ?? null;
-        $this->Body = $input['Body'] ?? null;
-        $this->Attributes = $input['Attributes'] ?? null;
-        $this->MD5OfMessageAttributes = $input['MD5OfMessageAttributes'] ?? null;
-        $this->MessageAttributes = isset($input['MessageAttributes']) ? array_map([MessageAttributeValue::class, 'create'], $input['MessageAttributes']) : null;
+        $this->messageId = $input['MessageId'] ?? null;
+        $this->receiptHandle = $input['ReceiptHandle'] ?? null;
+        $this->md5OfBody = $input['MD5OfBody'] ?? null;
+        $this->body = $input['Body'] ?? null;
+        $this->attributes = $input['Attributes'] ?? null;
+        $this->md5OfMessageAttributes = $input['MD5OfMessageAttributes'] ?? null;
+        $this->messageAttributes = isset($input['MessageAttributes']) ? array_map([MessageAttributeValue::class, 'create'], $input['MessageAttributes']) : null;
     }
 
     public static function create($input): self
@@ -85,22 +85,22 @@ final class Message
      */
     public function getAttributes(): array
     {
-        return $this->Attributes ?? [];
+        return $this->attributes ?? [];
     }
 
     public function getBody(): ?string
     {
-        return $this->Body;
+        return $this->body;
     }
 
-    public function getMD5OfBody(): ?string
+    public function getMd5OfBody(): ?string
     {
-        return $this->MD5OfBody;
+        return $this->md5OfBody;
     }
 
-    public function getMD5OfMessageAttributes(): ?string
+    public function getMd5OfMessageAttributes(): ?string
     {
-        return $this->MD5OfMessageAttributes;
+        return $this->md5OfMessageAttributes;
     }
 
     /**
@@ -108,16 +108,16 @@ final class Message
      */
     public function getMessageAttributes(): array
     {
-        return $this->MessageAttributes ?? [];
+        return $this->messageAttributes ?? [];
     }
 
     public function getMessageId(): ?string
     {
-        return $this->MessageId;
+        return $this->messageId;
     }
 
     public function getReceiptHandle(): ?string
     {
-        return $this->ReceiptHandle;
+        return $this->receiptHandle;
     }
 }

@@ -21,7 +21,7 @@ final class GetItemInput extends Input
      *
      * @var string|null
      */
-    private $TableName;
+    private $tableName;
 
     /**
      * A map of attribute names to `AttributeValue` objects, representing the primary key of the item to retrieve.
@@ -30,7 +30,7 @@ final class GetItemInput extends Input
      *
      * @var array<string, AttributeValue>|null
      */
-    private $Key;
+    private $key;
 
     /**
      * This is a legacy parameter. Use `ProjectionExpression` instead. For more information, see AttributesToGet in the
@@ -40,7 +40,7 @@ final class GetItemInput extends Input
      *
      * @var string[]|null
      */
-    private $AttributesToGet;
+    private $attributesToGet;
 
     /**
      * Determines the read consistency model: If set to `true`, then the operation uses strongly consistent reads;
@@ -48,12 +48,12 @@ final class GetItemInput extends Input
      *
      * @var bool|null
      */
-    private $ConsistentRead;
+    private $consistentRead;
 
     /**
      * @var null|ReturnConsumedCapacity::*
      */
-    private $ReturnConsumedCapacity;
+    private $returnConsumedCapacity;
 
     /**
      * A string that identifies one or more attributes to retrieve from the table. These attributes can include scalars,
@@ -61,7 +61,7 @@ final class GetItemInput extends Input
      *
      * @var string|null
      */
-    private $ProjectionExpression;
+    private $projectionExpression;
 
     /**
      * One or more substitution tokens for attribute names in an expression. The following are some use cases for using
@@ -69,7 +69,7 @@ final class GetItemInput extends Input
      *
      * @var array<string, string>|null
      */
-    private $ExpressionAttributeNames;
+    private $expressionAttributeNames;
 
     /**
      * @param array{
@@ -85,19 +85,19 @@ final class GetItemInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->TableName = $input['TableName'] ?? null;
+        $this->tableName = $input['TableName'] ?? null;
 
         if (isset($input['Key'])) {
-            $this->Key = [];
+            $this->key = [];
             foreach ($input['Key'] as $key => $item) {
-                $this->Key[$key] = AttributeValue::create($item);
+                $this->key[$key] = AttributeValue::create($item);
             }
         }
-        $this->AttributesToGet = $input['AttributesToGet'] ?? null;
-        $this->ConsistentRead = $input['ConsistentRead'] ?? null;
-        $this->ReturnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
-        $this->ProjectionExpression = $input['ProjectionExpression'] ?? null;
-        $this->ExpressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
+        $this->attributesToGet = $input['AttributesToGet'] ?? null;
+        $this->consistentRead = $input['ConsistentRead'] ?? null;
+        $this->returnConsumedCapacity = $input['ReturnConsumedCapacity'] ?? null;
+        $this->projectionExpression = $input['ProjectionExpression'] ?? null;
+        $this->expressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
         parent::__construct($input);
     }
 
@@ -111,12 +111,12 @@ final class GetItemInput extends Input
      */
     public function getAttributesToGet(): array
     {
-        return $this->AttributesToGet ?? [];
+        return $this->attributesToGet ?? [];
     }
 
     public function getConsistentRead(): ?bool
     {
-        return $this->ConsistentRead;
+        return $this->consistentRead;
     }
 
     /**
@@ -124,7 +124,7 @@ final class GetItemInput extends Input
      */
     public function getExpressionAttributeNames(): array
     {
-        return $this->ExpressionAttributeNames ?? [];
+        return $this->expressionAttributeNames ?? [];
     }
 
     /**
@@ -132,12 +132,12 @@ final class GetItemInput extends Input
      */
     public function getKey(): array
     {
-        return $this->Key ?? [];
+        return $this->key ?? [];
     }
 
     public function getProjectionExpression(): ?string
     {
-        return $this->ProjectionExpression;
+        return $this->projectionExpression;
     }
 
     /**
@@ -145,12 +145,12 @@ final class GetItemInput extends Input
      */
     public function getReturnConsumedCapacity(): ?string
     {
-        return $this->ReturnConsumedCapacity;
+        return $this->returnConsumedCapacity;
     }
 
     public function getTableName(): ?string
     {
-        return $this->TableName;
+        return $this->tableName;
     }
 
     /**
@@ -183,14 +183,14 @@ final class GetItemInput extends Input
      */
     public function setAttributesToGet(array $value): self
     {
-        $this->AttributesToGet = $value;
+        $this->attributesToGet = $value;
 
         return $this;
     }
 
     public function setConsistentRead(?bool $value): self
     {
-        $this->ConsistentRead = $value;
+        $this->consistentRead = $value;
 
         return $this;
     }
@@ -200,7 +200,7 @@ final class GetItemInput extends Input
      */
     public function setExpressionAttributeNames(array $value): self
     {
-        $this->ExpressionAttributeNames = $value;
+        $this->expressionAttributeNames = $value;
 
         return $this;
     }
@@ -210,14 +210,14 @@ final class GetItemInput extends Input
      */
     public function setKey(array $value): self
     {
-        $this->Key = $value;
+        $this->key = $value;
 
         return $this;
     }
 
     public function setProjectionExpression(?string $value): self
     {
-        $this->ProjectionExpression = $value;
+        $this->projectionExpression = $value;
 
         return $this;
     }
@@ -227,14 +227,14 @@ final class GetItemInput extends Input
      */
     public function setReturnConsumedCapacity(?string $value): self
     {
-        $this->ReturnConsumedCapacity = $value;
+        $this->returnConsumedCapacity = $value;
 
         return $this;
     }
 
     public function setTableName(?string $value): self
     {
-        $this->TableName = $value;
+        $this->tableName = $value;
 
         return $this;
     }
@@ -242,11 +242,11 @@ final class GetItemInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->TableName) {
+        if (null === $v = $this->tableName) {
             throw new InvalidArgument(sprintf('Missing parameter "TableName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TableName'] = $v;
-        if (null === $v = $this->Key) {
+        if (null === $v = $this->key) {
             throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
         }
 
@@ -258,7 +258,7 @@ final class GetItemInput extends Input
                 $payload['Key'][$name] = $mv->requestBody();
             }
         }
-        if (null !== $v = $this->AttributesToGet) {
+        if (null !== $v = $this->attributesToGet) {
             $index = -1;
             $payload['AttributesToGet'] = [];
             foreach ($v as $listValue) {
@@ -266,19 +266,19 @@ final class GetItemInput extends Input
                 $payload['AttributesToGet'][$index] = $listValue;
             }
         }
-        if (null !== $v = $this->ConsistentRead) {
+        if (null !== $v = $this->consistentRead) {
             $payload['ConsistentRead'] = (bool) $v;
         }
-        if (null !== $v = $this->ReturnConsumedCapacity) {
+        if (null !== $v = $this->returnConsumedCapacity) {
             if (!ReturnConsumedCapacity::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "ReturnConsumedCapacity" for "%s". The value "%s" is not a valid "ReturnConsumedCapacity".', __CLASS__, $v));
             }
             $payload['ReturnConsumedCapacity'] = $v;
         }
-        if (null !== $v = $this->ProjectionExpression) {
+        if (null !== $v = $this->projectionExpression) {
             $payload['ProjectionExpression'] = $v;
         }
-        if (null !== $v = $this->ExpressionAttributeNames) {
+        if (null !== $v = $this->expressionAttributeNames) {
             if (empty($v)) {
                 $payload['ExpressionAttributeNames'] = new \stdClass();
             } else {

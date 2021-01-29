@@ -15,19 +15,19 @@ final class SSESpecification
      * server-side encryption type is set to `KMS` and an AWS managed CMK is used (AWS KMS charges apply). If disabled
      * (false) or not specified, server-side encryption is set to AWS owned CMK.
      */
-    private $Enabled;
+    private $enabled;
 
     /**
      * Server-side encryption type. The only supported value is:.
      */
-    private $SSEType;
+    private $sseType;
 
     /**
      * The AWS KMS customer master key (CMK) that should be used for the AWS KMS encryption. To specify a CMK, use its key
      * ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key
      * is different from the default DynamoDB customer master key alias/aws/dynamodb.
      */
-    private $KMSMasterKeyId;
+    private $kmsMasterKeyId;
 
     /**
      * @param array{
@@ -38,9 +38,9 @@ final class SSESpecification
      */
     public function __construct(array $input)
     {
-        $this->Enabled = $input['Enabled'] ?? null;
-        $this->SSEType = $input['SSEType'] ?? null;
-        $this->KMSMasterKeyId = $input['KMSMasterKeyId'] ?? null;
+        $this->enabled = $input['Enabled'] ?? null;
+        $this->sseType = $input['SSEType'] ?? null;
+        $this->kmsMasterKeyId = $input['KMSMasterKeyId'] ?? null;
     }
 
     public static function create($input): self
@@ -50,20 +50,20 @@ final class SSESpecification
 
     public function getEnabled(): ?bool
     {
-        return $this->Enabled;
+        return $this->enabled;
     }
 
-    public function getKMSMasterKeyId(): ?string
+    public function getKmsMasterKeyId(): ?string
     {
-        return $this->KMSMasterKeyId;
+        return $this->kmsMasterKeyId;
     }
 
     /**
      * @return SSEType::*|null
      */
-    public function getSSEType(): ?string
+    public function getSseType(): ?string
     {
-        return $this->SSEType;
+        return $this->sseType;
     }
 
     /**
@@ -72,16 +72,16 @@ final class SSESpecification
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->Enabled) {
+        if (null !== $v = $this->enabled) {
             $payload['Enabled'] = (bool) $v;
         }
-        if (null !== $v = $this->SSEType) {
+        if (null !== $v = $this->sseType) {
             if (!SSEType::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "SSEType" for "%s". The value "%s" is not a valid "SSEType".', __CLASS__, $v));
             }
             $payload['SSEType'] = $v;
         }
-        if (null !== $v = $this->KMSMasterKeyId) {
+        if (null !== $v = $this->kmsMasterKeyId) {
             $payload['KMSMasterKeyId'] = $v;
         }
 

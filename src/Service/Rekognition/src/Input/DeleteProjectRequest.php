@@ -16,7 +16,7 @@ final class DeleteProjectRequest extends Input
      *
      * @var string|null
      */
-    private $ProjectArn;
+    private $projectArn;
 
     /**
      * @param array{
@@ -26,7 +26,7 @@ final class DeleteProjectRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->ProjectArn = $input['ProjectArn'] ?? null;
+        $this->projectArn = $input['ProjectArn'] ?? null;
         parent::__construct($input);
     }
 
@@ -37,7 +37,7 @@ final class DeleteProjectRequest extends Input
 
     public function getProjectArn(): ?string
     {
-        return $this->ProjectArn;
+        return $this->projectArn;
     }
 
     /**
@@ -67,7 +67,7 @@ final class DeleteProjectRequest extends Input
 
     public function setProjectArn(?string $value): self
     {
-        $this->ProjectArn = $value;
+        $this->projectArn = $value;
 
         return $this;
     }
@@ -75,7 +75,7 @@ final class DeleteProjectRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->ProjectArn) {
+        if (null === $v = $this->projectArn) {
             throw new InvalidArgument(sprintf('Missing parameter "ProjectArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['ProjectArn'] = $v;

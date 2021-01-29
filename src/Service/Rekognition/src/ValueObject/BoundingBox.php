@@ -10,22 +10,22 @@ final class BoundingBox
     /**
      * Width of the bounding box as a ratio of the overall image width.
      */
-    private $Width;
+    private $width;
 
     /**
      * Height of the bounding box as a ratio of the overall image height.
      */
-    private $Height;
+    private $height;
 
     /**
      * Left coordinate of the bounding box as a ratio of overall image width.
      */
-    private $Left;
+    private $left;
 
     /**
      * Top coordinate of the bounding box as a ratio of overall image height.
      */
-    private $Top;
+    private $top;
 
     /**
      * @param array{
@@ -37,10 +37,10 @@ final class BoundingBox
      */
     public function __construct(array $input)
     {
-        $this->Width = $input['Width'] ?? null;
-        $this->Height = $input['Height'] ?? null;
-        $this->Left = $input['Left'] ?? null;
-        $this->Top = $input['Top'] ?? null;
+        $this->width = $input['Width'] ?? null;
+        $this->height = $input['Height'] ?? null;
+        $this->left = $input['Left'] ?? null;
+        $this->top = $input['Top'] ?? null;
     }
 
     public static function create($input): self
@@ -50,21 +50,21 @@ final class BoundingBox
 
     public function getHeight(): ?float
     {
-        return $this->Height;
+        return $this->height;
     }
 
     public function getLeft(): ?float
     {
-        return $this->Left;
+        return $this->left;
     }
 
     public function getTop(): ?float
     {
-        return $this->Top;
+        return $this->top;
     }
 
     public function getWidth(): ?float
     {
-        return $this->Width;
+        return $this->width;
     }
 }

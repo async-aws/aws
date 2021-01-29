@@ -14,6 +14,50 @@ namespace AsyncAws\CodeGenerator\Generator;
  */
 class GeneratorHelper
 {
+    public static function normalizeName(string $propertyName): string
+    {
+        static $cache;
+        if (isset($cache[$propertyName])) {
+            return $cache[$propertyName];
+        }
+
+        // Ordered by search length to avoid collision and wrong substitution
+        static $replacements = [
+            'BOOL' => 'Bool',
+            'ETag' => 'Etag',
+            'NULL' => 'Null',
+            'AWS' => 'Aws',
+            'ACL' => 'Acl',
+            'ACP' => 'Acp',
+            'KMS' => 'Kms',
+            'ARN' => 'Arn',
+            'MFA' => 'Mfa',
+            'SSE' => 'Sse',
+            'SMS' => 'Sms',
+            'URI' => 'Uri',
+            'MD5' => 'Md5',
+            'BS' => 'Bs',
+            'ID' => 'Id',
+            'NS' => 'Ns',
+            'SS' => 'Ss',
+        ];
+        static $ignored = [
+            'GB' => 'Gb',
+        ];
+
+        $originalPropertyName = $propertyName;
+        $propertyName = \strtr($propertyName, $replacements);
+
+        if (\preg_match('/[A-Z]{2,}/', $propertyName)) {
+            $propertyName = \strtr($propertyName, $ignored);
+            if (\preg_match('/[A-Z]{2,}/', $propertyName)) {
+                throw new \RuntimeException(sprintf('No camel case property "%s" is not yet implemented', $originalPropertyName));
+            }
+        }
+
+        return $cache[$propertyName] = \lcfirst($propertyName);
+    }
+
     public static function parseDocumentation(string $documentation, bool $short = true): string
     {
         $s = preg_replace('/>\s*</', '><', $documentation);

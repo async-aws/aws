@@ -21,14 +21,14 @@ final class PutObjectAclRequest extends Input
      *
      * @var null|ObjectCannedACL::*
      */
-    private $ACL;
+    private $acl;
 
     /**
      * Contains the elements that set the ACL permissions for an object per grantee.
      *
      * @var AccessControlPolicy|null
      */
-    private $AccessControlPolicy;
+    private $accessControlPolicy;
 
     /**
      * The bucket name that contains the object to which you want to attach the ACL.
@@ -37,7 +37,7 @@ final class PutObjectAclRequest extends Input
      *
      * @var string|null
      */
-    private $Bucket;
+    private $bucket;
 
     /**
      * The base64-encoded 128-bit MD5 digest of the data. This header must be used as a message integrity check to verify
@@ -47,42 +47,42 @@ final class PutObjectAclRequest extends Input
      *
      * @var string|null
      */
-    private $ContentMD5;
+    private $contentMd5;
 
     /**
      * Allows grantee the read, write, read ACP, and write ACP permissions on the bucket.
      *
      * @var string|null
      */
-    private $GrantFullControl;
+    private $grantFullControl;
 
     /**
      * Allows grantee to list the objects in the bucket.
      *
      * @var string|null
      */
-    private $GrantRead;
+    private $grantRead;
 
     /**
      * Allows grantee to read the bucket ACL.
      *
      * @var string|null
      */
-    private $GrantReadACP;
+    private $grantReadAcp;
 
     /**
      * Allows grantee to create, overwrite, and delete any object in the bucket.
      *
      * @var string|null
      */
-    private $GrantWrite;
+    private $grantWrite;
 
     /**
      * Allows grantee to write the ACL for the applicable bucket.
      *
      * @var string|null
      */
-    private $GrantWriteACP;
+    private $grantWriteAcp;
 
     /**
      * Key for which the PUT operation was initiated.
@@ -91,19 +91,19 @@ final class PutObjectAclRequest extends Input
      *
      * @var string|null
      */
-    private $Key;
+    private $key;
 
     /**
      * @var null|RequestPayer::*
      */
-    private $RequestPayer;
+    private $requestPayer;
 
     /**
      * VersionId used to reference a specific version of the object.
      *
      * @var string|null
      */
-    private $VersionId;
+    private $versionId;
 
     /**
      * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
@@ -111,7 +111,7 @@ final class PutObjectAclRequest extends Input
      *
      * @var string|null
      */
-    private $ExpectedBucketOwner;
+    private $expectedBucketOwner;
 
     /**
      * @param array{
@@ -133,19 +133,19 @@ final class PutObjectAclRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->ACL = $input['ACL'] ?? null;
-        $this->AccessControlPolicy = isset($input['AccessControlPolicy']) ? AccessControlPolicy::create($input['AccessControlPolicy']) : null;
-        $this->Bucket = $input['Bucket'] ?? null;
-        $this->ContentMD5 = $input['ContentMD5'] ?? null;
-        $this->GrantFullControl = $input['GrantFullControl'] ?? null;
-        $this->GrantRead = $input['GrantRead'] ?? null;
-        $this->GrantReadACP = $input['GrantReadACP'] ?? null;
-        $this->GrantWrite = $input['GrantWrite'] ?? null;
-        $this->GrantWriteACP = $input['GrantWriteACP'] ?? null;
-        $this->Key = $input['Key'] ?? null;
-        $this->RequestPayer = $input['RequestPayer'] ?? null;
-        $this->VersionId = $input['VersionId'] ?? null;
-        $this->ExpectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
+        $this->acl = $input['ACL'] ?? null;
+        $this->accessControlPolicy = isset($input['AccessControlPolicy']) ? AccessControlPolicy::create($input['AccessControlPolicy']) : null;
+        $this->bucket = $input['Bucket'] ?? null;
+        $this->contentMd5 = $input['ContentMD5'] ?? null;
+        $this->grantFullControl = $input['GrantFullControl'] ?? null;
+        $this->grantRead = $input['GrantRead'] ?? null;
+        $this->grantReadAcp = $input['GrantReadACP'] ?? null;
+        $this->grantWrite = $input['GrantWrite'] ?? null;
+        $this->grantWriteAcp = $input['GrantWriteACP'] ?? null;
+        $this->key = $input['Key'] ?? null;
+        $this->requestPayer = $input['RequestPayer'] ?? null;
+        $this->versionId = $input['VersionId'] ?? null;
+        $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         parent::__construct($input);
     }
 
@@ -154,62 +154,62 @@ final class PutObjectAclRequest extends Input
         return $input instanceof self ? $input : new self($input);
     }
 
+    public function getAccessControlPolicy(): ?AccessControlPolicy
+    {
+        return $this->accessControlPolicy;
+    }
+
     /**
      * @return ObjectCannedACL::*|null
      */
-    public function getACL(): ?string
+    public function getAcl(): ?string
     {
-        return $this->ACL;
-    }
-
-    public function getAccessControlPolicy(): ?AccessControlPolicy
-    {
-        return $this->AccessControlPolicy;
+        return $this->acl;
     }
 
     public function getBucket(): ?string
     {
-        return $this->Bucket;
+        return $this->bucket;
     }
 
-    public function getContentMD5(): ?string
+    public function getContentMd5(): ?string
     {
-        return $this->ContentMD5;
+        return $this->contentMd5;
     }
 
     public function getExpectedBucketOwner(): ?string
     {
-        return $this->ExpectedBucketOwner;
+        return $this->expectedBucketOwner;
     }
 
     public function getGrantFullControl(): ?string
     {
-        return $this->GrantFullControl;
+        return $this->grantFullControl;
     }
 
     public function getGrantRead(): ?string
     {
-        return $this->GrantRead;
+        return $this->grantRead;
     }
 
-    public function getGrantReadACP(): ?string
+    public function getGrantReadAcp(): ?string
     {
-        return $this->GrantReadACP;
+        return $this->grantReadAcp;
     }
 
     public function getGrantWrite(): ?string
     {
-        return $this->GrantWrite;
+        return $this->grantWrite;
     }
 
-    public function getGrantWriteACP(): ?string
+    public function getGrantWriteAcp(): ?string
     {
-        return $this->GrantWriteACP;
+        return $this->grantWriteAcp;
     }
 
     public function getKey(): ?string
     {
-        return $this->Key;
+        return $this->key;
     }
 
     /**
@@ -217,12 +217,12 @@ final class PutObjectAclRequest extends Input
      */
     public function getRequestPayer(): ?string
     {
-        return $this->RequestPayer;
+        return $this->requestPayer;
     }
 
     public function getVersionId(): ?string
     {
-        return $this->VersionId;
+        return $this->versionId;
     }
 
     /**
@@ -232,53 +232,53 @@ final class PutObjectAclRequest extends Input
     {
         // Prepare headers
         $headers = ['content-type' => 'application/xml'];
-        if (null !== $this->ACL) {
-            if (!ObjectCannedACL::exists($this->ACL)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "ObjectCannedACL".', __CLASS__, $this->ACL));
+        if (null !== $this->acl) {
+            if (!ObjectCannedACL::exists($this->acl)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ACL" for "%s". The value "%s" is not a valid "ObjectCannedACL".', __CLASS__, $this->acl));
             }
-            $headers['x-amz-acl'] = $this->ACL;
+            $headers['x-amz-acl'] = $this->acl;
         }
-        if (null !== $this->ContentMD5) {
-            $headers['Content-MD5'] = $this->ContentMD5;
+        if (null !== $this->contentMd5) {
+            $headers['Content-MD5'] = $this->contentMd5;
         }
-        if (null !== $this->GrantFullControl) {
-            $headers['x-amz-grant-full-control'] = $this->GrantFullControl;
+        if (null !== $this->grantFullControl) {
+            $headers['x-amz-grant-full-control'] = $this->grantFullControl;
         }
-        if (null !== $this->GrantRead) {
-            $headers['x-amz-grant-read'] = $this->GrantRead;
+        if (null !== $this->grantRead) {
+            $headers['x-amz-grant-read'] = $this->grantRead;
         }
-        if (null !== $this->GrantReadACP) {
-            $headers['x-amz-grant-read-acp'] = $this->GrantReadACP;
+        if (null !== $this->grantReadAcp) {
+            $headers['x-amz-grant-read-acp'] = $this->grantReadAcp;
         }
-        if (null !== $this->GrantWrite) {
-            $headers['x-amz-grant-write'] = $this->GrantWrite;
+        if (null !== $this->grantWrite) {
+            $headers['x-amz-grant-write'] = $this->grantWrite;
         }
-        if (null !== $this->GrantWriteACP) {
-            $headers['x-amz-grant-write-acp'] = $this->GrantWriteACP;
+        if (null !== $this->grantWriteAcp) {
+            $headers['x-amz-grant-write-acp'] = $this->grantWriteAcp;
         }
-        if (null !== $this->RequestPayer) {
-            if (!RequestPayer::exists($this->RequestPayer)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
+        if (null !== $this->requestPayer) {
+            if (!RequestPayer::exists($this->requestPayer)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->requestPayer));
             }
-            $headers['x-amz-request-payer'] = $this->RequestPayer;
+            $headers['x-amz-request-payer'] = $this->requestPayer;
         }
-        if (null !== $this->ExpectedBucketOwner) {
-            $headers['x-amz-expected-bucket-owner'] = $this->ExpectedBucketOwner;
+        if (null !== $this->expectedBucketOwner) {
+            $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
         }
 
         // Prepare query
         $query = [];
-        if (null !== $this->VersionId) {
-            $query['versionId'] = $this->VersionId;
+        if (null !== $this->versionId) {
+            $query['versionId'] = $this->versionId;
         }
 
         // Prepare URI
         $uri = [];
-        if (null === $v = $this->Bucket) {
+        if (null === $v = $this->bucket) {
             throw new InvalidArgument(sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Bucket'] = $v;
-        if (null === $v = $this->Key) {
+        if (null === $v = $this->key) {
             throw new InvalidArgument(sprintf('Missing parameter "Key" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Key'] = $v;
@@ -295,82 +295,82 @@ final class PutObjectAclRequest extends Input
         return new Request('PUT', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
-    /**
-     * @param ObjectCannedACL::*|null $value
-     */
-    public function setACL(?string $value): self
+    public function setAccessControlPolicy(?AccessControlPolicy $value): self
     {
-        $this->ACL = $value;
+        $this->accessControlPolicy = $value;
 
         return $this;
     }
 
-    public function setAccessControlPolicy(?AccessControlPolicy $value): self
+    /**
+     * @param ObjectCannedACL::*|null $value
+     */
+    public function setAcl(?string $value): self
     {
-        $this->AccessControlPolicy = $value;
+        $this->acl = $value;
 
         return $this;
     }
 
     public function setBucket(?string $value): self
     {
-        $this->Bucket = $value;
+        $this->bucket = $value;
 
         return $this;
     }
 
-    public function setContentMD5(?string $value): self
+    public function setContentMd5(?string $value): self
     {
-        $this->ContentMD5 = $value;
+        $this->contentMd5 = $value;
 
         return $this;
     }
 
     public function setExpectedBucketOwner(?string $value): self
     {
-        $this->ExpectedBucketOwner = $value;
+        $this->expectedBucketOwner = $value;
 
         return $this;
     }
 
     public function setGrantFullControl(?string $value): self
     {
-        $this->GrantFullControl = $value;
+        $this->grantFullControl = $value;
 
         return $this;
     }
 
     public function setGrantRead(?string $value): self
     {
-        $this->GrantRead = $value;
+        $this->grantRead = $value;
 
         return $this;
     }
 
-    public function setGrantReadACP(?string $value): self
+    public function setGrantReadAcp(?string $value): self
     {
-        $this->GrantReadACP = $value;
+        $this->grantReadAcp = $value;
 
         return $this;
     }
 
     public function setGrantWrite(?string $value): self
     {
-        $this->GrantWrite = $value;
+        $this->grantWrite = $value;
 
         return $this;
     }
 
-    public function setGrantWriteACP(?string $value): self
+    public function setGrantWriteAcp(?string $value): self
     {
-        $this->GrantWriteACP = $value;
+        $this->grantWriteAcp = $value;
 
         return $this;
     }
 
     public function setKey(?string $value): self
     {
-        $this->Key = $value;
+        $this->key = $value;
 
         return $this;
     }
@@ -380,21 +380,21 @@ final class PutObjectAclRequest extends Input
      */
     public function setRequestPayer(?string $value): self
     {
-        $this->RequestPayer = $value;
+        $this->requestPayer = $value;
 
         return $this;
     }
 
     public function setVersionId(?string $value): self
     {
-        $this->VersionId = $value;
+        $this->versionId = $value;
 
         return $this;
     }
 
     private function requestBody(\DomNode $node, \DomDocument $document): void
     {
-        if (null !== $v = $this->AccessControlPolicy) {
+        if (null !== $v = $this->accessControlPolicy) {
             $node->appendChild($child = $document->createElement('AccessControlPolicy'));
             $child->setAttribute('xmlns', 'http://s3.amazonaws.com/doc/2006-03-01/');
             $v->requestBody($child, $document);

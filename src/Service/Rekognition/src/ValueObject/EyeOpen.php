@@ -10,12 +10,12 @@ final class EyeOpen
     /**
      * Boolean value that indicates whether the eyes on the face are open.
      */
-    private $Value;
+    private $value;
 
     /**
      * Level of confidence in the determination.
      */
-    private $Confidence;
+    private $confidence;
 
     /**
      * @param array{
@@ -25,8 +25,8 @@ final class EyeOpen
      */
     public function __construct(array $input)
     {
-        $this->Value = $input['Value'] ?? null;
-        $this->Confidence = $input['Confidence'] ?? null;
+        $this->value = $input['Value'] ?? null;
+        $this->confidence = $input['Confidence'] ?? null;
     }
 
     public static function create($input): self
@@ -36,11 +36,11 @@ final class EyeOpen
 
     public function getConfidence(): ?float
     {
-        return $this->Confidence;
+        return $this->confidence;
     }
 
     public function getValue(): ?bool
     {
-        return $this->Value;
+        return $this->value;
     }
 }

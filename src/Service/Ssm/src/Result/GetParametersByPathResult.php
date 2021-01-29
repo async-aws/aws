@@ -17,12 +17,12 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
     /**
      * A list of parameters found in the specified hierarchy.
      */
-    private $Parameters = [];
+    private $parameters = [];
 
     /**
      * The token for the next set of items to return. Use this token to get the next set of results.
      */
-    private $NextToken;
+    private $nextToken;
 
     /**
      * Iterates over Parameters.
@@ -64,7 +64,7 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
     {
         $this->initialize();
 
-        return $this->NextToken;
+        return $this->nextToken;
     }
 
     /**
@@ -76,7 +76,7 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
     {
         if ($currentPageOnly) {
             $this->initialize();
-            yield from $this->Parameters;
+            yield from $this->parameters;
 
             return;
         }
@@ -114,8 +114,8 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
     {
         $data = $response->toArray();
 
-        $this->Parameters = empty($data['Parameters']) ? [] : $this->populateResultParameterList($data['Parameters']);
-        $this->NextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
+        $this->parameters = empty($data['Parameters']) ? [] : $this->populateResultParameterList($data['Parameters']);
+        $this->nextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
     }
 
     /**

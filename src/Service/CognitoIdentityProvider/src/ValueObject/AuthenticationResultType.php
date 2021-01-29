@@ -12,32 +12,32 @@ final class AuthenticationResultType
     /**
      * The access token.
      */
-    private $AccessToken;
+    private $accessToken;
 
     /**
      * The expiration period of the authentication result in seconds.
      */
-    private $ExpiresIn;
+    private $expiresIn;
 
     /**
      * The token type.
      */
-    private $TokenType;
+    private $tokenType;
 
     /**
      * The refresh token.
      */
-    private $RefreshToken;
+    private $refreshToken;
 
     /**
      * The ID token.
      */
-    private $IdToken;
+    private $idToken;
 
     /**
      * The new device metadata from an authentication result.
      */
-    private $NewDeviceMetadata;
+    private $newDeviceMetadata;
 
     /**
      * @param array{
@@ -51,12 +51,12 @@ final class AuthenticationResultType
      */
     public function __construct(array $input)
     {
-        $this->AccessToken = $input['AccessToken'] ?? null;
-        $this->ExpiresIn = $input['ExpiresIn'] ?? null;
-        $this->TokenType = $input['TokenType'] ?? null;
-        $this->RefreshToken = $input['RefreshToken'] ?? null;
-        $this->IdToken = $input['IdToken'] ?? null;
-        $this->NewDeviceMetadata = isset($input['NewDeviceMetadata']) ? NewDeviceMetadataType::create($input['NewDeviceMetadata']) : null;
+        $this->accessToken = $input['AccessToken'] ?? null;
+        $this->expiresIn = $input['ExpiresIn'] ?? null;
+        $this->tokenType = $input['TokenType'] ?? null;
+        $this->refreshToken = $input['RefreshToken'] ?? null;
+        $this->idToken = $input['IdToken'] ?? null;
+        $this->newDeviceMetadata = isset($input['NewDeviceMetadata']) ? NewDeviceMetadataType::create($input['NewDeviceMetadata']) : null;
     }
 
     public static function create($input): self
@@ -66,31 +66,31 @@ final class AuthenticationResultType
 
     public function getAccessToken(): ?string
     {
-        return $this->AccessToken;
+        return $this->accessToken;
     }
 
     public function getExpiresIn(): ?int
     {
-        return $this->ExpiresIn;
+        return $this->expiresIn;
     }
 
     public function getIdToken(): ?string
     {
-        return $this->IdToken;
+        return $this->idToken;
     }
 
     public function getNewDeviceMetadata(): ?NewDeviceMetadataType
     {
-        return $this->NewDeviceMetadata;
+        return $this->newDeviceMetadata;
     }
 
     public function getRefreshToken(): ?string
     {
-        return $this->RefreshToken;
+        return $this->refreshToken;
     }
 
     public function getTokenType(): ?string
     {
-        return $this->TokenType;
+        return $this->tokenType;
     }
 }

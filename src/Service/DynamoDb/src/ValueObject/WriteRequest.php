@@ -12,12 +12,12 @@ final class WriteRequest
     /**
      * A request to perform a `PutItem` operation.
      */
-    private $PutRequest;
+    private $putRequest;
 
     /**
      * A request to perform a `DeleteItem` operation.
      */
-    private $DeleteRequest;
+    private $deleteRequest;
 
     /**
      * @param array{
@@ -27,8 +27,8 @@ final class WriteRequest
      */
     public function __construct(array $input)
     {
-        $this->PutRequest = isset($input['PutRequest']) ? PutRequest::create($input['PutRequest']) : null;
-        $this->DeleteRequest = isset($input['DeleteRequest']) ? DeleteRequest::create($input['DeleteRequest']) : null;
+        $this->putRequest = isset($input['PutRequest']) ? PutRequest::create($input['PutRequest']) : null;
+        $this->deleteRequest = isset($input['DeleteRequest']) ? DeleteRequest::create($input['DeleteRequest']) : null;
     }
 
     public static function create($input): self
@@ -38,12 +38,12 @@ final class WriteRequest
 
     public function getDeleteRequest(): ?DeleteRequest
     {
-        return $this->DeleteRequest;
+        return $this->deleteRequest;
     }
 
     public function getPutRequest(): ?PutRequest
     {
-        return $this->PutRequest;
+        return $this->putRequest;
     }
 
     /**
@@ -52,10 +52,10 @@ final class WriteRequest
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->PutRequest) {
+        if (null !== $v = $this->putRequest) {
             $payload['PutRequest'] = $v->requestBody();
         }
-        if (null !== $v = $this->DeleteRequest) {
+        if (null !== $v = $this->deleteRequest) {
             $payload['DeleteRequest'] = $v->requestBody();
         }
 

@@ -16,7 +16,7 @@ final class CreateCollectionRequest extends Input
      *
      * @var string|null
      */
-    private $CollectionId;
+    private $collectionId;
 
     /**
      * @param array{
@@ -26,7 +26,7 @@ final class CreateCollectionRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->CollectionId = $input['CollectionId'] ?? null;
+        $this->collectionId = $input['CollectionId'] ?? null;
         parent::__construct($input);
     }
 
@@ -37,7 +37,7 @@ final class CreateCollectionRequest extends Input
 
     public function getCollectionId(): ?string
     {
-        return $this->CollectionId;
+        return $this->collectionId;
     }
 
     /**
@@ -67,7 +67,7 @@ final class CreateCollectionRequest extends Input
 
     public function setCollectionId(?string $value): self
     {
-        $this->CollectionId = $value;
+        $this->collectionId = $value;
 
         return $this;
     }
@@ -75,7 +75,7 @@ final class CreateCollectionRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->CollectionId) {
+        if (null === $v = $this->collectionId) {
             throw new InvalidArgument(sprintf('Missing parameter "CollectionId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['CollectionId'] = $v;

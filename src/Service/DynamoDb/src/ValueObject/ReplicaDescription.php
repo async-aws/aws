@@ -12,43 +12,43 @@ final class ReplicaDescription
     /**
      * The name of the Region.
      */
-    private $RegionName;
+    private $regionName;
 
     /**
      * The current state of the replica:.
      */
-    private $ReplicaStatus;
+    private $replicaStatus;
 
     /**
      * Detailed information about the replica status.
      */
-    private $ReplicaStatusDescription;
+    private $replicaStatusDescription;
 
     /**
      * Specifies the progress of a Create, Update, or Delete action on the replica as a percentage.
      */
-    private $ReplicaStatusPercentProgress;
+    private $replicaStatusPercentProgress;
 
     /**
      * The AWS KMS customer master key (CMK) of the replica that will be used for AWS KMS encryption.
      */
-    private $KMSMasterKeyId;
+    private $kmsMasterKeyId;
 
     /**
      * Replica-specific provisioned throughput. If not described, uses the source table's provisioned throughput settings.
      */
-    private $ProvisionedThroughputOverride;
+    private $provisionedThroughputOverride;
 
     /**
      * Replica-specific global secondary index settings.
      */
-    private $GlobalSecondaryIndexes;
+    private $globalSecondaryIndexes;
 
     /**
      * The time at which the replica was first detected as inaccessible. To determine cause of inaccessibility check the
      * `ReplicaStatus` property.
      */
-    private $ReplicaInaccessibleDateTime;
+    private $replicaInaccessibleDateTime;
 
     /**
      * @param array{
@@ -64,14 +64,14 @@ final class ReplicaDescription
      */
     public function __construct(array $input)
     {
-        $this->RegionName = $input['RegionName'] ?? null;
-        $this->ReplicaStatus = $input['ReplicaStatus'] ?? null;
-        $this->ReplicaStatusDescription = $input['ReplicaStatusDescription'] ?? null;
-        $this->ReplicaStatusPercentProgress = $input['ReplicaStatusPercentProgress'] ?? null;
-        $this->KMSMasterKeyId = $input['KMSMasterKeyId'] ?? null;
-        $this->ProvisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
-        $this->GlobalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([ReplicaGlobalSecondaryIndexDescription::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
-        $this->ReplicaInaccessibleDateTime = $input['ReplicaInaccessibleDateTime'] ?? null;
+        $this->regionName = $input['RegionName'] ?? null;
+        $this->replicaStatus = $input['ReplicaStatus'] ?? null;
+        $this->replicaStatusDescription = $input['ReplicaStatusDescription'] ?? null;
+        $this->replicaStatusPercentProgress = $input['ReplicaStatusPercentProgress'] ?? null;
+        $this->kmsMasterKeyId = $input['KMSMasterKeyId'] ?? null;
+        $this->provisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
+        $this->globalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([ReplicaGlobalSecondaryIndexDescription::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
+        $this->replicaInaccessibleDateTime = $input['ReplicaInaccessibleDateTime'] ?? null;
     }
 
     public static function create($input): self
@@ -84,27 +84,27 @@ final class ReplicaDescription
      */
     public function getGlobalSecondaryIndexes(): array
     {
-        return $this->GlobalSecondaryIndexes ?? [];
+        return $this->globalSecondaryIndexes ?? [];
     }
 
-    public function getKMSMasterKeyId(): ?string
+    public function getKmsMasterKeyId(): ?string
     {
-        return $this->KMSMasterKeyId;
+        return $this->kmsMasterKeyId;
     }
 
     public function getProvisionedThroughputOverride(): ?ProvisionedThroughputOverride
     {
-        return $this->ProvisionedThroughputOverride;
+        return $this->provisionedThroughputOverride;
     }
 
     public function getRegionName(): ?string
     {
-        return $this->RegionName;
+        return $this->regionName;
     }
 
     public function getReplicaInaccessibleDateTime(): ?\DateTimeImmutable
     {
-        return $this->ReplicaInaccessibleDateTime;
+        return $this->replicaInaccessibleDateTime;
     }
 
     /**
@@ -112,16 +112,16 @@ final class ReplicaDescription
      */
     public function getReplicaStatus(): ?string
     {
-        return $this->ReplicaStatus;
+        return $this->replicaStatus;
     }
 
     public function getReplicaStatusDescription(): ?string
     {
-        return $this->ReplicaStatusDescription;
+        return $this->replicaStatusDescription;
     }
 
     public function getReplicaStatusPercentProgress(): ?string
     {
-        return $this->ReplicaStatusPercentProgress;
+        return $this->replicaStatusPercentProgress;
     }
 }

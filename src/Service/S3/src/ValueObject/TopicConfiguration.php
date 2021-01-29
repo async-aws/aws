@@ -11,13 +11,13 @@ use AsyncAws\S3\Enum\Event;
  */
 final class TopicConfiguration
 {
-    private $Id;
+    private $id;
 
     /**
      * The Amazon Resource Name (ARN) of the Amazon SNS topic to which Amazon S3 publishes a message when it detects events
      * of the specified type.
      */
-    private $TopicArn;
+    private $topicArn;
 
     /**
      * The Amazon S3 bucket event about which to send notifications. For more information, see Supported Event Types in the
@@ -25,9 +25,9 @@ final class TopicConfiguration
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
      */
-    private $Events;
+    private $events;
 
-    private $Filter;
+    private $filter;
 
     /**
      * @param array{
@@ -39,10 +39,10 @@ final class TopicConfiguration
      */
     public function __construct(array $input)
     {
-        $this->Id = $input['Id'] ?? null;
-        $this->TopicArn = $input['TopicArn'] ?? null;
-        $this->Events = $input['Events'] ?? null;
-        $this->Filter = isset($input['Filter']) ? NotificationConfigurationFilter::create($input['Filter']) : null;
+        $this->id = $input['Id'] ?? null;
+        $this->topicArn = $input['TopicArn'] ?? null;
+        $this->events = $input['Events'] ?? null;
+        $this->filter = isset($input['Filter']) ? NotificationConfigurationFilter::create($input['Filter']) : null;
     }
 
     public static function create($input): self
@@ -55,22 +55,22 @@ final class TopicConfiguration
      */
     public function getEvents(): array
     {
-        return $this->Events ?? [];
+        return $this->events ?? [];
     }
 
     public function getFilter(): ?NotificationConfigurationFilter
     {
-        return $this->Filter;
+        return $this->filter;
     }
 
     public function getId(): ?string
     {
-        return $this->Id;
+        return $this->id;
     }
 
     public function getTopicArn(): string
     {
-        return $this->TopicArn;
+        return $this->topicArn;
     }
 
     /**
@@ -78,14 +78,14 @@ final class TopicConfiguration
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        if (null !== $v = $this->Id) {
+        if (null !== $v = $this->id) {
             $node->appendChild($document->createElement('Id', $v));
         }
-        if (null === $v = $this->TopicArn) {
+        if (null === $v = $this->topicArn) {
             throw new InvalidArgument(sprintf('Missing parameter "TopicArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $node->appendChild($document->createElement('Topic', $v));
-        if (null === $v = $this->Events) {
+        if (null === $v = $this->events) {
             throw new InvalidArgument(sprintf('Missing parameter "Events" for "%s". The value cannot be null.', __CLASS__));
         }
         foreach ($v as $item) {
@@ -95,7 +95,7 @@ final class TopicConfiguration
             $node->appendChild($document->createElement('Event', $item));
         }
 
-        if (null !== $v = $this->Filter) {
+        if (null !== $v = $this->filter) {
             $node->appendChild($child = $document->createElement('Filter'));
 
             $v->requestBody($child, $document);

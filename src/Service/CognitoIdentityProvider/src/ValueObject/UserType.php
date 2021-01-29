@@ -12,37 +12,37 @@ final class UserType
     /**
      * The user name of the user you wish to describe.
      */
-    private $Username;
+    private $username;
 
     /**
      * A container with information about the user type attributes.
      */
-    private $Attributes;
+    private $attributes;
 
     /**
      * The creation date of the user.
      */
-    private $UserCreateDate;
+    private $userCreateDate;
 
     /**
      * The last modified date of the user.
      */
-    private $UserLastModifiedDate;
+    private $userLastModifiedDate;
 
     /**
      * Specifies whether the user is enabled.
      */
-    private $Enabled;
+    private $enabled;
 
     /**
      * The user status. Can be one of the following:.
      */
-    private $UserStatus;
+    private $userStatus;
 
     /**
      * The MFA options for the user.
      */
-    private $MFAOptions;
+    private $mfaOptions;
 
     /**
      * @param array{
@@ -57,13 +57,13 @@ final class UserType
      */
     public function __construct(array $input)
     {
-        $this->Username = $input['Username'] ?? null;
-        $this->Attributes = isset($input['Attributes']) ? array_map([AttributeType::class, 'create'], $input['Attributes']) : null;
-        $this->UserCreateDate = $input['UserCreateDate'] ?? null;
-        $this->UserLastModifiedDate = $input['UserLastModifiedDate'] ?? null;
-        $this->Enabled = $input['Enabled'] ?? null;
-        $this->UserStatus = $input['UserStatus'] ?? null;
-        $this->MFAOptions = isset($input['MFAOptions']) ? array_map([MFAOptionType::class, 'create'], $input['MFAOptions']) : null;
+        $this->username = $input['Username'] ?? null;
+        $this->attributes = isset($input['Attributes']) ? array_map([AttributeType::class, 'create'], $input['Attributes']) : null;
+        $this->userCreateDate = $input['UserCreateDate'] ?? null;
+        $this->userLastModifiedDate = $input['UserLastModifiedDate'] ?? null;
+        $this->enabled = $input['Enabled'] ?? null;
+        $this->userStatus = $input['UserStatus'] ?? null;
+        $this->mfaOptions = isset($input['MFAOptions']) ? array_map([MFAOptionType::class, 'create'], $input['MFAOptions']) : null;
     }
 
     public static function create($input): self
@@ -76,30 +76,30 @@ final class UserType
      */
     public function getAttributes(): array
     {
-        return $this->Attributes ?? [];
+        return $this->attributes ?? [];
     }
 
     public function getEnabled(): ?bool
     {
-        return $this->Enabled;
+        return $this->enabled;
     }
 
     /**
      * @return MFAOptionType[]
      */
-    public function getMFAOptions(): array
+    public function getMfaOptions(): array
     {
-        return $this->MFAOptions ?? [];
+        return $this->mfaOptions ?? [];
     }
 
     public function getUserCreateDate(): ?\DateTimeImmutable
     {
-        return $this->UserCreateDate;
+        return $this->userCreateDate;
     }
 
     public function getUserLastModifiedDate(): ?\DateTimeImmutable
     {
-        return $this->UserLastModifiedDate;
+        return $this->userLastModifiedDate;
     }
 
     /**
@@ -107,11 +107,11 @@ final class UserType
      */
     public function getUserStatus(): ?string
     {
-        return $this->UserStatus;
+        return $this->userStatus;
     }
 
     public function getUsername(): ?string
     {
-        return $this->Username;
+        return $this->username;
     }
 }

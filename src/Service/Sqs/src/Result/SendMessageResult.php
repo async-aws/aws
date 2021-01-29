@@ -17,7 +17,7 @@ class SendMessageResult extends Result
      *
      * @see https://www.ietf.org/rfc/rfc1321.txt
      */
-    private $MD5OfMessageBody;
+    private $md5OfMessageBody;
 
     /**
      * An MD5 digest of the non-URL-encoded message attribute string. You can use this attribute to verify that Amazon SQS
@@ -26,13 +26,13 @@ class SendMessageResult extends Result
      *
      * @see https://www.ietf.org/rfc/rfc1321.txt
      */
-    private $MD5OfMessageAttributes;
+    private $md5OfMessageAttributes;
 
     /**
      * An MD5 digest of the non-URL-encoded message system attribute string. You can use this attribute to verify that
      * Amazon SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest.
      */
-    private $MD5OfMessageSystemAttributes;
+    private $md5OfMessageSystemAttributes;
 
     /**
      * An attribute containing the `MessageId` of the message sent to the queue. For more information, see Queue and Message
@@ -40,46 +40,46 @@ class SendMessageResult extends Result
      *
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-message-identifiers.html
      */
-    private $MessageId;
+    private $messageId;
 
     /**
      * This parameter applies only to FIFO (first-in-first-out) queues.
      */
-    private $SequenceNumber;
+    private $sequenceNumber;
 
-    public function getMD5OfMessageAttributes(): ?string
+    public function getMd5OfMessageAttributes(): ?string
     {
         $this->initialize();
 
-        return $this->MD5OfMessageAttributes;
+        return $this->md5OfMessageAttributes;
     }
 
-    public function getMD5OfMessageBody(): ?string
+    public function getMd5OfMessageBody(): ?string
     {
         $this->initialize();
 
-        return $this->MD5OfMessageBody;
+        return $this->md5OfMessageBody;
     }
 
-    public function getMD5OfMessageSystemAttributes(): ?string
+    public function getMd5OfMessageSystemAttributes(): ?string
     {
         $this->initialize();
 
-        return $this->MD5OfMessageSystemAttributes;
+        return $this->md5OfMessageSystemAttributes;
     }
 
     public function getMessageId(): ?string
     {
         $this->initialize();
 
-        return $this->MessageId;
+        return $this->messageId;
     }
 
     public function getSequenceNumber(): ?string
     {
         $this->initialize();
 
-        return $this->SequenceNumber;
+        return $this->sequenceNumber;
     }
 
     protected function populateResult(Response $response): void
@@ -87,10 +87,10 @@ class SendMessageResult extends Result
         $data = new \SimpleXMLElement($response->getContent());
         $data = $data->SendMessageResult;
 
-        $this->MD5OfMessageBody = ($v = $data->MD5OfMessageBody) ? (string) $v : null;
-        $this->MD5OfMessageAttributes = ($v = $data->MD5OfMessageAttributes) ? (string) $v : null;
-        $this->MD5OfMessageSystemAttributes = ($v = $data->MD5OfMessageSystemAttributes) ? (string) $v : null;
-        $this->MessageId = ($v = $data->MessageId) ? (string) $v : null;
-        $this->SequenceNumber = ($v = $data->SequenceNumber) ? (string) $v : null;
+        $this->md5OfMessageBody = ($v = $data->MD5OfMessageBody) ? (string) $v : null;
+        $this->md5OfMessageAttributes = ($v = $data->MD5OfMessageAttributes) ? (string) $v : null;
+        $this->md5OfMessageSystemAttributes = ($v = $data->MD5OfMessageSystemAttributes) ? (string) $v : null;
+        $this->messageId = ($v = $data->MessageId) ? (string) $v : null;
+        $this->sequenceNumber = ($v = $data->SequenceNumber) ? (string) $v : null;
     }
 }

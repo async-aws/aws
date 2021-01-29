@@ -19,7 +19,7 @@ final class CreatePlatformEndpointInput extends Input
      *
      * @var string|null
      */
-    private $PlatformApplicationArn;
+    private $platformApplicationArn;
 
     /**
      * Unique identifier created by the notification service for an app on a device. The specific name for Token will vary,
@@ -31,7 +31,7 @@ final class CreatePlatformEndpointInput extends Input
      *
      * @var string|null
      */
-    private $Token;
+    private $token;
 
     /**
      * Arbitrary user data to associate with the endpoint. Amazon SNS does not use this data. The data must be in UTF-8
@@ -39,7 +39,7 @@ final class CreatePlatformEndpointInput extends Input
      *
      * @var string|null
      */
-    private $CustomUserData;
+    private $customUserData;
 
     /**
      * For a list of attributes, see SetEndpointAttributes.
@@ -48,7 +48,7 @@ final class CreatePlatformEndpointInput extends Input
      *
      * @var array<string, string>|null
      */
-    private $Attributes;
+    private $attributes;
 
     /**
      * @param array{
@@ -61,10 +61,10 @@ final class CreatePlatformEndpointInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->PlatformApplicationArn = $input['PlatformApplicationArn'] ?? null;
-        $this->Token = $input['Token'] ?? null;
-        $this->CustomUserData = $input['CustomUserData'] ?? null;
-        $this->Attributes = $input['Attributes'] ?? null;
+        $this->platformApplicationArn = $input['PlatformApplicationArn'] ?? null;
+        $this->token = $input['Token'] ?? null;
+        $this->customUserData = $input['CustomUserData'] ?? null;
+        $this->attributes = $input['Attributes'] ?? null;
         parent::__construct($input);
     }
 
@@ -78,22 +78,22 @@ final class CreatePlatformEndpointInput extends Input
      */
     public function getAttributes(): array
     {
-        return $this->Attributes ?? [];
+        return $this->attributes ?? [];
     }
 
     public function getCustomUserData(): ?string
     {
-        return $this->CustomUserData;
+        return $this->customUserData;
     }
 
     public function getPlatformApplicationArn(): ?string
     {
-        return $this->PlatformApplicationArn;
+        return $this->platformApplicationArn;
     }
 
     public function getToken(): ?string
     {
-        return $this->Token;
+        return $this->token;
     }
 
     /**
@@ -122,28 +122,28 @@ final class CreatePlatformEndpointInput extends Input
      */
     public function setAttributes(array $value): self
     {
-        $this->Attributes = $value;
+        $this->attributes = $value;
 
         return $this;
     }
 
     public function setCustomUserData(?string $value): self
     {
-        $this->CustomUserData = $value;
+        $this->customUserData = $value;
 
         return $this;
     }
 
     public function setPlatformApplicationArn(?string $value): self
     {
-        $this->PlatformApplicationArn = $value;
+        $this->platformApplicationArn = $value;
 
         return $this;
     }
 
     public function setToken(?string $value): self
     {
-        $this->Token = $value;
+        $this->token = $value;
 
         return $this;
     }
@@ -151,18 +151,18 @@ final class CreatePlatformEndpointInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->PlatformApplicationArn) {
+        if (null === $v = $this->platformApplicationArn) {
             throw new InvalidArgument(sprintf('Missing parameter "PlatformApplicationArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['PlatformApplicationArn'] = $v;
-        if (null === $v = $this->Token) {
+        if (null === $v = $this->token) {
             throw new InvalidArgument(sprintf('Missing parameter "Token" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Token'] = $v;
-        if (null !== $v = $this->CustomUserData) {
+        if (null !== $v = $this->customUserData) {
             $payload['CustomUserData'] = $v;
         }
-        if (null !== $v = $this->Attributes) {
+        if (null !== $v = $this->attributes) {
             $index = 0;
             foreach ($v as $mapKey => $mapValue) {
                 ++$index;

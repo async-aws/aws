@@ -12,49 +12,49 @@ final class Parameter
     /**
      * The name of the parameter.
      */
-    private $Name;
+    private $name;
 
     /**
      * The type of parameter. Valid values include the following: `String`, `StringList`, and `SecureString`.
      */
-    private $Type;
+    private $type;
 
     /**
      * The parameter value.
      */
-    private $Value;
+    private $value;
 
     /**
      * The parameter version.
      */
-    private $Version;
+    private $version;
 
     /**
      * Either the version number or the label used to retrieve the parameter value. Specify selectors by using one of the
      * following formats:.
      */
-    private $Selector;
+    private $selector;
 
     /**
      * Applies to parameters that reference information in other AWS services. SourceResult is the raw result or response
      * from the source.
      */
-    private $SourceResult;
+    private $sourceResult;
 
     /**
      * Date the parameter was last changed or updated and the parameter version was created.
      */
-    private $LastModifiedDate;
+    private $lastModifiedDate;
 
     /**
      * The Amazon Resource Name (ARN) of the parameter.
      */
-    private $ARN;
+    private $arn;
 
     /**
      * The data type of the parameter, such as `text` or `aws:ec2:image`. The default is `text`.
      */
-    private $DataType;
+    private $dataType;
 
     /**
      * @param array{
@@ -71,15 +71,15 @@ final class Parameter
      */
     public function __construct(array $input)
     {
-        $this->Name = $input['Name'] ?? null;
-        $this->Type = $input['Type'] ?? null;
-        $this->Value = $input['Value'] ?? null;
-        $this->Version = $input['Version'] ?? null;
-        $this->Selector = $input['Selector'] ?? null;
-        $this->SourceResult = $input['SourceResult'] ?? null;
-        $this->LastModifiedDate = $input['LastModifiedDate'] ?? null;
-        $this->ARN = $input['ARN'] ?? null;
-        $this->DataType = $input['DataType'] ?? null;
+        $this->name = $input['Name'] ?? null;
+        $this->type = $input['Type'] ?? null;
+        $this->value = $input['Value'] ?? null;
+        $this->version = $input['Version'] ?? null;
+        $this->selector = $input['Selector'] ?? null;
+        $this->sourceResult = $input['SourceResult'] ?? null;
+        $this->lastModifiedDate = $input['LastModifiedDate'] ?? null;
+        $this->arn = $input['ARN'] ?? null;
+        $this->dataType = $input['DataType'] ?? null;
     }
 
     public static function create($input): self
@@ -87,34 +87,34 @@ final class Parameter
         return $input instanceof self ? $input : new self($input);
     }
 
-    public function getARN(): ?string
+    public function getArn(): ?string
     {
-        return $this->ARN;
+        return $this->arn;
     }
 
     public function getDataType(): ?string
     {
-        return $this->DataType;
+        return $this->dataType;
     }
 
     public function getLastModifiedDate(): ?\DateTimeImmutable
     {
-        return $this->LastModifiedDate;
+        return $this->lastModifiedDate;
     }
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
     public function getSelector(): ?string
     {
-        return $this->Selector;
+        return $this->selector;
     }
 
     public function getSourceResult(): ?string
     {
-        return $this->SourceResult;
+        return $this->sourceResult;
     }
 
     /**
@@ -122,16 +122,16 @@ final class Parameter
      */
     public function getType(): ?string
     {
-        return $this->Type;
+        return $this->type;
     }
 
     public function getValue(): ?string
     {
-        return $this->Value;
+        return $this->value;
     }
 
     public function getVersion(): ?string
     {
-        return $this->Version;
+        return $this->version;
     }
 }

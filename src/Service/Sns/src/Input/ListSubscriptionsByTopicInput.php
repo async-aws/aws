@@ -19,14 +19,14 @@ final class ListSubscriptionsByTopicInput extends Input
      *
      * @var string|null
      */
-    private $TopicArn;
+    private $topicArn;
 
     /**
      * Token returned by the previous `ListSubscriptionsByTopic` request.
      *
      * @var string|null
      */
-    private $NextToken;
+    private $nextToken;
 
     /**
      * @param array{
@@ -37,8 +37,8 @@ final class ListSubscriptionsByTopicInput extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->TopicArn = $input['TopicArn'] ?? null;
-        $this->NextToken = $input['NextToken'] ?? null;
+        $this->topicArn = $input['TopicArn'] ?? null;
+        $this->nextToken = $input['NextToken'] ?? null;
         parent::__construct($input);
     }
 
@@ -49,12 +49,12 @@ final class ListSubscriptionsByTopicInput extends Input
 
     public function getNextToken(): ?string
     {
-        return $this->NextToken;
+        return $this->nextToken;
     }
 
     public function getTopicArn(): ?string
     {
-        return $this->TopicArn;
+        return $this->topicArn;
     }
 
     /**
@@ -80,14 +80,14 @@ final class ListSubscriptionsByTopicInput extends Input
 
     public function setNextToken(?string $value): self
     {
-        $this->NextToken = $value;
+        $this->nextToken = $value;
 
         return $this;
     }
 
     public function setTopicArn(?string $value): self
     {
-        $this->TopicArn = $value;
+        $this->topicArn = $value;
 
         return $this;
     }
@@ -95,11 +95,11 @@ final class ListSubscriptionsByTopicInput extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null === $v = $this->TopicArn) {
+        if (null === $v = $this->topicArn) {
             throw new InvalidArgument(sprintf('Missing parameter "TopicArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['TopicArn'] = $v;
-        if (null !== $v = $this->NextToken) {
+        if (null !== $v = $this->nextToken) {
             $payload['NextToken'] = $v;
         }
 

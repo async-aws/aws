@@ -10,17 +10,17 @@ final class Pose
     /**
      * Value representing the face rotation on the roll axis.
      */
-    private $Roll;
+    private $roll;
 
     /**
      * Value representing the face rotation on the yaw axis.
      */
-    private $Yaw;
+    private $yaw;
 
     /**
      * Value representing the face rotation on the pitch axis.
      */
-    private $Pitch;
+    private $pitch;
 
     /**
      * @param array{
@@ -31,9 +31,9 @@ final class Pose
      */
     public function __construct(array $input)
     {
-        $this->Roll = $input['Roll'] ?? null;
-        $this->Yaw = $input['Yaw'] ?? null;
-        $this->Pitch = $input['Pitch'] ?? null;
+        $this->roll = $input['Roll'] ?? null;
+        $this->yaw = $input['Yaw'] ?? null;
+        $this->pitch = $input['Pitch'] ?? null;
     }
 
     public static function create($input): self
@@ -43,16 +43,16 @@ final class Pose
 
     public function getPitch(): ?float
     {
-        return $this->Pitch;
+        return $this->pitch;
     }
 
     public function getRoll(): ?float
     {
-        return $this->Roll;
+        return $this->roll;
     }
 
     public function getYaw(): ?float
     {
-        return $this->Yaw;
+        return $this->yaw;
     }
 }

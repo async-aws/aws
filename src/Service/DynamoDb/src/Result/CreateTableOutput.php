@@ -28,20 +28,20 @@ class CreateTableOutput extends Result
     /**
      * Represents the properties of the table.
      */
-    private $TableDescription;
+    private $tableDescription;
 
     public function getTableDescription(): ?TableDescription
     {
         $this->initialize();
 
-        return $this->TableDescription;
+        return $this->tableDescription;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = $response->toArray();
 
-        $this->TableDescription = empty($data['TableDescription']) ? null : new TableDescription([
+        $this->tableDescription = empty($data['TableDescription']) ? null : new TableDescription([
             'AttributeDefinitions' => empty($data['TableDescription']['AttributeDefinitions']) ? [] : $this->populateResultAttributeDefinitions($data['TableDescription']['AttributeDefinitions']),
             'TableName' => isset($data['TableDescription']['TableName']) ? (string) $data['TableDescription']['TableName'] : null,
             'KeySchema' => empty($data['TableDescription']['KeySchema']) ? [] : $this->populateResultKeySchema($data['TableDescription']['KeySchema']),

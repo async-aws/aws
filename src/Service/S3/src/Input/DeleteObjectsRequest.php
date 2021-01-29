@@ -18,7 +18,7 @@ final class DeleteObjectsRequest extends Input
      *
      * @var string|null
      */
-    private $Bucket;
+    private $bucket;
 
     /**
      * Container for the request.
@@ -27,7 +27,7 @@ final class DeleteObjectsRequest extends Input
      *
      * @var Delete|null
      */
-    private $Delete;
+    private $delete;
 
     /**
      * The concatenation of the authentication device's serial number, a space, and the value that is displayed on your
@@ -36,12 +36,12 @@ final class DeleteObjectsRequest extends Input
      *
      * @var string|null
      */
-    private $MFA;
+    private $mfa;
 
     /**
      * @var null|RequestPayer::*
      */
-    private $RequestPayer;
+    private $requestPayer;
 
     /**
      * Specifies whether you want to delete this object even if it has a Governance-type Object Lock in place. You must have
@@ -49,7 +49,7 @@ final class DeleteObjectsRequest extends Input
      *
      * @var bool|null
      */
-    private $BypassGovernanceRetention;
+    private $bypassGovernanceRetention;
 
     /**
      * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
@@ -57,7 +57,7 @@ final class DeleteObjectsRequest extends Input
      *
      * @var string|null
      */
-    private $ExpectedBucketOwner;
+    private $expectedBucketOwner;
 
     /**
      * @param array{
@@ -72,12 +72,12 @@ final class DeleteObjectsRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->Bucket = $input['Bucket'] ?? null;
-        $this->Delete = isset($input['Delete']) ? Delete::create($input['Delete']) : null;
-        $this->MFA = $input['MFA'] ?? null;
-        $this->RequestPayer = $input['RequestPayer'] ?? null;
-        $this->BypassGovernanceRetention = $input['BypassGovernanceRetention'] ?? null;
-        $this->ExpectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
+        $this->bucket = $input['Bucket'] ?? null;
+        $this->delete = isset($input['Delete']) ? Delete::create($input['Delete']) : null;
+        $this->mfa = $input['MFA'] ?? null;
+        $this->requestPayer = $input['RequestPayer'] ?? null;
+        $this->bypassGovernanceRetention = $input['BypassGovernanceRetention'] ?? null;
+        $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         parent::__construct($input);
     }
 
@@ -88,27 +88,27 @@ final class DeleteObjectsRequest extends Input
 
     public function getBucket(): ?string
     {
-        return $this->Bucket;
+        return $this->bucket;
     }
 
     public function getBypassGovernanceRetention(): ?bool
     {
-        return $this->BypassGovernanceRetention;
+        return $this->bypassGovernanceRetention;
     }
 
     public function getDelete(): ?Delete
     {
-        return $this->Delete;
+        return $this->delete;
     }
 
     public function getExpectedBucketOwner(): ?string
     {
-        return $this->ExpectedBucketOwner;
+        return $this->expectedBucketOwner;
     }
 
-    public function getMFA(): ?string
+    public function getMfa(): ?string
     {
-        return $this->MFA;
+        return $this->mfa;
     }
 
     /**
@@ -116,7 +116,7 @@ final class DeleteObjectsRequest extends Input
      */
     public function getRequestPayer(): ?string
     {
-        return $this->RequestPayer;
+        return $this->requestPayer;
     }
 
     /**
@@ -126,20 +126,20 @@ final class DeleteObjectsRequest extends Input
     {
         // Prepare headers
         $headers = ['content-type' => 'application/xml'];
-        if (null !== $this->MFA) {
-            $headers['x-amz-mfa'] = $this->MFA;
+        if (null !== $this->mfa) {
+            $headers['x-amz-mfa'] = $this->mfa;
         }
-        if (null !== $this->RequestPayer) {
-            if (!RequestPayer::exists($this->RequestPayer)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->RequestPayer));
+        if (null !== $this->requestPayer) {
+            if (!RequestPayer::exists($this->requestPayer)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "RequestPayer" for "%s". The value "%s" is not a valid "RequestPayer".', __CLASS__, $this->requestPayer));
             }
-            $headers['x-amz-request-payer'] = $this->RequestPayer;
+            $headers['x-amz-request-payer'] = $this->requestPayer;
         }
-        if (null !== $this->BypassGovernanceRetention) {
-            $headers['x-amz-bypass-governance-retention'] = $this->BypassGovernanceRetention ? 'true' : 'false';
+        if (null !== $this->bypassGovernanceRetention) {
+            $headers['x-amz-bypass-governance-retention'] = $this->bypassGovernanceRetention ? 'true' : 'false';
         }
-        if (null !== $this->ExpectedBucketOwner) {
-            $headers['x-amz-expected-bucket-owner'] = $this->ExpectedBucketOwner;
+        if (null !== $this->expectedBucketOwner) {
+            $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
         }
 
         // Prepare query
@@ -147,7 +147,7 @@ final class DeleteObjectsRequest extends Input
 
         // Prepare URI
         $uri = [];
-        if (null === $v = $this->Bucket) {
+        if (null === $v = $this->bucket) {
             throw new InvalidArgument(sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Bucket'] = $v;
@@ -166,35 +166,35 @@ final class DeleteObjectsRequest extends Input
 
     public function setBucket(?string $value): self
     {
-        $this->Bucket = $value;
+        $this->bucket = $value;
 
         return $this;
     }
 
     public function setBypassGovernanceRetention(?bool $value): self
     {
-        $this->BypassGovernanceRetention = $value;
+        $this->bypassGovernanceRetention = $value;
 
         return $this;
     }
 
     public function setDelete(?Delete $value): self
     {
-        $this->Delete = $value;
+        $this->delete = $value;
 
         return $this;
     }
 
     public function setExpectedBucketOwner(?string $value): self
     {
-        $this->ExpectedBucketOwner = $value;
+        $this->expectedBucketOwner = $value;
 
         return $this;
     }
 
-    public function setMFA(?string $value): self
+    public function setMfa(?string $value): self
     {
-        $this->MFA = $value;
+        $this->mfa = $value;
 
         return $this;
     }
@@ -204,14 +204,14 @@ final class DeleteObjectsRequest extends Input
      */
     public function setRequestPayer(?string $value): self
     {
-        $this->RequestPayer = $value;
+        $this->requestPayer = $value;
 
         return $this;
     }
 
     private function requestBody(\DomNode $node, \DomDocument $document): void
     {
-        if (null === $v = $this->Delete) {
+        if (null === $v = $this->delete) {
             throw new InvalidArgument(sprintf('Missing parameter "Delete" for "%s". The value cannot be null.', __CLASS__));
         }
 
