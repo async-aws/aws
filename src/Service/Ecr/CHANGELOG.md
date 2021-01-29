@@ -5,6 +5,7 @@
 ### Added
 
 - Added documentation in class's headers.
+- Added Business Exceptions.
 
 ## 0.1.1
 
