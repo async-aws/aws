@@ -23,6 +23,7 @@ use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
+use AsyncAws\S3\Input\PutBucketCorsRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
@@ -34,6 +35,8 @@ use AsyncAws\S3\ValueObject\AwsObject;
 use AsyncAws\S3\ValueObject\CommonPrefix;
 use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
 use AsyncAws\S3\ValueObject\CompletedPart;
+use AsyncAws\S3\ValueObject\CORSConfiguration;
+use AsyncAws\S3\ValueObject\CORSRule;
 use AsyncAws\S3\ValueObject\FilterRule;
 use AsyncAws\S3\ValueObject\Grant;
 use AsyncAws\S3\ValueObject\Grantee;
@@ -557,6 +560,32 @@ class S3ClientTest extends TestCase
         // self::assertTODO(expected, $result->getOwner());
         self::assertSame('changeIt', $result->getStorageClass());
         self::assertSame('changeIt', $result->getRequestCharged());
+    }
+
+    public function testPutBucketCors(): void
+    {
+        $client = $this->getClient();
+
+        $input = new PutBucketCorsRequest([
+            'Bucket' => 'bucket-name',
+            'CORSConfiguration' => new CORSConfiguration([
+                'CORSRules' => [new CORSRule([
+                    'AllowedHeaders' => ['*'],
+                    'AllowedMethods' => ['GET', 'PUT'],
+                    'AllowedOrigins' => ['test.example.com'],
+                    'ExposeHeaders' => [],
+                    'MaxAgeSeconds' => 1337,
+                ])],
+            ]),
+            'ContentMD5' => 'change me',
+            'ExpectedBucketOwner' => 'change me',
+        ]);
+        $result = $client->PutBucketCors($input);
+
+        self::assertTrue($result->resolve());
+
+        $info = $result->info();
+        self::assertEquals(200, $info['status']);
     }
 
     public function testPutBucketNotificationConfiguration(): void

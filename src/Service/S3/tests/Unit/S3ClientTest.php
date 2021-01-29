@@ -20,6 +20,7 @@ use AsyncAws\S3\Input\HeadObjectRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
+use AsyncAws\S3\Input\PutBucketCorsRequest;
 use AsyncAws\S3\Input\PutBucketNotificationConfigurationRequest;
 use AsyncAws\S3\Input\PutObjectAclRequest;
 use AsyncAws\S3\Input\PutObjectRequest;
@@ -41,6 +42,8 @@ use AsyncAws\S3\Result\PutObjectAclOutput;
 use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\Result\UploadPartOutput;
 use AsyncAws\S3\S3Client;
+use AsyncAws\S3\ValueObject\CORSConfiguration;
+use AsyncAws\S3\ValueObject\CORSRule;
 use AsyncAws\S3\ValueObject\Delete;
 use AsyncAws\S3\ValueObject\FilterRule;
 use AsyncAws\S3\ValueObject\NotificationConfiguration;
@@ -301,6 +304,27 @@ class S3ClientTest extends TestCase
         $result = $client->ListParts($input);
 
         self::assertInstanceOf(ListPartsOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testPutBucketCors(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new PutBucketCorsRequest([
+            'Bucket' => 'bucket-name',
+            'CORSConfiguration' => new CORSConfiguration([
+                'CORSRules' => [new CORSRule([
+                    'AllowedHeaders' => ['*'],
+                    'AllowedMethods' => ['GET', 'PUT'],
+                    'AllowedOrigins' => ['test.example.com'],
+                ])],
+            ]),
+
+        ]);
+        $result = $client->PutBucketCors($input);
+
+        self::assertInstanceOf(Result::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
