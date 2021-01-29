@@ -13,31 +13,26 @@ class GetBucketCorsOutputTest extends TestCase
 {
     public function testGetBucketCorsOutput(): void
     {
-        self::markTestSkipped('Generated response don\'t seem to corresponds to reality');
-
-        // see example-1.json from SDK
-        $response = new SimpleMockedResponse('<CORSRules>
-          <CORSRule>
-            <AllowedHeaders>Authorization</AllowedHeaders>
-            <AllowedMethods>GET</AllowedMethods>
-            <AllowedOrigins>*</AllowedOrigins>
-            <MaxAgeSeconds>3000</MaxAgeSeconds>
-          </CORSRule>
-          <CORSRule>
-            <AllowedHeaders>*</AllowedHeaders>
-            <AllowedMethods>DELETE</AllowedMethods>
-            <AllowedOrigins>example.com</AllowedOrigins>
-          </CORSRule>
-        </CORSRules>');
+        $response = new SimpleMockedResponse('
+<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+    <CORSRule>
+        <AllowedOrigin>*</AllowedOrigin>
+        <AllowedMethod>PUT</AllowedMethod>
+        <AllowedMethod>POST</AllowedMethod>
+        <AllowedMethod>GET</AllowedMethod>
+        <AllowedHeader>*</AllowedHeader>
+    </CORSRule>
+</CORSConfiguration>');
 
         $client = new MockHttpClient($response);
         $result = new GetBucketCorsOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertCount(2, $result->getCORSRules());
+        self::assertCount(1, $result->getCORSRules());
 
         $firstRule = $result->getCORSRules()[0];
-//        self::assertSame('GET', $firstRule->);
-
-        // self::assertTODO(expected, $result->getCORSRules());
+        self::assertCount(3, $firstRule->getAllowedMethods());
+        self::assertSame('*', $firstRule->getAllowedOrigins()[0]);
+        self::assertCount(0, $firstRule->getExposeHeaders());
+        self::assertNull($firstRule->getMaxAgeSeconds());
     }
 }
