@@ -14,6 +14,7 @@ use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
 use AsyncAws\S3\Input\CopyObjectRequest;
 use AsyncAws\S3\Input\CreateBucketRequest;
 use AsyncAws\S3\Input\CreateMultipartUploadRequest;
+use AsyncAws\S3\Input\DeleteBucketCorsRequest;
 use AsyncAws\S3\Input\DeleteBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
@@ -243,6 +244,20 @@ class S3ClientTest extends TestCase
         self::assertFalse($client->bucketExists(new HeadBucketRequest([
             'Bucket' => 'foo-exist',
         ]))->isSuccess());
+    }
+
+    public function testDeleteBucketCors(): void
+    {
+        self::markTestSkipped('The S3 Docker image does not implement DeleteBucketCors.');
+        $client = $this->getClient();
+        $bucket = 'foo';
+
+        $input = new DeleteBucketCorsRequest([
+            'Bucket' => $bucket,
+        ]);
+        $result = $client->DeleteBucketCors($input);
+
+        $result->resolve();
     }
 
     public function testDeleteObject(): void

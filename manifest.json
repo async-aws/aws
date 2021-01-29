@@ -202,6 +202,7 @@
                 "CreateBucket",
                 "CreateMultipartUpload",
                 "DeleteBucket",
+                "DeleteBucketCors",
                 "DeleteObject",
                 "DeleteObjects",
                 "GetObject",

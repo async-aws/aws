@@ -23,6 +23,7 @@ use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
 use AsyncAws\S3\Input\CopyObjectRequest;
 use AsyncAws\S3\Input\CreateBucketRequest;
 use AsyncAws\S3\Input\CreateMultipartUploadRequest;
+use AsyncAws\S3\Input\DeleteBucketCorsRequest;
 use AsyncAws\S3\Input\DeleteBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\DeleteObjectsRequest;
@@ -319,6 +320,27 @@ class S3Client extends AbstractApi
     {
         $input = DeleteBucketRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteBucket', 'region' => $input->getRegion()]));
+
+        return new Result($response);
+    }
+
+    /**
+     * Deletes the `cors` configuration information set for the bucket.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketDELETEcors.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketCors.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#deletebucketcors
+     *
+     * @param array{
+     *   Bucket: string,
+     *   ExpectedBucketOwner?: string,
+     *   @region?: string,
+     * }|DeleteBucketCorsRequest $input
+     */
+    public function deleteBucketCors($input): Result
+    {
+        $input = DeleteBucketCorsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteBucketCors', 'region' => $input->getRegion()]));
 
         return new Result($response);
     }

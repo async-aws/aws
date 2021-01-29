@@ -11,6 +11,7 @@ use AsyncAws\S3\Input\CompleteMultipartUploadRequest;
 use AsyncAws\S3\Input\CopyObjectRequest;
 use AsyncAws\S3\Input\CreateBucketRequest;
 use AsyncAws\S3\Input\CreateMultipartUploadRequest;
+use AsyncAws\S3\Input\DeleteBucketCorsRequest;
 use AsyncAws\S3\Input\DeleteBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\DeleteObjectsRequest;
@@ -183,6 +184,20 @@ class S3ClientTest extends TestCase
             'Bucket' => 'my_bucket',
         ]);
         $result = $client->DeleteBucket($input);
+
+        self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testDeleteBucketCors(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new DeleteBucketCorsRequest([
+            'Bucket' => 'example-bucket',
+
+        ]);
+        $result = $client->DeleteBucketCors($input);
 
         self::assertInstanceOf(Result::class, $result);
         self::assertFalse($result->info()['resolved']);
