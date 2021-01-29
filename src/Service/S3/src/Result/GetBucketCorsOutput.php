@@ -12,22 +12,22 @@ class GetBucketCorsOutput extends Result
      * A set of origins and methods (cross-origin access that you want to allow). You can add up to 100 rules to the
      * configuration.
      */
-    private $CORSRules = [];
+    private $corsRules = [];
 
     /**
      * @return CORSRule[]
      */
-    public function getCORSRules(): array
+    public function getCorsRules(): array
     {
         $this->initialize();
 
-        return $this->CORSRules;
+        return $this->corsRules;
     }
 
     protected function populateResult(Response $response): void
     {
         $data = new \SimpleXMLElement($response->getContent());
-        $this->CORSRules = !$data->CORSRule ? [] : $this->populateResultCORSRules($data->CORSRule);
+        $this->corsRules = !$data->CORSRule ? [] : $this->populateResultCORSRules($data->CORSRule);
     }
 
     /**

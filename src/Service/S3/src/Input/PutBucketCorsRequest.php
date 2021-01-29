@@ -17,7 +17,7 @@ final class PutBucketCorsRequest extends Input
      *
      * @var string|null
      */
-    private $Bucket;
+    private $bucket;
 
     /**
      * Describes the cross-origin access configuration for objects in an Amazon S3 bucket. For more information, see
@@ -28,7 +28,7 @@ final class PutBucketCorsRequest extends Input
      *
      * @var CORSConfiguration|null
      */
-    private $CORSConfiguration;
+    private $corsConfiguration;
 
     /**
      * The base64-encoded 128-bit MD5 digest of the data. This header must be used as a message integrity check to verify
@@ -38,7 +38,7 @@ final class PutBucketCorsRequest extends Input
      *
      * @var string|null
      */
-    private $ContentMD5;
+    private $contentMd5;
 
     /**
      * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
@@ -46,7 +46,7 @@ final class PutBucketCorsRequest extends Input
      *
      * @var string|null
      */
-    private $ExpectedBucketOwner;
+    private $expectedBucketOwner;
 
     /**
      * @param array{
@@ -59,10 +59,10 @@ final class PutBucketCorsRequest extends Input
      */
     public function __construct(array $input = [])
     {
-        $this->Bucket = $input['Bucket'] ?? null;
-        $this->CORSConfiguration = isset($input['CORSConfiguration']) ? CORSConfiguration::create($input['CORSConfiguration']) : null;
-        $this->ContentMD5 = $input['ContentMD5'] ?? null;
-        $this->ExpectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
+        $this->bucket = $input['Bucket'] ?? null;
+        $this->corsConfiguration = isset($input['CORSConfiguration']) ? CORSConfiguration::create($input['CORSConfiguration']) : null;
+        $this->contentMd5 = $input['ContentMD5'] ?? null;
+        $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         parent::__construct($input);
     }
 
@@ -73,22 +73,22 @@ final class PutBucketCorsRequest extends Input
 
     public function getBucket(): ?string
     {
-        return $this->Bucket;
+        return $this->bucket;
     }
 
-    public function getCORSConfiguration(): ?CORSConfiguration
+    public function getContentMd5(): ?string
     {
-        return $this->CORSConfiguration;
+        return $this->contentMd5;
     }
 
-    public function getContentMD5(): ?string
+    public function getCorsConfiguration(): ?CORSConfiguration
     {
-        return $this->ContentMD5;
+        return $this->corsConfiguration;
     }
 
     public function getExpectedBucketOwner(): ?string
     {
-        return $this->ExpectedBucketOwner;
+        return $this->expectedBucketOwner;
     }
 
     /**
@@ -98,11 +98,11 @@ final class PutBucketCorsRequest extends Input
     {
         // Prepare headers
         $headers = ['content-type' => 'application/xml'];
-        if (null !== $this->ContentMD5) {
-            $headers['Content-MD5'] = $this->ContentMD5;
+        if (null !== $this->contentMd5) {
+            $headers['Content-MD5'] = $this->contentMd5;
         }
-        if (null !== $this->ExpectedBucketOwner) {
-            $headers['x-amz-expected-bucket-owner'] = $this->ExpectedBucketOwner;
+        if (null !== $this->expectedBucketOwner) {
+            $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
         }
 
         // Prepare query
@@ -110,7 +110,7 @@ final class PutBucketCorsRequest extends Input
 
         // Prepare URI
         $uri = [];
-        if (null === $v = $this->Bucket) {
+        if (null === $v = $this->bucket) {
             throw new InvalidArgument(sprintf('Missing parameter "Bucket" for "%s". The value cannot be null.', __CLASS__));
         }
         $uri['Bucket'] = $v;
@@ -129,35 +129,35 @@ final class PutBucketCorsRequest extends Input
 
     public function setBucket(?string $value): self
     {
-        $this->Bucket = $value;
+        $this->bucket = $value;
 
         return $this;
     }
 
-    public function setCORSConfiguration(?CORSConfiguration $value): self
+    public function setContentMd5(?string $value): self
     {
-        $this->CORSConfiguration = $value;
+        $this->contentMd5 = $value;
 
         return $this;
     }
 
-    public function setContentMD5(?string $value): self
+    public function setCorsConfiguration(?CORSConfiguration $value): self
     {
-        $this->ContentMD5 = $value;
+        $this->corsConfiguration = $value;
 
         return $this;
     }
 
     public function setExpectedBucketOwner(?string $value): self
     {
-        $this->ExpectedBucketOwner = $value;
+        $this->expectedBucketOwner = $value;
 
         return $this;
     }
 
     private function requestBody(\DomNode $node, \DomDocument $document): void
     {
-        if (null === $v = $this->CORSConfiguration) {
+        if (null === $v = $this->corsConfiguration) {
             throw new InvalidArgument(sprintf('Missing parameter "CORSConfiguration" for "%s". The value cannot be null.', __CLASS__));
         }
 

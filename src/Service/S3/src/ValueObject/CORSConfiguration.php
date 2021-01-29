@@ -16,7 +16,7 @@ final class CORSConfiguration
      * A set of origins and methods (cross-origin access that you want to allow). You can add up to 100 rules to the
      * configuration.
      */
-    private $CORSRules;
+    private $corsRules;
 
     /**
      * @param array{
@@ -25,7 +25,7 @@ final class CORSConfiguration
      */
     public function __construct(array $input)
     {
-        $this->CORSRules = isset($input['CORSRules']) ? array_map([CORSRule::class, 'create'], $input['CORSRules']) : null;
+        $this->corsRules = isset($input['CORSRules']) ? array_map([CORSRule::class, 'create'], $input['CORSRules']) : null;
     }
 
     public static function create($input): self
@@ -36,9 +36,9 @@ final class CORSConfiguration
     /**
      * @return CORSRule[]
      */
-    public function getCORSRules(): array
+    public function getCorsRules(): array
     {
-        return $this->CORSRules ?? [];
+        return $this->corsRules ?? [];
     }
 
     /**
@@ -46,7 +46,7 @@ final class CORSConfiguration
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        if (null === $v = $this->CORSRules) {
+        if (null === $v = $this->corsRules) {
             throw new InvalidArgument(sprintf('Missing parameter "CORSRules" for "%s". The value cannot be null.', __CLASS__));
         }
         foreach ($v as $item) {

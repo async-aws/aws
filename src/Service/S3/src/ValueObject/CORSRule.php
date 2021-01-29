@@ -14,28 +14,28 @@ final class CORSRule
      * OPTIONS request. In response to any preflight OPTIONS request, Amazon S3 returns any requested headers that are
      * allowed.
      */
-    private $AllowedHeaders;
+    private $allowedHeaders;
 
     /**
      * An HTTP method that you allow the origin to execute. Valid values are `GET`, `PUT`, `HEAD`, `POST`, and `DELETE`.
      */
-    private $AllowedMethods;
+    private $allowedMethods;
 
     /**
      * One or more origins you want customers to be able to access the bucket from.
      */
-    private $AllowedOrigins;
+    private $allowedOrigins;
 
     /**
      * One or more headers in the response that you want customers to be able to access from their applications (for
      * example, from a JavaScript `XMLHttpRequest` object).
      */
-    private $ExposeHeaders;
+    private $exposeHeaders;
 
     /**
      * The time in seconds that your browser is to cache the preflight response for the specified resource.
      */
-    private $MaxAgeSeconds;
+    private $maxAgeSeconds;
 
     /**
      * @param array{
@@ -48,11 +48,11 @@ final class CORSRule
      */
     public function __construct(array $input)
     {
-        $this->AllowedHeaders = $input['AllowedHeaders'] ?? null;
-        $this->AllowedMethods = $input['AllowedMethods'] ?? null;
-        $this->AllowedOrigins = $input['AllowedOrigins'] ?? null;
-        $this->ExposeHeaders = $input['ExposeHeaders'] ?? null;
-        $this->MaxAgeSeconds = $input['MaxAgeSeconds'] ?? null;
+        $this->allowedHeaders = $input['AllowedHeaders'] ?? null;
+        $this->allowedMethods = $input['AllowedMethods'] ?? null;
+        $this->allowedOrigins = $input['AllowedOrigins'] ?? null;
+        $this->exposeHeaders = $input['ExposeHeaders'] ?? null;
+        $this->maxAgeSeconds = $input['MaxAgeSeconds'] ?? null;
     }
 
     public static function create($input): self
@@ -65,7 +65,7 @@ final class CORSRule
      */
     public function getAllowedHeaders(): array
     {
-        return $this->AllowedHeaders ?? [];
+        return $this->allowedHeaders ?? [];
     }
 
     /**
@@ -73,7 +73,7 @@ final class CORSRule
      */
     public function getAllowedMethods(): array
     {
-        return $this->AllowedMethods ?? [];
+        return $this->allowedMethods ?? [];
     }
 
     /**
@@ -81,7 +81,7 @@ final class CORSRule
      */
     public function getAllowedOrigins(): array
     {
-        return $this->AllowedOrigins ?? [];
+        return $this->allowedOrigins ?? [];
     }
 
     /**
@@ -89,12 +89,12 @@ final class CORSRule
      */
     public function getExposeHeaders(): array
     {
-        return $this->ExposeHeaders ?? [];
+        return $this->exposeHeaders ?? [];
     }
 
     public function getMaxAgeSeconds(): ?int
     {
-        return $this->MaxAgeSeconds;
+        return $this->maxAgeSeconds;
     }
 
     /**
@@ -102,31 +102,31 @@ final class CORSRule
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
-        if (null !== $v = $this->AllowedHeaders) {
+        if (null !== $v = $this->allowedHeaders) {
             foreach ($v as $item) {
                 $node->appendChild($document->createElement('AllowedHeader', $item));
             }
         }
-        if (null === $v = $this->AllowedMethods) {
+        if (null === $v = $this->allowedMethods) {
             throw new InvalidArgument(sprintf('Missing parameter "AllowedMethods" for "%s". The value cannot be null.', __CLASS__));
         }
         foreach ($v as $item) {
             $node->appendChild($document->createElement('AllowedMethod', $item));
         }
 
-        if (null === $v = $this->AllowedOrigins) {
+        if (null === $v = $this->allowedOrigins) {
             throw new InvalidArgument(sprintf('Missing parameter "AllowedOrigins" for "%s". The value cannot be null.', __CLASS__));
         }
         foreach ($v as $item) {
             $node->appendChild($document->createElement('AllowedOrigin', $item));
         }
 
-        if (null !== $v = $this->ExposeHeaders) {
+        if (null !== $v = $this->exposeHeaders) {
             foreach ($v as $item) {
                 $node->appendChild($document->createElement('ExposeHeader', $item));
             }
         }
-        if (null !== $v = $this->MaxAgeSeconds) {
+        if (null !== $v = $this->maxAgeSeconds) {
             $node->appendChild($document->createElement('MaxAgeSeconds', $v));
         }
     }
