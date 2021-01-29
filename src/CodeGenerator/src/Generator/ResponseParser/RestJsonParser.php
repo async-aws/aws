@@ -37,10 +37,10 @@ class RestJsonParser implements Parser
         $this->typeGenerator = $typeGenerator;
     }
 
-    public function generate(StructureShape $shape): ParserResult
+    public function generate(StructureShape $shape, bool $throwOnError = true): ParserResult
     {
         if (null !== $payloadProperty = $shape->getPayload()) {
-            return new ParserResult(strtr('$this->PROPERTY_NAME = $response->getContent();', ['PROPERTY_NAME' => GeneratorHelper::normalizeName($payloadProperty)]));
+            return new ParserResult(strtr('$this->PROPERTY_NAME = $response->getContent(THROW);', ['THROW' => $throwOnError ? '' : 'false', 'PROPERTY_NAME' => GeneratorHelper::normalizeName($payloadProperty)]));
         }
 
         $properties = [];
@@ -51,17 +51,26 @@ class RestJsonParser implements Parser
                 continue;
             }
 
-            $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
-                'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
-                'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('$data[\'%s\']', $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired()),
-            ]);
+            if (!$member->isNullable() && !$member->isRequired()) {
+                $properties[] = strtr('if (null !== $v = (PROPERTY_ACCESSOR)) {
+                        $this->PROPERTY_NAME = $v;
+                    }', [
+                    'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
+                    'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('$data[\'%s\']', $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired()),
+                ]);
+            } else {
+                $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
+                    'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
+                    'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('$data[\'%s\']', $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired()),
+                ]);
+            }
         }
 
         if (empty($properties)) {
             return new ParserResult('');
         }
 
-        $body = '$data = $response->toArray();' . "\n";
+        $body = '$data = $response->toArray(' . ($throwOnError ? '' : 'false') . ');' . "\n";
         if (null !== $wrapper = $shape->getResultWrapper()) {
             $body .= strtr('$data = $data[WRAPPER];' . "\n", ['WRAPPER' => var_export($wrapper, true)]);
         }

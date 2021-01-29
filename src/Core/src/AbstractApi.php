@@ -167,7 +167,7 @@ abstract class AbstractApi
             ]);
         }
 
-        return new Response($response, $this->httpClient, $this->logger, $this->awsErrorFactory, $debug);
+        return new Response($response, $this->httpClient, $this->logger, $this->awsErrorFactory, $debug, $context ? $context->getExceptionMapping() : []);
     }
 
     /**

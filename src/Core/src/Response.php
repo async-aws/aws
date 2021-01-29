@@ -83,13 +83,19 @@ class Response
      */
     private $debug;
 
-    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, LoggerInterface $logger, AwsErrorFactoryInterface $awsErrorFactory = null, bool $debug = false)
+    /**
+     * @var array<string, string>
+     */
+    private $exceptionMapping;
+
+    public function __construct(ResponseInterface $response, HttpClientInterface $httpClient, LoggerInterface $logger, AwsErrorFactoryInterface $awsErrorFactory = null, bool $debug = false, array $exceptionMapping = [])
     {
         $this->httpResponse = $response;
         $this->httpClient = $httpClient;
         $this->logger = $logger;
         $this->awsErrorFactory = $awsErrorFactory ?? new ChainAwsErrorFactory();
         $this->debug = $debug;
+        $this->exceptionMapping = $exceptionMapping;
     }
 
     public function __destruct()
@@ -373,24 +379,27 @@ class Response
         }
 
         if (300 <= $statusCode) {
-            $awsErrorFactory = $this->awsErrorFactory;
+            try {
+                $awsError = $this->awsErrorFactory->createFromResponse($this->httpResponse);
+            } catch (UnparsableResponse $e) {
+                $awsError = null;
+            }
+
+            if ((null !== $awsCode = ($awsError ? $awsError->getCode() : null)) && isset($this->exceptionMapping[$awsCode])) {
+                $exceptionClass = $this->exceptionMapping[$awsCode];
+            } elseif (500 <= $statusCode) {
+                $exceptionClass = ServerException::class;
+            } elseif (400 <= $statusCode) {
+                $exceptionClass = ClientException::class;
+            } else {
+                $exceptionClass = RedirectionException::class;
+            }
+
             $httpResponse = $this->httpResponse;
-            $this->resolveResult = static function () use ($awsErrorFactory, $httpResponse): HttpException {
-                try {
-                    $awsError = $awsErrorFactory->createFromResponse($httpResponse);
-                } catch (UnparsableResponse $e) {
-                    $awsError = null;
-                }
-                $statusCode = $httpResponse->getStatusCode();
-                if (500 <= $statusCode) {
-                    return new ServerException($httpResponse, $awsError);
-                }
-
-                if (400 <= $statusCode) {
-                    return new ClientException($httpResponse, $awsError);
-                }
-
-                return new RedirectionException($httpResponse, $awsError);
+            /** @psalm-suppress MoreSpecificReturnType */
+            $this->resolveResult = static function () use ($exceptionClass, $httpResponse, $awsError): HttpException {
+                /** @psalm-suppress LessSpecificReturnStatement */
+                return new $exceptionClass($httpResponse, $awsError);
             };
 
             return;

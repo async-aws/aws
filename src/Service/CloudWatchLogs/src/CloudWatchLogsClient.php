@@ -3,6 +3,12 @@
 namespace AsyncAws\CloudWatchLogs;
 
 use AsyncAws\CloudWatchLogs\Enum\OrderBy;
+use AsyncAws\CloudWatchLogs\Exception\DataAlreadyAcceptedException;
+use AsyncAws\CloudWatchLogs\Exception\InvalidParameterException;
+use AsyncAws\CloudWatchLogs\Exception\InvalidSequenceTokenException;
+use AsyncAws\CloudWatchLogs\Exception\ResourceNotFoundException;
+use AsyncAws\CloudWatchLogs\Exception\ServiceUnavailableException;
+use AsyncAws\CloudWatchLogs\Exception\UnrecognizedClientException;
 use AsyncAws\CloudWatchLogs\Input\DescribeLogStreamsRequest;
 use AsyncAws\CloudWatchLogs\Input\PutLogEventsRequest;
 use AsyncAws\CloudWatchLogs\Result\DescribeLogStreamsResponse;
@@ -32,11 +38,19 @@ class CloudWatchLogsClient extends AbstractApi
      *   limit?: int,
      *   @region?: string,
      * }|DescribeLogStreamsRequest $input
+     *
+     * @throws InvalidParameterException
+     * @throws ResourceNotFoundException
+     * @throws ServiceUnavailableException
      */
     public function describeLogStreams($input): DescribeLogStreamsResponse
     {
         $input = DescribeLogStreamsRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeLogStreams', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeLogStreams', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterException' => InvalidParameterException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceUnavailableException' => ServiceUnavailableException::class,
+        ]]));
 
         return new DescribeLogStreamsResponse($response, $this, $input);
     }
@@ -54,11 +68,25 @@ class CloudWatchLogsClient extends AbstractApi
      *   sequenceToken?: string,
      *   @region?: string,
      * }|PutLogEventsRequest $input
+     *
+     * @throws InvalidParameterException
+     * @throws InvalidSequenceTokenException
+     * @throws DataAlreadyAcceptedException
+     * @throws ResourceNotFoundException
+     * @throws ServiceUnavailableException
+     * @throws UnrecognizedClientException
      */
     public function putLogEvents($input): PutLogEventsResponse
     {
         $input = PutLogEventsRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutLogEvents', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutLogEvents', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterException' => InvalidParameterException::class,
+            'InvalidSequenceTokenException' => InvalidSequenceTokenException::class,
+            'DataAlreadyAcceptedException' => DataAlreadyAcceptedException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceUnavailableException' => ServiceUnavailableException::class,
+            'UnrecognizedClientException' => UnrecognizedClientException::class,
+        ]]));
 
         return new PutLogEventsResponse($response);
     }

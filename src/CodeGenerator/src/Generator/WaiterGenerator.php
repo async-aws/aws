@@ -53,11 +53,17 @@ class WaiterGenerator
      */
     private $typeGenerator;
 
-    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ?TypeGenerator $typeGenerator = null)
+    /**
+     * @var ExceptionGenerator
+     */
+    private $exceptionGenerator;
+
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ExceptionGenerator $exceptionGenerator, ?TypeGenerator $typeGenerator = null)
     {
         $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
         $this->inputGenerator = $inputGenerator;
+        $this->exceptionGenerator = $exceptionGenerator;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
     }
 
@@ -87,20 +93,31 @@ class WaiterGenerator
         $classBuilder->addUse($resultClass->getFqdn());
 
         [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($inputShape, $inputClass, true, false, false, ['  @region?: string,']);
-        $method = $classBuilder->addMethod(\lcfirst($waiter->getName()))
-            ->setComment('Check status of operation ' . \lcfirst($operation->getName()))
-            ->addComment('@see ' . \lcfirst($operation->getName()))
+
+        $mapping = [];
+        foreach ($operation->getErrors() as $error) {
+            $errorClass = $this->exceptionGenerator->generate($operation, $error);
+            $classBuilder->addUse($errorClass->getFqdn());
+
+            $mapping[] = sprintf('%s => %s::class,', var_export($error->getCode() ?? $error->getName(), true), $errorClass->getName());
+        }
+
+        $method = $classBuilder->addMethod(\lcfirst(GeneratorHelper::normalizeName($waiter->getName())))
+            ->setComment('Check status of operation ' . \lcfirst(GeneratorHelper::normalizeName($operation->getName())))
+            ->setComment('')
+            ->addComment('@see ' . \lcfirst(GeneratorHelper::normalizeName($operation->getName())))
             ->addComment($doc)
             ->setReturnType($resultClass->getFqdn())
             ->setBody(strtr('
                 $input = INPUT_CLASS::create($input);
-                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion()]));
+                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion()EXCEPTION_MAPPING]));
 
                 return new RESULT_CLASS($response, $this, $input);
             ', [
                 'INPUT_CLASS' => $inputClass->getName(),
                 'OPERATION_NAME' => \var_export($operation->getName(), true),
                 'RESULT_CLASS' => $resultClass->getName(),
+                'EXCEPTION_MAPPING' => $mapping ? ", 'exceptionMapping' => [\n" . implode("\n", $mapping) . "\n]" : '',
             ]));
         foreach ($memberClassNames as $memberClassName) {
             $classBuilder->addUse($memberClassName->getFqdn());

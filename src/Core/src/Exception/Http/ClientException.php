@@ -11,7 +11,7 @@ use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-final class ClientException extends \RuntimeException implements ClientExceptionInterface, HttpException
+class ClientException extends \RuntimeException implements ClientExceptionInterface, HttpException
 {
     use HttpExceptionTrait;
 }

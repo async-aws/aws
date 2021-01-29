@@ -7,6 +7,12 @@ use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRestAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\RdsDataService\Exception\BadRequestException;
+use AsyncAws\RdsDataService\Exception\ForbiddenException;
+use AsyncAws\RdsDataService\Exception\InternalServerErrorException;
+use AsyncAws\RdsDataService\Exception\NotFoundException;
+use AsyncAws\RdsDataService\Exception\ServiceUnavailableErrorException;
+use AsyncAws\RdsDataService\Exception\StatementTimeoutException;
 use AsyncAws\RdsDataService\Input\BatchExecuteStatementRequest;
 use AsyncAws\RdsDataService\Input\BeginTransactionRequest;
 use AsyncAws\RdsDataService\Input\CommitTransactionRequest;
@@ -38,11 +44,23 @@ class RdsDataServiceClient extends AbstractApi
      *   transactionId?: string,
      *   @region?: string,
      * }|BatchExecuteStatementRequest $input
+     *
+     * @throws BadRequestException
+     * @throws StatementTimeoutException
+     * @throws InternalServerErrorException
+     * @throws ForbiddenException
+     * @throws ServiceUnavailableErrorException
      */
     public function batchExecuteStatement($input): BatchExecuteStatementResponse
     {
         $input = BatchExecuteStatementRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'BatchExecuteStatement', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'BatchExecuteStatement', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'BadRequestException' => BadRequestException::class,
+            'StatementTimeoutException' => StatementTimeoutException::class,
+            'InternalServerErrorException' => InternalServerErrorException::class,
+            'ForbiddenException' => ForbiddenException::class,
+            'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
+        ]]));
 
         return new BatchExecuteStatementResponse($response);
     }
@@ -60,11 +78,23 @@ class RdsDataServiceClient extends AbstractApi
      *   secretArn: string,
      *   @region?: string,
      * }|BeginTransactionRequest $input
+     *
+     * @throws BadRequestException
+     * @throws StatementTimeoutException
+     * @throws InternalServerErrorException
+     * @throws ForbiddenException
+     * @throws ServiceUnavailableErrorException
      */
     public function beginTransaction($input): BeginTransactionResponse
     {
         $input = BeginTransactionRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'BeginTransaction', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'BeginTransaction', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'BadRequestException' => BadRequestException::class,
+            'StatementTimeoutException' => StatementTimeoutException::class,
+            'InternalServerErrorException' => InternalServerErrorException::class,
+            'ForbiddenException' => ForbiddenException::class,
+            'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
+        ]]));
 
         return new BeginTransactionResponse($response);
     }
@@ -81,11 +111,25 @@ class RdsDataServiceClient extends AbstractApi
      *   transactionId: string,
      *   @region?: string,
      * }|CommitTransactionRequest $input
+     *
+     * @throws BadRequestException
+     * @throws StatementTimeoutException
+     * @throws InternalServerErrorException
+     * @throws ForbiddenException
+     * @throws ServiceUnavailableErrorException
+     * @throws NotFoundException
      */
     public function commitTransaction($input): CommitTransactionResponse
     {
         $input = CommitTransactionRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CommitTransaction', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CommitTransaction', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'BadRequestException' => BadRequestException::class,
+            'StatementTimeoutException' => StatementTimeoutException::class,
+            'InternalServerErrorException' => InternalServerErrorException::class,
+            'ForbiddenException' => ForbiddenException::class,
+            'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
+            'NotFoundException' => NotFoundException::class,
+        ]]));
 
         return new CommitTransactionResponse($response);
     }
@@ -109,11 +153,23 @@ class RdsDataServiceClient extends AbstractApi
      *   transactionId?: string,
      *   @region?: string,
      * }|ExecuteStatementRequest $input
+     *
+     * @throws BadRequestException
+     * @throws StatementTimeoutException
+     * @throws InternalServerErrorException
+     * @throws ForbiddenException
+     * @throws ServiceUnavailableErrorException
      */
     public function executeStatement($input): ExecuteStatementResponse
     {
         $input = ExecuteStatementRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ExecuteStatement', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ExecuteStatement', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'BadRequestException' => BadRequestException::class,
+            'StatementTimeoutException' => StatementTimeoutException::class,
+            'InternalServerErrorException' => InternalServerErrorException::class,
+            'ForbiddenException' => ForbiddenException::class,
+            'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
+        ]]));
 
         return new ExecuteStatementResponse($response);
     }
@@ -130,11 +186,25 @@ class RdsDataServiceClient extends AbstractApi
      *   transactionId: string,
      *   @region?: string,
      * }|RollbackTransactionRequest $input
+     *
+     * @throws BadRequestException
+     * @throws StatementTimeoutException
+     * @throws InternalServerErrorException
+     * @throws ForbiddenException
+     * @throws ServiceUnavailableErrorException
+     * @throws NotFoundException
      */
     public function rollbackTransaction($input): RollbackTransactionResponse
     {
         $input = RollbackTransactionRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'RollbackTransaction', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'RollbackTransaction', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'BadRequestException' => BadRequestException::class,
+            'StatementTimeoutException' => StatementTimeoutException::class,
+            'InternalServerErrorException' => InternalServerErrorException::class,
+            'ForbiddenException' => ForbiddenException::class,
+            'ServiceUnavailableError' => ServiceUnavailableErrorException::class,
+            'NotFoundException' => NotFoundException::class,
+        ]]));
 
         return new RollbackTransactionResponse($response);
     }

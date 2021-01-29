@@ -2,6 +2,13 @@
 
 namespace AsyncAws\CloudFront;
 
+use AsyncAws\CloudFront\Exception\AccessDeniedException;
+use AsyncAws\CloudFront\Exception\BatchTooLargeException;
+use AsyncAws\CloudFront\Exception\InconsistentQuantitiesException;
+use AsyncAws\CloudFront\Exception\InvalidArgumentException;
+use AsyncAws\CloudFront\Exception\MissingBodyException;
+use AsyncAws\CloudFront\Exception\NoSuchDistributionException;
+use AsyncAws\CloudFront\Exception\TooManyInvalidationsInProgressException;
 use AsyncAws\CloudFront\Input\CreateInvalidationRequest;
 use AsyncAws\CloudFront\Result\CreateInvalidationResult;
 use AsyncAws\CloudFront\ValueObject\InvalidationBatch;
@@ -23,11 +30,27 @@ class CloudFrontClient extends AbstractApi
      *   InvalidationBatch: InvalidationBatch|array,
      *   @region?: string,
      * }|CreateInvalidationRequest $input
+     *
+     * @throws AccessDeniedException
+     * @throws MissingBodyException
+     * @throws InvalidArgumentException
+     * @throws NoSuchDistributionException
+     * @throws BatchTooLargeException
+     * @throws TooManyInvalidationsInProgressException
+     * @throws InconsistentQuantitiesException
      */
     public function createInvalidation($input): CreateInvalidationResult
     {
         $input = CreateInvalidationRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateInvalidation2019_03_26', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateInvalidation2019_03_26', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AccessDenied' => AccessDeniedException::class,
+            'MissingBody' => MissingBodyException::class,
+            'InvalidArgument' => InvalidArgumentException::class,
+            'NoSuchDistribution' => NoSuchDistributionException::class,
+            'BatchTooLarge' => BatchTooLargeException::class,
+            'TooManyInvalidationsInProgress' => TooManyInvalidationsInProgressException::class,
+            'InconsistentQuantities' => InconsistentQuantitiesException::class,
+        ]]));
 
         return new CreateInvalidationResult($response);
     }

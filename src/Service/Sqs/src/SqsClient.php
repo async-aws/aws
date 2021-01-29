@@ -11,6 +11,17 @@ use AsyncAws\Core\Result;
 use AsyncAws\Sqs\Enum\MessageSystemAttributeName;
 use AsyncAws\Sqs\Enum\MessageSystemAttributeNameForSends;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
+use AsyncAws\Sqs\Exception\InvalidAttributeNameException;
+use AsyncAws\Sqs\Exception\InvalidIdFormatException;
+use AsyncAws\Sqs\Exception\InvalidMessageContentsException;
+use AsyncAws\Sqs\Exception\MessageNotInflightException;
+use AsyncAws\Sqs\Exception\OverLimitException;
+use AsyncAws\Sqs\Exception\PurgeQueueInProgressException;
+use AsyncAws\Sqs\Exception\QueueDeletedRecentlyException;
+use AsyncAws\Sqs\Exception\QueueDoesNotExistException;
+use AsyncAws\Sqs\Exception\QueueNameExistsException;
+use AsyncAws\Sqs\Exception\ReceiptHandleIsInvalidException;
+use AsyncAws\Sqs\Exception\UnsupportedOperationException;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
 use AsyncAws\Sqs\Input\CreateQueueRequest;
 use AsyncAws\Sqs\Input\DeleteMessageRequest;
@@ -48,11 +59,17 @@ class SqsClient extends AbstractApi
      *   VisibilityTimeout: int,
      *   @region?: string,
      * }|ChangeMessageVisibilityRequest $input
+     *
+     * @throws MessageNotInflightException
+     * @throws ReceiptHandleIsInvalidException
      */
     public function changeMessageVisibility($input): Result
     {
         $input = ChangeMessageVisibilityRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ChangeMessageVisibility', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ChangeMessageVisibility', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AWS.SimpleQueueService.MessageNotInflight' => MessageNotInflightException::class,
+            'ReceiptHandleIsInvalid' => ReceiptHandleIsInvalidException::class,
+        ]]));
 
         return new Result($response);
     }
@@ -69,11 +86,17 @@ class SqsClient extends AbstractApi
      *   tags?: array<string, string>,
      *   @region?: string,
      * }|CreateQueueRequest $input
+     *
+     * @throws QueueDeletedRecentlyException
+     * @throws QueueNameExistsException
      */
     public function createQueue($input): CreateQueueResult
     {
         $input = CreateQueueRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateQueue', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateQueue', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AWS.SimpleQueueService.QueueDeletedRecently' => QueueDeletedRecentlyException::class,
+            'QueueAlreadyExists' => QueueNameExistsException::class,
+        ]]));
 
         return new CreateQueueResult($response);
     }
@@ -92,11 +115,17 @@ class SqsClient extends AbstractApi
      *   ReceiptHandle: string,
      *   @region?: string,
      * }|DeleteMessageRequest $input
+     *
+     * @throws InvalidIdFormatException
+     * @throws ReceiptHandleIsInvalidException
      */
     public function deleteMessage($input): Result
     {
         $input = DeleteMessageRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteMessage', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteMessage', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidIdFormat' => InvalidIdFormatException::class,
+            'ReceiptHandleIsInvalid' => ReceiptHandleIsInvalidException::class,
+        ]]));
 
         return new Result($response);
     }
@@ -131,11 +160,15 @@ class SqsClient extends AbstractApi
      *   AttributeNames?: list<QueueAttributeName::*>,
      *   @region?: string,
      * }|GetQueueAttributesRequest $input
+     *
+     * @throws InvalidAttributeNameException
      */
     public function getQueueAttributes($input): GetQueueAttributesResult
     {
         $input = GetQueueAttributesRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetQueueAttributes', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetQueueAttributes', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidAttributeName' => InvalidAttributeNameException::class,
+        ]]));
 
         return new GetQueueAttributesResult($response);
     }
@@ -151,11 +184,15 @@ class SqsClient extends AbstractApi
      *   QueueOwnerAWSAccountId?: string,
      *   @region?: string,
      * }|GetQueueUrlRequest $input
+     *
+     * @throws QueueDoesNotExistException
      */
     public function getQueueUrl($input): GetQueueUrlResult
     {
         $input = GetQueueUrlRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetQueueUrl', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetQueueUrl', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AWS.SimpleQueueService.NonExistentQueue' => QueueDoesNotExistException::class,
+        ]]));
 
         return new GetQueueUrlResult($response);
     }
@@ -193,18 +230,22 @@ class SqsClient extends AbstractApi
      *   QueueUrl: string,
      *   @region?: string,
      * }|PurgeQueueRequest $input
+     *
+     * @throws QueueDoesNotExistException
+     * @throws PurgeQueueInProgressException
      */
     public function purgeQueue($input): Result
     {
         $input = PurgeQueueRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PurgeQueue', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PurgeQueue', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AWS.SimpleQueueService.NonExistentQueue' => QueueDoesNotExistException::class,
+            'AWS.SimpleQueueService.PurgeQueueInProgress' => PurgeQueueInProgressException::class,
+        ]]));
 
         return new Result($response);
     }
 
     /**
-     * Check status of operation getQueueUrl.
-     *
      * @see getQueueUrl
      *
      * @param array{
@@ -216,7 +257,9 @@ class SqsClient extends AbstractApi
     public function queueExists($input): QueueExistsWaiter
     {
         $input = GetQueueUrlRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetQueueUrl', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetQueueUrl', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AWS.SimpleQueueService.NonExistentQueue' => QueueDoesNotExistException::class,
+        ]]));
 
         return new QueueExistsWaiter($response, $this, $input);
     }
@@ -240,11 +283,15 @@ class SqsClient extends AbstractApi
      *   ReceiveRequestAttemptId?: string,
      *   @region?: string,
      * }|ReceiveMessageRequest $input
+     *
+     * @throws OverLimitException
      */
     public function receiveMessage($input): ReceiveMessageResult
     {
         $input = ReceiveMessageRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ReceiveMessage', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ReceiveMessage', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'OverLimit' => OverLimitException::class,
+        ]]));
 
         return new ReceiveMessageResult($response);
     }
@@ -265,11 +312,17 @@ class SqsClient extends AbstractApi
      *   MessageGroupId?: string,
      *   @region?: string,
      * }|SendMessageRequest $input
+     *
+     * @throws InvalidMessageContentsException
+     * @throws UnsupportedOperationException
      */
     public function sendMessage($input): SendMessageResult
     {
         $input = SendMessageRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SendMessage', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SendMessage', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidMessageContents' => InvalidMessageContentsException::class,
+            'AWS.SimpleQueueService.UnsupportedOperation' => UnsupportedOperationException::class,
+        ]]));
 
         return new SendMessageResult($response);
     }

@@ -7,6 +7,7 @@ use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\EventBridge\Exception\InternalException;
 use AsyncAws\EventBridge\Input\PutEventsRequest;
 use AsyncAws\EventBridge\Result\PutEventsResponse;
 use AsyncAws\EventBridge\ValueObject\PutEventsRequestEntry;
@@ -23,11 +24,15 @@ class EventBridgeClient extends AbstractApi
      *   Entries: PutEventsRequestEntry[],
      *   @region?: string,
      * }|PutEventsRequest $input
+     *
+     * @throws InternalException
      */
     public function putEvents($input): PutEventsResponse
     {
         $input = PutEventsRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutEvents', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PutEvents', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalException' => InternalException::class,
+        ]]));
 
         return new PutEventsResponse($response);
     }

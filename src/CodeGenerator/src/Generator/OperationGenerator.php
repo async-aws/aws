@@ -8,6 +8,7 @@ use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
+use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
@@ -58,7 +59,12 @@ class OperationGenerator
      */
     private $typeGenerator;
 
-    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator, PaginationGenerator $paginationGenerator, TestGenerator $testGenerator, ?TypeGenerator $typeGenerator = null)
+    /**
+     * @var ExceptionGenerator
+     */
+    private $exceptionGenerator;
+
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator, PaginationGenerator $paginationGenerator, TestGenerator $testGenerator, ExceptionGenerator $exceptionGenerator, ?TypeGenerator $typeGenerator = null)
     {
         $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
@@ -66,6 +72,7 @@ class OperationGenerator
         $this->resultGenerator = $resultGenerator;
         $this->paginationGenerator = $paginationGenerator;
         $this->testGenerator = $testGenerator;
+        $this->exceptionGenerator = $exceptionGenerator;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
     }
 
@@ -81,7 +88,7 @@ class OperationGenerator
         $classBuilder = $this->classRegistry->register($className->getFqdn(), true);
         $classBuilder->addUse($inputClass->getFqdn());
 
-        $method = $classBuilder->addMethod(\lcfirst($operation->getMethodName()));
+        $method = $classBuilder->addMethod(\lcfirst(GeneratorHelper::normalizeName($operation->getMethodName())));
         if (null !== $documentation = $operation->getDocumentation()) {
             $method->addComment(GeneratorHelper::parseDocumentation($documentation));
         }
@@ -99,11 +106,17 @@ class OperationGenerator
             $classBuilder->addUse($memberClassName->getFqdn());
         }
 
+        foreach ($operation->getErrors() as $error) {
+            $errorClass = $this->namespaceRegistry->getException($error);
+            $method->addComment('@throws ' . $errorClass->getName());
+            $classBuilder->addUse($errorClass->getFqdn());
+        }
+
         $operationMethodParameter = $method->addParameter('input');
         if (empty($inputShape->getRequired())) {
             $operationMethodParameter->setDefaultValue([]);
         }
-        if (null !== $output = $operation->getOutput()) {
+        if (null !== $operation->getOutput()) {
             $resultClass = $this->resultGenerator->generate($operation);
             if (null !== $operation->getPagination()) {
                 $this->paginationGenerator->generate($operation);
@@ -119,12 +132,12 @@ class OperationGenerator
 
         $classBuilder->addUse(RequestContext::class);
         // Generate method body
-        $this->setMethodBody($method, $operation, $inputClass, $resultClass);
+        $this->setMethodBody($method, $operation, $inputClass, $resultClass, $classBuilder);
 
         $this->testGenerator->generate($operation);
     }
 
-    private function setMethodBody(Method $method, Operation $operation, ClassName $inputClass, ?ClassName $resultClass): void
+    private function setMethodBody(Method $method, Operation $operation, ClassName $inputClass, ?ClassName $resultClass, ClassBuilder $classBuilder): void
     {
         $body = '';
         if ($operation->isDeprecated()) {
@@ -132,26 +145,33 @@ class OperationGenerator
             $body .= '@trigger_error(\sprintf(\'The operation "%s" is deprecated by AWS.\', __FUNCTION__), E_USER_DEPRECATED);';
         }
 
+        $body .= '
+                $input = INPUT_CLASS::create($input);
+                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion()EXCEPTION_MAPPING]));
+        ';
         if ((null !== $pagination = $operation->getPagination()) && !empty($pagination->getOutputToken())) {
             $body .= '
-                $input = INPUT_CLASS::create($input);
-                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion()]));
-
                 return new RESULT_CLASS($response, $this, $input);
             ';
         } else {
             $body .= '
-                $input = INPUT_CLASS::create($input);
-                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion()]));
-
                 return new RESULT_CLASS($response);
             ';
+        }
+
+        $mapping = [];
+        foreach ($operation->getErrors() as $error) {
+            $errorClass = $this->exceptionGenerator->generate($operation, $error);
+            $classBuilder->addUse($errorClass->getFqdn());
+
+            $mapping[] = sprintf('%s => %s::class,', var_export($error->getCode() ?? $error->getName(), true), $errorClass->getName());
         }
 
         $method->setBody(strtr($body, [
             'INPUT_CLASS' => $inputClass->getName(),
             'OPERATION_NAME' => \var_export($operation->getName(), true),
             'RESULT_CLASS' => $resultClass ? $resultClass->getName() : 'Result',
+            'EXCEPTION_MAPPING' => $mapping ? ", 'exceptionMapping' => [\n" . implode("\n", $mapping) . "\n]" : '',
         ]));
     }
 }

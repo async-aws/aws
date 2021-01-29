@@ -46,6 +46,8 @@ TEXT;
         }
 
         parent::__construct($message, $code);
+
+        $this->populateResult($response);
     }
 
     public function getResponse(): ResponseInterface
@@ -71,5 +73,9 @@ TEXT;
     public function getAwsDetail(): ?string
     {
         return $this->awsError ? $this->awsError->getDetail() : null;
+    }
+
+    protected function populateResult(ResponseInterface $response): void
+    {
     }
 }

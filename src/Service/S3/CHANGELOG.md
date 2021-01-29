@@ -6,6 +6,7 @@
 
 - Changed case of object's properties to camelCase.
 - Added documentation in class's headers.
+- Added Business Exceptions
 
 ## 1.7.0
 

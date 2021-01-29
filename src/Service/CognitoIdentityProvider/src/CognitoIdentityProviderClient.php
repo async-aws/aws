@@ -6,6 +6,35 @@ use AsyncAws\CognitoIdentityProvider\Enum\AuthFlowType;
 use AsyncAws\CognitoIdentityProvider\Enum\ChallengeNameType;
 use AsyncAws\CognitoIdentityProvider\Enum\DeliveryMediumType;
 use AsyncAws\CognitoIdentityProvider\Enum\MessageActionType;
+use AsyncAws\CognitoIdentityProvider\Exception\AliasExistsException;
+use AsyncAws\CognitoIdentityProvider\Exception\CodeDeliveryFailureException;
+use AsyncAws\CognitoIdentityProvider\Exception\CodeMismatchException;
+use AsyncAws\CognitoIdentityProvider\Exception\ConcurrentModificationException;
+use AsyncAws\CognitoIdentityProvider\Exception\EnableSoftwareTokenMFAException;
+use AsyncAws\CognitoIdentityProvider\Exception\ExpiredCodeException;
+use AsyncAws\CognitoIdentityProvider\Exception\InternalErrorException;
+use AsyncAws\CognitoIdentityProvider\Exception\InvalidEmailRoleAccessPolicyException;
+use AsyncAws\CognitoIdentityProvider\Exception\InvalidLambdaResponseException;
+use AsyncAws\CognitoIdentityProvider\Exception\InvalidParameterException;
+use AsyncAws\CognitoIdentityProvider\Exception\InvalidPasswordException;
+use AsyncAws\CognitoIdentityProvider\Exception\InvalidSmsRoleAccessPolicyException;
+use AsyncAws\CognitoIdentityProvider\Exception\InvalidSmsRoleTrustRelationshipException;
+use AsyncAws\CognitoIdentityProvider\Exception\InvalidUserPoolConfigurationException;
+use AsyncAws\CognitoIdentityProvider\Exception\LimitExceededException;
+use AsyncAws\CognitoIdentityProvider\Exception\MFAMethodNotFoundException;
+use AsyncAws\CognitoIdentityProvider\Exception\NotAuthorizedException;
+use AsyncAws\CognitoIdentityProvider\Exception\PasswordResetRequiredException;
+use AsyncAws\CognitoIdentityProvider\Exception\PreconditionNotMetException;
+use AsyncAws\CognitoIdentityProvider\Exception\ResourceNotFoundException;
+use AsyncAws\CognitoIdentityProvider\Exception\SoftwareTokenMFANotFoundException;
+use AsyncAws\CognitoIdentityProvider\Exception\TooManyFailedAttemptsException;
+use AsyncAws\CognitoIdentityProvider\Exception\TooManyRequestsException;
+use AsyncAws\CognitoIdentityProvider\Exception\UnexpectedLambdaException;
+use AsyncAws\CognitoIdentityProvider\Exception\UnsupportedUserStateException;
+use AsyncAws\CognitoIdentityProvider\Exception\UserLambdaValidationException;
+use AsyncAws\CognitoIdentityProvider\Exception\UsernameExistsException;
+use AsyncAws\CognitoIdentityProvider\Exception\UserNotConfirmedException;
+use AsyncAws\CognitoIdentityProvider\Exception\UserNotFoundException;
 use AsyncAws\CognitoIdentityProvider\Input\AdminConfirmSignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminCreateUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminDeleteUserRequest;
@@ -68,11 +97,35 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * }|AdminConfirmSignUpRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
+     * @throws UnexpectedLambdaException
+     * @throws UserLambdaValidationException
+     * @throws NotAuthorizedException
+     * @throws TooManyFailedAttemptsException
+     * @throws InvalidLambdaResponseException
+     * @throws TooManyRequestsException
+     * @throws LimitExceededException
+     * @throws UserNotFoundException
+     * @throws InternalErrorException
      */
     public function adminConfirmSignUp($input): AdminConfirmSignUpResponse
     {
         $input = AdminConfirmSignUpRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminConfirmSignUp', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminConfirmSignUp', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'UnexpectedLambdaException' => UnexpectedLambdaException::class,
+            'UserLambdaValidationException' => UserLambdaValidationException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'TooManyFailedAttemptsException' => TooManyFailedAttemptsException::class,
+            'InvalidLambdaResponseException' => InvalidLambdaResponseException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
 
         return new AdminConfirmSignUpResponse($response);
     }
@@ -95,11 +148,45 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * }|AdminCreateUserRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
+     * @throws UserNotFoundException
+     * @throws UsernameExistsException
+     * @throws InvalidPasswordException
+     * @throws CodeDeliveryFailureException
+     * @throws UnexpectedLambdaException
+     * @throws UserLambdaValidationException
+     * @throws InvalidLambdaResponseException
+     * @throws PreconditionNotMetException
+     * @throws InvalidSmsRoleAccessPolicyException
+     * @throws InvalidSmsRoleTrustRelationshipException
+     * @throws TooManyRequestsException
+     * @throws NotAuthorizedException
+     * @throws UnsupportedUserStateException
+     * @throws InternalErrorException
      */
     public function adminCreateUser($input): AdminCreateUserResponse
     {
         $input = AdminCreateUserRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminCreateUser', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminCreateUser', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'UsernameExistsException' => UsernameExistsException::class,
+            'InvalidPasswordException' => InvalidPasswordException::class,
+            'CodeDeliveryFailureException' => CodeDeliveryFailureException::class,
+            'UnexpectedLambdaException' => UnexpectedLambdaException::class,
+            'UserLambdaValidationException' => UserLambdaValidationException::class,
+            'InvalidLambdaResponseException' => InvalidLambdaResponseException::class,
+            'PreconditionNotMetException' => PreconditionNotMetException::class,
+            'InvalidSmsRoleAccessPolicyException' => InvalidSmsRoleAccessPolicyException::class,
+            'InvalidSmsRoleTrustRelationshipException' => InvalidSmsRoleTrustRelationshipException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'UnsupportedUserStateException' => UnsupportedUserStateException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
 
         return new AdminCreateUserResponse($response);
     }
@@ -115,11 +202,25 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Username: string,
      *   @region?: string,
      * }|AdminDeleteUserRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
+     * @throws TooManyRequestsException
+     * @throws NotAuthorizedException
+     * @throws UserNotFoundException
+     * @throws InternalErrorException
      */
     public function adminDeleteUser($input): Result
     {
         $input = AdminDeleteUserRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminDeleteUser', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminDeleteUser', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
 
         return new Result($response);
     }
@@ -135,11 +236,25 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Username: string,
      *   @region?: string,
      * }|AdminGetUserRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
+     * @throws TooManyRequestsException
+     * @throws NotAuthorizedException
+     * @throws UserNotFoundException
+     * @throws InternalErrorException
      */
     public function adminGetUser($input): AdminGetUserResponse
     {
         $input = AdminGetUserRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminGetUser', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminGetUser', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
 
         return new AdminGetUserResponse($response);
     }
@@ -160,11 +275,43 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   ContextData?: ContextDataType|array,
      *   @region?: string,
      * }|AdminInitiateAuthRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
+     * @throws NotAuthorizedException
+     * @throws TooManyRequestsException
+     * @throws InternalErrorException
+     * @throws UnexpectedLambdaException
+     * @throws InvalidUserPoolConfigurationException
+     * @throws UserLambdaValidationException
+     * @throws InvalidLambdaResponseException
+     * @throws MFAMethodNotFoundException
+     * @throws InvalidSmsRoleAccessPolicyException
+     * @throws InvalidSmsRoleTrustRelationshipException
+     * @throws PasswordResetRequiredException
+     * @throws UserNotFoundException
+     * @throws UserNotConfirmedException
      */
     public function adminInitiateAuth($input): AdminInitiateAuthResponse
     {
         $input = AdminInitiateAuthRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminInitiateAuth', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminInitiateAuth', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'InternalErrorException' => InternalErrorException::class,
+            'UnexpectedLambdaException' => UnexpectedLambdaException::class,
+            'InvalidUserPoolConfigurationException' => InvalidUserPoolConfigurationException::class,
+            'UserLambdaValidationException' => UserLambdaValidationException::class,
+            'InvalidLambdaResponseException' => InvalidLambdaResponseException::class,
+            'MFAMethodNotFoundException' => MFAMethodNotFoundException::class,
+            'InvalidSmsRoleAccessPolicyException' => InvalidSmsRoleAccessPolicyException::class,
+            'InvalidSmsRoleTrustRelationshipException' => InvalidSmsRoleTrustRelationshipException::class,
+            'PasswordResetRequiredException' => PasswordResetRequiredException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'UserNotConfirmedException' => UserNotConfirmedException::class,
+        ]]));
 
         return new AdminInitiateAuthResponse($response);
     }
@@ -182,11 +329,27 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Permanent?: bool,
      *   @region?: string,
      * }|AdminSetUserPasswordRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws NotAuthorizedException
+     * @throws UserNotFoundException
+     * @throws InternalErrorException
+     * @throws TooManyRequestsException
+     * @throws InvalidParameterException
+     * @throws InvalidPasswordException
      */
     public function adminSetUserPassword($input): AdminSetUserPasswordResponse
     {
         $input = AdminSetUserPasswordRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminSetUserPassword', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminSetUserPassword', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'InternalErrorException' => InternalErrorException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'InvalidPasswordException' => InvalidPasswordException::class,
+        ]]));
 
         return new AdminSetUserPasswordResponse($response);
     }
@@ -204,11 +367,39 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * }|AdminUpdateUserAttributesRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
+     * @throws UnexpectedLambdaException
+     * @throws UserLambdaValidationException
+     * @throws InvalidLambdaResponseException
+     * @throws AliasExistsException
+     * @throws TooManyRequestsException
+     * @throws NotAuthorizedException
+     * @throws UserNotFoundException
+     * @throws InternalErrorException
+     * @throws InvalidSmsRoleAccessPolicyException
+     * @throws InvalidEmailRoleAccessPolicyException
+     * @throws InvalidSmsRoleTrustRelationshipException
      */
     public function adminUpdateUserAttributes($input): AdminUpdateUserAttributesResponse
     {
         $input = AdminUpdateUserAttributesRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminUpdateUserAttributes', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminUpdateUserAttributes', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'UnexpectedLambdaException' => UnexpectedLambdaException::class,
+            'UserLambdaValidationException' => UserLambdaValidationException::class,
+            'InvalidLambdaResponseException' => InvalidLambdaResponseException::class,
+            'AliasExistsException' => AliasExistsException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'InternalErrorException' => InternalErrorException::class,
+            'InvalidSmsRoleAccessPolicyException' => InvalidSmsRoleAccessPolicyException::class,
+            'InvalidEmailRoleAccessPolicyException' => InvalidEmailRoleAccessPolicyException::class,
+            'InvalidSmsRoleTrustRelationshipException' => InvalidSmsRoleTrustRelationshipException::class,
+        ]]));
 
         return new AdminUpdateUserAttributesResponse($response);
     }
@@ -225,11 +416,25 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Session?: string,
      *   @region?: string,
      * }|AssociateSoftwareTokenRequest $input
+     *
+     * @throws ConcurrentModificationException
+     * @throws InvalidParameterException
+     * @throws NotAuthorizedException
+     * @throws ResourceNotFoundException
+     * @throws InternalErrorException
+     * @throws SoftwareTokenMFANotFoundException
      */
     public function associateSoftwareToken($input = []): AssociateSoftwareTokenResponse
     {
         $input = AssociateSoftwareTokenRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AssociateSoftwareToken', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AssociateSoftwareToken', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ConcurrentModificationException' => ConcurrentModificationException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InternalErrorException' => InternalErrorException::class,
+            'SoftwareTokenMFANotFoundException' => SoftwareTokenMFANotFoundException::class,
+        ]]));
 
         return new AssociateSoftwareTokenResponse($response);
     }
@@ -246,11 +451,33 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   AccessToken: string,
      *   @region?: string,
      * }|ChangePasswordRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
+     * @throws InvalidPasswordException
+     * @throws NotAuthorizedException
+     * @throws TooManyRequestsException
+     * @throws LimitExceededException
+     * @throws PasswordResetRequiredException
+     * @throws UserNotFoundException
+     * @throws UserNotConfirmedException
+     * @throws InternalErrorException
      */
     public function changePassword($input): ChangePasswordResponse
     {
         $input = ChangePasswordRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ChangePassword', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ChangePassword', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'InvalidPasswordException' => InvalidPasswordException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'PasswordResetRequiredException' => PasswordResetRequiredException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'UserNotConfirmedException' => UserNotConfirmedException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
 
         return new ChangePasswordResponse($response);
     }
@@ -272,11 +499,43 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * }|ConfirmForgotPasswordRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws UnexpectedLambdaException
+     * @throws UserLambdaValidationException
+     * @throws InvalidParameterException
+     * @throws InvalidPasswordException
+     * @throws NotAuthorizedException
+     * @throws CodeMismatchException
+     * @throws ExpiredCodeException
+     * @throws TooManyFailedAttemptsException
+     * @throws InvalidLambdaResponseException
+     * @throws TooManyRequestsException
+     * @throws LimitExceededException
+     * @throws UserNotFoundException
+     * @throws UserNotConfirmedException
+     * @throws InternalErrorException
      */
     public function confirmForgotPassword($input): ConfirmForgotPasswordResponse
     {
         $input = ConfirmForgotPasswordRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ConfirmForgotPassword', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ConfirmForgotPassword', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'UnexpectedLambdaException' => UnexpectedLambdaException::class,
+            'UserLambdaValidationException' => UserLambdaValidationException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'InvalidPasswordException' => InvalidPasswordException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'CodeMismatchException' => CodeMismatchException::class,
+            'ExpiredCodeException' => ExpiredCodeException::class,
+            'TooManyFailedAttemptsException' => TooManyFailedAttemptsException::class,
+            'InvalidLambdaResponseException' => InvalidLambdaResponseException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'UserNotConfirmedException' => UserNotConfirmedException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
 
         return new ConfirmForgotPasswordResponse($response);
     }
@@ -303,11 +562,43 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * }|ForgotPasswordRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
+     * @throws UnexpectedLambdaException
+     * @throws UserLambdaValidationException
+     * @throws NotAuthorizedException
+     * @throws InvalidLambdaResponseException
+     * @throws TooManyRequestsException
+     * @throws LimitExceededException
+     * @throws InvalidSmsRoleAccessPolicyException
+     * @throws InvalidSmsRoleTrustRelationshipException
+     * @throws InvalidEmailRoleAccessPolicyException
+     * @throws CodeDeliveryFailureException
+     * @throws UserNotFoundException
+     * @throws UserNotConfirmedException
+     * @throws InternalErrorException
      */
     public function forgotPassword($input): ForgotPasswordResponse
     {
         $input = ForgotPasswordRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ForgotPassword', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ForgotPassword', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'UnexpectedLambdaException' => UnexpectedLambdaException::class,
+            'UserLambdaValidationException' => UserLambdaValidationException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'InvalidLambdaResponseException' => InvalidLambdaResponseException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'InvalidSmsRoleAccessPolicyException' => InvalidSmsRoleAccessPolicyException::class,
+            'InvalidSmsRoleTrustRelationshipException' => InvalidSmsRoleTrustRelationshipException::class,
+            'InvalidEmailRoleAccessPolicyException' => InvalidEmailRoleAccessPolicyException::class,
+            'CodeDeliveryFailureException' => CodeDeliveryFailureException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'UserNotConfirmedException' => UserNotConfirmedException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
 
         return new ForgotPasswordResponse($response);
     }
@@ -327,11 +618,41 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   UserContextData?: UserContextDataType|array,
      *   @region?: string,
      * }|InitiateAuthRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
+     * @throws NotAuthorizedException
+     * @throws TooManyRequestsException
+     * @throws UnexpectedLambdaException
+     * @throws InvalidUserPoolConfigurationException
+     * @throws UserLambdaValidationException
+     * @throws InvalidLambdaResponseException
+     * @throws PasswordResetRequiredException
+     * @throws UserNotFoundException
+     * @throws UserNotConfirmedException
+     * @throws InternalErrorException
+     * @throws InvalidSmsRoleAccessPolicyException
+     * @throws InvalidSmsRoleTrustRelationshipException
      */
     public function initiateAuth($input): InitiateAuthResponse
     {
         $input = InitiateAuthRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'InitiateAuth', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'InitiateAuth', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'UnexpectedLambdaException' => UnexpectedLambdaException::class,
+            'InvalidUserPoolConfigurationException' => InvalidUserPoolConfigurationException::class,
+            'UserLambdaValidationException' => UserLambdaValidationException::class,
+            'InvalidLambdaResponseException' => InvalidLambdaResponseException::class,
+            'PasswordResetRequiredException' => PasswordResetRequiredException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'UserNotConfirmedException' => UserNotConfirmedException::class,
+            'InternalErrorException' => InternalErrorException::class,
+            'InvalidSmsRoleAccessPolicyException' => InvalidSmsRoleAccessPolicyException::class,
+            'InvalidSmsRoleTrustRelationshipException' => InvalidSmsRoleTrustRelationshipException::class,
+        ]]));
 
         return new InitiateAuthResponse($response);
     }
@@ -350,11 +671,23 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   Filter?: string,
      *   @region?: string,
      * }|ListUsersRequest $input
+     *
+     * @throws InvalidParameterException
+     * @throws ResourceNotFoundException
+     * @throws TooManyRequestsException
+     * @throws NotAuthorizedException
+     * @throws InternalErrorException
      */
     public function listUsers($input): ListUsersResponse
     {
         $input = ListUsersRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListUsers', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListUsers', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterException' => InvalidParameterException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
 
         return new ListUsersResponse($response, $this, $input);
     }
@@ -374,11 +707,41 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * }|ResendConfirmationCodeRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
+     * @throws UnexpectedLambdaException
+     * @throws UserLambdaValidationException
+     * @throws NotAuthorizedException
+     * @throws InvalidLambdaResponseException
+     * @throws TooManyRequestsException
+     * @throws LimitExceededException
+     * @throws InvalidSmsRoleAccessPolicyException
+     * @throws InvalidSmsRoleTrustRelationshipException
+     * @throws InvalidEmailRoleAccessPolicyException
+     * @throws CodeDeliveryFailureException
+     * @throws UserNotFoundException
+     * @throws InternalErrorException
      */
     public function resendConfirmationCode($input): ResendConfirmationCodeResponse
     {
         $input = ResendConfirmationCodeRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ResendConfirmationCode', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ResendConfirmationCode', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'UnexpectedLambdaException' => UnexpectedLambdaException::class,
+            'UserLambdaValidationException' => UserLambdaValidationException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'InvalidLambdaResponseException' => InvalidLambdaResponseException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'InvalidSmsRoleAccessPolicyException' => InvalidSmsRoleAccessPolicyException::class,
+            'InvalidSmsRoleTrustRelationshipException' => InvalidSmsRoleTrustRelationshipException::class,
+            'InvalidEmailRoleAccessPolicyException' => InvalidEmailRoleAccessPolicyException::class,
+            'CodeDeliveryFailureException' => CodeDeliveryFailureException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
 
         return new ResendConfirmationCodeResponse($response);
     }
@@ -399,11 +762,53 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * }|RespondToAuthChallengeRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
+     * @throws NotAuthorizedException
+     * @throws CodeMismatchException
+     * @throws ExpiredCodeException
+     * @throws UnexpectedLambdaException
+     * @throws UserLambdaValidationException
+     * @throws InvalidPasswordException
+     * @throws InvalidLambdaResponseException
+     * @throws TooManyRequestsException
+     * @throws InvalidUserPoolConfigurationException
+     * @throws MFAMethodNotFoundException
+     * @throws PasswordResetRequiredException
+     * @throws UserNotFoundException
+     * @throws UserNotConfirmedException
+     * @throws InvalidSmsRoleAccessPolicyException
+     * @throws InvalidSmsRoleTrustRelationshipException
+     * @throws AliasExistsException
+     * @throws InternalErrorException
+     * @throws SoftwareTokenMFANotFoundException
      */
     public function respondToAuthChallenge($input): RespondToAuthChallengeResponse
     {
         $input = RespondToAuthChallengeRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'RespondToAuthChallenge', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'RespondToAuthChallenge', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'CodeMismatchException' => CodeMismatchException::class,
+            'ExpiredCodeException' => ExpiredCodeException::class,
+            'UnexpectedLambdaException' => UnexpectedLambdaException::class,
+            'UserLambdaValidationException' => UserLambdaValidationException::class,
+            'InvalidPasswordException' => InvalidPasswordException::class,
+            'InvalidLambdaResponseException' => InvalidLambdaResponseException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'InvalidUserPoolConfigurationException' => InvalidUserPoolConfigurationException::class,
+            'MFAMethodNotFoundException' => MFAMethodNotFoundException::class,
+            'PasswordResetRequiredException' => PasswordResetRequiredException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'UserNotConfirmedException' => UserNotConfirmedException::class,
+            'InvalidSmsRoleAccessPolicyException' => InvalidSmsRoleAccessPolicyException::class,
+            'InvalidSmsRoleTrustRelationshipException' => InvalidSmsRoleTrustRelationshipException::class,
+            'AliasExistsException' => AliasExistsException::class,
+            'InternalErrorException' => InternalErrorException::class,
+            'SoftwareTokenMFANotFoundException' => SoftwareTokenMFANotFoundException::class,
+        ]]));
 
         return new RespondToAuthChallengeResponse($response);
     }
@@ -426,11 +831,27 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   AccessToken: string,
      *   @region?: string,
      * }|SetUserMFAPreferenceRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
+     * @throws NotAuthorizedException
+     * @throws PasswordResetRequiredException
+     * @throws UserNotFoundException
+     * @throws UserNotConfirmedException
+     * @throws InternalErrorException
      */
     public function setUserMfaPreference($input): SetUserMFAPreferenceResponse
     {
         $input = SetUserMFAPreferenceRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SetUserMFAPreference', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SetUserMFAPreference', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'PasswordResetRequiredException' => PasswordResetRequiredException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'UserNotConfirmedException' => UserNotConfirmedException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
 
         return new SetUserMFAPreferenceResponse($response);
     }
@@ -453,11 +874,41 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   ClientMetadata?: array<string, string>,
      *   @region?: string,
      * }|SignUpRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
+     * @throws UnexpectedLambdaException
+     * @throws UserLambdaValidationException
+     * @throws NotAuthorizedException
+     * @throws InvalidPasswordException
+     * @throws InvalidLambdaResponseException
+     * @throws UsernameExistsException
+     * @throws TooManyRequestsException
+     * @throws InternalErrorException
+     * @throws InvalidSmsRoleAccessPolicyException
+     * @throws InvalidSmsRoleTrustRelationshipException
+     * @throws InvalidEmailRoleAccessPolicyException
+     * @throws CodeDeliveryFailureException
      */
     public function signUp($input): SignUpResponse
     {
         $input = SignUpRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SignUp', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SignUp', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'UnexpectedLambdaException' => UnexpectedLambdaException::class,
+            'UserLambdaValidationException' => UserLambdaValidationException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'InvalidPasswordException' => InvalidPasswordException::class,
+            'InvalidLambdaResponseException' => InvalidLambdaResponseException::class,
+            'UsernameExistsException' => UsernameExistsException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'InternalErrorException' => InternalErrorException::class,
+            'InvalidSmsRoleAccessPolicyException' => InvalidSmsRoleAccessPolicyException::class,
+            'InvalidSmsRoleTrustRelationshipException' => InvalidSmsRoleTrustRelationshipException::class,
+            'InvalidEmailRoleAccessPolicyException' => InvalidEmailRoleAccessPolicyException::class,
+            'CodeDeliveryFailureException' => CodeDeliveryFailureException::class,
+        ]]));
 
         return new SignUpResponse($response);
     }
@@ -476,11 +927,37 @@ class CognitoIdentityProviderClient extends AbstractApi
      *   FriendlyDeviceName?: string,
      *   @region?: string,
      * }|VerifySoftwareTokenRequest $input
+     *
+     * @throws InvalidParameterException
+     * @throws ResourceNotFoundException
+     * @throws InvalidUserPoolConfigurationException
+     * @throws NotAuthorizedException
+     * @throws TooManyRequestsException
+     * @throws PasswordResetRequiredException
+     * @throws UserNotFoundException
+     * @throws UserNotConfirmedException
+     * @throws InternalErrorException
+     * @throws EnableSoftwareTokenMFAException
+     * @throws SoftwareTokenMFANotFoundException
+     * @throws CodeMismatchException
      */
     public function verifySoftwareToken($input): VerifySoftwareTokenResponse
     {
         $input = VerifySoftwareTokenRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'VerifySoftwareToken', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'VerifySoftwareToken', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterException' => InvalidParameterException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidUserPoolConfigurationException' => InvalidUserPoolConfigurationException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'PasswordResetRequiredException' => PasswordResetRequiredException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'UserNotConfirmedException' => UserNotConfirmedException::class,
+            'InternalErrorException' => InternalErrorException::class,
+            'EnableSoftwareTokenMFAException' => EnableSoftwareTokenMFAException::class,
+            'SoftwareTokenMFANotFoundException' => SoftwareTokenMFANotFoundException::class,
+            'CodeMismatchException' => CodeMismatchException::class,
+        ]]));
 
         return new VerifySoftwareTokenResponse($response);
     }

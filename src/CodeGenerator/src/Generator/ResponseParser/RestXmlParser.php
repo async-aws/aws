@@ -37,7 +37,7 @@ class RestXmlParser implements Parser
         $this->typeGenerator = $typeGenerator;
     }
 
-    public function generate(StructureShape $shape): ParserResult
+    public function generate(StructureShape $shape, bool $throwOnError = true): ParserResult
     {
         $properties = [];
         $this->functions = [];
@@ -54,10 +54,19 @@ class RestXmlParser implements Parser
                     continue;
                 }
 
-                $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
-                    'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
-                    'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$data', $member), $member->getShape(), $member->isRequired()),
-                ]);
+                if (!$member->isNullable() && !$member->isRequired()) {
+                    $properties[] = strtr('if (null !== $v = (PROPERTY_ACCESSOR)) {
+                        $this->PROPERTY_NAME = $v;
+                    }', [
+                        'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
+                        'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$data', $member), $member->getShape(), $member->isRequired()),
+                    ]);
+                } else {
+                    $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
+                        'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
+                        'PROPERTY_ACCESSOR' => $this->parseXmlElement($this->getInputAccessor('$data', $member), $member->getShape(), $member->isRequired()),
+                    ]);
+                }
             }
         }
 
@@ -65,7 +74,12 @@ class RestXmlParser implements Parser
             return new ParserResult('');
         }
 
-        $body = '$data = new \SimpleXMLElement($response->getContent());';
+        $body = '$data = new \SimpleXMLElement($response->getContent(' . ($throwOnError ? '' : 'false') . '));';
+        if (!$throwOnError) {
+            $body .= 'if (0 < $data->Error->count()) {
+                $data = $data->Error;
+            }';
+        }
         if (null !== $wrapper = $shape->getResultWrapper()) {
             $body .= strtr('$data = $data->WRAPPER;' . "\n", ['WRAPPER' => $wrapper]);
         }

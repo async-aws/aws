@@ -6,6 +6,9 @@
 
 - Changed case of object's properties to camelCase.
 - Added documentation in class's headers.
+- Removed `final` from `ClientException` and `ServerException`.
+- Make Responses thrown Business Exception when AwsErrorCode <-> Exception class mapping provided through RequestContext.
+- Added Business Exceptions.
 
 ## 1.8.0
 

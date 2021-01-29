@@ -6,6 +6,13 @@ use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\XmlAwsErrorFactory;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\Core\Sts\Exception\ExpiredTokenException;
+use AsyncAws\Core\Sts\Exception\IDPCommunicationErrorException;
+use AsyncAws\Core\Sts\Exception\IDPRejectedClaimException;
+use AsyncAws\Core\Sts\Exception\InvalidIdentityTokenException;
+use AsyncAws\Core\Sts\Exception\MalformedPolicyDocumentException;
+use AsyncAws\Core\Sts\Exception\PackedPolicyTooLargeException;
+use AsyncAws\Core\Sts\Exception\RegionDisabledException;
 use AsyncAws\Core\Sts\Input\AssumeRoleRequest;
 use AsyncAws\Core\Sts\Input\AssumeRoleWithWebIdentityRequest;
 use AsyncAws\Core\Sts\Input\GetCallerIdentityRequest;
@@ -42,11 +49,21 @@ class StsClient extends AbstractApi
      *   TokenCode?: string,
      *   @region?: string,
      * }|AssumeRoleRequest $input
+     *
+     * @throws MalformedPolicyDocumentException
+     * @throws PackedPolicyTooLargeException
+     * @throws RegionDisabledException
+     * @throws ExpiredTokenException
      */
     public function assumeRole($input): AssumeRoleResponse
     {
         $input = AssumeRoleRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AssumeRole', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AssumeRole', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'MalformedPolicyDocument' => MalformedPolicyDocumentException::class,
+            'PackedPolicyTooLarge' => PackedPolicyTooLargeException::class,
+            'RegionDisabledException' => RegionDisabledException::class,
+            'ExpiredTokenException' => ExpiredTokenException::class,
+        ]]));
 
         return new AssumeRoleResponse($response);
     }
@@ -69,11 +86,27 @@ class StsClient extends AbstractApi
      *   DurationSeconds?: int,
      *   @region?: string,
      * }|AssumeRoleWithWebIdentityRequest $input
+     *
+     * @throws MalformedPolicyDocumentException
+     * @throws PackedPolicyTooLargeException
+     * @throws IDPRejectedClaimException
+     * @throws IDPCommunicationErrorException
+     * @throws InvalidIdentityTokenException
+     * @throws ExpiredTokenException
+     * @throws RegionDisabledException
      */
     public function assumeRoleWithWebIdentity($input): AssumeRoleWithWebIdentityResponse
     {
         $input = AssumeRoleWithWebIdentityRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AssumeRoleWithWebIdentity', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AssumeRoleWithWebIdentity', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'MalformedPolicyDocument' => MalformedPolicyDocumentException::class,
+            'PackedPolicyTooLarge' => PackedPolicyTooLargeException::class,
+            'IDPRejectedClaim' => IDPRejectedClaimException::class,
+            'IDPCommunicationError' => IDPCommunicationErrorException::class,
+            'InvalidIdentityToken' => InvalidIdentityTokenException::class,
+            'ExpiredTokenException' => ExpiredTokenException::class,
+            'RegionDisabledException' => RegionDisabledException::class,
+        ]]));
 
         return new AssumeRoleWithWebIdentityResponse($response);
     }

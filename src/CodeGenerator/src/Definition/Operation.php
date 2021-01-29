@@ -94,6 +94,24 @@ class Operation
         return null;
     }
 
+    /**
+     * @return ExceptionShape[]
+     */
+    public function getErrors(): array
+    {
+        $errors = [];
+        foreach ($this->data['errors'] ?? [] as $error) {
+            if (isset($errors[$error['shape']])) {
+                continue;
+            }
+            /** @var ExceptionShape $shape */
+            $shape = ($this->shapeLocator)($error['shape']);
+            $errors[$error['shape']] = $shape;
+        }
+
+        return array_values($errors);
+    }
+
     public function getInput(): StructureShape
     {
         if (isset($this->data['input']['shape'])) {

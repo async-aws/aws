@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\CodeGenerator\Generator;
 
+use AsyncAws\CodeGenerator\Generator\CodeGenerator\PopulatorGenerator;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
@@ -76,7 +77,20 @@ class ServiceGenerator
      */
     private $type;
 
+    /**
+     * @var ClassRegistry
+     */
     private $classRegistry;
+
+    /**
+     * @var ExceptionGenerator
+     */
+    private $exception;
+
+    /**
+     * @var PopulatorGenerator
+     */
+    private $populator;
 
     public function __construct(ClassRegistry $classRegistry, string $baseNamespace, array $managedOperations)
     {
@@ -92,12 +106,12 @@ class ServiceGenerator
 
     public function operation(): OperationGenerator
     {
-        return $this->operation ?? $this->operation = new OperationGenerator($this->classRegistry, $this->namespaceRegistry, $this->input(), $this->result(), $this->pagination(), $this->test(), $this->type());
+        return $this->operation ?? $this->operation = new OperationGenerator($this->classRegistry, $this->namespaceRegistry, $this->input(), $this->result(), $this->pagination(), $this->test(), $this->exception(), $this->type());
     }
 
     public function waiter(): WaiterGenerator
     {
-        return $this->waiter ?? $this->waiter = new WaiterGenerator($this->classRegistry, $this->namespaceRegistry, $this->input(), $this->type());
+        return $this->waiter ?? $this->waiter = new WaiterGenerator($this->classRegistry, $this->namespaceRegistry, $this->input(), $this->exception(), $this->type());
     }
 
     public function pagination(): PaginationGenerator
@@ -110,9 +124,19 @@ class ServiceGenerator
         return $this->test ?? $this->test = new TestGenerator($this->classRegistry, $this->namespaceRegistry);
     }
 
+    public function populator(): PopulatorGenerator
+    {
+        return $this->populator ?? $this->populator = new PopulatorGenerator($this->classRegistry, $this->namespaceRegistry, $this->object(), $this->type(), $this->enum());
+    }
+
     public function result(): ResultGenerator
     {
-        return $this->result ?? $this->result = new ResultGenerator($this->classRegistry, $this->namespaceRegistry, $this->object(), $this->type(), $this->enum());
+        return $this->result ?? $this->result = new ResultGenerator($this->classRegistry, $this->namespaceRegistry, $this->populator());
+    }
+
+    public function exception(): ExceptionGenerator
+    {
+        return $this->exception ?? $this->exception = new ExceptionGenerator($this->classRegistry, $this->namespaceRegistry, $this->populator());
     }
 
     public function input(): InputGenerator

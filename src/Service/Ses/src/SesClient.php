@@ -7,6 +7,14 @@ use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRestAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\Ses\Exception\AccountSuspendedException;
+use AsyncAws\Ses\Exception\BadRequestException;
+use AsyncAws\Ses\Exception\LimitExceededException;
+use AsyncAws\Ses\Exception\MailFromDomainNotVerifiedException;
+use AsyncAws\Ses\Exception\MessageRejectedException;
+use AsyncAws\Ses\Exception\NotFoundException;
+use AsyncAws\Ses\Exception\SendingPausedException;
+use AsyncAws\Ses\Exception\TooManyRequestsException;
 use AsyncAws\Ses\Input\SendEmailRequest;
 use AsyncAws\Ses\Result\SendEmailResponse;
 use AsyncAws\Ses\ValueObject\Destination;
@@ -35,11 +43,29 @@ class SesClient extends AbstractApi
      *   ListManagementOptions?: ListManagementOptions|array,
      *   @region?: string,
      * }|SendEmailRequest $input
+     *
+     * @throws TooManyRequestsException
+     * @throws LimitExceededException
+     * @throws AccountSuspendedException
+     * @throws SendingPausedException
+     * @throws MessageRejectedException
+     * @throws MailFromDomainNotVerifiedException
+     * @throws NotFoundException
+     * @throws BadRequestException
      */
     public function sendEmail($input): SendEmailResponse
     {
         $input = SendEmailRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SendEmail', 'region' => $input->getRegion()]));
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SendEmail', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'AccountSuspendedException' => AccountSuspendedException::class,
+            'SendingPausedException' => SendingPausedException::class,
+            'MessageRejected' => MessageRejectedException::class,
+            'MailFromDomainNotVerifiedException' => MailFromDomainNotVerifiedException::class,
+            'NotFoundException' => NotFoundException::class,
+            'BadRequestException' => BadRequestException::class,
+        ]]));
 
         return new SendEmailResponse($response);
     }

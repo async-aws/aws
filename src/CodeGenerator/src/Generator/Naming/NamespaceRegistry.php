@@ -44,7 +44,12 @@ final class NamespaceRegistry
      */
     private $objectNamespace;
 
-    public function __construct(string $baseNamespace, ?string $inputNamespace = '\\Input', ?string $resultNamespace = '\\Result', ?string $testNamespace = '\\Tests', ?string $enumNamespace = '\\Enum', ?string $objectNamespace = '\\ValueObject')
+    /**
+     * @var string
+     */
+    private $exceptionNamespace;
+
+    public function __construct(string $baseNamespace, ?string $inputNamespace = '\\Input', ?string $resultNamespace = '\\Result', ?string $testNamespace = '\\Tests', ?string $enumNamespace = '\\Enum', ?string $objectNamespace = '\\ValueObject', ?string $exceptionNamespace = '\\Exception')
     {
         $this->baseNamespace = $baseNamespace;
         $this->inputNamespace = '\\' === $inputNamespace[0] ? $baseNamespace . $inputNamespace : $inputNamespace;
@@ -52,6 +57,7 @@ final class NamespaceRegistry
         $this->testNamespace = '\\' === $testNamespace[0] ? implode('\\', \array_slice(\explode('\\', $baseNamespace), 0, 2)) . $testNamespace : $testNamespace;
         $this->enumNamespace = '\\' === $enumNamespace[0] ? $baseNamespace . $enumNamespace : $enumNamespace;
         $this->objectNamespace = '\\' === $objectNamespace[0] ? $baseNamespace . $objectNamespace : $objectNamespace;
+        $this->exceptionNamespace = '\\' === $exceptionNamespace[0] ? $baseNamespace . $exceptionNamespace : $exceptionNamespace;
     }
 
     public function getClient(ServiceDefinition $definition): ClassName
@@ -77,6 +83,11 @@ final class NamespaceRegistry
     public function getEnum(Shape $shape): ClassName
     {
         return ClassName::create($this->enumNamespace, $shape->getName());
+    }
+
+    public function getException(Shape $shape): ClassName
+    {
+        return ClassName::create($this->exceptionNamespace, $shape->getName() . ('Exception' === \substr($shape->getName(), -9) ? '' : 'Exception'));
     }
 
     public function getObject(Shape $shape): ClassName
