@@ -5,6 +5,7 @@
 ### Added
 
 - Added documentation in class's headers.
+- AWS enhancement: Documentation updates for the ListDocumentFilters API action.
 
 ## 1.1.1
 
