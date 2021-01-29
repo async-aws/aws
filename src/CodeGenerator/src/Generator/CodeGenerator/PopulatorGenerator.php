@@ -248,12 +248,13 @@ class PopulatorGenerator
 
         $method = $classBuilder->addMethod('populateResult')
             ->setReturnType('void')
-            ->setProtected()
             ->setBody($body);
         if ($forException) {
+            $method->setPrivate();
             $method->addParameter('response')->setType(ResponseInterface::class);
             $classBuilder->addUse(ResponseInterface::class);
         } else {
+            $method->setProtected();
             $method->addParameter('response')->setType(Response::class);
             $classBuilder->addUse(Response::class);
         }

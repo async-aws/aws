@@ -17,7 +17,7 @@ final class TooManyInvalidationsInProgressException extends ClientException
         $this->populateResult($response);
     }
 
-    protected function populateResult(ResponseInterface $response): void
+    private function populateResult(ResponseInterface $response): void
     {
         $data = new \SimpleXMLElement($response->getContent(false));
         if (0 < $data->Error->count()) {

@@ -24,7 +24,7 @@ final class DataAlreadyAcceptedException extends ClientException
         return $this->expectedSequenceToken;
     }
 
-    protected function populateResult(ResponseInterface $response): void
+    private function populateResult(ResponseInterface $response): void
     {
         $data = $response->toArray(false);
 
