@@ -211,6 +211,7 @@ the official AWS PHP SDK uses magic methods and undocumented array accessor.
 | [![AWS PHP SDK method doc](/assets/image/compare/aws-method.png)](/assets/image/compare/aws-method.png) | [![async-aws method doc](/assets/image/compare/aa-method.png)](/assets/image/compare/aa-method.png)
 | [![AWS PHP SDK input doc](/assets/image/compare/aws-input.png)](/assets/image/compare/aws-input.png)    | [![async-aws input doc](/assets/image/compare/aa-input.png)](/assets/image/compare/aa-input.png)
 | [![AWS PHP SDK result doc](/assets/image/compare/aws-result.png)](/assets/image/compare/aws-result.png) | [![async-aws result doc](/assets/image/compare/aa-result.png)](/assets/image/compare/aa-result.png)
+| [![AWS PHP SDK exception](/assets/image/compare/aws-exception.png)](/assets/image/compare/aws-exception.png) | [![async-aws exception](/assets/image/compare/aa-exception.png)](/assets/image/compare/aa-exception.png)
 
 Like the official AWS PHP SDK, AsyncAws supports multi-regions clients. This
 enables users to specify which AWS Region to call by providing an `@region`
