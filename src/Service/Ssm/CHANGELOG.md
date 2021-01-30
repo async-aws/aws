@@ -2,12 +2,14 @@
 
 ## NOT RELEASED
 
+## 1.2.0
+
 ### Added
 
 - Changed case of object's properties to camelCase.
-- Added documentation in class's headers.
+- Added documentation in class headers.
 - AWS enhancement: Added region "us-iso-east-1".
-- Added Business Exceptions
+- Added domain exceptions
 
 ## 1.1.1
 

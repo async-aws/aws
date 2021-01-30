@@ -30,11 +30,6 @@ class Result
     private $response;
 
     /**
-     * @var array<string, string>
-     */
-    private $exceptionMapping;
-
-    /**
      * @var self[]
      */
     private $prefetchResults = [];

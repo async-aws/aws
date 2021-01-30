@@ -2,11 +2,14 @@
 
 ## NOT RELEASED
 
+## 1.8.0
+
 ### Added
 
 - Changed case of object's properties to camelCase.
-- Added documentation in class's headers.
-- Added Business Exceptions
+- Added documentation in class headers.
+- Added `PutBucketCors`, `DeleteBucketCors` and `GetBucketCors` methods.
+- Added domain exceptions
 
 ## 1.7.0
 

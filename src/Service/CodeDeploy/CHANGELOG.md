@@ -2,10 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.2.0
+
 ### Added
 
-- Added documentation in class's headers.
-- Added Business Exceptions.
+- Added documentation in class headers.
+- Added domain exceptions.
 
 ## 1.1.1
 
