@@ -2,11 +2,13 @@
 
 ## NOT RELEASED
 
+## 0.1.4
+
 ### Added
 
 - Changed case of object's properties to camelCase.
-- Added documentation in class's headers.
-- Added Business Exceptions
+- Added documentation in class headers.
+- Added domain exceptions
 
 ## 0.1.3
 

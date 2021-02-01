@@ -2,13 +2,20 @@
 
 ## NOT RELEASED
 
+## 1.9.0
+
 ### Added
 
 - Changed case of object's properties to camelCase.
-- Added documentation in class's headers.
+- Added documentation in class headers.
 - Removed `final` from `ClientException` and `ServerException`.
 - Make Responses thrown Business Exception when AwsErrorCode <-> Exception class mapping provided through RequestContext.
-- Added Business Exceptions.
+- Added domain exceptions.
+- Improved Aws Error parsing by using specialized AwsErrorFactory.
+
+### Fixed
+
+- Exception thrown twice by waiters.
 
 ## 1.8.0
 
