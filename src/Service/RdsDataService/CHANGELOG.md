@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: With the Data API, you can now use UUID and JSON data types as input to your database. Also with the Data API, you can now have a LONG type value returned from your database as a STRING value.
+- AWS api-change: With the Data API, you can now use UUID and JSON data types as input to your database.
 
 ## 0.1.2
 
