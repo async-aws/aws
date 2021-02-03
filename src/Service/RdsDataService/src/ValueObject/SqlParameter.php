@@ -16,7 +16,7 @@ final class SqlParameter
     private $name;
 
     /**
-     * A hint that specifies the correct object type for data type mapping.
+     * A hint that specifies the correct object type for data type mapping. Possible values are as follows:.
      */
     private $typeHint;
 
