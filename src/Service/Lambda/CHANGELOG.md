@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added constant for NodeJs 14
+
 ## 1.3.0
 
 ### Added
