@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Added constant for NodeJs 14
 
 ## 1.3.0
 
