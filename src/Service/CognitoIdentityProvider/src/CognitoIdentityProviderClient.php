@@ -1002,6 +1002,13 @@ class CognitoIdentityProviderClient extends AbstractApi
                     'signService' => 'cognito-idp',
                     'signVersions' => ['v4'],
                 ];
+            case 'fips-us-west-1':
+                return [
+                    'endpoint' => 'https://cognito-idp-fips.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'cognito-idp',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-us-west-2':
                 return [
                     'endpoint' => 'https://cognito-idp-fips.us-west-2.amazonaws.com',
