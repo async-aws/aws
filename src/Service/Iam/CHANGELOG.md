@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: AWS Identity and Access Management now supports tagging for the following resources: customer managed policies, identity providers, instance profiles, server certificates, and virtual MFA devices.
+- AWS api-change: Improve comments.
 
 ## 1.1.0
 
