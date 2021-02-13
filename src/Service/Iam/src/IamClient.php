@@ -155,7 +155,7 @@ class IamClient extends AbstractApi
     /**
      * Deletes the specified IAM user. Unlike the AWS Management Console, when you delete a user programmatically, you must
      * delete the items attached to the user manually, or the deletion fails. For more information, see Deleting an IAM
-     * User. Before attempting to delete a user, remove the following items:.
+     * user. Before attempting to delete a user, remove the following items:.
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_manage.html#id_users_deleting_cli
      * @see https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteUser.html

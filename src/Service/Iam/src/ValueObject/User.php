@@ -8,7 +8,7 @@ namespace AsyncAws\Iam\ValueObject;
 final class User
 {
     /**
-     * The path to the user. For more information about paths, see IAM Identifiers in the *IAM User Guide*.
+     * The path to the user. For more information about paths, see IAM identifiers in the *IAM User Guide*.
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html
      */
@@ -20,7 +20,7 @@ final class User
     private $userName;
 
     /**
-     * The stable and unique string identifying the user. For more information about IDs, see IAM Identifiers in the *IAM
+     * The stable and unique string identifying the user. For more information about IDs, see IAM identifiers in the *IAM
      * User Guide*.
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html
@@ -44,7 +44,7 @@ final class User
 
     /**
      * The date and time, in ISO 8601 date-time format, when the user's password was last used to sign in to an AWS website.
-     * For a list of AWS websites that capture a user's last sign-in time, see the Credential Reports topic in the *IAM User
+     * For a list of AWS websites that capture a user's last sign-in time, see the Credential reports topic in the *IAM User
      * Guide*. If a password is used more than once in a five-minute span, only the first use is returned in this field. If
      * the field is null (no value), then it indicates that they never signed in with a password. This can be because:.
      *
@@ -54,13 +54,16 @@ final class User
     private $passwordLastUsed;
 
     /**
-     * The ARN of the policy used to set the permissions boundary for the user.
+     * For more information about permissions boundaries, see Permissions boundaries for IAM identities  in the *IAM User
+     * Guide*.
+     *
+     * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html
      */
     private $permissionsBoundary;
 
     /**
-     * A list of tags that are associated with the specified user. For more information about tagging, see Tagging IAM
-     * Identities in the *IAM User Guide*.
+     * A list of tags that are associated with the user. For more information about tagging, see Tagging IAM resources in
+     * the *IAM User Guide*.
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html
      */

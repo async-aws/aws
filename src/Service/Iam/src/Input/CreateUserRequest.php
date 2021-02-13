@@ -11,7 +11,7 @@ use AsyncAws\Iam\ValueObject\Tag;
 final class CreateUserRequest extends Input
 {
     /**
-     * The path for the user name. For more information about paths, see IAM Identifiers in the *IAM User Guide*.
+     * The path for the user name. For more information about paths, see IAM identifiers in the *IAM User Guide*.
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html
      *
@@ -36,8 +36,8 @@ final class CreateUserRequest extends Input
     private $permissionsBoundary;
 
     /**
-     * A list of tags that you want to attach to the newly created user. Each tag consists of a key name and an associated
-     * value. For more information about tagging, see Tagging IAM Identities in the *IAM User Guide*.
+     * A list of tags that you want to attach to the new user. Each tag consists of a key name and an associated value. For
+     * more information about tagging, see Tagging IAM resources in the *IAM User Guide*.
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html
      *

@@ -5,8 +5,7 @@ namespace AsyncAws\Iam\ValueObject;
 use AsyncAws\Iam\Enum\PermissionsBoundaryAttachmentType;
 
 /**
- * The ARN of the policy used to set the permissions boundary for the user.
- * For more information about permissions boundaries, see Permissions Boundaries for IAM Identities  in the *IAM User
+ * For more information about permissions boundaries, see Permissions boundaries for IAM identities  in the *IAM User
  * Guide*.
  *
  * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html

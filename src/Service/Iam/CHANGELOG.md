@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Improve comments.
+
 ## 1.1.0
 
 ### Added
