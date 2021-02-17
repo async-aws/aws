@@ -92,7 +92,7 @@ jobs:
         with:
           path: .cache/psalm/
           key: psalm-${{ github.sha }}
-          restore-keys: phpstan-
+          restore-keys: psalm-
 
       # Downloading deps manually is faster than doing it with psalm docker action
       # 1. cache
