@@ -7,18 +7,6 @@
          failOnRisky="true"
          failOnWarning="true"
 >
-  <coverage>
-    <include>
-      <directory>./src</directory>
-    </include>
-    <exclude>
-      <directory>./src/CodeGenerator</directory>
-      <directory>./src/*/tests</directory>
-      <directory>./src/*/*/tests</directory>
-      <directory>./src/*/*/*/tests</directory>
-      <directory>./vendor</directory>
-    </exclude>
-  </coverage>
   <php>
     <ini name="error_reporting" value="-1"/>
     <env name="AWS_SHARED_CREDENTIALS_FILE" value="/dev/null" />
