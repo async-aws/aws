@@ -6,9 +6,13 @@ use AsyncAws\CloudWatchLogs\Enum\OrderBy;
 use AsyncAws\CloudWatchLogs\Exception\DataAlreadyAcceptedException;
 use AsyncAws\CloudWatchLogs\Exception\InvalidParameterException;
 use AsyncAws\CloudWatchLogs\Exception\InvalidSequenceTokenException;
+use AsyncAws\CloudWatchLogs\Exception\LimitExceededException;
+use AsyncAws\CloudWatchLogs\Exception\OperationAbortedException;
+use AsyncAws\CloudWatchLogs\Exception\ResourceAlreadyExistsException;
 use AsyncAws\CloudWatchLogs\Exception\ResourceNotFoundException;
 use AsyncAws\CloudWatchLogs\Exception\ServiceUnavailableException;
 use AsyncAws\CloudWatchLogs\Exception\UnrecognizedClientException;
+use AsyncAws\CloudWatchLogs\Input\CreateLogGroupRequest;
 use AsyncAws\CloudWatchLogs\Input\DescribeLogStreamsRequest;
 use AsyncAws\CloudWatchLogs\Input\PutLogEventsRequest;
 use AsyncAws\CloudWatchLogs\Result\DescribeLogStreamsResponse;
@@ -19,9 +23,43 @@ use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\Core\Result;
 
 class CloudWatchLogsClient extends AbstractApi
 {
+    /**
+     * Creates a log group with the specified name. You can create up to 20,000 log groups per account.
+     *
+     * @see https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_CreateLogGroup.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-logs-2014-03-28.html#createloggroup
+     *
+     * @param array{
+     *   logGroupName: string,
+     *   kmsKeyId?: string,
+     *   tags?: array<string, string>,
+     *   @region?: string,
+     * }|CreateLogGroupRequest $input
+     *
+     * @throws InvalidParameterException
+     * @throws ResourceAlreadyExistsException
+     * @throws LimitExceededException
+     * @throws OperationAbortedException
+     * @throws ServiceUnavailableException
+     */
+    public function createLogGroup($input): Result
+    {
+        $input = CreateLogGroupRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateLogGroup', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterException' => InvalidParameterException::class,
+            'ResourceAlreadyExistsException' => ResourceAlreadyExistsException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'OperationAbortedException' => OperationAbortedException::class,
+            'ServiceUnavailableException' => ServiceUnavailableException::class,
+        ]]));
+
+        return new Result($response);
+    }
+
     /**
      * Lists the log streams for the specified log group. You can list all the log streams or filter the results by prefix.
      * You can also control how the results are ordered.

@@ -34,6 +34,7 @@
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/logs/2014-03-28/examples-1.json",
             "api-reference": "https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference",
             "methods": [
+                "CreateLogGroup",
                 "DescribeLogStreams",
                 "PutLogEvents"
             ]

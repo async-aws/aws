@@ -4,6 +4,7 @@ namespace AsyncAws\CloudWatchLogs\Tests\Integration;
 
 use AsyncAws\CloudWatchLogs\CloudWatchLogsClient;
 use AsyncAws\CloudWatchLogs\Enum\OrderBy;
+use AsyncAws\CloudWatchLogs\Input\CreateLogGroupRequest;
 use AsyncAws\CloudWatchLogs\Input\DescribeLogStreamsRequest;
 use AsyncAws\CloudWatchLogs\Input\PutLogEventsRequest;
 use AsyncAws\CloudWatchLogs\ValueObject\InputLogEvent;
@@ -13,6 +14,20 @@ use AsyncAws\Core\Test\TestCase;
 
 class CloudWatchLogsClientTest extends TestCase
 {
+    public function testCreateLogGroup(): void
+    {
+        $client = $this->getClient();
+
+        $input = new CreateLogGroupRequest([
+            'logGroupName' => 'change me',
+            'kmsKeyId' => 'change me',
+            'tags' => ['change me' => 'change me'],
+        ]);
+        $result = $client->CreateLogGroup($input);
+
+        $result->resolve();
+    }
+
     public function testDescribeLogStreams(): void
     {
         $client = $this->getClient();

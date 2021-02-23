@@ -3,17 +3,33 @@
 namespace AsyncAws\CloudWatchLogs\Tests\Unit;
 
 use AsyncAws\CloudWatchLogs\CloudWatchLogsClient;
+use AsyncAws\CloudWatchLogs\Input\CreateLogGroupRequest;
 use AsyncAws\CloudWatchLogs\Input\DescribeLogStreamsRequest;
 use AsyncAws\CloudWatchLogs\Input\PutLogEventsRequest;
 use AsyncAws\CloudWatchLogs\Result\DescribeLogStreamsResponse;
 use AsyncAws\CloudWatchLogs\Result\PutLogEventsResponse;
 use AsyncAws\CloudWatchLogs\ValueObject\InputLogEvent;
 use AsyncAws\Core\Credentials\NullProvider;
+use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class CloudWatchLogsClientTest extends TestCase
 {
+    public function testCreateLogGroup(): void
+    {
+        $client = new CloudWatchLogsClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new CreateLogGroupRequest([
+            'logGroupName' => 'test_logGroupName',
+
+        ]);
+        $result = $client->CreateLogGroup($input);
+
+        self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testDescribeLogStreams(): void
     {
         $client = new CloudWatchLogsClient([], new NullProvider(), new MockHttpClient());
