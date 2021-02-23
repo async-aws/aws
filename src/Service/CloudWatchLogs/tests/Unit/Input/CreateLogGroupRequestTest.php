@@ -18,6 +18,7 @@ class CreateLogGroupRequestTest extends TestCase
         $expected = '
 POST / HTTP/1.0
 Content-Type: application/x-amz-json-1.1
+x-amz-target: Logs_20140328.CreateLogGroup
 
 {
   "logGroupName": "my-log-group",
