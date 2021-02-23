@@ -19,13 +19,13 @@ class CloudWatchLogsClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new CreateLogGroupRequest([
-            'logGroupName' => 'change me',
-            'kmsKeyId' => 'change me',
-            'tags' => ['change me' => 'change me'],
+            'logGroupName' => 'my-log-group'.mt_rand(1000,10000).time(),
+            'kmsKeyId' => 'arn:aws:kms:us-east-1:123456789012:key/abcd1234-a123-456a-a12b-a123b456c789',
         ]);
         $result = $client->CreateLogGroup($input);
 
         $result->resolve();
+        self::assertEquals(200, $result->info()['status']);
     }
 
     public function testDescribeLogStreams(): void
