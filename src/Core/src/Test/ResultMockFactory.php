@@ -263,7 +263,12 @@ class ResultMockFactory
     {
         $reflectionClass = new \ReflectionClass(Response::class);
         $response = $reflectionClass->newInstanceWithoutConstructor();
+
         $property = $reflectionClass->getProperty('resolveResult');
+        $property->setAccessible(true);
+        $property->setValue($response, true);
+
+        $property = $reflectionClass->getProperty('bodyDownloaded');
         $property->setAccessible(true);
         $property->setValue($response, true);
 
