@@ -6,7 +6,7 @@
 
 ### Fixed
 
-- Make sore mocked results has a response with `Response::$bodyDownloaded = true`.
+- Make sure mocked results have a response with `Response::$bodyDownloaded = true`.
 
 ## 1.9.0
 
