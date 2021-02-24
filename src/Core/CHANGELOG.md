@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.9.1
+
+### Fixed
+
+- Make sore mocked results has a response with `Response::$bodyDownloaded = true`.
+
 ## 1.9.0
 
 ### Added
