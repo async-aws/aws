@@ -52,7 +52,8 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     private $maxKeys;
 
     /**
-     * All of the keys rolled up into a common prefix count as a single return when calculating the number of returns.
+     * All of the keys (up to 1,000) rolled up into a common prefix count as a single return when calculating the number of
+     * returns.
      */
     private $commonPrefixes = [];
 
@@ -62,8 +63,8 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     private $encodingType;
 
     /**
-     * KeyCount is the number of keys returned with this request. KeyCount will always be less than equals to MaxKeys field.
-     * Say you ask for 50 keys, your result will include less than equals 50 keys.
+     * KeyCount is the number of keys returned with this request. KeyCount will always be less than or equals to MaxKeys
+     * field. Say you ask for 50 keys, your result will include less than equals 50 keys.
      */
     private $keyCount;
 

@@ -15,7 +15,7 @@ final class AwsObject
     private $key;
 
     /**
-     * The date the Object was Last Modified.
+     * Creation date of the object.
      */
     private $lastModified;
 

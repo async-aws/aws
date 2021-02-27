@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Add RequestPayer to GetObjectTagging and PutObjectTagging.
+
 ## 1.8.0
 
 ### Added

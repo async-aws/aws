@@ -10,7 +10,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class ObjectIdentifier
 {
     /**
-     * Key name of the object to delete.
+     * Key name of the object.
      */
     private $key;
 

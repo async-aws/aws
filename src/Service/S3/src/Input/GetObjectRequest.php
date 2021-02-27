@@ -119,15 +119,15 @@ final class GetObjectRequest extends Input
     private $versionId;
 
     /**
-     * Specifies the algorithm to use to when encrypting the object (for example, AES256).
+     * Specifies the algorithm to use to when decrypting the object (for example, AES256).
      *
      * @var string|null
      */
     private $sseCustomerAlgorithm;
 
     /**
-     * Specifies the customer-provided encryption key for Amazon S3 to use in encrypting data. This value is used to store
-     * the object and then it is discarded; Amazon S3 does not store the encryption key. The key must be appropriate for use
+     * Specifies the customer-provided encryption key for Amazon S3 used to encrypt the data. This value is used to decrypt
+     * the object when recovering it and must match the one used when storing the data. The key must be appropriate for use
      * with the algorithm specified in the `x-amz-server-side-encryption-customer-algorithm` header.
      *
      * @var string|null
