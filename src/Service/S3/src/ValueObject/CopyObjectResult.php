@@ -9,12 +9,12 @@ final class CopyObjectResult
 {
     /**
      * Returns the ETag of the new object. The ETag reflects only changes to the contents of an object, not its metadata.
-     * The source and destination ETag is identical for a successfully copied object.
+     * The source and destination ETag is identical for a successfully copied non-multipart object.
      */
     private $etag;
 
     /**
-     * Returns the date that the object was last modified.
+     * Creation date of the object.
      */
     private $lastModified;
 

@@ -43,7 +43,7 @@ class GetObjectOutput extends Result
     private $restore;
 
     /**
-     * Last modified date of the object.
+     * Creation date of the object.
      */
     private $lastModified;
 

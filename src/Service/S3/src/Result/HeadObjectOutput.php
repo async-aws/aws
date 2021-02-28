@@ -46,7 +46,7 @@ class HeadObjectOutput extends Result
     private $archiveStatus;
 
     /**
-     * Last modified date of the object.
+     * Creation date of the object.
      */
     private $lastModified;
 

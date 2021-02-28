@@ -587,7 +587,8 @@ class S3Client extends AbstractApi
     /**
      * Returns some or all (up to 1,000) of the objects in a bucket. You can use the request parameters as selection
      * criteria to return a subset of the objects in a bucket. A `200 OK` response can contain valid or invalid XML. Make
-     * sure to design your application to parse the contents of the response and handle it appropriately.
+     * sure to design your application to parse the contents of the response and handle it appropriately. Objects are
+     * returned sorted in an ascending order of the respective key names in the list.
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectsV2.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#listobjectsv2
