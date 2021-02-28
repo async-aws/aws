@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: Add RequestPayer to GetObjectTagging and PutObjectTagging.
+- AWS api-change: Reword docblocks
 
 ## 1.8.0
 
