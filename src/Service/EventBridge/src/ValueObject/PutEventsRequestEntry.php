@@ -42,6 +42,12 @@ final class PutEventsRequestEntry
     private $eventBusName;
 
     /**
+     * An AWS X-Ray trade header, which is an http header (X-Amzn-Trace-Id) that contains the trace-id associated with the
+     * event.
+     */
+    private $traceHeader;
+
+    /**
      * @param array{
      *   Time?: null|\DateTimeImmutable,
      *   Source?: null|string,
@@ -49,6 +55,7 @@ final class PutEventsRequestEntry
      *   DetailType?: null|string,
      *   Detail?: null|string,
      *   EventBusName?: null|string,
+     *   TraceHeader?: null|string,
      * } $input
      */
     public function __construct(array $input)
@@ -59,6 +66,7 @@ final class PutEventsRequestEntry
         $this->detailType = $input['DetailType'] ?? null;
         $this->detail = $input['Detail'] ?? null;
         $this->eventBusName = $input['EventBusName'] ?? null;
+        $this->traceHeader = $input['TraceHeader'] ?? null;
     }
 
     public static function create($input): self
@@ -99,6 +107,11 @@ final class PutEventsRequestEntry
         return $this->time;
     }
 
+    public function getTraceHeader(): ?string
+    {
+        return $this->traceHeader;
+    }
+
     /**
      * @internal
      */
@@ -127,6 +140,9 @@ final class PutEventsRequestEntry
         }
         if (null !== $v = $this->eventBusName) {
             $payload['EventBusName'] = $v;
+        }
+        if (null !== $v = $this->traceHeader) {
+            $payload['TraceHeader'] = $v;
         }
 
         return $payload;
