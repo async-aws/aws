@@ -15,7 +15,7 @@
         "ext-SimpleXML": "*",
         "ext-hash": "*",
         "ext-json": "*",
-        "psr/cache": "^1.0",
+        "psr/cache": "^1.0 || ^2.0 || ^3.0",
         "psr/log": "^1.0",
         "symfony/deprecation-contracts": "^2.1",
         "symfony/http-client": "^4.4.16 || ^5.1.7,!=5.2.0",
