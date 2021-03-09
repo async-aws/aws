@@ -38,7 +38,7 @@ class GetObjectOutput extends Result
     private $expiration;
 
     /**
-     * Provides information about object restoration operation and expiration time of the restored object copy.
+     * Provides information about object restoration action and expiration time of the restored object copy.
      */
     private $restore;
 

@@ -85,7 +85,7 @@ final class PutObjectAclRequest extends Input
     private $grantWriteAcp;
 
     /**
-     * Key for which the PUT operation was initiated.
+     * Key for which the PUT action was initiated.
      *
      * @required
      *

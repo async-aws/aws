@@ -81,10 +81,10 @@ use AsyncAws\S3\ValueObject\Part;
 class S3Client extends AbstractApi
 {
     /**
-     * This operation aborts a multipart upload. After a multipart upload is aborted, no additional parts can be uploaded
-     * using that upload ID. The storage consumed by any previously uploaded parts will be freed. However, if any part
-     * uploads are currently in progress, those part uploads might or might not succeed. As a result, it might be necessary
-     * to abort a given multipart upload multiple times in order to completely free all storage consumed by all parts.
+     * This action aborts a multipart upload. After a multipart upload is aborted, no additional parts can be uploaded using
+     * that upload ID. The storage consumed by any previously uploaded parts will be freed. However, if any part uploads are
+     * currently in progress, those part uploads might or might not succeed. As a result, it might be necessary to abort a
+     * given multipart upload multiple times in order to completely free all storage consumed by all parts.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadAbort.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html
@@ -274,7 +274,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * This operation initiates a multipart upload and returns an upload ID. This upload ID is used to associate all of the
+     * This action initiates a multipart upload and returns an upload ID. This upload ID is used to associate all of the
      * parts in the specific multipart upload. You specify this upload ID in each of your subsequent upload part requests
      * (see UploadPart). You also include this upload ID in the final request to either complete or abort the multipart
      * upload request.
@@ -396,9 +396,9 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * This operation enables you to delete multiple objects from a bucket using a single HTTP request. If you know the
-     * object keys that you want to delete, then this operation provides a suitable alternative to sending individual delete
-     * requests, reducing per-request overhead.
+     * This action enables you to delete multiple objects from a bucket using a single HTTP request. If you know the object
+     * keys that you want to delete, then this action provides a suitable alternative to sending individual delete requests,
+     * reducing per-request overhead.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/multiobjectdeleteapi.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjects.html
@@ -519,7 +519,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * The HEAD operation retrieves metadata from an object without returning the object itself. This operation is useful if
+     * The HEAD action retrieves metadata from an object without returning the object itself. This action is useful if
      * you're only interested in an object's metadata. To use HEAD, you must have READ access to the object.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectHEAD.html
@@ -557,8 +557,8 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * This operation lists in-progress multipart uploads. An in-progress multipart upload is a multipart upload that has
-     * been initiated using the Initiate Multipart Upload request, but has not yet been completed or aborted.
+     * This action lists in-progress multipart uploads. An in-progress multipart upload is a multipart upload that has been
+     * initiated using the Initiate Multipart Upload request, but has not yet been completed or aborted.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/mpUploadListMPUpload.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html
@@ -814,7 +814,7 @@ class S3Client extends AbstractApi
     /**
      * Uses the `acl` subresource to set the access control list (ACL) permissions for a new or existing object in an S3
      * bucket. You must have `WRITE_ACP` permission to set the ACL of an object. For more information, see What permissions
-     * can I grant? in the *Amazon Simple Storage Service Developer Guide*.
+     * can I grant? in the *Amazon Simple Storage Service User Guide*.
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#permissions
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUTacl.html
