@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Reword docblocks
+- AWS enhancement: Amazon S3 Documentation updates
 
 ## 1.8.0
 

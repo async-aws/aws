@@ -32,7 +32,7 @@ final class PutObjectRequest extends Input
     private $body;
 
     /**
-     * The bucket name to which the PUT operation was initiated.
+     * The bucket name to which the PUT action was initiated.
      *
      * @required
      *
@@ -149,7 +149,7 @@ final class PutObjectRequest extends Input
     private $grantWriteAcp;
 
     /**
-     * Object key for which the PUT operation was initiated.
+     * Object key for which the PUT action was initiated.
      *
      * @required
      *

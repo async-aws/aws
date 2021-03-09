@@ -175,7 +175,7 @@ final class CreateMultipartUploadRequest extends Input
      * using any of the officially supported AWS SDKs and AWS CLI, see Specifying the Signature Version in Request
      * Authentication in the *Amazon S3 Developer Guide*.
      *
-     * @see https://docs.aws.amazon.com/http:/docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version
      *
      * @var string|null
      */

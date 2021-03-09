@@ -18,7 +18,7 @@ class DeleteObjectsOutput extends Result
     private $requestCharged;
 
     /**
-     * Container for a failed delete operation that describes the object that Amazon S3 attempted to delete and the error it
+     * Container for a failed delete action that describes the object that Amazon S3 attempted to delete and the error it
      * encountered.
      */
     private $errors = [];
