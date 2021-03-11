@@ -10,6 +10,11 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class CORSRule
 {
     /**
+     * Unique identifier for the rule. The value cannot be longer than 255 characters.
+     */
+    private $id;
+
+    /**
      * Headers that are specified in the `Access-Control-Request-Headers` header. These headers are allowed in a preflight
      * OPTIONS request. In response to any preflight OPTIONS request, Amazon S3 returns any requested headers that are
      * allowed.
@@ -39,6 +44,7 @@ final class CORSRule
 
     /**
      * @param array{
+     *   ID?: null|string,
      *   AllowedHeaders?: null|string[],
      *   AllowedMethods: string[],
      *   AllowedOrigins: string[],
@@ -48,6 +54,7 @@ final class CORSRule
      */
     public function __construct(array $input)
     {
+        $this->id = $input['ID'] ?? null;
         $this->allowedHeaders = $input['AllowedHeaders'] ?? null;
         $this->allowedMethods = $input['AllowedMethods'] ?? null;
         $this->allowedOrigins = $input['AllowedOrigins'] ?? null;
@@ -92,6 +99,11 @@ final class CORSRule
         return $this->exposeHeaders ?? [];
     }
 
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
     public function getMaxAgeSeconds(): ?int
     {
         return $this->maxAgeSeconds;
@@ -102,6 +114,9 @@ final class CORSRule
      */
     public function requestBody(\DomElement $node, \DomDocument $document): void
     {
+        if (null !== $v = $this->id) {
+            $node->appendChild($document->createElement('ID', $v));
+        }
         if (null !== $v = $this->allowedHeaders) {
             foreach ($v as $item) {
                 $node->appendChild($document->createElement('AllowedHeader', $item));

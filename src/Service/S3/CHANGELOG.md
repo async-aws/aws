@@ -6,6 +6,7 @@
 
 - AWS api-change: Reword docblocks
 - AWS enhancement: Amazon S3 Documentation updates
+- AWS api-change: Adding ID element to the CORSRule schema
 
 ## 1.8.0
 
