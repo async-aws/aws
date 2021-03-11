@@ -86,6 +86,7 @@ class GetBucketCorsOutput extends Result
         $items = [];
         foreach ($xml as $item) {
             $items[] = new CORSRule([
+                'ID' => ($v = $item->ID) ? (string) $v : null,
                 'AllowedHeaders' => !$item->AllowedHeader ? [] : $this->populateResultAllowedHeaders($item->AllowedHeader),
                 'AllowedMethods' => $this->populateResultAllowedMethods($item->AllowedMethod),
                 'AllowedOrigins' => $this->populateResultAllowedOrigins($item->AllowedOrigin),
