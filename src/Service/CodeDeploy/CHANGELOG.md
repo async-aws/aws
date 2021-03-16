@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: AWS CodeDeploy can now detect instances running an outdated revision of your application and automatically update them with the latest revision.
+
 ## 1.2.0
 
 ### Added
