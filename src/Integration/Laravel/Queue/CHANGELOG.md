@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Support for Laravel 8
+
 ## 0.1.2
 
 ### Changed
