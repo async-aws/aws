@@ -14,8 +14,8 @@
     "require": {
         "php": "^7.2.5 || ^8.0",
         "async-aws/sqs": "^1.1",
-        "illuminate/queue": "^6.18.11 || ^7.10",
-        "illuminate/support": "^6.18.13 || ^7.10"
+        "illuminate/queue": "^6.18.11 || ^7.10 || ^8.0",
+        "illuminate/support": "^6.18.13 || ^7.10 || ^8.0"
     },
     "extra": {
         "branch-alias": {
