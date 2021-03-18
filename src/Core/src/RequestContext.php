@@ -8,8 +8,6 @@ use AsyncAws\Core\Exception\InvalidArgument;
  * Contains contextual information alongside a request.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
- *
- * @internal
  */
 class RequestContext
 {
