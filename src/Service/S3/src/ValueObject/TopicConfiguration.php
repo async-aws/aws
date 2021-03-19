@@ -21,7 +21,7 @@ final class TopicConfiguration
 
     /**
      * The Amazon S3 bucket event about which to send notifications. For more information, see Supported Event Types in the
-     * *Amazon Simple Storage Service User Guide*.
+     * *Amazon S3 User Guide*.
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
      */

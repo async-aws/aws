@@ -21,7 +21,7 @@ final class PutBucketCorsRequest extends Input
 
     /**
      * Describes the cross-origin access configuration for objects in an Amazon S3 bucket. For more information, see
-     * Enabling Cross-Origin Resource Sharing in the *Amazon Simple Storage Service User Guide*.
+     * Enabling Cross-Origin Resource Sharing in the *Amazon S3 User Guide*.
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html
      * @required
@@ -41,7 +41,7 @@ final class PutBucketCorsRequest extends Input
     private $contentMd5;
 
     /**
-     * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
+     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request will fail
      * with an HTTP `403 (Access Denied)` error.
      *
      * @var string|null

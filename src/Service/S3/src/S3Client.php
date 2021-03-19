@@ -814,7 +814,7 @@ class S3Client extends AbstractApi
     /**
      * Uses the `acl` subresource to set the access control list (ACL) permissions for a new or existing object in an S3
      * bucket. You must have `WRITE_ACP` permission to set the ACL of an object. For more information, see What permissions
-     * can I grant? in the *Amazon Simple Storage Service User Guide*.
+     * can I grant? in the *Amazon S3 User Guide*.
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#permissions
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectPUTacl.html
