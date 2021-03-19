@@ -156,7 +156,7 @@ final class GetObjectRequest extends Input
     private $partNumber;
 
     /**
-     * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
+     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request will fail
      * with an HTTP `403 (Access Denied)` error.
      *
      * @var string|null

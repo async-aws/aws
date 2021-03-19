@@ -73,7 +73,7 @@ final class CopyObjectRequest extends Input
      * Specifies the source object for the copy operation. You specify the value in one of two formats, depending on whether
      * you want to access the source object through an access point:.
      *
-     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/access-points.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-points.html
      * @required
      *
      * @var string|null
@@ -312,7 +312,7 @@ final class CopyObjectRequest extends Input
     private $objectLockLegalHoldStatus;
 
     /**
-     * The account id of the expected destination bucket owner. If the destination bucket is owned by a different account,
+     * The account ID of the expected destination bucket owner. If the destination bucket is owned by a different account,
      * the request will fail with an HTTP `403 (Access Denied)` error.
      *
      * @var string|null
@@ -320,7 +320,7 @@ final class CopyObjectRequest extends Input
     private $expectedBucketOwner;
 
     /**
-     * The account id of the expected source bucket owner. If the source bucket is owned by a different account, the request
+     * The account ID of the expected source bucket owner. If the source bucket is owned by a different account, the request
      * will fail with an HTTP `403 (Access Denied)` error.
      *
      * @var string|null

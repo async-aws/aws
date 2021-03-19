@@ -19,7 +19,7 @@ final class DeleteBucketCorsRequest extends Input
     private $bucket;
 
     /**
-     * The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail
+     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request will fail
      * with an HTTP `403 (Access Denied)` error.
      *
      * @var string|null
