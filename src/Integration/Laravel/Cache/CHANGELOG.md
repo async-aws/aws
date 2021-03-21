@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 0.1.4
+
 ### Added
 
 - Support for Laravel 8
