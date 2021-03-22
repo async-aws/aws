@@ -118,7 +118,7 @@ class SignerV4ForS3 extends SignerV4
         // Add content-encoding for chunked stream if available
         $customEncoding = $context->getRequest()->getHeader('content-encoding');
         $contentEncoding = 'aws-chunked';
-        if($customEncoding){
+        if ($customEncoding) {
             $contentEncoding .= sprintf(', %s', $customEncoding);
         }
 
