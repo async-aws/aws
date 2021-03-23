@@ -116,14 +116,10 @@ class SignerV4ForS3 extends SignerV4
         }
 
         // Add content-encoding for chunked stream if available
-        $customEncoding = $context->getRequest()->getHeader('content-encoding');
-        $contentEncoding = 'aws-chunked';
-        if ($customEncoding) {
-            $contentEncoding .= sprintf(', %s', $customEncoding);
-        }
+        $customEncoding = $request->getHeader('content-encoding');
 
         // Convert the body into a chunked stream
-        $request->setHeader('content-encoding', $contentEncoding);
+        $request->setHeader('content-encoding', $customEncoding ? "aws-chunked, $customEncoding" : 'aws-chunked');
         $request->setHeader('x-amz-decoded-content-length', (string) $contentLength);
         $request->setHeader('x-amz-content-sha256', 'STREAMING-' . self::ALGORITHM_CHUNK);
 
