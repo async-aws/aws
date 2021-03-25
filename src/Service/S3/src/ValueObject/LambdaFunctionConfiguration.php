@@ -20,7 +20,7 @@ final class LambdaFunctionConfiguration
 
     /**
      * The Amazon S3 bucket event for which to invoke the AWS Lambda function. For more information, see Supported Event
-     * Types in the *Amazon Simple Storage Service Developer Guide*.
+     * Types in the *Amazon S3 User Guide*.
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
      */
