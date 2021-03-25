@@ -370,7 +370,8 @@ class S3Client extends AbstractApi
 
     /**
      * Removes the null version (if there is one) of an object and inserts a delete marker, which becomes the latest version
-     * of the object. If there isn't a null version, Amazon S3 does not remove any objects.
+     * of the object. If there isn't a null version, Amazon S3 does not remove any objects but will still respond that the
+     * command was successful.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectDELETE.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html
