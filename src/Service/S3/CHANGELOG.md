@@ -9,7 +9,6 @@
 - AWS api-change: Adding ID element to the CORSRule schema
 - AWS api-change: Improve documentation
 - AWS enhancement: Documentation updates for Amazon S3
-- AWS feature: Added support for object lambda endpoints.
 
 ## 1.8.0
 
