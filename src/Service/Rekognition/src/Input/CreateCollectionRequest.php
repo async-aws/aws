@@ -19,14 +19,23 @@ final class CreateCollectionRequest extends Input
     private $collectionId;
 
     /**
+     * A set of tags (key-value pairs) that you want to attach to the collection.
+     *
+     * @var array<string, string>|null
+     */
+    private $tags;
+
+    /**
      * @param array{
      *   CollectionId?: string,
+     *   Tags?: array<string, string>,
      *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->collectionId = $input['CollectionId'] ?? null;
+        $this->tags = $input['Tags'] ?? null;
         parent::__construct($input);
     }
 
@@ -38,6 +47,14 @@ final class CreateCollectionRequest extends Input
     public function getCollectionId(): ?string
     {
         return $this->collectionId;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getTags(): array
+    {
+        return $this->tags ?? [];
     }
 
     /**
@@ -72,6 +89,16 @@ final class CreateCollectionRequest extends Input
         return $this;
     }
 
+    /**
+     * @param array<string, string> $value
+     */
+    public function setTags(array $value): self
+    {
+        $this->tags = $value;
+
+        return $this;
+    }
+
     private function requestBody(): array
     {
         $payload = [];
@@ -79,6 +106,16 @@ final class CreateCollectionRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "CollectionId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['CollectionId'] = $v;
+        if (null !== $v = $this->tags) {
+            if (empty($v)) {
+                $payload['Tags'] = new \stdClass();
+            } else {
+                $payload['Tags'] = [];
+                foreach ($v as $name => $mv) {
+                    $payload['Tags'][$name] = $mv;
+                }
+            }
+        }
 
         return $payload;
     }

@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Add AWS tagging support for Amazon Rekognition collections, stream processors, and Custom Label models
+
 ## 0.1.4
 
 ### Added
