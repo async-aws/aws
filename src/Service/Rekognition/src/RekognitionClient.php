@@ -51,6 +51,7 @@ class RekognitionClient extends AbstractApi
      *
      * @param array{
      *   CollectionId: string,
+     *   Tags?: array<string, string>,
      *   @region?: string,
      * }|CreateCollectionRequest $input
      *
@@ -60,6 +61,7 @@ class RekognitionClient extends AbstractApi
      * @throws ThrottlingException
      * @throws ProvisionedThroughputExceededException
      * @throws ResourceAlreadyExistsException
+     * @throws ServiceQuotaExceededException
      */
     public function createCollection($input): CreateCollectionResponse
     {
@@ -71,6 +73,7 @@ class RekognitionClient extends AbstractApi
             'ThrottlingException' => ThrottlingException::class,
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'ResourceAlreadyExistsException' => ResourceAlreadyExistsException::class,
+            'ServiceQuotaExceededException' => ServiceQuotaExceededException::class,
         ]]));
 
         return new CreateCollectionResponse($response);
