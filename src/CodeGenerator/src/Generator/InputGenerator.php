@@ -261,9 +261,7 @@ class InputGenerator
         $classBuilder->addMethod('create')
             ->setStatic(true)
             ->setReturnType('self')
-            ->setBody(strtr('
-                return $input instanceof self ? $input : new self(ARGS);
-            ', ['ARGS' => '$input']))
+            ->setBody('return $input instanceof self ? $input : new self($input);')
             ->addParameter('input');
 
         $constructorBody .= 'parent::__construct($input);';
