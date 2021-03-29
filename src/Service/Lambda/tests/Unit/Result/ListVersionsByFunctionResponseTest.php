@@ -74,7 +74,6 @@ class ListVersionsByFunctionResponseTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new ListVersionsByFunctionResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new LambdaClient(), new ListVersionsByFunctionRequest([]));
 
-
         foreach ($result->getVersions(true) as $version) {
             self::assertSame('my-function', $version->getFunctionName());
             self::assertSame('arn:aws:lambda:us-west-2:123456789012:function:my-function', $version->getFunctionArn());
