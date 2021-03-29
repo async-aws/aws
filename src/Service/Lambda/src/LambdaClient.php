@@ -7,6 +7,8 @@ use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRestAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\Core\Result;
+use AsyncAws\Lambda\Enum\FunctionVersion;
 use AsyncAws\Lambda\Enum\InvocationType;
 use AsyncAws\Lambda\Enum\LogType;
 use AsyncAws\Lambda\Enum\Runtime;
@@ -40,12 +42,17 @@ use AsyncAws\Lambda\Exception\SubnetIPAddressLimitReachedException;
 use AsyncAws\Lambda\Exception\TooManyRequestsException;
 use AsyncAws\Lambda\Exception\UnsupportedMediaTypeException;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
+use AsyncAws\Lambda\Input\DeleteFunctionRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
+use AsyncAws\Lambda\Input\ListFunctionsRequest;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
+use AsyncAws\Lambda\Input\ListVersionsByFunctionRequest;
 use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
 use AsyncAws\Lambda\Result\AddLayerVersionPermissionResponse;
 use AsyncAws\Lambda\Result\InvocationResponse;
+use AsyncAws\Lambda\Result\ListFunctionsResponse;
 use AsyncAws\Lambda\Result\ListLayerVersionsResponse;
+use AsyncAws\Lambda\Result\ListVersionsByFunctionResponse;
 use AsyncAws\Lambda\Result\PublishLayerVersionResponse;
 use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
 
@@ -93,6 +100,39 @@ class LambdaClient extends AbstractApi
         ]]));
 
         return new AddLayerVersionPermissionResponse($response);
+    }
+
+    /**
+     * Deletes a Lambda function. To delete a specific function version, use the `Qualifier` parameter. Otherwise, all
+     * versions and aliases are deleted.
+     *
+     * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_DeleteFunction.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#deletefunction
+     *
+     * @param array{
+     *   FunctionName: string,
+     *   Qualifier?: string,
+     *   @region?: string,
+     * }|DeleteFunctionRequest $input
+     *
+     * @throws ServiceException
+     * @throws ResourceNotFoundException
+     * @throws TooManyRequestsException
+     * @throws InvalidParameterValueException
+     * @throws ResourceConflictException
+     */
+    public function deleteFunction($input): Result
+    {
+        $input = DeleteFunctionRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteFunction', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ServiceException' => ServiceException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'InvalidParameterValueException' => InvalidParameterValueException::class,
+            'ResourceConflictException' => ResourceConflictException::class,
+        ]]));
+
+        return new Result($response);
     }
 
     /**
@@ -175,6 +215,37 @@ class LambdaClient extends AbstractApi
     }
 
     /**
+     * Returns a list of Lambda functions, with the version-specific configuration of each. Lambda returns up to 50
+     * functions per call.
+     *
+     * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_ListFunctions.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#listfunctions
+     *
+     * @param array{
+     *   MasterRegion?: string,
+     *   FunctionVersion?: FunctionVersion::*,
+     *   Marker?: string,
+     *   MaxItems?: int,
+     *   @region?: string,
+     * }|ListFunctionsRequest $input
+     *
+     * @throws ServiceException
+     * @throws TooManyRequestsException
+     * @throws InvalidParameterValueException
+     */
+    public function listFunctions($input = []): ListFunctionsResponse
+    {
+        $input = ListFunctionsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListFunctions', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ServiceException' => ServiceException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'InvalidParameterValueException' => InvalidParameterValueException::class,
+        ]]));
+
+        return new ListFunctionsResponse($response, $this, $input);
+    }
+
+    /**
      * Lists the versions of an AWS Lambda layer. Versions that have been deleted aren't listed. Specify a runtime
      * identifier to list only versions that indicate that they're compatible with that runtime.
      *
@@ -207,6 +278,39 @@ class LambdaClient extends AbstractApi
         ]]));
 
         return new ListLayerVersionsResponse($response, $this, $input);
+    }
+
+    /**
+     * Returns a list of versions, with the version-specific configuration of each. Lambda returns up to 50 versions per
+     * call.
+     *
+     * @see https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html
+     * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_ListVersionsByFunction.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-lambda-2015-03-31.html#listversionsbyfunction
+     *
+     * @param array{
+     *   FunctionName: string,
+     *   Marker?: string,
+     *   MaxItems?: int,
+     *   @region?: string,
+     * }|ListVersionsByFunctionRequest $input
+     *
+     * @throws ServiceException
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterValueException
+     * @throws TooManyRequestsException
+     */
+    public function listVersionsByFunction($input): ListVersionsByFunctionResponse
+    {
+        $input = ListVersionsByFunctionRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListVersionsByFunction', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ServiceException' => ServiceException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterValueException' => InvalidParameterValueException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+        ]]));
+
+        return new ListVersionsByFunctionResponse($response, $this, $input);
     }
 
     /**

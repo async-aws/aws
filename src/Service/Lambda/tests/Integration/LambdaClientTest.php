@@ -4,14 +4,17 @@ namespace AsyncAws\Lambda\Tests\Integration;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Result;
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
+use AsyncAws\Lambda\Input\DeleteFunctionRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
+use AsyncAws\Lambda\Input\ListFunctionsRequest;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
+use AsyncAws\Lambda\Input\ListVersionsByFunctionRequest;
 use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\Lambda\Result\InvocationResponse;
 use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
-use PHPUnit\Framework\TestCase;
 
 class LambdaClientTest extends TestCase
 {
@@ -36,6 +39,19 @@ class LambdaClientTest extends TestCase
 
         self::assertStringContainsString('change it', $result->getStatement());
         self::assertStringContainsString('change it', $result->getRevisionId());
+    }
+
+    public function testDeleteFunction(): void
+    {
+        $client = $this->getClient();
+
+        $input = new DeleteFunctionRequest([
+            'FunctionName' => 'change me',
+            'Qualifier' => 'change me',
+        ]);
+        $result = $client->DeleteFunction($input);
+
+        $result->resolve();
     }
 
     public function testInvoke(): void
@@ -86,6 +102,24 @@ class LambdaClientTest extends TestCase
         self::assertEqualsCanonicalizing($expected, $resolves);
     }
 
+    public function testListFunctions(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ListFunctionsRequest([
+            'MasterRegion' => 'change me',
+            'FunctionVersion' => 'change me',
+            'Marker' => 'change me',
+            'MaxItems' => 1337,
+        ]);
+        $result = $client->ListFunctions($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getNextMarker());
+        // self::assertTODO(expected, $result->getFunctions());
+    }
+
     public function testListLayerVersions(): void
     {
         self::markTestSkipped('The Lambda Docker image does not implement AddLayerVersionPermission.');
@@ -102,6 +136,23 @@ class LambdaClientTest extends TestCase
 
         self::assertStringContainsString('change it', $result->getNextMarker());
         // self::assertTODO(expected, $result->getLayerVersions());
+    }
+
+    public function testListVersionsByFunction(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ListVersionsByFunctionRequest([
+            'FunctionName' => 'change me',
+            'Marker' => 'change me',
+            'MaxItems' => 1337,
+        ]);
+        $result = $client->ListVersionsByFunction($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getNextMarker());
+        // self::assertTODO(expected, $result->getVersions());
     }
 
     public function testPublishLayerVersion(): void

@@ -3,7 +3,7 @@
 namespace AsyncAws\Lambda\Enum;
 
 /**
- * A runtime identifier. For example, `go1.x`.
+ * The runtime environment for the Lambda function.
  */
 final class Runtime
 {

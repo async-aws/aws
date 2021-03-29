@@ -3,17 +3,23 @@
 namespace AsyncAws\Lambda\Tests\Unit;
 
 use AsyncAws\Core\Credentials\NullProvider;
+use AsyncAws\Core\Result;
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
+use AsyncAws\Lambda\Input\DeleteFunctionRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
+use AsyncAws\Lambda\Input\ListFunctionsRequest;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
+use AsyncAws\Lambda\Input\ListVersionsByFunctionRequest;
 use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\Lambda\Result\AddLayerVersionPermissionResponse;
 use AsyncAws\Lambda\Result\InvocationResponse;
+use AsyncAws\Lambda\Result\ListFunctionsResponse;
 use AsyncAws\Lambda\Result\ListLayerVersionsResponse;
+use AsyncAws\Lambda\Result\ListVersionsByFunctionResponse;
 use AsyncAws\Lambda\Result\PublishLayerVersionResponse;
 use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class LambdaClientTest extends TestCase
@@ -36,6 +42,20 @@ class LambdaClientTest extends TestCase
         self::assertFalse($result->info()['resolved']);
     }
 
+    public function testDeleteFunction(): void
+    {
+        $client = new LambdaClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new DeleteFunctionRequest([
+            'FunctionName' => 'change me',
+
+        ]);
+        $result = $client->DeleteFunction($input);
+
+        self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testInvoke(): void
     {
         $client = new LambdaClient([], new NullProvider(), new MockHttpClient());
@@ -47,6 +67,19 @@ class LambdaClientTest extends TestCase
         $result = $client->Invoke($input);
 
         self::assertInstanceOf(InvocationResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testListFunctions(): void
+    {
+        $client = new LambdaClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new ListFunctionsRequest([
+
+        ]);
+        $result = $client->ListFunctions($input);
+
+        self::assertInstanceOf(ListFunctionsResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
@@ -62,6 +95,20 @@ class LambdaClientTest extends TestCase
         $result = $client->ListLayerVersions($input);
 
         self::assertInstanceOf(ListLayerVersionsResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testListVersionsByFunction(): void
+    {
+        $client = new LambdaClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new ListVersionsByFunctionRequest([
+            'FunctionName' => 'change me',
+
+        ]);
+        $result = $client->ListVersionsByFunction($input);
+
+        self::assertInstanceOf(ListVersionsByFunctionResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
