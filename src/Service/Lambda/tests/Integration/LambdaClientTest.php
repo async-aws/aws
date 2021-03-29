@@ -43,11 +43,12 @@ class LambdaClientTest extends TestCase
 
     public function testDeleteFunction(): void
     {
+        self::markTestSkipped('The Lambda Docker image does not implement DeleteFunction.');
+
         $client = $this->getClient();
 
         $input = new DeleteFunctionRequest([
-            'FunctionName' => 'change me',
-            'Qualifier' => 'change me',
+            'FunctionName' => 'Index',
         ]);
         $result = $client->DeleteFunction($input);
 
@@ -104,19 +105,18 @@ class LambdaClientTest extends TestCase
 
     public function testListFunctions(): void
     {
+        self::markTestSkipped('The Lambda Docker image does not implement ListFunctions.');
+
         $client = $this->getClient();
 
         $input = new ListFunctionsRequest([
-            'MasterRegion' => 'change me',
-            'FunctionVersion' => 'change me',
-            'Marker' => 'change me',
             'MaxItems' => 1337,
         ]);
         $result = $client->ListFunctions($input);
 
         $result->resolve();
 
-        self::assertSame('changeIt', $result->getNextMarker());
+        self::assertSame('Index', $result->getNextMarker());
         // self::assertTODO(expected, $result->getFunctions());
     }
 
@@ -140,12 +140,12 @@ class LambdaClientTest extends TestCase
 
     public function testListVersionsByFunction(): void
     {
+        self::markTestSkipped('The Lambda Docker image does not implement ListVersionsByFunction.');
+
         $client = $this->getClient();
 
         $input = new ListVersionsByFunctionRequest([
-            'FunctionName' => 'change me',
-            'Marker' => 'change me',
-            'MaxItems' => 1337,
+            'FunctionName' => 'Index',
         ]);
         $result = $client->ListVersionsByFunction($input);
 

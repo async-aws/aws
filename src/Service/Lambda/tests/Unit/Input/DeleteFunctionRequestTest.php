@@ -9,23 +9,16 @@ class DeleteFunctionRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new DeleteFunctionRequest([
-            'FunctionName' => 'change me',
-            'Qualifier' => 'change me',
+            'FunctionName' => 'my-function',
+            'Qualifier' => '4711',
         ]);
 
         // see example-1.json from SDK
         $expected = '
-            DELETE / HTTP/1.0
+            DELETE /2015-03-31/functions/my-function?Qualifier=4711  HTTP/1.0
             Content-Type: application/json
-
-            {
-            "FunctionName": "my-function",
-            "Qualifier": "1"
-        }
-                ';
+';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

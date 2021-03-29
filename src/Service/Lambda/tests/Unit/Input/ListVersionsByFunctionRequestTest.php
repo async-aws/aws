@@ -9,22 +9,17 @@ class ListVersionsByFunctionRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new ListVersionsByFunctionRequest([
-            'FunctionName' => 'change me',
-            'Marker' => 'change me',
+            'FunctionName' => 'MyFunction',
+            'Marker' => 'xxyy',
             'MaxItems' => 1337,
         ]);
 
         // see example-1.json from SDK
         $expected = '
-            GET / HTTP/1.0
+            GET /2015-03-31/functions/MyFunction/versions?Marker=xxyy&MaxItems=1337 HTTP/1.0
             Content-Type: application/json
 
-            {
-            "FunctionName": "my-function"
-        }
                 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

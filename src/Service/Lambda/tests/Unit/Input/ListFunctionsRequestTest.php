@@ -9,21 +9,17 @@ class ListFunctionsRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new ListFunctionsRequest([
-            'MasterRegion' => 'change me',
-            'FunctionVersion' => 'change me',
-            'Marker' => 'change me',
+            'MasterRegion' => 'eu-central-1',
+            'FunctionVersion' => 'ALL',
+            'Marker' => 'xxyy',
             'MaxItems' => 1337,
         ]);
 
         // see https://docs.aws.amazon.com/lambda/latest/APIReference/API_ListFunctions.html
         $expected = '
-            GET / HTTP/1.0
+            GET /2015-03-31/functions/?FunctionVersion=ALL&Marker=xxyy&MasterRegion=eu-central-1&MaxItems=1337 HTTP/1.1
             Content-Type: application/json
-
-            []
                 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

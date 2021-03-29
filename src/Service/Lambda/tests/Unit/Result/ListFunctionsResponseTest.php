@@ -15,8 +15,6 @@ class ListFunctionsResponseTest extends TestCase
 {
     public function testListFunctionsResponse(): void
     {
-        self::fail('Not implemented');
-
         // see example-1.json from SDK
         $response = new SimpleMockedResponse('{
             "Functions": [
@@ -62,13 +60,21 @@ class ListFunctionsResponseTest extends TestCase
                     }
                 }
             ],
-            "NextMarker": ""
+            "NextMarker": "xxyy"
         }');
 
         $client = new MockHttpClient($response);
         $result = new ListFunctionsResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new LambdaClient(), new ListFunctionsRequest([]));
 
-        self::assertSame('changeIt', $result->getNextMarker());
-        // self::assertTODO(expected, $result->getFunctions());
+        self::assertSame('xxyy', $result->getNextMarker());
+
+        foreach ($result->getFunctions(true) as $function) {
+            self::assertSame('helloworld', $function->getFunctionName());
+            self::assertSame('arn:aws:lambda:us-west-2:123456789012:function:helloworld', $function->getFunctionArn());
+            self::assertSame('$LATEST', $function->getVersion());
+            self::assertSame('294', $function->getCodeSize());
+
+            break;
+        }
     }
 }
