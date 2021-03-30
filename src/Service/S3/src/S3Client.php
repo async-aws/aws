@@ -934,6 +934,181 @@ class S3Client extends AbstractApi
                     'signService' => 's3',
                     'signVersions' => ['s3v4'],
                 ];
+            case 'accesspoint-af-south-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.af-south-1.amazonaws.com',
+                    'signRegion' => 'accesspoint-af-south-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-ap-east-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.ap-east-1.amazonaws.com',
+                    'signRegion' => 'accesspoint-ap-east-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-ap-northeast-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.ap-northeast-1.amazonaws.com',
+                    'signRegion' => 'accesspoint-ap-northeast-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-ap-northeast-2':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.ap-northeast-2.amazonaws.com',
+                    'signRegion' => 'accesspoint-ap-northeast-2',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-ap-northeast-3':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.ap-northeast-3.amazonaws.com',
+                    'signRegion' => 'accesspoint-ap-northeast-3',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-ap-south-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.ap-south-1.amazonaws.com',
+                    'signRegion' => 'accesspoint-ap-south-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-ap-southeast-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.ap-southeast-1.amazonaws.com',
+                    'signRegion' => 'accesspoint-ap-southeast-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-ap-southeast-2':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.ap-southeast-2.amazonaws.com',
+                    'signRegion' => 'accesspoint-ap-southeast-2',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-ca-central-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.ca-central-1.amazonaws.com',
+                    'signRegion' => 'accesspoint-ca-central-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-cn-north-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.cn-north-1.amazonaws.com.cn',
+                    'signRegion' => 'accesspoint-cn-north-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-cn-northwest-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.cn-northwest-1.amazonaws.com.cn',
+                    'signRegion' => 'accesspoint-cn-northwest-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-eu-central-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.eu-central-1.amazonaws.com',
+                    'signRegion' => 'accesspoint-eu-central-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-eu-north-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.eu-north-1.amazonaws.com',
+                    'signRegion' => 'accesspoint-eu-north-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-eu-south-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.eu-south-1.amazonaws.com',
+                    'signRegion' => 'accesspoint-eu-south-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-eu-west-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.eu-west-1.amazonaws.com',
+                    'signRegion' => 'accesspoint-eu-west-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-eu-west-2':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.eu-west-2.amazonaws.com',
+                    'signRegion' => 'accesspoint-eu-west-2',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-eu-west-3':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.eu-west-3.amazonaws.com',
+                    'signRegion' => 'accesspoint-eu-west-3',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-me-south-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.me-south-1.amazonaws.com',
+                    'signRegion' => 'accesspoint-me-south-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-sa-east-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.sa-east-1.amazonaws.com',
+                    'signRegion' => 'accesspoint-sa-east-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-us-east-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.us-east-1.amazonaws.com',
+                    'signRegion' => 'accesspoint-us-east-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-us-east-2':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.us-east-2.amazonaws.com',
+                    'signRegion' => 'accesspoint-us-east-2',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-us-gov-east-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.us-gov-east-1.amazonaws.com',
+                    'signRegion' => 'accesspoint-us-gov-east-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-us-gov-west-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'accesspoint-us-gov-west-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-us-west-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.us-west-1.amazonaws.com',
+                    'signRegion' => 'accesspoint-us-west-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'accesspoint-us-west-2':
+                return [
+                    'endpoint' => 'https://s3-accesspoint.us-west-2.amazonaws.com',
+                    'signRegion' => 'accesspoint-us-west-2',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
             case 'ap-northeast-1':
                 return [
                     'endpoint' => 'https://s3.ap-northeast-1.amazonaws.com',
@@ -959,6 +1134,55 @@ class S3Client extends AbstractApi
                 return [
                     'endpoint' => 'https://s3.eu-west-1.amazonaws.com',
                     'signRegion' => 'eu-west-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'fips-accesspoint-ca-central-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint-fips.ca-central-1.amazonaws.com',
+                    'signRegion' => 'fips-accesspoint-ca-central-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'fips-accesspoint-us-east-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint-fips.us-east-1.amazonaws.com',
+                    'signRegion' => 'fips-accesspoint-us-east-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'fips-accesspoint-us-east-2':
+                return [
+                    'endpoint' => 'https://s3-accesspoint-fips.us-east-2.amazonaws.com',
+                    'signRegion' => 'fips-accesspoint-us-east-2',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'fips-accesspoint-us-gov-east-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint-fips.us-gov-east-1.amazonaws.com',
+                    'signRegion' => 'fips-accesspoint-us-gov-east-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'fips-accesspoint-us-gov-west-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint-fips.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'fips-accesspoint-us-gov-west-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'fips-accesspoint-us-west-1':
+                return [
+                    'endpoint' => 'https://s3-accesspoint-fips.us-west-1.amazonaws.com',
+                    'signRegion' => 'fips-accesspoint-us-west-1',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
+            case 'fips-accesspoint-us-west-2':
+                return [
+                    'endpoint' => 'https://s3-accesspoint-fips.us-west-2.amazonaws.com',
+                    'signRegion' => 'fips-accesspoint-us-west-2',
                     'signService' => 's3',
                     'signVersions' => ['s3v4'],
                 ];
