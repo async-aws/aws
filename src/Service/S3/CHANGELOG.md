@@ -9,6 +9,7 @@
 - AWS api-change: Adding ID element to the CORSRule schema
 - AWS api-change: Improve documentation
 - AWS enhancement: Documentation updates for Amazon S3
+- AWS api-change: Adding many more regions
 
 ## 1.8.0
 
