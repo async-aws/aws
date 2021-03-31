@@ -4,14 +4,17 @@ namespace AsyncAws\Lambda\Tests\Integration;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Result;
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Lambda\Input\AddLayerVersionPermissionRequest;
+use AsyncAws\Lambda\Input\DeleteFunctionRequest;
 use AsyncAws\Lambda\Input\InvocationRequest;
+use AsyncAws\Lambda\Input\ListFunctionsRequest;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
+use AsyncAws\Lambda\Input\ListVersionsByFunctionRequest;
 use AsyncAws\Lambda\Input\PublishLayerVersionRequest;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\Lambda\Result\InvocationResponse;
 use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
-use PHPUnit\Framework\TestCase;
 
 class LambdaClientTest extends TestCase
 {
@@ -36,6 +39,20 @@ class LambdaClientTest extends TestCase
 
         self::assertStringContainsString('change it', $result->getStatement());
         self::assertStringContainsString('change it', $result->getRevisionId());
+    }
+
+    public function testDeleteFunction(): void
+    {
+        self::markTestSkipped('The Lambda Docker image does not implement DeleteFunction.');
+
+        $client = $this->getClient();
+
+        $input = new DeleteFunctionRequest([
+            'FunctionName' => 'Index',
+        ]);
+        $result = $client->DeleteFunction($input);
+
+        $result->resolve();
     }
 
     public function testInvoke(): void
@@ -86,6 +103,23 @@ class LambdaClientTest extends TestCase
         self::assertEqualsCanonicalizing($expected, $resolves);
     }
 
+    public function testListFunctions(): void
+    {
+        self::markTestSkipped('The Lambda Docker image does not implement ListFunctions.');
+
+        $client = $this->getClient();
+
+        $input = new ListFunctionsRequest([
+            'MaxItems' => 1337,
+        ]);
+        $result = $client->ListFunctions($input);
+
+        $result->resolve();
+
+        self::assertSame('Index', $result->getNextMarker());
+        // self::assertTODO(expected, $result->getFunctions());
+    }
+
     public function testListLayerVersions(): void
     {
         self::markTestSkipped('The Lambda Docker image does not implement AddLayerVersionPermission.');
@@ -102,6 +136,23 @@ class LambdaClientTest extends TestCase
 
         self::assertStringContainsString('change it', $result->getNextMarker());
         // self::assertTODO(expected, $result->getLayerVersions());
+    }
+
+    public function testListVersionsByFunction(): void
+    {
+        self::markTestSkipped('The Lambda Docker image does not implement ListVersionsByFunction.');
+
+        $client = $this->getClient();
+
+        $input = new ListVersionsByFunctionRequest([
+            'FunctionName' => 'Index',
+        ]);
+        $result = $client->ListVersionsByFunction($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getNextMarker());
+        // self::assertTODO(expected, $result->getVersions());
     }
 
     public function testPublishLayerVersion(): void

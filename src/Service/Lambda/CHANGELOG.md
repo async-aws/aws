@@ -2,9 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.4.0
+
 ### Added
 
-- AWS api-change: Added constant for NodeJs 14
+- AWS api-change: Added constant for NodeJs 14.
+- Added operation `deleteFunction`, `listFunctions`, and `listVersionsByFunction`.
 
 ## 1.3.0
 

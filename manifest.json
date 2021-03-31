@@ -151,8 +151,11 @@
             "api-reference": "https://docs.aws.amazon.com/lambda/latest/APIReference",
             "methods": [
                 "AddLayerVersionPermission",
+                "DeleteFunction",
                 "Invoke",
+                "ListFunctions",
                 "ListLayerVersions",
+                "ListVersionsByFunction",
                 "PublishLayerVersion"
             ]
         },
