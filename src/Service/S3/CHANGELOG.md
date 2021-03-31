@@ -2,14 +2,23 @@
 
 ## NOT RELEASED
 
+## 1.9.0
+
 ### Added
+
+- AWS api-change: Adding ID element to the CORSRule schema
+- AWS api-change: Adding many more regions
+
+### Changed
 
 - AWS api-change: Reword docblocks
 - AWS enhancement: Amazon S3 Documentation updates
-- AWS api-change: Adding ID element to the CORSRule schema
 - AWS api-change: Improve documentation
 - AWS enhancement: Documentation updates for Amazon S3
-- AWS api-change: Adding many more regions
+
+### Fixed
+
+- Wrong custom encoding on chunked stream
 
 ## 1.8.0
 
