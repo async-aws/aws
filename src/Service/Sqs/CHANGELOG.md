@@ -5,6 +5,7 @@
 ### Added
 
 - AWS enhancement: Documentation updates for Amazon SQS
+- AWS api-change: TODO
 
 ## 1.5.0
 
