@@ -5,7 +5,7 @@
 ### Added
 
 - AWS enhancement: Documentation updates for Amazon SQS
-- AWS api-change: TODO
+- AWS api-change: Remove endpoint duplicate with default logic
 
 ## 1.5.0
 
