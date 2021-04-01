@@ -273,7 +273,7 @@ class SignerV4 implements Signer
                 continue;
             }
 
-            $canonicalHeaders[$key] = "$key:$value";
+            $canonicalHeaders[$key] = $key . ':' . preg_replace('/\s+/', ' ', $value);
         }
         ksort($canonicalHeaders);
 
