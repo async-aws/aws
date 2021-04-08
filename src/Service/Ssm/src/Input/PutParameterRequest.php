@@ -57,7 +57,7 @@ final class PutParameterRequest extends Input
     private $keyId;
 
     /**
-     * Overwrite an existing parameter. If not specified, will default to "false".
+     * Overwrite an existing parameter. The default value is 'false'.
      *
      * @var bool|null
      */
