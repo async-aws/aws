@@ -2,9 +2,9 @@
 
 ## NOT RELEASED
 
-### Added
+### Changed
 
-- AWS api-change: Supports removing a label or labels from a parameter, enables ScheduledEndTime and ChangeDetails for StartChangeRequestExecution API, supports critical/security/other noncompliant count for patch API.
+- AWS api-change: Reword docblock
 
 ## 1.2.0
 
