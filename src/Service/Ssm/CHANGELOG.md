@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- AWS api-change: Reword docblock
+
 ## 1.2.0
 
 ### Added
