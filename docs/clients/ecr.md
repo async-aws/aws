@@ -1,7 +1,7 @@
 ---
 layout: client
 category: clients
-name: ECR
+name: Ecr
 package: async-aws/ecr
 ---
 

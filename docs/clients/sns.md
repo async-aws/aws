@@ -1,7 +1,7 @@
 ---
 layout: client
 category: clients
-name: SNS
+name: Sns
 package: async-aws/sns
 ---
 

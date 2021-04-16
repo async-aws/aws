@@ -1,7 +1,7 @@
 ---
 layout: client
 category: clients
-name: SSM
+name: Ssm
 package: async-aws/ssm
 ---
 

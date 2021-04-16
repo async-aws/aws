@@ -1,7 +1,7 @@
 ---
 layout: client
 category: clients
-name: SQS
+name: Sqs
 package: async-aws/sqs
 ---
 

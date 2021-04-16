@@ -1,7 +1,7 @@
 ---
 layout: client
 category: clients
-name: SES
+name: Ses
 package: async-aws/ses
 ---
 
