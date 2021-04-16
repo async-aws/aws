@@ -38,6 +38,9 @@ class AsyncAwsTwigExtension extends AbstractExtension
         return [
             new TwigFilter('asset', [$this, 'parseAssetUrls']),
             new TwigFilter('lcfirst', function($str) { return lcfirst($str);}),
+            new TwigFilter('cleanClassName', [$this, 'cleanClassName'], [
+                'is_safe' => ['html'],
+            ]),
             new TwigFilter('printHLJSUseStatement', [$this, 'printHighlightUseStatement'], [
                 'is_safe' => ['html'],
             ]),
@@ -75,6 +78,14 @@ class AsyncAwsTwigExtension extends AbstractExtension
     {
         return $this->renderTag($name, 'js', '<script src="%s"></script>');
     }
+
+    public function cleanClassName(string $name)
+    {
+        return preg_replace_callback('/([A-Z])([A-Z]+)(\d|[A-Z][a-z]|$)/', function($matches) {
+            return $matches[1].strtolower($matches[2]).$matches[3];
+        }, $name);
+    }
+
     public function printHighlightUseStatement(string $name)
     {
         $parts = explode('\\', $name);

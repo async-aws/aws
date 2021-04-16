@@ -17,7 +17,8 @@
 
     <pre><code class="language-shell hljs">composer require {{ package }}</code></pre>
 
-    {% set clientFqcn = fqcn|default('AsyncAws\\'~name~'\\'~name~'Client') %}
+    {% set className = name|cleanClassName %}
+    {% set clientFqcn = fqcn|default('AsyncAws\\'~className~'\\'~className~'Client') %}
 
     <p>
         A new client object may be instantiated by:
@@ -25,7 +26,7 @@
 
     <pre><code class="language-php hljs">{{ clientFqcn|printHLJSUseStatement }}
 
-${{ name|lcfirst }} = <span class="hljs-keyword">new</span> {{ name }}Client();
+${{ className|lcfirst }} = <span class="hljs-keyword">new</span> {{ className }}Client();
 </code></pre>
 
     <p>
@@ -35,7 +36,7 @@ ${{ name|lcfirst }} = <span class="hljs-keyword">new</span> {{ name }}Client();
 
     <pre><code class="language-php hljs">{{ clientFqcn|printHLJSUseStatement }}
 
-${{ name|lcfirst }} = <span class="hljs-keyword">new</span> {{ name }}Client([
+${{ className|lcfirst }} = <span class="hljs-keyword">new</span> {{ className }}Client([
     <span class="hljs-string">'accessKeyId'</span> => <span class="hljs-string">'my_access_key'</span>,
     <span class="hljs-string">'accessKeySecret'</span> => <span class="hljs-string">'my_access_secret'</span>,
     <span class="hljs-string">'region'</span> => <span class="hljs-string">'eu-central-1'</span>,
