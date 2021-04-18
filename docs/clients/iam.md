@@ -1,7 +1,7 @@
 ---
 layout: client
 category: clients
-name: IAM
+name: Iam
 package: async-aws/iam
 ---
 
