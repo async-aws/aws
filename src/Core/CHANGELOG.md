@@ -2,6 +2,13 @@
 
 ## NOT RELEASED
 
+## 1.9.2
+
+### Fixed
+
+- Support for psr/cache v2 and v3
+- Fix forming signature with multiple spaces
+
 ## 1.9.1
 
 ### Fixed
