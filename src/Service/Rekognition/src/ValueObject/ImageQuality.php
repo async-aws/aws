@@ -3,7 +3,7 @@
 namespace AsyncAws\Rekognition\ValueObject;
 
 /**
- * Identifies image brightness and sharpness. Default attribute.
+ * Identifies face image brightness and sharpness.
  */
 final class ImageQuality
 {

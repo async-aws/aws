@@ -3,14 +3,15 @@
 namespace AsyncAws\Rekognition\Enum;
 
 /**
- * The value of `OrientationCorrection` is always null.
- * If the input image is in .jpeg format, it might contain exchangeable image file format (Exif) metadata that includes
- * the image's orientation. Amazon Rekognition uses this orientation information to perform image correction. The
- * bounding box coordinates are translated to represent object locations after the orientation information in the Exif
- * metadata is used to correct the image orientation. Images in .png format don't contain Exif metadata.
- * Amazon Rekognition doesn’t perform image correction for images in .png format and .jpeg images without orientation
- * information in the image Exif metadata. The bounding box coordinates aren't translated and represent the object
- * locations before the image is rotated.
+ * The orientation of the input image (counterclockwise direction). If your application displays the image, you can use
+ * this value to correct the orientation. The bounding box coordinates returned in `CelebrityFaces` and
+ * `UnrecognizedFaces` represent face locations before the image orientation is corrected.
+ *
+ * > If the input image is in .jpeg format, it might contain exchangeable image (Exif) metadata that includes the
+ * > image's orientation. If so, and the Exif metadata for the input image populates the orientation field, the value of
+ * > `OrientationCorrection` is null. The `CelebrityFaces` and `UnrecognizedFaces` bounding box coordinates represent
+ * > face locations after Exif metadata is used to correct the image orientation. Images in .png format don't contain
+ * > Exif metadata.
  */
 final class OrientationCorrection
 {

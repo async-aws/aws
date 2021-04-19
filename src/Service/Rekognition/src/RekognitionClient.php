@@ -28,16 +28,20 @@ use AsyncAws\Rekognition\Input\CreateProjectRequest;
 use AsyncAws\Rekognition\Input\DeleteCollectionRequest;
 use AsyncAws\Rekognition\Input\DeleteProjectRequest;
 use AsyncAws\Rekognition\Input\DetectFacesRequest;
+use AsyncAws\Rekognition\Input\GetCelebrityInfoRequest;
 use AsyncAws\Rekognition\Input\IndexFacesRequest;
 use AsyncAws\Rekognition\Input\ListCollectionsRequest;
+use AsyncAws\Rekognition\Input\RecognizeCelebritiesRequest;
 use AsyncAws\Rekognition\Input\SearchFacesByImageRequest;
 use AsyncAws\Rekognition\Result\CreateCollectionResponse;
 use AsyncAws\Rekognition\Result\CreateProjectResponse;
 use AsyncAws\Rekognition\Result\DeleteCollectionResponse;
 use AsyncAws\Rekognition\Result\DeleteProjectResponse;
 use AsyncAws\Rekognition\Result\DetectFacesResponse;
+use AsyncAws\Rekognition\Result\GetCelebrityInfoResponse;
 use AsyncAws\Rekognition\Result\IndexFacesResponse;
 use AsyncAws\Rekognition\Result\ListCollectionsResponse;
+use AsyncAws\Rekognition\Result\RecognizeCelebritiesResponse;
 use AsyncAws\Rekognition\Result\SearchFacesByImageResponse;
 use AsyncAws\Rekognition\ValueObject\Image;
 
@@ -224,6 +228,41 @@ class RekognitionClient extends AbstractApi
     }
 
     /**
+     * Gets the name and additional information about a celebrity based on his or her Amazon Rekognition ID. The additional
+     * information is returned as an array of URLs. If there is no additional information about the celebrity, this list is
+     * empty.
+     *
+     * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_GetCelebrityInfo.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#getcelebrityinfo
+     *
+     * @param array{
+     *   Id: string,
+     *   @region?: string,
+     * }|GetCelebrityInfoRequest $input
+     *
+     * @throws InvalidParameterException
+     * @throws AccessDeniedException
+     * @throws InternalServerErrorException
+     * @throws ThrottlingException
+     * @throws ProvisionedThroughputExceededException
+     * @throws ResourceNotFoundException
+     */
+    public function getCelebrityInfo($input): GetCelebrityInfoResponse
+    {
+        $input = GetCelebrityInfoRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetCelebrityInfo', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterException' => InvalidParameterException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
+            'InternalServerError' => InternalServerErrorException::class,
+            'ThrottlingException' => ThrottlingException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+        ]]));
+
+        return new GetCelebrityInfoResponse($response);
+    }
+
+    /**
      * Detects faces in the input image and adds them to the specified collection.
      *
      * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_IndexFaces.html
@@ -304,6 +343,44 @@ class RekognitionClient extends AbstractApi
         ]]));
 
         return new ListCollectionsResponse($response, $this, $input);
+    }
+
+    /**
+     * Returns an array of celebrities recognized in the input image. For more information, see Recognizing Celebrities in
+     * the Amazon Rekognition Developer Guide.
+     *
+     * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_RecognizeCelebrities.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#recognizecelebrities
+     *
+     * @param array{
+     *   Image: Image|array,
+     *   @region?: string,
+     * }|RecognizeCelebritiesRequest $input
+     *
+     * @throws InvalidS3ObjectException
+     * @throws InvalidParameterException
+     * @throws InvalidImageFormatException
+     * @throws ImageTooLargeException
+     * @throws AccessDeniedException
+     * @throws InternalServerErrorException
+     * @throws ThrottlingException
+     * @throws ProvisionedThroughputExceededException
+     */
+    public function recognizeCelebrities($input): RecognizeCelebritiesResponse
+    {
+        $input = RecognizeCelebritiesRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'RecognizeCelebrities', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidS3ObjectException' => InvalidS3ObjectException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'InvalidImageFormatException' => InvalidImageFormatException::class,
+            'ImageTooLargeException' => ImageTooLargeException::class,
+            'AccessDeniedException' => AccessDeniedException::class,
+            'InternalServerError' => InternalServerErrorException::class,
+            'ThrottlingException' => ThrottlingException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+        ]]));
+
+        return new RecognizeCelebritiesResponse($response);
     }
 
     /**
