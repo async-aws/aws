@@ -185,8 +185,10 @@
                 "DeleteCollection",
                 "DeleteProject",
                 "DetectFaces",
+                "GetCelebrityInfo",
                 "IndexFaces",
                 "ListCollections",
+                "RecognizeCelebrities",
                 "SearchFacesByImage"
             ]
         },

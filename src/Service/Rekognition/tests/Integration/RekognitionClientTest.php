@@ -9,8 +9,10 @@ use AsyncAws\Rekognition\Input\CreateProjectRequest;
 use AsyncAws\Rekognition\Input\DeleteCollectionRequest;
 use AsyncAws\Rekognition\Input\DeleteProjectRequest;
 use AsyncAws\Rekognition\Input\DetectFacesRequest;
+use AsyncAws\Rekognition\Input\GetCelebrityInfoRequest;
 use AsyncAws\Rekognition\Input\IndexFacesRequest;
 use AsyncAws\Rekognition\Input\ListCollectionsRequest;
+use AsyncAws\Rekognition\Input\RecognizeCelebritiesRequest;
 use AsyncAws\Rekognition\Input\SearchFacesByImageRequest;
 use AsyncAws\Rekognition\RekognitionClient;
 use AsyncAws\Rekognition\ValueObject\Image;
@@ -99,6 +101,21 @@ class RekognitionClientTest extends TestCase
         self::assertSame('changeIt', $result->getOrientationCorrection());
     }
 
+    public function testGetCelebrityInfo(): void
+    {
+        $client = $this->getClient();
+
+        $input = new GetCelebrityInfoRequest([
+            'Id' => 'change me',
+        ]);
+        $result = $client->GetCelebrityInfo($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getUrls());
+        self::assertSame('changeIt', $result->getName());
+    }
+
     public function testIndexFaces(): void
     {
         $client = $this->getClient();
@@ -143,6 +160,29 @@ class RekognitionClientTest extends TestCase
         // self::assertTODO(expected, $result->getCollectionIds());
         self::assertSame('changeIt', $result->getNextToken());
         // self::assertTODO(expected, $result->getFaceModelVersions());
+    }
+
+    public function testRecognizeCelebrities(): void
+    {
+        $client = $this->getClient();
+
+        $input = new RecognizeCelebritiesRequest([
+            'Image' => new Image([
+                'Bytes' => 'change me',
+                'S3Object' => new S3Object([
+                    'Bucket' => 'change me',
+                    'Name' => 'change me',
+                    'Version' => 'change me',
+                ]),
+            ]),
+        ]);
+        $result = $client->RecognizeCelebrities($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getCelebrityFaces());
+        // self::assertTODO(expected, $result->getUnrecognizedFaces());
+        self::assertSame('changeIt', $result->getOrientationCorrection());
     }
 
     public function testSearchFacesByImage(): void

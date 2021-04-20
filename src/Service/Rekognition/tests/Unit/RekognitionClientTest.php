@@ -9,8 +9,10 @@ use AsyncAws\Rekognition\Input\CreateProjectRequest;
 use AsyncAws\Rekognition\Input\DeleteCollectionRequest;
 use AsyncAws\Rekognition\Input\DeleteProjectRequest;
 use AsyncAws\Rekognition\Input\DetectFacesRequest;
+use AsyncAws\Rekognition\Input\GetCelebrityInfoRequest;
 use AsyncAws\Rekognition\Input\IndexFacesRequest;
 use AsyncAws\Rekognition\Input\ListCollectionsRequest;
+use AsyncAws\Rekognition\Input\RecognizeCelebritiesRequest;
 use AsyncAws\Rekognition\Input\SearchFacesByImageRequest;
 use AsyncAws\Rekognition\RekognitionClient;
 use AsyncAws\Rekognition\Result\CreateCollectionResponse;
@@ -18,8 +20,10 @@ use AsyncAws\Rekognition\Result\CreateProjectResponse;
 use AsyncAws\Rekognition\Result\DeleteCollectionResponse;
 use AsyncAws\Rekognition\Result\DeleteProjectResponse;
 use AsyncAws\Rekognition\Result\DetectFacesResponse;
+use AsyncAws\Rekognition\Result\GetCelebrityInfoResponse;
 use AsyncAws\Rekognition\Result\IndexFacesResponse;
 use AsyncAws\Rekognition\Result\ListCollectionsResponse;
+use AsyncAws\Rekognition\Result\RecognizeCelebritiesResponse;
 use AsyncAws\Rekognition\Result\SearchFacesByImageResponse;
 use AsyncAws\Rekognition\ValueObject\Image;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -94,6 +98,19 @@ class RekognitionClientTest extends TestCase
         self::assertFalse($result->info()['resolved']);
     }
 
+    public function testGetCelebrityInfo(): void
+    {
+        $client = new RekognitionClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new GetCelebrityInfoRequest([
+            'Id' => '1XJ5dK1a',
+        ]);
+        $result = $client->GetCelebrityInfo($input);
+
+        self::assertInstanceOf(GetCelebrityInfoResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testIndexFaces(): void
     {
         $client = new RekognitionClient([], new NullProvider(), new MockHttpClient());
@@ -121,6 +138,21 @@ class RekognitionClientTest extends TestCase
         $result = $client->ListCollections($input);
 
         self::assertInstanceOf(ListCollectionsResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testRecognizeCelebrities(): void
+    {
+        $client = new RekognitionClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new RecognizeCelebritiesRequest([
+            'Image' => new Image([
+                'Bytes' => '/9j/4AAQSkZJRgABAQAAAQABAAD/',
+            ]),
+        ]);
+        $result = $client->RecognizeCelebrities($input);
+
+        self::assertInstanceOf(RecognizeCelebritiesResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
