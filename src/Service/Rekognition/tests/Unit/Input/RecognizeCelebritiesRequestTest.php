@@ -11,8 +11,6 @@ class RecognizeCelebritiesRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new RecognizeCelebritiesRequest([
             'Image' => new Image([
                 'Bytes' => 'change me',
@@ -28,11 +26,18 @@ class RecognizeCelebritiesRequestTest extends TestCase
         $expected = '
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
+            x-amz-target: RekognitionService.RecognizeCelebrities
 
             {
-            "change": "it"
-        }
-                ';
+            "Image": {
+                "Bytes": "Y2hhbmdlIG1l",
+                "S3Object": {
+                    "Bucket": "change me",
+                    "Name": "change me",
+                    "Version": "change me"
+                }
+            }
+        }';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

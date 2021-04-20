@@ -9,8 +9,6 @@ class GetCelebrityInfoRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new GetCelebrityInfoRequest([
             'Id' => 'change me',
         ]);
@@ -19,9 +17,10 @@ class GetCelebrityInfoRequestTest extends TestCase
         $expected = '
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
+            x-amz-target: RekognitionService.GetCelebrityInfo
 
             {
-            "change": "it"
+            "Id": "change me"
         }
                 ';
 
