@@ -53,7 +53,7 @@ if ($return !== 0) {
  * Check if something changed
  */
 $output = [];
-exec('git diff --numstat  src/Service/', $output, $return);
+exec('git diff --numstat  src/', $output, $return);
 if ($return !== 0) {
     console_log('git diff failed.');
     exit(1);
@@ -65,9 +65,17 @@ if (empty($output)) {
     exit;
 }
 console_log('Code changed');
-$services = array_unique(array_map(function(string $line) {
-    return explode('/', explode("\t", $line)[2])[2];
-}, $output));
+$services = array_unique(array_filter(array_map(function(string $line) {
+    $parts = explode('/', explode("\t", $line)[2]);
+    if ('Service' === $parts[1] ?? null) {
+        return $parts[2];
+    }
+    if (('Core' === $parts[1] ?? null) && ('Sts' === $parts[3] ?? null)) {
+        return 'Sts';
+    }
+
+    return null;
+}, $output)));
 
 /**
  * Fetching AWS Changes
@@ -86,7 +94,6 @@ foreach ($changes as $change) {
     $sanitizedService = preg_replace('[^a-z0-9]', '', strtolower($change['category']));
     $changesByService[$sanitizedService][] = $change;
 }
-
 /**
  * Generating ChangeLog
  */
@@ -108,7 +115,12 @@ foreach ($services as $service) {
     }
 
     console_log('Generating CHANGELOG for '. $service);
-    $changeLog = explode("\n", file_get_contents($rootDir.'/src/Service/'.$service.'/CHANGELOG.md'));
+    if ($service === 'Sts') {
+        $changeLogPath = $rootDir.'/src/Core/CHANGELOG.md';
+    } else {
+        $changeLogPath = $rootDir.'/src/Service/'.$service.'/CHANGELOG.md';
+    }
+    $changeLog = explode("\n", file_get_contents($changeLogPath));
     $nrSection = false;
     $fixSection = false;
     foreach ($changeLog as $index => $line) {
@@ -149,7 +161,7 @@ foreach ($services as $service) {
         array_splice($changeLog, $index - 1, 0, $newLines);
     }
 
-    file_put_contents($rootDir.'/src/Service/'.$service.'/CHANGELOG.md', implode("\n", $changeLog));
+    file_put_contents($changeLogPath, implode("\n", $changeLog));
 }
 
 // forward version to .github action
