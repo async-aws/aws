@@ -146,7 +146,7 @@ jobs:
 
       - name: Run tests
         env:
-          SYMFONY_DEPRECATIONS_HELPER: ${{ matrix.strategy == 'lowest' && '9999' || '' }}
+          SYMFONY_DEPRECATIONS_HELPER: ${{ matrix.strategy == 'lowest' && '9999' || '1' }}
         run: |
           ok=0
           for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
