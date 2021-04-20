@@ -54,6 +54,11 @@ class AssumeRoleWithWebIdentityResponse extends Result
      */
     private $audience;
 
+    /**
+     * The value of the source identity that is returned in the JSON web token (JWT) from the identity provider.
+     */
+    private $sourceIdentity;
+
     public function getAssumedRoleUser(): ?AssumedRoleUser
     {
         $this->initialize();
@@ -89,6 +94,13 @@ class AssumeRoleWithWebIdentityResponse extends Result
         return $this->provider;
     }
 
+    public function getSourceIdentity(): ?string
+    {
+        $this->initialize();
+
+        return $this->sourceIdentity;
+    }
+
     public function getSubjectFromWebIdentityToken(): ?string
     {
         $this->initialize();
@@ -115,5 +127,6 @@ class AssumeRoleWithWebIdentityResponse extends Result
         $this->packedPolicySize = ($v = $data->PackedPolicySize) ? (int) (string) $v : null;
         $this->provider = ($v = $data->Provider) ? (string) $v : null;
         $this->audience = ($v = $data->Audience) ? (string) $v : null;
+        $this->sourceIdentity = ($v = $data->SourceIdentity) ? (string) $v : null;
     }
 }

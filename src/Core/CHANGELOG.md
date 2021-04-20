@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS enhancement: STS now supports assume role with Web Identity using JWT token length upto 20000 characters
+- AWS api-change: This release adds the SourceIdentity parameter that can be set when assuming a role.
+
 ## 1.9.2
 
 ### Fixed

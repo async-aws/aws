@@ -45,11 +45,12 @@ final class AssumeRoleRequest extends Input
     private $policy;
 
     /**
-     * The duration, in seconds, of the role session. The value can range from 900 seconds (15 minutes) up to the maximum
-     * session duration setting for the role. This setting can have a value from 1 hour to 12 hours. If you specify a value
-     * higher than this setting, the operation fails. For example, if you specify a session duration of 12 hours, but your
-     * administrator set the maximum session duration to 6 hours, your operation fails. To learn how to view the maximum
-     * value for your role, see View the Maximum Session Duration Setting for a Role in the *IAM User Guide*.
+     * The duration, in seconds, of the role session. The value specified can can range from 900 seconds (15 minutes) up to
+     * the maximum session duration that is set for the role. The maximum session duration setting can have a value from 1
+     * hour to 12 hours. If you specify a value higher than this setting or the administrator setting (whichever is lower),
+     * the operation fails. For example, if you specify a session duration of 12 hours, but your administrator set the
+     * maximum session duration to 6 hours, your operation fails. To learn how to view the maximum value for your role, see
+     * View the Maximum Session Duration Setting for a Role in the *IAM User Guide*.
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html#id_roles_use_view-role-max-session
      *
@@ -104,13 +105,20 @@ final class AssumeRoleRequest extends Input
     private $serialNumber;
 
     /**
-     * The value provided by the MFA device, if the trust policy of the role being assumed requires MFA (that is, if the
-     * policy includes a condition that tests for MFA). If the role being assumed requires MFA and if the `TokenCode` value
-     * is missing or expired, the `AssumeRole` call returns an "access denied" error.
+     * The value provided by the MFA device, if the trust policy of the role being assumed requires MFA. (In other words, if
+     * the policy includes a condition that tests for MFA). If the role being assumed requires MFA and if the `TokenCode`
+     * value is missing or expired, the `AssumeRole` call returns an "access denied" error.
      *
      * @var string|null
      */
     private $tokenCode;
+
+    /**
+     * The source identity specified by the principal that is calling the `AssumeRole` operation.
+     *
+     * @var string|null
+     */
+    private $sourceIdentity;
 
     /**
      * @param array{
@@ -124,6 +132,7 @@ final class AssumeRoleRequest extends Input
      *   ExternalId?: string,
      *   SerialNumber?: string,
      *   TokenCode?: string,
+     *   SourceIdentity?: string,
      *   @region?: string,
      * } $input
      */
@@ -139,6 +148,7 @@ final class AssumeRoleRequest extends Input
         $this->externalId = $input['ExternalId'] ?? null;
         $this->serialNumber = $input['SerialNumber'] ?? null;
         $this->tokenCode = $input['TokenCode'] ?? null;
+        $this->sourceIdentity = $input['SourceIdentity'] ?? null;
         parent::__construct($input);
     }
 
@@ -183,6 +193,11 @@ final class AssumeRoleRequest extends Input
     public function getSerialNumber(): ?string
     {
         return $this->serialNumber;
+    }
+
+    public function getSourceIdentity(): ?string
+    {
+        return $this->sourceIdentity;
     }
 
     /**
@@ -279,6 +294,13 @@ final class AssumeRoleRequest extends Input
         return $this;
     }
 
+    public function setSourceIdentity(?string $value): self
+    {
+        $this->sourceIdentity = $value;
+
+        return $this;
+    }
+
     /**
      * @param Tag[] $value
      */
@@ -356,6 +378,9 @@ final class AssumeRoleRequest extends Input
         }
         if (null !== $v = $this->tokenCode) {
             $payload['TokenCode'] = $v;
+        }
+        if (null !== $v = $this->sourceIdentity) {
+            $payload['SourceIdentity'] = $v;
         }
 
         return $payload;
