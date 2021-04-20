@@ -3,7 +3,7 @@
 namespace AsyncAws\Rekognition\ValueObject;
 
 /**
- * Bounding box of the face.
+ * Bounding box of the face. Default attribute.
  */
 final class BoundingBox
 {

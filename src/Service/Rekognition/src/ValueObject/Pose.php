@@ -3,7 +3,7 @@
 namespace AsyncAws\Rekognition\ValueObject;
 
 /**
- * Indicates the pose of the face as determined by its pitch, roll, and yaw.
+ * Indicates the pose of the face as determined by its pitch, roll, and yaw. Default attribute.
  */
 final class Pose
 {
