@@ -47,6 +47,7 @@ class StsClient extends AbstractApi
      *   ExternalId?: string,
      *   SerialNumber?: string,
      *   TokenCode?: string,
+     *   SourceIdentity?: string,
      *   @region?: string,
      * }|AssumeRoleRequest $input
      *

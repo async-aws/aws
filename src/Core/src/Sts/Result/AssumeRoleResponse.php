@@ -34,6 +34,11 @@ class AssumeRoleResponse extends Result
      */
     private $packedPolicySize;
 
+    /**
+     * The source identity specified by the principal that is calling the `AssumeRole` operation.
+     */
+    private $sourceIdentity;
+
     public function getAssumedRoleUser(): ?AssumedRoleUser
     {
         $this->initialize();
@@ -55,6 +60,13 @@ class AssumeRoleResponse extends Result
         return $this->packedPolicySize;
     }
 
+    public function getSourceIdentity(): ?string
+    {
+        $this->initialize();
+
+        return $this->sourceIdentity;
+    }
+
     protected function populateResult(Response $response): void
     {
         $data = new \SimpleXMLElement($response->getContent());
@@ -71,5 +83,6 @@ class AssumeRoleResponse extends Result
             'Arn' => (string) $data->AssumedRoleUser->Arn,
         ]);
         $this->packedPolicySize = ($v = $data->PackedPolicySize) ? (int) (string) $v : null;
+        $this->sourceIdentity = ($v = $data->SourceIdentity) ? (string) $v : null;
     }
 }
