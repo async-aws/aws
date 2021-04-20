@@ -103,7 +103,7 @@ class RekognitionClientTest extends TestCase
         $client = new RekognitionClient([], new NullProvider(), new MockHttpClient());
 
         $input = new GetCelebrityInfoRequest([
-            'Id' => 'change me',
+            'Id' => '1XJ5dK1a',
         ]);
         $result = $client->GetCelebrityInfo($input);
 
@@ -147,7 +147,7 @@ class RekognitionClientTest extends TestCase
 
         $input = new RecognizeCelebritiesRequest([
             'Image' => new Image([
-
+                'Bytes' => '/9j/4AAQSkZJRgABAQAAAQABAAD/',
             ]),
         ]);
         $result = $client->RecognizeCelebrities($input);

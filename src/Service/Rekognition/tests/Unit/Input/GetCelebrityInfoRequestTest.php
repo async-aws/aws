@@ -10,7 +10,7 @@ class GetCelebrityInfoRequestTest extends TestCase
     public function testRequest(): void
     {
         $input = new GetCelebrityInfoRequest([
-            'Id' => 'change me',
+            'Id' => '1XJ5dK1a',
         ]);
 
         // see https://docs.aws.amazon.com/rekognition/latest/dg/API_GetCelebrityInfo.html
@@ -20,7 +20,7 @@ class GetCelebrityInfoRequestTest extends TestCase
             x-amz-target: RekognitionService.GetCelebrityInfo
 
             {
-            "Id": "change me"
+            "Id": "1XJ5dK1a"
         }
                 ';
 
