@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: TODO
+- AWS enhancement: Documentation updates for cognito-idp
 
 ## 1.2.0
 
