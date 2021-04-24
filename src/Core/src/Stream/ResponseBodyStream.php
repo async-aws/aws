@@ -77,6 +77,7 @@ class ResponseBodyStream implements ResultStream
             }
         }
 
+        /** @psalm-suppress PossiblyNullReference */
         return $this->fallback->getContentAsString();
     }
 
@@ -91,6 +92,7 @@ class ResponseBodyStream implements ResultStream
             }
         }
 
+        /** @psalm-suppress PossiblyNullReference */
         return $this->fallback->getContentAsResource();
     }
 }
