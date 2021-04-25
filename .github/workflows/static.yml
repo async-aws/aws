@@ -44,7 +44,7 @@ jobs:
           composer update --no-interaction --prefer-dist --optimize-autoloader
 
       - name: PHPStan
-        uses: docker://oskarstark/phpstan-ga:0.12.68
+        uses: docker://oskarstark/phpstan-ga:0.12.83
         with:
           entrypoint: /composer/vendor/bin/phpstan
           args: analyze --no-progress
@@ -65,7 +65,7 @@ jobs:
           restore-keys: php-cs-fixer-
 
       - name: PHP-CS-Fixer
-        uses: docker://oskarstark/php-cs-fixer-ga:2.18.1
+        uses: docker://oskarstark/php-cs-fixer-ga:2.18.5
         with:
           args: --dry-run --diff-format udiff
 
@@ -108,7 +108,7 @@ jobs:
           composer update --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Psalm
-        uses: docker://vimeo/psalm-github-actions:4.4.1
+        uses: docker://vimeo/psalm-github-actions:4.6.3
         env:
           REQUIRE_DEV: "true"
         with:
