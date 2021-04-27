@@ -6,6 +6,10 @@
 
 - AWS api-change: Add AWS tagging support for Amazon Rekognition collections, stream processors, and Custom Label models
 
+### Fixed
+
+- Assert the provided Input can be json-encoded.
+
 ## 0.1.4
 
 ### Added

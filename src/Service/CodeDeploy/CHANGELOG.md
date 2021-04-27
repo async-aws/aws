@@ -6,6 +6,10 @@
 
 - AWS api-change: Improve documentation
 
+### Fixed
+
+- Assert the provided Input can be json-encoded.
+
 ## 1.2.0
 
 ### Added

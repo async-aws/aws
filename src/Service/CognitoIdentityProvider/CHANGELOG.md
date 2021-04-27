@@ -7,6 +7,10 @@
 - AWS api-change: TODO
 - AWS enhancement: Documentation updates for cognito-idp
 
+### Fixed
+
+- Assert the provided Input can be json-encoded.
+
 ## 1.2.0
 
 ### Added
