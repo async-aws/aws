@@ -53,7 +53,7 @@ class RestJsonSerializer implements Serializer
             ]), false];
         }
 
-        return ['$bodyPayload = $this->requestBody(); $body = empty($bodyPayload) ? "{}" : json_encode($bodyPayload);', true];
+        return ['$bodyPayload = $this->requestBody(); $body = empty($bodyPayload) ? "{}" : \json_encode($bodyPayload, ' . \JSON_THROW_ON_ERROR . ');', true];
     }
 
     public function generateRequestBuilder(StructureShape $shape): array
@@ -269,4 +269,8 @@ if (empty(INPUT)) {
             'INPUT' => ($isRequired || false === strpos($input, '->')) ? $input : $input . ' ?? \'\'',
         ]);
     }
+}
+
+if (!\defined('JSON_THROW_ON_ERROR')) {
+    \define('JSON_THROW_ON_ERROR', 4194304);
 }

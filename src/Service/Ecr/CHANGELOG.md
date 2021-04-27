@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Assert the provided Input can be json-encoded.
+
 ### Added
 
 - AWS api-change: Added `ap-northeast-3` region

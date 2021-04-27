@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Assert the provided Input can be json-encoded.
+
 ### Changed
 
 - AWS api-change: Reword docblock
