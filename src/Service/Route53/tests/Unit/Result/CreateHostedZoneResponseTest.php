@@ -50,7 +50,7 @@ class CreateHostedZoneResponseTest extends TestCase
         self::assertSame('example.com.', $result->getHostedZone()->getName());
         self::assertSame('uniqueId', $result->getHostedZone()->getCallerReference());
         self::assertFalse($result->getHostedZone()->getConfig()->getPrivateZone());
-        self::assertSame('PENDING', $result->getChangeInfo()->getStatus());
+        self::assertSame(ChangeStatus::PENDING, $result->getChangeInfo()->getStatus());
         self::assertSame('NZ8X2CISAMPLE', $result->getDelegationSet()->getId());
         self::assertSame([
             'ns-2048.awsdns-64.com',
