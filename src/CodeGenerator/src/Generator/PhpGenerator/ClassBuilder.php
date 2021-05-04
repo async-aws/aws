@@ -27,7 +27,7 @@ class ClassBuilder
     {
         $this->namespace = $namespace;
         $classes = $namespace->getClasses();
-        $this->class = $classes[\array_key_first($classes)];
+        $this->class = $classes[array_key_first($classes)];
         $this->className = ClassName::create($this->namespace->getName(), $this->class->getName());
     }
 

@@ -54,7 +54,7 @@ class SimpleS3ClientTest extends TestCase
     {
         $bucket = 'bucket';
         $file = 'robots.txt';
-        $object = \fopen('php://temp', 'rw+');
+        $object = fopen('php://temp', 'rw+');
         fwrite($object, 'User-agent: *\nDisallow:');
         // do not rewind
 
@@ -74,16 +74,16 @@ class SimpleS3ClientTest extends TestCase
         $contents = 'User-agent: *\nDisallow:';
         $bucket = 'bucket';
         $file = 'robots.txt';
-        $resource = \fopen('php://temp', 'rw+');
+        $resource = fopen('php://temp', 'rw+');
         fwrite($resource, $contents);
-        \fseek($resource, 0, \SEEK_SET);
+        fseek($resource, 0, \SEEK_SET);
 
         $callback = function (array $input) use ($bucket, $file, $contents) {
             self::assertEquals($bucket, $input['Bucket']);
             self::assertEquals($file, $input['Key']);
             self::assertIsResource($input['Body']);
 
-            \fseek($input['Body'], 0, \SEEK_SET);
+            fseek($input['Body'], 0, \SEEK_SET);
             self::assertEquals($contents, stream_get_contents($input['Body']));
 
             return true;
@@ -107,7 +107,7 @@ class SimpleS3ClientTest extends TestCase
         $callback = function (array $input) use ($bucket, $file, $contents) {
             self::assertEquals($bucket, $input['Bucket']);
             self::assertEquals($file, $input['Key']);
-            \fseek($input['Body'], 0, \SEEK_SET);
+            fseek($input['Body'], 0, \SEEK_SET);
             self::assertEquals(implode('', $contents), stream_get_contents($input['Body']));
 
             return true;

@@ -31,7 +31,7 @@ class GetParameterResult extends Result
             'Version' => isset($data['Parameter']['Version']) ? (string) $data['Parameter']['Version'] : null,
             'Selector' => isset($data['Parameter']['Selector']) ? (string) $data['Parameter']['Selector'] : null,
             'SourceResult' => isset($data['Parameter']['SourceResult']) ? (string) $data['Parameter']['SourceResult'] : null,
-            'LastModifiedDate' => (isset($data['Parameter']['LastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['Parameter']['LastModifiedDate'])))) ? $d : null,
+            'LastModifiedDate' => (isset($data['Parameter']['LastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['Parameter']['LastModifiedDate'])))) ? $d : null,
             'ARN' => isset($data['Parameter']['ARN']) ? (string) $data['Parameter']['ARN'] : null,
             'DataType' => isset($data['Parameter']['DataType']) ? (string) $data['Parameter']['DataType'] : null,
         ]);

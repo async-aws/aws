@@ -40,7 +40,7 @@ class RewindableStreamTest extends TestCase
     {
         $stream = RewindableStream::create($content);
 
-        self::assertSame($expected, \iterator_to_array($stream));
+        self::assertSame($expected, iterator_to_array($stream));
     }
 
     /**

@@ -61,7 +61,7 @@ class EnumGenerator
         foreach ($shape->getEnum() as $value) {
             $consts[self::canonicalizeName($value)] = $value;
         }
-        \ksort($consts);
+        ksort($consts);
         $availableConsts = [];
         foreach ($consts as $constName => $constValue) {
             $classBuilder->addConstant($constName, $constValue)->setVisibility(ClassType::VISIBILITY_PUBLIC);
@@ -85,8 +85,8 @@ class EnumGenerator
         // java10 => JAVA_10
         // go1.x => GO_1_X
         // s3:ObjectCreated:* => S3_OBJECT_CREATED_ALL
-        $name = \strtr($name, ['*' => '_ALL']);
-        $name = strtoupper(\preg_replace('/([a-z])([A-Z\d])/', '\\1_\\2', $name));
+        $name = strtr($name, ['*' => '_ALL']);
+        $name = strtoupper(preg_replace('/([a-z])([A-Z\d])/', '\\1_\\2', $name));
         $name = preg_replace('/[^A-Z\d ]+/', '_', $name);
 
         $replacements = [

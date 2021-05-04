@@ -36,7 +36,7 @@ class SsmVault implements EnvVarLoaderInterface
             if ((null === $name = $parameter->getName()) || (null === $value = $parameter->getValue())) {
                 continue;
             }
-            $name = \strtoupper(\strtr(ltrim(substr($name, $prefixLen), '/'), '/', '_'));
+            $name = strtoupper(strtr(ltrim(substr($name, $prefixLen), '/'), '/', '_'));
             $secrets[$name] = $value;
         }
 

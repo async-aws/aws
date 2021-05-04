@@ -54,8 +54,8 @@ class QuerySerializer implements Serializer
         }
 
         return [strtr('$body = http_build_query([\'Action\' => OPERATION_NAME, \'Version\' => API_VERSION] + $this->requestBody(), \'\', \'&\', \PHP_QUERY_RFC1738);', [
-            'OPERATION_NAME' => \var_export($operation->getName(), true),
-            'API_VERSION' => \var_export($operation->getApiVersion(), true),
+            'OPERATION_NAME' => var_export($operation->getName(), true),
+            'API_VERSION' => var_export($operation->getApiVersion(), true),
         ]), true];
     }
 

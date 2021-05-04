@@ -50,7 +50,7 @@ class SimpleMockedResponse extends MockResponse
 
     public function toArray(bool $throw = true): array
     {
-        return \json_decode($this->getContent($throw), true);
+        return json_decode($this->getContent($throw), true);
     }
 
     public function cancel(): void

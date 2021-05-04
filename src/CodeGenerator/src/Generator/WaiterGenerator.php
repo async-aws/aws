@@ -102,10 +102,10 @@ class WaiterGenerator
             $mapping[] = sprintf('%s => %s::class,', var_export($error->getCode() ?? $error->getName(), true), $errorClass->getName());
         }
 
-        $method = $classBuilder->addMethod(\lcfirst(GeneratorHelper::normalizeName($waiter->getName())))
-            ->setComment('Check status of operation ' . \lcfirst(GeneratorHelper::normalizeName($operation->getName())))
+        $method = $classBuilder->addMethod(lcfirst(GeneratorHelper::normalizeName($waiter->getName())))
+            ->setComment('Check status of operation ' . lcfirst(GeneratorHelper::normalizeName($operation->getName())))
             ->setComment('')
-            ->addComment('@see ' . \lcfirst(GeneratorHelper::normalizeName($operation->getName())))
+            ->addComment('@see ' . lcfirst(GeneratorHelper::normalizeName($operation->getName())))
             ->addComment($doc)
             ->setReturnType($resultClass->getFqdn())
             ->setBody(strtr('
@@ -115,7 +115,7 @@ class WaiterGenerator
                 return new RESULT_CLASS($response, $this, $input);
             ', [
                 'INPUT_CLASS' => $inputClass->getName(),
-                'OPERATION_NAME' => \var_export($operation->getName(), true),
+                'OPERATION_NAME' => var_export($operation->getName(), true),
                 'RESULT_CLASS' => $resultClass->getName(),
                 'EXCEPTION_MAPPING' => $mapping ? ", 'exceptionMapping' => [\n" . implode("\n", $mapping) . "\n]" : '',
             ]));
@@ -180,7 +180,7 @@ class WaiterGenerator
 
                 /** @psalm-suppress TypeDoesNotContainType */
                 return $exception === null ? self::STATE_PENDING :  self::STATE_FAILURE;
-            ', ['ACCEPTOR_CODE' => \implode("\n", \array_map([$this, 'getAcceptorBody'], $waiter->getAcceptors()))]));
+            ', ['ACCEPTOR_CODE' => implode("\n", array_map([$this, 'getAcceptorBody'], $waiter->getAcceptors()))]));
         $method->addParameter('response')->setType(Response::class);
         $method->addParameter('exception')->setType(HttpException::class)->setNullable(true);
 
@@ -225,7 +225,7 @@ class WaiterGenerator
             }
         ', [
             'PATH' => '"' . strtr($acceptor->getArgument(), ['.' => '"]["']) . '"',
-            'EXPECTED' => \var_export($acceptor->getExpected(), true),
+            'EXPECTED' => var_export($acceptor->getExpected(), true),
             'BEHAVIOR' => $this->getAcceptorBehavior($acceptor),
         ]);
     }
@@ -236,13 +236,13 @@ class WaiterGenerator
         $error = $acceptor->getError();
         if ($error->hasError()) {
             if (null !== $code = $error->getCode()) {
-                $checks[] = \var_export($code, true) . ' === $exception->getAwsCode()';
+                $checks[] = var_export($code, true) . ' === $exception->getAwsCode()';
             }
             if (null !== $code = $error->getStatusCode()) {
-                $checks[] = \var_export($code, true) . ' === $exception->getCode()';
+                $checks[] = var_export($code, true) . ' === $exception->getCode()';
             }
         } elseif (null !== $expected = $acceptor->getExpected()) {
-            $checks[] = \var_export($expected, true) . ' === $exception->getAwsCode()';
+            $checks[] = var_export($expected, true) . ' === $exception->getAwsCode()';
         }
 
         if (0 === \count($checks)) {
@@ -254,7 +254,7 @@ class WaiterGenerator
                 return self::BEHAVIOR;
             }
         ', [
-            'EXPECTED' => \implode('&&', $checks),
+            'EXPECTED' => implode('&&', $checks),
             'BEHAVIOR' => $this->getAcceptorBehavior($acceptor),
         ]);
     }

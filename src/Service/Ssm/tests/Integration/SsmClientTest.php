@@ -31,7 +31,7 @@ class SsmClientTest extends TestCase
                 if ('ParameterNotFound' !== $e->getAwsCode()) {
                     throw $e;
                 }
-                \usleep(10000);
+                usleep(10000);
             }
         }
     }
@@ -45,7 +45,7 @@ class SsmClientTest extends TestCase
             while (true) {
                 try {
                     $this->getClient()->getParameter(['Name' => '/app/database/host']);
-                    \usleep(10000);
+                    usleep(10000);
                 } catch (ClientException $e) {
                     if ('ParameterNotFound' !== $e->getAwsCode()) {
                         throw $e;
@@ -112,7 +112,7 @@ class SsmClientTest extends TestCase
             'Recursive' => true,
         ]);
         $result = $client->GetParametersByPath($input);
-        $parameters = \iterator_to_array($result->getParameters());
+        $parameters = iterator_to_array($result->getParameters());
         self::assertCount(1, $parameters);
         self::assertSame('/app/database/host', $parameters[0]->getName());
     }
@@ -126,7 +126,7 @@ class SsmClientTest extends TestCase
             while (true) {
                 try {
                     $this->getClient()->getParameter(['Name' => '/app/smtp/user']);
-                    \usleep(10000);
+                    usleep(10000);
                 } catch (ClientException $e) {
                     if ('ParameterNotFound' !== $e->getAwsCode()) {
                         throw $e;

@@ -65,9 +65,9 @@ jobs:
           restore-keys: php-cs-fixer-
 
       - name: PHP-CS-Fixer
-        uses: docker://oskarstark/php-cs-fixer-ga:2.18.5
+        uses: docker://oskarstark/php-cs-fixer-ga:3.0.0
         with:
-          args: --dry-run --diff-format udiff
+          args: --dry-run --diff
 
   psalm:
     name: Psalm

@@ -115,7 +115,7 @@ class StsClientTest extends TestCase
             'RoleArn' => 'test',
             'RoleSessionName' => 'test',
         ]));
-        \parse_str(\parse_url($url, \PHP_URL_QUERY), $query);
+        parse_str(parse_url($url, \PHP_URL_QUERY), $query);
 
         self::assertStringContainsString('/demo/', $query['X-Amz-Credential']);
     }

@@ -54,11 +54,11 @@ class ClientGenerator
             public function getVersion() {
                 return array_keys($this->getSignerFactories());
             }
-        } return (new A%1$s)->getVersion();', sha1(\uniqid('', true)), $className->getFqdn()));
+        } return (new A%1$s)->getVersion();', sha1(uniqid('', true)), $className->getFqdn()));
 
         $endpoints = $definition->getEndpoints();
         $dumpConfig = static function ($config) use ($supportedVersions) {
-            $signatureVersions = \array_intersect($supportedVersions, $config['signVersions']);
+            $signatureVersions = array_intersect($supportedVersions, $config['signVersions']);
             rsort($signatureVersions);
 
             return strtr('        return [
@@ -68,9 +68,9 @@ class ClientGenerator
                 "signVersions" => SIGN_VERSIONS,
             ];' . "\n", [
                 'ENDPOINT' => strtr($config['endpoint'], ['%region%' => '$region']),
-                'REGION' => isset($config['signRegion']) ? \var_export($config['signRegion'], true) : '$region',
+                'REGION' => isset($config['signRegion']) ? var_export($config['signRegion'], true) : '$region',
                 'SIGN_SERVICE' => var_export($config['signService'], true),
-                'SIGN_VERSIONS' => \json_encode($signatureVersions),
+                'SIGN_VERSIONS' => json_encode($signatureVersions),
             ]);
         };
 
@@ -103,7 +103,7 @@ class ClientGenerator
             }
             sort($config['regions']);
             foreach ($config['regions'] as $region) {
-                $body .= sprintf("    case %s:\n", \var_export($region, true));
+                $body .= sprintf("    case %s:\n", var_export($region, true));
             }
             $body .= $dumpConfig($config);
         }
@@ -116,7 +116,7 @@ class ClientGenerator
             }
             sort($config['regions']);
             foreach ($config['regions'] as $region) {
-                $body .= sprintf("    case %s:\n", \var_export($region, true));
+                $body .= sprintf("    case %s:\n", var_export($region, true));
             }
             $body .= $dumpConfig($config);
         }
@@ -125,7 +125,7 @@ class ClientGenerator
             if ('_' === $region[0]) {
                 continue; // skip `_default` and `_global`
             }
-            $body .= sprintf("    case %s:\n", \var_export($region, true));
+            $body .= sprintf("    case %s:\n", var_export($region, true));
             $body .= $dumpConfig($config);
         }
         $body .= '}';
@@ -168,7 +168,7 @@ class ClientGenerator
         $classBuilder->addUse(AwsErrorFactoryInterface::class);
         $classBuilder->addUse($errorFactory);
 
-        $errorFactoryBase = \basename(\str_replace('\\', '/', $errorFactory));
+        $errorFactoryBase = basename(str_replace('\\', '/', $errorFactory));
         $classBuilder->addMethod('getAwsErrorFactory')
             ->setReturnType(AwsErrorFactoryInterface::class)
             ->setVisibility(ClassType::VISIBILITY_PROTECTED)

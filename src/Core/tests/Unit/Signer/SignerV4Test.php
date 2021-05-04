@@ -143,10 +143,10 @@ class SignerV4Test extends TestCase
     private function parseRequest(string $req): Request
     {
         $lines = explode("\r\n", $req);
-        [$method, $path] = explode(' ', \array_shift($lines));
+        [$method, $path] = explode(' ', array_shift($lines));
         $headers = [];
-        while ('' !== $line = \array_shift($lines)) {
-            [$name, $value] = \explode(':', $line, 2);
+        while ('' !== $line = array_shift($lines)) {
+            [$name, $value] = explode(':', $line, 2);
             if (isset($headers[$name])) {
                 $headers[$name] = $headers[$name] . ',' . $value;
             } else {
@@ -154,7 +154,7 @@ class SignerV4Test extends TestCase
             }
         }
 
-        $req = new Request($method, '/', [], $headers, StringStream::create(\implode("\n", $lines)));
+        $req = new Request($method, '/', [], $headers, StringStream::create(implode("\n", $lines)));
         $req->setEndpoint('https://' . $headers['Host'] . $path);
 
         return $req;

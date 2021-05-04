@@ -259,7 +259,7 @@ class RestXmlParser implements Parser
             ';
         }
 
-        $functionName = 'populateResult' . \ucfirst($shape->getName());
+        $functionName = 'populateResult' . ucfirst($shape->getName());
         $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
             'LIST_ACCESSOR' => $this->parseXmlElement('$item', $shapeMember->getShape(), $listAccessorRequired),
             'INPUT_PROPERTY' => $shape->isFlattened() ? '$xml' : ('$xml->' . ($shapeMember->getLocationName() ? $shapeMember->getLocationName() : 'member')),
@@ -290,7 +290,7 @@ class RestXmlParser implements Parser
             return $items;
         ';
 
-        $functionName = 'populateResult' . \ucfirst($shape->getName());
+        $functionName = 'populateResult' . ucfirst($shape->getName());
         $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
             'MAP_KEY' => $locationName,
             'VALUE' => $this->getInputAccessor('$item', $shapeValue),
@@ -317,7 +317,7 @@ class RestXmlParser implements Parser
             [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($shape);
             $method
                 ->setComment('@return ' . $parameterType);
-            $this->imports = \array_merge($this->imports, $memberClassNames);
+            $this->imports = array_merge($this->imports, $memberClassNames);
         }
 
         return $method;

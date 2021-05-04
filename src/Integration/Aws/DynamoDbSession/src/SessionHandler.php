@@ -97,7 +97,7 @@ class SessionHandler implements \SessionHandlerInterface
 
     public function close()
     {
-        $id = \session_id();
+        $id = session_id();
 
         // Make sure the expiration time is updated, even if the write did not occur
         if ($this->sessionId !== $id || !$this->sessionWritten) {

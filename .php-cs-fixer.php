@@ -5,8 +5,8 @@ $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__.'/tests')
 ;
 
-return PhpCsFixer\Config::create()
-    ->setCacheFile(__DIR__.'/.cache/php-cs-fixer/.php_cs.cache')
+return (new PhpCsFixer\Config())
+    ->setCacheFile(__DIR__.'/.cache/php-cs-fixer/.php-cs-fixer.cache')
     ->setRiskyAllowed(true)
     ->setRules([
         '@PSR2' => true,
@@ -71,8 +71,8 @@ return PhpCsFixer\Config::create()
         'blank_line_before_statement' => true,
         'single_quote' => true,
         'phpdoc_to_comment' => false,
-        'ordered_class_elements' => ['sort_algorithm'=>'none'],
-        'class_attributes_separation' => ['elements'=>['property', 'method']],
+        'ordered_class_elements' => ['sort_algorithm' => 'none'],
+        'class_attributes_separation' => ['elements' => ['property' => 'one', 'method' => 'one']],
         'array_indentation' => true,
     ])
     ->setFinder($finder)

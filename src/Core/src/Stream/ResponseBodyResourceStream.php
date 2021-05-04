@@ -33,17 +33,17 @@ class ResponseBodyResourceStream implements ResultStream
      */
     public function getChunks(): iterable
     {
-        $pos = \ftell($this->resource);
-        if (0 !== $pos && !\rewind($this->resource)) {
+        $pos = ftell($this->resource);
+        if (0 !== $pos && !rewind($this->resource)) {
             throw new RuntimeException('The stream is not rewindable');
         }
 
         try {
-            while (!\feof($this->resource)) {
-                yield \fread($this->resource, 64 * 1024);
+            while (!feof($this->resource)) {
+                yield fread($this->resource, 64 * 1024);
             }
         } finally {
-            \fseek($this->resource, $pos);
+            fseek($this->resource, $pos);
         }
     }
 
@@ -52,16 +52,16 @@ class ResponseBodyResourceStream implements ResultStream
      */
     public function getContentAsString(): string
     {
-        $pos = \ftell($this->resource);
+        $pos = ftell($this->resource);
 
         try {
-            if (!\rewind($this->resource)) {
+            if (!rewind($this->resource)) {
                 throw new RuntimeException('Failed to rewind the stream');
             }
 
-            return \stream_get_contents($this->resource);
+            return stream_get_contents($this->resource);
         } finally {
-            \fseek($this->resource, $pos);
+            fseek($this->resource, $pos);
         }
     }
 
@@ -70,7 +70,7 @@ class ResponseBodyResourceStream implements ResultStream
      */
     public function getContentAsResource()
     {
-        if (!\rewind($this->resource)) {
+        if (!rewind($this->resource)) {
             throw new RuntimeException('Failed to rewind the stream');
         }
 

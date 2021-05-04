@@ -53,7 +53,7 @@ final class ResourceStream implements RequestStream
             throw new InvalidArgument('Unable to seek the content.');
         }
 
-        return \stream_get_contents($this->content);
+        return stream_get_contents($this->content);
     }
 
     public function getIterator(): \Traversable
@@ -62,8 +62,8 @@ final class ResourceStream implements RequestStream
             throw new InvalidArgument('Unable to seek the content.');
         }
 
-        while (!\feof($this->content)) {
-            yield \fread($this->content, $this->chunkSize);
+        while (!feof($this->content)) {
+            yield fread($this->content, $this->chunkSize);
         }
     }
 

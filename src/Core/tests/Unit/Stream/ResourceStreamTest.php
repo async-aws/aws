@@ -35,7 +35,7 @@ class ResourceStreamTest extends TestCase
     public function testChunk($content, int $size, array $expected): void
     {
         $stream = ResourceStream::create($content, $size);
-        self::assertSame($expected, \iterator_to_array($stream));
+        self::assertSame($expected, iterator_to_array($stream));
     }
 
     public function provideLengths(): iterable
@@ -43,31 +43,31 @@ class ResourceStreamTest extends TestCase
         $resource = fopen(__DIR__ . '/../../../LICENSE', 'r');
         yield [$resource, 1099];
 
-        $resource = \fopen('php://temp', 'rw+');
+        $resource = fopen('php://temp', 'rw+');
         fwrite($resource, 'Hello World');
         yield [$resource, 11];
 
-        $resource = \fopen('php://temp', 'rw+');
+        $resource = fopen('php://temp', 'rw+');
         fwrite($resource, 'Hello World');
-        \fseek($resource, 5);
+        fseek($resource, 5);
         yield [$resource, 11];
     }
 
     public function provideStrings(): iterable
     {
-        $resource = \fopen('php://temp', 'rw+');
+        $resource = fopen('php://temp', 'rw+');
         fwrite($resource, 'Hello World');
         yield [$resource, 'Hello World'];
 
-        $resource = \fopen('php://temp', 'rw+');
+        $resource = fopen('php://temp', 'rw+');
         fwrite($resource, 'Hello World');
-        \fseek($resource, 5);
+        fseek($resource, 5);
         yield [$resource, 'Hello World'];
     }
 
     public function provideChunks(): iterable
     {
-        $resource = \fopen('php://temp', 'rw+');
+        $resource = fopen('php://temp', 'rw+');
         fwrite($resource, 'Hello World');
         yield [$resource, 3, ['Hel', 'lo ', 'Wor', 'ld']];
     }

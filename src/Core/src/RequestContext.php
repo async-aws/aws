@@ -57,8 +57,8 @@ class RequestContext
      */
     public function __construct(array $options = [])
     {
-        if (0 < \count($invalidOptions = \array_diff_key($options, self::AVAILABLE_OPTIONS))) {
-            throw new InvalidArgument(\sprintf('Invalid option(s) "%s" passed to "%s". ', \implode('", "', \array_keys($invalidOptions)), __METHOD__));
+        if (0 < \count($invalidOptions = array_diff_key($options, self::AVAILABLE_OPTIONS))) {
+            throw new InvalidArgument(sprintf('Invalid option(s) "%s" passed to "%s". ', implode('", "', array_keys($invalidOptions)), __METHOD__));
         }
 
         foreach ($options as $property => $value) {

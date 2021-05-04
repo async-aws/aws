@@ -98,7 +98,7 @@ class AsyncAwsExtension extends Extension
         }
 
         // If no credential provider is specified, lets configured a credentials provider with cache.
-        $hasCacheClasses = \class_exists(SymfonyCacheProvider::class) && \interface_exists(CacheInterface::class);
+        $hasCacheClasses = class_exists(SymfonyCacheProvider::class) && interface_exists(CacheInterface::class);
         $credentialServiceId = $config['credential_provider'];
         if (null === $credentialServiceId && null !== $config['credential_provider_cache'] && $hasCacheClasses) {
             $credentialServiceId = 'async_aws.credential';
@@ -147,7 +147,7 @@ class AsyncAwsExtension extends Extension
 
         if (null !== $client = $config['secrets']['client']) {
             if (!isset($config['clients'][$client])) {
-                throw new InvalidConfigurationException(sprintf('The client "%s" configured in "async_aws.secrets" does not exists. Available clients are "%s"', $client, implode(', ', \array_keys($config['clients']))));
+                throw new InvalidConfigurationException(sprintf('The client "%s" configured in "async_aws.secrets" does not exists. Available clients are "%s"', $client, implode(', ', array_keys($config['clients']))));
             }
             if ('ssm' !== $config['clients'][$client]['type']) {
                 throw new InvalidConfigurationException(sprintf('The client "%s" configured in "async_aws.secrets" is not a SSM client.', $client));
@@ -174,7 +174,7 @@ class AsyncAwsExtension extends Extension
             ]);
 
         if ($config['secrets']['cache']['enabled']) {
-            if (!\interface_exists(CacheInterface::class)) {
+            if (!interface_exists(CacheInterface::class)) {
                 throw new InvalidConfigurationException(sprintf('You have enabled "async_aws.secrets.cache" but the "symfony/cache" package is not installed. Try running "composer require symfony/cache"'));
             }
 

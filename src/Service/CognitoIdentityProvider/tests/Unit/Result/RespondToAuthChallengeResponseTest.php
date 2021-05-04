@@ -15,7 +15,7 @@ class RespondToAuthChallengeResponseTest extends TestCase
     public function testRespondToAuthChallengeResponse(): void
     {
         // see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html
-        $response = new SimpleMockedResponse(\json_encode([
+        $response = new SimpleMockedResponse(json_encode([
             'AuthenticationResult' => [
                 'AccessToken' => 'access-09',
                 'ExpiresIn' => 67890,

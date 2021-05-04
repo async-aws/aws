@@ -32,8 +32,8 @@ class AdminCreateUserResponse extends Result
         $this->user = empty($data['User']) ? null : new UserType([
             'Username' => isset($data['User']['Username']) ? (string) $data['User']['Username'] : null,
             'Attributes' => empty($data['User']['Attributes']) ? [] : $this->populateResultAttributeListType($data['User']['Attributes']),
-            'UserCreateDate' => (isset($data['User']['UserCreateDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['User']['UserCreateDate'])))) ? $d : null,
-            'UserLastModifiedDate' => (isset($data['User']['UserLastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['User']['UserLastModifiedDate'])))) ? $d : null,
+            'UserCreateDate' => (isset($data['User']['UserCreateDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['User']['UserCreateDate'])))) ? $d : null,
+            'UserLastModifiedDate' => (isset($data['User']['UserLastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['User']['UserLastModifiedDate'])))) ? $d : null,
             'Enabled' => isset($data['User']['Enabled']) ? filter_var($data['User']['Enabled'], \FILTER_VALIDATE_BOOLEAN) : null,
             'UserStatus' => isset($data['User']['UserStatus']) ? (string) $data['User']['UserStatus'] : null,
             'MFAOptions' => empty($data['User']['MFAOptions']) ? [] : $this->populateResultMFAOptionListType($data['User']['MFAOptions']),

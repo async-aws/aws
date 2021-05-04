@@ -19,7 +19,7 @@ class FileDumper
 
     public function dump(string $filename, string $content): void
     {
-        \file_put_contents($filename . '.errored', "<?php\n\n" . $content);
+        file_put_contents($filename . '.errored', "<?php\n\n" . $content);
 
         $this->verifyFileSyntax($filename . '.errored');
     }
@@ -32,12 +32,12 @@ class FileDumper
             $this->phpBin = false === $this->phpBin ? null : array_merge([$this->phpBin], $executableFinder->findArguments());
         }
 
-        $process = new Process(\array_merge($this->phpBin, ['-l', $filename]));
+        $process = new Process(array_merge($this->phpBin, ['-l', $filename]));
         $process->run();
 
         if ($process->isSuccessful()) {
             // Remove backup and cleanup errored files
-            $this->moveFile($filename, \substr($filename, 0, -\strlen('.errored')));
+            $this->moveFile($filename, substr($filename, 0, -\strlen('.errored')));
 
             return;
         }

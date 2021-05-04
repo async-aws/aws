@@ -28,7 +28,7 @@ class JsonRestAwsErrorFactory implements AwsErrorFactoryInterface
         $code = null;
         $type = $body['type'] ?? $body['Type'] ?? null;
         if ($type) {
-            $type = \strtolower($type);
+            $type = strtolower($type);
         }
         $message = $body['message'] ?? $body['Message'] ?? null;
         if (isset($headers['x-amzn-errortype'][0])) {

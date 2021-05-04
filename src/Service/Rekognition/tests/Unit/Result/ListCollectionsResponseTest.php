@@ -25,6 +25,6 @@ class ListCollectionsResponseTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new ListCollectionsResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new RekognitionClient(), new ListCollectionsRequest([]));
 
-        self::assertSame(['myphotos'], \iterator_to_array($result->getCollectionIds()));
+        self::assertSame(['myphotos'], iterator_to_array($result->getCollectionIds()));
     }
 }

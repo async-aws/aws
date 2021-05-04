@@ -248,7 +248,7 @@ class ObjectGenerator
                 $nullable = false;
             }
 
-            $method = $classBuilder->addMethod('get' . \ucfirst(GeneratorHelper::normalizeName($member->getName())))
+            $method = $classBuilder->addMethod('get' . ucfirst(GeneratorHelper::normalizeName($member->getName())))
                 ->setReturnType($returnType);
 
             $deprecation = '';

@@ -34,7 +34,7 @@ class ListSubscriptionsByTopicResponseTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new ListSubscriptionsByTopicResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        $subcsribtion = \iterator_to_array($result->getSubscriptions(true))[0];
+        $subcsribtion = iterator_to_array($result->getSubscriptions(true))[0];
 
         self::assertSame('arn:aws:sns:us-east-2:123456789012:My-Topic', $subcsribtion->getTopicArn());
         self::assertSame('email', $subcsribtion->getProtocol());

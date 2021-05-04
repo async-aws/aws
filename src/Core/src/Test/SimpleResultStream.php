@@ -35,17 +35,17 @@ class SimpleResultStream implements ResultStream
 
     public function getContentAsResource()
     {
-        $resource = \fopen('php://temp', 'rw+');
+        $resource = fopen('php://temp', 'rw+');
 
         try {
             fwrite($resource, $this->data);
 
             // Rewind
-            \fseek($resource, 0, \SEEK_SET);
+            fseek($resource, 0, \SEEK_SET);
 
             return $resource;
         } catch (\Throwable $e) {
-            \fclose($resource);
+            fclose($resource);
 
             throw $e;
         }

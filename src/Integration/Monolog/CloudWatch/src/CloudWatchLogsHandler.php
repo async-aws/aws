@@ -156,7 +156,7 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      */
     private function checkThrottle(): void
     {
-        $sameSecond = $this->lastRequestTimestamp === \time();
+        $sameSecond = $this->lastRequestTimestamp === time();
 
         if ($sameSecond && $this->remainingRequests > 0) {
             --$this->remainingRequests;
@@ -167,7 +167,7 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
             $this->remainingRequests = self::RPS_LIMIT;
         }
 
-        $this->lastRequestTimestamp = \time();
+        $this->lastRequestTimestamp = time();
     }
 
     private function flushBuffer(): void

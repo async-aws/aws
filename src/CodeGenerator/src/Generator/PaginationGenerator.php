@@ -99,7 +99,7 @@ class PaginationGenerator
             $singlePage = empty($pagination->getOutputToken());
             $iteratorBody .= strtr('yield from $page->PROPERTY_ACCESSOR(SINGLE_PAGE_FLAG);
             ', [
-                'PROPERTY_ACCESSOR' => $getter = 'get' . \ucfirst(GeneratorHelper::normalizeName($resultKey)),
+                'PROPERTY_ACCESSOR' => $getter = 'get' . ucfirst(GeneratorHelper::normalizeName($resultKey)),
                 'SINGLE_PAGE_FLAG' => $singlePage ? '' : 'true',
             ]);
             $resultShape = $shape->getMember($resultKey)->getShape();
@@ -149,7 +149,7 @@ class PaginationGenerator
                     ', [
                         'PROPERTY_NAME' => GeneratorHelper::normalizeName($resultKey),
                         'PAGE_LOADER_CODE' => $this->generateOutputPaginationLoader(
-                            strtr('yield from $page->PROPERTY_ACCESSOR(true);', ['PROPERTY_ACCESSOR' => 'get' . \ucfirst(GeneratorHelper::normalizeName($resultKey))]),
+                            strtr('yield from $page->PROPERTY_ACCESSOR(true);', ['PROPERTY_ACCESSOR' => 'get' . ucfirst(GeneratorHelper::normalizeName($resultKey))]),
                             $pagination, $classBuilder, $operation
                         ),
                     ]));
@@ -173,7 +173,7 @@ class PaginationGenerator
     private function generateOutputPaginationLoader(string $iterator, Pagination $pagination, ClassBuilder $classBuilder, Operation $operation): string
     {
         if (empty($pagination->getOutputToken())) {
-            return \strtr($iterator, ['$page->' => '$this->']);
+            return strtr($iterator, ['$page->' => '$this->']);
         }
 
         $inputToken = $pagination->getInputToken();
@@ -182,12 +182,12 @@ class PaginationGenerator
             $moreCondition = '';
             foreach ($outputToken as $index => $property) {
                 $moreCondition .= strtr('$page->MORE_ACCESSOR()', [
-                    'MORE_ACCESSOR' => 'get' . \ucfirst(GeneratorHelper::normalizeName(trim(explode('||', $property)[0]))),
+                    'MORE_ACCESSOR' => 'get' . ucfirst(GeneratorHelper::normalizeName(trim(explode('||', $property)[0]))),
                 ]);
             }
         } else {
             $moreCondition = strtr('$page->MORE_ACCESSOR()', [
-                'MORE_ACCESSOR' => 'get' . \ucfirst(GeneratorHelper::normalizeName($moreResult)),
+                'MORE_ACCESSOR' => 'get' . ucfirst(GeneratorHelper::normalizeName($moreResult)),
             ]);
         }
         $setter = '';
@@ -195,8 +195,8 @@ class PaginationGenerator
             $setter .= strtr('
                 $input->SETTER($page->GETTER());
             ', [
-                'SETTER' => 'set' . \ucfirst(GeneratorHelper::normalizeName($property)),
-                'GETTER' => 'get' . \ucfirst(GeneratorHelper::normalizeName(trim(explode('||', $outputToken[$index])[0]))),
+                'SETTER' => 'set' . ucfirst(GeneratorHelper::normalizeName($property)),
+                'GETTER' => 'get' . ucfirst(GeneratorHelper::normalizeName(trim(explode('||', $outputToken[$index])[0]))),
             ]);
         }
 

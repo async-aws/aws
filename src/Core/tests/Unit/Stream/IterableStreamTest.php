@@ -36,7 +36,7 @@ class IterableStreamTest extends TestCase
     {
         $stream = IterableStream::create($content);
 
-        self::assertSame($expected, \iterator_to_array($stream));
+        self::assertSame($expected, iterator_to_array($stream));
     }
 
     public function provideLengths(): iterable

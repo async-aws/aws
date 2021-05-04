@@ -16,7 +16,7 @@ class AwsRetryStrategyTest extends TestCase
      */
     public function testShoudRetry(?bool $expected, int $statusCode, ?string $response): void
     {
-        if (!\class_exists(GenericRetryStrategy::class)) {
+        if (!class_exists(GenericRetryStrategy::class)) {
             self::markTestSkipped('AwsRetryStrategy requires symfony/http-client 5.2');
         }
         $strategy = new AwsRetryStrategy();

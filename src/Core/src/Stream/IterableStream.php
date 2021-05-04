@@ -25,7 +25,7 @@ final class IterableStream implements ReadOnceResultStream, RequestStream
         if ($content instanceof self) {
             return $content;
         }
-        if (\is_iterable($content)) {
+        if (is_iterable($content)) {
             return new self($content);
         }
 
@@ -40,10 +40,10 @@ final class IterableStream implements ReadOnceResultStream, RequestStream
     public function stringify(): string
     {
         if ($this->content instanceof \Traversable) {
-            return \implode('', \iterator_to_array($this->content));
+            return implode('', iterator_to_array($this->content));
         }
 
-        return \implode('', \iterator_to_array((function () {yield from $this->content; })()));
+        return implode('', iterator_to_array((function () {yield from $this->content; })()));
     }
 
     public function getIterator(): \Traversable

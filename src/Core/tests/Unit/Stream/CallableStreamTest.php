@@ -36,7 +36,7 @@ class CallableStreamTest extends TestCase
     {
         $stream = CallableStream::create($content);
 
-        self::assertSame($expected, \iterator_to_array($stream));
+        self::assertSame($expected, iterator_to_array($stream));
     }
 
     public function provideLengths(): iterable
@@ -50,7 +50,7 @@ class CallableStreamTest extends TestCase
     {
         $f = static function (string ...$items) {
             return static function () use (&$items) {
-                return \array_shift($items) ?? '';
+                return array_shift($items) ?? '';
             };
         };
         yield [$f('Hello world'), 'Hello world'];
@@ -62,7 +62,7 @@ class CallableStreamTest extends TestCase
     {
         $f = static function (string ...$items) {
             return static function () use (&$items) {
-                return \array_shift($items) ?? '';
+                return array_shift($items) ?? '';
             };
         };
         yield [$f('Hello world'), ['Hello world']];

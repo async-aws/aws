@@ -138,8 +138,8 @@ class RestXmlSerializer implements Serializer
             INPUT->requestBody($child, $document);
         ', [
             'OUTPUT' => $output,
-            'NODE_NAME' => \var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
-            'SET_XMLNS_CODE' => $xmlnsValue ? strtr('$child->setAttribute(NS_ATTRIBUTE, NS_VALUE);', ['NS_ATTRIBUTE' => \var_export($xmlnsAttribute, true), 'NS_VALUE' => \var_export($xmlnsValue, true)]) : '',
+            'NODE_NAME' => var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
+            'SET_XMLNS_CODE' => $xmlnsValue ? strtr('$child->setAttribute(NS_ATTRIBUTE, NS_VALUE);', ['NS_ATTRIBUTE' => var_export($xmlnsAttribute, true), 'NS_VALUE' => var_export($xmlnsValue, true)]) : '',
             'INPUT' => $input,
         ]);
     }
@@ -163,7 +163,7 @@ class RestXmlSerializer implements Serializer
             }
         ', [
             'OUTPUT' => $output,
-            'NODE_NAME' => \var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
+            'NODE_NAME' => var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
             'INPUT' => $input,
             'MEMBER_CODE' => $this->dumpXmlShape($shape->getMember(), $shape->getMember()->getShape(), '$nodeList', '$item'),
         ]);
@@ -180,7 +180,7 @@ class RestXmlSerializer implements Serializer
         $replacements = [
             'INPUT' => $input,
             'OUTPUT' => $output,
-            'NODE_NAME' => \var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
+            'NODE_NAME' => var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
         ];
         if (!empty($shape->getEnum())) {
             $enumClassName = $this->namespaceRegistry->getEnum($shape);
@@ -205,10 +205,10 @@ class RestXmlSerializer implements Serializer
 
         $body = 'OUTPUT->appendChild($document->createElement(NODE_NAME, INPUT ? \'true\' : \'false\'));';
 
-        return \strtr($body, [
+        return strtr($body, [
             'INPUT' => $input,
             'OUTPUT' => $output,
-            'NODE_NAME' => \var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
+            'NODE_NAME' => var_export($member->getLocationName() ?? ($member instanceof StructureMember ? $member->getName() : 'member'), true),
         ]);
     }
 }

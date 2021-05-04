@@ -53,7 +53,7 @@ final class RewindableStream implements RequestStream
             return $this->fallback->stringify();
         }
 
-        return \implode('', \iterator_to_array($this));
+        return implode('', iterator_to_array($this));
     }
 
     public function getIterator(): \Traversable
@@ -64,11 +64,11 @@ final class RewindableStream implements RequestStream
             return;
         }
 
-        $resource = \fopen('php://temp', 'r+b');
+        $resource = fopen('php://temp', 'r+b');
         $this->fallback = ResourceStream::create($resource);
 
         foreach ($this->content as $chunk) {
-            \fwrite($resource, $chunk);
+            fwrite($resource, $chunk);
             yield $chunk;
         }
     }
