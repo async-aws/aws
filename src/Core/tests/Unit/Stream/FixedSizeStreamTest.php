@@ -40,7 +40,7 @@ class FixedSizeStreamTest extends TestCase
     {
         $stream = FixedSizeStream::create($content, $size);
 
-        self::assertSame($expected, \iterator_to_array($stream));
+        self::assertSame($expected, iterator_to_array($stream));
     }
 
     /**
@@ -50,7 +50,7 @@ class FixedSizeStreamTest extends TestCase
     {
         $stream = FixedSizeStream::create(FixedSizeStream::create($content, 5), $size);
 
-        self::assertSame($expected, \iterator_to_array($stream));
+        self::assertSame($expected, iterator_to_array($stream));
     }
 
     public function provideLengths(): iterable

@@ -21,7 +21,7 @@ use League\Flysystem\Util;
 
 class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
 {
-    const PUBLIC_GRANT_URI = 'http://acs.amazonaws.com/groups/global/AllUsers';
+    public const PUBLIC_GRANT_URI = 'http://acs.amazonaws.com/groups/global/AllUsers';
 
     private static $resultMap = [
         'Body' => 'contents',

@@ -44,7 +44,7 @@ class ResultMockFactory
             }
         }
 
-        $httpResponse = new SimpleMockedResponse(\json_encode(\array_merge(['message' => $message], $additionalContent)), ['content-type' => 'application/json'], $code);
+        $httpResponse = new SimpleMockedResponse(json_encode(array_merge(['message' => $message], $additionalContent)), ['content-type' => 'application/json'], $code);
         $client = new MockHttpClient($httpResponse);
         $response = new Response($client->request('POST', 'http://localhost'), $client, new NullLogger());
 
@@ -91,15 +91,15 @@ class ResultMockFactory
         foreach ($data as $propertyName => $propertyValue) {
             if ($reflectionClass->hasProperty($propertyName)) {
                 $property = $reflectionClass->getProperty($propertyName);
-            } elseif ($reflectionClass->hasProperty(\lcfirst($propertyName))) {
+            } elseif ($reflectionClass->hasProperty(lcfirst($propertyName))) {
                 // backward compatibility with `UpperCamelCase` naming (fast)
-                $property = $reflectionClass->getProperty(\lcfirst($propertyName));
+                $property = $reflectionClass->getProperty(lcfirst($propertyName));
             } else {
                 // compatibility with new `wordWithABREV` naming (slow)
-                $lowerPropertyName = \strtolower($propertyName);
+                $lowerPropertyName = strtolower($propertyName);
                 $property = null;
                 foreach ($reflectionClass->getProperties() as $prop) {
-                    if (\strtolower($prop->getName()) === $lowerPropertyName) {
+                    if (strtolower($prop->getName()) === $lowerPropertyName) {
                         $property = $prop;
 
                         break;
@@ -165,7 +165,7 @@ class ResultMockFactory
     private static function addUndefinedProperties(\ReflectionClass $reflectionClass, $object, array $data): void
     {
         foreach ($reflectionClass->getProperties(\ReflectionProperty::IS_PRIVATE) as $property) {
-            if (\array_key_exists($property->getName(), $data) || \array_key_exists(\ucfirst($property->getName()), $data)) {
+            if (\array_key_exists($property->getName(), $data) || \array_key_exists(ucfirst($property->getName()), $data)) {
                 continue;
             }
 

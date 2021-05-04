@@ -24,7 +24,7 @@ class CachedFileDumper extends FileDumper
         $this->cache->update(__CLASS__, function ($status) {
             $this->status = [];
             foreach ($status ?? [] as $filename => $flags) {
-                if (\is_file($filename)) {
+                if (is_file($filename)) {
                     $this->status[$filename] = $flags;
                 }
             }
@@ -38,9 +38,9 @@ class CachedFileDumper extends FileDumper
         $this->cache->update(__CLASS__, function ($status) {
             $status = $status ?? [];
             foreach ($this->added as $filename => $md5) {
-                if (\is_file($filename)) {
+                if (is_file($filename)) {
                     $status[$filename][0] = $md5;
-                    $status[$filename][1] = \md5_file($filename);
+                    $status[$filename][1] = md5_file($filename);
                     if ($status[$filename][1] === $status[$filename][0]) {
                         unset($status[$filename]);
                     }
@@ -61,21 +61,21 @@ class CachedFileDumper extends FileDumper
 
         parent::dump($filename, $content);
 
-        $this->added[$filename] = \md5($content);
+        $this->added[$filename] = md5($content);
     }
 
     private function isFresh(string $filename, string $originalContent): bool
     {
-        if (!\is_file($filename)) {
+        if (!is_file($filename)) {
             return false;
         }
         if (!isset($this->status[$filename])) {
             return false;
         }
-        if (!isset($this->status[$filename][1]) || \md5_file($filename) !== $this->status[$filename][1]) {
+        if (!isset($this->status[$filename][1]) || md5_file($filename) !== $this->status[$filename][1]) {
             return false;
         }
-        if (!isset($this->status[$filename][0]) || \md5($originalContent) !== $this->status[$filename][0]) {
+        if (!isset($this->status[$filename][0]) || md5($originalContent) !== $this->status[$filename][0]) {
             return false;
         }
 

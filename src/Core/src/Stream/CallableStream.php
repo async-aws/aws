@@ -43,7 +43,7 @@ final class CallableStream implements ReadOnceResultStream, RequestStream
 
     public function stringify(): string
     {
-        return \implode('', \iterator_to_array($this));
+        return implode('', iterator_to_array($this));
     }
 
     public function getIterator(): \Traversable

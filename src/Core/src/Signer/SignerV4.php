@@ -120,7 +120,7 @@ class SignerV4 implements Signer
         $context = new SigningContext(
             $request,
             $now,
-            \implode('/', $credentialScope),
+            implode('/', $credentialScope),
             $this->buildSigningKey($credentials, $credentialScope)
         );
         if ($isPresign) {
@@ -150,7 +150,7 @@ class SignerV4 implements Signer
                 self::ALGORITHM_REQUEST,
                 $credentials->getAccessKeyId(),
                 implode('/', $credentialScope),
-                implode(';', \array_keys($canonicalHeaders)),
+                implode(';', array_keys($canonicalHeaders)),
                 $signature
             ));
         }
@@ -252,7 +252,7 @@ class SignerV4 implements Signer
 
         $request->setMethod('GET');
         if ('application/x-www-form-urlencoded' === $request->getHeader('Content-Type')) {
-            \parse_str($request->getBody()->stringify(), $params);
+            parse_str($request->getBody()->stringify(), $params);
             foreach ($params as $name => $value) {
                 $request->setQueryAttribute($name, $value);
             }
@@ -278,7 +278,7 @@ class SignerV4 implements Signer
         ksort($canonicalHeaders);
 
         if ($isPresign) {
-            $request->setQueryAttribute('X-Amz-SignedHeaders', \implode(';', array_keys($canonicalHeaders)));
+            $request->setQueryAttribute('X-Amz-SignedHeaders', implode(';', array_keys($canonicalHeaders)));
         }
 
         return $canonicalHeaders;
@@ -290,9 +290,9 @@ class SignerV4 implements Signer
             $request->getMethod(),
             $this->buildCanonicalPath($request),
             $this->buildCanonicalQuery($request),
-            \implode("\n", array_values($canonicalHeaders)),
+            implode("\n", array_values($canonicalHeaders)),
             '', // empty line after headers
-            implode(';', \array_keys($canonicalHeaders)),
+            implode(';', array_keys($canonicalHeaders)),
             $bodyDigest,
         ]);
     }

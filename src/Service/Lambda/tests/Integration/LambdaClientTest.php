@@ -76,7 +76,7 @@ class LambdaClientTest extends TestCase
 
     public function testInvokeWait(): void
     {
-        if (!\method_exists(Result::class, 'wait')) {
+        if (!method_exists(Result::class, 'wait')) {
             self::markTestSkipped('Core does not contains the feature');
         }
 
@@ -88,7 +88,7 @@ class LambdaClientTest extends TestCase
             $expected[] = '"hello ' . $i . '"';
             $results[] = $client->Invoke(new InvocationRequest([
                 'FunctionName' => 'Index',
-                'Payload' => \json_encode(['name' => $i, 'delay' => 80 * ($i % 3)]),
+                'Payload' => json_encode(['name' => $i, 'delay' => 80 * ($i % 3)]),
             ]));
         }
 

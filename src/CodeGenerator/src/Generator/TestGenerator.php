@@ -70,7 +70,7 @@ class TestGenerator
         $className = $this->namespaceRegistry->getInputUnitTest($shape);
         $methodName = 'testRequest';
 
-        if (\class_exists($className->getFqdn())) {
+        if (class_exists($className->getFqdn())) {
             $classBuilder = $this->classRegistry->register($className->getFqdn(), true);
             if ($classBuilder->hasMethod($methodName) || !$operation->hasBody()) {
                 $this->classRegistry->unregister($className->getFqdn());
@@ -94,17 +94,17 @@ class TestGenerator
 
                 break;
             case 'rest-json':
-                $stub = substr(var_export(\json_encode($exampleInput ?? ['change' => 'it'], \JSON_PRETTY_PRINT), true), 1, -1);
+                $stub = substr(var_export(json_encode($exampleInput ?? ['change' => 'it'], \JSON_PRETTY_PRINT), true), 1, -1);
                 $contenType = 'application/json';
 
                 break;
             case 'json':
-                $stub = substr(var_export(\json_encode($exampleInput ?? ['change' => 'it'], \JSON_PRETTY_PRINT), true), 1, -1);
+                $stub = substr(var_export(json_encode($exampleInput ?? ['change' => 'it'], \JSON_PRETTY_PRINT), true), 1, -1);
                 $contenType = 'application/x-amz-json-' . number_format($operation->getService()->getJsonVersion(), 1);
 
                 break;
             case 'query':
-                $stub = substr(var_export($exampleInput ? (\is_array($exampleInput) ? \http_build_query($exampleInput, '', '&', \PHP_QUERY_RFC1738) : $exampleInput) : "
+                $stub = substr(var_export($exampleInput ? (\is_array($exampleInput) ? http_build_query($exampleInput, '', '&', \PHP_QUERY_RFC1738) : $exampleInput) : "
     Action={$operation->getName()}
     &Version={$operation->getApiVersion()}
 ", true), 1, -1);
@@ -134,7 +134,7 @@ class TestGenerator
             ', [
                 'MARKER' => self::MARKER,
                 'INPUT_CONSTRUCTOR' => $this->getInputCode($classBuilder, $operation->getInput()),
-                'SERVICE' => \strtolower($operation->getService()->getName()),
+                'SERVICE' => strtolower($operation->getService()->getName()),
                 'METHOD' => $operation->getHttpMethod(),
                 'OPERATION' => $operation->getName(),
                 'CONTENT_TYPE' => $contenType,
@@ -150,7 +150,7 @@ class TestGenerator
         $resultClass = $this->namespaceRegistry->getResult($shape);
         $methodName = 'test' . $shape->getName();
 
-        if (\class_exists($className->getFqdn())) {
+        if (class_exists($className->getFqdn())) {
             $classBuilder = $this->classRegistry->register($className->getFqdn(), true);
             if ($classBuilder->hasMethod($methodName)) {
                 $this->classRegistry->unregister($className->getFqdn());
@@ -179,7 +179,7 @@ class TestGenerator
                 break;
             case 'rest-json':
             case 'json':
-                $stub = sprintf('$response = new SimpleMockedResponse(%s);', var_export(\json_encode($exampleOutput ?? ['change' => 'it'], \JSON_PRETTY_PRINT), true));
+                $stub = sprintf('$response = new SimpleMockedResponse(%s);', var_export(json_encode($exampleOutput ?? ['change' => 'it'], \JSON_PRETTY_PRINT), true));
 
                 break;
             default:
@@ -208,7 +208,7 @@ class TestGenerator
                 'RESULT_CLASS' => $resultClass->getName(),
                 'INPUT_CLASS' => $inputClass->getName(),
                 'CLIENT_CLASS' => $clientClass->getName(),
-                'SERVICE' => \strtolower($operation->getService()->getName()),
+                'SERVICE' => strtolower($operation->getService()->getName()),
                 'OPERATION' => $operation->getName(),
                 'STUB' => $stub,
                 'ASSERT' => $this->getResultAssert($operation->getOutput()),
@@ -223,7 +223,7 @@ class TestGenerator
         $inputClassName = $this->namespaceRegistry->getInput($operation->getInput());
         $methodName = 'test' . $operation->getMethodName();
 
-        if (\class_exists($className->getFqdn())) {
+        if (class_exists($className->getFqdn())) {
             $classBuilder = $this->classRegistry->register($className->getFqdn(), true);
             if ($classBuilder->hasMethod($methodName)) {
                 $this->classRegistry->unregister($className->getFqdn());
@@ -276,11 +276,11 @@ class TestGenerator
                     INPUT_ARGUMENTS
                 ])', [
                     'INPUT_CLASS' => $className->getName(),
-                    'INPUT_ARGUMENTS' => \implode("\n", \array_map(function (StructureMember $member) use ($classBuilder, $includeOptionalParameters, $recursion) {
+                    'INPUT_ARGUMENTS' => implode("\n", array_map(function (StructureMember $member) use ($classBuilder, $includeOptionalParameters, $recursion) {
                         if ($member->isRequired() || $includeOptionalParameters) {
                             return sprintf(
                                 '%s => %s,',
-                                \var_export($member->getName(), true),
+                                var_export($member->getName(), true),
                                 $this->getInputCode($classBuilder, $member->getShape(), $includeOptionalParameters, $recursion)
                             );
                         }
@@ -299,11 +299,11 @@ class TestGenerator
         switch ($shape->getType()) {
             case 'string':
             case 'blob':
-                return \var_export('change me', true);
+                return var_export('change me', true);
             case 'integer':
             case 'long':
             case 'float':
-                return \var_export(1337, true);
+                return var_export(1337, true);
             case 'timestamp':
                 return 'new \DateTimeImmutable()';
             case 'boolean':
@@ -362,7 +362,7 @@ class TestGenerator
 
     private function getResultAssert(StructureShape $shape): string
     {
-        return implode("\n", \array_map(function (StructureMember $member) {
+        return implode("\n", array_map(function (StructureMember $member) {
             switch ($member->getShape()->getType()) {
                 case 'string':
                     return sprintf('self::assertSame("changeIt", $result->get%s());', $member->getName());
@@ -447,6 +447,6 @@ class TestGenerator
 }
 
 // Because AsyncAws use symfony/phpunit-bridge and don't requires phpunit/phpunit, this class may not exits but is required by the generator
-if (!\class_exists(PHPUnitTestCase::class)) {
+if (!class_exists(PHPUnitTestCase::class)) {
     eval('namespace PHPUnit\\Framework; class TestCase {}');
 }

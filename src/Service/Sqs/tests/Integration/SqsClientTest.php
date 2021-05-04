@@ -97,14 +97,14 @@ class SqsClientTest extends TestCase
 
         $sqs->createQueue(['QueueName' => 'foo'])->resolve();
         $fooQueueUrl = $sqs->getQueueUrl(['QueueName' => 'foo'])->getQueueUrl();
-        self::assertContains($fooQueueUrl, \iterator_to_array($sqs->listQueues()));
+        self::assertContains($fooQueueUrl, iterator_to_array($sqs->listQueues()));
 
         $input = (new DeleteQueueRequest())
             ->setQueueUrl($fooQueueUrl);
 
         $sqs->deleteQueue($input)->resolve();
 
-        self::assertNotContains($fooQueueUrl, \iterator_to_array($sqs->listQueues()));
+        self::assertNotContains($fooQueueUrl, iterator_to_array($sqs->listQueues()));
     }
 
     public function testGetQueueAttributes()

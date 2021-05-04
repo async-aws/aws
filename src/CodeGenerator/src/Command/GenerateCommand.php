@@ -103,7 +103,7 @@ class GenerateCommand extends Command
 
         $pids = [];
         foreach ($serviceNames as $serviceName) {
-            $pid = \pcntl_fork();
+            $pid = pcntl_fork();
             if (-1 == $pid) {
                 throw new \RuntimeException('Failed to fork');
             }
@@ -119,7 +119,7 @@ class GenerateCommand extends Command
         }
 
         while (\count($pids) > 0) {
-            $pid = \pcntl_wait($status);
+            $pid = pcntl_wait($status);
             if (0 !== $status) {
                 return $status;
             }
@@ -174,7 +174,7 @@ class GenerateCommand extends Command
                 $protocols = $config['protocols'] ?? $service['defaults']['protocols'] ?? $partition['defaults']['protocols'] ?? [];
                 $signRegion = $config['credentialScope']['region'] ?? $service['defaults']['credentialScope']['region'] ?? $partition['defaults']['credentialScope']['region'] ?? $region;
                 $signService = $config['credentialScope']['service'] ?? $service['defaults']['credentialScope']['service'] ?? $partition['defaults']['credentialScope']['service'] ?? $signingServiceFallback;
-                $signVersions = \array_unique($config['signatureVersions'] ?? $service['defaults']['signatureVersions'] ?? $partition['defaults']['signatureVersions'] ?? [$signingVersionFallback]);
+                $signVersions = array_unique($config['signatureVersions'] ?? $service['defaults']['signatureVersions'] ?? $partition['defaults']['signatureVersions'] ?? [$signingVersionFallback]);
 
                 if (empty($config)) {
                     if (!isset($serviceEndpoints['_default'][$partition['partition']])) {
@@ -233,7 +233,7 @@ class GenerateCommand extends Command
             foreach ($endpoints['partitions'] as $partition) {
                 $serviceEndpoints['_default'][$partition['partition']] = [
                     'endpoint' => "https://$prefix.%region%.amazonaws.com",
-                    'regions' => \array_keys($partition['regions']),
+                    'regions' => array_keys($partition['regions']),
                     'signService' => $partition['defaults']['credentialScope']['service'] ?? $signingServiceFallback,
                     'signVersions' => $partition['defaults']['signatureVersions'] ?? [$signingVersionFallback],
                 ];
@@ -258,9 +258,9 @@ class GenerateCommand extends Command
             return $operationNames;
         }
 
-        $managedOperations = \array_unique(\array_merge($manifest['services'][$serviceName]['methods'], $operationNames));
+        $managedOperations = array_unique(array_merge($manifest['services'][$serviceName]['methods'], $operationNames));
         $definition = new ServiceDefinition($serviceName, $endpoints, $definitionArray, $documentationArray, $paginationArray, $waiterArray, $exampleArray, $manifest['services'][$serviceName]['api-reference'] ?? null);
-        $serviceGenerator = $this->generator->service($manifest['services'][$serviceName]['namespace'] ?? \sprintf('AsyncAws\\%s', $serviceName), $managedOperations);
+        $serviceGenerator = $this->generator->service($manifest['services'][$serviceName]['namespace'] ?? sprintf('AsyncAws\\%s', $serviceName), $managedOperations);
 
         $clientClass = $serviceGenerator->client()->generate($definition);
 
@@ -270,7 +270,7 @@ class GenerateCommand extends Command
             } elseif (null !== $waiter = $definition->getWaiter($operationName)) {
                 $serviceGenerator->waiter()->generate($waiter);
             } else {
-                $io->error(\sprintf('Could not find service or waiter named "%s".', $operationName));
+                $io->error(sprintf('Could not find service or waiter named "%s".', $operationName));
 
                 return 1;
             }
@@ -300,7 +300,7 @@ class GenerateCommand extends Command
     {
         if ($inputServiceName) {
             if (!isset($manifest[$inputServiceName])) {
-                $io->error(\sprintf('Could not find service named "%s".', $inputServiceName));
+                $io->error(sprintf('Could not find service named "%s".', $inputServiceName));
 
                 return 1;
             }
@@ -314,7 +314,7 @@ class GenerateCommand extends Command
         }
 
         $allServices = '<all services>';
-        $serviceName = $io->choice('Select the service to generate', \array_merge([$allServices], $services));
+        $serviceName = $io->choice('Select the service to generate', array_merge([$allServices], $services));
         if ($serviceName === $allServices) {
             return $services;
         }
@@ -329,19 +329,19 @@ class GenerateCommand extends Command
     {
         if ($inputOperationName) {
             if ($returnAll) {
-                $io->error(\sprintf('Cannot use "--all" together with an operation. You passed "%s" as operation.', $inputOperationName));
+                $io->error(sprintf('Cannot use "--all" together with an operation. You passed "%s" as operation.', $inputOperationName));
 
                 return 1;
             }
 
             if (!isset($definition['operations'][$inputOperationName]) && !isset($waiter['waiters'][$inputOperationName])) {
-                $io->error(\sprintf('Could not find operation or waiter named "%s".', $inputOperationName));
+                $io->error(sprintf('Could not find operation or waiter named "%s".', $inputOperationName));
 
                 return 1;
             }
 
             if (!\in_array($inputOperationName, $manifest['methods'])) {
-                $io->warning(\sprintf('Operation named "%s" has never been generated.', $inputOperationName));
+                $io->warning(sprintf('Operation named "%s" has never been generated.', $inputOperationName));
                 if (!$io->confirm('Do you want adding it?', true)) {
                     return 1;
                 }
@@ -358,12 +358,12 @@ class GenerateCommand extends Command
         $newOperation = '<new operation>';
         $allOperations = '<all operation>';
 
-        $operationName = $io->choice('Select the operation to generate', \array_merge([$allOperations, $newOperation], $operations));
+        $operationName = $io->choice('Select the operation to generate', array_merge([$allOperations, $newOperation], $operations));
         if ($operationName === $allOperations) {
             return $operations;
         }
         if ($operationName === $newOperation) {
-            $choices = \array_values(array_diff(\array_keys($definition['operations'] + $waiter['waiters']), $manifest['methods']));
+            $choices = array_values(array_diff(array_keys($definition['operations'] + $waiter['waiters']), $manifest['methods']));
             $question = new ChoiceQuestion('Select the operation(s) to generate', $choices);
             $question->setMultiselect(true);
 
@@ -376,19 +376,19 @@ class GenerateCommand extends Command
     private function fixCs(ClassName $clientClass, SymfonyStyle $io): void
     {
         $srcPath = \dirname((new \ReflectionClass($clientClass->getFqdn()))->getFileName());
-        $testPath = \substr($srcPath, 0, \strrpos($srcPath, '/src')) . '/tests';
+        $testPath = substr($srcPath, 0, strrpos($srcPath, '/src')) . '/tests';
 
-        if (!\is_dir($srcPath)) {
+        if (!is_dir($srcPath)) {
             throw new \InvalidArgumentException(sprintf('The src dir "%s" does not exists', $srcPath));
         }
-        if (!\is_dir($testPath)) {
+        if (!is_dir($testPath)) {
             throw new \InvalidArgumentException(sprintf('The test dir "%s" does not exists', $testPath));
         }
 
         // assert this
         $baseDir = \dirname($this->manifestFile);
-        if (!\file_exists($baseDir . '/.php_cs')) {
-            $io->warning('Unable to run php-cs-fixer. Please define a .php_cs file alongside the manifest.json file');
+        if (!file_exists($baseDir . '/.php-cs-fixer.php')) {
+            $io->warning('Unable to run php-cs-fixer. Please define a .php-cs-fixer.php file alongside the manifest.json file');
 
             return;
         }
@@ -396,12 +396,12 @@ class GenerateCommand extends Command
         $resolver = new ConfigurationResolver(
             new Config(),
             [
-                'config' => $baseDir . '/.php_cs',
-                'allow-risky' => true,
+                'config' => $baseDir . '/.php-cs-fixer.php',
+                'allow-risky' => 'yes',
                 'dry-run' => false,
                 'path' => [$srcPath, $testPath],
                 'path-mode' => 'override',
-                'using-cache' => true,
+                'using-cache' => 'yes',
                 'cache-file' => $baseDir . '/.cache/php-cs-fixer/.generate-' . $clientClass->getName() . '.cache',
                 'diff' => false,
                 'stop-on-violation' => false,
@@ -434,19 +434,19 @@ class GenerateCommand extends Command
 
     private function loadFile(string $path, string $cacheKey, array $patch = []): array
     {
-        $path = \strtr($path, $this->loadManifest()['variables'] ?? [[]]);
+        $path = strtr($path, $this->loadManifest()['variables'] ?? [[]]);
 
         $data = $this->cache->get(__CLASS__ . ':' . $cacheKey);
         if (null === $data || $path !== ($data['path'] ?? null)) {
             if (empty($patch)) {
-                $content = \json_decode(\file_get_contents($path), true);
+                $content = json_decode(file_get_contents($path), true);
             } else {
                 // use a non associative object to apply patch
-                $content = \json_decode(\file_get_contents($path), false);
+                $content = json_decode(file_get_contents($path), false);
                 $jsonPatch = JsonPatch::import($patch);
                 $jsonPatch->apply($content);
                 // convert to associative array
-                $content = \json_decode(\json_encode($content), true);
+                $content = json_decode(json_encode($content), true);
             }
 
             $data = [
@@ -465,7 +465,7 @@ class GenerateCommand extends Command
             return $this->manifest;
         }
 
-        $this->manifest = \json_decode(\file_get_contents($this->manifestFile), true);
+        $this->manifest = json_decode(file_get_contents($this->manifestFile), true);
 
         return $this->manifest;
     }
@@ -473,6 +473,6 @@ class GenerateCommand extends Command
     private function dumpManifest(array $manifest): void
     {
         $this->manifest = $manifest;
-        \file_put_contents($this->manifestFile, \json_encode($this->manifest, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES) . \PHP_EOL);
+        file_put_contents($this->manifestFile, json_encode($this->manifest, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES) . \PHP_EOL);
     }
 }

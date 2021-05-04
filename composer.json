@@ -17,7 +17,7 @@
         "symfony/service-contracts": "^1.0 || ^2.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "2.18.5",
+        "friendsofphp/php-cs-fixer": "3.0.0",
         "illuminate/cache": "^6.18.13 || ^7.10 || ^8.0",
         "illuminate/filesystem": "^6.18.13 || ^7.10 || ^8.0",
         "illuminate/mail": "^6.18.13 || ^7.10 || ^8.0",

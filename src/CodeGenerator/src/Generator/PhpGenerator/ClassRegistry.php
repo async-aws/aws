@@ -39,7 +39,7 @@ class ClassRegistry
             return $this->registered[$class];
         }
 
-        if ($loadExisting && \class_exists($class)) {
+        if ($loadExisting && class_exists($class)) {
             return $this->registered[$class] = new ClassBuilder($this->classFactory->fromClassReflection(new \ReflectionClass($class)));
         }
 

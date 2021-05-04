@@ -19,7 +19,7 @@ class StreamFactory
         if (\is_callable($content)) {
             return CallableStream::create($content, $preferredChunkSize);
         }
-        if (\is_iterable($content)) {
+        if (is_iterable($content)) {
             return IterableStream::create($content);
         }
         if (\is_resource($content)) {

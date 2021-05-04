@@ -216,7 +216,7 @@ class RestJsonParser implements Parser
     private function parseResponseList(ListShape $shape, string $input, bool $required): string
     {
         $shapeMember = $shape->getMember();
-        $functionName = 'populateResult' . \ucfirst($shape->getName());
+        $functionName = 'populateResult' . ucfirst($shape->getName());
         if (!isset($this->functions[$functionName])) {
             // prevent recursion
             $this->functions[$functionName] = true;
@@ -259,7 +259,7 @@ class RestJsonParser implements Parser
     private function parseResponseMap(MapShape $shape, string $input, bool $required): string
     {
         $shapeValue = $shape->getValue();
-        $functionName = 'populateResult' . \ucfirst($shape->getName());
+        $functionName = 'populateResult' . ucfirst($shape->getName());
         if (!isset($this->functions[$functionName])) {
             // prevent recursion
             $this->functions[$functionName] = true;
@@ -345,7 +345,7 @@ class RestJsonParser implements Parser
             [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($shape);
             $method
                 ->setComment('@return ' . $parameterType);
-            $this->imports = \array_merge($this->imports, $memberClassNames);
+            $this->imports = array_merge($this->imports, $memberClassNames);
         }
 
         return $method;

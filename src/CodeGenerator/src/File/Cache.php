@@ -20,7 +20,7 @@ class Cache
     public function __construct(string $cacheFile)
     {
         $this->cacheFile = $cacheFile;
-        $this->splitFile = \is_dir($cacheFile);
+        $this->splitFile = is_dir($cacheFile);
     }
 
     public function get(string $key)
@@ -28,8 +28,8 @@ class Cache
         $this->lock($key);
 
         try {
-            \rewind($this->handle);
-            $data = \json_decode(@\stream_get_contents($this->handle), true);
+            rewind($this->handle);
+            $data = json_decode(@stream_get_contents($this->handle), true);
 
             return $this->splitFile ? $data : ($data[$key] ?? null);
         } finally {
@@ -42,8 +42,8 @@ class Cache
         $this->lock($key);
 
         try {
-            \rewind($this->handle);
-            $data = \json_decode(@\stream_get_contents($this->handle), true);
+            rewind($this->handle);
+            $data = json_decode(@stream_get_contents($this->handle), true);
 
             if ($this->splitFile) {
                 $data = $newContent = $callable($data ?? null);
@@ -51,9 +51,9 @@ class Cache
                 $data[$key] = $newContent = $callable($data[$key] ?? null);
             }
 
-            \ftruncate($this->handle, 0);
-            \rewind($this->handle);
-            \fwrite($this->handle, \json_encode($data));
+            ftruncate($this->handle, 0);
+            rewind($this->handle);
+            fwrite($this->handle, json_encode($data));
 
             return $newContent;
         } finally {

@@ -38,7 +38,7 @@ class Waiter
      */
     public function getAcceptors(): array
     {
-        return \array_map(function (array $data) {
+        return array_map(function (array $data) {
             return WaiterAcceptor::create($data, $this->shapeLocator);
         }, $this->data['acceptors']);
     }

@@ -51,14 +51,14 @@ class ResponseBodyStream implements ResultStream
             return;
         }
         if ($this->partialRead) {
-            throw new LogicException(\sprintf('You can not call "%s". Another process doesn\'t reading "getChunks" till the end.', __METHOD__));
+            throw new LogicException(sprintf('You can not call "%s". Another process doesn\'t reading "getChunks" till the end.', __METHOD__));
         }
 
-        $resource = \fopen('php://temp', 'rb+');
+        $resource = fopen('php://temp', 'rb+');
         foreach ($this->responseStream as $chunk) {
             $this->partialRead = true;
             $chunkContent = $chunk->getContent();
-            \fwrite($resource, $chunkContent);
+            fwrite($resource, $chunkContent);
             yield $chunkContent;
         }
 

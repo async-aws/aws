@@ -27,16 +27,16 @@ class ClassFactory
     {
         $namespace = new PhpNamespace($from->getNamespaceName());
         $filename = $from->getFileName();
-        $rows = \file($filename);
+        $rows = file($filename);
 
         // Find Use statements
         foreach ($rows as $row) {
-            if (false !== \strstr($row, 'class ' . $from->getName())) {
+            if (false !== strstr($row, 'class ' . $from->getName())) {
                 // No use statements after this point
                 break;
             }
 
-            if (\preg_match('#use ([^;]+)( as [^;]+)?;#i', $row, $match)) {
+            if (preg_match('#use ([^;]+)( as [^;]+)?;#i', $row, $match)) {
                 $namespace->addUse($match[1], $match[2] ?? null);
             }
         }
@@ -52,8 +52,8 @@ class ClassFactory
 
         $ifaces = $from->getInterfaceNames();
         foreach ($ifaces as $iface) {
-            $ifaces = \array_filter($ifaces, function (string $item) use ($iface): bool {
-                return !\is_subclass_of($iface, $item);
+            $ifaces = array_filter($ifaces, function (string $item) use ($iface): bool {
+                return !is_subclass_of($iface, $item);
             });
         }
         $class->setImplements($ifaces);
@@ -61,7 +61,7 @@ class ClassFactory
         $class->setComment(Helpers::unformatDocComment((string) $from->getDocComment()));
         if ($from->getParentClass()) {
             $class->setExtends($from->getParentClass()->getName());
-            $class->setImplements(\array_diff($class->getImplements(), $from->getParentClass()->getInterfaceNames()));
+            $class->setImplements(array_diff($class->getImplements(), $from->getParentClass()->getInterfaceNames()));
         }
         $props = $methods = [];
         foreach ($from->getProperties() as $prop) {
@@ -84,7 +84,7 @@ class ClassFactory
     public function fromMethodReflection(\ReflectionMethod $from): Method
     {
         $method = new Method($from->getName());
-        $method->setParameters(\array_map([$this, 'fromParameterReflection'], $from->getParameters()));
+        $method->setParameters(array_map([$this, 'fromParameterReflection'], $from->getParameters()));
         $method->setStatic($from->isStatic());
         $isInterface = $from->getDeclaringClass()->isInterface();
         $method->setVisibility(
@@ -96,12 +96,12 @@ class ClassFactory
         $method->setAbstract($from->isAbstract() && !$isInterface);
 
         $filename = $from->getFileName();
-        $rows = \file($filename);
-        $body = \implode('', \array_map(function ($r) {
+        $rows = file($filename);
+        $body = implode('', array_map(function ($r) {
             return trim($r, ' ');
         }, \array_slice($rows, $from->getStartLine() + 1, $from->getEndLine() - $from->getStartLine() - 2)));
 
-        $method->setBody($from->isAbstract() ? null : \print_r($body, true));
+        $method->setBody($from->isAbstract() ? null : print_r($body, true));
         $method->setReturnReference($from->returnsReference());
         $method->setVariadic($from->isVariadic());
         $method->setComment(Helpers::unformatDocComment((string) $from->getDocComment()));
@@ -119,7 +119,7 @@ class ClassFactory
     public function fromFunctionReflection(\ReflectionFunction $from)
     {
         $function = $from->isClosure() ? new Closure() : new GlobalFunction($from->getName());
-        $function->setParameters(\array_map([$this, 'fromParameterReflection'], $from->getParameters()));
+        $function->setParameters(array_map([$this, 'fromParameterReflection'], $from->getParameters()));
         $function->setReturnReference($from->returnsReference());
         $function->setVariadic($from->isVariadic());
         if (!$from->isClosure()) {

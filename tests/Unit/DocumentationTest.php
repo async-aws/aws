@@ -108,7 +108,7 @@ class DocumentationTest extends TestCase
             }
 
             $docsDir = \dirname(__DIR__, 2) . '/docs/' . $category;
-            $files = \is_dir($docsDir) ? (new Finder())->in($docsDir)->depth('== 0')->name('*.md') : [];
+            $files = is_dir($docsDir) ? (new Finder())->in($docsDir)->depth('== 0')->name('*.md') : [];
             foreach ($files as $file) {
                 $key = $file->getFilenameWithoutExtension();
 

@@ -54,7 +54,7 @@ final class NamespaceRegistry
         $this->baseNamespace = $baseNamespace;
         $this->inputNamespace = '\\' === $inputNamespace[0] ? $baseNamespace . $inputNamespace : $inputNamespace;
         $this->resultNamespace = '\\' === $resultNamespace[0] ? $baseNamespace . $resultNamespace : $resultNamespace;
-        $this->testNamespace = '\\' === $testNamespace[0] ? implode('\\', \array_slice(\explode('\\', $baseNamespace), 0, 2)) . $testNamespace : $testNamespace;
+        $this->testNamespace = '\\' === $testNamespace[0] ? implode('\\', \array_slice(explode('\\', $baseNamespace), 0, 2)) . $testNamespace : $testNamespace;
         $this->enumNamespace = '\\' === $enumNamespace[0] ? $baseNamespace . $enumNamespace : $enumNamespace;
         $this->objectNamespace = '\\' === $objectNamespace[0] ? $baseNamespace . $objectNamespace : $objectNamespace;
         $this->exceptionNamespace = '\\' === $exceptionNamespace[0] ? $baseNamespace . $exceptionNamespace : $exceptionNamespace;
@@ -87,7 +87,7 @@ final class NamespaceRegistry
 
     public function getException(Shape $shape): ClassName
     {
-        return ClassName::create($this->exceptionNamespace, $shape->getName() . ('Exception' === \substr($shape->getName(), -9) ? '' : 'Exception'));
+        return ClassName::create($this->exceptionNamespace, $shape->getName() . ('Exception' === substr($shape->getName(), -9) ? '' : 'Exception'));
     }
 
     public function getObject(Shape $shape): ClassName

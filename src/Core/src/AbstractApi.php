@@ -74,7 +74,7 @@ abstract class AbstractApi
         $this->awsErrorFactory = $this->getAwsErrorFactory();
         if (!isset($httpClient)) {
             $httpClient = HttpClient::create();
-            if (\class_exists(RetryableHttpClient::class)) {
+            if (class_exists(RetryableHttpClient::class)) {
                 /** @psalm-suppress MissingDependency */
                 $httpClient = new RetryableHttpClient(
                     $httpClient,
@@ -111,7 +111,7 @@ abstract class AbstractApi
      */
     protected function getServiceCode(): string
     {
-        throw new LogicException(\sprintf('The method "%s" should not be called. The Client "%s" must implement the "%s" method.', __FUNCTION__, \get_class($this), 'getEndpointMetadata'));
+        throw new LogicException(sprintf('The method "%s" should not be called. The Client "%s" must implement the "%s" method.', __FUNCTION__, \get_class($this), 'getEndpointMetadata'));
     }
 
     /**
@@ -119,7 +119,7 @@ abstract class AbstractApi
      */
     protected function getSignatureVersion(): string
     {
-        throw new LogicException(\sprintf('The method "%s" should not be called. The Client "%s" must implement the "%s" method.', __FUNCTION__, \get_class($this), 'getEndpointMetadata'));
+        throw new LogicException(sprintf('The method "%s" should not be called. The Client "%s" must implement the "%s" method.', __FUNCTION__, \get_class($this), 'getEndpointMetadata'));
     }
 
     /**
@@ -127,7 +127,7 @@ abstract class AbstractApi
      */
     protected function getSignatureScopeName(): string
     {
-        throw new LogicException(\sprintf('The method "%s" should not be called. The Client "%s" must implement the "%s" method.', __FUNCTION__, \get_class($this), 'getEndpointMetadata'));
+        throw new LogicException(sprintf('The method "%s" should not be called. The Client "%s" must implement the "%s" method.', __FUNCTION__, \get_class($this), 'getEndpointMetadata'));
     }
 
     final protected function getResponse(Request $request, ?RequestContext $context = null): Response
@@ -158,7 +158,7 @@ abstract class AbstractApi
             ]
         );
 
-        if ($debug = \filter_var($this->configuration->get('debug'), \FILTER_VALIDATE_BOOLEAN)) {
+        if ($debug = filter_var($this->configuration->get('debug'), \FILTER_VALIDATE_BOOLEAN)) {
             $this->logger->debug('AsyncAws HTTP request sent: {method} {endpoint}', [
                 'method' => $request->getMethod(),
                 'endpoint' => $request->getEndpoint(),
@@ -200,7 +200,7 @@ abstract class AbstractApi
      */
     protected function getEndpointMetadata(?string $region): array
     {
-        \trigger_deprecation('async-aws/core', '1.2', 'Extending "%s"" without overriding "%s" is deprecated. This method will be abstract in version 2.0.', __CLASS__, __FUNCTION__);
+        trigger_deprecation('async-aws/core', '1.2', 'Extending "%s"" without overriding "%s" is deprecated. This method will be abstract in version 2.0.', __CLASS__, __FUNCTION__);
 
         /** @var string $endpoint */
         $endpoint = $this->configuration->get('endpoint');
@@ -237,8 +237,8 @@ abstract class AbstractApi
             $endpoint = $metadata['endpoint'];
         }
 
-        if (false !== \strpos($endpoint, '%region%') || false !== \strpos($endpoint, '%service%')) {
-            \trigger_deprecation('async-aws/core', '1.2', 'providing an endpoint with placeholder is deprecated and will be ignored in version 2.0. Provide full endpoint instead.');
+        if (false !== strpos($endpoint, '%region%') || false !== strpos($endpoint, '%service%')) {
+            trigger_deprecation('async-aws/core', '1.2', 'providing an endpoint with placeholder is deprecated and will be ignored in version 2.0. Provide full endpoint instead.');
 
             $endpoint = strtr($endpoint, [
                 '%region%' => $region ?? $this->configuration->get('region'),
@@ -251,7 +251,7 @@ abstract class AbstractApi
             return $endpoint;
         }
 
-        return $endpoint . (false === \strpos($endpoint, '?') ? '?' : '&') . http_build_query($query);
+        return $endpoint . (false === strpos($endpoint, '?') ? '?' : '&') . http_build_query($query);
     }
 
     /**
@@ -281,7 +281,7 @@ abstract class AbstractApi
             }
 
             if (null === $factory) {
-                throw new InvalidArgument(sprintf('None of the signatures "%s" is implemented.', \implode(', ', $metadata['signVersions'])));
+                throw new InvalidArgument(sprintf('None of the signatures "%s" is implemented.', implode(', ', $metadata['signVersions'])));
             }
 
             $this->signers[$region] = $factory($metadata['signService'], $metadata['signRegion']);

@@ -180,14 +180,14 @@ class Waiter
         $timeout = $timeout ?? static::WAIT_TIMEOUT;
         $delay = $delay ?? static::WAIT_DELAY;
 
-        $start = \microtime(true);
+        $start = microtime(true);
         while (true) {
             if ($this->needRefresh) {
                 $this->stealResponse($this->refreshState());
             }
 
             // If request times out
-            if (!$this->resolve($timeout - (\microtime(true) - $start))) {
+            if (!$this->resolve($timeout - (microtime(true) - $start))) {
                 break;
             }
 
@@ -198,11 +198,11 @@ class Waiter
             }
 
             // If the timeout will expire during our sleep, then exit early.
-            if ($delay > $timeout - (\microtime(true) - $start)) {
+            if ($delay > $timeout - (microtime(true) - $start)) {
                 break;
             }
 
-            \usleep((int) ceil($delay * 1000000));
+            usleep((int) ceil($delay * 1000000));
         }
 
         return false;

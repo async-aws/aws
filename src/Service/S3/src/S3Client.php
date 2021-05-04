@@ -889,7 +889,7 @@ class S3Client extends AbstractApi
 
     protected function getEndpoint(string $uri, array $query, ?string $region): string
     {
-        $uriParts = \explode('/', $uri, 3);
+        $uriParts = explode('/', $uri, 3);
         $bucket = $uriParts[1] ?? '';
         $bucketLen = \strlen($bucket);
         $configuration = $this->getConfiguration();
@@ -898,13 +898,13 @@ class S3Client extends AbstractApi
         $bucketLen < 3 || $bucketLen > 63
         || filter_var($bucket, \FILTER_VALIDATE_IP) // Cannot look like an IP address
         || !preg_match('/^[a-z0-9]([a-z0-9\-]*[a-z0-9])?$/', $bucket) // Bucket cannot have dot (because of TLS)
-        || filter_var(\parse_url($configuration->get('endpoint'), \PHP_URL_HOST), \FILTER_VALIDATE_IP) // Custom endpoint cannot look like an IP address @phpstan-ignore-line
-        || \filter_var($configuration->get('pathStyleEndpoint'), \FILTER_VALIDATE_BOOLEAN)
+        || filter_var(parse_url($configuration->get('endpoint'), \PHP_URL_HOST), \FILTER_VALIDATE_IP) // Custom endpoint cannot look like an IP address @phpstan-ignore-line
+        || filter_var($configuration->get('pathStyleEndpoint'), \FILTER_VALIDATE_BOOLEAN)
         ) {
             return parent::getEndpoint($uri, $query, $region);
         }
 
-        return \preg_replace('|https?://|', '${0}' . $uriParts[1] . '.', parent::getEndpoint('/' . ($uriParts[2] ?? ''), $query, $region));
+        return preg_replace('|https?://|', '${0}' . $uriParts[1] . '.', parent::getEndpoint('/' . ($uriParts[2] ?? ''), $query, $region));
     }
 
     protected function getEndpointMetadata(?string $region): array
@@ -1292,7 +1292,7 @@ class S3Client extends AbstractApi
 
                 // We need async-aws/core: 1.8 or above to use sendChunkedBody.
                 if (Configuration::optionExists('sendChunkedBody')) {
-                    $options['sendChunkedBody'] = \filter_var($configuration->get('sendChunkedBody'), \FILTER_VALIDATE_BOOLEAN);
+                    $options['sendChunkedBody'] = filter_var($configuration->get('sendChunkedBody'), \FILTER_VALIDATE_BOOLEAN);
                 }
 
                 return new SignerV4ForS3($service, $region, $options);

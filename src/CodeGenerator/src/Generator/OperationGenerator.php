@@ -88,7 +88,7 @@ class OperationGenerator
         $classBuilder = $this->classRegistry->register($className->getFqdn(), true);
         $classBuilder->addUse($inputClass->getFqdn());
 
-        $method = $classBuilder->addMethod(\lcfirst(GeneratorHelper::normalizeName($operation->getMethodName())));
+        $method = $classBuilder->addMethod(lcfirst(GeneratorHelper::normalizeName($operation->getMethodName())));
         if (null !== $documentation = $operation->getDocumentation()) {
             $method->addComment(GeneratorHelper::parseDocumentation($documentation));
         }
@@ -98,7 +98,7 @@ class OperationGenerator
         }
         $method->addComment('@see ' . $operation->getApiReferenceDocumentationUrl());
         if (null !== $prefix = $operation->getService()->getEndpointPrefix()) {
-            $method->addComment('@see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-' . $prefix . '-' . $operation->getService()->getApiVersion() . '.html#' . \strtolower($operation->getName()));
+            $method->addComment('@see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-' . $prefix . '-' . $operation->getService()->getApiVersion() . '.html#' . strtolower($operation->getName()));
         }
         [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($inputShape, $inputClass, true, false, false, ['  @region?: string,']);
         $method->addComment($doc);
@@ -169,7 +169,7 @@ class OperationGenerator
 
         $method->setBody(strtr($body, [
             'INPUT_CLASS' => $inputClass->getName(),
-            'OPERATION_NAME' => \var_export($operation->getName(), true),
+            'OPERATION_NAME' => var_export($operation->getName(), true),
             'RESULT_CLASS' => $resultClass ? $resultClass->getName() : 'Result',
             'EXCEPTION_MAPPING' => $mapping ? ", 'exceptionMapping' => [\n" . implode("\n", $mapping) . "\n]" : '',
         ]));

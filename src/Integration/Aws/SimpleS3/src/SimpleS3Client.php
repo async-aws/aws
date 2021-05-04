@@ -91,7 +91,7 @@ class SimpleS3Client extends S3Client
         $uploadId = '';
         $partNumber = 1;
         $chunkIndex = 0;
-        $buffer = \fopen('php://temp', 'rw+');
+        $buffer = fopen('php://temp', 'rw+');
         foreach ($stream as $chunk) {
             // Read chunk to resource
             fwrite($buffer, $chunk);
@@ -109,7 +109,7 @@ class SimpleS3Client extends S3Client
             // Start uploading the part.
             $parts[] = $this->doMultipartUpload($bucket, $key, $uploadId, $partNumber, $buffer);
             ++$partNumber;
-            $buffer = \fopen('php://temp', 'rw+');
+            $buffer = fopen('php://temp', 'rw+');
             $chunkIndex = 0;
         }
 

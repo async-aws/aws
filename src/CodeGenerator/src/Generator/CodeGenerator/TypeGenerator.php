@@ -111,10 +111,10 @@ class TypeGenerator
                 $body[] = sprintf('  %s: %s,', $member->getName(), $param);
             }
         }
-        $body = \array_merge($body, $extra);
+        $body = array_merge($body, $extra);
         $body[] = '}' . ($alternateClass ? '|' . $shapeClassName->getName() : '') . ' $input';
 
-        return [\implode("\n", $body), $classNames];
+        return [implode("\n", $body), $classNames];
     }
 
     /**
@@ -134,7 +134,7 @@ class TypeGenerator
         if ($shape instanceof ListShape) {
             $listMemberShape = $shape->getMember()->getShape();
             [$type, $doc, $memberClassNames] = $this->getPhpType($listMemberShape);
-            if ('::*' === \substr($doc, -3)) {
+            if ('::*' === substr($doc, -3)) {
                 $doc = "list<$doc>";
             } else {
                 $doc .= '[]';

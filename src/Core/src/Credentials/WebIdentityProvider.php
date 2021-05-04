@@ -83,7 +83,7 @@ final class WebIdentityProvider implements CredentialProvider
 
     private function getCredentialsFromRole(string $roleArn, string $tokenFile, ?string $sessionName, ?string $region): ?Credentials
     {
-        $sessionName = $sessionName ?? \uniqid('async-aws-', true);
+        $sessionName = $sessionName ?? uniqid('async-aws-', true);
         if (!preg_match("/^\w\:|^\/|^\\\/", $tokenFile)) {
             $this->logger->warning('WebIdentityTokenFile "{tokenFile}" must be an absolute path.', ['tokenFile' => $tokenFile]);
         }

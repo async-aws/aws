@@ -79,7 +79,7 @@ class IamClientTest extends TestCase
 
         $input = new CreateUserRequest([
             'Path' => '/engineering/root/',
-            'UserName' => $username = \uniqid('jderusse.', false),
+            'UserName' => $username = uniqid('jderusse.', false),
             'PermissionsBoundary' => 'root',
             'Tags' => [new Tag([
                 'Key' => 'demo',
@@ -144,7 +144,7 @@ class IamClientTest extends TestCase
         ]);
         $result = $client->ListUsers($input);
 
-        self::assertCount(1, $users = \iterator_to_array($result->getUsers()));
+        self::assertCount(1, $users = iterator_to_array($result->getUsers()));
         self::assertSame('jderusse', $users[0]->getUserName());
         self::assertSame('arn:aws:iam::000000000000:user/async-aws/jderusse', $users[0]->getArn());
     }

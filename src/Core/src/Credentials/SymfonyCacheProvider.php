@@ -50,7 +50,7 @@ final class SymfonyCacheProvider implements CredentialProvider
         });
 
         try {
-            return $this->cache->get('AsyncAws.Credentials.' . sha1(\serialize([$configuration, \get_class($this->decorated)])), $closure);
+            return $this->cache->get('AsyncAws.Credentials.' . sha1(serialize([$configuration, \get_class($this->decorated)])), $closure);
         } catch (CacheException $e) {
             if (null !== $this->logger) {
                 $this->logger->error('Failed to get AWS credentials from cache.', ['exception' => $e]);

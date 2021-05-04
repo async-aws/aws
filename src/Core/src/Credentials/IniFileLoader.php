@@ -46,16 +46,16 @@ final class IniFileLoader
             }
             if ('~' === $filepath[0]) {
                 $homeDir = $homeDir ?? $this->getHomeDir();
-                $filepath = $homeDir . \substr($filepath, 1);
+                $filepath = $homeDir . substr($filepath, 1);
             }
-            if (!\is_readable($filepath) || !\is_file($filepath)) {
+            if (!is_readable($filepath) || !is_file($filepath)) {
                 continue;
             }
 
             foreach ($this->parseIniFile($filepath) as $name => $profile) {
-                $name = \preg_replace('/^profile /', '', (string) $name);
+                $name = preg_replace('/^profile /', '', (string) $name);
                 if (!isset($profilesData[$name])) {
-                    $profilesData[$name] = \array_map('trim', $profile);
+                    $profilesData[$name] = array_map('trim', $profile);
                 } else {
                     foreach ($profile as $k => $v) {
                         if (!isset($profilesData[$name][$k])) {
@@ -85,8 +85,8 @@ final class IniFileLoader
 
     private function parseIniFile(string $filepath): array
     {
-        if (false === $data = \parse_ini_string(
-            \preg_replace('/^#/m', ';', \file_get_contents($filepath)),
+        if (false === $data = parse_ini_string(
+            preg_replace('/^#/m', ';', file_get_contents($filepath)),
             true,
             \INI_SCANNER_RAW
         )) {

@@ -16,7 +16,7 @@ class ForgotPasswordResponseTest extends TestCase
     public function testForgotPasswordResponse(): void
     {
         // see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html
-        $response = new SimpleMockedResponse(\json_encode([
+        $response = new SimpleMockedResponse(json_encode([
             'CodeDeliveryDetails' => [
                 'AttributeName' => 'my-name',
                 'DeliveryMedium' => DeliveryMediumType::EMAIL,

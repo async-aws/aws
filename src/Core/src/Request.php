@@ -38,7 +38,7 @@ class Request
         $this->uri = $uri;
         $this->headers = [];
         foreach ($headers as $key => $value) {
-            $this->headers[\strtolower($key)] = (string) $value;
+            $this->headers[strtolower($key)] = (string) $value;
         }
         $this->body = $body;
         $this->query = $query;
@@ -125,7 +125,7 @@ class Request
     public function getEndpoint(): string
     {
         if (empty($this->endpoint)) {
-            $this->endpoint = $this->parsed['scheme'] . '://' . $this->parsed['host'] . (isset($this->parsed['port']) ? ':' . $this->parsed['port'] : '') . $this->uri . ($this->query ? (false === \strpos($this->uri, '?') ? '?' : '&') . http_build_query($this->query) : '');
+            $this->endpoint = $this->parsed['scheme'] . '://' . $this->parsed['host'] . (isset($this->parsed['port']) ? ':' . $this->parsed['port'] : '') . $this->uri . ($this->query ? (false === strpos($this->uri, '?') ? '?' : '&') . http_build_query($this->query) : '');
         }
 
         return $this->endpoint;
@@ -138,8 +138,8 @@ class Request
         }
 
         $this->endpoint = $endpoint;
-        $this->parsed = \parse_url($this->endpoint);
-        \parse_str($this->parsed['query'] ?? '', $this->query);
+        $this->parsed = parse_url($this->endpoint);
+        parse_str($this->parsed['query'] ?? '', $this->query);
         $this->uri = $this->parsed['path'] ?? '/';
     }
 }

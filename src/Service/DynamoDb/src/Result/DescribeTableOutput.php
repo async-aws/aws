@@ -46,10 +46,10 @@ class DescribeTableOutput extends Result
             'TableName' => isset($data['Table']['TableName']) ? (string) $data['Table']['TableName'] : null,
             'KeySchema' => empty($data['Table']['KeySchema']) ? [] : $this->populateResultKeySchema($data['Table']['KeySchema']),
             'TableStatus' => isset($data['Table']['TableStatus']) ? (string) $data['Table']['TableStatus'] : null,
-            'CreationDateTime' => (isset($data['Table']['CreationDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['Table']['CreationDateTime'])))) ? $d : null,
+            'CreationDateTime' => (isset($data['Table']['CreationDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['Table']['CreationDateTime'])))) ? $d : null,
             'ProvisionedThroughput' => empty($data['Table']['ProvisionedThroughput']) ? null : new ProvisionedThroughputDescription([
-                'LastIncreaseDateTime' => (isset($data['Table']['ProvisionedThroughput']['LastIncreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['Table']['ProvisionedThroughput']['LastIncreaseDateTime'])))) ? $d : null,
-                'LastDecreaseDateTime' => (isset($data['Table']['ProvisionedThroughput']['LastDecreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['Table']['ProvisionedThroughput']['LastDecreaseDateTime'])))) ? $d : null,
+                'LastIncreaseDateTime' => (isset($data['Table']['ProvisionedThroughput']['LastIncreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['Table']['ProvisionedThroughput']['LastIncreaseDateTime'])))) ? $d : null,
+                'LastDecreaseDateTime' => (isset($data['Table']['ProvisionedThroughput']['LastDecreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['Table']['ProvisionedThroughput']['LastDecreaseDateTime'])))) ? $d : null,
                 'NumberOfDecreasesToday' => isset($data['Table']['ProvisionedThroughput']['NumberOfDecreasesToday']) ? (string) $data['Table']['ProvisionedThroughput']['NumberOfDecreasesToday'] : null,
                 'ReadCapacityUnits' => isset($data['Table']['ProvisionedThroughput']['ReadCapacityUnits']) ? (string) $data['Table']['ProvisionedThroughput']['ReadCapacityUnits'] : null,
                 'WriteCapacityUnits' => isset($data['Table']['ProvisionedThroughput']['WriteCapacityUnits']) ? (string) $data['Table']['ProvisionedThroughput']['WriteCapacityUnits'] : null,
@@ -60,7 +60,7 @@ class DescribeTableOutput extends Result
             'TableId' => isset($data['Table']['TableId']) ? (string) $data['Table']['TableId'] : null,
             'BillingModeSummary' => empty($data['Table']['BillingModeSummary']) ? null : new BillingModeSummary([
                 'BillingMode' => isset($data['Table']['BillingModeSummary']['BillingMode']) ? (string) $data['Table']['BillingModeSummary']['BillingMode'] : null,
-                'LastUpdateToPayPerRequestDateTime' => (isset($data['Table']['BillingModeSummary']['LastUpdateToPayPerRequestDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['Table']['BillingModeSummary']['LastUpdateToPayPerRequestDateTime'])))) ? $d : null,
+                'LastUpdateToPayPerRequestDateTime' => (isset($data['Table']['BillingModeSummary']['LastUpdateToPayPerRequestDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['Table']['BillingModeSummary']['LastUpdateToPayPerRequestDateTime'])))) ? $d : null,
             ]),
             'LocalSecondaryIndexes' => empty($data['Table']['LocalSecondaryIndexes']) ? [] : $this->populateResultLocalSecondaryIndexDescriptionList($data['Table']['LocalSecondaryIndexes']),
             'GlobalSecondaryIndexes' => empty($data['Table']['GlobalSecondaryIndexes']) ? [] : $this->populateResultGlobalSecondaryIndexDescriptionList($data['Table']['GlobalSecondaryIndexes']),
@@ -75,17 +75,17 @@ class DescribeTableOutput extends Result
             'RestoreSummary' => empty($data['Table']['RestoreSummary']) ? null : new RestoreSummary([
                 'SourceBackupArn' => isset($data['Table']['RestoreSummary']['SourceBackupArn']) ? (string) $data['Table']['RestoreSummary']['SourceBackupArn'] : null,
                 'SourceTableArn' => isset($data['Table']['RestoreSummary']['SourceTableArn']) ? (string) $data['Table']['RestoreSummary']['SourceTableArn'] : null,
-                'RestoreDateTime' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['Table']['RestoreSummary']['RestoreDateTime'])),
+                'RestoreDateTime' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['Table']['RestoreSummary']['RestoreDateTime'])),
                 'RestoreInProgress' => filter_var($data['Table']['RestoreSummary']['RestoreInProgress'], \FILTER_VALIDATE_BOOLEAN),
             ]),
             'SSEDescription' => empty($data['Table']['SSEDescription']) ? null : new SSEDescription([
                 'Status' => isset($data['Table']['SSEDescription']['Status']) ? (string) $data['Table']['SSEDescription']['Status'] : null,
                 'SSEType' => isset($data['Table']['SSEDescription']['SSEType']) ? (string) $data['Table']['SSEDescription']['SSEType'] : null,
                 'KMSMasterKeyArn' => isset($data['Table']['SSEDescription']['KMSMasterKeyArn']) ? (string) $data['Table']['SSEDescription']['KMSMasterKeyArn'] : null,
-                'InaccessibleEncryptionDateTime' => (isset($data['Table']['SSEDescription']['InaccessibleEncryptionDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['Table']['SSEDescription']['InaccessibleEncryptionDateTime'])))) ? $d : null,
+                'InaccessibleEncryptionDateTime' => (isset($data['Table']['SSEDescription']['InaccessibleEncryptionDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['Table']['SSEDescription']['InaccessibleEncryptionDateTime'])))) ? $d : null,
             ]),
             'ArchivalSummary' => empty($data['Table']['ArchivalSummary']) ? null : new ArchivalSummary([
-                'ArchivalDateTime' => (isset($data['Table']['ArchivalSummary']['ArchivalDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['Table']['ArchivalSummary']['ArchivalDateTime'])))) ? $d : null,
+                'ArchivalDateTime' => (isset($data['Table']['ArchivalSummary']['ArchivalDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['Table']['ArchivalSummary']['ArchivalDateTime'])))) ? $d : null,
                 'ArchivalReason' => isset($data['Table']['ArchivalSummary']['ArchivalReason']) ? (string) $data['Table']['ArchivalSummary']['ArchivalReason'] : null,
                 'ArchivalBackupArn' => isset($data['Table']['ArchivalSummary']['ArchivalBackupArn']) ? (string) $data['Table']['ArchivalSummary']['ArchivalBackupArn'] : null,
             ]),
@@ -125,8 +125,8 @@ class DescribeTableOutput extends Result
                 'IndexStatus' => isset($item['IndexStatus']) ? (string) $item['IndexStatus'] : null,
                 'Backfilling' => isset($item['Backfilling']) ? filter_var($item['Backfilling'], \FILTER_VALIDATE_BOOLEAN) : null,
                 'ProvisionedThroughput' => empty($item['ProvisionedThroughput']) ? null : new ProvisionedThroughputDescription([
-                    'LastIncreaseDateTime' => (isset($item['ProvisionedThroughput']['LastIncreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['ProvisionedThroughput']['LastIncreaseDateTime'])))) ? $d : null,
-                    'LastDecreaseDateTime' => (isset($item['ProvisionedThroughput']['LastDecreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['ProvisionedThroughput']['LastDecreaseDateTime'])))) ? $d : null,
+                    'LastIncreaseDateTime' => (isset($item['ProvisionedThroughput']['LastIncreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['ProvisionedThroughput']['LastIncreaseDateTime'])))) ? $d : null,
+                    'LastDecreaseDateTime' => (isset($item['ProvisionedThroughput']['LastDecreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['ProvisionedThroughput']['LastDecreaseDateTime'])))) ? $d : null,
                     'NumberOfDecreasesToday' => isset($item['ProvisionedThroughput']['NumberOfDecreasesToday']) ? (string) $item['ProvisionedThroughput']['NumberOfDecreasesToday'] : null,
                     'ReadCapacityUnits' => isset($item['ProvisionedThroughput']['ReadCapacityUnits']) ? (string) $item['ProvisionedThroughput']['ReadCapacityUnits'] : null,
                     'WriteCapacityUnits' => isset($item['ProvisionedThroughput']['WriteCapacityUnits']) ? (string) $item['ProvisionedThroughput']['WriteCapacityUnits'] : null,
@@ -212,7 +212,7 @@ class DescribeTableOutput extends Result
                     'ReadCapacityUnits' => isset($item['ProvisionedThroughputOverride']['ReadCapacityUnits']) ? (string) $item['ProvisionedThroughputOverride']['ReadCapacityUnits'] : null,
                 ]),
                 'GlobalSecondaryIndexes' => empty($item['GlobalSecondaryIndexes']) ? [] : $this->populateResultReplicaGlobalSecondaryIndexDescriptionList($item['GlobalSecondaryIndexes']),
-                'ReplicaInaccessibleDateTime' => (isset($item['ReplicaInaccessibleDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['ReplicaInaccessibleDateTime'])))) ? $d : null,
+                'ReplicaInaccessibleDateTime' => (isset($item['ReplicaInaccessibleDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['ReplicaInaccessibleDateTime'])))) ? $d : null,
             ]);
         }
 

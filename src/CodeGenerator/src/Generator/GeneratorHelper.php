@@ -48,22 +48,22 @@ class GeneratorHelper
         ];
 
         $originalPropertyName = $propertyName;
-        $propertyName = \strtr($propertyName, $replacements);
+        $propertyName = strtr($propertyName, $replacements);
 
-        if (\preg_match('/[A-Z]{2,}/', $propertyName)) {
-            $propertyName = \strtr($propertyName, $ignored);
-            if (\preg_match('/[A-Z]{2,}/', $propertyName)) {
+        if (preg_match('/[A-Z]{2,}/', $propertyName)) {
+            $propertyName = strtr($propertyName, $ignored);
+            if (preg_match('/[A-Z]{2,}/', $propertyName)) {
                 throw new \RuntimeException(sprintf('No camel case property "%s" is not yet implemented', $originalPropertyName));
             }
         }
 
-        return $cache[$propertyName] = \lcfirst($propertyName);
+        return $cache[$propertyName] = lcfirst($propertyName);
     }
 
     public static function parseDocumentation(string $documentation, bool $short = true): string
     {
         $s = preg_replace('/>\s*</', '><', $documentation);
-        $s = trim(\strtr($s, [
+        $s = trim(strtr($s, [
             '<p>' => '',
             '<p/>' => '',
             '</p>' => "\n",
@@ -72,7 +72,7 @@ class GeneratorHelper
             $s = explode("\n", $s)[0];
         }
 
-        $s = \strtr($s, [
+        $s = strtr($s, [
             '<code>' => '`',
             '</code>' => '`',
             '<i>' => '*',
@@ -83,10 +83,10 @@ class GeneratorHelper
         $s = preg_replace('/\n*<(\/?(note|important|ul|li))>\n*/', "\n<\$1>\n", $s);
         $s = preg_replace('/\n+/', "\n", $s);
 
-        \preg_match_all('/<a href="([^"]*)">/', $s, $matches);
-        $s = \preg_replace('/<a href="[^"]*">([^<]*)<\/a>/', '$1', $s);
+        preg_match_all('/<a href="([^"]*)">/', $s, $matches);
+        $s = preg_replace('/<a href="[^"]*">([^<]*)<\/a>/', '$1', $s);
 
-        $s = \strtr($s, [
+        $s = strtr($s, [
             '<a>' => '',
             '</a>' => '',
         ]);
@@ -97,7 +97,7 @@ class GeneratorHelper
         $spaceNext = false;
 
         // converts <li> into `- ` AND handle multi-level list
-        foreach (\explode("\n", $s) as $line) {
+        foreach (explode("\n", $s) as $line) {
             $line = trim($line);
             if ('' === $line) {
                 $empty = true;
@@ -113,7 +113,7 @@ class GeneratorHelper
                 continue;
             }
             if ('</li>' === $line) {
-                $prefix = \substr($prefix, 0, -2);
+                $prefix = substr($prefix, 0, -2);
                 $spaceNext = false;
 
                 continue;
@@ -151,7 +151,7 @@ class GeneratorHelper
                 continue;
             }
             if ('</note>' === $line || '</important>' === $line) {
-                $prefix = \substr($prefix, 0, -2);
+                $prefix = substr($prefix, 0, -2);
                 $lines[] = $prefix;
                 $empty = true;
 
@@ -162,18 +162,18 @@ class GeneratorHelper
             foreach (explode("\n", wordwrap(trim($line), 117 - \strlen($prefix))) as $l) {
                 $lines[] = $prefix . $l;
                 if ($spaceNext) {
-                    $prefix = \substr($prefix, 0, -2) . '  ';
+                    $prefix = substr($prefix, 0, -2) . '  ';
                     $spaceNext = false;
                 }
             }
         }
-        $s = \implode("\n", $lines);
+        $s = implode("\n", $lines);
 
-        if (false !== \strpos($s, '<')) {
+        if (false !== strpos($s, '<')) {
             throw new \InvalidArgumentException('remaining HTML code in documentation: ' . $s);
         }
 
-        $s = \implode("\n", $lines);
+        $s = implode("\n", $lines);
         $s .= "\n";
         foreach ($matches[1] as $link) {
             $s .= "\n@see $link";

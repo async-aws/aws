@@ -32,10 +32,10 @@ final class ClassName
 
     public static function createFromFqdn(string $fqdn): self
     {
-        $parts = \explode('\\', $fqdn);
-        $name = \array_pop($parts);
+        $parts = explode('\\', $fqdn);
+        $name = array_pop($parts);
 
-        return new self(\implode('\\', $parts), self::safeClassName($name));
+        return new self(implode('\\', $parts), self::safeClassName($name));
     }
 
     public function getName(): string

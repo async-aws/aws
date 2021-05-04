@@ -54,7 +54,7 @@ final class IniFileProvider implements CredentialProvider
     private function getCredentialsFromProfile(array $profilesData, string $profile, array $circularCollector = []): ?Credentials
     {
         if (isset($circularCollector[$profile])) {
-            $this->logger->warning('Circular reference detected when loading "{profile}". Already loaded {previous_profiles}', ['profile' => $profile, 'previous_profiles' => \array_keys($circularCollector)]);
+            $this->logger->warning('Circular reference detected when loading "{profile}". Already loaded {previous_profiles}', ['profile' => $profile, 'previous_profiles' => array_keys($circularCollector)]);
 
             return null;
         }
@@ -87,7 +87,7 @@ final class IniFileProvider implements CredentialProvider
     private function getCredentialsFromRole(array $profilesData, array $profileData, string $profile, array $circularCollector = []): ?Credentials
     {
         $roleArn = (string) ($profileData[IniFileLoader::KEY_ROLE_ARN] ?? '');
-        $roleSessionName = (string) ($profileData[IniFileLoader::KEY_ROLE_SESSION_NAME] ?? \uniqid('async-aws-', true));
+        $roleSessionName = (string) ($profileData[IniFileLoader::KEY_ROLE_SESSION_NAME] ?? uniqid('async-aws-', true));
         if (null === $sourceProfileName = $profileData[IniFileLoader::KEY_SOURCE_PROFILE] ?? null) {
             $this->logger->warning('The source profile is not defined in Role "{profile}".', ['profile' => $profile]);
 

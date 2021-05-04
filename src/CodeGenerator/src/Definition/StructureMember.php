@@ -8,8 +8,8 @@ class StructureMember extends Member
 {
     public function getName(): string
     {
-        if ($this->getOwnerShape() instanceof ExceptionShape && \in_array(\strtolower($this->data['_name']), ['code', 'message'], true)) {
-            return \strtolower($this->data['_name']);
+        if ($this->getOwnerShape() instanceof ExceptionShape && \in_array(strtolower($this->data['_name']), ['code', 'message'], true)) {
+            return strtolower($this->data['_name']);
         }
 
         return $this->data['_name'];
@@ -27,7 +27,7 @@ class StructureMember extends Member
 
     public function isNullable(): bool
     {
-        if ($this->getOwnerShape() instanceof ExceptionShape && \in_array(\strtolower($this->data['_name']), ['code', 'message'], true)) {
+        if ($this->getOwnerShape() instanceof ExceptionShape && \in_array(strtolower($this->data['_name']), ['code', 'message'], true)) {
             return false;
         }
 

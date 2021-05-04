@@ -395,10 +395,10 @@ class S3ClientTest extends TestCase
         self::assertEquals('content', $result->getBody()->getContentAsString());
         // calling it twice to ensure consitency
         self::assertEquals('content', $result->getBody()->getContentAsString());
-        self::assertEquals('content', \stream_get_contents($result->getBody()->getContentAsResource()));
-        self::assertEquals('content', \implode('', \iterator_to_array($result->getBody()->getChunks())));
+        self::assertEquals('content', stream_get_contents($result->getBody()->getContentAsResource()));
+        self::assertEquals('content', implode('', iterator_to_array($result->getBody()->getChunks())));
         // test it twice to check both getChunk and fallback
-        self::assertEquals('content', \implode('', \iterator_to_array($result->getBody()->getChunks())));
+        self::assertEquals('content', implode('', iterator_to_array($result->getBody()->getChunks())));
     }
 
     public function testHeadObject(): void
@@ -484,14 +484,14 @@ class S3ClientTest extends TestCase
             'Bucket' => 'foo#pound',
             'Delimiter' => '/',
         ]);
-        self::assertEquals(['bar#pound/'], array_map(function (CommonPrefix $prefix) {return $prefix->getPrefix(); }, \iterator_to_array($result->getCommonPrefixes())));
+        self::assertEquals(['bar#pound/'], array_map(function (CommonPrefix $prefix) {return $prefix->getPrefix(); }, iterator_to_array($result->getCommonPrefixes())));
 
         $result = $client->listObjectsV2([
             'Bucket' => 'foo#pound',
             'Prefix' => 'bar#pound/',
         ]);
 
-        self::assertEquals(['bar#pound/baz#pound'], array_map(function (AwsObject $prefix) {return $prefix->getKey(); }, \iterator_to_array($result->getContents())));
+        self::assertEquals(['bar#pound/baz#pound'], array_map(function (AwsObject $prefix) {return $prefix->getKey(); }, iterator_to_array($result->getContents())));
     }
 
     public function testListMultipartUploads(): void
@@ -531,7 +531,7 @@ class S3ClientTest extends TestCase
             $requests[] = $s3->putObject(['Bucket' => 'foo', 'Key' => 'list/content-' . $i, 'Body' => 'test']);
             $requests[] = $s3->putObject(['Bucket' => 'foo', 'Key' => 'list/prefix-' . $i . '/file']);
         }
-        \array_walk($requests, function (PutObjectOutput $response) {
+        array_walk($requests, function (PutObjectOutput $response) {
             $response->resolve();
         });
 
@@ -550,12 +550,12 @@ class S3ClientTest extends TestCase
         self::assertCount(5, $result->getCommonPrefixes());
         self::assertCount(5, $result->getContents());
 
-        $files = \array_map(function (AwsObject $content) {
+        $files = array_map(function (AwsObject $content) {
             return $content->getKey();
-        }, \iterator_to_array($result->getContents()));
-        $prefixes = \array_map(function (CommonPrefix $prefix) {
+        }, iterator_to_array($result->getContents()));
+        $prefixes = array_map(function (CommonPrefix $prefix) {
             return $prefix->getPrefix();
-        }, \iterator_to_array($result->getCommonPrefixes()));
+        }, iterator_to_array($result->getCommonPrefixes()));
 
         self::assertContains('list/prefix-1/', $prefixes);
         self::assertContains('list/content-2', $files);
@@ -764,7 +764,7 @@ class S3ClientTest extends TestCase
 
     public function testUploadFromResource()
     {
-        $resource = \fopen('php://temp', 'rw+');
+        $resource = fopen('php://temp', 'rw+');
         $content = 'some content';
         fwrite($resource, $content);
         // Dont rewind

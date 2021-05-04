@@ -192,7 +192,7 @@ class Response
                 throw new LogicException('Unable to wait for the given results, they all have to be created with the same HttpClient');
             }
             $httpResponses[] = $response->httpResponse;
-            $indexMap[$hash = \spl_object_id($response->httpResponse)] = $index;
+            $indexMap[$hash = spl_object_id($response->httpResponse)] = $index;
             $responseMap[$hash] = $response;
         }
 
@@ -206,7 +206,7 @@ class Response
         }
 
         foreach ($httpClient->stream($httpResponses, $timeout) as $httpResponse => $chunk) {
-            $hash = \spl_object_id($httpResponse);
+            $hash = spl_object_id($httpResponse);
             $response = $responseMap[$hash] ?? null;
             // Check if null, just in case symfony yield an unexpected response.
             if (null === $response) {

@@ -55,7 +55,7 @@ final class FixedSizeStream implements RequestStream
                 throw new InvalidArgument(sprintf('The return value of content callback must be a string, %s returned.', \is_object($buffer) ? \get_class($buffer) : \gettype($buffer)));
             }
 
-            $chunk .= $nextBytes = \substr($buffer, 0, $this->chunkSize - \strlen($chunk));
+            $chunk .= $nextBytes = substr($buffer, 0, $this->chunkSize - \strlen($chunk));
             $bufferPosition = \strlen($nextBytes);
 
             if (\strlen($chunk) < $this->chunkSize) {
@@ -66,12 +66,12 @@ final class FixedSizeStream implements RequestStream
             yield $chunk;
             while (\strlen($buffer) - $bufferPosition >= $this->chunkSize) {
                 // The buffer is bigger than the expected size. Let's flushing it.
-                yield \substr($buffer, $bufferPosition, $this->chunkSize);
+                yield substr($buffer, $bufferPosition, $this->chunkSize);
                 $bufferPosition += $this->chunkSize;
             }
 
             // Here we can substr the buffer because the remaining size is smaller that chunkSize
-            $chunk = \substr($buffer, $bufferPosition);
+            $chunk = substr($buffer, $bufferPosition);
         }
 
         if ('' !== $chunk) {

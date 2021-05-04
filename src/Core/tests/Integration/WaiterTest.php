@@ -13,7 +13,7 @@ class WaiterTest extends TestCase
 {
     public function testWaiterException(): void
     {
-        if (!\class_exists(S3Client::class)) {
+        if (!class_exists(S3Client::class)) {
             self::markTestSkipped('This test needs a client with waiter endpoints');
         }
 
@@ -26,7 +26,7 @@ class WaiterTest extends TestCase
 
     public function testWaiterThrowOnce(): void
     {
-        if (!\class_exists(S3Client::class)) {
+        if (!class_exists(S3Client::class)) {
             self::markTestSkipped('This test needs a client with waiter endpoints');
         }
 
@@ -45,7 +45,7 @@ class WaiterTest extends TestCase
 
     public function testWaiterThrowOnRetry(): void
     {
-        if (!\class_exists(S3Client::class)) {
+        if (!class_exists(S3Client::class)) {
             self::markTestSkipped('This test needs a client with waiter endpoints');
         }
 
@@ -64,7 +64,7 @@ class WaiterTest extends TestCase
 
     public function testWaiterThrowOnWait(): void
     {
-        if (!\class_exists(S3Client::class)) {
+        if (!class_exists(S3Client::class)) {
             self::markTestSkipped('This test needs a client with waiter endpoints');
         }
 

@@ -223,10 +223,10 @@ class InputGenerator
             // the "\n" helps php-cs-fixer to with potential wildcard in parameterType
             $property->addComment("\n@var null|$parameterType");
 
-            $getter = $classBuilder->addMethod('get' . \ucfirst(GeneratorHelper::normalizeName($member->getName())))
+            $getter = $classBuilder->addMethod('get' . ucfirst(GeneratorHelper::normalizeName($member->getName())))
                 ->setReturnType($returnType)
                 ->setReturnNullable($getterSetterNullable);
-            $setter = $classBuilder->addMethod('set' . \ucfirst(GeneratorHelper::normalizeName($member->getName())))
+            $setter = $classBuilder->addMethod('set' . ucfirst(GeneratorHelper::normalizeName($member->getName())))
                 ->setReturnType('self');
 
             $deprecation = '';
@@ -345,7 +345,7 @@ class InputGenerator
                 if (!isset($body[$requestPart])) {
                     $body[$requestPart] = $varName . ' = [];' . "\n";
                 }
-                $body[$requestPart] .= implode("\n", \array_filter(array_map('trim', explode("\n", $bodyCode))));
+                $body[$requestPart] .= implode("\n", array_filter(array_map('trim', explode("\n", $bodyCode))));
             }
         }
 
@@ -377,7 +377,7 @@ class InputGenerator
                 'LOCATION' => $member->getLocationName() ?? $member->getName(),
                 'VALUE' => $inputElement,
             ]);
-            $body['header'] .= implode("\n", \array_filter(array_map('trim', explode("\n", $bodyCode))));
+            $body['header'] .= implode("\n", array_filter(array_map('trim', explode("\n", $bodyCode))));
         }
 
         if ($operation->hasBody()) {
@@ -405,12 +405,12 @@ class InputGenerator
         $requestUri = null;
         $body['uri'] = $body['uri'] ?? '';
         $uriStringCode = '"' . $operation->getHttpRequestUri() . '"';
-        $uriStringCode = \preg_replace('/\{([^\}\+]+)\+\}/', '".str_replace(\'%2F\', \'/\', rawurlencode($uri[\'$1\']))."', $uriStringCode);
-        $uriStringCode = \preg_replace('/\{([^\}]+)\}/', '".rawurlencode($uri[\'$1\'])."', $uriStringCode);
-        $uriStringCode = \preg_replace('/(^""\.|\.""$|\.""\.)/', '', $uriStringCode);
+        $uriStringCode = preg_replace('/\{([^\}\+]+)\+\}/', '".str_replace(\'%2F\', \'/\', rawurlencode($uri[\'$1\']))."', $uriStringCode);
+        $uriStringCode = preg_replace('/\{([^\}]+)\}/', '".rawurlencode($uri[\'$1\'])."', $uriStringCode);
+        $uriStringCode = preg_replace('/(^""\.|\.""$|\.""\.)/', '', $uriStringCode);
         $body['uri'] .= '$uriString = ' . $uriStringCode . ';';
 
-        $method = \var_export($operation->getHttpMethod(), true);
+        $method = var_export($operation->getHttpMethod(), true);
 
         $classBuilder->addMethod('request')->setComment('@internal')->setReturnType(Request::class)->setBody(<<<PHP
 

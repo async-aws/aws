@@ -54,6 +54,6 @@ final class StringStream implements RequestStream
 
     public function hash(string $algo = 'sha256', bool $raw = false): string
     {
-        return \hash($algo, $this->content, $raw);
+        return hash($algo, $this->content, $raw);
     }
 }
