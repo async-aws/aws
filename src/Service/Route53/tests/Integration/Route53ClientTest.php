@@ -16,18 +16,21 @@ class Route53ClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new CreateHostedZoneRequest([
-            'Name' => 'example.com',
-            'CallerReference' => 'myUniqueIdentifier',
+            'Name' => 'test-domain.com',
+            'CallerReference' => microtime(),
             'HostedZoneConfig' => new HostedZoneConfig([
-                'Comment' => 'This is my first hosted zone.',
+                'Comment' => 'foo',
                 'PrivateZone' => false,
             ]),
         ]);
-        $result = $client->CreateHostedZone($input);
+        $result = $client->createHostedZone($input);
 
         $result->resolve();
 
-        self::assertSame('example.com.', $result->getHostedZone()->getName());
+        self::assertSame(ChangeStatus::PENDING, $result->getChangeInfo()->getStatus());
+        self::assertSame('test-domain.com.', $result->getHostedZone()->getName());
+        self::assertSame('foo', $result->getHostedZone()->getConfig()->getComment());
+        self::assertFalse($result->getHostedZone()->getConfig()->getPrivateZone());
     }
 
     public function testListHostedZones(): void
