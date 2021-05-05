@@ -8,7 +8,7 @@ use AsyncAws\Route53\Enum\ResourceRecordSetRegion;
 use AsyncAws\Route53\Enum\RRType;
 
 /**
- * Information about the resource record set to create or delete.
+ * Information about the resource record set to create, delete, or update.
  */
 final class ResourceRecordSet
 {
