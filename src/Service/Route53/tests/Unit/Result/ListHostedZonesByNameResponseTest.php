@@ -41,8 +41,6 @@ class ListHostedZonesByNameResponseTest extends TestCase
         $result = new ListHostedZonesByNameResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertCount(1, $result->getHostedZones());
-        self::assertSame('example.com.', $result->getDNSName());
-        self::assertSame('/hostedzone/Z111111QQQQQQQ', $result->getHostedZoneId());
         self::assertTrue($result->getIsTruncated());
         self::assertSame('example2.com', $result->getNextDNSName());
         self::assertSame('Z222222VVVVVVV', $result->getNextHostedZoneId());

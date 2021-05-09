@@ -6,11 +6,19 @@ namespace AsyncAws\Route53\Tests\Integration;
 
 use AsyncAws\Core\Credentials\Credentials;
 use AsyncAws\Core\Test\TestCase;
-use AsyncAws\Route53\Enum\ChangeStatus;
+use AsyncAws\Route53\Enum\ChangeAction;
+use AsyncAws\Route53\Enum\RRType;
+use AsyncAws\Route53\Input\ChangeResourceRecordSetsRequest;
 use AsyncAws\Route53\Input\CreateHostedZoneRequest;
-use AsyncAws\Route53\Input\ListHostedZonesRequest;
+use AsyncAws\Route53\Input\DeleteHostedZoneRequest;
+use AsyncAws\Route53\Input\ListHostedZonesByNameRequest;
+use AsyncAws\Route53\Input\ListResourceRecordSetsRequest;
 use AsyncAws\Route53\Route53Client;
+use AsyncAws\Route53\ValueObject\Change;
+use AsyncAws\Route53\ValueObject\ChangeBatch;
 use AsyncAws\Route53\ValueObject\HostedZoneConfig;
+use AsyncAws\Route53\ValueObject\ResourceRecord;
+use AsyncAws\Route53\ValueObject\ResourceRecordSet;
 
 class Route53ClientTest extends TestCase
 {
@@ -56,59 +64,115 @@ class Route53ClientTest extends TestCase
     {
         $client = $this->getClient();
 
-        $input = new DeleteHostedZoneRequest([
-            'Id' => 'change me',
+        $input = new CreateHostedZoneRequest([
+            'Name' => 'foo-domain.com',
+            'CallerReference' => microtime(),
         ]);
-        $result = $client->DeleteHostedZone($input);
+        $result = $client->createHostedZone($input);
 
         $result->resolve();
 
-        // self::assertTODO(expected, $result->getChangeInfo());
+        $input = new DeleteHostedZoneRequest([
+            'Id' => $result->getHostedZone()->getId(),
+        ]);
+        $result = $client->deleteHostedZone($input);
+
+        $result->resolve();
+
+        self::assertSame('PENDING', $result->getChangeInfo()->getStatus());
+        self::assertNull($result->getChangeInfo()->getComment());
     }
 
     public function testListHostedZonesByName(): void
     {
         $client = $this->getClient();
 
-        $input = new ListHostedZonesByNameRequest([
-            'DNSName' => 'change me',
-            'HostedZoneId' => 'change me',
-            'MaxItems' => 'change me',
+        $input = new CreateHostedZoneRequest([
+            'Name' => 'baz-domain.com',
+            'CallerReference' => microtime(),
         ]);
-        $result = $client->ListHostedZonesByName($input);
+        $result = $client->createHostedZone($input);
 
         $result->resolve();
 
-        // self::assertTODO(expected, $result->getHostedZones());
-        self::assertSame('changeIt', $result->getDNSName());
-        self::assertSame('changeIt', $result->getHostedZoneId());
+        $input = new ListHostedZonesByNameRequest([
+            'DNSName' => 'baz-domain.com',
+            'MaxItems' => '1',
+        ]);
+        $result = $client->listHostedZonesByName($input);
+
+        $result->resolve();
+
+        self::assertCount(1, $result->getHostedZones());
         self::assertFalse($result->getIsTruncated());
-        self::assertSame('changeIt', $result->getNextDNSName());
-        self::assertSame('changeIt', $result->getNextHostedZoneId());
-        self::assertSame('changeIt', $result->getMaxItems());
     }
 
     public function testListResourceRecordSets(): void
     {
         $client = $this->getClient();
 
-        $input = new ListResourceRecordSetsRequest([
-            'HostedZoneId' => 'change me',
-            'StartRecordName' => 'change me',
-            'StartRecordType' => 'change me',
-            'StartRecordIdentifier' => 'change me',
-            'MaxItems' => 'change me',
+        $input = new CreateHostedZoneRequest([
+            'Name' => 'bar-domain.com',
+            'CallerReference' => microtime(),
         ]);
-        $result = $client->ListResourceRecordSets($input);
+        $result = $client->createHostedZone($input);
 
         $result->resolve();
 
-        // self::assertTODO(expected, $result->getResourceRecordSets());
+        $hostedZoneId = $result->getHostedZone()->getId();
+
+        $input = new ChangeResourceRecordSetsRequest([
+            'HostedZoneId' => $hostedZoneId,
+            'ChangeBatch' => new ChangeBatch([
+                'Changes' => [
+                    new Change([
+                        'Action' => ChangeAction::CREATE,
+                        'ResourceRecordSet' => new ResourceRecordSet([
+                            'SetIdentifier' => 'Main',
+                            'Name' => 'bar-domain.com',
+                            'Type' => RRType::A,
+                            'TTL' => 300,
+                            'ResourceRecords' => [
+                                new ResourceRecord([
+                                    'Value' => '34.145.17.120',
+                                ]),
+                            ],
+                        ]),
+                    ]),
+                    new Change([
+                        'Action' => ChangeAction::CREATE,
+                        'ResourceRecordSet' => new ResourceRecordSet([
+                            'SetIdentifier' => 'Main',
+                            'Name' => 'bar-domain.com',
+                            'Type' => RRType::SOA,
+                            'TTL' => 60,
+                            'ResourceRecords' => [
+                                new ResourceRecord([
+                                    'Value' => 'ns-1780.awsdns-30.co.uk. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400',
+                                ]),
+                            ],
+                        ]),
+                    ]),
+                ],
+            ]),
+        ]);
+
+        $result = $client->createHostedZone($input);
+
+        $result->resolve();
+
+        $input = new ListResourceRecordSetsRequest([
+            'HostedZoneId' => $hostedZoneId,
+            'MaxItems' => '5',
+        ]);
+        $result = $client->listResourceRecordSets($input);
+
+        $result->resolve();
+
+        self::assertCount(2, $result->getResourceRecordSets());
         self::assertFalse($result->getIsTruncated());
-        self::assertSame('changeIt', $result->getNextRecordName());
-        self::assertSame('changeIt', $result->getNextRecordType());
-        self::assertSame('changeIt', $result->getNextRecordIdentifier());
-        self::assertSame('changeIt', $result->getMaxItems());
+        self::assertNull($result->getNextRecordName());
+        self::assertSame('5', $result->getMaxItems());
     }
 
     private function getClient(): Route53Client

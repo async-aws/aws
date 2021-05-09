@@ -7,7 +7,6 @@ namespace AsyncAws\Route53\Tests\Unit\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
-use AsyncAws\Route53\Enum\ChangeStatus;
 use AsyncAws\Route53\Result\DeleteHostedZoneResponse;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -31,6 +30,6 @@ class DeleteHostedZoneResponseTest extends TestCase
         $result = new DeleteHostedZoneResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
         self::assertSame('/change/C1PA6795UKMFR9', $result->getChangeInfo()->getId());
-        self::assertSame(ChangeStatus::PENDING, $result->getChangeInfo()->getStatus());
+        self::assertSame('PENDING', $result->getChangeInfo()->getStatus());
     }
 }

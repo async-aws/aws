@@ -7,7 +7,6 @@ namespace AsyncAws\Route53\Tests\Unit\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
-use AsyncAws\Route53\Enum\RRType;
 use AsyncAws\Route53\Input\ListResourceRecordSetsRequest;
 use AsyncAws\Route53\Result\ListResourceRecordSetsResponse;
 use AsyncAws\Route53\Route53Client;
@@ -33,20 +32,18 @@ class ListResourceRecordSetsResponseTest extends TestCase
                  </ResourceRecords>
               </ResourceRecordSet>
            </ResourceRecordSets>
-           <IsTruncated>true</IsTruncated>
+           <IsTruncated>false</IsTruncated>
            <MaxItems>1</MaxItems>
-           <NextRecordName>example.com.</NextRecordName>
-           <NextRecordType>NS</NextRecordType>
         </ListResourceRecordSetsResponse>
         ');
 
         $client = new MockHttpClient($response);
-        $result = new ListResourceRecordSetsResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new Route53Client(), new ListResourceRecordSetsRequest([]));
+        $result = new ListResourceRecordSetsResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new Route53Client(), new ListResourceRecordSetsRequest());
 
         self::assertCount(1, $result->getResourceRecordSets());
-        self::assertTrue($result->getIsTruncated());
-        self::assertSame('example.com.', $result->getNextRecordName());
-        self::assertSame(RRType::NS, $result->getNextRecordType());
+        self::assertFalse($result->getIsTruncated());
+        self::assertNull($result->getNextRecordName());
+        self::assertNull($result->getNextRecordType());
         self::assertNull($result->getNextRecordIdentifier());
         self::assertSame('1', $result->getMaxItems());
     }

@@ -45,31 +45,9 @@ class ChangeResourceRecordSetsRequestTest extends TestCase
 
         // see example-1.json from SDK
         $expected = '
-            POST /2013-04-01/hostedzone/Z1D633PEXAMPLE/rrset HTTP/1.0
-            Content-Type: application/xml
-
-            <ChangeBatch>
-              <Changes>
-                <Change>
-                  <Action>UPSERT</Action>
-                  <ResourceRecordSet>
-                    <Name>www.example.com</Name>
-                    <SetIdentifier>Main</SetIdentifier>
-                    <Weight>100</Weight>
-                    <Failover>PRIMARY</Failover>
-                    <ResourceRecords>
-                      <ResourceRecord>
-                        <Value>34.145.17.120</Value>
-                      </ResourceRecord>
-                    </ResourceRecords>
-                    <TTL>60</TTL>
-                    <Type>A</Type>
-                  </ResourceRecordSet>
-                </Change>
-              </Changes>
-              <Comment>foo</Comment>
-            </ChangeBatch>
-        ';
+POST /2013-04-01/hostedzone/Z1D633PEXAMPLE/rrset/ HTTP/1.0
+Content-Type: application/xml
+';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
