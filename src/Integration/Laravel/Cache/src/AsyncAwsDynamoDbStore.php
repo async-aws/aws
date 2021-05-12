@@ -12,7 +12,6 @@ use Illuminate\Contracts\Cache\LockProvider;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\InteractsWithTime;
-use Illuminate\Support\Str;
 
 /**
  * This class is a port from Illuminate\Cache\DynamoDbStore.
