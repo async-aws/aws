@@ -296,7 +296,7 @@ class AsyncAwsS3Adapter extends AbstractAdapter implements CanOverwriteFiles
         $result = $this->client->copyObject([
             'Bucket' => $this->bucket,
             'Key' => $this->applyPathPrefix($newpath),
-            'CopySource' => rawurlencode('/' . $this->applyPathPrefix($path)),
+            'CopySource' => $this->bucket . '/' . $this->applyPathPrefix($path),
             'ACL' => AdapterInterface::VISIBILITY_PUBLIC === $this->getRawVisibility($path) ? 'public-read' : 'private',
         ] + $this->options
         );

@@ -27,7 +27,7 @@ use PHPUnit\Framework\TestCase;
 
 class AsyncAwsS3AdapterTest extends TestCase
 {
-    private const BUCKCET = 'my_bucket';
+    private const BUCKET = 'my_bucket';
     private const PREFIX = 'all-files';
 
     public static function setUpBeforeClass(): void
@@ -55,14 +55,14 @@ class AsyncAwsS3AdapterTest extends TestCase
                 if ('contents' !== $input['Body']) {
                     return false;
                 }
-                if (self::BUCKCET !== $input['Bucket']) {
+                if (self::BUCKET !== $input['Bucket']) {
                     return false;
                 }
 
                 return true;
             }))->willReturn(ResultMockFactory::create(PutObjectOutput::class));
 
-        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKCET, self::PREFIX);
+        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKET, self::PREFIX);
         $filesystem->write($file, 'contents', new Config());
     }
 
@@ -152,7 +152,7 @@ class AsyncAwsS3AdapterTest extends TestCase
                     return false;
                 }
 
-                if (self::BUCKCET !== $input['Bucket']) {
+                if (self::BUCKET !== $input['Bucket']) {
                     return false;
                 }
 
@@ -160,7 +160,7 @@ class AsyncAwsS3AdapterTest extends TestCase
             }))->willReturn(ResultMockFactory::create(DeleteObjectOutput::class));
 
         $filesystem = $this->getMockBuilder(AsyncAwsS3Adapter::class)
-            ->setConstructorArgs([$s3Client,  self::BUCKCET, self::PREFIX])
+            ->setConstructorArgs([$s3Client,  self::BUCKET, self::PREFIX])
             ->onlyMethods(['has'])
             ->getMock();
 
@@ -198,7 +198,7 @@ class AsyncAwsS3AdapterTest extends TestCase
                     return false;
                 }
 
-                if (self::BUCKCET !== $input['Bucket']) {
+                if (self::BUCKET !== $input['Bucket']) {
                     return false;
                 }
 
@@ -216,14 +216,14 @@ class AsyncAwsS3AdapterTest extends TestCase
                     return false;
                 }
 
-                if (self::BUCKCET !== $input['Bucket']) {
+                if (self::BUCKET !== $input['Bucket']) {
                     return false;
                 }
 
                 return true;
             }))->willReturn(ResultMockFactory::create(DeleteObjectsOutput::class));
 
-        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKCET, self::PREFIX);
+        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKET, self::PREFIX);
 
         $output = $filesystem->deleteDir($path);
         self::assertTrue($output);
@@ -264,14 +264,14 @@ class AsyncAwsS3AdapterTest extends TestCase
                     return false;
                 }
 
-                if (self::BUCKCET !== $input['Bucket']) {
+                if (self::BUCKET !== $input['Bucket']) {
                     return false;
                 }
 
                 return true;
             }))->willReturn(ResultMockFactory::waiter(ObjectExistsWaiter::class, Waiter::STATE_SUCCESS));
 
-        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKCET, self::PREFIX);
+        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKET, self::PREFIX);
 
         $output = $filesystem->has($path);
         self::assertTrue($output);
@@ -317,14 +317,14 @@ class AsyncAwsS3AdapterTest extends TestCase
                     return false;
                 }
 
-                if (self::BUCKCET !== $input['Bucket']) {
+                if (self::BUCKET !== $input['Bucket']) {
                     return false;
                 }
 
                 return true;
             }))->willReturn($result);
 
-        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKCET, self::PREFIX);
+        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKET, self::PREFIX);
 
         $output = $filesystem->read($path);
         self::assertArrayHasKey('type', $output);
@@ -405,14 +405,14 @@ class AsyncAwsS3AdapterTest extends TestCase
                     return false;
                 }
 
-                if (self::BUCKCET !== $input['Bucket']) {
+                if (self::BUCKET !== $input['Bucket']) {
                     return false;
                 }
 
                 return true;
             }))->willReturn($result);
 
-        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKCET, self::PREFIX);
+        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKET, self::PREFIX);
 
         $outputs = $filesystem->listContents($path);
         $output = $outputs[0];
@@ -444,14 +444,14 @@ class AsyncAwsS3AdapterTest extends TestCase
                     return false;
                 }
 
-                if (self::BUCKCET !== $input['Bucket']) {
+                if (self::BUCKET !== $input['Bucket']) {
                     return false;
                 }
 
                 return true;
             }))->willReturn($result);
 
-        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKCET, self::PREFIX);
+        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKET, self::PREFIX);
 
         $output = $filesystem->getMetadata($path);
         self::assertArrayHasKey('type', $output);
@@ -593,14 +593,14 @@ class AsyncAwsS3AdapterTest extends TestCase
                     return false;
                 }
 
-                if (self::BUCKCET !== $input['Bucket']) {
+                if (self::BUCKET !== $input['Bucket']) {
                     return false;
                 }
 
                 return true;
             }))->willReturn($result);
 
-        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKCET, self::PREFIX);
+        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKET, self::PREFIX);
 
         $output = $filesystem->readStream($path);
         self::assertArrayHasKey('type', $output);
@@ -631,11 +631,11 @@ class AsyncAwsS3AdapterTest extends TestCase
                     return false;
                 }
 
-                if ($input['CopySource'] !== rawurlencode('/' . self::PREFIX . '/' . $path)) {
+                if ($input['CopySource'] !== self::BUCKET . '/' . self::PREFIX . '/' . $path) {
                     return false;
                 }
 
-                if (self::BUCKCET !== $input['Bucket']) {
+                if (self::BUCKET !== $input['Bucket']) {
                     return false;
                 }
 
@@ -643,7 +643,7 @@ class AsyncAwsS3AdapterTest extends TestCase
             }))->willReturn(ResultMockFactory::create(CopyObjectOutput::class));
 
         $filesystem = $this->getMockBuilder(AsyncAwsS3Adapter::class)
-            ->setConstructorArgs([$s3Client,  self::BUCKCET, self::PREFIX])
+            ->setConstructorArgs([$s3Client,  self::BUCKET, self::PREFIX])
             ->onlyMethods(['getRawVisibility'])
             ->getMock();
 
@@ -675,7 +675,7 @@ class AsyncAwsS3AdapterTest extends TestCase
                     return false;
                 }
 
-                if (self::BUCKCET !== $input['Bucket']) {
+                if (self::BUCKET !== $input['Bucket']) {
                     return false;
                 }
 
@@ -686,7 +686,7 @@ class AsyncAwsS3AdapterTest extends TestCase
                 return true;
             }))->willReturn($result);
 
-        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKCET, self::PREFIX);
+        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKET, self::PREFIX);
 
         $output = $filesystem->setVisibility($path, $acl);
         self::assertArrayHasKey('path', $output);
@@ -719,7 +719,7 @@ class AsyncAwsS3AdapterTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKCET, self::PREFIX);
+        $filesystem = new AsyncAwsS3Adapter($s3Client, self::BUCKET, self::PREFIX);
 
         $filesystem->setPathPrefix('prefix');
         self::assertEquals('prefix/', $filesystem->getPathPrefix());
