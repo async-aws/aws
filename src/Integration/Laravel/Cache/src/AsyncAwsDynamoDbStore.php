@@ -6,12 +6,12 @@ use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Exception\RuntimeException;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Enum\KeyType;
+use AsyncAws\DynamoDb\Exception\ConditionalCheckFailedException;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use Illuminate\Contracts\Cache\LockProvider;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\InteractsWithTime;
-use Illuminate\Support\Str;
 
 /**
  * This class is a port from Illuminate\Cache\DynamoDbStore.
@@ -233,13 +233,8 @@ class AsyncAwsDynamoDbStore implements LockProvider, Store
             ]);
 
             return true;
-        } catch (HttpException $e) {
-            $type = $e->getAwsType();
-            if (null !== $type && Str::contains($type, 'ConditionalCheckFailedException')) {
-                return false;
-            }
-
-            throw $e;
+        } catch (ConditionalCheckFailedException $e) {
+            return false;
         }
     }
 
@@ -280,13 +275,8 @@ class AsyncAwsDynamoDbStore implements LockProvider, Store
             ]);
 
             return (int) $response->getAttributes()[$this->valueAttribute]->getN();
-        } catch (HttpException $e) {
-            $type = $e->getAwsType();
-            if (null !== $type && Str::contains($type, 'ConditionalCheckFailedException')) {
-                return false;
-            }
-
-            throw $e;
+        } catch (ConditionalCheckFailedException $e) {
+            return false;
         }
     }
 
@@ -327,13 +317,8 @@ class AsyncAwsDynamoDbStore implements LockProvider, Store
             ]);
 
             return (int) $response->getAttributes()[$this->valueAttribute]->getN();
-        } catch (HttpException $e) {
-            $type = $e->getAwsType();
-            if (null !== $type && Str::contains($type, 'ConditionalCheckFailedException')) {
-                return false;
-            }
-
-            throw $e;
+        } catch (ConditionalCheckFailedException $e) {
+            return false;
         }
     }
 
