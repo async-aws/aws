@@ -631,7 +631,7 @@ class AsyncAwsS3AdapterTest extends TestCase
                     return false;
                 }
 
-                if ($input['CopySource'] !== rawurlencode('/' . self::PREFIX . '/' . $path)) {
+                if ($input['CopySource'] !== self::BUCKCET . '/' . self::PREFIX . '/' . $path) {
                     return false;
                 }
 
