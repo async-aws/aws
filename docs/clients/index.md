@@ -146,6 +146,7 @@ for more information.
 | [Lambda](./lambda.md)                       | [async-aws/lambda](https://packagist.org/packages/async-aws/lambda)
 | [RdsDataService](./rds-data-service.md)     | [async-aws/rds-data-service](https://packagist.org/packages/async-aws/rds-data-service)
 | [Rekognition](./rekognition.md)             | [async-aws/rekognition](https://packagist.org/packages/async-aws/rekognition)
+| [Route53](./route53.md)                     | [async-aws/route53](https://packagist.org/packages/async-aws/route53)
 | [S3](./s3.md)                               | [async-aws/s3](https://packagist.org/packages/async-aws/s3)
 | [SES](./ses.md)                             | [async-aws/ses](https://packagist.org/packages/async-aws/ses)
 | [SNS](./sns.md)                             | [async-aws/sns](https://packagist.org/packages/async-aws/sns)

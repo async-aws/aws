@@ -57,6 +57,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\Rekognition\RekognitionClient::class,
                 'package' => 'async-aws/rekognition',
             ],
+            'route53' => [
+                'class' => \AsyncAws\Route53\Route53Client::class,
+                'package' => 'async-aws/route53',
+            ],
             's3' => [
                 'class' => \AsyncAws\S3\S3Client::class,
                 'package' => 'async-aws/s3',
