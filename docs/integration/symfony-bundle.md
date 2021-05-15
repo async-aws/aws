@@ -44,7 +44,6 @@ The config above will create the following services:
 | `async_aws.client.sqs`     | AsyncAws\Sqs\SqsClient
 | `async_aws.client.delayed` | AsyncAws\Sqs\SqsClient $delayed
 | `async_aws.client.s3`      | AsyncAws\S3\S3Client
-| `async_aws.client.route53` | AsyncAws\Route53\Route53Client
 | `async_aws.client.sts`     | AsyncAws\Core\Sts\StsClient
 
 For a complete reference of the configuration please run:
