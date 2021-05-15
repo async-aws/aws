@@ -384,14 +384,18 @@ class InputGenerator
             [$body['body'], $hasRequestBody, $overrideArgs] = $serializer->generateRequestBody($operation, $inputShape) + [null, null, []];
             if ($hasRequestBody) {
                 [$returnType, $requestBody, $args] = $serializer->generateRequestBuilder($inputShape) + [null, null, []];
-                $method = $classBuilder->addMethod('requestBody')->setReturnType($returnType)->setBody($requestBody)->setPrivate();
-                foreach ($overrideArgs + $args as $arg => $type) {
-                    $method->addParameter($arg)->setType($type);
+                if ('' === trim($requestBody)) {
+                    $body['body'] = '$body = "";';
+                } else {
+                    $method = $classBuilder->addMethod('requestBody')->setReturnType($returnType)->setBody($requestBody)->setPrivate();
+                    foreach ($overrideArgs + $args as $arg => $type) {
+                        $method->addParameter($arg)->setType($type);
+                    }
                 }
             }
         } else {
             $body['body'] = '$body = "";';
-            if (null !== $payloadProperty = $inputShape->getPayload()) {
+            if (null !== $inputShape->getPayload()) {
                 throw new \LogicException(sprintf('Unexpected body in operation "%s"', $operation->getName()));
             }
 
@@ -402,7 +406,6 @@ class InputGenerator
             }
         }
 
-        $requestUri = null;
         $body['uri'] = $body['uri'] ?? '';
         $uriStringCode = '"' . $operation->getHttpRequestUri() . '"';
         $uriStringCode = preg_replace('/\{([^\}\+]+)\+\}/', '".str_replace(\'%2F\', \'/\', rawurlencode($uri[\'$1\']))."', $uriStringCode);

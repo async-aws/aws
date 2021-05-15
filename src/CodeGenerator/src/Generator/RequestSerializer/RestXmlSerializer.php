@@ -34,31 +34,49 @@ class RestXmlSerializer implements Serializer
 
     public function generateRequestBody(Operation $operation, StructureShape $shape): array
     {
-        if (null === $payloadProperty = $shape->getPayload()) {
-            return ['$body = "";', false];
+        if (null !== $payloadProperty = $shape->getPayload()) {
+            $member = $shape->getMember($payloadProperty);
+            if ($member->isStreaming()) {
+                if ($shape->getMember($payloadProperty)->isRequired()) {
+                    $body = 'if (null === $v = $this->PROPERTY) {
+                        throw new InvalidArgument(sprintf(\'Missing parameter "NAME" for "%s". The value cannot be null.\', __CLASS__));
+                    }
+                    $body = $v;';
+                } else {
+                    $body = '$body = $this->PROPERTY ?? "";';
+                }
+
+                return [strtr($body, [
+                    'PROPERTY' => GeneratorHelper::normalizeName($payloadProperty),
+                    'NAME' => $payloadProperty,
+                ]), false];
+            }
         }
 
-        $member = $shape->getMember($payloadProperty);
-        if ($member->isStreaming()) {
-            if ($shape->getMember($payloadProperty)->isRequired()) {
-                $body = 'if (null === $v = $this->PROPERTY) {
-                    throw new InvalidArgument(sprintf(\'Missing parameter "NAME" for "%s". The value cannot be null.\', __CLASS__));
-                }
-                $body = $v;';
-            } else {
-                $body = '$body = $this->PROPERTY ?? "";';
+        if (null !== $location = $operation->getInputLocation()) {
+            $xmlnsValue = '';
+            $xmlnsAttribute = '';
+            if (null !== $ns = $operation->getInputXmlNamespaceUri()) {
+                $xmlnsValue = $ns;
+                $xmlnsAttribute = 'xmlns';
             }
 
-            return [strtr($body, [
-                'PROPERTY' => GeneratorHelper::normalizeName($payloadProperty),
-                'NAME' => $payloadProperty,
-            ]), false];
+            $requestBody = trim(strtr('
+                $document->appendChild($child = $document->createElement(NODE_NAME));
+                SET_XMLNS_CODE
+                $this->requestBody($child, $document);
+            ', [
+                'NODE_NAME' => var_export($location, true),
+                'SET_XMLNS_CODE' => $xmlnsValue ? strtr('$child->setAttribute(NS_ATTRIBUTE, NS_VALUE);', ['NS_ATTRIBUTE' => var_export($xmlnsAttribute, true), 'NS_VALUE' => var_export($xmlnsValue, true)]) : '',
+            ]));
+        } else {
+            $requestBody = '$this->requestBody($document, $document);';
         }
 
         return ['
             $document = new \DOMDocument(\'1.0\', \'UTF-8\');
             $document->formatOutput = false;
-            $this->requestBody($document, $document);
+            ' . $requestBody . '
             $body = $document->hasChildNodes() ? $document->saveXML() : "";
         ',  true, ['node' => '\DomNode']];
     }

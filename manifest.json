@@ -200,6 +200,7 @@
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/route53/2013-04-01/examples-1.json",
             "api-reference": "https://docs.aws.amazon.com/Route53/latest/APIReference",
             "methods": [
+                "CreateHostedZone",
                 "ListHostedZones"
             ]
         },
