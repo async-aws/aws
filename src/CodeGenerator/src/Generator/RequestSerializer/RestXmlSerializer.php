@@ -56,7 +56,7 @@ class RestXmlSerializer implements Serializer
         if (null !== $location = $operation->getInputLocation()) {
             $xmlnsValue = '';
             $xmlnsAttribute = '';
-            if (null !== $ns =  $operation->getInputXmlNamespaceUri()) {
+            if (null !== $ns = $operation->getInputXmlNamespaceUri()) {
                 $xmlnsValue = $ns;
                 $xmlnsAttribute = 'xmlns';
             }
@@ -76,7 +76,7 @@ class RestXmlSerializer implements Serializer
         return ['
             $document = new \DOMDocument(\'1.0\', \'UTF-8\');
             $document->formatOutput = false;
-            '.$requestBody.'
+            ' . $requestBody . '
             $body = $document->hasChildNodes() ? $document->saveXML() : "";
         ',  true, ['node' => '\DomNode']];
     }

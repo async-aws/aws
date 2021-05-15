@@ -3,8 +3,12 @@
 namespace AsyncAws\Route53\ValueObject;
 
 /**
- * A complex type that includes the `Comment` and `PrivateZone` elements. If you omitted the `HostedZoneConfig` and
- * `Comment` elements from the request, the `Config` and `Comment` elements don't appear in the response.
+ * (Optional) A complex type that contains the following optional values:.
+ *
+ * - For public and private hosted zones, an optional comment
+ * - For private hosted zones, an optional `PrivateZone` element
+ *
+ * If you don't specify a comment or the `PrivateZone` element, omit `HostedZoneConfig` and the other elements.
  */
 final class HostedZoneConfig
 {
@@ -43,5 +47,18 @@ final class HostedZoneConfig
     public function getPrivateZone(): ?bool
     {
         return $this->privateZone;
+    }
+
+    /**
+     * @internal
+     */
+    public function requestBody(\DomElement $node, \DomDocument $document): void
+    {
+        if (null !== $v = $this->comment) {
+            $node->appendChild($document->createElement('Comment', $v));
+        }
+        if (null !== $v = $this->privateZone) {
+            $node->appendChild($document->createElement('PrivateZone', $v ? 'true' : 'false'));
+        }
     }
 }
