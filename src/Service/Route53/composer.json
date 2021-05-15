@@ -1,13 +1,13 @@
 {
-    "name": "async-aws/foobar",
+    "name": "async-aws/route53",
     "type": "library",
-    "description": "Foobar client, part of the AWS SDK provided by AsyncAws.",
+    "description": "Route53 client, part of the AWS SDK provided by AsyncAws.",
     "keywords": [
         "aws",
         "amazon",
         "sdk",
         "async-aws",
-        "foobar"
+        "route53"
     ],
     "license": "MIT",
     "require": {
@@ -22,12 +22,12 @@
     },
     "autoload": {
         "psr-4": {
-            "AsyncAws\\Foobar\\": "src"
+            "AsyncAws\\Route53\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "AsyncAws\\Foobar\\Tests\\": "tests/"
+            "AsyncAws\\Route53\\Tests\\": "tests/"
         }
     }
 }

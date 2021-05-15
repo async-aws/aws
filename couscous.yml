@@ -67,6 +67,9 @@ menu:
             rekognition:
                 text: Rekognition
                 url: /clients/rekognition.html
+            route53:
+                text: Route53
+                url: /clients/route53.html
             s3:
                 text: S3
                 url: /clients/s3.html
