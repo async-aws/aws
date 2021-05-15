@@ -112,7 +112,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
             if ($page->getNextContinuationToken()) {
                 $input->setContinuationToken($page->getNextContinuationToken());
 
-                $this->registerPrefetch($nextPage = $client->ListObjectsV2($input));
+                $this->registerPrefetch($nextPage = $client->listObjectsV2($input));
             } else {
                 $nextPage = null;
             }
@@ -155,7 +155,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
             if ($page->getNextContinuationToken()) {
                 $input->setContinuationToken($page->getNextContinuationToken());
 
-                $this->registerPrefetch($nextPage = $client->ListObjectsV2($input));
+                $this->registerPrefetch($nextPage = $client->listObjectsV2($input));
             } else {
                 $nextPage = null;
             }
@@ -222,7 +222,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
             if ($page->getNextContinuationToken()) {
                 $input->setContinuationToken($page->getNextContinuationToken());
 
-                $this->registerPrefetch($nextPage = $client->ListObjectsV2($input));
+                $this->registerPrefetch($nextPage = $client->listObjectsV2($input));
             } else {
                 $nextPage = null;
             }

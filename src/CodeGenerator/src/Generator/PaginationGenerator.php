@@ -239,7 +239,7 @@ class PaginationGenerator
             'ITERATE_PROPERTIES_CODE' => $iterator,
             'MORE_CONDITION' => $moreCondition,
             'SET_TOKEN_CODE' => $setter,
-            'OPERATION_NAME' => $operation->getName(),
+            'OPERATION_NAME' => GeneratorHelper::normalizeName($operation->getName()),
         ]);
     }
 }

@@ -49,7 +49,7 @@ class ListUsersResponse extends Result implements \IteratorAggregate
             if ($page->getPaginationToken()) {
                 $input->setPaginationToken($page->getPaginationToken());
 
-                $this->registerPrefetch($nextPage = $client->ListUsers($input));
+                $this->registerPrefetch($nextPage = $client->listUsers($input));
             } else {
                 $nextPage = null;
             }
@@ -99,7 +99,7 @@ class ListUsersResponse extends Result implements \IteratorAggregate
             if ($page->getPaginationToken()) {
                 $input->setPaginationToken($page->getPaginationToken());
 
-                $this->registerPrefetch($nextPage = $client->ListUsers($input));
+                $this->registerPrefetch($nextPage = $client->listUsers($input));
             } else {
                 $nextPage = null;
             }

@@ -58,7 +58,7 @@ class ListCollectionsResponse extends Result implements \IteratorAggregate
             if ($page->getNextToken()) {
                 $input->setNextToken($page->getNextToken());
 
-                $this->registerPrefetch($nextPage = $client->ListCollections($input));
+                $this->registerPrefetch($nextPage = $client->listCollections($input));
             } else {
                 $nextPage = null;
             }
@@ -104,7 +104,7 @@ class ListCollectionsResponse extends Result implements \IteratorAggregate
             if ($page->getNextToken()) {
                 $input->setNextToken($page->getNextToken());
 
-                $this->registerPrefetch($nextPage = $client->ListCollections($input));
+                $this->registerPrefetch($nextPage = $client->listCollections($input));
             } else {
                 $nextPage = null;
             }

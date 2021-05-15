@@ -37,6 +37,6 @@ class TableExistsWaiter extends Waiter
             throw new InvalidArgument('missing last request injected in waiter result');
         }
 
-        return $this->awsClient->TableExists($this->input);
+        return $this->awsClient->tableExists($this->input);
     }
 }

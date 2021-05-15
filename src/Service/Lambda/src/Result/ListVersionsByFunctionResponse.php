@@ -54,7 +54,7 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
             if ($page->getNextMarker()) {
                 $input->setMarker($page->getNextMarker());
 
-                $this->registerPrefetch($nextPage = $client->ListVersionsByFunction($input));
+                $this->registerPrefetch($nextPage = $client->listVersionsByFunction($input));
             } else {
                 $nextPage = null;
             }
@@ -104,7 +104,7 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
             if ($page->getNextMarker()) {
                 $input->setMarker($page->getNextMarker());
 
-                $this->registerPrefetch($nextPage = $client->ListVersionsByFunction($input));
+                $this->registerPrefetch($nextPage = $client->listVersionsByFunction($input));
             } else {
                 $nextPage = null;
             }

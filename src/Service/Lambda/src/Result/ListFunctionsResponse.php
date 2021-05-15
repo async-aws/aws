@@ -63,7 +63,7 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
             if ($page->getNextMarker()) {
                 $input->setMarker($page->getNextMarker());
 
-                $this->registerPrefetch($nextPage = $client->ListFunctions($input));
+                $this->registerPrefetch($nextPage = $client->listFunctions($input));
             } else {
                 $nextPage = null;
             }
@@ -99,7 +99,7 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
             if ($page->getNextMarker()) {
                 $input->setMarker($page->getNextMarker());
 
-                $this->registerPrefetch($nextPage = $client->ListFunctions($input));
+                $this->registerPrefetch($nextPage = $client->listFunctions($input));
             } else {
                 $nextPage = null;
             }

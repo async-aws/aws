@@ -44,7 +44,7 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
             if ($page->getNextToken()) {
                 $input->setNextToken($page->getNextToken());
 
-                $this->registerPrefetch($nextPage = $client->GetParametersByPath($input));
+                $this->registerPrefetch($nextPage = $client->getParametersByPath($input));
             } else {
                 $nextPage = null;
             }
@@ -94,7 +94,7 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
             if ($page->getNextToken()) {
                 $input->setNextToken($page->getNextToken());
 
-                $this->registerPrefetch($nextPage = $client->GetParametersByPath($input));
+                $this->registerPrefetch($nextPage = $client->getParametersByPath($input));
             } else {
                 $nextPage = null;
             }

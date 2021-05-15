@@ -37,6 +37,6 @@ class QueueExistsWaiter extends Waiter
             throw new InvalidArgument('missing last request injected in waiter result');
         }
 
-        return $this->awsClient->QueueExists($this->input);
+        return $this->awsClient->queueExists($this->input);
     }
 }

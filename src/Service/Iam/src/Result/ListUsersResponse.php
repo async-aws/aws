@@ -64,7 +64,7 @@ class ListUsersResponse extends Result implements \IteratorAggregate
             if ($page->getIsTruncated()) {
                 $input->setMarker($page->getMarker());
 
-                $this->registerPrefetch($nextPage = $client->ListUsers($input));
+                $this->registerPrefetch($nextPage = $client->listUsers($input));
             } else {
                 $nextPage = null;
             }
@@ -114,7 +114,7 @@ class ListUsersResponse extends Result implements \IteratorAggregate
             if ($page->getIsTruncated()) {
                 $input->setMarker($page->getMarker());
 
-                $this->registerPrefetch($nextPage = $client->ListUsers($input));
+                $this->registerPrefetch($nextPage = $client->listUsers($input));
             } else {
                 $nextPage = null;
             }

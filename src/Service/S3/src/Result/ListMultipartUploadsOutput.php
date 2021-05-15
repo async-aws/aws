@@ -122,7 +122,7 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
 
                 $input->setUploadIdMarker($page->getNextUploadIdMarker());
 
-                $this->registerPrefetch($nextPage = $client->ListMultipartUploads($input));
+                $this->registerPrefetch($nextPage = $client->listMultipartUploads($input));
             } else {
                 $nextPage = null;
             }
@@ -184,7 +184,7 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
 
                 $input->setUploadIdMarker($page->getNextUploadIdMarker());
 
-                $this->registerPrefetch($nextPage = $client->ListMultipartUploads($input));
+                $this->registerPrefetch($nextPage = $client->listMultipartUploads($input));
             } else {
                 $nextPage = null;
             }
@@ -272,7 +272,7 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
 
                 $input->setUploadIdMarker($page->getNextUploadIdMarker());
 
-                $this->registerPrefetch($nextPage = $client->ListMultipartUploads($input));
+                $this->registerPrefetch($nextPage = $client->listMultipartUploads($input));
             } else {
                 $nextPage = null;
             }

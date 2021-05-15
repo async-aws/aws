@@ -152,7 +152,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
             if ($page->getIsTruncated()) {
                 $input->setPartNumberMarker($page->getNextPartNumberMarker());
 
-                $this->registerPrefetch($nextPage = $client->ListParts($input));
+                $this->registerPrefetch($nextPage = $client->listParts($input));
             } else {
                 $nextPage = null;
             }
@@ -230,7 +230,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
             if ($page->getIsTruncated()) {
                 $input->setPartNumberMarker($page->getNextPartNumberMarker());
 
-                $this->registerPrefetch($nextPage = $client->ListParts($input));
+                $this->registerPrefetch($nextPage = $client->listParts($input));
             } else {
                 $nextPage = null;
             }
