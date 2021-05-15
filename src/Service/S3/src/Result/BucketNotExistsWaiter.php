@@ -33,6 +33,6 @@ class BucketNotExistsWaiter extends Waiter
             throw new InvalidArgument('missing last request injected in waiter result');
         }
 
-        return $this->awsClient->BucketNotExists($this->input);
+        return $this->awsClient->bucketNotExists($this->input);
     }
 }

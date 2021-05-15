@@ -168,7 +168,7 @@ class WaiterGenerator
             ', [
                 'CLIENT_CLASSNAME' => $clientClass->getName(),
                 'INPUT_CLASSNAME' => $inputClass->getName(),
-                'WAITER_NAME' => $waiter->getName(),
+                'WAITER_NAME' => GeneratorHelper::normalizeName($waiter->getName()),
             ]))
         ;
 

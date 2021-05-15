@@ -41,7 +41,7 @@ class DescribeLogStreamsResponse extends Result implements \IteratorAggregate
             if ($page->getNextToken()) {
                 $input->setNextToken($page->getNextToken());
 
-                $this->registerPrefetch($nextPage = $client->DescribeLogStreams($input));
+                $this->registerPrefetch($nextPage = $client->describeLogStreams($input));
             } else {
                 $nextPage = null;
             }
@@ -84,7 +84,7 @@ class DescribeLogStreamsResponse extends Result implements \IteratorAggregate
             if ($page->getNextToken()) {
                 $input->setNextToken($page->getNextToken());
 
-                $this->registerPrefetch($nextPage = $client->DescribeLogStreams($input));
+                $this->registerPrefetch($nextPage = $client->describeLogStreams($input));
             } else {
                 $nextPage = null;
             }

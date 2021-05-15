@@ -47,7 +47,7 @@ class ListTablesOutput extends Result implements \IteratorAggregate
             if ($page->getLastEvaluatedTableName()) {
                 $input->setExclusiveStartTableName($page->getLastEvaluatedTableName());
 
-                $this->registerPrefetch($nextPage = $client->ListTables($input));
+                $this->registerPrefetch($nextPage = $client->listTables($input));
             } else {
                 $nextPage = null;
             }
@@ -97,7 +97,7 @@ class ListTablesOutput extends Result implements \IteratorAggregate
             if ($page->getLastEvaluatedTableName()) {
                 $input->setExclusiveStartTableName($page->getLastEvaluatedTableName());
 
-                $this->registerPrefetch($nextPage = $client->ListTables($input));
+                $this->registerPrefetch($nextPage = $client->listTables($input));
             } else {
                 $nextPage = null;
             }

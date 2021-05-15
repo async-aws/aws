@@ -74,7 +74,7 @@ class ListHostedZonesResponse extends Result implements \IteratorAggregate
             if ($page->getIsTruncated()) {
                 $input->setMarker($page->getNextMarker());
 
-                $this->registerPrefetch($nextPage = $client->ListHostedZones($input));
+                $this->registerPrefetch($nextPage = $client->listHostedZones($input));
             } else {
                 $nextPage = null;
             }
@@ -117,7 +117,7 @@ class ListHostedZonesResponse extends Result implements \IteratorAggregate
             if ($page->getIsTruncated()) {
                 $input->setMarker($page->getNextMarker());
 
-                $this->registerPrefetch($nextPage = $client->ListHostedZones($input));
+                $this->registerPrefetch($nextPage = $client->listHostedZones($input));
             } else {
                 $nextPage = null;
             }

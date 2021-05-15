@@ -47,7 +47,7 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
             if ($page->getNextToken()) {
                 $input->setNextToken($page->getNextToken());
 
-                $this->registerPrefetch($nextPage = $client->DescribeStackEvents($input));
+                $this->registerPrefetch($nextPage = $client->describeStackEvents($input));
             } else {
                 $nextPage = null;
             }
@@ -97,7 +97,7 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
             if ($page->getNextToken()) {
                 $input->setNextToken($page->getNextToken());
 
-                $this->registerPrefetch($nextPage = $client->DescribeStackEvents($input));
+                $this->registerPrefetch($nextPage = $client->describeStackEvents($input));
             } else {
                 $nextPage = null;
             }

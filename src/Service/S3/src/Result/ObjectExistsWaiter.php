@@ -37,6 +37,6 @@ class ObjectExistsWaiter extends Waiter
             throw new InvalidArgument('missing last request injected in waiter result');
         }
 
-        return $this->awsClient->ObjectExists($this->input);
+        return $this->awsClient->objectExists($this->input);
     }
 }

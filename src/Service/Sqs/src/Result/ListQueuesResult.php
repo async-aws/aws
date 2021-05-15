@@ -46,7 +46,7 @@ class ListQueuesResult extends Result implements \IteratorAggregate
             if ($page->getNextToken()) {
                 $input->setNextToken($page->getNextToken());
 
-                $this->registerPrefetch($nextPage = $client->ListQueues($input));
+                $this->registerPrefetch($nextPage = $client->listQueues($input));
             } else {
                 $nextPage = null;
             }
@@ -96,7 +96,7 @@ class ListQueuesResult extends Result implements \IteratorAggregate
             if ($page->getNextToken()) {
                 $input->setNextToken($page->getNextToken());
 
-                $this->registerPrefetch($nextPage = $client->ListQueues($input));
+                $this->registerPrefetch($nextPage = $client->listQueues($input));
             } else {
                 $nextPage = null;
             }

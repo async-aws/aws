@@ -95,7 +95,7 @@ class QueryOutput extends Result implements \IteratorAggregate
             if ($page->getLastEvaluatedKey()) {
                 $input->setExclusiveStartKey($page->getLastEvaluatedKey());
 
-                $this->registerPrefetch($nextPage = $client->Query($input));
+                $this->registerPrefetch($nextPage = $client->query($input));
             } else {
                 $nextPage = null;
             }
@@ -131,7 +131,7 @@ class QueryOutput extends Result implements \IteratorAggregate
             if ($page->getLastEvaluatedKey()) {
                 $input->setExclusiveStartKey($page->getLastEvaluatedKey());
 
-                $this->registerPrefetch($nextPage = $client->Query($input));
+                $this->registerPrefetch($nextPage = $client->query($input));
             } else {
                 $nextPage = null;
             }

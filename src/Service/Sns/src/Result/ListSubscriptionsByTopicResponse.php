@@ -47,7 +47,7 @@ class ListSubscriptionsByTopicResponse extends Result implements \IteratorAggreg
             if ($page->getNextToken()) {
                 $input->setNextToken($page->getNextToken());
 
-                $this->registerPrefetch($nextPage = $client->ListSubscriptionsByTopic($input));
+                $this->registerPrefetch($nextPage = $client->listSubscriptionsByTopic($input));
             } else {
                 $nextPage = null;
             }
@@ -97,7 +97,7 @@ class ListSubscriptionsByTopicResponse extends Result implements \IteratorAggreg
             if ($page->getNextToken()) {
                 $input->setNextToken($page->getNextToken());
 
-                $this->registerPrefetch($nextPage = $client->ListSubscriptionsByTopic($input));
+                $this->registerPrefetch($nextPage = $client->listSubscriptionsByTopic($input));
             } else {
                 $nextPage = null;
             }
