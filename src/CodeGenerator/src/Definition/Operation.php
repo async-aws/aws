@@ -127,6 +127,16 @@ class Operation
         throw new \InvalidArgumentException(sprintf('The operation "%s" does not have Input.', $this->getName()));
     }
 
+    public function getInputLocation(): ?string
+    {
+        return $this->data['input']['locationName'] ?? null;
+    }
+
+    public function getInputXmlNamespaceUri(): ?string
+    {
+        return $this->data['input']['xmlNamespace']['uri'] ?? null;
+    }
+
     public function getUserGuideDocumentationUrl(): ?string
     {
         return $this->data['documentationUrl'] ?? null;
