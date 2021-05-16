@@ -36,7 +36,10 @@ is an example for DynamoDB.
 1. Configure the autoload section of `./composer.json` to include the new service (`"AsyncAws\\DynamoDb\\": "src/Service/DynamoDb/src"`)
 1. Do the same thing with the autoload-dev section of `./composer.json`.
 1. Run `composer dump-autoload`
-1. Adds operations you want following the [process previously defined](#creating-a-new-client-operation)
+1. Add the operations you want following the [process previously defined](#creating-a-new-client-operation)
+1. Update the packages overview section of the root `README.md` file
+1. Create a `docs/clients/dynamodb.md` file documenting the client
+1. Update the `docs/clients/index.md` file to point to the new client documentation
 
 If you started working on a new client, please submit a "Draft PR" to show your
 progress. Don't hesitate asking for help.
