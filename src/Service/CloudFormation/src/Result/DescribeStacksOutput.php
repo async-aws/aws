@@ -41,33 +41,7 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
      */
     public function getIterator(): \Traversable
     {
-        $client = $this->awsClient;
-        if (!$client instanceof CloudFormationClient) {
-            throw new InvalidArgument('missing client injected in paginated result');
-        }
-        if (!$this->input instanceof DescribeStacksInput) {
-            throw new InvalidArgument('missing last request injected in paginated result');
-        }
-        $input = clone $this->input;
-        $page = $this;
-        while (true) {
-            if ($page->getNextToken()) {
-                $input->setNextToken($page->getNextToken());
-
-                $this->registerPrefetch($nextPage = $client->describeStacks($input));
-            } else {
-                $nextPage = null;
-            }
-
-            yield from $page->getStacks(true);
-
-            if (null === $nextPage) {
-                break;
-            }
-
-            $this->unregisterPrefetch($nextPage);
-            $page = $nextPage;
-        }
+        yield from $this->getStacks();
     }
 
     public function getNextToken(): ?string

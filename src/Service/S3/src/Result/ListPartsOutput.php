@@ -139,33 +139,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
      */
     public function getIterator(): \Traversable
     {
-        $client = $this->awsClient;
-        if (!$client instanceof S3Client) {
-            throw new InvalidArgument('missing client injected in paginated result');
-        }
-        if (!$this->input instanceof ListPartsRequest) {
-            throw new InvalidArgument('missing last request injected in paginated result');
-        }
-        $input = clone $this->input;
-        $page = $this;
-        while (true) {
-            if ($page->getIsTruncated()) {
-                $input->setPartNumberMarker($page->getNextPartNumberMarker());
-
-                $this->registerPrefetch($nextPage = $client->listParts($input));
-            } else {
-                $nextPage = null;
-            }
-
-            yield from $page->getParts(true);
-
-            if (null === $nextPage) {
-                break;
-            }
-
-            $this->unregisterPrefetch($nextPage);
-            $page = $nextPage;
-        }
+        yield from $this->getParts();
     }
 
     public function getKey(): ?string

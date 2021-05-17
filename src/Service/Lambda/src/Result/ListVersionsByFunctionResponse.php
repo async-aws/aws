@@ -41,33 +41,7 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
      */
     public function getIterator(): \Traversable
     {
-        $client = $this->awsClient;
-        if (!$client instanceof LambdaClient) {
-            throw new InvalidArgument('missing client injected in paginated result');
-        }
-        if (!$this->input instanceof ListVersionsByFunctionRequest) {
-            throw new InvalidArgument('missing last request injected in paginated result');
-        }
-        $input = clone $this->input;
-        $page = $this;
-        while (true) {
-            if ($page->getNextMarker()) {
-                $input->setMarker($page->getNextMarker());
-
-                $this->registerPrefetch($nextPage = $client->listVersionsByFunction($input));
-            } else {
-                $nextPage = null;
-            }
-
-            yield from $page->getVersions(true);
-
-            if (null === $nextPage) {
-                break;
-            }
-
-            $this->unregisterPrefetch($nextPage);
-            $page = $nextPage;
-        }
+        yield from $this->getVersions();
     }
 
     public function getNextMarker(): ?string

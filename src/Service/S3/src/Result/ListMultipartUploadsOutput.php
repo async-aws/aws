@@ -163,7 +163,7 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
     }
 
     /**
-     * Iterates over Uploads then CommonPrefixes.
+     * Iterates over Uploads and CommonPrefixes.
      *
      * @return \Traversable<MultipartUpload|CommonPrefix>
      */

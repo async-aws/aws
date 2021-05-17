@@ -34,33 +34,7 @@ class ListTablesOutput extends Result implements \IteratorAggregate
      */
     public function getIterator(): \Traversable
     {
-        $client = $this->awsClient;
-        if (!$client instanceof DynamoDbClient) {
-            throw new InvalidArgument('missing client injected in paginated result');
-        }
-        if (!$this->input instanceof ListTablesInput) {
-            throw new InvalidArgument('missing last request injected in paginated result');
-        }
-        $input = clone $this->input;
-        $page = $this;
-        while (true) {
-            if ($page->getLastEvaluatedTableName()) {
-                $input->setExclusiveStartTableName($page->getLastEvaluatedTableName());
-
-                $this->registerPrefetch($nextPage = $client->listTables($input));
-            } else {
-                $nextPage = null;
-            }
-
-            yield from $page->getTableNames(true);
-
-            if (null === $nextPage) {
-                break;
-            }
-
-            $this->unregisterPrefetch($nextPage);
-            $page = $nextPage;
-        }
+        yield from $this->getTableNames();
     }
 
     public function getLastEvaluatedTableName(): ?string

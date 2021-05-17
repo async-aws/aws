@@ -203,7 +203,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     }
 
     /**
-     * Iterates over Contents then CommonPrefixes.
+     * Iterates over Contents and CommonPrefixes.
      *
      * @return \Traversable<AwsObject|CommonPrefix>
      */
