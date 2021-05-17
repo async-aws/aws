@@ -55,6 +55,7 @@ class ServiceDefinition
     {
         if (isset($this->definition['operations'][$name])) {
             return Operation::create(
+                $name,
                 $this->definition['operations'][$name] + [
                     '_documentation' => $this->documentation['operations'][$name] ?? null,
                     '_apiVersion' => $this->definition['metadata']['apiVersion'],

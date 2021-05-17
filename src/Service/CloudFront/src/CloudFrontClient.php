@@ -23,7 +23,7 @@ class CloudFrontClient extends AbstractApi
      * Create a new invalidation.
      *
      * @see https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateInvalidation2019_03_26.html
-     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cloudfront-2019-03-26.html#createinvalidation2019_03_26
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cloudfront-2019-03-26.html#createinvalidation
      *
      * @param array{
      *   DistributionId: string,
@@ -42,7 +42,7 @@ class CloudFrontClient extends AbstractApi
     public function createInvalidation($input): CreateInvalidationResult
     {
         $input = CreateInvalidationRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateInvalidation2019_03_26', 'region' => $input->getRegion(), 'exceptionMapping' => [
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateInvalidation', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'AccessDenied' => AccessDeniedException::class,
             'MissingBody' => MissingBodyException::class,
             'InvalidArgument' => InvalidArgumentException::class,
