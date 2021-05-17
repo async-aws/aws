@@ -203,6 +203,7 @@
                 "ChangeResourceRecordSets",
                 "CreateHostedZone",
                 "DeleteHostedZone",
+                "ListHostedZones",
                 "ListHostedZonesByName",
                 "ListResourceRecordSets"
             ]

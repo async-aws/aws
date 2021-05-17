@@ -83,7 +83,7 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
 
                 $input->setStartRecordIdentifier($page->getNextRecordIdentifier());
 
-                $this->registerPrefetch($nextPage = $client->ListResourceRecordSets($input));
+                $this->registerPrefetch($nextPage = $client->listResourceRecordSets($input));
             } else {
                 $nextPage = null;
             }
@@ -161,7 +161,7 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
 
                 $input->setStartRecordIdentifier($page->getNextRecordIdentifier());
 
-                $this->registerPrefetch($nextPage = $client->ListResourceRecordSets($input));
+                $this->registerPrefetch($nextPage = $client->listResourceRecordSets($input));
             } else {
                 $nextPage = null;
             }

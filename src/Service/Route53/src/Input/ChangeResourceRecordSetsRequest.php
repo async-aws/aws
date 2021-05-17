@@ -81,7 +81,13 @@ final class ChangeResourceRecordSetsRequest extends Input
         $uriString = '/2013-04-01/hostedzone/' . rawurlencode($uri['Id']) . '/rrset/';
 
         // Prepare Body
-        $body = '';
+
+        $document = new \DOMDocument('1.0', 'UTF-8');
+        $document->formatOutput = false;
+        $document->appendChild($child = $document->createElement('ChangeResourceRecordSetsRequest'));
+        $child->setAttribute('xmlns', 'https://route53.amazonaws.com/doc/2013-04-01/');
+        $this->requestBody($child, $document);
+        $body = $document->hasChildNodes() ? $document->saveXML() : '';
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
@@ -99,5 +105,16 @@ final class ChangeResourceRecordSetsRequest extends Input
         $this->hostedZoneId = $value;
 
         return $this;
+    }
+
+    private function requestBody(\DomNode $node, \DomDocument $document): void
+    {
+        if (null === $v = $this->changeBatch) {
+            throw new InvalidArgument(sprintf('Missing parameter "ChangeBatch" for "%s". The value cannot be null.', __CLASS__));
+        }
+
+        $node->appendChild($child = $document->createElement('ChangeBatch'));
+
+        $v->requestBody($child, $document);
     }
 }

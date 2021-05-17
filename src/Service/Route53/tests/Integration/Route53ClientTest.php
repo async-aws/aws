@@ -22,6 +22,53 @@ use AsyncAws\Route53\ValueObject\ResourceRecordSet;
 
 class Route53ClientTest extends TestCase
 {
+    public function testChangeResourceRecordSets(): void
+    {
+        self::markTestSkipped('');
+
+        $client = $this->getClient();
+
+        $input = new ChangeResourceRecordSetsRequest([
+            'HostedZoneId' => 'change me',
+            'ChangeBatch' => new ChangeBatch([
+                'Comment' => 'change me',
+                'Changes' => [new Change([
+                    'Action' => 'change me',
+                    'ResourceRecordSet' => new ResourceRecordSet([
+                        'Name' => 'change me',
+                        'Type' => 'change me',
+                        'SetIdentifier' => 'change me',
+                        'Weight' => 1337,
+                        'Region' => 'change me',
+                        'GeoLocation' => new GeoLocation([
+                            'ContinentCode' => 'change me',
+                            'CountryCode' => 'change me',
+                            'SubdivisionCode' => 'change me',
+                        ]),
+                        'Failover' => 'change me',
+                        'MultiValueAnswer' => false,
+                        'TTL' => 1337,
+                        'ResourceRecords' => [new ResourceRecord([
+                            'Value' => 'change me',
+                        ])],
+                        'AliasTarget' => new AliasTarget([
+                            'HostedZoneId' => 'change me',
+                            'DNSName' => 'change me',
+                            'EvaluateTargetHealth' => false,
+                        ]),
+                        'HealthCheckId' => 'change me',
+                        'TrafficPolicyInstanceId' => 'change me',
+                    ]),
+                ])],
+            ]),
+        ]);
+        $result = $client->ChangeResourceRecordSets($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getChangeInfo());
+    }
+
     public function testCreateHostedZone(): void
     {
         $client = $this->getClient();
@@ -42,6 +89,27 @@ class Route53ClientTest extends TestCase
         self::assertSame('test-domain.com.', $result->getHostedZone()->getName());
         self::assertSame('foo', $result->getHostedZone()->getConfig()->getComment());
         self::assertFalse($result->getHostedZone()->getConfig()->getPrivateZone());
+    }
+
+    public function testDeleteHostedZone(): void
+    {
+        $client = $this->getClient();
+
+        $result = $client->CreateHostedZone([
+            'Name' => 'example.com',
+            'CallerReference' => 'myUniqueIdentifier',
+        ]);
+
+        $result->resolve();
+
+        $input = new DeleteHostedZoneRequest([
+            'Id' => ltrim($result->getHostedZone()->getId(), '/hostedzone/'),
+        ]);
+        $result = $client->DeleteHostedZone($input);
+
+        $result->resolve();
+
+        self::assertSame('PENDING', $result->getChangeInfo()->getStatus());
     }
 
     public function testListHostedZones(): void
