@@ -7,6 +7,11 @@ namespace AsyncAws\CodeGenerator\Definition;
 class Operation
 {
     /**
+     * @var string
+     */
+    private $name;
+
+    /**
      * @var array
      */
     private $data;
@@ -35,9 +40,10 @@ class Operation
     {
     }
 
-    public static function create(array $data, ServiceDefinition $service, ?Pagination $pagination, Example $example, \Closure $shapeLocator): self
+    public static function create(string $name, array $data, ServiceDefinition $service, ?Pagination $pagination, Example $example, \Closure $shapeLocator): self
     {
         $operation = new self();
+        $operation->name = $name;
         $operation->data = $data;
         $operation->service = $service;
         $operation->pagination = $pagination;
@@ -52,7 +58,7 @@ class Operation
      */
     public function getName(): string
     {
-        return $this->data['name'];
+        return $this->name;
     }
 
     public function getMethodName(): string
