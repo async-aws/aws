@@ -91,33 +91,7 @@ class ListCollectionsResponse extends Result implements \IteratorAggregate
      */
     public function getIterator(): \Traversable
     {
-        $client = $this->awsClient;
-        if (!$client instanceof RekognitionClient) {
-            throw new InvalidArgument('missing client injected in paginated result');
-        }
-        if (!$this->input instanceof ListCollectionsRequest) {
-            throw new InvalidArgument('missing last request injected in paginated result');
-        }
-        $input = clone $this->input;
-        $page = $this;
-        while (true) {
-            if ($page->getNextToken()) {
-                $input->setNextToken($page->getNextToken());
-
-                $this->registerPrefetch($nextPage = $client->listCollections($input));
-            } else {
-                $nextPage = null;
-            }
-
-            yield from $page->getCollectionIds(true);
-
-            if (null === $nextPage) {
-                break;
-            }
-
-            $this->unregisterPrefetch($nextPage);
-            $page = $nextPage;
-        }
+        yield from $this->getCollectionIds();
     }
 
     public function getNextToken(): ?string

@@ -34,33 +34,7 @@ class ListSubscriptionsByTopicResponse extends Result implements \IteratorAggreg
      */
     public function getIterator(): \Traversable
     {
-        $client = $this->awsClient;
-        if (!$client instanceof SnsClient) {
-            throw new InvalidArgument('missing client injected in paginated result');
-        }
-        if (!$this->input instanceof ListSubscriptionsByTopicInput) {
-            throw new InvalidArgument('missing last request injected in paginated result');
-        }
-        $input = clone $this->input;
-        $page = $this;
-        while (true) {
-            if ($page->getNextToken()) {
-                $input->setNextToken($page->getNextToken());
-
-                $this->registerPrefetch($nextPage = $client->listSubscriptionsByTopic($input));
-            } else {
-                $nextPage = null;
-            }
-
-            yield from $page->getSubscriptions(true);
-
-            if (null === $nextPage) {
-                break;
-            }
-
-            $this->unregisterPrefetch($nextPage);
-            $page = $nextPage;
-        }
+        yield from $this->getSubscriptions();
     }
 
     public function getNextToken(): ?string

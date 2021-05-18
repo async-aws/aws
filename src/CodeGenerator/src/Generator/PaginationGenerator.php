@@ -161,11 +161,20 @@ class PaginationGenerator
 
         $iteratorType = implode('|', $iteratorTypes);
 
+        if (1 === \count($resultKeys)) {
+            $body = strtr('yield from $this->PROPERTY_ACCESSOR();
+            ', [
+                'PROPERTY_ACCESSOR' => 'get' . ucfirst(GeneratorHelper::normalizeName($resultKeys[0])),
+            ]);
+        } else {
+            $body = $this->generateOutputPaginationLoader($iteratorBody, $pagination, $classBuilder, $operation);
+        }
+
         $classBuilder->addMethod('getIterator')
             ->setReturnType(\Traversable::class)
-            ->addComment('Iterates over ' . implode(' then ', $resultKeys))
+            ->addComment('Iterates over ' . implode(' and ', $resultKeys))
             ->addComment("@return \Traversable<$iteratorType>")
-            ->setBody($this->generateOutputPaginationLoader($iteratorBody, $pagination, $classBuilder, $operation))
+            ->setBody($body)
         ;
         $classBuilder->addComment("@implements \IteratorAggregate<$iteratorType>");
     }

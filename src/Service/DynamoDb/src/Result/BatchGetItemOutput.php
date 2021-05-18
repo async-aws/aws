@@ -87,33 +87,7 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
      */
     public function getIterator(): \Traversable
     {
-        $client = $this->awsClient;
-        if (!$client instanceof DynamoDbClient) {
-            throw new InvalidArgument('missing client injected in paginated result');
-        }
-        if (!$this->input instanceof BatchGetItemInput) {
-            throw new InvalidArgument('missing last request injected in paginated result');
-        }
-        $input = clone $this->input;
-        $page = $this;
-        while (true) {
-            if ($page->getUnprocessedKeys()) {
-                $input->setRequestItems($page->getUnprocessedKeys());
-
-                $this->registerPrefetch($nextPage = $client->batchGetItem($input));
-            } else {
-                $nextPage = null;
-            }
-
-            yield from $page->getConsumedCapacity(true);
-
-            if (null === $nextPage) {
-                break;
-            }
-
-            $this->unregisterPrefetch($nextPage);
-            $page = $nextPage;
-        }
+        yield from $this->getConsumedCapacity();
     }
 
     /**

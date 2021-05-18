@@ -118,33 +118,7 @@ class QueryOutput extends Result implements \IteratorAggregate
      */
     public function getIterator(): \Traversable
     {
-        $client = $this->awsClient;
-        if (!$client instanceof DynamoDbClient) {
-            throw new InvalidArgument('missing client injected in paginated result');
-        }
-        if (!$this->input instanceof QueryInput) {
-            throw new InvalidArgument('missing last request injected in paginated result');
-        }
-        $input = clone $this->input;
-        $page = $this;
-        while (true) {
-            if ($page->getLastEvaluatedKey()) {
-                $input->setExclusiveStartKey($page->getLastEvaluatedKey());
-
-                $this->registerPrefetch($nextPage = $client->query($input));
-            } else {
-                $nextPage = null;
-            }
-
-            yield from $page->getItems(true);
-
-            if (null === $nextPage) {
-                break;
-            }
-
-            $this->unregisterPrefetch($nextPage);
-            $page = $nextPage;
-        }
+        yield from $this->getItems();
     }
 
     /**

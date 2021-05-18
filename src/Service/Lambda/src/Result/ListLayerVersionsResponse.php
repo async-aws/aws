@@ -32,33 +32,7 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
      */
     public function getIterator(): \Traversable
     {
-        $client = $this->awsClient;
-        if (!$client instanceof LambdaClient) {
-            throw new InvalidArgument('missing client injected in paginated result');
-        }
-        if (!$this->input instanceof ListLayerVersionsRequest) {
-            throw new InvalidArgument('missing last request injected in paginated result');
-        }
-        $input = clone $this->input;
-        $page = $this;
-        while (true) {
-            if ($page->getNextMarker()) {
-                $input->setMarker($page->getNextMarker());
-
-                $this->registerPrefetch($nextPage = $client->listLayerVersions($input));
-            } else {
-                $nextPage = null;
-            }
-
-            yield from $page->getLayerVersions(true);
-
-            if (null === $nextPage) {
-                break;
-            }
-
-            $this->unregisterPrefetch($nextPage);
-            $page = $nextPage;
-        }
+        yield from $this->getLayerVersions();
     }
 
     /**

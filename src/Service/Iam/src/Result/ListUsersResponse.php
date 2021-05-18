@@ -51,33 +51,7 @@ class ListUsersResponse extends Result implements \IteratorAggregate
      */
     public function getIterator(): \Traversable
     {
-        $client = $this->awsClient;
-        if (!$client instanceof IamClient) {
-            throw new InvalidArgument('missing client injected in paginated result');
-        }
-        if (!$this->input instanceof ListUsersRequest) {
-            throw new InvalidArgument('missing last request injected in paginated result');
-        }
-        $input = clone $this->input;
-        $page = $this;
-        while (true) {
-            if ($page->getIsTruncated()) {
-                $input->setMarker($page->getMarker());
-
-                $this->registerPrefetch($nextPage = $client->listUsers($input));
-            } else {
-                $nextPage = null;
-            }
-
-            yield from $page->getUsers(true);
-
-            if (null === $nextPage) {
-                break;
-            }
-
-            $this->unregisterPrefetch($nextPage);
-            $page = $nextPage;
-        }
+        yield from $this->getUsers();
     }
 
     public function getMarker(): ?string
