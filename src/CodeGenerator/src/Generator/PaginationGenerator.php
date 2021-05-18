@@ -79,30 +79,47 @@ class PaginationGenerator
         $outputClass = $this->resultGenerator->generate($operation);
 
         $classBuilder = $this->classRegistry->register($outputClass->getFqdn(), true);
-
         $classBuilder->addImplement(\IteratorAggregate::class);
-        $resultKeys = $pagination->getResultkey();
-        if (empty($resultKeys)) {
-            foreach ($operation->getOutput()->getMembers() as $member) {
-                if ($member->getShape() instanceof ListShape) {
-                    $resultKeys[] = $member->getName();
-                }
-            }
-        }
 
-        if (empty($resultKeys)) {
-            throw new \RuntimeException('Pagination without resultkey is not yet implemented');
-        }
+        [$common, $moreResult, $outputToken, $resultKeys] = $this->extractPageProperties($operation, $pagination);
+
         $iteratorBody = '';
         $iteratorTypes = [];
+
         foreach ($resultKeys as $resultKey) {
-            $singlePage = empty($pagination->getOutputToken());
-            $iteratorBody .= strtr('yield from $page->PROPERTY_ACCESSOR(SINGLE_PAGE_FLAG);
-            ', [
-                'PROPERTY_ACCESSOR' => $getter = 'get' . ucfirst(GeneratorHelper::normalizeName($resultKey)),
-                'SINGLE_PAGE_FLAG' => $singlePage ? '' : 'true',
-            ]);
-            $resultShape = $shape->getMember($resultKey)->getShape();
+            $initialGetter = null;
+            if ($common || false !== strpos($resultKey, '.')) {
+                $singlePage = true;
+                $iteratorBody .= strtr('yield from PROPERTY_ACCESSOR;
+                ', [
+                    'PROPERTY_ACCESSOR' => $this->generateGetter('$page', $resultKey),
+                ]);
+            } else {
+                $singlePage = empty($outputToken);
+                $iteratorBody .= strtr('yield from $page->PROPERTY_ACCESSOR(SINGLE_PAGE_FLAG);
+                ', [
+                    'PROPERTY_ACCESSOR' => $initialGetter = 'get' . ucfirst(GeneratorHelper::normalizeName($resultKey)),
+                    'SINGLE_PAGE_FLAG' => $singlePage ? '' : 'true',
+                ]);
+
+                if (!$classBuilder->hasMethod($initialGetter)) {
+                    throw new \RuntimeException(sprintf('Unable to find the method "%s" in "%s"', $initialGetter, $shape->getName()));
+                }
+            }
+
+            $resultShape = $shape;
+            foreach (explode('.', $common) as $part) {
+                if (!$part) {
+                    continue;
+                }
+                $resultShape = $resultShape->getMember($part)->getShape();
+            }
+            foreach (explode('.', $resultKey) as $part) {
+                if (!$part) {
+                    continue;
+                }
+                $resultShape = $resultShape->getMember($part)->getShape();
+            }
 
             if (!$resultShape instanceof ListShape) {
                 throw new \RuntimeException('Cannot generate a pagination for a non-iterable result');
@@ -115,13 +132,11 @@ class PaginationGenerator
             }
 
             $iteratorTypes[] = $iteratorType;
-
-            if (!$classBuilder->hasMethod($getter)) {
-                throw new \RuntimeException(sprintf('Unable to find the method "%s" in "%s"', $getter, $shape->getName()));
+            if (!$initialGetter) {
+                continue;
             }
 
-            $method = $classBuilder->getMethod($getter);
-            $method
+            $method = $classBuilder->getMethod($initialGetter)
                 ->setReturnType('iterable')
                 ->setComment('')
             ;
@@ -150,7 +165,7 @@ class PaginationGenerator
                         'PROPERTY_NAME' => GeneratorHelper::normalizeName($resultKey),
                         'PAGE_LOADER_CODE' => $this->generateOutputPaginationLoader(
                             strtr('yield from $page->PROPERTY_ACCESSOR(true);', ['PROPERTY_ACCESSOR' => 'get' . ucfirst(GeneratorHelper::normalizeName($resultKey))]),
-                            $pagination, $classBuilder, $operation
+                            $common, $moreResult, $outputToken, $pagination, $classBuilder, $operation
                         ),
                     ]));
             }
@@ -161,13 +176,13 @@ class PaginationGenerator
 
         $iteratorType = implode('|', $iteratorTypes);
 
-        if (1 === \count($resultKeys)) {
+        if (!$common && 1 === \count($resultKeys) && false === strpos($resultKeys[0], '.')) {
             $body = strtr('yield from $this->PROPERTY_ACCESSOR();
             ', [
                 'PROPERTY_ACCESSOR' => 'get' . ucfirst(GeneratorHelper::normalizeName($resultKeys[0])),
             ]);
         } else {
-            $body = $this->generateOutputPaginationLoader($iteratorBody, $pagination, $classBuilder, $operation);
+            $body = $this->generateOutputPaginationLoader($iteratorBody, $common, $moreResult, $outputToken, $pagination, $classBuilder, $operation);
         }
 
         $classBuilder->addMethod('getIterator')
@@ -179,33 +194,30 @@ class PaginationGenerator
         $classBuilder->addComment("@implements \IteratorAggregate<$iteratorType>");
     }
 
-    private function generateOutputPaginationLoader(string $iterator, Pagination $pagination, ClassBuilder $classBuilder, Operation $operation): string
+    private function generateOutputPaginationLoader(string $iterator, string $common, string $moreResult, array $outputToken, Pagination $pagination, ClassBuilder $classBuilder, Operation $operation): string
     {
-        if (empty($pagination->getOutputToken())) {
+        if (empty($outputToken)) {
             return strtr($iterator, ['$page->' => '$this->']);
         }
 
         $inputToken = $pagination->getInputToken();
-        $outputToken = $pagination->getOutputToken();
-        if (null === $moreResult = $pagination->getMoreResults()) {
+        if (!$moreResult) {
             $moreCondition = '';
-            foreach ($outputToken as $index => $property) {
+            foreach ($outputToken as $property) {
                 $moreCondition .= strtr('$page->MORE_ACCESSOR()', [
-                    'MORE_ACCESSOR' => 'get' . ucfirst(GeneratorHelper::normalizeName(trim(explode('||', $property)[0]))),
+                    'MORE_ACCESSOR' => 'get' . ucfirst(GeneratorHelper::normalizeName($property)),
                 ]);
             }
         } else {
-            $moreCondition = strtr('$page->MORE_ACCESSOR()', [
-                'MORE_ACCESSOR' => 'get' . ucfirst(GeneratorHelper::normalizeName($moreResult)),
-            ]);
+            $moreCondition = $this->generateGetter('$page', $moreResult);
         }
         $setter = '';
         foreach ($inputToken as $index => $property) {
             $setter .= strtr('
-                $input->SETTER($page->GETTER());
+                $input->SETTER(GETTER);
             ', [
                 'SETTER' => 'set' . ucfirst(GeneratorHelper::normalizeName($property)),
-                'GETTER' => 'get' . ucfirst(GeneratorHelper::normalizeName(trim(explode('||', $outputToken[$index])[0]))),
+                'GETTER' => $this->generateGetter('$page', $outputToken[$index]),
             ]);
         }
 
@@ -224,7 +236,7 @@ class PaginationGenerator
                 throw new InvalidArgument(\'missing last request injected in paginated result\');
             }
             $input = clone $this->input;
-            $page = $this;
+            $page = PAGE_INITIALIZER;
             while (true) {
                 if (MORE_CONDITION) {
                     SET_TOKEN_CODE
@@ -240,9 +252,11 @@ class PaginationGenerator
                 }
 
                 $this->unregisterPrefetch($nextPage);
-                $page = $nextPage;
+                $page = PAGE_NEXT;
             }
         ', [
+            'PAGE_INITIALIZER' => $common ? $this->generateGetter('$this', $common) : '$this',
+            'PAGE_NEXT' => $common ? $this->generateGetter('$nextPage', $common) : '$nextPage',
             'CLIENT_CLASSNAME' => $clientClass->getName(),
             'INPUT_CLASSNAME' => $inputClass->getName(),
             'ITERATE_PROPERTIES_CODE' => $iterator,
@@ -250,5 +264,75 @@ class PaginationGenerator
             'SET_TOKEN_CODE' => $setter,
             'OPERATION_NAME' => GeneratorHelper::normalizeName($operation->getName()),
         ]);
+    }
+
+    private function generateGetter(string $property, string $expression): string
+    {
+        $getter = $property;
+        foreach (explode('.', $expression) as $part) {
+            $last = false;
+            if ('[-1]' === substr($part, -4)) {
+                $part = substr($part, 0, -4);
+                $last = true;
+            }
+            if (!preg_match('/^[a-z]++$/i', $part)) {
+                throw new LogicException(sprintf('The part "%s" of the getter expression "%s" is n9ot yet supported', $part, $expression));
+            }
+            $getter .= strtr('->getMETHOD()', ['METHOD' => ucfirst(GeneratorHelper::normalizeName($part))]);
+            if ($last) {
+                $getter = strtr('array_slice(GETTER, -1)[0]', ['GETTER' => $getter]);
+            }
+        }
+
+        return $getter;
+    }
+
+    private function extractPageProperties(Operation $operation, Pagination $pagination): array
+    {
+        $more = $pagination->getMoreResults() ?? '';
+        $output = array_map(function ($item) {
+            return trim(explode('||', $item)[0]);
+        }, $pagination->getOutputToken());
+        $result = $pagination->getResultkey();
+
+        if (empty($result)) {
+            foreach ($operation->getOutput()->getMembers() as $member) {
+                if ($member->getShape() instanceof ListShape) {
+                    $result[] = $member->getName();
+                }
+            }
+        }
+
+        if (empty($result)) {
+            throw new \RuntimeException('Pagination without resultkey is not yet implemented for ' . $operation->getName());
+        }
+
+        $items = array_merge(
+            $output,
+            $result
+        );
+
+        $common = $more;
+        foreach ($items as $item) {
+            while ('' !== $common && false === strrpos($item, $common)) {
+                if (false === $pos = strrpos($common, '.')) {
+                    $common = '';
+                } else {
+                    $common = substr($common, 0, $pos);
+                }
+            }
+        }
+
+        if ('' !== $common) {
+            $more = substr($more, \strlen($common) + 1);
+            $output = array_map(function ($item) use ($common) {
+                return substr($item, \strlen($common) + 1);
+            }, $output);
+            $result = array_map(function ($item) use ($common) {
+                return substr($item, \strlen($common) + 1);
+            }, $result);
+        }
+
+        return [$common, $more, $output, $result];
     }
 }
