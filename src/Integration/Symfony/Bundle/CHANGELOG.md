@@ -2,6 +2,13 @@
 
 ## NOT RELEASED
 
+## 1.4.0
+
+### Added
+
+- Support for Symfony 6
+- Support for Route 53
+
 ## 1.3.0
 
 ### Added
