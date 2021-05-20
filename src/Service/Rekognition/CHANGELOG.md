@@ -5,7 +5,7 @@
 ### Added
 
 - AWS api-change: Add AWS tagging support for Amazon Rekognition collections, stream processors, and Custom Label models
-- AWS api-change: Amazon Rekognition Custom Labels adds support for customer managed encryption, using AWS Key Management Service, of image files copied into the service and files written back to the customer.
+- AWS api-change: Improve documentation
 
 ### Fixed
 
