@@ -7,6 +7,9 @@ namespace AsyncAws\Core\Test\Http;
 use AsyncAws\Core\Exception\LogicException;
 use Symfony\Component\HttpClient\Response\MockResponse;
 
+/**
+ * @final
+ */
 class SimpleMockedResponse extends MockResponse
 {
     private $headers = [];
@@ -58,6 +61,9 @@ class SimpleMockedResponse extends MockResponse
         throw new LogicException('Not implemented');
     }
 
+    /**
+     * @return mixed
+     */
     public function getInfo(string $type = null)
     {
         $info = [
