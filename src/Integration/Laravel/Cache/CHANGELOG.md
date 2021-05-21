@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 0.1.5
+
+### Fixed
+
+- Fix support for DynamoDb custom exceptions
+
 ## 0.1.4
 
 ### Added
