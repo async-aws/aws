@@ -175,7 +175,7 @@ final class PutObjectRequest extends Input
      * By default, Amazon S3 uses the STANDARD Storage Class to store newly created objects. The STANDARD storage class
      * provides high durability and high availability. Depending on performance needs, you can specify a different Storage
      * Class. Amazon S3 on Outposts only uses the OUTPOSTS Storage Class. For more information, see Storage Classes in the
-     * *Amazon S3 Service Developer Guide*.
+     * *Amazon S3 User Guide*.
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
      *
@@ -221,6 +221,9 @@ final class PutObjectRequest extends Input
     /**
      * If `x-amz-server-side-encryption` is present and has the value of `aws:kms`, this header specifies the ID of the AWS
      * Key Management Service (AWS KMS) symmetrical customer managed customer master key (CMK) that was used for the object.
+     * If you specify `x-amz-server-side-encryption:aws:kms`, but do not provide`
+     * x-amz-server-side-encryption-aws-kms-key-id`, Amazon S3 uses the AWS managed CMK in AWS to protect the data. If the
+     * KMS key does not exist in the same account issuing the command, you must use the full ARN and not just the ID.
      *
      * @var string|null
      */

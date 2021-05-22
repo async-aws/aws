@@ -129,7 +129,7 @@ final class CreateMultipartUploadRequest extends Input
      * By default, Amazon S3 uses the STANDARD Storage Class to store newly created objects. The STANDARD storage class
      * provides high durability and high availability. Depending on performance needs, you can specify a different Storage
      * Class. Amazon S3 on Outposts only uses the OUTPOSTS Storage Class. For more information, see Storage Classes in the
-     * *Amazon S3 Service Developer Guide*.
+     * *Amazon S3 User Guide*.
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
      *
@@ -173,7 +173,7 @@ final class CreateMultipartUploadRequest extends Input
      * Specifies the ID of the symmetric customer managed AWS KMS CMK to use for object encryption. All GET and PUT requests
      * for an object protected by AWS KMS will fail if not made via SSL or using SigV4. For information about configuring
      * using any of the officially supported AWS SDKs and AWS CLI, see Specifying the Signature Version in Request
-     * Authentication in the *Amazon S3 Developer Guide*.
+     * Authentication in the *Amazon S3 User Guide*.
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version
      *
