@@ -71,7 +71,7 @@ final class PutObjectAclRequest extends Input
     private $grantReadAcp;
 
     /**
-     * Allows grantee to create, overwrite, and delete any object in the bucket.
+     * Allows grantee to create new objects in the bucket.
      *
      * @var string|null
      */
