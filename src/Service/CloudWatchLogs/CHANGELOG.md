@@ -6,6 +6,10 @@
 
 - Assert the provided Input can be json-encoded.
 
+### Added
+
+- AWS api-change: This release provides dimensions and unit support for metric filters.
+
 ## 1.1.0
 
 ### Added
