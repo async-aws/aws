@@ -6,6 +6,10 @@
 
 - Assert the provided Input can be json-encoded.
 
+### Added
+
+- AWS api-change: Update documentation
+
 ## 1.1.0
 
 ### Added
