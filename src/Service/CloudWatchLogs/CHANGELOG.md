@@ -8,7 +8,7 @@
 
 ### Added
 
-- AWS api-change: This release provides dimensions and unit support for metric filters.
+- AWS api-change: Update documentation
 
 ## 1.1.0
 
