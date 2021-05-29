@@ -19,6 +19,7 @@ use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\Ecr\EcrClient;
 use AsyncAws\EventBridge\EventBridgeClient;
 use AsyncAws\Iam\IamClient;
+use AsyncAws\Kinesis\KinesisClient;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\RdsDataService\RdsDataServiceClient;
 use AsyncAws\Rekognition\RekognitionClient;
@@ -182,6 +183,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new IamClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function kinesis(): KinesisClient
+    {
+        if (!class_exists(KinesisClient::class)) {
+            throw MissingDependency::create('aws/kinesis', 'Kinesis');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new KinesisClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];

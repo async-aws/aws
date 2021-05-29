@@ -58,6 +58,9 @@ menu:
             iam:
                 text: IAM
                 url: /clients/iam.html
+            kinesis:
+                text: Kinesis
+                url: /clients/kinesis.html
             lambda:
                 text: Lambda
                 url: /clients/lambda.html
