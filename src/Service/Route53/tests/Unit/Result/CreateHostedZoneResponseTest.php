@@ -5,6 +5,7 @@ namespace AsyncAws\Route53\Tests\Unit\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Route53\Enum\ChangeStatus;
 use AsyncAws\Route53\Result\CreateHostedZoneResponse;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;

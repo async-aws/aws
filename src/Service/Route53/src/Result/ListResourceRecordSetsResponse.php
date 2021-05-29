@@ -66,37 +66,7 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
      */
     public function getIterator(): \Traversable
     {
-        $client = $this->awsClient;
-        if (!$client instanceof Route53Client) {
-            throw new InvalidArgument('missing client injected in paginated result');
-        }
-        if (!$this->input instanceof ListResourceRecordSetsRequest) {
-            throw new InvalidArgument('missing last request injected in paginated result');
-        }
-        $input = clone $this->input;
-        $page = $this;
-        while (true) {
-            if ($page->getIsTruncated()) {
-                $input->setStartRecordName($page->getNextRecordName());
-
-                $input->setStartRecordType($page->getNextRecordType());
-
-                $input->setStartRecordIdentifier($page->getNextRecordIdentifier());
-
-                $this->registerPrefetch($nextPage = $client->listResourceRecordSets($input));
-            } else {
-                $nextPage = null;
-            }
-
-            yield from $page->getResourceRecordSets(true);
-
-            if (null === $nextPage) {
-                break;
-            }
-
-            $this->unregisterPrefetch($nextPage);
-            $page = $nextPage;
-        }
+        yield from $this->getResourceRecordSets();
     }
 
     public function getMaxItems(): string
