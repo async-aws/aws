@@ -13,18 +13,18 @@ class UpdateShardCountOutputTest extends TestCase
 {
     public function testUpdateShardCountOutput(): void
     {
-        self::fail('Not implemented');
-
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_UpdateShardCount.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+  "TargetShardCount": 4,
+  "StreamName": "exampleStreamName",
+  "CurrentShardCount": 2
+}');
 
         $client = new MockHttpClient($response);
         $result = new UpdateShardCountOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertSame('changeIt', $result->getStreamName());
-        self::assertSame(1337, $result->getCurrentShardCount());
-        self::assertSame(1337, $result->getTargetShardCount());
+        self::assertSame('exampleStreamName', $result->getStreamName());
+        self::assertSame(2, $result->getCurrentShardCount());
+        self::assertSame(4, $result->getTargetShardCount());
     }
 }

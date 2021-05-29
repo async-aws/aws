@@ -13,18 +13,16 @@ class PutRecordOutputTest extends TestCase
 {
     public function testPutRecordOutput(): void
     {
-        self::fail('Not implemented');
-
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_PutRecord.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+  "SequenceNumber": "21269319989653637946712965403778482177",
+  "ShardId": "shardId-000000000001"
+}');
 
         $client = new MockHttpClient($response);
         $result = new PutRecordOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertSame('changeIt', $result->getShardId());
-        self::assertSame('changeIt', $result->getSequenceNumber());
-        self::assertSame('changeIt', $result->getEncryptionType());
+        self::assertSame('shardId-000000000001', $result->getShardId());
+        self::assertSame('21269319989653637946712965403778482177', $result->getSequenceNumber());
     }
 }

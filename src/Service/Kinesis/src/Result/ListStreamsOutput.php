@@ -39,33 +39,7 @@ class ListStreamsOutput extends Result implements \IteratorAggregate
      */
     public function getIterator(): \Traversable
     {
-        $client = $this->awsClient;
-        if (!$client instanceof KinesisClient) {
-            throw new InvalidArgument('missing client injected in paginated result');
-        }
-        if (!$this->input instanceof ListStreamsInput) {
-            throw new InvalidArgument('missing last request injected in paginated result');
-        }
-        $input = clone $this->input;
-        $page = $this;
-        while (true) {
-            if ($page->getHasMoreStreams()) {
-                $input->setExclusiveStartStreamName($page->getStreamNames[-1]());
-
-                $this->registerPrefetch($nextPage = $client->ListStreams($input));
-            } else {
-                $nextPage = null;
-            }
-
-            yield from $page->getStreamNames(true);
-
-            if (null === $nextPage) {
-                break;
-            }
-
-            $this->unregisterPrefetch($nextPage);
-            $page = $nextPage;
-        }
+        yield from $this->getStreamNames();
     }
 
     /**
@@ -92,15 +66,16 @@ class ListStreamsOutput extends Result implements \IteratorAggregate
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getHasMoreStreams()) {
-                $input->setExclusiveStartStreamName($page->getStreamNames[-1]());
+            $page->initialize();
+            if ($page->hasMoreStreams) {
+                $input->setExclusiveStartStreamName(\array_slice($page->streamNames, -1)[0]);
 
-                $this->registerPrefetch($nextPage = $client->ListStreams($input));
+                $this->registerPrefetch($nextPage = $client->listStreams($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getStreamNames(true);
+            yield from $page->streamNames;
 
             if (null === $nextPage) {
                 break;

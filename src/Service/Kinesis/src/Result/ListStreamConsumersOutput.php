@@ -53,15 +53,16 @@ class ListStreamConsumersOutput extends Result implements \IteratorAggregate
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getNextToken()) {
-                $input->setNextToken($page->getNextToken());
+            $page->initialize();
+            if ($page->nextToken) {
+                $input->setNextToken($page->nextToken);
 
-                $this->registerPrefetch($nextPage = $client->ListStreamConsumers($input));
+                $this->registerPrefetch($nextPage = $client->listStreamConsumers($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getConsumers(true);
+            yield from $page->consumers;
 
             if (null === $nextPage) {
                 break;
@@ -79,33 +80,7 @@ class ListStreamConsumersOutput extends Result implements \IteratorAggregate
      */
     public function getIterator(): \Traversable
     {
-        $client = $this->awsClient;
-        if (!$client instanceof KinesisClient) {
-            throw new InvalidArgument('missing client injected in paginated result');
-        }
-        if (!$this->input instanceof ListStreamConsumersInput) {
-            throw new InvalidArgument('missing last request injected in paginated result');
-        }
-        $input = clone $this->input;
-        $page = $this;
-        while (true) {
-            if ($page->getNextToken()) {
-                $input->setNextToken($page->getNextToken());
-
-                $this->registerPrefetch($nextPage = $client->ListStreamConsumers($input));
-            } else {
-                $nextPage = null;
-            }
-
-            yield from $page->getConsumers(true);
-
-            if (null === $nextPage) {
-                break;
-            }
-
-            $this->unregisterPrefetch($nextPage);
-            $page = $nextPage;
-        }
+        yield from $this->getConsumers();
     }
 
     public function getNextToken(): ?string

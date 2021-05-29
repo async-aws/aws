@@ -9,22 +9,22 @@ class RegisterStreamConsumerInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new RegisterStreamConsumerInput([
-            'StreamARN' => 'change me',
-            'ConsumerName' => 'change me',
+            'StreamARN' => 'xxx',
+            'ConsumerName' => 'demo',
         ]);
 
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_RegisterStreamConsumer.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+POST / HTTP/1.0
+Content-Type: application/x-amz-json-1.1
+x-amz-target: Kinesis_20131202.RegisterStreamConsumer
 
-            {
-            "change": "it"
-        }
-                ';
+{
+    "StreamARN": "xxx",
+    "ConsumerName": "demo"
+}
+';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

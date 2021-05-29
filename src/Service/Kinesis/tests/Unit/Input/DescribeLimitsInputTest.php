@@ -9,21 +9,17 @@ class DescribeLimitsInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new DescribeLimitsInput([
 
         ]);
 
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_DescribeLimits.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+POST / HTTP/1.0
+Content-Type: application/x-amz-json-1.1
+X-Amz-Target: Kinesis_20131202.DescribeLimits
 
-            {
-            "change": "it"
-        }
-                ';
+{}';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

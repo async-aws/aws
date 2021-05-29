@@ -9,24 +9,20 @@ class ListStreamConsumersInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new ListStreamConsumersInput([
-            'StreamARN' => 'change me',
-            'NextToken' => 'change me',
-            'MaxResults' => 1337,
-            'StreamCreationTimestamp' => new \DateTimeImmutable(),
+            'StreamARN' => 'xxx',
         ]);
 
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListStreamConsumers.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+POST / HTTP/1.0
+Content-Type: application/x-amz-json-1.1
+x-amz-target: Kinesis_20131202.ListStreamConsumers
 
-            {
-            "change": "it"
-        }
-                ';
+{
+    "StreamARN": "xxx"
+}
+';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

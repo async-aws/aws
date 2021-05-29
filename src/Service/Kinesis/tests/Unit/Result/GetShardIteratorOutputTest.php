@@ -13,16 +13,14 @@ class GetShardIteratorOutputTest extends TestCase
 {
     public function testGetShardIteratorOutput(): void
     {
-        self::fail('Not implemented');
-
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_GetShardIterator.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+  "ShardIterator": "AAAAAAAAAAETYyAYzd665+8e0X7JTsASDM/Hr2rSwc0X2qz93iuA3udrjTH+ikQvpQk/1ZcMMLzRdAesqwBGPnsthzU0/CBlM/U8/8oEqGwX3pKw0XyeDNRAAZyXBo3MqkQtCpXhr942BRTjvWKhFz7OmCb2Ncfr8Tl2cBktooi6kJhr+djN5WYkB38Rr3akRgCl9qaU4dY="
+}');
 
         $client = new MockHttpClient($response);
         $result = new GetShardIteratorOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertSame('changeIt', $result->getShardIterator());
+        self::assertSame('AAAAAAAAAAETYyAYzd665+8e0X7JTsASDM/Hr2rSwc0X2qz93iuA3udrjTH+ikQvpQk/1ZcMMLzRdAesqwBGPnsthzU0/CBlM/U8/8oEqGwX3pKw0XyeDNRAAZyXBo3MqkQtCpXhr942BRTjvWKhFz7OmCb2Ncfr8Tl2cBktooi6kJhr+djN5WYkB38Rr3akRgCl9qaU4dY=', $result->getShardIterator());
     }
 }

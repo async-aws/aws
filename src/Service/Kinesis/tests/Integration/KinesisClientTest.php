@@ -2,8 +2,14 @@
 
 namespace AsyncAws\Kinesis\Tests\Integration;
 
-use AsyncAws\Core\Credentials\NullProvider;
+use AsyncAws\Core\Credentials\Credentials;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Kinesis\Enum\EncryptionType;
+use AsyncAws\Kinesis\Enum\MetricsName;
+use AsyncAws\Kinesis\Enum\ScalingType;
+use AsyncAws\Kinesis\Enum\ShardIteratorType;
+use AsyncAws\Kinesis\Enum\StreamStatus;
+use AsyncAws\Kinesis\Exception\ResourceNotFoundException;
 use AsyncAws\Kinesis\Input\AddTagsToStreamInput;
 use AsyncAws\Kinesis\Input\CreateStreamInput;
 use AsyncAws\Kinesis\Input\DecreaseStreamRetentionPeriodInput;
@@ -11,6 +17,7 @@ use AsyncAws\Kinesis\Input\DeleteStreamInput;
 use AsyncAws\Kinesis\Input\DeregisterStreamConsumerInput;
 use AsyncAws\Kinesis\Input\DescribeLimitsInput;
 use AsyncAws\Kinesis\Input\DescribeStreamConsumerInput;
+use AsyncAws\Kinesis\Input\DescribeStreamInput;
 use AsyncAws\Kinesis\Input\DescribeStreamSummaryInput;
 use AsyncAws\Kinesis\Input\DisableEnhancedMonitoringInput;
 use AsyncAws\Kinesis\Input\EnableEnhancedMonitoringInput;
@@ -37,277 +44,323 @@ class KinesisClientTest extends TestCase
 {
     public function testAddTagsToStream(): void
     {
+        $this->cleanup(__FUNCTION__);
         $client = $this->getClient();
+        $client->createStream(['StreamName' => __FUNCTION__, 'ShardCount' => 1]);
 
         $input = new AddTagsToStreamInput([
-            'StreamName' => 'change me',
-            'Tags' => ['change me' => 'change me'],
+            'StreamName' => __FUNCTION__,
+            'Tags' => ['Project' => 'myProject'],
         ]);
-        $result = $client->AddTagsToStream($input);
+        $result = $client->addTagsToStream($input);
 
-        $result->resolve();
+        self::assertTrue($result->resolve());
     }
 
     public function testCreateStream(): void
     {
+        $this->cleanup(__FUNCTION__);
         $client = $this->getClient();
 
         $input = new CreateStreamInput([
-            'StreamName' => 'change me',
-            'ShardCount' => 1337,
+            'StreamName' => __FUNCTION__,
+            'ShardCount' => 2,
         ]);
-        $result = $client->CreateStream($input);
+        $result = $client->createStream($input);
 
-        $result->resolve();
+        self::assertTrue($result->resolve());
     }
 
     public function testDecreaseStreamRetentionPeriod(): void
     {
+        $this->cleanup(__FUNCTION__);
         $client = $this->getClient();
+        $client->createStream(['StreamName' => __FUNCTION__, 'ShardCount' => 1]);
 
         $input = new DecreaseStreamRetentionPeriodInput([
-            'StreamName' => 'change me',
-            'RetentionPeriodHours' => 1337,
+            'StreamName' => __FUNCTION__,
+            'RetentionPeriodHours' => 24,
         ]);
-        $result = $client->DecreaseStreamRetentionPeriod($input);
+        $result = $client->decreaseStreamRetentionPeriod($input);
 
-        $result->resolve();
+        self::assertTrue($result->resolve());
+    }
+
+    public function testIncreaseStreamRetentionPeriod(): void
+    {
+        $this->cleanup(__FUNCTION__);
+        $client = $this->getClient();
+        $client->createStream(['StreamName' => __FUNCTION__, 'ShardCount' => 1]);
+
+        $input = new IncreaseStreamRetentionPeriodInput([
+            'StreamName' => __FUNCTION__,
+            'RetentionPeriodHours' => 50,
+        ]);
+        $result = $client->increaseStreamRetentionPeriod($input);
+
+        self::assertTrue($result->resolve());
     }
 
     public function testDeleteStream(): void
     {
+        $this->cleanup(__FUNCTION__);
         $client = $this->getClient();
+        $client->createStream(['StreamName' => __FUNCTION__, 'ShardCount' => 1]);
 
         $input = new DeleteStreamInput([
-            'StreamName' => 'change me',
+            'StreamName' => __FUNCTION__,
             'EnforceConsumerDeletion' => false,
         ]);
-        $result = $client->DeleteStream($input);
+        $result = $client->deleteStream($input);
 
-        $result->resolve();
+        self::assertTrue($result->resolve());
     }
 
     public function testDeregisterStreamConsumer(): void
     {
+        $this->cleanup(__FUNCTION__);
         $client = $this->getClient();
+        $client->createStream(['StreamName' => __FUNCTION__, 'ShardCount' => 1]);
+        $stream = $client->describeStream(['StreamName' => __FUNCTION__]);
+        $client->registerStreamConsumer(['StreamARN' => $stream->getStreamDescription()->getStreamArn(), 'ConsumerName' => 'demo']);
 
         $input = new DeregisterStreamConsumerInput([
-            'StreamARN' => 'change me',
-            'ConsumerName' => 'change me',
-            'ConsumerARN' => 'change me',
+            'StreamARN' => $stream->getStreamDescription()->getStreamArn(),
+            'ConsumerName' => 'demo',
         ]);
-        $result = $client->DeregisterStreamConsumer($input);
+        $result = $client->deregisterStreamConsumer($input);
 
-        $result->resolve();
+        self::assertTrue($result->resolve());
     }
 
     public function testDescribeLimits(): void
     {
+        self::markTestSkipped('The Kinesis Docker image does not implement DescribeLimits.');
+
+        $this->cleanup(__FUNCTION__);
         $client = $this->getClient();
+        $client->createStream(['StreamName' => __FUNCTION__, 'ShardCount' => 1]);
 
-        $input = new DescribeLimitsInput([
-
-        ]);
-        $result = $client->DescribeLimits($input);
+        $input = new DescribeLimitsInput([]);
+        $result = $client->describeLimits($input);
 
         $result->resolve();
 
-        self::assertSame(1337, $result->getShardLimit());
-        self::assertSame(1337, $result->getOpenShardCount());
+        self::assertSame(1, $result->getShardLimit());
+        self::assertSame(1, $result->getOpenShardCount());
+    }
+
+    public function testDescribeStream(): void
+    {
+        $this->cleanup(__FUNCTION__);
+        $client = $this->getClient();
+        $client->createStream(['StreamName' => __FUNCTION__, 'ShardCount' => 1]);
+
+        $input = new DescribeStreamInput([
+            'StreamName' => __FUNCTION__,
+        ]);
+        $result = $client->describeStream($input);
+
+        $result->resolve();
+
+        self::assertSame(__FUNCTION__, $result->getStreamDescription()->getStreamName());
+        self::assertSame(24, $result->getStreamDescription()->getRetentionPeriodHours());
     }
 
     public function testDescribeStreamConsumer(): void
     {
+        $this->cleanup(__FUNCTION__);
         $client = $this->getClient();
+        $client->createStream(['StreamName' => __FUNCTION__, 'ShardCount' => 1]);
+        $stream = $client->describeStream(['StreamName' => __FUNCTION__]);
+        $client->registerStreamConsumer(['StreamARN' => $stream->getStreamDescription()->getStreamArn(), 'ConsumerName' => 'demo']);
 
         $input = new DescribeStreamConsumerInput([
-            'StreamARN' => 'change me',
-            'ConsumerName' => 'change me',
-            'ConsumerARN' => 'change me',
+            'StreamARN' => $stream->getStreamDescription()->getStreamArn(),
+            'ConsumerName' => 'demo',
         ]);
-        $result = $client->DescribeStreamConsumer($input);
+        $result = $client->describeStreamConsumer($input);
 
         $result->resolve();
 
-        // self::assertTODO(expected, $result->getConsumerDescription());
+        self::assertSame('demo', $result->getConsumerDescription()->getConsumerName());
     }
 
     public function testDescribeStreamSummary(): void
     {
+        $this->cleanup(__FUNCTION__);
         $client = $this->getClient();
+        $client->createStream(['StreamName' => __FUNCTION__, 'ShardCount' => 1]);
 
         $input = new DescribeStreamSummaryInput([
-            'StreamName' => 'change me',
+            'StreamName' => __FUNCTION__,
         ]);
-        $result = $client->DescribeStreamSummary($input);
+        $result = $client->describeStreamSummary($input);
 
         $result->resolve();
 
-        // self::assertTODO(expected, $result->getStreamDescriptionSummary());
+        self::assertSame(__FUNCTION__, $result->getStreamDescriptionSummary()->getStreamName());
+        self::assertSame(24, $result->getStreamDescriptionSummary()->getRetentionPeriodHours());
     }
 
     public function testDisableEnhancedMonitoring(): void
     {
+        self::markTestSkipped('The Kinesis Docker image does not implement DisableEnhancedMonitoring.');
+
+        $this->cleanup(__FUNCTION__);
         $client = $this->getClient();
+        $client->createStream(['StreamName' => __FUNCTION__, 'ShardCount' => 1]);
 
         $input = new DisableEnhancedMonitoringInput([
-            'StreamName' => 'change me',
-            'ShardLevelMetrics' => ['change me'],
+            'StreamName' => __FUNCTION__,
+            'ShardLevelMetrics' => [MetricsName::ALL],
         ]);
-        $result = $client->DisableEnhancedMonitoring($input);
+        $result = $client->disableEnhancedMonitoring($input);
 
         $result->resolve();
 
-        self::assertSame('changeIt', $result->getStreamName());
-        // self::assertTODO(expected, $result->getCurrentShardLevelMetrics());
-        // self::assertTODO(expected, $result->getDesiredShardLevelMetrics());
+        self::assertSame(__FUNCTION__, $result->getStreamName());
+        self::assertSame(MetricsName::ALL, $result->getCurrentShardLevelMetrics());
     }
 
     public function testEnableEnhancedMonitoring(): void
     {
+        self::markTestSkipped('The Kinesis Docker image does not implement DisableEnhancedMonitoring.');
+
+        $this->cleanup(__FUNCTION__);
         $client = $this->getClient();
+        $client->createStream(['StreamName' => __FUNCTION__, 'ShardCount' => 1]);
 
         $input = new EnableEnhancedMonitoringInput([
-            'StreamName' => 'change me',
-            'ShardLevelMetrics' => ['change me'],
+            'StreamName' => __FUNCTION__,
+            'ShardLevelMetrics' => [MetricsName::ALL],
         ]);
-        $result = $client->EnableEnhancedMonitoring($input);
+        $result = $client->enableEnhancedMonitoring($input);
 
         $result->resolve();
 
-        self::assertSame('changeIt', $result->getStreamName());
-        // self::assertTODO(expected, $result->getCurrentShardLevelMetrics());
-        // self::assertTODO(expected, $result->getDesiredShardLevelMetrics());
+        self::assertSame(__FUNCTION__, $result->getStreamName());
+        self::assertSame(MetricsName::ALL, $result->getCurrentShardLevelMetrics());
     }
 
     public function testGetRecords(): void
     {
         $client = $this->getClient();
+        $this->createStream(__FUNCTION__);
+        $shardIterator = $client->getShardIterator(['StreamName' => __FUNCTION__, 'ShardId' => 'shardId-000000000000', 'ShardIteratorType' => ShardIteratorType::TRIM_HORIZON])->getShardIterator();
+
+        $client->putRecord([
+            'StreamName' => __FUNCTION__,
+            'Data' => 'data',
+            'PartitionKey' => 'key',
+        ]);
 
         $input = new GetRecordsInput([
-            'ShardIterator' => 'change me',
-            'Limit' => 1337,
+            'ShardIterator' => $shardIterator,
+            'Limit' => 1,
         ]);
-        $result = $client->GetRecords($input);
+        $result = $client->getRecords($input);
 
         $result->resolve();
 
-        // self::assertTODO(expected, $result->getRecords());
-        self::assertSame('changeIt', $result->getNextShardIterator());
-        self::assertSame(1337, $result->getMillisBehindLatest());
+        self::assertCount(1, $result->getRecords());
+        self::assertSame('data', $result->getRecords()[0]->getData());
     }
 
     public function testGetShardIterator(): void
     {
         $client = $this->getClient();
+        $this->createStream(__FUNCTION__);
 
         $input = new GetShardIteratorInput([
-            'StreamName' => 'change me',
-            'ShardId' => 'change me',
-            'ShardIteratorType' => 'change me',
-            'StartingSequenceNumber' => 'change me',
-            'Timestamp' => new \DateTimeImmutable(),
+            'StreamName' => __FUNCTION__,
+            'ShardId' => 'shardId-000000000000',
+            'ShardIteratorType' => ShardIteratorType::TRIM_HORIZON,
         ]);
-        $result = $client->GetShardIterator($input);
+        $result = $client->getShardIterator($input);
 
-        $result->resolve();
-
-        self::assertSame('changeIt', $result->getShardIterator());
-    }
-
-    public function testIncreaseStreamRetentionPeriod(): void
-    {
-        $client = $this->getClient();
-
-        $input = new IncreaseStreamRetentionPeriodInput([
-            'StreamName' => 'change me',
-            'RetentionPeriodHours' => 1337,
-        ]);
-        $result = $client->IncreaseStreamRetentionPeriod($input);
-
-        $result->resolve();
+        self::assertTrue($result->resolve());
     }
 
     public function testListShards(): void
     {
         $client = $this->getClient();
+        $this->createStream(__FUNCTION__);
 
         $input = new ListShardsInput([
-            'StreamName' => 'change me',
-            'NextToken' => 'change me',
-            'ExclusiveStartShardId' => 'change me',
-            'MaxResults' => 1337,
-            'StreamCreationTimestamp' => new \DateTimeImmutable(),
+            'StreamName' => __FUNCTION__,
         ]);
-        $result = $client->ListShards($input);
+        $result = $client->listShards($input);
 
         $result->resolve();
 
-        // self::assertTODO(expected, $result->getShards());
-        self::assertSame('changeIt', $result->getNextToken());
+        self::assertCount(1, $result->getShards());
+        self::assertSame('shardId-000000000000', $result->getShards()[0]->getShardId());
     }
 
     public function testListStreamConsumers(): void
     {
+        $this->cleanup(__FUNCTION__);
         $client = $this->getClient();
+        $client->createStream(['StreamName' => __FUNCTION__, 'ShardCount' => 1]);
+        $stream = $client->describeStream(['StreamName' => __FUNCTION__]);
+        $client->registerStreamConsumer(['StreamARN' => $stream->getStreamDescription()->getStreamArn(), 'ConsumerName' => 'demo']);
 
         $input = new ListStreamConsumersInput([
-            'StreamARN' => 'change me',
-            'NextToken' => 'change me',
-            'MaxResults' => 1337,
-            'StreamCreationTimestamp' => new \DateTimeImmutable(),
+            'StreamARN' => $stream->getStreamDescription()->getStreamArn(),
         ]);
-        $result = $client->ListStreamConsumers($input);
+        $result = $client->listStreamConsumers($input);
 
         $result->resolve();
 
-        // self::assertTODO(expected, $result->getConsumers());
-        self::assertSame('changeIt', $result->getNextToken());
+        self::assertCount(1, $result->getConsumers());
+        self::assertSame('demo', iterator_to_array($result->getConsumers())[0]->getConsumerName());
     }
 
     public function testListStreams(): void
     {
+        $this->cleanup(__FUNCTION__);
         $client = $this->getClient();
+        $client->createStream(['StreamName' => __FUNCTION__, 'ShardCount' => 1]);
 
-        $input = new ListStreamsInput([
-            'Limit' => 1337,
-            'ExclusiveStartStreamName' => 'change me',
-        ]);
-        $result = $client->ListStreams($input);
+        $input = new ListStreamsInput([]);
+        $result = $client->listStreams($input);
 
-        $result->resolve();
-
-        // self::assertTODO(expected, $result->getStreamNames());
-        self::assertFalse($result->getHasMoreStreams());
+        self::assertGreaterThanOrEqual(1, iterator_to_array($result->getStreamNames()));
+        self::assertContains(__FUNCTION__, iterator_to_array($result->getStreamNames()));
     }
 
     public function testListTagsForStream(): void
     {
+        $this->cleanup(__FUNCTION__);
         $client = $this->getClient();
+        $client->createStream(['StreamName' => __FUNCTION__, 'ShardCount' => 1]);
+        $client->addTagsToStream(['StreamName' => __FUNCTION__, 'Tags' => ['Project' => 'myProject']]);
 
         $input = new ListTagsForStreamInput([
-            'StreamName' => 'change me',
-            'ExclusiveStartTagKey' => 'change me',
-            'Limit' => 1337,
+            'StreamName' => __FUNCTION__,
         ]);
-        $result = $client->ListTagsForStream($input);
+        $result = $client->listTagsForStream($input);
 
         $result->resolve();
 
-        // self::assertTODO(expected, $result->getTags());
+        self::assertCount(1, $result->getTags());
+        self::assertSame('Project', $result->getTags()[0]->getKey());
         self::assertFalse($result->getHasMoreTags());
     }
 
     public function testMergeShards(): void
     {
+        self::markTestSkipped('The Kinesis Docker image does not implement MergeShards.');
+
         $client = $this->getClient();
 
         $input = new MergeShardsInput([
-            'StreamName' => 'change me',
+            'StreamName' => __FUNCTION__,
             'ShardToMerge' => 'change me',
             'AdjacentShardToMerge' => 'change me',
         ]);
-        $result = $client->MergeShards($input);
+        $result = $client->mergeShards($input);
 
         $result->resolve();
     }
@@ -315,138 +368,186 @@ class KinesisClientTest extends TestCase
     public function testPutRecord(): void
     {
         $client = $this->getClient();
+        $this->createStream(__FUNCTION__);
 
         $input = new PutRecordInput([
-            'StreamName' => 'change me',
-            'Data' => 'change me',
-            'PartitionKey' => 'change me',
-            'ExplicitHashKey' => 'change me',
-            'SequenceNumberForOrdering' => 'change me',
+            'StreamName' => __FUNCTION__,
+            'Data' => 'data',
+            'PartitionKey' => 'key',
         ]);
-        $result = $client->PutRecord($input);
+        $result = $client->putRecord($input);
 
         $result->resolve();
 
-        self::assertSame('changeIt', $result->getShardId());
-        self::assertSame('changeIt', $result->getSequenceNumber());
-        self::assertSame('changeIt', $result->getEncryptionType());
+        self::assertSame('shardId-000000000000', $result->getShardId());
     }
 
     public function testPutRecords(): void
     {
         $client = $this->getClient();
+        $this->createStream(__FUNCTION__);
 
         $input = new PutRecordsInput([
+            'StreamName' => __FUNCTION__,
             'Records' => [new PutRecordsRequestEntry([
-                'Data' => 'change me',
-                'ExplicitHashKey' => 'change me',
-                'PartitionKey' => 'change me',
+                'Data' => 'data1',
+                'PartitionKey' => 'key',
+            ]), new PutRecordsRequestEntry([
+                'Data' => 'data2',
+                'PartitionKey' => 'key',
             ])],
-            'StreamName' => 'change me',
         ]);
-        $result = $client->PutRecords($input);
+        $result = $client->putRecords($input);
 
         $result->resolve();
 
-        self::assertSame(1337, $result->getFailedRecordCount());
-        // self::assertTODO(expected, $result->getRecords());
-        self::assertSame('changeIt', $result->getEncryptionType());
+        self::assertCount(2, $result->getRecords());
+        self::assertSame(0, $result->getFailedRecordCount());
     }
 
     public function testRegisterStreamConsumer(): void
     {
+        $this->cleanup(__FUNCTION__);
+        $client = $this->getClient();
+        $client->createStream(['StreamName' => __FUNCTION__, 'ShardCount' => 1]);
+        $stream = $client->describeStream(['StreamName' => __FUNCTION__]);
+
         $client = $this->getClient();
 
         $input = new RegisterStreamConsumerInput([
-            'StreamARN' => 'change me',
-            'ConsumerName' => 'change me',
+            'StreamARN' => $stream->getStreamDescription()->getStreamArn(),
+            'ConsumerName' => 'demo',
         ]);
-        $result = $client->RegisterStreamConsumer($input);
+        $result = $client->registerStreamConsumer($input);
 
         $result->resolve();
 
-        // self::assertTODO(expected, $result->getConsumer());
+        self::assertSame('demo', $result->getConsumer()->getConsumerName());
     }
 
     public function testRemoveTagsFromStream(): void
     {
+        $this->cleanup(__FUNCTION__);
+        $client = $this->getClient();
+        $client->createStream(['StreamName' => __FUNCTION__, 'ShardCount' => 1]);
+        $client->addTagsToStream(['StreamName' => __FUNCTION__, 'Tags' => ['Project' => 'myProject']]);
+
+        self::assertCount(1, $client->listTagsForStream(['StreamName' => __FUNCTION__])->getTags());
+
         $client = $this->getClient();
 
         $input = new RemoveTagsFromStreamInput([
-            'StreamName' => 'change me',
-            'TagKeys' => ['change me'],
+            'StreamName' => __FUNCTION__,
+            'TagKeys' => ['Project'],
         ]);
-        $result = $client->RemoveTagsFromStream($input);
+        $result = $client->removeTagsFromStream($input);
 
         $result->resolve();
+
+        self::assertCount(0, $client->listTagsForStream(['StreamName' => __FUNCTION__])->getTags());
     }
 
     public function testSplitShard(): void
     {
         $client = $this->getClient();
+        $this->createStream(__FUNCTION__);
 
         $input = new SplitShardInput([
-            'StreamName' => 'change me',
-            'ShardToSplit' => 'change me',
-            'NewStartingHashKey' => 'change me',
+            'StreamName' => __FUNCTION__,
+            'ShardToSplit' => 'shardId-000000000000',
+            'NewStartingHashKey' => '10',
         ]);
-        $result = $client->SplitShard($input);
+        $result = $client->splitShard($input);
 
-        $result->resolve();
+        self::assertTrue($result->resolve());
     }
 
     public function testStartStreamEncryption(): void
     {
+        self::markTestSkipped('The Kinesis Docker image does not implement StartStreamEncryption.');
+
         $client = $this->getClient();
 
         $input = new StartStreamEncryptionInput([
-            'StreamName' => 'change me',
-            'EncryptionType' => 'change me',
-            'KeyId' => 'change me',
+            'StreamName' => __FUNCTION__,
+            'EncryptionType' => EncryptionType::NONE,
+            'KeyId' => 'key',
         ]);
-        $result = $client->StartStreamEncryption($input);
+        $result = $client->startStreamEncryption($input);
 
-        $result->resolve();
+        self::assertTrue($result->resolve());
     }
 
     public function testStopStreamEncryption(): void
     {
+        self::markTestSkipped('The Kinesis Docker image does not implement StopStreamEncryption.');
+
         $client = $this->getClient();
 
         $input = new StopStreamEncryptionInput([
-            'StreamName' => 'change me',
-            'EncryptionType' => 'change me',
-            'KeyId' => 'change me',
+            'StreamName' => __FUNCTION__,
+            'EncryptionType' => EncryptionType::NONE,
+            'KeyId' => 'key',
         ]);
-        $result = $client->StopStreamEncryption($input);
+        $result = $client->stopStreamEncryption($input);
 
-        $result->resolve();
+        self::assertTrue($result->resolve());
     }
 
     public function testUpdateShardCount(): void
     {
         $client = $this->getClient();
+        $this->createStream(__FUNCTION__);
 
         $input = new UpdateShardCountInput([
-            'StreamName' => 'change me',
-            'TargetShardCount' => 1337,
-            'ScalingType' => 'change me',
+            'StreamName' => __FUNCTION__,
+            'TargetShardCount' => 2,
+            'ScalingType' => ScalingType::UNIFORM_SCALING,
         ]);
-        $result = $client->UpdateShardCount($input);
+        $result = $client->updateShardCount($input);
 
         $result->resolve();
 
-        self::assertSame('changeIt', $result->getStreamName());
-        self::assertSame(1337, $result->getCurrentShardCount());
-        self::assertSame(1337, $result->getTargetShardCount());
+        self::assertSame('testUpdateShardCount', $result->getStreamName());
+        self::assertSame(1, $result->getCurrentShardCount());
+        self::assertSame(2, $result->getTargetShardCount());
+    }
+
+    private function createStream(string $streamName): void
+    {
+        $this->cleanup($streamName);
+        $client = $this->getClient();
+        $client->createStream(['StreamName' => $streamName, 'ShardCount' => 1]);
+        while (true) {
+            $stream = $client->describeStream(['StreamName' => $streamName]);
+            if (StreamStatus::CREATING !== $stream->getStreamDescription()->getStreamStatus()) {
+                return;
+            }
+            usleep(100000);
+        }
+    }
+
+    private function cleanup(string $streamName): void
+    {
+        $client = $this->getClient();
+
+        try {
+            $stream = $client->describeStream(['StreamName' => $streamName]);
+
+            try {
+                $client->deregisterStreamConsumer(['StreamARN' => $stream->getStreamDescription()->getStreamArn(), 'ConsumerName' => 'demo']);
+            } catch (ResourceNotFoundException $e) {
+            }
+            $client->deleteStream(['StreamName' => $streamName]);
+            usleep(500000);
+        } catch (ResourceNotFoundException $e) {
+        }
     }
 
     private function getClient(): KinesisClient
     {
-        self::fail('Not implemented');
-
         return new KinesisClient([
-            'endpoint' => 'http://localhost',
-        ], new NullProvider());
+            'endpoint' => 'http://localhost:4578',
+        ], new Credentials('aws_id', 'aws_secret'));
     }
 }

@@ -54,6 +54,7 @@ use AsyncAws\Kinesis\Input\StopStreamEncryptionInput;
 use AsyncAws\Kinesis\Input\UpdateShardCountInput;
 use AsyncAws\Kinesis\Result\DescribeLimitsOutput;
 use AsyncAws\Kinesis\Result\DescribeStreamConsumerOutput;
+use AsyncAws\Kinesis\Result\DescribeStreamOutput;
 use AsyncAws\Kinesis\Result\DescribeStreamSummaryOutput;
 use AsyncAws\Kinesis\Result\EnhancedMonitoringOutput;
 use AsyncAws\Kinesis\Result\GetRecordsOutput;
@@ -248,6 +249,33 @@ class KinesisClient extends AbstractApi
         ]]));
 
         return new DescribeLimitsOutput($response);
+    }
+
+    /**
+     * Describes the specified Kinesis data stream.
+     *
+     * @see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_DescribeStream.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#describestream
+     *
+     * @param array{
+     *   StreamName: string,
+     *   Limit?: int,
+     *   ExclusiveStartShardId?: string,
+     *   @region?: string,
+     * }|DescribeStreamInput $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws LimitExceededException
+     */
+    public function describeStream($input): DescribeStreamOutput
+    {
+        $input = DescribeStreamInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStream', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'LimitExceededException' => LimitExceededException::class,
+        ]]));
+
+        return new DescribeStreamOutput($response, $this, $input);
     }
 
     /**

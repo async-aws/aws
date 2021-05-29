@@ -33,6 +33,6 @@ class StreamNotExistsWaiter extends Waiter
             throw new InvalidArgument('missing last request injected in waiter result');
         }
 
-        return $this->awsClient->StreamNotExists($this->input);
+        return $this->awsClient->streamNotExists($this->input);
     }
 }

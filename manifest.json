@@ -156,6 +156,7 @@
                 "DeleteStream",
                 "DeregisterStreamConsumer",
                 "DescribeLimits",
+                "DescribeStream",
                 "DescribeStreamConsumer",
                 "DescribeStreamSummary",
                 "DisableEnhancedMonitoring",

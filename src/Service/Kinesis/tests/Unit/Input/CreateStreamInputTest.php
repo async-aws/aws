@@ -9,22 +9,22 @@ class CreateStreamInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new CreateStreamInput([
-            'StreamName' => 'change me',
-            'ShardCount' => 1337,
+            'StreamName' => 'exampleStreamName',
+            'ShardCount' => 3,
         ]);
 
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_CreateStream.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+POST / HTTP/1.0
+Content-Type: application/x-amz-json-1.1
+X-Amz-Target: Kinesis_20131202.CreateStream
 
-            {
-            "change": "it"
-        }
-                ';
+{
+    "StreamName": "exampleStreamName",
+    "ShardCount": 3
+}
+';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

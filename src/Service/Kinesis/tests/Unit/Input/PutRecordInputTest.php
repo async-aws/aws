@@ -9,25 +9,23 @@ class PutRecordInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new PutRecordInput([
-            'StreamName' => 'change me',
-            'Data' => 'change me',
-            'PartitionKey' => 'change me',
-            'ExplicitHashKey' => 'change me',
-            'SequenceNumberForOrdering' => 'change me',
+            'StreamName' => 'exampleStreamName',
+            'Data' => '_<data>_1',
+            'PartitionKey' => 'partitionKey',
         ]);
 
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_PutRecord.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+POST / HTTP/1.0
+Content-Type: application/x-amz-json-1.1
+X-Amz-Target: Kinesis_20131202.PutRecord
 
-            {
-            "change": "it"
-        }
-                ';
+{
+  "StreamName": "exampleStreamName",
+  "Data": "XzxkYXRhPl8x",
+  "PartitionKey": "partitionKey"
+} ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

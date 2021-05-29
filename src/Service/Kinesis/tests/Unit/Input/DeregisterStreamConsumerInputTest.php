@@ -9,22 +9,23 @@ class DeregisterStreamConsumerInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new DeregisterStreamConsumerInput([
-            'StreamARN' => 'change me',
-            'ConsumerName' => 'change me',
-            'ConsumerARN' => 'change me',
+            'StreamARN' => 'xxx',
+            'ConsumerName' => 'demo',
+            'ConsumerARN' => 'xxx',
         ]);
 
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_DeregisterStreamConsumer.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+POST / HTTP/1.0
+Content-Type: application/x-amz-json-1.1
+x-amz-target: Kinesis_20131202.DeregisterStreamConsumer
 
-            {
-            "change": "it"
-        }
+{
+    "StreamARN": "xxx",
+    "ConsumerName": "demo",
+    "ConsumerARN": "xxx"
+}
                 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

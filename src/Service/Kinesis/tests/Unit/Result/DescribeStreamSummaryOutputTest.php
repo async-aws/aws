@@ -13,16 +13,29 @@ class DescribeStreamSummaryOutputTest extends TestCase
 {
     public function testDescribeStreamSummaryOutput(): void
     {
-        self::fail('Not implemented');
-
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_DescribeStreamSummary.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+   "StreamDescriptionSummary": {
+      "ConsumerCount": 1,
+      "EncryptionType": "type",
+      "EnhancedMonitoring": [
+         {
+            "ShardLevelMetrics": [ "metric" ]
+         }
+      ],
+      "KeyId": "key",
+      "OpenShardCount": 2,
+      "RetentionPeriodHours": 24,
+      "StreamARN": "arn",
+      "StreamCreationTimestamp": 123456,
+      "StreamName": "name",
+      "StreamStatus": "status"
+   }
+}');
 
         $client = new MockHttpClient($response);
         $result = new DescribeStreamSummaryOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        // self::assertTODO(expected, $result->getStreamDescriptionSummary());
+        self::assertSame('arn', $result->getStreamDescriptionSummary()->getStreamArn());
     }
 }

@@ -9,22 +9,17 @@ class ListStreamsInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new ListStreamsInput([
-            'Limit' => 1337,
-            'ExclusiveStartStreamName' => 'change me',
         ]);
 
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListStreams.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+POST / HTTP/1.0
+Content-Type: application/x-amz-json-1.1
+X-Amz-Target: Kinesis_20131202.ListStreams
 
-            {
-            "change": "it"
-        }
-                ';
+{}
+';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

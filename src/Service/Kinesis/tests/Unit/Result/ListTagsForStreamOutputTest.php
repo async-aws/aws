@@ -13,17 +13,26 @@ class ListTagsForStreamOutputTest extends TestCase
 {
     public function testListTagsForStreamOutput(): void
     {
-        self::fail('Not implemented');
-
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListTagsForStream.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+  "HasMoreTags": "false",
+  "Tags" : [
+     {
+       "Key": "Project",
+       "Value": "myProject"
+     },
+     {
+       "Key": "Environment",
+       "Value": "Production"
+     }
+   ]
+}');
 
         $client = new MockHttpClient($response);
         $result = new ListTagsForStreamOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        // self::assertTODO(expected, $result->getTags());
+        self::assertCount(2, $result->getTags());
+        self::assertSame('Project', $result->getTags()[0]->getKey());
         self::assertFalse($result->getHasMoreTags());
     }
 }

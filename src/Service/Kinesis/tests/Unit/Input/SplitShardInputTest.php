@@ -9,23 +9,23 @@ class SplitShardInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new SplitShardInput([
-            'StreamName' => 'change me',
-            'ShardToSplit' => 'change me',
-            'NewStartingHashKey' => 'change me',
+            'StreamName' => 'exampleStreamName',
+            'ShardToSplit' => 'shardId-000000000000',
+            'NewStartingHashKey' => '10',
         ]);
 
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_SplitShard.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+POST / HTTP/1.0
+Content-Type: application/x-amz-json-1.1
+X-Amz-Target: Kinesis_20131202.SplitShard
 
-            {
-            "change": "it"
-        }
-                ';
+{
+  "StreamName": "exampleStreamName",
+  "ShardToSplit": "shardId-000000000000",
+  "NewStartingHashKey": "10"
+}';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

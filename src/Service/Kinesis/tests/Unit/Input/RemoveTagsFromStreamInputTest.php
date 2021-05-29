@@ -9,22 +9,21 @@ class RemoveTagsFromStreamInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new RemoveTagsFromStreamInput([
-            'StreamName' => 'change me',
-            'TagKeys' => ['change me'],
+            'StreamName' => 'exampleStreamName',
+            'TagKeys' => ['Project', 'Environment'],
         ]);
 
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_RemoveTagsFromStream.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+POST / HTTP/1.0
+Content-Type: application/x-amz-json-1.1
+X-Amz-Target: Kinesis_20131202.RemoveTagsFromStream
 
-            {
-            "change": "it"
-        }
-                ';
+{
+  "StreamName": "exampleStreamName",
+  "TagKeys": ["Project", "Environment"]
+}';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

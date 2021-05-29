@@ -15,17 +15,24 @@ class ListStreamConsumersOutputTest extends TestCase
 {
     public function testListStreamConsumersOutput(): void
     {
-        self::fail('Not implemented');
-
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListStreamConsumers.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+   "Consumers": [
+      {
+         "ConsumerARN": "arn",
+         "ConsumerCreationTimestamp": 123456,
+         "ConsumerName": "name",
+         "ConsumerStatus": "status"
+      }
+   ],
+   "NextToken": "string"
+}');
 
         $client = new MockHttpClient($response);
         $result = new ListStreamConsumersOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new KinesisClient(), new ListStreamConsumersInput([]));
 
         // self::assertTODO(expected, $result->getConsumers());
-        self::assertSame('changeIt', $result->getNextToken());
+        self::assertCount(1, $result->getConsumers(true));
+        self::assertSame('arn', iterator_to_array($result->getConsumers(true))[0]->getConsumerArn());
     }
 }

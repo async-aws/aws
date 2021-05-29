@@ -9,22 +9,25 @@ class AddTagsToStreamInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new AddTagsToStreamInput([
-            'StreamName' => 'change me',
-            'Tags' => ['change me' => 'change me'],
+            'StreamName' => 'exampleStreamName',
+            'Tags' => ['Project' => 'myProject', 'Environment' => 'Production'],
         ]);
 
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_AddTagsToStream.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+POST / HTTP/1.0
+Content-Type: application/x-amz-json-1.1
+x-amz-target: Kinesis_20131202.AddTagsToStream
 
-            {
-            "change": "it"
-        }
-                ';
+{
+  "StreamName": "exampleStreamName",
+  "Tags": {
+     "Project" : "myProject",
+     "Environment" : "Production"
+   }
+}
+';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

@@ -15,17 +15,18 @@ class ListStreamsOutputTest extends TestCase
 {
     public function testListStreamsOutput(): void
     {
-        self::fail('Not implemented');
-
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListStreams.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+  "HasMoreStreams": false,
+  "StreamNames": [
+    "exampleStreamName"
+  ]
+}');
 
         $client = new MockHttpClient($response);
         $result = new ListStreamsOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new KinesisClient(), new ListStreamsInput([]));
 
-        // self::assertTODO(expected, $result->getStreamNames());
+        self::assertSame(['exampleStreamName'], iterator_to_array($result->getStreamNames()));
         self::assertFalse($result->getHasMoreStreams());
     }
 }

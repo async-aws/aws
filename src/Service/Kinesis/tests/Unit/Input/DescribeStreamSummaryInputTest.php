@@ -9,21 +9,20 @@ class DescribeStreamSummaryInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new DescribeStreamSummaryInput([
-            'StreamName' => 'change me',
+            'StreamName' => 'exampleStreamName',
         ]);
 
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_DescribeStreamSummary.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+POST / HTTP/1.0
+Content-Type: application/x-amz-json-1.1
+x-amz-target: Kinesis_20131202.DescribeStreamSummary
 
-            {
-            "change": "it"
-        }
-                ';
+{
+    "StreamName": "exampleStreamName"
+}
+';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

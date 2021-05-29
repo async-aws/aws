@@ -13,16 +13,20 @@ class DescribeStreamConsumerOutputTest extends TestCase
 {
     public function testDescribeStreamConsumerOutput(): void
     {
-        self::fail('Not implemented');
-
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_DescribeStreamConsumer.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+   "ConsumerDescription": {
+      "ConsumerARN": "arn",
+      "ConsumerCreationTimestamp": 123456,
+      "ConsumerName": "name",
+      "ConsumerStatus": "status",
+      "StreamARN": "arn"
+   }
+}');
 
         $client = new MockHttpClient($response);
         $result = new DescribeStreamConsumerOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        // self::assertTODO(expected, $result->getConsumerDescription());
+        self::assertSame('arn', $result->getConsumerDescription()->getStreamArn());
     }
 }

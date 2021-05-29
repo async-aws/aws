@@ -9,23 +9,23 @@ class MergeShardsInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new MergeShardsInput([
-            'StreamName' => 'change me',
-            'ShardToMerge' => 'change me',
-            'AdjacentShardToMerge' => 'change me',
+            'StreamName' => 'exampleStreamName',
+            'ShardToMerge' => 'shardId-000000000000',
+            'AdjacentShardToMerge' => 'shardId-000000000001',
         ]);
 
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_MergeShards.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+POST / HTTP/1.0
+Content-Type: application/x-amz-json-1.1
+X-Amz-Target: Kinesis_20131202.MergeShards
 
-            {
-            "change": "it"
-        }
-                ';
+{
+  "StreamName": "exampleStreamName",
+  "ShardToMerge": "shardId-000000000000",
+  "AdjacentShardToMerge": "shardId-000000000001"
+}';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

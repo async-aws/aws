@@ -13,16 +13,19 @@ class RegisterStreamConsumerOutputTest extends TestCase
 {
     public function testRegisterStreamConsumerOutput(): void
     {
-        self::fail('Not implemented');
-
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_RegisterStreamConsumer.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+   "Consumer": {
+      "ConsumerARN": "arn",
+      "ConsumerCreationTimestamp": 1234567,
+      "ConsumerName": "name",
+      "ConsumerStatus": "status"
+   }
+}');
 
         $client = new MockHttpClient($response);
         $result = new RegisterStreamConsumerOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        // self::assertTODO(expected, $result->getConsumer());
+        self::assertSame('arn', $result->getConsumer()->getConsumerArn());
     }
 }

@@ -9,25 +9,21 @@ class ListShardsInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new ListShardsInput([
-            'StreamName' => 'change me',
-            'NextToken' => 'change me',
-            'ExclusiveStartShardId' => 'change me',
-            'MaxResults' => 1337,
-            'StreamCreationTimestamp' => new \DateTimeImmutable(),
+            'StreamName' => 'exampleStreamName',
+            'MaxResults' => 3,
         ]);
 
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListShards.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+POST / HTTP/1.0
+Content-Type: application/x-amz-json-1.1
+X-Amz-Target: Kinesis_20131202.ListShards
 
-            {
-            "change": "it"
-        }
-                ';
+{
+    "StreamName": "exampleStreamName",
+    "MaxResults": 3
+}';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

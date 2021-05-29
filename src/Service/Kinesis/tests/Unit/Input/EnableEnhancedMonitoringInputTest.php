@@ -3,28 +3,30 @@
 namespace AsyncAws\Kinesis\Tests\Unit\Input;
 
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Kinesis\Enum\MetricsName;
 use AsyncAws\Kinesis\Input\EnableEnhancedMonitoringInput;
 
 class EnableEnhancedMonitoringInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new EnableEnhancedMonitoringInput([
-            'StreamName' => 'change me',
-            'ShardLevelMetrics' => ['change me'],
+            'StreamName' => 'exampleStreamName',
+            'ShardLevelMetrics' => [MetricsName::INCOMING_BYTES, MetricsName::OUTGOING_RECORDS],
         ]);
 
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_EnableEnhancedMonitoring.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+POST / HTTP/1.0
+Content-Type: application/x-amz-json-1.1
+X-Amz-Target: Kinesis_20131202.EnableEnhancedMonitoring
 
-            {
-            "change": "it"
-        }
-                ';
+{
+    "StreamName": "exampleStreamName",
+    "ShardLevelMetrics": [
+        "IncomingBytes", "OutgoingRecords"
+    ]
+}';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

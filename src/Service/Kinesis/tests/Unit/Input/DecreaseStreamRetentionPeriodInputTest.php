@@ -9,22 +9,22 @@ class DecreaseStreamRetentionPeriodInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new DecreaseStreamRetentionPeriodInput([
-            'StreamName' => 'change me',
-            'RetentionPeriodHours' => 1337,
+            'StreamName' => 'examplestream',
+            'RetentionPeriodHours' => 24,
         ]);
 
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_DecreaseStreamRetentionPeriod.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.1
+POST / HTTP/1.0
+Content-Type: application/x-amz-json-1.1
+X-Amz-Target: Kinesis_20131202.DecreaseStreamRetentionPeriod
 
-            {
-            "change": "it"
-        }
-                ';
+{
+    "StreamName": "examplestream",
+    "RetentionPeriodHours": 24
+}
+';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
