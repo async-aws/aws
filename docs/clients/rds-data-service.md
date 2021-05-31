@@ -16,7 +16,7 @@ $client = new RdsDataServiceClient();
 $response = $client->executeStatement([
     'database' => 'my_database',
     'resourceArn' => 'arn:resource',
-    'secretArt' => 'arn:secret',
+    'secretArn' => 'arn:secret',
     'sql' => 'SELECT name FROM users WHERE id = :id',
     'parameters' => [
         ['name' => 'id', 'value' => ['longValue' => 5]],
