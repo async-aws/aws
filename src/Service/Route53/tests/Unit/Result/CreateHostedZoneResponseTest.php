@@ -5,6 +5,7 @@ namespace AsyncAws\Route53\Tests\Unit\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Route53\Enum\ChangeStatus;
 use AsyncAws\Route53\Result\CreateHostedZoneResponse;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -50,7 +51,7 @@ class CreateHostedZoneResponseTest extends TestCase
         self::assertSame('example.com.', $result->getHostedZone()->getName());
         self::assertSame('uniqueId', $result->getHostedZone()->getCallerReference());
         self::assertFalse($result->getHostedZone()->getConfig()->getPrivateZone());
-        self::assertSame('PENDING', $result->getChangeInfo()->getStatus());
+        self::assertSame(ChangeStatus::PENDING, $result->getChangeInfo()->getStatus());
         self::assertSame('NZ8X2CISAMPLE', $result->getDelegationSet()->getId());
         self::assertSame([
             'ns-2048.awsdns-64.com',

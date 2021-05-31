@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AsyncAws\Route53\Tests\Unit\Input;
 
 use AsyncAws\Core\Test\TestCase;

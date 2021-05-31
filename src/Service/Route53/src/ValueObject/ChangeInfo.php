@@ -5,7 +5,11 @@ namespace AsyncAws\Route53\ValueObject;
 use AsyncAws\Route53\Enum\ChangeStatus;
 
 /**
- * A complex type that contains information about the `CreateHostedZone` request.
+ * A complex type that contains information about changes made to your hosted zone.
+ * This element contains an ID that you use when performing a GetChange action to get detailed information about the
+ * change.
+ *
+ * @see https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html
  */
 final class ChangeInfo
 {
