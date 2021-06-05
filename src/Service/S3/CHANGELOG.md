@@ -5,7 +5,6 @@
 ### Added
 
 - AWS enhancement: Documentation updates for Amazon S3
-- AWS api-change: S3 Inventory now supports Bucket Key Status
 
 ## 1.9.0
 
