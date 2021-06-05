@@ -266,7 +266,7 @@ final class PutObjectRequest extends Input
     private $objectLockMode;
 
     /**
-     * The date and time when you want this object's Object Lock to expire.
+     * The date and time when you want this object's Object Lock to expire. Must be formatted as a timestamp parameter.
      *
      * @var \DateTimeImmutable|null
      */
