@@ -16,10 +16,10 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  * This safeguard is to prevent parameter versions with mission critical labels assigned to them from being deleted. To
  * continue creating new parameters, first move the label from the oldest version of the parameter to a newer one for
  * use in your operations. For information about moving parameter labels, see Move a parameter label (console) or Move a
- * parameter label (CLI)  in the *AWS Systems Manager User Guide*.
+ * parameter label (CLI) in the *AWS Systems Manager User Guide*.
  *
- * @see http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html#sysman-paramstore-labels-console-move
- * @see http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html#sysman-paramstore-labels-cli-move
+ * @see https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html#sysman-paramstore-labels-console-move
+ * @see https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html#sysman-paramstore-labels-cli-move
  */
 final class ParameterMaxVersionLimitExceededException extends ClientException
 {

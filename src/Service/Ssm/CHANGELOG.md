@@ -10,6 +10,10 @@
 
 - AWS api-change: Reword docblock
 
+### Added
+
+- AWS enhancement: Documentation updates for ssm to fix customer reported issue
+
 ## 1.2.0
 
 ### Added
