@@ -40,7 +40,7 @@
         "symfony/filesystem": "^5.0 || ^6.0",
         "symfony/finder": "^4.4 || ^5.0 || ^6.0",
         "symfony/http-kernel": "^4.4 || ^5.0 || ^6.0",
-        "symfony/phpunit-bridge": "^5.0"
+        "symfony/phpunit-bridge": "^5.3"
     },
     "autoload": {
         "psr-4": {
