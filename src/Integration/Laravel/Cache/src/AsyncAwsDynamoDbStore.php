@@ -103,7 +103,7 @@ class AsyncAwsDynamoDbStore implements LockProvider, Store
             return $this->many($key);
         }
 
-        return $this->getRaw($key, $consistent);
+        return $this->getRaw($key, false);
     }
 
     /**
