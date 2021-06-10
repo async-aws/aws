@@ -73,6 +73,6 @@ class AsyncAwsDynamoDbLock extends Lock
      */
     protected function getCurrentOwner()
     {
-        return $this->dynamoDb->get($this->name);
+        return $this->dynamoDb->getRaw($this->name, true);
     }
 }

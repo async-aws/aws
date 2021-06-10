@@ -103,9 +103,19 @@ class AsyncAwsDynamoDbStore implements LockProvider, Store
             return $this->many($key);
         }
 
+        return $this->getRaw($key, false);
+    }
+
+    /**
+     * Retrieve an item from the cache by key using a possibly consistent read.
+     *
+     * @return mixed
+     */
+    public function getRaw(string $key, bool $consistent)
+    {
         $response = $this->dynamoDb->getItem([
             'TableName' => $this->table,
-            'ConsistentRead' => false,
+            'ConsistentRead' => $consistent,
             'Key' => [
                 $this->keyAttribute => [
                     'S' => $this->prefix . $key,
