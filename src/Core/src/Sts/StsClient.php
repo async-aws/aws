@@ -177,13 +177,6 @@ class StsClient extends AbstractApi
                     'signService' => 'sts',
                     'signVersions' => ['v4'],
                 ];
-            case 'in-amazon-1':
-                return [
-                    'endpoint' => 'https://sts.ap-south-1.amazonaws.com',
-                    'signRegion' => 'ap-south-1',
-                    'signService' => 'sts',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-east-1-fips':
                 return [
                     'endpoint' => 'https://sts-fips.us-east-1.amazonaws.com',

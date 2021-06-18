@@ -4,7 +4,6 @@
 
 ### Added
 
-- AWS api-change: Add `in-amazon-1` region in STS
 
 ## 1.10.0
 
