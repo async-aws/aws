@@ -4,8 +4,6 @@
 
 ### Added
 
-- AWS api-change: Add `in-amazon-1` region in STS
-- AWS api-change: TODO
 
 ## 1.10.0
 
