@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Fix issue when a request to upload a file is retried
+
 ### Added
 
 - AWS enhancement: Documentation updates for Amazon S3
