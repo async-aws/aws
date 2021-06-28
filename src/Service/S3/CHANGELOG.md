@@ -2,12 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.9.1
+
 ### Fixed
 
 - Fix issue when a request to upload a file is retried
-
-### Added
-
+- camelCased methods with paginator and waiter
 - AWS enhancement: Documentation updates for Amazon S3
 
 ## 1.9.0
