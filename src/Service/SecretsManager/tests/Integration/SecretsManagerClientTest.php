@@ -166,7 +166,7 @@ class SecretsManagerClientTest extends TestCase
     private function getClient(): SecretsManagerClient
     {
         return new SecretsManagerClient([
-            'endpoint' => 'http://localhost:4567',
+            'endpoint' => 'http://localhost:4577',
         ], new Credentials('aws_id', 'aws_secret'));
     }
 }
