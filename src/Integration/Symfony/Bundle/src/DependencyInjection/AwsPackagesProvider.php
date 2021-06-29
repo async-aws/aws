@@ -69,6 +69,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\SimpleS3\SimpleS3Client::class,
                 'package' => 'async-aws/simple-s3',
             ],
+            'secrets_manager' => [
+                'class' => \AsyncAws\SecretsManager\SecretsManagerClient::class,
+                'package' => 'async-aws/secrets-manager',
+            ],
             'ses' => [
                 'class' => \AsyncAws\Ses\SesClient::class,
                 'package' => 'async-aws/ses',
