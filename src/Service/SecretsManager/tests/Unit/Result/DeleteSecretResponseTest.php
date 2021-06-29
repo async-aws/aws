@@ -25,6 +25,6 @@ class DeleteSecretResponseTest extends TestCase
 
         self::assertSame('arn:aws:secretsmanager:us-west-2:123456789012:secret:MyTestDatabaseSecret-a1b2c3', $result->getARN());
         self::assertSame('MyTestDatabaseSecret', $result->getName());
-        self::assertSame("1524085349.095000", $result->getDeletionDate()->format('U.u'));
+        self::assertSame('1524085349.095000', $result->getDeletionDate()->format('U.u'));
     }
 }

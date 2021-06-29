@@ -32,7 +32,7 @@ class GetSecretValueResponseTest extends TestCase
         self::assertSame('MyTestDatabaseSecret', $result->getName());
         self::assertSame('EXAMPLE1-90ab-cdef-fedc-ba987SECRET1', $result->getVersionId());
         self::assertSame('{"username":"david","password":"BnQw&XDWgaEeT9XGTT29"}', $result->getSecretString());
-        self::assertSame("1523477145.713000", $result->getCreatedDate()->format('U.u'));
+        self::assertSame('1523477145.713000', $result->getCreatedDate()->format('U.u'));
         $versionStages = $result->getVersionStages();
         self::assertCount(1, $versionStages);
         self::assertSame('AWSPREVIOUS', $versionStages[0]);

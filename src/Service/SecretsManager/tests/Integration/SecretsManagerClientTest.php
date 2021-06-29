@@ -3,10 +3,8 @@
 namespace AsyncAws\SecretsManager\Tests\Integration;
 
 use AsyncAws\Core\Credentials\Credentials;
-use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\SecretsManager\Enum\FilterNameStringType;
-use AsyncAws\SecretsManager\Exception\ResourceNotFoundException;
 use AsyncAws\SecretsManager\Input\CreateSecretRequest;
 use AsyncAws\SecretsManager\Input\DeleteSecretRequest;
 use AsyncAws\SecretsManager\Input\GetSecretValueRequest;
@@ -15,7 +13,6 @@ use AsyncAws\SecretsManager\Input\PutSecretValueRequest;
 use AsyncAws\SecretsManager\Input\UpdateSecretRequest;
 use AsyncAws\SecretsManager\SecretsManagerClient;
 use AsyncAws\SecretsManager\ValueObject\Filter;
-use AsyncAws\SecretsManager\ValueObject\ReplicaRegionType;
 use AsyncAws\SecretsManager\ValueObject\Tag;
 
 class SecretsManagerClientTest extends TestCase
@@ -57,7 +54,6 @@ class SecretsManagerClientTest extends TestCase
             'Name' => $key,
             'SecretString' => 'testSecretValue',
         ])->resolve();
-
 
         $input = new DeleteSecretRequest([
             'SecretId' => $key,
@@ -107,7 +103,6 @@ class SecretsManagerClientTest extends TestCase
             'SecretString' => 'testSecretValue',
         ]);
         $createResult->resolve();
-
 
         $input = new ListSecretsRequest([
             'Filters' => [new Filter([

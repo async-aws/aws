@@ -12,7 +12,7 @@ class UpdateSecretRequestTest extends TestCase
         $input = new UpdateSecretRequest([
             'SecretId' => 'MyTestDatabaseSecret',
             'ClientRequestToken' => 'EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE',
-            'Description' => 'This is a new description for the secret.'
+            'Description' => 'This is a new description for the secret.',
         ]);
 
         // see example-1.json from SDK
