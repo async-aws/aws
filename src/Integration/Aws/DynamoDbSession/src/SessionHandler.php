@@ -95,6 +95,7 @@ class SessionHandler implements \SessionHandlerInterface
         ]);
     }
 
+    #[\ReturnTypeWillChange]
     public function close()
     {
         $id = session_id();
@@ -107,6 +108,7 @@ class SessionHandler implements \SessionHandlerInterface
         return $this->sessionWritten;
     }
 
+    #[\ReturnTypeWillChange]
     public function destroy($sessionId)
     {
         $this->sessionId = $sessionId;
@@ -119,12 +121,14 @@ class SessionHandler implements \SessionHandlerInterface
         return $this->sessionWritten = true;
     }
 
+    #[\ReturnTypeWillChange]
     public function gc($maxLifetime)
     {
         // DynamoDB takes care of garbage collection
         return true;
     }
 
+    #[\ReturnTypeWillChange]
     public function open($savePath, $name)
     {
         $this->sessionName = $name;
@@ -132,6 +136,7 @@ class SessionHandler implements \SessionHandlerInterface
         return true;
     }
 
+    #[\ReturnTypeWillChange]
     public function read($sessionId)
     {
         $this->sessionId = $sessionId;
@@ -156,6 +161,7 @@ class SessionHandler implements \SessionHandlerInterface
         return $this->dataRead;
     }
 
+    #[\ReturnTypeWillChange]
     public function write($sessionId, $sessionData)
     {
         $this->sessionId = $sessionId;
