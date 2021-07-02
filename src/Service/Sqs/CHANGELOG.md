@@ -5,6 +5,7 @@
 ### Added
 
 - AWS enhancement: Documentation updates for Amazon SQS
+- AWS enhancement: Documentation updates for Amazon SQS.
 
 ## 1.5.0
 

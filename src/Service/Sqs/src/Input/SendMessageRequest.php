@@ -40,8 +40,8 @@ final class SendMessageRequest extends Input
     private $delaySeconds;
 
     /**
-     * Each message attribute consists of a `Name`, `Type`, and `Value`. For more information, see Amazon SQS Message
-     * Attributes in the *Amazon Simple Queue Service Developer Guide*.
+     * Each message attribute consists of a `Name`, `Type`, and `Value`. For more information, see Amazon SQS message
+     * attributes in the *Amazon SQS Developer Guide*.
      *
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes
      *

@@ -20,7 +20,7 @@ final class GetQueueUrlRequest extends Input
     private $queueName;
 
     /**
-     * The AWS account ID of the account that created the queue.
+     * The account ID of the account that created the queue.
      *
      * @var string|null
      */
