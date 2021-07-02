@@ -148,6 +148,7 @@ for more information.
 | [Rekognition](./rekognition.md)             | [async-aws/rekognition](https://packagist.org/packages/async-aws/rekognition)
 | [Route53](./route53.md)                     | [async-aws/route53](https://packagist.org/packages/async-aws/route53)
 | [S3](./s3.md)                               | [async-aws/s3](https://packagist.org/packages/async-aws/s3)
+| [SecretsManager](./secrets-manager.md)      | [async-aws/secrets-manager](https://packagist.org/packages/async-aws/secrets-manager)
 | [SES](./ses.md)                             | [async-aws/ses](https://packagist.org/packages/async-aws/ses)
 | [SNS](./sns.md)                             | [async-aws/sns](https://packagist.org/packages/async-aws/sns)
 | [SQS](./sqs.md)                             | [async-aws/sqs](https://packagist.org/packages/async-aws/sqs)

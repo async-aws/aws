@@ -24,6 +24,7 @@ use AsyncAws\RdsDataService\RdsDataServiceClient;
 use AsyncAws\Rekognition\RekognitionClient;
 use AsyncAws\Route53\Route53Client;
 use AsyncAws\S3\S3Client;
+use AsyncAws\SecretsManager\SecretsManagerClient;
 use AsyncAws\Ses\SesClient;
 use AsyncAws\Sns\SnsClient;
 use AsyncAws\Sqs\SqsClient;
@@ -246,6 +247,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new S3Client($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function secretsManager(): SecretsManagerClient
+    {
+        if (!class_exists(SecretsManagerClient::class)) {
+            throw MissingDependency::create('async-aws/secret-manager', 'SecretsManager');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new SecretsManagerClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];

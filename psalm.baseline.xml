@@ -123,6 +123,16 @@
       <code>list&lt;Reason::*&gt;</code>
     </MoreSpecificReturnType>
   </file>
+  <file src="src/Service/SecretsManager/src/Input/DeleteSecretRequest.php">
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Service/SecretsManager/src/Input/CreateSecretRequest.php">
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
   <file src="src/Service/Ssm/src/Input/GetParameterRequest.php">
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $v</code>

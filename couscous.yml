@@ -73,6 +73,9 @@ menu:
             s3:
                 text: S3
                 url: /clients/s3.html
+            secrets-manager:
+                text: SecretsManager
+                url: /clients/secrets-manager.html
             ses:
                 text: SES
                 url: /clients/ses.html

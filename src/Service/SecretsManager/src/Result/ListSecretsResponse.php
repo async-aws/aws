@@ -1,0 +1,177 @@
+<?php
+
+namespace AsyncAws\SecretsManager\Result;
+
+use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\Core\Response;
+use AsyncAws\Core\Result;
+use AsyncAws\SecretsManager\Input\ListSecretsRequest;
+use AsyncAws\SecretsManager\SecretsManagerClient;
+use AsyncAws\SecretsManager\ValueObject\RotationRulesType;
+use AsyncAws\SecretsManager\ValueObject\SecretListEntry;
+use AsyncAws\SecretsManager\ValueObject\Tag;
+
+/**
+ * @implements \IteratorAggregate<SecretListEntry>
+ */
+class ListSecretsResponse extends Result implements \IteratorAggregate
+{
+    /**
+     * A list of the secrets in the account.
+     */
+    private $secretList = [];
+
+    /**
+     * If present in the response, this value indicates that there's more output available than included in the current
+     * response. This can occur even when the response includes no values at all, such as when you ask for a filtered view
+     * of a very long list. Use this value in the `NextToken` request parameter in a subsequent call to the operation to
+     * continue processing and get the next part of the output. You should repeat this until the `NextToken` response
+     * element comes back empty (as `null`).
+     */
+    private $nextToken;
+
+    /**
+     * Iterates over SecretList.
+     *
+     * @return \Traversable<SecretListEntry>
+     */
+    public function getIterator(): \Traversable
+    {
+        yield from $this->getSecretList();
+    }
+
+    public function getNextToken(): ?string
+    {
+        $this->initialize();
+
+        return $this->nextToken;
+    }
+
+    /**
+     * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.
+     *
+     * @return iterable<SecretListEntry>
+     */
+    public function getSecretList(bool $currentPageOnly = false): iterable
+    {
+        if ($currentPageOnly) {
+            $this->initialize();
+            yield from $this->secretList;
+
+            return;
+        }
+
+        $client = $this->awsClient;
+        if (!$client instanceof SecretsManagerClient) {
+            throw new InvalidArgument('missing client injected in paginated result');
+        }
+        if (!$this->input instanceof ListSecretsRequest) {
+            throw new InvalidArgument('missing last request injected in paginated result');
+        }
+        $input = clone $this->input;
+        $page = $this;
+        while (true) {
+            if ($page->getNextToken()) {
+                $input->setNextToken($page->getNextToken());
+
+                $this->registerPrefetch($nextPage = $client->listSecrets($input));
+            } else {
+                $nextPage = null;
+            }
+
+            yield from $page->getSecretList(true);
+
+            if (null === $nextPage) {
+                break;
+            }
+
+            $this->unregisterPrefetch($nextPage);
+            $page = $nextPage;
+        }
+    }
+
+    protected function populateResult(Response $response): void
+    {
+        $data = $response->toArray();
+
+        $this->secretList = empty($data['SecretList']) ? [] : $this->populateResultSecretListType($data['SecretList']);
+        $this->nextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
+    }
+
+    /**
+     * @return SecretListEntry[]
+     */
+    private function populateResultSecretListType(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = new SecretListEntry([
+                'ARN' => isset($item['ARN']) ? (string) $item['ARN'] : null,
+                'Name' => isset($item['Name']) ? (string) $item['Name'] : null,
+                'Description' => isset($item['Description']) ? (string) $item['Description'] : null,
+                'KmsKeyId' => isset($item['KmsKeyId']) ? (string) $item['KmsKeyId'] : null,
+                'RotationEnabled' => isset($item['RotationEnabled']) ? filter_var($item['RotationEnabled'], \FILTER_VALIDATE_BOOLEAN) : null,
+                'RotationLambdaARN' => isset($item['RotationLambdaARN']) ? (string) $item['RotationLambdaARN'] : null,
+                'RotationRules' => empty($item['RotationRules']) ? null : new RotationRulesType([
+                    'AutomaticallyAfterDays' => isset($item['RotationRules']['AutomaticallyAfterDays']) ? (string) $item['RotationRules']['AutomaticallyAfterDays'] : null,
+                ]),
+                'LastRotatedDate' => (isset($item['LastRotatedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['LastRotatedDate'])))) ? $d : null,
+                'LastChangedDate' => (isset($item['LastChangedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['LastChangedDate'])))) ? $d : null,
+                'LastAccessedDate' => (isset($item['LastAccessedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['LastAccessedDate'])))) ? $d : null,
+                'DeletedDate' => (isset($item['DeletedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['DeletedDate'])))) ? $d : null,
+                'Tags' => empty($item['Tags']) ? [] : $this->populateResultTagListType($item['Tags']),
+                'SecretVersionsToStages' => empty($item['SecretVersionsToStages']) ? [] : $this->populateResultSecretVersionsToStagesMapType($item['SecretVersionsToStages']),
+                'OwningService' => isset($item['OwningService']) ? (string) $item['OwningService'] : null,
+                'CreatedDate' => (isset($item['CreatedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['CreatedDate'])))) ? $d : null,
+                'PrimaryRegion' => isset($item['PrimaryRegion']) ? (string) $item['PrimaryRegion'] : null,
+            ]);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return string[]
+     */
+    private function populateResultSecretVersionStagesType(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return array<string, string[]>
+     */
+    private function populateResultSecretVersionsToStagesMapType(array $json): array
+    {
+        $items = [];
+        foreach ($json as $name => $value) {
+            $items[(string) $name] = $this->populateResultSecretVersionStagesType($value);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return Tag[]
+     */
+    private function populateResultTagListType(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = new Tag([
+                'Key' => isset($item['Key']) ? (string) $item['Key'] : null,
+                'Value' => isset($item['Value']) ? (string) $item['Value'] : null,
+            ]);
+        }
+
+        return $items;
+    }
+}
