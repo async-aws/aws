@@ -109,15 +109,16 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getNextContinuationToken()) {
-                $input->setContinuationToken($page->getNextContinuationToken());
+            $page->initialize();
+            if ($page->nextContinuationToken) {
+                $input->setContinuationToken($page->nextContinuationToken);
 
                 $this->registerPrefetch($nextPage = $client->listObjectsV2($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getCommonPrefixes(true);
+            yield from $page->commonPrefixes;
 
             if (null === $nextPage) {
                 break;
@@ -152,15 +153,16 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getNextContinuationToken()) {
-                $input->setContinuationToken($page->getNextContinuationToken());
+            $page->initialize();
+            if ($page->nextContinuationToken) {
+                $input->setContinuationToken($page->nextContinuationToken);
 
                 $this->registerPrefetch($nextPage = $client->listObjectsV2($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getContents(true);
+            yield from $page->contents;
 
             if (null === $nextPage) {
                 break;
@@ -219,8 +221,9 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getNextContinuationToken()) {
-                $input->setContinuationToken($page->getNextContinuationToken());
+            $page->initialize();
+            if ($page->nextContinuationToken) {
+                $input->setContinuationToken($page->nextContinuationToken);
 
                 $this->registerPrefetch($nextPage = $client->listObjectsV2($input));
             } else {

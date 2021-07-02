@@ -59,15 +59,16 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getNextMarker()) {
-                $input->setMarker($page->getNextMarker());
+            $page->initialize();
+            if ($page->nextMarker) {
+                $input->setMarker($page->nextMarker);
 
                 $this->registerPrefetch($nextPage = $client->listLayerVersions($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getLayerVersions(true);
+            yield from $page->layerVersions;
 
             if (null === $nextPage) {
                 break;

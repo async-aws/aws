@@ -92,15 +92,16 @@ class ScanOutput extends Result implements \IteratorAggregate
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getLastEvaluatedKey()) {
-                $input->setExclusiveStartKey($page->getLastEvaluatedKey());
+            $page->initialize();
+            if ($page->lastEvaluatedKey) {
+                $input->setExclusiveStartKey($page->lastEvaluatedKey);
 
                 $this->registerPrefetch($nextPage = $client->scan($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getItems(true);
+            yield from $page->items;
 
             if (null === $nextPage) {
                 break;

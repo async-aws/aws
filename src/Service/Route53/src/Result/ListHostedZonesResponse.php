@@ -71,15 +71,16 @@ class ListHostedZonesResponse extends Result implements \IteratorAggregate
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getIsTruncated()) {
-                $input->setMarker($page->getNextMarker());
+            $page->initialize();
+            if ($page->isTruncated) {
+                $input->setMarker($page->nextMarker);
 
                 $this->registerPrefetch($nextPage = $client->listHostedZones($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getHostedZones(true);
+            yield from $page->hostedZones;
 
             if (null === $nextPage) {
                 break;

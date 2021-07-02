@@ -201,15 +201,16 @@ class ListPartsOutput extends Result implements \IteratorAggregate
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getIsTruncated()) {
-                $input->setPartNumberMarker($page->getNextPartNumberMarker());
+            $page->initialize();
+            if ($page->isTruncated) {
+                $input->setPartNumberMarker($page->nextPartNumberMarker);
 
                 $this->registerPrefetch($nextPage = $client->listParts($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getParts(true);
+            yield from $page->parts;
 
             if (null === $nextPage) {
                 break;

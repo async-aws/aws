@@ -164,7 +164,7 @@ class PaginationGenerator
                     ', [
                         'PROPERTY_NAME' => GeneratorHelper::normalizeName($resultKey),
                         'PAGE_LOADER_CODE' => $this->generateOutputPaginationLoader(
-                            strtr('yield from $page->PROPERTY_ACCESSOR(true);', ['PROPERTY_ACCESSOR' => 'get' . ucfirst(GeneratorHelper::normalizeName($resultKey))]),
+                            strtr('yield from $page->PROPERTY_ACCESSOR;', ['PROPERTY_ACCESSOR' => GeneratorHelper::normalizeName($resultKey)]),
                             $common, $moreResult, $outputToken, $pagination, $classBuilder, $operation
                         ),
                     ]));
@@ -204,12 +204,10 @@ class PaginationGenerator
         if (!$moreResult) {
             $moreCondition = '';
             foreach ($outputToken as $property) {
-                $moreCondition .= strtr('$page->MORE_ACCESSOR()', [
-                    'MORE_ACCESSOR' => 'get' . ucfirst(GeneratorHelper::normalizeName($property)),
-                ]);
+                $moreCondition .= $this->generateGetter('$page', $property, (bool) $common);
             }
         } else {
-            $moreCondition = $this->generateGetter('$page', $moreResult);
+            $moreCondition = $this->generateGetter('$page', $moreResult, (bool) $common);
         }
         $setter = '';
         foreach ($inputToken as $index => $property) {
@@ -217,7 +215,7 @@ class PaginationGenerator
                 $input->SETTER(GETTER);
             ', [
                 'SETTER' => 'set' . ucfirst(GeneratorHelper::normalizeName($property)),
-                'GETTER' => $this->generateGetter('$page', $outputToken[$index]),
+                'GETTER' => $this->generateGetter('$page', $outputToken[$index], (bool) $common),
             ]);
         }
 
@@ -236,8 +234,9 @@ class PaginationGenerator
                 throw new InvalidArgument(\'missing last request injected in paginated result\');
             }
             $input = clone $this->input;
-            $page = PAGE_INITIALIZER;
+            $page = $this;
             while (true) {
+                $page->initialize();PAGE_INITIALIZER
                 if (MORE_CONDITION) {
                     SET_TOKEN_CODE
                     $this->registerPrefetch($nextPage = $client->OPERATION_NAME($input));
@@ -252,11 +251,10 @@ class PaginationGenerator
                 }
 
                 $this->unregisterPrefetch($nextPage);
-                $page = PAGE_NEXT;
+                $page = $nextPage;
             }
         ', [
-            'PAGE_INITIALIZER' => $common ? $this->generateGetter('$this', $common) : '$this',
-            'PAGE_NEXT' => $common ? $this->generateGetter('$nextPage', $common) : '$nextPage',
+            'PAGE_INITIALIZER' => $common ? sprintf('$page = %s;', $this->generateGetter('$page', $common, false)) : '',
             'CLIENT_CLASSNAME' => $clientClass->getName(),
             'INPUT_CLASSNAME' => $inputClass->getName(),
             'ITERATE_PROPERTIES_CODE' => $iterator,
@@ -266,7 +264,7 @@ class PaginationGenerator
         ]);
     }
 
-    private function generateGetter(string $property, string $expression): string
+    private function generateGetter(string $property, string $expression, bool $useGetter = true): string
     {
         $getter = $property;
         foreach (explode('.', $expression) as $part) {
@@ -278,7 +276,13 @@ class PaginationGenerator
             if (!preg_match('/^[a-z]++$/i', $part)) {
                 throw new LogicException(sprintf('The part "%s" of the getter expression "%s" is n9ot yet supported', $part, $expression));
             }
-            $getter .= strtr('->getMETHOD()', ['METHOD' => ucfirst(GeneratorHelper::normalizeName($part))]);
+
+            if (!$useGetter && $getter === $property) {
+                $getter .= strtr('->PROPERTY', ['PROPERTY' => GeneratorHelper::normalizeName($part)]);
+            } else {
+                $getter .= strtr('->getMETHOD()', ['METHOD' => ucfirst(GeneratorHelper::normalizeName($part))]);
+            }
+
             if ($last) {
                 $getter = strtr('array_slice(GETTER, -1)[0]', ['GETTER' => $getter]);
             }

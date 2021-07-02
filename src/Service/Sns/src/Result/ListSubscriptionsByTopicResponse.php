@@ -68,15 +68,16 @@ class ListSubscriptionsByTopicResponse extends Result implements \IteratorAggreg
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getNextToken()) {
-                $input->setNextToken($page->getNextToken());
+            $page->initialize();
+            if ($page->nextToken) {
+                $input->setNextToken($page->nextToken);
 
                 $this->registerPrefetch($nextPage = $client->listSubscriptionsByTopic($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getSubscriptions(true);
+            yield from $page->subscriptions;
 
             if (null === $nextPage) {
                 break;

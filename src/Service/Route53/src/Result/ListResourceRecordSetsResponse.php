@@ -124,19 +124,20 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getIsTruncated()) {
-                $input->setStartRecordName($page->getNextRecordName());
+            $page->initialize();
+            if ($page->isTruncated) {
+                $input->setStartRecordName($page->nextRecordName);
 
-                $input->setStartRecordType($page->getNextRecordType());
+                $input->setStartRecordType($page->nextRecordType);
 
-                $input->setStartRecordIdentifier($page->getNextRecordIdentifier());
+                $input->setStartRecordIdentifier($page->nextRecordIdentifier);
 
                 $this->registerPrefetch($nextPage = $client->listResourceRecordSets($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getResourceRecordSets(true);
+            yield from $page->resourceRecordSets;
 
             if (null === $nextPage) {
                 break;

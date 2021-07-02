@@ -55,15 +55,16 @@ class ListCollectionsResponse extends Result implements \IteratorAggregate
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getNextToken()) {
-                $input->setNextToken($page->getNextToken());
+            $page->initialize();
+            if ($page->nextToken) {
+                $input->setNextToken($page->nextToken);
 
                 $this->registerPrefetch($nextPage = $client->listCollections($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getCollectionIds(true);
+            yield from $page->collectionIds;
 
             if (null === $nextPage) {
                 break;

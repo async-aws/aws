@@ -75,15 +75,16 @@ class DescribeStacksOutput extends Result implements \IteratorAggregate
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getNextToken()) {
-                $input->setNextToken($page->getNextToken());
+            $page->initialize();
+            if ($page->nextToken) {
+                $input->setNextToken($page->nextToken);
 
                 $this->registerPrefetch($nextPage = $client->describeStacks($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getStacks(true);
+            yield from $page->stacks;
 
             if (null === $nextPage) {
                 break;

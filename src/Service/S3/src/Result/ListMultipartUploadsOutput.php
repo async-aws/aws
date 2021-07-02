@@ -117,17 +117,18 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getIsTruncated()) {
-                $input->setKeyMarker($page->getNextKeyMarker());
+            $page->initialize();
+            if ($page->isTruncated) {
+                $input->setKeyMarker($page->nextKeyMarker);
 
-                $input->setUploadIdMarker($page->getNextUploadIdMarker());
+                $input->setUploadIdMarker($page->nextUploadIdMarker);
 
                 $this->registerPrefetch($nextPage = $client->listMultipartUploads($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getCommonPrefixes(true);
+            yield from $page->commonPrefixes;
 
             if (null === $nextPage) {
                 break;
@@ -179,10 +180,11 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getIsTruncated()) {
-                $input->setKeyMarker($page->getNextKeyMarker());
+            $page->initialize();
+            if ($page->isTruncated) {
+                $input->setKeyMarker($page->nextKeyMarker);
 
-                $input->setUploadIdMarker($page->getNextUploadIdMarker());
+                $input->setUploadIdMarker($page->nextUploadIdMarker);
 
                 $this->registerPrefetch($nextPage = $client->listMultipartUploads($input));
             } else {
@@ -267,17 +269,18 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getIsTruncated()) {
-                $input->setKeyMarker($page->getNextKeyMarker());
+            $page->initialize();
+            if ($page->isTruncated) {
+                $input->setKeyMarker($page->nextKeyMarker);
 
-                $input->setUploadIdMarker($page->getNextUploadIdMarker());
+                $input->setUploadIdMarker($page->nextUploadIdMarker);
 
                 $this->registerPrefetch($nextPage = $client->listMultipartUploads($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getUploads(true);
+            yield from $page->uploads;
 
             if (null === $nextPage) {
                 break;

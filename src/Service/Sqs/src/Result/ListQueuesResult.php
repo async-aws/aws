@@ -67,15 +67,16 @@ class ListQueuesResult extends Result implements \IteratorAggregate
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getNextToken()) {
-                $input->setNextToken($page->getNextToken());
+            $page->initialize();
+            if ($page->nextToken) {
+                $input->setNextToken($page->nextToken);
 
                 $this->registerPrefetch($nextPage = $client->listQueues($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getQueueUrls(true);
+            yield from $page->queueUrls;
 
             if (null === $nextPage) {
                 break;
