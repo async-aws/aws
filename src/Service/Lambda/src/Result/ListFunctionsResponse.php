@@ -60,15 +60,16 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getNextMarker()) {
-                $input->setMarker($page->getNextMarker());
+            $page->initialize();
+            if ($page->nextMarker) {
+                $input->setMarker($page->nextMarker);
 
                 $this->registerPrefetch($nextPage = $client->listFunctions($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getFunctions(true);
+            yield from $page->functions;
 
             if (null === $nextPage) {
                 break;

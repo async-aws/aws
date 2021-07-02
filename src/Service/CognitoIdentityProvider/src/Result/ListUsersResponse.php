@@ -70,15 +70,16 @@ class ListUsersResponse extends Result implements \IteratorAggregate
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getPaginationToken()) {
-                $input->setPaginationToken($page->getPaginationToken());
+            $page->initialize();
+            if ($page->paginationToken) {
+                $input->setPaginationToken($page->paginationToken);
 
                 $this->registerPrefetch($nextPage = $client->listUsers($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getUsers(true);
+            yield from $page->users;
 
             if (null === $nextPage) {
                 break;

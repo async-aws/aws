@@ -68,15 +68,16 @@ class ListTablesOutput extends Result implements \IteratorAggregate
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getLastEvaluatedTableName()) {
-                $input->setExclusiveStartTableName($page->getLastEvaluatedTableName());
+            $page->initialize();
+            if ($page->lastEvaluatedTableName) {
+                $input->setExclusiveStartTableName($page->lastEvaluatedTableName);
 
                 $this->registerPrefetch($nextPage = $client->listTables($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getTableNames(true);
+            yield from $page->tableNames;
 
             if (null === $nextPage) {
                 break;

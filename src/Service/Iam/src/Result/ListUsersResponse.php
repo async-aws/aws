@@ -85,15 +85,16 @@ class ListUsersResponse extends Result implements \IteratorAggregate
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getIsTruncated()) {
-                $input->setMarker($page->getMarker());
+            $page->initialize();
+            if ($page->isTruncated) {
+                $input->setMarker($page->marker);
 
                 $this->registerPrefetch($nextPage = $client->listUsers($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getUsers(true);
+            yield from $page->users;
 
             if (null === $nextPage) {
                 break;

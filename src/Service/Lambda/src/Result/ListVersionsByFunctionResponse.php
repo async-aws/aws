@@ -75,15 +75,16 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
         $input = clone $this->input;
         $page = $this;
         while (true) {
-            if ($page->getNextMarker()) {
-                $input->setMarker($page->getNextMarker());
+            $page->initialize();
+            if ($page->nextMarker) {
+                $input->setMarker($page->nextMarker);
 
                 $this->registerPrefetch($nextPage = $client->listVersionsByFunction($input));
             } else {
                 $nextPage = null;
             }
 
-            yield from $page->getVersions(true);
+            yield from $page->versions;
 
             if (null === $nextPage) {
                 break;
