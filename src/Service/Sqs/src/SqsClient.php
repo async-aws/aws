@@ -47,7 +47,7 @@ class SqsClient extends AbstractApi
     /**
      * Changes the visibility timeout of a specified message in a queue to a new value. The default visibility timeout for a
      * message is 30 seconds. The minimum is 0 seconds. The maximum is 12 hours. For more information, see Visibility
-     * Timeout in the *Amazon Simple Queue Service Developer Guide*.
+     * Timeout in the *Amazon SQS Developer Guide*.
      *
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ChangeMessageVisibility.html
@@ -266,8 +266,7 @@ class SqsClient extends AbstractApi
 
     /**
      * Retrieves one or more messages (up to 10), from the specified queue. Using the `WaitTimeSeconds` parameter enables
-     * long-poll support. For more information, see Amazon SQS Long Polling in the *Amazon Simple Queue Service Developer
-     * Guide*.
+     * long-poll support. For more information, see Amazon SQS Long Polling in the *Amazon SQS Developer Guide*.
      *
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-long-polling.html
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ReceiveMessage.html

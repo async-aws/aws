@@ -28,7 +28,7 @@ final class CreateQueueRequest extends Input
 
     /**
      * Add cost allocation tags to the specified Amazon SQS queue. For an overview, see Tagging Your Amazon SQS Queues in
-     * the *Amazon Simple Queue Service Developer Guide*.
+     * the *Amazon SQS Developer Guide*.
      *
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-tags.html
      *

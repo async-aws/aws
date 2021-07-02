@@ -10,8 +10,8 @@ use AsyncAws\Sqs\Enum\MessageSystemAttributeName;
 final class Message
 {
     /**
-     * A unique identifier for the message. A `MessageId`is considered unique across all AWS accounts for an extended period
-     * of time.
+     * A unique identifier for the message. A `MessageId`is considered unique across all accounts for an extended period of
+     * time.
      */
     private $messageId;
 
@@ -46,8 +46,8 @@ final class Message
     private $md5OfMessageAttributes;
 
     /**
-     * Each message attribute consists of a `Name`, `Type`, and `Value`. For more information, see Amazon SQS Message
-     * Attributes in the *Amazon Simple Queue Service Developer Guide*.
+     * Each message attribute consists of a `Name`, `Type`, and `Value`. For more information, see Amazon SQS message
+     * attributes in the *Amazon SQS Developer Guide*.
      *
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes
      */

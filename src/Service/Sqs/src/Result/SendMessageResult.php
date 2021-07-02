@@ -36,7 +36,7 @@ class SendMessageResult extends Result
 
     /**
      * An attribute containing the `MessageId` of the message sent to the queue. For more information, see Queue and Message
-     * Identifiers in the *Amazon Simple Queue Service Developer Guide*.
+     * Identifiers in the *Amazon SQS Developer Guide*.
      *
      * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-message-identifiers.html
      */
