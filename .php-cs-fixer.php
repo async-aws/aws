@@ -22,7 +22,7 @@ return (new PhpCsFixer\Config())
         'magic_method_casing' => true,
         'modernize_types_casting' => true,
         'multiline_comment_opening_closing' => true,
-        'native_constant_invocation' => true,
+        'native_constant_invocation' => ['include' => ['ReturnTypeWillChange']],
         'no_alias_functions' => true,
         'no_alternative_syntax' => true,
         'no_blank_lines_after_phpdoc' => true,
