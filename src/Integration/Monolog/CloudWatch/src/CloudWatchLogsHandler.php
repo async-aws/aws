@@ -89,8 +89,8 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
      *   group: string,
      *   stream: string,
      * } $options
-     * @param int  $level
-     * @param bool $bubble
+     * @param int|string $level
+     * @param bool       $bubble
      *
      * @throws \InvalidArgumentException
      */
@@ -109,6 +109,7 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
         $this->client = $client;
         $this->options = $options;
 
+        /** @phpstan-ignore-next-line */
         parent::__construct($level, $bubble);
     }
 
@@ -130,6 +131,8 @@ class CloudWatchLogsHandler extends AbstractProcessingHandler
 
     /**
      * {@inheritdoc}
+     *
+     * @phpstan-ignore-next-line
      */
     protected function write(array $record): void
     {

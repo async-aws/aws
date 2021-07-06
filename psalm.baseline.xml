@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.7.0@d4377c0baf3ffbf0b1ec6998e8d1be2a40971005">
+<files psalm-version="4.6.3@f1a840727dd756899eee2f1f9ea443e265a4763f">
   <file src="src/Core/src/Credentials/PsrCacheProvider.php">
     <InvalidCatch occurrences="1"/>
     <InvalidThrow occurrences="1">
@@ -45,6 +45,15 @@
     <UndefinedInterfaceMethod occurrences="1">
       <code>$this-&gt;app</code>
     </UndefinedInterfaceMethod>
+  </file>
+  <file src="src/Integration/Monolog/CloudWatch/src/CloudWatchLogsHandler.php">
+    <ImplementedParamTypeMismatch occurrences="1">
+      <code>$record</code>
+    </ImplementedParamTypeMismatch>
+    <InvalidArgument occurrences="2">
+      <code>$level</code>
+      <code>$record</code>
+    </InvalidArgument>
   </file>
   <file src="src/Integration/Symfony/Bundle/src/DependencyInjection/Configuration.php">
     <PossiblyNullReference occurrences="1">
@@ -123,12 +132,12 @@
       <code>list&lt;Reason::*&gt;</code>
     </MoreSpecificReturnType>
   </file>
-  <file src="src/Service/SecretsManager/src/Input/DeleteSecretRequest.php">
+  <file src="src/Service/SecretsManager/src/Input/CreateSecretRequest.php">
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
-  <file src="src/Service/SecretsManager/src/Input/CreateSecretRequest.php">
+  <file src="src/Service/SecretsManager/src/Input/DeleteSecretRequest.php">
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
