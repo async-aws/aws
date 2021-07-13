@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The AWS access key ID needs a subscription for the service.
+ * The Amazon Web Services access key ID needs a subscription for the service.
  */
 final class KMSOptInRequiredException extends ClientException
 {

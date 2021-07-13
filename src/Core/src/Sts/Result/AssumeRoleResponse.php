@@ -8,8 +8,8 @@ use AsyncAws\Core\Sts\ValueObject\AssumedRoleUser;
 use AsyncAws\Core\Sts\ValueObject\Credentials;
 
 /**
- * Contains the response to a successful AssumeRole request, including temporary AWS credentials that can be used to
- * make AWS requests.
+ * Contains the response to a successful AssumeRole request, including temporary Amazon Web Services credentials that
+ * can be used to make Amazon Web Services requests.
  */
 class AssumeRoleResponse extends Result
 {

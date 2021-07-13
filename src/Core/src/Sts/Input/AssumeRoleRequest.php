@@ -60,7 +60,7 @@ final class AssumeRoleRequest extends Input
 
     /**
      * A list of session tags that you want to pass. Each session tag consists of a key name and an associated value. For
-     * more information about session tags, see Tagging AWS STS Sessions in the *IAM User Guide*.
+     * more information about session tags, see Tagging STS Sessions in the *IAM User Guide*.
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html
      *
@@ -86,7 +86,7 @@ final class AssumeRoleRequest extends Input
      * up to trust everyone in an account. Therefore, the administrator of the trusting account might send an external ID to
      * the administrator of the trusted account. That way, only someone with the ID can assume the role, rather than
      * everyone in the account. For more information about the external ID, see How to Use an External ID When Granting
-     * Access to Your AWS Resources to a Third Party in the *IAM User Guide*.
+     * Access to Your Amazon Web Services Resources to a Third Party in the *IAM User Guide*.
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html
      *

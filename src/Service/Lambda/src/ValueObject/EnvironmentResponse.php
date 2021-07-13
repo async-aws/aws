@@ -4,6 +4,8 @@ namespace AsyncAws\Lambda\ValueObject;
 
 /**
  * The function's environment variables.
+ *
+ * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html
  */
 final class EnvironmentResponse
 {

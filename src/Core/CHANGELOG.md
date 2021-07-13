@@ -4,6 +4,7 @@
 
 ### Added
 
+- AWS enhancement: Documentation updates for AWS Security Token Service.
 
 ## 1.10.0
 

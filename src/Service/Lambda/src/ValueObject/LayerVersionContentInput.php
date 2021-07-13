@@ -23,7 +23,8 @@ final class LayerVersionContentInput
     private $s3ObjectVersion;
 
     /**
-     * The base64-encoded contents of the layer archive. AWS SDK and AWS CLI clients handle the encoding for you.
+     * The base64-encoded contents of the layer archive. Amazon Web Services SDK and Amazon Web Services CLI clients handle
+     * the encoding for you.
      */
     private $zipFile;
 

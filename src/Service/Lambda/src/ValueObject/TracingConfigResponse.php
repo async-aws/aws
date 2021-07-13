@@ -5,7 +5,7 @@ namespace AsyncAws\Lambda\ValueObject;
 use AsyncAws\Lambda\Enum\TracingMode;
 
 /**
- * The function's AWS X-Ray tracing configuration.
+ * The function's X-Ray tracing configuration.
  */
 final class TracingConfigResponse
 {

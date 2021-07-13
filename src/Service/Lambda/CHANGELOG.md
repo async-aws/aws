@@ -6,6 +6,10 @@
 
 - Assert the provided Input can be json-encoded.
 
+### Added
+
+- AWS api-change: Added support for AmazonMQRabbitMQ as an event source. Added support for VIRTUAL_HOST as SourceAccessType for streams event source mappings.
+
 ## 1.4.0
 
 ### Added

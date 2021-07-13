@@ -3,7 +3,7 @@
 namespace AsyncAws\Lambda\ValueObject;
 
 /**
- * An AWS Lambda layer.
+ * An Lambda layer.
  *
  * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
  */

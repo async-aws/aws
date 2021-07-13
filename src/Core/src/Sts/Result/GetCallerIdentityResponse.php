@@ -21,12 +21,12 @@ class GetCallerIdentityResponse extends Result
     private $userId;
 
     /**
-     * The AWS account ID number of the account that owns or contains the calling entity.
+     * The Amazon Web Services account ID number of the account that owns or contains the calling entity.
      */
     private $account;
 
     /**
-     * The AWS ARN associated with the calling entity.
+     * The Amazon Web Services ARN associated with the calling entity.
      */
     private $arn;
 

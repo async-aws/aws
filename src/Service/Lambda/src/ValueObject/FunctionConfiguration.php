@@ -88,6 +88,8 @@ final class FunctionConfiguration
 
     /**
      * The function's environment variables.
+     *
+     * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html
      */
     private $environment;
 
@@ -98,7 +100,7 @@ final class FunctionConfiguration
     private $kmsKeyArn;
 
     /**
-     * The function's AWS X-Ray tracing configuration.
+     * The function's X-Ray tracing configuration.
      */
     private $tracingConfig;
 
@@ -153,6 +155,8 @@ final class FunctionConfiguration
 
     /**
      * Connection settings for an Amazon EFS file system.
+     *
+     * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html
      */
     private $fileSystemConfigs;
 
