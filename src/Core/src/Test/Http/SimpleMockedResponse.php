@@ -33,7 +33,10 @@ class SimpleMockedResponse extends MockResponse
             $this->headers[$name] = $value;
         }
 
-        parent::__construct($content, ['response_headers' => $headers, 'http_code' => $statusCode]);
+        parent::__construct($content, [
+            'response_headers' => $this->getFlatHeaders(),
+            'http_code' => $statusCode,
+        ]);
     }
 
     public function getStatusCode(): int
@@ -59,27 +62,6 @@ class SimpleMockedResponse extends MockResponse
     public function cancel(): void
     {
         throw new LogicException('Not implemented');
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getInfo(string $type = null)
-    {
-        $info = [
-            'response_headers' => $this->getFlatHeaders(),
-            'http_code' => $this->statusCode,
-        ];
-
-        if (null === $type) {
-            return $info;
-        }
-
-        if (isset($info[$type])) {
-            return $info[$type];
-        }
-
-        return 'info: ' . $type;
     }
 
     private function getFlatHeaders()
