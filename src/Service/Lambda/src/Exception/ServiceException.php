@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ServerException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The AWS Lambda service encountered an internal error.
+ * The Lambda service encountered an internal error.
  */
 final class ServiceException extends ServerException
 {

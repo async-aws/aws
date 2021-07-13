@@ -8,7 +8,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 /**
  * STS is not activated in the requested region for the account that is being asked to generate credentials. The account
  * administrator must use the IAM console to activate STS in that region. For more information, see Activating and
- * Deactivating AWS STS in an AWS Region in the *IAM User Guide*.
+ * Deactivating Amazon Web Services STS in an Amazon Web Services Region in the *IAM User Guide*.
  *
  * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html
  */

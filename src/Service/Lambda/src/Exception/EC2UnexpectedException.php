@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ServerException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * AWS Lambda received an unexpected EC2 client exception while setting up for the Lambda function.
+ * Lambda received an unexpected EC2 client exception while setting up for the Lambda function.
  */
 final class EC2UnexpectedException extends ServerException
 {

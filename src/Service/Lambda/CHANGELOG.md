@@ -6,6 +6,10 @@
 
 - Assert the provided Input can be json-encoded.
 
+### Changed
+
+- AWS enhancement: Documentation updates for Amazon Lambda.
+
 ## 1.4.0
 
 ### Added

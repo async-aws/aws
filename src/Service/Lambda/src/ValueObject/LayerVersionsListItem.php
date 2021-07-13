@@ -5,7 +5,7 @@ namespace AsyncAws\Lambda\ValueObject;
 use AsyncAws\Lambda\Enum\Runtime;
 
 /**
- * Details about a version of an AWS Lambda layer.
+ * Details about a version of an Lambda layer.
  *
  * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
  */

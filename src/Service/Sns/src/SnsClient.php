@@ -88,10 +88,11 @@ class SnsClient extends AbstractApi
 
     /**
      * Creates a topic to which notifications can be published. Users can create at most 100,000 standard topics (at most
-     * 1,000 FIFO topics). For more information, see https://aws.amazon.com/sns. This action is idempotent, so if the
-     * requester already owns a topic with the specified name, that topic's ARN is returned without creating a new topic.
+     * 1,000 FIFO topics). For more information, see Creating an Amazon SNS topic in the *Amazon SNS Developer Guide*. This
+     * action is idempotent, so if the requester already owns a topic with the specified name, that topic's ARN is returned
+     * without creating a new topic.
      *
-     * @see http://aws.amazon.com/sns/
+     * @see https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html
      * @see https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#createtopic
      *
@@ -288,7 +289,7 @@ class SnsClient extends AbstractApi
 
     /**
      * Subscribes an endpoint to an Amazon SNS topic. If the endpoint type is HTTP/S or email, or if the endpoint and the
-     * topic are not in the same AWS account, the endpoint owner must run the `ConfirmSubscription` action to confirm the
+     * topic are not in the same account, the endpoint owner must run the `ConfirmSubscription` action to confirm the
      * subscription.
      *
      * @see https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html
@@ -329,9 +330,10 @@ class SnsClient extends AbstractApi
 
     /**
      * Deletes a subscription. If the subscription requires authentication for deletion, only the owner of the subscription
-     * or the topic's owner can unsubscribe, and an AWS signature is required. If the `Unsubscribe` call does not require
-     * authentication and the requester is not the subscription owner, a final cancellation message is delivered to the
-     * endpoint, so that the endpoint owner can easily resubscribe to the topic if the `Unsubscribe` request was unintended.
+     * or the topic's owner can unsubscribe, and an Amazon Web Services signature is required. If the `Unsubscribe` call
+     * does not require authentication and the requester is not the subscription owner, a final cancellation message is
+     * delivered to the endpoint, so that the endpoint owner can easily resubscribe to the topic if the `Unsubscribe`
+     * request was unintended.
      *
      * @see https://docs.aws.amazon.com/sns/latest/api/API_Unsubscribe.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#unsubscribe

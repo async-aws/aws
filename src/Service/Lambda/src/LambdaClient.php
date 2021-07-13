@@ -59,9 +59,9 @@ use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
 class LambdaClient extends AbstractApi
 {
     /**
-     * Adds permissions to the resource-based policy of a version of an AWS Lambda layer. Use this action to grant layer
-     * usage permission to other accounts. You can grant permission to a single account, all AWS accounts, or all accounts
-     * in an organization.
+     * Adds permissions to the resource-based policy of a version of an Lambda layer. Use this action to grant layer usage
+     * permission to other accounts. You can grant permission to a single account, all accounts in an organization, or all
+     * Amazon Web Services accounts.
      *
      * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
      * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_AddLayerVersionPermission.html
@@ -246,8 +246,8 @@ class LambdaClient extends AbstractApi
     }
 
     /**
-     * Lists the versions of an AWS Lambda layer. Versions that have been deleted aren't listed. Specify a runtime
-     * identifier to list only versions that indicate that they're compatible with that runtime.
+     * Lists the versions of an Lambda layer. Versions that have been deleted aren't listed. Specify a runtime identifier to
+     * list only versions that indicate that they're compatible with that runtime.
      *
      * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
      * @see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
@@ -314,8 +314,8 @@ class LambdaClient extends AbstractApi
     }
 
     /**
-     * Creates an AWS Lambda layer from a ZIP archive. Each time you call `PublishLayerVersion` with the same layer name, a
-     * new version is created.
+     * Creates an Lambda layer from a ZIP archive. Each time you call `PublishLayerVersion` with the same layer name, a new
+     * version is created.
      *
      * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
      * @see https://docs.aws.amazon.com/lambda/latest/APIReference/API_PublishLayerVersion.html

@@ -61,8 +61,8 @@ class IamClient extends AbstractApi
     }
 
     /**
-     * Creates a new AWS secret access key and corresponding AWS access key ID for the specified user. The default status
-     * for new keys is `Active`.
+     * Creates a new Amazon Web Services secret access key and corresponding Amazon Web Services access key ID for the
+     * specified user. The default status for new keys is `Active`.
      *
      * @see https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateAccessKey.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#createaccesskey
@@ -89,7 +89,7 @@ class IamClient extends AbstractApi
     }
 
     /**
-     * Creates a new IAM user for your AWS account.
+     * Creates a new IAM user for your account.
      *
      * @see https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateUser.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#createuser
@@ -153,7 +153,7 @@ class IamClient extends AbstractApi
     }
 
     /**
-     * Deletes the specified IAM user. Unlike the AWS Management Console, when you delete a user programmatically, you must
+     * Deletes the specified IAM user. Unlike the Management Console, when you delete a user programmatically, you must
      * delete the items attached to the user manually, or the deletion fails. For more information, see Deleting an IAM
      * user. Before attempting to delete a user, remove the following items:.
      *
@@ -213,7 +213,7 @@ class IamClient extends AbstractApi
 
     /**
      * Lists the IAM users that have the specified path prefix. If no path prefix is specified, the operation returns all
-     * users in the AWS account. If there are none, the operation returns an empty list.
+     * users in the account. If there are none, the operation returns an empty list.
      *
      * @see https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListUsers.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#listusers

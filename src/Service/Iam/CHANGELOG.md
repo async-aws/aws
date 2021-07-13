@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Improve comments.
+- AWS enhancement: Documentation updates for AWS Identity and Access Management (IAM).
 
 ## 1.1.0
 

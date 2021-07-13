@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ServerException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * AWS Lambda could not unzip the deployment package.
+ * Lambda could not unzip the deployment package.
  */
 final class InvalidZipFileException extends ServerException
 {

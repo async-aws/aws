@@ -43,10 +43,11 @@ final class User
     private $createDate;
 
     /**
-     * The date and time, in ISO 8601 date-time format, when the user's password was last used to sign in to an AWS website.
-     * For a list of AWS websites that capture a user's last sign-in time, see the Credential reports topic in the *IAM User
-     * Guide*. If a password is used more than once in a five-minute span, only the first use is returned in this field. If
-     * the field is null (no value), then it indicates that they never signed in with a password. This can be because:.
+     * The date and time, in ISO 8601 date-time format, when the user's password was last used to sign in to an Amazon Web
+     * Services website. For a list of Amazon Web Services websites that capture a user's last sign-in time, see the
+     * Credential reports topic in the *IAM User Guide*. If a password is used more than once in a five-minute span, only
+     * the first use is returned in this field. If the field is null (no value), then it indicates that they never signed in
+     * with a password. This can be because:.
      *
      * @see http://www.iso.org/iso/iso8601
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html
