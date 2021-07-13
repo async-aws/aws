@@ -110,6 +110,35 @@
       <code>list&lt;Runtime::*&gt;</code>
     </MoreSpecificReturnType>
   </file>
+  <file src="src/Service/Kinesis/src/Input/DeleteStreamInput.php">
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Service/Kinesis/src/Result/DescribeStreamOutput.php">
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="1">
+      <code>list&lt;MetricsName::*&gt;</code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="src/Service/Kinesis/src/Result/DescribeStreamSummaryOutput.php">
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="1">
+      <code>list&lt;MetricsName::*&gt;</code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="src/Service/Kinesis/src/Result/EnhancedMonitoringOutput.php">
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="1">
+      <code>list&lt;MetricsName::*&gt;</code>
+    </MoreSpecificReturnType>
+  </file>
   <file src="src/Service/Lambda/src/Result/PublishLayerVersionResponse.php">
     <LessSpecificReturnStatement occurrences="1">
       <code>$items</code>

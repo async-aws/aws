@@ -45,6 +45,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\Iam\IamClient::class,
                 'package' => 'async-aws/iam',
             ],
+            'kinesis' => [
+                'class' => \AsyncAws\Kinesis\KinesisClient::class,
+                'package' => 'async-aws/kinesis',
+            ],
             'lambda' => [
                 'class' => \AsyncAws\Lambda\LambdaClient::class,
                 'package' => 'async-aws/lambda',

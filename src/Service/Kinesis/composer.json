@@ -1,0 +1,33 @@
+{
+    "name": "async-aws/kinesis",
+    "type": "library",
+    "description": "Kinesis client, part of the AWS SDK provided by AsyncAws.",
+    "keywords": [
+        "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
+        "kinesis"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.2.5 || ^8.0",
+        "ext-json": "*",
+        "async-aws/core": "^1.9"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "AsyncAws\\Kinesis\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\Kinesis\\Tests\\": "tests/"
+        }
+    }
+}
