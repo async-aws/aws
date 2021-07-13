@@ -273,15 +273,11 @@ class RestXmlParser implements Parser
 
     private function parseXmlResponseMap(MapShape $shape, string $input, bool $required): string
     {
-        if (null === $locationName = $shape->getKey()->getLocationName()) {
-            throw new \RuntimeException('This is not implemented yet');
-        }
-
         $shapeValue = $shape->getValue();
         $body = '
             $items = [];
-            foreach ($xml as $item) {
-                if (null === $a = VALUE) {
+            foreach (INPUT as $item) {
+                if (null === $a = $item->MAP_VALUE) {
                     continue;
                 }
                 $items[$item->MAP_KEY->__toString()] = MAP_ACCESSOR;
@@ -292,8 +288,9 @@ class RestXmlParser implements Parser
 
         $functionName = 'populateResult' . ucfirst($shape->getName());
         $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
-            'MAP_KEY' => $locationName,
-            'VALUE' => $this->getInputAccessor('$item', $shapeValue),
+            'INPUT' => $shape->isFlattened() ? '$xml' : '$xml->entry',
+            'MAP_KEY' => $shape->getKey()->getLocationName() ?? 'key',
+            'MAP_VALUE' => $shape->getValue()->getLocationName() ?? 'value',
             'MAP_ACCESSOR' => $this->parseXmlElement('$a', $shapeValue->getShape(), true),
         ]), $shape);
 
