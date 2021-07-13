@@ -22,7 +22,7 @@ class ClientExceptionTest extends TestCase
         self::assertEquals('code', $exception->getAwsCode());
         self::assertEquals('type', $exception->getAwsType());
         self::assertEquals('detail', $exception->getAwsDetail());
-        self::assertStringContainsString('HTTP 400 returned for "info: url".', $exception->getMessage());
+        self::assertStringContainsString('HTTP 400 returned for "".', $exception->getMessage());
         self::assertStringContainsString('Message: message', $exception->getMessage());
     }
 }
