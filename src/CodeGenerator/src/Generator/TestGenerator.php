@@ -302,6 +302,7 @@ class TestGenerator
                 return var_export('change me', true);
             case 'integer':
             case 'long':
+            case 'double':
             case 'float':
                 return var_export(1337, true);
             case 'timestamp':

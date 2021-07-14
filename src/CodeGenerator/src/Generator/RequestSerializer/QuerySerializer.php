@@ -155,6 +155,7 @@ class QuerySerializer implements Serializer
         switch ($shape->getType()) {
             case 'string':
             case 'integer':
+            case 'double':
                 return $this->dumpArrayScalar($output, $input, $contextProperty, $shape);
             case 'boolean':
                 return $this->dumpArrayBoolean($output, $input, $shape);
