@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The parameter could not be found. Verify the name and try again.
+ * The parameter couldn't be found. Verify the name and try again.
  */
 final class ParameterNotFoundException extends ClientException
 {

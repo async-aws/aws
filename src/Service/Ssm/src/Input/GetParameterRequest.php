@@ -19,7 +19,8 @@ final class GetParameterRequest extends Input
     private $name;
 
     /**
-     * Return decrypted values for secure string parameters. This flag is ignored for String and StringList parameter types.
+     * Return decrypted values for secure string parameters. This flag is ignored for `String` and `StringList` parameter
+     * types.
      *
      * @var bool|null
      */

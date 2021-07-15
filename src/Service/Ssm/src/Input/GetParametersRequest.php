@@ -20,7 +20,7 @@ final class GetParametersRequest extends Input
 
     /**
      * Return decrypted secure string value. Return decrypted values for secure string parameters. This flag is ignored for
-     * String and StringList parameter types.
+     * `String` and `StringList` parameter types.
      *
      * @var bool|null
      */

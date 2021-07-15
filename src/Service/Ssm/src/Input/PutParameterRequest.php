@@ -48,16 +48,16 @@ final class PutParameterRequest extends Input
     private $type;
 
     /**
-     * The KMS Key ID that you want to use to encrypt a parameter. Either the default AWS Key Management Service (AWS KMS)
-     * key automatically assigned to your AWS account or a custom key. Required for parameters that use the `SecureString`
-     * data type.
+     * The Key Management Service (KMS) ID that you want to use to encrypt a parameter. Either the default KMS key
+     * automatically assigned to your account or a custom key. Required for parameters that use the `SecureString` data
+     * type.
      *
      * @var string|null
      */
     private $keyId;
 
     /**
-     * Overwrite an existing parameter. The default value is 'false'.
+     * Overwrite an existing parameter. The default value is `false`.
      *
      * @var bool|null
      */
@@ -75,7 +75,7 @@ final class PutParameterRequest extends Input
      * Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such as
      * by purpose, owner, or environment. For example, you might want to tag a Systems Manager parameter to identify the
      * type of resource to which it applies, the environment, or the type of configuration data referenced by the parameter.
-     * In this case, you could specify the following key name/value pairs:.
+     * In this case, you could specify the following key-value pairs:.
      *
      * @var Tag[]|null
      */
@@ -89,15 +89,15 @@ final class PutParameterRequest extends Input
     private $tier;
 
     /**
-     * One or more policies to apply to a parameter. This action takes a JSON array. Parameter Store supports the following
-     * policy types:.
+     * One or more policies to apply to a parameter. This operation takes a JSON array. Parameter Store, a capability of
+     * Amazon Web Services Systems Manager supports the following policy types:.
      *
      * @var string|null
      */
     private $policies;
 
     /**
-     * The data type for a `String` parameter. Supported data types include plain text and Amazon Machine Image IDs.
+     * The data type for a `String` parameter. Supported data types include plain text and Amazon Machine Image (AMI) IDs.
      *
      * @var string|null
      */

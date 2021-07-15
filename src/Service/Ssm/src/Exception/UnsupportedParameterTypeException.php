@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The parameter type is not supported.
+ * The parameter type isn't supported.
  */
 final class UnsupportedParameterTypeException extends ClientException
 {

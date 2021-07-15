@@ -36,8 +36,8 @@ final class Parameter
     private $selector;
 
     /**
-     * Applies to parameters that reference information in other AWS services. SourceResult is the raw result or response
-     * from the source.
+     * Applies to parameters that reference information in other Amazon Web Services services. `SourceResult` is the raw
+     * result or response from the source.
      */
     private $sourceResult;
 

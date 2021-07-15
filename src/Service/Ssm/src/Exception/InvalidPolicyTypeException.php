@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The policy type is not supported. Parameter Store supports the following policy types: Expiration,
+ * The policy type isn't supported. Parameter Store supports the following policy types: Expiration,
  * ExpirationNotification, and NoChangeNotification.
  */
 final class InvalidPolicyTypeException extends ClientException

@@ -72,8 +72,8 @@ class SsmClient extends AbstractApi
     }
 
     /**
-     * Get information about a parameter by using the parameter name. Don't confuse this API action with the GetParameters
-     * API action.
+     * Get information about a parameter by using the parameter name. Don't confuse this API operation with the
+     * GetParameters API operation.
      *
      * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameter.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#getparameter
@@ -103,7 +103,7 @@ class SsmClient extends AbstractApi
     }
 
     /**
-     * Get details of a parameter. Don't confuse this API action with the GetParameter API action.
+     * Get details of a parameter. Don't confuse this API operation with the GetParameter API operation.
      *
      * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameters.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#getparameters

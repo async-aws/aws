@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The query key ID is not valid.
+ * The query key ID isn't valid.
  */
 final class InvalidKeyIdException extends ClientException
 {

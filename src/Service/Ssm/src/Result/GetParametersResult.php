@@ -14,7 +14,7 @@ class GetParametersResult extends Result
     private $parameters = [];
 
     /**
-     * A list of parameters that are not formatted correctly or do not run during an execution.
+     * A list of parameters that aren't formatted correctly or don't run during an execution.
      */
     private $invalidParameters = [];
 
