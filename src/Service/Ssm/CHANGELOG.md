@@ -12,8 +12,7 @@
 
 ### Added
 
-- AWS enhancement: Documentation updates for ssm to fix customer reported issue
-- AWS api-change: Changes to OpsCenter APIs to support a new feature, operational insights.
+- AWS enhancement: Documentation updates for ssm.
 
 ## 1.2.0
 
