@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The filter value is not valid. Verify the value and try again.
+ * The filter value isn't valid. Verify the value and try again.
  */
 final class InvalidFilterValueException extends ClientException
 {

@@ -12,7 +12,7 @@ final class GetParametersByPathRequest extends Input
 {
     /**
      * The hierarchy for the parameter. Hierarchies start with a forward slash (/). The hierachy is the parameter name
-     * except the last part of the parameter. For the API call to succeeed, the last part of the parameter name cannot be in
+     * except the last part of the parameter. For the API call to succeeed, the last part of the parameter name can't be in
      * the path. A parameter name hierarchy can have a maximum of 15 levels. Here is an example of a hierarchy:
      * `/Finance/Prod/IAD/WinServ2016/license33 `.
      *

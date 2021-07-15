@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The request does not meet the regular expression requirement.
+ * The request doesn't meet the regular expression requirement.
  */
 final class InvalidAllowedPatternException extends ClientException
 {

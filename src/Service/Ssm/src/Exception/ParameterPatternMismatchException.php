@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The parameter name is not valid.
+ * The parameter name isn't valid.
  */
 final class ParameterPatternMismatchException extends ClientException
 {

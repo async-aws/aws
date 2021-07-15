@@ -12,7 +12,7 @@
 
 ### Added
 
-- AWS enhancement: Documentation updates for ssm to fix customer reported issue
+- AWS enhancement: Documentation updates for ssm.
 
 ## 1.2.0
 
