@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * This exception is thrown when the Amazon Cognito service encounters a user validation exception with the AWS Lambda
+ * This exception is thrown when the Amazon Cognito service encounters a user validation exception with the Lambda
  * service.
  */
 final class UserLambdaValidationException extends ClientException

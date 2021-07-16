@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * This exception is thrown when a user exceeds the limit for a requested AWS resource.
+ * This exception is thrown when a user exceeds the limit for a requested Amazon Web Services resource.
  */
 final class LimitExceededException extends ClientException
 {

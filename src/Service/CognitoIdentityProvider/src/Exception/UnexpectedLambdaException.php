@@ -6,8 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * This exception is thrown when the Amazon Cognito service encounters an unexpected exception with the AWS Lambda
- * service.
+ * This exception is thrown when the Amazon Cognito service encounters an unexpected exception with the Lambda service.
  */
 final class UnexpectedLambdaException extends ClientException
 {
