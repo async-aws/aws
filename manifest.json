@@ -404,6 +404,16 @@
                 "AssumeRoleWithWebIdentity",
                 "GetCallerIdentity"
             ]
+        },
+        "StepFunctions": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/states/2016-11-23/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/states/2016-11-23/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/states/2016-11-23/paginators-1.json",
+            "namespace": "AsyncAws\\StepFunctions",
+            "api-reference": "https://docs.aws.amazon.com/step-functions/latest/apireference",
+            "methods": [
+                "StartExecution"
+            ]
         }
     }
 }

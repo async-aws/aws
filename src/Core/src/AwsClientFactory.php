@@ -30,6 +30,7 @@ use AsyncAws\Ses\SesClient;
 use AsyncAws\Sns\SnsClient;
 use AsyncAws\Sqs\SqsClient;
 use AsyncAws\Ssm\SsmClient;
+use AsyncAws\StepFunctions\StepFunctionsClient;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\HttpClient;
@@ -333,12 +334,21 @@ class AwsClientFactory
 
     public function sts(): StsClient
     {
-        if (!class_exists(StsClient::class)) {
-            throw MissingDependency::create('async-aws/core', 'STS');
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new StsClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function stepFunctions(): StepFunctionsClient
+    {
+        if (!class_exists(StepFunctionsClient::class)) {
+            throw MissingDependency::create('async-aws/step-functions', 'StepFunctions');
         }
 
         if (!isset($this->serviceCache[__METHOD__])) {
-            $this->serviceCache[__METHOD__] = new StsClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+            $this->serviceCache[__METHOD__] = new StepFunctionsClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];

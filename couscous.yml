@@ -94,6 +94,9 @@ menu:
             sts:
                 text: STS
                 url: /clients/sts.html
+            step-functions:
+                text: Step Functions
+                url: /clients/step-functions.html
 
     features:
         # Feature are in alphabetical order after "why async?"

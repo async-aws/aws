@@ -155,3 +155,4 @@ for more information.
 | [SQS](./sqs.md)                             | [async-aws/sqs](https://packagist.org/packages/async-aws/sqs)
 | [SSM](./ssm.md)                             | [async-aws/ssm](https://packagist.org/packages/async-aws/ssm)
 | [STS](./sts.md)                             | [async-aws/core](https://packagist.org/packages/async-aws/core)
+| [StepFunctions](./step-functions.md)        | [async-aws/step-functions](https://packagist.org/packages/async-aws/step-functions)
