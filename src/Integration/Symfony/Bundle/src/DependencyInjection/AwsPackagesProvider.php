@@ -97,6 +97,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\Core\Sts\StsClient::class,
                 'package' => 'async-aws/core',
             ],
+            'step_functions' => [
+                'class' => \AsyncAws\StepFunctions\StepFunctionsClient::class,
+                'package' => 'async-aws/step-functions',
+            ],
         ];
     }
 
