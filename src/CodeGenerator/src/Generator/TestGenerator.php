@@ -251,7 +251,7 @@ class TestGenerator
                 RESULT_ASSERT
             ', [
                 'INPUT_CONSTRUCTOR' => $this->getInputCode($classBuilder, $operation->getInput()),
-                'METHOD' => $operation->getMethodName(),
+                'METHOD' => lcfirst($operation->getMethodName()),
                 'RESULT_ASSERT' => $operation->getOutput() ? $this->getResultAssert($operation->getOutput()) : '',
             ]));
     }
@@ -357,7 +357,7 @@ class TestGenerator
                 'CLASS_NAME' => $clientName->getName(),
                 'INPUT_CONSTRUCTOR' => $this->getInputCode($classBuilder, $operation->getInput(), false),
                 'RESULT' => $output->getName(),
-                'METHOD' => $operation->getMethodName(),
+                'METHOD' => lcfirst($operation->getMethodName()),
             ]));
     }
 
