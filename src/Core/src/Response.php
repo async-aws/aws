@@ -21,6 +21,7 @@ use AsyncAws\Core\Stream\ResponseBodyStream;
 use AsyncAws\Core\Stream\ResultStream;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
@@ -316,6 +317,7 @@ class Response
 
     /**
      * @throws NetworkException
+     * @throws UnparsableResponse
      * @throws HttpException
      */
     public function toArray(): array
@@ -324,6 +326,8 @@ class Response
 
         try {
             return $this->httpResponse->toArray(false);
+        } catch (DecodingExceptionInterface $e) {
+            throw new UnparsableResponse('Could not parse response as array', 0, $e);
         } finally {
             $this->bodyDownloaded = true;
         }
