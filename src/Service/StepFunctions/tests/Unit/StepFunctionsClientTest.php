@@ -20,7 +20,7 @@ class StepFunctionsClientTest extends TestCase
             'name' => 'qwertyuiop',
             'input' => '{"foo": "bar"}',
         ]);
-        $result = $client->StartExecution($input);
+        $result = $client->startExecution($input);
 
         self::assertInstanceOf(StartExecutionOutput::class, $result);
         self::assertFalse($result->info()['resolved']);

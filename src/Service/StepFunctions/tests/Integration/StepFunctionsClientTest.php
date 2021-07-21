@@ -21,7 +21,7 @@ class StepFunctionsClientTest extends TestCase
             'input' => 'change me',
             'traceHeader' => 'change me',
         ]);
-        $result = $client->StartExecution($input);
+        $result = $client->startExecution($input);
 
         $result->resolve();
 
