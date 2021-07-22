@@ -45,6 +45,7 @@ jobs:
 
       - name: Cache Composer
         uses: actions/cache@v2
+        if: steps.composer-cache.outputs.dir
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ github.sha }}
