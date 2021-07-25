@@ -2,9 +2,19 @@
 
 ## NOT RELEASED
 
+## 1.11.0
+
 ### Added
 
+- Support for StepFunctions
+- Support for Kinesis
+- Support for SecretsManager
+- Support for Symfony contracts v3
 - AWS enhancement: Documentation updates for AWS Security Token Service.
+
+### Fixed
+
+- Wrap the HttpClient's decoding exception in UnparsableResponse.
 
 ## 1.10.0
 
