@@ -45,8 +45,8 @@ final class ResourceRecordSet
 
     /**
      * *Latency-based resource record sets only:* The Amazon EC2 Region where you created the resource that this resource
-     * record set refers to. The resource typically is an AWS resource, such as an EC2 instance or an ELB load balancer, and
-     * is referred to by an IP address or a DNS domain name, depending on the record type.
+     * record set refers to. The resource typically is an Amazon Web Services resource, such as an EC2 instance or an ELB
+     * load balancer, and is referred to by an IP address or a DNS domain name, depending on the record type.
      */
     private $region;
 
@@ -84,8 +84,8 @@ final class ResourceRecordSet
     private $resourceRecords;
 
     /**
-     * *Alias resource record sets only:* Information about the AWS resource, such as a CloudFront distribution or an Amazon
-     * S3 bucket, that you want to route traffic to.
+     * *Alias resource record sets only:* Information about the Amazon Web Services resource, such as a CloudFront
+     * distribution or an Amazon S3 bucket, that you want to route traffic to.
      */
     private $aliasTarget;
 

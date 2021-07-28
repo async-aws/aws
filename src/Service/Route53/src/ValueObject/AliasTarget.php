@@ -5,8 +5,8 @@ namespace AsyncAws\Route53\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * *Alias resource record sets only:* Information about the AWS resource, such as a CloudFront distribution or an Amazon
- * S3 bucket, that you want to route traffic to.
+ * *Alias resource record sets only:* Information about the Amazon Web Services resource, such as a CloudFront
+ * distribution or an Amazon S3 bucket, that you want to route traffic to.
  * If you're creating resource records sets for a private hosted zone, note the following:.
  *
  * - You can't create an alias resource record set in a private hosted zone to route traffic to a CloudFront
@@ -32,8 +32,8 @@ final class AliasTarget
 
     /**
      * *Applies only to alias, failover alias, geolocation alias, latency alias, and weighted alias resource record sets:*
-     * When `EvaluateTargetHealth` is `true`, an alias resource record set inherits the health of the referenced AWS
-     * resource, such as an ELB load balancer or another resource record set in the hosted zone.
+     * When `EvaluateTargetHealth` is `true`, an alias resource record set inherits the health of the referenced Amazon Web
+     * Services resource, such as an ELB load balancer or another resource record set in the hosted zone.
      */
     private $evaluateTargetHealth;
 

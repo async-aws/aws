@@ -151,8 +151,8 @@ class Route53Client extends AbstractApi
     }
 
     /**
-     * Retrieves a list of the public and private hosted zones that are associated with the current AWS account. The
-     * response includes a `HostedZones` child element for each hosted zone.
+     * Retrieves a list of the public and private hosted zones that are associated with the current account. The response
+     * includes a `HostedZones` child element for each hosted zone.
      *
      * @see https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListHostedZones.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-route53-2013-04-01.html#listhostedzones
@@ -182,7 +182,7 @@ class Route53Client extends AbstractApi
 
     /**
      * Retrieves a list of your hosted zones in lexicographic order. The response includes a `HostedZones` child element for
-     * each hosted zone created by the current AWS account.
+     * each hosted zone created by the current account.
      *
      * @see https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListHostedZonesByName.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-route53-2013-04-01.html#listhostedzonesbyname

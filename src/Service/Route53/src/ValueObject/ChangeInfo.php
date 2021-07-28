@@ -14,7 +14,10 @@ use AsyncAws\Route53\Enum\ChangeStatus;
 final class ChangeInfo
 {
     /**
-     * The ID of the request.
+     * This element contains an ID that you use when performing a GetChange action to get detailed information about the
+     * change.
+     *
+     * @see https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html
      */
     private $id;
 
@@ -33,7 +36,7 @@ final class ChangeInfo
     private $submittedAt;
 
     /**
-     * A complex type that describes change information about changes made to your hosted zone.
+     * A comment you can provide.
      */
     private $comment;
 
