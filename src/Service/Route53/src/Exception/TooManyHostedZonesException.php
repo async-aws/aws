@@ -13,7 +13,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  * To get the current limit on hosted zones that can be created by an account, see GetAccountLimit.
  * To get the current limit on hosted zones that can be associated with a reusable delegation set, see
  * GetReusableDelegationSetLimit.
- * To request a higher limit, create a case with the AWS Support Center.
+ * To request a higher limit, create a case with the Amazon Web Services Support Center.
  *
  * @see https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html
  * @see https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetAccountLimit.html
