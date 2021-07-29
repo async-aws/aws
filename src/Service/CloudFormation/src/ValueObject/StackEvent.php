@@ -35,7 +35,8 @@ final class StackEvent
     private $physicalResourceId;
 
     /**
-     * Type of resource. (For more information, go to  AWS Resource Types Reference in the AWS CloudFormation User Guide.).
+     * Type of resource. (For more information, go to Amazon Web Services Resource Types Reference in the CloudFormation
+     * User Guide.).
      *
      * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html
      */

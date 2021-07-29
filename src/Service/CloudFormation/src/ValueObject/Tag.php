@@ -3,14 +3,14 @@
 namespace AsyncAws\CloudFormation\ValueObject;
 
 /**
- * The Tag type enables you to specify a key-value pair that can be used to store information about an AWS
- * CloudFormation stack.
+ * The Tag type enables you to specify a key-value pair that can be used to store information about an CloudFormation
+ * stack.
  */
 final class Tag
 {
     /**
      * *Required*. A string used to identify this tag. You can specify a maximum of 128 characters for a tag key. Tags owned
-     * by Amazon Web Services (AWS) have the reserved prefix: `aws:`.
+     * by Amazon Web Services (Amazon Web Services) have the reserved prefix: `aws:`.
      */
     private $key;
 

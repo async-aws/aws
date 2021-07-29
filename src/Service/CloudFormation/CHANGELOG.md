@@ -6,6 +6,7 @@
 
 - Changed case of object's properties to camelCase.
 - Added documentation in class headers.
+- AWS api-change: SDK update to support Importing existing Stacks to new/existing Self Managed StackSet - Stack Import feature.
 
 ## 1.0.2
 

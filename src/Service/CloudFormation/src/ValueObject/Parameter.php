@@ -8,7 +8,7 @@ namespace AsyncAws\CloudFormation\ValueObject;
 final class Parameter
 {
     /**
-     * The key associated with the parameter. If you don't specify a key and value for a particular parameter, AWS
+     * The key associated with the parameter. If you don't specify a key and value for a particular parameter,
      * CloudFormation uses the default value that is specified in your template.
      */
     private $parameterKey;

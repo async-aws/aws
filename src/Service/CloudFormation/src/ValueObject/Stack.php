@@ -51,7 +51,7 @@ final class Stack
     private $lastUpdatedTime;
 
     /**
-     * The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the
+     * The rollback triggers for CloudFormation to monitor during stack creation and updating operations, and for the
      * specified monitoring period afterwards.
      */
     private $rollbackConfiguration;
@@ -92,8 +92,8 @@ final class Stack
     private $outputs;
 
     /**
-     * The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that is associated with the stack.
-     * During a stack operation, AWS CloudFormation uses this role's credentials to make calls on your behalf.
+     * The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that is associated with the stack.
+     * During a stack operation, CloudFormation uses this role's credentials to make calls on your behalf.
      */
     private $roleArn;
 
