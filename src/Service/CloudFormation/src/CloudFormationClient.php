@@ -17,7 +17,7 @@ class CloudFormationClient extends AbstractApi
 {
     /**
      * Returns all stack related events for a specified stack in reverse chronological order. For more information about a
-     * stack's event history, go to Stacks in the AWS CloudFormation User Guide.
+     * stack's event history, go to Stacks in the CloudFormation User Guide.
      *
      * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/concept-stack.html
      * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeStackEvents.html
