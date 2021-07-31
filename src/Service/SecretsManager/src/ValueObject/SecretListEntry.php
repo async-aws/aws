@@ -26,9 +26,9 @@ final class SecretListEntry
     private $description;
 
     /**
-     * The ARN or alias of the AWS KMS customer master key (CMK) used to encrypt the `SecretString` and `SecretBinary`
-     * fields in each version of the secret. If you don't provide a key, then Secrets Manager defaults to encrypting the
-     * secret fields with the default KMS CMK, the key named `awssecretsmanager`, for this account.
+     * The ARN or alias of the Amazon Web Services KMS customer master key (CMK) used to encrypt the `SecretString` and
+     * `SecretBinary` fields in each version of the secret. If you don't provide a key, then Secrets Manager defaults to
+     * encrypting the secret fields with the default KMS CMK, the key named `awssecretsmanager`, for this account.
      */
     private $kmsKeyId;
 
@@ -38,8 +38,8 @@ final class SecretListEntry
     private $rotationEnabled;
 
     /**
-     * The ARN of an AWS Lambda function invoked by Secrets Manager to rotate and expire the secret either automatically per
-     * the schedule or manually by a call to RotateSecret.
+     * The ARN of an Amazon Web Services Lambda function invoked by Secrets Manager to rotate and expire the secret either
+     * automatically per the schedule or manually by a call to RotateSecret.
      */
     private $rotationLambdaArn;
 

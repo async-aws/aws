@@ -36,8 +36,8 @@ final class CreateSecretRequest extends Input
     private $description;
 
     /**
-     * (Optional) Specifies the ARN, Key ID, or alias of the AWS KMS customer master key (CMK) to be used to encrypt the
-     * `SecretString` or `SecretBinary` values in the versions stored in this secret.
+     * (Optional) Specifies the ARN, Key ID, or alias of the Amazon Web Services KMS customer master key (CMK) to be used to
+     * encrypt the `SecretString` or `SecretBinary` values in the versions stored in this secret.
      *
      * @var string|null
      */

@@ -35,8 +35,8 @@ final class UpdateSecretRequest extends Input
     private $description;
 
     /**
-     * (Optional) Specifies an updated ARN or alias of the AWS KMS customer master key (CMK) to be used to encrypt the
-     * protected text in new versions of this secret.
+     * (Optional) Specifies an updated ARN or alias of the Amazon Web Services KMS customer master key (CMK) to be used to
+     * encrypt the protected text in new versions of this secret.
      *
      * @var string|null
      */

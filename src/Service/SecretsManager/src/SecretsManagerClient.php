@@ -154,9 +154,9 @@ class SecretsManagerClient extends AbstractApi
     }
 
     /**
-     * Lists all of the secrets that are stored by Secrets Manager in the AWS account. To list the versions currently stored
-     * for a specific secret, use ListSecretVersionIds. The encrypted fields `SecretString` and `SecretBinary` are not
-     * included in the output. To get that information, call the GetSecretValue operation.
+     * Lists all of the secrets that are stored by Secrets Manager in the Amazon Web Services account. To list the versions
+     * currently stored for a specific secret, use ListSecretVersionIds. The encrypted fields `SecretString` and
+     * `SecretBinary` are not included in the output. To get that information, call the GetSecretValue operation.
      *
      * @see https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecrets.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-secretsmanager-2017-10-17.html#listsecrets
