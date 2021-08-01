@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: Add support for KmsKeyIds in the ListSecretVersionIds API response
+- AWS enhancement: Documentation updates for SecretsManager.
 
 ## 0.1.0
 
