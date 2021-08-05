@@ -9,6 +9,7 @@
 ### Added
 
 - AWS api-change: Adds TraceHeader to PutEventsRequestEntry to support AWS X-Ray trace-ids on events generated using the PutEvents operation.
+- AWS enhancement: Documentation updates to add EC2 Image Builder as a target on PutTargets.
 
 ## 1.1.0
 

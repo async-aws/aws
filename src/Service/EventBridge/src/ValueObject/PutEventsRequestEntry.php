@@ -11,6 +11,7 @@ final class PutEventsRequestEntry
      * The time stamp of the event, per RFC3339. If no time stamp is provided, the time stamp of the PutEvents call is used.
      *
      * @see https://www.rfc-editor.org/rfc/rfc3339.txt
+     * @see https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutEvents.html
      */
     private $time;
 
@@ -20,8 +21,8 @@ final class PutEventsRequestEntry
     private $source;
 
     /**
-     * AWS resources, identified by Amazon Resource Name (ARN), which the event primarily concerns. Any number, including
-     * zero, may be present.
+     * Amazon Web Services resources, identified by Amazon Resource Name (ARN), which the event primarily concerns. Any
+     * number, including zero, may be present.
      */
     private $resources;
 
@@ -42,7 +43,7 @@ final class PutEventsRequestEntry
     private $eventBusName;
 
     /**
-     * An AWS X-Ray trade header, which is an http header (X-Amzn-Trace-Id) that contains the trace-id associated with the
+     * An X-Ray trade header, which is an http header (X-Amzn-Trace-Id) that contains the trace-id associated with the
      * event.
      */
     private $traceHeader;
