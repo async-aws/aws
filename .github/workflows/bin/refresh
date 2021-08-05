@@ -86,8 +86,13 @@ foreach ($versions as $version) {
         break;
     }
     console_log('Fetching CHANGELOG for '. $version['version']);
-    $versionChanges = json_decode(file_get_contents('https://raw.githubusercontent.com/aws/aws-sdk-php/'.$lastVersion.'/.changes/'.$version['version']), true);
-    $changes = array_merge($changes, $versionChanges);
+
+    $versionContent = @file_get_contents('https://raw.githubusercontent.com/aws/aws-sdk-php/'.$lastVersion.'/.changes/'.$version['version']);
+    if (false === $versionContent) {
+        continue;
+    }
+
+    $changes = array_merge($changes, json_decode($versionContent, true));
 }
 $changesByService = [];
 foreach ($changes as $change) {
