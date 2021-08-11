@@ -12,7 +12,6 @@
 
 ### Added
 
-- AWS enhancement: Documentation updates for ssm.
 - AWS enhancement: Documentation updates for AWS Systems Manager.
 
 ## 1.2.0
