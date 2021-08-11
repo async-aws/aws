@@ -47,7 +47,8 @@ use AsyncAws\Ssm\ValueObject\Tag;
 class SsmClient extends AbstractApi
 {
     /**
-     * Delete a parameter from the system.
+     * Delete a parameter from the system. After deleting a parameter, wait for at least 30 seconds to create a parameter
+     * with the same name.
      *
      * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_DeleteParameter.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#deleteparameter
@@ -72,8 +73,7 @@ class SsmClient extends AbstractApi
     }
 
     /**
-     * Get information about a parameter by using the parameter name. Don't confuse this API operation with the
-     * GetParameters API operation.
+     * Get information about a single parameter by specifying the parameter name.
      *
      * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameter.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#getparameter
@@ -103,7 +103,7 @@ class SsmClient extends AbstractApi
     }
 
     /**
-     * Get details of a parameter. Don't confuse this API operation with the GetParameter API operation.
+     * Get information about one or more parameters by specifying multiple parameter names.
      *
      * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameters.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#getparameters
