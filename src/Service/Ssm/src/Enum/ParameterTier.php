@@ -6,10 +6,11 @@ namespace AsyncAws\Ssm\Enum;
  * The parameter tier to assign to a parameter.
  * Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a content size
  * limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of 10,000 standard
- * parameters for each Region in an account. Standard parameters are offered at no additional cost.
+ * parameters for each Region in an Amazon Web Services account. Standard parameters are offered at no additional cost.
  * Advanced parameters have a content size limit of 8 KB and can be configured to use parameter policies. You can create
- * a maximum of 100,000 advanced parameters for each Region in an account. Advanced parameters incur a charge. For more
- * information, see Standard and advanced parameter tiers in the *Amazon Web Services Systems Manager User Guide*.
+ * a maximum of 100,000 advanced parameters for each Region in an Amazon Web Services account. Advanced parameters incur
+ * a charge. For more information, see Standard and advanced parameter tiers in the *Amazon Web Services Systems Manager
+ * User Guide*.
  * You can change a standard parameter to an advanced parameter any time. But you can't revert an advanced parameter to
  * a standard parameter. Reverting an advanced parameter to a standard parameter would result in data loss because the
  * system would truncate the size of the parameter from 8 KB to 4 KB. Reverting would also remove any policies attached
@@ -36,7 +37,8 @@ namespace AsyncAws\Ssm\Enum;
  *
  * - The content size of the parameter is more than 4 KB.
  * - The parameter uses a parameter policy.
- * - More than 10,000 parameters already exist in your account in the current Region.
+ * - More than 10,000 parameters already exist in your Amazon Web Services account in the current Amazon Web Services
+ *   Region.
  *
  * For more information about configuring the default tier option, see Specifying a default parameter tier in the
  * *Amazon Web Services Systems Manager User Guide*.
