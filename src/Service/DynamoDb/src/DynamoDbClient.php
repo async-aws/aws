@@ -15,6 +15,7 @@ use AsyncAws\DynamoDb\Enum\ReturnValue;
 use AsyncAws\DynamoDb\Enum\Select;
 use AsyncAws\DynamoDb\Enum\TableClass;
 use AsyncAws\DynamoDb\Exception\ConditionalCheckFailedException;
+use AsyncAws\DynamoDb\Exception\DuplicateItemException;
 use AsyncAws\DynamoDb\Exception\InternalServerErrorException;
 use AsyncAws\DynamoDb\Exception\ItemCollectionSizeLimitExceededException;
 use AsyncAws\DynamoDb\Exception\LimitExceededException;
@@ -29,6 +30,7 @@ use AsyncAws\DynamoDb\Input\CreateTableInput;
 use AsyncAws\DynamoDb\Input\DeleteItemInput;
 use AsyncAws\DynamoDb\Input\DeleteTableInput;
 use AsyncAws\DynamoDb\Input\DescribeTableInput;
+use AsyncAws\DynamoDb\Input\ExecuteStatementInput;
 use AsyncAws\DynamoDb\Input\GetItemInput;
 use AsyncAws\DynamoDb\Input\ListTablesInput;
 use AsyncAws\DynamoDb\Input\PutItemInput;
@@ -43,6 +45,7 @@ use AsyncAws\DynamoDb\Result\CreateTableOutput;
 use AsyncAws\DynamoDb\Result\DeleteItemOutput;
 use AsyncAws\DynamoDb\Result\DeleteTableOutput;
 use AsyncAws\DynamoDb\Result\DescribeTableOutput;
+use AsyncAws\DynamoDb\Result\ExecuteStatementOutput;
 use AsyncAws\DynamoDb\Result\GetItemOutput;
 use AsyncAws\DynamoDb\Result\ListTablesOutput;
 use AsyncAws\DynamoDb\Result\PutItemOutput;
@@ -282,6 +285,48 @@ class DynamoDbClient extends AbstractApi
         ]]));
 
         return new DescribeTableOutput($response);
+    }
+
+    /**
+     * This operation allows you to perform reads and singleton writes on data stored in DynamoDB, using PartiQL.
+     *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ExecuteStatement.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#executestatement
+     *
+     * @param array{
+     *   Statement: string,
+     *   Parameters?: AttributeValue[],
+     *   ConsistentRead?: bool,
+     *   NextToken?: string,
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *   Limit?: int,
+     *   @region?: string,
+     * }|ExecuteStatementInput $input
+     *
+     * @throws ConditionalCheckFailedException
+     * @throws ProvisionedThroughputExceededException
+     * @throws ResourceNotFoundException
+     * @throws ItemCollectionSizeLimitExceededException
+     * @throws TransactionConflictException
+     * @throws RequestLimitExceededException
+     * @throws InternalServerErrorException
+     * @throws DuplicateItemException
+     */
+    public function executeStatement($input): ExecuteStatementOutput
+    {
+        $input = ExecuteStatementInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ExecuteStatement', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ConditionalCheckFailedException' => ConditionalCheckFailedException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ItemCollectionSizeLimitExceededException' => ItemCollectionSizeLimitExceededException::class,
+            'TransactionConflictException' => TransactionConflictException::class,
+            'RequestLimitExceeded' => RequestLimitExceededException::class,
+            'InternalServerError' => InternalServerErrorException::class,
+            'DuplicateItemException' => DuplicateItemException::class,
+        ]]));
+
+        return new ExecuteStatementOutput($response);
     }
 
     /**

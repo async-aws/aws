@@ -12,6 +12,7 @@ use AsyncAws\DynamoDb\Input\CreateTableInput;
 use AsyncAws\DynamoDb\Input\DeleteItemInput;
 use AsyncAws\DynamoDb\Input\DeleteTableInput;
 use AsyncAws\DynamoDb\Input\DescribeTableInput;
+use AsyncAws\DynamoDb\Input\ExecuteStatementInput;
 use AsyncAws\DynamoDb\Input\GetItemInput;
 use AsyncAws\DynamoDb\Input\ListTablesInput;
 use AsyncAws\DynamoDb\Input\PutItemInput;
@@ -26,6 +27,7 @@ use AsyncAws\DynamoDb\Result\CreateTableOutput;
 use AsyncAws\DynamoDb\Result\DeleteItemOutput;
 use AsyncAws\DynamoDb\Result\DeleteTableOutput;
 use AsyncAws\DynamoDb\Result\DescribeTableOutput;
+use AsyncAws\DynamoDb\Result\ExecuteStatementOutput;
 use AsyncAws\DynamoDb\Result\GetItemOutput;
 use AsyncAws\DynamoDb\Result\ListTablesOutput;
 use AsyncAws\DynamoDb\Result\PutItemOutput;
@@ -135,6 +137,20 @@ class DynamoDbClientTest extends TestCase
         $result = $client->DescribeTable($input);
 
         self::assertInstanceOf(DescribeTableOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testExecuteStatement(): void
+    {
+        $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new ExecuteStatementInput([
+            'Statement' => 'change me',
+
+        ]);
+        $result = $client->executeStatement($input);
+
+        self::assertInstanceOf(ExecuteStatementOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
