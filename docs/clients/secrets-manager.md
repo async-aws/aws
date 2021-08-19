@@ -1,7 +1,7 @@
 ---
 layout: client
 category: clients
-name: SecretManager
+name: SecretsManager
 package: async-aws/secrets-manager
 ---
 
