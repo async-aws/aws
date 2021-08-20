@@ -9,7 +9,6 @@
 ### Added
 
 - AWS api-change: Update documentation
-- AWS enhancement: Documentation-only update for CloudWatch Logs
 
 ## 1.1.0
 
