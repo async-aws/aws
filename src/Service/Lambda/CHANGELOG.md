@@ -10,6 +10,10 @@
 
 - AWS enhancement: Documentation updates for Amazon Lambda.
 
+### Added
+
+- AWS api-change: Lambda Python 3.9 runtime launch
+
 ## 1.4.0
 
 ### Added

@@ -26,7 +26,8 @@ class CreateMultipartUploadOutput extends Result
     private $abortRuleId;
 
     /**
-     * The name of the bucket to which the multipart upload was initiated.
+     * The name of the bucket to which the multipart upload was initiated. Does not return the access point ARN or access
+     * point alias if used.
      */
     private $bucket;
 
@@ -58,19 +59,20 @@ class CreateMultipartUploadOutput extends Result
     private $sseCustomerKeyMd5;
 
     /**
-     * If present, specifies the ID of the AWS Key Management Service (AWS KMS) symmetric customer managed customer master
-     * key (CMK) that was used for the object.
+     * If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric
+     * customer managed customer master key (CMK) that was used for the object.
      */
     private $sseKmsKeyId;
 
     /**
-     * If present, specifies the AWS KMS Encryption Context to use for object encryption. The value of this header is a
-     * base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
+     * If present, specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this
+     * header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
      */
     private $sseKmsEncryptionContext;
 
     /**
-     * Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).
+     * Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS
+     * (SSE-KMS).
      */
     private $bucketKeyEnabled;
 

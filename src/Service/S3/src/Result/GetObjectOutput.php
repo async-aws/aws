@@ -134,13 +134,13 @@ class GetObjectOutput extends Result
     private $sseCustomerKeyMd5;
 
     /**
-     * If present, specifies the ID of the AWS Key Management Service (AWS KMS) symmetric customer managed customer master
-     * key (CMK) that was used for the object.
+     * If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric
+     * customer managed customer master key (CMK) that was used for the object.
      */
     private $sseKmsKeyId;
 
     /**
-     * Indicates whether the object uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).
+     * Indicates whether the object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
      */
     private $bucketKeyEnabled;
 

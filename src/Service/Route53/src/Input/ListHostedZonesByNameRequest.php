@@ -7,17 +7,17 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
 /**
- * Retrieves a list of the public and private hosted zones that are associated with the current account in ASCII order
- * by domain name.
+ * Retrieves a list of the public and private hosted zones that are associated with the current Amazon Web Services
+ * account in ASCII order by domain name.
  */
 final class ListHostedZonesByNameRequest extends Input
 {
     /**
      * (Optional) For your first request to `ListHostedZonesByName`, include the `dnsname` parameter only if you want to
      * specify the name of the first hosted zone in the response. If you don't include the `dnsname` parameter, Amazon Route
-     * 53 returns all of the hosted zones that were created by the current account, in ASCII order. For subsequent requests,
-     * include both `dnsname` and `hostedzoneid` parameters. For `dnsname`, specify the value of `NextDNSName` from the
-     * previous response.
+     * 53 returns all of the hosted zones that were created by the current Amazon Web Services account, in ASCII order. For
+     * subsequent requests, include both `dnsname` and `hostedzoneid` parameters. For `dnsname`, specify the value of
+     * `NextDNSName` from the previous response.
      *
      * @var string|null
      */

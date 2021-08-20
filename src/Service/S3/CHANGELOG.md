@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS enhancement: Documentation updates for Amazon S3
+
 ## 1.9.1
 
 ### Fixed

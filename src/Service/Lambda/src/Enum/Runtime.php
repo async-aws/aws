@@ -29,6 +29,7 @@ final class Runtime
     public const PYTHON_3_6 = 'python3.6';
     public const PYTHON_3_7 = 'python3.7';
     public const PYTHON_3_8 = 'python3.8';
+    public const PYTHON_3_9 = 'python3.9';
     public const RUBY_2_5 = 'ruby2.5';
     public const RUBY_2_7 = 'ruby2.7';
 
@@ -57,6 +58,7 @@ final class Runtime
             self::PYTHON_3_6 => true,
             self::PYTHON_3_7 => true,
             self::PYTHON_3_8 => true,
+            self::PYTHON_3_9 => true,
             self::RUBY_2_5 => true,
             self::RUBY_2_7 => true,
         ][$value]);

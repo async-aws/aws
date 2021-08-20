@@ -110,9 +110,9 @@ class HeadObjectOutput extends Result
     private $websiteRedirectLocation;
 
     /**
-     * If the object is stored using server-side encryption either with an AWS KMS customer master key (CMK) or an Amazon
-     * S3-managed encryption key, the response includes this header with the value of the server-side encryption algorithm
-     * used when storing this object in Amazon S3 (for example, AES256, aws:kms).
+     * If the object is stored using server-side encryption either with an Amazon Web Services KMS customer master key (CMK)
+     * or an Amazon S3-managed encryption key, the response includes this header with the value of the server-side
+     * encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
      */
     private $serverSideEncryption;
 
@@ -134,13 +134,13 @@ class HeadObjectOutput extends Result
     private $sseCustomerKeyMd5;
 
     /**
-     * If present, specifies the ID of the AWS Key Management Service (AWS KMS) symmetric customer managed customer master
-     * key (CMK) that was used for the object.
+     * If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric
+     * customer managed customer master key (CMK) that was used for the object.
      */
     private $sseKmsKeyId;
 
     /**
-     * Indicates whether the object uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).
+     * Indicates whether the object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
      */
     private $bucketKeyEnabled;
 

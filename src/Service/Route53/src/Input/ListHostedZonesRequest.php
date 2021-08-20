@@ -7,7 +7,8 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
 /**
- * A request to retrieve a list of the public and private hosted zones that are associated with the current account.
+ * A request to retrieve a list of the public and private hosted zones that are associated with the current Amazon Web
+ * Services account.
  */
 final class ListHostedZonesRequest extends Input
 {

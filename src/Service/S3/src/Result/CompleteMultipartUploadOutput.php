@@ -15,7 +15,8 @@ class CompleteMultipartUploadOutput extends Result
     private $location;
 
     /**
-     * The name of the bucket that contains the newly created object.
+     * The name of the bucket that contains the newly created object. Does not return the access point ARN or access point
+     * alias if used.
      */
     private $bucket;
 
@@ -39,9 +40,9 @@ class CompleteMultipartUploadOutput extends Result
     private $etag;
 
     /**
-     * If you specified server-side encryption either with an Amazon S3-managed encryption key or an AWS KMS customer master
-     * key (CMK) in your initiate multipart upload request, the response includes this header. It confirms the encryption
-     * algorithm that Amazon S3 used to encrypt the object.
+     * If you specified server-side encryption either with an Amazon S3-managed encryption key or an Amazon Web Services KMS
+     * customer master key (CMK) in your initiate multipart upload request, the response includes this header. It confirms
+     * the encryption algorithm that Amazon S3 used to encrypt the object.
      */
     private $serverSideEncryption;
 
@@ -51,13 +52,14 @@ class CompleteMultipartUploadOutput extends Result
     private $versionId;
 
     /**
-     * If present, specifies the ID of the AWS Key Management Service (AWS KMS) symmetric customer managed customer master
-     * key (CMK) that was used for the object.
+     * If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric
+     * customer managed customer master key (CMK) that was used for the object.
      */
     private $sseKmsKeyId;
 
     /**
-     * Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).
+     * Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS
+     * (SSE-KMS).
      */
     private $bucketKeyEnabled;
 

@@ -238,9 +238,9 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * Creates a new S3 bucket. To create a bucket, you must register with Amazon S3 and have a valid AWS Access Key ID to
-     * authenticate requests. Anonymous requests are never allowed to create buckets. By creating the bucket, you become the
-     * bucket owner.
+     * Creates a new S3 bucket. To create a bucket, you must register with Amazon S3 and have a valid Amazon Web Services
+     * Access Key ID to authenticate requests. Anonymous requests are never allowed to create buckets. By creating the
+     * bucket, you become the bucket owner.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketPUT.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html
