@@ -15,7 +15,7 @@ final class NotificationConfiguration
     private $queueConfigurations;
 
     /**
-     * Describes the AWS Lambda functions to invoke and the events for which to invoke them.
+     * Describes the Lambda functions to invoke and the events for which to invoke them.
      */
     private $lambdaFunctionConfigurations;
 

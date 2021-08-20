@@ -35,7 +35,8 @@ class ListPartsOutput extends Result implements \IteratorAggregate
     private $abortRuleId;
 
     /**
-     * The name of the bucket to which the multipart upload was initiated.
+     * The name of the bucket to which the multipart upload was initiated. Does not return the access point ARN or access
+     * point alias if used.
      */
     private $bucket;
 
@@ -78,9 +79,9 @@ class ListPartsOutput extends Result implements \IteratorAggregate
     private $parts = [];
 
     /**
-     * Container element that identifies who initiated the multipart upload. If the initiator is an AWS account, this
-     * element provides the same information as the `Owner` element. If the initiator is an IAM User, this element provides
-     * the user ARN and display name.
+     * Container element that identifies who initiated the multipart upload. If the initiator is an Amazon Web Services
+     * account, this element provides the same information as the `Owner` element. If the initiator is an IAM User, this
+     * element provides the user ARN and display name.
      */
     private $initiator;
 
