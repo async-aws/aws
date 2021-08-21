@@ -175,9 +175,10 @@ final class PutSecretValueRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "SecretId" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['SecretId'] = $v;
-        if (null !== $v = $this->clientRequestToken) {
-            $payload['ClientRequestToken'] = $v;
+        if (null === $v = $this->clientRequestToken) {
+            $v = uuid_create(\UUID_TYPE_RANDOM);
         }
+        $payload['ClientRequestToken'] = $v;
         if (null !== $v = $this->secretBinary) {
             $payload['SecretBinary'] = base64_encode($v);
         }

@@ -25,6 +25,11 @@ class StructureMember extends Member
         return $this->data['_required'];
     }
 
+    public function isIdempotencyToken(): bool
+    {
+        return $this->data['idempotencyToken'] ?? false;
+    }
+
     public function isNullable(): bool
     {
         if ($this->getOwnerShape() instanceof ExceptionShape && \in_array(strtolower($this->data['_name']), ['code', 'message'], true)) {

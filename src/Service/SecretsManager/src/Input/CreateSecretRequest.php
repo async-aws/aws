@@ -268,9 +268,10 @@ final class CreateSecretRequest extends Input
             throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['Name'] = $v;
-        if (null !== $v = $this->clientRequestToken) {
-            $payload['ClientRequestToken'] = $v;
+        if (null === $v = $this->clientRequestToken) {
+            $v = uuid_create(\UUID_TYPE_RANDOM);
         }
+        $payload['ClientRequestToken'] = $v;
         if (null !== $v = $this->description) {
             $payload['Description'] = $v;
         }
