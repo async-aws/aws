@@ -352,42 +352,81 @@ class AsyncAwsS3AdapterTest extends TestCase
             new AwsObject(['Key' => self::PREFIX . '/my_key', 'LastModified' => null, 'ETag' => null, 'Size' => null, 'StorageClass' => null, 'Owner' => null]),
             new CommonPrefix(['Prefix' => self::PREFIX . '/common_prefix']),
         ];
-        $result->method('getIterator')->willReturn(new class($items) implements \Iterator {
-            private $items;
+        if (\PHP_VERSION_ID >= 80100) {
+            $result->method('getIterator')->willReturn(new class($items) implements \Iterator {
+                private $items;
 
-            private $position;
+                private $position;
 
-            public function __construct($items)
-            {
-                $this->items = $items;
-                $this->position = 0;
-            }
+                public function __construct($items)
+                {
+                    $this->items = $items;
+                    $this->position = 0;
+                }
 
-            public function current()
-            {
-                return $this->items[$this->position];
-            }
+                public function current(): mixed
+                {
+                    return $this->items[$this->position];
+                }
 
-            public function next()
-            {
-                ++$this->position;
-            }
+                public function next(): void
+                {
+                    ++$this->position;
+                }
 
-            public function key()
-            {
-                return $this->position;
-            }
+                public function key(): mixed
+                {
+                    return $this->position;
+                }
 
-            public function valid()
-            {
-                return isset($this->items[$this->position]);
-            }
+                public function valid(): bool
+                {
+                    return isset($this->items[$this->position]);
+                }
 
-            public function rewind()
-            {
-                $this->position = 0;
-            }
-        });
+                public function rewind(): void
+                {
+                    $this->position = 0;
+                }
+            });
+        } else {
+            $result->method('getIterator')->willReturn(new class($items) implements \Iterator {
+                private $items;
+
+                private $position;
+
+                public function __construct($items)
+                {
+                    $this->items = $items;
+                    $this->position = 0;
+                }
+
+                public function current()
+                {
+                    return $this->items[$this->position];
+                }
+
+                public function next()
+                {
+                    ++$this->position;
+                }
+
+                public function key()
+                {
+                    return $this->position;
+                }
+
+                public function valid()
+                {
+                    return isset($this->items[$this->position]);
+                }
+
+                public function rewind(): void
+                {
+                    $this->position = 0;
+                }
+            });
+        }
 
         $s3Client = $this->getMockBuilder(S3Client::class)
             ->disableOriginalConstructor()
