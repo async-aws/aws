@@ -6,6 +6,7 @@ namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\PopulatorGenerator;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
+use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
 
@@ -83,6 +84,11 @@ class ServiceGenerator
     private $classRegistry;
 
     /**
+     * @var RequirementsRegistry
+     */
+    private $requirementsRegistry;
+
+    /**
      * @var ExceptionGenerator
      */
     private $exception;
@@ -92,9 +98,10 @@ class ServiceGenerator
      */
     private $populator;
 
-    public function __construct(ClassRegistry $classRegistry, string $baseNamespace, array $managedOperations)
+    public function __construct(ClassRegistry $classRegistry, RequirementsRegistry $requirementsRegistry, string $baseNamespace, array $managedOperations)
     {
         $this->classRegistry = $classRegistry;
+        $this->requirementsRegistry = $requirementsRegistry;
         $this->managedOperations = $managedOperations;
         $this->namespaceRegistry = new NamespaceRegistry($baseNamespace);
     }
@@ -126,7 +133,7 @@ class ServiceGenerator
 
     public function populator(): PopulatorGenerator
     {
-        return $this->populator ?? $this->populator = new PopulatorGenerator($this->classRegistry, $this->namespaceRegistry, $this->object(), $this->type(), $this->enum());
+        return $this->populator ?? $this->populator = new PopulatorGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->object(), $this->type(), $this->enum());
     }
 
     public function result(): ResultGenerator
@@ -141,7 +148,7 @@ class ServiceGenerator
 
     public function input(): InputGenerator
     {
-        return $this->input ?? $this->input = new InputGenerator($this->classRegistry, $this->namespaceRegistry, $this->object(), $this->type(), $this->enum());
+        return $this->input ?? $this->input = new InputGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->object(), $this->type(), $this->enum());
     }
 
     public function type(): TypeGenerator
@@ -156,6 +163,6 @@ class ServiceGenerator
 
     public function object(): ObjectGenerator
     {
-        return $this->object ?? $this->object = new ObjectGenerator($this->classRegistry, $this->namespaceRegistry, $this->managedOperations, $this->type(), $this->enum());
+        return $this->object ?? $this->object = new ObjectGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->managedOperations, $this->type(), $this->enum());
     }
 }

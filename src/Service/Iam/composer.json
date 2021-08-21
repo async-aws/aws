@@ -15,7 +15,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5 || ^8.0",
-        "ext-json": "*",
+        "ext-SimpleXML": "*",
+        "ext-filter": "*",
         "async-aws/core": "^1.9"
     },
     "extra": {
