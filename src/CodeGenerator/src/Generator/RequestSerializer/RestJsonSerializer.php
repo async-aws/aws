@@ -69,7 +69,13 @@ class RestJsonSerializer implements Serializer
                 return '';
             }
             $shape = $member->getShape();
-            if ($member->isRequired()) {
+            if ($member->isIdempotencyToken()) {
+                $body = 'if (null === $v = $this->PROPERTY) {
+                    $v = uuid_create(UUID_TYPE_RANDOM);
+                }
+                MEMBER_CODE';
+                $inputElement = '$v';
+            } elseif ($member->isRequired()) {
                 $body = 'if (null === $v = $this->PROPERTY) {
                     throw new InvalidArgument(sprintf(\'Missing parameter "NAME" for "%s". The value cannot be null.\', __CLASS__));
                 }

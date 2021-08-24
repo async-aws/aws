@@ -58,4 +58,17 @@ class CreateSecretRequestTest extends TestCase
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
+
+    public function testRequestWithoutToken(): void
+    {
+        $input = new CreateSecretRequest([
+            'Name' => 'MyTestDatabaseSecret',
+        ]);
+
+        $content = json_decode($input->request()->getBody()->stringify(), true);
+
+        self::assertSame(['Name', 'ClientRequestToken'], array_keys($content));
+        self::assertSame('MyTestDatabaseSecret', $content['Name']);
+        self::assertMatchesRegularExpression('{^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$}Di', $content['ClientRequestToken']);
+    }
 }
