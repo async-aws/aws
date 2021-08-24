@@ -11,6 +11,7 @@ use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
+use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use Nette\PhpGenerator\ClassType;
@@ -25,15 +26,18 @@ class RestJsonParser implements Parser
 {
     private $namespaceRegistry;
 
+    private $requirementsRegistry;
+
     private $typeGenerator;
 
     private $functions = [];
 
     private $imports = [];
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, TypeGenerator $typeGenerator)
+    public function __construct(NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, TypeGenerator $typeGenerator)
     {
         $this->namespaceRegistry = $namespaceRegistry;
+        $this->requirementsRegistry = $requirementsRegistry;
         $this->typeGenerator = $typeGenerator;
     }
 
@@ -197,6 +201,7 @@ class RestJsonParser implements Parser
 
     private function parseResponseBool(string $input, bool $required): string
     {
+        $this->requirementsRegistry->addRequirement('ext-filter');
         if ($required) {
             return strtr('filter_var(INPUT, FILTER_VALIDATE_BOOLEAN)', ['INPUT' => $input]);
         }

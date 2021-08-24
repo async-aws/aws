@@ -7,6 +7,7 @@ namespace AsyncAws\CodeGenerator\Command;
 use AsyncAws\CodeGenerator\Definition\ServiceDefinition;
 use AsyncAws\CodeGenerator\File\Cache;
 use AsyncAws\CodeGenerator\File\ClassWriter;
+use AsyncAws\CodeGenerator\File\ComposerWriter;
 use AsyncAws\CodeGenerator\Generator\ApiGenerator;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use PhpCsFixer\Config;
@@ -43,12 +44,15 @@ class GenerateCommand extends Command
 
     private $classWriter;
 
-    public function __construct(string $manifestFile, Cache $cache, ClassWriter $classWriter, ApiGenerator $generator)
+    private $composerWriter;
+
+    public function __construct(string $manifestFile, Cache $cache, ClassWriter $classWriter, ComposerWriter $composerWriter, ApiGenerator $generator)
     {
         $this->manifestFile = $manifestFile;
         $this->cache = $cache;
         $this->generator = $generator;
         $this->classWriter = $classWriter;
+        $this->composerWriter = $composerWriter;
 
         parent::__construct();
     }
@@ -260,7 +264,7 @@ class GenerateCommand extends Command
 
         $managedOperations = array_unique(array_merge($manifest['services'][$serviceName]['methods'], $operationNames));
         $definition = new ServiceDefinition($serviceName, $endpoints, $definitionArray, $documentationArray, $paginationArray, $waiterArray, $exampleArray, $manifest['services'][$serviceName]['api-reference'] ?? null);
-        $serviceGenerator = $this->generator->service($manifest['services'][$serviceName]['namespace'] ?? sprintf('AsyncAws\\%s', $serviceName), $managedOperations);
+        $serviceGenerator = $this->generator->service($namespace = $manifest['services'][$serviceName]['namespace'] ?? sprintf('AsyncAws\\%s', $serviceName), $managedOperations);
 
         $clientClass = $serviceGenerator->client()->generate($definition);
 
@@ -285,6 +289,8 @@ class GenerateCommand extends Command
         foreach ($this->generator->getUpdatedClasses() as $class) {
             $this->classWriter->write($class);
         }
+
+        $this->composerWriter->setRequirements($namespace, $this->generator->getUpdatedRequirements(), $input->getOption('all') && 'Sts' !== $serviceName);
 
         if (!$input->getOption('raw')) {
             $this->fixCS($clientClass, $io);

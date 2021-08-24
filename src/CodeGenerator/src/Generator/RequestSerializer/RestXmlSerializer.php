@@ -10,6 +10,7 @@ use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 
@@ -22,9 +23,12 @@ class RestXmlSerializer implements Serializer
 {
     private $namespaceRegistry;
 
-    public function __construct(NamespaceRegistry $namespaceRegistry)
+    private $requirementsRegistry;
+
+    public function __construct(NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry)
     {
         $this->namespaceRegistry = $namespaceRegistry;
+        $this->requirementsRegistry = $requirementsRegistry;
     }
 
     public function getHeaders(Operation $operation): string
@@ -72,6 +76,8 @@ class RestXmlSerializer implements Serializer
         } else {
             $requestBody = '$this->requestBody($document, $document);';
         }
+
+        $this->requirementsRegistry->addRequirement('ext-dom');
 
         return ['
             $document = new \DOMDocument(\'1.0\', \'UTF-8\');

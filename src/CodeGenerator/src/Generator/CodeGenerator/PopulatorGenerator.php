@@ -8,6 +8,7 @@ use AsyncAws\CodeGenerator\Definition\ListShape;
 use AsyncAws\CodeGenerator\Definition\MapShape;
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\EnumGenerator;
 use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
@@ -36,6 +37,11 @@ class PopulatorGenerator
     private $objectGenerator;
 
     /**
+     * @var RequirementsRegistry
+     */
+    private $requirementsRegistry;
+
+    /**
      * @var EnumGenerator
      */
     private $enumGenerator;
@@ -50,12 +56,13 @@ class PopulatorGenerator
      */
     private $parserProvider;
 
-    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, ObjectGenerator $objectGenerator, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, ObjectGenerator $objectGenerator, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
     {
         $this->objectGenerator = $objectGenerator;
+        $this->requirementsRegistry = $requirementsRegistry;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($namespaceRegistry);
         $this->enumGenerator = $enumGenerator ?? new EnumGenerator($classRegistry, $namespaceRegistry);
-        $this->parserProvider = new ParserProvider($namespaceRegistry, $this->typeGenerator);
+        $this->parserProvider = new ParserProvider($namespaceRegistry, $requirementsRegistry, $this->typeGenerator);
     }
 
     public function generate(Operation $operation, StructureShape $shape, ClassBuilder $classBuilder, bool $forException = false): void
@@ -177,6 +184,8 @@ class PopulatorGenerator
                 ]);
             } else {
                 if (null !== $constant = $this->typeGenerator->getFilterConstant($memberShape)) {
+                    $this->requirementsRegistry->addRequirement('ext-filter');
+
                     $body .= strtr('$this->PROPERTY_NAME = isset($headers["LOCATION_NAME"][0]) ? filter_var($headers["LOCATION_NAME"][0], FILTER) : null;' . "\n", [
                         'PROPERTY_NAME' => $propertyName,
                         'LOCATION_NAME' => $locationName,

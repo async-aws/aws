@@ -11,6 +11,7 @@ use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 
@@ -25,9 +26,12 @@ class RestJsonSerializer implements Serializer
 {
     private $namespaceRegistry;
 
-    public function __construct(NamespaceRegistry $namespaceRegistry)
+    private $requirementRegistry;
+
+    public function __construct(NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementRegistry)
     {
         $this->namespaceRegistry = $namespaceRegistry;
+        $this->requirementRegistry = $requirementRegistry;
     }
 
     public function getHeaders(Operation $operation): string
@@ -52,6 +56,8 @@ class RestJsonSerializer implements Serializer
                 'NAME' => $payloadProperty,
             ]), false];
         }
+
+        $this->requirementRegistry->addRequirement('ext-json');
 
         return ['$bodyPayload = $this->requestBody(); $body = empty($bodyPayload) ? "{}" : \json_encode($bodyPayload, ' . \JSON_THROW_ON_ERROR . ');', true];
     }
