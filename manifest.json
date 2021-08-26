@@ -124,6 +124,17 @@
                 "PutEvents"
             ]
         },
+        "Firehose": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/firehose/2015-08-04/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/firehose/2015-08-04/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/firehose/2015-08-04/paginators-1.json",
+            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/firehose/2015-08-04/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/firehose/latest/APIReference",
+            "methods": [
+                "PutRecord",
+                "PutRecordBatch"
+            ]
+        },
         "Iam": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/iam/2010-05-08/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/iam/2010-05-08/docs-2.json",
