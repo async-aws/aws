@@ -12,12 +12,14 @@ use AsyncAws\Core\Exception\InvalidArgument;
 final class Dimension
 {
     /**
-     * The name of the dimension. Dimension names cannot contain blank spaces or non-ASCII characters.
+     * The name of the dimension. Dimension names must contain only ASCII characters and must include at least one
+     * non-whitespace character.
      */
     private $name;
 
     /**
-     * The value of the dimension. Dimension values cannot contain blank spaces or non-ASCII characters.
+     * The value of the dimension. Dimension values must contain only ASCII characters and must include at least one
+     * non-whitespace character.
      */
     private $value;
 

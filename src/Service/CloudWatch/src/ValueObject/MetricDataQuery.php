@@ -74,6 +74,11 @@ final class MetricDataQuery
     private $period;
 
     /**
+     * The ID of the account where the metrics are located, if this is a cross-account alarm.
+     */
+    private $accountId;
+
+    /**
      * @param array{
      *   Id: string,
      *   MetricStat?: null|MetricStat|array,
@@ -81,6 +86,7 @@ final class MetricDataQuery
      *   Label?: null|string,
      *   ReturnData?: null|bool,
      *   Period?: null|int,
+     *   AccountId?: null|string,
      * } $input
      */
     public function __construct(array $input)
@@ -91,11 +97,17 @@ final class MetricDataQuery
         $this->label = $input['Label'] ?? null;
         $this->returnData = $input['ReturnData'] ?? null;
         $this->period = $input['Period'] ?? null;
+        $this->accountId = $input['AccountId'] ?? null;
     }
 
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getAccountId(): ?string
+    {
+        return $this->accountId;
     }
 
     public function getExpression(): ?string
@@ -154,6 +166,9 @@ final class MetricDataQuery
         }
         if (null !== $v = $this->period) {
             $payload['Period'] = $v;
+        }
+        if (null !== $v = $this->accountId) {
+            $payload['AccountId'] = $v;
         }
 
         return $payload;
