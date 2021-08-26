@@ -15,6 +15,7 @@ class PutRecordBatchOutputTest extends TestCase
     {
         // see https://docs.aws.amazon.com/firehose/latest/APIReference/API_PutRecordBatch.html
         $response = new SimpleMockedResponse('{
+            "Encrypted": false,
             "FailedPutCount": 0,
             "RequestResponses": [
                 {
@@ -33,6 +34,6 @@ class PutRecordBatchOutputTest extends TestCase
         self::assertFalse($result->getEncrypted());
         self::assertCount(2, $result->getRequestResponses());
         self::assertSame('a', $result->getRequestResponses()[0]->getRecordId());
-        self::assertSame('b', $result->getRequestResponses()[0]->getRecordId());
+        self::assertSame('b', $result->getRequestResponses()[1]->getRecordId());
     }
 }

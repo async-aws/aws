@@ -52,7 +52,7 @@ menu:
             event-bridge:
                 text: EventBridge
                 url: /clients/event-bridge.html
-            event-bridge:
+            firehose:
                 text: Firehose
                 url: /clients/firehose.html
             dynamodb:

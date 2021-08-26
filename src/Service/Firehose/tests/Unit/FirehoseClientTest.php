@@ -4,6 +4,7 @@ namespace AsyncAws\Firehose\Tests\Unit;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Firehose\FirehoseClient;
 use AsyncAws\Firehose\Input\PutRecordBatchInput;
 use AsyncAws\Firehose\Input\PutRecordInput;
 use AsyncAws\Firehose\Result\PutRecordBatchOutput;

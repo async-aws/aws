@@ -15,6 +15,7 @@ class PutRecordOutputTest extends TestCase
     {
         // see https://docs.aws.amazon.com/firehose/latest/APIReference/API_PutRecord.html
         $response = new SimpleMockedResponse('{
+            "Encrypted": false,
             "RecordId": "a"
         }');
 

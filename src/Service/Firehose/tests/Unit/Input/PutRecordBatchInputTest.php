@@ -26,6 +26,7 @@ class PutRecordBatchInputTest extends TestCase
         $expected = '
             POST / HTTP/1.0
             Content-Type: application/x-amz-json-1.1
+            x-amz-target: Firehose_20150804.PutRecordBatch
 
             {
                 "DeliveryStreamName": "streamfoo",
@@ -35,7 +36,7 @@ class PutRecordBatchInputTest extends TestCase
                     },
                     {
                         "Data": "eyJtZXNzYWdlIjogImJheiJ9"
-                    },
+                    }
                 ]
             }
                 ';

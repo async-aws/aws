@@ -41,6 +41,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\EventBridge\EventBridgeClient::class,
                 'package' => 'async-aws/event-bridge',
             ],
+            'firehose' => [
+                'class' => \AsyncAws\Firehose\FirehoseClient::class,
+                'package' => 'async-aws/firehose',
+            ],
             'iam' => [
                 'class' => \AsyncAws\Iam\IamClient::class,
                 'package' => 'async-aws/iam',
