@@ -102,13 +102,10 @@
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
-  <file src="src/Service/Lambda/src/Result/ListLayerVersionsResponse.php">
-    <LessSpecificReturnStatement occurrences="1">
-      <code>$items</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>list&lt;Runtime::*&gt;</code>
-    </MoreSpecificReturnType>
+  <file src="src/Service/Firehose/src/Exception/InvalidKMSResourceException.php">
+    <InvalidPropertyAssignmentValue occurrences="1">
+      <code>$v</code>
+    </InvalidPropertyAssignmentValue>
   </file>
   <file src="src/Service/Kinesis/src/Input/DeleteStreamInput.php">
     <RedundantCastGivenDocblockType occurrences="1">
@@ -137,6 +134,14 @@
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType occurrences="1">
       <code>list&lt;MetricsName::*&gt;</code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="src/Service/Lambda/src/Result/ListLayerVersionsResponse.php">
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="1">
+      <code>list&lt;Runtime::*&gt;</code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/Lambda/src/Result/PublishLayerVersionResponse.php">
