@@ -1,0 +1,27 @@
+name: BC Check
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  roave-bc-check:
+    name: Roave BC Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Modify composer.json
+        run: |
+          sed -i -re 's/"require": \{/"minimum-stability": "dev","prefer-stable": true,"require": \{/' composer.json
+          cat composer.json
+
+          git config --local user.email "github@async-aws.com"
+          git config --local user.name "AsyncAws Bot"
+          git commit -am "Allow unstable dependencies"
+
+      - name: Roave BC Check
+        uses: docker://nyholm/roave-bc-check-ga

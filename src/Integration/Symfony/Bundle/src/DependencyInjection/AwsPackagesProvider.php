@@ -17,6 +17,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\CloudFront\CloudFrontClient::class,
                 'package' => 'async-aws/cloud-front',
             ],
+            'cloud_watch' => [
+                'class' => \AsyncAws\CloudWatch\CloudWatchClient::class,
+                'package' => 'async-aws/cloud-watch',
+            ],
             'cloud_watch_logs' => [
                 'class' => \AsyncAws\CloudWatchLogs\CloudWatchLogsClient::class,
                 'package' => 'async-aws/cloud-watch-logs',
