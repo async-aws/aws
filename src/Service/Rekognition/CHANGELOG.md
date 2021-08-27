@@ -6,7 +6,7 @@
 
 - AWS api-change: Add AWS tagging support for Amazon Rekognition collections, stream processors, and Custom Label models
 - AWS api-change: Improve documentation
-- AWS api-change: This release added new attributes to Rekognition RecognizeCelebities and GetCelebrityInfo API operations.
+- AWS api-change: Add new attributes to Rekognition RecognizeCelebities and GetCelebrityInfo API operations.
 
 ### Fixed
 
