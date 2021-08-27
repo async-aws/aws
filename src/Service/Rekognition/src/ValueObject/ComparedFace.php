@@ -33,12 +33,25 @@ final class ComparedFace
     private $quality;
 
     /**
+     * The emotions that appear to be expressed on the face, and the confidence level in the determination. Valid values
+     * include "Happy", "Sad", "Angry", "Confused", "Disgusted", "Surprised", "Calm", "Unknown", and "Fear".
+     */
+    private $emotions;
+
+    /**
+     * Indicates whether or not the face is smiling, and the confidence level in the determination.
+     */
+    private $smile;
+
+    /**
      * @param array{
      *   BoundingBox?: null|BoundingBox|array,
      *   Confidence?: null|float,
      *   Landmarks?: null|Landmark[],
      *   Pose?: null|Pose|array,
      *   Quality?: null|ImageQuality|array,
+     *   Emotions?: null|Emotion[],
+     *   Smile?: null|Smile|array,
      * } $input
      */
     public function __construct(array $input)
@@ -48,6 +61,8 @@ final class ComparedFace
         $this->landmarks = isset($input['Landmarks']) ? array_map([Landmark::class, 'create'], $input['Landmarks']) : null;
         $this->pose = isset($input['Pose']) ? Pose::create($input['Pose']) : null;
         $this->quality = isset($input['Quality']) ? ImageQuality::create($input['Quality']) : null;
+        $this->emotions = isset($input['Emotions']) ? array_map([Emotion::class, 'create'], $input['Emotions']) : null;
+        $this->smile = isset($input['Smile']) ? Smile::create($input['Smile']) : null;
     }
 
     public static function create($input): self
@@ -66,6 +81,14 @@ final class ComparedFace
     }
 
     /**
+     * @return Emotion[]
+     */
+    public function getEmotions(): array
+    {
+        return $this->emotions ?? [];
+    }
+
+    /**
      * @return Landmark[]
      */
     public function getLandmarks(): array
@@ -81,5 +104,10 @@ final class ComparedFace
     public function getQuality(): ?ImageQuality
     {
         return $this->quality;
+    }
+
+    public function getSmile(): ?Smile
+    {
+        return $this->smile;
     }
 }

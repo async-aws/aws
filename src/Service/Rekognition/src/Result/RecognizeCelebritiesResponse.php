@@ -8,15 +8,19 @@ use AsyncAws\Rekognition\Enum\OrientationCorrection;
 use AsyncAws\Rekognition\ValueObject\BoundingBox;
 use AsyncAws\Rekognition\ValueObject\Celebrity;
 use AsyncAws\Rekognition\ValueObject\ComparedFace;
+use AsyncAws\Rekognition\ValueObject\Emotion;
 use AsyncAws\Rekognition\ValueObject\ImageQuality;
+use AsyncAws\Rekognition\ValueObject\KnownGender;
 use AsyncAws\Rekognition\ValueObject\Landmark;
 use AsyncAws\Rekognition\ValueObject\Pose;
+use AsyncAws\Rekognition\ValueObject\Smile;
 
 class RecognizeCelebritiesResponse extends Result
 {
     /**
      * Details about each celebrity found in the image. Amazon Rekognition can detect a maximum of 64 celebrities in an
-     * image.
+     * image. Each celebrity object includes the following attributes: `Face`, `Confidence`, `Emotions`, `Landmarks`,
+     * `Pose`, `Quality`, `Smile`, `Id`, `KnownGender`, `MatchConfidence`, `Name`, `Urls`.
      */
     private $celebrityFaces = [];
 
@@ -26,9 +30,8 @@ class RecognizeCelebritiesResponse extends Result
     private $unrecognizedFaces = [];
 
     /**
-     * The orientation of the input image (counterclockwise direction). If your application displays the image, you can use
-     * this value to correct the orientation. The bounding box coordinates returned in `CelebrityFaces` and
-     * `UnrecognizedFaces` represent face locations before the image orientation is corrected.
+     * > Support for estimating image orientation using the the OrientationCorrection field has ceased as of August 2021.
+     * > Any returned values for this field included in an API response will always be NULL.
      */
     private $orientationCorrection;
 
@@ -100,8 +103,16 @@ class RecognizeCelebritiesResponse extends Result
                         'Brightness' => isset($item['Face']['Quality']['Brightness']) ? (float) $item['Face']['Quality']['Brightness'] : null,
                         'Sharpness' => isset($item['Face']['Quality']['Sharpness']) ? (float) $item['Face']['Quality']['Sharpness'] : null,
                     ]),
+                    'Emotions' => empty($item['Face']['Emotions']) ? [] : $this->populateResultEmotions($item['Face']['Emotions']),
+                    'Smile' => empty($item['Face']['Smile']) ? null : new Smile([
+                        'Value' => isset($item['Face']['Smile']['Value']) ? filter_var($item['Face']['Smile']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
+                        'Confidence' => isset($item['Face']['Smile']['Confidence']) ? (float) $item['Face']['Smile']['Confidence'] : null,
+                    ]),
                 ]),
                 'MatchConfidence' => isset($item['MatchConfidence']) ? (float) $item['MatchConfidence'] : null,
+                'KnownGender' => empty($item['KnownGender']) ? null : new KnownGender([
+                    'Type' => isset($item['KnownGender']['Type']) ? (string) $item['KnownGender']['Type'] : null,
+                ]),
             ]);
         }
 
@@ -133,6 +144,27 @@ class RecognizeCelebritiesResponse extends Result
                     'Brightness' => isset($item['Quality']['Brightness']) ? (float) $item['Quality']['Brightness'] : null,
                     'Sharpness' => isset($item['Quality']['Sharpness']) ? (float) $item['Quality']['Sharpness'] : null,
                 ]),
+                'Emotions' => empty($item['Emotions']) ? [] : $this->populateResultEmotions($item['Emotions']),
+                'Smile' => empty($item['Smile']) ? null : new Smile([
+                    'Value' => isset($item['Smile']['Value']) ? filter_var($item['Smile']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
+                    'Confidence' => isset($item['Smile']['Confidence']) ? (float) $item['Smile']['Confidence'] : null,
+                ]),
+            ]);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return Emotion[]
+     */
+    private function populateResultEmotions(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = new Emotion([
+                'Type' => isset($item['Type']) ? (string) $item['Type'] : null,
+                'Confidence' => isset($item['Confidence']) ? (float) $item['Confidence'] : null,
             ]);
         }
 

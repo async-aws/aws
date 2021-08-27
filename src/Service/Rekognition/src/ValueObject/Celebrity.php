@@ -33,6 +33,8 @@ final class Celebrity
      */
     private $matchConfidence;
 
+    private $knownGender;
+
     /**
      * @param array{
      *   Urls?: null|string[],
@@ -40,6 +42,7 @@ final class Celebrity
      *   Id?: null|string,
      *   Face?: null|ComparedFace|array,
      *   MatchConfidence?: null|float,
+     *   KnownGender?: null|KnownGender|array,
      * } $input
      */
     public function __construct(array $input)
@@ -49,6 +52,7 @@ final class Celebrity
         $this->id = $input['Id'] ?? null;
         $this->face = isset($input['Face']) ? ComparedFace::create($input['Face']) : null;
         $this->matchConfidence = $input['MatchConfidence'] ?? null;
+        $this->knownGender = isset($input['KnownGender']) ? KnownGender::create($input['KnownGender']) : null;
     }
 
     public static function create($input): self
@@ -64,6 +68,11 @@ final class Celebrity
     public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function getKnownGender(): ?KnownGender
+    {
+        return $this->knownGender;
     }
 
     public function getMatchConfidence(): ?float
