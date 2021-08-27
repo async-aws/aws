@@ -4,6 +4,7 @@ namespace AsyncAws\Rekognition\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Rekognition\ValueObject\KnownGender;
 
 class GetCelebrityInfoResponse extends Result
 {
@@ -16,6 +17,18 @@ class GetCelebrityInfoResponse extends Result
      * The name of the celebrity.
      */
     private $name;
+
+    /**
+     * Retrieves the known gender for the celebrity.
+     */
+    private $knownGender;
+
+    public function getKnownGender(): ?KnownGender
+    {
+        $this->initialize();
+
+        return $this->knownGender;
+    }
 
     public function getName(): ?string
     {
@@ -40,6 +53,9 @@ class GetCelebrityInfoResponse extends Result
 
         $this->urls = empty($data['Urls']) ? [] : $this->populateResultUrls($data['Urls']);
         $this->name = isset($data['Name']) ? (string) $data['Name'] : null;
+        $this->knownGender = empty($data['KnownGender']) ? null : new KnownGender([
+            'Type' => isset($data['KnownGender']['Type']) ? (string) $data['KnownGender']['Type'] : null,
+        ]);
     }
 
     /**
