@@ -255,7 +255,8 @@ class RestJsonParser implements Parser
             ]), $shape);
         }
 
-        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : 'empty(INPUT) ? [] : $this->FUNCTION_NAME(INPUT)', [
+        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : 'empty(INPUT) ? EMPTY : $this->FUNCTION_NAME(INPUT)', [
+            'EMPTY' => '$data' === substr($input, 0, 5) ? '[]' : 'null',
             'INPUT' => $input,
             'FUNCTION_NAME' => $functionName,
         ]);
@@ -330,7 +331,8 @@ class RestJsonParser implements Parser
             }
         }
 
-        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : 'empty(INPUT) ? [] : $this->FUNCTION_NAME(INPUT)', [
+        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : 'empty(INPUT) ? EMPTY : $this->FUNCTION_NAME(INPUT)', [
+            'EMPTY' => '$data' === substr($input, 0, 5) ? '[]' : 'null',
             'INPUT' => $input,
             'FUNCTION_NAME' => $functionName,
         ]);

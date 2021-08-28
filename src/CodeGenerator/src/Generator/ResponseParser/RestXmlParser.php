@@ -273,7 +273,8 @@ class RestXmlParser implements Parser
             'INPUT_PROPERTY' => $shape->isFlattened() ? '$xml' : ('$xml->' . ($shapeMember->getLocationName() ? $shapeMember->getLocationName() : 'member')),
         ]), $shape);
 
-        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : '!INPUT ? [] : $this->FUNCTION_NAME(INPUT)', [
+        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : '!INPUT ? EMPTY : $this->FUNCTION_NAME(INPUT)', [
+            'EMPTY' => substr($input, 0, 5) === '$data' ? '[]' : 'null',
             'INPUT' => $input,
             'FUNCTION_NAME' => $functionName,
         ]);
@@ -302,7 +303,8 @@ class RestXmlParser implements Parser
             'MAP_ACCESSOR' => $this->parseXmlElement('$a', $shapeValue->getShape(), true),
         ]), $shape);
 
-        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : '!INPUT ? [] : $this->FUNCTION_NAME(INPUT)', [
+        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : '!INPUT ? EMPTY : $this->FUNCTION_NAME(INPUT)', [
+            'EMPTY' => substr($input, 0, 5) === '$data' ? '[]' : 'null',
             'INPUT' => $input,
             'FUNCTION_NAME' => $functionName,
         ]);
