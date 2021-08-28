@@ -5,6 +5,7 @@
 ### Added
 
 - AWS enhancement: Documentation updates for Amazon S3
+- AWS enhancement: Documentation updates for Amazon S3.
 
 ## 1.9.1
 

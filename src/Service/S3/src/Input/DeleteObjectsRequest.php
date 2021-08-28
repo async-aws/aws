@@ -44,8 +44,8 @@ final class DeleteObjectsRequest extends Input
     private $requestPayer;
 
     /**
-     * Specifies whether you want to delete this object even if it has a Governance-type Object Lock in place. You must have
-     * sufficient permissions to perform this operation.
+     * Specifies whether you want to delete this object even if it has a Governance-type Object Lock in place. To use this
+     * header, you must have the `s3:PutBucketPublicAccessBlock` permission.
      *
      * @var bool|null
      */
