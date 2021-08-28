@@ -87,10 +87,10 @@ class GetBucketCorsOutput extends Result
         foreach ($xml as $item) {
             $items[] = new CORSRule([
                 'ID' => ($v = $item->ID) ? (string) $v : null,
-                'AllowedHeaders' => !$item->AllowedHeader ? [] : $this->populateResultAllowedHeaders($item->AllowedHeader),
+                'AllowedHeaders' => !$item->AllowedHeader ? null : $this->populateResultAllowedHeaders($item->AllowedHeader),
                 'AllowedMethods' => $this->populateResultAllowedMethods($item->AllowedMethod),
                 'AllowedOrigins' => $this->populateResultAllowedOrigins($item->AllowedOrigin),
-                'ExposeHeaders' => !$item->ExposeHeader ? [] : $this->populateResultExposeHeaders($item->ExposeHeader),
+                'ExposeHeaders' => !$item->ExposeHeader ? null : $this->populateResultExposeHeaders($item->ExposeHeader),
                 'MaxAgeSeconds' => ($v = $item->MaxAgeSeconds) ? (int) (string) $v : null,
             ]);
         }

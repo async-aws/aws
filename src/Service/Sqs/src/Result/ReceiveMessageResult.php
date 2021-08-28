@@ -65,8 +65,8 @@ class ReceiveMessageResult extends Result
             $items[$item->Name->__toString()] = new MessageAttributeValue([
                 'StringValue' => ($v = $a->StringValue) ? (string) $v : null,
                 'BinaryValue' => ($v = $a->BinaryValue) ? base64_decode((string) $v) : null,
-                'StringListValues' => !$a->StringListValue ? [] : $this->populateResultStringList($a->StringListValue),
-                'BinaryListValues' => !$a->BinaryListValue ? [] : $this->populateResultBinaryList($a->BinaryListValue),
+                'StringListValues' => !$a->StringListValue ? null : $this->populateResultStringList($a->StringListValue),
+                'BinaryListValues' => !$a->BinaryListValue ? null : $this->populateResultBinaryList($a->BinaryListValue),
                 'DataType' => (string) $a->DataType,
             ]);
         }
@@ -86,9 +86,9 @@ class ReceiveMessageResult extends Result
                 'ReceiptHandle' => ($v = $item->ReceiptHandle) ? (string) $v : null,
                 'MD5OfBody' => ($v = $item->MD5OfBody) ? (string) $v : null,
                 'Body' => ($v = $item->Body) ? (string) $v : null,
-                'Attributes' => !$item->Attribute ? [] : $this->populateResultMessageSystemAttributeMap($item->Attribute),
+                'Attributes' => !$item->Attribute ? null : $this->populateResultMessageSystemAttributeMap($item->Attribute),
                 'MD5OfMessageAttributes' => ($v = $item->MD5OfMessageAttributes) ? (string) $v : null,
-                'MessageAttributes' => !$item->MessageAttribute ? [] : $this->populateResultMessageBodyAttributeMap($item->MessageAttribute),
+                'MessageAttributes' => !$item->MessageAttribute ? null : $this->populateResultMessageBodyAttributeMap($item->MessageAttribute),
             ]);
         }
 

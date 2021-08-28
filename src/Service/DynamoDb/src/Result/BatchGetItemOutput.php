@@ -176,8 +176,8 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
                     'WriteCapacityUnits' => isset($item['Table']['WriteCapacityUnits']) ? (float) $item['Table']['WriteCapacityUnits'] : null,
                     'CapacityUnits' => isset($item['Table']['CapacityUnits']) ? (float) $item['Table']['CapacityUnits'] : null,
                 ]),
-                'LocalSecondaryIndexes' => empty($item['LocalSecondaryIndexes']) ? [] : $this->populateResultSecondaryIndexesCapacityMap($item['LocalSecondaryIndexes']),
-                'GlobalSecondaryIndexes' => empty($item['GlobalSecondaryIndexes']) ? [] : $this->populateResultSecondaryIndexesCapacityMap($item['GlobalSecondaryIndexes']),
+                'LocalSecondaryIndexes' => empty($item['LocalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($item['LocalSecondaryIndexes']),
+                'GlobalSecondaryIndexes' => empty($item['GlobalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($item['GlobalSecondaryIndexes']),
             ]);
         }
 
@@ -191,7 +191,7 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $a = empty($item) ? [] : $this->populateResultAttributeMap($item);
+            $a = empty($item) ? null : $this->populateResultAttributeMap($item);
             if (null !== $a) {
                 $items[] = $a;
             }

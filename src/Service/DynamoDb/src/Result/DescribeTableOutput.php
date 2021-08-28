@@ -117,10 +117,10 @@ class DescribeTableOutput extends Result
         foreach ($json as $item) {
             $items[] = new GlobalSecondaryIndexDescription([
                 'IndexName' => isset($item['IndexName']) ? (string) $item['IndexName'] : null,
-                'KeySchema' => empty($item['KeySchema']) ? [] : $this->populateResultKeySchema($item['KeySchema']),
+                'KeySchema' => empty($item['KeySchema']) ? null : $this->populateResultKeySchema($item['KeySchema']),
                 'Projection' => empty($item['Projection']) ? null : new Projection([
                     'ProjectionType' => isset($item['Projection']['ProjectionType']) ? (string) $item['Projection']['ProjectionType'] : null,
-                    'NonKeyAttributes' => empty($item['Projection']['NonKeyAttributes']) ? [] : $this->populateResultNonKeyAttributeNameList($item['Projection']['NonKeyAttributes']),
+                    'NonKeyAttributes' => empty($item['Projection']['NonKeyAttributes']) ? null : $this->populateResultNonKeyAttributeNameList($item['Projection']['NonKeyAttributes']),
                 ]),
                 'IndexStatus' => isset($item['IndexStatus']) ? (string) $item['IndexStatus'] : null,
                 'Backfilling' => isset($item['Backfilling']) ? filter_var($item['Backfilling'], \FILTER_VALIDATE_BOOLEAN) : null,
@@ -165,10 +165,10 @@ class DescribeTableOutput extends Result
         foreach ($json as $item) {
             $items[] = new LocalSecondaryIndexDescription([
                 'IndexName' => isset($item['IndexName']) ? (string) $item['IndexName'] : null,
-                'KeySchema' => empty($item['KeySchema']) ? [] : $this->populateResultKeySchema($item['KeySchema']),
+                'KeySchema' => empty($item['KeySchema']) ? null : $this->populateResultKeySchema($item['KeySchema']),
                 'Projection' => empty($item['Projection']) ? null : new Projection([
                     'ProjectionType' => isset($item['Projection']['ProjectionType']) ? (string) $item['Projection']['ProjectionType'] : null,
-                    'NonKeyAttributes' => empty($item['Projection']['NonKeyAttributes']) ? [] : $this->populateResultNonKeyAttributeNameList($item['Projection']['NonKeyAttributes']),
+                    'NonKeyAttributes' => empty($item['Projection']['NonKeyAttributes']) ? null : $this->populateResultNonKeyAttributeNameList($item['Projection']['NonKeyAttributes']),
                 ]),
                 'IndexSizeBytes' => isset($item['IndexSizeBytes']) ? (string) $item['IndexSizeBytes'] : null,
                 'ItemCount' => isset($item['ItemCount']) ? (string) $item['ItemCount'] : null,
@@ -211,7 +211,7 @@ class DescribeTableOutput extends Result
                 'ProvisionedThroughputOverride' => empty($item['ProvisionedThroughputOverride']) ? null : new ProvisionedThroughputOverride([
                     'ReadCapacityUnits' => isset($item['ProvisionedThroughputOverride']['ReadCapacityUnits']) ? (string) $item['ProvisionedThroughputOverride']['ReadCapacityUnits'] : null,
                 ]),
-                'GlobalSecondaryIndexes' => empty($item['GlobalSecondaryIndexes']) ? [] : $this->populateResultReplicaGlobalSecondaryIndexDescriptionList($item['GlobalSecondaryIndexes']),
+                'GlobalSecondaryIndexes' => empty($item['GlobalSecondaryIndexes']) ? null : $this->populateResultReplicaGlobalSecondaryIndexDescriptionList($item['GlobalSecondaryIndexes']),
                 'ReplicaInaccessibleDateTime' => (isset($item['ReplicaInaccessibleDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['ReplicaInaccessibleDateTime'])))) ? $d : null,
             ]);
         }

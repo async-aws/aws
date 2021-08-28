@@ -274,7 +274,7 @@ class RestXmlParser implements Parser
         ]), $shape);
 
         return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : '!INPUT ? EMPTY : $this->FUNCTION_NAME(INPUT)', [
-            'EMPTY' => substr($input, 0, 5) === '$data' ? '[]' : 'null',
+            'EMPTY' => '$data' === substr($input, 0, 5) ? '[]' : 'null',
             'INPUT' => $input,
             'FUNCTION_NAME' => $functionName,
         ]);
@@ -304,7 +304,7 @@ class RestXmlParser implements Parser
         ]), $shape);
 
         return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : '!INPUT ? EMPTY : $this->FUNCTION_NAME(INPUT)', [
-            'EMPTY' => substr($input, 0, 5) === '$data' ? '[]' : 'null',
+            'EMPTY' => '$data' === substr($input, 0, 5) ? '[]' : 'null',
             'INPUT' => $input,
             'FUNCTION_NAME' => $functionName,
         ]);
