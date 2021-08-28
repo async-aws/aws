@@ -50,7 +50,8 @@ final class DeleteObjectRequest extends Input
     private $requestPayer;
 
     /**
-     * Indicates whether S3 Object Lock should bypass Governance-mode restrictions to process this operation.
+     * Indicates whether S3 Object Lock should bypass Governance-mode restrictions to process this operation. To use this
+     * header, you must have the `s3:PutBucketPublicAccessBlock` permission.
      *
      * @var bool|null
      */
