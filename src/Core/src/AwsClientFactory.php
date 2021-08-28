@@ -18,6 +18,7 @@ use AsyncAws\Core\Sts\StsClient;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\Ecr\EcrClient;
 use AsyncAws\EventBridge\EventBridgeClient;
+use AsyncAws\Firehose\FirehoseClient;
 use AsyncAws\Iam\IamClient;
 use AsyncAws\Kinesis\KinesisClient;
 use AsyncAws\Lambda\LambdaClient;
@@ -171,6 +172,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new EventBridgeClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function firehose(): FirehoseClient
+    {
+        if (!class_exists(FirehoseClient::class)) {
+            throw MissingDependency::create('async-aws/firehose', 'Firehose');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new FirehoseClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];

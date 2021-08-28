@@ -52,6 +52,9 @@ menu:
             event-bridge:
                 text: EventBridge
                 url: /clients/event-bridge.html
+            firehose:
+                text: Firehose
+                url: /clients/firehose.html
             dynamodb:
                 text: DynamoDB
                 url: /clients/dynamodb.html

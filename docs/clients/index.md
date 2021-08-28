@@ -142,6 +142,7 @@ for more information.
 | [DynamoDb](./dynamodb.md)                   | [async-aws/dynamo-db](https://packagist.org/packages/async-aws/dynamo-db)
 | [ECR](./ecr.md)                             | [async-aws/ecr](https://packagist.org/packages/async-aws/ecr)
 | [EventBridge](./event-bridge.md)            | [async-aws/event-bridge](https://packagist.org/packages/async-aws/event-bridge)
+| [Firehose](./firehose.md)                   | [async-aws/event-bridge](https://packagist.org/packages/async-aws/firehose)
 | [IAM](./iam.md)                             | [async-aws/iam](https://packagist.org/packages/async-aws/iam)
 | [Kinesis](./kinesis.md)                     | [async-aws/kinesis](https://packagist.org/packages/async-aws/kinesis)
 | [Lambda](./lambda.md)                       | [async-aws/lambda](https://packagist.org/packages/async-aws/lambda)
