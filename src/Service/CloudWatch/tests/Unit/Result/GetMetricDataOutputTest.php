@@ -16,13 +16,13 @@ class GetMetricDataOutputTest extends TestCase
     public function testGetMetricDataOutput(): void
     {
         // see https://docs.aws.amazon.com/cloudwatch/latest/APIReference/API_GetMetricData.html
-        $response = new SimpleMockedResponse('<change>it</change>');
+        $response = new SimpleMockedResponse('<Result><GetMetricDataResult><NextToken>foobar</NextToken></GetMetricDataResult></Result>');
 
         $client = new MockHttpClient($response);
         $result = new GetMetricDataOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new CloudWatchClient(), new GetMetricDataInput([]));
 
         // self::assertTODO(expected, $result->getMetricDataResults());
-        self::assertSame('changeIt', $result->getNextToken());
+        self::assertSame('foobar', $result->getNextToken());
         // self::assertTODO(expected, $result->getMessages());
     }
 }

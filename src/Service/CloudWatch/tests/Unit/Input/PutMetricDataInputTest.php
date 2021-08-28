@@ -20,7 +20,7 @@ class PutMetricDataInputTest extends TestCase
                     'Name' => 'bar',
                     'Value' => '123',
                 ])],
-                'Timestamp' => new \DateTimeImmutable(),
+                'Timestamp' => new \DateTimeImmutable('2021-08-28T06:05:55+00:00'),
                 'Value' => 1337,
                 'StatisticValues' => new StatisticSet([
                     'SampleCount' => 1337,
@@ -39,8 +39,21 @@ class PutMetricDataInputTest extends TestCase
             POST / HTTP/1.0
             Content-Type: application/x-www-form-urlencoded
 
-            Action=PutMetricData
-            &Version=2010-08-01
+            Action=PutMetricData&
+            Version=2010-08-01&
+            Namespace=foo&
+            MetricData.member.1.MetricName=bar&
+            MetricData.member.1.Dimensions.member.1.Name=bar&
+            MetricData.member.1.Dimensions.member.1.Value=123&
+            MetricData.member.1.Timestamp=2021-08-28T06%3A05%3A55%2B00%3A00&
+            MetricData.member.1.Value=1337&
+            MetricData.member.1.StatisticValues.SampleCount=1337&
+            MetricData.member.1.StatisticValues.Sum=1337&
+            MetricData.member.1.StatisticValues.Minimum=1337&
+            MetricData.member.1.StatisticValues.Maximum=1337&
+            MetricData.member.1.Values.member.1=1337&
+            MetricData.member.1.Counts.member.1=1337&
+            MetricData.member.1.StorageResolution=1337
                 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
