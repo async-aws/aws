@@ -153,15 +153,15 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
                 'CodeSha256' => isset($item['CodeSha256']) ? (string) $item['CodeSha256'] : null,
                 'Version' => isset($item['Version']) ? (string) $item['Version'] : null,
                 'VpcConfig' => empty($item['VpcConfig']) ? null : new VpcConfigResponse([
-                    'SubnetIds' => empty($item['VpcConfig']['SubnetIds']) ? [] : $this->populateResultSubnetIds($item['VpcConfig']['SubnetIds']),
-                    'SecurityGroupIds' => empty($item['VpcConfig']['SecurityGroupIds']) ? [] : $this->populateResultSecurityGroupIds($item['VpcConfig']['SecurityGroupIds']),
+                    'SubnetIds' => !isset($item['VpcConfig']['SubnetIds']) ? null : $this->populateResultSubnetIds($item['VpcConfig']['SubnetIds']),
+                    'SecurityGroupIds' => !isset($item['VpcConfig']['SecurityGroupIds']) ? null : $this->populateResultSecurityGroupIds($item['VpcConfig']['SecurityGroupIds']),
                     'VpcId' => isset($item['VpcConfig']['VpcId']) ? (string) $item['VpcConfig']['VpcId'] : null,
                 ]),
                 'DeadLetterConfig' => empty($item['DeadLetterConfig']) ? null : new DeadLetterConfig([
                     'TargetArn' => isset($item['DeadLetterConfig']['TargetArn']) ? (string) $item['DeadLetterConfig']['TargetArn'] : null,
                 ]),
                 'Environment' => empty($item['Environment']) ? null : new EnvironmentResponse([
-                    'Variables' => empty($item['Environment']['Variables']) ? [] : $this->populateResultEnvironmentVariables($item['Environment']['Variables']),
+                    'Variables' => !isset($item['Environment']['Variables']) ? null : $this->populateResultEnvironmentVariables($item['Environment']['Variables']),
                     'Error' => empty($item['Environment']['Error']) ? null : new EnvironmentError([
                         'ErrorCode' => isset($item['Environment']['Error']['ErrorCode']) ? (string) $item['Environment']['Error']['ErrorCode'] : null,
                         'Message' => isset($item['Environment']['Error']['Message']) ? (string) $item['Environment']['Error']['Message'] : null,
@@ -173,19 +173,19 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
                 ]),
                 'MasterArn' => isset($item['MasterArn']) ? (string) $item['MasterArn'] : null,
                 'RevisionId' => isset($item['RevisionId']) ? (string) $item['RevisionId'] : null,
-                'Layers' => empty($item['Layers']) ? [] : $this->populateResultLayersReferenceList($item['Layers']),
+                'Layers' => !isset($item['Layers']) ? null : $this->populateResultLayersReferenceList($item['Layers']),
                 'State' => isset($item['State']) ? (string) $item['State'] : null,
                 'StateReason' => isset($item['StateReason']) ? (string) $item['StateReason'] : null,
                 'StateReasonCode' => isset($item['StateReasonCode']) ? (string) $item['StateReasonCode'] : null,
                 'LastUpdateStatus' => isset($item['LastUpdateStatus']) ? (string) $item['LastUpdateStatus'] : null,
                 'LastUpdateStatusReason' => isset($item['LastUpdateStatusReason']) ? (string) $item['LastUpdateStatusReason'] : null,
                 'LastUpdateStatusReasonCode' => isset($item['LastUpdateStatusReasonCode']) ? (string) $item['LastUpdateStatusReasonCode'] : null,
-                'FileSystemConfigs' => empty($item['FileSystemConfigs']) ? [] : $this->populateResultFileSystemConfigList($item['FileSystemConfigs']),
+                'FileSystemConfigs' => !isset($item['FileSystemConfigs']) ? null : $this->populateResultFileSystemConfigList($item['FileSystemConfigs']),
                 'PackageType' => isset($item['PackageType']) ? (string) $item['PackageType'] : null,
                 'ImageConfigResponse' => empty($item['ImageConfigResponse']) ? null : new ImageConfigResponse([
                     'ImageConfig' => empty($item['ImageConfigResponse']['ImageConfig']) ? null : new ImageConfig([
-                        'EntryPoint' => empty($item['ImageConfigResponse']['ImageConfig']['EntryPoint']) ? [] : $this->populateResultStringList($item['ImageConfigResponse']['ImageConfig']['EntryPoint']),
-                        'Command' => empty($item['ImageConfigResponse']['ImageConfig']['Command']) ? [] : $this->populateResultStringList($item['ImageConfigResponse']['ImageConfig']['Command']),
+                        'EntryPoint' => !isset($item['ImageConfigResponse']['ImageConfig']['EntryPoint']) ? null : $this->populateResultStringList($item['ImageConfigResponse']['ImageConfig']['EntryPoint']),
+                        'Command' => !isset($item['ImageConfigResponse']['ImageConfig']['Command']) ? null : $this->populateResultStringList($item['ImageConfigResponse']['ImageConfig']['Command']),
                         'WorkingDirectory' => isset($item['ImageConfigResponse']['ImageConfig']['WorkingDirectory']) ? (string) $item['ImageConfigResponse']['ImageConfig']['WorkingDirectory'] : null,
                     ]),
                     'Error' => empty($item['ImageConfigResponse']['Error']) ? null : new ImageConfigError([

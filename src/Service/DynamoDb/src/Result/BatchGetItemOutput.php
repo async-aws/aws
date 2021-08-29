@@ -176,8 +176,8 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
                     'WriteCapacityUnits' => isset($item['Table']['WriteCapacityUnits']) ? (float) $item['Table']['WriteCapacityUnits'] : null,
                     'CapacityUnits' => isset($item['Table']['CapacityUnits']) ? (float) $item['Table']['CapacityUnits'] : null,
                 ]),
-                'LocalSecondaryIndexes' => empty($item['LocalSecondaryIndexes']) ? [] : $this->populateResultSecondaryIndexesCapacityMap($item['LocalSecondaryIndexes']),
-                'GlobalSecondaryIndexes' => empty($item['GlobalSecondaryIndexes']) ? [] : $this->populateResultSecondaryIndexesCapacityMap($item['GlobalSecondaryIndexes']),
+                'LocalSecondaryIndexes' => !isset($item['LocalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($item['LocalSecondaryIndexes']),
+                'GlobalSecondaryIndexes' => !isset($item['GlobalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($item['GlobalSecondaryIndexes']),
             ]);
         }
 

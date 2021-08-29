@@ -48,7 +48,7 @@ class DescribeStreamSummaryOutput extends Result
         $items = [];
         foreach ($json as $item) {
             $items[] = new EnhancedMetrics([
-                'ShardLevelMetrics' => empty($item['ShardLevelMetrics']) ? [] : $this->populateResultMetricsNameList($item['ShardLevelMetrics']),
+                'ShardLevelMetrics' => !isset($item['ShardLevelMetrics']) ? null : $this->populateResultMetricsNameList($item['ShardLevelMetrics']),
             ]);
         }
 

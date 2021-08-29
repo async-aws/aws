@@ -82,7 +82,7 @@ class RecognizeCelebritiesResponse extends Result
         $items = [];
         foreach ($json as $item) {
             $items[] = new Celebrity([
-                'Urls' => empty($item['Urls']) ? [] : $this->populateResultUrls($item['Urls']),
+                'Urls' => !isset($item['Urls']) ? null : $this->populateResultUrls($item['Urls']),
                 'Name' => isset($item['Name']) ? (string) $item['Name'] : null,
                 'Id' => isset($item['Id']) ? (string) $item['Id'] : null,
                 'Face' => empty($item['Face']) ? null : new ComparedFace([
@@ -93,7 +93,7 @@ class RecognizeCelebritiesResponse extends Result
                         'Top' => isset($item['Face']['BoundingBox']['Top']) ? (float) $item['Face']['BoundingBox']['Top'] : null,
                     ]),
                     'Confidence' => isset($item['Face']['Confidence']) ? (float) $item['Face']['Confidence'] : null,
-                    'Landmarks' => empty($item['Face']['Landmarks']) ? [] : $this->populateResultLandmarks($item['Face']['Landmarks']),
+                    'Landmarks' => !isset($item['Face']['Landmarks']) ? null : $this->populateResultLandmarks($item['Face']['Landmarks']),
                     'Pose' => empty($item['Face']['Pose']) ? null : new Pose([
                         'Roll' => isset($item['Face']['Pose']['Roll']) ? (float) $item['Face']['Pose']['Roll'] : null,
                         'Yaw' => isset($item['Face']['Pose']['Yaw']) ? (float) $item['Face']['Pose']['Yaw'] : null,
@@ -103,7 +103,7 @@ class RecognizeCelebritiesResponse extends Result
                         'Brightness' => isset($item['Face']['Quality']['Brightness']) ? (float) $item['Face']['Quality']['Brightness'] : null,
                         'Sharpness' => isset($item['Face']['Quality']['Sharpness']) ? (float) $item['Face']['Quality']['Sharpness'] : null,
                     ]),
-                    'Emotions' => empty($item['Face']['Emotions']) ? [] : $this->populateResultEmotions($item['Face']['Emotions']),
+                    'Emotions' => !isset($item['Face']['Emotions']) ? null : $this->populateResultEmotions($item['Face']['Emotions']),
                     'Smile' => empty($item['Face']['Smile']) ? null : new Smile([
                         'Value' => isset($item['Face']['Smile']['Value']) ? filter_var($item['Face']['Smile']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
                         'Confidence' => isset($item['Face']['Smile']['Confidence']) ? (float) $item['Face']['Smile']['Confidence'] : null,
@@ -134,7 +134,7 @@ class RecognizeCelebritiesResponse extends Result
                     'Top' => isset($item['BoundingBox']['Top']) ? (float) $item['BoundingBox']['Top'] : null,
                 ]),
                 'Confidence' => isset($item['Confidence']) ? (float) $item['Confidence'] : null,
-                'Landmarks' => empty($item['Landmarks']) ? [] : $this->populateResultLandmarks($item['Landmarks']),
+                'Landmarks' => !isset($item['Landmarks']) ? null : $this->populateResultLandmarks($item['Landmarks']),
                 'Pose' => empty($item['Pose']) ? null : new Pose([
                     'Roll' => isset($item['Pose']['Roll']) ? (float) $item['Pose']['Roll'] : null,
                     'Yaw' => isset($item['Pose']['Yaw']) ? (float) $item['Pose']['Yaw'] : null,
@@ -144,7 +144,7 @@ class RecognizeCelebritiesResponse extends Result
                     'Brightness' => isset($item['Quality']['Brightness']) ? (float) $item['Quality']['Brightness'] : null,
                     'Sharpness' => isset($item['Quality']['Sharpness']) ? (float) $item['Quality']['Sharpness'] : null,
                 ]),
-                'Emotions' => empty($item['Emotions']) ? [] : $this->populateResultEmotions($item['Emotions']),
+                'Emotions' => !isset($item['Emotions']) ? null : $this->populateResultEmotions($item['Emotions']),
                 'Smile' => empty($item['Smile']) ? null : new Smile([
                     'Value' => isset($item['Smile']['Value']) ? filter_var($item['Smile']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
                     'Confidence' => isset($item['Smile']['Confidence']) ? (float) $item['Smile']['Confidence'] : null,

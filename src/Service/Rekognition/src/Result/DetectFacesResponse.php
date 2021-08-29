@@ -127,8 +127,8 @@ class DetectFacesResponse extends Result
                     'Value' => isset($item['MouthOpen']['Value']) ? filter_var($item['MouthOpen']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
                     'Confidence' => isset($item['MouthOpen']['Confidence']) ? (float) $item['MouthOpen']['Confidence'] : null,
                 ]),
-                'Emotions' => empty($item['Emotions']) ? [] : $this->populateResultEmotions($item['Emotions']),
-                'Landmarks' => empty($item['Landmarks']) ? [] : $this->populateResultLandmarks($item['Landmarks']),
+                'Emotions' => !isset($item['Emotions']) ? null : $this->populateResultEmotions($item['Emotions']),
+                'Landmarks' => !isset($item['Landmarks']) ? null : $this->populateResultLandmarks($item['Landmarks']),
                 'Pose' => empty($item['Pose']) ? null : new Pose([
                     'Roll' => isset($item['Pose']['Roll']) ? (float) $item['Pose']['Roll'] : null,
                     'Yaw' => isset($item['Pose']['Yaw']) ? (float) $item['Pose']['Yaw'] : null,

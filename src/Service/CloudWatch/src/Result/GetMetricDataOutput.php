@@ -217,10 +217,10 @@ class GetMetricDataOutput extends Result implements \IteratorAggregate
             $items[] = new MetricDataResult([
                 'Id' => ($v = $item->Id) ? (string) $v : null,
                 'Label' => ($v = $item->Label) ? (string) $v : null,
-                'Timestamps' => !$item->Timestamps ? [] : $this->populateResultTimestamps($item->Timestamps),
-                'Values' => !$item->Values ? [] : $this->populateResultDatapointValues($item->Values),
+                'Timestamps' => !$item->Timestamps ? null : $this->populateResultTimestamps($item->Timestamps),
+                'Values' => !$item->Values ? null : $this->populateResultDatapointValues($item->Values),
                 'StatusCode' => ($v = $item->StatusCode) ? (string) $v : null,
-                'Messages' => !$item->Messages ? [] : $this->populateResultMetricDataResultMessages($item->Messages),
+                'Messages' => !$item->Messages ? null : $this->populateResultMetricDataResultMessages($item->Messages),
             ]);
         }
 

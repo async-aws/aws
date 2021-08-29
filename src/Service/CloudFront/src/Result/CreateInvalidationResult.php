@@ -51,7 +51,7 @@ class CreateInvalidationResult extends Result
             'InvalidationBatch' => new InvalidationBatch([
                 'Paths' => new Paths([
                     'Quantity' => (int) (string) $data->InvalidationBatch->Paths->Quantity,
-                    'Items' => !$data->InvalidationBatch->Paths->Items ? [] : $this->populateResultPathList($data->InvalidationBatch->Paths->Items),
+                    'Items' => !$data->InvalidationBatch->Paths->Items ? null : $this->populateResultPathList($data->InvalidationBatch->Paths->Items),
                 ]),
                 'CallerReference' => (string) $data->InvalidationBatch->CallerReference,
             ]),

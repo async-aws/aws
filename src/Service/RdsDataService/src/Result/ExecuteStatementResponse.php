@@ -88,11 +88,11 @@ class ExecuteStatementResponse extends Result
         $items = [];
         foreach ($json as $item) {
             $items[] = new ArrayValue([
-                'arrayValues' => empty($item['arrayValues']) ? [] : $this->populateResultArrayOfArray($item['arrayValues']),
-                'booleanValues' => empty($item['booleanValues']) ? [] : $this->populateResultBooleanArray($item['booleanValues']),
-                'doubleValues' => empty($item['doubleValues']) ? [] : $this->populateResultDoubleArray($item['doubleValues']),
-                'longValues' => empty($item['longValues']) ? [] : $this->populateResultLongArray($item['longValues']),
-                'stringValues' => empty($item['stringValues']) ? [] : $this->populateResultStringArray($item['stringValues']),
+                'arrayValues' => !isset($item['arrayValues']) ? null : $this->populateResultArrayOfArray($item['arrayValues']),
+                'booleanValues' => !isset($item['booleanValues']) ? null : $this->populateResultBooleanArray($item['booleanValues']),
+                'doubleValues' => !isset($item['doubleValues']) ? null : $this->populateResultDoubleArray($item['doubleValues']),
+                'longValues' => !isset($item['longValues']) ? null : $this->populateResultLongArray($item['longValues']),
+                'stringValues' => !isset($item['stringValues']) ? null : $this->populateResultStringArray($item['stringValues']),
             ]);
         }
 
@@ -140,11 +140,11 @@ class ExecuteStatementResponse extends Result
         foreach ($json as $item) {
             $items[] = new Field([
                 'arrayValue' => empty($item['arrayValue']) ? null : new ArrayValue([
-                    'arrayValues' => empty($item['arrayValue']['arrayValues']) ? [] : $this->populateResultArrayOfArray($item['arrayValue']['arrayValues']),
-                    'booleanValues' => empty($item['arrayValue']['booleanValues']) ? [] : $this->populateResultBooleanArray($item['arrayValue']['booleanValues']),
-                    'doubleValues' => empty($item['arrayValue']['doubleValues']) ? [] : $this->populateResultDoubleArray($item['arrayValue']['doubleValues']),
-                    'longValues' => empty($item['arrayValue']['longValues']) ? [] : $this->populateResultLongArray($item['arrayValue']['longValues']),
-                    'stringValues' => empty($item['arrayValue']['stringValues']) ? [] : $this->populateResultStringArray($item['arrayValue']['stringValues']),
+                    'arrayValues' => !isset($item['arrayValue']['arrayValues']) ? null : $this->populateResultArrayOfArray($item['arrayValue']['arrayValues']),
+                    'booleanValues' => !isset($item['arrayValue']['booleanValues']) ? null : $this->populateResultBooleanArray($item['arrayValue']['booleanValues']),
+                    'doubleValues' => !isset($item['arrayValue']['doubleValues']) ? null : $this->populateResultDoubleArray($item['arrayValue']['doubleValues']),
+                    'longValues' => !isset($item['arrayValue']['longValues']) ? null : $this->populateResultLongArray($item['arrayValue']['longValues']),
+                    'stringValues' => !isset($item['arrayValue']['stringValues']) ? null : $this->populateResultStringArray($item['arrayValue']['stringValues']),
                 ]),
                 'blobValue' => isset($item['blobValue']) ? base64_decode((string) $item['blobValue']) : null,
                 'booleanValue' => isset($item['booleanValue']) ? filter_var($item['booleanValue'], \FILTER_VALIDATE_BOOLEAN) : null,

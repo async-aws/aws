@@ -41,7 +41,7 @@ class CreateUserResponse extends Result
                 'PermissionsBoundaryType' => ($v = $data->User->PermissionsBoundary->PermissionsBoundaryType) ? (string) $v : null,
                 'PermissionsBoundaryArn' => ($v = $data->User->PermissionsBoundary->PermissionsBoundaryArn) ? (string) $v : null,
             ]),
-            'Tags' => !$data->User->Tags ? [] : $this->populateResultTagListType($data->User->Tags),
+            'Tags' => !$data->User->Tags ? null : $this->populateResultTagListType($data->User->Tags),
         ]);
     }
 

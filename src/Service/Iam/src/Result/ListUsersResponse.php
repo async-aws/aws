@@ -149,7 +149,7 @@ class ListUsersResponse extends Result implements \IteratorAggregate
                     'PermissionsBoundaryType' => ($v = $item->PermissionsBoundary->PermissionsBoundaryType) ? (string) $v : null,
                     'PermissionsBoundaryArn' => ($v = $item->PermissionsBoundary->PermissionsBoundaryArn) ? (string) $v : null,
                 ]),
-                'Tags' => !$item->Tags ? [] : $this->populateResultTagListType($item->Tags),
+                'Tags' => !$item->Tags ? null : $this->populateResultTagListType($item->Tags),
             ]);
         }
 
