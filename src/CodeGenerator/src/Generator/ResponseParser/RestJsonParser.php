@@ -226,7 +226,7 @@ class RestJsonParser implements Parser
             // prevent recursion
             $this->functions[$functionName] = true;
 
-            if ($shapeMember->getShape() instanceof StructureShape) {
+            if ($shapeMember->getShape() instanceof StructureShape || $shapeMember->getShape() instanceof ListShape || $shapeMember->getShape() instanceof MapShape) {
                 $listAccessorRequired = true;
                 $body = '
                     $items = [];
