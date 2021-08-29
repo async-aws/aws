@@ -19,7 +19,7 @@ class ListTablesOutput extends Result implements \IteratorAggregate
      * The names of the tables associated with the current account at the current endpoint. The maximum size of this array
      * is 100.
      */
-    private $tableNames = [];
+    private $tableNames;
 
     /**
      * The name of the last table in the current page of results. Use this value as the `ExclusiveStartTableName` in a new

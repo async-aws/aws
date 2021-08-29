@@ -21,7 +21,7 @@ class ListUsersResponse extends Result implements \IteratorAggregate
     /**
      * A list of users.
      */
-    private $users = [];
+    private $users;
 
     /**
      * A flag that indicates whether there are more items to return. If your results were truncated, you can make a

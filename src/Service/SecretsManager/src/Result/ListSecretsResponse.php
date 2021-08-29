@@ -19,7 +19,7 @@ class ListSecretsResponse extends Result implements \IteratorAggregate
     /**
      * A list of the secrets in the account.
      */
-    private $secretList = [];
+    private $secretList;
 
     /**
      * If present in the response, this value indicates that there's more output available than included in the current

@@ -31,7 +31,7 @@ class IndexFacesResponse extends Result
      * An array of faces detected and added to the collection. For more information, see Searching Faces in a Collection in
      * the Amazon Rekognition Developer Guide.
      */
-    private $faceRecords = [];
+    private $faceRecords;
 
     /**
      * If your collection is associated with a face detection model that's later than version 3.0, the value of
@@ -49,7 +49,7 @@ class IndexFacesResponse extends Result
      * filter identified them as low quality, or the `MaxFaces` request parameter filtered them out. To use the quality
      * filter, you specify the `QualityFilter` request parameter.
      */
-    private $unindexedFaces = [];
+    private $unindexedFaces;
 
     public function getFaceModelVersion(): ?string
     {

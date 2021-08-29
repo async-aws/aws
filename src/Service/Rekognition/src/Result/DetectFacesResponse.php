@@ -26,7 +26,7 @@ class DetectFacesResponse extends Result
     /**
      * Details of each face found in the image.
      */
-    private $faceDetails = [];
+    private $faceDetails;
 
     /**
      * The value of `OrientationCorrection` is always null.

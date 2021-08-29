@@ -44,7 +44,7 @@ class PublishLayerVersionResponse extends Result
     /**
      * The layer's compatible runtimes.
      */
-    private $compatibleRuntimes = [];
+    private $compatibleRuntimes;
 
     /**
      * The layer's software license.

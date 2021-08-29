@@ -18,7 +18,7 @@ class PutItemOutput extends Result
      * The attribute values as they appeared before the `PutItem` operation, but only if `ReturnValues` is specified as
      * `ALL_OLD` in the request. Each element consists of an attribute name and an attribute value.
      */
-    private $attributes = [];
+    private $attributes;
 
     /**
      * The capacity units consumed by the `PutItem` operation. The data returned includes the total provisioned throughput

@@ -11,7 +11,7 @@ class GetCelebrityInfoResponse extends Result
     /**
      * An array of URLs pointing to additional celebrity information.
      */
-    private $urls = [];
+    private $urls;
 
     /**
      * The name of the celebrity.

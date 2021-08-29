@@ -16,7 +16,7 @@ class BatchExecuteStatementResponse extends Result
     /**
      * The execution results of each batch entry.
      */
-    private $updateResults = [];
+    private $updateResults;
 
     /**
      * @return UpdateResult[]

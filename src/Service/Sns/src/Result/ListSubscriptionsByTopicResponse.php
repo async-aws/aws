@@ -19,7 +19,7 @@ class ListSubscriptionsByTopicResponse extends Result implements \IteratorAggreg
     /**
      * A list of subscriptions.
      */
-    private $subscriptions = [];
+    private $subscriptions;
 
     /**
      * Token to pass along to the next `ListSubscriptionsByTopic` request. This element is returned if there are more

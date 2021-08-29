@@ -16,12 +16,12 @@ class ExecuteStatementResponse extends Result
     /**
      * Metadata for the columns included in the results.
      */
-    private $columnMetadata = [];
+    private $columnMetadata;
 
     /**
      * Values for fields generated during the request.
      */
-    private $generatedFields = [];
+    private $generatedFields;
 
     /**
      * The number of records updated by the request.
@@ -31,7 +31,7 @@ class ExecuteStatementResponse extends Result
     /**
      * The records returned by the SQL statement.
      */
-    private $records = [];
+    private $records;
 
     /**
      * @return ColumnMetadata[]

@@ -13,7 +13,7 @@ class DeleteObjectsOutput extends Result
     /**
      * Container element for a successful delete. It identifies the object that was successfully deleted.
      */
-    private $deleted = [];
+    private $deleted;
 
     private $requestCharged;
 
@@ -21,7 +21,7 @@ class DeleteObjectsOutput extends Result
      * Container for a failed delete action that describes the object that Amazon S3 attempted to delete and the error it
      * encountered.
      */
-    private $errors = [];
+    private $errors;
 
     /**
      * @return DeletedObject[]

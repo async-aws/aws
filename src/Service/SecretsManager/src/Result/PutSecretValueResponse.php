@@ -26,7 +26,7 @@ class PutSecretValueResponse extends Result
      * The list of staging labels that are currently attached to this version of the secret. Staging labels are used to
      * track a version as it progresses through the secret rotation process.
      */
-    private $versionStages = [];
+    private $versionStages;
 
     public function getArn(): ?string
     {

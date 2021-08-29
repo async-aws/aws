@@ -21,7 +21,7 @@ class AdminGetUserResponse extends Result
     /**
      * An array of name-value pairs representing user attributes.
      */
-    private $userAttributes = [];
+    private $userAttributes;
 
     /**
      * The date the user was created.
@@ -48,7 +48,7 @@ class AdminGetUserResponse extends Result
      * doesn't provide information about TOTP software token MFA configurations. To look up information about either type of
      * MFA configuration, use UserMFASettingList instead.
      */
-    private $mfaOptions = [];
+    private $mfaOptions;
 
     /**
      * The user's preferred MFA setting.
@@ -59,7 +59,7 @@ class AdminGetUserResponse extends Result
      * The MFA options that are enabled for the user. The possible values in this list are `SMS_MFA` and
      * `SOFTWARE_TOKEN_MFA`.
      */
-    private $userMfaSettingList = [];
+    private $userMfaSettingList;
 
     public function getEnabled(): ?bool
     {

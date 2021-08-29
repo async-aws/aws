@@ -38,7 +38,7 @@ class GetSecretValueResponse extends Result
     /**
      * A list of all of the staging labels currently attached to this version of the secret.
      */
-    private $versionStages = [];
+    private $versionStages;
 
     /**
      * The date and time that this version of the secret was created.

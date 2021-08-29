@@ -34,7 +34,7 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
     /**
      * A list of Lambda functions.
      */
-    private $functions = [];
+    private $functions;
 
     /**
      * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.

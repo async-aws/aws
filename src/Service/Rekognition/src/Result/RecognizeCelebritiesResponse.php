@@ -22,12 +22,12 @@ class RecognizeCelebritiesResponse extends Result
      * image. Each celebrity object includes the following attributes: `Face`, `Confidence`, `Emotions`, `Landmarks`,
      * `Pose`, `Quality`, `Smile`, `Id`, `KnownGender`, `MatchConfidence`, `Name`, `Urls`.
      */
-    private $celebrityFaces = [];
+    private $celebrityFaces;
 
     /**
      * Details about each unrecognized face in the image.
      */
-    private $unrecognizedFaces = [];
+    private $unrecognizedFaces;
 
     /**
      * > Support for estimating image orientation using the the OrientationCorrection field has ceased as of August 2021.

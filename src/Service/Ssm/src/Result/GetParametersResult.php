@@ -11,12 +11,12 @@ class GetParametersResult extends Result
     /**
      * A list of details for a parameter.
      */
-    private $parameters = [];
+    private $parameters;
 
     /**
      * A list of parameters that aren't formatted correctly or don't run during an execution.
      */
-    private $invalidParameters = [];
+    private $invalidParameters;
 
     /**
      * @return string[]

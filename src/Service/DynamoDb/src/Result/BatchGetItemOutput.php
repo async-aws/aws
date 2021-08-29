@@ -23,19 +23,19 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
      * A map of table name to a list of items. Each object in `Responses` consists of a table name, along with a map of
      * attribute data consisting of the data type and attribute value.
      */
-    private $responses = [];
+    private $responses;
 
     /**
      * A map of tables and their respective keys that were not processed with the current response. The `UnprocessedKeys`
      * value is in the same form as `RequestItems`, so the value can be provided directly to a subsequent `BatchGetItem`
      * operation. For more information, see `RequestItems` in the Request Parameters section.
      */
-    private $unprocessedKeys = [];
+    private $unprocessedKeys;
 
     /**
      * The read capacity units consumed by the entire `BatchGetItem` operation.
      */
-    private $consumedCapacity = [];
+    private $consumedCapacity;
 
     /**
      * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.

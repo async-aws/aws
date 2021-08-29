@@ -11,7 +11,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 final class InvalidChangeBatchException extends ClientException
 {
-    private $messages = [];
+    private $messages;
 
     /**
      * @return string[]

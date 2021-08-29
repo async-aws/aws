@@ -119,7 +119,7 @@ class GetObjectOutput extends Result
     /**
      * A map of metadata to store with the object in S3.
      */
-    private $metadata = [];
+    private $metadata;
 
     /**
      * If server-side encryption with a customer-provided encryption key was requested, the response will include this

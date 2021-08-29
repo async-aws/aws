@@ -22,18 +22,18 @@ class BatchWriteItemOutput extends Result
      * same form as `RequestItems`, so you can provide this value directly to a subsequent `BatchGetItem` operation. For
      * more information, see `RequestItems` in the Request Parameters section.
      */
-    private $unprocessedItems = [];
+    private $unprocessedItems;
 
     /**
      * A list of tables that were processed by `BatchWriteItem` and, for each table, information about any item collections
      * that were affected by individual `DeleteItem` or `PutItem` operations.
      */
-    private $itemCollectionMetrics = [];
+    private $itemCollectionMetrics;
 
     /**
      * The capacity units consumed by the entire `BatchWriteItem` operation.
      */
-    private $consumedCapacity = [];
+    private $consumedCapacity;
 
     /**
      * @return ConsumedCapacity[]

@@ -23,7 +23,7 @@ class PutRecordBatchOutput extends Result
      * The results array. For each record, the index of the response element is the same as the index used in the request
      * array.
      */
-    private $requestResponses = [];
+    private $requestResponses;
 
     public function getEncrypted(): ?bool
     {

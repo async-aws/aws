@@ -76,7 +76,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
     /**
      * Container for elements related to a particular part. A response can contain zero or more `Part` elements.
      */
-    private $parts = [];
+    private $parts;
 
     /**
      * Container element that identifies who initiated the multipart upload. If the initiator is an Amazon Web Services

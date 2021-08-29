@@ -32,7 +32,7 @@ class RespondToAuthChallengeResponse extends Result
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
      */
-    private $challengeParameters = [];
+    private $challengeParameters;
 
     /**
      * The result returned by the server in response to the request to respond to the authentication challenge.

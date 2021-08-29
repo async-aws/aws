@@ -26,7 +26,7 @@ class CreateSecretResponse extends Result
     /**
      * Describes a list of replication status objects as `InProgress`, `Failed` or `InSync`.
      */
-    private $replicationStatus = [];
+    private $replicationStatus;
 
     public function getArn(): ?string
     {

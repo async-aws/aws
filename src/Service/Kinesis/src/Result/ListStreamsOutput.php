@@ -18,7 +18,7 @@ class ListStreamsOutput extends Result implements \IteratorAggregate
     /**
      * The names of the streams that are associated with the AWS account making the `ListStreams` request.
      */
-    private $streamNames = [];
+    private $streamNames;
 
     /**
      * If set to `true`, there are more streams available to list.

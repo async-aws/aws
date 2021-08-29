@@ -19,7 +19,7 @@ class ListHostedZonesResponse extends Result implements \IteratorAggregate
     /**
      * A complex type that contains general information about the hosted zone.
      */
-    private $hostedZones = [];
+    private $hostedZones;
 
     /**
      * For the second and subsequent calls to `ListHostedZones`, `Marker` is the value that you specified for the `marker`
