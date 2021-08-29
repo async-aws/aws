@@ -83,7 +83,7 @@ final class StreamDescriptionSummary
         $this->streamStatus = $input['StreamStatus'] ?? null;
         $this->retentionPeriodHours = $input['RetentionPeriodHours'] ?? null;
         $this->streamCreationTimestamp = $input['StreamCreationTimestamp'] ?? null;
-        $this->enhancedMonitoring = isset($input['EnhancedMonitoring']) ? array_map([EnhancedMetrics::class, 'create'], $input['EnhancedMonitoring']) : null;
+        $this->enhancedMonitoring = isset($input['EnhancedMonitoring']) ? array_map([EnhancedMetrics::class, 'create'], $input['EnhancedMonitoring']) : [];
         $this->encryptionType = $input['EncryptionType'] ?? null;
         $this->keyId = $input['KeyId'] ?? null;
         $this->openShardCount = $input['OpenShardCount'] ?? null;
@@ -113,7 +113,7 @@ final class StreamDescriptionSummary
      */
     public function getEnhancedMonitoring(): array
     {
-        return $this->enhancedMonitoring ?? [];
+        return $this->enhancedMonitoring;
     }
 
     public function getKeyId(): ?string

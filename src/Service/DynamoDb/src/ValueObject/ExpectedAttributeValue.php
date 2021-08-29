@@ -58,7 +58,7 @@ final class ExpectedAttributeValue
         $this->value = isset($input['Value']) ? AttributeValue::create($input['Value']) : null;
         $this->exists = $input['Exists'] ?? null;
         $this->comparisonOperator = $input['ComparisonOperator'] ?? null;
-        $this->attributeValueList = isset($input['AttributeValueList']) ? array_map([AttributeValue::class, 'create'], $input['AttributeValueList']) : null;
+        $this->attributeValueList = isset($input['AttributeValueList']) ? array_map([AttributeValue::class, 'create'], $input['AttributeValueList']) : [];
     }
 
     public static function create($input): self
@@ -71,7 +71,7 @@ final class ExpectedAttributeValue
      */
     public function getAttributeValueList(): array
     {
-        return $this->attributeValueList ?? [];
+        return $this->attributeValueList;
     }
 
     /**

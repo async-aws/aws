@@ -82,11 +82,11 @@ final class StreamDescription
         $this->streamName = $input['StreamName'] ?? null;
         $this->streamArn = $input['StreamARN'] ?? null;
         $this->streamStatus = $input['StreamStatus'] ?? null;
-        $this->shards = isset($input['Shards']) ? array_map([Shard::class, 'create'], $input['Shards']) : null;
+        $this->shards = isset($input['Shards']) ? array_map([Shard::class, 'create'], $input['Shards']) : [];
         $this->hasMoreShards = $input['HasMoreShards'] ?? null;
         $this->retentionPeriodHours = $input['RetentionPeriodHours'] ?? null;
         $this->streamCreationTimestamp = $input['StreamCreationTimestamp'] ?? null;
-        $this->enhancedMonitoring = isset($input['EnhancedMonitoring']) ? array_map([EnhancedMetrics::class, 'create'], $input['EnhancedMonitoring']) : null;
+        $this->enhancedMonitoring = isset($input['EnhancedMonitoring']) ? array_map([EnhancedMetrics::class, 'create'], $input['EnhancedMonitoring']) : [];
         $this->encryptionType = $input['EncryptionType'] ?? null;
         $this->keyId = $input['KeyId'] ?? null;
     }
@@ -109,7 +109,7 @@ final class StreamDescription
      */
     public function getEnhancedMonitoring(): array
     {
-        return $this->enhancedMonitoring ?? [];
+        return $this->enhancedMonitoring;
     }
 
     public function getHasMoreShards(): bool
@@ -132,7 +132,7 @@ final class StreamDescription
      */
     public function getShards(): array
     {
-        return $this->shards ?? [];
+        return $this->shards;
     }
 
     public function getStreamArn(): string

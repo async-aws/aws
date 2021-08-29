@@ -38,7 +38,7 @@ final class QueueConfiguration
     {
         $this->id = $input['Id'] ?? null;
         $this->queueArn = $input['QueueArn'] ?? null;
-        $this->events = $input['Events'] ?? null;
+        $this->events = $input['Events'] ?? [];
         $this->filter = isset($input['Filter']) ? NotificationConfigurationFilter::create($input['Filter']) : null;
     }
 
@@ -52,7 +52,7 @@ final class QueueConfiguration
      */
     public function getEvents(): array
     {
-        return $this->events ?? [];
+        return $this->events;
     }
 
     public function getFilter(): ?NotificationConfigurationFilter

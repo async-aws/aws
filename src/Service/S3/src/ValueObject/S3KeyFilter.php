@@ -13,7 +13,7 @@ final class S3KeyFilter
      */
     public function __construct(array $input)
     {
-        $this->filterRules = isset($input['FilterRules']) ? array_map([FilterRule::class, 'create'], $input['FilterRules']) : null;
+        $this->filterRules = isset($input['FilterRules']) ? array_map([FilterRule::class, 'create'], $input['FilterRules']) : [];
     }
 
     public static function create($input): self
@@ -26,7 +26,7 @@ final class S3KeyFilter
      */
     public function getFilterRules(): array
     {
-        return $this->filterRules ?? [];
+        return $this->filterRules;
     }
 
     /**

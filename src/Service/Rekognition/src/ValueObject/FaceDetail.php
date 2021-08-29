@@ -132,8 +132,8 @@ final class FaceDetail
         $this->mustache = isset($input['Mustache']) ? Mustache::create($input['Mustache']) : null;
         $this->eyesOpen = isset($input['EyesOpen']) ? EyeOpen::create($input['EyesOpen']) : null;
         $this->mouthOpen = isset($input['MouthOpen']) ? MouthOpen::create($input['MouthOpen']) : null;
-        $this->emotions = isset($input['Emotions']) ? array_map([Emotion::class, 'create'], $input['Emotions']) : null;
-        $this->landmarks = isset($input['Landmarks']) ? array_map([Landmark::class, 'create'], $input['Landmarks']) : null;
+        $this->emotions = isset($input['Emotions']) ? array_map([Emotion::class, 'create'], $input['Emotions']) : [];
+        $this->landmarks = isset($input['Landmarks']) ? array_map([Landmark::class, 'create'], $input['Landmarks']) : [];
         $this->pose = isset($input['Pose']) ? Pose::create($input['Pose']) : null;
         $this->quality = isset($input['Quality']) ? ImageQuality::create($input['Quality']) : null;
         $this->confidence = $input['Confidence'] ?? null;
@@ -169,7 +169,7 @@ final class FaceDetail
      */
     public function getEmotions(): array
     {
-        return $this->emotions ?? [];
+        return $this->emotions;
     }
 
     public function getEyeglasses(): ?Eyeglasses
@@ -192,7 +192,7 @@ final class FaceDetail
      */
     public function getLandmarks(): array
     {
-        return $this->landmarks ?? [];
+        return $this->landmarks;
     }
 
     public function getMouthOpen(): ?MouthOpen

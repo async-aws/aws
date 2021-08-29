@@ -28,7 +28,7 @@ final class ChangeBatch
     public function __construct(array $input)
     {
         $this->comment = $input['Comment'] ?? null;
-        $this->changes = isset($input['Changes']) ? array_map([Change::class, 'create'], $input['Changes']) : null;
+        $this->changes = isset($input['Changes']) ? array_map([Change::class, 'create'], $input['Changes']) : [];
     }
 
     public static function create($input): self
@@ -41,7 +41,7 @@ final class ChangeBatch
      */
     public function getChanges(): array
     {
-        return $this->changes ?? [];
+        return $this->changes;
     }
 
     public function getComment(): ?string

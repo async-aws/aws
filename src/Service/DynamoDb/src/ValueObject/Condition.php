@@ -36,7 +36,7 @@ final class Condition
      */
     public function __construct(array $input)
     {
-        $this->attributeValueList = isset($input['AttributeValueList']) ? array_map([AttributeValue::class, 'create'], $input['AttributeValueList']) : null;
+        $this->attributeValueList = isset($input['AttributeValueList']) ? array_map([AttributeValue::class, 'create'], $input['AttributeValueList']) : [];
         $this->comparisonOperator = $input['ComparisonOperator'] ?? null;
     }
 
@@ -50,7 +50,7 @@ final class Condition
      */
     public function getAttributeValueList(): array
     {
-        return $this->attributeValueList ?? [];
+        return $this->attributeValueList;
     }
 
     /**

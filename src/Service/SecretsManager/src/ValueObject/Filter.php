@@ -29,7 +29,7 @@ final class Filter
     public function __construct(array $input)
     {
         $this->key = $input['Key'] ?? null;
-        $this->values = $input['Values'] ?? null;
+        $this->values = $input['Values'] ?? [];
     }
 
     public static function create($input): self
@@ -50,7 +50,7 @@ final class Filter
      */
     public function getValues(): array
     {
-        return $this->values ?? [];
+        return $this->values;
     }
 
     /**

@@ -55,10 +55,10 @@ final class CORSRule
     public function __construct(array $input)
     {
         $this->id = $input['ID'] ?? null;
-        $this->allowedHeaders = $input['AllowedHeaders'] ?? null;
-        $this->allowedMethods = $input['AllowedMethods'] ?? null;
-        $this->allowedOrigins = $input['AllowedOrigins'] ?? null;
-        $this->exposeHeaders = $input['ExposeHeaders'] ?? null;
+        $this->allowedHeaders = $input['AllowedHeaders'] ?? [];
+        $this->allowedMethods = $input['AllowedMethods'] ?? [];
+        $this->allowedOrigins = $input['AllowedOrigins'] ?? [];
+        $this->exposeHeaders = $input['ExposeHeaders'] ?? [];
         $this->maxAgeSeconds = $input['MaxAgeSeconds'] ?? null;
     }
 
@@ -72,7 +72,7 @@ final class CORSRule
      */
     public function getAllowedHeaders(): array
     {
-        return $this->allowedHeaders ?? [];
+        return $this->allowedHeaders;
     }
 
     /**
@@ -80,7 +80,7 @@ final class CORSRule
      */
     public function getAllowedMethods(): array
     {
-        return $this->allowedMethods ?? [];
+        return $this->allowedMethods;
     }
 
     /**
@@ -88,7 +88,7 @@ final class CORSRule
      */
     public function getAllowedOrigins(): array
     {
-        return $this->allowedOrigins ?? [];
+        return $this->allowedOrigins;
     }
 
     /**
@@ -96,7 +96,7 @@ final class CORSRule
      */
     public function getExposeHeaders(): array
     {
-        return $this->exposeHeaders ?? [];
+        return $this->exposeHeaders;
     }
 
     public function getId(): ?string

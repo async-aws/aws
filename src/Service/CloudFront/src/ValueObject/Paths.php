@@ -31,7 +31,7 @@ final class Paths
     public function __construct(array $input)
     {
         $this->quantity = $input['Quantity'] ?? null;
-        $this->items = $input['Items'] ?? null;
+        $this->items = $input['Items'] ?? [];
     }
 
     public static function create($input): self
@@ -44,7 +44,7 @@ final class Paths
      */
     public function getItems(): array
     {
-        return $this->items ?? [];
+        return $this->items;
     }
 
     public function getQuantity(): int

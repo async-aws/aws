@@ -21,7 +21,7 @@ final class EnhancedMetrics
      */
     public function __construct(array $input)
     {
-        $this->shardLevelMetrics = $input['ShardLevelMetrics'] ?? null;
+        $this->shardLevelMetrics = $input['ShardLevelMetrics'] ?? [];
     }
 
     public static function create($input): self
@@ -34,6 +34,6 @@ final class EnhancedMetrics
      */
     public function getShardLevelMetrics(): array
     {
-        return $this->shardLevelMetrics ?? [];
+        return $this->shardLevelMetrics;
     }
 }

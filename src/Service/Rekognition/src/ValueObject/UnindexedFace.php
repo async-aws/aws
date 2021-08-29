@@ -28,7 +28,7 @@ final class UnindexedFace
      */
     public function __construct(array $input)
     {
-        $this->reasons = $input['Reasons'] ?? null;
+        $this->reasons = $input['Reasons'] ?? [];
         $this->faceDetail = isset($input['FaceDetail']) ? FaceDetail::create($input['FaceDetail']) : null;
     }
 
@@ -47,6 +47,6 @@ final class UnindexedFace
      */
     public function getReasons(): array
     {
-        return $this->reasons ?? [];
+        return $this->reasons;
     }
 }

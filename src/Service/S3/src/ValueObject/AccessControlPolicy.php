@@ -25,7 +25,7 @@ final class AccessControlPolicy
      */
     public function __construct(array $input)
     {
-        $this->grants = isset($input['Grants']) ? array_map([Grant::class, 'create'], $input['Grants']) : null;
+        $this->grants = isset($input['Grants']) ? array_map([Grant::class, 'create'], $input['Grants']) : [];
         $this->owner = isset($input['Owner']) ? Owner::create($input['Owner']) : null;
     }
 
@@ -39,7 +39,7 @@ final class AccessControlPolicy
      */
     public function getGrants(): array
     {
-        return $this->grants ?? [];
+        return $this->grants;
     }
 
     public function getOwner(): ?Owner

@@ -63,7 +63,7 @@ final class PutEventsRequestEntry
     {
         $this->time = $input['Time'] ?? null;
         $this->source = $input['Source'] ?? null;
-        $this->resources = $input['Resources'] ?? null;
+        $this->resources = $input['Resources'] ?? [];
         $this->detailType = $input['DetailType'] ?? null;
         $this->detail = $input['Detail'] ?? null;
         $this->eventBusName = $input['EventBusName'] ?? null;
@@ -95,7 +95,7 @@ final class PutEventsRequestEntry
      */
     public function getResources(): array
     {
-        return $this->resources ?? [];
+        return $this->resources;
     }
 
     public function getSource(): ?string

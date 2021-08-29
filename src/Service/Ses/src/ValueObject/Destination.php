@@ -31,9 +31,9 @@ final class Destination
      */
     public function __construct(array $input)
     {
-        $this->toAddresses = $input['ToAddresses'] ?? null;
-        $this->ccAddresses = $input['CcAddresses'] ?? null;
-        $this->bccAddresses = $input['BccAddresses'] ?? null;
+        $this->toAddresses = $input['ToAddresses'] ?? [];
+        $this->ccAddresses = $input['CcAddresses'] ?? [];
+        $this->bccAddresses = $input['BccAddresses'] ?? [];
     }
 
     public static function create($input): self
@@ -46,7 +46,7 @@ final class Destination
      */
     public function getBccAddresses(): array
     {
-        return $this->bccAddresses ?? [];
+        return $this->bccAddresses;
     }
 
     /**
@@ -54,7 +54,7 @@ final class Destination
      */
     public function getCcAddresses(): array
     {
-        return $this->ccAddresses ?? [];
+        return $this->ccAddresses;
     }
 
     /**
@@ -62,7 +62,7 @@ final class Destination
      */
     public function getToAddresses(): array
     {
-        return $this->toAddresses ?? [];
+        return $this->toAddresses;
     }
 
     /**

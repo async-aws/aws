@@ -80,11 +80,11 @@ final class AttributeValue
         $this->s = $input['S'] ?? null;
         $this->n = $input['N'] ?? null;
         $this->b = $input['B'] ?? null;
-        $this->ss = $input['SS'] ?? null;
-        $this->ns = $input['NS'] ?? null;
-        $this->bs = $input['BS'] ?? null;
-        $this->m = isset($input['M']) ? array_map([AttributeValue::class, 'create'], $input['M']) : null;
-        $this->l = isset($input['L']) ? array_map([AttributeValue::class, 'create'], $input['L']) : null;
+        $this->ss = $input['SS'] ?? [];
+        $this->ns = $input['NS'] ?? [];
+        $this->bs = $input['BS'] ?? [];
+        $this->m = isset($input['M']) ? array_map([AttributeValue::class, 'create'], $input['M']) : [];
+        $this->l = isset($input['L']) ? array_map([AttributeValue::class, 'create'], $input['L']) : [];
         $this->null = $input['NULL'] ?? null;
         $this->bool = $input['BOOL'] ?? null;
     }
@@ -109,7 +109,7 @@ final class AttributeValue
      */
     public function getBs(): array
     {
-        return $this->bs ?? [];
+        return $this->bs;
     }
 
     /**
@@ -117,7 +117,7 @@ final class AttributeValue
      */
     public function getL(): array
     {
-        return $this->l ?? [];
+        return $this->l;
     }
 
     /**
@@ -125,7 +125,7 @@ final class AttributeValue
      */
     public function getM(): array
     {
-        return $this->m ?? [];
+        return $this->m;
     }
 
     public function getN(): ?string
@@ -138,7 +138,7 @@ final class AttributeValue
      */
     public function getNs(): array
     {
-        return $this->ns ?? [];
+        return $this->ns;
     }
 
     public function getNull(): ?bool
@@ -156,7 +156,7 @@ final class AttributeValue
      */
     public function getSs(): array
     {
-        return $this->ss ?? [];
+        return $this->ss;
     }
 
     /**

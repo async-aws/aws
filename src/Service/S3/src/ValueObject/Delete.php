@@ -27,7 +27,7 @@ final class Delete
      */
     public function __construct(array $input)
     {
-        $this->objects = isset($input['Objects']) ? array_map([ObjectIdentifier::class, 'create'], $input['Objects']) : null;
+        $this->objects = isset($input['Objects']) ? array_map([ObjectIdentifier::class, 'create'], $input['Objects']) : [];
         $this->quiet = $input['Quiet'] ?? null;
     }
 
@@ -41,7 +41,7 @@ final class Delete
      */
     public function getObjects(): array
     {
-        return $this->objects ?? [];
+        return $this->objects;
     }
 
     public function getQuiet(): ?bool

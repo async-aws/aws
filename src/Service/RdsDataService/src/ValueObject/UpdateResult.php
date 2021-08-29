@@ -19,7 +19,7 @@ final class UpdateResult
      */
     public function __construct(array $input)
     {
-        $this->generatedFields = isset($input['generatedFields']) ? array_map([Field::class, 'create'], $input['generatedFields']) : null;
+        $this->generatedFields = isset($input['generatedFields']) ? array_map([Field::class, 'create'], $input['generatedFields']) : [];
     }
 
     public static function create($input): self
@@ -32,6 +32,6 @@ final class UpdateResult
      */
     public function getGeneratedFields(): array
     {
-        return $this->generatedFields ?? [];
+        return $this->generatedFields;
     }
 }

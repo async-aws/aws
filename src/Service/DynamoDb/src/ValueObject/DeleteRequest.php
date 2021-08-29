@@ -22,7 +22,7 @@ final class DeleteRequest
      */
     public function __construct(array $input)
     {
-        $this->key = isset($input['Key']) ? array_map([AttributeValue::class, 'create'], $input['Key']) : null;
+        $this->key = isset($input['Key']) ? array_map([AttributeValue::class, 'create'], $input['Key']) : [];
     }
 
     public static function create($input): self
@@ -35,7 +35,7 @@ final class DeleteRequest
      */
     public function getKey(): array
     {
-        return $this->key ?? [];
+        return $this->key;
     }
 
     /**

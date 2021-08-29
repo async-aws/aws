@@ -160,7 +160,7 @@ final class Stack
         $this->stackName = $input['StackName'] ?? null;
         $this->changeSetId = $input['ChangeSetId'] ?? null;
         $this->description = $input['Description'] ?? null;
-        $this->parameters = isset($input['Parameters']) ? array_map([Parameter::class, 'create'], $input['Parameters']) : null;
+        $this->parameters = isset($input['Parameters']) ? array_map([Parameter::class, 'create'], $input['Parameters']) : [];
         $this->creationTime = $input['CreationTime'] ?? null;
         $this->deletionTime = $input['DeletionTime'] ?? null;
         $this->lastUpdatedTime = $input['LastUpdatedTime'] ?? null;
@@ -168,12 +168,12 @@ final class Stack
         $this->stackStatus = $input['StackStatus'] ?? null;
         $this->stackStatusReason = $input['StackStatusReason'] ?? null;
         $this->disableRollback = $input['DisableRollback'] ?? null;
-        $this->notificationArns = $input['NotificationARNs'] ?? null;
+        $this->notificationArns = $input['NotificationARNs'] ?? [];
         $this->timeoutInMinutes = $input['TimeoutInMinutes'] ?? null;
-        $this->capabilities = $input['Capabilities'] ?? null;
-        $this->outputs = isset($input['Outputs']) ? array_map([Output::class, 'create'], $input['Outputs']) : null;
+        $this->capabilities = $input['Capabilities'] ?? [];
+        $this->outputs = isset($input['Outputs']) ? array_map([Output::class, 'create'], $input['Outputs']) : [];
         $this->roleArn = $input['RoleARN'] ?? null;
-        $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
+        $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : [];
         $this->enableTerminationProtection = $input['EnableTerminationProtection'] ?? null;
         $this->parentId = $input['ParentId'] ?? null;
         $this->rootId = $input['RootId'] ?? null;
@@ -190,7 +190,7 @@ final class Stack
      */
     public function getCapabilities(): array
     {
-        return $this->capabilities ?? [];
+        return $this->capabilities;
     }
 
     public function getChangeSetId(): ?string
@@ -238,7 +238,7 @@ final class Stack
      */
     public function getNotificationArns(): array
     {
-        return $this->notificationArns ?? [];
+        return $this->notificationArns;
     }
 
     /**
@@ -246,7 +246,7 @@ final class Stack
      */
     public function getOutputs(): array
     {
-        return $this->outputs ?? [];
+        return $this->outputs;
     }
 
     /**
@@ -254,7 +254,7 @@ final class Stack
      */
     public function getParameters(): array
     {
-        return $this->parameters ?? [];
+        return $this->parameters;
     }
 
     public function getParentId(): ?string
@@ -305,7 +305,7 @@ final class Stack
      */
     public function getTags(): array
     {
-        return $this->tags ?? [];
+        return $this->tags;
     }
 
     public function getTimeoutInMinutes(): ?int

@@ -30,7 +30,7 @@ final class Projection
     public function __construct(array $input)
     {
         $this->projectionType = $input['ProjectionType'] ?? null;
-        $this->nonKeyAttributes = $input['NonKeyAttributes'] ?? null;
+        $this->nonKeyAttributes = $input['NonKeyAttributes'] ?? [];
     }
 
     public static function create($input): self
@@ -43,7 +43,7 @@ final class Projection
      */
     public function getNonKeyAttributes(): array
     {
-        return $this->nonKeyAttributes ?? [];
+        return $this->nonKeyAttributes;
     }
 
     /**

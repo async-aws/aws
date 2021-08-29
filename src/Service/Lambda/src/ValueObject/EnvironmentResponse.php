@@ -27,7 +27,7 @@ final class EnvironmentResponse
      */
     public function __construct(array $input)
     {
-        $this->variables = $input['Variables'] ?? null;
+        $this->variables = $input['Variables'] ?? [];
         $this->error = isset($input['Error']) ? EnvironmentError::create($input['Error']) : null;
     }
 
@@ -46,6 +46,6 @@ final class EnvironmentResponse
      */
     public function getVariables(): array
     {
-        return $this->variables ?? [];
+        return $this->variables;
     }
 }

@@ -64,8 +64,8 @@ final class ConsumedCapacity
         $this->readCapacityUnits = $input['ReadCapacityUnits'] ?? null;
         $this->writeCapacityUnits = $input['WriteCapacityUnits'] ?? null;
         $this->table = isset($input['Table']) ? Capacity::create($input['Table']) : null;
-        $this->localSecondaryIndexes = isset($input['LocalSecondaryIndexes']) ? array_map([Capacity::class, 'create'], $input['LocalSecondaryIndexes']) : null;
-        $this->globalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([Capacity::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
+        $this->localSecondaryIndexes = isset($input['LocalSecondaryIndexes']) ? array_map([Capacity::class, 'create'], $input['LocalSecondaryIndexes']) : [];
+        $this->globalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([Capacity::class, 'create'], $input['GlobalSecondaryIndexes']) : [];
     }
 
     public static function create($input): self
@@ -83,7 +83,7 @@ final class ConsumedCapacity
      */
     public function getGlobalSecondaryIndexes(): array
     {
-        return $this->globalSecondaryIndexes ?? [];
+        return $this->globalSecondaryIndexes;
     }
 
     /**
@@ -91,7 +91,7 @@ final class ConsumedCapacity
      */
     public function getLocalSecondaryIndexes(): array
     {
-        return $this->localSecondaryIndexes ?? [];
+        return $this->localSecondaryIndexes;
     }
 
     public function getReadCapacityUnits(): ?float

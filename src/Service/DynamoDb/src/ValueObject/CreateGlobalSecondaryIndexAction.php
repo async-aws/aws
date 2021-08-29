@@ -47,7 +47,7 @@ final class CreateGlobalSecondaryIndexAction
     public function __construct(array $input)
     {
         $this->indexName = $input['IndexName'] ?? null;
-        $this->keySchema = isset($input['KeySchema']) ? array_map([KeySchemaElement::class, 'create'], $input['KeySchema']) : null;
+        $this->keySchema = isset($input['KeySchema']) ? array_map([KeySchemaElement::class, 'create'], $input['KeySchema']) : [];
         $this->projection = isset($input['Projection']) ? Projection::create($input['Projection']) : null;
         $this->provisionedThroughput = isset($input['ProvisionedThroughput']) ? ProvisionedThroughput::create($input['ProvisionedThroughput']) : null;
     }
@@ -67,7 +67,7 @@ final class CreateGlobalSecondaryIndexAction
      */
     public function getKeySchema(): array
     {
-        return $this->keySchema ?? [];
+        return $this->keySchema;
     }
 
     public function getProjection(): Projection

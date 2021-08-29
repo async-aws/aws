@@ -41,7 +41,7 @@ final class TopicConfiguration
     {
         $this->id = $input['Id'] ?? null;
         $this->topicArn = $input['TopicArn'] ?? null;
-        $this->events = $input['Events'] ?? null;
+        $this->events = $input['Events'] ?? [];
         $this->filter = isset($input['Filter']) ? NotificationConfigurationFilter::create($input['Filter']) : null;
     }
 
@@ -55,7 +55,7 @@ final class TopicConfiguration
      */
     public function getEvents(): array
     {
-        return $this->events ?? [];
+        return $this->events;
     }
 
     public function getFilter(): ?NotificationConfigurationFilter

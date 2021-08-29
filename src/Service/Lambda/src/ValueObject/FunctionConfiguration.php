@@ -236,14 +236,14 @@ final class FunctionConfiguration
         $this->tracingConfig = isset($input['TracingConfig']) ? TracingConfigResponse::create($input['TracingConfig']) : null;
         $this->masterArn = $input['MasterArn'] ?? null;
         $this->revisionId = $input['RevisionId'] ?? null;
-        $this->layers = isset($input['Layers']) ? array_map([Layer::class, 'create'], $input['Layers']) : null;
+        $this->layers = isset($input['Layers']) ? array_map([Layer::class, 'create'], $input['Layers']) : [];
         $this->state = $input['State'] ?? null;
         $this->stateReason = $input['StateReason'] ?? null;
         $this->stateReasonCode = $input['StateReasonCode'] ?? null;
         $this->lastUpdateStatus = $input['LastUpdateStatus'] ?? null;
         $this->lastUpdateStatusReason = $input['LastUpdateStatusReason'] ?? null;
         $this->lastUpdateStatusReasonCode = $input['LastUpdateStatusReasonCode'] ?? null;
-        $this->fileSystemConfigs = isset($input['FileSystemConfigs']) ? array_map([FileSystemConfig::class, 'create'], $input['FileSystemConfigs']) : null;
+        $this->fileSystemConfigs = isset($input['FileSystemConfigs']) ? array_map([FileSystemConfig::class, 'create'], $input['FileSystemConfigs']) : [];
         $this->packageType = $input['PackageType'] ?? null;
         $this->imageConfigResponse = isset($input['ImageConfigResponse']) ? ImageConfigResponse::create($input['ImageConfigResponse']) : null;
         $this->signingProfileVersionArn = $input['SigningProfileVersionArn'] ?? null;
@@ -285,7 +285,7 @@ final class FunctionConfiguration
      */
     public function getFileSystemConfigs(): array
     {
-        return $this->fileSystemConfigs ?? [];
+        return $this->fileSystemConfigs;
     }
 
     public function getFunctionArn(): ?string
@@ -344,7 +344,7 @@ final class FunctionConfiguration
      */
     public function getLayers(): array
     {
-        return $this->layers ?? [];
+        return $this->layers;
     }
 
     public function getMasterArn(): ?string

@@ -70,9 +70,9 @@ final class Message
         $this->receiptHandle = $input['ReceiptHandle'] ?? null;
         $this->md5OfBody = $input['MD5OfBody'] ?? null;
         $this->body = $input['Body'] ?? null;
-        $this->attributes = $input['Attributes'] ?? null;
+        $this->attributes = $input['Attributes'] ?? [];
         $this->md5OfMessageAttributes = $input['MD5OfMessageAttributes'] ?? null;
-        $this->messageAttributes = isset($input['MessageAttributes']) ? array_map([MessageAttributeValue::class, 'create'], $input['MessageAttributes']) : null;
+        $this->messageAttributes = isset($input['MessageAttributes']) ? array_map([MessageAttributeValue::class, 'create'], $input['MessageAttributes']) : [];
     }
 
     public static function create($input): self
@@ -85,7 +85,7 @@ final class Message
      */
     public function getAttributes(): array
     {
-        return $this->attributes ?? [];
+        return $this->attributes;
     }
 
     public function getBody(): ?string
@@ -108,7 +108,7 @@ final class Message
      */
     public function getMessageAttributes(): array
     {
-        return $this->messageAttributes ?? [];
+        return $this->messageAttributes;
     }
 
     public function getMessageId(): ?string

@@ -58,12 +58,12 @@ final class UserType
     public function __construct(array $input)
     {
         $this->username = $input['Username'] ?? null;
-        $this->attributes = isset($input['Attributes']) ? array_map([AttributeType::class, 'create'], $input['Attributes']) : null;
+        $this->attributes = isset($input['Attributes']) ? array_map([AttributeType::class, 'create'], $input['Attributes']) : [];
         $this->userCreateDate = $input['UserCreateDate'] ?? null;
         $this->userLastModifiedDate = $input['UserLastModifiedDate'] ?? null;
         $this->enabled = $input['Enabled'] ?? null;
         $this->userStatus = $input['UserStatus'] ?? null;
-        $this->mfaOptions = isset($input['MFAOptions']) ? array_map([MFAOptionType::class, 'create'], $input['MFAOptions']) : null;
+        $this->mfaOptions = isset($input['MFAOptions']) ? array_map([MFAOptionType::class, 'create'], $input['MFAOptions']) : [];
     }
 
     public static function create($input): self
@@ -76,7 +76,7 @@ final class UserType
      */
     public function getAttributes(): array
     {
-        return $this->attributes ?? [];
+        return $this->attributes;
     }
 
     public function getEnabled(): ?bool
@@ -89,7 +89,7 @@ final class UserType
      */
     public function getMfaOptions(): array
     {
-        return $this->mfaOptions ?? [];
+        return $this->mfaOptions;
     }
 
     public function getUserCreateDate(): ?\DateTimeImmutable

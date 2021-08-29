@@ -50,7 +50,7 @@ final class ContextDataType
         $this->ipAddress = $input['IpAddress'] ?? null;
         $this->serverName = $input['ServerName'] ?? null;
         $this->serverPath = $input['ServerPath'] ?? null;
-        $this->httpHeaders = isset($input['HttpHeaders']) ? array_map([HttpHeader::class, 'create'], $input['HttpHeaders']) : null;
+        $this->httpHeaders = isset($input['HttpHeaders']) ? array_map([HttpHeader::class, 'create'], $input['HttpHeaders']) : [];
         $this->encodedData = $input['EncodedData'] ?? null;
     }
 
@@ -69,7 +69,7 @@ final class ContextDataType
      */
     public function getHttpHeaders(): array
     {
-        return $this->httpHeaders ?? [];
+        return $this->httpHeaders;
     }
 
     public function getIpAddress(): string

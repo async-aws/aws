@@ -31,8 +31,8 @@ final class ImageConfig
      */
     public function __construct(array $input)
     {
-        $this->entryPoint = $input['EntryPoint'] ?? null;
-        $this->command = $input['Command'] ?? null;
+        $this->entryPoint = $input['EntryPoint'] ?? [];
+        $this->command = $input['Command'] ?? [];
         $this->workingDirectory = $input['WorkingDirectory'] ?? null;
     }
 
@@ -46,7 +46,7 @@ final class ImageConfig
      */
     public function getCommand(): array
     {
-        return $this->command ?? [];
+        return $this->command;
     }
 
     /**
@@ -54,7 +54,7 @@ final class ImageConfig
      */
     public function getEntryPoint(): array
     {
-        return $this->entryPoint ?? [];
+        return $this->entryPoint;
     }
 
     public function getWorkingDirectory(): ?string

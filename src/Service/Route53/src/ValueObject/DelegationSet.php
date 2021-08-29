@@ -34,7 +34,7 @@ final class DelegationSet
     {
         $this->id = $input['Id'] ?? null;
         $this->callerReference = $input['CallerReference'] ?? null;
-        $this->nameServers = $input['NameServers'] ?? null;
+        $this->nameServers = $input['NameServers'] ?? [];
     }
 
     public static function create($input): self
@@ -57,6 +57,6 @@ final class DelegationSet
      */
     public function getNameServers(): array
     {
-        return $this->nameServers ?? [];
+        return $this->nameServers;
     }
 }

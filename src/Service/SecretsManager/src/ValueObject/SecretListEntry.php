@@ -132,8 +132,8 @@ final class SecretListEntry
         $this->lastChangedDate = $input['LastChangedDate'] ?? null;
         $this->lastAccessedDate = $input['LastAccessedDate'] ?? null;
         $this->deletedDate = $input['DeletedDate'] ?? null;
-        $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
-        $this->secretVersionsToStages = $input['SecretVersionsToStages'] ?? null;
+        $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : [];
+        $this->secretVersionsToStages = $input['SecretVersionsToStages'] ?? [];
         $this->owningService = $input['OwningService'] ?? null;
         $this->createdDate = $input['CreatedDate'] ?? null;
         $this->primaryRegion = $input['PrimaryRegion'] ?? null;
@@ -219,7 +219,7 @@ final class SecretListEntry
      */
     public function getSecretVersionsToStages(): array
     {
-        return $this->secretVersionsToStages ?? [];
+        return $this->secretVersionsToStages;
     }
 
     /**
@@ -227,6 +227,6 @@ final class SecretListEntry
      */
     public function getTags(): array
     {
-        return $this->tags ?? [];
+        return $this->tags;
     }
 }

@@ -53,8 +53,8 @@ final class MessageAttributeValue
     {
         $this->stringValue = $input['StringValue'] ?? null;
         $this->binaryValue = $input['BinaryValue'] ?? null;
-        $this->stringListValues = $input['StringListValues'] ?? null;
-        $this->binaryListValues = $input['BinaryListValues'] ?? null;
+        $this->stringListValues = $input['StringListValues'] ?? [];
+        $this->binaryListValues = $input['BinaryListValues'] ?? [];
         $this->dataType = $input['DataType'] ?? null;
     }
 
@@ -68,7 +68,7 @@ final class MessageAttributeValue
      */
     public function getBinaryListValues(): array
     {
-        return $this->binaryListValues ?? [];
+        return $this->binaryListValues;
     }
 
     public function getBinaryValue(): ?string
@@ -86,7 +86,7 @@ final class MessageAttributeValue
      */
     public function getStringListValues(): array
     {
-        return $this->stringListValues ?? [];
+        return $this->stringListValues;
     }
 
     public function getStringValue(): ?string

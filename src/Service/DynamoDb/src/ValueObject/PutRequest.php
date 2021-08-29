@@ -24,7 +24,7 @@ final class PutRequest
      */
     public function __construct(array $input)
     {
-        $this->item = isset($input['Item']) ? array_map([AttributeValue::class, 'create'], $input['Item']) : null;
+        $this->item = isset($input['Item']) ? array_map([AttributeValue::class, 'create'], $input['Item']) : [];
     }
 
     public static function create($input): self
@@ -37,7 +37,7 @@ final class PutRequest
      */
     public function getItem(): array
     {
-        return $this->item ?? [];
+        return $this->item;
     }
 
     /**

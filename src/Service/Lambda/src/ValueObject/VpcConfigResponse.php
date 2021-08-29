@@ -31,8 +31,8 @@ final class VpcConfigResponse
      */
     public function __construct(array $input)
     {
-        $this->subnetIds = $input['SubnetIds'] ?? null;
-        $this->securityGroupIds = $input['SecurityGroupIds'] ?? null;
+        $this->subnetIds = $input['SubnetIds'] ?? [];
+        $this->securityGroupIds = $input['SecurityGroupIds'] ?? [];
         $this->vpcId = $input['VpcId'] ?? null;
     }
 
@@ -46,7 +46,7 @@ final class VpcConfigResponse
      */
     public function getSecurityGroupIds(): array
     {
-        return $this->securityGroupIds ?? [];
+        return $this->securityGroupIds;
     }
 
     /**
@@ -54,7 +54,7 @@ final class VpcConfigResponse
      */
     public function getSubnetIds(): array
     {
-        return $this->subnetIds ?? [];
+        return $this->subnetIds;
     }
 
     public function getVpcId(): ?string

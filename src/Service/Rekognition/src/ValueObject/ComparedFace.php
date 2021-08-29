@@ -58,10 +58,10 @@ final class ComparedFace
     {
         $this->boundingBox = isset($input['BoundingBox']) ? BoundingBox::create($input['BoundingBox']) : null;
         $this->confidence = $input['Confidence'] ?? null;
-        $this->landmarks = isset($input['Landmarks']) ? array_map([Landmark::class, 'create'], $input['Landmarks']) : null;
+        $this->landmarks = isset($input['Landmarks']) ? array_map([Landmark::class, 'create'], $input['Landmarks']) : [];
         $this->pose = isset($input['Pose']) ? Pose::create($input['Pose']) : null;
         $this->quality = isset($input['Quality']) ? ImageQuality::create($input['Quality']) : null;
-        $this->emotions = isset($input['Emotions']) ? array_map([Emotion::class, 'create'], $input['Emotions']) : null;
+        $this->emotions = isset($input['Emotions']) ? array_map([Emotion::class, 'create'], $input['Emotions']) : [];
         $this->smile = isset($input['Smile']) ? Smile::create($input['Smile']) : null;
     }
 
@@ -85,7 +85,7 @@ final class ComparedFace
      */
     public function getEmotions(): array
     {
-        return $this->emotions ?? [];
+        return $this->emotions;
     }
 
     /**
@@ -93,7 +93,7 @@ final class ComparedFace
      */
     public function getLandmarks(): array
     {
-        return $this->landmarks ?? [];
+        return $this->landmarks;
     }
 
     public function getPose(): ?Pose

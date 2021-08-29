@@ -130,7 +130,7 @@ final class ResourceRecordSet
         $this->failover = $input['Failover'] ?? null;
         $this->multiValueAnswer = $input['MultiValueAnswer'] ?? null;
         $this->ttl = $input['TTL'] ?? null;
-        $this->resourceRecords = isset($input['ResourceRecords']) ? array_map([ResourceRecord::class, 'create'], $input['ResourceRecords']) : null;
+        $this->resourceRecords = isset($input['ResourceRecords']) ? array_map([ResourceRecord::class, 'create'], $input['ResourceRecords']) : [];
         $this->aliasTarget = isset($input['AliasTarget']) ? AliasTarget::create($input['AliasTarget']) : null;
         $this->healthCheckId = $input['HealthCheckId'] ?? null;
         $this->trafficPolicyInstanceId = $input['TrafficPolicyInstanceId'] ?? null;
@@ -187,7 +187,7 @@ final class ResourceRecordSet
      */
     public function getResourceRecords(): array
     {
-        return $this->resourceRecords ?? [];
+        return $this->resourceRecords;
     }
 
     public function getSetIdentifier(): ?string

@@ -27,7 +27,7 @@ final class RollbackConfiguration
      */
     public function __construct(array $input)
     {
-        $this->rollbackTriggers = isset($input['RollbackTriggers']) ? array_map([RollbackTrigger::class, 'create'], $input['RollbackTriggers']) : null;
+        $this->rollbackTriggers = isset($input['RollbackTriggers']) ? array_map([RollbackTrigger::class, 'create'], $input['RollbackTriggers']) : [];
         $this->monitoringTimeInMinutes = $input['MonitoringTimeInMinutes'] ?? null;
     }
 
@@ -46,6 +46,6 @@ final class RollbackConfiguration
      */
     public function getRollbackTriggers(): array
     {
-        return $this->rollbackTriggers ?? [];
+        return $this->rollbackTriggers;
     }
 }

@@ -19,7 +19,7 @@ final class CompletedMultipartUpload
      */
     public function __construct(array $input)
     {
-        $this->parts = isset($input['Parts']) ? array_map([CompletedPart::class, 'create'], $input['Parts']) : null;
+        $this->parts = isset($input['Parts']) ? array_map([CompletedPart::class, 'create'], $input['Parts']) : [];
     }
 
     public static function create($input): self
@@ -32,7 +32,7 @@ final class CompletedMultipartUpload
      */
     public function getParts(): array
     {
-        return $this->parts ?? [];
+        return $this->parts;
     }
 
     /**

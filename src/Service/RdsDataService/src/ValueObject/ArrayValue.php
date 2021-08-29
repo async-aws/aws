@@ -43,11 +43,11 @@ final class ArrayValue
      */
     public function __construct(array $input)
     {
-        $this->arrayValues = isset($input['arrayValues']) ? array_map([ArrayValue::class, 'create'], $input['arrayValues']) : null;
-        $this->booleanValues = $input['booleanValues'] ?? null;
-        $this->doubleValues = $input['doubleValues'] ?? null;
-        $this->longValues = $input['longValues'] ?? null;
-        $this->stringValues = $input['stringValues'] ?? null;
+        $this->arrayValues = isset($input['arrayValues']) ? array_map([ArrayValue::class, 'create'], $input['arrayValues']) : [];
+        $this->booleanValues = $input['booleanValues'] ?? [];
+        $this->doubleValues = $input['doubleValues'] ?? [];
+        $this->longValues = $input['longValues'] ?? [];
+        $this->stringValues = $input['stringValues'] ?? [];
     }
 
     public static function create($input): self
@@ -60,7 +60,7 @@ final class ArrayValue
      */
     public function getArrayValues(): array
     {
-        return $this->arrayValues ?? [];
+        return $this->arrayValues;
     }
 
     /**
@@ -68,7 +68,7 @@ final class ArrayValue
      */
     public function getBooleanValues(): array
     {
-        return $this->booleanValues ?? [];
+        return $this->booleanValues;
     }
 
     /**
@@ -76,7 +76,7 @@ final class ArrayValue
      */
     public function getDoubleValues(): array
     {
-        return $this->doubleValues ?? [];
+        return $this->doubleValues;
     }
 
     /**
@@ -84,7 +84,7 @@ final class ArrayValue
      */
     public function getLongValues(): array
     {
-        return $this->longValues ?? [];
+        return $this->longValues;
     }
 
     /**
@@ -92,7 +92,7 @@ final class ArrayValue
      */
     public function getStringValues(): array
     {
-        return $this->stringValues ?? [];
+        return $this->stringValues;
     }
 
     /**

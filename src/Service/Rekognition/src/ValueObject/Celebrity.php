@@ -47,7 +47,7 @@ final class Celebrity
      */
     public function __construct(array $input)
     {
-        $this->urls = $input['Urls'] ?? null;
+        $this->urls = $input['Urls'] ?? [];
         $this->name = $input['Name'] ?? null;
         $this->id = $input['Id'] ?? null;
         $this->face = isset($input['Face']) ? ComparedFace::create($input['Face']) : null;
@@ -90,6 +90,6 @@ final class Celebrity
      */
     public function getUrls(): array
     {
-        return $this->urls ?? [];
+        return $this->urls;
     }
 }

@@ -28,9 +28,9 @@ final class NotificationConfiguration
      */
     public function __construct(array $input)
     {
-        $this->topicConfigurations = isset($input['TopicConfigurations']) ? array_map([TopicConfiguration::class, 'create'], $input['TopicConfigurations']) : null;
-        $this->queueConfigurations = isset($input['QueueConfigurations']) ? array_map([QueueConfiguration::class, 'create'], $input['QueueConfigurations']) : null;
-        $this->lambdaFunctionConfigurations = isset($input['LambdaFunctionConfigurations']) ? array_map([LambdaFunctionConfiguration::class, 'create'], $input['LambdaFunctionConfigurations']) : null;
+        $this->topicConfigurations = isset($input['TopicConfigurations']) ? array_map([TopicConfiguration::class, 'create'], $input['TopicConfigurations']) : [];
+        $this->queueConfigurations = isset($input['QueueConfigurations']) ? array_map([QueueConfiguration::class, 'create'], $input['QueueConfigurations']) : [];
+        $this->lambdaFunctionConfigurations = isset($input['LambdaFunctionConfigurations']) ? array_map([LambdaFunctionConfiguration::class, 'create'], $input['LambdaFunctionConfigurations']) : [];
     }
 
     public static function create($input): self
@@ -43,7 +43,7 @@ final class NotificationConfiguration
      */
     public function getLambdaFunctionConfigurations(): array
     {
-        return $this->lambdaFunctionConfigurations ?? [];
+        return $this->lambdaFunctionConfigurations;
     }
 
     /**
@@ -51,7 +51,7 @@ final class NotificationConfiguration
      */
     public function getQueueConfigurations(): array
     {
-        return $this->queueConfigurations ?? [];
+        return $this->queueConfigurations;
     }
 
     /**
@@ -59,7 +59,7 @@ final class NotificationConfiguration
      */
     public function getTopicConfigurations(): array
     {
-        return $this->topicConfigurations ?? [];
+        return $this->topicConfigurations;
     }
 
     /**

@@ -54,11 +54,11 @@ final class KeysAndAttributes
      */
     public function __construct(array $input)
     {
-        $this->keys = $input['Keys'] ?? null;
-        $this->attributesToGet = $input['AttributesToGet'] ?? null;
+        $this->keys = $input['Keys'] ?? [];
+        $this->attributesToGet = $input['AttributesToGet'] ?? [];
         $this->consistentRead = $input['ConsistentRead'] ?? null;
         $this->projectionExpression = $input['ProjectionExpression'] ?? null;
-        $this->expressionAttributeNames = $input['ExpressionAttributeNames'] ?? null;
+        $this->expressionAttributeNames = $input['ExpressionAttributeNames'] ?? [];
     }
 
     public static function create($input): self
@@ -71,7 +71,7 @@ final class KeysAndAttributes
      */
     public function getAttributesToGet(): array
     {
-        return $this->attributesToGet ?? [];
+        return $this->attributesToGet;
     }
 
     public function getConsistentRead(): ?bool
@@ -84,7 +84,7 @@ final class KeysAndAttributes
      */
     public function getExpressionAttributeNames(): array
     {
-        return $this->expressionAttributeNames ?? [];
+        return $this->expressionAttributeNames;
     }
 
     /**
@@ -92,7 +92,7 @@ final class KeysAndAttributes
      */
     public function getKeys(): array
     {
-        return $this->keys ?? [];
+        return $this->keys;
     }
 
     public function getProjectionExpression(): ?string

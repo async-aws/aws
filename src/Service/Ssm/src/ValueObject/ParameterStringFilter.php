@@ -37,7 +37,7 @@ final class ParameterStringFilter
     {
         $this->key = $input['Key'] ?? null;
         $this->option = $input['Option'] ?? null;
-        $this->values = $input['Values'] ?? null;
+        $this->values = $input['Values'] ?? [];
     }
 
     public static function create($input): self
@@ -60,7 +60,7 @@ final class ParameterStringFilter
      */
     public function getValues(): array
     {
-        return $this->values ?? [];
+        return $this->values;
     }
 
     /**

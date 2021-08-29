@@ -25,7 +25,7 @@ final class CORSConfiguration
      */
     public function __construct(array $input)
     {
-        $this->corsRules = isset($input['CORSRules']) ? array_map([CORSRule::class, 'create'], $input['CORSRules']) : null;
+        $this->corsRules = isset($input['CORSRules']) ? array_map([CORSRule::class, 'create'], $input['CORSRules']) : [];
     }
 
     public static function create($input): self
@@ -38,7 +38,7 @@ final class CORSConfiguration
      */
     public function getCorsRules(): array
     {
-        return $this->corsRules ?? [];
+        return $this->corsRules;
     }
 
     /**
