@@ -44,7 +44,7 @@ class AsyncAwsSesTransport extends Transport
     /**
      * {@inheritdoc}
      */
-    public function send(Swift_Mime_SimpleMessage $message, &$failedRecipients = null)
+    public function send(Swift_Mime_SimpleMessage $message, &$failedRecipients = null): int
     {
         $this->beforeSendPerformed($message);
 
