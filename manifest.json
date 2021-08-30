@@ -128,6 +128,17 @@
                 "GetAuthorizationToken"
             ]
         },
+        "ElastiCache": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/elasticache/2015-02-02/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/elasticache/2015-02-02/docs-2.json",
+            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/elasticache/2015-02-02/examples-1.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/elasticache/2015-02-02/paginators-1.json",
+            "waiter": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/elasticache/2015-02-02/waiters-2.json",
+            "api-reference": "https://docs.aws.amazon.com/AmazonElastiCache/latest/APIReference",
+            "methods": [
+                "DescribeCacheClusters"
+            ]
+        },
         "EventBridge": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/eventbridge/2015-10-07/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/eventbridge/2015-10-07/docs-2.json",

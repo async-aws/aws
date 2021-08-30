@@ -18,6 +18,7 @@ use AsyncAws\Core\Exception\MissingDependency;
 use AsyncAws\Core\Sts\StsClient;
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\Ecr\EcrClient;
+use AsyncAws\ElastiCache\ElastiCacheClient;
 use AsyncAws\EventBridge\EventBridgeClient;
 use AsyncAws\Firehose\FirehoseClient;
 use AsyncAws\Iam\IamClient;
@@ -173,6 +174,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new EcrClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function elastiCache(): ElastiCacheClient
+    {
+        if (!class_exists(ElastiCacheClient::class)) {
+            throw MissingDependency::create('async-aws/elasti-cache', 'ElastiCache');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new ElastiCacheClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];

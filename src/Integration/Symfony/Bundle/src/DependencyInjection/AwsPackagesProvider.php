@@ -41,6 +41,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\Ecr\EcrClient::class,
                 'package' => 'async-aws/ecr',
             ],
+            'elasti_cache' => [
+                'class' => \AsyncAws\ElastiCache\ElastiCacheClient::class,
+                'package' => 'async-aws/elasti-cache',
+            ],
             'event_bridge' => [
                 'class' => \AsyncAws\EventBridge\EventBridgeClient::class,
                 'package' => 'async-aws/event-bridge',

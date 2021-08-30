@@ -142,6 +142,7 @@ for more information.
 | [CognitoIdentityProvider](./cognito-idp.md) | [async-aws/cognito-identity-provider](https://packagist.org/packages/async-aws/cognito-identity-provider)
 | [DynamoDb](./dynamodb.md)                   | [async-aws/dynamo-db](https://packagist.org/packages/async-aws/dynamo-db)
 | [ECR](./ecr.md)                             | [async-aws/ecr](https://packagist.org/packages/async-aws/ecr)
+| [ElastiCache](./elasti-cache.md)            | [async-aws/elasti-cach](https://packagist.org/packages/async-aws/elasti-cache)
 | [EventBridge](./event-bridge.md)            | [async-aws/event-bridge](https://packagist.org/packages/async-aws/event-bridge)
 | [Firehose](./firehose.md)                   | [async-aws/event-bridge](https://packagist.org/packages/async-aws/firehose)
 | [IAM](./iam.md)                             | [async-aws/iam](https://packagist.org/packages/async-aws/iam)

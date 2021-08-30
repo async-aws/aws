@@ -52,6 +52,9 @@ menu:
             ecr:
                 text: ECR
                 url: /clients/ecr.html
+            elasti-cache:
+                text: ElastiCache
+                url: /clients/elasti-cache.html
             event-bridge:
                 text: EventBridge
                 url: /clients/event-bridge.html

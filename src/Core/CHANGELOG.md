@@ -5,6 +5,7 @@
 ### Added
 
 - Support for Firehose
+- Support for ElastiCache
 
 ## 1.11.0
 
