@@ -116,7 +116,6 @@ class PopulatorGenerator
                 }
 
                 $nullable = false;
-                $property->setValue([]);
             } elseif ($memberShape instanceof ListShape) {
                 $memberShape->getMember()->getShape();
 
@@ -128,7 +127,6 @@ class PopulatorGenerator
                 }
 
                 $nullable = false;
-                $property->setValue([]);
             } elseif ($member->isStreaming()) {
                 $returnType = ResultStream::class;
                 $parameterType = ResultStream::class;

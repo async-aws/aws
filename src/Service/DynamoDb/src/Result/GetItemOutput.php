@@ -16,7 +16,7 @@ class GetItemOutput extends Result
     /**
      * A map of attribute names to `AttributeValue` objects, as specified by `ProjectionExpression`.
      */
-    private $item = [];
+    private $item;
 
     /**
      * The capacity units consumed by the `GetItem` operation. The data returned includes the total provisioned throughput

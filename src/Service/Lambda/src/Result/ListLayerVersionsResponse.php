@@ -23,7 +23,7 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
     /**
      * A list of versions.
      */
-    private $layerVersions = [];
+    private $layerVersions;
 
     /**
      * Iterates over LayerVersions.

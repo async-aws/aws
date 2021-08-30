@@ -22,7 +22,7 @@ class PutRecordsOutput extends Result
      * ordering. A record that is successfully added to a stream includes `SequenceNumber` and `ShardId` in the result. A
      * record that fails to be added to a stream includes `ErrorCode` and `ErrorMessage` in the result.
      */
-    private $records = [];
+    private $records;
 
     /**
      * The encryption type used on the records. This parameter can be one of the following values:.

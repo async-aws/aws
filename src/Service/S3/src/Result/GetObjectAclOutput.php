@@ -19,7 +19,7 @@ class GetObjectAclOutput extends Result
     /**
      * A list of grants.
      */
-    private $grants = [];
+    private $grants;
 
     private $requestCharged;
 

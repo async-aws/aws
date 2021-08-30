@@ -26,7 +26,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     /**
      * Metadata about each object returned.
      */
-    private $contents = [];
+    private $contents;
 
     /**
      * The bucket name.
@@ -55,7 +55,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
      * All of the keys (up to 1,000) rolled up into a common prefix count as a single return when calculating the number of
      * returns.
      */
-    private $commonPrefixes = [];
+    private $commonPrefixes;
 
     /**
      * Encoding type used by Amazon S3 to encode object key names in the XML response.

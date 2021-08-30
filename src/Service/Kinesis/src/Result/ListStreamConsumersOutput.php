@@ -17,7 +17,7 @@ class ListStreamConsumersOutput extends Result implements \IteratorAggregate
     /**
      * An array of JSON objects. Each object represents one registered consumer.
      */
-    private $consumers = [];
+    private $consumers;
 
     /**
      * When the number of consumers that are registered with the data stream is greater than the default value for the

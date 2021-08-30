@@ -16,7 +16,7 @@ class ListHostedZonesByNameResponse extends Result
     /**
      * A complex type that contains general information about the hosted zone.
      */
-    private $hostedZones = [];
+    private $hostedZones;
 
     /**
      * For the second and subsequent calls to `ListHostedZonesByName`, `DNSName` is the value that you specified for the

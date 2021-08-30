@@ -32,7 +32,7 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
     /**
      * A list of Lambda function versions.
      */
-    private $versions = [];
+    private $versions;
 
     /**
      * Iterates over Versions.

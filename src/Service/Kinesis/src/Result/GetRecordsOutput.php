@@ -14,7 +14,7 @@ class GetRecordsOutput extends Result
     /**
      * The data records retrieved from the shard.
      */
-    private $records = [];
+    private $records;
 
     /**
      * The next position in the shard from which to start sequentially reading data records. If set to `null`, the shard has

@@ -74,13 +74,13 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
      * Container for elements related to a particular multipart upload. A response can contain zero or more `Upload`
      * elements.
      */
-    private $uploads = [];
+    private $uploads;
 
     /**
      * If you specify a delimiter in the request, then the result returns each distinct key prefix containing the delimiter
      * in a `CommonPrefixes` element. The distinct key prefixes are returned in the `Prefix` child element.
      */
-    private $commonPrefixes = [];
+    private $commonPrefixes;
 
     /**
      * Encoding type used by Amazon S3 to encode object keys in the response.

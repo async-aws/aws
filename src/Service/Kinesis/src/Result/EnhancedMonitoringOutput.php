@@ -19,12 +19,12 @@ class EnhancedMonitoringOutput extends Result
     /**
      * Represents the current state of the metrics that are in the enhanced state before the operation.
      */
-    private $currentShardLevelMetrics = [];
+    private $currentShardLevelMetrics;
 
     /**
      * Represents the list of all the metrics that would be in the enhanced state after the operation.
      */
-    private $desiredShardLevelMetrics = [];
+    private $desiredShardLevelMetrics;
 
     /**
      * @return list<MetricsName::*>

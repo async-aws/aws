@@ -22,7 +22,7 @@ class ScanOutput extends Result implements \IteratorAggregate
      * An array of item attributes that match the scan criteria. Each element in this array consists of an attribute name
      * and the value for that attribute.
      */
-    private $items = [];
+    private $items;
 
     /**
      * The number of items in the response.
@@ -42,7 +42,7 @@ class ScanOutput extends Result implements \IteratorAggregate
      * The primary key of the item where the operation stopped, inclusive of the previous result set. Use this value to
      * start a new operation, excluding this value in the new request.
      */
-    private $lastEvaluatedKey = [];
+    private $lastEvaluatedKey;
 
     /**
      * The capacity units consumed by the `Scan` operation. The data returned includes the total provisioned throughput

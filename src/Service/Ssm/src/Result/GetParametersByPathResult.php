@@ -17,7 +17,7 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
     /**
      * A list of parameters found in the specified hierarchy.
      */
-    private $parameters = [];
+    private $parameters;
 
     /**
      * The token for the next set of items to return. Use this token to get the next set of results.

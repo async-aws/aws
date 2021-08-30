@@ -23,7 +23,7 @@ class SearchFacesByImageResponse extends Result
     /**
      * An array of faces that match the input face, along with the confidence in the match.
      */
-    private $faceMatches = [];
+    private $faceMatches;
 
     /**
      * Version number of the face detection model associated with the input collection (`CollectionId`).

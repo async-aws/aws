@@ -23,7 +23,7 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
     /**
      * Information about multiple resource record sets.
      */
-    private $resourceRecordSets = [];
+    private $resourceRecordSets;
 
     /**
      * A flag that indicates whether more resource record sets remain to be listed. If your results were truncated, you can

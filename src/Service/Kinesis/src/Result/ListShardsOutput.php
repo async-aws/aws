@@ -15,7 +15,7 @@ class ListShardsOutput extends Result
      * and the shard that's adjacent to the shard's parent. Each object also contains the starting and ending hash keys and
      * the starting and ending sequence numbers for the shard.
      */
-    private $shards = [];
+    private $shards;
 
     /**
      * When the number of shards in the data stream is greater than the default value for the `MaxResults` parameter, or if

@@ -16,7 +16,7 @@ class ListCollectionsResponse extends Result implements \IteratorAggregate
     /**
      * An array of collection IDs.
      */
-    private $collectionIds = [];
+    private $collectionIds;
 
     /**
      * If the result is truncated, the response provides a `NextToken` that you can use in the subsequent request to fetch
@@ -29,7 +29,7 @@ class ListCollectionsResponse extends Result implements \IteratorAggregate
      * example, the value of `FaceModelVersions[2]` is the version number for the face detection model used by the
      * collection in `CollectionId[2]`.
      */
-    private $faceModelVersions = [];
+    private $faceModelVersions;
 
     /**
      * @param bool $currentPageOnly When true, iterates over items of the current page. Otherwise also fetch items in the next pages.

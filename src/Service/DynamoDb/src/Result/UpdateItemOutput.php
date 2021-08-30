@@ -18,7 +18,7 @@ class UpdateItemOutput extends Result
      * A map of attribute values as they appear before or after the `UpdateItem` operation, as determined by the
      * `ReturnValues` parameter.
      */
-    private $attributes = [];
+    private $attributes;
 
     /**
      * The capacity units consumed by the `UpdateItem` operation. The data returned includes the total provisioned

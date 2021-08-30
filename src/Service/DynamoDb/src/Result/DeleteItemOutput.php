@@ -18,7 +18,7 @@ class DeleteItemOutput extends Result
      * A map of attribute names to `AttributeValue` objects, representing the item as it appeared before the `DeleteItem`
      * operation. This map appears in the response only if `ReturnValues` was specified as `ALL_OLD` in the request.
      */
-    private $attributes = [];
+    private $attributes;
 
     /**
      * The capacity units consumed by the `DeleteItem` operation. The data returned includes the total provisioned

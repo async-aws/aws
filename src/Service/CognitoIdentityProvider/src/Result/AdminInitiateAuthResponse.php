@@ -32,7 +32,7 @@ class AdminInitiateAuthResponse extends Result
      * challenge. The responses in this parameter should be used to compute inputs to the next call
      * (`AdminRespondToAuthChallenge`).
      */
-    private $challengeParameters = [];
+    private $challengeParameters;
 
     /**
      * The result of the authentication response. This is only returned if the caller does not need to pass another
