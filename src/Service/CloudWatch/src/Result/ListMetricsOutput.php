@@ -18,7 +18,7 @@ class ListMetricsOutput extends Result implements \IteratorAggregate
     /**
      * The metrics that match your request.
      */
-    private $metrics = [];
+    private $metrics;
 
     /**
      * The token that marks the start of the next batch of returned results.
