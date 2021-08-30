@@ -9,22 +9,21 @@ class DescribeCacheClustersMessageTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new DescribeCacheClustersMessage([
-            'CacheClusterId' => 'change me',
-            'MaxRecords' => 1337,
-            'Marker' => 'change me',
+            'CacheClusterId' => 'my-mem-cluster',
             'ShowCacheNodeInfo' => false,
             'ShowCacheClustersNotInReplicationGroups' => false,
         ]);
 
-        // see example-1.json from SDK
         $expected = '
             POST / HTTP/1.0
             Content-Type: application/x-www-form-urlencoded
 
-            CacheClusterId=my-mem-cluster
+            Action=DescribeCacheClusters&
+            CacheClusterId=my-mem-cluster&
+            ShowCacheClustersNotInReplicationGroups=false&
+            ShowCacheNodeInfo=false&
+            Version=2015-02-02
                 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
