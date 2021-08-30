@@ -41,7 +41,7 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\Ecr\EcrClient::class,
                 'package' => 'async-aws/ecr',
             ],
-            'elasti-cache' => [
+            'elasti_cache' => [
                 'class' => \AsyncAws\ElastiCache\ElastiCacheClient::class,
                 'package' => 'async-aws/elasti-cache',
             ],
