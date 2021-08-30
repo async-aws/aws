@@ -1,0 +1,33 @@
+{
+    "name": "async-aws/cloud-watch",
+    "type": "library",
+    "description": "CloudWatch client, part of the AWS SDK provided by AsyncAws.",
+    "keywords": [
+        "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
+        "cloud-watch"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.2.5 || ^8.0",
+        "ext-SimpleXML": "*",
+        "async-aws/core": "^1.9"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "AsyncAws\\CloudWatch\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\CloudWatch\\Tests\\": "tests/"
+        }
+    }
+}

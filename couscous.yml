@@ -37,6 +37,9 @@ menu:
             cloud-front:
                 text: CloudFront
                 url: /clients/cloud-front.html
+            cloud-watch:
+                text: CloudWatch
+                url: /clients/cloud-watch.html
             cloud-watch-logs:
                 text: CloudWatch Logs
                 url: /clients/cloud-watch-logs.html
