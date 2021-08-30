@@ -7,9 +7,6 @@
          failOnRisky="true"
          failOnWarning="true"
 >
-  <php>
-    <server name="SYMFONY_DEPRECATIONS_HELPER" value="max[indirect]=2" />
-  </php>
   <coverage>
     <include>
       <directory>./src</directory>
@@ -17,7 +14,7 @@
   </coverage>
   <php>
     <ini name="error_reporting" value="-1"/>
-    <server name="SYMFONY_DEPRECATIONS_HELPER" value="max[direct]=0" />
+    <server name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0" />
   </php>
   <testsuites>
     <testsuite name="Test Suite">
