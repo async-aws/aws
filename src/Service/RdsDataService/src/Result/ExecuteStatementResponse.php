@@ -209,10 +209,7 @@ class ExecuteStatementResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $a = empty($item) ? [] : $this->populateResultFieldList($item);
-            if (null !== $a) {
-                $items[] = $a;
-            }
+            $items[] = $this->populateResultFieldList($item);
         }
 
         return $items;

@@ -191,10 +191,7 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $a = empty($item) ? [] : $this->populateResultAttributeMap($item);
-            if (null !== $a) {
-                $items[] = $a;
-            }
+            $items[] = $this->populateResultAttributeMap($item);
         }
 
         return $items;
