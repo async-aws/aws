@@ -133,26 +133,26 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
                 'PreferredMaintenanceWindow' => ($v = $item->PreferredMaintenanceWindow) ? (string) $v : null,
                 'PendingModifiedValues' => !$item->PendingModifiedValues ? null : new PendingModifiedValues([
                     'NumCacheNodes' => ($v = $item->PendingModifiedValues->NumCacheNodes) ? (int) (string) $v : null,
-                    'CacheNodeIdsToRemove' => !$item->PendingModifiedValues->CacheNodeIdsToRemove ? [] : $this->populateResultCacheNodeIdsList($item->PendingModifiedValues->CacheNodeIdsToRemove),
+                    'CacheNodeIdsToRemove' => !$item->PendingModifiedValues->CacheNodeIdsToRemove ? null : $this->populateResultCacheNodeIdsList($item->PendingModifiedValues->CacheNodeIdsToRemove),
                     'EngineVersion' => ($v = $item->PendingModifiedValues->EngineVersion) ? (string) $v : null,
                     'CacheNodeType' => ($v = $item->PendingModifiedValues->CacheNodeType) ? (string) $v : null,
                     'AuthTokenStatus' => ($v = $item->PendingModifiedValues->AuthTokenStatus) ? (string) $v : null,
-                    'LogDeliveryConfigurations' => !$item->PendingModifiedValues->LogDeliveryConfigurations ? [] : $this->populateResultPendingLogDeliveryConfigurationList($item->PendingModifiedValues->LogDeliveryConfigurations),
+                    'LogDeliveryConfigurations' => !$item->PendingModifiedValues->LogDeliveryConfigurations ? null : $this->populateResultPendingLogDeliveryConfigurationList($item->PendingModifiedValues->LogDeliveryConfigurations),
                 ]),
                 'NotificationConfiguration' => !$item->NotificationConfiguration ? null : new NotificationConfiguration([
                     'TopicArn' => ($v = $item->NotificationConfiguration->TopicArn) ? (string) $v : null,
                     'TopicStatus' => ($v = $item->NotificationConfiguration->TopicStatus) ? (string) $v : null,
                 ]),
-                'CacheSecurityGroups' => !$item->CacheSecurityGroups ? [] : $this->populateResultCacheSecurityGroupMembershipList($item->CacheSecurityGroups),
+                'CacheSecurityGroups' => !$item->CacheSecurityGroups ? null : $this->populateResultCacheSecurityGroupMembershipList($item->CacheSecurityGroups),
                 'CacheParameterGroup' => !$item->CacheParameterGroup ? null : new CacheParameterGroupStatus([
                     'CacheParameterGroupName' => ($v = $item->CacheParameterGroup->CacheParameterGroupName) ? (string) $v : null,
                     'ParameterApplyStatus' => ($v = $item->CacheParameterGroup->ParameterApplyStatus) ? (string) $v : null,
-                    'CacheNodeIdsToReboot' => !$item->CacheParameterGroup->CacheNodeIdsToReboot ? [] : $this->populateResultCacheNodeIdsList($item->CacheParameterGroup->CacheNodeIdsToReboot),
+                    'CacheNodeIdsToReboot' => !$item->CacheParameterGroup->CacheNodeIdsToReboot ? null : $this->populateResultCacheNodeIdsList($item->CacheParameterGroup->CacheNodeIdsToReboot),
                 ]),
                 'CacheSubnetGroupName' => ($v = $item->CacheSubnetGroupName) ? (string) $v : null,
-                'CacheNodes' => !$item->CacheNodes ? [] : $this->populateResultCacheNodeList($item->CacheNodes),
+                'CacheNodes' => !$item->CacheNodes ? null : $this->populateResultCacheNodeList($item->CacheNodes),
                 'AutoMinorVersionUpgrade' => ($v = $item->AutoMinorVersionUpgrade) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                'SecurityGroups' => !$item->SecurityGroups ? [] : $this->populateResultSecurityGroupMembershipList($item->SecurityGroups),
+                'SecurityGroups' => !$item->SecurityGroups ? null : $this->populateResultSecurityGroupMembershipList($item->SecurityGroups),
                 'ReplicationGroupId' => ($v = $item->ReplicationGroupId) ? (string) $v : null,
                 'SnapshotRetentionLimit' => ($v = $item->SnapshotRetentionLimit) ? (int) (string) $v : null,
                 'SnapshotWindow' => ($v = $item->SnapshotWindow) ? (string) $v : null,
@@ -162,7 +162,7 @@ class CacheClusterMessage extends Result implements \IteratorAggregate
                 'AtRestEncryptionEnabled' => ($v = $item->AtRestEncryptionEnabled) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
                 'ARN' => ($v = $item->ARN) ? (string) $v : null,
                 'ReplicationGroupLogDeliveryEnabled' => ($v = $item->ReplicationGroupLogDeliveryEnabled) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
-                'LogDeliveryConfigurations' => !$item->LogDeliveryConfigurations ? [] : $this->populateResultLogDeliveryConfigurationList($item->LogDeliveryConfigurations),
+                'LogDeliveryConfigurations' => !$item->LogDeliveryConfigurations ? null : $this->populateResultLogDeliveryConfigurationList($item->LogDeliveryConfigurations),
             ]);
         }
 
