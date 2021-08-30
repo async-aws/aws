@@ -30,7 +30,7 @@ class ElastiCacheClientTest extends TestCase
 
     private function getClient(): ElastiCacheClient
     {
-        self::fail('Not implemented');
+        self::markTestSkipped('Localstack does not support ElastiCache in the free version');
 
         return new ElastiCacheClient([
             'endpoint' => 'http://localhost',
