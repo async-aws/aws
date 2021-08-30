@@ -7,15 +7,13 @@
          failOnRisky="true"
          failOnWarning="true"
 >
-  <php>
-    <server name="SYMFONY_DEPRECATIONS_HELPER" value="max[indirect]=2" />
-  </php>
   <coverage>
     <include>
       <directory>./src</directory>
     </include>
   </coverage>
   <php>
+    <server name="SYMFONY_DEPRECATIONS_HELPER" value="max[indirect]=2" />
     <ini name="error_reporting" value="-1"/>
   </php>
   <testsuites>
