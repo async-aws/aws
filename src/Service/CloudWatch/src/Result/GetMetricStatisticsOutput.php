@@ -16,7 +16,7 @@ class GetMetricStatisticsOutput extends Result
     /**
      * The data points for the specified metric.
      */
-    private $datapoints = [];
+    private $datapoints;
 
     /**
      * @return Datapoint[]

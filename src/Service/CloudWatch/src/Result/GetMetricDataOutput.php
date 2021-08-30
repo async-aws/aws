@@ -18,7 +18,7 @@ class GetMetricDataOutput extends Result implements \IteratorAggregate
     /**
      * The metrics that are returned, including the metric name, namespace, and dimensions.
      */
-    private $metricDataResults = [];
+    private $metricDataResults;
 
     /**
      * A token that marks the next batch of returned results.
@@ -30,7 +30,7 @@ class GetMetricDataOutput extends Result implements \IteratorAggregate
      * message that might be returned is `Maximum number of allowed metrics exceeded`. If there is a message, as much of the
      * operation as possible is still executed.
      */
-    private $messages = [];
+    private $messages;
 
     /**
      * Iterates over MetricDataResults and Messages.
