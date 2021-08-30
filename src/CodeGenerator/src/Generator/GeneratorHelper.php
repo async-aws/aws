@@ -70,6 +70,8 @@ class GeneratorHelper
             '<p>' => '',
             '<p/>' => '',
             '</p>' => "\n",
+            '<u>' => '',
+            '</u>' => '',
         ]));
         if ($short) {
             $s = explode("\n", $s)[0];
