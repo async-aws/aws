@@ -60,12 +60,12 @@ class RestJsonParser implements Parser
                         $this->PROPERTY_NAME = $v;
                     }', [
                     'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
-                    'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('$data[\'%s\']', $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired()),
+                    'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('$data[\'%s\']', $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired(), false),
                 ]);
             } else {
                 $properties[] = strtr('$this->PROPERTY_NAME = PROPERTY_ACCESSOR;', [
                     'PROPERTY_NAME' => GeneratorHelper::normalizeName($member->getName()),
-                    'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('$data[\'%s\']', $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired()),
+                    'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('$data[\'%s\']', $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired(), false),
                 ]);
             }
         }
@@ -112,15 +112,18 @@ class RestJsonParser implements Parser
         return $member->getLocationName();
     }
 
-    private function parseElement(string $input, Shape $shape, bool $required)
+    /**
+     * @param bool $inObject whether the element is building an ObjectValue
+     */
+    private function parseElement(string $input, Shape $shape, bool $required, bool $inObject)
     {
         switch (true) {
             case $shape instanceof ListShape:
-                return $this->parseResponseList($shape, $input, $required);
+                return $this->parseResponseList($shape, $input, $required, $inObject);
             case $shape instanceof StructureShape:
                 return $this->parseResponseStructure($shape, $input, $required);
             case $shape instanceof MapShape:
-                return $this->parseResponseMap($shape, $input, $required);
+                return $this->parseResponseMap($shape, $input, $required, $inObject);
         }
 
         switch ($shape->getType()) {
@@ -149,7 +152,7 @@ class RestJsonParser implements Parser
         foreach ($shape->getMembers() as $member) {
             $properties[] = strtr('PROPERTY_NAME => PROPERTY_ACCESSOR,', [
                 'PROPERTY_NAME' => var_export($member->getName(), true),
-                'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('%s[\'%s\']', $input, $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired()),
+                'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('%s[\'%s\']', $input, $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired(), true),
             ]);
         }
 
@@ -218,7 +221,7 @@ class RestJsonParser implements Parser
         return strtr('isset(INPUT) ? base64_decode((string) INPUT) : null', ['INPUT' => $input]);
     }
 
-    private function parseResponseList(ListShape $shape, string $input, bool $required): string
+    private function parseResponseList(ListShape $shape, string $input, bool $required, bool $inObject): string
     {
         $shapeMember = $shape->getMember();
         $functionName = 'populateResult' . ucfirst($shape->getName());
@@ -250,18 +253,20 @@ class RestJsonParser implements Parser
             }
 
             $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
-                'LIST_ACCESSOR' => $this->parseElement('$item', $shapeMember->getShape(), $listAccessorRequired),
+                'LIST_ACCESSOR' => $this->parseElement('$item', $shapeMember->getShape(), $listAccessorRequired, $inObject),
                 'INPUT_PROPERTY' => $shape->isFlattened() ? '$json' : '$json' . ($shapeMember->getLocationName() ? '->' . $shapeMember->getLocationName() : ''),
             ]), $shape);
         }
 
-        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : 'empty(INPUT) ? [] : $this->FUNCTION_NAME(INPUT)', [
+        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : 'EMPTY_METHOD(INPUT) ? EMPTY : $this->FUNCTION_NAME(INPUT)', [
+            'EMPTY_METHOD' => $inObject ? '!isset' : 'empty',
+            'EMPTY' => !$inObject ? '[]' : 'null',
             'INPUT' => $input,
             'FUNCTION_NAME' => $functionName,
         ]);
     }
 
-    private function parseResponseMap(MapShape $shape, string $input, bool $required): string
+    private function parseResponseMap(MapShape $shape, string $input, bool $required, bool $inObject): string
     {
         $shapeValue = $shape->getValue();
         $functionName = 'populateResult' . ucfirst($shape->getName());
@@ -295,7 +300,7 @@ class RestJsonParser implements Parser
                     ';
 
                     $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
-                        'CODE' => $this->parseElement('$value', $shapeValue->getShape(), true),
+                        'CODE' => $this->parseElement('$value', $shapeValue->getShape(), true, $inObject),
                     ]), $shape);
                 }
             } else {
@@ -325,12 +330,14 @@ class RestJsonParser implements Parser
 
                 $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
                     'MAP_KEY' => var_export($locationName, true),
-                    'MAP_ACCESSOR' => $this->parseElement(sprintf('$item[\'%s\']', $inputAccessorName), $shapeValue->getShape(), false),
+                    'MAP_ACCESSOR' => $this->parseElement(sprintf('$item[\'%s\']', $inputAccessorName), $shapeValue->getShape(), false, $inObject),
                 ]), $shape);
             }
         }
 
-        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : 'empty(INPUT) ? [] : $this->FUNCTION_NAME(INPUT)', [
+        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : 'EMPTY_METHOD(INPUT) ? EMPTY : $this->FUNCTION_NAME(INPUT)', [
+            'EMPTY_METHOD' => $inObject ? '!isset' : 'empty',
+            'EMPTY' => !$inObject ? '[]' : 'null',
             'INPUT' => $input,
             'FUNCTION_NAME' => $functionName,
         ]);

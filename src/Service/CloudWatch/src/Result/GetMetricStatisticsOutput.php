@@ -75,7 +75,7 @@ class GetMetricStatisticsOutput extends Result
                 'Minimum' => ($v = $item->Minimum) ? (float) (string) $v : null,
                 'Maximum' => ($v = $item->Maximum) ? (float) (string) $v : null,
                 'Unit' => ($v = $item->Unit) ? (string) $v : null,
-                'ExtendedStatistics' => !$item->ExtendedStatistics ? [] : $this->populateResultDatapointValueMap($item->ExtendedStatistics),
+                'ExtendedStatistics' => !$item->ExtendedStatistics ? null : $this->populateResultDatapointValueMap($item->ExtendedStatistics),
             ]);
         }
 

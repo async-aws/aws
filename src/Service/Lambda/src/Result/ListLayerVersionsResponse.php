@@ -122,7 +122,7 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
                 'Version' => isset($item['Version']) ? (string) $item['Version'] : null,
                 'Description' => isset($item['Description']) ? (string) $item['Description'] : null,
                 'CreatedDate' => isset($item['CreatedDate']) ? (string) $item['CreatedDate'] : null,
-                'CompatibleRuntimes' => empty($item['CompatibleRuntimes']) ? [] : $this->populateResultCompatibleRuntimes($item['CompatibleRuntimes']),
+                'CompatibleRuntimes' => !isset($item['CompatibleRuntimes']) ? null : $this->populateResultCompatibleRuntimes($item['CompatibleRuntimes']),
                 'LicenseInfo' => isset($item['LicenseInfo']) ? (string) $item['LicenseInfo'] : null,
             ]);
         }

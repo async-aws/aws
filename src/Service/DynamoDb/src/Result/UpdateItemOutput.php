@@ -76,12 +76,12 @@ class UpdateItemOutput extends Result
                 'WriteCapacityUnits' => isset($data['ConsumedCapacity']['Table']['WriteCapacityUnits']) ? (float) $data['ConsumedCapacity']['Table']['WriteCapacityUnits'] : null,
                 'CapacityUnits' => isset($data['ConsumedCapacity']['Table']['CapacityUnits']) ? (float) $data['ConsumedCapacity']['Table']['CapacityUnits'] : null,
             ]),
-            'LocalSecondaryIndexes' => empty($data['ConsumedCapacity']['LocalSecondaryIndexes']) ? [] : $this->populateResultSecondaryIndexesCapacityMap($data['ConsumedCapacity']['LocalSecondaryIndexes']),
-            'GlobalSecondaryIndexes' => empty($data['ConsumedCapacity']['GlobalSecondaryIndexes']) ? [] : $this->populateResultSecondaryIndexesCapacityMap($data['ConsumedCapacity']['GlobalSecondaryIndexes']),
+            'LocalSecondaryIndexes' => !isset($data['ConsumedCapacity']['LocalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($data['ConsumedCapacity']['LocalSecondaryIndexes']),
+            'GlobalSecondaryIndexes' => !isset($data['ConsumedCapacity']['GlobalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($data['ConsumedCapacity']['GlobalSecondaryIndexes']),
         ]);
         $this->itemCollectionMetrics = empty($data['ItemCollectionMetrics']) ? null : new ItemCollectionMetrics([
-            'ItemCollectionKey' => empty($data['ItemCollectionMetrics']['ItemCollectionKey']) ? [] : $this->populateResultItemCollectionKeyAttributeMap($data['ItemCollectionMetrics']['ItemCollectionKey']),
-            'SizeEstimateRangeGB' => empty($data['ItemCollectionMetrics']['SizeEstimateRangeGB']) ? [] : $this->populateResultItemCollectionSizeEstimateRange($data['ItemCollectionMetrics']['SizeEstimateRangeGB']),
+            'ItemCollectionKey' => !isset($data['ItemCollectionMetrics']['ItemCollectionKey']) ? null : $this->populateResultItemCollectionKeyAttributeMap($data['ItemCollectionMetrics']['ItemCollectionKey']),
+            'SizeEstimateRangeGB' => !isset($data['ItemCollectionMetrics']['SizeEstimateRangeGB']) ? null : $this->populateResultItemCollectionSizeEstimateRange($data['ItemCollectionMetrics']['SizeEstimateRangeGB']),
         ]);
     }
 

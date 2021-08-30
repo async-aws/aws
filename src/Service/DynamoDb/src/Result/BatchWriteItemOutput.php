@@ -104,8 +104,8 @@ class BatchWriteItemOutput extends Result
                     'WriteCapacityUnits' => isset($item['Table']['WriteCapacityUnits']) ? (float) $item['Table']['WriteCapacityUnits'] : null,
                     'CapacityUnits' => isset($item['Table']['CapacityUnits']) ? (float) $item['Table']['CapacityUnits'] : null,
                 ]),
-                'LocalSecondaryIndexes' => empty($item['LocalSecondaryIndexes']) ? [] : $this->populateResultSecondaryIndexesCapacityMap($item['LocalSecondaryIndexes']),
-                'GlobalSecondaryIndexes' => empty($item['GlobalSecondaryIndexes']) ? [] : $this->populateResultSecondaryIndexesCapacityMap($item['GlobalSecondaryIndexes']),
+                'LocalSecondaryIndexes' => !isset($item['LocalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($item['LocalSecondaryIndexes']),
+                'GlobalSecondaryIndexes' => !isset($item['GlobalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($item['GlobalSecondaryIndexes']),
             ]);
         }
 
@@ -133,8 +133,8 @@ class BatchWriteItemOutput extends Result
         $items = [];
         foreach ($json as $item) {
             $items[] = new ItemCollectionMetrics([
-                'ItemCollectionKey' => empty($item['ItemCollectionKey']) ? [] : $this->populateResultItemCollectionKeyAttributeMap($item['ItemCollectionKey']),
-                'SizeEstimateRangeGB' => empty($item['SizeEstimateRangeGB']) ? [] : $this->populateResultItemCollectionSizeEstimateRange($item['SizeEstimateRangeGB']),
+                'ItemCollectionKey' => !isset($item['ItemCollectionKey']) ? null : $this->populateResultItemCollectionKeyAttributeMap($item['ItemCollectionKey']),
+                'SizeEstimateRangeGB' => !isset($item['SizeEstimateRangeGB']) ? null : $this->populateResultItemCollectionSizeEstimateRange($item['SizeEstimateRangeGB']),
             ]);
         }
 

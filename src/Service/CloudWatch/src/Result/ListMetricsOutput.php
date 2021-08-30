@@ -121,7 +121,7 @@ class ListMetricsOutput extends Result implements \IteratorAggregate
             $items[] = new Metric([
                 'Namespace' => ($v = $item->Namespace) ? (string) $v : null,
                 'MetricName' => ($v = $item->MetricName) ? (string) $v : null,
-                'Dimensions' => !$item->Dimensions ? [] : $this->populateResultDimensions($item->Dimensions),
+                'Dimensions' => !$item->Dimensions ? null : $this->populateResultDimensions($item->Dimensions),
             ]);
         }
 

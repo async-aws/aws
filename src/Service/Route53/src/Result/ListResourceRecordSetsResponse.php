@@ -180,7 +180,7 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
                 'Failover' => ($v = $item->Failover) ? (string) $v : null,
                 'MultiValueAnswer' => ($v = $item->MultiValueAnswer) ? filter_var((string) $v, \FILTER_VALIDATE_BOOLEAN) : null,
                 'TTL' => ($v = $item->TTL) ? (string) $v : null,
-                'ResourceRecords' => !$item->ResourceRecords ? [] : $this->populateResultResourceRecords($item->ResourceRecords),
+                'ResourceRecords' => !$item->ResourceRecords ? null : $this->populateResultResourceRecords($item->ResourceRecords),
                 'AliasTarget' => !$item->AliasTarget ? null : new AliasTarget([
                     'HostedZoneId' => (string) $item->AliasTarget->HostedZoneId,
                     'DNSName' => (string) $item->AliasTarget->DNSName,

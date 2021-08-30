@@ -177,8 +177,8 @@ class IndexFacesResponse extends Result
                         'Value' => isset($item['FaceDetail']['MouthOpen']['Value']) ? filter_var($item['FaceDetail']['MouthOpen']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
                         'Confidence' => isset($item['FaceDetail']['MouthOpen']['Confidence']) ? (float) $item['FaceDetail']['MouthOpen']['Confidence'] : null,
                     ]),
-                    'Emotions' => empty($item['FaceDetail']['Emotions']) ? [] : $this->populateResultEmotions($item['FaceDetail']['Emotions']),
-                    'Landmarks' => empty($item['FaceDetail']['Landmarks']) ? [] : $this->populateResultLandmarks($item['FaceDetail']['Landmarks']),
+                    'Emotions' => !isset($item['FaceDetail']['Emotions']) ? null : $this->populateResultEmotions($item['FaceDetail']['Emotions']),
+                    'Landmarks' => !isset($item['FaceDetail']['Landmarks']) ? null : $this->populateResultLandmarks($item['FaceDetail']['Landmarks']),
                     'Pose' => empty($item['FaceDetail']['Pose']) ? null : new Pose([
                         'Roll' => isset($item['FaceDetail']['Pose']['Roll']) ? (float) $item['FaceDetail']['Pose']['Roll'] : null,
                         'Yaw' => isset($item['FaceDetail']['Pose']['Yaw']) ? (float) $item['FaceDetail']['Pose']['Yaw'] : null,
@@ -237,7 +237,7 @@ class IndexFacesResponse extends Result
         $items = [];
         foreach ($json as $item) {
             $items[] = new UnindexedFace([
-                'Reasons' => empty($item['Reasons']) ? [] : $this->populateResultReasons($item['Reasons']),
+                'Reasons' => !isset($item['Reasons']) ? null : $this->populateResultReasons($item['Reasons']),
                 'FaceDetail' => empty($item['FaceDetail']) ? null : new FaceDetail([
                     'BoundingBox' => empty($item['FaceDetail']['BoundingBox']) ? null : new BoundingBox([
                         'Width' => isset($item['FaceDetail']['BoundingBox']['Width']) ? (float) $item['FaceDetail']['BoundingBox']['Width'] : null,
@@ -281,8 +281,8 @@ class IndexFacesResponse extends Result
                         'Value' => isset($item['FaceDetail']['MouthOpen']['Value']) ? filter_var($item['FaceDetail']['MouthOpen']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
                         'Confidence' => isset($item['FaceDetail']['MouthOpen']['Confidence']) ? (float) $item['FaceDetail']['MouthOpen']['Confidence'] : null,
                     ]),
-                    'Emotions' => empty($item['FaceDetail']['Emotions']) ? [] : $this->populateResultEmotions($item['FaceDetail']['Emotions']),
-                    'Landmarks' => empty($item['FaceDetail']['Landmarks']) ? [] : $this->populateResultLandmarks($item['FaceDetail']['Landmarks']),
+                    'Emotions' => !isset($item['FaceDetail']['Emotions']) ? null : $this->populateResultEmotions($item['FaceDetail']['Emotions']),
+                    'Landmarks' => !isset($item['FaceDetail']['Landmarks']) ? null : $this->populateResultLandmarks($item['FaceDetail']['Landmarks']),
                     'Pose' => empty($item['FaceDetail']['Pose']) ? null : new Pose([
                         'Roll' => isset($item['FaceDetail']['Pose']['Roll']) ? (float) $item['FaceDetail']['Pose']['Roll'] : null,
                         'Yaw' => isset($item['FaceDetail']['Pose']['Yaw']) ? (float) $item['FaceDetail']['Pose']['Yaw'] : null,
