@@ -14,7 +14,6 @@
         "php": "^7.2.5 || ^8.0",
         "ext-SimpleXML": "*",
         "ext-filter": "*",
-        "ext-json": "*",
         "async-aws/core": "^1.9"
     },
     "extra": {

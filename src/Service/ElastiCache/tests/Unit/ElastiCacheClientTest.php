@@ -4,6 +4,7 @@ namespace AsyncAws\ElastiCache\Tests\Unit;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\ElastiCache\ElastiCacheClient;
 use AsyncAws\ElastiCache\Input\DescribeCacheClustersMessage;
 use AsyncAws\ElastiCache\Result\CacheClusterMessage;
 use Symfony\Component\HttpClient\MockHttpClient;

@@ -67,6 +67,7 @@ class CacheClusterMessageTest extends TestCase
         $cluster = null;
         foreach ($result->getCacheClusters() as $item) {
             $cluster = $item;
+
             break;
         }
 
