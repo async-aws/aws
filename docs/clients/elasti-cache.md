@@ -1,27 +1,22 @@
 ---
 layout: client
 category: clients
-name: Ecr
-package: async-aws/ecr
+name: ElastiCache
+package: async-aws/elasti-cache
 ---
 
 ## Usage
 
-### Get an Authorization Token
+### List all clusters
 
 ```php
-use AsyncAws\Ecr\EcrClient;
-use AsyncAws\Ecr\Input\GetAuthorizationTokenRequest;
+use AsyncAws\ElastiCache\ElastiCacheClient;
+use AsyncAws\ElastiCache\Input\DescribeCacheClustersMessage;
 
-$ecr = new EcrClient();
+$elastiCache = new ElastiCacheClient();
+$clusters = $elastiCache->describeCacheClusters();
 
-$authorizationToken = $ecr->getAuthorizationToken(new GetAuthorizationTokenRequest([
-    'registryIds' => '000000000000',
-]));
-
-foreach ($authorizationToken->getAuthorizationData() as $authorizationData) {
-    echo 'Authorization Token: '.$authorizationData->getAuthorizationToken().PHP_EOL;
-    echo 'Expires At: '.$authorizationData->getExpiresAt()->format('Y-m-d H:i:s').PHP_EOL;
-    echo 'Proxy Endpoint: '.$authorizationData->getProxyEndpoint().PHP_EOL;
+foreach ($clusters as $cluster) {
+    echo 'Cluster id: '.$cluster->getCacheClusterId().PHP_EOL;
 }
 ```
