@@ -6,6 +6,7 @@
 
 - Changed case of object's properties to camelCase.
 - Added documentation in class headers.
+- AWS api-change: AWS CloudFormation allows you to iteratively develop your applications when failures are encountered without rolling back successfully provisioned resources. By specifying stack failure options, you can troubleshoot resources in a CREATE_FAILED or UPDATE_FAILED status.
 
 ## 1.0.2
 

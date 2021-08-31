@@ -24,6 +24,7 @@ final class StackStatus
     public const ROLLBACK_IN_PROGRESS = 'ROLLBACK_IN_PROGRESS';
     public const UPDATE_COMPLETE = 'UPDATE_COMPLETE';
     public const UPDATE_COMPLETE_CLEANUP_IN_PROGRESS = 'UPDATE_COMPLETE_CLEANUP_IN_PROGRESS';
+    public const UPDATE_FAILED = 'UPDATE_FAILED';
     public const UPDATE_IN_PROGRESS = 'UPDATE_IN_PROGRESS';
     public const UPDATE_ROLLBACK_COMPLETE = 'UPDATE_ROLLBACK_COMPLETE';
     public const UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS = 'UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS';
@@ -50,6 +51,7 @@ final class StackStatus
             self::ROLLBACK_IN_PROGRESS => true,
             self::UPDATE_COMPLETE => true,
             self::UPDATE_COMPLETE_CLEANUP_IN_PROGRESS => true,
+            self::UPDATE_FAILED => true,
             self::UPDATE_IN_PROGRESS => true,
             self::UPDATE_ROLLBACK_COMPLETE => true,
             self::UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS => true,
