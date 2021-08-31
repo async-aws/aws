@@ -2,6 +2,17 @@
 
 ## NOT RELEASED
 
+## 1.5.0
+
+### Added
+
+- Support for CloudWatch
+- Support for ElastiCache
+- Support for Firehose
+- Support for Kinesis
+- Support for SecretsManager
+- Support for StepFunctions
+
 ## 1.4.0
 
 ### Added
