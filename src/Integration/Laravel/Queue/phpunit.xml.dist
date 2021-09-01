@@ -13,6 +13,7 @@
     </include>
   </coverage>
   <php>
+    <server name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0" />
     <ini name="error_reporting" value="-1"/>
   </php>
   <testsuites>
