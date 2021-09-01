@@ -22,6 +22,7 @@ final class QueueAttributeName
     public const POLICY = 'Policy';
     public const QUEUE_ARN = 'QueueArn';
     public const RECEIVE_MESSAGE_WAIT_TIME_SECONDS = 'ReceiveMessageWaitTimeSeconds';
+    public const REDRIVE_ALLOW_POLICY = 'RedriveAllowPolicy';
     public const REDRIVE_POLICY = 'RedrivePolicy';
     public const VISIBILITY_TIMEOUT = 'VisibilityTimeout';
 
@@ -46,6 +47,7 @@ final class QueueAttributeName
             self::POLICY => true,
             self::QUEUE_ARN => true,
             self::RECEIVE_MESSAGE_WAIT_TIME_SECONDS => true,
+            self::REDRIVE_ALLOW_POLICY => true,
             self::REDRIVE_POLICY => true,
             self::VISIBILITY_TIMEOUT => true,
         ][$value]);
