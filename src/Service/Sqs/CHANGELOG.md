@@ -5,6 +5,7 @@
 ### Added
 
 - AWS enhancement: Documentation updates for Amazon SQS
+- AWS api-change: Amazon SQS adds a new queue attribute, RedriveAllowPolicy, which includes the dead-letter queue redrive permission parameters. It defines which source queues can specify dead-letter queues as a JSON object.
 
 ## 1.5.0
 
