@@ -47,7 +47,7 @@ final class Owner
     /**
      * @internal
      */
-    public function requestBody(\DomElement $node, \DomDocument $document): void
+    public function requestBody(\DOMElement $node, \DOMDocument $document): void
     {
         if (null !== $v = $this->displayName) {
             $node->appendChild($document->createElement('DisplayName', $v));

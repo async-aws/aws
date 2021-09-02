@@ -174,7 +174,7 @@ final class CreateHostedZoneRequest extends Input
         return $this;
     }
 
-    private function requestBody(\DomNode $node, \DomDocument $document): void
+    private function requestBody(\DOMNode $node, \DOMDocument $document): void
     {
         if (null === $v = $this->name) {
             throw new InvalidArgument(sprintf('Missing parameter "Name" for "%s". The value cannot be null.', __CLASS__));

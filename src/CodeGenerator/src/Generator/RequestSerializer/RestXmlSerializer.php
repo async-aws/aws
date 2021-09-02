@@ -84,7 +84,7 @@ class RestXmlSerializer implements Serializer
             $document->formatOutput = false;
             ' . $requestBody . '
             $body = $document->hasChildNodes() ? $document->saveXML() : "";
-        ',  true, ['node' => '\DomNode']];
+        ',  true, ['node' => \DOMNode::class]];
     }
 
     public function generateRequestBuilder(StructureShape $shape): array
@@ -125,7 +125,7 @@ class RestXmlSerializer implements Serializer
             ]);
         }, $shape->getMembers()));
 
-        return ['void', $body, ['node' => '\DomElement', 'document' => '\DomDocument']];
+        return ['void', $body, ['node' => \DOMElement::class, 'document' => \DOMDocument::class]];
     }
 
     private function dumpXmlShape(Member $member, Shape $shape, string $output, string $input): string
