@@ -210,7 +210,7 @@ final class CompleteMultipartUploadRequest extends Input
         return $this;
     }
 
-    private function requestBody(\DomNode $node, \DomDocument $document): void
+    private function requestBody(\DOMNode $node, \DOMDocument $document): void
     {
         if (null !== $v = $this->multipartUpload) {
             $node->appendChild($child = $document->createElement('CompleteMultipartUpload'));

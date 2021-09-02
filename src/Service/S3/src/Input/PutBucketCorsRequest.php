@@ -155,7 +155,7 @@ final class PutBucketCorsRequest extends Input
         return $this;
     }
 
-    private function requestBody(\DomNode $node, \DomDocument $document): void
+    private function requestBody(\DOMNode $node, \DOMDocument $document): void
     {
         if (null === $v = $this->corsConfiguration) {
             throw new InvalidArgument(sprintf('Missing parameter "CORSConfiguration" for "%s". The value cannot be null.', __CLASS__));

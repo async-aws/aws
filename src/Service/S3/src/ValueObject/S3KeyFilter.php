@@ -32,7 +32,7 @@ final class S3KeyFilter
     /**
      * @internal
      */
-    public function requestBody(\DomElement $node, \DomDocument $document): void
+    public function requestBody(\DOMElement $node, \DOMDocument $document): void
     {
         if (null !== $v = $this->filterRules) {
             foreach ($v as $item) {

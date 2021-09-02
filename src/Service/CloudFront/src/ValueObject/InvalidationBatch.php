@@ -55,7 +55,7 @@ final class InvalidationBatch
     /**
      * @internal
      */
-    public function requestBody(\DomElement $node, \DomDocument $document): void
+    public function requestBody(\DOMElement $node, \DOMDocument $document): void
     {
         if (null === $v = $this->paths) {
             throw new InvalidArgument(sprintf('Missing parameter "Paths" for "%s". The value cannot be null.', __CLASS__));

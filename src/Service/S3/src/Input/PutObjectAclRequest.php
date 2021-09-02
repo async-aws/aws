@@ -392,7 +392,7 @@ final class PutObjectAclRequest extends Input
         return $this;
     }
 
-    private function requestBody(\DomNode $node, \DomDocument $document): void
+    private function requestBody(\DOMNode $node, \DOMDocument $document): void
     {
         if (null !== $v = $this->accessControlPolicy) {
             $node->appendChild($child = $document->createElement('AccessControlPolicy'));
