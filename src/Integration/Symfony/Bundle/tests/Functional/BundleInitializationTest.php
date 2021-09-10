@@ -158,7 +158,7 @@ class BundleInitializationTest extends BaseBundleTestCase
         self::assertSame('./docker/dynamodb/credentials', $x->getConfiguration()->get('sharedCredentialsFile'));
     }
 
-    protected function getBundleClass()
+    protected function getBundleClass(): string
     {
         return AsyncAwsBundle::class;
     }

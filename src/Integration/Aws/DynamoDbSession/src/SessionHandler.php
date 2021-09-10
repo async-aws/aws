@@ -95,6 +95,9 @@ class SessionHandler implements \SessionHandlerInterface
         ]);
     }
 
+    /**
+     * @return bool
+     */
     #[\ReturnTypeWillChange]
     public function close()
     {
@@ -108,6 +111,9 @@ class SessionHandler implements \SessionHandlerInterface
         return $this->sessionWritten;
     }
 
+    /**
+     * @return bool
+     */
     #[\ReturnTypeWillChange]
     public function destroy($sessionId)
     {
@@ -121,6 +127,9 @@ class SessionHandler implements \SessionHandlerInterface
         return $this->sessionWritten = true;
     }
 
+    /**
+     * @return bool
+     */
     #[\ReturnTypeWillChange]
     public function gc($maxLifetime)
     {
@@ -128,6 +137,9 @@ class SessionHandler implements \SessionHandlerInterface
         return true;
     }
 
+    /**
+     * @return bool
+     */
     #[\ReturnTypeWillChange]
     public function open($savePath, $name)
     {
@@ -136,6 +148,9 @@ class SessionHandler implements \SessionHandlerInterface
         return true;
     }
 
+    /**
+     * @return string
+     */
     #[\ReturnTypeWillChange]
     public function read($sessionId)
     {
@@ -161,6 +176,9 @@ class SessionHandler implements \SessionHandlerInterface
         return $this->dataRead;
     }
 
+    /**
+     * @return bool
+     */
     #[\ReturnTypeWillChange]
     public function write($sessionId, $sessionData)
     {
