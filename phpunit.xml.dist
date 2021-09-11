@@ -11,7 +11,7 @@
     <ini name="error_reporting" value="-1"/>
     <env name="AWS_SHARED_CREDENTIALS_FILE" value="/dev/null" />
     <env name="AWS_CONFIG_FILE" value="/dev/null" />
-    <server name="SYMFONY_DEPRECATIONS_HELPER" value="max[direct]=21&amp;max[indirect]=4" />
+    <env name="SYMFONY_DEPRECATIONS_HELPER" value="baselineFile=./tests/baseline.json&amp;max[self]=0&amp;verbose=0" />
   </php>
   <testsuites>
     <testsuite name="Test Suite">

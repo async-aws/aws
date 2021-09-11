@@ -154,9 +154,12 @@ jobs:
       - name: Run tests
         env:
           SYMFONY_PHPUNIT_VERSION: ${{ matrix.phpunit_version }}
-          SYMFONY_DEPRECATIONS_HELPER: ${{ matrix.strategy == 'lowest' && '9999' || '1' }}
+          OVERRIDE_SYMFONY_DEPRECATIONS_HELPER: ${{ matrix.strategy == 'lowest' && 'max[self]=9999' || '' }}
         run: |
           ok=0
+          if [ -n "$OVERRIDE_SYMFONY_DEPRECATIONS_HELPER" ]; then
+            export SYMFONY_DEPRECATIONS_HELPER=$OVERRIDE_SYMFONY_DEPRECATIONS_HELPER
+          fi
           for COMPONENT in $(find src -maxdepth 4 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
           do
             echo ::group::$COMPONENT

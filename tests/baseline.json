@@ -1,0 +1,102 @@
+[
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\AdapterInterface::write()\" might add \"array|false\" as a native return type declaration in the future. Do the same in implementation \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\AdapterInterface::update()\" might add \"array|false\" as a native return type declaration in the future. Do the same in implementation \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\AdapterInterface::rename()\" might add \"bool\" as a native return type declaration in the future. Do the same in implementation \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\AdapterInterface::delete()\" might add \"bool\" as a native return type declaration in the future. Do the same in implementation \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\AdapterInterface::deleteDir()\" might add \"bool\" as a native return type declaration in the future. Do the same in implementation \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\AdapterInterface::createDir()\" might add \"array|false\" as a native return type declaration in the future. Do the same in implementation \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\ReadInterface::has()\" might add \"array|bool|null\" as a native return type declaration in the future. Do the same in implementation \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\ReadInterface::read()\" might add \"array|false\" as a native return type declaration in the future. Do the same in implementation \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\ReadInterface::listContents()\" might add \"array\" as a native return type declaration in the future. Do the same in implementation \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\ReadInterface::getMetadata()\" might add \"array|false\" as a native return type declaration in the future. Do the same in implementation \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\ReadInterface::getSize()\" might add \"array|false\" as a native return type declaration in the future. Do the same in implementation \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\ReadInterface::getMimetype()\" might add \"array|false\" as a native return type declaration in the future. Do the same in implementation \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\ReadInterface::getTimestamp()\" might add \"array|false\" as a native return type declaration in the future. Do the same in implementation \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\AdapterInterface::writeStream()\" might add \"array|false\" as a native return type declaration in the future. Do the same in implementation \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\AdapterInterface::updateStream()\" might add \"array|false\" as a native return type declaration in the future. Do the same in implementation \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\AdapterInterface::copy()\" might add \"bool\" as a native return type declaration in the future. Do the same in implementation \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\ReadInterface::readStream()\" might add \"array|false\" as a native return type declaration in the future. Do the same in implementation \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\AdapterInterface::setVisibility()\" might add \"array|false\" as a native return type declaration in the future. Do the same in implementation \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\ReadInterface::getVisibility()\" might add \"array|false\" as a native return type declaration in the future. Do the same in implementation \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    },
+    {
+        "location": "AsyncAws\\Flysystem\\S3\\Tests\\Integration\\AsyncAwsS3AdapterTest::testWrite",
+        "message": "Method \"League\\Flysystem\\Adapter\\AbstractAdapter::applyPathPrefix()\" might add \"string\" as a native return type declaration in the future. Do the same in child class \"AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter\" now to avoid errors or add an explicit @return annotation to suppress this message.",
+        "count": 1
+    }
+]
