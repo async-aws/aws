@@ -45,7 +45,7 @@ final class DeleteObjectRequest extends Input
     private $versionId;
 
     /**
-     * @var null|RequestPayer::*
+     * @var RequestPayer::*|null
      */
     private $requestPayer;
 

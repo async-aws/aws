@@ -25,7 +25,7 @@ final class BatchGetItemInput extends Input
     private $requestItems;
 
     /**
-     * @var null|ReturnConsumedCapacity::*
+     * @var ReturnConsumedCapacity::*|null
      */
     private $returnConsumedCapacity;
 

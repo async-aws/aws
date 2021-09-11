@@ -74,7 +74,7 @@ final class AdminCreateUserRequest extends Input
      * Set to `"RESEND"` to resend the invitation message to a user that already exists and reset the expiration limit on
      * the user's account. Set to `"SUPPRESS"` to suppress sending the message. Only one value can be specified.
      *
-     * @var null|MessageActionType::*
+     * @var MessageActionType::*|null
      */
     private $messageAction;
 
@@ -82,7 +82,7 @@ final class AdminCreateUserRequest extends Input
      * Specify `"EMAIL"` if email will be used to send the welcome message. Specify `"SMS"` if the phone number will be
      * used. The default value is `"SMS"`. More than one value can be specified.
      *
-     * @var null|list<DeliveryMediumType::*>
+     * @var list<DeliveryMediumType::*>|null
      */
     private $desiredDeliveryMediums;
 

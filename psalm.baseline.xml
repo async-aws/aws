@@ -1,5 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.6.3@f1a840727dd756899eee2f1f9ea443e265a4763f">
+<files psalm-version="4.10.0@916b098b008f6de4543892b1e0651c1c3b92cbfa">
+  <file src="src/Core/src/AwsClientFactory.php">
+    <NullableReturnStatement occurrences="25">
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+    </NullableReturnStatement>
+    <PossiblyUndefinedArrayOffset occurrences="25">
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+    </PossiblyUndefinedArrayOffset>
+  </file>
   <file src="src/Core/src/Credentials/PsrCacheProvider.php">
     <InvalidCatch occurrences="1"/>
     <InvalidThrow occurrences="1">
@@ -45,15 +101,6 @@
     <UndefinedInterfaceMethod occurrences="1">
       <code>$this-&gt;app</code>
     </UndefinedInterfaceMethod>
-  </file>
-  <file src="src/Integration/Monolog/CloudWatch/src/CloudWatchLogsHandler.php">
-    <ImplementedParamTypeMismatch occurrences="1">
-      <code>$record</code>
-    </ImplementedParamTypeMismatch>
-    <InvalidArgument occurrences="2">
-      <code>$level</code>
-      <code>$record</code>
-    </InvalidArgument>
   </file>
   <file src="src/Integration/Symfony/Bundle/src/DependencyInjection/Configuration.php">
     <PossiblyNullReference occurrences="1">

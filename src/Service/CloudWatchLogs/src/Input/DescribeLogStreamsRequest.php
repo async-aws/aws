@@ -30,7 +30,7 @@ final class DescribeLogStreamsRequest extends Input
      * If the value is `LogStreamName`, the results are ordered by log stream name. If the value is `LastEventTime`, the
      * results are ordered by the event time. The default value is `LogStreamName`.
      *
-     * @var null|OrderBy::*
+     * @var OrderBy::*|null
      */
     private $orderBy;
 

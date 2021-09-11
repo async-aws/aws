@@ -34,7 +34,7 @@ final class ListResourceRecordSetsRequest extends Input
     /**
      * The type of resource record set to begin the record listing from.
      *
-     * @var null|RRType::*
+     * @var RRType::*|null
      */
     private $startRecordType;
 

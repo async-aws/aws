@@ -52,7 +52,7 @@ final class SendMessageRequest extends Input
     /**
      * The message system attribute to send. Each message system attribute consists of a `Name`, `Type`, and `Value`.
      *
-     * @var null|array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue>
+     * @var array<MessageSystemAttributeNameForSends::*, MessageSystemAttributeValue>|null
      */
     private $messageSystemAttributes;
 

@@ -52,7 +52,7 @@ final class DeleteItemInput extends Input
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html
      *
-     * @var null|ConditionalOperator::*
+     * @var ConditionalOperator::*|null
      */
     private $conditionalOperator;
 
@@ -60,12 +60,12 @@ final class DeleteItemInput extends Input
      * Use `ReturnValues` if you want to get the item attributes as they appeared before they were deleted. For
      * `DeleteItem`, the valid values are:.
      *
-     * @var null|ReturnValue::*
+     * @var ReturnValue::*|null
      */
     private $returnValues;
 
     /**
-     * @var null|ReturnConsumedCapacity::*
+     * @var ReturnConsumedCapacity::*|null
      */
     private $returnConsumedCapacity;
 
@@ -74,7 +74,7 @@ final class DeleteItemInput extends Input
      * item collections, if any, that were modified during the operation are returned in the response. If set to `NONE` (the
      * default), no statistics are returned.
      *
-     * @var null|ReturnItemCollectionMetrics::*
+     * @var ReturnItemCollectionMetrics::*|null
      */
     private $returnItemCollectionMetrics;
 

@@ -128,13 +128,13 @@ class SessionHandler implements \SessionHandlerInterface
     }
 
     /**
-     * @return bool
+     * @return int|false
      */
     #[\ReturnTypeWillChange]
     public function gc($maxLifetime)
     {
         // DynamoDB takes care of garbage collection
-        return true;
+        return 0;
     }
 
     /**

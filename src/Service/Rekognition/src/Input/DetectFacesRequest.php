@@ -27,7 +27,7 @@ final class DetectFacesRequest extends Input
      * of facial attributes: `BoundingBox`, `Confidence`, `Pose`, `Quality`, and `Landmarks`. If you provide `["ALL"]`, all
      * facial attributes are returned, but the operation takes longer to complete.
      *
-     * @var null|list<Attribute::*>
+     * @var list<Attribute::*>|null
      */
     private $attributes;
 

@@ -52,7 +52,7 @@ final class ListPartsRequest extends Input
     private $uploadId;
 
     /**
-     * @var null|RequestPayer::*
+     * @var RequestPayer::*|null
      */
     private $requestPayer;
 

@@ -19,7 +19,7 @@ final class PutObjectAclRequest extends Input
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL
      *
-     * @var null|ObjectCannedACL::*
+     * @var ObjectCannedACL::*|null
      */
     private $acl;
 
@@ -94,7 +94,7 @@ final class PutObjectAclRequest extends Input
     private $key;
 
     /**
-     * @var null|RequestPayer::*
+     * @var RequestPayer::*|null
      */
     private $requestPayer;
 

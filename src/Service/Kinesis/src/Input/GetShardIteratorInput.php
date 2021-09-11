@@ -36,7 +36,7 @@ final class GetShardIteratorInput extends Input
      *
      * @required
      *
-     * @var null|ShardIteratorType::*
+     * @var ShardIteratorType::*|null
      */
     private $shardIteratorType;
 

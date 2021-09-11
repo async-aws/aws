@@ -39,7 +39,7 @@ final class DeleteObjectsRequest extends Input
     private $mfa;
 
     /**
-     * @var null|RequestPayer::*
+     * @var RequestPayer::*|null
      */
     private $requestPayer;
 

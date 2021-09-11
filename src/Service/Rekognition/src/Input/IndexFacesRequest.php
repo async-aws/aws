@@ -44,7 +44,7 @@ final class IndexFacesRequest extends Input
      * following subset of facial attributes: `BoundingBox`, `Confidence`, `Pose`, `Quality`, and `Landmarks`. If you
      * provide `["ALL"]`, all facial attributes are returned, but the operation takes longer to complete.
      *
-     * @var null|list<Attribute::*>
+     * @var list<Attribute::*>|null
      */
     private $detectionAttributes;
 
@@ -64,7 +64,7 @@ final class IndexFacesRequest extends Input
      * examples are an object that's misidentified as a face, a face that's too blurry, or a face with a pose that's too
      * extreme to use. If you specify `NONE`, no filtering is performed.
      *
-     * @var null|QualityFilter::*
+     * @var QualityFilter::*|null
      */
     private $qualityFilter;
 

@@ -63,7 +63,7 @@ final class UpdateItemInput extends Input
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html
      *
-     * @var null|ConditionalOperator::*
+     * @var ConditionalOperator::*|null
      */
     private $conditionalOperator;
 
@@ -71,12 +71,12 @@ final class UpdateItemInput extends Input
      * Use `ReturnValues` if you want to get the item attributes as they appear before or after they are updated. For
      * `UpdateItem`, the valid values are:.
      *
-     * @var null|ReturnValue::*
+     * @var ReturnValue::*|null
      */
     private $returnValues;
 
     /**
-     * @var null|ReturnConsumedCapacity::*
+     * @var ReturnConsumedCapacity::*|null
      */
     private $returnConsumedCapacity;
 
@@ -85,7 +85,7 @@ final class UpdateItemInput extends Input
      * item collections, if any, that were modified during the operation are returned in the response. If set to `NONE` (the
      * default), no statistics are returned.
      *
-     * @var null|ReturnItemCollectionMetrics::*
+     * @var ReturnItemCollectionMetrics::*|null
      */
     private $returnItemCollectionMetrics;
 

@@ -54,7 +54,7 @@ final class SearchFacesByImageRequest extends Input
      * an object that's misidentified as a face, a face that's too blurry, or a face with a pose that's too extreme to use.
      * If you specify `NONE`, no filtering is performed. The default value is `NONE`.
      *
-     * @var null|QualityFilter::*
+     * @var QualityFilter::*|null
      */
     private $qualityFilter;
 

@@ -22,7 +22,7 @@ final class ListFunctionsRequest extends Input
     /**
      * Set to `ALL` to include entries for all published versions of each function.
      *
-     * @var null|FunctionVersion::*
+     * @var FunctionVersion::*|null
      */
     private $functionVersion;
 

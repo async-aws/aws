@@ -93,7 +93,7 @@ class SessionHandlerTest extends TestCase
                 ],
             ]));
 
-        $this::assertEquals('test data', $this->handler->read('123456789'));
+        self::assertEquals('test data', $this->handler->read('123456789'));
     }
 
     public function testWrite()

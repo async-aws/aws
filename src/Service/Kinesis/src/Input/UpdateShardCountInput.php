@@ -33,7 +33,7 @@ final class UpdateShardCountInput extends Input
      *
      * @required
      *
-     * @var null|ScalingType::*
+     * @var ScalingType::*|null
      */
     private $scalingType;
 

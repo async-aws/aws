@@ -79,7 +79,7 @@ final class GetMetricStatisticsInput extends Input
      * The metric statistics, other than percentile. For percentile statistics, use `ExtendedStatistics`. When calling
      * `GetMetricStatistics`, you must specify either `Statistics` or `ExtendedStatistics`, but not both.
      *
-     * @var null|list<Statistic::*>
+     * @var list<Statistic::*>|null
      */
     private $statistics;
 
@@ -98,7 +98,7 @@ final class GetMetricStatisticsInput extends Input
      * operation returns only data that was collected with that unit specified. If you specify a unit that does not match
      * the data collected, the results of the operation are null. CloudWatch does not perform unit conversions.
      *
-     * @var null|StandardUnit::*
+     * @var StandardUnit::*|null
      */
     private $unit;
 

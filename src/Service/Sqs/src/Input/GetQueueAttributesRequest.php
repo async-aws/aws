@@ -22,7 +22,7 @@ final class GetQueueAttributesRequest extends Input
     /**
      * A list of attributes for which to retrieve information.
      *
-     * @var null|list<QueueAttributeName::*>
+     * @var list<QueueAttributeName::*>|null
      */
     private $attributeNames;
 

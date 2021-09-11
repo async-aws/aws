@@ -42,7 +42,7 @@ final class ListSecretsRequest extends Input
     /**
      * Lists secrets in the requested order.
      *
-     * @var null|SortOrderType::*
+     * @var SortOrderType::*|null
      */
     private $sortOrder;
 

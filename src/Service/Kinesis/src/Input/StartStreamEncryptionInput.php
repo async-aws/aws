@@ -24,7 +24,7 @@ final class StartStreamEncryptionInput extends Input
      *
      * @required
      *
-     * @var null|EncryptionType::*
+     * @var EncryptionType::*|null
      */
     private $encryptionType;
 
