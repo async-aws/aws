@@ -9,8 +9,8 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class GetAuthorizationTokenRequest extends Input
 {
     /**
-     * A list of AWS account IDs that are associated with the registries for which to get AuthorizationData objects. If you
-     * do not specify a registry, the default registry is assumed.
+     * A list of Amazon Web Services account IDs that are associated with the registries for which to get AuthorizationData
+     * objects. If you do not specify a registry, the default registry is assumed.
      *
      * @var string[]|null
      */
