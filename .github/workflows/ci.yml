@@ -140,9 +140,6 @@ jobs:
             cd "$CURRENT_DIR/$COMPONENT"
 
             localExit=0
-            # if [ $PHP_VERSION = '8.1' ]; then
-            #   COMPOSER_OPTIONS=' --ignore-platform-req=php'
-            # fi
             composer update --no-interaction --no-scripts --prefer-dist --optimize-autoloader ${{ matrix.strategy == 'lowest' && '--prefer-lowest' || '' }} $COMPOSER_OPTIONS || localExit=1
             echo ::endgroup::
             if [ $localExit -ne 0 ]; then
