@@ -9,7 +9,7 @@
 ### Added
 
 - AWS api-change: Added `ap-northeast-3` region
-- AWS enhancement: This release updates terminology around KMS keys.
+- AWS enhancement: Documentation updates
 
 ## 0.1.2
 
