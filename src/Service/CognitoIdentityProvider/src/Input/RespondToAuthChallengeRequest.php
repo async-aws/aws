@@ -30,7 +30,7 @@ final class RespondToAuthChallengeRequest extends Input
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
      * @required
      *
-     * @var null|ChallengeNameType::*
+     * @var ChallengeNameType::*|null
      */
     private $challengeName;
 

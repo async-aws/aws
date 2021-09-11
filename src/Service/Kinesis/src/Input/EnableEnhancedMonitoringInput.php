@@ -27,7 +27,7 @@ final class EnableEnhancedMonitoringInput extends Input
      *
      * @required
      *
-     * @var null|list<MetricsName::*>
+     * @var list<MetricsName::*>|null
      */
     private $shardLevelMetrics;
 

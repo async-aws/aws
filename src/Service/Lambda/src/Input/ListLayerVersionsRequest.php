@@ -13,7 +13,7 @@ final class ListLayerVersionsRequest extends Input
     /**
      * A runtime identifier. For example, `go1.x`.
      *
-     * @var null|Runtime::*
+     * @var Runtime::*|null
      */
     private $compatibleRuntime;
 

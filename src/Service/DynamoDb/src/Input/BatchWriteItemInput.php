@@ -26,7 +26,7 @@ final class BatchWriteItemInput extends Input
     private $requestItems;
 
     /**
-     * @var null|ReturnConsumedCapacity::*
+     * @var ReturnConsumedCapacity::*|null
      */
     private $returnConsumedCapacity;
 
@@ -35,7 +35,7 @@ final class BatchWriteItemInput extends Input
      * item collections, if any, that were modified during the operation are returned in the response. If set to `NONE` (the
      * default), no statistics are returned.
      *
-     * @var null|ReturnItemCollectionMetrics::*
+     * @var ReturnItemCollectionMetrics::*|null
      */
     private $returnItemCollectionMetrics;
 

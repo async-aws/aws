@@ -41,7 +41,7 @@ final class PublishLayerVersionRequest extends Input
      *
      * @see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
      *
-     * @var null|list<Runtime::*>
+     * @var list<Runtime::*>|null
      */
     private $compatibleRuntimes;
 

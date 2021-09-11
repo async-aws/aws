@@ -51,7 +51,7 @@ final class ContainerProvider implements CredentialProvider
             $this->logger->info('Failed to decode Credentials.', ['exception' => $e]);
 
             return null;
-        } catch (TransportExceptionInterface | HttpExceptionInterface $e) {
+        } catch (TransportExceptionInterface|HttpExceptionInterface $e) {
             $this->logger->info('Failed to fetch Profile from Instance Metadata.', ['exception' => $e]);
 
             return null;

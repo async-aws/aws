@@ -38,7 +38,7 @@ final class AdminInitiateAuthRequest extends Input
      *
      * @required
      *
-     * @var null|AuthFlowType::*
+     * @var AuthFlowType::*|null
      */
     private $authFlow;
 

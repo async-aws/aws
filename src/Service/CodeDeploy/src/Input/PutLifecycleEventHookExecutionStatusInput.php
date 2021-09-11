@@ -29,7 +29,7 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
      * The result of a Lambda function that validates a deployment lifecycle event. `Succeeded` and `Failed` are the only
      * valid values for `status`.
      *
-     * @var null|LifecycleEventStatus::*
+     * @var LifecycleEventStatus::*|null
      */
     private $status;
 

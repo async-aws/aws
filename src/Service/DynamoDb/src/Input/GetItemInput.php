@@ -51,7 +51,7 @@ final class GetItemInput extends Input
     private $consistentRead;
 
     /**
-     * @var null|ReturnConsumedCapacity::*
+     * @var ReturnConsumedCapacity::*|null
      */
     private $returnConsumedCapacity;
 

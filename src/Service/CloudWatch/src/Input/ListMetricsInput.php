@@ -43,7 +43,7 @@ final class ListMetricsInput extends Input
      * To filter the results to show only metrics that have had data points published in the past three hours, specify this
      * parameter with a value of `PT3H`. This is the only valid value for this parameter.
      *
-     * @var null|RecentlyActive::*
+     * @var RecentlyActive::*|null
      */
     private $recentlyActive;
 

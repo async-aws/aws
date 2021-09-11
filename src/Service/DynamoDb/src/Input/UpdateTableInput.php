@@ -42,7 +42,7 @@ final class UpdateTableInput extends Input
      * capacity values are estimated based on the consumed read and write capacity of your table and global secondary
      * indexes over the past 30 minutes.
      *
-     * @var null|BillingMode::*
+     * @var BillingMode::*|null
      */
     private $billingMode;
 

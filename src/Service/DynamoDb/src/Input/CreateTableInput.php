@@ -72,7 +72,7 @@ final class CreateTableInput extends Input
      * Controls how you are charged for read and write throughput and how you manage capacity. This setting can be changed
      * later.
      *
-     * @var null|BillingMode::*
+     * @var BillingMode::*|null
      */
     private $billingMode;
 
