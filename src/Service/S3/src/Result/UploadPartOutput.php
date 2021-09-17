@@ -33,7 +33,7 @@ class UploadPartOutput extends Result
 
     /**
      * If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric
-     * customer managed customer master key (CMK) was used for the object.
+     * customer managed key was used for the object.
      */
     private $sseKmsKeyId;
 

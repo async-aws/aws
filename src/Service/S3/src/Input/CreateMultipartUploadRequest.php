@@ -170,10 +170,10 @@ final class CreateMultipartUploadRequest extends Input
     private $sseCustomerKeyMd5;
 
     /**
-     * Specifies the ID of the symmetric customer managed Amazon Web Services KMS CMK to use for object encryption. All GET
-     * and PUT requests for an object protected by Amazon Web Services KMS will fail if not made via SSL or using SigV4. For
-     * information about configuring using any of the officially supported Amazon Web Services SDKs and Amazon Web Services
-     * CLI, see Specifying the Signature Version in Request Authentication in the *Amazon S3 User Guide*.
+     * Specifies the ID of the symmetric customer managed key to use for object encryption. All GET and PUT requests for an
+     * object protected by Amazon Web Services KMS will fail if not made via SSL or using SigV4. For information about
+     * configuring using any of the officially supported Amazon Web Services SDKs and Amazon Web Services CLI, see
+     * Specifying the Signature Version in Request Authentication in the *Amazon S3 User Guide*.
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version
      *
