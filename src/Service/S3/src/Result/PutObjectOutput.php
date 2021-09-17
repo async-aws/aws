@@ -24,9 +24,9 @@ class PutObjectOutput extends Result
     private $etag;
 
     /**
-     * If you specified server-side encryption either with an Amazon Web Services KMS customer master key (CMK) or Amazon
-     * S3-managed encryption key in your PUT request, the response includes this header. It confirms the encryption
-     * algorithm that Amazon S3 used to encrypt the object.
+     * If you specified server-side encryption either with an Amazon Web Services KMS key or Amazon S3-managed encryption
+     * key in your PUT request, the response includes this header. It confirms the encryption algorithm that Amazon S3 used
+     * to encrypt the object.
      */
     private $serverSideEncryption;
 
@@ -49,8 +49,8 @@ class PutObjectOutput extends Result
 
     /**
      * If `x-amz-server-side-encryption` is present and has the value of `aws:kms`, this header specifies the ID of the
-     * Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed customer master key
-     * (CMK) that was used for the object.
+     * Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key that was used for
+     * the object.
      */
     private $sseKmsKeyId;
 

@@ -49,7 +49,7 @@ class CopyObjectOutput extends Result
 
     /**
      * If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric
-     * customer managed customer master key (CMK) that was used for the object.
+     * customer managed key that was used for the object.
      */
     private $sseKmsKeyId;
 
