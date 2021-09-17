@@ -5,7 +5,6 @@
 ### Added
 
 - AWS enhancement: Documentation updates for Amazon S3
-- AWS api-change: Add support for access point arn filtering in S3 CW Request Metrics
 
 ## 1.9.1
 
