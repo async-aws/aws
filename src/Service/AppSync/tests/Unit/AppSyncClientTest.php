@@ -8,6 +8,7 @@ use AsyncAws\AppSync\Input\GetSchemaCreationStatusRequest;
 use AsyncAws\AppSync\Input\ListApiKeysRequest;
 use AsyncAws\AppSync\Input\ListResolversRequest;
 use AsyncAws\AppSync\Input\StartSchemaCreationRequest;
+use AsyncAws\AppSync\Input\UpdateApiKeyRequest;
 use AsyncAws\AppSync\Input\UpdateDataSourceRequest;
 use AsyncAws\AppSync\Input\UpdateFunctionRequest;
 use AsyncAws\AppSync\Input\UpdateResolverRequest;
@@ -17,6 +18,7 @@ use AsyncAws\AppSync\Result\GetSchemaCreationStatusResponse;
 use AsyncAws\AppSync\Result\ListApiKeysResponse;
 use AsyncAws\AppSync\Result\ListResolversResponse;
 use AsyncAws\AppSync\Result\StartSchemaCreationResponse;
+use AsyncAws\AppSync\Result\UpdateApiKeyResponse;
 use AsyncAws\AppSync\Result\UpdateDataSourceResponse;
 use AsyncAws\AppSync\Result\UpdateFunctionResponse;
 use AsyncAws\AppSync\Result\UpdateResolverResponse;
@@ -110,6 +112,21 @@ class AppSyncClientTest extends TestCase
         $result = $client->startSchemaCreation($input);
 
         self::assertInstanceOf(StartSchemaCreationResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testUpdateApiKey(): void
+    {
+        $client = new AppSyncClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new UpdateApiKeyRequest([
+            'apiId' => 'change me',
+            'id' => 'change me',
+
+        ]);
+        $result = $client->updateApiKey($input);
+
+        self::assertInstanceOf(UpdateApiKeyResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 

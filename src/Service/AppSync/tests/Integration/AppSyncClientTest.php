@@ -9,6 +9,7 @@ use AsyncAws\AppSync\Input\GetSchemaCreationStatusRequest;
 use AsyncAws\AppSync\Input\ListApiKeysRequest;
 use AsyncAws\AppSync\Input\ListResolversRequest;
 use AsyncAws\AppSync\Input\StartSchemaCreationRequest;
+use AsyncAws\AppSync\Input\UpdateApiKeyRequest;
 use AsyncAws\AppSync\Input\UpdateDataSourceRequest;
 use AsyncAws\AppSync\Input\UpdateFunctionRequest;
 use AsyncAws\AppSync\Input\UpdateResolverRequest;
@@ -141,6 +142,23 @@ class AppSyncClientTest extends TestCase
         $result->resolve();
 
         self::assertSame('changeIt', $result->getstatus());
+    }
+
+    public function testUpdateApiKey(): void
+    {
+        $client = $this->getClient();
+
+        $input = new UpdateApiKeyRequest([
+            'apiId' => 'change me',
+            'id' => 'change me',
+            'description' => 'change me',
+            'expires' => 1337,
+        ]);
+        $result = $client->updateApiKey($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getapiKey());
     }
 
     public function testUpdateDataSource(): void

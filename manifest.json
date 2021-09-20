@@ -19,6 +19,7 @@
                 "ListApiKeys",
                 "ListResolvers",
                 "StartSchemaCreation",
+                "UpdateApiKey",
                 "UpdateDataSource",
                 "UpdateFunction",
                 "UpdateResolver"

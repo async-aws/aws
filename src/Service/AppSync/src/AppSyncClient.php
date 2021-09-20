@@ -4,9 +4,11 @@ namespace AsyncAws\AppSync;
 
 use AsyncAws\AppSync\Enum\DataSourceType;
 use AsyncAws\AppSync\Enum\ResolverKind;
+use AsyncAws\AppSync\Exception\ApiKeyValidityOutOfBoundsException;
 use AsyncAws\AppSync\Exception\BadRequestException;
 use AsyncAws\AppSync\Exception\ConcurrentModificationException;
 use AsyncAws\AppSync\Exception\InternalFailureException;
+use AsyncAws\AppSync\Exception\LimitExceededException;
 use AsyncAws\AppSync\Exception\NotFoundException;
 use AsyncAws\AppSync\Exception\UnauthorizedException;
 use AsyncAws\AppSync\Input\CreateResolverRequest;
@@ -15,6 +17,7 @@ use AsyncAws\AppSync\Input\GetSchemaCreationStatusRequest;
 use AsyncAws\AppSync\Input\ListApiKeysRequest;
 use AsyncAws\AppSync\Input\ListResolversRequest;
 use AsyncAws\AppSync\Input\StartSchemaCreationRequest;
+use AsyncAws\AppSync\Input\UpdateApiKeyRequest;
 use AsyncAws\AppSync\Input\UpdateDataSourceRequest;
 use AsyncAws\AppSync\Input\UpdateFunctionRequest;
 use AsyncAws\AppSync\Input\UpdateResolverRequest;
@@ -24,6 +27,7 @@ use AsyncAws\AppSync\Result\GetSchemaCreationStatusResponse;
 use AsyncAws\AppSync\Result\ListApiKeysResponse;
 use AsyncAws\AppSync\Result\ListResolversResponse;
 use AsyncAws\AppSync\Result\StartSchemaCreationResponse;
+use AsyncAws\AppSync\Result\UpdateApiKeyResponse;
 use AsyncAws\AppSync\Result\UpdateDataSourceResponse;
 use AsyncAws\AppSync\Result\UpdateFunctionResponse;
 use AsyncAws\AppSync\Result\UpdateResolverResponse;
@@ -234,6 +238,42 @@ class AppSyncClient extends AbstractApi
         ]]));
 
         return new StartSchemaCreationResponse($response);
+    }
+
+    /**
+     * Updates an API key. The key can be updated while it is not deleted.
+     *
+     * @see https://docs.aws.amazon.com/appsync/latest/APIReference/API_UpdateApiKey.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-appsync-2017-07-25.html#updateapikey
+     *
+     * @param array{
+     *   apiId: string,
+     *   id: string,
+     *   description?: string,
+     *   expires?: string,
+     *   @region?: string,
+     * }|UpdateApiKeyRequest $input
+     *
+     * @throws BadRequestException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     * @throws LimitExceededException
+     * @throws InternalFailureException
+     * @throws ApiKeyValidityOutOfBoundsException
+     */
+    public function updateApiKey($input): UpdateApiKeyResponse
+    {
+        $input = UpdateApiKeyRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateApiKey', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'BadRequestException' => BadRequestException::class,
+            'NotFoundException' => NotFoundException::class,
+            'UnauthorizedException' => UnauthorizedException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'InternalFailureException' => InternalFailureException::class,
+            'ApiKeyValidityOutOfBoundsException' => ApiKeyValidityOutOfBoundsException::class,
+        ]]));
+
+        return new UpdateApiKeyResponse($response);
     }
 
     /**
