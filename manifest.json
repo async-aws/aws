@@ -13,7 +13,15 @@
             "methods": [
                 "CreateApiCache",
                 "CreateDataSource",
-                "StartSchemaCreation"
+                "CreateResolver",
+                "DeleteResolver",
+                "GetSchemaCreationStatus",
+                "ListApiKeys",
+                "ListResolvers",
+                "StartSchemaCreation",
+                "UpdateDataSource",
+                "UpdateFunction",
+                "UpdateResolver"
             ]
         },
         "CloudFormation": {
