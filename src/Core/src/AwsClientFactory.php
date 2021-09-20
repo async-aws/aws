@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AsyncAws\Core;
 
+use AsyncAws\AppSync\AppSyncClient;
 use AsyncAws\CloudFormation\CloudFormationClient;
 use AsyncAws\CloudFront\CloudFrontClient;
 use AsyncAws\CloudWatch\CloudWatchClient;
@@ -404,6 +405,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new CognitoIdentityProviderClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function appSync(): AppSyncClient
+    {
+        if (!class_exists(AppSyncClient::class)) {
+            throw MissingDependency::create('async-aws/app-sync', 'AppSync');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new AppSyncClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];

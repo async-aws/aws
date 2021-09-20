@@ -45,6 +45,7 @@
     },
     "autoload": {
         "psr-4": {
+            "AsyncAws\\AppSync\\": "src/Service/AppSync/src",
             "AsyncAws\\CloudFormation\\": "src/Service/CloudFormation/src",
             "AsyncAws\\CloudFront\\": "src/Service/CloudFront/src",
             "AsyncAws\\CloudWatch\\": "src/Service/CloudWatch/src",
@@ -85,6 +86,7 @@
     "autoload-dev": {
         "psr-4": {
             "AsyncAws\\Test\\": "tests",
+            "AsyncAws\\AppSync\\Tests\\": "src/Service/AppSync/tests",
             "AsyncAws\\CloudFormation\\Tests\\": "src/Service/CloudFormation/tests",
             "AsyncAws\\CloudFront\\Tests\\": "src/Service/CloudFront/tests",
             "AsyncAws\\CloudWatch\\Tests\\": "src/Service/CloudWatch/tests",
