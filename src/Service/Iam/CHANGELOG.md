@@ -6,6 +6,7 @@
 
 - AWS api-change: Improve comments.
 - AWS enhancement: Documentation updates for AWS Identity and Access Management (IAM).
+- AWS enhancement: Added changes to OIDC API about not using port numbers in the URL.
 
 ## 1.1.0
 

@@ -89,7 +89,7 @@ class IamClient extends AbstractApi
     }
 
     /**
-     * Creates a new IAM user for your account.
+     * Creates a new IAM user for your Amazon Web Services account.
      *
      * @see https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateUser.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#createuser
@@ -153,9 +153,9 @@ class IamClient extends AbstractApi
     }
 
     /**
-     * Deletes the specified IAM user. Unlike the Management Console, when you delete a user programmatically, you must
-     * delete the items attached to the user manually, or the deletion fails. For more information, see Deleting an IAM
-     * user. Before attempting to delete a user, remove the following items:.
+     * Deletes the specified IAM user. Unlike the Amazon Web Services Management Console, when you delete a user
+     * programmatically, you must delete the items attached to the user manually, or the deletion fails. For more
+     * information, see Deleting an IAM user. Before attempting to delete a user, remove the following items:.
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_manage.html#id_users_deleting_cli
      * @see https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteUser.html
@@ -213,7 +213,7 @@ class IamClient extends AbstractApi
 
     /**
      * Lists the IAM users that have the specified path prefix. If no path prefix is specified, the operation returns all
-     * users in the account. If there are none, the operation returns an empty list.
+     * users in the Amazon Web Services account. If there are none, the operation returns an empty list.
      *
      * @see https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListUsers.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iam-2010-05-08.html#listusers
