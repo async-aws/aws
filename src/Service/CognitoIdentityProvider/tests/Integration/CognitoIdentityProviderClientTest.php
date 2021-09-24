@@ -14,6 +14,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ConfirmForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ForgotPasswordRequest;
+use AsyncAws\CognitoIdentityProvider\Input\GetUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\InitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ListUsersRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ResendConfirmationCodeRequest;
@@ -244,6 +245,24 @@ class CognitoIdentityProviderClientTest extends TestCase
         $result->resolve();
 
         // self::assertTODO(expected, $result->getCodeDeliveryDetails());
+    }
+
+    public function testGetUser(): void
+    {
+        $client = $this->getClient();
+
+        $input = new GetUserRequest([
+            'AccessToken' => 'change me',
+        ]);
+        $result = $client->getUser($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getUsername());
+        // self::assertTODO(expected, $result->getUserAttributes());
+        // self::assertTODO(expected, $result->getMFAOptions());
+        self::assertSame('changeIt', $result->getPreferredMfaSetting());
+        // self::assertTODO(expected, $result->getUserMFASettingList());
     }
 
     public function testInitiateAuth(): void

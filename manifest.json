@@ -82,6 +82,7 @@
                 "ChangePassword",
                 "ConfirmForgotPassword",
                 "ForgotPassword",
+                "GetUser",
                 "InitiateAuth",
                 "ListUsers",
                 "ResendConfirmationCode",
