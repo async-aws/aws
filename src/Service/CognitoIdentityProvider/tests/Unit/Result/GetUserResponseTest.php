@@ -2,7 +2,6 @@
 
 namespace AsyncAws\CognitoIdentityProvider\Tests\Unit\Result;
 
-use AsyncAws\CognitoIdentityProvider\Enum\UserStatusType;
 use AsyncAws\CognitoIdentityProvider\Result\GetUserResponse;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
