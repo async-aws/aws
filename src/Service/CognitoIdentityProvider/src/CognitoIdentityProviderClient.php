@@ -46,6 +46,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ConfirmForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ForgotPasswordRequest;
+use AsyncAws\CognitoIdentityProvider\Input\GetUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\InitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ListUsersRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ResendConfirmationCodeRequest;
@@ -63,6 +64,7 @@ use AsyncAws\CognitoIdentityProvider\Result\AssociateSoftwareTokenResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ChangePasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ConfirmForgotPasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ForgotPasswordResponse;
+use AsyncAws\CognitoIdentityProvider\Result\GetUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\InitiateAuthResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ListUsersResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ResendConfirmationCodeResponse;
@@ -601,6 +603,43 @@ class CognitoIdentityProviderClient extends AbstractApi
         ]]));
 
         return new ForgotPasswordResponse($response);
+    }
+
+    /**
+     * Gets the user attributes and metadata for a user.
+     *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_GetUser.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#getuser
+     *
+     * @param array{
+     *   AccessToken: string,
+     *   @region?: string,
+     * }|GetUserRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
+     * @throws NotAuthorizedException
+     * @throws TooManyRequestsException
+     * @throws PasswordResetRequiredException
+     * @throws UserNotFoundException
+     * @throws UserNotConfirmedException
+     * @throws InternalErrorException
+     */
+    public function getUser($input): GetUserResponse
+    {
+        $input = GetUserRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetUser', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'PasswordResetRequiredException' => PasswordResetRequiredException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'UserNotConfirmedException' => UserNotConfirmedException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
+
+        return new GetUserResponse($response);
     }
 
     /**

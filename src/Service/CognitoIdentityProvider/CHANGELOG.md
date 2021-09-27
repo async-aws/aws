@@ -6,6 +6,7 @@
 
 - AWS api-change: TODO
 - AWS enhancement: Documentation updates for cognito-idp
+- Added operation `getUser`
 
 ### Fixed
 
