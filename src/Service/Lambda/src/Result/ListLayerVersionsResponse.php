@@ -5,6 +5,7 @@ namespace AsyncAws\Lambda\Result;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Lambda\Enum\Architecture;
 use AsyncAws\Lambda\Enum\Runtime;
 use AsyncAws\Lambda\Input\ListLayerVersionsRequest;
 use AsyncAws\Lambda\LambdaClient;
@@ -95,6 +96,22 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
     }
 
     /**
+     * @return list<Architecture::*>
+     */
+    private function populateResultCompatibleArchitectures(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
+    }
+
+    /**
      * @return list<Runtime::*>
      */
     private function populateResultCompatibleRuntimes(array $json): array
@@ -124,6 +141,7 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
                 'CreatedDate' => isset($item['CreatedDate']) ? (string) $item['CreatedDate'] : null,
                 'CompatibleRuntimes' => !isset($item['CompatibleRuntimes']) ? null : $this->populateResultCompatibleRuntimes($item['CompatibleRuntimes']),
                 'LicenseInfo' => isset($item['LicenseInfo']) ? (string) $item['LicenseInfo'] : null,
+                'CompatibleArchitectures' => !isset($item['CompatibleArchitectures']) ? null : $this->populateResultCompatibleArchitectures($item['CompatibleArchitectures']),
             ]);
         }
 

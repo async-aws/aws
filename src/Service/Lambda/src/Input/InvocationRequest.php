@@ -28,7 +28,7 @@ final class InvocationRequest extends Input
     private $invocationType;
 
     /**
-     * Set to `Tail` to include the execution log in the response.
+     * Set to `Tail` to include the execution log in the response. Applies to synchronously invoked functions only.
      *
      * @var LogType::*|null
      */

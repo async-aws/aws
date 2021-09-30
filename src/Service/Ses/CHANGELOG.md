@@ -6,6 +6,10 @@
 
 - Assert the provided Input can be json-encoded.
 
+### Added
+
+- AWS api-change: This release includes the ability to use 2048 bits RSA key pairs for DKIM in SES, either with Easy DKIM or Bring Your Own DKIM.
+
 ## 1.4.0
 
 ### Added

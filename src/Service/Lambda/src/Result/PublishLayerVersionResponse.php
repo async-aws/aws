@@ -4,6 +4,7 @@ namespace AsyncAws\Lambda\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Lambda\Enum\Architecture;
 use AsyncAws\Lambda\Enum\Runtime;
 use AsyncAws\Lambda\ValueObject\LayerVersionContentOutput;
 
@@ -50,6 +51,23 @@ class PublishLayerVersionResponse extends Result
      * The layer's software license.
      */
     private $licenseInfo;
+
+    /**
+     * A list of compatible instruction set architectures.
+     *
+     * @see https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
+     */
+    private $compatibleArchitectures;
+
+    /**
+     * @return list<Architecture::*>
+     */
+    public function getCompatibleArchitectures(): array
+    {
+        $this->initialize();
+
+        return $this->compatibleArchitectures;
+    }
 
     /**
      * @return list<Runtime::*>
@@ -128,6 +146,23 @@ class PublishLayerVersionResponse extends Result
         $this->version = isset($data['Version']) ? (string) $data['Version'] : null;
         $this->compatibleRuntimes = empty($data['CompatibleRuntimes']) ? [] : $this->populateResultCompatibleRuntimes($data['CompatibleRuntimes']);
         $this->licenseInfo = isset($data['LicenseInfo']) ? (string) $data['LicenseInfo'] : null;
+        $this->compatibleArchitectures = empty($data['CompatibleArchitectures']) ? [] : $this->populateResultCompatibleArchitectures($data['CompatibleArchitectures']);
+    }
+
+    /**
+     * @return list<Architecture::*>
+     */
+    private function populateResultCompatibleArchitectures(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
     }
 
     /**

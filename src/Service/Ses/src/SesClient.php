@@ -25,7 +25,7 @@ use AsyncAws\Ses\ValueObject\MessageTag;
 class SesClient extends AbstractApi
 {
     /**
-     * Sends an email message. You can use the Amazon SES API v2 to send two types of messages:.
+     * Sends an email message. You can use the Amazon SES API v2 to send the following types of messages:.
      *
      * @see https://docs.aws.amazon.com/ses/latest/APIReference/API_SendEmail.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-email-2019-09-27.html#sendemail

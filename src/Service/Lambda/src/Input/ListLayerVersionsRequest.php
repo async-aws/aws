@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Lambda\Enum\Architecture;
 use AsyncAws\Lambda\Enum\Runtime;
 
 final class ListLayerVersionsRequest extends Input
@@ -41,11 +42,21 @@ final class ListLayerVersionsRequest extends Input
     private $maxItems;
 
     /**
+     * The compatible instruction set architecture.
+     *
+     * @see https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
+     *
+     * @var Architecture::*|null
+     */
+    private $compatibleArchitecture;
+
+    /**
      * @param array{
      *   CompatibleRuntime?: Runtime::*,
      *   LayerName?: string,
      *   Marker?: string,
      *   MaxItems?: int,
+     *   CompatibleArchitecture?: Architecture::*,
      *   @region?: string,
      * } $input
      */
@@ -55,12 +66,21 @@ final class ListLayerVersionsRequest extends Input
         $this->layerName = $input['LayerName'] ?? null;
         $this->marker = $input['Marker'] ?? null;
         $this->maxItems = $input['MaxItems'] ?? null;
+        $this->compatibleArchitecture = $input['CompatibleArchitecture'] ?? null;
         parent::__construct($input);
     }
 
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    /**
+     * @return Architecture::*|null
+     */
+    public function getCompatibleArchitecture(): ?string
+    {
+        return $this->compatibleArchitecture;
     }
 
     /**
@@ -108,6 +128,12 @@ final class ListLayerVersionsRequest extends Input
         if (null !== $this->maxItems) {
             $query['MaxItems'] = (string) $this->maxItems;
         }
+        if (null !== $this->compatibleArchitecture) {
+            if (!Architecture::exists($this->compatibleArchitecture)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "CompatibleArchitecture" for "%s". The value "%s" is not a valid "Architecture".', __CLASS__, $this->compatibleArchitecture));
+            }
+            $query['CompatibleArchitecture'] = $this->compatibleArchitecture;
+        }
 
         // Prepare URI
         $uri = [];
@@ -122,6 +148,16 @@ final class ListLayerVersionsRequest extends Input
 
         // Return the Request
         return new Request('GET', $uriString, $query, $headers, StreamFactory::create($body));
+    }
+
+    /**
+     * @param Architecture::*|null $value
+     */
+    public function setCompatibleArchitecture(?string $value): self
+    {
+        $this->compatibleArchitecture = $value;
+
+        return $this;
     }
 
     /**

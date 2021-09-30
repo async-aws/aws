@@ -8,6 +8,7 @@ use AsyncAws\Core\AwsError\JsonRestAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
+use AsyncAws\Lambda\Enum\Architecture;
 use AsyncAws\Lambda\Enum\FunctionVersion;
 use AsyncAws\Lambda\Enum\InvocationType;
 use AsyncAws\Lambda\Enum\LogType;
@@ -247,7 +248,8 @@ class LambdaClient extends AbstractApi
 
     /**
      * Lists the versions of an Lambda layer. Versions that have been deleted aren't listed. Specify a runtime identifier to
-     * list only versions that indicate that they're compatible with that runtime.
+     * list only versions that indicate that they're compatible with that runtime. Specify a compatible architecture to
+     * include only layer versions that are compatible with that architecture.
      *
      * @see https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
      * @see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
@@ -259,6 +261,7 @@ class LambdaClient extends AbstractApi
      *   LayerName: string,
      *   Marker?: string,
      *   MaxItems?: int,
+     *   CompatibleArchitecture?: Architecture::*,
      *   @region?: string,
      * }|ListLayerVersionsRequest $input
      *
@@ -327,6 +330,7 @@ class LambdaClient extends AbstractApi
      *   Content: LayerVersionContentInput|array,
      *   CompatibleRuntimes?: list<Runtime::*>,
      *   LicenseInfo?: string,
+     *   CompatibleArchitectures?: list<Architecture::*>,
      *   @region?: string,
      * }|PublishLayerVersionRequest $input
      *
