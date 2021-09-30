@@ -183,19 +183,39 @@
       <code>list&lt;MetricsName::*&gt;</code>
     </MoreSpecificReturnType>
   </file>
-  <file src="src/Service/Lambda/src/Result/ListLayerVersionsResponse.php">
+  <file src="src/Service/Lambda/src/Result/ListFunctionsResponse.php">
     <LessSpecificReturnStatement occurrences="1">
       <code>$items</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType occurrences="1">
+      <code>list&lt;Architecture::*&gt;</code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="src/Service/Lambda/src/Result/ListLayerVersionsResponse.php">
+    <LessSpecificReturnStatement occurrences="2">
+      <code>$items</code>
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="2">
+      <code>list&lt;Architecture::*&gt;</code>
       <code>list&lt;Runtime::*&gt;</code>
     </MoreSpecificReturnType>
   </file>
-  <file src="src/Service/Lambda/src/Result/PublishLayerVersionResponse.php">
+  <file src="src/Service/Lambda/src/Result/ListVersionsByFunctionResponse.php">
     <LessSpecificReturnStatement occurrences="1">
       <code>$items</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType occurrences="1">
+      <code>list&lt;Architecture::*&gt;</code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="src/Service/Lambda/src/Result/PublishLayerVersionResponse.php">
+    <LessSpecificReturnStatement occurrences="2">
+      <code>$items</code>
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="2">
+      <code>list&lt;Architecture::*&gt;</code>
       <code>list&lt;Runtime::*&gt;</code>
     </MoreSpecificReturnType>
   </file>
