@@ -94,6 +94,8 @@ class EnumGenerator
             'EC_2' => 'EC2',
             'CLOUD_9' => 'CLOUD9',
             'ROUTE_53' => 'ROUTE53',
+            'ARM_64' => 'ARM64',
+            'X_86_64' => 'X86_64',
         ];
         foreach ($replacements as $old => $new) {
             $name = preg_replace('/(^|_)' . $old . '(_|$)/', '\\1' . $new . '\\2', $name);

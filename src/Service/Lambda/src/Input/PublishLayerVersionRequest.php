@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Lambda\Enum\Architecture;
 use AsyncAws\Lambda\Enum\Runtime;
 use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
 
@@ -53,12 +54,22 @@ final class PublishLayerVersionRequest extends Input
     private $licenseInfo;
 
     /**
+     * A list of compatible instruction set architectures.
+     *
+     * @see https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
+     *
+     * @var list<Architecture::*>|null
+     */
+    private $compatibleArchitectures;
+
+    /**
      * @param array{
      *   LayerName?: string,
      *   Description?: string,
      *   Content?: LayerVersionContentInput|array,
      *   CompatibleRuntimes?: list<Runtime::*>,
      *   LicenseInfo?: string,
+     *   CompatibleArchitectures?: list<Architecture::*>,
      *   @region?: string,
      * } $input
      */
@@ -69,12 +80,21 @@ final class PublishLayerVersionRequest extends Input
         $this->content = isset($input['Content']) ? LayerVersionContentInput::create($input['Content']) : null;
         $this->compatibleRuntimes = $input['CompatibleRuntimes'] ?? null;
         $this->licenseInfo = $input['LicenseInfo'] ?? null;
+        $this->compatibleArchitectures = $input['CompatibleArchitectures'] ?? null;
         parent::__construct($input);
     }
 
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    /**
+     * @return list<Architecture::*>
+     */
+    public function getCompatibleArchitectures(): array
+    {
+        return $this->compatibleArchitectures ?? [];
     }
 
     /**
@@ -130,6 +150,16 @@ final class PublishLayerVersionRequest extends Input
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
+    }
+
+    /**
+     * @param list<Architecture::*> $value
+     */
+    public function setCompatibleArchitectures(array $value): self
+    {
+        $this->compatibleArchitectures = $value;
+
+        return $this;
     }
 
     /**
@@ -194,6 +224,17 @@ final class PublishLayerVersionRequest extends Input
         }
         if (null !== $v = $this->licenseInfo) {
             $payload['LicenseInfo'] = $v;
+        }
+        if (null !== $v = $this->compatibleArchitectures) {
+            $index = -1;
+            $payload['CompatibleArchitectures'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                if (!Architecture::exists($listValue)) {
+                    throw new InvalidArgument(sprintf('Invalid parameter "CompatibleArchitectures" for "%s". The value "%s" is not a valid "Architecture".', __CLASS__, $listValue));
+                }
+                $payload['CompatibleArchitectures'][$index] = $listValue;
+            }
         }
 
         return $payload;

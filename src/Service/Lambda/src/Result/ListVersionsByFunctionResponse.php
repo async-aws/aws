@@ -5,6 +5,7 @@ namespace AsyncAws\Lambda\Result;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Lambda\Enum\Architecture;
 use AsyncAws\Lambda\Input\ListVersionsByFunctionRequest;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\Lambda\ValueObject\DeadLetterConfig;
@@ -104,6 +105,22 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
     }
 
     /**
+     * @return list<Architecture::*>
+     */
+    private function populateResultArchitecturesList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
+    }
+
+    /**
      * @return array<string, string>
      */
     private function populateResultEnvironmentVariables(array $json): array
@@ -195,6 +212,7 @@ class ListVersionsByFunctionResponse extends Result implements \IteratorAggregat
                 ]),
                 'SigningProfileVersionArn' => isset($item['SigningProfileVersionArn']) ? (string) $item['SigningProfileVersionArn'] : null,
                 'SigningJobArn' => isset($item['SigningJobArn']) ? (string) $item['SigningJobArn'] : null,
+                'Architectures' => !isset($item['Architectures']) ? null : $this->populateResultArchitecturesList($item['Architectures']),
             ]);
         }
 

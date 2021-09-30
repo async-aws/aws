@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * An error occured when reading from or writing to a connected file system.
+ * An error occurred when reading from or writing to a connected file system.
  */
 final class EFSIOException extends ClientException
 {

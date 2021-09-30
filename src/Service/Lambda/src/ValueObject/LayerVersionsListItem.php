@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Lambda\ValueObject;
 
+use AsyncAws\Lambda\Enum\Architecture;
 use AsyncAws\Lambda\Enum\Runtime;
 
 /**
@@ -42,6 +43,13 @@ final class LayerVersionsListItem
     private $licenseInfo;
 
     /**
+     * A list of compatible instruction set architectures.
+     *
+     * @see https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
+     */
+    private $compatibleArchitectures;
+
+    /**
      * @param array{
      *   LayerVersionArn?: null|string,
      *   Version?: null|string,
@@ -49,6 +57,7 @@ final class LayerVersionsListItem
      *   CreatedDate?: null|string,
      *   CompatibleRuntimes?: null|list<Runtime::*>,
      *   LicenseInfo?: null|string,
+     *   CompatibleArchitectures?: null|list<Architecture::*>,
      * } $input
      */
     public function __construct(array $input)
@@ -59,11 +68,20 @@ final class LayerVersionsListItem
         $this->createdDate = $input['CreatedDate'] ?? null;
         $this->compatibleRuntimes = $input['CompatibleRuntimes'] ?? null;
         $this->licenseInfo = $input['LicenseInfo'] ?? null;
+        $this->compatibleArchitectures = $input['CompatibleArchitectures'] ?? null;
     }
 
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    /**
+     * @return list<Architecture::*>
+     */
+    public function getCompatibleArchitectures(): array
+    {
+        return $this->compatibleArchitectures ?? [];
     }
 
     /**

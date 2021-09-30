@@ -13,6 +13,7 @@
 ### Added
 
 - AWS api-change: Lambda Python 3.9 runtime launch
+- AWS api-change: Adds support for Lambda functions powered by AWS Graviton2 processors. Customers can now select the CPU architecture for their functions.
 
 ## 1.4.0
 

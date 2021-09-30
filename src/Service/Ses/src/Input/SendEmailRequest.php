@@ -24,8 +24,7 @@ use AsyncAws\Ses\ValueObject\Template;
 final class SendEmailRequest extends Input
 {
     /**
-     * The email address that you want to use as the "From" address for the email. The address that you specify has to be
-     * verified.
+     * The email address to use as the "From" address for the email. The address that you specify has to be verified.
      *
      * @var string|null
      */
@@ -89,7 +88,7 @@ final class SendEmailRequest extends Input
     private $emailTags;
 
     /**
-     * The name of the configuration set that you want to use when sending the email.
+     * The name of the configuration set to use when sending the email.
      *
      * @var string|null
      */

@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Lambda\ValueObject;
 
+use AsyncAws\Lambda\Enum\Architecture;
 use AsyncAws\Lambda\Enum\LastUpdateStatus;
 use AsyncAws\Lambda\Enum\LastUpdateStatusReasonCode;
 use AsyncAws\Lambda\Enum\PackageType;
@@ -181,6 +182,12 @@ final class FunctionConfiguration
     private $signingJobArn;
 
     /**
+     * The instruction set architecture that the function supports. Architecture is a string array with one of the valid
+     * values. The default architecture value is `x86_64`.
+     */
+    private $architectures;
+
+    /**
      * @param array{
      *   FunctionName?: null|string,
      *   FunctionArn?: null|string,
@@ -213,6 +220,7 @@ final class FunctionConfiguration
      *   ImageConfigResponse?: null|ImageConfigResponse|array,
      *   SigningProfileVersionArn?: null|string,
      *   SigningJobArn?: null|string,
+     *   Architectures?: null|list<Architecture::*>,
      * } $input
      */
     public function __construct(array $input)
@@ -248,11 +256,20 @@ final class FunctionConfiguration
         $this->imageConfigResponse = isset($input['ImageConfigResponse']) ? ImageConfigResponse::create($input['ImageConfigResponse']) : null;
         $this->signingProfileVersionArn = $input['SigningProfileVersionArn'] ?? null;
         $this->signingJobArn = $input['SigningJobArn'] ?? null;
+        $this->architectures = $input['Architectures'] ?? null;
     }
 
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    /**
+     * @return list<Architecture::*>
+     */
+    public function getArchitectures(): array
+    {
+        return $this->architectures ?? [];
     }
 
     public function getCodeSha256(): ?string
