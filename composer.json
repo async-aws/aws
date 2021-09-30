@@ -92,7 +92,6 @@
             "AsyncAws\\CodeDeploy\\Tests\\": "src/Service/CodeDeploy/tests",
             "AsyncAws\\CognitoIdentityProvider\\Tests\\": "src/Service/CognitoIdentityProvider/tests",
             "AsyncAws\\DynamoDb\\Tests\\": "src/Service/DynamoDb/tests",
-            "AsyncAws\\CodeGenerator\\Tests\\": "src/CodeGenerator/tests",
             "AsyncAws\\Core\\Tests\\": "src/Core/tests",
             "AsyncAws\\Ecr\\Tests\\": "src/Service/Ecr/tests",
             "AsyncAws\\ElastiCache\\Tests\\": "src/Service/ElastiCache/tests",

@@ -16,7 +16,6 @@
   <testsuites>
     <testsuite name="Test Suite">
       <directory>./tests/</directory>
-      <directory>./src/CodeGenerator/tests/</directory>
       <directory>./src/Core/tests/</directory>
       <directory>./src/Service/*/tests/</directory>
       <directory>./src/Integration/*/tests/</directory>
