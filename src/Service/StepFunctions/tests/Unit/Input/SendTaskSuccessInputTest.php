@@ -22,7 +22,7 @@ class SendTaskSuccessInputTest extends TestCase
 
             {
                 "taskToken": "qwertyuiop",
-                "output": "{"success": ":partyparrot:"}"
+                "output": "{\"success\": \":partyparrot:\"}"
             }
                 ';
 
