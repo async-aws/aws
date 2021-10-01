@@ -281,7 +281,7 @@ class AppSyncClientTest extends TestCase
 
     private function getClient(): AppSyncClient
     {
-        self::fail('Not implemented');
+        self::markTestSkipped('There is no docker image available for AppSync.');
 
         return new AppSyncClient([
             'endpoint' => 'http://localhost',
