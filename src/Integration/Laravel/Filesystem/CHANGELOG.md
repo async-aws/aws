@@ -2,12 +2,6 @@
 
 ## NOT RELEASED
 
-## 0.2.2
-
-### Fixed
-
-- Fix laravel locking to use consistent reads
-
 ## 0.2.1
 
 ### Added

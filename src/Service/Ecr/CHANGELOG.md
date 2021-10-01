@@ -2,7 +2,7 @@
 
 ## NOT RELEASED
 
-## 0.1.3
+## 1.0.0
 
 ### Fixed
 

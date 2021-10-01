@@ -6,7 +6,7 @@
 
 ### Fixed
 
-- Fixed bucket used in `copy` calls
+- Removed `urlencode()` and added bucket to `CopySource` in the `copy()` method. This comply with the Flysystem interface and the AWS adapter.
 
 ## 1.0.0
 
