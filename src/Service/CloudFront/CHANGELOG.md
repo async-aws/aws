@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 0.1.3
+
+### Fixed
+
+- Fixed camelCased of Dom classes
+
 ## 0.1.2
 
 ### Added

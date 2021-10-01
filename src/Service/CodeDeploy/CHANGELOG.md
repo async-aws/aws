@@ -2,12 +2,11 @@
 
 ## NOT RELEASED
 
-### Added
-
-- AWS api-change: Improve documentation
+## 1.2.1
 
 ### Fixed
 
+- AWS api-change: Improve documentation
 - Assert the provided Input can be json-encoded.
 
 ## 1.2.0

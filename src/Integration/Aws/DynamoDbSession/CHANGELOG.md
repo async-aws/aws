@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.0.1
+
+### Updated
+
+- Fix deprecations triggered by php 8.1
+
 ## 1.0.0
 
 ### Updated

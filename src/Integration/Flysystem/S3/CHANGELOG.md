@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.0.1
+
+### Fixed
+
+- Fixed bucket used in `copy` calls
+
 ## 1.0.0
 
 ### Removed

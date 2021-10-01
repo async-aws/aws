@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 0.1.1
+
 ### Added
 
 - Fill the optional `clientRequestToken` property with an UUID when value is omitted.

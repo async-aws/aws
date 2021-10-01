@@ -2,13 +2,14 @@
 
 ## NOT RELEASED
 
-### Fixed
+### 1.2.0
 
 - Assert the provided Input can be json-encoded.
 
 ### Added
 
 - AWS api-change: Update documentation
+- Added operation `createLogGroup`
 
 ## 1.1.0
 

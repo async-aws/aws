@@ -2,7 +2,9 @@
 
 ## NOT RELEASED
 
-### Added
+## 1.2.1
+
+### Fixed
 
 - AWS enhancement: Documentation updates for Amazon SNS.
 
