@@ -20,6 +20,8 @@ class SendTaskFailureOutputTest extends TestCase
             "taskToken": "qwertyuiop"
         }');
 
+        $this->expectNotToPerformAssertions();
+
         $client = new MockHttpClient($response);
         $result = new SendTaskFailureOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
     }

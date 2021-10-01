@@ -18,6 +18,8 @@ class SendTaskHeartbeatOutputTest extends TestCase
             "taskToken": "qwertyuiop"
         }');
 
+        $this->expectNotToPerformAssertions();
+
         $client = new MockHttpClient($response);
         $result = new SendTaskHeartbeatOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
     }
