@@ -449,6 +449,9 @@
             "namespace": "AsyncAws\\StepFunctions",
             "api-reference": "https://docs.aws.amazon.com/step-functions/latest/apireference",
             "methods": [
+                "SendTaskFailure",
+                "SendTaskHeartbeat",
+                "SendTaskSuccess",
                 "StartExecution"
             ]
         }
