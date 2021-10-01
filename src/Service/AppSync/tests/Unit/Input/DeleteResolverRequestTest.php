@@ -9,23 +9,17 @@ class DeleteResolverRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new DeleteResolverRequest([
-            'apiId' => 'change me',
-            'typeName' => 'change me',
-            'fieldName' => 'change me',
+            'apiId' => 'api123',
+            'typeName' => 'type',
+            'fieldName' => 'field',
         ]);
 
         // see https://docs.aws.amazon.com/appsync/latest/APIReference/API_DeleteResolver.html
         $expected = '
-            DELETE / HTTP/1.0
+            DELETE /v1/apis/api123/types/type/resolvers/field HTTP/1.1
             Content-Type: application/json
-
-            {
-            "change": "it"
-        }
-                ';
+        ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

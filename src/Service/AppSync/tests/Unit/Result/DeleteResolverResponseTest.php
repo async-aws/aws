@@ -13,14 +13,12 @@ class DeleteResolverResponseTest extends TestCase
 {
     public function testDeleteResolverResponse(): void
     {
-        self::fail('Not implemented');
-
         // see https://docs.aws.amazon.com/appsync/latest/APIReference/API_DeleteResolver.html
-        $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+        $response = new SimpleMockedResponse();
 
         $client = new MockHttpClient($response);
         $result = new DeleteResolverResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
+
+        self::assertEquals(200, $result->getStatusCode());
     }
 }

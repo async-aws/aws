@@ -2,6 +2,7 @@
 
 namespace AsyncAws\AppSync\Tests\Unit\Result;
 
+use AsyncAws\AppSync\Enum\SchemaStatus;
 use AsyncAws\AppSync\Result\GetSchemaCreationStatusResponse;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
@@ -13,17 +14,16 @@ class GetSchemaCreationStatusResponseTest extends TestCase
 {
     public function testGetSchemaCreationStatusResponse(): void
     {
-        self::fail('Not implemented');
-
         // see https://docs.aws.amazon.com/appsync/latest/APIReference/API_GetSchemaCreationStatus.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
+           "details": "Detailed information",
+           "status": "SUCCESS"
         }');
 
         $client = new MockHttpClient($response);
         $result = new GetSchemaCreationStatusResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertSame('changeIt', $result->getstatus());
-        self::assertSame('changeIt', $result->getdetails());
+        self::assertSame(SchemaStatus::SUCCESS, $result->getstatus());
+        self::assertSame('Detailed information', $result->getdetails());
     }
 }

@@ -2,6 +2,9 @@
 
 namespace AsyncAws\AppSync\Tests\Unit\Input;
 
+use AsyncAws\AppSync\Enum\ConflictDetectionType;
+use AsyncAws\AppSync\Enum\ConflictHandlerType;
+use AsyncAws\AppSync\Enum\ResolverKind;
 use AsyncAws\AppSync\Input\UpdateResolverRequest;
 use AsyncAws\AppSync\ValueObject\CachingConfig;
 use AsyncAws\AppSync\ValueObject\LambdaConflictHandlerConfig;
@@ -13,41 +16,56 @@ class UpdateResolverRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new UpdateResolverRequest([
-            'apiId' => 'change me',
-            'typeName' => 'change me',
-            'fieldName' => 'change me',
-            'dataSourceName' => 'change me',
-            'requestMappingTemplate' => 'change me',
-            'responseMappingTemplate' => 'change me',
-            'kind' => 'change me',
+            'apiId' => 'api123',
+            'typeName' => 'type',
+            'fieldName' => 'field',
+            'dataSourceName' => 'dataSource',
+            'requestMappingTemplate' => 'requestMapping',
+            'responseMappingTemplate' => 'responseMapping',
+            'kind' => ResolverKind::UNIT,
             'pipelineConfig' => new PipelineConfig([
-                'functions' => ['change me'],
+                'functions' => ['pipelineFunction'],
             ]),
             'syncConfig' => new SyncConfig([
-                'conflictHandler' => 'change me',
-                'conflictDetection' => 'change me',
+                'conflictHandler' => ConflictHandlerType::AUTOMERGE,
+                'conflictDetection' => ConflictDetectionType::NONE,
                 'lambdaConflictHandlerConfig' => new LambdaConflictHandlerConfig([
-                    'lambdaConflictHandlerArn' => 'change me',
+                    'lambdaConflictHandlerArn' => 'aws::lambda',
                 ]),
             ]),
             'cachingConfig' => new CachingConfig([
                 'ttl' => 1337,
-                'cachingKeys' => ['change me'],
+                'cachingKeys' => ['cacheKey'],
             ]),
         ]);
 
         // see https://docs.aws.amazon.com/appsync/latest/APIReference/API_UpdateResolver.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/json
+            POST /v1/apis/api123/types/type/resolvers/field HTTP/1.1
+            Content-type: application/json
 
             {
-            "change": "it"
-        }
-                ';
+               "cachingConfig": {
+                  "cachingKeys": [ "cacheKey" ],
+                  "ttl": 1337
+               },
+               "dataSourceName": "dataSource",
+               "kind": "UNIT",
+               "pipelineConfig": {
+                  "functions": [ "pipelineFunction" ]
+               },
+               "requestMappingTemplate": "requestMapping",
+               "responseMappingTemplate": "responseMapping",
+               "syncConfig": {
+                  "conflictDetection": "NONE",
+                  "conflictHandler": "AUTOMERGE",
+                  "lambdaConflictHandlerConfig": {
+                     "lambdaConflictHandlerArn": "aws::lambda"
+                  }
+               }
+            }
+        ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

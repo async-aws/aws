@@ -2,6 +2,8 @@
 
 namespace AsyncAws\AppSync\Tests\Unit;
 
+use AsyncAws\AppSync\AppSyncClient;
+use AsyncAws\AppSync\Enum\DataSourceType;
 use AsyncAws\AppSync\Input\CreateResolverRequest;
 use AsyncAws\AppSync\Input\DeleteResolverRequest;
 use AsyncAws\AppSync\Input\GetSchemaCreationStatusRequest;
@@ -10,7 +12,6 @@ use AsyncAws\AppSync\Input\ListResolversRequest;
 use AsyncAws\AppSync\Input\StartSchemaCreationRequest;
 use AsyncAws\AppSync\Input\UpdateApiKeyRequest;
 use AsyncAws\AppSync\Input\UpdateDataSourceRequest;
-use AsyncAws\AppSync\Input\UpdateFunctionRequest;
 use AsyncAws\AppSync\Input\UpdateResolverRequest;
 use AsyncAws\AppSync\Result\CreateResolverResponse;
 use AsyncAws\AppSync\Result\DeleteResolverResponse;
@@ -20,7 +21,6 @@ use AsyncAws\AppSync\Result\ListResolversResponse;
 use AsyncAws\AppSync\Result\StartSchemaCreationResponse;
 use AsyncAws\AppSync\Result\UpdateApiKeyResponse;
 use AsyncAws\AppSync\Result\UpdateDataSourceResponse;
-use AsyncAws\AppSync\Result\UpdateFunctionResponse;
 use AsyncAws\AppSync\Result\UpdateResolverResponse;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
@@ -33,10 +33,9 @@ class AppSyncClientTest extends TestCase
         $client = new AppSyncClient([], new NullProvider(), new MockHttpClient());
 
         $input = new CreateResolverRequest([
-            'apiId' => 'change me',
-            'typeName' => 'change me',
-            'fieldName' => 'change me',
-
+            'apiId' => 'api123',
+            'typeName' => 'type',
+            'fieldName' => 'field',
         ]);
         $result = $client->createResolver($input);
 
@@ -49,9 +48,9 @@ class AppSyncClientTest extends TestCase
         $client = new AppSyncClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DeleteResolverRequest([
-            'apiId' => 'change me',
-            'typeName' => 'change me',
-            'fieldName' => 'change me',
+            'apiId' => 'api123',
+            'typeName' => 'type',
+            'fieldName' => 'field',
         ]);
         $result = $client->deleteResolver($input);
 
@@ -64,7 +63,7 @@ class AppSyncClientTest extends TestCase
         $client = new AppSyncClient([], new NullProvider(), new MockHttpClient());
 
         $input = new GetSchemaCreationStatusRequest([
-            'apiId' => 'change me',
+            'apiId' => 'api123',
         ]);
         $result = $client->getSchemaCreationStatus($input);
 
@@ -77,7 +76,7 @@ class AppSyncClientTest extends TestCase
         $client = new AppSyncClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListApiKeysRequest([
-            'apiId' => 'change me',
+            'apiId' => 'api123',
 
         ]);
         $result = $client->listApiKeys($input);
@@ -91,9 +90,8 @@ class AppSyncClientTest extends TestCase
         $client = new AppSyncClient([], new NullProvider(), new MockHttpClient());
 
         $input = new ListResolversRequest([
-            'apiId' => 'change me',
-            'typeName' => 'change me',
-
+            'apiId' => 'api123',
+            'typeName' => 'type',
         ]);
         $result = $client->listResolvers($input);
 
@@ -106,8 +104,8 @@ class AppSyncClientTest extends TestCase
         $client = new AppSyncClient([], new NullProvider(), new MockHttpClient());
 
         $input = new StartSchemaCreationRequest([
-            'apiId' => 'change me',
-            'definition' => 'change me',
+            'apiId' => 'api123',
+            'definition' => 'schemaDefinition',
         ]);
         $result = $client->startSchemaCreation($input);
 
@@ -120,9 +118,8 @@ class AppSyncClientTest extends TestCase
         $client = new AppSyncClient([], new NullProvider(), new MockHttpClient());
 
         $input = new UpdateApiKeyRequest([
-            'apiId' => 'change me',
-            'id' => 'change me',
-
+            'apiId' => 'api123',
+            'id' => 'keyId',
         ]);
         $result = $client->updateApiKey($input);
 
@@ -135,35 +132,13 @@ class AppSyncClientTest extends TestCase
         $client = new AppSyncClient([], new NullProvider(), new MockHttpClient());
 
         $input = new UpdateDataSourceRequest([
-            'apiId' => 'change me',
-            'name' => 'change me',
-
-            'type' => 'change me',
-
+            'apiId' => 'api123',
+            'name' => 'dataSource',
+            'type' => DataSourceType::AMAZON_DYNAMODB,
         ]);
         $result = $client->updateDataSource($input);
 
         self::assertInstanceOf(UpdateDataSourceResponse::class, $result);
-        self::assertFalse($result->info()['resolved']);
-    }
-
-    public function testUpdateFunction(): void
-    {
-        $client = new AppSyncClient([], new NullProvider(), new MockHttpClient());
-
-        $input = new UpdateFunctionRequest([
-            'apiId' => 'change me',
-            'name' => 'change me',
-
-            'functionId' => 'change me',
-            'dataSourceName' => 'change me',
-
-            'functionVersion' => 'change me',
-
-        ]);
-        $result = $client->updateFunction($input);
-
-        self::assertInstanceOf(UpdateFunctionResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
@@ -172,10 +147,9 @@ class AppSyncClientTest extends TestCase
         $client = new AppSyncClient([], new NullProvider(), new MockHttpClient());
 
         $input = new UpdateResolverRequest([
-            'apiId' => 'change me',
-            'typeName' => 'change me',
-            'fieldName' => 'change me',
-
+            'apiId' => 'api123',
+            'typeName' => 'type',
+            'fieldName' => 'field',
         ]);
         $result = $client->updateResolver($input);
 

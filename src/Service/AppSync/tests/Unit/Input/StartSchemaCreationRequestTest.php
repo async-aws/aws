@@ -9,22 +9,22 @@ class StartSchemaCreationRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new StartSchemaCreationRequest([
-            'apiId' => 'change me',
-            'definition' => 'change me',
+            'apiId' => 'api123',
+            'definition' => 'schemaDefinition',
         ]);
+
+        self::assertEquals('c2NoZW1hRGVmaW5pdGlvbg==', base64_encode($input->getDefinition()));
 
         // see https://docs.aws.amazon.com/appsync/latest/APIReference/API_StartSchemaCreation.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/json
+            POST /v1/apis/api123/schemacreation HTTP/1.1
+            Content-type: application/json
 
             {
-            "change": "it"
-        }
-                ';
+               "definition": "c2NoZW1hRGVmaW5pdGlvbg=="
+            }
+        ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

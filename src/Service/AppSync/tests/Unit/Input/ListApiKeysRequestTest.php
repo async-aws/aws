@@ -9,23 +9,17 @@ class ListApiKeysRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new ListApiKeysRequest([
-            'apiId' => 'change me',
-            'nextToken' => 'change me',
+            'apiId' => 'api123',
+            'nextToken' => 'token',
             'maxResults' => 1337,
         ]);
 
         // see https://docs.aws.amazon.com/appsync/latest/APIReference/API_ListApiKeys.html
         $expected = '
-            GET / HTTP/1.0
+            GET /v1/apis/api123/apikeys?maxResults=1337&nextToken=token HTTP/1.1
             Content-Type: application/json
-
-            {
-            "change": "it"
-        }
-                ';
+        ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

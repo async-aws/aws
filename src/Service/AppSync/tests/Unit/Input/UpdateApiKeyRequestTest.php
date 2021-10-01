@@ -9,24 +9,23 @@ class UpdateApiKeyRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new UpdateApiKeyRequest([
-            'apiId' => 'change me',
-            'id' => 'change me',
-            'description' => 'change me',
+            'apiId' => 'api123',
+            'id' => 'keyId',
+            'description' => 'Description here',
             'expires' => 1337,
         ]);
 
         // see https://docs.aws.amazon.com/appsync/latest/APIReference/API_UpdateApiKey.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/json
+            POST /v1/apis/api123/apikeys/keyId HTTP/1.1
+            Content-type: application/json
 
             {
-            "change": "it"
-        }
-                ';
+               "description": "Description here",
+               "expires": 1337
+            }
+        ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

@@ -9,24 +9,18 @@ class ListResolversRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new ListResolversRequest([
-            'apiId' => 'change me',
-            'typeName' => 'change me',
-            'nextToken' => 'change me',
+            'apiId' => 'api123',
+            'typeName' => 'type',
+            'nextToken' => 'token',
             'maxResults' => 1337,
         ]);
 
         // see https://docs.aws.amazon.com/appsync/latest/APIReference/API_ListResolvers.html
         $expected = '
-            GET / HTTP/1.0
+            GET /v1/apis/api123/types/type/resolvers?maxResults=1337&nextToken=token HTTP/1.1
             Content-Type: application/json
-
-            {
-            "change": "it"
-        }
-                ';
+        ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

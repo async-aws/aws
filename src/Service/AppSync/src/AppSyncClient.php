@@ -19,7 +19,6 @@ use AsyncAws\AppSync\Input\ListResolversRequest;
 use AsyncAws\AppSync\Input\StartSchemaCreationRequest;
 use AsyncAws\AppSync\Input\UpdateApiKeyRequest;
 use AsyncAws\AppSync\Input\UpdateDataSourceRequest;
-use AsyncAws\AppSync\Input\UpdateFunctionRequest;
 use AsyncAws\AppSync\Input\UpdateResolverRequest;
 use AsyncAws\AppSync\Result\CreateResolverResponse;
 use AsyncAws\AppSync\Result\DeleteResolverResponse;
@@ -29,7 +28,6 @@ use AsyncAws\AppSync\Result\ListResolversResponse;
 use AsyncAws\AppSync\Result\StartSchemaCreationResponse;
 use AsyncAws\AppSync\Result\UpdateApiKeyResponse;
 use AsyncAws\AppSync\Result\UpdateDataSourceResponse;
-use AsyncAws\AppSync\Result\UpdateFunctionResponse;
 use AsyncAws\AppSync\Result\UpdateResolverResponse;
 use AsyncAws\AppSync\ValueObject\CachingConfig;
 use AsyncAws\AppSync\ValueObject\DynamodbDataSourceConfig;
@@ -314,43 +312,6 @@ class AppSyncClient extends AbstractApi
         ]]));
 
         return new UpdateDataSourceResponse($response);
-    }
-
-    /**
-     * Updates a `Function` object.
-     *
-     * @see https://docs.aws.amazon.com/appsync/latest/APIReference/API_UpdateFunction.html
-     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-appsync-2017-07-25.html#updatefunction
-     *
-     * @param array{
-     *   apiId: string,
-     *   name: string,
-     *   description?: string,
-     *   functionId: string,
-     *   dataSourceName: string,
-     *   requestMappingTemplate?: string,
-     *   responseMappingTemplate?: string,
-     *   functionVersion: string,
-     *   syncConfig?: SyncConfig|array,
-     *   @region?: string,
-     * }|UpdateFunctionRequest $input
-     *
-     * @throws ConcurrentModificationException
-     * @throws NotFoundException
-     * @throws UnauthorizedException
-     * @throws InternalFailureException
-     */
-    public function updateFunction($input): UpdateFunctionResponse
-    {
-        $input = UpdateFunctionRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'UpdateFunction', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'ConcurrentModificationException' => ConcurrentModificationException::class,
-            'NotFoundException' => NotFoundException::class,
-            'UnauthorizedException' => UnauthorizedException::class,
-            'InternalFailureException' => InternalFailureException::class,
-        ]]));
-
-        return new UpdateFunctionResponse($response);
     }
 
     /**

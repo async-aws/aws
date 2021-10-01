@@ -11,7 +11,6 @@ use AsyncAws\AppSync\Input\ListResolversRequest;
 use AsyncAws\AppSync\Input\StartSchemaCreationRequest;
 use AsyncAws\AppSync\Input\UpdateApiKeyRequest;
 use AsyncAws\AppSync\Input\UpdateDataSourceRequest;
-use AsyncAws\AppSync\Input\UpdateFunctionRequest;
 use AsyncAws\AppSync\Input\UpdateResolverRequest;
 use AsyncAws\AppSync\ValueObject\AuthorizationConfig;
 use AsyncAws\AppSync\ValueObject\AwsIamConfig;
@@ -215,34 +214,6 @@ class AppSyncClientTest extends TestCase
         $result->resolve();
 
         // self::assertTODO(expected, $result->getdataSource());
-    }
-
-    public function testUpdateFunction(): void
-    {
-        $client = $this->getClient();
-
-        $input = new UpdateFunctionRequest([
-            'apiId' => 'change me',
-            'name' => 'change me',
-            'description' => 'change me',
-            'functionId' => 'change me',
-            'dataSourceName' => 'change me',
-            'requestMappingTemplate' => 'change me',
-            'responseMappingTemplate' => 'change me',
-            'functionVersion' => 'change me',
-            'syncConfig' => new SyncConfig([
-                'conflictHandler' => 'change me',
-                'conflictDetection' => 'change me',
-                'lambdaConflictHandlerConfig' => new LambdaConflictHandlerConfig([
-                    'lambdaConflictHandlerArn' => 'change me',
-                ]),
-            ]),
-        ]);
-        $result = $client->updateFunction($input);
-
-        $result->resolve();
-
-        // self::assertTODO(expected, $result->getfunctionConfiguration());
     }
 
     public function testUpdateResolver(): void

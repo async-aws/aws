@@ -21,7 +21,6 @@
                 "StartSchemaCreation",
                 "UpdateApiKey",
                 "UpdateDataSource",
-                "UpdateFunction",
                 "UpdateResolver"
             ]
         },

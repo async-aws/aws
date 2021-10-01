@@ -9,21 +9,15 @@ class GetSchemaCreationStatusRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new GetSchemaCreationStatusRequest([
-            'apiId' => 'change me',
+            'apiId' => 'api123',
         ]);
 
         // see https://docs.aws.amazon.com/appsync/latest/APIReference/API_GetSchemaCreationStatus.html
         $expected = '
-            GET / HTTP/1.0
+            GET /v1/apis/api123/schemacreation HTTP/1.1
             Content-Type: application/json
-
-            {
-            "change": "it"
-        }
-                ';
+        ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }
