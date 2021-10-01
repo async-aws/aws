@@ -2,7 +2,9 @@
 
 ## NOT RELEASED
 
-### 1.2.0
+## 1.2.0
+
+### Fixed
 
 - Assert the provided Input can be json-encoded.
 

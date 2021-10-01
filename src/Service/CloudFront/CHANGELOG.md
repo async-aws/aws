@@ -7,6 +7,7 @@
 ### Fixed
 
 - Fixed camelCased of Dom classes
+- Fixed invalid operation names
 
 ## 0.1.2
 

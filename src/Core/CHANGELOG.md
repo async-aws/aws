@@ -4,6 +4,8 @@
 
 ## 1.12.0
 
+### Added
+
 - Support for Firehose
 - Support for ElastiCache
 - Support for CloudWatchClient
