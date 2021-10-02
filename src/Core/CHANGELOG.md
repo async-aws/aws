@@ -2,10 +2,14 @@
 
 ## NOT RELEASED
 
+## 1.12.0
+
 ### Added
 
 - Support for Firehose
 - Support for ElastiCache
+- Support for CloudWatchClient
+- Support for psr/log 2.0 and 3.0
 
 ## 1.11.0
 

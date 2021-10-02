@@ -2,16 +2,11 @@
 
 ## NOT RELEASED
 
+## 1.2.1
+
 ### Fixed
 
 - Assert the provided Input can be json-encoded.
-
-### Changed
-
-- AWS api-change: Reword docblock
-
-### Added
-
 - AWS enhancement: Documentation updates for AWS Systems Manager.
 
 ## 1.2.0

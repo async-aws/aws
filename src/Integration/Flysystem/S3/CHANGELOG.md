@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.0.1
+
+### Fixed
+
+- Removed `urlencode()` and added bucket to `CopySource` in the `copy()` method. This comply with the Flysystem interface and the AWS adapter.
+
 ## 1.0.0
 
 ### Removed

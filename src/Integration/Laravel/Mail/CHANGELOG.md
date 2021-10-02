@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 0.1.4
+
+### Fixed
+
+- Fixed deprecation
+
 ## 0.1.3
 
 ### Added

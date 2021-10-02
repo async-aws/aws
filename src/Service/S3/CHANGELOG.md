@@ -2,9 +2,12 @@
 
 ## NOT RELEASED
 
+## 1.9.2
+
 ### Added
 
 - AWS enhancement: Documentation updates for Amazon S3
+- Fixed camelCased of Dom classes
 
 ## 1.9.1
 

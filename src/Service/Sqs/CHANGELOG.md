@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.6.0
+
 ### Added
 
 - AWS enhancement: Documentation updates for Amazon SQS
