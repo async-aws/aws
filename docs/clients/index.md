@@ -134,6 +134,7 @@ for more information.
 
 | Api Client                                  | Package name
 |---------------------------------------------|-------------
+| [AppSync](./app-sync.md)                    | [async-aws/app-sync](https://packagist.org/packages/async-aws/app-sync)
 | [CloudFormation](./cf.md)                   | [async-aws/cloud-formation](https://packagist.org/packages/async-aws/cloud-formation)
 | [CloudFront](./cloud-front.md)              | [async-aws/cloud-front](https://packagist.org/packages/async-aws/cloud-front)
 | [CloudWatch](./cloud-watch.md)              | [async-aws/cloud-watch](https://packagist.org/packages/async-aws/cloud-watch)

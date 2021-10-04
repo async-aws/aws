@@ -9,6 +9,10 @@ class AwsPackagesProvider
     public static function getAllServices(): array
     {
         return [
+            'app_sync' => [
+                'class' => \AsyncAws\AppSync\AppSyncClient::class,
+                'package' => 'async-aws/app-sync',
+            ],
             'cloud_formation' => [
                 'class' => \AsyncAws\CloudFormation\CloudFormationClient::class,
                 'package' => 'async-aws/cloud-formation',

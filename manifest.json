@@ -4,6 +4,24 @@
     },
     "endpoints": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/endpoints.json",
     "services": {
+        "AppSync": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/appsync/2017-07-25/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/appsync/2017-07-25/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/appsync/2017-07-25/paginators-1.json",
+            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/appsync/2017-07-25/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/appsync/latest/APIReference",
+            "methods": [
+                "CreateResolver",
+                "DeleteResolver",
+                "GetSchemaCreationStatus",
+                "ListApiKeys",
+                "ListResolvers",
+                "StartSchemaCreation",
+                "UpdateApiKey",
+                "UpdateDataSource",
+                "UpdateResolver"
+            ]
+        },
         "CloudFormation": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cloudformation/2010-05-15/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cloudformation/2010-05-15/docs-2.json",
