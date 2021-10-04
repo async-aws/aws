@@ -7,6 +7,7 @@ use AsyncAws\AppSync\ValueObject\DynamodbDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\ElasticsearchDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\HttpDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\LambdaDataSourceConfig;
+use AsyncAws\AppSync\ValueObject\OpenSearchServiceDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\RelationalDatabaseDataSourceConfig;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
@@ -71,11 +72,18 @@ final class UpdateDataSourceRequest extends Input
     private $lambdaConfig;
 
     /**
-     * The new Elasticsearch Service configuration.
+     * The new OpenSearch configuration.
      *
      * @var ElasticsearchDataSourceConfig|null
      */
     private $elasticsearchConfig;
+
+    /**
+     * The new OpenSearch configuration.
+     *
+     * @var OpenSearchServiceDataSourceConfig|null
+     */
+    private $openSearchServiceConfig;
 
     /**
      * The new HTTP endpoint configuration.
@@ -101,6 +109,7 @@ final class UpdateDataSourceRequest extends Input
      *   dynamodbConfig?: DynamodbDataSourceConfig|array,
      *   lambdaConfig?: LambdaDataSourceConfig|array,
      *   elasticsearchConfig?: ElasticsearchDataSourceConfig|array,
+     *   openSearchServiceConfig?: OpenSearchServiceDataSourceConfig|array,
      *   httpConfig?: HttpDataSourceConfig|array,
      *   relationalDatabaseConfig?: RelationalDatabaseDataSourceConfig|array,
      *   @region?: string,
@@ -116,6 +125,7 @@ final class UpdateDataSourceRequest extends Input
         $this->dynamodbConfig = isset($input['dynamodbConfig']) ? DynamodbDataSourceConfig::create($input['dynamodbConfig']) : null;
         $this->lambdaConfig = isset($input['lambdaConfig']) ? LambdaDataSourceConfig::create($input['lambdaConfig']) : null;
         $this->elasticsearchConfig = isset($input['elasticsearchConfig']) ? ElasticsearchDataSourceConfig::create($input['elasticsearchConfig']) : null;
+        $this->openSearchServiceConfig = isset($input['openSearchServiceConfig']) ? OpenSearchServiceDataSourceConfig::create($input['openSearchServiceConfig']) : null;
         $this->httpConfig = isset($input['httpConfig']) ? HttpDataSourceConfig::create($input['httpConfig']) : null;
         $this->relationalDatabaseConfig = isset($input['relationalDatabaseConfig']) ? RelationalDatabaseDataSourceConfig::create($input['relationalDatabaseConfig']) : null;
         parent::__construct($input);
@@ -159,6 +169,11 @@ final class UpdateDataSourceRequest extends Input
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    public function getOpenSearchServiceConfig(): ?OpenSearchServiceDataSourceConfig
+    {
+        return $this->openSearchServiceConfig;
     }
 
     public function getRelationalDatabaseConfig(): ?RelationalDatabaseDataSourceConfig
@@ -259,6 +274,13 @@ final class UpdateDataSourceRequest extends Input
         return $this;
     }
 
+    public function setOpenSearchServiceConfig(?OpenSearchServiceDataSourceConfig $value): self
+    {
+        $this->openSearchServiceConfig = $value;
+
+        return $this;
+    }
+
     public function setRelationalDatabaseConfig(?RelationalDatabaseDataSourceConfig $value): self
     {
         $this->relationalDatabaseConfig = $value;
@@ -308,6 +330,9 @@ final class UpdateDataSourceRequest extends Input
         }
         if (null !== $v = $this->elasticsearchConfig) {
             $payload['elasticsearchConfig'] = $v->requestBody();
+        }
+        if (null !== $v = $this->openSearchServiceConfig) {
+            $payload['openSearchServiceConfig'] = $v->requestBody();
         }
         if (null !== $v = $this->httpConfig) {
             $payload['httpConfig'] = $v->requestBody();

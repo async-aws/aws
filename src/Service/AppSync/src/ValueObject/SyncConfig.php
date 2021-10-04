@@ -6,6 +6,9 @@ use AsyncAws\AppSync\Enum\ConflictDetectionType;
 use AsyncAws\AppSync\Enum\ConflictHandlerType;
 use AsyncAws\Core\Exception\InvalidArgument;
 
+/**
+ * The `SyncConfig` for a resolver attached to a versioned datasource.
+ */
 final class SyncConfig
 {
     /**

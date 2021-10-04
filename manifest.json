@@ -11,8 +11,6 @@
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/appsync/2017-07-25/examples-1.json",
             "api-reference": "https://docs.aws.amazon.com/appsync/latest/APIReference",
             "methods": [
-                "CreateApiCache",
-                "CreateDataSource",
                 "CreateResolver",
                 "DeleteResolver",
                 "GetSchemaCreationStatus",

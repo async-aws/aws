@@ -34,6 +34,7 @@ use AsyncAws\AppSync\ValueObject\DynamodbDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\ElasticsearchDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\HttpDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\LambdaDataSourceConfig;
+use AsyncAws\AppSync\ValueObject\OpenSearchServiceDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\PipelineConfig;
 use AsyncAws\AppSync\ValueObject\RelationalDatabaseDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\SyncConfig;
@@ -289,6 +290,7 @@ class AppSyncClient extends AbstractApi
      *   dynamodbConfig?: DynamodbDataSourceConfig|array,
      *   lambdaConfig?: LambdaDataSourceConfig|array,
      *   elasticsearchConfig?: ElasticsearchDataSourceConfig|array,
+     *   openSearchServiceConfig?: OpenSearchServiceDataSourceConfig|array,
      *   httpConfig?: HttpDataSourceConfig|array,
      *   relationalDatabaseConfig?: RelationalDatabaseDataSourceConfig|array,
      *   @region?: string,

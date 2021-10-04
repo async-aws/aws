@@ -6,10 +6,8 @@ use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
  * The new OpenSearch configuration.
- * As of September 2021, Amazon Elasticsearch service is Amazon OpenSearch Service. This configuration is deprecated.
- * Instead, use UpdateDataSourceRequest$openSearchServiceConfig to update an OpenSearch data source.
  */
-final class ElasticsearchDataSourceConfig
+final class OpenSearchServiceDataSourceConfig
 {
     /**
      * The endpoint.

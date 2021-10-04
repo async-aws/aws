@@ -10,6 +10,7 @@ use AsyncAws\AppSync\ValueObject\DynamodbDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\ElasticsearchDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\HttpDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\LambdaDataSourceConfig;
+use AsyncAws\AppSync\ValueObject\OpenSearchServiceDataSourceConfig;
 use AsyncAws\AppSync\ValueObject\RdsHttpEndpointConfig;
 use AsyncAws\AppSync\ValueObject\RelationalDatabaseDataSourceConfig;
 use AsyncAws\Core\Response;
@@ -56,6 +57,10 @@ class UpdateDataSourceResponse extends Result
             'elasticsearchConfig' => empty($data['dataSource']['elasticsearchConfig']) ? null : new ElasticsearchDataSourceConfig([
                 'endpoint' => (string) $data['dataSource']['elasticsearchConfig']['endpoint'],
                 'awsRegion' => (string) $data['dataSource']['elasticsearchConfig']['awsRegion'],
+            ]),
+            'openSearchServiceConfig' => empty($data['dataSource']['openSearchServiceConfig']) ? null : new OpenSearchServiceDataSourceConfig([
+                'endpoint' => (string) $data['dataSource']['openSearchServiceConfig']['endpoint'],
+                'awsRegion' => (string) $data['dataSource']['openSearchServiceConfig']['awsRegion'],
             ]),
             'httpConfig' => empty($data['dataSource']['httpConfig']) ? null : new HttpDataSourceConfig([
                 'endpoint' => isset($data['dataSource']['httpConfig']['endpoint']) ? (string) $data['dataSource']['httpConfig']['endpoint'] : null,

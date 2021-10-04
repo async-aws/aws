@@ -46,9 +46,14 @@ final class DataSource
     private $lambdaConfig;
 
     /**
-     * Amazon Elasticsearch Service settings.
+     * Amazon OpenSearch Service settings.
      */
     private $elasticsearchConfig;
+
+    /**
+     * Amazon OpenSearch Service settings.
+     */
+    private $openSearchServiceConfig;
 
     /**
      * HTTP endpoint settings.
@@ -70,6 +75,7 @@ final class DataSource
      *   dynamodbConfig?: null|DynamodbDataSourceConfig|array,
      *   lambdaConfig?: null|LambdaDataSourceConfig|array,
      *   elasticsearchConfig?: null|ElasticsearchDataSourceConfig|array,
+     *   openSearchServiceConfig?: null|OpenSearchServiceDataSourceConfig|array,
      *   httpConfig?: null|HttpDataSourceConfig|array,
      *   relationalDatabaseConfig?: null|RelationalDatabaseDataSourceConfig|array,
      * } $input
@@ -84,6 +90,7 @@ final class DataSource
         $this->dynamodbConfig = isset($input['dynamodbConfig']) ? DynamodbDataSourceConfig::create($input['dynamodbConfig']) : null;
         $this->lambdaConfig = isset($input['lambdaConfig']) ? LambdaDataSourceConfig::create($input['lambdaConfig']) : null;
         $this->elasticsearchConfig = isset($input['elasticsearchConfig']) ? ElasticsearchDataSourceConfig::create($input['elasticsearchConfig']) : null;
+        $this->openSearchServiceConfig = isset($input['openSearchServiceConfig']) ? OpenSearchServiceDataSourceConfig::create($input['openSearchServiceConfig']) : null;
         $this->httpConfig = isset($input['httpConfig']) ? HttpDataSourceConfig::create($input['httpConfig']) : null;
         $this->relationalDatabaseConfig = isset($input['relationalDatabaseConfig']) ? RelationalDatabaseDataSourceConfig::create($input['relationalDatabaseConfig']) : null;
     }
@@ -126,6 +133,11 @@ final class DataSource
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    public function getOpenSearchServiceConfig(): ?OpenSearchServiceDataSourceConfig
+    {
+        return $this->openSearchServiceConfig;
     }
 
     public function getRelationalDatabaseConfig(): ?RelationalDatabaseDataSourceConfig

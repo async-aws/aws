@@ -5,7 +5,7 @@ namespace AsyncAws\AppSync\ValueObject;
 use AsyncAws\AppSync\Enum\ResolverKind;
 
 /**
- * The updated `Resolver` object.
+ * The `Resolver` object.
  */
 final class Resolver
 {

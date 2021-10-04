@@ -19,6 +19,6 @@ class DeleteResolverResponseTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new DeleteResolverResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertEquals(200, $result->getStatusCode());
+        self::assertEquals(200, $result->info()['response']->getStatusCode());
     }
 }

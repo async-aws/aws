@@ -31,6 +31,9 @@ menu:
             index:
                 text: Overview
                 url: /clients/
+            app-sync:
+                text: AppSync
+                url: /clients/app-sync.html
             cf:
                 text: Cloud Formation
                 url: /clients/cf.html
