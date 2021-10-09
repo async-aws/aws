@@ -146,7 +146,6 @@ class SsmClientTest extends TestCase
             'Description' => 'The username of SMTP',
             'Value' => 'root',
             'Type' => ParameterType::STRING,
-            'Overwrite' => true,
             'Tags' => [new Tag([
                 'Key' => 'group',
                 'Value' => 'demo',
