@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS enhancement: Documentation updates for Secrets Manager
+
 ## 0.1.1
 
 ### Added

@@ -227,8 +227,7 @@ class SecretsManagerClient extends AbstractApi
     }
 
     /**
-     * Modifies many of the details of the specified secret. If you include a `ClientRequestToken` and
-     * *either*`SecretString` or `SecretBinary` then it also creates a new version attached to the secret.
+     * Modifies many of the details of the specified secret.
      *
      * @see https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-secretsmanager-2017-10-17.html#updatesecret
