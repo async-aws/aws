@@ -35,8 +35,12 @@ final class UpdateSecretRequest extends Input
     private $description;
 
     /**
-     * (Optional) Specifies an updated ARN or alias of the Amazon Web Services KMS customer master key (CMK) to be used to
-     * encrypt the protected text in new versions of this secret.
+     * (Optional) Specifies an updated ARN or alias of the Amazon Web Services KMS customer master key (CMK) that Secrets
+     * Manager uses to encrypt the protected text in new versions of this secret as well as any existing versions of this
+     * secret that have the staging labels AWSCURRENT, AWSPENDING, or AWSPREVIOUS. For more information about staging
+     * labels, see Staging Labels in the *Amazon Web Services Secrets Manager User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/secretsmanager/latest/userguide/terms-concepts.html#term_staging-label
      *
      * @var string|null
      */
