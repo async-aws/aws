@@ -58,6 +58,7 @@ class EventBridgeClient extends AbstractApi
                     'signVersions' => ['v4'],
                 ];
             case 'us-iso-east-1':
+            case 'us-iso-west-1':
                 return [
                     'endpoint' => "https://events.$region.c2s.ic.gov",
                     'signRegion' => $region,

@@ -383,6 +383,13 @@ class SnsClient extends AbstractApi
                     'signService' => 'sns',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-iso-west-1':
+                return [
+                    'endpoint' => "https://sns.$region.c2s.ic.gov",
+                    'signRegion' => $region,
+                    'signService' => 'sns',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-isob-east-1':
                 return [
                     'endpoint' => "https://sns.$region.sc2s.sgov.gov",
