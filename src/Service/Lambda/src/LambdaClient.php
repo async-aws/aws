@@ -383,6 +383,7 @@ class LambdaClient extends AbstractApi
                     'signVersions' => ['v4'],
                 ];
             case 'us-iso-east-1':
+            case 'us-iso-west-1':
                 return [
                     'endpoint' => "https://lambda.$region.c2s.ic.gov",
                     'signRegion' => $region,

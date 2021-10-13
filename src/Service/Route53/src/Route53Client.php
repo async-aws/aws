@@ -271,6 +271,7 @@ class Route53Client extends AbstractApi
                     'signVersions' => ['v4'],
                 ];
             case 'us-iso-east-1':
+            case 'us-iso-west-1':
                 return [
                     'endpoint' => 'https://route53.c2s.ic.gov',
                     'signRegion' => 'us-iso-east-1',

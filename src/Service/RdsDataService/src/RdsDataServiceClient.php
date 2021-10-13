@@ -238,6 +238,7 @@ class RdsDataServiceClient extends AbstractApi
                     'signVersions' => ['v4'],
                 ];
             case 'us-iso-east-1':
+            case 'us-iso-west-1':
                 return [
                     'endpoint' => "https://rds-data.$region.amazonaws.com",
                     'signRegion' => $region,

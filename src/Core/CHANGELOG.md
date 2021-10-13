@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Added `us-iso-west-1` region
+
 ## 1.12.0
 
 ### Added
