@@ -1,7 +1,5 @@
 framework:
     session:
         enabled: false
-    router:
-        utf8: true
 async_aws:
     register_service: false
