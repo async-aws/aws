@@ -6,7 +6,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Added `fips-us-west-1` region
 - AWS enhancement: Documentation updates for cognito-idp
 - Added operation `getUser`
 
