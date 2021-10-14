@@ -663,6 +663,13 @@ class DynamoDbClient extends AbstractApi
                     'signService' => 'dynamodb',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-iso-west-1':
+                return [
+                    'endpoint' => "https://dynamodb.$region.c2s.ic.gov",
+                    'signRegion' => $region,
+                    'signService' => 'dynamodb',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-isob-east-1':
                 return [
                     'endpoint' => "https://dynamodb.$region.sc2s.sgov.gov",
