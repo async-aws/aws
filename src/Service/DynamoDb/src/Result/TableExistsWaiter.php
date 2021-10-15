@@ -24,7 +24,6 @@ class TableExistsWaiter extends Waiter
             return self::STATE_PENDING;
         }
 
-        /** @psalm-suppress TypeDoesNotContainType */
         return null === $exception ? self::STATE_PENDING : self::STATE_FAILURE;
     }
 
