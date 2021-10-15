@@ -16,6 +16,7 @@ use AsyncAws\Route53\Exception\InvalidChangeBatchException;
 use AsyncAws\Route53\Exception\InvalidDomainNameException;
 use AsyncAws\Route53\Exception\InvalidInputException;
 use AsyncAws\Route53\Exception\InvalidVPCIdException;
+use AsyncAws\Route53\Exception\NoSuchChangeException;
 use AsyncAws\Route53\Exception\NoSuchDelegationSetException;
 use AsyncAws\Route53\Exception\NoSuchHealthCheckException;
 use AsyncAws\Route53\Exception\NoSuchHostedZoneException;
@@ -24,6 +25,7 @@ use AsyncAws\Route53\Exception\TooManyHostedZonesException;
 use AsyncAws\Route53\Input\ChangeResourceRecordSetsRequest;
 use AsyncAws\Route53\Input\CreateHostedZoneRequest;
 use AsyncAws\Route53\Input\DeleteHostedZoneRequest;
+use AsyncAws\Route53\Input\GetChangeRequest;
 use AsyncAws\Route53\Input\ListHostedZonesByNameRequest;
 use AsyncAws\Route53\Input\ListHostedZonesRequest;
 use AsyncAws\Route53\Input\ListResourceRecordSetsRequest;
@@ -33,6 +35,7 @@ use AsyncAws\Route53\Result\DeleteHostedZoneResponse;
 use AsyncAws\Route53\Result\ListHostedZonesByNameResponse;
 use AsyncAws\Route53\Result\ListHostedZonesResponse;
 use AsyncAws\Route53\Result\ListResourceRecordSetsResponse;
+use AsyncAws\Route53\Result\ResourceRecordSetsChangedWaiter;
 use AsyncAws\Route53\ValueObject\ChangeBatch;
 use AsyncAws\Route53\ValueObject\HostedZoneConfig;
 use AsyncAws\Route53\ValueObject\VPC;
@@ -235,6 +238,25 @@ class Route53Client extends AbstractApi
         ]]));
 
         return new ListResourceRecordSetsResponse($response, $this, $input);
+    }
+
+    /**
+     * @see getChange
+     *
+     * @param array{
+     *   Id: string,
+     *   @region?: string,
+     * }|GetChangeRequest $input
+     */
+    public function resourceRecordSetsChanged($input): ResourceRecordSetsChangedWaiter
+    {
+        $input = GetChangeRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetChange', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'NoSuchChange' => NoSuchChangeException::class,
+            'InvalidInput' => InvalidInputException::class,
+        ]]));
+
+        return new ResourceRecordSetsChangedWaiter($response, $this, $input);
     }
 
     protected function getAwsErrorFactory(): AwsErrorFactoryInterface
