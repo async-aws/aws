@@ -12,7 +12,7 @@ class GetChangeRequestTest extends TestCase
     public function testRequest(): void
     {
         $input = new GetChangeRequest([
-            'id' => 'C2682N5HXP0BZ4',
+            'Id' => 'C2682N5HXP0BZ4',
         ]);
 
         // see https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html
