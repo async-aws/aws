@@ -27,7 +27,7 @@ final class DetectFacesRequest extends Input
      * of facial attributes: `BoundingBox`, `Confidence`, `Pose`, `Quality`, and `Landmarks`. If you provide `["ALL"]`, all
      * facial attributes are returned, but the operation takes longer to complete.
      *
-     * @var null|list<Attribute::*>
+     * @var list<Attribute::*>|null
      */
     private $attributes;
 
@@ -82,7 +82,7 @@ final class DetectFacesRequest extends Input
 
         // Prepare Body
         $bodyPayload = $this->requestBody();
-        $body = empty($bodyPayload) ? '{}' : \json_encode($bodyPayload, 4194304);
+        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload, 4194304);
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));

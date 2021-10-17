@@ -140,8 +140,8 @@ class ListUsersResponse extends Result implements \IteratorAggregate
             $items[] = new UserType([
                 'Username' => isset($item['Username']) ? (string) $item['Username'] : null,
                 'Attributes' => !isset($item['Attributes']) ? null : $this->populateResultAttributeListType($item['Attributes']),
-                'UserCreateDate' => (isset($item['UserCreateDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['UserCreateDate'])))) ? $d : null,
-                'UserLastModifiedDate' => (isset($item['UserLastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['UserLastModifiedDate'])))) ? $d : null,
+                'UserCreateDate' => (isset($item['UserCreateDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['UserCreateDate'])))) ? $d : null,
+                'UserLastModifiedDate' => (isset($item['UserLastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['UserLastModifiedDate'])))) ? $d : null,
                 'Enabled' => isset($item['Enabled']) ? filter_var($item['Enabled'], \FILTER_VALIDATE_BOOLEAN) : null,
                 'UserStatus' => isset($item['UserStatus']) ? (string) $item['UserStatus'] : null,
                 'MFAOptions' => !isset($item['MFAOptions']) ? null : $this->populateResultMFAOptionListType($item['MFAOptions']),

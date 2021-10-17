@@ -116,14 +116,14 @@ class ListSecretsResponse extends Result implements \IteratorAggregate
                 'RotationRules' => empty($item['RotationRules']) ? null : new RotationRulesType([
                     'AutomaticallyAfterDays' => isset($item['RotationRules']['AutomaticallyAfterDays']) ? (string) $item['RotationRules']['AutomaticallyAfterDays'] : null,
                 ]),
-                'LastRotatedDate' => (isset($item['LastRotatedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['LastRotatedDate'])))) ? $d : null,
-                'LastChangedDate' => (isset($item['LastChangedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['LastChangedDate'])))) ? $d : null,
-                'LastAccessedDate' => (isset($item['LastAccessedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['LastAccessedDate'])))) ? $d : null,
-                'DeletedDate' => (isset($item['DeletedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['DeletedDate'])))) ? $d : null,
+                'LastRotatedDate' => (isset($item['LastRotatedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['LastRotatedDate'])))) ? $d : null,
+                'LastChangedDate' => (isset($item['LastChangedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['LastChangedDate'])))) ? $d : null,
+                'LastAccessedDate' => (isset($item['LastAccessedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['LastAccessedDate'])))) ? $d : null,
+                'DeletedDate' => (isset($item['DeletedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['DeletedDate'])))) ? $d : null,
                 'Tags' => !isset($item['Tags']) ? null : $this->populateResultTagListType($item['Tags']),
                 'SecretVersionsToStages' => !isset($item['SecretVersionsToStages']) ? null : $this->populateResultSecretVersionsToStagesMapType($item['SecretVersionsToStages']),
                 'OwningService' => isset($item['OwningService']) ? (string) $item['OwningService'] : null,
-                'CreatedDate' => (isset($item['CreatedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['CreatedDate'])))) ? $d : null,
+                'CreatedDate' => (isset($item['CreatedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['CreatedDate'])))) ? $d : null,
                 'PrimaryRegion' => isset($item['PrimaryRegion']) ? (string) $item['PrimaryRegion'] : null,
             ]);
         }

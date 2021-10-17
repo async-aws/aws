@@ -30,7 +30,7 @@ final class ListObjectsV2Request extends Input
     /**
      * Encoding type used by Amazon S3 to encode object keys in the response.
      *
-     * @var null|EncodingType::*
+     * @var EncodingType::*|null
      */
     private $encodingType;
 
@@ -77,7 +77,7 @@ final class ListObjectsV2Request extends Input
      * Confirms that the requester knows that she or he will be charged for the list objects request in V2 style. Bucket
      * owners need not specify this parameter in their requests.
      *
-     * @var null|RequestPayer::*
+     * @var RequestPayer::*|null
      */
     private $requestPayer;
 

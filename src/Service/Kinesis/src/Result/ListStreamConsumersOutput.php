@@ -109,7 +109,7 @@ class ListStreamConsumersOutput extends Result implements \IteratorAggregate
                 'ConsumerName' => (string) $item['ConsumerName'],
                 'ConsumerARN' => (string) $item['ConsumerARN'],
                 'ConsumerStatus' => (string) $item['ConsumerStatus'],
-                'ConsumerCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['ConsumerCreationTimestamp'])),
+                'ConsumerCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['ConsumerCreationTimestamp'])),
             ]);
         }
 

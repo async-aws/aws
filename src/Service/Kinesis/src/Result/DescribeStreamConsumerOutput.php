@@ -28,7 +28,7 @@ class DescribeStreamConsumerOutput extends Result
             'ConsumerName' => (string) $data['ConsumerDescription']['ConsumerName'],
             'ConsumerARN' => (string) $data['ConsumerDescription']['ConsumerARN'],
             'ConsumerStatus' => (string) $data['ConsumerDescription']['ConsumerStatus'],
-            'ConsumerCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['ConsumerDescription']['ConsumerCreationTimestamp'])),
+            'ConsumerCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['ConsumerDescription']['ConsumerCreationTimestamp'])),
             'StreamARN' => (string) $data['ConsumerDescription']['StreamARN'],
         ]);
     }

@@ -23,14 +23,14 @@ final class InvocationRequest extends Input
     /**
      * Choose from the following options.
      *
-     * @var null|InvocationType::*
+     * @var InvocationType::*|null
      */
     private $invocationType;
 
     /**
      * Set to `Tail` to include the execution log in the response. Applies to synchronously invoked functions only.
      *
-     * @var null|LogType::*
+     * @var LogType::*|null
      */
     private $logType;
 

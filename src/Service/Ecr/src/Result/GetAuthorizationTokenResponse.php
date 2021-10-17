@@ -39,7 +39,7 @@ class GetAuthorizationTokenResponse extends Result
         foreach ($json as $item) {
             $items[] = new AuthorizationData([
                 'authorizationToken' => isset($item['authorizationToken']) ? (string) $item['authorizationToken'] : null,
-                'expiresAt' => (isset($item['expiresAt']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['expiresAt'])))) ? $d : null,
+                'expiresAt' => (isset($item['expiresAt']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['expiresAt'])))) ? $d : null,
                 'proxyEndpoint' => isset($item['proxyEndpoint']) ? (string) $item['proxyEndpoint'] : null,
             ]);
         }

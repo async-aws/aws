@@ -43,7 +43,7 @@ final class PutParameterRequest extends Input
     /**
      * The type of parameter that you want to add to the system.
      *
-     * @var null|ParameterType::*
+     * @var ParameterType::*|null
      */
     private $type;
 
@@ -84,7 +84,7 @@ final class PutParameterRequest extends Input
     /**
      * The parameter tier to assign to a parameter.
      *
-     * @var null|ParameterTier::*
+     * @var ParameterTier::*|null
      */
     private $tier;
 
@@ -223,7 +223,7 @@ final class PutParameterRequest extends Input
 
         // Prepare Body
         $bodyPayload = $this->requestBody();
-        $body = empty($bodyPayload) ? '{}' : \json_encode($bodyPayload, 4194304);
+        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload, 4194304);
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));

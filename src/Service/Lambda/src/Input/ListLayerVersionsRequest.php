@@ -14,7 +14,7 @@ final class ListLayerVersionsRequest extends Input
     /**
      * A runtime identifier. For example, `go1.x`.
      *
-     * @var null|Runtime::*
+     * @var Runtime::*|null
      */
     private $compatibleRuntime;
 
@@ -46,7 +46,7 @@ final class ListLayerVersionsRequest extends Input
      *
      * @see https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
      *
-     * @var null|Architecture::*
+     * @var Architecture::*|null
      */
     private $compatibleArchitecture;
 

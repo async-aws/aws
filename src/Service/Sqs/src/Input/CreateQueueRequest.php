@@ -22,7 +22,7 @@ final class CreateQueueRequest extends Input
     /**
      * A map of attributes with their corresponding values.
      *
-     * @var null|array<QueueAttributeName::*, string>
+     * @var array<QueueAttributeName::*, string>|null
      */
     private $attributes;
 

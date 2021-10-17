@@ -64,7 +64,7 @@ final class ScanInput extends Input
      * The attributes to be returned in the result. You can retrieve all item attributes, specific item attributes, the
      * count of matching items, or in the case of an index, some or all of the attributes projected into the index.
      *
-     * @var null|Select::*
+     * @var Select::*|null
      */
     private $select;
 
@@ -84,7 +84,7 @@ final class ScanInput extends Input
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html
      *
-     * @var null|ConditionalOperator::*
+     * @var ConditionalOperator::*|null
      */
     private $conditionalOperator;
 
@@ -97,7 +97,7 @@ final class ScanInput extends Input
     private $exclusiveStartKey;
 
     /**
-     * @var null|ReturnConsumedCapacity::*
+     * @var ReturnConsumedCapacity::*|null
      */
     private $returnConsumedCapacity;
 
@@ -344,7 +344,7 @@ final class ScanInput extends Input
 
         // Prepare Body
         $bodyPayload = $this->requestBody();
-        $body = empty($bodyPayload) ? '{}' : \json_encode($bodyPayload, 4194304);
+        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload, 4194304);
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));

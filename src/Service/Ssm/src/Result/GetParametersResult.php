@@ -60,7 +60,7 @@ class GetParametersResult extends Result
                 'Version' => isset($item['Version']) ? (string) $item['Version'] : null,
                 'Selector' => isset($item['Selector']) ? (string) $item['Selector'] : null,
                 'SourceResult' => isset($item['SourceResult']) ? (string) $item['SourceResult'] : null,
-                'LastModifiedDate' => (isset($item['LastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['LastModifiedDate'])))) ? $d : null,
+                'LastModifiedDate' => (isset($item['LastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['LastModifiedDate'])))) ? $d : null,
                 'ARN' => isset($item['ARN']) ? (string) $item['ARN'] : null,
                 'DataType' => isset($item['DataType']) ? (string) $item['DataType'] : null,
             ]);

@@ -72,7 +72,7 @@ final class CreateTableInput extends Input
      * Controls how you are charged for read and write throughput and how you manage capacity. This setting can be changed
      * later.
      *
-     * @var null|BillingMode::*
+     * @var BillingMode::*|null
      */
     private $billingMode;
 
@@ -229,7 +229,7 @@ final class CreateTableInput extends Input
 
         // Prepare Body
         $bodyPayload = $this->requestBody();
-        $body = empty($bodyPayload) ? '{}' : \json_encode($bodyPayload, 4194304);
+        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload, 4194304);
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));

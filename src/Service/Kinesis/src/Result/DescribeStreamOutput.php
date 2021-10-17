@@ -83,7 +83,7 @@ class DescribeStreamOutput extends Result implements \IteratorAggregate
             'Shards' => $this->populateResultShardList($data['StreamDescription']['Shards']),
             'HasMoreShards' => filter_var($data['StreamDescription']['HasMoreShards'], \FILTER_VALIDATE_BOOLEAN),
             'RetentionPeriodHours' => (int) $data['StreamDescription']['RetentionPeriodHours'],
-            'StreamCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['StreamDescription']['StreamCreationTimestamp'])),
+            'StreamCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['StreamDescription']['StreamCreationTimestamp'])),
             'EnhancedMonitoring' => $this->populateResultEnhancedMonitoringList($data['StreamDescription']['EnhancedMonitoring']),
             'EncryptionType' => isset($data['StreamDescription']['EncryptionType']) ? (string) $data['StreamDescription']['EncryptionType'] : null,
             'KeyId' => isset($data['StreamDescription']['KeyId']) ? (string) $data['StreamDescription']['KeyId'] : null,

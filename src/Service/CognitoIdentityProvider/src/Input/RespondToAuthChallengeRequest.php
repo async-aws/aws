@@ -30,7 +30,7 @@ final class RespondToAuthChallengeRequest extends Input
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
      * @required
      *
-     * @var null|ChallengeNameType::*
+     * @var ChallengeNameType::*|null
      */
     private $challengeName;
 
@@ -165,7 +165,7 @@ final class RespondToAuthChallengeRequest extends Input
 
         // Prepare Body
         $bodyPayload = $this->requestBody();
-        $body = empty($bodyPayload) ? '{}' : \json_encode($bodyPayload, 4194304);
+        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload, 4194304);
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));

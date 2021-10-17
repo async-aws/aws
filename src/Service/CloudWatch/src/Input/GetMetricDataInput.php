@@ -54,7 +54,7 @@ final class GetMetricDataInput extends Input
      * when the `MaxDatapoints` limit is reached. `TimestampAscending` returns the oldest data first and paginates when the
      * `MaxDatapoints` limit is reached.
      *
-     * @var null|ScanBy::*
+     * @var ScanBy::*|null
      */
     private $scanBy;
 

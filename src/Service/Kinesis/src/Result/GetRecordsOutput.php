@@ -71,7 +71,7 @@ class GetRecordsOutput extends Result
         foreach ($json as $item) {
             $items[] = new Record([
                 'SequenceNumber' => (string) $item['SequenceNumber'],
-                'ApproximateArrivalTimestamp' => (isset($item['ApproximateArrivalTimestamp']) && ($d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $item['ApproximateArrivalTimestamp'])))) ? $d : null,
+                'ApproximateArrivalTimestamp' => (isset($item['ApproximateArrivalTimestamp']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['ApproximateArrivalTimestamp'])))) ? $d : null,
                 'Data' => base64_decode((string) $item['Data']),
                 'PartitionKey' => (string) $item['PartitionKey'],
                 'EncryptionType' => isset($item['EncryptionType']) ? (string) $item['EncryptionType'] : null,

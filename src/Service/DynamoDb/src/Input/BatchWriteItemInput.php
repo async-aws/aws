@@ -26,7 +26,7 @@ final class BatchWriteItemInput extends Input
     private $requestItems;
 
     /**
-     * @var null|ReturnConsumedCapacity::*
+     * @var ReturnConsumedCapacity::*|null
      */
     private $returnConsumedCapacity;
 
@@ -35,7 +35,7 @@ final class BatchWriteItemInput extends Input
      * item collections, if any, that were modified during the operation are returned in the response. If set to `NONE` (the
      * default), no statistics are returned.
      *
-     * @var null|ReturnItemCollectionMetrics::*
+     * @var ReturnItemCollectionMetrics::*|null
      */
     private $returnItemCollectionMetrics;
 
@@ -108,7 +108,7 @@ final class BatchWriteItemInput extends Input
 
         // Prepare Body
         $bodyPayload = $this->requestBody();
-        $body = empty($bodyPayload) ? '{}' : \json_encode($bodyPayload, 4194304);
+        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload, 4194304);
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));

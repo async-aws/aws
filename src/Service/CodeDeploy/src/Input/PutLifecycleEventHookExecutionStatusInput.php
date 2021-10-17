@@ -29,7 +29,7 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
      * The result of a Lambda function that validates a deployment lifecycle event. `Succeeded` and `Failed` are the only
      * valid values for `status`.
      *
-     * @var null|LifecycleEventStatus::*
+     * @var LifecycleEventStatus::*|null
      */
     private $status;
 
@@ -91,7 +91,7 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
 
         // Prepare Body
         $bodyPayload = $this->requestBody();
-        $body = empty($bodyPayload) ? '{}' : \json_encode($bodyPayload, 4194304);
+        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload, 4194304);
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
