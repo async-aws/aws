@@ -178,7 +178,6 @@ class WaiterGenerator
             ->setBody(strtr('
                 ACCEPTOR_CODE
 
-                /** @psalm-suppress TypeDoesNotContainType */
                 return $exception === null ? self::STATE_PENDING :  self::STATE_FAILURE;
             ', ['ACCEPTOR_CODE' => implode("\n", array_map([$this, 'getAcceptorBody'], $waiter->getAcceptors()))]));
         $method->addParameter('response')->setType(Response::class);
