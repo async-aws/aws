@@ -225,6 +225,48 @@ class Route53ClientTest extends TestCase
         self::assertNull($result->getNextRecordName());
     }
 
+    public function testResourceRecordSetsChanged(): void
+    {
+        $client = $this->getClient();
+
+        $input = new CreateHostedZoneRequest([
+            'Name' => 'bar-domain.com',
+            'CallerReference' => microtime(),
+        ]);
+        $result = $client->createHostedZone($input);
+        $hostedZoneId = $result->getHostedZone()->getId();
+
+        $input = new ChangeResourceRecordSetsRequest([
+            'HostedZoneId' => $this->formatId($hostedZoneId),
+            'ChangeBatch' => new ChangeBatch([
+                'Changes' => [
+                    new Change([
+                        'Action' => ChangeAction::CREATE,
+                        'ResourceRecordSet' => new ResourceRecordSet([
+                            'SetIdentifier' => 'Main',
+                            'Name' => 'bar-domain.com',
+                            'Type' => RRType::A,
+                            'TTL' => 300,
+                            'ResourceRecords' => [
+                                new ResourceRecord([
+                                    'Value' => '34.145.17.120',
+                                ]),
+                            ],
+                        ]),
+                    ]),
+                ],
+            ]),
+        ]);
+        $result = $client->changeResourceRecordSets($input);
+        $result->resolve();
+
+        $input = new ChangeResourceRecordSetsRequest(['Id' => $result->getChangeInfo()->getId()]);
+        $waiter = $client->resourceRecordSetsChanged($input);
+
+        self::assertTrue($waiter->wait());
+        self::assertTrue($waiter->isSuccess());
+    }
+
     private function deleteZone(string $domain): void
     {
         $client = $this->getClient();
