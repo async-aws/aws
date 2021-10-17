@@ -260,8 +260,7 @@ class Route53ClientTest extends TestCase
         $result = $client->changeResourceRecordSets($input);
         $result->resolve();
 
-        $input = new ChangeResourceRecordSetsRequest(['Id' => $result->getChangeInfo()->getId()]);
-        $waiter = $client->resourceRecordSetsChanged($input);
+        $waiter = $client->resourceRecordSetsChanged(['Id' => $result->getChangeInfo()->getId()]);
 
         self::assertTrue($waiter->wait());
         self::assertTrue($waiter->isSuccess());
