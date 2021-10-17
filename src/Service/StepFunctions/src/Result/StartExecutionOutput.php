@@ -36,6 +36,6 @@ class StartExecutionOutput extends Result
         $data = $response->toArray();
 
         $this->executionArn = (string) $data['executionArn'];
-        $this->startDate = /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['startDate']));
+        $this->startDate = /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['startDate']));
     }
 }

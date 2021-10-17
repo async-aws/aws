@@ -20,7 +20,7 @@ final class CopyObjectRequest extends Input
     /**
      * The canned ACL to apply to the object.
      *
-     * @var ObjectCannedACL::*|null
+     * @var null|ObjectCannedACL::*
      */
     private $acl;
 
@@ -162,7 +162,7 @@ final class CopyObjectRequest extends Input
     /**
      * Specifies whether the metadata is copied from the source object or replaced with metadata provided in the request.
      *
-     * @var MetadataDirective::*|null
+     * @var null|MetadataDirective::*
      */
     private $metadataDirective;
 
@@ -170,14 +170,14 @@ final class CopyObjectRequest extends Input
      * Specifies whether the object tag-set are copied from the source object or replaced with tag-set provided in the
      * request.
      *
-     * @var TaggingDirective::*|null
+     * @var null|TaggingDirective::*
      */
     private $taggingDirective;
 
     /**
      * The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
      *
-     * @var ServerSideEncryption::*|null
+     * @var null|ServerSideEncryption::*
      */
     private $serverSideEncryption;
 
@@ -189,7 +189,7 @@ final class CopyObjectRequest extends Input
      *
      * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html
      *
-     * @var StorageClass::*|null
+     * @var null|StorageClass::*
      */
     private $storageClass;
 
@@ -278,7 +278,7 @@ final class CopyObjectRequest extends Input
     private $copySourceSseCustomerKeyMd5;
 
     /**
-     * @var RequestPayer::*|null
+     * @var null|RequestPayer::*
      */
     private $requestPayer;
 
@@ -293,7 +293,7 @@ final class CopyObjectRequest extends Input
     /**
      * The Object Lock mode that you want to apply to the copied object.
      *
-     * @var ObjectLockMode::*|null
+     * @var null|ObjectLockMode::*
      */
     private $objectLockMode;
 
@@ -307,7 +307,7 @@ final class CopyObjectRequest extends Input
     /**
      * Specifies whether you want to apply a Legal Hold to the copied object.
      *
-     * @var ObjectLockLegalHoldStatus::*|null
+     * @var null|ObjectLockLegalHoldStatus::*
      */
     private $objectLockLegalHoldStatus;
 

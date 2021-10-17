@@ -31,7 +31,7 @@ class DescribeStreamSummaryOutput extends Result
             'StreamARN' => (string) $data['StreamDescriptionSummary']['StreamARN'],
             'StreamStatus' => (string) $data['StreamDescriptionSummary']['StreamStatus'],
             'RetentionPeriodHours' => (int) $data['StreamDescriptionSummary']['RetentionPeriodHours'],
-            'StreamCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['StreamDescriptionSummary']['StreamCreationTimestamp'])),
+            'StreamCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['StreamDescriptionSummary']['StreamCreationTimestamp'])),
             'EnhancedMonitoring' => $this->populateResultEnhancedMonitoringList($data['StreamDescriptionSummary']['EnhancedMonitoring']),
             'EncryptionType' => isset($data['StreamDescriptionSummary']['EncryptionType']) ? (string) $data['StreamDescriptionSummary']['EncryptionType'] : null,
             'KeyId' => isset($data['StreamDescriptionSummary']['KeyId']) ? (string) $data['StreamDescriptionSummary']['KeyId'] : null,

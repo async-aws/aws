@@ -42,7 +42,7 @@ final class PublishLayerVersionRequest extends Input
      *
      * @see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
      *
-     * @var list<Runtime::*>|null
+     * @var null|list<Runtime::*>
      */
     private $compatibleRuntimes;
 
@@ -58,7 +58,7 @@ final class PublishLayerVersionRequest extends Input
      *
      * @see https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html
      *
-     * @var list<Architecture::*>|null
+     * @var null|list<Architecture::*>
      */
     private $compatibleArchitectures;
 
@@ -146,7 +146,7 @@ final class PublishLayerVersionRequest extends Input
 
         // Prepare Body
         $bodyPayload = $this->requestBody();
-        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload, 4194304);
+        $body = empty($bodyPayload) ? '{}' : \json_encode($bodyPayload, 4194304);
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));

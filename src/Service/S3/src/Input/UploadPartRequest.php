@@ -94,7 +94,7 @@ final class UploadPartRequest extends Input
     private $sseCustomerKeyMd5;
 
     /**
-     * @var RequestPayer::*|null
+     * @var null|RequestPayer::*
      */
     private $requestPayer;
 

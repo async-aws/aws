@@ -51,12 +51,12 @@ final class PutItemInput extends Input
      * Use `ReturnValues` if you want to get the item attributes as they appeared before they were updated with the
      * `PutItem` request. For `PutItem`, the valid values are:.
      *
-     * @var ReturnValue::*|null
+     * @var null|ReturnValue::*
      */
     private $returnValues;
 
     /**
-     * @var ReturnConsumedCapacity::*|null
+     * @var null|ReturnConsumedCapacity::*
      */
     private $returnConsumedCapacity;
 
@@ -65,7 +65,7 @@ final class PutItemInput extends Input
      * item collections, if any, that were modified during the operation are returned in the response. If set to `NONE` (the
      * default), no statistics are returned.
      *
-     * @var ReturnItemCollectionMetrics::*|null
+     * @var null|ReturnItemCollectionMetrics::*
      */
     private $returnItemCollectionMetrics;
 
@@ -75,7 +75,7 @@ final class PutItemInput extends Input
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html
      *
-     * @var ConditionalOperator::*|null
+     * @var null|ConditionalOperator::*
      */
     private $conditionalOperator;
 
@@ -247,7 +247,7 @@ final class PutItemInput extends Input
 
         // Prepare Body
         $bodyPayload = $this->requestBody();
-        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload, 4194304);
+        $body = empty($bodyPayload) ? '{}' : \json_encode($bodyPayload, 4194304);
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));

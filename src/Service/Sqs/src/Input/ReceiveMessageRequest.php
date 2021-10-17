@@ -20,7 +20,7 @@ final class ReceiveMessageRequest extends Input
     private $queueUrl;
 
     /**
-     * @var list<MessageSystemAttributeName::*>|null
+     * @var null|list<MessageSystemAttributeName::*>
      */
     private $attributeNames;
 

@@ -29,7 +29,7 @@ class RegisterStreamConsumerOutput extends Result
             'ConsumerName' => (string) $data['Consumer']['ConsumerName'],
             'ConsumerARN' => (string) $data['Consumer']['ConsumerARN'],
             'ConsumerStatus' => (string) $data['Consumer']['ConsumerStatus'],
-            'ConsumerCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['Consumer']['ConsumerCreationTimestamp'])),
+            'ConsumerCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $data['Consumer']['ConsumerCreationTimestamp'])),
         ]);
     }
 }

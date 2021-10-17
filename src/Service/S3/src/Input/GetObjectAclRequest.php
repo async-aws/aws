@@ -36,7 +36,7 @@ final class GetObjectAclRequest extends Input
     private $versionId;
 
     /**
-     * @var RequestPayer::*|null
+     * @var null|RequestPayer::*
      */
     private $requestPayer;
 

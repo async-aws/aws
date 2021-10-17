@@ -54,7 +54,7 @@ final class SearchFacesByImageRequest extends Input
      * an object that's misidentified as a face, a face that's too blurry, or a face with a pose that's too extreme to use.
      * If you specify `NONE`, no filtering is performed. The default value is `NONE`.
      *
-     * @var QualityFilter::*|null
+     * @var null|QualityFilter::*
      */
     private $qualityFilter;
 
@@ -130,7 +130,7 @@ final class SearchFacesByImageRequest extends Input
 
         // Prepare Body
         $bodyPayload = $this->requestBody();
-        $body = empty($bodyPayload) ? '{}' : json_encode($bodyPayload, 4194304);
+        $body = empty($bodyPayload) ? '{}' : \json_encode($bodyPayload, 4194304);
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));

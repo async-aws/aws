@@ -14,7 +14,7 @@ final class CreateBucketRequest extends Input
     /**
      * The canned ACL to apply to the bucket.
      *
-     * @var BucketCannedACL::*|null
+     * @var null|BucketCannedACL::*
      */
     private $acl;
 

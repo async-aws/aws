@@ -27,7 +27,7 @@ final class ListMultipartUploadsRequest extends Input
     private $delimiter;
 
     /**
-     * @var EncodingType::*|null
+     * @var null|EncodingType::*
      */
     private $encodingType;
 
