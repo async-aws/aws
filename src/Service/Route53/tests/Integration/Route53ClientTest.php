@@ -36,7 +36,7 @@ class Route53ClientTest extends TestCase
         $result = $client->createHostedZone($input);
 
         $input = new ChangeResourceRecordSetsRequest([
-            'HostedZoneId' => $this->formatId($result->getHostedZone()->getId()),
+            'HostedZoneId' => $result->getHostedZone()->getId(),
             'ChangeBatch' => new ChangeBatch([
                 'Changes' => [
                     new Change([
@@ -112,7 +112,7 @@ class Route53ClientTest extends TestCase
         $zonesBefore = \count(iterator_to_array($client->ListHostedZones()->getHostedZones()));
 
         $input = new DeleteHostedZoneRequest([
-            'Id' => $this->formatId($result->getHostedZone()->getId()),
+            'Id' => $result->getHostedZone()->getId(),
         ]);
         $result = $client->deleteHostedZone($input);
         $result->resolve();
@@ -174,7 +174,7 @@ class Route53ClientTest extends TestCase
         $hostedZoneId = $result->getHostedZone()->getId();
 
         $input = new ChangeResourceRecordSetsRequest([
-            'HostedZoneId' => $this->formatId($hostedZoneId),
+            'HostedZoneId' => $hostedZoneId,
             'ChangeBatch' => new ChangeBatch([
                 'Changes' => [
                     new Change([
@@ -213,7 +213,7 @@ class Route53ClientTest extends TestCase
         $result->resolve();
 
         $input = new ListResourceRecordSetsRequest([
-            'HostedZoneId' => $this->formatId($hostedZoneId),
+            'HostedZoneId' => $hostedZoneId,
             'MaxItems' => '5',
         ]);
         $result = $client->listResourceRecordSets($input);
@@ -231,14 +231,9 @@ class Route53ClientTest extends TestCase
 
         foreach ($client->ListHostedZones()->getHostedZones() as $zone) {
             if ($zone->getName() === $domain) {
-                $client->deleteHostedZone(['Id' => $this->formatId($zone->getId())]);
+                $client->deleteHostedZone(['Id' => $zone->getId()]);
             }
         }
-    }
-
-    private function formatId(string $id): string
-    {
-        return ltrim($id, '/hostedzone/');
     }
 
     private function getClient(): Route53Client

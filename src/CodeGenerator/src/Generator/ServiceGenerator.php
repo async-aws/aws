@@ -69,6 +69,11 @@ class ServiceGenerator
     private $enum;
 
     /**
+     * @var HookGenerator
+     */
+    private $hook;
+
+    /**
      * @var ObjectGenerator
      */
     private $object;
@@ -148,7 +153,7 @@ class ServiceGenerator
 
     public function input(): InputGenerator
     {
-        return $this->input ?? $this->input = new InputGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->object(), $this->type(), $this->enum());
+        return $this->input ?? $this->input = new InputGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->object(), $this->type(), $this->enum(), $this->hook());
     }
 
     public function type(): TypeGenerator
@@ -159,6 +164,11 @@ class ServiceGenerator
     public function enum(): EnumGenerator
     {
         return $this->enum ?? $this->enum = new EnumGenerator($this->classRegistry, $this->namespaceRegistry);
+    }
+
+    public function hook(): HookGenerator
+    {
+        return $this->hook ?? $this->hook = new HookGenerator();
     }
 
     public function object(): ObjectGenerator

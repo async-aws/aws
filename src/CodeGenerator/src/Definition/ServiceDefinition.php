@@ -27,9 +27,13 @@ class ServiceDefinition
 
     private $example;
 
+    private $hooks;
+
+    private $hooksByTarget;
+
     private $apiReferenceUrl;
 
-    public function __construct(string $name, array $endpoints, array $definition, array $documentation, array $pagination, array $waiter, array $example, string $apiReferenceUrl)
+    public function __construct(string $name, array $endpoints, array $definition, array $documentation, array $pagination, array $waiter, array $example, array $hooks, string $apiReferenceUrl)
     {
         $this->name = $name;
         $this->endpoints = $endpoints;
@@ -39,6 +43,7 @@ class ServiceDefinition
         $this->waiter = $waiter;
         $this->example = $example;
         $this->apiReferenceUrl = $apiReferenceUrl;
+        $this->hooks = $hooks;
     }
 
     public function getName(): string
@@ -108,6 +113,21 @@ class ServiceDefinition
     public function getApiReferenceUrl(): string
     {
         return $this->apiReferenceUrl;
+    }
+
+    /**
+     * @return Hook[]
+     */
+    public function getHooks(string $target): array
+    {
+        if (null === $this->hooksByTarget) {
+            $this->hooksByTarget = [];
+            foreach ($this->hooks as $hook) {
+                $this->hooksByTarget[$hook['target']][] = new Hook($hook['options']);
+            }
+        }
+
+        return $this->hooksByTarget[$target] ?? [];
     }
 
     private function getPagination(string $name): ?Pagination

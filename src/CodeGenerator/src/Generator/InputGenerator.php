@@ -58,6 +58,11 @@ class InputGenerator
     private $enumGenerator;
 
     /**
+     * @var HookGenerator
+     */
+    private $hookGenerator;
+
+    /**
      * @var SerializerProvider
      */
     private $serializer;
@@ -67,13 +72,14 @@ class InputGenerator
      */
     private $generated = [];
 
-    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, ObjectGenerator $objectGenerator, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, ObjectGenerator $objectGenerator, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null, ?HookGenerator $hookGenerator = null)
     {
         $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
         $this->objectGenerator = $objectGenerator;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
         $this->enumGenerator = $enumGenerator ?? new EnumGenerator($this->classRegistry, $this->namespaceRegistry);
+        $this->hookGenerator = $hookGenerator ?? new HookGenerator();
         $this->serializer = new SerializerProvider($this->namespaceRegistry, $requirementsRegistry);
     }
 
@@ -313,11 +319,13 @@ class InputGenerator
                         throw new InvalidArgument(sprintf(\'Missing parameter "NAME" for "%s". The value cannot be null.\', __CLASS__));
                     }
                     VALIDATE_ENUM
+                    APPLY_HOOK
                     VAR_NAME["LOCATION"] = VALUE;';
                     $inputElement = '$v';
                 } else {
                     $bodyCode = 'if (null !== $this->PROPERTY) {
                         VALIDATE_ENUM
+                        APPLY_HOOK
                         VAR_NAME["LOCATION"] = VALUE;
                     }';
                     $inputElement = '$this->' . GeneratorHelper::normalizeName($member->getName());
@@ -335,12 +343,25 @@ class InputGenerator
                     ]);
                 }
 
+                $applyHook = '';
+                foreach ($operation->getService()->getHooks($requestPart . '_parameters') as $hook) {
+                    if (!\in_array($member->getLocationName() ?? $member->getName(), $hook->getFilters())) {
+                        continue;
+                    }
+
+                    $applyHook .= $this->hookGenerator->generate($hook, 'VALUE');
+                }
+                $applyHook = strtr($applyHook, [
+                    'VALUE' => $this->stringify($inputElement, $member, $requestPart),
+                ]);
+
                 $bodyCode = strtr($bodyCode, [
                     'PROPERTY' => GeneratorHelper::normalizeName($member->getName()),
                     'NAME' => $member->getName(),
                     'VAR_NAME' => $varName,
-                    'LOCATION' => $member->getLocationName() ?? $member->getName(),
+                    'LOCATION' => $location = $member->getLocationName() ?? $member->getName(),
                     'VALIDATE_ENUM' => $validateEnum,
+                    'APPLY_HOOK' => $applyHook,
                     'VALUE' => $this->stringify($inputElement, $member, $requestPart),
                 ]);
                 if (!isset($body[$requestPart])) {
