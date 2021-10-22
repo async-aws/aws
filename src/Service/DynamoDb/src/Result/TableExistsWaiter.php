@@ -16,8 +16,11 @@ class TableExistsWaiter extends Waiter
 
     protected function extractState(Response $response, ?HttpException $exception): string
     {
-        if (200 === $response->getStatusCode() && 'ACTIVE' === ($response->toArray()['Table']['TableStatus'] ?? null)) {
-            return self::STATE_SUCCESS;
+        if (200 === $response->getStatusCode()) {
+            $a = $response->toArray()['Table']['TableStatus'] ?? null;
+            if ('ACTIVE' === $a) {
+                return self::STATE_SUCCESS;
+            }
         }
 
         if (null !== $exception && 'ResourceNotFoundException' === $exception->getAwsCode()) {
