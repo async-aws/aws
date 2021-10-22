@@ -56,13 +56,13 @@ class PopulatorGenerator
      */
     private $parserProvider;
 
-    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, ObjectGenerator $objectGenerator, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null)
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, ObjectGenerator $objectGenerator, ?TypeGenerator $typeGenerator = null, ?EnumGenerator $enumGenerator = null, ?ParserProvider $parserProvider = null)
     {
         $this->objectGenerator = $objectGenerator;
         $this->requirementsRegistry = $requirementsRegistry;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($namespaceRegistry);
         $this->enumGenerator = $enumGenerator ?? new EnumGenerator($classRegistry, $namespaceRegistry);
-        $this->parserProvider = new ParserProvider($namespaceRegistry, $requirementsRegistry, $this->typeGenerator);
+        $this->parserProvider = $parserProvider ?? new ParserProvider($namespaceRegistry, $requirementsRegistry, $this->typeGenerator);
     }
 
     public function generate(Operation $operation, StructureShape $shape, ClassBuilder $classBuilder, bool $forException = false): void
