@@ -300,6 +300,28 @@
                 "ListHostedZones",
                 "ListHostedZonesByName",
                 "ListResourceRecordSets"
+            ],
+            "hooks": [
+                {
+                    "target": "uri_parameters",
+                    "options": {
+                        "filters": [
+                            "Id",
+                            "HostedZoneId",
+                            "DelegationSetId"
+                        ],
+                        "action": {
+                            "type": "remove_left",
+                            "options": {
+                                "values": [
+                                    "/hostedzone/",
+                                    "/change/",
+                                    "/delegationset/"
+                                ]
+                            }
+                        }
+                    }
+                }
             ]
         },
         "S3": {
