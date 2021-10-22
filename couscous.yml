@@ -199,5 +199,5 @@ menu:
     github:
         items:
             github:
-                text: Github
+                text: GitHub
                 url: https://github.com/async-aws/aws
