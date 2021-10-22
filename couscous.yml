@@ -109,6 +109,9 @@ menu:
             step-functions:
                 text: Step Functions
                 url: /clients/step-functions.html
+            x-ray:
+                text: X-Ray
+                url: /clients/x-ray.html
 
     features:
         # Feature are in alphabetical order after "why async?"

@@ -472,6 +472,17 @@
                 "SendTaskSuccess",
                 "StartExecution"
             ]
+        },
+        "XRay": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/xray/2016-04-12/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/xray/2016-04-12/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/xray/2016-04-12/paginators-1.json",
+            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/xray/2016-04-12/examples-1.json",
+            "namespace": "AsyncAws\\XRay",
+            "api-reference": "https://docs.aws.amazon.com/xray/latest/api",
+            "methods": [
+                "PutTraceSegments"
+            ]
         }
     }
 }

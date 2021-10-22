@@ -35,6 +35,7 @@ use AsyncAws\Sns\SnsClient;
 use AsyncAws\Sqs\SqsClient;
 use AsyncAws\Ssm\SsmClient;
 use AsyncAws\StepFunctions\StepFunctionsClient;
+use AsyncAws\XRay\XRayClient;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\HttpClient;
@@ -87,6 +88,19 @@ class AwsClientFactory
         $this->logger = $logger ?? new NullLogger();
         $this->configuration = $configuration;
         $this->credentialProvider = $credentialProvider ?? new CacheProvider(ChainProvider::createDefaultChain($this->httpClient, $this->logger));
+    }
+
+    public function appSync(): AppSyncClient
+    {
+        if (!class_exists(AppSyncClient::class)) {
+            throw MissingDependency::create('async-aws/app-sync', 'AppSync');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new AppSyncClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
     }
 
     public function cloudFormation(): CloudFormationClient
@@ -397,6 +411,19 @@ class AwsClientFactory
         return $this->serviceCache[__METHOD__];
     }
 
+    public function xRay(): XRayClient
+    {
+        if (!class_exists(XRayClient::class)) {
+            throw MissingDependency::create('async-aws/x-ray', 'XRay');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new XRayClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
     public function cognitoIdentityProvider(): CognitoIdentityProviderClient
     {
         if (!class_exists(CognitoIdentityProviderClient::class)) {
@@ -405,19 +432,6 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new CognitoIdentityProviderClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
-        }
-
-        return $this->serviceCache[__METHOD__];
-    }
-
-    public function appSync(): AppSyncClient
-    {
-        if (!class_exists(AppSyncClient::class)) {
-            throw MissingDependency::create('async-aws/app-sync', 'AppSync');
-        }
-
-        if (!isset($this->serviceCache[__METHOD__])) {
-            $this->serviceCache[__METHOD__] = new AppSyncClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];
