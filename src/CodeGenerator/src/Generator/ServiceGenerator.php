@@ -9,6 +9,7 @@ use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
 use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
+use AsyncAws\CodeGenerator\Generator\ResponseParser\ParserProvider;
 
 /**
  * Generate API client methods and result classes.
@@ -69,6 +70,11 @@ class ServiceGenerator
     private $enum;
 
     /**
+     * @var HookGenerator
+     */
+    private $hook;
+
+    /**
      * @var ObjectGenerator
      */
     private $object;
@@ -92,6 +98,11 @@ class ServiceGenerator
      * @var ExceptionGenerator
      */
     private $exception;
+
+    /**
+     * @var ParserProvider
+     */
+    private $parserProvider;
 
     /**
      * @var PopulatorGenerator
@@ -118,7 +129,7 @@ class ServiceGenerator
 
     public function waiter(): WaiterGenerator
     {
-        return $this->waiter ?? $this->waiter = new WaiterGenerator($this->classRegistry, $this->namespaceRegistry, $this->input(), $this->exception(), $this->type());
+        return $this->waiter ?? $this->waiter = new WaiterGenerator($this->classRegistry, $this->namespaceRegistry, $this->input(), $this->exception(), $this->parserProvider(), $this->type());
     }
 
     public function pagination(): PaginationGenerator
@@ -133,7 +144,7 @@ class ServiceGenerator
 
     public function populator(): PopulatorGenerator
     {
-        return $this->populator ?? $this->populator = new PopulatorGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->object(), $this->type(), $this->enum());
+        return $this->populator ?? $this->populator = new PopulatorGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->object(), $this->type(), $this->enum(), $this->parserProvider());
     }
 
     public function result(): ResultGenerator
@@ -146,9 +157,14 @@ class ServiceGenerator
         return $this->exception ?? $this->exception = new ExceptionGenerator($this->classRegistry, $this->namespaceRegistry, $this->populator());
     }
 
+    public function parserProvider(): ParserProvider
+    {
+        return $this->parserProvider ?? $this->parserProvider = new ParserProvider($this->namespaceRegistry, $this->requirementsRegistry, $this->type());
+    }
+
     public function input(): InputGenerator
     {
-        return $this->input ?? $this->input = new InputGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->object(), $this->type(), $this->enum());
+        return $this->input ?? $this->input = new InputGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->object(), $this->type(), $this->enum(), $this->hook());
     }
 
     public function type(): TypeGenerator
@@ -159,6 +175,11 @@ class ServiceGenerator
     public function enum(): EnumGenerator
     {
         return $this->enum ?? $this->enum = new EnumGenerator($this->classRegistry, $this->namespaceRegistry);
+    }
+
+    public function hook(): HookGenerator
+    {
+        return $this->hook ?? $this->hook = new HookGenerator();
     }
 
     public function object(): ObjectGenerator

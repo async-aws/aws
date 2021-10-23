@@ -94,6 +94,27 @@ class RestXmlParser implements Parser
         return new ParserResult($body, $this->imports, $this->functions);
     }
 
+    public function generateForPath(StructureShape $shape, string $path, string $output): string
+    {
+        $body = '$data = new \SimpleXMLElement($response->getContent());';
+        if (null !== $wrapper = $shape->getResultWrapper()) {
+            $body .= strtr('$data = $data->WRAPPER;' . "\n", ['WRAPPER' => $wrapper]);
+        }
+        $path = explode('.', $path);
+        $accesor = '$data';
+        while (\count($path) > 0) {
+            $item = array_shift($path);
+            $member = $shape->getMember($item);
+            $shape = $member->getShape();
+            $accesor = $this->getInputAccessor($accesor, $member);
+        }
+
+        return $body . strtr('OUTPUT = PATH', [
+            'PATH' => $this->parseXmlElement($accesor, $shape, true, false),
+            'OUTPUT' => $output,
+        ]);
+    }
+
     private function getInputAccessor(string $currentInput, Member $member)
     {
         if ($member instanceof StructureMember) {

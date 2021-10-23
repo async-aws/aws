@@ -117,6 +117,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\StepFunctions\StepFunctionsClient::class,
                 'package' => 'async-aws/step-functions',
             ],
+            'x_ray' => [
+                'class' => \AsyncAws\XRay\XRayClient::class,
+                'package' => 'async-aws/x-ray',
+            ],
         ];
     }
 

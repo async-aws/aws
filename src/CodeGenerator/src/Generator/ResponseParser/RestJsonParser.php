@@ -83,6 +83,32 @@ class RestJsonParser implements Parser
         return new ParserResult($body, $this->imports, $this->functions);
     }
 
+    public function generateForPath(StructureShape $shape, string $path, string $output): string
+    {
+        if (null !== $wrapper = $shape->getResultWrapper()) {
+            $body = '$data = $response->toArray();' . "\n";
+            $body .= strtr('$data = $data[WRAPPER];' . "\n", ['WRAPPER' => var_export($wrapper, true)]);
+            $input = '$data';
+        } else {
+            $body = '';
+            $input = '$response->toArray()';
+        }
+        $path = explode('.', $path);
+        $accesor = '';
+        while (\count($path) > 0) {
+            $item = array_shift($path);
+            $member = $shape->getMember($item);
+            $shape = $member->getShape();
+            $accesor .= '[' . var_export($this->getInputAccessorName($member), true) . ']';
+        }
+
+        return $body . strtr('OUTPUT = INPUTPATH ?? null', [
+            'INPUT' => $input,
+            'PATH' => $accesor,
+            'OUTPUT' => $output,
+        ]);
+    }
+
     protected function parseResponseTimestamp(Shape $shape, string $input, bool $required): string
     {
         $body = 'new \DateTimeImmutable((string) INPUT)';

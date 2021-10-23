@@ -14,6 +14,7 @@ use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
+use AsyncAws\CodeGenerator\Generator\ResponseParser\ParserProvider;
 use AsyncAws\Core\Exception\Http\HttpException;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Exception\RuntimeException;
@@ -58,12 +59,18 @@ class WaiterGenerator
      */
     private $exceptionGenerator;
 
-    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ExceptionGenerator $exceptionGenerator, ?TypeGenerator $typeGenerator = null)
+    /**
+     * @var ParserProvider
+     */
+    private $parserProvider;
+
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ExceptionGenerator $exceptionGenerator, ParserProvider $parserProvider, ?TypeGenerator $typeGenerator = null)
     {
         $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
         $this->inputGenerator = $inputGenerator;
         $this->exceptionGenerator = $exceptionGenerator;
+        $this->parserProvider = $parserProvider;
         $this->typeGenerator = $typeGenerator ?? new TypeGenerator($this->namespaceRegistry);
     }
 
@@ -179,7 +186,9 @@ class WaiterGenerator
                 ACCEPTOR_CODE
 
                 return $exception === null ? self::STATE_PENDING :  self::STATE_FAILURE;
-            ', ['ACCEPTOR_CODE' => implode("\n", array_map([$this, 'getAcceptorBody'], $waiter->getAcceptors()))]));
+            ', ['ACCEPTOR_CODE' => implode("\n", array_map(function ($acceptor) use ($waiter) {
+                return $this->getAcceptorBody($waiter, $acceptor);
+            }, $waiter->getAcceptors()))]));
         $method->addParameter('response')->setType(Response::class);
         $method->addParameter('exception')->setType(HttpException::class)->setNullable(true);
 
@@ -188,7 +197,7 @@ class WaiterGenerator
         return $className;
     }
 
-    private function getAcceptorBody(WaiterAcceptor $acceptor): string
+    private function getAcceptorBody(Waiter $waiter, WaiterAcceptor $acceptor): string
     {
         if ($acceptor instanceof ErrorWaiterAcceptor) {
             return $this->getAcceptorErrorBody($acceptor);
@@ -198,7 +207,7 @@ class WaiterGenerator
             case WaiterAcceptor::MATCHER_STATUS:
                 return $this->getAcceptorStatusBody($acceptor);
             case WaiterAcceptor::MATCHER_PATH:
-                return $this->getAcceptorPathBody($acceptor);
+                return $this->getAcceptorPathBody($waiter, $acceptor);
             default:
                 throw new \RuntimeException(sprintf('Acceptor matcher "%s" is not yet implemented', $acceptor->getMatcher()));
         }
@@ -216,14 +225,17 @@ class WaiterGenerator
         ]);
     }
 
-    private function getAcceptorPathBody(WaiterAcceptor $acceptor): string
+    private function getAcceptorPathBody(Waiter $waiter, WaiterAcceptor $acceptor): string
     {
         return strtr('
-            if (200 === $response->getStatusCode() && EXPECTED === ($response->toArray()[PATH] ?? null)) {
-                return self::BEHAVIOR;
+            if (200 === $response->getStatusCode()) {
+                ACCESS;
+                if (EXPECTED === $a) {
+                    return self::BEHAVIOR;
+                }
             }
         ', [
-            'PATH' => '"' . strtr($acceptor->getArgument(), ['.' => '"]["']) . '"',
+            'ACCESS' => $this->parserProvider->get($waiter->getOperation()->getService())->generateForPath($waiter->getOperation()->getOutput(), $acceptor->getArgument(), '$a'),
             'EXPECTED' => var_export($acceptor->getExpected(), true),
             'BEHAVIOR' => $this->getAcceptorBehavior($acceptor),
         ]);
