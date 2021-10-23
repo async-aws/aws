@@ -16,8 +16,12 @@ class ResourceRecordSetsChangedWaiter extends Waiter
 
     protected function extractState(Response $response, ?HttpException $exception): string
     {
-        if (200 === $response->getStatusCode() && 'INSYNC' === ($response->toArray()['ChangeInfo']['Status'] ?? null)) {
-            return self::STATE_SUCCESS;
+        if (200 === $response->getStatusCode()) {
+            $data = new \SimpleXMLElement($response->getContent());
+            $a = (string) $data->ChangeInfo->Status;
+            if ('INSYNC' === $a) {
+                return self::STATE_SUCCESS;
+            }
         }
 
         return null === $exception ? self::STATE_PENDING : self::STATE_FAILURE;

@@ -34,6 +34,7 @@ class Route53ClientTest extends TestCase
             'CallerReference' => microtime(),
         ]);
         $result = $client->createHostedZone($input);
+        $result->resolve();
 
         $input = new ChangeResourceRecordSetsRequest([
             'HostedZoneId' => $result->getHostedZone()->getId(),
@@ -234,10 +235,10 @@ class Route53ClientTest extends TestCase
             'CallerReference' => microtime(),
         ]);
         $result = $client->createHostedZone($input);
-        $hostedZoneId = $result->getHostedZone()->getId();
+        $result->resolve();
 
         $input = new ChangeResourceRecordSetsRequest([
-            'HostedZoneId' => $this->formatId($hostedZoneId),
+            'HostedZoneId' => $result->getHostedZone()->getId(),
             'ChangeBatch' => new ChangeBatch([
                 'Changes' => [
                     new Change([
