@@ -299,7 +299,8 @@
                 "DeleteHostedZone",
                 "ListHostedZones",
                 "ListHostedZonesByName",
-                "ListResourceRecordSets"
+                "ListResourceRecordSets",
+                "ResourceRecordSetsChanged"
             ],
             "hooks": [
                 {

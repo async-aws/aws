@@ -11,6 +11,7 @@ use AsyncAws\Route53\Enum\RRType;
 use AsyncAws\Route53\Input\ChangeResourceRecordSetsRequest;
 use AsyncAws\Route53\Input\CreateHostedZoneRequest;
 use AsyncAws\Route53\Input\DeleteHostedZoneRequest;
+use AsyncAws\Route53\Input\GetChangeRequest;
 use AsyncAws\Route53\Input\ListHostedZonesByNameRequest;
 use AsyncAws\Route53\Input\ListHostedZonesRequest;
 use AsyncAws\Route53\Input\ListResourceRecordSetsRequest;
@@ -20,6 +21,7 @@ use AsyncAws\Route53\Result\DeleteHostedZoneResponse;
 use AsyncAws\Route53\Result\ListHostedZonesByNameResponse;
 use AsyncAws\Route53\Result\ListHostedZonesResponse;
 use AsyncAws\Route53\Result\ListResourceRecordSetsResponse;
+use AsyncAws\Route53\Result\ResourceRecordSetsChangedWaiter;
 use AsyncAws\Route53\Route53Client;
 use AsyncAws\Route53\ValueObject\Change;
 use AsyncAws\Route53\ValueObject\ChangeBatch;
@@ -116,6 +118,19 @@ class Route53ClientTest extends TestCase
         $result = $client->listResourceRecordSets($input);
 
         self::assertInstanceOf(ListResourceRecordSetsResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testResourceRecordSetsChanged(): void
+    {
+        $client = new Route53Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new GetChangeRequest([
+            'Id' => 'C2682N5HXP0BZ4',
+        ]);
+        $result = $client->resourceRecordSetsChanged($input);
+
+        self::assertInstanceOf(ResourceRecordSetsChangedWaiter::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 }

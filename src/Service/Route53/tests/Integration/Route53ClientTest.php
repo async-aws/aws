@@ -34,6 +34,7 @@ class Route53ClientTest extends TestCase
             'CallerReference' => microtime(),
         ]);
         $result = $client->createHostedZone($input);
+        $result->resolve();
 
         $input = new ChangeResourceRecordSetsRequest([
             'HostedZoneId' => $result->getHostedZone()->getId(),
@@ -223,6 +224,47 @@ class Route53ClientTest extends TestCase
         self::assertCount(2, $result->getResourceRecordSets());
         self::assertFalse($result->getIsTruncated());
         self::assertNull($result->getNextRecordName());
+    }
+
+    public function testResourceRecordSetsChanged(): void
+    {
+        $client = $this->getClient();
+
+        $input = new CreateHostedZoneRequest([
+            'Name' => 'bar-domain.com',
+            'CallerReference' => microtime(),
+        ]);
+        $result = $client->createHostedZone($input);
+        $result->resolve();
+
+        $input = new ChangeResourceRecordSetsRequest([
+            'HostedZoneId' => $result->getHostedZone()->getId(),
+            'ChangeBatch' => new ChangeBatch([
+                'Changes' => [
+                    new Change([
+                        'Action' => ChangeAction::CREATE,
+                        'ResourceRecordSet' => new ResourceRecordSet([
+                            'SetIdentifier' => 'Main',
+                            'Name' => 'bar-domain.com',
+                            'Type' => RRType::A,
+                            'TTL' => 300,
+                            'ResourceRecords' => [
+                                new ResourceRecord([
+                                    'Value' => '34.145.17.120',
+                                ]),
+                            ],
+                        ]),
+                    ]),
+                ],
+            ]),
+        ]);
+        $result = $client->changeResourceRecordSets($input);
+        $result->resolve();
+
+        $waiter = $client->resourceRecordSetsChanged(['Id' => $result->getChangeInfo()->getId()]);
+
+        self::assertTrue($waiter->wait());
+        self::assertTrue($waiter->isSuccess());
     }
 
     private function deleteZone(string $domain): void
