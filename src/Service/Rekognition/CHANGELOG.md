@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: This release added new attributes to Rekognition Video GetCelebrityRecognition API operations.
+- AWS api-change: Added `us-fips` regions
 
 ## 0.1.5
 
