@@ -320,6 +320,20 @@ class IamClient extends AbstractApi
                     'signService' => 'iam',
                     'signVersions' => ['v4'],
                 ];
+            case 'aws-global-fips':
+                return [
+                    'endpoint' => 'https://iam-fips.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'iam',
+                    'signVersions' => ['v4'],
+                ];
+            case 'aws-us-gov-global-fips':
+                return [
+                    'endpoint' => 'https://iam.us-gov.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'iam',
+                    'signVersions' => ['v4'],
+                ];
             case 'iam-fips':
                 return [
                     'endpoint' => 'https://iam-fips.amazonaws.com',

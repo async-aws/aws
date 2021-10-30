@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added `us-iso-west-1` region
+- AWS api-change: Added `us-fips` regions
 
 ## 1.1.1
 
