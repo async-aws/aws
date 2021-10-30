@@ -446,6 +446,13 @@ class RekognitionClient extends AbstractApi
                     'signService' => 'rekognition',
                     'signVersions' => ['v4'],
                 ];
+            case 'ca-central-1-fips':
+                return [
+                    'endpoint' => 'https://rekognition-fips.ca-central-1.amazonaws.com',
+                    'signRegion' => 'ca-central-1',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
             case 'rekognition-fips.ca-central-1':
                 return [
                     'endpoint' => 'https://rekognition-fips.ca-central-1.amazonaws.com',
@@ -482,6 +489,41 @@ class RekognitionClient extends AbstractApi
                     'signVersions' => ['v4'],
                 ];
             case 'rekognition-fips.us-west-2':
+                return [
+                    'endpoint' => 'https://rekognition-fips.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-east-1-fips':
+                return [
+                    'endpoint' => 'https://rekognition-fips.us-east-1.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-east-2-fips':
+                return [
+                    'endpoint' => 'https://rekognition-fips.us-east-2.amazonaws.com',
+                    'signRegion' => 'us-east-2',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-gov-west-1-fips':
+                return [
+                    'endpoint' => 'https://rekognition-fips.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-1-fips':
+                return [
+                    'endpoint' => 'https://rekognition-fips.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-2-fips':
                 return [
                     'endpoint' => 'https://rekognition-fips.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',

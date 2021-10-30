@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release added new attributes to Rekognition Video GetCelebrityRecognition API operations.
+
 ## 0.1.5
 
 ### Added
