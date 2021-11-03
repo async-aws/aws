@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: Use specific configuration for `us` regions
 
 ## 1.3.0
 

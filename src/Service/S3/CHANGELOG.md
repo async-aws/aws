@@ -4,7 +4,8 @@
 
 ### Added
 
-- AWS api-change: TODO
+- AWS api-change: used unique endpoint for `accesspoint-*` regions
+- AWS api-change: Rework regions configuration.
 
 ## 1.9.2
 
