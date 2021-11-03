@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added `us-iso-west-1` region
+- AWS api-change: TODO
 
 ## 1.12.0
 

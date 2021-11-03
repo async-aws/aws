@@ -1013,13 +1013,6 @@ class CognitoIdentityProviderClient extends AbstractApi
         }
 
         switch ($region) {
-            case 'us-gov-west-1':
-                return [
-                    'endpoint' => "https://cognito-idp.$region.amazonaws.com",
-                    'signRegion' => $region,
-                    'signService' => 'cognito-idp',
-                    'signVersions' => ['v4'],
-                ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://cognito-idp-fips.us-east-1.amazonaws.com',
@@ -1051,6 +1044,41 @@ class CognitoIdentityProviderClient extends AbstractApi
             case 'fips-us-west-2':
                 return [
                     'endpoint' => 'https://cognito-idp-fips.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
+                    'signService' => 'cognito-idp',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-east-1':
+                return [
+                    'endpoint' => 'https://cognito-idp.us-east-1.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'cognito-idp',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-east-2':
+                return [
+                    'endpoint' => 'https://cognito-idp.us-east-2.amazonaws.com',
+                    'signRegion' => 'us-east-2',
+                    'signService' => 'cognito-idp',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-gov-west-1':
+                return [
+                    'endpoint' => 'https://cognito-idp.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'cognito-idp',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-1':
+                return [
+                    'endpoint' => 'https://cognito-idp.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'cognito-idp',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-2':
+                return [
+                    'endpoint' => 'https://cognito-idp.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',
                     'signService' => 'cognito-idp',
                     'signVersions' => ['v4'],

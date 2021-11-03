@@ -5,6 +5,7 @@
 ### Added
 
 - AWS enhancement: Documentation updates for Secrets Manager
+- AWS api-change: TODO
 
 ## 0.1.1
 

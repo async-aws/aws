@@ -100,6 +100,20 @@ class EventBridgeClient extends AbstractApi
                     'signService' => 'events',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-east-1':
+                return [
+                    'endpoint' => 'https://events.us-east-1.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'events',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-east-2':
+                return [
+                    'endpoint' => 'https://events.us-east-2.amazonaws.com',
+                    'signRegion' => 'us-east-2',
+                    'signService' => 'events',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-gov-east-1':
                 return [
                     'endpoint' => 'https://events.us-gov-east-1.amazonaws.com',
@@ -111,6 +125,20 @@ class EventBridgeClient extends AbstractApi
                 return [
                     'endpoint' => 'https://events.us-gov-west-1.amazonaws.com',
                     'signRegion' => 'us-gov-west-1',
+                    'signService' => 'events',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-1':
+                return [
+                    'endpoint' => 'https://events.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'events',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-2':
+                return [
+                    'endpoint' => 'https://events.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
                     'signService' => 'events',
                     'signVersions' => ['v4'],
                 ];

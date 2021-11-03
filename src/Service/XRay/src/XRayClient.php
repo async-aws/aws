@@ -62,14 +62,6 @@ class XRayClient extends AbstractApi
                     'signService' => 'xray',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-gov-east-1':
-            case 'us-gov-west-1':
-                return [
-                    'endpoint' => "https://xray.$region.amazonaws.com",
-                    'signRegion' => $region,
-                    'signService' => 'xray',
-                    'signVersions' => ['v4'],
-                ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://xray-fips.us-east-1.amazonaws.com',
@@ -108,6 +100,48 @@ class XRayClient extends AbstractApi
             case 'fips-us-west-2':
                 return [
                     'endpoint' => 'https://xray-fips.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
+                    'signService' => 'xray',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-east-1':
+                return [
+                    'endpoint' => 'https://xray.us-east-1.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'xray',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-east-2':
+                return [
+                    'endpoint' => 'https://xray.us-east-2.amazonaws.com',
+                    'signRegion' => 'us-east-2',
+                    'signService' => 'xray',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-gov-east-1':
+                return [
+                    'endpoint' => 'https://xray.us-gov-east-1.amazonaws.com',
+                    'signRegion' => 'us-gov-east-1',
+                    'signService' => 'xray',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-gov-west-1':
+                return [
+                    'endpoint' => 'https://xray.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'xray',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-1':
+                return [
+                    'endpoint' => 'https://xray.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'xray',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-2':
+                return [
+                    'endpoint' => 'https://xray.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',
                     'signService' => 'xray',
                     'signVersions' => ['v4'],

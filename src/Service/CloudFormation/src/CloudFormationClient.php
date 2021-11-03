@@ -93,10 +93,24 @@ class CloudFormationClient extends AbstractApi
                     'signService' => 'cloudformation',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-east-1':
+                return [
+                    'endpoint' => 'https://cloudformation.us-east-1.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'cloudformation',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-east-1-fips':
                 return [
                     'endpoint' => 'https://cloudformation-fips.us-east-1.amazonaws.com',
                     'signRegion' => 'us-east-1',
+                    'signService' => 'cloudformation',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-east-2':
+                return [
+                    'endpoint' => 'https://cloudformation.us-east-2.amazonaws.com',
+                    'signRegion' => 'us-east-2',
                     'signService' => 'cloudformation',
                     'signVersions' => ['v4'],
                 ];
@@ -121,10 +135,24 @@ class CloudFormationClient extends AbstractApi
                     'signService' => 'cloudformation',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-west-1':
+                return [
+                    'endpoint' => 'https://cloudformation.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'cloudformation',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-west-1-fips':
                 return [
                     'endpoint' => 'https://cloudformation-fips.us-west-1.amazonaws.com',
                     'signRegion' => 'us-west-1',
+                    'signService' => 'cloudformation',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-2':
+                return [
+                    'endpoint' => 'https://cloudformation.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
                     'signService' => 'cloudformation',
                     'signVersions' => ['v4'],
                 ];

@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added `us-fips` regions
+- AWS api-change: This Amazon Rekognition Custom Labels release introduces the management of datasets with projects
 
 ## 0.1.5
 
