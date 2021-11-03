@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: reorder regions
+
 ## 1.4.1
 
 ### Fixed

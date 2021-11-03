@@ -84,8 +84,8 @@ class RekognitionClient extends AbstractApi
     }
 
     /**
-     * Creates a new Amazon Rekognition Custom Labels project. A project is a logical grouping of resources (images, Labels,
-     * models) and operations (training, evaluation and detection).
+     * Creates a new Amazon Rekognition Custom Labels project. A project is a group of resources (datasets, model versions)
+     * that you use to create and manage Amazon Rekognition Custom Labels models.
      *
      * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_CreateProject.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#createproject
@@ -439,10 +439,10 @@ class RekognitionClient extends AbstractApi
         }
 
         switch ($region) {
-            case 'us-gov-west-1':
+            case 'ca-central-1':
                 return [
-                    'endpoint' => "https://rekognition.$region.amazonaws.com",
-                    'signRegion' => $region,
+                    'endpoint' => 'https://rekognition.ca-central-1.amazonaws.com',
+                    'signRegion' => 'ca-central-1',
                     'signService' => 'rekognition',
                     'signVersions' => ['v4'],
                 ];
@@ -495,10 +495,66 @@ class RekognitionClient extends AbstractApi
                     'signService' => 'rekognition',
                     'signVersions' => ['v4'],
                 ];
+            case 'rekognition.ca-central-1':
+                return [
+                    'endpoint' => 'https://rekognition.rekognition.ca-central-1.amazonaws.com',
+                    'signRegion' => 'ca-central-1',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'rekognition.us-east-1':
+                return [
+                    'endpoint' => 'https://rekognition.rekognition.us-east-1.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'rekognition.us-east-2':
+                return [
+                    'endpoint' => 'https://rekognition.rekognition.us-east-2.amazonaws.com',
+                    'signRegion' => 'us-east-2',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'rekognition.us-gov-west-1':
+                return [
+                    'endpoint' => 'https://rekognition.rekognition.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'rekognition.us-west-1':
+                return [
+                    'endpoint' => 'https://rekognition.rekognition.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'rekognition.us-west-2':
+                return [
+                    'endpoint' => 'https://rekognition.rekognition.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-east-1':
+                return [
+                    'endpoint' => 'https://rekognition.us-east-1.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-east-1-fips':
                 return [
                     'endpoint' => 'https://rekognition-fips.us-east-1.amazonaws.com',
                     'signRegion' => 'us-east-1',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-east-2':
+                return [
+                    'endpoint' => 'https://rekognition.us-east-2.amazonaws.com',
+                    'signRegion' => 'us-east-2',
                     'signService' => 'rekognition',
                     'signVersions' => ['v4'],
                 ];
@@ -509,6 +565,13 @@ class RekognitionClient extends AbstractApi
                     'signService' => 'rekognition',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-gov-west-1':
+                return [
+                    'endpoint' => 'https://rekognition.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-gov-west-1-fips':
                 return [
                     'endpoint' => 'https://rekognition-fips.us-gov-west-1.amazonaws.com',
@@ -516,10 +579,24 @@ class RekognitionClient extends AbstractApi
                     'signService' => 'rekognition',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-west-1':
+                return [
+                    'endpoint' => 'https://rekognition.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-west-1-fips':
                 return [
                     'endpoint' => 'https://rekognition-fips.us-west-1.amazonaws.com',
                     'signRegion' => 'us-west-1',
+                    'signService' => 'rekognition',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-2':
+                return [
+                    'endpoint' => 'https://rekognition.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
                     'signService' => 'rekognition',
                     'signVersions' => ['v4'],
                 ];

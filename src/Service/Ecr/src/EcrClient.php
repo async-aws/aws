@@ -131,6 +131,48 @@ class EcrClient extends AbstractApi
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];
+            case 'dkr-us-east-1':
+                return [
+                    'endpoint' => 'https://api.ecr.dkr-us-east-1.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'ecr',
+                    'signVersions' => ['v4'],
+                ];
+            case 'dkr-us-east-2':
+                return [
+                    'endpoint' => 'https://api.ecr.dkr-us-east-2.amazonaws.com',
+                    'signRegion' => 'us-east-2',
+                    'signService' => 'ecr',
+                    'signVersions' => ['v4'],
+                ];
+            case 'dkr-us-gov-east-1':
+                return [
+                    'endpoint' => 'https://api.ecr.dkr-us-gov-east-1.amazonaws.com',
+                    'signRegion' => 'us-gov-east-1',
+                    'signService' => 'ecr',
+                    'signVersions' => ['v4'],
+                ];
+            case 'dkr-us-gov-west-1':
+                return [
+                    'endpoint' => 'https://api.ecr.dkr-us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'ecr',
+                    'signVersions' => ['v4'],
+                ];
+            case 'dkr-us-west-1':
+                return [
+                    'endpoint' => 'https://api.ecr.dkr-us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'ecr',
+                    'signVersions' => ['v4'],
+                ];
+            case 'dkr-us-west-2':
+                return [
+                    'endpoint' => 'https://api.ecr.dkr-us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
+                    'signService' => 'ecr',
+                    'signVersions' => ['v4'],
+                ];
             case 'eu-central-1':
                 return [
                     'endpoint' => 'https://api.ecr.eu-central-1.amazonaws.com',

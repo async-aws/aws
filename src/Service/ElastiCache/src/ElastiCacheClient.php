@@ -68,7 +68,6 @@ class ElastiCacheClient extends AbstractApi
                     'signVersions' => ['v4'],
                 ];
             case 'us-gov-east-1':
-            case 'us-gov-west-1':
                 return [
                     'endpoint' => "https://elasticache.$region.amazonaws.com",
                     'signRegion' => $region,
@@ -97,10 +96,24 @@ class ElastiCacheClient extends AbstractApi
                     'signService' => 'elasticache',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-east-1':
+                return [
+                    'endpoint' => 'https://elasticache.us-east-1.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'elasticache',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-east-1-fips':
                 return [
                     'endpoint' => 'https://elasticache-fips.us-east-1.amazonaws.com',
                     'signRegion' => 'us-east-1',
+                    'signService' => 'elasticache',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-east-2':
+                return [
+                    'endpoint' => 'https://elasticache.us-east-2.amazonaws.com',
+                    'signRegion' => 'us-east-2',
                     'signService' => 'elasticache',
                     'signVersions' => ['v4'],
                 ];
@@ -111,6 +124,13 @@ class ElastiCacheClient extends AbstractApi
                     'signService' => 'elasticache',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-gov-west-1':
+                return [
+                    'endpoint' => 'https://elasticache.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'elasticache',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-gov-west-1-fips':
                 return [
                     'endpoint' => 'https://elasticache.us-gov-west-1.amazonaws.com',
@@ -118,10 +138,24 @@ class ElastiCacheClient extends AbstractApi
                     'signService' => 'elasticache',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-west-1':
+                return [
+                    'endpoint' => 'https://elasticache.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'elasticache',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-west-1-fips':
                 return [
                     'endpoint' => 'https://elasticache-fips.us-west-1.amazonaws.com',
                     'signRegion' => 'us-west-1',
+                    'signService' => 'elasticache',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-2':
+                return [
+                    'endpoint' => 'https://elasticache.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
                     'signService' => 'elasticache',
                     'signVersions' => ['v4'],
                 ];

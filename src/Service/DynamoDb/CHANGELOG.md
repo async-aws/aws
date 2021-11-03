@@ -5,6 +5,8 @@
 ### Added
 
 - AWS api-change: Added `us-iso-west-1` region
+- AWS api-change: Added `ca-central-1` region
+- AWS api-change: Use specific configuration for `us` regions
 
 ## 1.1.1
 

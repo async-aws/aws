@@ -247,14 +247,6 @@ class SsmClient extends AbstractApi
                     'signService' => 'ssm',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-gov-east-1':
-            case 'us-gov-west-1':
-                return [
-                    'endpoint' => "https://ssm.$region.amazonaws.com",
-                    'signRegion' => $region,
-                    'signService' => 'ssm',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-iso-east-1':
                 return [
                     'endpoint' => "https://ssm.$region.c2s.ic.gov",
@@ -266,6 +258,13 @@ class SsmClient extends AbstractApi
                 return [
                     'endpoint' => "https://ssm.$region.sc2s.sgov.gov",
                     'signRegion' => $region,
+                    'signService' => 'ssm',
+                    'signVersions' => ['v4'],
+                ];
+            case 'ca-central-1':
+                return [
+                    'endpoint' => 'https://ssm.ca-central-1.amazonaws.com',
+                    'signRegion' => 'ca-central-1',
                     'signService' => 'ssm',
                     'signVersions' => ['v4'],
                 ];
@@ -314,6 +313,48 @@ class SsmClient extends AbstractApi
             case 'fips-us-west-2':
                 return [
                     'endpoint' => 'https://ssm-fips.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
+                    'signService' => 'ssm',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-east-1':
+                return [
+                    'endpoint' => 'https://ssm.us-east-1.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'ssm',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-east-2':
+                return [
+                    'endpoint' => 'https://ssm.us-east-2.amazonaws.com',
+                    'signRegion' => 'us-east-2',
+                    'signService' => 'ssm',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-gov-east-1':
+                return [
+                    'endpoint' => 'https://ssm.us-gov-east-1.amazonaws.com',
+                    'signRegion' => 'us-gov-east-1',
+                    'signService' => 'ssm',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-gov-west-1':
+                return [
+                    'endpoint' => 'https://ssm.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'ssm',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-1':
+                return [
+                    'endpoint' => 'https://ssm.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'ssm',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-2':
+                return [
+                    'endpoint' => 'https://ssm.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',
                     'signService' => 'ssm',
                     'signVersions' => ['v4'],

@@ -5,6 +5,7 @@
 ### Added
 
 - AWS enhancement: Documentation updates for Secrets Manager
+- AWS api-change: Use specific configuration for `us` regions
 
 ## 0.1.1
 

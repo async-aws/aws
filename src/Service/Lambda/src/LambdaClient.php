@@ -374,14 +374,6 @@ class LambdaClient extends AbstractApi
                     'signService' => 'lambda',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-gov-east-1':
-            case 'us-gov-west-1':
-                return [
-                    'endpoint' => "https://lambda.$region.amazonaws.com",
-                    'signRegion' => $region,
-                    'signService' => 'lambda',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-iso-east-1':
             case 'us-iso-west-1':
                 return [
@@ -435,6 +427,48 @@ class LambdaClient extends AbstractApi
             case 'fips-us-west-2':
                 return [
                     'endpoint' => 'https://lambda-fips.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-east-1':
+                return [
+                    'endpoint' => 'https://lambda.us-east-1.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-east-2':
+                return [
+                    'endpoint' => 'https://lambda.us-east-2.amazonaws.com',
+                    'signRegion' => 'us-east-2',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-gov-east-1':
+                return [
+                    'endpoint' => 'https://lambda.us-gov-east-1.amazonaws.com',
+                    'signRegion' => 'us-gov-east-1',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-gov-west-1':
+                return [
+                    'endpoint' => 'https://lambda.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-1':
+                return [
+                    'endpoint' => 'https://lambda.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-2':
+                return [
+                    'endpoint' => 'https://lambda.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',
                     'signService' => 'lambda',
                     'signVersions' => ['v4'],

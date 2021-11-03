@@ -425,6 +425,20 @@ class SnsClient extends AbstractApi
                     'signService' => 'sns',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-east-1':
+                return [
+                    'endpoint' => 'https://sns.us-east-1.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'sns',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-east-2':
+                return [
+                    'endpoint' => 'https://sns.us-east-2.amazonaws.com',
+                    'signRegion' => 'us-east-2',
+                    'signService' => 'sns',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-gov-east-1':
                 return [
                     'endpoint' => 'https://sns.us-gov-east-1.amazonaws.com',
@@ -443,6 +457,20 @@ class SnsClient extends AbstractApi
                 return [
                     'endpoint' => 'https://sns.us-iso-east-1.c2s.ic.gov',
                     'signRegion' => 'us-iso-east-1',
+                    'signService' => 'sns',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-1':
+                return [
+                    'endpoint' => 'https://sns.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'sns',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-2':
+                return [
+                    'endpoint' => 'https://sns.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
                     'signService' => 'sns',
                     'signVersions' => ['v4'],
                 ];

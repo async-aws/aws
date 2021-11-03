@@ -192,6 +192,20 @@ class CloudWatchLogsClient extends AbstractApi
                     'signService' => 'logs',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-east-1':
+                return [
+                    'endpoint' => 'https://logs.us-east-1.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'logs',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-east-2':
+                return [
+                    'endpoint' => 'https://logs.us-east-2.amazonaws.com',
+                    'signRegion' => 'us-east-2',
+                    'signService' => 'logs',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-gov-east-1':
                 return [
                     'endpoint' => 'https://logs.us-gov-east-1.amazonaws.com',
@@ -203,6 +217,20 @@ class CloudWatchLogsClient extends AbstractApi
                 return [
                     'endpoint' => 'https://logs.us-gov-west-1.amazonaws.com',
                     'signRegion' => 'us-gov-west-1',
+                    'signService' => 'logs',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-1':
+                return [
+                    'endpoint' => 'https://logs.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'logs',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-2':
+                return [
+                    'endpoint' => 'https://logs.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
                     'signService' => 'logs',
                     'signVersions' => ['v4'],
                 ];

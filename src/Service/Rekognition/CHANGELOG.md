@@ -5,6 +5,8 @@
 ### Added
 
 - AWS api-change: Added `us-fips` regions
+- AWS api-change: Added `ca-central-1` region
+- AWS api-change: Use specific configuration for `us` regions
 
 ## 0.1.5
 

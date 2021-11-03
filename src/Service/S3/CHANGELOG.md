@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: used unique endpoint for `accesspoint-*` regions
+- AWS api-change: Rework regions configuration.
+
 ## 1.9.2
 
 ### Added

@@ -188,14 +188,6 @@ class CloudWatchClient extends AbstractApi
                     'signService' => 'monitoring',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-gov-east-1':
-            case 'us-gov-west-1':
-                return [
-                    'endpoint' => "https://monitoring.$region.amazonaws.com",
-                    'signRegion' => $region,
-                    'signService' => 'monitoring',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-iso-east-1':
             case 'us-iso-west-1':
                 return [
@@ -249,6 +241,48 @@ class CloudWatchClient extends AbstractApi
             case 'fips-us-west-2':
                 return [
                     'endpoint' => 'https://monitoring-fips.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
+                    'signService' => 'monitoring',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-east-1':
+                return [
+                    'endpoint' => 'https://monitoring.us-east-1.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'monitoring',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-east-2':
+                return [
+                    'endpoint' => 'https://monitoring.us-east-2.amazonaws.com',
+                    'signRegion' => 'us-east-2',
+                    'signService' => 'monitoring',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-gov-east-1':
+                return [
+                    'endpoint' => 'https://monitoring.us-gov-east-1.amazonaws.com',
+                    'signRegion' => 'us-gov-east-1',
+                    'signService' => 'monitoring',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-gov-west-1':
+                return [
+                    'endpoint' => 'https://monitoring.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'monitoring',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-1':
+                return [
+                    'endpoint' => 'https://monitoring.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'monitoring',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-2':
+                return [
+                    'endpoint' => 'https://monitoring.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',
                     'signService' => 'monitoring',
                     'signVersions' => ['v4'],
