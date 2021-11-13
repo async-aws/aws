@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * Throughput exceeds the current throughput quota for your account. Please contact AWS Support at AWS Support to
+ * Throughput exceeds the current throughput quota for your account. Please contact Amazon Web Services Support to
  * request a quota increase.
  *
  * @see https://aws.amazon.com/support

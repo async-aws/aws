@@ -99,7 +99,7 @@ final class TableDescription
     private $latestStreamArn;
 
     /**
-     * Represents the version of global tables in use, if the table is replicated across AWS Regions.
+     * Represents the version of global tables in use, if the table is replicated across Amazon Web Services Regions.
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html
      */
