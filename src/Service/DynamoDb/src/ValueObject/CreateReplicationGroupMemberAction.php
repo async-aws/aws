@@ -15,9 +15,9 @@ final class CreateReplicationGroupMemberAction
     private $regionName;
 
     /**
-     * The AWS KMS customer master key (CMK) that should be used for AWS KMS encryption in the new replica. To specify a
-     * CMK, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this
-     * parameter if the key is different from the default DynamoDB KMS master key alias/aws/dynamodb.
+     * The KMS key that should be used for KMS encryption in the new replica. To specify a key, use its key ID, Amazon
+     * Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key is
+     * different from the default DynamoDB KMS key `alias/aws/dynamodb`.
      */
     private $kmsMasterKeyId;
 

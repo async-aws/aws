@@ -7,6 +7,7 @@
 - AWS api-change: Added `us-iso-west-1` region
 - AWS api-change: Added `ca-central-1` region
 - AWS api-change: Use specific configuration for `us` regions
+- AWS enhancement: Updated Help section for "dynamodb update-contributor-insights" API
 
 ## 1.1.1
 

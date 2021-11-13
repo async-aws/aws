@@ -138,8 +138,9 @@ class DynamoDbClient extends AbstractApi
     }
 
     /**
-     * The `CreateTable` operation adds a new table to your account. In an AWS account, table names must be unique within
-     * each Region. That is, you can have two tables with same name if you create the tables in different Regions.
+     * The `CreateTable` operation adds a new table to your account. In an Amazon Web Services account, table names must be
+     * unique within each Region. That is, you can have two tables with same name if you create the tables in different
+     * Regions.
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#createtable
@@ -388,8 +389,9 @@ class DynamoDbClient extends AbstractApi
     }
 
     /**
-     * The `Query` operation finds items based on primary key values. You can query any table or secondary index that has a
-     * composite primary key (a partition key and a sort key).
+     * You must provide the name of the partition key attribute and a single value for that attribute. `Query` returns all
+     * items with that partition key value. Optionally, you can provide a sort key attribute and use a comparison operator
+     * to refine the search results.
      *
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#query

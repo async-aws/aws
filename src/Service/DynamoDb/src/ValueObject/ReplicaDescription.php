@@ -30,7 +30,7 @@ final class ReplicaDescription
     private $replicaStatusPercentProgress;
 
     /**
-     * The AWS KMS customer master key (CMK) of the replica that will be used for AWS KMS encryption.
+     * The KMS key of the replica that will be used for KMS encryption.
      */
     private $kmsMasterKeyId;
 
