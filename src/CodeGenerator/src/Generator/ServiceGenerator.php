@@ -30,57 +30,57 @@ class ServiceGenerator
     private $managedOperations;
 
     /**
-     * @var ClientGenerator
+     * @var ?ClientGenerator
      */
     private $client;
 
     /**
-     * @var OperationGenerator
+     * @var ?OperationGenerator
      */
     private $operation;
 
     /**
-     * @var WaiterGenerator
+     * @var ?WaiterGenerator
      */
     private $waiter;
 
     /**
-     * @var PaginationGenerator
+     * @var ?PaginationGenerator
      */
     private $pagination;
 
     /**
-     * @var ResultGenerator
+     * @var ?ResultGenerator
      */
     private $result;
 
     /**
-     * @var TestGenerator
+     * @var ?TestGenerator
      */
     private $test;
 
     /**
-     * @var InputGenerator
+     * @var ?InputGenerator
      */
     private $input;
 
     /**
-     * @var EnumGenerator
+     * @var ?EnumGenerator
      */
     private $enum;
 
     /**
-     * @var HookGenerator
+     * @var ?HookGenerator
      */
     private $hook;
 
     /**
-     * @var ObjectGenerator
+     * @var ?ObjectGenerator
      */
     private $object;
 
     /**
-     * @var TypeGenerator
+     * @var ?TypeGenerator
      */
     private $type;
 
@@ -95,17 +95,17 @@ class ServiceGenerator
     private $requirementsRegistry;
 
     /**
-     * @var ExceptionGenerator
+     * @var ?ExceptionGenerator
      */
     private $exception;
 
     /**
-     * @var ParserProvider
+     * @var ?ParserProvider
      */
     private $parserProvider;
 
     /**
-     * @var PopulatorGenerator
+     * @var ?PopulatorGenerator
      */
     private $populator;
 

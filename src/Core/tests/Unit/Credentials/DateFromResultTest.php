@@ -32,23 +32,6 @@ class DateFromResultTest extends TestCase
         self::assertEquals($time, $output->format('Y-m-d H:i:s'));
     }
 
-    public function testWithNoResponse()
-    {
-        $response = $this->getMockBuilder(Response::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['info', 'resolve'])
-            ->getMock();
-
-        $response->expects(self::once())
-            ->method('info')
-            ->willReturn([]);
-
-        $result = new DummyResult($response);
-
-        $output = (new DummyCredentials())->expose($result);
-        self::assertNull($output);
-    }
-
     public function testWithNoDate()
     {
         $httpResponse = $this->getMockBuilder(MockResponse::class)

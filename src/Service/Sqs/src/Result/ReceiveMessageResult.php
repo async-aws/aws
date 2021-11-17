@@ -59,9 +59,7 @@ class ReceiveMessageResult extends Result
     {
         $items = [];
         foreach ($xml as $item) {
-            if (null === $a = $item->Value) {
-                continue;
-            }
+            $a = $item->Value;
             $items[$item->Name->__toString()] = new MessageAttributeValue([
                 'StringValue' => ($v = $a->StringValue) ? (string) $v : null,
                 'BinaryValue' => ($v = $a->BinaryValue) ? base64_decode((string) $v) : null,
@@ -102,9 +100,7 @@ class ReceiveMessageResult extends Result
     {
         $items = [];
         foreach ($xml as $item) {
-            if (null === $a = $item->Value) {
-                continue;
-            }
+            $a = $item->Value;
             $items[$item->Name->__toString()] = (string) $a;
         }
 

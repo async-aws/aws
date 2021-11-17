@@ -51,9 +51,7 @@ class GetMetricStatisticsOutput extends Result
     {
         $items = [];
         foreach ($xml->entry as $item) {
-            if (null === $a = $item->value) {
-                continue;
-            }
+            $a = $item->value;
             $items[$item->key->__toString()] = (float) (string) $a;
         }
 

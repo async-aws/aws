@@ -310,9 +310,7 @@ class RestXmlParser implements Parser
         $body = '
             $items = [];
             foreach (INPUT as $item) {
-                if (null === $a = $item->MAP_VALUE) {
-                    continue;
-                }
+                $a = $item->MAP_VALUE;
                 $items[$item->MAP_KEY->__toString()] = MAP_ACCESSOR;
             }
 
