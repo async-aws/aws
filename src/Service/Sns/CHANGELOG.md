@@ -6,6 +6,7 @@
 
 - AWS api-change: Added `us-iso-west-1` region
 - AWS api-change: Use specific configuration for `us` regions
+- AWS enhancement: Documentation updates for Amazon SNS.
 
 ## 1.2.1
 

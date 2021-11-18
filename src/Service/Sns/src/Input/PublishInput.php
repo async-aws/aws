@@ -70,7 +70,7 @@ final class PublishInput extends Input
 
     /**
      * This parameter applies only to FIFO (first-in-first-out) topics. The `MessageDeduplicationId` can contain up to 128
-     * alphanumeric characters (a-z, A-Z, 0-9) and punctuation `(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)`.
+     * alphanumeric characters `(a-z, A-Z, 0-9)` and punctuation `(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)`.
      *
      * @var string|null
      */
@@ -78,7 +78,7 @@ final class PublishInput extends Input
 
     /**
      * This parameter applies only to FIFO (first-in-first-out) topics. The `MessageGroupId` can contain up to 128
-     * alphanumeric characters (a-z, A-Z, 0-9) and punctuation `(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)`.
+     * alphanumeric characters `(a-z, A-Z, 0-9)` and punctuation `(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)`.
      *
      * @var string|null
      */
