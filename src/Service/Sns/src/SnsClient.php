@@ -289,8 +289,8 @@ class SnsClient extends AbstractApi
 
     /**
      * Subscribes an endpoint to an Amazon SNS topic. If the endpoint type is HTTP/S or email, or if the endpoint and the
-     * topic are not in the same account, the endpoint owner must run the `ConfirmSubscription` action to confirm the
-     * subscription.
+     * topic are not in the same Amazon Web Services account, the endpoint owner must run the `ConfirmSubscription` action
+     * to confirm the subscription.
      *
      * @see https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#subscribe
