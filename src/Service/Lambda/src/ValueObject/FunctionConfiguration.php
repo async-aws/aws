@@ -96,7 +96,7 @@ final class FunctionConfiguration
 
     /**
      * The KMS key that's used to encrypt the function's environment variables. This key is only returned if you've
-     * configured a customer managed CMK.
+     * configured a customer managed key.
      */
     private $kmsKeyArn;
 
@@ -106,7 +106,7 @@ final class FunctionConfiguration
     private $tracingConfig;
 
     /**
-     * For Lambda@Edge functions, the ARN of the master function.
+     * For Lambda@Edge functions, the ARN of the main function.
      */
     private $masterArn;
 

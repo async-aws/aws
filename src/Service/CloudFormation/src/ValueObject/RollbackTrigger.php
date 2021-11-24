@@ -15,9 +15,11 @@ final class RollbackTrigger
     private $arn;
 
     /**
-     * The resource type of the rollback trigger. Currently, AWS::CloudWatch::Alarm is the only supported resource type.
+     * The resource type of the rollback trigger. Specify either AWS::CloudWatch::Alarm or AWS::CloudWatch::CompositeAlarm
+     * resource types.
      *
      * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html
+     * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-compositealarm.html
      */
     private $type;
 
