@@ -5,7 +5,7 @@ parameters:
         - src
     tmpDir: .cache/phpstan/
 
-    excludes_analyse:
+    excludePaths:
         - src/*/tests/*
         - src/**/tests/*
         - src/CodeGenerator/src/Generator/TestGenerator.php
@@ -20,3 +20,28 @@ parameters:
         - '#^Parameter \#1 \$input of class AsyncAws\\[^\\]+\\ValueObject\\[^ ]+ constructor expects (array\(\)\|)?array\([^\)]+\), array\([^\)]+\) given\.#'
         - '#Method AsyncAws\\[^:]+::[^(]+\(\) should return array<[^>]+> but returns array<int(\|string)?, string>\.$#'
         - '#PHPDoc tag @throws with type Psr\\Cache\\CacheException is not subtype of Throwable$#'
+        - '#^Dead catch - JsonException is never thrown in the try block\.$#'
+        - '#^Unsafe access to private property AsyncAws\\Flysystem\\S3\\AsyncAwsS3Adapter::\$[^ ]+ through static::\.$#'
+        - '#^Variable \$s3SignerOptions in empty\(\) always exists and is always falsy.#'
+        - '#^Method AsyncAws\\[^\\]+\\Result\\[^ ]+ should return #'
+        - '#^Parameter \#1 \$input of class AsyncAws\\[^\\]+\\ValueObject\\[^ ]+ constructor expects #'
+        - message: '#always exists and is not nullable\.$#'
+          paths:
+              - src/Core/src/Sts/ValueObject
+              - src/Service/AppSync/src/ValueObject
+              - src/Service/CloudFormation/src/ValueObject
+              - src/Service/CloudFront/src/ValueObject
+              - src/Service/CloudWatch/src/ValueObject
+              - src/Service/CloudWatchLogs/src/ValueObject
+              - src/Service/CognitoIdentityProvider/src/ValueObject
+              - src/Service/DynamoDb/src/ValueObject
+              - src/Service/Firehose/src/ValueObject
+              - src/Service/Iam/src/ValueObject
+              - src/Service/Kinesis/src/ValueObject
+              - src/Service/Lambda/src/ValueObject
+              - src/Service/Route53/src/ValueObject
+              - src/Service/S3/src/ValueObject
+              - src/Service/Ses/src/ValueObject
+              - src/Service/Sns/src/ValueObject
+              - src/Service/Sqs/src/ValueObject
+              - src/Service/Ssm/src/ValueObject

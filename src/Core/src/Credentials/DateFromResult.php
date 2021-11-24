@@ -11,10 +11,8 @@ trait DateFromResult
 {
     private function getDateFromResult(Result $result): ?\DateTimeImmutable
     {
-        if (
-            (null !== $response = $result->info()['response'] ?? null) &&
-            (null !== $date = $response->getHeaders(false)['date'][0] ?? null)
-        ) {
+        $response = $result->info()['response'];
+        if (null !== $date = $response->getHeaders(false)['date'][0] ?? null) {
             return new \DateTimeImmutable($date);
         }
 

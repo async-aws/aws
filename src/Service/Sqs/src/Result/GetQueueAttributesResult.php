@@ -41,9 +41,7 @@ class GetQueueAttributesResult extends Result
     {
         $items = [];
         foreach ($xml as $item) {
-            if (null === $a = $item->Value) {
-                continue;
-            }
+            $a = $item->Value;
             $items[$item->Name->__toString()] = (string) $a;
         }
 
