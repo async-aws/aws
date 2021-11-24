@@ -45,14 +45,11 @@ final class AssumeRoleRequest extends Input
     private $policy;
 
     /**
-     * The duration, in seconds, of the role session. The value specified can can range from 900 seconds (15 minutes) up to
-     * the maximum session duration that is set for the role. The maximum session duration setting can have a value from 1
-     * hour to 12 hours. If you specify a value higher than this setting or the administrator setting (whichever is lower),
-     * the operation fails. For example, if you specify a session duration of 12 hours, but your administrator set the
-     * maximum session duration to 6 hours, your operation fails. To learn how to view the maximum value for your role, see
-     * View the Maximum Session Duration Setting for a Role in the *IAM User Guide*.
-     *
-     * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html#id_roles_use_view-role-max-session
+     * The duration, in seconds, of the role session. The value specified can range from 900 seconds (15 minutes) up to the
+     * maximum session duration set for the role. The maximum session duration setting can have a value from 1 hour to 12
+     * hours. If you specify a value higher than this setting or the administrator setting (whichever is lower), the
+     * operation fails. For example, if you specify a session duration of 12 hours, but your administrator set the maximum
+     * session duration to 6 hours, your operation fails.
      *
      * @var int|null
      */
@@ -60,7 +57,7 @@ final class AssumeRoleRequest extends Input
 
     /**
      * A list of session tags that you want to pass. Each session tag consists of a key name and an associated value. For
-     * more information about session tags, see Tagging STS Sessions in the *IAM User Guide*.
+     * more information about session tags, see Tagging Amazon Web Services STS Sessions in the *IAM User Guide*.
      *
      * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html
      *

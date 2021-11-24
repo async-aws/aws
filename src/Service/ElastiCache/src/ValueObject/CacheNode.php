@@ -37,6 +37,9 @@ namespace AsyncAws\ElastiCache\ValueObject;
  * - Memory optimized:
  *
  *   - Current generation:
+ *     **R6gd node types** (available only for Redis engine version 6.2 onward).
+ *     `cache.r6gd.xlarge`, `cache.r6gd.2xlarge`, `cache.r6gd.4xlarge`, `cache.r6gd.8xlarge`, `cache.r6gd.12xlarge`,
+ *     `cache.r6gd.16xlarge`
  *     **R6g node types** (available only for Redis engine version 5.0.6 onward and for Memcached engine version 1.5.16
  *     onward).
  *     `cache.r6g.large`, `cache.r6g.xlarge`, `cache.r6g.2xlarge`, `cache.r6g.4xlarge`, `cache.r6g.8xlarge`,

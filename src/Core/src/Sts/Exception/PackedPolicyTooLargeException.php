@@ -15,7 +15,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  * information, see IAM and STS Entity Character Limits in the *IAM User Guide*.
  *
  * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html
- * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html
+ * @see https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-limits-entity-length
  */
 final class PackedPolicyTooLargeException extends ClientException
 {

@@ -6,6 +6,7 @@
 
 - AWS api-change: Added `us-iso-west-1` region
 - AWS api-change: Used regional endpoint for `us` regions
+- AWS enhancement: Documentation updates.
 
 ## 1.12.0
 

@@ -6,6 +6,7 @@
 
 - AWS api-change: Added `us-iso-west-1` region
 - AWS api-change: Use specific configuration for `us` regions
+- AWS api-change: Amazon SQS adds a new queue attribute, SqsManagedSseEnabled, which enables server-side queue encryption using SQS owned encryption keys.
 
 ## 1.6.0
 

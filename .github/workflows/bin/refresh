@@ -12,6 +12,19 @@ function console_log(string $message): void
     echo $message.PHP_EOL;
 }
 
+function call(string $command): array
+{
+    $output = [];
+    exec($command, $output, $return);
+    if ($return !== 0) {
+        console_log('Command "'.$command.'" failed.');
+
+        exit(1);
+    }
+
+    return $output;
+}
+
 /**
  * FETCH last SDK version
  */
@@ -37,6 +50,9 @@ if (version_compare($currentVersion, $lastVersion, '>=')) {
     exit;
 }
 
+$currentVersion = '3.204.0';
+
+
 /**
  * Regenerate code
  */
@@ -52,12 +68,7 @@ if ($return !== 0) {
 /**
  * Check if something changed
  */
-$output = [];
-exec('git diff --numstat  src/', $output, $return);
-if ($return !== 0) {
-    console_log('git diff failed.');
-    exit(1);
-}
+$output = call('git diff --numstat  src/');
 
 if (empty($output)) {
     console_log('Nothing changed.');
@@ -65,55 +76,96 @@ if (empty($output)) {
     exit;
 }
 console_log('Code changed');
-$services = array_unique(array_filter(array_map(function(string $line) {
-    $parts = explode('/', explode("\t", $line)[2]);
-    if ('Service' === $parts[1] ?? null) {
-        return $parts[2];
-    }
-    if (('Core' === $parts[1] ?? null) && ('Sts' === $parts[3] ?? null)) {
-        return 'Sts';
+$services = [];
+$hasChange = false;
+foreach ($output as $line) {
+    $file = explode("\t", $line)[2];
+    if (preg_match('#/CHANGELOG\.md$#', $file)) {
+        continue;
     }
 
-    return null;
-}, $output)));
+    $parts = explode('/', $file);
+    if ('Service' === $parts[1] ?? null) {
+        $service = $parts[2];
+    } elseif (('Core' === $parts[1] ?? null) && ('Sts' === $parts[3] ?? null)) {
+        $service = 'Sts';
+    } else {
+        continue;
+    }
+
+    if (!isset($services[$service])) {
+        $services[$service] = false;
+    }
+
+    if ($services[$service]) {
+        continue;
+    }
+
+    $fileChanges = call('git diff --no-color -U0 '.escapeshellarg($file));
+    foreach ($fileChanges as $lineChange) {
+        if (!$lineChange) {
+            continue;
+        }
+        if ($lineChange[0] !== '-' && $lineChange[0] !== '+') {
+            continue;
+        }
+        if (in_array(substr($lineChange, 0, 3), ['---', '+++'], true)) {
+            continue;
+        }
+        $lineChange = trim(substr($lineChange, 1));
+        if ('*' !== $lineChange[0] ?? null) {
+            $services[$service] = $hasChange = true;
+            break;
+        }
+    }
+}
 
 /**
  * Fetching AWS Changes
  */
-$changes = [];
-foreach ($versions as $version) {
-    if ($version['version'] === $currentVersion) {
-        break;
-    }
-    console_log('Fetching CHANGELOG for '. $version['version']);
-
-    $versionContent = @file_get_contents('https://raw.githubusercontent.com/aws/aws-sdk-php/'.$lastVersion.'/.changes/'.$version['version']);
-    if (false === $versionContent) {
-        continue;
-    }
-
-    $changes = array_merge($changes, json_decode($versionContent, true));
-}
 $changesByService = [];
-foreach ($changes as $change) {
-    $sanitizedService = preg_replace('[^a-z0-9]', '', strtolower($change['category']));
-    $changesByService[$sanitizedService][] = $change;
+if ($hasChange) {
+    $changes = [];
+    foreach ($versions as $version) {
+        if ($version['version'] === $currentVersion) {
+            break;
+        }
+        console_log('Fetching CHANGELOG for '. $version['version']);
+
+        $versionContent = @file_get_contents('https://raw.githubusercontent.com/aws/aws-sdk-php/'.$lastVersion.'/.changes/'.$version['version']);
+        if (false === $versionContent) {
+            continue;
+        }
+
+        $changes = array_merge($changes, json_decode($versionContent, true));
+    }
+
+    foreach ($changes as $change) {
+        $sanitizedService = preg_replace('[^a-z0-9]', '', strtolower($change['category']));
+        $changesByService[$sanitizedService][] = $change;
+    }
 }
+
 /**
  * Generating ChangeLog
  */
-foreach ($services as $service) {
+foreach ($services as $service => $hasChange) {
     $awsServiceNames = array_merge([$service], $manifest['services'][$service]['alternative-names'] ?? []);
     $newLines = [];
     foreach ($awsServiceNames as $awsServiceName) {
         $sanitizedService = preg_replace('[^a-z0-9]', '', strtolower($awsServiceName));
-        if (!isset($changesByService[$sanitizedService])) {
-            continue;
-        }
-        foreach ($changesByService[$sanitizedService] as $change) {
-            $newLines[] = sprintf('- AWS %s: %s', $change['type'], $change['description']);
+        if ($hasChange) {
+            if (!isset($changesByService[$sanitizedService])) {
+                continue;
+            }
+            foreach ($changesByService[$sanitizedService] as $change) {
+                $newLines[] = sprintf('- AWS %s: %s', $change['type'], $change['description']);
+            }
+        } else {
+            $newLines[] = '- AWS enhancement: Documentation updates.';
         }
     }
+
     if (empty($newLines)) {
         console_log('/!\ No entry in changelog for service '.$service);
         $newLines[] = '- AWS api-change: TODO';
@@ -149,7 +201,17 @@ foreach ($services as $service) {
         if (strpos($line, '### ') === 0) {
             break;
         }
+
+        if ($line !== '' && false !== $index = array_search($line, $newLines, true)) {
+            array_splice($newLines, $index, 1);
+        }
     }
+
+    if (empty($newLines)) {
+        console_log('duplicate entry in CHANGELOG '.$service);
+        continue;
+    }
+
     if (!$nrSection) {
         array_splice($changeLog, 2, 0, array_merge([
             '## NOT RELEASED',
