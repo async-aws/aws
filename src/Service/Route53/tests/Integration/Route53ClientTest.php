@@ -88,7 +88,7 @@ class Route53ClientTest extends TestCase
             'CallerReference' => microtime(),
             'HostedZoneConfig' => new HostedZoneConfig([
                 'Comment' => 'foo',
-                'PrivateZone' => false,
+                'PrivateZone' => true,
             ]),
         ]);
         $result = $client->createHostedZone($input);
@@ -96,7 +96,7 @@ class Route53ClientTest extends TestCase
 
         self::assertSame('test-domain.com.', $result->getHostedZone()->getName());
         self::assertSame('foo', $result->getHostedZone()->getConfig()->getComment());
-        self::assertFalse($result->getHostedZone()->getConfig()->getPrivateZone());
+        self::assertTrue($result->getHostedZone()->getConfig()->getPrivateZone());
     }
 
     public function testDeleteHostedZone(): void
