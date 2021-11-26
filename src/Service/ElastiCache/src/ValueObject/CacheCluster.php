@@ -101,7 +101,7 @@ final class CacheCluster
 
     /**
      *  If you are running Redis engine version 6.0 or later, set this parameter to yes if you want to opt-in to the next
-     * minor version upgrade campaign. This parameter is disabled for previous versions.
+     * auto minor version upgrade campaign. This parameter is disabled for previous versions.
      */
     private $autoMinorVersionUpgrade;
 
