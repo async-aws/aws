@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 0.1.6
+
 ### Added
 
 - AWS api-change: Added `us-fips` regions
