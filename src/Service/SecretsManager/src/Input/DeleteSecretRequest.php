@@ -10,8 +10,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class DeleteSecretRequest extends Input
 {
     /**
-     * Specifies the secret to delete. You can specify either the Amazon Resource Name (ARN) or the friendly name of the
-     * secret.
+     * The ARN or name of the secret to delete.
      *
      * @required
      *
@@ -20,16 +19,18 @@ final class DeleteSecretRequest extends Input
     private $secretId;
 
     /**
-     * (Optional) Specifies the number of days that Secrets Manager waits before Secrets Manager can delete the secret. You
-     * can't use both this parameter and the `ForceDeleteWithoutRecovery` parameter in the same API call.
+     * The number of days from 7 to 30 that Secrets Manager waits before permanently deleting the secret. You can't use both
+     * this parameter and `ForceDeleteWithoutRecovery` in the same call. If you don't use either, then Secrets Manager
+     * defaults to a 30 day recovery window.
      *
      * @var string|null
      */
     private $recoveryWindowInDays;
 
     /**
-     * (Optional) Specifies that the secret is to be deleted without any recovery window. You can't use both this parameter
-     * and the `RecoveryWindowInDays` parameter in the same API call.
+     * Specifies whether to delete the secret without any recovery window. You can't use both this parameter and
+     * `RecoveryWindowInDays` in the same call. If you don't use either, then Secrets Manager defaults to a 30 day recovery
+     * window.
      *
      * @var bool|null
      */

@@ -8,14 +8,14 @@ namespace AsyncAws\AppSync\ValueObject;
 final class HttpDataSourceConfig
 {
     /**
-     * The HTTP URL endpoint. You can either specify the domain name or IP, and port combination, and the URL scheme must be
-     * HTTP or HTTPS. If the port is not specified, AppSync uses the default port 80 for the HTTP endpoint and port 443 for
+     * The HTTP URL endpoint. You can specify either the domain name or IP, and port combination, and the URL scheme must be
+     * HTTP or HTTPS. If you don't specify the port, AppSync uses the default port 80 for the HTTP endpoint and port 443 for
      * HTTPS endpoints.
      */
     private $endpoint;
 
     /**
-     * The authorization config in case the HTTP endpoint requires authorization.
+     * The authorization configuration in case the HTTP endpoint requires authorization.
      */
     private $authorizationConfig;
 

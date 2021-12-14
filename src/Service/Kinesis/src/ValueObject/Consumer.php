@@ -5,7 +5,8 @@ namespace AsyncAws\Kinesis\ValueObject;
 use AsyncAws\Kinesis\Enum\ConsumerStatus;
 
 /**
- * An object that represents the details of the consumer you registered.
+ * An object that represents the details of the consumer you registered. This type of object is returned by
+ * RegisterStreamConsumer.
  */
 final class Consumer
 {

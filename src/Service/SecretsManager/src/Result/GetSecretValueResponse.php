@@ -23,15 +23,16 @@ class GetSecretValueResponse extends Result
     private $versionId;
 
     /**
-     * The decrypted part of the protected secret information that was originally provided as binary data in the form of a
-     * byte array. The response parameter represents the binary data as a base64-encoded string.
+     * The decrypted secret value, if the secret value was originally provided as binary data in the form of a byte array.
+     * The response parameter represents the binary data as a base64-encoded string.
      *
      * @see https://tools.ietf.org/html/rfc4648#section-4
      */
     private $secretBinary;
 
     /**
-     * The decrypted part of the protected secret information that was originally provided as a string.
+     * The decrypted secret value, if the secret value was originally provided as a string or through the Secrets Manager
+     * console.
      */
     private $secretString;
 
@@ -41,7 +42,8 @@ class GetSecretValueResponse extends Result
     private $versionStages;
 
     /**
-     * The date and time that this version of the secret was created.
+     * The date and time that this version of the secret was created. If you don't specify which version in `VersionId` or
+     * `VersionStage`, then Secrets Manager uses the `AWSCURRENT` version.
      */
     private $createdDate;
 

@@ -7,6 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\DynamoDb\Enum\BillingMode;
+use AsyncAws\DynamoDb\Enum\TableClass;
 use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
 use AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndex;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
@@ -108,6 +109,13 @@ final class CreateTableInput extends Input
     private $tags;
 
     /**
+     * The table class of the new table. Valid values are `STANDARD` and `STANDARD_INFREQUENT_ACCESS`.
+     *
+     * @var TableClass::*|null
+     */
+    private $tableClass;
+
+    /**
      * @param array{
      *   AttributeDefinitions?: AttributeDefinition[],
      *   TableName?: string,
@@ -119,6 +127,7 @@ final class CreateTableInput extends Input
      *   StreamSpecification?: StreamSpecification|array,
      *   SSESpecification?: SSESpecification|array,
      *   Tags?: Tag[],
+     *   TableClass?: TableClass::*,
      *   @region?: string,
      * } $input
      */
@@ -134,6 +143,7 @@ final class CreateTableInput extends Input
         $this->streamSpecification = isset($input['StreamSpecification']) ? StreamSpecification::create($input['StreamSpecification']) : null;
         $this->sseSpecification = isset($input['SSESpecification']) ? SSESpecification::create($input['SSESpecification']) : null;
         $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
+        $this->tableClass = $input['TableClass'] ?? null;
         parent::__construct($input);
     }
 
@@ -195,6 +205,14 @@ final class CreateTableInput extends Input
     public function getStreamSpecification(): ?StreamSpecification
     {
         return $this->streamSpecification;
+    }
+
+    /**
+     * @return TableClass::*|null
+     */
+    public function getTableClass(): ?string
+    {
+        return $this->tableClass;
     }
 
     public function getTableName(): ?string
@@ -306,6 +324,16 @@ final class CreateTableInput extends Input
         return $this;
     }
 
+    /**
+     * @param TableClass::*|null $value
+     */
+    public function setTableClass(?string $value): self
+    {
+        $this->tableClass = $value;
+
+        return $this;
+    }
+
     public function setTableName(?string $value): self
     {
         $this->tableName = $value;
@@ -390,6 +418,12 @@ final class CreateTableInput extends Input
                 ++$index;
                 $payload['Tags'][$index] = $listValue->requestBody();
             }
+        }
+        if (null !== $v = $this->tableClass) {
+            if (!TableClass::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "TableClass" for "%s". The value "%s" is not a valid "TableClass".', __CLASS__, $v));
+            }
+            $payload['TableClass'] = $v;
         }
 
         return $payload;

@@ -38,8 +38,10 @@ use AsyncAws\SecretsManager\ValueObject\Tag;
 class SecretsManagerClient extends AbstractApi
 {
     /**
-     * Creates a new secret. A secret in Secrets Manager consists of both the protected secret data and the important
-     * information needed to manage the secret.
+     * Creates a new secret. A *secret* is a set of credentials, such as a user name and password, that you store in an
+     * encrypted form in Secrets Manager. The secret also includes the connection information to access a database or other
+     * service, which Secrets Manager doesn't encrypt. A secret in Secrets Manager consists of both the protected secret
+     * data and the important information needed to manage the secret.
      *
      * @see https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-secretsmanager-2017-10-17.html#createsecret
@@ -86,10 +88,10 @@ class SecretsManagerClient extends AbstractApi
     }
 
     /**
-     * Deletes an entire secret and all of the versions. You can optionally include a recovery window during which you can
-     * restore the secret. If you don't specify a recovery window value, the operation defaults to 30 days. Secrets Manager
-     * attaches a `DeletionDate` stamp to the secret that specifies the end of the recovery window. At the end of the
-     * recovery window, Secrets Manager deletes the secret permanently.
+     * Deletes a secret and all of its versions. You can specify a recovery window during which you can restore the secret.
+     * The minimum recovery window is 7 days. The default recovery window is 30 days. Secrets Manager attaches a
+     * `DeletionDate` stamp to the secret that specifies the end of the recovery window. At the end of the recovery window,
+     * Secrets Manager deletes the secret permanently.
      *
      * @see https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-secretsmanager-2017-10-17.html#deletesecret
@@ -154,9 +156,7 @@ class SecretsManagerClient extends AbstractApi
     }
 
     /**
-     * Lists all of the secrets that are stored by Secrets Manager in the Amazon Web Services account. To list the versions
-     * currently stored for a specific secret, use ListSecretVersionIds. The encrypted fields `SecretString` and
-     * `SecretBinary` are not included in the output. To get that information, call the GetSecretValue operation.
+     * Lists the secrets that are stored by Secrets Manager in the Amazon Web Services account.
      *
      * @see https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecrets.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-secretsmanager-2017-10-17.html#listsecrets
@@ -186,9 +186,8 @@ class SecretsManagerClient extends AbstractApi
     }
 
     /**
-     * Stores a new encrypted secret value in the specified secret. To do this, the operation creates a new version and
-     * attaches it to the secret. The version can contain a new `SecretString` value or a new `SecretBinary` value. You can
-     * also specify the staging labels that are initially attached to the new version.
+     * Creates a new version with a new encrypted secret value and attaches it to the secret. The version can contain a new
+     * `SecretString` value or a new `SecretBinary` value.
      *
      * @see https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutSecretValue.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-secretsmanager-2017-10-17.html#putsecretvalue
@@ -227,7 +226,8 @@ class SecretsManagerClient extends AbstractApi
     }
 
     /**
-     * Modifies many of the details of the specified secret.
+     * Modifies the details of a secret, including metadata and the secret value. To change the secret value, you can also
+     * use PutSecretValue.
      *
      * @see https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-secretsmanager-2017-10-17.html#updatesecret

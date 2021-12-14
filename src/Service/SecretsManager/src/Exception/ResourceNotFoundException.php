@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * We can't find the resource that you asked for.
+ * Secrets Manager can't find the resource that you asked for.
  */
 final class ResourceNotFoundException extends ClientException
 {

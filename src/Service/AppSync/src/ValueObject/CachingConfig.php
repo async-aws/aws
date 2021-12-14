@@ -8,12 +8,12 @@ namespace AsyncAws\AppSync\ValueObject;
 final class CachingConfig
 {
     /**
-     * The TTL in seconds for a resolver that has caching enabled.
+     * The TTL in seconds for a resolver that has caching activated.
      */
     private $ttl;
 
     /**
-     * The caching keys for a resolver that has caching enabled.
+     * The caching keys for a resolver that has caching activated.
      */
     private $cachingKeys;
 

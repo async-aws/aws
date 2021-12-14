@@ -6,10 +6,10 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The request was denied due to request throttling. For more information about throttling, see Limits in the *AWS Key
- * Management Service Developer Guide*.
+ * The request was denied due to request throttling. For more information about throttling, see Limits in the *Amazon
+ * Web Services Key Management Service Developer Guide*.
  *
- * @see http://docs.aws.amazon.com/kms/latest/developerguide/limits.html#requests-per-second
+ * @see https://docs.aws.amazon.com/kms/latest/developerguide/limits.html#requests-per-second
  */
 final class KMSThrottlingException extends ClientException
 {

@@ -110,6 +110,13 @@ class EcrClient extends AbstractApi
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];
+            case 'ap-southeast-3':
+                return [
+                    'endpoint' => 'https://api.ecr.ap-southeast-3.amazonaws.com',
+                    'signRegion' => 'ap-southeast-3',
+                    'signService' => 'ecr',
+                    'signVersions' => ['v4'],
+                ];
             case 'ca-central-1':
                 return [
                     'endpoint' => 'https://api.ecr.ca-central-1.amazonaws.com',

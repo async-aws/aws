@@ -13,13 +13,13 @@ class UpdateSecretResponse extends Result
     private $arn;
 
     /**
-     * The friendly name of the secret that was updated.
+     * The name of the secret that was updated.
      */
     private $name;
 
     /**
-     * If a new version of the secret was created by this operation, then `VersionId` contains the unique identifier of the
-     * new version.
+     * If Secrets Manager created a new version of the secret during this operation, then `VersionId` contains the unique
+     * identifier of the new version.
      */
     private $versionId;
 

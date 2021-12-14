@@ -10,8 +10,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class PutSecretValueRequest extends Input
 {
     /**
-     * Specifies the secret to which you want to add a new version. You can specify either the Amazon Resource Name (ARN) or
-     * the friendly name of the secret. The secret must already exist.
+     * The ARN or name of the secret to add a new version to.
      *
      * @required
      *
@@ -20,33 +19,30 @@ final class PutSecretValueRequest extends Input
     private $secretId;
 
     /**
-     * (Optional) Specifies a unique identifier for the new version of the secret.
+     * A unique identifier for the new version of the secret.
      *
      * @var string|null
      */
     private $clientRequestToken;
 
     /**
-     * (Optional) Specifies binary data that you want to encrypt and store in the new version of the secret. To use this
-     * parameter in the command-line tools, we recommend that you store your binary data in a file and then use the
-     * appropriate technique for your tool to pass the contents of the file as a parameter. Either `SecretBinary` or
-     * `SecretString` must have a value, but not both. They cannot both be empty.
+     * The binary data to encrypt and store in the new version of the secret. To use this parameter in the command-line
+     * tools, we recommend that you store your binary data in a file and then pass the contents of the file as a parameter.
      *
      * @var string|null
      */
     private $secretBinary;
 
     /**
-     * (Optional) Specifies text data that you want to encrypt and store in this new version of the secret. Either
-     * `SecretString` or `SecretBinary` must have a value, but not both. They cannot both be empty.
+     * The text to encrypt and store in the new version of the secret.
      *
      * @var string|null
      */
     private $secretString;
 
     /**
-     * (Optional) Specifies a list of staging labels that are attached to this version of the secret. These staging labels
-     * are used to track the versions through the rotation process by the Lambda rotation function.
+     * A list of staging labels to attach to this version of the secret. Secrets Manager uses staging labels to track
+     * versions of a secret through the rotation process.
      *
      * @var string[]|null
      */

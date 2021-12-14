@@ -9,6 +9,7 @@ final class ObjectStorageClass
 {
     public const DEEP_ARCHIVE = 'DEEP_ARCHIVE';
     public const GLACIER = 'GLACIER';
+    public const GLACIER_IR = 'GLACIER_IR';
     public const INTELLIGENT_TIERING = 'INTELLIGENT_TIERING';
     public const ONEZONE_IA = 'ONEZONE_IA';
     public const OUTPOSTS = 'OUTPOSTS';
@@ -21,6 +22,7 @@ final class ObjectStorageClass
         return isset([
             self::DEEP_ARCHIVE => true,
             self::GLACIER => true,
+            self::GLACIER_IR => true,
             self::INTELLIGENT_TIERING => true,
             self::ONEZONE_IA => true,
             self::OUTPOSTS => true,

@@ -7,6 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\S3\Enum\BucketCannedACL;
+use AsyncAws\S3\Enum\ObjectOwnership;
 use AsyncAws\S3\ValueObject\CreateBucketConfiguration;
 
 final class CreateBucketRequest extends Input
@@ -77,6 +78,11 @@ final class CreateBucketRequest extends Input
     private $objectLockEnabledForBucket;
 
     /**
+     * @var ObjectOwnership::*|null
+     */
+    private $objectOwnership;
+
+    /**
      * @param array{
      *   ACL?: BucketCannedACL::*,
      *   Bucket?: string,
@@ -87,6 +93,7 @@ final class CreateBucketRequest extends Input
      *   GrantWrite?: string,
      *   GrantWriteACP?: string,
      *   ObjectLockEnabledForBucket?: bool,
+     *   ObjectOwnership?: ObjectOwnership::*,
      *   @region?: string,
      * } $input
      */
@@ -101,6 +108,7 @@ final class CreateBucketRequest extends Input
         $this->grantWrite = $input['GrantWrite'] ?? null;
         $this->grantWriteAcp = $input['GrantWriteACP'] ?? null;
         $this->objectLockEnabledForBucket = $input['ObjectLockEnabledForBucket'] ?? null;
+        $this->objectOwnership = $input['ObjectOwnership'] ?? null;
         parent::__construct($input);
     }
 
@@ -158,6 +166,14 @@ final class CreateBucketRequest extends Input
     }
 
     /**
+     * @return ObjectOwnership::*|null
+     */
+    public function getObjectOwnership(): ?string
+    {
+        return $this->objectOwnership;
+    }
+
+    /**
      * @internal
      */
     public function request(): Request
@@ -187,6 +203,12 @@ final class CreateBucketRequest extends Input
         }
         if (null !== $this->objectLockEnabledForBucket) {
             $headers['x-amz-bucket-object-lock-enabled'] = $this->objectLockEnabledForBucket ? 'true' : 'false';
+        }
+        if (null !== $this->objectOwnership) {
+            if (!ObjectOwnership::exists($this->objectOwnership)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ObjectOwnership" for "%s". The value "%s" is not a valid "ObjectOwnership".', __CLASS__, $this->objectOwnership));
+            }
+            $headers['x-amz-object-ownership'] = $this->objectOwnership;
         }
 
         // Prepare query
@@ -273,6 +295,16 @@ final class CreateBucketRequest extends Input
     public function setObjectLockEnabledForBucket(?bool $value): self
     {
         $this->objectLockEnabledForBucket = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param ObjectOwnership::*|null $value
+     */
+    public function setObjectOwnership(?string $value): self
+    {
+        $this->objectOwnership = $value;
 
         return $this;
     }

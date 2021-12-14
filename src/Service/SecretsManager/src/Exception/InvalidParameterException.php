@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * You provided an invalid value for a parameter.
+ * The parameter name is invalid value.
  */
 final class InvalidParameterException extends ClientException
 {

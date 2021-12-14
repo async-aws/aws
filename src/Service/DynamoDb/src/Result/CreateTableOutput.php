@@ -18,6 +18,7 @@ use AsyncAws\DynamoDb\ValueObject\ReplicaGlobalSecondaryIndexDescription;
 use AsyncAws\DynamoDb\ValueObject\RestoreSummary;
 use AsyncAws\DynamoDb\ValueObject\SSEDescription;
 use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
+use AsyncAws\DynamoDb\ValueObject\TableClassSummary;
 use AsyncAws\DynamoDb\ValueObject\TableDescription;
 
 /**
@@ -88,6 +89,10 @@ class CreateTableOutput extends Result
                 'ArchivalDateTime' => (isset($data['TableDescription']['ArchivalSummary']['ArchivalDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['TableDescription']['ArchivalSummary']['ArchivalDateTime'])))) ? $d : null,
                 'ArchivalReason' => isset($data['TableDescription']['ArchivalSummary']['ArchivalReason']) ? (string) $data['TableDescription']['ArchivalSummary']['ArchivalReason'] : null,
                 'ArchivalBackupArn' => isset($data['TableDescription']['ArchivalSummary']['ArchivalBackupArn']) ? (string) $data['TableDescription']['ArchivalSummary']['ArchivalBackupArn'] : null,
+            ]),
+            'TableClassSummary' => empty($data['TableDescription']['TableClassSummary']) ? null : new TableClassSummary([
+                'TableClass' => isset($data['TableDescription']['TableClassSummary']['TableClass']) ? (string) $data['TableDescription']['TableClassSummary']['TableClass'] : null,
+                'LastUpdateDateTime' => (isset($data['TableDescription']['TableClassSummary']['LastUpdateDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['TableDescription']['TableClassSummary']['LastUpdateDateTime'])))) ? $d : null,
             ]),
         ]);
     }
@@ -213,6 +218,10 @@ class CreateTableOutput extends Result
                 ]),
                 'GlobalSecondaryIndexes' => !isset($item['GlobalSecondaryIndexes']) ? null : $this->populateResultReplicaGlobalSecondaryIndexDescriptionList($item['GlobalSecondaryIndexes']),
                 'ReplicaInaccessibleDateTime' => (isset($item['ReplicaInaccessibleDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['ReplicaInaccessibleDateTime'])))) ? $d : null,
+                'ReplicaTableClassSummary' => empty($item['ReplicaTableClassSummary']) ? null : new TableClassSummary([
+                    'TableClass' => isset($item['ReplicaTableClassSummary']['TableClass']) ? (string) $item['ReplicaTableClassSummary']['TableClass'] : null,
+                    'LastUpdateDateTime' => (isset($item['ReplicaTableClassSummary']['LastUpdateDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['ReplicaTableClassSummary']['LastUpdateDateTime'])))) ? $d : null,
+                ]),
             ]);
         }
 

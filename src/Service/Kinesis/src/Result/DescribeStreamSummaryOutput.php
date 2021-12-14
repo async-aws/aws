@@ -7,6 +7,7 @@ use AsyncAws\Core\Result;
 use AsyncAws\Kinesis\Enum\MetricsName;
 use AsyncAws\Kinesis\ValueObject\EnhancedMetrics;
 use AsyncAws\Kinesis\ValueObject\StreamDescriptionSummary;
+use AsyncAws\Kinesis\ValueObject\StreamModeDetails;
 
 class DescribeStreamSummaryOutput extends Result
 {
@@ -30,6 +31,9 @@ class DescribeStreamSummaryOutput extends Result
             'StreamName' => (string) $data['StreamDescriptionSummary']['StreamName'],
             'StreamARN' => (string) $data['StreamDescriptionSummary']['StreamARN'],
             'StreamStatus' => (string) $data['StreamDescriptionSummary']['StreamStatus'],
+            'StreamModeDetails' => empty($data['StreamDescriptionSummary']['StreamModeDetails']) ? null : new StreamModeDetails([
+                'StreamMode' => (string) $data['StreamDescriptionSummary']['StreamModeDetails']['StreamMode'],
+            ]),
             'RetentionPeriodHours' => (int) $data['StreamDescriptionSummary']['RetentionPeriodHours'],
             'StreamCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['StreamDescriptionSummary']['StreamCreationTimestamp'])),
             'EnhancedMonitoring' => $this->populateResultEnhancedMonitoringList($data['StreamDescriptionSummary']['EnhancedMonitoring']),

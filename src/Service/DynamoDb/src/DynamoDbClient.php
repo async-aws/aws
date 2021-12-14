@@ -13,6 +13,7 @@ use AsyncAws\DynamoDb\Enum\ReturnConsumedCapacity;
 use AsyncAws\DynamoDb\Enum\ReturnItemCollectionMetrics;
 use AsyncAws\DynamoDb\Enum\ReturnValue;
 use AsyncAws\DynamoDb\Enum\Select;
+use AsyncAws\DynamoDb\Enum\TableClass;
 use AsyncAws\DynamoDb\Exception\ConditionalCheckFailedException;
 use AsyncAws\DynamoDb\Exception\InternalServerErrorException;
 use AsyncAws\DynamoDb\Exception\ItemCollectionSizeLimitExceededException;
@@ -156,6 +157,7 @@ class DynamoDbClient extends AbstractApi
      *   StreamSpecification?: StreamSpecification|array,
      *   SSESpecification?: SSESpecification|array,
      *   Tags?: Tag[],
+     *   TableClass?: TableClass::*,
      *   @region?: string,
      * }|CreateTableInput $input
      *
@@ -583,6 +585,7 @@ class DynamoDbClient extends AbstractApi
      *   StreamSpecification?: StreamSpecification|array,
      *   SSESpecification?: SSESpecification|array,
      *   ReplicaUpdates?: ReplicationGroupUpdate[],
+     *   TableClass?: TableClass::*,
      *   @region?: string,
      * }|UpdateTableInput $input
      *

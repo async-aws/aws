@@ -3,6 +3,7 @@
 namespace AsyncAws\DynamoDb\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
+use AsyncAws\DynamoDb\Enum\TableClass;
 
 /**
  * The parameters required for updating a replica for the table.
@@ -32,11 +33,17 @@ final class UpdateReplicationGroupMemberAction
     private $globalSecondaryIndexes;
 
     /**
+     * Replica-specific table class. If not specified, uses the source table's table class.
+     */
+    private $tableClassOverride;
+
+    /**
      * @param array{
      *   RegionName: string,
      *   KMSMasterKeyId?: null|string,
      *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
      *   GlobalSecondaryIndexes?: null|ReplicaGlobalSecondaryIndex[],
+     *   TableClassOverride?: null|TableClass::*,
      * } $input
      */
     public function __construct(array $input)
@@ -45,6 +52,7 @@ final class UpdateReplicationGroupMemberAction
         $this->kmsMasterKeyId = $input['KMSMasterKeyId'] ?? null;
         $this->provisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
         $this->globalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([ReplicaGlobalSecondaryIndex::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
+        $this->tableClassOverride = $input['TableClassOverride'] ?? null;
     }
 
     public static function create($input): self
@@ -76,6 +84,14 @@ final class UpdateReplicationGroupMemberAction
     }
 
     /**
+     * @return TableClass::*|null
+     */
+    public function getTableClassOverride(): ?string
+    {
+        return $this->tableClassOverride;
+    }
+
+    /**
      * @internal
      */
     public function requestBody(): array
@@ -98,6 +114,12 @@ final class UpdateReplicationGroupMemberAction
                 ++$index;
                 $payload['GlobalSecondaryIndexes'][$index] = $listValue->requestBody();
             }
+        }
+        if (null !== $v = $this->tableClassOverride) {
+            if (!TableClass::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "TableClassOverride" for "%s". The value "%s" is not a valid "TableClass".', __CLASS__, $v));
+            }
+            $payload['TableClassOverride'] = $v;
         }
 
         return $payload;

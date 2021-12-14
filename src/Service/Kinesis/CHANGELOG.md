@@ -6,6 +6,7 @@
 
 - AWS api-change: Added `us-iso-west-1` region
 - AWS api-change: Use specific configuration for `us` regions
+- AWS api-change: Amazon Kinesis Data Streams now supports on demand streams.
 
 ## 1.0.0
 

@@ -5,6 +5,7 @@ namespace AsyncAws\Kinesis\Input;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Kinesis\ValueObject\ShardFilter;
 
 final class ListShardsInput extends Input
 {
@@ -34,8 +35,8 @@ final class ListShardsInput extends Input
     private $exclusiveStartShardId;
 
     /**
-     * The maximum number of shards to return in a single call to `ListShards`. The minimum value you can specify for this
-     * parameter is 1, and the maximum is 1,000, which is also the default.
+     * The maximum number of shards to return in a single call to `ListShards`. The maximum number of shards to return in a
+     * single call. The default value is 1000. If you specify a value greater than 1000, at most 1000 results are returned.
      *
      * @var int|null
      */
@@ -51,12 +52,20 @@ final class ListShardsInput extends Input
     private $streamCreationTimestamp;
 
     /**
+     * Enables you to filter out the response of the `ListShards` API. You can only specify one filter at a time.
+     *
+     * @var ShardFilter|null
+     */
+    private $shardFilter;
+
+    /**
      * @param array{
      *   StreamName?: string,
      *   NextToken?: string,
      *   ExclusiveStartShardId?: string,
      *   MaxResults?: int,
      *   StreamCreationTimestamp?: \DateTimeImmutable|string,
+     *   ShardFilter?: ShardFilter|array,
      *   @region?: string,
      * } $input
      */
@@ -67,6 +76,7 @@ final class ListShardsInput extends Input
         $this->exclusiveStartShardId = $input['ExclusiveStartShardId'] ?? null;
         $this->maxResults = $input['MaxResults'] ?? null;
         $this->streamCreationTimestamp = !isset($input['StreamCreationTimestamp']) ? null : ($input['StreamCreationTimestamp'] instanceof \DateTimeImmutable ? $input['StreamCreationTimestamp'] : new \DateTimeImmutable($input['StreamCreationTimestamp']));
+        $this->shardFilter = isset($input['ShardFilter']) ? ShardFilter::create($input['ShardFilter']) : null;
         parent::__construct($input);
     }
 
@@ -88,6 +98,11 @@ final class ListShardsInput extends Input
     public function getNextToken(): ?string
     {
         return $this->nextToken;
+    }
+
+    public function getShardFilter(): ?ShardFilter
+    {
+        return $this->shardFilter;
     }
 
     public function getStreamCreationTimestamp(): ?\DateTimeImmutable
@@ -146,6 +161,13 @@ final class ListShardsInput extends Input
         return $this;
     }
 
+    public function setShardFilter(?ShardFilter $value): self
+    {
+        $this->shardFilter = $value;
+
+        return $this;
+    }
+
     public function setStreamCreationTimestamp(?\DateTimeImmutable $value): self
     {
         $this->streamCreationTimestamp = $value;
@@ -177,6 +199,9 @@ final class ListShardsInput extends Input
         }
         if (null !== $v = $this->streamCreationTimestamp) {
             $payload['StreamCreationTimestamp'] = $v->format(\DateTimeInterface::ATOM);
+        }
+        if (null !== $v = $this->shardFilter) {
+            $payload['ShardFilter'] = $v->requestBody();
         }
 
         return $payload;

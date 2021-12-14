@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * You are not authorized to perform this operation.
+ * You aren't authorized to perform this operation.
  */
 final class UnauthorizedException extends ClientException
 {

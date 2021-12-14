@@ -14,6 +14,7 @@ final class VPCRegion
     public const AP_NORTHEAST_3 = 'ap-northeast-3';
     public const AP_SOUTHEAST_1 = 'ap-southeast-1';
     public const AP_SOUTHEAST_2 = 'ap-southeast-2';
+    public const AP_SOUTHEAST_3 = 'ap-southeast-3';
     public const AP_SOUTH_1 = 'ap-south-1';
     public const CA_CENTRAL_1 = 'ca-central-1';
     public const CN_NORTH_1 = 'cn-north-1';
@@ -31,6 +32,7 @@ final class VPCRegion
     public const US_GOV_WEST_1 = 'us-gov-west-1';
     public const US_ISOB_EAST_1 = 'us-isob-east-1';
     public const US_ISO_EAST_1 = 'us-iso-east-1';
+    public const US_ISO_WEST_1 = 'us-iso-west-1';
     public const US_WEST_1 = 'us-west-1';
     public const US_WEST_2 = 'us-west-2';
 
@@ -44,6 +46,7 @@ final class VPCRegion
             self::AP_NORTHEAST_3 => true,
             self::AP_SOUTHEAST_1 => true,
             self::AP_SOUTHEAST_2 => true,
+            self::AP_SOUTHEAST_3 => true,
             self::AP_SOUTH_1 => true,
             self::CA_CENTRAL_1 => true,
             self::CN_NORTH_1 => true,
@@ -61,6 +64,7 @@ final class VPCRegion
             self::US_GOV_WEST_1 => true,
             self::US_ISOB_EAST_1 => true,
             self::US_ISO_EAST_1 => true,
+            self::US_ISO_WEST_1 => true,
             self::US_WEST_1 => true,
             self::US_WEST_2 => true,
         ][$value]);

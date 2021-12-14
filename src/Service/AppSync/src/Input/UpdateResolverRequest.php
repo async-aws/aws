@@ -76,7 +76,7 @@ final class UpdateResolverRequest extends Input
     private $pipelineConfig;
 
     /**
-     * The `SyncConfig` for a resolver attached to a versioned datasource.
+     * The `SyncConfig` for a resolver attached to a versioned data source.
      *
      * @var SyncConfig|null
      */

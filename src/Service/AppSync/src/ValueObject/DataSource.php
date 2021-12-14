@@ -10,7 +10,7 @@ use AsyncAws\AppSync\Enum\DataSourceType;
 final class DataSource
 {
     /**
-     * The data source ARN.
+     * The data source Amazon Resource Name (ARN).
      */
     private $dataSourceArn;
 
@@ -30,18 +30,18 @@ final class DataSource
     private $type;
 
     /**
-     * The Identity and Access Management service role ARN for the data source. The system assumes this role when accessing
-     * the data source.
+     * The Identity and Access Management (IAM) service role Amazon Resource Name (ARN) for the data source. The system
+     * assumes this role when accessing the data source.
      */
     private $serviceRoleArn;
 
     /**
-     * Amazon DynamoDB settings.
+     * DynamoDB settings.
      */
     private $dynamodbConfig;
 
     /**
-     * Amazon Web Services Lambda settings.
+     * Lambda settings.
      */
     private $lambdaConfig;
 

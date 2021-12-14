@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added `us-iso-west-1` region
+- AWS api-change: Add PriorRequestNotComplete exception to UpdateHostedZoneComment API
 
 ## 0.1.1
 

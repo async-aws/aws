@@ -7,7 +7,7 @@ use AsyncAws\AppSync\Enum\ConflictHandlerType;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The `SyncConfig` for a resolver attached to a versioned datasource.
+ * The `SyncConfig` for a resolver attached to a versioned data source.
  */
 final class SyncConfig
 {
@@ -22,7 +22,7 @@ final class SyncConfig
     private $conflictDetection;
 
     /**
-     * The `LambdaConflictHandlerConfig` when configuring LAMBDA as the Conflict Handler.
+     * The `LambdaConflictHandlerConfig` when configuring `LAMBDA` as the Conflict Handler.
      */
     private $lambdaConflictHandlerConfig;
 

@@ -3,12 +3,12 @@
 namespace AsyncAws\AppSync\ValueObject;
 
 /**
- * The `DeltaSyncConfig` for a versioned datasource.
+ * The `DeltaSyncConfig` for a versioned data source.
  */
 final class DeltaSyncConfig
 {
     /**
-     * The number of minutes an Item is stored in the datasource.
+     * The number of minutes that an Item is stored in the data source.
      */
     private $baseTableTtl;
 
@@ -18,7 +18,7 @@ final class DeltaSyncConfig
     private $deltaSyncTableName;
 
     /**
-     * The number of minutes a Delta Sync log entry is stored in the Delta Sync table.
+     * The number of minutes that a Delta Sync log entry is stored in the Delta Sync table.
      */
     private $deltaSyncTableTtl;
 

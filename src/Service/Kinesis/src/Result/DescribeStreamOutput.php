@@ -13,6 +13,7 @@ use AsyncAws\Kinesis\ValueObject\HashKeyRange;
 use AsyncAws\Kinesis\ValueObject\SequenceNumberRange;
 use AsyncAws\Kinesis\ValueObject\Shard;
 use AsyncAws\Kinesis\ValueObject\StreamDescription;
+use AsyncAws\Kinesis\ValueObject\StreamModeDetails;
 
 /**
  * Represents the output for `DescribeStream`.
@@ -80,6 +81,9 @@ class DescribeStreamOutput extends Result implements \IteratorAggregate
             'StreamName' => (string) $data['StreamDescription']['StreamName'],
             'StreamARN' => (string) $data['StreamDescription']['StreamARN'],
             'StreamStatus' => (string) $data['StreamDescription']['StreamStatus'],
+            'StreamModeDetails' => empty($data['StreamDescription']['StreamModeDetails']) ? null : new StreamModeDetails([
+                'StreamMode' => (string) $data['StreamDescription']['StreamModeDetails']['StreamMode'],
+            ]),
             'Shards' => $this->populateResultShardList($data['StreamDescription']['Shards']),
             'HasMoreShards' => filter_var($data['StreamDescription']['HasMoreShards'], \FILTER_VALIDATE_BOOLEAN),
             'RetentionPeriodHours' => (int) $data['StreamDescription']['RetentionPeriodHours'],

@@ -17,6 +17,30 @@ class DescribeLimitsOutput extends Result
      */
     private $openShardCount;
 
+    /**
+     * Indicates the number of data streams with the on-demand capacity mode.
+     */
+    private $onDemandStreamCount;
+
+    /**
+     * The maximum number of data streams with the on-demand capacity mode.
+     */
+    private $onDemandStreamCountLimit;
+
+    public function getOnDemandStreamCount(): int
+    {
+        $this->initialize();
+
+        return $this->onDemandStreamCount;
+    }
+
+    public function getOnDemandStreamCountLimit(): int
+    {
+        $this->initialize();
+
+        return $this->onDemandStreamCountLimit;
+    }
+
     public function getOpenShardCount(): int
     {
         $this->initialize();
@@ -37,5 +61,7 @@ class DescribeLimitsOutput extends Result
 
         $this->shardLimit = (int) $data['ShardLimit'];
         $this->openShardCount = (int) $data['OpenShardCount'];
+        $this->onDemandStreamCount = (int) $data['OnDemandStreamCount'];
+        $this->onDemandStreamCountLimit = (int) $data['OnDemandStreamCountLimit'];
     }
 }

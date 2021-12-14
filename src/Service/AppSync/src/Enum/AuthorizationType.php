@@ -3,9 +3,9 @@
 namespace AsyncAws\AppSync\Enum;
 
 /**
- * The authorization type required by the HTTP endpoint.
+ * The authorization type that the HTTP endpoint requires.
  *
- * - **AWS_IAM**: The authorization type is Sigv4.
+ * - **AWS_IAM**: The authorization type is Signature Version 4 (SigV4).
  */
 final class AuthorizationType
 {

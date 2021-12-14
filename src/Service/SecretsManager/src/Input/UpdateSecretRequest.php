@@ -10,8 +10,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class UpdateSecretRequest extends Input
 {
     /**
-     * Specifies the secret that you want to modify or to which you want to add a new version. You can specify either the
-     * Amazon Resource Name (ARN) or the friendly name of the secret.
+     * The ARN or name of the secret.
      *
      * @required
      *
@@ -20,45 +19,42 @@ final class UpdateSecretRequest extends Input
     private $secretId;
 
     /**
-     * (Optional) If you want to add a new version to the secret, this parameter specifies a unique identifier for the new
-     * version that helps ensure idempotency.
+     * If you include `SecretString` or `SecretBinary`, then Secrets Manager creates a new version for the secret, and this
+     * parameter specifies the unique identifier for the new version.
      *
      * @var string|null
      */
     private $clientRequestToken;
 
     /**
-     * (Optional) Specifies an updated user-provided description of the secret.
+     * The description of the secret.
      *
      * @var string|null
      */
     private $description;
 
     /**
-     * (Optional) Specifies an updated ARN or alias of the Amazon Web Services KMS customer master key (CMK) that Secrets
-     * Manager uses to encrypt the protected text in new versions of this secret as well as any existing versions of this
-     * secret that have the staging labels AWSCURRENT, AWSPENDING, or AWSPREVIOUS. For more information about staging
-     * labels, see Staging Labels in the *Amazon Web Services Secrets Manager User Guide*.
+     * The ARN, key ID, or alias of the KMS key that Secrets Manager uses to encrypt new secret versions as well as any
+     * existing versions the staging labels `AWSCURRENT`, `AWSPENDING`, or `AWSPREVIOUS`. For more information about
+     * versions and staging labels, see Concepts: Version.
      *
-     * @see https://docs.aws.amazon.com/secretsmanager/latest/userguide/terms-concepts.html#term_staging-label
+     * @see https://docs.aws.amazon.com/secretsmanager/latest/userguide/getting-started.html#term_version
      *
      * @var string|null
      */
     private $kmsKeyId;
 
     /**
-     * (Optional) Specifies updated binary data that you want to encrypt and store in the new version of the secret. To use
-     * this parameter in the command-line tools, we recommend that you store your binary data in a file and then use the
-     * appropriate technique for your tool to pass the contents of the file as a parameter. Either `SecretBinary` or
-     * `SecretString` must have a value, but not both. They cannot both be empty.
+     * The binary data to encrypt and store in the new version of the secret. We recommend that you store your binary data
+     * in a file and then pass the contents of the file as a parameter.
      *
      * @var string|null
      */
     private $secretBinary;
 
     /**
-     * (Optional) Specifies updated text data that you want to encrypt and store in this new version of the secret. Either
-     * `SecretBinary` or `SecretString` must have a value, but not both. They cannot both be empty.
+     * The text data to encrypt and store in the new version of the secret. We recommend you use a JSON structure of
+     * key/value pairs for your secret value.
      *
      * @var string|null
      */

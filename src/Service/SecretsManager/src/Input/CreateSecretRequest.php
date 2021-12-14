@@ -12,7 +12,7 @@ use AsyncAws\SecretsManager\ValueObject\Tag;
 final class CreateSecretRequest extends Input
 {
     /**
-     * Specifies the friendly name of the new secret.
+     * The name of the new secret.
      *
      * @required
      *
@@ -21,63 +21,60 @@ final class CreateSecretRequest extends Input
     private $name;
 
     /**
-     * (Optional) If you include `SecretString` or `SecretBinary`, then an initial version is created as part of the secret,
-     * and this parameter specifies a unique identifier for the new version.
+     * If you include `SecretString` or `SecretBinary`, then Secrets Manager creates an initial version for the secret, and
+     * this parameter specifies the unique identifier for the new version.
      *
      * @var string|null
      */
     private $clientRequestToken;
 
     /**
-     * (Optional) Specifies a user-provided description of the secret.
+     * The description of the secret.
      *
      * @var string|null
      */
     private $description;
 
     /**
-     * (Optional) Specifies the ARN, Key ID, or alias of the Amazon Web Services KMS customer master key (CMK) to be used to
-     * encrypt the `SecretString` or `SecretBinary` values in the versions stored in this secret.
+     * The ARN, key ID, or alias of the KMS key that Secrets Manager uses to encrypt the secret value in the secret.
      *
      * @var string|null
      */
     private $kmsKeyId;
 
     /**
-     * (Optional) Specifies binary data that you want to encrypt and store in the new version of the secret. To use this
-     * parameter in the command-line tools, we recommend that you store your binary data in a file and then use the
-     * appropriate technique for your tool to pass the contents of the file as a parameter.
+     * The binary data to encrypt and store in the new version of the secret. We recommend that you store your binary data
+     * in a file and then pass the contents of the file as a parameter.
      *
      * @var string|null
      */
     private $secretBinary;
 
     /**
-     * (Optional) Specifies text data that you want to encrypt and store in this new version of the secret.
+     * The text data to encrypt and store in this new version of the secret. We recommend you use a JSON structure of
+     * key/value pairs for your secret value.
      *
      * @var string|null
      */
     private $secretString;
 
     /**
-     * (Optional) Specifies a list of user-defined tags that are attached to the secret. Each tag is a "Key" and "Value"
-     * pair of strings. This operation only appends tags to the existing list of tags. To remove tags, you must use
-     * UntagResource.
+     * A list of tags to attach to the secret. Each tag is a key and value pair of strings in a JSON text string, for
+     * example:.
      *
      * @var Tag[]|null
      */
     private $tags;
 
     /**
-     * (Optional) Add a list of regions to replicate secrets. Secrets Manager replicates the KMSKeyID objects to the list of
-     * regions specified in the parameter.
+     * A list of Regions and KMS keys to replicate secrets.
      *
      * @var ReplicaRegionType[]|null
      */
     private $addReplicaRegions;
 
     /**
-     * (Optional) If set, the replication overwrites a secret with the same name in the destination region.
+     * Specifies whether to overwrite a secret with the same name in the destination Region.
      *
      * @var bool|null
      */

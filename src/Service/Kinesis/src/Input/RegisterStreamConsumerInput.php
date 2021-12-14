@@ -11,7 +11,7 @@ final class RegisterStreamConsumerInput extends Input
 {
     /**
      * The ARN of the Kinesis data stream that you want to register the consumer with. For more info, see Amazon Resource
-     * Names (ARNs) and AWS Service Namespaces.
+     * Names (ARNs) and Amazon Web Services Service Namespaces.
      *
      * @see https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams
      * @required

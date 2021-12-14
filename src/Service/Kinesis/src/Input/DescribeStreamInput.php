@@ -23,7 +23,7 @@ final class DescribeStreamInput extends Input
 
     /**
      * The maximum number of shards to return in a single call. The default value is 100. If you specify a value greater
-     * than 100, at most 100 shards are returned.
+     * than 100, at most 100 results are returned.
      *
      * @var int|null
      */

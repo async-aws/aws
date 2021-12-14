@@ -35,10 +35,18 @@ final class PutBucketNotificationConfigurationRequest extends Input
     private $expectedBucketOwner;
 
     /**
+     * Skips validation of Amazon SQS, Amazon SNS, and Lambda destinations. True or false value.
+     *
+     * @var bool|null
+     */
+    private $skipDestinationValidation;
+
+    /**
      * @param array{
      *   Bucket?: string,
      *   NotificationConfiguration?: NotificationConfiguration|array,
      *   ExpectedBucketOwner?: string,
+     *   SkipDestinationValidation?: bool,
      *   @region?: string,
      * } $input
      */
@@ -47,6 +55,7 @@ final class PutBucketNotificationConfigurationRequest extends Input
         $this->bucket = $input['Bucket'] ?? null;
         $this->notificationConfiguration = isset($input['NotificationConfiguration']) ? NotificationConfiguration::create($input['NotificationConfiguration']) : null;
         $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
+        $this->skipDestinationValidation = $input['SkipDestinationValidation'] ?? null;
         parent::__construct($input);
     }
 
@@ -70,6 +79,11 @@ final class PutBucketNotificationConfigurationRequest extends Input
         return $this->notificationConfiguration;
     }
 
+    public function getSkipDestinationValidation(): ?bool
+    {
+        return $this->skipDestinationValidation;
+    }
+
     /**
      * @internal
      */
@@ -79,6 +93,9 @@ final class PutBucketNotificationConfigurationRequest extends Input
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
+        }
+        if (null !== $this->skipDestinationValidation) {
+            $headers['x-amz-skip-destination-validation'] = $this->skipDestinationValidation ? 'true' : 'false';
         }
 
         // Prepare query
@@ -120,6 +137,13 @@ final class PutBucketNotificationConfigurationRequest extends Input
     public function setNotificationConfiguration(?NotificationConfiguration $value): self
     {
         $this->notificationConfiguration = $value;
+
+        return $this;
+    }
+
+    public function setSkipDestinationValidation(?bool $value): self
+    {
+        $this->skipDestinationValidation = $value;
 
         return $this;
     }

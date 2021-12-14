@@ -26,6 +26,12 @@ final class StreamDescriptionSummary
     private $streamStatus;
 
     /**
+     * Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams, you can
+     * choose between an **on-demand** ycapacity mode and a **provisioned** capacity mode for your data streams.
+     */
+    private $streamModeDetails;
+
+    /**
      * The current retention period, in hours.
      */
     private $retentionPeriodHours;
@@ -46,9 +52,9 @@ final class StreamDescriptionSummary
     private $encryptionType;
 
     /**
-     * The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique identifier,
-     * a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You can also use a master
-     * key owned by Kinesis Data Streams by specifying the alias `aws/kinesis`.
+     * The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a globally
+     * unique identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You can
+     * also use a master key owned by Kinesis Data Streams by specifying the alias `aws/kinesis`.
      */
     private $keyId;
 
@@ -67,6 +73,7 @@ final class StreamDescriptionSummary
      *   StreamName: string,
      *   StreamARN: string,
      *   StreamStatus: StreamStatus::*,
+     *   StreamModeDetails?: null|StreamModeDetails|array,
      *   RetentionPeriodHours: int,
      *   StreamCreationTimestamp: \DateTimeImmutable,
      *   EnhancedMonitoring: EnhancedMetrics[],
@@ -81,6 +88,7 @@ final class StreamDescriptionSummary
         $this->streamName = $input['StreamName'] ?? null;
         $this->streamArn = $input['StreamARN'] ?? null;
         $this->streamStatus = $input['StreamStatus'] ?? null;
+        $this->streamModeDetails = isset($input['StreamModeDetails']) ? StreamModeDetails::create($input['StreamModeDetails']) : null;
         $this->retentionPeriodHours = $input['RetentionPeriodHours'] ?? null;
         $this->streamCreationTimestamp = $input['StreamCreationTimestamp'] ?? null;
         $this->enhancedMonitoring = isset($input['EnhancedMonitoring']) ? array_map([EnhancedMetrics::class, 'create'], $input['EnhancedMonitoring']) : null;
@@ -139,6 +147,11 @@ final class StreamDescriptionSummary
     public function getStreamCreationTimestamp(): \DateTimeImmutable
     {
         return $this->streamCreationTimestamp;
+    }
+
+    public function getStreamModeDetails(): ?StreamModeDetails
+    {
+        return $this->streamModeDetails;
     }
 
     public function getStreamName(): string
