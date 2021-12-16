@@ -402,6 +402,7 @@
                 "DeleteTopic",
                 "ListSubscriptionsByTopic",
                 "Publish",
+                "PublishBatch",
                 "Subscribe",
                 "Unsubscribe"
             ]

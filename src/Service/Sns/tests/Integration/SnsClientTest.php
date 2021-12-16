@@ -10,15 +10,17 @@ use AsyncAws\Sns\Input\CreateTopicInput;
 use AsyncAws\Sns\Input\DeleteEndpointInput;
 use AsyncAws\Sns\Input\DeleteTopicInput;
 use AsyncAws\Sns\Input\ListSubscriptionsByTopicInput;
+use AsyncAws\Sns\Input\PublishBatchInput;
 use AsyncAws\Sns\Input\PublishInput;
 use AsyncAws\Sns\Input\SubscribeInput;
 use AsyncAws\Sns\Input\UnsubscribeInput;
 use AsyncAws\Sns\SnsClient;
+use AsyncAws\Sns\ValueObject\PublishBatchRequestEntry;
 use AsyncAws\Sns\ValueObject\Tag;
 
 class SnsClientTest extends TestCase
 {
-    private $topicArn = null;
+    private $topicArn;
 
     public function setUp(): void
     {
@@ -133,6 +135,27 @@ class SnsClientTest extends TestCase
         $result = $client->Publish($input);
 
         self::assertNotEmpty($result->getMessageId());
+    }
+
+    public function testPublishBatch(): void
+    {
+        self::markTestIncomplete('API action \'PublishBatch\' for service \'sns\' not yet implemented.');
+
+        $client = $this->getClient();
+
+        $input = new PublishBatchInput([
+            'TopicArn' => $this->topicArn,
+            'PublishBatchRequestEntries' => [new PublishBatchRequestEntry([
+                'Id' => 'qwertyuiop',
+                'Message' => 'Hello world',
+                'Subject' => 'Read this',
+            ])],
+        ]);
+        $result = $client->publishBatch($input);
+
+        self::assertCount(1, $result->getFailed());
+        self::assertCount(0, $result->getSuccessful());
+        self::assertNotEmpty($result->getSuccessful()[0]->getMessageId());
     }
 
     public function testSubscribe(): void

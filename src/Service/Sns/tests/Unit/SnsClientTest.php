@@ -10,15 +10,18 @@ use AsyncAws\Sns\Input\CreateTopicInput;
 use AsyncAws\Sns\Input\DeleteEndpointInput;
 use AsyncAws\Sns\Input\DeleteTopicInput;
 use AsyncAws\Sns\Input\ListSubscriptionsByTopicInput;
+use AsyncAws\Sns\Input\PublishBatchInput;
 use AsyncAws\Sns\Input\PublishInput;
 use AsyncAws\Sns\Input\SubscribeInput;
 use AsyncAws\Sns\Input\UnsubscribeInput;
 use AsyncAws\Sns\Result\CreateEndpointResponse;
 use AsyncAws\Sns\Result\CreateTopicResponse;
 use AsyncAws\Sns\Result\ListSubscriptionsByTopicResponse;
+use AsyncAws\Sns\Result\PublishBatchResponse;
 use AsyncAws\Sns\Result\PublishResponse;
 use AsyncAws\Sns\Result\SubscribeResponse;
 use AsyncAws\Sns\SnsClient;
+use AsyncAws\Sns\ValueObject\PublishBatchRequestEntry;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class SnsClientTest extends TestCase
@@ -104,6 +107,24 @@ class SnsClientTest extends TestCase
         $result = $client->Publish($input);
 
         self::assertInstanceOf(PublishResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testPublishBatch(): void
+    {
+        $client = new SnsClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new PublishBatchInput([
+            'TopicArn' => 'change me',
+            'PublishBatchRequestEntries' => [new PublishBatchRequestEntry([
+                'Id' => 'change me',
+                'Message' => 'change me',
+
+            ])],
+        ]);
+        $result = $client->publishBatch($input);
+
+        self::assertInstanceOf(PublishBatchResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
