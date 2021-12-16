@@ -6,7 +6,7 @@
 
 - AWS api-change: Added `us-iso-west-1` region
 - AWS api-change: Use specific configuration for `us` regions
-- AWS api-change: This release adds supports for pull through cache rules and enhanced scanning.
+- AWS api-change: Added `ap-southeast-3` region
 
 ## 1.0.0
 
