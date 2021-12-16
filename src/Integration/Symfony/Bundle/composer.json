@@ -24,7 +24,7 @@
         "async-aws/sqs": "^1.0",
         "async-aws/ssm": "^1.0",
         "matthiasnoback/symfony-config-test": "^4.1",
-        "nyholm/symfony-bundle-test": "^1.6.1",
+        "nyholm/symfony-bundle-test": "dev-master#297a7dc9a230978ac76c4187abb6356ebfa01574 as 2.0.0",
         "symfony/cache": "^4.4 || ^5.0 || ^6.0"
     },
     "extra": {
