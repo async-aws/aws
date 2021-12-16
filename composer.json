@@ -29,7 +29,7 @@
         "monolog/monolog": "^1.1 || ^2.0",
         "nette/php-generator": "^3.3,!=3.6.3",
         "nette/utils": "^3.0",
-        "nyholm/symfony-bundle-test": "dev-master#297a7dc9a230978ac76c4187abb6356ebfa01574 as 2.0.0",
+        "nyholm/symfony-bundle-test": "dev-1.x#0555e4898e1b05655a4bdf52ba10c7f56611a514 as 1.9.0",
         "psr/cache": "^1.0 || ^2.0 || ^3.0",
         "swaggest/json-diff": "^3.7",
         "symfony/cache": "^4.4 || ^5.0 || ^6.0",
