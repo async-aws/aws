@@ -1,7 +1,8 @@
 {
     "name": "async-aws/cloud-watch-logs",
-    "type": "library",
     "description": "CloudWatchLogs client, part of the AWS SDK provided by AsyncAws.",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "aws",
         "amazon",
@@ -10,16 +11,10 @@
         "cloud-watch",
         "logs"
     ],
-    "license": "MIT",
     "require": {
         "php": "^7.2.5 || ^8.0",
         "ext-json": "*",
         "async-aws/core": "^1.9"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.3-dev"
-        }
     },
     "autoload": {
         "psr-4": {
@@ -29,6 +24,11 @@
     "autoload-dev": {
         "psr-4": {
             "AsyncAws\\CloudWatchLogs\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.3-dev"
         }
     }
 }

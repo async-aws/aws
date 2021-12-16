@@ -1,7 +1,8 @@
 {
     "name": "async-aws/iam",
-    "type": "library",
     "description": "IAM client, part of the AWS SDK provided by AsyncAws.",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "aws",
         "amazon",
@@ -12,17 +13,11 @@
         "access",
         "management"
     ],
-    "license": "MIT",
     "require": {
         "php": "^7.2.5 || ^8.0",
         "ext-SimpleXML": "*",
         "ext-filter": "*",
         "async-aws/core": "^1.9"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.2-dev"
-        }
     },
     "autoload": {
         "psr-4": {
@@ -32,6 +27,11 @@
     "autoload-dev": {
         "psr-4": {
             "AsyncAws\\Iam\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.2-dev"
         }
     }
 }

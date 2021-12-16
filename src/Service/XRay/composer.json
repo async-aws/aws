@@ -1,7 +1,8 @@
 {
     "name": "async-aws/x-ray",
-    "type": "library",
     "description": "XRay client, part of the AWS SDK provided by AsyncAws.",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "aws",
         "amazon",
@@ -9,16 +10,10 @@
         "async-aws",
         "x-ray"
     ],
-    "license": "MIT",
     "require": {
         "php": "^7.2.5 || ^8.0",
         "ext-json": "*",
         "async-aws/core": "^1.9"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.2-dev"
-        }
     },
     "autoload": {
         "psr-4": {
@@ -28,6 +23,11 @@
     "autoload-dev": {
         "psr-4": {
             "AsyncAws\\XRay\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.2-dev"
         }
     }
 }

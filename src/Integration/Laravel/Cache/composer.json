@@ -1,30 +1,20 @@
 {
     "name": "async-aws/illuminate-cache",
-    "type": "library",
     "description": "AsyncAws integration for Illuminate Cache.",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "aws",
         "async-aws",
         "illuminate",
         "cache"
     ],
-    "license": "MIT",
     "require": {
         "php": "^7.2.5 || ^8.0",
         "ext-json": "*",
         "async-aws/dynamo-db": "^1.1",
         "illuminate/cache": "^6.18.13 || ^7.10 || ^8.0",
         "illuminate/support": "^6.18.13 || ^7.10 || ^8.0"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.2-dev"
-        },
-        "laravel": {
-            "providers": [
-                "AsyncAws\\Illuminate\\Cache\\ServiceProvider"
-            ]
-        }
     },
     "autoload": {
         "psr-4": {
@@ -34,6 +24,16 @@
     "autoload-dev": {
         "psr-4": {
             "AsyncAws\\Illuminate\\Cache\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.2-dev"
+        },
+        "laravel": {
+            "providers": [
+                "AsyncAws\\Illuminate\\Cache\\ServiceProvider"
+            ]
         }
     }
 }

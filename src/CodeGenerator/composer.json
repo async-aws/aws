@@ -1,8 +1,8 @@
 {
     "name": "async-aws/code-generator",
-    "type": "library",
     "description": "Generate API client code",
     "license": "MIT",
+    "type": "library",
     "require": {
         "php": "^7.2.5 || ^8.0",
         "ext-SimpleXML": "*",
