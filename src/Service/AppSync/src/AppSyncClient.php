@@ -240,7 +240,7 @@ class AppSyncClient extends AbstractApi
     }
 
     /**
-     * Updates an API key. The key can be updated while it is not deleted.
+     * Updates an API key. You can update the key as long as it's not deleted.
      *
      * @see https://docs.aws.amazon.com/appsync/latest/APIReference/API_UpdateApiKey.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-appsync-2017-07-25.html#updateapikey

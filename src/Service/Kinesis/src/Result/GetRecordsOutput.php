@@ -4,6 +4,8 @@ namespace AsyncAws\Kinesis\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\Kinesis\ValueObject\ChildShard;
+use AsyncAws\Kinesis\ValueObject\HashKeyRange;
 use AsyncAws\Kinesis\ValueObject\Record;
 
 /**
@@ -28,6 +30,22 @@ class GetRecordsOutput extends Result
      * process at this moment.
      */
     private $millisBehindLatest;
+
+    /**
+     * The list of the current shard's child shards, returned in the `GetRecords` API's response only when the end of the
+     * current shard is reached.
+     */
+    private $childShards;
+
+    /**
+     * @return ChildShard[]
+     */
+    public function getChildShards(): array
+    {
+        $this->initialize();
+
+        return $this->childShards;
+    }
 
     public function getMillisBehindLatest(): ?string
     {
@@ -60,6 +78,27 @@ class GetRecordsOutput extends Result
         $this->records = $this->populateResultRecordList($data['Records']);
         $this->nextShardIterator = isset($data['NextShardIterator']) ? (string) $data['NextShardIterator'] : null;
         $this->millisBehindLatest = isset($data['MillisBehindLatest']) ? (string) $data['MillisBehindLatest'] : null;
+        $this->childShards = empty($data['ChildShards']) ? [] : $this->populateResultChildShardList($data['ChildShards']);
+    }
+
+    /**
+     * @return ChildShard[]
+     */
+    private function populateResultChildShardList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = new ChildShard([
+                'ShardId' => (string) $item['ShardId'],
+                'ParentShards' => $this->populateResultShardIdList($item['ParentShards']),
+                'HashKeyRange' => new HashKeyRange([
+                    'StartingHashKey' => (string) $item['HashKeyRange']['StartingHashKey'],
+                    'EndingHashKey' => (string) $item['HashKeyRange']['EndingHashKey'],
+                ]),
+            ]);
+        }
+
+        return $items;
     }
 
     /**
@@ -76,6 +115,22 @@ class GetRecordsOutput extends Result
                 'PartitionKey' => (string) $item['PartitionKey'],
                 'EncryptionType' => isset($item['EncryptionType']) ? (string) $item['EncryptionType'] : null,
             ]);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return string[]
+     */
+    private function populateResultShardIdList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
         }
 
         return $items;

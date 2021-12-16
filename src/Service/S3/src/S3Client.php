@@ -14,6 +14,7 @@ use AsyncAws\S3\Enum\MetadataDirective;
 use AsyncAws\S3\Enum\ObjectCannedACL;
 use AsyncAws\S3\Enum\ObjectLockLegalHoldStatus;
 use AsyncAws\S3\Enum\ObjectLockMode;
+use AsyncAws\S3\Enum\ObjectOwnership;
 use AsyncAws\S3\Enum\RequestPayer;
 use AsyncAws\S3\Enum\ServerSideEncryption;
 use AsyncAws\S3\Enum\StorageClass;
@@ -256,6 +257,7 @@ class S3Client extends AbstractApi
      *   GrantWrite?: string,
      *   GrantWriteACP?: string,
      *   ObjectLockEnabledForBucket?: bool,
+     *   ObjectOwnership?: ObjectOwnership::*,
      *   @region?: string,
      * }|CreateBucketRequest $input
      *
@@ -752,6 +754,7 @@ class S3Client extends AbstractApi
      *   Bucket: string,
      *   NotificationConfiguration: NotificationConfiguration|array,
      *   ExpectedBucketOwner?: string,
+     *   SkipDestinationValidation?: bool,
      *   @region?: string,
      * }|PutBucketNotificationConfigurationRequest $input
      */

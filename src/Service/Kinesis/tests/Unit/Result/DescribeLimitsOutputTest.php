@@ -16,7 +16,9 @@ class DescribeLimitsOutputTest extends TestCase
         // see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_DescribeLimits.html
         $response = new SimpleMockedResponse('{
     "OpenShardCount": 20,
-    "ShardLimit": 70
+    "ShardLimit": 70,
+    "OnDemandStreamCount": 10,
+    "OnDemandStreamCountLimit": 30
 }');
 
         $client = new MockHttpClient($response);
@@ -24,5 +26,7 @@ class DescribeLimitsOutputTest extends TestCase
 
         self::assertSame(70, $result->getShardLimit());
         self::assertSame(20, $result->getOpenShardCount());
+        self::assertSame(10, $result->getOnDemandStreamCount());
+        self::assertSame(30, $result->getOnDemandStreamCountLimit());
     }
 }

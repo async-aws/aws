@@ -8,23 +8,23 @@ use AsyncAws\Core\Result;
 class PutSecretValueResponse extends Result
 {
     /**
-     * The Amazon Resource Name (ARN) for the secret for which you just created a version.
+     * The ARN of the secret.
      */
     private $arn;
 
     /**
-     * The friendly name of the secret for which you just created or updated a version.
+     * The name of the secret.
      */
     private $name;
 
     /**
-     * The unique identifier of the version of the secret you just created or updated.
+     * The unique identifier of the version of the secret.
      */
     private $versionId;
 
     /**
-     * The list of staging labels that are currently attached to this version of the secret. Staging labels are used to
-     * track a version as it progresses through the secret rotation process.
+     * The list of staging labels that are currently attached to this version of the secret. Secrets Manager uses staging
+     * labels to track a version as it progresses through the secret rotation process.
      */
     private $versionStages;
 

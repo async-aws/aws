@@ -8,12 +8,12 @@ namespace AsyncAws\AppSync\ValueObject;
 final class RdsHttpEndpointConfig
 {
     /**
-     * Amazon Web Services Region for RDS HTTP endpoint.
+     * Amazon Web Services Region for Amazon RDS HTTP endpoint.
      */
     private $awsRegion;
 
     /**
-     * Amazon RDS cluster ARN.
+     * Amazon RDS cluster Amazon Resource Name (ARN).
      */
     private $dbClusterIdentifier;
 
@@ -28,7 +28,7 @@ final class RdsHttpEndpointConfig
     private $schema;
 
     /**
-     * Amazon Web Services secret store ARN for database credentials.
+     * Amazon Web Services secret store Amazon Resource Name (ARN) for database credentials.
      */
     private $awsSecretStoreArn;
 

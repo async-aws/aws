@@ -3,18 +3,20 @@
 namespace AsyncAws\SecretsManager\ValueObject;
 
 /**
- * (Optional) Custom type consisting of a `Region` (required) and the `KmsKeyId` which can be an `ARN`, `Key ID`, or
- * `Alias`.
+ * A custom type that specifies a `Region` and the `KmsKeyId` for a replica secret.
  */
 final class ReplicaRegionType
 {
     /**
-     * Describes a single instance of Region objects.
+     * A Region code. For a list of Region codes, see Name and code of Regions.
+     *
+     * @see https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints
      */
     private $region;
 
     /**
-     * Can be an `ARN`, `Key ID`, or `Alias`.
+     * The ARN, key ID, or alias of the KMS key to encrypt the secret. If you don't include this field, Secrets Manager uses
+     * `aws/secretsmanager`.
      */
     private $kmsKeyId;
 

@@ -48,14 +48,14 @@ final class CreateResolverRequest extends Input
     private $dataSourceName;
 
     /**
-     * The mapping template to be used for requests.
+     * The mapping template to use for requests.
      *
      * @var string|null
      */
     private $requestMappingTemplate;
 
     /**
-     * The mapping template to be used for responses from the data source.
+     * The mapping template to use for responses from the data source.
      *
      * @var string|null
      */
@@ -76,7 +76,7 @@ final class CreateResolverRequest extends Input
     private $pipelineConfig;
 
     /**
-     * The `SyncConfig` for a resolver attached to a versioned datasource.
+     * The `SyncConfig` for a resolver attached to a versioned data source.
      *
      * @var SyncConfig|null
      */

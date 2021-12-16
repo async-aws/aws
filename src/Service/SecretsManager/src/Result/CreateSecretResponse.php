@@ -9,22 +9,24 @@ use AsyncAws\SecretsManager\ValueObject\ReplicationStatusType;
 class CreateSecretResponse extends Result
 {
     /**
-     * The Amazon Resource Name (ARN) of the secret that you just created.
+     * The ARN of the new secret. The ARN includes the name of the secret followed by six random characters. This ensures
+     * that if you create a new secret with the same name as a deleted secret, then users with access to the old secret
+     * don't get access to the new secret because the ARNs are different.
      */
     private $arn;
 
     /**
-     * The friendly name of the secret that you just created.
+     * The name of the new secret.
      */
     private $name;
 
     /**
-     * The unique identifier associated with the version of the secret you just created.
+     * The unique identifier associated with the version of the new secret.
      */
     private $versionId;
 
     /**
-     * Describes a list of replication status objects as `InProgress`, `Failed` or `InSync`.
+     * A list of the replicas of this secret and their status:.
      */
     private $replicationStatus;
 

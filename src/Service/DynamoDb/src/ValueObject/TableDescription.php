@@ -126,6 +126,11 @@ final class TableDescription
     private $archivalSummary;
 
     /**
+     * Contains details of the table class.
+     */
+    private $tableClassSummary;
+
+    /**
      * @param array{
      *   AttributeDefinitions?: null|AttributeDefinition[],
      *   TableName?: null|string,
@@ -148,6 +153,7 @@ final class TableDescription
      *   RestoreSummary?: null|RestoreSummary|array,
      *   SSEDescription?: null|SSEDescription|array,
      *   ArchivalSummary?: null|ArchivalSummary|array,
+     *   TableClassSummary?: null|TableClassSummary|array,
      * } $input
      */
     public function __construct(array $input)
@@ -173,6 +179,7 @@ final class TableDescription
         $this->restoreSummary = isset($input['RestoreSummary']) ? RestoreSummary::create($input['RestoreSummary']) : null;
         $this->sseDescription = isset($input['SSEDescription']) ? SSEDescription::create($input['SSEDescription']) : null;
         $this->archivalSummary = isset($input['ArchivalSummary']) ? ArchivalSummary::create($input['ArchivalSummary']) : null;
+        $this->tableClassSummary = isset($input['TableClassSummary']) ? TableClassSummary::create($input['TableClassSummary']) : null;
     }
 
     public static function create($input): self
@@ -278,6 +285,11 @@ final class TableDescription
     public function getTableArn(): ?string
     {
         return $this->tableArn;
+    }
+
+    public function getTableClassSummary(): ?TableClassSummary
+    {
+        return $this->tableClassSummary;
     }
 
     public function getTableId(): ?string

@@ -6,17 +6,20 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\SecretsManager\Enum\FilterNameStringType;
 
 /**
- * Allows you to add filters when you use the search function in Secrets Manager.
+ * Allows you to add filters when you use the search function in Secrets Manager. For more information, see Find secrets
+ * in Secrets Manager.
+ *
+ * @see https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_search-secret.html
  */
 final class Filter
 {
     /**
-     * Filters your list of secrets by a specific key.
+     * The following are keys you can use:.
      */
     private $key;
 
     /**
-     * Filters your list of secrets by a specific value.
+     * The keyword to filter for.
      */
     private $values;
 

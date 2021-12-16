@@ -32,6 +32,7 @@ final class ResourceRecordSetRegion
     public const AP_NORTHEAST_3 = 'ap-northeast-3';
     public const AP_SOUTHEAST_1 = 'ap-southeast-1';
     public const AP_SOUTHEAST_2 = 'ap-southeast-2';
+    public const AP_SOUTHEAST_3 = 'ap-southeast-3';
     public const AP_SOUTH_1 = 'ap-south-1';
     public const CA_CENTRAL_1 = 'ca-central-1';
     public const CN_NORTHWEST_1 = 'cn-northwest-1';
@@ -59,6 +60,7 @@ final class ResourceRecordSetRegion
             self::AP_NORTHEAST_3 => true,
             self::AP_SOUTHEAST_1 => true,
             self::AP_SOUTHEAST_2 => true,
+            self::AP_SOUTHEAST_3 => true,
             self::AP_SOUTH_1 => true,
             self::CA_CENTRAL_1 => true,
             self::CN_NORTHWEST_1 => true,

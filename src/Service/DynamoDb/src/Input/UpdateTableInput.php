@@ -7,6 +7,7 @@ use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 use AsyncAws\DynamoDb\Enum\BillingMode;
+use AsyncAws\DynamoDb\Enum\TableClass;
 use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
 use AsyncAws\DynamoDb\ValueObject\GlobalSecondaryIndexUpdate;
 use AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput;
@@ -83,6 +84,13 @@ final class UpdateTableInput extends Input
     private $replicaUpdates;
 
     /**
+     * The table class of the table to be updated. Valid values are `STANDARD` and `STANDARD_INFREQUENT_ACCESS`.
+     *
+     * @var TableClass::*|null
+     */
+    private $tableClass;
+
+    /**
      * @param array{
      *   AttributeDefinitions?: AttributeDefinition[],
      *   TableName?: string,
@@ -92,6 +100,7 @@ final class UpdateTableInput extends Input
      *   StreamSpecification?: StreamSpecification|array,
      *   SSESpecification?: SSESpecification|array,
      *   ReplicaUpdates?: ReplicationGroupUpdate[],
+     *   TableClass?: TableClass::*,
      *   @region?: string,
      * } $input
      */
@@ -105,6 +114,7 @@ final class UpdateTableInput extends Input
         $this->streamSpecification = isset($input['StreamSpecification']) ? StreamSpecification::create($input['StreamSpecification']) : null;
         $this->sseSpecification = isset($input['SSESpecification']) ? SSESpecification::create($input['SSESpecification']) : null;
         $this->replicaUpdates = isset($input['ReplicaUpdates']) ? array_map([ReplicationGroupUpdate::class, 'create'], $input['ReplicaUpdates']) : null;
+        $this->tableClass = $input['TableClass'] ?? null;
         parent::__construct($input);
     }
 
@@ -158,6 +168,14 @@ final class UpdateTableInput extends Input
     public function getStreamSpecification(): ?StreamSpecification
     {
         return $this->streamSpecification;
+    }
+
+    /**
+     * @return TableClass::*|null
+     */
+    public function getTableClass(): ?string
+    {
+        return $this->tableClass;
     }
 
     public function getTableName(): ?string
@@ -251,6 +269,16 @@ final class UpdateTableInput extends Input
         return $this;
     }
 
+    /**
+     * @param TableClass::*|null $value
+     */
+    public function setTableClass(?string $value): self
+    {
+        $this->tableClass = $value;
+
+        return $this;
+    }
+
     public function setTableName(?string $value): self
     {
         $this->tableName = $value;
@@ -303,6 +331,12 @@ final class UpdateTableInput extends Input
                 ++$index;
                 $payload['ReplicaUpdates'][$index] = $listValue->requestBody();
             }
+        }
+        if (null !== $v = $this->tableClass) {
+            if (!TableClass::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "TableClass" for "%s". The value "%s" is not a valid "TableClass".', __CLASS__, $v));
+            }
+            $payload['TableClass'] = $v;
         }
 
         return $payload;

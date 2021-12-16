@@ -50,6 +50,8 @@ final class ReplicaDescription
      */
     private $replicaInaccessibleDateTime;
 
+    private $replicaTableClassSummary;
+
     /**
      * @param array{
      *   RegionName?: null|string,
@@ -60,6 +62,7 @@ final class ReplicaDescription
      *   ProvisionedThroughputOverride?: null|ProvisionedThroughputOverride|array,
      *   GlobalSecondaryIndexes?: null|ReplicaGlobalSecondaryIndexDescription[],
      *   ReplicaInaccessibleDateTime?: null|\DateTimeImmutable,
+     *   ReplicaTableClassSummary?: null|TableClassSummary|array,
      * } $input
      */
     public function __construct(array $input)
@@ -72,6 +75,7 @@ final class ReplicaDescription
         $this->provisionedThroughputOverride = isset($input['ProvisionedThroughputOverride']) ? ProvisionedThroughputOverride::create($input['ProvisionedThroughputOverride']) : null;
         $this->globalSecondaryIndexes = isset($input['GlobalSecondaryIndexes']) ? array_map([ReplicaGlobalSecondaryIndexDescription::class, 'create'], $input['GlobalSecondaryIndexes']) : null;
         $this->replicaInaccessibleDateTime = $input['ReplicaInaccessibleDateTime'] ?? null;
+        $this->replicaTableClassSummary = isset($input['ReplicaTableClassSummary']) ? TableClassSummary::create($input['ReplicaTableClassSummary']) : null;
     }
 
     public static function create($input): self
@@ -123,5 +127,10 @@ final class ReplicaDescription
     public function getReplicaStatusPercentProgress(): ?string
     {
         return $this->replicaStatusPercentProgress;
+    }
+
+    public function getReplicaTableClassSummary(): ?TableClassSummary
+    {
+        return $this->replicaTableClassSummary;
     }
 }

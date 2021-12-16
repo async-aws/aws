@@ -8,6 +8,8 @@
 - AWS api-change: Added `ca-central-1` region
 - AWS api-change: Use specific configuration for `us` regions
 - AWS enhancement: Updated Help section for "dynamodb update-contributor-insights" API
+- AWS api-change: Add support for Table Classes and introduce the Standard Infrequent Access table class.
+- AWS api-change: DynamoDB PartiQL now supports ReturnConsumedCapacity, which returns capacity units consumed by PartiQL APIs if the request specified returnConsumedCapacity parameter. PartiQL APIs include ExecuteStatement, BatchExecuteStatement, and ExecuteTransaction.
 
 ## 1.1.1
 

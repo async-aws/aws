@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Kinesis\ValueObject\StreamModeDetails;
 
 /**
  * Represents the input for `CreateStream`.
@@ -13,9 +14,10 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class CreateStreamInput extends Input
 {
     /**
-     * A name to identify the stream. The stream name is scoped to the AWS account used by the application that creates the
-     * stream. It is also scoped by AWS Region. That is, two streams in two different AWS accounts can have the same name.
-     * Two streams in the same AWS account but in two different Regions can also have the same name.
+     * A name to identify the stream. The stream name is scoped to the Amazon Web Services account used by the application
+     * that creates the stream. It is also scoped by Amazon Web Services Region. That is, two streams in two different
+     * Amazon Web Services accounts can have the same name. Two streams in the same Amazon Web Services account but in two
+     * different Regions can also have the same name.
      *
      * @required
      *
@@ -27,16 +29,23 @@ final class CreateStreamInput extends Input
      * The number of shards that the stream will use. The throughput of the stream is a function of the number of shards;
      * more shards are required for greater provisioned throughput.
      *
-     * @required
-     *
      * @var int|null
      */
     private $shardCount;
 
     /**
+     * Indicates the capacity mode of the data stream. Currently, in Kinesis Data Streams, you can choose between an
+     * **on-demand** capacity mode and a **provisioned** capacity mode for your data streams.
+     *
+     * @var StreamModeDetails|null
+     */
+    private $streamModeDetails;
+
+    /**
      * @param array{
      *   StreamName?: string,
      *   ShardCount?: int,
+     *   StreamModeDetails?: StreamModeDetails|array,
      *   @region?: string,
      * } $input
      */
@@ -44,6 +53,7 @@ final class CreateStreamInput extends Input
     {
         $this->streamName = $input['StreamName'] ?? null;
         $this->shardCount = $input['ShardCount'] ?? null;
+        $this->streamModeDetails = isset($input['StreamModeDetails']) ? StreamModeDetails::create($input['StreamModeDetails']) : null;
         parent::__construct($input);
     }
 
@@ -55,6 +65,11 @@ final class CreateStreamInput extends Input
     public function getShardCount(): ?int
     {
         return $this->shardCount;
+    }
+
+    public function getStreamModeDetails(): ?StreamModeDetails
+    {
+        return $this->streamModeDetails;
     }
 
     public function getStreamName(): ?string
@@ -94,6 +109,13 @@ final class CreateStreamInput extends Input
         return $this;
     }
 
+    public function setStreamModeDetails(?StreamModeDetails $value): self
+    {
+        $this->streamModeDetails = $value;
+
+        return $this;
+    }
+
     public function setStreamName(?string $value): self
     {
         $this->streamName = $value;
@@ -108,10 +130,12 @@ final class CreateStreamInput extends Input
             throw new InvalidArgument(sprintf('Missing parameter "StreamName" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['StreamName'] = $v;
-        if (null === $v = $this->shardCount) {
-            throw new InvalidArgument(sprintf('Missing parameter "ShardCount" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->shardCount) {
+            $payload['ShardCount'] = $v;
         }
-        $payload['ShardCount'] = $v;
+        if (null !== $v = $this->streamModeDetails) {
+            $payload['StreamModeDetails'] = $v->requestBody();
+        }
 
         return $payload;
     }

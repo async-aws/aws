@@ -25,7 +25,7 @@ final class DynamodbDataSourceConfig
     private $useCallerCredentials;
 
     /**
-     * The `DeltaSyncConfig` for a versioned datasource.
+     * The `DeltaSyncConfig` for a versioned data source.
      */
     private $deltaSyncConfig;
 

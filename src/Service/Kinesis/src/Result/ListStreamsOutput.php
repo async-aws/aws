@@ -16,7 +16,7 @@ use AsyncAws\Kinesis\KinesisClient;
 class ListStreamsOutput extends Result implements \IteratorAggregate
 {
     /**
-     * The names of the streams that are associated with the AWS account making the `ListStreams` request.
+     * The names of the streams that are associated with the Amazon Web Services account making the `ListStreams` request.
      */
     private $streamNames;
 

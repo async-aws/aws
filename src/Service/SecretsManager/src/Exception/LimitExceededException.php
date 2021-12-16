@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The request failed because it would exceed one of the Secrets Manager internal limits.
+ * The request failed because it would exceed one of the Secrets Manager quotas.
  */
 final class LimitExceededException extends ClientException
 {

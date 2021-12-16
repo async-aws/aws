@@ -3,17 +3,17 @@
 namespace AsyncAws\AppSync\ValueObject;
 
 /**
- * The Identity and Access Management settings.
+ * The Identity and Access Management (IAM) settings.
  */
 final class AwsIamConfig
 {
     /**
-     * The signing region for Identity and Access Management authorization.
+     * The signing Amazon Web Services Region for IAM authorization.
      */
     private $signingRegion;
 
     /**
-     * The signing service name for Identity and Access Management authorization.
+     * The signing service name for IAM authorization.
      */
     private $signingServiceName;
 

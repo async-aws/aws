@@ -10,8 +10,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class GetSecretValueRequest extends Input
 {
     /**
-     * Specifies the secret containing the version that you want to retrieve. You can specify either the Amazon Resource
-     * Name (ARN) or the friendly name of the secret.
+     * The ARN or name of the secret to retrieve.
      *
      * @required
      *
@@ -20,17 +19,16 @@ final class GetSecretValueRequest extends Input
     private $secretId;
 
     /**
-     * Specifies the unique identifier of the version of the secret that you want to retrieve. If you specify both this
-     * parameter and `VersionStage`, the two parameters must refer to the same secret version. If you don't specify either a
-     * `VersionStage` or `VersionId` then the default is to perform the operation on the version with the `VersionStage`
-     * value of `AWSCURRENT`.
+     * The unique identifier of the version of the secret to retrieve. If you include both this parameter and
+     * `VersionStage`, the two parameters must refer to the same secret version. If you don't specify either a
+     * `VersionStage` or `VersionId`, then Secrets Manager returns the `AWSCURRENT` version.
      *
      * @var string|null
      */
     private $versionId;
 
     /**
-     * Specifies the secret version that you want to retrieve by the staging label attached to the version.
+     * The staging label of the version of the secret to retrieve.
      *
      * @var string|null
      */

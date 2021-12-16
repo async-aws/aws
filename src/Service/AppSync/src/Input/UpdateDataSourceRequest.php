@@ -51,7 +51,7 @@ final class UpdateDataSourceRequest extends Input
     private $type;
 
     /**
-     * The new service role ARN for the data source.
+     * The new service role Amazon Resource Name (ARN) for the data source.
      *
      * @var string|null
      */
@@ -65,7 +65,7 @@ final class UpdateDataSourceRequest extends Input
     private $dynamodbConfig;
 
     /**
-     * The new Amazon Web Services Lambda configuration.
+     * The new Lambda configuration.
      *
      * @var LambdaDataSourceConfig|null
      */

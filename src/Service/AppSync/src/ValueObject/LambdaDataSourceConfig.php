@@ -5,12 +5,12 @@ namespace AsyncAws\AppSync\ValueObject;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The new Amazon Web Services Lambda configuration.
+ * The new Lambda configuration.
  */
 final class LambdaDataSourceConfig
 {
     /**
-     * The ARN for the Lambda function.
+     * The Amazon Resource Name (ARN) for the Lambda function.
      */
     private $lambdaFunctionArn;
 

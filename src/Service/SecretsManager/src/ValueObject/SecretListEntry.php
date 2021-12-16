@@ -26,9 +26,8 @@ final class SecretListEntry
     private $description;
 
     /**
-     * The ARN or alias of the Amazon Web Services KMS customer master key (CMK) used to encrypt the `SecretString` and
-     * `SecretBinary` fields in each version of the secret. If you don't provide a key, then Secrets Manager defaults to
-     * encrypting the secret fields with the default KMS CMK, the key named `awssecretsmanager`, for this account.
+     * The ARN of the KMS key that Secrets Manager uses to encrypt the secret value. If the secret is encrypted with the
+     * Amazon Web Services managed key `aws/secretsmanager`, this field is omitted.
      */
     private $kmsKeyId;
 

@@ -6,17 +6,17 @@ use AsyncAws\AppSync\Enum\AuthorizationType;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * The authorization config in case the HTTP endpoint requires authorization.
+ * The authorization configuration in case the HTTP endpoint requires authorization.
  */
 final class AuthorizationConfig
 {
     /**
-     * The authorization type required by the HTTP endpoint.
+     * The authorization type that the HTTP endpoint requires.
      */
     private $authorizationType;
 
     /**
-     * The Identity and Access Management settings.
+     * The Identity and Access Management (IAM) settings.
      */
     private $awsIamConfig;
 

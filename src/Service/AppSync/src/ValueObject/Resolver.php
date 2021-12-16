@@ -25,7 +25,7 @@ final class Resolver
     private $dataSourceName;
 
     /**
-     * The resolver ARN.
+     * The resolver Amazon Resource Name (ARN).
      */
     private $resolverArn;
 
@@ -50,7 +50,7 @@ final class Resolver
     private $pipelineConfig;
 
     /**
-     * The `SyncConfig` for a resolver attached to a versioned datasource.
+     * The `SyncConfig` for a resolver attached to a versioned data source.
      */
     private $syncConfig;
 

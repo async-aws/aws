@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added `us-iso-west-1` region
+- AWS api-change: Added `ap-southeast-3` region
 
 ## 0.1.1
 

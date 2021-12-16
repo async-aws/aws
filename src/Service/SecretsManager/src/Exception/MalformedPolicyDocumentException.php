@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * You provided a resource-based policy with syntax errors.
+ * The resource policy has syntax errors.
  */
 final class MalformedPolicyDocumentException extends ClientException
 {

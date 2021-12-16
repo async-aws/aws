@@ -3,12 +3,12 @@
 namespace AsyncAws\AppSync\ValueObject;
 
 /**
- * The `LambdaConflictHandlerConfig` when configuring LAMBDA as the Conflict Handler.
+ * The `LambdaConflictHandlerConfig` when configuring `LAMBDA` as the Conflict Handler.
  */
 final class LambdaConflictHandlerConfig
 {
     /**
-     * The Arn for the Lambda function to use as the Conflict Handler.
+     * The Amazon Resource Name (ARN) for the Lambda function to use as the Conflict Handler.
      */
     private $lambdaConflictHandlerArn;
 

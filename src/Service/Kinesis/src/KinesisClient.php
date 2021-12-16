@@ -25,6 +25,7 @@ use AsyncAws\Kinesis\Exception\LimitExceededException;
 use AsyncAws\Kinesis\Exception\ProvisionedThroughputExceededException;
 use AsyncAws\Kinesis\Exception\ResourceInUseException;
 use AsyncAws\Kinesis\Exception\ResourceNotFoundException;
+use AsyncAws\Kinesis\Exception\ValidationException;
 use AsyncAws\Kinesis\Input\AddTagsToStreamInput;
 use AsyncAws\Kinesis\Input\CreateStreamInput;
 use AsyncAws\Kinesis\Input\DecreaseStreamRetentionPeriodInput;
@@ -70,13 +71,13 @@ use AsyncAws\Kinesis\Result\StreamExistsWaiter;
 use AsyncAws\Kinesis\Result\StreamNotExistsWaiter;
 use AsyncAws\Kinesis\Result\UpdateShardCountOutput;
 use AsyncAws\Kinesis\ValueObject\PutRecordsRequestEntry;
+use AsyncAws\Kinesis\ValueObject\ShardFilter;
+use AsyncAws\Kinesis\ValueObject\StreamModeDetails;
 
 class KinesisClient extends AbstractApi
 {
     /**
-     * Adds or updates tags for the specified Kinesis data stream. Each time you invoke this operation, you can specify up
-     * to 10 tags. If you want to add more than 10 tags to your stream, you can invoke this operation multiple times. In
-     * total, each stream can have up to 50 tags.
+     * Adds or updates tags for the specified Kinesis data stream. You can assign up to 50 tags to a data stream.
      *
      * @see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_AddTagsToStream.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#addtagstostream
@@ -115,7 +116,8 @@ class KinesisClient extends AbstractApi
      *
      * @param array{
      *   StreamName: string,
-     *   ShardCount: int,
+     *   ShardCount?: int,
+     *   StreamModeDetails?: StreamModeDetails|array,
      *   @region?: string,
      * }|CreateStreamInput $input
      *
@@ -471,7 +473,7 @@ class KinesisClient extends AbstractApi
 
     /**
      * Increases the Kinesis data stream's retention period, which is the length of time data records are accessible after
-     * they are added to the stream. The maximum value of a stream's retention period is 168 hours (7 days).
+     * they are added to the stream. The maximum value of a stream's retention period is 8760 hours (365 days).
      *
      * @see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_IncreaseStreamRetentionPeriod.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#increasestreamretentionperiod
@@ -501,7 +503,7 @@ class KinesisClient extends AbstractApi
     }
 
     /**
-     * Lists the shards in a stream and provides information about each shard. This operation has a limit of 100
+     * Lists the shards in a stream and provides information about each shard. This operation has a limit of 1000
      * transactions per second per data stream.
      *
      * @see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListShards.html
@@ -513,6 +515,7 @@ class KinesisClient extends AbstractApi
      *   ExclusiveStartShardId?: string,
      *   MaxResults?: int,
      *   StreamCreationTimestamp?: \DateTimeImmutable|string,
+     *   ShardFilter?: ShardFilter|array,
      *   @region?: string,
      * }|ListShardsInput $input
      *
@@ -647,6 +650,7 @@ class KinesisClient extends AbstractApi
      * @throws ResourceInUseException
      * @throws InvalidArgumentException
      * @throws LimitExceededException
+     * @throws ValidationException
      */
     public function mergeShards($input): Result
     {
@@ -656,6 +660,7 @@ class KinesisClient extends AbstractApi
             'ResourceInUseException' => ResourceInUseException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new Result($response);
@@ -664,7 +669,7 @@ class KinesisClient extends AbstractApi
     /**
      * Writes a single data record into an Amazon Kinesis data stream. Call `PutRecord` to send data into the stream for
      * real-time ingestion and subsequent processing, one record at a time. Each shard can support writes up to 1,000
-     * records per second, up to a maximum data write total of 1 MB per second.
+     * records per second, up to a maximum data write total of 1 MiB per second.
      *
      * @see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_PutRecord.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#putrecord
@@ -748,9 +753,10 @@ class KinesisClient extends AbstractApi
     }
 
     /**
-     * Registers a consumer with a Kinesis data stream. When you use this operation, the consumer you register can read data
-     * from the stream at a rate of up to 2 MiB per second. This rate is unaffected by the total number of consumers that
-     * read from the same stream.
+     * Registers a consumer with a Kinesis data stream. When you use this operation, the consumer you register can then call
+     * SubscribeToShard to receive data from the stream using enhanced fan-out, at a rate of up to 2 MiB per second for
+     * every shard you subscribe to. This rate is unaffected by the total number of consumers that read from the same
+     * stream.
      *
      * @see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_RegisterStreamConsumer.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#registerstreamconsumer
@@ -829,6 +835,7 @@ class KinesisClient extends AbstractApi
      * @throws ResourceInUseException
      * @throws InvalidArgumentException
      * @throws LimitExceededException
+     * @throws ValidationException
      */
     public function splitShard($input): Result
     {
@@ -838,13 +845,14 @@ class KinesisClient extends AbstractApi
             'ResourceInUseException' => ResourceInUseException::class,
             'InvalidArgumentException' => InvalidArgumentException::class,
             'LimitExceededException' => LimitExceededException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new Result($response);
     }
 
     /**
-     * Enables or updates server-side encryption using an AWS KMS key for a specified stream.
+     * Enables or updates server-side encryption using an Amazon Web Services KMS key for a specified stream.
      *
      * @see https://docs.aws.amazon.com/kinesis/latest/APIReference/API_StartStreamEncryption.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kinesis-2013-12-02.html#startstreamencryption
@@ -976,6 +984,7 @@ class KinesisClient extends AbstractApi
      * @throws LimitExceededException
      * @throws ResourceInUseException
      * @throws ResourceNotFoundException
+     * @throws ValidationException
      */
     public function updateShardCount($input): UpdateShardCountOutput
     {
@@ -985,6 +994,7 @@ class KinesisClient extends AbstractApi
             'LimitExceededException' => LimitExceededException::class,
             'ResourceInUseException' => ResourceInUseException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new UpdateShardCountOutput($response);
