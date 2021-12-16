@@ -7,13 +7,9 @@ namespace AsyncAws\S3\ValueObject;
  */
 final class EventBridgeConfiguration
 {
-    public function __construct(array $input)
-    {
-    }
-
     public static function create($input): self
     {
-        return $input instanceof self ? $input : new self($input);
+        return $input instanceof self ? $input : new self();
     }
 
     /**

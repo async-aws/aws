@@ -18,7 +18,7 @@ class DescribeLimitsOutputTest extends TestCase
     "OpenShardCount": 20,
     "ShardLimit": 70,
     "OnDemandStreamCount": 10,
-    "OnDemandStreamCountLimit": 30,
+    "OnDemandStreamCountLimit": 30
 }');
 
         $client = new MockHttpClient($response);

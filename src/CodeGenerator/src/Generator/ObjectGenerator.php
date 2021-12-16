@@ -140,6 +140,16 @@ class ObjectGenerator
 
     private function namedConstructor(StructureShape $shape, ClassBuilder $classBuilder): void
     {
+        if (empty($shape->getMembers())) {
+            $classBuilder->addMethod('create')
+                ->setStatic(true)
+                ->setReturnType('self')
+                ->setBody('return $input instanceof self ? $input : new self();')
+                ->addParameter('input');
+
+            return;
+        }
+
         $classBuilder->addMethod('create')
             ->setStatic(true)
             ->setReturnType('self')
