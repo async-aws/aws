@@ -127,6 +127,12 @@
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
+  <file src="src/Service/CodeDeploy/src/Input/CreateDeploymentInput.php">
+    <RedundantCastGivenDocblockType occurrences="2">
+      <code>(bool) $v</code>
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
   <file src="src/Service/CognitoIdentityProvider/src/Input/AdminCreateUserRequest.php">
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $v</code>
