@@ -9,10 +9,14 @@ use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
 use AsyncAws\Sns\Exception\AuthorizationErrorException;
+use AsyncAws\Sns\Exception\BatchEntryIdsNotDistinctException;
+use AsyncAws\Sns\Exception\BatchRequestTooLongException;
 use AsyncAws\Sns\Exception\ConcurrentAccessException;
+use AsyncAws\Sns\Exception\EmptyBatchRequestException;
 use AsyncAws\Sns\Exception\EndpointDisabledException;
 use AsyncAws\Sns\Exception\FilterPolicyLimitExceededException;
 use AsyncAws\Sns\Exception\InternalErrorException;
+use AsyncAws\Sns\Exception\InvalidBatchEntryIdException;
 use AsyncAws\Sns\Exception\InvalidParameterException;
 use AsyncAws\Sns\Exception\InvalidParameterValueException;
 use AsyncAws\Sns\Exception\InvalidSecurityException;
@@ -28,21 +32,25 @@ use AsyncAws\Sns\Exception\StaleTagException;
 use AsyncAws\Sns\Exception\SubscriptionLimitExceededException;
 use AsyncAws\Sns\Exception\TagLimitExceededException;
 use AsyncAws\Sns\Exception\TagPolicyException;
+use AsyncAws\Sns\Exception\TooManyEntriesInBatchRequestException;
 use AsyncAws\Sns\Exception\TopicLimitExceededException;
 use AsyncAws\Sns\Input\CreatePlatformEndpointInput;
 use AsyncAws\Sns\Input\CreateTopicInput;
 use AsyncAws\Sns\Input\DeleteEndpointInput;
 use AsyncAws\Sns\Input\DeleteTopicInput;
 use AsyncAws\Sns\Input\ListSubscriptionsByTopicInput;
+use AsyncAws\Sns\Input\PublishBatchInput;
 use AsyncAws\Sns\Input\PublishInput;
 use AsyncAws\Sns\Input\SubscribeInput;
 use AsyncAws\Sns\Input\UnsubscribeInput;
 use AsyncAws\Sns\Result\CreateEndpointResponse;
 use AsyncAws\Sns\Result\CreateTopicResponse;
 use AsyncAws\Sns\Result\ListSubscriptionsByTopicResponse;
+use AsyncAws\Sns\Result\PublishBatchResponse;
 use AsyncAws\Sns\Result\PublishResponse;
 use AsyncAws\Sns\Result\SubscribeResponse;
 use AsyncAws\Sns\ValueObject\MessageAttributeValue;
+use AsyncAws\Sns\ValueObject\PublishBatchRequestEntry;
 use AsyncAws\Sns\ValueObject\Subscription;
 use AsyncAws\Sns\ValueObject\Tag;
 
@@ -285,6 +293,68 @@ class SnsClient extends AbstractApi
         ]]));
 
         return new PublishResponse($response);
+    }
+
+    /**
+     * Publishes up to ten messages to the specified topic. This is a batch version of `Publish`. For FIFO topics, multiple
+     * messages within a single batch are published in the order they are sent, and messages are deduplicated within the
+     * batch and across batches for 5 minutes.
+     *
+     * @see https://docs.aws.amazon.com/sns/latest/api/API_PublishBatch.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#publishbatch
+     *
+     * @param array{
+     *   TopicArn: string,
+     *   PublishBatchRequestEntries: PublishBatchRequestEntry[],
+     *   @region?: string,
+     * }|PublishBatchInput $input
+     *
+     * @throws InvalidParameterException
+     * @throws InvalidParameterValueException
+     * @throws InternalErrorException
+     * @throws NotFoundException
+     * @throws EndpointDisabledException
+     * @throws PlatformApplicationDisabledException
+     * @throws AuthorizationErrorException
+     * @throws BatchEntryIdsNotDistinctException
+     * @throws BatchRequestTooLongException
+     * @throws EmptyBatchRequestException
+     * @throws InvalidBatchEntryIdException
+     * @throws TooManyEntriesInBatchRequestException
+     * @throws KMSDisabledException
+     * @throws KMSInvalidStateException
+     * @throws KMSNotFoundException
+     * @throws KMSOptInRequiredException
+     * @throws KMSThrottlingException
+     * @throws KMSAccessDeniedException
+     * @throws InvalidSecurityException
+     */
+    public function publishBatch($input): PublishBatchResponse
+    {
+        $input = PublishBatchInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PublishBatch', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameter' => InvalidParameterException::class,
+            'ParameterValueInvalid' => InvalidParameterValueException::class,
+            'InternalError' => InternalErrorException::class,
+            'NotFound' => NotFoundException::class,
+            'EndpointDisabled' => EndpointDisabledException::class,
+            'PlatformApplicationDisabled' => PlatformApplicationDisabledException::class,
+            'AuthorizationError' => AuthorizationErrorException::class,
+            'BatchEntryIdsNotDistinct' => BatchEntryIdsNotDistinctException::class,
+            'BatchRequestTooLong' => BatchRequestTooLongException::class,
+            'EmptyBatchRequest' => EmptyBatchRequestException::class,
+            'InvalidBatchEntryId' => InvalidBatchEntryIdException::class,
+            'TooManyEntriesInBatchRequest' => TooManyEntriesInBatchRequestException::class,
+            'KMSDisabled' => KMSDisabledException::class,
+            'KMSInvalidState' => KMSInvalidStateException::class,
+            'KMSNotFound' => KMSNotFoundException::class,
+            'KMSOptInRequired' => KMSOptInRequiredException::class,
+            'KMSThrottling' => KMSThrottlingException::class,
+            'KMSAccessDenied' => KMSAccessDeniedException::class,
+            'InvalidSecurity' => InvalidSecurityException::class,
+        ]]));
+
+        return new PublishBatchResponse($response);
     }
 
     /**
