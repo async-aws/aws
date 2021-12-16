@@ -1,14 +1,14 @@
 {
     "name": "async-aws/illuminate-filesystem",
-    "type": "library",
     "description": "AsyncAws integration for Illuminate Filesystem.",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "aws",
         "async-aws",
         "illuminate",
         "filesystem"
     ],
-    "license": "MIT",
     "require": {
         "php": "^7.2.5 || ^8.0",
         "ext-json": "*",
@@ -21,16 +21,6 @@
     "conflict": {
         "league/flysystem": ">=2.0.0"
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.3-dev"
-        },
-        "laravel": {
-            "providers": [
-                "AsyncAws\\Illuminate\\Filesystem\\ServiceProvider"
-            ]
-        }
-    },
     "autoload": {
         "psr-4": {
             "AsyncAws\\Illuminate\\Filesystem\\": "src"
@@ -39,6 +29,16 @@
     "autoload-dev": {
         "psr-4": {
             "AsyncAws\\Illuminate\\Filesystem\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.3-dev"
+        },
+        "laravel": {
+            "providers": [
+                "AsyncAws\\Illuminate\\Filesystem\\ServiceProvider"
+            ]
         }
     }
 }

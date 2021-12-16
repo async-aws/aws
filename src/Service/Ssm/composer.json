@@ -1,7 +1,8 @@
 {
     "name": "async-aws/ssm",
-    "type": "library",
     "description": "SSM client, part of the AWS SDK provided by AsyncAws.",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "aws",
         "amazon",
@@ -9,7 +10,6 @@
         "async-aws",
         "ssm"
     ],
-    "license": "MIT",
     "require": {
         "php": "^7.2.5 || ^8.0",
         "ext-json": "*",
@@ -17,11 +17,6 @@
     },
     "conflict": {
         "symfony/http-client": "<4.4.16,<5.1.7"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.3-dev"
-        }
     },
     "autoload": {
         "psr-4": {
@@ -31,6 +26,11 @@
     "autoload-dev": {
         "psr-4": {
             "AsyncAws\\Ssm\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.3-dev"
         }
     }
 }

@@ -1,7 +1,8 @@
 {
     "name": "async-aws/async-aws-bundle",
-    "type": "symfony-bundle",
     "description": "Configure all your AsyncAws services and enjoy the autowire greatness.",
+    "license": "MIT",
+    "type": "symfony-bundle",
     "keywords": [
         "aws",
         "amazon",
@@ -10,7 +11,6 @@
         "symfony",
         "bundle"
     ],
-    "license": "MIT",
     "require": {
         "php": "^7.2.5 || ^8.0",
         "async-aws/core": "^1.0",
@@ -27,11 +27,6 @@
         "nyholm/symfony-bundle-test": "1.x-dev#0555e4898e1b05655a4bdf52ba10c7f56611a514 as 1.9.0",
         "symfony/cache": "^4.4 || ^5.0 || ^6.0"
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.6-dev"
-        }
-    },
     "autoload": {
         "psr-4": {
             "AsyncAws\\Symfony\\Bundle\\": "src"
@@ -40,6 +35,11 @@
     "autoload-dev": {
         "psr-4": {
             "AsyncAws\\Symfony\\Bundle\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.6-dev"
         }
     }
 }

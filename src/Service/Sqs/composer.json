@@ -1,7 +1,8 @@
 {
     "name": "async-aws/sqs",
-    "type": "library",
     "description": "SQS client, part of the AWS SDK provided by AsyncAws.",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "aws",
         "amazon",
@@ -9,16 +10,10 @@
         "async-aws",
         "sqs"
     ],
-    "license": "MIT",
     "require": {
         "php": "^7.2.5 || ^8.0",
         "ext-SimpleXML": "*",
         "async-aws/core": "^1.9"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.7-dev"
-        }
     },
     "autoload": {
         "psr-4": {
@@ -28,6 +23,11 @@
     "autoload-dev": {
         "psr-4": {
             "AsyncAws\\Sqs\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.7-dev"
         }
     }
 }

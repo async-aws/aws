@@ -1,7 +1,8 @@
 {
     "name": "async-aws/kinesis",
-    "type": "library",
     "description": "Kinesis client, part of the AWS SDK provided by AsyncAws.",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "aws",
         "amazon",
@@ -9,17 +10,11 @@
         "async-aws",
         "kinesis"
     ],
-    "license": "MIT",
     "require": {
         "php": "^7.2.5 || ^8.0",
         "ext-filter": "*",
         "ext-json": "*",
         "async-aws/core": "^1.9"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.1-dev"
-        }
     },
     "autoload": {
         "psr-4": {
@@ -29,6 +24,11 @@
     "autoload-dev": {
         "psr-4": {
             "AsyncAws\\Kinesis\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.1-dev"
         }
     }
 }

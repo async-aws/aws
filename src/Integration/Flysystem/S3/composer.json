@@ -1,7 +1,8 @@
 {
     "name": "async-aws/flysystem-s3",
-    "type": "library",
     "description": "Flysystem S3 adapter from AsyncAws.",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "aws",
         "amazon",
@@ -11,7 +12,6 @@
         "Flysystem",
         "Filesystem"
     ],
-    "license": "MIT",
     "authors": [
         {
             "name": "Tobias Nyholm",
@@ -27,11 +27,6 @@
     "require-dev": {
         "symfony/phpunit-bridge": "^5.3"
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.1-dev"
-        }
-    },
     "autoload": {
         "psr-4": {
             "AsyncAws\\Flysystem\\S3\\": "src"
@@ -40,6 +35,11 @@
     "autoload-dev": {
         "psr-4": {
             "AsyncAws\\Flysystem\\S3\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.1-dev"
         }
     }
 }

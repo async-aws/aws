@@ -1,7 +1,8 @@
 {
     "name": "async-aws/s3",
-    "type": "library",
     "description": "S3 client, part of the AWS SDK provided by AsyncAws.",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "aws",
         "amazon",
@@ -9,7 +10,6 @@
         "async-aws",
         "s3"
     ],
-    "license": "MIT",
     "require": {
         "php": "^7.2.5 || ^8.0",
         "ext-SimpleXML": "*",
@@ -17,11 +17,6 @@
         "ext-filter": "*",
         "ext-hash": "*",
         "async-aws/core": "^1.9"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.10-dev"
-        }
     },
     "autoload": {
         "psr-4": {
@@ -31,6 +26,11 @@
     "autoload-dev": {
         "psr-4": {
             "AsyncAws\\S3\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.10-dev"
         }
     }
 }

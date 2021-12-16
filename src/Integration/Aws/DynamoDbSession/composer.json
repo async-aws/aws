@@ -1,7 +1,8 @@
 {
     "name": "async-aws/dynamo-db-session",
-    "type": "library",
     "description": "AsyncAws DynamoDB integration for PHP Sessions.",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "aws",
         "amazon",
@@ -10,15 +11,9 @@
         "dynamo-db",
         "session"
     ],
-    "license": "MIT",
     "require": {
         "php": "^7.2.5 || ^8.0",
         "async-aws/dynamo-db": "^1.0"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.1-dev"
-        }
     },
     "autoload": {
         "psr-4": {
@@ -28,6 +23,11 @@
     "autoload-dev": {
         "psr-4": {
             "AsyncAws\\DynamoDbSession\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.1-dev"
         }
     }
 }
