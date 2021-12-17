@@ -3,14 +3,39 @@
 namespace AsyncAws\CloudFormation\Tests\Integration;
 
 use AsyncAws\CloudFormation\CloudFormationClient;
+use AsyncAws\CloudFormation\Input\DescribeStackDriftDetectionStatusInput;
 use AsyncAws\CloudFormation\Input\DescribeStackEventsInput;
 use AsyncAws\CloudFormation\Input\DescribeStacksInput;
 use AsyncAws\Core\Credentials\Credentials;
 use AsyncAws\Core\Exception\Http\ClientException;
-use PHPUnit\Framework\TestCase;
+use AsyncAws\Core\Test\TestCase;
 
 class CloudFormationClientTest extends TestCase
 {
+    public function testDescribeStackDriftDetectionStatus(): void
+    {
+        self::markTestSkipped('The CloudFormation Docker image does not implement StackDrifts.');
+
+        $client = $this->getClient();
+
+        $input = new DescribeStackDriftDetectionStatusInput([
+            'StackDriftDetectionId' => 'b78ac9b0-dec1-11e7-a451-503a3example',
+        ]);
+
+        $result = $client->describeStackDriftDetectionStatus($input);
+
+        self::expectException(ClientException::class);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getStackId());
+        self::assertSame('changeIt', $result->getStackDriftDetectionId());
+        self::assertSame('changeIt', $result->getStackDriftStatus());
+        self::assertSame('changeIt', $result->getDetectionStatus());
+        self::assertSame('changeIt', $result->getDetectionStatusReason());
+        self::assertSame(1337, $result->getDriftedStackResourceCount());
+    }
+
     public function testDescribeStackEvents(): void
     {
         $client = $this->getClient();

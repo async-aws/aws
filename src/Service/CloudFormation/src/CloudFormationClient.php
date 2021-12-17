@@ -2,8 +2,10 @@
 
 namespace AsyncAws\CloudFormation;
 
+use AsyncAws\CloudFormation\Input\DescribeStackDriftDetectionStatusInput;
 use AsyncAws\CloudFormation\Input\DescribeStackEventsInput;
 use AsyncAws\CloudFormation\Input\DescribeStacksInput;
+use AsyncAws\CloudFormation\Result\DescribeStackDriftDetectionStatusOutput;
 use AsyncAws\CloudFormation\Result\DescribeStackEventsOutput;
 use AsyncAws\CloudFormation\Result\DescribeStacksOutput;
 use AsyncAws\CloudFormation\ValueObject\Stack;
@@ -15,6 +17,30 @@ use AsyncAws\Core\RequestContext;
 
 class CloudFormationClient extends AbstractApi
 {
+    /**
+     * Returns information about a stack drift detection operation. A stack drift detection operation detects whether a
+     * stack's actual configuration differs, or has *drifted*, from it's expected configuration, as defined in the stack
+     * template and any values specified as template parameters. A stack is considered to have drifted if one or more of its
+     * resources have drifted. For more information on stack and resource drift, see Detecting Unregulated Configuration
+     * Changes to Stacks and Resources.
+     *
+     * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html
+     * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeStackDriftDetectionStatus.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cloudformation-2010-05-15.html#describestackdriftdetectionstatus
+     *
+     * @param array{
+     *   StackDriftDetectionId: string,
+     *   @region?: string,
+     * }|DescribeStackDriftDetectionStatusInput $input
+     */
+    public function describeStackDriftDetectionStatus($input): DescribeStackDriftDetectionStatusOutput
+    {
+        $input = DescribeStackDriftDetectionStatusInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStackDriftDetectionStatus', 'region' => $input->getRegion()]));
+
+        return new DescribeStackDriftDetectionStatusOutput($response);
+    }
+
     /**
      * Returns all stack related events for a specified stack in reverse chronological order. For more information about a
      * stack's event history, go to Stacks in the CloudFormation User Guide.
