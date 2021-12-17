@@ -37,6 +37,7 @@ class CloudFormationClient extends AbstractApi
     {
         $input = DescribeStackDriftDetectionStatusInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeStackDriftDetectionStatus', 'region' => $input->getRegion()]));
+        
         return new DescribeStackDriftDetectionStatusOutput($response);
     }
 
