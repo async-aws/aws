@@ -30,6 +30,7 @@
             "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/cloudformation/2010-05-15/examples-1.json",
             "api-reference": "https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference",
             "methods": [
+                "DescribeStackDriftDetectionStatus",
                 "DescribeStackEvents",
                 "DescribeStacks"
             ]

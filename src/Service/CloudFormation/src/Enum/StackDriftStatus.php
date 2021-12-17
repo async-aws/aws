@@ -3,7 +3,7 @@
 namespace AsyncAws\CloudFormation\Enum;
 
 /**
- * Status of the stack's actual configuration compared to its expected template configuration.
+ * Status of the stack's actual configuration compared to its expected configuration.
  *
  * - `DRIFTED`: The stack differs from its expected template configuration. A stack is considered to have drifted if one
  *   or more of its resources have drifted.
