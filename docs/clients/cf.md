@@ -37,3 +37,16 @@ foreach ($result->getStackEvents() as $event) {
     echo $event->getResourceType().'-'.$event->getResourceStatus().PHP_EOL;
 }
 ```
+
+### Detect Stack Drift Status
+
+```php
+use AsyncAws\CloudFormation\CloudFormationClient;
+use AsyncAws\CloudFormation\Input\DescribeStackEventsInput;
+
+$cloudFormation = new CloudFormationClient();
+
+$driftStatus = $cloudFormation->describeStackDriftDetectionStatus([
+    'StackDriftDetectionId' => 'b78ac9b0-dec1-11e7-a451-503a3example',
+]);
+```
