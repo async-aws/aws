@@ -14,6 +14,7 @@
   </coverage>
   <php>
     <ini name="error_reporting" value="-1"/>
+    <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0&amp;verbose=0" />
   </php>
   <testsuites>
     <testsuite name="Test Suite">

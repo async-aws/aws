@@ -14,16 +14,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.2', '7.3', '7.4', '8.0']
+        php: ['7.2', '7.3', '7.4', '8.0', '8.1', '8.2']
         strategy: ['default']
-        phpunit_version: ['']
         include:
         # Minimum supported dependencies with the oldest PHP version
         - php: '7.2'
           strategy: 'lowest'
-        - php: '8.1'
-          strategy: 'default'
-          phpunit_version: 9.5
 
     steps:
       - name: Set up PHP
@@ -52,8 +48,6 @@ jobs:
           restore-keys: composer-
 
       - name: Download phpunit
-        env:
-          SYMFONY_PHPUNIT_VERSION: ${{ matrix.phpunit_version }}
         run: |
           rm composer.*
           composer init --no-interaction --name "async-aws/aws"
@@ -150,7 +144,6 @@ jobs:
 
       - name: Run tests
         env:
-          SYMFONY_PHPUNIT_VERSION: ${{ matrix.phpunit_version }}
           OVERRIDE_SYMFONY_DEPRECATIONS_HELPER: ${{ matrix.strategy == 'lowest' && 'max[self]=9999' || '' }}
         run: |
           ok=0
@@ -182,7 +175,7 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.0
+          php-version: 8.1
           coverage: none
 
       - name: Checkout code
