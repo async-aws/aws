@@ -11,7 +11,11 @@ use AsyncAws\Core\Result;
 use AsyncAws\Sqs\Enum\MessageSystemAttributeName;
 use AsyncAws\Sqs\Enum\MessageSystemAttributeNameForSends;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
+use AsyncAws\Sqs\Exception\BatchEntryIdsNotDistinctException;
+use AsyncAws\Sqs\Exception\BatchRequestTooLongException;
+use AsyncAws\Sqs\Exception\EmptyBatchRequestException;
 use AsyncAws\Sqs\Exception\InvalidAttributeNameException;
+use AsyncAws\Sqs\Exception\InvalidBatchEntryIdException;
 use AsyncAws\Sqs\Exception\InvalidIdFormatException;
 use AsyncAws\Sqs\Exception\InvalidMessageContentsException;
 use AsyncAws\Sqs\Exception\MessageNotInflightException;
@@ -21,9 +25,12 @@ use AsyncAws\Sqs\Exception\QueueDeletedRecentlyException;
 use AsyncAws\Sqs\Exception\QueueDoesNotExistException;
 use AsyncAws\Sqs\Exception\QueueNameExistsException;
 use AsyncAws\Sqs\Exception\ReceiptHandleIsInvalidException;
+use AsyncAws\Sqs\Exception\TooManyEntriesInBatchRequestException;
 use AsyncAws\Sqs\Exception\UnsupportedOperationException;
+use AsyncAws\Sqs\Input\ChangeMessageVisibilityBatchRequest;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
 use AsyncAws\Sqs\Input\CreateQueueRequest;
+use AsyncAws\Sqs\Input\DeleteMessageBatchRequest;
 use AsyncAws\Sqs\Input\DeleteMessageRequest;
 use AsyncAws\Sqs\Input\DeleteQueueRequest;
 use AsyncAws\Sqs\Input\GetQueueAttributesRequest;
@@ -31,16 +38,23 @@ use AsyncAws\Sqs\Input\GetQueueUrlRequest;
 use AsyncAws\Sqs\Input\ListQueuesRequest;
 use AsyncAws\Sqs\Input\PurgeQueueRequest;
 use AsyncAws\Sqs\Input\ReceiveMessageRequest;
+use AsyncAws\Sqs\Input\SendMessageBatchRequest;
 use AsyncAws\Sqs\Input\SendMessageRequest;
+use AsyncAws\Sqs\Result\ChangeMessageVisibilityBatchResult;
 use AsyncAws\Sqs\Result\CreateQueueResult;
+use AsyncAws\Sqs\Result\DeleteMessageBatchResult;
 use AsyncAws\Sqs\Result\GetQueueAttributesResult;
 use AsyncAws\Sqs\Result\GetQueueUrlResult;
 use AsyncAws\Sqs\Result\ListQueuesResult;
 use AsyncAws\Sqs\Result\QueueExistsWaiter;
 use AsyncAws\Sqs\Result\ReceiveMessageResult;
+use AsyncAws\Sqs\Result\SendMessageBatchResult;
 use AsyncAws\Sqs\Result\SendMessageResult;
+use AsyncAws\Sqs\ValueObject\ChangeMessageVisibilityBatchRequestEntry;
+use AsyncAws\Sqs\ValueObject\DeleteMessageBatchRequestEntry;
 use AsyncAws\Sqs\ValueObject\MessageAttributeValue;
 use AsyncAws\Sqs\ValueObject\MessageSystemAttributeValue;
+use AsyncAws\Sqs\ValueObject\SendMessageBatchRequestEntry;
 
 class SqsClient extends AbstractApi
 {
@@ -72,6 +86,38 @@ class SqsClient extends AbstractApi
         ]]));
 
         return new Result($response);
+    }
+
+    /**
+     * Changes the visibility timeout of multiple messages. This is a batch version of `ChangeMessageVisibility.` The result
+     * of the action on each message is reported individually in the response. You can send up to 10
+     * `ChangeMessageVisibility` requests with each `ChangeMessageVisibilityBatch` action.
+     *
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ChangeMessageVisibilityBatch.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#changemessagevisibilitybatch
+     *
+     * @param array{
+     *   QueueUrl: string,
+     *   Entries: ChangeMessageVisibilityBatchRequestEntry[],
+     *   @region?: string,
+     * }|ChangeMessageVisibilityBatchRequest $input
+     *
+     * @throws TooManyEntriesInBatchRequestException
+     * @throws EmptyBatchRequestException
+     * @throws BatchEntryIdsNotDistinctException
+     * @throws InvalidBatchEntryIdException
+     */
+    public function changeMessageVisibilityBatch($input): ChangeMessageVisibilityBatchResult
+    {
+        $input = ChangeMessageVisibilityBatchRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ChangeMessageVisibilityBatch', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AWS.SimpleQueueService.TooManyEntriesInBatchRequest' => TooManyEntriesInBatchRequestException::class,
+            'AWS.SimpleQueueService.EmptyBatchRequest' => EmptyBatchRequestException::class,
+            'AWS.SimpleQueueService.BatchEntryIdsNotDistinct' => BatchEntryIdsNotDistinctException::class,
+            'AWS.SimpleQueueService.InvalidBatchEntryId' => InvalidBatchEntryIdException::class,
+        ]]));
+
+        return new ChangeMessageVisibilityBatchResult($response);
     }
 
     /**
@@ -128,6 +174,37 @@ class SqsClient extends AbstractApi
         ]]));
 
         return new Result($response);
+    }
+
+    /**
+     * Deletes up to ten messages from the specified queue. This is a batch version of `DeleteMessage.` The result of the
+     * action on each message is reported individually in the response.
+     *
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_DeleteMessageBatch.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#deletemessagebatch
+     *
+     * @param array{
+     *   QueueUrl: string,
+     *   Entries: DeleteMessageBatchRequestEntry[],
+     *   @region?: string,
+     * }|DeleteMessageBatchRequest $input
+     *
+     * @throws TooManyEntriesInBatchRequestException
+     * @throws EmptyBatchRequestException
+     * @throws BatchEntryIdsNotDistinctException
+     * @throws InvalidBatchEntryIdException
+     */
+    public function deleteMessageBatch($input): DeleteMessageBatchResult
+    {
+        $input = DeleteMessageBatchRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteMessageBatch', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AWS.SimpleQueueService.TooManyEntriesInBatchRequest' => TooManyEntriesInBatchRequestException::class,
+            'AWS.SimpleQueueService.EmptyBatchRequest' => EmptyBatchRequestException::class,
+            'AWS.SimpleQueueService.BatchEntryIdsNotDistinct' => BatchEntryIdsNotDistinctException::class,
+            'AWS.SimpleQueueService.InvalidBatchEntryId' => InvalidBatchEntryIdException::class,
+        ]]));
+
+        return new DeleteMessageBatchResult($response);
     }
 
     /**
@@ -324,6 +401,41 @@ class SqsClient extends AbstractApi
         ]]));
 
         return new SendMessageResult($response);
+    }
+
+    /**
+     * Delivers up to ten messages to the specified queue. This is a batch version of `SendMessage.` For a FIFO queue,
+     * multiple messages within a single batch are enqueued in the order they are sent.
+     *
+     * @see https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_SendMessageBatch.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#sendmessagebatch
+     *
+     * @param array{
+     *   QueueUrl: string,
+     *   Entries: SendMessageBatchRequestEntry[],
+     *   @region?: string,
+     * }|SendMessageBatchRequest $input
+     *
+     * @throws TooManyEntriesInBatchRequestException
+     * @throws EmptyBatchRequestException
+     * @throws BatchEntryIdsNotDistinctException
+     * @throws BatchRequestTooLongException
+     * @throws InvalidBatchEntryIdException
+     * @throws UnsupportedOperationException
+     */
+    public function sendMessageBatch($input): SendMessageBatchResult
+    {
+        $input = SendMessageBatchRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'SendMessageBatch', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AWS.SimpleQueueService.TooManyEntriesInBatchRequest' => TooManyEntriesInBatchRequestException::class,
+            'AWS.SimpleQueueService.EmptyBatchRequest' => EmptyBatchRequestException::class,
+            'AWS.SimpleQueueService.BatchEntryIdsNotDistinct' => BatchEntryIdsNotDistinctException::class,
+            'AWS.SimpleQueueService.BatchRequestTooLong' => BatchRequestTooLongException::class,
+            'AWS.SimpleQueueService.InvalidBatchEntryId' => InvalidBatchEntryIdException::class,
+            'AWS.SimpleQueueService.UnsupportedOperation' => UnsupportedOperationException::class,
+        ]]));
+
+        return new SendMessageBatchResult($response);
     }
 
     protected function getAwsErrorFactory(): AwsErrorFactoryInterface
