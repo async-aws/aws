@@ -3,9 +3,12 @@
 namespace AsyncAws\Sqs\Tests\Integration;
 
 use AsyncAws\Core\Credentials\NullProvider;
+use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Sqs\Enum\QueueAttributeName;
+use AsyncAws\Sqs\Input\ChangeMessageVisibilityBatchRequest;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
 use AsyncAws\Sqs\Input\CreateQueueRequest;
+use AsyncAws\Sqs\Input\DeleteMessageBatchRequest;
 use AsyncAws\Sqs\Input\DeleteMessageRequest;
 use AsyncAws\Sqs\Input\DeleteQueueRequest;
 use AsyncAws\Sqs\Input\GetQueueAttributesRequest;
@@ -13,9 +16,12 @@ use AsyncAws\Sqs\Input\GetQueueUrlRequest;
 use AsyncAws\Sqs\Input\ListQueuesRequest;
 use AsyncAws\Sqs\Input\PurgeQueueRequest;
 use AsyncAws\Sqs\Input\ReceiveMessageRequest;
+use AsyncAws\Sqs\Input\SendMessageBatchRequest;
 use AsyncAws\Sqs\Input\SendMessageRequest;
 use AsyncAws\Sqs\SqsClient;
-use PHPUnit\Framework\TestCase;
+use AsyncAws\Sqs\ValueObject\ChangeMessageVisibilityBatchRequestEntry;
+use AsyncAws\Sqs\ValueObject\DeleteMessageBatchRequestEntry;
+use AsyncAws\Sqs\ValueObject\SendMessageBatchRequestEntry;
 
 class SqsClientTest extends TestCase
 {
@@ -28,14 +34,14 @@ class SqsClientTest extends TestCase
         $sqs->purgeQueue(['QueueUrl' => $fooQueueUrl])->resolve();
         $sqs->sendMessage(['QueueUrl' => $fooQueueUrl, 'MessageBody' => 'foo'])->resolve();
         $attributes = $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes();
-        self::assertEquals(1, (int) $attributes['ApproximateNumberOfMessages']);
-        self::assertEquals(0, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
+        self::assertSame(1, (int) $attributes['ApproximateNumberOfMessages']);
+        self::assertSame(0, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
 
         $messages = $sqs->receiveMessage(['QueueUrl' => $fooQueueUrl, 'MaxNumberOfMessages' => 1, 'WaitTimeSeconds' => '2'])->getMessages();
         self::assertCount(1, $messages);
         $attributes = $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes();
-        self::assertEquals(0, (int) $attributes['ApproximateNumberOfMessages']);
-        self::assertEquals(1, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
+        self::assertSame(0, (int) $attributes['ApproximateNumberOfMessages']);
+        self::assertSame(1, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
 
         $input = (new ChangeMessageVisibilityRequest())
             ->setQueueUrl($fooQueueUrl)
@@ -45,8 +51,41 @@ class SqsClientTest extends TestCase
         $sqs->changeMessageVisibility($input)->resolve();
 
         $attributes = $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes();
-        self::assertEquals(1, (int) $attributes['ApproximateNumberOfMessages']);
-        self::assertEquals(0, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
+        self::assertSame(1, (int) $attributes['ApproximateNumberOfMessages']);
+        self::assertSame(0, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
+    }
+
+    public function testChangeMessageVisibilityBatch(): void
+    {
+        $sqs = $this->getClient();
+
+        $sqs->createQueue(['QueueName' => 'foo'])->resolve();
+        $fooQueueUrl = $sqs->getQueueUrl(['QueueName' => 'foo'])->getQueueUrl();
+        $sqs->purgeQueue(['QueueUrl' => $fooQueueUrl])->resolve();
+        $sqs->sendMessage(['QueueUrl' => $fooQueueUrl, 'MessageBody' => 'foo'])->resolve();
+        $attributes = $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes();
+        self::assertSame(1, (int) $attributes['ApproximateNumberOfMessages']);
+        self::assertSame(0, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
+
+        $messages = $sqs->receiveMessage(['QueueUrl' => $fooQueueUrl, 'MaxNumberOfMessages' => 1, 'WaitTimeSeconds' => '2'])->getMessages();
+        self::assertCount(1, $messages);
+        $attributes = $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes();
+        self::assertSame(0, (int) $attributes['ApproximateNumberOfMessages']);
+        self::assertSame(1, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
+
+        $input = (new ChangeMessageVisibilityBatchRequest())
+            ->setQueueUrl($fooQueueUrl)
+            ->setEntries([new ChangeMessageVisibilityBatchRequestEntry([
+                'Id' => 'qwertyio',
+                'ReceiptHandle' => $messages[0]->getReceiptHandle(),
+                'VisibilityTimeout' => 0,
+            ])]);
+
+        $sqs->changeMessageVisibilityBatch($input)->resolve();
+
+        $attributes = $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes();
+        self::assertSame(1, (int) $attributes['ApproximateNumberOfMessages']);
+        self::assertSame(0, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
     }
 
     public function testCreateQueue()
@@ -71,14 +110,14 @@ class SqsClientTest extends TestCase
         $sqs->purgeQueue(['QueueUrl' => $fooQueueUrl])->resolve();
         $sqs->sendMessage(['QueueUrl' => $fooQueueUrl, 'MessageBody' => 'foo'])->resolve();
         $attributes = $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes();
-        self::assertEquals(1, (int) $attributes['ApproximateNumberOfMessages']);
-        self::assertEquals(0, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
+        self::assertSame(1, (int) $attributes['ApproximateNumberOfMessages']);
+        self::assertSame(0, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
 
         $messages = $sqs->receiveMessage(['QueueUrl' => $fooQueueUrl, 'MaxNumberOfMessages' => 1, 'WaitTimeSeconds' => '2'])->getMessages();
         self::assertCount(1, $messages);
         $attributes = $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes();
-        self::assertEquals(0, (int) $attributes['ApproximateNumberOfMessages']);
-        self::assertEquals(1, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
+        self::assertSame(0, (int) $attributes['ApproximateNumberOfMessages']);
+        self::assertSame(1, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
 
         $input = (new DeleteMessageRequest())
             ->setQueueUrl($fooQueueUrl)
@@ -87,8 +126,40 @@ class SqsClientTest extends TestCase
         $sqs->deleteMessage($input)->resolve();
 
         $attributes = $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes();
-        self::assertEquals(0, (int) $attributes['ApproximateNumberOfMessages']);
-        self::assertEquals(0, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
+        self::assertSame(0, (int) $attributes['ApproximateNumberOfMessages']);
+        self::assertSame(0, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
+    }
+
+    public function testDeleteMessageBatch(): void
+    {
+        $sqs = $this->getClient();
+
+        $sqs->createQueue(['QueueName' => 'foo'])->resolve();
+        $fooQueueUrl = $sqs->getQueueUrl(['QueueName' => 'foo'])->getQueueUrl();
+        $sqs->purgeQueue(['QueueUrl' => $fooQueueUrl])->resolve();
+        $sqs->sendMessage(['QueueUrl' => $fooQueueUrl, 'MessageBody' => 'foo'])->resolve();
+        $attributes = $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes();
+        self::assertSame(1, (int) $attributes['ApproximateNumberOfMessages']);
+        self::assertSame(0, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
+
+        $messages = $sqs->receiveMessage(['QueueUrl' => $fooQueueUrl, 'MaxNumberOfMessages' => 1, 'WaitTimeSeconds' => '2'])->getMessages();
+        self::assertCount(1, $messages);
+        $attributes = $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes();
+        self::assertSame(0, (int) $attributes['ApproximateNumberOfMessages']);
+        self::assertSame(1, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
+
+        $input = (new DeleteMessageBatchRequest())
+            ->setQueueUrl($fooQueueUrl)
+            ->setEntries([new DeleteMessageBatchRequestEntry([
+                'Id' => 'qwertyop',
+                'ReceiptHandle' => $messages[0]->getReceiptHandle(),
+            ])]);
+
+        $sqs->deleteMessageBatch($input)->resolve();
+
+        $attributes = $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes();
+        self::assertSame(0, (int) $attributes['ApproximateNumberOfMessages']);
+        self::assertSame(0, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
     }
 
     public function testDeleteQueue()
@@ -167,13 +238,13 @@ class SqsClientTest extends TestCase
         $fooQueueUrl = $sqs->getQueueUrl(['QueueName' => 'foo'])->getQueueUrl();
         $sqs->purgeQueue(['QueueUrl' => $fooQueueUrl])->resolve();
         $sqs->sendMessage(['QueueUrl' => $fooQueueUrl, 'MessageBody' => 'foo'])->resolve();
-        self::assertEquals(1, (int) $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes()['ApproximateNumberOfMessages']);
+        self::assertSame(1, (int) $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes()['ApproximateNumberOfMessages']);
 
         $input = (new PurgeQueueRequest())
             ->setQueueUrl($fooQueueUrl);
         $sqs->purgeQueue($input)->resolve();
 
-        self::assertEquals(0, (int) $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes()['ApproximateNumberOfMessages']);
+        self::assertSame(0, (int) $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes()['ApproximateNumberOfMessages']);
     }
 
     public function testQueueExists()
@@ -203,8 +274,8 @@ class SqsClientTest extends TestCase
             'foo' => ['DataType' => 'String', 'StringValue' => 'bar'],
         ]])->resolve();
         $attributes = $sqs->getQueueAttributes(['QueueUrl' => $fooQueueUrl])->getAttributes();
-        self::assertEquals(1, (int) $attributes['ApproximateNumberOfMessages']);
-        self::assertEquals(0, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
+        self::assertSame(1, (int) $attributes['ApproximateNumberOfMessages']);
+        self::assertSame(0, (int) $attributes['ApproximateNumberOfMessagesNotVisible']);
 
         $input = (new ReceiveMessageRequest())
             ->setQueueUrl($fooQueueUrl)
@@ -215,7 +286,7 @@ class SqsClientTest extends TestCase
 
         $messages = $sqs->receiveMessage($input)->getMessages();
         self::assertCount(1, $messages);
-        self::assertEquals('foo', $messages[0]->getBody());
+        self::assertSame('foo', $messages[0]->getBody());
         self::assertCount(1, $messages[0]->getMessageAttributes());
         self::assertArrayHasKey('foo', $messages[0]->getMessageAttributes());
         self::assertSame('bar', $messages[0]->getMessageAttributes()['foo']->getStringValue());
@@ -229,13 +300,34 @@ class SqsClientTest extends TestCase
         $result->resolve();
         self::assertEquals(200, $result->info()['status']);
 
-        $input = new SendMessageRequest();
-        $input
+        $input = (new SendMessageRequest())
             ->setQueueUrl('https://foo.com/bar')
             ->setMessageBody('foobar');
 
         $result = $sqs->sendMessage($input);
         self::assertNotNull($result->getMessageId());
+    }
+
+    public function testSendMessageBatch(): void
+    {
+        $sqs = $this->getClient();
+
+        $result = $sqs->createQueue(['QueueName' => 'bar']);
+        $result->resolve();
+        self::assertEquals(200, $result->info()['status']);
+
+        $input = (new SendMessageBatchRequest())
+            ->setQueueUrl('https://foo.com/bar')
+            ->setEntries([new SendMessageBatchRequestEntry([
+                'Id' => 'qwertyui',
+                'MessageBody' => 'foobar',
+            ])]);
+
+        $result = $sqs->sendMessageBatch($input);
+
+        self::assertCount(0, $result->getFailed());
+        self::assertCount(1, $result->getSuccessful());
+        self::assertNotNull($result->getSuccessful()[0]->getMessageId());
     }
 
     private function getClient(): SqsClient

@@ -4,8 +4,11 @@ namespace AsyncAws\Sqs\Tests\Unit;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Result;
+use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Sqs\Input\ChangeMessageVisibilityBatchRequest;
 use AsyncAws\Sqs\Input\ChangeMessageVisibilityRequest;
 use AsyncAws\Sqs\Input\CreateQueueRequest;
+use AsyncAws\Sqs\Input\DeleteMessageBatchRequest;
 use AsyncAws\Sqs\Input\DeleteMessageRequest;
 use AsyncAws\Sqs\Input\DeleteQueueRequest;
 use AsyncAws\Sqs\Input\GetQueueAttributesRequest;
@@ -13,15 +16,21 @@ use AsyncAws\Sqs\Input\GetQueueUrlRequest;
 use AsyncAws\Sqs\Input\ListQueuesRequest;
 use AsyncAws\Sqs\Input\PurgeQueueRequest;
 use AsyncAws\Sqs\Input\ReceiveMessageRequest;
+use AsyncAws\Sqs\Input\SendMessageBatchRequest;
 use AsyncAws\Sqs\Input\SendMessageRequest;
+use AsyncAws\Sqs\Result\ChangeMessageVisibilityBatchResult;
 use AsyncAws\Sqs\Result\CreateQueueResult;
+use AsyncAws\Sqs\Result\DeleteMessageBatchResult;
 use AsyncAws\Sqs\Result\GetQueueAttributesResult;
 use AsyncAws\Sqs\Result\GetQueueUrlResult;
 use AsyncAws\Sqs\Result\ListQueuesResult;
 use AsyncAws\Sqs\Result\ReceiveMessageResult;
+use AsyncAws\Sqs\Result\SendMessageBatchResult;
 use AsyncAws\Sqs\Result\SendMessageResult;
 use AsyncAws\Sqs\SqsClient;
-use PHPUnit\Framework\TestCase;
+use AsyncAws\Sqs\ValueObject\ChangeMessageVisibilityBatchRequestEntry;
+use AsyncAws\Sqs\ValueObject\DeleteMessageBatchRequestEntry;
+use AsyncAws\Sqs\ValueObject\SendMessageBatchRequestEntry;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class SqsClientTest extends TestCase
@@ -38,6 +47,24 @@ class SqsClientTest extends TestCase
         $result = $client->ChangeMessageVisibility($input);
 
         self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testChangeMessageVisibilityBatch(): void
+    {
+        $client = new SqsClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new ChangeMessageVisibilityBatchRequest([
+            'QueueUrl' => 'change me',
+            'Entries' => [new ChangeMessageVisibilityBatchRequestEntry([
+                'Id' => 'change me',
+                'ReceiptHandle' => 'change me',
+
+            ])],
+        ]);
+        $result = $client->changeMessageVisibilityBatch($input);
+
+        self::assertInstanceOf(ChangeMessageVisibilityBatchResult::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
@@ -66,6 +93,23 @@ class SqsClientTest extends TestCase
         $result = $client->DeleteMessage($input);
 
         self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testDeleteMessageBatch(): void
+    {
+        $client = new SqsClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new DeleteMessageBatchRequest([
+            'QueueUrl' => 'change me',
+            'Entries' => [new DeleteMessageBatchRequestEntry([
+                'Id' => 'change me',
+                'ReceiptHandle' => 'change me',
+            ])],
+        ]);
+        $result = $client->deleteMessageBatch($input);
+
+        self::assertInstanceOf(DeleteMessageBatchResult::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
@@ -162,6 +206,24 @@ class SqsClientTest extends TestCase
         $result = $client->SendMessage($input);
 
         self::assertInstanceOf(SendMessageResult::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testSendMessageBatch(): void
+    {
+        $client = new SqsClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new SendMessageBatchRequest([
+            'QueueUrl' => 'change me',
+            'Entries' => [new SendMessageBatchRequestEntry([
+                'Id' => 'change me',
+                'MessageBody' => 'change me',
+
+            ])],
+        ]);
+        $result = $client->sendMessageBatch($input);
+
+        self::assertInstanceOf(SendMessageBatchResult::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 }

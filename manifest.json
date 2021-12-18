@@ -417,8 +417,10 @@
             "api-reference": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference",
             "methods": [
                 "ChangeMessageVisibility",
+                "ChangeMessageVisibilityBatch",
                 "CreateQueue",
                 "DeleteMessage",
+                "DeleteMessageBatch",
                 "DeleteQueue",
                 "GetQueueAttributes",
                 "GetQueueUrl",
@@ -426,7 +428,8 @@
                 "PurgeQueue",
                 "QueueExists",
                 "ReceiveMessage",
-                "SendMessage"
+                "SendMessage",
+                "SendMessageBatch"
             ],
             "patches": {
                 "source": [
