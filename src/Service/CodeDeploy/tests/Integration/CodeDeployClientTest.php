@@ -92,7 +92,7 @@ class CodeDeployClientTest extends TestCase
 
         $result->resolve();
 
-        self::assertTODO('changeIt', $result->getdeploymentInfo());
+        self::assertSame('changeIt', $result->getdeploymentInfo());
     }
 
     public function testPutLifecycleEventHookExecutionStatus(): void
