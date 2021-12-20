@@ -4,8 +4,10 @@ namespace AsyncAws\CodeDeploy\Tests\Unit;
 
 use AsyncAws\CodeDeploy\CodeDeployClient;
 use AsyncAws\CodeDeploy\Input\CreateDeploymentInput;
+use AsyncAws\CodeDeploy\Input\GetDeploymentInput;
 use AsyncAws\CodeDeploy\Input\PutLifecycleEventHookExecutionStatusInput;
 use AsyncAws\CodeDeploy\Result\CreateDeploymentOutput;
+use AsyncAws\CodeDeploy\Result\GetDeploymentOutput;
 use AsyncAws\CodeDeploy\Result\PutLifecycleEventHookExecutionStatusOutput;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
@@ -24,6 +26,19 @@ class CodeDeployClientTest extends TestCase
         $result = $client->createDeployment($input);
 
         self::assertInstanceOf(CreateDeploymentOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testGetDeployment(): void
+    {
+        $client = new CodeDeployClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new GetDeploymentInput([
+            'deploymentId' => 'change me',
+        ]);
+        $result = $client->getDeployment($input);
+
+        self::assertInstanceOf(GetDeploymentOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
