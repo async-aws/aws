@@ -133,6 +133,14 @@
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
+  <file src="src/Service/CodeDeploy/src/Result/GetDeploymentOutput.php">
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="1">
+      <code>list&lt;AutoRollbackEvent::*&gt;</code>
+    </MoreSpecificReturnType>
+  </file>
   <file src="src/Service/CognitoIdentityProvider/src/Input/AdminCreateUserRequest.php">
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $v</code>
