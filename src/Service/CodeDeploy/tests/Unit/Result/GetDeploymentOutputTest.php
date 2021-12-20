@@ -15,8 +15,6 @@ use AsyncAws\CodeDeploy\Enum\GreenFleetProvisioningAction;
 use AsyncAws\CodeDeploy\Enum\InstanceAction;
 use AsyncAws\CodeDeploy\Enum\RevisionLocationType;
 use AsyncAws\CodeDeploy\Result\GetDeploymentOutput;
-use AsyncAws\CodeDeploy\ValueObject\ELBInfo;
-use AsyncAws\CodeDeploy\ValueObject\TargetGroupInfo;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
@@ -240,7 +238,6 @@ class GetDeploymentOutputTest extends TestCase
 
         self::assertSame('content', $info->getPreviousRevision()->getAppSpecContent()->getContent());
         self::assertSame('sha256', $info->getPreviousRevision()->getAppSpecContent()->getSha256());
-
 
         self::assertSame('commmit-id', $info->getPreviousRevision()->getGitHubLocation()->getCommitId());
         self::assertSame('repository', $info->getPreviousRevision()->getGitHubLocation()->getRepository());
