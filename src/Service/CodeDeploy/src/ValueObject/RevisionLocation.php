@@ -6,8 +6,7 @@ use AsyncAws\CodeDeploy\Enum\RevisionLocationType;
 use AsyncAws\Core\Exception\InvalidArgument;
 
 /**
- * Information about the application revision that was deployed to the deployment group before the most recent
- * successful deployment.
+ * The type and location of the revision to deploy.
  */
 final class RevisionLocation
 {
