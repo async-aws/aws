@@ -36,8 +36,10 @@ use AsyncAws\CodeDeploy\Exception\RevisionRequiredException;
 use AsyncAws\CodeDeploy\Exception\ThrottlingException;
 use AsyncAws\CodeDeploy\Exception\UnsupportedActionForDeploymentTypeException;
 use AsyncAws\CodeDeploy\Input\CreateDeploymentInput;
+use AsyncAws\CodeDeploy\Input\GetDeploymentInput;
 use AsyncAws\CodeDeploy\Input\PutLifecycleEventHookExecutionStatusInput;
 use AsyncAws\CodeDeploy\Result\CreateDeploymentOutput;
+use AsyncAws\CodeDeploy\Result\GetDeploymentOutput;
 use AsyncAws\CodeDeploy\Result\PutLifecycleEventHookExecutionStatusOutput;
 use AsyncAws\CodeDeploy\ValueObject\AutoRollbackConfiguration;
 use AsyncAws\CodeDeploy\ValueObject\RevisionLocation;
@@ -126,6 +128,33 @@ class CodeDeployClient extends AbstractApi
         ]]));
 
         return new CreateDeploymentOutput($response);
+    }
+
+    /**
+     * Gets information about a deployment.
+     *
+     * @see https://docs.aws.amazon.com/codedeploy/latest/APIReference/API_GetDeployment.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-codedeploy-2014-10-06.html#getdeployment
+     *
+     * @param array{
+     *   deploymentId: string,
+     *   @region?: string,
+     * }|GetDeploymentInput $input
+     *
+     * @throws DeploymentIdRequiredException
+     * @throws InvalidDeploymentIdException
+     * @throws DeploymentDoesNotExistException
+     */
+    public function getDeployment($input): GetDeploymentOutput
+    {
+        $input = GetDeploymentInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetDeployment', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'DeploymentIdRequiredException' => DeploymentIdRequiredException::class,
+            'InvalidDeploymentIdException' => InvalidDeploymentIdException::class,
+            'DeploymentDoesNotExistException' => DeploymentDoesNotExistException::class,
+        ]]));
+
+        return new GetDeploymentOutput($response);
     }
 
     /**

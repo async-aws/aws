@@ -81,6 +81,7 @@
             "api-reference": "https://docs.aws.amazon.com/codedeploy/latest/APIReference",
             "methods": [
                 "CreateDeployment",
+                "GetDeployment",
                 "PutLifecycleEventHookExecutionStatus"
             ]
         },

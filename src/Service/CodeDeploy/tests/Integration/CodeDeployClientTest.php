@@ -4,6 +4,7 @@ namespace AsyncAws\CodeDeploy\Tests\Integration;
 
 use AsyncAws\CodeDeploy\CodeDeployClient;
 use AsyncAws\CodeDeploy\Input\CreateDeploymentInput;
+use AsyncAws\CodeDeploy\Input\GetDeploymentInput;
 use AsyncAws\CodeDeploy\Input\PutLifecycleEventHookExecutionStatusInput;
 use AsyncAws\CodeDeploy\ValueObject\AppSpecContent;
 use AsyncAws\CodeDeploy\ValueObject\AutoRollbackConfiguration;
@@ -78,6 +79,20 @@ class CodeDeployClientTest extends TestCase
         $result->resolve();
 
         self::assertSame('changeIt', $result->getdeploymentId());
+    }
+
+    public function testGetDeployment(): void
+    {
+        $client = $this->getClient();
+
+        $input = new GetDeploymentInput([
+            'deploymentId' => '123',
+        ]);
+        $result = $client->getDeployment($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getdeploymentInfo());
     }
 
     public function testPutLifecycleEventHookExecutionStatus(): void
