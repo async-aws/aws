@@ -86,13 +86,13 @@ class CodeDeployClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new GetDeploymentInput([
-            'deploymentId' => 'change me',
+            'deploymentId' => '123',
         ]);
         $result = $client->getDeployment($input);
 
         $result->resolve();
 
-        // self::assertTODO(expected, $result->getdeploymentInfo());
+        self::assertTODO('changeIt', $result->getdeploymentInfo());
     }
 
     public function testPutLifecycleEventHookExecutionStatus(): void
