@@ -2,6 +2,13 @@
 
 ## NOT RELEASED
 
+## 1.6.0
+
+### Added
+
+- Support for AppSync
+- Support for XRay
+
 ## 1.5.0
 
 ### Added

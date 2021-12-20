@@ -2,11 +2,15 @@
 
 ## NOT RELEASED
 
+## 1.13.0
+
 ### Added
 
 - AWS api-change: Added `us-iso-west-1` region
 - AWS api-change: Used regional endpoint for `us` regions
 - AWS enhancement: Documentation updates.
+- Support for AppSync
+- Support for XRay
 
 ## 1.12.0
 
