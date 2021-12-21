@@ -994,6 +994,13 @@ class S3Client extends AbstractApi
                     'signService' => 's3',
                     'signVersions' => ['s3v4'],
                 ];
+            case 'ap-southeast-3':
+                return [
+                    'endpoint' => 'https://s3.ap-southeast-3.amazonaws.com',
+                    'signRegion' => 'ap-southeast-3',
+                    'signService' => 's3',
+                    'signVersions' => ['s3v4'],
+                ];
             case 'ca-central-1':
                 return [
                     'endpoint' => 'https://s3.ca-central-1.amazonaws.com',
