@@ -22,6 +22,12 @@ class ServiceProvider extends AbstractServiceProvider
     public function createTransport(array $config): AsyncAwsSesTransport
     {
         $clientConfig = [];
+
+        $config = array_merge(
+            $this->app['config']->get('services.ses', []),
+            $config
+        );
+
         if (isset($config['key']) && isset($config['secret'])) {
             $clientConfig['accessKeyId'] = $config['key'] ?? null;
             $clientConfig['accessKeySecret'] = $config['secret'] ?? null;
