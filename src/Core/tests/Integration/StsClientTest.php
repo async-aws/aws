@@ -78,7 +78,7 @@ class StsClientTest extends TestCase
 
         self::assertNotNull($result->getUserId());
         self::assertStringContainsString('000000000000', $result->getAccount());
-        self::assertStringContainsString('arn:aws:sts::000000000000:user/moto', $result->getArn());
+        self::assertStringContainsString('arn:aws:sts::000000000000:user/localstack', $result->getArn());
     }
 
     public function testNonAwsRegionWithCustomEndpoint(): void
