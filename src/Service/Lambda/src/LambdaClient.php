@@ -6,6 +6,7 @@ use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRestAwsErrorFactory;
 use AsyncAws\Core\Configuration;
+use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
 use AsyncAws\Lambda\Enum\Architecture;
@@ -366,14 +367,6 @@ class LambdaClient extends AbstractApi
         }
 
         switch ($region) {
-            case 'cn-north-1':
-            case 'cn-northwest-1':
-                return [
-                    'endpoint' => "https://lambda.$region.amazonaws.com.cn",
-                    'signRegion' => $region,
-                    'signService' => 'lambda',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-iso-east-1':
             case 'us-iso-west-1':
                 return [
@@ -386,6 +379,132 @@ class LambdaClient extends AbstractApi
                 return [
                     'endpoint' => "https://lambda.$region.sc2s.sgov.gov",
                     'signRegion' => $region,
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'af-south-1':
+                return [
+                    'endpoint' => 'https://lambda.af-south-1.amazonaws.com',
+                    'signRegion' => 'af-south-1',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'ap-east-1':
+                return [
+                    'endpoint' => 'https://lambda.ap-east-1.amazonaws.com',
+                    'signRegion' => 'ap-east-1',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'ap-northeast-1':
+                return [
+                    'endpoint' => 'https://lambda.ap-northeast-1.amazonaws.com',
+                    'signRegion' => 'ap-northeast-1',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'ap-northeast-2':
+                return [
+                    'endpoint' => 'https://lambda.ap-northeast-2.amazonaws.com',
+                    'signRegion' => 'ap-northeast-2',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'ap-northeast-3':
+                return [
+                    'endpoint' => 'https://lambda.ap-northeast-3.amazonaws.com',
+                    'signRegion' => 'ap-northeast-3',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'ap-south-1':
+                return [
+                    'endpoint' => 'https://lambda.ap-south-1.amazonaws.com',
+                    'signRegion' => 'ap-south-1',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'ap-southeast-1':
+                return [
+                    'endpoint' => 'https://lambda.ap-southeast-1.amazonaws.com',
+                    'signRegion' => 'ap-southeast-1',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'ap-southeast-2':
+                return [
+                    'endpoint' => 'https://lambda.ap-southeast-2.amazonaws.com',
+                    'signRegion' => 'ap-southeast-2',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'ap-southeast-3':
+                return [
+                    'endpoint' => 'https://lambda.ap-southeast-3.amazonaws.com',
+                    'signRegion' => 'ap-southeast-3',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'ca-central-1':
+                return [
+                    'endpoint' => 'https://lambda.ca-central-1.amazonaws.com',
+                    'signRegion' => 'ca-central-1',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'cn-north-1':
+                return [
+                    'endpoint' => 'https://lambda.cn-north-1.amazonaws.com.cn',
+                    'signRegion' => 'cn-north-1',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'cn-northwest-1':
+                return [
+                    'endpoint' => 'https://lambda.cn-northwest-1.amazonaws.com.cn',
+                    'signRegion' => 'cn-northwest-1',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'eu-central-1':
+                return [
+                    'endpoint' => 'https://lambda.eu-central-1.amazonaws.com',
+                    'signRegion' => 'eu-central-1',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'eu-north-1':
+                return [
+                    'endpoint' => 'https://lambda.eu-north-1.amazonaws.com',
+                    'signRegion' => 'eu-north-1',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'eu-south-1':
+                return [
+                    'endpoint' => 'https://lambda.eu-south-1.amazonaws.com',
+                    'signRegion' => 'eu-south-1',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'eu-west-1':
+                return [
+                    'endpoint' => 'https://lambda.eu-west-1.amazonaws.com',
+                    'signRegion' => 'eu-west-1',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'eu-west-2':
+                return [
+                    'endpoint' => 'https://lambda.eu-west-2.amazonaws.com',
+                    'signRegion' => 'eu-west-2',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'eu-west-3':
+                return [
+                    'endpoint' => 'https://lambda.eu-west-3.amazonaws.com',
+                    'signRegion' => 'eu-west-3',
                     'signService' => 'lambda',
                     'signVersions' => ['v4'],
                 ];
@@ -428,6 +547,20 @@ class LambdaClient extends AbstractApi
                 return [
                     'endpoint' => 'https://lambda-fips.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'me-south-1':
+                return [
+                    'endpoint' => 'https://lambda.me-south-1.amazonaws.com',
+                    'signRegion' => 'me-south-1',
+                    'signService' => 'lambda',
+                    'signVersions' => ['v4'],
+                ];
+            case 'sa-east-1':
+                return [
+                    'endpoint' => 'https://lambda.sa-east-1.amazonaws.com',
+                    'signRegion' => 'sa-east-1',
                     'signService' => 'lambda',
                     'signVersions' => ['v4'],
                 ];
@@ -475,11 +608,6 @@ class LambdaClient extends AbstractApi
                 ];
         }
 
-        return [
-            'endpoint' => "https://lambda.$region.amazonaws.com",
-            'signRegion' => $region,
-            'signService' => 'lambda',
-            'signVersions' => ['v4'],
-        ];
+        throw new UnsupportedRegion(sprintf('The region "%s" is not supported by "Lambda".', $region));
     }
 }

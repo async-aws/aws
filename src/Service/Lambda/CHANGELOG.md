@@ -7,6 +7,10 @@
 - AWS api-change: Added `us-iso-west-1` region
 - AWS api-change: Use specific configuration for `us` regions
 - AWS enhancement: Documentation updates.
+- AWS api-change: Remove Lambda function url apis
+- AWS api-change: Release Lambda event source filtering for SQS, Kinesis Streams, and DynamoDB Streams.
+- AWS api-change: Add support for Lambda Function URLs. Customers can use Function URLs to create built-in HTTPS endpoints on their functions.
+- AWS api-change: Added support for CLIENT_CERTIFICATE_TLS_AUTH and SERVER_ROOT_CA_CERTIFICATE as SourceAccessType for MSK and Kafka event source mappings.
 
 ## 1.5.0
 
