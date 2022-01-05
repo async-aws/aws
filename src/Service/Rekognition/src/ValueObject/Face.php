@@ -34,12 +34,18 @@ final class Face
     private $confidence;
 
     /**
+     * The version of the face detect and storage model that was used when indexing the face vector.
+     */
+    private $indexFacesModelVersion;
+
+    /**
      * @param array{
      *   FaceId?: null|string,
      *   BoundingBox?: null|BoundingBox|array,
      *   ImageId?: null|string,
      *   ExternalImageId?: null|string,
      *   Confidence?: null|float,
+     *   IndexFacesModelVersion?: null|string,
      * } $input
      */
     public function __construct(array $input)
@@ -49,6 +55,7 @@ final class Face
         $this->imageId = $input['ImageId'] ?? null;
         $this->externalImageId = $input['ExternalImageId'] ?? null;
         $this->confidence = $input['Confidence'] ?? null;
+        $this->indexFacesModelVersion = $input['IndexFacesModelVersion'] ?? null;
     }
 
     public static function create($input): self
@@ -79,5 +86,10 @@ final class Face
     public function getImageId(): ?string
     {
         return $this->imageId;
+    }
+
+    public function getIndexFacesModelVersion(): ?string
+    {
+        return $this->indexFacesModelVersion;
     }
 }

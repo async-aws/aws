@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Added `ap-southeast-3` region.
+- AWS enhancement: Documentation updates.
 
 ## 1.10.0
 

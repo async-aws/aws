@@ -25,9 +25,11 @@ class ListCollectionsResponse extends Result implements \IteratorAggregate
     private $nextToken;
 
     /**
-     * Version numbers of the face detection models associated with the collections in the array `CollectionIds`. For
-     * example, the value of `FaceModelVersions[2]` is the version number for the face detection model used by the
-     * collection in `CollectionId[2]`.
+     * Latest face models being used with the corresponding collections in the array. For more information, see Model
+     * versioning. For example, the value of `FaceModelVersions[2]` is the version number for the face detection model used
+     * by the collection in `CollectionId[2]`.
+     *
+     * @see https://docs.aws.amazon.com/rekognition/latest/dg/face-detection-model.html
      */
     private $faceModelVersions;
 
