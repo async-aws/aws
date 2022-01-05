@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: This release introduces a new field IndexFacesModelVersion, which is the version of the face detect and storage model that was used when indexing the face vector.
+- AWS api-change: This release added new KnownGender types for Celebrity Recognition.
+
 ## 0.1.6
 
 ### Added

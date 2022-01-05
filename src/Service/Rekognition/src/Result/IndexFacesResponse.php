@@ -40,7 +40,9 @@ class IndexFacesResponse extends Result
     private $orientationCorrection;
 
     /**
-     * The version number of the face detection model that's associated with the input collection (`CollectionId`).
+     * Latest face model being used with the collection. For more information, see Model versioning.
+     *
+     * @see https://docs.aws.amazon.com/rekognition/latest/dg/face-detection-model.html
      */
     private $faceModelVersion;
 
@@ -133,6 +135,7 @@ class IndexFacesResponse extends Result
                     'ImageId' => isset($item['Face']['ImageId']) ? (string) $item['Face']['ImageId'] : null,
                     'ExternalImageId' => isset($item['Face']['ExternalImageId']) ? (string) $item['Face']['ExternalImageId'] : null,
                     'Confidence' => isset($item['Face']['Confidence']) ? (float) $item['Face']['Confidence'] : null,
+                    'IndexFacesModelVersion' => isset($item['Face']['IndexFacesModelVersion']) ? (string) $item['Face']['IndexFacesModelVersion'] : null,
                 ]),
                 'FaceDetail' => empty($item['FaceDetail']) ? null : new FaceDetail([
                     'BoundingBox' => empty($item['FaceDetail']['BoundingBox']) ? null : new BoundingBox([
