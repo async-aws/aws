@@ -108,6 +108,7 @@ class ListResolversResponse extends Result
                     'ttl' => isset($item['cachingConfig']['ttl']) ? (string) $item['cachingConfig']['ttl'] : null,
                     'cachingKeys' => !isset($item['cachingConfig']['cachingKeys']) ? null : $this->populateResultCachingKeys($item['cachingConfig']['cachingKeys']),
                 ]),
+                'maxBatchSize' => isset($item['maxBatchSize']) ? (int) $item['maxBatchSize'] : null,
             ]);
         }
 

@@ -50,6 +50,7 @@ class UpdateResolverResponse extends Result
                 'ttl' => isset($data['resolver']['cachingConfig']['ttl']) ? (string) $data['resolver']['cachingConfig']['ttl'] : null,
                 'cachingKeys' => !isset($data['resolver']['cachingConfig']['cachingKeys']) ? null : $this->populateResultCachingKeys($data['resolver']['cachingConfig']['cachingKeys']),
             ]),
+            'maxBatchSize' => isset($data['resolver']['maxBatchSize']) ? (int) $data['resolver']['maxBatchSize'] : null,
         ]);
     }
 
