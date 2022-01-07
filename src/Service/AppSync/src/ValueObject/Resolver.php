@@ -60,6 +60,11 @@ final class Resolver
     private $cachingConfig;
 
     /**
+     * The maximum batching size for a resolver.
+     */
+    private $maxBatchSize;
+
+    /**
      * @param array{
      *   typeName?: null|string,
      *   fieldName?: null|string,
@@ -71,6 +76,7 @@ final class Resolver
      *   pipelineConfig?: null|PipelineConfig|array,
      *   syncConfig?: null|SyncConfig|array,
      *   cachingConfig?: null|CachingConfig|array,
+     *   maxBatchSize?: null|int,
      * } $input
      */
     public function __construct(array $input)
@@ -85,6 +91,7 @@ final class Resolver
         $this->pipelineConfig = isset($input['pipelineConfig']) ? PipelineConfig::create($input['pipelineConfig']) : null;
         $this->syncConfig = isset($input['syncConfig']) ? SyncConfig::create($input['syncConfig']) : null;
         $this->cachingConfig = isset($input['cachingConfig']) ? CachingConfig::create($input['cachingConfig']) : null;
+        $this->maxBatchSize = $input['maxBatchSize'] ?? null;
     }
 
     public static function create($input): self
@@ -113,6 +120,11 @@ final class Resolver
     public function getKind(): ?string
     {
         return $this->kind;
+    }
+
+    public function getMaxBatchSize(): ?int
+    {
+        return $this->maxBatchSize;
     }
 
     public function getPipelineConfig(): ?PipelineConfig

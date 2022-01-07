@@ -63,6 +63,7 @@ class AppSyncClient extends AbstractApi
      *   pipelineConfig?: PipelineConfig|array,
      *   syncConfig?: SyncConfig|array,
      *   cachingConfig?: CachingConfig|array,
+     *   maxBatchSize?: int,
      *   @region?: string,
      * }|CreateResolverRequest $input
      *
@@ -333,6 +334,7 @@ class AppSyncClient extends AbstractApi
      *   pipelineConfig?: PipelineConfig|array,
      *   syncConfig?: SyncConfig|array,
      *   cachingConfig?: CachingConfig|array,
+     *   maxBatchSize?: int,
      *   @region?: string,
      * }|UpdateResolverRequest $input
      *

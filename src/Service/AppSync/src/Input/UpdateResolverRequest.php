@@ -90,6 +90,13 @@ final class UpdateResolverRequest extends Input
     private $cachingConfig;
 
     /**
+     * The maximum batching size for a resolver.
+     *
+     * @var int|null
+     */
+    private $maxBatchSize;
+
+    /**
      * @param array{
      *   apiId?: string,
      *   typeName?: string,
@@ -101,6 +108,7 @@ final class UpdateResolverRequest extends Input
      *   pipelineConfig?: PipelineConfig|array,
      *   syncConfig?: SyncConfig|array,
      *   cachingConfig?: CachingConfig|array,
+     *   maxBatchSize?: int,
      *   @region?: string,
      * } $input
      */
@@ -116,6 +124,7 @@ final class UpdateResolverRequest extends Input
         $this->pipelineConfig = isset($input['pipelineConfig']) ? PipelineConfig::create($input['pipelineConfig']) : null;
         $this->syncConfig = isset($input['syncConfig']) ? SyncConfig::create($input['syncConfig']) : null;
         $this->cachingConfig = isset($input['cachingConfig']) ? CachingConfig::create($input['cachingConfig']) : null;
+        $this->maxBatchSize = $input['maxBatchSize'] ?? null;
         parent::__construct($input);
     }
 
@@ -150,6 +159,11 @@ final class UpdateResolverRequest extends Input
     public function getKind(): ?string
     {
         return $this->kind;
+    }
+
+    public function getMaxBatchSize(): ?int
+    {
+        return $this->maxBatchSize;
     }
 
     public function getPipelineConfig(): ?PipelineConfig
@@ -250,6 +264,13 @@ final class UpdateResolverRequest extends Input
         return $this;
     }
 
+    public function setMaxBatchSize(?int $value): self
+    {
+        $this->maxBatchSize = $value;
+
+        return $this;
+    }
+
     public function setPipelineConfig(?PipelineConfig $value): self
     {
         $this->pipelineConfig = $value;
@@ -312,6 +333,9 @@ final class UpdateResolverRequest extends Input
         }
         if (null !== $v = $this->cachingConfig) {
             $payload['cachingConfig'] = $v->requestBody();
+        }
+        if (null !== $v = $this->maxBatchSize) {
+            $payload['maxBatchSize'] = $v;
         }
 
         return $payload;
