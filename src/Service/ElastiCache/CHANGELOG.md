@@ -8,6 +8,7 @@
 - AWS api-change: Added `us-fips` regions
 - AWS api-change: Use specific configuration for `us` regions
 - AWS enhancement: Documentation updates.
+- AWS api-change: AWS ElastiCache for Redis has added a new Engine Log LogType in LogDelivery feature. You can now publish the Engine Log from your Amazon ElastiCache for Redis clusters to Amazon CloudWatch Logs and Amazon Kinesis Data Firehose.
 
 ## 0.1.0
 
