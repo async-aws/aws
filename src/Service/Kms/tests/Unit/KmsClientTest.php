@@ -7,10 +7,12 @@ use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Kms\Input\DecryptRequest;
 use AsyncAws\Kms\Input\EncryptRequest;
 use AsyncAws\Kms\Input\GenerateDataKeyRequest;
+use AsyncAws\Kms\Input\ListAliasesRequest;
 use AsyncAws\Kms\KmsClient;
 use AsyncAws\Kms\Result\DecryptResponse;
 use AsyncAws\Kms\Result\EncryptResponse;
 use AsyncAws\Kms\Result\GenerateDataKeyResponse;
+use AsyncAws\Kms\Result\ListAliasesResponse;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class KmsClientTest extends TestCase
@@ -55,6 +57,19 @@ class KmsClientTest extends TestCase
         $result = $client->generateDataKey($input);
 
         self::assertInstanceOf(GenerateDataKeyResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testListAliases(): void
+    {
+        $client = new KmsClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new ListAliasesRequest([
+
+        ]);
+        $result = $client->listAliases($input);
+
+        self::assertInstanceOf(ListAliasesResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 }

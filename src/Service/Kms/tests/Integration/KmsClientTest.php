@@ -7,6 +7,7 @@ use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Kms\Input\DecryptRequest;
 use AsyncAws\Kms\Input\EncryptRequest;
 use AsyncAws\Kms\Input\GenerateDataKeyRequest;
+use AsyncAws\Kms\Input\ListAliasesRequest;
 use AsyncAws\Kms\KmsClient;
 
 class KmsClientTest extends TestCase
@@ -75,6 +76,26 @@ class KmsClientTest extends TestCase
         // self::assertTODO(expected, $result->getCiphertextBlob());
         // self::assertTODO(expected, $result->getPlaintext());
         self::assertSame('changeIt', $result->getKeyId());
+    }
+
+    public function testListAliases(): void
+    {
+        self::markTestIncomplete('Cannot test Decrypt without the ability to create keys available.');
+
+        $client = $this->getClient();
+
+        $input = new ListAliasesRequest([
+            'KeyId' => 'change me',
+            'Limit' => 1337,
+            'Marker' => 'change me',
+        ]);
+        $result = $client->listAliases($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getAliases());
+        self::assertSame('changeIt', $result->getNextMarker());
+        self::assertFalse($result->getTruncated());
     }
 
     private function getClient(): KmsClient

@@ -248,7 +248,8 @@
             "methods": [
                 "Decrypt",
                 "Encrypt",
-                "GenerateDataKey"
+                "GenerateDataKey",
+                "ListAliases"
             ]
         },
         "Lambda": {

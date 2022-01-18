@@ -13,9 +13,11 @@ use AsyncAws\Kms\Enum\EncryptionAlgorithmSpec;
 use AsyncAws\Kms\Exception\DependencyTimeoutException;
 use AsyncAws\Kms\Exception\DisabledException;
 use AsyncAws\Kms\Exception\IncorrectKeyException;
+use AsyncAws\Kms\Exception\InvalidArnException;
 use AsyncAws\Kms\Exception\InvalidCiphertextException;
 use AsyncAws\Kms\Exception\InvalidGrantTokenException;
 use AsyncAws\Kms\Exception\InvalidKeyUsageException;
+use AsyncAws\Kms\Exception\InvalidMarkerException;
 use AsyncAws\Kms\Exception\KeyUnavailableException;
 use AsyncAws\Kms\Exception\KMSInternalException;
 use AsyncAws\Kms\Exception\KMSInvalidStateException;
@@ -23,9 +25,11 @@ use AsyncAws\Kms\Exception\NotFoundException;
 use AsyncAws\Kms\Input\DecryptRequest;
 use AsyncAws\Kms\Input\EncryptRequest;
 use AsyncAws\Kms\Input\GenerateDataKeyRequest;
+use AsyncAws\Kms\Input\ListAliasesRequest;
 use AsyncAws\Kms\Result\DecryptResponse;
 use AsyncAws\Kms\Result\EncryptResponse;
 use AsyncAws\Kms\Result\GenerateDataKeyResponse;
+use AsyncAws\Kms\Result\ListAliasesResponse;
 
 class KmsClient extends AbstractApi
 {
@@ -156,6 +160,40 @@ class KmsClient extends AbstractApi
         ]]));
 
         return new GenerateDataKeyResponse($response);
+    }
+
+    /**
+     * Gets a list of aliases in the caller's Amazon Web Services account and region. For more information about aliases,
+     * see CreateAlias.
+     *
+     * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listaliases
+     *
+     * @param array{
+     *   KeyId?: string,
+     *   Limit?: int,
+     *   Marker?: string,
+     *   @region?: string,
+     * }|ListAliasesRequest $input
+     *
+     * @throws DependencyTimeoutException
+     * @throws InvalidMarkerException
+     * @throws KMSInternalException
+     * @throws InvalidArnException
+     * @throws NotFoundException
+     */
+    public function listAliases($input = []): ListAliasesResponse
+    {
+        $input = ListAliasesRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListAliases', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'DependencyTimeoutException' => DependencyTimeoutException::class,
+            'InvalidMarkerException' => InvalidMarkerException::class,
+            'KMSInternalException' => KMSInternalException::class,
+            'InvalidArnException' => InvalidArnException::class,
+            'NotFoundException' => NotFoundException::class,
+        ]]));
+
+        return new ListAliasesResponse($response, $this, $input);
     }
 
     protected function getAwsErrorFactory(): AwsErrorFactoryInterface
