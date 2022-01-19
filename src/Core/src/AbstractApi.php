@@ -74,15 +74,15 @@ abstract class AbstractApi
         $this->awsErrorFactory = $this->getAwsErrorFactory();
         if (!isset($httpClient)) {
             $httpClient = HttpClient::create();
-            if (class_exists(RetryableHttpClient::class)) {
-                /** @psalm-suppress MissingDependency */
-                $httpClient = new RetryableHttpClient(
-                    $httpClient,
-                    new AwsRetryStrategy(AwsRetryStrategy::DEFAULT_RETRY_STATUS_CODES, 1000, 2.0, 0, 0.1, $this->awsErrorFactory),
-                    3,
-                    $this->logger
-                );
-            }
+        }
+        if (class_exists(RetryableHttpClient::class) && !$httpClient instanceof RetryableHttpClient) {
+            /** @psalm-suppress MissingDependency */
+            $httpClient = new RetryableHttpClient(
+                $httpClient,
+                new AwsRetryStrategy(AwsRetryStrategy::DEFAULT_RETRY_STATUS_CODES, 1000, 2.0, 0, 0.1, $this->awsErrorFactory),
+                3,
+                $this->logger
+            );
         }
         $this->httpClient = $httpClient;
         $this->configuration = $configuration;

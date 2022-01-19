@@ -4,6 +4,7 @@
 
 ### Added
 
+- Make the injected HttpClient decorated by our  `RetryableHttpClient`
 - Support for KMS
 
 ## 1.13.0
