@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.10.0@916b098b008f6de4543892b1e0651c1c3b92cbfa">
+<files psalm-version="4.x-dev@">
   <file src="src/Core/src/AwsClientFactory.php">
-    <NullableReturnStatement occurrences="27">
+    <NullableReturnStatement occurrences="28">
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
@@ -30,7 +31,8 @@
       <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
     </NullableReturnStatement>
-    <PossiblyUndefinedArrayOffset occurrences="27">
+    <PossiblyUndefinedArrayOffset occurrences="28">
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
@@ -75,6 +77,9 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Core/src/Waiter.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>(int) ceil($delay * 1000000)</code>
+    </ArgumentTypeCoercion>
     <PossiblyUndefinedVariable occurrences="1">
       <code>$exception</code>
     </PossiblyUndefinedVariable>
@@ -199,6 +204,22 @@
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType occurrences="1">
       <code>list&lt;MetricsName::*&gt;</code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="src/Service/Kms/src/Input/CreateKeyRequest.php">
+    <RedundantCastGivenDocblockType occurrences="2">
+      <code>(bool) $v</code>
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Service/Kms/src/Result/CreateKeyResponse.php">
+    <LessSpecificReturnStatement occurrences="2">
+      <code>$items</code>
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="2">
+      <code>list&lt;EncryptionAlgorithmSpec::*&gt;</code>
+      <code>list&lt;SigningAlgorithmSpec::*&gt;</code>
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/Lambda/src/Result/ListFunctionsResponse.php">

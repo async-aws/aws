@@ -65,6 +65,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\Kinesis\KinesisClient::class,
                 'package' => 'async-aws/kinesis',
             ],
+            'kms' => [
+                'class' => \AsyncAws\Kms\KmsClient::class,
+                'package' => 'async-aws/kms',
+            ],
             'lambda' => [
                 'class' => \AsyncAws\Lambda\LambdaClient::class,
                 'package' => 'async-aws/lambda',

@@ -200,6 +200,7 @@ abstract class AbstractApi
      */
     protected function getEndpointMetadata(?string $region): array
     {
+        /** @psalm-suppress TooManyArguments */
         trigger_deprecation('async-aws/core', '1.2', 'Extending "%s"" without overriding "%s" is deprecated. This method will be abstract in version 2.0.', __CLASS__, __FUNCTION__);
 
         /** @var string $endpoint */
@@ -238,6 +239,7 @@ abstract class AbstractApi
         }
 
         if (false !== strpos($endpoint, '%region%') || false !== strpos($endpoint, '%service%')) {
+            /** @psalm-suppress TooManyArguments */
             trigger_deprecation('async-aws/core', '1.2', 'providing an endpoint with placeholder is deprecated and will be ignored in version 2.0. Provide full endpoint instead.');
 
             $endpoint = strtr($endpoint, [

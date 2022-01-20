@@ -73,6 +73,9 @@ menu:
             kinesis:
                 text: Kinesis
                 url: /clients/kinesis.html
+            kms:
+                text: KMS
+                url: /clients/kms.html
             lambda:
                 text: Lambda
                 url: /clients/lambda.html
