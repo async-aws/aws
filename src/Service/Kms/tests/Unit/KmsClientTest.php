@@ -3,12 +3,16 @@
 namespace AsyncAws\Kms\Tests\Unit;
 
 use AsyncAws\Core\Credentials\NullProvider;
+use AsyncAws\Core\Result;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Kms\Input\CreateAliasRequest;
+use AsyncAws\Kms\Input\CreateKeyRequest;
 use AsyncAws\Kms\Input\DecryptRequest;
 use AsyncAws\Kms\Input\EncryptRequest;
 use AsyncAws\Kms\Input\GenerateDataKeyRequest;
 use AsyncAws\Kms\Input\ListAliasesRequest;
 use AsyncAws\Kms\KmsClient;
+use AsyncAws\Kms\Result\CreateKeyResponse;
 use AsyncAws\Kms\Result\DecryptResponse;
 use AsyncAws\Kms\Result\EncryptResponse;
 use AsyncAws\Kms\Result\GenerateDataKeyResponse;
@@ -17,6 +21,33 @@ use Symfony\Component\HttpClient\MockHttpClient;
 
 class KmsClientTest extends TestCase
 {
+    public function testCreateAlias(): void
+    {
+        $client = new KmsClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new CreateAliasRequest([
+            'AliasName' => 'change me',
+            'TargetKeyId' => 'change me',
+        ]);
+        $result = $client->createAlias($input);
+
+        self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testCreateKey(): void
+    {
+        $client = new KmsClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new CreateKeyRequest([
+
+        ]);
+        $result = $client->createKey($input);
+
+        self::assertInstanceOf(CreateKeyResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testDecrypt(): void
     {
         $client = new KmsClient([], new NullProvider(), new MockHttpClient());

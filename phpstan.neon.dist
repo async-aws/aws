@@ -37,6 +37,8 @@ parameters:
               - src/Service/DynamoDb/src/ValueObject
               - src/Service/Firehose/src/ValueObject
               - src/Service/Iam/src/ValueObject
+              - src/Service/Kms/src/ValueObject/KeyMetadata.php
+              - src/Service/Kms/src/ValueObject/Tag.php
               - src/Service/Kinesis/src/ValueObject
               - src/Service/Lambda/src/ValueObject
               - src/Service/Route53/src/ValueObject

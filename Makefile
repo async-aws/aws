@@ -15,8 +15,7 @@ initialize: start-docker
 $(SUBINITIALIZE): %.initialize:
 	$(MAKE) -C $* initialize
 
-start-docker: start-docker-s3 start-docker-localstack
-start-docker: start-docker-s3 start-docker-localstack
+start-docker: start-docker-s3 start-docker-kms start-docker-localstack
 start-docker-localstack:
 	docker pull localstack/localstack
 	docker start async_aws_localstack && exit 0 || \
@@ -26,6 +25,10 @@ start-docker-s3:
 	docker pull asyncaws/testing-s3
 	docker start async_aws_s3 && exit 0 || \
 	docker run -d -p 4569:4569 -p 4570:4569 --name async_aws_s3 asyncaws/testing-s3
+start-docker-kms:
+	docker pull nsmithuk/local-kms
+	docker start async_aws_kms && exit 0 || \
+	docker run -d -p 4579:8080 --name async_aws_kms nsmithuk/local-kms
 
 stop-docker: clean
 	docker stop async_aws_localstack || true

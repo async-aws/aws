@@ -8,11 +8,21 @@ use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Exception\UnsupportedRegion;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\Core\Result;
+use AsyncAws\Kms\Enum\CustomerMasterKeySpec;
 use AsyncAws\Kms\Enum\DataKeySpec;
 use AsyncAws\Kms\Enum\EncryptionAlgorithmSpec;
+use AsyncAws\Kms\Enum\KeySpec;
+use AsyncAws\Kms\Enum\KeyUsageType;
+use AsyncAws\Kms\Enum\OriginType;
+use AsyncAws\Kms\Exception\AlreadyExistsException;
+use AsyncAws\Kms\Exception\CloudHsmClusterInvalidConfigurationException;
+use AsyncAws\Kms\Exception\CustomKeyStoreInvalidStateException;
+use AsyncAws\Kms\Exception\CustomKeyStoreNotFoundException;
 use AsyncAws\Kms\Exception\DependencyTimeoutException;
 use AsyncAws\Kms\Exception\DisabledException;
 use AsyncAws\Kms\Exception\IncorrectKeyException;
+use AsyncAws\Kms\Exception\InvalidAliasNameException;
 use AsyncAws\Kms\Exception\InvalidArnException;
 use AsyncAws\Kms\Exception\InvalidCiphertextException;
 use AsyncAws\Kms\Exception\InvalidGrantTokenException;
@@ -21,18 +31,113 @@ use AsyncAws\Kms\Exception\InvalidMarkerException;
 use AsyncAws\Kms\Exception\KeyUnavailableException;
 use AsyncAws\Kms\Exception\KMSInternalException;
 use AsyncAws\Kms\Exception\KMSInvalidStateException;
+use AsyncAws\Kms\Exception\LimitExceededException;
+use AsyncAws\Kms\Exception\MalformedPolicyDocumentException;
 use AsyncAws\Kms\Exception\NotFoundException;
+use AsyncAws\Kms\Exception\TagException;
+use AsyncAws\Kms\Exception\UnsupportedOperationException;
+use AsyncAws\Kms\Input\CreateAliasRequest;
+use AsyncAws\Kms\Input\CreateKeyRequest;
 use AsyncAws\Kms\Input\DecryptRequest;
 use AsyncAws\Kms\Input\EncryptRequest;
 use AsyncAws\Kms\Input\GenerateDataKeyRequest;
 use AsyncAws\Kms\Input\ListAliasesRequest;
+use AsyncAws\Kms\Result\CreateKeyResponse;
 use AsyncAws\Kms\Result\DecryptResponse;
 use AsyncAws\Kms\Result\EncryptResponse;
 use AsyncAws\Kms\Result\GenerateDataKeyResponse;
 use AsyncAws\Kms\Result\ListAliasesResponse;
+use AsyncAws\Kms\ValueObject\Tag;
 
 class KmsClient extends AbstractApi
 {
+    /**
+     * Creates a friendly name for a KMS key.
+     *
+     * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#createalias
+     *
+     * @param array{
+     *   AliasName: string,
+     *   TargetKeyId: string,
+     *   @region?: string,
+     * }|CreateAliasRequest $input
+     *
+     * @throws DependencyTimeoutException
+     * @throws AlreadyExistsException
+     * @throws NotFoundException
+     * @throws InvalidAliasNameException
+     * @throws KMSInternalException
+     * @throws LimitExceededException
+     * @throws KMSInvalidStateException
+     */
+    public function createAlias($input): Result
+    {
+        $input = CreateAliasRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateAlias', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'DependencyTimeoutException' => DependencyTimeoutException::class,
+            'AlreadyExistsException' => AlreadyExistsException::class,
+            'NotFoundException' => NotFoundException::class,
+            'InvalidAliasNameException' => InvalidAliasNameException::class,
+            'KMSInternalException' => KMSInternalException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'KMSInvalidStateException' => KMSInvalidStateException::class,
+        ]]));
+
+        return new Result($response);
+    }
+
+    /**
+     * Creates a unique customer managed KMS key in your Amazon Web Services account and Region.
+     *
+     * @see https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#kms-keys
+     * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#createkey
+     *
+     * @param array{
+     *   Policy?: string,
+     *   Description?: string,
+     *   KeyUsage?: KeyUsageType::*,
+     *   CustomerMasterKeySpec?: CustomerMasterKeySpec::*,
+     *   KeySpec?: KeySpec::*,
+     *   Origin?: OriginType::*,
+     *   CustomKeyStoreId?: string,
+     *   BypassPolicyLockoutSafetyCheck?: bool,
+     *   Tags?: Tag[],
+     *   MultiRegion?: bool,
+     *   @region?: string,
+     * }|CreateKeyRequest $input
+     *
+     * @throws MalformedPolicyDocumentException
+     * @throws DependencyTimeoutException
+     * @throws InvalidArnException
+     * @throws UnsupportedOperationException
+     * @throws KMSInternalException
+     * @throws LimitExceededException
+     * @throws TagException
+     * @throws CustomKeyStoreNotFoundException
+     * @throws CustomKeyStoreInvalidStateException
+     * @throws CloudHsmClusterInvalidConfigurationException
+     */
+    public function createKey($input = []): CreateKeyResponse
+    {
+        $input = CreateKeyRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateKey', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'MalformedPolicyDocumentException' => MalformedPolicyDocumentException::class,
+            'DependencyTimeoutException' => DependencyTimeoutException::class,
+            'InvalidArnException' => InvalidArnException::class,
+            'UnsupportedOperationException' => UnsupportedOperationException::class,
+            'KMSInternalException' => KMSInternalException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'TagException' => TagException::class,
+            'CustomKeyStoreNotFoundException' => CustomKeyStoreNotFoundException::class,
+            'CustomKeyStoreInvalidStateException' => CustomKeyStoreInvalidStateException::class,
+            'CloudHsmClusterInvalidConfigurationException' => CloudHsmClusterInvalidConfigurationException::class,
+        ]]));
+
+        return new CreateKeyResponse($response);
+    }
+
     /**
      * Decrypts ciphertext that was encrypted by a KMS key using any of the following operations:.
      *
