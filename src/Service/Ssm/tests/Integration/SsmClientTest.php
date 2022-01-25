@@ -8,6 +8,7 @@ use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Ssm\Enum\ParameterTier;
 use AsyncAws\Ssm\Enum\ParameterType;
 use AsyncAws\Ssm\Input\DeleteParameterRequest;
+use AsyncAws\Ssm\Input\DeleteParametersRequest;
 use AsyncAws\Ssm\Input\GetParameterRequest;
 use AsyncAws\Ssm\Input\GetParametersByPathRequest;
 use AsyncAws\Ssm\Input\GetParametersRequest;
@@ -72,6 +73,21 @@ class SsmClientTest extends TestCase
 
         self::expectNotToPerformAssertions();
         $result->resolve();
+    }
+
+    public function testDeleteParameters(): void
+    {
+        $client = $this->getClient();
+
+        $input = new DeleteParametersRequest([
+            'Names' => ['/app/database/host'],
+        ]);
+        $result = $client->deleteParameters($input);
+
+        $result->resolve();
+
+        self::assertEquals(['/app/database/host'], $result->getDeletedParameters());
+        self::assertEquals([], $result->getInvalidParameters());
     }
 
     public function testGetParameter(): void

@@ -31,11 +31,13 @@ use AsyncAws\Ssm\Exception\PoliciesLimitExceededException;
 use AsyncAws\Ssm\Exception\TooManyUpdatesException;
 use AsyncAws\Ssm\Exception\UnsupportedParameterTypeException;
 use AsyncAws\Ssm\Input\DeleteParameterRequest;
+use AsyncAws\Ssm\Input\DeleteParametersRequest;
 use AsyncAws\Ssm\Input\GetParameterRequest;
 use AsyncAws\Ssm\Input\GetParametersByPathRequest;
 use AsyncAws\Ssm\Input\GetParametersRequest;
 use AsyncAws\Ssm\Input\PutParameterRequest;
 use AsyncAws\Ssm\Result\DeleteParameterResult;
+use AsyncAws\Ssm\Result\DeleteParametersResult;
 use AsyncAws\Ssm\Result\GetParameterResult;
 use AsyncAws\Ssm\Result\GetParametersByPathResult;
 use AsyncAws\Ssm\Result\GetParametersResult;
@@ -70,6 +72,30 @@ class SsmClient extends AbstractApi
         ]]));
 
         return new DeleteParameterResult($response);
+    }
+
+    /**
+     * Delete a list of parameters. After deleting a parameter, wait for at least 30 seconds to create a parameter with the
+     * same name.
+     *
+     * @see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_DeleteParameters.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ssm-2014-11-06.html#deleteparameters
+     *
+     * @param array{
+     *   Names: string[],
+     *   @region?: string,
+     * }|DeleteParametersRequest $input
+     *
+     * @throws InternalServerErrorException
+     */
+    public function deleteParameters($input): DeleteParametersResult
+    {
+        $input = DeleteParametersRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DeleteParameters', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalServerError' => InternalServerErrorException::class,
+        ]]));
+
+        return new DeleteParametersResult($response);
     }
 
     /**

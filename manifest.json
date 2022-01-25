@@ -487,6 +487,7 @@
             "api-reference": "https://docs.aws.amazon.com/systems-manager/latest/APIReference",
             "methods": [
                 "DeleteParameter",
+                "DeleteParameters",
                 "GetParameter",
                 "GetParameters",
                 "GetParametersByPath",
