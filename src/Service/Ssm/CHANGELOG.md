@@ -7,6 +7,7 @@
 - AWS api-change: Added `ca-central-1` region
 - AWS api-change: Use specific configuration for `us` regions
 - AWS enhancement: Documentation updates.
+- Added operation `DeleteParameters`
 
 ## 1.2.1
 
