@@ -40,6 +40,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AdminCreateUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminDeleteUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminGetUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminInitiateAuthRequest;
+use AsyncAws\CognitoIdentityProvider\Input\AdminResetUserPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminSetUserPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminUpdateUserAttributesRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
@@ -58,6 +59,7 @@ use AsyncAws\CognitoIdentityProvider\Result\AdminConfirmSignUpResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminCreateUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminGetUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminInitiateAuthResponse;
+use AsyncAws\CognitoIdentityProvider\Result\AdminResetUserPasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminSetUserPasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminUpdateUserAttributesResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AssociateSoftwareTokenResponse;
@@ -316,6 +318,55 @@ class CognitoIdentityProviderClient extends AbstractApi
         ]]));
 
         return new AdminInitiateAuthResponse($response);
+    }
+
+    /**
+     * Resets the specified user's password in a user pool as an administrator. Works on any user.
+     *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminResetUserPassword.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#adminresetuserpassword
+     *
+     * @param array{
+     *   UserPoolId: string,
+     *   Username: string,
+     *   ClientMetadata?: array<string, string>,
+     *   @region?: string,
+     * }|AdminResetUserPasswordRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
+     * @throws UnexpectedLambdaException
+     * @throws UserLambdaValidationException
+     * @throws NotAuthorizedException
+     * @throws InvalidLambdaResponseException
+     * @throws TooManyRequestsException
+     * @throws LimitExceededException
+     * @throws UserNotFoundException
+     * @throws InvalidSmsRoleAccessPolicyException
+     * @throws InvalidEmailRoleAccessPolicyException
+     * @throws InvalidSmsRoleTrustRelationshipException
+     * @throws InternalErrorException
+     */
+    public function adminResetUserPassword($input): AdminResetUserPasswordResponse
+    {
+        $input = AdminResetUserPasswordRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminResetUserPassword', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'UnexpectedLambdaException' => UnexpectedLambdaException::class,
+            'UserLambdaValidationException' => UserLambdaValidationException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'InvalidLambdaResponseException' => InvalidLambdaResponseException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'InvalidSmsRoleAccessPolicyException' => InvalidSmsRoleAccessPolicyException::class,
+            'InvalidEmailRoleAccessPolicyException' => InvalidEmailRoleAccessPolicyException::class,
+            'InvalidSmsRoleTrustRelationshipException' => InvalidSmsRoleTrustRelationshipException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
+
+        return new AdminResetUserPasswordResponse($response);
     }
 
     /**

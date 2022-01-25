@@ -8,6 +8,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AdminCreateUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminDeleteUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminGetUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminInitiateAuthRequest;
+use AsyncAws\CognitoIdentityProvider\Input\AdminResetUserPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminSetUserPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminUpdateUserAttributesRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
@@ -144,6 +145,20 @@ class CognitoIdentityProviderClientTest extends TestCase
         self::assertSame('changeIt', $result->getSession());
         // self::assertTODO(expected, $result->getChallengeParameters());
         // self::assertTODO(expected, $result->getAuthenticationResult());
+    }
+
+    public function testAdminResetUserPassword(): void
+    {
+        $client = $this->getClient();
+
+        $input = new AdminResetUserPasswordRequest([
+            'UserPoolId' => 'change me',
+            'Username' => 'change me',
+            'ClientMetadata' => ['change me' => 'change me'],
+        ]);
+        $result = $client->adminResetUserPassword($input);
+
+        $result->resolve();
     }
 
     public function testAdminSetUserPassword(): void
