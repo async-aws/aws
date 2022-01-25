@@ -14,8 +14,10 @@ use AsyncAws\CloudWatchLogs\Exception\ServiceUnavailableException;
 use AsyncAws\CloudWatchLogs\Exception\UnrecognizedClientException;
 use AsyncAws\CloudWatchLogs\Input\CreateLogGroupRequest;
 use AsyncAws\CloudWatchLogs\Input\DescribeLogStreamsRequest;
+use AsyncAws\CloudWatchLogs\Input\FilterLogEventsRequest;
 use AsyncAws\CloudWatchLogs\Input\PutLogEventsRequest;
 use AsyncAws\CloudWatchLogs\Result\DescribeLogStreamsResponse;
+use AsyncAws\CloudWatchLogs\Result\FilterLogEventsResponse;
 use AsyncAws\CloudWatchLogs\Result\PutLogEventsResponse;
 use AsyncAws\CloudWatchLogs\ValueObject\InputLogEvent;
 use AsyncAws\Core\AbstractApi;
@@ -91,6 +93,42 @@ class CloudWatchLogsClient extends AbstractApi
         ]]));
 
         return new DescribeLogStreamsResponse($response, $this, $input);
+    }
+
+    /**
+     * Lists log events from the specified log group. You can list all the log events or filter the results using a filter
+     * pattern, a time range, and the name of the log stream.
+     *
+     * @see https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_FilterLogEvents.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-logs-2014-03-28.html#filterlogevents
+     *
+     * @param array{
+     *   logGroupName: string,
+     *   logStreamNames?: string[],
+     *   logStreamNamePrefix?: string,
+     *   startTime?: string,
+     *   endTime?: string,
+     *   filterPattern?: string,
+     *   nextToken?: string,
+     *   limit?: int,
+     *   interleaved?: bool,
+     *   @region?: string,
+     * }|FilterLogEventsRequest $input
+     *
+     * @throws InvalidParameterException
+     * @throws ResourceNotFoundException
+     * @throws ServiceUnavailableException
+     */
+    public function filterLogEvents($input): FilterLogEventsResponse
+    {
+        $input = FilterLogEventsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'FilterLogEvents', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterException' => InvalidParameterException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'ServiceUnavailableException' => ServiceUnavailableException::class,
+        ]]));
+
+        return new FilterLogEventsResponse($response, $this, $input);
     }
 
     /**
