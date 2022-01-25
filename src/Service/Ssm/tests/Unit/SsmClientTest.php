@@ -6,11 +6,13 @@ use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\Ssm\Enum\ParameterType;
 use AsyncAws\Ssm\Input\DeleteParameterRequest;
+use AsyncAws\Ssm\Input\DeleteParametersRequest;
 use AsyncAws\Ssm\Input\GetParameterRequest;
 use AsyncAws\Ssm\Input\GetParametersByPathRequest;
 use AsyncAws\Ssm\Input\GetParametersRequest;
 use AsyncAws\Ssm\Input\PutParameterRequest;
 use AsyncAws\Ssm\Result\DeleteParameterResult;
+use AsyncAws\Ssm\Result\DeleteParametersResult;
 use AsyncAws\Ssm\Result\GetParameterResult;
 use AsyncAws\Ssm\Result\GetParametersByPathResult;
 use AsyncAws\Ssm\Result\GetParametersResult;
@@ -30,6 +32,19 @@ class SsmClientTest extends TestCase
         $result = $client->DeleteParameter($input);
 
         self::assertInstanceOf(DeleteParameterResult::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testDeleteParameters(): void
+    {
+        $client = new SsmClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new DeleteParametersRequest([
+            'Names' => ['change me'],
+        ]);
+        $result = $client->deleteParameters($input);
+
+        self::assertInstanceOf(DeleteParametersResult::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
