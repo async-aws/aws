@@ -86,8 +86,8 @@ class SsmClientTest extends TestCase
 
         $result->resolve();
 
-         self::assertEquals(['/app/database/host'], $result->getDeletedParameters());
-         self::assertEquals([], $result->getInvalidParameters());
+        self::assertEquals(['/app/database/host'], $result->getDeletedParameters());
+        self::assertEquals([], $result->getInvalidParameters());
     }
 
     public function testGetParameter(): void

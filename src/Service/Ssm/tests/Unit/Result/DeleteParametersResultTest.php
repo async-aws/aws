@@ -22,7 +22,7 @@ class DeleteParametersResultTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new DeleteParametersResult(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-         self::assertEquals(['DB_HOST'], $result->getDeletedParameters());
-         self::assertEquals(['DB_USER'], $result->getInvalidParameters());
+        self::assertEquals(['DB_HOST'], $result->getDeletedParameters());
+        self::assertEquals(['DB_USER'], $result->getInvalidParameters());
     }
 }
