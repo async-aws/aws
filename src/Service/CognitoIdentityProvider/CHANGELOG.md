@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: Use specific configuration for `us` regions
+- Added operation `adminResetUserPassword` 
 
 ## 1.3.0
 
