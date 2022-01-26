@@ -69,6 +69,7 @@
             "methods": [
                 "CreateLogGroup",
                 "DescribeLogStreams",
+                "FilterLogEvents",
                 "PutLogEvents"
             ]
         },
