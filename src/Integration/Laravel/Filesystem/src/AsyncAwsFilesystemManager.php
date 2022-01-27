@@ -17,9 +17,9 @@ class AsyncAwsFilesystemManager extends FilesystemManager
     public function createAsyncAwsS3Driver(array $config)
     {
         $s3Config = [];
-        if ($config['key'] && $config['secret']) {
-            $s3Config['accessKeyId'] = $config['key'] ?? null;
-            $s3Config['accessKeySecret'] = $config['secret'] ?? null;
+        if (!empty($config['key']) && !empty($config['secret'])) {
+            $s3Config['accessKeyId'] = $config['key'];
+            $s3Config['accessKeySecret'] = $config['secret'];
             $s3Config['sessionToken'] = $config['token'] ?? null;
         }
 
