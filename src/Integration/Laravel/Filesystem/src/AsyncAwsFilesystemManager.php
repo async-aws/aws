@@ -18,8 +18,8 @@ class AsyncAwsFilesystemManager extends FilesystemManager
     {
         $s3Config = [];
         if (!empty($config['key']) && !empty($config['secret'])) {
-            $s3Config['accessKeyId'] = $config['key'] ?? null;
-            $s3Config['accessKeySecret'] = $config['secret'] ?? null;
+            $s3Config['accessKeyId'] = $config['key'];
+            $s3Config['accessKeySecret'] = $config['secret'];
             $s3Config['sessionToken'] = $config['token'] ?? null;
         }
 
