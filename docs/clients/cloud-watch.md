@@ -19,7 +19,7 @@ $cloudWatch = new CloudWatchClient();
 $result = $cloudWatch->getMetricData(new GetMetricDataInput([
     'MetricDataQueries' => [new MetricDataQuery(['Id' => 'metric-id'])],
     'StartTime' => new DateTimeImmutable('2021-07-01T00:00:00'),
-    'EndTime' new DateTimeImmutable('2021-07-01T12:00:00'),
+    'EndTime' => new DateTimeImmutable('2021-07-01T12:00:00'),
 ]));
 
 foreach ($result->getMetricDataResults() as $metricData) {
