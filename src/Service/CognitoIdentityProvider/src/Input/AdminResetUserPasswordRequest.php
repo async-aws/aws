@@ -22,7 +22,7 @@ final class AdminResetUserPasswordRequest extends Input
     private $userPoolId;
 
     /**
-     * The user name of the user whose password you wish to reset.
+     * The user name of the user whose password you want to reset.
      *
      * @required
      *

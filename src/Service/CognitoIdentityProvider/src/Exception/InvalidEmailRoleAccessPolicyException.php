@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * This exception is thrown when Amazon Cognito is not allowed to use your email identity. HTTP status code: 400.
+ * This exception is thrown when Amazon Cognito isn't allowed to use your email identity. HTTP status code: 400.
  */
 final class InvalidEmailRoleAccessPolicyException extends ClientException
 {

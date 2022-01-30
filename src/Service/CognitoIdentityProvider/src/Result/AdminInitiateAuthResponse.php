@@ -14,28 +14,28 @@ use AsyncAws\Core\Result;
 class AdminInitiateAuthResponse extends Result
 {
     /**
-     * The name of the challenge which you are responding to with this call. This is returned to you in the
-     * `AdminInitiateAuth` response if you need to pass another challenge.
+     * The name of the challenge that you're responding to with this call. This is returned in the `AdminInitiateAuth`
+     * response if you must pass another challenge.
      */
     private $challengeName;
 
     /**
-     * The session which should be passed both ways in challenge-response calls to the service. If `AdminInitiateAuth` or
-     * `AdminRespondToAuthChallenge` API call determines that the caller needs to go through another challenge, they return
-     * a session with other challenge parameters. This session should be passed as it is to the next
-     * `AdminRespondToAuthChallenge` API call.
+     * The session that should be passed both ways in challenge-response calls to the service. If `AdminInitiateAuth` or
+     * `AdminRespondToAuthChallenge` API call determines that the caller must pass another challenge, they return a session
+     * with other challenge parameters. This session should be passed as it is to the next `AdminRespondToAuthChallenge` API
+     * call.
      */
     private $session;
 
     /**
-     * The challenge parameters. These are returned to you in the `AdminInitiateAuth` response if you need to pass another
+     * The challenge parameters. These are returned to you in the `AdminInitiateAuth` response if you must pass another
      * challenge. The responses in this parameter should be used to compute inputs to the next call
      * (`AdminRespondToAuthChallenge`).
      */
     private $challengeParameters;
 
     /**
-     * The result of the authentication response. This is only returned if the caller does not need to pass another
+     * The result of the authentication response. This is only returned if the caller doesn't need to pass another
      * challenge. If the caller does need to pass another challenge before it gets tokens, `ChallengeName`,
      * `ChallengeParameters`, and `Session` are returned.
      */

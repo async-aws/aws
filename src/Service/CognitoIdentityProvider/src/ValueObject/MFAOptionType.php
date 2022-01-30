@@ -5,8 +5,8 @@ namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 use AsyncAws\CognitoIdentityProvider\Enum\DeliveryMediumType;
 
 /**
- * *This data type is no longer supported.* You can use it only for SMS MFA configurations. You can't use it for TOTP
- * software token MFA configurations.
+ * *This data type is no longer supported.* You can use it only for SMS multi-factor authentication (MFA)
+ * configurations. You can't use it for time-based one-time password (TOTP) software token MFA configurations.
  */
 final class MFAOptionType
 {

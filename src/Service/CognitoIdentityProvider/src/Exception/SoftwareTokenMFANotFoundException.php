@@ -6,8 +6,8 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * This exception is thrown when the software token TOTP multi-factor authentication (MFA) is not enabled for the user
- * pool.
+ * This exception is thrown when the software token time-based one-time password (TOTP) multi-factor authentication
+ * (MFA) isn't activated for the user pool.
  */
 final class SoftwareTokenMFANotFoundException extends ClientException
 {

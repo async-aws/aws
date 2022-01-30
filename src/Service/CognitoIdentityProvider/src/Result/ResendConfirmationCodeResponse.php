@@ -7,8 +7,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
 /**
- * The response from the server when the Amazon Cognito Your User Pools service makes the request to resend a
- * confirmation code.
+ * The response from the server when Amazon Cognito makes the request to resend a confirmation code.
  */
 class ResendConfirmationCodeResponse extends Result
 {

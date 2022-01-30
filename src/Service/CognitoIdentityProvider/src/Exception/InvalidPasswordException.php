@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * This exception is thrown when the Amazon Cognito service encounters an invalid password.
+ * This exception is thrown when Amazon Cognito encounters an invalid password.
  */
 final class InvalidPasswordException extends ClientException
 {

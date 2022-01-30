@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * This exception is thrown when the Amazon Cognito service cannot find the requested resource.
+ * This exception is thrown when the Amazon Cognito service can't find the requested resource.
  */
 final class ResourceNotFoundException extends ClientException
 {

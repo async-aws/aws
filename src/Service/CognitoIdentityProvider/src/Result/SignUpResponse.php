@@ -22,7 +22,7 @@ class SignUpResponse extends Result
     private $codeDeliveryDetails;
 
     /**
-     * The UUID of the authenticated user. This is not the same as `username`.
+     * The UUID of the authenticated user. This isn't the same as `username`.
      */
     private $userSub;
 

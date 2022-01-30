@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * This exception is thrown when the user pool configuration is invalid.
+ * This exception is thrown when the user pool configuration is not valid.
  */
 final class InvalidUserPoolConfigurationException extends ClientException
 {

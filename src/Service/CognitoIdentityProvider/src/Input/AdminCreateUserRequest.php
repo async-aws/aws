@@ -26,7 +26,7 @@ final class AdminCreateUserRequest extends Input
 
     /**
      * The username for the user. Must be unique within the user pool. Must be a UTF-8 string between 1 and 128 characters.
-     * After the user is created, the username cannot be changed.
+     * After the user is created, the username can't be changed.
      *
      * @required
      *
@@ -37,8 +37,8 @@ final class AdminCreateUserRequest extends Input
     /**
      * An array of name-value pairs that contain user attributes and attribute values to be set for the user to be created.
      * You can create a user without specifying any attributes other than `Username`. However, any attributes that you
-     * specify as required (when creating a user pool or in the **Attributes** tab of the console) must be supplied either
-     * by you (in your call to `AdminCreateUser`) or by the user (when he or she signs up in response to your welcome
+     * specify as required (when creating a user pool or in the **Attributes** tab of the console) either you should supply
+     * (in your call to `AdminCreateUser`) or the user should supply (when they sign up in response to your welcome
      * message).
      *
      * @var AttributeType[]|null
@@ -63,7 +63,7 @@ final class AdminCreateUserRequest extends Input
     private $temporaryPassword;
 
     /**
-     * This parameter is only used if the `phone_number_verified` or `email_verified` attribute is set to `True`. Otherwise,
+     * This parameter is used only if the `phone_number_verified` or `email_verified` attribute is set to `True`. Otherwise,
      * it is ignored.
      *
      * @var bool|null
@@ -71,8 +71,8 @@ final class AdminCreateUserRequest extends Input
     private $forceAliasCreation;
 
     /**
-     * Set to `"RESEND"` to resend the invitation message to a user that already exists and reset the expiration limit on
-     * the user's account. Set to `"SUPPRESS"` to suppress sending the message. Only one value can be specified.
+     * Set to `RESEND` to resend the invitation message to a user that already exists and reset the expiration limit on the
+     * user's account. Set to `SUPPRESS` to suppress sending the message. You can specify only one value.
      *
      * @var MessageActionType::*|null
      */
@@ -80,7 +80,7 @@ final class AdminCreateUserRequest extends Input
 
     /**
      * Specify `"EMAIL"` if email will be used to send the welcome message. Specify `"SMS"` if the phone number will be
-     * used. The default value is `"SMS"`. More than one value can be specified.
+     * used. The default value is `"SMS"`. You can specify more than one value.
      *
      * @var list<DeliveryMediumType::*>|null
      */

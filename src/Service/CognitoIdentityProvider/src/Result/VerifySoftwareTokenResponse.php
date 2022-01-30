@@ -14,7 +14,7 @@ class VerifySoftwareTokenResponse extends Result
     private $status;
 
     /**
-     * The session which should be passed both ways in challenge-response calls to the service.
+     * The session that should be passed both ways in challenge-response calls to the service.
      */
     private $session;
 

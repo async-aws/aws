@@ -10,7 +10,7 @@ use AsyncAws\CognitoIdentityProvider\Enum\UserStatusType;
 final class UserType
 {
     /**
-     * The user name of the user you wish to describe.
+     * The user name of the user you want to describe.
      */
     private $username;
 
@@ -35,7 +35,7 @@ final class UserType
     private $enabled;
 
     /**
-     * The user status. Can be one of the following:.
+     * The user status. This can be one of the following:.
      */
     private $userStatus;
 

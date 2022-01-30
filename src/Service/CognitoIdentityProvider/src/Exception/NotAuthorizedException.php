@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * This exception is thrown when a user is not authorized.
+ * This exception is thrown when a user isn't authorized.
  */
 final class NotAuthorizedException extends ClientException
 {

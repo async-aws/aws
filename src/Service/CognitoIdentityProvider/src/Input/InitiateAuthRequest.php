@@ -16,7 +16,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class InitiateAuthRequest extends Input
 {
     /**
-     * The authentication flow for this call to execute. The API action will depend on this value. For example:.
+     * The authentication flow for this call to run. The API action will depend on this value. For example:.
      *
      * @required
      *
@@ -25,7 +25,7 @@ final class InitiateAuthRequest extends Input
     private $authFlow;
 
     /**
-     * The authentication parameters. These are inputs corresponding to the `AuthFlow` that you are invoking. The required
+     * The authentication parameters. These are inputs corresponding to the `AuthFlow` that you're invoking. The required
      * values depend on the value of `AuthFlow`:.
      *
      * @var array<string, string>|null

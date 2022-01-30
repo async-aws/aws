@@ -40,7 +40,7 @@ final class ResendConfirmationCodeRequest extends Input
     private $userContextData;
 
     /**
-     * The user name of the user to whom you wish to resend a confirmation code.
+     * The `username` attribute of the user to whom you want to resend a confirmation code.
      *
      * @required
      *
