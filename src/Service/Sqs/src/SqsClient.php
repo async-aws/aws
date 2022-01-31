@@ -460,15 +460,15 @@ class SqsClient extends AbstractApi
                 ];
             case 'us-iso-west-1':
                 return [
-                    'endpoint' => "https://sqs.$region.c2s.ic.gov",
-                    'signRegion' => $region,
+                    'endpoint' => 'https://sqs.us-iso-west-1.c2s.ic.gov',
+                    'signRegion' => 'us-iso-west-1',
                     'signService' => 'sqs',
                     'signVersions' => ['v4'],
                 ];
             case 'us-isob-east-1':
                 return [
-                    'endpoint' => "https://sqs.$region.sc2s.sgov.gov",
-                    'signRegion' => $region,
+                    'endpoint' => 'https://sqs.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
                     'signService' => 'sqs',
                     'signVersions' => ['v4'],
                 ];
@@ -500,52 +500,10 @@ class SqsClient extends AbstractApi
                     'signService' => 'sqs',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-east-1':
-                return [
-                    'endpoint' => 'https://sqs.us-east-1.amazonaws.com',
-                    'signRegion' => 'us-east-1',
-                    'signService' => 'sqs',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-east-2':
-                return [
-                    'endpoint' => 'https://sqs.us-east-2.amazonaws.com',
-                    'signRegion' => 'us-east-2',
-                    'signService' => 'sqs',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-gov-east-1':
-                return [
-                    'endpoint' => 'https://sqs.us-gov-east-1.amazonaws.com',
-                    'signRegion' => 'us-gov-east-1',
-                    'signService' => 'sqs',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-gov-west-1':
-                return [
-                    'endpoint' => 'https://sqs.us-gov-west-1.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
-                    'signService' => 'sqs',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-iso-east-1':
                 return [
                     'endpoint' => 'https://sqs.us-iso-east-1.c2s.ic.gov',
                     'signRegion' => 'us-iso-east-1',
-                    'signService' => 'sqs',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-west-1':
-                return [
-                    'endpoint' => 'https://sqs.us-west-1.amazonaws.com',
-                    'signRegion' => 'us-west-1',
-                    'signService' => 'sqs',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-west-2':
-                return [
-                    'endpoint' => 'https://sqs.us-west-2.amazonaws.com',
-                    'signRegion' => 'us-west-2',
                     'signService' => 'sqs',
                     'signVersions' => ['v4'],
                 ];

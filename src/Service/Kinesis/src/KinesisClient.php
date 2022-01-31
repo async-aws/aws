@@ -1030,8 +1030,8 @@ class KinesisClient extends AbstractApi
                 ];
             case 'us-isob-east-1':
                 return [
-                    'endpoint' => "https://kinesis.$region.sc2s.sgov.gov",
-                    'signRegion' => $region,
+                    'endpoint' => 'https://kinesis.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
                     'signService' => 'kinesis',
                     'signVersions' => ['v4'],
                 ];
@@ -1059,48 +1059,6 @@ class KinesisClient extends AbstractApi
             case 'fips-us-west-2':
                 return [
                     'endpoint' => 'https://kinesis-fips.us-west-2.amazonaws.com',
-                    'signRegion' => 'us-west-2',
-                    'signService' => 'kinesis',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-east-1':
-                return [
-                    'endpoint' => 'https://kinesis.us-east-1.amazonaws.com',
-                    'signRegion' => 'us-east-1',
-                    'signService' => 'kinesis',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-east-2':
-                return [
-                    'endpoint' => 'https://kinesis.us-east-2.amazonaws.com',
-                    'signRegion' => 'us-east-2',
-                    'signService' => 'kinesis',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-gov-east-1':
-                return [
-                    'endpoint' => 'https://kinesis.us-gov-east-1.amazonaws.com',
-                    'signRegion' => 'us-gov-east-1',
-                    'signService' => 'kinesis',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-gov-west-1':
-                return [
-                    'endpoint' => 'https://kinesis.us-gov-west-1.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
-                    'signService' => 'kinesis',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-west-1':
-                return [
-                    'endpoint' => 'https://kinesis.us-west-1.amazonaws.com',
-                    'signRegion' => 'us-west-1',
-                    'signService' => 'kinesis',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-west-2':
-                return [
-                    'endpoint' => 'https://kinesis.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',
                     'signService' => 'kinesis',
                     'signVersions' => ['v4'],

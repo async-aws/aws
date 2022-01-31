@@ -89,13 +89,6 @@ class SesClient extends AbstractApi
                     'signService' => 'ses',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-gov-west-1':
-                return [
-                    'endpoint' => 'https://email.us-gov-west-1.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
-                    'signService' => 'ses',
-                    'signVersions' => ['v4'],
-                ];
         }
 
         return [

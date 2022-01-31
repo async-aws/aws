@@ -57,7 +57,7 @@ class ClientGenerator
         } return (new A%1$s)->getVersion();', sha1(uniqid('', true)), $className->getFqdn()));
 
         $endpoints = $definition->getEndpoints();
-        $dumpConfig = static function ($config) use ($supportedVersions) {
+        $dumpConfig = static function ($config, $region = null) use ($supportedVersions) {
             $signatureVersions = array_intersect($supportedVersions, $config['signVersions']);
             rsort($signatureVersions);
 
@@ -67,11 +67,38 @@ class ClientGenerator
                 "signService" => SIGN_SERVICE,
                 "signVersions" => SIGN_VERSIONS,
             ];' . "\n", [
-                'ENDPOINT' => strtr($config['endpoint'], ['%region%' => '$region']),
-                'REGION' => isset($config['signRegion']) ? var_export($config['signRegion'], true) : '$region',
+                'ENDPOINT' => strtr($config['endpoint'], ['%region%' => $region ?? '$region']),
+                'REGION' => isset($config['signRegion']) ? var_export($config['signRegion'], true) : (null === $region ? '$region' : var_export($region, true)),
                 'SIGN_SERVICE' => var_export($config['signService'], true),
                 'SIGN_VERSIONS' => json_encode($signatureVersions),
             ]);
+        };
+        $sameConfig = static function (array $config, array $defaultConfig, string $region) use ($supportedVersions) {
+            $configEndpoint = strtr($config['endpoint'], ['%region%' => $region]);
+            $DefaultConfigEndpoint = strtr($defaultConfig['endpoint'], ['%region%' => $region]);
+            if ($configEndpoint !== $DefaultConfigEndpoint) {
+                return false;
+            }
+
+            $configRegion = isset($config['signRegion']) ? $config['signRegion'] : $region;
+            $defaultConfigRegion = isset($defaultConfig['signRegion']) ? $defaultConfig['signRegion'] : $region;
+            if ($configRegion !== $defaultConfigRegion) {
+                return false;
+            }
+
+            if ($config['signService'] !== $defaultConfig['signService']) {
+                return false;
+            }
+
+            $configSignVersions = array_intersect($supportedVersions, $config['signVersions']);
+            $defaultConfigSignVersions = array_intersect($supportedVersions, $defaultConfig['signVersions']);
+            rsort($configSignVersions);
+            rsort($defaultConfigSignVersions);
+            if ($configSignVersions !== $defaultConfigSignVersions) {
+                return false;
+            }
+
+            return true;
         };
 
         $body = '';
@@ -94,6 +121,13 @@ class ClientGenerator
         }
         $body .= "switch (\$region) {\n";
 
+        $defaultConfig = null;
+        if (isset($endpoints['_default']['aws'])) {
+            $defaultConfig = $endpoints['_default']['aws'];
+        } elseif (isset($endpoints['_global']['aws'])) {
+            $defaultConfig = $endpoints['_global']['aws'];
+        }
+
         foreach ($endpoints['_global'] ?? [] as $partitionName => $config) {
             if ('aws' === $partitionName && !isset($endpoints['_default']['aws'])) {
                 continue;
@@ -102,10 +136,21 @@ class ClientGenerator
                 continue;
             }
             sort($config['regions']);
+            $regions = [];
             foreach ($config['regions'] as $region) {
+                if ($defaultConfig && $sameConfig($config, $defaultConfig, $region)) {
+                    continue;
+                }
+                $regions[] = $region;
                 $body .= sprintf("    case %s:\n", var_export($region, true));
             }
-            $body .= $dumpConfig($config);
+            if (\count($regions) > 0) {
+                if (1 === \count($regions)) {
+                    $body .= $dumpConfig($config, $regions[0]);
+                } else {
+                    $body .= $dumpConfig($config);
+                }
+            }
         }
         foreach ($endpoints['_default'] ?? [] as $partitionName => $config) {
             if ('aws' === $partitionName) {
@@ -115,18 +160,33 @@ class ClientGenerator
                 continue;
             }
             sort($config['regions']);
+            $regions = [];
             foreach ($config['regions'] as $region) {
+                if ($defaultConfig && $sameConfig($config, $defaultConfig, $region)) {
+                    continue;
+                }
+                $regions[] = $region;
                 $body .= sprintf("    case %s:\n", var_export($region, true));
             }
-            $body .= $dumpConfig($config);
+            if (\count($regions) > 0) {
+                if (1 === \count($regions)) {
+                    $body .= $dumpConfig($config, $regions[0]);
+                } else {
+                    $body .= $dumpConfig($config);
+                }
+            }
         }
         ksort($endpoints);
         foreach ($endpoints as $region => $config) {
             if ('_' === $region[0]) {
                 continue; // skip `_default` and `_global`
             }
+            if ($defaultConfig && $sameConfig($config, $defaultConfig, $region)) {
+                continue;
+            }
+
             $body .= sprintf("    case %s:\n", var_export($region, true));
-            $body .= $dumpConfig($config);
+            $body .= $dumpConfig($config, $region);
         }
         $body .= '}';
         if (isset($endpoints['_default']['aws'])) {
