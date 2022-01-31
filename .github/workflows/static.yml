@@ -65,7 +65,7 @@ jobs:
           restore-keys: php-cs-fixer-
 
       - name: PHP-CS-Fixer
-        uses: docker://oskarstark/php-cs-fixer-ga:3.2.1
+        uses: docker://oskarstark/php-cs-fixer-ga:3.5.0
         with:
           args: --dry-run --diff
 
@@ -108,7 +108,7 @@ jobs:
           composer update --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Psalm
-        uses: docker://vimeo/psalm-github-actions:4.18.1
+        uses: docker://vimeo/psalm-github-actions:4.19.0
         env:
           REQUIRE_DEV: "true"
         with:
