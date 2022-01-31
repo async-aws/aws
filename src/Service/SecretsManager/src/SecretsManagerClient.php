@@ -68,6 +68,7 @@ class SecretsManagerClient extends AbstractApi
      * @throws MalformedPolicyDocumentException
      * @throws InternalServiceErrorException
      * @throws PreconditionNotMetException
+     * @throws DecryptionFailureException
      */
     public function createSecret($input): CreateSecretResponse
     {
@@ -82,6 +83,7 @@ class SecretsManagerClient extends AbstractApi
             'MalformedPolicyDocumentException' => MalformedPolicyDocumentException::class,
             'InternalServiceError' => InternalServiceErrorException::class,
             'PreconditionNotMetException' => PreconditionNotMetException::class,
+            'DecryptionFailure' => DecryptionFailureException::class,
         ]]));
 
         return new CreateSecretResponse($response);
@@ -208,6 +210,7 @@ class SecretsManagerClient extends AbstractApi
      * @throws ResourceExistsException
      * @throws ResourceNotFoundException
      * @throws InternalServiceErrorException
+     * @throws DecryptionFailureException
      */
     public function putSecretValue($input): PutSecretValueResponse
     {
@@ -220,6 +223,7 @@ class SecretsManagerClient extends AbstractApi
             'ResourceExistsException' => ResourceExistsException::class,
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'InternalServiceError' => InternalServiceErrorException::class,
+            'DecryptionFailure' => DecryptionFailureException::class,
         ]]));
 
         return new PutSecretValueResponse($response);
@@ -251,6 +255,7 @@ class SecretsManagerClient extends AbstractApi
      * @throws MalformedPolicyDocumentException
      * @throws InternalServiceErrorException
      * @throws PreconditionNotMetException
+     * @throws DecryptionFailureException
      */
     public function updateSecret($input): UpdateSecretResponse
     {
@@ -265,6 +270,7 @@ class SecretsManagerClient extends AbstractApi
             'MalformedPolicyDocumentException' => MalformedPolicyDocumentException::class,
             'InternalServiceError' => InternalServiceErrorException::class,
             'PreconditionNotMetException' => PreconditionNotMetException::class,
+            'DecryptionFailure' => DecryptionFailureException::class,
         ]]));
 
         return new UpdateSecretResponse($response);
@@ -294,6 +300,20 @@ class SecretsManagerClient extends AbstractApi
                 return [
                     'endpoint' => "https://secretsmanager.$region.c2s.ic.gov",
                     'signRegion' => $region,
+                    'signService' => 'secretsmanager',
+                    'signVersions' => ['v4'],
+                ];
+            case 'ca-central-1':
+                return [
+                    'endpoint' => 'https://secretsmanager.ca-central-1.amazonaws.com',
+                    'signRegion' => 'ca-central-1',
+                    'signService' => 'secretsmanager',
+                    'signVersions' => ['v4'],
+                ];
+            case 'ca-central-1-fips':
+                return [
+                    'endpoint' => 'https://secretsmanager-fips.ca-central-1.amazonaws.com',
+                    'signRegion' => 'ca-central-1',
                     'signService' => 'secretsmanager',
                     'signVersions' => ['v4'],
                 ];

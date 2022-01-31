@@ -21,9 +21,9 @@ class RespondToAuthChallengeResponse extends Result
     private $challengeName;
 
     /**
-     * The session which should be passed both ways in challenge-response calls to the service. If the caller needs to go
-     * through another challenge, they return a session with other challenge parameters. This session should be passed as it
-     * is to the next `RespondToAuthChallenge` API call.
+     * The session that should be passed both ways in challenge-response calls to the service. If the caller must pass
+     * another challenge, they return a session with other challenge parameters. This session should be passed as it is to
+     * the next `RespondToAuthChallenge` API call.
      */
     private $session;
 

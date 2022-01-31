@@ -17,14 +17,14 @@ final class VerifySoftwareTokenRequest extends Input
     private $accessToken;
 
     /**
-     * The session which should be passed both ways in challenge-response calls to the service.
+     * The session that should be passed both ways in challenge-response calls to the service.
      *
      * @var string|null
      */
     private $session;
 
     /**
-     * The one time password computed using the secret code returned by AssociateSoftwareToken".
+     * The one- time password computed using the secret code returned by AssociateSoftwareToken.
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AssociateSoftwareToken.html
      * @required

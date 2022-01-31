@@ -19,7 +19,7 @@ final class AdminSetUserPasswordRequest extends Input
     private $userPoolId;
 
     /**
-     * The user name of the user whose password you wish to set.
+     * The user name of the user whose password you want to set.
      *
      * @required
      *

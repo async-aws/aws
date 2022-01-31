@@ -8,8 +8,8 @@ namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 final class SMSMfaSettingsType
 {
     /**
-     * Specifies whether SMS text message MFA is enabled. If an MFA type is enabled for a user, the user will be prompted
-     * for MFA during all sign in attempts, unless device tracking is turned on and the device has been trusted.
+     * Specifies whether SMS text message MFA is activated. If an MFA type is activated for a user, the user will be
+     * prompted for MFA during all sign-in attempts, unless device tracking is turned on and the device has been trusted.
      */
     private $enabled;
 

@@ -7,6 +7,8 @@
 - AWS enhancement: Documentation updates for Secrets Manager
 - AWS api-change: Use specific configuration for `us` regions
 - AWS enhancement: Documentation updates.
+- AWS api-change: Added `Duration` and `ScheduleExpression` to the Rotation rules
+- AWS api-change: Added `ca-central-1-fips` region
 
 ## 0.1.1
 

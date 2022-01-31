@@ -13,7 +13,7 @@ use AsyncAws\Core\Result;
 class GetUserResponse extends Result
 {
     /**
-     * The user name of the user you wish to retrieve from the get user request.
+     * The user name of the user you want to retrieve from the get user request.
      */
     private $username;
 
@@ -24,8 +24,8 @@ class GetUserResponse extends Result
 
     /**
      * *This response parameter is no longer supported.* It provides information only about SMS MFA configurations. It
-     * doesn't provide information about TOTP software token MFA configurations. To look up information about either type of
-     * MFA configuration, use UserMFASettingList instead.
+     * doesn't provide information about time-based one-time password (TOTP) software token MFA configurations. To look up
+     * information about either type of MFA configuration, use UserMFASettingList instead.
      */
     private $mfaOptions;
 
@@ -35,7 +35,7 @@ class GetUserResponse extends Result
     private $preferredMfaSetting;
 
     /**
-     * The MFA options that are enabled for the user. The possible values in this list are `SMS_MFA` and
+     * The MFA options that are activated for the user. The possible values in this list are `SMS_MFA` and
      * `SOFTWARE_TOKEN_MFA`.
      */
     private $userMfaSettingList;

@@ -16,8 +16,8 @@ final class AssociateSoftwareTokenRequest extends Input
     private $accessToken;
 
     /**
-     * The session which should be passed both ways in challenge-response calls to the service. This allows authentication
-     * of the user as part of the MFA setup process.
+     * The session that should be passed both ways in challenge-response calls to the service. This allows authentication of
+     * the user as part of the MFA setup process.
      *
      * @var string|null
      */

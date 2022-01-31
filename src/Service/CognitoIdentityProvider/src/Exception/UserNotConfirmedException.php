@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * This exception is thrown when a user is not confirmed successfully.
+ * This exception is thrown when a user isn't confirmed successfully.
  */
 final class UserNotConfirmedException extends ClientException
 {

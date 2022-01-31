@@ -14,7 +14,7 @@ use AsyncAws\Core\Result;
 class AdminGetUserResponse extends Result
 {
     /**
-     * The user name of the user about whom you are receiving information.
+     * The user name of the user about whom you're receiving information.
      */
     private $username;
 
@@ -34,7 +34,7 @@ class AdminGetUserResponse extends Result
     private $userLastModifiedDate;
 
     /**
-     * Indicates that the status is enabled.
+     * Indicates that the status is `enabled`.
      */
     private $enabled;
 
@@ -45,8 +45,8 @@ class AdminGetUserResponse extends Result
 
     /**
      * *This response parameter is no longer supported.* It provides information only about SMS MFA configurations. It
-     * doesn't provide information about TOTP software token MFA configurations. To look up information about either type of
-     * MFA configuration, use UserMFASettingList instead.
+     * doesn't provide information about time-based one-time password (TOTP) software token MFA configurations. To look up
+     * information about either type of MFA configuration, use UserMFASettingList instead.
      */
     private $mfaOptions;
 
@@ -56,7 +56,7 @@ class AdminGetUserResponse extends Result
     private $preferredMfaSetting;
 
     /**
-     * The MFA options that are enabled for the user. The possible values in this list are `SMS_MFA` and
+     * The MFA options that are activated for the user. The possible values in this list are `SMS_MFA` and
      * `SOFTWARE_TOKEN_MFA`.
      */
     private $userMfaSettingList;

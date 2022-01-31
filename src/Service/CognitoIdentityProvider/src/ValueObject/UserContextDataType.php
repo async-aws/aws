@@ -9,7 +9,7 @@ namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 final class UserContextDataType
 {
     /**
-     * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
+     * Contextual data, such as the user's device fingerprint, IP address, or location, used for evaluating the risk of an
      * unexpected event by Amazon Cognito advanced security.
      */
     private $encodedData;

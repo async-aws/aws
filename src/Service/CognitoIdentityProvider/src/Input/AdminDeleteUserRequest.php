@@ -22,7 +22,7 @@ final class AdminDeleteUserRequest extends Input
     private $userPoolId;
 
     /**
-     * The user name of the user you wish to delete.
+     * The user name of the user you want to delete.
      *
      * @required
      *

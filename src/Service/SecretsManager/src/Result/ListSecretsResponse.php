@@ -113,6 +113,8 @@ class ListSecretsResponse extends Result implements \IteratorAggregate
                 'RotationLambdaARN' => isset($item['RotationLambdaARN']) ? (string) $item['RotationLambdaARN'] : null,
                 'RotationRules' => empty($item['RotationRules']) ? null : new RotationRulesType([
                     'AutomaticallyAfterDays' => isset($item['RotationRules']['AutomaticallyAfterDays']) ? (string) $item['RotationRules']['AutomaticallyAfterDays'] : null,
+                    'Duration' => isset($item['RotationRules']['Duration']) ? (string) $item['RotationRules']['Duration'] : null,
+                    'ScheduleExpression' => isset($item['RotationRules']['ScheduleExpression']) ? (string) $item['RotationRules']['ScheduleExpression'] : null,
                 ]),
                 'LastRotatedDate' => (isset($item['LastRotatedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['LastRotatedDate'])))) ? $d : null,
                 'LastChangedDate' => (isset($item['LastChangedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['LastChangedDate'])))) ? $d : null,

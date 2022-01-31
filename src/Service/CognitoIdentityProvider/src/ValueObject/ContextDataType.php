@@ -31,7 +31,7 @@ final class ContextDataType
     private $httpHeaders;
 
     /**
-     * Encoded data containing device fingerprinting details, collected using the Amazon Cognito context data collection
+     * Encoded data containing device fingerprinting details collected using the Amazon Cognito context data collection
      * library.
      */
     private $encodedData;

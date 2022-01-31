@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * This exception is thrown when Amazon Cognito cannot find a multi-factor authentication (MFA) method.
+ * This exception is thrown when Amazon Cognito can't find a multi-factor authentication (MFA) method.
  */
 final class MFAMethodNotFoundException extends ClientException
 {

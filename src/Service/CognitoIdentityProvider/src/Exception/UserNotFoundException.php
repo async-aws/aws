@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * This exception is thrown when a user is not found.
+ * This exception is thrown when a user isn't found.
  */
 final class UserNotFoundException extends ClientException
 {

@@ -33,7 +33,7 @@ final class SignUpRequest extends Input
     private $secretHash;
 
     /**
-     * The user name of the user you wish to register.
+     * The user name of the user you want to register.
      *
      * @required
      *
@@ -42,7 +42,7 @@ final class SignUpRequest extends Input
     private $username;
 
     /**
-     * The password of the user you wish to register.
+     * The password of the user you want to register.
      *
      * @required
      *
