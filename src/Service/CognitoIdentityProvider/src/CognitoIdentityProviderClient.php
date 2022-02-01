@@ -43,6 +43,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AdminInitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminResetUserPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminSetUserPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminUpdateUserAttributesRequest;
+use AsyncAws\CognitoIdentityProvider\Input\AdminUserGlobalSignOutRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ConfirmForgotPasswordRequest;
@@ -62,6 +63,7 @@ use AsyncAws\CognitoIdentityProvider\Result\AdminInitiateAuthResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminResetUserPasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminSetUserPasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminUpdateUserAttributesResponse;
+use AsyncAws\CognitoIdentityProvider\Result\AdminUserGlobalSignOutResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AssociateSoftwareTokenResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ChangePasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ConfirmForgotPasswordResponse;
@@ -455,6 +457,42 @@ class CognitoIdentityProviderClient extends AbstractApi
         ]]));
 
         return new AdminUpdateUserAttributesResponse($response);
+    }
+
+    /**
+     * Signs out users from all devices, as an administrator. It also invalidates all refresh tokens issued to a user. The
+     * user's current access and Id tokens remain valid until their expiry. Access and Id tokens expire one hour after
+     * they're issued.
+     *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminUserGlobalSignOut.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#adminuserglobalsignout
+     *
+     * @param array{
+     *   UserPoolId: string,
+     *   Username: string,
+     *   @region?: string,
+     * }|AdminUserGlobalSignOutRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
+     * @throws TooManyRequestsException
+     * @throws NotAuthorizedException
+     * @throws UserNotFoundException
+     * @throws InternalErrorException
+     */
+    public function adminUserGlobalSignOut($input): AdminUserGlobalSignOutResponse
+    {
+        $input = AdminUserGlobalSignOutRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminUserGlobalSignOut', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
+
+        return new AdminUserGlobalSignOutResponse($response);
     }
 
     /**
