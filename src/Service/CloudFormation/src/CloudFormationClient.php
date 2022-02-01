@@ -114,15 +114,8 @@ class CloudFormationClient extends AbstractApi
                 ];
             case 'us-isob-east-1':
                 return [
-                    'endpoint' => "https://cloudformation.$region.sc2s.sgov.gov",
-                    'signRegion' => $region,
-                    'signService' => 'cloudformation',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-east-1':
-                return [
-                    'endpoint' => 'https://cloudformation.us-east-1.amazonaws.com',
-                    'signRegion' => 'us-east-1',
+                    'endpoint' => 'https://cloudformation.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
                     'signService' => 'cloudformation',
                     'signVersions' => ['v4'],
                 ];
@@ -133,13 +126,6 @@ class CloudFormationClient extends AbstractApi
                     'signService' => 'cloudformation',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-east-2':
-                return [
-                    'endpoint' => 'https://cloudformation.us-east-2.amazonaws.com',
-                    'signRegion' => 'us-east-2',
-                    'signService' => 'cloudformation',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-east-2-fips':
                 return [
                     'endpoint' => 'https://cloudformation-fips.us-east-2.amazonaws.com',
@@ -147,38 +133,10 @@ class CloudFormationClient extends AbstractApi
                     'signService' => 'cloudformation',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-gov-east-1':
-                return [
-                    'endpoint' => 'https://cloudformation.us-gov-east-1.amazonaws.com',
-                    'signRegion' => 'us-gov-east-1',
-                    'signService' => 'cloudformation',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-gov-west-1':
-                return [
-                    'endpoint' => 'https://cloudformation.us-gov-west-1.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
-                    'signService' => 'cloudformation',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-west-1':
-                return [
-                    'endpoint' => 'https://cloudformation.us-west-1.amazonaws.com',
-                    'signRegion' => 'us-west-1',
-                    'signService' => 'cloudformation',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-west-1-fips':
                 return [
                     'endpoint' => 'https://cloudformation-fips.us-west-1.amazonaws.com',
                     'signRegion' => 'us-west-1',
-                    'signService' => 'cloudformation',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-west-2':
-                return [
-                    'endpoint' => 'https://cloudformation.us-west-2.amazonaws.com',
-                    'signRegion' => 'us-west-2',
                     'signService' => 'cloudformation',
                     'signVersions' => ['v4'],
                 ];

@@ -221,37 +221,6 @@ class RdsDataServiceClient extends AbstractApi
         }
 
         switch ($region) {
-            case 'cn-north-1':
-            case 'cn-northwest-1':
-                return [
-                    'endpoint' => "https://rds-data.$region.amazonaws.com",
-                    'signRegion' => $region,
-                    'signService' => 'rds-data',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-gov-east-1':
-            case 'us-gov-west-1':
-                return [
-                    'endpoint' => "https://rds-data.$region.amazonaws.com",
-                    'signRegion' => $region,
-                    'signService' => 'rds-data',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-iso-east-1':
-            case 'us-iso-west-1':
-                return [
-                    'endpoint' => "https://rds-data.$region.amazonaws.com",
-                    'signRegion' => $region,
-                    'signService' => 'rds-data',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-isob-east-1':
-                return [
-                    'endpoint' => "https://rds-data.$region.amazonaws.com",
-                    'signRegion' => $region,
-                    'signService' => 'rds-data',
-                    'signVersions' => ['v4'],
-                ];
         }
 
         return [

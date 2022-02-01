@@ -231,15 +231,8 @@ class CodeDeployClient extends AbstractApi
                 ];
             case 'us-isob-east-1':
                 return [
-                    'endpoint' => "https://codedeploy.$region.sc2s.sgov.gov",
-                    'signRegion' => $region,
-                    'signService' => 'codedeploy',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-east-1':
-                return [
-                    'endpoint' => 'https://codedeploy.us-east-1.amazonaws.com',
-                    'signRegion' => 'us-east-1',
+                    'endpoint' => 'https://codedeploy.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
                     'signService' => 'codedeploy',
                     'signVersions' => ['v4'],
                 ];
@@ -250,24 +243,10 @@ class CodeDeployClient extends AbstractApi
                     'signService' => 'codedeploy',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-east-2':
-                return [
-                    'endpoint' => 'https://codedeploy.us-east-2.amazonaws.com',
-                    'signRegion' => 'us-east-2',
-                    'signService' => 'codedeploy',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-east-2-fips':
                 return [
                     'endpoint' => 'https://codedeploy-fips.us-east-2.amazonaws.com',
                     'signRegion' => 'us-east-2',
-                    'signService' => 'codedeploy',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-gov-east-1':
-                return [
-                    'endpoint' => 'https://codedeploy.us-gov-east-1.amazonaws.com',
-                    'signRegion' => 'us-gov-east-1',
                     'signService' => 'codedeploy',
                     'signVersions' => ['v4'],
                 ];
@@ -278,13 +257,6 @@ class CodeDeployClient extends AbstractApi
                     'signService' => 'codedeploy',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-gov-west-1':
-                return [
-                    'endpoint' => 'https://codedeploy.us-gov-west-1.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
-                    'signService' => 'codedeploy',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-gov-west-1-fips':
                 return [
                     'endpoint' => 'https://codedeploy-fips.us-gov-west-1.amazonaws.com',
@@ -292,24 +264,10 @@ class CodeDeployClient extends AbstractApi
                     'signService' => 'codedeploy',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-west-1':
-                return [
-                    'endpoint' => 'https://codedeploy.us-west-1.amazonaws.com',
-                    'signRegion' => 'us-west-1',
-                    'signService' => 'codedeploy',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-west-1-fips':
                 return [
                     'endpoint' => 'https://codedeploy-fips.us-west-1.amazonaws.com',
                     'signRegion' => 'us-west-1',
-                    'signService' => 'codedeploy',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-west-2':
-                return [
-                    'endpoint' => 'https://codedeploy.us-west-2.amazonaws.com',
-                    'signRegion' => 'us-west-2',
                     'signService' => 'codedeploy',
                     'signVersions' => ['v4'],
                 ];

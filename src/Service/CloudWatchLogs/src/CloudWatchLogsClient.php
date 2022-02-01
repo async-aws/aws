@@ -197,8 +197,8 @@ class CloudWatchLogsClient extends AbstractApi
                 ];
             case 'us-isob-east-1':
                 return [
-                    'endpoint' => "https://logs.$region.sc2s.sgov.gov",
-                    'signRegion' => $region,
+                    'endpoint' => 'https://logs.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
                     'signService' => 'logs',
                     'signVersions' => ['v4'],
                 ];
@@ -226,48 +226,6 @@ class CloudWatchLogsClient extends AbstractApi
             case 'fips-us-west-2':
                 return [
                     'endpoint' => 'https://logs-fips.us-west-2.amazonaws.com',
-                    'signRegion' => 'us-west-2',
-                    'signService' => 'logs',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-east-1':
-                return [
-                    'endpoint' => 'https://logs.us-east-1.amazonaws.com',
-                    'signRegion' => 'us-east-1',
-                    'signService' => 'logs',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-east-2':
-                return [
-                    'endpoint' => 'https://logs.us-east-2.amazonaws.com',
-                    'signRegion' => 'us-east-2',
-                    'signService' => 'logs',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-gov-east-1':
-                return [
-                    'endpoint' => 'https://logs.us-gov-east-1.amazonaws.com',
-                    'signRegion' => 'us-gov-east-1',
-                    'signService' => 'logs',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-gov-west-1':
-                return [
-                    'endpoint' => 'https://logs.us-gov-west-1.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
-                    'signService' => 'logs',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-west-1':
-                return [
-                    'endpoint' => 'https://logs.us-west-1.amazonaws.com',
-                    'signRegion' => 'us-west-1',
-                    'signService' => 'logs',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-west-2':
-                return [
-                    'endpoint' => 'https://logs.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',
                     'signService' => 'logs',
                     'signVersions' => ['v4'],

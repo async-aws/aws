@@ -377,8 +377,8 @@ class LambdaClient extends AbstractApi
                 ];
             case 'us-isob-east-1':
                 return [
-                    'endpoint' => "https://lambda.$region.sc2s.sgov.gov",
-                    'signRegion' => $region,
+                    'endpoint' => 'https://lambda.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
                     'signService' => 'lambda',
                     'signVersions' => ['v4'],
                 ];
