@@ -101,6 +101,7 @@
                 "AdminResetUserPassword",
                 "AdminSetUserPassword",
                 "AdminUpdateUserAttributes",
+                "AdminUserGlobalSignOut",
                 "AssociateSoftwareToken",
                 "ChangePassword",
                 "ConfirmForgotPassword",

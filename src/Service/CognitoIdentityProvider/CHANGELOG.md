@@ -5,8 +5,9 @@
 ### Added
 
 - AWS api-change: Use specific configuration for `us` regions
-- Added operation `adminResetUserPassword` 
+- Added operation `adminResetUserPassword`
 - AWS enhancement: Documentation updates.
+- Added operation `adminUserGlobalSignOut`
 
 ## 1.3.0
 

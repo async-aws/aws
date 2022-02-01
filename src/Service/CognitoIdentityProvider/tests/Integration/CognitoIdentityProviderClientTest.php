@@ -11,6 +11,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AdminInitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminResetUserPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminSetUserPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminUpdateUserAttributesRequest;
+use AsyncAws\CognitoIdentityProvider\Input\AdminUserGlobalSignOutRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ConfirmForgotPasswordRequest;
@@ -190,6 +191,19 @@ class CognitoIdentityProviderClientTest extends TestCase
             'ClientMetadata' => ['change me' => 'change me'],
         ]);
         $result = $client->AdminUpdateUserAttributes($input);
+
+        $result->resolve();
+    }
+
+    public function testAdminUserGlobalSignOut(): void
+    {
+        $client = $this->getClient();
+
+        $input = new AdminUserGlobalSignOutRequest([
+            'UserPoolId' => 'change me',
+            'Username' => 'change me',
+        ]);
+        $result = $client->adminUserGlobalSignOut($input);
 
         $result->resolve();
     }
