@@ -105,9 +105,12 @@ class DynamoDbClient extends AbstractApi
 
     /**
      * The `BatchWriteItem` operation puts or deletes multiple items in one or more tables. A single call to
-     * `BatchWriteItem` can write up to 16 MB of data, which can comprise as many as 25 put or delete requests. Individual
-     * items to be written can be as large as 400 KB.
+     * `BatchWriteItem` can transmit up to 16MB of data over the network, consisting of up to 25 item put or delete
+     * operations. While individual items can be up to 400 KB once stored, it's important to note that an item's
+     * representation might be greater than 400KB while being sent in DynamoDB's JSON format for the API call. For more
+     * details on this distinction, see Naming Rules and Data Types.
      *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html
      * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#batchwriteitem
      *
