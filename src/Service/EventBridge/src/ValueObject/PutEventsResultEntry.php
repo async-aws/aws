@@ -3,7 +3,10 @@
 namespace AsyncAws\EventBridge\ValueObject;
 
 /**
- * Represents an event that failed to be submitted.
+ * Represents an event that failed to be submitted. For information about the errors that are common to all actions, see
+ * Common Errors.
+ *
+ * @see https://docs.aws.amazon.com/eventbridge/latest/APIReference/CommonErrors.html
  */
 final class PutEventsResultEntry
 {

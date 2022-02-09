@@ -43,7 +43,7 @@ final class PutEventsRequestEntry
     private $eventBusName;
 
     /**
-     * An X-Ray trade header, which is an http header (X-Amzn-Trace-Id) that contains the trace-id associated with the
+     * An X-Ray trace header, which is an http header (X-Amzn-Trace-Id) that contains the trace-id associated with the
      * event.
      */
     private $traceHeader;
