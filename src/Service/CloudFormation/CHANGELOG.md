@@ -4,9 +4,7 @@
 
 ### Added
 
-- AWS api-change: This SDK release is for the feature launch of AWS CloudFormation Hooks.
-- AWS api-change: This release include SDK changes for the feature launch of Stack Import to Service Managed StackSet.
-- AWS api-change: The StackSets ManagedExecution feature will allow concurrency for non-conflicting StackSet operations and queuing the StackSet operations that conflict at a given time for later execution.
+- AWS api-change: Add support to AWS CloudFormation Hooks.
 
 ## 1.2.0
 
