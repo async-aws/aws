@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Add support to AWS CloudFormation Hooks.
+
 ## 1.2.0
 
 ### Added

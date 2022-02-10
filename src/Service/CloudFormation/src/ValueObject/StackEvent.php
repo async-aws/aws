@@ -2,6 +2,9 @@
 
 namespace AsyncAws\CloudFormation\ValueObject;
 
+use AsyncAws\CloudFormation\Enum\HookFailureMode;
+use AsyncAws\CloudFormation\Enum\HookInvocationPoint;
+use AsyncAws\CloudFormation\Enum\HookStatus;
 use AsyncAws\CloudFormation\Enum\ResourceStatus;
 
 /**
@@ -68,6 +71,31 @@ final class StackEvent
     private $clientRequestToken;
 
     /**
+     * The name of the hook.
+     */
+    private $hookType;
+
+    /**
+     * Provides the status of the change set hook.
+     */
+    private $hookStatus;
+
+    /**
+     * Provides the reason for the hook status.
+     */
+    private $hookStatusReason;
+
+    /**
+     * Invocation points are points in provisioning logic where hooks are initiated.
+     */
+    private $hookInvocationPoint;
+
+    /**
+     * Specify the hook failure mode for non-compliant resources in the followings ways.
+     */
+    private $hookFailureMode;
+
+    /**
      * @param array{
      *   StackId: string,
      *   EventId: string,
@@ -80,6 +108,11 @@ final class StackEvent
      *   ResourceStatusReason?: null|string,
      *   ResourceProperties?: null|string,
      *   ClientRequestToken?: null|string,
+     *   HookType?: null|string,
+     *   HookStatus?: null|HookStatus::*,
+     *   HookStatusReason?: null|string,
+     *   HookInvocationPoint?: null|HookInvocationPoint::*,
+     *   HookFailureMode?: null|HookFailureMode::*,
      * } $input
      */
     public function __construct(array $input)
@@ -95,6 +128,11 @@ final class StackEvent
         $this->resourceStatusReason = $input['ResourceStatusReason'] ?? null;
         $this->resourceProperties = $input['ResourceProperties'] ?? null;
         $this->clientRequestToken = $input['ClientRequestToken'] ?? null;
+        $this->hookType = $input['HookType'] ?? null;
+        $this->hookStatus = $input['HookStatus'] ?? null;
+        $this->hookStatusReason = $input['HookStatusReason'] ?? null;
+        $this->hookInvocationPoint = $input['HookInvocationPoint'] ?? null;
+        $this->hookFailureMode = $input['HookFailureMode'] ?? null;
     }
 
     public static function create($input): self
@@ -110,6 +148,40 @@ final class StackEvent
     public function getEventId(): string
     {
         return $this->eventId;
+    }
+
+    /**
+     * @return HookFailureMode::*|null
+     */
+    public function getHookFailureMode(): ?string
+    {
+        return $this->hookFailureMode;
+    }
+
+    /**
+     * @return HookInvocationPoint::*|null
+     */
+    public function getHookInvocationPoint(): ?string
+    {
+        return $this->hookInvocationPoint;
+    }
+
+    /**
+     * @return HookStatus::*|null
+     */
+    public function getHookStatus(): ?string
+    {
+        return $this->hookStatus;
+    }
+
+    public function getHookStatusReason(): ?string
+    {
+        return $this->hookStatusReason;
+    }
+
+    public function getHookType(): ?string
+    {
+        return $this->hookType;
     }
 
     public function getLogicalResourceId(): ?string

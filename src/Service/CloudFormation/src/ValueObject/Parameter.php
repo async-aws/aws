@@ -9,7 +9,7 @@ final class Parameter
 {
     /**
      * The key associated with the parameter. If you don't specify a key and value for a particular parameter,
-     * CloudFormation uses the default value that is specified in your template.
+     * CloudFormation uses the default value that's specified in your template.
      */
     private $parameterKey;
 
@@ -25,8 +25,8 @@ final class Parameter
     private $usePreviousValue;
 
     /**
-     * Read-only. Read-only. The value that corresponds to a SSM parameter key. This field is returned only for `SSM`
-     * parameter types in the template.
+     * Read-only. The value that corresponds to a SSM parameter key. This field is returned only for `SSM` parameter types
+     * in the template.
      *
      * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-ssm-parameter-types
      */

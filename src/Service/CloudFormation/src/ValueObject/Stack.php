@@ -72,7 +72,7 @@ final class Stack
     private $disableRollback;
 
     /**
-     * SNS topic ARNs to which stack related events are published.
+     * Amazon SNS topic Amazon Resource Names (ARNs) to which stack related events are published.
      */
     private $notificationArns;
 
@@ -92,7 +92,7 @@ final class Stack
     private $outputs;
 
     /**
-     * The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that is associated with the stack.
+     * The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that's associated with the stack.
      * During a stack operation, CloudFormation uses this role's credentials to make calls on your behalf.
      */
     private $roleArn;

@@ -116,6 +116,11 @@ class DescribeStackEventsOutput extends Result implements \IteratorAggregate
                 'ResourceStatusReason' => ($v = $item->ResourceStatusReason) ? (string) $v : null,
                 'ResourceProperties' => ($v = $item->ResourceProperties) ? (string) $v : null,
                 'ClientRequestToken' => ($v = $item->ClientRequestToken) ? (string) $v : null,
+                'HookType' => ($v = $item->HookType) ? (string) $v : null,
+                'HookStatus' => ($v = $item->HookStatus) ? (string) $v : null,
+                'HookStatusReason' => ($v = $item->HookStatusReason) ? (string) $v : null,
+                'HookInvocationPoint' => ($v = $item->HookInvocationPoint) ? (string) $v : null,
+                'HookFailureMode' => ($v = $item->HookFailureMode) ? (string) $v : null,
             ]);
         }
 

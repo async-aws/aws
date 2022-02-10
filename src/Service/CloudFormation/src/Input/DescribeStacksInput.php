@@ -12,7 +12,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class DescribeStacksInput extends Input
 {
     /**
-     * The name or the unique stack ID that is associated with the stack, which are not always interchangeable:.
+     * The name or the unique stack ID that's associated with the stack, which aren't always interchangeable:.
      *
      * @var string|null
      */
