@@ -36,10 +36,12 @@ use AsyncAws\S3\Input\DeleteBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\DeleteObjectsRequest;
 use AsyncAws\S3\Input\GetBucketCorsRequest;
+use AsyncAws\S3\Input\GetBucketEncryptionRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\HeadBucketRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
+use AsyncAws\S3\Input\ListBucketsRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
@@ -58,9 +60,11 @@ use AsyncAws\S3\Result\CreateMultipartUploadOutput;
 use AsyncAws\S3\Result\DeleteObjectOutput;
 use AsyncAws\S3\Result\DeleteObjectsOutput;
 use AsyncAws\S3\Result\GetBucketCorsOutput;
+use AsyncAws\S3\Result\GetBucketEncryptionOutput;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
+use AsyncAws\S3\Result\ListBucketsOutput;
 use AsyncAws\S3\Result\ListMultipartUploadsOutput;
 use AsyncAws\S3\Result\ListObjectsV2Output;
 use AsyncAws\S3\Result\ListPartsOutput;
@@ -447,6 +451,27 @@ class S3Client extends AbstractApi
     }
 
     /**
+     * Returns the default encryption configuration for an Amazon S3 bucket. If the bucket does not have a default
+     * encryption configuration, GetBucketEncryption returns `ServerSideEncryptionConfigurationNotFoundError`.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketEncryption.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#getbucketencryption
+     *
+     * @param array{
+     *   Bucket: string,
+     *   ExpectedBucketOwner?: string,
+     *   @region?: string,
+     * }|GetBucketEncryptionRequest $input
+     */
+    public function getBucketEncryption($input): GetBucketEncryptionOutput
+    {
+        $input = GetBucketEncryptionRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'GetBucketEncryption', 'region' => $input->getRegion()]));
+
+        return new GetBucketEncryptionOutput($response);
+    }
+
+    /**
      * Retrieves objects from Amazon S3. To use `GET`, you must have `READ` access to the object. If you grant `READ` access
      * to the anonymous user, you can return the object without using an authorization header.
      *
@@ -557,6 +582,25 @@ class S3Client extends AbstractApi
         ]]));
 
         return new HeadObjectOutput($response);
+    }
+
+    /**
+     * Returns a list of all buckets owned by the authenticated sender of the request.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTServiceGET.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#listbuckets
+     *
+     * @param array{
+     *   @region?: string,
+     * }|ListBucketsRequest $input
+     */
+    public function listBuckets($input = []): ListBucketsOutput
+    {
+        $input = ListBucketsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListBuckets', 'region' => $input->getRegion()]));
+
+        return new ListBucketsOutput($response);
     }
 
     /**

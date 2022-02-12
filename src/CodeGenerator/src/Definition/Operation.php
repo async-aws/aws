@@ -120,17 +120,13 @@ class Operation
 
     public function getInput(): StructureShape
     {
-        if (isset($this->data['input']['shape'])) {
-            $shape = ($this->shapeLocator)($this->data['input']['shape']);
+        $shape = $this->getInputShape();
 
-            if (!$shape instanceof StructureShape) {
-                throw new \InvalidArgumentException(sprintf('The operation "%s" should have an Structure Input.', $this->getName()));
-            }
-
-            return $shape;
+        if (!$shape instanceof StructureShape) {
+            throw new \InvalidArgumentException(sprintf('The operation "%s" should have an Structure Input.', $this->getName()));
         }
 
-        throw new \InvalidArgumentException(sprintf('The operation "%s" does not have Input.', $this->getName()));
+        return $shape;
     }
 
     public function getInputLocation(): ?string
@@ -175,5 +171,23 @@ class Operation
     public function isDeprecated(): bool
     {
         return $this->data['deprecated'] ?? false;
+    }
+
+    private function getInputShape(): Shape
+    {
+        if (isset($this->data['input']['shape'])) {
+            return ($this->shapeLocator)($this->data['input']['shape']);
+        }
+
+        return Shape::create(
+            sprintf('%sRequest', $this->getName()),
+            ['type' => 'structure', 'required' => [], 'members' => []],
+            function () {
+                return null;
+            },
+            function () {
+                return null;
+            }
+        );
     }
 }

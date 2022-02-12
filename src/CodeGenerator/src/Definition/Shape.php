@@ -64,7 +64,7 @@ class Shape
 
     public function getDocumentation(): ?string
     {
-        return $this->data['_documentation'];
+        return $this->data['_documentation'] ?? null;
     }
 
     public function getType(): string
