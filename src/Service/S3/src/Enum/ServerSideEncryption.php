@@ -3,9 +3,7 @@
 namespace AsyncAws\S3\Enum;
 
 /**
- * If you specified server-side encryption either with an Amazon S3-managed encryption key or an Amazon Web Services KMS
- * key in your initiate multipart upload request, the response includes this header. It confirms the encryption
- * algorithm that Amazon S3 used to encrypt the object.
+ * Server-side encryption algorithm to use for the default encryption.
  */
 final class ServerSideEncryption
 {

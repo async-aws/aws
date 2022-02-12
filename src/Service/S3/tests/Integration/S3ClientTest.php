@@ -18,10 +18,12 @@ use AsyncAws\S3\Input\DeleteBucketCorsRequest;
 use AsyncAws\S3\Input\DeleteBucketRequest;
 use AsyncAws\S3\Input\DeleteObjectRequest;
 use AsyncAws\S3\Input\GetBucketCorsRequest;
+use AsyncAws\S3\Input\GetBucketEncryptionRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\HeadBucketRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
+use AsyncAws\S3\Input\ListBucketsRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
@@ -74,8 +76,8 @@ class S3ClientTest extends TestCase
         $input = new PutObjectRequest();
         $fileBody = 'foobar';
         $input->setBucket('foo')
-        ->setKey('bar')
-        ->setBody($fileBody);
+            ->setKey('bar')
+            ->setBody($fileBody);
         $result = $s3->putObject($input);
 
         $result->resolve();
@@ -320,6 +322,21 @@ class S3ClientTest extends TestCase
         // self::assertTODO(expected, $result->getCORSRules());
     }
 
+    public function testGetBucketEncryption(): void
+    {
+        $client = $this->getClient();
+
+        $input = new GetBucketEncryptionRequest([
+            'Bucket' => 'change me',
+            'ExpectedBucketOwner' => 'change me',
+        ]);
+        $result = $client->getBucketEncryption($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getServerSideEncryptionConfiguration());
+    }
+
     public function testGetFileNotExist()
     {
         $s3 = $this->getClient();
@@ -492,6 +509,21 @@ class S3ClientTest extends TestCase
         ]);
 
         self::assertEquals(['bar#pound/baz#pound'], array_map(function (AwsObject $prefix) {return $prefix->getKey(); }, iterator_to_array($result->getContents())));
+    }
+
+    public function testListBuckets(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ListBucketsRequest([
+
+        ]);
+        $result = $client->listBuckets($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getBuckets());
+        // self::assertTODO(expected, $result->getOwner());
     }
 
     public function testListMultipartUploads(): void
