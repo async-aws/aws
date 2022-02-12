@@ -122,10 +122,6 @@ class Operation
     {
         $shape = $this->getInputShape();
 
-        if (null === $shape) {
-            throw new \InvalidArgumentException(sprintf('The operation "%s" does not have Input.', $this->getName()));
-        }
-
         if (!$shape instanceof StructureShape) {
             throw new \InvalidArgumentException(sprintf('The operation "%s" should have an Structure Input.', $this->getName()));
         }
@@ -177,27 +173,21 @@ class Operation
         return $this->data['deprecated'] ?? false;
     }
 
-    private function getInputShape(): ?Shape
+    private function getInputShape(): Shape
     {
         if (isset($this->data['input']['shape'])) {
             return ($this->shapeLocator)($this->data['input']['shape']);
         }
 
-        $output = $this->getOutput();
-
-        if (null !== $output) {
-            return Shape::create(
-                str_replace('Output', 'Request', $output->getName()),
-                ['type' => 'structure', 'required' => [], 'members' => []],
-                function () {
-                    return null;
-                },
-                function () {
-                    return null;
-                }
-            );
-        }
-
-        return null;
+        return Shape::create(
+            $this->getName().'Request',
+            ['type' => 'structure', 'required' => [], 'members' => []],
+            function () {
+                return null;
+            },
+            function () {
+                return null;
+            }
+        );
     }
 }
