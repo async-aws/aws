@@ -43,6 +43,6 @@ class GetBucketEncryptionOutputTest extends TestCase
         self::assertInstanceOf(ServerSideEncryptionByDefault::class, $firstRule->getApplyServerSideEncryptionByDefault());
         self::assertSame('arn:aws:kms:us-east-1:1234abcd-12ab-34cd-56ef-1234567890ab', $firstRule->getApplyServerSideEncryptionByDefault()->getKmsMasterKeyId());
         self::assertSame(ServerSideEncryption::AWS_KMS, $firstRule->getApplyServerSideEncryptionByDefault()->getSseAlgorithm());
-        self::assertTrue($firstRule->getBucketKeyEnabled());
+        self::assertFalse($firstRule->getBucketKeyEnabled());
     }
 }
