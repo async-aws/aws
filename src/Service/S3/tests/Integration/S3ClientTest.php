@@ -515,16 +515,19 @@ class S3ClientTest extends TestCase
     public function testListBuckets(): void
     {
         $client = $this->getClient();
+        $client->CreateBucket(['Bucket' => 'test-list'])->resolve();
 
-        $input = new ListBucketsRequest([
-
-        ]);
+        $input = new ListBucketsRequest([]);
         $result = $client->listBuckets($input);
 
         $result->resolve();
 
-        // self::assertTODO(expected, $result->getBuckets());
-        // self::assertTODO(expected, $result->getOwner());
+        self::assertSame('FakeS3', $result->getOwner()->getDisplayName());
+        $buckets = array_map(static function (Bucket $bucket): string {
+            return $bucket->getName();
+        }, $result->getBuckets());
+
+        self::assertContains('test-list', $buckets);
     }
 
     public function testListMultipartUploads(): void
