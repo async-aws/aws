@@ -36,6 +36,7 @@ use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\AccessControlPolicy;
 use AsyncAws\S3\ValueObject\AwsObject;
+use AsyncAws\S3\ValueObject\Bucket;
 use AsyncAws\S3\ValueObject\CommonPrefix;
 use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
 use AsyncAws\S3\ValueObject\CompletedPart;
