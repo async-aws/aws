@@ -130,6 +130,21 @@ class Operation
             return $shape;
         }
 
+        $output = $this->getOutput();
+
+        if (null !== $output) {
+            return Shape::create(
+                str_replace('Output', 'Request', $output->getName()),
+                ['type' => 'structure', 'required' => [], 'members' => []],
+                function () {
+                    return null;
+                },
+                function () {
+                    return null;
+                }
+            );
+        }
+
         throw new \InvalidArgumentException(sprintf('The operation "%s" does not have Input.', $this->getName()));
     }
 
