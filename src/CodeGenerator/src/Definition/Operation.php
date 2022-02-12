@@ -180,7 +180,7 @@ class Operation
         }
 
         return Shape::create(
-            $this->getName().'Request',
+            sprintf('%sRequest', $this->getName()),
             ['type' => 'structure', 'required' => [], 'members' => []],
             function () {
                 return null;
