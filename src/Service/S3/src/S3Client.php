@@ -40,6 +40,7 @@ use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\HeadBucketRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
+use AsyncAws\S3\Input\ListBucketsRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
@@ -61,6 +62,7 @@ use AsyncAws\S3\Result\GetBucketCorsOutput;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
+use AsyncAws\S3\Result\ListBucketsOutput;
 use AsyncAws\S3\Result\ListMultipartUploadsOutput;
 use AsyncAws\S3\Result\ListObjectsV2Output;
 use AsyncAws\S3\Result\ListPartsOutput;
@@ -557,6 +559,25 @@ class S3Client extends AbstractApi
         ]]));
 
         return new HeadObjectOutput($response);
+    }
+
+    /**
+     * Returns a list of all buckets owned by the authenticated sender of the request.
+     *
+     * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTServiceGET.html
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#listbuckets
+     *
+     * @param array{
+     *   @region?: string,
+     * }|ListBucketsRequest $input
+     */
+    public function listBuckets($input = []): ListBucketsOutput
+    {
+        $input = ListBucketsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListBuckets', 'region' => $input->getRegion()]));
+
+        return new ListBucketsOutput($response);
     }
 
     /**

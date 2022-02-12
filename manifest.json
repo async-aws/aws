@@ -369,6 +369,7 @@
                 "GetObject",
                 "GetObjectAcl",
                 "HeadObject",
+                "ListBuckets",
                 "ListMultipartUploads",
                 "ListObjectsV2",
                 "ListParts",

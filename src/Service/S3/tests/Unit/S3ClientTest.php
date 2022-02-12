@@ -19,6 +19,7 @@ use AsyncAws\S3\Input\GetBucketCorsRequest;
 use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
+use AsyncAws\S3\Input\ListBucketsRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
@@ -38,6 +39,7 @@ use AsyncAws\S3\Result\GetBucketCorsOutput;
 use AsyncAws\S3\Result\GetObjectAclOutput;
 use AsyncAws\S3\Result\GetObjectOutput;
 use AsyncAws\S3\Result\HeadObjectOutput;
+use AsyncAws\S3\Result\ListBucketsOutput;
 use AsyncAws\S3\Result\ListMultipartUploadsOutput;
 use AsyncAws\S3\Result\ListObjectsV2Output;
 use AsyncAws\S3\Result\ListPartsOutput;
@@ -294,6 +296,19 @@ class S3ClientTest extends TestCase
         $result = $client->HeadObject($input);
 
         self::assertInstanceOf(HeadObjectOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testListBuckets(): void
+    {
+        $client = new S3Client([], new NullProvider(), new MockHttpClient());
+
+        $input = new ListBucketsRequest([
+
+        ]);
+        $result = $client->listBuckets($input);
+
+        self::assertInstanceOf(ListBucketsOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 

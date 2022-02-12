@@ -130,7 +130,10 @@ class Operation
             return $shape;
         }
 
-        throw new \InvalidArgumentException(sprintf('The operation "%s" does not have Input.', $this->getName()));
+        return ($this->shapeLocator)($this->getName().'Request', null, ['fallback' => [
+            'type' => 'structure',
+            'members' => [],
+        ]]);
     }
 
     public function getInputLocation(): ?string

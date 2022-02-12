@@ -22,6 +22,7 @@ use AsyncAws\S3\Input\GetObjectAclRequest;
 use AsyncAws\S3\Input\GetObjectRequest;
 use AsyncAws\S3\Input\HeadBucketRequest;
 use AsyncAws\S3\Input\HeadObjectRequest;
+use AsyncAws\S3\Input\ListBucketsRequest;
 use AsyncAws\S3\Input\ListMultipartUploadsRequest;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\Input\ListPartsRequest;
@@ -34,6 +35,7 @@ use AsyncAws\S3\Result\PutObjectOutput;
 use AsyncAws\S3\S3Client;
 use AsyncAws\S3\ValueObject\AccessControlPolicy;
 use AsyncAws\S3\ValueObject\AwsObject;
+use AsyncAws\S3\ValueObject\Bucket;
 use AsyncAws\S3\ValueObject\CommonPrefix;
 use AsyncAws\S3\ValueObject\CompletedMultipartUpload;
 use AsyncAws\S3\ValueObject\CompletedPart;
@@ -492,6 +494,25 @@ class S3ClientTest extends TestCase
         ]);
 
         self::assertEquals(['bar#pound/baz#pound'], array_map(function (AwsObject $prefix) {return $prefix->getKey(); }, iterator_to_array($result->getContents())));
+    }
+
+    public function testListBuckets(): void
+    {
+        $client = $this->getClient();
+
+        $client->CreateBucket(['Bucket' => 'test-list'])->resolve();
+
+        $input = new ListBucketsRequest([]);
+        $result = $client->listBuckets($input);
+
+        $result->resolve();
+
+        self::assertSame('FakeS3', $result->getOwner()->getDisplayName());
+        $buckets = array_map(static function (Bucket $bucket): string {
+            return $bucket->getName();
+        }, $result->getBuckets());
+
+        self::assertContains('test-list', $buckets);
     }
 
     public function testListMultipartUploads(): void
