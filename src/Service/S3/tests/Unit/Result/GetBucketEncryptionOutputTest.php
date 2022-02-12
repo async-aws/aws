@@ -32,10 +32,12 @@ class GetBucketEncryptionOutputTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new GetBucketEncryptionOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertInstanceOf(ServerSideEncryptionConfiguration::class, $result);
-        self::assertCount(1, $result->getRules());
+        $sseConfig = $result->getServerSideEncryptionConfiguration();
 
-        $firstRule = $result->getRules()[0];
+        self::assertInstanceOf(ServerSideEncryptionConfiguration::class, $sseConfig);
+        self::assertCount(1, $sseConfig->getRules());
+
+        $firstRule = $sseConfig->getRules()[0];
 
         self::assertInstanceOf(ServerSideEncryptionRule::class, $firstRule);
         self::assertInstanceOf(ServerSideEncryptionByDefault::class, $firstRule->getApplyServerSideEncryptionByDefault());

@@ -324,6 +324,7 @@ class S3ClientTest extends TestCase
 
     public function testGetBucketEncryption(): void
     {
+        self::markTestSkipped('The S3 Docker image does not implement GetBucketEncryption.');
         $client = $this->getClient();
 
         $input = new GetBucketEncryptionRequest([
