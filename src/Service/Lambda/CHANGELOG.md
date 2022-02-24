@@ -11,6 +11,7 @@
 - AWS api-change: Release Lambda event source filtering for SQS, Kinesis Streams, and DynamoDB Streams.
 - AWS api-change: Add support for Lambda Function URLs. Customers can use Function URLs to create built-in HTTPS endpoints on their functions.
 - AWS api-change: Added support for CLIENT_CERTIFICATE_TLS_AUTH and SERVER_ROOT_CA_CERTIFICATE as SourceAccessType for MSK and Kafka event source mappings.
+- AWS api-change: Lambda releases .NET 6 managed runtime to be available in all commercial regions.
 
 ## 1.5.0
 
