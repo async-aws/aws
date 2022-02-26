@@ -23,10 +23,13 @@ class GeneratorHelper
 
         // Ordered by search length to avoid collision and wrong substitution
         static $replacements = [
+            'SHA256' => 'Sha256',
+            'CRC32' => 'Crc32',
             'BOOL' => 'Bool',
             'CORS' => 'Cors',
             'ETag' => 'Etag',
             'NULL' => 'Null',
+            'SHA1' => 'Sha1',
             'AWS' => 'Aws',
             'ACL' => 'Acl',
             'ACP' => 'Acp',
