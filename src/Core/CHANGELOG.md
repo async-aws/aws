@@ -7,6 +7,10 @@
 - Make the injected HttpClient decorated by our  `RetryableHttpClient`
 - Support for KMS
 
+### Fixed
+
+- Issue with symfony http-client when posting empty payload
+
 ## 1.13.0
 
 ### Added

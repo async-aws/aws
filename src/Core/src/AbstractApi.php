@@ -154,8 +154,7 @@ abstract class AbstractApi
             $request->getEndpoint(),
             [
                 'headers' => $request->getHeaders(),
-                'body' => 0 === $length ? null : $requestBody,
-            ]
+            ] + (0 === $length ? [] : ['body' => $requestBody])
         );
 
         if ($debug = filter_var($this->configuration->get('debug'), \FILTER_VALIDATE_BOOLEAN)) {
