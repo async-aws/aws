@@ -2,12 +2,15 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Support for Laravel 9
+
 ## 0.1.6
 
 ### Fixed
 
 - Fix laravel locking to use consistent reads
-
 
 ## 0.1.5
 
