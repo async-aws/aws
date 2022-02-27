@@ -277,6 +277,14 @@
       <code>list&lt;Reason::*&gt;</code>
     </MoreSpecificReturnType>
   </file>
+  <file src="src/Service/S3/src/Result/ListObjectsV2Output.php">
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="1">
+      <code>list&lt;ChecksumAlgorithm::*&gt;</code>
+    </MoreSpecificReturnType>
+  </file>
   <file src="src/Service/SecretsManager/src/Input/CreateSecretRequest.php">
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $v</code>

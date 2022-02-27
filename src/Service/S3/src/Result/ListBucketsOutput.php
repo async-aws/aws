@@ -13,7 +13,7 @@ use AsyncAws\S3\ValueObject\Owner;
 class ListBucketsOutput extends Result implements \IteratorAggregate
 {
     /**
-     * The list of buckets owned by the requestor.
+     * The list of buckets owned by the requester.
      */
     private $buckets;
 

@@ -9,6 +9,8 @@ use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
 use AsyncAws\S3\Enum\BucketCannedACL;
+use AsyncAws\S3\Enum\ChecksumAlgorithm;
+use AsyncAws\S3\Enum\ChecksumMode;
 use AsyncAws\S3\Enum\EncodingType;
 use AsyncAws\S3\Enum\MetadataDirective;
 use AsyncAws\S3\Enum\ObjectCannedACL;
@@ -166,8 +168,15 @@ class S3Client extends AbstractApi
      *   Key: string,
      *   MultipartUpload?: CompletedMultipartUpload|array,
      *   UploadId: string,
+     *   ChecksumCRC32?: string,
+     *   ChecksumCRC32C?: string,
+     *   ChecksumSHA1?: string,
+     *   ChecksumSHA256?: string,
      *   RequestPayer?: RequestPayer::*,
      *   ExpectedBucketOwner?: string,
+     *   SSECustomerAlgorithm?: string,
+     *   SSECustomerKey?: string,
+     *   SSECustomerKeyMD5?: string,
      *   @region?: string,
      * }|CompleteMultipartUploadRequest $input
      */
@@ -190,6 +199,7 @@ class S3Client extends AbstractApi
      *   ACL?: ObjectCannedACL::*,
      *   Bucket: string,
      *   CacheControl?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
      *   ContentDisposition?: string,
      *   ContentEncoding?: string,
      *   ContentLanguage?: string,
@@ -320,6 +330,7 @@ class S3Client extends AbstractApi
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
      *   ExpectedBucketOwner?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
      *   @region?: string,
      * }|CreateMultipartUploadRequest $input
      */
@@ -418,6 +429,7 @@ class S3Client extends AbstractApi
      *   RequestPayer?: RequestPayer::*,
      *   BypassGovernanceRetention?: bool,
      *   ExpectedBucketOwner?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
      *   @region?: string,
      * }|DeleteObjectsRequest $input
      */
@@ -430,7 +442,7 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * Returns the cors configuration information set for the bucket.
+     * Returns the Cross-Origin Resource Sharing (CORS) configuration information set for the bucket.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTBucketGETcors.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketCors.html
@@ -500,6 +512,7 @@ class S3Client extends AbstractApi
      *   RequestPayer?: RequestPayer::*,
      *   PartNumber?: int,
      *   ExpectedBucketOwner?: string,
+     *   ChecksumMode?: ChecksumMode::*,
      *   @region?: string,
      * }|GetObjectRequest $input
      *
@@ -518,9 +531,11 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * Returns the access control list (ACL) of an object. To use this operation, you must have `READ_ACP` access to the
-     * object.
+     * Returns the access control list (ACL) of an object. To use this operation, you must have `s3:GetObjectAcl`
+     * permissions or `READ_ACP` access to the object. For more information, see Mapping of ACL permissions and access
+     * policy permissions in the *Amazon S3 User Guide*.
      *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#acl-access-policy-permission-mapping
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTObjectGETacl.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAcl.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#getobjectacl
@@ -569,6 +584,7 @@ class S3Client extends AbstractApi
      *   RequestPayer?: RequestPayer::*,
      *   PartNumber?: int,
      *   ExpectedBucketOwner?: string,
+     *   ChecksumMode?: ChecksumMode::*,
      *   @region?: string,
      * }|HeadObjectRequest $input
      *
@@ -585,7 +601,8 @@ class S3Client extends AbstractApi
     }
 
     /**
-     * Returns a list of all buckets owned by the authenticated sender of the request.
+     * Returns a list of all buckets owned by the authenticated sender of the request. To use this operation, you must have
+     * the `s3:ListAllMyBuckets` permission.
      *
      * @see http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTServiceGET.html
      * @see https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html
@@ -690,6 +707,9 @@ class S3Client extends AbstractApi
      *   UploadId: string,
      *   RequestPayer?: RequestPayer::*,
      *   ExpectedBucketOwner?: string,
+     *   SSECustomerAlgorithm?: string,
+     *   SSECustomerKey?: string,
+     *   SSECustomerKeyMD5?: string,
      *   @region?: string,
      * }|ListPartsRequest $input
      */
@@ -719,6 +739,7 @@ class S3Client extends AbstractApi
      *   RequestPayer?: RequestPayer::*,
      *   PartNumber?: int,
      *   ExpectedBucketOwner?: string,
+     *   ChecksumMode?: ChecksumMode::*,
      *   @region?: string,
      * }|HeadObjectRequest $input
      */
@@ -750,6 +771,7 @@ class S3Client extends AbstractApi
      *   RequestPayer?: RequestPayer::*,
      *   PartNumber?: int,
      *   ExpectedBucketOwner?: string,
+     *   ChecksumMode?: ChecksumMode::*,
      *   @region?: string,
      * }|HeadObjectRequest $input
      */
@@ -774,6 +796,7 @@ class S3Client extends AbstractApi
      *   Bucket: string,
      *   CORSConfiguration: CORSConfiguration|array,
      *   ContentMD5?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
      *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * }|PutBucketCorsRequest $input
@@ -828,6 +851,11 @@ class S3Client extends AbstractApi
      *   ContentLength?: string,
      *   ContentMD5?: string,
      *   ContentType?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
+     *   ChecksumCRC32?: string,
+     *   ChecksumCRC32C?: string,
+     *   ChecksumSHA1?: string,
+     *   ChecksumSHA256?: string,
      *   Expires?: \DateTimeImmutable|string,
      *   GrantFullControl?: string,
      *   GrantRead?: string,
@@ -876,6 +904,7 @@ class S3Client extends AbstractApi
      *   AccessControlPolicy?: AccessControlPolicy|array,
      *   Bucket: string,
      *   ContentMD5?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
      *   GrantFullControl?: string,
      *   GrantRead?: string,
      *   GrantReadACP?: string,
@@ -912,6 +941,11 @@ class S3Client extends AbstractApi
      *   Bucket: string,
      *   ContentLength?: string,
      *   ContentMD5?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
+     *   ChecksumCRC32?: string,
+     *   ChecksumCRC32C?: string,
+     *   ChecksumSHA1?: string,
+     *   ChecksumSHA256?: string,
      *   Key: string,
      *   PartNumber: int,
      *   UploadId: string,

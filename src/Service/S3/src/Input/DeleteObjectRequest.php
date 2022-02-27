@@ -51,15 +51,15 @@ final class DeleteObjectRequest extends Input
 
     /**
      * Indicates whether S3 Object Lock should bypass Governance-mode restrictions to process this operation. To use this
-     * header, you must have the `s3:PutBucketPublicAccessBlock` permission.
+     * header, you must have the `s3:BypassGovernanceRetention` permission.
      *
      * @var bool|null
      */
     private $bypassGovernanceRetention;
 
     /**
-     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request will fail
-     * with an HTTP `403 (Access Denied)` error.
+     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with
+     * the HTTP status code `403 Forbidden` (access denied).
      *
      * @var string|null
      */

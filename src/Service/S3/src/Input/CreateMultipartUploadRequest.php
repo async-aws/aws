@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\S3\Enum\ChecksumAlgorithm;
 use AsyncAws\S3\Enum\ObjectCannedACL;
 use AsyncAws\S3\Enum\ObjectLockLegalHoldStatus;
 use AsyncAws\S3\Enum\ObjectLockMode;
@@ -225,19 +226,29 @@ final class CreateMultipartUploadRequest extends Input
     private $objectLockRetainUntilDate;
 
     /**
-     * Specifies whether you want to apply a Legal Hold to the uploaded object.
+     * Specifies whether you want to apply a legal hold to the uploaded object.
      *
      * @var ObjectLockLegalHoldStatus::*|null
      */
     private $objectLockLegalHoldStatus;
 
     /**
-     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request will fail
-     * with an HTTP `403 (Access Denied)` error.
+     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with
+     * the HTTP status code `403 Forbidden` (access denied).
      *
      * @var string|null
      */
     private $expectedBucketOwner;
+
+    /**
+     * Indicates the algorithm you want Amazon S3 to use to create the checksum for the object. For more information, see
+     * Checking object integrity in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var ChecksumAlgorithm::*|null
+     */
+    private $checksumAlgorithm;
 
     /**
      * @param array{
@@ -270,6 +281,7 @@ final class CreateMultipartUploadRequest extends Input
      *   ObjectLockRetainUntilDate?: \DateTimeImmutable|string,
      *   ObjectLockLegalHoldStatus?: ObjectLockLegalHoldStatus::*,
      *   ExpectedBucketOwner?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
      *   @region?: string,
      * } $input
      */
@@ -304,6 +316,7 @@ final class CreateMultipartUploadRequest extends Input
         $this->objectLockRetainUntilDate = !isset($input['ObjectLockRetainUntilDate']) ? null : ($input['ObjectLockRetainUntilDate'] instanceof \DateTimeImmutable ? $input['ObjectLockRetainUntilDate'] : new \DateTimeImmutable($input['ObjectLockRetainUntilDate']));
         $this->objectLockLegalHoldStatus = $input['ObjectLockLegalHoldStatus'] ?? null;
         $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
+        $this->checksumAlgorithm = $input['ChecksumAlgorithm'] ?? null;
         parent::__construct($input);
     }
 
@@ -333,6 +346,14 @@ final class CreateMultipartUploadRequest extends Input
     public function getCacheControl(): ?string
     {
         return $this->cacheControl;
+    }
+
+    /**
+     * @return ChecksumAlgorithm::*|null
+     */
+    public function getChecksumAlgorithm(): ?string
+    {
+        return $this->checksumAlgorithm;
     }
 
     public function getContentDisposition(): ?string
@@ -581,6 +602,12 @@ final class CreateMultipartUploadRequest extends Input
         if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
         }
+        if (null !== $this->checksumAlgorithm) {
+            if (!ChecksumAlgorithm::exists($this->checksumAlgorithm)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ChecksumAlgorithm" for "%s". The value "%s" is not a valid "ChecksumAlgorithm".', __CLASS__, $this->checksumAlgorithm));
+            }
+            $headers['x-amz-checksum-algorithm'] = $this->checksumAlgorithm;
+        }
         if (null !== $this->metadata) {
             foreach ($this->metadata as $key => $value) {
                 $headers["x-amz-meta-$key"] = $value;
@@ -636,6 +663,16 @@ final class CreateMultipartUploadRequest extends Input
     public function setCacheControl(?string $value): self
     {
         $this->cacheControl = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param ChecksumAlgorithm::*|null $value
+     */
+    public function setChecksumAlgorithm(?string $value): self
+    {
+        $this->checksumAlgorithm = $value;
 
         return $this;
     }

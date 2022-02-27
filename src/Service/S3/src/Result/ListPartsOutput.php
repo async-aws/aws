@@ -5,6 +5,7 @@ namespace AsyncAws\S3\Result;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\S3\Enum\ChecksumAlgorithm;
 use AsyncAws\S3\Enum\RequestCharged;
 use AsyncAws\S3\Enum\StorageClass;
 use AsyncAws\S3\Input\ListPartsRequest;
@@ -98,6 +99,11 @@ class ListPartsOutput extends Result implements \IteratorAggregate
 
     private $requestCharged;
 
+    /**
+     * The algorithm that was used to create a checksum of the object.
+     */
+    private $checksumAlgorithm;
+
     public function getAbortDate(): ?\DateTimeImmutable
     {
         $this->initialize();
@@ -117,6 +123,16 @@ class ListPartsOutput extends Result implements \IteratorAggregate
         $this->initialize();
 
         return $this->bucket;
+    }
+
+    /**
+     * @return ChecksumAlgorithm::*|null
+     */
+    public function getChecksumAlgorithm(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumAlgorithm;
     }
 
     public function getInitiator(): ?Initiator
@@ -275,6 +291,7 @@ class ListPartsOutput extends Result implements \IteratorAggregate
             'ID' => ($v = $data->Owner->ID) ? (string) $v : null,
         ]);
         $this->storageClass = ($v = $data->StorageClass) ? (string) $v : null;
+        $this->checksumAlgorithm = ($v = $data->ChecksumAlgorithm) ? (string) $v : null;
     }
 
     /**
@@ -289,6 +306,10 @@ class ListPartsOutput extends Result implements \IteratorAggregate
                 'LastModified' => ($v = $item->LastModified) ? new \DateTimeImmutable((string) $v) : null,
                 'ETag' => ($v = $item->ETag) ? (string) $v : null,
                 'Size' => ($v = $item->Size) ? (string) $v : null,
+                'ChecksumCRC32' => ($v = $item->ChecksumCRC32) ? (string) $v : null,
+                'ChecksumCRC32C' => ($v = $item->ChecksumCRC32C) ? (string) $v : null,
+                'ChecksumSHA1' => ($v = $item->ChecksumSHA1) ? (string) $v : null,
+                'ChecksumSHA256' => ($v = $item->ChecksumSHA256) ? (string) $v : null,
             ]);
         }
 

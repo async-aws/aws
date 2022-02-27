@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\S3\Enum\ChecksumAlgorithm;
 use AsyncAws\S3\Enum\MetadataDirective;
 use AsyncAws\S3\Enum\ObjectCannedACL;
 use AsyncAws\S3\Enum\ObjectLockLegalHoldStatus;
@@ -39,6 +40,16 @@ final class CopyObjectRequest extends Input
      * @var string|null
      */
     private $cacheControl;
+
+    /**
+     * Indicates the algorithm you want Amazon S3 to use to create the checksum for the object. For more information, see
+     * Checking object integrity in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var ChecksumAlgorithm::*|null
+     */
+    private $checksumAlgorithm;
 
     /**
      * Specifies presentational information for the object.
@@ -305,7 +316,7 @@ final class CopyObjectRequest extends Input
     private $objectLockRetainUntilDate;
 
     /**
-     * Specifies whether you want to apply a Legal Hold to the copied object.
+     * Specifies whether you want to apply a legal hold to the copied object.
      *
      * @var ObjectLockLegalHoldStatus::*|null
      */
@@ -313,7 +324,7 @@ final class CopyObjectRequest extends Input
 
     /**
      * The account ID of the expected destination bucket owner. If the destination bucket is owned by a different account,
-     * the request will fail with an HTTP `403 (Access Denied)` error.
+     * the request fails with the HTTP status code `403 Forbidden` (access denied).
      *
      * @var string|null
      */
@@ -321,7 +332,7 @@ final class CopyObjectRequest extends Input
 
     /**
      * The account ID of the expected source bucket owner. If the source bucket is owned by a different account, the request
-     * will fail with an HTTP `403 (Access Denied)` error.
+     * fails with the HTTP status code `403 Forbidden` (access denied).
      *
      * @var string|null
      */
@@ -332,6 +343,7 @@ final class CopyObjectRequest extends Input
      *   ACL?: ObjectCannedACL::*,
      *   Bucket?: string,
      *   CacheControl?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
      *   ContentDisposition?: string,
      *   ContentEncoding?: string,
      *   ContentLanguage?: string,
@@ -377,6 +389,7 @@ final class CopyObjectRequest extends Input
         $this->acl = $input['ACL'] ?? null;
         $this->bucket = $input['Bucket'] ?? null;
         $this->cacheControl = $input['CacheControl'] ?? null;
+        $this->checksumAlgorithm = $input['ChecksumAlgorithm'] ?? null;
         $this->contentDisposition = $input['ContentDisposition'] ?? null;
         $this->contentEncoding = $input['ContentEncoding'] ?? null;
         $this->contentLanguage = $input['ContentLanguage'] ?? null;
@@ -443,6 +456,14 @@ final class CopyObjectRequest extends Input
     public function getCacheControl(): ?string
     {
         return $this->cacheControl;
+    }
+
+    /**
+     * @return ChecksumAlgorithm::*|null
+     */
+    public function getChecksumAlgorithm(): ?string
+    {
+        return $this->checksumAlgorithm;
     }
 
     public function getContentDisposition(): ?string
@@ -665,6 +686,12 @@ final class CopyObjectRequest extends Input
         if (null !== $this->cacheControl) {
             $headers['Cache-Control'] = $this->cacheControl;
         }
+        if (null !== $this->checksumAlgorithm) {
+            if (!ChecksumAlgorithm::exists($this->checksumAlgorithm)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ChecksumAlgorithm" for "%s". The value "%s" is not a valid "ChecksumAlgorithm".', __CLASS__, $this->checksumAlgorithm));
+            }
+            $headers['x-amz-checksum-algorithm'] = $this->checksumAlgorithm;
+        }
         if (null !== $this->contentDisposition) {
             $headers['Content-Disposition'] = $this->contentDisposition;
         }
@@ -847,6 +874,16 @@ final class CopyObjectRequest extends Input
     public function setCacheControl(?string $value): self
     {
         $this->cacheControl = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param ChecksumAlgorithm::*|null $value
+     */
+    public function setChecksumAlgorithm(?string $value): self
+    {
+        $this->checksumAlgorithm = $value;
 
         return $this;
     }

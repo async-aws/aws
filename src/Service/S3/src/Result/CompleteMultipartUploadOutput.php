@@ -26,8 +26,8 @@ class CompleteMultipartUploadOutput extends Result
     private $key;
 
     /**
-     * If the object expiration is configured, this will contain the expiration date (expiry-date) and rule ID (rule-id).
-     * The value of rule-id is URL encoded.
+     * If the object expiration is configured, this will contain the expiration date (`expiry-date`) and rule ID
+     * (`rule-id`). The value of `rule-id` is URL-encoded.
      */
     private $expiration;
 
@@ -35,9 +35,48 @@ class CompleteMultipartUploadOutput extends Result
      * Entity tag that identifies the newly created object's data. Objects with different object data will have different
      * entity tags. The entity tag is an opaque string. The entity tag may or may not be an MD5 digest of the object data.
      * If the entity tag is not an MD5 digest of the object data, it will contain one or more nonhexadecimal characters
-     * and/or will consist of less than 32 or more than 32 hexadecimal digits.
+     * and/or will consist of less than 32 or more than 32 hexadecimal digits. For more information about how the entity tag
+     * is calculated, see Checking object integrity in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
      */
     private $etag;
+
+    /**
+     * The base64-encoded, 32-bit CRC32 checksum of the object. This will only be present if it was uploaded with the
+     * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
+     * checksums are calculated with multipart uploads, see  Checking object integrity in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     */
+    private $checksumCrc32;
+
+    /**
+     * The base64-encoded, 32-bit CRC32C checksum of the object. This will only be present if it was uploaded with the
+     * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
+     * checksums are calculated with multipart uploads, see  Checking object integrity in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     */
+    private $checksumCrc32C;
+
+    /**
+     * The base64-encoded, 160-bit SHA-1 digest of the object. This will only be present if it was uploaded with the object.
+     * With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are
+     * calculated with multipart uploads, see  Checking object integrity in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     */
+    private $checksumSha1;
+
+    /**
+     * The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the
+     * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
+     * checksums are calculated with multipart uploads, see  Checking object integrity in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     */
+    private $checksumSha256;
 
     /**
      * If you specified server-side encryption either with an Amazon S3-managed encryption key or an Amazon Web Services KMS
@@ -77,6 +116,34 @@ class CompleteMultipartUploadOutput extends Result
         $this->initialize();
 
         return $this->bucketKeyEnabled;
+    }
+
+    public function getChecksumCrc32(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumCrc32;
+    }
+
+    public function getChecksumCrc32C(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumCrc32C;
+    }
+
+    public function getChecksumSha1(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumSha1;
+    }
+
+    public function getChecksumSha256(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumSha256;
     }
 
     public function getEtag(): ?string
@@ -157,5 +224,9 @@ class CompleteMultipartUploadOutput extends Result
         $this->bucket = ($v = $data->Bucket) ? (string) $v : null;
         $this->key = ($v = $data->Key) ? (string) $v : null;
         $this->etag = ($v = $data->ETag) ? (string) $v : null;
+        $this->checksumCrc32 = ($v = $data->ChecksumCRC32) ? (string) $v : null;
+        $this->checksumCrc32C = ($v = $data->ChecksumCRC32C) ? (string) $v : null;
+        $this->checksumSha1 = ($v = $data->ChecksumSHA1) ? (string) $v : null;
+        $this->checksumSha256 = ($v = $data->ChecksumSHA256) ? (string) $v : null;
     }
 }

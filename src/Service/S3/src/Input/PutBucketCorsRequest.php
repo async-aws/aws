@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\S3\Enum\ChecksumAlgorithm;
 use AsyncAws\S3\ValueObject\CORSConfiguration;
 
 final class PutBucketCorsRequest extends Input
@@ -41,8 +42,20 @@ final class PutBucketCorsRequest extends Input
     private $contentMd5;
 
     /**
-     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request will fail
-     * with an HTTP `403 (Access Denied)` error.
+     * Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide
+     * any additional functionality if not using the SDK. When sending this header, there must be a corresponding
+     * `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code
+     * `400 Bad Request`. For more information, see Checking object integrity in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var ChecksumAlgorithm::*|null
+     */
+    private $checksumAlgorithm;
+
+    /**
+     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with
+     * the HTTP status code `403 Forbidden` (access denied).
      *
      * @var string|null
      */
@@ -53,6 +66,7 @@ final class PutBucketCorsRequest extends Input
      *   Bucket?: string,
      *   CORSConfiguration?: CORSConfiguration|array,
      *   ContentMD5?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
      *   ExpectedBucketOwner?: string,
      *   @region?: string,
      * } $input
@@ -62,6 +76,7 @@ final class PutBucketCorsRequest extends Input
         $this->bucket = $input['Bucket'] ?? null;
         $this->corsConfiguration = isset($input['CORSConfiguration']) ? CORSConfiguration::create($input['CORSConfiguration']) : null;
         $this->contentMd5 = $input['ContentMD5'] ?? null;
+        $this->checksumAlgorithm = $input['ChecksumAlgorithm'] ?? null;
         $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
         parent::__construct($input);
     }
@@ -74,6 +89,14 @@ final class PutBucketCorsRequest extends Input
     public function getBucket(): ?string
     {
         return $this->bucket;
+    }
+
+    /**
+     * @return ChecksumAlgorithm::*|null
+     */
+    public function getChecksumAlgorithm(): ?string
+    {
+        return $this->checksumAlgorithm;
     }
 
     public function getContentMd5(): ?string
@@ -100,6 +123,12 @@ final class PutBucketCorsRequest extends Input
         $headers = ['content-type' => 'application/xml'];
         if (null !== $this->contentMd5) {
             $headers['Content-MD5'] = $this->contentMd5;
+        }
+        if (null !== $this->checksumAlgorithm) {
+            if (!ChecksumAlgorithm::exists($this->checksumAlgorithm)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ChecksumAlgorithm" for "%s". The value "%s" is not a valid "ChecksumAlgorithm".', __CLASS__, $this->checksumAlgorithm));
+            }
+            $headers['x-amz-sdk-checksum-algorithm'] = $this->checksumAlgorithm;
         }
         if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
@@ -130,6 +159,16 @@ final class PutBucketCorsRequest extends Input
     public function setBucket(?string $value): self
     {
         $this->bucket = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param ChecksumAlgorithm::*|null $value
+     */
+    public function setChecksumAlgorithm(?string $value): self
+    {
+        $this->checksumAlgorithm = $value;
 
         return $this;
     }

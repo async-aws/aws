@@ -344,6 +344,7 @@ class ListMultipartUploadsOutput extends Result implements \IteratorAggregate
                     'ID' => ($v = $item->Initiator->ID) ? (string) $v : null,
                     'DisplayName' => ($v = $item->Initiator->DisplayName) ? (string) $v : null,
                 ]),
+                'ChecksumAlgorithm' => ($v = $item->ChecksumAlgorithm) ? (string) $v : null,
             ]);
         }
 
