@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\S3\Enum\ChecksumAlgorithm;
 use AsyncAws\S3\Enum\ObjectCannedACL;
 use AsyncAws\S3\Enum\RequestPayer;
 use AsyncAws\S3\ValueObject\AccessControlPolicy;
@@ -48,6 +49,18 @@ final class PutObjectAclRequest extends Input
      * @var string|null
      */
     private $contentMd5;
+
+    /**
+     * Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide
+     * any additional functionality if not using the SDK. When sending this header, there must be a corresponding
+     * `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code
+     * `400 Bad Request`. For more information, see Checking object integrity in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var ChecksumAlgorithm::*|null
+     */
+    private $checksumAlgorithm;
 
     /**
      * Allows grantee the read, write, read ACP, and write ACP permissions on the bucket.
@@ -106,8 +119,8 @@ final class PutObjectAclRequest extends Input
     private $versionId;
 
     /**
-     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request will fail
-     * with an HTTP `403 (Access Denied)` error.
+     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with
+     * the HTTP status code `403 Forbidden` (access denied).
      *
      * @var string|null
      */
@@ -119,6 +132,7 @@ final class PutObjectAclRequest extends Input
      *   AccessControlPolicy?: AccessControlPolicy|array,
      *   Bucket?: string,
      *   ContentMD5?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
      *   GrantFullControl?: string,
      *   GrantRead?: string,
      *   GrantReadACP?: string,
@@ -137,6 +151,7 @@ final class PutObjectAclRequest extends Input
         $this->accessControlPolicy = isset($input['AccessControlPolicy']) ? AccessControlPolicy::create($input['AccessControlPolicy']) : null;
         $this->bucket = $input['Bucket'] ?? null;
         $this->contentMd5 = $input['ContentMD5'] ?? null;
+        $this->checksumAlgorithm = $input['ChecksumAlgorithm'] ?? null;
         $this->grantFullControl = $input['GrantFullControl'] ?? null;
         $this->grantRead = $input['GrantRead'] ?? null;
         $this->grantReadAcp = $input['GrantReadACP'] ?? null;
@@ -170,6 +185,14 @@ final class PutObjectAclRequest extends Input
     public function getBucket(): ?string
     {
         return $this->bucket;
+    }
+
+    /**
+     * @return ChecksumAlgorithm::*|null
+     */
+    public function getChecksumAlgorithm(): ?string
+    {
+        return $this->checksumAlgorithm;
     }
 
     public function getContentMd5(): ?string
@@ -240,6 +263,12 @@ final class PutObjectAclRequest extends Input
         }
         if (null !== $this->contentMd5) {
             $headers['Content-MD5'] = $this->contentMd5;
+        }
+        if (null !== $this->checksumAlgorithm) {
+            if (!ChecksumAlgorithm::exists($this->checksumAlgorithm)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ChecksumAlgorithm" for "%s". The value "%s" is not a valid "ChecksumAlgorithm".', __CLASS__, $this->checksumAlgorithm));
+            }
+            $headers['x-amz-sdk-checksum-algorithm'] = $this->checksumAlgorithm;
         }
         if (null !== $this->grantFullControl) {
             $headers['x-amz-grant-full-control'] = $this->grantFullControl;
@@ -315,6 +344,16 @@ final class PutObjectAclRequest extends Input
     public function setBucket(?string $value): self
     {
         $this->bucket = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param ChecksumAlgorithm::*|null $value
+     */
+    public function setChecksumAlgorithm(?string $value): self
+    {
+        $this->checksumAlgorithm = $value;
 
         return $this;
     }

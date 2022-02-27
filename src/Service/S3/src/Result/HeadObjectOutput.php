@@ -27,8 +27,8 @@ class HeadObjectOutput extends Result
 
     /**
      * If the object expiration is configured (see PUT Bucket lifecycle), the response includes this header. It includes the
-     * expiry-date and rule-id key-value pairs providing object expiration information. The value of the rule-id is URL
-     * encoded.
+     * `expiry-date` and `rule-id` key-value pairs providing object expiration information. The value of the `rule-id` is
+     * URL-encoded.
      */
     private $expiration;
 
@@ -56,7 +56,44 @@ class HeadObjectOutput extends Result
     private $contentLength;
 
     /**
-     * An ETag is an opaque identifier assigned by a web server to a specific version of a resource found at a URL.
+     * The base64-encoded, 32-bit CRC32 checksum of the object. This will only be present if it was uploaded with the
+     * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
+     * checksums are calculated with multipart uploads, see  Checking object integrity in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     */
+    private $checksumCrc32;
+
+    /**
+     * The base64-encoded, 32-bit CRC32C checksum of the object. This will only be present if it was uploaded with the
+     * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
+     * checksums are calculated with multipart uploads, see  Checking object integrity in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     */
+    private $checksumCrc32C;
+
+    /**
+     * The base64-encoded, 160-bit SHA-1 digest of the object. This will only be present if it was uploaded with the object.
+     * With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are
+     * calculated with multipart uploads, see  Checking object integrity in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     */
+    private $checksumSha1;
+
+    /**
+     * The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the
+     * object. With multipart uploads, this may not be a checksum value of the object. For more information about how
+     * checksums are calculated with multipart uploads, see  Checking object integrity in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums
+     */
+    private $checksumSha256;
+
+    /**
+     * An entity tag (ETag) is an opaque identifier assigned by a web server to a specific version of a resource found at a
+     * URL.
      */
     private $etag;
 
@@ -159,7 +196,8 @@ class HeadObjectOutput extends Result
     private $replicationStatus;
 
     /**
-     * The count of parts this object has.
+     * The count of parts this object has. This value is only returned if you specify `partNumber` in your request and the
+     * object was uploaded as a multipart upload.
      */
     private $partsCount;
 
@@ -215,6 +253,34 @@ class HeadObjectOutput extends Result
         $this->initialize();
 
         return $this->cacheControl;
+    }
+
+    public function getChecksumCrc32(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumCrc32;
+    }
+
+    public function getChecksumCrc32C(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumCrc32C;
+    }
+
+    public function getChecksumSha1(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumSha1;
+    }
+
+    public function getChecksumSha256(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumSha256;
     }
 
     public function getContentDisposition(): ?string
@@ -431,6 +497,10 @@ class HeadObjectOutput extends Result
         $this->archiveStatus = $headers['x-amz-archive-status'][0] ?? null;
         $this->lastModified = isset($headers['last-modified'][0]) ? new \DateTimeImmutable($headers['last-modified'][0]) : null;
         $this->contentLength = $headers['content-length'][0] ?? null;
+        $this->checksumCrc32 = $headers['x-amz-checksum-crc32'][0] ?? null;
+        $this->checksumCrc32C = $headers['x-amz-checksum-crc32c'][0] ?? null;
+        $this->checksumSha1 = $headers['x-amz-checksum-sha1'][0] ?? null;
+        $this->checksumSha256 = $headers['x-amz-checksum-sha256'][0] ?? null;
         $this->etag = $headers['etag'][0] ?? null;
         $this->missingMeta = isset($headers['x-amz-missing-meta'][0]) ? filter_var($headers['x-amz-missing-meta'][0], \FILTER_VALIDATE_INT) : null;
         $this->versionId = $headers['x-amz-version-id'][0] ?? null;

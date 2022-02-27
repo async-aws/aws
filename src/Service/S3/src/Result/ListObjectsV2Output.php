@@ -5,6 +5,7 @@ namespace AsyncAws\S3\Result;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\S3\Enum\ChecksumAlgorithm;
 use AsyncAws\S3\Enum\EncodingType;
 use AsyncAws\S3\Input\ListObjectsV2Request;
 use AsyncAws\S3\S3Client;
@@ -302,6 +303,22 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
     }
 
     /**
+     * @return list<ChecksumAlgorithm::*>
+     */
+    private function populateResultChecksumAlgorithmList(\SimpleXMLElement $xml): array
+    {
+        $items = [];
+        foreach ($xml as $item) {
+            $a = ($v = $item) ? (string) $v : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
+    }
+
+    /**
      * @return CommonPrefix[]
      */
     private function populateResultCommonPrefixList(\SimpleXMLElement $xml): array
@@ -327,6 +344,7 @@ class ListObjectsV2Output extends Result implements \IteratorAggregate
                 'Key' => ($v = $item->Key) ? (string) $v : null,
                 'LastModified' => ($v = $item->LastModified) ? new \DateTimeImmutable((string) $v) : null,
                 'ETag' => ($v = $item->ETag) ? (string) $v : null,
+                'ChecksumAlgorithm' => !$item->ChecksumAlgorithm ? null : $this->populateResultChecksumAlgorithmList($item->ChecksumAlgorithm),
                 'Size' => ($v = $item->Size) ? (string) $v : null,
                 'StorageClass' => ($v = $item->StorageClass) ? (string) $v : null,
                 'Owner' => !$item->Owner ? null : new Owner([

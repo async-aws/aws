@@ -169,6 +169,10 @@ class CopyObjectOutput extends Result
         $this->copyObjectResult = new CopyObjectResult([
             'ETag' => ($v = $data->ETag) ? (string) $v : null,
             'LastModified' => ($v = $data->LastModified) ? new \DateTimeImmutable((string) $v) : null,
+            'ChecksumCRC32' => ($v = $data->ChecksumCRC32) ? (string) $v : null,
+            'ChecksumCRC32C' => ($v = $data->ChecksumCRC32C) ? (string) $v : null,
+            'ChecksumSHA1' => ($v = $data->ChecksumSHA1) ? (string) $v : null,
+            'ChecksumSHA256' => ($v = $data->ChecksumSHA256) ? (string) $v : null,
         ]);
     }
 }

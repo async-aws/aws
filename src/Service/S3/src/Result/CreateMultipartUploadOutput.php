@@ -4,6 +4,7 @@ namespace AsyncAws\S3\Result;
 
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
+use AsyncAws\S3\Enum\ChecksumAlgorithm;
 use AsyncAws\S3\Enum\RequestCharged;
 use AsyncAws\S3\Enum\ServerSideEncryption;
 
@@ -78,6 +79,11 @@ class CreateMultipartUploadOutput extends Result
 
     private $requestCharged;
 
+    /**
+     * The algorithm that was used to create a checksum of the object.
+     */
+    private $checksumAlgorithm;
+
     public function getAbortDate(): ?\DateTimeImmutable
     {
         $this->initialize();
@@ -104,6 +110,16 @@ class CreateMultipartUploadOutput extends Result
         $this->initialize();
 
         return $this->bucketKeyEnabled;
+    }
+
+    /**
+     * @return ChecksumAlgorithm::*|null
+     */
+    public function getChecksumAlgorithm(): ?string
+    {
+        $this->initialize();
+
+        return $this->checksumAlgorithm;
     }
 
     public function getKey(): ?string
@@ -181,6 +197,7 @@ class CreateMultipartUploadOutput extends Result
         $this->sseKmsEncryptionContext = $headers['x-amz-server-side-encryption-context'][0] ?? null;
         $this->bucketKeyEnabled = isset($headers['x-amz-server-side-encryption-bucket-key-enabled'][0]) ? filter_var($headers['x-amz-server-side-encryption-bucket-key-enabled'][0], \FILTER_VALIDATE_BOOLEAN) : null;
         $this->requestCharged = $headers['x-amz-request-charged'][0] ?? null;
+        $this->checksumAlgorithm = $headers['x-amz-checksum-algorithm'][0] ?? null;
 
         $data = new \SimpleXMLElement($response->getContent());
         $this->bucket = ($v = $data->Bucket) ? (string) $v : null;

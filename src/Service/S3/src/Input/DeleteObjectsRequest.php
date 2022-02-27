@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\S3\Enum\ChecksumAlgorithm;
 use AsyncAws\S3\Enum\RequestPayer;
 use AsyncAws\S3\ValueObject\Delete;
 
@@ -45,19 +46,31 @@ final class DeleteObjectsRequest extends Input
 
     /**
      * Specifies whether you want to delete this object even if it has a Governance-type Object Lock in place. To use this
-     * header, you must have the `s3:PutBucketPublicAccessBlock` permission.
+     * header, you must have the `s3:BypassGovernanceRetention` permission.
      *
      * @var bool|null
      */
     private $bypassGovernanceRetention;
 
     /**
-     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request will fail
-     * with an HTTP `403 (Access Denied)` error.
+     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with
+     * the HTTP status code `403 Forbidden` (access denied).
      *
      * @var string|null
      */
     private $expectedBucketOwner;
+
+    /**
+     * Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide
+     * any additional functionality if not using the SDK. When sending this header, there must be a corresponding
+     * `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code
+     * `400 Bad Request`. For more information, see Checking object integrity in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var ChecksumAlgorithm::*|null
+     */
+    private $checksumAlgorithm;
 
     /**
      * @param array{
@@ -67,6 +80,7 @@ final class DeleteObjectsRequest extends Input
      *   RequestPayer?: RequestPayer::*,
      *   BypassGovernanceRetention?: bool,
      *   ExpectedBucketOwner?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
      *   @region?: string,
      * } $input
      */
@@ -78,6 +92,7 @@ final class DeleteObjectsRequest extends Input
         $this->requestPayer = $input['RequestPayer'] ?? null;
         $this->bypassGovernanceRetention = $input['BypassGovernanceRetention'] ?? null;
         $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
+        $this->checksumAlgorithm = $input['ChecksumAlgorithm'] ?? null;
         parent::__construct($input);
     }
 
@@ -94,6 +109,14 @@ final class DeleteObjectsRequest extends Input
     public function getBypassGovernanceRetention(): ?bool
     {
         return $this->bypassGovernanceRetention;
+    }
+
+    /**
+     * @return ChecksumAlgorithm::*|null
+     */
+    public function getChecksumAlgorithm(): ?string
+    {
+        return $this->checksumAlgorithm;
     }
 
     public function getDelete(): ?Delete
@@ -141,6 +164,12 @@ final class DeleteObjectsRequest extends Input
         if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
         }
+        if (null !== $this->checksumAlgorithm) {
+            if (!ChecksumAlgorithm::exists($this->checksumAlgorithm)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ChecksumAlgorithm" for "%s". The value "%s" is not a valid "ChecksumAlgorithm".', __CLASS__, $this->checksumAlgorithm));
+            }
+            $headers['x-amz-sdk-checksum-algorithm'] = $this->checksumAlgorithm;
+        }
 
         // Prepare query
         $query = [];
@@ -174,6 +203,16 @@ final class DeleteObjectsRequest extends Input
     public function setBypassGovernanceRetention(?bool $value): self
     {
         $this->bypassGovernanceRetention = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param ChecksumAlgorithm::*|null $value
+     */
+    public function setChecksumAlgorithm(?string $value): self
+    {
+        $this->checksumAlgorithm = $value;
 
         return $this;
     }

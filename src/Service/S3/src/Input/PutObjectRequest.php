@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\S3\Enum\ChecksumAlgorithm;
 use AsyncAws\S3\Enum\ObjectCannedACL;
 use AsyncAws\S3\Enum\ObjectLockLegalHoldStatus;
 use AsyncAws\S3\Enum\ObjectLockMode;
@@ -109,6 +110,62 @@ final class PutObjectRequest extends Input
      * @var string|null
      */
     private $contentType;
+
+    /**
+     * Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide
+     * any additional functionality if not using the SDK. When sending this header, there must be a corresponding
+     * `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code
+     * `400 Bad Request`. For more information, see Checking object integrity in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var ChecksumAlgorithm::*|null
+     */
+    private $checksumAlgorithm;
+
+    /**
+     * This header can be used as a data integrity check to verify that the data received is the same data that was
+     * originally sent. This header specifies the base64-encoded, 32-bit CRC32 checksum of the object. For more information,
+     * see Checking object integrity in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumCrc32;
+
+    /**
+     * This header can be used as a data integrity check to verify that the data received is the same data that was
+     * originally sent. This header specifies the base64-encoded, 32-bit CRC32C checksum of the object. For more
+     * information, see Checking object integrity in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumCrc32C;
+
+    /**
+     * This header can be used as a data integrity check to verify that the data received is the same data that was
+     * originally sent. This header specifies the base64-encoded, 160-bit SHA-1 digest of the object. For more information,
+     * see Checking object integrity in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumSha1;
+
+    /**
+     * This header can be used as a data integrity check to verify that the data received is the same data that was
+     * originally sent. This header specifies the base64-encoded, 256-bit SHA-256 digest of the object. For more
+     * information, see Checking object integrity in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+     *
+     * @var string|null
+     */
+    private $checksumSha256;
 
     /**
      * The date and time at which the object is no longer cacheable. For more information, see
@@ -283,8 +340,8 @@ final class PutObjectRequest extends Input
     private $objectLockLegalHoldStatus;
 
     /**
-     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request will fail
-     * with an HTTP `403 (Access Denied)` error.
+     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with
+     * the HTTP status code `403 Forbidden` (access denied).
      *
      * @var string|null
      */
@@ -302,6 +359,11 @@ final class PutObjectRequest extends Input
      *   ContentLength?: string,
      *   ContentMD5?: string,
      *   ContentType?: string,
+     *   ChecksumAlgorithm?: ChecksumAlgorithm::*,
+     *   ChecksumCRC32?: string,
+     *   ChecksumCRC32C?: string,
+     *   ChecksumSHA1?: string,
+     *   ChecksumSHA256?: string,
      *   Expires?: \DateTimeImmutable|string,
      *   GrantFullControl?: string,
      *   GrantRead?: string,
@@ -339,6 +401,11 @@ final class PutObjectRequest extends Input
         $this->contentLength = $input['ContentLength'] ?? null;
         $this->contentMd5 = $input['ContentMD5'] ?? null;
         $this->contentType = $input['ContentType'] ?? null;
+        $this->checksumAlgorithm = $input['ChecksumAlgorithm'] ?? null;
+        $this->checksumCrc32 = $input['ChecksumCRC32'] ?? null;
+        $this->checksumCrc32C = $input['ChecksumCRC32C'] ?? null;
+        $this->checksumSha1 = $input['ChecksumSHA1'] ?? null;
+        $this->checksumSha256 = $input['ChecksumSHA256'] ?? null;
         $this->expires = !isset($input['Expires']) ? null : ($input['Expires'] instanceof \DateTimeImmutable ? $input['Expires'] : new \DateTimeImmutable($input['Expires']));
         $this->grantFullControl = $input['GrantFullControl'] ?? null;
         $this->grantRead = $input['GrantRead'] ?? null;
@@ -398,6 +465,34 @@ final class PutObjectRequest extends Input
     public function getCacheControl(): ?string
     {
         return $this->cacheControl;
+    }
+
+    /**
+     * @return ChecksumAlgorithm::*|null
+     */
+    public function getChecksumAlgorithm(): ?string
+    {
+        return $this->checksumAlgorithm;
+    }
+
+    public function getChecksumCrc32(): ?string
+    {
+        return $this->checksumCrc32;
+    }
+
+    public function getChecksumCrc32C(): ?string
+    {
+        return $this->checksumCrc32C;
+    }
+
+    public function getChecksumSha1(): ?string
+    {
+        return $this->checksumSha1;
+    }
+
+    public function getChecksumSha256(): ?string
+    {
+        return $this->checksumSha256;
     }
 
     public function getContentDisposition(): ?string
@@ -587,6 +682,24 @@ final class PutObjectRequest extends Input
         if (null !== $this->contentType) {
             $headers['Content-Type'] = $this->contentType;
         }
+        if (null !== $this->checksumAlgorithm) {
+            if (!ChecksumAlgorithm::exists($this->checksumAlgorithm)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ChecksumAlgorithm" for "%s". The value "%s" is not a valid "ChecksumAlgorithm".', __CLASS__, $this->checksumAlgorithm));
+            }
+            $headers['x-amz-sdk-checksum-algorithm'] = $this->checksumAlgorithm;
+        }
+        if (null !== $this->checksumCrc32) {
+            $headers['x-amz-checksum-crc32'] = $this->checksumCrc32;
+        }
+        if (null !== $this->checksumCrc32C) {
+            $headers['x-amz-checksum-crc32c'] = $this->checksumCrc32C;
+        }
+        if (null !== $this->checksumSha1) {
+            $headers['x-amz-checksum-sha1'] = $this->checksumSha1;
+        }
+        if (null !== $this->checksumSha256) {
+            $headers['x-amz-checksum-sha256'] = $this->checksumSha256;
+        }
         if (null !== $this->expires) {
             $headers['Expires'] = $this->expires->format(\DateTimeInterface::RFC822);
         }
@@ -727,6 +840,44 @@ final class PutObjectRequest extends Input
     public function setCacheControl(?string $value): self
     {
         $this->cacheControl = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param ChecksumAlgorithm::*|null $value
+     */
+    public function setChecksumAlgorithm(?string $value): self
+    {
+        $this->checksumAlgorithm = $value;
+
+        return $this;
+    }
+
+    public function setChecksumCrc32(?string $value): self
+    {
+        $this->checksumCrc32 = $value;
+
+        return $this;
+    }
+
+    public function setChecksumCrc32C(?string $value): self
+    {
+        $this->checksumCrc32C = $value;
+
+        return $this;
+    }
+
+    public function setChecksumSha1(?string $value): self
+    {
+        $this->checksumSha1 = $value;
+
+        return $this;
+    }
+
+    public function setChecksumSha256(?string $value): self
+    {
+        $this->checksumSha256 = $value;
 
         return $this;
     }

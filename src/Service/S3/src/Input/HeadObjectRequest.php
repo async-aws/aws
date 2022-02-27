@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\S3\Enum\ChecksumMode;
 use AsyncAws\S3\Enum\RequestPayer;
 
 final class HeadObjectRequest extends Input
@@ -20,31 +21,32 @@ final class HeadObjectRequest extends Input
     private $bucket;
 
     /**
-     * Return the object only if its entity tag (ETag) is the same as the one specified, otherwise return a 412
-     * (precondition failed).
+     * Return the object only if its entity tag (ETag) is the same as the one specified; otherwise, return a 412
+     * (precondition failed) error.
      *
      * @var string|null
      */
     private $ifMatch;
 
     /**
-     * Return the object only if it has been modified since the specified time, otherwise return a 304 (not modified).
+     * Return the object only if it has been modified since the specified time; otherwise, return a 304 (not modified)
+     * error.
      *
      * @var \DateTimeImmutable|null
      */
     private $ifModifiedSince;
 
     /**
-     * Return the object only if its entity tag (ETag) is different from the one specified, otherwise return a 304 (not
-     * modified).
+     * Return the object only if its entity tag (ETag) is different from the one specified; otherwise, return a 304 (not
+     * modified) error.
      *
      * @var string|null
      */
     private $ifNoneMatch;
 
     /**
-     * Return the object only if it has not been modified since the specified time, otherwise return a 412 (precondition
-     * failed).
+     * Return the object only if it has not been modified since the specified time; otherwise, return a 412 (precondition
+     * failed) error.
      *
      * @var \DateTimeImmutable|null
      */
@@ -112,12 +114,19 @@ final class HeadObjectRequest extends Input
     private $partNumber;
 
     /**
-     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request will fail
-     * with an HTTP `403 (Access Denied)` error.
+     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with
+     * the HTTP status code `403 Forbidden` (access denied).
      *
      * @var string|null
      */
     private $expectedBucketOwner;
+
+    /**
+     * To retrieve the checksum, this parameter must be enabled.
+     *
+     * @var ChecksumMode::*|null
+     */
+    private $checksumMode;
 
     /**
      * @param array{
@@ -135,6 +144,7 @@ final class HeadObjectRequest extends Input
      *   RequestPayer?: RequestPayer::*,
      *   PartNumber?: int,
      *   ExpectedBucketOwner?: string,
+     *   ChecksumMode?: ChecksumMode::*,
      *   @region?: string,
      * } $input
      */
@@ -154,6 +164,7 @@ final class HeadObjectRequest extends Input
         $this->requestPayer = $input['RequestPayer'] ?? null;
         $this->partNumber = $input['PartNumber'] ?? null;
         $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
+        $this->checksumMode = $input['ChecksumMode'] ?? null;
         parent::__construct($input);
     }
 
@@ -165,6 +176,14 @@ final class HeadObjectRequest extends Input
     public function getBucket(): ?string
     {
         return $this->bucket;
+    }
+
+    /**
+     * @return ChecksumMode::*|null
+     */
+    public function getChecksumMode(): ?string
+    {
+        return $this->checksumMode;
     }
 
     public function getExpectedBucketOwner(): ?string
@@ -275,6 +294,12 @@ final class HeadObjectRequest extends Input
         if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
         }
+        if (null !== $this->checksumMode) {
+            if (!ChecksumMode::exists($this->checksumMode)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "ChecksumMode" for "%s". The value "%s" is not a valid "ChecksumMode".', __CLASS__, $this->checksumMode));
+            }
+            $headers['x-amz-checksum-mode'] = $this->checksumMode;
+        }
 
         // Prepare query
         $query = [];
@@ -307,6 +332,16 @@ final class HeadObjectRequest extends Input
     public function setBucket(?string $value): self
     {
         $this->bucket = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param ChecksumMode::*|null $value
+     */
+    public function setChecksumMode(?string $value): self
+    {
+        $this->checksumMode = $value;
 
         return $this;
     }

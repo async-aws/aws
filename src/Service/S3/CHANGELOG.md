@@ -6,6 +6,8 @@
 
 - AWS api-change: Added `ap-southeast-3` region.
 - AWS enhancement: Documentation updates.
+- AWS feature: Adds support for flexible checksums
+- AWS api-change: This release adds support for new integrity checking capabilities in Amazon S3. You can choose from four supported checksum algorithms for data integrity checking on your upload and download requests. In addition, AWS SDK can automatically calculate a checksum as it streams data into S3
 
 ## 1.10.0
 

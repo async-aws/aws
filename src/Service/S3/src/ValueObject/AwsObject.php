@@ -2,6 +2,7 @@
 
 namespace AsyncAws\S3\ValueObject;
 
+use AsyncAws\S3\Enum\ChecksumAlgorithm;
 use AsyncAws\S3\Enum\ObjectStorageClass;
 
 /**
@@ -27,6 +28,11 @@ final class AwsObject
     private $etag;
 
     /**
+     * The algorithm that was used to create a checksum of the object.
+     */
+    private $checksumAlgorithm;
+
+    /**
      * Size in bytes of the object.
      */
     private $size;
@@ -46,6 +52,7 @@ final class AwsObject
      *   Key?: null|string,
      *   LastModified?: null|\DateTimeImmutable,
      *   ETag?: null|string,
+     *   ChecksumAlgorithm?: null|list<ChecksumAlgorithm::*>,
      *   Size?: null|string,
      *   StorageClass?: null|ObjectStorageClass::*,
      *   Owner?: null|Owner|array,
@@ -56,6 +63,7 @@ final class AwsObject
         $this->key = $input['Key'] ?? null;
         $this->lastModified = $input['LastModified'] ?? null;
         $this->etag = $input['ETag'] ?? null;
+        $this->checksumAlgorithm = $input['ChecksumAlgorithm'] ?? null;
         $this->size = $input['Size'] ?? null;
         $this->storageClass = $input['StorageClass'] ?? null;
         $this->owner = isset($input['Owner']) ? Owner::create($input['Owner']) : null;
@@ -64,6 +72,14 @@ final class AwsObject
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    /**
+     * @return list<ChecksumAlgorithm::*>
+     */
+    public function getChecksumAlgorithm(): array
+    {
+        return $this->checksumAlgorithm ?? [];
     }
 
     public function getEtag(): ?string

@@ -57,12 +57,43 @@ final class ListPartsRequest extends Input
     private $requestPayer;
 
     /**
-     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request will fail
-     * with an HTTP `403 (Access Denied)` error.
+     * The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with
+     * the HTTP status code `403 Forbidden` (access denied).
      *
      * @var string|null
      */
     private $expectedBucketOwner;
+
+    /**
+     * The server-side encryption (SSE) algorithm used to encrypt the object. This parameter is needed only when the object
+     * was created using a checksum algorithm. For more information, see Protecting data using SSE-C keys in the *Amazon S3
+     * User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
+     *
+     * @var string|null
+     */
+    private $sseCustomerAlgorithm;
+
+    /**
+     * The server-side encryption (SSE) customer managed key. This parameter is needed only when the object was created
+     * using a checksum algorithm. For more information, see Protecting data using SSE-C keys in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
+     *
+     * @var string|null
+     */
+    private $sseCustomerKey;
+
+    /**
+     * The MD5 server-side encryption (SSE) customer managed key. This parameter is needed only when the object was created
+     * using a checksum algorithm. For more information, see Protecting data using SSE-C keys in the *Amazon S3 User Guide*.
+     *
+     * @see https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
+     *
+     * @var string|null
+     */
+    private $sseCustomerKeyMd5;
 
     /**
      * @param array{
@@ -73,6 +104,9 @@ final class ListPartsRequest extends Input
      *   UploadId?: string,
      *   RequestPayer?: RequestPayer::*,
      *   ExpectedBucketOwner?: string,
+     *   SSECustomerAlgorithm?: string,
+     *   SSECustomerKey?: string,
+     *   SSECustomerKeyMD5?: string,
      *   @region?: string,
      * } $input
      */
@@ -85,6 +119,9 @@ final class ListPartsRequest extends Input
         $this->uploadId = $input['UploadId'] ?? null;
         $this->requestPayer = $input['RequestPayer'] ?? null;
         $this->expectedBucketOwner = $input['ExpectedBucketOwner'] ?? null;
+        $this->sseCustomerAlgorithm = $input['SSECustomerAlgorithm'] ?? null;
+        $this->sseCustomerKey = $input['SSECustomerKey'] ?? null;
+        $this->sseCustomerKeyMd5 = $input['SSECustomerKeyMD5'] ?? null;
         parent::__construct($input);
     }
 
@@ -126,6 +163,21 @@ final class ListPartsRequest extends Input
         return $this->requestPayer;
     }
 
+    public function getSseCustomerAlgorithm(): ?string
+    {
+        return $this->sseCustomerAlgorithm;
+    }
+
+    public function getSseCustomerKey(): ?string
+    {
+        return $this->sseCustomerKey;
+    }
+
+    public function getSseCustomerKeyMd5(): ?string
+    {
+        return $this->sseCustomerKeyMd5;
+    }
+
     public function getUploadId(): ?string
     {
         return $this->uploadId;
@@ -146,6 +198,15 @@ final class ListPartsRequest extends Input
         }
         if (null !== $this->expectedBucketOwner) {
             $headers['x-amz-expected-bucket-owner'] = $this->expectedBucketOwner;
+        }
+        if (null !== $this->sseCustomerAlgorithm) {
+            $headers['x-amz-server-side-encryption-customer-algorithm'] = $this->sseCustomerAlgorithm;
+        }
+        if (null !== $this->sseCustomerKey) {
+            $headers['x-amz-server-side-encryption-customer-key'] = $this->sseCustomerKey;
+        }
+        if (null !== $this->sseCustomerKeyMd5) {
+            $headers['x-amz-server-side-encryption-customer-key-MD5'] = $this->sseCustomerKeyMd5;
         }
 
         // Prepare query
@@ -221,6 +282,27 @@ final class ListPartsRequest extends Input
     public function setRequestPayer(?string $value): self
     {
         $this->requestPayer = $value;
+
+        return $this;
+    }
+
+    public function setSseCustomerAlgorithm(?string $value): self
+    {
+        $this->sseCustomerAlgorithm = $value;
+
+        return $this;
+    }
+
+    public function setSseCustomerKey(?string $value): self
+    {
+        $this->sseCustomerKey = $value;
+
+        return $this;
+    }
+
+    public function setSseCustomerKeyMd5(?string $value): self
+    {
+        $this->sseCustomerKeyMd5 = $value;
 
         return $this;
     }
