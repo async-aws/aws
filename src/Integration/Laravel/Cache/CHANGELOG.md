@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 0.2.0
+
 ### Added
 
 - Support for Laravel 9

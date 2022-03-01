@@ -2,6 +2,12 @@
 
 ## NOT RELEASED
 
+## 0.2.2
+
+### Changed
+
+- Fixed error when config keys are missing
+
 ## 0.2.1
 
 ### Added

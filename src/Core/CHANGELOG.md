@@ -2,9 +2,11 @@
 
 ## NOT RELEASED
 
+## 1.14.0
+
 ### Added
 
-- Make the injected HttpClient decorated by our  `RetryableHttpClient`
+- Make the injected HttpClient decorated by our `RetryableHttpClient`
 - Support for KMS
 
 ### Fixed

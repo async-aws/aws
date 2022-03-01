@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.3.0
+
 ### Added
 
 - AWS api-change: Added `ca-central-1` region

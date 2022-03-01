@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.7.0
+
 ### Added
 
 - Support for KMS
