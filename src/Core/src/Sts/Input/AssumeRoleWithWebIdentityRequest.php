@@ -43,7 +43,8 @@ final class AssumeRoleWithWebIdentityRequest extends Input
     private $webIdentityToken;
 
     /**
-     * The fully qualified host component of the domain name of the identity provider.
+     * The fully qualified host component of the domain name of the OAuth 2.0 identity provider. Do not specify this value
+     * for an OpenID Connect identity provider.
      *
      * @var string|null
      */
