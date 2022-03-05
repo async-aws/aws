@@ -71,9 +71,10 @@ class StsClient extends AbstractApi
 
     /**
      * Returns a set of temporary security credentials for users who have been authenticated in a mobile or web application
-     * with a web identity provider. Example providers include Amazon Cognito, Login with Amazon, Facebook, Google, or any
-     * OpenID Connect-compatible identity provider.
+     * with a web identity provider. Example providers include the OAuth 2.0 providers Login with Amazon and Facebook, or
+     * any OpenID Connect-compatible identity provider such as Google or Amazon Cognito federated identities.
      *
+     * @see https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html
      * @see https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sts-2011-06-15.html#assumerolewithwebidentity
      *
