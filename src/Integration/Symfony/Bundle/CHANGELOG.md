@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Support for CodeBuild
+
 ## 1.7.0
 
 ### Added

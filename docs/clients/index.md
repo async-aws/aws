@@ -139,6 +139,7 @@ for more information.
 | [CloudFront](./cloud-front.md)              | [async-aws/cloud-front](https://packagist.org/packages/async-aws/cloud-front)
 | [CloudWatch](./cloud-watch.md)              | [async-aws/cloud-watch](https://packagist.org/packages/async-aws/cloud-watch)
 | [CloudWatchLogs](./cloud-watch-logs.md)     | [async-aws/cloud-watch-logs](https://packagist.org/packages/async-aws/cloud-watch-logs)
+| [CodeBuild](./code-build.md)                | [async-aws/code-build](https://packagist.org/packages/async-aws/code-build)
 | [CodeDeploy](./code-deploy.md)              | [async-aws/code-deploy](https://packagist.org/packages/async-aws/code-deploy)
 | [CognitoIdentityProvider](./cognito-idp.md) | [async-aws/cognito-identity-provider](https://packagist.org/packages/async-aws/cognito-identity-provider)
 | [DynamoDb](./dynamodb.md)                   | [async-aws/dynamo-db](https://packagist.org/packages/async-aws/dynamo-db)

@@ -16,7 +16,7 @@ use AsyncAws\CodeDeploy\Input\CreateDeploymentInput;
 
 $codeDeploy = new CodeDeployClient();
 
-$deployment = $codeDeploy->createDeployment(mew CreateDeploymentInput([
+$deployment = $codeDeploy->createDeployment(new CreateDeploymentInput([
     'applicationName' => 'my-app',
     'deploymentGroupName' => 'my-deployment-group',
     'revision' => [

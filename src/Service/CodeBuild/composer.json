@@ -1,0 +1,34 @@
+{
+    "name": "async-aws/code-build",
+    "description": "CodeBuild client, part of the AWS SDK provided by AsyncAws.",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
+        "code-build"
+    ],
+    "require": {
+        "php": "^7.2.5 || ^8.0",
+        "ext-filter": "*",
+        "ext-json": "*",
+        "async-aws/core": "^1.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "AsyncAws\\CodeBuild\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\CodeBuild\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    }
+}

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.x-dev@">
   <file src="src/Core/src/AwsClientFactory.php">
-    <NullableReturnStatement occurrences="28">
+    <NullableReturnStatement occurrences="29">
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
@@ -31,7 +32,8 @@
       <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
     </NullableReturnStatement>
-    <PossiblyUndefinedArrayOffset occurrences="28">
+    <PossiblyUndefinedArrayOffset occurrences="29">
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
@@ -136,6 +138,38 @@
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Service/CodeBuild/src/Input/StartBuildInput.php">
+    <RedundantCastGivenDocblockType occurrences="4">
+      <code>(bool) $v</code>
+      <code>(bool) $v</code>
+      <code>(bool) $v</code>
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Service/CodeBuild/src/Result/BatchGetBuildsOutput.php">
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="1">
+      <code>list&lt;CacheMode::*&gt;</code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="src/Service/CodeBuild/src/Result/StartBuildOutput.php">
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="1">
+      <code>list&lt;CacheMode::*&gt;</code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="src/Service/CodeBuild/src/Result/StopBuildOutput.php">
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$items</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="1">
+      <code>list&lt;CacheMode::*&gt;</code>
+    </MoreSpecificReturnType>
   </file>
   <file src="src/Service/CodeDeploy/src/Input/CreateDeploymentInput.php">
     <RedundantCastGivenDocblockType occurrences="2">

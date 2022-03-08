@@ -46,6 +46,9 @@ menu:
             cloud-watch-logs:
                 text: CloudWatch Logs
                 url: /clients/cloud-watch-logs.html
+            code-build:
+                text: CodeBuild
+                url: /clients/code-build.html
             code-deploy:
                 text: CodeDeploy
                 url: /clients/code-deploy.html

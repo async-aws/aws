@@ -29,6 +29,7 @@ parameters:
           paths:
               - src/Core/src/Sts/ValueObject
               - src/Service/AppSync/src/ValueObject
+              - src/Service/CodeBuild/src/ValueObject
               - src/Service/CloudFormation/src/ValueObject
               - src/Service/CloudFront/src/ValueObject
               - src/Service/CloudWatch/src/ValueObject
