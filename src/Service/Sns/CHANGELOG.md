@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS enhancement: Customer requested typo fix in API documentation.
+
 ## 1.3.0
 
 ### Added

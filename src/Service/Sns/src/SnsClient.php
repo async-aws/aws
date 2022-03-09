@@ -481,6 +481,20 @@ class SnsClient extends AbstractApi
                     'signService' => 'sns',
                     'signVersions' => ['v4'],
                 ];
+            case 'fips-us-gov-east-1':
+                return [
+                    'endpoint' => 'https://sns.us-gov-east-1.amazonaws.com',
+                    'signRegion' => 'us-gov-east-1',
+                    'signService' => 'sns',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-gov-west-1':
+                return [
+                    'endpoint' => 'https://sns.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'sns',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-us-west-1':
                 return [
                     'endpoint' => 'https://sns-fips.us-west-1.amazonaws.com',
