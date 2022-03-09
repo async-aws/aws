@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS enhancement: Documentation updates for EventBridge
+- AWS api-change: Added `fips-us-gov-east-1` and `fips-us-gov-west-1` regions
 
 ## 1.3.0
 

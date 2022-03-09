@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS enhancement: Customer requested typo fix in API documentation.
+- AWS api-change: Added `fips-us-gov-east-1` and `fips-us-gov-west-1` regions
 
 ## 1.3.0
 

@@ -4,7 +4,7 @@
 
 ### Added
 
-- AWS api-change: This release adds AWS Organizations support as condition key in destination policy for cross account Subscriptions in CloudWatch Logs.
+- AWS api-change: Added `fips-us-gov-east-1` and `fips-us-gov-west-1` regions
 
 ## 1.3.0
 
