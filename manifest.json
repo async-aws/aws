@@ -73,6 +73,18 @@
                 "PutLogEvents"
             ]
         },
+        "CodeBuild": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/codebuild/2016-10-06/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/codebuild/2016-10-06/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/codebuild/2016-10-06/paginators-1.json",
+            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/codebuild/2016-10-06/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/codebuild/latest/APIReference",
+            "methods": [
+                "BatchGetBuilds",
+                "StartBuild",
+                "StopBuild"
+            ]
+        },
         "CodeDeploy": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/codedeploy/2014-10-06/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/codedeploy/2014-10-06/docs-2.json",

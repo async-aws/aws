@@ -4,6 +4,10 @@
 
 ### Added
 
+- Support for CodeBuild
+
+### Added
+
 - AWS enhancement: Documentation updates.
 
 ## 1.14.0

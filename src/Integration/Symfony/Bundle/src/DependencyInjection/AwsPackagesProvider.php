@@ -29,6 +29,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\CloudWatchLogs\CloudWatchLogsClient::class,
                 'package' => 'async-aws/cloud-watch-logs',
             ],
+            'code_build' => [
+                'class' => \AsyncAws\CodeBuild\CodeBuildClient::class,
+                'package' => 'async-aws/code-build',
+            ],
             'code_deploy' => [
                 'class' => \AsyncAws\CodeDeploy\CodeDeployClient::class,
                 'package' => 'async-aws/code-deploy',

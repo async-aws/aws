@@ -75,6 +75,8 @@ class GeneratorHelper
             '</p>' => "\n",
             '<u>' => '',
             '</u>' => '',
+            '<dl>' => '<ul>',
+            '</dl>' => '</ul>',
         ]));
         if ($short) {
             $s = explode("\n", $s)[0];
@@ -87,8 +89,11 @@ class GeneratorHelper
             '</i>' => '*',
             '<b>' => '**',
             '</b>' => '**',
+            '<dt>' => '<li>`',
+            '</dt><dd>' => '`: ',
+            '</dd>' => '</li>',
         ]);
-        $s = preg_replace('/\n*<(\/?(note|important|ul|li))>\n*/', "\n<\$1>\n", $s);
+        $s = preg_replace('/\n*<(\/?(note|important|ul|li|dd|dt))>\n*/', "\n<\$1>\n", $s);
         $s = preg_replace('/\n+/', "\n", $s);
 
         preg_match_all('/<a href="([^"]*)">/', $s, $matches);
