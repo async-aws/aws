@@ -86,6 +86,20 @@ class EventBridgeClient extends AbstractApi
                     'signService' => 'events',
                     'signVersions' => ['v4'],
                 ];
+            case 'fips-us-gov-east-1':
+                return [
+                    'endpoint' => 'https://events.us-gov-east-1.amazonaws.com',
+                    'signRegion' => 'us-gov-east-1',
+                    'signService' => 'events',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-gov-west-1':
+                return [
+                    'endpoint' => 'https://events.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'events',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-us-west-1':
                 return [
                     'endpoint' => 'https://events-fips.us-west-1.amazonaws.com',
