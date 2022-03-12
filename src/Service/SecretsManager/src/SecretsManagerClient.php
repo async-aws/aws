@@ -158,7 +158,8 @@ class SecretsManagerClient extends AbstractApi
     }
 
     /**
-     * Lists the secrets that are stored by Secrets Manager in the Amazon Web Services account.
+     * Lists the secrets that are stored by Secrets Manager in the Amazon Web Services account, not including secrets that
+     * are marked for deletion. To see secrets marked for deletion, use the Secrets Manager console.
      *
      * @see https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecrets.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-secretsmanager-2017-10-17.html#listsecrets
