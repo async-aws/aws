@@ -2,10 +2,12 @@
 
 namespace AsyncAws\Illuminate\Filesystem;
 
-use AsyncAws\Flysystem\S3\AsyncAwsS3Adapter;
 use AsyncAws\SimpleS3\SimpleS3Client;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Filesystem\FilesystemManager;
+use League\Flysystem\AsyncAwsS3\AsyncAwsS3Adapter;
+use League\Flysystem\AsyncAwsS3\PortableVisibilityConverter;
+use League\Flysystem\Visibility;
 
 class AsyncAwsFilesystemManager extends FilesystemManager
 {
@@ -34,9 +36,13 @@ class AsyncAwsFilesystemManager extends FilesystemManager
         $root = $config['root'] ?? '';
         $options = $config['options'] ?? [];
 
-        $s3Client = new SimpleS3Client($s3Config);
-        $flysystemAdapter = new AsyncAwsS3Adapter($s3Client, $config['bucket'], $root, $options);
+        $visibility = new PortableVisibilityConverter(
+            $config['visibility'] ?? Visibility::PUBLIC
+        );
 
-        return new AsyncAwsFilesystemAdapter($this->createFlysystem($flysystemAdapter, $config));
+        $s3Client = new SimpleS3Client($s3Config);
+        $flysystemAdapter = new AsyncAwsS3Adapter($s3Client, $config['bucket'], $root, $visibility, null, $options);
+
+        return new AsyncAwsFilesystemAdapter($this->createFlysystem($flysystemAdapter, $config), $flysystemAdapter);
     }
 }
