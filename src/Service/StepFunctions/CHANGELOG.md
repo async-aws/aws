@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+- Added operation `stopExecution`
+
 ## 0.1.2
 
 ### Added
