@@ -8,6 +8,7 @@ use AsyncAws\StepFunctions\Input\SendTaskFailureInput;
 use AsyncAws\StepFunctions\Input\SendTaskHeartbeatInput;
 use AsyncAws\StepFunctions\Input\SendTaskSuccessInput;
 use AsyncAws\StepFunctions\Input\StartExecutionInput;
+use AsyncAws\StepFunctions\Input\StopExecutionInput;
 use AsyncAws\StepFunctions\StepFunctionsClient;
 
 class StepFunctionsClientTest extends TestCase
@@ -70,6 +71,22 @@ class StepFunctionsClientTest extends TestCase
             'traceHeader' => 'change me',
         ]);
         $result = $client->startExecution($input);
+
+        $result->resolve();
+    }
+
+    public function testStopExecution(): void
+    {
+        self::markTestIncomplete('Cannot test StartExecution without the ability to create machines available.');
+
+        $client = $this->getClient();
+
+        $input = new StopExecutionInput([
+            'executionArn' => 'change me',
+            'error' => 'change me',
+            'cause' => 'change me',
+        ]);
+        $result = $client->stopExecution($input);
 
         $result->resolve();
     }
