@@ -8,10 +8,12 @@ use AsyncAws\StepFunctions\Input\SendTaskFailureInput;
 use AsyncAws\StepFunctions\Input\SendTaskHeartbeatInput;
 use AsyncAws\StepFunctions\Input\SendTaskSuccessInput;
 use AsyncAws\StepFunctions\Input\StartExecutionInput;
+use AsyncAws\StepFunctions\Input\StopExecutionInput;
 use AsyncAws\StepFunctions\Result\SendTaskFailureOutput;
 use AsyncAws\StepFunctions\Result\SendTaskHeartbeatOutput;
 use AsyncAws\StepFunctions\Result\SendTaskSuccessOutput;
 use AsyncAws\StepFunctions\Result\StartExecutionOutput;
+use AsyncAws\StepFunctions\Result\StopExecutionOutput;
 use AsyncAws\StepFunctions\StepFunctionsClient;
 use Symfony\Component\HttpClient\MockHttpClient;
 
@@ -70,6 +72,21 @@ class StepFunctionsClientTest extends TestCase
         $result = $client->startExecution($input);
 
         self::assertInstanceOf(StartExecutionOutput::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testStopExecution(): void
+    {
+        $client = new StepFunctionsClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new StopExecutionInput([
+            'executionArn' => 'arn:foo',
+            'cause' => 'Some cause',
+            'error' => 'Some error',
+        ]);
+        $result = $client->stopExecution($input);
+
+        self::assertInstanceOf(StopExecutionOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 }

@@ -533,7 +533,8 @@
                 "SendTaskFailure",
                 "SendTaskHeartbeat",
                 "SendTaskSuccess",
-                "StartExecution"
+                "StartExecution",
+                "StopExecution"
             ]
         },
         "XRay": {

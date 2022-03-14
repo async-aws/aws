@@ -8,6 +8,7 @@ use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\StepFunctions\Exception\ExecutionAlreadyExistsException;
+use AsyncAws\StepFunctions\Exception\ExecutionDoesNotExistException;
 use AsyncAws\StepFunctions\Exception\ExecutionLimitExceededException;
 use AsyncAws\StepFunctions\Exception\InvalidArnException;
 use AsyncAws\StepFunctions\Exception\InvalidExecutionInputException;
@@ -22,10 +23,12 @@ use AsyncAws\StepFunctions\Input\SendTaskFailureInput;
 use AsyncAws\StepFunctions\Input\SendTaskHeartbeatInput;
 use AsyncAws\StepFunctions\Input\SendTaskSuccessInput;
 use AsyncAws\StepFunctions\Input\StartExecutionInput;
+use AsyncAws\StepFunctions\Input\StopExecutionInput;
 use AsyncAws\StepFunctions\Result\SendTaskFailureOutput;
 use AsyncAws\StepFunctions\Result\SendTaskHeartbeatOutput;
 use AsyncAws\StepFunctions\Result\SendTaskSuccessOutput;
 use AsyncAws\StepFunctions\Result\StartExecutionOutput;
+use AsyncAws\StepFunctions\Result\StopExecutionOutput;
 
 class StepFunctionsClient extends AbstractApi
 {
@@ -163,6 +166,33 @@ class StepFunctionsClient extends AbstractApi
         ]]));
 
         return new StartExecutionOutput($response);
+    }
+
+    /**
+     * Stops an execution.
+     *
+     * @see https://docs.aws.amazon.com/step-functions/latest/apireference/API_StopExecution.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-states-2016-11-23.html#stopexecution
+     *
+     * @param array{
+     *   executionArn: string,
+     *   error?: string,
+     *   cause?: string,
+     *   @region?: string,
+     * }|StopExecutionInput $input
+     *
+     * @throws ExecutionDoesNotExistException
+     * @throws InvalidArnException
+     */
+    public function stopExecution($input): StopExecutionOutput
+    {
+        $input = StopExecutionInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'StopExecution', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ExecutionDoesNotExist' => ExecutionDoesNotExistException::class,
+            'InvalidArn' => InvalidArnException::class,
+        ]]));
+
+        return new StopExecutionOutput($response);
     }
 
     protected function getAwsErrorFactory(): AwsErrorFactoryInterface
