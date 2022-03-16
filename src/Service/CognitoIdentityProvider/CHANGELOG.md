@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: Updated EmailConfigurationType and SmsConfigurationType to reflect that you can now choose Amazon SES and Amazon SNS resources in the same Region.
+- AWS enhancement: Doc updates for Cognito user pools API Reference.
+
 ## 1.4.0
 
 ### Added
