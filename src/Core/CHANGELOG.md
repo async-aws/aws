@@ -5,10 +5,11 @@
 ### Added
 
 - Support for CodeBuild
-
-### Added
-
 - AWS enhancement: Documentation updates.
+
+### Changed
+
+- Set default value to `false` for the `sendChunkedBody` option.
 
 ## 1.14.0
 

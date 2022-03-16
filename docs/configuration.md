@@ -113,7 +113,7 @@ See [Virtual Hosting of Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev
 
 ### sendChunkedBody
 
-**Default:** 'true'
+**Default:** 'false'
 
 Set to true to send requests in multiple chunks. This prevents reading the file
 twice to calculate the signature, but is not always allowed by Non-AWS S3
