@@ -667,7 +667,6 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InvalidEmailRoleAccessPolicyException
      * @throws CodeDeliveryFailureException
      * @throws UserNotFoundException
-     * @throws UserNotConfirmedException
      * @throws InternalErrorException
      */
     public function forgotPassword($input): ForgotPasswordResponse
@@ -687,7 +686,6 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InvalidEmailRoleAccessPolicyException' => InvalidEmailRoleAccessPolicyException::class,
             'CodeDeliveryFailureException' => CodeDeliveryFailureException::class,
             'UserNotFoundException' => UserNotFoundException::class,
-            'UserNotConfirmedException' => UserNotConfirmedException::class,
             'InternalErrorException' => InternalErrorException::class,
         ]]));
 
