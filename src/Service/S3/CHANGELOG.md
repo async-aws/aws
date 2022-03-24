@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Changed
+
+- Set default value to `false` for the `sendChunkedBody` option.
+
 ## 1.11.0
 
 ### Added

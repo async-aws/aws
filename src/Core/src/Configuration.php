@@ -81,7 +81,7 @@ final class Configuration
         // https://docs.aws.amazon.com/general/latest/gr/rande.html
         self::OPTION_ENDPOINT => 'https://%service%.%region%.amazonaws.com',
         self::OPTION_PATH_STYLE_ENDPOINT => 'false',
-        self::OPTION_SEND_CHUNKED_BODY => 'true',
+        self::OPTION_SEND_CHUNKED_BODY => 'false',
     ];
 
     private $data = [];
