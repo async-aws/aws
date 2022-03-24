@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS enhancement: Documentation updates.
+
 ## 0.1.1
 
 ### Added
