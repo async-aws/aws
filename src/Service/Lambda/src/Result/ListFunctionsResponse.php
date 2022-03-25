@@ -11,6 +11,7 @@ use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\Lambda\ValueObject\DeadLetterConfig;
 use AsyncAws\Lambda\ValueObject\EnvironmentError;
 use AsyncAws\Lambda\ValueObject\EnvironmentResponse;
+use AsyncAws\Lambda\ValueObject\EphemeralStorage;
 use AsyncAws\Lambda\ValueObject\FileSystemConfig;
 use AsyncAws\Lambda\ValueObject\FunctionConfiguration;
 use AsyncAws\Lambda\ValueObject\ImageConfig;
@@ -215,6 +216,9 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
                 'SigningProfileVersionArn' => isset($item['SigningProfileVersionArn']) ? (string) $item['SigningProfileVersionArn'] : null,
                 'SigningJobArn' => isset($item['SigningJobArn']) ? (string) $item['SigningJobArn'] : null,
                 'Architectures' => !isset($item['Architectures']) ? null : $this->populateResultArchitecturesList($item['Architectures']),
+                'EphemeralStorage' => empty($item['EphemeralStorage']) ? null : new EphemeralStorage([
+                    'Size' => (int) $item['EphemeralStorage']['Size'],
+                ]),
             ]);
         }
 
