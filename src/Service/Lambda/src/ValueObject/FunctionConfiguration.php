@@ -188,6 +188,12 @@ final class FunctionConfiguration
     private $architectures;
 
     /**
+     * The size of the function’s /tmp directory in MB. The default value is 512, but can be any whole number between 512
+     * and 10240 MB.
+     */
+    private $ephemeralStorage;
+
+    /**
      * @param array{
      *   FunctionName?: null|string,
      *   FunctionArn?: null|string,
@@ -221,6 +227,7 @@ final class FunctionConfiguration
      *   SigningProfileVersionArn?: null|string,
      *   SigningJobArn?: null|string,
      *   Architectures?: null|list<Architecture::*>,
+     *   EphemeralStorage?: null|EphemeralStorage|array,
      * } $input
      */
     public function __construct(array $input)
@@ -257,6 +264,7 @@ final class FunctionConfiguration
         $this->signingProfileVersionArn = $input['SigningProfileVersionArn'] ?? null;
         $this->signingJobArn = $input['SigningJobArn'] ?? null;
         $this->architectures = $input['Architectures'] ?? null;
+        $this->ephemeralStorage = isset($input['EphemeralStorage']) ? EphemeralStorage::create($input['EphemeralStorage']) : null;
     }
 
     public static function create($input): self
@@ -295,6 +303,11 @@ final class FunctionConfiguration
     public function getEnvironment(): ?EnvironmentResponse
     {
         return $this->environment;
+    }
+
+    public function getEphemeralStorage(): ?EphemeralStorage
+    {
+        return $this->ephemeralStorage;
     }
 
     /**
