@@ -105,13 +105,18 @@ class ListUsersResponse extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new AttributeType([
-                'Name' => (string) $item['Name'],
-                'Value' => isset($item['Value']) ? (string) $item['Value'] : null,
-            ]);
+            $items[] = $this->populateResultAttributeType($item);
         }
 
         return $items;
+    }
+
+    private function populateResultAttributeType(array $json): AttributeType
+    {
+        return new AttributeType([
+            'Name' => (string) $json['Name'],
+            'Value' => isset($json['Value']) ? (string) $json['Value'] : null,
+        ]);
     }
 
     /**
@@ -121,13 +126,31 @@ class ListUsersResponse extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new MFAOptionType([
-                'DeliveryMedium' => isset($item['DeliveryMedium']) ? (string) $item['DeliveryMedium'] : null,
-                'AttributeName' => isset($item['AttributeName']) ? (string) $item['AttributeName'] : null,
-            ]);
+            $items[] = $this->populateResultMFAOptionType($item);
         }
 
         return $items;
+    }
+
+    private function populateResultMFAOptionType(array $json): MFAOptionType
+    {
+        return new MFAOptionType([
+            'DeliveryMedium' => isset($json['DeliveryMedium']) ? (string) $json['DeliveryMedium'] : null,
+            'AttributeName' => isset($json['AttributeName']) ? (string) $json['AttributeName'] : null,
+        ]);
+    }
+
+    private function populateResultUserType(array $json): UserType
+    {
+        return new UserType([
+            'Username' => isset($json['Username']) ? (string) $json['Username'] : null,
+            'Attributes' => !isset($json['Attributes']) ? null : $this->populateResultAttributeListType($json['Attributes']),
+            'UserCreateDate' => (isset($json['UserCreateDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['UserCreateDate'])))) ? $d : null,
+            'UserLastModifiedDate' => (isset($json['UserLastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['UserLastModifiedDate'])))) ? $d : null,
+            'Enabled' => isset($json['Enabled']) ? filter_var($json['Enabled'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'UserStatus' => isset($json['UserStatus']) ? (string) $json['UserStatus'] : null,
+            'MFAOptions' => !isset($json['MFAOptions']) ? null : $this->populateResultMFAOptionListType($json['MFAOptions']),
+        ]);
     }
 
     /**
@@ -137,15 +160,7 @@ class ListUsersResponse extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new UserType([
-                'Username' => isset($item['Username']) ? (string) $item['Username'] : null,
-                'Attributes' => !isset($item['Attributes']) ? null : $this->populateResultAttributeListType($item['Attributes']),
-                'UserCreateDate' => (isset($item['UserCreateDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['UserCreateDate'])))) ? $d : null,
-                'UserLastModifiedDate' => (isset($item['UserLastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['UserLastModifiedDate'])))) ? $d : null,
-                'Enabled' => isset($item['Enabled']) ? filter_var($item['Enabled'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'UserStatus' => isset($item['UserStatus']) ? (string) $item['UserStatus'] : null,
-                'MFAOptions' => !isset($item['MFAOptions']) ? null : $this->populateResultMFAOptionListType($item['MFAOptions']),
-            ]);
+            $items[] = $this->populateResultUserType($item);
         }
 
         return $items;

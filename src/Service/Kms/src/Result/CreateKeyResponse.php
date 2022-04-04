@@ -28,37 +28,7 @@ class CreateKeyResponse extends Result
     {
         $data = $response->toArray();
 
-        $this->keyMetadata = empty($data['KeyMetadata']) ? null : new KeyMetadata([
-            'AWSAccountId' => isset($data['KeyMetadata']['AWSAccountId']) ? (string) $data['KeyMetadata']['AWSAccountId'] : null,
-            'KeyId' => (string) $data['KeyMetadata']['KeyId'],
-            'Arn' => isset($data['KeyMetadata']['Arn']) ? (string) $data['KeyMetadata']['Arn'] : null,
-            'CreationDate' => (isset($data['KeyMetadata']['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['KeyMetadata']['CreationDate'])))) ? $d : null,
-            'Enabled' => isset($data['KeyMetadata']['Enabled']) ? filter_var($data['KeyMetadata']['Enabled'], \FILTER_VALIDATE_BOOLEAN) : null,
-            'Description' => isset($data['KeyMetadata']['Description']) ? (string) $data['KeyMetadata']['Description'] : null,
-            'KeyUsage' => isset($data['KeyMetadata']['KeyUsage']) ? (string) $data['KeyMetadata']['KeyUsage'] : null,
-            'KeyState' => isset($data['KeyMetadata']['KeyState']) ? (string) $data['KeyMetadata']['KeyState'] : null,
-            'DeletionDate' => (isset($data['KeyMetadata']['DeletionDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['KeyMetadata']['DeletionDate'])))) ? $d : null,
-            'ValidTo' => (isset($data['KeyMetadata']['ValidTo']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['KeyMetadata']['ValidTo'])))) ? $d : null,
-            'Origin' => isset($data['KeyMetadata']['Origin']) ? (string) $data['KeyMetadata']['Origin'] : null,
-            'CustomKeyStoreId' => isset($data['KeyMetadata']['CustomKeyStoreId']) ? (string) $data['KeyMetadata']['CustomKeyStoreId'] : null,
-            'CloudHsmClusterId' => isset($data['KeyMetadata']['CloudHsmClusterId']) ? (string) $data['KeyMetadata']['CloudHsmClusterId'] : null,
-            'ExpirationModel' => isset($data['KeyMetadata']['ExpirationModel']) ? (string) $data['KeyMetadata']['ExpirationModel'] : null,
-            'KeyManager' => isset($data['KeyMetadata']['KeyManager']) ? (string) $data['KeyMetadata']['KeyManager'] : null,
-            'CustomerMasterKeySpec' => isset($data['KeyMetadata']['CustomerMasterKeySpec']) ? (string) $data['KeyMetadata']['CustomerMasterKeySpec'] : null,
-            'KeySpec' => isset($data['KeyMetadata']['KeySpec']) ? (string) $data['KeyMetadata']['KeySpec'] : null,
-            'EncryptionAlgorithms' => !isset($data['KeyMetadata']['EncryptionAlgorithms']) ? null : $this->populateResultEncryptionAlgorithmSpecList($data['KeyMetadata']['EncryptionAlgorithms']),
-            'SigningAlgorithms' => !isset($data['KeyMetadata']['SigningAlgorithms']) ? null : $this->populateResultSigningAlgorithmSpecList($data['KeyMetadata']['SigningAlgorithms']),
-            'MultiRegion' => isset($data['KeyMetadata']['MultiRegion']) ? filter_var($data['KeyMetadata']['MultiRegion'], \FILTER_VALIDATE_BOOLEAN) : null,
-            'MultiRegionConfiguration' => empty($data['KeyMetadata']['MultiRegionConfiguration']) ? null : new MultiRegionConfiguration([
-                'MultiRegionKeyType' => isset($data['KeyMetadata']['MultiRegionConfiguration']['MultiRegionKeyType']) ? (string) $data['KeyMetadata']['MultiRegionConfiguration']['MultiRegionKeyType'] : null,
-                'PrimaryKey' => empty($data['KeyMetadata']['MultiRegionConfiguration']['PrimaryKey']) ? null : new MultiRegionKey([
-                    'Arn' => isset($data['KeyMetadata']['MultiRegionConfiguration']['PrimaryKey']['Arn']) ? (string) $data['KeyMetadata']['MultiRegionConfiguration']['PrimaryKey']['Arn'] : null,
-                    'Region' => isset($data['KeyMetadata']['MultiRegionConfiguration']['PrimaryKey']['Region']) ? (string) $data['KeyMetadata']['MultiRegionConfiguration']['PrimaryKey']['Region'] : null,
-                ]),
-                'ReplicaKeys' => !isset($data['KeyMetadata']['MultiRegionConfiguration']['ReplicaKeys']) ? null : $this->populateResultMultiRegionKeyList($data['KeyMetadata']['MultiRegionConfiguration']['ReplicaKeys']),
-            ]),
-            'PendingDeletionWindowInDays' => isset($data['KeyMetadata']['PendingDeletionWindowInDays']) ? (int) $data['KeyMetadata']['PendingDeletionWindowInDays'] : null,
-        ]);
+        $this->keyMetadata = empty($data['KeyMetadata']) ? null : $this->populateResultKeyMetadata($data['KeyMetadata']);
     }
 
     /**
@@ -77,6 +47,51 @@ class CreateKeyResponse extends Result
         return $items;
     }
 
+    private function populateResultKeyMetadata(array $json): KeyMetadata
+    {
+        return new KeyMetadata([
+            'AWSAccountId' => isset($json['AWSAccountId']) ? (string) $json['AWSAccountId'] : null,
+            'KeyId' => (string) $json['KeyId'],
+            'Arn' => isset($json['Arn']) ? (string) $json['Arn'] : null,
+            'CreationDate' => (isset($json['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['CreationDate'])))) ? $d : null,
+            'Enabled' => isset($json['Enabled']) ? filter_var($json['Enabled'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'Description' => isset($json['Description']) ? (string) $json['Description'] : null,
+            'KeyUsage' => isset($json['KeyUsage']) ? (string) $json['KeyUsage'] : null,
+            'KeyState' => isset($json['KeyState']) ? (string) $json['KeyState'] : null,
+            'DeletionDate' => (isset($json['DeletionDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['DeletionDate'])))) ? $d : null,
+            'ValidTo' => (isset($json['ValidTo']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['ValidTo'])))) ? $d : null,
+            'Origin' => isset($json['Origin']) ? (string) $json['Origin'] : null,
+            'CustomKeyStoreId' => isset($json['CustomKeyStoreId']) ? (string) $json['CustomKeyStoreId'] : null,
+            'CloudHsmClusterId' => isset($json['CloudHsmClusterId']) ? (string) $json['CloudHsmClusterId'] : null,
+            'ExpirationModel' => isset($json['ExpirationModel']) ? (string) $json['ExpirationModel'] : null,
+            'KeyManager' => isset($json['KeyManager']) ? (string) $json['KeyManager'] : null,
+            'CustomerMasterKeySpec' => isset($json['CustomerMasterKeySpec']) ? (string) $json['CustomerMasterKeySpec'] : null,
+            'KeySpec' => isset($json['KeySpec']) ? (string) $json['KeySpec'] : null,
+            'EncryptionAlgorithms' => !isset($json['EncryptionAlgorithms']) ? null : $this->populateResultEncryptionAlgorithmSpecList($json['EncryptionAlgorithms']),
+            'SigningAlgorithms' => !isset($json['SigningAlgorithms']) ? null : $this->populateResultSigningAlgorithmSpecList($json['SigningAlgorithms']),
+            'MultiRegion' => isset($json['MultiRegion']) ? filter_var($json['MultiRegion'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'MultiRegionConfiguration' => empty($json['MultiRegionConfiguration']) ? null : $this->populateResultMultiRegionConfiguration($json['MultiRegionConfiguration']),
+            'PendingDeletionWindowInDays' => isset($json['PendingDeletionWindowInDays']) ? (int) $json['PendingDeletionWindowInDays'] : null,
+        ]);
+    }
+
+    private function populateResultMultiRegionConfiguration(array $json): MultiRegionConfiguration
+    {
+        return new MultiRegionConfiguration([
+            'MultiRegionKeyType' => isset($json['MultiRegionKeyType']) ? (string) $json['MultiRegionKeyType'] : null,
+            'PrimaryKey' => empty($json['PrimaryKey']) ? null : $this->populateResultMultiRegionKey($json['PrimaryKey']),
+            'ReplicaKeys' => !isset($json['ReplicaKeys']) ? null : $this->populateResultMultiRegionKeyList($json['ReplicaKeys']),
+        ]);
+    }
+
+    private function populateResultMultiRegionKey(array $json): MultiRegionKey
+    {
+        return new MultiRegionKey([
+            'Arn' => isset($json['Arn']) ? (string) $json['Arn'] : null,
+            'Region' => isset($json['Region']) ? (string) $json['Region'] : null,
+        ]);
+    }
+
     /**
      * @return MultiRegionKey[]
      */
@@ -84,10 +99,7 @@ class CreateKeyResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new MultiRegionKey([
-                'Arn' => isset($item['Arn']) ? (string) $item['Arn'] : null,
-                'Region' => isset($item['Region']) ? (string) $item['Region'] : null,
-            ]);
+            $items[] = $this->populateResultMultiRegionKey($item);
         }
 
         return $items;

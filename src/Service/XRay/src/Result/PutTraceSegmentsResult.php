@@ -30,6 +30,15 @@ class PutTraceSegmentsResult extends Result
         $this->unprocessedTraceSegments = empty($data['UnprocessedTraceSegments']) ? [] : $this->populateResultUnprocessedTraceSegmentList($data['UnprocessedTraceSegments']);
     }
 
+    private function populateResultUnprocessedTraceSegment(array $json): UnprocessedTraceSegment
+    {
+        return new UnprocessedTraceSegment([
+            'Id' => isset($json['Id']) ? (string) $json['Id'] : null,
+            'ErrorCode' => isset($json['ErrorCode']) ? (string) $json['ErrorCode'] : null,
+            'Message' => isset($json['Message']) ? (string) $json['Message'] : null,
+        ]);
+    }
+
     /**
      * @return UnprocessedTraceSegment[]
      */
@@ -37,11 +46,7 @@ class PutTraceSegmentsResult extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new UnprocessedTraceSegment([
-                'Id' => isset($item['Id']) ? (string) $item['Id'] : null,
-                'ErrorCode' => isset($item['ErrorCode']) ? (string) $item['ErrorCode'] : null,
-                'Message' => isset($item['Message']) ? (string) $item['Message'] : null,
-            ]);
+            $items[] = $this->populateResultUnprocessedTraceSegment($item);
         }
 
         return $items;

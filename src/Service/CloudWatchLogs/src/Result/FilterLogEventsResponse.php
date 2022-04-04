@@ -173,6 +173,17 @@ class FilterLogEventsResponse extends Result implements \IteratorAggregate
         $this->nextToken = isset($data['nextToken']) ? (string) $data['nextToken'] : null;
     }
 
+    private function populateResultFilteredLogEvent(array $json): FilteredLogEvent
+    {
+        return new FilteredLogEvent([
+            'logStreamName' => isset($json['logStreamName']) ? (string) $json['logStreamName'] : null,
+            'timestamp' => isset($json['timestamp']) ? (string) $json['timestamp'] : null,
+            'message' => isset($json['message']) ? (string) $json['message'] : null,
+            'ingestionTime' => isset($json['ingestionTime']) ? (string) $json['ingestionTime'] : null,
+            'eventId' => isset($json['eventId']) ? (string) $json['eventId'] : null,
+        ]);
+    }
+
     /**
      * @return FilteredLogEvent[]
      */
@@ -180,16 +191,18 @@ class FilterLogEventsResponse extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new FilteredLogEvent([
-                'logStreamName' => isset($item['logStreamName']) ? (string) $item['logStreamName'] : null,
-                'timestamp' => isset($item['timestamp']) ? (string) $item['timestamp'] : null,
-                'message' => isset($item['message']) ? (string) $item['message'] : null,
-                'ingestionTime' => isset($item['ingestionTime']) ? (string) $item['ingestionTime'] : null,
-                'eventId' => isset($item['eventId']) ? (string) $item['eventId'] : null,
-            ]);
+            $items[] = $this->populateResultFilteredLogEvent($item);
         }
 
         return $items;
+    }
+
+    private function populateResultSearchedLogStream(array $json): SearchedLogStream
+    {
+        return new SearchedLogStream([
+            'logStreamName' => isset($json['logStreamName']) ? (string) $json['logStreamName'] : null,
+            'searchedCompletely' => isset($json['searchedCompletely']) ? filter_var($json['searchedCompletely'], \FILTER_VALIDATE_BOOLEAN) : null,
+        ]);
     }
 
     /**
@@ -199,10 +212,7 @@ class FilterLogEventsResponse extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new SearchedLogStream([
-                'logStreamName' => isset($item['logStreamName']) ? (string) $item['logStreamName'] : null,
-                'searchedCompletely' => isset($item['searchedCompletely']) ? filter_var($item['searchedCompletely'], \FILTER_VALIDATE_BOOLEAN) : null,
-            ]);
+            $items[] = $this->populateResultSearchedLogStream($item);
         }
 
         return $items;

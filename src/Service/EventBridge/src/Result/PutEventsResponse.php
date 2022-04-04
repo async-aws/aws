@@ -44,6 +44,15 @@ class PutEventsResponse extends Result
         $this->entries = empty($data['Entries']) ? [] : $this->populateResultPutEventsResultEntryList($data['Entries']);
     }
 
+    private function populateResultPutEventsResultEntry(array $json): PutEventsResultEntry
+    {
+        return new PutEventsResultEntry([
+            'EventId' => isset($json['EventId']) ? (string) $json['EventId'] : null,
+            'ErrorCode' => isset($json['ErrorCode']) ? (string) $json['ErrorCode'] : null,
+            'ErrorMessage' => isset($json['ErrorMessage']) ? (string) $json['ErrorMessage'] : null,
+        ]);
+    }
+
     /**
      * @return PutEventsResultEntry[]
      */
@@ -51,11 +60,7 @@ class PutEventsResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new PutEventsResultEntry([
-                'EventId' => isset($item['EventId']) ? (string) $item['EventId'] : null,
-                'ErrorCode' => isset($item['ErrorCode']) ? (string) $item['ErrorCode'] : null,
-                'ErrorMessage' => isset($item['ErrorMessage']) ? (string) $item['ErrorMessage'] : null,
-            ]);
+            $items[] = $this->populateResultPutEventsResultEntry($item);
         }
 
         return $items;

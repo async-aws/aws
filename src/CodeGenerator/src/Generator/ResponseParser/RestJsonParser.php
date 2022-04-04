@@ -174,31 +174,37 @@ class RestJsonParser implements Parser
 
     private function parseResponseStructure(StructureShape $shape, string $input, bool $required): string
     {
-        $properties = [];
-        foreach ($shape->getMembers() as $member) {
-            $properties[] = strtr('PROPERTY_NAME => PROPERTY_ACCESSOR,', [
-                'PROPERTY_NAME' => var_export($member->getName(), true),
-                'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('%s[\'%s\']', $input, $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired(), true),
-            ]);
-        }
+        $functionName = 'populateResult' . ucfirst($shape->getName());
+        if (!isset($this->functions[$functionName])) {
+            // prevent recursion
+            $this->functions[$functionName] = true;
 
-        $body = 'new CLASS_NAME([
-            PROPERTIES
-        ])';
+            $properties = [];
+            foreach ($shape->getMembers() as $member) {
+                $properties[] = strtr('PROPERTY_NAME => PROPERTY_ACCESSOR,', [
+                    'PROPERTY_NAME' => var_export($member->getName(), true),
+                    'PROPERTY_ACCESSOR' => $this->parseElement(sprintf('$json[\'%s\']', $this->getInputAccessorName($member)), $member->getShape(), $member->isRequired(), true),
+                ]);
+            }
 
-        if (!$required) {
-            $body = 'empty(INPUT) ? null : ' . $body;
-        }
+            $body = 'return new CLASS_NAME([
+                PROPERTIES
+            ]);';
 
-        $className = $this->namespaceRegistry->getObject($shape);
-        $this->imports[] = $className;
+            $className = $this->namespaceRegistry->getObject($shape);
+            $this->imports[] = $className;
 
-        return strtr(
-            $body, [
+            $this->functions[$functionName] = $this->createPopulateMethod($functionName, strtr($body, [
                 'INPUT' => $input,
                 'CLASS_NAME' => $className->getName(),
                 'PROPERTIES' => implode("\n", $properties),
-            ]);
+            ]), $shape);
+        }
+
+        return strtr($required ? '$this->FUNCTION_NAME(INPUT)' : 'empty(INPUT) ? null : $this->FUNCTION_NAME(INPUT)', [
+            'INPUT' => $input,
+            'FUNCTION_NAME' => $functionName,
+        ]);
     }
 
     private function parseResponseString(string $input, bool $required): string
@@ -373,18 +379,16 @@ class RestJsonParser implements Parser
     {
         $method = new Method($functionName);
         $method->setVisibility(ClassType::VISIBILITY_PRIVATE)
-            ->setReturnType('array')
             ->setBody($body)
             ->addParameter('json')
                 ->setType('array')
         ;
 
-        if (null !== $shape) {
-            [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($shape);
-            $method
-                ->setComment('@return ' . $parameterType);
-            $this->imports = array_merge($this->imports, $memberClassNames);
-        }
+        [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($shape);
+        $method
+            ->setReturnType($returnType)
+            ->setComment('@return ' . $parameterType);
+        $this->imports = array_merge($this->imports, $memberClassNames);
 
         return $method;
     }

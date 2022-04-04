@@ -27,20 +27,13 @@ class DescribeStreamSummaryOutput extends Result
     {
         $data = $response->toArray();
 
-        $this->streamDescriptionSummary = new StreamDescriptionSummary([
-            'StreamName' => (string) $data['StreamDescriptionSummary']['StreamName'],
-            'StreamARN' => (string) $data['StreamDescriptionSummary']['StreamARN'],
-            'StreamStatus' => (string) $data['StreamDescriptionSummary']['StreamStatus'],
-            'StreamModeDetails' => empty($data['StreamDescriptionSummary']['StreamModeDetails']) ? null : new StreamModeDetails([
-                'StreamMode' => (string) $data['StreamDescriptionSummary']['StreamModeDetails']['StreamMode'],
-            ]),
-            'RetentionPeriodHours' => (int) $data['StreamDescriptionSummary']['RetentionPeriodHours'],
-            'StreamCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['StreamDescriptionSummary']['StreamCreationTimestamp'])),
-            'EnhancedMonitoring' => $this->populateResultEnhancedMonitoringList($data['StreamDescriptionSummary']['EnhancedMonitoring']),
-            'EncryptionType' => isset($data['StreamDescriptionSummary']['EncryptionType']) ? (string) $data['StreamDescriptionSummary']['EncryptionType'] : null,
-            'KeyId' => isset($data['StreamDescriptionSummary']['KeyId']) ? (string) $data['StreamDescriptionSummary']['KeyId'] : null,
-            'OpenShardCount' => (int) $data['StreamDescriptionSummary']['OpenShardCount'],
-            'ConsumerCount' => isset($data['StreamDescriptionSummary']['ConsumerCount']) ? (int) $data['StreamDescriptionSummary']['ConsumerCount'] : null,
+        $this->streamDescriptionSummary = $this->populateResultStreamDescriptionSummary($data['StreamDescriptionSummary']);
+    }
+
+    private function populateResultEnhancedMetrics(array $json): EnhancedMetrics
+    {
+        return new EnhancedMetrics([
+            'ShardLevelMetrics' => !isset($json['ShardLevelMetrics']) ? null : $this->populateResultMetricsNameList($json['ShardLevelMetrics']),
         ]);
     }
 
@@ -51,9 +44,7 @@ class DescribeStreamSummaryOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new EnhancedMetrics([
-                'ShardLevelMetrics' => !isset($item['ShardLevelMetrics']) ? null : $this->populateResultMetricsNameList($item['ShardLevelMetrics']),
-            ]);
+            $items[] = $this->populateResultEnhancedMetrics($item);
         }
 
         return $items;
@@ -73,5 +64,29 @@ class DescribeStreamSummaryOutput extends Result
         }
 
         return $items;
+    }
+
+    private function populateResultStreamDescriptionSummary(array $json): StreamDescriptionSummary
+    {
+        return new StreamDescriptionSummary([
+            'StreamName' => (string) $json['StreamName'],
+            'StreamARN' => (string) $json['StreamARN'],
+            'StreamStatus' => (string) $json['StreamStatus'],
+            'StreamModeDetails' => empty($json['StreamModeDetails']) ? null : $this->populateResultStreamModeDetails($json['StreamModeDetails']),
+            'RetentionPeriodHours' => (int) $json['RetentionPeriodHours'],
+            'StreamCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['StreamCreationTimestamp'])),
+            'EnhancedMonitoring' => $this->populateResultEnhancedMonitoringList($json['EnhancedMonitoring']),
+            'EncryptionType' => isset($json['EncryptionType']) ? (string) $json['EncryptionType'] : null,
+            'KeyId' => isset($json['KeyId']) ? (string) $json['KeyId'] : null,
+            'OpenShardCount' => (int) $json['OpenShardCount'],
+            'ConsumerCount' => isset($json['ConsumerCount']) ? (int) $json['ConsumerCount'] : null,
+        ]);
+    }
+
+    private function populateResultStreamModeDetails(array $json): StreamModeDetails
+    {
+        return new StreamModeDetails([
+            'StreamMode' => (string) $json['StreamMode'],
+        ]);
     }
 }

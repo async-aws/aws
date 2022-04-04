@@ -30,6 +30,15 @@ class GetAuthorizationTokenResponse extends Result
         $this->authorizationData = empty($data['authorizationData']) ? [] : $this->populateResultAuthorizationDataList($data['authorizationData']);
     }
 
+    private function populateResultAuthorizationData(array $json): AuthorizationData
+    {
+        return new AuthorizationData([
+            'authorizationToken' => isset($json['authorizationToken']) ? (string) $json['authorizationToken'] : null,
+            'expiresAt' => (isset($json['expiresAt']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['expiresAt'])))) ? $d : null,
+            'proxyEndpoint' => isset($json['proxyEndpoint']) ? (string) $json['proxyEndpoint'] : null,
+        ]);
+    }
+
     /**
      * @return AuthorizationData[]
      */
@@ -37,11 +46,7 @@ class GetAuthorizationTokenResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new AuthorizationData([
-                'authorizationToken' => isset($item['authorizationToken']) ? (string) $item['authorizationToken'] : null,
-                'expiresAt' => (isset($item['expiresAt']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['expiresAt'])))) ? $d : null,
-                'proxyEndpoint' => isset($item['proxyEndpoint']) ? (string) $item['proxyEndpoint'] : null,
-            ]);
+            $items[] = $this->populateResultAuthorizationData($item);
         }
 
         return $items;

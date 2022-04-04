@@ -93,6 +93,21 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
         $this->nextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
     }
 
+    private function populateResultParameter(array $json): Parameter
+    {
+        return new Parameter([
+            'Name' => isset($json['Name']) ? (string) $json['Name'] : null,
+            'Type' => isset($json['Type']) ? (string) $json['Type'] : null,
+            'Value' => isset($json['Value']) ? (string) $json['Value'] : null,
+            'Version' => isset($json['Version']) ? (string) $json['Version'] : null,
+            'Selector' => isset($json['Selector']) ? (string) $json['Selector'] : null,
+            'SourceResult' => isset($json['SourceResult']) ? (string) $json['SourceResult'] : null,
+            'LastModifiedDate' => (isset($json['LastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastModifiedDate'])))) ? $d : null,
+            'ARN' => isset($json['ARN']) ? (string) $json['ARN'] : null,
+            'DataType' => isset($json['DataType']) ? (string) $json['DataType'] : null,
+        ]);
+    }
+
     /**
      * @return Parameter[]
      */
@@ -100,17 +115,7 @@ class GetParametersByPathResult extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new Parameter([
-                'Name' => isset($item['Name']) ? (string) $item['Name'] : null,
-                'Type' => isset($item['Type']) ? (string) $item['Type'] : null,
-                'Value' => isset($item['Value']) ? (string) $item['Value'] : null,
-                'Version' => isset($item['Version']) ? (string) $item['Version'] : null,
-                'Selector' => isset($item['Selector']) ? (string) $item['Selector'] : null,
-                'SourceResult' => isset($item['SourceResult']) ? (string) $item['SourceResult'] : null,
-                'LastModifiedDate' => (isset($item['LastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['LastModifiedDate'])))) ? $d : null,
-                'ARN' => isset($item['ARN']) ? (string) $item['ARN'] : null,
-                'DataType' => isset($item['DataType']) ? (string) $item['DataType'] : null,
-            ]);
+            $items[] = $this->populateResultParameter($item);
         }
 
         return $items;

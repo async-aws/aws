@@ -65,6 +65,16 @@ class PutRecordsOutput extends Result
         $this->encryptionType = isset($data['EncryptionType']) ? (string) $data['EncryptionType'] : null;
     }
 
+    private function populateResultPutRecordsResultEntry(array $json): PutRecordsResultEntry
+    {
+        return new PutRecordsResultEntry([
+            'SequenceNumber' => isset($json['SequenceNumber']) ? (string) $json['SequenceNumber'] : null,
+            'ShardId' => isset($json['ShardId']) ? (string) $json['ShardId'] : null,
+            'ErrorCode' => isset($json['ErrorCode']) ? (string) $json['ErrorCode'] : null,
+            'ErrorMessage' => isset($json['ErrorMessage']) ? (string) $json['ErrorMessage'] : null,
+        ]);
+    }
+
     /**
      * @return PutRecordsResultEntry[]
      */
@@ -72,12 +82,7 @@ class PutRecordsOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new PutRecordsResultEntry([
-                'SequenceNumber' => isset($item['SequenceNumber']) ? (string) $item['SequenceNumber'] : null,
-                'ShardId' => isset($item['ShardId']) ? (string) $item['ShardId'] : null,
-                'ErrorCode' => isset($item['ErrorCode']) ? (string) $item['ErrorCode'] : null,
-                'ErrorMessage' => isset($item['ErrorMessage']) ? (string) $item['ErrorMessage'] : null,
-            ]);
+            $items[] = $this->populateResultPutRecordsResultEntry($item);
         }
 
         return $items;

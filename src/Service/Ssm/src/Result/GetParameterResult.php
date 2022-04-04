@@ -24,16 +24,21 @@ class GetParameterResult extends Result
     {
         $data = $response->toArray();
 
-        $this->parameter = empty($data['Parameter']) ? null : new Parameter([
-            'Name' => isset($data['Parameter']['Name']) ? (string) $data['Parameter']['Name'] : null,
-            'Type' => isset($data['Parameter']['Type']) ? (string) $data['Parameter']['Type'] : null,
-            'Value' => isset($data['Parameter']['Value']) ? (string) $data['Parameter']['Value'] : null,
-            'Version' => isset($data['Parameter']['Version']) ? (string) $data['Parameter']['Version'] : null,
-            'Selector' => isset($data['Parameter']['Selector']) ? (string) $data['Parameter']['Selector'] : null,
-            'SourceResult' => isset($data['Parameter']['SourceResult']) ? (string) $data['Parameter']['SourceResult'] : null,
-            'LastModifiedDate' => (isset($data['Parameter']['LastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['Parameter']['LastModifiedDate'])))) ? $d : null,
-            'ARN' => isset($data['Parameter']['ARN']) ? (string) $data['Parameter']['ARN'] : null,
-            'DataType' => isset($data['Parameter']['DataType']) ? (string) $data['Parameter']['DataType'] : null,
+        $this->parameter = empty($data['Parameter']) ? null : $this->populateResultParameter($data['Parameter']);
+    }
+
+    private function populateResultParameter(array $json): Parameter
+    {
+        return new Parameter([
+            'Name' => isset($json['Name']) ? (string) $json['Name'] : null,
+            'Type' => isset($json['Type']) ? (string) $json['Type'] : null,
+            'Value' => isset($json['Value']) ? (string) $json['Value'] : null,
+            'Version' => isset($json['Version']) ? (string) $json['Version'] : null,
+            'Selector' => isset($json['Selector']) ? (string) $json['Selector'] : null,
+            'SourceResult' => isset($json['SourceResult']) ? (string) $json['SourceResult'] : null,
+            'LastModifiedDate' => (isset($json['LastModifiedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastModifiedDate'])))) ? $d : null,
+            'ARN' => isset($json['ARN']) ? (string) $json['ARN'] : null,
+            'DataType' => isset($json['DataType']) ? (string) $json['DataType'] : null,
         ]);
     }
 }

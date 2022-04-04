@@ -28,29 +28,14 @@ class CreateResolverResponse extends Result
     {
         $data = $response->toArray();
 
-        $this->resolver = empty($data['resolver']) ? null : new Resolver([
-            'typeName' => isset($data['resolver']['typeName']) ? (string) $data['resolver']['typeName'] : null,
-            'fieldName' => isset($data['resolver']['fieldName']) ? (string) $data['resolver']['fieldName'] : null,
-            'dataSourceName' => isset($data['resolver']['dataSourceName']) ? (string) $data['resolver']['dataSourceName'] : null,
-            'resolverArn' => isset($data['resolver']['resolverArn']) ? (string) $data['resolver']['resolverArn'] : null,
-            'requestMappingTemplate' => isset($data['resolver']['requestMappingTemplate']) ? (string) $data['resolver']['requestMappingTemplate'] : null,
-            'responseMappingTemplate' => isset($data['resolver']['responseMappingTemplate']) ? (string) $data['resolver']['responseMappingTemplate'] : null,
-            'kind' => isset($data['resolver']['kind']) ? (string) $data['resolver']['kind'] : null,
-            'pipelineConfig' => empty($data['resolver']['pipelineConfig']) ? null : new PipelineConfig([
-                'functions' => !isset($data['resolver']['pipelineConfig']['functions']) ? null : $this->populateResultFunctionsIds($data['resolver']['pipelineConfig']['functions']),
-            ]),
-            'syncConfig' => empty($data['resolver']['syncConfig']) ? null : new SyncConfig([
-                'conflictHandler' => isset($data['resolver']['syncConfig']['conflictHandler']) ? (string) $data['resolver']['syncConfig']['conflictHandler'] : null,
-                'conflictDetection' => isset($data['resolver']['syncConfig']['conflictDetection']) ? (string) $data['resolver']['syncConfig']['conflictDetection'] : null,
-                'lambdaConflictHandlerConfig' => empty($data['resolver']['syncConfig']['lambdaConflictHandlerConfig']) ? null : new LambdaConflictHandlerConfig([
-                    'lambdaConflictHandlerArn' => isset($data['resolver']['syncConfig']['lambdaConflictHandlerConfig']['lambdaConflictHandlerArn']) ? (string) $data['resolver']['syncConfig']['lambdaConflictHandlerConfig']['lambdaConflictHandlerArn'] : null,
-                ]),
-            ]),
-            'cachingConfig' => empty($data['resolver']['cachingConfig']) ? null : new CachingConfig([
-                'ttl' => isset($data['resolver']['cachingConfig']['ttl']) ? (string) $data['resolver']['cachingConfig']['ttl'] : null,
-                'cachingKeys' => !isset($data['resolver']['cachingConfig']['cachingKeys']) ? null : $this->populateResultCachingKeys($data['resolver']['cachingConfig']['cachingKeys']),
-            ]),
-            'maxBatchSize' => isset($data['resolver']['maxBatchSize']) ? (int) $data['resolver']['maxBatchSize'] : null,
+        $this->resolver = empty($data['resolver']) ? null : $this->populateResultResolver($data['resolver']);
+    }
+
+    private function populateResultCachingConfig(array $json): CachingConfig
+    {
+        return new CachingConfig([
+            'ttl' => isset($json['ttl']) ? (string) $json['ttl'] : null,
+            'cachingKeys' => !isset($json['cachingKeys']) ? null : $this->populateResultCachingKeys($json['cachingKeys']),
         ]);
     }
 
@@ -84,5 +69,45 @@ class CreateResolverResponse extends Result
         }
 
         return $items;
+    }
+
+    private function populateResultLambdaConflictHandlerConfig(array $json): LambdaConflictHandlerConfig
+    {
+        return new LambdaConflictHandlerConfig([
+            'lambdaConflictHandlerArn' => isset($json['lambdaConflictHandlerArn']) ? (string) $json['lambdaConflictHandlerArn'] : null,
+        ]);
+    }
+
+    private function populateResultPipelineConfig(array $json): PipelineConfig
+    {
+        return new PipelineConfig([
+            'functions' => !isset($json['functions']) ? null : $this->populateResultFunctionsIds($json['functions']),
+        ]);
+    }
+
+    private function populateResultResolver(array $json): Resolver
+    {
+        return new Resolver([
+            'typeName' => isset($json['typeName']) ? (string) $json['typeName'] : null,
+            'fieldName' => isset($json['fieldName']) ? (string) $json['fieldName'] : null,
+            'dataSourceName' => isset($json['dataSourceName']) ? (string) $json['dataSourceName'] : null,
+            'resolverArn' => isset($json['resolverArn']) ? (string) $json['resolverArn'] : null,
+            'requestMappingTemplate' => isset($json['requestMappingTemplate']) ? (string) $json['requestMappingTemplate'] : null,
+            'responseMappingTemplate' => isset($json['responseMappingTemplate']) ? (string) $json['responseMappingTemplate'] : null,
+            'kind' => isset($json['kind']) ? (string) $json['kind'] : null,
+            'pipelineConfig' => empty($json['pipelineConfig']) ? null : $this->populateResultPipelineConfig($json['pipelineConfig']),
+            'syncConfig' => empty($json['syncConfig']) ? null : $this->populateResultSyncConfig($json['syncConfig']),
+            'cachingConfig' => empty($json['cachingConfig']) ? null : $this->populateResultCachingConfig($json['cachingConfig']),
+            'maxBatchSize' => isset($json['maxBatchSize']) ? (int) $json['maxBatchSize'] : null,
+        ]);
+    }
+
+    private function populateResultSyncConfig(array $json): SyncConfig
+    {
+        return new SyncConfig([
+            'conflictHandler' => isset($json['conflictHandler']) ? (string) $json['conflictHandler'] : null,
+            'conflictDetection' => isset($json['conflictDetection']) ? (string) $json['conflictDetection'] : null,
+            'lambdaConflictHandlerConfig' => empty($json['lambdaConflictHandlerConfig']) ? null : $this->populateResultLambdaConflictHandlerConfig($json['lambdaConflictHandlerConfig']),
+        ]);
     }
 }

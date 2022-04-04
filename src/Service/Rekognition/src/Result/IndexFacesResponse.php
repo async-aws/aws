@@ -100,6 +100,40 @@ class IndexFacesResponse extends Result
         $this->unindexedFaces = empty($data['UnindexedFaces']) ? [] : $this->populateResultUnindexedFaces($data['UnindexedFaces']);
     }
 
+    private function populateResultAgeRange(array $json): AgeRange
+    {
+        return new AgeRange([
+            'Low' => isset($json['Low']) ? (int) $json['Low'] : null,
+            'High' => isset($json['High']) ? (int) $json['High'] : null,
+        ]);
+    }
+
+    private function populateResultBeard(array $json): Beard
+    {
+        return new Beard([
+            'Value' => isset($json['Value']) ? filter_var($json['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
+        ]);
+    }
+
+    private function populateResultBoundingBox(array $json): BoundingBox
+    {
+        return new BoundingBox([
+            'Width' => isset($json['Width']) ? (float) $json['Width'] : null,
+            'Height' => isset($json['Height']) ? (float) $json['Height'] : null,
+            'Left' => isset($json['Left']) ? (float) $json['Left'] : null,
+            'Top' => isset($json['Top']) ? (float) $json['Top'] : null,
+        ]);
+    }
+
+    private function populateResultEmotion(array $json): Emotion
+    {
+        return new Emotion([
+            'Type' => isset($json['Type']) ? (string) $json['Type'] : null,
+            'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
+        ]);
+    }
+
     /**
      * @return Emotion[]
      */
@@ -107,13 +141,67 @@ class IndexFacesResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new Emotion([
-                'Type' => isset($item['Type']) ? (string) $item['Type'] : null,
-                'Confidence' => isset($item['Confidence']) ? (float) $item['Confidence'] : null,
-            ]);
+            $items[] = $this->populateResultEmotion($item);
         }
 
         return $items;
+    }
+
+    private function populateResultEyeOpen(array $json): EyeOpen
+    {
+        return new EyeOpen([
+            'Value' => isset($json['Value']) ? filter_var($json['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
+        ]);
+    }
+
+    private function populateResultEyeglasses(array $json): Eyeglasses
+    {
+        return new Eyeglasses([
+            'Value' => isset($json['Value']) ? filter_var($json['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
+        ]);
+    }
+
+    private function populateResultFace(array $json): Face
+    {
+        return new Face([
+            'FaceId' => isset($json['FaceId']) ? (string) $json['FaceId'] : null,
+            'BoundingBox' => empty($json['BoundingBox']) ? null : $this->populateResultBoundingBox($json['BoundingBox']),
+            'ImageId' => isset($json['ImageId']) ? (string) $json['ImageId'] : null,
+            'ExternalImageId' => isset($json['ExternalImageId']) ? (string) $json['ExternalImageId'] : null,
+            'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
+            'IndexFacesModelVersion' => isset($json['IndexFacesModelVersion']) ? (string) $json['IndexFacesModelVersion'] : null,
+        ]);
+    }
+
+    private function populateResultFaceDetail(array $json): FaceDetail
+    {
+        return new FaceDetail([
+            'BoundingBox' => empty($json['BoundingBox']) ? null : $this->populateResultBoundingBox($json['BoundingBox']),
+            'AgeRange' => empty($json['AgeRange']) ? null : $this->populateResultAgeRange($json['AgeRange']),
+            'Smile' => empty($json['Smile']) ? null : $this->populateResultSmile($json['Smile']),
+            'Eyeglasses' => empty($json['Eyeglasses']) ? null : $this->populateResultEyeglasses($json['Eyeglasses']),
+            'Sunglasses' => empty($json['Sunglasses']) ? null : $this->populateResultSunglasses($json['Sunglasses']),
+            'Gender' => empty($json['Gender']) ? null : $this->populateResultGender($json['Gender']),
+            'Beard' => empty($json['Beard']) ? null : $this->populateResultBeard($json['Beard']),
+            'Mustache' => empty($json['Mustache']) ? null : $this->populateResultMustache($json['Mustache']),
+            'EyesOpen' => empty($json['EyesOpen']) ? null : $this->populateResultEyeOpen($json['EyesOpen']),
+            'MouthOpen' => empty($json['MouthOpen']) ? null : $this->populateResultMouthOpen($json['MouthOpen']),
+            'Emotions' => !isset($json['Emotions']) ? null : $this->populateResultEmotions($json['Emotions']),
+            'Landmarks' => !isset($json['Landmarks']) ? null : $this->populateResultLandmarks($json['Landmarks']),
+            'Pose' => empty($json['Pose']) ? null : $this->populateResultPose($json['Pose']),
+            'Quality' => empty($json['Quality']) ? null : $this->populateResultImageQuality($json['Quality']),
+            'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
+        ]);
+    }
+
+    private function populateResultFaceRecord(array $json): FaceRecord
+    {
+        return new FaceRecord([
+            'Face' => empty($json['Face']) ? null : $this->populateResultFace($json['Face']),
+            'FaceDetail' => empty($json['FaceDetail']) ? null : $this->populateResultFaceDetail($json['FaceDetail']),
+        ]);
     }
 
     /**
@@ -123,80 +211,35 @@ class IndexFacesResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new FaceRecord([
-                'Face' => empty($item['Face']) ? null : new Face([
-                    'FaceId' => isset($item['Face']['FaceId']) ? (string) $item['Face']['FaceId'] : null,
-                    'BoundingBox' => empty($item['Face']['BoundingBox']) ? null : new BoundingBox([
-                        'Width' => isset($item['Face']['BoundingBox']['Width']) ? (float) $item['Face']['BoundingBox']['Width'] : null,
-                        'Height' => isset($item['Face']['BoundingBox']['Height']) ? (float) $item['Face']['BoundingBox']['Height'] : null,
-                        'Left' => isset($item['Face']['BoundingBox']['Left']) ? (float) $item['Face']['BoundingBox']['Left'] : null,
-                        'Top' => isset($item['Face']['BoundingBox']['Top']) ? (float) $item['Face']['BoundingBox']['Top'] : null,
-                    ]),
-                    'ImageId' => isset($item['Face']['ImageId']) ? (string) $item['Face']['ImageId'] : null,
-                    'ExternalImageId' => isset($item['Face']['ExternalImageId']) ? (string) $item['Face']['ExternalImageId'] : null,
-                    'Confidence' => isset($item['Face']['Confidence']) ? (float) $item['Face']['Confidence'] : null,
-                    'IndexFacesModelVersion' => isset($item['Face']['IndexFacesModelVersion']) ? (string) $item['Face']['IndexFacesModelVersion'] : null,
-                ]),
-                'FaceDetail' => empty($item['FaceDetail']) ? null : new FaceDetail([
-                    'BoundingBox' => empty($item['FaceDetail']['BoundingBox']) ? null : new BoundingBox([
-                        'Width' => isset($item['FaceDetail']['BoundingBox']['Width']) ? (float) $item['FaceDetail']['BoundingBox']['Width'] : null,
-                        'Height' => isset($item['FaceDetail']['BoundingBox']['Height']) ? (float) $item['FaceDetail']['BoundingBox']['Height'] : null,
-                        'Left' => isset($item['FaceDetail']['BoundingBox']['Left']) ? (float) $item['FaceDetail']['BoundingBox']['Left'] : null,
-                        'Top' => isset($item['FaceDetail']['BoundingBox']['Top']) ? (float) $item['FaceDetail']['BoundingBox']['Top'] : null,
-                    ]),
-                    'AgeRange' => empty($item['FaceDetail']['AgeRange']) ? null : new AgeRange([
-                        'Low' => isset($item['FaceDetail']['AgeRange']['Low']) ? (int) $item['FaceDetail']['AgeRange']['Low'] : null,
-                        'High' => isset($item['FaceDetail']['AgeRange']['High']) ? (int) $item['FaceDetail']['AgeRange']['High'] : null,
-                    ]),
-                    'Smile' => empty($item['FaceDetail']['Smile']) ? null : new Smile([
-                        'Value' => isset($item['FaceDetail']['Smile']['Value']) ? filter_var($item['FaceDetail']['Smile']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
-                        'Confidence' => isset($item['FaceDetail']['Smile']['Confidence']) ? (float) $item['FaceDetail']['Smile']['Confidence'] : null,
-                    ]),
-                    'Eyeglasses' => empty($item['FaceDetail']['Eyeglasses']) ? null : new Eyeglasses([
-                        'Value' => isset($item['FaceDetail']['Eyeglasses']['Value']) ? filter_var($item['FaceDetail']['Eyeglasses']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
-                        'Confidence' => isset($item['FaceDetail']['Eyeglasses']['Confidence']) ? (float) $item['FaceDetail']['Eyeglasses']['Confidence'] : null,
-                    ]),
-                    'Sunglasses' => empty($item['FaceDetail']['Sunglasses']) ? null : new Sunglasses([
-                        'Value' => isset($item['FaceDetail']['Sunglasses']['Value']) ? filter_var($item['FaceDetail']['Sunglasses']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
-                        'Confidence' => isset($item['FaceDetail']['Sunglasses']['Confidence']) ? (float) $item['FaceDetail']['Sunglasses']['Confidence'] : null,
-                    ]),
-                    'Gender' => empty($item['FaceDetail']['Gender']) ? null : new Gender([
-                        'Value' => isset($item['FaceDetail']['Gender']['Value']) ? (string) $item['FaceDetail']['Gender']['Value'] : null,
-                        'Confidence' => isset($item['FaceDetail']['Gender']['Confidence']) ? (float) $item['FaceDetail']['Gender']['Confidence'] : null,
-                    ]),
-                    'Beard' => empty($item['FaceDetail']['Beard']) ? null : new Beard([
-                        'Value' => isset($item['FaceDetail']['Beard']['Value']) ? filter_var($item['FaceDetail']['Beard']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
-                        'Confidence' => isset($item['FaceDetail']['Beard']['Confidence']) ? (float) $item['FaceDetail']['Beard']['Confidence'] : null,
-                    ]),
-                    'Mustache' => empty($item['FaceDetail']['Mustache']) ? null : new Mustache([
-                        'Value' => isset($item['FaceDetail']['Mustache']['Value']) ? filter_var($item['FaceDetail']['Mustache']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
-                        'Confidence' => isset($item['FaceDetail']['Mustache']['Confidence']) ? (float) $item['FaceDetail']['Mustache']['Confidence'] : null,
-                    ]),
-                    'EyesOpen' => empty($item['FaceDetail']['EyesOpen']) ? null : new EyeOpen([
-                        'Value' => isset($item['FaceDetail']['EyesOpen']['Value']) ? filter_var($item['FaceDetail']['EyesOpen']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
-                        'Confidence' => isset($item['FaceDetail']['EyesOpen']['Confidence']) ? (float) $item['FaceDetail']['EyesOpen']['Confidence'] : null,
-                    ]),
-                    'MouthOpen' => empty($item['FaceDetail']['MouthOpen']) ? null : new MouthOpen([
-                        'Value' => isset($item['FaceDetail']['MouthOpen']['Value']) ? filter_var($item['FaceDetail']['MouthOpen']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
-                        'Confidence' => isset($item['FaceDetail']['MouthOpen']['Confidence']) ? (float) $item['FaceDetail']['MouthOpen']['Confidence'] : null,
-                    ]),
-                    'Emotions' => !isset($item['FaceDetail']['Emotions']) ? null : $this->populateResultEmotions($item['FaceDetail']['Emotions']),
-                    'Landmarks' => !isset($item['FaceDetail']['Landmarks']) ? null : $this->populateResultLandmarks($item['FaceDetail']['Landmarks']),
-                    'Pose' => empty($item['FaceDetail']['Pose']) ? null : new Pose([
-                        'Roll' => isset($item['FaceDetail']['Pose']['Roll']) ? (float) $item['FaceDetail']['Pose']['Roll'] : null,
-                        'Yaw' => isset($item['FaceDetail']['Pose']['Yaw']) ? (float) $item['FaceDetail']['Pose']['Yaw'] : null,
-                        'Pitch' => isset($item['FaceDetail']['Pose']['Pitch']) ? (float) $item['FaceDetail']['Pose']['Pitch'] : null,
-                    ]),
-                    'Quality' => empty($item['FaceDetail']['Quality']) ? null : new ImageQuality([
-                        'Brightness' => isset($item['FaceDetail']['Quality']['Brightness']) ? (float) $item['FaceDetail']['Quality']['Brightness'] : null,
-                        'Sharpness' => isset($item['FaceDetail']['Quality']['Sharpness']) ? (float) $item['FaceDetail']['Quality']['Sharpness'] : null,
-                    ]),
-                    'Confidence' => isset($item['FaceDetail']['Confidence']) ? (float) $item['FaceDetail']['Confidence'] : null,
-                ]),
-            ]);
+            $items[] = $this->populateResultFaceRecord($item);
         }
 
         return $items;
+    }
+
+    private function populateResultGender(array $json): Gender
+    {
+        return new Gender([
+            'Value' => isset($json['Value']) ? (string) $json['Value'] : null,
+            'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
+        ]);
+    }
+
+    private function populateResultImageQuality(array $json): ImageQuality
+    {
+        return new ImageQuality([
+            'Brightness' => isset($json['Brightness']) ? (float) $json['Brightness'] : null,
+            'Sharpness' => isset($json['Sharpness']) ? (float) $json['Sharpness'] : null,
+        ]);
+    }
+
+    private function populateResultLandmark(array $json): Landmark
+    {
+        return new Landmark([
+            'Type' => isset($json['Type']) ? (string) $json['Type'] : null,
+            'X' => isset($json['X']) ? (float) $json['X'] : null,
+            'Y' => isset($json['Y']) ? (float) $json['Y'] : null,
+        ]);
     }
 
     /**
@@ -206,14 +249,35 @@ class IndexFacesResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new Landmark([
-                'Type' => isset($item['Type']) ? (string) $item['Type'] : null,
-                'X' => isset($item['X']) ? (float) $item['X'] : null,
-                'Y' => isset($item['Y']) ? (float) $item['Y'] : null,
-            ]);
+            $items[] = $this->populateResultLandmark($item);
         }
 
         return $items;
+    }
+
+    private function populateResultMouthOpen(array $json): MouthOpen
+    {
+        return new MouthOpen([
+            'Value' => isset($json['Value']) ? filter_var($json['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
+        ]);
+    }
+
+    private function populateResultMustache(array $json): Mustache
+    {
+        return new Mustache([
+            'Value' => isset($json['Value']) ? filter_var($json['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
+        ]);
+    }
+
+    private function populateResultPose(array $json): Pose
+    {
+        return new Pose([
+            'Roll' => isset($json['Roll']) ? (float) $json['Roll'] : null,
+            'Yaw' => isset($json['Yaw']) ? (float) $json['Yaw'] : null,
+            'Pitch' => isset($json['Pitch']) ? (float) $json['Pitch'] : null,
+        ]);
     }
 
     /**
@@ -232,6 +296,30 @@ class IndexFacesResponse extends Result
         return $items;
     }
 
+    private function populateResultSmile(array $json): Smile
+    {
+        return new Smile([
+            'Value' => isset($json['Value']) ? filter_var($json['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
+        ]);
+    }
+
+    private function populateResultSunglasses(array $json): Sunglasses
+    {
+        return new Sunglasses([
+            'Value' => isset($json['Value']) ? filter_var($json['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'Confidence' => isset($json['Confidence']) ? (float) $json['Confidence'] : null,
+        ]);
+    }
+
+    private function populateResultUnindexedFace(array $json): UnindexedFace
+    {
+        return new UnindexedFace([
+            'Reasons' => !isset($json['Reasons']) ? null : $this->populateResultReasons($json['Reasons']),
+            'FaceDetail' => empty($json['FaceDetail']) ? null : $this->populateResultFaceDetail($json['FaceDetail']),
+        ]);
+    }
+
     /**
      * @return UnindexedFace[]
      */
@@ -239,65 +327,7 @@ class IndexFacesResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new UnindexedFace([
-                'Reasons' => !isset($item['Reasons']) ? null : $this->populateResultReasons($item['Reasons']),
-                'FaceDetail' => empty($item['FaceDetail']) ? null : new FaceDetail([
-                    'BoundingBox' => empty($item['FaceDetail']['BoundingBox']) ? null : new BoundingBox([
-                        'Width' => isset($item['FaceDetail']['BoundingBox']['Width']) ? (float) $item['FaceDetail']['BoundingBox']['Width'] : null,
-                        'Height' => isset($item['FaceDetail']['BoundingBox']['Height']) ? (float) $item['FaceDetail']['BoundingBox']['Height'] : null,
-                        'Left' => isset($item['FaceDetail']['BoundingBox']['Left']) ? (float) $item['FaceDetail']['BoundingBox']['Left'] : null,
-                        'Top' => isset($item['FaceDetail']['BoundingBox']['Top']) ? (float) $item['FaceDetail']['BoundingBox']['Top'] : null,
-                    ]),
-                    'AgeRange' => empty($item['FaceDetail']['AgeRange']) ? null : new AgeRange([
-                        'Low' => isset($item['FaceDetail']['AgeRange']['Low']) ? (int) $item['FaceDetail']['AgeRange']['Low'] : null,
-                        'High' => isset($item['FaceDetail']['AgeRange']['High']) ? (int) $item['FaceDetail']['AgeRange']['High'] : null,
-                    ]),
-                    'Smile' => empty($item['FaceDetail']['Smile']) ? null : new Smile([
-                        'Value' => isset($item['FaceDetail']['Smile']['Value']) ? filter_var($item['FaceDetail']['Smile']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
-                        'Confidence' => isset($item['FaceDetail']['Smile']['Confidence']) ? (float) $item['FaceDetail']['Smile']['Confidence'] : null,
-                    ]),
-                    'Eyeglasses' => empty($item['FaceDetail']['Eyeglasses']) ? null : new Eyeglasses([
-                        'Value' => isset($item['FaceDetail']['Eyeglasses']['Value']) ? filter_var($item['FaceDetail']['Eyeglasses']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
-                        'Confidence' => isset($item['FaceDetail']['Eyeglasses']['Confidence']) ? (float) $item['FaceDetail']['Eyeglasses']['Confidence'] : null,
-                    ]),
-                    'Sunglasses' => empty($item['FaceDetail']['Sunglasses']) ? null : new Sunglasses([
-                        'Value' => isset($item['FaceDetail']['Sunglasses']['Value']) ? filter_var($item['FaceDetail']['Sunglasses']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
-                        'Confidence' => isset($item['FaceDetail']['Sunglasses']['Confidence']) ? (float) $item['FaceDetail']['Sunglasses']['Confidence'] : null,
-                    ]),
-                    'Gender' => empty($item['FaceDetail']['Gender']) ? null : new Gender([
-                        'Value' => isset($item['FaceDetail']['Gender']['Value']) ? (string) $item['FaceDetail']['Gender']['Value'] : null,
-                        'Confidence' => isset($item['FaceDetail']['Gender']['Confidence']) ? (float) $item['FaceDetail']['Gender']['Confidence'] : null,
-                    ]),
-                    'Beard' => empty($item['FaceDetail']['Beard']) ? null : new Beard([
-                        'Value' => isset($item['FaceDetail']['Beard']['Value']) ? filter_var($item['FaceDetail']['Beard']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
-                        'Confidence' => isset($item['FaceDetail']['Beard']['Confidence']) ? (float) $item['FaceDetail']['Beard']['Confidence'] : null,
-                    ]),
-                    'Mustache' => empty($item['FaceDetail']['Mustache']) ? null : new Mustache([
-                        'Value' => isset($item['FaceDetail']['Mustache']['Value']) ? filter_var($item['FaceDetail']['Mustache']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
-                        'Confidence' => isset($item['FaceDetail']['Mustache']['Confidence']) ? (float) $item['FaceDetail']['Mustache']['Confidence'] : null,
-                    ]),
-                    'EyesOpen' => empty($item['FaceDetail']['EyesOpen']) ? null : new EyeOpen([
-                        'Value' => isset($item['FaceDetail']['EyesOpen']['Value']) ? filter_var($item['FaceDetail']['EyesOpen']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
-                        'Confidence' => isset($item['FaceDetail']['EyesOpen']['Confidence']) ? (float) $item['FaceDetail']['EyesOpen']['Confidence'] : null,
-                    ]),
-                    'MouthOpen' => empty($item['FaceDetail']['MouthOpen']) ? null : new MouthOpen([
-                        'Value' => isset($item['FaceDetail']['MouthOpen']['Value']) ? filter_var($item['FaceDetail']['MouthOpen']['Value'], \FILTER_VALIDATE_BOOLEAN) : null,
-                        'Confidence' => isset($item['FaceDetail']['MouthOpen']['Confidence']) ? (float) $item['FaceDetail']['MouthOpen']['Confidence'] : null,
-                    ]),
-                    'Emotions' => !isset($item['FaceDetail']['Emotions']) ? null : $this->populateResultEmotions($item['FaceDetail']['Emotions']),
-                    'Landmarks' => !isset($item['FaceDetail']['Landmarks']) ? null : $this->populateResultLandmarks($item['FaceDetail']['Landmarks']),
-                    'Pose' => empty($item['FaceDetail']['Pose']) ? null : new Pose([
-                        'Roll' => isset($item['FaceDetail']['Pose']['Roll']) ? (float) $item['FaceDetail']['Pose']['Roll'] : null,
-                        'Yaw' => isset($item['FaceDetail']['Pose']['Yaw']) ? (float) $item['FaceDetail']['Pose']['Yaw'] : null,
-                        'Pitch' => isset($item['FaceDetail']['Pose']['Pitch']) ? (float) $item['FaceDetail']['Pose']['Pitch'] : null,
-                    ]),
-                    'Quality' => empty($item['FaceDetail']['Quality']) ? null : new ImageQuality([
-                        'Brightness' => isset($item['FaceDetail']['Quality']['Brightness']) ? (float) $item['FaceDetail']['Quality']['Brightness'] : null,
-                        'Sharpness' => isset($item['FaceDetail']['Quality']['Sharpness']) ? (float) $item['FaceDetail']['Quality']['Sharpness'] : null,
-                    ]),
-                    'Confidence' => isset($item['FaceDetail']['Confidence']) ? (float) $item['FaceDetail']['Confidence'] : null,
-                ]),
-            ]);
+            $items[] = $this->populateResultUnindexedFace($item);
         }
 
         return $items;

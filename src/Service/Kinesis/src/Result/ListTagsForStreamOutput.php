@@ -48,6 +48,14 @@ class ListTagsForStreamOutput extends Result
         $this->hasMoreTags = filter_var($data['HasMoreTags'], \FILTER_VALIDATE_BOOLEAN);
     }
 
+    private function populateResultTag(array $json): Tag
+    {
+        return new Tag([
+            'Key' => (string) $json['Key'],
+            'Value' => isset($json['Value']) ? (string) $json['Value'] : null,
+        ]);
+    }
+
     /**
      * @return Tag[]
      */
@@ -55,10 +63,7 @@ class ListTagsForStreamOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new Tag([
-                'Key' => (string) $item['Key'],
-                'Value' => isset($item['Value']) ? (string) $item['Value'] : null,
-            ]);
+            $items[] = $this->populateResultTag($item);
         }
 
         return $items;

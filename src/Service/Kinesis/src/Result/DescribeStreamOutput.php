@@ -77,20 +77,13 @@ class DescribeStreamOutput extends Result implements \IteratorAggregate
     {
         $data = $response->toArray();
 
-        $this->streamDescription = new StreamDescription([
-            'StreamName' => (string) $data['StreamDescription']['StreamName'],
-            'StreamARN' => (string) $data['StreamDescription']['StreamARN'],
-            'StreamStatus' => (string) $data['StreamDescription']['StreamStatus'],
-            'StreamModeDetails' => empty($data['StreamDescription']['StreamModeDetails']) ? null : new StreamModeDetails([
-                'StreamMode' => (string) $data['StreamDescription']['StreamModeDetails']['StreamMode'],
-            ]),
-            'Shards' => $this->populateResultShardList($data['StreamDescription']['Shards']),
-            'HasMoreShards' => filter_var($data['StreamDescription']['HasMoreShards'], \FILTER_VALIDATE_BOOLEAN),
-            'RetentionPeriodHours' => (int) $data['StreamDescription']['RetentionPeriodHours'],
-            'StreamCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['StreamDescription']['StreamCreationTimestamp'])),
-            'EnhancedMonitoring' => $this->populateResultEnhancedMonitoringList($data['StreamDescription']['EnhancedMonitoring']),
-            'EncryptionType' => isset($data['StreamDescription']['EncryptionType']) ? (string) $data['StreamDescription']['EncryptionType'] : null,
-            'KeyId' => isset($data['StreamDescription']['KeyId']) ? (string) $data['StreamDescription']['KeyId'] : null,
+        $this->streamDescription = $this->populateResultStreamDescription($data['StreamDescription']);
+    }
+
+    private function populateResultEnhancedMetrics(array $json): EnhancedMetrics
+    {
+        return new EnhancedMetrics([
+            'ShardLevelMetrics' => !isset($json['ShardLevelMetrics']) ? null : $this->populateResultMetricsNameList($json['ShardLevelMetrics']),
         ]);
     }
 
@@ -101,12 +94,18 @@ class DescribeStreamOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new EnhancedMetrics([
-                'ShardLevelMetrics' => !isset($item['ShardLevelMetrics']) ? null : $this->populateResultMetricsNameList($item['ShardLevelMetrics']),
-            ]);
+            $items[] = $this->populateResultEnhancedMetrics($item);
         }
 
         return $items;
+    }
+
+    private function populateResultHashKeyRange(array $json): HashKeyRange
+    {
+        return new HashKeyRange([
+            'StartingHashKey' => (string) $json['StartingHashKey'],
+            'EndingHashKey' => (string) $json['EndingHashKey'],
+        ]);
     }
 
     /**
@@ -125,6 +124,25 @@ class DescribeStreamOutput extends Result implements \IteratorAggregate
         return $items;
     }
 
+    private function populateResultSequenceNumberRange(array $json): SequenceNumberRange
+    {
+        return new SequenceNumberRange([
+            'StartingSequenceNumber' => (string) $json['StartingSequenceNumber'],
+            'EndingSequenceNumber' => isset($json['EndingSequenceNumber']) ? (string) $json['EndingSequenceNumber'] : null,
+        ]);
+    }
+
+    private function populateResultShard(array $json): Shard
+    {
+        return new Shard([
+            'ShardId' => (string) $json['ShardId'],
+            'ParentShardId' => isset($json['ParentShardId']) ? (string) $json['ParentShardId'] : null,
+            'AdjacentParentShardId' => isset($json['AdjacentParentShardId']) ? (string) $json['AdjacentParentShardId'] : null,
+            'HashKeyRange' => $this->populateResultHashKeyRange($json['HashKeyRange']),
+            'SequenceNumberRange' => $this->populateResultSequenceNumberRange($json['SequenceNumberRange']),
+        ]);
+    }
+
     /**
      * @return Shard[]
      */
@@ -132,21 +150,33 @@ class DescribeStreamOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new Shard([
-                'ShardId' => (string) $item['ShardId'],
-                'ParentShardId' => isset($item['ParentShardId']) ? (string) $item['ParentShardId'] : null,
-                'AdjacentParentShardId' => isset($item['AdjacentParentShardId']) ? (string) $item['AdjacentParentShardId'] : null,
-                'HashKeyRange' => new HashKeyRange([
-                    'StartingHashKey' => (string) $item['HashKeyRange']['StartingHashKey'],
-                    'EndingHashKey' => (string) $item['HashKeyRange']['EndingHashKey'],
-                ]),
-                'SequenceNumberRange' => new SequenceNumberRange([
-                    'StartingSequenceNumber' => (string) $item['SequenceNumberRange']['StartingSequenceNumber'],
-                    'EndingSequenceNumber' => isset($item['SequenceNumberRange']['EndingSequenceNumber']) ? (string) $item['SequenceNumberRange']['EndingSequenceNumber'] : null,
-                ]),
-            ]);
+            $items[] = $this->populateResultShard($item);
         }
 
         return $items;
+    }
+
+    private function populateResultStreamDescription(array $json): StreamDescription
+    {
+        return new StreamDescription([
+            'StreamName' => (string) $json['StreamName'],
+            'StreamARN' => (string) $json['StreamARN'],
+            'StreamStatus' => (string) $json['StreamStatus'],
+            'StreamModeDetails' => empty($json['StreamModeDetails']) ? null : $this->populateResultStreamModeDetails($json['StreamModeDetails']),
+            'Shards' => $this->populateResultShardList($json['Shards']),
+            'HasMoreShards' => filter_var($json['HasMoreShards'], \FILTER_VALIDATE_BOOLEAN),
+            'RetentionPeriodHours' => (int) $json['RetentionPeriodHours'],
+            'StreamCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['StreamCreationTimestamp'])),
+            'EnhancedMonitoring' => $this->populateResultEnhancedMonitoringList($json['EnhancedMonitoring']),
+            'EncryptionType' => isset($json['EncryptionType']) ? (string) $json['EncryptionType'] : null,
+            'KeyId' => isset($json['KeyId']) ? (string) $json['KeyId'] : null,
+        ]);
+    }
+
+    private function populateResultStreamModeDetails(array $json): StreamModeDetails
+    {
+        return new StreamModeDetails([
+            'StreamMode' => (string) $json['StreamMode'],
+        ]);
     }
 }

@@ -52,11 +52,16 @@ class SignUpResponse extends Result
         $data = $response->toArray();
 
         $this->userConfirmed = filter_var($data['UserConfirmed'], \FILTER_VALIDATE_BOOLEAN);
-        $this->codeDeliveryDetails = empty($data['CodeDeliveryDetails']) ? null : new CodeDeliveryDetailsType([
-            'Destination' => isset($data['CodeDeliveryDetails']['Destination']) ? (string) $data['CodeDeliveryDetails']['Destination'] : null,
-            'DeliveryMedium' => isset($data['CodeDeliveryDetails']['DeliveryMedium']) ? (string) $data['CodeDeliveryDetails']['DeliveryMedium'] : null,
-            'AttributeName' => isset($data['CodeDeliveryDetails']['AttributeName']) ? (string) $data['CodeDeliveryDetails']['AttributeName'] : null,
-        ]);
+        $this->codeDeliveryDetails = empty($data['CodeDeliveryDetails']) ? null : $this->populateResultCodeDeliveryDetailsType($data['CodeDeliveryDetails']);
         $this->userSub = (string) $data['UserSub'];
+    }
+
+    private function populateResultCodeDeliveryDetailsType(array $json): CodeDeliveryDetailsType
+    {
+        return new CodeDeliveryDetailsType([
+            'Destination' => isset($json['Destination']) ? (string) $json['Destination'] : null,
+            'DeliveryMedium' => isset($json['DeliveryMedium']) ? (string) $json['DeliveryMedium'] : null,
+            'AttributeName' => isset($json['AttributeName']) ? (string) $json['AttributeName'] : null,
+        ]);
     }
 }

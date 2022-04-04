@@ -97,6 +97,37 @@ class ListSecretsResponse extends Result implements \IteratorAggregate
         $this->nextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
     }
 
+    private function populateResultRotationRulesType(array $json): RotationRulesType
+    {
+        return new RotationRulesType([
+            'AutomaticallyAfterDays' => isset($json['AutomaticallyAfterDays']) ? (string) $json['AutomaticallyAfterDays'] : null,
+            'Duration' => isset($json['Duration']) ? (string) $json['Duration'] : null,
+            'ScheduleExpression' => isset($json['ScheduleExpression']) ? (string) $json['ScheduleExpression'] : null,
+        ]);
+    }
+
+    private function populateResultSecretListEntry(array $json): SecretListEntry
+    {
+        return new SecretListEntry([
+            'ARN' => isset($json['ARN']) ? (string) $json['ARN'] : null,
+            'Name' => isset($json['Name']) ? (string) $json['Name'] : null,
+            'Description' => isset($json['Description']) ? (string) $json['Description'] : null,
+            'KmsKeyId' => isset($json['KmsKeyId']) ? (string) $json['KmsKeyId'] : null,
+            'RotationEnabled' => isset($json['RotationEnabled']) ? filter_var($json['RotationEnabled'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'RotationLambdaARN' => isset($json['RotationLambdaARN']) ? (string) $json['RotationLambdaARN'] : null,
+            'RotationRules' => empty($json['RotationRules']) ? null : $this->populateResultRotationRulesType($json['RotationRules']),
+            'LastRotatedDate' => (isset($json['LastRotatedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastRotatedDate'])))) ? $d : null,
+            'LastChangedDate' => (isset($json['LastChangedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastChangedDate'])))) ? $d : null,
+            'LastAccessedDate' => (isset($json['LastAccessedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastAccessedDate'])))) ? $d : null,
+            'DeletedDate' => (isset($json['DeletedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['DeletedDate'])))) ? $d : null,
+            'Tags' => !isset($json['Tags']) ? null : $this->populateResultTagListType($json['Tags']),
+            'SecretVersionsToStages' => !isset($json['SecretVersionsToStages']) ? null : $this->populateResultSecretVersionsToStagesMapType($json['SecretVersionsToStages']),
+            'OwningService' => isset($json['OwningService']) ? (string) $json['OwningService'] : null,
+            'CreatedDate' => (isset($json['CreatedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['CreatedDate'])))) ? $d : null,
+            'PrimaryRegion' => isset($json['PrimaryRegion']) ? (string) $json['PrimaryRegion'] : null,
+        ]);
+    }
+
     /**
      * @return SecretListEntry[]
      */
@@ -104,28 +135,7 @@ class ListSecretsResponse extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new SecretListEntry([
-                'ARN' => isset($item['ARN']) ? (string) $item['ARN'] : null,
-                'Name' => isset($item['Name']) ? (string) $item['Name'] : null,
-                'Description' => isset($item['Description']) ? (string) $item['Description'] : null,
-                'KmsKeyId' => isset($item['KmsKeyId']) ? (string) $item['KmsKeyId'] : null,
-                'RotationEnabled' => isset($item['RotationEnabled']) ? filter_var($item['RotationEnabled'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'RotationLambdaARN' => isset($item['RotationLambdaARN']) ? (string) $item['RotationLambdaARN'] : null,
-                'RotationRules' => empty($item['RotationRules']) ? null : new RotationRulesType([
-                    'AutomaticallyAfterDays' => isset($item['RotationRules']['AutomaticallyAfterDays']) ? (string) $item['RotationRules']['AutomaticallyAfterDays'] : null,
-                    'Duration' => isset($item['RotationRules']['Duration']) ? (string) $item['RotationRules']['Duration'] : null,
-                    'ScheduleExpression' => isset($item['RotationRules']['ScheduleExpression']) ? (string) $item['RotationRules']['ScheduleExpression'] : null,
-                ]),
-                'LastRotatedDate' => (isset($item['LastRotatedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['LastRotatedDate'])))) ? $d : null,
-                'LastChangedDate' => (isset($item['LastChangedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['LastChangedDate'])))) ? $d : null,
-                'LastAccessedDate' => (isset($item['LastAccessedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['LastAccessedDate'])))) ? $d : null,
-                'DeletedDate' => (isset($item['DeletedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['DeletedDate'])))) ? $d : null,
-                'Tags' => !isset($item['Tags']) ? null : $this->populateResultTagListType($item['Tags']),
-                'SecretVersionsToStages' => !isset($item['SecretVersionsToStages']) ? null : $this->populateResultSecretVersionsToStagesMapType($item['SecretVersionsToStages']),
-                'OwningService' => isset($item['OwningService']) ? (string) $item['OwningService'] : null,
-                'CreatedDate' => (isset($item['CreatedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['CreatedDate'])))) ? $d : null,
-                'PrimaryRegion' => isset($item['PrimaryRegion']) ? (string) $item['PrimaryRegion'] : null,
-            ]);
+            $items[] = $this->populateResultSecretListEntry($item);
         }
 
         return $items;
@@ -160,6 +170,14 @@ class ListSecretsResponse extends Result implements \IteratorAggregate
         return $items;
     }
 
+    private function populateResultTag(array $json): Tag
+    {
+        return new Tag([
+            'Key' => isset($json['Key']) ? (string) $json['Key'] : null,
+            'Value' => isset($json['Value']) ? (string) $json['Value'] : null,
+        ]);
+    }
+
     /**
      * @return Tag[]
      */
@@ -167,10 +185,7 @@ class ListSecretsResponse extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new Tag([
-                'Key' => isset($item['Key']) ? (string) $item['Key'] : null,
-                'Value' => isset($item['Value']) ? (string) $item['Value'] : null,
-            ]);
+            $items[] = $this->populateResultTag($item);
         }
 
         return $items;

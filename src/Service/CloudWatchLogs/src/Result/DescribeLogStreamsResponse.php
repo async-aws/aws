@@ -90,6 +90,20 @@ class DescribeLogStreamsResponse extends Result implements \IteratorAggregate
         $this->nextToken = isset($data['nextToken']) ? (string) $data['nextToken'] : null;
     }
 
+    private function populateResultLogStream(array $json): LogStream
+    {
+        return new LogStream([
+            'logStreamName' => isset($json['logStreamName']) ? (string) $json['logStreamName'] : null,
+            'creationTime' => isset($json['creationTime']) ? (string) $json['creationTime'] : null,
+            'firstEventTimestamp' => isset($json['firstEventTimestamp']) ? (string) $json['firstEventTimestamp'] : null,
+            'lastEventTimestamp' => isset($json['lastEventTimestamp']) ? (string) $json['lastEventTimestamp'] : null,
+            'lastIngestionTime' => isset($json['lastIngestionTime']) ? (string) $json['lastIngestionTime'] : null,
+            'uploadSequenceToken' => isset($json['uploadSequenceToken']) ? (string) $json['uploadSequenceToken'] : null,
+            'arn' => isset($json['arn']) ? (string) $json['arn'] : null,
+            'storedBytes' => isset($json['storedBytes']) ? (string) $json['storedBytes'] : null,
+        ]);
+    }
+
     /**
      * @return LogStream[]
      */
@@ -97,16 +111,7 @@ class DescribeLogStreamsResponse extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new LogStream([
-                'logStreamName' => isset($item['logStreamName']) ? (string) $item['logStreamName'] : null,
-                'creationTime' => isset($item['creationTime']) ? (string) $item['creationTime'] : null,
-                'firstEventTimestamp' => isset($item['firstEventTimestamp']) ? (string) $item['firstEventTimestamp'] : null,
-                'lastEventTimestamp' => isset($item['lastEventTimestamp']) ? (string) $item['lastEventTimestamp'] : null,
-                'lastIngestionTime' => isset($item['lastIngestionTime']) ? (string) $item['lastIngestionTime'] : null,
-                'uploadSequenceToken' => isset($item['uploadSequenceToken']) ? (string) $item['uploadSequenceToken'] : null,
-                'arn' => isset($item['arn']) ? (string) $item['arn'] : null,
-                'storedBytes' => isset($item['storedBytes']) ? (string) $item['storedBytes'] : null,
-            ]);
+            $items[] = $this->populateResultLogStream($item);
         }
 
         return $items;

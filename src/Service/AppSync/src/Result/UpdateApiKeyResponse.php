@@ -24,11 +24,16 @@ class UpdateApiKeyResponse extends Result
     {
         $data = $response->toArray();
 
-        $this->apiKey = empty($data['apiKey']) ? null : new ApiKey([
-            'id' => isset($data['apiKey']['id']) ? (string) $data['apiKey']['id'] : null,
-            'description' => isset($data['apiKey']['description']) ? (string) $data['apiKey']['description'] : null,
-            'expires' => isset($data['apiKey']['expires']) ? (string) $data['apiKey']['expires'] : null,
-            'deletes' => isset($data['apiKey']['deletes']) ? (string) $data['apiKey']['deletes'] : null,
+        $this->apiKey = empty($data['apiKey']) ? null : $this->populateResultApiKey($data['apiKey']);
+    }
+
+    private function populateResultApiKey(array $json): ApiKey
+    {
+        return new ApiKey([
+            'id' => isset($json['id']) ? (string) $json['id'] : null,
+            'description' => isset($json['description']) ? (string) $json['description'] : null,
+            'expires' => isset($json['expires']) ? (string) $json['expires'] : null,
+            'deletes' => isset($json['deletes']) ? (string) $json['deletes'] : null,
         ]);
     }
 }

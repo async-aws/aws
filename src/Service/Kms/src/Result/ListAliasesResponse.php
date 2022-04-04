@@ -116,15 +116,20 @@ class ListAliasesResponse extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new AliasListEntry([
-                'AliasName' => isset($item['AliasName']) ? (string) $item['AliasName'] : null,
-                'AliasArn' => isset($item['AliasArn']) ? (string) $item['AliasArn'] : null,
-                'TargetKeyId' => isset($item['TargetKeyId']) ? (string) $item['TargetKeyId'] : null,
-                'CreationDate' => (isset($item['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['CreationDate'])))) ? $d : null,
-                'LastUpdatedDate' => (isset($item['LastUpdatedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['LastUpdatedDate'])))) ? $d : null,
-            ]);
+            $items[] = $this->populateResultAliasListEntry($item);
         }
 
         return $items;
+    }
+
+    private function populateResultAliasListEntry(array $json): AliasListEntry
+    {
+        return new AliasListEntry([
+            'AliasName' => isset($json['AliasName']) ? (string) $json['AliasName'] : null,
+            'AliasArn' => isset($json['AliasArn']) ? (string) $json['AliasArn'] : null,
+            'TargetKeyId' => isset($json['TargetKeyId']) ? (string) $json['TargetKeyId'] : null,
+            'CreationDate' => (isset($json['CreationDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['CreationDate'])))) ? $d : null,
+            'LastUpdatedDate' => (isset($json['LastUpdatedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastUpdatedDate'])))) ? $d : null,
+        ]);
     }
 }

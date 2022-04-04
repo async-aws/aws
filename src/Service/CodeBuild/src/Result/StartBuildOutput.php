@@ -45,110 +45,57 @@ class StartBuildOutput extends Result
     {
         $data = $response->toArray();
 
-        $this->build = empty($data['build']) ? null : new Build([
-            'id' => isset($data['build']['id']) ? (string) $data['build']['id'] : null,
-            'arn' => isset($data['build']['arn']) ? (string) $data['build']['arn'] : null,
-            'buildNumber' => isset($data['build']['buildNumber']) ? (string) $data['build']['buildNumber'] : null,
-            'startTime' => (isset($data['build']['startTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['build']['startTime'])))) ? $d : null,
-            'endTime' => (isset($data['build']['endTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['build']['endTime'])))) ? $d : null,
-            'currentPhase' => isset($data['build']['currentPhase']) ? (string) $data['build']['currentPhase'] : null,
-            'buildStatus' => isset($data['build']['buildStatus']) ? (string) $data['build']['buildStatus'] : null,
-            'sourceVersion' => isset($data['build']['sourceVersion']) ? (string) $data['build']['sourceVersion'] : null,
-            'resolvedSourceVersion' => isset($data['build']['resolvedSourceVersion']) ? (string) $data['build']['resolvedSourceVersion'] : null,
-            'projectName' => isset($data['build']['projectName']) ? (string) $data['build']['projectName'] : null,
-            'phases' => !isset($data['build']['phases']) ? null : $this->populateResultBuildPhases($data['build']['phases']),
-            'source' => empty($data['build']['source']) ? null : new ProjectSource([
-                'type' => (string) $data['build']['source']['type'],
-                'location' => isset($data['build']['source']['location']) ? (string) $data['build']['source']['location'] : null,
-                'gitCloneDepth' => isset($data['build']['source']['gitCloneDepth']) ? (int) $data['build']['source']['gitCloneDepth'] : null,
-                'gitSubmodulesConfig' => empty($data['build']['source']['gitSubmodulesConfig']) ? null : new GitSubmodulesConfig([
-                    'fetchSubmodules' => filter_var($data['build']['source']['gitSubmodulesConfig']['fetchSubmodules'], \FILTER_VALIDATE_BOOLEAN),
-                ]),
-                'buildspec' => isset($data['build']['source']['buildspec']) ? (string) $data['build']['source']['buildspec'] : null,
-                'auth' => empty($data['build']['source']['auth']) ? null : new SourceAuth([
-                    'type' => (string) $data['build']['source']['auth']['type'],
-                    'resource' => isset($data['build']['source']['auth']['resource']) ? (string) $data['build']['source']['auth']['resource'] : null,
-                ]),
-                'reportBuildStatus' => isset($data['build']['source']['reportBuildStatus']) ? filter_var($data['build']['source']['reportBuildStatus'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'buildStatusConfig' => empty($data['build']['source']['buildStatusConfig']) ? null : new BuildStatusConfig([
-                    'context' => isset($data['build']['source']['buildStatusConfig']['context']) ? (string) $data['build']['source']['buildStatusConfig']['context'] : null,
-                    'targetUrl' => isset($data['build']['source']['buildStatusConfig']['targetUrl']) ? (string) $data['build']['source']['buildStatusConfig']['targetUrl'] : null,
-                ]),
-                'insecureSsl' => isset($data['build']['source']['insecureSsl']) ? filter_var($data['build']['source']['insecureSsl'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'sourceIdentifier' => isset($data['build']['source']['sourceIdentifier']) ? (string) $data['build']['source']['sourceIdentifier'] : null,
-            ]),
-            'secondarySources' => !isset($data['build']['secondarySources']) ? null : $this->populateResultProjectSources($data['build']['secondarySources']),
-            'secondarySourceVersions' => !isset($data['build']['secondarySourceVersions']) ? null : $this->populateResultProjectSecondarySourceVersions($data['build']['secondarySourceVersions']),
-            'artifacts' => empty($data['build']['artifacts']) ? null : new BuildArtifacts([
-                'location' => isset($data['build']['artifacts']['location']) ? (string) $data['build']['artifacts']['location'] : null,
-                'sha256sum' => isset($data['build']['artifacts']['sha256sum']) ? (string) $data['build']['artifacts']['sha256sum'] : null,
-                'md5sum' => isset($data['build']['artifacts']['md5sum']) ? (string) $data['build']['artifacts']['md5sum'] : null,
-                'overrideArtifactName' => isset($data['build']['artifacts']['overrideArtifactName']) ? filter_var($data['build']['artifacts']['overrideArtifactName'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'encryptionDisabled' => isset($data['build']['artifacts']['encryptionDisabled']) ? filter_var($data['build']['artifacts']['encryptionDisabled'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'artifactIdentifier' => isset($data['build']['artifacts']['artifactIdentifier']) ? (string) $data['build']['artifacts']['artifactIdentifier'] : null,
-                'bucketOwnerAccess' => isset($data['build']['artifacts']['bucketOwnerAccess']) ? (string) $data['build']['artifacts']['bucketOwnerAccess'] : null,
-            ]),
-            'secondaryArtifacts' => !isset($data['build']['secondaryArtifacts']) ? null : $this->populateResultBuildArtifactsList($data['build']['secondaryArtifacts']),
-            'cache' => empty($data['build']['cache']) ? null : new ProjectCache([
-                'type' => (string) $data['build']['cache']['type'],
-                'location' => isset($data['build']['cache']['location']) ? (string) $data['build']['cache']['location'] : null,
-                'modes' => !isset($data['build']['cache']['modes']) ? null : $this->populateResultProjectCacheModes($data['build']['cache']['modes']),
-            ]),
-            'environment' => empty($data['build']['environment']) ? null : new ProjectEnvironment([
-                'type' => (string) $data['build']['environment']['type'],
-                'image' => (string) $data['build']['environment']['image'],
-                'computeType' => (string) $data['build']['environment']['computeType'],
-                'environmentVariables' => !isset($data['build']['environment']['environmentVariables']) ? null : $this->populateResultEnvironmentVariables($data['build']['environment']['environmentVariables']),
-                'privilegedMode' => isset($data['build']['environment']['privilegedMode']) ? filter_var($data['build']['environment']['privilegedMode'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'certificate' => isset($data['build']['environment']['certificate']) ? (string) $data['build']['environment']['certificate'] : null,
-                'registryCredential' => empty($data['build']['environment']['registryCredential']) ? null : new RegistryCredential([
-                    'credential' => (string) $data['build']['environment']['registryCredential']['credential'],
-                    'credentialProvider' => (string) $data['build']['environment']['registryCredential']['credentialProvider'],
-                ]),
-                'imagePullCredentialsType' => isset($data['build']['environment']['imagePullCredentialsType']) ? (string) $data['build']['environment']['imagePullCredentialsType'] : null,
-            ]),
-            'serviceRole' => isset($data['build']['serviceRole']) ? (string) $data['build']['serviceRole'] : null,
-            'logs' => empty($data['build']['logs']) ? null : new LogsLocation([
-                'groupName' => isset($data['build']['logs']['groupName']) ? (string) $data['build']['logs']['groupName'] : null,
-                'streamName' => isset($data['build']['logs']['streamName']) ? (string) $data['build']['logs']['streamName'] : null,
-                'deepLink' => isset($data['build']['logs']['deepLink']) ? (string) $data['build']['logs']['deepLink'] : null,
-                's3DeepLink' => isset($data['build']['logs']['s3DeepLink']) ? (string) $data['build']['logs']['s3DeepLink'] : null,
-                'cloudWatchLogsArn' => isset($data['build']['logs']['cloudWatchLogsArn']) ? (string) $data['build']['logs']['cloudWatchLogsArn'] : null,
-                's3LogsArn' => isset($data['build']['logs']['s3LogsArn']) ? (string) $data['build']['logs']['s3LogsArn'] : null,
-                'cloudWatchLogs' => empty($data['build']['logs']['cloudWatchLogs']) ? null : new CloudWatchLogsConfig([
-                    'status' => (string) $data['build']['logs']['cloudWatchLogs']['status'],
-                    'groupName' => isset($data['build']['logs']['cloudWatchLogs']['groupName']) ? (string) $data['build']['logs']['cloudWatchLogs']['groupName'] : null,
-                    'streamName' => isset($data['build']['logs']['cloudWatchLogs']['streamName']) ? (string) $data['build']['logs']['cloudWatchLogs']['streamName'] : null,
-                ]),
-                's3Logs' => empty($data['build']['logs']['s3Logs']) ? null : new S3LogsConfig([
-                    'status' => (string) $data['build']['logs']['s3Logs']['status'],
-                    'location' => isset($data['build']['logs']['s3Logs']['location']) ? (string) $data['build']['logs']['s3Logs']['location'] : null,
-                    'encryptionDisabled' => isset($data['build']['logs']['s3Logs']['encryptionDisabled']) ? filter_var($data['build']['logs']['s3Logs']['encryptionDisabled'], \FILTER_VALIDATE_BOOLEAN) : null,
-                    'bucketOwnerAccess' => isset($data['build']['logs']['s3Logs']['bucketOwnerAccess']) ? (string) $data['build']['logs']['s3Logs']['bucketOwnerAccess'] : null,
-                ]),
-            ]),
-            'timeoutInMinutes' => isset($data['build']['timeoutInMinutes']) ? (int) $data['build']['timeoutInMinutes'] : null,
-            'queuedTimeoutInMinutes' => isset($data['build']['queuedTimeoutInMinutes']) ? (int) $data['build']['queuedTimeoutInMinutes'] : null,
-            'buildComplete' => isset($data['build']['buildComplete']) ? filter_var($data['build']['buildComplete'], \FILTER_VALIDATE_BOOLEAN) : null,
-            'initiator' => isset($data['build']['initiator']) ? (string) $data['build']['initiator'] : null,
-            'vpcConfig' => empty($data['build']['vpcConfig']) ? null : new VpcConfig([
-                'vpcId' => isset($data['build']['vpcConfig']['vpcId']) ? (string) $data['build']['vpcConfig']['vpcId'] : null,
-                'subnets' => !isset($data['build']['vpcConfig']['subnets']) ? null : $this->populateResultSubnets($data['build']['vpcConfig']['subnets']),
-                'securityGroupIds' => !isset($data['build']['vpcConfig']['securityGroupIds']) ? null : $this->populateResultSecurityGroupIds($data['build']['vpcConfig']['securityGroupIds']),
-            ]),
-            'networkInterface' => empty($data['build']['networkInterface']) ? null : new NetworkInterface([
-                'subnetId' => isset($data['build']['networkInterface']['subnetId']) ? (string) $data['build']['networkInterface']['subnetId'] : null,
-                'networkInterfaceId' => isset($data['build']['networkInterface']['networkInterfaceId']) ? (string) $data['build']['networkInterface']['networkInterfaceId'] : null,
-            ]),
-            'encryptionKey' => isset($data['build']['encryptionKey']) ? (string) $data['build']['encryptionKey'] : null,
-            'exportedEnvironmentVariables' => !isset($data['build']['exportedEnvironmentVariables']) ? null : $this->populateResultExportedEnvironmentVariables($data['build']['exportedEnvironmentVariables']),
-            'reportArns' => !isset($data['build']['reportArns']) ? null : $this->populateResultBuildReportArns($data['build']['reportArns']),
-            'fileSystemLocations' => !isset($data['build']['fileSystemLocations']) ? null : $this->populateResultProjectFileSystemLocations($data['build']['fileSystemLocations']),
-            'debugSession' => empty($data['build']['debugSession']) ? null : new DebugSession([
-                'sessionEnabled' => isset($data['build']['debugSession']['sessionEnabled']) ? filter_var($data['build']['debugSession']['sessionEnabled'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'sessionTarget' => isset($data['build']['debugSession']['sessionTarget']) ? (string) $data['build']['debugSession']['sessionTarget'] : null,
-            ]),
-            'buildBatchArn' => isset($data['build']['buildBatchArn']) ? (string) $data['build']['buildBatchArn'] : null,
+        $this->build = empty($data['build']) ? null : $this->populateResultBuild($data['build']);
+    }
+
+    private function populateResultBuild(array $json): Build
+    {
+        return new Build([
+            'id' => isset($json['id']) ? (string) $json['id'] : null,
+            'arn' => isset($json['arn']) ? (string) $json['arn'] : null,
+            'buildNumber' => isset($json['buildNumber']) ? (string) $json['buildNumber'] : null,
+            'startTime' => (isset($json['startTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['startTime'])))) ? $d : null,
+            'endTime' => (isset($json['endTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['endTime'])))) ? $d : null,
+            'currentPhase' => isset($json['currentPhase']) ? (string) $json['currentPhase'] : null,
+            'buildStatus' => isset($json['buildStatus']) ? (string) $json['buildStatus'] : null,
+            'sourceVersion' => isset($json['sourceVersion']) ? (string) $json['sourceVersion'] : null,
+            'resolvedSourceVersion' => isset($json['resolvedSourceVersion']) ? (string) $json['resolvedSourceVersion'] : null,
+            'projectName' => isset($json['projectName']) ? (string) $json['projectName'] : null,
+            'phases' => !isset($json['phases']) ? null : $this->populateResultBuildPhases($json['phases']),
+            'source' => empty($json['source']) ? null : $this->populateResultProjectSource($json['source']),
+            'secondarySources' => !isset($json['secondarySources']) ? null : $this->populateResultProjectSources($json['secondarySources']),
+            'secondarySourceVersions' => !isset($json['secondarySourceVersions']) ? null : $this->populateResultProjectSecondarySourceVersions($json['secondarySourceVersions']),
+            'artifacts' => empty($json['artifacts']) ? null : $this->populateResultBuildArtifacts($json['artifacts']),
+            'secondaryArtifacts' => !isset($json['secondaryArtifacts']) ? null : $this->populateResultBuildArtifactsList($json['secondaryArtifacts']),
+            'cache' => empty($json['cache']) ? null : $this->populateResultProjectCache($json['cache']),
+            'environment' => empty($json['environment']) ? null : $this->populateResultProjectEnvironment($json['environment']),
+            'serviceRole' => isset($json['serviceRole']) ? (string) $json['serviceRole'] : null,
+            'logs' => empty($json['logs']) ? null : $this->populateResultLogsLocation($json['logs']),
+            'timeoutInMinutes' => isset($json['timeoutInMinutes']) ? (int) $json['timeoutInMinutes'] : null,
+            'queuedTimeoutInMinutes' => isset($json['queuedTimeoutInMinutes']) ? (int) $json['queuedTimeoutInMinutes'] : null,
+            'buildComplete' => isset($json['buildComplete']) ? filter_var($json['buildComplete'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'initiator' => isset($json['initiator']) ? (string) $json['initiator'] : null,
+            'vpcConfig' => empty($json['vpcConfig']) ? null : $this->populateResultVpcConfig($json['vpcConfig']),
+            'networkInterface' => empty($json['networkInterface']) ? null : $this->populateResultNetworkInterface($json['networkInterface']),
+            'encryptionKey' => isset($json['encryptionKey']) ? (string) $json['encryptionKey'] : null,
+            'exportedEnvironmentVariables' => !isset($json['exportedEnvironmentVariables']) ? null : $this->populateResultExportedEnvironmentVariables($json['exportedEnvironmentVariables']),
+            'reportArns' => !isset($json['reportArns']) ? null : $this->populateResultBuildReportArns($json['reportArns']),
+            'fileSystemLocations' => !isset($json['fileSystemLocations']) ? null : $this->populateResultProjectFileSystemLocations($json['fileSystemLocations']),
+            'debugSession' => empty($json['debugSession']) ? null : $this->populateResultDebugSession($json['debugSession']),
+            'buildBatchArn' => isset($json['buildBatchArn']) ? (string) $json['buildBatchArn'] : null,
+        ]);
+    }
+
+    private function populateResultBuildArtifacts(array $json): BuildArtifacts
+    {
+        return new BuildArtifacts([
+            'location' => isset($json['location']) ? (string) $json['location'] : null,
+            'sha256sum' => isset($json['sha256sum']) ? (string) $json['sha256sum'] : null,
+            'md5sum' => isset($json['md5sum']) ? (string) $json['md5sum'] : null,
+            'overrideArtifactName' => isset($json['overrideArtifactName']) ? filter_var($json['overrideArtifactName'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'encryptionDisabled' => isset($json['encryptionDisabled']) ? filter_var($json['encryptionDisabled'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'artifactIdentifier' => isset($json['artifactIdentifier']) ? (string) $json['artifactIdentifier'] : null,
+            'bucketOwnerAccess' => isset($json['bucketOwnerAccess']) ? (string) $json['bucketOwnerAccess'] : null,
         ]);
     }
 
@@ -159,18 +106,22 @@ class StartBuildOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new BuildArtifacts([
-                'location' => isset($item['location']) ? (string) $item['location'] : null,
-                'sha256sum' => isset($item['sha256sum']) ? (string) $item['sha256sum'] : null,
-                'md5sum' => isset($item['md5sum']) ? (string) $item['md5sum'] : null,
-                'overrideArtifactName' => isset($item['overrideArtifactName']) ? filter_var($item['overrideArtifactName'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'encryptionDisabled' => isset($item['encryptionDisabled']) ? filter_var($item['encryptionDisabled'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'artifactIdentifier' => isset($item['artifactIdentifier']) ? (string) $item['artifactIdentifier'] : null,
-                'bucketOwnerAccess' => isset($item['bucketOwnerAccess']) ? (string) $item['bucketOwnerAccess'] : null,
-            ]);
+            $items[] = $this->populateResultBuildArtifacts($item);
         }
 
         return $items;
+    }
+
+    private function populateResultBuildPhase(array $json): BuildPhase
+    {
+        return new BuildPhase([
+            'phaseType' => isset($json['phaseType']) ? (string) $json['phaseType'] : null,
+            'phaseStatus' => isset($json['phaseStatus']) ? (string) $json['phaseStatus'] : null,
+            'startTime' => (isset($json['startTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['startTime'])))) ? $d : null,
+            'endTime' => (isset($json['endTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['endTime'])))) ? $d : null,
+            'durationInSeconds' => isset($json['durationInSeconds']) ? (string) $json['durationInSeconds'] : null,
+            'contexts' => !isset($json['contexts']) ? null : $this->populateResultPhaseContexts($json['contexts']),
+        ]);
     }
 
     /**
@@ -180,14 +131,7 @@ class StartBuildOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new BuildPhase([
-                'phaseType' => isset($item['phaseType']) ? (string) $item['phaseType'] : null,
-                'phaseStatus' => isset($item['phaseStatus']) ? (string) $item['phaseStatus'] : null,
-                'startTime' => (isset($item['startTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['startTime'])))) ? $d : null,
-                'endTime' => (isset($item['endTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['endTime'])))) ? $d : null,
-                'durationInSeconds' => isset($item['durationInSeconds']) ? (string) $item['durationInSeconds'] : null,
-                'contexts' => !isset($item['contexts']) ? null : $this->populateResultPhaseContexts($item['contexts']),
-            ]);
+            $items[] = $this->populateResultBuildPhase($item);
         }
 
         return $items;
@@ -209,6 +153,40 @@ class StartBuildOutput extends Result
         return $items;
     }
 
+    private function populateResultBuildStatusConfig(array $json): BuildStatusConfig
+    {
+        return new BuildStatusConfig([
+            'context' => isset($json['context']) ? (string) $json['context'] : null,
+            'targetUrl' => isset($json['targetUrl']) ? (string) $json['targetUrl'] : null,
+        ]);
+    }
+
+    private function populateResultCloudWatchLogsConfig(array $json): CloudWatchLogsConfig
+    {
+        return new CloudWatchLogsConfig([
+            'status' => (string) $json['status'],
+            'groupName' => isset($json['groupName']) ? (string) $json['groupName'] : null,
+            'streamName' => isset($json['streamName']) ? (string) $json['streamName'] : null,
+        ]);
+    }
+
+    private function populateResultDebugSession(array $json): DebugSession
+    {
+        return new DebugSession([
+            'sessionEnabled' => isset($json['sessionEnabled']) ? filter_var($json['sessionEnabled'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'sessionTarget' => isset($json['sessionTarget']) ? (string) $json['sessionTarget'] : null,
+        ]);
+    }
+
+    private function populateResultEnvironmentVariable(array $json): EnvironmentVariable
+    {
+        return new EnvironmentVariable([
+            'name' => (string) $json['name'],
+            'value' => (string) $json['value'],
+            'type' => isset($json['type']) ? (string) $json['type'] : null,
+        ]);
+    }
+
     /**
      * @return EnvironmentVariable[]
      */
@@ -216,14 +194,18 @@ class StartBuildOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new EnvironmentVariable([
-                'name' => (string) $item['name'],
-                'value' => (string) $item['value'],
-                'type' => isset($item['type']) ? (string) $item['type'] : null,
-            ]);
+            $items[] = $this->populateResultEnvironmentVariable($item);
         }
 
         return $items;
+    }
+
+    private function populateResultExportedEnvironmentVariable(array $json): ExportedEnvironmentVariable
+    {
+        return new ExportedEnvironmentVariable([
+            'name' => isset($json['name']) ? (string) $json['name'] : null,
+            'value' => isset($json['value']) ? (string) $json['value'] : null,
+        ]);
     }
 
     /**
@@ -233,13 +215,47 @@ class StartBuildOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new ExportedEnvironmentVariable([
-                'name' => isset($item['name']) ? (string) $item['name'] : null,
-                'value' => isset($item['value']) ? (string) $item['value'] : null,
-            ]);
+            $items[] = $this->populateResultExportedEnvironmentVariable($item);
         }
 
         return $items;
+    }
+
+    private function populateResultGitSubmodulesConfig(array $json): GitSubmodulesConfig
+    {
+        return new GitSubmodulesConfig([
+            'fetchSubmodules' => filter_var($json['fetchSubmodules'], \FILTER_VALIDATE_BOOLEAN),
+        ]);
+    }
+
+    private function populateResultLogsLocation(array $json): LogsLocation
+    {
+        return new LogsLocation([
+            'groupName' => isset($json['groupName']) ? (string) $json['groupName'] : null,
+            'streamName' => isset($json['streamName']) ? (string) $json['streamName'] : null,
+            'deepLink' => isset($json['deepLink']) ? (string) $json['deepLink'] : null,
+            's3DeepLink' => isset($json['s3DeepLink']) ? (string) $json['s3DeepLink'] : null,
+            'cloudWatchLogsArn' => isset($json['cloudWatchLogsArn']) ? (string) $json['cloudWatchLogsArn'] : null,
+            's3LogsArn' => isset($json['s3LogsArn']) ? (string) $json['s3LogsArn'] : null,
+            'cloudWatchLogs' => empty($json['cloudWatchLogs']) ? null : $this->populateResultCloudWatchLogsConfig($json['cloudWatchLogs']),
+            's3Logs' => empty($json['s3Logs']) ? null : $this->populateResultS3LogsConfig($json['s3Logs']),
+        ]);
+    }
+
+    private function populateResultNetworkInterface(array $json): NetworkInterface
+    {
+        return new NetworkInterface([
+            'subnetId' => isset($json['subnetId']) ? (string) $json['subnetId'] : null,
+            'networkInterfaceId' => isset($json['networkInterfaceId']) ? (string) $json['networkInterfaceId'] : null,
+        ]);
+    }
+
+    private function populateResultPhaseContext(array $json): PhaseContext
+    {
+        return new PhaseContext([
+            'statusCode' => isset($json['statusCode']) ? (string) $json['statusCode'] : null,
+            'message' => isset($json['message']) ? (string) $json['message'] : null,
+        ]);
     }
 
     /**
@@ -249,13 +265,19 @@ class StartBuildOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new PhaseContext([
-                'statusCode' => isset($item['statusCode']) ? (string) $item['statusCode'] : null,
-                'message' => isset($item['message']) ? (string) $item['message'] : null,
-            ]);
+            $items[] = $this->populateResultPhaseContext($item);
         }
 
         return $items;
+    }
+
+    private function populateResultProjectCache(array $json): ProjectCache
+    {
+        return new ProjectCache([
+            'type' => (string) $json['type'],
+            'location' => isset($json['location']) ? (string) $json['location'] : null,
+            'modes' => !isset($json['modes']) ? null : $this->populateResultProjectCacheModes($json['modes']),
+        ]);
     }
 
     /**
@@ -274,6 +296,31 @@ class StartBuildOutput extends Result
         return $items;
     }
 
+    private function populateResultProjectEnvironment(array $json): ProjectEnvironment
+    {
+        return new ProjectEnvironment([
+            'type' => (string) $json['type'],
+            'image' => (string) $json['image'],
+            'computeType' => (string) $json['computeType'],
+            'environmentVariables' => !isset($json['environmentVariables']) ? null : $this->populateResultEnvironmentVariables($json['environmentVariables']),
+            'privilegedMode' => isset($json['privilegedMode']) ? filter_var($json['privilegedMode'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'certificate' => isset($json['certificate']) ? (string) $json['certificate'] : null,
+            'registryCredential' => empty($json['registryCredential']) ? null : $this->populateResultRegistryCredential($json['registryCredential']),
+            'imagePullCredentialsType' => isset($json['imagePullCredentialsType']) ? (string) $json['imagePullCredentialsType'] : null,
+        ]);
+    }
+
+    private function populateResultProjectFileSystemLocation(array $json): ProjectFileSystemLocation
+    {
+        return new ProjectFileSystemLocation([
+            'type' => isset($json['type']) ? (string) $json['type'] : null,
+            'location' => isset($json['location']) ? (string) $json['location'] : null,
+            'mountPoint' => isset($json['mountPoint']) ? (string) $json['mountPoint'] : null,
+            'identifier' => isset($json['identifier']) ? (string) $json['identifier'] : null,
+            'mountOptions' => isset($json['mountOptions']) ? (string) $json['mountOptions'] : null,
+        ]);
+    }
+
     /**
      * @return ProjectFileSystemLocation[]
      */
@@ -281,13 +328,7 @@ class StartBuildOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new ProjectFileSystemLocation([
-                'type' => isset($item['type']) ? (string) $item['type'] : null,
-                'location' => isset($item['location']) ? (string) $item['location'] : null,
-                'mountPoint' => isset($item['mountPoint']) ? (string) $item['mountPoint'] : null,
-                'identifier' => isset($item['identifier']) ? (string) $item['identifier'] : null,
-                'mountOptions' => isset($item['mountOptions']) ? (string) $item['mountOptions'] : null,
-            ]);
+            $items[] = $this->populateResultProjectFileSystemLocation($item);
         }
 
         return $items;
@@ -300,13 +341,34 @@ class StartBuildOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new ProjectSourceVersion([
-                'sourceIdentifier' => (string) $item['sourceIdentifier'],
-                'sourceVersion' => (string) $item['sourceVersion'],
-            ]);
+            $items[] = $this->populateResultProjectSourceVersion($item);
         }
 
         return $items;
+    }
+
+    private function populateResultProjectSource(array $json): ProjectSource
+    {
+        return new ProjectSource([
+            'type' => (string) $json['type'],
+            'location' => isset($json['location']) ? (string) $json['location'] : null,
+            'gitCloneDepth' => isset($json['gitCloneDepth']) ? (int) $json['gitCloneDepth'] : null,
+            'gitSubmodulesConfig' => empty($json['gitSubmodulesConfig']) ? null : $this->populateResultGitSubmodulesConfig($json['gitSubmodulesConfig']),
+            'buildspec' => isset($json['buildspec']) ? (string) $json['buildspec'] : null,
+            'auth' => empty($json['auth']) ? null : $this->populateResultSourceAuth($json['auth']),
+            'reportBuildStatus' => isset($json['reportBuildStatus']) ? filter_var($json['reportBuildStatus'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'buildStatusConfig' => empty($json['buildStatusConfig']) ? null : $this->populateResultBuildStatusConfig($json['buildStatusConfig']),
+            'insecureSsl' => isset($json['insecureSsl']) ? filter_var($json['insecureSsl'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'sourceIdentifier' => isset($json['sourceIdentifier']) ? (string) $json['sourceIdentifier'] : null,
+        ]);
+    }
+
+    private function populateResultProjectSourceVersion(array $json): ProjectSourceVersion
+    {
+        return new ProjectSourceVersion([
+            'sourceIdentifier' => (string) $json['sourceIdentifier'],
+            'sourceVersion' => (string) $json['sourceVersion'],
+        ]);
     }
 
     /**
@@ -316,29 +378,28 @@ class StartBuildOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new ProjectSource([
-                'type' => (string) $item['type'],
-                'location' => isset($item['location']) ? (string) $item['location'] : null,
-                'gitCloneDepth' => isset($item['gitCloneDepth']) ? (int) $item['gitCloneDepth'] : null,
-                'gitSubmodulesConfig' => empty($item['gitSubmodulesConfig']) ? null : new GitSubmodulesConfig([
-                    'fetchSubmodules' => filter_var($item['gitSubmodulesConfig']['fetchSubmodules'], \FILTER_VALIDATE_BOOLEAN),
-                ]),
-                'buildspec' => isset($item['buildspec']) ? (string) $item['buildspec'] : null,
-                'auth' => empty($item['auth']) ? null : new SourceAuth([
-                    'type' => (string) $item['auth']['type'],
-                    'resource' => isset($item['auth']['resource']) ? (string) $item['auth']['resource'] : null,
-                ]),
-                'reportBuildStatus' => isset($item['reportBuildStatus']) ? filter_var($item['reportBuildStatus'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'buildStatusConfig' => empty($item['buildStatusConfig']) ? null : new BuildStatusConfig([
-                    'context' => isset($item['buildStatusConfig']['context']) ? (string) $item['buildStatusConfig']['context'] : null,
-                    'targetUrl' => isset($item['buildStatusConfig']['targetUrl']) ? (string) $item['buildStatusConfig']['targetUrl'] : null,
-                ]),
-                'insecureSsl' => isset($item['insecureSsl']) ? filter_var($item['insecureSsl'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'sourceIdentifier' => isset($item['sourceIdentifier']) ? (string) $item['sourceIdentifier'] : null,
-            ]);
+            $items[] = $this->populateResultProjectSource($item);
         }
 
         return $items;
+    }
+
+    private function populateResultRegistryCredential(array $json): RegistryCredential
+    {
+        return new RegistryCredential([
+            'credential' => (string) $json['credential'],
+            'credentialProvider' => (string) $json['credentialProvider'],
+        ]);
+    }
+
+    private function populateResultS3LogsConfig(array $json): S3LogsConfig
+    {
+        return new S3LogsConfig([
+            'status' => (string) $json['status'],
+            'location' => isset($json['location']) ? (string) $json['location'] : null,
+            'encryptionDisabled' => isset($json['encryptionDisabled']) ? filter_var($json['encryptionDisabled'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'bucketOwnerAccess' => isset($json['bucketOwnerAccess']) ? (string) $json['bucketOwnerAccess'] : null,
+        ]);
     }
 
     /**
@@ -357,6 +418,14 @@ class StartBuildOutput extends Result
         return $items;
     }
 
+    private function populateResultSourceAuth(array $json): SourceAuth
+    {
+        return new SourceAuth([
+            'type' => (string) $json['type'],
+            'resource' => isset($json['resource']) ? (string) $json['resource'] : null,
+        ]);
+    }
+
     /**
      * @return string[]
      */
@@ -371,5 +440,14 @@ class StartBuildOutput extends Result
         }
 
         return $items;
+    }
+
+    private function populateResultVpcConfig(array $json): VpcConfig
+    {
+        return new VpcConfig([
+            'vpcId' => isset($json['vpcId']) ? (string) $json['vpcId'] : null,
+            'subnets' => !isset($json['subnets']) ? null : $this->populateResultSubnets($json['subnets']),
+            'securityGroupIds' => !isset($json['securityGroupIds']) ? null : $this->populateResultSecurityGroupIds($json['securityGroupIds']),
+        ]);
     }
 }

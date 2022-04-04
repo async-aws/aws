@@ -24,9 +24,14 @@ class UpdateTimeToLiveOutput extends Result
     {
         $data = $response->toArray();
 
-        $this->timeToLiveSpecification = empty($data['TimeToLiveSpecification']) ? null : new TimeToLiveSpecification([
-            'Enabled' => filter_var($data['TimeToLiveSpecification']['Enabled'], \FILTER_VALIDATE_BOOLEAN),
-            'AttributeName' => (string) $data['TimeToLiveSpecification']['AttributeName'],
+        $this->timeToLiveSpecification = empty($data['TimeToLiveSpecification']) ? null : $this->populateResultTimeToLiveSpecification($data['TimeToLiveSpecification']);
+    }
+
+    private function populateResultTimeToLiveSpecification(array $json): TimeToLiveSpecification
+    {
+        return new TimeToLiveSpecification([
+            'Enabled' => filter_var($json['Enabled'], \FILTER_VALIDATE_BOOLEAN),
+            'AttributeName' => (string) $json['AttributeName'],
         ]);
     }
 }
