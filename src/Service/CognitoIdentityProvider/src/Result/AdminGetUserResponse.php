@@ -158,13 +158,18 @@ class AdminGetUserResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new AttributeType([
-                'Name' => (string) $item['Name'],
-                'Value' => isset($item['Value']) ? (string) $item['Value'] : null,
-            ]);
+            $items[] = $this->populateResultAttributeType($item);
         }
 
         return $items;
+    }
+
+    private function populateResultAttributeType(array $json): AttributeType
+    {
+        return new AttributeType([
+            'Name' => (string) $json['Name'],
+            'Value' => isset($json['Value']) ? (string) $json['Value'] : null,
+        ]);
     }
 
     /**
@@ -174,13 +179,18 @@ class AdminGetUserResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new MFAOptionType([
-                'DeliveryMedium' => isset($item['DeliveryMedium']) ? (string) $item['DeliveryMedium'] : null,
-                'AttributeName' => isset($item['AttributeName']) ? (string) $item['AttributeName'] : null,
-            ]);
+            $items[] = $this->populateResultMFAOptionType($item);
         }
 
         return $items;
+    }
+
+    private function populateResultMFAOptionType(array $json): MFAOptionType
+    {
+        return new MFAOptionType([
+            'DeliveryMedium' => isset($json['DeliveryMedium']) ? (string) $json['DeliveryMedium'] : null,
+            'AttributeName' => isset($json['AttributeName']) ? (string) $json['AttributeName'] : null,
+        ]);
     }
 
     /**

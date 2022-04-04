@@ -78,15 +78,20 @@ class CreateSecretResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new ReplicationStatusType([
-                'Region' => isset($item['Region']) ? (string) $item['Region'] : null,
-                'KmsKeyId' => isset($item['KmsKeyId']) ? (string) $item['KmsKeyId'] : null,
-                'Status' => isset($item['Status']) ? (string) $item['Status'] : null,
-                'StatusMessage' => isset($item['StatusMessage']) ? (string) $item['StatusMessage'] : null,
-                'LastAccessedDate' => (isset($item['LastAccessedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['LastAccessedDate'])))) ? $d : null,
-            ]);
+            $items[] = $this->populateResultReplicationStatusType($item);
         }
 
         return $items;
+    }
+
+    private function populateResultReplicationStatusType(array $json): ReplicationStatusType
+    {
+        return new ReplicationStatusType([
+            'Region' => isset($json['Region']) ? (string) $json['Region'] : null,
+            'KmsKeyId' => isset($json['KmsKeyId']) ? (string) $json['KmsKeyId'] : null,
+            'Status' => isset($json['Status']) ? (string) $json['Status'] : null,
+            'StatusMessage' => isset($json['StatusMessage']) ? (string) $json['StatusMessage'] : null,
+            'LastAccessedDate' => (isset($json['LastAccessedDate']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastAccessedDate'])))) ? $d : null,
+        ]);
     }
 }

@@ -42,16 +42,21 @@ class BatchExecuteStatementResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new ArrayValue([
-                'arrayValues' => !isset($item['arrayValues']) ? null : $this->populateResultArrayOfArray($item['arrayValues']),
-                'booleanValues' => !isset($item['booleanValues']) ? null : $this->populateResultBooleanArray($item['booleanValues']),
-                'doubleValues' => !isset($item['doubleValues']) ? null : $this->populateResultDoubleArray($item['doubleValues']),
-                'longValues' => !isset($item['longValues']) ? null : $this->populateResultLongArray($item['longValues']),
-                'stringValues' => !isset($item['stringValues']) ? null : $this->populateResultStringArray($item['stringValues']),
-            ]);
+            $items[] = $this->populateResultArrayValue($item);
         }
 
         return $items;
+    }
+
+    private function populateResultArrayValue(array $json): ArrayValue
+    {
+        return new ArrayValue([
+            'arrayValues' => !isset($json['arrayValues']) ? null : $this->populateResultArrayOfArray($json['arrayValues']),
+            'booleanValues' => !isset($json['booleanValues']) ? null : $this->populateResultBooleanArray($json['booleanValues']),
+            'doubleValues' => !isset($json['doubleValues']) ? null : $this->populateResultDoubleArray($json['doubleValues']),
+            'longValues' => !isset($json['longValues']) ? null : $this->populateResultLongArray($json['longValues']),
+            'stringValues' => !isset($json['stringValues']) ? null : $this->populateResultStringArray($json['stringValues']),
+        ]);
     }
 
     /**
@@ -86,6 +91,19 @@ class BatchExecuteStatementResponse extends Result
         return $items;
     }
 
+    private function populateResultField(array $json): Field
+    {
+        return new Field([
+            'arrayValue' => empty($json['arrayValue']) ? null : $this->populateResultArrayValue($json['arrayValue']),
+            'blobValue' => isset($json['blobValue']) ? base64_decode((string) $json['blobValue']) : null,
+            'booleanValue' => isset($json['booleanValue']) ? filter_var($json['booleanValue'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'doubleValue' => isset($json['doubleValue']) ? (float) $json['doubleValue'] : null,
+            'isNull' => isset($json['isNull']) ? filter_var($json['isNull'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'longValue' => isset($json['longValue']) ? (string) $json['longValue'] : null,
+            'stringValue' => isset($json['stringValue']) ? (string) $json['stringValue'] : null,
+        ]);
+    }
+
     /**
      * @return Field[]
      */
@@ -93,21 +111,7 @@ class BatchExecuteStatementResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new Field([
-                'arrayValue' => empty($item['arrayValue']) ? null : new ArrayValue([
-                    'arrayValues' => !isset($item['arrayValue']['arrayValues']) ? null : $this->populateResultArrayOfArray($item['arrayValue']['arrayValues']),
-                    'booleanValues' => !isset($item['arrayValue']['booleanValues']) ? null : $this->populateResultBooleanArray($item['arrayValue']['booleanValues']),
-                    'doubleValues' => !isset($item['arrayValue']['doubleValues']) ? null : $this->populateResultDoubleArray($item['arrayValue']['doubleValues']),
-                    'longValues' => !isset($item['arrayValue']['longValues']) ? null : $this->populateResultLongArray($item['arrayValue']['longValues']),
-                    'stringValues' => !isset($item['arrayValue']['stringValues']) ? null : $this->populateResultStringArray($item['arrayValue']['stringValues']),
-                ]),
-                'blobValue' => isset($item['blobValue']) ? base64_decode((string) $item['blobValue']) : null,
-                'booleanValue' => isset($item['booleanValue']) ? filter_var($item['booleanValue'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'doubleValue' => isset($item['doubleValue']) ? (float) $item['doubleValue'] : null,
-                'isNull' => isset($item['isNull']) ? filter_var($item['isNull'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'longValue' => isset($item['longValue']) ? (string) $item['longValue'] : null,
-                'stringValue' => isset($item['stringValue']) ? (string) $item['stringValue'] : null,
-            ]);
+            $items[] = $this->populateResultField($item);
         }
 
         return $items;
@@ -145,6 +149,13 @@ class BatchExecuteStatementResponse extends Result
         return $items;
     }
 
+    private function populateResultUpdateResult(array $json): UpdateResult
+    {
+        return new UpdateResult([
+            'generatedFields' => !isset($json['generatedFields']) ? null : $this->populateResultFieldList($json['generatedFields']),
+        ]);
+    }
+
     /**
      * @return UpdateResult[]
      */
@@ -152,9 +163,7 @@ class BatchExecuteStatementResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new UpdateResult([
-                'generatedFields' => !isset($item['generatedFields']) ? null : $this->populateResultFieldList($item['generatedFields']),
-            ]);
+            $items[] = $this->populateResultUpdateResult($item);
         }
 
         return $items;

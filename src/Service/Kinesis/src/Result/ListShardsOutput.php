@@ -51,6 +51,33 @@ class ListShardsOutput extends Result
         $this->nextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
     }
 
+    private function populateResultHashKeyRange(array $json): HashKeyRange
+    {
+        return new HashKeyRange([
+            'StartingHashKey' => (string) $json['StartingHashKey'],
+            'EndingHashKey' => (string) $json['EndingHashKey'],
+        ]);
+    }
+
+    private function populateResultSequenceNumberRange(array $json): SequenceNumberRange
+    {
+        return new SequenceNumberRange([
+            'StartingSequenceNumber' => (string) $json['StartingSequenceNumber'],
+            'EndingSequenceNumber' => isset($json['EndingSequenceNumber']) ? (string) $json['EndingSequenceNumber'] : null,
+        ]);
+    }
+
+    private function populateResultShard(array $json): Shard
+    {
+        return new Shard([
+            'ShardId' => (string) $json['ShardId'],
+            'ParentShardId' => isset($json['ParentShardId']) ? (string) $json['ParentShardId'] : null,
+            'AdjacentParentShardId' => isset($json['AdjacentParentShardId']) ? (string) $json['AdjacentParentShardId'] : null,
+            'HashKeyRange' => $this->populateResultHashKeyRange($json['HashKeyRange']),
+            'SequenceNumberRange' => $this->populateResultSequenceNumberRange($json['SequenceNumberRange']),
+        ]);
+    }
+
     /**
      * @return Shard[]
      */
@@ -58,19 +85,7 @@ class ListShardsOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new Shard([
-                'ShardId' => (string) $item['ShardId'],
-                'ParentShardId' => isset($item['ParentShardId']) ? (string) $item['ParentShardId'] : null,
-                'AdjacentParentShardId' => isset($item['AdjacentParentShardId']) ? (string) $item['AdjacentParentShardId'] : null,
-                'HashKeyRange' => new HashKeyRange([
-                    'StartingHashKey' => (string) $item['HashKeyRange']['StartingHashKey'],
-                    'EndingHashKey' => (string) $item['HashKeyRange']['EndingHashKey'],
-                ]),
-                'SequenceNumberRange' => new SequenceNumberRange([
-                    'StartingSequenceNumber' => (string) $item['SequenceNumberRange']['StartingSequenceNumber'],
-                    'EndingSequenceNumber' => isset($item['SequenceNumberRange']['EndingSequenceNumber']) ? (string) $item['SequenceNumberRange']['EndingSequenceNumber'] : null,
-                ]),
-            ]);
+            $items[] = $this->populateResultShard($item);
         }
 
         return $items;

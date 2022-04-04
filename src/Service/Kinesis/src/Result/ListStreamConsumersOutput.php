@@ -98,6 +98,16 @@ class ListStreamConsumersOutput extends Result implements \IteratorAggregate
         $this->nextToken = isset($data['NextToken']) ? (string) $data['NextToken'] : null;
     }
 
+    private function populateResultConsumer(array $json): Consumer
+    {
+        return new Consumer([
+            'ConsumerName' => (string) $json['ConsumerName'],
+            'ConsumerARN' => (string) $json['ConsumerARN'],
+            'ConsumerStatus' => (string) $json['ConsumerStatus'],
+            'ConsumerCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['ConsumerCreationTimestamp'])),
+        ]);
+    }
+
     /**
      * @return Consumer[]
      */
@@ -105,12 +115,7 @@ class ListStreamConsumersOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new Consumer([
-                'ConsumerName' => (string) $item['ConsumerName'],
-                'ConsumerARN' => (string) $item['ConsumerARN'],
-                'ConsumerStatus' => (string) $item['ConsumerStatus'],
-                'ConsumerCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['ConsumerCreationTimestamp'])),
-            ]);
+            $items[] = $this->populateResultConsumer($item);
         }
 
         return $items;

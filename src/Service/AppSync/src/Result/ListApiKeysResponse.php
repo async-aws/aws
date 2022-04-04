@@ -43,6 +43,16 @@ class ListApiKeysResponse extends Result
         $this->nextToken = isset($data['nextToken']) ? (string) $data['nextToken'] : null;
     }
 
+    private function populateResultApiKey(array $json): ApiKey
+    {
+        return new ApiKey([
+            'id' => isset($json['id']) ? (string) $json['id'] : null,
+            'description' => isset($json['description']) ? (string) $json['description'] : null,
+            'expires' => isset($json['expires']) ? (string) $json['expires'] : null,
+            'deletes' => isset($json['deletes']) ? (string) $json['deletes'] : null,
+        ]);
+    }
+
     /**
      * @return ApiKey[]
      */
@@ -50,12 +60,7 @@ class ListApiKeysResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new ApiKey([
-                'id' => isset($item['id']) ? (string) $item['id'] : null,
-                'description' => isset($item['description']) ? (string) $item['description'] : null,
-                'expires' => isset($item['expires']) ? (string) $item['expires'] : null,
-                'deletes' => isset($item['deletes']) ? (string) $item['deletes'] : null,
-            ]);
+            $items[] = $this->populateResultApiKey($item);
         }
 
         return $items;

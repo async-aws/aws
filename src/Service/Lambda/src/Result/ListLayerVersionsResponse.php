@@ -134,17 +134,22 @@ class ListLayerVersionsResponse extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new LayerVersionsListItem([
-                'LayerVersionArn' => isset($item['LayerVersionArn']) ? (string) $item['LayerVersionArn'] : null,
-                'Version' => isset($item['Version']) ? (string) $item['Version'] : null,
-                'Description' => isset($item['Description']) ? (string) $item['Description'] : null,
-                'CreatedDate' => isset($item['CreatedDate']) ? (string) $item['CreatedDate'] : null,
-                'CompatibleRuntimes' => !isset($item['CompatibleRuntimes']) ? null : $this->populateResultCompatibleRuntimes($item['CompatibleRuntimes']),
-                'LicenseInfo' => isset($item['LicenseInfo']) ? (string) $item['LicenseInfo'] : null,
-                'CompatibleArchitectures' => !isset($item['CompatibleArchitectures']) ? null : $this->populateResultCompatibleArchitectures($item['CompatibleArchitectures']),
-            ]);
+            $items[] = $this->populateResultLayerVersionsListItem($item);
         }
 
         return $items;
+    }
+
+    private function populateResultLayerVersionsListItem(array $json): LayerVersionsListItem
+    {
+        return new LayerVersionsListItem([
+            'LayerVersionArn' => isset($json['LayerVersionArn']) ? (string) $json['LayerVersionArn'] : null,
+            'Version' => isset($json['Version']) ? (string) $json['Version'] : null,
+            'Description' => isset($json['Description']) ? (string) $json['Description'] : null,
+            'CreatedDate' => isset($json['CreatedDate']) ? (string) $json['CreatedDate'] : null,
+            'CompatibleRuntimes' => !isset($json['CompatibleRuntimes']) ? null : $this->populateResultCompatibleRuntimes($json['CompatibleRuntimes']),
+            'LicenseInfo' => isset($json['LicenseInfo']) ? (string) $json['LicenseInfo'] : null,
+            'CompatibleArchitectures' => !isset($json['CompatibleArchitectures']) ? null : $this->populateResultCompatibleArchitectures($json['CompatibleArchitectures']),
+        ]);
     }
 }

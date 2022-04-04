@@ -58,6 +58,15 @@ class PutRecordBatchOutput extends Result
         $this->requestResponses = $this->populateResultPutRecordBatchResponseEntryList($data['RequestResponses']);
     }
 
+    private function populateResultPutRecordBatchResponseEntry(array $json): PutRecordBatchResponseEntry
+    {
+        return new PutRecordBatchResponseEntry([
+            'RecordId' => isset($json['RecordId']) ? (string) $json['RecordId'] : null,
+            'ErrorCode' => isset($json['ErrorCode']) ? (string) $json['ErrorCode'] : null,
+            'ErrorMessage' => isset($json['ErrorMessage']) ? (string) $json['ErrorMessage'] : null,
+        ]);
+    }
+
     /**
      * @return PutRecordBatchResponseEntry[]
      */
@@ -65,11 +74,7 @@ class PutRecordBatchOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new PutRecordBatchResponseEntry([
-                'RecordId' => isset($item['RecordId']) ? (string) $item['RecordId'] : null,
-                'ErrorCode' => isset($item['ErrorCode']) ? (string) $item['ErrorCode'] : null,
-                'ErrorMessage' => isset($item['ErrorMessage']) ? (string) $item['ErrorMessage'] : null,
-            ]);
+            $items[] = $this->populateResultPutRecordBatchResponseEntry($item);
         }
 
         return $items;

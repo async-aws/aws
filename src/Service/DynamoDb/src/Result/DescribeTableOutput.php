@@ -42,58 +42,23 @@ class DescribeTableOutput extends Result
     {
         $data = $response->toArray();
 
-        $this->table = empty($data['Table']) ? null : new TableDescription([
-            'AttributeDefinitions' => !isset($data['Table']['AttributeDefinitions']) ? null : $this->populateResultAttributeDefinitions($data['Table']['AttributeDefinitions']),
-            'TableName' => isset($data['Table']['TableName']) ? (string) $data['Table']['TableName'] : null,
-            'KeySchema' => !isset($data['Table']['KeySchema']) ? null : $this->populateResultKeySchema($data['Table']['KeySchema']),
-            'TableStatus' => isset($data['Table']['TableStatus']) ? (string) $data['Table']['TableStatus'] : null,
-            'CreationDateTime' => (isset($data['Table']['CreationDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['Table']['CreationDateTime'])))) ? $d : null,
-            'ProvisionedThroughput' => empty($data['Table']['ProvisionedThroughput']) ? null : new ProvisionedThroughputDescription([
-                'LastIncreaseDateTime' => (isset($data['Table']['ProvisionedThroughput']['LastIncreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['Table']['ProvisionedThroughput']['LastIncreaseDateTime'])))) ? $d : null,
-                'LastDecreaseDateTime' => (isset($data['Table']['ProvisionedThroughput']['LastDecreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['Table']['ProvisionedThroughput']['LastDecreaseDateTime'])))) ? $d : null,
-                'NumberOfDecreasesToday' => isset($data['Table']['ProvisionedThroughput']['NumberOfDecreasesToday']) ? (string) $data['Table']['ProvisionedThroughput']['NumberOfDecreasesToday'] : null,
-                'ReadCapacityUnits' => isset($data['Table']['ProvisionedThroughput']['ReadCapacityUnits']) ? (string) $data['Table']['ProvisionedThroughput']['ReadCapacityUnits'] : null,
-                'WriteCapacityUnits' => isset($data['Table']['ProvisionedThroughput']['WriteCapacityUnits']) ? (string) $data['Table']['ProvisionedThroughput']['WriteCapacityUnits'] : null,
-            ]),
-            'TableSizeBytes' => isset($data['Table']['TableSizeBytes']) ? (string) $data['Table']['TableSizeBytes'] : null,
-            'ItemCount' => isset($data['Table']['ItemCount']) ? (string) $data['Table']['ItemCount'] : null,
-            'TableArn' => isset($data['Table']['TableArn']) ? (string) $data['Table']['TableArn'] : null,
-            'TableId' => isset($data['Table']['TableId']) ? (string) $data['Table']['TableId'] : null,
-            'BillingModeSummary' => empty($data['Table']['BillingModeSummary']) ? null : new BillingModeSummary([
-                'BillingMode' => isset($data['Table']['BillingModeSummary']['BillingMode']) ? (string) $data['Table']['BillingModeSummary']['BillingMode'] : null,
-                'LastUpdateToPayPerRequestDateTime' => (isset($data['Table']['BillingModeSummary']['LastUpdateToPayPerRequestDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['Table']['BillingModeSummary']['LastUpdateToPayPerRequestDateTime'])))) ? $d : null,
-            ]),
-            'LocalSecondaryIndexes' => !isset($data['Table']['LocalSecondaryIndexes']) ? null : $this->populateResultLocalSecondaryIndexDescriptionList($data['Table']['LocalSecondaryIndexes']),
-            'GlobalSecondaryIndexes' => !isset($data['Table']['GlobalSecondaryIndexes']) ? null : $this->populateResultGlobalSecondaryIndexDescriptionList($data['Table']['GlobalSecondaryIndexes']),
-            'StreamSpecification' => empty($data['Table']['StreamSpecification']) ? null : new StreamSpecification([
-                'StreamEnabled' => filter_var($data['Table']['StreamSpecification']['StreamEnabled'], \FILTER_VALIDATE_BOOLEAN),
-                'StreamViewType' => isset($data['Table']['StreamSpecification']['StreamViewType']) ? (string) $data['Table']['StreamSpecification']['StreamViewType'] : null,
-            ]),
-            'LatestStreamLabel' => isset($data['Table']['LatestStreamLabel']) ? (string) $data['Table']['LatestStreamLabel'] : null,
-            'LatestStreamArn' => isset($data['Table']['LatestStreamArn']) ? (string) $data['Table']['LatestStreamArn'] : null,
-            'GlobalTableVersion' => isset($data['Table']['GlobalTableVersion']) ? (string) $data['Table']['GlobalTableVersion'] : null,
-            'Replicas' => !isset($data['Table']['Replicas']) ? null : $this->populateResultReplicaDescriptionList($data['Table']['Replicas']),
-            'RestoreSummary' => empty($data['Table']['RestoreSummary']) ? null : new RestoreSummary([
-                'SourceBackupArn' => isset($data['Table']['RestoreSummary']['SourceBackupArn']) ? (string) $data['Table']['RestoreSummary']['SourceBackupArn'] : null,
-                'SourceTableArn' => isset($data['Table']['RestoreSummary']['SourceTableArn']) ? (string) $data['Table']['RestoreSummary']['SourceTableArn'] : null,
-                'RestoreDateTime' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['Table']['RestoreSummary']['RestoreDateTime'])),
-                'RestoreInProgress' => filter_var($data['Table']['RestoreSummary']['RestoreInProgress'], \FILTER_VALIDATE_BOOLEAN),
-            ]),
-            'SSEDescription' => empty($data['Table']['SSEDescription']) ? null : new SSEDescription([
-                'Status' => isset($data['Table']['SSEDescription']['Status']) ? (string) $data['Table']['SSEDescription']['Status'] : null,
-                'SSEType' => isset($data['Table']['SSEDescription']['SSEType']) ? (string) $data['Table']['SSEDescription']['SSEType'] : null,
-                'KMSMasterKeyArn' => isset($data['Table']['SSEDescription']['KMSMasterKeyArn']) ? (string) $data['Table']['SSEDescription']['KMSMasterKeyArn'] : null,
-                'InaccessibleEncryptionDateTime' => (isset($data['Table']['SSEDescription']['InaccessibleEncryptionDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['Table']['SSEDescription']['InaccessibleEncryptionDateTime'])))) ? $d : null,
-            ]),
-            'ArchivalSummary' => empty($data['Table']['ArchivalSummary']) ? null : new ArchivalSummary([
-                'ArchivalDateTime' => (isset($data['Table']['ArchivalSummary']['ArchivalDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['Table']['ArchivalSummary']['ArchivalDateTime'])))) ? $d : null,
-                'ArchivalReason' => isset($data['Table']['ArchivalSummary']['ArchivalReason']) ? (string) $data['Table']['ArchivalSummary']['ArchivalReason'] : null,
-                'ArchivalBackupArn' => isset($data['Table']['ArchivalSummary']['ArchivalBackupArn']) ? (string) $data['Table']['ArchivalSummary']['ArchivalBackupArn'] : null,
-            ]),
-            'TableClassSummary' => empty($data['Table']['TableClassSummary']) ? null : new TableClassSummary([
-                'TableClass' => isset($data['Table']['TableClassSummary']['TableClass']) ? (string) $data['Table']['TableClassSummary']['TableClass'] : null,
-                'LastUpdateDateTime' => (isset($data['Table']['TableClassSummary']['LastUpdateDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['Table']['TableClassSummary']['LastUpdateDateTime'])))) ? $d : null,
-            ]),
+        $this->table = empty($data['Table']) ? null : $this->populateResultTableDescription($data['Table']);
+    }
+
+    private function populateResultArchivalSummary(array $json): ArchivalSummary
+    {
+        return new ArchivalSummary([
+            'ArchivalDateTime' => (isset($json['ArchivalDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['ArchivalDateTime'])))) ? $d : null,
+            'ArchivalReason' => isset($json['ArchivalReason']) ? (string) $json['ArchivalReason'] : null,
+            'ArchivalBackupArn' => isset($json['ArchivalBackupArn']) ? (string) $json['ArchivalBackupArn'] : null,
+        ]);
+    }
+
+    private function populateResultAttributeDefinition(array $json): AttributeDefinition
+    {
+        return new AttributeDefinition([
+            'AttributeName' => (string) $json['AttributeName'],
+            'AttributeType' => (string) $json['AttributeType'],
         ]);
     }
 
@@ -104,13 +69,33 @@ class DescribeTableOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new AttributeDefinition([
-                'AttributeName' => (string) $item['AttributeName'],
-                'AttributeType' => (string) $item['AttributeType'],
-            ]);
+            $items[] = $this->populateResultAttributeDefinition($item);
         }
 
         return $items;
+    }
+
+    private function populateResultBillingModeSummary(array $json): BillingModeSummary
+    {
+        return new BillingModeSummary([
+            'BillingMode' => isset($json['BillingMode']) ? (string) $json['BillingMode'] : null,
+            'LastUpdateToPayPerRequestDateTime' => (isset($json['LastUpdateToPayPerRequestDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastUpdateToPayPerRequestDateTime'])))) ? $d : null,
+        ]);
+    }
+
+    private function populateResultGlobalSecondaryIndexDescription(array $json): GlobalSecondaryIndexDescription
+    {
+        return new GlobalSecondaryIndexDescription([
+            'IndexName' => isset($json['IndexName']) ? (string) $json['IndexName'] : null,
+            'KeySchema' => !isset($json['KeySchema']) ? null : $this->populateResultKeySchema($json['KeySchema']),
+            'Projection' => empty($json['Projection']) ? null : $this->populateResultProjection($json['Projection']),
+            'IndexStatus' => isset($json['IndexStatus']) ? (string) $json['IndexStatus'] : null,
+            'Backfilling' => isset($json['Backfilling']) ? filter_var($json['Backfilling'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'ProvisionedThroughput' => empty($json['ProvisionedThroughput']) ? null : $this->populateResultProvisionedThroughputDescription($json['ProvisionedThroughput']),
+            'IndexSizeBytes' => isset($json['IndexSizeBytes']) ? (string) $json['IndexSizeBytes'] : null,
+            'ItemCount' => isset($json['ItemCount']) ? (string) $json['ItemCount'] : null,
+            'IndexArn' => isset($json['IndexArn']) ? (string) $json['IndexArn'] : null,
+        ]);
     }
 
     /**
@@ -120,26 +105,7 @@ class DescribeTableOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new GlobalSecondaryIndexDescription([
-                'IndexName' => isset($item['IndexName']) ? (string) $item['IndexName'] : null,
-                'KeySchema' => !isset($item['KeySchema']) ? null : $this->populateResultKeySchema($item['KeySchema']),
-                'Projection' => empty($item['Projection']) ? null : new Projection([
-                    'ProjectionType' => isset($item['Projection']['ProjectionType']) ? (string) $item['Projection']['ProjectionType'] : null,
-                    'NonKeyAttributes' => !isset($item['Projection']['NonKeyAttributes']) ? null : $this->populateResultNonKeyAttributeNameList($item['Projection']['NonKeyAttributes']),
-                ]),
-                'IndexStatus' => isset($item['IndexStatus']) ? (string) $item['IndexStatus'] : null,
-                'Backfilling' => isset($item['Backfilling']) ? filter_var($item['Backfilling'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'ProvisionedThroughput' => empty($item['ProvisionedThroughput']) ? null : new ProvisionedThroughputDescription([
-                    'LastIncreaseDateTime' => (isset($item['ProvisionedThroughput']['LastIncreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['ProvisionedThroughput']['LastIncreaseDateTime'])))) ? $d : null,
-                    'LastDecreaseDateTime' => (isset($item['ProvisionedThroughput']['LastDecreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['ProvisionedThroughput']['LastDecreaseDateTime'])))) ? $d : null,
-                    'NumberOfDecreasesToday' => isset($item['ProvisionedThroughput']['NumberOfDecreasesToday']) ? (string) $item['ProvisionedThroughput']['NumberOfDecreasesToday'] : null,
-                    'ReadCapacityUnits' => isset($item['ProvisionedThroughput']['ReadCapacityUnits']) ? (string) $item['ProvisionedThroughput']['ReadCapacityUnits'] : null,
-                    'WriteCapacityUnits' => isset($item['ProvisionedThroughput']['WriteCapacityUnits']) ? (string) $item['ProvisionedThroughput']['WriteCapacityUnits'] : null,
-                ]),
-                'IndexSizeBytes' => isset($item['IndexSizeBytes']) ? (string) $item['IndexSizeBytes'] : null,
-                'ItemCount' => isset($item['ItemCount']) ? (string) $item['ItemCount'] : null,
-                'IndexArn' => isset($item['IndexArn']) ? (string) $item['IndexArn'] : null,
-            ]);
+            $items[] = $this->populateResultGlobalSecondaryIndexDescription($item);
         }
 
         return $items;
@@ -152,13 +118,30 @@ class DescribeTableOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new KeySchemaElement([
-                'AttributeName' => (string) $item['AttributeName'],
-                'KeyType' => (string) $item['KeyType'],
-            ]);
+            $items[] = $this->populateResultKeySchemaElement($item);
         }
 
         return $items;
+    }
+
+    private function populateResultKeySchemaElement(array $json): KeySchemaElement
+    {
+        return new KeySchemaElement([
+            'AttributeName' => (string) $json['AttributeName'],
+            'KeyType' => (string) $json['KeyType'],
+        ]);
+    }
+
+    private function populateResultLocalSecondaryIndexDescription(array $json): LocalSecondaryIndexDescription
+    {
+        return new LocalSecondaryIndexDescription([
+            'IndexName' => isset($json['IndexName']) ? (string) $json['IndexName'] : null,
+            'KeySchema' => !isset($json['KeySchema']) ? null : $this->populateResultKeySchema($json['KeySchema']),
+            'Projection' => empty($json['Projection']) ? null : $this->populateResultProjection($json['Projection']),
+            'IndexSizeBytes' => isset($json['IndexSizeBytes']) ? (string) $json['IndexSizeBytes'] : null,
+            'ItemCount' => isset($json['ItemCount']) ? (string) $json['ItemCount'] : null,
+            'IndexArn' => isset($json['IndexArn']) ? (string) $json['IndexArn'] : null,
+        ]);
     }
 
     /**
@@ -168,17 +151,7 @@ class DescribeTableOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new LocalSecondaryIndexDescription([
-                'IndexName' => isset($item['IndexName']) ? (string) $item['IndexName'] : null,
-                'KeySchema' => !isset($item['KeySchema']) ? null : $this->populateResultKeySchema($item['KeySchema']),
-                'Projection' => empty($item['Projection']) ? null : new Projection([
-                    'ProjectionType' => isset($item['Projection']['ProjectionType']) ? (string) $item['Projection']['ProjectionType'] : null,
-                    'NonKeyAttributes' => !isset($item['Projection']['NonKeyAttributes']) ? null : $this->populateResultNonKeyAttributeNameList($item['Projection']['NonKeyAttributes']),
-                ]),
-                'IndexSizeBytes' => isset($item['IndexSizeBytes']) ? (string) $item['IndexSizeBytes'] : null,
-                'ItemCount' => isset($item['ItemCount']) ? (string) $item['ItemCount'] : null,
-                'IndexArn' => isset($item['IndexArn']) ? (string) $item['IndexArn'] : null,
-            ]);
+            $items[] = $this->populateResultLocalSecondaryIndexDescription($item);
         }
 
         return $items;
@@ -200,6 +173,47 @@ class DescribeTableOutput extends Result
         return $items;
     }
 
+    private function populateResultProjection(array $json): Projection
+    {
+        return new Projection([
+            'ProjectionType' => isset($json['ProjectionType']) ? (string) $json['ProjectionType'] : null,
+            'NonKeyAttributes' => !isset($json['NonKeyAttributes']) ? null : $this->populateResultNonKeyAttributeNameList($json['NonKeyAttributes']),
+        ]);
+    }
+
+    private function populateResultProvisionedThroughputDescription(array $json): ProvisionedThroughputDescription
+    {
+        return new ProvisionedThroughputDescription([
+            'LastIncreaseDateTime' => (isset($json['LastIncreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastIncreaseDateTime'])))) ? $d : null,
+            'LastDecreaseDateTime' => (isset($json['LastDecreaseDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastDecreaseDateTime'])))) ? $d : null,
+            'NumberOfDecreasesToday' => isset($json['NumberOfDecreasesToday']) ? (string) $json['NumberOfDecreasesToday'] : null,
+            'ReadCapacityUnits' => isset($json['ReadCapacityUnits']) ? (string) $json['ReadCapacityUnits'] : null,
+            'WriteCapacityUnits' => isset($json['WriteCapacityUnits']) ? (string) $json['WriteCapacityUnits'] : null,
+        ]);
+    }
+
+    private function populateResultProvisionedThroughputOverride(array $json): ProvisionedThroughputOverride
+    {
+        return new ProvisionedThroughputOverride([
+            'ReadCapacityUnits' => isset($json['ReadCapacityUnits']) ? (string) $json['ReadCapacityUnits'] : null,
+        ]);
+    }
+
+    private function populateResultReplicaDescription(array $json): ReplicaDescription
+    {
+        return new ReplicaDescription([
+            'RegionName' => isset($json['RegionName']) ? (string) $json['RegionName'] : null,
+            'ReplicaStatus' => isset($json['ReplicaStatus']) ? (string) $json['ReplicaStatus'] : null,
+            'ReplicaStatusDescription' => isset($json['ReplicaStatusDescription']) ? (string) $json['ReplicaStatusDescription'] : null,
+            'ReplicaStatusPercentProgress' => isset($json['ReplicaStatusPercentProgress']) ? (string) $json['ReplicaStatusPercentProgress'] : null,
+            'KMSMasterKeyId' => isset($json['KMSMasterKeyId']) ? (string) $json['KMSMasterKeyId'] : null,
+            'ProvisionedThroughputOverride' => empty($json['ProvisionedThroughputOverride']) ? null : $this->populateResultProvisionedThroughputOverride($json['ProvisionedThroughputOverride']),
+            'GlobalSecondaryIndexes' => !isset($json['GlobalSecondaryIndexes']) ? null : $this->populateResultReplicaGlobalSecondaryIndexDescriptionList($json['GlobalSecondaryIndexes']),
+            'ReplicaInaccessibleDateTime' => (isset($json['ReplicaInaccessibleDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['ReplicaInaccessibleDateTime'])))) ? $d : null,
+            'ReplicaTableClassSummary' => empty($json['ReplicaTableClassSummary']) ? null : $this->populateResultTableClassSummary($json['ReplicaTableClassSummary']),
+        ]);
+    }
+
     /**
      * @return ReplicaDescription[]
      */
@@ -207,25 +221,18 @@ class DescribeTableOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new ReplicaDescription([
-                'RegionName' => isset($item['RegionName']) ? (string) $item['RegionName'] : null,
-                'ReplicaStatus' => isset($item['ReplicaStatus']) ? (string) $item['ReplicaStatus'] : null,
-                'ReplicaStatusDescription' => isset($item['ReplicaStatusDescription']) ? (string) $item['ReplicaStatusDescription'] : null,
-                'ReplicaStatusPercentProgress' => isset($item['ReplicaStatusPercentProgress']) ? (string) $item['ReplicaStatusPercentProgress'] : null,
-                'KMSMasterKeyId' => isset($item['KMSMasterKeyId']) ? (string) $item['KMSMasterKeyId'] : null,
-                'ProvisionedThroughputOverride' => empty($item['ProvisionedThroughputOverride']) ? null : new ProvisionedThroughputOverride([
-                    'ReadCapacityUnits' => isset($item['ProvisionedThroughputOverride']['ReadCapacityUnits']) ? (string) $item['ProvisionedThroughputOverride']['ReadCapacityUnits'] : null,
-                ]),
-                'GlobalSecondaryIndexes' => !isset($item['GlobalSecondaryIndexes']) ? null : $this->populateResultReplicaGlobalSecondaryIndexDescriptionList($item['GlobalSecondaryIndexes']),
-                'ReplicaInaccessibleDateTime' => (isset($item['ReplicaInaccessibleDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['ReplicaInaccessibleDateTime'])))) ? $d : null,
-                'ReplicaTableClassSummary' => empty($item['ReplicaTableClassSummary']) ? null : new TableClassSummary([
-                    'TableClass' => isset($item['ReplicaTableClassSummary']['TableClass']) ? (string) $item['ReplicaTableClassSummary']['TableClass'] : null,
-                    'LastUpdateDateTime' => (isset($item['ReplicaTableClassSummary']['LastUpdateDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['ReplicaTableClassSummary']['LastUpdateDateTime'])))) ? $d : null,
-                ]),
-            ]);
+            $items[] = $this->populateResultReplicaDescription($item);
         }
 
         return $items;
+    }
+
+    private function populateResultReplicaGlobalSecondaryIndexDescription(array $json): ReplicaGlobalSecondaryIndexDescription
+    {
+        return new ReplicaGlobalSecondaryIndexDescription([
+            'IndexName' => isset($json['IndexName']) ? (string) $json['IndexName'] : null,
+            'ProvisionedThroughputOverride' => empty($json['ProvisionedThroughputOverride']) ? null : $this->populateResultProvisionedThroughputOverride($json['ProvisionedThroughputOverride']),
+        ]);
     }
 
     /**
@@ -235,14 +242,73 @@ class DescribeTableOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new ReplicaGlobalSecondaryIndexDescription([
-                'IndexName' => isset($item['IndexName']) ? (string) $item['IndexName'] : null,
-                'ProvisionedThroughputOverride' => empty($item['ProvisionedThroughputOverride']) ? null : new ProvisionedThroughputOverride([
-                    'ReadCapacityUnits' => isset($item['ProvisionedThroughputOverride']['ReadCapacityUnits']) ? (string) $item['ProvisionedThroughputOverride']['ReadCapacityUnits'] : null,
-                ]),
-            ]);
+            $items[] = $this->populateResultReplicaGlobalSecondaryIndexDescription($item);
         }
 
         return $items;
+    }
+
+    private function populateResultRestoreSummary(array $json): RestoreSummary
+    {
+        return new RestoreSummary([
+            'SourceBackupArn' => isset($json['SourceBackupArn']) ? (string) $json['SourceBackupArn'] : null,
+            'SourceTableArn' => isset($json['SourceTableArn']) ? (string) $json['SourceTableArn'] : null,
+            'RestoreDateTime' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['RestoreDateTime'])),
+            'RestoreInProgress' => filter_var($json['RestoreInProgress'], \FILTER_VALIDATE_BOOLEAN),
+        ]);
+    }
+
+    private function populateResultSSEDescription(array $json): SSEDescription
+    {
+        return new SSEDescription([
+            'Status' => isset($json['Status']) ? (string) $json['Status'] : null,
+            'SSEType' => isset($json['SSEType']) ? (string) $json['SSEType'] : null,
+            'KMSMasterKeyArn' => isset($json['KMSMasterKeyArn']) ? (string) $json['KMSMasterKeyArn'] : null,
+            'InaccessibleEncryptionDateTime' => (isset($json['InaccessibleEncryptionDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['InaccessibleEncryptionDateTime'])))) ? $d : null,
+        ]);
+    }
+
+    private function populateResultStreamSpecification(array $json): StreamSpecification
+    {
+        return new StreamSpecification([
+            'StreamEnabled' => filter_var($json['StreamEnabled'], \FILTER_VALIDATE_BOOLEAN),
+            'StreamViewType' => isset($json['StreamViewType']) ? (string) $json['StreamViewType'] : null,
+        ]);
+    }
+
+    private function populateResultTableClassSummary(array $json): TableClassSummary
+    {
+        return new TableClassSummary([
+            'TableClass' => isset($json['TableClass']) ? (string) $json['TableClass'] : null,
+            'LastUpdateDateTime' => (isset($json['LastUpdateDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['LastUpdateDateTime'])))) ? $d : null,
+        ]);
+    }
+
+    private function populateResultTableDescription(array $json): TableDescription
+    {
+        return new TableDescription([
+            'AttributeDefinitions' => !isset($json['AttributeDefinitions']) ? null : $this->populateResultAttributeDefinitions($json['AttributeDefinitions']),
+            'TableName' => isset($json['TableName']) ? (string) $json['TableName'] : null,
+            'KeySchema' => !isset($json['KeySchema']) ? null : $this->populateResultKeySchema($json['KeySchema']),
+            'TableStatus' => isset($json['TableStatus']) ? (string) $json['TableStatus'] : null,
+            'CreationDateTime' => (isset($json['CreationDateTime']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['CreationDateTime'])))) ? $d : null,
+            'ProvisionedThroughput' => empty($json['ProvisionedThroughput']) ? null : $this->populateResultProvisionedThroughputDescription($json['ProvisionedThroughput']),
+            'TableSizeBytes' => isset($json['TableSizeBytes']) ? (string) $json['TableSizeBytes'] : null,
+            'ItemCount' => isset($json['ItemCount']) ? (string) $json['ItemCount'] : null,
+            'TableArn' => isset($json['TableArn']) ? (string) $json['TableArn'] : null,
+            'TableId' => isset($json['TableId']) ? (string) $json['TableId'] : null,
+            'BillingModeSummary' => empty($json['BillingModeSummary']) ? null : $this->populateResultBillingModeSummary($json['BillingModeSummary']),
+            'LocalSecondaryIndexes' => !isset($json['LocalSecondaryIndexes']) ? null : $this->populateResultLocalSecondaryIndexDescriptionList($json['LocalSecondaryIndexes']),
+            'GlobalSecondaryIndexes' => !isset($json['GlobalSecondaryIndexes']) ? null : $this->populateResultGlobalSecondaryIndexDescriptionList($json['GlobalSecondaryIndexes']),
+            'StreamSpecification' => empty($json['StreamSpecification']) ? null : $this->populateResultStreamSpecification($json['StreamSpecification']),
+            'LatestStreamLabel' => isset($json['LatestStreamLabel']) ? (string) $json['LatestStreamLabel'] : null,
+            'LatestStreamArn' => isset($json['LatestStreamArn']) ? (string) $json['LatestStreamArn'] : null,
+            'GlobalTableVersion' => isset($json['GlobalTableVersion']) ? (string) $json['GlobalTableVersion'] : null,
+            'Replicas' => !isset($json['Replicas']) ? null : $this->populateResultReplicaDescriptionList($json['Replicas']),
+            'RestoreSummary' => empty($json['RestoreSummary']) ? null : $this->populateResultRestoreSummary($json['RestoreSummary']),
+            'SSEDescription' => empty($json['SSEDescription']) ? null : $this->populateResultSSEDescription($json['SSEDescription']),
+            'ArchivalSummary' => empty($json['ArchivalSummary']) ? null : $this->populateResultArchivalSummary($json['ArchivalSummary']),
+            'TableClassSummary' => empty($json['TableClassSummary']) ? null : $this->populateResultTableClassSummary($json['TableClassSummary']),
+        ]);
     }
 }

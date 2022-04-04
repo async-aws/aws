@@ -159,6 +159,28 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
         return $items;
     }
 
+    private function populateResultCapacity(array $json): Capacity
+    {
+        return new Capacity([
+            'ReadCapacityUnits' => isset($json['ReadCapacityUnits']) ? (float) $json['ReadCapacityUnits'] : null,
+            'WriteCapacityUnits' => isset($json['WriteCapacityUnits']) ? (float) $json['WriteCapacityUnits'] : null,
+            'CapacityUnits' => isset($json['CapacityUnits']) ? (float) $json['CapacityUnits'] : null,
+        ]);
+    }
+
+    private function populateResultConsumedCapacity(array $json): ConsumedCapacity
+    {
+        return new ConsumedCapacity([
+            'TableName' => isset($json['TableName']) ? (string) $json['TableName'] : null,
+            'CapacityUnits' => isset($json['CapacityUnits']) ? (float) $json['CapacityUnits'] : null,
+            'ReadCapacityUnits' => isset($json['ReadCapacityUnits']) ? (float) $json['ReadCapacityUnits'] : null,
+            'WriteCapacityUnits' => isset($json['WriteCapacityUnits']) ? (float) $json['WriteCapacityUnits'] : null,
+            'Table' => empty($json['Table']) ? null : $this->populateResultCapacity($json['Table']),
+            'LocalSecondaryIndexes' => !isset($json['LocalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($json['LocalSecondaryIndexes']),
+            'GlobalSecondaryIndexes' => !isset($json['GlobalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($json['GlobalSecondaryIndexes']),
+        ]);
+    }
+
     /**
      * @return ConsumedCapacity[]
      */
@@ -166,19 +188,7 @@ class BatchGetItemOutput extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new ConsumedCapacity([
-                'TableName' => isset($item['TableName']) ? (string) $item['TableName'] : null,
-                'CapacityUnits' => isset($item['CapacityUnits']) ? (float) $item['CapacityUnits'] : null,
-                'ReadCapacityUnits' => isset($item['ReadCapacityUnits']) ? (float) $item['ReadCapacityUnits'] : null,
-                'WriteCapacityUnits' => isset($item['WriteCapacityUnits']) ? (float) $item['WriteCapacityUnits'] : null,
-                'Table' => empty($item['Table']) ? null : new Capacity([
-                    'ReadCapacityUnits' => isset($item['Table']['ReadCapacityUnits']) ? (float) $item['Table']['ReadCapacityUnits'] : null,
-                    'WriteCapacityUnits' => isset($item['Table']['WriteCapacityUnits']) ? (float) $item['Table']['WriteCapacityUnits'] : null,
-                    'CapacityUnits' => isset($item['Table']['CapacityUnits']) ? (float) $item['Table']['CapacityUnits'] : null,
-                ]),
-                'LocalSecondaryIndexes' => !isset($item['LocalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($item['LocalSecondaryIndexes']),
-                'GlobalSecondaryIndexes' => !isset($item['GlobalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($item['GlobalSecondaryIndexes']),
-            ]);
+            $items[] = $this->populateResultConsumedCapacity($item);
         }
 
         return $items;

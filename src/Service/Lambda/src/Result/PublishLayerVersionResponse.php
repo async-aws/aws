@@ -132,13 +132,7 @@ class PublishLayerVersionResponse extends Result
     {
         $data = $response->toArray();
 
-        $this->content = empty($data['Content']) ? null : new LayerVersionContentOutput([
-            'Location' => isset($data['Content']['Location']) ? (string) $data['Content']['Location'] : null,
-            'CodeSha256' => isset($data['Content']['CodeSha256']) ? (string) $data['Content']['CodeSha256'] : null,
-            'CodeSize' => isset($data['Content']['CodeSize']) ? (string) $data['Content']['CodeSize'] : null,
-            'SigningProfileVersionArn' => isset($data['Content']['SigningProfileVersionArn']) ? (string) $data['Content']['SigningProfileVersionArn'] : null,
-            'SigningJobArn' => isset($data['Content']['SigningJobArn']) ? (string) $data['Content']['SigningJobArn'] : null,
-        ]);
+        $this->content = empty($data['Content']) ? null : $this->populateResultLayerVersionContentOutput($data['Content']);
         $this->layerArn = isset($data['LayerArn']) ? (string) $data['LayerArn'] : null;
         $this->layerVersionArn = isset($data['LayerVersionArn']) ? (string) $data['LayerVersionArn'] : null;
         $this->description = isset($data['Description']) ? (string) $data['Description'] : null;
@@ -179,5 +173,16 @@ class PublishLayerVersionResponse extends Result
         }
 
         return $items;
+    }
+
+    private function populateResultLayerVersionContentOutput(array $json): LayerVersionContentOutput
+    {
+        return new LayerVersionContentOutput([
+            'Location' => isset($json['Location']) ? (string) $json['Location'] : null,
+            'CodeSha256' => isset($json['CodeSha256']) ? (string) $json['CodeSha256'] : null,
+            'CodeSize' => isset($json['CodeSize']) ? (string) $json['CodeSize'] : null,
+            'SigningProfileVersionArn' => isset($json['SigningProfileVersionArn']) ? (string) $json['SigningProfileVersionArn'] : null,
+            'SigningJobArn' => isset($json['SigningJobArn']) ? (string) $json['SigningJobArn'] : null,
+        ]);
     }
 }

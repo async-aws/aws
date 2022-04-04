@@ -24,12 +24,17 @@ class DescribeStreamConsumerOutput extends Result
     {
         $data = $response->toArray();
 
-        $this->consumerDescription = new ConsumerDescription([
-            'ConsumerName' => (string) $data['ConsumerDescription']['ConsumerName'],
-            'ConsumerARN' => (string) $data['ConsumerDescription']['ConsumerARN'],
-            'ConsumerStatus' => (string) $data['ConsumerDescription']['ConsumerStatus'],
-            'ConsumerCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['ConsumerDescription']['ConsumerCreationTimestamp'])),
-            'StreamARN' => (string) $data['ConsumerDescription']['StreamARN'],
+        $this->consumerDescription = $this->populateResultConsumerDescription($data['ConsumerDescription']);
+    }
+
+    private function populateResultConsumerDescription(array $json): ConsumerDescription
+    {
+        return new ConsumerDescription([
+            'ConsumerName' => (string) $json['ConsumerName'],
+            'ConsumerARN' => (string) $json['ConsumerARN'],
+            'ConsumerStatus' => (string) $json['ConsumerStatus'],
+            'ConsumerCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['ConsumerCreationTimestamp'])),
+            'StreamARN' => (string) $json['StreamARN'],
         ]);
     }
 }

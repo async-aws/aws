@@ -34,54 +34,109 @@ class UpdateDataSourceResponse extends Result
     {
         $data = $response->toArray();
 
-        $this->dataSource = empty($data['dataSource']) ? null : new DataSource([
-            'dataSourceArn' => isset($data['dataSource']['dataSourceArn']) ? (string) $data['dataSource']['dataSourceArn'] : null,
-            'name' => isset($data['dataSource']['name']) ? (string) $data['dataSource']['name'] : null,
-            'description' => isset($data['dataSource']['description']) ? (string) $data['dataSource']['description'] : null,
-            'type' => isset($data['dataSource']['type']) ? (string) $data['dataSource']['type'] : null,
-            'serviceRoleArn' => isset($data['dataSource']['serviceRoleArn']) ? (string) $data['dataSource']['serviceRoleArn'] : null,
-            'dynamodbConfig' => empty($data['dataSource']['dynamodbConfig']) ? null : new DynamodbDataSourceConfig([
-                'tableName' => (string) $data['dataSource']['dynamodbConfig']['tableName'],
-                'awsRegion' => (string) $data['dataSource']['dynamodbConfig']['awsRegion'],
-                'useCallerCredentials' => isset($data['dataSource']['dynamodbConfig']['useCallerCredentials']) ? filter_var($data['dataSource']['dynamodbConfig']['useCallerCredentials'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'deltaSyncConfig' => empty($data['dataSource']['dynamodbConfig']['deltaSyncConfig']) ? null : new DeltaSyncConfig([
-                    'baseTableTTL' => isset($data['dataSource']['dynamodbConfig']['deltaSyncConfig']['baseTableTTL']) ? (string) $data['dataSource']['dynamodbConfig']['deltaSyncConfig']['baseTableTTL'] : null,
-                    'deltaSyncTableName' => isset($data['dataSource']['dynamodbConfig']['deltaSyncConfig']['deltaSyncTableName']) ? (string) $data['dataSource']['dynamodbConfig']['deltaSyncConfig']['deltaSyncTableName'] : null,
-                    'deltaSyncTableTTL' => isset($data['dataSource']['dynamodbConfig']['deltaSyncConfig']['deltaSyncTableTTL']) ? (string) $data['dataSource']['dynamodbConfig']['deltaSyncConfig']['deltaSyncTableTTL'] : null,
-                ]),
-                'versioned' => isset($data['dataSource']['dynamodbConfig']['versioned']) ? filter_var($data['dataSource']['dynamodbConfig']['versioned'], \FILTER_VALIDATE_BOOLEAN) : null,
-            ]),
-            'lambdaConfig' => empty($data['dataSource']['lambdaConfig']) ? null : new LambdaDataSourceConfig([
-                'lambdaFunctionArn' => (string) $data['dataSource']['lambdaConfig']['lambdaFunctionArn'],
-            ]),
-            'elasticsearchConfig' => empty($data['dataSource']['elasticsearchConfig']) ? null : new ElasticsearchDataSourceConfig([
-                'endpoint' => (string) $data['dataSource']['elasticsearchConfig']['endpoint'],
-                'awsRegion' => (string) $data['dataSource']['elasticsearchConfig']['awsRegion'],
-            ]),
-            'openSearchServiceConfig' => empty($data['dataSource']['openSearchServiceConfig']) ? null : new OpenSearchServiceDataSourceConfig([
-                'endpoint' => (string) $data['dataSource']['openSearchServiceConfig']['endpoint'],
-                'awsRegion' => (string) $data['dataSource']['openSearchServiceConfig']['awsRegion'],
-            ]),
-            'httpConfig' => empty($data['dataSource']['httpConfig']) ? null : new HttpDataSourceConfig([
-                'endpoint' => isset($data['dataSource']['httpConfig']['endpoint']) ? (string) $data['dataSource']['httpConfig']['endpoint'] : null,
-                'authorizationConfig' => empty($data['dataSource']['httpConfig']['authorizationConfig']) ? null : new AuthorizationConfig([
-                    'authorizationType' => (string) $data['dataSource']['httpConfig']['authorizationConfig']['authorizationType'],
-                    'awsIamConfig' => empty($data['dataSource']['httpConfig']['authorizationConfig']['awsIamConfig']) ? null : new AwsIamConfig([
-                        'signingRegion' => isset($data['dataSource']['httpConfig']['authorizationConfig']['awsIamConfig']['signingRegion']) ? (string) $data['dataSource']['httpConfig']['authorizationConfig']['awsIamConfig']['signingRegion'] : null,
-                        'signingServiceName' => isset($data['dataSource']['httpConfig']['authorizationConfig']['awsIamConfig']['signingServiceName']) ? (string) $data['dataSource']['httpConfig']['authorizationConfig']['awsIamConfig']['signingServiceName'] : null,
-                    ]),
-                ]),
-            ]),
-            'relationalDatabaseConfig' => empty($data['dataSource']['relationalDatabaseConfig']) ? null : new RelationalDatabaseDataSourceConfig([
-                'relationalDatabaseSourceType' => isset($data['dataSource']['relationalDatabaseConfig']['relationalDatabaseSourceType']) ? (string) $data['dataSource']['relationalDatabaseConfig']['relationalDatabaseSourceType'] : null,
-                'rdsHttpEndpointConfig' => empty($data['dataSource']['relationalDatabaseConfig']['rdsHttpEndpointConfig']) ? null : new RdsHttpEndpointConfig([
-                    'awsRegion' => isset($data['dataSource']['relationalDatabaseConfig']['rdsHttpEndpointConfig']['awsRegion']) ? (string) $data['dataSource']['relationalDatabaseConfig']['rdsHttpEndpointConfig']['awsRegion'] : null,
-                    'dbClusterIdentifier' => isset($data['dataSource']['relationalDatabaseConfig']['rdsHttpEndpointConfig']['dbClusterIdentifier']) ? (string) $data['dataSource']['relationalDatabaseConfig']['rdsHttpEndpointConfig']['dbClusterIdentifier'] : null,
-                    'databaseName' => isset($data['dataSource']['relationalDatabaseConfig']['rdsHttpEndpointConfig']['databaseName']) ? (string) $data['dataSource']['relationalDatabaseConfig']['rdsHttpEndpointConfig']['databaseName'] : null,
-                    'schema' => isset($data['dataSource']['relationalDatabaseConfig']['rdsHttpEndpointConfig']['schema']) ? (string) $data['dataSource']['relationalDatabaseConfig']['rdsHttpEndpointConfig']['schema'] : null,
-                    'awsSecretStoreArn' => isset($data['dataSource']['relationalDatabaseConfig']['rdsHttpEndpointConfig']['awsSecretStoreArn']) ? (string) $data['dataSource']['relationalDatabaseConfig']['rdsHttpEndpointConfig']['awsSecretStoreArn'] : null,
-                ]),
-            ]),
+        $this->dataSource = empty($data['dataSource']) ? null : $this->populateResultDataSource($data['dataSource']);
+    }
+
+    private function populateResultAuthorizationConfig(array $json): AuthorizationConfig
+    {
+        return new AuthorizationConfig([
+            'authorizationType' => (string) $json['authorizationType'],
+            'awsIamConfig' => empty($json['awsIamConfig']) ? null : $this->populateResultAwsIamConfig($json['awsIamConfig']),
+        ]);
+    }
+
+    private function populateResultAwsIamConfig(array $json): AwsIamConfig
+    {
+        return new AwsIamConfig([
+            'signingRegion' => isset($json['signingRegion']) ? (string) $json['signingRegion'] : null,
+            'signingServiceName' => isset($json['signingServiceName']) ? (string) $json['signingServiceName'] : null,
+        ]);
+    }
+
+    private function populateResultDataSource(array $json): DataSource
+    {
+        return new DataSource([
+            'dataSourceArn' => isset($json['dataSourceArn']) ? (string) $json['dataSourceArn'] : null,
+            'name' => isset($json['name']) ? (string) $json['name'] : null,
+            'description' => isset($json['description']) ? (string) $json['description'] : null,
+            'type' => isset($json['type']) ? (string) $json['type'] : null,
+            'serviceRoleArn' => isset($json['serviceRoleArn']) ? (string) $json['serviceRoleArn'] : null,
+            'dynamodbConfig' => empty($json['dynamodbConfig']) ? null : $this->populateResultDynamodbDataSourceConfig($json['dynamodbConfig']),
+            'lambdaConfig' => empty($json['lambdaConfig']) ? null : $this->populateResultLambdaDataSourceConfig($json['lambdaConfig']),
+            'elasticsearchConfig' => empty($json['elasticsearchConfig']) ? null : $this->populateResultElasticsearchDataSourceConfig($json['elasticsearchConfig']),
+            'openSearchServiceConfig' => empty($json['openSearchServiceConfig']) ? null : $this->populateResultOpenSearchServiceDataSourceConfig($json['openSearchServiceConfig']),
+            'httpConfig' => empty($json['httpConfig']) ? null : $this->populateResultHttpDataSourceConfig($json['httpConfig']),
+            'relationalDatabaseConfig' => empty($json['relationalDatabaseConfig']) ? null : $this->populateResultRelationalDatabaseDataSourceConfig($json['relationalDatabaseConfig']),
+        ]);
+    }
+
+    private function populateResultDeltaSyncConfig(array $json): DeltaSyncConfig
+    {
+        return new DeltaSyncConfig([
+            'baseTableTTL' => isset($json['baseTableTTL']) ? (string) $json['baseTableTTL'] : null,
+            'deltaSyncTableName' => isset($json['deltaSyncTableName']) ? (string) $json['deltaSyncTableName'] : null,
+            'deltaSyncTableTTL' => isset($json['deltaSyncTableTTL']) ? (string) $json['deltaSyncTableTTL'] : null,
+        ]);
+    }
+
+    private function populateResultDynamodbDataSourceConfig(array $json): DynamodbDataSourceConfig
+    {
+        return new DynamodbDataSourceConfig([
+            'tableName' => (string) $json['tableName'],
+            'awsRegion' => (string) $json['awsRegion'],
+            'useCallerCredentials' => isset($json['useCallerCredentials']) ? filter_var($json['useCallerCredentials'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'deltaSyncConfig' => empty($json['deltaSyncConfig']) ? null : $this->populateResultDeltaSyncConfig($json['deltaSyncConfig']),
+            'versioned' => isset($json['versioned']) ? filter_var($json['versioned'], \FILTER_VALIDATE_BOOLEAN) : null,
+        ]);
+    }
+
+    private function populateResultElasticsearchDataSourceConfig(array $json): ElasticsearchDataSourceConfig
+    {
+        return new ElasticsearchDataSourceConfig([
+            'endpoint' => (string) $json['endpoint'],
+            'awsRegion' => (string) $json['awsRegion'],
+        ]);
+    }
+
+    private function populateResultHttpDataSourceConfig(array $json): HttpDataSourceConfig
+    {
+        return new HttpDataSourceConfig([
+            'endpoint' => isset($json['endpoint']) ? (string) $json['endpoint'] : null,
+            'authorizationConfig' => empty($json['authorizationConfig']) ? null : $this->populateResultAuthorizationConfig($json['authorizationConfig']),
+        ]);
+    }
+
+    private function populateResultLambdaDataSourceConfig(array $json): LambdaDataSourceConfig
+    {
+        return new LambdaDataSourceConfig([
+            'lambdaFunctionArn' => (string) $json['lambdaFunctionArn'],
+        ]);
+    }
+
+    private function populateResultOpenSearchServiceDataSourceConfig(array $json): OpenSearchServiceDataSourceConfig
+    {
+        return new OpenSearchServiceDataSourceConfig([
+            'endpoint' => (string) $json['endpoint'],
+            'awsRegion' => (string) $json['awsRegion'],
+        ]);
+    }
+
+    private function populateResultRdsHttpEndpointConfig(array $json): RdsHttpEndpointConfig
+    {
+        return new RdsHttpEndpointConfig([
+            'awsRegion' => isset($json['awsRegion']) ? (string) $json['awsRegion'] : null,
+            'dbClusterIdentifier' => isset($json['dbClusterIdentifier']) ? (string) $json['dbClusterIdentifier'] : null,
+            'databaseName' => isset($json['databaseName']) ? (string) $json['databaseName'] : null,
+            'schema' => isset($json['schema']) ? (string) $json['schema'] : null,
+            'awsSecretStoreArn' => isset($json['awsSecretStoreArn']) ? (string) $json['awsSecretStoreArn'] : null,
+        ]);
+    }
+
+    private function populateResultRelationalDatabaseDataSourceConfig(array $json): RelationalDatabaseDataSourceConfig
+    {
+        return new RelationalDatabaseDataSourceConfig([
+            'relationalDatabaseSourceType' => isset($json['relationalDatabaseSourceType']) ? (string) $json['relationalDatabaseSourceType'] : null,
+            'rdsHttpEndpointConfig' => empty($json['rdsHttpEndpointConfig']) ? null : $this->populateResultRdsHttpEndpointConfig($json['rdsHttpEndpointConfig']),
         ]);
     }
 }

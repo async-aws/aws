@@ -87,6 +87,28 @@ class BatchWriteItemOutput extends Result
         return $items;
     }
 
+    private function populateResultCapacity(array $json): Capacity
+    {
+        return new Capacity([
+            'ReadCapacityUnits' => isset($json['ReadCapacityUnits']) ? (float) $json['ReadCapacityUnits'] : null,
+            'WriteCapacityUnits' => isset($json['WriteCapacityUnits']) ? (float) $json['WriteCapacityUnits'] : null,
+            'CapacityUnits' => isset($json['CapacityUnits']) ? (float) $json['CapacityUnits'] : null,
+        ]);
+    }
+
+    private function populateResultConsumedCapacity(array $json): ConsumedCapacity
+    {
+        return new ConsumedCapacity([
+            'TableName' => isset($json['TableName']) ? (string) $json['TableName'] : null,
+            'CapacityUnits' => isset($json['CapacityUnits']) ? (float) $json['CapacityUnits'] : null,
+            'ReadCapacityUnits' => isset($json['ReadCapacityUnits']) ? (float) $json['ReadCapacityUnits'] : null,
+            'WriteCapacityUnits' => isset($json['WriteCapacityUnits']) ? (float) $json['WriteCapacityUnits'] : null,
+            'Table' => empty($json['Table']) ? null : $this->populateResultCapacity($json['Table']),
+            'LocalSecondaryIndexes' => !isset($json['LocalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($json['LocalSecondaryIndexes']),
+            'GlobalSecondaryIndexes' => !isset($json['GlobalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($json['GlobalSecondaryIndexes']),
+        ]);
+    }
+
     /**
      * @return ConsumedCapacity[]
      */
@@ -94,22 +116,17 @@ class BatchWriteItemOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new ConsumedCapacity([
-                'TableName' => isset($item['TableName']) ? (string) $item['TableName'] : null,
-                'CapacityUnits' => isset($item['CapacityUnits']) ? (float) $item['CapacityUnits'] : null,
-                'ReadCapacityUnits' => isset($item['ReadCapacityUnits']) ? (float) $item['ReadCapacityUnits'] : null,
-                'WriteCapacityUnits' => isset($item['WriteCapacityUnits']) ? (float) $item['WriteCapacityUnits'] : null,
-                'Table' => empty($item['Table']) ? null : new Capacity([
-                    'ReadCapacityUnits' => isset($item['Table']['ReadCapacityUnits']) ? (float) $item['Table']['ReadCapacityUnits'] : null,
-                    'WriteCapacityUnits' => isset($item['Table']['WriteCapacityUnits']) ? (float) $item['Table']['WriteCapacityUnits'] : null,
-                    'CapacityUnits' => isset($item['Table']['CapacityUnits']) ? (float) $item['Table']['CapacityUnits'] : null,
-                ]),
-                'LocalSecondaryIndexes' => !isset($item['LocalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($item['LocalSecondaryIndexes']),
-                'GlobalSecondaryIndexes' => !isset($item['GlobalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($item['GlobalSecondaryIndexes']),
-            ]);
+            $items[] = $this->populateResultConsumedCapacity($item);
         }
 
         return $items;
+    }
+
+    private function populateResultDeleteRequest(array $json): DeleteRequest
+    {
+        return new DeleteRequest([
+            'Key' => $this->populateResultKey($json['Key']),
+        ]);
     }
 
     /**
@@ -125,6 +142,14 @@ class BatchWriteItemOutput extends Result
         return $items;
     }
 
+    private function populateResultItemCollectionMetrics(array $json): ItemCollectionMetrics
+    {
+        return new ItemCollectionMetrics([
+            'ItemCollectionKey' => !isset($json['ItemCollectionKey']) ? null : $this->populateResultItemCollectionKeyAttributeMap($json['ItemCollectionKey']),
+            'SizeEstimateRangeGB' => !isset($json['SizeEstimateRangeGB']) ? null : $this->populateResultItemCollectionSizeEstimateRange($json['SizeEstimateRangeGB']),
+        ]);
+    }
+
     /**
      * @return ItemCollectionMetrics[]
      */
@@ -132,10 +157,7 @@ class BatchWriteItemOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new ItemCollectionMetrics([
-                'ItemCollectionKey' => !isset($item['ItemCollectionKey']) ? null : $this->populateResultItemCollectionKeyAttributeMap($item['ItemCollectionKey']),
-                'SizeEstimateRangeGB' => !isset($item['SizeEstimateRangeGB']) ? null : $this->populateResultItemCollectionSizeEstimateRange($item['SizeEstimateRangeGB']),
-            ]);
+            $items[] = $this->populateResultItemCollectionMetrics($item);
         }
 
         return $items;
@@ -196,6 +218,13 @@ class BatchWriteItemOutput extends Result
         return $items;
     }
 
+    private function populateResultPutRequest(array $json): PutRequest
+    {
+        return new PutRequest([
+            'Item' => $this->populateResultPutItemInputAttributeMap($json['Item']),
+        ]);
+    }
+
     /**
      * @return array<string, Capacity>
      */
@@ -209,6 +238,14 @@ class BatchWriteItemOutput extends Result
         return $items;
     }
 
+    private function populateResultWriteRequest(array $json): WriteRequest
+    {
+        return new WriteRequest([
+            'PutRequest' => empty($json['PutRequest']) ? null : $this->populateResultPutRequest($json['PutRequest']),
+            'DeleteRequest' => empty($json['DeleteRequest']) ? null : $this->populateResultDeleteRequest($json['DeleteRequest']),
+        ]);
+    }
+
     /**
      * @return WriteRequest[]
      */
@@ -216,14 +253,7 @@ class BatchWriteItemOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new WriteRequest([
-                'PutRequest' => empty($item['PutRequest']) ? null : new PutRequest([
-                    'Item' => $this->populateResultPutItemInputAttributeMap($item['PutRequest']['Item']),
-                ]),
-                'DeleteRequest' => empty($item['DeleteRequest']) ? null : new DeleteRequest([
-                    'Key' => $this->populateResultKey($item['DeleteRequest']['Key']),
-                ]),
-            ]);
+            $items[] = $this->populateResultWriteRequest($item);
         }
 
         return $items;

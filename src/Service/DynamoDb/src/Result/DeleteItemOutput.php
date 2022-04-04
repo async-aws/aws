@@ -66,23 +66,8 @@ class DeleteItemOutput extends Result
         $data = $response->toArray();
 
         $this->attributes = empty($data['Attributes']) ? [] : $this->populateResultAttributeMap($data['Attributes']);
-        $this->consumedCapacity = empty($data['ConsumedCapacity']) ? null : new ConsumedCapacity([
-            'TableName' => isset($data['ConsumedCapacity']['TableName']) ? (string) $data['ConsumedCapacity']['TableName'] : null,
-            'CapacityUnits' => isset($data['ConsumedCapacity']['CapacityUnits']) ? (float) $data['ConsumedCapacity']['CapacityUnits'] : null,
-            'ReadCapacityUnits' => isset($data['ConsumedCapacity']['ReadCapacityUnits']) ? (float) $data['ConsumedCapacity']['ReadCapacityUnits'] : null,
-            'WriteCapacityUnits' => isset($data['ConsumedCapacity']['WriteCapacityUnits']) ? (float) $data['ConsumedCapacity']['WriteCapacityUnits'] : null,
-            'Table' => empty($data['ConsumedCapacity']['Table']) ? null : new Capacity([
-                'ReadCapacityUnits' => isset($data['ConsumedCapacity']['Table']['ReadCapacityUnits']) ? (float) $data['ConsumedCapacity']['Table']['ReadCapacityUnits'] : null,
-                'WriteCapacityUnits' => isset($data['ConsumedCapacity']['Table']['WriteCapacityUnits']) ? (float) $data['ConsumedCapacity']['Table']['WriteCapacityUnits'] : null,
-                'CapacityUnits' => isset($data['ConsumedCapacity']['Table']['CapacityUnits']) ? (float) $data['ConsumedCapacity']['Table']['CapacityUnits'] : null,
-            ]),
-            'LocalSecondaryIndexes' => !isset($data['ConsumedCapacity']['LocalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($data['ConsumedCapacity']['LocalSecondaryIndexes']),
-            'GlobalSecondaryIndexes' => !isset($data['ConsumedCapacity']['GlobalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($data['ConsumedCapacity']['GlobalSecondaryIndexes']),
-        ]);
-        $this->itemCollectionMetrics = empty($data['ItemCollectionMetrics']) ? null : new ItemCollectionMetrics([
-            'ItemCollectionKey' => !isset($data['ItemCollectionMetrics']['ItemCollectionKey']) ? null : $this->populateResultItemCollectionKeyAttributeMap($data['ItemCollectionMetrics']['ItemCollectionKey']),
-            'SizeEstimateRangeGB' => !isset($data['ItemCollectionMetrics']['SizeEstimateRangeGB']) ? null : $this->populateResultItemCollectionSizeEstimateRange($data['ItemCollectionMetrics']['SizeEstimateRangeGB']),
-        ]);
+        $this->consumedCapacity = empty($data['ConsumedCapacity']) ? null : $this->populateResultConsumedCapacity($data['ConsumedCapacity']);
+        $this->itemCollectionMetrics = empty($data['ItemCollectionMetrics']) ? null : $this->populateResultItemCollectionMetrics($data['ItemCollectionMetrics']);
     }
 
     /**
@@ -98,6 +83,28 @@ class DeleteItemOutput extends Result
         return $items;
     }
 
+    private function populateResultCapacity(array $json): Capacity
+    {
+        return new Capacity([
+            'ReadCapacityUnits' => isset($json['ReadCapacityUnits']) ? (float) $json['ReadCapacityUnits'] : null,
+            'WriteCapacityUnits' => isset($json['WriteCapacityUnits']) ? (float) $json['WriteCapacityUnits'] : null,
+            'CapacityUnits' => isset($json['CapacityUnits']) ? (float) $json['CapacityUnits'] : null,
+        ]);
+    }
+
+    private function populateResultConsumedCapacity(array $json): ConsumedCapacity
+    {
+        return new ConsumedCapacity([
+            'TableName' => isset($json['TableName']) ? (string) $json['TableName'] : null,
+            'CapacityUnits' => isset($json['CapacityUnits']) ? (float) $json['CapacityUnits'] : null,
+            'ReadCapacityUnits' => isset($json['ReadCapacityUnits']) ? (float) $json['ReadCapacityUnits'] : null,
+            'WriteCapacityUnits' => isset($json['WriteCapacityUnits']) ? (float) $json['WriteCapacityUnits'] : null,
+            'Table' => empty($json['Table']) ? null : $this->populateResultCapacity($json['Table']),
+            'LocalSecondaryIndexes' => !isset($json['LocalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($json['LocalSecondaryIndexes']),
+            'GlobalSecondaryIndexes' => !isset($json['GlobalSecondaryIndexes']) ? null : $this->populateResultSecondaryIndexesCapacityMap($json['GlobalSecondaryIndexes']),
+        ]);
+    }
+
     /**
      * @return array<string, AttributeValue>
      */
@@ -109,6 +116,14 @@ class DeleteItemOutput extends Result
         }
 
         return $items;
+    }
+
+    private function populateResultItemCollectionMetrics(array $json): ItemCollectionMetrics
+    {
+        return new ItemCollectionMetrics([
+            'ItemCollectionKey' => !isset($json['ItemCollectionKey']) ? null : $this->populateResultItemCollectionKeyAttributeMap($json['ItemCollectionKey']),
+            'SizeEstimateRangeGB' => !isset($json['SizeEstimateRangeGB']) ? null : $this->populateResultItemCollectionSizeEstimateRange($json['SizeEstimateRangeGB']),
+        ]);
     }
 
     /**

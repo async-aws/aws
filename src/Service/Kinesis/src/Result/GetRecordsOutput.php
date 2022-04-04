@@ -81,6 +81,15 @@ class GetRecordsOutput extends Result
         $this->childShards = empty($data['ChildShards']) ? [] : $this->populateResultChildShardList($data['ChildShards']);
     }
 
+    private function populateResultChildShard(array $json): ChildShard
+    {
+        return new ChildShard([
+            'ShardId' => (string) $json['ShardId'],
+            'ParentShards' => $this->populateResultShardIdList($json['ParentShards']),
+            'HashKeyRange' => $this->populateResultHashKeyRange($json['HashKeyRange']),
+        ]);
+    }
+
     /**
      * @return ChildShard[]
      */
@@ -88,17 +97,29 @@ class GetRecordsOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new ChildShard([
-                'ShardId' => (string) $item['ShardId'],
-                'ParentShards' => $this->populateResultShardIdList($item['ParentShards']),
-                'HashKeyRange' => new HashKeyRange([
-                    'StartingHashKey' => (string) $item['HashKeyRange']['StartingHashKey'],
-                    'EndingHashKey' => (string) $item['HashKeyRange']['EndingHashKey'],
-                ]),
-            ]);
+            $items[] = $this->populateResultChildShard($item);
         }
 
         return $items;
+    }
+
+    private function populateResultHashKeyRange(array $json): HashKeyRange
+    {
+        return new HashKeyRange([
+            'StartingHashKey' => (string) $json['StartingHashKey'],
+            'EndingHashKey' => (string) $json['EndingHashKey'],
+        ]);
+    }
+
+    private function populateResultRecord(array $json): Record
+    {
+        return new Record([
+            'SequenceNumber' => (string) $json['SequenceNumber'],
+            'ApproximateArrivalTimestamp' => (isset($json['ApproximateArrivalTimestamp']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['ApproximateArrivalTimestamp'])))) ? $d : null,
+            'Data' => base64_decode((string) $json['Data']),
+            'PartitionKey' => (string) $json['PartitionKey'],
+            'EncryptionType' => isset($json['EncryptionType']) ? (string) $json['EncryptionType'] : null,
+        ]);
     }
 
     /**
@@ -108,13 +129,7 @@ class GetRecordsOutput extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new Record([
-                'SequenceNumber' => (string) $item['SequenceNumber'],
-                'ApproximateArrivalTimestamp' => (isset($item['ApproximateArrivalTimestamp']) && ($d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $item['ApproximateArrivalTimestamp'])))) ? $d : null,
-                'Data' => base64_decode((string) $item['Data']),
-                'PartitionKey' => (string) $item['PartitionKey'],
-                'EncryptionType' => isset($item['EncryptionType']) ? (string) $item['EncryptionType'] : null,
-            ]);
+            $items[] = $this->populateResultRecord($item);
         }
 
         return $items;

@@ -37,10 +37,15 @@ class PutLogEventsResponse extends Result
         $data = $response->toArray();
 
         $this->nextSequenceToken = isset($data['nextSequenceToken']) ? (string) $data['nextSequenceToken'] : null;
-        $this->rejectedLogEventsInfo = empty($data['rejectedLogEventsInfo']) ? null : new RejectedLogEventsInfo([
-            'tooNewLogEventStartIndex' => isset($data['rejectedLogEventsInfo']['tooNewLogEventStartIndex']) ? (int) $data['rejectedLogEventsInfo']['tooNewLogEventStartIndex'] : null,
-            'tooOldLogEventEndIndex' => isset($data['rejectedLogEventsInfo']['tooOldLogEventEndIndex']) ? (int) $data['rejectedLogEventsInfo']['tooOldLogEventEndIndex'] : null,
-            'expiredLogEventEndIndex' => isset($data['rejectedLogEventsInfo']['expiredLogEventEndIndex']) ? (int) $data['rejectedLogEventsInfo']['expiredLogEventEndIndex'] : null,
+        $this->rejectedLogEventsInfo = empty($data['rejectedLogEventsInfo']) ? null : $this->populateResultRejectedLogEventsInfo($data['rejectedLogEventsInfo']);
+    }
+
+    private function populateResultRejectedLogEventsInfo(array $json): RejectedLogEventsInfo
+    {
+        return new RejectedLogEventsInfo([
+            'tooNewLogEventStartIndex' => isset($json['tooNewLogEventStartIndex']) ? (int) $json['tooNewLogEventStartIndex'] : null,
+            'tooOldLogEventEndIndex' => isset($json['tooOldLogEventEndIndex']) ? (int) $json['tooOldLogEventEndIndex'] : null,
+            'expiredLogEventEndIndex' => isset($json['expiredLogEventEndIndex']) ? (int) $json['expiredLogEventEndIndex'] : null,
         ]);
     }
 }

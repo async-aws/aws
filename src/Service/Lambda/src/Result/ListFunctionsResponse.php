@@ -123,6 +123,29 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
         return $items;
     }
 
+    private function populateResultDeadLetterConfig(array $json): DeadLetterConfig
+    {
+        return new DeadLetterConfig([
+            'TargetArn' => isset($json['TargetArn']) ? (string) $json['TargetArn'] : null,
+        ]);
+    }
+
+    private function populateResultEnvironmentError(array $json): EnvironmentError
+    {
+        return new EnvironmentError([
+            'ErrorCode' => isset($json['ErrorCode']) ? (string) $json['ErrorCode'] : null,
+            'Message' => isset($json['Message']) ? (string) $json['Message'] : null,
+        ]);
+    }
+
+    private function populateResultEnvironmentResponse(array $json): EnvironmentResponse
+    {
+        return new EnvironmentResponse([
+            'Variables' => !isset($json['Variables']) ? null : $this->populateResultEnvironmentVariables($json['Variables']),
+            'Error' => empty($json['Error']) ? null : $this->populateResultEnvironmentError($json['Error']),
+        ]);
+    }
+
     /**
      * @return array<string, string>
      */
@@ -136,6 +159,21 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
         return $items;
     }
 
+    private function populateResultEphemeralStorage(array $json): EphemeralStorage
+    {
+        return new EphemeralStorage([
+            'Size' => (int) $json['Size'],
+        ]);
+    }
+
+    private function populateResultFileSystemConfig(array $json): FileSystemConfig
+    {
+        return new FileSystemConfig([
+            'Arn' => (string) $json['Arn'],
+            'LocalMountPath' => (string) $json['LocalMountPath'],
+        ]);
+    }
+
     /**
      * @return FileSystemConfig[]
      */
@@ -143,13 +181,49 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new FileSystemConfig([
-                'Arn' => (string) $item['Arn'],
-                'LocalMountPath' => (string) $item['LocalMountPath'],
-            ]);
+            $items[] = $this->populateResultFileSystemConfig($item);
         }
 
         return $items;
+    }
+
+    private function populateResultFunctionConfiguration(array $json): FunctionConfiguration
+    {
+        return new FunctionConfiguration([
+            'FunctionName' => isset($json['FunctionName']) ? (string) $json['FunctionName'] : null,
+            'FunctionArn' => isset($json['FunctionArn']) ? (string) $json['FunctionArn'] : null,
+            'Runtime' => isset($json['Runtime']) ? (string) $json['Runtime'] : null,
+            'Role' => isset($json['Role']) ? (string) $json['Role'] : null,
+            'Handler' => isset($json['Handler']) ? (string) $json['Handler'] : null,
+            'CodeSize' => isset($json['CodeSize']) ? (string) $json['CodeSize'] : null,
+            'Description' => isset($json['Description']) ? (string) $json['Description'] : null,
+            'Timeout' => isset($json['Timeout']) ? (int) $json['Timeout'] : null,
+            'MemorySize' => isset($json['MemorySize']) ? (int) $json['MemorySize'] : null,
+            'LastModified' => isset($json['LastModified']) ? (string) $json['LastModified'] : null,
+            'CodeSha256' => isset($json['CodeSha256']) ? (string) $json['CodeSha256'] : null,
+            'Version' => isset($json['Version']) ? (string) $json['Version'] : null,
+            'VpcConfig' => empty($json['VpcConfig']) ? null : $this->populateResultVpcConfigResponse($json['VpcConfig']),
+            'DeadLetterConfig' => empty($json['DeadLetterConfig']) ? null : $this->populateResultDeadLetterConfig($json['DeadLetterConfig']),
+            'Environment' => empty($json['Environment']) ? null : $this->populateResultEnvironmentResponse($json['Environment']),
+            'KMSKeyArn' => isset($json['KMSKeyArn']) ? (string) $json['KMSKeyArn'] : null,
+            'TracingConfig' => empty($json['TracingConfig']) ? null : $this->populateResultTracingConfigResponse($json['TracingConfig']),
+            'MasterArn' => isset($json['MasterArn']) ? (string) $json['MasterArn'] : null,
+            'RevisionId' => isset($json['RevisionId']) ? (string) $json['RevisionId'] : null,
+            'Layers' => !isset($json['Layers']) ? null : $this->populateResultLayersReferenceList($json['Layers']),
+            'State' => isset($json['State']) ? (string) $json['State'] : null,
+            'StateReason' => isset($json['StateReason']) ? (string) $json['StateReason'] : null,
+            'StateReasonCode' => isset($json['StateReasonCode']) ? (string) $json['StateReasonCode'] : null,
+            'LastUpdateStatus' => isset($json['LastUpdateStatus']) ? (string) $json['LastUpdateStatus'] : null,
+            'LastUpdateStatusReason' => isset($json['LastUpdateStatusReason']) ? (string) $json['LastUpdateStatusReason'] : null,
+            'LastUpdateStatusReasonCode' => isset($json['LastUpdateStatusReasonCode']) ? (string) $json['LastUpdateStatusReasonCode'] : null,
+            'FileSystemConfigs' => !isset($json['FileSystemConfigs']) ? null : $this->populateResultFileSystemConfigList($json['FileSystemConfigs']),
+            'PackageType' => isset($json['PackageType']) ? (string) $json['PackageType'] : null,
+            'ImageConfigResponse' => empty($json['ImageConfigResponse']) ? null : $this->populateResultImageConfigResponse($json['ImageConfigResponse']),
+            'SigningProfileVersionArn' => isset($json['SigningProfileVersionArn']) ? (string) $json['SigningProfileVersionArn'] : null,
+            'SigningJobArn' => isset($json['SigningJobArn']) ? (string) $json['SigningJobArn'] : null,
+            'Architectures' => !isset($json['Architectures']) ? null : $this->populateResultArchitecturesList($json['Architectures']),
+            'EphemeralStorage' => empty($json['EphemeralStorage']) ? null : $this->populateResultEphemeralStorage($json['EphemeralStorage']),
+        ]);
     }
 
     /**
@@ -159,70 +233,45 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new FunctionConfiguration([
-                'FunctionName' => isset($item['FunctionName']) ? (string) $item['FunctionName'] : null,
-                'FunctionArn' => isset($item['FunctionArn']) ? (string) $item['FunctionArn'] : null,
-                'Runtime' => isset($item['Runtime']) ? (string) $item['Runtime'] : null,
-                'Role' => isset($item['Role']) ? (string) $item['Role'] : null,
-                'Handler' => isset($item['Handler']) ? (string) $item['Handler'] : null,
-                'CodeSize' => isset($item['CodeSize']) ? (string) $item['CodeSize'] : null,
-                'Description' => isset($item['Description']) ? (string) $item['Description'] : null,
-                'Timeout' => isset($item['Timeout']) ? (int) $item['Timeout'] : null,
-                'MemorySize' => isset($item['MemorySize']) ? (int) $item['MemorySize'] : null,
-                'LastModified' => isset($item['LastModified']) ? (string) $item['LastModified'] : null,
-                'CodeSha256' => isset($item['CodeSha256']) ? (string) $item['CodeSha256'] : null,
-                'Version' => isset($item['Version']) ? (string) $item['Version'] : null,
-                'VpcConfig' => empty($item['VpcConfig']) ? null : new VpcConfigResponse([
-                    'SubnetIds' => !isset($item['VpcConfig']['SubnetIds']) ? null : $this->populateResultSubnetIds($item['VpcConfig']['SubnetIds']),
-                    'SecurityGroupIds' => !isset($item['VpcConfig']['SecurityGroupIds']) ? null : $this->populateResultSecurityGroupIds($item['VpcConfig']['SecurityGroupIds']),
-                    'VpcId' => isset($item['VpcConfig']['VpcId']) ? (string) $item['VpcConfig']['VpcId'] : null,
-                ]),
-                'DeadLetterConfig' => empty($item['DeadLetterConfig']) ? null : new DeadLetterConfig([
-                    'TargetArn' => isset($item['DeadLetterConfig']['TargetArn']) ? (string) $item['DeadLetterConfig']['TargetArn'] : null,
-                ]),
-                'Environment' => empty($item['Environment']) ? null : new EnvironmentResponse([
-                    'Variables' => !isset($item['Environment']['Variables']) ? null : $this->populateResultEnvironmentVariables($item['Environment']['Variables']),
-                    'Error' => empty($item['Environment']['Error']) ? null : new EnvironmentError([
-                        'ErrorCode' => isset($item['Environment']['Error']['ErrorCode']) ? (string) $item['Environment']['Error']['ErrorCode'] : null,
-                        'Message' => isset($item['Environment']['Error']['Message']) ? (string) $item['Environment']['Error']['Message'] : null,
-                    ]),
-                ]),
-                'KMSKeyArn' => isset($item['KMSKeyArn']) ? (string) $item['KMSKeyArn'] : null,
-                'TracingConfig' => empty($item['TracingConfig']) ? null : new TracingConfigResponse([
-                    'Mode' => isset($item['TracingConfig']['Mode']) ? (string) $item['TracingConfig']['Mode'] : null,
-                ]),
-                'MasterArn' => isset($item['MasterArn']) ? (string) $item['MasterArn'] : null,
-                'RevisionId' => isset($item['RevisionId']) ? (string) $item['RevisionId'] : null,
-                'Layers' => !isset($item['Layers']) ? null : $this->populateResultLayersReferenceList($item['Layers']),
-                'State' => isset($item['State']) ? (string) $item['State'] : null,
-                'StateReason' => isset($item['StateReason']) ? (string) $item['StateReason'] : null,
-                'StateReasonCode' => isset($item['StateReasonCode']) ? (string) $item['StateReasonCode'] : null,
-                'LastUpdateStatus' => isset($item['LastUpdateStatus']) ? (string) $item['LastUpdateStatus'] : null,
-                'LastUpdateStatusReason' => isset($item['LastUpdateStatusReason']) ? (string) $item['LastUpdateStatusReason'] : null,
-                'LastUpdateStatusReasonCode' => isset($item['LastUpdateStatusReasonCode']) ? (string) $item['LastUpdateStatusReasonCode'] : null,
-                'FileSystemConfigs' => !isset($item['FileSystemConfigs']) ? null : $this->populateResultFileSystemConfigList($item['FileSystemConfigs']),
-                'PackageType' => isset($item['PackageType']) ? (string) $item['PackageType'] : null,
-                'ImageConfigResponse' => empty($item['ImageConfigResponse']) ? null : new ImageConfigResponse([
-                    'ImageConfig' => empty($item['ImageConfigResponse']['ImageConfig']) ? null : new ImageConfig([
-                        'EntryPoint' => !isset($item['ImageConfigResponse']['ImageConfig']['EntryPoint']) ? null : $this->populateResultStringList($item['ImageConfigResponse']['ImageConfig']['EntryPoint']),
-                        'Command' => !isset($item['ImageConfigResponse']['ImageConfig']['Command']) ? null : $this->populateResultStringList($item['ImageConfigResponse']['ImageConfig']['Command']),
-                        'WorkingDirectory' => isset($item['ImageConfigResponse']['ImageConfig']['WorkingDirectory']) ? (string) $item['ImageConfigResponse']['ImageConfig']['WorkingDirectory'] : null,
-                    ]),
-                    'Error' => empty($item['ImageConfigResponse']['Error']) ? null : new ImageConfigError([
-                        'ErrorCode' => isset($item['ImageConfigResponse']['Error']['ErrorCode']) ? (string) $item['ImageConfigResponse']['Error']['ErrorCode'] : null,
-                        'Message' => isset($item['ImageConfigResponse']['Error']['Message']) ? (string) $item['ImageConfigResponse']['Error']['Message'] : null,
-                    ]),
-                ]),
-                'SigningProfileVersionArn' => isset($item['SigningProfileVersionArn']) ? (string) $item['SigningProfileVersionArn'] : null,
-                'SigningJobArn' => isset($item['SigningJobArn']) ? (string) $item['SigningJobArn'] : null,
-                'Architectures' => !isset($item['Architectures']) ? null : $this->populateResultArchitecturesList($item['Architectures']),
-                'EphemeralStorage' => empty($item['EphemeralStorage']) ? null : new EphemeralStorage([
-                    'Size' => (int) $item['EphemeralStorage']['Size'],
-                ]),
-            ]);
+            $items[] = $this->populateResultFunctionConfiguration($item);
         }
 
         return $items;
+    }
+
+    private function populateResultImageConfig(array $json): ImageConfig
+    {
+        return new ImageConfig([
+            'EntryPoint' => !isset($json['EntryPoint']) ? null : $this->populateResultStringList($json['EntryPoint']),
+            'Command' => !isset($json['Command']) ? null : $this->populateResultStringList($json['Command']),
+            'WorkingDirectory' => isset($json['WorkingDirectory']) ? (string) $json['WorkingDirectory'] : null,
+        ]);
+    }
+
+    private function populateResultImageConfigError(array $json): ImageConfigError
+    {
+        return new ImageConfigError([
+            'ErrorCode' => isset($json['ErrorCode']) ? (string) $json['ErrorCode'] : null,
+            'Message' => isset($json['Message']) ? (string) $json['Message'] : null,
+        ]);
+    }
+
+    private function populateResultImageConfigResponse(array $json): ImageConfigResponse
+    {
+        return new ImageConfigResponse([
+            'ImageConfig' => empty($json['ImageConfig']) ? null : $this->populateResultImageConfig($json['ImageConfig']),
+            'Error' => empty($json['Error']) ? null : $this->populateResultImageConfigError($json['Error']),
+        ]);
+    }
+
+    private function populateResultLayer(array $json): Layer
+    {
+        return new Layer([
+            'Arn' => isset($json['Arn']) ? (string) $json['Arn'] : null,
+            'CodeSize' => isset($json['CodeSize']) ? (string) $json['CodeSize'] : null,
+            'SigningProfileVersionArn' => isset($json['SigningProfileVersionArn']) ? (string) $json['SigningProfileVersionArn'] : null,
+            'SigningJobArn' => isset($json['SigningJobArn']) ? (string) $json['SigningJobArn'] : null,
+        ]);
     }
 
     /**
@@ -232,12 +281,7 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new Layer([
-                'Arn' => isset($item['Arn']) ? (string) $item['Arn'] : null,
-                'CodeSize' => isset($item['CodeSize']) ? (string) $item['CodeSize'] : null,
-                'SigningProfileVersionArn' => isset($item['SigningProfileVersionArn']) ? (string) $item['SigningProfileVersionArn'] : null,
-                'SigningJobArn' => isset($item['SigningJobArn']) ? (string) $item['SigningJobArn'] : null,
-            ]);
+            $items[] = $this->populateResultLayer($item);
         }
 
         return $items;
@@ -289,5 +333,21 @@ class ListFunctionsResponse extends Result implements \IteratorAggregate
         }
 
         return $items;
+    }
+
+    private function populateResultTracingConfigResponse(array $json): TracingConfigResponse
+    {
+        return new TracingConfigResponse([
+            'Mode' => isset($json['Mode']) ? (string) $json['Mode'] : null,
+        ]);
+    }
+
+    private function populateResultVpcConfigResponse(array $json): VpcConfigResponse
+    {
+        return new VpcConfigResponse([
+            'SubnetIds' => !isset($json['SubnetIds']) ? null : $this->populateResultSubnetIds($json['SubnetIds']),
+            'SecurityGroupIds' => !isset($json['SecurityGroupIds']) ? null : $this->populateResultSecurityGroupIds($json['SecurityGroupIds']),
+            'VpcId' => isset($json['VpcId']) ? (string) $json['VpcId'] : null,
+        ]);
     }
 }

@@ -53,8 +53,13 @@ class GetCelebrityInfoResponse extends Result
 
         $this->urls = empty($data['Urls']) ? [] : $this->populateResultUrls($data['Urls']);
         $this->name = isset($data['Name']) ? (string) $data['Name'] : null;
-        $this->knownGender = empty($data['KnownGender']) ? null : new KnownGender([
-            'Type' => isset($data['KnownGender']['Type']) ? (string) $data['KnownGender']['Type'] : null,
+        $this->knownGender = empty($data['KnownGender']) ? null : $this->populateResultKnownGender($data['KnownGender']);
+    }
+
+    private function populateResultKnownGender(array $json): KnownGender
+    {
+        return new KnownGender([
+            'Type' => isset($json['Type']) ? (string) $json['Type'] : null,
         ]);
     }
 

@@ -80,16 +80,18 @@ class RespondToAuthChallengeResponse extends Result
         $this->challengeName = isset($data['ChallengeName']) ? (string) $data['ChallengeName'] : null;
         $this->session = isset($data['Session']) ? (string) $data['Session'] : null;
         $this->challengeParameters = empty($data['ChallengeParameters']) ? [] : $this->populateResultChallengeParametersType($data['ChallengeParameters']);
-        $this->authenticationResult = empty($data['AuthenticationResult']) ? null : new AuthenticationResultType([
-            'AccessToken' => isset($data['AuthenticationResult']['AccessToken']) ? (string) $data['AuthenticationResult']['AccessToken'] : null,
-            'ExpiresIn' => isset($data['AuthenticationResult']['ExpiresIn']) ? (int) $data['AuthenticationResult']['ExpiresIn'] : null,
-            'TokenType' => isset($data['AuthenticationResult']['TokenType']) ? (string) $data['AuthenticationResult']['TokenType'] : null,
-            'RefreshToken' => isset($data['AuthenticationResult']['RefreshToken']) ? (string) $data['AuthenticationResult']['RefreshToken'] : null,
-            'IdToken' => isset($data['AuthenticationResult']['IdToken']) ? (string) $data['AuthenticationResult']['IdToken'] : null,
-            'NewDeviceMetadata' => empty($data['AuthenticationResult']['NewDeviceMetadata']) ? null : new NewDeviceMetadataType([
-                'DeviceKey' => isset($data['AuthenticationResult']['NewDeviceMetadata']['DeviceKey']) ? (string) $data['AuthenticationResult']['NewDeviceMetadata']['DeviceKey'] : null,
-                'DeviceGroupKey' => isset($data['AuthenticationResult']['NewDeviceMetadata']['DeviceGroupKey']) ? (string) $data['AuthenticationResult']['NewDeviceMetadata']['DeviceGroupKey'] : null,
-            ]),
+        $this->authenticationResult = empty($data['AuthenticationResult']) ? null : $this->populateResultAuthenticationResultType($data['AuthenticationResult']);
+    }
+
+    private function populateResultAuthenticationResultType(array $json): AuthenticationResultType
+    {
+        return new AuthenticationResultType([
+            'AccessToken' => isset($json['AccessToken']) ? (string) $json['AccessToken'] : null,
+            'ExpiresIn' => isset($json['ExpiresIn']) ? (int) $json['ExpiresIn'] : null,
+            'TokenType' => isset($json['TokenType']) ? (string) $json['TokenType'] : null,
+            'RefreshToken' => isset($json['RefreshToken']) ? (string) $json['RefreshToken'] : null,
+            'IdToken' => isset($json['IdToken']) ? (string) $json['IdToken'] : null,
+            'NewDeviceMetadata' => empty($json['NewDeviceMetadata']) ? null : $this->populateResultNewDeviceMetadataType($json['NewDeviceMetadata']),
         ]);
     }
 
@@ -104,5 +106,13 @@ class RespondToAuthChallengeResponse extends Result
         }
 
         return $items;
+    }
+
+    private function populateResultNewDeviceMetadataType(array $json): NewDeviceMetadataType
+    {
+        return new NewDeviceMetadataType([
+            'DeviceKey' => isset($json['DeviceKey']) ? (string) $json['DeviceKey'] : null,
+            'DeviceGroupKey' => isset($json['DeviceGroupKey']) ? (string) $json['DeviceGroupKey'] : null,
+        ]);
     }
 }

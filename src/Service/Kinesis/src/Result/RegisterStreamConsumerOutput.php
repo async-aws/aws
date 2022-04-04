@@ -25,11 +25,16 @@ class RegisterStreamConsumerOutput extends Result
     {
         $data = $response->toArray();
 
-        $this->consumer = new Consumer([
-            'ConsumerName' => (string) $data['Consumer']['ConsumerName'],
-            'ConsumerARN' => (string) $data['Consumer']['ConsumerARN'],
-            'ConsumerStatus' => (string) $data['Consumer']['ConsumerStatus'],
-            'ConsumerCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $data['Consumer']['ConsumerCreationTimestamp'])),
+        $this->consumer = $this->populateResultConsumer($data['Consumer']);
+    }
+
+    private function populateResultConsumer(array $json): Consumer
+    {
+        return new Consumer([
+            'ConsumerName' => (string) $json['ConsumerName'],
+            'ConsumerARN' => (string) $json['ConsumerARN'],
+            'ConsumerStatus' => (string) $json['ConsumerStatus'],
+            'ConsumerCreationTimestamp' => /** @var \DateTimeImmutable $d */ $d = \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $json['ConsumerCreationTimestamp'])),
         ]);
     }
 }

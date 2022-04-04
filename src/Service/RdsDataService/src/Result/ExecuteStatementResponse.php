@@ -87,16 +87,21 @@ class ExecuteStatementResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new ArrayValue([
-                'arrayValues' => !isset($item['arrayValues']) ? null : $this->populateResultArrayOfArray($item['arrayValues']),
-                'booleanValues' => !isset($item['booleanValues']) ? null : $this->populateResultBooleanArray($item['booleanValues']),
-                'doubleValues' => !isset($item['doubleValues']) ? null : $this->populateResultDoubleArray($item['doubleValues']),
-                'longValues' => !isset($item['longValues']) ? null : $this->populateResultLongArray($item['longValues']),
-                'stringValues' => !isset($item['stringValues']) ? null : $this->populateResultStringArray($item['stringValues']),
-            ]);
+            $items[] = $this->populateResultArrayValue($item);
         }
 
         return $items;
+    }
+
+    private function populateResultArrayValue(array $json): ArrayValue
+    {
+        return new ArrayValue([
+            'arrayValues' => !isset($json['arrayValues']) ? null : $this->populateResultArrayOfArray($json['arrayValues']),
+            'booleanValues' => !isset($json['booleanValues']) ? null : $this->populateResultBooleanArray($json['booleanValues']),
+            'doubleValues' => !isset($json['doubleValues']) ? null : $this->populateResultDoubleArray($json['doubleValues']),
+            'longValues' => !isset($json['longValues']) ? null : $this->populateResultLongArray($json['longValues']),
+            'stringValues' => !isset($json['stringValues']) ? null : $this->populateResultStringArray($json['stringValues']),
+        ]);
     }
 
     /**
@@ -115,6 +120,26 @@ class ExecuteStatementResponse extends Result
         return $items;
     }
 
+    private function populateResultColumnMetadata(array $json): ColumnMetadata
+    {
+        return new ColumnMetadata([
+            'arrayBaseColumnType' => isset($json['arrayBaseColumnType']) ? (int) $json['arrayBaseColumnType'] : null,
+            'isAutoIncrement' => isset($json['isAutoIncrement']) ? filter_var($json['isAutoIncrement'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'isCaseSensitive' => isset($json['isCaseSensitive']) ? filter_var($json['isCaseSensitive'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'isCurrency' => isset($json['isCurrency']) ? filter_var($json['isCurrency'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'isSigned' => isset($json['isSigned']) ? filter_var($json['isSigned'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'label' => isset($json['label']) ? (string) $json['label'] : null,
+            'name' => isset($json['name']) ? (string) $json['name'] : null,
+            'nullable' => isset($json['nullable']) ? (int) $json['nullable'] : null,
+            'precision' => isset($json['precision']) ? (int) $json['precision'] : null,
+            'scale' => isset($json['scale']) ? (int) $json['scale'] : null,
+            'schemaName' => isset($json['schemaName']) ? (string) $json['schemaName'] : null,
+            'tableName' => isset($json['tableName']) ? (string) $json['tableName'] : null,
+            'type' => isset($json['type']) ? (int) $json['type'] : null,
+            'typeName' => isset($json['typeName']) ? (string) $json['typeName'] : null,
+        ]);
+    }
+
     /**
      * @return float[]
      */
@@ -131,6 +156,19 @@ class ExecuteStatementResponse extends Result
         return $items;
     }
 
+    private function populateResultField(array $json): Field
+    {
+        return new Field([
+            'arrayValue' => empty($json['arrayValue']) ? null : $this->populateResultArrayValue($json['arrayValue']),
+            'blobValue' => isset($json['blobValue']) ? base64_decode((string) $json['blobValue']) : null,
+            'booleanValue' => isset($json['booleanValue']) ? filter_var($json['booleanValue'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'doubleValue' => isset($json['doubleValue']) ? (float) $json['doubleValue'] : null,
+            'isNull' => isset($json['isNull']) ? filter_var($json['isNull'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'longValue' => isset($json['longValue']) ? (string) $json['longValue'] : null,
+            'stringValue' => isset($json['stringValue']) ? (string) $json['stringValue'] : null,
+        ]);
+    }
+
     /**
      * @return Field[]
      */
@@ -138,21 +176,7 @@ class ExecuteStatementResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new Field([
-                'arrayValue' => empty($item['arrayValue']) ? null : new ArrayValue([
-                    'arrayValues' => !isset($item['arrayValue']['arrayValues']) ? null : $this->populateResultArrayOfArray($item['arrayValue']['arrayValues']),
-                    'booleanValues' => !isset($item['arrayValue']['booleanValues']) ? null : $this->populateResultBooleanArray($item['arrayValue']['booleanValues']),
-                    'doubleValues' => !isset($item['arrayValue']['doubleValues']) ? null : $this->populateResultDoubleArray($item['arrayValue']['doubleValues']),
-                    'longValues' => !isset($item['arrayValue']['longValues']) ? null : $this->populateResultLongArray($item['arrayValue']['longValues']),
-                    'stringValues' => !isset($item['arrayValue']['stringValues']) ? null : $this->populateResultStringArray($item['arrayValue']['stringValues']),
-                ]),
-                'blobValue' => isset($item['blobValue']) ? base64_decode((string) $item['blobValue']) : null,
-                'booleanValue' => isset($item['booleanValue']) ? filter_var($item['booleanValue'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'doubleValue' => isset($item['doubleValue']) ? (float) $item['doubleValue'] : null,
-                'isNull' => isset($item['isNull']) ? filter_var($item['isNull'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'longValue' => isset($item['longValue']) ? (string) $item['longValue'] : null,
-                'stringValue' => isset($item['stringValue']) ? (string) $item['stringValue'] : null,
-            ]);
+            $items[] = $this->populateResultField($item);
         }
 
         return $items;
@@ -181,22 +205,7 @@ class ExecuteStatementResponse extends Result
     {
         $items = [];
         foreach ($json as $item) {
-            $items[] = new ColumnMetadata([
-                'arrayBaseColumnType' => isset($item['arrayBaseColumnType']) ? (int) $item['arrayBaseColumnType'] : null,
-                'isAutoIncrement' => isset($item['isAutoIncrement']) ? filter_var($item['isAutoIncrement'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'isCaseSensitive' => isset($item['isCaseSensitive']) ? filter_var($item['isCaseSensitive'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'isCurrency' => isset($item['isCurrency']) ? filter_var($item['isCurrency'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'isSigned' => isset($item['isSigned']) ? filter_var($item['isSigned'], \FILTER_VALIDATE_BOOLEAN) : null,
-                'label' => isset($item['label']) ? (string) $item['label'] : null,
-                'name' => isset($item['name']) ? (string) $item['name'] : null,
-                'nullable' => isset($item['nullable']) ? (int) $item['nullable'] : null,
-                'precision' => isset($item['precision']) ? (int) $item['precision'] : null,
-                'scale' => isset($item['scale']) ? (int) $item['scale'] : null,
-                'schemaName' => isset($item['schemaName']) ? (string) $item['schemaName'] : null,
-                'tableName' => isset($item['tableName']) ? (string) $item['tableName'] : null,
-                'type' => isset($item['type']) ? (int) $item['type'] : null,
-                'typeName' => isset($item['typeName']) ? (string) $item['typeName'] : null,
-            ]);
+            $items[] = $this->populateResultColumnMetadata($item);
         }
 
         return $items;
