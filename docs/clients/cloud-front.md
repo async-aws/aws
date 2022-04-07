@@ -24,7 +24,7 @@ $cloudFront->createInvalidation([
             'Quantity' => count($paths),
             'Items' => $paths,
         ]),
-        'CallerReference' => time(),
+        'CallerReference' => (string) time(),
     ]),
 ]);
 ```
