@@ -21,20 +21,35 @@ final class PutEventsRequest extends Input
     private $entries;
 
     /**
+     * The URL subdomain of the endpoint. For example, if the URL for Endpoint is abcde.veo.endpoints.event.amazonaws.com,
+     * then the EndpointId is `abcde.veo`.
+     *
+     * @var string|null
+     */
+    private $endpointId;
+
+    /**
      * @param array{
      *   Entries?: PutEventsRequestEntry[],
+     *   EndpointId?: string,
      *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->entries = isset($input['Entries']) ? array_map([PutEventsRequestEntry::class, 'create'], $input['Entries']) : null;
+        $this->endpointId = $input['EndpointId'] ?? null;
         parent::__construct($input);
     }
 
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getEndpointId(): ?string
+    {
+        return $this->endpointId;
     }
 
     /**
@@ -70,6 +85,13 @@ final class PutEventsRequest extends Input
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
     }
 
+    public function setEndpointId(?string $value): self
+    {
+        $this->endpointId = $value;
+
+        return $this;
+    }
+
     /**
      * @param PutEventsRequestEntry[] $value
      */
@@ -92,6 +114,10 @@ final class PutEventsRequest extends Input
         foreach ($v as $listValue) {
             ++$index;
             $payload['Entries'][$index] = $listValue->requestBody();
+        }
+
+        if (null !== $v = $this->endpointId) {
+            $payload['EndpointId'] = $v;
         }
 
         return $payload;
