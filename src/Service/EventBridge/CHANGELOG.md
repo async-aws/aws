@@ -5,6 +5,8 @@
 ### Added
 
 - AWS api-change: Added `fips-us-gov-east-1` and `fips-us-gov-west-1` regions
+- AWS api-change: Adds new EventBridge Endpoint resources for disaster recovery, multi-region failover, and cross-region replication capabilities to help you build resilient event-driven applications.
+- AWS enhancement: Documentation updates for EventBridge
 
 ## 1.3.0
 

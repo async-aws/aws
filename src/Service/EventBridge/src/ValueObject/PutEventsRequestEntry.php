@@ -32,7 +32,7 @@ final class PutEventsRequestEntry
     private $detailType;
 
     /**
-     * A valid JSON string. There is no other schema imposed. The JSON string may contain fields and nested subobjects.
+     * A valid JSON object. There is no other schema imposed. The JSON object may contain fields and nested subobjects.
      */
     private $detail;
 
