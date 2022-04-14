@@ -22,8 +22,8 @@ class QueryRequestTest extends TestCase
             x-amz-target: Timestream_20181101.Query
 
             {
-                "TableName": "foo",
                 "ClientToken": "qwertyuiop",
+                "TableName": "foo",
                 "QueryString": "SELECT * FROM db.tbl ORDER BY time DESC LIMIT 10"
             }
                 ';

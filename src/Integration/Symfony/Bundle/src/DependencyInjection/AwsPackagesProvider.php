@@ -126,11 +126,11 @@ class AwsPackagesProvider
                 'package' => 'async-aws/step-functions',
             ],
             'timestream_query' => [
-                'class' => \AsyncAws\StepFunctions\TimestreamQueryClient::class,
+                'class' => \AsyncAws\TimestreamQuery\TimestreamQueryClient::class,
                 'package' => 'async-aws/timestream-query',
             ],
             'timestream_write' => [
-                'class' => \AsyncAws\StepFunctions\TimestreamWriteClient::class,
+                'class' => \AsyncAws\TimestreamWrite\TimestreamWriteClient::class,
                 'package' => 'async-aws/timestream-write',
             ],
             'x_ray' => [
