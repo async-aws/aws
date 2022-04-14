@@ -1,0 +1,88 @@
+<?php
+
+namespace AsyncAws\TimestreamQuery\ValueObject;
+
+/**
+ * Datum represents a single data point in a query result.
+ */
+final class Datum
+{
+    /**
+     * Indicates if the data point is a scalar value such as integer, string, double, or Boolean.
+     */
+    private $scalarValue;
+
+    /**
+     * Indicates if the data point is a timeseries data type.
+     */
+    private $timeSeriesValue;
+
+    /**
+     * Indicates if the data point is an array.
+     */
+    private $arrayValue;
+
+    /**
+     * Indicates if the data point is a row.
+     */
+    private $rowValue;
+
+    /**
+     * Indicates if the data point is null.
+     */
+    private $nullValue;
+
+    /**
+     * @param array{
+     *   ScalarValue?: null|string,
+     *   TimeSeriesValue?: null|TimeSeriesDataPoint[],
+     *   ArrayValue?: null|Datum[],
+     *   RowValue?: null|Row|array,
+     *   NullValue?: null|bool,
+     * } $input
+     */
+    public function __construct(array $input)
+    {
+        $this->scalarValue = $input['ScalarValue'] ?? null;
+        $this->timeSeriesValue = isset($input['TimeSeriesValue']) ? array_map([TimeSeriesDataPoint::class, 'create'], $input['TimeSeriesValue']) : null;
+        $this->arrayValue = isset($input['ArrayValue']) ? array_map([Datum::class, 'create'], $input['ArrayValue']) : null;
+        $this->rowValue = isset($input['RowValue']) ? Row::create($input['RowValue']) : null;
+        $this->nullValue = $input['NullValue'] ?? null;
+    }
+
+    public static function create($input): self
+    {
+        return $input instanceof self ? $input : new self($input);
+    }
+
+    /**
+     * @return Datum[]
+     */
+    public function getArrayValue(): array
+    {
+        return $this->arrayValue ?? [];
+    }
+
+    public function getNullValue(): ?bool
+    {
+        return $this->nullValue;
+    }
+
+    public function getRowValue(): ?Row
+    {
+        return $this->rowValue;
+    }
+
+    public function getScalarValue(): ?string
+    {
+        return $this->scalarValue;
+    }
+
+    /**
+     * @return TimeSeriesDataPoint[]
+     */
+    public function getTimeSeriesValue(): array
+    {
+        return $this->timeSeriesValue ?? [];
+    }
+}

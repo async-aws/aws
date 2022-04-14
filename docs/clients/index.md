@@ -162,4 +162,6 @@ for more information.
 | [SSM](./ssm.md)                             | [async-aws/ssm](https://packagist.org/packages/async-aws/ssm)
 | [STS](./sts.md)                             | [async-aws/core](https://packagist.org/packages/async-aws/core)
 | [StepFunctions](./step-functions.md)        | [async-aws/step-functions](https://packagist.org/packages/async-aws/step-functions)
+| [TimestreamQuery](./timestream-query.md)    | [async-aws/timestream-query](https://packagist.org/packages/async-aws/timestream-query)
+| [TimestreamWrite](./timestream-write.md)    | [async-aws/timestream-write](https://packagist.org/packages/async-aws/timestream-write)
 | [XRay](./x-ray.md)                          | [async-aws/x-ray](https://packagist.org/packages/async-aws/x-ray)

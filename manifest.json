@@ -537,6 +537,28 @@
                 "StopExecution"
             ]
         },
+        "TimestreamQuery": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/timestream-query/2018-11-01/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/timestream-query/2018-11-01/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/timestream-query/2018-11-01/paginators-1.json",
+            "namespace": "AsyncAws\\TimestreamQuery",
+            "api-reference": "https://docs.aws.amazon.com/timestream/latest/developerguide/API_Operations_Amazon_Timestream_Query.html",
+            "methods": [
+                "CancelQuery",
+                "PrepareQuery",
+                "Query"
+            ]
+        },
+        "TimestreamWrite": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/timestream-write/2018-11-01/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/timestream-write/2018-11-01/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/timestream-write/2018-11-01/paginators-1.json",
+            "namespace": "AsyncAws\\TimestreamWrite",
+            "api-reference": "https://docs.aws.amazon.com/timestream/latest/developerguide/API_Operations_Amazon_Timestream_Write.html",
+            "methods": [
+                "WriteRecords"
+            ]
+        },
         "XRay": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/xray/2016-04-12/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/xray/2016-04-12/docs-2.json",

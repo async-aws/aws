@@ -125,6 +125,14 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\StepFunctions\StepFunctionsClient::class,
                 'package' => 'async-aws/step-functions',
             ],
+            'timestream_query' => [
+                'class' => \AsyncAws\StepFunctions\TimestreamQueryClient::class,
+                'package' => 'async-aws/timestream-query',
+            ],
+            'timestream_write' => [
+                'class' => \AsyncAws\StepFunctions\TimestreamWriteClient::class,
+                'package' => 'async-aws/timestream-write',
+            ],
             'x_ray' => [
                 'class' => \AsyncAws\XRay\XRayClient::class,
                 'package' => 'async-aws/x-ray',
