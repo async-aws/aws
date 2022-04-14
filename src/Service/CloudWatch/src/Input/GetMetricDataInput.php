@@ -15,8 +15,8 @@ final class GetMetricDataInput extends Input
 {
     /**
      * The metric queries to be returned. A single `GetMetricData` call can include as many as 500 `MetricDataQuery`
-     * structures. Each of these structures can specify either a metric to retrieve, or a math expression to perform on
-     * retrieved data.
+     * structures. Each of these structures can specify either a metric to retrieve, a Metrics Insights query, or a math
+     * expression to perform on retrieved data.
      *
      * @required
      *

@@ -33,13 +33,9 @@ use AsyncAws\Core\Result;
 class CloudWatchClient extends AbstractApi
 {
     /**
-     * You can use the `GetMetricData` API to retrieve as many as 500 different metrics in a single request, with a total of
-     * as many as 100,800 data points. You can also optionally perform math expressions on the values of the returned
-     * statistics, to create new time series that represent new insights into your data. For example, using Lambda metrics,
-     * you could divide the Errors metric by the Invocations metric to get an error rate time series. For more information
-     * about metric math expressions, see Metric Math Syntax and Functions in the *Amazon CloudWatch User Guide*.
+     * You can use the `GetMetricData` API to retrieve CloudWatch metric values. The operation can also include a CloudWatch
+     * Metrics Insights query, and one or more metric math functions.
      *
-     * @see https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax
      * @see https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-monitoring-2010-08-01.html#getmetricdata
      *
