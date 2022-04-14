@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Fixed
+
+- Format datetime with `RFC7231` to provide a workaround for unsupported `RFC822` format.
+
 ### Changed
 
 - Set default value to `false` for the `sendChunkedBody` option.

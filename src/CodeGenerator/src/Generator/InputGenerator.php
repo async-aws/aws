@@ -474,6 +474,11 @@ PHP
                     throw new \InvalidArgumentException('Constant "\DateTimeInterface::' . $format . '" does not exists.');
                 }
 
+                if ('RFC822' === $format) {
+                    $variable .= '->setTimezone(new \\DateTimeZone("GMT"))';
+                    $format = 'RFC7231';
+                }
+
                 return $variable . '->format(\DateTimeInterface::' . $format . ')';
             case 'boolean':
                 return $variable . ' ? "true" : "false"';

@@ -265,13 +265,13 @@ final class HeadObjectRequest extends Input
             $headers['If-Match'] = $this->ifMatch;
         }
         if (null !== $this->ifModifiedSince) {
-            $headers['If-Modified-Since'] = $this->ifModifiedSince->format(\DateTimeInterface::RFC822);
+            $headers['If-Modified-Since'] = $this->ifModifiedSince->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
         }
         if (null !== $this->ifNoneMatch) {
             $headers['If-None-Match'] = $this->ifNoneMatch;
         }
         if (null !== $this->ifUnmodifiedSince) {
-            $headers['If-Unmodified-Since'] = $this->ifUnmodifiedSince->format(\DateTimeInterface::RFC822);
+            $headers['If-Unmodified-Since'] = $this->ifUnmodifiedSince->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
         }
         if (null !== $this->range) {
             $headers['Range'] = $this->range;

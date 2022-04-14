@@ -712,16 +712,16 @@ final class CopyObjectRequest extends Input
             $headers['x-amz-copy-source-if-match'] = $this->copySourceIfMatch;
         }
         if (null !== $this->copySourceIfModifiedSince) {
-            $headers['x-amz-copy-source-if-modified-since'] = $this->copySourceIfModifiedSince->format(\DateTimeInterface::RFC822);
+            $headers['x-amz-copy-source-if-modified-since'] = $this->copySourceIfModifiedSince->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
         }
         if (null !== $this->copySourceIfNoneMatch) {
             $headers['x-amz-copy-source-if-none-match'] = $this->copySourceIfNoneMatch;
         }
         if (null !== $this->copySourceIfUnmodifiedSince) {
-            $headers['x-amz-copy-source-if-unmodified-since'] = $this->copySourceIfUnmodifiedSince->format(\DateTimeInterface::RFC822);
+            $headers['x-amz-copy-source-if-unmodified-since'] = $this->copySourceIfUnmodifiedSince->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
         }
         if (null !== $this->expires) {
-            $headers['Expires'] = $this->expires->format(\DateTimeInterface::RFC822);
+            $headers['Expires'] = $this->expires->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
         }
         if (null !== $this->grantFullControl) {
             $headers['x-amz-grant-full-control'] = $this->grantFullControl;

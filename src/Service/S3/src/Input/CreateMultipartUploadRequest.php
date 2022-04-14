@@ -528,7 +528,7 @@ final class CreateMultipartUploadRequest extends Input
             $headers['Content-Type'] = $this->contentType;
         }
         if (null !== $this->expires) {
-            $headers['Expires'] = $this->expires->format(\DateTimeInterface::RFC822);
+            $headers['Expires'] = $this->expires->setTimezone(new \DateTimeZone('GMT'))->format(\DateTimeInterface::RFC7231);
         }
         if (null !== $this->grantFullControl) {
             $headers['x-amz-grant-full-control'] = $this->grantFullControl;
