@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.x-dev@">
   <file src="src/Core/src/AwsClientFactory.php">
-    <NullableReturnStatement occurrences="29">
+    <NullableReturnStatement occurrences="31">
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
@@ -32,7 +34,9 @@
       <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
     </NullableReturnStatement>
-    <PossiblyUndefinedArrayOffset occurrences="29">
+    <PossiblyUndefinedArrayOffset occurrences="31">
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
@@ -346,6 +350,11 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/Ssm/src/Input/PutParameterRequest.php">
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
+  <file src="src/Service/TimestreamQuery/src/Input/PrepareQueryRequest.php">
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
