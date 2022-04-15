@@ -16,10 +16,9 @@ use AsyncAws\TimestreamQuery\TimestreamQueryClient;
 $timestreamQuery = new TimestreamQueryClient();
 
 $result = $timestreamQuery->query(new QueryInput([
-    'TableName' => 'foo',
     'ClientToken' => 'qwertyuiop',
     'QueryString' => 'SELECT * FROM db.tbl ORDER BY time DESC LIMIT 10',
 ]));
 
-echo $result->getMessageId();
+$rows = $result->getRows();
 ```

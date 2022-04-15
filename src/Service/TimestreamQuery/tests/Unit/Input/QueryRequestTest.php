@@ -10,7 +10,6 @@ class QueryRequestTest extends TestCase
     public function testRequest(): void
     {
         $input = new QueryRequest([
-            'TableName' => 'foo',
             'ClientToken' => 'qwertyuiop',
             'QueryString' => 'SELECT * FROM db.tbl ORDER BY time DESC LIMIT 10',
         ]);
@@ -23,7 +22,6 @@ class QueryRequestTest extends TestCase
 
             {
                 "ClientToken": "qwertyuiop",
-                "TableName": "foo",
                 "QueryString": "SELECT * FROM db.tbl ORDER BY time DESC LIMIT 10"
             }
                 ';
