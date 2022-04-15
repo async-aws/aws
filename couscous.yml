@@ -115,6 +115,12 @@ menu:
             step-functions:
                 text: Step Functions
                 url: /clients/step-functions.html
+            timestream-query:
+                text: Timestream Query
+                url: /clients/timestream-query.html
+            timestream-write:
+                text: Timestream Write
+                url: /clients/timestream-write.html
             x-ray:
                 text: X-Ray
                 url: /clients/x-ray.html

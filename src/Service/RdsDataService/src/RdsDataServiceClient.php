@@ -220,9 +220,6 @@ class RdsDataServiceClient extends AbstractApi
             $region = Configuration::DEFAULT_REGION;
         }
 
-        switch ($region) {
-        }
-
         return [
             'endpoint' => "https://rds-data.$region.amazonaws.com",
             'signRegion' => $region,

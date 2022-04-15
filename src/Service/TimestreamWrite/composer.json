@@ -1,0 +1,33 @@
+{
+    "name": "async-aws/timestream-write",
+    "description": "Timestream Write client, part of the AWS SDK provided by AsyncAws.",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "aws",
+        "amazon",
+        "sdk",
+        "async-aws",
+        "timestream-write"
+    ],
+    "require": {
+        "php": "^7.2.5 || ^8.0",
+        "ext-json": "*",
+        "async-aws/core": "^1.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "AsyncAws\\TimestreamWrite\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AsyncAws\\TimestreamWrite\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    }
+}

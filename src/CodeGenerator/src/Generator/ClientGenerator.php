@@ -119,8 +119,8 @@ class ClientGenerator
 
             ';
         }
-        $body .= "switch (\$region) {\n";
 
+        $regionSwitchbody = '';
         $defaultConfig = null;
         if (isset($endpoints['_default']['aws'])) {
             $defaultConfig = $endpoints['_default']['aws'];
@@ -142,13 +142,13 @@ class ClientGenerator
                     continue;
                 }
                 $regions[] = $region;
-                $body .= sprintf("    case %s:\n", var_export($region, true));
+                $regionSwitchbody .= sprintf("    case %s:\n", var_export($region, true));
             }
             if (\count($regions) > 0) {
                 if (1 === \count($regions)) {
-                    $body .= $dumpConfig($config, $regions[0]);
+                    $regionSwitchbody .= $dumpConfig($config, $regions[0]);
                 } else {
-                    $body .= $dumpConfig($config);
+                    $regionSwitchbody .= $dumpConfig($config);
                 }
             }
         }
@@ -166,13 +166,13 @@ class ClientGenerator
                     continue;
                 }
                 $regions[] = $region;
-                $body .= sprintf("    case %s:\n", var_export($region, true));
+                $regionSwitchbody .= sprintf("    case %s:\n", var_export($region, true));
             }
             if (\count($regions) > 0) {
                 if (1 === \count($regions)) {
-                    $body .= $dumpConfig($config, $regions[0]);
+                    $regionSwitchbody .= $dumpConfig($config, $regions[0]);
                 } else {
-                    $body .= $dumpConfig($config);
+                    $regionSwitchbody .= $dumpConfig($config);
                 }
             }
         }
@@ -185,10 +185,16 @@ class ClientGenerator
                 continue;
             }
 
-            $body .= sprintf("    case %s:\n", var_export($region, true));
-            $body .= $dumpConfig($config, $region);
+            $regionSwitchbody .= sprintf("    case %s:\n", var_export($region, true));
+            $regionSwitchbody .= $dumpConfig($config, $region);
         }
-        $body .= '}';
+
+        if ('' !== $regionSwitchbody) {
+            $body .= "switch (\$region) {\n";
+            $body .= $regionSwitchbody;
+            $body .= '}';
+        }
+
         if (isset($endpoints['_default']['aws'])) {
             $body .= $dumpConfig($endpoints['_default']['aws']);
         } elseif (isset($endpoints['_global']['aws'])) {

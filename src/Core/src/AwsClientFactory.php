@@ -37,6 +37,8 @@ use AsyncAws\Sns\SnsClient;
 use AsyncAws\Sqs\SqsClient;
 use AsyncAws\Ssm\SsmClient;
 use AsyncAws\StepFunctions\StepFunctionsClient;
+use AsyncAws\TimestreamQuery\TimestreamQueryClient;
+use AsyncAws\TimestreamWrite\TimestreamWriteClient;
 use AsyncAws\XRay\XRayClient;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -434,6 +436,32 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new StepFunctionsClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function timestreamQuery(): TimestreamQueryClient
+    {
+        if (!class_exists(TimestreamQueryClient::class)) {
+            throw MissingDependency::create('async-aws/timestream-query', 'TimestreamQuery');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new TimestreamQueryClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function timestreamWrite(): TimestreamWriteClient
+    {
+        if (!class_exists(TimestreamWriteClient::class)) {
+            throw MissingDependency::create('async-aws/timestream-write', 'TimestreamWrite');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new TimestreamWriteClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];

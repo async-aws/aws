@@ -48,3 +48,5 @@ parameters:
               - src/Service/Sns/src/ValueObject
               - src/Service/Sqs/src/ValueObject
               - src/Service/Ssm/src/ValueObject
+              - src/Service/TimestreamQuery/src/ValueObject
+              - src/Service/TimestreamWrite/src/ValueObject
