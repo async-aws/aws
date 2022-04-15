@@ -5,6 +5,8 @@
 ### Added
 
 - Support for CodeBuild
+- Support for TimestreamQuery
+- Support for TimestreamWrite
 
 ## 1.7.0
 
