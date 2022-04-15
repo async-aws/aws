@@ -7,7 +7,7 @@ package: async-aws/timestream-query
 
 ## Usage
 
-### Send a message
+### Execute a query
 
 ```php
 use AsyncAws\TimestreamQuery\Input\QueryInput;
