@@ -49,6 +49,9 @@ menu:
             code-build:
                 text: CodeBuild
                 url: /clients/code-build.html
+            code-commit:
+                text: CodeCommit
+                url: /clients/code-commit.html
             code-deploy:
                 text: CodeDeploy
                 url: /clients/code-deploy.html
