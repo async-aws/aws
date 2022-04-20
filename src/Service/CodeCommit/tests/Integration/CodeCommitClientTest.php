@@ -64,7 +64,7 @@ class CodeCommitClientTest extends TestCase
 
     private function getClient(): CodeCommitClient
     {
-        self::fail('Not implemented');
+        self::markTestSkipped('Localstack does not support CodeCommit in the free version');
 
         return new CodeCommitClient([
             'endpoint' => 'http://localhost',
