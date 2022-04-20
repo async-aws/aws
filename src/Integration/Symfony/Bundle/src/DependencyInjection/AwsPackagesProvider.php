@@ -33,6 +33,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\CodeBuild\CodeBuildClient::class,
                 'package' => 'async-aws/code-build',
             ],
+            'code_commit' => [
+                'class' => \AsyncAws\CodeCommit\CodeCommitClient::class,
+                'package' => 'async-aws/code-commit',
+            ],
             'code_deploy' => [
                 'class' => \AsyncAws\CodeDeploy\CodeDeployClient::class,
                 'package' => 'async-aws/code-deploy',
