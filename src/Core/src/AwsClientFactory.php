@@ -10,6 +10,7 @@ use AsyncAws\CloudFront\CloudFrontClient;
 use AsyncAws\CloudWatch\CloudWatchClient;
 use AsyncAws\CloudWatchLogs\CloudWatchLogsClient;
 use AsyncAws\CodeBuild\CodeBuildClient;
+use AsyncAws\CodeCommit\CodeCommitClient;
 use AsyncAws\CodeDeploy\CodeDeployClient;
 use AsyncAws\CognitoIdentityProvider\CognitoIdentityProviderClient;
 use AsyncAws\Core\Credentials\CacheProvider;
@@ -167,6 +168,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new CodeBuildClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function codeCommit(): CodeCommitClient
+    {
+        if (!class_exists(CodeCommitClient::class)) {
+            throw MissingDependency::create('async-aws/code-commit', 'CodeCommit');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new CodeCommitClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];
