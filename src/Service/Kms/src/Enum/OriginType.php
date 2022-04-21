@@ -7,10 +7,10 @@ namespace AsyncAws\Kms\Enum;
  * default is `AWS_KMS`, which means that KMS creates the key material.
  * To create a KMS key with no key material (for imported key material), set the value to `EXTERNAL`. For more
  * information about importing key material into KMS, see Importing Key Material in the *Key Management Service
- * Developer Guide*. This value is valid only for symmetric KMS keys.
+ * Developer Guide*. This value is valid only for symmetric encryption KMS keys.
  * To create a KMS key in an KMS custom key store and create its key material in the associated CloudHSM cluster, set
  * this value to `AWS_CLOUDHSM`. You must also use the `CustomKeyStoreId` parameter to identify the custom key store.
- * This value is valid only for symmetric KMS keys.
+ * This value is valid only for symmetric encryption KMS keys.
  *
  * @see https://docs.aws.amazon.com/kms/latest/developerguide/importing-keys.html
  * @see https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html

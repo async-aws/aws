@@ -21,8 +21,8 @@ final class DecryptRequest extends Input
 
     /**
      * Specifies the encryption context to use when decrypting the data. An encryption context is valid only for
-     * cryptographic operations with a symmetric KMS key. The standard asymmetric encryption algorithms that KMS uses do not
-     * support an encryption context.
+     * cryptographic operations with a symmetric encryption KMS key. The standard asymmetric encryption algorithms and HMAC
+     * algorithms that KMS uses do not support an encryption context.
      *
      * @see https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations
      *
@@ -38,8 +38,7 @@ final class DecryptRequest extends Input
     private $grantTokens;
 
     /**
-     * Specifies the KMS key that KMS uses to decrypt the ciphertext. Enter a key ID of the KMS key that was used to encrypt
-     * the ciphertext.
+     * Specifies the KMS key that KMS uses to decrypt the ciphertext.
      *
      * @var string|null
      */

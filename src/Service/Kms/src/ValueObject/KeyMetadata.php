@@ -9,6 +9,7 @@ use AsyncAws\Kms\Enum\KeyManagerType;
 use AsyncAws\Kms\Enum\KeySpec;
 use AsyncAws\Kms\Enum\KeyState;
 use AsyncAws\Kms\Enum\KeyUsageType;
+use AsyncAws\Kms\Enum\MacAlgorithmSpec;
 use AsyncAws\Kms\Enum\OriginType;
 use AsyncAws\Kms\Enum\SigningAlgorithmSpec;
 
@@ -157,6 +158,11 @@ final class KeyMetadata
     private $pendingDeletionWindowInDays;
 
     /**
+     * The message authentication code (MAC) algorithm that the HMAC KMS key supports.
+     */
+    private $macAlgorithms;
+
+    /**
      * @param array{
      *   AWSAccountId?: null|string,
      *   KeyId: string,
@@ -180,6 +186,7 @@ final class KeyMetadata
      *   MultiRegion?: null|bool,
      *   MultiRegionConfiguration?: null|MultiRegionConfiguration|array,
      *   PendingDeletionWindowInDays?: null|int,
+     *   MacAlgorithms?: null|list<MacAlgorithmSpec::*>,
      * } $input
      */
     public function __construct(array $input)
@@ -206,6 +213,7 @@ final class KeyMetadata
         $this->multiRegion = $input['MultiRegion'] ?? null;
         $this->multiRegionConfiguration = isset($input['MultiRegionConfiguration']) ? MultiRegionConfiguration::create($input['MultiRegionConfiguration']) : null;
         $this->pendingDeletionWindowInDays = $input['PendingDeletionWindowInDays'] ?? null;
+        $this->macAlgorithms = $input['MacAlgorithms'] ?? null;
     }
 
     public static function create($input): self
@@ -316,6 +324,14 @@ final class KeyMetadata
     public function getKeyUsage(): ?string
     {
         return $this->keyUsage;
+    }
+
+    /**
+     * @return list<MacAlgorithmSpec::*>
+     */
+    public function getMacAlgorithms(): array
+    {
+        return $this->macAlgorithms ?? [];
     }
 
     public function getMultiRegion(): ?bool

@@ -30,8 +30,8 @@ final class CreateKeyRequest extends Input
 
     /**
      * Determines the cryptographic operations for which you can use the KMS key. The default value is `ENCRYPT_DECRYPT`.
-     * This parameter is required only for asymmetric KMS keys. You can't change the `KeyUsage` value after the KMS key is
-     * created.
+     * This parameter is optional when you are creating a symmetric encryption KMS key; otherwise, it is required. You can't
+     * change the `KeyUsage` value after the KMS key is created.
      *
      * @see https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations
      *
@@ -48,10 +48,10 @@ final class CreateKeyRequest extends Input
 
     /**
      * Specifies the type of KMS key to create. The default value, `SYMMETRIC_DEFAULT`, creates a KMS key with a 256-bit
-     * symmetric key for encryption and decryption. For help choosing a key spec for your KMS key, see How to Choose Your
-     * KMS key Configuration in the **Key Management Service Developer Guide**.
+     * symmetric key for encryption and decryption. For help choosing a key spec for your KMS key, see Choosing a KMS key
+     * type in the **Key Management Service Developer Guide**.
      *
-     * @see https://docs.aws.amazon.com/kms/latest/developerguide/symm-asymm-choose.html
+     * @see https://docs.aws.amazon.com/kms/latest/developerguide/key-types.html#symm-asymm-choose
      *
      * @var KeySpec::*|null
      */

@@ -11,7 +11,8 @@ use AsyncAws\Kms\Enum\DataKeySpec;
 final class GenerateDataKeyRequest extends Input
 {
     /**
-     * Identifies the symmetric KMS key that encrypts the data key.
+     * Specifies the symmetric encryption KMS key that encrypts the data key. You cannot specify an asymmetric KMS key or a
+     * KMS key in a custom key store. To get the type and origin of your KMS key, use the DescribeKey operation.
      *
      * @required
      *
