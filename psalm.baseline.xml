@@ -33,7 +33,7 @@
       <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this->serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
     </NullableReturnStatement>
     <PossiblyUndefinedArrayOffset occurrences="32">
       <code>$this-&gt;serviceCache[__METHOD__]</code>
@@ -67,7 +67,7 @@
       <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
       <code>$this-&gt;serviceCache[__METHOD__]</code>
-      <code>$this->serviceCache[__METHOD__]</code>
+      <code>$this-&gt;serviceCache[__METHOD__]</code>
     </PossiblyUndefinedArrayOffset>
   </file>
   <file src="src/Core/src/Credentials/PsrCacheProvider.php">

@@ -1,6 +1,7 @@
+# Change Log
 
 ## NOT RELEASED
 
-### Added
+## 0.1.0
 
-- AWS api-change: TODO
+First version
