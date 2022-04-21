@@ -5,6 +5,7 @@ namespace AsyncAws\Kms\Result;
 use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 use AsyncAws\Kms\Enum\EncryptionAlgorithmSpec;
+use AsyncAws\Kms\Enum\MacAlgorithmSpec;
 use AsyncAws\Kms\Enum\SigningAlgorithmSpec;
 use AsyncAws\Kms\ValueObject\KeyMetadata;
 use AsyncAws\Kms\ValueObject\MultiRegionConfiguration;
@@ -72,7 +73,24 @@ class CreateKeyResponse extends Result
             'MultiRegion' => isset($json['MultiRegion']) ? filter_var($json['MultiRegion'], \FILTER_VALIDATE_BOOLEAN) : null,
             'MultiRegionConfiguration' => empty($json['MultiRegionConfiguration']) ? null : $this->populateResultMultiRegionConfiguration($json['MultiRegionConfiguration']),
             'PendingDeletionWindowInDays' => isset($json['PendingDeletionWindowInDays']) ? (int) $json['PendingDeletionWindowInDays'] : null,
+            'MacAlgorithms' => !isset($json['MacAlgorithms']) ? null : $this->populateResultMacAlgorithmSpecList($json['MacAlgorithms']),
         ]);
+    }
+
+    /**
+     * @return list<MacAlgorithmSpec::*>
+     */
+    private function populateResultMacAlgorithmSpecList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $a = isset($item) ? (string) $item : null;
+            if (null !== $a) {
+                $items[] = $a;
+            }
+        }
+
+        return $items;
     }
 
     private function populateResultMultiRegionConfiguration(array $json): MultiRegionConfiguration

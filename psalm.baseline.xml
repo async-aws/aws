@@ -256,12 +256,14 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Service/Kms/src/Result/CreateKeyResponse.php">
-    <LessSpecificReturnStatement occurrences="2">
+    <LessSpecificReturnStatement occurrences="3">
+      <code>$items</code>
       <code>$items</code>
       <code>$items</code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="2">
+    <MoreSpecificReturnType occurrences="3">
       <code>list&lt;EncryptionAlgorithmSpec::*&gt;</code>
+      <code>list&lt;MacAlgorithmSpec::*&gt;</code>
       <code>list&lt;SigningAlgorithmSpec::*&gt;</code>
     </MoreSpecificReturnType>
   </file>

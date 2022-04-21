@@ -11,7 +11,8 @@ use AsyncAws\Kms\Enum\EncryptionAlgorithmSpec;
 final class EncryptRequest extends Input
 {
     /**
-     * Identifies the KMS key to use in the encryption operation.
+     * Identifies the KMS key to use in the encryption operation. The KMS key must have a `KeyUsage` of `ENCRYPT_DECRYPT`.
+     * To find the `KeyUsage` of a KMS key, use the DescribeKey operation.
      *
      * @required
      *
@@ -30,8 +31,8 @@ final class EncryptRequest extends Input
 
     /**
      * Specifies the encryption context that will be used to encrypt the data. An encryption context is valid only for
-     * cryptographic operations with a symmetric KMS key. The standard asymmetric encryption algorithms that KMS uses do not
-     * support an encryption context.
+     * cryptographic operations with a symmetric encryption KMS key. The standard asymmetric encryption algorithms and HMAC
+     * algorithms that KMS uses do not support an encryption context.
      *
      * @see https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations
      *

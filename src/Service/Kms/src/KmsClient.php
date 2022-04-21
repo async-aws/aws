@@ -184,7 +184,8 @@ class KmsClient extends AbstractApi
     }
 
     /**
-     * Encrypts plaintext into ciphertext by using a KMS key. The `Encrypt` operation has two primary use cases:.
+     * Encrypts plaintext of up to 4,096 bytes using a KMS key. You can use a symmetric or asymmetric KMS key with a
+     * `KeyUsage` of `ENCRYPT_DECRYPT`.
      *
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#encrypt
@@ -225,8 +226,9 @@ class KmsClient extends AbstractApi
     }
 
     /**
-     * Generates a unique symmetric data key for client-side encryption. This operation returns a plaintext copy of the data
-     * key and a copy that is encrypted under a KMS key that you specify. You can use the plaintext key to encrypt your data
+     * Returns a unique symmetric data key for use outside of KMS. This operation returns a plaintext copy of the data key
+     * and a copy that is encrypted under a symmetric encryption KMS key that you specify. The bytes in the plaintext key
+     * are random; they are not related to the caller or the KMS key. You can use the plaintext key to encrypt your data
      * outside of KMS and store the encrypted data key with the encrypted data.
      *
      * @see https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html
