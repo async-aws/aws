@@ -38,10 +38,10 @@ use AsyncAws\SecretsManager\ValueObject\Tag;
 class SecretsManagerClient extends AbstractApi
 {
     /**
-     * Creates a new secret. A *secret* is a set of credentials, such as a user name and password, that you store in an
-     * encrypted form in Secrets Manager. The secret also includes the connection information to access a database or other
-     * service, which Secrets Manager doesn't encrypt. A secret in Secrets Manager consists of both the protected secret
-     * data and the important information needed to manage the secret.
+     * Creates a new secret. A *secret* can be a password, a set of credentials such as a user name and password, an OAuth
+     * token, or other secret information that you store in an encrypted form in Secrets Manager. The secret also includes
+     * the connection information to access a database or other service, which Secrets Manager doesn't encrypt. A secret in
+     * Secrets Manager consists of both the protected secret data and the important information needed to manage the secret.
      *
      * @see https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-secretsmanager-2017-10-17.html#createsecret

@@ -25,14 +25,16 @@ namespace AsyncAws\ElastiCache\ValueObject;
  *     onward): `cache.t4g.micro`, `cache.t4g.small`, `cache.t4g.medium`
  *     **T3 node types:**`cache.t3.micro`, `cache.t3.small`, `cache.t3.medium`
  *     **T2 node types:**`cache.t2.micro`, `cache.t2.small`, `cache.t2.medium`
- *   - Previous generation: (not recommended)
+ *   - Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+ *     supported for these types.)
  *     **T1 node types:**`cache.t1.micro`
  *     **M1 node types:**`cache.m1.small`, `cache.m1.medium`, `cache.m1.large`, `cache.m1.xlarge`
  *     **M3 node types:**`cache.m3.medium`, `cache.m3.large`, `cache.m3.xlarge`, `cache.m3.2xlarge`
  *
  * - Compute optimized:
  *
- *   - Previous generation: (not recommended)
+ *   - Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+ *     supported for these types.)
  *     **C1 node types:**`cache.c1.xlarge`
  *
  * - Memory optimized with data tiering:
@@ -56,7 +58,8 @@ namespace AsyncAws\ElastiCache\ValueObject;
  *     `cache.r5.12xlarge`, `cache.r5.24xlarge`
  *     **R4 node types:**`cache.r4.large`, `cache.r4.xlarge`, `cache.r4.2xlarge`, `cache.r4.4xlarge`,
  *     `cache.r4.8xlarge`, `cache.r4.16xlarge`
- *   - Previous generation: (not recommended)
+ *   - Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+ *     supported for these types.)
  *     **M2 node types:**`cache.m2.xlarge`, `cache.m2.2xlarge`, `cache.m2.4xlarge`
  *     **R3 node types:**`cache.r3.large`, `cache.r3.xlarge`, `cache.r3.2xlarge`, `cache.r3.4xlarge`, `cache.r3.8xlarge`
  *
