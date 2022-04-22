@@ -1,5 +1,8 @@
 ---
-layout: client category: clients name: CodeCommit package: async-aws/code-commit
+layout: client
+category: clients
+name: CodeCommit
+package: async-aws/code-commit
 ---
 
 ## Usage
