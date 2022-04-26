@@ -18,12 +18,12 @@ final class ArrayValue
     private $booleanValues;
 
     /**
-     * An array of integers.
+     * An array of floating-point numbers.
      */
     private $doubleValues;
 
     /**
-     * An array of floating point numbers.
+     * An array of integers.
      */
     private $longValues;
 

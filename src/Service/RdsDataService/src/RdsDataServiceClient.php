@@ -7,6 +7,8 @@ use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRestAwsErrorFactory;
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\RequestContext;
+use AsyncAws\RdsDataService\Enum\RecordsFormatType;
+use AsyncAws\RdsDataService\Exception\AccessDeniedException;
 use AsyncAws\RdsDataService\Exception\BadRequestException;
 use AsyncAws\RdsDataService\Exception\ForbiddenException;
 use AsyncAws\RdsDataService\Exception\InternalServerErrorException;
@@ -45,6 +47,7 @@ class RdsDataServiceClient extends AbstractApi
      *   @region?: string,
      * }|BatchExecuteStatementRequest $input
      *
+     * @throws AccessDeniedException
      * @throws BadRequestException
      * @throws StatementTimeoutException
      * @throws InternalServerErrorException
@@ -55,6 +58,7 @@ class RdsDataServiceClient extends AbstractApi
     {
         $input = BatchExecuteStatementRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'BatchExecuteStatement', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AccessDeniedException' => AccessDeniedException::class,
             'BadRequestException' => BadRequestException::class,
             'StatementTimeoutException' => StatementTimeoutException::class,
             'InternalServerErrorException' => InternalServerErrorException::class,
@@ -79,6 +83,7 @@ class RdsDataServiceClient extends AbstractApi
      *   @region?: string,
      * }|BeginTransactionRequest $input
      *
+     * @throws AccessDeniedException
      * @throws BadRequestException
      * @throws StatementTimeoutException
      * @throws InternalServerErrorException
@@ -89,6 +94,7 @@ class RdsDataServiceClient extends AbstractApi
     {
         $input = BeginTransactionRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'BeginTransaction', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AccessDeniedException' => AccessDeniedException::class,
             'BadRequestException' => BadRequestException::class,
             'StatementTimeoutException' => StatementTimeoutException::class,
             'InternalServerErrorException' => InternalServerErrorException::class,
@@ -112,6 +118,7 @@ class RdsDataServiceClient extends AbstractApi
      *   @region?: string,
      * }|CommitTransactionRequest $input
      *
+     * @throws AccessDeniedException
      * @throws BadRequestException
      * @throws StatementTimeoutException
      * @throws InternalServerErrorException
@@ -123,6 +130,7 @@ class RdsDataServiceClient extends AbstractApi
     {
         $input = CommitTransactionRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CommitTransaction', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AccessDeniedException' => AccessDeniedException::class,
             'BadRequestException' => BadRequestException::class,
             'StatementTimeoutException' => StatementTimeoutException::class,
             'InternalServerErrorException' => InternalServerErrorException::class,
@@ -143,6 +151,7 @@ class RdsDataServiceClient extends AbstractApi
      * @param array{
      *   continueAfterTimeout?: bool,
      *   database?: string,
+     *   formatRecordsAs?: RecordsFormatType::*,
      *   includeResultMetadata?: bool,
      *   parameters?: SqlParameter[],
      *   resourceArn: string,
@@ -154,6 +163,7 @@ class RdsDataServiceClient extends AbstractApi
      *   @region?: string,
      * }|ExecuteStatementRequest $input
      *
+     * @throws AccessDeniedException
      * @throws BadRequestException
      * @throws StatementTimeoutException
      * @throws InternalServerErrorException
@@ -164,6 +174,7 @@ class RdsDataServiceClient extends AbstractApi
     {
         $input = ExecuteStatementRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ExecuteStatement', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AccessDeniedException' => AccessDeniedException::class,
             'BadRequestException' => BadRequestException::class,
             'StatementTimeoutException' => StatementTimeoutException::class,
             'InternalServerErrorException' => InternalServerErrorException::class,
@@ -187,6 +198,7 @@ class RdsDataServiceClient extends AbstractApi
      *   @region?: string,
      * }|RollbackTransactionRequest $input
      *
+     * @throws AccessDeniedException
      * @throws BadRequestException
      * @throws StatementTimeoutException
      * @throws InternalServerErrorException
@@ -198,6 +210,7 @@ class RdsDataServiceClient extends AbstractApi
     {
         $input = RollbackTransactionRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'RollbackTransaction', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'AccessDeniedException' => AccessDeniedException::class,
             'BadRequestException' => BadRequestException::class,
             'StatementTimeoutException' => StatementTimeoutException::class,
             'InternalServerErrorException' => InternalServerErrorException::class,

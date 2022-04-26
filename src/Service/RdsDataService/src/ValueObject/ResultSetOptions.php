@@ -4,6 +4,7 @@ namespace AsyncAws\RdsDataService\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\RdsDataService\Enum\DecimalReturnType;
+use AsyncAws\RdsDataService\Enum\LongReturnType;
 
 /**
  * Options that control how the result set is returned.
@@ -18,13 +19,21 @@ final class ResultSetOptions
     private $decimalReturnType;
 
     /**
+     * A value that indicates how a field of `LONG` type is represented. Allowed values are `LONG` and `STRING`. The default
+     * is `LONG`. Specify `STRING` if the length or precision of numeric values might cause truncation or rounding errors.
+     */
+    private $longReturnType;
+
+    /**
      * @param array{
      *   decimalReturnType?: null|DecimalReturnType::*,
+     *   longReturnType?: null|LongReturnType::*,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->decimalReturnType = $input['decimalReturnType'] ?? null;
+        $this->longReturnType = $input['longReturnType'] ?? null;
     }
 
     public static function create($input): self
@@ -41,6 +50,14 @@ final class ResultSetOptions
     }
 
     /**
+     * @return LongReturnType::*|null
+     */
+    public function getLongReturnType(): ?string
+    {
+        return $this->longReturnType;
+    }
+
+    /**
      * @internal
      */
     public function requestBody(): array
@@ -51,6 +68,12 @@ final class ResultSetOptions
                 throw new InvalidArgument(sprintf('Invalid parameter "decimalReturnType" for "%s". The value "%s" is not a valid "DecimalReturnType".', __CLASS__, $v));
             }
             $payload['decimalReturnType'] = $v;
+        }
+        if (null !== $v = $this->longReturnType) {
+            if (!LongReturnType::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "longReturnType" for "%s". The value "%s" is not a valid "LongReturnType".', __CLASS__, $v));
+            }
+            $payload['longReturnType'] = $v;
         }
 
         return $payload;

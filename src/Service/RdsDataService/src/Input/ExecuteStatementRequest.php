@@ -6,6 +6,8 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\RdsDataService\Enum\RecordsFormatType;
+use AsyncAws\RdsDataService\ValueObject\Field;
 use AsyncAws\RdsDataService\ValueObject\ResultSetOptions;
 use AsyncAws\RdsDataService\ValueObject\SqlParameter;
 
@@ -28,6 +30,15 @@ final class ExecuteStatementRequest extends Input
      * @var string|null
      */
     private $database;
+
+    /**
+     * A value that indicates whether to format the result set as a single JSON string. This parameter only applies to
+     * `SELECT` statements and is ignored for other types of statements. Allowed values are `NONE` and `JSON`. The default
+     * value is `NONE`. The result is returned in the `formattedRecords` field.
+     *
+     * @var RecordsFormatType::*|null
+     */
+    private $formatRecordsAs;
 
     /**
      * A value that indicates whether to include metadata in the results.
@@ -96,6 +107,7 @@ final class ExecuteStatementRequest extends Input
      * @param array{
      *   continueAfterTimeout?: bool,
      *   database?: string,
+     *   formatRecordsAs?: RecordsFormatType::*,
      *   includeResultMetadata?: bool,
      *   parameters?: SqlParameter[],
      *   resourceArn?: string,
@@ -111,6 +123,7 @@ final class ExecuteStatementRequest extends Input
     {
         $this->continueAfterTimeout = $input['continueAfterTimeout'] ?? null;
         $this->database = $input['database'] ?? null;
+        $this->formatRecordsAs = $input['formatRecordsAs'] ?? null;
         $this->includeResultMetadata = $input['includeResultMetadata'] ?? null;
         $this->parameters = isset($input['parameters']) ? array_map([SqlParameter::class, 'create'], $input['parameters']) : null;
         $this->resourceArn = $input['resourceArn'] ?? null;
@@ -135,6 +148,14 @@ final class ExecuteStatementRequest extends Input
     public function getDatabase(): ?string
     {
         return $this->database;
+    }
+
+    /**
+     * @return RecordsFormatType::*|null
+     */
+    public function getFormatRecordsAs(): ?string
+    {
+        return $this->formatRecordsAs;
     }
 
     public function getIncludeResultMetadata(): ?bool
@@ -216,6 +237,16 @@ final class ExecuteStatementRequest extends Input
         return $this;
     }
 
+    /**
+     * @param RecordsFormatType::*|null $value
+     */
+    public function setFormatRecordsAs(?string $value): self
+    {
+        $this->formatRecordsAs = $value;
+
+        return $this;
+    }
+
     public function setIncludeResultMetadata(?bool $value): self
     {
         $this->includeResultMetadata = $value;
@@ -283,6 +314,12 @@ final class ExecuteStatementRequest extends Input
         }
         if (null !== $v = $this->database) {
             $payload['database'] = $v;
+        }
+        if (null !== $v = $this->formatRecordsAs) {
+            if (!RecordsFormatType::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "formatRecordsAs" for "%s". The value "%s" is not a valid "RecordsFormatType".', __CLASS__, $v));
+            }
+            $payload['formatRecordsAs'] = $v;
         }
         if (null !== $v = $this->includeResultMetadata) {
             $payload['includeResultMetadata'] = (bool) $v;
