@@ -14,12 +14,19 @@ use AsyncAws\RdsDataService\ValueObject\Field;
 class ExecuteStatementResponse extends Result
 {
     /**
-     * Metadata for the columns included in the results.
+     * Metadata for the columns included in the results. This field is blank if the `formatRecordsAs` parameter is set to
+     * `JSON`.
      */
     private $columnMetadata;
 
     /**
-     * Values for fields generated during the request.
+     * A string value that represents the result set of a `SELECT` statement in JSON format. This value is only present when
+     * the `formatRecordsAs` parameter is set to `JSON`.
+     */
+    private $formattedRecords;
+
+    /**
+     * Values for fields generated during a DML request.
      */
     private $generatedFields;
 
@@ -29,7 +36,7 @@ class ExecuteStatementResponse extends Result
     private $numberOfRecordsUpdated;
 
     /**
-     * The records returned by the SQL statement.
+     * The records returned by the SQL statement. This field is blank if the `formatRecordsAs` parameter is set to `JSON`.
      */
     private $records;
 
@@ -41,6 +48,13 @@ class ExecuteStatementResponse extends Result
         $this->initialize();
 
         return $this->columnMetadata;
+    }
+
+    public function getFormattedRecords(): ?string
+    {
+        $this->initialize();
+
+        return $this->formattedRecords;
     }
 
     /**
@@ -75,6 +89,7 @@ class ExecuteStatementResponse extends Result
         $data = $response->toArray();
 
         $this->columnMetadata = empty($data['columnMetadata']) ? [] : $this->populateResultMetadata($data['columnMetadata']);
+        $this->formattedRecords = isset($data['formattedRecords']) ? (string) $data['formattedRecords'] : null;
         $this->generatedFields = empty($data['generatedFields']) ? [] : $this->populateResultFieldList($data['generatedFields']);
         $this->numberOfRecordsUpdated = isset($data['numberOfRecordsUpdated']) ? (string) $data['numberOfRecordsUpdated'] : null;
         $this->records = empty($data['records']) ? [] : $this->populateResultSqlRecords($data['records']);

@@ -306,7 +306,9 @@
     </MoreSpecificReturnType>
   </file>
   <file src="src/Service/RdsDataService/src/Input/ExecuteStatementRequest.php">
-    <RedundantCastGivenDocblockType occurrences="2">
+    <RedundantCastGivenDocblockType occurrences="4">
+      <code>(bool) $v</code>
+      <code>(bool) $v</code>
       <code>(bool) $v</code>
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
