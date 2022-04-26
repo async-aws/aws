@@ -577,7 +577,7 @@ class S3ClientTest extends TestCase
         $input = (new ListObjectsV2Request())
         ->setBucket('foo')
         ->setPrefix('list/')
-        //->setMaxKeys(2) // pagination is not implemented
+        // ->setMaxKeys(2) // pagination is not implemented
         ->setDelimiter('/')
         ;
 

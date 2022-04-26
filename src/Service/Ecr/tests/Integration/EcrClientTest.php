@@ -20,7 +20,7 @@ class EcrClientTest extends TestCase
 
         $result->resolve();
 
-        //self::assertTODO(expected, $result->getAuthorizationData());
+        // self::assertTODO(expected, $result->getAuthorizationData());
     }
 
     private function getClient(): EcrClient
