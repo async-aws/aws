@@ -40,9 +40,7 @@ class IndexFacesResponse extends Result
     private $orientationCorrection;
 
     /**
-     * Latest face model being used with the collection. For more information, see Model versioning.
-     *
-     * @see https://docs.aws.amazon.com/rekognition/latest/dg/face-detection-model.html
+     * The version number of the face detection model that's associated with the input collection (`CollectionId`).
      */
     private $faceModelVersion;
 

@@ -121,8 +121,9 @@ class RekognitionClient extends AbstractApi
 
     /**
      * Deletes the specified collection. Note that this operation removes all faces in the collection. For an example, see
-     * delete-collection-procedure.
+     * Deleting a collection.
      *
+     * @see https://docs.aws.amazon.com/rekognition/latest/dg/delete-collection-procedure.html
      * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_DeleteCollection.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rekognition-2016-06-27.html#deletecollection
      *
@@ -346,7 +347,7 @@ class RekognitionClient extends AbstractApi
     }
 
     /**
-     * Returns an array of celebrities recognized in the input image. For more information, see Recognizing Celebrities in
+     * Returns an array of celebrities recognized in the input image. For more information, see Recognizing celebrities in
      * the Amazon Rekognition Developer Guide.
      *
      * @see https://docs.aws.amazon.com/rekognition/latest/dg/API_RecognizeCelebrities.html

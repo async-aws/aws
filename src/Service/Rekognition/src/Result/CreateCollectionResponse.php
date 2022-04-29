@@ -18,9 +18,7 @@ class CreateCollectionResponse extends Result
     private $collectionArn;
 
     /**
-     * Latest face model being used with the collection. For more information, see Model versioning.
-     *
-     * @see https://docs.aws.amazon.com/rekognition/latest/dg/face-detection-model.html
+     * Version number of the face detection model associated with the collection you are creating.
      */
     private $faceModelVersion;
 
