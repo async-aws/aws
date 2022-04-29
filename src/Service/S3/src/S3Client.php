@@ -973,21 +973,22 @@ class S3Client extends AbstractApi
     protected function getEndpoint(string $uri, array $query, ?string $region): string
     {
         $uriParts = explode('/', $uri, 3);
-        $bucket = $uriParts[1] ?? '';
+        $bucket = preg_replace('~\?.*~', '', $uriParts[1] ?? '');
+        $uriWithOutBucket = preg_replace('~^[^?]+~', '', $uriParts[1] ?? '') . ($uriParts[2] ?? '');
         $bucketLen = \strlen($bucket);
         $configuration = $this->getConfiguration();
 
         if (
-        $bucketLen < 3 || $bucketLen > 63
-        || filter_var($bucket, \FILTER_VALIDATE_IP) // Cannot look like an IP address
-        || !preg_match('/^[a-z0-9]([a-z0-9\-]*[a-z0-9])?$/', $bucket) // Bucket cannot have dot (because of TLS)
-        || filter_var(parse_url($configuration->get('endpoint'), \PHP_URL_HOST), \FILTER_VALIDATE_IP) // Custom endpoint cannot look like an IP address @phpstan-ignore-line
-        || filter_var($configuration->get('pathStyleEndpoint'), \FILTER_VALIDATE_BOOLEAN)
+            $bucketLen < 3 || $bucketLen > 63
+            || filter_var($bucket, \FILTER_VALIDATE_IP) // Cannot look like an IP address
+            || !preg_match('/^[a-z0-9]([a-z0-9\-]*[a-z0-9])?$/', $bucket) // Bucket cannot have dot (because of TLS)
+            || filter_var(parse_url($configuration->get('endpoint'), \PHP_URL_HOST), \FILTER_VALIDATE_IP) // Custom endpoint cannot look like an IP address @phpstan-ignore-line
+            || filter_var($configuration->get('pathStyleEndpoint'), \FILTER_VALIDATE_BOOLEAN)
         ) {
             return parent::getEndpoint($uri, $query, $region);
         }
 
-        return preg_replace('|https?://|', '${0}' . $uriParts[1] . '.', parent::getEndpoint('/' . ($uriParts[2] ?? ''), $query, $region));
+        return preg_replace('|https?://|', '${0}' . $bucket . '.', parent::getEndpoint('/' . $uriWithOutBucket, $query, $region));
     }
 
     protected function getEndpointMetadata(?string $region): array
