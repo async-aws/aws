@@ -31,7 +31,7 @@ class AwsRetryStrategy extends GenericRetryStrategy
             return true;
         }
 
-        if (400 !== $context->getStatusCode()) {
+        if (!\in_array($context->getStatusCode(), [400, 403], true)) {
             return false;
         }
 
