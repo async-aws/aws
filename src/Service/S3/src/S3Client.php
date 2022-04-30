@@ -974,7 +974,7 @@ class S3Client extends AbstractApi
     {
         $uriParts = explode('/', $uri, 3);
         $bucket = explode('?', $uriParts[1] ?? '', 2)[0];
-        $uriWithOutBucket = substr($uriParts[1] ?? '', strlen($bucket)) . ($uriParts[2] ?? '');
+        $uriWithOutBucket = substr($uriParts[1] ?? '', \strlen($bucket)) . ($uriParts[2] ?? '');
         $bucketLen = \strlen($bucket);
         $configuration = $this->getConfiguration();
 
