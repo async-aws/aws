@@ -973,8 +973,8 @@ class S3Client extends AbstractApi
     protected function getEndpoint(string $uri, array $query, ?string $region): string
     {
         $uriParts = explode('/', $uri, 3);
-        $bucket = preg_replace('~\?.*~', '', $uriParts[1] ?? '');
-        $uriWithOutBucket = preg_replace('~^[^?]+~', '', $uriParts[1] ?? '') . ($uriParts[2] ?? '');
+        $bucket = explode('?', $uriParts[1] ?? '', 2)[0];
+        $uriWithOutBucket = substr($uriParts[1] ?? '', strlen($bucket)) . ($uriParts[2] ?? '');
         $bucketLen = \strlen($bucket);
         $configuration = $this->getConfiguration();
 
