@@ -973,7 +973,8 @@ class S3Client extends AbstractApi
     protected function getEndpoint(string $uri, array $query, ?string $region): string
     {
         $uriParts = explode('/', $uri, 3);
-        $bucket = $uriParts[1] ?? '';
+        $bucket = explode('?', $uriParts[1] ?? '', 2)[0];
+        $uriWithOutBucket = substr($uriParts[1] ?? '', \strlen($bucket)) . ($uriParts[2] ?? '');
         $bucketLen = \strlen($bucket);
         $configuration = $this->getConfiguration();
 
@@ -987,7 +988,7 @@ class S3Client extends AbstractApi
             return parent::getEndpoint($uri, $query, $region);
         }
 
-        return preg_replace('|https?://|', '${0}' . $uriParts[1] . '.', parent::getEndpoint('/' . ($uriParts[2] ?? ''), $query, $region));
+        return preg_replace('|https?://|', '${0}' . $bucket . '.', parent::getEndpoint('/' . $uriWithOutBucket, $query, $region));
     }
 
     protected function getEndpointMetadata(?string $region): array
