@@ -11,6 +11,7 @@ package: async-aws/timestream-write
 
 ```php
 use AsyncAws\TimestreamWrite\Enum\MeasureValueType;
+use AsyncAws\TimestreamWrite\Input\DescribeEndpointsInput;
 use AsyncAws\TimestreamWrite\Input\WriteRecordsResponse;
 use AsyncAws\TimestreamWrite\TimestreamWriteClient;
 use AsyncAws\TimestreamWrite\ValueObject\Dimension;
@@ -18,7 +19,10 @@ use AsyncAws\TimestreamWrite\ValueObject\Record;
 
 $timestreamWrite = new TimestreamWriteClient();
 
+$endpoints = $timestreamWrite->describeEndpoints(new DescribeEndpointsInput())->getEndpoints();
+
 $timestreamWrite->writeRecords(new WriteRecordsRequest([
+    'EndpointAddress' => $endpoints[0]->getAddress(),
     'DatabaseName' => 'db',
     'TableName' => 'tbl',
     'CommonAttributes' => new Record([

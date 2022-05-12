@@ -14,12 +14,18 @@ use AsyncAws\Core\Exception\InvalidArgument;
 class RequestContext
 {
     public const AVAILABLE_OPTIONS = [
-        'region' => true,
+        'endpointAddress' => true,
         'operation' => true,
+        'region' => true,
         'expirationDate' => true,
         'currentDate' => true,
         'exceptionMapping' => true,
     ];
+
+    /**
+     * @var string|null
+     */
+    private $endpointAddress;
 
     /**
      * @var string|null
@@ -48,6 +54,7 @@ class RequestContext
 
     /**
      * @param array{
+     *  endpointAddress?: null|string
      *  operation?: null|string
      *  region?: null|string
      *  expirationDate?: null|\DateTimeImmutable
@@ -64,6 +71,11 @@ class RequestContext
         foreach ($options as $property => $value) {
             $this->$property = $value;
         }
+    }
+
+    public function getEndpointAddress(): ?string
+    {
+        return $this->endpointAddress;
     }
 
     public function getOperation(): ?string

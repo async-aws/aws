@@ -19,20 +19,36 @@ final class CancelQueryRequest extends Input
     private $queryId;
 
     /**
+     * The endpoint address, as returned by `DescribeEndpoints`.
+     *
+     * @required
+     *
+     * @var string|null
+     */
+    private $endpointAddress;
+
+    /**
      * @param array{
      *   QueryId?: string,
+     *   EndpointAddress?: string,
      *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
         $this->queryId = $input['QueryId'] ?? null;
+        $this->endpointAddress = $input['EndpointAddress'] ?? null;
         parent::__construct($input);
     }
 
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getEndpointAddress(): ?string
+    {
+        return $this->endpointAddress;
     }
 
     public function getQueryId(): ?string
@@ -63,6 +79,13 @@ final class CancelQueryRequest extends Input
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
+    }
+
+    public function setEndpointAddress(?string $value): self
+    {
+        $this->endpointAddress = $value;
+
+        return $this;
     }
 
     public function setQueryId(?string $value): self

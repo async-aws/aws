@@ -557,6 +557,7 @@
             "api-reference": "https://docs.aws.amazon.com/timestream/latest/developerguide/API_Operations_Amazon_Timestream_Query.html",
             "methods": [
                 "CancelQuery",
+                "DescribeEndpoints",
                 "PrepareQuery",
                 "Query"
             ]
@@ -568,6 +569,7 @@
             "namespace": "AsyncAws\\TimestreamWrite",
             "api-reference": "https://docs.aws.amazon.com/timestream/latest/developerguide/API_Operations_Amazon_Timestream_Write.html",
             "methods": [
+                "DescribeEndpoints",
                 "WriteRecords"
             ]
         },

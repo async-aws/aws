@@ -94,10 +94,11 @@ abstract class AbstractApi
         return $this->configuration;
     }
 
-    final public function presign(Input $input, ?\DateTimeImmutable $expires = null): string
+    final public function presign(Input $input, ?\DateTimeImmutable $expires = null, ?RequestContext $context = null): string
     {
         $request = $input->request();
-        $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery(), $input->getRegion()));
+        $contextEndpointAddress = null !== $context ? $context->getEndpointAddress() : null;
+        $request->setEndpoint($contextEndpointAddress ?? $this->getEndpoint($request->getUri(), $request->getQuery(), null !== $context ? $context->getRegion() : $input->getRegion()));
 
         if (null !== $credentials = $this->credentialProvider->getCredentials($this->configuration)) {
             $this->getSigner($input->getRegion())->presign($request, $credentials, new RequestContext(['expirationDate' => $expires]));
@@ -132,7 +133,8 @@ abstract class AbstractApi
 
     final protected function getResponse(Request $request, ?RequestContext $context = null): Response
     {
-        $request->setEndpoint($this->getEndpoint($request->getUri(), $request->getQuery(), $context ? $context->getRegion() : null));
+        $contextEndpointAddress = null !== $context ? $context->getEndpointAddress() : null;
+        $request->setEndpoint($contextEndpointAddress ?? $this->getEndpoint($request->getUri(), $request->getQuery(), null !== $context ? $context->getRegion() : null));
 
         if (null !== $credentials = $this->credentialProvider->getCredentials($this->configuration)) {
             $this->getSigner($context ? $context->getRegion() : null)->sign($request, $credentials, $context ?? new RequestContext());

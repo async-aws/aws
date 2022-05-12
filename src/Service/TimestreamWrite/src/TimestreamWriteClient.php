@@ -6,6 +6,7 @@ use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
 use AsyncAws\Core\Configuration;
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\TimestreamWrite\Exception\AccessDeniedException;
 use AsyncAws\TimestreamWrite\Exception\InternalServerException;
@@ -14,12 +15,41 @@ use AsyncAws\TimestreamWrite\Exception\RejectedRecordsException;
 use AsyncAws\TimestreamWrite\Exception\ResourceNotFoundException;
 use AsyncAws\TimestreamWrite\Exception\ThrottlingException;
 use AsyncAws\TimestreamWrite\Exception\ValidationException;
+use AsyncAws\TimestreamWrite\Input\DescribeEndpointsRequest;
 use AsyncAws\TimestreamWrite\Input\WriteRecordsRequest;
+use AsyncAws\TimestreamWrite\Result\DescribeEndpointsResponse;
 use AsyncAws\TimestreamWrite\Result\WriteRecordsResponse;
 use AsyncAws\TimestreamWrite\ValueObject\Record;
 
 class TimestreamWriteClient extends AbstractApi
 {
+    /**
+     * DescribeEndpoints returns a list of available endpoints to make Timestream API calls against. This API is available
+     * through both Write and Query.
+     *
+     * @see https://docs.aws.amazon.com/timestream/latest/developerguide/API_Operations_Amazon_Timestream_Write.html/API_DescribeEndpoints.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ingest.timestream-2018-11-01.html#describeendpoints
+     *
+     * @param array{
+     *   @region?: string,
+     * }|DescribeEndpointsRequest $input
+     *
+     * @throws InternalServerException
+     * @throws ValidationException
+     * @throws ThrottlingException
+     */
+    public function describeEndpoints($input = []): DescribeEndpointsResponse
+    {
+        $input = DescribeEndpointsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeEndpoints', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalServerException' => InternalServerException::class,
+            'ValidationException' => ValidationException::class,
+            'ThrottlingException' => ThrottlingException::class,
+        ]]));
+
+        return new DescribeEndpointsResponse($response);
+    }
+
     /**
      * The WriteRecords operation enables you to write your time series data into Timestream. You can specify a single data
      * point or a batch of data points to be inserted into the system. Timestream offers you with a flexible schema that
@@ -53,7 +83,11 @@ class TimestreamWriteClient extends AbstractApi
     public function writeRecords($input): WriteRecordsResponse
     {
         $input = WriteRecordsRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'WriteRecords', 'region' => $input->getRegion(), 'exceptionMapping' => [
+        $endpointAddress = $input->getEndpointAddress();
+        if (null === $endpointAddress) {
+            throw new InvalidArgument(sprintf('Missing parameter "EndpointAddress" for "%s". The value cannot be null.', \get_class($input)));
+        }
+        $response = $this->getResponse($input->request(), new RequestContext(['endpointAddress' => $endpointAddress, 'operation' => 'WriteRecords', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'InternalServerException' => InternalServerException::class,
             'ThrottlingException' => ThrottlingException::class,
             'ValidationException' => ValidationException::class,

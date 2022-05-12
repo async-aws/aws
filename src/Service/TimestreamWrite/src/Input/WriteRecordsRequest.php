@@ -50,11 +50,21 @@ final class WriteRecordsRequest extends Input
     private $records;
 
     /**
+     * The endpoint address, as returned by `DescribeEndpoints`.
+     *
+     * @required
+     *
+     * @var string|null
+     */
+    private $endpointAddress;
+
+    /**
      * @param array{
      *   DatabaseName?: string,
      *   TableName?: string,
      *   CommonAttributes?: Record|array,
      *   Records?: Record[],
+     *   EndpointAddress?: string,
      *   @region?: string,
      * } $input
      */
@@ -64,6 +74,7 @@ final class WriteRecordsRequest extends Input
         $this->tableName = $input['TableName'] ?? null;
         $this->commonAttributes = isset($input['CommonAttributes']) ? Record::create($input['CommonAttributes']) : null;
         $this->records = isset($input['Records']) ? array_map([Record::class, 'create'], $input['Records']) : null;
+        $this->endpointAddress = $input['EndpointAddress'] ?? null;
         parent::__construct($input);
     }
 
@@ -80,6 +91,11 @@ final class WriteRecordsRequest extends Input
     public function getDatabaseName(): ?string
     {
         return $this->databaseName;
+    }
+
+    public function getEndpointAddress(): ?string
+    {
+        return $this->endpointAddress;
     }
 
     /**
@@ -130,6 +146,13 @@ final class WriteRecordsRequest extends Input
     public function setDatabaseName(?string $value): self
     {
         $this->databaseName = $value;
+
+        return $this;
+    }
+
+    public function setEndpointAddress(?string $value): self
+    {
+        $this->endpointAddress = $value;
 
         return $this;
     }

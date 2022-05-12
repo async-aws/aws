@@ -10,6 +10,7 @@ use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
+use AsyncAws\Core\Exception\InvalidArgument as InvalidArgumentException;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
 use Nette\PhpGenerator\Method;
@@ -145,10 +146,23 @@ class OperationGenerator
             $body .= '@trigger_error(\sprintf(\'The operation "%s" is deprecated by AWS.\', __FUNCTION__), E_USER_DEPRECATED);';
         }
 
-        $body .= '
-                $input = INPUT_CLASS::create($input);
-                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion()EXCEPTION_MAPPING]));
-        ';
+        if ($operation->requiresEndpointDiscovery()) {
+            $classBuilder->addUse(InvalidArgumentException::class);
+            $body .= '
+                    $input = INPUT_CLASS::create($input);
+                    $endpointAddress = $input->getEndpointAddress();
+                    if (null === $endpointAddress) {
+                        throw new InvalidArgument(sprintf(\'Missing parameter "EndpointAddress" for "%s". The value cannot be null.\', \\get_class($input)));
+                    }
+                    $response = $this->getResponse($input->request(), new RequestContext(["endpointAddress" => $endpointAddress, "operation" => OPERATION_NAME, "region" => $input->getRegion()EXCEPTION_MAPPING]));
+            ';
+        } else {
+            $body .= '
+                    $input = INPUT_CLASS::create($input);
+                    $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion()EXCEPTION_MAPPING]));
+            ';
+        }
+
         if ((null !== $pagination = $operation->getPagination()) && !empty($pagination->getOutputToken())) {
             $body .= '
                 return new RESULT_CLASS($response, $this, $input);

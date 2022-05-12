@@ -28,9 +28,19 @@ final class PrepareQueryRequest extends Input
     private $validateOnly;
 
     /**
+     * The endpoint address, as returned by `DescribeEndpoints`.
+     *
+     * @required
+     *
+     * @var string|null
+     */
+    private $endpointAddress;
+
+    /**
      * @param array{
      *   QueryString?: string,
      *   ValidateOnly?: bool,
+     *   EndpointAddress?: string,
      *   @region?: string,
      * } $input
      */
@@ -38,12 +48,18 @@ final class PrepareQueryRequest extends Input
     {
         $this->queryString = $input['QueryString'] ?? null;
         $this->validateOnly = $input['ValidateOnly'] ?? null;
+        $this->endpointAddress = $input['EndpointAddress'] ?? null;
         parent::__construct($input);
     }
 
     public static function create($input): self
     {
         return $input instanceof self ? $input : new self($input);
+    }
+
+    public function getEndpointAddress(): ?string
+    {
+        return $this->endpointAddress;
     }
 
     public function getQueryString(): ?string
@@ -79,6 +95,13 @@ final class PrepareQueryRequest extends Input
 
         // Return the Request
         return new Request('POST', $uriString, $query, $headers, StreamFactory::create($body));
+    }
+
+    public function setEndpointAddress(?string $value): self
+    {
+        $this->endpointAddress = $value;
+
+        return $this;
     }
 
     public function setQueryString(?string $value): self

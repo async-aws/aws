@@ -4,6 +4,7 @@ namespace AsyncAws\TimestreamWrite\Tests\Integration;
 
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
+use AsyncAws\TimestreamWrite\Input\DescribeEndpointsRequest;
 use AsyncAws\TimestreamWrite\Input\WriteRecordsRequest;
 use AsyncAws\TimestreamWrite\TimestreamWriteClient;
 use AsyncAws\TimestreamWrite\ValueObject\Dimension;
@@ -12,6 +13,22 @@ use AsyncAws\TimestreamWrite\ValueObject\Record;
 
 class TimestreamWriteClientTest extends TestCase
 {
+    public function testDescribeEndpoints(): void
+    {
+        self::markTestIncomplete('Cannot test without support for timestream.');
+
+        $client = $this->getClient();
+
+        $input = new DescribeEndpointsRequest([
+
+        ]);
+        $result = $client->describeEndpoints($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getEndpoints());
+    }
+
     public function testWriteRecords(): void
     {
         self::markTestIncomplete('Cannot test without support for timestream.');

@@ -173,6 +173,11 @@ class Operation
         return $this->data['deprecated'] ?? false;
     }
 
+    public function requiresEndpointDiscovery(): bool
+    {
+        return $this->data['endpointdiscovery']['required'] ?? false;
+    }
+
     private function getInputShape(): Shape
     {
         if (isset($this->data['input']['shape'])) {

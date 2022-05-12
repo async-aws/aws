@@ -47,11 +47,21 @@ final class QueryRequest extends Input
     private $maxRows;
 
     /**
+     * The endpoint address, as returned by `DescribeEndpoints`.
+     *
+     * @required
+     *
+     * @var string|null
+     */
+    private $endpointAddress;
+
+    /**
      * @param array{
      *   QueryString?: string,
      *   ClientToken?: string,
      *   NextToken?: string,
      *   MaxRows?: int,
+     *   EndpointAddress?: string,
      *   @region?: string,
      * } $input
      */
@@ -61,6 +71,7 @@ final class QueryRequest extends Input
         $this->clientToken = $input['ClientToken'] ?? null;
         $this->nextToken = $input['NextToken'] ?? null;
         $this->maxRows = $input['MaxRows'] ?? null;
+        $this->endpointAddress = $input['EndpointAddress'] ?? null;
         parent::__construct($input);
     }
 
@@ -72,6 +83,11 @@ final class QueryRequest extends Input
     public function getClientToken(): ?string
     {
         return $this->clientToken;
+    }
+
+    public function getEndpointAddress(): ?string
+    {
+        return $this->endpointAddress;
     }
 
     public function getMaxRows(): ?int
@@ -117,6 +133,13 @@ final class QueryRequest extends Input
     public function setClientToken(?string $value): self
     {
         $this->clientToken = $value;
+
+        return $this;
+    }
+
+    public function setEndpointAddress(?string $value): self
+    {
+        $this->endpointAddress = $value;
 
         return $this;
     }

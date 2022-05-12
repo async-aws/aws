@@ -105,6 +105,9 @@ class InputGenerator
         $constructorBody = '';
 
         foreach ($shape->getMembers() as $member) {
+            if ('EndpointAddress' === $member->getName()) {
+                throw new \RuntimeException('Member conflict with "endpointAddress" parameter.');
+            }
             if ('region' === $member->getName()) {
                 throw new \RuntimeException('Member conflict with "@region" parameter.');
             }
@@ -264,6 +267,35 @@ class InputGenerator
             }
         }
 
+        if ($operation->requiresEndpointDiscovery()) {
+            $constructorBody .= strtr('$this->PROPERTY = $input["NAME"] ?? null;' . "\n", ['PROPERTY' => 'endpointAddress', 'NAME' => 'EndpointAddress']);
+
+            $property = $classBuilder->addProperty('endpointAddress')->setPrivate();
+            $property->addComment('The endpoint address, as returned by `DescribeEndpoints`.');
+            $property->addComment('@required');
+            $property->addComment("\n@var null|string");
+
+            $getter = $classBuilder->addMethod('getEndpointAddress')
+                ->setReturnType('string')
+                ->setReturnNullable(true);
+            $setter = $classBuilder->addMethod('setEndpointAddress')
+                ->setReturnType('self');
+
+            $getter->setBody(strtr('
+                return $this->PROPERTY;
+                ', [
+                'PROPERTY' => 'endpointAddress',
+            ]));
+
+            $setter->setBody(strtr('
+                    $this->PROPERTY = $value;
+                    return $this;
+                ', [
+                'PROPERTY' => 'endpointAddress',
+            ]));
+            $setter->addParameter('value')->setType('string')->setNullable(true);
+        }
+
         // Add named constructor
         $classBuilder->addMethod('create')
             ->setStatic(true)
@@ -273,7 +305,10 @@ class InputGenerator
 
         $constructorBody .= 'parent::__construct($input);';
         $constructor = $classBuilder->addMethod('__construct');
-        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $className, false, true, false, ['  @region?: string,']);
+        $extraDoc = $operation->requiresEndpointDiscovery()
+            ? ['  EndpointAddress?: string,', '  @region?: string,']
+            : ['  @region?: string,'];
+        [$doc, $memberClassNames] = $this->typeGenerator->generateDocblock($shape, $className, false, true, false, $extraDoc);
         $constructor->addComment($doc);
         foreach ($memberClassNames as $memberClassName) {
             $classBuilder->addUse($memberClassName->getFqdn());

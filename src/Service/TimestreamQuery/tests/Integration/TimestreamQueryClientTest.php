@@ -5,6 +5,7 @@ namespace AsyncAws\TimestreamQuery\Tests\Integration;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\TimestreamQuery\Input\CancelQueryRequest;
+use AsyncAws\TimestreamQuery\Input\DescribeEndpointsRequest;
 use AsyncAws\TimestreamQuery\Input\PrepareQueryRequest;
 use AsyncAws\TimestreamQuery\Input\QueryRequest;
 use AsyncAws\TimestreamQuery\TimestreamQueryClient;
@@ -25,6 +26,22 @@ class TimestreamQueryClientTest extends TestCase
         $result->resolve();
 
         self::assertSame('changeIt', $result->getCancellationMessage());
+    }
+
+    public function testDescribeEndpoints(): void
+    {
+        self::markTestIncomplete('Cannot test without support for timestream.');
+
+        $client = $this->getClient();
+
+        $input = new DescribeEndpointsRequest([
+
+        ]);
+        $result = $client->describeEndpoints($input);
+
+        $result->resolve();
+
+        // self::assertTODO(expected, $result->getEndpoints());
     }
 
     public function testPrepareQuery(): void

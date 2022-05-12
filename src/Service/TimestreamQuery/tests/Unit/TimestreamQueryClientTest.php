@@ -5,9 +5,11 @@ namespace AsyncAws\TimestreamQuery\Tests\Unit;
 use AsyncAws\Core\Credentials\NullProvider;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\TimestreamQuery\Input\CancelQueryRequest;
+use AsyncAws\TimestreamQuery\Input\DescribeEndpointsRequest;
 use AsyncAws\TimestreamQuery\Input\PrepareQueryRequest;
 use AsyncAws\TimestreamQuery\Input\QueryRequest;
 use AsyncAws\TimestreamQuery\Result\CancelQueryResponse;
+use AsyncAws\TimestreamQuery\Result\DescribeEndpointsResponse;
 use AsyncAws\TimestreamQuery\Result\PrepareQueryResponse;
 use AsyncAws\TimestreamQuery\Result\QueryResponse;
 use AsyncAws\TimestreamQuery\TimestreamQueryClient;
@@ -20,6 +22,7 @@ class TimestreamQueryClientTest extends TestCase
         $client = new TimestreamQueryClient([], new NullProvider(), new MockHttpClient());
 
         $input = new CancelQueryRequest([
+            'EndpointAddress' => 'ingest-cell2.timestream.us-east-1.amazonaws.com',
             'QueryId' => 'qwertyuiop',
         ]);
         $result = $client->cancelQuery($input);
@@ -28,11 +31,25 @@ class TimestreamQueryClientTest extends TestCase
         self::assertFalse($result->info()['resolved']);
     }
 
+    public function testDescribeEndpoints(): void
+    {
+        $client = new TimestreamQueryClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new DescribeEndpointsRequest([
+
+        ]);
+        $result = $client->describeEndpoints($input);
+
+        self::assertInstanceOf(DescribeEndpointsResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testPrepareQuery(): void
     {
         $client = new TimestreamQueryClient([], new NullProvider(), new MockHttpClient());
 
         $input = new PrepareQueryRequest([
+            'EndpointAddress' => 'ingest-cell2.timestream.us-east-1.amazonaws.com',
             'QueryString' => 'SELECT * FROM db.tbl ORDER BY time DESC LIMIT 10',
             'ValidateOnly' => true,
 
@@ -48,6 +65,7 @@ class TimestreamQueryClientTest extends TestCase
         $client = new TimestreamQueryClient([], new NullProvider(), new MockHttpClient());
 
         $input = new QueryRequest([
+            'EndpointAddress' => 'ingest-cell2.timestream.us-east-1.amazonaws.com',
             'ClientToken' => 'qwertyuiop',
             'QueryString' => 'SELECT * FROM db.tbl ORDER BY time DESC LIMIT 10',
 

@@ -6,6 +6,7 @@ use AsyncAws\Core\AbstractApi;
 use AsyncAws\Core\AwsError\AwsErrorFactoryInterface;
 use AsyncAws\Core\AwsError\JsonRpcAwsErrorFactory;
 use AsyncAws\Core\Configuration;
+use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\TimestreamQuery\Exception\AccessDeniedException;
 use AsyncAws\TimestreamQuery\Exception\ConflictException;
@@ -15,9 +16,11 @@ use AsyncAws\TimestreamQuery\Exception\QueryExecutionException;
 use AsyncAws\TimestreamQuery\Exception\ThrottlingException;
 use AsyncAws\TimestreamQuery\Exception\ValidationException;
 use AsyncAws\TimestreamQuery\Input\CancelQueryRequest;
+use AsyncAws\TimestreamQuery\Input\DescribeEndpointsRequest;
 use AsyncAws\TimestreamQuery\Input\PrepareQueryRequest;
 use AsyncAws\TimestreamQuery\Input\QueryRequest;
 use AsyncAws\TimestreamQuery\Result\CancelQueryResponse;
+use AsyncAws\TimestreamQuery\Result\DescribeEndpointsResponse;
 use AsyncAws\TimestreamQuery\Result\PrepareQueryResponse;
 use AsyncAws\TimestreamQuery\Result\QueryResponse;
 
@@ -47,7 +50,11 @@ class TimestreamQueryClient extends AbstractApi
     public function cancelQuery($input): CancelQueryResponse
     {
         $input = CancelQueryRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CancelQuery', 'region' => $input->getRegion(), 'exceptionMapping' => [
+        $endpointAddress = $input->getEndpointAddress();
+        if (null === $endpointAddress) {
+            throw new InvalidArgument(sprintf('Missing parameter "EndpointAddress" for "%s". The value cannot be null.', \get_class($input)));
+        }
+        $response = $this->getResponse($input->request(), new RequestContext(['endpointAddress' => $endpointAddress, 'operation' => 'CancelQuery', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'AccessDeniedException' => AccessDeniedException::class,
             'InternalServerException' => InternalServerException::class,
             'ThrottlingException' => ThrottlingException::class,
@@ -56,6 +63,33 @@ class TimestreamQueryClient extends AbstractApi
         ]]));
 
         return new CancelQueryResponse($response);
+    }
+
+    /**
+     * DescribeEndpoints returns a list of available endpoints to make Timestream API calls against. This API is available
+     * through both Write and Query.
+     *
+     * @see https://docs.aws.amazon.com/timestream/latest/developerguide/API_Operations_Amazon_Timestream_Query.html/API_DescribeEndpoints.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-query.timestream-2018-11-01.html#describeendpoints
+     *
+     * @param array{
+     *   @region?: string,
+     * }|DescribeEndpointsRequest $input
+     *
+     * @throws InternalServerException
+     * @throws ValidationException
+     * @throws ThrottlingException
+     */
+    public function describeEndpoints($input = []): DescribeEndpointsResponse
+    {
+        $input = DescribeEndpointsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeEndpoints', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalServerException' => InternalServerException::class,
+            'ValidationException' => ValidationException::class,
+            'ThrottlingException' => ThrottlingException::class,
+        ]]));
+
+        return new DescribeEndpointsResponse($response);
     }
 
     /**
@@ -80,7 +114,11 @@ class TimestreamQueryClient extends AbstractApi
     public function prepareQuery($input): PrepareQueryResponse
     {
         $input = PrepareQueryRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'PrepareQuery', 'region' => $input->getRegion(), 'exceptionMapping' => [
+        $endpointAddress = $input->getEndpointAddress();
+        if (null === $endpointAddress) {
+            throw new InvalidArgument(sprintf('Missing parameter "EndpointAddress" for "%s". The value cannot be null.', \get_class($input)));
+        }
+        $response = $this->getResponse($input->request(), new RequestContext(['endpointAddress' => $endpointAddress, 'operation' => 'PrepareQuery', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'AccessDeniedException' => AccessDeniedException::class,
             'InternalServerException' => InternalServerException::class,
             'ThrottlingException' => ThrottlingException::class,
@@ -119,7 +157,11 @@ class TimestreamQueryClient extends AbstractApi
     public function query($input): QueryResponse
     {
         $input = QueryRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'Query', 'region' => $input->getRegion(), 'exceptionMapping' => [
+        $endpointAddress = $input->getEndpointAddress();
+        if (null === $endpointAddress) {
+            throw new InvalidArgument(sprintf('Missing parameter "EndpointAddress" for "%s". The value cannot be null.', \get_class($input)));
+        }
+        $response = $this->getResponse($input->request(), new RequestContext(['endpointAddress' => $endpointAddress, 'operation' => 'Query', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'AccessDeniedException' => AccessDeniedException::class,
             'ConflictException' => ConflictException::class,
             'InternalServerException' => InternalServerException::class,
