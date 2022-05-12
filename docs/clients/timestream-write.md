@@ -22,7 +22,7 @@ $timestreamWrite = new TimestreamWriteClient();
 $endpoints = $timestreamWrite->describeEndpoints(new DescribeEndpointsInput())->getEndpoints();
 
 $timestreamWrite->writeRecords(new WriteRecordsRequest([
-    'EndpointAddress' => $endpoints[0]->getAddress(),
+    'EndpointAddress' => sprintf('https://%s', $endpoints[0]->getAddress()),
     'DatabaseName' => 'db',
     'TableName' => 'tbl',
     'CommonAttributes' => new Record([

@@ -19,7 +19,7 @@ $timestreamQuery = new TimestreamQueryClient();
 $endpoints = $timestreamQuery->describeEndpoints(new DescribeEndpointsInput())->getEndpoints();
 
 $result = $timestreamQuery->query(new QueryInput([
-    'EndpointAddress' => $endpoints[0]->getAddress(),
+    'EndpointAddress' => sprintf('https://%s', $endpoints[0]->getAddress()),
     'ClientToken' => 'qwertyuiop',
     'QueryString' => 'SELECT * FROM db.tbl ORDER BY time DESC LIMIT 10',
 ]));
