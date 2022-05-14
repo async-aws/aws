@@ -15,9 +15,11 @@ use AsyncAws\TimestreamQuery\Exception\QueryExecutionException;
 use AsyncAws\TimestreamQuery\Exception\ThrottlingException;
 use AsyncAws\TimestreamQuery\Exception\ValidationException;
 use AsyncAws\TimestreamQuery\Input\CancelQueryRequest;
+use AsyncAws\TimestreamQuery\Input\DescribeEndpointsRequest;
 use AsyncAws\TimestreamQuery\Input\PrepareQueryRequest;
 use AsyncAws\TimestreamQuery\Input\QueryRequest;
 use AsyncAws\TimestreamQuery\Result\CancelQueryResponse;
+use AsyncAws\TimestreamQuery\Result\DescribeEndpointsResponse;
 use AsyncAws\TimestreamQuery\Result\PrepareQueryResponse;
 use AsyncAws\TimestreamQuery\Result\QueryResponse;
 
@@ -53,9 +55,36 @@ class TimestreamQueryClient extends AbstractApi
             'ThrottlingException' => ThrottlingException::class,
             'ValidationException' => ValidationException::class,
             'InvalidEndpointException' => InvalidEndpointException::class,
-        ]]));
+        ], 'requiresEndpointDiscovery' => true, 'usesEndpointDiscovery' => true]));
 
         return new CancelQueryResponse($response);
+    }
+
+    /**
+     * DescribeEndpoints returns a list of available endpoints to make Timestream API calls against. This API is available
+     * through both Write and Query.
+     *
+     * @see https://docs.aws.amazon.com/timestream/latest/developerguide/API_DescribeEndpoints.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-query.timestream-2018-11-01.html#describeendpoints
+     *
+     * @param array{
+     *   @region?: string,
+     * }|DescribeEndpointsRequest $input
+     *
+     * @throws InternalServerException
+     * @throws ValidationException
+     * @throws ThrottlingException
+     */
+    public function describeEndpoints($input = []): DescribeEndpointsResponse
+    {
+        $input = DescribeEndpointsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeEndpoints', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InternalServerException' => InternalServerException::class,
+            'ValidationException' => ValidationException::class,
+            'ThrottlingException' => ThrottlingException::class,
+        ]]));
+
+        return new DescribeEndpointsResponse($response);
     }
 
     /**
@@ -86,7 +115,7 @@ class TimestreamQueryClient extends AbstractApi
             'ThrottlingException' => ThrottlingException::class,
             'ValidationException' => ValidationException::class,
             'InvalidEndpointException' => InvalidEndpointException::class,
-        ]]));
+        ], 'requiresEndpointDiscovery' => true, 'usesEndpointDiscovery' => true]));
 
         return new PrepareQueryResponse($response);
     }
@@ -127,9 +156,14 @@ class TimestreamQueryClient extends AbstractApi
             'ThrottlingException' => ThrottlingException::class,
             'ValidationException' => ValidationException::class,
             'InvalidEndpointException' => InvalidEndpointException::class,
-        ]]));
+        ], 'requiresEndpointDiscovery' => true, 'usesEndpointDiscovery' => true]));
 
         return new QueryResponse($response, $this, $input);
+    }
+
+    protected function discoverEndpoints(?string $region): array
+    {
+        return $this->describeEndpoints($region ? ['@region' => $region] : [])->getEndpoints();
     }
 
     protected function getAwsErrorFactory(): AwsErrorFactoryInterface

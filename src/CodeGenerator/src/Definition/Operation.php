@@ -173,6 +173,21 @@ class Operation
         return $this->data['deprecated'] ?? false;
     }
 
+    public function requiresEndpointDiscovery(): bool
+    {
+        return $this->data['endpointdiscovery']['required'] ?? false;
+    }
+
+    public function usesEndpointDiscovery(): bool
+    {
+        return isset($this->data['endpointdiscovery']);
+    }
+
+    public function isEndpointOperation(): bool
+    {
+        return $this->data['endpointoperation'] ?? false;
+    }
+
     private function getInputShape(): Shape
     {
         if (isset($this->data['input']['shape'])) {

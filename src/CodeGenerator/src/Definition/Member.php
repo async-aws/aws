@@ -18,6 +18,10 @@ class Member
 
     public function __construct(array $data, \Closure $shapeLocator)
     {
+        if (isset($data['endpointdiscoveryid'])) {
+            throw new \LogicException('EndpointOperation with identifier parameters is not implemented yet');
+        }
+
         $this->data = $data;
         $this->shapeLocator = $shapeLocator;
     }

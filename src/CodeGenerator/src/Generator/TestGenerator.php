@@ -170,7 +170,7 @@ class TestGenerator
         $classBuilder->addUse(MockHttpClient::class);
 
         $exampleOutput = $operation->getExample()->getOutput();
-        $comment = $exampleOutput ? '// see example-1.json from SDK' : '// see https://docs.aws.amazon.com/SERVICE/latest/APIReference/API_OPERATION.html';
+        $comment = $exampleOutput ? '// see example-1.json from SDK' : '// see ' . $operation->getApiReferenceDocumentationUrl();
         switch ($operation->getService()->getProtocol()) {
             case 'rest-xml':
             case 'query':

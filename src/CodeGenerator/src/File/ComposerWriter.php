@@ -30,7 +30,7 @@ class ComposerWriter
                 $content['require']['ext-filter'],
             );
         }
-        $content['require'] += $requirements;
+        $content['require'] = $requirements + $content['require'];
         uksort($content['require'], function ($a, $b) {
             $la = 'php' === $a ? 0 : ('ext-' === substr($a, 0, 4) ? 1 : 2);
             $lb = 'php' === $b ? 0 : ('ext-' === substr($b, 0, 4) ? 1 : 2);

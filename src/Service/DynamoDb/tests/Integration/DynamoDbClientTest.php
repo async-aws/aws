@@ -519,6 +519,23 @@ class DynamoDbClientTest extends TestCase
         self::assertSame('attribute', $result->getTimeToLiveSpecification()->getAttributeName());
     }
 
+    public function testDiscoveredEndpoint(): void
+    {
+        $client = new DynamoDbClient([
+            'endpoint' => 'http://localhost:4575',
+            'endpointDiscoveryEnabled' => true,
+        ], new Credentials('aws_id', 'aws_secret'));
+
+        $input = new ListTablesInput([
+            'ExclusiveStartTableName' => 'Thr',
+            'Limit' => 5,
+        ]);
+        $result = $client->ListTables($input);
+
+        $names = iterator_to_array($result->getTableNames(true));
+        self::assertTrue(\count($names) >= 0);
+    }
+
     private function getClient(): DynamoDbClient
     {
         if ($this->client instanceof DynamoDbClient) {

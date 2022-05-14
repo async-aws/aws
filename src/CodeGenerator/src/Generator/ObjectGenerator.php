@@ -15,6 +15,7 @@ use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
 use AsyncAws\CodeGenerator\Generator\RequestSerializer\SerializerProvider;
+use AsyncAws\Core\EndpointDiscovery\EndpointInterface;
 use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Stream\ResultStream;
 
@@ -72,7 +73,7 @@ class ObjectGenerator
         $this->managedMethods = $managedMethods;
     }
 
-    public function generate(StructureShape $shape): ClassName
+    public function generate(StructureShape $shape, bool $forEndpoint = false): ClassName
     {
         if (isset($this->generated[$shape->getName()])) {
             return $this->generated[$shape->getName()];
@@ -87,7 +88,12 @@ class ObjectGenerator
 
         // Named constructor
         $this->namedConstructor($shape, $classBuilder);
-        $this->addProperties($shape, $classBuilder);
+        $this->addProperties($shape, $classBuilder, $forEndpoint);
+
+        if ($forEndpoint) {
+            $classBuilder->addUse(EndpointInterface::class);
+            $classBuilder->addImplement(EndpointInterface::class);
+        }
 
         $serializer = $this->serializer->get($shape->getService());
         if ($this->isShapeUsedInput($shape)) {
@@ -201,17 +207,24 @@ class ObjectGenerator
     /**
      * Add properties and getters.
      */
-    private function addProperties(StructureShape $shape, ClassBuilder $classBuilder): void
+    private function addProperties(StructureShape $shape, ClassBuilder $classBuilder, bool $forEndpoint): void
     {
+        $forEndpointProps = $forEndpoint ? ['address' => false, 'cachePeriodInMinutes' => false] : ['address' => true, 'cachePeriodInMinutes' => true];
         foreach ($shape->getMembers() as $member) {
             $nullable = $returnType = null;
             $memberShape = $member->getShape();
-            $property = $classBuilder->addProperty(GeneratorHelper::normalizeName($member->getName()))->setPrivate();
+            $property = $classBuilder->addProperty($propertyName = GeneratorHelper::normalizeName($member->getName()))->setPrivate();
             if (null !== $propertyDocumentation = $memberShape->getDocumentation()) {
                 $property->setComment(GeneratorHelper::parseDocumentation($propertyDocumentation));
             }
 
             [$returnType, $parameterType, $memberClassNames] = $this->typeGenerator->getPhpType($memberShape);
+            if ($forEndpoint && isset($forEndpointProps[$propertyName])) {
+                $forEndpointProps[$propertyName] = true;
+                if ('cachePeriodInMinutes' === $propertyName) {
+                    $returnType = $parameterType = 'int';
+                }
+            }
             foreach ($memberClassNames as $memberClassName) {
                 $classBuilder->addUse($memberClassName->getFqdn());
             }
@@ -287,6 +300,14 @@ class ObjectGenerator
                 $method->addComment('@return ' . $parameterType . ($nullable ? '|null' : ''));
             }
             $method->setReturnNullable($nullable);
+        }
+
+        foreach ($forEndpointProps as $key => $ok) {
+            if ($ok) {
+                continue;
+            }
+
+            throw new \LogicException(sprintf('Missing Endpoint property "%s" in "%s" object', $key, $shape->getName()));
         }
     }
 }

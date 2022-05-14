@@ -76,6 +76,17 @@ class ServiceDefinition
         return null;
     }
 
+    public function findEndpointOperationName(): ?Operation
+    {
+        foreach ($this->definition['operations'] as $name => $data) {
+            if (isset($data['endpointoperation'])) {
+                return $this->getOperation($name);
+            }
+        }
+
+        return null;
+    }
+
     public function getWaiter(string $name): ?Waiter
     {
         if (isset($this->waiter['waiters'][$name])) {
@@ -147,7 +158,6 @@ class ServiceDefinition
     private function getShape(string $name, ?Member $member, array $extra): ?Shape
     {
         if (isset($this->definition['shapes'][$name])) {
-            $documentation = null;
             if ($member instanceof StructureMember) {
                 $documentation = $this->documentation['shapes'][$name]['refs'][$member->getOwnerShape()->getName() . '$' . $member->getName()] ?? null;
             } else {
