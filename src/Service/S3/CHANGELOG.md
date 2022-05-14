@@ -5,6 +5,7 @@
 ### Fixed
 
 - Format datetime with `RFC7231` to provide a workaround for unsupported `RFC822` format.
+- Broken path to host when operation's URL contains a query string.
 
 ### Changed
 
