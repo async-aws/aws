@@ -8,6 +8,7 @@ use AsyncAws\Core\Credentials\CacheProvider;
 use AsyncAws\Core\Credentials\ChainProvider;
 use AsyncAws\Core\Credentials\CredentialProvider;
 use AsyncAws\Core\Credentials\SymfonyCacheProvider;
+use AsyncAws\Core\HttpClient\AwsHttpClientFactory;
 use AsyncAws\Symfony\Bundle\Secrets\CachedEnvVarLoader;
 use AsyncAws\Symfony\Bundle\Secrets\SsmVault;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -17,6 +18,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class AsyncAwsExtension extends Extension
 {
@@ -94,7 +96,16 @@ class AsyncAwsExtension extends Extension
             $httpClient = $config['http_client'] ? new Reference($config['http_client']) : null;
         } else {
             // Use default Symfony http_client unless explicitly set to null.
-            $httpClient = new Reference('http_client', ContainerInterface::NULL_ON_INVALID_REFERENCE);
+            if (class_exists(AwsHttpClientFactory::class)) {
+                $httpClient = new Definition(HttpClientInterface::class);
+                $httpClient->setFactory([AwsHttpClientFactory::class, 'createRetryableClient'])
+                    ->setArguments([
+                        new Reference('http_clients', ContainerInterface::NULL_ON_INVALID_REFERENCE),
+                        $logger,
+                    ]);
+            } else {
+                $httpClient = new Reference('http_client', ContainerInterface::NULL_ON_INVALID_REFERENCE);
+            }
         }
 
         // If no credential provider is specified, lets configured a credentials provider with cache.
@@ -126,10 +137,12 @@ class AsyncAwsExtension extends Extension
         }
 
         $definition = new Definition($clientClass);
-        $definition->addArgument($config['config']);
-        $definition->addArgument($credentialServiceId ? new Reference($credentialServiceId) : null);
-        $definition->addArgument($httpClient);
-        $definition->addArgument($logger);
+        $definition->setArguments([
+            $config['config'],
+            $credentialServiceId ? new Reference($credentialServiceId) : null,
+            $httpClient,
+            $logger,
+        ]);
         $definition->addTag('monolog.logger', ['channel' => 'async_aws']);
         $container->setDefinition(sprintf('async_aws.client.%s', $name), $definition);
     }

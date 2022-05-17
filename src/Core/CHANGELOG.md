@@ -9,6 +9,8 @@
 - Support for TimestreamQuery
 - Support for TimestreamWrite
 - AWS enhancement: Documentation updates.
+- Reverted the automated decoration of the injected HttpClient
+- Added an AwsHttpClientFactory to help people creating retryable clients
 
 ### Changed
 
