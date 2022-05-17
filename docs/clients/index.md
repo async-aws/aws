@@ -21,13 +21,16 @@ All arguments are optional and sensible defaults are used.
 ```php
 use AsyncAws\Core\Configuration;
 use AsyncAws\Core\Credentials\ConfigurationProvider;
+use AsyncAws\Core\HttpClient\AwsRetryStrategy;
 use AsyncAws\DynamoDb\DynamoDbClient;
+use Symfony\Component\HttpClient\RetryableHttpClient;
 
 $config = Configuration::create([
     'region' => 'eu-central-1',
 ]);
 $credentialProvider = new ConfigurationProvider();
-$httpClient = // ... Instance of Symfony's HttpClientInterface
+$httpClient = HttpClient::create(); // ... Instance of Symfony's HttpClientInterface
+// $httpClient = new RetryableHttpClient($httpClient, new AwsRetryStrategy()); To enable automatic retries
 $logger = // ... A PSR-3 logger
 
 $dynamoDb = new DynamoDbClient($config, $credentialProvider, $httpClient, $logger);
