@@ -15,7 +15,10 @@ use AsyncAws\Kms\ValueObject\Tag;
 final class CreateKeyRequest extends Input
 {
     /**
-     * The key policy to attach to the KMS key.
+     * The key policy to attach to the KMS key. If you do not specify a key policy, KMS attaches a default key policy to the
+     * KMS key. For more information, see Default key policy in the *Key Management Service Developer Guide*.
+     *
+     * @see https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default
      *
      * @var string|null
      */

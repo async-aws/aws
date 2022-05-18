@@ -7,10 +7,10 @@ namespace AsyncAws\Kms\Enum;
  * symmetric key for encryption and decryption. For help choosing a key spec for your KMS key, see Choosing a KMS key
  * type in the **Key Management Service Developer Guide**.
  * The `KeySpec` determines whether the KMS key contains a symmetric key or an asymmetric key pair. It also determines
- * the algorithms that the KMS key supports. You can't change the `KeySpec` after the KMS key is created. To further
- * restrict the algorithms that can be used with the KMS key, use a condition key in its key policy or IAM policy. For
- * more information, see kms:EncryptionAlgorithm, kms:MacAlgorithm or kms:Signing Algorithm in the **Key Management
- * Service Developer Guide**.
+ * the cryptographic algorithms that the KMS key supports. You can't change the `KeySpec` after the KMS key is created.
+ * To further restrict the algorithms that can be used with the KMS key, use a condition key in its key policy or IAM
+ * policy. For more information, see kms:EncryptionAlgorithm, kms:MacAlgorithm or kms:Signing Algorithm in the **Key
+ * Management Service Developer Guide**.
  *
  * ! Amazon Web Services services that are integrated with KMS use symmetric encryption KMS keys to protect your data.
  * ! These services do not support asymmetric KMS keys or HMAC KMS keys.
