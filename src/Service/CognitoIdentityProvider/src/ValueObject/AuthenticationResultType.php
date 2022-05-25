@@ -10,7 +10,7 @@ namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 final class AuthenticationResultType
 {
     /**
-     * The access token.
+     * A valid access token that Amazon Cognito issued to the user who you want to authenticate.
      */
     private $accessToken;
 

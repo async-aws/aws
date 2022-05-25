@@ -13,7 +13,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class GetUserRequest extends Input
 {
     /**
-     * The access token returned by the server response to get information about the user.
+     * A non-expired access token for the user whose information you want to query.
      *
      * @required
      *

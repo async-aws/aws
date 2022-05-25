@@ -6,9 +6,10 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * This exception is thrown when a user tries to confirm the account with an email or phone number that has already been
- * supplied as an alias from a different account. This exception tells user that an account with this email or phone
- * already exists.
+ * This exception is thrown when a user tries to confirm the account with an email address or phone number that has
+ * already been supplied as an alias from a different account. This exception indicates that an account with this email
+ * address or phone already exists in a user pool that you've configured to use email address or phone number as a
+ * sign-in alias.
  */
 final class AliasExistsException extends ClientException
 {

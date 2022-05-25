@@ -65,7 +65,7 @@ final class SignUpRequest extends Input
     private $validationData;
 
     /**
-     * The Amazon Pinpoint analytics metadata for collecting metrics for `SignUp` calls.
+     * The Amazon Pinpoint analytics metadata that contributes to your metrics for `SignUp` calls.
      *
      * @var AnalyticsMetadataType|null
      */

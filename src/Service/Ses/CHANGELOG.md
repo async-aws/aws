@@ -5,6 +5,7 @@
 ### Added
 
 - AWS api-change: reorder regions
+- AWS api-change: TODO
 
 ## 1.4.1
 
