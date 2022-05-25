@@ -10,17 +10,17 @@ use AsyncAws\CognitoIdentityProvider\Enum\DeliveryMediumType;
 final class CodeDeliveryDetailsType
 {
     /**
-     * The destination for the code delivery details.
+     * The email address or phone number destination where Amazon Cognito sent the code.
      */
     private $destination;
 
     /**
-     * The delivery medium (email message or phone number).
+     * The method that Amazon Cognito used to send the code.
      */
     private $deliveryMedium;
 
     /**
-     * The attribute name.
+     * The name of the attribute that Amazon Cognito verifies with the code.
      */
     private $attributeName;
 

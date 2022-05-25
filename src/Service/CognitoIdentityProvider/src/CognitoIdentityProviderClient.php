@@ -460,9 +460,11 @@ class CognitoIdentityProviderClient extends AbstractApi
     }
 
     /**
-     * Signs out users from all devices, as an administrator. It also invalidates all refresh tokens issued to a user. The
-     * user's current access and Id tokens remain valid until their expiry. Access and Id tokens expire one hour after
-     * they're issued.
+     * Signs out a user from all devices. You must sign `AdminUserGlobalSignOut` requests with Amazon Web Services
+     * credentials. It also invalidates all refresh tokens that Amazon Cognito has issued to a user. The user's current
+     * access and ID tokens remain valid until they expire. By default, access and ID tokens expire one hour after they're
+     * issued. A user can still use a hosted UI cookie to retrieve new tokens for the duration of the cookie validity period
+     * of 1 hour.
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminUserGlobalSignOut.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#adminuserglobalsignout
@@ -730,8 +732,10 @@ class CognitoIdentityProviderClient extends AbstractApi
     }
 
     /**
-     * Initiates the authentication flow.
+     * Initiates sign-in for a user in the Amazon Cognito user directory. You can't sign in a user with a federated IdP with
+     * `InitiateAuth`. For more information, see  Adding user pool sign-in through a third party.
      *
+     * @see https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-identity-federation.html
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#initiateauth
      *

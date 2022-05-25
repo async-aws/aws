@@ -49,7 +49,7 @@ final class ResendConfirmationCodeRequest extends Input
     private $username;
 
     /**
-     * The Amazon Pinpoint analytics metadata for collecting metrics for `ResendConfirmationCode` calls.
+     * The Amazon Pinpoint analytics metadata that contributes to your metrics for `ResendConfirmationCode` calls.
      *
      * @var AnalyticsMetadataType|null
      */

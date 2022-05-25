@@ -10,7 +10,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class VerifySoftwareTokenRequest extends Input
 {
     /**
-     * The access token.
+     * A valid access token that Amazon Cognito issued to the user whose software token you want to verify.
      *
      * @var string|null
      */

@@ -31,7 +31,7 @@ final class ChangePasswordRequest extends Input
     private $proposedPassword;
 
     /**
-     * The access token.
+     * A valid access token that Amazon Cognito issued to the user whose password you want to change.
      *
      * @required
      *

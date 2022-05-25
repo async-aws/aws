@@ -49,7 +49,7 @@ final class ForgotPasswordRequest extends Input
     private $username;
 
     /**
-     * The Amazon Pinpoint analytics metadata for collecting metrics for `ForgotPassword` calls.
+     * The Amazon Pinpoint analytics metadata that contributes to your metrics for `ForgotPassword` calls.
      *
      * @var AnalyticsMetadataType|null
      */

@@ -51,7 +51,7 @@ final class RespondToAuthChallengeRequest extends Input
     private $challengeResponses;
 
     /**
-     * The Amazon Pinpoint analytics metadata for collecting metrics for `RespondToAuthChallenge` calls.
+     * The Amazon Pinpoint analytics metadata that contributes to your metrics for `RespondToAuthChallenge` calls.
      *
      * @var AnalyticsMetadataType|null
      */

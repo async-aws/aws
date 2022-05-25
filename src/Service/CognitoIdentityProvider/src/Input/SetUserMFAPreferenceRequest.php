@@ -26,7 +26,7 @@ final class SetUserMFAPreferenceRequest extends Input
     private $softwareTokenMfaSettings;
 
     /**
-     * The access token for the user.
+     * A valid access token that Amazon Cognito issued to the user whose MFA preference you want to set.
      *
      * @required
      *

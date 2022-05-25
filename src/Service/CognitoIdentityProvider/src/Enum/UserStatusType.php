@@ -7,6 +7,7 @@ namespace AsyncAws\CognitoIdentityProvider\Enum;
  *
  * - UNCONFIRMED - User has been created but not confirmed.
  * - CONFIRMED - User has been confirmed.
+ * - EXTERNAL_PROVIDER - User signed in with a third-party IdP.
  * - ARCHIVED - User is no longer active.
  * - UNKNOWN - User status isn't known.
  * - RESET_REQUIRED - User is confirmed, but the user must request a code and reset their password before they can sign

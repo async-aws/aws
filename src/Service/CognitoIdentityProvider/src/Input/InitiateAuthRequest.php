@@ -49,7 +49,7 @@ final class InitiateAuthRequest extends Input
     private $clientId;
 
     /**
-     * The Amazon Pinpoint analytics metadata for collecting metrics for `InitiateAuth` calls.
+     * The Amazon Pinpoint analytics metadata that contributes to your metrics for `InitiateAuth` calls.
      *
      * @var AnalyticsMetadataType|null
      */
