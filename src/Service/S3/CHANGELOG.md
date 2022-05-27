@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.12.0
+
 ### Fixed
 
 - Format datetime with `RFC7231` to provide a workaround for unsupported `RFC822` format.

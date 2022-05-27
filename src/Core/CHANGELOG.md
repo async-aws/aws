@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.15.0
+
 ### Added
 
 - Support for CodeBuild
@@ -11,6 +13,7 @@
 - AWS enhancement: Documentation updates.
 - Reverted the automated decoration of the injected HttpClient
 - Added an AwsHttpClientFactory to help people creating retryable clients
+- Add 403 errors in the list of potential retryiable operations
 
 ### Changed
 
