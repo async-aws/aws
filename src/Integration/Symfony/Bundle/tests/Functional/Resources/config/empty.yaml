@@ -1,4 +1,5 @@
 framework:
     session:
         enabled: false
+    http_method_override: false
 async_aws: ~
