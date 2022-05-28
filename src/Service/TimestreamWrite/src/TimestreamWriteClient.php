@@ -31,7 +31,7 @@ class TimestreamWriteClient extends AbstractApi
      * quotas apply.
      *
      * @see https://docs.aws.amazon.com/timestream/latest/developerguide/ts-limits.html
-     * @see https://docs.aws.amazon.com/timestream/latest/developerguide/API_Operations_Amazon_Timestream_Write.html/API_WriteRecords.html
+     * @see https://docs.aws.amazon.com/timestream/latest/developerguide/API_WriteRecords.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-ingest.timestream-2018-11-01.html#writerecords
      *
      * @param array{
