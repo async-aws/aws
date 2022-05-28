@@ -11,6 +11,7 @@ package: async-aws/translate
 
 ```php
 use AsyncAws\Translate\TranslateClient;
+use AsyncAws\Translate\ValueObject\TranslationSettings;
 
 $translate = new TranslateClient();
 
