@@ -576,7 +576,7 @@
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/translate/2017-07-01/docs-2.json",
             "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/translate/2017-07-01/paginators-1.json",
             "namespace": "AsyncAws\\Translate",
-            "api-reference": "https://docs.aws.amazon.com/translate/latest/dg/API_Reference.html",
+            "api-reference": "https://docs.aws.amazon.com/translate/latest/dg",
             "methods": [
                 "TranslateText"
             ]
