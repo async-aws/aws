@@ -30,7 +30,7 @@ class TimestreamQueryClient extends AbstractApi
      * details.
      *
      * @see https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.cancel-query.html
-     * @see https://docs.aws.amazon.com/timestream/latest/developerguide/API_Operations_Amazon_Timestream_Query.html/API_CancelQuery.html
+     * @see https://docs.aws.amazon.com/timestream/latest/developerguide/API_CancelQuery.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-query.timestream-2018-11-01.html#cancelquery
      *
      * @param array{
@@ -62,7 +62,7 @@ class TimestreamQueryClient extends AbstractApi
      * A synchronous operation that allows you to submit a query with parameters to be stored by Timestream for later
      * running. Timestream only supports using this operation with the `PrepareQueryRequest$ValidateOnly` set to `true`.
      *
-     * @see https://docs.aws.amazon.com/timestream/latest/developerguide/API_Operations_Amazon_Timestream_Query.html/API_PrepareQuery.html
+     * @see https://docs.aws.amazon.com/timestream/latest/developerguide/API_PrepareQuery.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-query.timestream-2018-11-01.html#preparequery
      *
      * @param array{
@@ -97,7 +97,7 @@ class TimestreamQueryClient extends AbstractApi
      * code sample for details.
      *
      * @see https://docs.aws.amazon.com/timestream/latest/developerguide/code-samples.run-query.html
-     * @see https://docs.aws.amazon.com/timestream/latest/developerguide/API_Operations_Amazon_Timestream_Query.html/API_Query.html
+     * @see https://docs.aws.amazon.com/timestream/latest/developerguide/API_Query.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-query.timestream-2018-11-01.html#query
      *
      * @param array{
