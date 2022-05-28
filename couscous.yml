@@ -124,6 +124,9 @@ menu:
             timestream-write:
                 text: Timestream Write
                 url: /clients/timestream-write.html
+            translate:
+                text: Translate
+                url: /clients/translate.html
             x-ray:
                 text: X-Ray
                 url: /clients/x-ray.html

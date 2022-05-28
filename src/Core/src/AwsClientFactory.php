@@ -40,6 +40,7 @@ use AsyncAws\Ssm\SsmClient;
 use AsyncAws\StepFunctions\StepFunctionsClient;
 use AsyncAws\TimestreamQuery\TimestreamQueryClient;
 use AsyncAws\TimestreamWrite\TimestreamWriteClient;
+use AsyncAws\Translate\TranslateClient;
 use AsyncAws\XRay\XRayClient;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -476,6 +477,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new TimestreamWriteClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function translate(): TranslateClient
+    {
+        if (!class_exists(TranslateClient::class)) {
+            throw MissingDependency::create('async-aws/translate', 'Translate');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new TranslateClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];
