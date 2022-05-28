@@ -137,6 +137,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\TimestreamWrite\TimestreamWriteClient::class,
                 'package' => 'async-aws/timestream-write',
             ],
+            'translate' => [
+                'class' => \AsyncAws\Translate\TranslateClient::class,
+                'package' => 'async-aws/translate',
+            ],
             'x_ray' => [
                 'class' => \AsyncAws\XRay\XRayClient::class,
                 'package' => 'async-aws/x-ray',
