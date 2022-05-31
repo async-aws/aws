@@ -284,18 +284,17 @@ class DynamoDbClientTest extends TestCase
         $client = $this->getClient();
 
         $input = new ExecuteStatementInput([
-            'Statement' => "SELECT * FROM \"{$this->tableName}\"",
+            'Statement' => "SELECT * FROM \"{$this->tableName}\" WHERE ForumName = ?",
             'Parameters' => [new AttributeValue([
+                'S' => 'Amazon DynamoDB',
             ])],
-            'ConsistentRead' => false,
-            'NextToken' => 'change me',
+            'ConsistentRead' => true,
         ]);
         $result = $client->executeStatement($input);
 
         $result->resolve();
 
-        // self::assertTODO(expected, $result->getItems());
-        self::assertSame('changeIt', $result->getNextToken());
+        self::assertSame(2, count($result->getItems()));
     }
 
     public function testGetItem(): void
