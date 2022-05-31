@@ -6,9 +6,9 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\DynamoDb\Result\ExecuteStatementOutput;
+use AsyncAws\DynamoDb\ValueObject\ConsumedCapacity;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpClient\MockHttpClient;
-use AsyncAws\DynamoDb\ValueObject\ConsumedCapacity;
 
 class ExecuteStatementOutputTest extends TestCase
 {
