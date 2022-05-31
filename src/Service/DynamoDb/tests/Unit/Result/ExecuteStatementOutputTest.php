@@ -33,7 +33,6 @@ class ExecuteStatementOutputTest extends TestCase
         $client = new MockHttpClient($response);
         $result = new ExecuteStatementOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-
         $items = $result->getItems(true);
         foreach ($items as $name => $item) {
             self::assertArrayHasKey('SongTitle', $item);
