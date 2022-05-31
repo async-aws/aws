@@ -2,6 +2,13 @@
 
 namespace AsyncAws\DynamoDb\ValueObject;
 
+/**
+ * The capacity units consumed by an operation. The data returned includes the total provisioned throughput consumed,
+ * along with statistics for the table and any indexes involved in the operation. `ConsumedCapacity` is only returned if
+ * the request asked for it. For more information, see Provisioned Throughput in the *Amazon DynamoDB Developer Guide*.
+ *
+ * @see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html
+ */
 final class ConsumedCapacity
 {
     /**
