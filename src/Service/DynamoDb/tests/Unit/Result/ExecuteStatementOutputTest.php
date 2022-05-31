@@ -13,17 +13,33 @@ class ExecuteStatementOutputTest extends TestCase
 {
     public function testExecuteStatementOutput(): void
     {
-        self::fail('Not implemented');
-
         // see https://docs.aws.amazon.com/dynamodb/latest/APIReference/API_ExecuteStatement.html
+        // see example-1.json from SDK
         $response = new SimpleMockedResponse('{
-            "change": "it"
+            "ConsumedCapacity": {
+                "CapacityUnits": 1,
+                "TableName": "Reply"
+            },
+            "Items": [
+                {
+                    "SongTitle": {
+                        "S": "Call Me Today"
+                    }
+                }
+            ],
+            "NextToken": "changeIt"
         }');
 
         $client = new MockHttpClient($response);
         $result = new ExecuteStatementOutput(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        // self::assertTODO(expected, $result->getItems());
+
+        $items = $result->getItems(true);
+        foreach ($items as $name => $item) {
+            self::assertArrayHasKey('SongTitle', $item);
+            self::assertEquals('Call Me Today', $item['SongTitle']->getS());
+        }
+        self::assertInstanceOf(ConsumedCapacity::class, $result->getConsumedCapacity());
         self::assertSame('changeIt', $result->getNextToken());
     }
 }

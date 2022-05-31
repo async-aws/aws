@@ -10,21 +10,10 @@ class ExecuteStatementInputTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new ExecuteStatementInput([
-            'Statement' => 'change me',
+            'Statement' => 'SELECT * FROM "Music" WHERE SongTitle = :SongTitle',
             'Parameters' => [new AttributeValue([
-                'S' => 'change me',
-                'N' => 'change me',
-                'B' => 'change me',
-                'SS' => ['change me'],
-                'NS' => ['change me'],
-                'BS' => ['change me'],
-                'M' => ['change me' => ''],
-                'L' => [''],
-                'NULL' => false,
-                'BOOL' => false,
+                'SongTitle' => 'Call Me Today',
             ])],
             'ConsistentRead' => false,
             'NextToken' => 'change me',
@@ -32,12 +21,22 @@ class ExecuteStatementInputTest extends TestCase
 
         // see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ExecuteStatement.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/x-amz-json-1.0
+POST / HTTP/1.0
+Content-Type: application/x-amz-json-1.0
+X-AMZ-Target: DynamoDB_20120810.ExecuteStatement
 
-            {
-            "change": "it"
+{
+    "Statement": "SELECT * FROM \"Music\" WHERE SongTitle = :SongTitle",
+    "Parameters": [
+        {
+            "SongTitle": {
+                "S": "Call Me Today"
+            }
         }
+    ],
+    "ConsistentRead": false,
+    "NextToken": "change me"
+}
                 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
