@@ -279,13 +279,12 @@ class DynamoDbClientTest extends TestCase
         self::assertEquals($this->tableName, $result->getTable()->getTableName());
     }
 
-    /** @uses foo */
     public function testExecuteStatement(): void
     {
         $client = $this->getClient();
 
         $input = new ExecuteStatementInput([
-            'Statement' => "SELECT * FROM '{$this->tableName}'",
+            'Statement' => "SELECT * FROM \"{$this->tableName}\"",
             'Parameters' => [new AttributeValue([
             ])],
             'ConsistentRead' => false,
@@ -383,30 +382,6 @@ class DynamoDbClientTest extends TestCase
         self::assertSame(2, $result->getScannedCount());
     }
 
-    public function testTableExists(): void
-    {
-        $client = $this->getClient();
-
-        $input = new DescribeTableInput([
-            'TableName' => $this->tableName,
-        ]);
-
-        self::assertTrue($client->tableExists($input)->isSuccess());
-        self::assertFalse($client->tableExists(['TableName' => 'does-not-exists'])->isSuccess());
-    }
-
-    public function testTableNotExists(): void
-    {
-        $client = $this->getClient();
-
-        $input = new DescribeTableInput([
-            'TableName' => $this->tableName,
-        ]);
-
-        self::assertFalse($client->tableNotExists($input)->isSuccess());
-        self::assertTrue($client->tableNotExists(['TableName' => 'does-not-exists'])->isSuccess());
-    }
-
     public function testUpdateItem(): void
     {
         $client = $this->getClient();
@@ -429,6 +404,30 @@ class DynamoDbClientTest extends TestCase
 
         $result->resolve();
         self::assertEquals(200, $result->info()['status']);
+    }
+
+    public function testTableExists(): void
+    {
+        $client = $this->getClient();
+
+        $input = new DescribeTableInput([
+            'TableName' => $this->tableName,
+        ]);
+
+        self::assertTrue($client->tableExists($input)->isSuccess());
+        self::assertFalse($client->tableExists(['TableName' => 'does-not-exists'])->isSuccess());
+    }
+
+    public function testTableNotExists(): void
+    {
+        $client = $this->getClient();
+
+        $input = new DescribeTableInput([
+            'TableName' => $this->tableName,
+        ]);
+
+        self::assertFalse($client->tableNotExists($input)->isSuccess());
+        self::assertTrue($client->tableNotExists(['TableName' => 'does-not-exists'])->isSuccess());
     }
 
     public function testUpdateItemWithList(): void
