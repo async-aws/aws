@@ -279,23 +279,14 @@ class DynamoDbClientTest extends TestCase
         self::assertEquals($this->tableName, $result->getTable()->getTableName());
     }
 
+    /** @uses foo */
     public function testExecuteStatement(): void
     {
         $client = $this->getClient();
 
         $input = new ExecuteStatementInput([
-            'Statement' => 'change me',
+            'Statement' => "SELECT * FROM '{$this->tableName}'",
             'Parameters' => [new AttributeValue([
-                'S' => 'change me',
-                'N' => 'change me',
-                'B' => 'change me',
-                'SS' => ['change me'],
-                'NS' => ['change me'],
-                'BS' => ['change me'],
-                'M' => ['change me' => ''],
-                'L' => [''],
-                'NULL' => false,
-                'BOOL' => false,
             ])],
             'ConsistentRead' => false,
             'NextToken' => 'change me',

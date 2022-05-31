@@ -11,10 +11,8 @@ class ExecuteStatementInputTest extends TestCase
     public function testRequest(): void
     {
         $input = new ExecuteStatementInput([
-            'Statement' => 'SELECT * FROM "Music" WHERE SongTitle = :SongTitle',
-            'Parameters' => [new AttributeValue([
-                'SongTitle' => 'Call Me Today',
-            ])],
+            'Statement' => 'SELECT * FROM "Music" WHERE SongTitle = "Call Me Today"',
+            'Parameters' => [new AttributeValue([])],
             'ConsistentRead' => false,
             'NextToken' => 'change me',
         ]);
@@ -26,13 +24,9 @@ Content-Type: application/x-amz-json-1.0
 X-AMZ-Target: DynamoDB_20120810.ExecuteStatement
 
 {
-    "Statement": "SELECT * FROM \"Music\" WHERE SongTitle = :SongTitle",
+    "Statement": "SELECT * FROM \"Music\" WHERE SongTitle = \"Call Me Today\"",
     "Parameters": [
-        {
-            "SongTitle": {
-                "S": "Call Me Today"
-            }
-        }
+        []
     ],
     "ConsistentRead": false,
     "NextToken": "change me"
