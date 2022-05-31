@@ -211,7 +211,6 @@ final class ExecuteStatementInput extends Input
             }
         }
         if (null !== $v = $this->consistentRead) {
-            /** @psalm-suppress RedundantCastGivenDocblockType */
             $payload['ConsistentRead'] = (bool) $v;
         }
         if (null !== $v = $this->nextToken) {
