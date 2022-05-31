@@ -294,7 +294,7 @@ class DynamoDbClientTest extends TestCase
 
         $result->resolve();
 
-        self::assertSame(2, count($result->getItems()));
+        self::assertSame(2, \count($result->getItems()));
     }
 
     public function testGetItem(): void
