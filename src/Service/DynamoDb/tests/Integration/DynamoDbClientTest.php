@@ -13,6 +13,7 @@ use AsyncAws\DynamoDb\Input\CreateTableInput;
 use AsyncAws\DynamoDb\Input\DeleteItemInput;
 use AsyncAws\DynamoDb\Input\DeleteTableInput;
 use AsyncAws\DynamoDb\Input\DescribeTableInput;
+use AsyncAws\DynamoDb\Input\ExecuteStatementInput;
 use AsyncAws\DynamoDb\Input\GetItemInput;
 use AsyncAws\DynamoDb\Input\ListTablesInput;
 use AsyncAws\DynamoDb\Input\PutItemInput;
@@ -276,6 +277,24 @@ class DynamoDbClientTest extends TestCase
         $result = $client->DescribeTable($input);
 
         self::assertEquals($this->tableName, $result->getTable()->getTableName());
+    }
+
+    public function testExecuteStatement(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ExecuteStatementInput([
+            'Statement' => "SELECT * FROM \"{$this->tableName}\" WHERE ForumName = ?",
+            'Parameters' => [new AttributeValue([
+                'S' => 'Amazon DynamoDB',
+            ])],
+            'ConsistentRead' => true,
+        ]);
+        $result = $client->executeStatement($input);
+
+        $result->resolve();
+
+        self::assertSame(2, \count($result->getItems()));
     }
 
     public function testGetItem(): void

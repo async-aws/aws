@@ -154,6 +154,7 @@
                 "DeleteItem",
                 "DeleteTable",
                 "DescribeTable",
+                "ExecuteStatement",
                 "GetItem",
                 "ListTables",
                 "PutItem",
