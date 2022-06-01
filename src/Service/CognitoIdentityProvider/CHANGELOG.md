@@ -4,6 +4,7 @@
 
 ### Added
 
+- AWS api-change: Amazon Cognito now supports IP Address propagation for all unauthenticated APIs (e.g. SignUp, ForgotPassword).
 - AWS enhancement: Documentation updates.
 
 ## 1.4.0
