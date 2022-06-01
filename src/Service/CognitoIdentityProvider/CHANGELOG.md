@@ -5,6 +5,10 @@
 ### Added
 
 - AWS enhancement: Documentation updates.
+- AWS api-change: Amazon Cognito now supports IP Address propagation for all unauthenticated APIs (e.g. SignUp, ForgotPassword).
+- AWS api-change: Amazon Cognito now supports requiring attribute verification (ex. email and phone number) before update.
+- AWS api-change: Updated EmailConfigurationType and SmsConfigurationType to reflect that you can now choose Amazon SES and Amazon SNS resources in the same Region.
+- AWS enhancement: Doc updates for Cognito user pools API Reference.
 
 ## 1.4.0
 

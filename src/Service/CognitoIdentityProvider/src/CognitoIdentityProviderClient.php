@@ -498,8 +498,10 @@ class CognitoIdentityProviderClient extends AbstractApi
     }
 
     /**
-     * Returns a unique generated shared secret key code for the user account. The request takes an access token or a
-     * session string, but not both.
+     * Begins setup of time-based one-time password multi-factor authentication (TOTP MFA) for a user, with a unique private
+     * key that Amazon Cognito generates and returns in the API response. You can authorize an `AssociateSoftwareToken`
+     * request with either the user's access token, or a session string from a challenge response that you received from
+     * Amazon Cognito.
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AssociateSoftwareToken.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#associatesoftwaretoken

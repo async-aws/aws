@@ -7,7 +7,7 @@ use AsyncAws\Core\Response;
 use AsyncAws\Core\Result;
 
 /**
- * Represents the response from the server regarding the request to reset a password.
+ * The response from Amazon Cognito to a request to reset a password.
  */
 class ForgotPasswordResponse extends Result
 {
