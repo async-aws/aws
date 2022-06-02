@@ -102,6 +102,8 @@ final class ResourceRecordSet
      */
     private $trafficPolicyInstanceId;
 
+    private $cidrRoutingConfig;
+
     /**
      * @param array{
      *   Name: string,
@@ -117,6 +119,7 @@ final class ResourceRecordSet
      *   AliasTarget?: null|AliasTarget|array,
      *   HealthCheckId?: null|string,
      *   TrafficPolicyInstanceId?: null|string,
+     *   CidrRoutingConfig?: null|CidrRoutingConfig|array,
      * } $input
      */
     public function __construct(array $input)
@@ -134,6 +137,7 @@ final class ResourceRecordSet
         $this->aliasTarget = isset($input['AliasTarget']) ? AliasTarget::create($input['AliasTarget']) : null;
         $this->healthCheckId = $input['HealthCheckId'] ?? null;
         $this->trafficPolicyInstanceId = $input['TrafficPolicyInstanceId'] ?? null;
+        $this->cidrRoutingConfig = isset($input['CidrRoutingConfig']) ? CidrRoutingConfig::create($input['CidrRoutingConfig']) : null;
     }
 
     public static function create($input): self
@@ -144,6 +148,11 @@ final class ResourceRecordSet
     public function getAliasTarget(): ?AliasTarget
     {
         return $this->aliasTarget;
+    }
+
+    public function getCidrRoutingConfig(): ?CidrRoutingConfig
+    {
+        return $this->cidrRoutingConfig;
     }
 
     /**
@@ -281,6 +290,11 @@ final class ResourceRecordSet
         }
         if (null !== $v = $this->trafficPolicyInstanceId) {
             $node->appendChild($document->createElement('TrafficPolicyInstanceId', $v));
+        }
+        if (null !== $v = $this->cidrRoutingConfig) {
+            $node->appendChild($child = $document->createElement('CidrRoutingConfig'));
+
+            $v->requestBody($child, $document);
         }
     }
 }
