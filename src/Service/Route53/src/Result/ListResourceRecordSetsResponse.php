@@ -9,6 +9,7 @@ use AsyncAws\Route53\Enum\RRType;
 use AsyncAws\Route53\Input\ListResourceRecordSetsRequest;
 use AsyncAws\Route53\Route53Client;
 use AsyncAws\Route53\ValueObject\AliasTarget;
+use AsyncAws\Route53\ValueObject\CidrRoutingConfig;
 use AsyncAws\Route53\ValueObject\GeoLocation;
 use AsyncAws\Route53\ValueObject\ResourceRecord;
 use AsyncAws\Route53\ValueObject\ResourceRecordSet;
@@ -188,6 +189,10 @@ class ListResourceRecordSetsResponse extends Result implements \IteratorAggregat
                 ]),
                 'HealthCheckId' => ($v = $item->HealthCheckId) ? (string) $v : null,
                 'TrafficPolicyInstanceId' => ($v = $item->TrafficPolicyInstanceId) ? (string) $v : null,
+                'CidrRoutingConfig' => !$item->CidrRoutingConfig ? null : new CidrRoutingConfig([
+                    'CollectionId' => (string) $item->CidrRoutingConfig->CollectionId,
+                    'LocationName' => (string) $item->CidrRoutingConfig->LocationName,
+                ]),
             ]);
         }
 

@@ -16,7 +16,7 @@ final class CreateHostedZoneRequest extends Input
 {
     /**
      * The name of the domain. Specify a fully qualified domain name, for example, *www.example.com*. The trailing dot is
-     * optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that Route 53 treats
+     * optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that Route 53 treats
      * *www.example.com* (without a trailing dot) and *www.example.com.* (with a trailing dot) as identical.
      *
      * @required
@@ -52,8 +52,8 @@ final class CreateHostedZoneRequest extends Input
     private $hostedZoneConfig;
 
     /**
-     * If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53 assigned to the
-     * reusable delegation set when you created it. For more information about reusable delegation sets, see
+     * If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53 assigned to
+     * the reusable delegation set when you created it. For more information about reusable delegation sets, see
      * CreateReusableDelegationSet.
      *
      * @see https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateReusableDelegationSet.html
