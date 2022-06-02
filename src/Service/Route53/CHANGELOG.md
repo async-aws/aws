@@ -11,7 +11,6 @@
 - Fixed parameter trim in the called API urls
 - AWS api-change: Add new APIs to support Route 53 IP Based Routing
 - AWS enhancement: SDK doc update for Route 53 to update some parameters with new information.
-- AWS api-change: Add PriorRequestNotComplete exception to UpdateHostedZoneComment API
 
 ## 0.1.1
 
