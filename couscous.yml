@@ -58,6 +58,9 @@ menu:
             cognito-idp:
                 text: Cognito Identity provider
                 url: /clients/cognito-idp.html
+            comprehend:
+                text: Comprehend
+                url: /clients/comprehend.html
             ecr:
                 text: ECR
                 url: /clients/ecr.html

@@ -13,6 +13,7 @@ use AsyncAws\CodeBuild\CodeBuildClient;
 use AsyncAws\CodeCommit\CodeCommitClient;
 use AsyncAws\CodeDeploy\CodeDeployClient;
 use AsyncAws\CognitoIdentityProvider\CognitoIdentityProviderClient;
+use AsyncAws\Comprehend\ComprehendClient;
 use AsyncAws\Core\Credentials\CacheProvider;
 use AsyncAws\Core\Credentials\ChainProvider;
 use AsyncAws\Core\Credentials\CredentialProvider;
@@ -195,6 +196,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new CodeDeployClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function comprehend(): ComprehendClient
+    {
+        if (!class_exists(ComprehendClient::class)) {
+            throw MissingDependency::create('async-aws/comprehend', 'ComprehendClient');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new ComprehendClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];
