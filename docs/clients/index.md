@@ -146,6 +146,7 @@ for more information.
 | [CodeCommit](./code-commit.md)              | [async-aws/code-commit](https://packagist.org/packages/async-aws/code-commit)
 | [CodeDeploy](./code-deploy.md)              | [async-aws/code-deploy](https://packagist.org/packages/async-aws/code-deploy)
 | [CognitoIdentityProvider](./cognito-idp.md) | [async-aws/cognito-identity-provider](https://packagist.org/packages/async-aws/cognito-identity-provider)
+| [Comprehend](./comprehend.md)               | [async-aws/comprehend](https://packagist.org/packages/async-aws/comprehend)
 | [DynamoDb](./dynamodb.md)                   | [async-aws/dynamo-db](https://packagist.org/packages/async-aws/dynamo-db)
 | [ECR](./ecr.md)                             | [async-aws/ecr](https://packagist.org/packages/async-aws/ecr)
 | [ElastiCache](./elasti-cache.md)            | [async-aws/elasti-cach](https://packagist.org/packages/async-aws/elasti-cache)
