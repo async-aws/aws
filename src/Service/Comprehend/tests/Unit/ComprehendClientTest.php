@@ -2,6 +2,7 @@
 
 namespace AsyncAws\Comprehend\Tests\Unit;
 
+use AsyncAws\Comprehend\ComprehendClient;
 use AsyncAws\Comprehend\Input\DetectDominantLanguageRequest;
 use AsyncAws\Comprehend\Result\DetectDominantLanguageResponse;
 use AsyncAws\Core\Credentials\NullProvider;
@@ -15,7 +16,7 @@ class ComprehendClientTest extends TestCase
         $client = new ComprehendClient([], new NullProvider(), new MockHttpClient());
 
         $input = new DetectDominantLanguageRequest([
-            'Text' => 'change me',
+            'Text' => 'This is an example text',
         ]);
         $result = $client->detectDominantLanguage($input);
 

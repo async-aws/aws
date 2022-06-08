@@ -13,16 +13,21 @@ class DetectDominantLanguageResponseTest extends TestCase
 {
     public function testDetectDominantLanguageResponse(): void
     {
-        self::fail('Not implemented');
-
         // see https://docs.aws.amazon.com/comprehend/latest/APIReference/API_DetectDominantLanguage.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+   "Languages": [
+      {
+         "LanguageCode": "sv",
+         "Score": 0.92
+      }
+   ]
+}');
 
         $client = new MockHttpClient($response);
         $result = new DetectDominantLanguageResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        // self::assertTODO(expected, $result->getLanguages());
+        $language = $result->getLanguages()[0];
+        self::assertSame('sv', $language->getLanguageCode());
+        self::assertSame(0.92, $language->getScore());
     }
 }

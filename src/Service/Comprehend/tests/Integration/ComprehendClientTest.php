@@ -25,7 +25,7 @@ class ComprehendClientTest extends TestCase
 
     private function getClient(): ComprehendClient
     {
-        self::fail('Not implemented');
+        self::markTestSkipped('There is no docker image available for Comprehend.');
 
         return new ComprehendClient([
             'endpoint' => 'http://localhost',
