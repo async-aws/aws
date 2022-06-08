@@ -200,6 +200,11 @@
       <code>(bool) $v</code>
     </RedundantCastGivenDocblockType>
   </file>
+  <file src="src/Service/CognitoIdentityProvider/src/Input/ConfirmSignUpRequest.php">
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $v</code>
+    </RedundantCastGivenDocblockType>
+  </file>
   <file src="src/Service/CognitoIdentityProvider/src/Input/AdminSetUserPasswordRequest.php">
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $v</code>

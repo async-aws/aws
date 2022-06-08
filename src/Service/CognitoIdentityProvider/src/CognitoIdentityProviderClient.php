@@ -47,6 +47,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AdminUserGlobalSignOutRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ConfirmForgotPasswordRequest;
+use AsyncAws\CognitoIdentityProvider\Input\ConfirmSignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\GetUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\InitiateAuthRequest;
@@ -67,6 +68,7 @@ use AsyncAws\CognitoIdentityProvider\Result\AdminUserGlobalSignOutResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AssociateSoftwareTokenResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ChangePasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ConfirmForgotPasswordResponse;
+use AsyncAws\CognitoIdentityProvider\Result\ConfirmSignUpResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ForgotPasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\GetUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\InitiateAuthResponse;
@@ -633,6 +635,62 @@ class CognitoIdentityProviderClient extends AbstractApi
         ]]));
 
         return new ConfirmForgotPasswordResponse($response);
+    }
+
+    /**
+     * Confirms registration of a new user.
+     *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmSignUp.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#confirmsignup
+     *
+     * @param array{
+     *   ClientId: string,
+     *   SecretHash?: string,
+     *   Username: string,
+     *   ConfirmationCode: string,
+     *   ForceAliasCreation?: bool,
+     *   AnalyticsMetadata?: AnalyticsMetadataType|array,
+     *   UserContextData?: UserContextDataType|array,
+     *   ClientMetadata?: array<string, string>,
+     *   @region?: string,
+     * }|ConfirmSignUpRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
+     * @throws UnexpectedLambdaException
+     * @throws UserLambdaValidationException
+     * @throws NotAuthorizedException
+     * @throws TooManyFailedAttemptsException
+     * @throws CodeMismatchException
+     * @throws ExpiredCodeException
+     * @throws InvalidLambdaResponseException
+     * @throws AliasExistsException
+     * @throws TooManyRequestsException
+     * @throws LimitExceededException
+     * @throws UserNotFoundException
+     * @throws InternalErrorException
+     */
+    public function confirmSignUp($input): ConfirmSignUpResponse
+    {
+        $input = ConfirmSignUpRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ConfirmSignUp', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'UnexpectedLambdaException' => UnexpectedLambdaException::class,
+            'UserLambdaValidationException' => UserLambdaValidationException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'TooManyFailedAttemptsException' => TooManyFailedAttemptsException::class,
+            'CodeMismatchException' => CodeMismatchException::class,
+            'ExpiredCodeException' => ExpiredCodeException::class,
+            'InvalidLambdaResponseException' => InvalidLambdaResponseException::class,
+            'AliasExistsException' => AliasExistsException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
+
+        return new ConfirmSignUpResponse($response);
     }
 
     /**
