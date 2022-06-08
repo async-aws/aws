@@ -14,24 +14,7 @@ class ConfirmSignUpResponseTest extends TestCase
     public function testConfirmSignUpResponse(): void
     {
         // see https://docs.aws.amazon.com/cognitoidentityprovider/latest/APIReference/API_ConfirmSignUp.html
-        $response = new SimpleMockedResponse('{
-               "AnalyticsMetadata": {
-                  "AnalyticsEndpointId": "string"
-               },
-               "ClientId": "string",
-               "ClientMetadata": {
-                  "string" : "string"
-               },
-               "ConfirmationCode": "string",
-               "ForceAliasCreation": boolean,
-               "SecretHash": "string",
-               "UserContextData": {
-                  "EncodedData": "string",
-                  "IpAddress": "string"
-               },
-               "Username": "string"
-            }'
-        );
+        $response = new SimpleMockedResponse('', [], 200);
 
         $client = new MockHttpClient($response);
         $result = new ConfirmSignUpResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
