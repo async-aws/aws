@@ -15,6 +15,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AdminUserGlobalSignOutRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ConfirmForgotPasswordRequest;
+use AsyncAws\CognitoIdentityProvider\Input\ConfirmSignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\GetUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\InitiateAuthRequest;
@@ -253,6 +254,29 @@ class CognitoIdentityProviderClientTest extends TestCase
             'ClientMetadata' => ['change me' => 'change me'],
         ]);
         $result = $client->ConfirmForgotPassword($input);
+
+        $result->resolve();
+    }
+
+    public function testConfirmSignUp(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ConfirmSignUpRequest([
+            'ClientId' => 'change me',
+            'SecretHash' => 'change me',
+            'Username' => 'change me',
+            'ConfirmationCode' => 'change me',
+            'ForceAliasCreation' => false,
+            'AnalyticsMetadata' => new AnalyticsMetadataType([
+                'AnalyticsEndpointId' => 'change me',
+            ]),
+            'UserContextData' => new UserContextDataType([
+                'EncodedData' => 'change me',
+            ]),
+            'ClientMetadata' => ['change me' => 'change me'],
+        ]);
+        $result = $client->confirmSignUp($input);
 
         $result->resolve();
     }

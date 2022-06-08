@@ -16,6 +16,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AdminUserGlobalSignOutRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ConfirmForgotPasswordRequest;
+use AsyncAws\CognitoIdentityProvider\Input\ConfirmSignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\GetUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\InitiateAuthRequest;
@@ -36,6 +37,7 @@ use AsyncAws\CognitoIdentityProvider\Result\AdminUserGlobalSignOutResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AssociateSoftwareTokenResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ChangePasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ConfirmForgotPasswordResponse;
+use AsyncAws\CognitoIdentityProvider\Result\ConfirmSignUpResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ForgotPasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\GetUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\InitiateAuthResponse;
@@ -230,6 +232,23 @@ class CognitoIdentityProviderClientTest extends TestCase
         $result = $client->ConfirmForgotPassword($input);
 
         self::assertInstanceOf(ConfirmForgotPasswordResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testConfirmSignUp(): void
+    {
+        $client = new CognitoIdentityProviderClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new ConfirmSignUpRequest([
+            'ClientId' => 'change me',
+
+            'Username' => 'change me',
+            'ConfirmationCode' => 'change me',
+
+        ]);
+        $result = $client->confirmSignUp($input);
+
+        self::assertInstanceOf(ConfirmSignUpResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 

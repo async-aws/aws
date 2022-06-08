@@ -3,7 +3,7 @@
 namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 
 /**
- * The analytics metadata for collecting Amazon Pinpoint metrics for `AdminInitiateAuth` calls.
+ * The Amazon Pinpoint analytics metadata for collecting metrics for `ConfirmSignUp` calls.
  */
 final class AnalyticsMetadataType
 {

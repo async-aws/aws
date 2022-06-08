@@ -129,6 +129,7 @@
                 "AssociateSoftwareToken",
                 "ChangePassword",
                 "ConfirmForgotPassword",
+                "ConfirmSignUp",
                 "ForgotPassword",
                 "GetUser",
                 "InitiateAuth",
