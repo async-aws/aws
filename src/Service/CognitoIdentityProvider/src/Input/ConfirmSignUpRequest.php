@@ -259,7 +259,7 @@ final class ConfirmSignUpRequest extends Input
         }
         $payload['ConfirmationCode'] = $v;
         if (null !== $v = $this->forceAliasCreation) {
-            $payload['ForceAliasCreation'] = $v;
+            $payload['ForceAliasCreation'] = (bool) $v;
         }
         if (null !== $v = $this->analyticsMetadata) {
             $payload['AnalyticsMetadata'] = $v->requestBody();
