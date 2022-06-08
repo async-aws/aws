@@ -13,14 +13,30 @@ class ConfirmSignUpResponseTest extends TestCase
 {
     public function testConfirmSignUpResponse(): void
     {
-        self::fail('Not implemented');
-
         // see https://docs.aws.amazon.com/cognitoidentityprovider/latest/APIReference/API_ConfirmSignUp.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
-        }');
+               "AnalyticsMetadata": {
+                  "AnalyticsEndpointId": "string"
+               },
+               "ClientId": "string",
+               "ClientMetadata": {
+                  "string" : "string"
+               },
+               "ConfirmationCode": "string",
+               "ForceAliasCreation": boolean,
+               "SecretHash": "string",
+               "UserContextData": {
+                  "EncodedData": "string",
+                  "IpAddress": "string"
+               },
+               "Username": "string"
+            }'
+        );
 
         $client = new MockHttpClient($response);
         $result = new ConfirmSignUpResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
+
+        self::assertSame(200, $result->info()['response']->getStatusCode());
+        self::assertSame('', $result->info()['response']->getContent());
     }
 }
