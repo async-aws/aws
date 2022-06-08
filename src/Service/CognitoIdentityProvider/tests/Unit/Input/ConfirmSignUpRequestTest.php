@@ -45,7 +45,7 @@ class ConfirmSignUpRequestTest extends TestCase
                     "EncodedData": "change me"
                 },
                 "ClientMetadata": {
-                    "lastName": "Smith
+                    "lastName": "Smith"
                 }
             }
                 ';
