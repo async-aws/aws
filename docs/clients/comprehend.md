@@ -11,11 +11,13 @@ package: async-aws/comprehend
 
 ```php
 use AsyncAws\Comprehend\ComprehendClient;
-use AsyncAws\Comprehend\Input\GetAuthorizationTokenRequest;
+use AsyncAws\Comprehend\Input\DetectDominantLanguageRequest;
 
 $comprehend = new ComprehendClient();
 
-$result = $comprehend->detectDominantLanguage(['Text' => 'Jag gillar glass']);
+$result = $comprehend->detectDominantLanguage(new DetectDominantLanguageRequest([
+    'Text' => 'Jag gillar glass'
+]));
 
 foreach ($result->getLanguages() as $language) {
     echo sprintf('%s: %s', $language->getLanguageCode(), $language->getScore()).PHP_EOL;
