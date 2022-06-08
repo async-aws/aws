@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added support for endpoint discovery
+
 ## 1.15.0
 
 ### Added
