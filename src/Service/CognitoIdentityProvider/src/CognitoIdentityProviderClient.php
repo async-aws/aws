@@ -638,7 +638,7 @@ class CognitoIdentityProviderClient extends AbstractApi
     }
 
     /**
-     * Confirms registration of a user and handles the existing alias from a previous user.
+     * Confirms registration of a new user.
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ConfirmSignUp.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#confirmsignup
