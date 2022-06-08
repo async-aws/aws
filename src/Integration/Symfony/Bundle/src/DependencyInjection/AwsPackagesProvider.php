@@ -45,6 +45,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\CognitoIdentityProvider\CognitoIdentityProviderClient::class,
                 'package' => 'async-aws/cognito-identity-provider',
             ],
+            'comprehend' => [
+                'class' => \AsyncAws\Comprehend\ComprehendClient::class,
+                'package' => 'async-aws/comprehend',
+            ],
             'dynamo_db' => [
                 'class' => \AsyncAws\DynamoDb\DynamoDbClient::class,
                 'package' => 'async-aws/dynamo-db',
