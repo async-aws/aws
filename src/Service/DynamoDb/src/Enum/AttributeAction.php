@@ -43,8 +43,8 @@ namespace AsyncAws\DynamoDb\Enum;
  *
  * - `PUT` - DynamoDB creates a new item with the specified primary key, and then adds the attribute.
  * - `DELETE` - Nothing happens; there is no attribute to delete.
- * - `ADD` - DynamoDB creates an item with the supplied primary key and number (or set of numbers) for the attribute
- *   value. The only data types allowed are number and number set; no other data types can be specified.
+ * - `ADD` - DynamoDB creates a new item with the supplied primary key and number (or set) for the attribute value. The
+ *   only data types allowed are number, number set, string set or binary set.
  */
 final class AttributeAction
 {
