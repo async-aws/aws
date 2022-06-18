@@ -10,6 +10,9 @@ namespace AsyncAws\DynamoDb\ValueObject;
  * - New parameters for an existing replica. This request invokes the `UpdateTable` action in the destination Region.
  * - An existing replica to be deleted. The request invokes the `DeleteTableReplica` action in the destination Region,
  *   deleting the replica and all if its items in the destination Region.
+ *
+ * > When you manually remove a table or global table replica, you do not automatically remove any associated scalable
+ * > targets, scaling policies, or CloudWatch alarms.
  */
 final class ReplicationGroupUpdate
 {
