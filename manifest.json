@@ -173,6 +173,7 @@
                 "Scan",
                 "TableExists",
                 "TableNotExists",
+                "TransactWriteItems",
                 "UpdateItem",
                 "UpdateTable",
                 "UpdateTimeToLive"

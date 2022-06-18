@@ -18,6 +18,7 @@ use AsyncAws\DynamoDb\Input\ListTablesInput;
 use AsyncAws\DynamoDb\Input\PutItemInput;
 use AsyncAws\DynamoDb\Input\QueryInput;
 use AsyncAws\DynamoDb\Input\ScanInput;
+use AsyncAws\DynamoDb\Input\TransactWriteItemsInput;
 use AsyncAws\DynamoDb\Input\UpdateItemInput;
 use AsyncAws\DynamoDb\Input\UpdateTableInput;
 use AsyncAws\DynamoDb\Input\UpdateTimeToLiveInput;
@@ -35,6 +36,7 @@ use AsyncAws\DynamoDb\Result\QueryOutput;
 use AsyncAws\DynamoDb\Result\ScanOutput;
 use AsyncAws\DynamoDb\Result\TableExistsWaiter;
 use AsyncAws\DynamoDb\Result\TableNotExistsWaiter;
+use AsyncAws\DynamoDb\Result\TransactWriteItemsOutput;
 use AsyncAws\DynamoDb\Result\UpdateItemOutput;
 use AsyncAws\DynamoDb\Result\UpdateTableOutput;
 use AsyncAws\DynamoDb\Result\UpdateTimeToLiveOutput;
@@ -42,7 +44,9 @@ use AsyncAws\DynamoDb\ValueObject\AttributeDefinition;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
 use AsyncAws\DynamoDb\ValueObject\KeysAndAttributes;
 use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
+use AsyncAws\DynamoDb\ValueObject\Put;
 use AsyncAws\DynamoDb\ValueObject\TimeToLiveSpecification;
+use AsyncAws\DynamoDb\ValueObject\TransactWriteItem;
 use AsyncAws\DynamoDb\ValueObject\WriteRequest;
 use Symfony\Component\HttpClient\MockHttpClient;
 
@@ -251,6 +255,29 @@ class DynamoDbClientTest extends TestCase
         $result = $client->tableNotExists($input);
 
         self::assertInstanceOf(TableNotExistsWaiter::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testTransactWriteItems(): void
+    {
+        $client = new DynamoDbClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new TransactWriteItemsInput([
+            'TransactItems' => [
+                new TransactWriteItem([
+                    'Put' => new Put([
+                        'TableName' => 'Foobar',
+                        'Key' => ['ID' => ['S' => 'foobar']],
+                        'Item' => [
+                            'Name' => ['S' => 'Amazon DynamoDB'],
+                        ],
+                    ]),
+                ]),
+            ],
+        ]);
+        $result = $client->transactWriteItems($input);
+
+        self::assertInstanceOf(TransactWriteItemsOutput::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
