@@ -19,6 +19,7 @@ use AsyncAws\DynamoDb\Input\ListTablesInput;
 use AsyncAws\DynamoDb\Input\PutItemInput;
 use AsyncAws\DynamoDb\Input\QueryInput;
 use AsyncAws\DynamoDb\Input\ScanInput;
+use AsyncAws\DynamoDb\Input\TransactWriteItemsInput;
 use AsyncAws\DynamoDb\Input\UpdateItemInput;
 use AsyncAws\DynamoDb\Input\UpdateTableInput;
 use AsyncAws\DynamoDb\Input\UpdateTimeToLiveInput;
@@ -29,9 +30,11 @@ use AsyncAws\DynamoDb\ValueObject\KeySchemaElement;
 use AsyncAws\DynamoDb\ValueObject\LocalSecondaryIndex;
 use AsyncAws\DynamoDb\ValueObject\Projection;
 use AsyncAws\DynamoDb\ValueObject\ProvisionedThroughput;
+use AsyncAws\DynamoDb\ValueObject\Put;
 use AsyncAws\DynamoDb\ValueObject\PutRequest;
 use AsyncAws\DynamoDb\ValueObject\Tag;
 use AsyncAws\DynamoDb\ValueObject\TimeToLiveSpecification;
+use AsyncAws\DynamoDb\ValueObject\TransactWriteItem;
 use AsyncAws\DynamoDb\ValueObject\WriteRequest;
 
 class DynamoDbClientTest extends TestCase
@@ -135,33 +138,6 @@ class DynamoDbClientTest extends TestCase
         $result->resolve();
     }
 
-    public function testBatchWriteItem(): void
-    {
-        $client = $this->getClient();
-
-        $input = new BatchWriteItemInput([
-            'RequestItems' => [$this->tableName => [new WriteRequest([
-                'PutRequest' => new PutRequest([
-                    'Item' => [
-                        'LastPostDateTime' => ['S' => '201303190422'],
-                        'Tags' => ['SS' => ['Update', 'Multiple Items', 'HelpMe']],
-                        'ForumName' => ['S' => 'Amazon DynamoDB'],
-                        'Message' => ['S' => 'What is the maximum number of items?'],
-                        'Subject' => ['S' => 'Maximum number of items?'],
-                        'LastPostedBy' => ['S' => 'fred@example.com'],
-                    ],
-                ]),
-            ])]],
-            'ReturnConsumedCapacity' => 'TOTAL',
-        ]);
-        $result = $client->BatchWriteItem($input);
-
-        $result->resolve();
-
-        $capacity = $result->getConsumedCapacity()[0];
-        self::assertEquals($this->tableName, $capacity->getTableName());
-    }
-
     public function testBatchGetItem(): void
     {
         $client = $this->getClient();
@@ -189,6 +165,33 @@ class DynamoDbClientTest extends TestCase
         self::assertArrayHasKey(0, $threadResult);
         self::assertArrayHasKey('Message', $threadResult[0]);
         self::assertEquals('What is the maximum number of items?', $threadResult[0]['Message']->getS());
+    }
+
+    public function testBatchWriteItem(): void
+    {
+        $client = $this->getClient();
+
+        $input = new BatchWriteItemInput([
+            'RequestItems' => [$this->tableName => [new WriteRequest([
+                'PutRequest' => new PutRequest([
+                    'Item' => [
+                        'LastPostDateTime' => ['S' => '201303190422'],
+                        'Tags' => ['SS' => ['Update', 'Multiple Items', 'HelpMe']],
+                        'ForumName' => ['S' => 'Amazon DynamoDB'],
+                        'Message' => ['S' => 'What is the maximum number of items?'],
+                        'Subject' => ['S' => 'Maximum number of items?'],
+                        'LastPostedBy' => ['S' => 'fred@example.com'],
+                    ],
+                ]),
+            ])]],
+            'ReturnConsumedCapacity' => 'TOTAL',
+        ]);
+        $result = $client->BatchWriteItem($input);
+
+        $result->resolve();
+
+        $capacity = $result->getConsumedCapacity()[0];
+        self::assertEquals($this->tableName, $capacity->getTableName());
     }
 
     public function testCreateTable(): void
@@ -381,6 +384,59 @@ class DynamoDbClientTest extends TestCase
         self::assertSame(2, $result->getScannedCount());
     }
 
+    public function testTableExists(): void
+    {
+        $client = $this->getClient();
+
+        $input = new DescribeTableInput([
+            'TableName' => $this->tableName,
+        ]);
+
+        self::assertTrue($client->tableExists($input)->isSuccess());
+        self::assertFalse($client->tableExists(['TableName' => 'does-not-exists'])->isSuccess());
+    }
+
+    public function testTableNotExists(): void
+    {
+        $client = $this->getClient();
+
+        $input = new DescribeTableInput([
+            'TableName' => $this->tableName,
+        ]);
+
+        self::assertFalse($client->tableNotExists($input)->isSuccess());
+        self::assertTrue($client->tableNotExists(['TableName' => 'does-not-exists'])->isSuccess());
+    }
+
+    public function testTransactWriteItems(): void
+    {
+        $client = $this->getClient();
+
+        $input = new TransactWriteItemsInput([
+            'TransactItems' => [
+                new TransactWriteItem([
+                    'Put' => new Put([
+                        'TableName' => $this->tableName,
+                        'Item' => [
+                            'LastPostDateTime' => ['S' => '201303190422'],
+                            'Tags' => ['SS' => ['Update', 'Multiple Items', 'HelpMe']],
+                            'ForumName' => ['S' => 'Amazon DynamoDB'],
+                            'Message' => ['S' => 'I want to update multiple items in a single call. What\'s the best way to do that?'],
+                            'Subject' => ['S' => 'How do I update multiple items?'],
+                            'LastPostedBy' => ['S' => 'fred@example.com'],
+                        ],
+                    ]),
+                ]),
+            ],
+            'ReturnConsumedCapacity' => 'TOTAL',
+            'ClientRequestToken' => 'QWERTYUIOPQWERTYUIOP',
+        ]);
+        $result = $client->transactWriteItems($input);
+
+        self::assertCount(1, $result->getConsumedCapacity());
+        self::assertSame(4.0, $result->getConsumedCapacity()[0]->getCapacityUnits());
+    }
+
     public function testUpdateItem(): void
     {
         $client = $this->getClient();
@@ -442,30 +498,6 @@ class DynamoDbClientTest extends TestCase
 
         self::assertEquals(7, $result->getTableDescription()->getProvisionedThroughput()->getReadCapacityUnits());
         self::assertEquals(8, $result->getTableDescription()->getProvisionedThroughput()->getWriteCapacityUnits());
-    }
-
-    public function testTableExists(): void
-    {
-        $client = $this->getClient();
-
-        $input = new DescribeTableInput([
-            'TableName' => $this->tableName,
-        ]);
-
-        self::assertTrue($client->tableExists($input)->isSuccess());
-        self::assertFalse($client->tableExists(['TableName' => 'does-not-exists'])->isSuccess());
-    }
-
-    public function testTableNotExists(): void
-    {
-        $client = $this->getClient();
-
-        $input = new DescribeTableInput([
-            'TableName' => $this->tableName,
-        ]);
-
-        self::assertFalse($client->tableNotExists($input)->isSuccess());
-        self::assertTrue($client->tableNotExists(['TableName' => 'does-not-exists'])->isSuccess());
     }
 
     public function testUpdateTimeToLive(): void

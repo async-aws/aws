@@ -16,6 +16,7 @@ use AsyncAws\DynamoDb\Enum\Select;
 use AsyncAws\DynamoDb\Enum\TableClass;
 use AsyncAws\DynamoDb\Exception\ConditionalCheckFailedException;
 use AsyncAws\DynamoDb\Exception\DuplicateItemException;
+use AsyncAws\DynamoDb\Exception\IdempotentParameterMismatchException;
 use AsyncAws\DynamoDb\Exception\InternalServerErrorException;
 use AsyncAws\DynamoDb\Exception\ItemCollectionSizeLimitExceededException;
 use AsyncAws\DynamoDb\Exception\LimitExceededException;
@@ -23,7 +24,9 @@ use AsyncAws\DynamoDb\Exception\ProvisionedThroughputExceededException;
 use AsyncAws\DynamoDb\Exception\RequestLimitExceededException;
 use AsyncAws\DynamoDb\Exception\ResourceInUseException;
 use AsyncAws\DynamoDb\Exception\ResourceNotFoundException;
+use AsyncAws\DynamoDb\Exception\TransactionCanceledException;
 use AsyncAws\DynamoDb\Exception\TransactionConflictException;
+use AsyncAws\DynamoDb\Exception\TransactionInProgressException;
 use AsyncAws\DynamoDb\Input\BatchGetItemInput;
 use AsyncAws\DynamoDb\Input\BatchWriteItemInput;
 use AsyncAws\DynamoDb\Input\CreateTableInput;
@@ -36,6 +39,7 @@ use AsyncAws\DynamoDb\Input\ListTablesInput;
 use AsyncAws\DynamoDb\Input\PutItemInput;
 use AsyncAws\DynamoDb\Input\QueryInput;
 use AsyncAws\DynamoDb\Input\ScanInput;
+use AsyncAws\DynamoDb\Input\TransactWriteItemsInput;
 use AsyncAws\DynamoDb\Input\UpdateItemInput;
 use AsyncAws\DynamoDb\Input\UpdateTableInput;
 use AsyncAws\DynamoDb\Input\UpdateTimeToLiveInput;
@@ -53,6 +57,7 @@ use AsyncAws\DynamoDb\Result\QueryOutput;
 use AsyncAws\DynamoDb\Result\ScanOutput;
 use AsyncAws\DynamoDb\Result\TableExistsWaiter;
 use AsyncAws\DynamoDb\Result\TableNotExistsWaiter;
+use AsyncAws\DynamoDb\Result\TransactWriteItemsOutput;
 use AsyncAws\DynamoDb\Result\UpdateItemOutput;
 use AsyncAws\DynamoDb\Result\UpdateTableOutput;
 use AsyncAws\DynamoDb\Result\UpdateTimeToLiveOutput;
@@ -72,6 +77,7 @@ use AsyncAws\DynamoDb\ValueObject\SSESpecification;
 use AsyncAws\DynamoDb\ValueObject\StreamSpecification;
 use AsyncAws\DynamoDb\ValueObject\Tag;
 use AsyncAws\DynamoDb\ValueObject\TimeToLiveSpecification;
+use AsyncAws\DynamoDb\ValueObject\TransactWriteItem;
 
 class DynamoDbClient extends AbstractApi
 {
@@ -566,6 +572,47 @@ class DynamoDbClient extends AbstractApi
         ]]));
 
         return new TableNotExistsWaiter($response, $this, $input);
+    }
+
+    /**
+     * `TransactWriteItems` is a synchronous write operation that groups up to 25 action requests. These actions can target
+     * items in different tables, but not in different Amazon Web Services accounts or Regions, and no two actions can
+     * target the same item. For example, you cannot both `ConditionCheck` and `Update` the same item. The aggregate size of
+     * the items in the transaction cannot exceed 4 MB.
+     *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactWriteItems.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#transactwriteitems
+     *
+     * @param array{
+     *   TransactItems: TransactWriteItem[],
+     *   ReturnConsumedCapacity?: ReturnConsumedCapacity::*,
+     *   ReturnItemCollectionMetrics?: ReturnItemCollectionMetrics::*,
+     *   ClientRequestToken?: string,
+     *   @region?: string,
+     * }|TransactWriteItemsInput $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws TransactionCanceledException
+     * @throws TransactionInProgressException
+     * @throws IdempotentParameterMismatchException
+     * @throws ProvisionedThroughputExceededException
+     * @throws RequestLimitExceededException
+     * @throws InternalServerErrorException
+     */
+    public function transactWriteItems($input): TransactWriteItemsOutput
+    {
+        $input = TransactWriteItemsInput::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'TransactWriteItems', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'TransactionCanceledException' => TransactionCanceledException::class,
+            'TransactionInProgressException' => TransactionInProgressException::class,
+            'IdempotentParameterMismatchException' => IdempotentParameterMismatchException::class,
+            'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
+            'RequestLimitExceeded' => RequestLimitExceededException::class,
+            'InternalServerError' => InternalServerErrorException::class,
+        ]]));
+
+        return new TransactWriteItemsOutput($response);
     }
 
     /**
