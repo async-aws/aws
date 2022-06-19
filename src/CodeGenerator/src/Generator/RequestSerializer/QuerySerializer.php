@@ -11,6 +11,7 @@ use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Definition\Shape;
 use AsyncAws\CodeGenerator\Definition\StructureMember;
 use AsyncAws\CodeGenerator\Definition\StructureShape;
+use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\GeneratorHelper;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 
@@ -25,9 +26,12 @@ class QuerySerializer implements Serializer
 {
     private $namespaceRegistry;
 
-    public function __construct(NamespaceRegistry $namespaceRegistry)
+    private $requirementsRegistry;
+
+    public function __construct(NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry)
     {
         $this->namespaceRegistry = $namespaceRegistry;
+        $this->requirementsRegistry = $requirementsRegistry;
     }
 
     public function getHeaders(Operation $operation): string
@@ -67,6 +71,7 @@ class QuerySerializer implements Serializer
             }
             $shape = $member->getShape();
             if ($member->isIdempotencyToken()) {
+                $this->requirementsRegistry->addRequirement('symfony/polyfill-uuid', '^1.0');
                 $body = 'if (null === $v = $this->PROPERTY) {
                     $v = uuid_create(UUID_TYPE_RANDOM);
                 }

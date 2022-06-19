@@ -26,12 +26,12 @@ class RestJsonSerializer implements Serializer
 {
     private $namespaceRegistry;
 
-    private $requirementRegistry;
+    private $requirementsRegistry;
 
-    public function __construct(NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementRegistry)
+    public function __construct(NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry)
     {
         $this->namespaceRegistry = $namespaceRegistry;
-        $this->requirementRegistry = $requirementRegistry;
+        $this->requirementsRegistry = $requirementsRegistry;
     }
 
     public function getHeaders(Operation $operation): string
@@ -57,7 +57,7 @@ class RestJsonSerializer implements Serializer
             ]), false];
         }
 
-        $this->requirementRegistry->addRequirement('ext-json');
+        $this->requirementsRegistry->addRequirement('ext-json');
 
         return ['$bodyPayload = $this->requestBody(); $body = empty($bodyPayload) ? "{}" : \json_encode($bodyPayload, ' . \JSON_THROW_ON_ERROR . ');', true];
     }
@@ -70,6 +70,7 @@ class RestJsonSerializer implements Serializer
             }
             $shape = $member->getShape();
             if ($member->isIdempotencyToken()) {
+                $this->requirementsRegistry->addRequirement('symfony/polyfill-uuid', '^1.0');
                 $body = 'if (null === $v = $this->PROPERTY) {
                     $v = uuid_create(UUID_TYPE_RANDOM);
                 }

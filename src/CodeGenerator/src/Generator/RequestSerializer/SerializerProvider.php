@@ -35,7 +35,7 @@ class SerializerProvider
             case 'rest-json':
                 return new RestJsonSerializer($this->namespaceRegistry, $this->requirementsRegistry);
             case 'query':
-                return new QuerySerializer($this->namespaceRegistry);
+                return new QuerySerializer($this->namespaceRegistry, $this->requirementsRegistry);
             case 'json':
                 return new JsonRpcSerializer($this->namespaceRegistry, $this->requirementsRegistry);
 

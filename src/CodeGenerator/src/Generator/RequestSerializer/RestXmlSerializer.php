@@ -95,6 +95,7 @@ class RestXmlSerializer implements Serializer
             }
 
             if ($member->isIdempotencyToken()) {
+                $this->requirementsRegistry->addRequirement('symfony/polyfill-uuid', '^1.0');
                 $body = 'if (null === $v = $this->PROPERTY) {
                     $v = uuid_create(UUID_TYPE_RANDOM);
                 }
