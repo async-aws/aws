@@ -78,7 +78,8 @@ final class ExecuteStatementRequest extends Input
     private $schema;
 
     /**
-     * The name or ARN of the secret that enables access to the DB cluster.
+     * The ARN of the secret that enables access to the DB cluster. Enter the database user name and password for the
+     * credentials in the secret.
      *
      * @required
      *

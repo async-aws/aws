@@ -44,7 +44,8 @@ final class BatchExecuteStatementRequest extends Input
     private $schema;
 
     /**
-     * The name or ARN of the secret that enables access to the DB cluster.
+     * The ARN of the secret that enables access to the DB cluster. Enter the database user name and password for the
+     * credentials in the secret.
      *
      * @required
      *
@@ -53,7 +54,7 @@ final class BatchExecuteStatementRequest extends Input
     private $secretArn;
 
     /**
-     * The SQL statement to run.
+     * The SQL statement to run. Don't include a semicolon (;) at the end of the SQL statement.
      *
      * @required
      *
