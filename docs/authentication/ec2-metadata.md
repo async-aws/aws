@@ -9,3 +9,6 @@ When you run code within an EC2 instance (or EKS, Lambda), AsyncAws is able to f
 
 When running a single application on the Server, this is the simplest way to grant permissions to the application. You
 have nothing to configure on the application, you only grant permissions on the Role attached to the instance.
+
+AsyncAWS uses the IMDSv1 protocol to read instance metadata. So this authentication method won't work if the v1
+protocol is disabled.
