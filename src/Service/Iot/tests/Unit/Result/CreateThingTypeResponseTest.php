@@ -13,18 +13,18 @@ class CreateThingTypeResponseTest extends TestCase
 {
     public function testCreateThingTypeResponse(): void
     {
-        self::fail('Not implemented');
-
-        // see https://docs.aws.amazon.com/iot/latest/APIReference/API_CreateThingType.html
+        // see https://docs.aws.amazon.com/iot/latest/apireference/API_CreateThingType.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
+            "thingTypeArn": "hvac:arn",
+            "thingTypeId": "lkjdflksd878",
+            "thingTypeName": "hvac"
         }');
 
         $client = new MockHttpClient($response);
         $result = new CreateThingTypeResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertSame('changeIt', $result->getthingTypeName());
-        self::assertSame('changeIt', $result->getthingTypeArn());
-        self::assertSame('changeIt', $result->getthingTypeId());
+        self::assertSame('hvac', $result->getthingTypeName());
+        self::assertSame('hvac:arn', $result->getthingTypeArn());
+        self::assertSame('lkjdflksd878', $result->getthingTypeId());
     }
 }

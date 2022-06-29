@@ -13,7 +13,6 @@ use AsyncAws\Iot\Input\DeleteThingRequest;
 use AsyncAws\Iot\Input\DeleteThingTypeRequest;
 use AsyncAws\Iot\Input\ListThingGroupsForThingRequest;
 use AsyncAws\Iot\Input\ListThingGroupsRequest;
-use AsyncAws\Iot\Input\ListThingPrincipalsRequest;
 use AsyncAws\Iot\Input\ListThingsInThingGroupRequest;
 use AsyncAws\Iot\Input\ListThingsRequest;
 use AsyncAws\Iot\Input\ListThingTypesRequest;
@@ -189,23 +188,6 @@ class IotClientTest extends TestCase
         self::assertSame('changeIt', $result->getnextToken());
     }
 
-    public function testListThingPrincipals(): void
-    {
-        $client = $this->getClient();
-
-        $input = new ListThingPrincipalsRequest([
-            'nextToken' => 'change me',
-            'maxResults' => 1337,
-            'thingName' => 'change me',
-        ]);
-        $result = $client->listThingPrincipals($input);
-
-        $result->resolve();
-
-        // self::assertTODO(expected, $result->getprincipals());
-        self::assertSame('changeIt', $result->getnextToken());
-    }
-
     public function testListThingTypes(): void
     {
         $client = $this->getClient();
@@ -263,7 +245,7 @@ class IotClientTest extends TestCase
 
     private function getClient(): IotClient
     {
-        self::fail('Not implemented');
+        self::markTestSkipped('There is no free docker image available for Iot.');
 
         return new IotClient([
             'endpoint' => 'http://localhost',

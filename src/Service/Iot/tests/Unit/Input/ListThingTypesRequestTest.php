@@ -9,22 +9,16 @@ class ListThingTypesRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new ListThingTypesRequest([
-            'nextToken' => 'change me',
-            'maxResults' => 1337,
-            'thingTypeName' => 'change me',
+            'nextToken' => 'n3x7',
+            'maxResults' => 10,
+            'thingTypeName' => 'hvac',
         ]);
 
-        // see https://docs.aws.amazon.com/iot/latest/APIReference/API_ListThingTypes.html
+        // see https://docs.aws.amazon.com/iot/latest/apireference/API_ListThingTypes.html
         $expected = '
-            GET / HTTP/1.0
+            GET /thing-types?maxResults=10&nextToken=n3x7&thingTypeName=hvac HTTP/1.1
             Content-Type: application/json
-
-            {
-            "change": "it"
-        }
                 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

@@ -13,7 +13,6 @@ use AsyncAws\Iot\Input\DeleteThingRequest;
 use AsyncAws\Iot\Input\DeleteThingTypeRequest;
 use AsyncAws\Iot\Input\ListThingGroupsForThingRequest;
 use AsyncAws\Iot\Input\ListThingGroupsRequest;
-use AsyncAws\Iot\Input\ListThingPrincipalsRequest;
 use AsyncAws\Iot\Input\ListThingsInThingGroupRequest;
 use AsyncAws\Iot\Input\ListThingsRequest;
 use AsyncAws\Iot\Input\ListThingTypesRequest;
@@ -27,7 +26,6 @@ use AsyncAws\Iot\Result\DeleteThingResponse;
 use AsyncAws\Iot\Result\DeleteThingTypeResponse;
 use AsyncAws\Iot\Result\ListThingGroupsForThingResponse;
 use AsyncAws\Iot\Result\ListThingGroupsResponse;
-use AsyncAws\Iot\Result\ListThingPrincipalsResponse;
 use AsyncAws\Iot\Result\ListThingsInThingGroupResponse;
 use AsyncAws\Iot\Result\ListThingsResponse;
 use AsyncAws\Iot\Result\ListThingTypesResponse;
@@ -155,20 +153,6 @@ class IotClientTest extends TestCase
         $result = $client->listThingGroupsForThing($input);
 
         self::assertInstanceOf(ListThingGroupsForThingResponse::class, $result);
-        self::assertFalse($result->info()['resolved']);
-    }
-
-    public function testListThingPrincipals(): void
-    {
-        $client = new IotClient([], new NullProvider(), new MockHttpClient());
-
-        $input = new ListThingPrincipalsRequest([
-
-            'thingName' => 'change me',
-        ]);
-        $result = $client->listThingPrincipals($input);
-
-        self::assertInstanceOf(ListThingPrincipalsResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 

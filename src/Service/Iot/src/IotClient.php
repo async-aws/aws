@@ -24,7 +24,6 @@ use AsyncAws\Iot\Input\DeleteThingRequest;
 use AsyncAws\Iot\Input\DeleteThingTypeRequest;
 use AsyncAws\Iot\Input\ListThingGroupsForThingRequest;
 use AsyncAws\Iot\Input\ListThingGroupsRequest;
-use AsyncAws\Iot\Input\ListThingPrincipalsRequest;
 use AsyncAws\Iot\Input\ListThingsInThingGroupRequest;
 use AsyncAws\Iot\Input\ListThingsRequest;
 use AsyncAws\Iot\Input\ListThingTypesRequest;
@@ -37,7 +36,6 @@ use AsyncAws\Iot\Result\DeleteThingResponse;
 use AsyncAws\Iot\Result\DeleteThingTypeResponse;
 use AsyncAws\Iot\Result\ListThingGroupsForThingResponse;
 use AsyncAws\Iot\Result\ListThingGroupsResponse;
-use AsyncAws\Iot\Result\ListThingPrincipalsResponse;
 use AsyncAws\Iot\Result\ListThingsInThingGroupResponse;
 use AsyncAws\Iot\Result\ListThingsResponse;
 use AsyncAws\Iot\Result\ListThingTypesResponse;
@@ -51,7 +49,7 @@ class IotClient extends AbstractApi
     /**
      * Adds a thing to a thing group.
      *
-     * @see https://docs.aws.amazon.com/iot/latest/APIReference/API_AddThingToThingGroup.html
+     * @see https://docs.aws.amazon.com/iot/latest/apireference/API_AddThingToThingGroup.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#addthingtothinggroup
      *
      * @param array{
@@ -86,7 +84,7 @@ class IotClient extends AbstractApi
      * configuration, the call will succeed. If this call is made with the same thing name but different configuration a
      * `ResourceAlreadyExistsException` is thrown.
      *
-     * @see https://docs.aws.amazon.com/iot/latest/APIReference/API_CreateThing.html
+     * @see https://docs.aws.amazon.com/iot/latest/apireference/API_CreateThing.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#creatething
      *
      * @param array{
@@ -124,7 +122,7 @@ class IotClient extends AbstractApi
     /**
      * Create a thing group.
      *
-     * @see https://docs.aws.amazon.com/iot/latest/APIReference/API_CreateThingGroup.html
+     * @see https://docs.aws.amazon.com/iot/latest/apireference/API_CreateThingGroup.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#createthinggroup
      *
      * @param array{
@@ -156,7 +154,7 @@ class IotClient extends AbstractApi
     /**
      * Creates a new thing type.
      *
-     * @see https://docs.aws.amazon.com/iot/latest/APIReference/API_CreateThingType.html
+     * @see https://docs.aws.amazon.com/iot/latest/apireference/API_CreateThingType.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#createthingtype
      *
      * @param array{
@@ -192,7 +190,7 @@ class IotClient extends AbstractApi
      * Deletes the specified thing. Returns successfully with no error if the deletion is successful or you specify a thing
      * that doesn't exist.
      *
-     * @see https://docs.aws.amazon.com/iot/latest/APIReference/API_DeleteThing.html
+     * @see https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteThing.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#deletething
      *
      * @param array{
@@ -228,7 +226,7 @@ class IotClient extends AbstractApi
     /**
      * Deletes a thing group.
      *
-     * @see https://docs.aws.amazon.com/iot/latest/APIReference/API_DeleteThingGroup.html
+     * @see https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteThingGroup.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#deletethinggroup
      *
      * @param array{
@@ -261,7 +259,7 @@ class IotClient extends AbstractApi
      * UpdateThing to change the thing type on any associated thing, and finally use DeleteThingType to delete the thing
      * type.
      *
-     * @see https://docs.aws.amazon.com/iot/latest/APIReference/API_DeleteThingType.html
+     * @see https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteThingType.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#deletethingtype
      *
      * @param array{
@@ -294,7 +292,7 @@ class IotClient extends AbstractApi
     /**
      * List the thing groups in your account.
      *
-     * @see https://docs.aws.amazon.com/iot/latest/APIReference/API_ListThingGroups.html
+     * @see https://docs.aws.amazon.com/iot/latest/apireference/API_ListThingGroups.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#listthinggroups
      *
      * @param array{
@@ -327,7 +325,7 @@ class IotClient extends AbstractApi
     /**
      * List the thing groups to which the specified thing belongs.
      *
-     * @see https://docs.aws.amazon.com/iot/latest/APIReference/API_ListThingGroupsForThing.html
+     * @see https://docs.aws.amazon.com/iot/latest/apireference/API_ListThingGroupsForThing.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#listthinggroupsforthing
      *
      * @param array{
@@ -356,45 +354,9 @@ class IotClient extends AbstractApi
     }
 
     /**
-     * Lists the principals associated with the specified thing. A principal can be X.509 certificates, IAM users, groups,
-     * and roles, Amazon Cognito identities or federated identities.
-     *
-     * @see https://docs.aws.amazon.com/iot/latest/APIReference/API_ListThingPrincipals.html
-     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#listthingprincipals
-     *
-     * @param array{
-     *   nextToken?: string,
-     *   maxResults?: int,
-     *   thingName: string,
-     *   @region?: string,
-     * }|ListThingPrincipalsRequest $input
-     *
-     * @throws InvalidRequestException
-     * @throws ThrottlingException
-     * @throws UnauthorizedException
-     * @throws ServiceUnavailableException
-     * @throws InternalFailureException
-     * @throws ResourceNotFoundException
-     */
-    public function listThingPrincipals($input): ListThingPrincipalsResponse
-    {
-        $input = ListThingPrincipalsRequest::create($input);
-        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListThingPrincipals', 'region' => $input->getRegion(), 'exceptionMapping' => [
-            'InvalidRequestException' => InvalidRequestException::class,
-            'ThrottlingException' => ThrottlingException::class,
-            'UnauthorizedException' => UnauthorizedException::class,
-            'ServiceUnavailableException' => ServiceUnavailableException::class,
-            'InternalFailureException' => InternalFailureException::class,
-            'ResourceNotFoundException' => ResourceNotFoundException::class,
-        ]]));
-
-        return new ListThingPrincipalsResponse($response, $this, $input);
-    }
-
-    /**
      * Lists the existing thing types.
      *
-     * @see https://docs.aws.amazon.com/iot/latest/APIReference/API_ListThingTypes.html
+     * @see https://docs.aws.amazon.com/iot/latest/apireference/API_ListThingTypes.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#listthingtypes
      *
      * @param array{
@@ -429,7 +391,7 @@ class IotClient extends AbstractApi
      * calling `ListThings` with attributeName=Color and attributeValue=Red retrieves all things in the registry that
      * contain an attribute **Color** with the value **Red**.
      *
-     * @see https://docs.aws.amazon.com/iot/latest/APIReference/API_ListThings.html
+     * @see https://docs.aws.amazon.com/iot/latest/apireference/API_ListThings.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#listthings
      *
      * @param array{
@@ -465,7 +427,7 @@ class IotClient extends AbstractApi
     /**
      * Lists the things in the specified group.
      *
-     * @see https://docs.aws.amazon.com/iot/latest/APIReference/API_ListThingsInThingGroup.html
+     * @see https://docs.aws.amazon.com/iot/latest/apireference/API_ListThingsInThingGroup.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-iot-2015-05-28.html#listthingsinthinggroup
      *
      * @param array{

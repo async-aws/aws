@@ -12,32 +12,45 @@ class CreateThingGroupRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new CreateThingGroupRequest([
-            'thingGroupName' => 'change me',
-            'parentGroupName' => 'change me',
+            'thingGroupName' => 'unit1',
+            'parentGroupName' => 'building1',
             'thingGroupProperties' => new ThingGroupProperties([
-                'thingGroupDescription' => 'change me',
+                'thingGroupDescription' => 'All things part of Unit 1',
                 'attributePayload' => new AttributePayload([
-                    'attributes' => ['change me' => 'change me'],
+                    'attributes' => ['id' => 'GHYEUZLZL'],
                     'merge' => false,
                 ]),
             ]),
             'tags' => [new Tag([
-                'Key' => 'change me',
-                'Value' => 'change me',
+                'Key' => 'exposition',
+                'Value' => 'north',
             ])],
         ]);
 
-        // see https://docs.aws.amazon.com/iot/latest/APIReference/API_CreateThingGroup.html
+        // see https://docs.aws.amazon.com/iot/latest/apireference/API_CreateThingGroup.html
         $expected = '
-            POST / HTTP/1.0
+            POST /thing-groups/unit1 HTTP/1.1
             Content-Type: application/json
 
             {
-            "change": "it"
-        }
+                "parentGroupName": "building1",
+                "tags": [
+                   {
+                      "Key": "exposition",
+                      "Value": "north"
+                   }
+                ],
+                "thingGroupProperties": {
+                   "attributePayload": {
+                      "attributes": {
+                         "id" : "GHYEUZLZL"
+                      },
+                      "merge": false
+                   },
+                   "thingGroupDescription": "All things part of Unit 1"
+                }
+            }
                 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

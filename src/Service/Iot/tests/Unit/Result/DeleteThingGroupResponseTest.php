@@ -13,14 +13,12 @@ class DeleteThingGroupResponseTest extends TestCase
 {
     public function testDeleteThingGroupResponse(): void
     {
-        self::fail('Not implemented');
-
-        // see https://docs.aws.amazon.com/iot/latest/APIReference/API_DeleteThingGroup.html
+        // see https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteThingGroup.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
         }');
 
         $client = new MockHttpClient($response);
         $result = new DeleteThingGroupResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
+        self::assertTrue($result->resolve());
     }
 }

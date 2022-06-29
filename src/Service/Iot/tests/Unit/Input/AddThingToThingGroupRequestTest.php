@@ -9,24 +9,26 @@ class AddThingToThingGroupRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new AddThingToThingGroupRequest([
-            'thingGroupName' => 'change me',
-            'thingGroupArn' => 'change me',
-            'thingName' => 'change me',
-            'thingArn' => 'change me',
+            'thingGroupName' => 'hvac',
+            'thingGroupArn' => 'hvac-arn',
+            'thingName' => 'hvac-1',
+            'thingArn' => 'hvac-1-arn',
             'overrideDynamicGroups' => false,
         ]);
 
-        // see https://docs.aws.amazon.com/iot/latest/APIReference/API_AddThingToThingGroup.html
+        // see https://docs.aws.amazon.com/iot/latest/apireference/API_AddThingToThingGroup.html
         $expected = '
-            PUT / HTTP/1.0
-            Content-Type: application/json
+            PUT /thing-groups/addThingToThingGroup HTTP/1.1
+            Content-type: application/json
 
             {
-            "change": "it"
-        }
+            "overrideDynamicGroups": false,
+            "thingArn": "hvac-1-arn",
+            "thingGroupArn": "hvac-arn",
+            "thingGroupName": "hvac",
+            "thingName": "hvac-1"
+            }
                 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

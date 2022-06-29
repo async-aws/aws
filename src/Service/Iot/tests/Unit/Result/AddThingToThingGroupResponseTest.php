@@ -13,14 +13,12 @@ class AddThingToThingGroupResponseTest extends TestCase
 {
     public function testAddThingToThingGroupResponse(): void
     {
-        self::fail('Not implemented');
-
-        // see https://docs.aws.amazon.com/iot/latest/APIReference/API_AddThingToThingGroup.html
+        // see https://docs.aws.amazon.com/iot/latest/apireference/API_AddThingToThingGroup.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
         }');
 
         $client = new MockHttpClient($response);
         $result = new AddThingToThingGroupResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
+        self::assertTrue($result->resolve());
     }
 }

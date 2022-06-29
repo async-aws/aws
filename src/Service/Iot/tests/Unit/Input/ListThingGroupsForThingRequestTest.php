@@ -9,23 +9,17 @@ class ListThingGroupsForThingRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new ListThingGroupsForThingRequest([
-            'thingName' => 'change me',
-            'nextToken' => 'change me',
-            'maxResults' => 1337,
+            'thingName' => 'hvac1',
+            'nextToken' => '0th3r',
+            'maxResults' => 42,
         ]);
 
-        // see https://docs.aws.amazon.com/iot/latest/APIReference/API_ListThingGroupsForThing.html
+        // see https://docs.aws.amazon.com/iot/latest/apireference/API_ListThingGroupsForThing.html
         $expected = '
-            GET / HTTP/1.0
+            GET /things/hvac1/thing-groups?maxResults=42&nextToken=0th3r HTTP/1.0
             Content-Type: application/json
-
-            {
-            "change": "it"
-        }
-                ';
+            ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

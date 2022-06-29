@@ -9,21 +9,15 @@ class DeleteThingGroupRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new DeleteThingGroupRequest([
-            'thingGroupName' => 'change me',
+            'thingGroupName' => 'unit1',
             'expectedVersion' => 1337,
         ]);
 
-        // see https://docs.aws.amazon.com/iot/latest/APIReference/API_DeleteThingGroup.html
+        // see https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteThingGroup.html
         $expected = '
-            DELETE / HTTP/1.0
+            DELETE /thing-groups/unit1?expectedVersion=1337 HTTP/1.0
             Content-Type: application/json
-
-            {
-            "change": "it"
-        }
                 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

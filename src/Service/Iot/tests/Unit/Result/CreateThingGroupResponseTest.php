@@ -13,18 +13,18 @@ class CreateThingGroupResponseTest extends TestCase
 {
     public function testCreateThingGroupResponse(): void
     {
-        self::fail('Not implemented');
-
-        // see https://docs.aws.amazon.com/iot/latest/APIReference/API_CreateThingGroup.html
+        // see https://docs.aws.amazon.com/iot/latest/apireference/API_CreateThingGroup.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
+            "thingGroupArn": "unit1-arn",
+            "thingGroupId": "29278982HJS",
+            "thingGroupName": "unit1"
         }');
 
         $client = new MockHttpClient($response);
         $result = new CreateThingGroupResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()));
 
-        self::assertSame('changeIt', $result->getthingGroupName());
-        self::assertSame('changeIt', $result->getthingGroupArn());
-        self::assertSame('changeIt', $result->getthingGroupId());
+        self::assertSame('unit1', $result->getThingGroupName());
+        self::assertSame('unit1-arn', $result->getThingGroupArn());
+        self::assertSame('29278982HJS', $result->getThingGroupId());
     }
 }

@@ -11,28 +11,35 @@ class CreateThingTypeRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new CreateThingTypeRequest([
-            'thingTypeName' => 'change me',
+            'thingTypeName' => 'hvac',
             'thingTypeProperties' => new ThingTypeProperties([
-                'thingTypeDescription' => 'change me',
-                'searchableAttributes' => ['change me'],
+                'thingTypeDescription' => 'HVAC',
+                'searchableAttributes' => ['air-conditionner'],
             ]),
             'tags' => [new Tag([
-                'Key' => 'change me',
-                'Value' => 'change me',
+                'Key' => 'default_temperature',
+                'Value' => '18',
             ])],
         ]);
 
-        // see https://docs.aws.amazon.com/iot/latest/APIReference/API_CreateThingType.html
+        // see https://docs.aws.amazon.com/iot/latest/apireference/API_CreateThingType.html
         $expected = '
-            POST / HTTP/1.0
-            Content-Type: application/json
+            POST /thing-types/hvac HTTP/1.1
+            Content-type: application/json
 
             {
-            "change": "it"
-        }
+                "tags": [
+                    {
+                        "Key": "default_temperature",
+                        "Value": "18"
+                    }
+                ],
+                "thingTypeProperties": {
+                    "searchableAttributes": [ "air-conditionner" ],
+                    "thingTypeDescription": "HVAC"
+                }
+            }
                 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

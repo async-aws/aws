@@ -9,21 +9,15 @@ class DeleteThingTypeRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new DeleteThingTypeRequest([
-            'thingTypeName' => 'change me',
+            'thingTypeName' => 'hvac',
         ]);
 
-        // see https://docs.aws.amazon.com/iot/latest/APIReference/API_DeleteThingType.html
+        // see https://docs.aws.amazon.com/iot/latest/apireference/API_DeleteThingType.html
         $expected = '
-            DELETE / HTTP/1.0
+            DELETE /thing-types/hvac HTTP/1.0
             Content-Type: application/json
-
-            {
-            "change": "it"
-        }
-                ';
+            ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());
     }

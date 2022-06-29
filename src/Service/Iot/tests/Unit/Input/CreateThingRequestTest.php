@@ -10,26 +10,31 @@ class CreateThingRequestTest extends TestCase
 {
     public function testRequest(): void
     {
-        self::fail('Not implemented');
-
         $input = new CreateThingRequest([
-            'thingName' => 'change me',
-            'thingTypeName' => 'change me',
+            'thingName' => 'hvac-1',
+            'thingTypeName' => 'hvac',
             'attributePayload' => new AttributePayload([
-                'attributes' => ['change me' => 'change me'],
+                'attributes' => ['knx_ip' => '90.234.10.1'],
                 'merge' => false,
             ]),
-            'billingGroupName' => 'change me',
+            'billingGroupName' => 'air-conditioning',
         ]);
 
-        // see https://docs.aws.amazon.com/iot/latest/APIReference/API_CreateThing.html
+        // see https://docs.aws.amazon.com/iot/latest/apireference/API_CreateThing.html
         $expected = '
-            POST / HTTP/1.0
+            POST /things/hvac-1 HTTP/1.0
             Content-Type: application/json
 
             {
-            "change": "it"
-        }
+                "attributePayload": {
+                   "attributes": {
+                      "knx_ip" : "90.234.10.1"
+                   },
+                   "merge": false
+                },
+                "billingGroupName": "air-conditioning",
+                "thingTypeName": "hvac"
+            }
                 ';
 
         self::assertRequestEqualsHttpRequest($expected, $input->request());

@@ -15,17 +15,15 @@ class ListThingsInThingGroupResponseTest extends TestCase
 {
     public function testListThingsInThingGroupResponse(): void
     {
-        self::fail('Not implemented');
-
-        // see https://docs.aws.amazon.com/iot/latest/APIReference/API_ListThingsInThingGroup.html
+        // see https://docs.aws.amazon.com/iot/latest/apireference/API_ListThingsInThingGroup.html
         $response = new SimpleMockedResponse('{
-            "change": "it"
+            "things": [ "hvac1", "light1", "sensor1" ]
         }');
 
         $client = new MockHttpClient($response);
-        $result = new ListThingsInThingGroupResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new IotClient(), new ListThingsInThingGroupRequest([]));
+        $result = new ListThingsInThingGroupResponse(new Response($client->request('POST', 'http://localhost'), $client, new NullLogger()), new IotClient(), new ListThingsInThingGroupRequest(['thingGroupName' => 'unit1']));
 
-        // self::assertTODO(expected, $result->getthings());
-        self::assertSame('changeIt', $result->getnextToken());
+        self::assertEquals(['hvac1', 'light1', 'sensor1'], iterator_to_array($result->getThings()));
+        self::assertSame(null, $result->getNextToken());
     }
 }

@@ -73,6 +73,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\Iam\IamClient::class,
                 'package' => 'async-aws/iam',
             ],
+            'iot' => [
+                'class' => \AsyncAws\Iot\IotClient::class,
+                'package' => 'async-aws/iot',
+            ],
             'kinesis' => [
                 'class' => \AsyncAws\Kinesis\KinesisClient::class,
                 'package' => 'async-aws/kinesis',
