@@ -79,6 +79,9 @@ menu:
             iam:
                 text: IAM
                 url: /clients/iam.html
+            iot:
+                text: Iot
+                url: /clients/iot.html
             kinesis:
                 text: Kinesis
                 url: /clients/kinesis.html

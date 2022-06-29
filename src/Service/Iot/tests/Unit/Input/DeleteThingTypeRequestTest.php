@@ -1,0 +1,30 @@
+<?php
+
+namespace AsyncAws\Iot\Tests\Unit\Input;
+
+use AsyncAws\Core\Test\TestCase;
+use AsyncAws\Iot\Input\DeleteThingTypeRequest;
+
+class DeleteThingTypeRequestTest extends TestCase
+{
+    public function testRequest(): void
+    {
+        self::fail('Not implemented');
+
+        $input = new DeleteThingTypeRequest([
+            'thingTypeName' => 'change me',
+        ]);
+
+        // see https://docs.aws.amazon.com/iot/latest/APIReference/API_DeleteThingType.html
+        $expected = '
+            DELETE / HTTP/1.0
+            Content-Type: application/json
+
+            {
+            "change": "it"
+        }
+                ';
+
+        self::assertRequestEqualsHttpRequest($expected, $input->request());
+    }
+}
