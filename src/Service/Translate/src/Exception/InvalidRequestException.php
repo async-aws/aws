@@ -6,7 +6,8 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The request that you made is invalid. Check your request to determine why it's invalid and then retry the request.
+ * The request that you made is not valid. Check your request to determine why it's not valid and then retry the
+ * request.
  */
 final class InvalidRequestException extends ClientException
 {
