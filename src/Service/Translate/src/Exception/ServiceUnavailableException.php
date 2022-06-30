@@ -6,7 +6,7 @@ use AsyncAws\Core\Exception\Http\ClientException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * The Amazon Translate service is temporarily unavailable. Please wait a bit and then retry your request.
+ * The Amazon Translate service is temporarily unavailable. Wait a bit and then retry your request.
  */
 final class ServiceUnavailableException extends ClientException
 {

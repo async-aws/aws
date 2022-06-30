@@ -6,6 +6,7 @@ use AsyncAws\Core\Exception\InvalidArgument;
 use AsyncAws\Core\Input;
 use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
+use AsyncAws\Translate\Enum\Formality;
 use AsyncAws\Translate\ValueObject\TranslationSettings;
 
 final class TranslateTextRequest extends Input
@@ -49,7 +50,8 @@ final class TranslateTextRequest extends Input
     private $targetLanguageCode;
 
     /**
-     * Settings to configure your translation output, including the option to mask profane words and phrases.
+     * Settings to configure your translation output, including the option to set the formality level of the output text and
+     * the option to mask profane words and phrases.
      *
      * @var TranslationSettings|null
      */
