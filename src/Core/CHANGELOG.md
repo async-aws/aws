@@ -5,6 +5,7 @@
 ### Added
 
 - Added support for endpoint discovery
+- Added support for Iot Core
 
 ## 1.15.0
 

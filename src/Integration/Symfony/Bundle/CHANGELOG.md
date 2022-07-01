@@ -8,6 +8,7 @@
 - Support for CodeCommit
 - Support for TimestreamQuery
 - Support for TimestreamWrite
+- Support for Iot Core
 
 ## 1.7.0
 
