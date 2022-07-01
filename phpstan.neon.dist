@@ -42,6 +42,7 @@ parameters:
               - src/Service/Kms/src/ValueObject/Tag.php
               - src/Service/Kinesis/src/ValueObject
               - src/Service/Lambda/src/ValueObject
+              - src/Service/Iot/src/ValueObject/Tag.php
               - src/Service/Route53/src/ValueObject
               - src/Service/S3/src/ValueObject
               - src/Service/Ses/src/ValueObject

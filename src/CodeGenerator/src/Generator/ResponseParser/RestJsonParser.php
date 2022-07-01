@@ -111,7 +111,7 @@ class RestJsonParser implements Parser
 
     protected function parseResponseTimestamp(Shape $shape, string $input, bool $required): string
     {
-        $body = 'new \DateTimeImmutable((string) INPUT)';
+        $body = '\DateTimeImmutable::createFromFormat("U.u", sprintf("%.6F", INPUT))';
 
         if (!$required) {
             $body = 'isset(INPUT) ? ' . $body . ' : null';

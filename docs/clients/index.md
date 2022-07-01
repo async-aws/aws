@@ -62,12 +62,12 @@ client like:
 services:
     AsyncAws\DynamoDb\DynamoDbClient:
         arguments:
-            - region: 'eu-central-1'
-              accessKeyId: 'AKIAIOSFODNN7EXAMPLE'
-              accessKeySecret: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+            - region: "eu-central-1"
+              accessKeyId: "AKIAIOSFODNN7EXAMPLE"
+              accessKeySecret: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
             - ~ # Use the default authentication providers
-            - '@http_client'
-            - '@logger'
+            - "@http_client"
+            - "@logger"
 ```
 
 If you are using Symfony you may ease configuration by install the [Symfony Bundle](/integration/symfony-bundle.md).
@@ -135,39 +135,40 @@ Here is a list of supported clients. If there is a need for another client or a 
 operation, it can be automatically generated. See the [contribution guide](/contribute/index.md)
 for more information.
 
-| Api Client                                  | Package name
-|---------------------------------------------|-------------
-| [AppSync](./app-sync.md)                    | [async-aws/app-sync](https://packagist.org/packages/async-aws/app-sync)
-| [CloudFormation](./cf.md)                   | [async-aws/cloud-formation](https://packagist.org/packages/async-aws/cloud-formation)
-| [CloudFront](./cloud-front.md)              | [async-aws/cloud-front](https://packagist.org/packages/async-aws/cloud-front)
-| [CloudWatch](./cloud-watch.md)              | [async-aws/cloud-watch](https://packagist.org/packages/async-aws/cloud-watch)
-| [CloudWatchLogs](./cloud-watch-logs.md)     | [async-aws/cloud-watch-logs](https://packagist.org/packages/async-aws/cloud-watch-logs)
-| [CodeBuild](./code-build.md)                | [async-aws/code-build](https://packagist.org/packages/async-aws/code-build)
-| [CodeCommit](./code-commit.md)              | [async-aws/code-commit](https://packagist.org/packages/async-aws/code-commit)
-| [CodeDeploy](./code-deploy.md)              | [async-aws/code-deploy](https://packagist.org/packages/async-aws/code-deploy)
-| [CognitoIdentityProvider](./cognito-idp.md) | [async-aws/cognito-identity-provider](https://packagist.org/packages/async-aws/cognito-identity-provider)
-| [Comprehend](./comprehend.md)               | [async-aws/comprehend](https://packagist.org/packages/async-aws/comprehend)
-| [DynamoDb](./dynamodb.md)                   | [async-aws/dynamo-db](https://packagist.org/packages/async-aws/dynamo-db)
-| [ECR](./ecr.md)                             | [async-aws/ecr](https://packagist.org/packages/async-aws/ecr)
-| [ElastiCache](./elasti-cache.md)            | [async-aws/elasti-cach](https://packagist.org/packages/async-aws/elasti-cache)
-| [EventBridge](./event-bridge.md)            | [async-aws/event-bridge](https://packagist.org/packages/async-aws/event-bridge)
-| [Firehose](./firehose.md)                   | [async-aws/event-bridge](https://packagist.org/packages/async-aws/firehose)
-| [IAM](./iam.md)                             | [async-aws/iam](https://packagist.org/packages/async-aws/iam)
-| [Kinesis](./kinesis.md)                     | [async-aws/kinesis](https://packagist.org/packages/async-aws/kinesis)
-| [KMS](./kms.md)                             | [async-aws/kms](https://packagist.org/packages/async-aws/kms)
-| [Lambda](./lambda.md)                       | [async-aws/lambda](https://packagist.org/packages/async-aws/lambda)
-| [RdsDataService](./rds-data-service.md)     | [async-aws/rds-data-service](https://packagist.org/packages/async-aws/rds-data-service)
-| [Rekognition](./rekognition.md)             | [async-aws/rekognition](https://packagist.org/packages/async-aws/rekognition)
-| [Route53](./route53.md)                     | [async-aws/route53](https://packagist.org/packages/async-aws/route53)
-| [S3](./s3.md)                               | [async-aws/s3](https://packagist.org/packages/async-aws/s3)
-| [SecretsManager](./secrets-manager.md)      | [async-aws/secrets-manager](https://packagist.org/packages/async-aws/secrets-manager)
-| [SES](./ses.md)                             | [async-aws/ses](https://packagist.org/packages/async-aws/ses)
-| [SNS](./sns.md)                             | [async-aws/sns](https://packagist.org/packages/async-aws/sns)
-| [SQS](./sqs.md)                             | [async-aws/sqs](https://packagist.org/packages/async-aws/sqs)
-| [SSM](./ssm.md)                             | [async-aws/ssm](https://packagist.org/packages/async-aws/ssm)
-| [STS](./sts.md)                             | [async-aws/core](https://packagist.org/packages/async-aws/core)
-| [StepFunctions](./step-functions.md)        | [async-aws/step-functions](https://packagist.org/packages/async-aws/step-functions)
-| [TimestreamQuery](./timestream-query.md)    | [async-aws/timestream-query](https://packagist.org/packages/async-aws/timestream-query)
-| [TimestreamWrite](./timestream-write.md)    | [async-aws/timestream-write](https://packagist.org/packages/async-aws/timestream-write)
-| [Translate](./translate.md)                 | [async-aws/translate](https://packagist.org/packages/async-aws/translate)
-| [XRay](./x-ray.md)                          | [async-aws/x-ray](https://packagist.org/packages/async-aws/x-ray)
+| Api Client                                  | Package name                                                                                              |
+| ------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| [AppSync](./app-sync.md)                    | [async-aws/app-sync](https://packagist.org/packages/async-aws/app-sync)                                   |
+| [CloudFormation](./cf.md)                   | [async-aws/cloud-formation](https://packagist.org/packages/async-aws/cloud-formation)                     |
+| [CloudFront](./cloud-front.md)              | [async-aws/cloud-front](https://packagist.org/packages/async-aws/cloud-front)                             |
+| [CloudWatch](./cloud-watch.md)              | [async-aws/cloud-watch](https://packagist.org/packages/async-aws/cloud-watch)                             |
+| [CloudWatchLogs](./cloud-watch-logs.md)     | [async-aws/cloud-watch-logs](https://packagist.org/packages/async-aws/cloud-watch-logs)                   |
+| [CodeBuild](./code-build.md)                | [async-aws/code-build](https://packagist.org/packages/async-aws/code-build)                               |
+| [CodeCommit](./code-commit.md)              | [async-aws/code-commit](https://packagist.org/packages/async-aws/code-commit)                             |
+| [CodeDeploy](./code-deploy.md)              | [async-aws/code-deploy](https://packagist.org/packages/async-aws/code-deploy)                             |
+| [CognitoIdentityProvider](./cognito-idp.md) | [async-aws/cognito-identity-provider](https://packagist.org/packages/async-aws/cognito-identity-provider) |
+| [Comprehend](./comprehend.md)               | [async-aws/comprehend](https://packagist.org/packages/async-aws/comprehend)                               |
+| [DynamoDb](./dynamodb.md)                   | [async-aws/dynamo-db](https://packagist.org/packages/async-aws/dynamo-db)                                 |
+| [ECR](./ecr.md)                             | [async-aws/ecr](https://packagist.org/packages/async-aws/ecr)                                             |
+| [ElastiCache](./elasti-cache.md)            | [async-aws/elasti-cach](https://packagist.org/packages/async-aws/elasti-cache)                            |
+| [EventBridge](./event-bridge.md)            | [async-aws/event-bridge](https://packagist.org/packages/async-aws/event-bridge)                           |
+| [Firehose](./firehose.md)                   | [async-aws/event-bridge](https://packagist.org/packages/async-aws/firehose)                               |
+| [IAM](./iam.md)                             | [async-aws/iam](https://packagist.org/packages/async-aws/iam)                                             |
+| [Iot](./iot.md)                             | [async-aws/iot](https://packagist.org/packages/async-aws/iot)                                             |
+| [Kinesis](./kinesis.md)                     | [async-aws/kinesis](https://packagist.org/packages/async-aws/kinesis)                                     |
+| [KMS](./kms.md)                             | [async-aws/kms](https://packagist.org/packages/async-aws/kms)                                             |
+| [Lambda](./lambda.md)                       | [async-aws/lambda](https://packagist.org/packages/async-aws/lambda)                                       |
+| [RdsDataService](./rds-data-service.md)     | [async-aws/rds-data-service](https://packagist.org/packages/async-aws/rds-data-service)                   |
+| [Rekognition](./rekognition.md)             | [async-aws/rekognition](https://packagist.org/packages/async-aws/rekognition)                             |
+| [Route53](./route53.md)                     | [async-aws/route53](https://packagist.org/packages/async-aws/route53)                                     |
+| [S3](./s3.md)                               | [async-aws/s3](https://packagist.org/packages/async-aws/s3)                                               |
+| [SecretsManager](./secrets-manager.md)      | [async-aws/secrets-manager](https://packagist.org/packages/async-aws/secrets-manager)                     |
+| [SES](./ses.md)                             | [async-aws/ses](https://packagist.org/packages/async-aws/ses)                                             |
+| [SNS](./sns.md)                             | [async-aws/sns](https://packagist.org/packages/async-aws/sns)                                             |
+| [SQS](./sqs.md)                             | [async-aws/sqs](https://packagist.org/packages/async-aws/sqs)                                             |
+| [SSM](./ssm.md)                             | [async-aws/ssm](https://packagist.org/packages/async-aws/ssm)                                             |
+| [STS](./sts.md)                             | [async-aws/core](https://packagist.org/packages/async-aws/core)                                           |
+| [StepFunctions](./step-functions.md)        | [async-aws/step-functions](https://packagist.org/packages/async-aws/step-functions)                       |
+| [TimestreamQuery](./timestream-query.md)    | [async-aws/timestream-query](https://packagist.org/packages/async-aws/timestream-query)                   |
+| [TimestreamWrite](./timestream-write.md)    | [async-aws/timestream-write](https://packagist.org/packages/async-aws/timestream-write)                   |
+| [Translate](./translate.md)                 | [async-aws/translate](https://packagist.org/packages/async-aws/translate)                                 |
+| [XRay](./x-ray.md)                          | [async-aws/x-ray](https://packagist.org/packages/async-aws/x-ray)                                         |

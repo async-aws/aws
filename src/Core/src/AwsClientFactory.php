@@ -26,6 +26,7 @@ use AsyncAws\ElastiCache\ElastiCacheClient;
 use AsyncAws\EventBridge\EventBridgeClient;
 use AsyncAws\Firehose\FirehoseClient;
 use AsyncAws\Iam\IamClient;
+use AsyncAws\Iot\IotClient;
 use AsyncAws\Kinesis\KinesisClient;
 use AsyncAws\Kms\KmsClient;
 use AsyncAws\Lambda\LambdaClient;
@@ -287,6 +288,19 @@ class AwsClientFactory
 
         if (!isset($this->serviceCache[__METHOD__])) {
             $this->serviceCache[__METHOD__] = new IamClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
+        }
+
+        return $this->serviceCache[__METHOD__];
+    }
+
+    public function iot(): IotClient
+    {
+        if (!class_exists(IotClient::class)) {
+            throw MissingDependency::create('async-aws/iot', 'Iot');
+        }
+
+        if (!isset($this->serviceCache[__METHOD__])) {
+            $this->serviceCache[__METHOD__] = new IotClient($this->configuration, $this->credentialProvider, $this->httpClient, $this->logger);
         }
 
         return $this->serviceCache[__METHOD__];

@@ -240,6 +240,27 @@
                 "UpdateUser"
             ]
         },
+        "Iot": {
+            "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/iot/2015-05-28/api-2.json",
+            "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/iot/2015-05-28/docs-2.json",
+            "pagination": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/iot/2015-05-28/paginators-1.json",
+            "example": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/iot/2015-05-28/examples-1.json",
+            "api-reference": "https://docs.aws.amazon.com/iot/latest/apireference",
+            "methods": [
+                "AddThingToThingGroup",
+                "CreateThing",
+                "CreateThingGroup",
+                "CreateThingType",
+                "DeleteThing",
+                "DeleteThingGroup",
+                "DeleteThingType",
+                "ListThingGroups",
+                "ListThingGroupsForThing",
+                "ListThings",
+                "ListThingsInThingGroup",
+                "ListThingTypes"
+            ]
+        },
         "Kinesis": {
             "source": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/kinesis/2013-12-02/api-2.json",
             "documentation": "https://raw.githubusercontent.com/aws/aws-sdk-php/${LATEST}/src/data/kinesis/2013-12-02/docs-2.json",
