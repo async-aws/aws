@@ -89,7 +89,6 @@ class InputGenerator
     public function generate(Operation $operation): ClassName
     {
         $shape = $operation->getInput();
-
         if (isset($this->generated[$shape->getName()])) {
             return $this->generated[$shape->getName()];
         }
@@ -306,11 +305,16 @@ class InputGenerator
 
         $body['querystring'] = '$query = [];' . "\n";
 
+        $usesEndpointDiscovery = $operation->usesEndpointDiscovery();
         foreach (['header' => '$headers', 'querystring' => '$query', 'uri' => '$uri'] as $requestPart => $varName) {
             foreach ($inputShape->getMembers() as $member) {
                 // If location is not specified, it will go in the request body.
                 if ($requestPart !== $member->getLocation()) {
                     continue;
+                }
+
+                if ('querystring' === $requestPart && $usesEndpointDiscovery) {
+                    throw new \InvalidArgumentException('Query string is not compatible with endpoint discovery');
                 }
 
                 $memberShape = $member->getShape();
@@ -359,7 +363,7 @@ class InputGenerator
                     'PROPERTY' => GeneratorHelper::normalizeName($member->getName()),
                     'NAME' => $member->getName(),
                     'VAR_NAME' => $varName,
-                    'LOCATION' => $location = $member->getLocationName() ?? $member->getName(),
+                    'LOCATION' => $member->getLocationName() ?? $member->getName(),
                     'VALIDATE_ENUM' => $validateEnum,
                     'APPLY_HOOK' => $applyHook,
                     'VALUE' => $this->stringify($inputElement, $member, $requestPart),
@@ -433,6 +437,11 @@ class InputGenerator
         $uriStringCode = preg_replace('/\{([^\}\+]+)\+\}/', '".str_replace(\'%2F\', \'/\', rawurlencode($uri[\'$1\']))."', $uriStringCode);
         $uriStringCode = preg_replace('/\{([^\}]+)\}/', '".rawurlencode($uri[\'$1\'])."', $uriStringCode);
         $uriStringCode = preg_replace('/(^""\.|\.""$|\.""\.)/', '', $uriStringCode);
+
+        if ($usesEndpointDiscovery && '"/"' !== $uriStringCode) {
+            throw new \InvalidArgumentException('URI is not compatible with endpoint discovery');
+        }
+
         $body['uri'] .= '$uriString = ' . $uriStringCode . ';';
 
         $method = var_export($operation->getHttpMethod(), true);

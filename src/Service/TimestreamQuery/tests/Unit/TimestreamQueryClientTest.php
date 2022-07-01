@@ -3,6 +3,7 @@
 namespace AsyncAws\TimestreamQuery\Tests\Unit;
 
 use AsyncAws\Core\Credentials\NullProvider;
+use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\TimestreamQuery\Input\CancelQueryRequest;
 use AsyncAws\TimestreamQuery\Input\PrepareQueryRequest;
@@ -17,7 +18,12 @@ class TimestreamQueryClientTest extends TestCase
 {
     public function testCancelQuery(): void
     {
-        $client = new TimestreamQueryClient([], new NullProvider(), new MockHttpClient());
+        $client = new TimestreamQueryClient([], new NullProvider(), new MockHttpClient([new SimpleMockedResponse('{
+          "Endpoints": [{
+            "Address": "www.aws.com",
+            "CachePeriodInMinutes": 1234
+          }]
+        }'), new SimpleMockedResponse('{}')]));
 
         $input = new CancelQueryRequest([
             'QueryId' => 'qwertyuiop',
@@ -30,7 +36,12 @@ class TimestreamQueryClientTest extends TestCase
 
     public function testPrepareQuery(): void
     {
-        $client = new TimestreamQueryClient([], new NullProvider(), new MockHttpClient());
+        $client = new TimestreamQueryClient([], new NullProvider(), new MockHttpClient([new SimpleMockedResponse('{
+          "Endpoints": [{
+            "Address": "www.aws.com",
+            "CachePeriodInMinutes": 1234
+          }]
+        }'), new SimpleMockedResponse('{}')]));
 
         $input = new PrepareQueryRequest([
             'QueryString' => 'SELECT * FROM db.tbl ORDER BY time DESC LIMIT 10',
@@ -45,7 +56,12 @@ class TimestreamQueryClientTest extends TestCase
 
     public function testQuery(): void
     {
-        $client = new TimestreamQueryClient([], new NullProvider(), new MockHttpClient());
+        $client = new TimestreamQueryClient([], new NullProvider(), new MockHttpClient([new SimpleMockedResponse('{
+          "Endpoints": [{
+            "Address": "www.aws.com",
+            "CachePeriodInMinutes": 1234
+          }]
+        }'), new SimpleMockedResponse('{}')]));
 
         $input = new QueryRequest([
             'ClientToken' => 'qwertyuiop',

@@ -3,6 +3,7 @@
 namespace AsyncAws\TimestreamWrite\Tests\Unit;
 
 use AsyncAws\Core\Credentials\NullProvider;
+use AsyncAws\Core\Test\Http\SimpleMockedResponse;
 use AsyncAws\Core\Test\TestCase;
 use AsyncAws\TimestreamWrite\Enum\MeasureValueType;
 use AsyncAws\TimestreamWrite\Input\WriteRecordsRequest;
@@ -16,7 +17,12 @@ class TimestreamWriteClientTest extends TestCase
 {
     public function testWriteRecords(): void
     {
-        $client = new TimestreamWriteClient([], new NullProvider(), new MockHttpClient());
+        $client = new TimestreamWriteClient([], new NullProvider(), new MockHttpClient([new SimpleMockedResponse('{
+          "Endpoints": [{
+            "Address": "www.aws.com",
+            "CachePeriodInMinutes": 1234
+          }]
+        }'), new SimpleMockedResponse('{}')]));
 
         $input = new WriteRecordsRequest([
             'DatabaseName' => 'db',

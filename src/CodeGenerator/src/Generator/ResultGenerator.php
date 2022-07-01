@@ -85,7 +85,7 @@ class ResultGenerator
         $classBuilder->addUse(ResponseInterface::class);
         $classBuilder->addUse(HttpClientInterface::class);
 
-        $this->populatorGenerator->generate($operation, $shape, $classBuilder);
+        $this->populatorGenerator->generate($operation, $shape, $classBuilder, false, $operation->isEndpointOperation());
         $this->addUse($shape, $classBuilder);
 
         return $className;

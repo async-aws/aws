@@ -124,7 +124,7 @@ class ServiceGenerator
 
     public function operation(): OperationGenerator
     {
-        return $this->operation ?? $this->operation = new OperationGenerator($this->classRegistry, $this->namespaceRegistry, $this->input(), $this->result(), $this->pagination(), $this->test(), $this->exception(), $this->type());
+        return $this->operation ?? $this->operation = new OperationGenerator($this->classRegistry, $this->namespaceRegistry, $this->requirementsRegistry, $this->input(), $this->result(), $this->pagination(), $this->test(), $this->exception(), $this->type());
     }
 
     public function waiter(): WaiterGenerator

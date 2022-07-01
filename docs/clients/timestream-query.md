@@ -10,12 +10,12 @@ package: async-aws/timestream-query
 ### Execute a query
 
 ```php
-use AsyncAws\TimestreamQuery\Input\QueryInput;
+use AsyncAws\TimestreamQuery\Input\QueryRequest;
 use AsyncAws\TimestreamQuery\TimestreamQueryClient;
 
 $timestreamQuery = new TimestreamQueryClient();
 
-$result = $timestreamQuery->query(new QueryInput([
+$result = $timestreamQuery->query(new QueryRequest[
     'ClientToken' => 'qwertyuiop',
     'QueryString' => 'SELECT * FROM db.tbl ORDER BY time DESC LIMIT 10',
 ]));

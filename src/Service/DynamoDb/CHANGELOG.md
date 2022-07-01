@@ -4,6 +4,7 @@
 
 ### Added
 
+- Added support for endpoint discovery
 - AWS enhancement: Documentation updates.
 
 ## 1.2.0

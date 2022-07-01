@@ -65,16 +65,16 @@ class PopulatorGenerator
         $this->parserProvider = $parserProvider ?? new ParserProvider($namespaceRegistry, $requirementsRegistry, $this->typeGenerator);
     }
 
-    public function generate(Operation $operation, StructureShape $shape, ClassBuilder $classBuilder, bool $forException = false): void
+    public function generate(Operation $operation, StructureShape $shape, ClassBuilder $classBuilder, bool $forException = false, bool $forEndpoint = false): void
     {
         $this->generatePopulator($operation, $shape, $classBuilder, $forException);
-        $this->generateProperties($shape, $classBuilder, $forException);
+        $this->generateProperties($shape, $classBuilder, $forException, $forEndpoint);
     }
 
     /**
      * Add properties and getters.
      */
-    private function generateProperties(StructureShape $shape, ClassBuilder $classBuilder, bool $forException): void
+    private function generateProperties(StructureShape $shape, ClassBuilder $classBuilder, bool $forException, bool $forEndpoint): void
     {
         foreach ($shape->getMembers() as $member) {
             $propertyName = GeneratorHelper::normalizeName($member->getName());
@@ -120,7 +120,11 @@ class PopulatorGenerator
                 $memberShape->getMember()->getShape();
 
                 if (($memberShape = $memberShape->getMember()->getShape()) instanceof StructureShape) {
-                    $this->objectGenerator->generate($memberShape);
+                    $this->objectGenerator->generate($memberShape, $forEndpoint);
+                    if ($forEndpoint && 'endpoints' === $propertyName) {
+                        $forEndpoint = false;
+                        $returnType = 'array';
+                    }
                 }
                 if (!empty($memberShape->getEnum())) {
                     $this->enumGenerator->generate($memberShape);
@@ -157,6 +161,10 @@ class PopulatorGenerator
                 $method->addComment('@return ' . $parameterType . ($nullable ? '|null' : ''));
             }
             $method->setReturnNullable($nullable);
+        }
+
+        if ($forEndpoint) {
+            throw new \LogicException('The EndpointResult object does not contains the required methods');
         }
     }
 

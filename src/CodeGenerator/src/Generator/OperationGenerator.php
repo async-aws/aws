@@ -6,12 +6,14 @@ namespace AsyncAws\CodeGenerator\Generator;
 
 use AsyncAws\CodeGenerator\Definition\Operation;
 use AsyncAws\CodeGenerator\Generator\CodeGenerator\TypeGenerator;
+use AsyncAws\CodeGenerator\Generator\Composer\RequirementsRegistry;
 use AsyncAws\CodeGenerator\Generator\Naming\ClassName;
 use AsyncAws\CodeGenerator\Generator\Naming\NamespaceRegistry;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassBuilder;
 use AsyncAws\CodeGenerator\Generator\PhpGenerator\ClassRegistry;
 use AsyncAws\Core\RequestContext;
 use AsyncAws\Core\Result;
+use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Method;
 
 /**
@@ -33,6 +35,11 @@ class OperationGenerator
      * @var NamespaceRegistry
      */
     private $namespaceRegistry;
+
+    /**
+     * @var RequirementsRegistry
+     */
+    private $requirementsRegistry;
 
     /**
      * @var InputGenerator
@@ -64,10 +71,16 @@ class OperationGenerator
      */
     private $exceptionGenerator;
 
-    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator, PaginationGenerator $paginationGenerator, TestGenerator $testGenerator, ExceptionGenerator $exceptionGenerator, ?TypeGenerator $typeGenerator = null)
+    /**
+     * @var ClassName[]
+     */
+    private $generated = [];
+
+    public function __construct(ClassRegistry $classRegistry, NamespaceRegistry $namespaceRegistry, RequirementsRegistry $requirementsRegistry, InputGenerator $inputGenerator, ResultGenerator $resultGenerator, PaginationGenerator $paginationGenerator, TestGenerator $testGenerator, ExceptionGenerator $exceptionGenerator, ?TypeGenerator $typeGenerator = null)
     {
         $this->classRegistry = $classRegistry;
         $this->namespaceRegistry = $namespaceRegistry;
+        $this->requirementsRegistry = $requirementsRegistry;
         $this->inputGenerator = $inputGenerator;
         $this->resultGenerator = $resultGenerator;
         $this->paginationGenerator = $paginationGenerator;
@@ -81,6 +94,12 @@ class OperationGenerator
      */
     public function generate(Operation $operation): void
     {
+        if (isset($this->generated[$operation->getName()])) {
+            return;
+        }
+
+        $this->generated[$operation->getName()] = true;
+
         $inputShape = $operation->getInput();
         $inputClass = $this->inputGenerator->generate($operation);
 
@@ -135,6 +154,19 @@ class OperationGenerator
         $this->setMethodBody($method, $operation, $inputClass, $resultClass, $classBuilder);
 
         $this->testGenerator->generate($operation);
+
+        if ($operation->isEndpointOperation()) {
+            $classBuilder->addMethod('discoverEndpoints')
+                ->setVisibility(ClassType::VISIBILITY_PROTECTED)
+                ->setReturnType('array')
+                ->setBody(strtr('
+                    return $this->METHOD($region ? ["@region" => $region] : [])->getEndpoints();
+                ', ['METHOD' => $method->getName()]))
+                ->addParameter('region')
+                    ->setType('string')
+                    ->setNullable()
+            ;
+        }
     }
 
     private function setMethodBody(Method $method, Operation $operation, ClassName $inputClass, ?ClassName $resultClass, ClassBuilder $classBuilder): void
@@ -147,7 +179,7 @@ class OperationGenerator
 
         $body .= '
                 $input = INPUT_CLASS::create($input);
-                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion()EXCEPTION_MAPPING]));
+                $response = $this->getResponse($input->request(), new RequestContext(["operation" => OPERATION_NAME, "region" => $input->getRegion() EXTRA]));
         ';
         if ((null !== $pagination = $operation->getPagination()) && !empty($pagination->getOutputToken())) {
             $body .= '
@@ -159,6 +191,7 @@ class OperationGenerator
             ';
         }
 
+        $extra = '';
         $mapping = [];
         foreach ($operation->getErrors() as $error) {
             $errorClass = $this->exceptionGenerator->generate($operation, $error);
@@ -166,12 +199,30 @@ class OperationGenerator
 
             $mapping[] = sprintf('%s => %s::class,', var_export($error->getCode() ?? $error->getName(), true), $errorClass->getName());
         }
+        if ($mapping) {
+            $extra .= ", 'exceptionMapping' => [\n" . implode("\n", $mapping) . "\n]";
+        }
+
+        if ($operation->requiresEndpointDiscovery()) {
+            $this->requirementsRegistry->addRequirement('async-aws/core', '^1.16');
+            $endpointOperation = $operation->getService()->findEndpointOperationName();
+            $this->generate($endpointOperation);
+
+            $extra .= ", 'requiresEndpointDiscovery' => true";
+        }
+        if ($operation->usesEndpointDiscovery()) {
+            $this->requirementsRegistry->addRequirement('async-aws/core', '^1.16');
+            $endpointOperation = $operation->getService()->findEndpointOperationName();
+            $this->generate($endpointOperation);
+
+            $extra .= ", 'usesEndpointDiscovery' => true";
+        }
 
         $method->setBody(strtr($body, [
             'INPUT_CLASS' => $inputClass->getName(),
             'OPERATION_NAME' => var_export($operation->getName(), true),
             'RESULT_CLASS' => $resultClass ? $resultClass->getName() : 'Result',
-            'EXCEPTION_MAPPING' => $mapping ? ", 'exceptionMapping' => [\n" . implode("\n", $mapping) . "\n]" : '',
+            'EXTRA' => $extra,
         ]));
     }
 }

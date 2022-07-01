@@ -32,6 +32,7 @@ use AsyncAws\DynamoDb\Input\BatchWriteItemInput;
 use AsyncAws\DynamoDb\Input\CreateTableInput;
 use AsyncAws\DynamoDb\Input\DeleteItemInput;
 use AsyncAws\DynamoDb\Input\DeleteTableInput;
+use AsyncAws\DynamoDb\Input\DescribeEndpointsRequest;
 use AsyncAws\DynamoDb\Input\DescribeTableInput;
 use AsyncAws\DynamoDb\Input\ExecuteStatementInput;
 use AsyncAws\DynamoDb\Input\GetItemInput;
@@ -48,6 +49,7 @@ use AsyncAws\DynamoDb\Result\BatchWriteItemOutput;
 use AsyncAws\DynamoDb\Result\CreateTableOutput;
 use AsyncAws\DynamoDb\Result\DeleteItemOutput;
 use AsyncAws\DynamoDb\Result\DeleteTableOutput;
+use AsyncAws\DynamoDb\Result\DescribeEndpointsResponse;
 use AsyncAws\DynamoDb\Result\DescribeTableOutput;
 use AsyncAws\DynamoDb\Result\ExecuteStatementOutput;
 use AsyncAws\DynamoDb\Result\GetItemOutput;
@@ -107,7 +109,7 @@ class DynamoDbClient extends AbstractApi
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
-        ]]));
+        ], 'usesEndpointDiscovery' => true]));
 
         return new BatchGetItemOutput($response, $this, $input);
     }
@@ -145,7 +147,7 @@ class DynamoDbClient extends AbstractApi
             'ItemCollectionSizeLimitExceededException' => ItemCollectionSizeLimitExceededException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
-        ]]));
+        ], 'usesEndpointDiscovery' => true]));
 
         return new BatchWriteItemOutput($response);
     }
@@ -184,7 +186,7 @@ class DynamoDbClient extends AbstractApi
             'ResourceInUseException' => ResourceInUseException::class,
             'LimitExceededException' => LimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
-        ]]));
+        ], 'usesEndpointDiscovery' => true]));
 
         return new CreateTableOutput($response);
     }
@@ -229,7 +231,7 @@ class DynamoDbClient extends AbstractApi
             'TransactionConflictException' => TransactionConflictException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
-        ]]));
+        ], 'usesEndpointDiscovery' => true]));
 
         return new DeleteItemOutput($response);
     }
@@ -262,9 +264,27 @@ class DynamoDbClient extends AbstractApi
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'LimitExceededException' => LimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
-        ]]));
+        ], 'usesEndpointDiscovery' => true]));
 
         return new DeleteTableOutput($response);
+    }
+
+    /**
+     * Returns the regional endpoint information.
+     *
+     * @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeEndpoints.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#describeendpoints
+     *
+     * @param array{
+     *   @region?: string,
+     * }|DescribeEndpointsRequest $input
+     */
+    public function describeEndpoints($input = []): DescribeEndpointsResponse
+    {
+        $input = DescribeEndpointsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeEndpoints', 'region' => $input->getRegion()]));
+
+        return new DescribeEndpointsResponse($response);
     }
 
     /**
@@ -288,7 +308,7 @@ class DynamoDbClient extends AbstractApi
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'DescribeTable', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'InternalServerError' => InternalServerErrorException::class,
-        ]]));
+        ], 'usesEndpointDiscovery' => true]));
 
         return new DescribeTableOutput($response);
     }
@@ -366,7 +386,7 @@ class DynamoDbClient extends AbstractApi
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
-        ]]));
+        ], 'usesEndpointDiscovery' => true]));
 
         return new GetItemOutput($response);
     }
@@ -391,7 +411,7 @@ class DynamoDbClient extends AbstractApi
         $input = ListTablesInput::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListTables', 'region' => $input->getRegion(), 'exceptionMapping' => [
             'InternalServerError' => InternalServerErrorException::class,
-        ]]));
+        ], 'usesEndpointDiscovery' => true]));
 
         return new ListTablesOutput($response, $this, $input);
     }
@@ -439,7 +459,7 @@ class DynamoDbClient extends AbstractApi
             'TransactionConflictException' => TransactionConflictException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
-        ]]));
+        ], 'usesEndpointDiscovery' => true]));
 
         return new PutItemOutput($response);
     }
@@ -486,7 +506,7 @@ class DynamoDbClient extends AbstractApi
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
-        ]]));
+        ], 'usesEndpointDiscovery' => true]));
 
         return new QueryOutput($response, $this, $input);
     }
@@ -531,7 +551,7 @@ class DynamoDbClient extends AbstractApi
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
-        ]]));
+        ], 'usesEndpointDiscovery' => true]));
 
         return new ScanOutput($response, $this, $input);
     }
@@ -610,7 +630,7 @@ class DynamoDbClient extends AbstractApi
             'ProvisionedThroughputExceededException' => ProvisionedThroughputExceededException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
-        ]]));
+        ], 'usesEndpointDiscovery' => true]));
 
         return new TransactWriteItemsOutput($response);
     }
@@ -659,7 +679,7 @@ class DynamoDbClient extends AbstractApi
             'TransactionConflictException' => TransactionConflictException::class,
             'RequestLimitExceeded' => RequestLimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
-        ]]));
+        ], 'usesEndpointDiscovery' => true]));
 
         return new UpdateItemOutput($response);
     }
@@ -697,7 +717,7 @@ class DynamoDbClient extends AbstractApi
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'LimitExceededException' => LimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
-        ]]));
+        ], 'usesEndpointDiscovery' => true]));
 
         return new UpdateTableOutput($response);
     }
@@ -730,9 +750,14 @@ class DynamoDbClient extends AbstractApi
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'LimitExceededException' => LimitExceededException::class,
             'InternalServerError' => InternalServerErrorException::class,
-        ]]));
+        ], 'usesEndpointDiscovery' => true]));
 
         return new UpdateTimeToLiveOutput($response);
+    }
+
+    protected function discoverEndpoints(?string $region): array
+    {
+        return $this->describeEndpoints($region ? ['@region' => $region] : [])->getEndpoints();
     }
 
     protected function getAwsErrorFactory(): AwsErrorFactoryInterface
