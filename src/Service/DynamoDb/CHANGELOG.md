@@ -2,10 +2,13 @@
 
 ## NOT RELEASED
 
+## 1.3.0
+
 ### Added
 
 - Added support for endpoint discovery
 - AWS enhancement: Documentation updates.
+- Added operation `executeStatement`
 
 ## 1.2.0
 
