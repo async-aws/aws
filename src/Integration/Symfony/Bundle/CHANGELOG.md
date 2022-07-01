@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.8.0
+
 ### Added
 
 - Support for CodeBuild

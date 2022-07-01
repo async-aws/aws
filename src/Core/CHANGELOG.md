@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.16.0
+
 ### Added
 
 - Added support for endpoint discovery
