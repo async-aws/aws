@@ -20,6 +20,7 @@ final class CustomerMasterKeySpec
     public const RSA_2048 = 'RSA_2048';
     public const RSA_3072 = 'RSA_3072';
     public const RSA_4096 = 'RSA_4096';
+    public const SM2 = 'SM2';
     public const SYMMETRIC_DEFAULT = 'SYMMETRIC_DEFAULT';
 
     public static function exists(string $value): bool
@@ -36,6 +37,7 @@ final class CustomerMasterKeySpec
             self::RSA_2048 => true,
             self::RSA_3072 => true,
             self::RSA_4096 => true,
+            self::SM2 => true,
             self::SYMMETRIC_DEFAULT => true,
         ][$value]);
     }
