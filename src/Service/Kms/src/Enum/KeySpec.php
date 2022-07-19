@@ -4,8 +4,9 @@ namespace AsyncAws\Kms\Enum;
 
 /**
  * Specifies the type of KMS key to create. The default value, `SYMMETRIC_DEFAULT`, creates a KMS key with a 256-bit
- * symmetric key for encryption and decryption. For help choosing a key spec for your KMS key, see Choosing a KMS key
- * type in the **Key Management Service Developer Guide**.
+ * AES-GCM key that is used for encryption and decryption, except in China Regions, where it creates a 128-bit symmetric
+ * key that uses SM4 encryption. For help choosing a key spec for your KMS key, see Choosing a KMS key type in the **Key
+ * Management Service Developer Guide**.
  * The `KeySpec` determines whether the KMS key contains a symmetric key or an asymmetric key pair. It also determines
  * the cryptographic algorithms that the KMS key supports. You can't change the `KeySpec` after the KMS key is created.
  * To further restrict the algorithms that can be used with the KMS key, use a condition key in its key policy or IAM
@@ -19,7 +20,7 @@ namespace AsyncAws\Kms\Enum;
  *
  * - Symmetric encryption key (default)
  *
- *   - `SYMMETRIC_DEFAULT` (AES-256-GCM)
+ *   - `SYMMETRIC_DEFAULT`
  *
  * - HMAC keys (symmetric)
  *
@@ -44,6 +45,10 @@ namespace AsyncAws\Kms\Enum;
  *
  *   - `ECC_SECG_P256K1` (secp256k1), commonly used for cryptocurrencies.
  *
+ * - SM2 key pairs (China Regions only)
+ *
+ *   - `SM2`
+ *
  * @see https://docs.aws.amazon.com/kms/latest/developerguide/key-types.html#symm-asymm-choose
  * @see https://docs.aws.amazon.com/kms/latest/developerguide/policy-conditions.html#conditions-kms-encryption-algorithm
  * @see https://docs.aws.amazon.com/kms/latest/developerguide/policy-conditions.html#conditions-kms-mac-algorithm
@@ -63,6 +68,7 @@ final class KeySpec
     public const RSA_2048 = 'RSA_2048';
     public const RSA_3072 = 'RSA_3072';
     public const RSA_4096 = 'RSA_4096';
+    public const SM2 = 'SM2';
     public const SYMMETRIC_DEFAULT = 'SYMMETRIC_DEFAULT';
 
     public static function exists(string $value): bool
@@ -79,6 +85,7 @@ final class KeySpec
             self::RSA_2048 => true,
             self::RSA_3072 => true,
             self::RSA_4096 => true,
+            self::SM2 => true,
             self::SYMMETRIC_DEFAULT => true,
         ][$value]);
     }

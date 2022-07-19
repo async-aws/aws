@@ -6,6 +6,7 @@ final class EncryptionAlgorithmSpec
 {
     public const RSAES_OAEP_SHA_1 = 'RSAES_OAEP_SHA_1';
     public const RSAES_OAEP_SHA_256 = 'RSAES_OAEP_SHA_256';
+    public const SM2PKE = 'SM2PKE';
     public const SYMMETRIC_DEFAULT = 'SYMMETRIC_DEFAULT';
 
     public static function exists(string $value): bool
@@ -13,6 +14,7 @@ final class EncryptionAlgorithmSpec
         return isset([
             self::RSAES_OAEP_SHA_1 => true,
             self::RSAES_OAEP_SHA_256 => true,
+            self::SM2PKE => true,
             self::SYMMETRIC_DEFAULT => true,
         ][$value]);
     }

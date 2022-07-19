@@ -12,6 +12,7 @@ namespace AsyncAws\Kms\Enum;
  * - For HMAC KMS keys (symmetric), specify `GENERATE_VERIFY_MAC`.
  * - For asymmetric KMS keys with RSA key material, specify `ENCRYPT_DECRYPT` or `SIGN_VERIFY`.
  * - For asymmetric KMS keys with ECC key material, specify `SIGN_VERIFY`.
+ * - For asymmetric KMS keys with SM2 key material (China Regions only), specify `ENCRYPT_DECRYPT` or `SIGN_VERIFY`.
  *
  * @see https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations
  */

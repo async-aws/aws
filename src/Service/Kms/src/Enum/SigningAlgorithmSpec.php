@@ -13,6 +13,7 @@ final class SigningAlgorithmSpec
     public const RSASSA_PSS_SHA_256 = 'RSASSA_PSS_SHA_256';
     public const RSASSA_PSS_SHA_384 = 'RSASSA_PSS_SHA_384';
     public const RSASSA_PSS_SHA_512 = 'RSASSA_PSS_SHA_512';
+    public const SM2DSA = 'SM2DSA';
 
     public static function exists(string $value): bool
     {
@@ -26,6 +27,7 @@ final class SigningAlgorithmSpec
             self::RSASSA_PSS_SHA_256 => true,
             self::RSASSA_PSS_SHA_384 => true,
             self::RSASSA_PSS_SHA_512 => true,
+            self::SM2DSA => true,
         ][$value]);
     }
 }

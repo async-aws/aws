@@ -51,8 +51,9 @@ final class CreateKeyRequest extends Input
 
     /**
      * Specifies the type of KMS key to create. The default value, `SYMMETRIC_DEFAULT`, creates a KMS key with a 256-bit
-     * symmetric key for encryption and decryption. For help choosing a key spec for your KMS key, see Choosing a KMS key
-     * type in the **Key Management Service Developer Guide**.
+     * AES-GCM key that is used for encryption and decryption, except in China Regions, where it creates a 128-bit symmetric
+     * key that uses SM4 encryption. For help choosing a key spec for your KMS key, see Choosing a KMS key type in the **Key
+     * Management Service Developer Guide**.
      *
      * @see https://docs.aws.amazon.com/kms/latest/developerguide/key-types.html#symm-asymm-choose
      *
