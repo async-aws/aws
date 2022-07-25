@@ -6,6 +6,8 @@ use AsyncAws\CognitoIdentityProvider\CognitoIdentityProviderClient;
 use AsyncAws\CognitoIdentityProvider\Input\AdminConfirmSignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminCreateUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminDeleteUserRequest;
+use AsyncAws\CognitoIdentityProvider\Input\AdminDisableUserRequest;
+use AsyncAws\CognitoIdentityProvider\Input\AdminEnableUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminGetUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminInitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminResetUserPasswordRequest;
@@ -88,6 +90,32 @@ class CognitoIdentityProviderClientTest extends TestCase
             'Username' => 'change me',
         ]);
         $result = $client->AdminDeleteUser($input);
+
+        $result->resolve();
+    }
+
+    public function testAdminDisableUser(): void
+    {
+        $client = $this->getClient();
+
+        $input = new AdminDisableUserRequest([
+            'UserPoolId' => 'change me',
+            'Username' => 'change me',
+        ]);
+        $result = $client->AdminDisableUser($input);
+
+        $result->resolve();
+    }
+
+    public function testAdminEnableUser(): void
+    {
+        $client = $this->getClient();
+
+        $input = new AdminEnableUserRequest([
+            'UserPoolId' => 'change me',
+            'Username' => 'change me',
+        ]);
+        $result = $client->AdminEnableUser($input);
 
         $result->resolve();
     }
