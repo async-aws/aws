@@ -38,6 +38,8 @@ use AsyncAws\CognitoIdentityProvider\Exception\UserNotFoundException;
 use AsyncAws\CognitoIdentityProvider\Input\AdminConfirmSignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminCreateUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminDeleteUserRequest;
+use AsyncAws\CognitoIdentityProvider\Input\AdminDisableUserRequest;
+use AsyncAws\CognitoIdentityProvider\Input\AdminEnableUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminGetUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminInitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminResetUserPasswordRequest;
@@ -59,6 +61,8 @@ use AsyncAws\CognitoIdentityProvider\Input\SignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\VerifySoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Result\AdminConfirmSignUpResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminCreateUserResponse;
+use AsyncAws\CognitoIdentityProvider\Result\AdminDisableUserResponse;
+use AsyncAws\CognitoIdentityProvider\Result\AdminEnableUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminGetUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminInitiateAuthResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminResetUserPasswordResponse;
@@ -231,6 +235,74 @@ class CognitoIdentityProviderClient extends AbstractApi
         ]]));
 
         return new Result($response);
+    }
+
+    /**
+     * Disables the specified user.
+     *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminDisableUser.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#admindisableuser
+     *
+     * @param array{
+     *   UserPoolId: string,
+     *   Username: string,
+     *   @region?: string,
+     * }|AdminDisableUserRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
+     * @throws TooManyRequestsException
+     * @throws NotAuthorizedException
+     * @throws UserNotFoundException
+     * @throws InternalErrorException
+     */
+    public function adminDisableUser($input): AdminDisableUserResponse
+    {
+        $input = AdminDisableUserRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminDisableUser', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
+
+        return new AdminDisableUserResponse($response);
+    }
+
+    /**
+     * Enables the specified user as an administrator. Works on any user.
+     *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminEnableUser.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#adminenableuser
+     *
+     * @param array{
+     *   UserPoolId: string,
+     *   Username: string,
+     *   @region?: string,
+     * }|AdminEnableUserRequest $input
+     *
+     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
+     * @throws TooManyRequestsException
+     * @throws NotAuthorizedException
+     * @throws UserNotFoundException
+     * @throws InternalErrorException
+     */
+    public function adminEnableUser($input): AdminEnableUserResponse
+    {
+        $input = AdminEnableUserRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminEnableUser', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'InvalidParameterException' => InvalidParameterException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
+
+        return new AdminEnableUserResponse($response);
     }
 
     /**

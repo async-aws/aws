@@ -2,6 +2,11 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added operation `AdminDisableUser`
+- Added operation `AdminEnableUser`
+
 ## 1.5.0
 
 ### Added

@@ -120,6 +120,8 @@
                 "AdminConfirmSignUp",
                 "AdminCreateUser",
                 "AdminDeleteUser",
+                "AdminDisableUser",
+                "AdminEnableUser",
                 "AdminGetUser",
                 "AdminInitiateAuth",
                 "AdminResetUserPassword",

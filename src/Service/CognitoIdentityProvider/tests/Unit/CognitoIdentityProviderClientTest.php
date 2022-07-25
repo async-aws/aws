@@ -7,6 +7,8 @@ use AsyncAws\CognitoIdentityProvider\Enum\AuthFlowType;
 use AsyncAws\CognitoIdentityProvider\Input\AdminConfirmSignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminCreateUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminDeleteUserRequest;
+use AsyncAws\CognitoIdentityProvider\Input\AdminDisableUserRequest;
+use AsyncAws\CognitoIdentityProvider\Input\AdminEnableUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminGetUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminInitiateAuthRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminResetUserPasswordRequest;
@@ -28,6 +30,8 @@ use AsyncAws\CognitoIdentityProvider\Input\SignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\VerifySoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Result\AdminConfirmSignUpResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminCreateUserResponse;
+use AsyncAws\CognitoIdentityProvider\Result\AdminDisableUserResponse;
+use AsyncAws\CognitoIdentityProvider\Result\AdminEnableUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminGetUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminInitiateAuthResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminResetUserPasswordResponse;
@@ -95,6 +99,34 @@ class CognitoIdentityProviderClientTest extends TestCase
         $result = $client->AdminDeleteUser($input);
 
         self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testAdminDisableUser(): void
+    {
+        $client = new CognitoIdentityProviderClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new AdminDisableUserRequest([
+            'UserPoolId' => 'change me',
+            'Username' => 'change me',
+        ]);
+        $result = $client->adminDisableUser($input);
+
+        self::assertInstanceOf(AdminDisableUserResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testAdminEnableUser(): void
+    {
+        $client = new CognitoIdentityProviderClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new AdminEnableUserRequest([
+            'UserPoolId' => 'change me',
+            'Username' => 'change me',
+        ]);
+        $result = $client->adminEnableUser($input);
+
+        self::assertInstanceOf(AdminEnableUserResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
