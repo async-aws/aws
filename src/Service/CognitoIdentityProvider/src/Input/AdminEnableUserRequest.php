@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
 /**
- * Represents the request to enable a user as an administrator.
+ * Represents the request that enables the user as an administrator.
  */
 final class AdminEnableUserRequest extends Input
 {

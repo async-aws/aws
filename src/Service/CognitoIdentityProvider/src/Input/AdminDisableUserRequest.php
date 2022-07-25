@@ -8,7 +8,7 @@ use AsyncAws\Core\Request;
 use AsyncAws\Core\Stream\StreamFactory;
 
 /**
- * Represents the request to disable a user as an administrator.
+ * Represents the request to disable the user as an administrator.
  */
 final class AdminDisableUserRequest extends Input
 {

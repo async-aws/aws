@@ -61,6 +61,8 @@ use AsyncAws\CognitoIdentityProvider\Input\SignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\VerifySoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Result\AdminConfirmSignUpResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminCreateUserResponse;
+use AsyncAws\CognitoIdentityProvider\Result\AdminDisableUserResponse;
+use AsyncAws\CognitoIdentityProvider\Result\AdminEnableUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminGetUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminInitiateAuthResponse;
 use AsyncAws\CognitoIdentityProvider\Result\AdminResetUserPasswordResponse;
@@ -236,7 +238,7 @@ class CognitoIdentityProviderClient extends AbstractApi
     }
 
     /**
-     * Disable a user as an administrator. Works on any user.
+     * Disables the specified user.
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminDisableUser.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#admindisableuser
@@ -254,7 +256,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws UserNotFoundException
      * @throws InternalErrorException
      */
-    public function adminDisableUser($input): Result
+    public function adminDisableUser($input): AdminDisableUserResponse
     {
         $input = AdminDisableUserRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminDisableUser', 'region' => $input->getRegion(), 'exceptionMapping' => [
@@ -266,11 +268,11 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InternalErrorException' => InternalErrorException::class,
         ]]));
 
-        return new Result($response);
+        return new AdminDisableUserResponse($response);
     }
 
     /**
-     * Enable a user as an administrator. Works on any user.
+     * Enables the specified user as an administrator. Works on any user.
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminEnableUser.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#adminenableuser
@@ -288,7 +290,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws UserNotFoundException
      * @throws InternalErrorException
      */
-    public function adminEnableUser($input): Result
+    public function adminEnableUser($input): AdminEnableUserResponse
     {
         $input = AdminEnableUserRequest::create($input);
         $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminEnableUser', 'region' => $input->getRegion(), 'exceptionMapping' => [
@@ -300,7 +302,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InternalErrorException' => InternalErrorException::class,
         ]]));
 
-        return new Result($response);
+        return new AdminEnableUserResponse($response);
     }
 
     /**
