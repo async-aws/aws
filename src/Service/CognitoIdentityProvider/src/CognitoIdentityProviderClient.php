@@ -303,7 +303,6 @@ class CognitoIdentityProviderClient extends AbstractApi
         return new Result($response);
     }
 
-
     /**
      * Gets the specified user by user name in a user pool as an administrator. Works on any user.
      *
