@@ -2,6 +2,8 @@
 
 namespace AsyncAws\AppSync\ValueObject;
 
+use AsyncAws\Core\Exception\InvalidArgument;
+
 /**
  * The caching configuration for the resolver.
  */
@@ -19,7 +21,7 @@ final class CachingConfig
 
     /**
      * @param array{
-     *   ttl?: null|string,
+     *   ttl: string,
      *   cachingKeys?: null|string[],
      * } $input
      */
@@ -42,7 +44,7 @@ final class CachingConfig
         return $this->cachingKeys ?? [];
     }
 
-    public function getTtl(): ?string
+    public function getTtl(): string
     {
         return $this->ttl;
     }
@@ -53,9 +55,10 @@ final class CachingConfig
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->ttl) {
-            $payload['ttl'] = $v;
+        if (null === $v = $this->ttl) {
+            throw new InvalidArgument(sprintf('Missing parameter "ttl" for "%s". The value cannot be null.', __CLASS__));
         }
+        $payload['ttl'] = $v;
         if (null !== $v = $this->cachingKeys) {
             $index = -1;
             $payload['cachingKeys'] = [];

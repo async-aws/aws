@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- AWS api-change: `ttl` property is required in CreateResolverResponse, ListResolversResponse and UpdateResolverResponse
+
 ## 0.1.1
 
 ### Added

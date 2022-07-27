@@ -34,7 +34,7 @@ class CreateResolverResponse extends Result
     private function populateResultCachingConfig(array $json): CachingConfig
     {
         return new CachingConfig([
-            'ttl' => isset($json['ttl']) ? (string) $json['ttl'] : null,
+            'ttl' => (string) $json['ttl'],
             'cachingKeys' => !isset($json['cachingKeys']) ? null : $this->populateResultCachingKeys($json['cachingKeys']),
         ]);
     }
