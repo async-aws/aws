@@ -172,20 +172,6 @@ class CodeBuildClient extends AbstractApi
                     'signService' => 'codebuild',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-gov-east-1-fips':
-                return [
-                    'endpoint' => 'https://codebuild-fips.us-gov-east-1.amazonaws.com',
-                    'signRegion' => 'us-gov-east-1',
-                    'signService' => 'codebuild',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-gov-west-1-fips':
-                return [
-                    'endpoint' => 'https://codebuild-fips.us-gov-west-1.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
-                    'signService' => 'codebuild',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-west-1-fips':
                 return [
                     'endpoint' => 'https://codebuild-fips.us-west-1.amazonaws.com',
@@ -197,6 +183,20 @@ class CodeBuildClient extends AbstractApi
                 return [
                     'endpoint' => 'https://codebuild-fips.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',
+                    'signService' => 'codebuild',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-gov-east-1-fips':
+                return [
+                    'endpoint' => 'https://codebuild-fips.us-gov-east-1.amazonaws.com',
+                    'signRegion' => 'us-gov-east-1',
+                    'signService' => 'codebuild',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-gov-west-1-fips':
+                return [
+                    'endpoint' => 'https://codebuild-fips.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
                     'signService' => 'codebuild',
                     'signVersions' => ['v4'],
                 ];

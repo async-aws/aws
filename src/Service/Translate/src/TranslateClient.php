@@ -75,13 +75,6 @@ class TranslateClient extends AbstractApi
         }
 
         switch ($region) {
-            case 'us-iso-east-1':
-                return [
-                    'endpoint' => 'https://translate.us-iso-east-1.c2s.ic.gov',
-                    'signRegion' => 'us-iso-east-1',
-                    'signService' => 'translate',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-east-1-fips':
                 return [
                     'endpoint' => 'https://translate-fips.us-east-1.amazonaws.com',
@@ -96,6 +89,13 @@ class TranslateClient extends AbstractApi
                     'signService' => 'translate',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-west-2-fips':
+                return [
+                    'endpoint' => 'https://translate-fips.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
+                    'signService' => 'translate',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-gov-west-1-fips':
                 return [
                     'endpoint' => 'https://translate-fips.us-gov-west-1.amazonaws.com',
@@ -103,10 +103,10 @@ class TranslateClient extends AbstractApi
                     'signService' => 'translate',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-west-2-fips':
+            case 'us-iso-east-1':
                 return [
-                    'endpoint' => 'https://translate-fips.us-west-2.amazonaws.com',
-                    'signRegion' => 'us-west-2',
+                    'endpoint' => 'https://translate.us-iso-east-1.c2s.ic.gov',
+                    'signRegion' => 'us-iso-east-1',
                     'signService' => 'translate',
                     'signVersions' => ['v4'],
                 ];

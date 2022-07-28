@@ -453,20 +453,6 @@ class SnsClient extends AbstractApi
                     'signService' => 'sns',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-iso-west-1':
-                return [
-                    'endpoint' => 'https://sns.us-iso-west-1.c2s.ic.gov',
-                    'signRegion' => 'us-iso-west-1',
-                    'signService' => 'sns',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-isob-east-1':
-                return [
-                    'endpoint' => 'https://sns.us-isob-east-1.sc2s.sgov.gov',
-                    'signRegion' => 'us-isob-east-1',
-                    'signService' => 'sns',
-                    'signVersions' => ['v4'],
-                ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://sns-fips.us-east-1.amazonaws.com',
@@ -478,20 +464,6 @@ class SnsClient extends AbstractApi
                 return [
                     'endpoint' => 'https://sns-fips.us-east-2.amazonaws.com',
                     'signRegion' => 'us-east-2',
-                    'signService' => 'sns',
-                    'signVersions' => ['v4'],
-                ];
-            case 'fips-us-gov-east-1':
-                return [
-                    'endpoint' => 'https://sns.us-gov-east-1.amazonaws.com',
-                    'signRegion' => 'us-gov-east-1',
-                    'signService' => 'sns',
-                    'signVersions' => ['v4'],
-                ];
-            case 'fips-us-gov-west-1':
-                return [
-                    'endpoint' => 'https://sns.us-gov-west-1.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
                     'signService' => 'sns',
                     'signVersions' => ['v4'],
                 ];
@@ -509,10 +481,32 @@ class SnsClient extends AbstractApi
                     'signService' => 'sns',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-iso-east-1':
+            case 'fips-us-gov-east-1':
                 return [
-                    'endpoint' => 'https://sns.us-iso-east-1.c2s.ic.gov',
-                    'signRegion' => 'us-iso-east-1',
+                    'endpoint' => 'https://sns.us-gov-east-1.amazonaws.com',
+                    'signRegion' => 'us-gov-east-1',
+                    'signService' => 'sns',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-gov-west-1':
+                return [
+                    'endpoint' => 'https://sns.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'sns',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-iso-east-1':
+            case 'us-iso-west-1':
+                return [
+                    'endpoint' => "https://sns.$region.c2s.ic.gov",
+                    'signRegion' => $region,
+                    'signService' => 'sns',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-isob-east-1':
+                return [
+                    'endpoint' => 'https://sns.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
                     'signService' => 'sns',
                     'signVersions' => ['v4'],
                 ];

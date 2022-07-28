@@ -184,21 +184,6 @@ class CloudWatchClient extends AbstractApi
                     'signService' => 'monitoring',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-iso-east-1':
-            case 'us-iso-west-1':
-                return [
-                    'endpoint' => "https://monitoring.$region.c2s.ic.gov",
-                    'signRegion' => $region,
-                    'signService' => 'monitoring',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-isob-east-1':
-                return [
-                    'endpoint' => 'https://monitoring.us-isob-east-1.sc2s.sgov.gov',
-                    'signRegion' => 'us-isob-east-1',
-                    'signService' => 'monitoring',
-                    'signVersions' => ['v4'],
-                ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://monitoring-fips.us-east-1.amazonaws.com',
@@ -210,6 +195,20 @@ class CloudWatchClient extends AbstractApi
                 return [
                     'endpoint' => 'https://monitoring-fips.us-east-2.amazonaws.com',
                     'signRegion' => 'us-east-2',
+                    'signService' => 'monitoring',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-west-1':
+                return [
+                    'endpoint' => 'https://monitoring-fips.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'monitoring',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-west-2':
+                return [
+                    'endpoint' => 'https://monitoring-fips.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
                     'signService' => 'monitoring',
                     'signVersions' => ['v4'],
                 ];
@@ -227,17 +226,18 @@ class CloudWatchClient extends AbstractApi
                     'signService' => 'monitoring',
                     'signVersions' => ['v4'],
                 ];
-            case 'fips-us-west-1':
+            case 'us-iso-east-1':
+            case 'us-iso-west-1':
                 return [
-                    'endpoint' => 'https://monitoring-fips.us-west-1.amazonaws.com',
-                    'signRegion' => 'us-west-1',
+                    'endpoint' => "https://monitoring.$region.c2s.ic.gov",
+                    'signRegion' => $region,
                     'signService' => 'monitoring',
                     'signVersions' => ['v4'],
                 ];
-            case 'fips-us-west-2':
+            case 'us-isob-east-1':
                 return [
-                    'endpoint' => 'https://monitoring-fips.us-west-2.amazonaws.com',
-                    'signRegion' => 'us-west-2',
+                    'endpoint' => 'https://monitoring.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
                     'signService' => 'monitoring',
                     'signVersions' => ['v4'],
                 ];

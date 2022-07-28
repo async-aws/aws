@@ -56,13 +56,6 @@ class ComprehendClient extends AbstractApi
         }
 
         switch ($region) {
-            case 'us-iso-east-1':
-                return [
-                    'endpoint' => 'https://comprehend.us-iso-east-1.c2s.ic.gov',
-                    'signRegion' => 'us-iso-east-1',
-                    'signService' => 'comprehend',
-                    'signVersions' => ['v4'],
-                ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://comprehend-fips.us-east-1.amazonaws.com',
@@ -77,6 +70,13 @@ class ComprehendClient extends AbstractApi
                     'signService' => 'comprehend',
                     'signVersions' => ['v4'],
                 ];
+            case 'fips-us-west-2':
+                return [
+                    'endpoint' => 'https://comprehend-fips.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
+                    'signService' => 'comprehend',
+                    'signVersions' => ['v4'],
+                ];
             case 'fips-us-gov-west-1':
                 return [
                     'endpoint' => 'https://comprehend-fips.us-gov-west-1.amazonaws.com',
@@ -84,10 +84,10 @@ class ComprehendClient extends AbstractApi
                     'signService' => 'comprehend',
                     'signVersions' => ['v4'],
                 ];
-            case 'fips-us-west-2':
+            case 'us-iso-east-1':
                 return [
-                    'endpoint' => 'https://comprehend-fips.us-west-2.amazonaws.com',
-                    'signRegion' => 'us-west-2',
+                    'endpoint' => 'https://comprehend.us-iso-east-1.c2s.ic.gov',
+                    'signRegion' => 'us-iso-east-1',
                     'signService' => 'comprehend',
                     'signVersions' => ['v4'],
                 ];

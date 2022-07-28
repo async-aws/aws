@@ -1020,21 +1020,6 @@ class KinesisClient extends AbstractApi
                     'signService' => 'kinesis',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-iso-east-1':
-            case 'us-iso-west-1':
-                return [
-                    'endpoint' => "https://kinesis.$region.c2s.ic.gov",
-                    'signRegion' => $region,
-                    'signService' => 'kinesis',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-isob-east-1':
-                return [
-                    'endpoint' => 'https://kinesis.us-isob-east-1.sc2s.sgov.gov',
-                    'signRegion' => 'us-isob-east-1',
-                    'signService' => 'kinesis',
-                    'signVersions' => ['v4'],
-                ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://kinesis-fips.us-east-1.amazonaws.com',
@@ -1060,6 +1045,21 @@ class KinesisClient extends AbstractApi
                 return [
                     'endpoint' => 'https://kinesis-fips.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',
+                    'signService' => 'kinesis',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-iso-east-1':
+            case 'us-iso-west-1':
+                return [
+                    'endpoint' => "https://kinesis.$region.c2s.ic.gov",
+                    'signRegion' => $region,
+                    'signService' => 'kinesis',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-isob-east-1':
+                return [
+                    'endpoint' => 'https://kinesis.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
                     'signService' => 'kinesis',
                     'signVersions' => ['v4'],
                 ];

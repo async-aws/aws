@@ -58,21 +58,6 @@ class EventBridgeClient extends AbstractApi
                     'signService' => 'events',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-iso-east-1':
-            case 'us-iso-west-1':
-                return [
-                    'endpoint' => "https://events.$region.c2s.ic.gov",
-                    'signRegion' => $region,
-                    'signService' => 'events',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-isob-east-1':
-                return [
-                    'endpoint' => 'https://events.us-isob-east-1.sc2s.sgov.gov',
-                    'signRegion' => 'us-isob-east-1',
-                    'signService' => 'events',
-                    'signVersions' => ['v4'],
-                ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://events-fips.us-east-1.amazonaws.com',
@@ -84,6 +69,20 @@ class EventBridgeClient extends AbstractApi
                 return [
                     'endpoint' => 'https://events-fips.us-east-2.amazonaws.com',
                     'signRegion' => 'us-east-2',
+                    'signService' => 'events',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-west-1':
+                return [
+                    'endpoint' => 'https://events-fips.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'events',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-west-2':
+                return [
+                    'endpoint' => 'https://events-fips.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
                     'signService' => 'events',
                     'signVersions' => ['v4'],
                 ];
@@ -101,17 +100,18 @@ class EventBridgeClient extends AbstractApi
                     'signService' => 'events',
                     'signVersions' => ['v4'],
                 ];
-            case 'fips-us-west-1':
+            case 'us-iso-east-1':
+            case 'us-iso-west-1':
                 return [
-                    'endpoint' => 'https://events-fips.us-west-1.amazonaws.com',
-                    'signRegion' => 'us-west-1',
+                    'endpoint' => "https://events.$region.c2s.ic.gov",
+                    'signRegion' => $region,
                     'signService' => 'events',
                     'signVersions' => ['v4'],
                 ];
-            case 'fips-us-west-2':
+            case 'us-isob-east-1':
                 return [
-                    'endpoint' => 'https://events-fips.us-west-2.amazonaws.com',
-                    'signRegion' => 'us-west-2',
+                    'endpoint' => 'https://events.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
                     'signService' => 'events',
                     'signVersions' => ['v4'],
                 ];
