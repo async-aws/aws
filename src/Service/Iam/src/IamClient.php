@@ -297,11 +297,35 @@ class IamClient extends AbstractApi
                     'signService' => 'iam',
                     'signVersions' => ['v4'],
                 ];
+            case 'iam':
+                return [
+                    'endpoint' => 'https://iam.iam.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'iam',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-gov-east-1':
             case 'us-gov-west-1':
+            case 'aws-us-gov-global-fips':
+            case 'iam-govcloud-fips':
                 return [
                     'endpoint' => 'https://iam.us-gov.amazonaws.com',
                     'signRegion' => 'us-gov-west-1',
+                    'signService' => 'iam',
+                    'signVersions' => ['v4'],
+                ];
+            case 'iam-govcloud':
+                return [
+                    'endpoint' => 'https://iam.iam-govcloud.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'iam',
+                    'signVersions' => ['v4'],
+                ];
+            case 'aws-global-fips':
+            case 'iam-fips':
+                return [
+                    'endpoint' => 'https://iam-fips.amazonaws.com',
+                    'signRegion' => 'us-east-1',
                     'signService' => 'iam',
                     'signVersions' => ['v4'],
                 ];
@@ -317,48 +341,6 @@ class IamClient extends AbstractApi
                 return [
                     'endpoint' => 'https://iam.us-isob-east-1.sc2s.sgov.gov',
                     'signRegion' => 'us-isob-east-1',
-                    'signService' => 'iam',
-                    'signVersions' => ['v4'],
-                ];
-            case 'aws-global-fips':
-                return [
-                    'endpoint' => 'https://iam-fips.amazonaws.com',
-                    'signRegion' => 'us-east-1',
-                    'signService' => 'iam',
-                    'signVersions' => ['v4'],
-                ];
-            case 'aws-us-gov-global-fips':
-                return [
-                    'endpoint' => 'https://iam.us-gov.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
-                    'signService' => 'iam',
-                    'signVersions' => ['v4'],
-                ];
-            case 'iam':
-                return [
-                    'endpoint' => 'https://iam.iam.amazonaws.com',
-                    'signRegion' => 'us-east-1',
-                    'signService' => 'iam',
-                    'signVersions' => ['v4'],
-                ];
-            case 'iam-fips':
-                return [
-                    'endpoint' => 'https://iam-fips.amazonaws.com',
-                    'signRegion' => 'us-east-1',
-                    'signService' => 'iam',
-                    'signVersions' => ['v4'],
-                ];
-            case 'iam-govcloud':
-                return [
-                    'endpoint' => 'https://iam.iam-govcloud.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
-                    'signService' => 'iam',
-                    'signVersions' => ['v4'],
-                ];
-            case 'iam-govcloud-fips':
-                return [
-                    'endpoint' => 'https://iam.us-gov.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
                     'signService' => 'iam',
                     'signVersions' => ['v4'],
                 ];

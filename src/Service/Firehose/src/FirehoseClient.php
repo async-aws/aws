@@ -102,13 +102,6 @@ class FirehoseClient extends AbstractApi
                     'signService' => 'firehose',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-iso-east-1':
-                return [
-                    'endpoint' => 'https://firehose.us-iso-east-1.c2s.ic.gov',
-                    'signRegion' => 'us-iso-east-1',
-                    'signService' => 'firehose',
-                    'signVersions' => ['v4'],
-                ];
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://firehose-fips.us-east-1.amazonaws.com',
@@ -120,6 +113,20 @@ class FirehoseClient extends AbstractApi
                 return [
                     'endpoint' => 'https://firehose-fips.us-east-2.amazonaws.com',
                     'signRegion' => 'us-east-2',
+                    'signService' => 'firehose',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-west-1':
+                return [
+                    'endpoint' => 'https://firehose-fips.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'firehose',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-west-2':
+                return [
+                    'endpoint' => 'https://firehose-fips.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
                     'signService' => 'firehose',
                     'signVersions' => ['v4'],
                 ];
@@ -137,17 +144,10 @@ class FirehoseClient extends AbstractApi
                     'signService' => 'firehose',
                     'signVersions' => ['v4'],
                 ];
-            case 'fips-us-west-1':
+            case 'us-iso-east-1':
                 return [
-                    'endpoint' => 'https://firehose-fips.us-west-1.amazonaws.com',
-                    'signRegion' => 'us-west-1',
-                    'signService' => 'firehose',
-                    'signVersions' => ['v4'],
-                ];
-            case 'fips-us-west-2':
-                return [
-                    'endpoint' => 'https://firehose-fips.us-west-2.amazonaws.com',
-                    'signRegion' => 'us-west-2',
+                    'endpoint' => 'https://firehose.us-iso-east-1.c2s.ic.gov',
+                    'signRegion' => 'us-iso-east-1',
                     'signService' => 'firehose',
                     'signVersions' => ['v4'],
                 ];

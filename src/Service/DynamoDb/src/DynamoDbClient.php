@@ -780,17 +780,10 @@ class DynamoDbClient extends AbstractApi
                     'signService' => 'dynamodb',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-iso-west-1':
+            case 'local':
                 return [
-                    'endpoint' => 'https://dynamodb.us-iso-west-1.c2s.ic.gov',
-                    'signRegion' => 'us-iso-west-1',
-                    'signService' => 'dynamodb',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-isob-east-1':
-                return [
-                    'endpoint' => 'https://dynamodb.us-isob-east-1.sc2s.sgov.gov',
-                    'signRegion' => 'us-isob-east-1',
+                    'endpoint' => 'http://localhost:8000',
+                    'signRegion' => 'us-east-1',
                     'signService' => 'dynamodb',
                     'signVersions' => ['v4'],
                 ];
@@ -798,13 +791,6 @@ class DynamoDbClient extends AbstractApi
                 return [
                     'endpoint' => 'https://dynamodb-fips.ca-central-1.amazonaws.com',
                     'signRegion' => 'ca-central-1',
-                    'signService' => 'dynamodb',
-                    'signVersions' => ['v4'],
-                ];
-            case 'local':
-                return [
-                    'endpoint' => 'http://localhost:8000',
-                    'signRegion' => 'us-east-1',
                     'signService' => 'dynamodb',
                     'signVersions' => ['v4'],
                 ];
@@ -819,6 +805,20 @@ class DynamoDbClient extends AbstractApi
                 return [
                     'endpoint' => 'https://dynamodb-fips.us-east-2.amazonaws.com',
                     'signRegion' => 'us-east-2',
+                    'signService' => 'dynamodb',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-1-fips':
+                return [
+                    'endpoint' => 'https://dynamodb-fips.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'dynamodb',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-2-fips':
+                return [
+                    'endpoint' => 'https://dynamodb-fips.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
                     'signService' => 'dynamodb',
                     'signVersions' => ['v4'],
                 ];
@@ -837,23 +837,17 @@ class DynamoDbClient extends AbstractApi
                     'signVersions' => ['v4'],
                 ];
             case 'us-iso-east-1':
+            case 'us-iso-west-1':
                 return [
-                    'endpoint' => 'https://dynamodb.us-iso-east-1.c2s.ic.gov',
-                    'signRegion' => 'us-iso-east-1',
+                    'endpoint' => "https://dynamodb.$region.c2s.ic.gov",
+                    'signRegion' => $region,
                     'signService' => 'dynamodb',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-west-1-fips':
+            case 'us-isob-east-1':
                 return [
-                    'endpoint' => 'https://dynamodb-fips.us-west-1.amazonaws.com',
-                    'signRegion' => 'us-west-1',
-                    'signService' => 'dynamodb',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-west-2-fips':
-                return [
-                    'endpoint' => 'https://dynamodb-fips.us-west-2.amazonaws.com',
-                    'signRegion' => 'us-west-2',
+                    'endpoint' => 'https://dynamodb.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
                     'signService' => 'dynamodb',
                     'signVersions' => ['v4'],
                 ];

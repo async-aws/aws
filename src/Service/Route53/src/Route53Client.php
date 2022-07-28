@@ -286,9 +286,17 @@ class Route53Client extends AbstractApi
                 ];
             case 'us-gov-east-1':
             case 'us-gov-west-1':
+            case 'fips-aws-us-gov-global':
                 return [
                     'endpoint' => 'https://route53.us-gov.amazonaws.com',
                     'signRegion' => 'us-gov-west-1',
+                    'signService' => 'route53',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-aws-global':
+                return [
+                    'endpoint' => 'https://route53-fips.amazonaws.com',
+                    'signRegion' => 'us-east-1',
                     'signService' => 'route53',
                     'signVersions' => ['v4'],
                 ];
@@ -304,20 +312,6 @@ class Route53Client extends AbstractApi
                 return [
                     'endpoint' => 'https://route53.sc2s.sgov.gov',
                     'signRegion' => 'us-isob-east-1',
-                    'signService' => 'route53',
-                    'signVersions' => ['v4'],
-                ];
-            case 'fips-aws-global':
-                return [
-                    'endpoint' => 'https://route53-fips.amazonaws.com',
-                    'signRegion' => 'us-east-1',
-                    'signService' => 'route53',
-                    'signVersions' => ['v4'],
-                ];
-            case 'fips-aws-us-gov-global':
-                return [
-                    'endpoint' => 'https://route53.us-gov.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
                     'signService' => 'route53',
                     'signVersions' => ['v4'],
                 ];

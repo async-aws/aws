@@ -315,25 +315,49 @@ class KmsClient extends AbstractApi
         }
 
         switch ($region) {
-            case 'cn-north-1':
-            case 'cn-northwest-1':
+            case 'af-south-1':
+            case 'ap-east-1':
+            case 'ap-northeast-1':
+            case 'ap-northeast-2':
+            case 'ap-northeast-3':
+            case 'ap-south-1':
+            case 'ap-southeast-1':
+            case 'ap-southeast-2':
+            case 'ap-southeast-3':
+            case 'ca-central-1':
+            case 'eu-central-1':
+            case 'eu-north-1':
+            case 'eu-south-1':
+            case 'eu-west-1':
+            case 'eu-west-2':
+            case 'eu-west-3':
+            case 'me-south-1':
+            case 'sa-east-1':
+            case 'us-east-1':
+            case 'us-east-2':
+            case 'us-gov-east-1':
+            case 'us-gov-west-1':
+            case 'us-west-1':
+            case 'us-west-2':
                 return [
-                    'endpoint' => "https://kms.$region.amazonaws.com.cn",
+                    'endpoint' => "https://kms.$region.amazonaws.com",
                     'signRegion' => $region,
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
             case 'ProdFips':
+            case 'us-isob-east-1-fips':
                 return [
                     'endpoint' => 'https://kms-fips.us-isob-east-1.sc2s.sgov.gov',
                     'signRegion' => 'us-isob-east-1',
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
-            case 'af-south-1':
+            case 'cn-north-1':
+            case 'cn-northwest-1':
                 return [
-                    'endpoint' => 'https://kms.af-south-1.amazonaws.com',
-                    'signRegion' => 'af-south-1',
+                    'endpoint' => "https://kms.$region.amazonaws.com.cn",
+                    'signRegion' => $region,
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
@@ -344,24 +368,10 @@ class KmsClient extends AbstractApi
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
-            case 'ap-east-1':
-                return [
-                    'endpoint' => 'https://kms.ap-east-1.amazonaws.com',
-                    'signRegion' => 'ap-east-1',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
             case 'ap-east-1-fips':
                 return [
                     'endpoint' => 'https://kms-fips.ap-east-1.amazonaws.com',
                     'signRegion' => 'ap-east-1',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
-            case 'ap-northeast-1':
-                return [
-                    'endpoint' => 'https://kms.ap-northeast-1.amazonaws.com',
-                    'signRegion' => 'ap-northeast-1',
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
@@ -372,24 +382,10 @@ class KmsClient extends AbstractApi
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
-            case 'ap-northeast-2':
-                return [
-                    'endpoint' => 'https://kms.ap-northeast-2.amazonaws.com',
-                    'signRegion' => 'ap-northeast-2',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
             case 'ap-northeast-2-fips':
                 return [
                     'endpoint' => 'https://kms-fips.ap-northeast-2.amazonaws.com',
                     'signRegion' => 'ap-northeast-2',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
-            case 'ap-northeast-3':
-                return [
-                    'endpoint' => 'https://kms.ap-northeast-3.amazonaws.com',
-                    'signRegion' => 'ap-northeast-3',
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
@@ -400,24 +396,10 @@ class KmsClient extends AbstractApi
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
-            case 'ap-south-1':
-                return [
-                    'endpoint' => 'https://kms.ap-south-1.amazonaws.com',
-                    'signRegion' => 'ap-south-1',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
             case 'ap-south-1-fips':
                 return [
                     'endpoint' => 'https://kms-fips.ap-south-1.amazonaws.com',
                     'signRegion' => 'ap-south-1',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
-            case 'ap-southeast-1':
-                return [
-                    'endpoint' => 'https://kms.ap-southeast-1.amazonaws.com',
-                    'signRegion' => 'ap-southeast-1',
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
@@ -428,24 +410,10 @@ class KmsClient extends AbstractApi
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
-            case 'ap-southeast-2':
-                return [
-                    'endpoint' => 'https://kms.ap-southeast-2.amazonaws.com',
-                    'signRegion' => 'ap-southeast-2',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
             case 'ap-southeast-2-fips':
                 return [
                     'endpoint' => 'https://kms-fips.ap-southeast-2.amazonaws.com',
                     'signRegion' => 'ap-southeast-2',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
-            case 'ap-southeast-3':
-                return [
-                    'endpoint' => 'https://kms.ap-southeast-3.amazonaws.com',
-                    'signRegion' => 'ap-southeast-3',
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
@@ -456,24 +424,10 @@ class KmsClient extends AbstractApi
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
-            case 'ca-central-1':
-                return [
-                    'endpoint' => 'https://kms.ca-central-1.amazonaws.com',
-                    'signRegion' => 'ca-central-1',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
             case 'ca-central-1-fips':
                 return [
                     'endpoint' => 'https://kms-fips.ca-central-1.amazonaws.com',
                     'signRegion' => 'ca-central-1',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
-            case 'eu-central-1':
-                return [
-                    'endpoint' => 'https://kms.eu-central-1.amazonaws.com',
-                    'signRegion' => 'eu-central-1',
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
@@ -484,24 +438,10 @@ class KmsClient extends AbstractApi
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
-            case 'eu-north-1':
-                return [
-                    'endpoint' => 'https://kms.eu-north-1.amazonaws.com',
-                    'signRegion' => 'eu-north-1',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
             case 'eu-north-1-fips':
                 return [
                     'endpoint' => 'https://kms-fips.eu-north-1.amazonaws.com',
                     'signRegion' => 'eu-north-1',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
-            case 'eu-south-1':
-                return [
-                    'endpoint' => 'https://kms.eu-south-1.amazonaws.com',
-                    'signRegion' => 'eu-south-1',
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
@@ -512,24 +452,10 @@ class KmsClient extends AbstractApi
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
-            case 'eu-west-1':
-                return [
-                    'endpoint' => 'https://kms.eu-west-1.amazonaws.com',
-                    'signRegion' => 'eu-west-1',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
             case 'eu-west-1-fips':
                 return [
                     'endpoint' => 'https://kms-fips.eu-west-1.amazonaws.com',
                     'signRegion' => 'eu-west-1',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
-            case 'eu-west-2':
-                return [
-                    'endpoint' => 'https://kms.eu-west-2.amazonaws.com',
-                    'signRegion' => 'eu-west-2',
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
@@ -540,24 +466,10 @@ class KmsClient extends AbstractApi
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
-            case 'eu-west-3':
-                return [
-                    'endpoint' => 'https://kms.eu-west-3.amazonaws.com',
-                    'signRegion' => 'eu-west-3',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
             case 'eu-west-3-fips':
                 return [
                     'endpoint' => 'https://kms-fips.eu-west-3.amazonaws.com',
                     'signRegion' => 'eu-west-3',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
-            case 'me-south-1':
-                return [
-                    'endpoint' => 'https://kms.me-south-1.amazonaws.com',
-                    'signRegion' => 'me-south-1',
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
@@ -568,24 +480,10 @@ class KmsClient extends AbstractApi
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
-            case 'sa-east-1':
-                return [
-                    'endpoint' => 'https://kms.sa-east-1.amazonaws.com',
-                    'signRegion' => 'sa-east-1',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
             case 'sa-east-1-fips':
                 return [
                     'endpoint' => 'https://kms-fips.sa-east-1.amazonaws.com',
                     'signRegion' => 'sa-east-1',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-east-1':
-                return [
-                    'endpoint' => 'https://kms.us-east-1.amazonaws.com',
-                    'signRegion' => 'us-east-1',
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
@@ -596,13 +494,6 @@ class KmsClient extends AbstractApi
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-east-2':
-                return [
-                    'endpoint' => 'https://kms.us-east-2.amazonaws.com',
-                    'signRegion' => 'us-east-2',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-east-2-fips':
                 return [
                     'endpoint' => 'https://kms-fips.us-east-2.amazonaws.com',
@@ -610,10 +501,17 @@ class KmsClient extends AbstractApi
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-gov-east-1':
+            case 'us-west-1-fips':
                 return [
-                    'endpoint' => 'https://kms.us-gov-east-1.amazonaws.com',
-                    'signRegion' => 'us-gov-east-1',
+                    'endpoint' => 'https://kms-fips.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'kms',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-2-fips':
+                return [
+                    'endpoint' => 'https://kms-fips.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
@@ -621,13 +519,6 @@ class KmsClient extends AbstractApi
                 return [
                     'endpoint' => 'https://kms-fips.us-gov-east-1.amazonaws.com',
                     'signRegion' => 'us-gov-east-1',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-gov-west-1':
-                return [
-                    'endpoint' => 'https://kms.us-gov-west-1.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
@@ -639,30 +530,10 @@ class KmsClient extends AbstractApi
                     'signVersions' => ['v4'],
                 ];
             case 'us-iso-east-1':
-                return [
-                    'endpoint' => 'https://kms.us-iso-east-1.c2s.ic.gov',
-                    'signRegion' => 'us-iso-east-1',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-iso-east-1-fips':
-                return [
-                    'endpoint' => 'https://kms-fips.us-iso-east-1.c2s.ic.gov',
-                    'signRegion' => 'us-iso-east-1',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-iso-west-1':
                 return [
-                    'endpoint' => 'https://kms.us-iso-west-1.c2s.ic.gov',
-                    'signRegion' => 'us-iso-west-1',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-iso-west-1-fips':
-                return [
-                    'endpoint' => 'https://kms-fips.us-iso-west-1.c2s.ic.gov',
-                    'signRegion' => 'us-iso-west-1',
+                    'endpoint' => "https://kms.$region.c2s.ic.gov",
+                    'signRegion' => $region,
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
@@ -673,38 +544,17 @@ class KmsClient extends AbstractApi
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-isob-east-1-fips':
+            case 'us-iso-east-1-fips':
                 return [
-                    'endpoint' => 'https://kms-fips.us-isob-east-1.sc2s.sgov.gov',
-                    'signRegion' => 'us-isob-east-1',
+                    'endpoint' => 'https://kms-fips.us-iso-east-1.c2s.ic.gov',
+                    'signRegion' => 'us-iso-east-1',
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-west-1':
+            case 'us-iso-west-1-fips':
                 return [
-                    'endpoint' => 'https://kms.us-west-1.amazonaws.com',
-                    'signRegion' => 'us-west-1',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-west-1-fips':
-                return [
-                    'endpoint' => 'https://kms-fips.us-west-1.amazonaws.com',
-                    'signRegion' => 'us-west-1',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-west-2':
-                return [
-                    'endpoint' => 'https://kms.us-west-2.amazonaws.com',
-                    'signRegion' => 'us-west-2',
-                    'signService' => 'kms',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-west-2-fips':
-                return [
-                    'endpoint' => 'https://kms-fips.us-west-2.amazonaws.com',
-                    'signRegion' => 'us-west-2',
+                    'endpoint' => 'https://kms-fips.us-iso-west-1.c2s.ic.gov',
+                    'signRegion' => 'us-iso-west-1',
                     'signService' => 'kms',
                     'signVersions' => ['v4'],
                 ];

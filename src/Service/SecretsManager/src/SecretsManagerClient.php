@@ -297,13 +297,6 @@ class SecretsManagerClient extends AbstractApi
                     'signService' => 'secretsmanager',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-iso-east-1':
-                return [
-                    'endpoint' => 'https://secretsmanager.us-iso-east-1.c2s.ic.gov',
-                    'signRegion' => 'us-iso-east-1',
-                    'signService' => 'secretsmanager',
-                    'signVersions' => ['v4'],
-                ];
             case 'ca-central-1-fips':
                 return [
                     'endpoint' => 'https://secretsmanager-fips.ca-central-1.amazonaws.com',
@@ -325,6 +318,20 @@ class SecretsManagerClient extends AbstractApi
                     'signService' => 'secretsmanager',
                     'signVersions' => ['v4'],
                 ];
+            case 'us-west-1-fips':
+                return [
+                    'endpoint' => 'https://secretsmanager-fips.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'secretsmanager',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-west-2-fips':
+                return [
+                    'endpoint' => 'https://secretsmanager-fips.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
+                    'signService' => 'secretsmanager',
+                    'signVersions' => ['v4'],
+                ];
             case 'us-gov-east-1-fips':
                 return [
                     'endpoint' => 'https://secretsmanager-fips.us-gov-east-1.amazonaws.com',
@@ -339,17 +346,10 @@ class SecretsManagerClient extends AbstractApi
                     'signService' => 'secretsmanager',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-west-1-fips':
+            case 'us-iso-east-1':
                 return [
-                    'endpoint' => 'https://secretsmanager-fips.us-west-1.amazonaws.com',
-                    'signRegion' => 'us-west-1',
-                    'signService' => 'secretsmanager',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-west-2-fips':
-                return [
-                    'endpoint' => 'https://secretsmanager-fips.us-west-2.amazonaws.com',
-                    'signRegion' => 'us-west-2',
+                    'endpoint' => 'https://secretsmanager.us-iso-east-1.c2s.ic.gov',
+                    'signRegion' => 'us-iso-east-1',
                     'signService' => 'secretsmanager',
                     'signVersions' => ['v4'],
                 ];

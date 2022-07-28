@@ -55,86 +55,40 @@ class EcrClient extends AbstractApi
 
         switch ($region) {
             case 'af-south-1':
-                return [
-                    'endpoint' => 'https://api.ecr.af-south-1.amazonaws.com',
-                    'signRegion' => 'af-south-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
             case 'ap-east-1':
-                return [
-                    'endpoint' => 'https://api.ecr.ap-east-1.amazonaws.com',
-                    'signRegion' => 'ap-east-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
             case 'ap-northeast-1':
-                return [
-                    'endpoint' => 'https://api.ecr.ap-northeast-1.amazonaws.com',
-                    'signRegion' => 'ap-northeast-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
             case 'ap-northeast-2':
-                return [
-                    'endpoint' => 'https://api.ecr.ap-northeast-2.amazonaws.com',
-                    'signRegion' => 'ap-northeast-2',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
             case 'ap-northeast-3':
-                return [
-                    'endpoint' => 'https://api.ecr.ap-northeast-3.amazonaws.com',
-                    'signRegion' => 'ap-northeast-3',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
             case 'ap-south-1':
-                return [
-                    'endpoint' => 'https://api.ecr.ap-south-1.amazonaws.com',
-                    'signRegion' => 'ap-south-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
             case 'ap-southeast-1':
-                return [
-                    'endpoint' => 'https://api.ecr.ap-southeast-1.amazonaws.com',
-                    'signRegion' => 'ap-southeast-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
             case 'ap-southeast-2':
-                return [
-                    'endpoint' => 'https://api.ecr.ap-southeast-2.amazonaws.com',
-                    'signRegion' => 'ap-southeast-2',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
             case 'ap-southeast-3':
-                return [
-                    'endpoint' => 'https://api.ecr.ap-southeast-3.amazonaws.com',
-                    'signRegion' => 'ap-southeast-3',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
             case 'ca-central-1':
+            case 'eu-central-1':
+            case 'eu-north-1':
+            case 'eu-south-1':
+            case 'eu-west-1':
+            case 'eu-west-2':
+            case 'eu-west-3':
+            case 'me-south-1':
+            case 'sa-east-1':
+            case 'us-east-1':
+            case 'us-east-2':
+            case 'us-gov-east-1':
+            case 'us-gov-west-1':
+            case 'us-west-1':
+            case 'us-west-2':
                 return [
-                    'endpoint' => 'https://api.ecr.ca-central-1.amazonaws.com',
-                    'signRegion' => 'ca-central-1',
+                    'endpoint' => "https://api.ecr.$region.amazonaws.com",
+                    'signRegion' => $region,
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];
             case 'cn-north-1':
-                return [
-                    'endpoint' => 'https://api.ecr.cn-north-1.amazonaws.com.cn',
-                    'signRegion' => 'cn-north-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
             case 'cn-northwest-1':
                 return [
-                    'endpoint' => 'https://api.ecr.cn-northwest-1.amazonaws.com.cn',
-                    'signRegion' => 'cn-northwest-1',
+                    'endpoint' => "https://api.ecr.$region.amazonaws.com.cn",
+                    'signRegion' => $region,
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];
@@ -152,20 +106,6 @@ class EcrClient extends AbstractApi
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];
-            case 'dkr-us-gov-east-1':
-                return [
-                    'endpoint' => 'https://api.ecr.dkr-us-gov-east-1.amazonaws.com',
-                    'signRegion' => 'us-gov-east-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
-            case 'dkr-us-gov-west-1':
-                return [
-                    'endpoint' => 'https://api.ecr.dkr-us-gov-west-1.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
             case 'dkr-us-west-1':
                 return [
                     'endpoint' => 'https://api.ecr.dkr-us-west-1.amazonaws.com',
@@ -180,90 +120,21 @@ class EcrClient extends AbstractApi
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];
-            case 'eu-central-1':
+            case 'dkr-us-gov-east-1':
                 return [
-                    'endpoint' => 'https://api.ecr.eu-central-1.amazonaws.com',
-                    'signRegion' => 'eu-central-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
-            case 'eu-north-1':
-                return [
-                    'endpoint' => 'https://api.ecr.eu-north-1.amazonaws.com',
-                    'signRegion' => 'eu-north-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
-            case 'eu-south-1':
-                return [
-                    'endpoint' => 'https://api.ecr.eu-south-1.amazonaws.com',
-                    'signRegion' => 'eu-south-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
-            case 'eu-west-1':
-                return [
-                    'endpoint' => 'https://api.ecr.eu-west-1.amazonaws.com',
-                    'signRegion' => 'eu-west-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
-            case 'eu-west-2':
-                return [
-                    'endpoint' => 'https://api.ecr.eu-west-2.amazonaws.com',
-                    'signRegion' => 'eu-west-2',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
-            case 'eu-west-3':
-                return [
-                    'endpoint' => 'https://api.ecr.eu-west-3.amazonaws.com',
-                    'signRegion' => 'eu-west-3',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
-            case 'fips-dkr-us-east-1':
-                return [
-                    'endpoint' => 'https://ecr-fips.us-east-1.amazonaws.com',
-                    'signRegion' => 'us-east-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
-            case 'fips-dkr-us-east-2':
-                return [
-                    'endpoint' => 'https://ecr-fips.us-east-2.amazonaws.com',
-                    'signRegion' => 'us-east-2',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
-            case 'fips-dkr-us-gov-east-1':
-                return [
-                    'endpoint' => 'https://ecr-fips.us-gov-east-1.amazonaws.com',
+                    'endpoint' => 'https://api.ecr.dkr-us-gov-east-1.amazonaws.com',
                     'signRegion' => 'us-gov-east-1',
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];
-            case 'fips-dkr-us-gov-west-1':
+            case 'dkr-us-gov-west-1':
                 return [
-                    'endpoint' => 'https://ecr-fips.us-gov-west-1.amazonaws.com',
+                    'endpoint' => 'https://api.ecr.dkr-us-gov-west-1.amazonaws.com',
                     'signRegion' => 'us-gov-west-1',
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];
-            case 'fips-dkr-us-west-1':
-                return [
-                    'endpoint' => 'https://ecr-fips.us-west-1.amazonaws.com',
-                    'signRegion' => 'us-west-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
-            case 'fips-dkr-us-west-2':
-                return [
-                    'endpoint' => 'https://ecr-fips.us-west-2.amazonaws.com',
-                    'signRegion' => 'us-west-2',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
+            case 'fips-dkr-us-east-1':
             case 'fips-us-east-1':
                 return [
                     'endpoint' => 'https://ecr-fips.us-east-1.amazonaws.com',
@@ -271,6 +142,7 @@ class EcrClient extends AbstractApi
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];
+            case 'fips-dkr-us-east-2':
             case 'fips-us-east-2':
                 return [
                     'endpoint' => 'https://ecr-fips.us-east-2.amazonaws.com',
@@ -278,20 +150,7 @@ class EcrClient extends AbstractApi
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];
-            case 'fips-us-gov-east-1':
-                return [
-                    'endpoint' => 'https://ecr-fips.us-gov-east-1.amazonaws.com',
-                    'signRegion' => 'us-gov-east-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
-            case 'fips-us-gov-west-1':
-                return [
-                    'endpoint' => 'https://ecr-fips.us-gov-west-1.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
+            case 'fips-dkr-us-west-1':
             case 'fips-us-west-1':
                 return [
                     'endpoint' => 'https://ecr-fips.us-west-1.amazonaws.com',
@@ -299,6 +158,7 @@ class EcrClient extends AbstractApi
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];
+            case 'fips-dkr-us-west-2':
             case 'fips-us-west-2':
                 return [
                     'endpoint' => 'https://ecr-fips.us-west-2.amazonaws.com',
@@ -306,59 +166,27 @@ class EcrClient extends AbstractApi
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];
-            case 'me-south-1':
+            case 'fips-dkr-us-gov-east-1':
+            case 'fips-us-gov-east-1':
                 return [
-                    'endpoint' => 'https://api.ecr.me-south-1.amazonaws.com',
-                    'signRegion' => 'me-south-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
-            case 'sa-east-1':
-                return [
-                    'endpoint' => 'https://api.ecr.sa-east-1.amazonaws.com',
-                    'signRegion' => 'sa-east-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-east-1':
-                return [
-                    'endpoint' => 'https://api.ecr.us-east-1.amazonaws.com',
-                    'signRegion' => 'us-east-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-east-2':
-                return [
-                    'endpoint' => 'https://api.ecr.us-east-2.amazonaws.com',
-                    'signRegion' => 'us-east-2',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-gov-east-1':
-                return [
-                    'endpoint' => 'https://api.ecr.us-gov-east-1.amazonaws.com',
+                    'endpoint' => 'https://ecr-fips.us-gov-east-1.amazonaws.com',
                     'signRegion' => 'us-gov-east-1',
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-gov-west-1':
+            case 'fips-dkr-us-gov-west-1':
+            case 'fips-us-gov-west-1':
                 return [
-                    'endpoint' => 'https://api.ecr.us-gov-west-1.amazonaws.com',
+                    'endpoint' => 'https://ecr-fips.us-gov-west-1.amazonaws.com',
                     'signRegion' => 'us-gov-west-1',
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];
             case 'us-iso-east-1':
-                return [
-                    'endpoint' => 'https://api.ecr.us-iso-east-1.c2s.ic.gov',
-                    'signRegion' => 'us-iso-east-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-iso-west-1':
                 return [
-                    'endpoint' => 'https://api.ecr.us-iso-west-1.c2s.ic.gov',
-                    'signRegion' => 'us-iso-west-1',
+                    'endpoint' => "https://api.ecr.$region.c2s.ic.gov",
+                    'signRegion' => $region,
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];
@@ -366,20 +194,6 @@ class EcrClient extends AbstractApi
                 return [
                     'endpoint' => 'https://api.ecr.us-isob-east-1.sc2s.sgov.gov',
                     'signRegion' => 'us-isob-east-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-west-1':
-                return [
-                    'endpoint' => 'https://api.ecr.us-west-1.amazonaws.com',
-                    'signRegion' => 'us-west-1',
-                    'signService' => 'ecr',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-west-2':
-                return [
-                    'endpoint' => 'https://api.ecr.us-west-2.amazonaws.com',
-                    'signRegion' => 'us-west-2',
                     'signService' => 'ecr',
                     'signVersions' => ['v4'],
                 ];

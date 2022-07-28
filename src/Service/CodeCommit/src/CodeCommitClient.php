@@ -209,17 +209,18 @@ class CodeCommitClient extends AbstractApi
                     'signService' => 'codecommit',
                     'signVersions' => ['v4'],
                 ];
+            case 'fips':
+            case 'us-gov-west-1-fips':
+                return [
+                    'endpoint' => 'https://codecommit-fips.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'us-gov-west-1',
+                    'signService' => 'codecommit',
+                    'signVersions' => ['v4'],
+                ];
             case 'ca-central-1-fips':
                 return [
                     'endpoint' => 'https://codecommit-fips.ca-central-1.amazonaws.com',
                     'signRegion' => 'ca-central-1',
-                    'signService' => 'codecommit',
-                    'signVersions' => ['v4'],
-                ];
-            case 'fips':
-                return [
-                    'endpoint' => 'https://codecommit-fips.us-gov-west-1.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
                     'signService' => 'codecommit',
                     'signVersions' => ['v4'],
                 ];
@@ -237,20 +238,6 @@ class CodeCommitClient extends AbstractApi
                     'signService' => 'codecommit',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-gov-east-1-fips':
-                return [
-                    'endpoint' => 'https://codecommit-fips.us-gov-east-1.amazonaws.com',
-                    'signRegion' => 'us-gov-east-1',
-                    'signService' => 'codecommit',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-gov-west-1-fips':
-                return [
-                    'endpoint' => 'https://codecommit-fips.us-gov-west-1.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
-                    'signService' => 'codecommit',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-west-1-fips':
                 return [
                     'endpoint' => 'https://codecommit-fips.us-west-1.amazonaws.com',
@@ -262,6 +249,13 @@ class CodeCommitClient extends AbstractApi
                 return [
                     'endpoint' => 'https://codecommit-fips.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',
+                    'signService' => 'codecommit',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-gov-east-1-fips':
+                return [
+                    'endpoint' => 'https://codecommit-fips.us-gov-east-1.amazonaws.com',
+                    'signRegion' => 'us-gov-east-1',
                     'signService' => 'codecommit',
                     'signVersions' => ['v4'],
                 ];

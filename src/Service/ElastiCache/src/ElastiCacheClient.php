@@ -67,22 +67,8 @@ class ElastiCacheClient extends AbstractApi
                     'signService' => 'elasticache',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-iso-east-1':
-            case 'us-iso-west-1':
-                return [
-                    'endpoint' => "https://elasticache.$region.c2s.ic.gov",
-                    'signRegion' => $region,
-                    'signService' => 'elasticache',
-                    'signVersions' => ['v4'],
-                ];
-            case 'us-isob-east-1':
-                return [
-                    'endpoint' => 'https://elasticache.us-isob-east-1.sc2s.sgov.gov',
-                    'signRegion' => 'us-isob-east-1',
-                    'signService' => 'elasticache',
-                    'signVersions' => ['v4'],
-                ];
             case 'fips':
+            case 'us-gov-west-1-fips':
                 return [
                     'endpoint' => 'https://elasticache.us-gov-west-1.amazonaws.com',
                     'signRegion' => 'us-gov-west-1',
@@ -103,13 +89,6 @@ class ElastiCacheClient extends AbstractApi
                     'signService' => 'elasticache',
                     'signVersions' => ['v4'],
                 ];
-            case 'us-gov-west-1-fips':
-                return [
-                    'endpoint' => 'https://elasticache.us-gov-west-1.amazonaws.com',
-                    'signRegion' => 'us-gov-west-1',
-                    'signService' => 'elasticache',
-                    'signVersions' => ['v4'],
-                ];
             case 'us-west-1-fips':
                 return [
                     'endpoint' => 'https://elasticache-fips.us-west-1.amazonaws.com',
@@ -121,6 +100,21 @@ class ElastiCacheClient extends AbstractApi
                 return [
                     'endpoint' => 'https://elasticache-fips.us-west-2.amazonaws.com',
                     'signRegion' => 'us-west-2',
+                    'signService' => 'elasticache',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-iso-east-1':
+            case 'us-iso-west-1':
+                return [
+                    'endpoint' => "https://elasticache.$region.c2s.ic.gov",
+                    'signRegion' => $region,
+                    'signService' => 'elasticache',
+                    'signVersions' => ['v4'],
+                ];
+            case 'us-isob-east-1':
+                return [
+                    'endpoint' => 'https://elasticache.us-isob-east-1.sc2s.sgov.gov',
+                    'signRegion' => 'us-isob-east-1',
                     'signService' => 'elasticache',
                     'signVersions' => ['v4'],
                 ];

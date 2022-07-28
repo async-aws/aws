@@ -57,21 +57,29 @@ class ClientGenerator
         } return (new A%1$s)->getVersion();', sha1(uniqid('', true)), $className->getFqdn()));
 
         $endpoints = $definition->getEndpoints();
-        $dumpConfig = static function ($config, $region = null) use ($supportedVersions) {
+        $regionConfigs = [];
+        $dumpConfig = static function ($config, $region = '$region') use ($supportedVersions) {
             $signatureVersions = array_intersect($supportedVersions, $config['signVersions']);
             rsort($signatureVersions);
 
             return strtr('        return [
                 "endpoint" => "ENDPOINT",
-                "signRegion" => REGION,
+                "signRegion" => "REGION",
                 "signService" => SIGN_SERVICE,
                 "signVersions" => SIGN_VERSIONS,
             ];' . "\n", [
-                'ENDPOINT' => strtr($config['endpoint'], ['%region%' => $region ?? '$region']),
-                'REGION' => isset($config['signRegion']) ? var_export($config['signRegion'], true) : (null === $region ? '$region' : var_export($region, true)),
+                'ENDPOINT' => strtr($config['endpoint'], ['%region%' => $region]),
+                'REGION' => $config['signRegion'] ?? $region,
                 'SIGN_SERVICE' => var_export($config['signService'], true),
                 'SIGN_VERSIONS' => json_encode($signatureVersions),
             ]);
+        };
+        $bufferConfig = static function ($config, $region = '$region') use ($dumpConfig, &$regionConfigs) {
+            $code = $dumpConfig($config, $region);
+
+            $mapKey = hash('sha256', $code);
+            $regionConfigs[$mapKey]['code'] = $code;
+            $regionConfigs[$mapKey]['regions'][] = $region;
         };
         $sameConfig = static function (array $config, array $defaultConfig, string $region) use ($supportedVersions) {
             $configEndpoint = strtr($config['endpoint'], ['%region%' => $region]);
@@ -120,14 +128,12 @@ class ClientGenerator
             ';
         }
 
-        $regionSwitchbody = '';
         $defaultConfig = null;
         if (isset($endpoints['_default']['aws'])) {
             $defaultConfig = $endpoints['_default']['aws'];
         } elseif (isset($endpoints['_global']['aws'])) {
             $defaultConfig = $endpoints['_global']['aws'];
         }
-
         foreach ($endpoints['_global'] ?? [] as $partitionName => $config) {
             if ('aws' === $partitionName && !isset($endpoints['_default']['aws'])) {
                 continue;
@@ -135,21 +141,11 @@ class ClientGenerator
             if (empty($config['regions'])) {
                 continue;
             }
-            sort($config['regions']);
-            $regions = [];
             foreach ($config['regions'] as $region) {
                 if ($defaultConfig && $sameConfig($config, $defaultConfig, $region)) {
                     continue;
                 }
-                $regions[] = $region;
-                $regionSwitchbody .= sprintf("    case %s:\n", var_export($region, true));
-            }
-            if (\count($regions) > 0) {
-                if (1 === \count($regions)) {
-                    $regionSwitchbody .= $dumpConfig($config, $regions[0]);
-                } else {
-                    $regionSwitchbody .= $dumpConfig($config);
-                }
+                $bufferConfig($config, $region);
             }
         }
         foreach ($endpoints['_default'] ?? [] as $partitionName => $config) {
@@ -159,24 +155,13 @@ class ClientGenerator
             if (empty($config['regions'])) {
                 continue;
             }
-            sort($config['regions']);
-            $regions = [];
             foreach ($config['regions'] as $region) {
                 if ($defaultConfig && $sameConfig($config, $defaultConfig, $region)) {
                     continue;
                 }
-                $regions[] = $region;
-                $regionSwitchbody .= sprintf("    case %s:\n", var_export($region, true));
-            }
-            if (\count($regions) > 0) {
-                if (1 === \count($regions)) {
-                    $regionSwitchbody .= $dumpConfig($config, $regions[0]);
-                } else {
-                    $regionSwitchbody .= $dumpConfig($config);
-                }
+                $bufferConfig($config, $region);
             }
         }
-        ksort($endpoints);
         foreach ($endpoints as $region => $config) {
             if ('_' === $region[0]) {
                 continue; // skip `_default` and `_global`
@@ -185,13 +170,63 @@ class ClientGenerator
                 continue;
             }
 
-            $regionSwitchbody .= sprintf("    case %s:\n", var_export($region, true));
-            $regionSwitchbody .= $dumpConfig($config, $region);
+            $bufferConfig($config, $region);
         }
 
-        if ('' !== $regionSwitchbody) {
+        if (!empty($regionConfigs)) {
             $body .= "switch (\$region) {\n";
-            $body .= $regionSwitchbody;
+
+            // try to group configs by dynamic $region
+            $regionConfigsWithAlias = [];
+            foreach ($regionConfigs as $key => $config) {
+                sort($config['regions']);
+                if (1 === \count($config['regions'])) {
+                    $region = $config['regions'][0];
+                    $code = strtr($config['code'], [$region => '$region']);
+                    if ($code !== $config['code']) {
+                        $mapKey = hash('sha256', $code);
+                        unset($regionConfigs[$key]);
+                        $regionConfigsWithAlias[$mapKey]['code'] = $code;
+                        $regionConfigsWithAlias[$mapKey]['original_code'] = $config['code'];
+                        $regionConfigsWithAlias[$mapKey]['regions'][] = $region;
+                    }
+                }
+            }
+            foreach ($regionConfigsWithAlias as $key => $config) {
+                sort($config['regions']);
+                if (1 === \count($config['regions'])) {
+                    $region = $config['regions'][0];
+                    $mapKey = hash('sha256', $config['original_code']);
+                    $regionConfigs[$mapKey]['code'] = $config['original_code'];
+                    $regionConfigs[$mapKey]['regions'][] = $region;
+                } else {
+                    $regionConfigs[$key] = $config;
+                }
+            }
+            usort($regionConfigs, static function ($a, $b) {
+                return [
+                    false !== strpos($a['regions'][0], 'iso'),
+                    false !== strpos($a['regions'][0], 'fips'),
+                    false !== strpos($a['regions'][0], 'gov'),
+                    \count($b['regions']),
+                    $a['regions'][0],
+                ] <=> [
+                    false !== strpos($b['regions'][0], 'iso'),
+                    false !== strpos($b['regions'][0], 'fips'),
+                    false !== strpos($b['regions'][0], 'gov'),
+                    \count($a['regions']),
+                    $b['regions'][0],
+                ];
+            });
+            foreach ($regionConfigs as $regionConfig) {
+                $code = $regionConfig['code'];
+                $regions = $regionConfig['regions'];
+                foreach ($regions as $region) {
+                    $body .= sprintf("    case %s:\n", var_export($region, true));
+                }
+                $body .= $code;
+            }
+
             $body .= '}';
         }
 
@@ -207,7 +242,7 @@ class ClientGenerator
         $classBuilder->addMethod('getEndpointMetadata')
             ->setReturnType('array')
             ->setVisibility(ClassType::VISIBILITY_PROTECTED)
-            ->setBody($body)
+            ->setBody(strtr($body, ['"$region"' => '$region']))
             ->addParameter('region')
                 ->setType('string')
                 ->setNullable(true)

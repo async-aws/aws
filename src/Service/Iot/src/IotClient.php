@@ -497,20 +497,6 @@ class IotClient extends AbstractApi
                     'signService' => 'execute-api',
                     'signVersions' => ['v4'],
                 ];
-            case 'fips-us-gov-east-1':
-                return [
-                    'endpoint' => 'https://iot-fips.us-gov-east-1.amazonaws.com',
-                    'signRegion' => 'fips-us-gov-east-1',
-                    'signService' => 'execute-api',
-                    'signVersions' => ['v4'],
-                ];
-            case 'fips-us-gov-west-1':
-                return [
-                    'endpoint' => 'https://iot-fips.us-gov-west-1.amazonaws.com',
-                    'signRegion' => 'fips-us-gov-west-1',
-                    'signService' => 'execute-api',
-                    'signVersions' => ['v4'],
-                ];
             case 'fips-us-west-1':
                 return [
                     'endpoint' => 'https://iot-fips.us-west-1.amazonaws.com',
@@ -522,6 +508,20 @@ class IotClient extends AbstractApi
                 return [
                     'endpoint' => 'https://iot-fips.us-west-2.amazonaws.com',
                     'signRegion' => 'fips-us-west-2',
+                    'signService' => 'execute-api',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-gov-east-1':
+                return [
+                    'endpoint' => 'https://iot-fips.us-gov-east-1.amazonaws.com',
+                    'signRegion' => 'fips-us-gov-east-1',
+                    'signService' => 'execute-api',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-gov-west-1':
+                return [
+                    'endpoint' => 'https://iot-fips.us-gov-west-1.amazonaws.com',
+                    'signRegion' => 'fips-us-gov-west-1',
                     'signService' => 'execute-api',
                     'signVersions' => ['v4'],
                 ];
