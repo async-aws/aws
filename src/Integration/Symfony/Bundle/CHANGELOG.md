@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Support for Iot Data
+
 ## 1.8.0
 
 ### Added

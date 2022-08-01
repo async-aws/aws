@@ -12,7 +12,7 @@ class UpdateThingShadowRequestTest extends TestCase
         $input = new UpdateThingShadowRequest([
             'thingName' => 'unit21_hvac',
             'shadowName' => 'temperature',
-            'payload' =>  json_encode(['state' => ['reported' => ['temperature' => 21]]]),
+            'payload' => json_encode(['state' => ['reported' => ['temperature' => 21]]]),
         ]);
 
         // see https://docs.aws.amazon.com/iot/latest/apireference/API_Operations_AWS_IoT_Data_Plane.html/API_UpdateThingShadow.html

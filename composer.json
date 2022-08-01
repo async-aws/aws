@@ -114,7 +114,7 @@
             "AsyncAws\\Firehose\\Tests\\": "src/Service/Firehose/tests",
             "AsyncAws\\Iam\\Tests\\": "src/Service/Iam/tests",
             "AsyncAws\\Iot\\Tests\\": "src/Service/Iot/tests",
-            "AsyncAws\\IotData\\": "src/Service/IotData/src",
+            "AsyncAws\\IotData\\Tests\\": "src/Service/IotData/tests",
             "AsyncAws\\Kinesis\\Tests\\": "src/Service/Kinesis/tests",
             "AsyncAws\\Kms\\Tests\\": "src/Service/Kms/tests",
             "AsyncAws\\Lambda\\Tests\\": "src/Service/Lambda/tests",
