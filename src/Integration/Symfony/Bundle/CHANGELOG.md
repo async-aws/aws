@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.9.0
+
 ### Added
 
 - Support for Iot Data
