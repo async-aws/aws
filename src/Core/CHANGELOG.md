@@ -6,6 +6,12 @@
 
 ### Added
 
+- Added support for Iot Data
+
+## 1.16.0
+
+### Added
+
 - Added support for endpoint discovery
 - Added support for Iot Core
 

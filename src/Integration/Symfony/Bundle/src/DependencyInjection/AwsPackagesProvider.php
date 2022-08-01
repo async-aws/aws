@@ -77,6 +77,10 @@ class AwsPackagesProvider
                 'class' => \AsyncAws\Iot\IotClient::class,
                 'package' => 'async-aws/iot',
             ],
+            'iot_data' => [
+                'class' => \AsyncAws\IotData\IotDataClient::class,
+                'package' => 'async-aws/iot-data',
+            ],
             'kinesis' => [
                 'class' => \AsyncAws\Kinesis\KinesisClient::class,
                 'package' => 'async-aws/kinesis',

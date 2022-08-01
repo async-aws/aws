@@ -82,6 +82,9 @@ menu:
             iot:
                 text: Iot
                 url: /clients/iot.html
+            iot-data:
+                text: IotData
+                url: /clients/iot-data.html
             kinesis:
                 text: Kinesis
                 url: /clients/kinesis.html
