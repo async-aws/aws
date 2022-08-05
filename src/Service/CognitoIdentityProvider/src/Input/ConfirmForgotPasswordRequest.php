@@ -41,8 +41,7 @@ final class ConfirmForgotPasswordRequest extends Input
     private $username;
 
     /**
-     * The confirmation code sent by a user's request to retrieve a forgotten password. For more information, see
-     * ForgotPassword.
+     * The confirmation code from your user's request to reset their password. For more information, see ForgotPassword.
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html
      * @required
@@ -52,7 +51,7 @@ final class ConfirmForgotPasswordRequest extends Input
     private $confirmationCode;
 
     /**
-     * The password sent by a user's request to retrieve a forgotten password.
+     * The new password that your user wants to set.
      *
      * @required
      *

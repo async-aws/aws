@@ -8,8 +8,7 @@ use AsyncAws\Core\Result;
 class AssociateSoftwareTokenResponse extends Result
 {
     /**
-     * A unique generated shared secret code that is used in the time-based one-time password (TOTP) algorithm to generate a
-     * one-time code.
+     * A unique generated shared secret code that is used in the TOTP algorithm to generate a one-time code.
      */
     private $secretCode;
 

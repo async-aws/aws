@@ -6,6 +6,7 @@
 
 - Added operation `AdminDisableUser`
 - Added operation `AdminEnableUser`
+- AWS api-change: Add a new exception type, ForbiddenException, that is returned when request is not allowed
 
 ## 1.5.0
 

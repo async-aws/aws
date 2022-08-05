@@ -3,7 +3,7 @@
 namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 
 /**
- * The time-based one-time password software token MFA settings.
+ * The time-based one-time password (TOTP) software token MFA settings.
  */
 final class SoftwareTokenMfaSettingsType
 {
