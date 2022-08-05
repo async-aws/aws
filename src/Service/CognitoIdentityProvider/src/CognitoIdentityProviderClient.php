@@ -12,6 +12,7 @@ use AsyncAws\CognitoIdentityProvider\Exception\CodeMismatchException;
 use AsyncAws\CognitoIdentityProvider\Exception\ConcurrentModificationException;
 use AsyncAws\CognitoIdentityProvider\Exception\EnableSoftwareTokenMFAException;
 use AsyncAws\CognitoIdentityProvider\Exception\ExpiredCodeException;
+use AsyncAws\CognitoIdentityProvider\Exception\ForbiddenException;
 use AsyncAws\CognitoIdentityProvider\Exception\InternalErrorException;
 use AsyncAws\CognitoIdentityProvider\Exception\InvalidEmailRoleAccessPolicyException;
 use AsyncAws\CognitoIdentityProvider\Exception\InvalidLambdaResponseException;
@@ -572,10 +573,10 @@ class CognitoIdentityProviderClient extends AbstractApi
     }
 
     /**
-     * Begins setup of time-based one-time password multi-factor authentication (TOTP MFA) for a user, with a unique private
-     * key that Amazon Cognito generates and returns in the API response. You can authorize an `AssociateSoftwareToken`
-     * request with either the user's access token, or a session string from a challenge response that you received from
-     * Amazon Cognito.
+     * Begins setup of time-based one-time password (TOTP) multi-factor authentication (MFA) for a user, with a unique
+     * private key that Amazon Cognito generates and returns in the API response. You can authorize an
+     * `AssociateSoftwareToken` request with either the user's access token, or a session string from a challenge response
+     * that you received from Amazon Cognito.
      *
      * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AssociateSoftwareToken.html
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#associatesoftwaretoken
@@ -592,6 +593,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws ResourceNotFoundException
      * @throws InternalErrorException
      * @throws SoftwareTokenMFANotFoundException
+     * @throws ForbiddenException
      */
     public function associateSoftwareToken($input = []): AssociateSoftwareTokenResponse
     {
@@ -603,6 +605,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'ResourceNotFoundException' => ResourceNotFoundException::class,
             'InternalErrorException' => InternalErrorException::class,
             'SoftwareTokenMFANotFoundException' => SoftwareTokenMFANotFoundException::class,
+            'ForbiddenException' => ForbiddenException::class,
         ]]));
 
         return new AssociateSoftwareTokenResponse($response);
@@ -631,6 +634,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws UserNotFoundException
      * @throws UserNotConfirmedException
      * @throws InternalErrorException
+     * @throws ForbiddenException
      */
     public function changePassword($input): ChangePasswordResponse
     {
@@ -646,6 +650,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'UserNotFoundException' => UserNotFoundException::class,
             'UserNotConfirmedException' => UserNotConfirmedException::class,
             'InternalErrorException' => InternalErrorException::class,
+            'ForbiddenException' => ForbiddenException::class,
         ]]));
 
         return new ChangePasswordResponse($response);
@@ -684,6 +689,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws UserNotFoundException
      * @throws UserNotConfirmedException
      * @throws InternalErrorException
+     * @throws ForbiddenException
      */
     public function confirmForgotPassword($input): ConfirmForgotPasswordResponse
     {
@@ -704,6 +710,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'UserNotFoundException' => UserNotFoundException::class,
             'UserNotConfirmedException' => UserNotConfirmedException::class,
             'InternalErrorException' => InternalErrorException::class,
+            'ForbiddenException' => ForbiddenException::class,
         ]]));
 
         return new ConfirmForgotPasswordResponse($response);
@@ -741,6 +748,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws LimitExceededException
      * @throws UserNotFoundException
      * @throws InternalErrorException
+     * @throws ForbiddenException
      */
     public function confirmSignUp($input): ConfirmSignUpResponse
     {
@@ -760,6 +768,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'LimitExceededException' => LimitExceededException::class,
             'UserNotFoundException' => UserNotFoundException::class,
             'InternalErrorException' => InternalErrorException::class,
+            'ForbiddenException' => ForbiddenException::class,
         ]]));
 
         return new ConfirmSignUpResponse($response);
@@ -802,6 +811,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws CodeDeliveryFailureException
      * @throws UserNotFoundException
      * @throws InternalErrorException
+     * @throws ForbiddenException
      */
     public function forgotPassword($input): ForgotPasswordResponse
     {
@@ -821,6 +831,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'CodeDeliveryFailureException' => CodeDeliveryFailureException::class,
             'UserNotFoundException' => UserNotFoundException::class,
             'InternalErrorException' => InternalErrorException::class,
+            'ForbiddenException' => ForbiddenException::class,
         ]]));
 
         return new ForgotPasswordResponse($response);
@@ -845,6 +856,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws UserNotFoundException
      * @throws UserNotConfirmedException
      * @throws InternalErrorException
+     * @throws ForbiddenException
      */
     public function getUser($input): GetUserResponse
     {
@@ -858,6 +870,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'UserNotFoundException' => UserNotFoundException::class,
             'UserNotConfirmedException' => UserNotConfirmedException::class,
             'InternalErrorException' => InternalErrorException::class,
+            'ForbiddenException' => ForbiddenException::class,
         ]]));
 
         return new GetUserResponse($response);
@@ -895,6 +908,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InternalErrorException
      * @throws InvalidSmsRoleAccessPolicyException
      * @throws InvalidSmsRoleTrustRelationshipException
+     * @throws ForbiddenException
      */
     public function initiateAuth($input): InitiateAuthResponse
     {
@@ -914,6 +928,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InternalErrorException' => InternalErrorException::class,
             'InvalidSmsRoleAccessPolicyException' => InvalidSmsRoleAccessPolicyException::class,
             'InvalidSmsRoleTrustRelationshipException' => InvalidSmsRoleTrustRelationshipException::class,
+            'ForbiddenException' => ForbiddenException::class,
         ]]));
 
         return new InitiateAuthResponse($response);
@@ -984,6 +999,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws CodeDeliveryFailureException
      * @throws UserNotFoundException
      * @throws InternalErrorException
+     * @throws ForbiddenException
      */
     public function resendConfirmationCode($input): ResendConfirmationCodeResponse
     {
@@ -1003,6 +1019,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'CodeDeliveryFailureException' => CodeDeliveryFailureException::class,
             'UserNotFoundException' => UserNotFoundException::class,
             'InternalErrorException' => InternalErrorException::class,
+            'ForbiddenException' => ForbiddenException::class,
         ]]));
 
         return new ResendConfirmationCodeResponse($response);
@@ -1045,6 +1062,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws AliasExistsException
      * @throws InternalErrorException
      * @throws SoftwareTokenMFANotFoundException
+     * @throws ForbiddenException
      */
     public function respondToAuthChallenge($input): RespondToAuthChallengeResponse
     {
@@ -1070,6 +1088,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'AliasExistsException' => AliasExistsException::class,
             'InternalErrorException' => InternalErrorException::class,
             'SoftwareTokenMFANotFoundException' => SoftwareTokenMFANotFoundException::class,
+            'ForbiddenException' => ForbiddenException::class,
         ]]));
 
         return new RespondToAuthChallengeResponse($response);
@@ -1101,6 +1120,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws UserNotFoundException
      * @throws UserNotConfirmedException
      * @throws InternalErrorException
+     * @throws ForbiddenException
      */
     public function setUserMfaPreference($input): SetUserMFAPreferenceResponse
     {
@@ -1113,6 +1133,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'UserNotFoundException' => UserNotFoundException::class,
             'UserNotConfirmedException' => UserNotConfirmedException::class,
             'InternalErrorException' => InternalErrorException::class,
+            'ForbiddenException' => ForbiddenException::class,
         ]]));
 
         return new SetUserMFAPreferenceResponse($response);
@@ -1151,6 +1172,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws InvalidSmsRoleTrustRelationshipException
      * @throws InvalidEmailRoleAccessPolicyException
      * @throws CodeDeliveryFailureException
+     * @throws ForbiddenException
      */
     public function signUp($input): SignUpResponse
     {
@@ -1170,6 +1192,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'InvalidSmsRoleTrustRelationshipException' => InvalidSmsRoleTrustRelationshipException::class,
             'InvalidEmailRoleAccessPolicyException' => InvalidEmailRoleAccessPolicyException::class,
             'CodeDeliveryFailureException' => CodeDeliveryFailureException::class,
+            'ForbiddenException' => ForbiddenException::class,
         ]]));
 
         return new SignUpResponse($response);
@@ -1202,6 +1225,7 @@ class CognitoIdentityProviderClient extends AbstractApi
      * @throws EnableSoftwareTokenMFAException
      * @throws SoftwareTokenMFANotFoundException
      * @throws CodeMismatchException
+     * @throws ForbiddenException
      */
     public function verifySoftwareToken($input): VerifySoftwareTokenResponse
     {
@@ -1219,6 +1243,7 @@ class CognitoIdentityProviderClient extends AbstractApi
             'EnableSoftwareTokenMFAException' => EnableSoftwareTokenMFAException::class,
             'SoftwareTokenMFANotFoundException' => SoftwareTokenMFANotFoundException::class,
             'CodeMismatchException' => CodeMismatchException::class,
+            'ForbiddenException' => ForbiddenException::class,
         ]]));
 
         return new VerifySoftwareTokenResponse($response);
