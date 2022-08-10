@@ -20,7 +20,7 @@ final class PutMetricDataInput extends Input
     private $namespace;
 
     /**
-     * The data for the metric. The array can include no more than 20 metrics per call.
+     * The data for the metric. The array can include no more than 1000 metrics per call.
      *
      * @required
      *
