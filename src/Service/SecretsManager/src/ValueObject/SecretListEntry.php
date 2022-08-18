@@ -63,8 +63,8 @@ final class SecretListEntry
     private $lastChangedDate;
 
     /**
-     * The last date that this secret was accessed. This value is truncated to midnight of the date and therefore shows only
-     * the date, not the time.
+     * The date that the secret was last accessed in the Region. This field is omitted if the secret has never been
+     * retrieved in the Region.
      */
     private $lastAccessedDate;
 

@@ -36,7 +36,11 @@ final class CreateSecretRequest extends Input
     private $description;
 
     /**
-     * The ARN, key ID, or alias of the KMS key that Secrets Manager uses to encrypt the secret value in the secret.
+     * The ARN, key ID, or alias of the KMS key that Secrets Manager uses to encrypt the secret value in the secret. An
+     * alias is always prefixed by `alias/`, for example `alias/aws/secretsmanager`. For more information, see About
+     * aliases.
+     *
+     * @see https://docs.aws.amazon.com/kms/latest/developerguide/alias-about.html
      *
      * @var string|null
      */
