@@ -35,7 +35,7 @@ final class UpdateSecretRequest extends Input
 
     /**
      * The ARN, key ID, or alias of the KMS key that Secrets Manager uses to encrypt new secret versions as well as any
-     * existing versions the staging labels `AWSCURRENT`, `AWSPENDING`, or `AWSPREVIOUS`. For more information about
+     * existing versions with the staging labels `AWSCURRENT`, `AWSPENDING`, or `AWSPREVIOUS`. For more information about
      * versions and staging labels, see Concepts: Version.
      *
      * @see https://docs.aws.amazon.com/secretsmanager/latest/userguide/getting-started.html#term_version

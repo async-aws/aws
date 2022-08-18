@@ -12,6 +12,10 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  * - The secret is scheduled for deletion.
  * - You tried to enable rotation on a secret that doesn't already have a Lambda function ARN configured and you didn't
  *   include such an ARN as a parameter in this call.
+ * - The secret is managed by another service, and you must use that service to update it. For more information, see
+ *   Secrets managed by other Amazon Web Services services.
+ *
+ * @see https://docs.aws.amazon.com/secretsmanager/latest/userguide/service-linked-secrets.html
  */
 final class InvalidRequestException extends ClientException
 {
