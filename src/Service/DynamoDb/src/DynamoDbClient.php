@@ -780,9 +780,14 @@ class DynamoDbClient extends AbstractApi
                     'signService' => 'dynamodb',
                     'signVersions' => ['v4'],
                 ];
-            case 'local':
+            case 'local':                
+                $endpoint = 'http://localhost:8000';
+                if (!$this->getConfiguration()->isDefault('endpoint')) {
+                    $endpoint = $this->getConfiguration()->get('endpoint');
+                }
+
                 return [
-                    'endpoint' => 'http://localhost:8000',
+                    'endpoint' => $endpoint,
                     'signRegion' => 'us-east-1',
                     'signService' => 'dynamodb',
                     'signVersions' => ['v4'],
