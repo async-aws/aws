@@ -233,6 +233,37 @@ class RdsDataServiceClient extends AbstractApi
             $region = Configuration::DEFAULT_REGION;
         }
 
+        switch ($region) {
+            case 'fips-us-east-1':
+                return [
+                    'endpoint' => 'https://rds-data-fips.us-east-1.amazonaws.com',
+                    'signRegion' => 'us-east-1',
+                    'signService' => 'rds-data',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-east-2':
+                return [
+                    'endpoint' => 'https://rds-data-fips.us-east-2.amazonaws.com',
+                    'signRegion' => 'us-east-2',
+                    'signService' => 'rds-data',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-west-1':
+                return [
+                    'endpoint' => 'https://rds-data-fips.us-west-1.amazonaws.com',
+                    'signRegion' => 'us-west-1',
+                    'signService' => 'rds-data',
+                    'signVersions' => ['v4'],
+                ];
+            case 'fips-us-west-2':
+                return [
+                    'endpoint' => 'https://rds-data-fips.us-west-2.amazonaws.com',
+                    'signRegion' => 'us-west-2',
+                    'signService' => 'rds-data',
+                    'signVersions' => ['v4'],
+                ];
+        }
+
         return [
             'endpoint' => "https://rds-data.$region.amazonaws.com",
             'signRegion' => $region,

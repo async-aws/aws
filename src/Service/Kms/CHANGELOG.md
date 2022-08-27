@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added region `me-central-1-fips`
+
 ## 0.1.1
 
 ### Added
