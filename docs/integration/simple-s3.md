@@ -18,7 +18,19 @@ composer require async-aws/simple-s3
 ```php
 use AsyncAws\SimpleS3\SimpleS3Client;
 
-$s3 = new SimpleS3Client();
+$s3 = new SimpleS3Client([
+    'accessKeyId' => 'your_access_key',
+    'accessKeySecret' => 'your_access_key_secret',
+    'region' => 'eu-central-1',
+]);
+
+$s3->createBucket([
+    'Bucket' => 'my-image-bucket',
+    'CreateBucketConfiguration' => [
+        'LocationConstraint' => $s3->getConfiguration()->get(Configuration::OPTION_REGION)
+    ],
+]);
+
 $resource = \fopen('/path/to/cat/image.jpg', 'r');
 $s3->upload('my-image-bucket', 'photos/cat_2.jpg', $resource);
 $s3->upload('my-image-bucket', 'photos/cat_2.txt', 'I like this cat');
