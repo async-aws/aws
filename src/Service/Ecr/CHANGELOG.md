@@ -4,9 +4,7 @@
 
 ### Added
 
-- AWS api-change: This release includes a fix in the DescribeImageScanFindings paginated output.
-- AWS api-change: This release adds support for tracking images lastRecordedPullTime.
-- AWS api-change: This release adds supports for pull through cache rules and enhanced scanning.
+- Added `me-central-1` region
 
 ## 1.1.0
 
