@@ -2,6 +2,10 @@
 
 ## NOT RELEASED
 
+### Added
+
+- Added `me-central-1` region
+
 ## 1.12.0
 
 ### Fixed

@@ -6,6 +6,7 @@
 
 - AWS api-change: Adds support for increased ephemeral storage (/tmp) up to 10GB for Lambda functions. Customers can now provision up to 10 GB of ephemeral storage per function instance, a 20x increase over the previous limit of 512 MB.
 - AWS api-change: Added NodeJs 16 managed runtime
+- Lambda is available in all commercial regions
 
 ## 1.6.0
 
