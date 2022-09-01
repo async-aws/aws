@@ -18,6 +18,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ConfirmForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ConfirmSignUpRequest;
+use AsyncAws\CognitoIdentityProvider\Input\CreateGroupRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\GetUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\InitiateAuthRequest;
@@ -308,6 +309,30 @@ class CognitoIdentityProviderClientTest extends TestCase
         $result = $client->confirmSignUp($input);
 
         $result->resolve();
+    }
+
+    public function testCreateGroup(): void
+    {
+        $client = $this->getClient();
+
+        $input = new CreateGroupRequest([
+            'GroupName' => 'testGroupName',
+            'UserPoolId' => 'us-east-test',
+            'Description' => 'Some very important group',
+            'RoleArn' => 'arn:aws:iam::4224242:role/test',
+            'Precedence' => 42,
+        ]);
+        $result = $client->createGroup($input);
+
+        $result->resolve();
+
+        $group = $result->getGroup();
+
+        self::assertEquals('testGroupName', $group->getGroupName());
+        self::assertEquals('us-east-test', $group->getUserPoolId());
+        self::assertEquals('Some very important group', $group->getDescription());
+        self::assertEquals('arn:aws:iam::4224242:role/test', $group->getRoleArn());
+        self::assertEquals(42, $group->getPrecedence());
     }
 
     public function testForgotPassword(): void

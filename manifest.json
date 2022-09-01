@@ -141,7 +141,8 @@
                 "SetUserMFAPreference",
                 "SignUp",
                 "VerifySoftwareToken",
-                "ListGroups"
+                "ListGroups",
+                "CreateGroup"
             ]
         },
         "Comprehend": {

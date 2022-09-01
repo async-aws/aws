@@ -19,6 +19,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ConfirmForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ConfirmSignUpRequest;
+use AsyncAws\CognitoIdentityProvider\Input\CreateGroupRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\GetUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\InitiateAuthRequest;
@@ -43,6 +44,7 @@ use AsyncAws\CognitoIdentityProvider\Result\AssociateSoftwareTokenResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ChangePasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ConfirmForgotPasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ConfirmSignUpResponse;
+use AsyncAws\CognitoIdentityProvider\Result\CreateGroupResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ForgotPasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\GetUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\InitiateAuthResponse;
@@ -283,6 +285,21 @@ class CognitoIdentityProviderClientTest extends TestCase
         $result = $client->confirmSignUp($input);
 
         self::assertInstanceOf(ConfirmSignUpResponse::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
+    public function testCreateGroup(): void
+    {
+        $client = new CognitoIdentityProviderClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new CreateGroupRequest([
+            'GroupName' => 'change me',
+            'UserPoolId' => 'change me',
+
+        ]);
+        $result = $client->createGroup($input);
+
+        self::assertInstanceOf(CreateGroupResponse::class, $result);
         self::assertFalse($result->info()['resolved']);
     }
 
