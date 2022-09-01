@@ -8,7 +8,6 @@
 - AWS enhancement: Documentation updates.
 - Added `fips` regions
 - AWS enhancement: Documentation updates for RDS Data API
-- AWS enhancement: Documentation updates for RDS Data API
 
 ## 0.1.4
 
