@@ -13,6 +13,7 @@ use AsyncAws\CognitoIdentityProvider\Exception\ConcurrentModificationException;
 use AsyncAws\CognitoIdentityProvider\Exception\EnableSoftwareTokenMFAException;
 use AsyncAws\CognitoIdentityProvider\Exception\ExpiredCodeException;
 use AsyncAws\CognitoIdentityProvider\Exception\ForbiddenException;
+use AsyncAws\CognitoIdentityProvider\Exception\GroupExistsException;
 use AsyncAws\CognitoIdentityProvider\Exception\InternalErrorException;
 use AsyncAws\CognitoIdentityProvider\Exception\InvalidEmailRoleAccessPolicyException;
 use AsyncAws\CognitoIdentityProvider\Exception\InvalidLambdaResponseException;
@@ -51,6 +52,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AssociateSoftwareTokenRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ChangePasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ConfirmForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ConfirmSignUpRequest;
+use AsyncAws\CognitoIdentityProvider\Input\CreateGroupRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\GetUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\InitiateAuthRequest;
@@ -75,6 +77,7 @@ use AsyncAws\CognitoIdentityProvider\Result\AssociateSoftwareTokenResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ChangePasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ConfirmForgotPasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ConfirmSignUpResponse;
+use AsyncAws\CognitoIdentityProvider\Result\CreateGroupResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ForgotPasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\GetUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\InitiateAuthResponse;
@@ -774,6 +777,45 @@ class CognitoIdentityProviderClient extends AbstractApi
         ]]));
 
         return new ConfirmSignUpResponse($response);
+    }
+
+    /**
+     * Creates a new group in the specified user pool.
+     *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateGroup.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#creategroup
+     *
+     * @param array{
+     *   GroupName: string,
+     *   UserPoolId: string,
+     *   Description?: string,
+     *   RoleArn?: string,
+     *   Precedence?: int,
+     *   @region?: string,
+     * }|CreateGroupRequest $input
+     *
+     * @throws InvalidParameterException
+     * @throws GroupExistsException
+     * @throws ResourceNotFoundException
+     * @throws TooManyRequestsException
+     * @throws LimitExceededException
+     * @throws NotAuthorizedException
+     * @throws InternalErrorException
+     */
+    public function createGroup($input): CreateGroupResponse
+    {
+        $input = CreateGroupRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'CreateGroup', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterException' => InvalidParameterException::class,
+            'GroupExistsException' => GroupExistsException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'LimitExceededException' => LimitExceededException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
+
+        return new CreateGroupResponse($response);
     }
 
     /**
