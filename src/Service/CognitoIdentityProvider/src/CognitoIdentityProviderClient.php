@@ -54,6 +54,7 @@ use AsyncAws\CognitoIdentityProvider\Input\ConfirmSignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\GetUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\InitiateAuthRequest;
+use AsyncAws\CognitoIdentityProvider\Input\ListGroupsRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ListUsersRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ResendConfirmationCodeRequest;
 use AsyncAws\CognitoIdentityProvider\Input\RespondToAuthChallengeRequest;
@@ -77,6 +78,7 @@ use AsyncAws\CognitoIdentityProvider\Result\ConfirmSignUpResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ForgotPasswordResponse;
 use AsyncAws\CognitoIdentityProvider\Result\GetUserResponse;
 use AsyncAws\CognitoIdentityProvider\Result\InitiateAuthResponse;
+use AsyncAws\CognitoIdentityProvider\Result\ListGroupsResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ListUsersResponse;
 use AsyncAws\CognitoIdentityProvider\Result\ResendConfirmationCodeResponse;
 use AsyncAws\CognitoIdentityProvider\Result\RespondToAuthChallengeResponse;
@@ -932,6 +934,39 @@ class CognitoIdentityProviderClient extends AbstractApi
         ]]));
 
         return new InitiateAuthResponse($response);
+    }
+
+    /**
+     * Lists the groups associated with a user pool.
+     *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ListGroups.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#listgroups
+     *
+     * @param array{
+     *   UserPoolId: string,
+     *   Limit?: int,
+     *   NextToken?: string,
+     *   @region?: string,
+     * }|ListGroupsRequest $input
+     *
+     * @throws InvalidParameterException
+     * @throws ResourceNotFoundException
+     * @throws TooManyRequestsException
+     * @throws NotAuthorizedException
+     * @throws InternalErrorException
+     */
+    public function listGroups($input): ListGroupsResponse
+    {
+        $input = ListGroupsRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'ListGroups', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterException' => InvalidParameterException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
+
+        return new ListGroupsResponse($response, $this, $input);
     }
 
     /**

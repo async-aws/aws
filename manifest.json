@@ -140,7 +140,8 @@
                 "RespondToAuthChallenge",
                 "SetUserMFAPreference",
                 "SignUp",
-                "VerifySoftwareToken"
+                "VerifySoftwareToken",
+                "ListGroups"
             ]
         },
         "Comprehend": {

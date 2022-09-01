@@ -21,6 +21,7 @@ use AsyncAws\CognitoIdentityProvider\Input\ConfirmSignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ForgotPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\GetUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\InitiateAuthRequest;
+use AsyncAws\CognitoIdentityProvider\Input\ListGroupsRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ListUsersRequest;
 use AsyncAws\CognitoIdentityProvider\Input\ResendConfirmationCodeRequest;
 use AsyncAws\CognitoIdentityProvider\Input\RespondToAuthChallengeRequest;
@@ -366,6 +367,22 @@ class CognitoIdentityProviderClientTest extends TestCase
         self::assertSame('changeIt', $result->getSession());
         // self::assertTODO(expected, $result->getChallengeParameters());
         // self::assertTODO(expected, $result->getAuthenticationResult());
+    }
+
+    public function testListGroups(): void
+    {
+        $client = $this->getClient();
+
+        $input = new ListGroupsRequest([
+            'UserPoolId' => 'change me',
+            'Limit' => 1337,
+            'NextToken' => 'change me',
+        ]);
+        $result = $client->listGroups($input);
+
+        $result->resolve();
+
+        self::assertSame('changeIt', $result->getNextToken());
     }
 
     public function testListUsers(): void
