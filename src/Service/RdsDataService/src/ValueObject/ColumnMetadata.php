@@ -8,29 +8,19 @@ namespace AsyncAws\RdsDataService\ValueObject;
 final class ColumnMetadata
 {
     /**
+     * The name of the column.
+     */
+    private $name;
+
+    /**
      * The type of the column.
      */
-    private $arrayBaseColumnType;
+    private $type;
 
     /**
-     * A value that indicates whether the column increments automatically.
+     * The database-specific data type of the column.
      */
-    private $isAutoIncrement;
-
-    /**
-     * A value that indicates whether the column is case-sensitive.
-     */
-    private $isCaseSensitive;
-
-    /**
-     * A value that indicates whether the column contains currency values.
-     */
-    private $isCurrency;
-
-    /**
-     * A value that indicates whether an integer column is signed.
-     */
-    private $isSigned;
+    private $typeName;
 
     /**
      * The label for the column.
@@ -38,9 +28,34 @@ final class ColumnMetadata
     private $label;
 
     /**
-     * The name of the column.
+     * The name of the schema that owns the table that includes the column.
      */
-    private $name;
+    private $schemaName;
+
+    /**
+     * The name of the table that includes the column.
+     */
+    private $tableName;
+
+    /**
+     * A value that indicates whether the column increments automatically.
+     */
+    private $isAutoIncrement;
+
+    /**
+     * A value that indicates whether an integer column is signed.
+     */
+    private $isSigned;
+
+    /**
+     * A value that indicates whether the column contains currency values.
+     */
+    private $isCurrency;
+
+    /**
+     * A value that indicates whether the column is case-sensitive.
+     */
+    private $isCaseSensitive;
 
     /**
      * A value that indicates whether the column is nullable.
@@ -58,59 +73,44 @@ final class ColumnMetadata
     private $scale;
 
     /**
-     * The name of the schema that owns the table that includes the column.
-     */
-    private $schemaName;
-
-    /**
-     * The name of the table that includes the column.
-     */
-    private $tableName;
-
-    /**
      * The type of the column.
      */
-    private $type;
-
-    /**
-     * The database-specific data type of the column.
-     */
-    private $typeName;
+    private $arrayBaseColumnType;
 
     /**
      * @param array{
-     *   arrayBaseColumnType?: null|int,
-     *   isAutoIncrement?: null|bool,
-     *   isCaseSensitive?: null|bool,
-     *   isCurrency?: null|bool,
-     *   isSigned?: null|bool,
-     *   label?: null|string,
      *   name?: null|string,
+     *   type?: null|int,
+     *   typeName?: null|string,
+     *   label?: null|string,
+     *   schemaName?: null|string,
+     *   tableName?: null|string,
+     *   isAutoIncrement?: null|bool,
+     *   isSigned?: null|bool,
+     *   isCurrency?: null|bool,
+     *   isCaseSensitive?: null|bool,
      *   nullable?: null|int,
      *   precision?: null|int,
      *   scale?: null|int,
-     *   schemaName?: null|string,
-     *   tableName?: null|string,
-     *   type?: null|int,
-     *   typeName?: null|string,
+     *   arrayBaseColumnType?: null|int,
      * } $input
      */
     public function __construct(array $input)
     {
-        $this->arrayBaseColumnType = $input['arrayBaseColumnType'] ?? null;
-        $this->isAutoIncrement = $input['isAutoIncrement'] ?? null;
-        $this->isCaseSensitive = $input['isCaseSensitive'] ?? null;
-        $this->isCurrency = $input['isCurrency'] ?? null;
-        $this->isSigned = $input['isSigned'] ?? null;
-        $this->label = $input['label'] ?? null;
         $this->name = $input['name'] ?? null;
+        $this->type = $input['type'] ?? null;
+        $this->typeName = $input['typeName'] ?? null;
+        $this->label = $input['label'] ?? null;
+        $this->schemaName = $input['schemaName'] ?? null;
+        $this->tableName = $input['tableName'] ?? null;
+        $this->isAutoIncrement = $input['isAutoIncrement'] ?? null;
+        $this->isSigned = $input['isSigned'] ?? null;
+        $this->isCurrency = $input['isCurrency'] ?? null;
+        $this->isCaseSensitive = $input['isCaseSensitive'] ?? null;
         $this->nullable = $input['nullable'] ?? null;
         $this->precision = $input['precision'] ?? null;
         $this->scale = $input['scale'] ?? null;
-        $this->schemaName = $input['schemaName'] ?? null;
-        $this->tableName = $input['tableName'] ?? null;
-        $this->type = $input['type'] ?? null;
-        $this->typeName = $input['typeName'] ?? null;
+        $this->arrayBaseColumnType = $input['arrayBaseColumnType'] ?? null;
     }
 
     public static function create($input): self

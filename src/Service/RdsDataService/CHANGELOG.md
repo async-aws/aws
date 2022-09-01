@@ -7,6 +7,7 @@
 - AWS api-change: Support to receive SQL query results in the form of a simplified JSON string. This enables developers using the new JSON string format to more easily convert it to an object using popular JSON string parsing libraries.
 - AWS enhancement: Documentation updates.
 - Added `fips` regions
+- AWS enhancement: Documentation updates for RDS Data API
 
 ## 0.1.4
 

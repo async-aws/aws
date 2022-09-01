@@ -24,9 +24,9 @@ final class StatementTimeoutException extends ClientException
     {
         $data = $response->toArray(false);
 
-        $this->dbConnectionId = isset($data['dbConnectionId']) ? (string) $data['dbConnectionId'] : null;
         if (null !== $v = (isset($data['message']) ? (string) $data['message'] : null)) {
             $this->message = $v;
         }
+        $this->dbConnectionId = isset($data['dbConnectionId']) ? (string) $data['dbConnectionId'] : null;
     }
 }

@@ -16,27 +16,27 @@ final class SqlParameter
     private $name;
 
     /**
-     * A hint that specifies the correct object type for data type mapping. Possible values are as follows:.
-     */
-    private $typeHint;
-
-    /**
      * The value of the parameter.
      */
     private $value;
 
     /**
+     * A hint that specifies the correct object type for data type mapping. Possible values are as follows:.
+     */
+    private $typeHint;
+
+    /**
      * @param array{
      *   name?: null|string,
-     *   typeHint?: null|TypeHint::*,
      *   value?: null|Field|array,
+     *   typeHint?: null|TypeHint::*,
      * } $input
      */
     public function __construct(array $input)
     {
         $this->name = $input['name'] ?? null;
-        $this->typeHint = $input['typeHint'] ?? null;
         $this->value = isset($input['value']) ? Field::create($input['value']) : null;
+        $this->typeHint = $input['typeHint'] ?? null;
     }
 
     public static function create($input): self
@@ -71,14 +71,14 @@ final class SqlParameter
         if (null !== $v = $this->name) {
             $payload['name'] = $v;
         }
+        if (null !== $v = $this->value) {
+            $payload['value'] = $v->requestBody();
+        }
         if (null !== $v = $this->typeHint) {
             if (!TypeHint::exists($v)) {
                 throw new InvalidArgument(sprintf('Invalid parameter "typeHint" for "%s". The value "%s" is not a valid "TypeHint".', __CLASS__, $v));
             }
             $payload['typeHint'] = $v;
-        }
-        if (null !== $v = $this->value) {
-            $payload['value'] = $v->requestBody();
         }
 
         return $payload;

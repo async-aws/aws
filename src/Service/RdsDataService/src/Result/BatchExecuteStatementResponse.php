@@ -51,11 +51,11 @@ class BatchExecuteStatementResponse extends Result
     private function populateResultArrayValue(array $json): ArrayValue
     {
         return new ArrayValue([
-            'arrayValues' => !isset($json['arrayValues']) ? null : $this->populateResultArrayOfArray($json['arrayValues']),
             'booleanValues' => !isset($json['booleanValues']) ? null : $this->populateResultBooleanArray($json['booleanValues']),
-            'doubleValues' => !isset($json['doubleValues']) ? null : $this->populateResultDoubleArray($json['doubleValues']),
             'longValues' => !isset($json['longValues']) ? null : $this->populateResultLongArray($json['longValues']),
+            'doubleValues' => !isset($json['doubleValues']) ? null : $this->populateResultDoubleArray($json['doubleValues']),
             'stringValues' => !isset($json['stringValues']) ? null : $this->populateResultStringArray($json['stringValues']),
+            'arrayValues' => !isset($json['arrayValues']) ? null : $this->populateResultArrayOfArray($json['arrayValues']),
         ]);
     }
 
@@ -94,13 +94,13 @@ class BatchExecuteStatementResponse extends Result
     private function populateResultField(array $json): Field
     {
         return new Field([
-            'arrayValue' => empty($json['arrayValue']) ? null : $this->populateResultArrayValue($json['arrayValue']),
-            'blobValue' => isset($json['blobValue']) ? base64_decode((string) $json['blobValue']) : null,
-            'booleanValue' => isset($json['booleanValue']) ? filter_var($json['booleanValue'], \FILTER_VALIDATE_BOOLEAN) : null,
-            'doubleValue' => isset($json['doubleValue']) ? (float) $json['doubleValue'] : null,
             'isNull' => isset($json['isNull']) ? filter_var($json['isNull'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'booleanValue' => isset($json['booleanValue']) ? filter_var($json['booleanValue'], \FILTER_VALIDATE_BOOLEAN) : null,
             'longValue' => isset($json['longValue']) ? (string) $json['longValue'] : null,
+            'doubleValue' => isset($json['doubleValue']) ? (float) $json['doubleValue'] : null,
             'stringValue' => isset($json['stringValue']) ? (string) $json['stringValue'] : null,
+            'blobValue' => isset($json['blobValue']) ? base64_decode((string) $json['blobValue']) : null,
+            'arrayValue' => empty($json['arrayValue']) ? null : $this->populateResultArrayValue($json['arrayValue']),
         ]);
     }
 

@@ -8,19 +8,9 @@ namespace AsyncAws\RdsDataService\ValueObject;
 final class ArrayValue
 {
     /**
-     * An array of arrays.
-     */
-    private $arrayValues;
-
-    /**
      * An array of Boolean values.
      */
     private $booleanValues;
-
-    /**
-     * An array of floating-point numbers.
-     */
-    private $doubleValues;
 
     /**
      * An array of integers.
@@ -28,26 +18,36 @@ final class ArrayValue
     private $longValues;
 
     /**
+     * An array of floating-point numbers.
+     */
+    private $doubleValues;
+
+    /**
      * An array of strings.
      */
     private $stringValues;
 
     /**
+     * An array of arrays.
+     */
+    private $arrayValues;
+
+    /**
      * @param array{
-     *   arrayValues?: null|ArrayValue[],
      *   booleanValues?: null|bool[],
-     *   doubleValues?: null|float[],
      *   longValues?: null|string[],
+     *   doubleValues?: null|float[],
      *   stringValues?: null|string[],
+     *   arrayValues?: null|ArrayValue[],
      * } $input
      */
     public function __construct(array $input)
     {
-        $this->arrayValues = isset($input['arrayValues']) ? array_map([ArrayValue::class, 'create'], $input['arrayValues']) : null;
         $this->booleanValues = $input['booleanValues'] ?? null;
-        $this->doubleValues = $input['doubleValues'] ?? null;
         $this->longValues = $input['longValues'] ?? null;
+        $this->doubleValues = $input['doubleValues'] ?? null;
         $this->stringValues = $input['stringValues'] ?? null;
+        $this->arrayValues = isset($input['arrayValues']) ? array_map([ArrayValue::class, 'create'], $input['arrayValues']) : null;
     }
 
     public static function create($input): self
@@ -101,28 +101,12 @@ final class ArrayValue
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->arrayValues) {
-            $index = -1;
-            $payload['arrayValues'] = [];
-            foreach ($v as $listValue) {
-                ++$index;
-                $payload['arrayValues'][$index] = $listValue->requestBody();
-            }
-        }
         if (null !== $v = $this->booleanValues) {
             $index = -1;
             $payload['booleanValues'] = [];
             foreach ($v as $listValue) {
                 ++$index;
                 $payload['booleanValues'][$index] = (bool) $listValue;
-            }
-        }
-        if (null !== $v = $this->doubleValues) {
-            $index = -1;
-            $payload['doubleValues'] = [];
-            foreach ($v as $listValue) {
-                ++$index;
-                $payload['doubleValues'][$index] = $listValue;
             }
         }
         if (null !== $v = $this->longValues) {
@@ -133,12 +117,28 @@ final class ArrayValue
                 $payload['longValues'][$index] = $listValue;
             }
         }
+        if (null !== $v = $this->doubleValues) {
+            $index = -1;
+            $payload['doubleValues'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['doubleValues'][$index] = $listValue;
+            }
+        }
         if (null !== $v = $this->stringValues) {
             $index = -1;
             $payload['stringValues'] = [];
             foreach ($v as $listValue) {
                 ++$index;
                 $payload['stringValues'][$index] = $listValue;
+            }
+        }
+        if (null !== $v = $this->arrayValues) {
+            $index = -1;
+            $payload['arrayValues'] = [];
+            foreach ($v as $listValue) {
+                ++$index;
+                $payload['arrayValues'][$index] = $listValue->requestBody();
             }
         }
 

@@ -8,14 +8,9 @@ namespace AsyncAws\RdsDataService\ValueObject;
 final class Field
 {
     /**
-     * An array of values.
+     * A NULL value.
      */
-    private $arrayValue;
-
-    /**
-     * A value of BLOB data type.
-     */
-    private $blobValue;
+    private $isNull;
 
     /**
      * A value of Boolean data type.
@@ -23,19 +18,14 @@ final class Field
     private $booleanValue;
 
     /**
-     * A value of double data type.
-     */
-    private $doubleValue;
-
-    /**
-     * A NULL value.
-     */
-    private $isNull;
-
-    /**
      * A value of long data type.
      */
     private $longValue;
+
+    /**
+     * A value of double data type.
+     */
+    private $doubleValue;
 
     /**
      * A value of string data type.
@@ -43,25 +33,35 @@ final class Field
     private $stringValue;
 
     /**
+     * A value of BLOB data type.
+     */
+    private $blobValue;
+
+    /**
+     * An array of values.
+     */
+    private $arrayValue;
+
+    /**
      * @param array{
-     *   arrayValue?: null|ArrayValue|array,
-     *   blobValue?: null|string,
-     *   booleanValue?: null|bool,
-     *   doubleValue?: null|float,
      *   isNull?: null|bool,
+     *   booleanValue?: null|bool,
      *   longValue?: null|string,
+     *   doubleValue?: null|float,
      *   stringValue?: null|string,
+     *   blobValue?: null|string,
+     *   arrayValue?: null|ArrayValue|array,
      * } $input
      */
     public function __construct(array $input)
     {
-        $this->arrayValue = isset($input['arrayValue']) ? ArrayValue::create($input['arrayValue']) : null;
-        $this->blobValue = $input['blobValue'] ?? null;
-        $this->booleanValue = $input['booleanValue'] ?? null;
-        $this->doubleValue = $input['doubleValue'] ?? null;
         $this->isNull = $input['isNull'] ?? null;
+        $this->booleanValue = $input['booleanValue'] ?? null;
         $this->longValue = $input['longValue'] ?? null;
+        $this->doubleValue = $input['doubleValue'] ?? null;
         $this->stringValue = $input['stringValue'] ?? null;
+        $this->blobValue = $input['blobValue'] ?? null;
+        $this->arrayValue = isset($input['arrayValue']) ? ArrayValue::create($input['arrayValue']) : null;
     }
 
     public static function create($input): self
@@ -110,26 +110,26 @@ final class Field
     public function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->arrayValue) {
-            $payload['arrayValue'] = $v->requestBody();
-        }
-        if (null !== $v = $this->blobValue) {
-            $payload['blobValue'] = base64_encode($v);
+        if (null !== $v = $this->isNull) {
+            $payload['isNull'] = (bool) $v;
         }
         if (null !== $v = $this->booleanValue) {
             $payload['booleanValue'] = (bool) $v;
         }
-        if (null !== $v = $this->doubleValue) {
-            $payload['doubleValue'] = $v;
-        }
-        if (null !== $v = $this->isNull) {
-            $payload['isNull'] = (bool) $v;
-        }
         if (null !== $v = $this->longValue) {
             $payload['longValue'] = $v;
         }
+        if (null !== $v = $this->doubleValue) {
+            $payload['doubleValue'] = $v;
+        }
         if (null !== $v = $this->stringValue) {
             $payload['stringValue'] = $v;
+        }
+        if (null !== $v = $this->blobValue) {
+            $payload['blobValue'] = base64_encode($v);
+        }
+        if (null !== $v = $this->arrayValue) {
+            $payload['arrayValue'] = $v->requestBody();
         }
 
         return $payload;

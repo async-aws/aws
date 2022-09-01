@@ -17,44 +17,6 @@ use AsyncAws\RdsDataService\ValueObject\SqlParameter;
 final class ExecuteStatementRequest extends Input
 {
     /**
-     * A value that indicates whether to continue running the statement after the call times out. By default, the statement
-     * stops running when the call times out.
-     *
-     * @var bool|null
-     */
-    private $continueAfterTimeout;
-
-    /**
-     * The name of the database.
-     *
-     * @var string|null
-     */
-    private $database;
-
-    /**
-     * A value that indicates whether to format the result set as a single JSON string. This parameter only applies to
-     * `SELECT` statements and is ignored for other types of statements. Allowed values are `NONE` and `JSON`. The default
-     * value is `NONE`. The result is returned in the `formattedRecords` field.
-     *
-     * @var RecordsFormatType::*|null
-     */
-    private $formatRecordsAs;
-
-    /**
-     * A value that indicates whether to include metadata in the results.
-     *
-     * @var bool|null
-     */
-    private $includeResultMetadata;
-
-    /**
-     * The parameters for the SQL statement.
-     *
-     * @var SqlParameter[]|null
-     */
-    private $parameters;
-
-    /**
      * The Amazon Resource Name (ARN) of the Aurora Serverless DB cluster.
      *
      * @required
@@ -62,20 +24,6 @@ final class ExecuteStatementRequest extends Input
      * @var string|null
      */
     private $resourceArn;
-
-    /**
-     * Options that control how the result set is returned.
-     *
-     * @var ResultSetOptions|null
-     */
-    private $resultSetOptions;
-
-    /**
-     * The name of the database schema.
-     *
-     * @var string|null
-     */
-    private $schema;
 
     /**
      * The ARN of the secret that enables access to the DB cluster. Enter the database user name and password for the
@@ -97,6 +45,27 @@ final class ExecuteStatementRequest extends Input
     private $sql;
 
     /**
+     * The name of the database.
+     *
+     * @var string|null
+     */
+    private $database;
+
+    /**
+     * The name of the database schema.
+     *
+     * @var string|null
+     */
+    private $schema;
+
+    /**
+     * The parameters for the SQL statement.
+     *
+     * @var SqlParameter[]|null
+     */
+    private $parameters;
+
+    /**
      * The identifier of a transaction that was started by using the `BeginTransaction` operation. Specify the transaction
      * ID of the transaction that you want to include the SQL statement in.
      *
@@ -105,34 +74,65 @@ final class ExecuteStatementRequest extends Input
     private $transactionId;
 
     /**
+     * A value that indicates whether to include metadata in the results.
+     *
+     * @var bool|null
+     */
+    private $includeResultMetadata;
+
+    /**
+     * A value that indicates whether to continue running the statement after the call times out. By default, the statement
+     * stops running when the call times out.
+     *
+     * @var bool|null
+     */
+    private $continueAfterTimeout;
+
+    /**
+     * Options that control how the result set is returned.
+     *
+     * @var ResultSetOptions|null
+     */
+    private $resultSetOptions;
+
+    /**
+     * A value that indicates whether to format the result set as a single JSON string. This parameter only applies to
+     * `SELECT` statements and is ignored for other types of statements. Allowed values are `NONE` and `JSON`. The default
+     * value is `NONE`. The result is returned in the `formattedRecords` field.
+     *
+     * @var RecordsFormatType::*|null
+     */
+    private $formatRecordsAs;
+
+    /**
      * @param array{
-     *   continueAfterTimeout?: bool,
-     *   database?: string,
-     *   formatRecordsAs?: RecordsFormatType::*,
-     *   includeResultMetadata?: bool,
-     *   parameters?: SqlParameter[],
      *   resourceArn?: string,
-     *   resultSetOptions?: ResultSetOptions|array,
-     *   schema?: string,
      *   secretArn?: string,
      *   sql?: string,
+     *   database?: string,
+     *   schema?: string,
+     *   parameters?: SqlParameter[],
      *   transactionId?: string,
+     *   includeResultMetadata?: bool,
+     *   continueAfterTimeout?: bool,
+     *   resultSetOptions?: ResultSetOptions|array,
+     *   formatRecordsAs?: RecordsFormatType::*,
      *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
-        $this->continueAfterTimeout = $input['continueAfterTimeout'] ?? null;
-        $this->database = $input['database'] ?? null;
-        $this->formatRecordsAs = $input['formatRecordsAs'] ?? null;
-        $this->includeResultMetadata = $input['includeResultMetadata'] ?? null;
-        $this->parameters = isset($input['parameters']) ? array_map([SqlParameter::class, 'create'], $input['parameters']) : null;
         $this->resourceArn = $input['resourceArn'] ?? null;
-        $this->resultSetOptions = isset($input['resultSetOptions']) ? ResultSetOptions::create($input['resultSetOptions']) : null;
-        $this->schema = $input['schema'] ?? null;
         $this->secretArn = $input['secretArn'] ?? null;
         $this->sql = $input['sql'] ?? null;
+        $this->database = $input['database'] ?? null;
+        $this->schema = $input['schema'] ?? null;
+        $this->parameters = isset($input['parameters']) ? array_map([SqlParameter::class, 'create'], $input['parameters']) : null;
         $this->transactionId = $input['transactionId'] ?? null;
+        $this->includeResultMetadata = $input['includeResultMetadata'] ?? null;
+        $this->continueAfterTimeout = $input['continueAfterTimeout'] ?? null;
+        $this->resultSetOptions = isset($input['resultSetOptions']) ? ResultSetOptions::create($input['resultSetOptions']) : null;
+        $this->formatRecordsAs = $input['formatRecordsAs'] ?? null;
         parent::__construct($input);
     }
 
@@ -310,20 +310,23 @@ final class ExecuteStatementRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->continueAfterTimeout) {
-            $payload['continueAfterTimeout'] = (bool) $v;
+        if (null === $v = $this->resourceArn) {
+            throw new InvalidArgument(sprintf('Missing parameter "resourceArn" for "%s". The value cannot be null.', __CLASS__));
         }
+        $payload['resourceArn'] = $v;
+        if (null === $v = $this->secretArn) {
+            throw new InvalidArgument(sprintf('Missing parameter "secretArn" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['secretArn'] = $v;
+        if (null === $v = $this->sql) {
+            throw new InvalidArgument(sprintf('Missing parameter "sql" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['sql'] = $v;
         if (null !== $v = $this->database) {
             $payload['database'] = $v;
         }
-        if (null !== $v = $this->formatRecordsAs) {
-            if (!RecordsFormatType::exists($v)) {
-                throw new InvalidArgument(sprintf('Invalid parameter "formatRecordsAs" for "%s". The value "%s" is not a valid "RecordsFormatType".', __CLASS__, $v));
-            }
-            $payload['formatRecordsAs'] = $v;
-        }
-        if (null !== $v = $this->includeResultMetadata) {
-            $payload['includeResultMetadata'] = (bool) $v;
+        if (null !== $v = $this->schema) {
+            $payload['schema'] = $v;
         }
         if (null !== $v = $this->parameters) {
             $index = -1;
@@ -333,26 +336,23 @@ final class ExecuteStatementRequest extends Input
                 $payload['parameters'][$index] = $listValue->requestBody();
             }
         }
-        if (null === $v = $this->resourceArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "resourceArn" for "%s". The value cannot be null.', __CLASS__));
+        if (null !== $v = $this->transactionId) {
+            $payload['transactionId'] = $v;
         }
-        $payload['resourceArn'] = $v;
+        if (null !== $v = $this->includeResultMetadata) {
+            $payload['includeResultMetadata'] = (bool) $v;
+        }
+        if (null !== $v = $this->continueAfterTimeout) {
+            $payload['continueAfterTimeout'] = (bool) $v;
+        }
         if (null !== $v = $this->resultSetOptions) {
             $payload['resultSetOptions'] = $v->requestBody();
         }
-        if (null !== $v = $this->schema) {
-            $payload['schema'] = $v;
-        }
-        if (null === $v = $this->secretArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "secretArn" for "%s". The value cannot be null.', __CLASS__));
-        }
-        $payload['secretArn'] = $v;
-        if (null === $v = $this->sql) {
-            throw new InvalidArgument(sprintf('Missing parameter "sql" for "%s". The value cannot be null.', __CLASS__));
-        }
-        $payload['sql'] = $v;
-        if (null !== $v = $this->transactionId) {
-            $payload['transactionId'] = $v;
+        if (null !== $v = $this->formatRecordsAs) {
+            if (!RecordsFormatType::exists($v)) {
+                throw new InvalidArgument(sprintf('Invalid parameter "formatRecordsAs" for "%s". The value "%s" is not a valid "RecordsFormatType".', __CLASS__, $v));
+            }
+            $payload['formatRecordsAs'] = $v;
         }
 
         return $payload;
