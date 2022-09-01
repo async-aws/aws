@@ -14,21 +14,15 @@ use AsyncAws\RdsDataService\ValueObject\Field;
 class ExecuteStatementResponse extends Result
 {
     /**
+     * The records returned by the SQL statement. This field is blank if the `formatRecordsAs` parameter is set to `JSON`.
+     */
+    private $records;
+
+    /**
      * Metadata for the columns included in the results. This field is blank if the `formatRecordsAs` parameter is set to
      * `JSON`.
      */
     private $columnMetadata;
-
-    /**
-     * A string value that represents the result set of a `SELECT` statement in JSON format. This value is only present when
-     * the `formatRecordsAs` parameter is set to `JSON`.
-     */
-    private $formattedRecords;
-
-    /**
-     * Values for fields generated during a DML request.
-     */
-    private $generatedFields;
 
     /**
      * The number of records updated by the request.
@@ -36,9 +30,15 @@ class ExecuteStatementResponse extends Result
     private $numberOfRecordsUpdated;
 
     /**
-     * The records returned by the SQL statement. This field is blank if the `formatRecordsAs` parameter is set to `JSON`.
+     * Values for fields generated during a DML request.
      */
-    private $records;
+    private $generatedFields;
+
+    /**
+     * A string value that represents the result set of a `SELECT` statement in JSON format. This value is only present when
+     * the `formatRecordsAs` parameter is set to `JSON`.
+     */
+    private $formattedRecords;
 
     /**
      * @return ColumnMetadata[]
@@ -88,11 +88,11 @@ class ExecuteStatementResponse extends Result
     {
         $data = $response->toArray();
 
-        $this->columnMetadata = empty($data['columnMetadata']) ? [] : $this->populateResultMetadata($data['columnMetadata']);
-        $this->formattedRecords = isset($data['formattedRecords']) ? (string) $data['formattedRecords'] : null;
-        $this->generatedFields = empty($data['generatedFields']) ? [] : $this->populateResultFieldList($data['generatedFields']);
-        $this->numberOfRecordsUpdated = isset($data['numberOfRecordsUpdated']) ? (string) $data['numberOfRecordsUpdated'] : null;
         $this->records = empty($data['records']) ? [] : $this->populateResultSqlRecords($data['records']);
+        $this->columnMetadata = empty($data['columnMetadata']) ? [] : $this->populateResultMetadata($data['columnMetadata']);
+        $this->numberOfRecordsUpdated = isset($data['numberOfRecordsUpdated']) ? (string) $data['numberOfRecordsUpdated'] : null;
+        $this->generatedFields = empty($data['generatedFields']) ? [] : $this->populateResultFieldList($data['generatedFields']);
+        $this->formattedRecords = isset($data['formattedRecords']) ? (string) $data['formattedRecords'] : null;
     }
 
     /**
@@ -111,11 +111,11 @@ class ExecuteStatementResponse extends Result
     private function populateResultArrayValue(array $json): ArrayValue
     {
         return new ArrayValue([
-            'arrayValues' => !isset($json['arrayValues']) ? null : $this->populateResultArrayOfArray($json['arrayValues']),
             'booleanValues' => !isset($json['booleanValues']) ? null : $this->populateResultBooleanArray($json['booleanValues']),
-            'doubleValues' => !isset($json['doubleValues']) ? null : $this->populateResultDoubleArray($json['doubleValues']),
             'longValues' => !isset($json['longValues']) ? null : $this->populateResultLongArray($json['longValues']),
+            'doubleValues' => !isset($json['doubleValues']) ? null : $this->populateResultDoubleArray($json['doubleValues']),
             'stringValues' => !isset($json['stringValues']) ? null : $this->populateResultStringArray($json['stringValues']),
+            'arrayValues' => !isset($json['arrayValues']) ? null : $this->populateResultArrayOfArray($json['arrayValues']),
         ]);
     }
 
@@ -138,20 +138,20 @@ class ExecuteStatementResponse extends Result
     private function populateResultColumnMetadata(array $json): ColumnMetadata
     {
         return new ColumnMetadata([
-            'arrayBaseColumnType' => isset($json['arrayBaseColumnType']) ? (int) $json['arrayBaseColumnType'] : null,
-            'isAutoIncrement' => isset($json['isAutoIncrement']) ? filter_var($json['isAutoIncrement'], \FILTER_VALIDATE_BOOLEAN) : null,
-            'isCaseSensitive' => isset($json['isCaseSensitive']) ? filter_var($json['isCaseSensitive'], \FILTER_VALIDATE_BOOLEAN) : null,
-            'isCurrency' => isset($json['isCurrency']) ? filter_var($json['isCurrency'], \FILTER_VALIDATE_BOOLEAN) : null,
-            'isSigned' => isset($json['isSigned']) ? filter_var($json['isSigned'], \FILTER_VALIDATE_BOOLEAN) : null,
-            'label' => isset($json['label']) ? (string) $json['label'] : null,
             'name' => isset($json['name']) ? (string) $json['name'] : null,
+            'type' => isset($json['type']) ? (int) $json['type'] : null,
+            'typeName' => isset($json['typeName']) ? (string) $json['typeName'] : null,
+            'label' => isset($json['label']) ? (string) $json['label'] : null,
+            'schemaName' => isset($json['schemaName']) ? (string) $json['schemaName'] : null,
+            'tableName' => isset($json['tableName']) ? (string) $json['tableName'] : null,
+            'isAutoIncrement' => isset($json['isAutoIncrement']) ? filter_var($json['isAutoIncrement'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'isSigned' => isset($json['isSigned']) ? filter_var($json['isSigned'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'isCurrency' => isset($json['isCurrency']) ? filter_var($json['isCurrency'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'isCaseSensitive' => isset($json['isCaseSensitive']) ? filter_var($json['isCaseSensitive'], \FILTER_VALIDATE_BOOLEAN) : null,
             'nullable' => isset($json['nullable']) ? (int) $json['nullable'] : null,
             'precision' => isset($json['precision']) ? (int) $json['precision'] : null,
             'scale' => isset($json['scale']) ? (int) $json['scale'] : null,
-            'schemaName' => isset($json['schemaName']) ? (string) $json['schemaName'] : null,
-            'tableName' => isset($json['tableName']) ? (string) $json['tableName'] : null,
-            'type' => isset($json['type']) ? (int) $json['type'] : null,
-            'typeName' => isset($json['typeName']) ? (string) $json['typeName'] : null,
+            'arrayBaseColumnType' => isset($json['arrayBaseColumnType']) ? (int) $json['arrayBaseColumnType'] : null,
         ]);
     }
 
@@ -174,13 +174,13 @@ class ExecuteStatementResponse extends Result
     private function populateResultField(array $json): Field
     {
         return new Field([
-            'arrayValue' => empty($json['arrayValue']) ? null : $this->populateResultArrayValue($json['arrayValue']),
-            'blobValue' => isset($json['blobValue']) ? base64_decode((string) $json['blobValue']) : null,
-            'booleanValue' => isset($json['booleanValue']) ? filter_var($json['booleanValue'], \FILTER_VALIDATE_BOOLEAN) : null,
-            'doubleValue' => isset($json['doubleValue']) ? (float) $json['doubleValue'] : null,
             'isNull' => isset($json['isNull']) ? filter_var($json['isNull'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'booleanValue' => isset($json['booleanValue']) ? filter_var($json['booleanValue'], \FILTER_VALIDATE_BOOLEAN) : null,
             'longValue' => isset($json['longValue']) ? (string) $json['longValue'] : null,
+            'doubleValue' => isset($json['doubleValue']) ? (float) $json['doubleValue'] : null,
             'stringValue' => isset($json['stringValue']) ? (string) $json['stringValue'] : null,
+            'blobValue' => isset($json['blobValue']) ? base64_decode((string) $json['blobValue']) : null,
+            'arrayValue' => empty($json['arrayValue']) ? null : $this->populateResultArrayValue($json['arrayValue']),
         ]);
     }
 

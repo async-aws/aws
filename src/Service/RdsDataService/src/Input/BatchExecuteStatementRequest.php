@@ -14,20 +14,6 @@ use AsyncAws\RdsDataService\ValueObject\SqlParameter;
 final class BatchExecuteStatementRequest extends Input
 {
     /**
-     * The name of the database.
-     *
-     * @var string|null
-     */
-    private $database;
-
-    /**
-     * The parameter set for the batch operation.
-     *
-     * @var SqlParameter[][]|null
-     */
-    private $parameterSets;
-
-    /**
      * The Amazon Resource Name (ARN) of the Aurora Serverless DB cluster.
      *
      * @required
@@ -35,13 +21,6 @@ final class BatchExecuteStatementRequest extends Input
      * @var string|null
      */
     private $resourceArn;
-
-    /**
-     * The name of the database schema.
-     *
-     * @var string|null
-     */
-    private $schema;
 
     /**
      * The ARN of the secret that enables access to the DB cluster. Enter the database user name and password for the
@@ -63,6 +42,27 @@ final class BatchExecuteStatementRequest extends Input
     private $sql;
 
     /**
+     * The name of the database.
+     *
+     * @var string|null
+     */
+    private $database;
+
+    /**
+     * The name of the database schema.
+     *
+     * @var string|null
+     */
+    private $schema;
+
+    /**
+     * The parameter set for the batch operation.
+     *
+     * @var SqlParameter[][]|null
+     */
+    private $parameterSets;
+
+    /**
      * The identifier of a transaction that was started by using the `BeginTransaction` operation. Specify the transaction
      * ID of the transaction that you want to include the SQL statement in.
      *
@@ -72,26 +72,26 @@ final class BatchExecuteStatementRequest extends Input
 
     /**
      * @param array{
-     *   database?: string,
-     *   parameterSets?: array[],
      *   resourceArn?: string,
-     *   schema?: string,
      *   secretArn?: string,
      *   sql?: string,
+     *   database?: string,
+     *   schema?: string,
+     *   parameterSets?: array[],
      *   transactionId?: string,
      *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
+        $this->resourceArn = $input['resourceArn'] ?? null;
+        $this->secretArn = $input['secretArn'] ?? null;
+        $this->sql = $input['sql'] ?? null;
         $this->database = $input['database'] ?? null;
+        $this->schema = $input['schema'] ?? null;
         $this->parameterSets = isset($input['parameterSets']) ? array_map(static function (array $array) {
             return array_map([SqlParameter::class, 'create'], $array);
         }, $input['parameterSets']) : null;
-        $this->resourceArn = $input['resourceArn'] ?? null;
-        $this->schema = $input['schema'] ?? null;
-        $this->secretArn = $input['secretArn'] ?? null;
-        $this->sql = $input['sql'] ?? null;
         $this->transactionId = $input['transactionId'] ?? null;
         parent::__construct($input);
     }
@@ -216,8 +216,23 @@ final class BatchExecuteStatementRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
+        if (null === $v = $this->resourceArn) {
+            throw new InvalidArgument(sprintf('Missing parameter "resourceArn" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['resourceArn'] = $v;
+        if (null === $v = $this->secretArn) {
+            throw new InvalidArgument(sprintf('Missing parameter "secretArn" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['secretArn'] = $v;
+        if (null === $v = $this->sql) {
+            throw new InvalidArgument(sprintf('Missing parameter "sql" for "%s". The value cannot be null.', __CLASS__));
+        }
+        $payload['sql'] = $v;
         if (null !== $v = $this->database) {
             $payload['database'] = $v;
+        }
+        if (null !== $v = $this->schema) {
+            $payload['schema'] = $v;
         }
         if (null !== $v = $this->parameterSets) {
             $index = -1;
@@ -233,21 +248,6 @@ final class BatchExecuteStatementRequest extends Input
                 }
             }
         }
-        if (null === $v = $this->resourceArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "resourceArn" for "%s". The value cannot be null.', __CLASS__));
-        }
-        $payload['resourceArn'] = $v;
-        if (null !== $v = $this->schema) {
-            $payload['schema'] = $v;
-        }
-        if (null === $v = $this->secretArn) {
-            throw new InvalidArgument(sprintf('Missing parameter "secretArn" for "%s". The value cannot be null.', __CLASS__));
-        }
-        $payload['secretArn'] = $v;
-        if (null === $v = $this->sql) {
-            throw new InvalidArgument(sprintf('Missing parameter "sql" for "%s". The value cannot be null.', __CLASS__));
-        }
-        $payload['sql'] = $v;
         if (null !== $v = $this->transactionId) {
             $payload['transactionId'] = $v;
         }

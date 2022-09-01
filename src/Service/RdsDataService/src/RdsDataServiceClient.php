@@ -37,12 +37,12 @@ class RdsDataServiceClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rds-data-2018-08-01.html#batchexecutestatement
      *
      * @param array{
-     *   database?: string,
-     *   parameterSets?: array[],
      *   resourceArn: string,
-     *   schema?: string,
      *   secretArn: string,
      *   sql: string,
+     *   database?: string,
+     *   schema?: string,
+     *   parameterSets?: array[],
      *   transactionId?: string,
      *   @region?: string,
      * }|BatchExecuteStatementRequest $input
@@ -76,10 +76,10 @@ class RdsDataServiceClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rds-data-2018-08-01.html#begintransaction
      *
      * @param array{
-     *   database?: string,
      *   resourceArn: string,
-     *   schema?: string,
      *   secretArn: string,
+     *   database?: string,
+     *   schema?: string,
      *   @region?: string,
      * }|BeginTransactionRequest $input
      *
@@ -149,17 +149,17 @@ class RdsDataServiceClient extends AbstractApi
      * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-rds-data-2018-08-01.html#executestatement
      *
      * @param array{
-     *   continueAfterTimeout?: bool,
-     *   database?: string,
-     *   formatRecordsAs?: RecordsFormatType::*,
-     *   includeResultMetadata?: bool,
-     *   parameters?: SqlParameter[],
      *   resourceArn: string,
-     *   resultSetOptions?: ResultSetOptions|array,
-     *   schema?: string,
      *   secretArn: string,
      *   sql: string,
+     *   database?: string,
+     *   schema?: string,
+     *   parameters?: SqlParameter[],
      *   transactionId?: string,
+     *   includeResultMetadata?: bool,
+     *   continueAfterTimeout?: bool,
+     *   resultSetOptions?: ResultSetOptions|array,
+     *   formatRecordsAs?: RecordsFormatType::*,
      *   @region?: string,
      * }|ExecuteStatementRequest $input
      *

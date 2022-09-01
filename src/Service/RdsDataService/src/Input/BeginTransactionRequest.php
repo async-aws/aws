@@ -13,13 +13,6 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class BeginTransactionRequest extends Input
 {
     /**
-     * The name of the database.
-     *
-     * @var string|null
-     */
-    private $database;
-
-    /**
      * The Amazon Resource Name (ARN) of the Aurora Serverless DB cluster.
      *
      * @required
@@ -27,13 +20,6 @@ final class BeginTransactionRequest extends Input
      * @var string|null
      */
     private $resourceArn;
-
-    /**
-     * The name of the database schema.
-     *
-     * @var string|null
-     */
-    private $schema;
 
     /**
      * The name or ARN of the secret that enables access to the DB cluster.
@@ -45,20 +31,34 @@ final class BeginTransactionRequest extends Input
     private $secretArn;
 
     /**
+     * The name of the database.
+     *
+     * @var string|null
+     */
+    private $database;
+
+    /**
+     * The name of the database schema.
+     *
+     * @var string|null
+     */
+    private $schema;
+
+    /**
      * @param array{
-     *   database?: string,
      *   resourceArn?: string,
-     *   schema?: string,
      *   secretArn?: string,
+     *   database?: string,
+     *   schema?: string,
      *   @region?: string,
      * } $input
      */
     public function __construct(array $input = [])
     {
-        $this->database = $input['database'] ?? null;
         $this->resourceArn = $input['resourceArn'] ?? null;
-        $this->schema = $input['schema'] ?? null;
         $this->secretArn = $input['secretArn'] ?? null;
+        $this->database = $input['database'] ?? null;
+        $this->schema = $input['schema'] ?? null;
         parent::__construct($input);
     }
 
@@ -140,20 +140,20 @@ final class BeginTransactionRequest extends Input
     private function requestBody(): array
     {
         $payload = [];
-        if (null !== $v = $this->database) {
-            $payload['database'] = $v;
-        }
         if (null === $v = $this->resourceArn) {
             throw new InvalidArgument(sprintf('Missing parameter "resourceArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['resourceArn'] = $v;
-        if (null !== $v = $this->schema) {
-            $payload['schema'] = $v;
-        }
         if (null === $v = $this->secretArn) {
             throw new InvalidArgument(sprintf('Missing parameter "secretArn" for "%s". The value cannot be null.', __CLASS__));
         }
         $payload['secretArn'] = $v;
+        if (null !== $v = $this->database) {
+            $payload['database'] = $v;
+        }
+        if (null !== $v = $this->schema) {
+            $payload['schema'] = $v;
+        }
 
         return $payload;
     }
