@@ -3,6 +3,7 @@
 namespace AsyncAws\CognitoIdentityProvider\Tests\Integration;
 
 use AsyncAws\CognitoIdentityProvider\CognitoIdentityProviderClient;
+use AsyncAws\CognitoIdentityProvider\Input\AdminAddUserToGroupRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminConfirmSignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminCreateUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminDeleteUserRequest;
@@ -41,6 +42,20 @@ use AsyncAws\Core\Test\TestCase;
 
 class CognitoIdentityProviderClientTest extends TestCase
 {
+    public function testAdminAddUserToGroup(): void
+    {
+        $client = $this->getClient();
+
+        $input = new AdminAddUserToGroupRequest([
+            'UserPoolId' => 'us-east-test',
+            'Username' => 'test_user',
+            'GroupName' => 'test_group',
+        ]);
+        $result = $client->adminAddUserToGroup($input);
+
+        $result->resolve();
+    }
+
     public function testAdminConfirmSignUp(): void
     {
         $client = $this->getClient();

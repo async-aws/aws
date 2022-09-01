@@ -3,7 +3,7 @@
 namespace AsyncAws\CognitoIdentityProvider\ValueObject;
 
 /**
- * The group type.
+ * The group object for the group.
  */
 final class GroupType
 {

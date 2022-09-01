@@ -37,6 +37,7 @@ use AsyncAws\CognitoIdentityProvider\Exception\UserLambdaValidationException;
 use AsyncAws\CognitoIdentityProvider\Exception\UsernameExistsException;
 use AsyncAws\CognitoIdentityProvider\Exception\UserNotConfirmedException;
 use AsyncAws\CognitoIdentityProvider\Exception\UserNotFoundException;
+use AsyncAws\CognitoIdentityProvider\Input\AdminAddUserToGroupRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminConfirmSignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminCreateUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminDeleteUserRequest;
@@ -103,6 +104,41 @@ use AsyncAws\Core\Result;
 
 class CognitoIdentityProviderClient extends AbstractApi
 {
+    /**
+     * Adds the specified user to the specified group.
+     *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminAddUserToGroup.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#adminaddusertogroup
+     *
+     * @param array{
+     *   UserPoolId: string,
+     *   Username: string,
+     *   GroupName: string,
+     *   @region?: string,
+     * }|AdminAddUserToGroupRequest $input
+     *
+     * @throws InvalidParameterException
+     * @throws ResourceNotFoundException
+     * @throws TooManyRequestsException
+     * @throws NotAuthorizedException
+     * @throws UserNotFoundException
+     * @throws InternalErrorException
+     */
+    public function adminAddUserToGroup($input): Result
+    {
+        $input = AdminAddUserToGroupRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminAddUserToGroup', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterException' => InvalidParameterException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
+
+        return new Result($response);
+    }
+
     /**
      * Confirms user registration as an admin without using a confirmation code. Works on any user.
      *

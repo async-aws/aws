@@ -4,6 +4,7 @@ namespace AsyncAws\CognitoIdentityProvider\Tests\Unit;
 
 use AsyncAws\CognitoIdentityProvider\CognitoIdentityProviderClient;
 use AsyncAws\CognitoIdentityProvider\Enum\AuthFlowType;
+use AsyncAws\CognitoIdentityProvider\Input\AdminAddUserToGroupRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminConfirmSignUpRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminCreateUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminDeleteUserRequest;
@@ -63,6 +64,21 @@ use Symfony\Component\HttpClient\MockHttpClient;
 
 class CognitoIdentityProviderClientTest extends TestCase
 {
+    public function testAdminAddUserToGroup(): void
+    {
+        $client = new CognitoIdentityProviderClient([], new NullProvider(), new MockHttpClient());
+
+        $input = new AdminAddUserToGroupRequest([
+            'UserPoolId' => 'us-east-test',
+            'Username' => 'test_user',
+            'GroupName' => 'test_group',
+        ]);
+        $result = $client->adminAddUserToGroup($input);
+
+        self::assertInstanceOf(Result::class, $result);
+        self::assertFalse($result->info()['resolved']);
+    }
+
     public function testAdminConfirmSignUp(): void
     {
         $client = new CognitoIdentityProviderClient([], new NullProvider(), new MockHttpClient());
