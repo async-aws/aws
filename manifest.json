@@ -125,6 +125,7 @@
                 "AdminEnableUser",
                 "AdminGetUser",
                 "AdminInitiateAuth",
+                "AdminRemoveUserFromGroup",
                 "AdminResetUserPassword",
                 "AdminSetUserPassword",
                 "AdminUpdateUserAttributes",
