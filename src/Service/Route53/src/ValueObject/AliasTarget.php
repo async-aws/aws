@@ -11,8 +11,6 @@ use AsyncAws\Core\Exception\InvalidArgument;
  *
  * - You can't create an alias resource record set in a private hosted zone to route traffic to a CloudFront
  *   distribution.
- * - Creating geolocation alias resource record sets or latency alias resource record sets in a private hosted zone is
- *   unsupported.
  * - For information about creating failover resource record sets in a private hosted zone, see Configuring Failover in
  *   a Private Hosted Zone in the *Amazon Route 53 Developer Guide*.
  *
