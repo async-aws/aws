@@ -45,6 +45,7 @@ use AsyncAws\CognitoIdentityProvider\Input\AdminDisableUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminEnableUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminGetUserRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminInitiateAuthRequest;
+use AsyncAws\CognitoIdentityProvider\Input\AdminRemoveUserFromGroupRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminResetUserPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminSetUserPasswordRequest;
 use AsyncAws\CognitoIdentityProvider\Input\AdminUpdateUserAttributesRequest;
@@ -436,6 +437,41 @@ class CognitoIdentityProviderClient extends AbstractApi
         ]]));
 
         return new AdminInitiateAuthResponse($response);
+    }
+
+    /**
+     * Removes the specified user from the specified group.
+     *
+     * @see https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminRemoveUserFromGroup.html
+     * @see https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-cognito-idp-2016-04-18.html#adminremoveuserfromgroup
+     *
+     * @param array{
+     *   UserPoolId: string,
+     *   Username: string,
+     *   GroupName: string,
+     *   @region?: string,
+     * }|AdminRemoveUserFromGroupRequest $input
+     *
+     * @throws InvalidParameterException
+     * @throws ResourceNotFoundException
+     * @throws TooManyRequestsException
+     * @throws NotAuthorizedException
+     * @throws UserNotFoundException
+     * @throws InternalErrorException
+     */
+    public function adminRemoveUserFromGroup($input): Result
+    {
+        $input = AdminRemoveUserFromGroupRequest::create($input);
+        $response = $this->getResponse($input->request(), new RequestContext(['operation' => 'AdminRemoveUserFromGroup', 'region' => $input->getRegion(), 'exceptionMapping' => [
+            'InvalidParameterException' => InvalidParameterException::class,
+            'ResourceNotFoundException' => ResourceNotFoundException::class,
+            'TooManyRequestsException' => TooManyRequestsException::class,
+            'NotAuthorizedException' => NotAuthorizedException::class,
+            'UserNotFoundException' => UserNotFoundException::class,
+            'InternalErrorException' => InternalErrorException::class,
+        ]]));
+
+        return new Result($response);
     }
 
     /**
