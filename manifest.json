@@ -142,6 +142,7 @@
                 "ListUsers",
                 "ResendConfirmationCode",
                 "RespondToAuthChallenge",
+                "RevokeToken",
                 "SetUserMFAPreference",
                 "SignUp",
                 "VerifySoftwareToken"

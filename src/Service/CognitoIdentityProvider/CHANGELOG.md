@@ -7,6 +7,11 @@
 - Added operation `AdminDisableUser`
 - Added operation `AdminEnableUser`
 - AWS api-change: Add a new exception type, ForbiddenException, that is returned when request is not allowed
+- Added operation `AdminAddUserToGroup`
+- Added operation `AdminRemoveUserFromGroup`
+- Added operation `CreateGroup`
+- Added operation `ListGroups`
+- Added operation `RevokeToken`
 
 ## 1.5.0
 
