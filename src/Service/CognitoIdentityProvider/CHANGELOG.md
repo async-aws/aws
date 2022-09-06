@@ -2,6 +2,8 @@
 
 ## NOT RELEASED
 
+## 1.6.0
+
 ### Added
 
 - Added operation `AdminDisableUser`
