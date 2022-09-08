@@ -34,6 +34,7 @@ use AsyncAws\Sns\Exception\TagLimitExceededException;
 use AsyncAws\Sns\Exception\TagPolicyException;
 use AsyncAws\Sns\Exception\TooManyEntriesInBatchRequestException;
 use AsyncAws\Sns\Exception\TopicLimitExceededException;
+use AsyncAws\Sns\Exception\ValidationException;
 use AsyncAws\Sns\Input\CreatePlatformEndpointInput;
 use AsyncAws\Sns\Input\CreateTopicInput;
 use AsyncAws\Sns\Input\DeleteEndpointInput;
@@ -108,6 +109,7 @@ class SnsClient extends AbstractApi
      *   Name: string,
      *   Attributes?: array<string, string>,
      *   Tags?: Tag[],
+     *   DataProtectionPolicy?: string,
      *   @region?: string,
      * }|CreateTopicInput $input
      *
@@ -271,6 +273,7 @@ class SnsClient extends AbstractApi
      * @throws KMSThrottlingException
      * @throws KMSAccessDeniedException
      * @throws InvalidSecurityException
+     * @throws ValidationException
      */
     public function publish($input): PublishResponse
     {
@@ -290,6 +293,7 @@ class SnsClient extends AbstractApi
             'KMSThrottling' => KMSThrottlingException::class,
             'KMSAccessDenied' => KMSAccessDeniedException::class,
             'InvalidSecurity' => InvalidSecurityException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new PublishResponse($response);
@@ -328,6 +332,7 @@ class SnsClient extends AbstractApi
      * @throws KMSThrottlingException
      * @throws KMSAccessDeniedException
      * @throws InvalidSecurityException
+     * @throws ValidationException
      */
     public function publishBatch($input): PublishBatchResponse
     {
@@ -352,6 +357,7 @@ class SnsClient extends AbstractApi
             'KMSThrottling' => KMSThrottlingException::class,
             'KMSAccessDenied' => KMSAccessDeniedException::class,
             'InvalidSecurity' => InvalidSecurityException::class,
+            'ValidationException' => ValidationException::class,
         ]]));
 
         return new PublishBatchResponse($response);
