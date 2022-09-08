@@ -37,10 +37,18 @@ final class CreateTopicInput extends Input
     private $tags;
 
     /**
+     * The body of the policy document you want to use for this topic.
+     *
+     * @var string|null
+     */
+    private $dataProtectionPolicy;
+
+    /**
      * @param array{
      *   Name?: string,
      *   Attributes?: array<string, string>,
      *   Tags?: Tag[],
+     *   DataProtectionPolicy?: string,
      *   @region?: string,
      * } $input
      */
@@ -49,6 +57,7 @@ final class CreateTopicInput extends Input
         $this->name = $input['Name'] ?? null;
         $this->attributes = $input['Attributes'] ?? null;
         $this->tags = isset($input['Tags']) ? array_map([Tag::class, 'create'], $input['Tags']) : null;
+        $this->dataProtectionPolicy = $input['DataProtectionPolicy'] ?? null;
         parent::__construct($input);
     }
 
@@ -63,6 +72,11 @@ final class CreateTopicInput extends Input
     public function getAttributes(): array
     {
         return $this->attributes ?? [];
+    }
+
+    public function getDataProtectionPolicy(): ?string
+    {
+        return $this->dataProtectionPolicy;
     }
 
     public function getName(): ?string
@@ -109,6 +123,13 @@ final class CreateTopicInput extends Input
         return $this;
     }
 
+    public function setDataProtectionPolicy(?string $value): self
+    {
+        $this->dataProtectionPolicy = $value;
+
+        return $this;
+    }
+
     public function setName(?string $value): self
     {
         $this->name = $value;
@@ -149,6 +170,9 @@ final class CreateTopicInput extends Input
                     $payload["Tags.member.$index.$bodyKey"] = $bodyValue;
                 }
             }
+        }
+        if (null !== $v = $this->dataProtectionPolicy) {
+            $payload['DataProtectionPolicy'] = $v;
         }
 
         return $payload;
