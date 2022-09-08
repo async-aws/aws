@@ -6,7 +6,6 @@
 
 - AWS api-change: Added `fips-us-gov-east-1` and `fips-us-gov-west-1` regions
 - AWS api-change: Amazon SNS introduces the Data Protection Policy APIs, which enable customers to attach a data protection policy to an SNS topic. This allows topic owners to enable the new message data protection feature to audit and block sensitive data that is exchanged through their topics.
-- AWS enhancement: Customer requested typo fix in API documentation.
 
 ## 1.3.0
 
