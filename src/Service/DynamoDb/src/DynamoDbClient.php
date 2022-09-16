@@ -595,7 +595,7 @@ class DynamoDbClient extends AbstractApi
     }
 
     /**
-     * `TransactWriteItems` is a synchronous write operation that groups up to 25 action requests. These actions can target
+     * `TransactWriteItems` is a synchronous write operation that groups up to 100 action requests. These actions can target
      * items in different tables, but not in different Amazon Web Services accounts or Regions, and no two actions can
      * target the same item. For example, you cannot both `ConditionCheck` and `Update` the same item. The aggregate size of
      * the items in the transaction cannot exceed 4 MB.
