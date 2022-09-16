@@ -17,9 +17,9 @@ use AsyncAws\DynamoDb\ValueObject\Update;
 final class TransactWriteItemsInput extends Input
 {
     /**
-     * An ordered array of up to 25 `TransactWriteItem` objects, each of which contains a `ConditionCheck`, `Put`, `Update`,
-     * or `Delete` object. These can operate on items in different tables, but the tables must reside in the same Amazon Web
-     * Services account and Region, and no two of them can operate on the same item.
+     * An ordered array of up to 100 `TransactWriteItem` objects, each of which contains a `ConditionCheck`, `Put`,
+     * `Update`, or `Delete` object. These can operate on items in different tables, but the tables must reside in the same
+     * Amazon Web Services account and Region, and no two of them can operate on the same item.
      *
      * @required
      *
