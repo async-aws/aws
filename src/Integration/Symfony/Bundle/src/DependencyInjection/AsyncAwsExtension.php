@@ -100,7 +100,7 @@ class AsyncAwsExtension extends Extension
                 $httpClient = new Definition(HttpClientInterface::class);
                 $httpClient->setFactory([AwsHttpClientFactory::class, 'createRetryableClient'])
                     ->setArguments([
-                        new Reference('http_clients', ContainerInterface::NULL_ON_INVALID_REFERENCE),
+                        new Reference('http_client', ContainerInterface::NULL_ON_INVALID_REFERENCE),
                         $logger,
                     ]);
             } else {
