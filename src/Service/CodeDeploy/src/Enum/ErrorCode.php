@@ -3,7 +3,7 @@
 namespace AsyncAws\CodeDeploy\Enum;
 
 /**
- * For more information, see Error Codes for AWS CodeDeploy in the AWS CodeDeploy User Guide.
+ * For more information, see Error Codes for CodeDeploy in the CodeDeploy User Guide.
  * The error code:.
  *
  * - APPLICATION_MISSING: The application was missing. This error code is most likely raised if the application is
@@ -21,7 +21,7 @@ namespace AsyncAws\CodeDeploy\Enum;
  * - NO_INSTANCES: No instances were specified, or no instances can be found.
  * - OVER_MAX_INSTANCES: The maximum number of instances was exceeded.
  * - THROTTLED: The operation was throttled because the calling account exceeded the throttling limits of one or more
- *   AWS services.
+ *   Amazon Web Services services.
  * - TIMEOUT: The deployment has timed out.
  * - REVISION_MISSING: The revision ID was missing. This error code is most likely raised if the revision is deleted
  *   after the deployment is created, but before it is started.

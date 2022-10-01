@@ -8,7 +8,8 @@ namespace AsyncAws\CodeDeploy\Enum;
  * - `user`: A user created the deployment.
  * - `autoscaling`: Amazon EC2 Auto Scaling created the deployment.
  * - `codeDeployRollback`: A rollback process created the deployment.
- * - `CodeDeployAutoUpdate`: An auto-update process created the deployment when it detected outdated EC2 instances.
+ * - `CodeDeployAutoUpdate`: An auto-update process created the deployment when it detected outdated Amazon EC2
+ *   instances.
  */
 final class DeploymentCreator
 {

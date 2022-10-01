@@ -19,7 +19,7 @@ final class TargetInstances
     private $autoScalingGroups;
 
     /**
-     * Information about the groups of EC2 instance tags that an instance must be identified by in order for it to be
+     * Information about the groups of Amazon EC2 instance tags that an instance must be identified by in order for it to be
      * included in the replacement environment for a blue/green deployment. Cannot be used in the same call as `tagFilters`.
      */
     private $ec2TagSet;

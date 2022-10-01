@@ -26,13 +26,13 @@ final class RevisionLocation
     private $gitHubLocation;
 
     /**
-     * Information about the location of an AWS Lambda deployment revision stored as a RawString.
+     * Information about the location of an Lambda deployment revision stored as a RawString.
      */
     private $string;
 
     /**
-     * The content of an AppSpec file for an AWS Lambda or Amazon ECS deployment. The content is formatted as JSON or YAML
-     * and stored as a RawString.
+     * The content of an AppSpec file for an Lambda or Amazon ECS deployment. The content is formatted as JSON or YAML and
+     * stored as a RawString.
      */
     private $appSpecContent;
 

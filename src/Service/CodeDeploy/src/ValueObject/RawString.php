@@ -3,7 +3,7 @@
 namespace AsyncAws\CodeDeploy\ValueObject;
 
 /**
- * Information about the location of an AWS Lambda deployment revision stored as a RawString.
+ * Information about the location of an Lambda deployment revision stored as a RawString.
  */
 final class RawString
 {

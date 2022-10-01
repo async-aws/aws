@@ -3,14 +3,14 @@
 namespace AsyncAws\CodeDeploy\ValueObject;
 
 /**
- * Information about the groups of EC2 instance tags that an instance must be identified by in order for it to be
+ * Information about the groups of Amazon EC2 instance tags that an instance must be identified by in order for it to be
  * included in the replacement environment for a blue/green deployment. Cannot be used in the same call as `tagFilters`.
  */
 final class EC2TagSet
 {
     /**
-     * A list that contains other lists of EC2 instance tag groups. For an instance to be included in the deployment group,
-     * it must be identified by all of the tag groups in the list.
+     * A list that contains other lists of Amazon EC2 instance tag groups. For an instance to be included in the deployment
+     * group, it must be identified by all of the tag groups in the list.
      */
     private $ec2TagSetList;
 

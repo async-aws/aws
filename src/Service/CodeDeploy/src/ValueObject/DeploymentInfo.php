@@ -141,8 +141,8 @@ final class DeploymentInfo
     private $additionalDeploymentStatusInfo;
 
     /**
-     * Information about how AWS CodeDeploy handles files that already exist in a deployment target location but weren't
-     * part of the previous successful deployment.
+     * Information about how CodeDeploy handles files that already exist in a deployment target location but weren't part of
+     * the previous successful deployment.
      */
     private $fileExistsBehavior;
 
@@ -162,6 +162,8 @@ final class DeploymentInfo
     private $externalId;
 
     private $relatedDeployments;
+
+    private $overrideAlarmConfiguration;
 
     /**
      * @param array{
@@ -194,6 +196,7 @@ final class DeploymentInfo
      *   computePlatform?: null|ComputePlatform::*,
      *   externalId?: null|string,
      *   relatedDeployments?: null|RelatedDeployments|array,
+     *   overrideAlarmConfiguration?: null|AlarmConfiguration|array,
      * } $input
      */
     public function __construct(array $input)
@@ -227,6 +230,7 @@ final class DeploymentInfo
         $this->computePlatform = $input['computePlatform'] ?? null;
         $this->externalId = $input['externalId'] ?? null;
         $this->relatedDeployments = isset($input['relatedDeployments']) ? RelatedDeployments::create($input['relatedDeployments']) : null;
+        $this->overrideAlarmConfiguration = isset($input['overrideAlarmConfiguration']) ? AlarmConfiguration::create($input['overrideAlarmConfiguration']) : null;
     }
 
     public static function create($input): self
@@ -349,6 +353,11 @@ final class DeploymentInfo
     public function getLoadBalancerInfo(): ?LoadBalancerInfo
     {
         return $this->loadBalancerInfo;
+    }
+
+    public function getOverrideAlarmConfiguration(): ?AlarmConfiguration
+    {
+        return $this->overrideAlarmConfiguration;
     }
 
     public function getPreviousRevision(): ?RevisionLocation

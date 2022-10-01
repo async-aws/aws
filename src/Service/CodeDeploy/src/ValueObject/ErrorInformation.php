@@ -10,7 +10,7 @@ use AsyncAws\CodeDeploy\Enum\ErrorCode;
 final class ErrorInformation
 {
     /**
-     * For more information, see Error Codes for AWS CodeDeploy in the AWS CodeDeploy User Guide.
+     * For more information, see Error Codes for CodeDeploy in the CodeDeploy User Guide.
      *
      * @see https://docs.aws.amazon.com/codedeploy/latest/userguide/error-codes.html
      * @see https://docs.aws.amazon.com/codedeploy/latest/userguide

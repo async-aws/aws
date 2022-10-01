@@ -7,9 +7,9 @@ namespace AsyncAws\CodeDeploy\Enum;
  *
  * - S3: An application revision stored in Amazon S3.
  * - GitHub: An application revision stored in GitHub (EC2/On-premises deployments only).
- * - String: A YAML-formatted or JSON-formatted string (AWS Lambda deployments only).
- * - AppSpecContent: An `AppSpecContent` object that contains the contents of an AppSpec file for an AWS Lambda or
- *   Amazon ECS deployment. The content is formatted as JSON or YAML stored as a RawString.
+ * - String: A YAML-formatted or JSON-formatted string (Lambda deployments only).
+ * - AppSpecContent: An `AppSpecContent` object that contains the contents of an AppSpec file for an Lambda or Amazon
+ *   ECS deployment. The content is formatted as JSON or YAML stored as a RawString.
  */
 final class RevisionLocationType
 {

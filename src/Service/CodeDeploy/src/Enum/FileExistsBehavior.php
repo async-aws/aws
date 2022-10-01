@@ -3,8 +3,8 @@
 namespace AsyncAws\CodeDeploy\Enum;
 
 /**
- * Information about how AWS CodeDeploy handles files that already exist in a deployment target location but weren't
- * part of the previous successful deployment.
+ * Information about how CodeDeploy handles files that already exist in a deployment target location but weren't part of
+ * the previous successful deployment.
  * The `fileExistsBehavior` parameter takes any of the following values:.
  *
  * - DISALLOW: The deployment fails. This is also the default behavior if no option is specified.
