@@ -26,8 +26,9 @@ final class PutLifecycleEventHookExecutionStatusInput extends Input
     private $lifecycleEventHookExecutionId;
 
     /**
-     * The result of a Lambda function that validates a deployment lifecycle event. `Succeeded` and `Failed` are the only
-     * valid values for `status`.
+     * The result of a Lambda function that validates a deployment lifecycle event. The values listed in **Valid Values**
+     * are valid for lifecycle statuses in general; however, only `Succeeded` and `Failed` can be passed successfully in
+     * your API call.
      *
      * @var LifecycleEventStatus::*|null
      */

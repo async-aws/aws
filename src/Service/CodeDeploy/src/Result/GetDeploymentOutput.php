@@ -3,6 +3,8 @@
 namespace AsyncAws\CodeDeploy\Result;
 
 use AsyncAws\CodeDeploy\Enum\AutoRollbackEvent;
+use AsyncAws\CodeDeploy\ValueObject\Alarm;
+use AsyncAws\CodeDeploy\ValueObject\AlarmConfiguration;
 use AsyncAws\CodeDeploy\ValueObject\AppSpecContent;
 use AsyncAws\CodeDeploy\ValueObject\AutoRollbackConfiguration;
 use AsyncAws\CodeDeploy\ValueObject\BlueGreenDeploymentConfiguration;
@@ -52,6 +54,35 @@ class GetDeploymentOutput extends Result
         $data = $response->toArray();
 
         $this->deploymentInfo = empty($data['deploymentInfo']) ? null : $this->populateResultDeploymentInfo($data['deploymentInfo']);
+    }
+
+    private function populateResultAlarm(array $json): Alarm
+    {
+        return new Alarm([
+            'name' => isset($json['name']) ? (string) $json['name'] : null,
+        ]);
+    }
+
+    private function populateResultAlarmConfiguration(array $json): AlarmConfiguration
+    {
+        return new AlarmConfiguration([
+            'enabled' => isset($json['enabled']) ? filter_var($json['enabled'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'ignorePollAlarmFailure' => isset($json['ignorePollAlarmFailure']) ? filter_var($json['ignorePollAlarmFailure'], \FILTER_VALIDATE_BOOLEAN) : null,
+            'alarms' => !isset($json['alarms']) ? null : $this->populateResultAlarmList($json['alarms']),
+        ]);
+    }
+
+    /**
+     * @return Alarm[]
+     */
+    private function populateResultAlarmList(array $json): array
+    {
+        $items = [];
+        foreach ($json as $item) {
+            $items[] = $this->populateResultAlarm($item);
+        }
+
+        return $items;
     }
 
     private function populateResultAppSpecContent(array $json): AppSpecContent
@@ -151,6 +182,7 @@ class GetDeploymentOutput extends Result
             'computePlatform' => isset($json['computePlatform']) ? (string) $json['computePlatform'] : null,
             'externalId' => isset($json['externalId']) ? (string) $json['externalId'] : null,
             'relatedDeployments' => empty($json['relatedDeployments']) ? null : $this->populateResultRelatedDeployments($json['relatedDeployments']),
+            'overrideAlarmConfiguration' => empty($json['overrideAlarmConfiguration']) ? null : $this->populateResultAlarmConfiguration($json['overrideAlarmConfiguration']),
         ]);
     }
 

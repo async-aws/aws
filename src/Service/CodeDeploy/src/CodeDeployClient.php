@@ -4,6 +4,7 @@ namespace AsyncAws\CodeDeploy;
 
 use AsyncAws\CodeDeploy\Enum\FileExistsBehavior;
 use AsyncAws\CodeDeploy\Enum\LifecycleEventStatus;
+use AsyncAws\CodeDeploy\Exception\AlarmsLimitExceededException;
 use AsyncAws\CodeDeploy\Exception\ApplicationDoesNotExistException;
 use AsyncAws\CodeDeploy\Exception\ApplicationNameRequiredException;
 use AsyncAws\CodeDeploy\Exception\DeploymentConfigDoesNotExistException;
@@ -13,6 +14,7 @@ use AsyncAws\CodeDeploy\Exception\DeploymentGroupNameRequiredException;
 use AsyncAws\CodeDeploy\Exception\DeploymentIdRequiredException;
 use AsyncAws\CodeDeploy\Exception\DeploymentLimitExceededException;
 use AsyncAws\CodeDeploy\Exception\DescriptionTooLongException;
+use AsyncAws\CodeDeploy\Exception\InvalidAlarmConfigException;
 use AsyncAws\CodeDeploy\Exception\InvalidApplicationNameException;
 use AsyncAws\CodeDeploy\Exception\InvalidAutoRollbackConfigException;
 use AsyncAws\CodeDeploy\Exception\InvalidAutoScalingGroupException;
@@ -41,6 +43,7 @@ use AsyncAws\CodeDeploy\Input\PutLifecycleEventHookExecutionStatusInput;
 use AsyncAws\CodeDeploy\Result\CreateDeploymentOutput;
 use AsyncAws\CodeDeploy\Result\GetDeploymentOutput;
 use AsyncAws\CodeDeploy\Result\PutLifecycleEventHookExecutionStatusOutput;
+use AsyncAws\CodeDeploy\ValueObject\AlarmConfiguration;
 use AsyncAws\CodeDeploy\ValueObject\AutoRollbackConfiguration;
 use AsyncAws\CodeDeploy\ValueObject\RevisionLocation;
 use AsyncAws\CodeDeploy\ValueObject\TargetInstances;
@@ -69,6 +72,7 @@ class CodeDeployClient extends AbstractApi
      *   autoRollbackConfiguration?: AutoRollbackConfiguration|array,
      *   updateOutdatedInstancesOnly?: bool,
      *   fileExistsBehavior?: FileExistsBehavior::*,
+     *   overrideAlarmConfiguration?: AlarmConfiguration|array,
      *   @region?: string,
      * }|CreateDeploymentInput $input
      *
@@ -86,6 +90,8 @@ class CodeDeployClient extends AbstractApi
      * @throws DescriptionTooLongException
      * @throws DeploymentLimitExceededException
      * @throws InvalidTargetInstancesException
+     * @throws InvalidAlarmConfigException
+     * @throws AlarmsLimitExceededException
      * @throws InvalidAutoRollbackConfigException
      * @throws InvalidLoadBalancerInfoException
      * @throws InvalidFileExistsBehaviorException
@@ -115,6 +121,8 @@ class CodeDeployClient extends AbstractApi
             'DescriptionTooLongException' => DescriptionTooLongException::class,
             'DeploymentLimitExceededException' => DeploymentLimitExceededException::class,
             'InvalidTargetInstancesException' => InvalidTargetInstancesException::class,
+            'InvalidAlarmConfigException' => InvalidAlarmConfigException::class,
+            'AlarmsLimitExceededException' => AlarmsLimitExceededException::class,
             'InvalidAutoRollbackConfigException' => InvalidAutoRollbackConfigException::class,
             'InvalidLoadBalancerInfoException' => InvalidLoadBalancerInfoException::class,
             'InvalidFileExistsBehaviorException' => InvalidFileExistsBehaviorException::class,
@@ -159,11 +167,11 @@ class CodeDeployClient extends AbstractApi
 
     /**
      * Sets the result of a Lambda validation function. The function validates lifecycle hooks during a deployment that uses
-     * the AWS Lambda or Amazon ECS compute platform. For AWS Lambda deployments, the available lifecycle hooks are
+     * the Lambda or Amazon ECS compute platform. For Lambda deployments, the available lifecycle hooks are
      * `BeforeAllowTraffic` and `AfterAllowTraffic`. For Amazon ECS deployments, the available lifecycle hooks are
      * `BeforeInstall`, `AfterInstall`, `AfterAllowTestTraffic`, `BeforeAllowTraffic`, and `AfterAllowTraffic`. Lambda
-     * validation functions return `Succeeded` or `Failed`. For more information, see AppSpec 'hooks' Section for an AWS
-     * Lambda Deployment  and AppSpec 'hooks' Section for an Amazon ECS Deployment.
+     * validation functions return `Succeeded` or `Failed`. For more information, see AppSpec 'hooks' Section for an Lambda
+     * Deployment  and AppSpec 'hooks' Section for an Amazon ECS Deployment.
      *
      * @see https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#appspec-hooks-lambda
      * @see https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#appspec-hooks-ecs

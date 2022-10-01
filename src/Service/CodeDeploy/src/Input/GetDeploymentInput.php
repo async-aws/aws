@@ -13,7 +13,7 @@ use AsyncAws\Core\Stream\StreamFactory;
 final class GetDeploymentInput extends Input
 {
     /**
-     * The unique ID of a deployment associated with the IAM user or AWS account.
+     * The unique ID of a deployment associated with the IAM user or Amazon Web Services account.
      *
      * @required
      *
